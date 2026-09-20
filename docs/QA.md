@@ -8,7 +8,7 @@
 
 - `npm test`：121 通过，0 失败；包含原 V2 65 项及 V3 集成模拟、动画映射测试。原日志在 `reports/local/test-effects.log`。
 - `npm run build`：退出码 0；完成资源准备、TypeScript、Vite 和单 HTML 打包。Vite 有大于 500 kB 的 bundle 提示，非构建失败。
-- `dist/SC2-Survivors-Demo.html`：**35,443,285 bytes / 33.80 MiB**，内嵌 71 项素材。
+- `dist/SC2-Survivors-Demo.html`：**35,443,335 bytes / 33.80 MiB**，内嵌 71 项素材。
 - 单 HTML 通过桌面 Chrome 的 `file://` 与断网模式启动：8/8 战斗模型，0 HTTP(S) 请求，F1 不暴露调试 API，0 捕获到的运行错误。
 - 固定数据：LotV 5.0.15；模拟 60 Hz。测试实际推进了 12 × 60 秒并验证第 12 关虫巢胜负门槛。
 

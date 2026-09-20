@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-09-20T18:55:12.511Z",
+  "checkedAt": "2026-09-20T18:58:44.474Z",
   "repository": "ziyuuu/sc2-survivors-",
   "visibilityObserved": "public",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "f3ab1175609b68fb13d2bbc0a20400861200ce29",
+  "runtimeCommit": "cd69ddc4097e7f2456b6d301426734d59ac67350",
   "deliverable": "playable-v3-with-original-skeletal-animation-death-models-and-effect-textures; full-game-and-physical-phone-acceptance-incomplete",
   "baseline": {
     "main": "607802c1bf3f0e881d163c8abed7f3ef82d97582",
@@ -21,7 +21,7 @@
     "command": "npm run build",
     "observedExitCode": 0,
     "standalone": "dist/SC2-Survivors-Demo.html",
-    "bytes": 35443285,
+    "bytes": 35443335,
     "embeddedAssets": 71,
     "largeChunkWarning": true,
     "log": "reports/local/build-effects.log"
