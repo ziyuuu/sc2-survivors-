@@ -19,7 +19,8 @@
     "assets:resolve": "node tools/sync-assets.mjs --index-only",
     "assets:fetch": "node tools/sync-assets.mjs",
     "assets:prepare": "node tools/prepare-assets.mjs",
-    "assets:download": "node tools/download-runtime.mjs"
+    "assets:download": "node tools/download-runtime.mjs",
+    "assets:animate": "node tools/import-m3-pack.mjs && node tools/prepare-assets.mjs"
   },
   "dependencies": {
     "three": "0.186.0"
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@playwright/test": "1.63.0",
     "@types/three": "0.186.0",
+    "@xmldom/xmldom": "0.9.12",
     "esbuild": "0.28.2",
     "tsx": "4.23.15",
     "typescript": "7.0.2",

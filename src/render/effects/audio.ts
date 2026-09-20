@@ -1,9 +1,13 @@
-/** Local synthesis, explicitly not original Blizzard audio. No external requests. */
-import {assetUrl} from '../../assets/manifest';
+/** Original local imports when present; otherwise explicitly labeled local synthesis. */
+import {assetUrl,ASSETS} from '../../assets/manifest';
 import type {World} from '../../simulation/world';
 export class AudioEffects {
- context:AudioContext|null=null;buffers=new Map<string,AudioBuffer>();lastShot=0;lastRescue=0;lastFailure=0;
- async start(){try{this.context??=new AudioContext();await this.context.resume();for(const id of ['shot','blast','alert']){const url=assetUrl('audio.'+id);if(url){const bytes=await (await fetch(url)).arrayBuffer();this.buffers.set(id,await this.context.decodeAudioData(bytes));}}}catch{/* Audio is optional on autoplay-restricted devices. */}}
- play(id:string,volume:number){const b=this.buffers.get(id);if(!b||!this.context)return;const source=this.context.createBufferSource(),gain=this.context.createGain();source.buffer=b;gain.gain.value=volume;source.connect(gain).connect(this.context.destination);source.start();}
- update(w:World){if(w.stats.shots>this.lastShot){this.lastShot=w.stats.shots;this.play(w.effects.some(e=>e.kind==='explosion')?'blast':'shot',.08);}if(w.stats.rescued!==this.lastRescue||w.stats.failed!==this.lastFailure){this.play('alert',.15);this.lastRescue=w.stats.rescued;this.lastFailure=w.stats.failed;}}
+ context:AudioContext|null=null;buffers=new Map<string,AudioBuffer>();lastSerial=0;lastRescue=0;lastFailure=0;voices=0;healers=new Map<number,AudioBufferSourceNode>();
+ async start(){try{this.context??=new AudioContext();await this.context.resume();for(const a of ASSETS.values()){if(a.kind!=='audio'||a.status!=='available')continue;const url=assetUrl(a.id);if(url){const bytes=await (await fetch(url)).arrayBuffer();this.buffers.set(a.id.replace('audio.',''),await this.context.decodeAudioData(bytes));}}}catch{/* Audio is optional on autoplay-restricted devices. */}}
+ play(id:string,volume:number){const b=this.buffers.get(id);if(!b||!this.context||this.voices>=12)return;const source=this.context.createBufferSource(),gain=this.context.createGain();source.buffer=b;gain.gain.value=volume;source.connect(gain).connect(this.context.destination);this.voices++;source.onended=()=>{this.voices--;source.disconnect();gain.disconnect();};source.start();}
+ update(w:World){let played=0;for(const e of w.visualEvents){if(e.serial<=this.lastSerial)continue;this.lastSerial=e.serial;if(w.time-e.time>.2||Math.hypot(e.x-w.anchor.x,e.z-w.anchor.z)>24||played>=3)continue;
+  if(e.kind==='attack'){const id=`sc2.${e.unitType}.${e.siege?'siege':'attack'}`;this.play(this.buffers.has(id)?id:e.unitType==='tank'||e.unitType==='baneling'?'blast':'shot',.045);played++;}
+  else if(e.kind==='death'){const id=`sc2.${e.unitType}.death`;if(this.buffers.has(id)){this.play(id,.06);played++;}}
+ }const healing=this.buffers.get('sc2.medivac.heal');if(healing&&this.context){const ids=new Set<number>();if(w.phase==='battle'&&!w.paused)for(const u of w.entities.values()){if(u.hp<=0||!u.healTarget||Math.hypot(u.x-w.anchor.x,u.z-w.anchor.z)>24)continue;ids.add(u.id);if(!this.healers.has(u.id)){const source=this.context.createBufferSource(),gain=this.context.createGain();source.buffer=healing;source.loop=true;gain.gain.value=.035;source.connect(gain).connect(this.context.destination);source.onended=()=>{source.disconnect();gain.disconnect();};source.start();this.healers.set(u.id,source);}}for(const [id,source] of this.healers)if(!ids.has(id)){source.stop();this.healers.delete(id);}}
+ if(w.stats.rescued!==this.lastRescue||w.stats.failed!==this.lastFailure){this.play('alert',.15);this.lastRescue=w.stats.rescued;this.lastFailure=w.stats.failed;}}
 }

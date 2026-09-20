@@ -4,13 +4,14 @@ import {spend,applyWeaponHit,healBiological} from './rules.mjs';
 import {SpatialHash} from './movement/spatial-hash';
 import {distance,angleDelta,turn,translate,locomote,steerGoal,clearLine,blocked} from './movement/steering';
 import {drawRewards,eligibleReward} from './progression/rewards';
-import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup} from './types';
+import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent} from './types';
 
 export class World {
  time=0;tick=0;stage=1;stageElapsed=0;phase:'menu'|'battle'|'reward'|'won'|'lost'='menu';paused=false;
  entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<BuildingType,Building>();upgrades=new Map<string,number>();
  wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
  trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];hash=new SpatialHash<Body>();
+ visualEvents:VisualEvent[]=[];private visualSerial=0;
  rewards:Reward[]=[];rewardClaimed=false;rerolls=0;nextWave=5;wave=0;nextId=1;nextJob=1;
  dashUntil=0;dashReady=0;hive:Body|null=null;maxStretch=0;distancePairs=0;
  stats={kills:0,rescued:0,failed:0,produced:0,shots:0,healed:0,damage:0};
@@ -88,12 +89,15 @@ export class World {
  }
  hit(target:Body,damage:number,bonuses:{attribute:string;amount:number}[]=[],hits=1){
   const before=target.hp;applyWeaponHit(target,{damage,bonuses,hits,minimumDamage:.5});this.stats.damage+=before-target.hp;
+  if(before>target.hp)this.visual('hit',target);
   if(target.hp<=0&&'unitType' in target&&this.entities.has(target.id)){const e=target as Entity;if(e.deadAt===null){e.deadAt=this.time;e.action='dead';e.velocity={x:0,z:0};
-    if(e.owner==='zerg'){this.stats.kills++;this.pickups.push({id:this.nextId++,x:e.x,z:e.z,minerals:e.unitType==='zergling'?5:10,gas:e.unitType==='zergling'?0:e.unitType==='roach'?3:5});}
+    this.visual('death',e);if(e.owner==='zerg'){this.stats.kills++;this.pickups.push({id:this.nextId++,x:e.x,z:e.z,minerals:e.unitType==='zergling'?5:10,gas:e.unitType==='zergling'?0:e.unitType==='roach'?3:5});}
   }}
  }
+ visual(kind:VisualEvent['kind'],body:Body,end:Point=body){const e=this.entities.get(body.id);this.visualEvents.push({serial:++this.visualSerial,time:this.time,kind,x:body.x,z:body.z,unitType:e?.unitType??null,entityId:body.id,flying:body.flying,end:{x:end.x,z:end.z},facing:e?.facing??0,siege:e?.mode==='siege'});if(this.visualEvents.length>768)this.visualEvents.splice(0,256);}
  effect(kind:Effect['kind'],source:Body,end:Point,radius=.1,duration=.18){this.effects.push({id:this.nextId++,kind,x:source.x,z:source.z,end:{...end},until:this.time+duration,radius,owner:source.owner,source:source.id});}
  fire(u:Entity,target:Body){if(!this.targetAllowed(u,target))return;const d=SC2_UNITS[u.unitType];this.stats.shots++;
+  this.visual('attack',u,target);
   const rank=1+(u.rank-1)*TUNING.rankDamage;let bonus=d.bonusDamage.map(b=>({...b,amount:b.amount*(u.owner==='terran'?rank:1)}));
   if(u.unitType==='hellion'){
    if(this.upgrades.has('infernal'))bonus=bonus.map(b=>({...b,amount:b.amount+5}));
@@ -101,7 +105,7 @@ export class World {
    this.hash.query(u,8,b=>{if(!this.targetAllowed(u,b))return;const along=(b.x-u.x)*Math.sin(a)+(b.z-u.z)*Math.cos(a);const across=Math.abs((b.x-u.x)*Math.cos(a)-(b.z-u.z)*Math.sin(a));if(along>=0&&along<=6.5+b.unitRadius&&across<=.15+b.unitRadius)this.hit(b,u.weaponDamage,bonus);});this.effect('flame',u,end,.35,.35);
   }else if(u.unitType==='baneling'){
    this.hash.query(u,4,b=>{if(b.owner!==u.owner&&!b.flying&&this.edgeDistance(u,b)<=2.2){this.hit(b,b.attributes.includes('Structure')?80+b.armor:u.weaponDamage,b.attributes.includes('Structure')?[]:bonus);}});
-   this.effect('explosion',u,u,2.2,.55);u.hp=0;u.deadAt=this.time;u.action='dead';
+   this.effect('explosion',u,u,2.2,.55);u.hp=0;u.deadAt=this.time;u.action='dead';this.visual('death',u);
   }else if(u.mode==='siege'){
    const dmg=(SIEGE.damage+(this.upgrades.get('vehicle')??0)*4)*rank,bon=SIEGE.bonus.map(b=>({...b,amount:b.amount*rank}));
    this.hash.query(target,3,b=>{if(b.id===u.id||b.flying||b.hp<=0)return;const r=distance(target,b);const band=SIEGE.splash.find(s=>r<=s.radius+b.unitRadius*.25);if(b.id===target.id||band)this.hit(b,dmg*(band?.fraction??1),bon.map(bn=>({...bn,amount:bn.amount*(band?.fraction??1)})));});this.effect('explosion',u,target,1.25,.4);
@@ -211,7 +215,7 @@ export class World {
   if(this.autoWaves&&this.time>=this.nextWave){this.spawnWave();this.nextWave=this.time+STAGES[this.stage-1].waveEvery;}
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active')];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);
   for(const u of this.entities.values())this.updateUnit(u,dt);
-  for(const fx of this.effects){if(fx.kind==='bile'&&fx.until<=this.time){this.hash.query(fx.end,3,b=>{if(b.hp>0&&distance(b,fx.end)<=BILE.radius+b.unitRadius)this.hit(b,BILE.damage+b.armor);});}}
+  for(const fx of this.effects){if(fx.kind==='bile'&&fx.until<=this.time){this.visual('bile-impact',{...fx.end,id:fx.source,hp:0,maxHp:0,armor:0,flying:false,unitRadius:0,owner:'zerg',attributes:[]});this.hash.query(fx.end,3,b=>{if(b.hp>0&&distance(b,fx.end)<=BILE.radius+b.unitRadius)this.hit(b,BILE.damage+b.armor);});}}
   this.effects=this.effects.filter(f=>f.until>this.time);
   this.updatePods();
   this.pickups=this.pickups.filter(p=>{const d=distance(p,this.anchor);if(d<2){this.wallet.minerals+=p.minerals;this.wallet.gas+=p.gas;return false;}if(d<6){p.x+=(this.anchor.x-p.x)*dt*4;p.z+=(this.anchor.z-p.z)*dt*4;}return true;});

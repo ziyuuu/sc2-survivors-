@@ -14,3 +14,11 @@ test('animation scan distinguishes siege from unsiege regardless of clip order',
  assert.equal(mapped.spawn?.name,'Tank_Birth');
  assert.equal(mapped.attack?.name,'Tank_Attack');
 });
+
+test('actual SC2 clip names prioritize full walking/attack and distinguish healing and morphs',()=>{
+ const names=['Walk Start','Walk 01','Walk','Attack Cover','Attack','Stand Work Start','Stand Work','Stand','Morph Start','Morph End','Birth Walk','Birth','Flail'];
+ const m=mapAnimations(names.map(name=>new AnimationClip(name,1,[])));
+ assert.equal(m.move?.name,'Walk');assert.equal(m.attack?.name,'Attack');assert.equal(m.idle?.name,'Stand');
+ assert.equal(m.heal?.name,'Stand Work');assert.equal(m.sieging?.name,'Morph Start');assert.equal(m.unsieging?.name,'Morph End');
+ assert.equal(m.spawn?.name,'Birth');assert.equal(m.hit,undefined,'Flail is not falsely labeled as a hit reaction');
+});

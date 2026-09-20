@@ -21,6 +21,7 @@ WASD / 方向键移动；Space 推进锚点；E 使用已研究的 Stimpack；B 
 npm test
 npm run typecheck
 npm run assets:download
+npm run assets:animate
 npm run build
 ```
 
@@ -30,7 +31,7 @@ npm run build
 
 构建生成 **`dist/SC2-Survivors-Demo.html`**。朋友只需下载这个文件并双击打开；不需要 Node、本地服务器或联网。JavaScript、CSS、模型、贴图、图标、音效与规则数据均内嵌。它和开发版使用同一个 `src/main.ts` 与 Simulation，只在生产构建中移除 F1 / 修改状态的调试 API。
 
-本轮文件约 **11.18 MiB**；精确大小和验证记录见 [验收记录](docs/QA.md)。常规 Vite 网站构建也在 `dist/`。单文件包含本地取得的游戏素材，仅用于这里约定的非商业朋友试玩；生成物和资源二进制不提交到公开 Git 仓库。
+当前文件约 **33.80 MiB**；包含原始动作与独立死亡模型，精确大小和验证记录见 [验收记录](docs/QA.md)。常规 Vite 网站构建也在 `dist/`。单文件包含本地取得的游戏素材，仅用于这里约定的非商业朋友试玩；生成物和资源二进制不提交到公开 Git 仓库。
 
 ## 已实现规则
 
@@ -49,15 +50,15 @@ npm run build
 
 实际取得并在浏览器解析了 **8/8 战斗 GLB、23/23 图标**，另外有原 Hatchery 用作虫巢目标。素材索引来自 [Asset Explorer](https://github.com/sc2-arcade-watcher/asset-explorer)。本轮下载成功，V2 中的 403 是历史记录。
 
-**这 8 个 GLB 都没有动画轨道或骨骼**。当前保留原模型形状与贴图，使用程序步态、后坐、滚动、车辆悬挂和模式形变；不能称为原 SC2 动画。替换为带动画的自包含 GLB 后，会优先扫描 Stand/Idle、Walk/Run、Attack、Death、Birth/Spawn、Siege/Unsiege 并使用 AnimationMixer。
+**已从公开原始 M3 包补齐 8/8 单位骨骼动画、8/8 独立死亡模型、坦克行进/架炮/变形模型与 24 张战斗特效贴图。** 目录的旧 GLB 是静态预览；`npm run assets:animate` 在本机 Node 转成自包含动画 GLB，并由开发版和单文件共享。首次开发启动会自动尝试准备。动作映射优先原始 Walk、Attack、Stand、Death、Birth；Medivac 用 Stand Work 治疗，坦克用 Morph Start/End。GPU 共享骨骼纹理批量绘制，保留独立移速、朝向与停步攻击。来源、准确文件名与效果边界见 [ANIMATION_EFFECTS.md](docs/ANIMATION_EFFECTS.md)。
 
-Char 地面使用目录的两张原地形预览 JPG，并配合自制岩壁和通道；不是完整 SC2 地形包。原版 Drop Pod 没有准确索引，当前使用明确标注的自制机械仓。三个 WAV 是本地合成音效。缺失项、准确文件名、下载链接和无需改代码的放置路径见 [ASSET_DOWNLOAD_REQUIRED.md](docs/ASSET_DOWNLOAD_REQUIRED.md)。必需单位素材缺失时显示 missing asset，禁止用几何单位补位；离线打包会失败。
+受击现在有实际扣血触发的血花/火花和材质闪光；枪口、火焰、酸液、爆炸、移动尘土使用原始特效贴图进行网页适配，并非完整复制 SC2 粒子引擎。Char 地面仍使用两张原地形预览 JPG、自制岩壁和通道；原版 Drop Pod 没有准确索引。三个 WAV 仍是本地合成，9 项原声音已在 manifest 标记 missing 并提供导入接口。缺失项与无需改代码的放置路径见 [ASSET_DOWNLOAD_REQUIRED.md](docs/ASSET_DOWNLOAD_REQUIRED.md)。必需模型或动画缺失会阻止朋友版打包；开发版明确提示并允许继续规则调试。
 
 没有下载或分发字体。`@font-face` 保留本地 SC2 Chinese / Eurostile / Extended 接口，缺失时使用系统字体。StarCraft / StarCraft II 及相关素材、商标属于 Blizzard Entertainment 或相应作者。公开目录可访问不代表已获得再分发许可。
 
 ## 验证与限制
 
-`npm test` 当前 113 项通过。`npm run build` 通过，包含 TypeScript 检查、Vite 和离线 IIFE 打包。浏览器验证区分正常玩法观察、开发诊断场景、手机尺寸模拟和真实手机；详见 [QA.md](docs/QA.md)。
+`npm test` 当前 121 项通过。`npm run build` 通过，包含 TypeScript 检查、Vite 和离线 IIFE 打包。`node tools/qa-effects.mjs` 专门验证移动、射击、受击、死亡回收、坦克模式、动画暂停和离线资源。浏览器验证区分正常玩法观察、开发诊断场景、手机尺寸模拟和真实手机；详见 [QA.md](docs/QA.md)。
 
 本地开发服务启动后可执行 `npm run test:browser`。脚本默认使用 Windows Chrome；其他安装位置通过 `SC2_CHROME` 指定。`node tools/play-stage.mjs` 记录正常首关，设置 `SC2_PLAY_CONTINUOUS=1` 可观察连续机动策略。两种策略的输赢都不会自动触发平衡改动。
 
