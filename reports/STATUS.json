@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-09-20T18:05:19.978Z",
+  "checkedAt": "2026-09-20T18:55:12.511Z",
   "repository": "ziyuuu/sc2-survivors-",
   "visibilityObserved": "public",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "9402040f05088cb57f17f1bda802cf0a071ee6ca",
-  "deliverable": "playable-v3-runtime-and-local-offline-html; acceptance-incomplete",
+  "runtimeCommit": "f3ab1175609b68fb13d2bbc0a20400861200ce29",
+  "deliverable": "playable-v3-with-original-skeletal-animation-death-models-and-effect-textures; full-game-and-physical-phone-acceptance-incomplete",
   "baseline": {
     "main": "607802c1bf3f0e881d163c8abed7f3ef82d97582",
     "v2": "127aa39f95ad43452bdfe1ecf1b84279b4bb2da1",
@@ -13,46 +13,61 @@
   },
   "unitTests": {
     "command": "npm test",
-    "passed": 113,
+    "passed": 121,
     "failed": 0,
-    "log": "reports/local/test-final.log"
+    "log": "reports/local/test-effects.log"
   },
   "build": {
     "command": "npm run build",
     "observedExitCode": 0,
     "standalone": "dist/SC2-Survivors-Demo.html",
-    "bytes": 11720010,
-    "embeddedAssets": 37,
-    "largeChunkWarning": true
+    "bytes": 35443285,
+    "embeddedAssets": 71,
+    "largeChunkWarning": true,
+    "log": "reports/local/build-effects.log"
   },
   "assets": {
     "combatModelsLoaded": 8,
     "combatModelTargets": 8,
-    "originalAnimationModels": 0,
-    "proceduralAnimationModels": 8,
+    "originalAnimationModels": 8,
+    "proceduralAnimationModels": 0,
     "iconsDecoded": 23,
     "iconTargets": 23,
     "requiredMissing": [],
     "optionalMissing": [
-      "model.droppod"
+      "model.droppod",
+      "audio.sc2.marine.attack",
+      "audio.sc2.hellion.attack",
+      "audio.sc2.tank.attack",
+      "audio.sc2.tank.siege",
+      "audio.sc2.medivac.heal",
+      "audio.sc2.zergling.attack",
+      "audio.sc2.roach.attack",
+      "audio.sc2.ravager.attack",
+      "audio.sc2.marine.death"
     ],
     "visualApproval": false,
-    "blenderApproval": false
+    "blenderApproval": false,
+    "originalDeathModels": 8,
+    "originalEffectTextures": 24,
+    "animationAtlasBytes": 4273312
   },
   "offline": {
     "fileProtocol": true,
     "networkDisabled": true,
     "networkRequests": 0,
     "modelsLoaded": 8,
-    "debugExposed": false
+    "debugExposed": false,
+    "originalAnimationModels": 8,
+    "originalDeathModels": 8,
+    "effectTextures": 24
   },
   "desktop": {
     "defaultFirstStage": {
       "result": "lost",
-      "time": 28.65,
-      "kills": 6,
-      "method": "Normal stage 1: keyboard input only; diagnostic API is read for positions, no state overrides or time acceleration.",
-      "movement": "short bounds"
+      "time": 27.633333333333333,
+      "kills": 14,
+      "method": "Physical keyboard events: retreat west briefly, then hold to regroup; no speed, HP or damage overrides."
     },
     "diagnosticFullStage": {
       "startingSoldiers": 20,
@@ -119,7 +134,22 @@
         "recruit": null
       }
     ],
-    "normalPlayAcceptanceComplete": false
+    "normalPlayAcceptanceComplete": false,
+    "previousDefaultFirstStage": {
+      "result": "lost",
+      "time": 28.65,
+      "kills": 6,
+      "method": "Normal stage 1: keyboard input only; diagnostic API is read for positions, no state overrides or time acceleration.",
+      "movement": "short bounds"
+    },
+    "latestUiFlow": {
+      "paidProduction": true,
+      "paidReroll": true,
+      "choice": true,
+      "rescueSuccess": "diagnostic: guardians killed through real HP damage path",
+      "rescueFailure": "diagnostic: pod destroyed via damage",
+      "normalGameplayPass": false
+    }
   },
   "mobile": [
     {
@@ -148,22 +178,34 @@
       "performance": {
         "models": 8,
         "errors": [],
-        "originalAnimationModels": 0,
-        "proceduralAnimationModels": 8,
-        "textures": 12,
-        "fps": 18,
-        "drawCalls": 21,
-        "triangles": 574621,
-        "entities": 325,
-        "maxStretch": 14.125001769758903,
-        "spatialVisits": 25440,
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4273312,
+        "effectTextures": 24,
+        "effects": {
+          "attack": 2985,
+          "hit": 3281,
+          "death": 86,
+          "movement": 4424,
+          "bile": 0,
+          "active": 485,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 34.83646216373145,
+        "drawCalls": 36,
+        "triangles": 593631,
+        "entities": 327,
+        "maxStretch": 14.033998048081463,
+        "spatialVisits": 28533,
         "deviceDpr": 3,
         "renderDpr": 1.5,
         "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "sampleFrames": 240,
-        "averageFps": 36.64178079054642,
-        "p50FrameMs": 16.80000000000109,
-        "p95FrameMs": 50,
+        "sampleFrames": 226,
+        "averageFps": 22.487562189054735,
+        "p50FrameMs": 33.400000000001455,
+        "p95FrameMs": 83.29999999999927,
         "friendly": 25,
         "enemies": 300,
         "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; two-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
@@ -195,22 +237,34 @@
       "performance": {
         "models": 8,
         "errors": [],
-        "originalAnimationModels": 0,
-        "proceduralAnimationModels": 8,
-        "textures": 12,
-        "fps": 56.136275648470715,
-        "drawCalls": 53,
-        "triangles": 582126,
-        "entities": 329,
-        "maxStretch": 13.97500541888084,
-        "spatialVisits": 27892,
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4273312,
+        "effectTextures": 24,
+        "effects": {
+          "attack": 2999,
+          "hit": 3363,
+          "death": 87,
+          "movement": 4717,
+          "bile": 0,
+          "active": 478,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 3.246226261970457,
+        "drawCalls": 68,
+        "triangles": 593682,
+        "entities": 327,
+        "maxStretch": 14.063190014729937,
+        "spatialVisits": 26133,
         "deviceDpr": 3,
         "renderDpr": 1.5,
         "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
         "sampleFrames": 240,
-        "averageFps": 46.75263957610941,
-        "p50FrameMs": 16.700000000000728,
-        "p95FrameMs": 33.399999999999636,
+        "averageFps": 27.586206896551722,
+        "p50FrameMs": 33.30000000000018,
+        "p95FrameMs": 66.59999999999854,
         "friendly": 25,
         "enemies": 300,
         "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; two-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
@@ -229,9 +283,78 @@
     "note": "Historical result superseded by current local downloads and Chrome execution."
   },
   "pending": [
-    "Default seven-unit normal-run balance and randomly placed rescue playthrough",
-    "Full twelve-stage balance playthrough",
-    "Original animation tracks, original pod and full terrain assets",
-    "Physical phone performance and human visual QA"
-  ]
+    "Default seven-unit normal-run and full twelve-stage balance playthrough",
+    "Original audio, original drop pod and full terrain assets",
+    "Heavy-scene performance: 25 friendly / 300 enemy actors averaged 22.5 and 27.6 FPS under 4x desktop CPU throttle; physical phone untested",
+    "Human visual QA of original animation conversion, particles and mobile readability"
+  ],
+  "previousRuntimeCommit": "9402040f05088cb57f17f1bda802cf0a071ee6ca",
+  "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
+  "previousStaticModelPerformance": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "averageFps": 36.64178079054642,
+      "p95FrameMs": 50
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "averageFps": 46.75263957610941,
+      "p95FrameMs": 33.399999999999636
+    }
+  ],
+  "effectsVerification": {
+    "command": "node tools/qa-effects.mjs",
+    "log": "reports/local/qa/EFFECTS.json",
+    "originalAnimationModels": 8,
+    "originalDeathModels": 8,
+    "events": {
+      "attack": 7,
+      "hit": 18,
+      "death": 8,
+      "movement": 33,
+      "bile": 1,
+      "active": 117,
+      "dropped": 0
+    },
+    "pauseFreezesPose": true,
+    "deathLifecycle": true,
+    "deathAfterSimulationRemoval": 8,
+    "tank": [
+      {
+        "action": "move",
+        "mode": "tank",
+        "batches": [
+          "tank"
+        ]
+      },
+      {
+        "action": "sieging",
+        "mode": "tank",
+        "batches": [
+          "tank.morph"
+        ]
+      },
+      {
+        "action": "idle",
+        "mode": "siege",
+        "batches": [
+          "tank.siege"
+        ]
+      },
+      {
+        "action": "unsieging",
+        "mode": "siege",
+        "batches": [
+          "tank.morph"
+        ]
+      }
+    ],
+    "errors": []
+  }
 }
