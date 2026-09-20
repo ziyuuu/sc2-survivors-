@@ -1,41 +1,237 @@
 {
-  "checkedAt": "2026-09-20",
+  "checkedAt": "2026-09-20T18:05:19.978Z",
   "repository": "ziyuuu/sc2-survivors-",
   "visibilityObserved": "public",
-  "branch": "v2/sc2-assets-ui",
-  "deliverable": "asset-integration-code-and-interaction-lab",
-  "newPlayable12StageRemake": false,
-  "assetSlots": 42,
-  "originalCombatModelsVerified": 0,
-  "combatModelTargets": 8,
-  "assetAudit": {
-    "runId": 35520563399,
-    "jobId": 106103796321,
-    "auditCompleted": true,
-    "modelHttpResults": "8/8 HTTP 403",
-    "fileChecksPassed": 0
-  },
-  "reference": {
-    "url": "https://starcraft-shooter-2026.pages.dev/",
-    "htmlRetrieved": true,
-    "title": "StarCraft Shooter 2026",
-    "fontFamilyAliases": ["SC2 Chinese", "SC2 Eurostile", "SC2 Extended"],
-    "fontFilesDistributed": false,
-    "screenshotState": "loading-screen-only",
-    "fullHudVisuallyVerified": false
+  "branch": "v3/playable-sc2-demo",
+  "runtimeCommit": "9402040f05088cb57f17f1bda802cf0a071ee6ca",
+  "deliverable": "playable-v3-runtime-and-local-offline-html; acceptance-incomplete",
+  "baseline": {
+    "main": "607802c1bf3f0e881d163c8abed7f3ef82d97582",
+    "v2": "127aa39f95ad43452bdfe1ecf1b84279b4bb2da1",
+    "existingPr": "https://github.com/ziyuuu/sc2-survivors-/pull/1",
+    "preserved": true
   },
   "unitTests": {
-    "runner": "node --test test/*.test.mjs",
-    "passed": 65,
+    "command": "npm test",
+    "passed": 113,
     "failed": 0,
-    "groups": {"rules": 38, "glb": 7, "assets": 20},
-    "fixtures": "synthetic-not-SC2-stats"
+    "log": "reports/local/test-final.log"
   },
-  "browserQa": {
-    "status": "blocked",
-    "reason": "ERR_BLOCKED_BY_ADMINISTRATOR before first local page navigation",
-    "assertionsPassed": 0,
-    "mobileDeviceTested": false
+  "build": {
+    "command": "npm run build",
+    "observedExitCode": 0,
+    "standalone": "dist/SC2-Survivors-Demo.html",
+    "bytes": 11720010,
+    "embeddedAssets": 37,
+    "largeChunkWarning": true
   },
-  "pending": ["authentic model files and animations", "actual original icon images", "terrain and playable map data", "original logo and HUD textures", "locked SC2 numerical profile", "integrated 12-stage battle loop", "browser and mobile QA"]
+  "assets": {
+    "combatModelsLoaded": 8,
+    "combatModelTargets": 8,
+    "originalAnimationModels": 0,
+    "proceduralAnimationModels": 8,
+    "iconsDecoded": 23,
+    "iconTargets": 23,
+    "requiredMissing": [],
+    "optionalMissing": [
+      "model.droppod"
+    ],
+    "visualApproval": false,
+    "blenderApproval": false
+  },
+  "offline": {
+    "fileProtocol": true,
+    "networkDisabled": true,
+    "networkRequests": 0,
+    "modelsLoaded": 8,
+    "debugExposed": false
+  },
+  "desktop": {
+    "defaultFirstStage": {
+      "result": "lost",
+      "time": 28.65,
+      "kills": 6,
+      "method": "Normal stage 1: keyboard input only; diagnostic API is read for positions, no state overrides or time acceleration.",
+      "movement": "short bounds"
+    },
+    "diagnosticFullStage": {
+      "startingSoldiers": 20,
+      "rank": 1,
+      "normalDamageAndClocks": true,
+      "completedAt": 60,
+      "result": "reward"
+    },
+    "paidReroll": true,
+    "oneChoice": true,
+    "paidProduction": true,
+    "productionPod": {
+      "id": 8,
+      "type": "marine",
+      "status": "active",
+      "deadline": 30,
+      "guardians": 24
+    },
+    "rescueSuccess": {
+      "method": "Isolated rescue fixture: 20 Rank-4 soldiers, a paid Barracks preset as completed, a paid Marine job running its full production time, fixed landing at (8,0). Player moves to the landing area before completion. Normal HP, damage, waves and 1x time; not default-roster balance acceptance.",
+      "pod": {
+        "id": 92,
+        "type": "marine",
+        "status": "rescued",
+        "hp": 301.1,
+        "landedAt": 18.133333333333333,
+        "resolvedAt": 33.733333333333334,
+        "recruit": 8
+      },
+      "abandonedPod": {
+        "status": "destroyed",
+        "hp": 0,
+        "landedAt": 33.86666666666667,
+        "resolvedAt": 44.61666666666667
+      },
+      "stats": {
+        "kills": 65,
+        "rescued": 1,
+        "failed": 1,
+        "produced": 1,
+        "shots": 778,
+        "healed": 119.59999999999957,
+        "damage": 4766.2200000000075
+      },
+      "damageInjected": false
+    },
+    "combatRescueFailures": [
+      {
+        "id": 396,
+        "type": "marine",
+        "status": "destroyed",
+        "hp": 0,
+        "landedAt": 66.55,
+        "resolvedAt": 74.8,
+        "recruit": null
+      },
+      {
+        "id": 102,
+        "type": "marine",
+        "status": "destroyed",
+        "hp": 0,
+        "landedAt": 18.1,
+        "resolvedAt": 32.21666666666667,
+        "recruit": null
+      }
+    ],
+    "normalPlayAcceptanceComplete": false
+  },
+  "mobile": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "multiTouch": true,
+      "releaseOutside": true,
+      "layout": {
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "width": 390,
+        "viewport": 390,
+        "joystickStyle": "none",
+        "canvasStyle": "none"
+      },
+      "rewardLayout": {
+        "client": 844,
+        "scroll": 859,
+        "touchAction": "pan-y"
+      },
+      "performance": {
+        "models": 8,
+        "errors": [],
+        "originalAnimationModels": 0,
+        "proceduralAnimationModels": 8,
+        "textures": 12,
+        "fps": 18,
+        "drawCalls": 21,
+        "triangles": 574621,
+        "entities": 325,
+        "maxStretch": 14.125001769758903,
+        "spatialVisits": 25440,
+        "deviceDpr": 3,
+        "renderDpr": 1.5,
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "sampleFrames": 240,
+        "averageFps": 36.64178079054642,
+        "p50FrameMs": 16.80000000000109,
+        "p95FrameMs": 50,
+        "friendly": 25,
+        "enemies": 300,
+        "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; two-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "multiTouch": true,
+      "releaseOutside": true,
+      "layout": {
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "width": 844,
+        "viewport": 844,
+        "joystickStyle": "none",
+        "canvasStyle": "none"
+      },
+      "rewardLayout": {
+        "client": 390,
+        "scroll": 412,
+        "touchAction": "pan-y"
+      },
+      "performance": {
+        "models": 8,
+        "errors": [],
+        "originalAnimationModels": 0,
+        "proceduralAnimationModels": 8,
+        "textures": 12,
+        "fps": 56.136275648470715,
+        "drawCalls": 53,
+        "triangles": 582126,
+        "entities": 329,
+        "maxStretch": 13.97500541888084,
+        "spatialVisits": 27892,
+        "deviceDpr": 3,
+        "renderDpr": 1.5,
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "sampleFrames": 240,
+        "averageFps": 46.75263957610941,
+        "p50FrameMs": 16.700000000000728,
+        "p95FrameMs": 33.399999999999636,
+        "friendly": 25,
+        "enemies": 300,
+        "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; two-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
+      }
+    }
+  ],
+  "browserErrors": [],
+  "physicalPhoneTested": false,
+  "visualQa": false,
+  "screenshots": "reports/local/qa (local-only, not uploaded or visually inspected)",
+  "previousV2Audit": {
+    "checkedAt": "2026-09-20",
+    "combatModels": 0,
+    "modelHttpResults": "8/8 HTTP 403",
+    "browserBlocked": true,
+    "note": "Historical result superseded by current local downloads and Chrome execution."
+  },
+  "pending": [
+    "Default seven-unit normal-run balance and randomly placed rescue playthrough",
+    "Full twelve-stage balance playthrough",
+    "Original animation tracks, original pod and full terrain assets",
+    "Physical phone performance and human visual QA"
+  ]
 }
