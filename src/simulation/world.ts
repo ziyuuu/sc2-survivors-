@@ -114,8 +114,8 @@ export class World {
   return false;
  }
  heal(u:Entity,dt:number){u.energy=Math.min(HEAL.maxEnergy,u.energy+HEAL.regen*dt*(this.upgrades.has('medivac')?2:1));u.healTarget=null;
-  let best:Entity|undefined;this.hash.query(u,HEAL.range+2,b=>{if(b.owner==='terran'&&b.hp>0&&b.hp<b.maxHp&&b.attributes.includes('Biological')&&this.edgeDistance(u,b)<=HEAL.range){const e=this.entities.get(b.id);if(e&&(!best||e.hp/e.maxHp<best.hp/best.maxHp))best=e;}});
-  if(best&&u.energy>0){const healed=healBiological(u,best,HEAL,dt,this.edgeDistance(u,best));if(healed>0){u.healTarget=best.id;u.action='heal';this.stats.healed+=healed;return best;}}return undefined;
+  let best:Entity|undefined;this.hash.query(u,14,b=>{if(b.owner==='terran'&&b.hp>0&&b.hp<b.maxHp&&b.attributes.includes('Biological')){const e=this.entities.get(b.id);if(e&&(!best||e.hp/e.maxHp<best.hp/best.maxHp))best=e;}});
+  if(best&&u.energy>0){const healed=healBiological(u,best,HEAL,dt,this.edgeDistance(u,best));if(healed>0){u.healTarget=best.id;u.action='heal';this.stats.healed+=healed;}return best;}return undefined;
  }
  updateBile(u:Entity,dt:number){u.bileCooldown-=dt;if(u.bileCooldown>0)return;const target=this.findTarget(u,BILE.range);
   if(target&&this.edgeDistance(u,target)<=BILE.range){this.effect('bile',u,target,BILE.radius,BILE.delay);u.bileCooldown=BILE.cooldown;}
@@ -144,13 +144,16 @@ export class World {
    const heading=Math.atan2(target.x-u.x,target.z-u.z);u.facing=turn(u.facing,heading,(u.unitType==='hellion'?2.8:9)*dt);
    if(Math.abs(angleDelta(u.facing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
     u.weaponCooldown=(u.mode==='siege'?SIEGE.period:data.attackPeriod)/stim;u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup+(u.unitType==='marine'?.12:.1);u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
+   // A committed firing turn must not be cancelled by formation steering in the same tick.
+   u.velocity={x:0,z:0};u.action='idle';return;
   }
   if(u.mode==='siege'){u.action='idle';u.velocity={x:0,z:0};return;}
   let goal:Point=u.owner==='terran'?this.moveGoal(u):(target??this.anchor);
   if(u.owner==='zerg'&&u.guardianPod!==null){const p=this.pods.find(p=>p.id===u.guardianPod&&p.status==='active');if(p&&(!target||u.id%3!==0&&distance(u,target)>4))goal=p;}
   if(u.owner==='zerg'&&target&&this.edgeDistance(u,target)<=u.attackRange*.85)goal=u;
   if(u.owner==='terran'&&!leash&&target&&distance(u,this.anchor)<4&&this.edgeDistance(u,target)>u.attackRange)goal=target;
-  if(u.unitType==='medivac'){const patient=this.heal(u,dt);if(patient&&!hard){u.velocity={x:0,z:0};return;}}
+  if(u.owner==='terran'&&!leash&&target&&this.edgeDistance(u,target)<=u.attackRange&&Math.hypot(this.input.x,this.input.z)<.01)goal=u;
+  if(u.unitType==='medivac'){const patient=this.heal(u,dt);if(patient&&!hard){if(this.edgeDistance(u,patient)<=HEAL.range){u.velocity={x:0,z:0};return;}goal=patient;}}
   let speed=u.moveSpeed*(u.stimUntil>this.time?1.5:1);
   if(u.owner==='terran'&&hard)speed*=TUNING.catchUp;
   if(u.owner==='zerg'){const stage=STAGES[this.stage-1];speed*=stage.speed;if(u.unitType==='baneling'&&this.stage>=9)speed*=1.3;}
@@ -167,7 +170,8 @@ export class World {
   else {this.stats.failed++;p.hp=0;this.announce('救援失败 · 降落仓内士兵阵亡 · 资源不返还');}
  }}
  spawnWave(){const s=STAGES[this.stage-1];this.wave++;
-  for(let i=0;i<s.count&&this.enemyCount()<TUNING.enemyCap;i++){let a=this.random()*Math.PI*2;if(this.stage===2)a=(i%2?0:Math.PI)+this.random()*.5;const r=22+this.random()*6;const p={x:Math.max(-49,Math.min(49,this.anchor.x+Math.cos(a)*r)),z:Math.max(-49,Math.min(49,this.anchor.z+Math.sin(a)*r))};if(blocked(p,1,this.obstacles))continue;this.addUnit(s.mix[i%s.mix.length],'zerg',p.x,p.z);}
+  const bearing=this.stage===1?0:this.random()*Math.PI*2;
+  for(let i=0;i<s.count&&this.enemyCount()<TUNING.enemyCap;i++){let a=bearing+(this.random()-.5)*.45;if(this.stage===2)a=(i%2?0:Math.PI)+(this.random()-.5)*.45;else if(this.stage>=5&&i%2===0)a+=Math.PI;const r=22+this.random()*6;const p={x:Math.max(-49,Math.min(49,this.anchor.x+Math.cos(a)*r)),z:Math.max(-49,Math.min(49,this.anchor.z+Math.sin(a)*r))};if(blocked(p,1,this.obstacles))continue;this.addUnit(s.mix[i%s.mix.length],'zerg',p.x,p.z);}
  }
  endStage(){if(this.phase!=='battle')return;
   if(this.stage===12){this.phase=this.hive&&this.hive.hp<=0?'won':'lost';this.announce(this.phase==='won'?'虫巢已摧毁 · 小队撤离成功':'未能在期限内摧毁虫巢');return;}
@@ -196,7 +200,7 @@ export class World {
   if(this.autoWaves&&this.time>=this.nextWave){this.spawnWave();this.nextWave=this.time+STAGES[this.stage-1].waveEvery;}
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active')];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);
   for(const u of this.entities.values())this.updateUnit(u,dt);
-  for(const fx of this.effects){if(fx.kind==='bile'&&fx.until<=this.time){this.hash.query(fx.end,3,b=>{if(b.hp>0&&distance(b,fx.end)<=BILE.radius+b.unitRadius)this.hit(b,BILE.damage);});}}
+  for(const fx of this.effects){if(fx.kind==='bile'&&fx.until<=this.time){this.hash.query(fx.end,3,b=>{if(b.hp>0&&distance(b,fx.end)<=BILE.radius+b.unitRadius)this.hit(b,BILE.damage+b.armor);});}}
   this.effects=this.effects.filter(f=>f.until>this.time);
   this.updatePods();
   this.pickups=this.pickups.filter(p=>{const d=distance(p,this.anchor);if(d<2){this.wallet.minerals+=p.minerals;this.wallet.gas+=p.gas;return false;}if(d<6){p.x+=(this.anchor.x-p.x)*dt*4;p.z+=(this.anchor.z-p.z)*dt*4;}return true;});

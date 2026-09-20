@@ -2,6 +2,7 @@
  * Raw XML uses Normal-speed seconds; Faster multiplayer uses 1.4x.
  * See docs/DATA_SOURCES.md for inheritance and explicitly experimental adapters. */
 export const SC2_VERSION = 'LotV 5.0.15 / fbbd6429';
+export const SC2_PROFILE={version:'5.0.15',revision:'fbbd6429b1eb6978c78a092dc68ba09029d03171',source:'https://github.com/Joshua-Leibold/SC2Data/tree/fbbd6429b1eb6978c78a092dc68ba09029d03171',verification:'exported XML inspected; installed-client equivalence not verified',clock:'Normal XML duration / 1.4; rates * 1.4'};
 export const FASTER = 1.4;
 export const TERRAN = ['marine','hellion','tank','medivac'] as const;
 export const ZERG = ['zergling','roach','baneling','ravager'] as const;
@@ -20,7 +21,7 @@ const unit=(name:string,zh:string,hp:number,armor:number,speed:number,damage:num
  attributes:string[],train:number,minerals:number,gas:number,radius:number,bonus:Bonus[]=[]):UnitData=>({
  name,zh,maxHp:hp,armor,movementSpeed:speed*FASTER,attackDamage:damage,attacks:damage?1:0,
  attackPeriod:period/FASTER,attackRange:range,targetType:'ground',splash:[],bonusDamage:bonus,
- attributes,productionTime:train/FASTER,mineralCost:minerals,gasCost:gas,unitRadius:radius,flying:false,damagePoint:0.1/FASTER,
+ attributes,productionTime:train/FASTER,mineralCost:minerals,gasCost:gas,unitRadius:radius,flying:false,damagePoint:0.167/FASTER,
 });
 export const SC2_UNITS:Record<UnitType,UnitData> = {
  marine:{...unit('Marine','陆战队员',45,0,2.25,6,.8608,5,['Light','Biological'],25,50,0,.375),targetType:'both',damagePoint:.05/FASTER},
@@ -30,7 +31,7 @@ export const SC2_UNITS:Record<UnitType,UnitData> = {
  zergling:unit('Zergling','跳虫',35,0,2.9531,5,.696,.1,['Light','Biological'],24,25,0,.375),
  roach:unit('Roach','蟑螂',145,1,2.25,16,2,4,['Armored','Biological'],27,75,25,.5),
  baneling:{...unit('Baneling','爆虫',30,0,2.5,16,.833,.25,['Biological'],20,50,25,.375,[{attribute:'Light',amount:19}]),splash:[{radius:2.2,fraction:1}],damagePoint:0},
- ravager:unit('Ravager','破坏者',120,1,2.75,16,1.6,6,['Biological'],12,100,100,.75),
+ ravager:{...unit('Ravager','破坏者',120,1,2.75,16,1.6,6,['Biological'],17,100,100,.75),damagePoint:.2/FASTER},
 };
 export const SIEGE = {damage:40,bonus:[{attribute:'Armored',amount:30}],range:13,minRange:2,
  period:3/FASTER,deploySeconds:4.0417/FASTER,undeploySeconds:3.5417/FASTER,
