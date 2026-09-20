@@ -12,3 +12,7 @@ dist/
 *.SC2Map
 *.SC2Mod
 .DS_Store
+public/assets/
+src/assets/runtime.generated.ts
+test-results/
+playwright-report/

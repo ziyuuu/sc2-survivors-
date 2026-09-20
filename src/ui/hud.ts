@@ -1,0 +1,51 @@
+import {World} from '../simulation/world';
+import {TERRAN,SC2_UNITS,type TerranType} from '../data/sc2-units';
+import {BUILDINGS,STAGES,type BuildingType} from '../data/game';
+import {assetUrl,icon,missingAssets} from '../assets/manifest';
+import type {BattleRenderer} from '../render/scene/battle-renderer';
+const fmt=(n:number)=>String(Math.max(0,Math.ceil(n))).padStart(2,'0');
+const cost=(m:number,g:number)=>`${m} M${g?' / '+g+' G':''}`;
+export class HUD {
+ ready=false;loading='连接战场系统';productionOpen=false;lastPhase='';inputReset:()=>void=()=>{};onStart:()=>void=()=>{};
+ root:HTMLElement;private cache=new Map<string,string>();private iconLoaded=new Set<string>();
+ constructor(readonly world:World,readonly view:BattleRenderer){this.root=document.querySelector('#interface')!;
+  this.root.innerHTML=`<header id="topbar"><span class="callsign">TERRAN <b>//</b> SURVIVORS</span><div class="resource">${icon('ui.minerals')}<span id="minerals">400</span></div><div class="resource gas">${icon('ui.gas')}<span id="gas">150</span></div><span id="stage" class="stage"></span><strong id="clock">01:00</strong><button data-action="production" class="small">生产 <kbd>B</kbd></button><button data-action="pause" class="small" aria-label="暂停">Ⅱ</button></header>
+   <div id="mission"></div><div id="notice" role="status" aria-live="polite"></div><div id="pod-alerts"></div>
+   <div id="roster" class="console"></div><div id="skills" class="console"><button data-action="stim" id="stim">${icon('tech.stim')}<span>STIM <kbd>E</kbd></span></button><button data-action="dash" id="dash">${icon('tech.boost')}<span>推进 <kbd>SPACE</kbd></span></button></div>
+   <div id="joystick" aria-label="移动小队摇杆"><span class="stick-axis"></span><span class="stick-knob"></span></div><div id="stretch"></div><div id="portrait-hint">建议旋转至横屏</div>
+   <aside id="production" class="console" hidden></aside><section id="overlay"></section><aside id="debug" class="console" hidden></aside>`;
+  this.root.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;const button=(e.target as HTMLElement).closest<HTMLButtonElement>('button[data-action]');if(!button||button.disabled)return;if(button.dataset.action==='stim'||button.dataset.action==='dash'){e.preventDefault();if(button.dataset.action==='stim')world.stim();else world.dash();this.update();}});
+  this.root.addEventListener('click',e=>{const button=(e.target as HTMLElement).closest<HTMLButtonElement>('button[data-action]');if(!button||button.disabled)return;const action=button.dataset.action!;
+   if(action==='start'&&this.ready){this.onStart();world.start();}
+   else if(action==='restart')location.reload();else if(action==='pause')this.pause();else if(action==='production')this.toggleProduction();
+   else if(action==='stim')world.stim();else if(action==='dash')world.dash();else if(action==='build'){world.build(button.dataset.type as BuildingType);}
+   else if(action==='train'){world.queue(button.dataset.type as TerranType);}
+   else if(action==='reroll')world.reroll();else if(action==='reward'){this.inputReset();world.choose(button.dataset.id!);}
+   this.update();
+  });world.listeners.add(()=>this.update());this.update();
+ }
+ put(id:string,html:string){if(this.cache.get(id)===html)return;document.getElementById(id)!.innerHTML=html;this.cache.set(id,html);}
+ pause(){if(this.world.phase==='battle'){this.world.paused=!this.world.paused;this.inputReset();this.world.changed();}}
+ toggleProduction(){if(this.world.phase!=='battle')return;this.productionOpen=!this.productionOpen;this.update();}
+ setLoading(text:string){this.loading=text;this.update();}
+ finishLoading(){const missing=missingAssets();this.ready=this.view.loadedModels===8&&missing.length===0;this.loading=this.ready?'战场资源就绪':missing.length?'MISSING ASSET: '+missing.map(a=>a.id).join(' / '):'素材未完整载入';this.update();this.root.querySelector<HTMLButtonElement>('[data-action=start]')?.focus();}
+ update(){const w=this.world;
+  this.put('minerals',String(Math.floor(w.wallet.minerals)));this.put('gas',String(Math.floor(w.wallet.gas)));this.put('stage',`STAGE <b>${String(w.stage).padStart(2,'0')}</b> / 12`);
+  this.put('clock',w.stageElapsed<.001?'01:00':`00:${fmt(60-w.stageElapsed)}`);
+  this.put('mission',`<span class="eyebrow">CHAR / 远征行动</span><b>${STAGES[w.stage-1].name}</b>${w.stage===12?'<span>摧毁东北虫巢，守住本关 60 秒</span>':'<span>保持战线 · 生产 → 降落 → 救援</span>'}`);
+  this.put('notice',w.time<w.noticeUntil?w.notice:'');this.put('stretch',`战线 <b class="${w.maxStretch>20?'warning':''}">${w.maxStretch.toFixed(1)} m</b>`);
+  this.put('roster',TERRAN.map(t=>{const units=w.allies().filter(u=>u.unitType===t);return `<div class="unit-status">${icon('unit.'+t,SC2_UNITS[t].name)}<div><span class="unit-name">${SC2_UNITS[t].name}</span><b>${units.length}<small>/5</small></b><div class="soldiers">${Array.from({length:5},(_,i)=>{const u=units[i];return `<span class="soldier ${u?'':'empty'}" title="${u?'Rank '+u.rank+' · '+Math.ceil(u.hp)+' / '+Math.ceil(u.maxHp)+' HP':'空席'}">${u?'ⅠⅡⅢⅣⅤ'[u.rank-1]:'–'}<i style="--hp:${u?u.hp/u.maxHp*100:0}%;--health:${u&&u.hp/u.maxHp<.3?'#ef7449':'#79e6a2'}"></i></span>`;}).join('')}</div></div></div>`;}).join(''));
+  const stim=document.querySelector<HTMLButtonElement>('#stim')!,dash=document.querySelector<HTMLButtonElement>('#dash')!;stim.disabled=!w.upgrades.has('stim')||w.phase!=='battle'||w.paused;dash.disabled=w.time<w.dashReady||w.phase!=='battle'||w.paused;dash.title=w.time<w.dashReady?`冷却 ${fmt(w.dashReady-w.time)} 秒`:'锚点短时推进；士兵按各自速度跟随';stim.title=w.upgrades.has('stim')?'每名 Marine 消耗 10 HP':'关卡奖励中研究 Stimpack 后解锁';
+  this.put('pod-alerts',w.pods.filter(p=>p.status==='active').map(p=>{const dx=p.x-w.anchor.x,dz=p.z-w.anchor.z;return `<div class="pod-alert"><span class="arrow" style="transform:rotate(${Math.atan2(dz,dx)}rad)">➤</span><span>${SC2_UNITS[p.unitType].name.toUpperCase()} DROP POD<small>${Math.round(Math.hypot(dx,dz))} m · HP ${Math.ceil(p.hp)} / ${p.maxHp}</small></span><b>00:${fmt(p.expiresAt-w.time)}</b></div>`;}).join(''));
+  const production=document.querySelector<HTMLElement>('#production')!;production.hidden=!this.productionOpen||w.phase!=='battle';
+  if(!production.hidden)this.put('production',`<div class="panel-title">生产指挥台 <button data-action="production" aria-label="关闭生产">×</button></div><p>战斗继续 · 每份订单完成后生成救援仓</p>${Object.entries(BUILDINGS).map(([id,d])=>{const b=w.buildings.get(id as BuildingType);return `<div class="production-line">${icon('building.'+id)}<div><b>${d.name}</b><small>${b?b.remaining>0?'建造 '+fmt(b.remaining)+' 秒':'在线 · 队列 '+b.queue.length:cost(d.minerals,d.gas)}</small></div><button data-action="build" data-type="${id}" ${b||w.wallet.minerals<d.minerals||w.wallet.gas<d.gas?'disabled':''}>${b?'已建':'建造'}</button></div>${b?b.queue.slice(0,3).map((j,i)=>`<div class="job">${SC2_UNITS[j.unitType].name} · ${i===0?fmt(j.remaining)+' 秒':'等待'}</div>`).join(''):''}`;}).join('')}<div class="train-grid">${TERRAN.map(t=>{const c=w.productionCost(t);return `<button data-action="train" data-type="${t}" ${w.canTrain(t)?'':'disabled'}>${icon('unit.'+t)}<span>生产 ${SC2_UNITS[t].name}<small>${cost(c.minerals,c.gas)} · ${fmt(SC2_UNITS[t].productionTime)}s</small></span></button>`;}).join('')}</div>`);
+  const overlay=document.querySelector<HTMLElement>('#overlay')!;overlay.hidden=w.phase==='battle'&&!w.paused;
+  if(w.phase==='menu')this.put('overlay',`<div class="title-screen"><span class="eyebrow">TERRAN EXPEDITION / CHAR SECTOR</span><h1>SC2 <span>SURVIVORS</span></h1><h2>星际幸存小队</h2><div class="title-rule"></div><p class="lead">前线已经抵达。你的坦克还在路上。</p><p>率领真实移动的小队，穿越虫潮。<br>生产单位，争夺 30 秒救援窗口，守住 12 关。</p><button class="primary launch" data-action="start" ${this.ready?'':'disabled'}>${this.ready?'部署小队　 /　 DEPLOY':this.loading}</button><div class="load-status">${this.view.loadedModels}/8 单位模型 · ${this.loading}</div>${this.view.modelErrors.length?`<p class="warning">MISSING ASSET: ${this.view.modelErrors.join(' / ')}</p>`:''}<div class="controls-note"><span>WASD / 方向键 · 移动</span><span>B · 生产</span><span>E · 兴奋剂</span><span>SPACE · 推进</span></div><small class="legal">非官方 · 非盈利 · 朋友试玩 / StarCraft II 素材属于 Blizzard Entertainment<br>本版静态原模型使用程序动作；不含原版动画轨道。</small></div>`);
+  else if(w.phase==='reward')this.put('overlay',`<div class="reward-screen"><span class="eyebrow">MISSION DEBRIEF / ${String(w.stage).padStart(2,'0')}</span><h2>战地增援</h2><p>选择一项支援。战斗、生产与救援计时已暂停。</p><div id="reward-cards">${w.rewards.map((r,i)=>`<button class="reward-card" data-action="reward" data-id="${r.id}"><span class="card-number">0${i+1} / ${r.kind.toUpperCase()}</span>${icon(r.icon,r.name)}<h3>${r.name}</h3><p>${r.description}</p><strong>${r.minerals||r.gas?cost(r.minerals,r.gas):'领取补给'}</strong><span class="card-select">选择支援　▸</span></button>`).join('')}</div><button class="refresh" data-action="reroll" ${w.wallet.minerals<w.rerollCost()?'disabled':''}>⟳ REFRESH <span>${w.rerollCost()} Minerals</span></button><small>资源 ${Math.floor(w.wallet.minerals)} M / ${Math.floor(w.wallet.gas)} G · 只能选择一项</small></div>`);
+  else if(w.phase==='won'||w.phase==='lost')this.put('overlay',`<div class="end-screen"><span class="eyebrow">MISSION ${w.phase==='won'?'COMPLETE':'FAILED'}</span><h2>${w.phase==='won'?'撤离成功':'小队失联'}</h2><p>${w.notice}</p><div class="end-stats"><span>关卡 <b>${w.stage} / 12</b></span><span>击杀 <b>${w.stats.kills}</b></span><span>救援 <b>${w.stats.rescued}</b></span><span>失守 <b>${w.stats.failed}</b></span></div><button class="primary" data-action="restart">重新部署</button></div>`);
+  else if(w.paused)this.put('overlay','<div class="end-screen"><span class="eyebrow">TACTICAL PAUSE</span><h2>战场已暂停</h2><p>小队、生产与救援时钟暂停。</p><button class="primary" data-action="pause">继续行动</button></div>');
+  this.root.classList.toggle('in-battle',w.phase==='battle');
+  if(this.lastPhase!==w.phase){this.lastPhase=w.phase;this.inputReset();if(w.phase==='reward')queueMicrotask(()=>this.root.querySelector<HTMLButtonElement>('.reward-card')?.focus());}
+ }
+ async iconReport(){const ids=[...new Set([...document.querySelectorAll<HTMLImageElement>('img')].map(i=>i.src))];await Promise.all(ids.map(src=>new Promise<void>(resolve=>{const im=new Image();im.onload=()=>{if(im.naturalWidth)this.iconLoaded.add(src);resolve();};im.onerror=()=>resolve();im.src=src;})));return this.iconLoaded.size;}
+}
