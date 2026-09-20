@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-09-20",
+  "repository": "ziyuuu/sc2-survivors-",
+  "visibilityObserved": "public",
+  "branch": "v2/sc2-assets-ui",
+  "deliverable": "asset-integration-code-and-interaction-lab",
+  "newPlayable12StageRemake": false,
+  "assetSlots": 42,
+  "originalCombatModelsVerified": 0,
+  "combatModelTargets": 8,
+  "assetAudit": {
+    "runId": 35520563399,
+    "jobId": 106103796321,
+    "auditCompleted": true,
+    "modelHttpResults": "8/8 HTTP 403",
+    "fileChecksPassed": 0
+  },
+  "reference": {
+    "url": "https://starcraft-shooter-2026.pages.dev/",
+    "htmlRetrieved": true,
+    "title": "StarCraft Shooter 2026",
+    "fontFamilyAliases": ["SC2 Chinese", "SC2 Eurostile", "SC2 Extended"],
+    "fontFilesDistributed": false,
+    "screenshotState": "loading-screen-only",
+    "fullHudVisuallyVerified": false
+  },
+  "unitTests": {
+    "runner": "node --test test/*.test.mjs",
+    "passed": 65,
+    "failed": 0,
+    "groups": {"rules": 38, "glb": 7, "assets": 20},
+    "fixtures": "synthetic-not-SC2-stats"
+  },
+  "browserQa": {
+    "status": "blocked",
+    "reason": "ERR_BLOCKED_BY_ADMINISTRATOR before first local page navigation",
+    "assertionsPassed": 0,
+    "mobileDeviceTested": false
+  },
+  "pending": ["authentic model files and animations", "actual original icon images", "terrain and playable map data", "original logo and HUD textures", "locked SC2 numerical profile", "integrated 12-stage battle loop", "browser and mobile QA"]
+}

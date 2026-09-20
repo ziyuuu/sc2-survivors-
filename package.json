@@ -1,0 +1,1 @@
+{"name":"sc2-survivors-rework","version":"0.2.1-asset-integration","private":true,"type":"module","engines":{"node":">=22"},"scripts":{"start":"node tools/serve.mjs","test":"node --test test/*.test.mjs","assets:resolve":"node tools/sync-assets.mjs --index-only","assets:fetch":"node tools/sync-assets.mjs"}}
