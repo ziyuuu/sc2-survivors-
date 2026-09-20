@@ -17,6 +17,7 @@ export class World {
  notice='守住小队。生产完成后必须救援。';noticeUntil=8;revision=0;
  readonly listeners=new Set<()=>void>();readonly obstacles:Obstacle[];
  private rngState:number;private autoWaves:boolean;
+ private navigation=new Map<number,{goal:Point;requested:Point;until:number}>();
  constructor(options:{seed?:number;waves?:boolean;obstacles?:Obstacle[];initial?:TerranType[]}={}){
   this.rngState=options.seed??89241;this.autoWaves=options.waves??true;this.obstacles=options.obstacles??OBSTACLES;
   const initial=options.initial??TUNING.initialSquad;initial.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
@@ -72,8 +73,8 @@ export class World {
   const types:ZergType[]=Array.from({length:Math.min(40,20+(this.stage-1)*2)},()=> 'zergling');types.push('roach','roach');
   if(this.stage>=6)types.push('baneling','baneling');if(this.stage>=10)types.push('ravager','ravager');
   // Reserve room for guaranteed rescue guardians; retire only distant ambient enemies if needed.
-  if(this.enemyCount()+types.length>TUNING.enemyCap){for(const e of this.entities.values()){if(e.owner==='zerg'&&e.guardianPod===null&&distance(e,this.anchor)>25){this.entities.delete(e.id);if(this.enemyCount()+types.length<=TUNING.enemyCap)break;}}}
-  types.forEach((t,i)=>{const a=i/types.length*Math.PI*2,r=7+this.random()*3;let pos={x:p!.x+Math.cos(a)*r,z:p!.z+Math.sin(a)*r};if(blocked(pos,.8,this.obstacles))pos={x:p!.x+Math.cos(a)*3,z:p!.z+Math.sin(a)*3};const e=this.addUnit(t,'zerg',pos.x,pos.z);e.guardianPod=pod.id;pod.guardianIds.add(e.id);});
+  if(this.enemyCount()+types.length>TUNING.enemyCap){for(const e of this.entities.values()){if(e.owner==='zerg'&&e.guardianPod===null&&distance(e,this.anchor)>25){this.entities.delete(e.id);this.navigation.delete(e.id);if(this.enemyCount()+types.length<=TUNING.enemyCap)break;}}}
+  types.forEach((t,i)=>{const a=i/types.length*Math.PI*2,r=7+this.random()*3;let pos={x:p!.x+Math.cos(a)*r,z:p!.z+Math.sin(a)*r};if(blocked(pos,.8,this.obstacles))pos={x:p!.x+Math.cos(a)*1.8,z:p!.z+Math.sin(a)*1.8};const e=this.addUnit(t,'zerg',pos.x,pos.z);e.guardianPod=pod.id;pod.guardianIds.add(e.id);});
   this.announce(`${SC2_UNITS[type].name.toUpperCase()} DROP POD · 30 秒 · ${types.length} 敌军`);return pod;
  }
  body(id:number|null):Body|undefined {if(id===null)return;return this.entities.get(id)??this.pods.find(p=>p.id===id&&p.status==='active')??(this.hive?.id===id?this.hive:undefined);}
@@ -142,7 +143,8 @@ export class World {
   if(this.time>=u.thinkAt||!this.body(u.attackTarget)?.hp){u.attackTarget=this.findTarget(u,u.owner==='terran'?u.attackRange+2:16)?.id??null;u.thinkAt=this.time+.12+(u.id%5)*.012;}
   let target=this.body(u.attackTarget);if(target&&!this.targetAllowed(u,target))target=undefined;
   const leash=anchorDistance>TUNING.softLeash,hard=anchorDistance>TUNING.hardLeash;
-  if(target&&u.unitType!=='medivac'&&(!hard||u.owner==='zerg')&&this.edgeDistance(u,target)<=u.attackRange&&this.edgeDistance(u,target)>=(u.mode==='siege'?SIEGE.minRange:0)&&u.weaponCooldown<=1e-8){
+  const closeDefense=target&&this.edgeDistance(u,target)<=2.5;
+  if(target&&u.unitType!=='medivac'&&(!hard||u.owner==='zerg'||closeDefense)&&this.edgeDistance(u,target)<=u.attackRange&&this.edgeDistance(u,target)>=(u.mode==='siege'?SIEGE.minRange:0)&&u.weaponCooldown<=1e-8){
    const heading=Math.atan2(target.x-u.x,target.z-u.z);u.facing=turn(u.facing,heading,(u.unitType==='hellion'?2.8:9)*dt);
    if(Math.abs(angleDelta(u.facing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
     u.weaponCooldown=(u.mode==='siege'?SIEGE.period:data.attackPeriod)/stim;u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup+(u.unitType==='marine'?.12:.1);u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
@@ -158,7 +160,14 @@ export class World {
   let speed=u.moveSpeed*(u.stimUntil>this.time?1.5:1);
   if(u.owner==='terran'&&hard)speed*=TUNING.catchUp;
   if(u.owner==='zerg'){const stage=STAGES[this.stage-1];speed*=stage.speed;if(u.unitType==='baneling'&&this.stage>=9)speed*=1.3;}
-  if(!u.flying)goal=steerGoal(u,goal,u.unitRadius,this.obstacles);
+  if(!u.flying){
+   const cached=this.navigation.get(u.id);
+   if(!cached||this.time>=cached.until||distance(u,cached.goal)<.7||distance(goal,cached.requested)>2){
+    const routed=steerGoal(u,goal,u.unitRadius,this.obstacles);
+    this.navigation.set(u.id,{goal:{x:routed.x,z:routed.z},requested:{x:goal.x,z:goal.z},until:this.time+.15+(u.id%4)*.01});
+   }
+   goal=this.navigation.get(u.id)!.goal;
+  }
   locomote(u,goal,speed,this.separation(u),dt,this.obstacles);
  }
  updatePods(){for(const p of this.pods){if(p.status!=='active')continue;
@@ -206,7 +215,7 @@ export class World {
   this.effects=this.effects.filter(f=>f.until>this.time);
   this.updatePods();
   this.pickups=this.pickups.filter(p=>{const d=distance(p,this.anchor);if(d<2){this.wallet.minerals+=p.minerals;this.wallet.gas+=p.gas;return false;}if(d<6){p.x+=(this.anchor.x-p.x)*dt*4;p.z+=(this.anchor.z-p.z)*dt*4;}return true;});
-  this.maxStretch=0;let fighters=0;for(const [id,u] of this.entities){if(u.owner==='terran'&&u.hp>0){this.maxStretch=Math.max(this.maxStretch,distance(u,this.anchor));if(u.unitType!=='medivac')fighters++;}if(u.deadAt!==null&&this.time-u.deadAt>1.5)this.entities.delete(id);}
+  this.maxStretch=0;let fighters=0;for(const [id,u] of this.entities){if(u.owner==='terran'&&u.hp>0){this.maxStretch=Math.max(this.maxStretch,distance(u,this.anchor));if(u.unitType!=='medivac')fighters++;}if(u.deadAt!==null&&this.time-u.deadAt>1.5){this.entities.delete(id);this.navigation.delete(id);}}
   this.distancePairs=this.hash.visits;
   if(!fighters){this.phase='lost';this.announce('战斗单位全部阵亡 · 小队失联');}
   else if(this.stageElapsed>=TUNING.stageSeconds-1e-8)this.endStage();

@@ -5,7 +5,7 @@ import {SC2_UNITS,HEAL,SIEGE} from '../src/data/sc2-units.ts';
 import {TUNING,STAGES} from '../src/data/game.ts';
 import {drawRewards,eligibleReward} from '../src/simulation/progression/rewards.ts';
 import {SpatialHash} from '../src/simulation/movement/spatial-hash.ts';
-import {locomote} from '../src/simulation/movement/steering.ts';
+import {locomote,blocked} from '../src/simulation/movement/steering.ts';
 const world=(initial:any=['marine'])=>{const w=new World({waves:false,obstacles:[],initial});w.start();return w;};
 const close=(a:number,b:number,eps=1e-5)=>assert.ok(Math.abs(a-b)<eps,`${a} != ${b}`);
 test('fixed profile has exactly the requested eight units',()=>{assert.equal(Object.keys(SC2_UNITS).length,8);assert.equal(SC2_UNITS.tank.maxHp,175);close(SC2_UNITS.marine.movementSpeed,3.15);close(SC2_UNITS.baneling.attackDamage,16);});
@@ -36,7 +36,7 @@ test('deadline takes priority over simultaneous threat clear',()=>{const w=world
 test('full roster promotes the lowest rank, never exceeds five soldiers or ranks',()=>{const w=world(['marine','marine','marine','marine','marine']);for(let i=0;i<21;i++)w.reinforce('marine',{x:20,z:20});assert.deepEqual(w.allies().map(u=>u.rank),[5,5,5,5,5]);});
 test('a dead soldier is replaced by a new identity at rank one',()=>{const w=world(['marine','marine','marine','marine','marine']);const old=w.allies()[0];old.rank=5;w.hit(old,1000);const recruit=w.reinforce('marine',{x:20,z:20});assert.notEqual(recruit.id,old.id);assert.equal(recruit.rank,1);assert.equal(old.hp,0);});
 test('all clocks freeze during reward and explicit pause',()=>{const w=world();const p=w.spawnPod('marine',{x:30,z:0});w.endStage();const t=w.time;w.advance(40);assert.equal(w.time,t);assert.equal(p.status,'active');w.phase='battle';w.paused=true;w.advance(40);assert.equal(w.time,t);});
-test('12 stages retain 60 simulation seconds each',()=>{assert.equal(STAGES.length,12);const w=world();w.advance(59);assert.equal(w.phase,'battle');w.advance(1);assert.equal(w.phase,'reward');close(w.time,60);});
+test('12 stages retain 60 simulation seconds each',()=>{assert.equal(STAGES.length,12);const w=world();for(let stage=1;stage<=12;stage++){w.wallet={minerals:0,gas:0};if(stage===12){assert.ok(w.hive);w.hit(w.hive!,3000);}w.advance(59);assert.equal(w.phase,'battle');w.advance(1);close(w.time,stage*60);if(stage<12){assert.equal(w.phase,'reward');assert.ok(w.choose(w.rewards[0].id));}else assert.equal(w.phase,'won');}});
 test('three distinct rewards allow only one claim per stage',()=>{const w=world();w.endStage();assert.equal(new Set(w.rewards.map(r=>r.id)).size,3);const r=w.rewards[0];assert.ok(w.choose(r.id));assert.equal(w.choose(r.id),false);assert.equal(w.stage,2);});
 test('reroll costs 50 then 75 and changes the combination',()=>{const w=world();w.endStage();const old=w.rewards.map(r=>r.id).sort(),before=w.wallet.minerals;assert.ok(w.reroll());assert.equal(w.wallet.minerals,before-50);assert.notDeepEqual(w.rewards.map(r=>r.id).sort(),old);w.reroll();assert.equal(w.wallet.minerals,before-125);});
 test('unaffordable reroll preserves cards and resources',()=>{const w=world();w.endStage();w.wallet.minerals=49;const old=w.rewards;assert.equal(w.reroll(),false);assert.equal(w.rewards,old);assert.equal(w.wallet.minerals,49);});
@@ -57,3 +57,9 @@ test('Baneling structure damage ignores armor in the locked profile',()=>{const 
 test('discounted production cards display the same cost that is charged',()=>{const w=world();w.build('barracks');w.buildings.get('barracks')!.remaining=0;w.upgrades.set('discount',1);const rewards=drawRewards(w,()=>0);const card=rewards.find(r=>r.id==='train.marine')!;assert.ok(card);assert.equal(card.minerals,43);const before=w.wallet.minerals;w.queue('marine');assert.equal(before-w.wallet.minerals,card.minerals);});
 
 test('rerolled cards remain affordable after the refresh fee has been charged',()=>{const w=world();w.wallet={minerals:100,gas:100};w.endStage();w.random=()=>0;assert.ok(w.reroll());assert.equal(w.wallet.minerals,50);assert.ok(w.rewards.every(r=>eligibleReward(w,r)));});
+
+test('hard leash prioritizes return but preserves close self-defense',()=>{const w=world();const m=w.allies()[0];w.anchor.x=30;w.trail=[{x:30,z:0}];m.x=0;m.facing=Math.PI/2;const e=w.addUnit('roach','zerg',1.5,0);e.moveSpeed=0;e.weaponDamage=0;w.advance(.3);assert.ok(e.hp<145);assert.ok(m.x<2);});
+
+test('cached corner routing preserves collision and gets a soldier around a wall',()=>{const w=new World({waves:false,initial:['marine'],obstacles:[{x:4,z:0,w:2,h:8}]});w.start();const m=w.allies()[0];w.anchor.x=12;w.trail=[{x:12,z:0}];for(let i=0;i<600;i++){w.step();assert.ok(!(Math.abs(m.x-4)<1+m.unitRadius&&Math.abs(m.z)<4+m.unitRadius));}assert.ok(m.x>7);});
+
+test('rescue guardians spawn outside adjacent solid terrain',()=>{const w=new World({waves:false,initial:[],obstacles:[{x:4,z:0,w:2,h:20}]});const pod=w.spawnPod('marine',{x:0,z:0});for(const id of pod.guardianIds){const e=w.entities.get(id)!;assert.equal(blocked(e,e.unitRadius,w.obstacles),false);}});
