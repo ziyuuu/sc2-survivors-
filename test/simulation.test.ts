@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world.ts';
 import {SC2_UNITS,HEAL,SIEGE} from '../src/data/sc2-units.ts';
 import {TUNING,STAGES} from '../src/data/game.ts';
-import {drawRewards} from '../src/simulation/progression/rewards.ts';
+import {drawRewards,eligibleReward} from '../src/simulation/progression/rewards.ts';
 import {SpatialHash} from '../src/simulation/movement/spatial-hash.ts';
+import {locomote} from '../src/simulation/movement/steering.ts';
 const world=(initial:any=['marine'])=>{const w=new World({waves:false,obstacles:[],initial});w.start();return w;};
 const close=(a:number,b:number,eps=1e-5)=>assert.ok(Math.abs(a-b)<eps,`${a} != ${b}`);
 test('fixed profile has exactly the requested eight units',()=>{assert.equal(Object.keys(SC2_UNITS).length,8);assert.equal(SC2_UNITS.tank.maxHp,175);close(SC2_UNITS.marine.movementSpeed,3.15);close(SC2_UNITS.baneling.attackDamage,16);});
@@ -44,3 +45,15 @@ test('Stim consumes HP without killing a Marine at ten HP',()=>{const w=world(['
 test('a firing vehicle completes its turn instead of cancelling against formation steering',()=>{const w=world(['hellion']);const h=w.allies()[0];h.facing=-Math.PI/2;const e=w.addUnit('roach','zerg',3,0);e.moveSpeed=0;e.weaponDamage=0;w.advance(2);assert.ok(e.hp<145);});
 test('Medivac seeks an injured biological ally beyond current heal range',()=>{const w=world(['marine','medivac']);const [m,h]=w.allies();m.hp=10;m.x=5;m.moveSpeed=0;h.x=-5;h.z=0;w.hash.rebuild(w.entities.values());const patient=w.heal(h,1/60);assert.equal(patient?.id,m.id);assert.equal(m.hp,10);w.advance(1);assert.ok(h.x>-4);});
 test('stage one teaches a coherent approach; stage two introduces opposing waves',()=>{const w=world();w.spawnWave();let enemies=[...w.entities.values()].filter(u=>u.owner==='zerg');assert.ok(enemies.every(e=>e.x>20));w.entities.clear();w.stage=2;w.spawnWave();enemies=[...w.entities.values()].filter(u=>u.owner==='zerg');assert.ok(enemies.some(e=>e.x>20)&&enemies.some(e=>e.x< -20));});
+test('Tank formation goal leaves room behind the infantry firing line',()=>{const w=world(['marine','tank']);const [m,t]=w.allies();assert.ok(w.moveGoal(m).x-w.moveGoal(t).x>5);});
+test('new recruits reuse vacant slots without reordering surviving soldiers',()=>{const w=world(['marine','marine','marine']);const [a,b,c]=w.allies();w.hit(b,1000);const next=w.reinforce('marine',{x:3,z:3});assert.equal(next.slot,1);assert.equal(a.slot,0);assert.equal(c.slot,2);});
+
+test('idle anchor still allows formation adjustment between shots',()=>{const w=world();const m=w.allies()[0],e=w.addUnit('roach','zerg',4,0);e.moveSpeed=0;e.weaponDamage=0;m.weaponCooldown=.5;w.hash.rebuild(w.entities.values());const x=m.x;w.advance(.2);assert.notEqual(m.x,x);assert.ok(e.hp===145);});
+
+test('vehicle separation never exceeds its movement speed cap',()=>{const w=world(['hellion']);const h=w.allies()[0];h.facing=Math.PI/2;for(let i=0;i<60;i++)locomote(h,{x:40,z:0},h.moveSpeed,{x:3,z:0},1/60,[]);assert.ok(Math.hypot(h.velocity.x,h.velocity.z)<=h.moveSpeed+1e-8);});
+
+test('Baneling structure damage ignores armor in the locked profile',()=>{const w=world();const p=w.spawnPod('marine',{x:20,z:0});p.armor=9;const b=w.addUnit('baneling','zerg',20.5,0);w.hash.rebuild([...w.entities.values(),p]);w.fire(b,p);assert.equal(p.hp,p.maxHp-80);});
+
+test('discounted production cards display the same cost that is charged',()=>{const w=world();w.build('barracks');w.buildings.get('barracks')!.remaining=0;w.upgrades.set('discount',1);const rewards=drawRewards(w,()=>0);const card=rewards.find(r=>r.id==='train.marine')!;assert.ok(card);assert.equal(card.minerals,43);const before=w.wallet.minerals;w.queue('marine');assert.equal(before-w.wallet.minerals,card.minerals);});
+
+test('rerolled cards remain affordable after the refresh fee has been charged',()=>{const w=world();w.wallet={minerals:100,gas:100};w.endStage();w.random=()=>0;assert.ok(w.reroll());assert.equal(w.wallet.minerals,50);assert.ok(w.rewards.every(r=>eligibleReward(w,r)));});

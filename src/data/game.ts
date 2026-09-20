@@ -5,6 +5,9 @@ export const TUNING = {step:1/60,stageSeconds:60,rescueSeconds:30,anchorSpeed:5.
  podHp:1200,podArmor:2,enemyCap:300,worldHalf:52,startingMinerals:400,startingGas:150,
  initialSquad:['marine','marine','marine','marine','hellion','tank','medivac'] as TerranType[]};
 export type BuildingType='barracks'|'factory'|'starport';
+export const FORMATION:Record<TerranType,{back:number;spacing:number;lane:number}>={
+ marine:{back:1.5,spacing:1.4,lane:.65},hellion:{back:4,spacing:2,lane:0},tank:{back:7,spacing:2.2,lane:0},medivac:{back:8,spacing:1.3,lane:1.4},
+};
 export const BUILDINGS:Record<BuildingType,{name:string;minerals:number;gas:number;time:number;types:TerranType[]}>={
  barracks:{name:'Barracks · 兵营',minerals:150,gas:0,time:65/1.4,types:['marine']},
  factory:{name:'Factory · 重工厂',minerals:150,gas:100,time:60/1.4,types:['hellion','tank']},

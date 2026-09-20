@@ -28,7 +28,7 @@ export function eligibleReward(w:RewardWorld,r:Reward){
  return true;
 }
 export function drawRewards(w:RewardWorld,rng:()=>number,previous:string[]=[]){
- const pool=rewardPool().filter(r=>eligibleReward(w,r));
+ const pool=rewardPool().filter(r=>eligibleReward(w,r)).map(r=>r.kind==='train'?{...r,...w.productionCost(r.value as TerranType)}:r);
  const result:Reward[]=[];
  while(result.length<3&&pool.length){result.push(pool.splice(Math.floor(rng()*pool.length),1)[0]);}
  // Guaranteed changed combination even with a deterministic RNG. Four resource fallbacks ensure an alternative.

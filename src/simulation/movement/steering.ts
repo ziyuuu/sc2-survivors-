@@ -25,10 +25,10 @@ export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:nu
  const d=distance(u,goal);let dx=0,dz=0;
  if(d>.15){dx=(goal.x-u.x)/d*speed;dz=(goal.z-u.z)/d*speed;}
  dx+=separation.x;dz+=separation.z;
- const magnitude=Math.hypot(dx,dz);if(magnitude>speed&&magnitude>0){dx*=speed/magnitude;dz*=speed/magnitude;}
+ const magnitude=Math.hypot(dx,dz),limited=Math.min(speed,magnitude);if(magnitude>speed&&magnitude>0){dx*=speed/magnitude;dz*=speed/magnitude;}
  if(Math.hypot(dx,dz)>.05){const heading=Math.atan2(dx,dz);const rate=u.unitType==='hellion'?2.8:u.unitType==='tank'?2.2:7;
   u.facing=turn(u.facing,heading,rate*dt);
-  if(u.unitType==='hellion'||u.unitType==='tank'){const alignment=Math.max(0,Math.cos(angleDelta(u.facing,heading)));dx=Math.sin(u.facing)*magnitude*alignment;dz=Math.cos(u.facing)*magnitude*alignment;}
+  if(u.unitType==='hellion'||u.unitType==='tank'){const alignment=Math.max(0,Math.cos(angleDelta(u.facing,heading)));dx=Math.sin(u.facing)*limited*alignment;dz=Math.cos(u.facing)*limited*alignment;}
  }
  const acceleration=u.flying?5:15;
  u.velocity.x+=(dx-u.velocity.x)*Math.min(1,acceleration*dt);u.velocity.z+=(dz-u.velocity.z)*Math.min(1,acceleration*dt);
