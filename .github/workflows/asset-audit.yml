@@ -1,0 +1,33 @@
+name: Asset source audit
+on:
+  push:
+    branches: [v2/sc2-assets-ui]
+    paths: ['tools/probe-assets.mjs', '.github/workflows/asset-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect public source catalogs and model headers
+        run: node tools/probe-assets.mjs
+      - name: Capture UI reference when Chrome is available
+        continue-on-error: true
+        run: |
+          if command -v google-chrome >/dev/null; then
+            timeout 50s google-chrome --headless --no-sandbox --disable-gpu --hide-scrollbars --window-size=1440,960 --timeout=25000 --screenshot="$PWD/reports/local/reference.png" https://starcraft-shooter-2026.pages.dev/ 2>reports/local/reference-browser.log
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: asset-audit-report
+          path: reports/local/
+          retention-days: 7
