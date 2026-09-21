@@ -35,6 +35,7 @@ npm run build
 
 ## 已实现规则
 
+- 正式第一关只从 **1 名 Rank 1 Marine** 开始；后续兵力通过生产与降落仓救援获得。多人压力测试阵容只用于显式诊断场景。
 - Marine、Hellion、Siege Tank、Medivac 对抗 Zergling、Roach、Baneling、Ravager；每兵种最多 5 名，每名 Rank 1–5，死亡后身份不复活。
 - 独立 HP、护甲、射程、攻击周期、目标、朝向和速度；Marine 停下开火再跟随，Hellion 有限转向与直线穿透，坦克自动架起/收起和溅射，Medivac 连续治疗合法生物单位并消耗能量。Baneling 真实 AOE，Ravager 落点预警与延迟伤害。
 - 固定 60 Hz 模拟，速度不同的编队槽、历史路径、空间哈希与局部避让；soft/hard leash 和有限追赶，不瞬移重排。
@@ -46,7 +47,7 @@ npm run build
 
 单位基础数据固定为 **LotV 5.0.15**，取自 [SC2Data 导出快照 fbbd6429](https://github.com/Joshua-Leibold/SC2Data/tree/fbbd6429b1eb6978c78a092dc68ba09029d03171)，没有混用不同版本的多人层。它是社区托管的游戏 XML 导出，不是本机当前客户端实测。Normal 数据秒转换为 Faster 时间：持续时间 / 1.4，移动、治疗与恢复速率 × 1.4。来源字段、继承顺序和适配项见 [DATA_SOURCES.md](docs/DATA_SOURCES.md)。
 
-`src/data/sc2-units.ts` 是单位数据唯一入口；`src/data/game.ts` 单独记录试验性的波次、队伍、军衔、地图和救援数值。架构见 [ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+`src/data/sc2-units.ts` 是单位数据唯一入口；`src/data/game.ts` 记录已确定的单枪兵开局，以及试验性的波次、军衔、地图和救援数值。架构见 [ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
 实际取得并在浏览器解析了 **8/8 战斗 GLB、23/23 图标**，另外有原 Hatchery 用作虫巢目标。素材索引来自 [Asset Explorer](https://github.com/sc2-arcade-watcher/asset-explorer)。本轮下载成功，V2 中的 403 是历史记录。
 
@@ -58,7 +59,7 @@ npm run build
 
 ## 验证与限制
 
-`npm test` 当前 121 项通过。`npm run build` 通过，包含 TypeScript 检查、Vite 和离线 IIFE 打包。`node tools/qa-effects.mjs` 专门验证移动、射击、受击、死亡回收、坦克模式、动画暂停和离线资源。浏览器验证区分正常玩法观察、开发诊断场景、手机尺寸模拟和真实手机；详见 [QA.md](docs/QA.md)。
+`npm test` 当前 122 项通过，包含不传测试阵容的正式单枪兵开局检查。`npm run build` 通过，包含 TypeScript 检查、Vite 和离线 IIFE 打包。开发版与断网 HTML 在桌面、390×844 和 844×390 中均验证开局、移动与重新加载后只有 1 名 Rank 1 Marine。`node tools/qa-effects.mjs` 专门验证移动、射击、受击、死亡回收、坦克模式、动画暂停和离线资源。浏览器验证区分正常玩法观察、开发诊断场景、手机尺寸模拟和真实手机；详见 [QA.md](docs/QA.md)。
 
 本地开发服务启动后可执行 `npm run test:browser`。脚本默认使用 Windows Chrome；其他安装位置通过 `SC2_CHROME` 指定。`node tools/play-stage.mjs` 记录正常首关，设置 `SC2_PLAY_CONTINUOUS=1` 可观察连续机动策略。两种策略的输赢都不会自动触发平衡改动。
 

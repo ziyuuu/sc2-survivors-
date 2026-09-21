@@ -8,6 +8,14 @@ import {SpatialHash} from '../src/simulation/movement/spatial-hash.ts';
 import {locomote,blocked} from '../src/simulation/movement/steering.ts';
 const world=(initial:any=['marine'])=>{const w=new World({waves:false,obstacles:[],initial});w.start();return w;};
 const close=(a:number,b:number,eps=1e-5)=>assert.ok(Math.abs(a-b)<eps,`${a} != ${b}`);
+test('a normal new run starts with exactly one Rank-1 Marine, without a fixture override',()=>{
+ const w=new World();
+ const roster=()=>w.allies().map(u=>({id:u.id,type:u.unitType,rank:u.rank,hp:u.hp}));
+ assert.equal(w.phase,'menu');assert.equal(w.stage,1);
+ assert.deepEqual(roster(),[{id:w.allies()[0].id,type:'marine',rank:1,hp:45}]);
+ const initial=roster();w.start();w.advance(1);
+ assert.equal(w.phase,'battle');assert.equal(w.stage,1);assert.deepEqual(roster(),initial);
+});
 test('fixed profile has exactly the requested eight units',()=>{assert.equal(Object.keys(SC2_UNITS).length,8);assert.equal(SC2_UNITS.tank.maxHp,175);close(SC2_UNITS.marine.movementSpeed,3.15);close(SC2_UNITS.baneling.attackDamage,16);});
 test('armor and independent HP never redirect death to another soldier',()=>{const w=world(['marine','marine']);const [a,b]=w.allies();a.rank=5;a.hp=2;w.hit(a,6);assert.equal(a.hp,0);assert.equal(b.hp,45);const roach=w.addUnit('roach','zerg',1,0);w.hit(roach,6);assert.equal(roach.hp,140);});
 test('Marine fire has a damage point and weapon cooldown',()=>{const w=world();const m=w.allies()[0],e=w.addUnit('roach','zerg',3,0);e.hp=e.maxHp=100000;e.weaponDamage=0;e.moveSpeed=0;m.facing=Math.PI/2;m.moveSpeed=0;w.step();assert.equal(e.hp,100000);assert.ok(m.windup>0);w.advance(.1);assert.equal(e.hp,99995);const hp=e.hp;w.advance(.3);assert.equal(e.hp,hp);w.advance(.4);assert.ok(e.hp<hp);});

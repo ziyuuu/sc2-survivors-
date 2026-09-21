@@ -1,6 +1,7 @@
 # Development contract
 
 - Preserve the agreed roster: Marine, Hellion, Siege Tank, Medivac versus Zergling, Roach, Baneling, Ravager. Do not expand it without a user request.
+- A normal new run starts Stage 1 with exactly one Rank-1 Marine. Larger diagnostic squads must use explicit test overrides, never the shared default or the friend demo.
 - Keep 12 rounds of 60 simulation seconds. Paused menus never advance battle, production, or rescue clocks.
 - Use individual HP, armor, target layers, ranges, weapon periods and biological healing. A unit dies when its own HP reaches zero; no remote lowest-rank substitute death.
 - Every paid production completion emits exactly one drop-pod event. Pod attack and the 30-second deadline begin on landing, not on player proximity. Destroyed/expired pods never grant units.

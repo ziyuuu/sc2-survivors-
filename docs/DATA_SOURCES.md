@@ -24,7 +24,7 @@ Training: Marine 25/1.4, Hellion 30/1.4, Tank 45/1.4, Medivac 42/1.4. Zerg field
 
 ## Explicit Survivors adaptations
 
-`src/data/game.ts` separately owns experimental initial squad (4 Marines, 1 Hellion, 1 Tank, 1 Medivac), resources, finite steering, anchor speed, leash, ranks, waves, pickup yields and pod HP/armor. Player cap remains 5 per type, 20 total; a 25-friendly performance scenario is diagnostic only.
+`src/data/game.ts` fixes the user-confirmed opening to one Rank-1 Marine. The earlier V3 default of four Marines, one Hellion, one Tank and one Medivac was an implementation mistake, corrected after user review; it was not an approved starting roster. This file separately owns experimental resources, finite steering, anchor speed, leash, ranks, waves, pickup yields and pod HP/armor. Player cap remains 5 per type, 20 total; larger test squads must use explicit overrides and a 25-friendly performance scenario is diagnostic only.
 
 Buildings are paid remote production support, with construction clocks. Worker, supply and tech-lab systems are omitted. Basic siege is available from start as in LotV; Siege Logistics is an experimental morph-time upgrade. Rank HP/damage, stage speed modifiers and Medivac energy upgrade are experimental.
 
