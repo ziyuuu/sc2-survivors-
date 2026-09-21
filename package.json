@@ -20,7 +20,8 @@
     "assets:fetch": "node tools/sync-assets.mjs",
     "assets:prepare": "node tools/prepare-assets.mjs",
     "assets:download": "node tools/download-runtime.mjs",
-    "assets:animate": "node tools/import-m3-pack.mjs && node tools/import-terrain.mjs && node tools/prepare-assets.mjs"
+    "assets:animate": "node tools/import-m3-pack.mjs && node tools/import-terrain.mjs && node tools/prepare-assets.mjs",
+    "assets:originals": "pwsh -NoProfile -File tools/fetch-sc2-casc.ps1"
   },
   "dependencies": {
     "meshoptimizer": "1.2.0",

@@ -1,4 +1,5 @@
 /** Local-only M3 -> animated GLB / DDS -> PNG. No image upload or archive download. */
+import {cascProvenance} from './casc-provenance.mjs';
 import {replacedBySelection} from './asset-selection.mjs';
 import {fetchBinary} from './fetch-binary.mjs';
 import fs from 'node:fs/promises';
@@ -34,7 +35,7 @@ const selected=new Set(process.argv.slice(2)),matches=id=>!selected.size||select
 let previous={manifest:[],failures:[]};if(selected.size){try{previous=JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8'));}catch{}}
 const manifest=previous.manifest.filter(a=>!replacedBySelection(a.id,selected)),failures=previous.failures.filter(a=>!replacedBySelection(a.id,selected));
 function checkM3(b){if(b.length<24||!['43DM','33DM'].includes(b.subarray(0,4).toString()))throw Error('Invalid M3 magic/header');const index=b.readUInt32LE(4),count=b.readUInt32LE(8);if(index>=b.length||count===0||index+count*16>b.length)throw Error('Invalid M3 section table');}
-async function m3(name){const file=`${privateDir}/${name}.m3`,url=provider+`models/${name}.m3`;const bytes=await get(url,file,checkM3);return {sections:await parser.loadM3FromFile(file),source:url,sourceSha256:sha(bytes)};}
+async function m3(name){const file=`${privateDir}/${name}.m3`,url=provider+`models/${name}.m3`;const bytes=await get(url,file,checkM3);return {sections:await parser.loadM3FromFile(file),source:url,sourceSha256:sha(bytes),...cascProvenance(file,bytes)};}
 const textureCache=new Map();
 async function png(name,options={}){
  name=path.basename(name.replaceAll('\\','/')).toLowerCase();if(!/^[a-z0-9_. -]+\.dds$/.test(name))throw Error('Unsafe DDS name');
@@ -110,7 +111,7 @@ for(const [effectId,name] of M3_EFFECTS.filter(([id])=>matches(id))){try{
   if(!texture)continue;const p=particles.find(p=>(refs[p.material_reference_index]?.material_index??p.material_reference_index)===i);
   let bytes;try{bytes=await png(texture);}catch(e){failures.push({id:effectId+'.'+i,name:texture,error:e.message});continue;}const id=effectId+'.'+i,packedFile=`public/assets/effects/${id}.png`;await fs.writeFile(packedFile,bytes);
   const columns=Math.max(1,p?.uv_flipbook_cols??1),rows=Math.max(1,p?.uv_flipbook_rows??1),startFrame=p?.uv_flipbook_start_init_index??0,endFrame=Math.min(columns*rows-1,Math.max(startFrame,p?.uv_flipbook_start_stop_index??0,p?.uv_flipbook_end_init_index??0));
-  manifest.push({id,kind:'effect-texture',packedFile,required:false,...provenance,textureSource:provider+'textures/'+texture.toLowerCase(),sha256:sha(bytes),sprite:{columns,rows,startFrame,endFrame},particle:{life:p?.lifespan?.default,size:p?.size?.default,colors:[p?.color_init?.default,p?.color_mid?.default,p?.color_end?.default]}});
+  manifest.push({id,kind:'effect-texture',packedFile,required:false,...provenance,textureSource:provider+'textures/'+texture.toLowerCase(),textureProvenance:cascProvenance('assets/private/dds/'+texture.toLowerCase()),sha256:sha(bytes),sprite:{columns,rows,startFrame,endFrame},particle:{life:p?.lifespan?.default,size:p?{x:p.size?.default?.x,y:p.size?.default?.y,z:p.size?.default?.z}:undefined,colors:[p?.color_init?.default,p?.color_mid?.default,p?.color_end?.default].map(c=>c?{r:c.r,g:c.g,b:c.b,a:c.a}:null)}});
  }
  console.log(`${effectId}: extracted original effect textures`);
 }catch(e){failures.push({id:effectId,name,error:e.message});console.error(effectId,e.message);}}

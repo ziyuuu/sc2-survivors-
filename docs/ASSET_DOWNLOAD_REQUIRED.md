@@ -1,16 +1,28 @@
 # 原素材获取与手工交接
 
-2026-09-21 本地实际检查：8/8 战斗模型、8/8 独立死亡模型、两种坦克形态、原降落仓、SCV、Drone、虫卵、两种地形装饰均已导入；23 个图标、30 张效果贴图、8 张原地表／崖壁纹理可用。必需资源无缺失。结构/运行加载通过不等于人工视觉验收。
+2026-09-21 V6：此前缺少的 **10 个声音与 2 项武器源文件全部补齐**。原始字节来自暴雪公开 SC2 CASC 包，固定为 5.0.16.97563（B97563）；游戏基础数值仍为独立锁定的 5.0.15，未改波次或经济。
 
-模型、材质与精确公开来源记录在 tools/m3-catalog.mjs、assets/private/m3-pack.json；地表见 tools/import-terrain.mjs、assets/private/terrain-pack.json。后两个报告仅保存在本机。
+当前清单没有待用户补交的声音／武器文件。字体仍采用已约定的系统回退；完整 SC2 粒子、折射、材质参数动画及部分死亡变体的逐帧对照仍属渲染边界，见 [ANIMATION_EFFECTS.md](ANIMATION_EFFECTS.md)。
 
-## 尚缺的原声音
+## 可复现下载
 
-素材公开服务器根目录没有声音目录；Fandom 原文件页受到 403/连接失败限制；公开 GitHub 精确文件检索没有取得有效原文件。不绕过限制，不把合成提示音称为原版。SCV 获救后的亮相动作和单次播放接口已接好，但原亮相语音尚未实际播放。
+```powershell
+python -m pip install --target .cache/audio-python -r tools/audio-requirements.txt
+npm run assets:originals
+node tools/import-m3-pack.mjs fx.muzzle fx.flame
+npm run assets:prepare
+npm run build
+```
 
-下列源路径来自锁定的 [SC2 SoundData 快照](https://github.com/Joshua-Leibold/SC2Data/tree/fbbd6429b1eb6978c78a092dc68ba09029d03171)。可用本地 SC2 编辑器 [导出资源](https://s2editor-guides.readthedocs.io/New_Tutorials/07_Lessons/083_Export_Game_Assets/)；SCV 的 [原文件页](https://starcraft.fandom.com/wiki/File:SCV_Ready00.ogg) 也列在此，不编造可用下载链接。
+下载脚本：[fetch-sc2-casc.ps1](../tools/fetch-sc2-casc.ps1)。[版本锁](../tools/sc2-casc-lock.json)固定 BuildConfig/CDNConfig；[精确文件清单](../tools/sc2-casc-targets.json)保存游戏包路径、原文件大小、SHA-256 和放置位置。`-Refetch` 已实际重新获取并验证全部 12 项。只下载索引和指定文件，不需要完整客户端、不使用登录信息。CASC 原包约 78 MB 索引缓存位于 `.cache/casc-data`。
 
-| 稳定 ID | 精确游戏内源路径 | 本地放置路径 |
+9 个 WAV 原编码为 IMA ADPCM，Chrome 无法直接播放。下载后在本机转换为 PCM16，保留采样率、单／双声道与全部解码样本，并与再次读取的 PCM 逐样本比较。SCV 使用原简体中文 Ogg，不重配音、不剪切。原包保存在 `assets/private/casc`，不会被 PCM 覆盖。
+
+## 精确文件与位置
+
+以下短路径均位于 `mods/liberty.sc2mod/base.sc2assets/`，SCV 语音则位于 `mods/liberty.sc2mod/zhcn.sc2assets/`。
+
+| 稳定 ID | 原包内文件路径 | 运行／转换输入位置 |
 |---|---|---|
 | audio.sc2.scv.ready | `LocalizedData/Sounds/TerranUnitVO/SCV/SCV_Ready00.ogg` | `public/assets/audio/sc2/SCV_Ready00.ogg` |
 | audio.sc2.marine.attack | `Assets/Sounds/Terran/Marine/Marine_AttackLaunch0.wav` | `public/assets/audio/sc2/Marine_AttackLaunch0.wav` |
@@ -22,27 +34,9 @@
 | audio.sc2.roach.attack | `Assets/Sounds/Zerg/Roach/Roach_AttackLaunchRanged0.wav` | `public/assets/audio/sc2/Roach_AttackLaunchRanged0.wav` |
 | audio.sc2.ravager.attack | `Assets/Sounds/Ravager_Vox_Attack_Comp01.wav` | `public/assets/audio/sc2/Ravager_Vox_Attack_Comp01.wav` |
 | audio.sc2.marine.death | `Assets/Sounds/Marine_Death_Bodyfall_A_01.wav` | `public/assets/audio/sc2/Marine_Death_Bodyfall_A_01.wav` |
+| source.fx.muzzle.fireball | `Assets/Textures/fireball_1hot.dds` | `assets/private/dds/fireball_1hot.dds` |
+| source.fx.flame | `Assets/Effects/Terran/HellionBeam/HellionBeam.m3` | `assets/private/m3/hellionbeam.m3` |
 
-放好后运行 npm run assets:prepare / npm run build，验证 RIFF/WAVE 或 OggS 后自动引用，无需改游戏代码。
+若未来 CDN 不可达，仍可使用 SC2 编辑器导出同路径原文件并放入表中位置；声音经 `npm run assets:prepare` 本地转换，效果经上述定向导入，无需改游戏代码。导入必须通过文件头／内容校验，不能使用下载错误页面。
 
-## 枪口粒子缺少一层
-
-MarineWeaponLaunch 原引用 fireball_1hot.dds 当前 [公开地址](https://dist.sc2arcade.com/star-assets/textures/fireball_1hot.dds) 返回 404。准确放置路径：`assets/private/dds/fireball_1hot.dds`。当前只使用同一个原效果已有的 glow_yellow1 层，没有拿坦克爆炸图冒充它。补齐后执行：
-
-`node tools/import-m3-pack.mjs fx.muzzle`
-
-`npm run assets:prepare`
-
-## 字体与动作边界
-
-不下载字体。本地 SC2 Chinese / SC2 Eurostile / SC2 Extended 若存在会被 local() 引用，否则使用系统回退。
-
-原降落仓没有独立开门片段，使用原门骨骼的本地适配；命中闪光、粒子发射、接触阴影与着色器为网页实现。完整说明见 [ANIMATION_EFFECTS.md](ANIMATION_EFFECTS.md)。
-
-## 本轮材质和效果核对
-
-M3 材质转换 v3 已区分实体与透明/叠加层；医疗艇的两片 displacement 网格被排除，不把尚未支持的折射当作机身。队伍色使用原 diffuse alpha 遮罩，副 UV、独立 alpha、双 emissive 层由版本管理内的适配器处理。完整 SC2 粒子、扰动、材质参数动画仍未实现。
-
-恶火 HellionAttackBeam 的精确源是 `Assets/Effects/Terran/HellionBeam/HellionBeam.m3`；[公开请求](https://dist.sc2arcade.com/star-assets/models/hellionbeam.m3) 当前返回 404。手工文件放 `assets/private/m3/hellionbeam.m3`，执行 `node tools/import-m3-pack.mjs fx.flame`。已取得同兵种的 `hellionbeamimpact.m3` 及其火焰贴图，网页的定向发射为适配表现，不能称为原完整 Beam。
-
-marine/hellion/tank 的 Swarm M3A 均已取得且内容仅 Flail；前两者绑定成功，tank 132 个变换 ID 中仅 126 个匹配当前 tankex1 主骨架，因此整个附加动作拒绝导入。正常移动、攻击与变形使用主模型原动作，不用 Flail 替代。动作来源、材质分类、未支持 UV 和导入校验保存在 `assets/private/m3-pack.json`。运行加载和骨骼绑定验证并非人工视觉通过。
+模型仍使用原 M3 主动作；已下载 M3A 仅含 Flail，坦克补充动作绑定不完整时仍拒绝使用。原仓门是已标注的骨骼适配，不把死亡动作当开门。结构、浏览器播放与人工视觉／听审是独立验收；本轮没有声称已通过人工同场景对照。

@@ -50,7 +50,7 @@ Hellion/Medivac 使用已取得的同单位较早死亡包，Baneling 使用 rup
 - 原始动作在载入时由 AnimationMixer 采样为共享骨矩阵纹理；每单位用自己的模拟时间、移动距离、攻击停顿与模式进度播放，GPU 插值、InstancedMesh 批量绘制。暂停不推进动作。8 个单位使用原骨骼，不再走旧程序步态分支。
 - 8/8 独立死亡模型播放原动作；模拟实体在 1.5 秒后回收时，渲染副本允许播完剩余动作（最多 5 秒，随后短暂消退），不复活、不参与碰撞或寻敌。
 - 命中由真实扣血通知触发：生物血花、机械火花、短暂材质闪光。不把受击闪光描述为原生 `Hit` 骨骼动作，也不增加硬直。原包普遍没有单独受击动画。
-- 已从 MarineWeaponImpact、BloodTargetImpact、SiegeTankWeaponImpact、RoachMissileImpactEx1、Ravager_Artillery_Missile_Impact、BanelingDeath_Low 提取 **30 张原特效贴图**。保留 M3 flipbook 行列与帧区间。移动尘土、枪口亮光、火焰、酸液、爆炸的发射与时间组合为网页适配；未声称完整还原 SC2 的粒子、材质、灯光、物理碎片和 Actor 系统。
+- 已从 MarineWeaponImpact、BloodTargetImpact、SiegeTankWeaponImpact、RoachMissileImpactEx1、Ravager_Artillery_Missile_Impact、BanelingDeath_Low 提取 **33 张原特效贴图**。保留 M3 flipbook 行列与帧区间。移动尘土、枪口亮光、火焰、酸液、爆炸的发射与时间组合为网页适配；未声称完整还原 SC2 的粒子、材质、灯光、物理碎片和 Actor 系统。
 - 前一轮对 34 张颜色/效果 DDS 的 Node 解码结果与本地 Pillow 逐像素比较一致；新增材质沿用该解码器。另以自动化测试验证 SC2 法线通道重建、单位向量和 alpha 发光遮罩；不把旧 34 张对照报告冒充新素材逐像素复核。
 - 朋友 HTML 必须带齐 8 个动画单位、8 个死亡模型和两个坦克模式包，否则打包失败。开发环境仍可继续规则调试，但会明确显示原始动画缺失。
 
@@ -106,3 +106,13 @@ Hellion/Medivac 使用已取得的同单位较早死亡包，Baneling 使用 rup
 降落仓子网格关闭失效的动画包围范围裁剪，仍按落点进行场景筛选；4 种载荷的下落、落地、开门、被毁检查与截帧保存在 `reports/local/qa-v5-assets/PODS.json` 和同目录 PNG。标签同时包含原兵种图标、名称、编号、HP 和动态新增／晋升用途。原门骨骼适配仍需人工对照观感。
 
 地图新增原 Char 崖壁 diffuse / normal / emissive 三张 DDS，两层高度 0 / 3 和 4×6 坡道由共享数据生成真实网格。地面经坡道，近战不能隔崖，远程检查中间高度，飞行层独立。平地采用保守包围区域提前判定，边缘保留足迹与坡度逐点检测，不改变通行规则。
+
+## V6 补充源文件与原声音
+
+此前缺失的 10 个声音、Fireball_1Hot.dds 和 HellionBeam.m3 已从暴雪公开 CASC 包取得。版本/构建配置锁在 `tools/sc2-casc-lock.json`，精确包路径和 SHA-256 锁在 `tools/sc2-casc-targets.json`，可运行 `npm run assets:originals` 复现。工具由固定 [CASCLib 源码](https://github.com/WoW-Tools/CascLib/tree/3f8be478177802de4ae7ebae24fb25ab860ef104) 在本机编译；HTTPS、精确文件筛选和路径日志修补在 `tools/patch-casc-source.py`，重新取得源码不会丢失修复。该次声音/效果包为 5.0.16.97563，模拟的 5.0.15 基础数值没有变更。
+
+Marine 增加原 Fireball 层，保留 GlowYellow 短促亮光；Hellion 使用原 HellionBeam 的 Flame2 8×4 图集（9–17 帧）和 GlowOrange，从实际武器挂点发射。没有通用激光线。原材质贴图与帧区间已取得，但发射、尺寸、透明混合及网页时序仍为渲染适配，不称为完整原版粒子运行时。
+
+SCV 使用 zhCN 的 SCV_Ready00.ogg。其余 9 个 WAV 原文件是 IMA ADPCM，Chrome 实测不能直接解码；使用本地 libsndfile 解码为 PCM16，保持采样率、声道和全部样本。`assets/private/audio-conversion.json` 记录原/输出哈希、采样数、峰值、解码器版本与样本完全一致的复核。游戏只有播放表现，伤害/冷却/治疗仍由模拟处理。
+
+浏览器实际验证 10/10 解码，七种攻击声、枪兵死亡、SCV 仅一次亮相、治疗循环与暂停停止。断网 file:// 同样解码全部声音。录音听审及与原客户端同场景的人工视听对照尚未完成；不把 WebAudio 开始播放作为人工听审。
