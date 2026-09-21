@@ -1,6 +1,7 @@
 import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,BILE,type UnitType,type TerranType,type ZergType} from '../data/sc2-units';
 import {BUILDINGS,OBSTACLES,STAGES,TUNING,FORMATION,type BuildingType,type Obstacle} from '../data/game';
 import {spend,applyWeaponHit,healBiological} from './rules.mjs';
+import {resolveContacts} from './movement/contacts';
 import {SpatialHash} from './movement/spatial-hash';
 import {distance,angleDelta,turn,translate,locomote,steerGoal,clearLine,blocked} from './movement/steering';
 import {drawRewards,eligibleReward} from './progression/rewards';
@@ -15,7 +16,7 @@ export class World {
  trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];hash=new SpatialHash<Body>();
  visualEvents:VisualEvent[]=[];private visualSerial=0;
  rewards:Reward[]=[];rewardClaimed=false;rerolls=0;nextWave=Infinity;wave=0;stageWave=0;nextId=1;nextJob=1;
- dashUntil=0;dashReady=0;hive:Body|null=null;maxStretch=0;distancePairs=0;
+ dashUntil=0;dashReady=0;hive:Body|null=null;maxStretch=0;distancePairs=0;collisionContacts=0;
  stats={kills:0,rescued:0,failed:0,produced:0,started:0,shots:0,healed:0,damage:0,scvsRescued:0,scvsLost:0,dronesKilled:0,ambientSpawned:0};
  difficulty:Difficulty='normal';scvs=0;economicTargets=new Map<number,EconomicTarget>();
  anchorMovingFor=0;anchorStoppedFor=0;
@@ -125,7 +126,7 @@ export class World {
     s+=b.hp/Math.max(1,b.maxHp)*1.5;if(b.id===u.attackTarget)s-=.8;if(this.economicTargets.has(b.id))s+=100;}
    if(u.guardianPod&&b.id===u.guardianPod)s-=u.id%3===0?0:8;
    if(s<score){score=s;best=b;}
-  });return best;
+  },u.owner==='terran'?'zerg':'terran');return best;
  }
  hit(target:Body,damage:number,bonuses:{attribute:string;amount:number}[]=[],hits=1,sourceOwner:'terran'|'zerg'='terran'){
   const before=target.hp;applyWeaponHit(target,{damage,bonuses,hits,minimumDamage:.5});this.stats.damage+=before-target.hp;
@@ -165,7 +166,7 @@ export class World {
   return false;
  }
  heal(u:Entity,dt:number){u.energy=Math.min(HEAL.maxEnergy,u.energy+HEAL.regen*dt*(this.upgrades.has('medivac')?2:1));u.healTarget=null;
-  let best:Entity|undefined;this.hash.query(u,14,b=>{if(b.owner==='terran'&&b.hp>0&&b.hp<b.maxHp&&b.attributes.includes('Biological')){const e=this.entities.get(b.id);if(e&&(!best||e.hp/e.maxHp<best.hp/best.maxHp))best=e;}});
+  let best:Entity|undefined;this.hash.query(u,14,b=>{if(b.owner==='terran'&&b.hp>0&&b.hp<b.maxHp&&b.attributes.includes('Biological')){const e=this.entities.get(b.id);if(e&&(!best||e.hp/e.maxHp<best.hp/best.maxHp))best=e;}},'terran');
   if(best&&u.energy>0){const healed=healBiological(u,best,HEAL,dt,this.edgeDistance(u,best));if(healed>0){u.healTarget=best.id;u.action='heal';this.stats.healed+=healed;}return best;}return undefined;
  }
  updateBile(u:Entity,dt:number){u.bileCooldown-=dt;if(u.bileCooldown>0)return;const target=this.findTarget(u,BILE.range);
@@ -181,7 +182,7 @@ export class World {
   const back=formation.back+(u.unitType==='marine'?Math.floor(u.slot/2):u.slot)*formation.spacing;
   return {x:this.anchor.x-Math.sin(this.anchor.facing)*back+Math.cos(this.anchor.facing)*lane,z:this.anchor.z-Math.cos(this.anchor.facing)*back-Math.sin(this.anchor.facing)*lane};
  }
- separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(b.id===u.id||b.flying!==u.flying||n>=12)return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min){const strength=Math.min(3,(min-d)*5);if(d>.001){v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;}else{const a=(Math.min(u.id,b.id)*7+Math.max(u.id,b.id)*13)*2.399,sign=u.id<b.id?1:-1;v.x+=Math.sin(a)*strength*sign;v.z+=Math.cos(a)*strength*sign;}n++;}});return v;}
+ separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(n>=12)return false;if(b.id===u.id||b.flying!==u.flying)return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min){const strength=Math.min(3,(min-d)*5);if(d>.001){v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;}else{const a=(Math.min(u.id,b.id)*7+Math.max(u.id,b.id)*13)*2.399,sign=u.id<b.id?1:-1;v.x+=Math.sin(a)*strength*sign;v.z+=Math.cos(a)*strength*sign;}n++;}});return v;}
  updateUnit(u:Entity,dt:number){if(u.hp<=0)return;u.prev={x:u.x,z:u.z};u.healTarget=null;
   u.weaponCooldown=Math.max(0,u.weaponCooldown-dt);u.attackLock=Math.max(0,u.attackLock-dt);
   const anchorDistance=distance(u,this.anchor);
@@ -262,6 +263,7 @@ export class World {
   if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.ambientBacklog.length)this.releaseAmbient();
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active')];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);
   for(const u of this.entities.values())this.updateUnit(u,dt);
+  this.collisionContacts=resolveContacts(this.entities.values(),this.hash,this.obstacles,this.mapHalf,dt,this.hive);
   for(const fx of this.effects){if(fx.kind==='bile'&&fx.until<=this.time){this.visual('bile-impact',{...fx.end,id:fx.source,hp:0,maxHp:0,armor:0,flying:false,unitRadius:0,owner:'zerg',attributes:[]});this.hash.query(fx.end,3,b=>{if(b.hp>0&&distance(b,fx.end)<=BILE.radius+b.unitRadius)this.hit(b,BILE.damage+b.armor,[],1,'zerg');});}}
   this.effects=this.effects.filter(f=>f.until>this.time);
   this.updatePods();

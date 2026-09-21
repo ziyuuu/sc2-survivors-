@@ -23,6 +23,7 @@
     "assets:animate": "node tools/import-m3-pack.mjs && node tools/import-terrain.mjs && node tools/prepare-assets.mjs"
   },
   "dependencies": {
+    "meshoptimizer": "1.2.0",
     "three": "0.186.0"
   },
   "devDependencies": {

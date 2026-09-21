@@ -34,3 +34,13 @@ test('GPU atlas retains animated bone translation; rendering and pause do not ad
  const data=Array.from(texture.image.data as Uint16Array,THREE.DataUtils.fromHalfFloat),p=batch.pose('move')!;assert.equal(data[p.offset*16+12],0);assert.equal(data[(p.offset+p.frames-1)*16+12],2);assert.ok(data.every(Number.isFinite));
  batch.begin();batch.end();assert.equal(batch.meshes[0].visible,false,'empty effects/death batches do not issue draw calls');
 });
+
+test('LOD reuses original skinned vertices and restores full-detail indices',async()=>{
+ const {MeshoptSimplifier}=await import('meshoptimizer');await MeshoptSimplifier.ready;
+ const root=new THREE.Group(),bone=new THREE.Bone();bone.name='Root';root.add(bone);
+ const g=new THREE.SphereGeometry(1,18,12),count=g.attributes.position.count;
+ g.setAttribute('skinIndex',new THREE.Uint16BufferAttribute(new Array(count*4).fill(0),4));const skin=new Float32Array(count*4);for(let i=0;i<count;i++)skin[i*4]=1;g.setAttribute('skinWeight',new THREE.BufferAttribute(skin,4));
+ const mesh=new THREE.SkinnedMesh(g,new THREE.MeshStandardMaterial());root.add(mesh);root.updateMatrixWorld(true);mesh.bind(new THREE.Skeleton([bone]));const clip=new THREE.AnimationClip('Stand',1,[new THREE.VectorKeyframeTrack('Root.position',[0,1],[0,0,0,0,0,0])]);
+ const batch=new AnimatedBatch({scene:root,animations:[clip]} as unknown as GLTF,new THREE.Scene(),1),geo=batch.meshes[0].geometry,full=geo.getIndex()!.count,position=geo.getAttribute('position'),weights=geo.getAttribute('skinWeight'),uv=geo.getAttribute('uv');
+ batch.setLod(true);assert.ok(geo.getIndex()!.count<full);assert.equal(geo.getAttribute('position'),position);assert.equal(geo.getAttribute('skinWeight'),weights);assert.equal(geo.getAttribute('uv'),uv);assert.ok([...geo.getIndex()!.array].every(i=>i<count));batch.setLod(false);assert.equal(geo.getIndex()!.count,full);
+});

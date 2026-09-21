@@ -24,3 +24,5 @@
 - Report headless tests, numeric studies, DOM QA, simulated mobile load, real-phone performance and human visual approval separately. Never call a budget model a completed 12-stage playthrough.
 
 - Easy and Normal are the only current difficulties. Encounter budgets are stage-defined, never adjusted to surviving army strength. SCV eggs alone have a 30-second deadline starting at creation; rescue adds gathering once, shows the SCV, plays a voice and removes the visual actor. Drone is a high-yield economic target.
+
+- User clarification: Normal is evaluated first by theoretical feasibility under reasonable economy/build assumptions, then control/play evidence. Do not use automated-controller victory as a Normal acceptance gate or add safety nets solely to make bots win. Keep analytical budgets explicitly conditional. Ground bodies must physically collide using their radii; air layers are separate, with bounded corrections and no teleport.

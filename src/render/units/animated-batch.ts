@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {MeshoptSimplifier} from 'meshoptimizer';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import {mapAnimations} from '../loaders/animations';
 
@@ -14,6 +15,7 @@ export class AnimatedBatch {
  meshes:THREE.InstancedMesh[]=[];attributes:THREE.InstancedBufferAttribute[]=[];
  blendAttributes:THREE.InstancedBufferAttribute[]=[]; weapon=new THREE.Vector3(0,.8,.5);
  clips=new Map<string,PoseClip>();actions:ReturnType<typeof mapAnimations>;
+ private lodIndices:{full:THREE.BufferAttribute;low:THREE.BufferAttribute}[]=[];private lowDetail=false;lodRatio=1;
  count=0;scale:number;normalization:THREE.Matrix4;textureBytes=0;boneCount=0;
  constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4){
   this.actions=mapAnimations(gltf.animations);
@@ -42,6 +44,9 @@ export class AnimatedBatch {
   }
   mixer.stopAllAction();if(rest){mixer.clipAction(rest).reset().play();mixer.setTime(0);}gltf.scene.updateMatrixWorld(true);
   for(const n of nodes){const geometry=n.geometry.clone(),pose=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitPose',pose);
+   const full=geometry.getIndex();if(full&&geometry.groups.length<=1&&MeshoptSimplifier.supported){const position=geometry.getAttribute('position'),positions=new Float32Array(position.count*3);for(let v=0;v<position.count;v++){positions[v*3]=position.getX(v);positions[v*3+1]=position.getY(v);positions[v*3+2]=position.getZ(v);}
+    const [indices]=MeshoptSimplifier.simplify(new Uint32Array(full.array),positions,3,Math.max(3,Math.floor(full.count*.3/3)*3),.035,['RegularizeLight']);const low=new THREE.BufferAttribute(indices,1);this.lodIndices.push({full,low});this.lodRatio=Math.min(this.lodRatio,indices.length/full.count);
+   }else if(full)this.lodIndices.push({full,low:full});
    const blend=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitBlend',blend);
    const weights=new Float32Array(geometry.attributes.position.count),indices=geometry.getAttribute('skinIndex'),skin=geometry.getAttribute('skinWeight');
    for(let v=0;v<weights.length;v++)for(let k=0;k<4;k++){const bone=n.skeleton.bones[indices.getComponent(v,k)];if(bone&&/spine|shoulder|arm|hand|head|weapon/i.test(bone.name))weights[v]+=skin.getComponent(v,k);}
@@ -71,6 +76,7 @@ export class AnimatedBatch {
   }
   mixer.stopAllAction();mixer.uncacheRoot(gltf.scene);
  }
+ setLod(low:boolean){if(this.lowDetail===low)return;this.lowDetail=low;this.meshes.forEach((mesh,i)=>{const indices=this.lodIndices[i];if(indices){mesh.geometry.setIndex(low?indices.low:indices.full);if(mesh.geometry.groups.length===1)mesh.geometry.groups[0].count=mesh.geometry.getIndex()!.count;}});}
  begin(){this.count=0;}
  pose(action:keyof ReturnType<typeof mapAnimations>){const clip=this.actions[action]??this.actions.idle;return clip?this.clips.get(clip.name):this.clips.values().next().value;}
  add(x:number,y:number,z:number,facing:number,action:keyof ReturnType<typeof mapAnimations>,seconds:number,once=false,hit=0,shrink=1,interpolate=true,attackSeconds=-1){
