@@ -134,7 +134,7 @@ export class BattleRenderer {
   for(const [id] of this.animationStates)if(!world.entities.has(id)){this.animationStates.delete(id);this.hitTimes.delete(id);}
   for(const [id,at] of this.hitTimes)if(world.time-at>.2)this.hitTimes.delete(id);
   for(const b of this.gpu.values())b.end();
-  for(const p of world.pods){let v=this.podViews.get(p.id);if(!v){v=this.createPod();this.podViews.set(p.id,v);}v.position.set(p.x,0,p.z);v.visible=this.visible(p);if(p.status==='rescued'){const door=v.getObjectByName('door');if(door){door.position.z=1+Math.min(1,(world.time-(p.resolvedAt??0))*2);door.rotation.x=-1.2;}}if(p.status==='expired'||p.status==='destroyed'){v.scale.y=.25;}
+  for(const p of world.pods){let v=this.podViews.get(p.id);if(!v){v=this.createPod();this.podViews.set(p.id,v);}v.position.set(p.x,0,p.z);v.visible=this.visible(p);if(p.status==='rescued'){const door=v.getObjectByName('door');if(door){door.position.z=1+Math.min(1,(world.time-(p.resolvedAt??0))*2);door.rotation.x=-1.2;}}if(p.status==='destroyed'){v.scale.y=.25;}
    if(p.status==='active'){health(p,2.7);putRing(p,2.1,0xffa94e);}
   }
   if(world.hive){if(!this.hiveView&&this.hiveTemplate){this.hiveView=clone(this.hiveTemplate);this.scene.add(this.hiveView);}if(this.hiveView){this.hiveView.position.set(world.hive.x,0,world.hive.z);this.hiveView.visible=world.hive.hp>0;}if(world.hive.hp>0)health(world.hive,4);}

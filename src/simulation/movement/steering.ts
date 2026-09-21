@@ -15,13 +15,13 @@ export function steerGoal(a:Point,b:Point,r:number,obstacles:Obstacle[]=OBSTACLE
  }
  return best??b;
 }
-export function translate(body:Point,delta:Point,r:number,flying=false,obstacles=OBSTACLES){
- const nx=Math.max(-TUNING.worldHalf+r,Math.min(TUNING.worldHalf-r,body.x+delta.x));
- const nz=Math.max(-TUNING.worldHalf+r,Math.min(TUNING.worldHalf-r,body.z+delta.z));
+export function translate(body:Point,delta:Point,r:number,flying=false,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf){
+ const nx=Math.max(-worldHalf+r,Math.min(worldHalf-r,body.x+delta.x));
+ const nz=Math.max(-worldHalf+r,Math.min(worldHalf-r,body.z+delta.z));
  if(flying||!blocked({x:nx,z:body.z},r,obstacles))body.x=nx;
  if(flying||!blocked({x:body.x,z:nz},r,obstacles))body.z=nz;
 }
-export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:number,obstacles=OBSTACLES){
+export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:number,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf){
  const d=distance(u,goal);let dx=0,dz=0;
  if(d>.15){dx=(goal.x-u.x)/d*speed;dz=(goal.z-u.z)/d*speed;}
  dx+=separation.x;dz+=separation.z;
@@ -32,7 +32,7 @@ export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:nu
  }
  const acceleration=u.flying?5:15;
  u.velocity.x+=(dx-u.velocity.x)*Math.min(1,acceleration*dt);u.velocity.z+=(dz-u.velocity.z)*Math.min(1,acceleration*dt);
- const before={x:u.x,z:u.z};translate(u,{x:u.velocity.x*dt,z:u.velocity.z*dt},u.unitRadius,u.flying,obstacles);
+ const before={x:u.x,z:u.z};translate(u,{x:u.velocity.x*dt,z:u.velocity.z*dt},u.unitRadius,u.flying,obstacles,worldHalf);
  u.velocity.x=(u.x-before.x)/dt;u.velocity.z=(u.z-before.z)/dt;u.distanceWalked+=distance(before,u);
  u.action=Math.hypot(u.velocity.x,u.velocity.z)>.1?'move':'idle';
 }

@@ -1,12 +1,12 @@
 import {World} from '../../simulation/world';
 export class Input {
  keys=new Set<string>();stick={x:0,z:0};pointer:number|null=null;enabled=true;
- constructor(readonly world:World,readonly joystick:HTMLElement,readonly onPause:()=>void,readonly onProduction:()=>void){
+ constructor(readonly world:World,readonly joystick:HTMLElement,readonly onPause:()=>void){
   const reset=()=>{this.keys.clear();this.release();world.input={x:0,z:0};};
   window.addEventListener('blur',reset);document.addEventListener('visibilitychange',()=>{if(document.hidden)reset();});
   window.addEventListener('keydown',e=>{if(e.target instanceof HTMLInputElement||e.target instanceof HTMLSelectElement)return;const code=e.code;
    if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(code))e.preventDefault();if(e.repeat)return;
-   this.keys.add(code);if(code==='KeyE')world.stim();if(code==='Space')world.dash();if(code==='Escape')onPause();if(code==='KeyB')onProduction();
+   this.keys.add(code);if(code==='KeyE')world.stim();if(code==='Space')world.dash();if(code==='Escape')onPause();
   });window.addEventListener('keyup',e=>this.keys.delete(e.code));
   joystick.addEventListener('contextmenu',e=>e.preventDefault());
   joystick.addEventListener('pointerdown',e=>{if(this.pointer!==null||world.phase!=='battle'||world.paused)return;e.preventDefault();this.pointer=e.pointerId;joystick.setPointerCapture(e.pointerId);this.updateStick(e);});

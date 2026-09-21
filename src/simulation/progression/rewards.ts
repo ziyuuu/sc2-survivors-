@@ -1,37 +1,41 @@
 import {BUILDINGS,type BuildingType} from '../../data/game';
 import {SC2_UNITS,TERRAN,type TerranType} from '../../data/sc2-units';
-import type {Reward} from '../types';
+import {DISCOUNTS} from '../../data/economy';
+import type {Reward,Building} from '../types';
 export const TECHS=[
- ['stim','Stimpack · 兴奋剂','解锁兴奋剂：Marine 消耗 10 HP，攻速与移速提高 50%，持续 11 秒。','tech.stim',100,100],
- ['shield','Combat Shield · 战斗盾牌','Marine 最大生命值 +10。','tech.shield',100,100],
- ['infantry','Infantry Weapons · 步兵武器','Marine 每发伤害 +1，最多三级。','tech.attack',100,100],
- ['vehicle','Vehicle Weapons · 车辆武器','Hellion 与 Tank 武器升级，最多三级。','tech.vehicle',100,100],
- ['infernal','Infernal Pre-Igniter · 地狱火','Hellion 对轻甲额外伤害 +5。','tech.infernal',100,100],
- ['siege','Siege Logistics · 攻城后勤','实验适配：自动架起 / 收起耗时减少 20%。基础攻城模式开局可用。','tech.siege',100,75],
- ['medivac','Medivac Upgrade · 医疗升级','实验适配：能量恢复加倍。','tech.heal',100,100],
- ['discount','Efficient Production · 生产优化','实验适配：后续生产成本降低 15%。','building.barracks',75,50],
+ ['stim','兴奋剂','枪兵消耗 10 HP，攻速与移速提高 50%，持续 11 秒。','tech.stim',150,50],
+ ['shield','战斗盾牌','枪兵最大生命值 +10。','tech.shield',75,25],
+ ['infantry','步兵武器','枪兵每发伤害 +1，最多三级。','tech.attack',125,50],
+ ['vehicle','车辆武器','提升恶火与坦克的武器伤害，最多三级。','tech.vehicle',150,50],
+ ['infernal','地狱火预燃器','恶火对轻甲额外伤害 +5。','tech.infernal',125,75],
+ ['siege','攻城后勤','坦克架起与收起耗时减少 20%。','tech.siege',125,75],
+ ['medivac','医疗升级','医疗艇能量恢复速度加倍。','tech.heal',200,75],
+ ['discount','生产优化','后续自动生产成本降低 15%。','building.barracks',200,75],
 ] as const;
+const offer=(r:Omit<Reward,'discount'|'baseMinerals'|'baseGas'>):Reward=>({...r,discount:0,baseMinerals:r.minerals,baseGas:r.gas});
 export function rewardPool():Reward[]{return [
- ...Object.entries(BUILDINGS).map(([id,b])=>({id:'build.'+id,name:'Build '+b.name,description:`建造后可排队生产。建造 ${Math.ceil(b.time)} 秒；每份生产任务生成一座救援仓。`,icon:'building.'+id,kind:'build' as const,value:id,minerals:b.minerals,gas:b.gas})),
- ...TERRAN.map(id=>{const u=SC2_UNITS[id];return {id:'train.'+id,name:'Queue '+u.name,description:`支付生产费用，${Math.ceil(u.productionTime)} 秒后产生一座 ${u.zh} 救援仓。`,icon:'unit.'+id,kind:'train' as const,value:id,minerals:u.mineralCost,gas:u.gasCost};}),
- ...TECHS.map(([id,name,description,icon,minerals,gas])=>({id:'tech.'+id,name,description,icon,kind:'tech' as const,value:id,minerals,gas})),
- {id:'economy.minerals',name:'Mineral Cache · 矿物补给',description:'获得 150 Minerals，可用于建造、生产与刷新。',icon:'ui.minerals',kind:'economy',value:'minerals',minerals:0,gas:0},
- {id:'economy.gas',name:'Vespene Cache · 瓦斯补给',description:'获得 100 Vespene Gas。',icon:'ui.gas',kind:'economy',value:'gas',minerals:0,gas:0},
- {id:'economy.salvage',name:'Salvage · 战地回收',description:'获得 75 Minerals 与 40 Gas。',icon:'building.factory',kind:'economy',value:'salvage',minerals:0,gas:0},
- {id:'economy.supply',name:'Supply Shipment · 补给运输',description:'获得 100 Minerals 与 25 Gas。',icon:'building.barracks',kind:'economy',value:'supply',minerals:0,gas:0},
+ ...Object.entries(BUILDINGS).map(([id,b])=>offer({id:'build.'+id,name:b.name.split(' · ')[1],description:'建成后自动扣费生产，每份订单投放一个需要救援的降落仓。',icon:'building.'+id,kind:'build',value:id,minerals:b.minerals,gas:b.gas})),
+ ...TERRAN.map(id=>{const u=SC2_UNITS[id];return offer({id:'train.'+id,name:u.zh+'增援',description:'下一关额外投放一个增援仓，清除威胁后归队。',icon:'unit.'+id,kind:'train',value:id,minerals:u.mineralCost,gas:u.gasCost});}),
+ ...TECHS.map(([id,name,description,icon,minerals,gas])=>offer({id:'tech.'+id,name,description,icon,kind:'tech',value:id,minerals,gas})),
+ offer({id:'economy.minerals',name:'矿物补给',description:'获得 100 矿物。',icon:'ui.minerals',kind:'economy',value:'minerals',minerals:25,gas:0}),
+ offer({id:'economy.gas',name:'瓦斯补给',description:'获得 50 瓦斯。',icon:'ui.gas',kind:'economy',value:'gas',minerals:25,gas:0}),
+ offer({id:'economy.salvage',name:'战地回收',description:'获得 75 矿物与 25 瓦斯。',icon:'building.factory',kind:'economy',value:'salvage',minerals:50,gas:0}),
+ offer({id:'economy.supply',name:'补给运输',description:'获得 100 矿物与 25 瓦斯。',icon:'building.barracks',kind:'economy',value:'supply',minerals:75,gas:25}),
  ];}
-export type RewardWorld={wallet:{minerals:number;gas:number};buildings:Map<BuildingType,unknown>;upgrades:Map<string,number>;canTrain:(t:TerranType)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
-export function eligibleReward(w:RewardWorld,r:Reward){
- if(r.kind==='build')return !w.buildings.has(r.value as BuildingType)&&w.wallet.minerals>=r.minerals&&w.wallet.gas>=r.gas;
- if(r.kind==='train')return w.canTrain(r.value as TerranType);
- if(r.kind==='tech')return (w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1)&&w.wallet.minerals>=r.minerals&&w.wallet.gas>=r.gas;
+export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<BuildingType,Building>;upgrades:Map<string,number>;capacity:(t:TerranType)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
+export function unlockedReward(w:RewardWorld,r:Reward){
+ if(r.kind==='build')return !w.buildings.has(r.value as BuildingType)&&w.stage>=(r.value==='factory'?2:r.value==='starport'?3:1);
+ if(r.kind==='train')return w.capacity(r.value as TerranType)&&[...w.buildings.values()].some(b=>b.remaining<=0&&BUILDINGS[b.type].types.includes(r.value as TerranType));
+ if(r.kind==='tech'){const needsFactory=['vehicle','infernal','siege'].includes(r.value),needsStarport=r.value==='medivac';return (!needsFactory||w.buildings.has('factory'))&&(!needsStarport||w.buildings.has('starport'))&&(w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1);}
  return true;
 }
+export function eligibleReward(w:RewardWorld,r:Reward){return unlockedReward(w,r)&&w.wallet.minerals+1e-8>=r.minerals&&w.wallet.gas+1e-8>=r.gas;}
 export function drawRewards(w:RewardWorld,rng:()=>number,previous:string[]=[]){
- const pool=rewardPool().filter(r=>eligibleReward(w,r)).map(r=>r.kind==='train'?{...r,...w.productionCost(r.value as TerranType)}:r);
- const result:Reward[]=[];
- while(result.length<3&&pool.length){result.push(pool.splice(Math.floor(rng()*pool.length),1)[0]);}
- // Guaranteed changed combination even with a deterministic RNG. Four resource fallbacks ensure an alternative.
+ const pool=rewardPool().filter(r=>unlockedReward(w,r));const result:Reward[]=[];
+ while(result.length<3&&pool.length)result.push(pool.splice(Math.floor(rng()*pool.length),1)[0]);
  if(result.length===3&&result.every(r=>previous.includes(r.id))){const alternative=pool.find(r=>!previous.includes(r.id));if(alternative)result[2]=alternative;}
- return result;
+ return result.map(r=>{let price={minerals:r.minerals,gas:r.gas};if(r.kind==='train')price=w.productionCost(r.value as TerranType);
+  const level=w.upgrades.get(r.value)??0;if(r.value==='infantry'&&level>0)price={minerals:level===1?250:350,gas:level===1?75:125};if(r.value==='vehicle'&&level>0)price={minerals:level===1?250:300,gas:level===1?75:100};
+  let n=rng()*100;const d=DISCOUNTS.find(d=>{n-=d.weight;return n<0;})??DISCOUNTS[0];return {...r,discount:d.off,baseMinerals:price.minerals,baseGas:price.gas,minerals:Math.ceil(price.minerals*(1-d.off)),gas:Math.ceil(price.gas*(1-d.off))};
+ });
 }
