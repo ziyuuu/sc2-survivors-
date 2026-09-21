@@ -1,6 +1,6 @@
 # 原始动画与战斗效果
 
-在 V3 原有规则与静态 GLB 管线之上增加，未改变波次、单位数值、攻击停顿、转向、编队或 leash。公开目录的 `models-glb/` 是静态预览；对应 `models/` 中的原始 M3 才保留骨骼、动作和独立死亡资源。
+动画、材质与效果管线建立在 V3 的模拟/渲染分离之上，不修改单位数值、攻击停顿、转向、编队或 leash。波次的单独渐进调整见 DATA_SOURCES.md。公开目录的 `models-glb/` 是静态预览；对应 `models/` 中的原始 M3 才保留骨骼、动作和独立死亡资源。
 
 ## 获取与复现
 
@@ -51,8 +51,18 @@ Hellion/Medivac 使用已取得的同单位较早死亡包，Baneling 使用 rup
 - 8/8 独立死亡模型播放原动作；模拟实体在 1.5 秒后回收时，渲染副本允许播完剩余动作（最多 5 秒，随后短暂消退），不复活、不参与碰撞或寻敌。
 - 命中由真实扣血通知触发：生物血花、机械火花、短暂材质闪光。不把受击闪光描述为原生 `Hit` 骨骼动作，也不增加硬直。原包普遍没有单独受击动画。
 - 已从 MarineWeaponImpact、BloodTargetImpact、SiegeTankWeaponImpact、RoachMissileImpactEx1、Ravager_Artillery_Missile_Impact、BanelingDeath_Low 提取 **24 张原特效贴图**。保留 M3 flipbook 行列与帧区间。移动尘土、枪口亮光、火焰、酸液、爆炸的发射与时间组合为网页适配；未声称完整还原 SC2 的粒子、材质、灯光、物理碎片和 Actor 系统。
-- 34 张 DDS 的 Node 解码结果与本地 Pillow 逐像素比较一致；该对照是额外验证，不是运行依赖。
+- 前一轮对 34 张颜色/效果 DDS 的 Node 解码结果与本地 Pillow 逐像素比较一致；新增材质沿用该解码器。另以自动化测试验证 SC2 法线通道重建、单位向量和 alpha 发光遮罩；不把旧 34 张对照报告冒充新素材逐像素复核。
 - 朋友 HTML 必须带齐 8 个动画单位、8 个死亡模型和两个坦克模式包，否则打包失败。开发环境仍可继续规则调试，但会明确显示原始动画缺失。
+
+## 原始材质与桌面清晰度
+
+原先转换仅导出 Diffuse，且桌面关闭抗锯齿、DPR 上限 1.5。现在按每个 M3 标准材质引用下载对应 DDS，导出 GLB 时内嵌颜色、法线、高光和第一层发光。8/8 战斗模型有原法线与高光，7/8 有原发光层；Marine 的原始 M3 没有发光贴图引用，不人为补造。死亡与坦克形态包也走相同管线。
+
+`tools/m3-materials.mjs` 按 [SC2Mapster/m3addon 格式实现](https://github.com/SC2Mapster/m3addon/blob/master/shared.py#L657)说明的存储方式，将法线 alpha 解码为 X、反向 green 解码为 Y，再重建 Z。颜色层按 M3 的 RGB/A/R/G/B 通道选择处理；例如 Roach 的发光层引用 Specular 文件的 alpha，而不是把整个高光颜色当发光。保留 DDS 最高 mip 的实际尺寸；Marine 颜色贴图仍是原战斗模型的 512×256。
+
+高光使用 glTF `KHR_materials_specular`，粗糙度由原 specularity 近似映射；发光使用 `KHR_materials_emissive_strength`。这属于 Three.js PBR 适配，未复刻 SC2 全部 shader、队伍色、动态 UV 或第二发光层。当前只有一个 Medivac 辅助材质层使用非 UV0，明确记录 unsupported 并跳过；主机体的四类贴图成功导出。导入报告逐材质记录来源、通道、已加载/不支持的层，pipeline version 为 2；朋友版打包校验版本及必需原法线层，旧颜色-only 包需要重新运行 `npm run assets:animate`。
+
+桌面默认随屏幕像素比例渲染，开启抗锯齿与最高 8 倍各向异性过滤（服从 GPU 能力）；手机默认均衡，DPR 上限 1.5 / 4 倍过滤。菜单和暂停页提供清晰、均衡、省电设置；保存在本地，单 HTML 同样可用。材质齐全和像素正确不等于 SC2 客户端画质：地形仍为目录预览 JPG，光照简单，完整阴影/Actor/粒子材质系统仍未复刻，人工视觉验收尚未完成。
 
 ## 原版音效尚缺
 

@@ -31,7 +31,7 @@ npm run build
 
 构建生成 **`dist/SC2-Survivors-Demo.html`**。朋友只需下载这个文件并双击打开；不需要 Node、本地服务器或联网。JavaScript、CSS、模型、贴图、图标、音效与规则数据均内嵌。它和开发版使用同一个 `src/main.ts` 与 Simulation，只在生产构建中移除 F1 / 修改状态的调试 API。
 
-当前文件约 **33.80 MiB**；包含原始动作与独立死亡模型，精确大小和验证记录见 [验收记录](docs/QA.md)。常规 Vite 网站构建也在 `dist/`。单文件包含本地取得的游戏素材，仅用于这里约定的非商业朋友试玩；生成物和资源二进制不提交到公开 Git 仓库。
+当前文件约 **60.74 MiB**；包含原始动作与独立死亡模型，精确大小和验证记录见 [验收记录](docs/QA.md)。常规 Vite 网站构建也在 `dist/`。单文件包含本地取得的游戏素材，仅用于这里约定的非商业朋友试玩；生成物和资源二进制不提交到公开 Git 仓库。
 
 ## 已实现规则
 
@@ -39,7 +39,8 @@ npm run build
 - Marine、Hellion、Siege Tank、Medivac 对抗 Zergling、Roach、Baneling、Ravager；每兵种最多 5 名，每名 Rank 1–5，死亡后身份不复活。
 - 独立 HP、护甲、射程、攻击周期、目标、朝向和速度；Marine 停下开火再跟随，Hellion 有限转向与直线穿透，坦克自动架起/收起和溅射，Medivac 连续治疗合法生物单位并消耗能量。Baneling 真实 AOE，Ravager 落点预警与延迟伤害。
 - 固定 60 Hz 模拟，速度不同的编队槽、历史路径、空间哈希与局部避让；soft/hard leash 和有限追赶，不瞬移重排。
-- Minerals / Gas 用于建筑、排队生产、科技和刷新。每份付费订单产生一个救援仓，落地立即开始 30 秒；20–40 Zergling 加 Roach 及后期 Baneling / Ravager 主动围攻。清理威胁并保住仓体才会出兵，失败不退款。
+- Minerals / Gas 用于建筑、排队生产、科技和刷新。每份付费订单产生一个救援仓，落地立即开始 30 秒。按用户确认的渐进节奏，单枪兵早期救援先有 2 只 Zergling，随兵力与关卡成长再增加到 20–40 只及混合兵种，守军落地时确定。清理威胁并保住仓体才会出兵，失败不退款。
+- 首关第 12 / 38 秒分别出现 1 只 Zergling，留出认识射程、建造与排队的时间；之后增加频率、数量和方向压力。常规波次上限与现有兵力相关，后期仍按原定四种虫族组合升级。
 - 12 × 60 秒；关间暂停，三张不同且可负担的候选，只能选一个；刷新依次支付 50 / 75 / 100… Minerals。第 12 关限时摧毁虫巢。
 - Terran 风格 DOM HUD、生产面板、可滚动三选一、独立指针捕获和多点触控。
 
@@ -55,12 +56,14 @@ npm run build
 
 受击现在有实际扣血触发的血花/火花和材质闪光；枪口、火焰、酸液、爆炸、移动尘土使用原始特效贴图进行网页适配，并非完整复制 SC2 粒子引擎。Char 地面仍使用两张原地形预览 JPG、自制岩壁和通道；原版 Drop Pod 没有准确索引。三个 WAV 仍是本地合成，9 项原声音已在 manifest 标记 missing 并提供导入接口。缺失项与无需改代码的放置路径见 [ASSET_DOWNLOAD_REQUIRED.md](docs/ASSET_DOWNLOAD_REQUIRED.md)。必需模型或动画缺失会阻止朋友版打包；开发版明确提示并允许继续规则调试。
 
+桌面默认使用屏幕像素比例与抗锯齿；菜单和暂停页可选择清晰、均衡、省电，手机默认均衡。原 M3 引用的法线和高光贴图已接入 8/8 战斗模型，7/8 使用原发光贴图（Marine 原包无该层）。保留原始 DDS 最高层分辨率，没有把低分辨率贴图放大后声称高清。当前地形、光照和 PBR 材质适配仍不同于 SC2 客户端。
+
 没有下载或分发字体。`@font-face` 保留本地 SC2 Chinese / Eurostile / Extended 接口，缺失时使用系统字体。StarCraft / StarCraft II 及相关素材、商标属于 Blizzard Entertainment 或相应作者。公开目录可访问不代表已获得再分发许可。
 
 ## 验证与限制
 
-`npm test` 当前 122 项通过，包含不传测试阵容的正式单枪兵开局检查。`npm run build` 通过，包含 TypeScript 检查、Vite 和离线 IIFE 打包。开发版与断网 HTML 在桌面、390×844 和 844×390 中均验证开局、移动与重新加载后只有 1 名 Rank 1 Marine。`node tools/qa-effects.mjs` 专门验证移动、射击、受击、死亡回收、坦克模式、动画暂停和离线资源。浏览器验证区分正常玩法观察、开发诊断场景、手机尺寸模拟和真实手机；详见 [QA.md](docs/QA.md)。
+`npm test` 当前 129 项通过，包含不传测试阵容的正式单枪兵开局检查。`npm run build` 通过，包含 TypeScript 检查、Vite 和离线 IIFE 打包。开发版与断网 HTML 在桌面、390×844 和 844×390 中均验证开局、移动与重新加载后只有 1 名 Rank 1 Marine。`node tools/qa-quality.mjs` 检查实际画布像素、原贴图加载、画质保存、暂停和断网 HTML；`node tools/qa-effects.mjs` 专门验证移动、射击、受击、死亡回收、坦克模式、动画暂停和离线资源。浏览器验证区分正常玩法观察、开发诊断场景、手机尺寸模拟和真实手机；详见 [QA.md](docs/QA.md)。
 
-本地开发服务启动后可执行 `npm run test:browser`。脚本默认使用 Windows Chrome；其他安装位置通过 `SC2_CHROME` 指定。`node tools/play-stage.mjs` 记录正常首关，设置 `SC2_PLAY_CONTINUOUS=1` 可观察连续机动策略。两种策略的输赢都不会自动触发平衡改动。
+本地开发服务启动后可执行 `npm run test:browser`。脚本默认使用 Windows Chrome；其他安装位置通过 `SC2_CHROME` 指定。`node tools/play-progression.mjs` 可复现单枪兵首关、付费生产、射程边缘救援和放弃第二仓的键鼠路线（只读诊断状态，不修改规则）；`node tools/play-stage.mjs` 记录另一种正常首关路线，设置 `SC2_PLAY_CONTINUOUS=1` 可观察连续机动策略。两种策略的输赢都不会自动触发平衡改动。
 
 真实手机性能、人工视觉验收与完整 12 关胜利仍须单独验证。截图仅保存本地，没有上传游戏图像；DOM 和帧时间测试不能冒充视觉验收。后续平衡应围绕救援决策、战线拉伸与主动收拢来做。
