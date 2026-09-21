@@ -11,7 +11,7 @@ import {AudioEffects} from './render/effects/audio';
 const world=new World(),canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
 async function boot(){const view=new BattleRenderer(canvas,world),hud=new HUD(world,view),audio=new AudioEffects();
- const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause());hud.inputReset=()=>{input.keys.clear();input.release();};hud.onStart=()=>void audio.start();
+ const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),{canvas,pick:(x,y,touch)=>view.pick(x,y,touch)});hud.inputReset=()=>{input.keys.clear();input.release();};hud.onStart=()=>void audio.start();
  const debug=import.meta.env.DEV?installDebug(world,view):null;
  const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused;});
  window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,time:world.time,stats:{...world.stats},assetsReady:hud.ready,simulationBacklogSeconds:driver.accumulator,audio:audio.report()});

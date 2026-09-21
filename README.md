@@ -34,7 +34,7 @@ npm run build
 
 脚本只取 12 个指定文件，校验固定 SHA-256；保留原包，并把 9 个浏览器不能直接解码的 IMA ADPCM 声音转为同采样率、同声道 PCM16。SCV 中文 Ogg 保持原文件。素材包版本 5.0.16.97563 与既有 **5.0.15 规则数据** 分开锁定，未导入新版数值。
 
-WASD／方向键移动，Space 推进，T 全队架炮／收炮，E 使用已研究的兴奋剂，Escape 暂停。手机左侧摇杆与右侧技能支持同时操作。没有局内手动商店／建造／生产按钮。生产状态只读显示。
+电脑右键地面指令小队寻路，右键敌人持续集火；手机轻点地面／敌人执行同样操作。绿色圆环标示目的地，红色圆环标示集火目标。移动指令途中优先赶路，到位恢复自动交战；集火时各单位自行进入射程，医疗艇继续治疗。WASD／方向键或摇杆随时接管并取消点选指令。Space 推进，T 全队架炮／收炮，E 使用已研究的兴奋剂，Escape 暂停。架炮坦克不会因点选指令自动收炮。手机左侧摇杆与右侧技能支持同时操作，拖动／长按不会误发轻点指令。没有局内手动商店／建造／生产按钮。生产状态只读显示。
 
 F1 仅在开发版提供资源、跳关、救援、指定敌人、速度、FPS、实体数、draw calls、战线长度、空间格子和碰撞体积。`npm run lab` 保留 V2 历史素材实验页，不是新版游戏。
 
@@ -72,6 +72,7 @@ node --import tsx tools/budget-envelope.mts
 node tools/qa-effects.mjs
 node tools/qa-fixes-v6.mjs
 node tools/qa-pace-desktop.mjs
+node tools/qa-point-commands.mjs
 node --import tsx tools/handling-profile.mts
 node tools/qa-pods.mjs
 python tools/audit-m3-independent.py

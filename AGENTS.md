@@ -32,3 +32,5 @@
 - Latest user clarification: Factory starts with Hellion; its own paid Tech Lab unlocks Tank. Starport requires a completed Factory but never the Tank upgrade. The player chooses the Tank/Medivac order. Movable units route to the current command, never replay obsolete anchor loops.
 
 - Latest playtest: prioritize desktop handling, early engagement cadence and readable cliffs/ramps. No further physical-phone testing for now. Preserve raw SC2 unit stats while fixing arrival/braking, early turret aiming and target retention.
+
+- Latest control addition: desktop right-click and mobile tap issue whole-squad point movement or persistent hostile focus. Keep WASD/joystick takeover, independent physical movement and manual-only Tank siege. Explicit move suppresses firing until arrival; focus overrides automatic threat priority and never gives Medivac an offensive target. Do not convert pointer picking meshes into simulation state or permit HUD click-through.

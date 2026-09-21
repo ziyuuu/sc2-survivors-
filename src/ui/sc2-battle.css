@@ -17,3 +17,6 @@
 @media(max-width:900px){.pod-world-label{font-size:10px;min-width:115px;max-width:150px}.pod-world-label img{width:23px;height:23px}#skills{gap:3px}#skills button{padding:6px 3px}}
 
 .clear-reward{padding:10px 14px;border:1px solid #3c6866;background:#172c2b;color:#a8d8bf}.clear-reward strong{margin-left:12px;color:#b9f4cf}.clear-reward small{display:block;margin-top:5px;color:#d1e9f4}#reward-cards:has(>.reward-card:only-child){grid-template-columns:minmax(200px,360px);justify-content:center}
+
+/* HUD surfaces absorb commands; only the exposed battlefield issues orders. */
+#topbar,#roster,#production-status,#pod-alerts,#mission,#notice,#stretch{pointer-events:auto;touch-action:none}#battle{cursor:crosshair}.controls-note{flex-wrap:wrap}

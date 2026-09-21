@@ -9,12 +9,14 @@ import {stageConfig,stageSchedule,incomeFactor,type Difficulty,type Wave,type Ec
 import {CharTerrain} from '../data/terrain';
 import {rankStats} from '../data/ranks';
 import {ECONOMY,DROPS} from '../data/economy';
-import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,EconomicTarget} from './types';
+import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,EconomicTarget,SquadOrder} from './types';
 
 export class World {
  time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'lost'='menu';paused=false;
  entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<number,Building>();upgrades=new Map<string,number>();
  wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
+ order:SquadOrder|null=null;private movePending=new Set<number>();
+ private commandRoute:{requested:Point;goal:Point;until:number}|null=null;
  trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];hash=new SpatialHash<Body>();
  visualEvents:VisualEvent[]=[];private visualSerial=0;
  rewards:Reward[]=[];rewardClaimed=false;rewardRound:'building'|'random'='building';clearReceipt:{stage:number;minerals:number;gas:number}|null=null;rerolls=0;nextBuilding=1;nextWave=Infinity;wave=0;stageWave=0;nextId=1;nextJob=1;
@@ -45,6 +47,45 @@ export class World {
  get config(){if(this.configStage!==this.stage||this.configDifficulty!==this.difficulty){this.stageData=stageConfig(this.stage,this.difficulty);this.configStage=this.stage;this.configDifficulty=this.difficulty;}return this.stageData;}
  get mapHalf(){return this.sandbox?TUNING.worldHalf:this.config.width/2;}
  get duration(){return this.config.durationSeconds;}
+ /** Whole-squad commands are simulation intent; picking and feedback live in the renderer. */
+ cancelOrder(){this.order=null;this.movePending.clear();this.commandRoute=null;}
+ private resetCommand(){this.cancelOrder();this.navigation.clear();this.detours.clear();for(const u of this.allies()){u.windup=0;u.attackLock=0;u.pendingTarget=null;u.attackTarget=null;u.thinkAt=0;}this.input={x:0,z:0};}
+ private commandPoint(point:Point):Point|null {
+  const radius=.9,half=this.mapHalf;
+  if(!Number.isFinite(point.x)||!Number.isFinite(point.z)||Math.abs(point.x)>=half||Math.abs(point.z)>=half)return null;
+  const candidates=[{...point}];for(const r of [.5,1,1.5,2,3])for(let i=0;i<16;i++)candidates.push({x:point.x+Math.sin(i*Math.PI/8)*r,z:point.z+Math.cos(i*Math.PI/8)*r});
+  for(const p of candidates){if(Math.abs(p.x)+radius>=half||Math.abs(p.z)+radius>=half||blocked(p,radius,this.obstacles)||this.terrain&&!this.terrain.canOccupy(p,radius))continue;
+   if(distance(this.anchor,p)<.15||distance(this.anchor,steerGoal(this.anchor,p,radius,this.obstacles,this.terrain,half))>.01)return p;
+  }return null;
+ }
+ issueMove(point:Point){if(this.phase!=='battle'||this.paused)return false;const goal=this.commandPoint(point);if(!goal){this.announce('该位置无法通行');return false;}
+  this.resetCommand();this.order={kind:'move',point:goal,arrived:false,issuedAt:this.time};for(const u of this.allies())this.movePending.add(u.id);this.changed();return true;
+ }
+ issueFocus(targetId:number){if(this.phase!=='battle'||this.paused)return false;const target=this.body(targetId);if(!target||target.owner!=='zerg'||target.hp<=0)return false;
+  if(this.order?.kind==='focus'&&this.order.targetId===targetId)return true;
+  const goal=this.commandPoint(target);if(!goal){this.announce('目标无法到达');return false;}
+  this.resetCommand();this.order={kind:'focus',targetId,issuedAt:this.time};this.changed();return true;
+ }
+ private updateCommand(dt:number):Point {
+  if(Math.hypot(this.input.x,this.input.z)>.01){if(this.order)this.cancelOrder();return this.input;}
+  const order=this.order;if(!order)return this.input;
+  let goal:Point;
+  if(order.kind==='focus'){
+   const target=this.body(order.targetId);if(!target||target.hp<=0||target.owner!=='zerg'){this.cancelOrder();return {x:0,z:0};}
+   // Stop the command anchor outside contact range, but never below an intervening cliff.
+   if(distance(this.anchor,target)<3&&(!this.terrain||this.terrain.lineOfFire(this.anchor,target)))return {x:0,z:0};
+   goal=target;
+  }else {goal=order.point;if(distance(this.anchor,goal)<.12){order.arrived=true;return {x:0,z:0};}}
+  let route=this.commandRoute;
+  if(!route||this.time>=route.until||distance(goal,route.requested)>.75||distance(this.anchor,route.goal)<.25){
+   const destination=this.commandPoint(goal);if(!destination){this.cancelOrder();this.announce('目标无法到达');return {x:0,z:0};}
+   const next=steerGoal(this.anchor,destination,.9,this.obstacles,this.terrain,this.mapHalf);
+   this.commandRoute=route={requested:{x:goal.x,z:goal.z},goal:next,until:this.time+.25};
+  }
+  const dx=route.goal.x-this.anchor.x,dz=route.goal.z-this.anchor.z,d=Math.hypot(dx,dz);
+  const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);
+  const scale=Math.min(1,d/(speed*dt));return d>.01?{x:dx/d*scale,z:dz/d*scale}:{x:0,z:0};
+ }
  setDifficulty(difficulty:Difficulty){if(this.phase!=='menu')return false;this.difficulty=difficulty;this.prepareStage();this.changed();return true;}
  prepareStage(){const plan=stageSchedule(this.config,this.seed);this.waves=plan.waves;this.eventPlan=plan.events;this.stageWave=0;this.nextEvent=0;this.scheduledStage=this.stage;this.nextWave=this.stageStartedAt+(this.waves[0]?.at??Infinity);
   // Flood once per expansion. Events use connected walkable cells, never a clamped wall position.
@@ -70,7 +111,7 @@ export class World {
    slot:owner==='terran'?slot:0,trailIndex:Math.max(0,this.trail.length-1),action:'spawn',mode:'tank',desiredMode:'tank',modeTimer:0,
    windup:0,attackLock:0,pendingTarget:null,lastShotAt:-100,energy:unitType==='medivac'?HEAL.startEnergy:0,maxEnergy:HEAL.maxEnergy,energyRegen:HEAL.regen,healRate:HEAL.hpPerSecond,healTarget:null,bileCooldown:3,
    guardianPod:null,stimUntil:0,deadAt:null,bornAt:this.time,thinkAt:0,distanceWalked:0};
-  this.refreshStats(u,true);if(owner==='zerg'&&!this.sandbox){if(unitType==='zergling')u.hp=u.maxHp=this.config.lingHp;if(unitType==='roach'&&this.stage>=8)u.armor++;if(unitType==='baneling'&&this.stage>=9)u.hp=u.maxHp=35;}this.entities.set(u.id,u);return u;
+  this.refreshStats(u,true);if(owner==='zerg'&&!this.sandbox){if(unitType==='zergling')u.hp=u.maxHp=this.config.lingHp;if(unitType==='roach'&&this.stage>=8)u.armor++;if(unitType==='baneling'&&this.stage>=9)u.hp=u.maxHp=35;}this.entities.set(u.id,u);if(owner==='terran'&&this.order?.kind==='move')this.movePending.add(u.id);return u;
  }
  refreshStats(u:Entity,fill=false){const d=SC2_UNITS[u.unitType];const old=u.maxHp,r=rankStats(u.owner==='terran'?u.rank:1);
   u.maxHp=(d.maxHp+(u.unitType==='marine'&&this.upgrades.has('shield')?10:0))*r.health;
@@ -242,14 +283,20 @@ export class World {
   const anchorDistance=distance(u,this.anchor);
   if(this.updateTank(u,anchorDistance,dt))return;
   if(u.unitType==='ravager')this.updateBile(u,dt);
+  if(u.owner==='terran'&&this.order?.kind==='move'&&this.order.arrived&&distance(u,this.moveGoal(u))<.45+u.unitRadius*.5)this.movePending.delete(u.id);
+  const movingOrder=u.owner==='terran'&&this.order?.kind==='move'&&this.movePending.has(u.id)&&u.mode!=='siege';
+  const focusBody=u.owner==='terran'&&u.unitType!=='medivac'&&this.order?.kind==='focus'?this.body(this.order.targetId):undefined;
+  const focused=focusBody&&this.targetAllowed(u,focusBody)?focusBody:undefined;
   if(u.windup>0){u.windup-=dt;u.velocity={x:0,z:0};u.action='attack';if(u.windup>1e-8)return;const b=this.body(u.pendingTarget);if(b&&this.edgeDistance(u,b)<=u.attackRange+.5)this.fire(u,b);u.pendingTarget=null;u.windup=0;u.attackLock=0;if(u.hp<=0)return;}
-  if(this.time>=u.thinkAt||!this.body(u.attackTarget)?.hp){u.attackTarget=this.findTarget(u,u.owner==='terran'?u.attackRange+2:16)?.id??null;u.thinkAt=this.time+.12+(u.id%5)*.012;}
+  if(focused)u.attackTarget=focused.id;
+  else if(movingOrder)u.attackTarget=null;
+  else if(this.time>=u.thinkAt||!this.body(u.attackTarget)?.hp){u.attackTarget=this.findTarget(u,u.owner==='terran'?u.attackRange+2:16)?.id??null;u.thinkAt=this.time+.12+(u.id%5)*.012;}
   let target=this.body(u.attackTarget);if(target&&!this.targetAllowed(u,target))target=undefined;
   const leash=anchorDistance>TUNING.softLeash,hard=anchorDistance>TUNING.hardLeash;
   const closeDefense=target&&this.edgeDistance(u,target)<=2.5;
   if(u.unitType==='tank'&&target)u.attackFacing=turn(u.attackFacing,Math.atan2(target.x-u.x,target.z-u.z),6*dt);
-  const marchingRearTarget=u.unitType==='hellion'&&u.owner==='terran'&&this.anchorMovingFor>.2&&target&&Math.abs(angleDelta(u.facing,Math.atan2(target.x-u.x,target.z-u.z)))>1.2;
-  if(target&&this.hasAttackLine(u,target)&&!marchingRearTarget&&u.unitType!=='medivac'&&(!hard||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&this.edgeDistance(u,target)<=u.attackRange&&this.edgeDistance(u,target)>=(u.mode==='siege'?SIEGE.minRange:0)&&u.weaponCooldown<=1e-8){
+  const marchingRearTarget=!focused&&u.unitType==='hellion'&&u.owner==='terran'&&this.anchorMovingFor>.2&&target&&Math.abs(angleDelta(u.facing,Math.atan2(target.x-u.x,target.z-u.z)))>1.2;
+  if(target&&this.hasAttackLine(u,target)&&!marchingRearTarget&&u.unitType!=='medivac'&&(!hard||!!focused||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&this.edgeDistance(u,target)<=u.attackRange&&this.edgeDistance(u,target)>=(u.mode==='siege'?SIEGE.minRange:0)&&u.weaponCooldown<=1e-8){
    const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType!=='tank')u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?4.8:u.unitType==='marine'?24:9)*dt);
    if(Math.abs(angleDelta(u.attackFacing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
     u.weaponCooldown=u.attackPeriod/stim;u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
@@ -258,12 +305,14 @@ export class World {
   }
   if(u.mode==='siege'){u.action='idle';u.velocity={x:0,z:0};return;}
   let goal:Point=u.owner==='terran'?this.moveGoal(u):(target??this.anchor);
+  if(focused){goal=focused;if(this.hasAttackLine(u,focused)&&this.edgeDistance(u,focused)<=u.attackRange){u.velocity={x:0,z:0};u.action='idle';return;}}
   if(u.owner==='zerg'&&u.guardianPod!==null){const p=this.pods.find(p=>p.id===u.guardianPod&&p.status==='active');if(p&&(!target||u.id%3!==0&&distance(u,target)>4))goal=p;}
   if(u.owner==='zerg'&&target&&this.edgeDistance(u,target)<=u.attackRange*.85)goal=u;
   if(u.owner==='terran'&&!leash&&target&&!this.economicTargets.has(target.id)&&this.anchorStoppedFor>.15&&distance(target,this.anchor)<=u.attackRange+3&&this.edgeDistance(u,target)>u.attackRange)goal=target;
   // Hold a useful firing position while the anchor is still; do not turn back to the slot after every bullet.
   if(u.owner==='terran'&&u.unitType!=='medivac'&&target&&!hard&&this.anchorStoppedFor>.1&&this.hasAttackLine(u,target)&&this.edgeDistance(u,target)<=u.attackRange){u.velocity={x:0,z:0};u.action='idle';return;}
-  if(u.unitType==='medivac'){const patient=this.heal(u,dt);if(patient&&!hard){if(this.edgeDistance(u,patient)<=HEAL.range){u.velocity={x:0,z:0};return;}goal=patient;}}
+  if(u.unitType==='medivac'&&movingOrder)u.energy=Math.min(u.maxEnergy,u.energy+u.energyRegen*dt);
+  if(u.unitType==='medivac'&&!movingOrder){const patient=this.heal(u,dt);if(patient&&!hard){if(this.edgeDistance(u,patient)<=HEAL.range){u.velocity={x:0,z:0};return;}goal=patient;}}
   let speed=u.moveSpeed*(u.stimUntil>this.time?1.5:1);
   if(u.owner==='terran'&&hard)speed*=TUNING.catchUp;
   if(u.owner==='zerg'){const stage=STAGES[this.stage-1];speed*=stage.speed;if(u.unitType==='baneling'&&this.stage>=9)speed*=1.3;}
@@ -292,7 +341,7 @@ export class World {
   // Distribute a wave along its approach arc; do not stack every attacker on one point.
   const arc=angle+((this.stats.ambientSpawned%9)-4)*.17,range=Math.min(24,this.mapHalf*.9)*(0.86+(this.stats.ambientSpawned%3)*.06);
   const desired=this.nearbyPoint(this.anchor,range,arc);const p=distance(desired,this.anchor)>=8?desired:base;this.addUnit(e.type,'zerg',p.x,p.z);this.stats.ambientSpawned++;}}
- endStage(){if(this.phase!=='battle')return;
+ endStage(){if(this.phase!=='battle')return;this.cancelOrder();
   if(this.stage===12&&(!this.hive||this.hive.hp>0||!this.allies().some(u=>u.unitType!=='medivac'))){this.phase='lost';this.announce('未能在期限内摧毁虫巢并保住小队');return;}
   const [m,g]=this.config.reward,f=incomeFactor(this.difficulty);this.clearReceipt={stage:this.stage,minerals:m*f,gas:g*f};this.wallet.minerals+=m*f;this.wallet.gas+=g*f;this.economyTotals.clear.minerals+=m*f;this.economyTotals.clear.gas+=g*f;
   if(this.stage===12){this.phase='won';this.announce('虫巢已摧毁 · 小队撤离成功');return;}
@@ -315,7 +364,7 @@ export class World {
  stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){if(u.unitType==='marine'&&u.hp>10&&u.stimUntil<=this.time){u.hp-=10;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
  dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;this.dashUntil=this.time+1.2;this.dashReady=this.time+12;return true;}
  step(){if(this.phase!=='battle'||this.paused)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;
-  if(this.scheduledStage!==this.stage)this.prepareStage();const mag=Math.hypot(this.input.x,this.input.z);if(mag>.01){this.anchorMovingFor+=dt;this.anchorStoppedFor=0;}else {this.anchorStoppedFor+=dt;this.anchorMovingFor=0;}if(mag>.01){const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);this.anchor.facing=turn(this.anchor.facing,Math.atan2(this.input.x,this.input.z),5*dt);translate(this.anchor,{x:this.input.x/Math.max(1,mag)*speed*dt,z:this.input.z/Math.max(1,mag)*speed*dt},.8,false,this.obstacles,this.sandbox?TUNING.worldHalf:this.mapHalf,this.terrain);}
+  if(this.scheduledStage!==this.stage)this.prepareStage();const direction=this.updateCommand(dt),mag=Math.hypot(direction.x,direction.z);if(mag>.01){this.anchorMovingFor+=dt;this.anchorStoppedFor=0;}else {this.anchorStoppedFor+=dt;this.anchorMovingFor=0;}if(mag>.01){const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);this.anchor.facing=turn(this.anchor.facing,Math.atan2(direction.x,direction.z),5*dt);translate(this.anchor,{x:direction.x/Math.max(1,mag)*speed*dt,z:direction.z/Math.max(1,mag)*speed*dt},.8,false,this.obstacles,this.sandbox?TUNING.worldHalf:this.mapHalf,this.terrain);}
   if(distance(this.anchor,this.trail.at(-1)!)>.8)this.trail.push({x:this.anchor.x,z:this.anchor.z});
   if(this.trail.length>1200){this.trail.splice(0,200);for(const u of this.entities.values())u.trailIndex=Math.max(0,u.trailIndex-200);}
   this.updateEconomy(dt);this.updateProduction(dt);
@@ -329,6 +378,7 @@ export class World {
   this.updatePods();
   this.pickups=this.pickups.filter(p=>{const d=distance(p,this.anchor);if(d<2&&(!this.terrain||this.terrain.walkLine(p,this.anchor,0))){this.wallet.minerals+=p.minerals;this.wallet.gas+=p.gas;this.economyTotals.drops.minerals+=p.minerals;this.economyTotals.drops.gas+=p.gas;return false;}if(d<6&&(!this.terrain||this.terrain.walkLine(p,this.anchor,0))){p.x+=(this.anchor.x-p.x)*dt*4;p.z+=(this.anchor.z-p.z)*dt*4;}return true;});
   this.maxStretch=0;let fighters=0;for(const [id,u] of this.entities){if(u.owner==='terran'&&u.hp>0){this.maxStretch=Math.max(this.maxStretch,distance(u,this.anchor));if(u.unitType!=='medivac')fighters++;}if(u.deadAt!==null&&this.time-u.deadAt>1.5){this.entities.delete(id);this.navigation.delete(id);this.detours.delete(id);}}
+  if(this.order?.kind==='move'){for(const id of this.movePending)if((this.entities.get(id)?.hp??0)<=0)this.movePending.delete(id);if(this.order.arrived&&!this.movePending.size)this.cancelOrder();}
   this.distancePairs=this.hash.visits;
   if(!fighters){this.phase='lost';this.announce('战斗单位全部阵亡 · 小队失联');}
   else if(this.stageElapsed>=this.duration-1e-8)this.endStage();
