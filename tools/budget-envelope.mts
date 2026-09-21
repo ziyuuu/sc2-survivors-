@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
 import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,type TerranType,type ZergType} from '../src/data/sc2-units';
 import {STAGES,stageConfig,stageSchedule,incomeFactor,type Difficulty} from '../src/data/stages';
+import {rankStats} from '../src/data/ranks';
 import {TUNING} from '../src/data/game';
 import {DROPS} from '../src/data/economy';
 import {rewardPool,unlockedReward} from '../src/simulation/progression/rewards';
@@ -10,18 +11,18 @@ import {rewardPool,unlockedReward} from '../src/simulation/progression/rewards';
 // Collection, rescues, losses and card availability below are explicit scenario assumptions.
 const round=(n:number)=>Math.round(n*100)/100;
 const plans=[
- {id:'ordinary-investment',scvEvery:1,loot:.8,droneFraction:.5,rescue:.8,lossStages:[6,9,11],cardRoute:['tech.shield','build.starport','build.factory','tech.infantry','tech.vehicle','tech.infernal','tech.medivac','tech.infantry','tech.vehicle','tech.infantry','tech.vehicle']},
- {id:'missed-economy',scvEvery:3,loot:.5,droneFraction:0,rescue:.6,lossStages:[4,6,8,10,11],cardRoute:['tech.shield','build.starport','build.factory','tech.infantry','tech.vehicle','tech.infernal','tech.medivac','tech.infantry','tech.vehicle','tech.infantry','tech.vehicle']},
+ {id:'ordinary-investment',scvEvery:1,loot:.8,droneFraction:.5,rescue:.8,lossStages:[6,9,11],cardRoute:['tech.shield','tech.infantry','tech.vehicle','tech.infernal','tech.medivac','tech.infantry','tech.vehicle','tech.infantry','tech.vehicle']},
+ {id:'missed-economy',scvEvery:3,loot:.5,droneFraction:0,rescue:.6,lossStages:[4,6,8,10,11],cardRoute:['tech.shield','tech.infantry','tech.vehicle','tech.infernal','tech.medivac','tech.infantry','tech.vehicle','tech.infantry','tech.vehicle']},
 ];
 function enemyHp(type:ZergType,stage:number){return type==='zergling'?STAGES[stage-1].lingHp:type==='baneling'&&stage>=9?35:SC2_UNITS[type].maxHp;}
 function fireCapacity(w:World,stage:number,counts:number[],area=false){
  const hp=counts.reduce((sum,n,i)=>sum+n*enemyHp(ZERG[i],stage),0);let total=0;
  for(const u of w.allies()){
-  if(u.unitType==='medivac')continue;const d=SC2_UNITS[u.unitType],rank=1+(u.rank-1)*TUNING.rankDamage,vehicle=w.upgrades.get('vehicle')??0;
-  const perTarget=ZERG.map((type,i)=>{const e=SC2_UNITS[type],armor=e.armor+(type==='roach'&&stage>=8?1:0),bonus=d.bonusDamage.reduce((s,b)=>s+(e.attributes.includes(b.attribute)?b.amount*rank:0),0)+(u.unitType==='hellion'&&w.upgrades.has('infernal')&&e.attributes.includes('Light')?5:0);
-   const period=Math.ceil(d.attackPeriod/TUNING.step)*TUNING.step;
+  if(u.unitType==='medivac')continue;const d=SC2_UNITS[u.unitType],rank=rankStats(u.rank).damage,vehicle=w.upgrades.get('vehicle')??0;
+  const perTarget=ZERG.map((type,i)=>{const e=SC2_UNITS[type],armor=e.armor+(type==='roach'&&stage>=8?1:0),bonus=d.bonusDamage.reduce((s,b)=>s+(e.attributes.includes(b.attribute)?(b.amount+(u.unitType==='hellion'&&w.upgrades.has('infernal')?5:0))*rank:0),0);
+   const period=Math.ceil(u.attackPeriod/TUNING.step)*TUNING.step;
    const normal=Math.max(.5,u.weaponDamage+bonus-armor)*d.attacks/period;
-   if(u.unitType==='tank'){const siegeBonus=SIEGE.bonus.reduce((s,b)=>s+(e.attributes.includes(b.attribute)?b.amount*rank:0),0),siege=Math.max(.5,(SIEGE.damage+vehicle*4)*rank+siegeBonus-armor)/(Math.ceil(SIEGE.period/TUNING.step)*TUNING.step);return .5*normal+.5*siege*(area?1.5:1);}
+   if(u.unitType==='tank'){const siegeBonus=SIEGE.bonus.reduce((s,b)=>s+(e.attributes.includes(b.attribute)?b.amount*rank:0),0),siege=Math.max(.5,(SIEGE.damage+vehicle*4)*rank+siegeBonus-armor)/(Math.ceil(SIEGE.period/rankStats(u.rank).attackSpeed/TUNING.step)*TUNING.step);return .5*normal+.5*siege*(area?1.5:1);}
    return normal*(area&&u.unitType==='hellion'?2:1);
   });total+=hp?counts.reduce((s,n,i)=>s+n*enemyHp(ZERG[i],stage)*perTarget[i]/hp,0):perTarget[0];
  }return total;
@@ -48,18 +49,23 @@ async function budget(difficulty:Difficulty,plan:typeof plans[number]){
   }
   // Explicit attrition assumption, never a hidden game refund/heal. Economic analysis does not simulate HP.
   if(plan.lossStages.includes(stage)){const m=w.allies().filter(u=>u.unitType==='marine').sort((a,b)=>b.rank-a.rank)[0];if(m){assumedLostRanks+=m.rank;w.entities.delete(m.id);}}
-  grant(s.reward[0]*f,s.reward[1]*f);const beforeCard={...w.wallet};let chosen:null|string=null;
-  if(stage<12){const id=plan.cardRoute[nextCard],r=rewardPool().find(r=>r.id===id);if(r&&unlockedReward(w,r)){
+  grant(s.reward[0]*f,s.reward[1]*f);const beforeCard={...w.wallet};let chosen:string[]=[];
+  if(stage<12){w.phase='reward';w.rewardRound='building';w.rewardClaimed=false;
+   const building=stage===2?'starport':stage===3?'factory':stage===6?'barracks':null;
+   const build=building?rewardPool().find(r=>r.id==='build.'+building):null;w.rewards=build?[build]:[];if(build&&w.choose(build.id))chosen.push(build.id);else w.skipReward();
+   const id=plan.cardRoute[nextCard],r=rewardPool().find(r=>r.id===id);
+   if(r&&unlockedReward(w,r)){
     if(['infantry','vehicle'].includes(r.value)){const level=w.upgrades.get(r.value)??0;if(level>0){r.minerals=r.value==='infantry'?(level===1?250:350):(level===1?250:300);r.gas=r.value==='infantry'?(level===1?75:125):(level===1?75:100);}}
-    w.phase='reward';w.rewardClaimed=false;w.rewards=[r];if(w.choose(r.id)){chosen=r.id;nextCard++;} // Full-price offered-card hypothesis. No guaranteed offer in the runtime.
-   }}
+    w.rewards=[r];if(w.choose(r.id)){chosen.push(r.id);nextCard++;}else w.skipReward();
+   }else w.skipReward();
+  }
   const roster=Object.fromEntries(TERRAN.map(t=>[t,w.allies().filter(u=>u.unitType===t).map(u=>u.rank)]));
-  rows.push({stage,seconds:s.durationSeconds,scvs:w.scvs,rosterBefore,roster,landed,assumedRescued:successes,assumedFailed:failures,enemyHpBudget:round(hp),singleTargetCapacity:round(singleCapacity),areaSensitivityCapacity:round(areaCapacity),requiredFiringUptime:round(hp/singleCapacity),areaSensitivityUptime:round(hp/areaCapacity),sustainableBiologicalHealingPerSecond:round(w.allies().filter(u=>u.unitType==='medivac').length*HEAL.regen*(w.upgrades.has('medivac')?2:1)/HEAL.energyPerHp),chosen,beforeCard:Object.fromEntries(Object.entries(beforeCard).map(([k,v])=>[k,round(v)])),wallet:Object.fromEntries(Object.entries(w.wallet).map(([k,v])=>[k,round(v)])),orders:w.stats.started,pendingPods:w.pods.filter(p=>p.status==='active'||p.status==='falling').length});
+  rows.push({stage,seconds:s.durationSeconds,scvs:w.scvs,rosterBefore,roster,landed,assumedRescued:successes,assumedFailed:failures,enemyHpBudget:round(hp),singleTargetCapacity:round(singleCapacity),areaSensitivityCapacity:round(areaCapacity),requiredFiringUptime:round(hp/singleCapacity),areaSensitivityUptime:round(hp/areaCapacity),sustainableBiologicalHealingPerSecond:round(w.allies().filter(u=>u.unitType==='medivac').reduce((n,u)=>n+u.energyRegen/HEAL.energyPerHp,0)),chosen,beforeCard:Object.fromEntries(Object.entries(beforeCard).map(([k,v])=>[k,round(v)])),wallet:Object.fromEntries(Object.entries(w.wallet).map(([k,v])=>[k,round(v)])),orders:w.stats.started,pendingPods:w.pods.filter(p=>p.status==='active'||p.status==='falling').length});
  }
  const expectedM=50+w.economyTotals.passive.minerals+collected.minerals-w.economyTotals.production.minerals-w.economyTotals.purchases.minerals,expectedG=w.economyTotals.passive.gas+collected.gas-w.economyTotals.production.gas-w.economyTotals.purchases.gas;assert.ok(Math.abs(expectedM-w.wallet.minerals)<1e-6);assert.ok(Math.abs(expectedG-w.wallet.gas)<1e-6);assert.ok(w.wallet.minerals>=0&&w.wallet.gas>=0);
  return {difficulty,scenario:plan,rows,ledger:{start:{minerals:50,gas:0},passive:w.economyTotals.passive,assumedCollectedAndClear:collected,production:w.economyTotals.production,cards:w.economyTotals.purchases,final:w.wallet},guardsTotal,assumedLostRanks};
 }
-const report={generatedAt:new Date().toISOString(),scope:'Analytical resource/firepower envelope, NOT automatic or manual victory evidence. No gameplay modifications. Ordinary card sequence is an availability assumption, not forced in the game. Damage intake, aim/overkill, terrain, actual arrival, simultaneous threats, healing targets and survival are NOT solved.',assumptions:{step:1/60,SCV:'One of two eggs per stage rescued after 12s in ordinary-investment; one every third stage in missed-economy.',loot:'Specified fraction of ambient and successful-guard drops is killed/collected. Failed-pod guards still count in HP budget.',pods:'A single sequential service queue: 14/22/28s including movement/clearing. Assumed success fractions; no demonstrated actual travel or combat clear.',cards:'Full prices, zero random discount, one planned card per pause if legal/affordable, otherwise skip. Availability is hypothetical. No rerolls.',fire:'Integrates changing ranks/upgrades each second; armor and bonus damage included; cooldown rounded up to fixed ticks. Half tank-mode / half siege-mode; baseline single target, sensitivity two targets per Hellion flame and 1.5 weighted siege splash. No Stim.',uptime:'Enemy HP / integrated ideal DPS is the necessary shooting-time share. It is not a survival probability. Includes all generated pod guards and final Hive HP. Values below 1 are a firepower feasibility screen, not a guaranteed clear.',healing:'Displays energy-regeneration-limited biological HP/sec, not unlimited peak healing. Mechanical units cannot be healed by Medivacs.'},runs:[] as any[]};
+const report={generatedAt:new Date().toISOString(),rankTable:[1,2,3,4,5].map(r=>({rank:r,...rankStats(r),marineHp:45*rankStats(r).health,marineDps:6/SC2_UNITS.marine.attackPeriod*r,tankHp:175*rankStats(r).health,marineLingHit:5-rankStats(r).armor,medivacPeakHealing:HEAL.hpPerSecond*r,medivacSustainedHealing:HEAL.regen*r/HEAL.energyPerHp})),scope:'Analytical resource/firepower envelope, NOT automatic or manual victory evidence. No gameplay modifications. Ordinary card sequence is an availability assumption, not forced in the game. Damage intake, aim/overkill, terrain, actual arrival, simultaneous threats, healing targets and survival are NOT solved.',assumptions:{step:1/60,SCV:'One of two eggs per stage rescued after 12s in ordinary-investment; one every third stage in missed-economy.',loot:'Specified fraction of ambient and successful-guard drops is killed/collected. Failed-pod guards still count in HP budget.',pods:'A single sequential service queue: 14/22/28s including movement/clearing. Assumed success fractions; no demonstrated actual travel or combat clear.',cards:'Full prices, zero random discount, two rounds per pause: Starport after 2, Factory after 3, one extra Barracks after 6 if affordable; one planned random card if legal/affordable, otherwise skip. Availability is hypothetical. No rerolls.',fire:'Integrates changing ranks/upgrades each second; armor and bonus damage included; cooldown rounded up to fixed ticks. Half tank-mode / half siege-mode; baseline single target, sensitivity two targets per Hellion flame and 1.5 weighted siege splash. No Stim.',uptime:'Enemy HP / integrated ideal DPS is the necessary shooting-time share. It is not a survival probability. Includes all generated pod guards and final Hive HP. Values below 1 are a firepower feasibility screen, not a guaranteed clear.',healing:'Displays energy-regeneration-limited biological HP/sec, not unlimited peak healing. Mechanical units cannot be healed by Medivacs.'},runs:[] as any[]};
 for(const difficulty of ['normal','easy'] as const)for(const plan of plans)report.runs.push(await budget(difficulty,plan));
-await fs.writeFile('reports/balance/v4-envelope.json',JSON.stringify(report,null,2)+'\n');
+await fs.writeFile('reports/balance/v5-envelope.json',JSON.stringify(report,null,2)+'\n');
 for(const run of report.runs)console.log(run.difficulty,run.scenario.id,run.rows.map((r:any)=>({stage:r.stage,roster:r.roster,uptime:r.requiredFiringUptime,area:r.areaSensitivityUptime,card:r.chosen,wallet:r.wallet})));

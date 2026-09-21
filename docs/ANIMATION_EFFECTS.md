@@ -50,7 +50,7 @@ Hellion/Medivac 使用已取得的同单位较早死亡包，Baneling 使用 rup
 - 原始动作在载入时由 AnimationMixer 采样为共享骨矩阵纹理；每单位用自己的模拟时间、移动距离、攻击停顿与模式进度播放，GPU 插值、InstancedMesh 批量绘制。暂停不推进动作。8 个单位使用原骨骼，不再走旧程序步态分支。
 - 8/8 独立死亡模型播放原动作；模拟实体在 1.5 秒后回收时，渲染副本允许播完剩余动作（最多 5 秒，随后短暂消退），不复活、不参与碰撞或寻敌。
 - 命中由真实扣血通知触发：生物血花、机械火花、短暂材质闪光。不把受击闪光描述为原生 `Hit` 骨骼动作，也不增加硬直。原包普遍没有单独受击动画。
-- 已从 MarineWeaponImpact、BloodTargetImpact、SiegeTankWeaponImpact、RoachMissileImpactEx1、Ravager_Artillery_Missile_Impact、BanelingDeath_Low 提取 **28 张原特效贴图**。保留 M3 flipbook 行列与帧区间。移动尘土、枪口亮光、火焰、酸液、爆炸的发射与时间组合为网页适配；未声称完整还原 SC2 的粒子、材质、灯光、物理碎片和 Actor 系统。
+- 已从 MarineWeaponImpact、BloodTargetImpact、SiegeTankWeaponImpact、RoachMissileImpactEx1、Ravager_Artillery_Missile_Impact、BanelingDeath_Low 提取 **30 张原特效贴图**。保留 M3 flipbook 行列与帧区间。移动尘土、枪口亮光、火焰、酸液、爆炸的发射与时间组合为网页适配；未声称完整还原 SC2 的粒子、材质、灯光、物理碎片和 Actor 系统。
 - 前一轮对 34 张颜色/效果 DDS 的 Node 解码结果与本地 Pillow 逐像素比较一致；新增材质沿用该解码器。另以自动化测试验证 SC2 法线通道重建、单位向量和 alpha 发光遮罩；不把旧 34 张对照报告冒充新素材逐像素复核。
 - 朋友 HTML 必须带齐 8 个动画单位、8 个死亡模型和两个坦克模式包，否则打包失败。开发环境仍可继续规则调试，但会明确显示原始动画缺失。
 
@@ -60,7 +60,11 @@ Hellion/Medivac 使用已取得的同单位较早死亡包，Baneling 使用 rup
 
 `tools/m3-materials.mjs` 按 [SC2Mapster/m3addon 格式实现](https://github.com/SC2Mapster/m3addon/blob/master/shared.py#L657)说明的存储方式，将法线 alpha 解码为 X、反向 green 解码为 Y，再重建 Z。颜色层按 M3 的 RGB/A/R/G/B 通道选择处理；例如 Roach 的发光层引用 Specular 文件的 alpha，而不是把整个高光颜色当发光。保留 DDS 最高 mip 的实际尺寸；Marine 颜色贴图仍是原战斗模型的 512×256。
 
-高光使用 glTF `KHR_materials_specular`，粗糙度由原 specularity 近似映射；发光使用 `KHR_materials_emissive_strength`。这属于 Three.js PBR 适配，未复刻 SC2 全部 shader、队伍色、动态 UV 或第二发光层。当前只有一个 Medivac 辅助材质层使用非 UV0，明确记录 unsupported 并跳过；主机体的四类贴图成功导出。导入报告逐材质记录来源、通道、已加载/不支持的层，pipeline version 为 2；朋友版打包校验版本及必需原法线层，旧颜色-only 包需要重新运行 `npm run assets:animate`。
+高光使用 glTF `KHR_materials_specular`，粗糙度由原 specularity 近似映射；发光使用 `KHR_materials_emissive_strength`。材质管线现为 **v3**：用原 diffuse alpha 掩码还原队伍色；保留可用 UV0–UV3；通过 GLB extras 和版本管理中的运行时适配保留独立 alpha、第二发光层、透明／加法混合和原 unlit 标记。动态材质参数与完整折射仍未复刻。
+
+医疗艇原网格中有两片 type 2 displacement 辅助表面，现明确排除；原机体、红灯和发动机叠加层分别保留，不再把扰动面显示成白色实体。缩放使用锁定 ModelData 比例和统一 1.4 世界尺度，足点与包围范围只依据实体机体，排除辅助效果。所有批次材质在载入时预编译并报告错误，覆盖原 unlit 特效网格；无光照材质也共享正确的骨骼变换。
+
+转换修复位于 `tools/m3-materials.mjs`、`tools/m3-scene.mjs` 和 `src/render/loaders/sc2-materials.ts`，不写入可被重新下载覆盖的转换器缓存。导入报告逐材质记录源文件、通道、UV、分类和未支持内容。
 
 桌面默认随屏幕像素比例渲染，开启抗锯齿与最高 8 倍各向异性过滤（服从 GPU 能力）；手机默认均衡，DPR 上限 1.5 / 4 倍过滤。菜单和暂停页提供清晰、均衡、省电设置；保存在本地，单 HTML 同样可用。材质齐全和像素正确不等于 SC2 客户端画质：地形已换成原 Char DDS 颜色/法线贴图和原岩石、兵营残骸，光照仍为网页适配，完整阴影/Actor/粒子材质系统仍未复刻，人工视觉验收尚未完成。
 
@@ -80,13 +84,25 @@ Hellion/Medivac 使用已取得的同单位较早死亡包，Baneling 使用 rup
 | Ravager 攻击 | `Ravager_Vox_Attack_Comp01.wav` | `public/assets/audio/sc2/Ravager_Vox_Attack_Comp01.wav` |
 | Marine 倒地 | `Marine_Death_Bodyfall_A_01.wav` | `public/assets/audio/sc2/Marine_Death_Bodyfall_A_01.wav` |
 
-放入后运行 `npm run assets:prepare` / `npm run build`，按稳定 asset ID 自动优先播放、内嵌；manifest 当前明确标记这 9 项 `missing`。没有可验证的公开二进制下载地址，故不编造直链。更多原版移动/受击音效尚未取得，不能声称整套音效齐全。
+放入后运行 `npm run assets:prepare` / `npm run build`，按稳定 asset ID 自动优先播放、内嵌；连同下文的 SCV 亮相语音，manifest 明确标记 10 项 `missing`。没有可验证的公开二进制下载地址，故不编造直链。更多原版移动/受击音效尚未取得，不能声称整套音效齐全。
 
 ## 本轮新增原素材与播放适配
 
 - SCV：scv.m3，16 个动作；Drone：drone.m3，10 个动作；经济虫卵：原 banelingegg.m3，4 个动作。这里将原虫卵用作 SCV 囚笼，是 Survivors 玩法适配，不声称原 SC2 有“虫卵内工兵”。三个稳定 ID 为 model.scv / model.drone / model.egg。
 - 人族降落仓：droppodfalling.m3，Birth 3.266 秒、Stand 5 秒、Death 6.333 秒。下落和被毁播放各自原动作；无独立开舱动作，因此 PodView 旋转原 DropPod_Door 骨骼开门，不拿 Death 冒充开门。落地守军、伤害与释放由 World 决定。
-- 枪兵攻击不再把完整片段压进 0.15 秒。原上身骨骼按 1.4 倍播放，与腿部原移动动作混合；开火时间由 lastShotAt 驱动，不能改变攻击周期。枪口和曳光使用原 Ref_Weapon 挂点。枪口采用原 MarineWeaponLaunch 的 glow_yellow1 层，fireball_1hot 层仍缺失，不能称为完整原粒子系统。
+- 枪兵攻击不再把完整片段压进 0.15 秒。原上身骨骼按 1.4 倍播放，与腿部原移动动作混合；开火时间由 lastShotAt 驱动，不能改变攻击周期。枪口随每一帧原 Ref_Weapon 挂点移动，通用贯穿射线已移除。坦克炮塔与车体朝向分离，开火由原炮管动作及炮口／落点爆炸表现；恶火使用同兵种的原火焰贴图作定向喷射；虫族使用酸液落点，医疗保留连续治疗束。枪口采用原 MarineWeaponLaunch 的 glow_yellow1 层，fireball_1hot 层仍缺失，不能称为完整原粒子系统。
 - 真实地表：char_dirt、char_dirtnormal、char_rock、char_rocknormal、char_dirt_cracked，均为原 DDS 的 512×512 最高 mip；tools/import-terrain.mjs 校验、解码并生成原始来源与哈希。CharDuneRock_00 与 BarracksWrecked_00 使用原网格；不再重复铺目录截图或用多面体代替岩石。地图外部随当前开放边界变暗；软接触阴影为网页适配。
 - SCV 获救显示原模型 3.8 秒，经济只结算一次。audio.sc2.scv.ready 已接入一次性播放，但 SCV_Ready00.ogg 尚未取得；现在不能声称已播放原亮相语音。其余 9 个原声音仍缺失，3 个合成提示音保留。
-- 原文件路径和唯一缺失纹理、全部音频手工放置路径见 ASSET_DOWNLOAD_REQUIRED.md。所有艺术处理和截图留在本机。
+- 原文件路径、缺失枪口纹理、恶火 Beam 模型和全部音频手工放置路径见 ASSET_DOWNLOAD_REQUIRED.md。所有艺术处理和截图留在本机。
+
+## 独立骨架与动作复核
+
+运行 `python tools/audit-m3-independent.py`；缺少只读校验器时先加 `--download-reader`。脚本只执行 SHA-256 锁定的 [M3Studio](https://github.com/Solstice245/m3studio) 读取器，库和 GPL LICENSE 留在本地缓存，不随游戏发布。下载地址的 main 可变，代码内容由脚本内三个摘要固定；摘要变化会拒绝执行。
+
+本轮独立读取 24 个 M3，检查 995 个原骨骼名称均存在于 GLB，并对照 208 个主模型导出片段的原名称和时长，差异 0。另核对 4 份 M3A：Marine 与 Hellion 各 72/72 变换 ID 匹配，只有 Flail；Tank 126/132 匹配，附加 Flail 完整拒绝导入；Baneling 147/147 匹配，保留 Birth A / Birth A Walk。附加包未被拿来替换正常射击或受击。
+
+这是独立二进制读取结果，**不是 Blender 渲染或人工视觉通过**。记录见 `reports/qa/v5-model-audit.json`。浏览器额外播放 8 套移动、7 种有武器单位的攻击事件、8 套死亡和坦克四种状态；爆虫没有虚构远程攻击片段。医疗原 Stand Work 与持续治疗由单独映射和模拟覆盖。
+
+降落仓子网格关闭失效的动画包围范围裁剪，仍按落点进行场景筛选；4 种载荷的下落、落地、开门、被毁检查与截帧保存在 `reports/local/qa-v5-assets/PODS.json` 和同目录 PNG。标签同时包含原兵种图标、名称、编号、HP 和动态新增／晋升用途。原门骨骼适配仍需人工对照观感。
+
+地图新增原 Char 崖壁 diffuse / normal / emissive 三张 DDS，两层高度 0 / 3 和 4×6 坡道由共享数据生成真实网格。地面经坡道，近战不能隔崖，远程检查中间高度，飞行层独立。平地采用保守包围区域提前判定，边缘保留足迹与坡度逐点检测，不改变通行规则。

@@ -1,6 +1,6 @@
 # 原素材获取与手工交接
 
-2026-09-21 本地实际检查：8/8 战斗模型、8/8 独立死亡模型、两种坦克形态、原降落仓、SCV、Drone、虫卵、两种地形装饰均已导入；23 个图标、28 张效果贴图、5 张原地表纹理可用。必需资源无缺失。结构/运行加载通过不等于人工视觉验收。
+2026-09-21 本地实际检查：8/8 战斗模型、8/8 独立死亡模型、两种坦克形态、原降落仓、SCV、Drone、虫卵、两种地形装饰均已导入；23 个图标、30 张效果贴图、8 张原地表／崖壁纹理可用。必需资源无缺失。结构/运行加载通过不等于人工视觉验收。
 
 模型、材质与精确公开来源记录在 tools/m3-catalog.mjs、assets/private/m3-pack.json；地表见 tools/import-terrain.mjs、assets/private/terrain-pack.json。后两个报告仅保存在本机。
 
@@ -45,4 +45,4 @@ M3 材质转换 v3 已区分实体与透明/叠加层；医疗艇的两片 displ
 
 恶火 HellionAttackBeam 的精确源是 `Assets/Effects/Terran/HellionBeam/HellionBeam.m3`；[公开请求](https://dist.sc2arcade.com/star-assets/models/hellionbeam.m3) 当前返回 404。手工文件放 `assets/private/m3/hellionbeam.m3`，执行 `node tools/import-m3-pack.mjs fx.flame`。已取得同兵种的 `hellionbeamimpact.m3` 及其火焰贴图，网页的定向发射为适配表现，不能称为原完整 Beam。
 
-marine/hellion/tank 的 Swarm M3A 已取得，使用动画 ID 对应主骨架，内容仅 Flail；不用于替代移动、开火或受击。动作来源、材质分类、未支持 UV 和导入校验保存在 `assets/private/m3-pack.json`。运行加载和骨骼绑定验证并非人工视觉通过。
+marine/hellion/tank 的 Swarm M3A 均已取得且内容仅 Flail；前两者绑定成功，tank 132 个变换 ID 中仅 126 个匹配当前 tankex1 主骨架，因此整个附加动作拒绝导入。正常移动、攻击与变形使用主模型原动作，不用 Flail 替代。动作来源、材质分类、未支持 UV 和导入校验保存在 `assets/private/m3-pack.json`。运行加载和骨骼绑定验证并非人工视觉通过。

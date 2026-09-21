@@ -1,0 +1,2699 @@
+{
+  "checkedAt": "2026-09-21T08:29:48.615435+00:00",
+  "runtimeCommit": "c82c209a7636c14781b0bf6597e9ad8a80050ebb",
+  "method": "Functional, source/structure and local rendering evidence. No manual 48-minute victory or human visual approval. Original images stay local.",
+  "desktop": {
+    "firstStage": {
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 30,
+      "effects": {
+        "attack": 67,
+        "hit": 67,
+        "death": 11,
+        "movement": 329,
+        "bile": 0,
+        "active": 0,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 59.99999999999997,
+      "drawCalls": 13,
+      "triangles": 44268,
+      "entities": 4,
+      "maxStretch": 3.0067219902943134,
+      "spatialVisits": 32,
+      "collisionContacts": 0,
+      "phase": "reward",
+      "stage": 1,
+      "time": 120,
+      "stats": {
+        "kills": 11,
+        "rescued": 3,
+        "failed": 0,
+        "produced": 3,
+        "started": 4,
+        "shots": 67,
+        "healed": 0,
+        "damage": 362,
+        "scvsRescued": 2,
+        "scvsLost": 0,
+        "dronesKilled": 2,
+        "ambientSpawned": 5
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 0,
+      "input": "Actual keyboard events at normal speed; no health/resources/clock overrides. Automation chooses directions."
+    },
+    "reroll": true,
+    "skipped": true,
+    "reward": true,
+    "fixtures": {
+      "podFailure": "destroyed",
+      "scvRescue": "rescued",
+      "scvOnce": true,
+      "scvExpiry": "expired"
+    },
+    "icons": [
+      {
+        "id": "unit.marine",
+        "ok": true
+      },
+      {
+        "id": "unit.hellion",
+        "ok": true
+      },
+      {
+        "id": "unit.tank",
+        "ok": true
+      },
+      {
+        "id": "unit.medivac",
+        "ok": true
+      },
+      {
+        "id": "unit.zergling",
+        "ok": true
+      },
+      {
+        "id": "unit.roach",
+        "ok": true
+      },
+      {
+        "id": "unit.baneling",
+        "ok": true
+      },
+      {
+        "id": "unit.ravager",
+        "ok": true
+      },
+      {
+        "id": "building.barracks",
+        "ok": true
+      },
+      {
+        "id": "building.factory",
+        "ok": true
+      },
+      {
+        "id": "building.starport",
+        "ok": true
+      },
+      {
+        "id": "tech.stim",
+        "ok": true
+      },
+      {
+        "id": "tech.shield",
+        "ok": true
+      },
+      {
+        "id": "tech.infernal",
+        "ok": true
+      },
+      {
+        "id": "tech.heal",
+        "ok": true
+      },
+      {
+        "id": "tech.bile",
+        "ok": true
+      },
+      {
+        "id": "tech.attack",
+        "ok": true
+      },
+      {
+        "id": "tech.armor",
+        "ok": true
+      },
+      {
+        "id": "tech.vehicle",
+        "ok": true
+      },
+      {
+        "id": "tech.siege",
+        "ok": true
+      },
+      {
+        "id": "tech.boost",
+        "ok": true
+      },
+      {
+        "id": "ui.minerals",
+        "ok": true
+      },
+      {
+        "id": "ui.gas",
+        "ok": true
+      }
+    ]
+  },
+  "mobileEmulation": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "multiTouch": true,
+      "releaseOutside": true,
+      "layout": {
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "width": 390,
+        "viewport": 390,
+        "joystickStyle": "none",
+        "canvasStyle": "none"
+      },
+      "rewardLayout": {
+        "client": 844,
+        "scroll": 978,
+        "touchAction": "pan-y"
+      },
+      "performance": {
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3,
+          "renderPixelRatio": 1.5,
+          "width": 585,
+          "height": 1266,
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 30,
+        "effects": {
+          "attack": 956,
+          "hit": 1140,
+          "death": 27,
+          "movement": 5152,
+          "bile": 0,
+          "active": 561,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 24,
+        "drawCalls": 39,
+        "triangles": 268766,
+        "entities": 332,
+        "maxStretch": 9.6657912600743,
+        "spatialVisits": 39253,
+        "collisionContacts": 816,
+        "phase": "battle",
+        "stage": 2,
+        "time": 7.066666666666666,
+        "stats": {
+          "kills": 0,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 0,
+          "started": 1,
+          "shots": 956,
+          "healed": 149.68999999823203,
+          "damage": 4228.5,
+          "scvsRescued": 0,
+          "scvsLost": 0,
+          "dronesKilled": 0,
+          "ambientSpawned": 0
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 9.949966666666626,
+        "cpu": {
+          "step": 7504.0000000447035,
+          "steps": 364,
+          "render": 7646.700000047684,
+          "frames": 365
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1.5,
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "sampleFrames": 240,
+        "averageFps": 24.742268041237114,
+        "p50FrameMs": 33.400000000001455,
+        "p95FrameMs": 50.19999999999709,
+        "friendly": 25,
+        "enemies": 300,
+        "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; six-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "multiTouch": true,
+      "releaseOutside": true,
+      "layout": {
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "width": 844,
+        "viewport": 844,
+        "joystickStyle": "none",
+        "canvasStyle": "none"
+      },
+      "rewardLayout": {
+        "client": 390,
+        "scroll": 482,
+        "touchAction": "pan-y"
+      },
+      "performance": {
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3,
+          "renderPixelRatio": 1.5,
+          "width": 1266,
+          "height": 585,
+          "cssWidth": 844,
+          "cssHeight": 390,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 30,
+        "effects": {
+          "attack": 1209,
+          "hit": 1438,
+          "death": 41,
+          "movement": 5853,
+          "bile": 0,
+          "active": 572,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 27.100271002710105,
+        "drawCalls": 39,
+        "triangles": 274472,
+        "entities": 339,
+        "maxStretch": 9.850085698051545,
+        "spatialVisits": 38256,
+        "collisionContacts": 831,
+        "phase": "battle",
+        "stage": 2,
+        "time": 8.15,
+        "stats": {
+          "kills": 0,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 0,
+          "started": 1,
+          "shots": 1209,
+          "healed": 200.21999999770875,
+          "damage": 4990,
+          "scvsRescued": 0,
+          "scvsLost": 0,
+          "dronesKilled": 0,
+          "ambientSpawned": 0
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 8.783400000000002,
+        "cpu": {
+          "step": 8241.599999964237,
+          "steps": 435,
+          "render": 6844.500000104308,
+          "frames": 435
+        },
+        "deviceDpr": 3,
+        "renderDpr": 1.5,
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "sampleFrames": 240,
+        "averageFps": 26.915787230701937,
+        "p50FrameMs": 33.399999999999636,
+        "p95FrameMs": 50.100000000000364,
+        "friendly": 25,
+        "enemies": 300,
+        "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; six-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
+      }
+    }
+  ],
+  "offline": {
+    "resolution": {
+      "quality": "native",
+      "devicePixelRatio": 1,
+      "renderPixelRatio": 1,
+      "width": 1440,
+      "height": 900,
+      "cssWidth": 1440,
+      "cssHeight": 900,
+      "antialias": true
+    },
+    "models": 8,
+    "economicModels": 3,
+    "podModel": true,
+    "errors": [],
+    "originalAnimationModels": 8,
+    "proceduralAnimationModels": 0,
+    "originalDeathModels": 8,
+    "animationAtlasBytes": 4707904,
+    "lodRatios": {
+      "zergling": 0.29555555555555557,
+      "roach": 0.44686192468619246,
+      "baneling": 0.29977246871444824,
+      "ravager": 0.29987531172069826
+    },
+    "effectTextures": 30,
+    "effects": {
+      "attack": 0,
+      "hit": 0,
+      "death": 0,
+      "movement": 0,
+      "bile": 0,
+      "active": 0,
+      "dropped": 0
+    },
+    "textures": 15,
+    "fps": 59.999999999999986,
+    "drawCalls": 10,
+    "triangles": 35206,
+    "entities": 1,
+    "maxStretch": 1.6347782724271815,
+    "spatialVisits": 2,
+    "collisionContacts": 0,
+    "phase": "battle",
+    "stage": 1,
+    "time": 1.0666666666666667,
+    "stats": {
+      "kills": 0,
+      "rescued": 0,
+      "failed": 0,
+      "produced": 0,
+      "started": 1,
+      "shots": 0,
+      "healed": 0,
+      "damage": 0,
+      "scvsRescued": 0,
+      "scvsLost": 0,
+      "dronesKilled": 0,
+      "ambientSpawned": 0
+    },
+    "assetsReady": true,
+    "simulationBacklogSeconds": 3.333333333320129e-05,
+    "requests": [],
+    "debugExposed": false
+  },
+  "physicalPhone": {
+    "at": "2026-09-21T08:19:37.530Z",
+    "method": "Physical HONOR Chrome, USB localhost, balanced graphics. Entire 60-second rAF samples, no CPU throttle. Load fixtures are diagnostics, not victories or human visual approval.",
+    "device": {
+      "model": "AMG-AN00",
+      "android": "16",
+      "soc": "SM8650"
+    },
+    "runs": [
+      {
+        "name": "portrait-normal-opening",
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3.25,
+          "renderPixelRatio": 1.5,
+          "width": 553,
+          "height": 1054,
+          "cssWidth": 369,
+          "cssHeight": 703,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 30,
+        "effects": {
+          "attack": 172,
+          "hit": 172,
+          "death": 2,
+          "movement": 147,
+          "bile": 0,
+          "active": 2,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 60.147458284827984,
+        "drawCalls": 18,
+        "triangles": 43246,
+        "entities": 3,
+        "maxStretch": 1.6457267487913818,
+        "spatialVisits": 13,
+        "collisionContacts": 0,
+        "phase": "battle",
+        "stage": 1,
+        "time": 65.08333333333333,
+        "stats": {
+          "kills": 2,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 1,
+          "started": 1,
+          "shots": 172,
+          "healed": 0,
+          "damage": 534,
+          "scvsRescued": 0,
+          "scvsLost": 1,
+          "dronesKilled": 0,
+          "ambientSpawned": 2
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 0.013466666666671644,
+        "visible": true,
+        "simulationSeconds": 60.016666666666666,
+        "viewport": [
+          369,
+          702
+        ],
+        "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+        "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
+        "samples": 3595,
+        "sampledSeconds": 60.02539999999886,
+        "averageFps": 59.891312677634275,
+        "p50FrameMs": 16.600000000000364,
+        "p95FrameMs": 16.700000000004366,
+        "p99FrameMs": 16.700000000004366,
+        "friendly": 1,
+        "enemies": 2
+      },
+      {
+        "name": "portrait-diagnostic-25-300",
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3.25,
+          "renderPixelRatio": 1.5,
+          "width": 553,
+          "height": 1053,
+          "cssWidth": 369,
+          "cssHeight": 702,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 30,
+        "effects": {
+          "attack": 18347,
+          "hit": 19549,
+          "death": 97,
+          "movement": 19780,
+          "bile": 0,
+          "active": 490,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 59.17159763313607,
+        "drawCalls": 40,
+        "triangles": 273120,
+        "entities": 325,
+        "maxStretch": 14.547806561720066,
+        "spatialVisits": 28984,
+        "collisionContacts": 300,
+        "phase": "battle",
+        "stage": 10,
+        "time": 131.23333333333332,
+        "stats": {
+          "kills": 2,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 1,
+          "started": 1,
+          "shots": 18347,
+          "healed": 1604.554166647222,
+          "damage": 30075.5,
+          "scvsRescued": 0,
+          "scvsLost": 1,
+          "dronesKilled": 0,
+          "ambientSpawned": 2
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 0.0037666666666624146,
+        "visible": true,
+        "simulationSeconds": 60.06666666666665,
+        "viewport": [
+          369,
+          702
+        ],
+        "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+        "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
+        "samples": 3434,
+        "sampledSeconds": 60.038299999999985,
+        "averageFps": 57.19682269484647,
+        "p50FrameMs": 16.60000000000582,
+        "p95FrameMs": 24.90000000000873,
+        "p99FrameMs": 25,
+        "friendly": 25,
+        "enemies": 300
+      },
+      {
+        "name": "landscape-normal-opening",
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3.25,
+          "renderPixelRatio": 1.5,
+          "width": 1171,
+          "height": 378,
+          "cssWidth": 781,
+          "cssHeight": 252,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 30,
+        "effects": {
+          "attack": 172,
+          "hit": 172,
+          "death": 2,
+          "movement": 147,
+          "bile": 0,
+          "active": 2,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 60.14745828482797,
+        "drawCalls": 19,
+        "triangles": 46474,
+        "entities": 3,
+        "maxStretch": 1.6457267487913811,
+        "spatialVisits": 13,
+        "collisionContacts": 0,
+        "phase": "battle",
+        "stage": 1,
+        "time": 65.05,
+        "stats": {
+          "kills": 2,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 1,
+          "started": 1,
+          "shots": 172,
+          "healed": 0,
+          "damage": 534,
+          "scvsRescued": 0,
+          "scvsLost": 1,
+          "dronesKilled": 0,
+          "ambientSpawned": 2
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 0.01230000000000445,
+        "visible": true,
+        "simulationSeconds": 60.016666666666666,
+        "viewport": [
+          781,
+          252
+        ],
+        "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+        "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
+        "samples": 3591,
+        "sampledSeconds": 60.0147999999983,
+        "averageFps": 59.83524064064367,
+        "p50FrameMs": 16.600000000000364,
+        "p95FrameMs": 16.700000000004366,
+        "p99FrameMs": 16.70000000001164,
+        "friendly": 1,
+        "enemies": 2
+      },
+      {
+        "name": "landscape-diagnostic-25-300",
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3.25,
+          "renderPixelRatio": 1.5,
+          "width": 1170,
+          "height": 378,
+          "cssWidth": 780,
+          "cssHeight": 252,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 30,
+        "effects": {
+          "attack": 18199,
+          "hit": 19398,
+          "death": 97,
+          "movement": 21416,
+          "bile": 0,
+          "active": 492,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 56.266977105161665,
+        "drawCalls": 41,
+        "triangles": 276388,
+        "entities": 325,
+        "maxStretch": 13.753154306449469,
+        "spatialVisits": 29652,
+        "collisionContacts": 284,
+        "phase": "battle",
+        "stage": 10,
+        "time": 130.78333333333333,
+        "stats": {
+          "kills": 2,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 1,
+          "started": 1,
+          "shots": 18199,
+          "healed": 1671.0787121070216,
+          "damage": 29376.5,
+          "scvsRescued": 0,
+          "scvsLost": 1,
+          "dronesKilled": 0,
+          "ambientSpawned": 2
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 0.008166666666685904,
+        "visible": true,
+        "simulationSeconds": 60.099999999999994,
+        "viewport": [
+          780,
+          252
+        ],
+        "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+        "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
+        "samples": 3461,
+        "sampledSeconds": 60.01910000000001,
+        "averageFps": 57.66497664910003,
+        "p50FrameMs": 16.60000000000582,
+        "p95FrameMs": 24.90000000000873,
+        "p99FrameMs": 25,
+        "friendly": 25,
+        "enemies": 300
+      }
+    ],
+    "touch": [
+      {
+        "orientation": "portrait",
+        "moving": true,
+        "command": "siege",
+        "selected": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "viewport": [
+          369,
+          702
+        ],
+        "width": 369,
+        "released": true,
+        "commandAfterRelease": "siege"
+      },
+      {
+        "orientation": "landscape",
+        "moving": true,
+        "command": "siege",
+        "selected": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "viewport": [
+          781,
+          252
+        ],
+        "width": 781,
+        "released": true,
+        "commandAfterRelease": "siege"
+      }
+    ],
+    "errors": [],
+    "captureInterruption": {
+      "reason": "page.waitForTimeout: Target page, context or browser has been closed\n    at measure (D:\\星际\\tools\\qa-phone-v5.mjs:15:326)\n    at async file:///D:/%E6%98%9F%E9%99%85/tools/qa-phone-v5.mjs:21:18",
+      "resumed": "reports/local/qa-phone-v5-landscape/REPORT.json",
+      "method": "Completed portrait samples retained; both landscape measurements repeated on the same runtime commit."
+    }
+  },
+  "effects": {
+    "date": "2026-09-21T08:22:37.714Z",
+    "scope": "Local browser state/GPU/asset checks. Diagnostic fixtures; no image upload or human visual approval.",
+    "errors": [],
+    "loaded": {
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 30,
+      "effects": {
+        "attack": 0,
+        "hit": 0,
+        "death": 0,
+        "movement": 0,
+        "bile": 0,
+        "active": 0,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 40.64253919101995,
+      "drawCalls": 10,
+      "triangles": 35206,
+      "entities": 1,
+      "maxStretch": 0,
+      "spatialVisits": 0,
+      "collisionContacts": 0,
+      "phase": "menu",
+      "stage": 1,
+      "time": 0,
+      "stats": {
+        "kills": 0,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 0,
+        "shots": 0,
+        "healed": 0,
+        "damage": 0,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 0
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 0
+    },
+    "clips": [
+      {
+        "key": "marine",
+        "bones": 38,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "attack": "Attack",
+          "heal": "Spell"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Attack",
+          "Spell"
+        ]
+      },
+      {
+        "key": "hellion",
+        "bones": 24,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "attack": "Attack"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Attack"
+        ]
+      },
+      {
+        "key": "tank",
+        "bones": 51,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "attack": "Attack"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Attack"
+        ]
+      },
+      {
+        "key": "medivac",
+        "bones": 47,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "dead": "Death",
+          "heal": "Stand Work"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Death",
+          "Stand Work"
+        ]
+      },
+      {
+        "key": "zergling",
+        "bones": 44,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "attack": "Attack"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Attack"
+        ]
+      },
+      {
+        "key": "roach",
+        "bones": 44,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "attack": "Attack"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Attack"
+        ]
+      },
+      {
+        "key": "baneling",
+        "bones": 49,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "spawn": "Birth"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Birth"
+        ]
+      },
+      {
+        "key": "ravager",
+        "bones": 52,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "attack": "Attack",
+          "spawn": "Birth",
+          "heal": "Spell"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Attack",
+          "Birth",
+          "Spell"
+        ]
+      },
+      {
+        "key": "marine.death",
+        "bones": 48,
+        "actions": {
+          "dead": "Death"
+        },
+        "clips": [
+          "Death"
+        ]
+      },
+      {
+        "key": "hellion.death",
+        "bones": 27,
+        "actions": {
+          "dead": "Death"
+        },
+        "clips": [
+          "Death"
+        ]
+      },
+      {
+        "key": "tank.death",
+        "bones": 56,
+        "actions": {
+          "dead": "Death"
+        },
+        "clips": [
+          "Death"
+        ]
+      },
+      {
+        "key": "medivac.death",
+        "bones": 25,
+        "actions": {
+          "dead": "Death 04"
+        },
+        "clips": [
+          "Death 04"
+        ]
+      },
+      {
+        "key": "zergling.death",
+        "bones": 50,
+        "actions": {
+          "dead": "Death"
+        },
+        "clips": [
+          "Death"
+        ]
+      },
+      {
+        "key": "roach.death",
+        "bones": 47,
+        "actions": {
+          "dead": "Death"
+        },
+        "clips": [
+          "Death"
+        ]
+      },
+      {
+        "key": "baneling.death",
+        "bones": 29,
+        "actions": {
+          "dead": "Death"
+        },
+        "clips": [
+          "Death"
+        ]
+      },
+      {
+        "key": "ravager.death",
+        "bones": 70,
+        "actions": {
+          "dead": "Death"
+        },
+        "clips": [
+          "Death"
+        ]
+      },
+      {
+        "key": "tank.siege",
+        "bones": 55,
+        "actions": {
+          "idle": "Stand",
+          "attack": "Attack"
+        },
+        "clips": [
+          "Stand",
+          "Attack"
+        ]
+      },
+      {
+        "key": "tank.morph",
+        "bones": 73,
+        "actions": {
+          "sieging": "Morph Start",
+          "unsieging": "Morph End"
+        },
+        "clips": [
+          "Morph Start",
+          "Morph End"
+        ]
+      },
+      {
+        "key": "scv",
+        "bones": 43,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "attack": "Attack"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Attack"
+        ]
+      },
+      {
+        "key": "drone",
+        "bones": 45,
+        "actions": {
+          "idle": "Stand",
+          "move": "Walk",
+          "attack": "Attack"
+        },
+        "clips": [
+          "Stand",
+          "Walk",
+          "Attack"
+        ]
+      },
+      {
+        "key": "egg",
+        "bones": 21,
+        "actions": {
+          "idle": "Stand",
+          "dead": "Death",
+          "spawn": "Birth"
+        },
+        "clips": [
+          "Stand",
+          "Death",
+          "Birth"
+        ]
+      }
+    ],
+    "pauseFreezesPose": true,
+    "healing": {
+      "healed": 3.1499999999999986,
+      "energy": 49.157375,
+      "action": "heal",
+      "clip": "Stand Work"
+    },
+    "deathBatches": [
+      "marine.death",
+      "hellion.death",
+      "tank.death",
+      "medivac.death",
+      "zergling.death",
+      "roach.death",
+      "baneling.death",
+      "ravager.death"
+    ],
+    "events": {
+      "attack": 7,
+      "hit": 18,
+      "death": 8,
+      "movement": 14,
+      "bile": 1,
+      "active": 110,
+      "dropped": 0
+    },
+    "deathAfterSimulationRemoval": 8,
+    "deathLifecycle": true,
+    "tank": [
+      {
+        "action": "move",
+        "mode": "tank",
+        "batches": [
+          "tank"
+        ]
+      },
+      {
+        "action": "sieging",
+        "mode": "tank",
+        "batches": [
+          "tank.morph"
+        ]
+      },
+      {
+        "action": "idle",
+        "mode": "siege",
+        "batches": [
+          "tank.siege"
+        ]
+      },
+      {
+        "action": "unsieging",
+        "mode": "siege",
+        "batches": [
+          "tank.morph"
+        ]
+      }
+    ],
+    "offline": {
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1280,
+        "height": 720,
+        "cssWidth": 1280,
+        "cssHeight": 720,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 30,
+      "effects": {
+        "attack": 0,
+        "hit": 0,
+        "death": 0,
+        "movement": 0,
+        "bile": 0,
+        "active": 0,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 55.999999999999986,
+      "drawCalls": 10,
+      "triangles": 35206,
+      "entities": 1,
+      "maxStretch": 0,
+      "spatialVisits": 0,
+      "collisionContacts": 0,
+      "phase": "menu",
+      "stage": 1,
+      "time": 0,
+      "stats": {
+        "kills": 0,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 0,
+        "shots": 0,
+        "healed": 0,
+        "damage": 0,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 0
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 0,
+      "requests": []
+    }
+  },
+  "podCheckpoints": [
+    {
+      "name": "falling",
+      "time": 0.13333333333333333,
+      "pods": [
+        {
+          "id": 2,
+          "unit": "marine",
+          "status": "falling",
+          "visible": true,
+          "animation": "birth",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -17.93848553509027,
+              20.970305421001633,
+              -10.337552047448645
+            ],
+            "max": [
+              -15.723258375971156,
+              23.708204740033825,
+              -8.312084758079697
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "陆战队员 #2新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 3,
+          "unit": "hellion",
+          "status": "falling",
+          "visible": true,
+          "animation": "birth",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -13.938485535090267,
+              20.970305421001633,
+              -10.337552047448645
+            ],
+            "max": [
+              -11.72325837597116,
+              23.708204740033825,
+              -8.312084758079697
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "恶火 #3新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 4,
+          "unit": "tank",
+          "status": "falling",
+          "visible": true,
+          "animation": "birth",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -9.938485535090265,
+              20.970305421001633,
+              -10.337552047448645
+            ],
+            "max": [
+              -7.723258375971159,
+              23.708204740033825,
+              -8.312084758079697
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "攻城坦克 #4新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 5,
+          "unit": "medivac",
+          "status": "falling",
+          "visible": true,
+          "animation": "birth",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -5.9384855350902646,
+              20.970305421001633,
+              -10.337552047448645
+            ],
+            "max": [
+              -3.723258375971157,
+              23.708204740033825,
+              -8.312084758079697
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "医疗运输机 #5新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        }
+      ],
+      "drawCalls": 22
+    },
+    {
+      "name": "landed",
+      "time": 3.433333333333333,
+      "pods": [
+        {
+          "id": 2,
+          "unit": "marine",
+          "status": "active",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -7.413321180525092,
+              0.05915597504298903,
+              -0.36719427579862085
+            ],
+            "max": [
+              -4.59801437765711,
+              2.6959661036757985,
+              2.389331872649235
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "陆战队员 #2新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 3,
+          "unit": "hellion",
+          "status": "active",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -3.4133211805250916,
+              0.05915597504298903,
+              -0.36719427579862085
+            ],
+            "max": [
+              -0.5980143776571099,
+              2.6959661036757985,
+              2.389331872649235
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "恶火 #3新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 4,
+          "unit": "tank",
+          "status": "active",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              0.5866788194749082,
+              0.05915597504298903,
+              -0.36719427579862085
+            ],
+            "max": [
+              3.40198562234289,
+              2.6959661036757985,
+              2.389331872649235
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "攻城坦克 #4新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 5,
+          "unit": "medivac",
+          "status": "active",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              4.5866788194749075,
+              0.05915597504298903,
+              -0.36719427579862085
+            ],
+            "max": [
+              7.40198562234289,
+              2.6959661036757985,
+              2.389331872649235
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "医疗运输机 #5新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        }
+      ],
+      "drawCalls": 26
+    },
+    {
+      "name": "promotion-label",
+      "time": 3.433333333333333,
+      "pods": [
+        {
+          "id": 2,
+          "unit": "marine",
+          "status": "active",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -7.413321180525092,
+              0.05915597504298903,
+              -0.36719427579862085
+            ],
+            "max": [
+              -4.59801437765711,
+              2.6959661036757985,
+              2.389331872649235
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "陆战队员 #2晋升最低军衔 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 3,
+          "unit": "hellion",
+          "status": "active",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -3.4133211805250916,
+              0.05915597504298903,
+              -0.36719427579862085
+            ],
+            "max": [
+              -0.5980143776571099,
+              2.6959661036757985,
+              2.389331872649235
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "恶火 #3新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 4,
+          "unit": "tank",
+          "status": "active",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              0.5866788194749082,
+              0.05915597504298903,
+              -0.36719427579862085
+            ],
+            "max": [
+              3.40198562234289,
+              2.6959661036757985,
+              2.389331872649235
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "攻城坦克 #4新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 5,
+          "unit": "medivac",
+          "status": "active",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              4.5866788194749075,
+              0.05915597504298903,
+              -0.36719427579862085
+            ],
+            "max": [
+              7.40198562234289,
+              2.6959661036757985,
+              2.389331872649235
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "医疗运输机 #5新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        }
+      ],
+      "drawCalls": 26
+    },
+    {
+      "name": "opening",
+      "time": 4.433333333333334,
+      "pods": [
+        {
+          "id": 2,
+          "unit": "marine",
+          "status": "opening",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -7.413321167206889,
+              0.05915598616074996,
+              -0.36719425178909226
+            ],
+            "max": [
+              -4.598014424823526,
+              2.6959661036757985,
+              2.3893318783772988
+            ]
+          },
+          "doors": [
+            [
+              -0.976278605916548,
+              -6.447481535683166e-05,
+              -0.00748429258977961,
+              0.21638868896622193
+            ],
+            [
+              -0.9762791761811205,
+              -6.466223712081609e-05,
+              -0.007484266721997446,
+              0.21638611785430478
+            ],
+            [
+              -0.9762791647961935,
+              -6.441599980560415e-05,
+              -0.007484044335832961,
+              0.21638617607141325
+            ],
+            [
+              -0.9762789218470163,
+              -6.475432691945438e-05,
+              -0.007483629537247074,
+              0.21638728611601865
+            ]
+          ],
+          "label": "陆战队员 #2晋升最低军衔 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 3,
+          "unit": "hellion",
+          "status": "opening",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -3.4133211672068917,
+              0.05915598616074996,
+              -0.36719425178909226
+            ],
+            "max": [
+              -0.5980144248235264,
+              2.6959661036757985,
+              2.3893318783772988
+            ]
+          },
+          "doors": [
+            [
+              -0.976278605916548,
+              -6.447481535683166e-05,
+              -0.00748429258977961,
+              0.21638868896622193
+            ],
+            [
+              -0.9762791761811205,
+              -6.466223712081609e-05,
+              -0.007484266721997446,
+              0.21638611785430478
+            ],
+            [
+              -0.9762791647961935,
+              -6.441599980560415e-05,
+              -0.007484044335832961,
+              0.21638617607141325
+            ],
+            [
+              -0.9762789218470163,
+              -6.475432691945438e-05,
+              -0.007483629537247074,
+              0.21638728611601865
+            ]
+          ],
+          "label": "恶火 #3新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 4,
+          "unit": "tank",
+          "status": "opening",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              0.5866788327931083,
+              0.05915598616074996,
+              -0.36719425178909226
+            ],
+            "max": [
+              3.4019855751764734,
+              2.6959661036757985,
+              2.3893318783772988
+            ]
+          },
+          "doors": [
+            [
+              -0.976278605916548,
+              -6.447481535683166e-05,
+              -0.00748429258977961,
+              0.21638868896622193
+            ],
+            [
+              -0.9762791761811205,
+              -6.466223712081609e-05,
+              -0.007484266721997446,
+              0.21638611785430478
+            ],
+            [
+              -0.9762791647961935,
+              -6.441599980560415e-05,
+              -0.007484044335832961,
+              0.21638617607141325
+            ],
+            [
+              -0.9762789218470163,
+              -6.475432691945438e-05,
+              -0.007483629537247074,
+              0.21638728611601865
+            ]
+          ],
+          "label": "攻城坦克 #4新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        },
+        {
+          "id": 5,
+          "unit": "medivac",
+          "status": "opening",
+          "visible": true,
+          "animation": "stand",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              4.586678832793107,
+              0.05915598616074996,
+              -0.36719425178909226
+            ],
+            "max": [
+              7.401985575176473,
+              2.6959661036757985,
+              2.3893318783772988
+            ]
+          },
+          "doors": [
+            [
+              -0.976278605916548,
+              -6.447481535683166e-05,
+              -0.00748429258977961,
+              0.21638868896622193
+            ],
+            [
+              -0.9762791761811205,
+              -6.466223712081609e-05,
+              -0.007484266721997446,
+              0.21638611785430478
+            ],
+            [
+              -0.9762791647961935,
+              -6.441599980560415e-05,
+              -0.007484044335832961,
+              0.21638617607141325
+            ],
+            [
+              -0.9762789218470163,
+              -6.475432691945438e-05,
+              -0.007483629537247074,
+              0.21638728611601865
+            ]
+          ],
+          "label": "医疗运输机 #5新增队员 · 600 / 600 HP",
+          "labelHidden": false
+        }
+      ],
+      "drawCalls": 26
+    },
+    {
+      "name": "destroyed",
+      "time": 4.933333333333334,
+      "pods": [
+        {
+          "id": 2,
+          "unit": "marine",
+          "status": "destroyed",
+          "visible": true,
+          "animation": "death",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -7.413190362534964,
+              0.05915604985081652,
+              -0.2791116540611984
+            ],
+            "max": [
+              -4.59785445648075,
+              2.695966185137914,
+              2.287770964230388
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "陆战队员 #2晋升最低军衔 · 600 / 600 HP",
+          "labelHidden": true
+        },
+        {
+          "id": 3,
+          "unit": "hellion",
+          "status": "destroyed",
+          "visible": true,
+          "animation": "death",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              -3.413190362534964,
+              0.05915604985081652,
+              -0.2791116540611984
+            ],
+            "max": [
+              -0.59785445648075,
+              2.695966185137914,
+              2.287770964230388
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "恶火 #3新增队员 · 600 / 600 HP",
+          "labelHidden": true
+        },
+        {
+          "id": 4,
+          "unit": "tank",
+          "status": "destroyed",
+          "visible": true,
+          "animation": "death",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              0.5868096374650378,
+              0.05915604985081652,
+              -0.2791116540611984
+            ],
+            "max": [
+              3.40214554351925,
+              2.695966185137914,
+              2.287770964230388
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "攻城坦克 #4新增队员 · 600 / 600 HP",
+          "labelHidden": true
+        },
+        {
+          "id": 5,
+          "unit": "medivac",
+          "status": "destroyed",
+          "visible": true,
+          "animation": "death",
+          "meshes": 3,
+          "unsafeCulling": 0,
+          "bounds": {
+            "min": [
+              4.586809637465036,
+              0.05915604985081652,
+              -0.2791116540611984
+            ],
+            "max": [
+              7.40214554351925,
+              2.695966185137914,
+              2.287770964230388
+            ]
+          },
+          "doors": [
+            [
+              -0.7101978332456693,
+              -0.004048255312412545,
+              -0.006295269771564113,
+              0.7039623702557084
+            ],
+            [
+              -0.7101996875169251,
+              -0.004048400016788682,
+              -0.006295147883487191,
+              0.7039605000962812
+            ],
+            [
+              -0.7101996468228814,
+              -0.004048073098554958,
+              -0.006295091201126481,
+              0.7039605432569471
+            ],
+            [
+              -0.7101988490180883,
+              -0.004048137888661368,
+              -0.006294559858162915,
+              0.7039613524113457
+            ]
+          ],
+          "label": "医疗运输机 #5新增队员 · 600 / 600 HP",
+          "labelHidden": true
+        }
+      ],
+      "drawCalls": 23
+    }
+  ],
+  "quality": {
+    "date": "2026-09-21T08:22:58.650Z",
+    "workingDirectory": "D:\\星际",
+    "scope": "Resolution, material loading, settings and DOM checks; local screenshots only, no human visual approval.",
+    "runs": [
+      {
+        "test": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1.25
+        },
+        "defaults": {
+          "quality": "native",
+          "devicePixelRatio": 1.25,
+          "renderPixelRatio": 1.25,
+          "width": 1800,
+          "height": 1125,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        },
+        "materials": [
+          {
+            "type": "marine",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "hellion",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "tank",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "medivac",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "zergling",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "roach",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "baneling",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "ravager",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          }
+        ],
+        "settingsPersist": true,
+        "pauseFreezesSimulation": true,
+        "layout": {
+          "overflow": false,
+          "selection": "",
+          "scroll": [
+            0,
+            0
+          ],
+          "units": 1
+        },
+        "networkRequests": 0
+      },
+      {
+        "test": {
+          "width": 1920,
+          "height": 1080,
+          "dpr": 2
+        },
+        "defaults": {
+          "quality": "native",
+          "devicePixelRatio": 2,
+          "renderPixelRatio": 2,
+          "width": 3840,
+          "height": 2160,
+          "cssWidth": 1920,
+          "cssHeight": 1080,
+          "antialias": true
+        },
+        "materials": [
+          {
+            "type": "marine",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "hellion",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "tank",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "medivac",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "zergling",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "roach",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "baneling",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          },
+          {
+            "type": "ravager",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 8
+          }
+        ],
+        "settingsPersist": true,
+        "pauseFreezesSimulation": true,
+        "layout": {
+          "overflow": false,
+          "selection": "",
+          "scroll": [
+            0,
+            0
+          ],
+          "units": 1
+        },
+        "networkRequests": 0
+      },
+      {
+        "test": {
+          "width": 390,
+          "height": 844,
+          "dpr": 3,
+          "mobile": true
+        },
+        "defaults": {
+          "quality": "balanced",
+          "devicePixelRatio": 3,
+          "renderPixelRatio": 1.5,
+          "width": 585,
+          "height": 1266,
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "antialias": true
+        },
+        "materials": [
+          {
+            "type": "marine",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "hellion",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "tank",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "medivac",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "zergling",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "roach",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "baneling",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "ravager",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          }
+        ],
+        "settingsPersist": true,
+        "pauseFreezesSimulation": true,
+        "layout": {
+          "overflow": false,
+          "selection": "",
+          "scroll": [
+            0,
+            0
+          ],
+          "units": 1
+        },
+        "networkRequests": 0
+      },
+      {
+        "test": {
+          "width": 844,
+          "height": 390,
+          "dpr": 3,
+          "mobile": true
+        },
+        "defaults": {
+          "quality": "balanced",
+          "devicePixelRatio": 3,
+          "renderPixelRatio": 1.5,
+          "width": 1266,
+          "height": 585,
+          "cssWidth": 844,
+          "cssHeight": 390,
+          "antialias": true
+        },
+        "materials": [
+          {
+            "type": "marine",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "hellion",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "tank",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "medivac",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "zergling",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "roach",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "baneling",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          },
+          {
+            "type": "ravager",
+            "normal": true,
+            "specular": true,
+            "anisotropy": 4
+          }
+        ],
+        "settingsPersist": true,
+        "pauseFreezesSimulation": true,
+        "layout": {
+          "overflow": false,
+          "selection": "",
+          "scroll": [
+            0,
+            0
+          ],
+          "units": 1
+        },
+        "networkRequests": 0
+      },
+      {
+        "test": {
+          "width": 1920,
+          "height": 1080,
+          "dpr": 2,
+          "offline": true
+        },
+        "defaults": {
+          "quality": "native",
+          "devicePixelRatio": 2,
+          "renderPixelRatio": 2,
+          "width": 3840,
+          "height": 2160,
+          "cssWidth": 1920,
+          "cssHeight": 1080,
+          "antialias": true
+        },
+        "materials": [
+          {
+            "type": "marine",
+            "normal": true,
+            "specular": true
+          },
+          {
+            "type": "hellion",
+            "normal": true,
+            "specular": true
+          },
+          {
+            "type": "tank",
+            "normal": true,
+            "specular": true
+          },
+          {
+            "type": "medivac",
+            "normal": true,
+            "specular": true
+          },
+          {
+            "type": "zergling",
+            "normal": true,
+            "specular": true
+          },
+          {
+            "type": "roach",
+            "normal": true,
+            "specular": true
+          },
+          {
+            "type": "baneling",
+            "normal": true,
+            "specular": true
+          },
+          {
+            "type": "ravager",
+            "normal": true,
+            "specular": true
+          }
+        ],
+        "settingsPersist": true,
+        "pauseFreezesSimulation": true,
+        "layout": {
+          "overflow": false,
+          "selection": "",
+          "scroll": [
+            0,
+            0
+          ],
+          "units": 1
+        },
+        "networkRequests": 0
+      }
+    ],
+    "errors": []
+  },
+  "independentModelAudit": {
+    "models": 24,
+    "bones": 995,
+    "clips": 208,
+    "mismatches": 0
+  }
+}
