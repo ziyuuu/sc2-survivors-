@@ -1,8 +1,17 @@
 # 当前修复验收
 
-2026-09-21 · 运行代码 `bf486d880e84fb146b46dd3208c6eafb92747d33` · `D:\星际` · `v3/playable-sc2-demo` · [PR #2](https://github.com/ziyuuu/sc2-survivors-/pull/2)。当前数值、旧版真机与人工视觉结论分开记录。
+2026-09-21 · 运行代码 `30e173ad9346a111ac9dfb5e752c1d06a62dced4` · `D:\星际` · `v3/playable-sc2-demo` · [PR #2](https://github.com/ziyuuu/sc2-survivors-/pull/2)。当前数值、旧版真机与人工视觉结论分开记录。
 
-## 最新试玩反馈的处理
+## 点选操作验收
+
+- 电脑实际鼠标右键地面移动、右键敌人集火通过；左键和 HUD 不发指令，右键菜单被阻止。键盘方向立即接管。暂停保持命令且模拟时间冻结，目标死亡解除集火。实际高台拾取使用高度 3 的落点，不投影到下方平地。
+- 浏览器 390×844、844×390 的 CDP 触摸事件：轻点移动／集火通过，拖动、长按、取消、双指战场触摸不下令；摇杆＋架炮按钮同时有效，松手后方向归零，0 文字选中、0 页面滚动，两轮跳过仍可操作。这是桌面触屏仿真，本次没有荣耀真机测试。
+- 新增 17 个规则／拾取测试：真实跟随与到位自动战斗、混编射程、Medivac 合法治疗、部署坦克等待手动收炮、替换目标保持冷却、重复集火不打断出弹、新救援兵继承移动、坡道／障碍路由、触控容差不改实体半径、垂直崖壁不穿透点选。
+- 断网单文件再次实际右键移动、键盘接管通过，0 网络请求、0 浏览器／渲染错误。绿色移动圈与红色目标圈已生成本地截图；没有以截图保存宣称人工视觉批准。
+- 当前回归仅验证输入与规则，不进行自动策略通关，不修改难度或经济预算。此前自然首关记录、压力与真机样本保持历史标签。
+- 原始记录：`reports/local/qa-v8-commands/REPORT.json`；可公开文本：[v8-commands.json](../reports/qa/v8-commands.json)。执行：`node tools/qa-point-commands.mjs`，离线复验时设置环境变量 `SC2_QA_OFFLINE=1`。
+
+## 前一轮试玩反馈的处理
 
 - 前两关首批在 5–7 秒生成，约 9–10 秒一批。第一关 12 次单只跳虫，第二关普通 13 次双只；简单第二关 19 只分到 13 次。两关仍为 120 秒；每仓守军、单只 HP、每次掉落和通关奖励不变，第三关以后波量不变。
 - 已升级重工厂筹备有容量的坦克。下一个订单成本保留在可见钱包中，其他建筑只用真实余量，付款后轮转；关间卡牌可以使用该钱包，未开工不扣款。星港与坦克实验室没有先后依赖。
@@ -11,12 +20,12 @@
 
 ## 测试、构建与离线
 
-- `npm test`：**204 通过，0 失败**；`npm run typecheck` 和 `npm run build` 退出 0。Vite 仍提示大 JS 块。
-- 单文件 **80,866,204 bytes / 77.12 MiB**，102 个内嵌资产；SHA-256 `0b37a884261f991915302107730a7eb8f27f4ed8b6a36b3f74f8231d6459b9ce`。
+- `npm test`：**221 通过，0 失败**；`npm run typecheck` 和 `npm run build` 退出 0。Vite 仍提示大 JS 块。
+- 单文件 **80,873,870 bytes / 77.13 MiB**，102 个内嵌资产；SHA-256 `922011ecbf6d63a7b89e5afea9f6f1e0bf68adc86beb523750f820eb90c9461e`。
 - 断网 `file://` 启动：0 HTTP(S) 请求；8 个战斗模型、原动作及 8 个死亡模型、原仓体、3 个经济模型载入；10 个原声音全部解码。朋友版没有修改状态的 Debug API。
 - 新回归覆盖低速靠点／反向转弯／部署坦克绕行／过期指令、炮塔冷却中瞄准、射程外接敌、高级单位资源逐步到账不会被低级兵耗尽、跨建筑轮转、容量释放、暂停与钱包消费、两关小波次和最大空档。
 
-## 桌面记录
+## 历史桌面记录（bf486d8）
 
 Chrome 1440×900 原生 DPR。正常时间和真实键盘输入，未改 HP、钱、兵力、出生或时钟；策略脚本只选择移动方向。该观察不作为普通难度门槛。
 
@@ -37,9 +46,9 @@ Chrome 1440×900 原生 DPR。正常时间和真实键盘输入，未改 HP、�
 
 ## 性能与手机测试范围
 
-按最新要求，**上述节奏／制动／筹备预算／地形变更不追加真机或手机尺寸测试**。此前的 390×844／844×390 和荣耀横竖屏记录是历史基线，不能冒充当前版本验收。
+按最新要求，**前一轮节奏／制动／筹备预算／地形变更未追加真机或手机尺寸测试**。此前的 390×844／844×390 和荣耀横竖屏记录是历史基线，不能冒充当前版本验收。
 
-当前桌面负载：Chrome / ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)，1440×900，DPR 1，均衡，无 CPU 降速。25 友军、约 300 敌军的持续补充诊断，关闭胆汁并提高 HP，预热 5 秒后采样约 12 秒。
+前一轮桌面负载（bf486d8，本次未重新采样）：Chrome / ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)，1440×900，DPR 1，均衡，无 CPU 降速。25 友军、约 300 敌军的持续补充诊断，关闭胆汁并提高 HP，预热 5 秒后采样约 12 秒。
 
 | 平均 FPS | P95 ms | Draw calls | 采样帧 | 模拟推进秒 | 末尾积压秒 |
 |---:|---:|---:|---:|---:|---:|
@@ -53,6 +62,6 @@ Chrome 1440×900 原生 DPR。正常时间和真实键盘输入，未改 HP、�
 
 原字体、完整粒子／折射／动态材质、人工视觉批准和完整人工 48 分钟流程仍未完成。原门骨骼开舱及已标注死亡变体保持网页适配。请求补充的 10 个声音和两个效果源文件已不再缺失。
 
-实际命令：`npm test`、`npm run typecheck`、`npm run build`、`npm run assets:originals`（另执行 `-Refetch` 与本地转换）、`node tools/import-m3-pack.mjs fx.muzzle fx.flame`、`node tools/qa-fixes-v6.mjs`（本轮设置 `SC2_QA_DESKTOP_ONLY=1`）、`node tools/qa-pace-desktop.mjs`、`node tools/qa-effects.mjs`、`node tools/qa-navigation-load.mjs`、`node --import tsx tools/handling-profile.mts`、`node --import tsx tools/budget-envelope.mts`。最新修复后未执行手机脚本。
+实际命令：`npm test`、`npm run typecheck`、`npm run build`、`npm run assets:originals`（另执行 `-Refetch` 与本地转换）、`node tools/import-m3-pack.mjs fx.muzzle fx.flame`、`node tools/qa-fixes-v6.mjs`（本轮设置 `SC2_QA_DESKTOP_ONLY=1`）、`node tools/qa-pace-desktop.mjs`、`node tools/qa-effects.mjs`、`node tools/qa-navigation-load.mjs`、`node --import tsx tools/handling-profile.mts`、`node --import tsx tools/budget-envelope.mts`。本次新增点选操作另执行 `node tools/qa-point-commands.mjs`（含 `SC2_QA_OFFLINE=1`）；只做触屏仿真，不执行真机脚本。
 
 公开摘要：[v7-summary.json](../reports/qa/v7-summary.json)、[STATUS.json](../reports/STATUS.json)。原始图像和日志仅在 `reports/local/qa-v7-desktop/`、`qa-v7-fixes/`、`qa-v6-assets/` 与 `qa-v6-load/`；历史失败／中断日志不计入通过样本。条件经济账本见 [BALANCE_12_STAGES.md](BALANCE_12_STAGES.md)，不是自动通关证据。

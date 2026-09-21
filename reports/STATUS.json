@@ -1,16 +1,16 @@
 {
-  "checkedAt": "2026-09-21T11:20:56.720396+00:00",
+  "checkedAt": "2026-09-21T11:42:19.618880+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "bf486d880e84fb146b46dd3208c6eafb92747d33",
+  "runtimeCommit": "30e173ad9346a111ac9dfb5e752c1d06a62dced4",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "scope": "Original 10 audio + 2 weapon sources, current-goal routing, per-Factory Tank tech lab, early small-wave pacing, protected next-order savings, vehicle braking/engagement and Char terrain readability. No new physical-phone test after latest feedback.",
+  "scope": "Add desktop right-click and mobile tap whole-squad movement/focus, keyboard/joystick takeover, physical terrain picking and command markers. Preserve prior pacing, handling, auto-economy and original assets. Touch is browser emulation only; no new physical-phone test.",
   "tests": {
     "command": "npm test",
-    "passed": 204,
+    "passed": 221,
     "failed": 0,
-    "log": "reports/local/tests-v7-final.log"
+    "log": "reports/local/v8-tests.log"
   },
   "typecheck": {
     "command": "npm run typecheck / tsc --noEmit during build",
@@ -20,9 +20,9 @@
     "command": "npm run build",
     "exitCode": 0,
     "path": "dist/SC2-Survivors-Demo.html",
-    "bytes": 80866204,
-    "miB": 77.12002182006836,
-    "sha256": "0b37a884261f991915302107730a7eb8f27f4ed8b6a36b3f74f8231d6459b9ce",
+    "bytes": 80873870,
+    "miB": 77.12733268737793,
+    "sha256": "922011ecbf6d63a7b89e5afea9f6f1e0bf68adc86beb523750f820eb90c9461e",
     "embeddedAssets": 102,
     "largeChunkWarning": true
   },
@@ -46,11 +46,18 @@
     "independentModelAuditUnchanged": "reports/qa/v5-model-audit.json"
   },
   "offline": {
+    "scheme": "file://",
+    "network": "Browser context offline",
     "httpRequests": 0,
-    "models": 8,
-    "originalAudioDecoded": 10,
+    "rightClickMove": true,
+    "keyboardTakeover": true,
     "debugMutationApi": false,
-    "network": "context offline; file URL"
+    "models": 8,
+    "originalAnimationModels": 8,
+    "originalDeathModels": 8,
+    "podModel": true,
+    "economicModels": 3,
+    "originalAudioDecoded": 10
   },
   "desktopPerformance": {
     "at": "2026-09-21T11:17:59.866Z",
@@ -223,7 +230,9 @@
         "simulationSeconds": 11.649999999999999
       }
     ],
-    "errors": []
+    "errors": [],
+    "runtimeCommit": "bf486d880e84fb146b46dd3208c6eafb92747d33",
+    "historical": true
   },
   "currentPhysicalPhone": {
     "tested": false,
@@ -237,7 +246,7 @@
     "Desktop diagnostic load retains fixed ticks but accumulates simulation lag; frame rate alone is not simulation throughput.",
     "Remaining historical source/animation variants are documented; requested 10 sounds and 2 effect sources are complete."
   ],
-  "qaReport": "reports/qa/v7-summary.json",
+  "qaReport": "reports/qa/v8-commands.json",
   "desktopOpening": {
     "opening": {
       "phase": "reward",
@@ -267,6 +276,99 @@
       "units": 4
     },
     "clear": "通关奖励已到账 +80 M / +30 G\n余额 112 M / 77 G",
-    "twoRoundsSkipped": true
-  }
+    "twoRoundsSkipped": true,
+    "runtimeCommit": "bf486d880e84fb146b46dd3208c6eafb92747d33",
+    "historical": true
+  },
+  "pointCommands": {
+    "desktop": {
+      "move": {
+        "ground": {
+          "x": 1007.9999999999999,
+          "y": 507.193763974358
+        },
+        "contextMenuPrevented": true,
+        "leftClickIgnored": true,
+        "hudIgnored": true,
+        "keyboardTakeover": true
+      },
+      "focus": {
+        "targetId": 4,
+        "damaged": true,
+        "order": {
+          "kind": "focus",
+          "targetId": 4,
+          "issuedAt": 2.4
+        },
+        "unitTarget": 4,
+        "anchor": {
+          "x": 4.013333333333331,
+          "z": 0,
+          "facing": 1.5707963267948966
+        }
+      },
+      "pauseFrozen": true,
+      "deadTargetCleared": true,
+      "plateau": {
+        "pixel": {
+          "x": 947.4545057227252,
+          "y": 552.7824860120442
+        },
+        "point": {
+          "x": 32.03033711420462,
+          "z": 3.983997808999124
+        }
+      }
+    },
+    "touchEmulation": [
+      {
+        "width": 390,
+        "height": 844,
+        "tapMove": true,
+        "tapFocus": true,
+        "dragIgnored": true,
+        "longPressIgnored": true,
+        "cancelCleared": true,
+        "twoFingerTapIgnored": true,
+        "hudIgnored": true,
+        "movementAndSkill": true,
+        "released": true,
+        "rewardSkips": true,
+        "input": 0.8522727272727272,
+        "tank": "siege",
+        "order": null,
+        "selected": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "pageWidth": 390
+      },
+      {
+        "width": 844,
+        "height": 390,
+        "tapMove": true,
+        "tapFocus": true,
+        "dragIgnored": true,
+        "longPressIgnored": true,
+        "cancelCleared": true,
+        "twoFingerTapIgnored": true,
+        "hudIgnored": true,
+        "movementAndSkill": true,
+        "released": true,
+        "rewardSkips": true,
+        "input": 0.9375,
+        "tank": "siege",
+        "order": null,
+        "selected": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "pageWidth": 844
+      }
+    ],
+    "report": "reports/qa/v8-commands.json"
+  },
+  "previousQaReport": "reports/qa/v7-summary.json"
 }

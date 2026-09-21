@@ -1,0 +1,128 @@
+{
+  "at": "2026-09-21T11:39:57.705Z",
+  "runtimeCommit": "30e173ad9346a111ac9dfb5e752c1d06a62dced4",
+  "method": "Actual mouse/right-click and CDP touch events in desktop Chrome. Explicit isolated fixtures verify input, targeting and routing, not balance or an automated playthrough. Mobile sizes are emulation, not a physical phone. Images remain local; no human visual approval.",
+  "tests": {
+    "passed": 221,
+    "failed": 0,
+    "newCommandAndPickingTests": 17
+  },
+  "typecheckExitCode": 0,
+  "buildExitCode": 0,
+  "artifact": {
+    "path": "dist/SC2-Survivors-Demo.html",
+    "bytes": 80873870,
+    "miB": 77.12733268737793,
+    "sha256": "922011ecbf6d63a7b89e5afea9f6f1e0bf68adc86beb523750f820eb90c9461e",
+    "embeddedAssets": 102
+  },
+  "desktop": {
+    "move": {
+      "ground": {
+        "x": 1007.9999999999999,
+        "y": 507.193763974358
+      },
+      "contextMenuPrevented": true,
+      "leftClickIgnored": true,
+      "hudIgnored": true,
+      "keyboardTakeover": true
+    },
+    "focus": {
+      "targetId": 4,
+      "damaged": true,
+      "order": {
+        "kind": "focus",
+        "targetId": 4,
+        "issuedAt": 2.4
+      },
+      "unitTarget": 4,
+      "anchor": {
+        "x": 4.013333333333331,
+        "z": 0,
+        "facing": 1.5707963267948966
+      }
+    },
+    "pauseFrozen": true,
+    "deadTargetCleared": true,
+    "plateau": {
+      "pixel": {
+        "x": 947.4545057227252,
+        "y": 552.7824860120442
+      },
+      "point": {
+        "x": 32.03033711420462,
+        "z": 3.983997808999124
+      }
+    }
+  },
+  "touchEmulation": [
+    {
+      "width": 390,
+      "height": 844,
+      "tapMove": true,
+      "tapFocus": true,
+      "dragIgnored": true,
+      "longPressIgnored": true,
+      "cancelCleared": true,
+      "twoFingerTapIgnored": true,
+      "hudIgnored": true,
+      "movementAndSkill": true,
+      "released": true,
+      "rewardSkips": true,
+      "input": 0.8522727272727272,
+      "tank": "siege",
+      "order": null,
+      "selected": "",
+      "scroll": [
+        0,
+        0
+      ],
+      "pageWidth": 390
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "tapMove": true,
+      "tapFocus": true,
+      "dragIgnored": true,
+      "longPressIgnored": true,
+      "cancelCleared": true,
+      "twoFingerTapIgnored": true,
+      "hudIgnored": true,
+      "movementAndSkill": true,
+      "released": true,
+      "rewardSkips": true,
+      "input": 0.9375,
+      "tank": "siege",
+      "order": null,
+      "selected": "",
+      "scroll": [
+        0,
+        0
+      ],
+      "pageWidth": 844
+    }
+  ],
+  "offline": {
+    "scheme": "file://",
+    "network": "Browser context offline",
+    "httpRequests": 0,
+    "rightClickMove": true,
+    "keyboardTakeover": true,
+    "debugMutationApi": false,
+    "models": 8,
+    "originalAnimationModels": 8,
+    "originalDeathModels": 8,
+    "podModel": true,
+    "economicModels": 3,
+    "originalAudioDecoded": 10
+  },
+  "errors": [],
+  "physicalPhone": {
+    "tested": false,
+    "reason": "User asked to defer further physical phone testing."
+  },
+  "screenshots": "reports/local/qa-v8-commands/",
+  "humanVisualApproved": false,
+  "balancePlaythrough": false
+}
