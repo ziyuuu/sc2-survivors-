@@ -12,11 +12,11 @@ import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,Eco
 
 export class World {
  time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'lost'='menu';paused=false;
- entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<BuildingType,Building>();upgrades=new Map<string,number>();
+ entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<number,Building>();upgrades=new Map<string,number>();
  wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
  trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];hash=new SpatialHash<Body>();
  visualEvents:VisualEvent[]=[];private visualSerial=0;
- rewards:Reward[]=[];rewardClaimed=false;rerolls=0;nextWave=Infinity;wave=0;stageWave=0;nextId=1;nextJob=1;
+ rewards:Reward[]=[];rewardClaimed=false;rewardRound:'building'|'random'='building';clearReceipt:{stage:number;minerals:number;gas:number}|null=null;rerolls=0;nextBuilding=1;nextWave=Infinity;wave=0;stageWave=0;nextId=1;nextJob=1;
  dashUntil=0;dashReady=0;hive:Body|null=null;maxStretch=0;distancePairs=0;collisionContacts=0;
  stats={kills:0,rescued:0,failed:0,produced:0,started:0,shots:0,healed:0,damage:0,scvsRescued:0,scvsLost:0,dronesKilled:0,ambientSpawned:0};
  difficulty:Difficulty='normal';scvs=0;economicTargets=new Map<number,EconomicTarget>();
@@ -35,7 +35,7 @@ export class World {
  constructor(options:{seed?:number;waves?:boolean;obstacles?:Obstacle[];initial?:TerranType[];difficulty?:Difficulty;sandbox?:boolean}={}){
   this.seed=options.seed??89241;this.rngState=this.seed;this.autoWaves=options.waves??true;this.sandbox=options.sandbox??false;this.difficulty=options.difficulty??'normal';this.obstacles=options.obstacles??OBSTACLES;
   const initial=options.initial??TUNING.initialSquad;initial.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
-  if(!this.sandbox){this.buildings.set('barracks',{type:'barracks',remaining:0,queue:[]});for(const u of this.allies()){const p=this.moveGoal(u);u.x=p.x;u.z=p.z;u.prev={...p};}}
+  if(!this.sandbox){this.addBuilding('barracks',0);for(const u of this.allies()){const p=this.moveGoal(u);u.x=p.x;u.z=p.z;u.prev={...p};}}
   this.prepareStage();
  }
  get config(){if(this.configStage!==this.stage||this.configDifficulty!==this.difficulty){this.stageData=stageConfig(this.stage,this.difficulty);this.configStage=this.stage;this.configDifficulty=this.difficulty;}return this.stageData;}
@@ -83,13 +83,15 @@ export class World {
  }
  capacity(type:TerranType){const points=this.allies().filter(u=>u.unitType===type).reduce((n,u)=>n+u.rank,0);const orders=[...this.buildings.values()].reduce((n,b)=>n+b.queue.filter(j=>j.unitType===type).length,0);const pods=this.pods.filter(p=>p.unitType===type&&['falling','active','opening'].includes(p.status)).length;return points+orders+pods+this.extraDeliveries.filter(t=>t===type).length<25;}
  productionCost=(type:TerranType)=>{const d=SC2_UNITS[type];const factor=this.upgrades.has('discount')?.85:1;return {minerals:Math.ceil(d.mineralCost*factor),gas:Math.ceil(d.gasCost*factor)};};
- buildingFor(type:TerranType){return [...this.buildings.values()].find(b=>BUILDINGS[b.type].types.includes(type));}
- canTrain=(type:TerranType)=>{const b=this.buildingFor(type),c=this.productionCost(type);return !!b&&b.remaining<=0&&this.capacity(type)&&this.wallet.minerals>=c.minerals&&this.wallet.gas>=c.gas;};
- build(type:BuildingType){if(this.buildings.has(type))return false;const d=BUILDINGS[type];if(!spend(this.wallet,{minerals:d.minerals,gas:d.gas}))return false;
-  this.buildings.set(type,{type,remaining:d.time,queue:[]});this.economyTotals.purchases.minerals+=d.minerals;this.economyTotals.purchases.gas+=d.gas;this.changed();return true;
+ buildingsOf(type:BuildingType){return [...this.buildings.values()].filter(b=>b.type===type);}
+ addBuilding(type:BuildingType,remaining=BUILDINGS[type].time){const b:Building={id:this.nextBuilding++,type,remaining,queue:[]};this.buildings.set(b.id,b);return b;}
+ buildingFor(type:TerranType){return [...this.buildings.values()].filter(b=>b.remaining<=0&&BUILDINGS[b.type].types.includes(type)).sort((a,b)=>a.queue.length-b.queue.length||a.id-b.id)[0];}
+ canTrain=(type:TerranType,buildingId?:number)=>{const b=buildingId===undefined?this.buildingFor(type):this.buildings.get(buildingId),c=this.productionCost(type);return !!b&&BUILDINGS[b.type].types.includes(type)&&b.remaining<=0&&this.capacity(type)&&this.wallet.minerals>=c.minerals&&this.wallet.gas>=c.gas;};
+ build(type:BuildingType){const d=BUILDINGS[type];if(!spend(this.wallet,{minerals:d.minerals,gas:d.gas}))return false;
+  this.addBuilding(type);this.economyTotals.purchases.minerals+=d.minerals;this.economyTotals.purchases.gas+=d.gas;this.changed();return true;
  }
- queue(type:TerranType){if(!this.canTrain(type))return false;const cost=this.productionCost(type);if(!spend(this.wallet,cost))return false;
-  this.buildingFor(type)!.queue.push({id:this.nextJob++,unitType:type,remaining:SC2_UNITS[type].productionTime,paid:cost});this.stats.started++;this.economyTotals.production.minerals+=cost.minerals;this.economyTotals.production.gas+=cost.gas;this.changed();return true;
+ queue(type:TerranType,buildingId?:number){if(!this.canTrain(type,buildingId))return false;const cost=this.productionCost(type);if(!spend(this.wallet,cost))return false;
+  const building=buildingId===undefined?this.buildingFor(type):this.buildings.get(buildingId)!;building.queue.push({id:this.nextJob++,unitType:type,remaining:SC2_UNITS[type].productionTime,paid:cost});this.stats.started++;this.economyTotals.production.minerals+=cost.minerals;this.economyTotals.production.gas+=cost.gas;this.changed();return true;
  }
  updateProduction(dt:number){for(const b of this.buildings.values()){
   if(b.remaining>0){b.remaining=Math.max(0,b.remaining-dt);continue;}
@@ -100,7 +102,7 @@ export class World {
  const buildings=[...this.buildings.values()],n=buildings.length;let last=-1;
  for(let offset=0;offset<n;offset++){const index=(this.productionCursor+offset)%n,b=buildings[index];if(b.remaining>0||b.queue.length)continue;
   const types:TerranType[]=b.type==='factory'?['tank','hellion']:BUILDINGS[b.type].types;
-  for(const type of types)if(this.queue(type)){last=index;break;}
+  for(const type of types)if(this.queue(type,b.id)){last=index;break;}
  }
  if(last>=0)this.productionCursor=(last+1)%n;
  }
@@ -238,22 +240,25 @@ export class World {
   // Distribute a wave along its approach arc; do not stack every attacker on one point.
   const arc=angle+((this.stats.ambientSpawned%9)-4)*.17,range=Math.min(24,this.mapHalf*.9)*(0.86+(this.stats.ambientSpawned%3)*.06);
   const desired=this.nearbyPoint(this.anchor,range,arc);const p=distance(desired,this.anchor)>=8?desired:base;this.addUnit(e.type,'zerg',p.x,p.z);this.stats.ambientSpawned++;}}
- endStage(){if(this.phase!=='battle')return;const [m,g]=this.config.reward,f=incomeFactor(this.difficulty);this.wallet.minerals+=m*f;this.wallet.gas+=g*f;this.economyTotals.clear.minerals+=m*f;this.economyTotals.clear.gas+=g*f;
-  if(this.stage===12){this.phase=this.hive&&this.hive.hp<=0?'won':'lost';this.announce(this.phase==='won'?'虫巢已摧毁 · 小队撤离成功':'未能在期限内摧毁虫巢');return;}
-  this.phase='reward';this.rewardClaimed=false;this.rerolls=0;this.rewards=drawRewards(this,this.random);this.changed();
+ endStage(){if(this.phase!=='battle')return;
+  if(this.stage===12&&(!this.hive||this.hive.hp>0||!this.allies().some(u=>u.unitType!=='medivac'))){this.phase='lost';this.announce('未能在期限内摧毁虫巢并保住小队');return;}
+  const [m,g]=this.config.reward,f=incomeFactor(this.difficulty);this.clearReceipt={stage:this.stage,minerals:m*f,gas:g*f};this.wallet.minerals+=m*f;this.wallet.gas+=g*f;this.economyTotals.clear.minerals+=m*f;this.economyTotals.clear.gas+=g*f;
+  if(this.stage===12){this.phase='won';this.announce('虫巢已摧毁 · 小队撤离成功');return;}
+  this.phase='reward';this.rewardRound='building';this.rewardClaimed=false;this.rerolls=0;this.rewards=drawRewards(this,this.random,[],this.rewardRound);this.changed();
  }
  rerollCost(){return 50+25*this.rerolls;}
- reroll(){if(this.phase!=='reward'||this.rewardClaimed||!spend(this.wallet,{minerals:this.rerollCost(),gas:0}))return false;this.economyTotals.rerolls+=this.rerollCost();this.rewards=drawRewards(this,this.random,this.rewards.map(r=>r.id));this.rerolls++;this.changed();return true;}
- choose(id:string){if(this.phase!=='reward'||this.rewardClaimed)return false;const r=this.rewards.find(r=>r.id===id);if(!r||!eligibleReward(this,r)||!spend(this.wallet,{minerals:r.minerals,gas:r.gas}))return false;
+ reroll(){if(this.phase!=='reward'||this.rewardClaimed||!spend(this.wallet,{minerals:this.rerollCost(),gas:0}))return false;this.economyTotals.rerolls+=this.rerollCost();this.rewards=drawRewards(this,this.random,this.rewards.map(r=>r.id),this.rewardRound,this.rewards);this.rerolls++;this.changed();return true;}
+ choose(id:string){if(this.phase!=='reward'||this.rewardClaimed)return false;const r=this.rewards.find(r=>r.id===id);if(!r||(this.rewardRound==='building')!==(r.kind==='build')||!eligibleReward(this,r)||!spend(this.wallet,{minerals:r.minerals,gas:r.gas}))return false;
   this.economyTotals.purchases.minerals+=r.minerals;this.economyTotals.purchases.gas+=r.gas;
-  if(r.kind==='build'){const type=r.value as BuildingType;this.buildings.set(type,{type,remaining:BUILDINGS[type].time,queue:[]});}
+  if(r.kind==='build'){const type=r.value as BuildingType;this.addBuilding(type);}
   else if(r.kind==='train')this.extraDeliveries.push(r.value as TerranType);
   else if(r.kind==='tech'){this.upgrades.set(r.value,(this.upgrades.get(r.value)??0)+1);for(const u of this.allies())this.refreshStats(u);}
   else {const gains=r.value==='minerals'?[100,0]:r.value==='gas'?[0,50]:r.value==='salvage'?[75,25]:[100,25];this.wallet.minerals+=gains[0];this.wallet.gas+=gains[1];this.economyTotals.cards.minerals+=gains[0];this.economyTotals.cards.gas+=gains[1];}
-  return this.nextStage();
+  return this.finishRewardRound();
  }
- skipReward(){if(this.phase!=='reward'||this.rewardClaimed)return false;return this.nextStage();}
- private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.prepareStage();for(const type of this.extraDeliveries)this.spawnPod(type,undefined,this.nextJob++);this.extraDeliveries=[];this.changed();return true;}
+ skipReward(){if(this.phase!=='reward'||this.rewardClaimed)return false;return this.finishRewardRound();}
+ private finishRewardRound(){this.rewardClaimed=true;if(this.rewardRound==='building'){this.rewardRound='random';this.rewards=drawRewards(this,this.random);this.rewardClaimed=false;this.changed();return true;}return this.nextStage();}
+ private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();for(const type of this.extraDeliveries)this.spawnPod(type,undefined,this.nextJob++);this.extraDeliveries=[];this.changed();return true;}
  stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){if(u.unitType==='marine'&&u.hp>10&&u.stimUntil<=this.time){u.hp-=10;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
  dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;this.dashUntil=this.time+1.2;this.dashReady=this.time+12;return true;}
  step(){if(this.phase!=='battle'||this.paused)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;

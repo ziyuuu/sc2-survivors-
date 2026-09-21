@@ -22,20 +22,24 @@ export function rewardPool():Reward[]{return [
  offer({id:'economy.salvage',name:'战地回收',description:'获得 75 矿物与 25 瓦斯。',icon:'building.factory',kind:'economy',value:'salvage',minerals:50,gas:0}),
  offer({id:'economy.supply',name:'补给运输',description:'获得 100 矿物与 25 瓦斯。',icon:'building.barracks',kind:'economy',value:'supply',minerals:75,gas:25}),
  ];}
-export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<BuildingType,Building>;upgrades:Map<string,number>;capacity:(t:TerranType)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
+export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<number,Building>;upgrades:Map<string,number>;capacity:(t:TerranType)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
 export function unlockedReward(w:RewardWorld,r:Reward){
- if(r.kind==='build')return !w.buildings.has(r.value as BuildingType)&&w.stage>=(r.value==='factory'||r.value==='starport'?2:1);
+ if(r.kind==='build')return w.stage>=(r.value==='factory'||r.value==='starport'?2:1);
  if(r.kind==='train')return w.capacity(r.value as TerranType)&&[...w.buildings.values()].some(b=>b.remaining<=0&&BUILDINGS[b.type].types.includes(r.value as TerranType));
- if(r.kind==='tech'){const needsFactory=['vehicle','infernal','siege'].includes(r.value),needsStarport=r.value==='medivac';return (!needsFactory||w.buildings.has('factory'))&&(!needsStarport||w.buildings.has('starport'))&&(w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1);}
+ if(r.kind==='tech'){const needsFactory=['vehicle','infernal','siege'].includes(r.value),needsStarport=r.value==='medivac';return (!needsFactory||[...w.buildings.values()].some(b=>b.type==='factory'))&&(!needsStarport||[...w.buildings.values()].some(b=>b.type==='starport'))&&(w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1);}
  return true;
 }
 export function eligibleReward(w:RewardWorld,r:Reward){return unlockedReward(w,r)&&w.wallet.minerals+1e-8>=r.minerals&&w.wallet.gas+1e-8>=r.gas;}
-export function drawRewards(w:RewardWorld,rng:()=>number,previous:string[]=[]){
- const pool=rewardPool().filter(r=>unlockedReward(w,r));const result:Reward[]=[];
- while(result.length<3&&pool.length)result.push(pool.splice(Math.floor(rng()*pool.length),1)[0]);
+export function drawRewards(w:RewardWorld,rng:()=>number,previous:string[]=[],round:'building'|'random'='random',oldPrices:Reward[]=[]){
+ const pool=rewardPool().filter(r=>unlockedReward(w,r)&&(round==='building'?r.kind==='build':r.kind!=='build'));const result:Reward[]=[];
+ if(round==='building')result.push(...pool.splice(0));else while(result.length<3&&pool.length)result.push(pool.splice(Math.floor(rng()*pool.length),1)[0]);
  if(result.length===3&&result.every(r=>previous.includes(r.id))){const alternative=pool.find(r=>!previous.includes(r.id));if(alternative)result[2]=alternative;}
- return result.map(r=>{let price={minerals:r.minerals,gas:r.gas};if(r.kind==='train')price=w.productionCost(r.value as TerranType);
+ const priced=result.map(r=>{let price={minerals:r.minerals,gas:r.gas};if(r.kind==='train')price=w.productionCost(r.value as TerranType);
   const level=w.upgrades.get(r.value)??0;if(r.value==='infantry'&&level>0)price={minerals:level===1?250:350,gas:level===1?75:125};if(r.value==='vehicle'&&level>0)price={minerals:level===1?250:300,gas:level===1?75:100};
   let n=rng()*100;const d=DISCOUNTS.find(d=>{n-=d.weight;return n<0;})??DISCOUNTS[0];return {...r,discount:d.off,baseMinerals:price.minerals,baseGas:price.gas,minerals:Math.ceil(price.minerals*(1-d.off)),gas:Math.ceil(price.gas*(1-d.off))};
  });
+ if(round==='building'&&priced.length&&oldPrices.length&&priced.every(r=>oldPrices.some(p=>p.id===r.id&&p.minerals===r.minerals&&p.gas===r.gas))){
+  const index=Math.min(priced.length-1,Math.floor(rng()*priced.length)),r=priced[index],choices=DISCOUNTS.filter(d=>Math.ceil(r.baseMinerals*(1-d.off))!==r.minerals||Math.ceil(r.baseGas*(1-d.off))!==r.gas);let n=rng()*choices.reduce((sum,d)=>sum+d.weight,0);const d=choices.find(d=>{n-=d.weight;return n<0;})??choices[0];priced[index]={...r,discount:d.off,minerals:Math.ceil(r.baseMinerals*(1-d.off)),gas:Math.ceil(r.baseGas*(1-d.off))};
+ }
+ return priced;
 }

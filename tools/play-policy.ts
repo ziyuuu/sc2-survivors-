@@ -9,7 +9,7 @@ export class PlayPolicy {
   if(this.style==='wasteful'){while(w.reroll()){}w.skipReward();return;}
   const priority=['build.starport','build.factory','tech.shield','tech.infernal','tech.infantry','tech.vehicle','tech.medivac','tech.siege','tech.discount','economy.gas','economy.minerals','economy.salvage','train.medivac','train.tank','train.hellion','train.marine','tech.stim','economy.supply'];
   const affordable=()=>w.rewards.filter(r=>eligibleReward(w,r)).sort((a,b)=>priority.indexOf(a.id)-priority.indexOf(b.id));
-  let choices=affordable();const desired=w.stage>=2&&!w.buildings.has('starport')?'build.starport':w.stage>=2&&!w.buildings.has('factory')?'build.factory':null;let rolls=0;while(desired&&!choices.some(r=>r.id===desired)&&w.wallet.minerals>210&&w.wallet.gas>=100&&rolls++<3){w.reroll();choices=affordable();}
+  let choices=affordable();const desired=w.stage>=2&&w.buildingsOf('starport').length===0?'build.starport':w.stage>=2&&w.buildingsOf('factory').length===0?'build.factory':null;let rolls=0;while(desired&&!choices.some(r=>r.id===desired)&&w.wallet.minerals>210&&w.wallet.gas>=100&&rolls++<3){w.reroll();choices=affordable();}
   if(choices[0]){this.choices.push(choices[0].id);w.choose(choices[0].id);}else{this.choices.push('skip');w.skipReward();}
  }
  update(w:World){if(w.phase==='reward'){this.choose(w);return;}if(w.time<this.nextThink||w.phase!=='battle')return;this.nextThink=w.time+.12;

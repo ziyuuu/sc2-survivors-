@@ -15,10 +15,10 @@ try{
  await page.evaluate(rank=>{const w=window.__SC2_DEBUG__.world;w.entities.clear();for(const t of ['marine','hellion','tank','medivac'])for(let i=0;i<5;i++){const u=w.addUnit(t,'terran',0,0,rank);const p=w.moveGoal(u);u.x=p.x;u.z=p.z;u.prev={...p};}const spawn=w.spawnPod.bind(w);w.spawnPod=(type,position,id)=>spawn(type,position??{x:8,z:0},id);w.changed();},veteran?4:1);
  await page.keyboard.press('KeyB');await page.locator('[data-action="build"][data-type="barracks"]').click();await page.keyboard.press('KeyB');
  let queued=false;
- if(rescueOnly){await page.evaluate(()=>{window.__SC2_DEBUG__.world.buildings.get('barracks').remaining=0;});await page.keyboard.press('KeyB');await page.locator('[data-action="train"][data-type="marine"]').click();await page.keyboard.press('KeyB');queued=true;}
+ if(rescueOnly){await page.evaluate(()=>{window.__SC2_DEBUG__.world.buildingsOf('barracks')[0].remaining=0;});await page.keyboard.press('KeyB');await page.locator('[data-action="train"][data-type="marine"]').click();await page.keyboard.press('KeyB');queued=true;}
  else{
  for(let i=0;i<34;i++){
-  await page.waitForTimeout(2000);const state=await page.evaluate(()=>({...window.__SC2_REPORT__(),barracksReady:window.__SC2_DEBUG__.world.buildings.get('barracks').remaining<=0}));
+  await page.waitForTimeout(2000);const state=await page.evaluate(()=>({...window.__SC2_REPORT__(),barracksReady:window.__SC2_DEBUG__.world.buildingsOf('barracks')[0].remaining<=0}));
   if(i%7===0||state.phase!=='battle')console.log('Combat playthrough',JSON.stringify(state));
   if(state.phase!=='battle'){report.firstStage=state;break;}
   if(state.barracksReady&&!queued){await page.keyboard.press('KeyB');await page.locator('[data-action="train"][data-type="marine"]').click();await page.keyboard.press('KeyB');queued=true;}
