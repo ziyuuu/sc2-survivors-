@@ -1,5 +1,5 @@
 import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,BILE,type UnitType,type TerranType,type ZergType} from '../data/sc2-units';
-import {BUILDINGS,OBSTACLES,STAGES,TUNING,FORMATION,type BuildingType,type Obstacle} from '../data/game';
+import {BUILDINGS,FACTORY_TECH_LAB,OBSTACLES,STAGES,TUNING,FORMATION,type BuildingType,type Obstacle} from '../data/game';
 import {spend,applyWeaponHit,healBiological} from './rules.mjs';
 import {ContactSolver} from './movement/contacts';
 import {SpatialHash} from './movement/spatial-hash';
@@ -33,6 +33,7 @@ export class World {
  private rngState:number;private autoWaves:boolean;
  private readonly contacts=new ContactSolver();
  private configStage=0;private configDifficulty:Difficulty|null=null;private stageData!:ReturnType<typeof stageConfig>;
+ private detours=new Map<number,{body:number;first:Point;second:Point;phase:number;forward:Point}>();
  private navigation=new Map<number,{goal:Point;requested:Point;until:number}>();
  constructor(options:{seed?:number;waves?:boolean;obstacles?:Obstacle[];initial?:TerranType[];difficulty?:Difficulty;sandbox?:boolean;terrain?:boolean}={}){
   this.seed=options.seed??89241;this.rngState=this.seed;this.autoWaves=options.waves??true;this.sandbox=options.sandbox??false;this.difficulty=options.difficulty??'normal';this.obstacles=options.obstacles??OBSTACLES;this.terrain=(options.terrain??(!this.sandbox&&options.obstacles===undefined))?new CharTerrain():undefined;
@@ -86,9 +87,10 @@ export class World {
  capacity(type:TerranType){const points=this.allies().filter(u=>u.unitType===type).reduce((n,u)=>n+u.rank,0);const orders=[...this.buildings.values()].reduce((n,b)=>n+b.queue.filter(j=>j.unitType===type).length,0);const pods=this.pods.filter(p=>p.unitType===type&&['falling','active','opening'].includes(p.status)).length;return points+orders+pods+this.extraDeliveries.filter(t=>t===type).length<25;}
  productionCost=(type:TerranType)=>{const d=SC2_UNITS[type];const factor=this.upgrades.has('discount')?.85:1;return {minerals:Math.ceil(d.mineralCost*factor),gas:Math.ceil(d.gasCost*factor)};};
  buildingsOf(type:BuildingType){return [...this.buildings.values()].filter(b=>b.type===type);}
- addBuilding(type:BuildingType,remaining=BUILDINGS[type].time){const b:Building={id:this.nextBuilding++,type,remaining,queue:[]};this.buildings.set(b.id,b);return b;}
- buildingFor(type:TerranType){return [...this.buildings.values()].filter(b=>b.remaining<=0&&BUILDINGS[b.type].types.includes(type)).sort((a,b)=>a.queue.length-b.queue.length||a.id-b.id)[0];}
- canTrain=(type:TerranType,buildingId?:number)=>{const b=buildingId===undefined?this.buildingFor(type):this.buildings.get(buildingId),c=this.productionCost(type);return !!b&&BUILDINGS[b.type].types.includes(type)&&b.remaining<=0&&this.capacity(type)&&this.wallet.minerals>=c.minerals&&this.wallet.gas>=c.gas;};
+ addBuilding(type:BuildingType,remaining=BUILDINGS[type].time){const b:Building={id:this.nextBuilding++,type,remaining,queue:[],techLab:false,upgradeRemaining:null};this.buildings.set(b.id,b);return b;}
+ buildingCanTrain(b:Building,type:TerranType){return b.remaining<=0&&b.upgradeRemaining===null&&BUILDINGS[b.type].types.includes(type)&&(type!=='tank'||b.techLab);}
+ buildingFor(type:TerranType){return [...this.buildings.values()].filter(b=>this.buildingCanTrain(b,type)).sort((a,b)=>a.queue.length-b.queue.length||a.id-b.id)[0];}
+ canTrain=(type:TerranType,buildingId?:number)=>{const b=buildingId===undefined?this.buildingFor(type):this.buildings.get(buildingId),c=this.productionCost(type);return !!b&&this.buildingCanTrain(b,type)&&this.capacity(type)&&this.wallet.minerals>=c.minerals&&this.wallet.gas>=c.gas;};
  build(type:BuildingType){const d=BUILDINGS[type];if(!spend(this.wallet,{minerals:d.minerals,gas:d.gas}))return false;
   this.addBuilding(type);this.economyTotals.purchases.minerals+=d.minerals;this.economyTotals.purchases.gas+=d.gas;this.changed();return true;
  }
@@ -97,12 +99,13 @@ export class World {
  }
  updateProduction(dt:number){for(const b of this.buildings.values()){
   if(b.remaining>0){b.remaining=Math.max(0,b.remaining-dt);continue;}
-  const job=b.queue[0];if(!job)continue;job.remaining-=dt;
+  // Already-paid orders finish first; the lab then occupies this building alone.
+  const job=b.queue[0];if(!job){if(b.upgradeRemaining!==null){b.upgradeRemaining=Math.max(0,b.upgradeRemaining-dt);if(b.upgradeRemaining<=1e-8){b.techLab=true;b.upgradeRemaining=null;this.changed();}}continue;}job.remaining-=dt;
   if(job.remaining<=1e-8){b.queue.shift();this.stats.produced++;this.spawnPod(job.unitType,undefined,job.id);}
  }
  if(this.sandbox)return;
  const buildings=[...this.buildings.values()],n=buildings.length;let last=-1;
- for(let offset=0;offset<n;offset++){const index=(this.productionCursor+offset)%n,b=buildings[index];if(b.remaining>0||b.queue.length)continue;
+ for(let offset=0;offset<n;offset++){const index=(this.productionCursor+offset)%n,b=buildings[index];if(b.remaining>0||b.upgradeRemaining!==null||b.queue.length)continue;
   const types:TerranType[]=b.type==='factory'?['tank','hellion']:BUILDINGS[b.type].types;
   for(const type of types)if(this.queue(type,b.id)){last=index;break;}
  }
@@ -179,15 +182,41 @@ export class World {
  updateBile(u:Entity,dt:number){u.bileCooldown-=dt;if(u.bileCooldown>0)return;const target=this.findTarget(u,BILE.range);
   if(target&&this.edgeDistance(u,target)<=BILE.range){this.effect('bile',u,target,BILE.radius,BILE.delay);u.bileCooldown=BILE.cooldown;}
  }
- moveGoal(u:Entity){const n=this.trail.length;u.trailIndex=Math.min(u.trailIndex,n-1);
-  while(u.trailIndex<n-1&&distance(u,this.trail[u.trailIndex])<1.5)u.trailIndex++;
-  // Follow historical anchor path while distant, preserving unit-specific progress on reversals.
-  if(distance(u,this.anchor)>4&&u.trailIndex<n-2)return this.trail[u.trailIndex];
-  u.trailIndex=n-1;
+ moveGoal(u:Entity){
+  // The current command is authoritative. A stopped/sieged unit must never replay an old loop.
+  // Independent speed, turn rate, collision and attack stops still create real stragglers.
+  u.trailIndex=this.trail.length-1;
   const formation=FORMATION[u.unitType as TerranType];
   const lane=formation.lane*(u.slot%2===0?-1:1);
   const back=formation.back+(u.unitType==='marine'?Math.floor(u.slot/2):u.slot)*formation.spacing;
-  return {x:this.anchor.x-Math.sin(this.anchor.facing)*back+Math.cos(this.anchor.facing)*lane,z:this.anchor.z-Math.cos(this.anchor.facing)*back-Math.sin(this.anchor.facing)*lane};
+  const bound=this.mapHalf-u.unitRadius-.05;
+  const goal={x:Math.max(-bound,Math.min(bound,this.anchor.x-Math.sin(this.anchor.facing)*back+Math.cos(this.anchor.facing)*lane)),z:Math.max(-bound,Math.min(bound,this.anchor.z-Math.cos(this.anchor.facing)*back-Math.sin(this.anchor.facing)*lane))};
+  // A formation offset can land inside a wall/cliff; the reachable command point takes priority.
+  return !blocked(goal,u.unitRadius,this.obstacles)&&(!this.terrain||this.terrain.canOccupy(goal,u.unitRadius))?goal:{x:this.anchor.x,z:this.anchor.z};
+ }
+ private avoidStationaryBodies(u:Entity,goal:Point):Point {
+  if(u.flying||u.owner!=='terran')return goal;
+  let detour=this.detours.get(u.id);
+  if(detour){const body=this.body(detour.body),remaining={x:goal.x-u.x,z:goal.z-u.z};
+   if(!body||body.hp<=0||'mode' in body&&body.mode!=='siege'&&(body as Entity).modeTimer<=0||remaining.x*detour.forward.x+remaining.z*detour.forward.z<0){this.detours.delete(u.id);detour=undefined;}
+   else {if(distance(u,detour.first)<.45)detour.phase=1;if(distance(u,detour.second)<.45){this.detours.delete(u.id);return goal;}return detour.phase?detour.second:detour.first;}
+  }
+  const d=distance(u,goal);if(d<.25)return goal;const forward={x:(goal.x-u.x)/d,z:(goal.z-u.z)/d};let blocker:Body|undefined,nearest=Infinity,checked=0;
+  this.hash.query(u,4+u.unitRadius,b=>{if(checked++>=20)return false;if(b.id===u.id||b.flying||b.owner!=='terran'||this.terrain&&!this.terrain.sameContactLayer(u,b))return;if('velocity' in b&&(b as Entity).mode!=='siege'&&(b as Entity).modeTimer<=0)return;
+   const x=b.x-u.x,z=b.z-u.z,along=x*forward.x+z*forward.z,across=Math.abs(x*forward.z-z*forward.x),r=u.unitRadius+b.unitRadius+.2;
+   if(along>0&&along<Math.min(d,4)&&across<r&&along<nearest){blocker=b;nearest=along;}
+  });
+  if(!blocker)return goal;const b=blocker as Body,r=u.unitRadius+b.unitRadius+.4;
+  // If the desired slot itself is occupied, settle beside it instead of orbiting the defender.
+  if(distance(goal,b)<u.unitRadius+b.unitRadius+.1&&distance(u,b)<r+.2)return u;
+  const cross=(u.x-b.x)*forward.z-(u.z-b.z)*forward.x,side=Math.abs(cross)>.1?Math.sign(cross):(u.id%2?1:-1);
+  for(const sign of [side,-side]){const lateral={x:forward.z*r*sign,z:-forward.x*r*sign},first={x:b.x-forward.x*r+lateral.x,z:b.z-forward.z*r+lateral.z},second={x:b.x+forward.x*r+lateral.x,z:b.z+forward.z*r+lateral.z};
+   if([first,second].some(p=>Math.abs(p.x)+u.unitRadius>=this.mapHalf||Math.abs(p.z)+u.unitRadius>=this.mapHalf))continue;
+   if(clearLine(u,first,u.unitRadius,this.obstacles,this.terrain)&&clearLine(first,second,u.unitRadius,this.obstacles,this.terrain)){
+    this.detours.set(u.id,{body:b.id,first,second,phase:0,forward});return first;
+   }
+  }
+  return u;
  }
  separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(n>=12)return false;if(b.id===u.id||b.flying!==u.flying||!u.flying&&this.terrain&&!this.terrain.sameContactLayer(u,b))return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min){const strength=Math.min(3,(min-d)*5);if(d>.001){v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;}else{const a=(Math.min(u.id,b.id)*7+Math.max(u.id,b.id)*13)*2.399,sign=u.id<b.id?1:-1;v.x+=Math.sin(a)*strength*sign;v.z+=Math.cos(a)*strength*sign;}n++;}});return v;}
  updateUnit(u:Entity,dt:number){if(u.hp<=0)return;u.prev={x:u.x,z:u.z};u.healTarget=null;
@@ -222,11 +251,12 @@ export class World {
   if(!u.flying){
    const cached=this.navigation.get(u.id);
    if(!cached||this.time>=cached.until||distance(u,cached.goal)<.7||distance(goal,cached.requested)>2){
-    const regionGoal=this.terrain?.routeGoal(u,goal,u.unitRadius,this.mapHalf)??goal;const routed=steerGoal(u,regionGoal,u.unitRadius,this.obstacles,this.terrain);
+    const routed=steerGoal(u,goal,u.unitRadius,this.obstacles,this.terrain,this.mapHalf);
     this.navigation.set(u.id,{goal:{x:routed.x,z:routed.z},requested:{x:goal.x,z:goal.z},until:this.time+.15+(u.id%4)*.01});
    }
    goal=this.navigation.get(u.id)!.goal;
   }
+  goal=this.avoidStationaryBodies(u,goal);
   locomote(u,goal,speed,this.separation(u),dt,this.obstacles,this.sandbox?TUNING.worldHalf:this.mapHalf,this.terrain);
  }
  updatePods(){for(const p of this.pods){
@@ -254,6 +284,7 @@ export class World {
  choose(id:string){if(this.phase!=='reward'||this.rewardClaimed)return false;const r=this.rewards.find(r=>r.id===id);if(!r||(this.rewardRound==='building')!==(r.kind==='build')||!eligibleReward(this,r)||!spend(this.wallet,{minerals:r.minerals,gas:r.gas}))return false;
   this.economyTotals.purchases.minerals+=r.minerals;this.economyTotals.purchases.gas+=r.gas;
   if(r.kind==='build'){const type=r.value as BuildingType;this.addBuilding(type);}
+  else if(r.kind==='upgrade'){this.buildings.get(Number(r.value))!.upgradeRemaining=FACTORY_TECH_LAB.time;}
   else if(r.kind==='train')this.extraDeliveries.push(r.value as TerranType);
   else if(r.kind==='tech'){this.upgrades.set(r.value,(this.upgrades.get(r.value)??0)+1);for(const u of this.allies())this.refreshStats(u);}
   else {const gains=r.value==='minerals'?[100,0]:r.value==='gas'?[0,50]:r.value==='salvage'?[75,25]:[100,25];this.wallet.minerals+=gains[0];this.wallet.gas+=gains[1];this.economyTotals.cards.minerals+=gains[0];this.economyTotals.cards.gas+=gains[1];}
@@ -278,7 +309,7 @@ export class World {
   this.effects=this.effects.filter(f=>f.until>this.time);
   this.updatePods();
   this.pickups=this.pickups.filter(p=>{const d=distance(p,this.anchor);if(d<2&&(!this.terrain||this.terrain.walkLine(p,this.anchor,0))){this.wallet.minerals+=p.minerals;this.wallet.gas+=p.gas;this.economyTotals.drops.minerals+=p.minerals;this.economyTotals.drops.gas+=p.gas;return false;}if(d<6&&(!this.terrain||this.terrain.walkLine(p,this.anchor,0))){p.x+=(this.anchor.x-p.x)*dt*4;p.z+=(this.anchor.z-p.z)*dt*4;}return true;});
-  this.maxStretch=0;let fighters=0;for(const [id,u] of this.entities){if(u.owner==='terran'&&u.hp>0){this.maxStretch=Math.max(this.maxStretch,distance(u,this.anchor));if(u.unitType!=='medivac')fighters++;}if(u.deadAt!==null&&this.time-u.deadAt>1.5){this.entities.delete(id);this.navigation.delete(id);}}
+  this.maxStretch=0;let fighters=0;for(const [id,u] of this.entities){if(u.owner==='terran'&&u.hp>0){this.maxStretch=Math.max(this.maxStretch,distance(u,this.anchor));if(u.unitType!=='medivac')fighters++;}if(u.deadAt!==null&&this.time-u.deadAt>1.5){this.entities.delete(id);this.navigation.delete(id);this.detours.delete(id);}}
   this.distancePairs=this.hash.visits;
   if(!fighters){this.phase='lost';this.announce('战斗单位全部阵亡 · 小队失联');}
   else if(this.stageElapsed>=this.duration-1e-8)this.endStage();

@@ -14,9 +14,9 @@ export interface Pod extends Body {unitType:TerranType;createdAt:number;landedAt
  status:'falling'|'active'|'opening'|'rescued'|'destroyed';resolvedAt:number|null;recruitId:number|null;jobId:number;stage:number}
 export interface EconomicTarget extends Body {kind:'egg'|'drone';createdAt:number;expiresAt:number|null;resolvedAt:number|null;status:'active'|'rescued'|'expired'|'killed';origin:Point;facing:number}
 export interface Job {id:number;unitType:TerranType;remaining:number;paid:{minerals:number;gas:number}}
-export interface Building {id:number;type:BuildingType;remaining:number;queue:Job[]}
+export interface Building {id:number;type:BuildingType;remaining:number;queue:Job[];techLab:boolean;upgradeRemaining:number|null}
 export interface Effect extends Point {id:number;kind:'shot'|'flame'|'explosion'|'bile'|'heal';end:Point;until:number;radius:number;owner:'terran'|'zerg';source:number}
 export interface Pickup extends Point {id:number;minerals:number;gas:number}
 /** Presentation never consumes gameplay IDs or random numbers. */
 export interface VisualEvent extends Point {serial:number;time:number;y:number;endY:number;kind:'attack'|'hit'|'death'|'bile-impact'|'pod-land'|'pod-open'|'pod-destroy'|'scv-rescue'|'egg-expired'|'drone-death';unitType:UnitType|null;entityId:number;flying:boolean;end:Point;facing:number;siege:boolean}
-export interface Reward {id:string;name:string;description:string;icon:string;kind:'build'|'train'|'tech'|'economy';value:string;minerals:number;gas:number;discount:number;baseMinerals:number;baseGas:number}
+export interface Reward {id:string;name:string;description:string;icon:string;kind:'build'|'train'|'tech'|'upgrade'|'economy';value:string;minerals:number;gas:number;discount:number;baseMinerals:number;baseGas:number}

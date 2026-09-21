@@ -28,3 +28,5 @@
 - User clarification: Normal is evaluated first by theoretical feasibility under reasonable economy/build assumptions, then control/play evidence. Do not use automated-controller victory as a Normal acceptance gate or add safety nets solely to make bots win. Keep analytical budgets explicitly conditional. Ground bodies must physically collide using their radii; air layers are separate, with bounded corrections and no teleport.
 
 - Latest approved repair: player-commanded squad siege only; rank damage/attack rate/HP/armor and healer growth follow docs/DESIGN.md. Char terrain includes connected plateaus and ramps. Keep existing enemy and resource budgets unchanged in this repair.
+
+- Latest user clarification: Factory starts with Hellion; its own paid Tech Lab unlocks Tank. Starport requires a completed Factory but never the Tank upgrade. The player chooses the Tank/Medivac order. Movable units route to the current command, never replay obsolete anchor loops.

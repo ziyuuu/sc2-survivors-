@@ -1,4 +1,4 @@
-import {BUILDINGS,type BuildingType} from '../../data/game';
+import {BUILDINGS,FACTORY_TECH_LAB,type BuildingType} from '../../data/game';
 import {SC2_UNITS,TERRAN,type TerranType} from '../../data/sc2-units';
 import {DISCOUNTS} from '../../data/economy';
 import type {Reward,Building} from '../types';
@@ -13,7 +13,8 @@ export const TECHS=[
  ['discount','生产优化','后续自动生产成本降低 15%。','building.barracks',200,75],
 ] as const;
 const offer=(r:Omit<Reward,'discount'|'baseMinerals'|'baseGas'>):Reward=>({...r,discount:0,baseMinerals:r.minerals,baseGas:r.gas});
-export function rewardPool():Reward[]{return [
+export function rewardPool(w?:RewardWorld):Reward[]{const factory=w&&[...w.buildings.values()].find(b=>b.type==='factory'&&b.remaining<=0&&!b.techLab&&b.upgradeRemaining===null);return [
+ ...(factory?[offer({id:'upgrade.factory.'+factory.id,name:'重工厂科技实验室',description:`升级重工厂 #${factory.id}，解锁该厂坦克生产。当前订单完成后开始升级；星港可独立发展。`,icon:'unit.tank',kind:'upgrade',value:String(factory.id),minerals:FACTORY_TECH_LAB.minerals,gas:FACTORY_TECH_LAB.gas})]:[]),
  ...Object.entries(BUILDINGS).map(([id,b])=>offer({id:'build.'+id,name:b.name.split(' · ')[1],description:'建成后自动扣费生产，每份订单投放一个需要救援的降落仓。',icon:'building.'+id,kind:'build',value:id,minerals:b.minerals,gas:b.gas})),
  ...TERRAN.map(id=>{const u=SC2_UNITS[id];return offer({id:'train.'+id,name:u.zh+'增援',description:'下一关额外投放一个增援仓，清除威胁后归队。',icon:'unit.'+id,kind:'train',value:id,minerals:u.mineralCost,gas:u.gasCost});}),
  ...TECHS.map(([id,name,description,icon,minerals,gas])=>offer({id:'tech.'+id,name,description,icon,kind:'tech',value:id,minerals,gas})),
@@ -24,14 +25,15 @@ export function rewardPool():Reward[]{return [
  ];}
 export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<number,Building>;upgrades:Map<string,number>;capacity:(t:TerranType)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
 export function unlockedReward(w:RewardWorld,r:Reward){
- if(r.kind==='build')return w.stage>=(r.value==='factory'||r.value==='starport'?2:1);
- if(r.kind==='train')return w.capacity(r.value as TerranType)&&[...w.buildings.values()].some(b=>b.remaining<=0&&BUILDINGS[b.type].types.includes(r.value as TerranType));
- if(r.kind==='tech'){const needsFactory=['vehicle','infernal','siege'].includes(r.value),needsStarport=r.value==='medivac';return (!needsFactory||[...w.buildings.values()].some(b=>b.type==='factory'))&&(!needsStarport||[...w.buildings.values()].some(b=>b.type==='starport'))&&(w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1);}
+ if(r.kind==='build')return w.stage>=(r.value==='factory'||r.value==='starport'?2:1)&&(r.value!=='starport'||[...w.buildings.values()].some(b=>b.type==='factory'&&b.remaining<=0));
+ if(r.kind==='upgrade'){const b=w.buildings.get(Number(r.value));return !!b&&b.type==='factory'&&b.remaining<=0&&!b.techLab&&b.upgradeRemaining===null;}
+ if(r.kind==='train')return w.capacity(r.value as TerranType)&&[...w.buildings.values()].some(b=>b.remaining<=0&&BUILDINGS[b.type].types.includes(r.value as TerranType)&&(r.value!=='tank'||b.techLab));
+ if(r.kind==='tech'){const needsFactory=['vehicle','infernal','siege'].includes(r.value),needsStarport=r.value==='medivac';return (r.value!=='siege'||[...w.buildings.values()].some(b=>b.type==='factory'&&b.techLab))&&(!needsFactory||[...w.buildings.values()].some(b=>b.type==='factory'))&&(!needsStarport||[...w.buildings.values()].some(b=>b.type==='starport'))&&(w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1);}
  return true;
 }
 export function eligibleReward(w:RewardWorld,r:Reward){return unlockedReward(w,r)&&w.wallet.minerals+1e-8>=r.minerals&&w.wallet.gas+1e-8>=r.gas;}
 export function drawRewards(w:RewardWorld,rng:()=>number,previous:string[]=[],round:'building'|'random'='random',oldPrices:Reward[]=[]){
- const pool=rewardPool().filter(r=>unlockedReward(w,r)&&(round==='building'?r.kind==='build':r.kind!=='build'));const result:Reward[]=[];
+ const pool=rewardPool(w).filter(r=>unlockedReward(w,r)&&(round==='building'?r.kind==='build':r.kind!=='build'));const result:Reward[]=[];
  if(round==='building')result.push(...pool.splice(0));else while(result.length<3&&pool.length)result.push(pool.splice(Math.floor(rng()*pool.length),1)[0]);
  if(result.length===3&&result.every(r=>previous.includes(r.id))){const alternative=pool.find(r=>!previous.includes(r.id));if(alternative)result[2]=alternative;}
  const priced=result.map(r=>{let price={minerals:r.minerals,gas:r.gas};if(r.kind==='train')price=w.productionCost(r.value as TerranType);

@@ -13,6 +13,8 @@ export const BUILDINGS:Record<BuildingType,{name:string;minerals:number;gas:numb
  factory:{name:'Factory · 重工厂',minerals:150,gas:100,time:60/1.4,types:['hellion','tank']},
  starport:{name:'Starport · 星港',minerals:150,gas:100,time:50/1.4,types:['medivac']},
 };
+// Locked SC2 liberty UnitData TechLab 50/25; FactoryAddOns 25 game seconds at Faster.
+export const FACTORY_TECH_LAB={minerals:50,gas:25,time:25/1.4};
 export {STAGES} from './stages';
 export type Obstacle={x:number;z:number;w:number;h:number};
 export const OBSTACLES:Obstacle[]=[
