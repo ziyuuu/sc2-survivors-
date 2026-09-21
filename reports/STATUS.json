@@ -1,42 +1,50 @@
 {
-  "checkedAt": "2026-09-21T02:59:20.295Z",
+  "checkedAt": "2026-09-21T06:18:14.885Z",
   "repository": "ziyuuu/sc2-survivors-",
   "visibilityObserved": "public",
+  "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "5f3fdcfa6c8c313d2b21caffafa78ce4dd5520ce",
-  "deliverable": "playable-v3-with-progressive-single-Marine-opening-native-desktop-resolution-and-original-material-maps; full-game-physical-phone-and-human-visual-acceptance-incomplete",
+  "runtimeCommit": "f3803724f69711173562144f0feb45c675daac80",
+  "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
+  "deliverable": "Easy/Normal 48-minute rules, automatic paid pod production, economic rescues, paid choices, original animated assets, physical collisions and offline demo. Conditional numerical feasibility; no automated-victory gate for Normal.",
   "baseline": {
     "main": "607802c1bf3f0e881d163c8abed7f3ef82d97582",
     "v2": "127aa39f95ad43452bdfe1ecf1b84279b4bb2da1",
-    "existingPr": "https://github.com/ziyuuu/sc2-survivors-/pull/1",
     "preserved": true
   },
   "unitTests": {
     "command": "npm test",
-    "passed": 129,
+    "passed": 160,
     "failed": 0,
-    "log": "reports/local/test-quality.log"
+    "log": "reports/local/v4-tests.txt"
   },
   "build": {
     "command": "npm run build",
     "observedExitCode": 0,
     "standalone": "dist/SC2-Survivors-Demo.html",
-    "bytes": 63695528,
-    "sha256": "7b3b4be22164c401467c8f8ce2ceb9ac8a046c744bc599fed6155ab3cf237b4c",
-    "embeddedAssets": 71,
+    "bytes": 74082133,
+    "miB": 70.6502275466919,
+    "sha256": "d548e8a9c34d0753f0cc7f3e566af0af1dbc9ce7d4b6aa81366ab87bec5a3ee2",
+    "embeddedAssets": 84,
     "largeChunkWarning": true,
-    "log": "reports/local/build-quality.log"
+    "log": "reports/local/v4-build.txt"
   },
   "assets": {
+    "manifestTotal": 94,
+    "available": 84,
+    "requiredMissing": 0,
     "combatModelsLoaded": 8,
     "combatModelTargets": 8,
     "originalAnimationModels": 8,
-    "proceduralAnimationModels": 0,
+    "originalDeathModels": 8,
+    "economicModelsLoaded": 3,
+    "originalPodModelLoaded": true,
     "iconsDecoded": 23,
     "iconTargets": 23,
-    "requiredMissing": [],
-    "optionalMissing": [
-      "model.droppod",
+    "effectTexturesLoaded": 28,
+    "terrainTextures": 5,
+    "missingOriginalAudio": [
+      "audio.sc2.scv.ready",
       "audio.sc2.marine.attack",
       "audio.sc2.hellion.attack",
       "audio.sc2.tank.attack",
@@ -47,1130 +55,228 @@
       "audio.sc2.ravager.attack",
       "audio.sc2.marine.death"
     ],
-    "visualApproval": false,
-    "blenderApproval": false,
-    "originalDeathModels": 8,
-    "originalEffectTextures": 24,
-    "animationAtlasBytes": 4273312,
-    "materialPipelineVersion": 2,
-    "materials": [
-      {
-        "id": "model.marine",
-        "normal": true,
-        "specular": true,
-        "emissive": false,
-        "unsupportedLayers": []
-      },
-      {
-        "id": "model.hellion",
-        "normal": true,
-        "specular": true,
-        "emissive": true,
-        "unsupportedLayers": []
-      },
-      {
-        "id": "model.tank",
-        "normal": true,
-        "specular": true,
-        "emissive": true,
-        "unsupportedLayers": []
-      },
-      {
-        "id": "model.medivac",
-        "normal": true,
-        "specular": true,
-        "emissive": true,
-        "unsupportedLayers": [
-          {
-            "role": "emissive",
-            "reason": "Non-UV0 material layer",
-            "filename": "Glow_Haze1.dds",
-            "channel": 0,
-            "uv": 1,
-            "multiplier": 2
-          }
-        ]
-      },
-      {
-        "id": "model.zergling",
-        "normal": true,
-        "specular": true,
-        "emissive": true,
-        "unsupportedLayers": []
-      },
-      {
-        "id": "model.roach",
-        "normal": true,
-        "specular": true,
-        "emissive": true,
-        "unsupportedLayers": []
-      },
-      {
-        "id": "model.baneling",
-        "normal": true,
-        "specular": true,
-        "emissive": true,
-        "unsupportedLayers": []
-      },
-      {
-        "id": "model.ravager",
-        "normal": true,
-        "specular": true,
-        "emissive": true,
-        "unsupportedLayers": []
-      }
-    ],
-    "originalNormalModels": 8,
-    "originalSpecularModels": 8,
-    "originalEmissiveModels": 7
+    "proceduralAnimationModels": 0
   },
-  "offline": {
-    "fileProtocol": true,
-    "networkDisabled": true,
-    "networkRequests": 0,
-    "modelsLoaded": 8,
-    "debugExposed": false,
-    "originalAnimationModels": 8,
-    "originalDeathModels": 8,
-    "effectTextures": 24
-  },
+  "qaSummary": "reports/qa/v4-summary.json",
   "desktop": {
-    "normalFirstStageAndRescueFlowComplete": true,
-    "normalPlayAcceptanceComplete": false,
-    "scope": "Normal one-Marine opening and paid production. Read-only state inspection, keyboard/mouse input, no stat, clock, roster or enemy overrides. Scripted play, not human visual approval.",
-    "log": "reports/local/qa/EARLY_PROGRESSION.json",
-    "firstStage": {
-      "seconds": 60,
-      "kills": 2,
-      "roster": [
-        {
-          "id": 1,
-          "type": "marine",
-          "hp": 5,
-          "x": -1.6436262331408087,
-          "z": 0.6331837466404476,
-          "action": "idle"
-        }
-      ],
-      "phase": "reward"
+    "firstStageSeconds": 120,
+    "stats": {
+      "kills": 11,
+      "rescued": 3,
+      "failed": 0,
+      "produced": 3,
+      "started": 4,
+      "shots": 67,
+      "healed": 0,
+      "damage": 362,
+      "scvsRescued": 2,
+      "scvsLost": 0,
+      "dronesKilled": 2,
+      "ambientSpawned": 5
     },
-    "paidReroll": {
-      "before": [
-        "tech.infernal",
-        "build.starport",
-        "tech.siege"
-      ],
-      "after": [
-        "build.factory",
-        "economy.minerals",
-        "tech.infantry"
-      ],
-      "minerals": 50
-    },
-    "firstChoice": "tech.infantry",
-    "production": {
-      "paidJobs": 2,
-      "pods": 2,
-      "directRecruitment": false
-    },
-    "firstRescue": {
-      "observedAt": 75.63333333333333,
-      "pod": {
-        "id": 26,
-        "x": -2.6777132955485072,
-        "z": -18.654490689244916,
-        "hp": 1119,
-        "status": "rescued",
-        "expiresAt": 94.63333333333333,
-        "landedAt": 64.63333333333333,
-        "guards": 2
+    "firstStageInput": "Actual keyboard events at normal speed; no health/resources/clock overrides. Automation chooses directions.",
+    "reroll": true,
+    "purchase": {
+      "label": "03\n瓦斯补给\n\n获得 50 瓦斯。\n\n22 M\n85% 价格\n购买支援　▸",
+      "before": {
+        "minerals": 41.537500000003604,
+        "gas": 77.47666666666528
       },
-      "roster": [
-        {
-          "id": 1,
-          "type": "marine",
-          "hp": 5,
-          "x": -1.5207068510918231,
-          "z": -13.673936752862353,
-          "action": "attack"
+      "after": {
+        "minerals": 19.537500000003604,
+        "gas": 127.47666666666528
+      }
+    },
+    "fixtures": {
+      "podFailure": "destroyed",
+      "scvRescue": "rescued",
+      "scvOnce": true,
+      "scvExpiry": "expired"
+    },
+    "iconsDecoded": 23
+  },
+  "mobileEmulation": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "performance": {
+        "averageFps": 25.577082933691415,
+        "p50FrameMs": 33.399999999999636,
+        "p95FrameMs": 50.10000000000218,
+        "sampleFrames": 240,
+        "drawCalls": 35,
+        "triangles": 238465,
+        "liveFriendly": 25,
+        "liveEnemies": 300,
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3,
+          "renderPixelRatio": 1.5,
+          "width": 585,
+          "height": 1266,
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "antialias": true
         },
-        {
-          "id": 69,
-          "type": "marine",
-          "hp": 45,
-          "x": -2.677145762210618,
-          "z": -18.641377965236902,
-          "action": "move"
-        }
-      ],
-      "note": "Paid Infantry Weapons +1 selected before rescue. No stat/clock/roster overrides."
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+      }
     },
-    "abandonedRescue": {
-      "id": 96,
-      "x": 21.049005804106955,
-      "z": -25.458575022878932,
-      "hp": 0,
-      "status": "expired",
-      "expiresAt": 123.55,
-      "landedAt": 93.55,
-      "guards": 2
-    },
-    "end": {
-      "time": 123.6,
-      "stage": 3,
-      "stats": {
-        "kills": 8,
-        "rescued": 1,
-        "failed": 1,
-        "produced": 2,
-        "shots": 236,
-        "healed": 0,
-        "damage": 896
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
       },
-      "allies": [
-        {
-          "id": 69,
-          "type": "marine",
-          "hp": 5,
-          "x": -2.2968513002050206,
-          "z": -12.99002961188651,
-          "action": "idle"
-        }
+      "performance": {
+        "averageFps": 27.27303719360447,
+        "p50FrameMs": 33.30000000000291,
+        "p95FrameMs": 50.099999999998545,
+        "sampleFrames": 240,
+        "drawCalls": 39,
+        "triangles": 239738,
+        "liveFriendly": 25,
+        "liveEnemies": 300,
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3,
+          "renderPixelRatio": 1.5,
+          "width": 1266,
+          "height": 585,
+          "cssWidth": 844,
+          "cssHeight": 390,
+          "antialias": true
+        },
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+      }
+    }
+  ],
+  "physicalPhone": {
+    "device": {
+      "maker": "HONOR",
+      "model": "AMG-AN00",
+      "android": "16",
+      "soc": "SM8650"
+    },
+    "scope": "Physical Android Chrome, current development build via USB localhost. One focused run, actual rAF timing without CPU throttle; synthetic touch, no human visual approval.",
+    "touch": {
+      "moving": true,
+      "dash": true,
+      "selected": "",
+      "scroll": [
+        0,
+        0
       ]
     },
-    "failedComparison": {
-      "log": "reports/local/qa/EARLY_PROGRESSION_rush-to-center.json",
-      "time": 72.38333333333333,
-      "note": "Same default opening and real UI: rushing into the pod centre at 5 HP ended in defeat; retained as a tactical observation."
-    }
-  },
-  "mobile": [
-    {
-      "viewport": {
-        "width": 390,
-        "height": 844
-      },
-      "multiTouch": true,
-      "releaseOutside": true,
-      "layout": {
-        "selection": "",
-        "scroll": [
-          0,
-          0
-        ],
-        "width": 390,
-        "viewport": 390,
-        "joystickStyle": "none",
-        "canvasStyle": "none"
-      },
-      "rewardLayout": {
-        "client": 844,
-        "scroll": 859,
-        "touchAction": "pan-y"
-      },
-      "performance": {
-        "resolution": {
-          "quality": "balanced",
-          "devicePixelRatio": 3,
-          "renderPixelRatio": 1.5,
-          "width": 585,
-          "height": 1266,
-          "cssWidth": 390,
-          "cssHeight": 844,
-          "antialias": true
+    "runs": [
+      {
+        "name": "normal-opening",
+        "performance": {
+          "averageFps": 54.59260270233387,
+          "p50FrameMs": 16.30000000000291,
+          "p95FrameMs": 16.40000000000873,
+          "sampleFrames": 240,
+          "drawCalls": 13,
+          "triangles": 12292,
+          "liveFriendly": 1,
+          "liveEnemies": 0,
+          "resolution": {
+            "quality": "balanced",
+            "devicePixelRatio": 3.25,
+            "renderPixelRatio": 1.5,
+            "width": 553,
+            "height": 1054,
+            "cssWidth": 369,
+            "cssHeight": 703,
+            "antialias": true
+          },
+          "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)"
         },
-        "models": 8,
-        "errors": [],
-        "originalAnimationModels": 8,
-        "proceduralAnimationModels": 0,
-        "originalDeathModels": 8,
-        "animationAtlasBytes": 4273312,
-        "effectTextures": 24,
-        "effects": {
-          "attack": 2945,
-          "hit": 3287,
-          "death": 87,
-          "movement": 4596,
-          "bile": 0,
-          "active": 409,
-          "dropped": 0
+        "viewport": [
+          369,
+          702
+        ]
+      },
+      {
+        "name": "stress-25-100",
+        "performance": {
+          "averageFps": 61.19170852349498,
+          "p50FrameMs": 16.30000000000291,
+          "p95FrameMs": 16.40000000000873,
+          "sampleFrames": 240,
+          "drawCalls": 38,
+          "triangles": 127203,
+          "liveFriendly": 25,
+          "liveEnemies": 100,
+          "resolution": {
+            "quality": "balanced",
+            "devicePixelRatio": 3.25,
+            "renderPixelRatio": 1.5,
+            "width": 553,
+            "height": 1053,
+            "cssWidth": 369,
+            "cssHeight": 702,
+            "antialias": true
+          },
+          "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)"
         },
-        "textures": 15,
-        "fps": 40.642539191020006,
-        "drawCalls": 37,
-        "triangles": 592641,
-        "entities": 326,
-        "maxStretch": 14.151113083992628,
-        "spatialVisits": 31282,
-        "deviceDpr": 3,
-        "renderDpr": 1.5,
-        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "sampleFrames": 240,
-        "averageFps": 39.45162244797317,
-        "p50FrameMs": 16.80000000000109,
-        "p95FrameMs": 33.5,
-        "friendly": 25,
-        "enemies": 300,
-        "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; two-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
+        "viewport": [
+          369,
+          702
+        ]
+      },
+      {
+        "name": "stress-25-300",
+        "performance": {
+          "averageFps": 58.01866266982538,
+          "p50FrameMs": 16.39999999999418,
+          "p95FrameMs": 32.60000000000582,
+          "sampleFrames": 240,
+          "drawCalls": 41,
+          "triangles": 247549,
+          "liveFriendly": 25,
+          "liveEnemies": 300,
+          "resolution": {
+            "quality": "balanced",
+            "devicePixelRatio": 3.25,
+            "renderPixelRatio": 1.5,
+            "width": 553,
+            "height": 1053,
+            "cssWidth": 369,
+            "cssHeight": 702,
+            "antialias": true
+          },
+          "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)"
+        },
+        "viewport": [
+          369,
+          702
+        ]
       }
-    },
-    {
-      "viewport": {
-        "width": 844,
-        "height": 390
-      },
-      "multiTouch": true,
-      "releaseOutside": true,
-      "layout": {
-        "selection": "",
-        "scroll": [
-          0,
-          0
-        ],
-        "width": 844,
-        "viewport": 844,
-        "joystickStyle": "none",
-        "canvasStyle": "none"
-      },
-      "rewardLayout": {
-        "client": 390,
-        "scroll": 412,
-        "touchAction": "pan-y"
-      },
-      "performance": {
-        "resolution": {
-          "quality": "balanced",
-          "devicePixelRatio": 3,
-          "renderPixelRatio": 1.5,
-          "width": 1266,
-          "height": 585,
-          "cssWidth": 844,
-          "cssHeight": 390,
-          "antialias": true
-        },
-        "models": 8,
-        "errors": [],
-        "originalAnimationModels": 8,
-        "proceduralAnimationModels": 0,
-        "originalDeathModels": 8,
-        "animationAtlasBytes": 4273312,
-        "effectTextures": 24,
-        "effects": {
-          "attack": 2947,
-          "hit": 3312,
-          "death": 87,
-          "movement": 4645,
-          "bile": 0,
-          "active": 402,
-          "dropped": 0
-        },
-        "textures": 15,
-        "fps": 35.992801439712025,
-        "drawCalls": 68,
-        "triangles": 595538,
-        "entities": 326,
-        "maxStretch": 13.875143945294935,
-        "spatialVisits": 28352,
-        "deviceDpr": 3,
-        "renderDpr": 1.5,
-        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "sampleFrames": 240,
-        "averageFps": 32.653505489870604,
-        "p50FrameMs": 33.30000000000109,
-        "p95FrameMs": 50,
-        "friendly": 25,
-        "enemies": 300,
-        "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; two-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
-      }
-    }
-  ],
-  "browserErrors": [],
-  "physicalPhoneTested": false,
-  "visualQa": false,
-  "screenshots": "reports/local/qa (local-only, not uploaded or visually inspected)",
-  "previousV2Audit": {
-    "checkedAt": "2026-09-20",
-    "combatModels": 0,
-    "modelHttpResults": "8/8 HTTP 403",
-    "browserBlocked": true,
-    "note": "Historical result superseded by current local downloads and Chrome execution."
+    ],
+    "fixture": "Stress uses temporary high HP, synthetic touch, disabled Bile and maintained counts; it is not a normal campaign or balance victory. Six-second warmup + twelve-second sample, frame ring retains last 240 frames. Portrait only. No long thermal soak."
   },
-  "pending": [
-    "Random-location robustness and complete twelve-stage balance playthrough",
-    "Original audio, original drop pod and full terrain assets; full SC2 shader/lighting fidelity is not implemented",
-    "Physical-phone performance and longer heavy-scene profiling",
-    "Human visual QA of original materials, animations, effects and mobile readability"
-  ],
-  "previousRuntimeCommit": "62acd68c1fd31ba37e310203979f5cfc802c1f07",
-  "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "previousStaticModelPerformance": [
-    {
-      "viewport": {
-        "width": 390,
-        "height": 844
-      },
-      "averageFps": 36.64178079054642,
-      "p95FrameMs": 50
-    },
-    {
-      "viewport": {
-        "width": 844,
-        "height": 390
-      },
-      "averageFps": 46.75263957610941,
-      "p95FrameMs": 33.399999999999636
-    }
-  ],
-  "effectsVerification": {
-    "command": "node tools/qa-effects.mjs",
-    "log": "reports/local/qa/EFFECTS.json",
-    "scope": "Local browser state/GPU/asset checks. Diagnostic fixtures; no image upload or human visual approval.",
+  "offline": {
+    "models": 8,
+    "economicModels": 3,
+    "podModel": true,
     "originalAnimationModels": 8,
     "originalDeathModels": 8,
-    "events": {
-      "attack": 7,
-      "hit": 18,
-      "death": 8,
-      "movement": 29,
-      "bile": 1,
-      "active": 117,
-      "dropped": 0
-    },
-    "pauseFreezesPose": true,
-    "deathLifecycle": true,
-    "deathAfterSimulationRemoval": 8,
-    "tank": [
-      {
-        "action": "move",
-        "mode": "tank",
-        "batches": [
-          "tank"
-        ]
-      },
-      {
-        "action": "sieging",
-        "mode": "tank",
-        "batches": [
-          "tank.morph"
-        ]
-      },
-      {
-        "action": "idle",
-        "mode": "siege",
-        "batches": [
-          "tank.siege"
-        ]
-      },
-      {
-        "action": "unsieging",
-        "mode": "siege",
-        "batches": [
-          "tank.morph"
-        ]
-      }
-    ],
-    "errors": []
+    "httpRequests": 0,
+    "debugExposed": false
   },
-  "localProjectDirectory": "D:/星际",
-  "openingVerification": {
-    "command": "node reports/local/qa-opening.mjs",
-    "log": "reports/local/qa/OPENING.json",
-    "workingDirectory": "D:\\星际",
-    "method": "Actual default startup, deploy, movement and reload; no roster, HP, wave or clock overrides. DOM/runtime checks only, not visual or phone-performance approval.",
-    "errors": [],
-    "runs": [
-      {
-        "offline": false,
-        "viewport": {
-          "width": 1440,
-          "height": 900
-        },
-        "counts": [
-          1,
-          0,
-          0,
-          0
-        ],
-        "rank": [
-          "Rank 1 · 45 / 45 HP"
-        ],
-        "models": 8,
-        "originalAnimationModels": 8,
-        "reload": true,
-        "networkRequests": 0
-      },
-      {
-        "offline": false,
-        "viewport": {
-          "width": 390,
-          "height": 844
-        },
-        "counts": [
-          1,
-          0,
-          0,
-          0
-        ],
-        "rank": [
-          "Rank 1 · 45 / 45 HP"
-        ],
-        "models": 8,
-        "originalAnimationModels": 8,
-        "reload": true,
-        "networkRequests": 0
-      },
-      {
-        "offline": false,
-        "viewport": {
-          "width": 844,
-          "height": 390
-        },
-        "counts": [
-          1,
-          0,
-          0,
-          0
-        ],
-        "rank": [
-          "Rank 1 · 45 / 45 HP"
-        ],
-        "models": 8,
-        "originalAnimationModels": 8,
-        "reload": true,
-        "networkRequests": 0
-      },
-      {
-        "offline": true,
-        "viewport": {
-          "width": 1440,
-          "height": 900
-        },
-        "counts": [
-          1,
-          0,
-          0,
-          0
-        ],
-        "rank": [
-          "Rank 1 · 45 / 45 HP"
-        ],
-        "models": 8,
-        "originalAnimationModels": 8,
-        "reload": true,
-        "networkRequests": 0
-      },
-      {
-        "offline": true,
-        "viewport": {
-          "width": 390,
-          "height": 844
-        },
-        "counts": [
-          1,
-          0,
-          0,
-          0
-        ],
-        "rank": [
-          "Rank 1 · 45 / 45 HP"
-        ],
-        "models": 8,
-        "originalAnimationModels": 8,
-        "reload": true,
-        "networkRequests": 0
-      },
-      {
-        "offline": true,
-        "viewport": {
-          "width": 844,
-          "height": 390
-        },
-        "counts": [
-          1,
-          0,
-          0,
-          0
-        ],
-        "rank": [
-          "Rank 1 · 45 / 45 HP"
-        ],
-        "models": 8,
-        "originalAnimationModels": 8,
-        "reload": true,
-        "networkRequests": 0
-      }
-    ]
+  "balance": {
+    "method": "Conditional resource/firepower envelope using actual payments/queues and explicit assumptions; scripted wins are not the Normal criterion.",
+    "report": "reports/balance/v4-envelope.json",
+    "duels": "reports/balance/v4-duels.json",
+    "scriptedAttempts": "reports/balance/v4-campaign.json (historical, before collision addition)",
+    "fullPhaseFlow": "Both difficulties, all 2880 simulation seconds, isolated combat-disabled timing/transition fixture; not a victory claim."
   },
-  "evidenceScopes": {
-    "opening": "Default one-Marine startup in QUALITY and normal progression. Historical relocation six-size check retained separately.",
-    "mobileStressAndEffects": "Re-executed against material pipeline version 2 and antialiasing; Desktop Chrome mobile emulation only, no physical phone. REPORT.json desktop section is explicitly reused historical evidence; current desktop data comes from EARLY_PROGRESSION.json.",
-    "icons": "23/23 decoded again in Chrome; reports/local/qa/ICONS.json.",
-    "screenshots": "Local files only; not uploaded or human visually approved."
-  },
-  "migration": {
-    "target": "D:/星际",
-    "files": 4357,
-    "bytes": 402166026,
-    "allFilesMatched": true,
-    "algorithm": "SHA256",
-    "sourceRemoved": true,
-    "log": "reports/local/MIGRATION.json",
-    "completedAt": "2026-09-21T02:15:29.4632895Z",
-    "archivedChangedFiles": 18
-  },
-  "historicalDesktopBeforeProgression": {
-    "defaultFirstStage": {
-      "startingSoldiers": 1,
-      "unitType": "marine",
-      "rank": 1,
-      "hp": 45,
-      "result": "Menu, deploy, movement, pause and reload verified without state overrides; full-stage and twelve-stage balance acceptance pending."
-    },
-    "diagnosticFullStage": {
-      "startingSoldiers": 20,
-      "rank": 1,
-      "normalDamageAndClocks": true,
-      "completedAt": 60,
-      "result": "reward"
-    },
-    "paidReroll": true,
-    "oneChoice": true,
-    "paidProduction": true,
-    "productionPod": {
-      "id": 8,
-      "type": "marine",
-      "status": "active",
-      "deadline": 30,
-      "guardians": 24
-    },
-    "rescueSuccess": {
-      "method": "Isolated rescue fixture: 20 Rank-4 soldiers, a paid Barracks preset as completed, a paid Marine job running its full production time, fixed landing at (8,0). Player moves to the landing area before completion. Normal HP, damage, waves and 1x time; not default-roster balance acceptance.",
-      "pod": {
-        "id": 92,
-        "type": "marine",
-        "status": "rescued",
-        "hp": 301.1,
-        "landedAt": 18.133333333333333,
-        "resolvedAt": 33.733333333333334,
-        "recruit": 8
-      },
-      "abandonedPod": {
-        "status": "destroyed",
-        "hp": 0,
-        "landedAt": 33.86666666666667,
-        "resolvedAt": 44.61666666666667
-      },
-      "stats": {
-        "kills": 65,
-        "rescued": 1,
-        "failed": 1,
-        "produced": 1,
-        "shots": 778,
-        "healed": 119.59999999999957,
-        "damage": 4766.2200000000075
-      },
-      "damageInjected": false
-    },
-    "combatRescueFailures": [
-      {
-        "id": 396,
-        "type": "marine",
-        "status": "destroyed",
-        "hp": 0,
-        "landedAt": 66.55,
-        "resolvedAt": 74.8,
-        "recruit": null
-      },
-      {
-        "id": 102,
-        "type": "marine",
-        "status": "destroyed",
-        "hp": 0,
-        "landedAt": 18.1,
-        "resolvedAt": 32.21666666666667,
-        "recruit": null
-      }
-    ],
-    "normalPlayAcceptanceComplete": false,
-    "latestUiFlow": {
-      "paidProduction": true,
-      "paidReroll": true,
-      "choice": true,
-      "rescueSuccess": "diagnostic: guardians killed through real HP damage path",
-      "rescueFailure": "diagnostic: pod destroyed via damage",
-      "normalGameplayPass": false
-    },
-    "historicalIncorrectSevenUnitOpening": {
-      "runtimeCommit": "cd69ddc4097e7f2456b6d301426734d59ac67350",
-      "roster": [
-        "marine",
-        "marine",
-        "marine",
-        "marine",
-        "hellion",
-        "tank",
-        "medivac"
-      ],
-      "latest": {
-        "result": "lost",
-        "time": 27.633333333333333,
-        "kills": 14,
-        "method": "Physical keyboard events: retreat west briefly, then hold to regroup; no speed, HP or damage overrides."
-      },
-      "earlier": {
-        "result": "lost",
-        "time": 28.65,
-        "kills": 6,
-        "method": "Normal stage 1: keyboard input only; diagnostic API is read for positions, no state overrides or time acceleration.",
-        "movement": "short bounds"
-      },
-      "note": "This was an incorrect production default, not an approved opening or only a diagnostic fixture. These survival observations do not assess the user-confirmed one-Marine opening."
-    }
-  },
-  "previousMateriallessPerformance": [
-    {
-      "viewport": {
-        "width": 390,
-        "height": 844
-      },
-      "averageFps": 22.487562189054735,
-      "p95FrameMs": 83.29999999999927
-    },
-    {
-      "viewport": {
-        "width": 844,
-        "height": 390
-      },
-      "averageFps": 27.586206896551722,
-      "p95FrameMs": 66.59999999999854
-    }
-  ],
-  "qualityVerification": {
-    "command": "node tools/qa-quality.mjs",
-    "log": "reports/local/qa/QUALITY.json",
-    "scope": "Resolution, material loading, settings and DOM checks; local screenshots only, no human visual approval.",
-    "runs": [
-      {
-        "test": {
-          "width": 1440,
-          "height": 900,
-          "dpr": 1.25
-        },
-        "defaults": {
-          "quality": "native",
-          "devicePixelRatio": 1.25,
-          "renderPixelRatio": 1.25,
-          "width": 1800,
-          "height": 1125,
-          "cssWidth": 1440,
-          "cssHeight": 900,
-          "antialias": true
-        },
-        "materials": [
-          {
-            "type": "marine",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "hellion",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "tank",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "medivac",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "zergling",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "roach",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "baneling",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "ravager",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          }
-        ],
-        "settingsPersist": true,
-        "pauseFreezesSimulation": true,
-        "layout": {
-          "overflow": false,
-          "selection": "",
-          "scroll": [
-            0,
-            0
-          ],
-          "units": 1
-        },
-        "networkRequests": 0
-      },
-      {
-        "test": {
-          "width": 1920,
-          "height": 1080,
-          "dpr": 2
-        },
-        "defaults": {
-          "quality": "native",
-          "devicePixelRatio": 2,
-          "renderPixelRatio": 2,
-          "width": 3840,
-          "height": 2160,
-          "cssWidth": 1920,
-          "cssHeight": 1080,
-          "antialias": true
-        },
-        "materials": [
-          {
-            "type": "marine",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "hellion",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "tank",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "medivac",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "zergling",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "roach",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "baneling",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          },
-          {
-            "type": "ravager",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 8
-          }
-        ],
-        "settingsPersist": true,
-        "pauseFreezesSimulation": true,
-        "layout": {
-          "overflow": false,
-          "selection": "",
-          "scroll": [
-            0,
-            0
-          ],
-          "units": 1
-        },
-        "networkRequests": 0
-      },
-      {
-        "test": {
-          "width": 390,
-          "height": 844,
-          "dpr": 3,
-          "mobile": true
-        },
-        "defaults": {
-          "quality": "balanced",
-          "devicePixelRatio": 3,
-          "renderPixelRatio": 1.5,
-          "width": 585,
-          "height": 1266,
-          "cssWidth": 390,
-          "cssHeight": 844,
-          "antialias": true
-        },
-        "materials": [
-          {
-            "type": "marine",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "hellion",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "tank",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "medivac",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "zergling",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "roach",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "baneling",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "ravager",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          }
-        ],
-        "settingsPersist": true,
-        "pauseFreezesSimulation": true,
-        "layout": {
-          "overflow": false,
-          "selection": "",
-          "scroll": [
-            0,
-            0
-          ],
-          "units": 1
-        },
-        "networkRequests": 0
-      },
-      {
-        "test": {
-          "width": 844,
-          "height": 390,
-          "dpr": 3,
-          "mobile": true
-        },
-        "defaults": {
-          "quality": "balanced",
-          "devicePixelRatio": 3,
-          "renderPixelRatio": 1.5,
-          "width": 1266,
-          "height": 585,
-          "cssWidth": 844,
-          "cssHeight": 390,
-          "antialias": true
-        },
-        "materials": [
-          {
-            "type": "marine",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "hellion",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "tank",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "medivac",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "zergling",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "roach",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "baneling",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          },
-          {
-            "type": "ravager",
-            "normal": true,
-            "specular": true,
-            "anisotropy": 4
-          }
-        ],
-        "settingsPersist": true,
-        "pauseFreezesSimulation": true,
-        "layout": {
-          "overflow": false,
-          "selection": "",
-          "scroll": [
-            0,
-            0
-          ],
-          "units": 1
-        },
-        "networkRequests": 0
-      },
-      {
-        "test": {
-          "width": 1920,
-          "height": 1080,
-          "dpr": 2,
-          "offline": true
-        },
-        "defaults": {
-          "quality": "native",
-          "devicePixelRatio": 2,
-          "renderPixelRatio": 2,
-          "width": 3840,
-          "height": 2160,
-          "cssWidth": 1920,
-          "cssHeight": 1080,
-          "antialias": true
-        },
-        "materials": [
-          {
-            "type": "marine",
-            "normal": true,
-            "specular": true
-          },
-          {
-            "type": "hellion",
-            "normal": true,
-            "specular": true
-          },
-          {
-            "type": "tank",
-            "normal": true,
-            "specular": true
-          },
-          {
-            "type": "medivac",
-            "normal": true,
-            "specular": true
-          },
-          {
-            "type": "zergling",
-            "normal": true,
-            "specular": true
-          },
-          {
-            "type": "roach",
-            "normal": true,
-            "specular": true
-          },
-          {
-            "type": "baneling",
-            "normal": true,
-            "specular": true
-          },
-          {
-            "type": "ravager",
-            "normal": true,
-            "specular": true
-          }
-        ],
-        "settingsPersist": true,
-        "pauseFreezesSimulation": true,
-        "layout": {
-          "overflow": false,
-          "selection": "",
-          "scroll": [
-            0,
-            0
-          ],
-          "units": 1
-        },
-        "networkRequests": 0
-      }
-    ],
-    "errors": []
-  },
-  "designAlignment": {
-    "updatedAt": "2026-09-21T04:02:21.703Z",
-    "confirmedRules": "docs/DESIGN.md",
-    "balanceProposal": "docs/BALANCE_12_STAGES.md",
-    "state": "review-ready; new rules not migrated into runtime; old standalone unchanged",
-    "superseded": [
-      "manual battle production",
-      "30-second rescue expiry",
-      "free stage-scheduled pods"
-    ],
-    "study": {
-      "command": "node --import tsx tools/balance-study.mts",
-      "duels": 448,
-      "podDestructionFixtures": 12,
-      "representativeFights": 48,
-      "rescueApproaches": 96,
-      "budgetSeeds": 300,
-      "assertions": "passed",
-      "output": "reports/balance/study.json",
-      "integratedTwelveStagePlaythrough": false
-    },
-    "regression": {
-      "command": "npm test",
-      "passed": 129,
-      "failed": 0,
-      "log": "reports/local/balance/npm-test.log",
-      "typecheck": "passed"
-    },
-    "pendingAssetWork": "Original DropPodFalling converted locally; renderer integration, door clip verification and Marine attack/effect fixes still pending. Asset importer edits not included in this design commit."
-  }
+  "knownIssues": [
+    "Ten original audio files, including SCV ready, remain missing. Exact sources and local paths in docs/ASSET_DOWNLOAD_REQUIRED.md.",
+    "Marine muzzle fireball_1hot layer missing; original glow layer used. Pod opening adapts original door bones; no original standalone opening clip. Full SC2 rendering/particle engine is not reproduced.",
+    "Desktop 4x-throttled 25+300 simulation averages 25.6–27.3 FPS, below a stable 30. One physical Adreno 750 device has short-run evidence only; physical landscape and long thermal load remain untested.",
+    "No full manual 48-minute campaign or human visual acceptance. Conditional economy model does not prove actual rescue timing, card availability or survival.",
+    "No local original fonts; system fallbacks retained."
+  ]
 }

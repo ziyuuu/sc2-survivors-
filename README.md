@@ -1,75 +1,62 @@
 # SC2 SURVIVORS · 星际幸存小队
 
-《星际争霸 II》同人、非盈利、仅用于玩法验证和朋友试玩的 Three.js 小队生存游戏。当前 V3 在 V2 的素材目录、GLB 校验器、规则模块与 65 项测试上继续开发，保留原素材验收页。没有覆盖 main 或丢弃 V2。
+《星际争霸 II》同人、非盈利的 Three.js 小队生存玩法验证。当前开发在 `D:\星际`、`v3/playable-sc2-demo`，保留 V2 素材实验页与既有实体模拟，没有覆盖 main。
 
-核心体验是**队伍因移速、停火、转向、避障和架炮而自然拉长**。玩家控制 Squad Anchor，每个士兵独立移动、交火和死亡。站位调整与面向敌人是保留的玩法；静止或固定路线的存活时间是观察数据，不是降低难度的验收标准。
+本轮已将**简单／普通两档、48 分钟关卡、付费自动生产、落仓救援、工兵经济和付费三选一**接入同一个游戏运行时。普通难度按合理经济／培养下的理论可行性设计，脚本通关率只作辅助回归，不作为普通难度标准。实际操作手感与真机性能仍需继续校准；原 SCV 亮相语音和部分原声音仍缺失。详见 [验收记录](docs/QA.md)、[实际平衡报告](docs/BALANCE_12_STAGES.md)。
 
-## 当前设计对齐状态
+## 运行与构建
 
-最新确认的循环是 **单枪兵 + 初始兵营、付费自动生产、落仓救援、仅舱体被毁才失败、SCV 采集、Drone 收益、通关资源与付费三选一**。完整规则见 [设计基准](docs/DESIGN.md)，12 关数值候选与实际计算见 [平衡研究](docs/BALANCE_12_STAGES.md)。
-
-本次先交付设计和独立测算，未套用到游戏。下面的可玩构建说明记录旧版 22918e6；其中 B 手动生产、30 秒超时和旧奖励逻辑均待替换。已有离线 HTML 未重打包，不能把旧版行为当成新的设计决定。
-
-## 开发版
-
-需要 Node.js 22+（本轮使用 24.14.0）。
+需要 Node.js 22+，本机使用 24.14.0。
 
 ```sh
 npm install
 npm run dev
 ```
 
-打开 `http://127.0.0.1:5173/`。第一次启动会从已记录的公开素材目录下载文件到本地忽略目录，校验 GLB magic、版本、长度和内部资源，再生成独立 glTF、bin、贴图、图标及音效。下载过程需要网络；取得素材后开发服务不依赖远程 CDN。
-
-WASD / 方向键移动；Space 推进锚点；E 使用已研究的 Stimpack；B 打开付费生产面板；Escape 暂停。手机使用左下摇杆和右下技能，横屏优先。F1 开发面板提供跳关、资源、救援、指定虫族、时间倍率、FPS、实体数、draw calls、战线长度和空间格显示。
+打开 `http://127.0.0.1:5173/`。首次启动会下载已记录的公开原模型、贴图和图标，校验文件并在本地转换；这一步需要网络。以后开发运行使用本地资源。
 
 ```sh
 npm test
 npm run typecheck
-npm run assets:download
-npm run assets:animate
 npm run build
 ```
 
-`npm run lab` 保留 V2 验收页，地址 `http://127.0.0.1:4173/preview/`。该历史页面不是 V3 游戏，也不是离线 Demo。
+单文件输出：**`D:\星际\dist\SC2-Survivors-Demo.html`**。双击即可离线运行，无需 Node 或服务器，CSS、JS、模型、纹理、图标、现有音频和配置全部内嵌。当前约 **70.65 MiB**，精确字节数与 SHA-256 见 `reports/STATUS.json`。开发版和 HTML 共享 World，朋友版不含 F1 修改状态接口。
 
-## 单 HTML 试玩版
+WASD／方向键移动，Space 推进，E 使用已研究的兴奋剂，Escape 暂停。手机左侧摇杆与右侧技能支持同时操作。没有局内手动商店／建造／生产按钮。生产状态只读显示。
 
-构建生成 **`dist/SC2-Survivors-Demo.html`**。朋友只需下载这个文件并双击打开；不需要 Node、本地服务器或联网。JavaScript、CSS、模型、贴图、图标、音效与规则数据均内嵌。它和开发版使用同一个 `src/main.ts` 与 Simulation，只在生产构建中移除 F1 / 修改状态的调试 API。
+F1 仅在开发版提供资源、跳关、救援、指定敌人、速度、FPS、实体数、draw calls、战线长度、空间格子和碰撞体积。`npm run lab` 保留 V2 历史素材实验页，不是新版游戏。
 
-当前文件约 **60.74 MiB**；包含原始动作与独立死亡模型，精确大小和验证记录见 [验收记录](docs/QA.md)。常规 Vite 网站构建也在 `dist/`。单文件包含本地取得的游戏素材，仅用于这里约定的非商业朋友试玩；生成物和资源二进制不提交到公开 Git 仓库。
+## 当前规则
 
-## 当前旧版已实现规则（待迁移）
+- 一名 Rank 1 Marine、一座已完成兵营、50 矿／0 气开局。四种人族对抗四种虫族战斗兵种；每种人族最多 5 人，每人 Rank 1–5。
+- 每个单位有独立 HP、护甲、射程、攻击周期、朝向与速度。枪兵短停开火后可移动；恶火有限转向和直线穿透；坦克按锚点意图决定架起／收起；医疗艇连续治疗合法生物单位。
+- 固定 60 Hz、真实队列拖尾、局部避让、实体碰撞、路径和有限追赶，不瞬移或整队同步平移。爆虫真实 AOE，破坏者胆汁可躲。
+- 建筑自动扣费生产；Factory 优先当前负担得起的 Tank，否则 Hellion。订单、未解决仓和额外增援占培养容量。每个完成订单产生一个仓，不能直接加兵。
+- 降落仓没有超时；落地守军攻击它，清完威胁开舱，毁仓则士兵死亡且不退款。跨关保留 HP、敌人和未解决的仓。
+- SCV 虫卵独立 30 秒期限，击破后一次性获得本局采集加成，SCV 亮相后离场；Drone 是高资源经济目标。我方优先攻击战斗威胁。
+- 1–3 关每关 120 秒，4–9 关 240 秒，10–12 关 360 秒，共 48 分钟。地图逐关开放；第 12 关必须毁巢并活到结算。
+- 三选一全部收费，固定本次折扣，可跳过。刷新 50／75／100…矿。不按钱包过滤、不保证建筑、不根据伤亡削敌、不免费回满 HP。
 
-- 正式第一关只从 **1 名 Rank 1 Marine** 开始；后续兵力通过生产与降落仓救援获得。多人压力测试阵容只用于显式诊断场景。
-- Marine、Hellion、Siege Tank、Medivac 对抗 Zergling、Roach、Baneling、Ravager；每兵种最多 5 名，每名 Rank 1–5，死亡后身份不复活。
-- 独立 HP、护甲、射程、攻击周期、目标、朝向和速度；Marine 停下开火再跟随，Hellion 有限转向与直线穿透，坦克自动架起/收起和溅射，Medivac 连续治疗合法生物单位并消耗能量。Baneling 真实 AOE，Ravager 落点预警与延迟伤害。
-- 固定 60 Hz 模拟，速度不同的编队槽、历史路径、空间哈希与局部避让；soft/hard leash 和有限追赶，不瞬移重排。
-- Minerals / Gas 用于建筑、排队生产、科技和刷新。每份付费订单产生一个救援仓，落地立即开始 30 秒。按用户确认的渐进节奏，单枪兵早期救援先有 2 只 Zergling，随兵力与关卡成长再增加到 20–40 只及混合兵种，守军落地时确定。清理威胁并保住仓体才会出兵，失败不退款。
-- 首关第 12 / 38 秒分别出现 1 只 Zergling，留出认识射程、建造与排队的时间；之后增加频率、数量和方向压力。常规波次上限与现有兵力相关，后期仍按原定四种虫族组合升级。
-- 12 × 60 秒；关间暂停，三张不同且可负担的候选，只能选一个；刷新依次支付 50 / 75 / 100… Minerals。第 12 关限时摧毁虫巢。
-- Terran 风格 DOM HUD、生产面板、可滚动三选一、独立指针捕获和多点触控。
+正式设计见 [DESIGN.md](docs/DESIGN.md)。关卡与经济初值在 `src/data/stages.ts`、`src/data/economy.ts`，不散落到界面或 Three.js 中。
 
-## 数据与素材
+## 数据和素材
 
-单位基础数据固定为 **LotV 5.0.15**，取自 [SC2Data 导出快照 fbbd6429](https://github.com/Joshua-Leibold/SC2Data/tree/fbbd6429b1eb6978c78a092dc68ba09029d03171)，没有混用不同版本的多人层。它是社区托管的游戏 XML 导出，不是本机当前客户端实测。Normal 数据秒转换为 Faster 时间：持续时间 / 1.4，移动、治疗与恢复速率 × 1.4。来源字段、继承顺序和适配项见 [DATA_SOURCES.md](docs/DATA_SOURCES.md)。
+基础数据固定 **LotV 5.0.15**，来源为 [SC2Data 导出快照 fbbd6429](https://github.com/Joshua-Leibold/SC2Data/tree/fbbd6429b1eb6978c78a092dc68ba09029d03171)，Normal 秒转换为 Faster：时长除 1.4，移速／回复率乘 1.4；不声称验证过当前安装客户端。Survivors 改动单独记录在 [DATA_SOURCES.md](docs/DATA_SOURCES.md)。
 
-`src/data/sc2-units.ts` 是单位数据唯一入口；`src/data/game.ts` 记录已确定的单枪兵开局，以及试验性的波次、军衔、地图和救援数值。架构见 [ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+已导入 8 个原战斗模型及动作、8 个死亡模型、坦克两种形态、原降落仓、SCV、Drone、虫卵、Char 岩石与兵营遗迹；23 个原图标、28 张原效果贴图、5 张真实地表纹理。渲染包含原法线、高光、发光贴图，桌面默认原生 DPR。小尺寸虫族采用本地原网格 LOD，保留原骨骼和材质。
 
-实际取得并在浏览器解析了 **8/8 战斗 GLB、23/23 图标**，另外有原 Hatchery 用作虫巢目标。素材索引来自 [Asset Explorer](https://github.com/sc2-arcade-watcher/asset-explorer)。本轮下载成功，V2 中的 403 是历史记录。
+原素材不意味着复刻了 SC2 客户端画质。枪兵原上身动作与移动混合、开舱门骨骼、粒子时序、接触阴影和 PBR 都有网页适配。没有独立开舱动画；不把死亡当开门。原字体不存在时用系统回退，禁止下载未知字体。
 
-**已从公开原始 M3 包补齐 8/8 单位骨骼动画、8/8 独立死亡模型、坦克行进/架炮/变形模型与 24 张战斗特效贴图。** 目录的旧 GLB 是静态预览；`npm run assets:animate` 在本机 Node 转成自包含动画 GLB，并由开发版和单文件共享。首次开发启动会自动尝试准备。动作映射优先原始 Walk、Attack、Stand、Death、Birth；Medivac 用 Stand Work 治疗，坦克用 Morph Start/End。GPU 共享骨骼纹理批量绘制，保留独立移速、朝向与停步攻击。来源、准确文件名与效果边界见 [ANIMATION_EFFECTS.md](docs/ANIMATION_EFFECTS.md)。
+素材说明：[ANIMATION_EFFECTS.md](docs/ANIMATION_EFFECTS.md)。缺失声音、枪口粒子层的准确路径：[ASSET_DOWNLOAD_REQUIRED.md](docs/ASSET_DOWNLOAD_REQUIRED.md)。下载失败绝不写入伪 GLB；生成资源、原包和 HTML 均在 Git 忽略目录，仅用于约定的朋友试玩。
 
-受击现在有实际扣血触发的血花/火花和材质闪光；枪口、火焰、酸液、爆炸、移动尘土使用原始特效贴图进行网页适配，并非完整复制 SC2 粒子引擎。Char 地面仍使用两张原地形预览 JPG、自制岩壁和通道；原版 Drop Pod 没有准确索引。三个 WAV 仍是本地合成，9 项原声音已在 manifest 标记 missing 并提供导入接口。缺失项与无需改代码的放置路径见 [ASSET_DOWNLOAD_REQUIRED.md](docs/ASSET_DOWNLOAD_REQUIRED.md)。必需模型或动画缺失会阻止朋友版打包；开发版明确提示并允许继续规则调试。
+## 验证
 
-桌面默认使用屏幕像素比例与抗锯齿；菜单和暂停页可选择清晰、均衡、省电，手机默认均衡。原 M3 引用的法线和高光贴图已接入 8/8 战斗模型，7/8 使用原发光贴图（Marine 原包无该层）。保留原始 DDS 最高层分辨率，没有把低分辨率贴图放大后声称高清。当前地形、光照和 PBR 材质适配仍不同于 SC2 客户端。
+```sh
+npm run test:browser
+node --import tsx tools/budget-envelope.mts
+node --import tsx tools/campaign-study.mts
+node --import tsx tools/duel-study.mts
+```
 
-没有下载或分发字体。`@font-face` 保留本地 SC2 Chinese / Eurostile / Extended 接口，缺失时使用系统字体。StarCraft / StarCraft II 及相关素材、商标属于 Blizzard Entertainment 或相应作者。公开目录可访问不代表已获得再分发许可。
-
-## 验证与限制
-
-`npm test` 当前 129 项通过，包含不传测试阵容的正式单枪兵开局检查。`npm run build` 通过，包含 TypeScript 检查、Vite 和离线 IIFE 打包。开发版与断网 HTML 在桌面、390×844 和 844×390 中均验证开局、移动与重新加载后只有 1 名 Rank 1 Marine。`node tools/qa-quality.mjs` 检查实际画布像素、原贴图加载、画质保存、暂停和断网 HTML；`node tools/qa-effects.mjs` 专门验证移动、射击、受击、死亡回收、坦克模式、动画暂停和离线资源。浏览器验证区分正常玩法观察、开发诊断场景、手机尺寸模拟和真实手机；详见 [QA.md](docs/QA.md)。
-
-本地开发服务启动后可执行 `npm run test:browser`。脚本默认使用 Windows Chrome；其他安装位置通过 `SC2_CHROME` 指定。`node tools/play-progression.mjs` 可复现单枪兵首关、付费生产、射程边缘救援和放弃第二仓的键鼠路线（只读诊断状态，不修改规则）；`node tools/play-stage.mjs` 记录另一种正常首关路线，设置 `SC2_PLAY_CONTINUOUS=1` 可观察连续机动策略。两种策略的输赢都不会自动触发平衡改动。
-
-真实手机性能、人工视觉验收与完整 12 关胜利仍须单独验证。截图仅保存本地，没有上传游戏图像；DOM 和帧时间测试不能冒充视觉验收。后续平衡应围绕救援决策、战线拉伸与主动收拢来做。
+浏览器脚本使用本地 Chrome，可通过 `SC2_CHROME` 指定路径。桌面真实键盘首关、诊断边界场景、390×844／844×390 触摸与压力、断网 `file://` 分开记录。截图仅保存在本机。手机尺寸模拟不是手机真机；headless 加载或测试通过也不是人工视觉验收。

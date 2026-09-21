@@ -1,53 +1,40 @@
-# Asset download / import status
+# 原素材获取与手工交接
 
-2026-09-20T16:43:42.175Z
+2026-09-21 本地实际检查：8/8 战斗模型、8/8 独立死亡模型、两种坦克形态、原降落仓、SCV、Drone、虫卵、两种地形装饰均已导入；23 个图标、28 张效果贴图、5 张原地表纹理可用。必需资源无缺失。结构/运行加载通过不等于人工视觉验收。
 
-8/8 combat GLBs passed structural validation. Animation and rendering are separately reported.
+模型、材质与精确公开来源记录在 tools/m3-catalog.mjs、assets/private/m3-pack.json；地表见 tools/import-terrain.mjs、assets/private/terrain-pack.json。后两个报告仅保存在本机。
 
-后续已取得 8/8 单位原始骨骼动画、8/8 独立死亡模型、两个坦克模式包与 24 张特效贴图。运行 `npm run assets:animate`，本地自动转换并优先使用；[完整包文件名、验证下载链接和稳定导入路径](ANIMATION_EFFECTS.md)。下表保留基础静态预览资源路径，不代表当前动画版缺失。
+## 尚缺的原声音
 
-## Missing resources
+素材公开服务器根目录没有声音目录；Fandom 原文件页受到 403/连接失败限制；公开 GitHub 精确文件检索没有取得有效原文件。不绕过限制，不把合成提示音称为原版。SCV 获救后的亮相动作和单次播放接口已接好，但原亮相语音尚未实际播放。
 
-- **model.droppod**: Exact asset not indexed: droppod, terrandroppod. Local destination: `public/assets/models/droppod.glb`. [Source index](https://github.com/sc2-arcade-watcher/asset-explorer/blob/main/site/list/models.json). No verified binary download link exists for this missing entry. No exact catalog entry. Authored mechanical rescue capsule is explicitly used.
-- **9 个原版音效槽**：公开目录没有可验证的对应 WAV 下载，声音站出现 403，未绕过；当前用本地合成声音。准确游戏内源文件名和 `public/assets/audio/sc2/` 放置路径在 [原版声音缺失清单](ANIMATION_EFFECTS.md#原版音效尚缺)。放入并执行 `npm run assets:prepare` 后自动接入，无需改组件代码。
+下列源路径来自锁定的 [SC2 SoundData 快照](https://github.com/Joshua-Leibold/SC2Data/tree/fbbd6429b1eb6978c78a092dc68ba09029d03171)。可用本地 SC2 编辑器 [导出资源](https://s2editor-guides.readthedocs.io/New_Tutorials/07_Lessons/083_Export_Game_Assets/)；SCV 的 [原文件页](https://starcraft.fandom.com/wiki/File:SCV_Ready00.ogg) 也列在此，不编造可用下载链接。
 
-## Stable manual destinations
-
-| ID | Exact filename / destination | Verified download |
+| 稳定 ID | 精确游戏内源路径 | 本地放置路径 |
 |---|---|---|
-| model.marine | `public/assets/models/marine.glb` | [source](https://dist.sc2arcade.com/star-assets/models-glb/marine.glb) |
-| unit.marine | `public/assets/icons/unit.marine.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-terran-marine.png) |
-| model.hellion | `public/assets/models/hellionex1.glb` | [source](https://dist.sc2arcade.com/star-assets/models-glb/hellionex1.glb) |
-| unit.hellion | `public/assets/icons/unit.hellion.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-terran-hellion.png) |
-| model.tank | `public/assets/models/siegetank.glb` | [source](https://dist.sc2arcade.com/star-assets/models-glb/siegetank.glb) |
-| unit.tank | `public/assets/icons/unit.tank.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-terran-siegetank.png) |
-| model.medivac | `public/assets/models/medivacex1.glb` | [source](https://dist.sc2arcade.com/star-assets/models-glb/medivacex1.glb) |
-| unit.medivac | `public/assets/icons/unit.medivac.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-terran-medivac.png) |
-| model.zergling | `public/assets/models/zergling.glb` | [source](https://dist.sc2arcade.com/star-assets/models-glb/zergling.glb) |
-| unit.zergling | `public/assets/icons/unit.zergling.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-zerg-zergling.png) |
-| model.roach | `public/assets/models/roach.glb` | [source](https://dist.sc2arcade.com/star-assets/models-glb/roach.glb) |
-| unit.roach | `public/assets/icons/unit.roach.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-zerg-roach.png) |
-| model.baneling | `public/assets/models/banelingex1.glb` | [source](https://dist.sc2arcade.com/star-assets/models-glb/banelingex1.glb) |
-| unit.baneling | `public/assets/icons/unit.baneling.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-zerg-baneling.png) |
-| model.ravager | `public/assets/models/ravager.glb` | [source](https://dist.sc2arcade.com/star-assets/models-glb/ravager.glb) |
-| unit.ravager | `public/assets/icons/unit.ravager.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-zerg-ravager.png) |
-| building.barracks | `public/assets/icons/building.barracks.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-building-terran-barracks.png) |
-| building.factory | `public/assets/icons/building.factory.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-building-terran-factory.png) |
-| building.starport | `public/assets/icons/building.starport.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-building-terran-starport.png) |
-| tech.stim | `public/assets/icons/tech.stim.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-ability-terran-stimpack.png) |
-| tech.shield | `public/assets/icons/tech.shield.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-techupgrade-terran-combatshield.png) |
-| tech.infernal | `public/assets/icons/tech.infernal.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-techupgrade-terran-infernalpreigniter.png) |
-| tech.heal | `public/assets/icons/tech.heal.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-ability-terran-heal.png) |
-| tech.bile | `public/assets/icons/tech.bile.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-ability-zerg-corrosivebile.png) |
-| tech.attack | `public/assets/icons/tech.attack.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-upgrade-terran-infantryweaponslevel1.png) |
-| tech.armor | `public/assets/icons/tech.armor.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-upgrade-terran-infantryarmorlevel1.png) |
-| tech.vehicle | `public/assets/icons/tech.vehicle.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-upgrade-terran-vehicleweaponslevel1.png) |
-| tech.siege | `public/assets/icons/tech.siege.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-terran-siegetank.png) |
-| tech.boost | `public/assets/icons/tech.boost.png` | [source](https://dist.sc2arcade.com/star-assets/buttons-png/btn-unit-terran-medivac.png) |
-| ui.minerals | `public/assets/icons/ui.minerals.png` | [source](https://dist.sc2arcade.com/star-assets/ui-png/ui_emoticons_minerals.png) |
-| ui.gas | `public/assets/icons/ui.gas.png` | [source](https://dist.sc2arcade.com/star-assets/icons-png/icon-vespene.png) |
-| terrain.char | `public/assets/terrain/terrain.char.jpg` | [source](https://dist.sc2arcade.com/star-assets/terrain-tilesets/Char%20Dirt.jpg) |
-| terrain.rock | `public/assets/terrain/terrain.rock.jpg` | [source](https://dist.sc2arcade.com/star-assets/terrain-tilesets/Char%20Rock.jpg) |
-| model.hive | `public/assets/models/hatcheryex1mp.glb` | [source](https://dist.sc2arcade.com/star-assets/models-glb/hatcheryex1mp.glb) |
+| audio.sc2.scv.ready | `LocalizedData/Sounds/TerranUnitVO/SCV/SCV_Ready00.ogg` | `public/assets/audio/sc2/SCV_Ready00.ogg` |
+| audio.sc2.marine.attack | `Assets/Sounds/Terran/Marine/Marine_AttackLaunch0.wav` | `public/assets/audio/sc2/Marine_AttackLaunch0.wav` |
+| audio.sc2.hellion.attack | `Assets/Sounds/Terran/Hellion/Hellion_AttackLaunch0.wav` | `public/assets/audio/sc2/Hellion_AttackLaunch0.wav` |
+| audio.sc2.tank.attack | `Assets/Sounds/Terran/SiegeTank/SiegeTank_AttackLaunch0.wav` | `public/assets/audio/sc2/SiegeTank_AttackLaunch0.wav` |
+| audio.sc2.tank.siege | `Assets/Sounds/Terran/SiegeTank/SiegeTank_SiegeAttackLaunch0.wav` | `public/assets/audio/sc2/SiegeTank_SiegeAttackLaunch0.wav` |
+| audio.sc2.medivac.heal | `Assets/Sounds/Terran/Medivac/Medivac_HealLoop.wav` | `public/assets/audio/sc2/Medivac_HealLoop.wav` |
+| audio.sc2.zergling.attack | `Assets/Sounds/Zerg/Zergling/Zergling_AttackLaunch0.wav` | `public/assets/audio/sc2/Zergling_AttackLaunch0.wav` |
+| audio.sc2.roach.attack | `Assets/Sounds/Zerg/Roach/Roach_AttackLaunchRanged0.wav` | `public/assets/audio/sc2/Roach_AttackLaunchRanged0.wav` |
+| audio.sc2.ravager.attack | `Assets/Sounds/Ravager_Vox_Attack_Comp01.wav` | `public/assets/audio/sc2/Ravager_Vox_Attack_Comp01.wav` |
+| audio.sc2.marine.death | `Assets/Sounds/Marine_Death_Bodyfall_A_01.wav` | `public/assets/audio/sc2/Marine_Death_Bodyfall_A_01.wav` |
 
-Place valid files at these paths and run `npm run assets:prepare`. Fonts are not downloaded. Original animations/effects are acquired through `npm run assets:animate`; the friend build rejects missing animation/death packages. Development explicitly labels its fallback if conversion fails.
+放好后运行 npm run assets:prepare / npm run build，验证 RIFF/WAVE 或 OggS 后自动引用，无需改游戏代码。
+
+## 枪口粒子缺少一层
+
+MarineWeaponLaunch 原引用 fireball_1hot.dds 当前 [公开地址](https://dist.sc2arcade.com/star-assets/textures/fireball_1hot.dds) 返回 404。准确放置路径：`assets/private/dds/fireball_1hot.dds`。当前只使用同一个原效果已有的 glow_yellow1 层，没有拿坦克爆炸图冒充它。补齐后执行：
+
+`node tools/import-m3-pack.mjs fx.muzzle`
+
+`npm run assets:prepare`
+
+## 字体与动作边界
+
+不下载字体。本地 SC2 Chinese / SC2 Eurostile / SC2 Extended 若存在会被 local() 引用，否则使用系统回退。
+
+原降落仓没有独立开门片段，使用原门骨骼的本地适配；命中闪光、粒子发射、接触阴影与着色器为网页实现。完整说明见 [ANIMATION_EFFECTS.md](ANIMATION_EFFECTS.md)。

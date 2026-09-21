@@ -1,0 +1,643 @@
+{
+  "checkedAt": "2026-09-21T06:18:14.885Z",
+  "runtimeCommit": "f3803724f69711173562144f0feb45c675daac80",
+  "desktop": {
+    "firstStageSeconds": 120,
+    "stats": {
+      "kills": 11,
+      "rescued": 3,
+      "failed": 0,
+      "produced": 3,
+      "started": 4,
+      "shots": 67,
+      "healed": 0,
+      "damage": 362,
+      "scvsRescued": 2,
+      "scvsLost": 0,
+      "dronesKilled": 2,
+      "ambientSpawned": 5
+    },
+    "firstStageInput": "Actual keyboard events at normal speed; no health/resources/clock overrides. Automation chooses directions.",
+    "reroll": true,
+    "purchase": {
+      "label": "03\n瓦斯补给\n\n获得 50 瓦斯。\n\n22 M\n85% 价格\n购买支援　▸",
+      "before": {
+        "minerals": 41.537500000003604,
+        "gas": 77.47666666666528
+      },
+      "after": {
+        "minerals": 19.537500000003604,
+        "gas": 127.47666666666528
+      }
+    },
+    "fixtures": {
+      "podFailure": "destroyed",
+      "scvRescue": "rescued",
+      "scvOnce": true,
+      "scvExpiry": "expired"
+    },
+    "iconsDecoded": 23
+  },
+  "mobileEmulation": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "multiTouch": true,
+      "releaseOutside": true,
+      "layout": {
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "width": 390,
+        "viewport": 390,
+        "joystickStyle": "none",
+        "canvasStyle": "none"
+      },
+      "rewardLayout": {
+        "client": 844,
+        "scroll": 909,
+        "touchAction": "pan-y"
+      },
+      "performance": {
+        "averageFps": 25.577082933691415,
+        "p50FrameMs": 33.399999999999636,
+        "p95FrameMs": 50.10000000000218,
+        "sampleFrames": 240,
+        "drawCalls": 35,
+        "triangles": 238465,
+        "liveFriendly": 25,
+        "liveEnemies": 300,
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3,
+          "renderPixelRatio": 1.5,
+          "width": 585,
+          "height": 1266,
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "antialias": true
+        },
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+      },
+      "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; six-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "multiTouch": true,
+      "releaseOutside": true,
+      "layout": {
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "width": 844,
+        "viewport": 844,
+        "joystickStyle": "none",
+        "canvasStyle": "none"
+      },
+      "rewardLayout": {
+        "client": 390,
+        "scroll": 413,
+        "touchAction": "pan-y"
+      },
+      "performance": {
+        "averageFps": 27.27303719360447,
+        "p50FrameMs": 33.30000000000291,
+        "p95FrameMs": 50.099999999998545,
+        "sampleFrames": 240,
+        "drawCalls": 39,
+        "triangles": 239738,
+        "liveFriendly": 25,
+        "liveEnemies": 300,
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 3,
+          "renderPixelRatio": 1.5,
+          "width": 1266,
+          "height": 585,
+          "cssWidth": 844,
+          "cssHeight": 390,
+          "antialias": true
+        },
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+      },
+      "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; six-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
+    }
+  ],
+  "physicalPhone": {
+    "device": {
+      "maker": "HONOR",
+      "model": "AMG-AN00",
+      "android": "16",
+      "soc": "SM8650"
+    },
+    "scope": "Physical Android Chrome, current development build via USB localhost. One focused run, actual rAF timing without CPU throttle; synthetic touch, no human visual approval.",
+    "touch": {
+      "moving": true,
+      "dash": true,
+      "selected": "",
+      "scroll": [
+        0,
+        0
+      ]
+    },
+    "runs": [
+      {
+        "name": "normal-opening",
+        "performance": {
+          "averageFps": 54.59260270233387,
+          "p50FrameMs": 16.30000000000291,
+          "p95FrameMs": 16.40000000000873,
+          "sampleFrames": 240,
+          "drawCalls": 13,
+          "triangles": 12292,
+          "liveFriendly": 1,
+          "liveEnemies": 0,
+          "resolution": {
+            "quality": "balanced",
+            "devicePixelRatio": 3.25,
+            "renderPixelRatio": 1.5,
+            "width": 553,
+            "height": 1054,
+            "cssWidth": 369,
+            "cssHeight": 703,
+            "antialias": true
+          },
+          "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)"
+        },
+        "viewport": [
+          369,
+          702
+        ]
+      },
+      {
+        "name": "stress-25-100",
+        "performance": {
+          "averageFps": 61.19170852349498,
+          "p50FrameMs": 16.30000000000291,
+          "p95FrameMs": 16.40000000000873,
+          "sampleFrames": 240,
+          "drawCalls": 38,
+          "triangles": 127203,
+          "liveFriendly": 25,
+          "liveEnemies": 100,
+          "resolution": {
+            "quality": "balanced",
+            "devicePixelRatio": 3.25,
+            "renderPixelRatio": 1.5,
+            "width": 553,
+            "height": 1053,
+            "cssWidth": 369,
+            "cssHeight": 702,
+            "antialias": true
+          },
+          "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)"
+        },
+        "viewport": [
+          369,
+          702
+        ]
+      },
+      {
+        "name": "stress-25-300",
+        "performance": {
+          "averageFps": 58.01866266982538,
+          "p50FrameMs": 16.39999999999418,
+          "p95FrameMs": 32.60000000000582,
+          "sampleFrames": 240,
+          "drawCalls": 41,
+          "triangles": 247549,
+          "liveFriendly": 25,
+          "liveEnemies": 300,
+          "resolution": {
+            "quality": "balanced",
+            "devicePixelRatio": 3.25,
+            "renderPixelRatio": 1.5,
+            "width": 553,
+            "height": 1053,
+            "cssWidth": 369,
+            "cssHeight": 702,
+            "antialias": true
+          },
+          "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)"
+        },
+        "viewport": [
+          369,
+          702
+        ]
+      }
+    ],
+    "fixture": "Stress uses temporary high HP, synthetic touch, disabled Bile and maintained counts; it is not a normal campaign or balance victory. Six-second warmup + twelve-second sample, frame ring retains last 240 frames. Portrait only. No long thermal soak."
+  },
+  "quality": [
+    {
+      "test": {
+        "width": 1440,
+        "height": 900,
+        "dpr": 1.25
+      },
+      "defaults": {
+        "quality": "native",
+        "devicePixelRatio": 1.25,
+        "renderPixelRatio": 1.25,
+        "width": 1800,
+        "height": 1125,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "materials": [
+        {
+          "type": "marine",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "hellion",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "tank",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "medivac",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "zergling",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "roach",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "baneling",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "ravager",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        }
+      ],
+      "settingsPersist": true,
+      "pauseFreezesSimulation": true,
+      "layout": {
+        "overflow": false,
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "units": 1
+      },
+      "networkRequests": 0
+    },
+    {
+      "test": {
+        "width": 1920,
+        "height": 1080,
+        "dpr": 2
+      },
+      "defaults": {
+        "quality": "native",
+        "devicePixelRatio": 2,
+        "renderPixelRatio": 2,
+        "width": 3840,
+        "height": 2160,
+        "cssWidth": 1920,
+        "cssHeight": 1080,
+        "antialias": true
+      },
+      "materials": [
+        {
+          "type": "marine",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "hellion",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "tank",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "medivac",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "zergling",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "roach",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "baneling",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        },
+        {
+          "type": "ravager",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 8
+        }
+      ],
+      "settingsPersist": true,
+      "pauseFreezesSimulation": true,
+      "layout": {
+        "overflow": false,
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "units": 1
+      },
+      "networkRequests": 0
+    },
+    {
+      "test": {
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "mobile": true
+      },
+      "defaults": {
+        "quality": "balanced",
+        "devicePixelRatio": 3,
+        "renderPixelRatio": 1.5,
+        "width": 585,
+        "height": 1266,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "materials": [
+        {
+          "type": "marine",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "hellion",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "tank",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "medivac",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "zergling",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "roach",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "baneling",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "ravager",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        }
+      ],
+      "settingsPersist": true,
+      "pauseFreezesSimulation": true,
+      "layout": {
+        "overflow": false,
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "units": 1
+      },
+      "networkRequests": 0
+    },
+    {
+      "test": {
+        "width": 844,
+        "height": 390,
+        "dpr": 3,
+        "mobile": true
+      },
+      "defaults": {
+        "quality": "balanced",
+        "devicePixelRatio": 3,
+        "renderPixelRatio": 1.5,
+        "width": 1266,
+        "height": 585,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "materials": [
+        {
+          "type": "marine",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "hellion",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "tank",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "medivac",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "zergling",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "roach",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "baneling",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        },
+        {
+          "type": "ravager",
+          "normal": true,
+          "specular": true,
+          "anisotropy": 4
+        }
+      ],
+      "settingsPersist": true,
+      "pauseFreezesSimulation": true,
+      "layout": {
+        "overflow": false,
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "units": 1
+      },
+      "networkRequests": 0
+    },
+    {
+      "test": {
+        "width": 1920,
+        "height": 1080,
+        "dpr": 2,
+        "offline": true
+      },
+      "defaults": {
+        "quality": "native",
+        "devicePixelRatio": 2,
+        "renderPixelRatio": 2,
+        "width": 3840,
+        "height": 2160,
+        "cssWidth": 1920,
+        "cssHeight": 1080,
+        "antialias": true
+      },
+      "materials": [
+        {
+          "type": "marine",
+          "normal": true,
+          "specular": true
+        },
+        {
+          "type": "hellion",
+          "normal": true,
+          "specular": true
+        },
+        {
+          "type": "tank",
+          "normal": true,
+          "specular": true
+        },
+        {
+          "type": "medivac",
+          "normal": true,
+          "specular": true
+        },
+        {
+          "type": "zergling",
+          "normal": true,
+          "specular": true
+        },
+        {
+          "type": "roach",
+          "normal": true,
+          "specular": true
+        },
+        {
+          "type": "baneling",
+          "normal": true,
+          "specular": true
+        },
+        {
+          "type": "ravager",
+          "normal": true,
+          "specular": true
+        }
+      ],
+      "settingsPersist": true,
+      "pauseFreezesSimulation": true,
+      "layout": {
+        "overflow": false,
+        "selection": "",
+        "scroll": [
+          0,
+          0
+        ],
+        "units": 1
+      },
+      "networkRequests": 0
+    }
+  ],
+  "offline": {
+    "models": 8,
+    "economicModels": 3,
+    "podModel": true,
+    "originalAnimationModels": 8,
+    "originalDeathModels": 8,
+    "httpRequests": 0,
+    "debugExposed": false
+  },
+  "errors": [],
+  "artwork": "Screenshots remain on local disk. No human visual approval or full manual 48-minute campaign is claimed."
+}
