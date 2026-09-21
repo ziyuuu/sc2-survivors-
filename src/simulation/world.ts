@@ -1,3 +1,4 @@
+import type {TerrainQuery} from '../data/map-definition';
 import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,BILE,type UnitType,type TerranType,type ZergType} from '../data/sc2-units';
 import {BUILDINGS,FACTORY_TECH_LAB,OBSTACLES,STAGES,TUNING,FORMATION,type BuildingType,type Obstacle} from '../data/game';
 import {spend,applyWeaponHit,healBiological} from './rules.mjs';
@@ -31,21 +32,21 @@ export class World {
  private ambientBacklog:{type:ZergType;bearing:number;at:number}[]=[];private extraDeliveries:TerranType[]=[];
  private spawnCells:Point[]=[];
  notice='守住小队。生产完成后必须救援。';noticeUntil=8;revision=0;
- readonly terrain?:CharTerrain;
+ readonly terrain?:TerrainQuery;
  readonly listeners=new Set<()=>void>();readonly obstacles:Obstacle[];
  private rngState:number;private autoWaves:boolean;
  private readonly contacts=new ContactSolver();
  private configStage=0;private configDifficulty:Difficulty|null=null;private stageData!:ReturnType<typeof stageConfig>;
  private detours=new Map<number,{body:number;first:Point;second:Point;phase:number;forward:Point}>();
  private navigation=new Map<number,{goal:Point;requested:Point;until:number}>();
- constructor(options:{seed?:number;waves?:boolean;obstacles?:Obstacle[];initial?:TerranType[];difficulty?:Difficulty;sandbox?:boolean;terrain?:boolean}={}){
-  this.seed=options.seed??89241;this.rngState=this.seed;this.autoWaves=options.waves??true;this.sandbox=options.sandbox??false;this.difficulty=options.difficulty??'normal';this.obstacles=options.obstacles??OBSTACLES;this.terrain=(options.terrain??(!this.sandbox&&options.obstacles===undefined))?new CharTerrain():undefined;
+ constructor(options:{seed?:number;waves?:boolean;obstacles?:Obstacle[];initial?:TerranType[];difficulty?:Difficulty;sandbox?:boolean;terrain?:boolean|TerrainQuery}={}){
+  this.seed=options.seed??89241;this.rngState=this.seed;this.autoWaves=options.waves??true;this.sandbox=options.sandbox??false;this.difficulty=options.difficulty??'normal';this.obstacles=options.obstacles??OBSTACLES;this.terrain=typeof options.terrain==='object'?options.terrain:(options.terrain??(!this.sandbox&&options.obstacles===undefined))?new CharTerrain():undefined;if(this.terrain?.definition&&options.obstacles===undefined)this.obstacles=[];
   const initial=options.initial??TUNING.initialSquad;initial.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
   if(!this.sandbox){this.addBuilding('barracks',0);for(const u of this.allies()){const p=this.moveGoal(u);u.x=p.x;u.z=p.z;u.prev={...p};}}
   this.prepareStage();
  }
  get config(){if(this.configStage!==this.stage||this.configDifficulty!==this.difficulty){this.stageData=stageConfig(this.stage,this.difficulty);this.configStage=this.stage;this.configDifficulty=this.difficulty;}return this.stageData;}
- get mapHalf(){return this.sandbox?TUNING.worldHalf:this.config.width/2;}
+ get mapHalf(){return this.terrain?.definition?Math.max(this.terrain.definition.width,this.terrain.definition.height):this.sandbox?TUNING.worldHalf:this.config.width/2;}
  get duration(){return this.config.durationSeconds;}
  /** Whole-squad commands are simulation intent; picking and feedback live in the renderer. */
  cancelOrder(){this.order=null;this.movePending.clear();this.commandRoute=null;}
@@ -89,13 +90,14 @@ export class World {
   const scale=Math.min(1,d/(speed*dt));return d>.01?{x:dx/d*scale,z:dz/d*scale}:{x:0,z:0};
  }
  setDifficulty(difficulty:Difficulty){if(this.phase!=='menu')return false;this.difficulty=difficulty;this.prepareStage();this.changed();return true;}
- prepareStage(){const plan=stageSchedule(this.config,this.seed);this.waves=plan.waves;this.eventPlan=plan.events;this.stageWave=0;this.nextEvent=0;this.scheduledStage=this.stage;this.nextWave=this.stageStartedAt+(this.waves[0]?.at??Infinity);
+ prepareStage(){this.terrain?.setStage?.(this.stage);const plan=stageSchedule(this.config,this.seed);this.waves=plan.waves;this.eventPlan=plan.events;this.stageWave=0;this.nextEvent=0;this.scheduledStage=this.stage;this.nextWave=this.stageStartedAt+(this.waves[0]?.at??Infinity);
   // Flood once per expansion. Events use connected walkable cells, never a clamped wall position.
   const cells=new Map<string,Point>(),limit=this.mapHalf-2;
   for(let x=-Math.floor(limit/2)*2;x<=limit;x+=2)for(let z=-Math.floor(limit/2)*2;z<=limit;z+=2)if(!blocked({x,z},1.4,this.obstacles)&&(!this.terrain||this.terrain.canOccupy({x,z},1.4)))cells.set(x+','+z,{x,z});
   const origin=[...cells.values()].sort((a,b)=>Math.hypot(a.x,a.z)-Math.hypot(b.x,b.z))[0];this.spawnCells=[];
   if(origin){const queue=[origin],seen=new Set([origin.x+','+origin.z]);for(let i=0;i<queue.length;i++){const p=queue[i];this.spawnCells.push(p);for(const [dx,dz] of [[2,0],[-2,0],[0,2],[0,-2]]){const key=(p.x+dx)+','+(p.z+dz),n=cells.get(key);if(n&&!seen.has(key)&&clearLine(p,n,1.4,this.obstacles,this.terrain)){seen.add(key);queue.push(n);}}}}
-  if(this.stage===12&&!this.hive){const p=this.spawnCells.reduce((a,b)=>b.z<a.z?b:a,{x:0,z:0}),hp=this.difficulty==='easy'?9000:12000;this.hive={id:this.nextId++,...p,hp,maxHp:hp,armor:2,unitRadius:3,flying:false,attributes:['Armored','Biological','Structure'],owner:'zerg'};}
+  if(this.terrain?.connectedLocations)this.spawnCells=this.terrain.connectedLocations(this.anchor,.9,1.4);
+  if(this.stage===12&&!this.hive){const expected=this.terrain?.definition?.hive;const p=expected?this.spawnCells.filter(p=>this.terrain!.canOccupy(p,3)).sort((a,b)=>distance(a,expected)-distance(b,expected))[0]??this.eventPoint():this.spawnCells.reduce((a,b)=>b.z<a.z?b:a,{x:0,z:0}),hp=this.difficulty==='easy'?9000:12000;this.hive={id:this.nextId++,...p,hp,maxHp:hp,armor:2,unitRadius:3,flying:false,attributes:['Armored','Biological','Structure'],owner:'zerg'};}
  }
  eventPoint(min=6,max=Infinity,origin:Point=this.anchor){const candidates=this.spawnCells.filter(p=>distance(p,origin)>=min&&distance(p,origin)<=max);const pool=candidates.length?candidates:this.spawnCells;return {...(pool[Math.floor(this.random()*pool.length)]??{x:0,z:0})};}
  nearbyPoint(origin:Point,radius:number,angle:number,bodyRadius=.6){for(let n=0;n<24;n++){const a=angle+n*.4,r=radius*(1-Math.floor(n/8)*.23),p={x:origin.x+Math.sin(a)*r,z:origin.z+Math.cos(a)*r};if(Math.abs(p.x)<this.mapHalf-bodyRadius&&Math.abs(p.z)<this.mapHalf-bodyRadius&&!blocked(p,bodyRadius,this.obstacles)&&clearLine(origin,p,bodyRadius,this.obstacles,this.terrain))return p;}return this.eventPoint(1,radius+3,origin);}

@@ -1,10 +1,10 @@
 #requires -Version 7.4
 # Public SC2 CDN, exact pinned files only. No full client/archive download or credentials.
-param([string]$Python='python', [switch]$VerifyOnly, [switch]$Refetch)
+param([string]$Python='python', [switch]$VerifyOnly, [switch]$Refetch, [string]$TargetFile='sc2-casc-targets.json', [string]$OutputFile='assets/private/casc-import.json')
 $ErrorActionPreference='Stop'
 $projectRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $lock=Get-Content (Join-Path $PSScriptRoot 'sc2-casc-lock.json') -Raw | ConvertFrom-Json
-$targets=Get-Content (Join-Path $PSScriptRoot 'sc2-casc-targets.json') -Raw | ConvertFrom-Json
+$targets=Get-Content (Join-Path $PSScriptRoot $TargetFile) -Raw | ConvertFrom-Json
 function ProjectPath([string]$relative){
  $path=[IO.Path]::GetFullPath((Join-Path $projectRoot $relative))
  if(-not $path.StartsWith($projectRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)){throw 'Target escapes the project directory'}
@@ -71,10 +71,10 @@ foreach($target in $targets){
  if(-not (ValidFile $target $sourceFile)){throw ('Invalid source '+$target.id)}
  $destination=ProjectPath $target.installFile
  $null=[IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($destination))
- [IO.File]::Copy($sourceFile,$destination,$true)
+ if($sourceFile -ne $destination){[IO.File]::Copy($sourceFile,$destination,$true)}
  $records+=@{id=$target.id;file=$target.installFile;sourcePath=$target.sourcePath;source='https://'+$lock.host+'/'+$lock.cdnPath;version=$lock.version;buildConfig=$lock.buildConfig;sha256=$target.sha256;bytes=$target.bytes}
 }
-$report=ProjectPath 'assets/private/casc-import.json'
+$report=ProjectPath $OutputFile
 $records | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $report -Encoding utf8
 Write-Output ('Verified and installed '+$records.Count+' original SC2 files. Run assets:prepare/build for runtime packaging.')
 

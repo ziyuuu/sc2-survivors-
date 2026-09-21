@@ -1,4 +1,6 @@
 import './ui/sc2-battle.css';
+import {configureMapAssets,loadMapDefinition} from './render/terrain/original-map';
+import {MapTerrain} from './simulation/movement/map-terrain';
 import {World} from './simulation/world';
 import {FixedStepper} from './simulation/fixed-stepper';
 import {TUNING} from './data/game';
@@ -9,9 +11,9 @@ import {Input} from './ui/mobile/input';
 import {installDebug} from './diagnostics/debug';
 import {AudioEffects} from './render/effects/audio';
 
-const world=new World(),canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
+const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
-async function boot(){const view=new BattleRenderer(canvas,world),hud=new HUD(world,view),audio=new AudioEffects();
+async function boot(){configureMapAssets();const definition=await loadMapDefinition(),world=new World({terrain:new MapTerrain(definition)});const view=new BattleRenderer(canvas,world),hud=new HUD(world,view),audio=new AudioEffects();
  const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),{canvas,pick:(x,y,touch)=>view.pick(x,y,touch)});hud.inputReset=()=>{input.keys.clear();input.release();};hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,b=>{const p=view.screen(b);return p.x>=0&&p.y>=0&&p.x<=canvas.clientWidth&&p.y<=canvas.clientHeight;},()=>hud.pause(),()=>{input.keys.clear();input.release();});
  const debug=import.meta.env.DEV?installDebug(world,view):null;

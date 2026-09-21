@@ -7,7 +7,7 @@ export function pickBattle(clientX:number,clientY:number,touch:boolean,canvas:HT
  const rect=canvas.getBoundingClientRect();if(clientX<rect.left||clientY<rect.top||clientX>rect.right||clientY>rect.bottom)return null;
  const ray=new THREE.Raycaster();ray.setFromCamera(new THREE.Vector2((clientX-rect.left)/rect.width*2-1,1-(clientY-rect.top)/rect.height*2),camera);
  const terrain=['char-traversable-ground','char-solid-cliff-faces'].map(name=>scene.getObjectByName(name)).filter((x):x is THREE.Object3D=>!!x);
- const hit=ray.intersectObjects(terrain,false)[0];if(!hit)return null;
+ const hit=ray.intersectObjects(terrain,true)[0];if(!hit)return null;
  const unitsPerPixel=camera instanceof THREE.OrthographicCamera?(camera.top-camera.bottom)/rect.height:.04;
  const margin=unitsPerPixel*(touch?12:3),v=new THREE.Vector3(),box=new THREE.Box3();let best:Body|undefined,depth=Infinity;
  const candidates:Body[]=[...world.entities.values(),...[...world.economicTargets.values()].filter(e=>e.status==='active')];if(world.hive)candidates.push(world.hive);

@@ -1,3 +1,4 @@
+import type {TerrainQuery} from '../../data/map-definition';
 import {RAMPS,type CharTerrain} from '../../data/terrain';
 import {OBSTACLES,TUNING,type Obstacle} from '../../data/game';
 import type {Entity,Point} from '../types';
@@ -5,12 +6,12 @@ export const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 export const angleDelta=(a:number,b:number)=>Math.atan2(Math.sin(b-a),Math.cos(b-a));
 export function turn(a:number,b:number,max:number){return a+Math.max(-max,Math.min(max,angleDelta(a,b)));}
 export function blocked(p:Point,r:number,obstacles=OBSTACLES){return obstacles.some(o=>Math.abs(p.x-o.x)<o.w/2+r&&Math.abs(p.z-o.z)<o.h/2+r);}
-export function clearLine(a:Point,b:Point,r:number,obstacles=OBSTACLES,terrain?:CharTerrain){if(terrain&&!terrain.walkLine(a,b,r))return false;const n=Math.ceil(distance(a,b)/.7);for(let i=1;i<=n;i++){if(blocked({x:a.x+(b.x-a.x)*i/n,z:a.z+(b.z-a.z)*i/n},r,obstacles))return false;}return true;}
-type RouteGraph={terrain?:CharTerrain;nodes:Point[];edges:{to:number;cost:number}[][]};
+export function clearLine(a:Point,b:Point,r:number,obstacles=OBSTACLES,terrain?:TerrainQuery){if(terrain&&!terrain.walkLine(a,b,r))return false;const n=Math.ceil(distance(a,b)/.7);for(let i=1;i<=n;i++){if(blocked({x:a.x+(b.x-a.x)*i/n,z:a.z+(b.z-a.z)*i/n},r,obstacles))return false;}return true;}
+type RouteGraph={terrain?:TerrainQuery;nodes:Point[];edges:{to:number;cost:number}[][]};
 const graphs=new WeakMap<Obstacle[],Map<string,RouteGraph>>();
 /** Small static visibility graph. Corners and ramp portals are cached per body radius/map extent.
  * This avoids repeatedly selecting the same locally attractive dead-end corner. */
-function routeGraph(r:number,obstacles:Obstacle[],terrain:CharTerrain|undefined,half:number){
+function routeGraph(r:number,obstacles:Obstacle[],terrain:TerrainQuery|undefined,half:number){
  let cache=graphs.get(obstacles);if(!cache)graphs.set(obstacles,cache=new Map());const key=r+':'+half;
  let graph=cache.get(key);if(graph&&graph.terrain===terrain)return graph;
  const nodes:Point[]=[];
@@ -21,8 +22,9 @@ function routeGraph(r:number,obstacles:Obstacle[],terrain:CharTerrain|undefined,
  for(let i=0;i<nodes.length;i++)for(let j=0;j<i;j++)if(clearLine(nodes[i],nodes[j],r,obstacles,terrain)){const cost=distance(nodes[i],nodes[j]);edges[i].push({to:j,cost});edges[j].push({to:i,cost});}
  graph={terrain,nodes,edges};cache.set(key,graph);return graph;
 }
-export function steerGoal(a:Point,b:Point,r:number,obstacles:Obstacle[]=OBSTACLES,terrain?:CharTerrain,half=TUNING.worldHalf):Point {
+export function steerGoal(a:Point,b:Point,r:number,obstacles:Obstacle[]=OBSTACLES,terrain?:TerrainQuery,half=TUNING.worldHalf):Point {
  if(clearLine(a,b,r,obstacles,terrain))return b;
+ if(terrain?.definition)return terrain.routeGoal(a,b,r,half);
  const {nodes,edges}=routeGraph(r,obstacles,terrain,half),costs=nodes.map(p=>clearLine(p,b,r,obstacles,terrain)?distance(p,b):Infinity),closed=new Uint8Array(nodes.length);
  // Reverse shortest paths from this destination. Only the small cached static graph is searched.
  for(let step=0;step<nodes.length;step++){let index=-1,best=Infinity;for(let i=0;i<nodes.length;i++)if(!closed[i]&&costs[i]<best){best=costs[i];index=i;}if(index<0)break;closed[index]=1;for(const edge of edges[index])costs[edge.to]=Math.min(costs[edge.to],best+edge.cost);}
@@ -30,13 +32,13 @@ export function steerGoal(a:Point,b:Point,r:number,obstacles:Obstacle[]=OBSTACLE
  for(let i=0;i<nodes.length;i++){const d=distance(a,nodes[i]),score=d+costs[i];if(d>.12&&score<best&&clearLine(a,nodes[i],r,obstacles,terrain)){best=score;next=nodes[i];}}
  return next;
 }
-export function translate(body:Point,delta:Point,r:number,flying=false,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf,terrain?:CharTerrain){
+export function translate(body:Point,delta:Point,r:number,flying=false,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf,terrain?:TerrainQuery){
  const nx=Math.max(-worldHalf+r,Math.min(worldHalf-r,body.x+delta.x));
  const nz=Math.max(-worldHalf+r,Math.min(worldHalf-r,body.z+delta.z));
  if(flying||!blocked({x:nx,z:body.z},r,obstacles)&&(!terrain||terrain.canStep(body,{x:nx,z:body.z},r)))body.x=nx;
  if(flying||!blocked({x:body.x,z:nz},r,obstacles)&&(!terrain||terrain.canStep(body,{x:body.x,z:nz},r)))body.z=nz;
 }
-export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:number,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf,terrain?:CharTerrain){
+export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:number,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf,terrain?:TerrainQuery){
  const d=distance(u,goal);let dx=0,dz=0;
  const vehicle=u.unitType==='hellion'||u.unitType==='tank',rate=u.unitType==='hellion'?4.8:u.unitType==='tank'?3.6:7;
  const braking=vehicle?24:u.flying?12:30,acceleration=u.flying?10:vehicle?18:24;

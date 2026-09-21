@@ -1,3 +1,4 @@
+import type {TerrainQuery} from '../../data/map-definition';
 import type {CharTerrain} from '../../data/terrain';
 import type {Body,Entity} from '../types';
 import type {Obstacle} from '../../data/game';
@@ -10,7 +11,7 @@ const fixed=(u:Entity|undefined)=>!u||u.mode==='siege'||u.modeTimer>0;
  */
 export class ContactSolver {
  private actors:Entity[]=[];private pairs:Body[]=[];private remaining=new Map<number,number>();
- resolve(units:Iterable<Entity>,hash:SpatialHash<Body>,obstacles:Obstacle[],half:number,dt:number,large:Body|null=null,terrain?:CharTerrain){
+ resolve(units:Iterable<Entity>,hash:SpatialHash<Body>,obstacles:Obstacle[],half:number,dt:number,large:Body|null=null,terrain?:TerrainQuery){
   const {actors,pairs,remaining}=this;actors.length=0;pairs.length=0;remaining.clear();let contacts=0;
   for(const u of units)if(u.hp>0){actors.push(u);remaining.set(u.id,Math.max(.06,u.moveSpeed*1.5*dt));}
   const move=(u:Entity|undefined,x:number,z:number,amount:number)=>{if(!u||fixed(u))return;const limit=Math.min(amount,remaining.get(u.id)??0);if(limit<=0)return;const px=u.x,pz=u.z;translate(u,{x:x*limit,z:z*limit},u.unitRadius,u.flying,obstacles,half,terrain);remaining.set(u.id,Math.max(0,(remaining.get(u.id)??0)-Math.hypot(u.x-px,u.z-pz)));};
@@ -31,4 +32,4 @@ export class ContactSolver {
  }
 }
 /** Isolated-test convenience; the live World owns a reusable solver. */
-export function resolveContacts(units:Iterable<Entity>,hash:SpatialHash<Body>,obstacles:Obstacle[],half:number,dt:number,large:Body|null=null,terrain?:CharTerrain){return new ContactSolver().resolve(units,hash,obstacles,half,dt,large,terrain);}
+export function resolveContacts(units:Iterable<Entity>,hash:SpatialHash<Body>,obstacles:Obstacle[],half:number,dt:number,large:Body|null=null,terrain?:TerrainQuery){return new ContactSolver().resolve(units,hash,obstacles,half,dt,large,terrain);}

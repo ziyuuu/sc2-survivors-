@@ -40,3 +40,7 @@ npm run build
 若未来 CDN 不可达，仍可使用 SC2 编辑器导出同路径原文件并放入表中位置；声音经 `npm run assets:prepare` 本地转换，效果经上述定向导入，无需改游戏代码。导入必须通过文件头／内容校验，不能使用下载错误页面。
 
 模型仍使用原 M3 主动作；已下载 M3A 仅含 Flail，坦克补充动作绑定不完整时仍拒绝使用。原仓门是已标注的骨骼适配，不把死亡动作当开门。结构、浏览器播放与人工视觉／听审是独立验收；本轮没有声称已通过人工同场景对照。
+
+## V9 原地图与资源掉落
+
+原 Crystal、GasCanister、SpaceMineralCluster 三种掉落及 Kairos Junction LE 原地图已取得并载入，无待用户补交的运行素材。地图包路径 `assets/private/maps/KairosJunctionLE.SC2Map`；全部511个依赖精确URL/路径/哈希见 [map-dependencies.json](../tools/map-dependencies.json)，地图版本见 [map-lock.json](../tools/map-lock.json)。复现 `npm run assets:map`，失败项会输出 `reports/local/map-missing.json`，放入清单指定路径后重新执行，不需改代码。完整流程与视觉边界见 [MAP_PIPELINE.md](MAP_PIPELINE.md)。

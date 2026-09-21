@@ -7,12 +7,12 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import {ddsToPng} from './dds-png.mjs';
-import {materialDdsToPng,convertMaterialPixels,applyTeamColor} from './m3-materials.mjs';
+import {materialEntries,materialDdsToPng,convertMaterialPixels,applyTeamColor} from './m3-materials.mjs';
 import {decodeDds,rgbaToPng} from './dds-png.mjs';
 import {adaptM3Scene} from './m3-scene.mjs';
 import {DOMParser} from '@xmldom/xmldom';
 import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
-import {QuaternionKeyframeTrack,AnimationClip} from 'three';
+import {QuaternionKeyframeTrack,AnimationClip,Group,Mesh,PlaneGeometry,MeshStandardMaterial} from 'three';
 import {M3_TOOL_REVISION,M3_MODELS,M3_EFFECTS} from './m3-catalog.mjs';
 import {inspectGlb} from './glb-inspect.mjs';
 
@@ -22,7 +22,7 @@ const sha=b=>createHash('sha256').update(b).digest('hex');
 for(const dir of [toolDir,privateDir,'assets/private/dds','public/assets/animated','public/assets/effects'])await fs.mkdir(dir,{recursive:true});
 async function get(url,file,validate){
  let bytes;try{bytes=await fs.readFile(file);validate(bytes);return bytes;}catch{}
- bytes=await fetchBinary(url);validate(bytes);await fs.writeFile(file+'.part',bytes);await fs.rename(file+'.part',file);return bytes;
+ bytes=await fetchBinary(url,120);validate(bytes);await fs.writeFile(file+'.part',bytes);await fs.rename(file+'.part',file);return bytes;
 }
 // Download only audited source files at a pinned revision; never execute package install scripts.
 for(const file of ['src/m3-loader.js','src/structures.xml','LICENSE']){
@@ -63,8 +63,14 @@ async function extraAnimations(id,base){
  }catch(e){return {clips:[],reports:[{source,status:'missing',error:e.message}]};}
 }
 for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
- const {sections:s,...provenance}=await m3(name),group=parser.buildThreeMeshesFromModel(s.model,s,{textureBasePath:path.resolve('assets/private/dds')});
- const {specs,report:geometryReport}=adaptM3Scene(group,s,parser);
+ const {sections:s,...provenance}=await m3(name);let group,specs,geometryReport;
+ if(!s.model.vertices.entries&&s.model.projections.entries&&s.model.materials_splatterrainbake.entries){
+  group=new Group();group.rotation.x=-Math.PI/2;specs=new Map();geometryReport=[];const mats=materialEntries(s,s.model.materials_splatterrainbake);
+  for(const projection of s.getSectionByReference(s.model.projections).content){const ref=s.getSectionByReference(s.model.material_references).content[projection.material_reference_index],spec=mats[ref.material_index];if(ref.type!==9||!spec)throw Error('Unsupported original projection');const left=projection.box_offset_x_left.default,right=projection.box_offset_x_right.default,front=projection.box_offset_y_front.default,back=projection.box_offset_y_back.default,key=spec.name+'#projection';const geo=new PlaneGeometry(right-left,back-front);geo.translate((right+left)/2,(back+front)/2,.025);const mat=new MeshStandardMaterial({transparent:true,depthWrite:false});mat.name=key;const mesh=new Mesh(geo,mat);mesh.userData={sc2Role:'effect'};group.add(mesh);specs.set(key,{...spec,blend:1,role:'effect',availableUvs:[0]});geometryReport.push({type:9,role:'original-ground-projection',status:'converted',bounds:[left,right,front,back]});}
+ }else {group=parser.buildThreeMeshesFromModel(s.model,s,{textureBasePath:path.resolve('assets/private/dds')});({specs,report:geometryReport}=adaptM3Scene(group,s,parser));}
+ const cliffMaterial=name.startsWith('cliffmade13_')?'labcliff1_material':name.startsWith('cliffnatural0ex1_')?'marsaraex2_cliff0_material':name.startsWith('cliffmade0ex1_')?'marsaraex2_cliff1_material':null;
+ if(id.startsWith('model.map.')&&cliffMaterial){const materialModel=await m3(cliffMaterial),materials=materialEntries(materialModel.sections);if(materials.length!==1)throw Error('Unexpected original cliff material count');for(const [key,spec] of specs)specs.set(key,{...spec,...materials[0],availableUvs:spec.availableUvs,role:spec.role});}
+
  // userData contains live bones/maps in the upstream parser, which GLTF must not serialize.
  const bones=group.userData.bones??[];group.userData={source:provenance.source,sc2ModelScale:sourceScale(id),attachments:parser.buildAttachmentPoints(s.model,s)};
  const additional=await extraAnimations(id,s);let clips=[...parser.buildAnimationClips(s.model,s),...additional.clips].filter(c=>c.duration>0);
@@ -85,7 +91,7 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
   for(const [role,layer] of Object.entries(spec.layers)){
    if(!layer.filename)continue;
    if(!spec.availableUvs.includes(layer.uv)){report.unsupported.push({role,reason:'Unavailable UV source',...layer});continue;}
-   const index=await embed(layer,role==='normal',role==='diffuse'&&spec.blend===0&&layer.channel===1),info={index,texCoord:layer.uv};report.layers.push({role,...layer,source:provider+'textures/'+layer.filename.toLowerCase()});
+   const index=await embed(layer,role==='normal',role==='diffuse'&&!id.startsWith('model.map.')&&spec.blend===0&&layer.channel===1),info={index,texCoord:layer.uv};report.layers.push({role,...layer,source:provider+'textures/'+layer.filename.toLowerCase()});
    if(role==='diffuse')mat.pbrMetallicRoughness.baseColorTexture=info;
    else if(role==='normal')mat.normalTexture={...info,scale:1};
    else if(role==='specular'){extension('KHR_materials_specular');mat.extensions??={};mat.extensions.KHR_materials_specular={specularFactor:1,specularColorFactor:[1,1,1],specularColorTexture:info};mat.pbrMetallicRoughness.roughnessFactor=Math.max(.25,Math.min(.9,Math.pow(2/(Math.max(0,spec.specularity)+2),.25)));}
@@ -95,7 +101,7 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
   layerReport.push(report);
  }
  j.buffers[0].byteLength=length;j.asset.extras={m3Source:provenance.source,converterRevision:M3_TOOL_REVISION,particleSystemsExported:false,materialPipelineVersion:3};
- const bytes=pack(j,Buffer.concat(chunks)),info=inspectGlb(bytes);if(!info.animationNames.length&&!id.startsWith('model.terrain.')&&!id.startsWith('model.loot.'))throw Error('No usable animations exported');
+ const bytes=pack(j,Buffer.concat(chunks)),info=inspectGlb(bytes);if(!info.animationNames.length&&!id.startsWith('model.terrain.')&&!id.startsWith('model.loot.')&&!id.startsWith('model.map.'))throw Error('No usable animations exported');
  const packedFile=`public/assets/animated/${id}.glb`;await fs.writeFile(packedFile,bytes);
  manifest.push({id,kind:'model',packedFile,required:false,materialPipelineVersion:3,materials:layerReport,geometry:geometryReport,clipSources,additionalAnimations:additional.reports,verification:{bytes:true,bindings:true,humanVisual:false},...provenance,sha256:sha(bytes),animations:info.animationNames,bones:bones.length,originalParticles:s.model.particle_systems?.entries??0});
  console.log(`${id}: ${info.animationNames.length} clips, ${bones.length} bones, ${bytes.length} bytes`);

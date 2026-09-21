@@ -11,9 +11,9 @@ export function convertMaterialPixels(image,{normal=false,channel=0}={}){
  return {width:image.width,height:image.height,rgba};
 }
 export function materialDdsToPng(bytes,options){return rgbaToPng(convertMaterialPixels(decodeDds(bytes),options));}
-export function materialEntries(sections){
+export function materialEntries(sections,reference=sections.model.materials_standard){
  const text=ref=>{const chars=sections.getSectionByReference(ref)?.content;return chars?String.fromCharCode(...chars).replace(/\0/g,''):'';};
- return (sections.getSectionByReference(sections.model.materials_standard)?.content??[]).map((mat,index)=>{
+ return (sections.getSectionByReference(reference)?.content??[]).map((mat,index)=>{
   const layers={};for(const [role,key] of Object.entries({diffuse:'layer_diff',normal:'layer_norm',specular:'layer_spec',emissive:'layer_emis1',emissive2:'layer_emis2',alpha:'layer_alpha1',alpha2:'layer_alpha2'})){
    const l=sections.getSectionByReference(mat[key])?.content?.[0];if(!l)continue;const filename=text(l.color_bitmap);
    layers[role]={filename:filename.replaceAll('\\','/').split('/').at(-1),channel:l.color_channels??0,uv:l.uv_source??0,multiplier:l.color_multiply?.default??1,add:l.color_add?.default??0,flags:l.flags??0,color:l.color_value?.default,animated:!!l.color_multiply?.header?.flags};

@@ -1,0 +1,12 @@
+{
+  "name": "Kairos Junction LE",
+  "file": "KairosJunctionLE.SC2Map",
+  "source": "https://raw.githubusercontent.com/opendilab/DI-star/12b1c69350ad41e17895c602a66a52d98dd58452/distar/envs/maps/Ladder2019Season2/KairosJunctionLE.SC2Map",
+  "sha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2",
+  "bytes": 1443073,
+  "catalogRevision": "fbbd6429b1eb6978c78a092dc68ba09029d03171",
+  "worldUnitsPerSc2Unit": 1,
+  "archiveParser": "mpyq==0.2.5",
+  "formatSource": "https://github.com/sc2-arcade-watcher/sc2-file-format-docs",
+  "evidence": "Original map archive, not a preview image. Runtime reconstruction requires dependency and traversal acceptance."
+}

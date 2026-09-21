@@ -10,8 +10,9 @@ const records=[];
 let audioConversions=[];try{audioConversions=JSON.parse(await fs.readFile('assets/private/audio-conversion.json','utf8'));}catch{}
 let imported=[];try{imported=JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8')).manifest;}catch{}
 try{imported.push(...JSON.parse(await fs.readFile('assets/private/terrain-pack.json','utf8')).manifest);}catch{}
+try{imported.push(...JSON.parse(await fs.readFile('assets/private/map-pack.json','utf8')).manifest);}catch{}
 const importedById=new Map(imported.map(a=>[a.id,a]));
-const assets=[...RUNTIME_ASSETS.map(a=>({...a,...importedById.get(a.id),required:a.required})),...imported.filter(a=>!RUNTIME_ASSETS.some(b=>b.id===a.id))];
+const assets=[...RUNTIME_ASSETS.map(a=>({...a,...importedById.get(a.id),required:a.required})),...[...importedById.values()].filter(a=>!RUNTIME_ASSETS.some(b=>b.id===a.id))];
 for(const a of assets){const ext=a.kind==='model'?'.glb':a.kind==='icon'||a.kind==='effect-texture'?'.png':'.jpg',file=a.packedFile??filename(a,ext);let record={...a,id:a.id,kind:a.kind,status:'missing',url:file.replace('public/',''),packedFile:file,required:a.required,animations:[],bytes:0};
  try{const bytes=await fs.readFile(file);record.bytes=bytes.length;
  if(a.kind==='model'){

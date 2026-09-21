@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+let mapModels=[];try{mapModels=JSON.parse(fs.readFileSync(new URL('./map-models.json',import.meta.url),'utf8'));}catch{}
 // Names resolved from the fixed SC2 ModelData/ActorData profile; no community skins.
 export const M3_TOOL_REVISION='ee0eff037e2e40d2aad72f4f856af0710b8a44e5';
 export const M3_MODELS=[
@@ -12,6 +14,7 @@ export const M3_MODELS=[
  ['model.droppod','droppodfalling'],
  ['model.loot.mineral','crystal'],['model.loot.gas','gascanister'],['model.loot.large','spacemineralcluster_00'],
  ['model.scv','scv'],['model.drone','drone'],['model.egg','banelingegg'],
+ ...mapModels,
  ['model.terrain.rock','chardunerock_00'],['model.terrain.wreck','barrackswrecked_00'],
 ];
 // Original particle textures. The web renderer implements a documented subset of

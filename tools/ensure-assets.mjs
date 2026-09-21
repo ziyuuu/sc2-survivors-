@@ -16,3 +16,5 @@ if(animationIds.some(id=>!rows.some(r=>r.id===id&&r.status==='available'&&r.anim
 }
 
 if(!rows.some(r=>r.id==='terrain.char.normal'&&r.status==='available')){try{await import('./import-terrain.mjs');await import('./prepare-assets.mjs?terrain=1');}catch(e){console.error('Original terrain unavailable:',e.message);}}
+
+if(!rows.some(r=>r.id==='map.kairos'&&r.status==='available')){try{await import('./import-original-map.mjs');}catch(e){console.error('Original map import incomplete; run npm run assets:map. Exact source paths: tools/map-dependencies.json',e.message);}}
