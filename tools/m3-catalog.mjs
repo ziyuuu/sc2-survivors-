@@ -18,6 +18,6 @@ export const M3_MODELS=[
 export const M3_EFFECTS=[
  ['fx.muzzle','marineweaponlaunch'],['fx.impact','marineweaponimpact'],
  ['fx.blood','bloodtargetimpact'],['fx.blast','siegetankweaponimpact'],
- ['fx.acid','roachmissileimpactex1'],['fx.bile','ravager_artillery_missile_impact'],
+ ['fx.flame','hellionbeam'],['fx.flameimpact','hellionbeamimpact'],['fx.acid','roachmissileimpactex1'],['fx.bile','ravager_artillery_missile_impact'],
  ['fx.baneling','banelingdeath_low'],['fx.pod','jumplanddust'],
 ];

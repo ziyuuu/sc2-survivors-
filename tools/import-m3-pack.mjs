@@ -4,7 +4,10 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import {ddsToPng} from './dds-png.mjs';
-import {materialDdsToPng,materialSources} from './m3-materials.mjs';
+import {materialDdsToPng,convertMaterialPixels,applyTeamColor} from './m3-materials.mjs';
+import {decodeDds,rgbaToPng} from './dds-png.mjs';
+import {adaptM3Scene} from './m3-scene.mjs';
+import {DOMParser} from '@xmldom/xmldom';
 import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
 import {QuaternionKeyframeTrack,AnimationClip} from 'three';
 import {M3_TOOL_REVISION,M3_MODELS,M3_EFFECTS} from './m3-catalog.mjs';
@@ -41,38 +44,56 @@ async function png(name,options={}){
 }
 function unpack(b){const j=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)));const o=20+b.readUInt32LE(12);return {j,bin:b.subarray(o+8,o+8+b.readUInt32LE(o))};}
 function pack(j,bin){const str=Buffer.from(JSON.stringify(j));const json=Buffer.alloc(Math.ceil(str.length/4)*4,32);str.copy(json);const padded=Buffer.alloc(Math.ceil(bin.length/4)*4);bin.copy(padded);const b=Buffer.alloc(28+json.length+padded.length);b.write('glTF');b.writeUInt32LE(2,4);b.writeUInt32LE(b.length,8);b.writeUInt32LE(json.length,12);b.writeUInt32LE(0x4e4f534a,16);json.copy(b,20);b.writeUInt32LE(padded.length,20+json.length);b.writeUInt32LE(0x004e4942,24+json.length);padded.copy(b,28+json.length);return b;}
+const modelDefinitions=new Map();
+for(const layer of ['liberty','swarm','void']){try{const doc=new DOMParser().parseFromString(await fs.readFile('.cache/sc2-data/'+layer+'-modeldata.xml','utf8'),'text/xml');for(const n of Array.from(doc.getElementsByTagName('CModel'))){const id=n.getAttribute('id');if(!id)continue;const prev=modelDefinitions.get(id)??{};const scale=Array.from(n.childNodes).find(n=>n.nodeName==='ScaleMin')?.getAttribute('value');modelDefinitions.set(id,{parent:n.getAttribute('parent')||prev.parent,scale:scale?Number(scale.split(',')[0]):prev.scale});}}catch{}}
+function sourceScale(id){const names={marine:'Marine',hellion:'Hellion',tank:'SiegeTank',medivac:'Medivac',zergling:'Zergling',roach:'Roach',baneling:'Baneling',ravager:'Ravager',scv:'SCV',drone:'Drone'};let name=names[id.replace('model.','').split('.')[0]];for(let n=0;name&&n<12;n++){const d=modelDefinitions.get(name);if(!d)break;if(d.scale>0)return d.scale;name=d.parent;}return name?1:undefined;}
+async function layerPixels(layer,normal=false){const name=layer.filename.toLowerCase(),file='assets/private/dds/'+name;const bytes=await get(provider+'textures/'+encodeURIComponent(name),file,b=>{if(b.length<128||b.subarray(0,4).toString()!=='DDS ')throw Error('Invalid DDS '+name);});return convertMaterialPixels(decodeDds(bytes),{normal,channel:normal?0:layer.channel});}
+async function extraAnimations(id,base){
+ const names={'model.marine':'marine_swarmanims','model.hellion':'hellion_swarmanims','model.tank':'tank_swarmanims','model.baneling':'baneling_voidanims'},name=names[id];if(!name)return {clips:[],reports:[]};
+ const source=provider+'models/'+name+'.m3a',file=privateDir+'/'+name+'.m3a';
+ try{const bytes=await get(source,file,checkM3),s=await parser.loadM3FromFile(file),str=(s,r)=>String.fromCharCode(...(s.getSectionByReference(r)?.content??[])).replace(/\0/g,'');
+  const original=new Map();for(const b of base.getSectionByReference(base.model.bones)?.content??[])for(const [key,property] of [['location','position'],['rotation','quaternion'],['scale','scale']])original.set(b[key].header.id,{name:str(base,b.name),property});
+  const binding=new Map();for(const b of s.getSectionByReference(s.model.bones)?.content??[])for(const [key,property] of [['location','position'],['rotation','quaternion'],['scale','scale']]){const match=original.get(b[key].header.id);if(match&&match.property===property)binding.set(str(s,b.name)+'.'+property,match.name+'.'+property);}
+  const clips=parser.buildAnimationClips(s.model,s).filter(c=>c.tracks.length&&c.tracks.every(t=>binding.has(t.name)));for(const c of clips)for(const t of c.tracks)t.name=binding.get(t.name);
+  return {clips,reports:[{source,sha256:sha(bytes),clips:clips.map(c=>c.name),binding:'matched original animation header IDs',usedForCombat:false}]};
+ }catch(e){return {clips:[],reports:[{source,status:'missing',error:e.message}]};}
+}
 for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
  const {sections:s,...provenance}=await m3(name),group=parser.buildThreeMeshesFromModel(s.model,s,{textureBasePath:path.resolve('assets/private/dds')});
- const specs=materialSources(s);
- for(const [matName,set] of group.userData.matNameToMaterials??[])for(const material of set){material.name=matName;material.userData={};material.color.set(0xffffff);material.roughness=.8;}
+ const {specs,report:geometryReport}=adaptM3Scene(group,s,parser);
  // userData contains live bones/maps in the upstream parser, which GLTF must not serialize.
- const bones=group.userData.bones??[];group.userData={source:provenance.source,attachments:parser.buildAttachmentPoints(s.model,s)};
- let clips=parser.buildAnimationClips(s.model,s).filter(c=>c.duration>0);
+ const bones=group.userData.bones??[];group.userData={source:provenance.source,sc2ModelScale:sourceScale(id),attachments:parser.buildAttachmentPoints(s.model,s)};
+ const additional=await extraAnimations(id,s);let clips=[...parser.buildAnimationClips(s.model,s),...additional.clips].filter(c=>c.duration>0);
+ const clipSources=clips.map(c=>({name:c.name,source:additional.clips.includes(c)?additional.reports[0]?.source:provenance.source,duration:c.duration,tracks:c.tracks.length}));
  // Preserve a truly static Stand pose as a valid clip, without fabricating motion.
  clips=clips.map(c=>c.tracks.length?c:new AnimationClip(c.name,c.duration,bones[0]?[new QuaternionKeyframeTrack(bones[0].name+'.quaternion',[0,c.duration],[...bones[0].quaternion.toArray(),...bones[0].quaternion.toArray()])]:[])).filter(c=>c.tracks.length);
  group.updateMatrixWorld(true);
  const raw=Buffer.from(await new GLTFExporter().parseAsync(group,{binary:true,animations:clips}));const {j,bin}=unpack(raw);const chunks=[bin];let length=bin.length;
  const imageIds=new Map();j.images=[];j.textures=[];j.samplers=[{magFilter:9729,minFilter:9987,wrapS:10497,wrapT:10497}];
  const layerReport=[];
- const embed=async(layer,normal=false)=>{const key=layer.filename.toLowerCase()+'|'+(normal?'normal':layer.channel);let index=imageIds.get(key);if(index!==undefined)return index;
-  const img=await png(layer.filename,{normal,channel:normal?0:layer.channel}),padding=Buffer.alloc((4-length%4)%4);chunks.push(padding);length+=padding.length;const bv=j.bufferViews.length;j.bufferViews.push({buffer:0,byteOffset:length,byteLength:img.length});chunks.push(img);length+=img.length;index=j.images.length;j.images.push({bufferView:bv,mimeType:'image/png'});j.textures.push({sampler:0,source:index});imageIds.set(key,index);return index;
- };
+ const embedBytes=(key,img)=>{let index=imageIds.get(key);if(index!==undefined)return index;const padding=Buffer.alloc((4-length%4)%4);chunks.push(padding);length+=padding.length;const bv=j.bufferViews.length;j.bufferViews.push({buffer:0,byteOffset:length,byteLength:img.length});chunks.push(img);length+=img.length;index=j.images.length;j.images.push({bufferView:bv,mimeType:'image/png'});j.textures.push({sampler:0,source:index});imageIds.set(key,index);return index;};
+ const embed=async(layer,normal=false,team=false)=>{const key=layer.filename.toLowerCase()+'|'+(normal?'normal':layer.channel)+(team?'|team:'+id.split('.')[1]:'');if(imageIds.has(key))return imageIds.get(key);let pixels=await layerPixels(layer,normal);if(team)pixels=applyTeamColor(pixels,['marine','hellion','tank','medivac','scv'].includes(id.split('.')[1])?[35,92,194]:[137,55,51]);return embedBytes(key,rgbaToPng(pixels));};
  const extension=name=>{j.extensionsUsed??=[];if(!j.extensionsUsed.includes(name))j.extensionsUsed.push(name);};
- for(const mat of j.materials??[]){const spec=specs.get(mat.name);if(!spec)continue;const report={name:mat.name,layers:[],unsupported:[]};
+ for(const mat of j.materials??[]){const spec=specs.get(mat.name);if(!spec)continue;const report={name:mat.name,index:spec.index,role:spec.role,type:1,blend:spec.blend,layers:[],unsupported:[]};
+  mat.extras={sc2:{role:spec.role,blend:spec.blend,flags:spec.flags,layers:[],teamColor:spec.blend===0&&spec.layers.diffuse?.channel===1}};
+  if(spec.blend){mat.alphaMode='BLEND';}else if(spec.alphaTest>0){mat.alphaMode='MASK';mat.alphaCutoff=spec.alphaTest;}
+  if(spec.flags&16){extension('KHR_materials_unlit');mat.extensions??={};mat.extensions.KHR_materials_unlit={};}mat.doubleSided=!!(spec.flags&8);mat.pbrMetallicRoughness??={};mat.pbrMetallicRoughness.metallicFactor=0;
   for(const [role,layer] of Object.entries(spec.layers)){
-   if(layer.uv!==0){report.unsupported.push({role,reason:'Non-UV0 material layer',...layer});continue;}
-   const index=await embed(layer,role==='normal');report.layers.push({role,...layer,source:provider+'textures/'+layer.filename.toLowerCase()});
-   if(role==='diffuse')mat.pbrMetallicRoughness.baseColorTexture={index};
-   else if(role==='normal')mat.normalTexture={index,scale:1};
-   else if(role==='specular'){extension('KHR_materials_specular');mat.extensions??={};mat.extensions.KHR_materials_specular={specularFactor:1,specularColorFactor:[1,1,1],specularColorTexture:{index}};mat.pbrMetallicRoughness.roughnessFactor=Math.max(.25,Math.min(.9,Math.pow(2/(Math.max(0,spec.specularity)+2),.25)));}
-   else if(role==='emissive'){extension('KHR_materials_emissive_strength');mat.extensions??={};mat.extensions.KHR_materials_emissive_strength={emissiveStrength:Math.max(0,spec.emissiveStrength*layer.multiplier)};mat.emissiveFactor=[1,1,1];mat.emissiveTexture={index};}
+   if(!layer.filename)continue;
+   if(!spec.availableUvs.includes(layer.uv)){report.unsupported.push({role,reason:'Unavailable UV source',...layer});continue;}
+   const index=await embed(layer,role==='normal',role==='diffuse'&&spec.blend===0&&layer.channel===1),info={index,texCoord:layer.uv};report.layers.push({role,...layer,source:provider+'textures/'+layer.filename.toLowerCase()});
+   if(role==='diffuse')mat.pbrMetallicRoughness.baseColorTexture=info;
+   else if(role==='normal')mat.normalTexture={...info,scale:1};
+   else if(role==='specular'){extension('KHR_materials_specular');mat.extensions??={};mat.extensions.KHR_materials_specular={specularFactor:1,specularColorFactor:[1,1,1],specularColorTexture:info};mat.pbrMetallicRoughness.roughnessFactor=Math.max(.25,Math.min(.9,Math.pow(2/(Math.max(0,spec.specularity)+2),.25)));}
+   else if(role==='emissive'){extension('KHR_materials_emissive_strength');mat.extensions??={};mat.extensions.KHR_materials_emissive_strength={emissiveStrength:Math.max(0,spec.emissiveStrength*layer.multiplier)};mat.emissiveFactor=[1,1,1];mat.emissiveTexture=info;}
+   else mat.extras.sc2.layers.push({role,index,uv:layer.uv,multiplier:layer.multiplier,add:layer.add,invert:!!(layer.flags&16)});
   }
   layerReport.push(report);
  }
- j.buffers[0].byteLength=length;j.asset.extras={m3Source:provenance.source,converterRevision:M3_TOOL_REVISION,particleSystemsExported:false,materialPipelineVersion:2};
+ j.buffers[0].byteLength=length;j.asset.extras={m3Source:provenance.source,converterRevision:M3_TOOL_REVISION,particleSystemsExported:false,materialPipelineVersion:3};
  const bytes=pack(j,Buffer.concat(chunks)),info=inspectGlb(bytes);if(!info.animationNames.length&&!id.startsWith('model.terrain.'))throw Error('No usable animations exported');
  const packedFile=`public/assets/animated/${id}.glb`;await fs.writeFile(packedFile,bytes);
- manifest.push({id,kind:'model',packedFile,required:false,materialPipelineVersion:2,materials:layerReport,...provenance,sha256:sha(bytes),animations:info.animationNames,bones:bones.length,originalParticles:s.model.particle_systems?.entries??0});
+ manifest.push({id,kind:'model',packedFile,required:false,materialPipelineVersion:3,materials:layerReport,geometry:geometryReport,clipSources,additionalAnimations:additional.reports,verification:{bytes:true,bindings:true,humanVisual:false},...provenance,sha256:sha(bytes),animations:info.animationNames,bones:bones.length,originalParticles:s.model.particle_systems?.entries??0});
  console.log(`${id}: ${info.animationNames.length} clips, ${bones.length} bones, ${bytes.length} bytes`);
 }catch(e){failures.push({id,name,error:e.message});console.error(id,e.message);}}
 

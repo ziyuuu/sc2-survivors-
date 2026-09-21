@@ -38,3 +38,11 @@ MarineWeaponLaunch 原引用 fireball_1hot.dds 当前 [公开地址](https://dis
 不下载字体。本地 SC2 Chinese / SC2 Eurostile / SC2 Extended 若存在会被 local() 引用，否则使用系统回退。
 
 原降落仓没有独立开门片段，使用原门骨骼的本地适配；命中闪光、粒子发射、接触阴影与着色器为网页实现。完整说明见 [ANIMATION_EFFECTS.md](ANIMATION_EFFECTS.md)。
+
+## 本轮材质和效果核对
+
+M3 材质转换 v3 已区分实体与透明/叠加层；医疗艇的两片 displacement 网格被排除，不把尚未支持的折射当作机身。队伍色使用原 diffuse alpha 遮罩，副 UV、独立 alpha、双 emissive 层由版本管理内的适配器处理。完整 SC2 粒子、扰动、材质参数动画仍未实现。
+
+恶火 HellionAttackBeam 的精确源是 `Assets/Effects/Terran/HellionBeam/HellionBeam.m3`；[公开请求](https://dist.sc2arcade.com/star-assets/models/hellionbeam.m3) 当前返回 404。手工文件放 `assets/private/m3/hellionbeam.m3`，执行 `node tools/import-m3-pack.mjs fx.flame`。已取得同兵种的 `hellionbeamimpact.m3` 及其火焰贴图，网页的定向发射为适配表现，不能称为原完整 Beam。
+
+marine/hellion/tank 的 Swarm M3A 已取得，使用动画 ID 对应主骨架，内容仅 Flail；不用于替代移动、开火或受击。动作来源、材质分类、未支持 UV 和导入校验保存在 `assets/private/m3-pack.json`。运行加载和骨骼绑定验证并非人工视觉通过。

@@ -44,3 +44,10 @@ test('LOD reuses original skinned vertices and restores full-detail indices',asy
  const batch=new AnimatedBatch({scene:root,animations:[clip]} as unknown as GLTF,new THREE.Scene(),1),geo=batch.meshes[0].geometry,full=geo.getIndex()!.count,position=geo.getAttribute('position'),weights=geo.getAttribute('skinWeight'),uv=geo.getAttribute('uv');
  batch.setLod(true);assert.ok(geo.getIndex()!.count<full);assert.equal(geo.getAttribute('position'),position);assert.equal(geo.getAttribute('skinWeight'),weights);assert.equal(geo.getAttribute('uv'),uv);assert.ok([...geo.getIndex()!.array].every(i=>i<count));batch.setLod(false);assert.equal(geo.getIndex()!.count,full);
 });
+
+test('auxiliary effect meshes cannot shrink the body and pod meshes ignore stale birth bounds',async()=>{
+ const {sc2BodyBounds}=await import('../src/render/loaders/sc2-materials.ts');const {PodView}=await import('../src/render/units/pod-view.ts');
+ const root=new THREE.Group(),body=new THREE.Mesh(new THREE.BoxGeometry(2,2,2),new THREE.MeshStandardMaterial()),effect=new THREE.Mesh(new THREE.BoxGeometry(20,20,20),new THREE.MeshStandardMaterial());body.userData.sc2Role='body';effect.userData.sc2Role='effect';root.add(body,effect);
+ assert.equal(sc2BodyBounds(root).getSize(new THREE.Vector3()).y,2);
+ const pod=new PodView({scene:root,animations:[]} as unknown as GLTF,new THREE.Scene());pod.root.traverse(n=>{if(n instanceof THREE.Mesh)assert.equal(n.frustumCulled,false);});
+});

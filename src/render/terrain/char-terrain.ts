@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {restoreSc2Materials} from '../loaders/sc2-materials';
 import {assetUrl} from '../../assets/manifest';
 import type {World} from '../../simulation/world';
 /** Original Char DDS layers and doodad meshes, with an authored expandable Survivors layout. */
@@ -20,7 +21,7 @@ export async function createTerrain(scene:THREE.Scene,w:World){
  const ground=new THREE.Mesh(new THREE.PlaneGeometry(120,120),material);ground.rotation.x=-Math.PI/2;ground.position.y=-.045;scene.add(ground);
  const loader=new GLTFLoader(),props:THREE.Object3D[]=[];
  for(const [id,placements] of [['model.terrain.rock',w.obstacles.flatMap((o,index)=>{const count=Math.ceil(Math.max(o.w,o.h)/3.2);return Array.from({length:count},(_,i)=>({x:o.x+(o.w>o.h?(i/(count-1)-.5)*(o.w-2):0),z:o.z+(o.h>o.w?(i/(count-1)-.5)*(o.h-2):0),width:3.9,height:1.4+(i%3)*.35,angle:(i+index)*2.399}));})],['model.terrain.wreck',[{x:33,z:14,width:7,height:3,angle:.5}]]] as const){
-  const url=assetUrl(id);if(!url)continue;const g=await loader.loadAsync(url),mixer=new THREE.AnimationMixer(g.scene),stand=g.animations.find(c=>/^stand$/i.test(c.name));if(stand){mixer.clipAction(stand).play();mixer.setTime(0);}g.scene.updateMatrixWorld(true);
+  const url=assetUrl(id);if(!url)continue;const g=await restoreSc2Materials(await loader.loadAsync(url)),mixer=new THREE.AnimationMixer(g.scene),stand=g.animations.find(c=>/^stand$/i.test(c.name));if(stand){mixer.clipAction(stand).play();mixer.setTime(0);}g.scene.updateMatrixWorld(true);
   const box=new THREE.Box3().setFromObject(g.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),sx=1/Math.max(size.x,size.z);
   const normalize=new THREE.Matrix4().makeScale(sx,1/Math.max(.01,size.y),sx).multiply(new THREE.Matrix4().makeTranslation(-center.x,-box.min.y,-center.z));
   g.scene.traverse(n=>{if(!(n instanceof THREE.Mesh))return;const geo=n.geometry.clone();geo.applyMatrix4(normalize.clone().multiply(n.matrixWorld));const mesh=new THREE.InstancedMesh(geo,n.material,placements.length),o=new THREE.Object3D();

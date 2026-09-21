@@ -8,6 +8,7 @@ import {TUNING} from '../../data/game';
 import {World} from '../../simulation/world';
 import type {Entity,Body,Point} from '../../simulation/types';
 import {mapAnimations} from '../loaders/animations';
+import {restoreSc2Materials} from '../loaders/sc2-materials';
 import {PodView} from '../units/pod-view';
 import {createTerrain} from '../terrain/char-terrain';
 import {AnimatedBatch} from '../units/animated-batch';
@@ -32,10 +33,10 @@ export class BattleRenderer {
  private grid=new THREE.GridHelper(104,26,0x3aa8b4,0x245460);private tickTime=0;private frames=0;private cameraTarget=new THREE.Vector3();
  constructor(readonly canvas:HTMLCanvasElement,readonly world:World){
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
-  this.renderer.outputColorSpace=THREE.SRGBColorSpace;
+  this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1;
   this.renderer.setClearColor(0x171d20);this.scene.fog=new THREE.FogExp2(0x202326,.009);
   this.fx=new BattleEffects(this.scene);
-  this.scene.add(new THREE.HemisphereLight(0xc1d9e3,0x473320,2.6));const light=new THREE.DirectionalLight(0xffe0bd,2.4);light.position.set(-15,25,10);this.scene.add(light);
+  this.scene.add(new THREE.HemisphereLight(0xc1d9e3,0x473320,1.4));const light=new THREE.DirectionalLight(0xffe0bd,2.4);light.position.set(-15,25,10);this.scene.add(light);
   const makeBatch=(geometry:THREE.BufferGeometry,material:THREE.Material,count:number)=>{const m=new THREE.InstancedMesh(geometry,material,count);m.frustumCulled=false;m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);this.scene.add(m);return m;};
   const pixels=new Uint8Array(32*32*4);for(let y=0;y<32;y++)for(let x=0;x<32;x++){const a=Math.max(0,1-Math.hypot((x-15.5)/15.5,(y-15.5)/15.5));pixels[(y*32+x)*4+3]=Math.round(a*a*135);}
   const shadowMap=new THREE.DataTexture(pixels,32,32);shadowMap.needsUpdate=true;const disc=new THREE.PlaneGeometry(2,2);disc.rotateX(-Math.PI/2);this.shadows=makeBatch(disc,new THREE.MeshBasicMaterial({map:shadowMap,transparent:true,depthWrite:false}),1400);
@@ -54,13 +55,13 @@ export class BattleRenderer {
  private filterTextures(root:THREE.Object3D){const limit=Math.min(this.renderer.capabilities.getMaxAnisotropy(),this.quality==='native'?8:this.quality==='balanced'?4:1),seen=new Set<THREE.Texture>();root.traverse(n=>{if(!(n instanceof THREE.Mesh))return;for(const m of Array.isArray(n.material)?n.material:[n.material])for(const key of ['map','normalMap','specularColorMap','emissiveMap']){const t=(m as unknown as Record<string,THREE.Texture>)[key];if(t&&!seen.has(t)){seen.add(t);t.anisotropy=limit;t.needsUpdate=true;}}});}
  resize(){const w=this.canvas.clientWidth||innerWidth,h=this.canvas.clientHeight||innerHeight,gl=this.renderer.getContext();this.renderer.setPixelRatio(renderPixelRatio(this.quality,window.devicePixelRatio||1,w,h,gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)));this.renderer.setSize(w,h,false);const height=w<h?30:25;this.camera.left=-height*w/h/2;this.camera.right=height*w/h/2;this.camera.top=height/2;this.camera.bottom=-height/2;this.camera.near=.1;this.camera.far=180;this.camera.updateProjectionMatrix();}
  async load(progress:(label:string)=>void){await MeshoptSimplifier.ready;const loader=new GLTFLoader();
-  for(const type of [...TERRAN,...ZERG]){progress(`载入 ${SC2_UNITS[type].name}`);try{const url=assetUrl('model.'+type);if(!url)throw Error('missing asset');const gltf=await loader.loadAsync(url);this.prepareUnit(type,gltf);this.loadedModels++;}catch(e){this.modelErrors.push(type+': '+String(e));}}
-  for(const key of [...TERRAN,...ZERG].map(t=>t+'.death').concat(['tank.siege','tank.morph'])){const url=assetUrl('model.'+key);if(!url)continue;progress(`载入原始动画 ${key}`);try{const type=key.split('.')[0] as UnitType,g=await loader.loadAsync(url),base=this.gpu.get(type);this.gpu.set(key,new AnimatedBatch(g,this.scene,heights[type],base?.normalization));}catch(e){this.modelErrors.push(key+': '+String(e));}}
+  for(const type of [...TERRAN,...ZERG]){progress(`载入 ${SC2_UNITS[type].name}`);try{const url=assetUrl('model.'+type);if(!url)throw Error('missing asset');const gltf=await restoreSc2Materials(await loader.loadAsync(url));this.prepareUnit(type,gltf);this.loadedModels++;}catch(e){this.modelErrors.push(type+': '+String(e));}}
+  for(const key of [...TERRAN,...ZERG].map(t=>t+'.death').concat(['tank.siege','tank.morph'])){const url=assetUrl('model.'+key);if(!url)continue;progress(`载入原始动画 ${key}`);try{const type=key.split('.')[0] as UnitType,g=await restoreSc2Materials(await loader.loadAsync(url)),base=this.gpu.get(type);this.gpu.set(key,new AnimatedBatch(g,this.scene,heights[type],base?.normalization));}catch(e){this.modelErrors.push(key+': '+String(e));}}
   await this.fx.load();
   this.terrainUpdate=await createTerrain(this.scene,this.world);
-  for(const [key,height] of [['scv',1.35],['drone',.7],['egg',1.3]] as const){const url=assetUrl('model.'+key);if(!url){this.modelErrors.push(key+': missing model');continue;}try{this.gpu.set(key,new AnimatedBatch(await loader.loadAsync(url),this.scene,height));}catch(e){this.modelErrors.push(key+': '+String(e));}}
+  for(const [key,height] of [['scv',1.35],['drone',.7],['egg',1.3]] as const){const url=assetUrl('model.'+key);if(!url){this.modelErrors.push(key+': missing model');continue;}try{this.gpu.set(key,new AnimatedBatch(await restoreSc2Materials(await loader.loadAsync(url)),this.scene,height));}catch(e){this.modelErrors.push(key+': '+String(e));}}
   const hiveUrl=assetUrl('model.hive');if(hiveUrl){try{const g=await loader.loadAsync(hiveUrl);const box=new THREE.Box3().setFromObject(g.scene),size=box.getSize(new THREE.Vector3());g.scene.scale.setScalar(6/Math.max(size.x,size.z));this.hiveTemplate=g.scene;}catch(e){this.modelErrors.push('hive: '+String(e));}}
-  const podUrl=assetUrl('model.droppod');if(podUrl){try{const g=await loader.loadAsync(podUrl);this.podTemplate=g;}catch(e){this.modelErrors.push('droppod: '+String(e));}}
+  const podUrl=assetUrl('model.droppod');if(podUrl){try{const g=await restoreSc2Materials(await loader.loadAsync(podUrl));this.podTemplate=g;}catch(e){this.modelErrors.push('droppod: '+String(e));}}
   this.filterTextures(this.scene);this.renderer.compile(this.scene,this.camera);
  }
  private prepareUnit(type:UnitType,gltf:GLTF){gltf.scene.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());const scale=heights[type]/Math.max(.001,size.y);
@@ -130,12 +131,13 @@ export class BattleRenderer {
   for(const p of world.pods){let v=this.podViews.get(p.id);if(!v&&this.podTemplate){v=new PodView(this.podTemplate,this.scene);this.podViews.set(p.id,v);}v?.update(p,world.time,this.visible(p));
    if(p.status==='active'||p.status==='opening'){health(p,2.9);putRing(p,this.showColliders?p.unitRadius:2.1,0xffa94e);}}
   if(world.hive){if(!this.hiveView&&this.hiveTemplate){this.hiveView=clone(this.hiveTemplate);this.scene.add(this.hiveView);}if(this.hiveView){this.hiveView.position.set(world.hive.x,0,world.hive.z);this.hiveView.visible=world.hive.hp>0;}if(world.hive.hp>0)health(world.hive,4);}
-  for(const fx of world.effects){if(fx.kind==='bile'){putRing(fx.end,fx.radius+1,0xff7138);putRing(fx.end,Math.max(.15,(fx.until-world.time)/2.5*(fx.radius+1)),0xffda84);}else if(fx.kind==='explosion')putRing(fx.end,fx.radius*(1+(fx.until-world.time)),0xffbc59);else if(fx.kind==='flame'){putLine(fx,.65,fx.end,.5,0xff8a31);putLine({x:fx.x+.13,z:fx.z},.65,{x:fx.end.x+.13,z:fx.end.z},.4,0xffd85e);}else {const source=world.entities.get(fx.source),local=source?.unitType==='marine'?this.gpu.get('marine')?.weapon:null;const origin=source&&local?{x:fx.x+local.x*Math.cos(source.facing)+local.z*Math.sin(source.facing),z:fx.z-local.x*Math.sin(source.facing)+local.z*Math.cos(source.facing)}:fx;putLine(origin,local?.y??.8,fx.end,.65,fx.owner==='terran'?0xffe4a1:0xadd866);}}
+  for(const fx of world.effects){if(fx.kind==='bile'){putRing(fx.end,fx.radius+1,0xff7138);putRing(fx.end,Math.max(.15,(fx.until-world.time)/2.5*(fx.radius+1)),0xffda84);}else if(fx.kind==='explosion')putRing(fx.end,fx.radius*(1+(fx.until-world.time)),0xffbc59);}
+
   this.shadows.count=shadows;this.shadows.instanceMatrix.needsUpdate=true;this.rings.count=ring;this.rings.instanceMatrix.needsUpdate=true;if(this.rings.instanceColor)this.rings.instanceColor.needsUpdate=true;
   for(const m of [this.health,this.healthBack]){m.count=bars;m.instanceMatrix.needsUpdate=true;}if(this.health.instanceColor)this.health.instanceColor.needsUpdate=true;
   let resources=0;for(const p of world.pickups){if(!this.visible(p)||resources>=1000)continue;this.pickups.setMatrixAt(resources,this.matrix(p.x,.25,p.z,1,1.5,1));this.pickups.setColorAt(resources++,_color.set(p.gas?0x8be5a2:0x7cd2ff));}this.pickups.count=resources;this.pickups.instanceMatrix.needsUpdate=true;if(this.pickups.instanceColor)this.pickups.instanceColor.needsUpdate=true;
   this.lines.geometry.setDrawRange(0,line*2);this.lines.geometry.attributes.position.needsUpdate=true;this.lines.geometry.attributes.color.needsUpdate=true;
-  this.fx.render(world,this.camera,p=>this.visible(p),event=>{const weapon=event.unitType?this.gpu.get(event.unitType)?.weapon:null;if(!weapon||event.unitType!=='marine')return null;return {x:event.x+weapon.x*Math.cos(event.facing)+weapon.z*Math.sin(event.facing),y:weapon.y,z:event.z-weapon.x*Math.sin(event.facing)+weapon.z*Math.cos(event.facing)};});
+  this.fx.render(world,this.camera,p=>this.visible(p),event=>{const model=event.unitType?this.gpu.get(event.siege?'tank.siege':event.unitType):null;const weapon=model?.weaponAt('attack',Math.max(0,world.time-event.time)*1.4);if(!weapon)return null;return {x:event.x+weapon.x*Math.cos(event.facing)+weapon.z*Math.sin(event.facing),y:weapon.y,z:event.z-weapon.x*Math.sin(event.facing)+weapon.z*Math.cos(event.facing)};});
   this.renderer.render(this.scene,this.camera);
  }
  screen(p:Point){_vec.set(p.x,0,p.z).project(this.camera);return {x:(_vec.x*.5+.5)*this.canvas.clientWidth,y:(-.5*_vec.y+.5)*this.canvas.clientHeight};}

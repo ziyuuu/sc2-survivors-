@@ -7,7 +7,7 @@ type Particle={asset:string;x:number;y:number;z:number;vx:number;vy:number;vz:nu
 type Batch={mesh:THREE.InstancedMesh;data:THREE.InstancedBufferAttribute;count:number;cells:number;start:number;end:number};
 const object=new THREE.Object3D(),color=new THREE.Color(),rotation=new THREE.Quaternion(),axis=new THREE.Vector3(0,0,1);
 const CAPACITY=256,POOL_SIZE=1280;
-const additive=new Set(['fx.muzzle.1','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
+const additive=new Set(['fx.muzzle.1','fx.flameimpact.0','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
 /** Original M3-referenced sprites; authored web emission timing, not a full SC2 particle emulator. */
 export class BattleEffects {
  batches=new Map<string,Batch>();loaded=0;errors:string[]=[];lastSerial=0;
@@ -37,7 +37,7 @@ export class BattleEffects {
   else if(e.kind==='pod-destroy')this.burst(e,'fx.blast.3',5,2.2,0xffffff,1);
   else if(e.kind==='egg-expired'||e.kind==='drone-death')this.burst(e,'fx.blood.0',3,1,0x9cbd66,.65);
   else if(e.kind==='attack'){this.stats.attack++;if(e.unitType==='zergling'||e.unitType==='baneling')return;const muzzle={...e,...(mount??{x:e.x+Math.sin(e.facing)*.6,y:.8,z:e.z+Math.cos(e.facing)*.6})};
-   if(e.unitType==='hellion'){for(let i=0;i<10;i++){const t=(i+1)/10;this.emit({asset:'fx.blast.8',x:e.x+(e.end.x-e.x)*t,y:.65,z:e.z+(e.end.z-e.z)*t,vx:Math.sin(e.facing)*1.5,vy:.15,vz:Math.cos(e.facing)*1.5,start:e.time+t*.08,life:.3,size:.55+t*.35,growth:1,color:0xffa354,ground:false,angle:e.facing});}}
+   if(e.unitType==='hellion'){for(let i=0;i<10;i++){const t=(i+1)/10;this.emit({asset:'fx.flameimpact.0',x:e.x+(e.end.x-e.x)*t,y:.65,z:e.z+(e.end.z-e.z)*t,vx:Math.sin(e.facing)*1.5,vy:.15,vz:Math.cos(e.facing)*1.5,start:e.time+t*.08,life:.3,size:.55+t*.35,growth:1,color:0xffa354,ground:false,angle:e.facing});}}
    else if(e.unitType==='marine'||e.unitType==='tank'){this.burst(muzzle,e.unitType==='marine'?'fx.muzzle.1':'fx.blast.6',1,e.unitType==='marine'?.4:.9,0xffd491,.1);if(e.unitType==='tank')this.burst({...e,...e.end},'fx.blast.3',3,e.siege?2.2:1.1,0xffffff,.55);}
    else this.burst({...e,...e.end},e.unitType==='ravager'?'fx.bile.0':'fx.acid.0',2,.6,e.unitType==='ravager'?0xffa76a:0x99d56e,.4);
   }

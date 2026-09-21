@@ -6,7 +6,7 @@ const units=['marine','hellion','tank','medivac','zergling','roach','baneling','
 const animationMissing=units.flatMap(t=>['model.'+t,'model.'+t+'.death']).concat(['model.tank.siege','model.tank.morph']).filter(id=>!records.some(r=>r.id===id&&r.status==='available'&&r.animations?.length));
 if(animationMissing.length)throw Error('Original animation pack required for friend Demo: '+animationMissing.join(', ')+'. Run npm run assets:animate.');
 if(records.filter(r=>r.kind==='effect-texture'&&r.status==='available').length<24)throw Error('Original combat effect textures are incomplete. Run npm run assets:animate.');
-const materialMissing=units.filter(t=>!records.some(r=>r.id==='model.'+t&&r.materialPipelineVersion===2&&r.materials?.some(m=>m.layers.some(l=>l.role==='normal'))));
+const materialMissing=units.filter(t=>!records.some(r=>r.id==='model.'+t&&r.materialPipelineVersion===3&&r.materials?.some(m=>m.layers.some(l=>l.role==='normal'))));
 if(materialMissing.length)throw Error('Original material maps required for friend Demo: '+materialMissing.join(', ')+'. Run npm run assets:animate.');
 const embedded={};for(const r of records.filter(r=>r.status==='available')){const bytes=await fs.readFile(r.packedFile);const mime=r.kind==='model'?'model/gltf-binary':r.kind==='audio'?(r.packedFile.endsWith('.ogg')?'audio/ogg':'audio/wav'):r.packedFile.endsWith('.jpg')?'image/jpeg':'image/png';embedded[r.id]=`data:${mime};base64,${bytes.toString('base64')}`;}
 const result=await build({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true'}});

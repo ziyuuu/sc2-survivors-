@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {MeshoptSimplifier} from 'meshoptimizer';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
+import {sc2BodyBounds,sc2ModelScale} from '../loaders/sc2-materials';
 import {mapAnimations} from '../loaders/animations';
 
 export type PoseClip={offset:number;frames:number;duration:number};
@@ -14,6 +15,7 @@ const object=new THREE.Object3D();
 export class AnimatedBatch {
  meshes:THREE.InstancedMesh[]=[];attributes:THREE.InstancedBufferAttribute[]=[];
  blendAttributes:THREE.InstancedBufferAttribute[]=[]; weapon=new THREE.Vector3(0,.8,.5);
+ weaponTracks=new Map<string,THREE.Vector3[]>();
  clips=new Map<string,PoseClip>();actions:ReturnType<typeof mapAnimations>;
  private lodIndices:{full:THREE.BufferAttribute;low:THREE.BufferAttribute}[]=[];private lowDetail=false;lodRatio=1;
  count=0;scale:number;normalization:THREE.Matrix4;textureBytes=0;boneCount=0;
@@ -21,13 +23,15 @@ export class AnimatedBatch {
   this.actions=mapAnimations(gltf.animations);
   const mixer=new THREE.AnimationMixer(gltf.scene),rest=this.actions.idle??gltf.animations[0];
   if(rest){mixer.clipAction(rest).play();mixer.setTime(0);}gltf.scene.updateMatrixWorld(true);
-  const box=new THREE.Box3().setFromObject(gltf.scene),center=box.getCenter(new THREE.Vector3());
-  this.scale=height/Math.max(.001,box.max.y-box.min.y);
+  const box=sc2BodyBounds(gltf.scene),center=box.getCenter(new THREE.Vector3());
+  const sourceScale=sc2ModelScale(gltf.scene);this.scale=sourceScale===undefined?height/Math.max(.001,box.max.y-box.min.y):1.4*sourceScale;
   this.normalization=normalization?.clone()??new THREE.Matrix4().makeScale(this.scale,this.scale,this.scale).multiply(new THREE.Matrix4().makeTranslation(-center.x,-box.min.y,-center.z));
   // Only gameplay clips; dance/fidget/portrait sequences remain in the GLB but do not cost GPU memory.
   const clips=[...new Set(Object.values(this.actions).filter((c):c is THREE.AnimationClip=>!!c))];
   let total=0;for(const c of clips){const frames=Math.max(2,Math.ceil(c.duration*FPS)+1);this.clips.set(c.name,{offset:total,frames,duration:c.duration});total+=frames;}
-  const attachment=gltf.scene.getObjectByName('Ref_Weapon');if(attachment){const shot=this.actions.attack;if(shot){mixer.stopAllAction();mixer.clipAction(shot).reset().play();mixer.setTime(.05);}gltf.scene.updateMatrixWorld(true);attachment.getWorldPosition(this.weapon).applyMatrix4(this.normalization);}
+  const attachment=gltf.scene.getObjectByName('Ref_Weapon')??gltf.scene.getObjectByName('Ref_Weapon 01');
+  if(attachment)for(const clip of clips){const p=this.clips.get(clip.name)!,points:THREE.Vector3[]=[];mixer.stopAllAction();const action=mixer.clipAction(clip).reset().setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();for(let f=0;f<p.frames;f++){mixer.setTime(f/(p.frames-1)*clip.duration);gltf.scene.updateMatrixWorld(true);points.push(attachment.getWorldPosition(new THREE.Vector3()).applyMatrix4(this.normalization));}this.weaponTracks.set(clip.name,points);}
+  this.weapon.copy(this.weaponAt('attack',.05));
   const nodes:THREE.SkinnedMesh[]=[];gltf.scene.traverse(n=>{if(n instanceof THREE.SkinnedMesh)nodes.push(n);});
   if(!nodes.length)throw Error('Animated GLB has no skinned mesh');
   // GLTF can duplicate skeleton objects across submeshes; bake each distinct bind palette once.
@@ -53,7 +57,7 @@ export class AnimatedBatch {
    geometry.setAttribute('unitUpper',new THREE.BufferAttribute(weights,1));
    const assetMatrix=this.normalization.clone().multiply(n.matrixWorld).multiply(n.bindMatrixInverse),bind=n.bindMatrix.clone();
    const materials=(Array.isArray(n.material)?n.material:[n.material]).map(m=>{const mat=m.clone() as THREE.MeshStandardMaterial;
-    mat.onBeforeCompile=shader=>{
+    mat.onBeforeCompile=(shader,renderer)=>{m.onBeforeCompile(shader,renderer);
      shader.uniforms.unitBoneAtlas={value:textures.get(paletteKey(n.skeleton))};shader.uniforms.unitBind={value:bind};shader.uniforms.unitAsset={value:assetMatrix};
      shader.vertexShader=shader.vertexShader.replace('#include <common>',`#include <common>
       attribute vec4 unitPose; attribute vec4 unitBlend; attribute float unitUpper; attribute vec4 skinIndex; attribute vec4 skinWeight;
@@ -71,11 +75,12 @@ export class AnimatedBatch {
       .replace('#include <beginnormal_vertex>','#include <beginnormal_vertex>\nmat4 unitTransform=unitSkin(); objectNormal=mat3(unitTransform)*objectNormal;')
       .replace('#include <begin_vertex>','vec3 transformed=(unitTransform*vec4(position,1.0)).xyz; unitHit=unitPose.w;');
      shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float unitHit;').replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance += vec3(0.6,0.24,0.08)*unitHit;');
-    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v3';return mat;});
+    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v4:'+m.customProgramCacheKey();return mat;});
    const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);
   }
   mixer.stopAllAction();mixer.uncacheRoot(gltf.scene);
  }
+ weaponAt(action:keyof ReturnType<typeof mapAnimations>,seconds:number){const clip=this.actions[action],points=clip?this.weaponTracks.get(clip.name):undefined;if(!clip||!points?.length)return this.weapon.clone();const f=Math.max(0,Math.min(points.length-1,seconds/clip.duration*(points.length-1))),i=Math.floor(f);return points[i].clone().lerp(points[Math.min(i+1,points.length-1)],f-i);}
  setLod(low:boolean){if(this.lowDetail===low)return;this.lowDetail=low;this.meshes.forEach((mesh,i)=>{const indices=this.lodIndices[i];if(indices){mesh.geometry.setIndex(low?indices.low:indices.full);if(mesh.geometry.groups.length===1)mesh.geometry.groups[0].count=mesh.geometry.getIndex()!.count;}});}
  begin(){this.count=0;}
  pose(action:keyof ReturnType<typeof mapAnimations>){const clip=this.actions[action]??this.actions.idle;return clip?this.clips.get(clip.name):this.clips.values().next().value;}

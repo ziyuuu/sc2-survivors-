@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import {clone} from 'three/addons/utils/SkeletonUtils.js';
+import {sc2BodyBounds} from '../loaders/sc2-materials';
 import type {Pod} from '../../simulation/types';
 /** Original Birth/Stand/Death. No open clip exists: rotate the original door bones locally. */
 export class PodView {
@@ -8,9 +9,9 @@ export class PodView {
  doors:{node:THREE.Object3D;base:THREE.Quaternion}[]=[];
  constructor(g:GLTF,scene:THREE.Scene){const model=clone(g.scene);this.mixer=new THREE.AnimationMixer(model);for(const c of g.animations)this.clips[c.name.toLowerCase()]=c;
   const stand=this.clips.stand;if(stand){this.mixer.clipAction(stand).play();this.mixer.setTime(0);}model.updateMatrixWorld(true);
-  const box=new THREE.Box3().setFromObject(model),center=box.getCenter(new THREE.Vector3()),scale=2.7/Math.max(.01,box.max.y-box.min.y);
+  const box=sc2BodyBounds(model),center=box.getCenter(new THREE.Vector3()),scale=2.7/Math.max(.01,box.max.y-box.min.y);
   model.scale.setScalar(scale);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);this.root.add(model);scene.add(this.root);
-  model.traverse(n=>{if(/DropPod_Door/i.test(n.name))this.doors.push({node:n,base:n.quaternion.clone()});});
+  model.traverse(n=>{if(n instanceof THREE.Mesh)n.frustumCulled=false;if(/DropPod_Door/i.test(n.name))this.doors.push({node:n,base:n.quaternion.clone()});});
  }
  update(p:Pod,time:number,visible:boolean){this.root.position.set(p.x,0,p.z);const age=time-(p.resolvedAt??time);
   this.root.visible=visible&&(!['rescued','destroyed'].includes(p.status)||age<7);if(!this.root.visible)return;
