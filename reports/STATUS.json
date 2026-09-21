@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-09-20T18:58:44.474Z",
+  "checkedAt": "2026-09-21T02:16:12.798Z",
   "repository": "ziyuuu/sc2-survivors-",
   "visibilityObserved": "public",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "cd69ddc4097e7f2456b6d301426734d59ac67350",
+  "runtimeCommit": "62acd68c1fd31ba37e310203979f5cfc802c1f07",
   "deliverable": "playable-v3-with-original-skeletal-animation-death-models-and-effect-textures; full-game-and-physical-phone-acceptance-incomplete",
   "baseline": {
     "main": "607802c1bf3f0e881d163c8abed7f3ef82d97582",
@@ -13,18 +13,18 @@
   },
   "unitTests": {
     "command": "npm test",
-    "passed": 121,
+    "passed": 122,
     "failed": 0,
-    "log": "reports/local/test-effects.log"
+    "log": "reports/local/test-migration.log"
   },
   "build": {
     "command": "npm run build",
     "observedExitCode": 0,
     "standalone": "dist/SC2-Survivors-Demo.html",
-    "bytes": 35443335,
+    "bytes": 35443211,
     "embeddedAssets": 71,
     "largeChunkWarning": true,
-    "log": "reports/local/build-effects.log"
+    "log": "reports/local/build-migration.log"
   },
   "assets": {
     "combatModelsLoaded": 8,
@@ -64,10 +64,11 @@
   },
   "desktop": {
     "defaultFirstStage": {
-      "result": "lost",
-      "time": 27.633333333333333,
-      "kills": 14,
-      "method": "Physical keyboard events: retreat west briefly, then hold to regroup; no speed, HP or damage overrides."
+      "startingSoldiers": 1,
+      "unitType": "marine",
+      "rank": 1,
+      "hp": 45,
+      "result": "Menu, deploy, movement, pause and reload verified without state overrides; full-stage and twelve-stage balance acceptance pending."
     },
     "diagnosticFullStage": {
       "startingSoldiers": 20,
@@ -135,13 +136,6 @@
       }
     ],
     "normalPlayAcceptanceComplete": false,
-    "previousDefaultFirstStage": {
-      "result": "lost",
-      "time": 28.65,
-      "kills": 6,
-      "method": "Normal stage 1: keyboard input only; diagnostic API is read for positions, no state overrides or time acceleration.",
-      "movement": "short bounds"
-    },
     "latestUiFlow": {
       "paidProduction": true,
       "paidReroll": true,
@@ -149,6 +143,32 @@
       "rescueSuccess": "diagnostic: guardians killed through real HP damage path",
       "rescueFailure": "diagnostic: pod destroyed via damage",
       "normalGameplayPass": false
+    },
+    "historicalIncorrectSevenUnitOpening": {
+      "runtimeCommit": "cd69ddc4097e7f2456b6d301426734d59ac67350",
+      "roster": [
+        "marine",
+        "marine",
+        "marine",
+        "marine",
+        "hellion",
+        "tank",
+        "medivac"
+      ],
+      "latest": {
+        "result": "lost",
+        "time": 27.633333333333333,
+        "kills": 14,
+        "method": "Physical keyboard events: retreat west briefly, then hold to regroup; no speed, HP or damage overrides."
+      },
+      "earlier": {
+        "result": "lost",
+        "time": 28.65,
+        "kills": 6,
+        "method": "Normal stage 1: keyboard input only; diagnostic API is read for positions, no state overrides or time acceleration.",
+        "movement": "short bounds"
+      },
+      "note": "This was an incorrect production default, not an approved opening or only a diagnostic fixture. These survival observations do not assess the user-confirmed one-Marine opening."
     }
   },
   "mobile": [
@@ -283,7 +303,7 @@
     "note": "Historical result superseded by current local downloads and Chrome execution."
   },
   "pending": [
-    "Default seven-unit normal-run and full twelve-stage balance playthrough",
+    "Normal one-Marine opening, random rescue locations and full twelve-stage balance playthrough",
     "Original audio, original drop pod and full terrain assets",
     "Heavy-scene performance: 25 friendly / 300 enemy actors averaged 22.5 and 27.6 FPS under 4x desktop CPU throttle; physical phone untested",
     "Human visual QA of original animation conversion, particles and mobile readability"
@@ -356,5 +376,151 @@
       }
     ],
     "errors": []
+  },
+  "localProjectDirectory": "D:/星际",
+  "openingVerification": {
+    "command": "node reports/local/qa-opening.mjs",
+    "log": "reports/local/qa/OPENING.json",
+    "workingDirectory": "D:\\星际",
+    "method": "Actual default startup, deploy, movement and reload; no roster, HP, wave or clock overrides. DOM/runtime checks only, not visual or phone-performance approval.",
+    "errors": [],
+    "runs": [
+      {
+        "offline": false,
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "counts": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "rank": [
+          "Rank 1 · 45 / 45 HP"
+        ],
+        "models": 8,
+        "originalAnimationModels": 8,
+        "reload": true,
+        "networkRequests": 0
+      },
+      {
+        "offline": false,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "counts": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "rank": [
+          "Rank 1 · 45 / 45 HP"
+        ],
+        "models": 8,
+        "originalAnimationModels": 8,
+        "reload": true,
+        "networkRequests": 0
+      },
+      {
+        "offline": false,
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "counts": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "rank": [
+          "Rank 1 · 45 / 45 HP"
+        ],
+        "models": 8,
+        "originalAnimationModels": 8,
+        "reload": true,
+        "networkRequests": 0
+      },
+      {
+        "offline": true,
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "counts": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "rank": [
+          "Rank 1 · 45 / 45 HP"
+        ],
+        "models": 8,
+        "originalAnimationModels": 8,
+        "reload": true,
+        "networkRequests": 0
+      },
+      {
+        "offline": true,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "counts": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "rank": [
+          "Rank 1 · 45 / 45 HP"
+        ],
+        "models": 8,
+        "originalAnimationModels": 8,
+        "reload": true,
+        "networkRequests": 0
+      },
+      {
+        "offline": true,
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "counts": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "rank": [
+          "Rank 1 · 45 / 45 HP"
+        ],
+        "models": 8,
+        "originalAnimationModels": 8,
+        "reload": true,
+        "networkRequests": 0
+      }
+    ]
+  },
+  "evidenceScopes": {
+    "opening": "Rechecked after relocation in D:/星际.",
+    "mobileStressAndEffects": "Historical measurements from cd69ddc4097e7f2456b6d301426734d59ac67350; retained, not rerun for the opening correction.",
+    "icons": "23/23 decoded in prior browser QA; assets copied and SHA-256 verified during relocation."
+  },
+  "migration": {
+    "target": "D:/星际",
+    "files": 4357,
+    "bytes": 402166026,
+    "allFilesMatched": true,
+    "algorithm": "SHA256",
+    "sourceRemoved": true,
+    "log": "reports/local/MIGRATION.json",
+    "completedAt": "2026-09-21T02:15:29.4632895Z",
+    "archivedChangedFiles": 18
   }
 }

@@ -6,9 +6,9 @@
 
 ## 构建与规则
 
-- `npm test`：122 通过，0 失败；新增不传测试阵容的 `new World()` 正式开局回归检查。原日志在 `reports/local/test-opening.log`。
-- `npm run build`：退出码 0；完成资源准备、TypeScript、Vite 和单 HTML 打包。日志在 `reports/local/build-opening.log`。
-- `dist/SC2-Survivors-Demo.html`：**35,443,281 bytes / 33.80 MiB**，内嵌 71 项素材。
+- `npm test`：122 通过，0 失败；新增不传测试阵容的 `new World()` 正式开局回归检查。迁移后复测日志在 `reports/local/test-migration.log`。
+- `npm run build`：退出码 0；完成资源准备、TypeScript、Vite 和单 HTML 打包。迁移后复测日志在 `reports/local/build-migration.log`。
+- `dist/SC2-Survivors-Demo.html`：**35,443,211 bytes / 33.80 MiB**，内嵌 71 项素材。
 - 单 HTML 通过桌面 Chrome 的 `file://` 与断网模式启动：8/8 战斗模型，0 HTTP(S) 请求，F1 不暴露调试 API，0 捕获到的运行错误。
 - 固定数据：LotV 5.0.15；模拟 60 Hz。测试实际推进了 12 × 60 秒并验证第 12 关虫巢胜负门槛。
 
@@ -62,3 +62,9 @@ Chrome 桌面移动尺寸模拟：device DPR 3，实际渲染 DPR 上限 1.5，�
 ## 待完成验收
 
 单枪兵正式开局与随机落点的整局平衡、完整 12 关试玩、手机真机性能、人工视觉检查。原仓、完整地形和原版音效仍未齐备。PR 保持 Draft，不能把当前记录称为全部最终验收通过。上述固定场景中，完整关卡、生产、救援成功/失败及三选一/刷新已经实际覆盖。
+
+## 本机目录迁移
+
+工程已整体复制到 `D:\星际`，4,357 个文件（402,166,026 bytes）逐个 SHA-256 比对一致，包含 `.git`、依赖、原始/转换素材、报告和 Demo。迁移后在新目录重新执行 `npm test`（122 通过）、`npm run build` 和六组开发/离线开局浏览器检查。完整清单与旧目录清理结果保存在本地 `reports/local/MIGRATION.json`；迁移后的浏览器证据在 `reports/local/qa/OPENING.json`。
+
+旧 SC2 子目录已在二次核验后移除；复测重建或更新过的 18 项旧文件额外保存在新目录的 `reports/local/migration-originals/`。Codex 项目“星际”已识别 `D:\星际` 为 Git 仓库。
