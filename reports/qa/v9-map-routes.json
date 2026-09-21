@@ -1,0 +1,43 @@
+{
+  "method": "120 simulation seconds, no combat/economy, fixed destination across original ramps. Movement regression, not campaign completion.",
+  "elapsedMs": 1813.5473,
+  "anchor": {
+    "x": 88.72960426433106,
+    "z": 112.21944421505117,
+    "facing": 0.5885736270354113
+  },
+  "units": [
+    {
+      "type": "marine",
+      "x": 87.30162319589449,
+      "z": 111.27422922151662,
+      "distance": 1.746403154719134,
+      "slotError": 0.08000000000000124
+    },
+    {
+      "type": "hellion",
+      "x": 86.57466251388519,
+      "z": 108.93392002331946,
+      "distance": 3.9659147230163603,
+      "slotError": 0.077711062998185
+    },
+    {
+      "type": "tank",
+      "x": 84.80032340991957,
+      "z": 106.3298838561902,
+      "distance": 7.116721177791558,
+      "slotError": 0.0799999999999981
+    },
+    {
+      "type": "medivac",
+      "x": 83.07788552804335,
+      "z": 106.2772928996695,
+      "distance": 8.236875177475882,
+      "slotError": 0.07999999999999685
+    }
+  ],
+  "stalls": 9,
+  "stepMeanMs": 0.2507815138888922,
+  "stepP95Ms": 0.7024000000000115,
+  "routes": 386
+}

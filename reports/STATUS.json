@@ -1,16 +1,17 @@
 {
-  "checkedAt": "2026-09-21T11:42:19.618880+00:00",
+  "checkedAt": "2026-09-21T15:06:53.404142+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "30e173ad9346a111ac9dfb5e752c1d06a62dced4",
+  "runtimeCommit": "0a40016f7605cd497c2e9cac92701ef15577e852",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "scope": "Add desktop right-click and mobile tap whole-squad movement/focus, keyboard/joystick takeover, physical terrain picking and command markers. Preserve prior pacing, handling, auto-economy and original assets. Touch is browser emulation only; no new physical-phone test.",
+  "scope": "Original Kairos 1v1 map with twelve connected expanding sectors; original resource pickups; early worker-oriented encounters; multi-buy rewards and +40 rerolls; PC standard/custom Gamepad controls. Existing independent combat, collision, economy and manual siege preserved.",
   "tests": {
     "command": "npm test",
-    "passed": 221,
+    "passed": 235,
     "failed": 0,
-    "log": "reports/local/v8-tests.log"
+    "skipped": 0,
+    "log": "reports/local/tests-v9.log"
   },
   "typecheck": {
     "command": "npm run typecheck / tsc --noEmit during build",
@@ -20,30 +21,44 @@
     "command": "npm run build",
     "exitCode": 0,
     "path": "dist/SC2-Survivors-Demo.html",
-    "bytes": 80873870,
-    "miB": 77.12733268737793,
-    "sha256": "922011ecbf6d63a7b89e5afea9f6f1e0bf68adc86beb523750f820eb90c9461e",
-    "embeddedAssets": 102,
+    "bytes": 176509423,
+    "miB": 168.33250331878662,
+    "sha256": "56c77aa55a436bd464f3c454bcee78d28cf67b5ced65baa0d32d841fde641b81",
+    "embeddedAssets": 581,
     "largeChunkWarning": true
   },
   "assets": {
-    "available": 102,
-    "manifestTotal": 102,
+    "available": 581,
+    "manifestTotal": 581,
     "requiredMissing": [],
     "combatModels": 8,
     "originalAnimationModels": 8,
     "originalDeathModels": 8,
     "economicModels": 3,
     "podModel": true,
+    "resourceModels": 3,
     "iconsDecoded": 23,
     "effectTextures": 33,
     "originalAudioDecoded": 10,
-    "originalWeaponSourceFiles": 2,
-    "missingRequestedOriginalSources": [],
+    "mapModels": 292,
+    "mapModelPlacements": 4956,
+    "originalCliffInstances": 2473,
+    "mapSharedImages": 179,
+    "sourceFilesLocked": 511,
     "humanVisualApproved": false,
     "humanListeningApproved": false,
-    "sourceEvidence": "reports/qa/v6-original-sources.json",
-    "independentModelAuditUnchanged": "reports/qa/v5-model-audit.json"
+    "originalClientPixelComparison": false
+  },
+  "map": {
+    "name": "Kairos Junction LE",
+    "source": "tools/map-lock.json",
+    "pipeline": "npm run assets:map",
+    "reproducedWithVerifiedLocalCache": true,
+    "worldUnitsPerSc2Unit": 1,
+    "stages": 12,
+    "placementScalePreserved": true,
+    "crossMapMixedSquadRoute": "reports/qa/v9-map-routes.json",
+    "renderAdaptations": "docs/MAP_PIPELINE.md"
   },
   "offline": {
     "scheme": "file://",
@@ -57,13 +72,63 @@
     "originalDeathModels": 8,
     "podModel": true,
     "economicModels": 3,
-    "originalAudioDecoded": 10
+    "resourceModels": 3,
+    "map": {
+      "name": "Kairos Junction LE",
+      "models": 292,
+      "placements": 4956,
+      "visibleInstances": 534,
+      "area": 741.75,
+      "scale": 1,
+      "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+    }
+  },
+  "gamepad": {
+    "standardSimulated": true,
+    "nonstandardCalibrationSimulated": true,
+    "axisTriggersSimulated": true,
+    "saveReloadPassed": true,
+    "disconnectReconnectPassed": true,
+    "physicalHardwareTested": false,
+    "evidence": [
+      "reports/qa/v9-gamepad.json",
+      "reports/qa/v9-gamepad-calibration.json"
+    ]
+  },
+  "touch": {
+    "method": "Desktop Chrome/CDP touch emulation only",
+    "sizes": [
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "movementPlusSkill": true,
+    "pointerCancel": true,
+    "hudClickThroughPrevented": true,
+    "textSelectionPrevented": true,
+    "pageScrollPrevented": true,
+    "evidence": "reports/qa/v9-controls.json"
   },
   "desktopPerformance": {
-    "at": "2026-09-21T11:17:59.866Z",
+    "at": "2026-09-21T15:02:59.075Z",
     "method": "Desktop Chrome 1440x900, DPR 1, no CPU throttling, balanced quality, diagnostic 25 friendly / 300 enemy entities. Not physical phone or campaign.",
     "runs": [
       {
+        "map": {
+          "name": "Kairos Junction LE",
+          "models": 292,
+          "placements": 4956,
+          "visibleInstances": 1064,
+          "area": 9510.25,
+          "scale": 1,
+          "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+        },
+        "order": null,
         "resolution": {
           "quality": "balanced",
           "devicePixelRatio": 1,
@@ -77,6 +142,8 @@
         "models": 8,
         "economicModels": 3,
         "podModel": true,
+        "resourceModels": 3,
+        "resourceInstances": 0,
         "errors": [],
         "originalAnimationModels": 8,
         "proceduralAnimationModels": 0,
@@ -90,41 +157,41 @@
         },
         "effectTextures": 33,
         "effects": {
-          "attack": 3001,
-          "hit": 3471,
-          "death": 87,
-          "movement": 9855,
+          "attack": 1569,
+          "hit": 1767,
+          "death": 27,
+          "movement": 2953,
           "bile": 0,
-          "active": 513,
+          "active": 165,
           "dropped": 0
         },
         "textures": 15,
-        "fps": 57.976809276289394,
-        "drawCalls": 36,
-        "triangles": 266898,
+        "fps": 49.999999999999986,
+        "drawCalls": 320,
+        "triangles": 576623,
         "entities": 325,
-        "maxStretch": 6.8,
-        "spatialVisits": 38204,
-        "collisionContacts": 980,
+        "maxStretch": 7.14816698299308,
+        "spatialVisits": 26225,
+        "collisionContacts": 1083,
         "phase": "battle",
         "stage": 10,
-        "time": 14.383333333333333,
+        "time": 17.216666666666665,
         "stats": {
           "kills": 0,
           "rescued": 0,
           "failed": 0,
           "produced": 0,
           "started": 1,
-          "shots": 3001,
-          "healed": 565.2799999929131,
-          "damage": 8884,
+          "shots": 1569,
+          "healed": 386.7799999941843,
+          "damage": 5146,
           "scvsRescued": 0,
           "scvsLost": 0,
           "dronesKilled": 0,
           "ambientSpawned": 0
         },
         "assetsReady": true,
-        "simulationBacklogSeconds": 3.0832666666667192,
+        "simulationBacklogSeconds": 0.016633333333356762,
         "audio": {
           "originalDecoded": 10,
           "decoded": [
@@ -209,166 +276,77 @@
           ],
           "errors": [],
           "played": {
-            "sc2.ravager.attack": 52,
-            "sc2.medivac.heal": 59,
-            "blast": 7,
+            "sc2.ravager.attack": 32,
+            "sc2.medivac.heal": 148,
+            "sc2.marine.attack": 31,
+            "sc2.roach.attack": 25,
+            "blast": 6,
+            "sc2.zergling.attack": 49,
             "sc2.hellion.attack": 5,
-            "sc2.roach.attack": 23,
-            "sc2.zergling.attack": 53,
-            "sc2.marine.attack": 18
+            "sc2.tank.siege": 4
           },
-          "activeHealers": 6
+          "activeHealers": 3
+        },
+        "gamepad": {
+          "active": false,
+          "index": null,
+          "calibrating": false,
+          "connected": []
         },
         "friendly": 25,
         "enemies": 300,
         "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
         "width": 1440,
         "height": 900,
-        "samples": 685,
-        "averageFps": 57.08333333333334,
-        "p95": 33,
-        "simulationSeconds": 11.649999999999999
+        "samples": 546,
+        "averageFps": 45.31195538515162,
+        "p95": 33.39999999999782,
+        "simulationSeconds": 14.016666666666666
       }
     ],
-    "errors": [],
-    "runtimeCommit": "bf486d880e84fb146b46dd3208c6eafb92747d33",
-    "historical": true
+    "errors": []
   },
-  "currentPhysicalPhone": {
-    "tested": false,
-    "reason": "User requested no further phone testing for latest revisions.",
-    "historicalEvidence": "reports/qa/v6-phone-summary.json"
+  "phone": {
+    "newPhysicalTest": false,
+    "reason": "User requested no further physical phone testing this round."
   },
-  "limitations": [
-    "Full SC2 particle/refraction/rendering pipeline and original font not reproduced.",
-    "Screenshots/playback are local; no human visual or listening approval.",
-    "No full manual 48-minute playthrough; automated success is not a Normal difficulty gate.",
-    "Desktop diagnostic load retains fixed ticks but accumulates simulation lag; frame rate alone is not simulation throughput.",
-    "Remaining historical source/animation variants are documented; requested 10 sounds and 2 effect sources are complete."
-  ],
-  "qaReport": "reports/qa/v8-commands.json",
-  "desktopOpening": {
-    "opening": {
-      "phase": "reward",
-      "time": 120,
+  "openingObservation": {
+    "method": "Desktop Chrome 1440x900. First stage uses keyboard input at normal time with no HP, resource, spawn or clock edits. Script outcome is an observation, never a Normal balance gate. Only one opening observation, no automatic Normal acceptance gate. Screenshots remain local; no human visual approval.",
+    "result": {
+      "phase": "lost",
+      "time": 62.38333333333333,
       "input": {
-        "x": 0,
+        "x": -1,
         "z": 0
       },
       "stats": {
-        "kills": 18,
-        "rescued": 3,
-        "failed": 0,
-        "produced": 4,
-        "started": 4,
-        "shots": 98,
+        "kills": 4,
+        "rescued": 0,
+        "failed": 1,
+        "produced": 1,
+        "started": 1,
+        "shots": 233,
         "healed": 0,
-        "damage": 518,
-        "scvsRescued": 2,
+        "damage": 789,
+        "scvsRescued": 1,
         "scvsLost": 0,
-        "dronesKilled": 2,
-        "ambientSpawned": 12
+        "dronesKilled": 0,
+        "ambientSpawned": 3
       },
       "wallet": {
-        "minerals": 112.8424999999964,
-        "gas": 77.55799999999849
+        "minerals": 42.91416666666566,
+        "gas": 7.764333333333747
       },
-      "units": 4
+      "units": 0
     },
-    "clear": "通关奖励已到账 +80 M / +30 G\n余额 112 M / 77 G",
-    "twoRoundsSkipped": true,
-    "runtimeCommit": "bf486d880e84fb146b46dd3208c6eafb92747d33",
-    "historical": true
+    "interpretation": "The old keyboard policy lost at 62.38 seconds. This is not a Normal balance criterion or a completed stage. No balance safety net was added. Intermission UI was tested independently using explicit fixtures."
   },
-  "pointCommands": {
-    "desktop": {
-      "move": {
-        "ground": {
-          "x": 1007.9999999999999,
-          "y": 507.193763974358
-        },
-        "contextMenuPrevented": true,
-        "leftClickIgnored": true,
-        "hudIgnored": true,
-        "keyboardTakeover": true
-      },
-      "focus": {
-        "targetId": 4,
-        "damaged": true,
-        "order": {
-          "kind": "focus",
-          "targetId": 4,
-          "issuedAt": 2.4
-        },
-        "unitTarget": 4,
-        "anchor": {
-          "x": 4.013333333333331,
-          "z": 0,
-          "facing": 1.5707963267948966
-        }
-      },
-      "pauseFrozen": true,
-      "deadTargetCleared": true,
-      "plateau": {
-        "pixel": {
-          "x": 947.4545057227252,
-          "y": 552.7824860120442
-        },
-        "point": {
-          "x": 32.03033711420462,
-          "z": 3.983997808999124
-        }
-      }
-    },
-    "touchEmulation": [
-      {
-        "width": 390,
-        "height": 844,
-        "tapMove": true,
-        "tapFocus": true,
-        "dragIgnored": true,
-        "longPressIgnored": true,
-        "cancelCleared": true,
-        "twoFingerTapIgnored": true,
-        "hudIgnored": true,
-        "movementAndSkill": true,
-        "released": true,
-        "rewardSkips": true,
-        "input": 0.8522727272727272,
-        "tank": "siege",
-        "order": null,
-        "selected": "",
-        "scroll": [
-          0,
-          0
-        ],
-        "pageWidth": 390
-      },
-      {
-        "width": 844,
-        "height": 390,
-        "tapMove": true,
-        "tapFocus": true,
-        "dragIgnored": true,
-        "longPressIgnored": true,
-        "cancelCleared": true,
-        "twoFingerTapIgnored": true,
-        "hudIgnored": true,
-        "movementAndSkill": true,
-        "released": true,
-        "rewardSkips": true,
-        "input": 0.9375,
-        "tank": "siege",
-        "order": null,
-        "selected": "",
-        "scroll": [
-          0,
-          0
-        ],
-        "pageWidth": 844
-      }
-    ],
-    "report": "reports/qa/v8-commands.json"
-  },
-  "previousQaReport": "reports/qa/v7-summary.json"
+  "knownLimitations": [
+    "Physical gamepad not available; Gamepad API and custom calibration tested with synthetic device snapshots.",
+    "Original map layout/assets are imported; not a pixel-identical SC2 renderer. Static foliage poses, adapted lighting, inactive creep overlay, simplified unknown footprints.",
+    "No original-client per-cell pathing comparison or human visual/listening approval.",
+    "No complete human 48-minute campaign validation; prior keyboard opening policy failed and is recorded, not hidden.",
+    "No new physical-phone or sustained thermal measurement; performance is desktop only.",
+    "Large offline file: 168.33 MiB. Fonts remain approved system fallbacks."
+  ]
 }

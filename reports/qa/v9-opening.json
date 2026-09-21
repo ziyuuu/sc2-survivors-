@@ -1,0 +1,260 @@
+{
+  "at": "2026-09-21T14:40:55.090Z",
+  "method": "Desktop Chrome 1440x900. First stage uses keyboard input at normal time with no HP, resource, spawn or clock edits. Script outcome is an observation, never a Normal balance gate. Only one opening observation, no automatic Normal acceptance gate. Screenshots remain local; no human visual approval.",
+  "errors": [],
+  "samples": [
+    {
+      "phase": "battle",
+      "time": 0.13333333333333333,
+      "input": {
+        "x": 0,
+        "z": 0
+      },
+      "stats": {
+        "kills": 0,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 1,
+        "shots": 0,
+        "healed": 0,
+        "damage": 0,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 0
+      },
+      "wallet": {
+        "minerals": 0.06666666666666667,
+        "gas": 0.013333333333333334
+      },
+      "units": 1
+    },
+    {
+      "phase": "battle",
+      "time": 30.133333333333333,
+      "input": {
+        "x": 0.19347272850745112,
+        "z": 0.9811056534970544
+      },
+      "stats": {
+        "kills": 1,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 1,
+        "started": 1,
+        "shots": 52,
+        "healed": 0,
+        "damage": 195,
+        "scvsRescued": 1,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 2
+      },
+      "wallet": {
+        "minerals": 18.951666666666696,
+        "gas": 3.2493333333333854
+      },
+      "units": 1
+    },
+    {
+      "phase": "battle",
+      "time": 60.233333333333334,
+      "input": {
+        "x": -0.964821165003066,
+        "z": 0.26290705498735994
+      },
+      "stats": {
+        "kills": 3,
+        "rescued": 0,
+        "failed": 1,
+        "produced": 1,
+        "started": 1,
+        "shots": 226,
+        "healed": 0,
+        "damage": 751,
+        "scvsRescued": 1,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 3
+      },
+      "wallet": {
+        "minerals": 41.51666666666601,
+        "gas": 7.463333333333723
+      },
+      "units": 1
+    },
+    {
+      "phase": "lost",
+      "time": 62.38333333333333,
+      "input": {
+        "x": -1,
+        "z": 0
+      },
+      "stats": {
+        "kills": 4,
+        "rescued": 0,
+        "failed": 1,
+        "produced": 1,
+        "started": 1,
+        "shots": 233,
+        "healed": 0,
+        "damage": 789,
+        "scvsRescued": 1,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 3
+      },
+      "wallet": {
+        "minerals": 42.91416666666566,
+        "gas": 7.764333333333747
+      },
+      "units": 0
+    }
+  ],
+  "terrain": [],
+  "icons": [
+    {
+      "id": "unit.marine",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "unit.hellion",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "unit.tank",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "unit.medivac",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "unit.zergling",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "unit.roach",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "unit.baneling",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "unit.ravager",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "building.barracks",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "building.factory",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "building.starport",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.stim",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.shield",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.infernal",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.heal",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.bile",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.attack",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.armor",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.vehicle",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.siege",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "tech.boost",
+      "width": 76,
+      "height": 76
+    },
+    {
+      "id": "ui.minerals",
+      "width": 30,
+      "height": 30
+    },
+    {
+      "id": "ui.gas",
+      "width": 32,
+      "height": 32
+    }
+  ],
+  "opening": {
+    "phase": "lost",
+    "time": 62.38333333333333,
+    "input": {
+      "x": -1,
+      "z": 0
+    },
+    "stats": {
+      "kills": 4,
+      "rescued": 0,
+      "failed": 1,
+      "produced": 1,
+      "started": 1,
+      "shots": 233,
+      "healed": 0,
+      "damage": 789,
+      "scvsRescued": 1,
+      "scvsLost": 0,
+      "dronesKilled": 0,
+      "ambientSpawned": 3
+    },
+    "wallet": {
+      "minerals": 42.91416666666566,
+      "gas": 7.764333333333747
+    },
+    "units": 0
+  }
+}

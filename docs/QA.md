@@ -1,5 +1,24 @@
 # 当前修复验收
 
+## 当前 V9：原地图、资源、多买与手柄
+
+运行代码 `0a40016`，分支 `v3/playable-sc2-demo`，继续更新 PR #2。**235/235 测试、类型检查、构建通过**。以下旧版记录保留历史版本标签，不作为新版实测。
+
+- 真实 Kairos Junction LE，12个递增连通范围，原比例1:1。292地图模型、4,956模型摆放、2,473崖壁、179共享图片；无缺失运行素材。511源文件哈希锁定，本地完整管线重跑通过。四兵种跨原坡道行军120模拟秒诊断，最后编队槽误差约0.08单位；不评价普通难度通关。
+- 原 Crystal / GasCanister / SpaceMineralCluster 3/3；战斗模型8/8、原动作8套、死亡8套、经济模型3/3、原仓体、图标23/23解码、原声音10/10解码、效果贴图33张。**这些是来源/加载/播放与数值证据，不是人工视觉批准。** 原图中立装饰不再误套敌方队伍色，并使用原摆放色调。
+- 标准手柄模拟：部署、自动选敌、扳机换目标、松杆追击、暂停、多买、售罄禁用、刷新后焦点、两轮90矿共享费用、B聚焦继续、断连清输入并暂停、回中立后明确恢复。非标准手柄模拟：自定义面键/摇杆/轴式扳机校准、本地保存、重载后使用。没有真实手柄硬件测量。
+- 实际鼠标右键移动/集火、伤害与目标一致、键盘接管、HUD不透传、暂停冻结、高差拾取通过。390×844与844×390的CDP触摸：轻点、拖动/长按/双指防误发命令、摇杆+架炮、取消/释放、两轮继续、无选中文字/页面滚动均通过；它们不是手机真机测试。
+- 最终离线HTML断网file://载入并操作，HTTP(S)请求0，8原战斗模型、3资源模型和292地图模型载入，开发修改接口不存在。**176,509,423 bytes / 168.33 MiB**，581内嵌资源；SHA-256见STATUS。
+
+桌面独立负载：Chrome、AMD Radeon集显/ANGLE D3D11、1440×900、DPR1、均衡画质、无CPU节流，25友军/300敌军诊断。预热5秒后采样546帧，平均 **45.31 FPS**，P95 **33.4 ms**，**320 draw calls**，结束模拟积压 **0.0166秒**。诊断使用高HP、补充敌人、关闭胆汁；不是自然波次或通关结果。一次与npm test重叠的采样不作为性能结论；独立重测证据见v9-load。
+
+真实时间首关观察：旧键盘策略约62.38秒失败，击杀4、救SCV1、失败仓1、无人存活；未修改HP/钱包/出生或时间。该旧策略没有完成首关，不能把它写成成功验收，也不据此弱化普通难度。关间结算、多买/刷新/跳过通过独立场景验证。完整人工48分钟流程、原客户端逐像素/逐格对照、真手柄和本轮手机真机仍未验证。
+
+文本证据：[操作/离线](../reports/qa/v9-controls.json)、[标准手柄](../reports/qa/v9-gamepad.json)、[校准](../reports/qa/v9-gamepad-calibration.json)、[原图与寻路](../reports/qa/v9-map-routes.json)、[首关观察](../reports/qa/v9-opening.json)、[独立负载](../reports/qa/v9-load.json)、[完整状态](../reports/STATUS.json)。截图仅在 `reports/local/qa-v9*`。原客户端粒子、动态材质、风动、部分占地代理与字体边界见 [MAP_PIPELINE.md](MAP_PIPELINE.md)。
+
+实际命令：`npm run assets:map`、`npm test`、`npm run typecheck`、`npm run build`、`node --import tsx tools/qa-map-routes.mjs`、`node tools/qa-gamepad-shop.mjs`、`node tools/qa-gamepad-calibration.mjs`、`node tools/qa-v9-opening.mjs`、`node tools/qa-v9-load.mjs`、`node tools/qa-v9-controls.mjs`（含 `SC2_QA_OFFLINE=1`）。
+
+
 2026-09-21 · 运行代码 `30e173ad9346a111ac9dfb5e752c1d06a62dced4` · `D:\星际` · `v3/playable-sc2-demo` · [PR #2](https://github.com/ziyuuu/sc2-survivors-/pull/2)。当前数值、旧版真机与人工视觉结论分开记录。
 
 ## 点选操作验收

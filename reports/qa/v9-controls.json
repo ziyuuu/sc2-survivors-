@@ -1,0 +1,245 @@
+{
+  "at": "2026-09-21T14:56:57.344Z",
+  "method": "Actual mouse/right-click and CDP touch events in desktop Chrome. Explicit isolated fixtures verify input, targeting and routing, not balance or an automated playthrough. Mobile sizes are emulation, not a physical phone. Images remain local; no human visual approval.",
+  "desktop": {
+    "move": {
+      "ground": {
+        "x": 1007.9999999999999,
+        "y": 507.19376397435803
+      },
+      "contextMenuPrevented": true,
+      "leftClickIgnored": true,
+      "hudIgnored": true,
+      "keyboardTakeover": true
+    },
+    "focus": {
+      "targetId": 4,
+      "damaged": true,
+      "order": {
+        "kind": "focus",
+        "targetId": 4,
+        "issuedAt": 2.3
+      },
+      "unitTarget": 4,
+      "anchor": {
+        "x": 4.013333333333331,
+        "z": 0,
+        "facing": 1.5707963267948966
+      }
+    },
+    "pauseFrozen": true,
+    "deadTargetCleared": true,
+    "plateau": {
+      "pixel": {
+        "x": 1007.975960661423,
+        "y": 564.3875279486803
+      },
+      "point": {
+        "x": 7.999999763528186,
+        "z": 3.986234671655776
+      }
+    }
+  },
+  "touch": [
+    {
+      "width": 390,
+      "height": 844,
+      "tapMove": true,
+      "tapFocus": true,
+      "dragIgnored": true,
+      "longPressIgnored": true,
+      "cancelCleared": true,
+      "twoFingerTapIgnored": true,
+      "hudIgnored": true,
+      "movementAndSkill": true,
+      "released": true,
+      "rewardSkips": true,
+      "input": 0.8522727272727272,
+      "tank": "siege",
+      "order": null,
+      "selected": "",
+      "scroll": [
+        0,
+        0
+      ],
+      "pageWidth": 390
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "tapMove": true,
+      "tapFocus": true,
+      "dragIgnored": true,
+      "longPressIgnored": true,
+      "cancelCleared": true,
+      "twoFingerTapIgnored": true,
+      "hudIgnored": true,
+      "movementAndSkill": true,
+      "released": true,
+      "rewardSkips": true,
+      "input": 0.9375,
+      "tank": "siege",
+      "order": null,
+      "selected": "",
+      "scroll": [
+        0,
+        0
+      ],
+      "pageWidth": 844
+    }
+  ],
+  "errors": [],
+  "offline": {
+    "debug": "undefined",
+    "report": {
+      "map": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 534,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "order": null,
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "resourceModels": 3,
+      "resourceInstances": 0,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 33,
+      "effects": {
+        "attack": 0,
+        "hit": 0,
+        "death": 0,
+        "movement": 1,
+        "bile": 0,
+        "active": 1,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 35.978412952228716,
+      "drawCalls": 183,
+      "triangles": 156820,
+      "entities": 1,
+      "maxStretch": 1.530525305937893,
+      "spatialVisits": 3,
+      "collisionContacts": 0,
+      "phase": "battle",
+      "stage": 1,
+      "time": 0.7666666666666666,
+      "stats": {
+        "kills": 0,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 1,
+        "shots": 0,
+        "healed": 0,
+        "damage": 0,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 0
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 0.0005333333333341558,
+      "audio": {
+        "originalDecoded": 7,
+        "decoded": [
+          {
+            "id": "shot",
+            "duration": 0.08995833333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "blast",
+            "duration": 0.3499583333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "alert",
+            "duration": 0.44995833333333335,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.scv.ready",
+            "duration": 2.1729166666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.attack",
+            "duration": 1.3626875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.hellion.attack",
+            "duration": 2.6566875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.attack",
+            "duration": 0.8244791666666667,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.siege",
+            "duration": 1.9696041666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.medivac.heal",
+            "duration": 9.092270833333334,
+            "channels": 2,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.zergling.attack",
+            "duration": 0.7786666666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          }
+        ],
+        "errors": [],
+        "played": {},
+        "activeHealers": 0
+      },
+      "gamepad": {
+        "active": false,
+        "index": null,
+        "calibrating": false,
+        "connected": []
+      }
+    },
+    "networkRequests": []
+  }
+}
