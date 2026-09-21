@@ -38,18 +38,26 @@ export function translate(body:Point,delta:Point,r:number,flying=false,obstacles
 }
 export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:number,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf,terrain?:CharTerrain){
  const d=distance(u,goal);let dx=0,dz=0;
- // Arrival speed must fit the remaining distance AND a vehicle's finite turn radius.
- const vehicle=u.unitType==='hellion'||u.unitType==='tank',rate=u.unitType==='hellion'?2.8:u.unitType==='tank'?2.2:7;
- const arrival=Math.min(speed,Math.max(0,d-.1)*(vehicle?rate*.65:4));
- if(d>.1){dx=(goal.x-u.x)/d*arrival;dz=(goal.z-u.z)/d*arrival;}
+ const vehicle=u.unitType==='hellion'||u.unitType==='tank',rate=u.unitType==='hellion'?4.8:u.unitType==='tank'?3.6:7;
+ const braking=vehicle?24:u.flying?12:30,acceleration=u.flying?10:vehicle?18:24;
+ // Cruise until braking is necessary. The old distance * rate envelope crawled for metres.
+ const arrival=Math.min(speed,Math.sqrt(2*braking*Math.max(0,d-.08)));
+ if(d>.08){dx=(goal.x-u.x)/d*arrival;dz=(goal.z-u.z)/d*arrival;}
  dx+=separation.x;dz+=separation.z;
- const magnitude=Math.hypot(dx,dz),limited=Math.min(speed,magnitude);if(magnitude>speed&&magnitude>0){dx*=speed/magnitude;dz*=speed/magnitude;}
- if(Math.hypot(dx,dz)>.05){const heading=Math.atan2(dx,dz);
-  u.facing=turn(u.facing,heading,rate*dt);
-  if(vehicle){const alignment=Math.max(0,Math.cos(angleDelta(u.facing,heading)));dx=Math.sin(u.facing)*limited*alignment;dz=Math.cos(u.facing)*limited*alignment;}
+ const magnitude=Math.hypot(dx,dz);let limited=Math.min(speed,magnitude);
+ if(magnitude>.05){const heading=Math.atan2(dx,dz);u.facing=turn(u.facing,heading,rate*dt);
+  if(vehicle){const error=Math.abs(angleDelta(u.facing,heading)),alignment=Math.max(0,Math.cos(error));
+   // Brake for sharp turns before translating; finite turning still matters without an orbit.
+   if(error>.12)limited=Math.min(limited,Math.max(.08,d)*rate*.75/Math.max(.25,Math.sin(error)));
+   limited*=alignment*alignment;dx=Math.sin(u.facing)*limited;dz=Math.cos(u.facing)*limited;
+  }else {dx*=limited/magnitude;dz*=limited/magnitude;}
  }
- const acceleration=u.flying?5:15;
- u.velocity.x+=(dx-u.velocity.x)*Math.min(1,acceleration*dt);u.velocity.z+=(dz-u.velocity.z)*Math.min(1,acceleration*dt);
+ const deltaX=dx-u.velocity.x,deltaZ=dz-u.velocity.z,delta=Math.hypot(deltaX,deltaZ),maxDelta=(limited<Math.hypot(u.velocity.x,u.velocity.z)?braking:acceleration)*dt;
+ const blend=delta>0?Math.min(1,maxDelta/delta):1;u.velocity.x+=deltaX*blend;u.velocity.z+=deltaZ*blend;
+ // Clip only this step's forward travel at the arrival shell; never relocate the unit.
+ const step=Math.hypot(u.velocity.x,u.velocity.z)*dt,remaining=Math.max(0,d-.08);
+ if(step>remaining&&step>0&&separation.x===0&&separation.z===0&&(goal.x-u.x)*u.velocity.x+(goal.z-u.z)*u.velocity.z>0){const factor=remaining/step;u.velocity.x*=factor;u.velocity.z*=factor;}
+
  const before={x:u.x,z:u.z};translate(u,{x:u.velocity.x*dt,z:u.velocity.z*dt},u.unitRadius,u.flying,obstacles,worldHalf,terrain);
  u.velocity.x=(u.x-before.x)/dt;u.velocity.z=(u.z-before.z)/dt;u.distanceWalked+=distance(before,u);
  u.action=Math.hypot(u.velocity.x,u.velocity.z)>.1?'move':'idle';

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {CHAR_TERRAIN} from '../../data/terrain';
+import {CHAR_TERRAIN,RAMPS} from '../../data/terrain';
 /** Exact shared heightfield with vertical cliff faces and sloping ramp tops. */
 export function charGeometry(){const floor:number[]=[],wall:number[]=[],uv:number[]=[],wuv:number[]=[];
  const quad=(out:number[],tex:number[],p:number[][],coords:number[][])=>{for(const i of [0,2,1,0,3,2]){out.push(...p[i]);tex.push(...coords[i]);}};
@@ -11,5 +11,5 @@ export function charGeometry(){const floor:number[]=[],wall:number[]=[],uv:numbe
    quad(wall,wuv,[[a[0],loA,a[1]],[b[0],loB,b[1]],[b[0],hiB,b[1]],[a[0],hiA,a[1]]],[[along/6,loA/3],[(along+1)/6,loB/3],[(along+1)/6,hiB/3],[along/6,hiA/3]]);
   }
  }
- const geometry=(p:number[],u:number[])=>{const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(u,2));g.computeVertexNormals();g.computeBoundingSphere();return g;};return {floor:geometry(floor,uv),cliffs:geometry(wall,wuv)};
+ const geometry=(p:number[],u:number[],cliff=false)=>{const colors:number[]=[];for(let i=0;i<p.length;i+=3){const x=p[i],y=p[i+1],z=p[i+2];let shade=1;if(cliff)shade=.38+.62*Math.min(1,y/3);else {const nearRamp=RAMPS.some(r=>Math.abs((r.axis==='x'?z-r.z:x-r.x))<r.width/2+.4&&Math.abs((r.axis==='x'?x-r.x:z-r.z))<r.length/2+1.2);if(!nearRamp){for(const d of [1.8,.9,.35]){const neighbours=[[x+d,z],[x-d,z],[x,z+d],[x,z-d]].map(([a,b])=>h(a,b));if(neighbours.some(v=>v>y+1))shade=d===.35?.50:d===.9?.67:.87;else if(neighbours.some(v=>v<y-1))shade=Math.max(shade,1.12);}}}colors.push(shade,shade,shade);}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(u,2));g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));g.computeVertexNormals();g.computeBoundingSphere();return g;};return {floor:geometry(floor,uv),cliffs:geometry(wall,wuv,true)};
 }

@@ -24,6 +24,7 @@ export class World {
  anchorMovingFor=0;anchorStoppedFor=0;tankCommand:'tank'|'siege'='tank';
  readonly economyTotals={passive:{minerals:0,gas:0},drops:{minerals:0,gas:0},clear:{minerals:0,gas:0},cards:{minerals:0,gas:0},production:{minerals:0,gas:0},purchases:{minerals:0,gas:0},rerolls:0};
  private readonly seed:number;private readonly sandbox:boolean;private productionCursor=0;
+ productionPlan:{buildingId:number;unitType:TerranType}|null=null;
  private waves:Wave[]=[];private eventPlan:EconomicSpawn[]=[];private nextEvent=0;private scheduledStage=0;
  private ambientBacklog:{type:ZergType;bearing:number;at:number}[]=[];private extraDeliveries:TerranType[]=[];
  private spawnCells:Point[]=[];
@@ -89,6 +90,7 @@ export class World {
  buildingsOf(type:BuildingType){return [...this.buildings.values()].filter(b=>b.type===type);}
  addBuilding(type:BuildingType,remaining=BUILDINGS[type].time){const b:Building={id:this.nextBuilding++,type,remaining,queue:[],techLab:false,upgradeRemaining:null};this.buildings.set(b.id,b);return b;}
  buildingCanTrain(b:Building,type:TerranType){return b.remaining<=0&&b.upgradeRemaining===null&&BUILDINGS[b.type].types.includes(type)&&(type!=='tank'||b.techLab);}
+ productionIntent(b:Building){return (b.type==='factory'?['tank','hellion'] as TerranType[]:BUILDINGS[b.type].types).find(type=>this.buildingCanTrain(b,type)&&this.capacity(type));}
  buildingFor(type:TerranType){return [...this.buildings.values()].filter(b=>this.buildingCanTrain(b,type)).sort((a,b)=>a.queue.length-b.queue.length||a.id-b.id)[0];}
  canTrain=(type:TerranType,buildingId?:number)=>{const b=buildingId===undefined?this.buildingFor(type):this.buildings.get(buildingId),c=this.productionCost(type);return !!b&&this.buildingCanTrain(b,type)&&this.capacity(type)&&this.wallet.minerals>=c.minerals&&this.wallet.gas>=c.gas;};
  build(type:BuildingType){const d=BUILDINGS[type];if(!spend(this.wallet,{minerals:d.minerals,gas:d.gas}))return false;
@@ -104,12 +106,28 @@ export class World {
   if(job.remaining<=1e-8){b.queue.shift();this.stats.produced++;this.spawnPod(job.unitType,undefined,job.id);}
  }
  if(this.sandbox)return;
- const buildings=[...this.buildings.values()],n=buildings.length;let last=-1;
- for(let offset=0;offset<n;offset++){const index=(this.productionCursor+offset)%n,b=buildings[index];if(b.remaining>0||b.upgradeRemaining!==null||b.queue.length)continue;
-  const types:TerranType[]=b.type==='factory'?['tank','hellion']:BUILDINGS[b.type].types;
-  for(const type of types)if(this.queue(type,b.id)){last=index;break;}
+ const buildings=[...this.buildings.values()],n=buildings.length;if(!n){this.productionPlan=null;return;}
+ // Reserve one next order, not one wallet per building. The turn rotates after payment.
+ // Cards may still spend this visible wallet while paused; only automatic spending is reserved.
+ for(let attempt=0;attempt<n;attempt++){
+  const planned=this.productionPlan&&this.buildings.get(this.productionPlan.buildingId);
+  if(!planned||planned.queue.length||this.productionIntent(planned)!==this.productionPlan?.unitType)this.productionPlan=null;
+  if(!this.productionPlan)for(let offset=0;offset<n;offset++){
+   const b=buildings[(this.productionCursor+offset)%n],type=!b.queue.length&&this.productionIntent(b);
+   if(type){this.productionPlan={buildingId:b.id,unitType:type};break;}
+  }
+  const plan=this.productionPlan;if(!plan)break;
+  if(!this.queue(plan.unitType,plan.buildingId))break;
+  this.productionCursor=(buildings.findIndex(b=>b.id===plan.buildingId)+1)%n;this.productionPlan=null;
  }
- if(last>=0)this.productionCursor=(last+1)%n;
+ const plan=this.productionPlan;
+ if(plan){const reserved=this.productionCost(plan.unitType);
+  // Keep lower-tier factories and Barracks productive only from a true surplus.
+  for(const b of buildings){if(b.id===plan.buildingId||b.queue.length)continue;const type=this.productionIntent(b);if(!type)continue;
+   const cost=this.productionCost(type);if(Math.max(0,this.wallet.minerals-reserved.minerals)>=cost.minerals&&Math.max(0,this.wallet.gas-reserved.gas)>=cost.gas)this.queue(type,b.id);
+  }
+ }
+
  }
  podPurpose(type:TerranType){const units=this.allies().filter(u=>u.unitType===type);return units.length<5?'新增队员':units.some(u=>u.rank<5)?'晋升最低军衔':'培养已满';}
  spawnPod(type:TerranType,position?:Point,jobId=0){const p=position??this.eventPoint(this.stage<=3?7:14,this.stage<=3?13:32),c=this.config;
@@ -229,9 +247,10 @@ export class World {
   let target=this.body(u.attackTarget);if(target&&!this.targetAllowed(u,target))target=undefined;
   const leash=anchorDistance>TUNING.softLeash,hard=anchorDistance>TUNING.hardLeash;
   const closeDefense=target&&this.edgeDistance(u,target)<=2.5;
+  if(u.unitType==='tank'&&target)u.attackFacing=turn(u.attackFacing,Math.atan2(target.x-u.x,target.z-u.z),6*dt);
   const marchingRearTarget=u.unitType==='hellion'&&u.owner==='terran'&&this.anchorMovingFor>.2&&target&&Math.abs(angleDelta(u.facing,Math.atan2(target.x-u.x,target.z-u.z)))>1.2;
   if(target&&this.hasAttackLine(u,target)&&!marchingRearTarget&&u.unitType!=='medivac'&&(!hard||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&this.edgeDistance(u,target)<=u.attackRange&&this.edgeDistance(u,target)>=(u.mode==='siege'?SIEGE.minRange:0)&&u.weaponCooldown<=1e-8){
-   const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType==='tank')u.attackFacing=turn(u.attackFacing,heading,4*dt);else u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?2.8:u.unitType==='marine'?24:9)*dt);
+   const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType!=='tank')u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?4.8:u.unitType==='marine'?24:9)*dt);
    if(Math.abs(angleDelta(u.attackFacing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
     u.weaponCooldown=u.attackPeriod/stim;u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
    // A committed firing turn must not be cancelled by formation steering in the same tick.
@@ -241,9 +260,9 @@ export class World {
   let goal:Point=u.owner==='terran'?this.moveGoal(u):(target??this.anchor);
   if(u.owner==='zerg'&&u.guardianPod!==null){const p=this.pods.find(p=>p.id===u.guardianPod&&p.status==='active');if(p&&(!target||u.id%3!==0&&distance(u,target)>4))goal=p;}
   if(u.owner==='zerg'&&target&&this.edgeDistance(u,target)<=u.attackRange*.85)goal=u;
-  if(u.owner==='terran'&&!leash&&target&&!this.economicTargets.has(target.id)&&this.anchorStoppedFor>.15&&distance(u,this.anchor)<4&&this.edgeDistance(u,target)>u.attackRange)goal=target;
+  if(u.owner==='terran'&&!leash&&target&&!this.economicTargets.has(target.id)&&this.anchorStoppedFor>.15&&distance(target,this.anchor)<=u.attackRange+3&&this.edgeDistance(u,target)>u.attackRange)goal=target;
   // Hold a useful firing position while the anchor is still; do not turn back to the slot after every bullet.
-  if(u.owner==='terran'&&u.unitType!=='medivac'&&target&&this.anchorStoppedFor>.1&&distance(u,goal)<3&&this.edgeDistance(u,target)<=u.attackRange){u.velocity={x:0,z:0};u.action='idle';return;}
+  if(u.owner==='terran'&&u.unitType!=='medivac'&&target&&!hard&&this.anchorStoppedFor>.1&&this.hasAttackLine(u,target)&&this.edgeDistance(u,target)<=u.attackRange){u.velocity={x:0,z:0};u.action='idle';return;}
   if(u.unitType==='medivac'){const patient=this.heal(u,dt);if(patient&&!hard){if(this.edgeDistance(u,patient)<=HEAL.range){u.velocity={x:0,z:0};return;}goal=patient;}}
   let speed=u.moveSpeed*(u.stimUntil>this.time?1.5:1);
   if(u.owner==='terran'&&hard)speed*=TUNING.catchUp;

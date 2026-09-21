@@ -24,12 +24,14 @@ Training: Marine 25/1.4, Hellion 30/1.4, Tank 45/1.4, Medivac 42/1.4. Zerg field
 
 ## Explicit Survivors adaptations (current runtime)
 
-The locked SC2 table above is unchanged. src/data/stages.ts and src/data/economy.ts separately own the approved two-difficulty Survivors tuning: 120/240/360-second rounds, first-stage five timed individual Zerglings, early Ling HP 18/24/30, fixed stage budgets, no army-strength scaling, and no pod timeout. SCV eggs alone expire after 30 seconds.
+The locked SC2 table above is unchanged. src/data/stages.ts and src/data/economy.ts separately own the approved two-difficulty Survivors tuning: 120/240/360-second rounds, first-stage twelve timed individual Zerglings (latest playtest tuning), early Ling HP 18/24/30, fixed stage budgets, no army-strength scaling, and no pod timeout. SCV eggs alone expire after 30 seconds.
 
-Start one Marine, one completed Barracks and 50/0 resources. Every building independently pays for production; completed orders create pods. Passive income, SCVs, Drone drops, stage rewards and paid discounted cards use the same World in both builds. No supply or tech lab system is added. Factory and Starport cards can enter the pool after stage 2; they are neither guaranteed nor affordability-filtered.
+Start one Marine, one completed Barracks and 50/0 resources. Every building independently pays for production; completed orders create pods. Passive income, SCVs, Drone drops, stage rewards and paid discounted cards use the same World in both builds. No supply system is added. A per-Factory Tech Lab (50/25, 25 Normal seconds / 1.4) gates Tank training. Factory cards enter after stage 2; Starport additionally needs a completed Factory, not a Tank lab; they are neither guaranteed nor affordability-filtered.
 
 Finite turns and radius-based ranges, rank HP/damage, map expansion, stage speed modifiers, Siege Logistics and the Medivac energy upgrade are gameplay adaptations. The stage-12 nest is an original hatchery model with experimental HP 9000 Easy / 12000 Normal, armor 2; these are not original SC2 Hive stats. Destroying it is necessary but does not finish the round early.
 
 Ambient waves now enter along a spread approach arc and are staggered by .3 seconds early, .8 seconds in stages 4–5, .35 seconds later. This changes the arrival shape, not the table's budget. Guards still appear together at landing. Deferred actors remain owed if the live ambient population reaches 300.
 
 [Current measurements](BALANCE_12_STAGES.md) distinguish isolated unit duels, scripted attempts, phase fixtures and browser checks. No installed SC2 client match was simulated. The historical reports/balance/study.json used the older hypothetical economy and is not current gameplay evidence.
+
+Latest handling/economy adapters (2026-09-21): braking/acceleration and finite turn rates are web-control tuning, not claimed original Actor motion values. Stage 2 now uses 26 ordinary lings in 13 waves (Easy 19). High-tier automatic orders reserve their next cost across the shared wallet instead of spending every income increment on cheaper units. Raw unit HP/damage/periods and stages 3–12 budgets stay pinned.
