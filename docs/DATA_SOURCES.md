@@ -28,6 +28,12 @@ Training: Marine 25/1.4, Hellion 30/1.4, Tank 45/1.4, Medivac 42/1.4. Zerg field
 
 Buildings are paid remote production support, with construction clocks. Worker, supply and tech-lab systems are omitted. Basic siege is available from start as in LotV; Siege Logistics is an experimental morph-time upgrade. Rank HP/damage, stage speed modifiers and Medivac energy upgrade are experimental.
 
-Rescue always spawns 20–40 Zerglings plus 2 Roaches and stage-appropriate Banelings/Ravagers. Guardians and nearby threats must die before expiry. A rescue spawns the recruit at the pod, or promotes the lowest rank when full.
+The user explicitly revised early progression: a solo Marine must face manageable encounters, with pressure increasing as the squad develops. This supersedes the original blanket 20–40-Zergling rescue minimum for early squads. Stage 1 now has one Zergling at 12 seconds and one at 38 seconds; Stage 2 starts after 10 seconds, then every 12 seconds. Stages remain 60 seconds.
+
+Experimental encounter power in `ENCOUNTERS`: Marine 1, Hellion 2, Tank 3, Medivac .25. Combat units multiply this by their current weapon damage / base weapon damage, so ranks and weapon upgrades count. This is a Survivors pacing heuristic, not a claim that these units have that exact relative strength in SC2. Ambient wave count is capped by floor(power × 1.5), at least one, and by the stage's configured maximum. Stage 2 alternates sides even when the wave budget is one. Enemy mix rotates between waves so low budgets do not permanently suppress Roach/Baneling/Ravager introductions.
+
+Rescue Zergling count is floor(power × (2 + .1 × max(0, stage − 4))), clamped to 2–40. Roaches enter from Stage 4 at power 4 / 8; Banelings from Stage 6 at power 6 / 12; Ravagers from Stage 10 at power 8 / 16. Each threshold adds one of that unit. One Rank-1 Marine therefore starts against two Zerglings; a developed squad can face 40 Zerglings plus two of each other type. Composition is fixed at landing and does not shrink after friendly deaths. These numbers need continued playtesting.
+
+Paid production, the immediate 30-second landing deadline, pod HP/armor, and no-refund failure remain. Guardians and nearby threats must die before expiry. A rescue spawns the recruit at the pod, or promotes the lowest rank when full.
 
 Weapon backswing is shortened for stop → fire → move; damage point and weapon period stay separate. Siege timings omit client random delay. Bile uses a fixed 2.5-second telegraph including experimental missile travel allowance. Siege splash is approximate and retains friendly fire. Vision, creep, burrowing and full projectile ballistics are not simulated. Font files are never downloaded or packaged.

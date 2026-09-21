@@ -13,11 +13,13 @@ export const BUILDINGS:Record<BuildingType,{name:string;minerals:number;gas:numb
  factory:{name:'Factory · 重工厂',minerals:150,gas:100,time:60/1.4,types:['hellion','tank']},
  starport:{name:'Starport · 星港',minerals:150,gas:100,time:50/1.4,types:['medivac']},
 };
-export const STAGES:{name:string;waveEvery:number;count:number;mix:ZergType[];speed:number}[]=[
- {name:'边境警报',waveEvery:7,count:8,mix:['zergling'],speed:1},
- {name:'双向夹击',waveEvery:6,count:12,mix:['zergling'],speed:1},
- {name:'代谢加速',waveEvery:5,count:14,mix:['zergling'],speed:1.25},
- {name:'酸液装甲',waveEvery:6,count:16,mix:['zergling','zergling','zergling','roach'],speed:1.1},
+// Experimental encounter budgets grow with surviving offensive strength, independently of SC2 stats.
+export const ENCOUNTERS={power:{marine:1,hellion:2,tank:3,medivac:.25} as Record<TerranType,number>,ambientPerPower:1.5,rescueLingsPerPower:2};
+export const STAGES:{name:string;waveEvery:number;count:number;mix:ZergType[];speed:number;firstWaveDelay?:number;openingWaves?:{at:number;count:number}[]}[]=[
+ {name:'边境警报',waveEvery:26,count:1,mix:['zergling'],speed:1,openingWaves:[{at:12,count:1},{at:38,count:1}]},
+ {name:'双向夹击',waveEvery:12,count:2,mix:['zergling'],speed:1,firstWaveDelay:10},
+ {name:'代谢加速',waveEvery:11,count:3,mix:['zergling'],speed:1.25,firstWaveDelay:6},
+ {name:'酸液装甲',waveEvery:10,count:4,mix:['zergling','zergling','zergling','roach'],speed:1.1,firstWaveDelay:6},
  {name:'地面虫潮',waveEvery:5,count:22,mix:['zergling','zergling','roach'],speed:1.1},
  {name:'爆虫冲锋',waveEvery:5,count:22,mix:['zergling','zergling','roach','baneling'],speed:1.15},
  {name:'孤立降落区',waveEvery:4.5,count:24,mix:['zergling','zergling','roach','baneling'],speed:1.2},

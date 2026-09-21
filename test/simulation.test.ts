@@ -35,7 +35,7 @@ test('hard leash adds limited speed and never teleports',()=>{const w=world();co
 test('separation spreads close units; spatial hash only visits local buckets',()=>{const w=world(['marine','marine']);const [a,b]=w.allies();a.x=0;b.x=.2;a.z=b.z=0;w.advance(.5);assert.ok(Math.hypot(a.x-b.x,a.z-b.z)>.45);const hash=new SpatialHash();const bodies=Array.from({length:300},(_,i)=>({...a,id:i,x:i%30*5,z:Math.floor(i/30)*5}));hash.rebuild(bodies);let found=0;hash.query({x:0,z:0},2,()=>found++);assert.equal(found,1);assert.ok(hash.visits<10);});
 test('insufficient resources block building and production atomically',()=>{const w=world();w.wallet={minerals:10,gas:0};assert.equal(w.build('barracks'),false);assert.equal(w.queue('marine'),false);assert.deepEqual(w.wallet,{minerals:10,gas:0});});
 test('production immediately debits each queued job once',()=>{const w=world();assert.ok(w.build('barracks'));w.buildings.get('barracks')!.remaining=0;const before=w.wallet.minerals;assert.ok(w.queue('marine'));assert.ok(w.queue('marine'));assert.equal(w.wallet.minerals,before-100);assert.equal(w.buildings.get('barracks')!.queue.length,2);});
-test('one production completion emits one pod and never directly adds a soldier',()=>{const w=world();w.build('barracks');w.buildings.get('barracks')!.remaining=0;w.queue('marine');const count=w.allies().length;w.updateProduction(SC2_UNITS.marine.productionTime);assert.equal(w.pods.length,1);assert.equal(w.allies().length,count);w.updateProduction(1);assert.equal(w.pods.length,1);assert.equal(w.pods[0].guardianIds.size,22);});
+test('one production completion emits one pod and never directly adds a soldier',()=>{const w=world();w.build('barracks');w.buildings.get('barracks')!.remaining=0;w.queue('marine');const count=w.allies().length;w.updateProduction(SC2_UNITS.marine.productionTime);assert.equal(w.pods.length,1);assert.equal(w.allies().length,count);w.updateProduction(1);assert.equal(w.pods.length,1);assert.equal(w.pods[0].guardianIds.size,2);});
 test('two queued jobs produce two distinct rescue events',()=>{const w=world();w.build('barracks');w.buildings.get('barracks')!.remaining=0;w.queue('marine');w.queue('marine');w.updateProduction(20);w.updateProduction(20);assert.equal(w.pods.length,2);assert.notEqual(w.pods[0].jobId,w.pods[1].jobId);});
 test('pod deadline begins on landing with no activation',()=>{const w=world();w.time=10;const p=w.spawnPod('marine',{x:40,z:40});assert.equal(p.expiresAt,40);w.time=40;w.updatePods();assert.equal(p.status,'expired');assert.equal(w.stats.failed,1);assert.equal(w.allies().length,1);});
 test('destroyed pod fails without refund or reinforcement',()=>{const w=world();const p=w.spawnPod('marine',{x:40,z:40});const before={...w.wallet};p.hp=0;w.updatePods();assert.equal(p.status,'destroyed');assert.deepEqual(w.wallet,before);assert.equal(w.allies().length,1);});
@@ -52,7 +52,7 @@ test('fallback pool permits a changed draw with deterministic RNG',()=>{const w=
 test('Stim consumes HP without killing a Marine at ten HP',()=>{const w=world(['marine','marine']);w.upgrades.set('stim',1);const [a,b]=w.allies();a.hp=10;assert.ok(w.stim());assert.equal(a.hp,10);assert.equal(b.hp,35);assert.equal(b.stimUntil,11);});
 test('a firing vehicle completes its turn instead of cancelling against formation steering',()=>{const w=world(['hellion']);const h=w.allies()[0];h.facing=-Math.PI/2;const e=w.addUnit('roach','zerg',3,0);e.moveSpeed=0;e.weaponDamage=0;w.advance(2);assert.ok(e.hp<145);});
 test('Medivac seeks an injured biological ally beyond current heal range',()=>{const w=world(['marine','medivac']);const [m,h]=w.allies();m.hp=10;m.x=5;m.moveSpeed=0;h.x=-5;h.z=0;w.hash.rebuild(w.entities.values());const patient=w.heal(h,1/60);assert.equal(patient?.id,m.id);assert.equal(m.hp,10);w.advance(1);assert.ok(h.x>-4);});
-test('stage one teaches a coherent approach; stage two introduces opposing waves',()=>{const w=world();w.spawnWave();let enemies=[...w.entities.values()].filter(u=>u.owner==='zerg');assert.ok(enemies.every(e=>e.x>20));w.entities.clear();w.stage=2;w.spawnWave();enemies=[...w.entities.values()].filter(u=>u.owner==='zerg');assert.ok(enemies.some(e=>e.x>20)&&enemies.some(e=>e.x< -20));});
+test('stage one teaches a coherent approach; stage two introduces opposing waves',()=>{const w=world();w.spawnWave();let enemies=[...w.entities.values()].filter(u=>u.owner==='zerg');assert.ok(enemies.every(e=>e.x>20));w.entities.clear();w.addUnit('marine','terran',0,0);w.addUnit('marine','terran',0,1);w.stage=2;w.spawnWave();enemies=[...w.entities.values()].filter(u=>u.owner==='zerg');assert.ok(enemies.some(e=>e.x>20)&&enemies.some(e=>e.x< -20));});
 test('Tank formation goal leaves room behind the infantry firing line',()=>{const w=world(['marine','tank']);const [m,t]=w.allies();assert.ok(w.moveGoal(m).x-w.moveGoal(t).x>5);});
 test('new recruits reuse vacant slots without reordering surviving soldiers',()=>{const w=world(['marine','marine','marine']);const [a,b,c]=w.allies();w.hit(b,1000);const next=w.reinforce('marine',{x:3,z:3});assert.equal(next.slot,1);assert.equal(a.slot,0);assert.equal(c.slot,2);});
 
@@ -71,3 +71,24 @@ test('hard leash prioritizes return but preserves close self-defense',()=>{const
 test('cached corner routing preserves collision and gets a soldier around a wall',()=>{const w=new World({waves:false,initial:['marine'],obstacles:[{x:4,z:0,w:2,h:8}]});w.start();const m=w.allies()[0];w.anchor.x=12;w.trail=[{x:12,z:0}];for(let i=0;i<600;i++){w.step();assert.ok(!(Math.abs(m.x-4)<1+m.unitRadius&&Math.abs(m.z)<4+m.unitRadius));}assert.ok(m.x>7);});
 
 test('rescue guardians spawn outside adjacent solid terrain',()=>{const w=new World({waves:false,initial:[],obstacles:[{x:4,z:0,w:2,h:20}]});const pod=w.spawnPod('marine',{x:0,z:0});for(const id of pod.guardianIds){const e=w.entities.get(id)!;assert.equal(blocked(e,e.unitRadius,w.obstacles),false);}});
+
+test('single-Marine tutorial gives two separate encounters on simulation time; pause adds no wave debt',()=>{
+ const w=new World();w.start();
+ // Isolate scheduling from combat outcomes; this is not a survival or balance test.
+ w.updateUnit=()=>{};const events:{at:number;count:number}[]=[],spawn=w.spawnWave.bind(w);
+ w.spawnWave=()=>{const before=w.enemyCount();spawn();events.push({at:w.time,count:w.enemyCount()-before});};
+ w.advance(7);assert.equal(w.enemyCount(),0);w.paused=true;w.advance(20);assert.equal(w.time,7);w.paused=false;w.advance(53);
+ assert.deepEqual(events,[{at:12,count:1},{at:38,count:1}]);assert.equal(w.phase,'reward');assert.equal(w.enemyCount(),2);
+ const before=w.wave;w.advance(20);assert.equal(w.wave,before);assert.ok(w.choose(w.rewards[0].id));assert.equal(w.stageWave,0);w.advance(10);assert.equal(w.stageWave,1);assert.equal(w.enemyCount(),3);
+});
+
+test('early rescue has two Zerglings and stronger squads receive larger fixed guardian groups',()=>{
+ const small=world(),p=small.spawnPod('marine',{x:30,z:0});assert.equal(p.guardianIds.size,2);assert.ok([...p.guardianIds].every(id=>small.entities.get(id)!.unitType==='zergling'));
+ const large=world(Array.from({length:5},()=>['marine','hellion','tank','medivac']).flat());large.stage=10;const q=large.spawnPod('marine',{x:30,z:0});
+ const types=[...q.guardianIds].map(id=>large.entities.get(id)!.unitType);assert.equal(types.filter(t=>t==='zergling').length,40);assert.equal(types.filter(t=>t==='roach').length,2);assert.equal(types.filter(t=>t==='baneling').length,2);assert.equal(types.filter(t=>t==='ravager').length,2);
+ for(const u of large.allies())u.hp=0;large.updatePods();assert.equal(q.guardianIds.size,46,'landing composition does not shrink when soldiers die');
+});
+test('ambient pressure grows with the squad and still introduces the current stage enemy mix',()=>{
+ const w=world();w.stage=4;for(let i=0;i<4;i++)w.spawnWave();let enemies=[...w.entities.values()].filter(u=>u.owner==='zerg');assert.equal(enemies.length,4);assert.ok(enemies.some(u=>u.unitType==='roach'));
+ const strong=world(Array.from({length:5},()=>['marine','hellion','tank','medivac']).flat());strong.stage=11;strong.spawnWave();assert.equal(strong.enemyCount(),32);
+});
