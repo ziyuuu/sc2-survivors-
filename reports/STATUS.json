@@ -1142,5 +1142,35 @@
       }
     ],
     "errors": []
+  },
+  "designAlignment": {
+    "updatedAt": "2026-09-21T04:02:21.703Z",
+    "confirmedRules": "docs/DESIGN.md",
+    "balanceProposal": "docs/BALANCE_12_STAGES.md",
+    "state": "review-ready; new rules not migrated into runtime; old standalone unchanged",
+    "superseded": [
+      "manual battle production",
+      "30-second rescue expiry",
+      "free stage-scheduled pods"
+    ],
+    "study": {
+      "command": "node --import tsx tools/balance-study.mts",
+      "duels": 448,
+      "podDestructionFixtures": 12,
+      "representativeFights": 48,
+      "rescueApproaches": 96,
+      "budgetSeeds": 300,
+      "assertions": "passed",
+      "output": "reports/balance/study.json",
+      "integratedTwelveStagePlaythrough": false
+    },
+    "regression": {
+      "command": "npm test",
+      "passed": 129,
+      "failed": 0,
+      "log": "reports/local/balance/npm-test.log",
+      "typecheck": "passed"
+    },
+    "pendingAssetWork": "Original DropPodFalling converted locally; renderer integration, door clip verification and Marine attack/effect fixes still pending. Asset importer edits not included in this design commit."
   }
 }
