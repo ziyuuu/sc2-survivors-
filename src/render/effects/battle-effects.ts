@@ -37,14 +37,14 @@ export class BattleEffects {
   else if(e.kind==='pod-destroy')this.burst(e,'fx.blast.3',5,2.2,0xffffff,1);
   else if(e.kind==='egg-expired'||e.kind==='drone-death')this.burst(e,'fx.blood.0',3,1,0x9cbd66,.65);
   else if(e.kind==='attack'){this.stats.attack++;if(e.unitType==='zergling'||e.unitType==='baneling')return;const muzzle={...e,...(mount??{x:e.x+Math.sin(e.facing)*.6,y:.8,z:e.z+Math.cos(e.facing)*.6})};
-   if(e.unitType==='hellion'){for(let i=0;i<10;i++){const t=(i+1)/10;this.emit({asset:'fx.flameimpact.0',x:e.x+(e.end.x-e.x)*t,y:.65,z:e.z+(e.end.z-e.z)*t,vx:Math.sin(e.facing)*1.5,vy:.15,vz:Math.cos(e.facing)*1.5,start:e.time+t*.08,life:.3,size:.55+t*.35,growth:1,color:0xffa354,ground:false,angle:e.facing});}}
-   else if(e.unitType==='marine'||e.unitType==='tank'){this.burst(muzzle,e.unitType==='marine'?'fx.muzzle.1':'fx.blast.6',1,e.unitType==='marine'?.4:.9,0xffd491,.1);if(e.unitType==='tank')this.burst({...e,...e.end},'fx.blast.3',3,e.siege?2.2:1.1,0xffffff,.55);}
-   else this.burst({...e,...e.end},e.unitType==='ravager'?'fx.bile.0':'fx.acid.0',2,.6,e.unitType==='ravager'?0xffa76a:0x99d56e,.4);
+   if(e.unitType==='hellion'){for(let i=0;i<10;i++){const t=(i+1)/10;this.emit({asset:'fx.flameimpact.0',x:e.x+(e.end.x-e.x)*t,y:e.y+.05,z:e.z+(e.end.z-e.z)*t,vx:Math.sin(e.facing)*1.5,vy:.15,vz:Math.cos(e.facing)*1.5,start:e.time+t*.08,life:.3,size:.55+t*.35,growth:1,color:0xffa354,ground:false,angle:e.facing});}}
+   else if(e.unitType==='marine'||e.unitType==='tank'){this.burst(muzzle,e.unitType==='marine'?'fx.muzzle.1':'fx.blast.6',1,e.unitType==='marine'?.4:.9,0xffd491,.1);if(e.unitType==='tank')this.burst({...e,...e.end,y:e.endY},'fx.blast.3',3,e.siege?2.2:1.1,0xffffff,.55);}
+   else this.burst({...e,...e.end,y:e.endY},e.unitType==='ravager'?'fx.bile.0':'fx.acid.0',2,.6,e.unitType==='ravager'?0xffa76a:0x99d56e,.4);
   }
  }
  render(w:World,camera:THREE.Camera,visible:(p:Point)=>boolean,muzzle:(e:VisualEvent)=>{x:number;y:number;z:number}|null=()=>null){
   for(const e of w.visualEvents){if(e.serial<=this.lastSerial)continue;this.lastSerial=e.serial;if(visible(e)&&w.time-e.time<1.5)this.event(e,muzzle(e));}
-  for(const u of w.entities.values()){if(u.hp<=0||u.flying||!visible(u))continue;const last=this.steps.get(u.id)??u.distanceWalked;if(u.distanceWalked-last>.7){this.stats.movement++;this.steps.set(u.id,u.distanceWalked);this.emit({asset:'fx.impact.1',x:u.x,y:.13,z:u.z,vx:-u.velocity.x*.12,vy:.2,vz:-u.velocity.z*.12,start:w.time,life:.5,size:u.unitType==='tank'?.8:.3,growth:.7,color:0x77726a,ground:false,angle:u.facing});}else if(!this.steps.has(u.id))this.steps.set(u.id,last);}
+  for(const u of w.entities.values()){if(u.hp<=0||u.flying||!visible(u))continue;const last=this.steps.get(u.id)??u.distanceWalked;if(u.distanceWalked-last>.7){this.stats.movement++;this.steps.set(u.id,u.distanceWalked);this.emit({asset:'fx.impact.1',x:u.x,y:(w.terrain?.height(u)??0)+.13,z:u.z,vx:-u.velocity.x*.12,vy:.2,vz:-u.velocity.z*.12,start:w.time,life:.5,size:u.unitType==='tank'?.8:.3,growth:.7,color:0x77726a,ground:false,angle:u.facing});}else if(!this.steps.has(u.id))this.steps.set(u.id,last);}
   for(const id of this.steps.keys())if(!w.entities.has(id))this.steps.delete(id);
   for(const b of this.batches.values())b.count=0;
   let kept=0;for(const p of this.particles){const age=w.time-p.start,t=age/p.life;if(t>=1){this.pool.push(p);continue;}this.particles[kept++]=p;if(t<0||!visible(p))continue;const b=this.batches.get(p.asset)!;if(b.count>=CAPACITY)continue;

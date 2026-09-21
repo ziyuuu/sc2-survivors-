@@ -18,5 +18,5 @@ export interface Building {id:number;type:BuildingType;remaining:number;queue:Jo
 export interface Effect extends Point {id:number;kind:'shot'|'flame'|'explosion'|'bile'|'heal';end:Point;until:number;radius:number;owner:'terran'|'zerg';source:number}
 export interface Pickup extends Point {id:number;minerals:number;gas:number}
 /** Presentation never consumes gameplay IDs or random numbers. */
-export interface VisualEvent extends Point {serial:number;time:number;kind:'attack'|'hit'|'death'|'bile-impact'|'pod-land'|'pod-open'|'pod-destroy'|'scv-rescue'|'egg-expired'|'drone-death';unitType:UnitType|null;entityId:number;flying:boolean;end:Point;facing:number;siege:boolean}
+export interface VisualEvent extends Point {serial:number;time:number;y:number;endY:number;kind:'attack'|'hit'|'death'|'bile-impact'|'pod-land'|'pod-open'|'pod-destroy'|'scv-rescue'|'egg-expired'|'drone-death';unitType:UnitType|null;entityId:number;flying:boolean;end:Point;facing:number;siege:boolean}
 export interface Reward {id:string;name:string;description:string;icon:string;kind:'build'|'train'|'tech'|'economy';value:string;minerals:number;gas:number;discount:number;baseMinerals:number;baseGas:number}

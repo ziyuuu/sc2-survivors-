@@ -13,7 +13,7 @@ export class PodView {
   model.scale.setScalar(scale);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);this.root.add(model);scene.add(this.root);
   model.traverse(n=>{if(n instanceof THREE.Mesh)n.frustumCulled=false;if(/DropPod_Door/i.test(n.name))this.doors.push({node:n,base:n.quaternion.clone()});});
  }
- update(p:Pod,time:number,visible:boolean){this.root.position.set(p.x,0,p.z);const age=time-(p.resolvedAt??time);
+ update(p:Pod,time:number,visible:boolean,groundY=0){this.root.position.set(p.x,groundY,p.z);const age=time-(p.resolvedAt??time);
   this.root.visible=visible&&(!['rescued','destroyed'].includes(p.status)||age<7);if(!this.root.visible)return;
   for(const d of this.doors)d.node.quaternion.copy(d.base);
   const name=p.status==='falling'?'birth':p.status==='destroyed'?'death':'stand';

@@ -1,4 +1,6 @@
 /** Local-only M3 -> animated GLB / DDS -> PNG. No image upload or archive download. */
+import {replacedBySelection} from './asset-selection.mjs';
+import {fetchBinary} from './fetch-binary.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -19,8 +21,7 @@ const sha=b=>createHash('sha256').update(b).digest('hex');
 for(const dir of [toolDir,privateDir,'assets/private/dds','public/assets/animated','public/assets/effects'])await fs.mkdir(dir,{recursive:true});
 async function get(url,file,validate){
  let bytes;try{bytes=await fs.readFile(file);validate(bytes);return bytes;}catch{}
- const r=await fetch(url,{signal:AbortSignal.timeout(45000)});if(!r.ok)throw Error(`HTTP ${r.status}: ${url}`);
- bytes=Buffer.from(await r.arrayBuffer());validate(bytes);await fs.writeFile(file+'.part',bytes);await fs.rename(file+'.part',file);return bytes;
+ bytes=await fetchBinary(url);validate(bytes);await fs.writeFile(file+'.part',bytes);await fs.rename(file+'.part',file);return bytes;
 }
 // Download only audited source files at a pinned revision; never execute package install scripts.
 for(const file of ['src/m3-loader.js','src/structures.xml','LICENSE']){
@@ -31,7 +32,7 @@ for(const file of ['src/m3-loader.js','src/structures.xml','LICENSE']){
 const parser=await import(pathToFileURL(path.resolve(toolDir,'m3-loader.js')).href);
 const selected=new Set(process.argv.slice(2)),matches=id=>!selected.size||selected.has(id);
 let previous={manifest:[],failures:[]};if(selected.size){try{previous=JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8'));}catch{}}
-const manifest=previous.manifest.filter(a=>![...selected].some(id=>a.id===id||a.id.startsWith(id+'.'))),failures=previous.failures.filter(a=>![...selected].some(id=>a.id===id||a.id.startsWith(id+'.')));
+const manifest=previous.manifest.filter(a=>!replacedBySelection(a.id,selected)),failures=previous.failures.filter(a=>!replacedBySelection(a.id,selected));
 function checkM3(b){if(b.length<24||!['43DM','33DM'].includes(b.subarray(0,4).toString()))throw Error('Invalid M3 magic/header');const index=b.readUInt32LE(4),count=b.readUInt32LE(8);if(index>=b.length||count===0||index+count*16>b.length)throw Error('Invalid M3 section table');}
 async function m3(name){const file=`${privateDir}/${name}.m3`,url=provider+`models/${name}.m3`;const bytes=await get(url,file,checkM3);return {sections:await parser.loadM3FromFile(file),source:url,sourceSha256:sha(bytes)};}
 const textureCache=new Map();
@@ -45,6 +46,8 @@ async function png(name,options={}){
 function unpack(b){const j=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)));const o=20+b.readUInt32LE(12);return {j,bin:b.subarray(o+8,o+8+b.readUInt32LE(o))};}
 function pack(j,bin){const str=Buffer.from(JSON.stringify(j));const json=Buffer.alloc(Math.ceil(str.length/4)*4,32);str.copy(json);const padded=Buffer.alloc(Math.ceil(bin.length/4)*4);bin.copy(padded);const b=Buffer.alloc(28+json.length+padded.length);b.write('glTF');b.writeUInt32LE(2,4);b.writeUInt32LE(b.length,8);b.writeUInt32LE(json.length,12);b.writeUInt32LE(0x4e4f534a,16);json.copy(b,20);b.writeUInt32LE(padded.length,20+json.length);b.writeUInt32LE(0x004e4942,24+json.length);padded.copy(b,28+json.length);return b;}
 const modelDefinitions=new Map();
+await fs.mkdir('.cache/sc2-data',{recursive:true});
+for(const layer of ['liberty','swarm','void'])await get('https://raw.githubusercontent.com/Joshua-Leibold/SC2Data/fbbd6429b1eb6978c78a092dc68ba09029d03171/mods/'+layer+'.sc2mod/base.sc2data/gamedata/modeldata.xml','.cache/sc2-data/'+layer+'-modeldata.xml',b=>{if(!b.toString().includes('<Catalog'))throw Error('Invalid ModelData XML');});
 for(const layer of ['liberty','swarm','void']){try{const doc=new DOMParser().parseFromString(await fs.readFile('.cache/sc2-data/'+layer+'-modeldata.xml','utf8'),'text/xml');for(const n of Array.from(doc.getElementsByTagName('CModel'))){const id=n.getAttribute('id');if(!id)continue;const prev=modelDefinitions.get(id)??{};const scale=Array.from(n.childNodes).find(n=>n.nodeName==='ScaleMin')?.getAttribute('value');modelDefinitions.set(id,{parent:n.getAttribute('parent')||prev.parent,scale:scale?Number(scale.split(',')[0]):prev.scale});}}catch{}}
 function sourceScale(id){const names={marine:'Marine',hellion:'Hellion',tank:'SiegeTank',medivac:'Medivac',zergling:'Zergling',roach:'Roach',baneling:'Baneling',ravager:'Ravager',scv:'SCV',drone:'Drone'};let name=names[id.replace('model.','').split('.')[0]];for(let n=0;name&&n<12;n++){const d=modelDefinitions.get(name);if(!d)break;if(d.scale>0)return d.scale;name=d.parent;}return name?1:undefined;}
 async function layerPixels(layer,normal=false){const name=layer.filename.toLowerCase(),file='assets/private/dds/'+name;const bytes=await get(provider+'textures/'+encodeURIComponent(name),file,b=>{if(b.length<128||b.subarray(0,4).toString()!=='DDS ')throw Error('Invalid DDS '+name);});return convertMaterialPixels(decodeDds(bytes),{normal,channel:normal?0:layer.channel});}
