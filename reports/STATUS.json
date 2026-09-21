@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-09-21T15:06:53.404142+00:00",
+  "checkedAt": "2026-09-21T15:29:31.801718+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "0a40016f7605cd497c2e9cac92701ef15577e852",
+  "runtimeCommit": "0e43fad8d1dd1639434d1a3fec171986045a5e27",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
   "scope": "Original Kairos 1v1 map with twelve connected expanding sectors; original resource pickups; early worker-oriented encounters; multi-buy rewards and +40 rerolls; PC standard/custom Gamepad controls. Existing independent combat, collision, economy and manual siege preserved.",
   "tests": {
@@ -21,9 +21,9 @@
     "command": "npm run build",
     "exitCode": 0,
     "path": "dist/SC2-Survivors-Demo.html",
-    "bytes": 176509423,
-    "miB": 168.33250331878662,
-    "sha256": "56c77aa55a436bd464f3c454bcee78d28cf67b5ced65baa0d32d841fde641b81",
+    "bytes": 176509513,
+    "miB": 168.3325891494751,
+    "sha256": "8676eebe82cb30bc62d542542094aab823d4ec3baa514927bea37ae7ddd13d4f",
     "embeddedAssets": 581,
     "largeChunkWarning": true
   },
@@ -58,7 +58,11 @@
     "stages": 12,
     "placementScalePreserved": true,
     "crossMapMixedSquadRoute": "reports/qa/v9-map-routes.json",
-    "renderAdaptations": "docs/MAP_PIPELINE.md"
+    "renderAdaptations": "docs/MAP_PIPELINE.md",
+    "expandedCliffPickingBounds": {
+      "checked": 97,
+      "stale": 0
+    }
   },
   "offline": {
     "scheme": "file://",
@@ -93,7 +97,8 @@
     "evidence": [
       "reports/qa/v9-gamepad.json",
       "reports/qa/v9-gamepad-calibration.json"
-    ]
+    ],
+    "heldStickKeyboardTakeoverPassed": true
   },
   "touch": {
     "method": "Desktop Chrome/CDP touch emulation only",
@@ -115,7 +120,7 @@
     "evidence": "reports/qa/v9-controls.json"
   },
   "desktopPerformance": {
-    "at": "2026-09-21T15:02:59.075Z",
+    "at": "2026-09-21T15:26:19.688Z",
     "method": "Desktop Chrome 1440x900, DPR 1, no CPU throttling, balanced quality, diagnostic 25 friendly / 300 enemy entities. Not physical phone or campaign.",
     "runs": [
       {
@@ -157,41 +162,41 @@
         },
         "effectTextures": 33,
         "effects": {
-          "attack": 1569,
-          "hit": 1767,
+          "attack": 1592,
+          "hit": 1782,
           "death": 27,
-          "movement": 2953,
+          "movement": 2769,
           "bile": 0,
-          "active": 165,
+          "active": 158,
           "dropped": 0
         },
         "textures": 15,
-        "fps": 49.999999999999986,
-        "drawCalls": 320,
+        "fps": 45.002812675791986,
+        "drawCalls": 317,
         "triangles": 576623,
         "entities": 325,
-        "maxStretch": 7.14816698299308,
-        "spatialVisits": 26225,
-        "collisionContacts": 1083,
+        "maxStretch": 7.094860793145043,
+        "spatialVisits": 26358,
+        "collisionContacts": 1040,
         "phase": "battle",
         "stage": 10,
-        "time": 17.216666666666665,
+        "time": 17.15,
         "stats": {
           "kills": 0,
           "rescued": 0,
           "failed": 0,
           "produced": 0,
           "started": 1,
-          "shots": 1569,
-          "healed": 386.7799999941843,
-          "damage": 5146,
+          "shots": 1592,
+          "healed": 393.979999992666,
+          "damage": 4899.5,
           "scvsRescued": 0,
           "scvsLost": 0,
           "dronesKilled": 0,
           "ambientSpawned": 0
         },
         "assetsReady": true,
-        "simulationBacklogSeconds": 0.016633333333356762,
+        "simulationBacklogSeconds": 0.23340000000004674,
         "audio": {
           "originalDecoded": 10,
           "decoded": [
@@ -276,16 +281,16 @@
           ],
           "errors": [],
           "played": {
-            "sc2.ravager.attack": 32,
-            "sc2.medivac.heal": 148,
-            "sc2.marine.attack": 31,
-            "sc2.roach.attack": 25,
-            "blast": 6,
-            "sc2.zergling.attack": 49,
-            "sc2.hellion.attack": 5,
-            "sc2.tank.siege": 4
+            "sc2.marine.attack": 22,
+            "sc2.hellion.attack": 15,
+            "sc2.roach.attack": 20,
+            "blast": 2,
+            "sc2.medivac.heal": 98,
+            "sc2.ravager.attack": 23,
+            "sc2.zergling.attack": 54,
+            "sc2.tank.siege": 2
           },
-          "activeHealers": 3
+          "activeHealers": 2
         },
         "gamepad": {
           "active": false,
@@ -298,13 +303,14 @@
         "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
         "width": 1440,
         "height": 900,
-        "samples": 546,
-        "averageFps": 45.31195538515162,
-        "p95": 33.39999999999782,
-        "simulationSeconds": 14.016666666666666
+        "samples": 464,
+        "averageFps": 38.612609014047,
+        "p95": 33.5,
+        "simulationSeconds": 13.266666666666666
       }
     ],
-    "errors": []
+    "errors": [],
+    "runtimeCommit": "0e43fad8d1dd1639434d1a3fec171986045a5e27"
   },
   "phone": {
     "newPhysicalTest": false,
@@ -342,7 +348,7 @@
     "interpretation": "The old keyboard policy lost at 62.38 seconds. This is not a Normal balance criterion or a completed stage. No balance safety net was added. Intermission UI was tested independently using explicit fixtures."
   },
   "knownLimitations": [
-    "Physical gamepad not available; Gamepad API and custom calibration tested with synthetic device snapshots.",
+    "Physical gamepad was not tested; Gamepad API and custom calibration tested with synthetic device snapshots.",
     "Original map layout/assets are imported; not a pixel-identical SC2 renderer. Static foliage poses, adapted lighting, inactive creep overlay, simplified unknown footprints.",
     "No original-client per-cell pathing comparison or human visual/listening approval.",
     "No complete human 48-minute campaign validation; prior keyboard opening policy failed and is recorded, not hidden.",

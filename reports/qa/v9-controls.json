@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-21T14:56:57.344Z",
+  "at": "2026-09-21T15:20:55.113Z",
   "method": "Actual mouse/right-click and CDP touch events in desktop Chrome. Explicit isolated fixtures verify input, targeting and routing, not balance or an automated playthrough. Mobile sizes are emulation, not a physical phone. Images remain local; no human visual approval.",
   "desktop": {
     "move": {
@@ -18,7 +18,7 @@
       "order": {
         "kind": "focus",
         "targetId": 4,
-        "issuedAt": 2.3
+        "issuedAt": 2.6166666666666667
       },
       "unitTarget": 4,
       "anchor": {
@@ -31,13 +31,17 @@
     "deadTargetCleared": true,
     "plateau": {
       "pixel": {
-        "x": 1007.975960661423,
-        "y": 564.3875279486803
+        "x": 1007.9733951459002,
+        "y": 564.3875279486847
       },
       "point": {
-        "x": 7.999999763528186,
-        "z": 3.986234671655776
+        "x": 7.9998656159157004,
+        "z": 3.9862346716554207
       }
+    },
+    "expandedCliffBounds": {
+      "checked": 97,
+      "stale": 0
     }
   },
   "touch": [
@@ -139,16 +143,16 @@
         "dropped": 0
       },
       "textures": 15,
-      "fps": 35.978412952228716,
+      "fps": 48,
       "drawCalls": 183,
       "triangles": 156820,
       "entities": 1,
-      "maxStretch": 1.530525305937893,
+      "maxStretch": 1.276282276324529,
       "spatialVisits": 3,
       "collisionContacts": 0,
       "phase": "battle",
       "stage": 1,
-      "time": 0.7666666666666666,
+      "time": 0.5166666666666666,
       "stats": {
         "kills": 0,
         "rescued": 0,
@@ -164,9 +168,9 @@
         "ambientSpawned": 0
       },
       "assetsReady": true,
-      "simulationBacklogSeconds": 0.0005333333333341558,
+      "simulationBacklogSeconds": 3.333333333410335e-05,
       "audio": {
-        "originalDecoded": 7,
+        "originalDecoded": 10,
         "decoded": [
           {
             "id": "shot",
@@ -225,6 +229,24 @@
           {
             "id": "sc2.zergling.attack",
             "duration": 0.7786666666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.roach.attack",
+            "duration": 1.46575,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.ravager.attack",
+            "duration": 1.1467708333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.death",
+            "duration": 1.0077083333333334,
             "channels": 1,
             "sampleRate": 48000
           }

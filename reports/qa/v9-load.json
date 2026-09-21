@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-21T15:02:59.075Z",
+  "at": "2026-09-21T15:26:19.688Z",
   "method": "Desktop Chrome 1440x900, DPR 1, no CPU throttling, balanced quality, diagnostic 25 friendly / 300 enemy entities. Not physical phone or campaign.",
   "runs": [
     {
@@ -41,41 +41,41 @@
       },
       "effectTextures": 33,
       "effects": {
-        "attack": 1569,
-        "hit": 1767,
+        "attack": 1592,
+        "hit": 1782,
         "death": 27,
-        "movement": 2953,
+        "movement": 2769,
         "bile": 0,
-        "active": 165,
+        "active": 158,
         "dropped": 0
       },
       "textures": 15,
-      "fps": 49.999999999999986,
-      "drawCalls": 320,
+      "fps": 45.002812675791986,
+      "drawCalls": 317,
       "triangles": 576623,
       "entities": 325,
-      "maxStretch": 7.14816698299308,
-      "spatialVisits": 26225,
-      "collisionContacts": 1083,
+      "maxStretch": 7.094860793145043,
+      "spatialVisits": 26358,
+      "collisionContacts": 1040,
       "phase": "battle",
       "stage": 10,
-      "time": 17.216666666666665,
+      "time": 17.15,
       "stats": {
         "kills": 0,
         "rescued": 0,
         "failed": 0,
         "produced": 0,
         "started": 1,
-        "shots": 1569,
-        "healed": 386.7799999941843,
-        "damage": 5146,
+        "shots": 1592,
+        "healed": 393.979999992666,
+        "damage": 4899.5,
         "scvsRescued": 0,
         "scvsLost": 0,
         "dronesKilled": 0,
         "ambientSpawned": 0
       },
       "assetsReady": true,
-      "simulationBacklogSeconds": 0.016633333333356762,
+      "simulationBacklogSeconds": 0.23340000000004674,
       "audio": {
         "originalDecoded": 10,
         "decoded": [
@@ -160,16 +160,16 @@
         ],
         "errors": [],
         "played": {
-          "sc2.ravager.attack": 32,
-          "sc2.medivac.heal": 148,
-          "sc2.marine.attack": 31,
-          "sc2.roach.attack": 25,
-          "blast": 6,
-          "sc2.zergling.attack": 49,
-          "sc2.hellion.attack": 5,
-          "sc2.tank.siege": 4
+          "sc2.marine.attack": 22,
+          "sc2.hellion.attack": 15,
+          "sc2.roach.attack": 20,
+          "blast": 2,
+          "sc2.medivac.heal": 98,
+          "sc2.ravager.attack": 23,
+          "sc2.zergling.attack": 54,
+          "sc2.tank.siege": 2
         },
-        "activeHealers": 3
+        "activeHealers": 2
       },
       "gamepad": {
         "active": false,
@@ -182,10 +182,10 @@
       "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
       "width": 1440,
       "height": 900,
-      "samples": 546,
-      "averageFps": 45.31195538515162,
-      "p95": 33.39999999999782,
-      "simulationSeconds": 14.016666666666666
+      "samples": 464,
+      "averageFps": 38.612609014047,
+      "p95": 33.5,
+      "simulationSeconds": 13.266666666666666
     }
   ],
   "errors": []

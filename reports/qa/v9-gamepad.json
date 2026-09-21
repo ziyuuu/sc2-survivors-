@@ -3,6 +3,7 @@
   "checks": [
     "controller-only deploy",
     "auto lock, trigger cycle, release-stick pursuit",
+    "keyboard takeover persists while old controller stick remains held",
     "purchase stays in round, sold disabled, focus survives reroll, B focuses Continue, cross-round cost 90",
     "disconnect pauses and clears movement",
     "reconnect neutral gating and explicit resume"
@@ -13,7 +14,7 @@
       "name": "Kairos Junction LE",
       "models": 292,
       "placements": 4956,
-      "visibleInstances": 675,
+      "visibleInstances": 676,
       "area": 1248.5,
       "scale": 1,
       "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
@@ -21,7 +22,7 @@
     "order": {
       "kind": "focus",
       "targetId": 3,
-      "issuedAt": 1.8
+      "issuedAt": 1.7833333333333332
     },
     "resolution": {
       "quality": "native",
@@ -51,34 +52,34 @@
     },
     "effectTextures": 33,
     "effects": {
-      "attack": 0,
-      "hit": 0,
+      "attack": 1,
+      "hit": 1,
       "death": 0,
-      "movement": 4,
+      "movement": 5,
       "bile": 0,
-      "active": 2,
+      "active": 4,
       "dropped": 0
     },
     "textures": 15,
-    "fps": 40.65040650406515,
-    "drawCalls": 226,
-    "triangles": 227123,
+    "fps": 50.32907471931841,
+    "drawCalls": 229,
+    "triangles": 228199,
     "entities": 3,
-    "maxStretch": 3.1945941051165754,
-    "spatialVisits": 10,
+    "maxStretch": 2.8295078205302793,
+    "spatialVisits": 6,
     "collisionContacts": 0,
     "phase": "battle",
     "stage": 2,
-    "time": 2.0833333333333335,
+    "time": 2.2333333333333334,
     "stats": {
       "kills": 0,
       "rescued": 0,
       "failed": 0,
       "produced": 0,
       "started": 1,
-      "shots": 0,
+      "shots": 1,
       "healed": 0,
-      "damage": 0,
+      "damage": 5,
       "scvsRescued": 0,
       "scvsLost": 0,
       "dronesKilled": 0,
@@ -169,7 +170,9 @@
         }
       ],
       "errors": [],
-      "played": {},
+      "played": {
+        "sc2.marine.attack": 1
+      },
       "activeHealers": 0
     },
     "gamepad": {
