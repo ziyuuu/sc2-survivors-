@@ -11,7 +11,7 @@ export class GamepadInput {
   document.addEventListener('click',e=>{if((e.target as HTMLElement).closest('[data-action="controller"]'))this.openCalibration();});
   this.dialog.addEventListener('click',e=>{if((e.target as HTMLElement).closest('button'))this.closeCalibration();});
  }
- direct(){if(!this.active)return;this.active=false;this.world.controllerCommand=false;this.world.input={x:0,z:0};this.world.cancelOrder();document.body.classList.remove('gamepad-active');}
+ direct(){if(!this.active)return;this.armed.clear();this.states.clear();this.active=false;this.world.controllerCommand=false;this.world.input={x:0,z:0};this.world.cancelOrder();document.body.classList.remove('gamepad-active');}
  private suspend(){if(!this.active)return;this.world.input={x:0,z:0};this.armed.clear();this.states.clear();this.active=false;this.index=null;this.world.controllerCommand=false;document.body.classList.remove('gamepad-active');if(this.world.phase==='battle'){this.world.paused=true;this.world.changed();}}
  private select(p:PadSnapshot){this.active=true;this.index=p.index;this.world.controllerCommand=true;this.onActive();document.body.classList.add('gamepad-active');}
  poll(now=performance.now(),pads:readonly (PadSnapshot|null)[]=navigator.getGamepads?.()??[]){const connected=pads.filter((p):p is PadSnapshot=>!!p&&p.connected);if(this.active&&!connected.some(p=>p.index===this.index)){this.suspend();this.index=null;return;}
