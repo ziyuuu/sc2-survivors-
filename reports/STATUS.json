@@ -1,902 +1,272 @@
 {
-  "checkedAt": "2026-09-21T08:29:48.615435+00:00",
+  "checkedAt": "2026-09-21T11:20:56.720396+00:00",
   "repository": "ziyuuu/sc2-survivors-",
-  "visibilityObserved": "public",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "c82c209a7636c14781b0bf6597e9ad8a80050ebb",
+  "runtimeCommit": "bf486d880e84fb146b46dd3208c6eafb92747d33",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "deliverable": "Original M3 material/animation repair, manual squad siege, five-rank progression, two paid reward rounds, repeated independent buildings, shared Char plateaus/ramps and bounded fixed-step catch-up. Existing Easy/Normal encounter and economy budgets unchanged.",
-  "baseline": {
-    "main": "607802c1bf3f0e881d163c8abed7f3ef82d97582",
-    "v2": "127aa39f95ad43452bdfe1ecf1b84279b4bb2da1",
-    "preserved": true
-  },
-  "unitTests": {
+  "scope": "Original 10 audio + 2 weapon sources, current-goal routing, per-Factory Tank tech lab, early small-wave pacing, protected next-order savings, vehicle braking/engagement and Char terrain readability. No new physical-phone test after latest feedback.",
+  "tests": {
     "command": "npm test",
-    "passed": 187,
+    "passed": 204,
     "failed": 0,
-    "log": "reports/local/repair-final-tests.txt"
+    "log": "reports/local/tests-v7-final.log"
+  },
+  "typecheck": {
+    "command": "npm run typecheck / tsc --noEmit during build",
+    "exitCode": 0
   },
   "build": {
     "command": "npm run build",
-    "observedExitCode": 0,
-    "standalone": "dist/SC2-Survivors-Demo.html",
-    "bytes": 77303318,
-    "miB": 73.72218894958496,
-    "sha256": "4126cf04c5462da8ffa47cbd472df5c69127e9129b8100a7674f60e554bda867",
-    "embeddedAssets": 89,
-    "largeChunkWarning": true,
-    "log": "reports/local/repair-final-build.txt"
+    "exitCode": 0,
+    "path": "dist/SC2-Survivors-Demo.html",
+    "bytes": 80866204,
+    "miB": 77.12002182006836,
+    "sha256": "0b37a884261f991915302107730a7eb8f27f4ed8b6a36b3f74f8231d6459b9ce",
+    "embeddedAssets": 102,
+    "largeChunkWarning": true
   },
   "assets": {
-    "manifestTotal": 99,
-    "available": 89,
-    "requiredMissing": 0,
-    "combatModelsLoaded": 8,
-    "combatModelTargets": 8,
+    "available": 102,
+    "manifestTotal": 102,
+    "requiredMissing": [],
+    "combatModels": 8,
     "originalAnimationModels": 8,
     "originalDeathModels": 8,
-    "economicModelsLoaded": 3,
-    "originalPodModelLoaded": true,
+    "economicModels": 3,
+    "podModel": true,
     "iconsDecoded": 23,
-    "iconTargets": 23,
-    "effectTexturesLoaded": 30,
-    "terrainTextures": 8,
-    "missingOriginalAudio": [
-      "audio.sc2.scv.ready",
-      "audio.sc2.marine.attack",
-      "audio.sc2.hellion.attack",
-      "audio.sc2.tank.attack",
-      "audio.sc2.tank.siege",
-      "audio.sc2.medivac.heal",
-      "audio.sc2.zergling.attack",
-      "audio.sc2.roach.attack",
-      "audio.sc2.ravager.attack",
-      "audio.sc2.marine.death"
-    ],
-    "proceduralAnimationModels": 0,
-    "independentRead": {
-      "models": 24,
-      "bones": 995,
-      "clips": 208,
-      "mismatches": 0
-    },
+    "effectTextures": 33,
+    "originalAudioDecoded": 10,
+    "originalWeaponSourceFiles": 2,
+    "missingRequestedOriginalSources": [],
     "humanVisualApproved": false,
-    "blenderRendered": false
+    "humanListeningApproved": false,
+    "sourceEvidence": "reports/qa/v6-original-sources.json",
+    "independentModelAuditUnchanged": "reports/qa/v5-model-audit.json"
   },
-  "qaSummary": "reports/qa/v5-summary.json",
-  "desktop": {
-    "firstStage": {
-      "resolution": {
-        "quality": "native",
-        "devicePixelRatio": 1,
-        "renderPixelRatio": 1,
+  "offline": {
+    "httpRequests": 0,
+    "models": 8,
+    "originalAudioDecoded": 10,
+    "debugMutationApi": false,
+    "network": "context offline; file URL"
+  },
+  "desktopPerformance": {
+    "at": "2026-09-21T11:17:59.866Z",
+    "method": "Desktop Chrome 1440x900, DPR 1, no CPU throttling, balanced quality, diagnostic 25 friendly / 300 enemy entities. Not physical phone or campaign.",
+    "runs": [
+      {
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 33,
+        "effects": {
+          "attack": 3001,
+          "hit": 3471,
+          "death": 87,
+          "movement": 9855,
+          "bile": 0,
+          "active": 513,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 57.976809276289394,
+        "drawCalls": 36,
+        "triangles": 266898,
+        "entities": 325,
+        "maxStretch": 6.8,
+        "spatialVisits": 38204,
+        "collisionContacts": 980,
+        "phase": "battle",
+        "stage": 10,
+        "time": 14.383333333333333,
+        "stats": {
+          "kills": 0,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 0,
+          "started": 1,
+          "shots": 3001,
+          "healed": 565.2799999929131,
+          "damage": 8884,
+          "scvsRescued": 0,
+          "scvsLost": 0,
+          "dronesKilled": 0,
+          "ambientSpawned": 0
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 3.0832666666667192,
+        "audio": {
+          "originalDecoded": 10,
+          "decoded": [
+            {
+              "id": "shot",
+              "duration": 0.08995833333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "blast",
+              "duration": 0.3499583333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "alert",
+              "duration": 0.44995833333333335,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.scv.ready",
+              "duration": 2.1729166666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.attack",
+              "duration": 1.3626875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.hellion.attack",
+              "duration": 2.6566875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.attack",
+              "duration": 0.8244791666666667,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.siege",
+              "duration": 1.9696041666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.medivac.heal",
+              "duration": 9.092270833333334,
+              "channels": 2,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.zergling.attack",
+              "duration": 0.7786666666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.roach.attack",
+              "duration": 1.46575,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.ravager.attack",
+              "duration": 1.1467708333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.death",
+              "duration": 1.0077083333333334,
+              "channels": 1,
+              "sampleRate": 48000
+            }
+          ],
+          "errors": [],
+          "played": {
+            "sc2.ravager.attack": 52,
+            "sc2.medivac.heal": 59,
+            "blast": 7,
+            "sc2.hellion.attack": 5,
+            "sc2.roach.attack": 23,
+            "sc2.zergling.attack": 53,
+            "sc2.marine.attack": 18
+          },
+          "activeHealers": 6
+        },
+        "friendly": 25,
+        "enemies": 300,
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
         "width": 1440,
         "height": 900,
-        "cssWidth": 1440,
-        "cssHeight": 900,
-        "antialias": true
-      },
-      "models": 8,
-      "economicModels": 3,
-      "podModel": true,
-      "errors": [],
-      "originalAnimationModels": 8,
-      "proceduralAnimationModels": 0,
-      "originalDeathModels": 8,
-      "animationAtlasBytes": 4707904,
-      "lodRatios": {
-        "zergling": 0.29555555555555557,
-        "roach": 0.44686192468619246,
-        "baneling": 0.29977246871444824,
-        "ravager": 0.29987531172069826
-      },
-      "effectTextures": 30,
-      "effects": {
-        "attack": 67,
-        "hit": 67,
-        "death": 11,
-        "movement": 329,
-        "bile": 0,
-        "active": 0,
-        "dropped": 0
-      },
-      "textures": 15,
-      "fps": 59.99999999999997,
-      "drawCalls": 13,
-      "triangles": 44268,
-      "entities": 4,
-      "maxStretch": 3.0067219902943134,
-      "spatialVisits": 32,
-      "collisionContacts": 0,
+        "samples": 685,
+        "averageFps": 57.08333333333334,
+        "p95": 33,
+        "simulationSeconds": 11.649999999999999
+      }
+    ],
+    "errors": []
+  },
+  "currentPhysicalPhone": {
+    "tested": false,
+    "reason": "User requested no further phone testing for latest revisions.",
+    "historicalEvidence": "reports/qa/v6-phone-summary.json"
+  },
+  "limitations": [
+    "Full SC2 particle/refraction/rendering pipeline and original font not reproduced.",
+    "Screenshots/playback are local; no human visual or listening approval.",
+    "No full manual 48-minute playthrough; automated success is not a Normal difficulty gate.",
+    "Desktop diagnostic load retains fixed ticks but accumulates simulation lag; frame rate alone is not simulation throughput.",
+    "Remaining historical source/animation variants are documented; requested 10 sounds and 2 effect sources are complete."
+  ],
+  "qaReport": "reports/qa/v7-summary.json",
+  "desktopOpening": {
+    "opening": {
       "phase": "reward",
-      "stage": 1,
       "time": 120,
+      "input": {
+        "x": 0,
+        "z": 0
+      },
       "stats": {
-        "kills": 11,
+        "kills": 18,
         "rescued": 3,
         "failed": 0,
-        "produced": 3,
+        "produced": 4,
         "started": 4,
-        "shots": 67,
+        "shots": 98,
         "healed": 0,
-        "damage": 362,
+        "damage": 518,
         "scvsRescued": 2,
         "scvsLost": 0,
         "dronesKilled": 2,
-        "ambientSpawned": 5
+        "ambientSpawned": 12
       },
-      "assetsReady": true,
-      "simulationBacklogSeconds": 0,
-      "input": "Actual keyboard events at normal speed; no health/resources/clock overrides. Automation chooses directions."
+      "wallet": {
+        "minerals": 112.8424999999964,
+        "gas": 77.55799999999849
+      },
+      "units": 4
     },
-    "reroll": true,
-    "skipped": true,
-    "reward": true,
-    "fixtures": {
-      "podFailure": "destroyed",
-      "scvRescue": "rescued",
-      "scvOnce": true,
-      "scvExpiry": "expired"
-    },
-    "icons": [
-      {
-        "id": "unit.marine",
-        "ok": true
-      },
-      {
-        "id": "unit.hellion",
-        "ok": true
-      },
-      {
-        "id": "unit.tank",
-        "ok": true
-      },
-      {
-        "id": "unit.medivac",
-        "ok": true
-      },
-      {
-        "id": "unit.zergling",
-        "ok": true
-      },
-      {
-        "id": "unit.roach",
-        "ok": true
-      },
-      {
-        "id": "unit.baneling",
-        "ok": true
-      },
-      {
-        "id": "unit.ravager",
-        "ok": true
-      },
-      {
-        "id": "building.barracks",
-        "ok": true
-      },
-      {
-        "id": "building.factory",
-        "ok": true
-      },
-      {
-        "id": "building.starport",
-        "ok": true
-      },
-      {
-        "id": "tech.stim",
-        "ok": true
-      },
-      {
-        "id": "tech.shield",
-        "ok": true
-      },
-      {
-        "id": "tech.infernal",
-        "ok": true
-      },
-      {
-        "id": "tech.heal",
-        "ok": true
-      },
-      {
-        "id": "tech.bile",
-        "ok": true
-      },
-      {
-        "id": "tech.attack",
-        "ok": true
-      },
-      {
-        "id": "tech.armor",
-        "ok": true
-      },
-      {
-        "id": "tech.vehicle",
-        "ok": true
-      },
-      {
-        "id": "tech.siege",
-        "ok": true
-      },
-      {
-        "id": "tech.boost",
-        "ok": true
-      },
-      {
-        "id": "ui.minerals",
-        "ok": true
-      },
-      {
-        "id": "ui.gas",
-        "ok": true
-      }
-    ]
-  },
-  "mobileEmulation": [
-    {
-      "viewport": {
-        "width": 390,
-        "height": 844
-      },
-      "multiTouch": true,
-      "releaseOutside": true,
-      "layout": {
-        "selection": "",
-        "scroll": [
-          0,
-          0
-        ],
-        "width": 390,
-        "viewport": 390,
-        "joystickStyle": "none",
-        "canvasStyle": "none"
-      },
-      "rewardLayout": {
-        "client": 844,
-        "scroll": 978,
-        "touchAction": "pan-y"
-      },
-      "performance": {
-        "resolution": {
-          "quality": "balanced",
-          "devicePixelRatio": 3,
-          "renderPixelRatio": 1.5,
-          "width": 585,
-          "height": 1266,
-          "cssWidth": 390,
-          "cssHeight": 844,
-          "antialias": true
-        },
-        "models": 8,
-        "economicModels": 3,
-        "podModel": true,
-        "errors": [],
-        "originalAnimationModels": 8,
-        "proceduralAnimationModels": 0,
-        "originalDeathModels": 8,
-        "animationAtlasBytes": 4707904,
-        "lodRatios": {
-          "zergling": 0.29555555555555557,
-          "roach": 0.44686192468619246,
-          "baneling": 0.29977246871444824,
-          "ravager": 0.29987531172069826
-        },
-        "effectTextures": 30,
-        "effects": {
-          "attack": 956,
-          "hit": 1140,
-          "death": 27,
-          "movement": 5152,
-          "bile": 0,
-          "active": 561,
-          "dropped": 0
-        },
-        "textures": 15,
-        "fps": 24,
-        "drawCalls": 39,
-        "triangles": 268766,
-        "entities": 332,
-        "maxStretch": 9.6657912600743,
-        "spatialVisits": 39253,
-        "collisionContacts": 816,
-        "phase": "battle",
-        "stage": 2,
-        "time": 7.066666666666666,
-        "stats": {
-          "kills": 0,
-          "rescued": 0,
-          "failed": 0,
-          "produced": 0,
-          "started": 1,
-          "shots": 956,
-          "healed": 149.68999999823203,
-          "damage": 4228.5,
-          "scvsRescued": 0,
-          "scvsLost": 0,
-          "dronesKilled": 0,
-          "ambientSpawned": 0
-        },
-        "assetsReady": true,
-        "simulationBacklogSeconds": 9.949966666666626,
-        "cpu": {
-          "step": 7504.0000000447035,
-          "steps": 364,
-          "render": 7646.700000047684,
-          "frames": 365
-        },
-        "deviceDpr": 3,
-        "renderDpr": 1.5,
-        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "sampleFrames": 240,
-        "averageFps": 24.742268041237114,
-        "p50FrameMs": 33.400000000001455,
-        "p95FrameMs": 50.19999999999709,
-        "friendly": 25,
-        "enemies": 300,
-        "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; six-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
-      }
-    },
-    {
-      "viewport": {
-        "width": 844,
-        "height": 390
-      },
-      "multiTouch": true,
-      "releaseOutside": true,
-      "layout": {
-        "selection": "",
-        "scroll": [
-          0,
-          0
-        ],
-        "width": 844,
-        "viewport": 844,
-        "joystickStyle": "none",
-        "canvasStyle": "none"
-      },
-      "rewardLayout": {
-        "client": 390,
-        "scroll": 482,
-        "touchAction": "pan-y"
-      },
-      "performance": {
-        "resolution": {
-          "quality": "balanced",
-          "devicePixelRatio": 3,
-          "renderPixelRatio": 1.5,
-          "width": 1266,
-          "height": 585,
-          "cssWidth": 844,
-          "cssHeight": 390,
-          "antialias": true
-        },
-        "models": 8,
-        "economicModels": 3,
-        "podModel": true,
-        "errors": [],
-        "originalAnimationModels": 8,
-        "proceduralAnimationModels": 0,
-        "originalDeathModels": 8,
-        "animationAtlasBytes": 4707904,
-        "lodRatios": {
-          "zergling": 0.29555555555555557,
-          "roach": 0.44686192468619246,
-          "baneling": 0.29977246871444824,
-          "ravager": 0.29987531172069826
-        },
-        "effectTextures": 30,
-        "effects": {
-          "attack": 1209,
-          "hit": 1438,
-          "death": 41,
-          "movement": 5853,
-          "bile": 0,
-          "active": 572,
-          "dropped": 0
-        },
-        "textures": 15,
-        "fps": 27.100271002710105,
-        "drawCalls": 39,
-        "triangles": 274472,
-        "entities": 339,
-        "maxStretch": 9.850085698051545,
-        "spatialVisits": 38256,
-        "collisionContacts": 831,
-        "phase": "battle",
-        "stage": 2,
-        "time": 8.15,
-        "stats": {
-          "kills": 0,
-          "rescued": 0,
-          "failed": 0,
-          "produced": 0,
-          "started": 1,
-          "shots": 1209,
-          "healed": 200.21999999770875,
-          "damage": 4990,
-          "scvsRescued": 0,
-          "scvsLost": 0,
-          "dronesKilled": 0,
-          "ambientSpawned": 0
-        },
-        "assetsReady": true,
-        "simulationBacklogSeconds": 8.783400000000002,
-        "cpu": {
-          "step": 8241.599999964237,
-          "steps": 435,
-          "render": 6844.500000104308,
-          "frames": 435
-        },
-        "deviceDpr": 3,
-        "renderDpr": 1.5,
-        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "sampleFrames": 240,
-        "averageFps": 26.915787230701937,
-        "p50FrameMs": 33.399999999999636,
-        "p95FrameMs": 50.100000000000364,
-        "friendly": 25,
-        "enemies": 300,
-        "environment": "Desktop Chrome with mobile viewport/touch emulation, device DPR 3 / render DPR capped at 1.5, and 4x CPU throttle; six-second warmup followed by ten-second load, final 240 frames; diagnostic respawns maintain 25 friendly / 300 enemy actors; not a physical phone."
-      }
-    }
-  ],
-  "physicalPhone": {
-    "at": "2026-09-21T08:19:37.530Z",
-    "method": "Physical HONOR Chrome, USB localhost, balanced graphics. Entire 60-second rAF samples, no CPU throttle. Load fixtures are diagnostics, not victories or human visual approval.",
-    "device": {
-      "model": "AMG-AN00",
-      "android": "16",
-      "soc": "SM8650"
-    },
-    "runs": [
-      {
-        "name": "portrait-normal-opening",
-        "resolution": {
-          "quality": "balanced",
-          "devicePixelRatio": 3.25,
-          "renderPixelRatio": 1.5,
-          "width": 553,
-          "height": 1054,
-          "cssWidth": 369,
-          "cssHeight": 703,
-          "antialias": true
-        },
-        "models": 8,
-        "economicModels": 3,
-        "podModel": true,
-        "errors": [],
-        "originalAnimationModels": 8,
-        "proceduralAnimationModels": 0,
-        "originalDeathModels": 8,
-        "animationAtlasBytes": 4707904,
-        "lodRatios": {
-          "zergling": 0.29555555555555557,
-          "roach": 0.44686192468619246,
-          "baneling": 0.29977246871444824,
-          "ravager": 0.29987531172069826
-        },
-        "effectTextures": 30,
-        "effects": {
-          "attack": 172,
-          "hit": 172,
-          "death": 2,
-          "movement": 147,
-          "bile": 0,
-          "active": 2,
-          "dropped": 0
-        },
-        "textures": 15,
-        "fps": 60.147458284827984,
-        "drawCalls": 18,
-        "triangles": 43246,
-        "entities": 3,
-        "maxStretch": 1.6457267487913818,
-        "spatialVisits": 13,
-        "collisionContacts": 0,
-        "phase": "battle",
-        "stage": 1,
-        "time": 65.08333333333333,
-        "stats": {
-          "kills": 2,
-          "rescued": 0,
-          "failed": 0,
-          "produced": 1,
-          "started": 1,
-          "shots": 172,
-          "healed": 0,
-          "damage": 534,
-          "scvsRescued": 0,
-          "scvsLost": 1,
-          "dronesKilled": 0,
-          "ambientSpawned": 2
-        },
-        "assetsReady": true,
-        "simulationBacklogSeconds": 0.013466666666671644,
-        "visible": true,
-        "simulationSeconds": 60.016666666666666,
-        "viewport": [
-          369,
-          702
-        ],
-        "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
-        "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
-        "samples": 3595,
-        "sampledSeconds": 60.02539999999886,
-        "averageFps": 59.891312677634275,
-        "p50FrameMs": 16.600000000000364,
-        "p95FrameMs": 16.700000000004366,
-        "p99FrameMs": 16.700000000004366,
-        "friendly": 1,
-        "enemies": 2
-      },
-      {
-        "name": "portrait-diagnostic-25-300",
-        "resolution": {
-          "quality": "balanced",
-          "devicePixelRatio": 3.25,
-          "renderPixelRatio": 1.5,
-          "width": 553,
-          "height": 1053,
-          "cssWidth": 369,
-          "cssHeight": 702,
-          "antialias": true
-        },
-        "models": 8,
-        "economicModels": 3,
-        "podModel": true,
-        "errors": [],
-        "originalAnimationModels": 8,
-        "proceduralAnimationModels": 0,
-        "originalDeathModels": 8,
-        "animationAtlasBytes": 4707904,
-        "lodRatios": {
-          "zergling": 0.29555555555555557,
-          "roach": 0.44686192468619246,
-          "baneling": 0.29977246871444824,
-          "ravager": 0.29987531172069826
-        },
-        "effectTextures": 30,
-        "effects": {
-          "attack": 18347,
-          "hit": 19549,
-          "death": 97,
-          "movement": 19780,
-          "bile": 0,
-          "active": 490,
-          "dropped": 0
-        },
-        "textures": 15,
-        "fps": 59.17159763313607,
-        "drawCalls": 40,
-        "triangles": 273120,
-        "entities": 325,
-        "maxStretch": 14.547806561720066,
-        "spatialVisits": 28984,
-        "collisionContacts": 300,
-        "phase": "battle",
-        "stage": 10,
-        "time": 131.23333333333332,
-        "stats": {
-          "kills": 2,
-          "rescued": 0,
-          "failed": 0,
-          "produced": 1,
-          "started": 1,
-          "shots": 18347,
-          "healed": 1604.554166647222,
-          "damage": 30075.5,
-          "scvsRescued": 0,
-          "scvsLost": 1,
-          "dronesKilled": 0,
-          "ambientSpawned": 2
-        },
-        "assetsReady": true,
-        "simulationBacklogSeconds": 0.0037666666666624146,
-        "visible": true,
-        "simulationSeconds": 60.06666666666665,
-        "viewport": [
-          369,
-          702
-        ],
-        "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
-        "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
-        "samples": 3434,
-        "sampledSeconds": 60.038299999999985,
-        "averageFps": 57.19682269484647,
-        "p50FrameMs": 16.60000000000582,
-        "p95FrameMs": 24.90000000000873,
-        "p99FrameMs": 25,
-        "friendly": 25,
-        "enemies": 300
-      },
-      {
-        "name": "landscape-normal-opening",
-        "resolution": {
-          "quality": "balanced",
-          "devicePixelRatio": 3.25,
-          "renderPixelRatio": 1.5,
-          "width": 1171,
-          "height": 378,
-          "cssWidth": 781,
-          "cssHeight": 252,
-          "antialias": true
-        },
-        "models": 8,
-        "economicModels": 3,
-        "podModel": true,
-        "errors": [],
-        "originalAnimationModels": 8,
-        "proceduralAnimationModels": 0,
-        "originalDeathModels": 8,
-        "animationAtlasBytes": 4707904,
-        "lodRatios": {
-          "zergling": 0.29555555555555557,
-          "roach": 0.44686192468619246,
-          "baneling": 0.29977246871444824,
-          "ravager": 0.29987531172069826
-        },
-        "effectTextures": 30,
-        "effects": {
-          "attack": 172,
-          "hit": 172,
-          "death": 2,
-          "movement": 147,
-          "bile": 0,
-          "active": 2,
-          "dropped": 0
-        },
-        "textures": 15,
-        "fps": 60.14745828482797,
-        "drawCalls": 19,
-        "triangles": 46474,
-        "entities": 3,
-        "maxStretch": 1.6457267487913811,
-        "spatialVisits": 13,
-        "collisionContacts": 0,
-        "phase": "battle",
-        "stage": 1,
-        "time": 65.05,
-        "stats": {
-          "kills": 2,
-          "rescued": 0,
-          "failed": 0,
-          "produced": 1,
-          "started": 1,
-          "shots": 172,
-          "healed": 0,
-          "damage": 534,
-          "scvsRescued": 0,
-          "scvsLost": 1,
-          "dronesKilled": 0,
-          "ambientSpawned": 2
-        },
-        "assetsReady": true,
-        "simulationBacklogSeconds": 0.01230000000000445,
-        "visible": true,
-        "simulationSeconds": 60.016666666666666,
-        "viewport": [
-          781,
-          252
-        ],
-        "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
-        "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
-        "samples": 3591,
-        "sampledSeconds": 60.0147999999983,
-        "averageFps": 59.83524064064367,
-        "p50FrameMs": 16.600000000000364,
-        "p95FrameMs": 16.700000000004366,
-        "p99FrameMs": 16.70000000001164,
-        "friendly": 1,
-        "enemies": 2
-      },
-      {
-        "name": "landscape-diagnostic-25-300",
-        "resolution": {
-          "quality": "balanced",
-          "devicePixelRatio": 3.25,
-          "renderPixelRatio": 1.5,
-          "width": 1170,
-          "height": 378,
-          "cssWidth": 780,
-          "cssHeight": 252,
-          "antialias": true
-        },
-        "models": 8,
-        "economicModels": 3,
-        "podModel": true,
-        "errors": [],
-        "originalAnimationModels": 8,
-        "proceduralAnimationModels": 0,
-        "originalDeathModels": 8,
-        "animationAtlasBytes": 4707904,
-        "lodRatios": {
-          "zergling": 0.29555555555555557,
-          "roach": 0.44686192468619246,
-          "baneling": 0.29977246871444824,
-          "ravager": 0.29987531172069826
-        },
-        "effectTextures": 30,
-        "effects": {
-          "attack": 18199,
-          "hit": 19398,
-          "death": 97,
-          "movement": 21416,
-          "bile": 0,
-          "active": 492,
-          "dropped": 0
-        },
-        "textures": 15,
-        "fps": 56.266977105161665,
-        "drawCalls": 41,
-        "triangles": 276388,
-        "entities": 325,
-        "maxStretch": 13.753154306449469,
-        "spatialVisits": 29652,
-        "collisionContacts": 284,
-        "phase": "battle",
-        "stage": 10,
-        "time": 130.78333333333333,
-        "stats": {
-          "kills": 2,
-          "rescued": 0,
-          "failed": 0,
-          "produced": 1,
-          "started": 1,
-          "shots": 18199,
-          "healed": 1671.0787121070216,
-          "damage": 29376.5,
-          "scvsRescued": 0,
-          "scvsLost": 1,
-          "dronesKilled": 0,
-          "ambientSpawned": 2
-        },
-        "assetsReady": true,
-        "simulationBacklogSeconds": 0.008166666666685904,
-        "visible": true,
-        "simulationSeconds": 60.099999999999994,
-        "viewport": [
-          780,
-          252
-        ],
-        "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
-        "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
-        "samples": 3461,
-        "sampledSeconds": 60.01910000000001,
-        "averageFps": 57.66497664910003,
-        "p50FrameMs": 16.60000000000582,
-        "p95FrameMs": 24.90000000000873,
-        "p99FrameMs": 25,
-        "friendly": 25,
-        "enemies": 300
-      }
-    ],
-    "touch": [
-      {
-        "orientation": "portrait",
-        "moving": true,
-        "command": "siege",
-        "selected": "",
-        "scroll": [
-          0,
-          0
-        ],
-        "viewport": [
-          369,
-          702
-        ],
-        "width": 369,
-        "released": true,
-        "commandAfterRelease": "siege"
-      },
-      {
-        "orientation": "landscape",
-        "moving": true,
-        "command": "siege",
-        "selected": "",
-        "scroll": [
-          0,
-          0
-        ],
-        "viewport": [
-          781,
-          252
-        ],
-        "width": 781,
-        "released": true,
-        "commandAfterRelease": "siege"
-      }
-    ],
-    "errors": [],
-    "captureInterruption": {
-      "reason": "page.waitForTimeout: Target page, context or browser has been closed\n    at measure (D:\\星际\\tools\\qa-phone-v5.mjs:15:326)\n    at async file:///D:/%E6%98%9F%E9%99%85/tools/qa-phone-v5.mjs:21:18",
-      "resumed": "reports/local/qa-phone-v5-landscape/REPORT.json",
-      "method": "Completed portrait samples retained; both landscape measurements repeated on the same runtime commit."
-    }
-  },
-  "offline": {
-    "resolution": {
-      "quality": "native",
-      "devicePixelRatio": 1,
-      "renderPixelRatio": 1,
-      "width": 1440,
-      "height": 900,
-      "cssWidth": 1440,
-      "cssHeight": 900,
-      "antialias": true
-    },
-    "models": 8,
-    "economicModels": 3,
-    "podModel": true,
-    "errors": [],
-    "originalAnimationModels": 8,
-    "proceduralAnimationModels": 0,
-    "originalDeathModels": 8,
-    "animationAtlasBytes": 4707904,
-    "lodRatios": {
-      "zergling": 0.29555555555555557,
-      "roach": 0.44686192468619246,
-      "baneling": 0.29977246871444824,
-      "ravager": 0.29987531172069826
-    },
-    "effectTextures": 30,
-    "effects": {
-      "attack": 0,
-      "hit": 0,
-      "death": 0,
-      "movement": 0,
-      "bile": 0,
-      "active": 0,
-      "dropped": 0
-    },
-    "textures": 15,
-    "fps": 59.999999999999986,
-    "drawCalls": 10,
-    "triangles": 35206,
-    "entities": 1,
-    "maxStretch": 1.6347782724271815,
-    "spatialVisits": 2,
-    "collisionContacts": 0,
-    "phase": "battle",
-    "stage": 1,
-    "time": 1.0666666666666667,
-    "stats": {
-      "kills": 0,
-      "rescued": 0,
-      "failed": 0,
-      "produced": 0,
-      "started": 1,
-      "shots": 0,
-      "healed": 0,
-      "damage": 0,
-      "scvsRescued": 0,
-      "scvsLost": 0,
-      "dronesKilled": 0,
-      "ambientSpawned": 0
-    },
-    "assetsReady": true,
-    "simulationBacklogSeconds": 3.333333333320129e-05,
-    "requests": [],
-    "debugExposed": false
-  },
-  "balance": {
-    "method": "Conditional economy/firepower ledger; not a victory probability or automated Normal gate. Budgets unchanged.",
-    "report": "reports/balance/v5-envelope.json",
-    "duels": "reports/balance/v4-duels.json (historical Rank 1 baseline)",
-    "fullPhaseFlow": "Both difficulties, all 2880 seconds, isolated combat-disabled timing/transition fixture; not battle victory."
-  },
-  "knownIssues": [
-    "Ten original audio files, including SCV ready, remain missing. Three synthesized cues are separate.",
-    "Marine fireball_1hot layer and HellionBeam.m3 unavailable; same-unit available layers used with adapted emission. Some death packages are documented same-unit variants.",
-    "Pod opening uses original door-bone adaptation; full SC2 particle/refraction/animated-material renderer is not reproduced. Tank external Flail rejected for incomplete binding.",
-    "Desktop 4x CPU-throttled 25+300 diagnostics cannot sustain realtime simulation; backlog is reported and never silently discarded during play. One physical Adreno 750 passes short-run targets, not low-end or 48-minute thermal proof.",
-    "No original fonts, Blender render cross-check, human visual approval or full manual 48-minute campaign.",
-    "Rank growth leaves substantially more late-stage theoretical firepower/healing; no compensating enemy increases made."
-  ],
-  "typecheck": {
-    "command": "npm run typecheck",
-    "observedExitCode": 0
+    "clear": "通关奖励已到账 +80 M / +30 G\n余额 112 M / 77 G",
+    "twoRoundsSkipped": true
   }
 }

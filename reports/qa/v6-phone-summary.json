@@ -1,0 +1,736 @@
+{
+  "at": "2026-09-21T09:55:09.435Z",
+  "method": "Physical HONOR Chrome, USB localhost, balanced graphics. Entire 60-second rAF samples, no CPU throttle. Load fixtures are diagnostics, not victories or human visual approval.",
+  "device": {
+    "model": "AMG-AN00",
+    "android": "16",
+    "soc": "SM8650"
+  },
+  "runs": [
+    {
+      "name": "portrait-normal-opening",
+      "resolution": {
+        "quality": "balanced",
+        "devicePixelRatio": 3.25,
+        "renderPixelRatio": 1.5,
+        "width": 553,
+        "height": 1054,
+        "cssWidth": 369,
+        "cssHeight": 703,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 33,
+      "effects": {
+        "attack": 174,
+        "hit": 174,
+        "death": 2,
+        "movement": 147,
+        "bile": 0,
+        "active": 8,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 60.159130603531565,
+      "drawCalls": 19,
+      "triangles": 43258,
+      "entities": 3,
+      "maxStretch": 1.609996305537771,
+      "spatialVisits": 19,
+      "collisionContacts": 0,
+      "phase": "battle",
+      "stage": 1,
+      "time": 65.4,
+      "stats": {
+        "kills": 2,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 1,
+        "started": 1,
+        "shots": 174,
+        "healed": 0,
+        "damage": 540,
+        "scvsRescued": 0,
+        "scvsLost": 1,
+        "dronesKilled": 0,
+        "ambientSpawned": 2
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 0.007700000000007354,
+      "audio": {
+        "originalDecoded": 10,
+        "decoded": [
+          {
+            "id": "shot",
+            "duration": 0.08995833333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "blast",
+            "duration": 0.3499583333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "alert",
+            "duration": 0.44995833333333335,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.scv.ready",
+            "duration": 2.1754166666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.attack",
+            "duration": 1.3626875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.hellion.attack",
+            "duration": 2.6566875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.attack",
+            "duration": 0.8244791666666667,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.siege",
+            "duration": 1.9696041666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.medivac.heal",
+            "duration": 9.092270833333334,
+            "channels": 2,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.zergling.attack",
+            "duration": 0.7786666666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.roach.attack",
+            "duration": 1.46575,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.ravager.attack",
+            "duration": 1.1467708333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.death",
+            "duration": 1.0077083333333334,
+            "channels": 1,
+            "sampleRate": 48000
+          }
+        ],
+        "errors": [],
+        "played": {
+          "sc2.zergling.attack": 168,
+          "sc2.marine.attack": 6
+        },
+        "activeHealers": 0
+      },
+      "visible": true,
+      "simulationSeconds": 60.01666666666667,
+      "viewport": [
+        369,
+        702
+      ],
+      "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+      "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
+      "samples": 3593,
+      "sampledSeconds": 60.01249999999881,
+      "averageFps": 59.87086023745172,
+      "p50FrameMs": 16.600000000000364,
+      "p95FrameMs": 16.700000000004366,
+      "p99FrameMs": 16.70000000001164,
+      "friendly": 1,
+      "enemies": 2
+    },
+    {
+      "name": "portrait-diagnostic-25-300",
+      "resolution": {
+        "quality": "balanced",
+        "devicePixelRatio": 3.25,
+        "renderPixelRatio": 1.5,
+        "width": 553,
+        "height": 1053,
+        "cssWidth": 369,
+        "cssHeight": 702,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 33,
+      "effects": {
+        "attack": 16947,
+        "hit": 18282,
+        "death": 97,
+        "movement": 21392,
+        "bile": 0,
+        "active": 388,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 60.089164566777164,
+      "drawCalls": 39,
+      "triangles": 272972,
+      "entities": 325,
+      "maxStretch": 10.308568735873788,
+      "spatialVisits": 29322,
+      "collisionContacts": 340,
+      "phase": "battle",
+      "stage": 10,
+      "time": 128.81666666666666,
+      "stats": {
+        "kills": 2,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 1,
+        "started": 1,
+        "shots": 16947,
+        "healed": 1541.3927272472922,
+        "damage": 29158.5,
+        "scvsRescued": 0,
+        "scvsLost": 1,
+        "dronesKilled": 0,
+        "ambientSpawned": 2
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 2.639333333333369,
+      "audio": {
+        "originalDecoded": 10,
+        "decoded": [
+          {
+            "id": "shot",
+            "duration": 0.08995833333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "blast",
+            "duration": 0.3499583333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "alert",
+            "duration": 0.44995833333333335,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.scv.ready",
+            "duration": 2.1754166666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.attack",
+            "duration": 1.3626875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.hellion.attack",
+            "duration": 2.6566875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.attack",
+            "duration": 0.8244791666666667,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.siege",
+            "duration": 1.9696041666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.medivac.heal",
+            "duration": 9.092270833333334,
+            "channels": 2,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.zergling.attack",
+            "duration": 0.7786666666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.roach.attack",
+            "duration": 1.46575,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.ravager.attack",
+            "duration": 1.1467708333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.death",
+            "duration": 1.0077083333333334,
+            "channels": 1,
+            "sampleRate": 48000
+          }
+        ],
+        "errors": [],
+        "played": {
+          "sc2.zergling.attack": 466,
+          "sc2.marine.attack": 85,
+          "sc2.ravager.attack": 156,
+          "sc2.medivac.heal": 765,
+          "sc2.roach.attack": 116,
+          "sc2.hellion.attack": 20,
+          "blast": 3
+        },
+        "activeHealers": 5
+      },
+      "visible": true,
+      "simulationSeconds": 58.016666666666666,
+      "viewport": [
+        369,
+        702
+      ],
+      "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+      "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
+      "samples": 3481,
+      "sampledSeconds": 60.004900000000006,
+      "averageFps": 58.01192902579622,
+      "p50FrameMs": 16.60000000000582,
+      "p95FrameMs": 24.89999999999418,
+      "p99FrameMs": 25,
+      "friendly": 25,
+      "enemies": 300
+    },
+    {
+      "name": "landscape-normal-opening",
+      "resolution": {
+        "quality": "balanced",
+        "devicePixelRatio": 3.25,
+        "renderPixelRatio": 1.5,
+        "width": 1171,
+        "height": 378,
+        "cssWidth": 781,
+        "cssHeight": 252,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 33,
+      "effects": {
+        "attack": 174,
+        "hit": 174,
+        "death": 2,
+        "movement": 147,
+        "bile": 0,
+        "active": 8,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 60.159130603531565,
+      "drawCalls": 20,
+      "triangles": 46486,
+      "entities": 3,
+      "maxStretch": 1.609996305537771,
+      "spatialVisits": 19,
+      "collisionContacts": 0,
+      "phase": "battle",
+      "stage": 1,
+      "time": 65.38333333333333,
+      "stats": {
+        "kills": 2,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 1,
+        "started": 1,
+        "shots": 174,
+        "healed": 0,
+        "damage": 540,
+        "scvsRescued": 0,
+        "scvsLost": 1,
+        "dronesKilled": 0,
+        "ambientSpawned": 2
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 0.012466666666665224,
+      "audio": {
+        "originalDecoded": 10,
+        "decoded": [
+          {
+            "id": "shot",
+            "duration": 0.08995833333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "blast",
+            "duration": 0.3499583333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "alert",
+            "duration": 0.44995833333333335,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.scv.ready",
+            "duration": 2.1754166666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.attack",
+            "duration": 1.3626875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.hellion.attack",
+            "duration": 2.6566875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.attack",
+            "duration": 0.8244791666666667,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.siege",
+            "duration": 1.9696041666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.medivac.heal",
+            "duration": 9.092270833333334,
+            "channels": 2,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.zergling.attack",
+            "duration": 0.7786666666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.roach.attack",
+            "duration": 1.46575,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.ravager.attack",
+            "duration": 1.1467708333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.death",
+            "duration": 1.0077083333333334,
+            "channels": 1,
+            "sampleRate": 48000
+          }
+        ],
+        "errors": [],
+        "played": {
+          "sc2.zergling.attack": 168,
+          "sc2.marine.attack": 6
+        },
+        "activeHealers": 0
+      },
+      "visible": true,
+      "simulationSeconds": 60.01666666666666,
+      "viewport": [
+        781,
+        252
+      ],
+      "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+      "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
+      "samples": 3592,
+      "sampledSeconds": 60.01879999999886,
+      "averageFps": 59.84791432018081,
+      "p50FrameMs": 16.600000000000364,
+      "p95FrameMs": 16.700000000004366,
+      "p99FrameMs": 16.70000000001164,
+      "friendly": 1,
+      "enemies": 2
+    },
+    {
+      "name": "landscape-diagnostic-25-300",
+      "resolution": {
+        "quality": "balanced",
+        "devicePixelRatio": 3.25,
+        "renderPixelRatio": 1.5,
+        "width": 1170,
+        "height": 378,
+        "cssWidth": 780,
+        "cssHeight": 252,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 33,
+      "effects": {
+        "attack": 16043,
+        "hit": 17313,
+        "death": 97,
+        "movement": 20432,
+        "bile": 0,
+        "active": 430,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 60.159130603533264,
+      "drawCalls": 41,
+      "triangles": 276276,
+      "entities": 325,
+      "maxStretch": 12.544075296172823,
+      "spatialVisits": 29870,
+      "collisionContacts": 363,
+      "phase": "battle",
+      "stage": 10,
+      "time": 126,
+      "stats": {
+        "kills": 2,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 1,
+        "started": 1,
+        "shots": 16043,
+        "healed": 1713.6590908954697,
+        "damage": 28896.5,
+        "scvsRescued": 0,
+        "scvsLost": 1,
+        "dronesKilled": 0,
+        "ambientSpawned": 2
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 5.107000000000235,
+      "audio": {
+        "originalDecoded": 10,
+        "decoded": [
+          {
+            "id": "shot",
+            "duration": 0.08995833333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "blast",
+            "duration": 0.3499583333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "alert",
+            "duration": 0.44995833333333335,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.scv.ready",
+            "duration": 2.1754166666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.attack",
+            "duration": 1.3626875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.hellion.attack",
+            "duration": 2.6566875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.attack",
+            "duration": 0.8244791666666667,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.siege",
+            "duration": 1.9696041666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.medivac.heal",
+            "duration": 9.092270833333334,
+            "channels": 2,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.zergling.attack",
+            "duration": 0.7786666666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.roach.attack",
+            "duration": 1.46575,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.ravager.attack",
+            "duration": 1.1467708333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.death",
+            "duration": 1.0077083333333334,
+            "channels": 1,
+            "sampleRate": 48000
+          }
+        ],
+        "errors": [],
+        "played": {
+          "sc2.zergling.attack": 457,
+          "sc2.marine.attack": 78,
+          "sc2.ravager.attack": 144,
+          "sc2.medivac.heal": 731,
+          "sc2.roach.attack": 118,
+          "blast": 5,
+          "sc2.hellion.attack": 28
+        },
+        "activeHealers": 4
+      },
+      "visible": true,
+      "simulationSeconds": 55.55,
+      "viewport": [
+        780,
+        252
+      ],
+      "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+      "gpu": "ANGLE (Qualcomm, Adreno (TM) 750, OpenGL ES 3.2)",
+      "samples": 3331,
+      "sampledSeconds": 60.0343,
+      "averageFps": 55.48494777152394,
+      "p50FrameMs": 16.60000000000582,
+      "p95FrameMs": 25,
+      "p99FrameMs": 25,
+      "friendly": 25,
+      "enemies": 300
+    }
+  ],
+  "touch": [
+    {
+      "orientation": "portrait",
+      "moving": true,
+      "command": "siege",
+      "selected": "",
+      "scroll": [
+        0,
+        0
+      ],
+      "viewport": [
+        369,
+        702
+      ],
+      "width": 369,
+      "released": true,
+      "commandAfterRelease": "siege"
+    },
+    {
+      "orientation": "landscape",
+      "moving": true,
+      "command": "siege",
+      "selected": "",
+      "scroll": [
+        0,
+        0
+      ],
+      "viewport": [
+        781,
+        252
+      ],
+      "width": 781,
+      "released": true,
+      "commandAfterRelease": "siege"
+    }
+  ],
+  "errors": [],
+  "historical": true,
+  "scope": "Historical physical-phone snapshot before latest opening pace, braking, production savings, terrain contrast and audio loop refinements. User requested no additional phone tests. Not current-build performance approval."
+}
