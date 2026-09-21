@@ -1,7 +1,7 @@
 import type {TerranType} from './sc2-units';
 /** Survivors balance, NOT original SC2 values. Kept separate from the unit source table. */
 export const TUNING = {step:1/60,anchorSpeed:5.6,
- softLeash:9,hardLeash:20,catchUp:1.22,rankHp:.18,rankDamage:.16,
+ softLeash:9,hardLeash:20,catchUp:1.22,
  podHp:1200,podArmor:2,enemyCap:300,worldHalf:56,startingMinerals:50,startingGas:0,
  initialSquad:['marine'] as TerranType[]};
 export type BuildingType='barracks'|'factory'|'starport';

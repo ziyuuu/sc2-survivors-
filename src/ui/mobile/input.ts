@@ -6,7 +6,7 @@ export class Input {
   window.addEventListener('blur',reset);document.addEventListener('visibilitychange',()=>{if(document.hidden)reset();});
   window.addEventListener('keydown',e=>{if(e.target instanceof HTMLInputElement||e.target instanceof HTMLSelectElement)return;const code=e.code;
    if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(code))e.preventDefault();if(e.repeat)return;
-   this.keys.add(code);if(code==='KeyE')world.stim();if(code==='Space')world.dash();if(code==='Escape')onPause();
+   this.keys.add(code);if(code==='KeyT')world.toggleTanks();if(code==='KeyE')world.stim();if(code==='Space')world.dash();if(code==='Escape')onPause();
   });window.addEventListener('keyup',e=>this.keys.delete(e.code));
   joystick.addEventListener('contextmenu',e=>e.preventDefault());
   joystick.addEventListener('pointerdown',e=>{if(this.pointer!==null||world.phase!=='battle'||world.paused)return;e.preventDefault();this.pointer=e.pointerId;joystick.setPointerCapture(e.pointerId);this.updateStick(e);});

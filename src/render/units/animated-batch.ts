@@ -14,6 +14,7 @@ const object=new THREE.Object3D();
  */
 export class AnimatedBatch {
  meshes:THREE.InstancedMesh[]=[];attributes:THREE.InstancedBufferAttribute[]=[];
+ aimAttributes:THREE.InstancedBufferAttribute[]=[];turretPivot=new THREE.Vector3();
  blendAttributes:THREE.InstancedBufferAttribute[]=[]; weapon=new THREE.Vector3(0,.8,.5);
  weaponTracks=new Map<string,THREE.Vector3[]>();
  clips=new Map<string,PoseClip>();actions:ReturnType<typeof mapAnimations>;
@@ -26,6 +27,7 @@ export class AnimatedBatch {
   const box=sc2BodyBounds(gltf.scene),center=box.getCenter(new THREE.Vector3());
   const sourceScale=sc2ModelScale(gltf.scene);this.scale=sourceScale===undefined?height/Math.max(.001,box.max.y-box.min.y):1.4*sourceScale;
   this.normalization=normalization?.clone()??new THREE.Matrix4().makeScale(this.scale,this.scale,this.scale).multiply(new THREE.Matrix4().makeTranslation(-center.x,-box.min.y,-center.z));
+  const turret=gltf.scene.getObjectByName('Bone_Turret_Base'),turretBones=new Set<THREE.Object3D>();turret?.traverse(n=>turretBones.add(n));turret?.getWorldPosition(this.turretPivot).applyMatrix4(this.normalization);
   // Only gameplay clips; dance/fidget/portrait sequences remain in the GLB but do not cost GPU memory.
   const clips=[...new Set(Object.values(this.actions).filter((c):c is THREE.AnimationClip=>!!c))];
   let total=0;for(const c of clips){const frames=Math.max(2,Math.ceil(c.duration*FPS)+1);this.clips.set(c.name,{offset:total,frames,duration:c.duration});total+=frames;}
@@ -55,11 +57,15 @@ export class AnimatedBatch {
    const weights=new Float32Array(geometry.attributes.position.count),indices=geometry.getAttribute('skinIndex'),skin=geometry.getAttribute('skinWeight');
    for(let v=0;v<weights.length;v++)for(let k=0;k<4;k++){const bone=n.skeleton.bones[indices.getComponent(v,k)];if(bone&&/spine|shoulder|arm|hand|head|weapon/i.test(bone.name))weights[v]+=skin.getComponent(v,k);}
    geometry.setAttribute('unitUpper',new THREE.BufferAttribute(weights,1));
+   const turretWeights=new Float32Array(weights.length);for(let v=0;v<weights.length;v++)for(let k=0;k<4;k++)if(turretBones.has(n.skeleton.bones[indices.getComponent(v,k)]))turretWeights[v]+=skin.getComponent(v,k);geometry.setAttribute('unitTurret',new THREE.BufferAttribute(turretWeights,1));
+   const aim=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*2),2).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitAim',aim);
    const assetMatrix=this.normalization.clone().multiply(n.matrixWorld).multiply(n.bindMatrixInverse),bind=n.bindMatrix.clone();
    const materials=(Array.isArray(n.material)?n.material:[n.material]).map(m=>{const mat=m.clone() as THREE.MeshStandardMaterial;
     mat.onBeforeCompile=(shader,renderer)=>{m.onBeforeCompile(shader,renderer);
-     shader.uniforms.unitBoneAtlas={value:textures.get(paletteKey(n.skeleton))};shader.uniforms.unitBind={value:bind};shader.uniforms.unitAsset={value:assetMatrix};
+     shader.uniforms.turretPivot={value:this.turretPivot};shader.uniforms.unitBoneAtlas={value:textures.get(paletteKey(n.skeleton))};shader.uniforms.unitBind={value:bind};shader.uniforms.unitAsset={value:assetMatrix};
      shader.vertexShader=shader.vertexShader.replace('#include <common>',`#include <common>
+      attribute vec2 unitAim; attribute float unitTurret; uniform vec3 turretPivot;
+      vec3 aimTurret(vec3 p){float s=unitAim.x,c=unitAim.y;return vec3(p.x*c+p.z*s,p.y,p.z*c-p.x*s);}
       attribute vec4 unitPose; attribute vec4 unitBlend; attribute float unitUpper; attribute vec4 skinIndex; attribute vec4 skinWeight;
       uniform sampler2D unitBoneAtlas; uniform mat4 unitBind; uniform mat4 unitAsset;
       varying float unitHit;
@@ -72,11 +78,11 @@ export class AnimatedBatch {
        if(unitPose.z>0.001)a=a*(1.0-unitPose.z)+unitFrame(unitPose.y)*unitPose.z;
        if(unitBlend.w>0.001&&unitUpper>0.001){mat4 b=unitFrame(unitBlend.x);if(unitBlend.z>0.001)b=b*(1.0-unitBlend.z)+unitFrame(unitBlend.y)*unitBlend.z;float w=unitBlend.w*unitUpper;a=a*(1.0-w)+b*w;}
        return unitAsset*a*unitBind;}`)
-      .replace('#include <beginnormal_vertex>','#include <beginnormal_vertex>\nmat4 unitTransform=unitSkin(); objectNormal=mat3(unitTransform)*objectNormal;')
-      .replace('#include <begin_vertex>','vec3 transformed=(unitTransform*vec4(position,1.0)).xyz; unitHit=unitPose.w;');
+      .replace('#include <beginnormal_vertex>','#include <beginnormal_vertex>\nmat4 unitTransform=unitSkin(); objectNormal=mat3(unitTransform)*objectNormal;objectNormal=mix(objectNormal,aimTurret(objectNormal),unitTurret);')
+      .replace('#include <begin_vertex>','vec3 transformed=(unitTransform*vec4(position,1.0)).xyz; transformed=mix(transformed,aimTurret(transformed-turretPivot)+turretPivot,unitTurret); unitHit=unitPose.w;');
      shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float unitHit;').replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance += vec3(0.6,0.24,0.08)*unitHit;');
     };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v4:'+m.customProgramCacheKey();return mat;});
-   const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);
+   const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);this.aimAttributes.push(aim);
   }
   mixer.stopAllAction();mixer.uncacheRoot(gltf.scene);
  }
@@ -84,13 +90,13 @@ export class AnimatedBatch {
  setLod(low:boolean){if(this.lowDetail===low)return;this.lowDetail=low;this.meshes.forEach((mesh,i)=>{const indices=this.lodIndices[i];if(indices){mesh.geometry.setIndex(low?indices.low:indices.full);if(mesh.geometry.groups.length===1)mesh.geometry.groups[0].count=mesh.geometry.getIndex()!.count;}});}
  begin(){this.count=0;}
  pose(action:keyof ReturnType<typeof mapAnimations>){const clip=this.actions[action]??this.actions.idle;return clip?this.clips.get(clip.name):this.clips.values().next().value;}
- add(x:number,y:number,z:number,facing:number,action:keyof ReturnType<typeof mapAnimations>,seconds:number,once=false,hit=0,shrink=1,interpolate=true,attackSeconds=-1){
+ add(x:number,y:number,z:number,facing:number,action:keyof ReturnType<typeof mapAnimations>,seconds:number,once=false,hit=0,shrink=1,interpolate=true,attackSeconds=-1,turretYaw=0){
   if(this.count>=CAPACITY)return;const p=this.pose(action);if(!p)return;
   const t=once?Math.min(p.duration,Math.max(0,seconds)):((seconds%p.duration)+p.duration)%p.duration;
   const frame=t/p.duration*(p.frames-1),a=Math.floor(frame),b=Math.min(p.frames-1,a+1);
   const attack=this.pose('attack'),shot=attack&&attackSeconds>=0?Math.min(attack.frames-1,attackSeconds/attack.duration*(attack.frames-1)):0,sa=Math.floor(shot),sb=Math.min((attack?.frames??1)-1,sa+1),weight=attackSeconds>=0?Math.max(0,1-attackSeconds/.55):0;
   object.position.set(x,y,z);object.rotation.set(0,facing,0);object.scale.setScalar(shrink);object.updateMatrix();
-  this.meshes.forEach((m,i)=>{m.setMatrixAt(this.count,object.matrix);this.attributes[i].setXYZW(this.count,p.offset+a,p.offset+b,interpolate?frame-a:0,hit);this.blendAttributes[i].setXYZW(this.count,(attack?.offset??0)+sa,(attack?.offset??0)+sb,shot-sa,weight);});this.count++;
+  this.meshes.forEach((m,i)=>{m.setMatrixAt(this.count,object.matrix);this.aimAttributes[i].setXY(this.count,Math.sin(turretYaw),Math.cos(turretYaw));this.attributes[i].setXYZW(this.count,p.offset+a,p.offset+b,interpolate?frame-a:0,hit);this.blendAttributes[i].setXYZW(this.count,(attack?.offset??0)+sa,(attack?.offset??0)+sb,shot-sa,weight);});this.count++;
  }
- end(){this.meshes.forEach((m,i)=>{m.count=this.count;m.visible=this.count>0;m.instanceMatrix.needsUpdate=true;this.attributes[i].needsUpdate=true;this.blendAttributes[i].needsUpdate=true;});}
+ end(){this.meshes.forEach((m,i)=>{m.count=this.count;m.visible=this.count>0;m.instanceMatrix.needsUpdate=true;this.attributes[i].needsUpdate=true;this.blendAttributes[i].needsUpdate=true;this.aimAttributes[i].needsUpdate=true;});}
 }

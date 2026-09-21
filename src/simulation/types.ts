@@ -3,11 +3,11 @@ import type {BuildingType} from '../data/game';
 export interface Point {x:number;z:number}
 export interface Body extends Point {id:number;hp:number;maxHp:number;armor:number;unitRadius:number;flying:boolean;attributes:string[];owner:'terran'|'zerg'}
 export interface Entity extends Body {
- unitType:UnitType;rank:number;moveSpeed:number;attackRange:number;weaponDamage:number;weaponCooldown:number;
+ unitType:UnitType;rank:number;moveSpeed:number;attackRange:number;weaponDamage:number;weaponCooldown:number;attackPeriod:number;attackFacing:number;
  attackTarget:number|null;facing:number;velocity:Point;prev:Point;slot:number;trailIndex:number;
  action:'idle'|'move'|'attack'|'heal'|'sieging'|'unsieging'|'dead'|'spawn';
- mode:'tank'|'siege';modeTimer:number;windup:number;attackLock:number;pendingTarget:number|null;lastShotAt:number;
- energy:number;healTarget:number|null;bileCooldown:number;guardianPod:number|null;stimUntil:number;
+ mode:'tank'|'siege';desiredMode:'tank'|'siege';modeTimer:number;windup:number;attackLock:number;pendingTarget:number|null;lastShotAt:number;
+ energy:number;maxEnergy:number;energyRegen:number;healRate:number;healTarget:number|null;bileCooldown:number;guardianPod:number|null;stimUntil:number;
  deadAt:number|null;bornAt:number;thinkAt:number;distanceWalked:number;
 }
 export interface Pod extends Body {unitType:TerranType;createdAt:number;landedAt:number;guardianIds:Set<number>;guardTypes:ZergType[];

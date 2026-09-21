@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import {MeshoptSimplifier} from 'meshoptimizer';
 import {GLTFLoader,type GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import {clone} from 'three/addons/utils/SkeletonUtils.js';
-import {assetUrl,ASSETS} from '../../assets/manifest';
+import {assetUrl,ASSETS,icon} from '../../assets/manifest';
 import {SC2_UNITS,TERRAN,ZERG,type UnitType} from '../../data/sc2-units';
 import {TUNING} from '../../data/game';
 import {World} from '../../simulation/world';
@@ -30,6 +30,7 @@ export class BattleRenderer {
  private shadows:THREE.InstancedMesh;private health:THREE.InstancedMesh;private healthBack:THREE.InstancedMesh;private pickups:THREE.InstancedMesh;private rings:THREE.InstancedMesh;
  private lines:THREE.LineSegments;private linePositions=new Float32Array(6000);private lineColors=new Float32Array(6000);
  private anchor:THREE.Group;private podViews=new Map<number,PodView>();private podTemplate:GLTF|null=null;private terrainUpdate=()=>{};private hiveTemplate:THREE.Object3D|null=null;private hiveView:THREE.Object3D|null=null;
+ private podLabels=new Map<number,HTMLElement>();private labelLayer=document.createElement('div');
  private grid=new THREE.GridHelper(104,26,0x3aa8b4,0x245460);private tickTime=0;private frames=0;private cameraTarget=new THREE.Vector3();
  constructor(readonly canvas:HTMLCanvasElement,readonly world:World){
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
@@ -48,6 +49,7 @@ export class BattleRenderer {
   const lineGeo=new THREE.BufferGeometry();lineGeo.setAttribute('position',new THREE.BufferAttribute(this.linePositions,3).setUsage(THREE.DynamicDrawUsage));lineGeo.setAttribute('color',new THREE.BufferAttribute(this.lineColors,3).setUsage(THREE.DynamicDrawUsage));this.lines=new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.9}));this.lines.frustumCulled=false;this.scene.add(this.lines);
   this.anchor=new THREE.Group();const cursor=new THREE.Mesh(new THREE.RingGeometry(.48,.56,4),new THREE.MeshBasicMaterial({color:0x67d9fb,transparent:true,opacity:.65}));cursor.rotation.x=-Math.PI/2;cursor.rotation.z=Math.PI/4;this.anchor.add(cursor);this.scene.add(this.anchor);
   this.grid.position.y=.08;this.grid.visible=false;this.scene.add(this.grid);
+  this.labelLayer.id='pod-labels';document.body.append(this.labelLayer);
   this.resize();window.addEventListener('resize',()=>this.resize());
   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();world.paused=true;world.announce('图形上下文丢失，请重新载入。');});
  }
@@ -111,7 +113,7 @@ export class BattleRenderer {
     // Small enemy silhouettes keep original 24 Hz poses; larger/friendly actors interpolate.
     const interpolate=u.owner==='terran'||heights[u.unitType]*this.canvas.clientHeight/(this.camera.top-this.camera.bottom)>=36;
     const shotAge=world.time-u.lastShotAt,displayAction=u.unitType==='marine'&&u.action==='attack'?'idle':u.action;
-    model.add(x,y,z,u.facing,displayAction,seconds,once,Math.max(0,1-(world.time-(this.hitTimes.get(u.id)??-100))/.12),1,interpolate,u.unitType==='marine'&&shotAge<.4?shotAge*1.4:-1);
+    model.add(x,y,z,u.facing,displayAction,seconds,once,Math.max(0,1-(world.time-(this.hitTimes.get(u.id)??-100))/.12),1,interpolate,u.unitType==='marine'&&shotAge<.4?shotAge*1.4:-1,u.unitType==='tank'&&u.modeTimer<=0?u.attackFacing-u.facing:0);
    }else{
     _obj.position.set(x,y,z);_obj.rotation.set(dying?Math.PI/2*(1-death):u.unitType==='baneling'?u.distanceWalked*2:0,u.facing,0);_obj.scale.setScalar(Math.max(.01,death));_obj.updateMatrix();
     let mode=u.mode==='siege'?1:0;if(u.action==='sieging')mode=1-u.modeTimer/2.887;if(u.action==='unsieging')mode=u.modeTimer/2.53;
@@ -128,7 +130,7 @@ export class BattleRenderer {
   for(const [id,at] of this.hitTimes)if(world.time-at>.2)this.hitTimes.delete(id);
   for(const e of world.economicTargets.values()){if(!this.visible(e))continue;const age=world.time-(e.resolvedAt??world.time),model=this.gpu.get(e.kind);if(e.status==='active'){model?.add(e.x,0,e.z,e.facing,e.kind==='drone'?'move':'idle',world.time*1.4);health(e,1.65);if(e.kind==='egg')putRing(e,1.1,0xe8be6e);}else if(e.kind==='egg'&&e.status==='rescued'&&age<3.8){this.gpu.get('scv')?.add(e.x,0,e.z,e.facing,'idle',age*1.4,false,0,age>3.4?Math.max(.01,(3.8-age)/.4):1);putRing(e,1.1,0x8be8a5);}else if(age<1.5)model?.add(e.x,0,e.z,e.facing,'dead',age,true,0,Math.max(.01,1-age/1.5));}
   for(const b of this.gpu.values())b.end();
-  for(const p of world.pods){let v=this.podViews.get(p.id);if(!v&&this.podTemplate){v=new PodView(this.podTemplate,this.scene);this.podViews.set(p.id,v);}v?.update(p,world.time,this.visible(p));
+  for(const p of world.pods){this.podLabel(p);let v=this.podViews.get(p.id);if(!v&&this.podTemplate){v=new PodView(this.podTemplate,this.scene);this.podViews.set(p.id,v);}v?.update(p,world.time,this.visible(p));
    if(p.status==='active'||p.status==='opening'){health(p,2.9);putRing(p,this.showColliders?p.unitRadius:2.1,0xffa94e);}}
   if(world.hive){if(!this.hiveView&&this.hiveTemplate){this.hiveView=clone(this.hiveTemplate);this.scene.add(this.hiveView);}if(this.hiveView){this.hiveView.position.set(world.hive.x,0,world.hive.z);this.hiveView.visible=world.hive.hp>0;}if(world.hive.hp>0)health(world.hive,4);}
   for(const fx of world.effects){if(fx.kind==='bile'){putRing(fx.end,fx.radius+1,0xff7138);putRing(fx.end,Math.max(.15,(fx.until-world.time)/2.5*(fx.radius+1)),0xffda84);}else if(fx.kind==='explosion')putRing(fx.end,fx.radius*(1+(fx.until-world.time)),0xffbc59);}
@@ -140,6 +142,8 @@ export class BattleRenderer {
   this.fx.render(world,this.camera,p=>this.visible(p),event=>{const model=event.unitType?this.gpu.get(event.siege?'tank.siege':event.unitType):null;const weapon=model?.weaponAt('attack',Math.max(0,world.time-event.time)*1.4);if(!weapon)return null;return {x:event.x+weapon.x*Math.cos(event.facing)+weapon.z*Math.sin(event.facing),y:weapon.y,z:event.z-weapon.x*Math.sin(event.facing)+weapon.z*Math.cos(event.facing)};});
   this.renderer.render(this.scene,this.camera);
  }
+ private podLabel(p:import('../../simulation/types').Pod){let el=this.podLabels.get(p.id);if(!el){el=document.createElement('div');el.className='pod-world-label';this.labelLayer.append(el);this.podLabels.set(p.id,el);}const active=['falling','active','opening'].includes(p.status);el.hidden=!active||!this.visible(p)||this.world.phase!=='battle'||this.world.paused;if(el.hidden)return;
+  _vec.set(p.x,3.4,p.z).project(this.camera);const x=(_vec.x*.5+.5)*this.canvas.clientWidth,y=(.5-_vec.y*.5)*this.canvas.clientHeight;el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;const text=`${icon('unit.'+p.unitType)}<span>${SC2_UNITS[p.unitType].zh} #${p.id}<small>${this.world.podPurpose(p.unitType)} · ${Math.ceil(p.hp)} / ${p.maxHp} HP</small><i style="width:${Math.max(0,p.hp/p.maxHp)*100}%"></i></span>`;if(el.dataset.content!==text){el.innerHTML=text;el.dataset.content=text;}}
  screen(p:Point){_vec.set(p.x,0,p.z).project(this.camera);return {x:(_vec.x*.5+.5)*this.canvas.clientWidth,y:(-.5*_vec.y+.5)*this.canvas.clientHeight};}
  report(){return {resolution:{quality:this.quality,devicePixelRatio:window.devicePixelRatio||1,renderPixelRatio:this.renderer.getPixelRatio(),width:this.canvas.width,height:this.canvas.height,cssWidth:this.canvas.clientWidth,cssHeight:this.canvas.clientHeight,antialias:this.renderer.getContext().getContextAttributes()?.antialias},models:this.loadedModels,economicModels:['scv','drone','egg'].filter(k=>this.gpu.has(k)).length,podModel:!!this.podTemplate,errors:[...this.modelErrors,...this.fx.errors],originalAnimationModels:[...this.batches.values()].filter(b=>b.gltf.animations.length>0).length,proceduralAnimationModels:[...this.batches.values()].filter(b=>!b.gltf.animations.length).length,originalDeathModels:[...this.gpu.keys()].filter(k=>k.endsWith('.death')).length,animationAtlasBytes:[...this.gpu.values()].reduce((n,b)=>n+b.textureBytes,0),lodRatios:Object.fromEntries([...this.gpu].filter(([k])=>ZERG.includes(k as never)).map(([k,b])=>[k,b.lodRatio])),effectTextures:this.fx.loaded,effects:this.fx.stats,textures:this.loadedTextures,fps:this.fps,drawCalls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles,entities:this.world.entities.size,maxStretch:this.world.maxStretch,spatialVisits:this.world.distancePairs,collisionContacts:this.world.collisionContacts};}
 }
