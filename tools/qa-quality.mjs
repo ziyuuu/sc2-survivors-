@@ -2,7 +2,7 @@ import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
-const out='reports/local/qa';await fs.mkdir(out,{recursive:true});
+const out='reports/local/qa-v5-quality';await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.SC2_CHROME??'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 const report={date:new Date().toISOString(),workingDirectory:process.cwd(),scope:'Resolution, material loading, settings and DOM checks; local screenshots only, no human visual approval.',runs:[],errors:[]};
 const cases=[{width:1440,height:900,dpr:1.25},{width:1920,height:1080,dpr:2},{width:390,height:844,dpr:3,mobile:true},{width:844,height:390,dpr:3,mobile:true},{width:1920,height:1080,dpr:2,offline:true}];

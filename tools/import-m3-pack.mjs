@@ -58,7 +58,7 @@ async function extraAnimations(id,base){
   const original=new Map();for(const b of base.getSectionByReference(base.model.bones)?.content??[])for(const [key,property] of [['location','position'],['rotation','quaternion'],['scale','scale']])original.set(b[key].header.id,{name:str(base,b.name),property});
   const binding=new Map();for(const b of s.getSectionByReference(s.model.bones)?.content??[])for(const [key,property] of [['location','position'],['rotation','quaternion'],['scale','scale']]){const match=original.get(b[key].header.id);if(match&&match.property===property)binding.set(str(s,b.name)+'.'+property,match.name+'.'+property);}
   const clips=parser.buildAnimationClips(s.model,s).filter(c=>c.tracks.length&&c.tracks.every(t=>binding.has(t.name)));for(const c of clips)for(const t of c.tracks)t.name=binding.get(t.name);
-  return {clips,reports:[{source,sha256:sha(bytes),clips:clips.map(c=>c.name),binding:'matched original animation header IDs',usedForCombat:false}]};
+  return {clips,reports:[{source,sha256:sha(bytes),clips:clips.map(c=>c.name),binding:clips.length?'matched original animation header IDs':'rejected: incomplete binding to current base skeleton',usedForCombat:false}]};
  }catch(e){return {clips:[],reports:[{source,status:'missing',error:e.message}]};}
 }
 for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{

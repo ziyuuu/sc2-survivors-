@@ -78,7 +78,8 @@ export class AnimatedBatch {
        if(unitPose.z>0.001)a=a*(1.0-unitPose.z)+unitFrame(unitPose.y)*unitPose.z;
        if(unitBlend.w>0.001&&unitUpper>0.001){mat4 b=unitFrame(unitBlend.x);if(unitBlend.z>0.001)b=b*(1.0-unitBlend.z)+unitFrame(unitBlend.y)*unitBlend.z;float w=unitBlend.w*unitUpper;a=a*(1.0-w)+b*w;}
        return unitAsset*a*unitBind;}`)
-      .replace('#include <beginnormal_vertex>','#include <beginnormal_vertex>\nmat4 unitTransform=unitSkin(); objectNormal=mat3(unitTransform)*objectNormal;objectNormal=mix(objectNormal,aimTurret(objectNormal),unitTurret);')
+      .replace(/void main\(\)\s*\{/, 'void main() {\nmat4 unitTransform=unitSkin();')
+      .replace('#include <beginnormal_vertex>','#include <beginnormal_vertex>\nobjectNormal=mat3(unitTransform)*objectNormal;objectNormal=mix(objectNormal,aimTurret(objectNormal),unitTurret);')
       .replace('#include <begin_vertex>','vec3 transformed=(unitTransform*vec4(position,1.0)).xyz; transformed=mix(transformed,aimTurret(transformed-turretPivot)+turretPivot,unitTurret); unitHit=unitPose.w;');
      shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float unitHit;').replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance += vec3(0.6,0.24,0.08)*unitHit;');
     };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v4:'+m.customProgramCacheKey();return mat;});
