@@ -20,4 +20,4 @@ export interface Effect extends Point {id:number;kind:'shot'|'flame'|'explosion'
 export interface Pickup extends Point {id:number;minerals:number;gas:number}
 /** Presentation never consumes gameplay IDs or random numbers. */
 export interface VisualEvent extends Point {serial:number;time:number;y:number;endY:number;kind:'attack'|'hit'|'death'|'bile-impact'|'pod-land'|'pod-open'|'pod-destroy'|'scv-rescue'|'egg-expired'|'drone-death';unitType:UnitType|null;entityId:number;flying:boolean;end:Point;facing:number;siege:boolean}
-export interface Reward {id:string;name:string;description:string;icon:string;kind:'build'|'train'|'tech'|'upgrade'|'economy';value:string;minerals:number;gas:number;discount:number;baseMinerals:number;baseGas:number}
+export interface Reward {id:string;offerId:string;sold:boolean;name:string;description:string;icon:string;kind:'build'|'train'|'tech'|'upgrade'|'economy';value:string;minerals:number;gas:number;discount:number;baseMinerals:number;baseGas:number}

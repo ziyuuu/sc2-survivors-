@@ -20,3 +20,5 @@
 
 /* HUD surfaces absorb commands; only the exposed battlefield issues orders. */
 #topbar,#roster,#production-status,#pod-alerts,#mission,#notice,#stretch{pointer-events:auto;touch-action:none}#battle{cursor:crosshair}.controls-note{flex-wrap:wrap}
+
+#gamepad-calibration{position:fixed;inset:0;z-index:200;background:#050c13e8;display:grid;place-items:center;padding:20px}#gamepad-calibration[hidden]{display:none}#gamepad-calibration .console{padding:28px;max-width:540px}button:focus-visible,select:focus-visible,.gamepad-active button:focus,.gamepad-active select:focus{outline:2px solid #91e5ff;outline-offset:3px;box-shadow:0 0 14px #54c1e688}.reward-card:disabled{opacity:.62}

@@ -15,11 +15,11 @@ export class World {
  time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'lost'='menu';paused=false;
  entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<number,Building>();upgrades=new Map<string,number>();
  wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
- order:SquadOrder|null=null;private movePending=new Set<number>();
+ controllerCommand=false;order:SquadOrder|null=null;private movePending=new Set<number>();
  private commandRoute:{requested:Point;goal:Point;until:number}|null=null;
  trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];hash=new SpatialHash<Body>();
  visualEvents:VisualEvent[]=[];private visualSerial=0;
- rewards:Reward[]=[];rewardClaimed=false;rewardRound:'building'|'random'='building';clearReceipt:{stage:number;minerals:number;gas:number}|null=null;rerolls=0;nextBuilding=1;nextWave=Infinity;wave=0;stageWave=0;nextId=1;nextJob=1;
+ private offerSerial=0;rewards:Reward[]=[];rewardClaimed=false;rewardRound:'building'|'random'='building';clearReceipt:{stage:number;minerals:number;gas:number}|null=null;rerolls=0;nextBuilding=1;nextWave=Infinity;wave=0;stageWave=0;nextId=1;nextJob=1;
  dashUntil=0;dashReady=0;hive:Body|null=null;maxStretch=0;distancePairs=0;collisionContacts=0;
  stats={kills:0,rescued:0,failed:0,produced:0,started:0,shots:0,healed:0,damage:0,scvsRescued:0,scvsLost:0,dronesKilled:0,ambientSpawned:0};
  difficulty:Difficulty='normal';scvs=0;economicTargets=new Map<number,EconomicTarget>();
@@ -66,8 +66,10 @@ export class World {
   const goal=this.commandPoint(target);if(!goal){this.announce('目标无法到达');return false;}
   this.resetCommand();this.order={kind:'focus',targetId,issuedAt:this.time};this.changed();return true;
  }
+ controllerTargetReachable(target:Body){return target.hp>0&&target.owner==='zerg'&&Math.abs(target.x)<this.mapHalf&&Math.abs(target.z)<this.mapHalf&&this.commandPoint(target)!==null;}
+ setControllerFocus(id:number){const b=this.body(id);if(!b||!this.controllerTargetReachable(b))return false;this.controllerCommand=true;if(this.order?.kind==='focus'&&this.order.targetId===id)return true;this.order={kind:'focus',targetId:id,issuedAt:this.time};this.movePending.clear();this.commandRoute=null;return true;}
  private updateCommand(dt:number):Point {
-  if(Math.hypot(this.input.x,this.input.z)>.01){if(this.order)this.cancelOrder();return this.input;}
+  if(Math.hypot(this.input.x,this.input.z)>.01){if(this.order&&!(this.controllerCommand&&this.order.kind==='focus'))this.cancelOrder();return this.input;}
   const order=this.order;if(!order)return this.input;
   let goal:Point;
   if(order.kind==='focus'){
@@ -305,7 +307,7 @@ export class World {
   }
   if(u.mode==='siege'){u.action='idle';u.velocity={x:0,z:0};return;}
   let goal:Point=u.owner==='terran'?this.moveGoal(u):(target??this.anchor);
-  if(focused){goal=focused;if(this.hasAttackLine(u,focused)&&this.edgeDistance(u,focused)<=u.attackRange){u.velocity={x:0,z:0};u.action='idle';return;}}
+  if(focused&&!(this.controllerCommand&&Math.hypot(this.input.x,this.input.z)>.01)){goal=focused;if(this.hasAttackLine(u,focused)&&this.edgeDistance(u,focused)<=u.attackRange){u.velocity={x:0,z:0};u.action='idle';return;}}
   if(u.owner==='zerg'&&u.guardianPod!==null){const p=this.pods.find(p=>p.id===u.guardianPod&&p.status==='active');if(p&&(!target||u.id%3!==0&&distance(u,target)>4))goal=p;}
   if(u.owner==='zerg'&&target&&this.edgeDistance(u,target)<=u.attackRange*.85)goal=u;
   if(u.owner==='terran'&&!leash&&target&&!this.economicTargets.has(target.id)&&this.anchorStoppedFor>.15&&distance(target,this.anchor)<=u.attackRange+3&&this.edgeDistance(u,target)>u.attackRange)goal=target;
@@ -345,21 +347,22 @@ export class World {
   if(this.stage===12&&(!this.hive||this.hive.hp>0||!this.allies().some(u=>u.unitType!=='medivac'))){this.phase='lost';this.announce('未能在期限内摧毁虫巢并保住小队');return;}
   const [m,g]=this.config.reward,f=incomeFactor(this.difficulty);this.clearReceipt={stage:this.stage,minerals:m*f,gas:g*f};this.wallet.minerals+=m*f;this.wallet.gas+=g*f;this.economyTotals.clear.minerals+=m*f;this.economyTotals.clear.gas+=g*f;
   if(this.stage===12){this.phase='won';this.announce('虫巢已摧毁 · 小队撤离成功');return;}
-  this.phase='reward';this.rewardRound='building';this.rewardClaimed=false;this.rerolls=0;this.rewards=drawRewards(this,this.random,[],this.rewardRound);this.changed();
+  this.phase='reward';this.rewardRound='building';this.rewardClaimed=false;this.rerolls=0;this.rewards=this.offers(drawRewards(this,this.random,[],this.rewardRound));this.changed();
  }
- rerollCost(){return 50+25*this.rerolls;}
- reroll(){if(this.phase!=='reward'||this.rewardClaimed||!spend(this.wallet,{minerals:this.rerollCost(),gas:0}))return false;this.economyTotals.rerolls+=this.rerollCost();this.rewards=drawRewards(this,this.random,this.rewards.map(r=>r.id),this.rewardRound,this.rewards);this.rerolls++;this.changed();return true;}
- choose(id:string){if(this.phase!=='reward'||this.rewardClaimed)return false;const r=this.rewards.find(r=>r.id===id);if(!r||(this.rewardRound==='building')!==(r.kind==='build')||!eligibleReward(this,r)||!spend(this.wallet,{minerals:r.minerals,gas:r.gas}))return false;
+ private offers(cards:Reward[]){return cards.map(r=>({...r,offerId:`${this.stage}:${++this.offerSerial}:${r.id}`,sold:false}));}
+ rerollCost(){return 50+40*this.rerolls;}
+ reroll(){if(this.phase!=='reward'||this.rewardClaimed||!spend(this.wallet,{minerals:this.rerollCost(),gas:0}))return false;this.economyTotals.rerolls+=this.rerollCost();this.rewards=this.offers(drawRewards(this,this.random,this.rewards.map(r=>r.id),this.rewardRound,this.rewards));this.rerolls++;this.changed();return true;}
+ choose(id:string){if(this.phase!=='reward'||this.rewardClaimed)return false;const r=this.rewards.find(r=>r.offerId===id);if(!r||(this.rewardRound==='building')!==(r.kind==='build')||!eligibleReward(this,r)||!spend(this.wallet,{minerals:r.minerals,gas:r.gas}))return false;
   this.economyTotals.purchases.minerals+=r.minerals;this.economyTotals.purchases.gas+=r.gas;
   if(r.kind==='build'){const type=r.value as BuildingType;this.addBuilding(type);}
   else if(r.kind==='upgrade'){this.buildings.get(Number(r.value))!.upgradeRemaining=FACTORY_TECH_LAB.time;}
   else if(r.kind==='train')this.extraDeliveries.push(r.value as TerranType);
   else if(r.kind==='tech'){this.upgrades.set(r.value,(this.upgrades.get(r.value)??0)+1);for(const u of this.allies())this.refreshStats(u);}
   else {const gains=r.value==='minerals'?[100,0]:r.value==='gas'?[0,50]:r.value==='salvage'?[75,25]:[100,25];this.wallet.minerals+=gains[0];this.wallet.gas+=gains[1];this.economyTotals.cards.minerals+=gains[0];this.economyTotals.cards.gas+=gains[1];}
-  return this.finishRewardRound();
+  r.sold=true;this.changed();return true;
  }
  skipReward(){if(this.phase!=='reward'||this.rewardClaimed)return false;return this.finishRewardRound();}
- private finishRewardRound(){this.rewardClaimed=true;if(this.rewardRound==='building'){this.rewardRound='random';this.rewards=drawRewards(this,this.random);this.rewardClaimed=false;this.changed();return true;}return this.nextStage();}
+ private finishRewardRound(){this.rewardClaimed=true;if(this.rewardRound==='building'){this.rewardRound='random';this.rewards=this.offers(drawRewards(this,this.random));this.rewardClaimed=false;this.changed();return true;}return this.nextStage();}
  private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();for(const type of this.extraDeliveries)this.spawnPod(type,undefined,this.nextJob++);this.extraDeliveries=[];this.changed();return true;}
  stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){if(u.unitType==='marine'&&u.hp>10&&u.stimUntil<=this.time){u.hp-=10;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
  dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;this.dashUntil=this.time+1.2;this.dashReady=this.time+12;return true;}

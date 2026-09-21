@@ -12,7 +12,7 @@ export const TECHS=[
  ['medivac','医疗升级','医疗艇能量恢复速度加倍。','tech.heal',200,75],
  ['discount','生产优化','后续自动生产成本降低 15%。','building.barracks',200,75],
 ] as const;
-const offer=(r:Omit<Reward,'discount'|'baseMinerals'|'baseGas'>):Reward=>({...r,discount:0,baseMinerals:r.minerals,baseGas:r.gas});
+const offer=(r:Omit<Reward,'discount'|'baseMinerals'|'baseGas'|'offerId'|'sold'>):Reward=>({...r,offerId:r.id,sold:false,discount:0,baseMinerals:r.minerals,baseGas:r.gas});
 export function rewardPool(w?:RewardWorld):Reward[]{const factory=w&&[...w.buildings.values()].find(b=>b.type==='factory'&&b.remaining<=0&&!b.techLab&&b.upgradeRemaining===null);return [
  ...(factory?[offer({id:'upgrade.factory.'+factory.id,name:'重工厂科技实验室',description:`升级重工厂 #${factory.id}，解锁该厂坦克生产。当前订单完成后开始升级；星港可独立发展。`,icon:'unit.tank',kind:'upgrade',value:String(factory.id),minerals:FACTORY_TECH_LAB.minerals,gas:FACTORY_TECH_LAB.gas})]:[]),
  ...Object.entries(BUILDINGS).map(([id,b])=>offer({id:'build.'+id,name:b.name.split(' · ')[1],description:'建成后自动扣费生产，每份订单投放一个需要救援的降落仓。',icon:'building.'+id,kind:'build',value:id,minerals:b.minerals,gas:b.gas})),
@@ -31,7 +31,7 @@ export function unlockedReward(w:RewardWorld,r:Reward){
  if(r.kind==='tech'){const needsFactory=['vehicle','infernal','siege'].includes(r.value),needsStarport=r.value==='medivac';return (r.value!=='siege'||[...w.buildings.values()].some(b=>b.type==='factory'&&b.techLab))&&(!needsFactory||[...w.buildings.values()].some(b=>b.type==='factory'))&&(!needsStarport||[...w.buildings.values()].some(b=>b.type==='starport'))&&(w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1);}
  return true;
 }
-export function eligibleReward(w:RewardWorld,r:Reward){return unlockedReward(w,r)&&w.wallet.minerals+1e-8>=r.minerals&&w.wallet.gas+1e-8>=r.gas;}
+export function eligibleReward(w:RewardWorld,r:Reward){return !r.sold&&unlockedReward(w,r)&&w.wallet.minerals+1e-8>=r.minerals&&w.wallet.gas+1e-8>=r.gas;}
 export function drawRewards(w:RewardWorld,rng:()=>number,previous:string[]=[],round:'building'|'random'='random',oldPrices:Reward[]=[]){
  const pool=rewardPool(w).filter(r=>unlockedReward(w,r)&&(round==='building'?r.kind==='build':r.kind!=='build'));const result:Reward[]=[];
  if(round==='building')result.push(...pool.splice(0));else while(result.length<3&&pool.length)result.push(pool.splice(Math.floor(rng()*pool.length),1)[0]);

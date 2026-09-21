@@ -95,7 +95,7 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
   layerReport.push(report);
  }
  j.buffers[0].byteLength=length;j.asset.extras={m3Source:provenance.source,converterRevision:M3_TOOL_REVISION,particleSystemsExported:false,materialPipelineVersion:3};
- const bytes=pack(j,Buffer.concat(chunks)),info=inspectGlb(bytes);if(!info.animationNames.length&&!id.startsWith('model.terrain.'))throw Error('No usable animations exported');
+ const bytes=pack(j,Buffer.concat(chunks)),info=inspectGlb(bytes);if(!info.animationNames.length&&!id.startsWith('model.terrain.')&&!id.startsWith('model.loot.'))throw Error('No usable animations exported');
  const packedFile=`public/assets/animated/${id}.glb`;await fs.writeFile(packedFile,bytes);
  manifest.push({id,kind:'model',packedFile,required:false,materialPipelineVersion:3,materials:layerReport,geometry:geometryReport,clipSources,additionalAnimations:additional.reports,verification:{bytes:true,bindings:true,humanVisual:false},...provenance,sha256:sha(bytes),animations:info.animationNames,bones:bones.length,originalParticles:s.model.particle_systems?.entries??0});
  console.log(`${id}: ${info.animationNames.length} clips, ${bones.length} bones, ${bytes.length} bytes`);

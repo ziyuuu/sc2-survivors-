@@ -10,6 +10,7 @@ export const M3_MODELS=[
  ['model.zergling.death','zerglingdeathex1'],['model.roach.death','roachdeathex1'],
  ['model.baneling.death','banelingex1deathrupture'],['model.ravager.death','ravager_death_00'],
  ['model.droppod','droppodfalling'],
+ ['model.loot.mineral','crystal'],['model.loot.gas','gascanister'],['model.loot.large','spacemineralcluster_00'],
  ['model.scv','scv'],['model.drone','drone'],['model.egg','banelingegg'],
  ['model.terrain.rock','chardunerock_00'],['model.terrain.wreck','barrackswrecked_00'],
 ];
