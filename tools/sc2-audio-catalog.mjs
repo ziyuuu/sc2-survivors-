@@ -1,5 +1,6 @@
 // Exact paths from the same fixed SC2 SoundData profile. No unverified download URL.
 export const SC2_AUDIO=[
+ ['audio.sc2.scv.ready','LocalizedData/Sounds/TerranUnitVO/SCV/SCV_Ready00.ogg'],
  ['audio.sc2.marine.attack','Assets/Sounds/Terran/Marine/Marine_AttackLaunch0.wav'],
  ['audio.sc2.hellion.attack','Assets/Sounds/Terran/Hellion/Hellion_AttackLaunch0.wav'],
  ['audio.sc2.tank.attack','Assets/Sounds/Terran/SiegeTank/SiegeTank_AttackLaunch0.wav'],

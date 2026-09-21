@@ -24,7 +24,7 @@ export function rewardPool():Reward[]{return [
  ];}
 export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<BuildingType,Building>;upgrades:Map<string,number>;capacity:(t:TerranType)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
 export function unlockedReward(w:RewardWorld,r:Reward){
- if(r.kind==='build')return !w.buildings.has(r.value as BuildingType)&&w.stage>=(r.value==='factory'?2:r.value==='starport'?3:1);
+ if(r.kind==='build')return !w.buildings.has(r.value as BuildingType)&&w.stage>=(r.value==='factory'||r.value==='starport'?2:1);
  if(r.kind==='train')return w.capacity(r.value as TerranType)&&[...w.buildings.values()].some(b=>b.remaining<=0&&BUILDINGS[b.type].types.includes(r.value as TerranType));
  if(r.kind==='tech'){const needsFactory=['vehicle','infernal','siege'].includes(r.value),needsStarport=r.value==='medivac';return (!needsFactory||w.buildings.has('factory'))&&(!needsStarport||w.buildings.has('starport'))&&(w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1);}
  return true;

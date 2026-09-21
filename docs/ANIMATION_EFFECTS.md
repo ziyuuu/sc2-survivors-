@@ -50,7 +50,7 @@ Hellion/Medivac 使用已取得的同单位较早死亡包，Baneling 使用 rup
 - 原始动作在载入时由 AnimationMixer 采样为共享骨矩阵纹理；每单位用自己的模拟时间、移动距离、攻击停顿与模式进度播放，GPU 插值、InstancedMesh 批量绘制。暂停不推进动作。8 个单位使用原骨骼，不再走旧程序步态分支。
 - 8/8 独立死亡模型播放原动作；模拟实体在 1.5 秒后回收时，渲染副本允许播完剩余动作（最多 5 秒，随后短暂消退），不复活、不参与碰撞或寻敌。
 - 命中由真实扣血通知触发：生物血花、机械火花、短暂材质闪光。不把受击闪光描述为原生 `Hit` 骨骼动作，也不增加硬直。原包普遍没有单独受击动画。
-- 已从 MarineWeaponImpact、BloodTargetImpact、SiegeTankWeaponImpact、RoachMissileImpactEx1、Ravager_Artillery_Missile_Impact、BanelingDeath_Low 提取 **24 张原特效贴图**。保留 M3 flipbook 行列与帧区间。移动尘土、枪口亮光、火焰、酸液、爆炸的发射与时间组合为网页适配；未声称完整还原 SC2 的粒子、材质、灯光、物理碎片和 Actor 系统。
+- 已从 MarineWeaponImpact、BloodTargetImpact、SiegeTankWeaponImpact、RoachMissileImpactEx1、Ravager_Artillery_Missile_Impact、BanelingDeath_Low 提取 **28 张原特效贴图**。保留 M3 flipbook 行列与帧区间。移动尘土、枪口亮光、火焰、酸液、爆炸的发射与时间组合为网页适配；未声称完整还原 SC2 的粒子、材质、灯光、物理碎片和 Actor 系统。
 - 前一轮对 34 张颜色/效果 DDS 的 Node 解码结果与本地 Pillow 逐像素比较一致；新增材质沿用该解码器。另以自动化测试验证 SC2 法线通道重建、单位向量和 alpha 发光遮罩；不把旧 34 张对照报告冒充新素材逐像素复核。
 - 朋友 HTML 必须带齐 8 个动画单位、8 个死亡模型和两个坦克模式包，否则打包失败。开发环境仍可继续规则调试，但会明确显示原始动画缺失。
 
@@ -62,7 +62,7 @@ Hellion/Medivac 使用已取得的同单位较早死亡包，Baneling 使用 rup
 
 高光使用 glTF `KHR_materials_specular`，粗糙度由原 specularity 近似映射；发光使用 `KHR_materials_emissive_strength`。这属于 Three.js PBR 适配，未复刻 SC2 全部 shader、队伍色、动态 UV 或第二发光层。当前只有一个 Medivac 辅助材质层使用非 UV0，明确记录 unsupported 并跳过；主机体的四类贴图成功导出。导入报告逐材质记录来源、通道、已加载/不支持的层，pipeline version 为 2；朋友版打包校验版本及必需原法线层，旧颜色-only 包需要重新运行 `npm run assets:animate`。
 
-桌面默认随屏幕像素比例渲染，开启抗锯齿与最高 8 倍各向异性过滤（服从 GPU 能力）；手机默认均衡，DPR 上限 1.5 / 4 倍过滤。菜单和暂停页提供清晰、均衡、省电设置；保存在本地，单 HTML 同样可用。材质齐全和像素正确不等于 SC2 客户端画质：地形仍为目录预览 JPG，光照简单，完整阴影/Actor/粒子材质系统仍未复刻，人工视觉验收尚未完成。
+桌面默认随屏幕像素比例渲染，开启抗锯齿与最高 8 倍各向异性过滤（服从 GPU 能力）；手机默认均衡，DPR 上限 1.5 / 4 倍过滤。菜单和暂停页提供清晰、均衡、省电设置；保存在本地，单 HTML 同样可用。材质齐全和像素正确不等于 SC2 客户端画质：地形已换成原 Char DDS 颜色/法线贴图和原岩石、兵营残骸，光照仍为网页适配，完整阴影/Actor/粒子材质系统仍未复刻，人工视觉验收尚未完成。
 
 ## 原版音效尚缺
 
@@ -81,3 +81,12 @@ Hellion/Medivac 使用已取得的同单位较早死亡包，Baneling 使用 rup
 | Marine 倒地 | `Marine_Death_Bodyfall_A_01.wav` | `public/assets/audio/sc2/Marine_Death_Bodyfall_A_01.wav` |
 
 放入后运行 `npm run assets:prepare` / `npm run build`，按稳定 asset ID 自动优先播放、内嵌；manifest 当前明确标记这 9 项 `missing`。没有可验证的公开二进制下载地址，故不编造直链。更多原版移动/受击音效尚未取得，不能声称整套音效齐全。
+
+## 本轮新增原素材与播放适配
+
+- SCV：scv.m3，16 个动作；Drone：drone.m3，10 个动作；经济虫卵：原 banelingegg.m3，4 个动作。这里将原虫卵用作 SCV 囚笼，是 Survivors 玩法适配，不声称原 SC2 有“虫卵内工兵”。三个稳定 ID 为 model.scv / model.drone / model.egg。
+- 人族降落仓：droppodfalling.m3，Birth 3.266 秒、Stand 5 秒、Death 6.333 秒。下落和被毁播放各自原动作；无独立开舱动作，因此 PodView 旋转原 DropPod_Door 骨骼开门，不拿 Death 冒充开门。落地守军、伤害与释放由 World 决定。
+- 枪兵攻击不再把完整片段压进 0.15 秒。原上身骨骼按 1.4 倍播放，与腿部原移动动作混合；开火时间由 lastShotAt 驱动，不能改变攻击周期。枪口和曳光使用原 Ref_Weapon 挂点。枪口采用原 MarineWeaponLaunch 的 glow_yellow1 层，fireball_1hot 层仍缺失，不能称为完整原粒子系统。
+- 真实地表：char_dirt、char_dirtnormal、char_rock、char_rocknormal、char_dirt_cracked，均为原 DDS 的 512×512 最高 mip；tools/import-terrain.mjs 校验、解码并生成原始来源与哈希。CharDuneRock_00 与 BarracksWrecked_00 使用原网格；不再重复铺目录截图或用多面体代替岩石。地图外部随当前开放边界变暗；软接触阴影为网页适配。
+- SCV 获救显示原模型 3.8 秒，经济只结算一次。audio.sc2.scv.ready 已接入一次性播放，但 SCV_Ready00.ogg 尚未取得；现在不能声称已播放原亮相语音。其余 9 个原声音仍缺失，3 个合成提示音保留。
+- 原文件路径和唯一缺失纹理、全部音频手工放置路径见 ASSET_DOWNLOAD_REQUIRED.md。所有艺术处理和截图留在本机。

@@ -9,6 +9,9 @@ export const M3_MODELS=[
  ['model.tank.death','siegetankdeathex1'],['model.medivac.death','medivacdeath_00'],
  ['model.zergling.death','zerglingdeathex1'],['model.roach.death','roachdeathex1'],
  ['model.baneling.death','banelingex1deathrupture'],['model.ravager.death','ravager_death_00'],
+ ['model.droppod','droppodfalling'],
+ ['model.scv','scv'],['model.drone','drone'],['model.egg','banelingegg'],
+ ['model.terrain.rock','chardunerock_00'],['model.terrain.wreck','barrackswrecked_00'],
 ];
 // Original particle textures. The web renderer implements a documented subset of
 // the M3 particle system, not SC2's full material/physics/Actor renderer.
@@ -16,5 +19,5 @@ export const M3_EFFECTS=[
  ['fx.muzzle','marineweaponlaunch'],['fx.impact','marineweaponimpact'],
  ['fx.blood','bloodtargetimpact'],['fx.blast','siegetankweaponimpact'],
  ['fx.acid','roachmissileimpactex1'],['fx.bile','ravager_artillery_missile_impact'],
- ['fx.baneling','banelingdeath_low'],
+ ['fx.baneling','banelingdeath_low'],['fx.pod','jumplanddust'],
 ];

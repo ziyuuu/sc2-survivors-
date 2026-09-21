@@ -22,7 +22,7 @@ export class World {
  readonly economyTotals={passive:{minerals:0,gas:0},drops:{minerals:0,gas:0},clear:{minerals:0,gas:0},cards:{minerals:0,gas:0},production:{minerals:0,gas:0},purchases:{minerals:0,gas:0},rerolls:0};
  private readonly seed:number;private readonly sandbox:boolean;private productionCursor=0;
  private waves:Wave[]=[];private eventPlan:EconomicSpawn[]=[];private nextEvent=0;private scheduledStage=0;
- private ambientBacklog:{type:ZergType;bearing:number}[]=[];private extraDeliveries:TerranType[]=[];
+ private ambientBacklog:{type:ZergType;bearing:number;at:number}[]=[];private extraDeliveries:TerranType[]=[];
  private spawnCells:Point[]=[];
  notice='守住小队。生产完成后必须救援。';noticeUntil=8;revision=0;
  readonly listeners=new Set<()=>void>();readonly obstacles:Obstacle[];
@@ -105,7 +105,7 @@ export class World {
   this.announce(SC2_UNITS[type].zh+' 增援即将落地');return pod;
  }
  landPod(p:Pod){p.status='active';p.landedAt=this.time;const radius=p.stage<=3?4:p.stage<=8?6:8;
-  p.guardTypes.forEach((t,i)=>{const pos=this.nearbyPoint(p,radius,i/p.guardTypes.length*Math.PI*2),e=this.addUnit(t,'zerg',pos.x,pos.z);e.guardianPod=p.id;p.guardianIds.add(e.id);});
+  p.guardTypes.forEach((t,i)=>{const pos=this.nearbyPoint(p,radius,i/p.guardTypes.length*Math.PI*2),e=this.addUnit(t,'zerg',pos.x,pos.z);if(t==='zergling'){e.hp=e.maxHp=stageConfig(p.stage,this.difficulty).lingHp;}e.guardianPod=p.id;p.guardianIds.add(e.id);});
   this.visual('pod-land',p);this.announce(SC2_UNITS[p.unitType].zh+' 降落仓遭到围攻');
  }
  spawnEconomic(kind:'egg'|'drone',position?:Point){const p=position??this.eventPoint(5),hp=kind==='egg'?ECONOMY.eggHp:ECONOMY.droneHp;
@@ -121,7 +121,8 @@ export class World {
  targetAllowed(u:Entity,b:Body){return b.hp>0&&b.owner!==u.owner&&(!b.flying||SC2_UNITS[u.unitType].targetType==='both');}
  edgeDistance(a:Body,b:Body){return Math.max(0,distance(a,b)-a.unitRadius-b.unitRadius);}
  findTarget(u:Entity,range:number){let best:Body|undefined,score=Infinity;
-  this.hash.query(u,range+2,b=>{if(!this.targetAllowed(u,b))return;let s=distance(u,b);if(u.owner==='terran'&&this.economicTargets.has(b.id))s+=100;
+  this.hash.query(u,range+2,b=>{if(!this.targetAllowed(u,b))return;let s=distance(u,b);if(u.owner==='terran'){// Stable combat targeting: finish a wounded threat and keep a useful lock.
+    s+=b.hp/Math.max(1,b.maxHp)*1.5;if(b.id===u.attackTarget)s-=.8;if(this.economicTargets.has(b.id))s+=100;}
    if(u.guardianPod&&b.id===u.guardianPod)s-=u.id%3===0?0:8;
    if(s<score){score=s;best=b;}
   });return best;
@@ -180,7 +181,7 @@ export class World {
   const back=formation.back+(u.unitType==='marine'?Math.floor(u.slot/2):u.slot)*formation.spacing;
   return {x:this.anchor.x-Math.sin(this.anchor.facing)*back+Math.cos(this.anchor.facing)*lane,z:this.anchor.z-Math.cos(this.anchor.facing)*back-Math.sin(this.anchor.facing)*lane};
  }
- separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(b.id===u.id||b.flying!==u.flying||n>=12)return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min&&d>.001){const strength=Math.min(3,(min-d)*5);v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;n++;}});return v;}
+ separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(b.id===u.id||b.flying!==u.flying||n>=12)return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min){const strength=Math.min(3,(min-d)*5);if(d>.001){v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;}else{const a=(Math.min(u.id,b.id)*7+Math.max(u.id,b.id)*13)*2.399,sign=u.id<b.id?1:-1;v.x+=Math.sin(a)*strength*sign;v.z+=Math.cos(a)*strength*sign;}n++;}});return v;}
  updateUnit(u:Entity,dt:number){if(u.hp<=0)return;u.prev={x:u.x,z:u.z};u.healTarget=null;
   u.weaponCooldown=Math.max(0,u.weaponCooldown-dt);u.attackLock=Math.max(0,u.attackLock-dt);
   const anchorDistance=distance(u,this.anchor);
@@ -191,8 +192,9 @@ export class World {
   let target=this.body(u.attackTarget);if(target&&!this.targetAllowed(u,target))target=undefined;
   const leash=anchorDistance>TUNING.softLeash,hard=anchorDistance>TUNING.hardLeash;
   const closeDefense=target&&this.edgeDistance(u,target)<=2.5;
-  if(target&&u.unitType!=='medivac'&&(!hard||u.owner==='zerg'||closeDefense)&&this.edgeDistance(u,target)<=u.attackRange&&this.edgeDistance(u,target)>=(u.mode==='siege'?SIEGE.minRange:0)&&u.weaponCooldown<=1e-8){
-   const heading=Math.atan2(target.x-u.x,target.z-u.z);u.facing=turn(u.facing,heading,(u.unitType==='hellion'?2.8:9)*dt);
+  const marchingRearTarget=u.unitType==='hellion'&&u.owner==='terran'&&this.anchorMovingFor>.2&&target&&Math.abs(angleDelta(u.facing,Math.atan2(target.x-u.x,target.z-u.z)))>1.2;
+  if(target&&!marchingRearTarget&&u.unitType!=='medivac'&&(!hard||u.owner==='zerg'||closeDefense)&&this.edgeDistance(u,target)<=u.attackRange&&this.edgeDistance(u,target)>=(u.mode==='siege'?SIEGE.minRange:0)&&u.weaponCooldown<=1e-8){
+   const heading=Math.atan2(target.x-u.x,target.z-u.z);u.facing=turn(u.facing,heading,(u.unitType==='hellion'?2.8:u.unitType==='marine'?24:9)*dt);
    if(Math.abs(angleDelta(u.facing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
     u.weaponCooldown=(u.mode==='siege'?SIEGE.period:data.attackPeriod)/stim;u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
    // A committed firing turn must not be cancelled by formation steering in the same tick.
@@ -228,9 +230,11 @@ export class World {
   if(p.status==='active'){p.status='opening';p.resolvedAt=this.time;this.visual('pod-open',p);}
   else if(this.time-(p.resolvedAt??this.time)>=ECONOMY.openingSeconds-1e-8){p.status='rescued';p.resolvedAt=this.time;const u=this.reinforce(p.unitType,p);p.recruitId=u.id;this.stats.rescued++;this.announce(SC2_UNITS[p.unitType].zh+' 已获救，正在归队');}
  }}
- spawnWave(){if(this.scheduledStage!==this.stage)this.prepareStage();const wave=this.waves[this.stageWave];if(!wave)return;this.wave++;this.stageWave++;for(const type of wave.types)this.ambientBacklog.push({type,bearing:wave.bearing});this.nextWave=this.stageStartedAt+(this.waves[this.stageWave]?.at??Infinity);this.releaseAmbient();}
- private releaseAmbient(){let slots=Math.max(0,TUNING.enemyCap-this.enemyCount());while(slots-->0&&this.ambientBacklog.length){const e=this.ambientBacklog.shift()!,base=this.eventPoint(Math.min(12,this.mapHalf*.75)),angle=this.stage===2?(this.stats.ambientSpawned%2?0:Math.PI):e.bearing+(this.stage>=5&&slots%2?Math.PI:0);
-  const desired=this.nearbyPoint(this.anchor,Math.min(24,this.mapHalf*.9),angle);const p=distance(desired,this.anchor)>=8?desired:base;this.addUnit(e.type,'zerg',p.x,p.z);this.stats.ambientSpawned++;}}
+ spawnWave(){if(this.scheduledStage!==this.stage)this.prepareStage();const wave=this.waves[this.stageWave];if(!wave)return;this.wave++;this.stageWave++;wave.types.forEach((type,i)=>this.ambientBacklog.push({type,bearing:wave.bearing,at:this.time+i*this.config.entranceSpacing}));this.ambientBacklog.sort((a,b)=>a.at-b.at);this.nextWave=this.stageStartedAt+(this.waves[this.stageWave]?.at??Infinity);this.releaseAmbient();}
+ private releaseAmbient(){let slots=Math.max(0,TUNING.enemyCap-this.enemyCount());while(slots-->0&&this.ambientBacklog.length&&this.ambientBacklog[0].at<=this.time+1e-8){const e=this.ambientBacklog.shift()!,base=this.eventPoint(Math.min(12,this.mapHalf*.75)),angle=this.stage===2?(this.stats.ambientSpawned%2?0:Math.PI):e.bearing+(this.stage>=5&&slots%2?Math.PI:0);
+  // Distribute a wave along its approach arc; do not stack every attacker on one point.
+  const arc=angle+((this.stats.ambientSpawned%9)-4)*.17,range=Math.min(24,this.mapHalf*.9)*(0.86+(this.stats.ambientSpawned%3)*.06);
+  const desired=this.nearbyPoint(this.anchor,range,arc);const p=distance(desired,this.anchor)>=8?desired:base;this.addUnit(e.type,'zerg',p.x,p.z);this.stats.ambientSpawned++;}}
  endStage(){if(this.phase!=='battle')return;const [m,g]=this.config.reward,f=incomeFactor(this.difficulty);this.wallet.minerals+=m*f;this.wallet.gas+=g*f;this.economyTotals.clear.minerals+=m*f;this.economyTotals.clear.gas+=g*f;
   if(this.stage===12){this.phase=this.hive&&this.hive.hp<=0?'won':'lost';this.announce(this.phase==='won'?'虫巢已摧毁 · 小队撤离成功':'未能在期限内摧毁虫巢');return;}
   this.phase='reward';this.rewardClaimed=false;this.rerolls=0;this.rewards=drawRewards(this,this.random);this.changed();
@@ -255,7 +259,7 @@ export class World {
   if(this.trail.length>1200){this.trail.splice(0,200);for(const u of this.entities.values())u.trailIndex=Math.max(0,u.trailIndex-200);}
   this.updateEconomy(dt);this.updateProduction(dt);
   if(!this.sandbox)while(this.eventPlan[this.nextEvent]?.at<=this.stageElapsed){this.spawnEconomic(this.eventPlan[this.nextEvent++].kind);}
-  if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.autoWaves&&this.ambientBacklog.length)this.releaseAmbient();
+  if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.ambientBacklog.length)this.releaseAmbient();
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active')];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);
   for(const u of this.entities.values())this.updateUnit(u,dt);
   for(const fx of this.effects){if(fx.kind==='bile'&&fx.until<=this.time){this.visual('bile-impact',{...fx.end,id:fx.source,hp:0,maxHp:0,armor:0,flying:false,unitRadius:0,owner:'zerg',attributes:[]});this.hash.query(fx.end,3,b=>{if(b.hp>0&&distance(b,fx.end)<=BILE.radius+b.unitRadius)this.hit(b,BILE.damage+b.armor,[],1,'zerg');});}}

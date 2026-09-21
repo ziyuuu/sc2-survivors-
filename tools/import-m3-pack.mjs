@@ -26,7 +26,9 @@ for(const file of ['src/m3-loader.js','src/structures.xml','LICENSE']){
  await fs.writeFile(`${toolDir}/${path.basename(file)}`,source);
 }
 const parser=await import(pathToFileURL(path.resolve(toolDir,'m3-loader.js')).href);
-const manifest=[],failures=[];
+const selected=new Set(process.argv.slice(2)),matches=id=>!selected.size||selected.has(id);
+let previous={manifest:[],failures:[]};if(selected.size){try{previous=JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8'));}catch{}}
+const manifest=previous.manifest.filter(a=>![...selected].some(id=>a.id===id||a.id.startsWith(id+'.'))),failures=previous.failures.filter(a=>![...selected].some(id=>a.id===id||a.id.startsWith(id+'.')));
 function checkM3(b){if(b.length<24||!['43DM','33DM'].includes(b.subarray(0,4).toString()))throw Error('Invalid M3 magic/header');const index=b.readUInt32LE(4),count=b.readUInt32LE(8);if(index>=b.length||count===0||index+count*16>b.length)throw Error('Invalid M3 section table');}
 async function m3(name){const file=`${privateDir}/${name}.m3`,url=provider+`models/${name}.m3`;const bytes=await get(url,file,checkM3);return {sections:await parser.loadM3FromFile(file),source:url,sourceSha256:sha(bytes)};}
 const textureCache=new Map();
@@ -39,7 +41,7 @@ async function png(name,options={}){
 }
 function unpack(b){const j=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)));const o=20+b.readUInt32LE(12);return {j,bin:b.subarray(o+8,o+8+b.readUInt32LE(o))};}
 function pack(j,bin){const str=Buffer.from(JSON.stringify(j));const json=Buffer.alloc(Math.ceil(str.length/4)*4,32);str.copy(json);const padded=Buffer.alloc(Math.ceil(bin.length/4)*4);bin.copy(padded);const b=Buffer.alloc(28+json.length+padded.length);b.write('glTF');b.writeUInt32LE(2,4);b.writeUInt32LE(b.length,8);b.writeUInt32LE(json.length,12);b.writeUInt32LE(0x4e4f534a,16);json.copy(b,20);b.writeUInt32LE(padded.length,20+json.length);b.writeUInt32LE(0x004e4942,24+json.length);padded.copy(b,28+json.length);return b;}
-for(const [id,name] of M3_MODELS){try{
+for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
  const {sections:s,...provenance}=await m3(name),group=parser.buildThreeMeshesFromModel(s.model,s,{textureBasePath:path.resolve('assets/private/dds')});
  const specs=materialSources(s);
  for(const [matName,set] of group.userData.matNameToMaterials??[])for(const material of set){material.name=matName;material.userData={};material.color.set(0xffffff);material.roughness=.8;}
@@ -68,7 +70,7 @@ for(const [id,name] of M3_MODELS){try{
   layerReport.push(report);
  }
  j.buffers[0].byteLength=length;j.asset.extras={m3Source:provenance.source,converterRevision:M3_TOOL_REVISION,particleSystemsExported:false,materialPipelineVersion:2};
- const bytes=pack(j,Buffer.concat(chunks)),info=inspectGlb(bytes);if(!info.animationNames.length)throw Error('No usable animations exported');
+ const bytes=pack(j,Buffer.concat(chunks)),info=inspectGlb(bytes);if(!info.animationNames.length&&!id.startsWith('model.terrain.'))throw Error('No usable animations exported');
  const packedFile=`public/assets/animated/${id}.glb`;await fs.writeFile(packedFile,bytes);
  manifest.push({id,kind:'model',packedFile,required:false,materialPipelineVersion:2,materials:layerReport,...provenance,sha256:sha(bytes),animations:info.animationNames,bones:bones.length,originalParticles:s.model.particle_systems?.entries??0});
  console.log(`${id}: ${info.animationNames.length} clips, ${bones.length} bones, ${bytes.length} bytes`);
@@ -76,13 +78,13 @@ for(const [id,name] of M3_MODELS){try{
 
 // Extract exact texture references and flipbook layout from each original effect's materials/particles.
 function str(s,ref){const c=s.getSectionByReference(ref)?.content;return c?String.fromCharCode(...c).replace(/\0/g,''):'';}
-for(const [effectId,name] of M3_EFFECTS){try{
+for(const [effectId,name] of M3_EFFECTS.filter(([id])=>matches(id))){try{
  const {sections:s,...provenance}=await m3(name);const mats=s.getSectionByReference(s.model.materials_standard)?.content??[];
  const refs=s.getSectionByReference(s.model.material_references)?.content??[];const particles=s.getSectionByReference(s.model.particle_systems)?.content??[];
  for(let i=0;i<mats.length;i++){const mat=mats[i];let texture;
-  for(const key of ['layer_diff','layer_emis','layer_emis2']){const layer=s.getSectionByReference(mat[key])?.content[0];const p=str(s,layer?.color_bitmap);if(p){texture=path.basename(p.replaceAll('\\','/'));break;}}
+  for(const key of ['layer_diff','layer_emis1','layer_emis2']){const layer=s.getSectionByReference(mat[key])?.content[0];const p=str(s,layer?.color_bitmap);if(p){texture=path.basename(p.replaceAll('\\','/'));break;}}
   if(!texture)continue;const p=particles.find(p=>(refs[p.material_reference_index]?.material_index??p.material_reference_index)===i);
-  const bytes=await png(texture),id=effectId+'.'+i,packedFile=`public/assets/effects/${id}.png`;await fs.writeFile(packedFile,bytes);
+  let bytes;try{bytes=await png(texture);}catch(e){failures.push({id:effectId+'.'+i,name:texture,error:e.message});continue;}const id=effectId+'.'+i,packedFile=`public/assets/effects/${id}.png`;await fs.writeFile(packedFile,bytes);
   const columns=Math.max(1,p?.uv_flipbook_cols??1),rows=Math.max(1,p?.uv_flipbook_rows??1),startFrame=p?.uv_flipbook_start_init_index??0,endFrame=Math.min(columns*rows-1,Math.max(startFrame,p?.uv_flipbook_start_stop_index??0,p?.uv_flipbook_end_init_index??0));
   manifest.push({id,kind:'effect-texture',packedFile,required:false,...provenance,textureSource:provider+'textures/'+texture.toLowerCase(),sha256:sha(bytes),sprite:{columns,rows,startFrame,endFrame},particle:{life:p?.lifespan?.default,size:p?.size?.default,colors:[p?.color_init?.default,p?.color_mid?.default,p?.color_end?.default]}});
  }
