@@ -9,7 +9,7 @@ import {ContactSolver} from './movement/contacts';
 import {SpatialHash} from './movement/spatial-hash';
 import {distance,angleDelta,turn,translate,locomote,steerGoal,clearLine,blocked} from './movement/steering';
 import {drawRewards,drawReward,eligibleReward,unlockedReward} from './progression/rewards';
-import {stageConfig,stageSchedule,incomeFactor,type Difficulty,type Wave,type EconomicSpawn} from '../data/stages';
+import {stageConfig,stageSchedule,incomeFactor,scaleCounts,emptyCounts,type Counts,type Difficulty,type Wave,type EconomicSpawn} from '../data/stages';
 import {CharTerrain} from '../data/terrain';
 import {rankStats} from '../data/ranks';
 import {ECONOMY,DROPS} from '../data/economy';
@@ -30,7 +30,8 @@ export class World {
  anchorMovingFor=0;anchorStoppedFor=0;tankCommand:'tank'|'siege'='tank';
  readonly economyTotals={passive:{minerals:0,gas:0},drops:{minerals:0,gas:0},clear:{minerals:0,gas:0},cards:{minerals:0,gas:0},production:{minerals:0,gas:0},purchases:{minerals:0,gas:0},rerolls:0};
  private readonly seed:number;private readonly sandbox:boolean;private productionCursor=0;
- productionPlan:{buildingId:number;unitType:TerranType}|null=null;
+ productionPlan:{buildingId:number;unitType:TerranType;group:BuildingType;quantity:number;cost:{minerals:number;gas:number}}|null=null;
+ private guardRemainders=emptyCounts();private nextGuardCounts:Counts|null=null;
  private waves:Wave[]=[];private eventPlan:EconomicSpawn[]=[];private nextEvent=0;private scheduledStage=0;
  private ambientBacklog:{type:ZergType;bearing:number;at:number}[]=[];private extraDeliveries:TerranType[]=[];
  private spawnCells:Point[]=[];
@@ -134,72 +135,68 @@ export class World {
   if(u.owner==='terran')u.armor=d.armor+r.armor;u.maxEnergy=HEAL.maxEnergy*r.energy;u.energyRegen=HEAL.regen*r.energy*(this.upgrades.has('medivac')?2:1);u.healRate=HEAL.hpPerSecond*r.healing*(1+(this.upgrades.get('buff.recovery')??0));
  }
  weaponFactor(u:Entity){return u.owner==='terran'?1+(this.upgrades.get('buff.weapon')??0):1;}
- private reservedRanks(type:TerranType){return [...this.buildings.values()].reduce((n,b)=>n+b.queue.filter(j=>j.unitType===type).length,0)+this.pods.filter(p=>p.unitType===type&&['falling','active','opening'].includes(p.status)).length+this.extraDeliveries.filter(t=>t===type).length;}
- canRecruit(type:TerranType,rank:number){const units=this.allies().filter(u=>u.unitType===type),gain=units.length<5?rank:rank-Math.min(...units.map(u=>u.rank));return gain>0&&units.reduce((n,u)=>n+u.rank,0)+gain+this.reservedRanks(type)<=25;}
- grantVeteran(type:TerranType,rank:3|5){if(!this.canRecruit(type,rank))return false;const units=this.allies().filter(u=>u.unitType===type);
+ activeBatches(){return [...new Map([...this.buildings.values()].flatMap(b=>b.queue).map(j=>[j.id,j])).values()];}
+ private reservedRanks(type:TerranType){return this.activeBatches().filter(j=>j.unitType===type).reduce((n,j)=>n+j.quantity,0)+this.pods.filter(p=>p.unitType===type&&['falling','active','opening'].includes(p.status)).reduce((n,p)=>n+p.passengers.filter(c=>c.status==='waiting').length,0)+this.extraDeliveries.filter(t=>t===type).length;}
+ ordinaryUnits(type:TerranType){return this.allies().filter(u=>u.unitType===type);}
+ ordinaryCapacity(type:TerranType){const units=this.ordinaryUnits(type);return (5-units.length)*5+units.reduce((n,u)=>n+5-u.rank,0);}
+ availableCapacity(type:TerranType){return Math.max(0,this.ordinaryCapacity(type)-this.reservedRanks(type));}
+ canRecruit(type:TerranType,rank:number){const units=this.ordinaryUnits(type),gain=units.length<5?rank:rank-Math.min(...units.map(u=>u.rank));return gain>0&&gain<=this.availableCapacity(type);}
+ private freePosition(type:TerranType,origin:Point,min=.8,max=8){const radius=SC2_UNITS[type].unitRadius*TUNING.unitScale,air=SC2_UNITS[type].flying;
+  for(let r=min;r<=max;r+=.5)for(let i=0;i<20;i++){const p={x:origin.x+Math.sin(i*Math.PI/10)*r,z:origin.z+Math.cos(i*Math.PI/10)*r};if(Math.abs(p.x)+radius>=this.mapHalf||Math.abs(p.z)+radius>=this.mapHalf||!air&&!clearLine(origin,p,radius,this.obstacles,this.terrain)||[...this.entities.values()].some(u=>u.hp>0&&u.flying===air&&distance(u,p)<u.unitRadius+radius+.12)||!air&&this.pods.some(pod=>['active','opening'].includes(pod.status)&&distance(pod,p)<pod.unitRadius+radius+.12))continue;return p;}return null;
+ }
+ grantVeteran(type:TerranType,rank:3|5){if(!this.canRecruit(type,rank))return false;const units=this.ordinaryUnits(type);
   if(units.length===5){const lowest=units.sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];lowest.rank=rank;this.refreshStats(lowest);return true;}
-  const radius=SC2_UNITS[type].unitRadius*TUNING.unitScale,air=SC2_UNITS[type].flying;
-  let position:Point|undefined;
-  for(let r=.8;r<=8&&!position;r+=.6)for(let i=0;i<16;i++){const p={x:this.anchor.x+Math.sin(i*Math.PI/8)*r,z:this.anchor.z+Math.cos(i*Math.PI/8)*r};if(Math.abs(p.x)+radius>=this.mapHalf||Math.abs(p.z)+radius>=this.mapHalf||!air&&!clearLine(this.anchor,p,radius,this.obstacles,this.terrain)||this.allies().some(u=>u.flying===air&&distance(u,p)<u.unitRadius+radius+.15))continue;position=p;break;}
-  if(!position)return false;this.addUnit(type,'terran',position.x,position.z,rank);return true;
+  const p=this.freePosition(type,this.anchor);if(!p)return false;this.addUnit(type,'terran',p.x,p.z,rank);return true;
  }
- reinforce(type:TerranType,p:Point){const same=this.allies().filter(u=>u.unitType===type);
+ reinforce(type:TerranType,p:Point){const same=this.ordinaryUnits(type);
   if(same.length<5)return this.addUnit(type,'terran',p.x,p.z);
-  same.sort((a,b)=>a.rank-b.rank||a.id-b.id);const lowest=same[0];if(lowest.rank<5){lowest.rank++;this.refreshStats(lowest);}
-  return lowest;
+  same.sort((a,b)=>a.rank-b.rank||a.id-b.id);const lowest=same[0];if(lowest.rank<5){lowest.rank++;this.refreshStats(lowest);}return lowest;
  }
- capacity(type:TerranType){return this.allies().filter(u=>u.unitType===type).reduce((n,u)=>n+u.rank,0)+this.reservedRanks(type)<25;}
+ capacity(type:TerranType){return this.availableCapacity(type)>0;}
  productionCost=(type:TerranType)=>{const d=SC2_UNITS[type];const factor=this.upgrades.has('discount')?.85:1;return {minerals:Math.ceil(d.mineralCost*factor),gas:Math.ceil(d.gasCost*factor)};};
  buildingsOf(type:BuildingType){return [...this.buildings.values()].filter(b=>b.type===type);}
- addBuilding(type:BuildingType,remaining=BUILDINGS[type].time){const b:Building={id:this.nextBuilding++,type,remaining,queue:[],techLab:false,upgradeRemaining:null};this.buildings.set(b.id,b);return b;}
- buildingCanTrain(b:Building,type:TerranType){return b.remaining<=0&&b.upgradeRemaining===null&&BUILDINGS[b.type].types.includes(type)&&(type!=='tank'||b.techLab);}
- productionIntent(b:Building){return (b.type==='factory'?['tank','hellion'] as TerranType[]:BUILDINGS[b.type].types).find(type=>this.buildingCanTrain(b,type)&&this.capacity(type));}
- buildingFor(type:TerranType){return [...this.buildings.values()].filter(b=>this.buildingCanTrain(b,type)).sort((a,b)=>a.queue.length-b.queue.length||a.id-b.id)[0];}
- canTrain=(type:TerranType,buildingId?:number)=>{const b=buildingId===undefined?this.buildingFor(type):this.buildings.get(buildingId),c=this.productionCost(type);return !!b&&this.buildingCanTrain(b,type)&&this.capacity(type)&&this.wallet.minerals>=c.minerals&&this.wallet.gas>=c.gas;};
- build(type:BuildingType){const d=BUILDINGS[type];if(!spend(this.wallet,{minerals:d.minerals,gas:d.gas}))return false;
-  this.addBuilding(type);this.economyTotals.purchases.minerals+=d.minerals;this.economyTotals.purchases.gas+=d.gas;this.changed();return true;
+ addBuilding(type:BuildingType,remaining=0){const b:Building={id:this.nextBuilding++,type,remaining,queue:[],techLab:false,upgradeRemaining:null};this.buildings.set(b.id,b);return b;}
+ unlockMarauder(){if(this.upgrades.has('marauder'))return false;this.upgrades.set('marauder',1);this.groupNext.barracks='marauder';this.productionPlan=null;return true;}
+ upgradeFactory(id:number){const b=this.buildings.get(id);if(!b||b.type!=='factory'||b.techLab)return false;b.techLab=true;b.upgradeRemaining=null;this.groupNext.factory='tank';this.productionPlan=null;return true;}
+ buildingCanTrain(b:Building,type:TerranType){return b.remaining<=0&&BUILDINGS[b.type].types.includes(type)&&(type!=='tank'||b.techLab)&&(type!=='marauder'||this.upgrades.has('marauder'));}
+ private unresolved(type:TerranType){return this.pods.some(p=>p.unitType===type&&['falling','active','opening'].includes(p.status))||this.extraDeliveries.includes(type);}
+ private groupNext:Record<BuildingType,TerranType>={barracks:'marine',factory:'hellion',starport:'medivac'};
+ private groupUnlocks={marauder:false,tank:false};
+ productionIntent(b:Building){const types=b.type==='barracks'?['marauder','marine'] as TerranType[]:b.type==='factory'?['tank','hellion'] as TerranType[]:['medivac'] as TerranType[],preferred=this.groupNext[b.type];
+  return [preferred,...types.filter(t=>t!==preferred)].find(t=>this.buildingsOf(b.type).some(b=>this.buildingCanTrain(b,t))&&this.capacity(t)&&!this.unresolved(t));
  }
- queue(type:TerranType,buildingId?:number){if(!this.canTrain(type,buildingId))return false;const cost=this.productionCost(type);if(!spend(this.wallet,cost))return false;
-  const building=buildingId===undefined?this.buildingFor(type):this.buildings.get(buildingId)!;building.queue.push({id:this.nextJob++,unitType:type,remaining:SC2_UNITS[type].productionTime,paid:cost});this.stats.started++;this.economyTotals.production.minerals+=cost.minerals;this.economyTotals.production.gas+=cost.gas;this.changed();return true;
+ private batchPlan(group:BuildingType){if(this.activeBatches().some(j=>j.group===group))return null;const first=this.buildingsOf(group)[0];if(!first)return null;const type=this.productionIntent(first);if(!type)return null;const participants=this.buildingsOf(group).filter(b=>this.buildingCanTrain(b,type)&&!b.queue.length).slice(0,this.availableCapacity(type));if(!participants.length)return null;const c=this.productionCost(type);return {group,unitType:type,buildingId:participants[0].id,buildingIds:participants.map(b=>b.id),quantity:participants.length,cost:{minerals:c.minerals*participants.length,gas:c.gas*participants.length}};}
+ buildingFor(type:TerranType){return [...this.buildings.values()].find(b=>this.buildingCanTrain(b,type));}
+ canTrain=(type:TerranType,buildingId?:number)=>{const b=buildingId===undefined?this.buildingFor(type):this.buildings.get(buildingId),c=this.productionCost(type);return !!b&&this.buildingCanTrain(b,type)&&!this.activeBatches().some(j=>j.group===b.type)&&!this.unresolved(type)&&this.capacity(type)&&this.wallet.minerals>=c.minerals&&this.wallet.gas>=c.gas;};
+ build(type:BuildingType){const d=BUILDINGS[type];if(!spend(this.wallet,{minerals:d.minerals,gas:d.gas}))return false;this.addBuilding(type);this.economyTotals.purchases.minerals+=d.minerals;this.economyTotals.purchases.gas+=d.gas;this.changed();return true;}
+ private startBatch(type:TerranType,ids:number[]){const participants=ids.map(id=>this.buildings.get(id)).filter((b):b is Building=>!!b&&this.buildingCanTrain(b,type)&&!b.queue.length).slice(0,this.availableCapacity(type));if(!participants.length||this.unresolved(type)||this.activeBatches().some(j=>j.group===participants[0].type))return false;
+  const c=this.productionCost(type),paid={minerals:c.minerals*participants.length,gas:c.gas*participants.length};if(!spend(this.wallet,paid))return false;
+  const job={id:this.nextJob++,unitType:type,quantity:participants.length,buildingIds:participants.map(b=>b.id),group:participants[0].type,remaining:SC2_UNITS[type].productionTime,paid};for(const b of participants)b.queue.push(job);
+  this.groupNext[job.group]=type==='marine'&&this.upgrades.has('marauder')?'marauder':type==='marauder'?'marine':type==='tank'?'hellion':type==='hellion'&&this.buildingsOf('factory').some(b=>b.techLab)?'tank':type;
+  this.stats.started+=job.quantity;this.economyTotals.production.minerals+=paid.minerals;this.economyTotals.production.gas+=paid.gas;this.changed();return true;
  }
- updateProduction(dt:number){for(const b of this.buildings.values()){
-  if(b.remaining>0){b.remaining=Math.max(0,b.remaining-dt);continue;}
-  // Already-paid orders finish first; the lab then occupies this building alone.
-  const job=b.queue[0];if(!job){if(b.upgradeRemaining!==null){b.upgradeRemaining=Math.max(0,b.upgradeRemaining-dt);if(b.upgradeRemaining<=1e-8){b.techLab=true;b.upgradeRemaining=null;this.changed();}}continue;}job.remaining-=dt;
-  if(job.remaining<=1e-8){b.queue.shift();this.stats.produced++;this.spawnPod(job.unitType,undefined,job.id);}
- }
- if(this.sandbox)return;
- const buildings=[...this.buildings.values()],n=buildings.length;if(!n){this.productionPlan=null;return;}
- // Reserve one next order, not one wallet per building. The turn rotates after payment.
- // Cards may still spend this visible wallet while paused; only automatic spending is reserved.
- for(let attempt=0;attempt<n;attempt++){
-  const planned=this.productionPlan&&this.buildings.get(this.productionPlan.buildingId);
-  if(!planned||planned.queue.length||this.productionIntent(planned)!==this.productionPlan?.unitType)this.productionPlan=null;
-  if(!this.productionPlan)for(let offset=0;offset<n;offset++){
-   const b=buildings[(this.productionCursor+offset)%n],type=!b.queue.length&&this.productionIntent(b);
-   if(type){this.productionPlan={buildingId:b.id,unitType:type};break;}
+ queue(type:TerranType,buildingId?:number){if(!this.canTrain(type,buildingId))return false;return this.startBatch(type,buildingId!==undefined?[buildingId]:this.buildingsOf(this.buildingFor(type)!.type).filter(b=>this.buildingCanTrain(b,type)).map(b=>b.id));}
+ private flushDeliveries(){if(this.phase!=='battle')return;for(const type of TERRAN){if(this.pods.some(p=>p.unitType===type&&['falling','active','opening'].includes(p.status)))continue;const count=this.extraDeliveries.filter(t=>t===type).length;if(count){this.extraDeliveries=this.extraDeliveries.filter(t=>t!==type);this.spawnPod(type,undefined,this.nextJob++,count);}}}
+ updateProduction(dt:number){for(const b of this.buildings.values())if(b.remaining>0)b.remaining=Math.max(0,b.remaining-dt);
+  const marauder=this.upgrades.has('marauder'),tank=this.buildingsOf('factory').some(b=>b.techLab);if(marauder&&!this.groupUnlocks.marauder)this.groupNext.barracks='marauder';if(tank&&!this.groupUnlocks.tank)this.groupNext.factory='tank';this.groupUnlocks={marauder,tank};
+  for(const job of this.activeBatches()){job.remaining-=dt;if(job.remaining>1e-8)continue;for(const b of this.buildings.values())b.queue=b.queue.filter(j=>j.id!==job.id);this.stats.produced+=job.quantity;for(let i=0;i<job.quantity;i++)this.extraDeliveries.push(job.unitType);}
+  this.flushDeliveries();if(this.sandbox)return;
+  const groups:BuildingType[]=['barracks','factory','starport'];this.productionPlan=null;
+  for(let n=0;n<groups.length;n++){
+   const index=(this.productionCursor+n)%groups.length,plan=this.batchPlan(groups[index]);if(!plan)continue;
+   if(this.startBatch(plan.unitType,plan.buildingIds)){this.productionCursor=(index+1)%groups.length;n=-1;continue;}
+   this.productionPlan=plan;break;
   }
-  const plan=this.productionPlan;if(!plan)break;
-  if(!this.queue(plan.unitType,plan.buildingId))break;
-  this.productionCursor=(buildings.findIndex(b=>b.id===plan.buildingId)+1)%n;this.productionPlan=null;
+  const reserved=this.productionPlan;if(reserved)for(const group of groups){const other=this.batchPlan(group);if(!other||other.group===reserved.group)continue;if(Math.max(0,this.wallet.minerals-reserved.cost.minerals)+1e-8>=other.cost.minerals&&Math.max(0,this.wallet.gas-reserved.cost.gas)+1e-8>=other.cost.gas)this.startBatch(other.unitType,other.buildingIds);}
  }
- const plan=this.productionPlan;
- if(plan){const reserved=this.productionCost(plan.unitType);
-  // Keep lower-tier factories and Barracks productive only from a true surplus.
-  for(const b of buildings){if(b.id===plan.buildingId||b.queue.length)continue;const type=this.productionIntent(b);if(!type)continue;
-   const cost=this.productionCost(type);if(Math.max(0,this.wallet.minerals-reserved.minerals)>=cost.minerals&&Math.max(0,this.wallet.gas-reserved.gas)>=cost.gas)this.queue(type,b.id);
-  }
- }
-
- }
- podPurpose(type:TerranType){const units=this.allies().filter(u=>u.unitType===type);return units.length<5?'新增队员':units.some(u=>u.rank<5)?'晋升最低军衔':'培养已满';}
- spawnPod(type:TerranType,position?:Point,jobId=0){const p=position??this.eventPoint(this.stage<=3?7:14,this.stage<=3?13:32),c=this.config;
+ podPurpose(type:TerranType,count=1){const units=this.ordinaryUnits(type),added=Math.min(count,5-units.length),promoted=Math.min(count-added,Math.max(0,this.ordinaryCapacity(type)-added));return [added?'新增 '+added:'',promoted?'晋升 '+promoted:''].filter(Boolean).join(' / ')||'培养已满';}
+ spawnPod(type:TerranType,position?:Point,jobId=0,quantity=1){const p=position??this.eventPoint(this.stage<=3?7:14,this.stage<=3?13:32),c=this.config;this.nextGuardCounts=scaleCounts(STAGES[this.stage-1].guards,this.difficulty==='easy'?.5:1,this.guardRemainders);
   const pod:Pod={id:this.nextId++,...p,hp:c.podHp,maxHp:c.podHp,armor:TUNING.podArmor,unitRadius:1.25,flying:false,attributes:['Armored','Structure'],owner:'terran',unitType:type,
-   createdAt:this.time,landedAt:this.time+ECONOMY.landingSeconds,guardianIds:new Set(),guardTypes:c.guards.flatMap((n,i)=>Array<ZergType>(n).fill(ZERG[i])),status:'falling',resolvedAt:null,recruitId:null,jobId,stage:this.stage};this.pods.push(pod);
+   createdAt:this.time,landedAt:this.time+ECONOMY.landingSeconds,guardianIds:new Set(),guardTypes:ZERG.flatMap(t=>Array<ZergType>(this.nextGuardCounts![t]).fill(t)),status:'falling',resolvedAt:null,recruitId:null,jobId,stage:this.stage,passengers:Array.from({length:quantity},()=>({status:'waiting',entityId:null})),nextExitAt:0};this.pods.push(pod);
   this.announce(SC2_UNITS[type].zh+' 增援即将落地');return pod;
  }
  landPod(p:Pod){p.status='active';p.landedAt=this.time;const radius=p.stage<=3?4:p.stage<=8?6:8;
-  p.guardTypes.forEach((t,i)=>{const pos=this.nearbyPoint(p,radius,i/p.guardTypes.length*Math.PI*2),e=this.addUnit(t,'zerg',pos.x,pos.z);if(t==='zergling'){e.hp=e.maxHp=stageConfig(p.stage,this.difficulty).lingHp;}e.guardianPod=p.id;p.guardianIds.add(e.id);});
+  p.guardTypes.forEach((t,i)=>{const pos=this.nearbyPoint(p,radius,i/p.guardTypes.length*Math.PI*2),e=this.addUnit(t,'zerg',pos.x,pos.z);if(t==='zergling'){e.hp=e.maxHp=stageConfig(p.stage,this.difficulty).lingHp;}e.guardianPod=p.id;e.guardOrigin=true;p.guardianIds.add(e.id);});
   this.visual('pod-land',p);this.announce(SC2_UNITS[p.unitType].zh+' 降落仓遭到围攻');
  }
  spawnEconomic(kind:'egg'|'drone',position?:Point){const p=position??this.eventPoint(5),hp=kind==='egg'?ECONOMY.eggHp:ECONOMY.droneHp;
@@ -240,7 +237,7 @@ export class World {
    else {economic.status='killed';this.stats.dronesKilled++;this.visual('drone-death',economic);this.drop(economic,DROPS.drone);this.tryRewardDrop(economic,true);}return;
   }
   if(target.hp<=0&&'unitType' in target&&this.entities.has(target.id)){const e=target as Entity;if(e.deadAt===null){e.deadAt=this.time;e.action='dead';e.velocity={x:0,z:0};
-    this.visual('death',e);if(e.owner==='zerg'){this.stats.kills++;this.drop(e,(e.guardianPod===null?DROPS.ambient:DROPS.guard)[e.unitType as ZergType]);this.tryRewardDrop(e);}
+    this.visual('death',e);if(e.owner==='zerg'){this.stats.kills++;this.drop(e,(e.guardOrigin||e.guardianPod!==null?DROPS.guard:DROPS.ambient)[e.unitType as ZergType]);this.tryRewardDrop(e);}
   }}
  }
  drop(p:Point,amount:readonly [number,number]){const f=incomeFactor(this.difficulty)*ECONOMY.dropMultiplier;this.pickups.push({id:this.nextId++,...p,minerals:amount[0]*f,gas:amount[1]*f});}
@@ -391,11 +388,15 @@ export class World {
  updatePods(){for(const p of this.pods){
   if(p.status==='falling'){if(this.time>=p.landedAt-1e-8)this.landPod(p);continue;}
   if(p.status!=='active'&&p.status!=='opening')continue;
-  if(p.hp<=0){p.status='destroyed';p.resolvedAt=this.time;this.stats.failed++;this.visual('pod-destroy',p);this.announce('降落仓被毁 · 士兵阵亡');for(const id of p.guardianIds){const u=this.entities.get(id);if(u)u.guardianPod=null;}continue;}
+  if(p.hp<=0){p.status='destroyed';p.resolvedAt=this.time;this.stats.failed+=p.passengers.filter(c=>c.status==='waiting').length;for(const c of p.passengers)if(c.status==='waiting')c.status='lost';this.visual('pod-destroy',p);this.announce('降落仓被毁 · 士兵阵亡');for(const id of p.guardianIds){const u=this.entities.get(id);if(u)u.guardianPod=null;}continue;}
   let threat=[...p.guardianIds].some(id=>(this.entities.get(id)?.hp??0)>0);this.hash.query(p,6,b=>{if(b.owner==='zerg'&&b.hp>0&&!this.economicTargets.has(b.id))threat=true;});
   if(threat){p.status='active';p.resolvedAt=null;continue;}
   if(p.status==='active'){p.status='opening';p.resolvedAt=this.time;this.visual('pod-open',p);}
-  else if(this.time-(p.resolvedAt??this.time)>=ECONOMY.openingSeconds-1e-8){p.status='rescued';p.resolvedAt=this.time;const u=this.reinforce(p.unitType,p);p.recruitId=u.id;this.stats.rescued++;this.announce(SC2_UNITS[p.unitType].zh+' 已获救，正在归队');}
+  else if(this.time-(p.resolvedAt??this.time)>=ECONOMY.openingSeconds-1e-8&&this.time>=p.nextExitAt){const passenger=p.passengers.find(c=>c.status==='waiting');if(!passenger)continue;
+   const units=this.ordinaryUnits(p.unitType),pos=units.length>=5?p:this.freePosition(p.unitType,p,1.8,4.5);if(!pos)continue;
+   const u=this.reinforce(p.unitType,pos);passenger.status='released';passenger.entityId=u.id;p.recruitId=u.id;p.nextExitAt=this.time+.35;this.stats.rescued++;
+   if(p.passengers.every(c=>c.status==='released')){p.status='rescued';p.resolvedAt=this.time;this.announce(SC2_UNITS[p.unitType].zh+' ×'+p.passengers.length+' 已获救，正在归队');}
+  }
  }}
  spawnWave(){if(this.scheduledStage!==this.stage)this.prepareStage();const wave=this.waves[this.stageWave];if(!wave)return;this.wave++;this.stageWave++;wave.types.forEach((type,i)=>this.ambientBacklog.push({type,bearing:wave.bearing,at:this.time+i*this.config.entranceSpacing}));this.ambientBacklog.sort((a,b)=>a.at-b.at);this.nextWave=this.stageStartedAt+(this.waves[this.stageWave]?.at??Infinity);this.releaseAmbient();}
  private releaseAmbient(){let slots=Math.max(0,TUNING.enemyCap-this.enemyCount());while(slots-->0&&this.ambientBacklog.length&&this.ambientBacklog[0].at<=this.time+1e-8){const e=this.ambientBacklog.shift()!,base=this.eventPoint(Math.min(12,this.mapHalf*.75)),angle=this.stage===2?(this.stats.ambientSpawned%2?0:Math.PI):e.bearing+(this.stage>=5&&slots%2?Math.PI:0);
@@ -411,15 +412,16 @@ export class World {
  private offers(cards:Reward[]){return cards.map(r=>({...r,offerId:`${this.stage}:${++this.offerSerial}:${r.id}`,sold:false}));}
  rerollCost(){return 50+40*this.rerolls;}
  reroll(){if(this.phase!=='reward'||this.rewardClaimed||!spend(this.wallet,{minerals:this.rerollCost(),gas:0}))return false;this.economyTotals.rerolls+=this.rerollCost();this.rewards=this.offers(drawRewards(this,this.random,this.rewards.map(r=>r.id),this.rewardRound,this.rewards));this.rerolls++;this.changed();return true;}
- choose(id:string){if(this.phase!=='reward'||this.rewardClaimed)return false;const r=this.rewards.find(r=>r.offerId===id);if(!r||(this.rewardRound==='building')!==(r.kind==='build')||!eligibleReward(this,r)||!spend(this.wallet,{minerals:r.minerals,gas:r.gas}))return false;
+ choose(id:string){if(this.phase!=='reward'||this.rewardClaimed)return false;const r=this.rewards.find(r=>r.offerId===id);if(!r||(this.rewardRound==='building')!==(r.kind==='build'||r.kind==='research')||!eligibleReward(this,r)||!spend(this.wallet,{minerals:r.minerals,gas:r.gas}))return false;
   this.economyTotals.purchases.minerals+=r.minerals;this.economyTotals.purchases.gas+=r.gas;
   if(!this.applyReward(r)){this.wallet.minerals+=r.minerals;this.wallet.gas+=r.gas;this.economyTotals.purchases.minerals-=r.minerals;this.economyTotals.purchases.gas-=r.gas;return false;}
   r.sold=true;this.changed();return true;
  }
  private applyReward(r:Reward){
   if(r.kind==='build')this.addBuilding(r.value as BuildingType);
-  else if(r.kind==='upgrade')this.buildings.get(Number(r.value))!.upgradeRemaining=FACTORY_TECH_LAB.time;
-  else if(r.kind==='train'){if(this.phase==='battle')this.spawnPod(r.value as TerranType);else this.extraDeliveries.push(r.value as TerranType);}
+  else if(r.kind==='upgrade')this.upgradeFactory(Number(r.value));
+  else if(r.kind==='research')this.unlockMarauder();
+  else if(r.kind==='train')this.extraDeliveries.push(r.value as TerranType);
   else if(r.kind==='veteran'){if(!this.grantVeteran(r.value as TerranType,r.rank!))return false;}
   else if(r.kind==='tech'||r.kind==='buff'){const key=r.kind==='buff'?'buff.'+r.value:r.value;this.upgrades.set(key,(this.upgrades.get(key)??0)+(r.strength??1));for(const u of this.allies())this.refreshStats(u);}
   else {const gains=r.value==='minerals'?[100,0]:r.value==='gas'?[0,50]:r.value==='salvage'?[75,25]:[100,25];this.wallet.minerals+=gains[0];this.wallet.gas+=gains[1];this.economyTotals.cards.minerals+=gains[0];this.economyTotals.cards.gas+=gains[1];}
@@ -427,7 +429,7 @@ export class World {
  }
  skipReward(){if(this.phase!=='reward'||this.rewardClaimed)return false;return this.finishRewardRound();}
  private finishRewardRound(){this.rewardClaimed=true;if(this.rewardRound==='building'){this.rewardRound='random';this.rewards=this.offers(drawRewards(this,this.random));this.rewardClaimed=false;this.changed();return true;}return this.nextStage();}
- private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();for(const type of this.extraDeliveries)this.spawnPod(type,undefined,this.nextJob++);this.extraDeliveries=[];this.changed();return true;}
+ private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();this.flushDeliveries();this.changed();return true;}
  stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.unitType==='marauder'?20:10;if(['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
  dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power);return true;}
  step(){if(this.phase!=='battle'||this.paused)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;

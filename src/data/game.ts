@@ -7,7 +7,7 @@ export const TUNING = {step:1/60,anchorSpeed:5.6,unitScale:.8,
 export type BuildingType='barracks'|'factory'|'starport';
 export const FORMATION={columns:3,frontOffset:.9,bodyGap:.38,rowGap:.35,refreshSeconds:.18,searchHalfWidth:5,searchBack:12};
 export const BUILDINGS:Record<BuildingType,{name:string;minerals:number;gas:number;time:number;types:TerranType[]}>={
- barracks:{name:'Barracks · 兵营',minerals:150,gas:0,time:65/1.4,types:['marine']},
+ barracks:{name:'Barracks · 兵营',minerals:150,gas:0,time:65/1.4,types:['marine','marauder']},
  factory:{name:'Factory · 重工厂',minerals:150,gas:100,time:60/1.4,types:['hellion','tank']},
  starport:{name:'Starport · 星港',minerals:150,gas:100,time:50/1.4,types:['medivac']},
 };

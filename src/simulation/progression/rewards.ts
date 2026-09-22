@@ -16,8 +16,9 @@ export const TECHS=[
 ] as const;
 const offer=(r:Omit<Reward,'discount'|'baseMinerals'|'baseGas'|'offerId'|'sold'|'rarity'>&{rarity?:Rarity}):Reward=>({rarity:'white',...r,offerId:r.id,sold:false,discount:0,baseMinerals:r.minerals,baseGas:r.gas});
 export function rewardPool(w?:RewardWorld):Reward[]{const factory=w&&[...w.buildings.values()].find(b=>b.type==='factory'&&b.remaining<=0&&!b.techLab&&b.upgradeRemaining===null);return [
- ...(factory?[offer({id:'upgrade.factory.'+factory.id,name:'重工厂科技实验室',description:`升级重工厂 #${factory.id}，解锁该厂坦克生产。当前订单完成后开始升级；星港可独立发展。`,icon:'unit.tank',kind:'upgrade',value:String(factory.id),minerals:FACTORY_TECH_LAB.minerals,gas:FACTORY_TECH_LAB.gas})]:[]),
- ...Object.entries(BUILDINGS).map(([id,b])=>offer({id:'build.'+id,name:b.name.split(' · ')[1],description:id==='factory'?'建成即可自动生产恶火；科技实验室仅用于解锁坦克。':id==='starport'?'建成后自动生产医疗艇；不需要坦克科技实验室。':'建成后自动生产枪兵，每份订单投放一个救援仓。',icon:'building.'+id,kind:'build',value:id,minerals:b.minerals,gas:b.gas})),
+ ...(factory?[offer({id:'upgrade.factory.'+factory.id,name:'重工厂科技实验室',description:`升级重工厂 #${factory.id}，解锁该厂坦克生产。立即解锁；已付费订单继续训练，星港可独立发展。`,icon:'unit.tank',kind:'upgrade',value:String(factory.id),minerals:FACTORY_TECH_LAB.minerals,gas:FACTORY_TECH_LAB.gas})]:[]),
+ offer({id:'research.marauder',name:'劫掠者研究',description:'所有兵营解锁劫掠者，按劫掠者与枪兵交替合批训练。',icon:'unit.marauder',kind:'research',value:'marauder',minerals:50,gas:25}),
+ ...Object.entries(BUILDINGS).map(([id,b])=>offer({id:'build.'+id,name:b.name.split(' · ')[1],description:id==='factory'?'建成即可自动生产恶火；科技实验室仅用于解锁坦克。':id==='starport'?'建成后自动生产医疗艇；不需要坦克科技实验室。':'建成后自动生产枪兵，同一批次合并投放一个多人救援仓。',icon:'building.'+id,kind:'build',value:id,minerals:b.minerals,gas:b.gas})),
  ...TERRAN.map(id=>{const u=SC2_UNITS[id];return offer({id:'train.'+id,name:u.zh+'增援',description:'下一关额外投放一个增援仓，清除威胁后归队。',icon:'unit.'+id,kind:'train',value:id,minerals:u.mineralCost,gas:u.gasCost});}),
  ...TERRAN.flatMap(id=>{const u=SC2_UNITS[id];return ([['green',3,2],['blue',5,3]] as const).map(([rarity,rank,price])=>offer({id:`veteran.${id}.${rank}`,rarity,rank,name:`${u.zh} · Rank ${rank}`,description:`立即获得 Rank ${rank} ${u.zh}；满员时将最低军衔提升至 ${rank}，不投放救援仓。`,icon:'unit.'+id,kind:'veteran',value:id,minerals:u.mineralCost*price,gas:u.gasCost*price}));}),
  ...(['green','blue','purple','orange'] as const).flatMap((rarity,index)=>Object.entries(BUFFS).map(([id,b])=>{const strength=b.values[index];return offer({id:`buff.${id}.${rarity}`,rarity,strength,name:b.name,description:id==='weapon'?`全队武器伤害与属性加成 +${Math.round(strength*100)}%。`:id==='recovery'?`医疗艇每秒恢复生命 +${Math.round(strength*100)}%，仍消耗能量。`:id==='vitality'?`全队生命倍率增加 ${Math.round(strength*100)}%，保留已损失生命。`:`推进充能速度 +${Math.round(strength*100)}%，持续时间 +${(strength*.6).toFixed(2)} 秒。`,icon:b.icon,kind:'buff',value:id,minerals:[125,200,325,500][index],gas:[30,75,125,200][index]});})),
@@ -29,22 +30,23 @@ export function rewardPool(w?:RewardWorld):Reward[]{const factory=w&&[...w.build
  ];}
 export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<number,Building>;upgrades:Map<string,number>;capacity:(t:TerranType)=>boolean;canRecruit:(t:TerranType,rank:number)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
 export function unlockedReward(w:RewardWorld,r:Reward){
- if(r.kind==='build')return w.stage>=(r.value==='factory'||r.value==='starport'?2:1)&&(r.value!=='starport'||[...w.buildings.values()].some(b=>b.type==='factory'&&b.remaining<=0));
+ if(r.kind==='build')return w.stage>=(r.value==='starport'?2:1)&&(r.value!=='starport'||[...w.buildings.values()].some(b=>b.type==='factory'&&b.remaining<=0));
+ if(r.kind==='research')return !w.upgrades.has('marauder');
  if(r.kind==='upgrade'){const b=w.buildings.get(Number(r.value));return !!b&&b.type==='factory'&&b.remaining<=0&&!b.techLab&&b.upgradeRemaining===null;}
- if(r.kind==='train'||r.kind==='veteran')return (r.kind==='train'?w.capacity(r.value as TerranType):w.canRecruit(r.value as TerranType,r.rank!))&&[...w.buildings.values()].some(b=>b.remaining<=0&&BUILDINGS[b.type].types.includes(r.value as TerranType)&&(r.value!=='tank'||b.techLab));
+ if(r.kind==='train'||r.kind==='veteran')return (r.kind==='train'?w.capacity(r.value as TerranType):w.canRecruit(r.value as TerranType,r.rank!))&&[...w.buildings.values()].some(b=>b.remaining<=0&&BUILDINGS[b.type].types.includes(r.value as TerranType)&&(r.value!=='tank'||b.techLab)&&(r.value!=='marauder'||w.upgrades.has('marauder')));
  if(r.kind==='tech'){const needsFactory=['vehicle','infernal','siege'].includes(r.value),needsStarport=['medivac','mechanicalHeal'].includes(r.value);return (r.value!=='siege'||[...w.buildings.values()].some(b=>b.type==='factory'&&b.techLab))&&(!needsFactory||[...w.buildings.values()].some(b=>b.type==='factory'))&&(!needsStarport||[...w.buildings.values()].some(b=>b.type==='starport'))&&(w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1);}
  return true;
 }
 export function eligibleReward(w:RewardWorld,r:Reward){return !r.sold&&unlockedReward(w,r)&&w.wallet.minerals+1e-8>=r.minerals&&w.wallet.gas+1e-8>=r.gas;}
 /** Rarity is rolled first, without looking at the wallet. Each tier always has real available effects. */
 export function drawReward(w:RewardWorld,rng:()=>number,map=false,excluded:string[]=[]):Reward|undefined {
- const rarity=rollRarity(rng,map),pool=rewardPool(w).filter(r=>r.kind!=='build'&&r.kind!=='upgrade'&&r.rarity===rarity&&!excluded.includes(r.id)&&unlockedReward(w,r));
+ const rarity=rollRarity(rng,map),pool=rewardPool(w).filter(r=>r.kind!=='build'&&r.kind!=='research'&&r.kind!=='upgrade'&&r.rarity===rarity&&!excluded.includes(r.id)&&unlockedReward(w,r));
  // Factory labs stay ordinary random-round choices; map rewards never start building upgrades.
  if(!map&&rarity==='white')pool.push(...rewardPool(w).filter(r=>r.kind==='upgrade'&&!excluded.includes(r.id)&&unlockedReward(w,r)));
  return pool.length?pool[Math.floor(rng()*pool.length)]:undefined;
 }
 export function drawRewards(w:RewardWorld,rng:()=>number,previous:string[]=[],round:'building'|'random'='random',oldPrices:Reward[]=[]){
- const pool=rewardPool(w).filter(r=>unlockedReward(w,r)&&(round==='building'?r.kind==='build':r.kind!=='build'));const result:Reward[]=[];
+ const pool=rewardPool(w).filter(r=>unlockedReward(w,r)&&(round==='building'?r.kind==='build'||r.kind==='research':r.kind!=='build'&&r.kind!=='research'));const result:Reward[]=[];
  if(round==='building')result.push(...pool);else for(let i=0;i<3;i++){
   const r=drawReward(w,rng,false,result.map(r=>r.id));if(r)result.push(r);
   else {const fallback=pool.find(r=>!result.some(p=>p.id===r.id));if(fallback)result.push(fallback);}
