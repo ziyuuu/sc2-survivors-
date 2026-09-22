@@ -1,17 +1,17 @@
 {
-  "checkedAt": "2026-09-21T15:29:31.801718+00:00",
+  "checkedAt": "2026-09-22T01:55:46.707573+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "0e43fad8d1dd1639434d1a3fec171986045a5e27",
+  "runtimeCommit": "c0818ff31ddb39e4975e8a6b16760e574a8289c1",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "scope": "Original Kairos 1v1 map with twelve connected expanding sectors; original resource pickups; early worker-oriented encounters; multi-buy rewards and +40 rerolls; PC standard/custom Gamepad controls. Existing independent combat, collision, economy and manual siege preserved.",
+  "scope": "Player-priority engagement repair: right-click ground permits short-stop attacks while following; right-click hostile pursues; left-click hostile holds positions and focuses. Unavailable hold/siege targets allow legal local defense and reacquisition; repeated point commands preserve committed shots and cooldowns. Existing map, assets, budgets and economy unchanged.",
   "tests": {
     "command": "npm test",
-    "passed": 235,
+    "passed": 246,
     "failed": 0,
     "skipped": 0,
-    "log": "reports/local/tests-v9.log"
+    "log": "reports/local/tests-v10.log"
   },
   "typecheck": {
     "command": "npm run typecheck / tsc --noEmit during build",
@@ -21,11 +21,12 @@
     "command": "npm run build",
     "exitCode": 0,
     "path": "dist/SC2-Survivors-Demo.html",
-    "bytes": 176509513,
-    "miB": 168.3325891494751,
-    "sha256": "8676eebe82cb30bc62d542542094aab823d4ec3baa514927bea37ae7ddd13d4f",
+    "bytes": 176510665,
+    "miB": 168.3336877822876,
+    "sha256": "88eec89616515ec29c3031ed5280b49f36d3718d989d7efbdea70dcb27cb5795",
     "embeddedAssets": 581,
-    "largeChunkWarning": true
+    "largeChunkWarning": true,
+    "log": "reports/local/build-v10.log"
   },
   "assets": {
     "available": 581,
@@ -85,7 +86,9 @@
       "area": 741.75,
       "scale": 1,
       "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
-    }
+    },
+    "evidence": "reports/qa/v10-engagement.json",
+    "runtimeCommit": "c0818ff31ddb39e4975e8a6b16760e574a8289c1"
   },
   "gamepad": {
     "standardSimulated": true,
@@ -98,7 +101,9 @@
       "reports/qa/v9-gamepad.json",
       "reports/qa/v9-gamepad-calibration.json"
     ],
-    "heldStickKeyboardTakeoverPassed": true
+    "heldStickKeyboardTakeoverPassed": true,
+    "mouseTakeoverFirstCommandPassed": true,
+    "mouseTakeoverEvidence": "reports/qa/v10-engagement.json"
   },
   "touch": {
     "method": "Desktop Chrome/CDP touch emulation only",
@@ -117,7 +122,8 @@
     "hudClickThroughPrevented": true,
     "textSelectionPrevented": true,
     "pageScrollPrevented": true,
-    "evidence": "reports/qa/v9-controls.json"
+    "evidence": "reports/qa/v9-controls.json",
+    "engagementEvidence": "reports/qa/v10-engagement.json"
   },
   "desktopPerformance": {
     "at": "2026-09-21T15:26:19.688Z",
@@ -310,7 +316,8 @@
       }
     ],
     "errors": [],
-    "runtimeCommit": "0e43fad8d1dd1639434d1a3fec171986045a5e27"
+    "runtimeCommit": "0e43fad8d1dd1639434d1a3fec171986045a5e27",
+    "currentRuntimeMeasured": false
   },
   "phone": {
     "newPhysicalTest": false,
@@ -345,7 +352,9 @@
       },
       "units": 0
     },
-    "interpretation": "The old keyboard policy lost at 62.38 seconds. This is not a Normal balance criterion or a completed stage. No balance safety net was added. Intermission UI was tested independently using explicit fixtures."
+    "interpretation": "The old keyboard policy lost at 62.38 seconds. This is not a Normal balance criterion or a completed stage. No balance safety net was added. Intermission UI was tested independently using explicit fixtures.",
+    "historical": true,
+    "currentRuntimeTest": false
   },
   "knownLimitations": [
     "Physical gamepad was not tested; Gamepad API and custom calibration tested with synthetic device snapshots.",
@@ -354,5 +363,32 @@
     "No complete human 48-minute campaign validation; prior keyboard opening policy failed and is recorded, not hidden.",
     "No new physical-phone or sustained thermal measurement; performance is desktop only.",
     "Large offline file: 168.33 MiB. Fonts remain approved system fallbacks."
-  ]
+  ],
+  "commandEngagement": {
+    "runtimeCommit": "c0818ff31ddb39e4975e8a6b16760e574a8289c1",
+    "evidence": "reports/qa/v10-engagement.json",
+    "desktopChecks": [
+      "enRouteAttack",
+      "unsettledSlotStillFires",
+      "leftHoldFocus",
+      "groundLeftAndHudDoNotReplaceFocus",
+      "unavailableFocusDefendsThenReacquires",
+      "focusDeathResumesFire",
+      "repeatedGroundClicksStillFire",
+      "rightFocusPursues",
+      "firstMouseCommandTakesOverHeldGamepad"
+    ],
+    "touchSizes": [
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "errors": []
+  },
+  "inheritedAssetAndPerformanceEvidence": "b11bed98587b5a4c33d0646c9ccbf3f5215b3052"
 }
