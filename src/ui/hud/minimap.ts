@@ -1,3 +1,4 @@
+import {RARITIES} from '../../data/rewards';
 import {Vector3} from 'three';
 import type {World} from '../../simulation/world';
 import type {Point} from '../../simulation/types';
@@ -48,6 +49,7 @@ export class Minimap {
   const project=(p:Point)=>{const q=mapProject(this.frame,p);return {x:q.x*s,y:q.z*s};};
   const dot=(p:Point,color:string,r:number)=>{const q=project(p);c.fillStyle=color;c.beginPath();c.arc(q.x,q.y,r*unit,0,Math.PI*2);c.fill();};
   for(const p of w.pickups)dot(p,'#6d96b2',.8);
+  for(const p of w.rewardDrops)dot(p,RARITIES[p.reward.rarity].color,2.4);
   for(const e of w.entities.values())if(e.hp>0)dot(e,e.owner==='terran'?'#8ceeaa':'#f96751',e.owner==='terran'?2:1.5);
   for(const e of w.economicTargets.values())if(e.status==='active'){if(e.kind==='egg')this.rescue(project(e),'S',unit);else dot(e,'#eda679',1.7);}
   for(const p of w.pods)if(['falling','active','opening'].includes(p.status))this.rescue(project(p),({marine:'M',hellion:'H',tank:'T',medivac:'+'})[p.unitType],unit);

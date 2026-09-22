@@ -93,7 +93,7 @@ export function healBiological(healer, target, rule, dt, edgeDistance) {
   finite(healer.energy, 'energy'); positive(rule.hpPerSecond, 'hpPerSecond');
   positive(rule.energyPerHp, 'energyPerHp'); finite(rule.range, 'heal range');
   if (healer.hp <= 0 || target.hp <= 0 || healer.owner !== target.owner ||
-      !target.attributes.includes('Biological') || target.hp >= target.maxHp || edgeDistance > rule.range) return 0;
+      !(target.attributes.includes('Biological') || rule.allowMechanical && target.attributes.includes('Mechanical') && !target.attributes.includes('Structure')) || healer === target || target.hp >= target.maxHp || edgeDistance > rule.range) return 0;
   const healed = Math.min(rule.hpPerSecond * dt, target.maxHp - target.hp, healer.energy / rule.energyPerHp);
   target.hp += healed; healer.energy = Math.max(0, healer.energy - healed * rule.energyPerHp);
   return healed;

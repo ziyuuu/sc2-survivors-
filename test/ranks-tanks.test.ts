@@ -1,3 +1,4 @@
+import {TUNING} from '../src/data/game';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world.ts';
@@ -5,7 +6,7 @@ import {SC2_UNITS,SIEGE,HEAL} from '../src/data/sc2-units.ts';
 import {rankStats} from '../src/data/ranks.ts';
 const close=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
 const fixture=()=>{const w=new World({sandbox:true,waves:false,obstacles:[]});w.start();return w;};
-test('all five ranks multiply no-armor DPS exactly and armor stays additive',()=>{const w=fixture();for(let r=1;r<=5;r++)for(const type of ['marine','hellion','tank'] as const){const u=w.addUnit(type,'terran',0,0,r),d=SC2_UNITS[type],s=rankStats(r);close(u.weaponDamage/u.attackPeriod,d.attackDamage/d.attackPeriod*r);close(u.maxHp,d.maxHp*s.health);close(u.armor,d.armor+(r-1)*.5);assert.equal(u.unitRadius,d.unitRadius);assert.equal(u.moveSpeed,d.movementSpeed);u.mode='siege';w.refreshStats(u);if(type==='tank')close(SIEGE.damage*s.damage/u.attackPeriod,SIEGE.damage/SIEGE.period*r);}});
+test('all five ranks multiply no-armor DPS exactly and armor stays additive',()=>{const w=fixture();for(let r=1;r<=5;r++)for(const type of ['marine','hellion','tank'] as const){const u=w.addUnit(type,'terran',0,0,r),d=SC2_UNITS[type],s=rankStats(r);close(u.weaponDamage/u.attackPeriod,d.attackDamage/d.attackPeriod*r);close(u.maxHp,d.maxHp*s.health);close(u.armor,d.armor+(r-1)*.5);assert.equal(u.unitRadius,d.unitRadius*TUNING.unitScale);assert.equal(u.moveSpeed,d.movementSpeed);u.mode='siege';w.refreshStats(u);if(type==='tank')close(SIEGE.damage*s.damage/u.attackPeriod,SIEGE.damage/SIEGE.period*r);}});
 test('promotion preserves missing HP, attack cooldown and current energy',()=>{const w=fixture();for(let i=0;i<4;i++)w.addUnit('marine','terran',0,0);const m=w.allies()[0];m.hp=12;m.weaponCooldown=.45;w.reinforce('marine',m);close(m.maxHp-m.hp,33);close(m.weaponCooldown,.45);for(let i=0;i<5;i++)w.addUnit('medivac','terran',0,0);const h=w.allies().find(u=>u.unitType==='medivac')!;h.energy=12;w.reinforce('medivac',h);assert.equal(h.energy,12);assert.equal(h.maxEnergy,400);});
 test('tech damage including Hellion Light bonus is ranked after the tech increment',()=>{const w=fixture();w.upgrades.set('infernal',1);w.upgrades.set('vehicle',1);const u=w.addUnit('hellion','terran',0,0,5),e=w.addUnit('zergling','zerg',3,0);e.hp=e.maxHp=1000;w.hash.rebuild(w.entities.values());w.fire(u,e);close(1000-e.hp,(8+1+6+5)*rankStats(5).damage);});
 test('rank-five units remain damageable by a five-damage Zergling',()=>{const w=fixture(),m=w.addUnit('marine','terran',0,0,5),t=w.addUnit('tank','terran',0,0,5);const mh=m.hp,th=t.hp;w.hit(m,5);w.hit(t,5);close(mh-m.hp,3);close(th-t.hp,2);});

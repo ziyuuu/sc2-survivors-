@@ -30,3 +30,7 @@
 @media(pointer:coarse),(max-width:1100px){#minimap{left:auto;right:max(12px,env(safe-area-inset-right));top:53px;bottom:auto;width:122px;padding:5px}#minimap header,#minimap footer{font-size:8px;letter-spacing:0;line-height:13px}#pod-alerts{top:214px;max-height:calc(100dvh - 324px);max-width:230px}}
 @media(max-height:500px){#minimap{width:108px;top:49px}#pod-alerts{right:130px;top:92px;max-width:195px;max-height:150px}.pod-alert{gap:4px}.pod-alert>img{width:22px;height:22px}.pod-alert .arrow{font-size:15px}}
 @media(max-width:600px) and (orientation:portrait){#minimap{top:83px;width:112px}#pod-alerts{top:235px;max-height:calc(100dvh - 475px)}#mission{max-width:calc(100% - 145px)}#notice{max-width:60%;left:32%;top:126px}#production-status{max-width:65%}}
+
+.reward-card{border-top:3px solid var(--rarity,#c6d1d9)}.reward-card .card-number{color:var(--rarity)}.reward-card:not(:disabled):hover,.reward-card:focus-visible{border-color:var(--rarity)}
+
+.loot-world-label{position:absolute;left:0;top:0;display:flex;align-items:center;gap:5px;padding:4px 7px;border:1px solid var(--rarity);background:#07131ae8;color:var(--rarity);font-size:10px;white-space:nowrap;pointer-events:none;box-shadow:0 0 12px color-mix(in srgb,var(--rarity) 30%,transparent)}.loot-world-label[hidden]{display:none}.loot-world-label img{width:25px;height:25px;object-fit:contain}

@@ -1,3 +1,4 @@
+import {RARITIES} from '../../data/rewards';
 import * as THREE from 'three';
 import {MeshoptSimplifier} from 'meshoptimizer';
 import {GLTFLoader,type GLTF} from 'three/addons/loaders/GLTFLoader.js';
@@ -34,6 +35,7 @@ export class BattleRenderer {
  private shadows:THREE.InstancedMesh;private health:THREE.InstancedMesh;private healthBack:THREE.InstancedMesh;private pickups:ResourceDrops;private rings:THREE.InstancedMesh;
  private lines:THREE.LineSegments;private linePositions=new Float32Array(6000);private lineColors=new Float32Array(6000);
  private anchor:THREE.Group;private podViews=new Map<number,PodView>();private podTemplate:GLTF|null=null;private terrainUpdate=()=>{};private mapView?:MapView;private hiveTemplate:THREE.Object3D|null=null;private hiveView:THREE.Object3D|null=null;
+ private lootLabels=new Map<number,HTMLElement>();
  private podLabels=new Map<number,HTMLElement>();private labelLayer=document.createElement('div');
  private grid=new THREE.GridHelper(104,26,0x3aa8b4,0x245460);private tickTime=0;private frames=0;private cameraTarget=new THREE.Vector3();
  constructor(readonly canvas:HTMLCanvasElement,readonly world:World){
@@ -71,9 +73,9 @@ export class BattleRenderer {
   const podUrl=assetUrl('model.droppod');if(podUrl){try{const g=await restoreSc2Materials(await loader.loadAsync(podUrl));this.podTemplate=g;}catch(e){this.modelErrors.push('droppod: '+String(e));}}
   this.filterTextures(this.scene);const visible:THREE.Object3D[]=[];for(const b of this.gpu.values())for(const m of b.meshes){if(!m.visible){visible.push(m);m.visible=true;}}this.renderer.compile(this.scene,this.camera);for(const m of visible)m.visible=false;
  }
- private prepareUnit(type:UnitType,gltf:GLTF){gltf.scene.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());const scale=heights[type]/Math.max(.001,size.y);
+ private prepareUnit(type:UnitType,gltf:GLTF){gltf.scene.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());const scale=heights[type]*TUNING.unitScale/Math.max(.001,size.y);
   const batch:UnitBatch={gltf,meshes:[],data:[],scale,center,minY:box.min.y,clips:mapAnimations(gltf.animations)};
-  if(gltf.animations.length){this.gpu.set(type,new AnimatedBatch(gltf,this.scene,heights[type]));gltf.scene.traverse(n=>{if(n instanceof THREE.Mesh)for(const m of Array.isArray(n.material)?n.material:[n.material])if(m.map)this.loadedTextures++;});this.batches.set(type,batch);return;}
+  if(gltf.animations.length){this.gpu.set(type,new AnimatedBatch(gltf,this.scene,heights[type],undefined,TUNING.unitScale));gltf.scene.traverse(n=>{if(n instanceof THREE.Mesh)for(const m of Array.isArray(n.material)?n.material:[n.material])if(m.map)this.loadedTextures++;});this.batches.set(type,batch);return;}
   if(!gltf.animations.length)gltf.scene.traverse(node=>{if(!(node instanceof THREE.Mesh))return;
    // Bake the original static mesh into local model coordinates; preserve original maps and topology.
    const geometry=node.geometry.clone();geometry.applyMatrix4(node.matrixWorld);geometry.translate(-center.x,-box.min.y,-center.z);geometry.scale(scale,scale,scale);
@@ -127,7 +129,7 @@ export class BattleRenderer {
     batch.meshes.forEach((m,i)=>{m.setMatrixAt(index,_obj.matrix);batch.data[i].setXYZW(index,...motion as [number,number,number,number]);});
    }
    if(!dying&&this.showColliders)putRing(u,u.unitRadius,u.flying?0x7ac7ff:u.owner==='terran'?0x82eeab:0xffa865);
-   if(!dying&&(u.owner==='terran'||u.hp<u.maxHp))health(u,y+heights[u.unitType]+.22);
+   if(!dying&&(u.owner==='terran'||u.hp<u.maxHp))health(u,y+heights[u.unitType]*TUNING.unitScale+.22);
    if(u.healTarget){const target=world.entities.get(u.healTarget);if(target)putLine(u,AIR_HEIGHT-.2,target,this.ground(target)+.9,0x79ffb7);}
   }
   for(const [type,b] of this.batches){b.meshes.forEach((m,i)=>{m.count=counts.get(type)??0;m.instanceMatrix.needsUpdate=true;b.data[i].needsUpdate=true;});}
@@ -147,6 +149,8 @@ export class BattleRenderer {
   }
   this.shadows.count=shadows;this.shadows.instanceMatrix.needsUpdate=true;this.rings.count=ring;this.rings.instanceMatrix.needsUpdate=true;if(this.rings.instanceColor)this.rings.instanceColor.needsUpdate=true;
   for(const m of [this.health,this.healthBack]){m.count=bars;m.instanceMatrix.needsUpdate=true;}if(this.health.instanceColor)this.health.instanceColor.needsUpdate=true;
+  const lootIds=new Set(world.rewardDrops.map(p=>p.id));for(const [id,el] of this.lootLabels)if(!lootIds.has(id)){el.remove();this.lootLabels.delete(id);}
+  for(const drop of world.rewardDrops){let el=this.lootLabels.get(drop.id);if(!el){el=document.createElement('div');el.className='loot-world-label';el.style.setProperty('--rarity',RARITIES[drop.reward.rarity].color);el.dataset.rarity=drop.reward.rarity;el.innerHTML=`${icon(drop.reward.icon)}<span>${RARITIES[drop.reward.rarity].name} · ${drop.reward.name}</span>`;this.labelLayer.append(el);this.lootLabels.set(drop.id,el);}el.hidden=!this.visible(drop)||world.phase!=='battle'||world.paused;if(!el.hidden){const p=this.screen(drop);el.style.transform=`translate(${p.x}px,${p.y}px) translate(-50%,-100%)`;}}
   this.pickups.render(world.pickups,p=>this.ground(p),p=>this.visible(p));
   this.lines.geometry.setDrawRange(0,line*2);this.lines.geometry.attributes.position.needsUpdate=true;this.lines.geometry.attributes.color.needsUpdate=true;
   this.fx.render(world,this.camera,p=>this.visible(p),event=>{const model=event.unitType?this.gpu.get(event.siege?'tank.siege':event.unitType):null;const weapon=model?.weaponAt('attack',Math.max(0,world.time-event.time)*1.4);if(!weapon)return null;return {x:event.x+weapon.x*Math.cos(event.facing)+weapon.z*Math.sin(event.facing),y:weapon.y+this.ground(event),z:event.z-weapon.x*Math.sin(event.facing)+weapon.z*Math.cos(event.facing)};});

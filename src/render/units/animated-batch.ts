@@ -20,12 +20,13 @@ export class AnimatedBatch {
  clips=new Map<string,PoseClip>();actions:ReturnType<typeof mapAnimations>;
  private lodIndices:{full:THREE.BufferAttribute;low:THREE.BufferAttribute}[]=[];private lowDetail=false;lodRatio=1;
  count=0;scale:number;normalization:THREE.Matrix4;textureBytes=0;boneCount=0;
- constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4){
+ constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1){
   this.actions=mapAnimations(gltf.animations);
   const mixer=new THREE.AnimationMixer(gltf.scene),rest=this.actions.idle??gltf.animations[0];
   if(rest){mixer.clipAction(rest).play();mixer.setTime(0);}gltf.scene.updateMatrixWorld(true);
   const box=sc2BodyBounds(gltf.scene),center=box.getCenter(new THREE.Vector3());
   const sourceScale=sc2ModelScale(gltf.scene);this.scale=sourceScale===undefined?height/Math.max(.001,box.max.y-box.min.y):1.4*sourceScale;
+  this.scale*=unitScale;
   this.normalization=normalization?.clone()??new THREE.Matrix4().makeScale(this.scale,this.scale,this.scale).multiply(new THREE.Matrix4().makeTranslation(-center.x,-box.min.y,-center.z));
   const turret=gltf.scene.getObjectByName('Bone_Turret_Base'),turretBones=new Set<THREE.Object3D>();turret?.traverse(n=>turretBones.add(n));turret?.getWorldPosition(this.turretPivot).applyMatrix4(this.normalization);
   // Only gameplay clips; dance/fidget/portrait sequences remain in the GLB but do not cost GPU memory.
