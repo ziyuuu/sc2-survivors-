@@ -1,3 +1,4 @@
+import {Minimap} from './hud/minimap';
 import {World} from '../simulation/world';
 import {TERRAN,SC2_UNITS} from '../data/sc2-units';
 import {icon,missingAssets} from '../assets/manifest';
@@ -9,13 +10,14 @@ const clock=(n:number)=>{const seconds=Math.max(0,Math.ceil(n));return fmt(Math.
 const cost=(m:number,g:number)=>`${m} M${g?' / '+g+' G':''}`;
 export class HUD {
  ready=false;loading='载入战场';lastPhase='';private touchActionAt=0;inputReset:()=>void=()=>{};onStart:()=>void=()=>{};
- root:HTMLElement;private cache=new Map<string,string>();private iconLoaded=new Set<string>();
+ root:HTMLElement;readonly minimap:Minimap;private cache=new Map<string,string>();private iconLoaded=new Set<string>();
  constructor(readonly world:World,readonly view:BattleRenderer){this.root=document.querySelector('#interface')!;
   this.root.innerHTML=`<header id="topbar"><span class="callsign">TERRAN <b>//</b> SURVIVORS</span><div class="resource">${icon('ui.minerals')}<span id="minerals">50</span></div><div class="resource gas">${icon('ui.gas')}<span id="gas">0</span></div><span id="stage" class="stage"></span><strong id="clock">02:00</strong><button data-action="pause" class="small" aria-label="暂停">Ⅱ</button></header>
    <div id="mission"></div><div id="notice" role="status" aria-live="polite"></div><div id="pod-alerts"></div><div id="production-status"></div>
    <div id="roster" class="console"></div><div id="skills" class="console"><button data-action="siege" id="siege">${icon('tech.siege')}<span id="siege-label">架炮 <kbd>T</kbd></span></button><button data-action="stim" id="stim">${icon('tech.stim')}<span>STIM <kbd>E</kbd></span></button><button data-action="dash" id="dash">${icon('tech.boost')}<span>推进 <kbd>SPACE</kbd></span></button></div>
    <div id="joystick" aria-label="移动小队摇杆"><span class="stick-axis"></span><span class="stick-knob"></span></div><div id="stretch"></div><div id="portrait-hint">建议旋转至横屏</div>
    <section id="overlay"></section><aside id="debug" class="console" hidden></aside>`;
+  this.minimap=new Minimap(world,view,this.root);
   this.root.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;const button=(e.target as HTMLElement).closest<HTMLButtonElement>('button[data-action]');if(!button||button.disabled)return;if(['stim','dash','siege'].includes(button.dataset.action??'')){e.preventDefault();this.touchActionAt=performance.now();if(button.dataset.action==='stim')world.stim();else if(button.dataset.action==='siege')world.toggleTanks();else world.dash();this.update();}});
   this.root.addEventListener('change',e=>{const el=e.target;if(!(el instanceof HTMLSelectElement))return;if(el.dataset.setting==='quality')view.setQuality(resolveQuality(el.value));else if(el.dataset.setting==='difficulty')world.setDifficulty(el.value==='easy'?'easy':'normal');this.update();});
   this.root.addEventListener('click',e=>{const button=(e.target as HTMLElement).closest<HTMLButtonElement>('button[data-action]');if(!button||button.disabled)return;const action=button.dataset.action!;if(['siege','stim','dash'].includes(action)&&performance.now()-this.touchActionAt<700)return;
@@ -31,7 +33,7 @@ export class HUD {
  pause(){if(this.world.phase==='battle'){this.world.paused=!this.world.paused;this.inputReset();this.world.changed();}}
  setLoading(text:string){this.loading=text;this.update();}
  finishLoading(){const missing=missingAssets();this.ready=this.view.loadedModels===8&&missing.length===0&&this.view.modelErrors.length===0;this.loading=this.ready?'战场就绪':'缺少战场素材';this.update();this.root.querySelector<HTMLButtonElement>('[data-action=start]')?.focus();}
- update(){const w=this.world;
+ update(){const w=this.world;this.minimap.update();
   this.put('minerals',String(Math.floor(w.wallet.minerals)));this.put('gas',String(Math.floor(w.wallet.gas)));this.put('stage',`STAGE <b>${String(w.stage).padStart(2,'0')}</b> / 12`);this.put('clock',clock(w.duration-w.stageElapsed));
   this.put('mission',`<span class="eyebrow">${w.difficulty==='easy'?'简单':'普通'} / ${w.terrain?.definition?.source.name??'CHAR'}</span><b>${w.config.name}</b>${w.stage===12?'<span>摧毁虫巢 · 存活至撤离</span>':''}`);
   this.put('notice',w.time<w.noticeUntil?w.notice:'');this.put('stretch',`战线 <b class="${w.maxStretch>20?'warning':''}">${w.maxStretch.toFixed(1)} m</b>`);

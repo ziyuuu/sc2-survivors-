@@ -1,3 +1,4 @@
+import {terrainArray,originalGroundGeometry} from './map-surface';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {assetUrl} from '../../assets/manifest';
@@ -12,17 +13,16 @@ export interface MapView {update:()=>void;report:()=>{name:string;models:number;
 export async function createOriginalMap(scene:THREE.Scene,w:World,progress:(s:string)=>void):Promise<MapView>{
  const d=w.terrain!.definition!,texture=async(id:string,linear=false)=>{const t=await new THREE.TextureLoader().loadAsync(url(id));t.flipY=false;t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.anisotropy=8;return t;};
  const [diffuse,normal,mask0,mask1]=await Promise.all([texture('map.terrain.diffuse'),texture('map.terrain.normal',true),texture('map.terrain.mask0',true),texture('map.terrain.mask1',true)]);
+ const diffuseLayers=terrainArray(diffuse),normalLayers=terrainArray(normal);
  const reveal=new THREE.DataTexture(Uint8Array.from(d.reveal),d.walkWidth,d.walkHeight,THREE.RedFormat);reveal.minFilter=reveal.magFilter=THREE.NearestFilter;reveal.needsUpdate=true;
  const stage={value:w.stage},tile=d.uvTiling??[14.25,15.75,1.5,-1.5],material=new THREE.MeshStandardMaterial({map:diffuse,normalMap:normal,normalScale:new THREE.Vector2(.65,.65),roughness:.91});
- const atlas=(sampler:string)=>Array.from({length:8},(_,i)=>`texture2D(${sampler},(vec2(${i%2}.0,${Math.floor(i/2)}.0)+clamp(fract(vMapUv*mapTiling.xy+mapTiling.zw),vec2(.001),vec2(.999)))/vec2(2.0,4.0)).rgb * weights${Math.floor(i/4)}[${i%4}]`).join('+');
- material.onBeforeCompile=s=>{Object.assign(s.uniforms,{mapMask0:{value:mask0},mapMask1:{value:mask1},mapReveal:{value:reveal},mapStage:stage,mapTiling:{value:new THREE.Vector4(...tile as [number,number,number,number])}});
-  s.fragmentShader=s.fragmentShader.replace('#include <common>','#include <common>\nuniform sampler2D mapMask0;uniform sampler2D mapMask1;uniform sampler2D mapReveal;uniform float mapStage;uniform vec4 mapTiling;');
-  s.fragmentShader=s.fragmentShader.replace('#include <map_fragment>',`vec4 weights0=texture2D(mapMask0,vMapUv),weights1=texture2D(mapMask1,vMapUv);float total=dot(weights0,vec4(1.0))+dot(weights1,vec4(1.0));if(total<.01){weights0=vec4(1.0,0.0,0.0,0.0);total=1.0;}weights0/=total;weights1/=total;diffuseColor.rgb*=(${atlas('map')});float opened=1.0-step(mapStage+.1,texture2D(mapReveal,vMapUv).r*255.0);diffuseColor.rgb*=mix(.12,1.0,opened);`);
-  s.fragmentShader=s.fragmentShader.replace('#include <normal_fragment_maps>',`vec3 mapN=normalize((${atlas('normalMap')})*2.0-1.0);mapN.xy*=normalScale;normal=normalize(tbn*mapN);`);
- };material.customProgramCacheKey=()=> 'original-map-eight-layers-v1';
- const positions:number[]=[],uv:number[]=[],indices:number[]=[];for(let y=0;y<d.height;y++)for(let x=0;x<d.width;x++){positions.push(x-d.origin[0],d.heights[y*d.width+x]-.018,d.origin[1]-y);uv.push(x/(d.width-1),y/(d.height-1));}
- for(let y=0;y<d.height-1;y++)for(let x=0;x<d.width-1;x++){const a=y*d.width+x,b=a+1,c=a+d.width,e=c+1,hs=[a,b,c,e].map(i=>d.heights[i]);if(Math.max(...hs)-Math.min(...hs)>1.55)continue;indices.push(a,b,c,b,e,c);}
- const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geometry.setIndex(indices);geometry.computeVertexNormals();const ground=new THREE.Mesh(geometry,material);ground.name='char-traversable-ground';scene.add(ground);
+ const atlas=(sampler:string)=>Array.from({length:8},(_,i)=>`texture(${sampler},vec3(vMapUv*mapTiling.xy+mapTiling.zw,${i}.0)).rgb * weights${Math.floor(i/4)}[${i%4}]`).join('+');
+ material.onBeforeCompile=s=>{Object.assign(s.uniforms,{mapLayers:{value:diffuseLayers},normalLayers:{value:normalLayers},mapMask0:{value:mask0},mapMask1:{value:mask1},mapReveal:{value:reveal},mapStage:stage,mapTiling:{value:new THREE.Vector4(...tile as [number,number,number,number])}});
+  s.fragmentShader=s.fragmentShader.replace('#include <common>','#include <common>\nuniform highp sampler2DArray mapLayers;uniform highp sampler2DArray normalLayers;uniform sampler2D mapMask0;uniform sampler2D mapMask1;uniform sampler2D mapReveal;uniform float mapStage;uniform vec4 mapTiling;');
+  s.fragmentShader=s.fragmentShader.replace('#include <map_fragment>',`vec4 weights0=texture2D(mapMask0,vMapUv),weights1=texture2D(mapMask1,vMapUv);float total=dot(weights0,vec4(1.0))+dot(weights1,vec4(1.0));if(total<.01){weights0=vec4(1.0,0.0,0.0,0.0);total=1.0;}weights0/=total;weights1/=total;diffuseColor.rgb*=(${atlas('mapLayers')});float opened=1.0-step(mapStage+.1,texture2D(mapReveal,vMapUv).r*255.0);diffuseColor.rgb*=mix(.12,1.0,opened);`);
+  s.fragmentShader=s.fragmentShader.replace('#include <normal_fragment_maps>',`vec3 mapN=normalize((${atlas('normalLayers')})*2.0-1.0);mapN.xy*=normalScale;normal=normalize(tbn*mapN);`);
+ };material.customProgramCacheKey=()=> 'original-map-array-layers-v2';
+ const ground=new THREE.Mesh(originalGroundGeometry(d),material);ground.name='char-traversable-ground';scene.add(ground);
  const cliffGroup=new THREE.Group();cliffGroup.name='char-solid-cliff-faces';scene.add(cliffGroup);
  const grouped=new Map<string,MapPlacement[]>();for(const p of [...d.placements,...d.cliffs??[]])if(p.assetId){const key=p.assetId+'|'+(p.pose??'idle'),list=grouped.get(key)??[];list.push(p);grouped.set(key,list);}
  const loader=new GLTFLoader(),batches:{mesh:THREE.InstancedMesh;placements:MapPlacement[];matrices:THREE.Matrix4[];points:{x:number;z:number;stage:number}[]}[]=[],object=new THREE.Object3D(),tint=new THREE.Color(),v=new THREE.Vector3(),shared=new WeakMap<object,Map<string,THREE.Texture>>();let models=0;

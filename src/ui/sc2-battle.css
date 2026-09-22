@@ -22,3 +22,11 @@
 #topbar,#roster,#production-status,#pod-alerts,#mission,#notice,#stretch{pointer-events:auto;touch-action:none}#battle{cursor:crosshair}.controls-note{flex-wrap:wrap}
 
 #gamepad-calibration{position:fixed;inset:0;z-index:200;background:#050c13e8;display:grid;place-items:center;padding:20px}#gamepad-calibration[hidden]{display:none}#gamepad-calibration .console{padding:28px;max-width:540px}button:focus-visible,select:focus-visible,.gamepad-active button:focus,.gamepad-active select:focus{outline:2px solid #91e5ff;outline-offset:3px;box-shadow:0 0 14px #54c1e688}.reward-card:disabled{opacity:.62}
+
+/* Tactical map stays outside the central playfield and absorbs its own commands. */
+#minimap{position:absolute;left:max(16px,env(safe-area-inset-left));bottom:max(15px,env(safe-area-inset-bottom));width:184px;padding:8px;pointer-events:auto;touch-action:none;-webkit-touch-callout:none}
+#minimap header,#minimap footer{display:flex;justify-content:space-between;font-size:9px;letter-spacing:1px;color:#a8c6d2;line-height:17px}#minimap header{border-bottom:1px solid #405e6d;margin-bottom:4px}#minimap-canvas{display:block;width:100%;aspect-ratio:1;cursor:crosshair;touch-action:none;user-select:none;-webkit-user-select:none}
+#minimap .mini-friend{color:#8ceeaa}#minimap .mini-hostile{color:#ff8b75}#minimap .mini-rescue{color:#ffc277}
+@media(pointer:coarse),(max-width:1100px){#minimap{left:auto;right:max(12px,env(safe-area-inset-right));top:53px;bottom:auto;width:122px;padding:5px}#minimap header,#minimap footer{font-size:8px;letter-spacing:0;line-height:13px}#pod-alerts{top:214px;max-height:calc(100dvh - 324px);max-width:230px}}
+@media(max-height:500px){#minimap{width:108px;top:49px}#pod-alerts{right:130px;top:92px;max-width:195px;max-height:150px}.pod-alert{gap:4px}.pod-alert>img{width:22px;height:22px}.pod-alert .arrow{font-size:15px}}
+@media(max-width:600px) and (orientation:portrait){#minimap{top:83px;width:112px}#pod-alerts{top:235px;max-height:calc(100dvh - 475px)}#mission{max-width:calc(100% - 145px)}#notice{max-width:60%;left:32%;top:126px}#production-status{max-width:65%}}
