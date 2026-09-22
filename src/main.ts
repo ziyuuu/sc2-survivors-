@@ -17,7 +17,8 @@ async function boot(){configureMapAssets();const definition=await loadMapDefinit
  const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),{canvas,pick:(x,y,touch)=>view.pick(x,y,touch)});hud.inputReset=()=>{input.keys.clear();input.release();};hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,b=>{const p=view.screen(b);return p.x>=0&&p.y>=0&&p.x<=canvas.clientWidth&&p.y<=canvas.clientHeight;},()=>hud.pause(),()=>{input.keys.clear();input.release();});
  const debug=import.meta.env.DEV?installDebug(world,view):null;
- const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused;});
+ // Reserve up to 12 ms for fixed-step catch-up; debt is retained and frame work remains bounded.
+ const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused;},()=>performance.now(),12);
  window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,time:world.time,stats:{...world.stats},assetsReady:hud.ready,simulationBacklogSeconds:driver.accumulator,audio:audio.report(),gamepad:gamepad.report()});
  world.listeners.add(()=>audio.update(world));
  let previous=performance.now();

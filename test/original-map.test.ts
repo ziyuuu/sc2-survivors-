@@ -10,3 +10,8 @@ test('anchor paths use their actual .9 radius instead of sealing a valid narrow 
  const d=fixture();d.clearance=d.walk.map(v=>v?1.05:0);const t=new MapTerrain(d),a={...d.start},b=d.hive;
  const next=t.routeGoal(a,b,.9,50);assert.ok(Math.hypot(next.x-a.x,next.z-a.z)>.1);assert.ok(t.walkLine(a,next,.9));
 });
+
+
+test('disconnected radius graphs reject different start cells without repeated whole-map searches',()=>{const d=fixture();d.walk=d.walk.map((_,i)=>i%40===16?0:1);const t=new MapTerrain(d),base=(t as any).path.bind(t);let searches=0;(t as any).path=(...args:any[])=>{searches++;return base(...args);};for(let i=0;i<120;i++){const start={x:2+(i%8)*.5,z:14};assert.deepEqual(t.routeGoal(start,d.hive,.2,50),start);}assert.equal(searches,0);t.routeGoal(d.start,{x:15.6,z:14},.2,50);assert.equal(searches,0);});
+test('a failed shared bucket cannot poison a reachable neighbour across a wall',()=>{const d=fixture();d.walk=d.walk.map((_,i)=>i%40===16||i%40===22&&Math.floor(i/40)<30?0:1);const t=new MapTerrain(d),left={x:7.75,z:14},right={x:8.75,z:14};assert.deepEqual(t.routeGoal(left,d.hive,.1,50),left);assert.equal(t.walkLine(right,d.hive,.1),false);const goal=t.routeGoal(right,d.hive,.1,50);assert.ok(Math.hypot(goal.x-right.x,goal.z-right.z)>.1);assert.ok(t.walkLine(right,goal,.1));});
+test('map expansion invalidates failed routes and opens a newly legal passage',()=>{const d=fixture();d.walk=d.walk.map((_,i)=>i%40===16&&Math.floor(i/40)!==28?0:1);d.opening[28*40+16]=2;const t=new MapTerrain(d);assert.deepEqual(t.routeGoal(d.start,d.hive,.1,50),d.start);t.setStage(2);const goal=t.routeGoal(d.start,d.hive,.1,50);assert.ok(Math.hypot(goal.x-d.start.x,goal.z-d.start.z)>.1);assert.ok(t.walkLine(d.start,goal,.1));});

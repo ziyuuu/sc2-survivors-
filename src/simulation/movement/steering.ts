@@ -23,6 +23,7 @@ function routeGraph(r:number,obstacles:Obstacle[],terrain:TerrainQuery|undefined
  graph={terrain,nodes,edges};cache.set(key,graph);return graph;
 }
 export function steerGoal(a:Point,b:Point,r:number,obstacles:Obstacle[]=OBSTACLES,terrain?:TerrainQuery,half=TUNING.worldHalf):Point {
+ if(terrain?.definition&&!obstacles.length)return terrain.routeGoal(a,b,r,half);
  if(clearLine(a,b,r,obstacles,terrain))return b;
  if(terrain?.definition)return terrain.routeGoal(a,b,r,half);
  const {nodes,edges}=routeGraph(r,obstacles,terrain,half),costs=nodes.map(p=>clearLine(p,b,r,obstacles,terrain)?distance(p,b):Infinity),closed=new Uint8Array(nodes.length);

@@ -43,7 +43,7 @@ export class World {
  private readonly engagement=new EngagementSlots();
  private configStage=0;private configDifficulty:Difficulty|null=null;private stageData!:ReturnType<typeof stageConfig>;
  private detours=new Map<number,{body:number;first:Point;second:Point;phase:number;forward:Point}>();
- private navigation=new Map<number,{goal:Point;requested:Point;until:number}>();
+ private navigation=new Map<number,{goal:Point;requested:Point;until:number;stalled:boolean}>();
  constructor(options:{seed?:number;waves?:boolean;obstacles?:Obstacle[];initial?:TerranType[];difficulty?:Difficulty;sandbox?:boolean;terrain?:boolean|TerrainQuery}={}){
   this.seed=options.seed??89241;this.rngState=this.seed;this.autoWaves=options.waves??true;this.sandbox=options.sandbox??false;this.difficulty=options.difficulty??'normal';this.obstacles=options.obstacles??OBSTACLES;this.terrain=typeof options.terrain==='object'?options.terrain:(options.terrain??(!this.sandbox&&options.obstacles===undefined))?new CharTerrain():undefined;if(this.terrain?.definition&&options.obstacles===undefined)this.obstacles=[];
   const initial=options.initial??TUNING.initialSquad;initial.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
@@ -214,7 +214,7 @@ export class World {
  targetAllowed(u:Entity,b:Body){return b.hp>0&&b.owner!==u.owner&&(!b.flying||SC2_UNITS[u.unitType].targetType==='both');}
  edgeDistance(a:Body,b:Body){return Math.max(0,distance(a,b)-a.unitRadius-b.unitRadius);}
  hasAttackLine(u:Entity,b:Body){return !this.terrain||this.terrain.lineOfFire(u,b,u.flying,b.flying,u.attackRange<1);}
- canFireAt(u:Entity,b:Body,tolerance=0){const d=this.edgeDistance(u,b);return u.unitType!=='medivac'&&this.targetAllowed(u,b)&&this.hasAttackLine(u,b)&&d<=u.attackRange+tolerance&&d>=(u.mode==='siege'?SIEGE.minRange:0);}
+ canFireAt(u:Entity,b:Body,tolerance=0){const d=this.edgeDistance(u,b);return u.unitType!=='medivac'&&this.targetAllowed(u,b)&&d<=u.attackRange+tolerance&&d>=(u.mode==='siege'?SIEGE.minRange:0)&&this.hasAttackLine(u,b);}
  findTarget(u:Entity,range:number){let best:Body|undefined,score=Infinity;
   this.hash.query(u,range+2,b=>{if(!this.targetAllowed(u,b)||!this.hasAttackLine(u,b))return;let s=distance(u,b);if(u.owner==='terran'){// Stable combat targeting: finish a wounded threat and keep a useful lock.
     if(u.mode==='siege'&&this.edgeDistance(u,b)<SIEGE.minRange)return;
@@ -302,7 +302,7 @@ export class World {
   }
   return u;
  }
- separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(n>=12)return false;if(b.id===u.id||b.flying!==u.flying||!u.flying&&this.terrain&&!this.terrain.sameContactLayer(u,b))return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min){const strength=Math.min(3,(min-d)*5);if(d>.001){v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;}else{const a=(Math.min(u.id,b.id)*7+Math.max(u.id,b.id)*13)*2.399,sign=u.id<b.id?1:-1;v.x+=Math.sin(a)*strength*sign;v.z+=Math.cos(a)*strength*sign;}n++;}});return v;}
+ separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(n>=12)return false;if(b.id===u.id||b.flying!==u.flying)return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min){if(!u.flying&&this.terrain&&!this.terrain.sameContactLayer(u,b))return;const strength=Math.min(3,(min-d)*5);if(d>.001){v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;}else{const a=(Math.min(u.id,b.id)*7+Math.max(u.id,b.id)*13)*2.399,sign=u.id<b.id?1:-1;v.x+=Math.sin(a)*strength*sign;v.z+=Math.cos(a)*strength*sign;}n++;}});return v;}
  updateUnit(u:Entity,dt:number){if(u.hp<=0)return;u.prev={x:u.x,z:u.z};u.healTarget=null;
   u.weaponCooldown=Math.max(0,u.weaponCooldown-dt);u.attackLock=Math.max(0,u.attackLock-dt);
   const anchorDistance=distance(u,this.anchor);
@@ -348,9 +348,9 @@ export class World {
   if(u.owner==='zerg'){const stage=STAGES[this.stage-1];speed*=stage.speed;if(u.unitType==='baneling'&&this.stage>=9)speed*=1.3;}
   if(!u.flying){
    const cached=this.navigation.get(u.id);
-   if(!cached||this.time>=cached.until||distance(u,cached.goal)<.7||distance(goal,cached.requested)>2){
+   if(!cached||this.time>=cached.until||!cached.stalled&&distance(u,cached.goal)<.7&&distance(cached.goal,cached.requested)>.5||distance(goal,cached.requested)>2){
     const routed=steerGoal(u,goal,u.unitRadius,this.obstacles,this.terrain,this.mapHalf);
-    this.navigation.set(u.id,{goal:{x:routed.x,z:routed.z},requested:{x:goal.x,z:goal.z},until:this.time+.15+(u.id%4)*.01});
+    this.navigation.set(u.id,{goal:{x:routed.x,z:routed.z},requested:{x:goal.x,z:goal.z},until:this.time+.15+(u.id%4)*.01,stalled:distance(u,routed)<.02});
    }
    goal=this.navigation.get(u.id)!.goal;
   }
