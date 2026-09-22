@@ -1,7 +1,7 @@
 import {RARITIES} from '../data/rewards';
 import {Minimap} from './hud/minimap';
 import {World} from '../simulation/world';
-import {TERRAN,SC2_UNITS} from '../data/sc2-units';
+import {TERRAN,ZERG,SC2_UNITS} from '../data/sc2-units';
 import {icon,missingAssets} from '../assets/manifest';
 import type {BattleRenderer} from '../render/scene/battle-renderer';
 import {QUALITY_LABELS,resolveQuality} from '../render/settings/quality';
@@ -33,7 +33,7 @@ export class HUD {
  put(id:string,html:string){if(this.cache.get(id)===html)return;const root=document.getElementById(id)!,focused=document.activeElement as HTMLElement|null,wasInside=!!focused&&root.contains(focused),action=focused?.dataset.action,offer=focused?.dataset.id,setting=focused?.dataset.setting;const oldIndex=wasInside?[...root.querySelectorAll('button,select')].indexOf(focused!):-1;root.innerHTML=html;this.cache.set(id,html);if(wasInside){const all=[...root.querySelectorAll<HTMLButtonElement|HTMLSelectElement>('button,select')];const same=all.find(e=>!e.disabled&&(offer?e.dataset.id===offer:setting?e.dataset.setting===setting:e.dataset.action===action));const next=same??all.slice(Math.max(0,oldIndex)).find(e=>!e.disabled)??all.find(e=>!e.disabled);next?.focus();}}
  pause(){if(this.world.phase==='battle'){this.world.paused=!this.world.paused;this.inputReset();this.world.changed();}}
  setLoading(text:string){this.loading=text;this.update();}
- finishLoading(){const missing=missingAssets();this.ready=this.view.loadedModels===8&&missing.length===0&&this.view.modelErrors.length===0;this.loading=this.ready?'战场就绪':'缺少战场素材';this.update();this.root.querySelector<HTMLButtonElement>('[data-action=start]')?.focus();}
+ finishLoading(){const missing=missingAssets();this.ready=this.view.loadedModels===TERRAN.length+ZERG.length&&missing.length===0&&this.view.modelErrors.length===0;this.loading=this.ready?'战场就绪':'缺少战场素材';this.update();this.root.querySelector<HTMLButtonElement>('[data-action=start]')?.focus();}
  update(){const w=this.world;this.minimap.update();
   this.put('minerals',String(Math.floor(w.wallet.minerals)));this.put('gas',String(Math.floor(w.wallet.gas)));this.put('stage',`STAGE <b>${String(w.stage).padStart(2,'0')}</b> / 12`);this.put('clock',clock(w.duration-w.stageElapsed));
   this.put('mission',`<span class="eyebrow">${w.difficulty==='easy'?'简单':'普通'} / ${w.terrain?.definition?.source.name??'CHAR'}</span><b>${w.config.name}</b>${w.stage===12?'<span>摧毁虫巢 · 存活至撤离</span>':''}`);

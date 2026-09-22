@@ -52,7 +52,7 @@ export class Minimap {
   for(const p of w.rewardDrops)dot(p,RARITIES[p.reward.rarity].color,2.4);
   for(const e of w.entities.values())if(e.hp>0)dot(e,e.owner==='terran'?'#8ceeaa':'#f96751',e.owner==='terran'?2:1.5);
   for(const e of w.economicTargets.values())if(e.status==='active'){if(e.kind==='egg')this.rescue(project(e),'S',unit);else dot(e,'#eda679',1.7);}
-  for(const p of w.pods)if(['falling','active','opening'].includes(p.status))this.rescue(project(p),({marine:'M',hellion:'H',tank:'T',medivac:'+'})[p.unitType],unit);
+  for(const p of w.pods)if(['falling','active','opening'].includes(p.status))this.rescue(project(p),({marine:'M',marauder:'R',hellion:'H',tank:'T',medivac:'+'})[p.unitType],unit);
   if(w.hive&&w.hive.hp>0){const p=project(w.hive);c.strokeStyle='#fa746b';c.lineWidth=2*unit;c.strokeRect(p.x-4*unit,p.y-4*unit,8*unit,8*unit);}
   this.height=w.terrain?.height(w.anchor)??0;c.strokeStyle='#d0e2e080';c.lineWidth=unit;c.beginPath();for(const [i,[x,y]]of [[-1,1],[1,1],[1,-1],[-1,-1]].entries()){const near=new Vector3(x,y,-1).unproject(this.view.camera),far=new Vector3(x,y,1).unproject(this.view.camera),v=far.sub(near),t=(this.height-near.y)/v.y,q=project({x:near.x+v.x*t,z:near.z+v.z*t});if(i)c.lineTo(q.x,q.y);else c.moveTo(q.x,q.y);}c.closePath();c.stroke();
   if(w.order){const b=w.order.kind==='move'?w.order.point:w.body(w.order.targetId);if(b){const p=project(b);c.strokeStyle=w.order.kind==='move'?'#7fefff':'#ff8f75';c.lineWidth=unit;c.beginPath();c.arc(p.x,p.y,5*unit,0,Math.PI*2);c.stroke();}}

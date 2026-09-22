@@ -4,8 +4,8 @@
 export const SC2_VERSION = 'LotV 5.0.15 / fbbd6429';
 export const SC2_PROFILE={version:'5.0.15',revision:'fbbd6429b1eb6978c78a092dc68ba09029d03171',source:'https://github.com/Joshua-Leibold/SC2Data/tree/fbbd6429b1eb6978c78a092dc68ba09029d03171',verification:'exported XML inspected; installed-client equivalence not verified',clock:'Normal XML duration / 1.4; rates * 1.4'};
 export const FASTER = 1.4;
-export const TERRAN = ['marine','hellion','tank','medivac'] as const;
-export const ZERG = ['zergling','roach','baneling','ravager'] as const;
+export const TERRAN = ['marine','marauder','hellion','tank','medivac'] as const;
+export const ZERG = ['zergling','roach','baneling','ravager','hydralisk'] as const;
 export type TerranType = typeof TERRAN[number];
 export type ZergType = typeof ZERG[number];
 export type UnitType = TerranType | ZergType;
@@ -25,14 +25,17 @@ const unit=(name:string,zh:string,hp:number,armor:number,speed:number,damage:num
 });
 export const SC2_UNITS:Record<UnitType,UnitData> = {
  marine:{...unit('Marine','陆战队员',45,0,2.25,6,.8608,5,['Light','Biological'],25,50,0,.375),targetType:'both',damagePoint:.05/FASTER},
+ marauder:{...unit('Marauder','劫掠者',125,1,2.25,10,1.5,6,['Armored','Biological'],30,100,25,.5625,[{attribute:'Armored',amount:10}]),damagePoint:0},
  hellion:{...unit('Hellion','恶火',90,0,4.25,8,2.5,5,['Light','Mechanical'],30,100,0,.625,[{attribute:'Light',amount:6}]),damagePoint:.25/FASTER},
  tank:unit('Siege Tank','攻城坦克',175,1,2.25,15,1.04,7,['Armored','Mechanical'],45,150,125,.875,[{attribute:'Armored',amount:10}]),
  medivac:{...unit('Medivac','医疗运输机',150,1,2.5,0,1,0,['Armored','Mechanical'],42,100,100,.75),targetType:'none',flying:true},
  zergling:unit('Zergling','跳虫',35,0,2.9531,5,.696,.1,['Light','Biological'],24,25,0,.375),
  roach:unit('Roach','蟑螂',145,1,2.25,16,2,4,['Armored','Biological'],27,75,25,.5),
  baneling:{...unit('Baneling','爆虫',30,0,2.5,16,.833,.25,['Biological'],20,50,25,.375,[{attribute:'Light',amount:19}]),splash:[{radius:2.2,fraction:1}],damagePoint:0},
+ hydralisk:{...unit('Hydralisk','刺蛇',90,0,2.25,12,.825,5,['Light','Biological'],33,100,50,.625),targetType:'both',damagePoint:.14/FASTER},
  ravager:{...unit('Ravager','破坏者',120,1,2.75,16,1.6,6,['Biological'],17,100,100,.75),damagePoint:.2/FASTER},
 };
+export const HYDRALISK_MELEE={range:.5,period:.75/FASTER};
 export const SIEGE = {damage:40,bonus:[{attribute:'Armored',amount:30}],range:13,minRange:2,
  period:3/FASTER,deploySeconds:4.0417/FASTER,undeploySeconds:3.5417/FASTER,
  splash:[{radius:.4687,fraction:1},{radius:.7812,fraction:.5},{radius:1.25,fraction:.25}]};

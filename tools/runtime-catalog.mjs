@@ -4,6 +4,8 @@ const used=['unit.marine','unit.hellion','unit.tank','unit.medivac','unit.zergli
 export const RUNTIME_ASSETS=legacy.assets.filter(a=>a.kind==='model'&&a.id!=='model.droppod'||used.includes(a.id)).map(a=>({...a,required:true}));
 RUNTIME_ASSETS.find(a=>a.id==='tech.infernal').names=['btn-techupgrade-terran-infernalpreigniter'];
 RUNTIME_ASSETS.push(
+ ...['marauder','hydralisk'].map(name=>({id:'model.'+name,kind:'model',category:'models',names:[name],required:true})),
+ ...['marauder','hydralisk'].map(name=>({id:'unit.'+name,kind:'icon',category:'buttons',names:['btn-unit-'+(name==='marauder'?'terran':'zerg')+'-'+name],required:true})),
  {id:'tech.vehicle',kind:'icon',category:'buttons',names:['btn-upgrade-terran-vehicleweaponslevel1'],required:true},
  {id:'tech.siege',kind:'icon',category:'buttons',names:['btn-unit-terran-siegetank'],required:true},
  {id:'tech.boost',kind:'icon',category:'buttons',names:['btn-unit-terran-medivac'],required:true},

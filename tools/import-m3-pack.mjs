@@ -13,7 +13,7 @@ import {adaptM3Scene} from './m3-scene.mjs';
 import {DOMParser} from '@xmldom/xmldom';
 import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
 import {QuaternionKeyframeTrack,AnimationClip,Group,Mesh,PlaneGeometry,MeshStandardMaterial} from 'three';
-import {M3_TOOL_REVISION,M3_MODELS,M3_EFFECTS} from './m3-catalog.mjs';
+import {M3_TOOL_REVISION,M3_MODELS,M3_EFFECTS,EXPANSION_MODELS} from './m3-catalog.mjs';
 import {inspectGlb} from './glb-inspect.mjs';
 
 const provider='https://dist.sc2arcade.com/star-assets/';
@@ -50,7 +50,7 @@ const modelDefinitions=new Map();
 await fs.mkdir('.cache/sc2-data',{recursive:true});
 for(const layer of ['liberty','swarm','void'])await get('https://raw.githubusercontent.com/Joshua-Leibold/SC2Data/fbbd6429b1eb6978c78a092dc68ba09029d03171/mods/'+layer+'.sc2mod/base.sc2data/gamedata/modeldata.xml','.cache/sc2-data/'+layer+'-modeldata.xml',b=>{if(!b.toString().includes('<Catalog'))throw Error('Invalid ModelData XML');});
 for(const layer of ['liberty','swarm','void']){try{const doc=new DOMParser().parseFromString(await fs.readFile('.cache/sc2-data/'+layer+'-modeldata.xml','utf8'),'text/xml');for(const n of Array.from(doc.getElementsByTagName('CModel'))){const id=n.getAttribute('id');if(!id)continue;const prev=modelDefinitions.get(id)??{};const scale=Array.from(n.childNodes).find(n=>n.nodeName==='ScaleMin')?.getAttribute('value');modelDefinitions.set(id,{parent:n.getAttribute('parent')||prev.parent,scale:scale?Number(scale.split(',')[0]):prev.scale});}}catch{}}
-function sourceScale(id){const names={marine:'Marine',hellion:'Hellion',tank:'SiegeTank',medivac:'Medivac',zergling:'Zergling',roach:'Roach',baneling:'Baneling',ravager:'Ravager',scv:'SCV',drone:'Drone'};let name=names[id.replace('model.','').split('.')[0]];for(let n=0;name&&n<12;n++){const d=modelDefinitions.get(name);if(!d)break;if(d.scale>0)return d.scale;name=d.parent;}return name?1:undefined;}
+function sourceScale(id){const expansion=EXPANSION_MODELS.find(a=>a.id===id);if(expansion?.sourceScale)return Number(expansion.sourceScale.split(',')[0]);const names={marine:'Marine',marauder:'Marauder',hydralisk:'Hydralisk',hellion:'Hellion',tank:'SiegeTank',medivac:'Medivac',zergling:'Zergling',roach:'Roach',baneling:'Baneling',ravager:'Ravager',scv:'SCV',drone:'Drone'};let name=names[id.replace('model.','').split('.')[0]];for(let n=0;name&&n<12;n++){const d=modelDefinitions.get(name);if(!d)break;if(d.scale>0)return d.scale;name=d.parent;}return name?1:undefined;}
 async function layerPixels(layer,normal=false){const name=layer.filename.toLowerCase(),file='assets/private/dds/'+name;const bytes=await get(provider+'textures/'+encodeURIComponent(name),file,b=>{if(b.length<128||b.subarray(0,4).toString()!=='DDS ')throw Error('Invalid DDS '+name);});return convertMaterialPixels(decodeDds(bytes),{normal,channel:normal?0:layer.channel});}
 async function extraAnimations(id,base){
  const names={'model.marine':'marine_swarmanims','model.hellion':'hellion_swarmanims','model.tank':'tank_swarmanims','model.baneling':'baneling_voidanims'},name=names[id];if(!name)return {clips:[],reports:[]};
@@ -82,7 +82,7 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
  const imageIds=new Map();j.images=[];j.textures=[];j.samplers=[{magFilter:9729,minFilter:9987,wrapS:10497,wrapT:10497}];
  const layerReport=[];
  const embedBytes=(key,img)=>{let index=imageIds.get(key);if(index!==undefined)return index;const padding=Buffer.alloc((4-length%4)%4);chunks.push(padding);length+=padding.length;const bv=j.bufferViews.length;j.bufferViews.push({buffer:0,byteOffset:length,byteLength:img.length});chunks.push(img);length+=img.length;index=j.images.length;j.images.push({bufferView:bv,mimeType:'image/png'});j.textures.push({sampler:0,source:index});imageIds.set(key,index);return index;};
- const embed=async(layer,normal=false,team=false)=>{const key=layer.filename.toLowerCase()+'|'+(normal?'normal':layer.channel)+(team?'|team:'+id.split('.')[1]:'');if(imageIds.has(key))return imageIds.get(key);let pixels=await layerPixels(layer,normal);if(team)pixels=applyTeamColor(pixels,['marine','hellion','tank','medivac','scv'].includes(id.split('.')[1])?[35,92,194]:[137,55,51]);return embedBytes(key,rgbaToPng(pixels));};
+ const embed=async(layer,normal=false,team=false)=>{const key=layer.filename.toLowerCase()+'|'+(normal?'normal':layer.channel)+(team?'|team:'+id.split('.')[1]:'');if(imageIds.has(key))return imageIds.get(key);let pixels=await layerPixels(layer,normal);if(team)pixels=applyTeamColor(pixels,(['marine','marauder','hellion','tank','medivac','scv','elite','hero'].includes(id.split('.')[1]))?[35,92,194]:[137,55,51]);return embedBytes(key,rgbaToPng(pixels));};
  const extension=name=>{j.extensionsUsed??=[];if(!j.extensionsUsed.includes(name))j.extensionsUsed.push(name);};
  for(const mat of j.materials??[]){const spec=specs.get(mat.name);if(!spec)continue;const report={name:mat.name,index:spec.index,role:spec.role,type:1,blend:spec.blend,layers:[],unsupported:[]};
   mat.extras={sc2:{role:spec.role,blend:spec.blend,flags:spec.flags,layers:[],teamColor:spec.blend===0&&spec.layers.diffuse?.channel===1}};

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 const targets=JSON.parse(fs.readFileSync(new URL('./sc2-casc-targets.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
 const lock=JSON.parse(fs.readFileSync(new URL('./sc2-casc-lock.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
+try{targets.push(...JSON.parse(fs.readFileSync(new URL('./expansion-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 const mapRecords=JSON.parse(fs.readFileSync(new URL('./map-dependencies.json',import.meta.url),'utf8')).filter(r=>r.verifiedCascBuild).map(r=>({...r,file:r.installFile,version:lock.version,buildConfig:lock.buildConfig}));
 /** Attribute cached bytes to CASC only when they match the pinned original content hash. */
 export function cascProvenance(file,bytes){

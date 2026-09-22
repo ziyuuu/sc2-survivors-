@@ -22,7 +22,7 @@ import {BattleEffects} from '../effects/battle-effects';
 import {loadQuality,saveQuality,renderPixelRatio,type RenderQuality} from '../settings/quality';
 
 type UnitBatch={gltf:GLTF;meshes:THREE.InstancedMesh[];data:THREE.InstancedBufferAttribute[];scale:number;center:THREE.Vector3;minY:number;clips:ReturnType<typeof mapAnimations>};
-const heights:Record<UnitType,number>={marine:1.35,hellion:.9,tank:1.25,medivac:1.05,zergling:.68,roach:1,baneling:.7,ravager:1.45};
+const heights:Record<UnitType,number>={marine:1.35,marauder:1.6,hydralisk:1.55,hellion:.9,tank:1.25,medivac:1.05,zergling:.68,roach:1,baneling:.7,ravager:1.45};
 const _obj=new THREE.Object3D(),_color=new THREE.Color(),_vec=new THREE.Vector3();
 const UNIT_CAPACITY=1024; // Rescue guardians may temporarily exceed the ambient-wave cap.
 export class BattleRenderer {

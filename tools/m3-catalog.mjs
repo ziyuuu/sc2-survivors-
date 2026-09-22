@@ -2,7 +2,11 @@ import fs from 'node:fs';
 let mapModels=[];try{mapModels=JSON.parse(fs.readFileSync(new URL('./map-models.json',import.meta.url),'utf8'));}catch{}
 // Names resolved from the fixed SC2 ModelData/ActorData profile; no community skins.
 export const M3_TOOL_REVISION='ee0eff037e2e40d2aad72f4f856af0710b8a44e5';
+export const EXPANSION_MODELS=JSON.parse(fs.readFileSync(new URL('./expansion-models.json',import.meta.url),'utf8'));
 export const M3_MODELS=[
+ ...EXPANSION_MODELS.filter(a=>a.id.startsWith('model.elite.')||a.id.startsWith('model.hero.')).map(a=>[a.id,a.name]),
+ ['model.marauder','marauder'],['model.hydralisk','hydralisk'],
+ ['model.marauder.death','marauderdeathex1'],['model.hydralisk.death','hydraliskdeathex1'],
  ['model.marine','marine'],['model.hellion','hellionex1'],['model.tank','tankex1'],
  ['model.medivac','medivacex1'],['model.zergling','zergling'],['model.roach','roach'],
  ['model.baneling','banelingex1'],['model.ravager','ravager'],

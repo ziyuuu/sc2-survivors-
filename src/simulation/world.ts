@@ -1,6 +1,6 @@
 import {MAP_REWARDS} from '../data/rewards';
 import type {TerrainQuery} from '../data/map-definition';
-import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,BILE,type UnitType,type TerranType,type ZergType} from '../data/sc2-units';
+import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,BILE,HYDRALISK_MELEE,type UnitType,type TerranType,type ZergType} from '../data/sc2-units';
 import {BUILDINGS,FACTORY_TECH_LAB,OBSTACLES,STAGES,TUNING,type BuildingType,type Obstacle} from '../data/game';
 import {spend,applyWeaponHit,healBiological} from './rules.mjs';
 import {EngagementSlots} from './formation/engagement';
@@ -128,7 +128,7 @@ export class World {
  refreshStats(u:Entity,fill=false){const d=SC2_UNITS[u.unitType];const old=u.maxHp,r=rankStats(u.owner==='terran'?u.rank:1);
   u.maxHp=(d.maxHp+(u.unitType==='marine'&&this.upgrades.has('shield')?10:0))*r.health*(u.owner==='terran'?1+(this.upgrades.get('buff.vitality')??0):1);
   u.hp=fill?u.maxHp:Math.min(u.maxHp,u.hp+Math.max(0,u.maxHp-old));
-  const upgrade=u.unitType==='marine'?(this.upgrades.get('infantry')??0):['hellion','tank'].includes(u.unitType)?(this.upgrades.get('vehicle')??0)*(u.unitType==='tank'?2:1):0;
+  const upgrade=['marine','marauder'].includes(u.unitType)?(this.upgrades.get('infantry')??0):['hellion','tank'].includes(u.unitType)?(this.upgrades.get('vehicle')??0)*(u.unitType==='tank'?2:1):0;
   u.weaponDamage=(d.attackDamage+upgrade)*r.damage*this.weaponFactor(u);
   u.attackRange=u.mode==='siege'?SIEGE.range:d.attackRange;u.attackPeriod=(u.mode==='siege'?SIEGE.period:d.attackPeriod)/r.attackSpeed;
   if(u.owner==='terran')u.armor=d.armor+r.armor;u.maxEnergy=HEAL.maxEnergy*r.energy;u.energyRegen=HEAL.regen*r.energy*(this.upgrades.has('medivac')?2:1);u.healRate=HEAL.hpPerSecond*r.healing*(1+(this.upgrades.get('buff.recovery')??0));
@@ -254,7 +254,7 @@ export class World {
  effect(kind:Effect['kind'],source:Body,end:Point,radius=.1,duration=.18){this.effects.push({id:this.nextId++,kind,x:source.x,z:source.z,end:{...end},until:this.time+duration,radius,owner:source.owner,source:source.id});}
  fire(u:Entity,target:Body){if(!this.targetAllowed(u,target)||!this.hasAttackLine(u,target))return;const d=SC2_UNITS[u.unitType];this.stats.shots++;
   u.attackFacing=Math.atan2(target.x-u.x,target.z-u.z);u.lastShotAt=this.time;this.visual('attack',u,target);
-  const rank=rankStats(u.owner==='terran'?u.rank:1).damage*this.weaponFactor(u);const bonus=d.bonusDamage.map(b=>({...b,amount:(b.amount+(u.unitType==='hellion'&&this.upgrades.has('infernal')?5:0))*rank}));
+  const rank=rankStats(u.owner==='terran'?u.rank:1).damage*this.weaponFactor(u);const bonus=d.bonusDamage.map(b=>({...b,amount:(b.amount+(u.unitType==='hellion'&&this.upgrades.has('infernal')?5:0)+(u.unitType==='marauder'?(this.upgrades.get('infantry')??0):0))*rank}));
   if(u.unitType==='hellion'){
    const a=Math.atan2(target.x-u.x,target.z-u.z),end={x:u.x+Math.sin(a)*6.5,z:u.z+Math.cos(a)*6.5};
    this.hash.query(u,8,b=>{if(!this.targetAllowed(u,b)||!this.hasAttackLine(u,b))return;const along=(b.x-u.x)*Math.sin(a)+(b.z-u.z)*Math.cos(a);const across=Math.abs((b.x-u.x)*Math.cos(a)-(b.z-u.z)*Math.sin(a));if(along>=0&&along<=6.5+b.unitRadius&&across<=.15+b.unitRadius)this.hit(b,u.weaponDamage,bonus);});this.effect('flame',u,end,.35,.35);
@@ -348,7 +348,7 @@ export class World {
   if(target&&this.canFireAt(u,target)&&!marchingRearTarget&&(!hard||!!focused||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&u.weaponCooldown<=1e-8){
    const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType!=='tank')u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?4.8:u.unitType==='marine'?24:9)*dt);
    if(Math.abs(angleDelta(u.attackFacing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
-    u.weaponCooldown=u.attackPeriod/stim;u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
+    u.weaponCooldown=(u.unitType==='hydralisk'&&this.edgeDistance(u,target)<=HYDRALISK_MELEE.range?HYDRALISK_MELEE.period:u.attackPeriod)/stim;u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
    // A committed firing turn must not be cancelled by formation steering in the same tick.
    u.velocity={x:0,z:0};u.action='idle';return;
   }
@@ -428,7 +428,7 @@ export class World {
  skipReward(){if(this.phase!=='reward'||this.rewardClaimed)return false;return this.finishRewardRound();}
  private finishRewardRound(){this.rewardClaimed=true;if(this.rewardRound==='building'){this.rewardRound='random';this.rewards=this.offers(drawRewards(this,this.random));this.rewardClaimed=false;this.changed();return true;}return this.nextStage();}
  private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();for(const type of this.extraDeliveries)this.spawnPod(type,undefined,this.nextJob++);this.extraDeliveries=[];this.changed();return true;}
- stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){if(u.unitType==='marine'&&u.hp>10&&u.stimUntil<=this.time){u.hp-=10;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
+ stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.unitType==='marauder'?20:10;if(['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
  dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power);return true;}
  step(){if(this.phase!=='battle'||this.paused)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;
   if(this.scheduledStage!==this.stage)this.prepareStage();const direction=this.updateCommand(dt),mag=Math.hypot(direction.x,direction.z);if(mag>.01){this.anchorMovingFor+=dt;this.anchorStoppedFor=0;}else {this.anchorStoppedFor+=dt;this.anchorMovingFor=0;}if(mag>.01){const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);this.anchor.facing=turn(this.anchor.facing,Math.atan2(direction.x,direction.z),5*dt);translate(this.anchor,{x:direction.x/Math.max(1,mag)*speed*dt,z:direction.z/Math.max(1,mag)*speed*dt},.8,false,this.obstacles,this.sandbox?TUNING.worldHalf:this.mapHalf,this.terrain);}

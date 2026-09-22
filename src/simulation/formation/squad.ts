@@ -2,7 +2,7 @@ import type {Entity,Point} from '../types';
 import type {TerrainQuery} from '../../data/map-definition';
 import {FORMATION,type Obstacle} from '../../data/game';
 import {blocked,distance,angleDelta,clearLine} from '../movement/steering';
-const order=['marine','hellion','tank','medivac'];
+const order=['marine','marauder','hellion','tank','medivac'];
 /** Slots are destinations, never positions. Only the small friendly squad is planned here.
  * Open ground uses ranks three abreast; a terrain-constrained search folds those ranks
  * into distinct reachable slots instead of sending every blocked slot to the anchor. */
