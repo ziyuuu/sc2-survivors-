@@ -1,18 +1,18 @@
 {
-  "at": "2026-09-22T13:37:39.862Z",
+  "at": "2026-09-22T13:47:19.737Z",
   "runtimeUrl": "http://127.0.0.1:5173/",
   "method": "Desktop Chrome, 1440x900 DPR1 balanced quality, no throttling. Common 20/100 and 25/300, or expanded 28/300 friendly/enemy fixtures. High HP, replenished enemies, zero enemy weapon damage, bile and resource/reward drops disabled to isolate battle cost. 15 s warmup followed by 12 s sample; backlog at both sample boundaries is recorded. No campaign, mobile or physical-phone performance claim.",
   "runs": [
     {
       "stepCpu": {
-        "count": 729,
-        "meanMs": 7.1628257889397675,
-        "p95ms": 12.799999982118607
+        "count": 721,
+        "meanMs": 7.1224687928217625,
+        "p95ms": 12.599999994039536
       },
       "renderCpu": {
-        "count": 462,
-        "meanMs": 11.86082251099023,
-        "p95ms": 14.100000023841858
+        "count": 476,
+        "meanMs": 11.760714286014814,
+        "p95ms": 14.300000011920929
       },
       "map": {
         "name": "Kairos Junction LE",
@@ -75,43 +75,43 @@
       },
       "effectTextures": 46,
       "effects": {
-        "attack": 4167,
-        "hit": 4805,
+        "attack": 4108,
+        "hit": 4736,
         "death": 37,
-        "movement": 4085,
+        "movement": 4205,
         "bile": 0,
-        "active": 240,
+        "active": 269,
         "dropped": 0
       },
       "textures": 18,
-      "fps": 43.99120175964819,
-      "requestedInstanceUploadBytes": 105240,
-      "drawCalls": 270,
-      "triangles": 430168,
+      "fps": 44.55637349864418,
+      "requestedInstanceUploadBytes": 107608,
+      "drawCalls": 273,
+      "triangles": 430966,
       "entities": 328,
-      "maxStretch": 14.501682498370611,
-      "spatialVisits": 24326,
-      "collisionContacts": 1102,
+      "maxStretch": 14.501686773090638,
+      "spatialVisits": 25105,
+      "collisionContacts": 1101,
       "phase": "battle",
       "stage": 10,
       "endless": null,
-      "time": 27.133333333333333,
+      "time": 27.15,
       "stats": {
         "kills": 37,
         "rescued": 0,
         "failed": 0,
         "produced": 0,
         "started": 1,
-        "shots": 4167,
-        "healed": 3.9699999999359714,
-        "damage": 3750443.9879192873,
+        "shots": 4108,
+        "healed": 3.0499999999487772,
+        "damage": 3751127.650678798,
         "scvsRescued": 0,
         "scvsLost": 0,
         "dronesKilled": 0,
         "ambientSpawned": 0
       },
       "assetsReady": true,
-      "simulationBacklogSeconds": 0.016633333333331207,
+      "simulationBacklogSeconds": 0.00013333333333786362,
       "audio": {
         "originalDecoded": 10,
         "decoded": [
@@ -219,12 +219,12 @@
       "friendly": 28,
       "enemies": 300,
       "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-      "samples": 462,
-      "averageFps": 38.34056714163602,
+      "samples": 476,
+      "averageFps": 39.611210971306825,
       "p95ms": 33.400000000001455,
-      "simulationSeconds": 12.15,
-      "startingBacklogSeconds": 0.11673333333332836,
-      "backlogChangeSeconds": -0.10009999999999715
+      "simulationSeconds": 12.016666666666666,
+      "startingBacklogSeconds": 1.1032841307212493e-15,
+      "backlogChangeSeconds": 0.00013333333333676034
     }
   ],
   "errors": []

@@ -1,11 +1,11 @@
 {
-  "at": "2026-09-22T13:35:10.535Z",
+  "at": "2026-09-22T13:46:22.147Z",
   "method": "Local desktop Chrome, 1440x900. Repeated real UI redeploy; resource fingerprints, run state and memory counts. Offline source-byte validation. No remote screenshots, physical-phone claim or automatic campaign-win criterion.",
   "errors": [],
   "runs": [
     {
       "offline": false,
-      "readySeconds": 15.2592087,
+      "readySeconds": 14.7832474,
       "restarts": [
         {
           "phase": "menu",
@@ -29,7 +29,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 30.299999982118607,
+          "restartMs": 22.69999998807907,
           "difficulty": "easy",
           "run": {
             "sameIdentity": true,
@@ -75,7 +75,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 13.699999988079071,
+          "restartMs": 14.900000005960464,
           "difficulty": "easy",
           "run": {
             "sameIdentity": true,
@@ -121,7 +121,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 10,
+          "restartMs": 12.800000011920929,
           "difficulty": "easy",
           "run": {
             "sameIdentity": true,
@@ -167,7 +167,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 13.400000005960464,
+          "restartMs": 10.5,
           "difficulty": "easy",
           "run": {
             "sameIdentity": true,
@@ -213,7 +213,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 13,
+          "restartMs": 12.299999982118607,
           "difficulty": "easy",
           "run": {
             "sameIdentity": true,
@@ -246,7 +246,7 @@
     },
     {
       "offline": true,
-      "readySeconds": 23.142867300000002,
+      "readySeconds": 24.307446999999996,
       "restarts": [
         {
           "phase": "menu",
@@ -270,7 +270,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 21.900000005960464,
+          "restartMs": 18.5,
           "difficulty": "easy",
           "run": null,
           "memory": null,
@@ -299,7 +299,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 14.900000005960464,
+          "restartMs": 17.30000001192093,
           "difficulty": "easy",
           "run": null,
           "memory": null,
@@ -328,7 +328,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 13.099999994039536,
+          "restartMs": 18.400000005960464,
           "difficulty": "easy",
           "run": null,
           "memory": null,
@@ -357,7 +357,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 19.599999994039536,
+          "restartMs": 28.900000005960464,
           "difficulty": "easy",
           "run": null,
           "memory": null,
@@ -386,7 +386,7 @@
           "errors": [],
           "quality": "balanced",
           "assetsSame": true,
-          "restartMs": 25.400000005960464,
+          "restartMs": 23.900000005960464,
           "difficulty": "easy",
           "run": null,
           "memory": null,

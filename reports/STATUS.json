@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-09-22T13:41:08.846158+00:00",
+  "checkedAt": "2026-09-22T13:51:41.496618+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "4297a7c3df8972229795dbdac6bcfc75d8a2f68b",
+  "runtimeCommit": "3684549dda4b2a636d5a19e9e74cfea47ece1146",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
   "prBase": "v2/sc2-assets-ui",
   "scope": "V18 movement-only intent, directional automatic targeting, bounded stop/fire/reposition, PC mouse/keyboard and touch tap/joystick settings, right-stick skill selection with A/X confirmation. Preserve map, economy, difficulty and assets.",
   "tests": {
     "command": "npm test",
-    "passed": 364,
+    "passed": 365,
     "failed": 0,
     "skipped": 0,
     "log": "reports/local/v18-tests-final.txt"
@@ -22,11 +22,11 @@
     "command": "npm run build",
     "exitCode": 0,
     "file": "dist/SC2-Survivors-Demo.html",
-    "bytes": 206697450,
-    "mib": 197.12204933166504,
-    "sha256": "21481901a5490be8dab08c9207860f766df8e8a3d7ffc90f6ba725ca55dfac8b",
+    "bytes": 206697492,
+    "mib": 197.12208938598633,
+    "sha256": "ab6861f3de34bd89f9b8ff962c2d3430990c1a2d177feff0f4373a04e62a1795",
     "previousBytes": 206691735,
-    "reductionPercent": -0.0027649871921584094,
+    "reductionPercent": -0.0027853073080062927,
     "sourceBytesIdentical": 647,
     "largeChunkWarning": true
   },
@@ -111,20 +111,20 @@
     "humanCampaignPlayed": false
   },
   "restart": {
-    "coldFileReadySeconds": 23.142867300000002,
+    "coldFileReadySeconds": 24.307446999999996,
     "offlineRestartMilliseconds": [
-      21.900000005960464,
-      14.900000005960464,
-      13.099999994039536,
-      19.599999994039536,
-      25.400000005960464
+      18.5,
+      17.30000001192093,
+      18.400000005960464,
+      28.900000005960464,
+      23.900000005960464
     ],
     "devRestartMilliseconds": [
-      30.299999982118607,
-      13.699999988079071,
-      10,
-      13.400000005960464,
-      13
+      22.69999998807907,
+      14.900000005960464,
+      12.800000011920929,
+      10.5,
+      12.299999982118607
     ],
     "repetitionsPerBuild": 5,
     "sameWorldAndModels": true,
@@ -146,20 +146,20 @@
     "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
     "friendly": 28,
     "enemies": 300,
-    "averageFps": 38.34056714163602,
+    "averageFps": 39.611210971306825,
     "p95ms": 33.400000000001455,
-    "drawCalls": 270,
+    "drawCalls": 273,
     "stepCpu": {
-      "count": 729,
-      "meanMs": 7.1628257889397675,
-      "p95ms": 12.799999982118607
+      "count": 721,
+      "meanMs": 7.1224687928217625,
+      "p95ms": 12.599999994039536
     },
     "renderCpu": {
-      "count": 462,
-      "meanMs": 11.86082251099023,
-      "p95ms": 14.100000023841858
+      "count": 476,
+      "meanMs": 11.760714286014814,
+      "p95ms": 14.300000011920929
     },
-    "simulationBacklogSeconds": 0.016633333333331207,
+    "simulationBacklogSeconds": 0.00013333333333786362,
     "notes": [
       "Single desktop Chrome development build sample, balanced, 1440x900 DPR1, 15-second warmup and 12-second capture.",
       "No synchronized baseline comparison or FPS improvement claim; diagnostic fixture, not campaign or physical-device performance."

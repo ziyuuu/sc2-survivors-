@@ -7,6 +7,6 @@
   "deduplicatedBytes": 56371905,
   "storedBytes": 164334996,
   "encodedBytes": 205420400,
-  "htmlBytes": 206697450,
+  "htmlBytes": 206697492,
   "codec": "gzip per unique byte chunk + HTML-safe base85; local decoder; exact source-byte reconstruction"
 }

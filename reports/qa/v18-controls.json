@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-22T13:34:08.791Z",
+  "at": "2026-09-22T13:45:21.335Z",
   "method": "Local desktop Chrome with actual pointer/keyboard events, CDP multi-touch and mocked Gamepad API. Screenshots remain local. No physical phone/gamepad or manual visual sign-off.",
   "runs": [
     {
@@ -78,7 +78,7 @@
           "dropped": 0
         },
         "textures": 18,
-        "fps": 40.65827686350434,
+        "fps": 50.329074719318776,
         "requestedInstanceUploadBytes": 420,
         "drawCalls": 149,
         "triangles": 145611,
@@ -289,7 +289,7 @@
           "dropped": 0
         },
         "textures": 18,
-        "fps": 60.00774293457213,
+        "fps": 59.98800239952024,
         "requestedInstanceUploadBytes": 420,
         "drawCalls": 90,
         "triangles": 109139,
@@ -500,7 +500,7 @@
           "dropped": 0
         },
         "textures": 18,
-        "fps": 59.99612928198172,
+        "fps": 60,
         "requestedInstanceUploadBytes": 420,
         "drawCalls": 169,
         "triangles": 154806,
