@@ -21,7 +21,7 @@ npm run typecheck
 npm run build
 ```
 
-单文件输出：**`D:\星际\dist\SC2-Survivors-Demo.html`**。双击即可离线运行，无需 Node 或服务器，CSS、JS、模型、纹理、图标、现有音频和配置全部内嵌。当前约 **168.34 MiB**，精确字节数与 SHA-256 见 `reports/STATUS.json`。开发版和 HTML 共享 World，朋友版不含 F1 修改状态接口。
+单文件输出：**`D:\星际\dist\SC2-Survivors-Demo.html`**。双击即可离线运行，无需 Node 或服务器，CSS、JS、模型、纹理、图标、现有音频和配置全部内嵌。当前约 **168.35 MiB**，精确字节数与 SHA-256 见 `reports/STATUS.json`。开发版和 HTML 共享 World，朋友版不含 F1 修改状态接口。
 
 原声音与两项补充武器源文件可从锁定的暴雪公开 CASC 包取得（PowerShell 7.4+ / Python 3.12 / Git，仅在本机处理）：
 

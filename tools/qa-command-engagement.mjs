@@ -2,7 +2,7 @@ import {chromium} from '@playwright/test';
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';
-const out='reports/local/qa-v11-left-focus';await fs.mkdir(out,{recursive:true});
+const out=process.env.SC2_QA_OUT??'reports/local/qa-v11-left-focus';await fs.mkdir(out,{recursive:true});
 const report={at:new Date().toISOString(),method:'Actual mouse and CDP touch in desktop Chrome using isolated combat fixtures on the imported Kairos map. Gamepad takeover uses simulated API snapshots. Not a playthrough, physical device test, visual approval or balance gate.',desktop:{},touch:[],errors:[]};
 const browser=await chromium.launch({executablePath:process.env.SC2_CHROME||'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 async function start(p,url='http://127.0.0.1:5173/'){p.on('pageerror',e=>report.errors.push(e.message));p.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});await p.goto(url);await p.waitForFunction(()=>window.__SC2_REPORT__?.().assetsReady,null,{timeout:90000});await p.getByRole('button',{name:/部署小队/}).click();}

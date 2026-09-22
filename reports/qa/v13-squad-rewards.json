@@ -1,0 +1,1301 @@
+{
+  "at": "2026-09-22T03:57:34.504Z",
+  "method": "Actual DOM mouse/touch actions in desktop Chrome, with explicit isolated World fixtures for reward/repair/deployment regressions. No bot victory, physical phone, physical gamepad or human visual approval.",
+  "errors": [],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "touch": false,
+      "opening": {
+        "units": 1,
+        "seconds": 60,
+        "report": {
+          "map": {
+            "name": "Kairos Junction LE",
+            "models": 292,
+            "placements": 4956,
+            "visibleInstances": 534,
+            "area": 741.75,
+            "scale": 1,
+            "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+          },
+          "order": null,
+          "resolution": {
+            "quality": "native",
+            "devicePixelRatio": 1,
+            "renderPixelRatio": 1,
+            "width": 1440,
+            "height": 900,
+            "cssWidth": 1440,
+            "cssHeight": 900,
+            "antialias": true
+          },
+          "models": 8,
+          "economicModels": 3,
+          "podModel": true,
+          "resourceModels": 3,
+          "resourceInstances": 0,
+          "errors": [],
+          "originalAnimationModels": 8,
+          "proceduralAnimationModels": 0,
+          "originalDeathModels": 8,
+          "animationAtlasBytes": 4707904,
+          "lodRatios": {
+            "zergling": 0.29555555555555557,
+            "roach": 0.44686192468619246,
+            "baneling": 0.29977246871444824,
+            "ravager": 0.29987531172069826
+          },
+          "effectTextures": 33,
+          "effects": {
+            "attack": 0,
+            "hit": 0,
+            "death": 0,
+            "movement": 0,
+            "bile": 0,
+            "active": 0,
+            "dropped": 0
+          },
+          "textures": 15,
+          "fps": 16.212710765239965,
+          "drawCalls": 182,
+          "triangles": 169692,
+          "entities": 1,
+          "maxStretch": 0.9,
+          "spatialVisits": 2,
+          "collisionContacts": 0,
+          "phase": "battle",
+          "stage": 1,
+          "time": 0.2833333333333333,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 1,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "assetsReady": true,
+          "simulationBacklogSeconds": 0.00006666666666452908,
+          "audio": {
+            "originalDecoded": 5,
+            "decoded": [
+              {
+                "id": "shot",
+                "duration": 0.08995833333333333,
+                "channels": 1,
+                "sampleRate": 48000
+              },
+              {
+                "id": "blast",
+                "duration": 0.3499583333333333,
+                "channels": 1,
+                "sampleRate": 48000
+              },
+              {
+                "id": "alert",
+                "duration": 0.44995833333333335,
+                "channels": 1,
+                "sampleRate": 48000
+              },
+              {
+                "id": "sc2.scv.ready",
+                "duration": 2.1729166666666666,
+                "channels": 1,
+                "sampleRate": 48000
+              },
+              {
+                "id": "sc2.marine.attack",
+                "duration": 1.3626875,
+                "channels": 1,
+                "sampleRate": 48000
+              },
+              {
+                "id": "sc2.hellion.attack",
+                "duration": 2.6566875,
+                "channels": 1,
+                "sampleRate": 48000
+              },
+              {
+                "id": "sc2.tank.attack",
+                "duration": 0.8244791666666667,
+                "channels": 1,
+                "sampleRate": 48000
+              },
+              {
+                "id": "sc2.tank.siege",
+                "duration": 1.9696041666666666,
+                "channels": 1,
+                "sampleRate": 48000
+              }
+            ],
+            "errors": [],
+            "played": {},
+            "activeHealers": 0
+          },
+          "gamepad": {
+            "active": false,
+            "index": null,
+            "calibrating": false,
+            "connected": []
+          }
+        }
+      },
+      "cards": [
+        {
+          "rarity": "green",
+          "color": "rgb(121, 223, 145)",
+          "name": "陆战队员 · Rank 3",
+          "disabled": false
+        },
+        {
+          "rarity": "blue",
+          "color": "rgb(106, 175, 255)",
+          "name": "陆战队员 · Rank 5",
+          "disabled": false
+        },
+        {
+          "rarity": "orange",
+          "color": "rgb(255, 179, 92)",
+          "name": "武器强化",
+          "disabled": false
+        }
+      ],
+      "recruited": {
+        "ranks": [
+          1,
+          3,
+          5
+        ],
+        "pods": 0,
+        "time": 0.2833333333333333
+      },
+      "mechanicalRepair": {
+        "hp": 23.570000000000014,
+        "energy": 49.04502500000007,
+        "simulationSeconds": 0.2833333333333332
+      },
+      "mapRewardCollected": true,
+      "multitouch": false,
+      "scroll": [
+        0,
+        0
+      ],
+      "selection": "",
+      "scrollWidth": 1440,
+      "renderer": {
+        "map": {
+          "name": "Kairos Junction LE",
+          "models": 292,
+          "placements": 4956,
+          "visibleInstances": 669,
+          "area": 1248.5,
+          "scale": 1,
+          "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+        },
+        "order": {
+          "kind": "move",
+          "point": {
+            "x": 3.5000000000000013,
+            "z": -1.013765173842021
+          },
+          "arrived": true,
+          "issuedAt": 1.0333333333333332
+        },
+        "resolution": {
+          "quality": "native",
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "resourceModels": 3,
+        "resourceInstances": 0,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 33,
+        "effects": {
+          "attack": 0,
+          "hit": 0,
+          "death": 0,
+          "movement": 13,
+          "bile": 0,
+          "active": 7,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 4.044762033167054,
+        "drawCalls": 229,
+        "triangles": 238209,
+        "entities": 5,
+        "maxStretch": 3.6272506971811387,
+        "spatialVisits": 70,
+        "collisionContacts": 1,
+        "phase": "battle",
+        "stage": 2,
+        "time": 1.7,
+        "stats": {
+          "kills": 0,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 0,
+          "started": 3,
+          "shots": 0,
+          "healed": 11.970000000000015,
+          "damage": 0,
+          "scvsRescued": 0,
+          "scvsLost": 0,
+          "dronesKilled": 0,
+          "ambientSpawned": 0
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 0.8501333333333386,
+        "audio": {
+          "originalDecoded": 10,
+          "decoded": [
+            {
+              "id": "shot",
+              "duration": 0.08995833333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "blast",
+              "duration": 0.3499583333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "alert",
+              "duration": 0.44995833333333335,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.scv.ready",
+              "duration": 2.1729166666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.attack",
+              "duration": 1.3626875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.hellion.attack",
+              "duration": 2.6566875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.attack",
+              "duration": 0.8244791666666667,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.siege",
+              "duration": 1.9696041666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.medivac.heal",
+              "duration": 9.092270833333334,
+              "channels": 2,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.zergling.attack",
+              "duration": 0.7786666666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.roach.attack",
+              "duration": 1.46575,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.ravager.attack",
+              "duration": 1.1467708333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.death",
+              "duration": 1.0077083333333334,
+              "channels": 1,
+              "sampleRate": 48000
+            }
+          ],
+          "errors": [],
+          "played": {
+            "sc2.medivac.heal": 1
+          },
+          "activeHealers": 1
+        },
+        "gamepad": {
+          "active": false,
+          "index": null,
+          "calibrating": false,
+          "connected": []
+        }
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "touch": true,
+      "opening": {
+        "units": 1,
+        "seconds": 60,
+        "report": {
+          "map": {
+            "name": "Kairos Junction LE",
+            "models": 292,
+            "placements": 4956,
+            "visibleInstances": 534,
+            "area": 741.75,
+            "scale": 1,
+            "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+          },
+          "order": null,
+          "resolution": {
+            "quality": "balanced",
+            "devicePixelRatio": 1,
+            "renderPixelRatio": 1,
+            "width": 390,
+            "height": 844,
+            "cssWidth": 390,
+            "cssHeight": 844,
+            "antialias": true
+          },
+          "models": 8,
+          "economicModels": 3,
+          "podModel": true,
+          "resourceModels": 3,
+          "resourceInstances": 0,
+          "errors": [],
+          "originalAnimationModels": 8,
+          "proceduralAnimationModels": 0,
+          "originalDeathModels": 8,
+          "animationAtlasBytes": 4707904,
+          "lodRatios": {
+            "zergling": 0.29555555555555557,
+            "roach": 0.44686192468619246,
+            "baneling": 0.29977246871444824,
+            "ravager": 0.29987531172069826
+          },
+          "effectTextures": 33,
+          "effects": {
+            "attack": 0,
+            "hit": 0,
+            "death": 0,
+            "movement": 0,
+            "bile": 0,
+            "active": 0,
+            "dropped": 0
+          },
+          "textures": 15,
+          "fps": 40,
+          "drawCalls": 182,
+          "triangles": 169692,
+          "entities": 1,
+          "maxStretch": 0.9,
+          "spatialVisits": 2,
+          "collisionContacts": 0,
+          "phase": "battle",
+          "stage": 1,
+          "time": 0.06666666666666667,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 1,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "assetsReady": true,
+          "simulationBacklogSeconds": 0.016633333333332622,
+          "audio": {
+            "originalDecoded": 0,
+            "decoded": [
+              {
+                "id": "shot",
+                "duration": 0.08995833333333333,
+                "channels": 1,
+                "sampleRate": 48000
+              }
+            ],
+            "errors": [],
+            "played": {},
+            "activeHealers": 0
+          },
+          "gamepad": {
+            "active": false,
+            "index": null,
+            "calibrating": false,
+            "connected": []
+          }
+        }
+      },
+      "cards": [
+        {
+          "rarity": "green",
+          "color": "rgb(121, 223, 145)",
+          "name": "陆战队员 · Rank 3",
+          "disabled": false
+        },
+        {
+          "rarity": "blue",
+          "color": "rgb(106, 175, 255)",
+          "name": "陆战队员 · Rank 5",
+          "disabled": false
+        },
+        {
+          "rarity": "orange",
+          "color": "rgb(255, 179, 92)",
+          "name": "武器强化",
+          "disabled": false
+        }
+      ],
+      "recruited": {
+        "ranks": [
+          1,
+          3,
+          5
+        ],
+        "pods": 0,
+        "time": 0.1
+      },
+      "mechanicalRepair": {
+        "hp": 20.840000000000003,
+        "energy": 49.775300000000016,
+        "simulationSeconds": 0.06666666666666665
+      },
+      "mapRewardCollected": true,
+      "multitouch": true,
+      "scroll": [
+        0,
+        0
+      ],
+      "selection": "",
+      "scrollWidth": 390,
+      "renderer": {
+        "map": {
+          "name": "Kairos Junction LE",
+          "models": 292,
+          "placements": 4956,
+          "visibleInstances": 673,
+          "area": 1248.5,
+          "scale": 1,
+          "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+        },
+        "order": null,
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 390,
+          "height": 844,
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "resourceModels": 3,
+        "resourceInstances": 0,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 33,
+        "effects": {
+          "attack": 0,
+          "hit": 0,
+          "death": 0,
+          "movement": 9,
+          "bile": 0,
+          "active": 6,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 59.99999999999997,
+        "drawCalls": 229,
+        "triangles": 241183,
+        "entities": 5,
+        "maxStretch": 3.040018256013761,
+        "spatialVisits": 60,
+        "collisionContacts": 0,
+        "phase": "battle",
+        "stage": 2,
+        "time": 1.0666666666666667,
+        "stats": {
+          "kills": 0,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 0,
+          "started": 3,
+          "shots": 0,
+          "healed": 10.92000000000001,
+          "damage": 0,
+          "scvsRescued": 0,
+          "scvsLost": 0,
+          "dronesKilled": 0,
+          "ambientSpawned": 0
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 0.016633333333334544,
+        "audio": {
+          "originalDecoded": 10,
+          "decoded": [
+            {
+              "id": "shot",
+              "duration": 0.08995833333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "blast",
+              "duration": 0.3499583333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "alert",
+              "duration": 0.44995833333333335,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.scv.ready",
+              "duration": 2.1729166666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.attack",
+              "duration": 1.3626875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.hellion.attack",
+              "duration": 2.6566875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.attack",
+              "duration": 0.8244791666666667,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.siege",
+              "duration": 1.9696041666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.medivac.heal",
+              "duration": 9.092270833333334,
+              "channels": 2,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.zergling.attack",
+              "duration": 0.7786666666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.roach.attack",
+              "duration": 1.46575,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.ravager.attack",
+              "duration": 1.1467708333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.death",
+              "duration": 1.0077083333333334,
+              "channels": 1,
+              "sampleRate": 48000
+            }
+          ],
+          "errors": [],
+          "played": {
+            "sc2.medivac.heal": 1
+          },
+          "activeHealers": 1
+        },
+        "gamepad": {
+          "active": false,
+          "index": null,
+          "calibrating": false,
+          "connected": []
+        }
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "touch": true,
+      "opening": {
+        "units": 1,
+        "seconds": 60,
+        "report": {
+          "map": {
+            "name": "Kairos Junction LE",
+            "models": 292,
+            "placements": 4956,
+            "visibleInstances": 534,
+            "area": 741.75,
+            "scale": 1,
+            "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+          },
+          "order": null,
+          "resolution": {
+            "quality": "balanced",
+            "devicePixelRatio": 1,
+            "renderPixelRatio": 1,
+            "width": 844,
+            "height": 390,
+            "cssWidth": 844,
+            "cssHeight": 390,
+            "antialias": true
+          },
+          "models": 8,
+          "economicModels": 3,
+          "podModel": true,
+          "resourceModels": 3,
+          "resourceInstances": 0,
+          "errors": [],
+          "originalAnimationModels": 8,
+          "proceduralAnimationModels": 0,
+          "originalDeathModels": 8,
+          "animationAtlasBytes": 4707904,
+          "lodRatios": {
+            "zergling": 0.29555555555555557,
+            "roach": 0.44686192468619246,
+            "baneling": 0.29977246871444824,
+            "ravager": 0.29987531172069826
+          },
+          "effectTextures": 33,
+          "effects": {
+            "attack": 0,
+            "hit": 0,
+            "death": 0,
+            "movement": 0,
+            "bile": 0,
+            "active": 0,
+            "dropped": 0
+          },
+          "textures": 15,
+          "fps": 40.00666777796302,
+          "drawCalls": 182,
+          "triangles": 169692,
+          "entities": 1,
+          "maxStretch": 0.9,
+          "spatialVisits": 2,
+          "collisionContacts": 0,
+          "phase": "battle",
+          "stage": 1,
+          "time": 0.05,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 1,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "assetsReady": true,
+          "simulationBacklogSeconds": 0.00009999999999855264,
+          "audio": {
+            "originalDecoded": 0,
+            "decoded": [
+              {
+                "id": "shot",
+                "duration": 0.08995833333333333,
+                "channels": 1,
+                "sampleRate": 48000
+              }
+            ],
+            "errors": [],
+            "played": {},
+            "activeHealers": 0
+          },
+          "gamepad": {
+            "active": false,
+            "index": null,
+            "calibrating": false,
+            "connected": []
+          }
+        }
+      },
+      "cards": [
+        {
+          "rarity": "green",
+          "color": "rgb(121, 223, 145)",
+          "name": "陆战队员 · Rank 3",
+          "disabled": false
+        },
+        {
+          "rarity": "blue",
+          "color": "rgb(106, 175, 255)",
+          "name": "陆战队员 · Rank 5",
+          "disabled": false
+        },
+        {
+          "rarity": "orange",
+          "color": "rgb(255, 179, 92)",
+          "name": "武器强化",
+          "disabled": false
+        }
+      ],
+      "recruited": {
+        "ranks": [
+          1,
+          3,
+          5
+        ],
+        "pods": 0,
+        "time": 0.08333333333333333
+      },
+      "mechanicalRepair": {
+        "hp": 20.840000000000003,
+        "energy": 49.775300000000016,
+        "simulationSeconds": 0.06666666666666665
+      },
+      "mapRewardCollected": true,
+      "multitouch": true,
+      "scroll": [
+        0,
+        0
+      ],
+      "selection": "",
+      "scrollWidth": 844,
+      "renderer": {
+        "map": {
+          "name": "Kairos Junction LE",
+          "models": 292,
+          "placements": 4956,
+          "visibleInstances": 671,
+          "area": 1248.5,
+          "scale": 1,
+          "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+        },
+        "order": null,
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 844,
+          "height": 390,
+          "cssWidth": 844,
+          "cssHeight": 390,
+          "antialias": true
+        },
+        "models": 8,
+        "economicModels": 3,
+        "podModel": true,
+        "resourceModels": 3,
+        "resourceInstances": 0,
+        "errors": [],
+        "originalAnimationModels": 8,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 8,
+        "animationAtlasBytes": 4707904,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826
+        },
+        "effectTextures": 33,
+        "effects": {
+          "attack": 0,
+          "hit": 0,
+          "death": 0,
+          "movement": 10,
+          "bile": 0,
+          "active": 6,
+          "dropped": 0
+        },
+        "textures": 15,
+        "fps": 55.99999999999998,
+        "drawCalls": 227,
+        "triangles": 239603,
+        "entities": 5,
+        "maxStretch": 3.3123413228863154,
+        "spatialVisits": 55,
+        "collisionContacts": 0,
+        "phase": "battle",
+        "stage": 2,
+        "time": 1.1333333333333333,
+        "stats": {
+          "kills": 0,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 0,
+          "started": 3,
+          "shots": 0,
+          "healed": 11.760000000000014,
+          "damage": 0,
+          "scvsRescued": 0,
+          "scvsLost": 0,
+          "dronesKilled": 0,
+          "ambientSpawned": 0
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 9.020562075079397e-17,
+        "audio": {
+          "originalDecoded": 10,
+          "decoded": [
+            {
+              "id": "shot",
+              "duration": 0.08995833333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "blast",
+              "duration": 0.3499583333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "alert",
+              "duration": 0.44995833333333335,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.scv.ready",
+              "duration": 2.1729166666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.attack",
+              "duration": 1.3626875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.hellion.attack",
+              "duration": 2.6566875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.attack",
+              "duration": 0.8244791666666667,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.siege",
+              "duration": 1.9696041666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.medivac.heal",
+              "duration": 9.092270833333334,
+              "channels": 2,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.zergling.attack",
+              "duration": 0.7786666666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.roach.attack",
+              "duration": 1.46575,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.ravager.attack",
+              "duration": 1.1467708333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.death",
+              "duration": 1.0077083333333334,
+              "channels": 1,
+              "sampleRate": 48000
+            }
+          ],
+          "errors": [],
+          "played": {
+            "sc2.medivac.heal": 1
+          },
+          "activeHealers": 1
+        },
+        "gamepad": {
+          "active": false,
+          "index": null,
+          "calibrating": false,
+          "connected": []
+        }
+      }
+    }
+  ],
+  "icons": {
+    "expected": 23,
+    "decoded": [
+      {
+        "id": "unit.marine",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "unit.hellion",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "unit.tank",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "unit.medivac",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "unit.zergling",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "unit.roach",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "unit.baneling",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "unit.ravager",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "building.barracks",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "building.factory",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "building.starport",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.stim",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.shield",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.infernal",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.heal",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.bile",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.attack",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.armor",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.vehicle",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.siege",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "tech.boost",
+        "width": 76,
+        "height": 76
+      },
+      {
+        "id": "ui.minerals",
+        "width": 30,
+        "height": 30
+      },
+      {
+        "id": "ui.gas",
+        "width": 32,
+        "height": 32
+      }
+    ]
+  },
+  "offline": {
+    "requests": [],
+    "debug": "undefined",
+    "runtime": {
+      "map": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 534,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "order": {
+        "kind": "move",
+        "point": {
+          "x": 6.388888888888889,
+          "z": 0.6856121684967178
+        },
+        "arrived": false,
+        "issuedAt": 0.11666666666666667
+      },
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "resourceModels": 3,
+      "resourceInstances": 0,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 33,
+      "effects": {
+        "attack": 0,
+        "hit": 0,
+        "death": 0,
+        "movement": 1,
+        "bile": 0,
+        "active": 1,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 42.57789820011605,
+      "drawCalls": 185,
+      "triangles": 169822,
+      "entities": 1,
+      "maxStretch": 3.1139044060534125,
+      "spatialVisits": 3,
+      "collisionContacts": 0,
+      "phase": "battle",
+      "stage": 1,
+      "time": 0.7333333333333333,
+      "stats": {
+        "kills": 0,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 1,
+        "shots": 0,
+        "healed": 0,
+        "damage": 0,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 0
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 0.0002666666666652773,
+      "audio": {
+        "originalDecoded": 10,
+        "decoded": [
+          {
+            "id": "shot",
+            "duration": 0.08995833333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "blast",
+            "duration": 0.3499583333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "alert",
+            "duration": 0.44995833333333335,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.scv.ready",
+            "duration": 2.1729166666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.attack",
+            "duration": 1.3626875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.hellion.attack",
+            "duration": 2.6566875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.attack",
+            "duration": 0.8244791666666667,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.siege",
+            "duration": 1.9696041666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.medivac.heal",
+            "duration": 9.092270833333334,
+            "channels": 2,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.zergling.attack",
+            "duration": 0.7786666666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.roach.attack",
+            "duration": 1.46575,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.ravager.attack",
+            "duration": 1.1467708333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.death",
+            "duration": 1.0077083333333334,
+            "channels": 1,
+            "sampleRate": 48000
+          }
+        ],
+        "errors": [],
+        "played": {},
+        "activeHealers": 0
+      },
+      "gamepad": {
+        "active": false,
+        "index": null,
+        "calibrating": false,
+        "connected": []
+      }
+    }
+  }
+}

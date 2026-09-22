@@ -1,32 +1,32 @@
 {
-  "checkedAt": "2026-09-22T02:50:13.667989+00:00",
+  "checkedAt": "2026-09-22T04:02:44.653553+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "2f22af97f85aa98319c0cae630e2c5541ce2b127",
+  "runtimeCommit": "9023b71902189ca9655d824ea4983da1d3aa19c5",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "scope": "Tactical minimap, legal high-to-low ranged combat, diagonal/radius/cache navigation fixes and original ground/mipmap seam repairs. Single-unit and four-unit routes pass; 7/32 20-unit stop-at-ramp fixtures still congest.",
+  "scope": "Wider independent ranks/firing arcs; 80% combat mesh/body size; mechanical repair; 30-minute campaign; +15% drops/SCV income; five reward tiers and rarer map rewards. Green Rank 3 and blue Rank 5 recruit directly; production/white reinforcements remain pods.",
   "tests": {
     "command": "npm test",
-    "passed": 253,
+    "passed": 274,
     "failed": 0,
     "skipped": 0,
-    "log": "reports/local/tests-v12.log"
+    "log": "reports/local/tests-v13.log"
   },
   "typecheck": {
-    "command": "npm run typecheck / tsc --noEmit during build",
+    "command": "npm run typecheck and tsc --noEmit during build",
     "exitCode": 0
   },
   "build": {
     "command": "npm run build",
     "exitCode": 0,
     "path": "dist/SC2-Survivors-Demo.html",
-    "bytes": 176519356,
-    "miB": 168.34197616577148,
-    "sha256": "83dfbd65fcf22e0e8be36e9456cdd9eee9322079b48ffa3cfb3eeaefee23d734",
+    "bytes": 176530947,
+    "miB": 168.35303020477295,
+    "sha256": "94c1eabc252c96f1a6afdbcc4fd2cf7f1939f738dd3f4dd0ba6b2faa6813c86a",
     "embeddedAssets": 581,
     "largeChunkWarning": true,
-    "log": "reports/local/build-v12.log"
+    "log": "reports/local/build-v13.log"
   },
   "assets": {
     "available": 581,
@@ -53,357 +53,99 @@
   "map": {
     "name": "Kairos Junction LE",
     "source": "tools/map-lock.json",
-    "pipeline": "npm run assets:map",
-    "reproducedWithVerifiedLocalCache": true,
     "worldUnitsPerSc2Unit": 1,
     "stages": 12,
-    "placementScalePreserved": true,
-    "crossMapMixedSquadRoute": "reports/qa/v12-squad.json",
     "renderAdaptations": "docs/MAP_PIPELINE.md",
-    "expandedCliffPickingBounds": {
-      "checked": 97,
-      "stale": 0
-    },
-    "minimap": true,
     "edgeRoutesPassed": 288,
     "rampApproachesPassed": 288,
     "fullSquadCrowding": {
       "cases": 32,
-      "failed": 7,
-      "evidence": "reports/qa/v12-crowding.json"
+      "failed": 0,
+      "maximumSeconds": 8.116666666666667,
+      "meanSeconds": 6.966666666666667,
+      "maxSingleStep": 0.12576591650882854,
+      "evidence": "reports/qa/v13-crowding.json"
     },
-    "navigationEvidence": "reports/qa/v12-navigation.json",
-    "surfaceTriangles": 51072
+    "navigationEvidence": "reports/qa/v13-navigation.json"
+  },
+  "browser": {
+    "desktop": [
+      1440,
+      900
+    ],
+    "touchViewports": [
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "actualDomActions": true,
+    "isolatedFixtures": true,
+    "normalDifficultyVictoryGate": false,
+    "evidence": [
+      "reports/qa/v13-squad-rewards.json",
+      "reports/qa/v13-commands.json"
+    ],
+    "physicalPhoneTested": false,
+    "physicalGamepadTested": false
   },
   "offline": {
     "scheme": "file://",
     "network": "Browser context offline",
     "httpRequests": 0,
+    "debugMutationApi": false,
     "rightClickMove": true,
     "keyboardTakeover": true,
-    "debugMutationApi": false,
-    "models": 8,
-    "originalAnimationModels": 8,
-    "originalDeathModels": 8,
-    "podModel": true,
-    "economicModels": 3,
-    "resourceModels": 3,
-    "map": {
-      "name": "Kairos Junction LE",
-      "models": 292,
-      "placements": 4956,
-      "visibleInstances": 534,
-      "area": 741.75,
-      "scale": 1,
-      "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
-    },
-    "evidence": "reports/qa/v12-map.json",
-    "runtimeCommit": "2f22af97f85aa98319c0cae630e2c5541ce2b127",
-    "minimapMove": true
+    "evidence": "reports/qa/v13-commands.json"
   },
-  "gamepad": {
-    "standardSimulated": true,
-    "nonstandardCalibrationSimulated": true,
-    "axisTriggersSimulated": true,
-    "saveReloadPassed": true,
-    "disconnectReconnectPassed": true,
-    "physicalHardwareTested": false,
-    "evidence": [
-      "reports/qa/v9-gamepad.json",
-      "reports/qa/v9-gamepad-calibration.json"
-    ],
-    "heldStickKeyboardTakeoverPassed": true,
-    "mouseTakeoverFirstCommandPassed": true,
-    "mouseTakeoverEvidence": "reports/qa/v11-left-focus.json"
-  },
-  "touch": {
-    "method": "Desktop Chrome/CDP touch emulation only",
-    "sizes": [
-      [
-        390,
-        844
-      ],
-      [
-        844,
-        390
-      ]
-    ],
-    "movementPlusSkill": true,
-    "pointerCancel": true,
-    "hudClickThroughPrevented": true,
-    "textSelectionPrevented": true,
-    "pageScrollPrevented": true,
-    "evidence": "reports/qa/v9-controls.json",
-    "engagementEvidence": "reports/qa/v11-left-focus.json",
-    "minimapEvidence": "reports/qa/v12-map.json"
-  },
-  "desktopPerformance": {
-    "at": "2026-09-21T15:26:19.688Z",
-    "method": "Desktop Chrome 1440x900, DPR 1, no CPU throttling, balanced quality, diagnostic 25 friendly / 300 enemy entities. Not physical phone or campaign.",
+  "performance": {
+    "method": "Desktop Chrome, 1440x900 DPR1 balanced quality, no throttling. Isolated 20/100 and oversized 25/300 friendly/enemy fixtures. High HP, replenished enemies, zero enemy weapon damage, bile disabled. 15 s warmup followed by 12 s sample; backlog at both sample boundaries is recorded. No campaign, mobile or physical-phone performance claim.",
+    "evidence": "reports/qa/v13-load.json",
     "runs": [
       {
-        "map": {
-          "name": "Kairos Junction LE",
-          "models": 292,
-          "placements": 4956,
-          "visibleInstances": 1064,
-          "area": 9510.25,
-          "scale": 1,
-          "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
-        },
-        "order": null,
-        "resolution": {
-          "quality": "balanced",
-          "devicePixelRatio": 1,
-          "renderPixelRatio": 1,
-          "width": 1440,
-          "height": 900,
-          "cssWidth": 1440,
-          "cssHeight": 900,
-          "antialias": true
-        },
-        "models": 8,
-        "economicModels": 3,
-        "podModel": true,
-        "resourceModels": 3,
-        "resourceInstances": 0,
-        "errors": [],
-        "originalAnimationModels": 8,
-        "proceduralAnimationModels": 0,
-        "originalDeathModels": 8,
-        "animationAtlasBytes": 4707904,
-        "lodRatios": {
-          "zergling": 0.29555555555555557,
-          "roach": 0.44686192468619246,
-          "baneling": 0.29977246871444824,
-          "ravager": 0.29987531172069826
-        },
-        "effectTextures": 33,
-        "effects": {
-          "attack": 1592,
-          "hit": 1782,
-          "death": 27,
-          "movement": 2769,
-          "bile": 0,
-          "active": 158,
-          "dropped": 0
-        },
-        "textures": 15,
-        "fps": 45.002812675791986,
-        "drawCalls": 317,
-        "triangles": 576623,
-        "entities": 325,
-        "maxStretch": 7.094860793145043,
-        "spatialVisits": 26358,
-        "collisionContacts": 1040,
-        "phase": "battle",
-        "stage": 10,
-        "time": 17.15,
-        "stats": {
-          "kills": 0,
-          "rescued": 0,
-          "failed": 0,
-          "produced": 0,
-          "started": 1,
-          "shots": 1592,
-          "healed": 393.979999992666,
-          "damage": 4899.5,
-          "scvsRescued": 0,
-          "scvsLost": 0,
-          "dronesKilled": 0,
-          "ambientSpawned": 0
-        },
-        "assetsReady": true,
-        "simulationBacklogSeconds": 0.23340000000004674,
-        "audio": {
-          "originalDecoded": 10,
-          "decoded": [
-            {
-              "id": "shot",
-              "duration": 0.08995833333333333,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "blast",
-              "duration": 0.3499583333333333,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "alert",
-              "duration": 0.44995833333333335,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.scv.ready",
-              "duration": 2.1729166666666666,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.marine.attack",
-              "duration": 1.3626875,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.hellion.attack",
-              "duration": 2.6566875,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.tank.attack",
-              "duration": 0.8244791666666667,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.tank.siege",
-              "duration": 1.9696041666666666,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.medivac.heal",
-              "duration": 9.092270833333334,
-              "channels": 2,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.zergling.attack",
-              "duration": 0.7786666666666666,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.roach.attack",
-              "duration": 1.46575,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.ravager.attack",
-              "duration": 1.1467708333333333,
-              "channels": 1,
-              "sampleRate": 48000
-            },
-            {
-              "id": "sc2.marine.death",
-              "duration": 1.0077083333333334,
-              "channels": 1,
-              "sampleRate": 48000
-            }
-          ],
-          "errors": [],
-          "played": {
-            "sc2.marine.attack": 22,
-            "sc2.hellion.attack": 15,
-            "sc2.roach.attack": 20,
-            "blast": 2,
-            "sc2.medivac.heal": 98,
-            "sc2.ravager.attack": 23,
-            "sc2.zergling.attack": 54,
-            "sc2.tank.siege": 2
-          },
-          "activeHealers": 2
-        },
-        "gamepad": {
-          "active": false,
-          "index": null,
-          "calibrating": false,
-          "connected": []
-        },
+        "friendly": 20,
+        "enemies": 100,
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "averageFps": 33.86981342476242,
+        "p95ms": 49.900000000001455,
+        "drawCalls": 319,
+        "simulationBacklogSeconds": 0.016500000000022323,
+        "startingBacklogSeconds": 0.016566666666689208,
+        "backlogChangeSeconds": -6.666666666688484e-05,
+        "simulationSeconds": 12.016666666666666
+      },
+      {
         "friendly": 25,
         "enemies": 300,
         "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "width": 1440,
-        "height": 900,
-        "samples": 464,
-        "averageFps": 38.612609014047,
-        "p95": 33.5,
-        "simulationSeconds": 13.266666666666666
+        "averageFps": 26.879036016243926,
+        "p95ms": 50.19999999999709,
+        "drawCalls": 321,
+        "simulationBacklogSeconds": 1.2833666666667338,
+        "startingBacklogSeconds": 1.6999000000000235,
+        "backlogChangeSeconds": -0.4165333333332897,
+        "simulationSeconds": 12.433333333333335
       }
     ],
-    "errors": [],
-    "runtimeCommit": "0e43fad8d1dd1639434d1a3fec171986045a5e27",
-    "currentRuntimeMeasured": false,
-    "currentRuntimeTest": false,
-    "historical": true
+    "oversized30FpsTargetMet": false
   },
-  "phone": {
-    "newPhysicalTest": false,
-    "reason": "User requested no further physical phone testing this round."
+  "balance": {
+    "evidence": "reports/balance/v13-envelope.json",
+    "method": "Conditional production/resource/firepower ledger with explicit pickup, rescue, attrition and full-price card assumptions. No rarity/map-loot income. Not a played campaign or a claim every seed wins.",
+    "campaignSeconds": 1800,
+    "ambientBudgetsChanged": false,
+    "guardBudgetsChanged": false,
+    "enemyAttributesChanged": false
   },
-  "openingObservation": {
-    "method": "Desktop Chrome 1440x900. First stage uses keyboard input at normal time with no HP, resource, spawn or clock edits. Script outcome is an observation, never a Normal balance gate. Only one opening observation, no automatic Normal acceptance gate. Screenshots remain local; no human visual approval.",
-    "result": {
-      "phase": "lost",
-      "time": 62.38333333333333,
-      "input": {
-        "x": -1,
-        "z": 0
-      },
-      "stats": {
-        "kills": 4,
-        "rescued": 0,
-        "failed": 1,
-        "produced": 1,
-        "started": 1,
-        "shots": 233,
-        "healed": 0,
-        "damage": 789,
-        "scvsRescued": 1,
-        "scvsLost": 0,
-        "dronesKilled": 0,
-        "ambientSpawned": 3
-      },
-      "wallet": {
-        "minerals": 42.91416666666566,
-        "gas": 7.764333333333747
-      },
-      "units": 0
-    },
-    "interpretation": "The old keyboard policy lost at 62.38 seconds. This is not a Normal balance criterion or a completed stage. No balance safety net was added. Intermission UI was tested independently using explicit fixtures.",
-    "historical": true,
-    "currentRuntimeTest": false
-  },
-  "knownLimitations": [
-    "20-unit ramp stop fixtures: 7 of 32 remain congested after 90 seconds; see reports/qa/v12-crowding.json. Individual traversal success is not full-squad acceptance.",
-    "Physical gamepad was not tested; Gamepad API and custom calibration tested with synthetic device snapshots.",
-    "Original map layout/assets are imported; not a pixel-identical SC2 renderer. Static foliage poses, adapted lighting, inactive creep overlay, simplified unknown footprints.",
-    "No original-client per-cell pathing comparison or human visual/listening approval.",
-    "No complete human 48-minute campaign validation; prior keyboard opening policy failed and is recorded, not hidden.",
-    "No new physical-phone or sustained thermal measurement; performance is desktop only.",
-    "Large offline file: 168.34 MiB. Fonts remain approved system fallbacks."
-  ],
-  "commandEngagement": {
-    "runtimeCommit": "e5b472a3a6187388e9e067ad0dd1d7e7fcee25bc",
-    "evidence": "reports/qa/v11-left-focus.json",
-    "desktopChecks": [
-      "enRouteAttack",
-      "unsettledSlotStillFires",
-      "leftClickPursuesFocus",
-      "groundLeftAndHudDoNotReplaceFocus",
-      "leftFocusFollowsMovingTarget",
-      "focusDeathResumesFire",
-      "repeatedGroundClicksStillFire",
-      "rightFocusPursues",
-      "firstMouseCommandTakesOverHeldGamepad"
-    ],
-    "touchSizes": [
-      [
-        390,
-        844
-      ],
-      [
-        844,
-        390
-      ]
-    ],
-    "errors": []
-  },
-  "inheritedAssetAndPerformanceEvidence": "b11bed98587b5a4c33d0646c9ccbf3f5215b3052"
+  "knownIssues": [
+    "25/300 stress fixture is below 30 FPS and retains 1.28 s simulation debt, although debt shrank during the 12 s sample. Fixed ticks are never dropped.",
+    "Purple/orange currently contain implemented buffs/tactical upgrades; special units, heroes and equipment are not shipped.",
+    "No full human 30-minute run, physical phone/gamepad or original-client visual/listening approval this iteration.",
+    "Original-map material/light/particle/footprint adaptation limits remain in docs/MAP_PIPELINE.md; system font fallback remains.",
+    "Large offline file and map/animation loading remain heavy."
+  ]
 }
