@@ -12,9 +12,9 @@ export class Input {
    this.keys.add(code);if(code==='KeyT')world.toggleTanks();if(code==='KeyE')world.stim();if(code==='Space')world.dash();if(code==='Escape')onPause();
   });window.addEventListener('keyup',e=>this.keys.delete(e.code));
   if(battle){const canvas=battle.canvas;
-   const command=(e:PointerEvent,hold=false)=>{if(world.phase!=='battle'||world.paused||this.pointer!==null||Math.hypot(world.input.x,world.input.z)>.01)return;
+   const command=(e:PointerEvent,targetOnly=false)=>{if(world.phase!=='battle'||world.paused||this.pointer!==null||Math.hypot(world.input.x,world.input.z)>.01)return;
     const hit=battle.pick(e.clientX,e.clientY,e.pointerType!=='mouse');if(!hit)return;
-    if(hit.targetId!==undefined)world.issueFocus(hit.targetId,hold);else if(!hold)world.issueMove(hit.point);
+    if(hit.targetId!==undefined)world.issueFocus(hit.targetId);else if(!targetOnly)world.issueMove(hit.point);
    };
    canvas.addEventListener('contextmenu',e=>e.preventDefault());
    canvas.addEventListener('pointerdown',e=>{if(world.phase!=='battle'||world.paused)return;

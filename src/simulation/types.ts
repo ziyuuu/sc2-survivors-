@@ -1,7 +1,7 @@
 import type {UnitType,TerranType,ZergType} from '../data/sc2-units';
 import type {BuildingType} from '../data/game';
 export interface Point {x:number;z:number}
-export type SquadOrder={kind:'move';point:Point;arrived:boolean;issuedAt:number}|{kind:'focus';targetId:number;hold:boolean;issuedAt:number};
+export type SquadOrder={kind:'move';point:Point;arrived:boolean;issuedAt:number}|{kind:'focus';targetId:number;issuedAt:number};
 export interface Body extends Point {id:number;hp:number;maxHp:number;armor:number;unitRadius:number;flying:boolean;attributes:string[];owner:'terran'|'zerg'}
 export interface Entity extends Body {
  unitType:UnitType;rank:number;moveSpeed:number;attackRange:number;weaponDamage:number;weaponCooldown:number;attackPeriod:number;attackFacing:number;
