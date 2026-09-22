@@ -1,3 +1,4 @@
+import {encode85} from '../src/assets/base85.mjs';
 import {createHash} from 'node:crypto';
 import {gzipSync} from 'node:zlib';
 
@@ -22,14 +23,14 @@ export function assetParts(bytes){
  const ordered=[...cuts].sort((a,b)=>a-b);return ordered.slice(1).map((end,i)=>bytes.subarray(ordered[i],end));
 }
 export function createAssetPack(assets){
- const pack={version:1,chunks:[],assets:{}},indices=new Map();let rawBytes=0,uniqueBytes=0,storedBytes=0,partCount=0;
+ const pack={version:2,chunks:[],assets:{}},indices=new Map();let rawBytes=0,uniqueBytes=0,storedBytes=0,partCount=0;
  for(const {id,mime,bytes} of assets){if(pack.assets[id])throw Error('Duplicate asset id: '+id);rawBytes+=bytes.length;
   const parts=assetParts(bytes).map(part=>{partCount++;const digest=hash(part);let index=indices.get(digest);if(index!==undefined)return index;
    const gzip=gzipSync(part,{level:9}),compressed=gzip.length+24<part.length,stored=compressed?gzip:part;
    index=pack.chunks.length;indices.set(digest,index);uniqueBytes+=part.length;storedBytes+=stored.length;
-   pack.chunks.push({encoding:compressed?'gzip':'raw',bytes:part.length,data:stored.toString('base64')});return index;
+   pack.chunks.push({encoding:compressed?'gzip':'raw',bytes:part.length,storedBytes:stored.length,data:encode85(stored)});return index;
   });
   pack.assets[id]={mime,bytes:bytes.length,sha256:hash(bytes),parts};
  }
- return {pack,stats:{assets:assets.length,partCount,chunks:pack.chunks.length,rawBytes,uniqueBytes,deduplicatedBytes:rawBytes-uniqueBytes,storedBytes,base64Bytes:pack.chunks.reduce((n,c)=>n+c.data.length,0)}};
+ return {pack,stats:{assets:assets.length,partCount,chunks:pack.chunks.length,rawBytes,uniqueBytes,deduplicatedBytes:rawBytes-uniqueBytes,storedBytes,encodedBytes:pack.chunks.reduce((n,c)=>n+c.data.length,0)}};
 }

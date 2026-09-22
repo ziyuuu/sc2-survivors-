@@ -1,12 +1,15 @@
+import {decode85} from './base85.mjs';
 import {gunzipSync} from 'three/addons/libs/fflate.module.js';
-export type AssetPack={version:number;chunks:{encoding:'raw'|'gzip';bytes:number;data:string}[];assets:Record<string,{mime:string;bytes:number;sha256:string;parts:number[]}>};
+export type AssetPack={version:number;chunks:{encoding:'raw'|'gzip';bytes:number;storedBytes?:number;data:string}[];assets:Record<string,{mime:string;bytes:number;sha256:string;parts:number[]}>};
 /** Blob parts share immutable content. No models are re-exported or clips discarded. */
 export async function restoreAssetPack(pack:AssetPack,progress:(fraction:number)=>void=()=>{},release=false){
- if(pack.version!==1)throw Error('不支持的资源包版本');
+ if(pack.version!==1&&pack.version!==2)throw Error('不支持的资源包版本');
  const chunks:Blob[]=[],urls:Record<string,string>={};let lastYield=performance.now();
  try{
   for(let i=0;i<pack.chunks.length;i++){
-   const c=pack.chunks[i],binary=atob(c.data),stored=new Uint8Array(binary.length);for(let j=0;j<binary.length;j++)stored[j]=binary.charCodeAt(j);
+   const c=pack.chunks[i];let stored:Uint8Array;
+   if(pack.version===2)stored=decode85(c.data,c.storedBytes!);
+   else {const binary=atob(c.data);stored=new Uint8Array(binary.length);for(let j=0;j<binary.length;j++)stored[j]=binary.charCodeAt(j);}
    if(c.encoding!=='gzip'&&c.encoding!=='raw')throw Error('无效的资源压缩格式');
    const bytes=c.encoding==='gzip'?gunzipSync(stored):stored;if(bytes.length!==c.bytes)throw Error('资源包字节校验失败');
    chunks.push(new Blob([bytes as Uint8Array<ArrayBuffer>]));if(release)c.data='';

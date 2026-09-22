@@ -12,7 +12,7 @@ export class EngagementSlots {
   let entry=this.cache.get(target.id);const ids=peers.map(a=>a.id).join(',');
   if(!entry||entry.until<=time||entry.ids!==ids||distance(entry.target,target)>1){
    const goals=new Map<number,Point>(),placed:{p:Point;r:number}[]=[],bearing=Math.atan2(anchor.x-target.x,anchor.z-target.z),sin=Math.sin(bearing),cos=Math.cos(bearing);
-   for(const type of ['marine','hellion','tank']){
+   for(const type of ['marine','marauder','hellion','tank']){
     const group=peers.filter(p=>p.unitType===type).sort((a,b)=>(a.x-target.x)*cos-(a.z-target.z)*sin-((b.x-target.x)*cos-(b.z-target.z)*sin)||a.id-b.id);
     group.forEach((a,i)=>{const angle=bearing+(i-(group.length-1)/2)*.30,range=a.attackRange*.82+a.unitRadius+target.unitRadius;
      let goal:Point|undefined;

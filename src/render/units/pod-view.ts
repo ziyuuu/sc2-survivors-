@@ -13,6 +13,11 @@ export class PodView {
   model.scale.setScalar(scale);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);this.root.add(model);scene.add(this.root);
   model.traverse(n=>{if(n instanceof THREE.Mesh)n.frustumCulled=false;if(/DropPod_Door/i.test(n.name))this.doors.push({node:n,base:n.quaternion.clone()});});
  }
+ dispose(){
+  this.mixer.stopAllAction();this.mixer.uncacheRoot(this.mixer.getRoot());this.root.removeFromParent();
+  // SkeletonUtils gives each pod its own skeleton; geometry/materials still belong to the asset cache.
+  const skeletons=new Set<THREE.Skeleton>();this.root.traverse(n=>{if(n instanceof THREE.SkinnedMesh)skeletons.add(n.skeleton);});for(const skeleton of skeletons)skeleton.dispose();
+ }
  update(p:Pod,time:number,visible:boolean,groundY=0){this.root.position.set(p.x,groundY,p.z);const age=time-(p.resolvedAt??time);
   this.root.visible=visible&&(!['rescued','destroyed'].includes(p.status)||age<7);if(!this.root.visible)return;
   for(const d of this.doors)d.node.quaternion.copy(d.base);

@@ -1,3 +1,5 @@
+import {SC2_UNITS} from '../data/sc2-units';
+import type {Building} from '../simulation/types';
 import {ELITES,type EliteId} from '../data/elites';
 import {HEROES,type HeroId} from '../data/heroes';
 import type {World} from '../simulation/world';
@@ -18,3 +20,7 @@ export function rewardOwnership(w:World,r:Reward):string{
  }
  return '';
 }
+
+/** Stable seats and per-type building ordinals, never global entity/transaction IDs. */
+export function unitCallsign(u:Entity){return specialUnitName(u)||`${SC2_UNITS[u.unitType].zh} · 队伍${u.slot+1}`;}
+export function buildingCallsign(w:World,b:Building){return `${({barracks:'兵营',factory:'重工厂',starport:'星港'})[b.type]}${w.buildingsOf(b.type).findIndex(v=>v.id===b.id)+1}`;}

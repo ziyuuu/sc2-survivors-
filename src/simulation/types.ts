@@ -15,7 +15,7 @@ export interface Entity extends Body {
  energy:number;maxEnergy:number;energyRegen:number;healRate:number;healTarget:number|null;bileCooldown:number;guardianPod:number|null;guardOrigin?:boolean;stimUntil:number;
  deadAt:number|null;bornAt:number;thinkAt:number;distanceWalked:number;
 }
-export interface Pod extends Body {unitType:TerranType;createdAt:number;landedAt:number;guardianIds:Set<number>;guardTypes:ZergType[];
+export interface Pod extends Body {number:number;unitType:TerranType;createdAt:number;landedAt:number;guardianIds:Set<number>;guardTypes:ZergType[];
  status:'falling'|'active'|'opening'|'rescued'|'destroyed';resolvedAt:number|null;recruitId:number|null;jobId:number;stage:number;passengers:{status:'waiting'|'released'|'lost';entityId:number|null}[];nextExitAt:number}
 export interface EconomicTarget extends Body {kind:'egg'|'drone';createdAt:number;expiresAt:number|null;resolvedAt:number|null;status:'active'|'rescued'|'expired'|'killed';origin:Point;facing:number}
 export interface Job {id:number;unitType:TerranType;quantity:number;buildingIds:number[];group:BuildingType;remaining:number;paid:{minerals:number;gas:number}}

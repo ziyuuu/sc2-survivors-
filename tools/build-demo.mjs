@@ -19,5 +19,5 @@ const js=result.outputFiles.find(f=>f.path.endsWith('.js')).text.replace(/<\/scr
 const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b24"><title>SC2 SURVIVORS · 星际幸存小队</title><style>${css}</style></head><body><canvas id="battle" aria-label="星际幸存小队战场"></canvas><main id="interface"></main><script id="sc2-resource-pack" type="application/json">${JSON.stringify(pack)}</script><script>${js}</script></body></html>`;
 await fs.writeFile('dist/SC2-Survivors-Demo.html',html);const stat=await fs.stat('dist/SC2-Survivors-Demo.html');console.log(`Standalone offline Demo: ${stat.size} bytes (${(stat.size/1048576).toFixed(2)} MiB), ${resources.length} losslessly embedded assets; no debug control API.`);
 
-await fs.writeFile("reports/local/offline-pack.json",JSON.stringify({...stats,htmlBytes:stat.size,codec:"gzip per unique byte chunk; local decoder; exact source-byte reconstruction"},null,2));
+await fs.writeFile("reports/local/offline-pack.json",JSON.stringify({...stats,htmlBytes:stat.size,codec:"gzip per unique byte chunk + HTML-safe base85; local decoder; exact source-byte reconstruction"},null,2));
 console.log(JSON.stringify(stats));

@@ -1,6 +1,7 @@
-import {ENDLESS,endlessInterval,endlessGrowth,type EndlessState} from '../data/endless';
+import {RunState} from './run-state';
+import {ENDLESS,endlessInterval,endlessGrowth} from '../data/endless';
 import {EnemySpecials} from './combat/enemy-specials';
-import {ENEMY_NAMES,bossFor,type SpecialType,type EnemyTier,type EnemyEvent} from '../data/enemies';
+import {ENEMY_NAMES,bossFor,type SpecialType,type EnemyTier} from '../data/enemies';
 import {HEROES,HERO_IDS,heroStats,heroRevivalCost,type HeroId} from '../data/heroes';
 import {ELITES,eliteStats,type EliteId} from '../data/elites';
 import {MAP_REWARDS} from '../data/rewards';
@@ -8,58 +9,36 @@ import type {TerrainQuery} from '../data/map-definition';
 import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,BILE,HYDRALISK_MELEE,type UnitType,type TerranType,type ZergType} from '../data/sc2-units';
 import {BUILDINGS,FACTORY_TECH_LAB,OBSTACLES,STAGES,TUNING,type BuildingType,type Obstacle} from '../data/game';
 import {spend,applyWeaponHit,healBiological} from './rules.mjs';
-import {EngagementSlots} from './formation/engagement';
-import {SquadFormation} from './formation/squad';
-import {ContactSolver} from './movement/contacts';
-import {SpatialHash} from './movement/spatial-hash';
 import {distance,angleDelta,turn,translate,locomote,steerGoal,clearLine,blocked} from './movement/steering';
 import {drawRewards,drawReward,drawBossReward,eligibleReward,unlockedReward} from './progression/rewards';
-import {stageConfig,stageSchedule,incomeFactor,scaleCounts,emptyCounts,type Counts,type Difficulty,type Wave,type EconomicSpawn} from '../data/stages';
+import {stageConfig,stageSchedule,incomeFactor,enemyCountFactor,scaleCounts,type Difficulty} from '../data/stages';
 import {CharTerrain} from '../data/terrain';
 import {rankStats} from '../data/ranks';
 import {ECONOMY,DROPS} from '../data/economy';
 import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,EconomicTarget,SquadOrder,RewardDrop,HeroRecord,HeroCast} from './types';
 
-export class World {
- time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'lost'='menu';paused=false;
- endless:EndlessState|null=null;
+export class World extends RunState {
+ readonly listeners=new Set<()=>void>();
+ readonly terrain?:TerrainQuery;readonly obstacles:Obstacle[];
+ private readonly seed:number;private readonly sandbox:boolean;
+ private readonly initialUnits:readonly TerranType[];private readonly configuredWaves:boolean;
+ private autoWaves:boolean;
+ enemySpecials=new EnemySpecials(this);
  get endlessElapsed(){return this.endless?this.time-this.endless.startedAt:0;}
- entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<number,Building>();upgrades=new Map<string,number>();
- wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
- controllerCommand=false;order:SquadOrder|null=null;private movePending=new Set<number>();
- private commandRoute:{requested:Point;goal:Point;until:number}|null=null;
- trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];rewardDrops:RewardDrop[]=[];hash=new SpatialHash<Body>();
- visualEvents:VisualEvent[]=[];private visualSerial=0;
- private offerSerial=0;rewards:Reward[]=[];rewardClaimed=false;rewardRound:'building'|'random'='building';clearReceipt:{stage:number;minerals:number;gas:number}|null=null;rerolls=0;nextBuilding=1;nextWave=Infinity;wave=0;stageWave=0;nextId=1;nextJob=1;
- dashUntil=0;dashReady=0;hive:Body|null=null;maxStretch=0;distancePairs=0;collisionContacts=0;
- stats={kills:0,rescued:0,failed:0,produced:0,started:0,shots:0,healed:0,damage:0,scvsRescued:0,scvsLost:0,dronesKilled:0,ambientSpawned:0};
- difficulty:Difficulty='normal';scvs=0;economicTargets=new Map<number,EconomicTarget>();
- anchorMovingFor=0;anchorStoppedFor=0;tankCommand:'tank'|'siege'='tank';
- readonly economyTotals={passive:{minerals:0,gas:0},drops:{minerals:0,gas:0},clear:{minerals:0,gas:0},cards:{minerals:0,gas:0},production:{minerals:0,gas:0},purchases:{minerals:0,gas:0},rerolls:0};
- private readonly seed:number;private readonly sandbox:boolean;private productionCursor=0;
- productionPlan:{buildingId:number;unitType:TerranType;group:BuildingType;quantity:number;cost:{minerals:number;gas:number}}|null=null;
- private guardRemainders=emptyCounts();private nextGuardCounts:Counts|null=null;
- readonly enemySpecials=new EnemySpecials(this);private specialPlan:EnemyEvent[]=[];private nextSpecial=0;
- private waves:Wave[]=[];private eventPlan:EconomicSpawn[]=[];private nextEvent=0;private scheduledStage=0;
- private ambientBacklog:{type:ZergType;bearing:number;at:number}[]=[];private extraDeliveries:TerranType[]=[];
- private spawnCells:Point[]=[];
- notice='守住小队。生产完成后必须救援。';noticeUntil=8;revision=0;
- readonly terrain?:TerrainQuery;
- readonly listeners=new Set<()=>void>();readonly obstacles:Obstacle[];
- private rngState:number;private autoWaves:boolean;
- private readonly contacts=new ContactSolver();
- private readonly formation=new SquadFormation();
- private readonly engagement=new EngagementSlots();
- private movementAllies:Entity[]|null=null;private formationPlanned=false;
- private configStage=0;private configDifficulty:Difficulty|null=null;private stageData!:ReturnType<typeof stageConfig>;
- private movementStall=new Map<number,number>();
- private detours=new Map<number,{body:number;first:Point;second:Point;phase:number;forward:Point}>();
- private navigation=new Map<number,{goal:Point;requested:Point;until:number;stalled:boolean}>();
  constructor(options:{seed?:number;waves?:boolean;obstacles?:Obstacle[];initial?:TerranType[];difficulty?:Difficulty;sandbox?:boolean;terrain?:boolean|TerrainQuery}={}){
+  super();this.initialUnits=[...(options.initial??TUNING.initialSquad)];this.configuredWaves=options.waves??true;
   this.seed=options.seed??89241;this.rngState=this.seed;this.autoWaves=options.waves??true;this.sandbox=options.sandbox??false;this.difficulty=options.difficulty??'normal';this.obstacles=options.obstacles??OBSTACLES;this.terrain=typeof options.terrain==='object'?options.terrain:(options.terrain??(!this.sandbox&&options.obstacles===undefined))?new CharTerrain():undefined;if(this.terrain?.definition&&options.obstacles===undefined)this.obstacles=[];
-  const initial=options.initial??TUNING.initialSquad;initial.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
+  this.initializeRun();
+ }
+ private initializeRun(){this.terrain?.setStage?.(this.stage);this.initialUnits.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
   if(!this.sandbox){this.addBuilding('barracks',0);for(const u of this.allies()){const p=this.moveGoal(u);u.x=p.x;u.z=p.z;u.prev={...p};}}
   this.prepareStage();
+ }
+ /** Keep World identity: all controls, map views and listeners refer to this same instance. */
+ resetRun(difficulty:Difficulty=this.difficulty){
+  Object.assign(this,new RunState());
+  this.difficulty=difficulty;this.rngState=this.seed;this.autoWaves=this.configuredWaves;
+  this.enemySpecials=new EnemySpecials(this);this.initializeRun();this.changed();
  }
  get config(){if(this.configStage!==this.stage||this.configDifficulty!==this.difficulty){this.stageData=stageConfig(this.stage,this.difficulty);this.configStage=this.stage;this.configDifficulty=this.difficulty;}return this.stageData;}
  get mapHalf(){return this.terrain?.definition?Math.max(this.terrain.definition.width,this.terrain.definition.height):this.sandbox?TUNING.worldHalf:this.config.width/2;}
@@ -110,11 +89,13 @@ export class World {
  setDifficulty(difficulty:Difficulty){if(this.phase!=='menu')return false;this.difficulty=difficulty;this.prepareStage();this.changed();return true;}
  prepareStage(){if(this.endless){this.prepareEndlessRound();return;}this.terrain?.setStage?.(this.stage);const plan=stageSchedule(this.config,this.seed);this.waves=plan.waves;this.specialPlan=plan.specials;this.nextSpecial=0;this.eventPlan=plan.events;this.stageWave=0;this.nextEvent=0;this.scheduledStage=this.stage;this.nextWave=this.stageStartedAt+(this.waves[0]?.at??Infinity);
   // Flood once per expansion. Events use connected walkable cells, never a clamped wall position.
+  if(this.terrain?.connectedLocations)this.spawnCells=this.terrain.connectedLocations(this.anchor,.9,1.4);
+  else {
   const cells=new Map<string,Point>(),limit=this.mapHalf-2;
   for(let x=-Math.floor(limit/2)*2;x<=limit;x+=2)for(let z=-Math.floor(limit/2)*2;z<=limit;z+=2)if(!blocked({x,z},1.4,this.obstacles)&&(!this.terrain||this.terrain.canOccupy({x,z},1.4)))cells.set(x+','+z,{x,z});
   const origin=[...cells.values()].sort((a,b)=>Math.hypot(a.x,a.z)-Math.hypot(b.x,b.z))[0];this.spawnCells=[];
   if(origin){const queue=[origin],seen=new Set([origin.x+','+origin.z]);for(let i=0;i<queue.length;i++){const p=queue[i];this.spawnCells.push(p);for(const [dx,dz] of [[2,0],[-2,0],[0,2],[0,-2]]){const key=(p.x+dx)+','+(p.z+dz),n=cells.get(key);if(n&&!seen.has(key)&&clearLine(p,n,1.4,this.obstacles,this.terrain)){seen.add(key);queue.push(n);}}}}
-  if(this.terrain?.connectedLocations)this.spawnCells=this.terrain.connectedLocations(this.anchor,.9,1.4);
+  }
   if(this.stage===12&&!this.hive){const expected=this.terrain?.definition?.hive;const p=expected?this.spawnCells.filter(p=>this.terrain!.canOccupy(p,3)).sort((a,b)=>distance(a,expected)-distance(b,expected))[0]??this.eventPoint():this.spawnCells.reduce((a,b)=>b.z<a.z?b:a,{x:0,z:0}),hp=this.difficulty==='easy'?9000:12000;this.hive={id:this.nextId++,...p,hp,maxHp:hp,armor:2,unitRadius:3,flying:false,attributes:['Armored','Biological','Structure'],owner:'zerg'};}
  }
  /** Keep the opened map, occupants, wallet, cooldowns and paid orders intact. */
@@ -138,7 +119,7 @@ export class World {
  changed(){this.revision++;for(const fn of this.listeners)fn();}
  announce(text:string){this.notice=text;this.noticeUntil=this.time+7;this.changed();}
  start(){if(this.phase==='menu'){this.phase='battle';if(!this.sandbox)this.updateProduction(0);this.changed();}}
- allies(){return [...this.entities.values()].filter(u=>u.owner==='terran'&&u.hp>0);}
+ allies(){const allies:Entity[]=[];for(const u of this.entities.values())if(u.owner==='terran'&&u.hp>0)allies.push(u);return allies;}
  enemyCount(){let n=0;for(const u of this.entities.values())if(u.owner==='zerg'&&u.hp>0)n++;return n;}
  addUnit(unitType:UnitType,owner:'terran'|'zerg',x:number,z:number,rank=1){
   const d=SC2_UNITS[unitType];const occupied=new Set(owner==='terran'?this.allies().filter(a=>a.unitType===unitType).map(a=>a.slot):[]);let slot=0;while(occupied.has(slot))slot++;
@@ -174,7 +155,6 @@ export class World {
   if(u.owner==='terran')u.armor=d.armor+r.armor;u.maxEnergy=HEAL.maxEnergy*r.energy;u.energyRegen=HEAL.regen*r.energy*(this.upgrades.has('medivac')?2:1);u.healRate=HEAL.hpPerSecond*r.healing*(1+(this.upgrades.get('buff.recovery')??0));
  }
  weaponFactor(u:Entity){return u.owner==='terran'?1+(this.upgrades.get('buff.weapon')??0):1;}
- heroes=new Map<HeroId,HeroRecord>();heroCasts:HeroCast[]=[];
  heroEntity(id:HeroId){const record=this.heroes.get(id);return record?.entityId!==null&&record?.entityId!==undefined?this.entities.get(record.entityId):undefined;}
  canAcquireHero(id:HeroId){return (this.heroes.get(id)?.rank??0)<5;}
  acquireHero(id:HeroId){if(!this.canAcquireHero(id))return false;let record=this.heroes.get(id);if(record){record.rank++;const u=this.heroEntity(id);if(u&&u.hp>0){u.rank=record.rank;this.refreshStats(u);}}else {record={id,rank:1,entityId:null,skillReady:this.time,revivePaid:false,awaitingSpawn:true};this.heroes.set(id,record);this.deployHero(record,false);}this.changed();return true;}
@@ -193,8 +173,6 @@ export class World {
    this.hash.query(c.origin,data.length+3,b=>{const dx=b.x-c.origin.x,dz=b.z-c.origin.z,along=dx*Math.sin(angle)+dz*Math.cos(angle),side=Math.abs(dx*Math.cos(angle)-dz*Math.sin(angle));if(b.hp>0&&b.owner==='zerg'&&along>=0&&along<=data.length+b.unitRadius&&side<=data.width/2+b.unitRadius&&(!this.terrain||this.terrain.lineOfFire(c.origin,b,false,b.flying)))this.hit(b,c.damage+b.armor,[],1,'terran',0);},'zerg');if(source)this.effect('hero-line',source,end,data.width/2,.2);
   }this.heroCasts=pending;
  }
- pendingElites:EliteId[]=[];
- private burns=new Map<string,{target:number;source:number;damage:number;next:number;until:number}>();
  eliteOwned(id:EliteId){return this.allies().find(u=>u.eliteId===id);}
  canAcquireElite(id:EliteId){const owned=this.eliteOwned(id);return !this.pendingElites.includes(id)&&(owned?owned.rank<5:this.ordinaryUnits(ELITES[id].family).length>0||[...this.buildings.values()].some(b=>this.buildingCanTrain(b,ELITES[id].family)));}
  eliteCandidates(id:EliteId){return this.ordinaryUnits(ELITES[id].family).filter(u=>this.ordinaryCapacity(ELITES[id].family)-(5-u.rank)>=this.reservedRanks(ELITES[id].family));}
@@ -235,8 +213,6 @@ export class World {
  upgradeFactory(id:number){const b=this.buildings.get(id);if(!b||b.type!=='factory'||b.techLab)return false;b.techLab=true;b.upgradeRemaining=null;this.groupNext.factory='tank';this.productionPlan=null;return true;}
  buildingCanTrain(b:Building,type:TerranType){return b.remaining<=0&&BUILDINGS[b.type].types.includes(type)&&(type!=='tank'||b.techLab)&&(type!=='marauder'||this.upgrades.has('marauder'));}
  private unresolved(type:TerranType){return this.pods.some(p=>p.unitType===type&&['falling','active','opening'].includes(p.status))||this.extraDeliveries.includes(type);}
- private groupNext:Record<BuildingType,TerranType>={barracks:'marine',factory:'hellion',starport:'medivac'};
- private groupUnlocks={marauder:false,tank:false};
  productionIntent(b:Building){const types=b.type==='barracks'?['marauder','marine'] as TerranType[]:b.type==='factory'?['tank','hellion'] as TerranType[]:['medivac'] as TerranType[],preferred=this.groupNext[b.type];
   return [preferred,...types.filter(t=>t!==preferred)].find(t=>this.buildingsOf(b.type).some(b=>this.buildingCanTrain(b,t))&&this.capacity(t)&&!this.unresolved(t));
  }
@@ -265,8 +241,8 @@ export class World {
   const reserved=this.productionPlan;if(reserved)for(const group of groups){const other=this.batchPlan(group);if(!other||other.group===reserved.group)continue;if(Math.max(0,this.wallet.minerals-reserved.cost.minerals)+1e-8>=other.cost.minerals&&Math.max(0,this.wallet.gas-reserved.cost.gas)+1e-8>=other.cost.gas)this.startBatch(other.unitType,other.buildingIds);}
  }
  podPurpose(type:TerranType,count=1){const units=this.ordinaryUnits(type),added=Math.min(count,5-this.familyUnits(type).length),promoted=Math.min(count-added,Math.max(0,this.ordinaryCapacity(type)-added));return [added?'新增 '+added:'',promoted?'晋升 '+promoted:''].filter(Boolean).join(' / ')||'培养已满';}
- spawnPod(type:TerranType,position?:Point,jobId=0,quantity=1){const p=position??this.eventPoint(this.stage<=3?7:14,this.stage<=3?13:32),c=this.config;this.nextGuardCounts=scaleCounts(STAGES[this.stage-1].guards,this.difficulty==='easy'?.5:1,this.guardRemainders);
-  const pod:Pod={id:this.nextId++,...p,hp:c.podHp,maxHp:c.podHp,armor:TUNING.podArmor,unitRadius:1.25,flying:false,attributes:['Armored','Structure'],owner:'terran',unitType:type,
+ spawnPod(type:TerranType,position?:Point,jobId=0,quantity=1){const p=position??this.eventPoint(this.stage<=3?7:14,this.stage<=3?13:32),c=this.config;this.nextGuardCounts=scaleCounts(STAGES[this.stage-1].guards,enemyCountFactor(this.difficulty),this.guardRemainders,this.difficulty==='normal');
+  const pod:Pod={number:++this.podSerial,id:this.nextId++,...p,hp:c.podHp,maxHp:c.podHp,armor:TUNING.podArmor,unitRadius:1.25,flying:false,attributes:['Armored','Structure'],owner:'terran',unitType:type,
    createdAt:this.time,landedAt:this.time+ECONOMY.landingSeconds,guardianIds:new Set(),guardTypes:ZERG.flatMap(t=>Array<ZergType>(this.nextGuardCounts![t]).fill(t)),status:'falling',resolvedAt:null,recruitId:null,jobId,stage:this.stage,passengers:Array.from({length:quantity},()=>({status:'waiting',entityId:null})),nextExitAt:0};this.pods.push(pod);
   this.announce(SC2_UNITS[type].zh+' 增援即将落地');return pod;
  }
@@ -286,7 +262,7 @@ export class World {
  body(id:number|null):Body|undefined {if(id===null)return;const econ=this.economicTargets.get(id);return this.entities.get(id)??(econ?.status==='active'?econ:undefined)??this.pods.find(p=>p.id===id&&(p.status==='active'||p.status==='opening'))??(this.hive?.id===id?this.hive:undefined);}
  targetAllowed(u:Entity,b:Body){return b.hp>0&&b.owner!==u.owner&&(!b.flying||SC2_UNITS[u.unitType].targetType==='both');}
  edgeDistance(a:Body,b:Body){return Math.max(0,distance(a,b)-a.unitRadius-b.unitRadius);}
- hasAttackLine(u:Entity,b:Body){return !this.terrain||this.terrain.lineOfFire(u,b,u.flying,b.flying,u.attackRange<1);}
+ hasAttackLine(u:Entity,b:Body){return !this.terrain||this.attackLines.clear(this.terrain,this.stage,u,b);}
  canFireAt(u:Entity,b:Body,tolerance=0){const d=this.edgeDistance(u,b);return u.unitType!=='medivac'&&this.targetAllowed(u,b)&&d<=u.attackRange+tolerance&&d>=(u.mode==='siege'?SIEGE.minRange:0)&&this.hasAttackLine(u,b);}
  findTarget(u:Entity,range:number,defenseOnly=false){let best:Body|undefined,score=Infinity;
   this.hash.query(u,range+2,b=>{

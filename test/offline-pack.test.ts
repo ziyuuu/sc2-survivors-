@@ -16,5 +16,5 @@ test('offline pack shares repeated GLB images and restores every asset byte usin
 test('offline pack rejects incomplete GLB files and missing/mis-sized chunks',async()=>{
  const bytes=glb(1).bytes;assert.throws(()=>createAssetPack([{id:'bad',mime:'model/gltf-binary',bytes:bytes.subarray(0,-1)}]),/header/);
  const {pack}=createAssetPack([{id:'text',mime:'text/plain',bytes:Buffer.from('hello')}]);const bad=structuredClone(pack);bad.chunks[0].bytes++;await assert.rejects(()=>restoreAssetPack(bad),/字节/);
- const missing=structuredClone(pack);missing.assets.text.parts=[50];await assert.rejects(()=>restoreAssetPack(missing),/缺失/);await assert.rejects(()=>restoreAssetPack({...pack,version:2}),/版本/);
+ const missing=structuredClone(pack);missing.assets.text.parts=[50];await assert.rejects(()=>restoreAssetPack(missing),/缺失/);await assert.rejects(()=>restoreAssetPack({...pack,version:99}),/版本/);
 });

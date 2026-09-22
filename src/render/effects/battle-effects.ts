@@ -17,6 +17,7 @@ export class BattleEffects {
  stats={attack:0,hit:0,death:0,movement:0,bile:0,active:0,dropped:0};
  readonly projectiles:OriginalProjectiles;
  constructor(private scene:THREE.Scene){this.projectiles=new OriginalProjectiles(scene);}
+ reset(){this.pool.push(...this.particles);this.particles.length=0;this.steps.clear();this.lastSerial=0;this.projectiles.active.length=0;this.stats={attack:0,hit:0,death:0,movement:0,bile:0,active:0,dropped:0};}
  async load(){await this.projectiles.load();this.errors.push(...this.projectiles.errors);for(const a of ASSETS.values()){if(a.kind!=='effect-texture')continue;const url=assetUrl(a.id);if(!url)continue;try{
    const texture=await new THREE.TextureLoader().loadAsync(url);texture.colorSpace=THREE.SRGBColorSpace;
    const sprite=(a as unknown as {sprite?:{columns:number;rows:number;startFrame?:number;endFrame?:number}}).sprite??{columns:1,rows:1};
@@ -27,7 +28,7 @@ export class BattleEffects {
     fragmentShader:`uniform sampler2D map;varying vec2 vUv;varying vec3 vColor;varying float vOpacity;
      void main(){vec4 p=texture2D(map,vUv);gl_FragColor=vec4(p.rgb*vColor,p.a*vOpacity);if(gl_FragColor.a<0.01)discard;#include <tonemapping_fragment>
      #include <colorspace_fragment>}`.replace(';#include',';\n#include')});
-   const mesh=new THREE.InstancedMesh(geometry,material,CAPACITY);mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.setColorAt(0,color.set(0xffffff));mesh.count=0;mesh.frustumCulled=false;mesh.renderOrder=2;this.scene.add(mesh);this.batches.set(a.id,{mesh,data,count:0,cells:sprite.columns*sprite.rows,start:sprite.startFrame??0,end:sprite.endFrame??sprite.columns*sprite.rows-1});this.loaded++;
+   const mesh=new THREE.InstancedMesh(geometry,material,CAPACITY);mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.setColorAt(0,color.set(0xffffff));mesh.count=0;mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.renderOrder=2;this.scene.add(mesh);this.batches.set(a.id,{mesh,data,count:0,cells:sprite.columns*sprite.rows,start:sprite.startFrame??0,end:sprite.endFrame??sprite.columns*sprite.rows-1});this.loaded++;
   }catch(e){this.errors.push(a.id+': '+String(e));}}
  }
  emit(p:Particle){if(!this.batches.has(p.asset))return;if(this.particles.length>=POOL_SIZE){this.stats.dropped++;return;}const item=this.pool.pop()??{} as Particle;Object.assign(item,p);this.particles.push(item);}

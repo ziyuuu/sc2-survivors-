@@ -18,7 +18,7 @@ export const TECHS=[
 ] as const;
 const offer=(r:Omit<Reward,'discount'|'baseMinerals'|'baseGas'|'offerId'|'sold'|'rarity'>&{rarity?:Rarity}):Reward=>({rarity:'white',...r,offerId:r.id,sold:false,discount:0,baseMinerals:r.minerals,baseGas:r.gas});
 export function rewardPool(w?:RewardWorld):Reward[]{const factory=w&&[...w.buildings.values()].find(b=>b.type==='factory'&&b.remaining<=0&&!b.techLab&&b.upgradeRemaining===null);return [
- ...(factory?[offer({id:'upgrade.factory.'+factory.id,name:'重工厂科技实验室',description:`升级重工厂 #${factory.id}，解锁该厂坦克生产。立即解锁；已付费订单继续训练，星港可独立发展。`,icon:'unit.tank',kind:'upgrade',value:String(factory.id),minerals:FACTORY_TECH_LAB.minerals,gas:FACTORY_TECH_LAB.gas})]:[]),
+ ...(factory?[offer({id:'upgrade.factory.'+factory.id,name:'重工厂科技实验室',description:`升级重工厂${[...w.buildings.values()].filter(b=>b.type==='factory').findIndex(b=>b.id===factory.id)+1}，解锁该厂坦克生产。立即解锁；已付费订单继续训练，星港可独立发展。`,icon:'unit.tank',kind:'upgrade',value:String(factory.id),minerals:FACTORY_TECH_LAB.minerals,gas:FACTORY_TECH_LAB.gas})]:[]),
  offer({id:'research.marauder',name:'劫掠者研究',description:'所有兵营解锁劫掠者，按劫掠者与枪兵交替合批训练。',icon:'unit.marauder',kind:'research',value:'marauder',minerals:50,gas:25}),
  ...Object.entries(BUILDINGS).map(([id,b])=>offer({id:'build.'+id,name:b.name.split(' · ')[1],description:id==='factory'?'建成即可自动生产恶火；科技实验室仅用于解锁坦克。':id==='starport'?'建成后自动生产医疗艇；不需要坦克科技实验室。':'建成后自动生产枪兵，同一批次合并投放一个多人救援仓。',icon:'building.'+id,kind:'build',value:id,minerals:b.minerals,gas:b.gas})),
  ...TERRAN.map(id=>{const u=SC2_UNITS[id];return offer({id:'train.'+id,name:u.zh+'增援',description:'下一关额外投放一个增援仓，清除威胁后归队。',icon:'unit.'+id,kind:'train',value:id,minerals:u.mineralCost,gas:u.gasCost});}),

@@ -9,7 +9,14 @@ const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 export class MapTerrain implements TerrainQuery {
  stage=1;readonly routes=new Map<string,Point[]>();private grids=new Map<number,Uint8Array>();private maxRoutes=512;private failedRoutes=new Set<string>();private graphs=new Map<number,{edges:Uint8Array;components:Int32Array}>();private cellHeights:Float64Array|undefined;
  constructor(readonly definition:MapDefinition){if(definition.version!==1||definition.source.worldUnitsPerSc2Unit!==1)throw Error('Unsupported map scale');}
- setStage(stage:number){if(this.stage===stage)return;this.stage=stage;this.routes.clear();this.grids.clear();this.failedRoutes.clear();this.graphs.clear();}
+ setStage(stage:number){if(this.stage===stage)return;this.stage=stage;this.routes.clear();this.grids.clear();this.failedRoutes.clear();this.graphs.clear();this.openingPrefix=undefined;}
+ private openingPrefix?:Uint32Array;
+ private openingSum(){
+  if(this.openingPrefix)return this.openingPrefix;
+  const d=this.definition,stride=d.walkWidth+1,prefix=new Uint32Array(stride*(d.walkHeight+1));
+  for(let y=0;y<d.walkHeight;y++){let row=0;for(let x=0;x<d.walkWidth;x++){const at=y*d.walkWidth+x;row+=!d.opening[at]||d.opening[at]>this.stage?1:0;prefix[(y+1)*stride+x+1]=prefix[y*stride+x+1]+row;}}
+  return this.openingPrefix=prefix;
+ }
  private local(p:Point){return {x:p.x+this.definition.origin[0],y:this.definition.origin[1]-p.z};}
  private cell(p:Point){return this.cellAt(p.x,p.z);}
  private cellAt(px:number,pz:number){const d=this.definition,x=Math.floor((px+d.origin[0])/d.cellSize),y=Math.floor((d.origin[1]-pz)/d.cellSize);return x>=0&&y>=0&&x<d.walkWidth&&y<d.walkHeight?y*d.walkWidth+x:-1;}
@@ -19,7 +26,15 @@ export class MapTerrain implements TerrainQuery {
  region(p:Point){const q=this.local(p);return Math.floor(q.x/4)+Math.floor(q.y/4)*Math.ceil(this.definition.width/4);}
  flatHeight(a:Point,b:Point,r=0){if(distance(a,b)>4)return -1;const h=this.height(a);return this.canOccupy(a,r)&&this.canOccupy(b,r)&&Math.abs(h-this.height(b))<.005&&this.walkLine(a,b,r)?h:-1;}
  canOccupy(p:Point,r:number){const i=this.cell(p),d=this.definition;if(i<0||!d.opening[i]||d.opening[i]>this.stage||!d.walk[i]||d.clearance[i]<r+.12)return false;
-  // Same eight footprint probes, without allocating 25 temporary arrays/points per test.
+  // Interior footprints cannot touch a closed sector: O(1) summed-area broad phase.
+  // Near a boundary retain the exact eight original probes (do not reject legal corners).
+  if(r<=.01)return true;
+  const minX=Math.floor((p.x+d.origin[0]-r)/d.cellSize),maxX=Math.floor((p.x+d.origin[0]+r)/d.cellSize),
+   minY=Math.floor((d.origin[1]-p.z-r)/d.cellSize),maxY=Math.floor((d.origin[1]-p.z+r)/d.cellSize);
+  if(minX>=0&&minY>=0&&maxX<d.walkWidth&&maxY<d.walkHeight){const prefix=this.openingSum(),stride=d.walkWidth+1;
+   if(prefix[(maxY+1)*stride+maxX+1]-prefix[minY*stride+maxX+1]-prefix[(maxY+1)*stride+minX]+prefix[minY*stride+minX]===0)return true;
+  }
+
   if(r>.01)for(const [x,z] of FOOTPRINT){const j=this.cellAt(p.x+x*r,p.z+z*r);if(j<0||!d.opening[j]||d.opening[j]>this.stage)return false;}return true;}
 
  canStep(a:Point,b:Point,r:number){return this.canOccupy(b,r)&&Math.abs(this.height(a)-this.height(b))<=distance(a,b)*1.15+.035;}

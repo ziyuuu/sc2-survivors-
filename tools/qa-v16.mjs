@@ -1,6 +1,6 @@
 import {chromium} from '@playwright/test';
 import fs from 'node:fs/promises';import assert from 'node:assert/strict';import {pathToFileURL} from 'node:url';import {createHash} from 'node:crypto';
-const out='reports/local/qa-v16';await fs.mkdir(out,{recursive:true});
+const out=process.env.SC2_QA_OUT??'reports/local/qa-v16';await fs.mkdir(out,{recursive:true});
 const report={at:new Date().toISOString(),method:'Local Chrome desktop and viewport fixtures; original images remain local. DOM, rendering errors, positions and asset byte hashes checked; not human visual approval or a human campaign playthrough.',errors:[],checks:[],viewports:[]};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 const track=p=>{p.on('pageerror',e=>report.errors.push(e.message));p.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});};

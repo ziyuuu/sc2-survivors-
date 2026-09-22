@@ -6,6 +6,7 @@ type Label={root:HTMLDivElement;title:HTMLElement;fill?:HTMLElement;value?:HTMLE
 export class FriendlyLabels {
  private labels=new Map<number,Label>();
  constructor(private parent:HTMLElement){}
+ reset(){for(const label of this.labels.values())label.root.remove();this.labels.clear();}
  update(world:World,project:(unit:Entity)=>{x:number;y:number;visible:boolean},width:number){
   const units=world.allies().filter(u=>u.heroId||u.eliteId).sort((a,b)=>Number(!!b.heroId)-Number(!!a.heroId)||a.id-b.id),ids=new Set(units.map(u=>u.id));
   for(const [id,label] of this.labels)if(!ids.has(id)){label.root.remove();this.labels.delete(id);}

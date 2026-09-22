@@ -20,3 +20,10 @@ test('legal sub-cell actors reconnect when their raster centre sits on the other
 
 
 test('a legal narrow strip can reconnect beyond adjacent raster centres without teleporting',()=>{const d=fixture();d.walk=Array(d.walk.length).fill(1);d.clearance=Array(d.walk.length).fill(2);const t=new MapTerrain(d),base=t.canOccupy.bind(t);t.canOccupy=(p,r)=>base(p,r)&&!(p.x>5&&p.x<9&&p.z<16&&Math.abs(p.z-14)>.24);const a={x:7,z:14},b={x:3,z:12};assert.ok(t.canOccupy(a,.05));assert.equal(t.walkLine(a,b,.05),false);const next=t.routeGoal(a,b,.05,50);assert.ok(Math.hypot(next.x-a.x,next.z-a.z)>.1);assert.ok(t.walkLine(a,next,.05));assert.deepEqual(a,{x:7,z:14});});
+
+test('opening summed-area fast path matches exact footprint probes across boundaries and expansion',()=>{
+ const d=fixture();d.opening=d.opening.map((_,i)=>i%40<12?1:i%40<28?4:8);const t=new MapTerrain(d);
+ const probe=(x:number,z:number,r:number,stage:number)=>{const cell=(x:number,z:number)=>{const a=Math.floor((x+d.origin[0])/d.cellSize),b=Math.floor((d.origin[1]-z)/d.cellSize);return a>=0&&b>=0&&a<d.walkWidth&&b<d.walkHeight?b*d.walkWidth+a:-1;};const i=cell(x,z);if(i<0||!d.opening[i]||d.opening[i]>stage||!d.walk[i]||d.clearance[i]<r+.12)return false;return r<=.01||[[1,0],[-1,0],[0,1],[0,-1],[.707,.707],[-.707,.707],[.707,-.707],[-.707,-.707]].every(([a,b])=>{const j=cell(x+a*r,z+b*r);return j>=0&&d.opening[j]>0&&d.opening[j]<=stage;});};
+ let seed=1;const rng=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
+ for(const stage of [1,4,8,1]){t.setStage(stage);for(let i=0;i<5000;i++){const p={x:rng()*22-1,z:rng()*22-1},r=rng()*2;assert.equal(t.canOccupy(p,r),probe(p.x,p.z,r,stage));}}
+});
