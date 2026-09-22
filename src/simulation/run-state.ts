@@ -18,7 +18,7 @@ export class RunState {
  endless:EndlessState|null=null;
  entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<number,Building>();upgrades=new Map<string,number>();
  wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
- controllerCommand=false;order:SquadOrder|null=null;protected movePending=new Set<number>();
+ marchDirection:Point={x:0,z:0};order:SquadOrder|null=null;protected movePending=new Set<number>();
  protected commandRoute:{requested:Point;goal:Point;until:number}|null=null;
  trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];rewardDrops:RewardDrop[]=[];hash=new SpatialHash<Body>();
  visualEvents:VisualEvent[]=[];protected visualSerial=0;
@@ -42,7 +42,7 @@ protected specialPlan:EnemyEvent[]=[];protected nextSpecial=0;
  protected movementAllies:Entity[]|null=null;protected formationPlanned=false;
  protected configStage=0;protected configDifficulty:Difficulty|null=null;protected stageData!:StageConfig;
  protected movementStall=new Map<number,number>();
- protected detours=new Map<number,{body:number;first:Point;second:Point;phase:number;forward:Point}>();
+ protected detours=new Map<number,{body:number;first:Point;second:Point;phase:number;forward:Point;until:number}>();
  protected navigation=new Map<number,{goal:Point;requested:Point;until:number;stalled:boolean}>();
 
  heroes=new Map<HeroId,HeroRecord>();heroCasts:HeroCast[]=[];

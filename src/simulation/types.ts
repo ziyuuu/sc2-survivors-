@@ -4,14 +4,14 @@ import type {Rarity} from '../data/rewards';
 import type {UnitType,TerranType,ZergType} from '../data/sc2-units';
 import type {BuildingType} from '../data/game';
 export interface Point {x:number;z:number}
-export type SquadOrder={kind:'move';point:Point;arrived:boolean;issuedAt:number}|{kind:'focus';targetId:number;issuedAt:number};
+export type SquadOrder={kind:'move';point:Point;arrived:boolean;issuedAt:number};
 export interface Body extends Point {id:number;hp:number;maxHp:number;armor:number;unitRadius:number;flying:boolean;attributes:string[];owner:'terran'|'zerg'}
 export interface Entity extends Body {
  endlessLevel?:number;specialDamageMultiplier?:number;eliteId?:EliteId;heroId?:HeroId;modelKey?:string;enemyTier?:'elite'|'boss';enemyName?:string;visualScale?:number;slowUntil?:number;slowFactor?:number;specialReady?:number;lastSkillAt?:number;siegeSince?:number;turnMultiplier?:number;healTargets?:number[];
  unitType:UnitType;rank:number;moveSpeed:number;attackRange:number;weaponDamage:number;weaponCooldown:number;attackPeriod:number;attackFacing:number;
  attackTarget:number|null;facing:number;velocity:Point;prev:Point;slot:number;trailIndex:number;
  action:'idle'|'move'|'attack'|'skill'|'heal'|'sieging'|'unsieging'|'dead'|'spawn';
- mode:'tank'|'siege';desiredMode:'tank'|'siege';modeTimer:number;windup:number;attackLock:number;pendingTarget:number|null;lastShotAt:number;
+ mode:'tank'|'siege';desiredMode:'tank'|'siege';modeTimer:number;windup:number;attackLock:number;pendingTarget:number|null;lastShotAt:number;nextShotAt:number;shotInterval:number;repositionUntil:number;aimStartedAt:number|null;
  energy:number;maxEnergy:number;energyRegen:number;healRate:number;healTarget:number|null;bileCooldown:number;guardianPod:number|null;guardOrigin?:boolean;stimUntil:number;
  deadAt:number|null;bornAt:number;thinkAt:number;distanceWalked:number;
 }

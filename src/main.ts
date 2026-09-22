@@ -1,3 +1,4 @@
+import {ControlSettings} from './ui/controls/settings';
 import {loadEmbeddedAssets} from './assets/offline-pack';
 import './ui/sc2-battle.css';
 import {configureMapAssets,loadMapDefinition} from './render/terrain/original-map';
@@ -14,13 +15,14 @@ import {AudioEffects} from './render/effects/audio';
 
 const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
-async function boot(){await loadEmbeddedAssets();configureMapAssets();const definition=await loadMapDefinition(),world=new World({terrain:new MapTerrain(definition)});const view=new BattleRenderer(canvas,world),hud=new HUD(world,view),audio=new AudioEffects();
- const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),{canvas,pick:(x,y,touch)=>view.pick(x,y,touch)});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
- const gamepad=new GamepadInput(world,b=>{const p=view.screen(b);return p.x>=0&&p.y>=0&&p.x<=canvas.clientWidth&&p.y<=canvas.clientHeight;},()=>hud.pause(),()=>{input.keys.clear();input.release();});
+async function boot(){await loadEmbeddedAssets();configureMapAssets();const definition=await loadMapDefinition(),world=new World({terrain:new MapTerrain(definition)});let storage:Storage|undefined;try{storage=localStorage;}catch{}const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls),audio=new AudioEffects();
+ const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,pick:(x,y,touch)=>view.pick(x,y,touch)});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
+ const gamepad=new GamepadInput(world,()=>hud.pause(),()=>input.reset());
+ controls.listeners.add(()=>gamepad.reset());
  const debug=import.meta.env.DEV?installDebug(world,view):null;
  // Reserve up to 12 ms for fixed-step catch-up; debt is retained and frame work remains bounded.
  const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused&&!world.requiresEliteChoice&&!view.assetsPending;},()=>performance.now(),12);
- window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:hud.ready,simulationBacklogSeconds:driver.accumulator,audio:audio.report(),gamepad:gamepad.report()});
+ window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:hud.ready,simulationBacklogSeconds:driver.accumulator,audio:audio.report(),gamepad:gamepad.report(),controls:controls.report()});
  world.listeners.add(()=>audio.update(world));
  let previous=performance.now(),wasSimulating=false;
  hud.onRestart=()=>{

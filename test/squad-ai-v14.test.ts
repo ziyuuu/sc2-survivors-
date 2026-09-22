@@ -7,18 +7,12 @@ const foe=(w:World,x:number,z:number)=>{const e=w.addUnit('roach','zerg',x,z);e.
 
 test('empty target searches respect the AI cadence while a fresh player order reacts immediately',()=>{
  const w=setup(['marine']);let searches=0;const original=w.findTarget.bind(w);w.findTarget=(...args)=>{searches++;return original(...args);};w.advance(1);assert.ok(searches<=9,`empty searches: ${searches}`);
- const e=foe(w,3,0);w.issueFocus(e.id);w.step();assert.equal(w.allies()[0].attackTarget,e.id);w.advance(.3);assert.ok(e.hp<e.maxHp);
+ const e=foe(w,3,0);w.issueMove({x:e.x,z:e.z});w.step();assert.equal(w.allies()[0].attackTarget,e.id);w.advance(.3);assert.ok(e.hp<e.maxHp);
 });
-test('mobile fighters defend against a reachable threat while pursuing an out-of-range focus',()=>{
- for(const type of ['marine','hellion','tank']){const w=setup([type]),near=foe(w,3,1),chosen=foe(w,28,0);w.issueFocus(chosen.id);w.advance(1);
-  assert.ok(near.hp<near.maxHp,type);assert.ok(w.order?.kind==='focus'&&w.order.targetId===chosen.id);assert.ok(w.anchor.x>1,type);assert.ok(w.allies()[0].distanceWalked>.1,type);
+test('mobile fighters defend against a reachable threat while moving to an out-of-range destination',()=>{
+ for(const type of ['marine','hellion','tank']){const w=setup([type]),near=foe(w,3,1),chosen=foe(w,28,0);w.issueMove({x:chosen.x,z:chosen.z});w.advance(1);
+  assert.ok(near.hp<near.maxHp,type);assert.ok(w.order?.kind==='move'&&w.order.point.x===chosen.x);assert.ok(w.anchor.x>1,type);assert.ok(w.allies()[0].distanceWalked>.1,type);
  }
-});
-test('a selected shootable enemy wins over local retaliation and economic distractions',()=>{
- const w=setup(['marine']),near=foe(w,2,1),chosen=foe(w,4,0),drone=w.spawnEconomic('drone',{x:1,z:-1});w.issueFocus(chosen.id);w.advance(.4);assert.ok(chosen.hp<chosen.maxHp);assert.equal(near.hp,near.maxHp);assert.equal(drone.hp,drone.maxHp);
-});
-test('a remote focus does not erase a shot that has already committed',()=>{
- const w=setup(['marine']),old=foe(w,3,0),far=foe(w,25,0),m=w.allies()[0];w.issueFocus(old.id);w.step();assert.ok(m.windup>0);const cooldown=m.weaponCooldown;w.issueFocus(far.id);assert.equal(m.weaponCooldown,cooldown);w.advance(.1);assert.ok(old.hp<old.maxHp);assert.equal(w.stats.shots,1);assert.ok(w.order?.kind==='focus'&&w.order.targetId===far.id);
 });
 test('Medivac heals an eligible nearby patient before chasing a distant critical patient',()=>{
  const w=setup(),med=w.addUnit('medivac','terran',0,0),near=w.addUnit('marine','terran',2,0),far=w.addUnit('marine','terran',12,0);near.hp=30;far.hp=1;near.moveSpeed=far.moveSpeed=0;w.advance(.2);assert.ok(near.hp>30);assert.equal(far.hp,1);assert.equal(med.healTarget,near.id);

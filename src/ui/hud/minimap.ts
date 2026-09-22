@@ -1,3 +1,4 @@
+import type {ControlSettings} from '../controls/settings';
 import {RARITIES} from '../../data/rewards';
 import {Vector3} from 'three';
 import type {World} from '../../simulation/world';
@@ -17,23 +18,22 @@ export const mapProject=(f:MapFrame,p:Point)=>({x:(p.x-f.left)/f.size,z:(p.z-f.t
 export const mapUnproject=(f:MapFrame,p:Point)=>({x:f.left+p.x*f.size,z:f.top+p.z*f.size});
 export class Minimap {
  readonly element:HTMLElement;readonly canvas:HTMLCanvasElement;private ctx:CanvasRenderingContext2D;private backdrop=document.createElement('canvas');private stage=0;private frame:MapFrame={left:-10,top:-10,size:20};private height=0;private observer:ResizeObserver;
- constructor(readonly world:World,readonly view:BattleRenderer,parent:HTMLElement){
+ constructor(readonly world:World,readonly view:BattleRenderer,parent:HTMLElement,readonly controls:ControlSettings){
   this.element=document.createElement('aside');this.element.id='minimap';this.element.className='console';
-  this.element.innerHTML='<header><span>战术地图</span><span aria-hidden="true">N ↑</span></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。右键或触屏轻点前往，点敌集火。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>';
+  this.element.innerHTML='<header><span>战术地图</span><span aria-hidden="true">N ↑</span></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。点击模式下，鼠标或触屏轻点前往。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>';
   parent.append(this.element);this.canvas=this.element.querySelector('canvas')!;this.ctx=this.canvas.getContext('2d')!;
   this.observer=new ResizeObserver(()=>{this.stage=0;this.update();});this.observer.observe(this.canvas);
   this.element.addEventListener('contextmenu',e=>e.preventDefault());
   let tap:{id:number;x:number;y:number;time:number;cancelled:boolean}|null=null;
-  this.canvas.addEventListener('pointerdown',e=>{e.preventDefault();if(world.phase!=='battle'||world.paused)return;if(e.pointerType==='mouse'){if(e.button===0||e.button===2)this.command(e,e.button===0);return;}if(tap){tap.cancelled=true;return;}if(!e.isPrimary)return;tap={id:e.pointerId,x:e.clientX,y:e.clientY,time:performance.now(),cancelled:false};this.canvas.setPointerCapture(e.pointerId);});
+  this.canvas.addEventListener('pointerdown',e=>{e.preventDefault();if(world.phase!=='battle'||world.paused)return;if(e.pointerType==='mouse'){if(e.button===0||e.button===2)this.command(e);return;}if(tap){tap.cancelled=true;return;}if(!e.isPrimary)return;tap={id:e.pointerId,x:e.clientX,y:e.clientY,time:performance.now(),cancelled:false};this.canvas.setPointerCapture(e.pointerId);});
   this.canvas.addEventListener('pointermove',e=>{if(tap?.id===e.pointerId&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>10)tap.cancelled=true;});
-  this.canvas.addEventListener('pointerup',e=>{if(tap?.id!==e.pointerId)return;const old=tap;tap=null;if(!old.cancelled&&performance.now()-old.time<450)this.command(e,false);if(this.canvas.hasPointerCapture(e.pointerId))this.canvas.releasePointerCapture(e.pointerId);});
+  this.canvas.addEventListener('pointerup',e=>{if(tap?.id!==e.pointerId)return;const old=tap;tap=null;if(!old.cancelled&&performance.now()-old.time<450)this.command(e);if(this.canvas.hasPointerCapture(e.pointerId))this.canvas.releasePointerCapture(e.pointerId);});
   for(const name of ['pointercancel','lostpointercapture'])this.canvas.addEventListener(name,e=>{if(tap?.id===(e as PointerEvent).pointerId)tap=null;});
  }
- private command(e:PointerEvent,targetOnly:boolean){const w=this.world;if(w.phase!=='battle'||w.paused||Math.hypot(w.input.x,w.input.z)>.01)return;const r=this.canvas.getBoundingClientRect(),p=mapUnproject(this.frame,{x:(e.clientX-r.left)/r.width,z:(e.clientY-r.top)/r.height});
+ private command(e:PointerEvent){const w=this.world;if(!this.controls.pointerMoves(e.pointerType)||w.phase!=='battle'||w.paused||w.requiresEliteChoice)return;
+  const r=this.canvas.getBoundingClientRect(),p=mapUnproject(this.frame,{x:(e.clientX-r.left)/r.width,z:(e.clientY-r.top)/r.height});
   if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)return;
-  const tolerance=(e.pointerType==='mouse'?5:8)*this.frame.size/r.width;
-  const enemies=[...w.entities.values(),...w.economicTargets.values(),...(w.hive?[w.hive]:[])].filter(b=>b.owner==='zerg'&&b.hp>0&&(!('status' in b)||b.status==='active')).map(b=>({b,d:Math.hypot(b.x-p.x,b.z-p.z)})).filter(v=>v.d<tolerance).sort((a,b)=>a.d-b.d);
-  if(enemies[0])w.issueFocus(enemies[0].b.id);else if(!targetOnly)w.issueMove(p);
+  w.issueMove(p);
  }
  private background(){const d=this.world.terrain?.definition;if(!d)return;this.frame=minimapFrame(d,this.world.stage);this.stage=this.world.stage;
   const side=Math.max(128,Math.round(this.canvas.clientWidth*Math.min(devicePixelRatio||1,2)));this.canvas.width=this.canvas.height=side;this.backdrop.width=this.backdrop.height=side;
@@ -56,7 +56,7 @@ export class Minimap {
   for(const p of w.pods)if(['falling','active','opening'].includes(p.status))this.rescue(project(p),({marine:'M',marauder:'R',hellion:'H',tank:'T',medivac:'+'})[p.unitType]+'×'+p.passengers.filter(c=>c.status==='waiting').length,unit,p.hp/p.maxHp);
   if(w.hive&&w.hive.hp>0){const p=project(w.hive);c.strokeStyle='#fa746b';c.lineWidth=2*unit;c.strokeRect(p.x-4*unit,p.y-4*unit,8*unit,8*unit);}
   this.height=w.terrain?.height(w.anchor)??0;c.strokeStyle='#d0e2e080';c.lineWidth=unit;c.beginPath();for(const [i,[x,y]]of [[-1,1],[1,1],[1,-1],[-1,-1]].entries()){const near=new Vector3(x,y,-1).unproject(this.view.camera),far=new Vector3(x,y,1).unproject(this.view.camera),v=far.sub(near),t=(this.height-near.y)/v.y,q=project({x:near.x+v.x*t,z:near.z+v.z*t});if(i)c.lineTo(q.x,q.y);else c.moveTo(q.x,q.y);}c.closePath();c.stroke();
-  if(w.order){const b=w.order.kind==='move'?w.order.point:w.body(w.order.targetId);if(b){const p=project(b);c.strokeStyle=w.order.kind==='move'?'#7fefff':'#ff8f75';c.lineWidth=unit;c.beginPath();c.arc(p.x,p.y,5*unit,0,Math.PI*2);c.stroke();}}
+  if(w.order){const p=project(w.order.point);c.strokeStyle='#7fefff';c.lineWidth=unit;c.beginPath();c.arc(p.x,p.y,5*unit,0,Math.PI*2);c.stroke();}
   const a=project(w.anchor);c.fillStyle='#9aefff';c.beginPath();c.moveTo(a.x,a.y-4*unit);c.lineTo(a.x+3*unit,a.y+3*unit);c.lineTo(a.x-3*unit,a.y+3*unit);c.closePath();c.fill();
   this.canvas.title=`${w.endless?'无尽第 '+w.endless.round+' 轮':'第 '+w.stage+' 关'} · 右键 / 轻点前往，点敌集火 · ${w.pods.filter(p=>['falling','active','opening'].includes(p.status)).map(p=>{const n=p.passengers.filter(c=>c.status==='waiting').length;return `${SC2_UNITS[p.unitType].zh} ×${n} · 增援${p.number} · ${Math.ceil(p.hp)}/${p.maxHp} HP · ${w.podPurpose(p.unitType,n)}`;}).join(' / ')}`;
  }

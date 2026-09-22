@@ -15,7 +15,7 @@
     "test": "node --import tsx --test test/*.test.mjs test/*.test.ts",
     "typecheck": "tsc --noEmit",
     "build": "npm run assets:prepare && tsc --noEmit && vite build && node tools/build-demo.mjs",
-    "test:browser": "node tools/qa-v15.mjs",
+    "test:browser": "node tools/qa-controls-v18.mjs",
     "assets:resolve": "node tools/sync-assets.mjs --index-only",
     "assets:fetch": "node tools/sync-assets.mjs",
     "assets:prepare": "node tools/prepare-assets.mjs",

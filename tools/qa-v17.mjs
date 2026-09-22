@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
-const out='reports/local/qa-v17';await fs.mkdir(out,{recursive:true});
+const out=process.env.SC2_QA_OUT??'reports/local/qa-v17';await fs.mkdir(out,{recursive:true});
 const report={at:new Date().toISOString(),method:'Local desktop Chrome, 1440x900. Repeated real UI redeploy; resource fingerprints, run state and memory counts. Offline source-byte validation. No remote screenshots, physical-phone claim or automatic campaign-win criterion.',errors:[],runs:[]};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 try {for(const offline of [false,true]){
@@ -11,7 +11,7 @@ try {for(const offline of [false,true]){
  p.on('pageerror',e=>report.errors.push(e.message));p.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});p.on('request',r=>{requests.push(r.url());if(r.resourceType()==='document')documents++;});
  const start=performance.now();await p.goto(offline?pathToFileURL(process.cwd()+'/dist/SC2-Survivors-Demo.html').href:'http://127.0.0.1:5173/',{timeout:180000});await p.waitForFunction(()=>window.__SC2_REPORT__?.().assetsReady,null,{timeout:240000});
  const run={offline,readySeconds:(performance.now()-start)/1000,restarts:[]};
- await p.getByLabel('难度',{exact:true}).selectOption('easy');await p.getByLabel('画质',{exact:true}).selectOption('balanced');await p.locator('[data-action=start]').click();
+ await p.getByLabel('难度',{exact:true}).selectOption('easy');await p.locator('[data-action=settings]').click();await p.getByLabel('画质',{exact:true}).selectOption('balanced');await p.locator('[data-action=settings-back]').click();await p.locator('[data-action=start]').click();
  if(!offline){await p.evaluate(async()=>{const {world:w,view:v}=window.__SC2_DEBUG__;w.paused=true;
   w.acquireHero('raynor');await v.ensureUnitVariant('hero.raynor','marine');w.acquireElite('marine.1');w.addUnit('marine','terran',2,0);w.changed();
  });await p.waitForFunction(()=>document.querySelectorAll('[data-action=elite-replace]:not(:disabled)').length>0);

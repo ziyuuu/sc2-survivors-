@@ -180,10 +180,7 @@ export class BattleRenderer {
   for(const u of world.entities.values())if(u.enemyTier&&u.hp>0){let el=this.enemyLabels.get(u.id);if(!el){el=document.createElement('div');el.className='enemy-special-label '+u.enemyTier;el.textContent=u.enemyName??'';this.enemyLabels.set(u.id,el);this.labelLayer.append(el);}el.hidden=!this.visible(u)||world.phase!=='battle';if(!el.hidden){_vec.set(u.x,this.ground(u)+heights[u.unitType]*(u.visualScale??1)+.6,u.z).project(this.camera);el.style.transform=`translate(${(_vec.x*.5+.5)*this.viewportWidth}px,${(.5-_vec.y*.5)*this.viewportHeight}px) translate(-50%,-100%)`;}}
   this.friendlyLabels.update(world,u=>{const key=(u.modelKey??u.unitType)+(u.unitType==='tank'&&u.mode==='siege'?'.siege':''),model=this.gpu.get(key);const x=u.prev.x+(u.x-u.prev.x)*alpha,z=u.prev.z+(u.z-u.prev.z)*alpha,y=(u.flying?AIR_HEIGHT:this.ground({x,z}))+(model?.bodyHeight??heights[u.unitType]*TUNING.unitScale)*(u.visualScale??1)+.25;_vec.set(x,y,z).project(this.camera);return {x:(_vec.x*.5+.5)*this.viewportWidth,y:(.5-_vec.y*.5)*this.viewportHeight,visible:!!model&&_vec.x>-1&&_vec.x<1&&_vec.y>-1&&_vec.y<1&&_vec.z>-1&&_vec.z<1};},this.viewportWidth);
   for(const cast of world.heroCasts){putRing(cast.point,cast.hero==='tychus'?2.5:.5,0xffc177);}
-  if(world.phase==='battle'&&world.order){const order=world.order;
-   if(order.kind==='move')putRing(order.point,.65+.08*Math.sin(world.time*7),0x84eea7);
-   else {const target=world.body(order.targetId);if(target&&target.hp>0)putRing(target,target.unitRadius+.28,0xff624a);}
-  }
+  if(world.phase==='battle'&&world.order)putRing(world.order.point,.65+.08*Math.sin(world.time*7),0x84eea7);
   commitInstances(this.shadows,shadows);commitInstances(this.rings,ring);
   for(const m of [this.health,this.healthBack])commitInstances(m,bars);
   const lootIds=new Set(world.rewardDrops.map(p=>p.id));for(const [id,el] of this.lootLabels)if(!lootIds.has(id)){el.remove();this.lootLabels.delete(id);}

@@ -1,3 +1,5 @@
+import {CONTROL_COMBAT as CONTROL} from '../data/control-tuning';
+import {autoTargetScore} from './combat/auto-targeting';
 import {RunState} from './run-state';
 import {ENDLESS,endlessInterval,endlessGrowth} from '../data/endless';
 import {EnemySpecials} from './combat/enemy-specials';
@@ -44,7 +46,7 @@ export class World extends RunState {
  get mapHalf(){return this.terrain?.definition?Math.max(this.terrain.definition.width,this.terrain.definition.height):this.sandbox?TUNING.worldHalf:this.config.width/2;}
  get duration(){return this.config.durationSeconds;}
  /** Whole-squad commands are simulation intent; picking and feedback live in the renderer. */
- cancelOrder(){this.order=null;this.movePending.clear();this.commandRoute=null;}
+ cancelOrder(){this.order=null;this.movePending.clear();this.commandRoute=null;this.marchDirection={x:0,z:0};}
  private resetCommand(){this.cancelOrder();this.navigation.clear();this.detours.clear();for(const u of this.allies()){u.attackTarget=null;u.thinkAt=0;}this.input={x:0,z:0};}
  private commandPoint(point:Point):Point|null {
   const radius=.9,half=this.mapHalf;
@@ -57,25 +59,10 @@ export class World extends RunState {
  issueMove(point:Point){if(this.phase!=='battle'||this.paused||this.requiresEliteChoice)return false;const goal=this.commandPoint(point);if(!goal){this.announce('该位置无法通行');return false;}
   this.resetCommand();this.order={kind:'move',point:goal,arrived:false,issuedAt:this.time};for(const u of this.allies())this.movePending.add(u.id);this.changed();return true;
  }
- issueFocus(targetId:number){if(this.phase!=='battle'||this.paused||this.requiresEliteChoice)return false;const target=this.body(targetId);if(!target||target.owner!=='zerg'||target.hp<=0)return false;
-  if(this.order?.kind==='focus'&&this.order.targetId===targetId)return true;
-  if(!this.commandPoint(target)&&!this.allies().some(u=>this.canFireAt(u,target))){this.announce('目标无法到达');return false;}
-  this.resetCommand();this.order={kind:'focus',targetId,issuedAt:this.time};
-  for(const u of this.allies()){if(u.windup>0&&this.canFireAt(u,target))u.pendingTarget=target.id;}
-  this.changed();return true;
- }
- controllerTargetReachable(target:Body){return target.hp>0&&target.owner==='zerg'&&Math.abs(target.x)<this.mapHalf&&Math.abs(target.z)<this.mapHalf&&this.commandPoint(target)!==null;}
- setControllerFocus(id:number){const b=this.body(id);if(!b||!this.controllerTargetReachable(b))return false;this.controllerCommand=true;if(this.order?.kind==='focus'&&this.order.targetId===id)return true;this.order={kind:'focus',targetId:id,issuedAt:this.time};this.movePending.clear();this.commandRoute=null;return true;}
  private updateCommand(dt:number):Point {
-  if(Math.hypot(this.input.x,this.input.z)>.01){if(this.order&&!(this.controllerCommand&&this.order.kind==='focus'))this.cancelOrder();return this.input;}
+  if(Math.hypot(this.input.x,this.input.z)>.01){if(this.order)this.cancelOrder();return this.input;}
   const order=this.order;if(!order)return this.input;
-  let goal:Point;
-  if(order.kind==='focus'){
-   const target=this.body(order.targetId);if(!target||target.hp<=0||target.owner!=='zerg'){this.cancelOrder();return {x:0,z:0};}
-   // Stop the command anchor outside contact range, but never below an intervening cliff.
-   if(distance(this.anchor,target)<3&&(!this.terrain||this.terrain.lineOfFire(this.anchor,target)))return {x:0,z:0};
-   goal=target;
-  }else {goal=order.point;if(distance(this.anchor,goal)<.12){order.arrived=true;return {x:0,z:0};}}
+  const goal=order.point;if(distance(this.anchor,goal)<.12){order.arrived=true;return {x:0,z:0};}
   let route=this.commandRoute;
   if(!route||this.time>=route.until||distance(goal,route.requested)>.75||distance(this.anchor,route.goal)<.25){
    const destination=this.commandPoint(goal);if(!destination){this.cancelOrder();this.announce('目标无法到达');return {x:0,z:0};}
@@ -127,7 +114,7 @@ export class World extends RunState {
    hp:d.maxHp,maxHp:d.maxHp,armor:d.armor,moveSpeed:d.movementSpeed,attackRange:d.attackRange,weaponDamage:d.attackDamage,weaponCooldown:0,attackPeriod:d.attackPeriod,attackFacing:Math.PI/2,
    attackTarget:null,facing:Math.PI/2,velocity:{x:0,z:0},unitRadius:d.unitRadius*TUNING.unitScale,rank,attributes:[...d.attributes],flying:d.flying,
    slot:owner==='terran'?slot:0,trailIndex:Math.max(0,this.trail.length-1),action:'spawn',mode:'tank',desiredMode:'tank',modeTimer:0,
-   windup:0,attackLock:0,pendingTarget:null,lastShotAt:-100,energy:unitType==='medivac'?HEAL.startEnergy:0,maxEnergy:HEAL.maxEnergy,energyRegen:HEAL.regen,healRate:HEAL.hpPerSecond,healTarget:null,bileCooldown:3,
+   windup:0,attackLock:0,pendingTarget:null,lastShotAt:-100,nextShotAt:0,shotInterval:d.attackPeriod,repositionUntil:0,aimStartedAt:null,energy:unitType==='medivac'?HEAL.startEnergy:0,maxEnergy:HEAL.maxEnergy,energyRegen:HEAL.regen,healRate:HEAL.hpPerSecond,healTarget:null,bileCooldown:3,
    guardianPod:null,stimUntil:0,deadAt:null,bornAt:this.time,thinkAt:0,distanceWalked:0};
   this.refreshStats(u,true);if(owner==='zerg'&&!this.sandbox){if(unitType==='zergling')u.hp=u.maxHp=this.config.lingHp;if(unitType==='roach'&&this.stage>=8)u.armor++;if(unitType==='baneling'&&this.stage>=9)u.hp=u.maxHp=35;}this.entities.set(u.id,u);if(owner==='terran'&&this.order?.kind==='move')this.movePending.add(u.id);return u;
  }
@@ -162,7 +149,12 @@ export class World extends RunState {
  canReviveHero(id:HeroId){const h=this.heroes.get(id);return this.phase==='reward'&&!!h&&!h.revivePaid&&!h.awaitingSpawn&&!(this.heroEntity(id)?.hp)&&this.wallet.minerals>=heroRevivalCost(h.rank).minerals&&this.wallet.gas>=heroRevivalCost(h.rank).gas;}
  reviveHero(id:HeroId){if(!this.canReviveHero(id))return false;const h=this.heroes.get(id)!,cost=heroRevivalCost(h.rank);if(!spend(this.wallet,cost))return false;h.revivePaid=true;this.economyTotals.purchases.minerals+=cost.minerals;this.economyTotals.purchases.gas+=cost.gas;this.changed();return true;}
  private deployPendingHeroes(newStage=false){for(const h of this.heroes.values()){if(newStage&&h.revivePaid)h.awaitingSpawn=true;if(h.awaitingSpawn)this.deployHero(h,h.revivePaid);}}
- private heroTarget(id:HeroId){const u=this.heroEntity(id);if(!u||u.hp<=0)return;const target=this.order?.kind==='focus'?this.body(this.order.targetId):this.body(u.attackTarget);if(target&&this.validHeroTarget(id,u,target))return target;}
+ private heroTarget(id:HeroId){const u=this.heroEntity(id);if(!u||u.hp<=0)return;
+  let best:Body|undefined,score=Infinity;
+  this.hash.query(u,HEROES[id].skillRange+3,b=>{if(!this.validHeroTarget(id,u,b))return;
+   const s=autoTargetScore(u,b,this.marchDirection,true,this.economicTargets.has(b.id));if(s<score){score=s;best=b;}
+  },'zerg');return best;
+ }
  private validHeroTarget(id:HeroId,u:Entity,target:Body){return target.hp>0&&this.targetAllowed(u,target)&&this.edgeDistance(u,target)<=HEROES[id].skillRange&&this.hasAttackLine(u,target)&&(id!=='nova'||target.attributes.includes('Biological'));}
  canCastHero(id:HeroId){const h=this.heroes.get(id);return this.phase==='battle'&&!this.paused&&!this.requiresEliteChoice&&!!h&&this.time+1e-8>=h.skillReady&&!this.heroCasts.some(c=>c.hero===id)&&!!this.heroTarget(id);}
  castHero(id:HeroId){if(!this.canCastHero(id))return false;const h=this.heroes.get(id)!,u=this.heroEntity(id)!,target=this.heroTarget(id)!,data=HEROES[id];h.skillReady=this.time+data.cooldown;u.lastSkillAt=this.time;const cast:HeroCast={id:this.nextId++,hero:id,source:u.id,target:target.id,origin:{x:u.x,z:u.z},point:{x:target.x,z:target.z},at:this.time+data.delay,damage:data.skillDamage*heroStats(h.rank).skill};this.heroCasts.push(cast);this.resolveHeroCasts();this.changed();return true;}
@@ -271,9 +263,7 @@ export class World extends RunState {
    if(defenseOnly&&!inRange)return;
    if(u.owner==='terran'){
     if(u.mode==='siege'&&edge<SIEGE.minRange)return;
-    s+=b.hp/Math.max(1,b.maxHp)*1.5;if(b.id===u.attackTarget)s-=.8;if(this.economicTargets.has(b.id))s+=100;
-    if(!inRange||u.unitType==='medivac')s+=30;
-    if(this.order?.kind==='move')s+=Math.min(12,distance(b,this.order.point))*.5;
+    s=autoTargetScore(u,b,this.marchDirection,inRange,this.economicTargets.has(b.id));
    }
    if(u.guardianPod&&b.id===u.guardianPod)s-=u.id%3===0?0:8;
    // Expensive terrain sampling only matters when this candidate can beat the current choice.
@@ -301,7 +291,7 @@ export class World extends RunState {
  visual(kind:VisualEvent['kind'],body:Body,end:Point=body){const e=this.entities.get(body.id);this.visualEvents.push({serial:++this.visualSerial,time:this.time,kind,x:body.x,z:body.z,y:(body.flying?5.6:this.terrain?.height(body)??0)+.6,endY:(this.terrain?.height(end)??0)+.6,unitType:e?.unitType??null,modelKey:e?.modelKey,entityId:body.id,flying:body.flying,end:{x:end.x,z:end.z},facing:kind==='attack'?e?.attackFacing??0:e?.facing??0,siege:e?.mode==='siege'});if(this.visualEvents.length>768)this.visualEvents.splice(0,256);}
  effect(kind:Effect['kind'],source:Body,end:Point,radius=.1,duration=.18){this.effects.push({id:this.nextId++,kind,x:source.x,z:source.z,end:{...end},until:this.time+duration,radius,owner:source.owner,source:source.id});}
  fire(u:Entity,target:Body){if(!this.targetAllowed(u,target)||!this.hasAttackLine(u,target))return;const d=SC2_UNITS[u.unitType];this.stats.shots++;
-  u.attackFacing=Math.atan2(target.x-u.x,target.z-u.z);u.lastShotAt=this.time;this.visual('attack',u,target);
+  u.attackFacing=Math.atan2(target.x-u.x,target.z-u.z);u.lastShotAt=this.time;u.nextShotAt=this.time+u.shotInterval;this.visual('attack',u,target);
   const rank=this.growth(u).damage*this.weaponFactor(u);const bonus=d.bonusDamage.map(b=>({...b,amount:(b.amount+(u.unitType==='hellion'&&this.upgrades.has('infernal')?5:0)+(u.unitType==='marauder'?(this.upgrades.get('infantry')??0):0))*rank}));
   if(u.unitType==='hellion'){
    const a=Math.atan2(target.x-u.x,target.z-u.z),length=6.5*(u.eliteId==='hellion.3'?1.25:1),width=.15*(u.eliteId==='hellion.3'?1.5:1),end={x:u.x+Math.sin(a)*length,z:u.z+Math.cos(a)*length};
@@ -346,10 +336,16 @@ export class World extends RunState {
  }
  private avoidStationaryBodies(u:Entity,goal:Point):Point {
   if(u.flying||u.owner!=='terran')return goal;
-  const settled=(b:Body)=>{if(!('velocity' in b))return true;const e=b as Entity;return e.mode==='siege'||e.modeTimer>0||e.action==='idle'&&e.velocity.x*e.velocity.x+e.velocity.z*e.velocity.z<.01&&distance(e,this.moveGoal(e))<.35;};
+  const settled=(b:Body)=>{if(!('velocity' in b))return true;const e=b as Entity;
+   if(e.mode==='siege'||e.modeTimer>0)return true;
+   if(e.velocity.x*e.velocity.x+e.velocity.z*e.velocity.z>=.01)return false;
+   const target=this.body(e.attackTarget);
+   // A front-rank shooter can hold a firing arc instead of its formation slot.
+   return this.anchorStoppedFor>.15&&!!target&&this.canFireAt(e,target)||e.action==='idle'&&distance(e,this.moveGoal(e))<.35;
+  };
   let detour=this.detours.get(u.id);
   if(detour){const body=this.body(detour.body),remaining={x:goal.x-u.x,z:goal.z-u.z};
-   if(!body||body.hp<=0||!settled(body)||remaining.x*detour.forward.x+remaining.z*detour.forward.z<0){this.detours.delete(u.id);detour=undefined;}
+   if(!body||body.hp<=0||!settled(body)||this.time>detour.until&&(this.movementStall.get(u.id)??0)>.5||remaining.x*detour.forward.x+remaining.z*detour.forward.z<0){this.detours.delete(u.id);detour=undefined;}
    else {if(distance(u,detour.first)<.45)detour.phase=1;if(distance(u,detour.second)<.45){this.detours.delete(u.id);return goal;}return detour.phase?detour.second:detour.first;}
   }
   const d=distance(u,goal);if(d<.25)return goal;const forward={x:(goal.x-u.x)/d,z:(goal.z-u.z)/d};let blocker:Body|undefined,nearest=Infinity,checked=0;
@@ -358,13 +354,23 @@ export class World extends RunState {
    if(along>0&&along<Math.min(d,4)&&across<r&&along<nearest){blocker=b;nearest=along;}
   });
   if(!blocker)return goal;const b=blocker as Body,r=u.unitRadius+b.unitRadius+.4;
+  const combatTarget=this.body(u.attackTarget),combatDetour=this.anchorStoppedFor>.15&&!!combatTarget&&distance(combatTarget,this.anchor)<=u.attackRange+3;
   // If the desired slot itself is occupied, settle beside it instead of orbiting the defender.
   if(distance(goal,b)<u.unitRadius+b.unitRadius+.1&&distance(u,b)<r+.2)return u;
   const cross=(u.x-b.x)*forward.z-(u.z-b.z)*forward.x,side=Math.abs(cross)>.1?Math.sign(cross):(u.id%2?1:-1);
-  for(const sign of [side,-side]){const lateral={x:forward.z*r*sign,z:-forward.x*r*sign},first={x:b.x-forward.x*r+lateral.x,z:b.z-forward.z*r+lateral.z},second={x:b.x+forward.x*r+lateral.x,z:b.z+forward.z*r+lateral.z};
+  const bodyClear=(from:Point,to:Point)=>{const dx=to.x-from.x,dz=to.z-from.z,d2=dx*dx+dz*dz;let clear=true;
+   this.hash.query({x:(from.x+to.x)/2,z:(from.z+to.z)/2},Math.sqrt(d2)/2+u.unitRadius+2,other=>{
+    if(other.id===u.id||other.owner!=='terran'||other.flying||!settled(other)||this.terrain&&!this.terrain.sameContactLayer(u,other))return;
+    const radius=u.unitRadius+other.unitRadius+.04,t=d2>1e-8?Math.max(0,Math.min(1,((other.x-from.x)*dx+(other.z-from.z)*dz)/d2)):0;
+    // Allow leaving a current contact, never cutting through the next held shooter.
+    if(t<.02&&distance(to,other)>distance(from,other)+.1)return;
+    if(Math.hypot(from.x+dx*t-other.x,from.z+dz*t-other.z)<radius){clear=false;return false;}
+   },'terran');return clear;
+  };
+  for(const width of combatDetour?[1,1.5,2]:[1])for(const sign of [side,-side]){const lateral={x:forward.z*r*width*sign,z:-forward.x*r*width*sign},approach=combatDetour?Math.min(r,Math.max(0,(b.x-u.x)*forward.x+(b.z-u.z)*forward.z)):r,first={x:b.x-forward.x*approach+lateral.x,z:b.z-forward.z*approach+lateral.z},second={x:b.x+forward.x*r+lateral.x,z:b.z+forward.z*r+lateral.z};
    if([first,second].some(p=>Math.abs(p.x)+u.unitRadius>=this.mapHalf||Math.abs(p.z)+u.unitRadius>=this.mapHalf))continue;
-   if(clearLine(u,first,u.unitRadius,this.obstacles,this.terrain)&&clearLine(first,second,u.unitRadius,this.obstacles,this.terrain)){
-    this.detours.set(u.id,{body:b.id,first,second,phase:0,forward});return first;
+   if(clearLine(u,first,u.unitRadius,this.obstacles,this.terrain)&&clearLine(first,second,u.unitRadius,this.obstacles,this.terrain)&&(!combatDetour||bodyClear(u,first)&&bodyClear(first,second))){
+    this.detours.set(u.id,{body:b.id,first,second,phase:0,forward,until:combatDetour?this.time+1:Infinity});return first;
    }
   }
   return u;
@@ -378,43 +384,42 @@ export class World extends RunState {
   if(this.enemySpecials.act(u,dt))return;
   if(u.unitType==='ravager'&&!u.enemyTier)this.updateBile(u,dt);
   if(u.owner==='terran'&&this.order?.kind==='move'&&this.order.arrived&&distance(u,this.moveGoal(u))<.45+u.unitRadius*.5)this.movePending.delete(u.id);
-  const requested=u.owner==='terran'&&u.unitType!=='medivac'&&this.order?.kind==='focus'?this.body(this.order.targetId):undefined;
-  const focusBody=requested&&this.targetAllowed(u,requested)?requested:undefined;
-  const focused=focusBody&&this.canFireAt(u,focusBody)?focusBody:undefined;
+  const marching=u.owner==='terran'&&Math.hypot(this.marchDirection.x,this.marchDirection.z)>.01&&u.mode!=='siege';
   if(u.windup>0){u.windup-=dt;u.velocity={x:0,z:0};u.action='attack';
-   if(focusBody&&this.canFireAt(u,focusBody))u.pendingTarget=focusBody.id;
-   const b=this.body(u.pendingTarget);if(b){const heading=Math.atan2(b.x-u.x,b.z-u.z);u.attackFacing=turn(u.attackFacing,heading,(u.unitType==='tank'?6:u.unitType==='hellion'?4.8:u.unitType==='marine'?24:9)*dt);if(u.unitType!=='tank')u.facing=u.attackFacing;}
+   const b=this.body(u.pendingTarget);if(b){const heading=Math.atan2(b.x-u.x,b.z-u.z);u.attackFacing=turn(u.attackFacing,heading,(u.unitType==='tank'?6:u.unitType==='hellion'?4.8:CONTROL.infantryTurnRate)*dt);if(u.unitType!=='tank')u.facing=u.attackFacing;}
    if(u.windup>1e-8)return;
-   if(b&&this.canFireAt(u,b,.5)){if(Math.abs(angleDelta(u.attackFacing,Math.atan2(b.x-u.x,b.z-u.z)))>=.3){u.windup=dt;return;}this.fire(u,b);}
-   u.pendingTarget=null;u.windup=0;u.attackLock=0;if(u.hp<=0)return;}
+   if(this.time+1e-8<u.nextShotAt){u.windup=u.nextShotAt-this.time;return;}
+   if(b&&this.canFireAt(u,b,.5)){if(Math.abs(angleDelta(u.attackFacing,Math.atan2(b.x-u.x,b.z-u.z)))<.3)this.fire(u,b);else if(!marching||this.time-(u.aimStartedAt??this.time)<CONTROL.maxMovingAim){u.windup=dt;return;}}
+   u.pendingTarget=null;u.windup=0;u.attackLock=0;u.aimStartedAt=null;if(marching)u.repositionUntil=this.time+CONTROL.repositionSeconds;if(u.hp<=0)return;}
   if(u.unitType==='medivac')u.attackTarget=null;
-  else if(focused)u.attackTarget=focused.id;
-  else if(this.time>=u.thinkAt||u.attackTarget!==null&&(!(this.body(u.attackTarget)?.hp)||focusBody?.id===u.attackTarget)){
-   u.attackTarget=this.findTarget(u,u.owner==='terran'?u.attackRange+2:16,!!focusBody)?.id??null;u.thinkAt=this.time+.12+(u.id%5)*.012;
+  else if(this.time>=u.thinkAt||u.attackTarget!==null&&!this.body(u.attackTarget)?.hp){
+   u.attackTarget=this.findTarget(u,u.owner==='terran'?u.attackRange+2:16)?.id??null;u.thinkAt=this.time+(u.owner==='terran'?CONTROL.thinkSeconds+(u.id%4)*CONTROL.thinkSpread:.12+(u.id%5)*.012);
   }
   let target=this.body(u.attackTarget);if(target&&!this.targetAllowed(u,target))target=undefined;
   if(u.owner==='terran'&&this.order?.kind==='move'&&this.order.arrived&&anchorDistance<=TUNING.softLeash&&target&&this.canFireAt(u,target))this.movePending.delete(u.id);
   const leash=anchorDistance>TUNING.softLeash,hard=anchorDistance>TUNING.hardLeash;
   const closeDefense=target&&this.edgeDistance(u,target)<=2.5;
   if(u.unitType==='tank'&&target)u.attackFacing=turn(u.attackFacing,Math.atan2(target.x-u.x,target.z-u.z),6*dt);
-  const marchingRearTarget=!focused&&u.unitType==='hellion'&&u.owner==='terran'&&this.anchorMovingFor>.2&&target&&Math.abs(angleDelta(u.facing,Math.atan2(target.x-u.x,target.z-u.z)))>1.2;
-  if(target&&this.canFireAt(u,target)&&!marchingRearTarget&&(!hard||!!focused||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&u.weaponCooldown<=1e-8){
-   const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType!=='tank')u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?4.8:u.unitType==='marine'?24:9)*dt);
+  const marchingRearTarget=marching&&u.unitType==='hellion'&&target&&Math.abs(angleDelta(Math.atan2(this.marchDirection.x,this.marchDirection.z),Math.atan2(target.x-u.x,target.z-u.z)))>1.2;
+  if(marching&&u.aimStartedAt!==null&&this.time-u.aimStartedAt>CONTROL.maxMovingAim){u.repositionUntil=this.time+CONTROL.repositionSeconds;u.aimStartedAt=null;}
+  if(target&&this.canFireAt(u,target)&&!marchingRearTarget&&(!marching||this.time>=u.repositionUntil)&&(!hard||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&u.weaponCooldown<=1e-8&&this.time+Math.max(dt,SC2_UNITS[u.unitType].damagePoint,marching?CONTROL.movingWindup:0)+1e-8>=u.nextShotAt){
+   u.aimStartedAt??=this.time;const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType!=='tank')u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?4.8:CONTROL.infantryTurnRate)*dt);
    if(Math.abs(angleDelta(u.attackFacing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
-    u.weaponCooldown=(u.unitType==='hydralisk'&&this.edgeDistance(u,target)<=HYDRALISK_MELEE.range?HYDRALISK_MELEE.period*u.attackPeriod/SC2_UNITS.hydralisk.attackPeriod:u.attackPeriod)/stim/(u.slowUntil&&u.slowUntil>this.time?1-(u.slowFactor??0):1);u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
+    u.weaponCooldown=(u.unitType==='hydralisk'&&this.edgeDistance(u,target)<=HYDRALISK_MELEE.range?HYDRALISK_MELEE.period*u.attackPeriod/SC2_UNITS.hydralisk.attackPeriod:u.attackPeriod)/stim/(u.slowUntil&&u.slowUntil>this.time?1-(u.slowFactor??0):1);u.shotInterval=u.weaponCooldown;u.windup=Math.max(dt,data.damagePoint,marching?CONTROL.movingWindup:0);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
    // A committed firing turn must not be cancelled by formation steering in the same tick.
    u.velocity={x:0,z:0};u.action='idle';return;
   }
+  u.aimStartedAt=null;
   if(u.mode==='siege'){u.action='idle';u.velocity={x:0,z:0};return;}
   let goal:Point=u.owner==='terran'?this.moveGoal(u):(target??this.anchor);
-  const pursuit=focusBody??target;
-  const deploying=u.owner==='terran'&&u.unitType!=='medivac'&&pursuit&&(focusBody&&!(this.controllerCommand&&Math.hypot(this.input.x,this.input.z)>.01)||!hard&&this.anchorStoppedFor>.15&&distance(pursuit,this.anchor)<=u.attackRange+3);
-  if(deploying)goal=this.engagement.goal(u,pursuit!,this.movementAllies??this.allies(),this.anchor,this.time,this.mapHalf,this.obstacles,this.terrain,focusBody?.id);
+  const pursuit=target;
+  const deploying=u.owner==='terran'&&u.unitType!=='medivac'&&pursuit&&!marching&&!hard&&this.anchorStoppedFor>.15&&distance(pursuit,this.anchor)<=u.attackRange+3;
+  if(deploying)goal=this.engagement.goal(u,pursuit!,this.movementAllies??this.allies(),this.anchor,this.time,this.mapHalf,this.obstacles,this.terrain);
   if(u.owner==='zerg'&&u.guardianPod!==null){const p=this.pods.find(p=>p.id===u.guardianPod&&p.status==='active');if(p&&(!target||u.id%3!==0&&distance(u,target)>4))goal=p;}
   if(u.owner==='zerg'&&target&&this.edgeDistance(u,target)<=u.attackRange*.85)goal=u;
 
   // Hold a useful firing position while the anchor is still; do not turn back to the slot after every bullet.
-  if(u.owner==='terran'&&u.unitType!=='medivac'&&target&&!hard&&this.anchorStoppedFor>.1&&this.edgeDistance(u,target)<=u.attackRange&&this.hasAttackLine(u,target)&&(!deploying||distance(u,goal)<.65)){u.velocity={x:0,z:0};u.action='idle';return;}
+  if(u.owner==='terran'&&u.unitType!=='medivac'&&target&&!hard&&this.anchorStoppedFor>.1&&this.edgeDistance(u,target)<=u.attackRange&&this.hasAttackLine(u,target)&&(!deploying||distance(u,goal)<.22)){u.velocity={x:0,z:0};u.action='idle';return;}
   if(u.unitType==='medivac'){const patient=this.heal(u,dt);if(patient&&!hard){
    if(this.edgeDistance(u,patient)<=HEAL.range){if(this.anchorStoppedFor>.15){u.velocity.x=0;u.velocity.z=0;return;}}
    else if(this.anchorStoppedFor>.15&&!leash)goal=patient;
@@ -492,7 +497,7 @@ export class World extends RunState {
  stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.eliteId==='marine.1'?0:u.unitType==='marauder'?20:10;if(!u.heroId&&['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
  dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power);return true;}
  step(){if(this.phase!=='battle'||this.paused||this.requiresEliteChoice)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;
-  if(this.scheduledStage!==this.stage)this.prepareStage();const direction=this.updateCommand(dt),mag=Math.hypot(direction.x,direction.z);if(mag>.01){this.anchorMovingFor+=dt;this.anchorStoppedFor=0;}else {this.anchorStoppedFor+=dt;this.anchorMovingFor=0;}if(mag>.01){const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);this.anchor.facing=turn(this.anchor.facing,Math.atan2(direction.x,direction.z),5*dt);translate(this.anchor,{x:direction.x/Math.max(1,mag)*speed*dt,z:direction.z/Math.max(1,mag)*speed*dt},.8,false,this.obstacles,this.sandbox?TUNING.worldHalf:this.mapHalf,this.terrain);}
+  if(this.scheduledStage!==this.stage)this.prepareStage();const direction=this.updateCommand(dt),mag=Math.hypot(direction.x,direction.z);this.marchDirection={x:direction.x/Math.max(1,mag),z:direction.z/Math.max(1,mag)};if(mag>.01){this.anchorMovingFor+=dt;this.anchorStoppedFor=0;}else {this.anchorStoppedFor+=dt;this.anchorMovingFor=0;}if(mag>.01){const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);this.anchor.facing=turn(this.anchor.facing,Math.atan2(direction.x,direction.z),5*dt);translate(this.anchor,{x:direction.x/Math.max(1,mag)*speed*dt,z:direction.z/Math.max(1,mag)*speed*dt},.8,false,this.obstacles,this.sandbox?TUNING.worldHalf:this.mapHalf,this.terrain);}
   if(distance(this.anchor,this.trail.at(-1)!)>.8)this.trail.push({x:this.anchor.x,z:this.anchor.z});
   if(this.trail.length>1200){this.trail.splice(0,200);for(const u of this.entities.values())u.trailIndex=Math.max(0,u.trailIndex-200);}
   this.updateEconomy(dt);this.updateProduction(dt);this.updateBurns();this.deployPendingHeroes();
