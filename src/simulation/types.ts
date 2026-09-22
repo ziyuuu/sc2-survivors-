@@ -7,7 +7,7 @@ export interface Point {x:number;z:number}
 export type SquadOrder={kind:'move';point:Point;arrived:boolean;issuedAt:number}|{kind:'focus';targetId:number;issuedAt:number};
 export interface Body extends Point {id:number;hp:number;maxHp:number;armor:number;unitRadius:number;flying:boolean;attributes:string[];owner:'terran'|'zerg'}
 export interface Entity extends Body {
- eliteId?:EliteId;heroId?:HeroId;modelKey?:string;enemyTier?:'elite'|'boss';slowUntil?:number;slowFactor?:number;specialReady?:number;lastSkillAt?:number;siegeSince?:number;turnMultiplier?:number;healTargets?:number[];
+ eliteId?:EliteId;heroId?:HeroId;modelKey?:string;enemyTier?:'elite'|'boss';enemyName?:string;visualScale?:number;slowUntil?:number;slowFactor?:number;specialReady?:number;lastSkillAt?:number;siegeSince?:number;turnMultiplier?:number;healTargets?:number[];
  unitType:UnitType;rank:number;moveSpeed:number;attackRange:number;weaponDamage:number;weaponCooldown:number;attackPeriod:number;attackFacing:number;
  attackTarget:number|null;facing:number;velocity:Point;prev:Point;slot:number;trailIndex:number;
  action:'idle'|'move'|'attack'|'skill'|'heal'|'sieging'|'unsieging'|'dead'|'spawn';

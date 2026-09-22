@@ -29,7 +29,8 @@ export class BattleRenderer {
  renderer:THREE.WebGLRenderer;scene=new THREE.Scene();camera=new THREE.OrthographicCamera();
  batches=new Map<UnitType,UnitBatch>();gpu=new Map<string,AnimatedBatch>();
  private animationStates=new Map<number,{action:string;since:number;modeDuration:number}>();
- private corpses=new Map<number,{type:string;x:number;z:number;y:number;facing:number;at:number}>();
+ private enemyLabels=new Map<number,HTMLElement>();
+ private corpses=new Map<number,{scale:number;type:string;x:number;z:number;y:number;facing:number;at:number}>();
  private hitTimes=new Map<number,number>();private lastVisual=0;
  readonly fx:BattleEffects;quality:RenderQuality=loadQuality();
  loadedModels=0;modelErrors:string[]=[];loadedTextures=0;fps=0;frameMs=0;frameTimes:number[]=[];showGrid=false;showColliders=false;
@@ -110,7 +111,7 @@ export class BattleRenderer {
   resetUploadStats();this.cameraTarget.lerp(_vec.set(world.anchor.x,this.ground(world.anchor),world.anchor.z),1-Math.exp(-dt*6));this.camera.position.set(this.cameraTarget.x,34+this.cameraTarget.y,this.cameraTarget.z+26);this.camera.lookAt(this.cameraTarget);this.camera.updateMatrixWorld();this.terrainUpdate();this.anchor.position.set(world.anchor.x,this.ground(world.anchor)+.04,world.anchor.z);this.grid.visible=this.showGrid;
   const counts=new Map<UnitType,number>();let bars=0,line=0,ring=0,shadows=0;
   for(const [key,b] of this.gpu){b.setLod(ZERG.some(t=>key===t||key===t+'.death')&&(this.quality!=='native'||heights[key.split('.')[0] as UnitType]*this.canvas.clientHeight/(this.camera.top-this.camera.bottom)<28));b.begin();}
-  for(const event of world.visualEvents){if(event.serial<=this.lastVisual)continue;this.lastVisual=event.serial;if(event.kind==='hit')this.hitTimes.set(event.entityId,event.time);if(event.kind==='death'&&event.unitType)this.corpses.set(event.entityId,{type:event.unitType,x:event.x,z:event.z,y:event.flying?AIR_HEIGHT:this.ground(event),facing:event.facing,at:event.time});}
+  for(const event of world.visualEvents){if(event.serial<=this.lastVisual)continue;this.lastVisual=event.serial;if(event.kind==='hit')this.hitTimes.set(event.entityId,event.time);if(event.kind==='death'&&event.unitType)this.corpses.set(event.entityId,{scale:world.entities.get(event.entityId)?.visualScale??1,type:event.modelKey??event.unitType,x:event.x,z:event.z,y:event.flying?AIR_HEIGHT:this.ground(event),facing:event.facing,at:event.time});}
   const putLine=(a:Point,ay:number,b:Point,by:number,color:number)=>{if(line>=990)return;const offset=line*6;this.linePositions.set([a.x,ay,a.z,b.x,by,b.z],offset);_color.set(color);this.lineColors.set([_color.r,_color.g,_color.b,_color.r,_color.g,_color.b],offset);line++;};
   const putRing=(p:Point,r:number,color:number)=>{if(ring>=1400)return;this.rings.setMatrixAt(ring,this.matrix(p.x,this.ground(p)+.09,p.z,r,1,r));this.rings.setColorAt(ring++,_color.set(color));};
   const health=(b:Body,y:number)=>{if(bars>=400)return;const width=Math.max(.7,b.unitRadius*2),ratio=Math.max(0,b.hp/b.maxHp);this.healthBack.setMatrixAt(bars,this.matrix(b.x,y,b.z,width,1,1));this.health.setMatrixAt(bars,this.matrix(b.x-(1-ratio)*width/2,y+.015,b.z,width*ratio,1,1));this.health.setColorAt(bars++,_color.set(b.owner==='terran'?(ratio<.3?0xff7852:0x75ef95):0xd9573c));};
@@ -120,7 +121,7 @@ export class BattleRenderer {
    const x=u.prev.x+(u.x-u.prev.x)*alpha,z=u.prev.z+(u.z-u.prev.z)*alpha,y=u.flying?AIR_HEIGHT:this.ground({x,z});
    if(this.gpu.has(u.unitType)){
     const baseKey=u.modelKey??u.unitType;if(u.modelKey&&!this.gpu.has(baseKey)){void this.ensureUnitVariant(baseKey,u.unitType);continue;}
-    if(dying){if(!this.corpses.has(u.id))this.corpses.set(u.id,{type:baseKey,x,z,y,facing:u.facing,at:u.deadAt??world.time});continue;}
+    if(dying){if(!this.corpses.has(u.id))this.corpses.set(u.id,{scale:u.visualScale??1,type:baseKey,x,z,y,facing:u.facing,at:u.deadAt??world.time});continue;}
     let key:string=baseKey;if(u.unitType==='tank')key=baseKey+(u.action==='sieging'||u.action==='unsieging'?'.morph':u.mode==='siege'?'.siege':'');
     const model=this.gpu.get(key)??this.gpu.get(baseKey)!;let state=this.animationStates.get(u.id);const signature=key+':'+u.action;
     if(!state||state.action!==signature){state={action:signature,since:world.time,modeDuration:u.modeTimer};this.animationStates.set(u.id,state);}
@@ -132,19 +133,20 @@ export class BattleRenderer {
     // Small enemy silhouettes keep original 24 Hz poses; larger/friendly actors interpolate.
     const interpolate=u.owner==='terran'||heights[u.unitType]*this.canvas.clientHeight/(this.camera.top-this.camera.bottom)>=36;
     const shotAge=world.time-u.lastShotAt,displayAction=u.unitType==='marine'&&!u.heroId&&u.action==='attack'?'idle':u.action;
-    model.add(x,y,z,u.facing,displayAction,seconds,once,Math.max(0,1-(world.time-(this.hitTimes.get(u.id)??-100))/.12),1,interpolate,u.unitType==='marine'&&!u.heroId&&shotAge<.4?shotAge*1.4:-1,u.unitType==='tank'&&u.modeTimer<=0?u.attackFacing-u.facing:0);
+    model.add(x,y,z,u.facing,displayAction,seconds,once,Math.max(0,1-(world.time-(this.hitTimes.get(u.id)??-100))/.12),u.visualScale??1,interpolate,u.unitType==='marine'&&!u.heroId&&shotAge<.4?shotAge*1.4:-1,u.unitType==='tank'&&u.modeTimer<=0?u.attackFacing-u.facing:0,u.enemyTier==='boss'?2:u.enemyTier==='elite'?1:0);
    }else{
     _obj.position.set(x,y,z);_obj.rotation.set(dying?Math.PI/2*(1-death):u.unitType==='baneling'?u.distanceWalked*2:0,u.facing,0);_obj.scale.setScalar(Math.max(.01,death));_obj.updateMatrix();
     let mode=u.mode==='siege'?1:0;if(u.action==='sieging')mode=1-u.modeTimer/2.887;if(u.action==='unsieging')mode=u.modeTimer/2.53;
     const motion=[u.distanceWalked+u.id*.29,dying?0:Math.min(1,Math.hypot(u.velocity.x,u.velocity.z)/2),u.action==='attack'?Math.min(1,u.attackLock*5):0,Math.max(0,Math.min(1,mode))];
     batch.meshes.forEach((m,i)=>{m.setMatrixAt(index,_obj.matrix);batch.data[i].setXYZW(index,...motion as [number,number,number,number]);});
    }
+   if(!dying&&u.enemyTier)putRing(u,u.unitRadius+.15,u.enemyTier==='boss'?0xff972d:0xb664ff);
    if(!dying&&this.showColliders)putRing(u,u.unitRadius,u.flying?0x7ac7ff:u.owner==='terran'?0x82eeab:0xffa865);
-   if(!dying&&(u.owner==='terran'||u.hp<u.maxHp))health(u,y+heights[u.unitType]*TUNING.unitScale+.22);
+   if(!dying&&(u.owner==='terran'||u.hp<u.maxHp||!!u.enemyTier))health(u,y+heights[u.unitType]*TUNING.unitScale*(u.visualScale??1)+.22);
    for(const id of u.healTargets??(u.healTarget?[u.healTarget]:[])){const target=world.entities.get(id);if(target)putLine(u,AIR_HEIGHT-.2,target,this.ground(target)+.9,0x79ffb7);}
   }
   for(const [type,b] of this.batches){b.meshes.forEach((m,i)=>{const count=counts.get(type)??0;commitInstances(m,count);uploadActive(b.data[i],count);});}
-  for(const [id,c] of this.corpses){const model=this.gpu.get(c.type+'.death')??this.gpu.get(c.type);const age=world.time-c.at,life=Math.min(5,Math.max(1.5,model?.pose('dead')?.duration??1.5));if(age>life+.4){this.corpses.delete(id);continue;}if(model&&this.visible(c))model.add(c.x,c.y,c.z,c.facing,'dead',age,true,0,age>life?Math.max(.01,1-(age-life)/.4):1);}
+  for(const [id,c] of this.corpses){const model=this.gpu.get(c.type+'.death')??this.gpu.get(c.type);const age=world.time-c.at,life=Math.min(5,Math.max(1.5,model?.pose('dead')?.duration??1.5));if(age>life+.4){this.corpses.delete(id);continue;}if(model&&this.visible(c))model.add(c.x,c.y,c.z,c.facing,'dead',age,true,0,(age>life?Math.max(.01,1-(age-life)/.4):1)*c.scale);}
   for(const [id] of this.animationStates)if(!world.entities.has(id)){this.animationStates.delete(id);this.hitTimes.delete(id);}
   for(const [id,at] of this.hitTimes)if(world.time-at>.2)this.hitTimes.delete(id);
   for(const e of world.economicTargets.values()){if(!this.visible(e))continue;const age=world.time-(e.resolvedAt??world.time),model=this.gpu.get(e.kind);if(e.status==='active'){model?.add(e.x,this.ground(e),e.z,e.facing,e.kind==='drone'?'move':'idle',world.time*1.4);health(e,this.ground(e)+1.65);if(e.kind==='egg')putRing(e,1.1,0xe8be6e);}else if(e.kind==='egg'&&e.status==='rescued'&&age<3.8){this.gpu.get('scv')?.add(e.x,this.ground(e),e.z,e.facing,'idle',age*1.4,false,0,age>3.4?Math.max(.01,(3.8-age)/.4):1);putRing(e,1.1,0x8be8a5);}else if(age<1.5)model?.add(e.x,this.ground(e),e.z,e.facing,'dead',age,true,0,Math.max(.01,1-age/1.5));}
@@ -154,6 +156,10 @@ export class BattleRenderer {
   if(world.hive){if(!this.hiveView&&this.hiveTemplate){this.hiveView=clone(this.hiveTemplate);this.scene.add(this.hiveView);}if(this.hiveView){this.hiveView.position.set(world.hive.x,this.ground(world.hive),world.hive.z);this.hiveView.visible=world.hive.hp>0;}if(world.hive.hp>0)health(world.hive,this.ground(world.hive)+4);}
   for(const fx of world.effects){if(fx.kind==='bile'){putRing(fx.end,fx.radius+1,0xff7138);putRing(fx.end,Math.max(.15,(fx.until-world.time)/2.5*(fx.radius+1)),0xffda84);}else if(fx.kind==='hero-line')putLine(fx,this.ground(fx)+.7,fx.end,this.ground(fx.end)+.7,0xffcc78);else if(fx.kind==='explosion')putRing(fx.end,fx.radius*(1+(fx.until-world.time)),0xffbc59);}
 
+  for(const c of world.enemySpecials.casts){const color=0xff763d;if(c.kind==='bile')for(const p of c.points)putRing(p,c.radius,color);else {const a=c.angle,ends=c.kind==='fan'?Array.from({length:c.count},(_,i)=>a+(i-(c.count-1)/2)*.2):c.kind==='cone'?[a-.6,a+.6]:[a];for(const angle of ends){const end={x:c.origin.x+Math.sin(angle)*c.range,z:c.origin.z+Math.cos(angle)*c.range};putLine(c.origin,this.ground(c.origin)+.1,end,this.ground(end)+.1,color);}putRing(c.origin,.6,color);}}
+  for(const m of world.enemySpecials.missiles)putLine(m,this.ground(m)+.7,{x:m.x-Math.sin(m.angle)*.6,z:m.z-Math.cos(m.angle)*.6},this.ground(m)+.7,0xa2e87b);
+  for(const [id,el] of this.enemyLabels)if((world.entities.get(id)?.hp??0)<=0){el.remove();this.enemyLabels.delete(id);}
+  for(const u of world.entities.values())if(u.enemyTier&&u.hp>0){let el=this.enemyLabels.get(u.id);if(!el){el=document.createElement('div');el.className='enemy-special-label '+u.enemyTier;el.textContent=u.enemyName??'';this.enemyLabels.set(u.id,el);this.labelLayer.append(el);}el.hidden=!this.visible(u)||world.phase!=='battle';if(!el.hidden){_vec.set(u.x,this.ground(u)+heights[u.unitType]*(u.visualScale??1)+.6,u.z).project(this.camera);el.style.transform=`translate(${(_vec.x*.5+.5)*this.canvas.clientWidth}px,${(.5-_vec.y*.5)*this.canvas.clientHeight}px) translate(-50%,-100%)`;}}
   for(const cast of world.heroCasts){putRing(cast.point,cast.hero==='tychus'?2.5:.5,0xffc177);}
   if(world.phase==='battle'&&world.order){const order=world.order;
    if(order.kind==='move')putRing(order.point,.65+.08*Math.sin(world.time*7),0x84eea7);

@@ -73,3 +73,9 @@ export function drawRewards(w:RewardWorld,rng:()=>number,previous:string[]=[],ro
  }
  return priced;
 }
+
+/** Guaranteed unit reward; exhausted identities recycle once through the existing pickup path. */
+export function drawBossReward(w:RewardWorld,rng:()=>number):Reward {const orange=rng()<.2+.04*Math.min(5,w.upgrades.get('intelligence')??0),units=rewardPool(w).filter(r=>(r.kind==='elite'||r.kind==='hero')&&unlockedReward(w,r)),tier=units.filter(r=>r.kind===(orange?'hero':'elite')),pool=tier.length?tier:units;
+ if(pool.length)return pool[Math.floor(rng()*pool.length)];
+ return {...offer({id:'boss.exhausted',rarity:'purple',name:'精英补给回收',description:'全部单位奖励已培养完成，回收 250 矿与 100 气。',icon:'ui.minerals',kind:'elite',value:'marine.1',minerals:250,gas:100}),sold:true};
+}
