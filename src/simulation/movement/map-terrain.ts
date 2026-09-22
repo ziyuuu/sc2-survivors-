@@ -1,3 +1,4 @@
+import {terrainFireClear} from '../combat/terrain-fire';
 import type {Point,Body} from '../types';
 import type {MapDefinition,TerrainQuery} from '../../data/map-definition';
 import {AIR_HEIGHT} from '../../data/terrain';
@@ -20,13 +21,32 @@ export class MapTerrain implements TerrainQuery {
  canStep(a:Point,b:Point,r:number){return this.canOccupy(b,r)&&Math.abs(this.height(a)-this.height(b))<=distance(a,b)*1.15+.035;}
  walkLine(a:Point,b:Point,r:number){const n=Math.max(1,Math.ceil(distance(a,b)/.4));let old=a;for(let j=1;j<=n;j++){const p={x:a.x+(b.x-a.x)*j/n,z:a.z+(b.z-a.z)*j/n};if(!this.canStep(old,p,r))return false;old=p;}return true;}
  sameContactLayer(a:Point,b:Point){return Math.abs(this.height(a)-this.height(b))<.8;}
- lineOfFire(a:Point,b:Point,airA=false,airB=false,melee=false){if(airA&&airB)return true;if(melee)return this.walkLine(a,b,0);const n=Math.max(1,Math.ceil(distance(a,b)/.4)),h0=airA?AIR_HEIGHT:this.height(a)+.75,h1=airB?AIR_HEIGHT:this.height(b)+.75;for(let j=1;j<n;j++){const t=j/n,p={x:a.x+(b.x-a.x)*t,z:a.z+(b.z-a.z)*t};if(this.height(p)>h0+(h1-h0)*t+.03)return false;}return true;}
+ lineOfFire(a:Point,b:Point,airA=false,airB=false,melee=false){return melee?this.walkLine(a,b,0):terrainFireClear(p=>this.height(p),a,b,airA,airB,AIR_HEIGHT);}
  bodyHeight(b:Pick<Body,'x'|'z'|'flying'>){return b.flying?AIR_HEIGHT:this.height(b);}
  /** Radius-aware A* with shared cached routes. Direct unobstructed movement never runs a search. */
- routeGoal(a:Point,b:Point,r:number,_half:number):Point {if(this.walkLine(a,b,r))return b;const from=this.cell(a),to=this.cell(b),d=this.definition;if(from<0||to<0)return a;const bucket=Math.ceil(r*8)/8,key=this.stage+':'+Math.floor(from/d.walkWidth/6)+':'+Math.floor(from%d.walkWidth/6)+':'+to+':'+bucket;
-  let path=this.routes.get(key);if(!path){path=this.path(from,to,bucket);if(this.routes.size>=this.maxRoutes)this.routes.delete(this.routes.keys().next().value!);this.routes.set(key,path);}
-  for(let j=path.length-1;j>=0;j--)if(distance(a,path[j])>.15&&this.walkLine(a,path[j],r))return path[j];return a;
+ routeGoal(a:Point,b:Point,r:number,_half:number):Point {
+  if(this.walkLine(a,b,r))return b;
+  const from=this.cell(a),rawTo=this.cell(b),d=this.definition;if(from<0||rawTo<0)return a;
+  // Use the actual footprint; rounding the .9 anchor to 1.0 sealed valid passages.
+  const grid=this.valid(r);let to=rawTo;
+  if(!grid[to]||!this.walkLine(this.center(to),b,r)){
+   let closest=Infinity;to=-1;
+   for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){const x=rawTo%d.walkWidth+dx,y=Math.floor(rawTo/d.walkWidth)+dy,j=y*d.walkWidth+x;
+    if(x<0||y<0||x>=d.walkWidth||y>=d.walkHeight||!grid[j])continue;const q=this.center(j),v=distance(q,b);if(v<closest&&this.walkLine(q,b,r)){closest=v;to=j;}}
+   if(to<0)return a;
+  }
+  const key=this.stage+':'+Math.floor(from/d.walkWidth/6)+':'+Math.floor(from%d.walkWidth/6)+':'+to+':'+r;
+  let path=this.routes.get(key),fresh=false;
+  const remember=(route:Point[])=>{if(this.routes.size>=this.maxRoutes)this.routes.delete(this.routes.keys().next().value!);this.routes.set(key,route);return route;};
+  if(!path){path=remember(this.path(from,to,r));fresh=true;}
+  const visible=(route:Point[])=>{for(let j=route.length-1;j>=0;j--)if(distance(a,route[j])>.1&&this.walkLine(a,route[j],r))return route[j];return null;};
+  let goal=visible(path);
+  // A shared 3-unit start bucket can straddle a wall. Never inherit an unusable
+  // neighbour's cached route or cache its failed search as this unit's answer.
+  if(!goal&&!fresh)goal=visible(remember(this.path(from,to,r)));
+  return goal??a;
  }
+
  private valid(r:number){let grid=this.grids.get(r);if(!grid){grid=new Uint8Array(this.definition.walk.length);for(let i=0;i<grid.length;i++)grid[i]=this.canOccupy(this.center(i),r)?1:0;this.grids.set(r,grid);}return grid;}
  connectedLocations(origin:Point,r:number,space:number){const d=this.definition,W=d.walkWidth,valid=this.valid(r),start=this.cell(origin),seen=new Uint8Array(valid.length),queue=[start],result:Point[]=[];seen[start]=1;for(let n=0;n<queue.length;n++){const i=queue[n],x=i%W,y=Math.floor(i/W),p=this.center(i);if(x%4===0&&y%4===0&&this.canOccupy(p,space))result.push(p);for(const [dx,dy]of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy,j=ny*W+nx;if(nx<0||ny<0||nx>=W||ny>=d.walkHeight||seen[j]||!valid[j]||!this.canStep(p,this.center(j),r))continue;seen[j]=1;queue.push(j);}}return result;}
  private path(start:number,end:number,r:number):Point[]{const d=this.definition,W=d.walkWidth,N=d.walk.length;const prev=new Int32Array(N).fill(-1),g=new Float64Array(N).fill(Infinity),closed=new Uint8Array(N),valid=this.valid(r);const heap:{i:number;f:number}[]=[];const push=(i:number,f:number)=>{let n=heap.length;heap.push({i,f});while(n){const parent=(n-1)>>1;if(heap[parent].f<=f)break;heap[n]=heap[parent];n=parent;}heap[n]={i,f};};const pop=()=>{const first=heap[0],last=heap.pop()!;if(heap.length){let n=0;while(n*2+1<heap.length){let c=n*2+1;if(c+1<heap.length&&heap[c+1].f<heap[c].f)c++;if(heap[c].f>=last.f)break;heap[n]=heap[c];n=c;}heap[n]=last;}return first;};

@@ -35,6 +35,10 @@ export function steerGoal(a:Point,b:Point,r:number,obstacles:Obstacle[]=OBSTACLE
 export function translate(body:Point,delta:Point,r:number,flying=false,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf,terrain?:TerrainQuery){
  const nx=Math.max(-worldHalf+r,Math.min(worldHalf-r,body.x+delta.x));
  const nz=Math.max(-worldHalf+r,Math.min(worldHalf-r,body.z+delta.z));
+ // Try the intended vector first: splitting a diagonal ramp step into axes can
+ // reject both components at its shoulder although the complete step is legal.
+ const next={x:nx,z:nz};
+ if(flying||!blocked(next,r,obstacles)&&(!terrain||terrain.canStep(body,next,r))){body.x=nx;body.z=nz;return;}
  if(flying||!blocked({x:nx,z:body.z},r,obstacles)&&(!terrain||terrain.canStep(body,{x:nx,z:body.z},r)))body.x=nx;
  if(flying||!blocked({x:body.x,z:nz},r,obstacles)&&(!terrain||terrain.canStep(body,{x:body.x,z:nz},r)))body.z=nz;
 }

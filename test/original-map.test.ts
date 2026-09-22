@@ -5,3 +5,8 @@ test('map scale is explicit and bilinear original heights have shared world coor
 test('map routes go around blocked cells and cache without mutating positions',()=>{const d=fixture(),t=new MapTerrain(d),a={...d.start},b=d.hive;assert.equal(t.walkLine(a,b,.2),false);const next=t.routeGoal(a,b,.2,50);assert.ok(Math.hypot(next.x-a.x,next.z-a.z)>1);assert.ok(t.walkLine(a,next,.2));assert.deepEqual(a,d.start);const count=t.routes.size;assert.deepEqual(t.routeGoal(a,b,.2,50),next);assert.equal(t.routes.size,count);});
 test('locked sectors exclude complete body radius and expansion only opens cells',()=>{const d=fixture();d.opening=d.opening.map((_,i)=>i%40>=24?2:1);const t=new MapTerrain(d);assert.equal(t.canOccupy({x:13,z:10},.5),false);assert.equal(t.canOccupy({x:11.8,z:10},.5),false);t.setStage(2);assert.equal(t.canOccupy({x:13,z:10},.5),true);assert.equal(t.canOccupy({x:3,z:10},.5),true);});
 test('original map dependency list locks content and never substitutes HTML or unknown remote paths',()=>{const lock=JSON.parse(fs.readFileSync('tools/map-lock.json','utf8')),deps=JSON.parse(fs.readFileSync('tools/map-dependencies.json','utf8'));assert.equal(lock.worldUnitsPerSc2Unit,1);assert.match(lock.sha256,/^[0-9a-f]{64}$/);assert.ok(deps.length>400);for(const d of deps){assert.match(d.sha256,/^[0-9a-f]{64}$/);assert.ok(d.bytes>24);assert.match(d.installFile,/^assets\/private\/(m3|dds)\/[^/]+\.(m3|dds)$/);}});
+
+test('anchor paths use their actual .9 radius instead of sealing a valid narrow corridor at 1.0',()=>{
+ const d=fixture();d.clearance=d.walk.map(v=>v?1.05:0);const t=new MapTerrain(d),a={...d.start},b=d.hive;
+ const next=t.routeGoal(a,b,.9,50);assert.ok(Math.hypot(next.x-a.x,next.z-a.z)>.1);assert.ok(t.walkLine(a,next,.9));
+});

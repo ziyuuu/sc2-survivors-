@@ -1,3 +1,4 @@
+import {terrainFireClear} from '../simulation/combat/terrain-fire';
 import type {Point,Body} from '../simulation/types';
 export const CHAR_HEIGHT=3;
 export const AIR_HEIGHT=5.6;
@@ -20,7 +21,7 @@ export class CharTerrain {
  canStep(a:Point,b:Point,r:number){return this.canOccupy(b,r)&&Math.abs(this.height(a)-this.height(b))<=length(a,b)*.52+.02;}
  walkLine(a:Point,b:Point,r:number){if(this.flatHeight(a,b,r)>=0)return true;const n=Math.max(1,Math.ceil(length(a,b)/.4));let old=a;for(let i=1;i<=n;i++){const p={x:a.x+(b.x-a.x)*i/n,z:a.z+(b.z-a.z)*i/n};if(!this.canStep(old,p,r))return false;old=p;}return true;}
  sameContactLayer(a:Point,b:Point){return Math.abs(this.height(a)-this.height(b))<.8;}
- lineOfFire(a:Point,b:Point,airA=false,airB=false,melee=false){if(this.flatHeight(a,b)>=0||airA&&airB)return true;if(melee)return this.walkLine(a,b,0);const start=airA?AIR_HEIGHT:this.height(a)+.75,end=airB?AIR_HEIGHT:this.height(b)+.75,n=Math.max(1,Math.ceil(length(a,b)/.4));for(let i=1;i<n;i++){const t=i/n,p={x:a.x+(b.x-a.x)*t,z:a.z+(b.z-a.z)*t};if(this.height(p)>start+(end-start)*t+.03)return false;}return true;}
+ lineOfFire(a:Point,b:Point,airA=false,airB=false,melee=false){if(this.flatHeight(a,b)>=0)return true;return melee?this.walkLine(a,b,0):terrainFireClear(p=>this.height(p),a,b,airA,airB,AIR_HEIGHT);}
  bodyHeight(b:Pick<Body,'x'|'z'|'flying'>){return b.flying?AIR_HEIGHT:this.height(b);}
  /** Tiny region graph has three central-to-plateau edges. Cached portal chains, no grid A*. */
  routeGoal(a:Point,b:Point,r:number,half:number){if(this.walkLine(a,b,r))return b;const from=this.region(a),to=this.region(b),key=from+':'+to;let route=this.routes.get(key);
