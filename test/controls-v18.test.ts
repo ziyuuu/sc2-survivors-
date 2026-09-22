@@ -81,3 +81,7 @@ test('switching between moving and standing windups cannot shorten actual shot i
  for(let i=0;i<300;i++){w.input={x:i%40<20?1:0,z:0};e.x=u.x+4;e.z=u.z+1;w.step();if(u.lastShotAt!==previous&&previous>0)assert.ok(u.lastShotAt-previous>=u.attackPeriod-1e-8);previous=u.lastShotAt;}
  assert.ok(w.stats.shots>3);
 });
+
+test('friendly control tuning does not speed up enemy firing turns',()=>{
+ const w=setup(),e=w.addUnit('roach','zerg',3,0);e.facing=Math.PI/2;const before=e.facing;w.hash.rebuild(w.entities.values());w.updateUnit(e,1/60);assert.ok(Math.abs(e.facing-before)<=9/60+1e-8);assert.ok(Math.abs(e.facing-before)>.1);
+});

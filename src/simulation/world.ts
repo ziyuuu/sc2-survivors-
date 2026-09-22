@@ -386,7 +386,7 @@ export class World extends RunState {
   if(u.owner==='terran'&&this.order?.kind==='move'&&this.order.arrived&&distance(u,this.moveGoal(u))<.45+u.unitRadius*.5)this.movePending.delete(u.id);
   const marching=u.owner==='terran'&&Math.hypot(this.marchDirection.x,this.marchDirection.z)>.01&&u.mode!=='siege';
   if(u.windup>0){u.windup-=dt;u.velocity={x:0,z:0};u.action='attack';
-   const b=this.body(u.pendingTarget);if(b){const heading=Math.atan2(b.x-u.x,b.z-u.z);u.attackFacing=turn(u.attackFacing,heading,(u.unitType==='tank'?6:u.unitType==='hellion'?4.8:CONTROL.infantryTurnRate)*dt);if(u.unitType!=='tank')u.facing=u.attackFacing;}
+   const b=this.body(u.pendingTarget);if(b){const heading=Math.atan2(b.x-u.x,b.z-u.z);u.attackFacing=turn(u.attackFacing,heading,(u.unitType==='tank'?6:u.unitType==='hellion'?4.8:u.owner==='terran'?CONTROL.infantryTurnRate:9)*dt);if(u.unitType!=='tank')u.facing=u.attackFacing;}
    if(u.windup>1e-8)return;
    if(this.time+1e-8<u.nextShotAt){u.windup=u.nextShotAt-this.time;return;}
    if(b&&this.canFireAt(u,b,.5)){if(Math.abs(angleDelta(u.attackFacing,Math.atan2(b.x-u.x,b.z-u.z)))<.3)this.fire(u,b);else if(!marching||this.time-(u.aimStartedAt??this.time)<CONTROL.maxMovingAim){u.windup=dt;return;}}
@@ -403,7 +403,7 @@ export class World extends RunState {
   const marchingRearTarget=marching&&u.unitType==='hellion'&&target&&Math.abs(angleDelta(Math.atan2(this.marchDirection.x,this.marchDirection.z),Math.atan2(target.x-u.x,target.z-u.z)))>1.2;
   if(marching&&u.aimStartedAt!==null&&this.time-u.aimStartedAt>CONTROL.maxMovingAim){u.repositionUntil=this.time+CONTROL.repositionSeconds;u.aimStartedAt=null;}
   if(target&&this.canFireAt(u,target)&&!marchingRearTarget&&(!marching||this.time>=u.repositionUntil)&&(!hard||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&u.weaponCooldown<=1e-8&&this.time+Math.max(dt,SC2_UNITS[u.unitType].damagePoint,marching?CONTROL.movingWindup:0)+1e-8>=u.nextShotAt){
-   u.aimStartedAt??=this.time;const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType!=='tank')u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?4.8:CONTROL.infantryTurnRate)*dt);
+   u.aimStartedAt??=this.time;const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType!=='tank')u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?4.8:u.owner==='terran'?CONTROL.infantryTurnRate:9)*dt);
    if(Math.abs(angleDelta(u.attackFacing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
     u.weaponCooldown=(u.unitType==='hydralisk'&&this.edgeDistance(u,target)<=HYDRALISK_MELEE.range?HYDRALISK_MELEE.period*u.attackPeriod/SC2_UNITS.hydralisk.attackPeriod:u.attackPeriod)/stim/(u.slowUntil&&u.slowUntil>this.time?1-(u.slowFactor??0):1);u.shotInterval=u.weaponCooldown;u.windup=Math.max(dt,data.damagePoint,marching?CONTROL.movingWindup:0);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
    // A committed firing turn must not be cancelled by formation steering in the same tick.
