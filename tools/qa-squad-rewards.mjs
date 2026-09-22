@@ -2,7 +2,7 @@ import {chromium} from '@playwright/test';
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';
-const out='reports/local/qa-v13-squad-rewards';await fs.mkdir(out,{recursive:true});
+const out=process.env.SC2_REWARDS_OUT??'reports/local/qa-v13-squad-rewards';await fs.mkdir(out,{recursive:true});
 const report={at:new Date().toISOString(),method:'Actual DOM mouse/touch actions in desktop Chrome, with explicit isolated World fixtures for reward/repair/deployment regressions. No bot victory, physical phone, physical gamepad or human visual approval.',errors:[],viewports:[]};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 async function boot(p,url='http://127.0.0.1:5173/'){p.on('pageerror',e=>report.errors.push(e.message));p.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});await p.goto(url);await p.waitForFunction(()=>window.__SC2_REPORT__?.().assetsReady,null,{timeout:150000});await p.getByRole('button',{name:/部署小队/}).click();}

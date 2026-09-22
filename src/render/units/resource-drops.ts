@@ -1,3 +1,4 @@
+import {commitInstances} from './instance-updates';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {assetUrl} from '../../assets/manifest';
@@ -14,5 +15,5 @@ export class ResourceDrops {
   const size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=(type==='large'?1.05:.58)/Math.max(size.x,size.z,.01);const meshes=parts.map(({mesh,geometry})=>{geometry.translate(-center.x,-box.min.y,-center.z);geometry.scale(scale,scale,scale);geometry.computeBoundingSphere();const batch=new THREE.InstancedMesh(geometry,mesh.material,1000);batch.count=0;batch.frustumCulled=false;batch.instanceMatrix.setUsage(THREE.DynamicDrawUsage);this.scene.add(batch);return batch;});this.batches.set(type,meshes);
  }catch(e){this.errors.push(type+': '+String(e));}}}
  render(pickups:Pickup[],ground:(p:Point)=>number,visible:(p:Point)=>boolean){const counts=new Map<string,number>();this.visible=0;for(const p of pickups){if(!visible(p))continue;for(const type of [p.minerals>0?(p.minerals>=20?'large':'mineral'):null,p.gas>0?'gas':null]){if(!type)continue;const n=counts.get(type)??0;if(n>=1000)continue;const mixed=p.minerals>0&&p.gas>0;this.object.position.set(p.x+(mixed?(type==='gas'?.3:-.3):0),ground(p)+.025,p.z);this.object.rotation.set(0,(p.id*2.399)%6.283,0);this.object.updateMatrix();for(const b of this.batches.get(type)??[])b.setMatrixAt(n,this.object.matrix);counts.set(type,n+1);this.visible++;}}
- for(const [type,meshes] of this.batches)for(const b of meshes){b.count=counts.get(type)??0;b.instanceMatrix.needsUpdate=true;}}
+ for(const [type,meshes] of this.batches)for(const b of meshes){commitInstances(b,counts.get(type)??0);}}
 }

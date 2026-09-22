@@ -1,3 +1,4 @@
+import {commitInstances,uploadActive} from '../units/instance-updates';
 import * as THREE from 'three';
 import {ASSETS,assetUrl} from '../../assets/manifest';
 import type {World} from '../../simulation/world';
@@ -60,6 +61,6 @@ export class BattleEffects {
    if(p.ground)object.rotation.set(-Math.PI/2,0,p.angle);else{object.quaternion.copy(camera.quaternion);rotation.setFromAxisAngle(axis,p.angle);object.quaternion.multiply(rotation);}object.updateMatrix();
    b.mesh.setMatrixAt(b.count,object.matrix);b.mesh.setColorAt(b.count,color.set(p.color));b.data.setXY(b.count,Math.min(b.end,b.start+Math.floor(t*(b.end-b.start+1))),Math.min(1,(1-t)*2));b.count++;
   }this.particles.length=kept;this.stats.active=kept;
-  for(const b of this.batches.values()){b.mesh.count=b.count;b.mesh.visible=b.count>0;b.mesh.instanceMatrix.needsUpdate=true;b.data.needsUpdate=true;if(b.mesh.instanceColor)b.mesh.instanceColor.needsUpdate=true;}
+  for(const b of this.batches.values()){commitInstances(b.mesh,b.count);uploadActive(b.data,b.count);}
  }
 }

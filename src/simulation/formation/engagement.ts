@@ -6,8 +6,8 @@ import {distance,blocked,clearLine} from '../movement/steering';
  * traffic. Fire readiness is independent of arriving at a slot; siege bodies never use this. */
 export class EngagementSlots {
  private cache=new Map<number,{until:number;target:Point;ids:string;goals:Map<number,Point>}>();
- goal(u:Entity,target:Body,allies:Entity[],anchor:Point,time:number,half:number,obstacles:Obstacle[],terrain?:TerrainQuery):Point {
-  const peers=allies.filter(a=>a.unitType!=='medivac'&&a.mode!=='siege'&&a.modeTimer<=0&&(a.id===u.id||a.attackTarget===target.id));
+ goal(u:Entity,target:Body,allies:Entity[],anchor:Point,time:number,half:number,obstacles:Obstacle[],terrain?:TerrainQuery,commandTarget?:number):Point {
+  const peers=allies.filter(a=>a.hp>0&&a.unitType!=='medivac'&&a.mode!=='siege'&&a.modeTimer<=0&&(commandTarget===target.id||a.id===u.id||a.attackTarget===target.id));
   if(peers.length<2){if(distance(u,target)<=u.attackRange+u.unitRadius+target.unitRadius&&(!terrain||terrain.lineOfFire(u,target)))return u;return target;}
   let entry=this.cache.get(target.id);const ids=peers.map(a=>a.id).join(',');
   if(!entry||entry.until<=time||entry.ids!==ids||distance(entry.target,target)>1){

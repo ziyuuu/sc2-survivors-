@@ -1,3 +1,4 @@
+import {commitInstances,uploadActive} from './instance-updates';
 import * as THREE from 'three';
 import {MeshoptSimplifier} from 'meshoptimizer';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
@@ -100,5 +101,5 @@ export class AnimatedBatch {
   object.position.set(x,y,z);object.rotation.set(0,facing,0);object.scale.setScalar(shrink);object.updateMatrix();
   this.meshes.forEach((m,i)=>{m.setMatrixAt(this.count,object.matrix);this.aimAttributes[i].setXY(this.count,Math.sin(turretYaw),Math.cos(turretYaw));this.attributes[i].setXYZW(this.count,p.offset+a,p.offset+b,interpolate?frame-a:0,hit);this.blendAttributes[i].setXYZW(this.count,(attack?.offset??0)+sa,(attack?.offset??0)+sb,shot-sa,weight);});this.count++;
  }
- end(){this.meshes.forEach((m,i)=>{m.count=this.count;m.visible=this.count>0;m.instanceMatrix.needsUpdate=true;this.attributes[i].needsUpdate=true;this.blendAttributes[i].needsUpdate=true;this.aimAttributes[i].needsUpdate=true;});}
+ end(){this.meshes.forEach((m,i)=>{commitInstances(m,this.count);uploadActive(this.attributes[i],this.count);uploadActive(this.blendAttributes[i],this.count);uploadActive(this.aimAttributes[i],this.count);});}
 }

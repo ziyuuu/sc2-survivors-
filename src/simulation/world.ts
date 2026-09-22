@@ -41,6 +41,7 @@ export class World {
  private readonly contacts=new ContactSolver();
  private readonly formation=new SquadFormation();
  private readonly engagement=new EngagementSlots();
+ private movementAllies:Entity[]|null=null;private formationPlanned=false;
  private configStage=0;private configDifficulty:Difficulty|null=null;private stageData!:ReturnType<typeof stageConfig>;
  private detours=new Map<number,{body:number;first:Point;second:Point;phase:number;forward:Point}>();
  private navigation=new Map<number,{goal:Point;requested:Point;until:number;stalled:boolean}>();
@@ -71,7 +72,7 @@ export class World {
   if(this.order?.kind==='focus'&&this.order.targetId===targetId)return true;
   if(!this.commandPoint(target)&&!this.allies().some(u=>this.canFireAt(u,target))){this.announce('目标无法到达');return false;}
   this.resetCommand();this.order={kind:'focus',targetId,issuedAt:this.time};
-  for(const u of this.allies()){if(u.windup>0)u.pendingTarget=this.canFireAt(u,target)?target.id:null;}
+  for(const u of this.allies()){if(u.windup>0&&this.canFireAt(u,target))u.pendingTarget=target.id;}
   this.changed();return true;
  }
  controllerTargetReachable(target:Body){return target.hp>0&&target.owner==='zerg'&&Math.abs(target.x)<this.mapHalf&&Math.abs(target.z)<this.mapHalf&&this.commandPoint(target)!==null;}
@@ -115,7 +116,7 @@ export class World {
  allies(){return [...this.entities.values()].filter(u=>u.owner==='terran'&&u.hp>0);}
  enemyCount(){let n=0;for(const u of this.entities.values())if(u.owner==='zerg'&&u.hp>0)n++;return n;}
  addUnit(unitType:UnitType,owner:'terran'|'zerg',x:number,z:number,rank=1){
-  const d=SC2_UNITS[unitType];const occupied=new Set(this.allies().filter(a=>a.unitType===unitType).map(a=>a.slot));let slot=0;while(occupied.has(slot))slot++;
+  const d=SC2_UNITS[unitType];const occupied=new Set(owner==='terran'?this.allies().filter(a=>a.unitType===unitType).map(a=>a.slot):[]);let slot=0;while(occupied.has(slot))slot++;
   const u:Entity={id:this.nextId++,unitType,owner,x,z,prev:{x,z},
    hp:d.maxHp,maxHp:d.maxHp,armor:d.armor,moveSpeed:d.movementSpeed,attackRange:d.attackRange,weaponDamage:d.attackDamage,weaponCooldown:0,attackPeriod:d.attackPeriod,attackFacing:Math.PI/2,
    attackTarget:null,facing:Math.PI/2,velocity:{x:0,z:0},unitRadius:d.unitRadius*TUNING.unitScale,rank,attributes:[...d.attributes],flying:d.flying,
@@ -215,15 +216,20 @@ export class World {
  edgeDistance(a:Body,b:Body){return Math.max(0,distance(a,b)-a.unitRadius-b.unitRadius);}
  hasAttackLine(u:Entity,b:Body){return !this.terrain||this.terrain.lineOfFire(u,b,u.flying,b.flying,u.attackRange<1);}
  canFireAt(u:Entity,b:Body,tolerance=0){const d=this.edgeDistance(u,b);return u.unitType!=='medivac'&&this.targetAllowed(u,b)&&d<=u.attackRange+tolerance&&d>=(u.mode==='siege'?SIEGE.minRange:0)&&this.hasAttackLine(u,b);}
- findTarget(u:Entity,range:number){let best:Body|undefined,score=Infinity;
-  this.hash.query(u,range+2,b=>{if(!this.targetAllowed(u,b)||!this.hasAttackLine(u,b))return;let s=distance(u,b);if(u.owner==='terran'){// Stable combat targeting: finish a wounded threat and keep a useful lock.
-    if(u.mode==='siege'&&this.edgeDistance(u,b)<SIEGE.minRange)return;
+ findTarget(u:Entity,range:number,defenseOnly=false){let best:Body|undefined,score=Infinity;
+  this.hash.query(u,range+2,b=>{
+   if(!this.targetAllowed(u,b)||defenseOnly&&this.economicTargets.has(b.id))return;
+   let s=distance(u,b);const edge=Math.max(0,s-u.unitRadius-b.unitRadius),inRange=edge<=u.attackRange&&edge>=(u.mode==='siege'?SIEGE.minRange:0);
+   if(defenseOnly&&!inRange)return;
+   if(u.owner==='terran'){
+    if(u.mode==='siege'&&edge<SIEGE.minRange)return;
     s+=b.hp/Math.max(1,b.maxHp)*1.5;if(b.id===u.attackTarget)s-=.8;if(this.economicTargets.has(b.id))s+=100;
-    // A wounded but unreachable target must not monopolize a ready weapon.
-    if(!this.canFireAt(u,b))s+=30;
-    if(this.order?.kind==='move')s+=Math.min(12,distance(b,this.order.point))*.5;}
+    if(!inRange||u.unitType==='medivac')s+=30;
+    if(this.order?.kind==='move')s+=Math.min(12,distance(b,this.order.point))*.5;
+   }
    if(u.guardianPod&&b.id===u.guardianPod)s-=u.id%3===0?0:8;
-   if(s<score){score=s;best=b;}
+   // Expensive terrain sampling only matters when this candidate can beat the current choice.
+   if(s<score&&this.hasAttackLine(u,b)){score=s;best=b;}
   },u.owner==='terran'?'zerg':'terran');return best;
  }
  hit(target:Body,damage:number,bonuses:{attribute:string;amount:number}[]=[],hits=1,sourceOwner:'terran'|'zerg'='terran'){
@@ -266,16 +272,26 @@ export class World {
   if(u.mode!==u.desiredMode){u.action=u.desiredMode==='siege'?'sieging':'unsieging';u.modeTimer=(u.desiredMode==='siege'?SIEGE.deploySeconds:SIEGE.undeploySeconds)*(this.upgrades.has('siege')?.8:1);u.velocity={x:0,z:0};u.windup=0;u.pendingTarget=null;return true;}
   return false;
  }
- heal(u:Entity,dt:number){u.energy=Math.min(u.maxEnergy,u.energy+u.energyRegen*dt);u.healTarget=null;
-  let best:Entity|undefined;this.hash.query(u,14,b=>{if(b.owner==='terran'&&b.hp>0&&b.hp<b.maxHp&&b.id!==u.id&&(b.attributes.includes('Biological')||this.upgrades.has('mechanicalHeal')&&b.attributes.includes('Mechanical')&&!b.attributes.includes('Structure'))){const e=this.entities.get(b.id);if(e&&(!best||e.hp/e.maxHp<best.hp/best.maxHp))best=e;}},'terran');
-  if(best&&u.energy>0){const healed=healBiological(u,best,{...HEAL,hpPerSecond:u.healRate,allowMechanical:this.upgrades.has('mechanicalHeal')},dt,this.edgeDistance(u,best));if(healed>0){u.healTarget=best.id;u.action='heal';this.stats.healed+=healed;}return best;}return undefined;
+ heal(u:Entity,dt:number){u.energy=Math.min(u.maxEnergy,u.energy+u.energyRegen*dt);const previous=u.healTarget;u.healTarget=null;
+  let best:Entity|undefined,score=Infinity;const mechanical=this.upgrades.has('mechanicalHeal');
+  this.hash.query(u,14,b=>{
+   if(b.owner!=='terran'||b.hp<=0||b.hp>=b.maxHp||b.id===u.id||!b.attributes.includes('Biological')&&!(mechanical&&b.attributes.includes('Mechanical')&&!b.attributes.includes('Structure')))return;
+   const e=this.entities.get(b.id);if(!e)return;
+   // A treatable patient wins over a distant one. Keep a beam stable for small HP differences,
+   // while substantially more critical patients can still take priority.
+   const value=(this.edgeDistance(u,b)<=HEAL.range?0:2)+b.hp/b.maxHp;
+   const priority=value-(b.id===previous ? .12 : 0);
+   if(priority<score){best=e;score=priority;}
+  },'terran');
+  if(best&&u.energy>0){const healed=healBiological(u,best,{...HEAL,hpPerSecond:u.healRate,allowMechanical:mechanical},dt,this.edgeDistance(u,best));if(healed>0){u.healTarget=best.id;u.action='heal';this.stats.healed+=healed;}}
+  return best;
  }
  updateBile(u:Entity,dt:number){u.bileCooldown-=dt;if(u.bileCooldown>0)return;const target=this.findTarget(u,BILE.range);
-  if(target&&this.edgeDistance(u,target)<=BILE.range){this.effect('bile',u,target,BILE.radius,BILE.delay);u.bileCooldown=BILE.cooldown;}
+  if(target&&this.edgeDistance(u,target)<=BILE.range){this.effect('bile',u,target,BILE.radius,BILE.delay);u.bileCooldown=BILE.cooldown;}else u.bileCooldown=.12;
  }
  moveGoal(u:Entity){
   u.trailIndex=this.trail.length-1;
-  this.formation.plan(this.allies(),this.anchor,this.time,this.mapHalf,this.obstacles,this.terrain);
+  if(!this.movementAllies||!this.formationPlanned){this.formation.plan(this.movementAllies??this.allies(),this.anchor,this.time,this.mapHalf,this.obstacles,this.terrain);this.formationPlanned=true;}
   return this.formation.goal(u);
  }
  private avoidStationaryBodies(u:Entity,goal:Point):Point {
@@ -303,14 +319,15 @@ export class World {
   return u;
  }
  separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(n>=12)return false;if(b.id===u.id||b.flying!==u.flying)return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min){if(!u.flying&&this.terrain&&!this.terrain.sameContactLayer(u,b))return;const strength=Math.min(3,(min-d)*5);if(d>.001){v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;}else{const a=(Math.min(u.id,b.id)*7+Math.max(u.id,b.id)*13)*2.399,sign=u.id<b.id?1:-1;v.x+=Math.sin(a)*strength*sign;v.z+=Math.cos(a)*strength*sign;}n++;}});return v;}
- updateUnit(u:Entity,dt:number){if(u.hp<=0)return;u.prev={x:u.x,z:u.z};u.healTarget=null;
+ updateUnit(u:Entity,dt:number){if(u.hp<=0)return;u.prev.x=u.x;u.prev.z=u.z;if(u.unitType!=='medivac')u.healTarget=null;
   u.weaponCooldown=Math.max(0,u.weaponCooldown-dt);u.attackLock=Math.max(0,u.attackLock-dt);
   const anchorDistance=distance(u,this.anchor);
   if(this.updateTank(u,anchorDistance,dt))return;
   if(u.unitType==='ravager')this.updateBile(u,dt);
   if(u.owner==='terran'&&this.order?.kind==='move'&&this.order.arrived&&distance(u,this.moveGoal(u))<.45+u.unitRadius*.5)this.movePending.delete(u.id);
-  const focusBody=u.owner==='terran'&&u.unitType!=='medivac'&&this.order?.kind==='focus'?this.body(this.order.targetId):undefined;
-  const focused=focusBody&&this.targetAllowed(u,focusBody)&&(this.canFireAt(u,focusBody)||u.mode!=='siege')?focusBody:undefined;
+  const requested=u.owner==='terran'&&u.unitType!=='medivac'&&this.order?.kind==='focus'?this.body(this.order.targetId):undefined;
+  const focusBody=requested&&this.targetAllowed(u,requested)?requested:undefined;
+  const focused=focusBody&&this.canFireAt(u,focusBody)?focusBody:undefined;
   if(u.windup>0){u.windup-=dt;u.velocity={x:0,z:0};u.action='attack';
    if(focusBody&&this.canFireAt(u,focusBody))u.pendingTarget=focusBody.id;
    const b=this.body(u.pendingTarget);if(b){const heading=Math.atan2(b.x-u.x,b.z-u.z);u.attackFacing=turn(u.attackFacing,heading,(u.unitType==='tank'?6:u.unitType==='hellion'?4.8:u.unitType==='marine'?24:9)*dt);if(u.unitType!=='tank')u.facing=u.attackFacing;}
@@ -319,7 +336,9 @@ export class World {
    u.pendingTarget=null;u.windup=0;u.attackLock=0;if(u.hp<=0)return;}
   if(u.unitType==='medivac')u.attackTarget=null;
   else if(focused)u.attackTarget=focused.id;
-  else if(this.time>=u.thinkAt||!this.body(u.attackTarget)?.hp){u.attackTarget=this.findTarget(u,u.owner==='terran'?u.attackRange+2:16)?.id??null;u.thinkAt=this.time+.12+(u.id%5)*.012;}
+  else if(this.time>=u.thinkAt||u.attackTarget!==null&&(!(this.body(u.attackTarget)?.hp)||focusBody?.id===u.attackTarget)){
+   u.attackTarget=this.findTarget(u,u.owner==='terran'?u.attackRange+2:16,!!focusBody)?.id??null;u.thinkAt=this.time+.12+(u.id%5)*.012;
+  }
   let target=this.body(u.attackTarget);if(target&&!this.targetAllowed(u,target))target=undefined;
   if(u.owner==='terran'&&this.order?.kind==='move'&&this.order.arrived&&anchorDistance<=TUNING.softLeash&&target&&this.canFireAt(u,target))this.movePending.delete(u.id);
   const leash=anchorDistance>TUNING.softLeash,hard=anchorDistance>TUNING.hardLeash;
@@ -335,14 +354,26 @@ export class World {
   }
   if(u.mode==='siege'){u.action='idle';u.velocity={x:0,z:0};return;}
   let goal:Point=u.owner==='terran'?this.moveGoal(u):(target??this.anchor);
-  const deploying=u.owner==='terran'&&u.unitType!=='medivac'&&target&&(focused&&!(this.controllerCommand&&Math.hypot(this.input.x,this.input.z)>.01)||!hard&&this.anchorStoppedFor>.15&&distance(target,this.anchor)<=u.attackRange+3);
-  if(deploying)goal=this.engagement.goal(u,target!,this.allies(),this.anchor,this.time,this.mapHalf,this.obstacles,this.terrain);
+  const pursuit=focusBody??target;
+  const deploying=u.owner==='terran'&&u.unitType!=='medivac'&&pursuit&&(focusBody&&!(this.controllerCommand&&Math.hypot(this.input.x,this.input.z)>.01)||!hard&&this.anchorStoppedFor>.15&&distance(pursuit,this.anchor)<=u.attackRange+3);
+  if(deploying)goal=this.engagement.goal(u,pursuit!,this.movementAllies??this.allies(),this.anchor,this.time,this.mapHalf,this.obstacles,this.terrain,focusBody?.id);
   if(u.owner==='zerg'&&u.guardianPod!==null){const p=this.pods.find(p=>p.id===u.guardianPod&&p.status==='active');if(p&&(!target||u.id%3!==0&&distance(u,target)>4))goal=p;}
   if(u.owner==='zerg'&&target&&this.edgeDistance(u,target)<=u.attackRange*.85)goal=u;
 
   // Hold a useful firing position while the anchor is still; do not turn back to the slot after every bullet.
-  if(u.owner==='terran'&&u.unitType!=='medivac'&&target&&!hard&&this.anchorStoppedFor>.1&&this.hasAttackLine(u,target)&&this.edgeDistance(u,target)<=u.attackRange&&(!deploying||distance(u,goal)<.65)){u.velocity={x:0,z:0};u.action='idle';return;}
-  if(u.unitType==='medivac'){const patient=this.heal(u,dt);if(patient&&!hard){if(this.edgeDistance(u,patient)<=HEAL.range){u.velocity={x:0,z:0};return;}goal=patient;}}
+  if(u.owner==='terran'&&u.unitType!=='medivac'&&target&&!hard&&this.anchorStoppedFor>.1&&this.edgeDistance(u,target)<=u.attackRange&&this.hasAttackLine(u,target)&&(!deploying||distance(u,goal)<.65)){u.velocity={x:0,z:0};u.action='idle';return;}
+  if(u.unitType==='medivac'){const patient=this.heal(u,dt);if(patient&&!hard){
+   if(this.edgeDistance(u,patient)<=HEAL.range){if(this.anchorStoppedFor>.15){u.velocity.x=0;u.velocity.z=0;return;}}
+   else if(this.anchorStoppedFor>.15&&!leash)goal=patient;
+  }}
+  // Marching intent wins over a rear formation slot: do not reverse just to reform a row.
+  // A short forward shoulder stays close to the anchor and must be directly traversable.
+  if(u.owner==='terran'&&!deploying&&this.anchorMovingFor>0){
+   const sx=Math.sin(this.anchor.facing),sz=Math.cos(this.anchor.facing),dx=goal.x-u.x,dz=goal.z-u.z;
+   if(dx*sx+dz*sz<-.15){const forward=Math.min(1.5,Math.max(0,(this.anchor.x-u.x)*sx+(this.anchor.z-u.z)*sz+.8)),side=Math.max(-.6,Math.min(.6,dx*sz-dz*sx)),march={x:u.x+sx*forward+sz*side,z:u.z+sz*forward-sx*side};
+    if(Math.abs(march.x)+u.unitRadius<this.mapHalf&&Math.abs(march.z)+u.unitRadius<this.mapHalf&&(u.flying||clearLine(u,march,u.unitRadius,this.obstacles,this.terrain)))goal=march;
+   }
+  }
   let speed=u.moveSpeed*(u.stimUntil>this.time?1.5:1);
   if(u.owner==='terran'&&hard)speed*=TUNING.catchUp;
   if(u.owner==='zerg'){const stage=STAGES[this.stage-1];speed*=stage.speed;if(u.unitType==='baneling'&&this.stage>=9)speed*=1.3;}
@@ -407,7 +438,9 @@ export class World {
   if(!this.sandbox)while(this.eventPlan[this.nextEvent]?.at<=this.stageElapsed){this.spawnEconomic(this.eventPlan[this.nextEvent++].kind);}
   if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.ambientBacklog.length)this.releaseAmbient();
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active')];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);
+  this.movementAllies=this.allies();this.formationPlanned=false;
   for(const u of this.entities.values())this.updateUnit(u,dt);
+  this.movementAllies=null;
   this.collisionContacts=this.contacts.resolve(this.entities.values(),this.hash,this.obstacles,this.mapHalf,dt,this.hive,this.terrain);
   for(const fx of this.effects){if(fx.kind==='bile'&&fx.until<=this.time){this.visual('bile-impact',{...fx.end,id:fx.source,hp:0,maxHp:0,armor:0,flying:false,unitRadius:0,owner:'zerg',attributes:[]});this.hash.query(fx.end,3,b=>{if(b.hp>0&&distance(b,fx.end)<=BILE.radius+b.unitRadius)this.hit(b,BILE.damage+b.armor,[],1,'zerg');});}}
   this.effects=this.effects.filter(f=>f.until>this.time);
