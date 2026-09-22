@@ -7,7 +7,7 @@ export class GamepadInput {
  constructor(readonly world:World,readonly visible:(b:Body)=>boolean,readonly pause:()=>void,readonly onActive:()=>void){try{const saved=JSON.parse(localStorage.getItem('sc2.gamepads.v1')??'{}');for(const [k,v] of Object.entries(saved))if(validMapping(v))this.mappings[k]=v;}catch{}
   this.dialog.id='gamepad-calibration';this.dialog.hidden=true;document.body.append(this.dialog);
   window.addEventListener('blur',()=>this.suspend());window.addEventListener('gamepaddisconnected',e=>{if(e.gamepad.index===this.index)this.suspend();this.armed.delete(e.gamepad.index);this.states.delete(e.gamepad.index);});
-  document.addEventListener('pointerdown',()=>this.direct());document.addEventListener('keydown',e=>{if(e.code==='Escape'&&this.calibrating){this.closeCalibration();return;}this.direct();});
+  document.addEventListener('pointerdown',()=>this.direct(),true);document.addEventListener('keydown',e=>{if(e.code==='Escape'&&this.calibrating){this.closeCalibration();return;}this.direct();});
   document.addEventListener('click',e=>{if((e.target as HTMLElement).closest('[data-action="controller"]'))this.openCalibration();});
   this.dialog.addEventListener('click',e=>{if((e.target as HTMLElement).closest('button'))this.closeCalibration();});
  }

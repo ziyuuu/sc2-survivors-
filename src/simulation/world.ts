@@ -16,7 +16,7 @@ export class World {
  time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'lost'='menu';paused=false;
  entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<number,Building>();upgrades=new Map<string,number>();
  wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
- controllerCommand=false;order:SquadOrder|null=null;private movePending=new Set<number>();
+ controllerCommand=false;order:SquadOrder|null=null;private movePending=new Set<number>();private holdPositions=new Map<number,Point>();
  private commandRoute:{requested:Point;goal:Point;until:number}|null=null;
  trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];hash=new SpatialHash<Body>();
  visualEvents:VisualEvent[]=[];private visualSerial=0;
@@ -49,8 +49,8 @@ export class World {
  get mapHalf(){return this.terrain?.definition?Math.max(this.terrain.definition.width,this.terrain.definition.height):this.sandbox?TUNING.worldHalf:this.config.width/2;}
  get duration(){return this.config.durationSeconds;}
  /** Whole-squad commands are simulation intent; picking and feedback live in the renderer. */
- cancelOrder(){this.order=null;this.movePending.clear();this.commandRoute=null;}
- private resetCommand(){this.cancelOrder();this.navigation.clear();this.detours.clear();for(const u of this.allies()){u.windup=0;u.attackLock=0;u.pendingTarget=null;u.attackTarget=null;u.thinkAt=0;}this.input={x:0,z:0};}
+ cancelOrder(){this.order=null;this.movePending.clear();this.holdPositions.clear();this.commandRoute=null;}
+ private resetCommand(){this.cancelOrder();this.navigation.clear();this.detours.clear();for(const u of this.allies()){u.attackTarget=null;u.thinkAt=0;}this.input={x:0,z:0};}
  private commandPoint(point:Point):Point|null {
   const radius=.9,half=this.mapHalf;
   if(!Number.isFinite(point.x)||!Number.isFinite(point.z)||Math.abs(point.x)>=half||Math.abs(point.z)>=half)return null;
@@ -62,19 +62,22 @@ export class World {
  issueMove(point:Point){if(this.phase!=='battle'||this.paused)return false;const goal=this.commandPoint(point);if(!goal){this.announce('该位置无法通行');return false;}
   this.resetCommand();this.order={kind:'move',point:goal,arrived:false,issuedAt:this.time};for(const u of this.allies())this.movePending.add(u.id);this.changed();return true;
  }
- issueFocus(targetId:number){if(this.phase!=='battle'||this.paused)return false;const target=this.body(targetId);if(!target||target.owner!=='zerg'||target.hp<=0)return false;
-  if(this.order?.kind==='focus'&&this.order.targetId===targetId)return true;
-  const goal=this.commandPoint(target);if(!goal){this.announce('目标无法到达');return false;}
-  this.resetCommand();this.order={kind:'focus',targetId,issuedAt:this.time};this.changed();return true;
+ issueFocus(targetId:number,hold=false){if(this.phase!=='battle'||this.paused)return false;const target=this.body(targetId);if(!target||target.owner!=='zerg'||target.hp<=0)return false;
+  if(this.order?.kind==='focus'&&this.order.targetId===targetId&&this.order.hold===hold)return true;
+  if(!hold&&!this.commandPoint(target)&&!this.allies().some(u=>this.canFireAt(u,target))){this.announce('目标无法到达');return false;}
+  this.resetCommand();this.order={kind:'focus',targetId,hold,issuedAt:this.time};
+  for(const u of this.allies()){if(hold)this.holdPositions.set(u.id,{x:u.x,z:u.z});if(u.windup>0)u.pendingTarget=this.canFireAt(u,target)?target.id:null;}
+  this.changed();return true;
  }
  controllerTargetReachable(target:Body){return target.hp>0&&target.owner==='zerg'&&Math.abs(target.x)<this.mapHalf&&Math.abs(target.z)<this.mapHalf&&this.commandPoint(target)!==null;}
- setControllerFocus(id:number){const b=this.body(id);if(!b||!this.controllerTargetReachable(b))return false;this.controllerCommand=true;if(this.order?.kind==='focus'&&this.order.targetId===id)return true;this.order={kind:'focus',targetId:id,issuedAt:this.time};this.movePending.clear();this.commandRoute=null;return true;}
+ setControllerFocus(id:number){const b=this.body(id);if(!b||!this.controllerTargetReachable(b))return false;this.controllerCommand=true;if(this.order?.kind==='focus'&&this.order.targetId===id)return true;this.order={kind:'focus',targetId:id,hold:false,issuedAt:this.time};this.movePending.clear();this.holdPositions.clear();this.commandRoute=null;return true;}
  private updateCommand(dt:number):Point {
   if(Math.hypot(this.input.x,this.input.z)>.01){if(this.order&&!(this.controllerCommand&&this.order.kind==='focus'))this.cancelOrder();return this.input;}
   const order=this.order;if(!order)return this.input;
   let goal:Point;
   if(order.kind==='focus'){
    const target=this.body(order.targetId);if(!target||target.hp<=0||target.owner!=='zerg'){this.cancelOrder();return {x:0,z:0};}
+   if(order.hold)return {x:0,z:0};
    // Stop the command anchor outside contact range, but never below an intervening cliff.
    if(distance(this.anchor,target)<3&&(!this.terrain||this.terrain.lineOfFire(this.anchor,target)))return {x:0,z:0};
    goal=target;
@@ -197,9 +200,14 @@ export class World {
  targetAllowed(u:Entity,b:Body){return b.hp>0&&b.owner!==u.owner&&(!b.flying||SC2_UNITS[u.unitType].targetType==='both');}
  edgeDistance(a:Body,b:Body){return Math.max(0,distance(a,b)-a.unitRadius-b.unitRadius);}
  hasAttackLine(u:Entity,b:Body){return !this.terrain||this.terrain.lineOfFire(u,b,u.flying,b.flying,u.attackRange<1);}
+ canFireAt(u:Entity,b:Body,tolerance=0){const d=this.edgeDistance(u,b);return u.unitType!=='medivac'&&this.targetAllowed(u,b)&&this.hasAttackLine(u,b)&&d<=u.attackRange+tolerance&&d>=(u.mode==='siege'?SIEGE.minRange:0);}
  findTarget(u:Entity,range:number){let best:Body|undefined,score=Infinity;
   this.hash.query(u,range+2,b=>{if(!this.targetAllowed(u,b)||!this.hasAttackLine(u,b))return;let s=distance(u,b);if(u.owner==='terran'){// Stable combat targeting: finish a wounded threat and keep a useful lock.
-    s+=b.hp/Math.max(1,b.maxHp)*1.5;if(b.id===u.attackTarget)s-=.8;if(this.economicTargets.has(b.id))s+=100;}
+    if(u.mode==='siege'&&this.edgeDistance(u,b)<SIEGE.minRange)return;
+    s+=b.hp/Math.max(1,b.maxHp)*1.5;if(b.id===u.attackTarget)s-=.8;if(this.economicTargets.has(b.id))s+=100;
+    // A wounded but unreachable target must not monopolize a ready weapon.
+    if(!this.canFireAt(u,b))s+=30;
+    if(this.order?.kind==='move')s+=Math.min(12,distance(b,this.order.point))*.5;}
    if(u.guardianPod&&b.id===u.guardianPod)s-=u.id%3===0?0:8;
    if(s<score){score=s;best=b;}
   },u.owner==='terran'?'zerg':'terran');return best;
@@ -288,19 +296,25 @@ export class World {
   if(this.updateTank(u,anchorDistance,dt))return;
   if(u.unitType==='ravager')this.updateBile(u,dt);
   if(u.owner==='terran'&&this.order?.kind==='move'&&this.order.arrived&&distance(u,this.moveGoal(u))<.45+u.unitRadius*.5)this.movePending.delete(u.id);
-  const movingOrder=u.owner==='terran'&&this.order?.kind==='move'&&this.movePending.has(u.id)&&u.mode!=='siege';
+  const holding=u.owner==='terran'&&this.order?.kind==='focus'&&this.order.hold;
   const focusBody=u.owner==='terran'&&u.unitType!=='medivac'&&this.order?.kind==='focus'?this.body(this.order.targetId):undefined;
-  const focused=focusBody&&this.targetAllowed(u,focusBody)?focusBody:undefined;
-  if(u.windup>0){u.windup-=dt;u.velocity={x:0,z:0};u.action='attack';if(u.windup>1e-8)return;const b=this.body(u.pendingTarget);if(b&&this.edgeDistance(u,b)<=u.attackRange+.5)this.fire(u,b);u.pendingTarget=null;u.windup=0;u.attackLock=0;if(u.hp<=0)return;}
-  if(focused)u.attackTarget=focused.id;
-  else if(movingOrder)u.attackTarget=null;
+  const focused=focusBody&&this.targetAllowed(u,focusBody)&&(this.canFireAt(u,focusBody)||!holding&&u.mode!=='siege')?focusBody:undefined;
+  if(u.windup>0){u.windup-=dt;u.velocity={x:0,z:0};u.action='attack';
+   if(focusBody&&this.canFireAt(u,focusBody))u.pendingTarget=focusBody.id;
+   const b=this.body(u.pendingTarget);if(b){const heading=Math.atan2(b.x-u.x,b.z-u.z);u.attackFacing=turn(u.attackFacing,heading,(u.unitType==='tank'?6:u.unitType==='hellion'?4.8:u.unitType==='marine'?24:9)*dt);if(u.unitType!=='tank')u.facing=u.attackFacing;}
+   if(u.windup>1e-8)return;
+   if(b&&this.canFireAt(u,b,.5)){if(Math.abs(angleDelta(u.attackFacing,Math.atan2(b.x-u.x,b.z-u.z)))>=.3){u.windup=dt;return;}this.fire(u,b);}
+   u.pendingTarget=null;u.windup=0;u.attackLock=0;if(u.hp<=0)return;}
+  if(u.unitType==='medivac')u.attackTarget=null;
+  else if(focused)u.attackTarget=focused.id;
   else if(this.time>=u.thinkAt||!this.body(u.attackTarget)?.hp){u.attackTarget=this.findTarget(u,u.owner==='terran'?u.attackRange+2:16)?.id??null;u.thinkAt=this.time+.12+(u.id%5)*.012;}
   let target=this.body(u.attackTarget);if(target&&!this.targetAllowed(u,target))target=undefined;
+  if(u.owner==='terran'&&this.order?.kind==='move'&&this.order.arrived&&anchorDistance<=TUNING.softLeash&&target&&this.canFireAt(u,target))this.movePending.delete(u.id);
   const leash=anchorDistance>TUNING.softLeash,hard=anchorDistance>TUNING.hardLeash;
   const closeDefense=target&&this.edgeDistance(u,target)<=2.5;
   if(u.unitType==='tank'&&target)u.attackFacing=turn(u.attackFacing,Math.atan2(target.x-u.x,target.z-u.z),6*dt);
   const marchingRearTarget=!focused&&u.unitType==='hellion'&&u.owner==='terran'&&this.anchorMovingFor>.2&&target&&Math.abs(angleDelta(u.facing,Math.atan2(target.x-u.x,target.z-u.z)))>1.2;
-  if(target&&this.hasAttackLine(u,target)&&!marchingRearTarget&&u.unitType!=='medivac'&&(!hard||!!focused||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&this.edgeDistance(u,target)<=u.attackRange&&this.edgeDistance(u,target)>=(u.mode==='siege'?SIEGE.minRange:0)&&u.weaponCooldown<=1e-8){
+  if(target&&this.canFireAt(u,target)&&!marchingRearTarget&&(!hard||holding||!!focused||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&u.weaponCooldown<=1e-8){
    const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType!=='tank')u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?4.8:u.unitType==='marine'?24:9)*dt);
    if(Math.abs(angleDelta(u.attackFacing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
     u.weaponCooldown=u.attackPeriod/stim;u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
@@ -308,15 +322,14 @@ export class World {
    u.velocity={x:0,z:0};u.action='idle';return;
   }
   if(u.mode==='siege'){u.action='idle';u.velocity={x:0,z:0};return;}
-  let goal:Point=u.owner==='terran'?this.moveGoal(u):(target??this.anchor);
-  if(focused&&!(this.controllerCommand&&Math.hypot(this.input.x,this.input.z)>.01)){goal=focused;if(this.hasAttackLine(u,focused)&&this.edgeDistance(u,focused)<=u.attackRange){u.velocity={x:0,z:0};u.action='idle';return;}}
+  let goal:Point=u.owner==='terran'?(holding?this.holdPositions.get(u.id)??this.moveGoal(u):this.moveGoal(u)):(target??this.anchor);
+  if(!holding&&focused&&!(this.controllerCommand&&Math.hypot(this.input.x,this.input.z)>.01)){goal=focused;if(this.hasAttackLine(u,focused)&&this.edgeDistance(u,focused)<=u.attackRange){u.velocity={x:0,z:0};u.action='idle';return;}}
   if(u.owner==='zerg'&&u.guardianPod!==null){const p=this.pods.find(p=>p.id===u.guardianPod&&p.status==='active');if(p&&(!target||u.id%3!==0&&distance(u,target)>4))goal=p;}
   if(u.owner==='zerg'&&target&&this.edgeDistance(u,target)<=u.attackRange*.85)goal=u;
-  if(u.owner==='terran'&&!leash&&target&&!this.economicTargets.has(target.id)&&this.anchorStoppedFor>.15&&distance(target,this.anchor)<=u.attackRange+3&&this.edgeDistance(u,target)>u.attackRange)goal=target;
+  if(u.owner==='terran'&&!holding&&!leash&&target&&this.anchorStoppedFor>.15&&distance(target,this.anchor)<=u.attackRange+3&&this.edgeDistance(u,target)>u.attackRange)goal=target;
   // Hold a useful firing position while the anchor is still; do not turn back to the slot after every bullet.
   if(u.owner==='terran'&&u.unitType!=='medivac'&&target&&!hard&&this.anchorStoppedFor>.1&&this.hasAttackLine(u,target)&&this.edgeDistance(u,target)<=u.attackRange){u.velocity={x:0,z:0};u.action='idle';return;}
-  if(u.unitType==='medivac'&&movingOrder)u.energy=Math.min(u.maxEnergy,u.energy+u.energyRegen*dt);
-  if(u.unitType==='medivac'&&!movingOrder){const patient=this.heal(u,dt);if(patient&&!hard){if(this.edgeDistance(u,patient)<=HEAL.range){u.velocity={x:0,z:0};return;}goal=patient;}}
+  if(u.unitType==='medivac'){const patient=this.heal(u,dt);if(patient&&!hard){if(this.edgeDistance(u,patient)<=HEAL.range){u.velocity={x:0,z:0};return;}goal=patient;}}
   let speed=u.moveSpeed*(u.stimUntil>this.time?1.5:1);
   if(u.owner==='terran'&&hard)speed*=TUNING.catchUp;
   if(u.owner==='zerg'){const stage=STAGES[this.stage-1];speed*=stage.speed;if(u.unitType==='baneling'&&this.stage>=9)speed*=1.3;}
