@@ -1,3 +1,4 @@
+import type {EliteId} from '../data/elites';
 import type {Rarity} from '../data/rewards';
 import type {UnitType,TerranType,ZergType} from '../data/sc2-units';
 import type {BuildingType} from '../data/game';
@@ -5,6 +6,7 @@ export interface Point {x:number;z:number}
 export type SquadOrder={kind:'move';point:Point;arrived:boolean;issuedAt:number}|{kind:'focus';targetId:number;issuedAt:number};
 export interface Body extends Point {id:number;hp:number;maxHp:number;armor:number;unitRadius:number;flying:boolean;attributes:string[];owner:'terran'|'zerg'}
 export interface Entity extends Body {
+ eliteId?:EliteId;heroId?:string;modelKey?:string;enemyTier?:'elite'|'boss';slowUntil?:number;slowFactor?:number;specialReady?:number;siegeSince?:number;turnMultiplier?:number;healTargets?:number[];
  unitType:UnitType;rank:number;moveSpeed:number;attackRange:number;weaponDamage:number;weaponCooldown:number;attackPeriod:number;attackFacing:number;
  attackTarget:number|null;facing:number;velocity:Point;prev:Point;slot:number;trailIndex:number;
  action:'idle'|'move'|'attack'|'heal'|'sieging'|'unsieging'|'dead'|'spawn';
@@ -20,7 +22,7 @@ export interface Building {id:number;type:BuildingType;remaining:number;queue:Jo
 export interface Effect extends Point {id:number;kind:'shot'|'flame'|'explosion'|'bile'|'heal';end:Point;until:number;radius:number;owner:'terran'|'zerg';source:number}
 export interface Pickup extends Point {id:number;minerals:number;gas:number}
 /** Presentation never consumes gameplay IDs or random numbers. */
-export interface VisualEvent extends Point {serial:number;time:number;y:number;endY:number;kind:'attack'|'hit'|'death'|'bile-impact'|'pod-land'|'pod-open'|'pod-destroy'|'scv-rescue'|'egg-expired'|'drone-death';unitType:UnitType|null;entityId:number;flying:boolean;end:Point;facing:number;siege:boolean}
-export interface Reward {id:string;offerId:string;sold:boolean;name:string;description:string;icon:string;rarity:Rarity;rank?:3|5;strength?:number;kind:'build'|'research'|'train'|'veteran'|'buff'|'tech'|'upgrade'|'economy';value:string;minerals:number;gas:number;discount:number;baseMinerals:number;baseGas:number}
+export interface VisualEvent extends Point {modelKey?:string;serial:number;time:number;y:number;endY:number;kind:'attack'|'hit'|'death'|'bile-impact'|'pod-land'|'pod-open'|'pod-destroy'|'scv-rescue'|'egg-expired'|'drone-death';unitType:UnitType|null;entityId:number;flying:boolean;end:Point;facing:number;siege:boolean}
+export interface Reward {id:string;offerId:string;sold:boolean;name:string;description:string;icon:string;rarity:Rarity;rank?:3|5;strength?:number;kind:'elite'|'intelligence'|'build'|'research'|'train'|'veteran'|'buff'|'tech'|'upgrade'|'economy';value:string;minerals:number;gas:number;discount:number;baseMinerals:number;baseGas:number}
 
 export interface RewardDrop extends Point {id:number;reward:Reward}

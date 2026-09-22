@@ -25,13 +25,14 @@ $handler=[CASCLib.CASCHandler]::OpenStorage($config,$null)
 $handler.Root.LoadListFile('',$null)
 $null=$handler.Root.SetFlags([CASCLib.LocaleFlags]::All,$false,$false,$true)
 $modules=@('mods/void.sc2mod','mods/swarm.sc2mod','mods/liberty.sc2mod','mods/core.sc2mod','mods/starcoop/starcoop.sc2mod','mods/novastoryassets.sc2mod','mods/libertystory.sc2mod','mods/swarmstory.sc2mod','mods/voidstory.sc2mod','mods/war3.sc2mod')
+$catalogPaths=@([CASCLib.CASCFile]::Files.Values | ForEach-Object { $_.FullName.Replace('\','/') })
 function FetchOriginal([string]$id,[string]$assetPath,[string]$file){
  $destination=LocalPath $file
  $old=$previous | Where-Object installFile -eq $file | Select-Object -First 1
  if($old -and (Test-Path -LiteralPath $destination) -and (Get-FileHash -LiteralPath $destination).Hash.ToLowerInvariant() -eq $old.sha256){$records.Add($old);return ,([IO.File]::ReadAllBytes($destination))}
  if($VerifyOnly){$missing.Add(@{id=$id;assetPath=$assetPath;installFile=$file;reason='Missing pinned bytes'});return $null}
- foreach($module in $modules){
-  $path=$module+'/base.sc2assets/'+$assetPath
+ $candidates=@($modules | ForEach-Object { $_+'/base.sc2assets/'+$assetPath })+@($catalogPaths | Where-Object { $_.EndsWith('/'+$assetPath,[StringComparison]::OrdinalIgnoreCase) })
+ foreach($path in ($candidates | Select-Object -Unique)){
   if(-not $handler.FileExists($path)){continue}
   try {
    $stream=$handler.OpenFile($path);if(-not $stream){continue}
@@ -56,7 +57,7 @@ foreach($model in $models){
  $bytes=FetchOriginal $model.id $model.assetPath ('assets/private/m3/'+$model.name+'.m3')
  if($bytes){foreach($match in [regex]::Matches([Text.Encoding]::ASCII.GetString($bytes),'(?i)(?:[a-z0-9_ .-]+)\.dds')){$null=$textures.Add($match.Value.Trim().ToLowerInvariant())}}
 }
-foreach($name in @('btn-unit-terran-marauder','btn-unit-zerg-hydralisk','ui_portrait_raynor_hero','ui_portrait_tychus_hero','ui_portrait_nova_hero','btn-ability-terran-raynorplasmagun','btn-ability-terran-tychustossgrenade','btn-ability-neutral-snipenova')){$null=$textures.Add($name+'.dds')}
+foreach($name in @('btn-unit-terran-marauder','btn-unit-zerg-hydralisk','btn-unit-terran-marineraynorhev','btn-unit-terran-marinetychus','btn-unit-terran-nova','btn-ability-terran-penetratorround','btn-ability-terran-punishergrenade-color','btn-ability-terran-snipe-color')){$null=$textures.Add($name+'.dds')}
 foreach($name in $textures){$null=FetchOriginal ('texture.'+$name) ('Assets/Textures/'+$name) ('assets/private/dds/'+$name)}
 $records | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (LocalPath 'tools/expansion-dependencies.json') -Encoding utf8
 $missing | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (LocalPath 'reports/local/expansion-missing.json') -Encoding utf8

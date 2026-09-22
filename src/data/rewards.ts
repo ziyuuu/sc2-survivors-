@@ -8,9 +8,10 @@ export const RARITIES={
  orange:{name:'传说',color:'#ffb35c',weight:1,mapWeight:.2},
 } as const;
 export const MAP_REWARDS={combatChance:.02,droneChance:.08};
-export function rollRarity(rng:()=>number,map=false):Rarity {
- let roll=rng()*100;for(const [id,data] of Object.entries(RARITIES)){roll-=map?data.mapWeight:data.weight;if(roll<0)return id as Rarity;}return 'orange';
-}
+export type RewardSource='shop'|'map'|'elite';
+export function rarityWeights(source:RewardSource,level=0):Record<Rarity,number>{const factor=1+.2*Math.max(0,Math.min(5,level)),base=source==='elite'?{white:40,green:25,blue:20,purple:12,orange:3}:Object.fromEntries(Object.entries(RARITIES).map(([id,d])=>[id,source==='map'?d.mapWeight:d.weight])) as Record<Rarity,number>;
+ const out={...base};for(const tier of ['blue','purple','orange'] as const){out[tier]=base[tier]*factor;out.white-=out[tier]-base[tier];}return out;}
+export function rollRarity(rng:()=>number,map:boolean|'elite'=false,level=0):Rarity {let roll=rng()*100;for(const [id,weight] of Object.entries(rarityWeights(map==='elite'?'elite':map?'map':'shop',level))){roll-=weight;if(roll<0)return id as Rarity;}return 'orange';}
 export const BUFFS={
  weapon:{name:'武器强化',icon:'tech.attack',values:[.10,.20,.35,.60]},
  vitality:{name:'强化装甲',icon:'tech.shield',values:[.12,.25,.45,.75]},

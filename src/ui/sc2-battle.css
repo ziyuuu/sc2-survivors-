@@ -34,3 +34,5 @@
 .reward-card{border-top:3px solid var(--rarity,#c6d1d9)}.reward-card .card-number{color:var(--rarity)}.reward-card:not(:disabled):hover,.reward-card:focus-visible{border-color:var(--rarity)}
 
 .loot-world-label{position:absolute;left:0;top:0;display:flex;align-items:center;gap:5px;padding:4px 7px;border:1px solid var(--rarity);background:#07131ae8;color:var(--rarity);font-size:10px;white-space:nowrap;pointer-events:none;box-shadow:0 0 12px color-mix(in srgb,var(--rarity) 30%,transparent)}.loot-world-label[hidden]{display:none}.loot-world-label img{width:25px;height:25px;object-fit:contain}
+
+.elite-soldier{color:#d29cff!important;border-color:#b980ea!important;text-shadow:0 0 5px #a862e6}

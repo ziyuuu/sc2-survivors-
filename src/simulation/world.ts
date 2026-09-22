@@ -1,3 +1,4 @@
+import {ELITES,eliteStats,type EliteId} from '../data/elites';
 import {MAP_REWARDS} from '../data/rewards';
 import type {TerrainQuery} from '../data/map-definition';
 import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,BILE,HYDRALISK_MELEE,type UnitType,type TerranType,type ZergType} from '../data/sc2-units';
@@ -66,10 +67,10 @@ export class World {
    if(distance(this.anchor,p)<.15||distance(this.anchor,steerGoal(this.anchor,p,radius,this.obstacles,this.terrain,half))>.01)return p;
   }return null;
  }
- issueMove(point:Point){if(this.phase!=='battle'||this.paused)return false;const goal=this.commandPoint(point);if(!goal){this.announce('该位置无法通行');return false;}
+ issueMove(point:Point){if(this.phase!=='battle'||this.paused||this.requiresEliteChoice)return false;const goal=this.commandPoint(point);if(!goal){this.announce('该位置无法通行');return false;}
   this.resetCommand();this.order={kind:'move',point:goal,arrived:false,issuedAt:this.time};for(const u of this.allies())this.movePending.add(u.id);this.changed();return true;
  }
- issueFocus(targetId:number){if(this.phase!=='battle'||this.paused)return false;const target=this.body(targetId);if(!target||target.owner!=='zerg'||target.hp<=0)return false;
+ issueFocus(targetId:number){if(this.phase!=='battle'||this.paused||this.requiresEliteChoice)return false;const target=this.body(targetId);if(!target||target.owner!=='zerg'||target.hp<=0)return false;
   if(this.order?.kind==='focus'&&this.order.targetId===targetId)return true;
   if(!this.commandPoint(target)&&!this.allies().some(u=>this.canFireAt(u,target))){this.announce('目标无法到达');return false;}
   this.resetCommand();this.order={kind:'focus',targetId,issuedAt:this.time};
@@ -126,7 +127,8 @@ export class World {
    guardianPod:null,stimUntil:0,deadAt:null,bornAt:this.time,thinkAt:0,distanceWalked:0};
   this.refreshStats(u,true);if(owner==='zerg'&&!this.sandbox){if(unitType==='zergling')u.hp=u.maxHp=this.config.lingHp;if(unitType==='roach'&&this.stage>=8)u.armor++;if(unitType==='baneling'&&this.stage>=9)u.hp=u.maxHp=35;}this.entities.set(u.id,u);if(owner==='terran'&&this.order?.kind==='move')this.movePending.add(u.id);return u;
  }
- refreshStats(u:Entity,fill=false){const d=SC2_UNITS[u.unitType];const old=u.maxHp,r=rankStats(u.owner==='terran'?u.rank:1);
+ growth(u:Entity){return u.eliteId?eliteStats(u.eliteId,u.rank):{...rankStats(u.owner==='terran'?u.rank:1),movement:1};}
+ refreshStats(u:Entity,fill=false){const d=SC2_UNITS[u.unitType];const old=u.maxHp,r=this.growth(u);u.moveSpeed=d.movementSpeed*r.movement;u.turnMultiplier=u.eliteId==='hellion.1'?1.2:1;
   u.maxHp=(d.maxHp+(u.unitType==='marine'&&this.upgrades.has('shield')?10:0))*r.health*(u.owner==='terran'?1+(this.upgrades.get('buff.vitality')??0):1);
   u.hp=fill?u.maxHp:Math.min(u.maxHp,u.hp+Math.max(0,u.maxHp-old));
   const upgrade=['marine','marauder'].includes(u.unitType)?(this.upgrades.get('infantry')??0):['hellion','tank'].includes(u.unitType)?(this.upgrades.get('vehicle')??0)*(u.unitType==='tank'?2:1):0;
@@ -135,21 +137,38 @@ export class World {
   if(u.owner==='terran')u.armor=d.armor+r.armor;u.maxEnergy=HEAL.maxEnergy*r.energy;u.energyRegen=HEAL.regen*r.energy*(this.upgrades.has('medivac')?2:1);u.healRate=HEAL.hpPerSecond*r.healing*(1+(this.upgrades.get('buff.recovery')??0));
  }
  weaponFactor(u:Entity){return u.owner==='terran'?1+(this.upgrades.get('buff.weapon')??0):1;}
+ pendingElites:EliteId[]=[];
+ private burns=new Map<string,{target:number;source:number;damage:number;next:number;until:number}>();
+ eliteOwned(id:EliteId){return this.allies().find(u=>u.eliteId===id);}
+ canAcquireElite(id:EliteId){const owned=this.eliteOwned(id);return !this.pendingElites.includes(id)&&(owned?owned.rank<5:this.ordinaryUnits(ELITES[id].family).length>0||[...this.buildings.values()].some(b=>this.buildingCanTrain(b,ELITES[id].family)));}
+ eliteCandidates(id:EliteId){return this.ordinaryUnits(ELITES[id].family).filter(u=>this.ordinaryCapacity(ELITES[id].family)-(5-u.rank)>=this.reservedRanks(ELITES[id].family));}
+ get eliteChoice(){return this.pendingElites.find(id=>this.eliteCandidates(id).length>0);}
+ get requiresEliteChoice(){return !!this.eliteChoice;}
+ acquireElite(id:EliteId){if(!this.canAcquireElite(id))return false;const owned=this.eliteOwned(id);if(owned){owned.rank++;this.refreshStats(owned);}else {this.pendingElites.push(id);this.announce(ELITES[id].name+' · 选择替换队员；已付费增援优先保留');}this.changed();return true;}
+ replaceWithElite(id:EliteId,targetId:number){if(!this.pendingElites.includes(id)||!this.eliteCandidates(id).some(u=>u.id===targetId))return false;const u=this.entities.get(targetId)!;u.eliteId=id;u.rank=1;u.modelKey=ELITES[id].model;u.specialReady=this.time+15;this.refreshStats(u);this.pendingElites=this.pendingElites.filter(e=>e!==id);this.changed();return true;}
+ private attackHit(u:Entity,target:Body,damage:number,bonuses:{attribute:string;amount:number}[],hits=1){const factor=u.eliteId==='marine.2'&&target.attributes.includes('Armored')?1.25:1,before=target.hp;this.hit(target,damage*factor,bonuses.map(b=>({...b,amount:b.amount*factor})),hits,u.owner);
+  const e=this.entities.get(target.id);if(e&&e.hp>0&&u.eliteId==='marauder.1'){e.slowUntil=this.time+1.5;e.slowFactor=e.enemyTier==='boss'?.15:.3;}
+  if(e&&e.hp>0&&u.eliteId==='hellion.2'){const key=u.id+':'+target.id,old=this.burns.get(key);this.burns.set(key,{source:u.id,target:target.id,damage:(before-target.hp)*.2,next:old?.next??this.time+1,until:this.time+3});}
+  if(u.eliteId==='marauder.2'&&this.time>=(u.specialReady??0)&&target.hp>0){u.specialReady=this.time+15;this.hit(target,damage*3,bonuses.map(b=>({...b,amount:b.amount*3})),hits,u.owner);this.effect('explosion',u,target,.6,.35);}
+ }
+ private updateBurns(){for(const [key,b] of this.burns){const target=this.entities.get(b.target);if(!target||target.hp<=0){this.burns.delete(key);continue;}while(b.next<=this.time+1e-8&&b.next<=b.until+1e-8){this.hit(target,b.damage+target.armor,[],1,'terran',0);b.next+=1;}if(this.time>=b.until)this.burns.delete(key);}}
+ private updateElite(u:Entity,dt:number){if(u.eliteId==='marine.1'&&u.stimUntil>this.time)u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.01*dt);if(u.eliteId==='tank.1'){if(u.mode==='siege'&&u.modeTimer<=0){u.siegeSince??=this.time;u.attackRange=SIEGE.range+Math.min(3,Math.floor((this.time-u.siegeSince)/3));}else {u.siegeSince=undefined;u.attackRange=u.mode==='siege'?SIEGE.range:SC2_UNITS.tank.attackRange;}}}
  activeBatches(){return [...new Map([...this.buildings.values()].flatMap(b=>b.queue).map(j=>[j.id,j])).values()];}
  private reservedRanks(type:TerranType){return this.activeBatches().filter(j=>j.unitType===type).reduce((n,j)=>n+j.quantity,0)+this.pods.filter(p=>p.unitType===type&&['falling','active','opening'].includes(p.status)).reduce((n,p)=>n+p.passengers.filter(c=>c.status==='waiting').length,0)+this.extraDeliveries.filter(t=>t===type).length;}
- ordinaryUnits(type:TerranType){return this.allies().filter(u=>u.unitType===type);}
- ordinaryCapacity(type:TerranType){const units=this.ordinaryUnits(type);return (5-units.length)*5+units.reduce((n,u)=>n+5-u.rank,0);}
+ familyUnits(type:TerranType){return this.allies().filter(u=>u.unitType===type&&!u.heroId);}
+ ordinaryUnits(type:TerranType){return this.familyUnits(type).filter(u=>!u.eliteId);}
+ ordinaryCapacity(type:TerranType){const units=this.ordinaryUnits(type);return (5-this.familyUnits(type).length)*5+units.reduce((n,u)=>n+5-u.rank,0);}
  availableCapacity(type:TerranType){return Math.max(0,this.ordinaryCapacity(type)-this.reservedRanks(type));}
- canRecruit(type:TerranType,rank:number){const units=this.ordinaryUnits(type),gain=units.length<5?rank:rank-Math.min(...units.map(u=>u.rank));return gain>0&&gain<=this.availableCapacity(type);}
+ canRecruit(type:TerranType,rank:number){const units=this.ordinaryUnits(type),gain=this.familyUnits(type).length<5?rank:rank-Math.min(...units.map(u=>u.rank));return gain>0&&gain<=this.availableCapacity(type);}
  private freePosition(type:TerranType,origin:Point,min=.8,max=8){const radius=SC2_UNITS[type].unitRadius*TUNING.unitScale,air=SC2_UNITS[type].flying;
   for(let r=min;r<=max;r+=.5)for(let i=0;i<20;i++){const p={x:origin.x+Math.sin(i*Math.PI/10)*r,z:origin.z+Math.cos(i*Math.PI/10)*r};if(Math.abs(p.x)+radius>=this.mapHalf||Math.abs(p.z)+radius>=this.mapHalf||!air&&!clearLine(origin,p,radius,this.obstacles,this.terrain)||[...this.entities.values()].some(u=>u.hp>0&&u.flying===air&&distance(u,p)<u.unitRadius+radius+.12)||!air&&this.pods.some(pod=>['active','opening'].includes(pod.status)&&distance(pod,p)<pod.unitRadius+radius+.12))continue;return p;}return null;
  }
  grantVeteran(type:TerranType,rank:3|5){if(!this.canRecruit(type,rank))return false;const units=this.ordinaryUnits(type);
-  if(units.length===5){const lowest=units.sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];lowest.rank=rank;this.refreshStats(lowest);return true;}
+  if(this.familyUnits(type).length===5){const lowest=units.sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];lowest.rank=rank;this.refreshStats(lowest);return true;}
   const p=this.freePosition(type,this.anchor);if(!p)return false;this.addUnit(type,'terran',p.x,p.z,rank);return true;
  }
  reinforce(type:TerranType,p:Point){const same=this.ordinaryUnits(type);
-  if(same.length<5)return this.addUnit(type,'terran',p.x,p.z);
+  if(this.familyUnits(type).length<5)return this.addUnit(type,'terran',p.x,p.z);
   same.sort((a,b)=>a.rank-b.rank||a.id-b.id);const lowest=same[0];if(lowest.rank<5){lowest.rank++;this.refreshStats(lowest);}return lowest;
  }
  capacity(type:TerranType){return this.availableCapacity(type)>0;}
@@ -189,7 +208,7 @@ export class World {
   }
   const reserved=this.productionPlan;if(reserved)for(const group of groups){const other=this.batchPlan(group);if(!other||other.group===reserved.group)continue;if(Math.max(0,this.wallet.minerals-reserved.cost.minerals)+1e-8>=other.cost.minerals&&Math.max(0,this.wallet.gas-reserved.cost.gas)+1e-8>=other.cost.gas)this.startBatch(other.unitType,other.buildingIds);}
  }
- podPurpose(type:TerranType,count=1){const units=this.ordinaryUnits(type),added=Math.min(count,5-units.length),promoted=Math.min(count-added,Math.max(0,this.ordinaryCapacity(type)-added));return [added?'新增 '+added:'',promoted?'晋升 '+promoted:''].filter(Boolean).join(' / ')||'培养已满';}
+ podPurpose(type:TerranType,count=1){const units=this.ordinaryUnits(type),added=Math.min(count,5-this.familyUnits(type).length),promoted=Math.min(count-added,Math.max(0,this.ordinaryCapacity(type)-added));return [added?'新增 '+added:'',promoted?'晋升 '+promoted:''].filter(Boolean).join(' / ')||'培养已满';}
  spawnPod(type:TerranType,position?:Point,jobId=0,quantity=1){const p=position??this.eventPoint(this.stage<=3?7:14,this.stage<=3?13:32),c=this.config;this.nextGuardCounts=scaleCounts(STAGES[this.stage-1].guards,this.difficulty==='easy'?.5:1,this.guardRemainders);
   const pod:Pod={id:this.nextId++,...p,hp:c.podHp,maxHp:c.podHp,armor:TUNING.podArmor,unitRadius:1.25,flying:false,attributes:['Armored','Structure'],owner:'terran',unitType:type,
    createdAt:this.time,landedAt:this.time+ECONOMY.landingSeconds,guardianIds:new Set(),guardTypes:ZERG.flatMap(t=>Array<ZergType>(this.nextGuardCounts![t]).fill(t)),status:'falling',resolvedAt:null,recruitId:null,jobId,stage:this.stage,passengers:Array.from({length:quantity},()=>({status:'waiting',entityId:null})),nextExitAt:0};this.pods.push(pod);
@@ -229,8 +248,8 @@ export class World {
    if(s<score&&this.hasAttackLine(u,b)){score=s;best=b;}
   },u.owner==='terran'?'zerg':'terran');return best;
  }
- hit(target:Body,damage:number,bonuses:{attribute:string;amount:number}[]=[],hits=1,sourceOwner:'terran'|'zerg'='terran'){
-  const before=target.hp;applyWeaponHit(target,{damage,bonuses,hits,minimumDamage:.5});this.stats.damage+=before-target.hp;
+ hit(target:Body,damage:number,bonuses:{attribute:string;amount:number}[]=[],hits=1,sourceOwner:'terran'|'zerg'='terran',minimum=.5){
+  const before=target.hp;applyWeaponHit(target,{damage,bonuses,hits,minimumDamage:minimum});this.stats.damage+=before-target.hp;
   if(before>target.hp)this.visual('hit',target);
   const economic=this.economicTargets.get(target.id);if(economic&&economic.status==='active'&&economic.hp<=0){economic.resolvedAt=this.time;
    if(economic.kind==='egg'){if(sourceOwner==='terran'&&this.time<economic.expiresAt!-1e-8){economic.status='rescued';this.scvs++;this.stats.scvsRescued++;this.visual('scv-rescue',economic);this.announce('SCV 已获救 · 自动采集提升');}else {economic.status='expired';this.stats.scvsLost++;this.visual('egg-expired',economic);}}
@@ -247,26 +266,26 @@ export class World {
   else {this.wallet.minerals+=r.baseMinerals;this.wallet.gas+=r.baseGas;this.economyTotals.cards.minerals+=r.baseMinerals;this.economyTotals.cards.gas+=r.baseGas;this.announce(r.name+' 已培养完成 · 回收补给');}
   this.rewardDrops.splice(index,1);this.changed();return true;
  }
- visual(kind:VisualEvent['kind'],body:Body,end:Point=body){const e=this.entities.get(body.id);this.visualEvents.push({serial:++this.visualSerial,time:this.time,kind,x:body.x,z:body.z,y:(body.flying?5.6:this.terrain?.height(body)??0)+.6,endY:(this.terrain?.height(end)??0)+.6,unitType:e?.unitType??null,entityId:body.id,flying:body.flying,end:{x:end.x,z:end.z},facing:kind==='attack'?e?.attackFacing??0:e?.facing??0,siege:e?.mode==='siege'});if(this.visualEvents.length>768)this.visualEvents.splice(0,256);}
+ visual(kind:VisualEvent['kind'],body:Body,end:Point=body){const e=this.entities.get(body.id);this.visualEvents.push({serial:++this.visualSerial,time:this.time,kind,x:body.x,z:body.z,y:(body.flying?5.6:this.terrain?.height(body)??0)+.6,endY:(this.terrain?.height(end)??0)+.6,unitType:e?.unitType??null,modelKey:e?.modelKey,entityId:body.id,flying:body.flying,end:{x:end.x,z:end.z},facing:kind==='attack'?e?.attackFacing??0:e?.facing??0,siege:e?.mode==='siege'});if(this.visualEvents.length>768)this.visualEvents.splice(0,256);}
  effect(kind:Effect['kind'],source:Body,end:Point,radius=.1,duration=.18){this.effects.push({id:this.nextId++,kind,x:source.x,z:source.z,end:{...end},until:this.time+duration,radius,owner:source.owner,source:source.id});}
  fire(u:Entity,target:Body){if(!this.targetAllowed(u,target)||!this.hasAttackLine(u,target))return;const d=SC2_UNITS[u.unitType];this.stats.shots++;
   u.attackFacing=Math.atan2(target.x-u.x,target.z-u.z);u.lastShotAt=this.time;this.visual('attack',u,target);
-  const rank=rankStats(u.owner==='terran'?u.rank:1).damage*this.weaponFactor(u);const bonus=d.bonusDamage.map(b=>({...b,amount:(b.amount+(u.unitType==='hellion'&&this.upgrades.has('infernal')?5:0)+(u.unitType==='marauder'?(this.upgrades.get('infantry')??0):0))*rank}));
+  const rank=this.growth(u).damage*this.weaponFactor(u);const bonus=d.bonusDamage.map(b=>({...b,amount:(b.amount+(u.unitType==='hellion'&&this.upgrades.has('infernal')?5:0)+(u.unitType==='marauder'?(this.upgrades.get('infantry')??0):0))*rank}));
   if(u.unitType==='hellion'){
-   const a=Math.atan2(target.x-u.x,target.z-u.z),end={x:u.x+Math.sin(a)*6.5,z:u.z+Math.cos(a)*6.5};
-   this.hash.query(u,8,b=>{if(!this.targetAllowed(u,b)||!this.hasAttackLine(u,b))return;const along=(b.x-u.x)*Math.sin(a)+(b.z-u.z)*Math.cos(a);const across=Math.abs((b.x-u.x)*Math.cos(a)-(b.z-u.z)*Math.sin(a));if(along>=0&&along<=6.5+b.unitRadius&&across<=.15+b.unitRadius)this.hit(b,u.weaponDamage,bonus);});this.effect('flame',u,end,.35,.35);
+   const a=Math.atan2(target.x-u.x,target.z-u.z),length=6.5*(u.eliteId==='hellion.3'?1.25:1),width=.15*(u.eliteId==='hellion.3'?1.5:1),end={x:u.x+Math.sin(a)*length,z:u.z+Math.cos(a)*length};
+   this.hash.query(u,11,b=>{if(!this.targetAllowed(u,b)||!this.hasAttackLine(u,b))return;const along=(b.x-u.x)*Math.sin(a)+(b.z-u.z)*Math.cos(a);const across=Math.abs((b.x-u.x)*Math.cos(a)-(b.z-u.z)*Math.sin(a));if(along>=0&&along<=length+b.unitRadius&&across<=width+b.unitRadius)this.attackHit(u,b,u.weaponDamage,bonus);});this.effect('flame',u,end,.35,.35);
   }else if(u.unitType==='baneling'){
    this.hash.query(u,4,b=>{if(b.owner!==u.owner&&!b.flying&&(!this.terrain||this.terrain.walkLine(u,b,0))&&this.edgeDistance(u,b)<=2.2){this.hit(b,b.attributes.includes('Structure')?80+b.armor:u.weaponDamage,b.attributes.includes('Structure')?[]:bonus);}});
    this.effect('explosion',u,u,2.2,.55);u.hp=0;u.deadAt=this.time;u.action='dead';this.visual('death',u);
   }else if(u.mode==='siege'){
    const dmg=(SIEGE.damage+(this.upgrades.get('vehicle')??0)*4)*rank,bon=SIEGE.bonus.map(b=>({...b,amount:b.amount*rank}));
-   this.hash.query(target,3,b=>{if(b.id===u.id||b.flying||b.hp<=0)return;const r=distance(target,b);const band=SIEGE.splash.find(s=>r<=s.radius+b.unitRadius*.25);if(b.id===target.id||band)this.hit(b,dmg*(band?.fraction??1),bon.map(bn=>({...bn,amount:bn.amount*(band?.fraction??1)})));});this.effect('explosion',u,target,1.25,.4);
-  }else {this.hit(target,u.weaponDamage,bonus,d.attacks);this.effect('shot',u,target,.1,u.unitType==='marine'?.1:.2);}
+   this.hash.query(target,3,b=>{if(b.id===u.id||b.flying||b.hp<=0)return;const r=distance(target,b);const band=SIEGE.splash.find(s=>r<=s.radius*(u.eliteId==='tank.2'?1.25:1)+b.unitRadius*.25);if(b.id===target.id||band)this.hit(b,dmg*(band?.fraction??1),bon.map(bn=>({...bn,amount:bn.amount*(band?.fraction??1)})));});this.effect('explosion',u,target,1.25,.4);
+  }else {this.attackHit(u,target,u.weaponDamage,bonus,d.attacks);this.effect('shot',u,target,.1,u.unitType==='marine'?.1:.2);}
  }
- toggleTanks(){if(this.phase!=='battle'||this.paused)return false;const tanks=this.allies().filter(u=>u.unitType==='tank');if(!tanks.length)return false;this.tankCommand=this.tankCommand==='tank'?'siege':'tank';for(const u of tanks)u.desiredMode=this.tankCommand;this.changed();return true;}
+ toggleTanks(){if(this.phase!=='battle'||this.paused||this.requiresEliteChoice)return false;const tanks=this.allies().filter(u=>u.unitType==='tank');if(!tanks.length)return false;this.tankCommand=this.tankCommand==='tank'?'siege':'tank';for(const u of tanks)u.desiredMode=this.tankCommand;this.changed();return true;}
  updateTank(u:Entity,_anchorDistance:number,dt:number){if(u.unitType!=='tank')return false;
-  if(u.modeTimer>0){u.modeTimer=Math.max(0,u.modeTimer-dt);u.velocity={x:0,z:0};if(u.modeTimer<=1e-8){u.mode=u.action==='sieging'?'siege':'tank';u.action='idle';this.refreshStats(u);}return true;}
-  if(u.mode!==u.desiredMode){u.action=u.desiredMode==='siege'?'sieging':'unsieging';u.modeTimer=(u.desiredMode==='siege'?SIEGE.deploySeconds:SIEGE.undeploySeconds)*(this.upgrades.has('siege')?.8:1);u.velocity={x:0,z:0};u.windup=0;u.pendingTarget=null;return true;}
+  if(u.modeTimer>0){u.modeTimer=Math.max(0,u.modeTimer-dt);u.velocity={x:0,z:0};if(u.modeTimer<=1e-8){u.mode=u.action==='sieging'?'siege':'tank';u.siegeSince=u.mode==='siege'?this.time:undefined;u.action='idle';this.refreshStats(u);}return true;}
+  if(u.mode!==u.desiredMode){u.action=u.desiredMode==='siege'?'sieging':'unsieging';u.modeTimer=(u.desiredMode==='siege'?SIEGE.deploySeconds:SIEGE.undeploySeconds)*(this.upgrades.has('siege')?.8:1)*(u.eliteId==='tank.3'?.75:1);u.siegeSince=undefined;u.velocity={x:0,z:0};u.windup=0;u.pendingTarget=null;return true;}
   return false;
  }
  heal(u:Entity,dt:number){u.energy=Math.min(u.maxEnergy,u.energy+u.energyRegen*dt);const previous=u.healTarget;u.healTarget=null;
@@ -280,7 +299,9 @@ export class World {
    const priority=value-(b.id===previous ? .12 : 0);
    if(priority<score){best=e;score=priority;}
   },'terran');
-  if(best&&u.energy>0){const healed=healBiological(u,best,{...HEAL,hpPerSecond:u.healRate,allowMechanical:mechanical},dt,this.edgeDistance(u,best));if(healed>0){u.healTarget=best.id;u.action='heal';this.stats.healed+=healed;}}
+  u.healTargets=[];if(best&&u.energy>0){const patients=[best];if(u.eliteId==='medivac.2')this.hash.query(u,HEAL.range+2,b=>{if(patients.length<3&&b.id!==best!.id&&b.id!==u.id&&b.owner==='terran'&&b.hp>0&&b.hp<b.maxHp&&this.edgeDistance(u,b)<=HEAL.range&&(b.attributes.includes('Biological')||mechanical&&b.attributes.includes('Mechanical'))){const ally=this.entities.get(b.id);if(ally)patients.push(ally);}},'terran');
+   for(let i=0;i<patients.length;i++){const patient=patients[i],repair=u.eliteId==='medivac.3'&&patient.attributes.includes('Mechanical'),healed=healBiological(u,patient,{...HEAL,hpPerSecond:u.healRate*(i===0?1:.5)*(repair?1.5:1),energyPerHp:HEAL.energyPerHp*(repair?.75:1),allowMechanical:mechanical},dt,this.edgeDistance(u,patient));if(healed>0){u.healTarget??=patient.id;u.healTargets.push(patient.id);u.action='heal';this.stats.healed+=healed;}}
+  }
   return best;
  }
  updateBile(u:Entity,dt:number){u.bileCooldown-=dt;if(u.bileCooldown>0)return;const target=this.findTarget(u,BILE.range);
@@ -316,7 +337,7 @@ export class World {
   return u;
  }
  separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(n>=12)return false;if(b.id===u.id||b.flying!==u.flying)return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min){if(!u.flying&&this.terrain&&!this.terrain.sameContactLayer(u,b))return;const strength=Math.min(3,(min-d)*5);if(d>.001){v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;}else{const a=(Math.min(u.id,b.id)*7+Math.max(u.id,b.id)*13)*2.399,sign=u.id<b.id?1:-1;v.x+=Math.sin(a)*strength*sign;v.z+=Math.cos(a)*strength*sign;}n++;}});return v;}
- updateUnit(u:Entity,dt:number){if(u.hp<=0)return;u.prev.x=u.x;u.prev.z=u.z;if(u.unitType!=='medivac')u.healTarget=null;
+ updateUnit(u:Entity,dt:number){if(u.hp<=0)return;this.updateElite(u,dt);u.prev.x=u.x;u.prev.z=u.z;if(u.unitType!=='medivac')u.healTarget=null;
   u.weaponCooldown=Math.max(0,u.weaponCooldown-dt);u.attackLock=Math.max(0,u.attackLock-dt);
   const anchorDistance=distance(u,this.anchor);
   if(this.updateTank(u,anchorDistance,dt))return;
@@ -345,7 +366,7 @@ export class World {
   if(target&&this.canFireAt(u,target)&&!marchingRearTarget&&(!hard||!!focused||u.mode==='siege'||u.owner==='zerg'||closeDefense)&&u.weaponCooldown<=1e-8){
    const heading=Math.atan2(target.x-u.x,target.z-u.z);if(u.unitType!=='tank')u.attackFacing=u.facing=turn(u.facing,heading,(u.unitType==='hellion'?4.8:u.unitType==='marine'?24:9)*dt);
    if(Math.abs(angleDelta(u.attackFacing,heading))<.3){const data=SC2_UNITS[u.unitType],stim=u.stimUntil>this.time?1.5:1;
-    u.weaponCooldown=(u.unitType==='hydralisk'&&this.edgeDistance(u,target)<=HYDRALISK_MELEE.range?HYDRALISK_MELEE.period:u.attackPeriod)/stim;u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
+    u.weaponCooldown=(u.unitType==='hydralisk'&&this.edgeDistance(u,target)<=HYDRALISK_MELEE.range?HYDRALISK_MELEE.period:u.attackPeriod)/stim/(u.slowUntil&&u.slowUntil>this.time?1-(u.slowFactor??0):1);u.windup=Math.max(dt,data.damagePoint);u.attackLock=u.windup;u.pendingTarget=target.id;u.action='attack';u.velocity={x:0,z:0};return;}
    // A committed firing turn must not be cancelled by formation steering in the same tick.
    u.velocity={x:0,z:0};u.action='idle';return;
   }
@@ -371,7 +392,7 @@ export class World {
     if(Math.abs(march.x)+u.unitRadius<this.mapHalf&&Math.abs(march.z)+u.unitRadius<this.mapHalf&&(u.flying||clearLine(u,march,u.unitRadius,this.obstacles,this.terrain)))goal=march;
    }
   }
-  let speed=u.moveSpeed*(u.stimUntil>this.time?1.5:1);
+  let speed=u.moveSpeed*(u.stimUntil>this.time?1.5:1)*(u.slowUntil&&u.slowUntil>this.time?1-(u.slowFactor??0):1);
   if(u.owner==='terran'&&hard)speed*=TUNING.catchUp;
   if(u.owner==='zerg'){const stage=STAGES[this.stage-1];speed*=stage.speed;if(u.unitType==='baneling'&&this.stage>=9)speed*=1.3;}
   if(!u.flying){
@@ -393,7 +414,7 @@ export class World {
   if(threat){p.status='active';p.resolvedAt=null;continue;}
   if(p.status==='active'){p.status='opening';p.resolvedAt=this.time;this.visual('pod-open',p);}
   else if(this.time-(p.resolvedAt??this.time)>=ECONOMY.openingSeconds-1e-8&&this.time>=p.nextExitAt){const passenger=p.passengers.find(c=>c.status==='waiting');if(!passenger)continue;
-   const units=this.ordinaryUnits(p.unitType),pos=units.length>=5?p:this.freePosition(p.unitType,p,1.8,4.5);if(!pos)continue;
+   const units=this.familyUnits(p.unitType),pos=units.length>=5?p:this.freePosition(p.unitType,p,1.8,4.5);if(!pos)continue;
    const u=this.reinforce(p.unitType,pos);passenger.status='released';passenger.entityId=u.id;p.recruitId=u.id;p.nextExitAt=this.time+.35;this.stats.rescued++;
    if(p.passengers.every(c=>c.status==='released')){p.status='rescued';p.resolvedAt=this.time;this.announce(SC2_UNITS[p.unitType].zh+' ×'+p.passengers.length+' 已获救，正在归队');}
   }
@@ -422,6 +443,8 @@ export class World {
   else if(r.kind==='upgrade')this.upgradeFactory(Number(r.value));
   else if(r.kind==='research')this.unlockMarauder();
   else if(r.kind==='train')this.extraDeliveries.push(r.value as TerranType);
+  else if(r.kind==='elite'){if(!this.acquireElite(r.value as EliteId))return false;}
+  else if(r.kind==='intelligence'){if((this.upgrades.get('intelligence')??0)>=5)return false;this.upgrades.set('intelligence',(this.upgrades.get('intelligence')??0)+1);}
   else if(r.kind==='veteran'){if(!this.grantVeteran(r.value as TerranType,r.rank!))return false;}
   else if(r.kind==='tech'||r.kind==='buff'){const key=r.kind==='buff'?'buff.'+r.value:r.value;this.upgrades.set(key,(this.upgrades.get(key)??0)+(r.strength??1));for(const u of this.allies())this.refreshStats(u);}
   else {const gains=r.value==='minerals'?[100,0]:r.value==='gas'?[0,50]:r.value==='salvage'?[75,25]:[100,25];this.wallet.minerals+=gains[0];this.wallet.gas+=gains[1];this.economyTotals.cards.minerals+=gains[0];this.economyTotals.cards.gas+=gains[1];}
@@ -430,13 +453,13 @@ export class World {
  skipReward(){if(this.phase!=='reward'||this.rewardClaimed)return false;return this.finishRewardRound();}
  private finishRewardRound(){this.rewardClaimed=true;if(this.rewardRound==='building'){this.rewardRound='random';this.rewards=this.offers(drawRewards(this,this.random));this.rewardClaimed=false;this.changed();return true;}return this.nextStage();}
  private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();this.flushDeliveries();this.changed();return true;}
- stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.unitType==='marauder'?20:10;if(['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
+ stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.eliteId==='marine.1'?0:u.unitType==='marauder'?20:10;if(['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
  dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power);return true;}
- step(){if(this.phase!=='battle'||this.paused)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;
+ step(){if(this.phase!=='battle'||this.paused||this.requiresEliteChoice)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;
   if(this.scheduledStage!==this.stage)this.prepareStage();const direction=this.updateCommand(dt),mag=Math.hypot(direction.x,direction.z);if(mag>.01){this.anchorMovingFor+=dt;this.anchorStoppedFor=0;}else {this.anchorStoppedFor+=dt;this.anchorMovingFor=0;}if(mag>.01){const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);this.anchor.facing=turn(this.anchor.facing,Math.atan2(direction.x,direction.z),5*dt);translate(this.anchor,{x:direction.x/Math.max(1,mag)*speed*dt,z:direction.z/Math.max(1,mag)*speed*dt},.8,false,this.obstacles,this.sandbox?TUNING.worldHalf:this.mapHalf,this.terrain);}
   if(distance(this.anchor,this.trail.at(-1)!)>.8)this.trail.push({x:this.anchor.x,z:this.anchor.z});
   if(this.trail.length>1200){this.trail.splice(0,200);for(const u of this.entities.values())u.trailIndex=Math.max(0,u.trailIndex-200);}
-  this.updateEconomy(dt);this.updateProduction(dt);
+  this.updateEconomy(dt);this.updateProduction(dt);this.updateBurns();
   if(!this.sandbox)while(this.eventPlan[this.nextEvent]?.at<=this.stageElapsed){this.spawnEconomic(this.eventPlan[this.nextEvent++].kind);}
   if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.ambientBacklog.length)this.releaseAmbient();
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active')];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);

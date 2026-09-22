@@ -247,8 +247,8 @@
   {
     "id": "model.elite.medivac.1.death",
     "modelDataId": "Medivac_CovertOps_Collection_Death",
-    "assetPath": "Assets/Units/Terran/Medivac_CovertOps_Collection_Death/Medivac_CovertOps_Collection_Death.m3",
-    "name": "medivac_covertops_collection_death",
+    "assetPath": "Assets/Units/Terran/Medivac_CovertOps_Collection_Death/Medivac_CovertOps_Collection_Death_00.m3",
+    "name": "medivac_covertops_collection_death_00",
     "sourceScale": null
   },
   {
@@ -261,8 +261,8 @@
   {
     "id": "model.elite.medivac.2.death",
     "modelDataId": "Medivac_Merc_Collection_Death",
-    "assetPath": "Assets/Units/Terran/Medivac_Merc_Collection_Death/Medivac_Merc_Collection_Death.m3",
-    "name": "medivac_merc_collection_death",
+    "assetPath": "Assets/Units/Terran/Medivac_Merc_Collection_Death/Medivac_Merc_Collection_Death_00.m3",
+    "name": "medivac_merc_collection_death_00",
     "sourceScale": null
   },
   {
@@ -275,8 +275,8 @@
   {
     "id": "model.elite.medivac.3.death",
     "modelDataId": "Medivac_Junker_Collection_Death",
-    "assetPath": "Assets/Units/Terran/Medivac_Junker_Collection_Death/Medivac_Junker_Collection_Death.m3",
-    "name": "medivac_junker_collection_death",
+    "assetPath": "Assets/Units/Terran/Medivac_Junker_Collection_Death/Medivac_Junker_Collection_Death_00.m3",
+    "name": "medivac_junker_collection_death_00",
     "sourceScale": null
   },
   {
@@ -284,7 +284,7 @@
     "modelDataId": "MutatorAmonRaynor",
     "assetPath": "Assets/Units/Terran/MarineRaynorHEV_Ex3/MarineRaynorHEV_Ex3.m3",
     "name": "marineraynorhev_ex3",
-    "sourceScale": null,
+    "sourceScale": "1.950000,1.950000,1.950000",
     "definition": "mods/starcoop/starcoop.sc2mod/base.sc2data/gamedata/modeldata.xml"
   },
   {
@@ -292,7 +292,7 @@
     "modelDataId": "MutatorAmonTychus",
     "assetPath": "Assets/Units/Terran/MarineTychus/MarineTychus.m3",
     "name": "marinetychus",
-    "sourceScale": null,
+    "sourceScale": "1.800000,1.800000,1.800000",
     "definition": "mods/starcoop/starcoop.sc2mod/base.sc2data/gamedata/modeldata.xml"
   },
   {
@@ -300,7 +300,7 @@
     "modelDataId": "MutatorAmonNova",
     "assetPath": "Assets/Units/Terran/Nova_COOP/Nova_COOP.m3",
     "name": "nova_coop",
-    "sourceScale": null,
+    "sourceScale": "1.000000,1.000000,1.000000",
     "definition": "mods/starcoop/starcoop.sc2mod/base.sc2data/gamedata/modeldata.xml"
   }
 ]

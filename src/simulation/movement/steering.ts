@@ -45,8 +45,8 @@ export function translate(body:Point,delta:Point,r:number,flying=false,obstacles
 }
 export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:number,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf,terrain?:TerrainQuery){
  const d=distance(u,goal);let dx=0,dz=0;
- const vehicle=u.unitType==='hellion'||u.unitType==='tank',rate=u.unitType==='hellion'?4.8:u.unitType==='tank'?3.6:7;
- const braking=vehicle?24:u.flying?12:30,acceleration=u.flying?10:vehicle?18:24;
+ const vehicle=u.unitType==='hellion'||u.unitType==='tank',rate=(u.unitType==='hellion'?4.8:u.unitType==='tank'?3.6:7)*(u.turnMultiplier??1);
+ const braking=vehicle?24:u.flying?12:30,acceleration=(u.flying?10:vehicle?18:24)*(u.turnMultiplier??1);
  // Cruise until braking is necessary. The old distance * rate envelope crawled for metres.
  const arrival=Math.min(speed,Math.sqrt(2*braking*Math.max(0,d-.08)));
  if(d>.08){dx=(goal.x-u.x)/d*arrival;dz=(goal.z-u.z)/d*arrival;}

@@ -18,12 +18,12 @@ async function boot(){configureMapAssets();const definition=await loadMapDefinit
  const gamepad=new GamepadInput(world,b=>{const p=view.screen(b);return p.x>=0&&p.y>=0&&p.x<=canvas.clientWidth&&p.y<=canvas.clientHeight;},()=>hud.pause(),()=>{input.keys.clear();input.release();});
  const debug=import.meta.env.DEV?installDebug(world,view):null;
  // Reserve up to 12 ms for fixed-step catch-up; debt is retained and frame work remains bounded.
- const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused;},()=>performance.now(),12);
+ const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused&&!world.requiresEliteChoice&&!view.assetsPending;},()=>performance.now(),12);
  window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,time:world.time,stats:{...world.stats},assetsReady:hud.ready,simulationBacklogSeconds:driver.accumulator,audio:audio.report(),gamepad:gamepad.report()});
  world.listeners.add(()=>audio.update(world));
  let previous=performance.now();
  const frame=(now:number)=>{const elapsed=(now-previous)/1000;previous=now;
-  if(!document.hidden){input.poll();gamepad.poll(now);let alpha=1;if(world.phase==='battle'&&!world.paused)alpha=driver.advance(elapsed*(debug?.speed??1));else driver.reset();
+  if(!document.hidden){view.prepareRosterAssets();input.poll();gamepad.poll(now);let alpha=1;if(world.phase==='battle'&&!world.paused&&!world.requiresEliteChoice&&!view.assetsPending)alpha=driver.advance(elapsed*(debug?.speed??1));else driver.reset();
    view.render(elapsed,alpha);
   }requestAnimationFrame(frame);
  };requestAnimationFrame(frame);
