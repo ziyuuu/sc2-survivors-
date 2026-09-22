@@ -1,3 +1,4 @@
+import {FriendlyLabels} from '../units/friendly-labels';
 import {commitInstances,uploadActive,resetUploadStats,requestedUploadBytes} from '../units/instance-updates';
 import {RARITIES} from '../../data/rewards';
 import * as THREE from 'three';
@@ -29,6 +30,7 @@ export class BattleRenderer {
  renderer:THREE.WebGLRenderer;scene=new THREE.Scene();camera=new THREE.OrthographicCamera();
  batches=new Map<UnitType,UnitBatch>();gpu=new Map<string,AnimatedBatch>();
  private animationStates=new Map<number,{action:string;since:number;modeDuration:number}>();
+ private friendlyLabels:FriendlyLabels;
  private enemyLabels=new Map<number,HTMLElement>();
  private corpses=new Map<number,{scale:number;type:string;x:number;z:number;y:number;facing:number;at:number}>();
  private hitTimes=new Map<number,number>();private lastVisual=0;
@@ -58,7 +60,7 @@ export class BattleRenderer {
   const lineGeo=new THREE.BufferGeometry();lineGeo.setAttribute('position',new THREE.BufferAttribute(this.linePositions,3).setUsage(THREE.DynamicDrawUsage));lineGeo.setAttribute('color',new THREE.BufferAttribute(this.lineColors,3).setUsage(THREE.DynamicDrawUsage));this.lines=new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.9}));this.lines.frustumCulled=false;this.scene.add(this.lines);
   this.anchor=new THREE.Group();const cursor=new THREE.Mesh(new THREE.RingGeometry(.48,.56,4),new THREE.MeshBasicMaterial({color:0x67d9fb,transparent:true,opacity:.65}));cursor.rotation.x=-Math.PI/2;cursor.rotation.z=Math.PI/4;this.anchor.add(cursor);this.scene.add(this.anchor);
   this.grid.position.y=.08;this.grid.visible=false;this.scene.add(this.grid);
-  this.labelLayer.id='pod-labels';document.body.append(this.labelLayer);
+  this.labelLayer.id='pod-labels';document.body.append(this.labelLayer);this.friendlyLabels=new FriendlyLabels(this.labelLayer);
   this.resize();window.addEventListener('resize',()=>this.resize());
   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();world.paused=true;world.announce('图形上下文丢失，请重新载入。');});
  }
@@ -140,9 +142,11 @@ export class BattleRenderer {
     const motion=[u.distanceWalked+u.id*.29,dying?0:Math.min(1,Math.hypot(u.velocity.x,u.velocity.z)/2),u.action==='attack'?Math.min(1,u.attackLock*5):0,Math.max(0,Math.min(1,mode))];
     batch.meshes.forEach((m,i)=>{m.setMatrixAt(index,_obj.matrix);batch.data[i].setXYZW(index,...motion as [number,number,number,number]);});
    }
+   if(!dying&&u.heroId)putRing(u,Math.max(.7,u.unitRadius+.3),0xffca64);
+   if(!dying&&u.eliteId)putRing(u,u.unitRadius+.12,0xc38aff);
    if(!dying&&u.enemyTier)putRing(u,u.unitRadius+.15,u.enemyTier==='boss'?0xff972d:0xb664ff);
    if(!dying&&this.showColliders)putRing(u,u.unitRadius,u.flying?0x7ac7ff:u.owner==='terran'?0x82eeab:0xffa865);
-   if(!dying&&(u.owner==='terran'||u.hp<u.maxHp||!!u.enemyTier))health(u,y+heights[u.unitType]*TUNING.unitScale*(u.visualScale??1)+.22);
+   if(!dying&&!u.heroId&&(u.owner==='terran'||u.hp<u.maxHp||!!u.enemyTier))health(u,y+heights[u.unitType]*TUNING.unitScale*(u.visualScale??1)+.22);
    for(const id of u.healTargets??(u.healTarget?[u.healTarget]:[])){const target=world.entities.get(id);if(target)putLine(u,AIR_HEIGHT-.2,target,this.ground(target)+.9,0x79ffb7);}
   }
   for(const [type,b] of this.batches){b.meshes.forEach((m,i)=>{const count=counts.get(type)??0;commitInstances(m,count);uploadActive(b.data[i],count);});}
@@ -160,6 +164,7 @@ export class BattleRenderer {
   for(const m of world.enemySpecials.missiles)putLine(m,this.ground(m)+.7,{x:m.x-Math.sin(m.angle)*.6,z:m.z-Math.cos(m.angle)*.6},this.ground(m)+.7,0xa2e87b);
   for(const [id,el] of this.enemyLabels)if((world.entities.get(id)?.hp??0)<=0){el.remove();this.enemyLabels.delete(id);}
   for(const u of world.entities.values())if(u.enemyTier&&u.hp>0){let el=this.enemyLabels.get(u.id);if(!el){el=document.createElement('div');el.className='enemy-special-label '+u.enemyTier;el.textContent=u.enemyName??'';this.enemyLabels.set(u.id,el);this.labelLayer.append(el);}el.hidden=!this.visible(u)||world.phase!=='battle';if(!el.hidden){_vec.set(u.x,this.ground(u)+heights[u.unitType]*(u.visualScale??1)+.6,u.z).project(this.camera);el.style.transform=`translate(${(_vec.x*.5+.5)*this.canvas.clientWidth}px,${(.5-_vec.y*.5)*this.canvas.clientHeight}px) translate(-50%,-100%)`;}}
+  this.friendlyLabels.update(world,u=>{const key=(u.modelKey??u.unitType)+(u.unitType==='tank'&&u.mode==='siege'?'.siege':''),model=this.gpu.get(key);const x=u.prev.x+(u.x-u.prev.x)*alpha,z=u.prev.z+(u.z-u.prev.z)*alpha,y=(u.flying?AIR_HEIGHT:this.ground({x,z}))+(model?.bodyHeight??heights[u.unitType]*TUNING.unitScale)*(u.visualScale??1)+.25;_vec.set(x,y,z).project(this.camera);return {x:(_vec.x*.5+.5)*this.canvas.clientWidth,y:(.5-_vec.y*.5)*this.canvas.clientHeight,visible:!!model&&_vec.x>-1&&_vec.x<1&&_vec.y>-1&&_vec.y<1&&_vec.z>-1&&_vec.z<1};},this.canvas.clientWidth);
   for(const cast of world.heroCasts){putRing(cast.point,cast.hero==='tychus'?2.5:.5,0xffc177);}
   if(world.phase==='battle'&&world.order){const order=world.order;
    if(order.kind==='move')putRing(order.point,.65+.08*Math.sin(world.time*7),0x84eea7);

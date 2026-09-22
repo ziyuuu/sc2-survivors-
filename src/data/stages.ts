@@ -19,14 +19,14 @@ export function seeded(seed:number){let n=seed>>>0;return ()=>{n=(Math.imul(n,16
 export interface Wave {at:number;types:ZergType[];bearing:number}
 export interface EconomicSpawn {at:number;kind:'egg'|'drone'}
 /** Budgets and times depend on the run seed, never on surviving army strength. */
-export function stageSchedule(s:StageConfig,seed:number){const rng=seeded(seed+s.id*7919);
+export function stageSchedule(s:StageConfig,seed:number,specialsEnabled=true){const rng=seeded(seed+s.id*7919);
  const waves:Wave[]=Array.from({length:s.waves},(_,i)=>({at:s.id<=2?3+i*10+(rng()-.5):12+i*(s.durationSeconds-24)/(s.waves-1)+(rng()-.5)*(s.durationSeconds-24)/(s.waves-1)*.3,types:[],bearing:rng()*Math.PI*2}));
  for(const type of ZERG){const first=(s.id===4&&type==='roach'||s.id===6&&type==='baneling'||s.id===10&&type==='ravager'||s.id===7&&type==='hydralisk')?2:0;for(let j=0;j<s.ambient[type];j++)waves[first+j%(waves.length-first)].types.push(type);}
  const events:EconomicSpawn[]=[...Array.from({length:s.eggs},(_,i)=>({at:s.id<=2?[10,27,41][i]+(rng()-.5)*2:s.durationSeconds*(.15+i*.5/Math.max(1,s.eggs-1)+(rng()-.5)*.06),kind:'egg' as const})),...Array.from({length:s.drones},(_,i)=>({at:s.id<=2?[7,19,37,49][i]+(rng()-.5)*2:s.durationSeconds*(.2+i*.6/Math.max(1,s.drones-1)+(rng()-.5)*.05),kind:'drone' as const}))].sort((a,b)=>a.at-b.at);
  const specials:EnemyEvent[]=[];let serial=ELITE_TIMES.slice(0,s.id-1).reduce((n,list)=>n+list.length,0);
- for(const [at,type] of ELITE_TIMES[s.id-1]){serial++;const time=at+(rng()-.5)*4;if(s.difficulty==='easy'&&serial%2!==0)continue;
+ for(const [at,type] of specialsEnabled?ELITE_TIMES[s.id-1]:[]){serial++;const time=at+(rng()-.5)*4;if(s.difficulty==='easy'&&serial%2!==0)continue;
   const wave=waves.filter(w=>w.types.includes(type)).sort((a,b)=>Math.abs(a.at-time)-Math.abs(b.at-time))[0];if(!wave)continue;wave.types.splice(wave.types.indexOf(type),1);specials.push({at:time,type,tier:'elite'});
  }
- const boss=BOSSES[s.id];if(boss)specials.push({at:boss.at,type:boss.type,tier:'boss'});
+ const boss=BOSSES[s.id];if(boss&&specialsEnabled)specials.push({at:boss.at,type:boss.type,tier:'boss'});
  specials.sort((a,b)=>a.at-b.at);return {waves,events,specials};
 }

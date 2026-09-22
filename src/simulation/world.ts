@@ -1,3 +1,4 @@
+import {ENDLESS,endlessInterval,endlessGrowth,type EndlessState} from '../data/endless';
 import {EnemySpecials} from './combat/enemy-specials';
 import {ENEMY_NAMES,bossFor,type SpecialType,type EnemyTier,type EnemyEvent} from '../data/enemies';
 import {HEROES,HERO_IDS,heroStats,heroRevivalCost,type HeroId} from '../data/heroes';
@@ -21,6 +22,8 @@ import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,Eco
 
 export class World {
  time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'lost'='menu';paused=false;
+ endless:EndlessState|null=null;
+ get endlessElapsed(){return this.endless?this.time-this.endless.startedAt:0;}
  entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<number,Building>();upgrades=new Map<string,number>();
  wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
  controllerCommand=false;order:SquadOrder|null=null;private movePending=new Set<number>();
@@ -105,7 +108,7 @@ export class World {
   const scale=Math.min(1,d/(speed*dt));return d>.01?{x:dx/d*scale,z:dz/d*scale}:{x:0,z:0};
  }
  setDifficulty(difficulty:Difficulty){if(this.phase!=='menu')return false;this.difficulty=difficulty;this.prepareStage();this.changed();return true;}
- prepareStage(){this.terrain?.setStage?.(this.stage);const plan=stageSchedule(this.config,this.seed);this.waves=plan.waves;this.specialPlan=plan.specials;this.nextSpecial=0;this.eventPlan=plan.events;this.stageWave=0;this.nextEvent=0;this.scheduledStage=this.stage;this.nextWave=this.stageStartedAt+(this.waves[0]?.at??Infinity);
+ prepareStage(){if(this.endless){this.prepareEndlessRound();return;}this.terrain?.setStage?.(this.stage);const plan=stageSchedule(this.config,this.seed);this.waves=plan.waves;this.specialPlan=plan.specials;this.nextSpecial=0;this.eventPlan=plan.events;this.stageWave=0;this.nextEvent=0;this.scheduledStage=this.stage;this.nextWave=this.stageStartedAt+(this.waves[0]?.at??Infinity);
   // Flood once per expansion. Events use connected walkable cells, never a clamped wall position.
   const cells=new Map<string,Point>(),limit=this.mapHalf-2;
   for(let x=-Math.floor(limit/2)*2;x<=limit;x+=2)for(let z=-Math.floor(limit/2)*2;z<=limit;z+=2)if(!blocked({x,z},1.4,this.obstacles)&&(!this.terrain||this.terrain.canOccupy({x,z},1.4)))cells.set(x+','+z,{x,z});
@@ -113,6 +116,21 @@ export class World {
   if(origin){const queue=[origin],seen=new Set([origin.x+','+origin.z]);for(let i=0;i<queue.length;i++){const p=queue[i];this.spawnCells.push(p);for(const [dx,dz] of [[2,0],[-2,0],[0,2],[0,-2]]){const key=(p.x+dx)+','+(p.z+dz),n=cells.get(key);if(n&&!seen.has(key)&&clearLine(p,n,1.4,this.obstacles,this.terrain)){seen.add(key);queue.push(n);}}}}
   if(this.terrain?.connectedLocations)this.spawnCells=this.terrain.connectedLocations(this.anchor,.9,1.4);
   if(this.stage===12&&!this.hive){const expected=this.terrain?.definition?.hive;const p=expected?this.spawnCells.filter(p=>this.terrain!.canOccupy(p,3)).sort((a,b)=>distance(a,expected)-distance(b,expected))[0]??this.eventPoint():this.spawnCells.reduce((a,b)=>b.z<a.z?b:a,{x:0,z:0}),hp=this.difficulty==='easy'?9000:12000;this.hive={id:this.nextId++,...p,hp,maxHp:hp,armor:2,unitRadius:3,flying:false,attributes:['Armored','Biological','Structure'],owner:'zerg'};}
+ }
+ /** Keep the opened map, occupants, wallet, cooldowns and paid orders intact. */
+ startEndless(){if(this.phase!=='won'||this.stage!==12||!this.hive||this.hive.hp>0||!this.allies().some(u=>u.unitType!=='medivac'))return false;
+  this.endless={round:1,startedAt:this.time,elites:0,bosses:0,progress:{wave:0,elite:0,boss:0},retry:{elite:0,boss:0},last:{}};
+  this.resetCommand();this.paused=false;this.phase='battle';this.stageElapsed=0;this.stageStartedAt=this.time;this.prepareEndlessRound();this.announce('无尽战场 · 守住小队');return true;
+ }
+ private prepareEndlessRound(){const plan=stageSchedule(this.config,this.seed+this.endless!.round*104729,false);this.waves=plan.waves;this.stageWave=0;this.specialPlan=[];this.nextSpecial=0;this.eventPlan=plan.events;this.nextEvent=0;this.scheduledStage=this.stage;this.nextWave=Infinity;}
+ private updateEndlessSpawns(dt:number){const state=this.endless!;
+  for(const source of ['wave','elite','boss'] as const){state.progress[source]=Math.min(1,state.progress[source]+dt/(endlessInterval(source,this.endlessElapsed)*(source==='elite'&&this.difficulty==='easy'?2:1)));if(state.progress[source]<1-1e-8)continue;
+   if(source==='wave'){// Preserve the existing on-field cap without accumulating an unbounded queue.
+    if(this.ambientBacklog.length>=TUNING.enemyCap)continue;this.spawnWave();state.progress.wave=0;
+   }else {if(this.time<state.retry[source])continue;const n=source==='elite'?state.elites:state.bosses,type=ENDLESS.types[n%ENDLESS.types.length];
+    if(this.spawnSpecial(type,source)){state.progress[source]=0;}else state.retry[source]=this.time+1;
+   }
+  }
  }
  eventPoint(min=6,max=Infinity,origin:Point=this.anchor){const candidates=this.spawnCells.filter(p=>distance(p,origin)>=min&&distance(p,origin)<=max);const pool=candidates.length?candidates:this.spawnCells;return {...(pool[Math.floor(this.random()*pool.length)]??{x:0,z:0})};}
  nearbyPoint(origin:Point,radius:number,angle:number,bodyRadius=.6){for(let n=0;n<24;n++){const a=angle+n*.4,r=radius*(1-Math.floor(n/8)*.23),p={x:origin.x+Math.sin(a)*r,z:origin.z+Math.cos(a)*r};if(Math.abs(p.x)<this.mapHalf-bodyRadius&&Math.abs(p.z)<this.mapHalf-bodyRadius&&!blocked(p,bodyRadius,this.obstacles)&&clearLine(origin,p,bodyRadius,this.obstacles,this.terrain))return p;}return this.eventPoint(1,radius+3,origin);}
@@ -138,6 +156,12 @@ export class World {
   const u=this.addUnit(type,'zerg',p.x,p.z);u.enemyTier=tier;u.enemyName=ENEMY_NAMES[tier][type];u.visualScale=scale;u.unitRadius=radius;u.specialReady=this.time+2;
   if(tier==='boss'){const data=bossFor(type);u.hp=u.maxHp=data.hp;u.armor=data.armor;u.weaponDamage=SC2_UNITS[type].attackDamage*2;}
   else {u.hp=u.maxHp=u.maxHp*(type==='roach'?5:3);u.armor+=type==='roach'?3:1;u.weaponDamage*=1.3;u.attackPeriod/=1.1;if(type==='zergling')u.moveSpeed*=1.2;if(type==='roach')u.moveSpeed*=.9;}
+  if(this.endless){const level=tier==='elite'?++this.endless.elites:++this.endless.bosses,g=endlessGrowth(level),last=this.endless.last[tier],baseDamage=u.weaponDamage;
+   u.endlessLevel=level;u.hp=u.maxHp=Math.min(1e100,Math.max(u.maxHp*g.health,(last?.health??0)*ENDLESS.growth.health));
+   u.weaponDamage=Math.min(1e100,Math.max(baseDamage*g.damage,(last?.damage??0)*ENDLESS.growth.damage));u.specialDamageMultiplier=u.weaponDamage/baseDamage;
+   u.attackPeriod=Math.max(TUNING.step,Math.min(u.attackPeriod/g.attackSpeed,(last?.period??Infinity)/ENDLESS.growth.attackSpeed));
+   this.endless.last[tier]={health:u.maxHp,damage:u.weaponDamage,period:u.attackPeriod};u.enemyName+=' · 无尽 '+level;
+  }
   return u;
  }
  growth(u:Entity){return u.heroId?heroStats(u.rank):u.eliteId?eliteStats(u.eliteId,u.rank):{...rankStats(u.owner==='terran'?u.rank:1),movement:1};}
@@ -454,15 +478,15 @@ export class World {
    if(p.passengers.every(c=>c.status==='released')){p.status='rescued';p.resolvedAt=this.time;this.announce(SC2_UNITS[p.unitType].zh+' ×'+p.passengers.length+' 已获救，正在归队');}
   }
  }}
- spawnWave(){if(this.scheduledStage!==this.stage)this.prepareStage();const wave=this.waves[this.stageWave];if(!wave)return;this.wave++;this.stageWave++;wave.types.forEach((type,i)=>this.ambientBacklog.push({type,bearing:wave.bearing,at:this.time+i*this.config.entranceSpacing}));this.ambientBacklog.sort((a,b)=>a.at-b.at);this.nextWave=this.stageStartedAt+(this.waves[this.stageWave]?.at??Infinity);this.releaseAmbient();}
+ spawnWave(){if(this.scheduledStage!==this.stage)this.prepareStage();if(this.endless&&this.stageWave>=this.waves.length)this.stageWave=0;const wave=this.waves[this.stageWave];if(!wave)return;this.wave++;this.stageWave++;wave.types.forEach((type,i)=>this.ambientBacklog.push({type,bearing:wave.bearing,at:this.time+i*this.config.entranceSpacing}));this.ambientBacklog.sort((a,b)=>a.at-b.at);this.nextWave=this.endless?Infinity:this.stageStartedAt+(this.waves[this.stageWave]?.at??Infinity);this.releaseAmbient();}
  private releaseAmbient(){let slots=Math.max(0,TUNING.enemyCap-this.enemyCount());while(slots-->0&&this.ambientBacklog.length&&this.ambientBacklog[0].at<=this.time+1e-8){const e=this.ambientBacklog.shift()!,base=this.eventPoint(Math.min(12,this.mapHalf*.75)),angle=this.stage===2?(this.stats.ambientSpawned%2?0:Math.PI):e.bearing+(this.stage>=5&&slots%2?Math.PI:0);
   // Distribute a wave along its approach arc; do not stack every attacker on one point.
   const arc=angle+((this.stats.ambientSpawned%9)-4)*.17,range=Math.min(24,this.mapHalf*.9)*(0.86+(this.stats.ambientSpawned%3)*.06);
   const desired=this.nearbyPoint(this.anchor,range,arc);const p=distance(desired,this.anchor)>=8?desired:base;this.addUnit(e.type,'zerg',p.x,p.z);this.stats.ambientSpawned++;}}
  endStage(){if(this.phase!=='battle')return;this.cancelOrder();
-  if(this.stage===12&&(!this.hive||this.hive.hp>0||!this.allies().some(u=>u.unitType!=='medivac'))){this.phase='lost';this.announce('未能在期限内摧毁虫巢并保住小队');return;}
+  if(!this.endless&&this.stage===12&&(!this.hive||this.hive.hp>0||!this.allies().some(u=>u.unitType!=='medivac'))){this.phase='lost';this.announce('未能在期限内摧毁虫巢并保住小队');return;}
   const [m,g]=this.config.reward,f=incomeFactor(this.difficulty);this.clearReceipt={stage:this.stage,minerals:m*f,gas:g*f};this.wallet.minerals+=m*f;this.wallet.gas+=g*f;this.economyTotals.clear.minerals+=m*f;this.economyTotals.clear.gas+=g*f;
-  if(this.stage===12){this.phase='won';this.announce('虫巢已摧毁 · 小队撤离成功');return;}
+  if(!this.endless&&this.stage===12){this.phase='won';this.announce('虫巢已摧毁 · 小队撤离成功');return;}
   this.phase='reward';this.rewardRound='building';this.rewardClaimed=false;this.rerolls=0;this.rewards=this.offers(drawRewards(this,this.random,[],this.rewardRound));this.changed();
  }
  private offers(cards:Reward[]){return cards.map(r=>({...r,offerId:`${this.stage}:${++this.offerSerial}:${r.id}`,sold:false}));}
@@ -488,7 +512,7 @@ export class World {
  }
  skipReward(){if(this.phase!=='reward'||this.rewardClaimed)return false;return this.finishRewardRound();}
  private finishRewardRound(){this.rewardClaimed=true;if(this.rewardRound==='building'){this.rewardRound='random';this.rewards=this.offers(drawRewards(this,this.random));this.rewardClaimed=false;this.changed();return true;}return this.nextStage();}
- private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();this.flushDeliveries();this.deployPendingHeroes(true);this.changed();return true;}
+ private nextStage(){this.rewardClaimed=true;if(this.endless)this.endless.round++;else this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();this.flushDeliveries();this.deployPendingHeroes(true);this.changed();return true;}
  stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.eliteId==='marine.1'?0:u.unitType==='marauder'?20:10;if(!u.heroId&&['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
  dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power);return true;}
  step(){if(this.phase!=='battle'||this.paused||this.requiresEliteChoice)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;
@@ -498,7 +522,7 @@ export class World {
   this.updateEconomy(dt);this.updateProduction(dt);this.updateBurns();this.deployPendingHeroes();
   if(!this.sandbox)while(this.eventPlan[this.nextEvent]?.at<=this.stageElapsed){this.spawnEconomic(this.eventPlan[this.nextEvent++].kind);}
   if(this.autoWaves)while(this.specialPlan[this.nextSpecial]?.at<=this.stageElapsed){const e=this.specialPlan[this.nextSpecial];if(!this.spawnSpecial(e.type,e.tier))break;this.nextSpecial++;if(e.tier==='elite')this.stats.ambientSpawned++;}
-  if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.ambientBacklog.length)this.releaseAmbient();
+  if(this.autoWaves&&this.endless)this.updateEndlessSpawns(dt);else if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.ambientBacklog.length)this.releaseAmbient();
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active')];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);this.resolveHeroCasts();this.enemySpecials.update(dt);
   this.movementAllies=this.allies();this.formationPlanned=false;
   for(const u of this.entities.values())this.updateUnit(u,dt);

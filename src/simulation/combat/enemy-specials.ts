@@ -23,7 +23,7 @@ export class EnemySpecials {
   const boss=u.enemyTier==='boss',data=boss?bossFor(u.unitType as SpecialType):null,kind=u.unitType==='zergling'?'charge':u.unitType==='roach'?'cone':u.unitType==='hydralisk'?'fan':'bile';
   const delay=kind==='bile'?(boss?1.5:2.5):boss?1:kind==='charge'?.6:.8,angle=Math.atan2(target.x-u.x,target.z-u.z),count=kind==='fan'?(boss?5:3):kind==='bile'?(boss?5:3):1,point={x:target.x,z:target.z};
   const points=Array.from({length:kind==='bile'?count:1},(_,i)=>i===0?point:{x:point.x+Math.sin(angle+(i-1)*Math.PI*2/(count-1))*2.2,z:point.z+Math.cos(angle+(i-1)*Math.PI*2/(count-1))*2.2}).filter(p=>this.clear(u,p)&&(!w.terrain||w.terrain.canOccupy(p,0)));
-  this.casts.push({id:++this.serial,source:u.id,kind,origin:{x:u.x,z:u.z},point,points,angle,at:w.time+delay,damage:data?.damage??(kind==='bile'?BILE.damage*1.3:u.weaponDamage),count,range,radius:1});u.specialReady=w.time+(data?.cooldown??(kind==='bile'?10:8));u.lastSkillAt=w.time;
+  this.casts.push({id:++this.serial,source:u.id,kind,origin:{x:u.x,z:u.z},point,points,angle,at:w.time+delay,damage:data?data.damage*(u.specialDamageMultiplier??1):kind==='bile'?BILE.damage*1.3*(u.specialDamageMultiplier??1):u.weaponDamage,count,range,radius:1});u.specialReady=w.time+(data?.cooldown??(kind==='bile'?10:8));u.lastSkillAt=w.time;
   if(kind!=='bile'){u.facing=angle;u.action='skill';u.velocity={x:0,z:0};return true;}return false;
  }
  update(dt:number){const w=this.w,pending:EnemyCast[]=[];

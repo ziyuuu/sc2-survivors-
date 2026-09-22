@@ -1,4 +1,4 @@
-# Development contract · V15
+# Development contract · V16
 
 - The latest user-confirmed rules are in docs/DESIGN.md. Read it before gameplay edits. It supersedes historical four-type rosters, individual production pods, timed construction and earlier difficulty budgets.
 - Work in D:\星际 on v3/playable-sc2-demo. Update PR #2 without changing its base v2/sc2-assets-ui. Never force-push main. Run npm test before commits.
@@ -18,6 +18,8 @@
 - Preserve original Kairos Junction LE connected map slices, actual ground/cliff/ramps and Crystal/GasCanister/SpaceMineralCluster resources. High ground can shoot down with obstruction checks; melee cannot cross cliffs. Air collision is separate.
 - Mouse, touch and PC gamepad remain interchangeable. Heroes use keyboard 1/2/3 and gamepad up/left/right; menu direction inputs only navigate. Preserve legacy controller calibration. No physical-phone testing this iteration.
 - All numeric SC2 data requires locked version, source and speed conversion. New hero/elite/Boss values are explicit Survivors tuning. Analytical economy assumptions, fixed-rule flow, scripted input observations and human playtests are separate evidence. Automated victory is never a Normal difficulty acceptance gate.
+- Post-victory endless is optional and retains stage-12 terrain/state. Separate 240-second rounds preserve debrief/economy/revival. Wave/elite/Boss cadence accelerates every 30/60/90 combat seconds. New specials grow monotonically across archetypes; existing actors never retroactively scale. Ordinary campaign budgets stay unchanged.
+- Offline packing must reconstruct every original asset byte; deduplicate immutable chunks and use local lossless decoding, never silently drop clips or textures. Purple ownership/names and hero HP must remain visible without hover; skill disable state must not dim health.
 - Original asset bytes, conversion, animation playback, visual inspection and permission to distribute are separate statuses. Never replace missing authentic units with geometry, generated art or another unit's effect. Report missing exact source/install paths.
 - Follow local-only artwork processing. Keep screenshots and original assets on disk, never upload through image/model-return services. No credentials, private caches, proprietary archives or generated demo in the public repository. Font files must not be downloaded or packaged; retain system fallbacks.
 - Ordinary UI contains gameplay information only. Source reports, asset diagnostics and implementation notes belong in documentation or development-only F1. Development and standalone HTML share World and assets; production Demo has no state-changing debug API.

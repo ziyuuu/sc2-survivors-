@@ -1,3 +1,4 @@
+import {loadEmbeddedAssets} from './assets/offline-pack';
 import './ui/sc2-battle.css';
 import {configureMapAssets,loadMapDefinition} from './render/terrain/original-map';
 import {MapTerrain} from './simulation/movement/map-terrain';
@@ -13,13 +14,13 @@ import {AudioEffects} from './render/effects/audio';
 
 const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
-async function boot(){configureMapAssets();const definition=await loadMapDefinition(),world=new World({terrain:new MapTerrain(definition)});const view=new BattleRenderer(canvas,world),hud=new HUD(world,view),audio=new AudioEffects();
+async function boot(){await loadEmbeddedAssets();configureMapAssets();const definition=await loadMapDefinition(),world=new World({terrain:new MapTerrain(definition)});const view=new BattleRenderer(canvas,world),hud=new HUD(world,view),audio=new AudioEffects();
  const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),{canvas,pick:(x,y,touch)=>view.pick(x,y,touch)});hud.inputReset=()=>{input.keys.clear();input.release();};hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,b=>{const p=view.screen(b);return p.x>=0&&p.y>=0&&p.x<=canvas.clientWidth&&p.y<=canvas.clientHeight;},()=>hud.pause(),()=>{input.keys.clear();input.release();});
  const debug=import.meta.env.DEV?installDebug(world,view):null;
  // Reserve up to 12 ms for fixed-step catch-up; debt is retained and frame work remains bounded.
  const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused&&!world.requiresEliteChoice&&!view.assetsPending;},()=>performance.now(),12);
- window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,time:world.time,stats:{...world.stats},assetsReady:hud.ready,simulationBacklogSeconds:driver.accumulator,audio:audio.report(),gamepad:gamepad.report()});
+ window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:hud.ready,simulationBacklogSeconds:driver.accumulator,audio:audio.report(),gamepad:gamepad.report()});
  world.listeners.add(()=>audio.update(world));
  let previous=performance.now(),wasSimulating=false;
  const frame=(now:number)=>{const elapsed=(now-previous)/1000;previous=now;
