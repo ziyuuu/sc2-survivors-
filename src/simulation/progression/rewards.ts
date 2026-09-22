@@ -1,3 +1,4 @@
+import {HEROES,HERO_IDS,type HeroId} from '../../data/heroes';
 import {ELITES,type EliteId} from '../../data/elites';
 import {rollRarity,BUFFS,type Rarity} from '../../data/rewards';
 import {BUILDINGS,FACTORY_TECH_LAB,type BuildingType} from '../../data/game';
@@ -21,6 +22,7 @@ export function rewardPool(w?:RewardWorld):Reward[]{const factory=w&&[...w.build
  offer({id:'research.marauder',name:'劫掠者研究',description:'所有兵营解锁劫掠者，按劫掠者与枪兵交替合批训练。',icon:'unit.marauder',kind:'research',value:'marauder',minerals:50,gas:25}),
  ...Object.entries(BUILDINGS).map(([id,b])=>offer({id:'build.'+id,name:b.name.split(' · ')[1],description:id==='factory'?'建成即可自动生产恶火；科技实验室仅用于解锁坦克。':id==='starport'?'建成后自动生产医疗艇；不需要坦克科技实验室。':'建成后自动生产枪兵，同一批次合并投放一个多人救援仓。',icon:'building.'+id,kind:'build',value:id,minerals:b.minerals,gas:b.gas})),
  ...TERRAN.map(id=>{const u=SC2_UNITS[id];return offer({id:'train.'+id,name:u.zh+'增援',description:'下一关额外投放一个增援仓，清除威胁后归队。',icon:'unit.'+id,kind:'train',value:id,minerals:u.mineralCost,gas:u.gasCost});}),
+ ...HERO_IDS.map(id=>offer({id:'hero.'+id,rarity:'orange',name:HEROES[id].name,description:HEROES[id].skill+' · 独立英雄席位；首次招募，同款晋升。阵亡后仅关间付费复活。',icon:'hero.'+id,kind:'hero',value:id,minerals:750,gas:250})),
  ...Object.values(ELITES).map(e=>{const u=SC2_UNITS[e.family];return offer({id:'elite.'+e.id,rarity:'purple',name:e.name,description:e.description+' 首次替换同类普通队员；同款卡晋升，死亡不复活。',icon:e.icon,kind:'elite',value:e.id,minerals:u.mineralCost*5,gas:u.gasCost*5});}),
  offer({id:'intelligence',rarity:'green',name:'补给情报',description:'后续蓝／紫／橙基础概率各提高 20%，线性叠加，最高五级。',icon:'building.starport',kind:'intelligence',value:'intelligence',minerals:125,gas:25}),
  ...TERRAN.flatMap(id=>{const u=SC2_UNITS[id];return ([['green',3,2],['blue',5,3]] as const).map(([rarity,rank,price])=>offer({id:`veteran.${id}.${rank}`,rarity,rank,name:`${u.zh} · Rank ${rank}`,description:`立即获得 Rank ${rank} ${u.zh}；满员时将最低军衔提升至 ${rank}，不投放救援仓。`,icon:'unit.'+id,kind:'veteran',value:id,minerals:u.mineralCost*price,gas:u.gasCost*price}));}),
@@ -31,8 +33,9 @@ export function rewardPool(w?:RewardWorld):Reward[]{const factory=w&&[...w.build
  offer({id:'economy.salvage',name:'战地回收',description:'获得 75 矿物与 25 瓦斯。',icon:'building.factory',kind:'economy',value:'salvage',minerals:50,gas:0}),
  offer({id:'economy.supply',name:'补给运输',description:'获得 100 矿物与 25 瓦斯。',icon:'building.barracks',kind:'economy',value:'supply',minerals:75,gas:25}),
  ];}
-export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<number,Building>;upgrades:Map<string,number>;canAcquireElite?:(id:EliteId)=>boolean;capacity:(t:TerranType)=>boolean;canRecruit:(t:TerranType,rank:number)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
+export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<number,Building>;upgrades:Map<string,number>;canAcquireHero?:(id:HeroId)=>boolean;canAcquireElite?:(id:EliteId)=>boolean;capacity:(t:TerranType)=>boolean;canRecruit:(t:TerranType,rank:number)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
 export function unlockedReward(w:RewardWorld,r:Reward){
+ if(r.kind==='hero')return w.canAcquireHero?.(r.value as HeroId)??false;
  if(r.kind==='elite')return w.canAcquireElite?.(r.value as EliteId)??false;
  if(r.kind==='intelligence')return (w.upgrades.get('intelligence')??0)<5;
  if(r.kind==='build')return w.stage>=(r.value==='starport'?2:1)&&(r.value!=='starport'||[...w.buildings.values()].some(b=>b.type==='factory'&&b.remaining<=0));

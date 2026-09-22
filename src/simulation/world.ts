@@ -1,3 +1,4 @@
+import {HEROES,HERO_IDS,heroStats,heroRevivalCost,type HeroId} from '../data/heroes';
 import {ELITES,eliteStats,type EliteId} from '../data/elites';
 import {MAP_REWARDS} from '../data/rewards';
 import type {TerrainQuery} from '../data/map-definition';
@@ -14,7 +15,7 @@ import {stageConfig,stageSchedule,incomeFactor,scaleCounts,emptyCounts,type Coun
 import {CharTerrain} from '../data/terrain';
 import {rankStats} from '../data/ranks';
 import {ECONOMY,DROPS} from '../data/economy';
-import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,EconomicTarget,SquadOrder,RewardDrop} from './types';
+import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,EconomicTarget,SquadOrder,RewardDrop,HeroRecord,HeroCast} from './types';
 
 export class World {
  time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'lost'='menu';paused=false;
@@ -127,8 +128,8 @@ export class World {
    guardianPod:null,stimUntil:0,deadAt:null,bornAt:this.time,thinkAt:0,distanceWalked:0};
   this.refreshStats(u,true);if(owner==='zerg'&&!this.sandbox){if(unitType==='zergling')u.hp=u.maxHp=this.config.lingHp;if(unitType==='roach'&&this.stage>=8)u.armor++;if(unitType==='baneling'&&this.stage>=9)u.hp=u.maxHp=35;}this.entities.set(u.id,u);if(owner==='terran'&&this.order?.kind==='move')this.movePending.add(u.id);return u;
  }
- growth(u:Entity){return u.eliteId?eliteStats(u.eliteId,u.rank):{...rankStats(u.owner==='terran'?u.rank:1),movement:1};}
- refreshStats(u:Entity,fill=false){const d=SC2_UNITS[u.unitType];const old=u.maxHp,r=this.growth(u);u.moveSpeed=d.movementSpeed*r.movement;u.turnMultiplier=u.eliteId==='hellion.1'?1.2:1;
+ growth(u:Entity){return u.heroId?heroStats(u.rank):u.eliteId?eliteStats(u.eliteId,u.rank):{...rankStats(u.owner==='terran'?u.rank:1),movement:1};}
+ refreshStats(u:Entity,fill=false){const d=SC2_UNITS[u.unitType];const old=u.maxHp,r=this.growth(u);if(u.heroId){const h=HEROES[u.heroId];u.maxHp=h.hp*r.health*(1+(this.upgrades.get('buff.vitality')??0));u.hp=fill?u.maxHp:Math.min(u.maxHp,u.hp+Math.max(0,u.maxHp-old));u.armor=h.armor+r.armor;u.moveSpeed=h.speed;u.weaponDamage=h.damage*r.damage*this.weaponFactor(u);u.attackPeriod=h.period/r.attackSpeed;u.attackRange=h.range;return;}u.moveSpeed=d.movementSpeed*r.movement;u.turnMultiplier=u.eliteId==='hellion.1'?1.2:1;
   u.maxHp=(d.maxHp+(u.unitType==='marine'&&this.upgrades.has('shield')?10:0))*r.health*(u.owner==='terran'?1+(this.upgrades.get('buff.vitality')??0):1);
   u.hp=fill?u.maxHp:Math.min(u.maxHp,u.hp+Math.max(0,u.maxHp-old));
   const upgrade=['marine','marauder'].includes(u.unitType)?(this.upgrades.get('infantry')??0):['hellion','tank'].includes(u.unitType)?(this.upgrades.get('vehicle')??0)*(u.unitType==='tank'?2:1):0;
@@ -137,6 +138,25 @@ export class World {
   if(u.owner==='terran')u.armor=d.armor+r.armor;u.maxEnergy=HEAL.maxEnergy*r.energy;u.energyRegen=HEAL.regen*r.energy*(this.upgrades.has('medivac')?2:1);u.healRate=HEAL.hpPerSecond*r.healing*(1+(this.upgrades.get('buff.recovery')??0));
  }
  weaponFactor(u:Entity){return u.owner==='terran'?1+(this.upgrades.get('buff.weapon')??0):1;}
+ heroes=new Map<HeroId,HeroRecord>();heroCasts:HeroCast[]=[];
+ heroEntity(id:HeroId){const record=this.heroes.get(id);return record?.entityId!==null&&record?.entityId!==undefined?this.entities.get(record.entityId):undefined;}
+ canAcquireHero(id:HeroId){return (this.heroes.get(id)?.rank??0)<5;}
+ acquireHero(id:HeroId){if(!this.canAcquireHero(id))return false;let record=this.heroes.get(id);if(record){record.rank++;const u=this.heroEntity(id);if(u&&u.hp>0){u.rank=record.rank;this.refreshStats(u);}}else {record={id,rank:1,entityId:null,skillReady:this.time,revivePaid:false,awaitingSpawn:true};this.heroes.set(id,record);this.deployHero(record,false);}this.changed();return true;}
+ private deployHero(record:HeroRecord,revival:boolean){const pos=this.freePosition('marine',this.anchor);if(!pos)return false;const u=this.addUnit('marine','terran',pos.x,pos.z,record.rank);u.heroId=record.id;u.modelKey=HEROES[record.id].model;u.slot=100+HERO_IDS.indexOf(record.id);u.unitRadius=.45*TUNING.unitScale;this.refreshStats(u,true);record.entityId=u.id;record.awaitingSpawn=false;record.revivePaid=false;if(revival)record.skillReady=this.time+HEROES[record.id].cooldown;return true;}
+ canReviveHero(id:HeroId){const h=this.heroes.get(id);return this.phase==='reward'&&!!h&&!h.revivePaid&&!h.awaitingSpawn&&!(this.heroEntity(id)?.hp)&&this.wallet.minerals>=heroRevivalCost(h.rank).minerals&&this.wallet.gas>=heroRevivalCost(h.rank).gas;}
+ reviveHero(id:HeroId){if(!this.canReviveHero(id))return false;const h=this.heroes.get(id)!,cost=heroRevivalCost(h.rank);if(!spend(this.wallet,cost))return false;h.revivePaid=true;this.economyTotals.purchases.minerals+=cost.minerals;this.economyTotals.purchases.gas+=cost.gas;this.changed();return true;}
+ private deployPendingHeroes(newStage=false){for(const h of this.heroes.values()){if(newStage&&h.revivePaid)h.awaitingSpawn=true;if(h.awaitingSpawn)this.deployHero(h,h.revivePaid);}}
+ private heroTarget(id:HeroId){const u=this.heroEntity(id);if(!u||u.hp<=0)return;const target=this.order?.kind==='focus'?this.body(this.order.targetId):this.body(u.attackTarget);if(target&&this.validHeroTarget(id,u,target))return target;}
+ private validHeroTarget(id:HeroId,u:Entity,target:Body){return target.hp>0&&this.targetAllowed(u,target)&&this.edgeDistance(u,target)<=HEROES[id].skillRange&&this.hasAttackLine(u,target)&&(id!=='nova'||target.attributes.includes('Biological'));}
+ canCastHero(id:HeroId){const h=this.heroes.get(id);return this.phase==='battle'&&!this.paused&&!this.requiresEliteChoice&&!!h&&this.time+1e-8>=h.skillReady&&!this.heroCasts.some(c=>c.hero===id)&&!!this.heroTarget(id);}
+ castHero(id:HeroId){if(!this.canCastHero(id))return false;const h=this.heroes.get(id)!,u=this.heroEntity(id)!,target=this.heroTarget(id)!,data=HEROES[id];h.skillReady=this.time+data.cooldown;u.lastSkillAt=this.time;const cast:HeroCast={id:this.nextId++,hero:id,source:u.id,target:target.id,origin:{x:u.x,z:u.z},point:{x:target.x,z:target.z},at:this.time+data.delay,damage:data.skillDamage*heroStats(h.rank).skill};this.heroCasts.push(cast);this.resolveHeroCasts();this.changed();return true;}
+ private resolveHeroCasts(){const pending:HeroCast[]=[];for(const c of this.heroCasts){if(c.at>this.time+1e-8){pending.push(c);continue;}const source=this.entities.get(c.source),target=this.body(c.target),data=HEROES[c.hero];
+   if(c.hero==='nova'){if(source&&source.hp>0&&target&&this.validHeroTarget(c.hero,source,target)){this.hit(target,c.damage+target.armor,[],1,'terran',0);this.effect('hero-line',source,target,.1,.16);}continue;}
+   if(c.hero==='tychus'){this.hash.query(c.point,data.radius+3,b=>{if(b.hp>0&&b.owner==='zerg'&&distance(b,c.point)<=data.radius+b.unitRadius&&(!this.terrain||this.terrain.walkLine(c.point,b,0)))this.hit(b,c.damage+b.armor,[],1,'terran',0);},'zerg');if(source)this.effect('explosion',source,c.point,data.radius,.6);continue;}
+   const angle=Math.atan2(c.point.x-c.origin.x,c.point.z-c.origin.z),end={x:c.origin.x+Math.sin(angle)*data.length,z:c.origin.z+Math.cos(angle)*data.length};
+   this.hash.query(c.origin,data.length+3,b=>{const dx=b.x-c.origin.x,dz=b.z-c.origin.z,along=dx*Math.sin(angle)+dz*Math.cos(angle),side=Math.abs(dx*Math.cos(angle)-dz*Math.sin(angle));if(b.hp>0&&b.owner==='zerg'&&along>=0&&along<=data.length+b.unitRadius&&side<=data.width/2+b.unitRadius&&(!this.terrain||this.terrain.lineOfFire(c.origin,b,false,b.flying)))this.hit(b,c.damage+b.armor,[],1,'terran',0);},'zerg');if(source)this.effect('hero-line',source,end,data.width/2,.2);
+  }this.heroCasts=pending;
+ }
  pendingElites:EliteId[]=[];
  private burns=new Map<string,{target:number;source:number;damage:number;next:number;until:number}>();
  eliteOwned(id:EliteId){return this.allies().find(u=>u.eliteId===id);}
@@ -339,6 +359,7 @@ export class World {
  separation(u:Entity){const v={x:0,z:0};let n=0;this.hash.query(u,2.8,b=>{if(n>=12)return false;if(b.id===u.id||b.flying!==u.flying)return;const d=distance(u,b),min=u.unitRadius+b.unitRadius+.15;if(d<min){if(!u.flying&&this.terrain&&!this.terrain.sameContactLayer(u,b))return;const strength=Math.min(3,(min-d)*5);if(d>.001){v.x+=(u.x-b.x)/d*strength;v.z+=(u.z-b.z)/d*strength;}else{const a=(Math.min(u.id,b.id)*7+Math.max(u.id,b.id)*13)*2.399,sign=u.id<b.id?1:-1;v.x+=Math.sin(a)*strength*sign;v.z+=Math.cos(a)*strength*sign;}n++;}});return v;}
  updateUnit(u:Entity,dt:number){if(u.hp<=0)return;this.updateElite(u,dt);u.prev.x=u.x;u.prev.z=u.z;if(u.unitType!=='medivac')u.healTarget=null;
   u.weaponCooldown=Math.max(0,u.weaponCooldown-dt);u.attackLock=Math.max(0,u.attackLock-dt);
+  if(u.heroId==='nova'&&this.heroCasts.some(c=>c.source===u.id&&c.at>this.time)){u.velocity={x:0,z:0};u.action='skill';return;}
   const anchorDistance=distance(u,this.anchor);
   if(this.updateTank(u,anchorDistance,dt))return;
   if(u.unitType==='ravager')this.updateBile(u,dt);
@@ -443,6 +464,7 @@ export class World {
   else if(r.kind==='upgrade')this.upgradeFactory(Number(r.value));
   else if(r.kind==='research')this.unlockMarauder();
   else if(r.kind==='train')this.extraDeliveries.push(r.value as TerranType);
+  else if(r.kind==='hero'){if(!this.acquireHero(r.value as HeroId))return false;}
   else if(r.kind==='elite'){if(!this.acquireElite(r.value as EliteId))return false;}
   else if(r.kind==='intelligence'){if((this.upgrades.get('intelligence')??0)>=5)return false;this.upgrades.set('intelligence',(this.upgrades.get('intelligence')??0)+1);}
   else if(r.kind==='veteran'){if(!this.grantVeteran(r.value as TerranType,r.rank!))return false;}
@@ -452,17 +474,17 @@ export class World {
  }
  skipReward(){if(this.phase!=='reward'||this.rewardClaimed)return false;return this.finishRewardRound();}
  private finishRewardRound(){this.rewardClaimed=true;if(this.rewardRound==='building'){this.rewardRound='random';this.rewards=this.offers(drawRewards(this,this.random));this.rewardClaimed=false;this.changed();return true;}return this.nextStage();}
- private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();this.flushDeliveries();this.changed();return true;}
- stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.eliteId==='marine.1'?0:u.unitType==='marauder'?20:10;if(['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
+ private nextStage(){this.rewardClaimed=true;this.stage++;this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.rerolls=0;this.prepareStage();this.flushDeliveries();this.deployPendingHeroes(true);this.changed();return true;}
+ stim(){if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.eliteId==='marine.1'?0:u.unitType==='marauder'?20:10;if(!u.heroId&&['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
  dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power);return true;}
  step(){if(this.phase!=='battle'||this.paused||this.requiresEliteChoice)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;
   if(this.scheduledStage!==this.stage)this.prepareStage();const direction=this.updateCommand(dt),mag=Math.hypot(direction.x,direction.z);if(mag>.01){this.anchorMovingFor+=dt;this.anchorStoppedFor=0;}else {this.anchorStoppedFor+=dt;this.anchorMovingFor=0;}if(mag>.01){const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);this.anchor.facing=turn(this.anchor.facing,Math.atan2(direction.x,direction.z),5*dt);translate(this.anchor,{x:direction.x/Math.max(1,mag)*speed*dt,z:direction.z/Math.max(1,mag)*speed*dt},.8,false,this.obstacles,this.sandbox?TUNING.worldHalf:this.mapHalf,this.terrain);}
   if(distance(this.anchor,this.trail.at(-1)!)>.8)this.trail.push({x:this.anchor.x,z:this.anchor.z});
   if(this.trail.length>1200){this.trail.splice(0,200);for(const u of this.entities.values())u.trailIndex=Math.max(0,u.trailIndex-200);}
-  this.updateEconomy(dt);this.updateProduction(dt);this.updateBurns();
+  this.updateEconomy(dt);this.updateProduction(dt);this.updateBurns();this.deployPendingHeroes();
   if(!this.sandbox)while(this.eventPlan[this.nextEvent]?.at<=this.stageElapsed){this.spawnEconomic(this.eventPlan[this.nextEvent++].kind);}
   if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.ambientBacklog.length)this.releaseAmbient();
-  const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active')];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);
+  const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active')];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);this.resolveHeroCasts();
   this.movementAllies=this.allies();this.formationPlanned=false;
   for(const u of this.entities.values())this.updateUnit(u,dt);
   this.movementAllies=null;

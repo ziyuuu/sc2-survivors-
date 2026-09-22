@@ -1,0 +1,34 @@
+[
+  {
+    "id": "unit.marauder",
+    "name": "btn-unit-terran-marauder"
+  },
+  {
+    "id": "unit.hydralisk",
+    "name": "btn-unit-zerg-hydralisk"
+  },
+  {
+    "id": "hero.raynor",
+    "name": "btn-unit-terran-marineraynorhev"
+  },
+  {
+    "id": "hero.tychus",
+    "name": "btn-unit-terran-marinetychus"
+  },
+  {
+    "id": "hero.nova",
+    "name": "btn-unit-terran-nova"
+  },
+  {
+    "id": "skill.raynor",
+    "name": "btn-ability-terran-penetratorround"
+  },
+  {
+    "id": "skill.tychus",
+    "name": "btn-ability-terran-punishergrenade-color"
+  },
+  {
+    "id": "skill.nova",
+    "name": "btn-ability-terran-snipe-color"
+  }
+]

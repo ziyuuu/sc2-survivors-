@@ -77,7 +77,7 @@ export class BattleRenderer {
  private variantLoads=new Map<string,Promise<boolean>>();private variantQueue=Promise.resolve();assetsPending=0;
  ensureUnitVariant(key:string,type:UnitType):Promise<boolean>{const existing=this.variantLoads.get(key);if(existing)return existing;if(this.gpu.has(key))return Promise.resolve(true);this.assetsPending++;
   let finish!:(ok:boolean)=>void;const result=new Promise<boolean>(resolve=>finish=resolve);this.variantLoads.set(key,result);
-  this.variantQueue=this.variantQueue.then(async()=>{let ok=false;try{const loader=new GLTFLoader(),url=assetUrl('model.'+key);if(!url)throw Error('missing original model');const gltf=await restoreSc2Materials(await loader.loadAsync(url));if(!gltf.animations.length)throw Error('missing original animation');const base=new AnimatedBatch(gltf,this.scene,heights[type],undefined,TUNING.unitScale);this.gpu.set(key,base);
+  this.variantQueue=this.variantQueue.then(async()=>{let ok=false;try{const loader=new GLTFLoader(),url=assetUrl('model.'+key);if(!url)throw Error('missing original model');const gltf=await restoreSc2Materials(await loader.loadAsync(url));if(!gltf.animations.length)throw Error('missing original animation');const base=new AnimatedBatch(gltf,this.scene,heights[type],undefined,TUNING.unitScale,key);this.gpu.set(key,base);
    for(const suffix of ['.death',...(type==='tank'?['.siege','.morph']:[])]){const path=assetUrl('model.'+key+suffix);if(!path){if(suffix!=='.death')throw Error('missing original tank form '+suffix);continue;}const form=await restoreSc2Materials(await loader.loadAsync(path));this.gpu.set(key+suffix,new AnimatedBatch(form,this.scene,heights[type],base.normalization));}this.filterTextures(this.scene);ok=true;
   }catch(e){this.modelErrors.push(key+': '+String(e));this.world.paused=true;this.world.announce('增援素材未能载入，请重新载入战场');}finally{this.assetsPending--;finish(ok);this.world.changed();}});return result;
  }
@@ -124,14 +124,15 @@ export class BattleRenderer {
     let key:string=baseKey;if(u.unitType==='tank')key=baseKey+(u.action==='sieging'||u.action==='unsieging'?'.morph':u.mode==='siege'?'.siege':'');
     const model=this.gpu.get(key)??this.gpu.get(baseKey)!;let state=this.animationStates.get(u.id);const signature=key+':'+u.action;
     if(!state||state.action!==signature){state={action:signature,since:world.time,modeDuration:u.modeTimer};this.animationStates.set(u.id,state);}
-    let seconds=world.time-state.since;const p=model.pose(u.action);const once=['attack','spawn','sieging','unsieging'].includes(u.action);
-    if(u.action==='move')seconds=u.distanceWalked/SC2_UNITS[u.unitType].movementSpeed;
+    let seconds=world.time-state.since;const p=model.pose(u.action);const once=['attack','skill','spawn','sieging','unsieging'].includes(u.action);
+    if(u.action==='skill')seconds=world.time-(u.lastSkillAt??world.time);
+    else if(u.action==='move')seconds=u.distanceWalked/SC2_UNITS[u.unitType].movementSpeed;
     else if((u.action==='sieging'||u.action==='unsieging')&&p)seconds=(1-u.modeTimer/Math.max(1/60,state.modeDuration))*p.duration;
     else if(u.action==='attack')seconds*=1.4;
     // Small enemy silhouettes keep original 24 Hz poses; larger/friendly actors interpolate.
     const interpolate=u.owner==='terran'||heights[u.unitType]*this.canvas.clientHeight/(this.camera.top-this.camera.bottom)>=36;
-    const shotAge=world.time-u.lastShotAt,displayAction=u.unitType==='marine'&&u.action==='attack'?'idle':u.action;
-    model.add(x,y,z,u.facing,displayAction,seconds,once,Math.max(0,1-(world.time-(this.hitTimes.get(u.id)??-100))/.12),1,interpolate,u.unitType==='marine'&&shotAge<.4?shotAge*1.4:-1,u.unitType==='tank'&&u.modeTimer<=0?u.attackFacing-u.facing:0);
+    const shotAge=world.time-u.lastShotAt,displayAction=u.unitType==='marine'&&!u.heroId&&u.action==='attack'?'idle':u.action;
+    model.add(x,y,z,u.facing,displayAction,seconds,once,Math.max(0,1-(world.time-(this.hitTimes.get(u.id)??-100))/.12),1,interpolate,u.unitType==='marine'&&!u.heroId&&shotAge<.4?shotAge*1.4:-1,u.unitType==='tank'&&u.modeTimer<=0?u.attackFacing-u.facing:0);
    }else{
     _obj.position.set(x,y,z);_obj.rotation.set(dying?Math.PI/2*(1-death):u.unitType==='baneling'?u.distanceWalked*2:0,u.facing,0);_obj.scale.setScalar(Math.max(.01,death));_obj.updateMatrix();
     let mode=u.mode==='siege'?1:0;if(u.action==='sieging')mode=1-u.modeTimer/2.887;if(u.action==='unsieging')mode=u.modeTimer/2.53;
@@ -151,8 +152,9 @@ export class BattleRenderer {
   for(const p of world.pods){this.podLabel(p);let v=this.podViews.get(p.id);if(!v&&this.podTemplate){v=new PodView(this.podTemplate,this.scene);this.podViews.set(p.id,v);}v?.update(p,world.time,this.visible(p),this.ground(p));
    if(p.status==='active'||p.status==='opening'){health(p,this.ground(p)+2.9);putRing(p,this.showColliders?p.unitRadius:2.1,0xffa94e);}}
   if(world.hive){if(!this.hiveView&&this.hiveTemplate){this.hiveView=clone(this.hiveTemplate);this.scene.add(this.hiveView);}if(this.hiveView){this.hiveView.position.set(world.hive.x,this.ground(world.hive),world.hive.z);this.hiveView.visible=world.hive.hp>0;}if(world.hive.hp>0)health(world.hive,this.ground(world.hive)+4);}
-  for(const fx of world.effects){if(fx.kind==='bile'){putRing(fx.end,fx.radius+1,0xff7138);putRing(fx.end,Math.max(.15,(fx.until-world.time)/2.5*(fx.radius+1)),0xffda84);}else if(fx.kind==='explosion')putRing(fx.end,fx.radius*(1+(fx.until-world.time)),0xffbc59);}
+  for(const fx of world.effects){if(fx.kind==='bile'){putRing(fx.end,fx.radius+1,0xff7138);putRing(fx.end,Math.max(.15,(fx.until-world.time)/2.5*(fx.radius+1)),0xffda84);}else if(fx.kind==='hero-line')putLine(fx,this.ground(fx)+.7,fx.end,this.ground(fx.end)+.7,0xffcc78);else if(fx.kind==='explosion')putRing(fx.end,fx.radius*(1+(fx.until-world.time)),0xffbc59);}
 
+  for(const cast of world.heroCasts){putRing(cast.point,cast.hero==='tychus'?2.5:.5,0xffc177);}
   if(world.phase==='battle'&&world.order){const order=world.order;
    if(order.kind==='move')putRing(order.point,.65+.08*Math.sin(world.time*7),0x84eea7);
    else {const target=world.body(order.targetId);if(target&&target.hp>0)putRing(target,target.unitRadius+.28,0xff624a);}

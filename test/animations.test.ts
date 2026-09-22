@@ -22,3 +22,5 @@ test('actual SC2 clip names prioritize full walking/attack and distinguish heali
  assert.equal(m.heal?.name,'Stand Work');assert.equal(m.sieging?.name,'Morph Start');assert.equal(m.unsieging?.name,'Morph End');
  assert.equal(m.spawn?.name,'Birth');assert.equal(m.hit,undefined,'Flail is not falsely labeled as a hit reaction');
 });
+
+test('Nova uses original canister-rifle animation group A rather than unarmed standby or blade attacks',()=>{const m=mapAnimations(['Stand','Walk','Death','Stand A','Walk A','Attack A','Death A','Spell E A','Attack C'].map(n=>new AnimationClip(n,1,[])),'hero.nova');assert.equal(m.idle?.name,'Stand A');assert.equal(m.move?.name,'Walk A');assert.equal(m.attack?.name,'Attack A');assert.equal(m.dead?.name,'Death A');assert.equal(m.skill?.name,'Spell E A');});

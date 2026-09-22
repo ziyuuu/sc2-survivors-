@@ -21,8 +21,8 @@ export class AnimatedBatch {
  clips=new Map<string,PoseClip>();actions:ReturnType<typeof mapAnimations>;
  private lodIndices:{full:THREE.BufferAttribute;low:THREE.BufferAttribute}[]=[];private lowDetail=false;lodRatio=1;
  count=0;scale:number;normalization:THREE.Matrix4;textureBytes=0;boneCount=0;
- constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1){
-  this.actions=mapAnimations(gltf.animations);
+ constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string){
+  this.actions=mapAnimations(gltf.animations,profile);
   const mixer=new THREE.AnimationMixer(gltf.scene),rest=this.actions.idle??gltf.animations[0];
   if(rest){mixer.clipAction(rest).play();mixer.setTime(0);}gltf.scene.updateMatrixWorld(true);
   const box=sc2BodyBounds(gltf.scene),center=box.getCenter(new THREE.Vector3());

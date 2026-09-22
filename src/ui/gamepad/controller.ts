@@ -22,8 +22,9 @@ export class GamepadInput {
    if(input.meaningful&&!this.active||input.meaningful&&this.index!==p.index)this.select(p);
    if(!this.active||this.index!==p.index)continue;
    if(input.edges.has('pause')){this.pause();return;}
-   const w=this.world;if(w.phase!=='battle'||w.paused){w.input={x:0,z:0};this.menu(input.menu,input.edges.has('confirm'),input.edges.has('back'));continue;}
+   const w=this.world;if(w.phase!=='battle'||w.paused||w.requiresEliteChoice){w.input={x:0,z:0};this.menu(input.menu,input.edges.has('confirm'),input.edges.has('back'));continue;}
    w.controllerCommand=true;w.input=input.move;
+   for(const id of ['raynor','tychus','nova'] as const)if(input.edges.has(id))w.castHero(id);
    if(input.edges.has('confirm'))w.dash();if(input.edges.has('stim'))w.stim();if(input.edges.has('siege'))w.toggleTanks();
    if(input.edges.has('back')){w.cancelOrder();this.acquire();}
    if(input.edges.has('previous'))this.acquire(-1);else if(input.edges.has('next'))this.acquire(1);
@@ -43,13 +44,13 @@ export class GamepadInput {
   if(confirm){if(el instanceof HTMLSelectElement){el.selectedIndex=(el.selectedIndex+1)%el.options.length;el.dispatchEvent(new Event('change',{bubbles:true}));}else el.click();}
  }
  openCalibration(p?:PadSnapshot){const pads=[...(navigator.getGamepads?.()??[])].filter((p):p is Gamepad=>!!p&&p.connected);p??=pads.find(p=>p.index===this.index)??pads[0];this.calibrating=true;this.dialog.hidden=false;if(this.world.phase==='battle'){this.world.paused=true;this.world.changed();}this.world.input={x:0,z:0};this.calibration=p?{id:p.id,step:0,mapping:structuredClone(STANDARD),rest:[...p.axes],waiting:true}:null;this.drawCalibration();}
- private drawCalibration(){const steps=['放开所有按键和摇杆','左摇杆向右推','左摇杆向下推','按下面键（确认 / 推进）','按右面键（返回 / 自动选敌）','按左面键（兴奋剂）','按上面键（全队架炮）','按菜单键（暂停）','按左扳机（上一个目标）','按右扳机（下一个目标）'];this.dialog.innerHTML=`<div class="console"><h2>手柄校准</h2><p>${this.calibration?steps[this.calibration.step]:'连接手柄后按任意键'}</p><p>每步完成后松开，再执行下一步。</p><button>取消 · 保留原设置</button></div>`;}
+ private drawCalibration(){const steps=['放开所有按键和摇杆','左摇杆向右推','左摇杆向下推','按下面键（确认 / 推进）','按右面键（返回 / 自动选敌）','按左面键（兴奋剂）','按上面键（全队架炮）','按菜单键（暂停）','按左扳机（上一个目标）','按右扳机（下一个目标）','按方向键上（雷诺技能）','按方向键左（泰凯斯技能）','按方向键右（诺娃技能）'];this.dialog.innerHTML=`<div class="console"><h2>手柄校准</h2><p>${this.calibration?steps[this.calibration.step]:'连接手柄后按任意键'}</p><p>每步完成后松开，再执行下一步。</p><button>取消 · 保留原设置</button></div>`;}
  private calibrate(p:PadSnapshot){if(!this.calibration){this.calibration={id:p.id,step:0,mapping:structuredClone(STANDARD),rest:[...p.axes],waiting:true};this.drawCalibration();}const c=this.calibration;
   const pressed=p.buttons.some(b=>b.value>.5),deltas=p.axes.map((v,i)=>v-(c.rest[i]??0)),axes=deltas.map((v,i)=>({v,i})).filter(a=>Math.abs(a.v)>.65),neutral=!pressed&&deltas.every(v=>Math.abs(v)<.2);
   if(c.waiting){if(neutral){c.waiting=false;if(c.step===0){c.rest=[...p.axes];c.step++;this.drawCalibration();}}return;}
   if(c.step<3){const axis=axes.sort((a,b)=>Math.abs(b.v)-Math.abs(a.v))[0];if(!axis)return;const k=c.step===1?'x':'y';if(k==='y'&&axis.i===c.mapping.x)return;c.mapping[k]=axis.i;c.mapping[k==='x'?'invertX':'invertY']=Math.sign(axis.v);}
-  else {let b:ButtonBinding|undefined;const button=p.buttons.findIndex(b=>b.value>.55);if(button>=0)b={button};else if(c.step>=8&&axes.length){const a=axes[0];b={axis:a.i,sign:Math.sign(a.v),rest:c.rest[a.i]};}if(!b)return;const key=['confirm','back','stim','siege','pause','previous','next'][c.step-3] as 'confirm';c.mapping[key]=b;}
-  c.step++;c.waiting=true;if(c.step>9){this.mappings[p.id]=c.mapping;try{localStorage.setItem('sc2.gamepads.v1',JSON.stringify(this.mappings));}catch{}this.closeCalibration();this.select(p);this.armed.delete(p.index);this.world.announce('手柄校准完成');}else this.drawCalibration();
+  else {let b:ButtonBinding|undefined;const button=p.buttons.findIndex(b=>b.value>.55);if(button>=0)b={button};else if(c.step>=8&&axes.length){const a=axes[0];b={axis:a.i,sign:Math.sign(a.v),rest:c.rest[a.i]};}if(!b)return;const key=['confirm','back','stim','siege','pause','previous','next','raynor','tychus','nova'][c.step-3] as 'confirm';c.mapping[key]=b;}
+  c.step++;c.waiting=true;if(c.step>12){this.mappings[p.id]=c.mapping;try{localStorage.setItem('sc2.gamepads.v1',JSON.stringify(this.mappings));}catch{}this.closeCalibration();this.select(p);this.armed.delete(p.index);this.world.announce('手柄校准完成');}else this.drawCalibration();
  }
  private closeCalibration(){this.dialog.hidden=true;this.calibrating=false;this.calibration=null;this.armed.clear();this.states.clear();}
  report(){return {active:this.active,index:this.index,calibrating:this.calibrating,connected:[...(navigator.getGamepads?.()??[])].filter(Boolean).map(p=>({id:p!.id,mapping:p!.mapping,axes:p!.axes.length,buttons:p!.buttons.length}))};}
