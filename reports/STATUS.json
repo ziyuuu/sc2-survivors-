@@ -1,88 +1,72 @@
 {
-  "checkedAt": "2026-09-22T04:51:19.574664+00:00",
+  "checkedAt": "2026-09-22T10:26:14.543043+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "653a4dad2cfbca6bcabddaf07bc97abfb45fe9e3",
+  "runtimeCommit": "406b24a7a08cd7edc6e834081eb5ee0906dd3187",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "scope": "Performance and allied AI: active instance uploads, conservative original-map visibility with stable transparent sorting, bounded target acquisition/shared formation planning, reachable local defense during player focus pursuit, nearby stable healing and forward marching intent.",
+  "prBase": "v2/sc2-assets-ui",
+  "scope": "V15 batched pods, five families, 15 replacement elites, three heroes, intelligence, budget-converted enemy elites and four Bosses",
   "tests": {
     "command": "npm test",
-    "passed": 287,
+    "passed": 340,
     "failed": 0,
     "skipped": 0,
-    "log": "reports/local/tests-v14.log"
+    "log": "reports/local/iteration-test-final.log"
   },
   "typecheck": {
-    "command": "npm run typecheck and tsc --noEmit during build",
+    "command": "npm run typecheck",
     "exitCode": 0
   },
   "build": {
     "command": "npm run build",
     "exitCode": 0,
     "path": "dist/SC2-Survivors-Demo.html",
-    "bytes": 176532847,
-    "miB": 168.35484218597412,
-    "sha256": "cfadda2bb0584751c233832d10c60c4f621d9913bb933e92c182e21f7f23a375",
-    "embeddedAssets": 581,
-    "largeChunkWarning": true,
-    "log": "reports/local/build-v14.log"
+    "bytes": 372231822,
+    "miB": 354.98792839050293,
+    "sha256": "941757f306afc3031ea1b0292294ec6cab42ed0c58fd2b3f5a590c9c3b59bc49",
+    "embeddedAssets": 647,
+    "largeChunkWarning": true
   },
   "assets": {
-    "available": 581,
-    "manifestTotal": 581,
+    "available": 647,
+    "manifestTotal": 647,
     "requiredMissing": [],
-    "combatModels": 8,
-    "originalAnimationModels": 8,
-    "originalDeathModels": 8,
-    "economicModels": 3,
-    "podModel": true,
-    "resourceModels": 3,
-    "iconsDecoded": 23,
-    "effectTextures": 33,
-    "originalAudioDecoded": 10,
-    "mapModels": 292,
-    "mapModelPlacements": 4956,
-    "originalCliffInstances": 2473,
-    "mapSharedImages": 179,
-    "sourceFilesLocked": 511,
+    "combatModels": 28,
+    "baseCombatModels": 10,
+    "eliteVariants": 15,
+    "heroes": 3,
+    "idleMoveDeathPlayback": 28,
+    "attackClips": 23,
+    "medicalWorkClips": 4,
+    "banelingAttack": "original death/detonation",
+    "iconsDecoded": 31,
+    "eliteIconPolicy": "15 skins use the five original family icons; not 15 distinct original portraits",
+    "audioDecoded": 10,
+    "expansionDependencyHashes": 267,
+    "independentOriginalAudit": {
+      "models": 364,
+      "bones": 4045,
+      "clips": 1272,
+      "mismatches": 0
+    },
     "humanVisualApproved": false,
     "humanListeningApproved": false,
-    "originalClientPixelComparison": false,
-    "audioEvidence": "reports/qa/v14-squad-rewards.json (final battle snapshots; offline launch snapshot can precede async audio completion)"
+    "originalClientPixelComparison": false
   },
   "map": {
     "name": "Kairos Junction LE",
-    "source": "tools/map-lock.json",
-    "worldUnitsPerSc2Unit": 1,
-    "stages": 12,
-    "renderAdaptations": "docs/MAP_PIPELINE.md",
+    "slices": 12,
     "edgeRoutesPassed": 288,
     "rampApproachesPassed": 288,
-    "fullSquadCrowding": {
-      "cases": 32,
-      "failed": 0,
-      "maximumSeconds": 9.766666666666667,
-      "meanSeconds": 7.035416666666666,
-      "maxSingleStep": 0.13078770664757372,
-      "evidence": "reports/qa/v14-crowding.json"
-    },
-    "navigationEvidence": "reports/qa/v13-navigation.json",
-    "navigationRuntime": "9023b71902189ca9655d824ea4983da1d3aa19c5 (V13 static edge/ramp approaches; terrain unchanged)",
-    "cullingComparison": {
-      "cases": 51,
-      "exactlyIdentical": 51,
-      "maxChannelDifference": 0,
-      "reference": "Same frozen camera and all opened original placements rendered; not original-client comparison",
-      "evidence": "reports/qa/v14-culling.json"
-    }
+    "crowdingCases": 32,
+    "crowdingFailures": 0,
+    "friendlyCount": 25,
+    "maxCrowdingSeconds": 17,
+    "evidence": "reports/qa/v15-navigation.json"
   },
   "browser": {
-    "desktop": [
-      1440,
-      900
-    ],
-    "touchViewports": [
+    "viewportTouchGamepadEmulation": [
       [
         390,
         844
@@ -92,138 +76,101 @@
         390
       ]
     ],
-    "actualDomActions": true,
-    "isolatedFixtures": true,
-    "normalDifficultyVictoryGate": false,
-    "evidence": [
-      "reports/qa/v14-commands.json",
-      "reports/qa/v14-squad-rewards.json"
-    ],
-    "physicalPhoneTested": false,
-    "physicalGamepadTested": false
-  },
-  "offline": {
-    "scheme": "file://",
-    "network": "Browser context offline",
-    "httpRequests": 0,
-    "debugMutationApi": false,
-    "rightClickMove": true,
-    "keyboardTakeover": true,
-    "evidence": "reports/qa/v14-commands.json"
+    "firstTwoStages": {
+      "method": "Two-stage desktop input observation at 1x. Mouse/minimap actions and purchases only; no HP, timing, wallet, spawn or difficulty edits. Scripted inputs are functional evidence, not human skill or Normal balance acceptance.",
+      "stage": 2,
+      "phase": "reward",
+      "stats": {
+        "kills": 25,
+        "rescued": 4,
+        "failed": 0,
+        "produced": 4,
+        "started": 5,
+        "shots": 387,
+        "healed": 0,
+        "damage": 1638,
+        "scvsRescued": 6,
+        "scvsLost": 0,
+        "dronesKilled": 5,
+        "ambientSpawned": 18
+      }
+    },
+    "offlineHttpRequests": [],
+    "offlineMutableDebug": "undefined",
+    "evidence": "reports/qa/v15-runtime.json",
+    "physicalPhone": "not scheduled per user",
+    "physicalGamepad": "not tested",
+    "humanFullCampaign": "not completed"
   },
   "performance": {
-    "method": "Paired file:// diagnostic HTML builds, identical embedded assets/CSS and minification, debug API only for fixtures. Actual friend build tested separately offline without the debug API. Chrome headless, AMD Radeon/ANGLE D3D11, 1440x900 DPR1 balanced, no CPU throttling; 15s warmup + 12s sample. No simultaneous benchmarks. Not a campaign or physical device result.",
-    "evidence": "reports/qa/v14-performance.json",
-    "before": [
+    "environment": "Desktop Chrome headless, 1440x900 DPR1 balanced, 15s warmup/12s sample; no throttling, not a phone",
+    "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "common": [
       {
         "friendly": 20,
         "enemies": 100,
-        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "averageFps": 27.46887966804979,
-        "p95ms": 64.79999999999563,
-        "drawCalls": 320,
-        "simulationBacklogSeconds": 3.3333333368697204e-05,
-        "startingBacklogSeconds": 0.1000333333333665,
-        "backlogChangeSeconds": -0.09999999999999781,
-        "simulationSeconds": 12.150000000000002,
+        "averageFps": 43.93958307327425,
+        "p95ms": 33.30000000000291,
+        "drawCalls": 191,
+        "simulationBacklogSeconds": 0.016633333333338097,
+        "backlogChangeSeconds": 0.016500000000000344,
         "stepCpu": {
-          "count": 729,
-          "meanMs": 3.6769547324285257,
-          "p95ms": 9
+          "count": 720,
+          "meanMs": 1.6948611105481783,
+          "p95ms": 3.800000011920929
         },
         "renderCpu": {
-          "count": 331,
-          "meanMs": 21.405740181484973,
-          "p95ms": 36.79999998211861
+          "count": 528,
+          "meanMs": 7.417234848507426,
+          "p95ms": 10.399999976158142
         }
       },
       {
         "friendly": 25,
         "enemies": 300,
-        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "averageFps": 28.5039972077717,
-        "p95ms": 50.099999999998545,
-        "drawCalls": 318,
-        "simulationBacklogSeconds": 3.833366666666752,
-        "startingBacklogSeconds": 3.6499666666667068,
-        "backlogChangeSeconds": 0.18340000000004508,
-        "simulationSeconds": 11.850000000000001,
+        "averageFps": 36.36696514763157,
+        "p95ms": 33.5,
+        "drawCalls": 190,
+        "simulationBacklogSeconds": 0.016600000000000167,
+        "backlogChangeSeconds": 0.016400000000002333,
         "stepCpu": {
-          "count": 711,
-          "meanMs": 7.788045007258695,
+          "count": 720,
+          "meanMs": 5.6670833333912825,
+          "p95ms": 12.400000005960464
+        },
+        "renderCpu": {
+          "count": 437,
+          "meanMs": 10.478947367902752,
           "p95ms": 14.199999988079071
-        },
-        "renderCpu": {
-          "count": 343,
-          "meanMs": 16.99096209922963,
-          "p95ms": 22.69999998807907
         }
       }
     ],
-    "after": [
-      {
-        "friendly": 20,
-        "enemies": 100,
-        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "averageFps": 25.310993269765397,
-        "p95ms": 50.200000000004366,
-        "drawCalls": 189,
-        "simulationBacklogSeconds": 0.016933333333361607,
-        "startingBacklogSeconds": 0.0001666666666959929,
-        "backlogChangeSeconds": 0.016766666666665615,
-        "simulationSeconds": 12.033333333333333,
-        "stepCpu": {
-          "count": 722,
-          "meanMs": 3.3653739609876827,
-          "p95ms": 8.199999988079071
-        },
-        "renderCpu": {
-          "count": 305,
-          "meanMs": 15.411475409933779,
-          "p95ms": 19.399999976158142
-        }
+    "expanded": {
+      "friendly": 28,
+      "enemies": 300,
+      "averageFps": 30.91421305876195,
+      "p95ms": 49.89999999999418,
+      "drawCalls": 273,
+      "simulationBacklogSeconds": 5.4000666666667305,
+      "backlogChangeSeconds": 0.21663333333337143,
+      "stepCpu": {
+        "count": 709,
+        "meanMs": 9.260084625906265,
+        "p95ms": 19.099999994039536
       },
-      {
-        "friendly": 25,
-        "enemies": 300,
-        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "averageFps": 31.04013581099637,
-        "p95ms": 50,
-        "drawCalls": 192,
-        "simulationBacklogSeconds": 0.01656666666667458,
-        "startingBacklogSeconds": 0.016533333333341785,
-        "backlogChangeSeconds": 3.333333333279537e-05,
-        "simulationSeconds": 12.016666666666667,
-        "stepCpu": {
-          "count": 721,
-          "meanMs": 6.268793342265607,
-          "p95ms": 13.199999988079071
-        },
-        "renderCpu": {
-          "count": 373,
-          "meanMs": 11.512868633378925,
-          "p95ms": 15.899999976158142
-        }
+      "renderCpu": {
+        "count": 372,
+        "meanMs": 13.2193548383732,
+        "p95ms": 17.700000017881393
       }
-    ],
-    "oversized30FpsTargetMet": true,
-    "allScenariosImproved": false,
-    "lightFixtureFpsImprovementNotEstablished": true
+    },
+    "evidence": "reports/qa/v15-performance.json"
   },
-  "balance": {
-    "evidence": "reports/balance/v13-envelope.json",
-    "method": "Conditional production/resource/firepower ledger with explicit pickup, rescue, attrition and full-price card assumptions. No rarity/map-loot income. Not a played campaign or a claim every seed wins.",
-    "campaignSeconds": 1800,
-    "ambientBudgetsChanged": false,
-    "guardBudgetsChanged": false,
-    "enemyAttributesChanged": false
-  },
-  "knownIssues": [
-    "In the paired offline sample, 20/100 FPS decreased from 27.47 to 25.31 although step/render CPU time fell. Frame rate varies between runs; no all-scene improvement claim.",
-    "25/300 averaged 31.04 FPS (P95 50ms); it is not a stable 60 FPS result or a physical phone performance result.",
-    "Purple/orange currently contain implemented buffs/tactical upgrades; special units, heroes and equipment are not shipped.",
-    "No full human 30-minute run, physical phone/gamepad or original-client visual/listening approval this iteration.",
-    "Original-map material/light/particle/footprint adaptation limits remain in docs/MAP_PIPELINE.md; system font fallback remains.",
-    "Large offline file and map/animation loading remain heavy."
+  "knownLimits": [
+    "Expanded full-army stress performance has fluctuated below 30 FPS and can accumulate simulation debt; no ticks are discarded.",
+    "Original assets and actions verified structurally and in browser playback; no new human SC2 client visual/listening approval.",
+    "Web particle timing, door bones, PBR and hero skill visuals are adaptations; system fallback fonts remain.",
+    "Single HTML is large; loading and memory footprint remain substantial.",
+    "No fresh-machine first-download or complete human 30-minute Normal balance validation."
   ]
 }

@@ -1,0 +1,816 @@
+{
+  "method": "Two-stage desktop input observation at 1x. Mouse/minimap actions and purchases only; no HP, timing, wallet, spawn or difficulty edits. Scripted inputs are functional evidence, not human skill or Normal balance acceptance.",
+  "samples": [
+    {
+      "phase": "battle",
+      "stage": 1,
+      "time": 0.21666666666666667,
+      "stats": {
+        "kills": 0,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 1,
+        "shots": 0,
+        "healed": 0,
+        "damage": 0,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 0
+      },
+      "wallet": {
+        "minerals": 0.10833333333333332,
+        "gas": 0.021666666666666667
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [],
+      "click": null
+    },
+    {
+      "phase": "battle",
+      "stage": 1,
+      "time": 10.35,
+      "stats": {
+        "kills": 1,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 1,
+        "shots": 3,
+        "healed": 0,
+        "damage": 18,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 1
+      },
+      "wallet": {
+        "minerals": 8.62499999999998,
+        "gas": 1.0350000000000104
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [],
+      "click": {
+        "x": 93,
+        "y": 761
+      }
+    },
+    {
+      "phase": "battle",
+      "stage": 1,
+      "time": 20.433333333333334,
+      "stats": {
+        "kills": 2,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 1,
+        "started": 1,
+        "shots": 14,
+        "healed": 0,
+        "damage": 84,
+        "scvsRescued": 1,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 2
+      },
+      "wallet": {
+        "minerals": 18.453541666666574,
+        "gas": 2.3998333333333277
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "falling",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 169.59276700440148,
+        "y": 737.8435044332505
+      }
+    },
+    {
+      "phase": "battle",
+      "stage": 1,
+      "time": 30.483333333333334,
+      "stats": {
+        "kills": 5,
+        "rescued": 1,
+        "failed": 0,
+        "produced": 1,
+        "started": 2,
+        "shots": 49,
+        "healed": 0,
+        "damage": 223,
+        "scvsRescued": 1,
+        "scvsLost": 0,
+        "dronesKilled": 1,
+        "ambientSpawned": 3
+      },
+      "wallet": {
+        "minerals": 15.462166666667306,
+        "gas": 21.117133333332852
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 85,
+        "y": 745
+      }
+    },
+    {
+      "phase": "battle",
+      "stage": 1,
+      "time": 41.1,
+      "stats": {
+        "kills": 6,
+        "rescued": 1,
+        "failed": 0,
+        "produced": 1,
+        "started": 2,
+        "shots": 69,
+        "healed": 0,
+        "damage": 341,
+        "scvsRescued": 2,
+        "scvsLost": 0,
+        "dronesKilled": 2,
+        "ambientSpawned": 4
+      },
+      "wallet": {
+        "minerals": 62.02099999999987,
+        "gas": 40.308933333332554
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 93,
+        "y": 793
+      }
+    },
+    {
+      "phase": "battle",
+      "stage": 1,
+      "time": 51.31666666666666,
+      "stats": {
+        "kills": 7,
+        "rescued": 1,
+        "failed": 0,
+        "produced": 2,
+        "started": 2,
+        "shots": 77,
+        "healed": 0,
+        "damage": 387,
+        "scvsRescued": 3,
+        "scvsLost": 0,
+        "dronesKilled": 3,
+        "ambientSpawned": 5
+      },
+      "wallet": {
+        "minerals": 109.83170833333364,
+        "gas": 59.847899999997736
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "falling",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 121.89021732169509,
+        "y": 790.6987031670004
+      }
+    },
+    {
+      "phase": "reward",
+      "stage": 1,
+      "time": 60,
+      "stats": {
+        "kills": 10,
+        "rescued": 2,
+        "failed": 0,
+        "produced": 2,
+        "started": 3,
+        "shots": 101,
+        "healed": 0,
+        "damage": 501,
+        "scvsRescued": 3,
+        "scvsLost": 0,
+        "dronesKilled": 3,
+        "ambientSpawned": 6
+      },
+      "wallet": {
+        "minerals": 154.41700000000117,
+        "gas": 91.91453333332933
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "phase": "battle",
+      "stage": 2,
+      "time": 70.45,
+      "stats": {
+        "kills": 12,
+        "rescued": 2,
+        "failed": 0,
+        "produced": 2,
+        "started": 3,
+        "shots": 111,
+        "healed": 0,
+        "damage": 559,
+        "scvsRescued": 3,
+        "scvsLost": 0,
+        "dronesKilled": 4,
+        "ambientSpawned": 8
+      },
+      "wallet": {
+        "minerals": 163.44987499999354,
+        "gas": 89.6516333333317
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 81.71666666666667,
+        "y": 806.4333333333334
+      }
+    },
+    {
+      "phase": "battle",
+      "stage": 2,
+      "time": 80.65,
+      "stats": {
+        "kills": 14,
+        "rescued": 2,
+        "failed": 0,
+        "produced": 3,
+        "started": 4,
+        "shots": 135,
+        "healed": 0,
+        "damage": 667,
+        "scvsRescued": 4,
+        "scvsLost": 0,
+        "dronesKilled": 4,
+        "ambientSpawned": 10
+      },
+      "wallet": {
+        "minerals": 81.13662499999134,
+        "gas": 67.18810000000026
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "active",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 127.56434538523828,
+        "y": 809.6847929109102
+      }
+    },
+    {
+      "phase": "battle",
+      "stage": 2,
+      "time": 90.81666666666666,
+      "stats": {
+        "kills": 19,
+        "rescued": 3,
+        "failed": 0,
+        "produced": 3,
+        "started": 4,
+        "shots": 165,
+        "healed": 0,
+        "damage": 817,
+        "scvsRescued": 4,
+        "scvsLost": 0,
+        "dronesKilled": 4,
+        "ambientSpawned": 13
+      },
+      "wallet": {
+        "minerals": 103.58495833332756,
+        "gas": 70.07543333333409
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 137.05,
+        "y": 767.7
+      }
+    },
+    {
+      "phase": "battle",
+      "stage": 2,
+      "time": 100.96666666666667,
+      "stats": {
+        "kills": 22,
+        "rescued": 3,
+        "failed": 0,
+        "produced": 4,
+        "started": 4,
+        "shots": 214,
+        "healed": 0,
+        "damage": 1068,
+        "scvsRescued": 5,
+        "scvsLost": 0,
+        "dronesKilled": 5,
+        "ambientSpawned": 14
+      },
+      "wallet": {
+        "minerals": 166.62570833332458,
+        "gas": 90.61129999999969
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 38.5
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 38.5
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "active",
+          "cargo": 1
+        },
+        {
+          "type": "marauder",
+          "status": "active",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 98.31666666666666,
+        "y": 755.6989507678268
+      }
+    },
+    {
+      "phase": "battle",
+      "stage": 2,
+      "time": 111.16666666666667,
+      "stats": {
+        "kills": 24,
+        "rescued": 4,
+        "failed": 0,
+        "produced": 4,
+        "started": 5,
+        "shots": 299,
+        "healed": 0,
+        "damage": 1359,
+        "scvsRescued": 6,
+        "scvsLost": 0,
+        "dronesKilled": 5,
+        "ambientSpawned": 16
+      },
+      "wallet": {
+        "minerals": 132.93533333332132,
+        "gas": 94.00719999999825
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 38.5
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 38.5
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marauder",
+          "status": "active",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 148.11666666666667,
+        "y": 740.0333333333333
+      }
+    },
+    {
+      "phase": "reward",
+      "stage": 2,
+      "time": 120,
+      "stats": {
+        "kills": 25,
+        "rescued": 4,
+        "failed": 0,
+        "produced": 4,
+        "started": 5,
+        "shots": 387,
+        "healed": 0,
+        "damage": 1638,
+        "scvsRescued": 6,
+        "scvsLost": 0,
+        "dronesKilled": 5,
+        "ambientSpawned": 18
+      },
+      "wallet": {
+        "minerals": 396.49449999999376,
+        "gas": 222.32853333332886
+      },
+      "army": [
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 38.5
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 38.5
+        },
+        {
+          "type": "marine",
+          "rank": 1,
+          "hp": 45
+        }
+      ],
+      "pods": [
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marine",
+          "status": "rescued",
+          "cargo": 1
+        },
+        {
+          "type": "marauder",
+          "status": "active",
+          "cargo": 1
+        }
+      ],
+      "click": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "inputs": 157,
+  "errors": [],
+  "outcome": {
+    "phase": "reward",
+    "stage": 2,
+    "time": 120,
+    "stats": {
+      "kills": 25,
+      "rescued": 4,
+      "failed": 0,
+      "produced": 4,
+      "started": 5,
+      "shots": 387,
+      "healed": 0,
+      "damage": 1638,
+      "scvsRescued": 6,
+      "scvsLost": 0,
+      "dronesKilled": 5,
+      "ambientSpawned": 18
+    },
+    "wallet": {
+      "minerals": 396.49449999999376,
+      "gas": 222.32853333332886
+    },
+    "army": [
+      {
+        "type": "marine",
+        "rank": 1,
+        "hp": 45
+      },
+      {
+        "type": "marine",
+        "rank": 1,
+        "hp": 45
+      },
+      {
+        "type": "marine",
+        "rank": 1,
+        "hp": 38.5
+      },
+      {
+        "type": "marine",
+        "rank": 1,
+        "hp": 38.5
+      },
+      {
+        "type": "marine",
+        "rank": 1,
+        "hp": 45
+      }
+    ],
+    "pods": [
+      {
+        "type": "marine",
+        "status": "rescued",
+        "cargo": 1
+      },
+      {
+        "type": "marine",
+        "status": "rescued",
+        "cargo": 1
+      },
+      {
+        "type": "marine",
+        "status": "rescued",
+        "cargo": 1
+      },
+      {
+        "type": "marine",
+        "status": "rescued",
+        "cargo": 1
+      },
+      {
+        "type": "marauder",
+        "status": "active",
+        "cargo": 1
+      }
+    ],
+    "click": {
+      "x": 0,
+      "y": 0
+    }
+  }
+}
