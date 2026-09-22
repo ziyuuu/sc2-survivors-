@@ -1,5 +1,38 @@
 # 当前迭代验收
 
+## V17：运行重构、普通微调与后续设计（2026-09-22）
+
+运行提交 `3e767d900b8b2a7da4b740172033cadf031023b2`，**361 项测试／类型检查／正式构建通过**。PR #2 仍指向 `v2/sc2-assets-ui`。[当前状态](../reports/STATUS.json)。
+
+- 普通波次／守军按旧锁定预算的 90% 累计取整，首仓仍两只跳虫；简单仍为旧预算的 50%。经济、敌方属性及 Boss 参数未调整。十项新增测试覆盖难度、重开状态、劫掠者展开、遮挡复用、通行快速检查与新资源编码。
+- `RunState` 单独管理每局状态；World、控制器、音频上下文、原地图及动画 GPU 资源复用。清理过期仓体及其独立骨骼纹理，防止长局与重开累积。稳定家族席位显示“队伍1”，投仓用独立“增援1”序号。
+- 开发／离线各连续重开五次，恢复单枪兵、兵营、50/0、首关与空成长；难度／画质保留。开发每次先创建原模型仓体，重开后 WebGL 对象计数稳定在 **356 geometry／315 texture／87 programs**，监听器数不增长，原 World 与模型实例相同，旧名称／粒子／订单／英雄消失。该计数不等同于显存字节测量。
+- 离线首次可部署 **22.92 秒**，五次重新部署 **14.3–23.2 ms**（点击至菜单就绪绘制帧）。只证明同页重开，关闭浏览器后仍需首次载入。[重开与离线记录](../reports/qa/v17-runtime.json)。
+- 包体 **206,691,735 bytes／197.12 MiB**，较 V16 的 212.09 MiB 减少 **7.06%**。SHA-256 `8fbb3594d2951fdffb0df35ff6c31f0a71702935e774afc7268fe1d2628613d3`。Base85 减少内嵌编码膨胀，运行清单只保留必要字段，完整来源／材质报告仍保存在本机。全部 **647** 项还原字节与原文件完全相同，**31** 个原图标解码通过；未修改或移除原模型、地图、纹理、动作、声音。[包体统计](../reports/qa/v17-pack.json)。
+- 同素材／同内嵌解码器的两个离线诊断页：Windows Chrome、AMD Radeon 集显（ANGLE D3D11）、1440×900、DPR 1、均衡画质、28 友军／300 敌军，预热 15 秒／采样 12 秒。平均 FPS **33.87 → 35.65**（约 **5.3%**）；P95 帧耗时 **49.8 → 33.5 ms**；平均模拟步 **7.82 → 7.39 ms**，渲染 **13.27 → 11.79 ms**。Draw calls **266 → 272**，本轮收益来自 CPU 检查／布局与矩阵工作，不宣称合批减少了调用数。预热结束时积压不同，原始起止值均保留；这是诊断样本，不是同一帧战斗回放、真人通关或稳定帧率保证。[性能证据](../reports/qa/v17-performance.json)。
+- 性能场景加载 **28/28** 战斗模型（10 基础＋15 精英＋3 英雄）、10 个原声音。逐动作播放历史证据保留在 V15；本轮验证原字节未变，不把 28/28 加载称为新的逐动作视觉批准。
+- 原地图 **32/32** 坡口双向 25 人移动通过，0 卡住／越界。通行快速检查还与原逐点方法随机对照 20,000 次，含扩展后缩回首关。[通行记录](../reports/qa/v17-navigation.json)。
+- 1440×900、390×844、844×390 的紫卡拥有状态、精英名称、英雄 HP、无尽入口及下一轮检查通过。两种手机尺寸的模拟多指移动＋技能、取消、手柄英雄键与菜单隔离通过。断网 file:// 部署／右键移动通过，网络请求 0，朋友版修改状态 Debug 不存在。截图全部只留本机；未进行手机真机、实体手柄或新增真人三十分钟通关。[画面结构／无尽回归](../reports/qa/v17-regression.json)／[输入回归](../reports/qa/v17-controls.json)。
+- [困难／地狱／天赋树](DIFFICULTY_AND_TALENTS_PROPOSAL.md) 已设计但未实装。当前游戏只有简单／普通，也没有局外功勋收益。原字体仍用系统回退，首次准备成本仍较大；Vite 的大 JS chunk 提示保留，构建成功。
+
+实际命令（所有脚本与素材处理均在本机）：
+
+```powershell
+npm test
+npm run typecheck
+npm run build
+node tools/qa-v17.mjs
+$env:SC2_QA_OUT='reports/local/qa-v17-regression'
+node tools/qa-v16.mjs
+node tools/qa-controls-v15.mjs
+$env:SC2_CROWD_OUT='reports/local/v17-navigation.json'
+node --import tsx tools/audit-map-crowding.mts
+$env:SC2_FIXTURE_OUT='reports/local/qa-v17-file-fixtures'
+node tools/build-performance-fixtures.mjs 521a87a
+# SC2_PERF_EXPANSION=only，SC2_PERF_URL 分别为两个本地诊断 HTML
+node tools/qa-runtime-performance.mjs
+```
+
 ## V16：无损离线包、友军辨识与无尽（2026-09-22）
 
 运行代码 `179f00c32dedf5fe2223b73cea26beacf3f7ca89`；分支与 PR #2 的目标保持不变。**351 项测试、类型检查、正式构建通过。** [当前状态](../reports/STATUS.json) / [浏览器记录](../reports/qa/v16-runtime.json)。

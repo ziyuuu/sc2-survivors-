@@ -1,18 +1,18 @@
 {
-  "checkedAt": "2026-09-22T11:40:16.682538+00:00",
+  "checkedAt": "2026-09-22T12:41:14.747553+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "179f00c32dedf5fe2223b73cea26beacf3f7ca89",
+  "runtimeCommit": "3e767d900b8b2a7da4b740172033cadf031023b2",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
   "prBase": "v2/sc2-assets-ui",
-  "scope": "V16 lossless offline pack, visible elite ownership and hero HP, optional post-victory endless with independently accelerating spawns",
+  "scope": "V17 Normal 90 percent budgets, stable squad names, run-state/AI/render optimizations, warm redeploy and lossless Base85 pack. Future difficulty/talents remain design only.",
   "tests": {
     "command": "npm test",
-    "passed": 351,
+    "passed": 361,
     "failed": 0,
     "skipped": 0,
-    "log": "reports/local/v16-test.log"
+    "log": "reports/local/v17-tests-final.txt"
   },
   "typecheck": {
     "command": "npm run typecheck",
@@ -21,13 +21,12 @@
   "build": {
     "command": "npm run build",
     "exitCode": 0,
-    "path": "dist/SC2-Survivors-Demo.html",
-    "bytes": 222391244,
-    "miB": 212.08881759643555,
-    "sha256": "ecd120aa7f27649e0a70564aa6c8cf3a0bd5c9b9f1c381e9e103a564908732b0",
-    "embeddedAssets": 647,
-    "previousBytes": 372231822,
-    "reductionPercent": 40.254639486464974,
+    "file": "dist/SC2-Survivors-Demo.html",
+    "bytes": 206691735,
+    "mib": 197.11659908294678,
+    "sha256": "8fbb3594d2951fdffb0df35ff6c31f0a71702935e774afc7268fe1d2628613d3",
+    "previousBytes": 222391244,
+    "reductionPercent": 7.0594096771184,
     "sourceBytesIdentical": 647,
     "largeChunkWarning": true
   },
@@ -62,20 +61,28 @@
       "unchangedOriginalClips": true,
       "newHumanVisualApproval": false,
       "details": "V16 byte identity and browser load; animation playback coverage above is V15 historical evidence."
+    },
+    "v17Validation": {
+      "restoredSourceSha256Equal": 647,
+      "combatModelsLoaded": 28,
+      "iconsDecoded": 31,
+      "originalAudioDecoded": 10,
+      "originalAssetBytesUnchanged": true,
+      "animationPlaybackEvidence": "V15 historical per-action playback; V17 byte identity, loading and integration checks, not a new per-clip human review."
     }
   },
   "map": {
     "name": "Kairos Junction LE",
-    "slices": 12,
-    "edgeRoutesPassed": 288,
-    "rampApproachesPassed": 288,
+    "geometryChanged": false,
     "crowdingCases": 32,
     "crowdingFailures": 0,
     "friendlyCount": 25,
-    "maxCrowdingSeconds": 17,
-    "evidence": "reports/qa/v15-navigation.json"
+    "evidence": "reports/qa/v17-navigation.json"
   },
   "browser": {
+    "runtime": "reports/qa/v17-runtime.json",
+    "identityEndlessRegression": "reports/qa/v17-regression.json",
+    "controls": "reports/qa/v17-controls.json",
     "viewports": [
       [
         1440,
@@ -90,252 +97,72 @@
         390
       ]
     ],
-    "identityAndEndlessChecks": [
-      "all three heroes: on-field names, non-overlapping HP bars, constant HUD HP at full/no-target/wounded states; elite name visible at three sizes",
-      "purple cards identify owned and unowned variants; buying same card refreshes rank immediately",
-      "dead hero HP becomes zero, field name is removed, HUD and revival remain",
-      "campaign victory enters endless on same map and squad; reinforced elite/Boss plus wave spawn; two-round intermission continues at round 2",
-      "offline file:// start/move, zero network requests, all 647 restored asset SHA256 hashes equal their source files"
+    "errors": [],
+    "physicalPhone": false,
+    "physicalGamepad": false,
+    "humanCampaignPlayed": false
+  },
+  "restart": {
+    "coldFileReadySeconds": 22.916068499999998,
+    "offlineRestartMilliseconds": [
+      18.400000005960464,
+      23.19999998807907,
+      14.300000011920929,
+      21.30000001192093,
+      21.599999994039536
     ],
-    "offlineHttpRequests": [],
-    "offlineMutableDebug": "undefined",
-    "offlineStartupSeconds": 23.614586199999998,
-    "evidence": "reports/qa/v16-runtime.json",
-    "controlsEvidence": "reports/qa/v16-controls.json",
-    "physicalPhone": "not scheduled per user",
-    "physicalGamepad": "not tested",
-    "humanFullCampaign": "not repeated",
-    "humanVisualApproved": false
+    "devRestartMilliseconds": [
+      23.5,
+      13,
+      12,
+      13.300000011920929,
+      11.599999994039536
+    ],
+    "repetitionsPerBuild": 5,
+    "sameWorldAndModels": true,
+    "newModelRequests": 0,
+    "gpuObjectCountsBefore": {
+      "geometries": 356,
+      "textures": 315,
+      "programs": 87
+    },
+    "gpuObjectCountsAfter": {
+      "geometries": 356,
+      "textures": 315,
+      "programs": 87
+    },
+    "notes": "UI click to ready-menu animation frame; includes fresh pods before each dev restart. Cached assets survive only while this page is open."
   },
   "performance": {
-    "environment": "Desktop Chrome, 1440x900 DPR1 balanced quality, no throttling. Common 20/100 and 25/300, or expanded 28/300 friendly/enemy fixtures. High HP, replenished enemies, zero enemy weapon damage, bile and resource/reward drops disabled to isolate battle cost. 15 s warmup followed by 12 s sample; backlog at both sample boundaries is recorded. No campaign, mobile or physical-phone performance claim.",
-    "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-    "expanded": {
-      "stepCpu": {
-        "count": 721,
-        "meanMs": 6.590152565674048,
-        "p95ms": 14.200000017881393
-      },
-      "renderCpu": {
-        "count": 444,
-        "meanMs": 12.160135135524445,
-        "p95ms": 16.299999982118607
-      },
-      "map": {
-        "name": "Kairos Junction LE",
-        "models": 292,
-        "placements": 4956,
-        "visibleInstances": 414,
-        "visibleMeshes": 155,
-        "area": 9510.25,
-        "scale": 1,
-        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
-      },
-      "order": null,
-      "resolution": {
-        "quality": "balanced",
-        "devicePixelRatio": 1,
-        "renderPixelRatio": 1,
-        "width": 1440,
-        "height": 900,
-        "cssWidth": 1440,
-        "cssHeight": 900,
-        "antialias": true
-      },
-      "models": 10,
-      "variantModels": [
-        "elite.marine.1",
-        "elite.marine.2",
-        "elite.marine.3",
-        "elite.marauder.1",
-        "elite.marauder.2",
-        "elite.marauder.3",
-        "elite.hellion.1",
-        "elite.hellion.2",
-        "elite.hellion.3",
-        "elite.tank.1",
-        "elite.tank.2",
-        "elite.tank.3",
-        "elite.medivac.1",
-        "elite.medivac.2",
-        "elite.medivac.3",
-        "hero.raynor",
-        "hero.tychus",
-        "hero.nova"
-      ],
-      "assetsPending": 0,
-      "economicModels": 3,
-      "podModel": true,
-      "resourceModels": 3,
-      "resourceInstances": 0,
-      "errors": [],
-      "originalAnimationModels": 10,
-      "proceduralAnimationModels": 0,
-      "originalDeathModels": 25,
-      "animationAtlasBytes": 19039264,
-      "lodRatios": {
-        "zergling": 0.29555555555555557,
-        "roach": 0.44686192468619246,
-        "baneling": 0.29977246871444824,
-        "ravager": 0.29987531172069826,
-        "hydralisk": 0.29652546406473107
-      },
-      "effectTextures": 46,
-      "effects": {
-        "attack": 4267,
-        "hit": 4999,
-        "death": 35,
-        "movement": 3946,
-        "bile": 0,
-        "active": 254,
-        "dropped": 0
-      },
-      "textures": 18,
-      "fps": 35.99280143971215,
-      "requestedInstanceUploadBytes": 104216,
-      "drawCalls": 273,
-      "triangles": 429518,
-      "entities": 328,
-      "maxStretch": 13.011807146718953,
-      "spatialVisits": 24202,
-      "collisionContacts": 1109,
-      "phase": "battle",
-      "stage": 10,
-      "endless": null,
-      "time": 27.133333333333333,
-      "stats": {
-        "kills": 35,
-        "rescued": 0,
-        "failed": 0,
-        "produced": 0,
-        "started": 1,
-        "shots": 4267,
-        "healed": 382.76999999869287,
-        "damage": 3560078.7667858494,
-        "scvsRescued": 0,
-        "scvsLost": 0,
-        "dronesKilled": 0,
-        "ambientSpawned": 0
-      },
-      "assetsReady": true,
-      "simulationBacklogSeconds": 0.016633333333337604,
-      "audio": {
-        "originalDecoded": 10,
-        "decoded": [
-          {
-            "id": "shot",
-            "duration": 0.08995833333333333,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "blast",
-            "duration": 0.3499583333333333,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "alert",
-            "duration": 0.44995833333333335,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.scv.ready",
-            "duration": 2.1729166666666666,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.marine.attack",
-            "duration": 1.3626875,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.hellion.attack",
-            "duration": 2.6566875,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.tank.attack",
-            "duration": 0.8244791666666667,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.tank.siege",
-            "duration": 1.9696041666666666,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.medivac.heal",
-            "duration": 9.092270833333334,
-            "channels": 2,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.zergling.attack",
-            "duration": 0.7786666666666666,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.roach.attack",
-            "duration": 1.46575,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.ravager.attack",
-            "duration": 1.1467708333333333,
-            "channels": 1,
-            "sampleRate": 48000
-          },
-          {
-            "id": "sc2.marine.death",
-            "duration": 1.0077083333333334,
-            "channels": 1,
-            "sampleRate": 48000
-          }
-        ],
-        "errors": [],
-        "played": {
-          "sc2.ravager.attack": 7,
-          "sc2.roach.attack": 3,
-          "sc2.marine.attack": 1,
-          "sc2.hellion.attack": 1,
-          "sc2.medivac.heal": 86
-        },
-        "activeHealers": 0
-      },
-      "gamepad": {
-        "active": false,
-        "index": null,
-        "calibrating": false,
-        "connected": []
-      },
-      "friendly": 28,
-      "enemies": 300,
-      "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-      "samples": 444,
-      "averageFps": 36.89760913465133,
-      "p95ms": 33.5,
-      "simulationSeconds": 12.016666666666666,
-      "startingBacklogSeconds": 5.898059818321144e-16,
-      "backlogChangeSeconds": 0.016633333333337014
-    },
-    "evidence": "reports/qa/v16-performance.json",
-    "notes": "Single diagnostic sample; historical fluctuation remains. Last source change after sampling only affects active endless escalation; measured campaign renderer/simulation paths did not change."
+    "evidence": "reports/qa/v17-performance.json",
+    "baselineFps": 33.86924971706279,
+    "optimizedFps": 35.65136455805603,
+    "gainPercent": 5.261748801289312,
+    "baselineP95ms": 49.80000000000291,
+    "optimizedP95ms": 33.5,
+    "notes": [
+      "Matched offline diagnostic samples; no human campaign, physical phone or guaranteed minimum FPS.",
+      "The later pod-skeleton cleanup does not run in this no-pod fixture.",
+      "Warmup backlog differed; both starting and ending backlog values are retained. Do not claim a perfectly synchronized battle replay."
+    ]
+  },
+  "designOnly": {
+    "file": "docs/DIFFICULTY_AND_TALENTS_PROPOSAL.md",
+    "hardImplemented": false,
+    "hellImplemented": false,
+    "talentsImplemented": false,
+    "fullClearMeritProposal": {
+      "easy": 90,
+      "normal": 120,
+      "hard": 180,
+      "hell": 240
+    }
   },
   "knownLimits": [
-    "Endless cadence and growth are first-pass game tuning, not validated by a complete human long run.",
-    "One desktop full-army diagnostic sample does not establish stable 30 FPS or phone performance; earlier full-load samples fluctuated.",
-    "Original asset bytes are unchanged. New UI screenshot/DOM evidence is local; no new human SC2-client visual/listening approval.",
-    "The HTML is still 212 MiB; initial decode/model preparation and memory remain substantial.",
-    "Original fonts are absent (system fallback); no physical-phone/gamepad or fresh-machine asset download test in this iteration."
+    "The 197 MiB offline HTML still needs about 23 seconds for this machine's first load; closing/reloading the page discards GPU caches.",
+    "Desktop diagnostic FPS remains variable; no physical-phone or guaranteed minimum FPS claim.",
+    "Normal tuning and future difficulty/talent values are not a new human full-campaign balance validation.",
+    "Original fonts remain absent with system fallbacks; original asset byte identity is not fresh human SC2-client visual/listening approval."
   ],
   "endless": {
     "unlock": "optional after stage 12 victory",
@@ -362,7 +189,8 @@
       "attackSpeed": 1.15
     },
     "existingSpecialsRescaled": false,
-    "campaignBalanceChanged": false,
-    "humanLongRunBalanceVerified": false
+    "campaignBalanceChanged": true,
+    "humanLongRunBalanceVerified": false,
+    "note": "V17 changes only difficulty count factors; existing endless cadence/special growth is unchanged."
   }
 }
