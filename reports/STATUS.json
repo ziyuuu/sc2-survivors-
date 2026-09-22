@@ -1,17 +1,17 @@
 {
-  "checkedAt": "2026-09-22T01:55:46.707573+00:00",
+  "checkedAt": "2026-09-22T02:06:58.681464+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "c0818ff31ddb39e4975e8a6b16760e574a8289c1",
+  "runtimeCommit": "e5b472a3a6187388e9e067ad0dd1d7e7fcee25bc",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "scope": "Player-priority engagement repair: right-click ground permits short-stop attacks while following; right-click hostile pursues; left-click hostile holds positions and focuses. Unavailable hold/siege targets allow legal local defense and reacquisition; repeated point commands preserve committed shots and cooldowns. Existing map, assets, budgets and economy unchanged.",
+  "scope": "Left- and right-click hostile focus share pathfinding pursuit into individual weapon range, player target priority and automatic reacquisition after death. Removed the mistakenly added stationary left-click mode. Ground movement fire, cooldown preservation, manual Tank siege and economy remain unchanged.",
   "tests": {
     "command": "npm test",
     "passed": 246,
     "failed": 0,
     "skipped": 0,
-    "log": "reports/local/tests-v10.log"
+    "log": "reports/local/tests-v11.log"
   },
   "typecheck": {
     "command": "npm run typecheck / tsc --noEmit during build",
@@ -21,12 +21,12 @@
     "command": "npm run build",
     "exitCode": 0,
     "path": "dist/SC2-Survivors-Demo.html",
-    "bytes": 176510665,
-    "miB": 168.3336877822876,
-    "sha256": "88eec89616515ec29c3031ed5280b49f36d3718d989d7efbdea70dcb27cb5795",
+    "bytes": 176510352,
+    "miB": 168.33338928222656,
+    "sha256": "33cb281aca6794e987812728d6f69200d381a9b625ad751fdca764064abf2fa4",
     "embeddedAssets": 581,
     "largeChunkWarning": true,
-    "log": "reports/local/build-v10.log"
+    "log": "reports/local/build-v11.log"
   },
   "assets": {
     "available": 581,
@@ -87,8 +87,8 @@
       "scale": 1,
       "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
     },
-    "evidence": "reports/qa/v10-engagement.json",
-    "runtimeCommit": "c0818ff31ddb39e4975e8a6b16760e574a8289c1"
+    "evidence": "reports/qa/v11-left-focus.json",
+    "runtimeCommit": "e5b472a3a6187388e9e067ad0dd1d7e7fcee25bc"
   },
   "gamepad": {
     "standardSimulated": true,
@@ -103,7 +103,7 @@
     ],
     "heldStickKeyboardTakeoverPassed": true,
     "mouseTakeoverFirstCommandPassed": true,
-    "mouseTakeoverEvidence": "reports/qa/v10-engagement.json"
+    "mouseTakeoverEvidence": "reports/qa/v11-left-focus.json"
   },
   "touch": {
     "method": "Desktop Chrome/CDP touch emulation only",
@@ -123,7 +123,7 @@
     "textSelectionPrevented": true,
     "pageScrollPrevented": true,
     "evidence": "reports/qa/v9-controls.json",
-    "engagementEvidence": "reports/qa/v10-engagement.json"
+    "engagementEvidence": "reports/qa/v11-left-focus.json"
   },
   "desktopPerformance": {
     "at": "2026-09-21T15:26:19.688Z",
@@ -365,14 +365,14 @@
     "Large offline file: 168.33 MiB. Fonts remain approved system fallbacks."
   ],
   "commandEngagement": {
-    "runtimeCommit": "c0818ff31ddb39e4975e8a6b16760e574a8289c1",
-    "evidence": "reports/qa/v10-engagement.json",
+    "runtimeCommit": "e5b472a3a6187388e9e067ad0dd1d7e7fcee25bc",
+    "evidence": "reports/qa/v11-left-focus.json",
     "desktopChecks": [
       "enRouteAttack",
       "unsettledSlotStillFires",
-      "leftHoldFocus",
+      "leftClickPursuesFocus",
       "groundLeftAndHudDoNotReplaceFocus",
-      "unavailableFocusDefendsThenReacquires",
+      "leftFocusFollowsMovingTarget",
       "focusDeathResumesFire",
       "repeatedGroundClicksStillFire",
       "rightFocusPursues",
