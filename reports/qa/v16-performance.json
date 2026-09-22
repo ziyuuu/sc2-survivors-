@@ -1,116 +1,9 @@
 {
-  "checkedAt": "2026-09-22T11:40:16.682538+00:00",
-  "repository": "ziyuuu/sc2-survivors-",
-  "projectDirectory": "D:\\星际",
-  "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "179f00c32dedf5fe2223b73cea26beacf3f7ca89",
-  "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "prBase": "v2/sc2-assets-ui",
-  "scope": "V16 lossless offline pack, visible elite ownership and hero HP, optional post-victory endless with independently accelerating spawns",
-  "tests": {
-    "command": "npm test",
-    "passed": 351,
-    "failed": 0,
-    "skipped": 0,
-    "log": "reports/local/v16-test.log"
-  },
-  "typecheck": {
-    "command": "npm run typecheck",
-    "exitCode": 0
-  },
-  "build": {
-    "command": "npm run build",
-    "exitCode": 0,
-    "path": "dist/SC2-Survivors-Demo.html",
-    "bytes": 222391244,
-    "miB": 212.08881759643555,
-    "sha256": "ecd120aa7f27649e0a70564aa6c8cf3a0bd5c9b9f1c381e9e103a564908732b0",
-    "embeddedAssets": 647,
-    "previousBytes": 372231822,
-    "reductionPercent": 40.254639486464974,
-    "sourceBytesIdentical": 647,
-    "largeChunkWarning": true
-  },
-  "assets": {
-    "available": 647,
-    "manifestTotal": 647,
-    "requiredMissing": [],
-    "combatModels": 28,
-    "baseCombatModels": 10,
-    "eliteVariants": 15,
-    "heroes": 3,
-    "idleMoveDeathPlayback": 28,
-    "attackClips": 23,
-    "medicalWorkClips": 4,
-    "banelingAttack": "original death/detonation",
-    "iconsDecoded": 31,
-    "eliteIconPolicy": "15 skins use the five original family icons; not 15 distinct original portraits",
-    "audioDecoded": 10,
-    "expansionDependencyHashes": 267,
-    "independentOriginalAudit": {
-      "models": 364,
-      "bones": 4045,
-      "clips": 1272,
-      "mismatches": 0
-    },
-    "humanVisualApproved": false,
-    "humanListeningApproved": false,
-    "originalClientPixelComparison": false,
-    "v16Validation": {
-      "restoredSourceSha256Equal": 647,
-      "combatModelsLoaded": 28,
-      "unchangedOriginalClips": true,
-      "newHumanVisualApproval": false,
-      "details": "V16 byte identity and browser load; animation playback coverage above is V15 historical evidence."
-    }
-  },
-  "map": {
-    "name": "Kairos Junction LE",
-    "slices": 12,
-    "edgeRoutesPassed": 288,
-    "rampApproachesPassed": 288,
-    "crowdingCases": 32,
-    "crowdingFailures": 0,
-    "friendlyCount": 25,
-    "maxCrowdingSeconds": 17,
-    "evidence": "reports/qa/v15-navigation.json"
-  },
-  "browser": {
-    "viewports": [
-      [
-        1440,
-        900
-      ],
-      [
-        390,
-        844
-      ],
-      [
-        844,
-        390
-      ]
-    ],
-    "identityAndEndlessChecks": [
-      "all three heroes: on-field names, non-overlapping HP bars, constant HUD HP at full/no-target/wounded states; elite name visible at three sizes",
-      "purple cards identify owned and unowned variants; buying same card refreshes rank immediately",
-      "dead hero HP becomes zero, field name is removed, HUD and revival remain",
-      "campaign victory enters endless on same map and squad; reinforced elite/Boss plus wave spawn; two-round intermission continues at round 2",
-      "offline file:// start/move, zero network requests, all 647 restored asset SHA256 hashes equal their source files"
-    ],
-    "offlineHttpRequests": [],
-    "offlineMutableDebug": "undefined",
-    "offlineStartupSeconds": 23.614586199999998,
-    "evidence": "reports/qa/v16-runtime.json",
-    "controlsEvidence": "reports/qa/v16-controls.json",
-    "physicalPhone": "not scheduled per user",
-    "physicalGamepad": "not tested",
-    "humanFullCampaign": "not repeated",
-    "humanVisualApproved": false
-  },
-  "performance": {
-    "environment": "Desktop Chrome, 1440x900 DPR1 balanced quality, no throttling. Common 20/100 and 25/300, or expanded 28/300 friendly/enemy fixtures. High HP, replenished enemies, zero enemy weapon damage, bile and resource/reward drops disabled to isolate battle cost. 15 s warmup followed by 12 s sample; backlog at both sample boundaries is recorded. No campaign, mobile or physical-phone performance claim.",
-    "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-    "expanded": {
+  "at": "2026-09-22T11:30:27.949Z",
+  "runtimeUrl": "http://127.0.0.1:5173/",
+  "method": "Desktop Chrome, 1440x900 DPR1 balanced quality, no throttling. Common 20/100 and 25/300, or expanded 28/300 friendly/enemy fixtures. High HP, replenished enemies, zero enemy weapon damage, bile and resource/reward drops disabled to isolate battle cost. 15 s warmup followed by 12 s sample; backlog at both sample boundaries is recorded. No campaign, mobile or physical-phone performance claim.",
+  "runs": [
+    {
       "stepCpu": {
         "count": 721,
         "meanMs": 6.590152565674048,
@@ -326,43 +219,7 @@
       "simulationSeconds": 12.016666666666666,
       "startingBacklogSeconds": 5.898059818321144e-16,
       "backlogChangeSeconds": 0.016633333333337014
-    },
-    "evidence": "reports/qa/v16-performance.json",
-    "notes": "Single diagnostic sample; historical fluctuation remains. Last source change after sampling only affects active endless escalation; measured campaign renderer/simulation paths did not change."
-  },
-  "knownLimits": [
-    "Endless cadence and growth are first-pass game tuning, not validated by a complete human long run.",
-    "One desktop full-army diagnostic sample does not establish stable 30 FPS or phone performance; earlier full-load samples fluctuated.",
-    "Original asset bytes are unchanged. New UI screenshot/DOM evidence is local; no new human SC2-client visual/listening approval.",
-    "The HTML is still 212 MiB; initial decode/model preparation and memory remain substantial.",
-    "Original fonts are absent (system fallback); no physical-phone/gamepad or fresh-machine asset download test in this iteration."
+    }
   ],
-  "endless": {
-    "unlock": "optional after stage 12 victory",
-    "mapStage": 12,
-    "roundSeconds": 240,
-    "initialIntervals": {
-      "wave": 8,
-      "elite": 30,
-      "boss": 90
-    },
-    "accelerationEvery": {
-      "wave": 30,
-      "elite": 60,
-      "boss": 90
-    },
-    "intervalFactors": {
-      "wave": 0.9,
-      "elite": 0.85,
-      "boss": 0.85
-    },
-    "newSpecialMinimumGrowth": {
-      "health": 1.4,
-      "damage": 1.25,
-      "attackSpeed": 1.15
-    },
-    "existingSpecialsRescaled": false,
-    "campaignBalanceChanged": false,
-    "humanLongRunBalanceVerified": false
-  }
+  "errors": []
 }
