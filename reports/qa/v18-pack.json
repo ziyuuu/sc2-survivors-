@@ -1,0 +1,12 @@
+{
+  "assets": 647,
+  "partCount": 1377,
+  "chunks": 865,
+  "rawBytes": 276807570,
+  "uniqueBytes": 220435665,
+  "deduplicatedBytes": 56371905,
+  "storedBytes": 164334996,
+  "encodedBytes": 205420400,
+  "htmlBytes": 206697450,
+  "codec": "gzip per unique byte chunk + HTML-safe base85; local decoder; exact source-byte reconstruction"
+}

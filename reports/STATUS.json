@@ -1,18 +1,18 @@
 {
-  "checkedAt": "2026-09-22T12:41:14.747553+00:00",
+  "checkedAt": "2026-09-22T13:41:08.846158+00:00",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "3e767d900b8b2a7da4b740172033cadf031023b2",
+  "runtimeCommit": "4297a7c3df8972229795dbdac6bcfc75d8a2f68b",
   "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
   "prBase": "v2/sc2-assets-ui",
-  "scope": "V17 Normal 90 percent budgets, stable squad names, run-state/AI/render optimizations, warm redeploy and lossless Base85 pack. Future difficulty/talents remain design only.",
+  "scope": "V18 movement-only intent, directional automatic targeting, bounded stop/fire/reposition, PC mouse/keyboard and touch tap/joystick settings, right-stick skill selection with A/X confirmation. Preserve map, economy, difficulty and assets.",
   "tests": {
     "command": "npm test",
-    "passed": 361,
+    "passed": 364,
     "failed": 0,
     "skipped": 0,
-    "log": "reports/local/v17-tests-final.txt"
+    "log": "reports/local/v18-tests-final.txt"
   },
   "typecheck": {
     "command": "npm run typecheck",
@@ -22,11 +22,11 @@
     "command": "npm run build",
     "exitCode": 0,
     "file": "dist/SC2-Survivors-Demo.html",
-    "bytes": 206691735,
-    "mib": 197.11659908294678,
-    "sha256": "8fbb3594d2951fdffb0df35ff6c31f0a71702935e774afc7268fe1d2628613d3",
-    "previousBytes": 222391244,
-    "reductionPercent": 7.0594096771184,
+    "bytes": 206697450,
+    "mib": 197.12204933166504,
+    "sha256": "21481901a5490be8dab08c9207860f766df8e8a3d7ffc90f6ba725ca55dfac8b",
+    "previousBytes": 206691735,
+    "reductionPercent": -0.0027649871921584094,
     "sourceBytesIdentical": 647,
     "largeChunkWarning": true
   },
@@ -69,6 +69,14 @@
       "originalAudioDecoded": 10,
       "originalAssetBytesUnchanged": true,
       "animationPlaybackEvidence": "V15 historical per-action playback; V17 byte identity, loading and integration checks, not a new per-clip human review."
+    },
+    "v18Validation": {
+      "restoredSourceSha256Equal": 647,
+      "combatModelsLoaded": 28,
+      "iconsDecoded": 31,
+      "originalAudioDecoded": 10,
+      "originalAssetBytesUnchanged": true,
+      "animationPlaybackEvidence": "V15 original per-action evidence retained; V18 byte identity and integration checks, not new per-clip human review."
     }
   },
   "map": {
@@ -77,12 +85,12 @@
     "crowdingCases": 32,
     "crowdingFailures": 0,
     "friendlyCount": 25,
-    "evidence": "reports/qa/v17-navigation.json"
+    "evidence": "reports/qa/v18-navigation.json"
   },
   "browser": {
-    "runtime": "reports/qa/v17-runtime.json",
+    "runtime": "reports/qa/v18-runtime.json",
     "identityEndlessRegression": "reports/qa/v17-regression.json",
-    "controls": "reports/qa/v17-controls.json",
+    "controls": "reports/qa/v18-controls.json",
     "viewports": [
       [
         1440,
@@ -103,20 +111,20 @@
     "humanCampaignPlayed": false
   },
   "restart": {
-    "coldFileReadySeconds": 22.916068499999998,
+    "coldFileReadySeconds": 23.142867300000002,
     "offlineRestartMilliseconds": [
-      18.400000005960464,
-      23.19999998807907,
-      14.300000011920929,
-      21.30000001192093,
-      21.599999994039536
+      21.900000005960464,
+      14.900000005960464,
+      13.099999994039536,
+      19.599999994039536,
+      25.400000005960464
     ],
     "devRestartMilliseconds": [
-      23.5,
-      13,
-      12,
-      13.300000011920929,
-      11.599999994039536
+      30.299999982118607,
+      13.699999988079071,
+      10,
+      13.400000005960464,
+      13
     ],
     "repetitionsPerBuild": 5,
     "sameWorldAndModels": true,
@@ -134,16 +142,27 @@
     "notes": "UI click to ready-menu animation frame; includes fresh pods before each dev restart. Cached assets survive only while this page is open."
   },
   "performance": {
-    "evidence": "reports/qa/v17-performance.json",
-    "baselineFps": 33.86924971706279,
-    "optimizedFps": 35.65136455805603,
-    "gainPercent": 5.261748801289312,
-    "baselineP95ms": 49.80000000000291,
-    "optimizedP95ms": 33.5,
+    "evidence": "reports/qa/v18-performance.json",
+    "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "friendly": 28,
+    "enemies": 300,
+    "averageFps": 38.34056714163602,
+    "p95ms": 33.400000000001455,
+    "drawCalls": 270,
+    "stepCpu": {
+      "count": 729,
+      "meanMs": 7.1628257889397675,
+      "p95ms": 12.799999982118607
+    },
+    "renderCpu": {
+      "count": 462,
+      "meanMs": 11.86082251099023,
+      "p95ms": 14.100000023841858
+    },
+    "simulationBacklogSeconds": 0.016633333333331207,
     "notes": [
-      "Matched offline diagnostic samples; no human campaign, physical phone or guaranteed minimum FPS.",
-      "The later pod-skeleton cleanup does not run in this no-pod fixture.",
-      "Warmup backlog differed; both starting and ending backlog values are retained. Do not claim a perfectly synchronized battle replay."
+      "Single desktop Chrome development build sample, balanced, 1440x900 DPR1, 15-second warmup and 12-second capture.",
+      "No synchronized baseline comparison or FPS improvement claim; diagnostic fixture, not campaign or physical-device performance."
     ]
   },
   "designOnly": {
@@ -189,8 +208,32 @@
       "attackSpeed": 1.15
     },
     "existingSpecialsRescaled": false,
-    "campaignBalanceChanged": true,
+    "campaignBalanceChanged": false,
     "humanLongRunBalanceVerified": false,
-    "note": "V17 changes only difficulty count factors; existing endless cadence/special growth is unchanged."
+    "note": "V18 changes controls/combat behavior only; map, wave budgets, enemy statistics, economy and endless scaling unchanged."
+  },
+  "controls": {
+    "desktop": [
+      "mouse",
+      "keyboard"
+    ],
+    "touch": [
+      "tap",
+      "joystick"
+    ],
+    "defaults": {
+      "desktop": "mouse",
+      "touch": "joystick"
+    },
+    "targetSelection": false,
+    "gamepad": "Left stick moves, right stick selects a fixed skill sector, A/X confirms. Release does not pursue.",
+    "thinkSeconds": [
+      0.24,
+      0.285
+    ],
+    "minimumMovingWindupSeconds": 0.1,
+    "repositionSeconds": 0.22,
+    "maximumMovingAimSeconds": 0.38,
+    "legacyNonstandard": "Existing left axes/buttons retained; right axes may require completing calibration."
   }
 }

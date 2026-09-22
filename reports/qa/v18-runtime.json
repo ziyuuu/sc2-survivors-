@@ -1,0 +1,402 @@
+{
+  "at": "2026-09-22T13:35:10.535Z",
+  "method": "Local desktop Chrome, 1440x900. Repeated real UI redeploy; resource fingerprints, run state and memory counts. Offline source-byte validation. No remote screenshots, physical-phone claim or automatic campaign-win criterion.",
+  "errors": [],
+  "runs": [
+    {
+      "offline": false,
+      "readySeconds": 15.2592087,
+      "restarts": [
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 30.299999982118607,
+          "difficulty": "easy",
+          "run": {
+            "sameIdentity": true,
+            "allies": 1,
+            "rank": 1,
+            "hp": 45,
+            "pods": 0,
+            "heroes": 0,
+            "upgrades": 0,
+            "wallet": {
+              "minerals": 50,
+              "gas": 0
+            },
+            "listeners": 3
+          },
+          "memory": {
+            "geometries": 356,
+            "textures": 315,
+            "programs": 87
+          },
+          "modelsReused": true,
+          "ghostLabels": 0
+        },
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 13.699999988079071,
+          "difficulty": "easy",
+          "run": {
+            "sameIdentity": true,
+            "allies": 1,
+            "rank": 1,
+            "hp": 45,
+            "pods": 0,
+            "heroes": 0,
+            "upgrades": 0,
+            "wallet": {
+              "minerals": 50,
+              "gas": 0
+            },
+            "listeners": 3
+          },
+          "memory": {
+            "geometries": 356,
+            "textures": 315,
+            "programs": 87
+          },
+          "modelsReused": true,
+          "ghostLabels": 0
+        },
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 10,
+          "difficulty": "easy",
+          "run": {
+            "sameIdentity": true,
+            "allies": 1,
+            "rank": 1,
+            "hp": 45,
+            "pods": 0,
+            "heroes": 0,
+            "upgrades": 0,
+            "wallet": {
+              "minerals": 50,
+              "gas": 0
+            },
+            "listeners": 3
+          },
+          "memory": {
+            "geometries": 356,
+            "textures": 315,
+            "programs": 87
+          },
+          "modelsReused": true,
+          "ghostLabels": 0
+        },
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 13.400000005960464,
+          "difficulty": "easy",
+          "run": {
+            "sameIdentity": true,
+            "allies": 1,
+            "rank": 1,
+            "hp": 45,
+            "pods": 0,
+            "heroes": 0,
+            "upgrades": 0,
+            "wallet": {
+              "minerals": 50,
+              "gas": 0
+            },
+            "listeners": 3
+          },
+          "memory": {
+            "geometries": 356,
+            "textures": 315,
+            "programs": 87
+          },
+          "modelsReused": true,
+          "ghostLabels": 0
+        },
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 13,
+          "difficulty": "easy",
+          "run": {
+            "sameIdentity": true,
+            "allies": 1,
+            "rank": 1,
+            "hp": 45,
+            "pods": 0,
+            "heroes": 0,
+            "upgrades": 0,
+            "wallet": {
+              "minerals": 50,
+              "gas": 0
+            },
+            "listeners": 3
+          },
+          "memory": {
+            "geometries": 356,
+            "textures": 315,
+            "programs": 87
+          },
+          "modelsReused": true,
+          "ghostLabels": 0
+        }
+      ],
+      "names": [
+        "陆战队员 · 队伍1",
+        "陆战队员 · 队伍2"
+      ],
+      "newModelRequests": []
+    },
+    {
+      "offline": true,
+      "readySeconds": 23.142867300000002,
+      "restarts": [
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 21.900000005960464,
+          "difficulty": "easy",
+          "run": null,
+          "memory": null,
+          "modelsReused": null,
+          "ghostLabels": 0
+        },
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 14.900000005960464,
+          "difficulty": "easy",
+          "run": null,
+          "memory": null,
+          "modelsReused": null,
+          "ghostLabels": 0
+        },
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 13.099999994039536,
+          "difficulty": "easy",
+          "run": null,
+          "memory": null,
+          "modelsReused": null,
+          "ghostLabels": 0
+        },
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 19.599999994039536,
+          "difficulty": "easy",
+          "run": null,
+          "memory": null,
+          "modelsReused": null,
+          "ghostLabels": 0
+        },
+        {
+          "phase": "menu",
+          "time": 0,
+          "stage": 1,
+          "endless": null,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "scvsRescued": 0,
+            "scvsLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "errors": [],
+          "quality": "balanced",
+          "assetsSame": true,
+          "restartMs": 25.400000005960464,
+          "difficulty": "easy",
+          "run": null,
+          "memory": null,
+          "modelsReused": null,
+          "ghostLabels": 0
+        }
+      ],
+      "newModelRequests": [],
+      "assetHashes": 647,
+      "iconsDecoded": 31
+    }
+  ]
+}
