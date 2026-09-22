@@ -1,0 +1,938 @@
+{
+  "at": "2026-09-22T10:23:04.884Z",
+  "method": "Local desktop Chrome. Deterministic functional fixtures and browser inputs, not human visual approval or Normal difficulty victory evidence. PNGs remain on this machine.",
+  "errors": [],
+  "checks": [
+    "original elite load and replacement UI",
+    "three-passenger original pod visible; HUD/world/minimap identify cargo and purpose",
+    "keyboard 1/2/3 manual skills respect focused target",
+    "intermission paid revival UI",
+    "all four original-map Boss spawns, warnings and one reward"
+  ],
+  "opening": {
+    "count": 1,
+    "duration": 60
+  },
+  "actions": [
+    {
+      "key": "marine",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Spell",
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 38,
+      "atlasBytes": 209152,
+      "meshes": 2
+    },
+    {
+      "key": "marauder",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack Right",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 58,
+      "atlasBytes": 282112,
+      "meshes": 1
+    },
+    {
+      "key": "hellion",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 24,
+      "atlasBytes": 76032,
+      "meshes": 1
+    },
+    {
+      "key": "tank",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 51,
+      "atlasBytes": 161568,
+      "meshes": 4
+    },
+    {
+      "key": "medivac",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": null,
+        "dead": "Death",
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Stand Work",
+        "hit": null
+      },
+      "death": "Death 04",
+      "bones": 47,
+      "atlasBytes": 351936,
+      "meshes": 5
+    },
+    {
+      "key": "zergling",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 44,
+      "atlasBytes": 191488,
+      "meshes": 1
+    },
+    {
+      "key": "roach",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 44,
+      "atlasBytes": 121088,
+      "meshes": 1
+    },
+    {
+      "key": "baneling",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": null,
+        "dead": null,
+        "spawn": "Birth",
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 49,
+      "atlasBytes": 133280,
+      "meshes": 1
+    },
+    {
+      "key": "ravager",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": "Birth",
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Spell",
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 52,
+      "atlasBytes": 274560,
+      "meshes": 1
+    },
+    {
+      "key": "hydralisk",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 45,
+      "atlasBytes": 188640,
+      "meshes": 2
+    },
+    {
+      "key": "elite.marine.1",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Spell",
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 40,
+      "atlasBytes": 220160,
+      "meshes": 2
+    },
+    {
+      "key": "elite.marine.2",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Spell",
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 50,
+      "atlasBytes": 275200,
+      "meshes": 3
+    },
+    {
+      "key": "elite.marine.3",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Spell",
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 38,
+      "atlasBytes": 209152,
+      "meshes": 4
+    },
+    {
+      "key": "elite.marauder.1",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack Right",
+        "dead": "Death",
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 52,
+      "atlasBytes": 590720,
+      "meshes": 2
+    },
+    {
+      "key": "elite.marauder.2",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack Right",
+        "dead": "Death",
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 51,
+      "atlasBytes": 579360,
+      "meshes": 2
+    },
+    {
+      "key": "elite.marauder.3",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack Right",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 56,
+      "atlasBytes": 272384,
+      "meshes": 2
+    },
+    {
+      "key": "elite.hellion.1",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 23,
+      "atlasBytes": 72864,
+      "meshes": 1
+    },
+    {
+      "key": "elite.hellion.2",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 23,
+      "atlasBytes": 72864,
+      "meshes": 1
+    },
+    {
+      "key": "elite.hellion.3",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 24,
+      "atlasBytes": 76032,
+      "meshes": 3
+    },
+    {
+      "key": "elite.tank.1",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 49,
+      "atlasBytes": 155232,
+      "meshes": 4
+    },
+    {
+      "key": "elite.tank.2",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 49,
+      "atlasBytes": 155232,
+      "meshes": 4
+    },
+    {
+      "key": "elite.tank.3",
+      "actions": {
+        "skill": null,
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": null,
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": null,
+        "hit": null
+      },
+      "death": "Death",
+      "bones": 45,
+      "atlasBytes": 142560,
+      "meshes": 4
+    },
+    {
+      "key": "elite.medivac.1",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": null,
+        "dead": "Death",
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Stand Work",
+        "hit": null
+      },
+      "death": "Death 04",
+      "bones": 47,
+      "atlasBytes": 351936,
+      "meshes": 5
+    },
+    {
+      "key": "elite.medivac.2",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": null,
+        "dead": "Death",
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Stand Work",
+        "hit": null
+      },
+      "death": "Death 04",
+      "bones": 38,
+      "atlasBytes": 284544,
+      "meshes": 3
+    },
+    {
+      "key": "elite.medivac.3",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": null,
+        "dead": "Death",
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Stand Work",
+        "hit": null
+      },
+      "death": "Death 04",
+      "bones": 36,
+      "atlasBytes": 269568,
+      "meshes": 5
+    },
+    {
+      "key": "hero.raynor",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": "Death Fire",
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Stand Work",
+        "hit": null
+      },
+      "death": "Death Fire",
+      "bones": 48,
+      "atlasBytes": 691200,
+      "meshes": 3
+    },
+    {
+      "key": "hero.tychus",
+      "actions": {
+        "skill": "Spell",
+        "idle": "Stand",
+        "move": "Walk",
+        "attack": "Attack",
+        "dead": "Death 02",
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Spell",
+        "hit": null
+      },
+      "death": "Death 02",
+      "bones": 65,
+      "atlasBytes": 592800,
+      "meshes": 3
+    },
+    {
+      "key": "hero.nova",
+      "actions": {
+        "skill": "Spell E A",
+        "idle": "Stand A",
+        "move": "Walk A",
+        "attack": "Attack A",
+        "dead": "Death A",
+        "spawn": null,
+        "sieging": null,
+        "unsieging": null,
+        "heal": "Spell A",
+        "hit": null
+      },
+      "death": "Death A",
+      "bones": 58,
+      "atlasBytes": 835200,
+      "meshes": 10
+    }
+  ],
+  "gallery": {
+    "map": {
+      "name": "Kairos Junction LE",
+      "models": 292,
+      "placements": 4956,
+      "visibleInstances": 373,
+      "visibleMeshes": 141,
+      "area": 741.75,
+      "scale": 1,
+      "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+    },
+    "order": null,
+    "resolution": {
+      "quality": "native",
+      "devicePixelRatio": 1,
+      "renderPixelRatio": 1,
+      "width": 1440,
+      "height": 900,
+      "cssWidth": 1440,
+      "cssHeight": 900,
+      "antialias": true
+    },
+    "models": 10,
+    "variantModels": [
+      "elite.marine.1",
+      "elite.marine.2",
+      "elite.marine.3",
+      "elite.marauder.1",
+      "elite.marauder.2",
+      "elite.marauder.3",
+      "elite.hellion.1",
+      "elite.hellion.2",
+      "elite.hellion.3",
+      "elite.tank.1",
+      "elite.tank.2",
+      "elite.tank.3",
+      "elite.medivac.1",
+      "elite.medivac.2",
+      "elite.medivac.3",
+      "hero.raynor",
+      "hero.tychus",
+      "hero.nova"
+    ],
+    "assetsPending": 0,
+    "economicModels": 3,
+    "podModel": true,
+    "resourceModels": 3,
+    "resourceInstances": 9,
+    "errors": [],
+    "originalAnimationModels": 10,
+    "proceduralAnimationModels": 0,
+    "originalDeathModels": 25,
+    "animationAtlasBytes": 19039264,
+    "lodRatios": {
+      "zergling": 0.29555555555555557,
+      "roach": 0.44686192468619246,
+      "baneling": 0.29977246871444824,
+      "ravager": 0.29987531172069826,
+      "hydralisk": 0.29652546406473107
+    },
+    "effectTextures": 46,
+    "effects": {
+      "attack": 0,
+      "hit": 28,
+      "death": 28,
+      "movement": 348,
+      "bile": 0,
+      "active": 160,
+      "dropped": 0
+    },
+    "textures": 18,
+    "fps": 39.99200159968019,
+    "requestedInstanceUploadBytes": 28488,
+    "drawCalls": 285,
+    "triangles": 248948,
+    "entities": 28,
+    "maxStretch": 0.9,
+    "spatialVisits": 2,
+    "collisionContacts": 0,
+    "phase": "battle",
+    "stage": 1,
+    "time": 3.6499999999999955,
+    "stats": {
+      "kills": 5,
+      "rescued": 0,
+      "failed": 0,
+      "produced": 0,
+      "started": 1,
+      "shots": 0,
+      "healed": 0,
+      "damage": 11516.3,
+      "scvsRescued": 0,
+      "scvsLost": 0,
+      "dronesKilled": 0,
+      "ambientSpawned": 0
+    },
+    "assetsReady": true,
+    "simulationBacklogSeconds": 0,
+    "audio": {
+      "originalDecoded": 10,
+      "decoded": [
+        {
+          "id": "shot",
+          "duration": 0.08995833333333333,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "blast",
+          "duration": 0.3499583333333333,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "alert",
+          "duration": 0.44995833333333335,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.scv.ready",
+          "duration": 2.1729166666666666,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.marine.attack",
+          "duration": 1.3626875,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.hellion.attack",
+          "duration": 2.6566875,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.tank.attack",
+          "duration": 0.8244791666666667,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.tank.siege",
+          "duration": 1.9696041666666666,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.medivac.heal",
+          "duration": 9.092270833333334,
+          "channels": 2,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.zergling.attack",
+          "duration": 0.7786666666666666,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.roach.attack",
+          "duration": 1.46575,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.ravager.attack",
+          "duration": 1.1467708333333333,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.marine.death",
+          "duration": 1.0077083333333334,
+          "channels": 1,
+          "sampleRate": 48000
+        }
+      ],
+      "errors": [],
+      "played": {
+        "sc2.marine.death": 3
+      },
+      "activeHealers": 0
+    },
+    "gamepad": {
+      "active": false,
+      "index": null,
+      "calibrating": false,
+      "connected": []
+    }
+  },
+  "cargo": {
+    "n": 3,
+    "hud": "➤劫掠者 ×3 · #37 新增 34 m · HP 600 / 600受袭",
+    "world": "劫掠者 ×3 #37新增 3 · 600 / 600 HP",
+    "map": "第 1 关 · 右键 / 轻点前往，点敌集火 · 劫掠者 ×3 #37 · 600/600 HP · 新增 3",
+    "mesh": true
+  },
+  "icons": {
+    "expected": 31,
+    "decoded": 31
+  },
+  "offline": {
+    "requests": [],
+    "debug": "undefined",
+    "runtime": {
+      "map": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 292,
+        "visibleMeshes": 121,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "order": {
+        "kind": "move",
+        "point": {
+          "x": 6.944444444444447,
+          "z": -1.062830197437325
+        },
+        "arrived": true,
+        "issuedAt": 0.11666666666666667
+      },
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "models": 10,
+      "variantModels": [],
+      "assetsPending": 0,
+      "economicModels": 3,
+      "podModel": true,
+      "resourceModels": 3,
+      "resourceInstances": 0,
+      "errors": [],
+      "originalAnimationModels": 10,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 10,
+      "animationAtlasBytes": 6245504,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826,
+        "hydralisk": 0.29652546406473107
+      },
+      "effectTextures": 46,
+      "effects": {
+        "attack": 0,
+        "hit": 0,
+        "death": 0,
+        "movement": 5,
+        "bile": 0,
+        "active": 2,
+        "dropped": 0
+      },
+      "textures": 18,
+      "fps": 52.264808362369486,
+      "requestedInstanceUploadBytes": 664,
+      "drawCalls": 131,
+      "triangles": 136882,
+      "entities": 1,
+      "maxStretch": 3.730731552771397,
+      "spatialVisits": 3,
+      "collisionContacts": 0,
+      "phase": "battle",
+      "stage": 1,
+      "time": 1.6333333333333333,
+      "stats": {
+        "kills": 0,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 1,
+        "shots": 0,
+        "healed": 0,
+        "damage": 0,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 0
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 0.016566666666668322,
+      "audio": {
+        "originalDecoded": 10,
+        "decoded": [
+          {
+            "id": "shot",
+            "duration": 0.08995833333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "blast",
+            "duration": 0.3499583333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "alert",
+            "duration": 0.44995833333333335,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.scv.ready",
+            "duration": 2.1729166666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.attack",
+            "duration": 1.3626875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.hellion.attack",
+            "duration": 2.6566875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.attack",
+            "duration": 0.8244791666666667,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.siege",
+            "duration": 1.9696041666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.medivac.heal",
+            "duration": 9.092270833333334,
+            "channels": 2,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.zergling.attack",
+            "duration": 0.7786666666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.roach.attack",
+            "duration": 1.46575,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.ravager.attack",
+            "duration": 1.1467708333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.death",
+            "duration": 1.0077083333333334,
+            "channels": 1,
+            "sampleRate": 48000
+          }
+        ],
+        "errors": [],
+        "played": {},
+        "activeHealers": 0
+      },
+      "gamepad": {
+        "active": false,
+        "index": null,
+        "calibrating": false,
+        "connected": []
+      }
+    }
+  }
+}

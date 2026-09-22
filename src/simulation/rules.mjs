@@ -58,33 +58,6 @@ export function tickProduction(buildings, dt, now, paused = false) {
   }
   return events;
 }
-export function createPod(event, hp, guardianIds) {
-  positive(hp, 'pod hp'); finite(event.producedAt, 'producedAt');
-  if (!Array.isArray(guardianIds) || !guardianIds.length) throw new TypeError('A pod requires an active guardian group');
-  return { id: event.id, unitType: event.unitType, hp, maxHp: hp,
-    spawnedAt: event.producedAt, expiresAt: event.producedAt + 30,
-    guardianIds: [...guardianIds], status: 'under-attack', resultDelivered: false };
-}
-export function damagePod(pod, amount) {
-  finite(amount, 'damage');
-  if (pod.status !== 'under-attack') return;
-  pod.hp = Math.max(0, pod.hp - amount);
-  if (!pod.hp) pod.status = 'destroyed';
-}
-export function resolvePod(pod, now, aliveGuardianIds, playerInReach) {
-  finite(now, 'now');
-  if (pod.resultDelivered) return null;
-  if (pod.status === 'under-attack') {
-    if (pod.hp <= 0) pod.status = 'destroyed';
-    else if (now >= pod.expiresAt) pod.status = 'expired';
-    else if (now >= pod.spawnedAt && playerInReach &&
-        !pod.guardianIds.some(id => aliveGuardianIds.has(id))) pod.status = 'rescued';
-  }
-  if (pod.status === 'under-attack') return null;
-  pod.resultDelivered = true;
-  return { id: pod.id, status: pod.status, unitType: pod.unitType,
-    grantReinforcement: pod.status === 'rescued' };
-}
 function validUnit(unit) {
   finite(unit.hp, 'unit.hp'); positive(unit.maxHp, 'unit.maxHp'); finite(unit.armor, 'unit.armor');
   if (!Array.isArray(unit.attributes)) throw new TypeError('Unit attributes required');
@@ -120,7 +93,7 @@ export function healBiological(healer, target, rule, dt, edgeDistance) {
   finite(healer.energy, 'energy'); positive(rule.hpPerSecond, 'hpPerSecond');
   positive(rule.energyPerHp, 'energyPerHp'); finite(rule.range, 'heal range');
   if (healer.hp <= 0 || target.hp <= 0 || healer.owner !== target.owner ||
-      !target.attributes.includes('Biological') || target.hp >= target.maxHp || edgeDistance > rule.range) return 0;
+      !(target.attributes.includes('Biological') || rule.allowMechanical && target.attributes.includes('Mechanical') && !target.attributes.includes('Structure')) || healer === target || target.hp >= target.maxHp || edgeDistance > rule.range) return 0;
   const healed = Math.min(rule.hpPerSecond * dt, target.maxHp - target.hp, healer.energy / rule.energyPerHp);
   target.hp += healed; healer.energy = Math.max(0, healer.energy - healed * rule.energyPerHp);
   return healed;
@@ -128,7 +101,7 @@ export function healBiological(healer, target, rule, dt, edgeDistance) {
 export function drawThree(pool, eligible, rng = Math.random) {
   const candidates = pool.filter(eligible);
   if (new Set(candidates.map(c => c.id)).size !== candidates.length) throw new Error('Duplicate card IDs');
-  if (candidates.length < 3) throw new Error('At least 3 eligible cards required; add explicit resource fallbacks');
+  if (candidates.length < 3) throw new Error('At least 3 structurally eligible cards required');
   const options = [];
   for (let i = 0; i < 3; i++) {
     const r = rng();

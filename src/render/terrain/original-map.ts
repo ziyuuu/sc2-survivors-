@@ -1,0 +1,46 @@
+import {MapVisibility} from './map-visibility';
+import {commitInstances} from '../units/instance-updates';
+import {terrainArray,originalGroundGeometry} from './map-surface';
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {assetUrl} from '../../assets/manifest';
+import {restoreSc2Materials} from '../loaders/sc2-materials';
+import type {World} from '../../simulation/world';
+import type {MapDefinition,MapPlacement} from '../../data/map-definition';
+const url=(id:string)=>{const value=assetUrl(id);if(!value)throw Error('Missing original map asset: '+id);return value;};
+/** Resolve semantic image IDs in both Vite and file://; all original pixels remain local. */
+export function configureMapAssets(){THREE.Cache.enabled=true;THREE.DefaultLoadingManager.setURLModifier(value=>value.includes('sc2asset:')?url(value.slice(value.lastIndexOf('sc2asset:')+9)):value);}
+export async function loadMapDefinition():Promise<MapDefinition>{const response=await fetch(url('map.kairos'));if(!response.ok)throw Error('Original map data unavailable');return response.json();}
+export interface MapView {update:(camera?:THREE.Camera)=>void;report:()=>{name:string;models:number;placements:number;visibleInstances:number;visibleMeshes:number;area:number;scale:number;sourceSha256:string}}
+export async function createOriginalMap(scene:THREE.Scene,w:World,progress:(s:string)=>void):Promise<MapView>{
+ const d=w.terrain!.definition!,texture=async(id:string,linear=false)=>{const t=await new THREE.TextureLoader().loadAsync(url(id));t.flipY=false;t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.anisotropy=8;return t;};
+ const [diffuse,normal,mask0,mask1]=await Promise.all([texture('map.terrain.diffuse'),texture('map.terrain.normal',true),texture('map.terrain.mask0',true),texture('map.terrain.mask1',true)]);
+ const diffuseLayers=terrainArray(diffuse),normalLayers=terrainArray(normal);
+ const reveal=new THREE.DataTexture(Uint8Array.from(d.reveal),d.walkWidth,d.walkHeight,THREE.RedFormat);reveal.minFilter=reveal.magFilter=THREE.NearestFilter;reveal.needsUpdate=true;
+ const stage={value:w.stage},tile=d.uvTiling??[14.25,15.75,1.5,-1.5],material=new THREE.MeshStandardMaterial({map:diffuse,normalMap:normal,normalScale:new THREE.Vector2(.65,.65),roughness:.91});
+ const atlas=(sampler:string)=>Array.from({length:8},(_,i)=>`texture(${sampler},vec3(vMapUv*mapTiling.xy+mapTiling.zw,${i}.0)).rgb * weights${Math.floor(i/4)}[${i%4}]`).join('+');
+ material.onBeforeCompile=s=>{Object.assign(s.uniforms,{mapLayers:{value:diffuseLayers},normalLayers:{value:normalLayers},mapMask0:{value:mask0},mapMask1:{value:mask1},mapReveal:{value:reveal},mapStage:stage,mapTiling:{value:new THREE.Vector4(...tile as [number,number,number,number])}});
+  s.fragmentShader=s.fragmentShader.replace('#include <common>','#include <common>\nuniform highp sampler2DArray mapLayers;uniform highp sampler2DArray normalLayers;uniform sampler2D mapMask0;uniform sampler2D mapMask1;uniform sampler2D mapReveal;uniform float mapStage;uniform vec4 mapTiling;');
+  s.fragmentShader=s.fragmentShader.replace('#include <map_fragment>',`vec4 weights0=texture2D(mapMask0,vMapUv),weights1=texture2D(mapMask1,vMapUv);float total=dot(weights0,vec4(1.0))+dot(weights1,vec4(1.0));if(total<.01){weights0=vec4(1.0,0.0,0.0,0.0);total=1.0;}weights0/=total;weights1/=total;diffuseColor.rgb*=(${atlas('mapLayers')});float opened=1.0-step(mapStage+.1,texture2D(mapReveal,vMapUv).r*255.0);diffuseColor.rgb*=mix(.12,1.0,opened);`);
+  s.fragmentShader=s.fragmentShader.replace('#include <normal_fragment_maps>',`vec3 mapN=normalize((${atlas('normalLayers')})*2.0-1.0);mapN.xy*=normalScale;normal=normalize(tbn*mapN);`);
+ };material.customProgramCacheKey=()=> 'original-map-array-layers-v2';
+ const ground=new THREE.Mesh(originalGroundGeometry(d),material);ground.name='char-traversable-ground';scene.add(ground);
+ const cliffGroup=new THREE.Group();cliffGroup.name='char-solid-cliff-faces';scene.add(cliffGroup);
+ const grouped=new Map<string,MapPlacement[]>();for(const p of [...d.placements,...d.cliffs??[]])if(p.assetId){const key=p.assetId+'|'+(p.pose??'idle'),list=grouped.get(key)??[];list.push(p);grouped.set(key,list);}
+ const loader=new GLTFLoader(),batches:{mesh:THREE.InstancedMesh;placements:MapPlacement[];matrices:THREE.Matrix4[];bounds:THREE.Sphere[];sphereStage:number;points:{x:number;z:number;stage:number}[]}[]=[],object=new THREE.Object3D(),tint=new THREE.Color(),v=new THREE.Vector3(),shared=new WeakMap<object,Map<string,THREE.Texture>>();let models=0;
+ // Every original placement shares its geometry/material; only a single original Stand/Dead pose is baked.
+ for(const [key,placements] of grouped){const [id,pose]=key.split('|');progress(`载入战场 ${++models} / ${grouped.size}`);const g=await restoreSc2Materials(await loader.loadAsync(url(id))),mixer=new THREE.AnimationMixer(g.scene),clip=g.animations.find(c=>pose==='dead'?/death|dead/i.test(c.name):/^stand|idle/i.test(c.name));if(clip){mixer.clipAction(clip).play();mixer.setTime(pose==='dead'?Math.max(0,clip.duration-.001):0);}g.scene.updateMatrixWorld(true);
+  const matrices=placements.map(p=>{const x=p.position[0]-d.origin[0],z=d.origin[1]-p.position[1];object.position.set(x,p.unit?w.terrain!.height({x,z})+p.position[2]:p.position[2]-8,z);object.rotation.set(0,p.rotation,0);const scale=p.modelScale??[1,1,1];object.scale.set(p.scale[0]*scale[0],p.scale[2]*scale[2],p.scale[1]*scale[1]);object.updateMatrix();return object.matrix.clone();});
+  const points=placements.map(p=>{const x=p.position[0]-d.origin[0],z=d.origin[1]-p.position[1],ix=Math.max(0,Math.min(d.walkWidth-1,Math.floor(p.position[0]/d.cellSize))),iy=Math.max(0,Math.min(d.walkHeight-1,Math.floor(p.position[1]/d.cellSize)));return {x,z,stage:d.reveal[iy*d.walkWidth+ix]};});
+  g.scene.traverse(n=>{if(!(n instanceof THREE.Mesh)||!n.visible)return;const geo=n.geometry.clone(),pos=geo.getAttribute('position');for(let i=0;i<pos.count;i++){n.getVertexPosition(i,v).applyMatrix4(n.matrixWorld);pos.setXYZ(i,v.x,v.y,v.z);}geo.deleteAttribute('skinIndex');geo.deleteAttribute('skinWeight');geo.computeVertexNormals();geo.computeBoundingSphere();
+   for(const raw of Array.isArray(n.material)?n.material:[n.material])for(const key of ['map','normalMap','emissiveMap','specularColorMap']){const m=raw as unknown as Record<string,THREE.Texture>,t=m[key];if(!t)continue;const source=t.source.data as object,key2=t.colorSpace+'|'+t.channel;const textures=shared.get(source)??new Map<string,THREE.Texture>(),existing=textures.get(key2);if(existing)m[key]=existing;else {textures.set(key2,t);shared.set(source,textures);}}
+   const mesh=new THREE.InstancedMesh(geo,n.material,placements.length);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);const cliff=id.includes('model.map.cliff');mesh.name=cliff?'char-solid-cliff-faces':id;if(cliff)cliffGroup.add(mesh);else scene.add(mesh);mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;const bounds=matrices.map(m=>geo.boundingSphere!.clone().applyMatrix4(m));batches.push({mesh,placements,matrices,bounds,sphereStage:0,points});
+  });mixer.stopAllAction();mixer.uncacheRoot(g.scene);
+ }
+ let last='',visibleInstances=0;const visibility=new MapVisibility();const update=(camera?:THREE.Camera)=>{stage.value=w.stage;const changed=camera?visibility.update(camera):false;const cell=`${camera?"view":"all"}:${w.stage}:${Math.floor(w.anchor.x)}:${Math.floor(w.anchor.z)}`;if(cell===last&&!changed)return;last=cell;visibleInstances=0;for(const b of batches){
+  // Transparent batch sorting must not change when offscreen instances are removed.
+  // The full opened-area sphere is also a conservative, never-stale raycast broad phase.
+  if(b.sphereStage!==w.stage){const sphere=new THREE.Sphere().makeEmpty();for(let i=0;i<b.points.length;i++)if(b.points[i].stage<=w.stage)sphere.union(b.bounds[i]);b.mesh.boundingSphere=sphere;b.sphereStage=w.stage;}
+  let n=0;for(let i=0;i<b.points.length;i++){const p=b.points[i];if(p.stage>w.stage||(camera&&!visibility.intersects(b.bounds[i])))continue;b.mesh.setMatrixAt(n,b.matrices[i]);const raw=b.placements[i].tint;if(raw){const values=raw.split(/[,\s]+/).map(Number);tint.setRGB(values[0]/255,values[1]/255,values[2]/255,THREE.SRGBColorSpace).multiplyScalar(values[3]??1);}else tint.set(0xffffff);b.mesh.setColorAt(n++,tint);}b.mesh.boundingBox=null;commitInstances(b.mesh,n);visibleInstances+=n;}};update();
+ return {update,report:()=>({name:d.source.name,models,placements:[...grouped.values()].reduce((n,v)=>n+v.length,0),visibleInstances,visibleMeshes:batches.filter(b=>b.mesh.visible).length,area:d.stageAreas[w.stage-1],scale:d.source.worldUnitsPerSc2Unit,sourceSha256:d.source.sha256})};
+}

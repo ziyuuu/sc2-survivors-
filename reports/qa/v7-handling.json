@@ -1,0 +1,547 @@
+{
+  "before": {
+    "at": "2026-09-21T11:00:05.061Z",
+    "method": "Isolated arrival and approach-to-fire fixtures, stationary nonretaliating high-HP targets. Not a campaign or difficulty proof.",
+    "arrivals": [
+      {
+        "type": "marine",
+        "distance": 0.3,
+        "facing": 0,
+        "seconds": 0.5333333333333333,
+        "walk": 0.18527979784915033,
+        "remaining": 0.11472020215084966
+      },
+      {
+        "type": "marine",
+        "distance": 0.3,
+        "facing": 1.5707963267948966,
+        "seconds": 0.5333333333333333,
+        "walk": 0.18527979784915033,
+        "remaining": 0.11472020215084966
+      },
+      {
+        "type": "marine",
+        "distance": 0.3,
+        "facing": 3.141592653589793,
+        "seconds": 0.5333333333333333,
+        "walk": 0.18527979784915033,
+        "remaining": 0.11472020215084966
+      },
+      {
+        "type": "marine",
+        "distance": 3,
+        "facing": 0,
+        "seconds": 1.4166666666666665,
+        "walk": 2.8856782159524457,
+        "remaining": 0.11432178404755433
+      },
+      {
+        "type": "marine",
+        "distance": 3,
+        "facing": 1.5707963267948966,
+        "seconds": 1.4166666666666665,
+        "walk": 2.8856782159524457,
+        "remaining": 0.11432178404755433
+      },
+      {
+        "type": "marine",
+        "distance": 3,
+        "facing": 3.141592653589793,
+        "seconds": 1.4166666666666665,
+        "walk": 2.8856782159524457,
+        "remaining": 0.11432178404755433
+      },
+      {
+        "type": "marine",
+        "distance": 12,
+        "facing": 0,
+        "seconds": 4.266666666666657,
+        "walk": 11.885020717618831,
+        "remaining": 0.11497928238116906
+      },
+      {
+        "type": "marine",
+        "distance": 12,
+        "facing": 1.5707963267948966,
+        "seconds": 4.266666666666657,
+        "walk": 11.885020717618831,
+        "remaining": 0.11497928238116906
+      },
+      {
+        "type": "marine",
+        "distance": 12,
+        "facing": 3.141592653589793,
+        "seconds": 4.266666666666657,
+        "walk": 11.885020717618831,
+        "remaining": 0.11497928238116906
+      },
+      {
+        "type": "hellion",
+        "distance": 0.3,
+        "facing": 0,
+        "seconds": 0.9833333333333347,
+        "walk": 0.1702374396627208,
+        "remaining": 0.12976256033727918
+      },
+      {
+        "type": "hellion",
+        "distance": 0.3,
+        "facing": 1.5707963267948966,
+        "seconds": 1.3166666666666669,
+        "walk": 0.2023159525367849,
+        "remaining": 0.12916361845679933
+      },
+      {
+        "type": "hellion",
+        "distance": 0.3,
+        "facing": 3.141592653589793,
+        "seconds": 1.866666666666665,
+        "walk": 0.20167574519986242,
+        "remaining": 0.12983757457807715
+      },
+      {
+        "type": "hellion",
+        "distance": 3,
+        "facing": 0,
+        "seconds": 2.28333333333333,
+        "walk": 2.8707130396900253,
+        "remaining": 0.12928696030997466
+      },
+      {
+        "type": "hellion",
+        "distance": 3,
+        "facing": 1.5707963267948966,
+        "seconds": 2.633333333333329,
+        "walk": 3.388913052715979,
+        "remaining": 0.12964483461318535
+      },
+      {
+        "type": "hellion",
+        "distance": 3,
+        "facing": 3.141592653589793,
+        "seconds": 3.1999999999999935,
+        "walk": 3.3897354240952593,
+        "remaining": 0.12930269429516514
+      },
+      {
+        "type": "hellion",
+        "distance": 12,
+        "facing": 0,
+        "seconds": 3.7833333333333248,
+        "walk": 11.870425811077599,
+        "remaining": 0.12957418892240113
+      },
+      {
+        "type": "hellion",
+        "distance": 12,
+        "facing": 1.5707963267948966,
+        "seconds": 4.0666666666666575,
+        "walk": 12.345688949844817,
+        "remaining": 0.1298425249227656
+      },
+      {
+        "type": "hellion",
+        "distance": 12,
+        "facing": 3.141592653589793,
+        "seconds": 4.633333333333322,
+        "walk": 12.346567147844462,
+        "remaining": 0.12949259643636396
+      },
+      {
+        "type": "tank",
+        "distance": 0.3,
+        "facing": 0,
+        "seconds": 1.266666666666667,
+        "walk": 0.17011856295816224,
+        "remaining": 0.12988143704183774
+      },
+      {
+        "type": "tank",
+        "distance": 0.3,
+        "facing": 1.5707963267948966,
+        "seconds": 1.6833333333333322,
+        "walk": 0.2018772549246018,
+        "remaining": 0.129686015661069
+      },
+      {
+        "type": "tank",
+        "distance": 0.3,
+        "facing": 3.141592653589793,
+        "seconds": 2.3999999999999964,
+        "walk": 0.20201341294029942,
+        "remaining": 0.12956244629937064
+      },
+      {
+        "type": "tank",
+        "distance": 3,
+        "facing": 0,
+        "seconds": 3.016666666666661,
+        "walk": 2.8704711116765447,
+        "remaining": 0.12952888832345533
+      },
+      {
+        "type": "tank",
+        "distance": 3,
+        "facing": 1.5707963267948966,
+        "seconds": 3.433333333333326,
+        "walk": 3.2614587199691583,
+        "remaining": 0.12964830692254056
+      },
+      {
+        "type": "tank",
+        "distance": 3,
+        "facing": 3.141592653589793,
+        "seconds": 4.149999999999991,
+        "walk": 3.261718048864715,
+        "remaining": 0.12952454509373557
+      },
+      {
+        "type": "tank",
+        "distance": 12,
+        "facing": 0,
+        "seconds": 5.866666666666651,
+        "walk": 11.870139178331145,
+        "remaining": 0.1298608216688546
+      },
+      {
+        "type": "tank",
+        "distance": 12,
+        "facing": 1.5707963267948966,
+        "seconds": 6.2333333333333165,
+        "walk": 12.185711495183947,
+        "remaining": 0.12963270080775158
+      },
+      {
+        "type": "tank",
+        "distance": 12,
+        "facing": 3.141592653589793,
+        "seconds": 6.949999999999981,
+        "walk": 12.185965876939129,
+        "remaining": 0.12950817426765449
+      }
+    ],
+    "encounters": [
+      {
+        "type": "marine",
+        "count": 1,
+        "firstShot": 0.850000000000001,
+        "shots": 15,
+        "damage": 90,
+        "walk": 3.570066882073751
+      },
+      {
+        "type": "marine",
+        "count": 6,
+        "firstShot": 0.850000000000001,
+        "shots": 15,
+        "damage": 90,
+        "walk": 3.570066882073751
+      },
+      {
+        "type": "hellion",
+        "count": 1,
+        "firstShot": 0.6333333333333336,
+        "shots": 6,
+        "damage": 84,
+        "walk": 2.0230023117166955
+      },
+      {
+        "type": "hellion",
+        "count": 6,
+        "firstShot": 0.6333333333333336,
+        "shots": 6,
+        "damage": 168,
+        "walk": 2.0230023117166955
+      },
+      {
+        "type": "tank",
+        "count": 1,
+        "firstShot": 0.15,
+        "shots": 14,
+        "damage": 210,
+        "walk": 0
+      },
+      {
+        "type": "tank",
+        "count": 6,
+        "firstShot": 0.15,
+        "shots": 14,
+        "damage": 210,
+        "walk": 0
+      }
+    ]
+  },
+  "after": {
+    "at": "2026-09-21T11:10:06.990Z",
+    "method": "Isolated arrival and approach-to-fire fixtures, stationary nonretaliating high-HP targets. Not a campaign or difficulty proof.",
+    "arrivals": [
+      {
+        "type": "marine",
+        "distance": 0.3,
+        "facing": 0,
+        "seconds": 0.16666666666666666,
+        "walk": 0.21999999999999997,
+        "remaining": 0.08000000000000002
+      },
+      {
+        "type": "marine",
+        "distance": 0.3,
+        "facing": 1.5707963267948966,
+        "seconds": 0.16666666666666666,
+        "walk": 0.21999999999999997,
+        "remaining": 0.08000000000000002
+      },
+      {
+        "type": "marine",
+        "distance": 0.3,
+        "facing": 3.141592653589793,
+        "seconds": 0.16666666666666666,
+        "walk": 0.21999999999999997,
+        "remaining": 0.08000000000000002
+      },
+      {
+        "type": "marine",
+        "distance": 3,
+        "facing": 0,
+        "seconds": 1.0333333333333345,
+        "walk": 2.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "marine",
+        "distance": 3,
+        "facing": 1.5707963267948966,
+        "seconds": 1.0333333333333345,
+        "walk": 2.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "marine",
+        "distance": 3,
+        "facing": 3.141592653589793,
+        "seconds": 1.0333333333333345,
+        "walk": 2.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "marine",
+        "distance": 12,
+        "facing": 0,
+        "seconds": 3.8833333333333244,
+        "walk": 11.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "marine",
+        "distance": 12,
+        "facing": 1.5707963267948966,
+        "seconds": 3.8833333333333244,
+        "walk": 11.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "marine",
+        "distance": 12,
+        "facing": 3.141592653589793,
+        "seconds": 3.8833333333333244,
+        "walk": 11.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "hellion",
+        "distance": 0.3,
+        "facing": 0,
+        "seconds": 0.19999999999999998,
+        "walk": 0.21999999999999997,
+        "remaining": 0.08000000000000002
+      },
+      {
+        "type": "hellion",
+        "distance": 0.3,
+        "facing": 1.5707963267948966,
+        "seconds": 0.4333333333333333,
+        "walk": 0.275604237792904,
+        "remaining": 0.08003029103943499
+      },
+      {
+        "type": "hellion",
+        "distance": 0.3,
+        "facing": 3.141592653589793,
+        "seconds": 0.7666666666666674,
+        "walk": 0.27559090211293885,
+        "remaining": 0.08001228756475508
+      },
+      {
+        "type": "hellion",
+        "distance": 3,
+        "facing": 0,
+        "seconds": 0.733333333333334,
+        "walk": 2.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "hellion",
+        "distance": 3,
+        "facing": 1.5707963267948966,
+        "seconds": 0.850000000000001,
+        "walk": 3.1460565148027864,
+        "remaining": 0.07999999999999982
+      },
+      {
+        "type": "hellion",
+        "distance": 3,
+        "facing": 3.141592653589793,
+        "seconds": 1.1666666666666674,
+        "walk": 3.1459065500997143,
+        "remaining": 0.07999999999999982
+      },
+      {
+        "type": "hellion",
+        "distance": 12,
+        "facing": 0,
+        "seconds": 2.249999999999997,
+        "walk": 11.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "hellion",
+        "distance": 12,
+        "facing": 1.5707963267948966,
+        "seconds": 2.3499999999999965,
+        "walk": 12.111424598414215,
+        "remaining": 0.08000000000000074
+      },
+      {
+        "type": "hellion",
+        "distance": 12,
+        "facing": 3.141592653589793,
+        "seconds": 2.666666666666662,
+        "walk": 12.111407952913357,
+        "remaining": 0.0800000000000005
+      },
+      {
+        "type": "tank",
+        "distance": 0.3,
+        "facing": 0,
+        "seconds": 0.19999999999999998,
+        "walk": 0.21999999999999997,
+        "remaining": 0.08000000000000002
+      },
+      {
+        "type": "tank",
+        "distance": 0.3,
+        "facing": 1.5707963267948966,
+        "seconds": 0.5666666666666668,
+        "walk": 0.274473124673444,
+        "remaining": 0.08007546860640391
+      },
+      {
+        "type": "tank",
+        "distance": 0.3,
+        "facing": 3.141592653589793,
+        "seconds": 1.016666666666668,
+        "walk": 0.2745261739489233,
+        "remaining": 0.08000677482132944
+      },
+      {
+        "type": "tank",
+        "distance": 3,
+        "facing": 0,
+        "seconds": 1.0500000000000012,
+        "walk": 2.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "tank",
+        "distance": 3,
+        "facing": 1.5707963267948966,
+        "seconds": 1.2333333333333338,
+        "walk": 3.034368827356376,
+        "remaining": 0.08000000000000017
+      },
+      {
+        "type": "tank",
+        "distance": 3,
+        "facing": 3.141592653589793,
+        "seconds": 1.6666666666666656,
+        "walk": 3.034371461181387,
+        "remaining": 0.0799999999999999
+      },
+      {
+        "type": "tank",
+        "distance": 12,
+        "facing": 0,
+        "seconds": 3.9166666666666576,
+        "walk": 11.92,
+        "remaining": 0.08000000000000007
+      },
+      {
+        "type": "tank",
+        "distance": 12,
+        "facing": 1.5707963267948966,
+        "seconds": 4.083333333333324,
+        "walk": 12.026227179832459,
+        "remaining": 0.07999999999999913
+      },
+      {
+        "type": "tank",
+        "distance": 12,
+        "facing": 3.141592653589793,
+        "seconds": 4.516666666666656,
+        "walk": 12.026230974724893,
+        "remaining": 0.08000000000000071
+      }
+    ],
+    "encounters": [
+      {
+        "type": "marine",
+        "count": 1,
+        "firstShot": 0.850000000000001,
+        "shots": 15,
+        "damage": 90,
+        "walk": 2.2866666666666675
+      },
+      {
+        "type": "marine",
+        "count": 6,
+        "firstShot": 0.850000000000001,
+        "shots": 15,
+        "damage": 90,
+        "walk": 2.2866666666666675
+      },
+      {
+        "type": "hellion",
+        "count": 1,
+        "firstShot": 0.7000000000000005,
+        "shots": 6,
+        "damage": 84,
+        "walk": 2.0408333333333335
+      },
+      {
+        "type": "hellion",
+        "count": 6,
+        "firstShot": 0.7000000000000005,
+        "shots": 6,
+        "damage": 168,
+        "walk": 2.0408333333333335
+      },
+      {
+        "type": "tank",
+        "count": 1,
+        "firstShot": 0.15,
+        "shots": 14,
+        "damage": 210,
+        "walk": 0
+      },
+      {
+        "type": "tank",
+        "count": 6,
+        "firstShot": 0.15,
+        "shots": 14,
+        "damage": 210,
+        "walk": 0
+      }
+    ]
+  },
+  "limitations": "Isolated local web-simulation measurements; no SC2 client, natural combat or human-control equivalence claimed."
+}

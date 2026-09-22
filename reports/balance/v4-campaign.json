@@ -1,0 +1,2044 @@
+{
+  "date": "2026-09-21T05:29:14.005Z",
+  "method": "Actual fixed-step World; controller sends movement, dash, card purchase/skip/reroll. No injected HP, resource, kills, stage skips or guaranteed offers. Automated controller is not human skill evidence.",
+  "runs": [
+    {
+      "difficulty": "easy",
+      "style": "careful",
+      "seed": 89241,
+      "phase": "lost",
+      "stage": 5,
+      "time": 687.3166666666666,
+      "stats": {
+        "kills": 264,
+        "rescued": 31,
+        "failed": 3,
+        "produced": 35,
+        "started": 37,
+        "shots": 4598,
+        "healed": 694.6700000000156,
+        "damage": 26387.79000000004,
+        "scvsRescued": 8,
+        "scvsLost": 1,
+        "dronesKilled": 9,
+        "ambientSpawned": 136
+      },
+      "scvs": 8,
+      "wallet": {
+        "minerals": 46.779166666631646,
+        "gas": 68.05291666688828
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 1091.0291666668736,
+          "gas": 262.30291666652926
+        },
+        "drops": {
+          "minerals": 1058.75,
+          "gas": 235
+        },
+        "clear": {
+          "minerals": 1100,
+          "gas": 568.75
+        },
+        "cards": {
+          "minerals": 0,
+          "gas": 50
+        },
+        "production": {
+          "minerals": 2500,
+          "gas": 825
+        },
+        "purchases": {
+          "minerals": 403,
+          "gas": 223
+        },
+        "rerolls": 350
+      },
+      "choices": [
+        "economy.gas",
+        "build.starport",
+        "build.factory",
+        "tech.medivac"
+      ],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 11,
+            "rescued": 3,
+            "failed": 0,
+            "produced": 3,
+            "started": 4,
+            "shots": 66,
+            "healed": 0,
+            "damage": 361,
+            "scvsRescued": 2,
+            "scvsLost": 0,
+            "dronesKilled": 2,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 151.83437499999712,
+            "gas": 96.82249999999453
+          },
+          "scvs": 2,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 40
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.32611056456387
+        },
+        {
+          "stage": 2,
+          "time": 240,
+          "stats": {
+            "kills": 42,
+            "rescued": 10,
+            "failed": 0,
+            "produced": 10,
+            "started": 11,
+            "shots": 241,
+            "healed": 0,
+            "damage": 1323.0000000000007,
+            "scvsRescued": 4,
+            "scvsLost": 0,
+            "dronesKilled": 4,
+            "ambientSpawned": 15
+          },
+          "wallet": {
+            "minerals": 373.7624999999838,
+            "gas": 374.41999999996375
+          },
+          "scvs": 4,
+          "roster": [
+            [
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 2,
+                "hp": 48
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 10.316036511002538
+        },
+        {
+          "stage": 3,
+          "time": 360,
+          "stats": {
+            "kills": 83,
+            "rescued": 17,
+            "failed": 0,
+            "produced": 18,
+            "started": 19,
+            "shots": 571,
+            "healed": 4.9999999999999805,
+            "damage": 3083.0000000000077,
+            "scvsRescued": 6,
+            "scvsLost": 0,
+            "dronesKilled": 6,
+            "ambientSpawned": 35
+          },
+          "wallet": {
+            "minerals": 399.8062499999771,
+            "gas": 459.83166666665215
+          },
+          "scvs": 6,
+          "roster": [
+            [
+              {
+                "rank": 4,
+                "hp": 69
+              },
+              {
+                "rank": 4,
+                "hp": 69
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              }
+            ],
+            [],
+            [],
+            [
+              {
+                "rank": 1,
+                "hp": 150
+              }
+            ]
+          ],
+          "maxStretch": 12.280697698776
+        },
+        {
+          "stage": 4,
+          "time": 600,
+          "stats": {
+            "kills": 219,
+            "rescued": 29,
+            "failed": 0,
+            "produced": 30,
+            "started": 31,
+            "shots": 2582,
+            "healed": 333.00000000000045,
+            "damage": 15445.200000000019,
+            "scvsRescued": 8,
+            "scvsLost": 0,
+            "dronesKilled": 9,
+            "ambientSpawned": 100
+          },
+          "wallet": {
+            "minerals": 398.7312499999732,
+            "gas": 463.96166666691124
+          },
+          "scvs": 8,
+          "roster": [
+            [
+              {
+                "rank": 5,
+                "hp": 77
+              },
+              {
+                "rank": 5,
+                "hp": 77
+              },
+              {
+                "rank": 5,
+                "hp": 77
+              },
+              {
+                "rank": 5,
+                "hp": 77
+              },
+              {
+                "rank": 5,
+                "hp": 77
+              }
+            ],
+            [
+              {
+                "rank": 1,
+                "hp": 85
+              },
+              {
+                "rank": 1,
+                "hp": 90
+              }
+            ],
+            [],
+            [
+              {
+                "rank": 1,
+                "hp": 150
+              },
+              {
+                "rank": 1,
+                "hp": 150
+              },
+              {
+                "rank": 1,
+                "hp": 150
+              }
+            ]
+          ],
+          "maxStretch": 12.553378361423876
+        }
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "style": "careful",
+      "seed": 271828,
+      "phase": "lost",
+      "stage": 4,
+      "time": 536.3833333333333,
+      "stats": {
+        "kills": 181,
+        "rescued": 25,
+        "failed": 1,
+        "produced": 28,
+        "started": 29,
+        "shots": 3038,
+        "healed": 0,
+        "damage": 15768.479999999876,
+        "scvsRescued": 8,
+        "scvsLost": 0,
+        "dronesKilled": 7,
+        "ambientSpawned": 82
+      },
+      "scvs": 8,
+      "wallet": {
+        "minerals": 96.22083333334335,
+        "gas": 547.642916666884
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 768.7208333332106,
+          "gas": 182.64291666659008
+        },
+        "drops": {
+          "minerals": 720,
+          "gas": 153.75
+        },
+        "clear": {
+          "minerals": 787.5,
+          "gas": 381.25
+        },
+        "cards": {
+          "minerals": 100,
+          "gas": 0
+        },
+        "production": {
+          "minerals": 1600,
+          "gas": 0
+        },
+        "purchases": {
+          "minerals": 280,
+          "gas": 170
+        },
+        "rerolls": 450
+      },
+      "choices": [
+        "economy.minerals",
+        "build.factory",
+        "build.starport"
+      ],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 13,
+            "rescued": 4,
+            "failed": 0,
+            "produced": 4,
+            "started": 5,
+            "shots": 78,
+            "healed": 0,
+            "damage": 413,
+            "scvsRescued": 2,
+            "scvsLost": 0,
+            "dronesKilled": 2,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 103.93124999999665,
+            "gas": 96.71499999999506
+          },
+          "scvs": 2,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 10.476894794868256
+        },
+        {
+          "stage": 2,
+          "time": 240,
+          "stats": {
+            "kills": 41,
+            "rescued": 10,
+            "failed": 0,
+            "produced": 10,
+            "started": 11,
+            "shots": 224,
+            "healed": 0,
+            "damage": 1252.000000000001,
+            "scvsRescued": 4,
+            "scvsLost": 0,
+            "dronesKilled": 4,
+            "ambientSpawned": 15
+          },
+          "wallet": {
+            "minerals": 470.80312500001344,
+            "gas": 323.9641666666313
+          },
+          "scvs": 4,
+          "roster": [
+            [
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.300590786146332
+        },
+        {
+          "stage": 3,
+          "time": 360,
+          "stats": {
+            "kills": 82,
+            "rescued": 16,
+            "failed": 0,
+            "produced": 17,
+            "started": 18,
+            "shots": 496,
+            "healed": 0,
+            "damage": 2854.0000000000073,
+            "scvsRescued": 6,
+            "scvsLost": 0,
+            "dronesKilled": 6,
+            "ambientSpawned": 35
+          },
+          "wallet": {
+            "minerals": 433.97500000001577,
+            "gas": 494.1433333333632
+          },
+          "scvs": 6,
+          "roster": [
+            [
+              {
+                "rank": 4,
+                "hp": 64
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 3,
+                "hp": 56
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 3,
+                "hp": 46
+              }
+            ],
+            [
+              {
+                "rank": 1,
+                "hp": 90
+              }
+            ],
+            [],
+            []
+          ],
+          "maxStretch": 12.545695628407502
+        }
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "style": "careful",
+      "seed": 1776,
+      "phase": "lost",
+      "stage": 5,
+      "time": 751.4166666666666,
+      "stats": {
+        "kills": 329,
+        "rescued": 31,
+        "failed": 8,
+        "produced": 40,
+        "started": 42,
+        "shots": 7179,
+        "healed": 2828.8100000004188,
+        "damage": 41195.04999999967,
+        "scvsRescued": 8,
+        "scvsLost": 1,
+        "dronesKilled": 9,
+        "ambientSpawned": 167
+      },
+      "scvs": 8,
+      "wallet": {
+        "minerals": 24.966666666667876,
+        "gas": 91.49874999997273
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 1222.716666666579,
+          "gas": 294.74874999993744
+        },
+        "drops": {
+          "minerals": 1141.25,
+          "gas": 225
+        },
+        "clear": {
+          "minerals": 1100,
+          "gas": 568.75
+        },
+        "cards": {
+          "minerals": 0,
+          "gas": 0
+        },
+        "production": {
+          "minerals": 2800,
+          "gas": 700
+        },
+        "purchases": {
+          "minerals": 564,
+          "gas": 297
+        },
+        "rerolls": 125
+      },
+      "choices": [
+        "tech.shield",
+        "build.starport",
+        "build.factory",
+        "tech.medivac"
+      ],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 11,
+            "rescued": 3,
+            "failed": 0,
+            "produced": 3,
+            "started": 4,
+            "shots": 75,
+            "healed": 0,
+            "damage": 392,
+            "scvsRescued": 2,
+            "scvsLost": 0,
+            "dronesKilled": 2,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 150.59687499999657,
+            "gas": 96.492499999995
+          },
+          "scvs": 2,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 30
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 9.44695985452309
+        },
+        {
+          "stage": 2,
+          "time": 240,
+          "stats": {
+            "kills": 39,
+            "rescued": 9,
+            "failed": 0,
+            "produced": 9,
+            "started": 10,
+            "shots": 235,
+            "healed": 0,
+            "damage": 1273.0000000000007,
+            "scvsRescued": 4,
+            "scvsLost": 0,
+            "dronesKilled": 4,
+            "ambientSpawned": 15
+          },
+          "wallet": {
+            "minerals": 379.14375000000047,
+            "gas": 301.92166666663104
+          },
+          "scvs": 4,
+          "roster": [
+            [
+              {
+                "rank": 2,
+                "hp": 50
+              },
+              {
+                "rank": 2,
+                "hp": 65
+              },
+              {
+                "rank": 2,
+                "hp": 65
+              },
+              {
+                "rank": 2,
+                "hp": 65
+              },
+              {
+                "rank": 2,
+                "hp": 65
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.211136650196329
+        },
+        {
+          "stage": 3,
+          "time": 360,
+          "stats": {
+            "kills": 86,
+            "rescued": 17,
+            "failed": 0,
+            "produced": 18,
+            "started": 19,
+            "shots": 530,
+            "healed": 15.000000000000329,
+            "damage": 3024.000000000008,
+            "scvsRescued": 6,
+            "scvsLost": 0,
+            "dronesKilled": 6,
+            "ambientSpawned": 35
+          },
+          "wallet": {
+            "minerals": 382.2625000000059,
+            "gas": 253.66999999994397
+          },
+          "scvs": 6,
+          "roster": [
+            [
+              {
+                "rank": 4,
+                "hp": 85
+              },
+              {
+                "rank": 3,
+                "hp": 75
+              },
+              {
+                "rank": 3,
+                "hp": 75
+              },
+              {
+                "rank": 3,
+                "hp": 75
+              },
+              {
+                "rank": 3,
+                "hp": 75
+              }
+            ],
+            [],
+            [],
+            [
+              {
+                "rank": 1,
+                "hp": 150
+              },
+              {
+                "rank": 1,
+                "hp": 150
+              }
+            ]
+          ],
+          "maxStretch": 12.261403942057802
+        },
+        {
+          "stage": 4,
+          "time": 600,
+          "stats": {
+            "kills": 229,
+            "rescued": 29,
+            "failed": 2,
+            "produced": 32,
+            "started": 33,
+            "shots": 3566,
+            "healed": 548.9999999999975,
+            "damage": 20447.99999999997,
+            "scvsRescued": 8,
+            "scvsLost": 0,
+            "dronesKilled": 8,
+            "ambientSpawned": 100
+          },
+          "wallet": {
+            "minerals": 329.45625000000535,
+            "gas": 255.75499999994054
+          },
+          "scvs": 8,
+          "roster": [
+            [
+              {
+                "rank": 5,
+                "hp": 95
+              },
+              {
+                "rank": 5,
+                "hp": 95
+              },
+              {
+                "rank": 5,
+                "hp": 95
+              },
+              {
+                "rank": 5,
+                "hp": 95
+              },
+              {
+                "rank": 5,
+                "hp": 95
+              }
+            ],
+            [
+              {
+                "rank": 1,
+                "hp": 90
+              }
+            ],
+            [],
+            [
+              {
+                "rank": 1,
+                "hp": 150
+              },
+              {
+                "rank": 1,
+                "hp": 150
+              },
+              {
+                "rank": 1,
+                "hp": 150
+              },
+              {
+                "rank": 1,
+                "hp": 150
+              }
+            ]
+          ],
+          "maxStretch": 12.693072163234776
+        }
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "style": "wasteful",
+      "seed": 89241,
+      "phase": "lost",
+      "stage": 4,
+      "time": 454.8833333333333,
+      "stats": {
+        "kills": 113,
+        "rescued": 16,
+        "failed": 2,
+        "produced": 19,
+        "started": 20,
+        "shots": 1853,
+        "healed": 0,
+        "damage": 8925.080000000016,
+        "scvsRescued": 7,
+        "scvsLost": 0,
+        "dronesKilled": 6,
+        "ambientSpawned": 62
+      },
+      "scvs": 7,
+      "wallet": {
+        "minerals": 128.39895833333873,
+        "gas": 651.4529166667594
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 610.8989583332499,
+          "gas": 143.952916666621
+        },
+        "drops": {
+          "minerals": 505,
+          "gas": 126.25
+        },
+        "clear": {
+          "minerals": 787.5,
+          "gas": 381.25
+        },
+        "cards": {
+          "minerals": 0,
+          "gas": 0
+        },
+        "production": {
+          "minerals": 1000,
+          "gas": 0
+        },
+        "purchases": {
+          "minerals": 0,
+          "gas": 0
+        },
+        "rerolls": 825
+      },
+      "choices": [],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 11,
+            "rescued": 3,
+            "failed": 0,
+            "produced": 3,
+            "started": 4,
+            "shots": 66,
+            "healed": 0,
+            "damage": 361,
+            "scvsRescued": 2,
+            "scvsLost": 0,
+            "dronesKilled": 2,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 151.83437499999712,
+            "gas": 96.82249999999453
+          },
+          "scvs": 2,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 40
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.32611056456387
+        },
+        {
+          "stage": 2,
+          "time": 240,
+          "stats": {
+            "kills": 36,
+            "rescued": 8,
+            "failed": 0,
+            "produced": 8,
+            "started": 9,
+            "shots": 205,
+            "healed": 0,
+            "damage": 1140.0000000000005,
+            "scvsRescued": 4,
+            "scvsLost": 0,
+            "dronesKilled": 4,
+            "ambientSpawned": 15
+          },
+          "wallet": {
+            "minerals": 366.5656250000005,
+            "gas": 324.500833333297
+          },
+          "scvs": 4,
+          "roster": [
+            [
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 48
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.28850039517227
+        },
+        {
+          "stage": 3,
+          "time": 360,
+          "stats": {
+            "kills": 74,
+            "rescued": 14,
+            "failed": 0,
+            "produced": 14,
+            "started": 15,
+            "shots": 441,
+            "healed": 0,
+            "damage": 2528.0000000000064,
+            "scvsRescued": 6,
+            "scvsLost": 0,
+            "dronesKilled": 6,
+            "ambientSpawned": 35
+          },
+          "wallet": {
+            "minerals": 453.20625000000274,
+            "gas": 594.9383333334604
+          },
+          "scvs": 6,
+          "roster": [
+            [
+              {
+                "rank": 3,
+                "hp": 56
+              },
+              {
+                "rank": 3,
+                "hp": 51
+              },
+              {
+                "rank": 3,
+                "hp": 56
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 3,
+                "hp": 46
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.318850898605481
+        }
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "style": "idle",
+      "seed": 89241,
+      "phase": "lost",
+      "stage": 2,
+      "time": 139.58333333333334,
+      "stats": {
+        "kills": 7,
+        "rescued": 0,
+        "failed": 2,
+        "produced": 3,
+        "started": 4,
+        "shots": 433,
+        "healed": 0,
+        "damage": 1389,
+        "scvsRescued": 0,
+        "scvsLost": 2,
+        "dronesKilled": 0,
+        "ambientSpawned": 7
+      },
+      "scvs": 0,
+      "wallet": {
+        "minerals": 63.489583333333044,
+        "gas": 54.94791666666375
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 87.23958333333808,
+          "gas": 17.44791666666707
+        },
+        "drops": {
+          "minerals": 26.25,
+          "gas": 0
+        },
+        "clear": {
+          "minerals": 100,
+          "gas": 37.5
+        },
+        "cards": {
+          "minerals": 0,
+          "gas": 0
+        },
+        "production": {
+          "minerals": 200,
+          "gas": 0
+        },
+        "purchases": {
+          "minerals": 0,
+          "gas": 0
+        },
+        "rerolls": 0
+      },
+      "choices": [],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 6,
+            "rescued": 0,
+            "failed": 1,
+            "produced": 2,
+            "started": 2,
+            "shots": 339,
+            "healed": 0,
+            "damage": 1077,
+            "scvsRescued": 0,
+            "scvsLost": 2,
+            "dronesKilled": 0,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 147.49999999999488,
+            "gas": 52.49999999999931
+          },
+          "scvs": 0,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 30
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 2.9471211611885755
+        }
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "style": "careful",
+      "seed": 89241,
+      "phase": "lost",
+      "stage": 4,
+      "time": 461.5833333333333,
+      "stats": {
+        "kills": 162,
+        "rescued": 19,
+        "failed": 1,
+        "produced": 23,
+        "started": 25,
+        "shots": 2262,
+        "healed": 0,
+        "damage": 11542.159999999962,
+        "scvsRescued": 6,
+        "scvsLost": 1,
+        "dronesKilled": 6,
+        "ambientSpawned": 83
+      },
+      "scvs": 6,
+      "wallet": {
+        "minerals": 81.57416666649844,
+        "gas": 166.70033333339973
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 491.57416666654007,
+          "gas": 115.70033333337355
+        },
+        "drops": {
+          "minerals": 510,
+          "gas": 96
+        },
+        "clear": {
+          "minerals": 630,
+          "gas": 305
+        },
+        "cards": {
+          "minerals": 100,
+          "gas": 50
+        },
+        "production": {
+          "minerals": 1400,
+          "gas": 300
+        },
+        "purchases": {
+          "minerals": 200,
+          "gas": 100
+        },
+        "rerolls": 100
+      },
+      "choices": [
+        "economy.gas",
+        "economy.minerals",
+        "build.starport"
+      ],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 11,
+            "rescued": 3,
+            "failed": 0,
+            "produced": 3,
+            "started": 4,
+            "shots": 65,
+            "healed": 0,
+            "damage": 356,
+            "scvsRescued": 2,
+            "scvsLost": 0,
+            "dronesKilled": 2,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 91.58250000000352,
+            "gas": 77.48866666666524
+          },
+          "scvs": 2,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 8.278984666557095
+        },
+        {
+          "stage": 2,
+          "time": 240,
+          "stats": {
+            "kills": 40,
+            "rescued": 8,
+            "failed": 0,
+            "produced": 9,
+            "started": 10,
+            "shots": 227,
+            "healed": 0,
+            "damage": 1254.0000000000005,
+            "scvsRescued": 4,
+            "scvsLost": 0,
+            "dronesKilled": 4,
+            "ambientSpawned": 19
+          },
+          "wallet": {
+            "minerals": 250.71750000000262,
+            "gas": 309.7246666666813
+          },
+          "scvs": 4,
+          "roster": [
+            [
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 48
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 11.129535636714719
+        },
+        {
+          "stage": 3,
+          "time": 360,
+          "stats": {
+            "kills": 95,
+            "rescued": 15,
+            "failed": 0,
+            "produced": 15,
+            "started": 16,
+            "shots": 652,
+            "healed": 0,
+            "damage": 3507.000000000004,
+            "scvsRescued": 6,
+            "scvsLost": 0,
+            "dronesKilled": 6,
+            "ambientSpawned": 47
+          },
+          "wallet": {
+            "minerals": 598.3574999998914,
+            "gas": 526.1619999999964
+          },
+          "scvs": 6,
+          "roster": [
+            [
+              {
+                "rank": 4,
+                "hp": 59
+              },
+              {
+                "rank": 3,
+                "hp": 46
+              },
+              {
+                "rank": 3,
+                "hp": 56
+              },
+              {
+                "rank": 3,
+                "hp": 46
+              },
+              {
+                "rank": 3,
+                "hp": 46
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.331995348257841
+        }
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "style": "careful",
+      "seed": 271828,
+      "phase": "lost",
+      "stage": 4,
+      "time": 588.9833333333333,
+      "stats": {
+        "kills": 234,
+        "rescued": 21,
+        "failed": 4,
+        "produced": 28,
+        "started": 29,
+        "shots": 4499,
+        "healed": 790.004242424374,
+        "damage": 22822.924242424277,
+        "scvsRescued": 7,
+        "scvsLost": 1,
+        "dronesKilled": 7,
+        "ambientSpawned": 130
+      },
+      "scvs": 7,
+      "wallet": {
+        "minerals": 23.08166666665184,
+        "gas": 130.38899999990008
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 645.0816666665743,
+          "gas": 152.38900000003156
+        },
+        "drops": {
+          "minerals": 753,
+          "gas": 143
+        },
+        "clear": {
+          "minerals": 630,
+          "gas": 305
+        },
+        "cards": {
+          "minerals": 100,
+          "gas": 0
+        },
+        "production": {
+          "minerals": 1600,
+          "gas": 300
+        },
+        "purchases": {
+          "minerals": 280,
+          "gas": 170
+        },
+        "rerolls": 275
+      },
+      "choices": [
+        "economy.minerals",
+        "build.starport",
+        "build.factory"
+      ],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 11,
+            "rescued": 3,
+            "failed": 0,
+            "produced": 3,
+            "started": 4,
+            "shots": 66,
+            "healed": 0,
+            "damage": 359,
+            "scvsRescued": 2,
+            "scvsLost": 0,
+            "dronesKilled": 2,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 91.27750000000161,
+            "gas": 77.40733333333142
+          },
+          "scvs": 2,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 9.671369516604978
+        },
+        {
+          "stage": 2,
+          "time": 240,
+          "stats": {
+            "kills": 46,
+            "rescued": 10,
+            "failed": 0,
+            "produced": 10,
+            "started": 11,
+            "shots": 367,
+            "healed": 0,
+            "damage": 1746.8800000000008,
+            "scvsRescued": 3,
+            "scvsLost": 1,
+            "dronesKilled": 4,
+            "ambientSpawned": 19
+          },
+          "wallet": {
+            "minerals": 299.6449999999906,
+            "gas": 257.83866666663266
+          },
+          "scvs": 3,
+          "roster": [
+            [
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.261118415578402
+        },
+        {
+          "stage": 3,
+          "time": 360,
+          "stats": {
+            "kills": 98,
+            "rescued": 16,
+            "failed": 0,
+            "produced": 16,
+            "started": 17,
+            "shots": 705,
+            "healed": 39.999999999999964,
+            "damage": 3723.8800000000033,
+            "scvsRescued": 5,
+            "scvsLost": 1,
+            "dronesKilled": 6,
+            "ambientSpawned": 47
+          },
+          "wallet": {
+            "minerals": 351.6249999999887,
+            "gas": 269.56666666664023
+          },
+          "scvs": 5,
+          "roster": [
+            [
+              {
+                "rank": 4,
+                "hp": 69
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              }
+            ],
+            [],
+            [],
+            [
+              {
+                "rank": 1,
+                "hp": 150
+              }
+            ]
+          ],
+          "maxStretch": 12.293039360353282
+        }
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "style": "careful",
+      "seed": 1776,
+      "phase": "lost",
+      "stage": 4,
+      "time": 448.2833333333333,
+      "stats": {
+        "kills": 134,
+        "rescued": 17,
+        "failed": 3,
+        "produced": 21,
+        "started": 22,
+        "shots": 2555,
+        "healed": 280.5200000000026,
+        "damage": 11713.120000000015,
+        "scvsRescued": 6,
+        "scvsLost": 1,
+        "dronesKilled": 7,
+        "ambientSpawned": 80
+      },
+      "scvs": 6,
+      "wallet": {
+        "minerals": 28.721666666659615,
+        "gas": 13.11633333328762
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 457.72166666656926,
+          "gas": 107.11633333333107
+        },
+        "drops": {
+          "minerals": 480,
+          "gas": 108
+        },
+        "clear": {
+          "minerals": 630,
+          "gas": 305
+        },
+        "cards": {
+          "minerals": 100,
+          "gas": 0
+        },
+        "production": {
+          "minerals": 1300,
+          "gas": 400
+        },
+        "purchases": {
+          "minerals": 214,
+          "gas": 107
+        },
+        "rerolls": 175
+      },
+      "choices": [
+        "tech.shield",
+        "build.starport",
+        "economy.minerals"
+      ],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 11,
+            "rescued": 3,
+            "failed": 0,
+            "produced": 3,
+            "started": 4,
+            "shots": 72,
+            "healed": 0,
+            "damage": 381,
+            "scvsRescued": 2,
+            "scvsLost": 0,
+            "dronesKilled": 2,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 90.4775000000014,
+            "gas": 77.19399999999828
+          },
+          "scvs": 2,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 35
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 8.712262155330396
+        },
+        {
+          "stage": 2,
+          "time": 240,
+          "stats": {
+            "kills": 37,
+            "rescued": 7,
+            "failed": 0,
+            "produced": 8,
+            "started": 9,
+            "shots": 213,
+            "healed": 0,
+            "damage": 1181.0000000000007,
+            "scvsRescued": 4,
+            "scvsLost": 0,
+            "dronesKilled": 4,
+            "ambientSpawned": 19
+          },
+          "wallet": {
+            "minerals": 256.3824999999986,
+            "gas": 237.10199999998338
+          },
+          "scvs": 4,
+          "roster": [
+            [
+              {
+                "rank": 2,
+                "hp": 55
+              },
+              {
+                "rank": 2,
+                "hp": 65
+              },
+              {
+                "rank": 2,
+                "hp": 65
+              },
+              {
+                "rank": 1,
+                "hp": 55
+              },
+              {
+                "rank": 1,
+                "hp": 55
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.31736441252306
+        },
+        {
+          "stage": 3,
+          "time": 360,
+          "stats": {
+            "kills": 89,
+            "rescued": 13,
+            "failed": 0,
+            "produced": 14,
+            "started": 15,
+            "shots": 639,
+            "healed": 30.00000000000037,
+            "damage": 3321.8400000000042,
+            "scvsRescued": 5,
+            "scvsLost": 1,
+            "dronesKilled": 6,
+            "ambientSpawned": 47
+          },
+          "wallet": {
+            "minerals": 333.3699999999899,
+            "gas": 267.0319999999607
+          },
+          "scvs": 5,
+          "roster": [
+            [
+              {
+                "rank": 3,
+                "hp": 75
+              },
+              {
+                "rank": 3,
+                "hp": 75
+              },
+              {
+                "rank": 3,
+                "hp": 75
+              },
+              {
+                "rank": 2,
+                "hp": 65
+              },
+              {
+                "rank": 2,
+                "hp": 65
+              }
+            ],
+            [],
+            [],
+            [
+              {
+                "rank": 1,
+                "hp": 150
+              }
+            ]
+          ],
+          "maxStretch": 12.31027859891076
+        }
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "style": "wasteful",
+      "seed": 89241,
+      "phase": "lost",
+      "stage": 4,
+      "time": 462.48333333333335,
+      "stats": {
+        "kills": 148,
+        "rescued": 17,
+        "failed": 0,
+        "produced": 20,
+        "started": 21,
+        "shots": 1775,
+        "healed": 0,
+        "damage": 9660.000000000004,
+        "scvsRescued": 7,
+        "scvsLost": 0,
+        "dronesKilled": 6,
+        "ambientSpawned": 83
+      },
+      "scvs": 7,
+      "wallet": {
+        "minerals": 115.58416666666176,
+        "gas": 523.0730000000476
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 500.58416666653164,
+          "gas": 118.07300000002327
+        },
+        "drops": {
+          "minerals": 485,
+          "gas": 100
+        },
+        "clear": {
+          "minerals": 630,
+          "gas": 305
+        },
+        "cards": {
+          "minerals": 0,
+          "gas": 0
+        },
+        "production": {
+          "minerals": 1050,
+          "gas": 0
+        },
+        "purchases": {
+          "minerals": 0,
+          "gas": 0
+        },
+        "rerolls": 500
+      },
+      "choices": [],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 11,
+            "rescued": 3,
+            "failed": 0,
+            "produced": 3,
+            "started": 4,
+            "shots": 65,
+            "healed": 0,
+            "damage": 356,
+            "scvsRescued": 2,
+            "scvsLost": 0,
+            "dronesKilled": 2,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 91.58250000000352,
+            "gas": 77.48866666666524
+          },
+          "scvs": 2,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 8.278984666557095
+        },
+        {
+          "stage": 2,
+          "time": 240,
+          "stats": {
+            "kills": 40,
+            "rescued": 8,
+            "failed": 0,
+            "produced": 8,
+            "started": 9,
+            "shots": 224,
+            "healed": 0,
+            "damage": 1246.000000000001,
+            "scvsRescued": 4,
+            "scvsLost": 0,
+            "dronesKilled": 4,
+            "ambientSpawned": 19
+          },
+          "wallet": {
+            "minerals": 275.70750000000174,
+            "gas": 259.7219999999795
+          },
+          "scvs": 4,
+          "roster": [
+            [
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 2,
+                "hp": 53
+              },
+              {
+                "rank": 1,
+                "hp": 45
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 10.706946125079101
+        },
+        {
+          "stage": 3,
+          "time": 360,
+          "stats": {
+            "kills": 92,
+            "rescued": 14,
+            "failed": 0,
+            "produced": 15,
+            "started": 16,
+            "shots": 568,
+            "healed": 0,
+            "damage": 3195.000000000005,
+            "scvsRescued": 6,
+            "scvsLost": 0,
+            "dronesKilled": 6,
+            "ambientSpawned": 47
+          },
+          "wallet": {
+            "minerals": 321.03250000000156,
+            "gas": 476.34199999996736
+          },
+          "scvs": 6,
+          "roster": [
+            [
+              {
+                "rank": 3,
+                "hp": 51
+              },
+              {
+                "rank": 3,
+                "hp": 41
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              },
+              {
+                "rank": 3,
+                "hp": 46
+              },
+              {
+                "rank": 3,
+                "hp": 61
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 12.31175243777128
+        }
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "style": "idle",
+      "seed": 89241,
+      "phase": "lost",
+      "stage": 2,
+      "time": 185.48333333333332,
+      "stats": {
+        "kills": 10,
+        "rescued": 0,
+        "failed": 3,
+        "produced": 4,
+        "started": 4,
+        "shots": 911,
+        "healed": 0,
+        "damage": 2856,
+        "scvsRescued": 0,
+        "scvsLost": 3,
+        "dronesKilled": 0,
+        "ambientSpawned": 13
+      },
+      "scvs": 0,
+      "wallet": {
+        "minerals": 49.7416666666673,
+        "gas": 48.54833333332844
+      },
+      "ledger": {
+        "passive": {
+          "minerals": 92.74166666668654,
+          "gas": 18.548333333332703
+        },
+        "drops": {
+          "minerals": 27,
+          "gas": 0
+        },
+        "clear": {
+          "minerals": 80,
+          "gas": 30
+        },
+        "cards": {
+          "minerals": 0,
+          "gas": 0
+        },
+        "production": {
+          "minerals": 200,
+          "gas": 0
+        },
+        "purchases": {
+          "minerals": 0,
+          "gas": 0
+        },
+        "rerolls": 0
+      },
+      "choices": [],
+      "rows": [
+        {
+          "stage": 1,
+          "time": 120,
+          "stats": {
+            "kills": 8,
+            "rescued": 0,
+            "failed": 1,
+            "produced": 2,
+            "started": 2,
+            "shots": 257,
+            "healed": 0,
+            "damage": 849,
+            "scvsRescued": 0,
+            "scvsLost": 2,
+            "dronesKilled": 0,
+            "ambientSpawned": 5
+          },
+          "wallet": {
+            "minerals": 110.99999999999743,
+            "gas": 42.000000000001066
+          },
+          "scvs": 0,
+          "roster": [
+            [
+              {
+                "rank": 1,
+                "hp": 30
+              }
+            ],
+            [],
+            [],
+            []
+          ],
+          "maxStretch": 4.0742904229981525
+        }
+      ]
+    }
+  ],
+  "scope": "Historical actual-World automated controller attempts before collision-volumes commit bba2b0d. Auxiliary observations only, not a Normal-difficulty acceptance gate or human skill evidence."
+}

@@ -1,0 +1,225 @@
+{
+  "at": "2026-09-22T11:30:27.949Z",
+  "runtimeUrl": "http://127.0.0.1:5173/",
+  "method": "Desktop Chrome, 1440x900 DPR1 balanced quality, no throttling. Common 20/100 and 25/300, or expanded 28/300 friendly/enemy fixtures. High HP, replenished enemies, zero enemy weapon damage, bile and resource/reward drops disabled to isolate battle cost. 15 s warmup followed by 12 s sample; backlog at both sample boundaries is recorded. No campaign, mobile or physical-phone performance claim.",
+  "runs": [
+    {
+      "stepCpu": {
+        "count": 721,
+        "meanMs": 6.590152565674048,
+        "p95ms": 14.200000017881393
+      },
+      "renderCpu": {
+        "count": 444,
+        "meanMs": 12.160135135524445,
+        "p95ms": 16.299999982118607
+      },
+      "map": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 414,
+        "visibleMeshes": 155,
+        "area": 9510.25,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "order": null,
+      "resolution": {
+        "quality": "balanced",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "models": 10,
+      "variantModels": [
+        "elite.marine.1",
+        "elite.marine.2",
+        "elite.marine.3",
+        "elite.marauder.1",
+        "elite.marauder.2",
+        "elite.marauder.3",
+        "elite.hellion.1",
+        "elite.hellion.2",
+        "elite.hellion.3",
+        "elite.tank.1",
+        "elite.tank.2",
+        "elite.tank.3",
+        "elite.medivac.1",
+        "elite.medivac.2",
+        "elite.medivac.3",
+        "hero.raynor",
+        "hero.tychus",
+        "hero.nova"
+      ],
+      "assetsPending": 0,
+      "economicModels": 3,
+      "podModel": true,
+      "resourceModels": 3,
+      "resourceInstances": 0,
+      "errors": [],
+      "originalAnimationModels": 10,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 25,
+      "animationAtlasBytes": 19039264,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826,
+        "hydralisk": 0.29652546406473107
+      },
+      "effectTextures": 46,
+      "effects": {
+        "attack": 4267,
+        "hit": 4999,
+        "death": 35,
+        "movement": 3946,
+        "bile": 0,
+        "active": 254,
+        "dropped": 0
+      },
+      "textures": 18,
+      "fps": 35.99280143971215,
+      "requestedInstanceUploadBytes": 104216,
+      "drawCalls": 273,
+      "triangles": 429518,
+      "entities": 328,
+      "maxStretch": 13.011807146718953,
+      "spatialVisits": 24202,
+      "collisionContacts": 1109,
+      "phase": "battle",
+      "stage": 10,
+      "endless": null,
+      "time": 27.133333333333333,
+      "stats": {
+        "kills": 35,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 1,
+        "shots": 4267,
+        "healed": 382.76999999869287,
+        "damage": 3560078.7667858494,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 0
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 0.016633333333337604,
+      "audio": {
+        "originalDecoded": 10,
+        "decoded": [
+          {
+            "id": "shot",
+            "duration": 0.08995833333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "blast",
+            "duration": 0.3499583333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "alert",
+            "duration": 0.44995833333333335,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.scv.ready",
+            "duration": 2.1729166666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.attack",
+            "duration": 1.3626875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.hellion.attack",
+            "duration": 2.6566875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.attack",
+            "duration": 0.8244791666666667,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.siege",
+            "duration": 1.9696041666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.medivac.heal",
+            "duration": 9.092270833333334,
+            "channels": 2,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.zergling.attack",
+            "duration": 0.7786666666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.roach.attack",
+            "duration": 1.46575,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.ravager.attack",
+            "duration": 1.1467708333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.death",
+            "duration": 1.0077083333333334,
+            "channels": 1,
+            "sampleRate": 48000
+          }
+        ],
+        "errors": [],
+        "played": {
+          "sc2.ravager.attack": 7,
+          "sc2.roach.attack": 3,
+          "sc2.marine.attack": 1,
+          "sc2.hellion.attack": 1,
+          "sc2.medivac.heal": 86
+        },
+        "activeHealers": 0
+      },
+      "gamepad": {
+        "active": false,
+        "index": null,
+        "calibrating": false,
+        "connected": []
+      },
+      "friendly": 28,
+      "enemies": 300,
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "samples": 444,
+      "averageFps": 36.89760913465133,
+      "p95ms": 33.5,
+      "simulationSeconds": 12.016666666666666,
+      "startingBacklogSeconds": 5.898059818321144e-16,
+      "backlogChangeSeconds": 0.016633333333337014
+    }
+  ],
+  "errors": []
+}

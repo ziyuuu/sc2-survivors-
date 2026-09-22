@@ -1,0 +1,3186 @@
+{
+  "generatedAt": "2026-09-22T03:14:46.132Z",
+  "rankTable": [
+    {
+      "rank": 1,
+      "attackSpeed": 1,
+      "damage": 1,
+      "health": 1,
+      "armor": 0,
+      "healing": 1,
+      "energy": 1,
+      "marineHp": 45,
+      "marineDps": 9.758364312267657,
+      "tankHp": 175,
+      "marineLingHit": 5,
+      "medivacPeakHealing": 12.6,
+      "medivacSustainedHealing": 2.3863636363636362
+    },
+    {
+      "rank": 2,
+      "attackSpeed": 1.15,
+      "damage": 1.7391304347826089,
+      "health": 1.8,
+      "armor": 0.5,
+      "healing": 2,
+      "energy": 2,
+      "marineHp": 81,
+      "marineDps": 19.516728624535315,
+      "tankHp": 315,
+      "marineLingHit": 4.5,
+      "medivacPeakHealing": 25.2,
+      "medivacSustainedHealing": 4.7727272727272725
+    },
+    {
+      "rank": 3,
+      "attackSpeed": 1.3,
+      "damage": 2.3076923076923075,
+      "health": 2.6,
+      "armor": 1,
+      "healing": 3,
+      "energy": 3,
+      "marineHp": 117,
+      "marineDps": 29.27509293680297,
+      "tankHp": 455,
+      "marineLingHit": 4,
+      "medivacPeakHealing": 37.8,
+      "medivacSustainedHealing": 7.159090909090908
+    },
+    {
+      "rank": 4,
+      "attackSpeed": 1.45,
+      "damage": 2.7586206896551726,
+      "health": 3.4000000000000004,
+      "armor": 1.5,
+      "healing": 4,
+      "energy": 4,
+      "marineHp": 153.00000000000003,
+      "marineDps": 39.03345724907063,
+      "tankHp": 595.0000000000001,
+      "marineLingHit": 3.5,
+      "medivacPeakHealing": 50.4,
+      "medivacSustainedHealing": 9.545454545454545
+    },
+    {
+      "rank": 5,
+      "attackSpeed": 1.6,
+      "damage": 3.125,
+      "health": 4.2,
+      "armor": 2,
+      "healing": 5,
+      "energy": 5,
+      "marineHp": 189,
+      "marineDps": 48.79182156133829,
+      "tankHp": 735,
+      "marineLingHit": 3,
+      "medivacPeakHealing": 63,
+      "medivacSustainedHealing": 11.931818181818182
+    }
+  ],
+  "scope": "Analytical resource/firepower envelope, NOT automatic or manual victory evidence. No gameplay modifications. Ordinary card sequence is an availability assumption, not forced in the game. Damage intake, aim/overkill, terrain, actual arrival, simultaneous threats, healing targets and survival are NOT solved.",
+  "assumptions": {
+    "step": 0.016666666666666666,
+    "SCV": "One egg per stage rescued after 12s in ordinary-investment; one every third stage in missed-economy.",
+    "loot": "Specified fraction of ambient and successful-guard drops is killed/collected. Failed-pod guards still count in HP budget.",
+    "pods": "A single sequential service queue: 14/22/28s including movement/clearing. Assumed success fractions; no demonstrated actual travel or combat clear.",
+    "cards": "Full prices, zero random discount, two rounds per pause: Factory from stage 2, Starport from stage 3 after a completed Factory, a second Barracks from stage 6; retry a missing facility when legal/affordable. The first eligible per-Factory Tech Lab takes a random-round card before the planned tech sequence. Otherwise skip. Availability is hypothetical. No rerolls, high-rarity cards or map rewards are assumed; this is deliberately not a simulation of the weighted draw pool.",
+    "fire": "Integrates changing ranks/upgrades each second; armor and bonus damage included; cooldown rounded up to fixed ticks. Half tank-mode / half siege-mode; baseline single target, sensitivity two targets per Hellion flame and 1.5 weighted siege splash. No Stim.",
+    "uptime": "Enemy HP / integrated ideal DPS is the necessary shooting-time share. It is not a survival probability. Includes all generated pod guards and final Hive HP. Values below 1 are a firepower feasibility screen, not a guaranteed clear.",
+    "healing": "Displays energy-regeneration-limited biological HP/sec, not unlimited peak healing. Mechanical units require the optional Nanite Repair card, excluded from these routes."
+  },
+  "runs": [
+    {
+      "difficulty": "normal",
+      "scenario": {
+        "id": "ordinary-investment",
+        "scvEvery": 1,
+        "loot": 0.8,
+        "droneFraction": 0.5,
+        "rescue": 0.8,
+        "lossStages": [
+          6,
+          9,
+          11
+        ],
+        "cardRoute": [
+          "tech.shield",
+          "tech.infantry",
+          "tech.vehicle",
+          "tech.infernal",
+          "tech.medivac",
+          "tech.infantry",
+          "tech.vehicle",
+          "tech.infantry",
+          "tech.vehicle"
+        ]
+      },
+      "rows": [
+        {
+          "stage": 1,
+          "seconds": 60,
+          "scvs": 1,
+          "rosterBefore": {
+            "marine": [
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 3,
+          "assumedRescued": 1,
+          "assumedFailed": 1,
+          "enemyHpBudget": 216,
+          "singleTargetCapacity": 622.7,
+          "areaSensitivityCapacity": 622.7,
+          "requiredFiringUptime": 0.35,
+          "areaSensitivityUptime": 0.35,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "tech.shield"
+          ],
+          "beforeCard": {
+            "minerals": 103.97,
+            "gas": 72.25
+          },
+          "wallet": {
+            "minerals": 28.97,
+            "gas": 47.25
+          },
+          "orders": 3,
+          "pendingPods": 1
+        },
+        {
+          "stage": 2,
+          "seconds": 60,
+          "scvs": 2,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 2,
+          "assumedRescued": 2,
+          "assumedFailed": 0,
+          "enemyHpBudget": 432,
+          "singleTargetCapacity": 1702.7,
+          "areaSensitivityCapacity": 1702.7,
+          "requiredFiringUptime": 0.25,
+          "areaSensitivityUptime": 0.25,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "build.factory",
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 282.69,
+            "gas": 217.29
+          },
+          "wallet": {
+            "minerals": 7.69,
+            "gas": 67.29
+          },
+          "orders": 6,
+          "pendingPods": 1
+        },
+        {
+          "stage": 3,
+          "seconds": 60,
+          "scvs": 3,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 2,
+          "assumedRescued": 2,
+          "assumedFailed": 1,
+          "enemyHpBudget": 1080,
+          "singleTargetCapacity": 3313.46,
+          "areaSensitivityCapacity": 3313.46,
+          "requiredFiringUptime": 0.33,
+          "areaSensitivityUptime": 0.33,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "build.starport",
+            "upgrade.factory.2"
+          ],
+          "beforeCard": {
+            "minerals": 383.36,
+            "gas": 247.86
+          },
+          "wallet": {
+            "minerals": 183.36,
+            "gas": 122.86
+          },
+          "orders": 8,
+          "pendingPods": 1
+        },
+        {
+          "stage": 4,
+          "seconds": 120,
+          "scvs": 4,
+          "rosterBefore": {
+            "marine": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 7,
+          "assumedRescued": 4,
+          "assumedFailed": 1,
+          "enemyHpBudget": 6790,
+          "singleTargetCapacity": 10314.1,
+          "areaSensitivityCapacity": 10314.1,
+          "requiredFiringUptime": 0.66,
+          "areaSensitivityUptime": 0.66,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 468.05,
+            "gas": 233.62
+          },
+          "wallet": {
+            "minerals": 318.05,
+            "gas": 183.62
+          },
+          "orders": 15,
+          "pendingPods": 2
+        },
+        {
+          "stage": 5,
+          "seconds": 120,
+          "scvs": 5,
+          "rosterBefore": {
+            "marine": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": [
+              1
+            ]
+          },
+          "landed": 9,
+          "assumedRescued": 6,
+          "assumedFailed": 1,
+          "enemyHpBudget": 12810,
+          "singleTargetCapacity": 16484.82,
+          "areaSensitivityCapacity": 16484.82,
+          "requiredFiringUptime": 0.78,
+          "areaSensitivityUptime": 0.78,
+          "sustainableBiologicalHealingPerSecond": 2.39,
+          "chosen": [
+            "tech.infernal"
+          ],
+          "beforeCard": {
+            "minerals": 683.97,
+            "gas": 239.68
+          },
+          "wallet": {
+            "minerals": 558.97,
+            "gas": 164.68
+          },
+          "orders": 24,
+          "pendingPods": 4
+        },
+        {
+          "stage": 6,
+          "seconds": 120,
+          "scvs": 6,
+          "rosterBefore": {
+            "marine": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": [
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "landed": 8,
+          "assumedRescued": 5,
+          "assumedFailed": 2,
+          "enemyHpBudget": 13820,
+          "singleTargetCapacity": 24707.7,
+          "areaSensitivityCapacity": 25403.57,
+          "requiredFiringUptime": 0.56,
+          "areaSensitivityUptime": 0.54,
+          "sustainableBiologicalHealingPerSecond": 4.77,
+          "chosen": [
+            "build.barracks",
+            "tech.medivac"
+          ],
+          "beforeCard": {
+            "minerals": 1023.88,
+            "gas": 274.95
+          },
+          "wallet": {
+            "minerals": 673.88,
+            "gas": 199.95
+          },
+          "orders": 33,
+          "pendingPods": 6
+        },
+        {
+          "stage": 7,
+          "seconds": 180,
+          "scvs": 7,
+          "rosterBefore": {
+            "marine": [
+              4,
+              4,
+              4,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1
+            ]
+          },
+          "landed": 11,
+          "assumedRescued": 9,
+          "assumedFailed": 3,
+          "enemyHpBudget": 20240,
+          "singleTargetCapacity": 44619.52,
+          "areaSensitivityCapacity": 46684.34,
+          "requiredFiringUptime": 0.45,
+          "areaSensitivityUptime": 0.43,
+          "sustainableBiologicalHealingPerSecond": 9.55,
+          "chosen": [
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 1375.73,
+            "gas": 287.83
+          },
+          "wallet": {
+            "minerals": 1125.73,
+            "gas": 212.83
+          },
+          "orders": 42,
+          "pendingPods": 4
+        },
+        {
+          "stage": 8,
+          "seconds": 180,
+          "scvs": 8,
+          "rosterBefore": {
+            "marine": [
+              5,
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 4,
+          "assumedRescued": 7,
+          "assumedFailed": 0,
+          "enemyHpBudget": 18840,
+          "singleTargetCapacity": 69290.16,
+          "areaSensitivityCapacity": 73732.21,
+          "requiredFiringUptime": 0.27,
+          "areaSensitivityUptime": 0.26,
+          "sustainableBiologicalHealingPerSecond": 14.32,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 2152.65,
+            "gas": 285.23
+          },
+          "wallet": {
+            "minerals": 1902.65,
+            "gas": 210.23
+          },
+          "orders": 46,
+          "pendingPods": 1
+        },
+        {
+          "stage": 9,
+          "seconds": 180,
+          "scvs": 9,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 4,
+          "assumedRescued": 3,
+          "assumedFailed": 1,
+          "enemyHpBudget": 20060,
+          "singleTargetCapacity": 85846.05,
+          "areaSensitivityCapacity": 93488.47,
+          "requiredFiringUptime": 0.23,
+          "areaSensitivityUptime": 0.21,
+          "sustainableBiologicalHealingPerSecond": 19.09,
+          "chosen": [
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 3016.33,
+            "gas": 293.57
+          },
+          "wallet": {
+            "minerals": 2666.33,
+            "gas": 168.57
+          },
+          "orders": 50,
+          "pendingPods": 1
+        },
+        {
+          "stage": 10,
+          "seconds": 240,
+          "scvs": 10,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              2,
+              2,
+              1
+            ],
+            "medivac": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 13,
+          "assumedRescued": 8,
+          "assumedFailed": 3,
+          "enemyHpBudget": 43435,
+          "singleTargetCapacity": 125948.88,
+          "areaSensitivityCapacity": 138965.99,
+          "requiredFiringUptime": 0.34,
+          "areaSensitivityUptime": 0.31,
+          "sustainableBiologicalHealingPerSecond": 28.64,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 4185.25,
+            "gas": 319.66
+          },
+          "wallet": {
+            "minerals": 3885.25,
+            "gas": 219.66
+          },
+          "orders": 63,
+          "pendingPods": 3
+        },
+        {
+          "stage": 11,
+          "seconds": 240,
+          "scvs": 11,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              2,
+              2,
+              1
+            ],
+            "medivac": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              3,
+              3,
+              3,
+              2,
+              2
+            ],
+            "medivac": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "landed": 8,
+          "assumedRescued": 9,
+          "assumedFailed": 1,
+          "enemyHpBudget": 47640,
+          "singleTargetCapacity": 162950.18,
+          "areaSensitivityCapacity": 182354.68,
+          "requiredFiringUptime": 0.29,
+          "areaSensitivityUptime": 0.26,
+          "sustainableBiologicalHealingPerSecond": 47.73,
+          "chosen": [],
+          "beforeCard": {
+            "minerals": 6006.88,
+            "gas": 229.67
+          },
+          "wallet": {
+            "minerals": 6006.88,
+            "gas": 229.67
+          },
+          "orders": 72,
+          "pendingPods": 1
+        },
+        {
+          "stage": 12,
+          "seconds": 240,
+          "scvs": 12,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              3,
+              3,
+              3,
+              2,
+              2
+            ],
+            "medivac": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "medivac": [
+              3,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "landed": 16,
+          "assumedRescued": 7,
+          "assumedFailed": 3,
+          "enemyHpBudget": 89330,
+          "singleTargetCapacity": 174729.69,
+          "areaSensitivityCapacity": 199353.14,
+          "requiredFiringUptime": 0.51,
+          "areaSensitivityUptime": 0.45,
+          "sustainableBiologicalHealingPerSecond": 52.5,
+          "chosen": [],
+          "beforeCard": {
+            "minerals": 8308.7,
+            "gas": 342.98
+          },
+          "wallet": {
+            "minerals": 8308.7,
+            "gas": 342.98
+          },
+          "orders": 88,
+          "pendingPods": 7
+        }
+      ],
+      "ledger": {
+        "start": {
+          "minerals": 50,
+          "gas": 0
+        },
+        "passive": {
+          "minerals": 3314.8763749992772,
+          "gas": 823.9670333321012
+        },
+        "assumedCollectedAndClear": {
+          "minerals": 14768.820000000094,
+          "gas": 5019.010000000024
+        },
+        "production": {
+          "minerals": 7500,
+          "gas": 4625
+        },
+        "cards": {
+          "minerals": 2325,
+          "gas": 875
+        },
+        "final": {
+          "minerals": 8308.696375000789,
+          "gas": 342.9770333333694
+        }
+      },
+      "guardsTotal": 1847,
+      "assumedLostRanks": 14
+    },
+    {
+      "difficulty": "normal",
+      "scenario": {
+        "id": "missed-economy",
+        "scvEvery": 3,
+        "loot": 0.5,
+        "droneFraction": 0,
+        "rescue": 0.6,
+        "lossStages": [
+          4,
+          6,
+          8,
+          10,
+          11
+        ],
+        "cardRoute": [
+          "tech.shield",
+          "tech.infantry",
+          "tech.vehicle",
+          "tech.infernal",
+          "tech.medivac",
+          "tech.infantry",
+          "tech.vehicle",
+          "tech.infantry",
+          "tech.vehicle"
+        ]
+      },
+      "rows": [
+        {
+          "stage": 1,
+          "seconds": 60,
+          "scvs": 0,
+          "rosterBefore": {
+            "marine": [
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 1,
+          "assumedRescued": 0,
+          "assumedFailed": 1,
+          "enemyHpBudget": 144,
+          "singleTargetCapacity": 583.78,
+          "areaSensitivityCapacity": 583.78,
+          "requiredFiringUptime": 0.25,
+          "areaSensitivityUptime": 0.25,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "tech.shield"
+          ],
+          "beforeCard": {
+            "minerals": 120.35,
+            "gas": 36
+          },
+          "wallet": {
+            "minerals": 45.35,
+            "gas": 11
+          },
+          "orders": 1,
+          "pendingPods": 0
+        },
+        {
+          "stage": 2,
+          "seconds": 60,
+          "scvs": 0,
+          "rosterBefore": {
+            "marine": [
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 1,
+          "assumedRescued": 1,
+          "assumedFailed": 0,
+          "enemyHpBudget": 360,
+          "singleTargetCapacity": 749.19,
+          "areaSensitivityCapacity": 749.19,
+          "requiredFiringUptime": 0.48,
+          "areaSensitivityUptime": 0.48,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "build.factory"
+          ],
+          "beforeCard": {
+            "minerals": 297.77,
+            "gas": 142
+          },
+          "wallet": {
+            "minerals": 147.77,
+            "gas": 42
+          },
+          "orders": 2,
+          "pendingPods": 0
+        },
+        {
+          "stage": 3,
+          "seconds": 60,
+          "scvs": 1,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 3,
+          "assumedRescued": 1,
+          "assumedFailed": 1,
+          "enemyHpBudget": 1200,
+          "singleTargetCapacity": 1235.68,
+          "areaSensitivityCapacity": 1235.68,
+          "requiredFiringUptime": 0.97,
+          "areaSensitivityUptime": 0.97,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "build.starport",
+            "upgrade.factory.2"
+          ],
+          "beforeCard": {
+            "minerals": 385.12,
+            "gas": 199.8
+          },
+          "wallet": {
+            "minerals": 185.12,
+            "gas": 74.8
+          },
+          "orders": 5,
+          "pendingPods": 1
+        },
+        {
+          "stage": 4,
+          "seconds": 120,
+          "scvs": 1,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 5,
+          "assumedRescued": 2,
+          "assumedFailed": 1,
+          "enemyHpBudget": 6315,
+          "singleTargetCapacity": 4626.98,
+          "areaSensitivityCapacity": 4626.98,
+          "requiredFiringUptime": 1.36,
+          "areaSensitivityUptime": 1.36,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 402.12,
+            "gas": 263.59
+          },
+          "wallet": {
+            "minerals": 277.12,
+            "gas": 213.59
+          },
+          "orders": 11,
+          "pendingPods": 3
+        },
+        {
+          "stage": 5,
+          "seconds": 120,
+          "scvs": 1,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "landed": 6,
+          "assumedRescued": 5,
+          "assumedFailed": 3,
+          "enemyHpBudget": 11100,
+          "singleTargetCapacity": 9036.96,
+          "areaSensitivityCapacity": 9420.07,
+          "requiredFiringUptime": 1.23,
+          "areaSensitivityUptime": 1.18,
+          "sustainableBiologicalHealingPerSecond": 2.39,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 477.52,
+            "gas": 202.11
+          },
+          "wallet": {
+            "minerals": 327.52,
+            "gas": 152.11
+          },
+          "orders": 17,
+          "pendingPods": 1
+        },
+        {
+          "stage": 6,
+          "seconds": 120,
+          "scvs": 2,
+          "rosterBefore": {
+            "marine": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "landed": 8,
+          "assumedRescued": 4,
+          "assumedFailed": 3,
+          "enemyHpBudget": 13820,
+          "singleTargetCapacity": 15463.52,
+          "areaSensitivityCapacity": 16647.14,
+          "requiredFiringUptime": 0.89,
+          "areaSensitivityUptime": 0.83,
+          "sustainableBiologicalHealingPerSecond": 2.39,
+          "chosen": [
+            "build.barracks",
+            "tech.infernal"
+          ],
+          "beforeCard": {
+            "minerals": 446.05,
+            "gas": 185.8
+          },
+          "wallet": {
+            "minerals": 171.05,
+            "gas": 110.8
+          },
+          "orders": 26,
+          "pendingPods": 2
+        },
+        {
+          "stage": 7,
+          "seconds": 180,
+          "scvs": 2,
+          "rosterBefore": {
+            "marine": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "landed": 12,
+          "assumedRescued": 7,
+          "assumedFailed": 5,
+          "enemyHpBudget": 21340,
+          "singleTargetCapacity": 32084.47,
+          "areaSensitivityCapacity": 34451.77,
+          "requiredFiringUptime": 0.67,
+          "areaSensitivityUptime": 0.62,
+          "sustainableBiologicalHealingPerSecond": 4.77,
+          "chosen": [
+            "tech.medivac"
+          ],
+          "beforeCard": {
+            "minerals": 270.53,
+            "gas": 184.48
+          },
+          "wallet": {
+            "minerals": 70.53,
+            "gas": 109.48
+          },
+          "orders": 38,
+          "pendingPods": 3
+        },
+        {
+          "stage": 8,
+          "seconds": 180,
+          "scvs": 2,
+          "rosterBefore": {
+            "marine": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "landed": 11,
+          "assumedRescued": 7,
+          "assumedFailed": 4,
+          "enemyHpBudget": 26505,
+          "singleTargetCapacity": 46389.98,
+          "areaSensitivityCapacity": 49578.78,
+          "requiredFiringUptime": 0.57,
+          "areaSensitivityUptime": 0.53,
+          "sustainableBiologicalHealingPerSecond": 4.77,
+          "chosen": [
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 378.68,
+            "gas": 260.49
+          },
+          "wallet": {
+            "minerals": 128.68,
+            "gas": 185.49
+          },
+          "orders": 48,
+          "pendingPods": 2
+        },
+        {
+          "stage": 9,
+          "seconds": 180,
+          "scvs": 3,
+          "rosterBefore": {
+            "marine": [
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              4,
+              4,
+              4,
+              4,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 11,
+          "assumedRescued": 6,
+          "assumedFailed": 4,
+          "enemyHpBudget": 28775,
+          "singleTargetCapacity": 54330.39,
+          "areaSensitivityCapacity": 58632.72,
+          "requiredFiringUptime": 0.53,
+          "areaSensitivityUptime": 0.49,
+          "sustainableBiologicalHealingPerSecond": 14.32,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 335.19,
+            "gas": 228.87
+          },
+          "wallet": {
+            "minerals": 85.19,
+            "gas": 153.87
+          },
+          "orders": 60,
+          "pendingPods": 3
+        },
+        {
+          "stage": 10,
+          "seconds": 240,
+          "scvs": 3,
+          "rosterBefore": {
+            "marine": [
+              4,
+              4,
+              4,
+              4,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 13,
+          "assumedRescued": 9,
+          "assumedFailed": 6,
+          "enemyHpBudget": 43435,
+          "singleTargetCapacity": 98745.91,
+          "areaSensitivityCapacity": 107469.66,
+          "requiredFiringUptime": 0.44,
+          "areaSensitivityUptime": 0.4,
+          "sustainableBiologicalHealingPerSecond": 23.86,
+          "chosen": [
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 796.91,
+            "gas": 262.57
+          },
+          "wallet": {
+            "minerals": 446.91,
+            "gas": 137.57
+          },
+          "orders": 72,
+          "pendingPods": 2
+        },
+        {
+          "stage": 11,
+          "seconds": 240,
+          "scvs": 3,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              2,
+              1,
+              1
+            ],
+            "medivac": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 15,
+          "assumedRescued": 8,
+          "assumedFailed": 6,
+          "enemyHpBudget": 60325,
+          "singleTargetCapacity": 118463.48,
+          "areaSensitivityCapacity": 130504.62,
+          "requiredFiringUptime": 0.51,
+          "areaSensitivityUptime": 0.46,
+          "sustainableBiologicalHealingPerSecond": 28.64,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 1318.86,
+            "gas": 261.84
+          },
+          "wallet": {
+            "minerals": 1018.86,
+            "gas": 161.84
+          },
+          "orders": 87,
+          "pendingPods": 2
+        },
+        {
+          "stage": 12,
+          "seconds": 240,
+          "scvs": 4,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              2,
+              1,
+              1
+            ],
+            "medivac": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              2,
+              2,
+              1
+            ],
+            "medivac": [
+              2,
+              2,
+              2,
+              2,
+              1
+            ]
+          },
+          "landed": 15,
+          "assumedRescued": 9,
+          "assumedFailed": 6,
+          "enemyHpBudget": 87015,
+          "singleTargetCapacity": 135142.51,
+          "areaSensitivityCapacity": 150591.61,
+          "requiredFiringUptime": 0.64,
+          "areaSensitivityUptime": 0.58,
+          "sustainableBiologicalHealingPerSecond": 42.95,
+          "chosen": [],
+          "beforeCard": {
+            "minerals": 2246.74,
+            "gas": 319.77
+          },
+          "wallet": {
+            "minerals": 2246.74,
+            "gas": 319.77
+          },
+          "orders": 102,
+          "pendingPods": 3
+        }
+      ],
+      "ledger": {
+        "start": {
+          "minerals": 50,
+          "gas": 0
+        },
+        "passive": {
+          "minerals": 1600.493750002067,
+          "gas": 366.798333332862
+        },
+        "assumedCollectedAndClear": {
+          "minerals": 9971.250000000002,
+          "gas": 3752.9749999999704
+        },
+        "production": {
+          "minerals": 7050,
+          "gas": 2925
+        },
+        "cards": {
+          "minerals": 2325,
+          "gas": 875
+        },
+        "final": {
+          "minerals": 2246.743749999753,
+          "gas": 319.77333333341113
+        }
+      },
+      "guardsTotal": 2303,
+      "assumedLostRanks": 18
+    },
+    {
+      "difficulty": "easy",
+      "scenario": {
+        "id": "ordinary-investment",
+        "scvEvery": 1,
+        "loot": 0.8,
+        "droneFraction": 0.5,
+        "rescue": 0.8,
+        "lossStages": [
+          6,
+          9,
+          11
+        ],
+        "cardRoute": [
+          "tech.shield",
+          "tech.infantry",
+          "tech.vehicle",
+          "tech.infernal",
+          "tech.medivac",
+          "tech.infantry",
+          "tech.vehicle",
+          "tech.infantry",
+          "tech.vehicle"
+        ]
+      },
+      "rows": [
+        {
+          "stage": 1,
+          "seconds": 60,
+          "scvs": 1,
+          "rosterBefore": {
+            "marine": [
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 3,
+          "assumedRescued": 1,
+          "assumedFailed": 1,
+          "enemyHpBudget": 216,
+          "singleTargetCapacity": 642.16,
+          "areaSensitivityCapacity": 642.16,
+          "requiredFiringUptime": 0.34,
+          "areaSensitivityUptime": 0.34,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "tech.shield"
+          ],
+          "beforeCard": {
+            "minerals": 104.96,
+            "gas": 90.31
+          },
+          "wallet": {
+            "minerals": 29.96,
+            "gas": 65.31
+          },
+          "orders": 4,
+          "pendingPods": 1
+        },
+        {
+          "stage": 2,
+          "seconds": 60,
+          "scvs": 2,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 3,
+          "assumedRescued": 3,
+          "assumedFailed": 0,
+          "enemyHpBudget": 432,
+          "singleTargetCapacity": 1984.86,
+          "areaSensitivityCapacity": 1984.86,
+          "requiredFiringUptime": 0.22,
+          "areaSensitivityUptime": 0.22,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "build.factory",
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 377.72,
+            "gas": 277.86
+          },
+          "wallet": {
+            "minerals": 102.72,
+            "gas": 127.86
+          },
+          "orders": 7,
+          "pendingPods": 1
+        },
+        {
+          "stage": 3,
+          "seconds": 60,
+          "scvs": 3,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 3,
+          "assumedRescued": 2,
+          "assumedFailed": 1,
+          "enemyHpBudget": 870,
+          "singleTargetCapacity": 3933.77,
+          "areaSensitivityCapacity": 3933.77,
+          "requiredFiringUptime": 0.22,
+          "areaSensitivityUptime": 0.22,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "build.starport",
+            "upgrade.factory.2"
+          ],
+          "beforeCard": {
+            "minerals": 418.55,
+            "gas": 353.57
+          },
+          "wallet": {
+            "minerals": 218.55,
+            "gas": 228.57
+          },
+          "orders": 11,
+          "pendingPods": 1
+        },
+        {
+          "stage": 4,
+          "seconds": 120,
+          "scvs": 4,
+          "rosterBefore": {
+            "marine": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              3,
+              3,
+              2,
+              2,
+              2
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": []
+          },
+          "landed": 8,
+          "assumedRescued": 6,
+          "assumedFailed": 2,
+          "enemyHpBudget": 5825,
+          "singleTargetCapacity": 13204.27,
+          "areaSensitivityCapacity": 13360.25,
+          "requiredFiringUptime": 0.44,
+          "areaSensitivityUptime": 0.44,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 544.91,
+            "gas": 290.23
+          },
+          "wallet": {
+            "minerals": 394.91,
+            "gas": 240.23
+          },
+          "orders": 18,
+          "pendingPods": 1
+        },
+        {
+          "stage": 5,
+          "seconds": 120,
+          "scvs": 5,
+          "rosterBefore": {
+            "marine": [
+              3,
+              3,
+              2,
+              2,
+              2
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              4,
+              3,
+              3,
+              3,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "landed": 10,
+          "assumedRescued": 5,
+          "assumedFailed": 1,
+          "enemyHpBudget": 10405,
+          "singleTargetCapacity": 21585.95,
+          "areaSensitivityCapacity": 22384.45,
+          "requiredFiringUptime": 0.48,
+          "areaSensitivityUptime": 0.46,
+          "sustainableBiologicalHealingPerSecond": 2.39,
+          "chosen": [
+            "tech.infernal"
+          ],
+          "beforeCard": {
+            "minerals": 710.26,
+            "gas": 241.24
+          },
+          "wallet": {
+            "minerals": 585.26,
+            "gas": 166.24
+          },
+          "orders": 28,
+          "pendingPods": 5
+        },
+        {
+          "stage": 6,
+          "seconds": 120,
+          "scvs": 6,
+          "rosterBefore": {
+            "marine": [
+              4,
+              3,
+              3,
+              3,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1,
+              1
+            ]
+          },
+          "landed": 8,
+          "assumedRescued": 6,
+          "assumedFailed": 2,
+          "enemyHpBudget": 10790,
+          "singleTargetCapacity": 27108.13,
+          "areaSensitivityCapacity": 27888.61,
+          "requiredFiringUptime": 0.4,
+          "areaSensitivityUptime": 0.39,
+          "sustainableBiologicalHealingPerSecond": 9.55,
+          "chosen": [
+            "build.barracks",
+            "tech.medivac"
+          ],
+          "beforeCard": {
+            "minerals": 1169.75,
+            "gas": 331.58
+          },
+          "wallet": {
+            "minerals": 819.75,
+            "gas": 256.58
+          },
+          "orders": 36,
+          "pendingPods": 6
+        },
+        {
+          "stage": 7,
+          "seconds": 180,
+          "scvs": 7,
+          "rosterBefore": {
+            "marine": [
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 12,
+          "assumedRescued": 8,
+          "assumedFailed": 3,
+          "enemyHpBudget": 16795,
+          "singleTargetCapacity": 44580.73,
+          "areaSensitivityCapacity": 46861.93,
+          "requiredFiringUptime": 0.38,
+          "areaSensitivityUptime": 0.36,
+          "sustainableBiologicalHealingPerSecond": 19.09,
+          "chosen": [
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 1319.76,
+            "gas": 277.83
+          },
+          "wallet": {
+            "minerals": 1069.76,
+            "gas": 202.83
+          },
+          "orders": 48,
+          "pendingPods": 6
+        },
+        {
+          "stage": 8,
+          "seconds": 180,
+          "scvs": 8,
+          "rosterBefore": {
+            "marine": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 5,
+          "assumedRescued": 8,
+          "assumedFailed": 1,
+          "enemyHpBudget": 14540,
+          "singleTargetCapacity": 66355.97,
+          "areaSensitivityCapacity": 70501.24,
+          "requiredFiringUptime": 0.22,
+          "areaSensitivityUptime": 0.21,
+          "sustainableBiologicalHealingPerSecond": 28.64,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 2158.71,
+            "gas": 336.84
+          },
+          "wallet": {
+            "minerals": 1908.71,
+            "gas": 261.84
+          },
+          "orders": 52,
+          "pendingPods": 2
+        },
+        {
+          "stage": 9,
+          "seconds": 180,
+          "scvs": 9,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              2,
+              2,
+              2,
+              1,
+              1
+            ]
+          },
+          "landed": 5,
+          "assumedRescued": 5,
+          "assumedFailed": 1,
+          "enemyHpBudget": 15435,
+          "singleTargetCapacity": 87684.17,
+          "areaSensitivityCapacity": 95767.39,
+          "requiredFiringUptime": 0.18,
+          "areaSensitivityUptime": 0.16,
+          "sustainableBiologicalHealingPerSecond": 38.18,
+          "chosen": [
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 3000.36,
+            "gas": 310.66
+          },
+          "wallet": {
+            "minerals": 2650.36,
+            "gas": 185.66
+          },
+          "orders": 57,
+          "pendingPods": 1
+        },
+        {
+          "stage": 10,
+          "seconds": 240,
+          "scvs": 10,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              2,
+              2,
+              2,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              2,
+              2,
+              1
+            ],
+            "medivac": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "landed": 13,
+          "assumedRescued": 8,
+          "assumedFailed": 2,
+          "enemyHpBudget": 32445,
+          "singleTargetCapacity": 125913.98,
+          "areaSensitivityCapacity": 138741.67,
+          "requiredFiringUptime": 0.26,
+          "areaSensitivityUptime": 0.23,
+          "sustainableBiologicalHealingPerSecond": 47.73,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 4191.51,
+            "gas": 400.68
+          },
+          "wallet": {
+            "minerals": 3891.51,
+            "gas": 300.68
+          },
+          "orders": 70,
+          "pendingPods": 4
+        },
+        {
+          "stage": 11,
+          "seconds": 240,
+          "scvs": 11,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              2,
+              2,
+              1
+            ],
+            "medivac": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              3,
+              3,
+              2,
+              2,
+              2
+            ],
+            "medivac": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ]
+          },
+          "landed": 9,
+          "assumedRescued": 9,
+          "assumedFailed": 2,
+          "enemyHpBudget": 36665,
+          "singleTargetCapacity": 161115.43,
+          "areaSensitivityCapacity": 180254.8,
+          "requiredFiringUptime": 0.23,
+          "areaSensitivityUptime": 0.2,
+          "sustainableBiologicalHealingPerSecond": 71.59,
+          "chosen": [],
+          "beforeCard": {
+            "minerals": 6030.05,
+            "gas": 377.09
+          },
+          "wallet": {
+            "minerals": 6030.05,
+            "gas": 377.09
+          },
+          "orders": 79,
+          "pendingPods": 2
+        },
+        {
+          "stage": 12,
+          "seconds": 240,
+          "scvs": 12,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "hellion": [],
+            "tank": [
+              3,
+              3,
+              2,
+              2,
+              2
+            ],
+            "medivac": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              5,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              3,
+              3,
+              3,
+              3,
+              2
+            ],
+            "medivac": [
+              4,
+              4,
+              4,
+              3,
+              3
+            ]
+          },
+          "landed": 18,
+          "assumedRescued": 8,
+          "assumedFailed": 3,
+          "enemyHpBudget": 71925,
+          "singleTargetCapacity": 170229.26,
+          "areaSensitivityCapacity": 194356.19,
+          "requiredFiringUptime": 0.42,
+          "areaSensitivityUptime": 0.37,
+          "sustainableBiologicalHealingPerSecond": 85.91,
+          "chosen": [],
+          "beforeCard": {
+            "minerals": 8155.82,
+            "gas": 436.62
+          },
+          "wallet": {
+            "minerals": 8155.82,
+            "gas": 436.62
+          },
+          "orders": 97,
+          "pendingPods": 9
+        }
+      ],
+      "ledger": {
+        "start": {
+          "minerals": 50,
+          "gas": 0
+        },
+        "passive": {
+          "minerals": 4143.595468749774,
+          "gas": 1029.9587916664234
+        },
+        "assumedCollectedAndClear": {
+          "minerals": 14537.22499999974,
+          "gas": 5406.662499999992
+        },
+        "production": {
+          "minerals": 8250,
+          "gas": 5125
+        },
+        "cards": {
+          "minerals": 2325,
+          "gas": 875
+        },
+        "final": {
+          "minerals": 8155.820468754047,
+          "gas": 436.6212916665705
+        }
+      },
+      "guardsTotal": 1647,
+      "assumedLostRanks": 15
+    },
+    {
+      "difficulty": "easy",
+      "scenario": {
+        "id": "missed-economy",
+        "scvEvery": 3,
+        "loot": 0.5,
+        "droneFraction": 0,
+        "rescue": 0.6,
+        "lossStages": [
+          4,
+          6,
+          8,
+          10,
+          11
+        ],
+        "cardRoute": [
+          "tech.shield",
+          "tech.infantry",
+          "tech.vehicle",
+          "tech.infernal",
+          "tech.medivac",
+          "tech.infantry",
+          "tech.vehicle",
+          "tech.infantry",
+          "tech.vehicle"
+        ]
+      },
+      "rows": [
+        {
+          "stage": 1,
+          "seconds": 60,
+          "scvs": 0,
+          "rosterBefore": {
+            "marine": [
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 1,
+          "assumedRescued": 0,
+          "assumedFailed": 1,
+          "enemyHpBudget": 144,
+          "singleTargetCapacity": 583.78,
+          "areaSensitivityCapacity": 583.78,
+          "requiredFiringUptime": 0.25,
+          "areaSensitivityUptime": 0.25,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "tech.shield"
+          ],
+          "beforeCard": {
+            "minerals": 100.44,
+            "gas": 45
+          },
+          "wallet": {
+            "minerals": 25.44,
+            "gas": 20
+          },
+          "orders": 2,
+          "pendingPods": 0
+        },
+        {
+          "stage": 2,
+          "seconds": 60,
+          "scvs": 0,
+          "rosterBefore": {
+            "marine": [
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 2,
+          "assumedRescued": 1,
+          "assumedFailed": 0,
+          "enemyHpBudget": 360,
+          "singleTargetCapacity": 827.03,
+          "areaSensitivityCapacity": 827.03,
+          "requiredFiringUptime": 0.44,
+          "areaSensitivityUptime": 0.44,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "build.factory",
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 347,
+            "gas": 183.75
+          },
+          "wallet": {
+            "minerals": 72,
+            "gas": 33.75
+          },
+          "orders": 3,
+          "pendingPods": 1
+        },
+        {
+          "stage": 3,
+          "seconds": 60,
+          "scvs": 1,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 2,
+          "assumedRescued": 2,
+          "assumedFailed": 1,
+          "enemyHpBudget": 780,
+          "singleTargetCapacity": 1645.95,
+          "areaSensitivityCapacity": 1645.95,
+          "requiredFiringUptime": 0.47,
+          "areaSensitivityUptime": 0.47,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "build.starport",
+            "upgrade.factory.2"
+          ],
+          "beforeCard": {
+            "minerals": 390.37,
+            "gas": 231
+          },
+          "wallet": {
+            "minerals": 190.37,
+            "gas": 106
+          },
+          "orders": 6,
+          "pendingPods": 0
+        },
+        {
+          "stage": 4,
+          "seconds": 120,
+          "scvs": 1,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "landed": 5,
+          "assumedRescued": 2,
+          "assumedFailed": 2,
+          "enemyHpBudget": 4865,
+          "singleTargetCapacity": 6100.85,
+          "areaSensitivityCapacity": 6100.85,
+          "requiredFiringUptime": 0.8,
+          "areaSensitivityUptime": 0.8,
+          "sustainableBiologicalHealingPerSecond": 0,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 423.37,
+            "gas": 211.24
+          },
+          "wallet": {
+            "minerals": 273.37,
+            "gas": 161.24
+          },
+          "orders": 11,
+          "pendingPods": 1
+        },
+        {
+          "stage": 5,
+          "seconds": 120,
+          "scvs": 1,
+          "rosterBefore": {
+            "marine": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [],
+            "medivac": []
+          },
+          "roster": {
+            "marine": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "landed": 7,
+          "assumedRescued": 4,
+          "assumedFailed": 2,
+          "enemyHpBudget": 8905,
+          "singleTargetCapacity": 9011.21,
+          "areaSensitivityCapacity": 9803.05,
+          "requiredFiringUptime": 0.99,
+          "areaSensitivityUptime": 0.91,
+          "sustainableBiologicalHealingPerSecond": 2.39,
+          "chosen": [
+            "tech.infernal"
+          ],
+          "beforeCard": {
+            "minerals": 567.78,
+            "gas": 312.33
+          },
+          "wallet": {
+            "minerals": 442.78,
+            "gas": 237.33
+          },
+          "orders": 18,
+          "pendingPods": 2
+        },
+        {
+          "stage": 6,
+          "seconds": 120,
+          "scvs": 2,
+          "rosterBefore": {
+            "marine": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1,
+              1
+            ]
+          },
+          "landed": 9,
+          "assumedRescued": 5,
+          "assumedFailed": 4,
+          "enemyHpBudget": 11390,
+          "singleTargetCapacity": 13287.79,
+          "areaSensitivityCapacity": 14068.27,
+          "requiredFiringUptime": 0.86,
+          "areaSensitivityUptime": 0.81,
+          "sustainableBiologicalHealingPerSecond": 9.55,
+          "chosen": [
+            "build.barracks",
+            "tech.medivac"
+          ],
+          "beforeCard": {
+            "minerals": 619.47,
+            "gas": 317.71
+          },
+          "wallet": {
+            "minerals": 269.47,
+            "gas": 242.71
+          },
+          "orders": 27,
+          "pendingPods": 2
+        },
+        {
+          "stage": 7,
+          "seconds": 180,
+          "scvs": 2,
+          "rosterBefore": {
+            "marine": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "hellion": [],
+            "tank": [
+              1
+            ],
+            "medivac": [
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              3,
+              3,
+              3,
+              3,
+              2
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 11,
+          "assumedRescued": 8,
+          "assumedFailed": 5,
+          "enemyHpBudget": 16195,
+          "singleTargetCapacity": 29674.26,
+          "areaSensitivityCapacity": 31665.37,
+          "requiredFiringUptime": 0.55,
+          "areaSensitivityUptime": 0.51,
+          "sustainableBiologicalHealingPerSecond": 14.32,
+          "chosen": [
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 424.63,
+            "gas": 268.79
+          },
+          "wallet": {
+            "minerals": 174.63,
+            "gas": 193.79
+          },
+          "orders": 38,
+          "pendingPods": 0
+        },
+        {
+          "stage": 8,
+          "seconds": 180,
+          "scvs": 2,
+          "rosterBefore": {
+            "marine": [
+              3,
+              3,
+              3,
+              3,
+              2
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              4,
+              4,
+              3,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 11,
+          "assumedRescued": 5,
+          "assumedFailed": 3,
+          "enemyHpBudget": 19820,
+          "singleTargetCapacity": 46068.39,
+          "areaSensitivityCapacity": 49432.07,
+          "requiredFiringUptime": 0.43,
+          "areaSensitivityUptime": 0.4,
+          "sustainableBiologicalHealingPerSecond": 14.32,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 337.28,
+            "gas": 261.33
+          },
+          "wallet": {
+            "minerals": 87.28,
+            "gas": 186.33
+          },
+          "orders": 49,
+          "pendingPods": 3
+        },
+        {
+          "stage": 9,
+          "seconds": 180,
+          "scvs": 3,
+          "rosterBefore": {
+            "marine": [
+              4,
+              4,
+              3,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 11,
+          "assumedRescued": 7,
+          "assumedFailed": 5,
+          "enemyHpBudget": 21195,
+          "singleTargetCapacity": 55614.67,
+          "areaSensitivityCapacity": 60379.6,
+          "requiredFiringUptime": 0.38,
+          "areaSensitivityUptime": 0.35,
+          "sustainableBiologicalHealingPerSecond": 14.32,
+          "chosen": [
+            "tech.infantry"
+          ],
+          "beforeCard": {
+            "minerals": 430.08,
+            "gas": 305.62
+          },
+          "wallet": {
+            "minerals": 80.08,
+            "gas": 180.62
+          },
+          "orders": 60,
+          "pendingPods": 2
+        },
+        {
+          "stage": 10,
+          "seconds": 240,
+          "scvs": 3,
+          "rosterBefore": {
+            "marine": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 10,
+          "assumedRescued": 6,
+          "assumedFailed": 4,
+          "enemyHpBudget": 28995,
+          "singleTargetCapacity": 102496.99,
+          "areaSensitivityCapacity": 109562.33,
+          "requiredFiringUptime": 0.28,
+          "areaSensitivityUptime": 0.26,
+          "sustainableBiologicalHealingPerSecond": 19.09,
+          "chosen": [
+            "tech.vehicle"
+          ],
+          "beforeCard": {
+            "minerals": 889.05,
+            "gas": 321.9
+          },
+          "wallet": {
+            "minerals": 589.05,
+            "gas": 221.9
+          },
+          "orders": 69,
+          "pendingPods": 2
+        },
+        {
+          "stage": 11,
+          "seconds": 240,
+          "scvs": 3,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              5,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "landed": 16,
+          "assumedRescued": 8,
+          "assumedFailed": 7,
+          "enemyHpBudget": 47305,
+          "singleTargetCapacity": 111897.12,
+          "areaSensitivityCapacity": 122414.08,
+          "requiredFiringUptime": 0.42,
+          "areaSensitivityUptime": 0.39,
+          "sustainableBiologicalHealingPerSecond": 28.64,
+          "chosen": [],
+          "beforeCard": {
+            "minerals": 1280.73,
+            "gas": 356.05
+          },
+          "wallet": {
+            "minerals": 1280.73,
+            "gas": 356.05
+          },
+          "orders": 86,
+          "pendingPods": 3
+        },
+        {
+          "stage": 12,
+          "seconds": 240,
+          "scvs": 4,
+          "rosterBefore": {
+            "marine": [
+              5,
+              5,
+              4,
+              4
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "medivac": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "roster": {
+            "marine": [
+              5,
+              5,
+              4,
+              4,
+              3
+            ],
+            "hellion": [],
+            "tank": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "medivac": [
+              2,
+              2,
+              2,
+              2,
+              1
+            ]
+          },
+          "landed": 19,
+          "assumedRescued": 9,
+          "assumedFailed": 7,
+          "enemyHpBudget": 73850,
+          "singleTargetCapacity": 126313.67,
+          "areaSensitivityCapacity": 140991.78,
+          "requiredFiringUptime": 0.58,
+          "areaSensitivityUptime": 0.52,
+          "sustainableBiologicalHealingPerSecond": 42.95,
+          "chosen": [],
+          "beforeCard": {
+            "minerals": 2054.34,
+            "gas": 318.97
+          },
+          "wallet": {
+            "minerals": 2054.34,
+            "gas": 318.97
+          },
+          "orders": 106,
+          "pendingPods": 6
+        }
+      ],
+      "ledger": {
+        "start": {
+          "minerals": 50,
+          "gas": 0
+        },
+        "passive": {
+          "minerals": 2000.6171875034045,
+          "gas": 458.4979166662023
+        },
+        "assumedCollectedAndClear": {
+          "minerals": 9878.71875,
+          "gas": 4110.46875
+        },
+        "production": {
+          "minerals": 7550,
+          "gas": 3375
+        },
+        "cards": {
+          "minerals": 2325,
+          "gas": 875
+        },
+        "final": {
+          "minerals": 2054.3359375008085,
+          "gas": 318.9666666666419
+        }
+      },
+      "guardsTotal": 1950,
+      "assumedLostRanks": 18
+    }
+  ]
+}

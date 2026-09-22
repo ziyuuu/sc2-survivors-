@@ -1,0 +1,110 @@
+[
+  {
+    "id": "audio.sc2.scv.ready",
+    "sourcePath": "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/SCV/SCV_Ready00.ogg",
+    "installFile": "public/assets/audio/sc2/SCV_Ready00.ogg",
+    "format": "ogg",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/SCV/SCV_Ready00.ogg",
+    "bytes": 28124,
+    "sha256": "d9b66d52a1a43061f163c6e7390cafe1459a51f9ce270b32dab0273e60428796"
+  },
+  {
+    "id": "audio.sc2.marine.attack",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Marine/Marine_AttackLaunch0.wav",
+    "installFile": "public/assets/audio/sc2/Marine_AttackLaunch0.wav",
+    "format": "wav",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Marine/Marine_AttackLaunch0.wav",
+    "bytes": 30524,
+    "sha256": "1cfb738c8f6b7fe04f2a44c244adaf7408945e3dc81b90a409169be07cdea181"
+  },
+  {
+    "id": "audio.sc2.hellion.attack",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Hellion/Hellion_AttackLaunch0.wav",
+    "installFile": "public/assets/audio/sc2/Hellion_AttackLaunch0.wav",
+    "format": "wav",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Hellion/Hellion_AttackLaunch0.wav",
+    "bytes": 59452,
+    "sha256": "3bac34106c8fc5b7fe7dec3a31e6eddf7186b00c0e86a30c51d591fc010d250b"
+  },
+  {
+    "id": "audio.sc2.tank.attack",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SiegeTank/SiegeTank_AttackLaunch0.wav",
+    "installFile": "public/assets/audio/sc2/SiegeTank_AttackLaunch0.wav",
+    "format": "wav",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SiegeTank/SiegeTank_AttackLaunch0.wav",
+    "bytes": 18492,
+    "sha256": "55bbc663564c3b3772c8ebbdaf5c77cfb8ec0ec096cb4d6ecabc25472b5bdfe1"
+  },
+  {
+    "id": "audio.sc2.tank.siege",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SiegeTank/SiegeTank_SiegeAttackLaunch0.wav",
+    "installFile": "public/assets/audio/sc2/SiegeTank_SiegeAttackLaunch0.wav",
+    "format": "wav",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/SiegeTank/SiegeTank_SiegeAttackLaunch0.wav",
+    "bytes": 44092,
+    "sha256": "f74823ac80bb117e64d3047c80d12ceda62a44d58fe80ee57c35a79ace8f7722"
+  },
+  {
+    "id": "audio.sc2.medivac.heal",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Medivac/Medivac_HealLoop.wav",
+    "installFile": "public/assets/audio/sc2/Medivac_HealLoop.wav",
+    "format": "wav",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Terran/Medivac/Medivac_HealLoop.wav",
+    "bytes": 406588,
+    "sha256": "4b550574568f9a69ed39661bacd0b38b77eeafee29238fbaf4698d2fb47a830e"
+  },
+  {
+    "id": "audio.sc2.zergling.attack",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Zergling/Zergling_AttackLaunch0.wav",
+    "installFile": "public/assets/audio/sc2/Zergling_AttackLaunch0.wav",
+    "format": "wav",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Zergling/Zergling_AttackLaunch0.wav",
+    "bytes": 17468,
+    "sha256": "6495848ab13798566d8ca9168127bbfb773b7aa1d95370df3c1fabd86d3d41a3"
+  },
+  {
+    "id": "audio.sc2.roach.attack",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Roach/Roach_AttackLaunchRanged0.wav",
+    "installFile": "public/assets/audio/sc2/Roach_AttackLaunchRanged0.wav",
+    "format": "wav",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Zerg/Roach/Roach_AttackLaunchRanged0.wav",
+    "bytes": 32828,
+    "sha256": "da1ae6c9da21b91bb7eb5c23f4160ba34d1b8b0166ac0297aff6b4d1512d89ad"
+  },
+  {
+    "id": "audio.sc2.ravager.attack",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Ravager_Vox_Attack_Comp01.wav",
+    "installFile": "public/assets/audio/sc2/Ravager_Vox_Attack_Comp01.wav",
+    "format": "wav",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Ravager_Vox_Attack_Comp01.wav",
+    "bytes": 27964,
+    "sha256": "c8e49c3753238b07e58bd6bd56226fffdc79d8932ee2e9c543c6ec4fcf2f4cb8"
+  },
+  {
+    "id": "audio.sc2.marine.death",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Marine_Death_Bodyfall_A_01.wav",
+    "installFile": "public/assets/audio/sc2/Marine_Death_Bodyfall_A_01.wav",
+    "format": "wav",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Sounds/Marine_Death_Bodyfall_A_01.wav",
+    "bytes": 22588,
+    "sha256": "7e528e7641c4832dc5293bf5147249ed4ed26be35b43f545fa950d41264a6e66"
+  },
+  {
+    "id": "source.fx.muzzle.fireball",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/fireball_1hot.dds",
+    "installFile": "assets/private/dds/fireball_1hot.dds",
+    "format": "dds",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/fireball_1hot.dds",
+    "bytes": 11064,
+    "sha256": "343b229d574db7046a4d4eb6c5142f310b055a0212822ba4035fd473b8827720"
+  },
+  {
+    "id": "source.fx.flame",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/HellionBeam/HellionBeam.m3",
+    "installFile": "assets/private/m3/hellionbeam.m3",
+    "format": "m3",
+    "cachedFile": "assets/private/casc/mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/HellionBeam/HellionBeam.m3",
+    "bytes": 20720,
+    "sha256": "00cfb8012f5950a3b8cf6682820c84877e687db9cc6169e5211a32065015b65d"
+  }
+]

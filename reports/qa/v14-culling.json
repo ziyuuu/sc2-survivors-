@@ -1,0 +1,2767 @@
+{
+  "at": "2026-09-22T04:31:55.619Z",
+  "method": "Local frozen-frame numeric reference: exact same camera, original map and native DPR1. Compare view-culling with every opened original placement drawn. Screenshots stay local; this is culling regression, not original-client visual approval.",
+  "cases": [
+    {
+      "name": "1440x900-origin",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 0,
+        "z": 0,
+        "stage": 1,
+        "name": "origin"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 373,
+        "visibleMeshes": 141,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 534,
+        "visibleMeshes": 173,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        143,
+        175
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-1",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 35.5,
+        "z": 103.5,
+        "stage": 12,
+        "name": "ramp-1"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 270,
+        "visibleMeshes": 103,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        104,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-2",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 10.5,
+        "z": 100.5,
+        "stage": 12,
+        "name": "ramp-2"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 188,
+        "visibleMeshes": 85,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        86,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-3",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 64.5,
+        "z": 96.5,
+        "stage": 12,
+        "name": "ramp-3"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 222,
+        "visibleMeshes": 122,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        127,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-4",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 83.5,
+        "z": 97.5,
+        "stage": 12,
+        "name": "ramp-4"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 260,
+        "visibleMeshes": 125,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        130,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-5",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 11.5,
+        "z": 89.5,
+        "stage": 12,
+        "name": "ramp-5"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 212,
+        "visibleMeshes": 86,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        87,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-6",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 63.5,
+        "z": 81.5,
+        "stage": 12,
+        "name": "ramp-6"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 289,
+        "visibleMeshes": 127,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        132,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-7",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 31.5,
+        "z": 79.5,
+        "stage": 12,
+        "name": "ramp-7"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 189,
+        "visibleMeshes": 79,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        80,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-8",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 80.5,
+        "z": 74.5,
+        "stage": 12,
+        "name": "ramp-8"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 349,
+        "visibleMeshes": 147,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        152,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-9",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 8.5,
+        "z": 38.5,
+        "stage": 12,
+        "name": "ramp-9"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 337,
+        "visibleMeshes": 142,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        146,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-10",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 57.5,
+        "z": 33.5,
+        "stage": 12,
+        "name": "ramp-10"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 192,
+        "visibleMeshes": 76,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        77,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-11",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 25.5,
+        "z": 31.5,
+        "stage": 12,
+        "name": "ramp-11"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 286,
+        "visibleMeshes": 125,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        130,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-12",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 77.5,
+        "z": 23.5,
+        "stage": 12,
+        "name": "ramp-12"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 213,
+        "visibleMeshes": 84,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        85,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-13",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 5.5,
+        "z": 15.5,
+        "stage": 12,
+        "name": "ramp-13"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 241,
+        "visibleMeshes": 125,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        130,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-14",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 24.5,
+        "z": 16.5,
+        "stage": 12,
+        "name": "ramp-14"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 226,
+        "visibleMeshes": 119,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        124,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-15",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 53.5,
+        "z": 9.5,
+        "stage": 12,
+        "name": "ramp-15"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 273,
+        "visibleMeshes": 106,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        107,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "1440x900-ramp-16",
+      "width": 1440,
+      "height": 900,
+      "point": {
+        "x": 78.5,
+        "z": 12.5,
+        "stage": 12,
+        "name": "ramp-16"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 182,
+        "visibleMeshes": 82,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        83,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-origin",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 0,
+        "z": 0,
+        "stage": 1,
+        "name": "origin"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 373,
+        "visibleMeshes": 141,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 534,
+        "visibleMeshes": 173,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        143,
+        175
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-1",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 35.5,
+        "z": 103.5,
+        "stage": 12,
+        "name": "ramp-1"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 135,
+        "visibleMeshes": 68,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        69,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-2",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 10.5,
+        "z": 100.5,
+        "stage": 12,
+        "name": "ramp-2"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 130,
+        "visibleMeshes": 58,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        59,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-3",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 64.5,
+        "z": 96.5,
+        "stage": 12,
+        "name": "ramp-3"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 139,
+        "visibleMeshes": 83,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        84,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-4",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 83.5,
+        "z": 97.5,
+        "stage": 12,
+        "name": "ramp-4"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 108,
+        "visibleMeshes": 74,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        79,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-5",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 11.5,
+        "z": 89.5,
+        "stage": 12,
+        "name": "ramp-5"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 133,
+        "visibleMeshes": 63,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        64,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-6",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 63.5,
+        "z": 81.5,
+        "stage": 12,
+        "name": "ramp-6"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 118,
+        "visibleMeshes": 72,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        73,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-7",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 31.5,
+        "z": 79.5,
+        "stage": 12,
+        "name": "ramp-7"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 88,
+        "visibleMeshes": 54,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        55,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-8",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 80.5,
+        "z": 74.5,
+        "stage": 12,
+        "name": "ramp-8"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 201,
+        "visibleMeshes": 106,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        111,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-9",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 8.5,
+        "z": 38.5,
+        "stage": 12,
+        "name": "ramp-9"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 188,
+        "visibleMeshes": 98,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        103,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-10",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 57.5,
+        "z": 33.5,
+        "stage": 12,
+        "name": "ramp-10"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 87,
+        "visibleMeshes": 53,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        54,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-11",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 25.5,
+        "z": 31.5,
+        "stage": 12,
+        "name": "ramp-11"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 116,
+        "visibleMeshes": 70,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        71,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-12",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 77.5,
+        "z": 23.5,
+        "stage": 12,
+        "name": "ramp-12"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 132,
+        "visibleMeshes": 62,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        63,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-13",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 5.5,
+        "z": 15.5,
+        "stage": 12,
+        "name": "ramp-13"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 81,
+        "visibleMeshes": 54,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        59,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-14",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 24.5,
+        "z": 16.5,
+        "stage": 12,
+        "name": "ramp-14"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 138,
+        "visibleMeshes": 82,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        83,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-15",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 53.5,
+        "z": 9.5,
+        "stage": 12,
+        "name": "ramp-15"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 136,
+        "visibleMeshes": 66,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        67,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "390x844-ramp-16",
+      "width": 390,
+      "height": 844,
+      "point": {
+        "x": 78.5,
+        "z": 12.5,
+        "stage": 12,
+        "name": "ramp-16"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 133,
+        "visibleMeshes": 61,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        62,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 390,
+        "height": 844,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-origin",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 0,
+        "z": 0,
+        "stage": 1,
+        "name": "origin"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 446,
+        "visibleMeshes": 161,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 534,
+        "visibleMeshes": 173,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        163,
+        175
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-1",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 35.5,
+        "z": 103.5,
+        "stage": 12,
+        "name": "ramp-1"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 361,
+        "visibleMeshes": 116,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        117,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-2",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 10.5,
+        "z": 100.5,
+        "stage": 12,
+        "name": "ramp-2"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 327,
+        "visibleMeshes": 113,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        114,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-3",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 64.5,
+        "z": 96.5,
+        "stage": 12,
+        "name": "ramp-3"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 265,
+        "visibleMeshes": 137,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        142,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-4",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 83.5,
+        "z": 97.5,
+        "stage": 12,
+        "name": "ramp-4"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 430,
+        "visibleMeshes": 184,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        189,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-5",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 11.5,
+        "z": 89.5,
+        "stage": 12,
+        "name": "ramp-5"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 315,
+        "visibleMeshes": 107,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        108,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-6",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 63.5,
+        "z": 81.5,
+        "stage": 12,
+        "name": "ramp-6"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 347,
+        "visibleMeshes": 142,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        147,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-7",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 31.5,
+        "z": 79.5,
+        "stage": 12,
+        "name": "ramp-7"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 281,
+        "visibleMeshes": 92,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        93,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-8",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 80.5,
+        "z": 74.5,
+        "stage": 12,
+        "name": "ramp-8"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 521,
+        "visibleMeshes": 184,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        189,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-9",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 8.5,
+        "z": 38.5,
+        "stage": 12,
+        "name": "ramp-9"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 508,
+        "visibleMeshes": 179,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        183,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-10",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 57.5,
+        "z": 33.5,
+        "stage": 12,
+        "name": "ramp-10"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 286,
+        "visibleMeshes": 88,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        89,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-11",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 25.5,
+        "z": 31.5,
+        "stage": 12,
+        "name": "ramp-11"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 337,
+        "visibleMeshes": 137,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        142,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-12",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 77.5,
+        "z": 23.5,
+        "stage": 12,
+        "name": "ramp-12"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 319,
+        "visibleMeshes": 107,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        108,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-13",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 5.5,
+        "z": 15.5,
+        "stage": 12,
+        "name": "ramp-13"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 414,
+        "visibleMeshes": 184,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        189,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-14",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 24.5,
+        "z": 16.5,
+        "stage": 12,
+        "name": "ramp-14"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 271,
+        "visibleMeshes": 135,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        140,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-15",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 53.5,
+        "z": 9.5,
+        "stage": 12,
+        "name": "ramp-15"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 368,
+        "visibleMeshes": 121,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        122,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    },
+    {
+      "name": "844x390-ramp-16",
+      "width": 844,
+      "height": 390,
+      "point": {
+        "x": 78.5,
+        "z": 12.5,
+        "stage": 12,
+        "name": "ramp-16"
+      },
+      "culled": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 317,
+        "visibleMeshes": 111,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "reference": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 5296,
+        "visibleMeshes": 332,
+        "area": 11869.5,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "drawCalls": [
+        112,
+        337
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 844,
+        "height": 390,
+        "cssWidth": 844,
+        "cssHeight": 390,
+        "antialias": true
+      },
+      "comparison": {
+        "maxChannelDifference": 0,
+        "meanChannelDifference": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "exactlyIdentical": true
+      }
+    }
+  ],
+  "errors": [],
+  "pixelComparison": {
+    "cases": 51,
+    "failed": [],
+    "tolerancePerChannel": 1,
+    "method": "Pillow local RGB absolute difference. No masks, resized inputs or ignored regions."
+  }
+}

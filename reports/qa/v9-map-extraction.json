@@ -1,0 +1,51 @@
+{
+  "source": {
+    "name": "Kairos Junction LE",
+    "file": "KairosJunctionLE.SC2Map",
+    "source": "https://raw.githubusercontent.com/opendilab/DI-star/12b1c69350ad41e17895c602a66a52d98dd58452/distar/envs/maps/Ladder2019Season2/KairosJunctionLE.SC2Map",
+    "sha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2",
+    "bytes": 1443073,
+    "catalogRevision": "fbbd6429b1eb6978c78a092dc68ba09029d03171",
+    "worldUnitsPerSc2Unit": 1,
+    "archiveParser": "mpyq==0.2.5",
+    "formatSource": "https://github.com/sc2-arcade-watcher/sc2-file-format-docs",
+    "evidence": "Original map archive, not a preview image. Runtime reconstruction requires dependency and traversal acceptance."
+  },
+  "placements": 2659,
+  "cliffInstances": 2473,
+  "bounds": [
+    16,
+    14,
+    136,
+    154
+  ],
+  "start": [
+    31.5,
+    140.5,
+    0.0
+  ],
+  "hive": {
+    "x": 89.0,
+    "z": 113.0
+  },
+  "connectedCells": 47478,
+  "stageAreas": [
+    741.75,
+    1248.5,
+    1831.75,
+    2558.5,
+    3473.0,
+    4375.25,
+    5527.5,
+    6718.5,
+    8008.75,
+    9510.25,
+    10234.5,
+    11869.5
+  ],
+  "startClearance": 5.5,
+  "startHeight": 3.99897,
+  "startPlateauDelta": 0.0028762499999999136,
+  "globalSyncDifference": 10.0397125,
+  "note": "The original sync grid includes cliff welding. Global render/sync deltas are retained, not asserted away. Runtime uses shared rendered floor heights; original-client pathing comparison is separate."
+}

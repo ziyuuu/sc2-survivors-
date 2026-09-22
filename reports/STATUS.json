@@ -1,41 +1,239 @@
 {
-  "checkedAt": "2026-09-20",
+  "checkedAt": "2026-09-22T13:51:41.496618+00:00",
   "repository": "ziyuuu/sc2-survivors-",
-  "visibilityObserved": "public",
-  "branch": "v2/sc2-assets-ui",
-  "deliverable": "asset-integration-code-and-interaction-lab",
-  "newPlayable12StageRemake": false,
-  "assetSlots": 42,
-  "originalCombatModelsVerified": 0,
-  "combatModelTargets": 8,
-  "assetAudit": {
-    "runId": 35520563399,
-    "jobId": 106103796321,
-    "auditCompleted": true,
-    "modelHttpResults": "8/8 HTTP 403",
-    "fileChecksPassed": 0
-  },
-  "reference": {
-    "url": "https://starcraft-shooter-2026.pages.dev/",
-    "htmlRetrieved": true,
-    "title": "StarCraft Shooter 2026",
-    "fontFamilyAliases": ["SC2 Chinese", "SC2 Eurostile", "SC2 Extended"],
-    "fontFilesDistributed": false,
-    "screenshotState": "loading-screen-only",
-    "fullHudVisuallyVerified": false
-  },
-  "unitTests": {
-    "runner": "node --test test/*.test.mjs",
-    "passed": 65,
+  "projectDirectory": "D:\\星际",
+  "branch": "v3/playable-sc2-demo",
+  "runtimeCommit": "3684549dda4b2a636d5a19e9e74cfea47ece1146",
+  "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
+  "prBase": "v2/sc2-assets-ui",
+  "scope": "V18 movement-only intent, directional automatic targeting, bounded stop/fire/reposition, PC mouse/keyboard and touch tap/joystick settings, right-stick skill selection with A/X confirmation. Preserve map, economy, difficulty and assets.",
+  "tests": {
+    "command": "npm test",
+    "passed": 365,
     "failed": 0,
-    "groups": {"rules": 38, "glb": 7, "assets": 20},
-    "fixtures": "synthetic-not-SC2-stats"
+    "skipped": 0,
+    "log": "reports/local/v18-tests-final.txt"
   },
-  "browserQa": {
-    "status": "blocked",
-    "reason": "ERR_BLOCKED_BY_ADMINISTRATOR before first local page navigation",
-    "assertionsPassed": 0,
-    "mobileDeviceTested": false
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
   },
-  "pending": ["authentic model files and animations", "actual original icon images", "terrain and playable map data", "original logo and HUD textures", "locked SC2 numerical profile", "integrated 12-stage battle loop", "browser and mobile QA"]
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "file": "dist/SC2-Survivors-Demo.html",
+    "bytes": 206697492,
+    "mib": 197.12208938598633,
+    "sha256": "ab6861f3de34bd89f9b8ff962c2d3430990c1a2d177feff0f4373a04e62a1795",
+    "previousBytes": 206691735,
+    "reductionPercent": -0.0027853073080062927,
+    "sourceBytesIdentical": 647,
+    "largeChunkWarning": true
+  },
+  "assets": {
+    "available": 647,
+    "manifestTotal": 647,
+    "requiredMissing": [],
+    "combatModels": 28,
+    "baseCombatModels": 10,
+    "eliteVariants": 15,
+    "heroes": 3,
+    "idleMoveDeathPlayback": 28,
+    "attackClips": 23,
+    "medicalWorkClips": 4,
+    "banelingAttack": "original death/detonation",
+    "iconsDecoded": 31,
+    "eliteIconPolicy": "15 skins use the five original family icons; not 15 distinct original portraits",
+    "audioDecoded": 10,
+    "expansionDependencyHashes": 267,
+    "independentOriginalAudit": {
+      "models": 364,
+      "bones": 4045,
+      "clips": 1272,
+      "mismatches": 0
+    },
+    "humanVisualApproved": false,
+    "humanListeningApproved": false,
+    "originalClientPixelComparison": false,
+    "v16Validation": {
+      "restoredSourceSha256Equal": 647,
+      "combatModelsLoaded": 28,
+      "unchangedOriginalClips": true,
+      "newHumanVisualApproval": false,
+      "details": "V16 byte identity and browser load; animation playback coverage above is V15 historical evidence."
+    },
+    "v17Validation": {
+      "restoredSourceSha256Equal": 647,
+      "combatModelsLoaded": 28,
+      "iconsDecoded": 31,
+      "originalAudioDecoded": 10,
+      "originalAssetBytesUnchanged": true,
+      "animationPlaybackEvidence": "V15 historical per-action playback; V17 byte identity, loading and integration checks, not a new per-clip human review."
+    },
+    "v18Validation": {
+      "restoredSourceSha256Equal": 647,
+      "combatModelsLoaded": 28,
+      "iconsDecoded": 31,
+      "originalAudioDecoded": 10,
+      "originalAssetBytesUnchanged": true,
+      "animationPlaybackEvidence": "V15 original per-action evidence retained; V18 byte identity and integration checks, not new per-clip human review."
+    }
+  },
+  "map": {
+    "name": "Kairos Junction LE",
+    "geometryChanged": false,
+    "crowdingCases": 32,
+    "crowdingFailures": 0,
+    "friendlyCount": 25,
+    "evidence": "reports/qa/v18-navigation.json"
+  },
+  "browser": {
+    "runtime": "reports/qa/v18-runtime.json",
+    "identityEndlessRegression": "reports/qa/v17-regression.json",
+    "controls": "reports/qa/v18-controls.json",
+    "viewports": [
+      [
+        1440,
+        900
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "errors": [],
+    "physicalPhone": false,
+    "physicalGamepad": false,
+    "humanCampaignPlayed": false
+  },
+  "restart": {
+    "coldFileReadySeconds": 24.307446999999996,
+    "offlineRestartMilliseconds": [
+      18.5,
+      17.30000001192093,
+      18.400000005960464,
+      28.900000005960464,
+      23.900000005960464
+    ],
+    "devRestartMilliseconds": [
+      22.69999998807907,
+      14.900000005960464,
+      12.800000011920929,
+      10.5,
+      12.299999982118607
+    ],
+    "repetitionsPerBuild": 5,
+    "sameWorldAndModels": true,
+    "newModelRequests": 0,
+    "gpuObjectCountsBefore": {
+      "geometries": 356,
+      "textures": 315,
+      "programs": 87
+    },
+    "gpuObjectCountsAfter": {
+      "geometries": 356,
+      "textures": 315,
+      "programs": 87
+    },
+    "notes": "UI click to ready-menu animation frame; includes fresh pods before each dev restart. Cached assets survive only while this page is open."
+  },
+  "performance": {
+    "evidence": "reports/qa/v18-performance.json",
+    "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "friendly": 28,
+    "enemies": 300,
+    "averageFps": 39.611210971306825,
+    "p95ms": 33.400000000001455,
+    "drawCalls": 273,
+    "stepCpu": {
+      "count": 721,
+      "meanMs": 7.1224687928217625,
+      "p95ms": 12.599999994039536
+    },
+    "renderCpu": {
+      "count": 476,
+      "meanMs": 11.760714286014814,
+      "p95ms": 14.300000011920929
+    },
+    "simulationBacklogSeconds": 0.00013333333333786362,
+    "notes": [
+      "Single desktop Chrome development build sample, balanced, 1440x900 DPR1, 15-second warmup and 12-second capture.",
+      "No synchronized baseline comparison or FPS improvement claim; diagnostic fixture, not campaign or physical-device performance."
+    ]
+  },
+  "designOnly": {
+    "file": "docs/DIFFICULTY_AND_TALENTS_PROPOSAL.md",
+    "hardImplemented": false,
+    "hellImplemented": false,
+    "talentsImplemented": false,
+    "fullClearMeritProposal": {
+      "easy": 90,
+      "normal": 120,
+      "hard": 180,
+      "hell": 240
+    }
+  },
+  "knownLimits": [
+    "The 197 MiB offline HTML still needs about 23 seconds for this machine's first load; closing/reloading the page discards GPU caches.",
+    "Desktop diagnostic FPS remains variable; no physical-phone or guaranteed minimum FPS claim.",
+    "Normal tuning and future difficulty/talent values are not a new human full-campaign balance validation.",
+    "Original fonts remain absent with system fallbacks; original asset byte identity is not fresh human SC2-client visual/listening approval."
+  ],
+  "endless": {
+    "unlock": "optional after stage 12 victory",
+    "mapStage": 12,
+    "roundSeconds": 240,
+    "initialIntervals": {
+      "wave": 8,
+      "elite": 30,
+      "boss": 90
+    },
+    "accelerationEvery": {
+      "wave": 30,
+      "elite": 60,
+      "boss": 90
+    },
+    "intervalFactors": {
+      "wave": 0.9,
+      "elite": 0.85,
+      "boss": 0.85
+    },
+    "newSpecialMinimumGrowth": {
+      "health": 1.4,
+      "damage": 1.25,
+      "attackSpeed": 1.15
+    },
+    "existingSpecialsRescaled": false,
+    "campaignBalanceChanged": false,
+    "humanLongRunBalanceVerified": false,
+    "note": "V18 changes controls/combat behavior only; map, wave budgets, enemy statistics, economy and endless scaling unchanged."
+  },
+  "controls": {
+    "desktop": [
+      "mouse",
+      "keyboard"
+    ],
+    "touch": [
+      "tap",
+      "joystick"
+    ],
+    "defaults": {
+      "desktop": "mouse",
+      "touch": "joystick"
+    },
+    "targetSelection": false,
+    "gamepad": "Left stick moves, right stick selects a fixed skill sector, A/X confirms. Release does not pursue.",
+    "thinkSeconds": [
+      0.24,
+      0.285
+    ],
+    "minimumMovingWindupSeconds": 0.1,
+    "repositionSeconds": 0.22,
+    "maximumMovingAimSeconds": 0.38,
+    "legacyNonstandard": "Existing left axes/buttons retained; right axes may require completing calibration."
+  }
 }

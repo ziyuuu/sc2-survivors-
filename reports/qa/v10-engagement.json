@@ -1,0 +1,320 @@
+{
+  "at": "2026-09-22T01:51:52.284Z",
+  "method": "Actual mouse and CDP touch in desktop Chrome using isolated combat fixtures on the imported Kairos map. Gamepad takeover uses simulated API snapshots. Not a playthrough, physical device test, visual approval or balance gate.",
+  "desktop": {
+    "enRouteAttack": {
+      "before": {
+        "order": null,
+        "anchor": {
+          "x": 0,
+          "z": 0,
+          "facing": 1.5707963267948966
+        },
+        "unit": {
+          "x": -0.01835111250619848,
+          "z": 0.00795214875268601,
+          "target": 3,
+          "shot": 0.35
+        },
+        "enemies": [
+          {
+            "id": 3,
+            "hp": 9995
+          }
+        ],
+        "gamepad": {
+          "active": false,
+          "index": null,
+          "calibrating": false,
+          "connected": []
+        }
+      },
+      "after": {
+        "order": {
+          "kind": "move",
+          "point": {
+            "x": 10.000000000000002,
+            "z": -0.01376477787690078
+          },
+          "arrived": false,
+          "issuedAt": 0.65
+        },
+        "anchor": {
+          "x": 4.57332900081251,
+          "z": -0.00629508578541727,
+          "facing": 1.5721728037132543
+        },
+        "unit": {
+          "x": 0.7858554031452541,
+          "z": 0.5330987235705885,
+          "target": 3,
+          "shot": 1
+        },
+        "enemies": [
+          {
+            "id": 3,
+            "hp": 9990
+          }
+        ],
+        "gamepad": {
+          "active": false,
+          "index": null,
+          "calibrating": false,
+          "connected": []
+        }
+      }
+    },
+    "unsettledSlotStillFires": true,
+    "leftHoldFocus": {
+      "before": {
+        "order": {
+          "kind": "focus",
+          "targetId": 16,
+          "hold": true,
+          "issuedAt": 3.533333333333333
+        },
+        "anchor": {
+          "x": 0,
+          "z": 0,
+          "facing": 1.5707963267948966
+        },
+        "unit": {
+          "x": 0,
+          "z": 0,
+          "target": 16,
+          "shot": 3.3666666666666667
+        },
+        "enemies": [
+          {
+            "id": 15,
+            "hp": 9995
+          },
+          {
+            "id": 16,
+            "hp": 10000
+          }
+        ],
+        "gamepad": {
+          "active": false,
+          "index": null,
+          "calibrating": false,
+          "connected": []
+        }
+      },
+      "after": {
+        "order": {
+          "kind": "focus",
+          "targetId": 16,
+          "hold": true,
+          "issuedAt": 3.533333333333333
+        },
+        "anchor": {
+          "x": 0,
+          "z": 0,
+          "facing": 1.5707963267948966
+        },
+        "unit": {
+          "x": 0,
+          "z": 0,
+          "target": 16,
+          "shot": 4.65
+        },
+        "enemies": [
+          {
+            "id": 15,
+            "hp": 9995
+          },
+          {
+            "id": 16,
+            "hp": 9990
+          }
+        ],
+        "gamepad": {
+          "active": false,
+          "index": null,
+          "calibrating": false,
+          "connected": []
+        }
+      }
+    },
+    "groundLeftAndHudDoNotReplaceFocus": true,
+    "unavailableFocusDefendsThenReacquires": true,
+    "focusDeathResumesFire": true,
+    "repeatedGroundClicksStillFire": true,
+    "rightFocusPursues": true,
+    "firstMouseCommandTakesOverHeldGamepad": true
+  },
+  "touch": [
+    {
+      "width": 390,
+      "height": 844,
+      "tapEngages": true,
+      "tapEnemyPursues": true,
+      "selected": "",
+      "scroll": [
+        0,
+        0
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "tapEngages": true,
+      "tapEnemyPursues": true,
+      "selected": "",
+      "scroll": [
+        0,
+        0
+      ]
+    }
+  ],
+  "errors": [],
+  "offline": {
+    "debug": "undefined",
+    "report": {
+      "map": {
+        "name": "Kairos Junction LE",
+        "models": 292,
+        "placements": 4956,
+        "visibleInstances": 534,
+        "area": 741.75,
+        "scale": 1,
+        "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+      },
+      "order": null,
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "models": 8,
+      "economicModels": 3,
+      "podModel": true,
+      "resourceModels": 3,
+      "resourceInstances": 0,
+      "errors": [],
+      "originalAnimationModels": 8,
+      "proceduralAnimationModels": 0,
+      "originalDeathModels": 8,
+      "animationAtlasBytes": 4707904,
+      "lodRatios": {
+        "zergling": 0.29555555555555557,
+        "roach": 0.44686192468619246,
+        "baneling": 0.29977246871444824,
+        "ravager": 0.29987531172069826
+      },
+      "effectTextures": 33,
+      "effects": {
+        "attack": 0,
+        "hit": 0,
+        "death": 0,
+        "movement": 0,
+        "bile": 0,
+        "active": 0,
+        "dropped": 0
+      },
+      "textures": 15,
+      "fps": 15.996800639872072,
+      "drawCalls": 182,
+      "triangles": 156818,
+      "entities": 1,
+      "maxStretch": 0.8534289620885492,
+      "spatialVisits": 3,
+      "collisionContacts": 0,
+      "phase": "battle",
+      "stage": 1,
+      "time": 0.31666666666666665,
+      "stats": {
+        "kills": 0,
+        "rescued": 0,
+        "failed": 0,
+        "produced": 0,
+        "started": 1,
+        "shots": 0,
+        "healed": 0,
+        "damage": 0,
+        "scvsRescued": 0,
+        "scvsLost": 0,
+        "dronesKilled": 0,
+        "ambientSpawned": 0
+      },
+      "assetsReady": true,
+      "simulationBacklogSeconds": 3.333333333408253e-05,
+      "audio": {
+        "originalDecoded": 6,
+        "decoded": [
+          {
+            "id": "shot",
+            "duration": 0.08995833333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "blast",
+            "duration": 0.3499583333333333,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "alert",
+            "duration": 0.44995833333333335,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.scv.ready",
+            "duration": 2.1729166666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.marine.attack",
+            "duration": 1.3626875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.hellion.attack",
+            "duration": 2.6566875,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.attack",
+            "duration": 0.8244791666666667,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.tank.siege",
+            "duration": 1.9696041666666666,
+            "channels": 1,
+            "sampleRate": 48000
+          },
+          {
+            "id": "sc2.medivac.heal",
+            "duration": 9.092270833333334,
+            "channels": 2,
+            "sampleRate": 48000
+          }
+        ],
+        "errors": [],
+        "played": {},
+        "activeHealers": 0
+      },
+      "gamepad": {
+        "active": false,
+        "index": null,
+        "calibrating": false,
+        "connected": []
+      }
+    },
+    "networkRequests": []
+  },
+  "runtimeCommit": "c0818ff31ddb39e4975e8a6b16760e574a8289c1"
+}

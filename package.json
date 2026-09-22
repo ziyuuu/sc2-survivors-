@@ -1,1 +1,41 @@
-{"name":"sc2-survivors-rework","version":"0.2.1-asset-integration","private":true,"type":"module","engines":{"node":">=22"},"scripts":{"start":"node tools/serve.mjs","test":"node --test test/*.test.mjs","assets:resolve":"node tools/sync-assets.mjs --index-only","assets:fetch":"node tools/sync-assets.mjs"}}
+{
+  "name": "sc2-survivors-rework",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "predev": "node tools/ensure-assets.mjs",
+    "dev": "vite --host 127.0.0.1",
+    "prestart": "node tools/ensure-assets.mjs",
+    "start": "vite --host 127.0.0.1",
+    "lab": "node tools/serve.mjs",
+    "test": "node --import tsx --test test/*.test.mjs test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run assets:prepare && tsc --noEmit && vite build && node tools/build-demo.mjs",
+    "test:browser": "node tools/qa-controls-v18.mjs",
+    "assets:resolve": "node tools/sync-assets.mjs --index-only",
+    "assets:fetch": "node tools/sync-assets.mjs",
+    "assets:prepare": "node tools/prepare-assets.mjs",
+    "assets:download": "node tools/download-runtime.mjs",
+    "assets:animate": "node tools/import-m3-pack.mjs && node tools/import-terrain.mjs && node tools/prepare-assets.mjs",
+    "assets:originals": "pwsh -NoProfile -File tools/fetch-sc2-casc.ps1",
+    "assets:map": "node tools/import-original-map.mjs",
+    "assets:expansion": "node tools/prepare-expansion.mjs"
+  },
+  "dependencies": {
+    "meshoptimizer": "1.2.0",
+    "three": "0.186.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/three": "0.186.0",
+    "@xmldom/xmldom": "0.9.12",
+    "esbuild": "0.28.2",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.0"
+  }
+}

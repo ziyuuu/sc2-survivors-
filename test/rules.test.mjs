@@ -1,13 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canAfford, spend, purchaseBuilding, startTraining, tickProduction, createPod,
-  damagePod, resolvePod, applyWeaponHit, tryFire, healBiological, drawThree, rerollThree, claimOne } from '../src/simulation/rules.mjs';
+import { canAfford, spend, purchaseBuilding, startTraining, tickProduction, applyWeaponHit, tryFire, healBiological, drawThree, rerollThree, claimOne } from '../src/simulation/rules.mjs';
 // Synthetic fixtures. They are deliberately NOT named Marine/Zergling or claimed to be SC2 stats.
 const wallet = () => ({ minerals: 1000, gas: 1000 });
 const buildingDef = { id: 'test-factory', cost: { minerals: 120, gas: 40 }, buildSeconds: 5, supportedTypes: ['test-unit'] };
 const unitDef = { id: 'test-unit', cost: { minerals: 20, gas: 2 }, trainSeconds: 8 };
 const ready = (id = 'b1') => ({ id, type: buildingDef.id, constructionRemaining: 0, supportedTypes: ['test-unit'], job: null, sequence: 0 });
-const pod = () => createPod({ id: 'p1', unitType: 'test-unit', producedAt: 10 }, 100, ['e1', 'e2']);
 const unit = (patch = {}) => ({ id: 'target', owner: 1, hp: 100, maxHp: 100, armor: 2, attributes: ['Biological','Light'], flying: false, ...patch });
 const weapon = { id: 'test-gun', damage: 12, hits: 2, minimumDamage: 0.5, period: 2, range: 5, minimumRange: 0, canMoveAndFire: false, targetLayer: 'ground', bonuses: [] };
 const healRule = { hpPerSecond: 10, energyPerHp: 0.5, range: 4 };
@@ -28,14 +26,6 @@ test('each building has an independent production timer', () => { const a=ready(
 test('menus pause production', () => { const b=ready();startTraining(b,wallet(),unitDef);assert.deepEqual(tickProduction([b],60,0,true),[]);assert.equal(b.job.remaining,8); });
 test('large step preserves production completion timestamp', () => { const b=ready();startTraining(b,wallet(),unitDef);assert.equal(tickProduction([b],20,40)[0].producedAt,48); });
 test('new jobs use distinct pod IDs', () => {const b=ready();startTraining(b,wallet(),unitDef);const a=tickProduction([b],8,0)[0];startTraining(b,wallet(),unitDef);const c=tickProduction([b],8,8)[0];assert.notEqual(a.id,c.id);});
-test('pod is threatened immediately and expires at spawn plus 30', () => { const p=pod();assert.equal(p.status,'under-attack');assert.equal(p.expiresAt,40); });
-test('pod deadline does not require player activation', () => {const p=pod();assert.equal(resolvePod(p,40,new Set(['e1','e2']),false).status,'expired');});
-test('pod can be destroyed before its 30 second deadline', () => {const p=pod();damagePod(p,100);assert.equal(resolvePod(p,15,new Set(),true).status,'destroyed');});
-test('rescue requires clearing assigned enemies and reaching pod', () => {const p=pod();assert.equal(resolvePod(p,20,new Set(['e1']),true),null);assert.equal(resolvePod(p,20,new Set(),false),null);assert.equal(resolvePod(p,21,new Set(),true).status,'rescued');});
-test('rescue cannot be claimed twice', () => {const p=pod();resolvePod(p,20,new Set(),true);assert.equal(resolvePod(p,21,new Set(),true),null);});
-test('expiry wins at exactly 30 seconds', () => {const p=pod();assert.equal(resolvePod(p,40,new Set(),true).grantReinforcement,false);});
-test('non-event enemies do not block the event clear check', () => {const p=pod();assert.equal(resolvePod(p,20,new Set(['unrelated']),true).status,'rescued');});
-test('pods require a real guardian group', () => assert.throws(()=>createPod({producedAt:0},100,[])));
 test('armor is applied separately to each weapon hit', () => {const u=unit();assert.equal(applyWeaponHit(u,weapon).damage,20);});
 test('attribute bonuses apply only to matching attributes', () => {const u=unit();assert.equal(applyWeaponHit(u,{...weapon,bonuses:[{attribute:'Light',amount:3}]}).damage,26);});
 test('the unit whose HP reaches zero dies, not another lower-ranked unit', () => {const a=unit({id:'veteran',hp:5,rank:5}), b=unit({id:'rookie',rank:1});assert.equal(applyWeaponHit(a,weapon).killedId,'veteran');assert.equal(b.hp,100);});

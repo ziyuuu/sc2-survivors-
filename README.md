@@ -1,50 +1,86 @@
-# 星际争霸 II：幸存者 · SC2 Survivors
+# SC2 SURVIVORS · 星际幸存小队
 
-**非官方、非商业玩法验证项目。当前分支是素材接入工程与交互验收页，不是已经完成的原版模型战斗 Demo。**
+《星际争霸 II》同人、非盈利的 Three.js 小队生存玩法验证。当前开发在 `D:\星际`、`v3/playable-sc2-demo`，保留 V2 素材实验页与既有实体模拟，没有覆盖 main。
 
-仓库：`ziyuuu/sc2-survivors-`（末尾有连字符）  
-分支：`v2/sc2-assets-ui`  
-视觉参考：https://starcraft-shooter-2026.pages.dev/
+当前 V18 将操作统一为方向／目的地和技能：自动索敌不再创建追击指令；设置可切换电脑鼠标／键盘、手机点击／摇杆；手柄右摇杆选技能、A／X 施放。五兵种、合批增援、15 款精英、三位英雄、12 关共 30 分钟及无尽模式保持。普通为原预算 90%，简单 50%。详见 [当前设计](docs/DESIGN.md)、[验收记录](docs/QA.md)。[困难／地狱与局外天赋](docs/DIFFICULTY_AND_TALENTS_PROPOSAL.md) 仍为设计稿。
 
-## 本次内容
+## 运行与构建
 
-- 42 项素材清单：8 个战斗模型、8 个兵种图标、6 个建筑图标、12 个科技/技能图标、3 个地形参考、控制台、标志、两种资源图标和降落仓模型。
-- 精确名称匹配、缺失/冲突报告、下载大小限制、文件结构检查、SHA-256 记录；索引匹配不会自动批准为原版素材。
-- 真实 GLB 加载与动画检查器、原图标槽位、三选一及付费刷新交互验收页。
-- 付费建筑/生产、一任务一降落仓、落地起计时 30 秒、独立血量与治疗、三选一的独立规则模块。
-- 65 项局部测试通过：38 项规则、7 项 GLB 校验、20 项资产目录测试。测试数值是合成数据，不是已验证 SC2 参数。
+需要 Node.js 22+，本机使用 24.14.0。
 
-## 运行
+```sh
+npm install
+npm run dev
+```
 
-需要 Node.js 22 或更高版本。测试与本地服务不要求安装 npm 依赖。
+打开 `http://127.0.0.1:5173/`。首次启动会下载已记录的公开原模型、贴图和图标，校验文件并在本地转换；这一步需要网络。以后开发运行使用本地资源。
 
 ```sh
 npm test
-npm start
+npm run typecheck
+npm run build
 ```
 
-打开 `http://127.0.0.1:4173/preview/`。这是素材验收页，不包含 12 关战斗循环；应通过 HTTP 打开，不是直接双击 HTML。
+单文件输出：**`D:\星际\dist\SC2-Survivors-Demo.html`**。双击即可离线运行，无需 Node 或服务器，CSS、JS、模型、纹理、图标、现有音频和配置全部内嵌。当前约 **197.12 MiB**，精确字节数与 SHA-256 见 `reports/STATUS.json`。资源采用字节分片共享、gzip 无损压缩与 HTML 安全 Base85 编码，解码器也内嵌；启动时恢复本地 Blob URL，全部 647 项与原文件 SHA-256 相同，没有删除或降采样动作、纹理。开发版和 HTML 共享 World，朋友版不含 F1 修改状态接口。暂停／结算界面的“重新部署”复用已加载模型与 GPU 数据，不再刷新整页。
+
+原声音与两项补充武器源文件可从锁定的暴雪公开 CASC 包取得（PowerShell 7.4+ / Python 3.12 / Git，仅在本机处理）：
+
+```powershell
+python -m pip install --target .cache/audio-python -r tools/audio-requirements.txt
+npm run assets:originals
+node tools/import-m3-pack.mjs fx.muzzle fx.flame
+npm run build
+```
+
+脚本只取 12 个指定文件，校验固定 SHA-256；保留原包，并把 9 个浏览器不能直接解码的 IMA ADPCM 声音转为同采样率、同声道 PCM16。SCV 中文 Ogg 保持原文件。素材包版本 5.0.16.97563 与既有 **5.0.15 规则数据** 分开锁定，未导入新版数值。
+
+小地图显示当前开放区域、视野范围、小队、敌军、资源、虫巢及带兵种字母的救援仓（M/R/H/T/+ 与乘员数量，SCV 为 S）。右键小地图移动，左键／右键点敌集火；触屏轻点移动或集火。高台可向低地开火，近战不能隔崖攻击。此前拥堵坡口已按新编队复测，见 [当前验收](docs/QA.md)。
+
+在开始或暂停界面的「设置 · 操作与画质」切换。电脑默认鼠标：左右键均为点击前往；键盘模式使用 WASD／方向键。手机默认虚拟摇杆，也可切换为轻点战场前往；小地图同样遵守点击设置。点到敌人只前往当时的位置，不持续追踪。小队自动优先处理前进方向附近的威胁，实际停步出弹后继续跟随；松开方向时就近交战，不被远处旧目标拉走。Space 推进、T 手动全队架炮／收炮、E 兴奋剂、1／2／3 英雄技能、Escape 暂停。触摸可同时移动和点技能，拖动／长按不误下移动命令。
+
+PC 手柄：左摇杆移动，右摇杆按屏幕六方向提示选择技能，A／X 确认；B 清除选择，Menu 暂停。松杆不会追击敌人。菜单使用左摇杆／方向键导航，A／X 确认。标准手柄自动识别，非标准手柄在设置中校准；旧非标准记录保留左杆与面键，需要补充右杆时有提示。断线暂停，重新接管先回中立。控制偏好和已加载资源在重新部署后保留。
+
+F1 仅在开发版提供资源、跳关、救援、指定敌人、速度、FPS、实体数、draw calls、战线长度、空间格子和碰撞体积。`npm run lab` 保留 V2 历史素材实验页，不是新版游戏。
+
+## 当前规则
+
+- 第 12 关胜利后可选择进入无尽，继续使用完整原地图、原小队、HP、资源、建筑和未解决事件。每轮 240 秒，结算、两轮选卡和英雄复活延续。小兵/精英/Boss 刷新间隔分别每 30/60/90 秒缩短；新精英与 Boss 逐只增强，已有敌人不变，详见当前设计。
+- 精英在战场显示紫色名字和等级，卡牌显示“已拥有/未拥有/待编入”与晋升目标。英雄有金色名字、脚下标记、小地图菱形、独立战场血条与 HUD 生命值；技能不可用不再让血条变暗。
+- 一名 Rank 1 枪兵、一座兵营、50 矿/0 气开局。人族枪兵、劫掠者、恶火、坦克、医疗艇各五席。虫族刺蛇从第七关加入，其余原有预算不变。
+- 建筑购买/解锁升级立即完成，训练保留原耗时。三个建筑组各一批，每座参与建筑一名乘员；整批足额扣费，完成后一个多人仓。同兵种仓未解决时不继续投放。劫掠者/枪兵、坦克/恶火交替；昂贵批次等待资金。
+- 降落仓没有超时，清完威胁逐个出舱，出口拥堵等待。毁仓不退款、杀死尚在仓内的乘员，守军留场。SCV 虫卵有独立 30 秒期限；Drone 为高收益资源目标。
+- 普通军衔最高五级；每类三款唯一精英替换普通席位，只能同款紫卡晋升，永久死亡。已付费普通增援优先保留容量。三个英雄使用额外席位，总友军最多 28，同名橙卡晋升，仅关间付费复活。
+- 英雄技能由玩家施放：键盘 1/2/3、屏幕技能栏、手柄右摇杆选择后 A/X。自动选择方向附近合法目标，无目标或超距不消耗技能。
+- 普通波次和守军为原预算的 90%；简单仍按来源、兵种累计原预算的 50%，经济仍 ×1.25。敌方精英从普通预算升格；3/6/9/12 关 Boss 参数两档相同。存活 Boss 跨关，末关仍须摧毁虫巢。
+- 通关奖励先到账，建筑与随机两轮均可多买、跳过、刷新。共享刷新费 50/90/130…矿，资源卡收益属于正常玩法。随机折扣、不按钱包筛选、不按伤亡降难度。
+- 绿队员 Rank 3、蓝 Rank 5 直接获得普通队员；紫精英、橙英雄和强化。补给情报最高五级，每级提升后续蓝紫橙基础概率 20%，从白色扣除。地图奖励免费，过期内容按原基础价格回收一次。
+
+所有新增精英/Boss/英雄数值属于本游戏适配，完整公式见 [DESIGN.md](docs/DESIGN.md)、`src/data/elites.ts`、`src/data/heroes.ts`、`src/data/enemies.ts`。自动规则测试、条件经济账本和人工试玩分别报告，不以自动操作通关作为普通标准。
+
+## 数据和素材
+
+基础数据固定 **LotV 5.0.15**，来源为 [SC2Data 导出快照 fbbd6429](https://github.com/Joshua-Leibold/SC2Data/tree/fbbd6429b1eb6978c78a092dc68ba09029d03171)，Normal 秒转换为 Faster：时长除 1.4，移速／回复率乘 1.4；不声称验证过当前安装客户端。Survivors 改动单独记录在 [DATA_SOURCES.md](docs/DATA_SOURCES.md)。
+
+战斗模型为 10 个基础单位、15 个精英皮肤、3 个英雄，共 28 款；原死亡变体、坦克两态/变形、医疗、降落仓、SCV、Drone 和虫卵继续使用原资源。31 个原图标（精英共用对应原兵种图标）、原榴弹/骨针、原声音及地图资源一并内嵌。新增模型按需解码和上传。来源及哈希见 `tools/expansion-models.json`、`tools/expansion-dependencies.json`，首次补齐执行 [素材管线](docs/ASSET_DOWNLOAD_REQUIRED.md) 的本地步骤。
+
+原素材不意味着复刻了 SC2 客户端画质。枪兵原上身动作与移动混合、开舱门骨骼、粒子时序、接触阴影和 PBR 都有网页适配。没有独立开舱动画；不把死亡当开门。原字体不存在时用系统回退，禁止下载未知字体。
+
+素材说明：[ANIMATION_EFFECTS.md](docs/ANIMATION_EFFECTS.md)。原声音、补齐的效果源文件与可复现下载路径：[ASSET_DOWNLOAD_REQUIRED.md](docs/ASSET_DOWNLOAD_REQUIRED.md)。下载失败绝不写入伪 GLB；生成资源、原包和 HTML 均在 Git 忽略目录，仅用于约定的朋友试玩。
+
+## 验证
 
 ```sh
-npm run assets:resolve
-npm run assets:fetch -- --kind=icon
-npm run assets:fetch -- --kind=model
+npm test
+npm run typecheck
+npm run build
+npm run test:browser
+node tools/qa-v16.mjs
+node tools/qa-gamepad-calibration.mjs
+node --import tsx tools/budget-envelope.mts
+node --import tsx tools/audit-map-crowding.mts
+python tools/audit-m3-independent.py
 ```
 
-下载仅进入 `.gitignore` 排除的 `assets/private/`；模型检查器通过 CDN 加载固定版本 Three.js。外部来源不可用时会显示错误，不偷偷换成几何占位模型。缺失资源会令下载命令以非零状态结束。
+全部地图边缘/坡脚：设置 `SC2_MAP_AUDIT_SHOULDERS=1` 后运行 `node --import tsx tools/audit-map-navigation.mts`。冻结本地性能对照：`node tools/build-performance-fixtures.mjs 2059e87`，设置 `SC2_PERF_URL` 指向生成的 baseline/optimized HTML 后运行 `node tools/qa-runtime-performance.mjs`；28 人扩展场景使用 `SC2_PERF_EXPANSION=1`。这些诊断副本带开发接口，朋友版不带。
 
-## 已核实的阻塞项
-
-2026-09-20 的 GitHub Actions 审计成功读取素材目录和参考站 HTML/CSS，但八个战斗模型的下载全部返回 HTTP 403；没有取得任何通过检查的原版模型。动作、贴图、Blender 导入和模型身份均未完成验证。
-
-参考站标题为 `StarCraft Shooter 2026`，CSS 声明 `SC2 Chinese`、`SC2 Eurostile`、`SC2 Extended` 三个字体别名。截图只捕获到加载画面，未核实加载后的完整 HUD。别名不证明字体内部身份或授权。
-
-本地 Chromium 访问验收页被运行环境以 `ERR_BLOCKED_BY_ADMINISTRATOR` 阻止；浏览器交互、桌面/手机截图、真机性能均未通过验证。详情见 `reports/STATUS.json`。
-
-## 原版素材边界
-
-社区目录中的同名条目不等于已验证的 Blizzard 原版。地形 JPG 只是选材参考，不是 SC2Map、地表材质全集或可行走地图；控制台缩略图不等于 HUD 切片。标志资源未取得前，文字标题是明确的回退。
-
-仓库当前公开，只存源码、索引与报告；不提交 Blizzard 资源包、字体文件或凭据。字体仅使用本地已安装名称与系统字体回退。StarCraft / StarCraft II 及相关素材和商标属于 Blizzard Entertainment 或相应作者。
-
-旧 V1 Demo 仍在上一轮交付中，本次分支未把旧画面冒充成新版，也没有把旧本地 Git 历史宣称已迁入远程仓库。
+浏览器脚本使用本地已安装 Chrome；本轮 V15 脚本固定本机安装路径，换电脑需调整。桌面鼠标/键盘输入流程、诊断边界场景、390×844／844×390 触摸与压力、断网 `file://` 分开记录。截图仅保存在本机。手机尺寸模拟不是手机真机；headless 加载或测试通过也不是人工视觉验收。

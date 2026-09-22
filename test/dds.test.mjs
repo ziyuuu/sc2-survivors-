@@ -1,0 +1,7 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {decodeDds,ddsToPng} from '../tools/dds-png.mjs';
+function fixture(format){const b=Buffer.alloc(format==='DXT1'?136:144);b.write('DDS ');b.writeUInt32LE(124,4);b.writeUInt32LE(4,12);b.writeUInt32LE(4,16);b.write(format,84);const c=format==='DXT1'?128:136;b.writeUInt16LE(0xf800,c);b.writeUInt16LE(0x07e0,c+2);return b;}
+test('BC1 red block decodes exactly and produces a self-contained PNG',()=>{const b=fixture('DXT1'),image=decodeDds(b);assert.equal(image.width,4);for(let i=0;i<16;i++)assert.deepEqual([...image.rgba.subarray(i*4,i*4+4)],[255,0,0,255]);assert.equal(ddsToPng(b).subarray(0,8).toString('hex'),'89504e470d0a1a0a');});
+test('BC3 alpha is independent of color endpoints',()=>{const b=fixture('DXT5');b[128]=128;b[129]=0;const image=decodeDds(b);assert.deepEqual([...image.rgba.subarray(0,4)],[255,0,0,128]);});
+test('asset conversion rejects HTML and truncated mip data',()=>{assert.throws(()=>decodeDds(Buffer.from('<html>403 forbidden</html>')),/header/);assert.throws(()=>decodeDds(fixture('DXT1').subarray(0,132)),/Truncated/);});
+
+test('BC2 original terrain preserves four-bit explicit alpha per pixel',()=>{const b=fixture('DXT3');b[128]=0x10;b[129]=0xfe;const i=decodeDds(b);assert.deepEqual([i.rgba[3],i.rgba[7],i.rgba[11],i.rgba[15]],[0,17,238,255]);assert.deepEqual([...i.rgba.subarray(0,3)],[255,0,0]);});

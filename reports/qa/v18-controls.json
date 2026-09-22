@@ -1,0 +1,640 @@
+{
+  "at": "2026-09-22T13:45:21.335Z",
+  "method": "Local desktop Chrome with actual pointer/keyboard events, CDP multi-touch and mocked Gamepad API. Screenshots remain local. No physical phone/gamepad or manual visual sign-off.",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "touch": false,
+      "checks": [
+        "mouse buttons set a fixed destination, never focus; keyboard movement gated",
+        "keyboard mode moves, release holds anchor, click ignored; settings freeze combat",
+        "gamepad release never chases; all six right-stick sectors; A/X skills during left-stick movement; menus do not cast; disconnect stops and pauses",
+        "preferences survive redeploy; settings fit viewport, no document scroll or text selection"
+      ],
+      "layout": {
+        "scrollX": 0,
+        "scrollY": 0,
+        "selection": "",
+        "width": 1440,
+        "overlayScroll": 900,
+        "viewport": 900,
+        "touchAction": "none",
+        "select": "none"
+      },
+      "renderer": {
+        "map": {
+          "name": "Kairos Junction LE",
+          "models": 292,
+          "placements": 4956,
+          "visibleInstances": 373,
+          "visibleMeshes": 141,
+          "area": 741.75,
+          "scale": 1,
+          "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+        },
+        "order": null,
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        },
+        "models": 10,
+        "variantModels": [
+          "hero.raynor",
+          "hero.tychus",
+          "hero.nova"
+        ],
+        "assetsPending": 0,
+        "economicModels": 3,
+        "podModel": true,
+        "resourceModels": 3,
+        "resourceInstances": 0,
+        "errors": [],
+        "originalAnimationModels": 10,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 10,
+        "animationAtlasBytes": 8364704,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826,
+          "hydralisk": 0.29652546406473107
+        },
+        "effectTextures": 46,
+        "effects": {
+          "attack": 0,
+          "hit": 0,
+          "death": 0,
+          "movement": 0,
+          "bile": 0,
+          "active": 0,
+          "dropped": 0
+        },
+        "textures": 18,
+        "fps": 50.329074719318776,
+        "requestedInstanceUploadBytes": 420,
+        "drawCalls": 149,
+        "triangles": 145611,
+        "entities": 1,
+        "maxStretch": 0,
+        "spatialVisits": 0,
+        "collisionContacts": 0,
+        "phase": "menu",
+        "stage": 1,
+        "endless": null,
+        "time": 0,
+        "stats": {
+          "kills": 0,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 0,
+          "started": 0,
+          "shots": 0,
+          "healed": 0,
+          "damage": 0,
+          "scvsRescued": 0,
+          "scvsLost": 0,
+          "dronesKilled": 0,
+          "ambientSpawned": 0
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 0,
+        "audio": {
+          "originalDecoded": 10,
+          "decoded": [
+            {
+              "id": "shot",
+              "duration": 0.08995833333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "blast",
+              "duration": 0.3499583333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "alert",
+              "duration": 0.44995833333333335,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.scv.ready",
+              "duration": 2.1729166666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.attack",
+              "duration": 1.3626875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.hellion.attack",
+              "duration": 2.6566875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.attack",
+              "duration": 0.8244791666666667,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.siege",
+              "duration": 1.9696041666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.medivac.heal",
+              "duration": 9.092270833333334,
+              "channels": 2,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.zergling.attack",
+              "duration": 0.7786666666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.roach.attack",
+              "duration": 1.46575,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.ravager.attack",
+              "duration": 1.1467708333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.death",
+              "duration": 1.0077083333333334,
+              "channels": 1,
+              "sampleRate": 48000
+            }
+          ],
+          "errors": [],
+          "played": {},
+          "activeHealers": 0
+        },
+        "gamepad": {
+          "active": false,
+          "selectedSkill": null,
+          "needsRightStickCalibration": false,
+          "index": null,
+          "calibrating": false,
+          "connected": [
+            {
+              "id": "QA standard",
+              "mapping": "standard",
+              "axes": 4,
+              "buttons": 17
+            }
+          ]
+        },
+        "controls": {
+          "desktop": "keyboard",
+          "touch": "joystick"
+        }
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "touch": true,
+      "checks": [
+        "joystick + skill multi-touch, pointer escape/cancel release, tap ignored in joystick mode",
+        "tap mode hides joystick and moves; drag does not issue a destination",
+        "gamepad release never chases; all six right-stick sectors; A/X skills during left-stick movement; menus do not cast; disconnect stops and pauses",
+        "preferences survive redeploy; settings fit viewport, no document scroll or text selection"
+      ],
+      "layout": {
+        "scrollX": 0,
+        "scrollY": 0,
+        "selection": "",
+        "width": 390,
+        "overlayScroll": 844,
+        "viewport": 844,
+        "touchAction": "none",
+        "select": "none"
+      },
+      "renderer": {
+        "map": {
+          "name": "Kairos Junction LE",
+          "models": 292,
+          "placements": 4956,
+          "visibleInstances": 136,
+          "visibleMeshes": 83,
+          "area": 741.75,
+          "scale": 1,
+          "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+        },
+        "order": null,
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 390,
+          "height": 844,
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "antialias": true
+        },
+        "models": 10,
+        "variantModels": [
+          "hero.raynor",
+          "hero.tychus",
+          "hero.nova"
+        ],
+        "assetsPending": 0,
+        "economicModels": 3,
+        "podModel": true,
+        "resourceModels": 3,
+        "resourceInstances": 0,
+        "errors": [],
+        "originalAnimationModels": 10,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 10,
+        "animationAtlasBytes": 8364704,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826,
+          "hydralisk": 0.29652546406473107
+        },
+        "effectTextures": 46,
+        "effects": {
+          "attack": 0,
+          "hit": 0,
+          "death": 0,
+          "movement": 0,
+          "bile": 0,
+          "active": 0,
+          "dropped": 0
+        },
+        "textures": 18,
+        "fps": 59.98800239952024,
+        "requestedInstanceUploadBytes": 420,
+        "drawCalls": 90,
+        "triangles": 109139,
+        "entities": 1,
+        "maxStretch": 0,
+        "spatialVisits": 0,
+        "collisionContacts": 0,
+        "phase": "menu",
+        "stage": 1,
+        "endless": null,
+        "time": 0,
+        "stats": {
+          "kills": 0,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 0,
+          "started": 0,
+          "shots": 0,
+          "healed": 0,
+          "damage": 0,
+          "scvsRescued": 0,
+          "scvsLost": 0,
+          "dronesKilled": 0,
+          "ambientSpawned": 0
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 0,
+        "audio": {
+          "originalDecoded": 10,
+          "decoded": [
+            {
+              "id": "shot",
+              "duration": 0.08995833333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "blast",
+              "duration": 0.3499583333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "alert",
+              "duration": 0.44995833333333335,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.scv.ready",
+              "duration": 2.1729166666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.attack",
+              "duration": 1.3626875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.hellion.attack",
+              "duration": 2.6566875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.attack",
+              "duration": 0.8244791666666667,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.siege",
+              "duration": 1.9696041666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.medivac.heal",
+              "duration": 9.092270833333334,
+              "channels": 2,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.zergling.attack",
+              "duration": 0.7786666666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.roach.attack",
+              "duration": 1.46575,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.ravager.attack",
+              "duration": 1.1467708333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.death",
+              "duration": 1.0077083333333334,
+              "channels": 1,
+              "sampleRate": 48000
+            }
+          ],
+          "errors": [],
+          "played": {},
+          "activeHealers": 0
+        },
+        "gamepad": {
+          "active": false,
+          "selectedSkill": null,
+          "needsRightStickCalibration": false,
+          "index": null,
+          "calibrating": false,
+          "connected": [
+            {
+              "id": "QA standard",
+              "mapping": "standard",
+              "axes": 4,
+              "buttons": 17
+            }
+          ]
+        },
+        "controls": {
+          "desktop": "mouse",
+          "touch": "tap"
+        }
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "touch": true,
+      "checks": [
+        "joystick + skill multi-touch, pointer escape/cancel release, tap ignored in joystick mode",
+        "tap mode hides joystick and moves; drag does not issue a destination",
+        "gamepad release never chases; all six right-stick sectors; A/X skills during left-stick movement; menus do not cast; disconnect stops and pauses",
+        "preferences survive redeploy; settings fit viewport, no document scroll or text selection"
+      ],
+      "layout": {
+        "scrollX": 0,
+        "scrollY": 0,
+        "selection": "",
+        "width": 844,
+        "overlayScroll": 435,
+        "viewport": 390,
+        "touchAction": "none",
+        "select": "none"
+      },
+      "renderer": {
+        "map": {
+          "name": "Kairos Junction LE",
+          "models": 292,
+          "placements": 4956,
+          "visibleInstances": 446,
+          "visibleMeshes": 161,
+          "area": 741.75,
+          "scale": 1,
+          "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+        },
+        "order": null,
+        "resolution": {
+          "quality": "balanced",
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 844,
+          "height": 390,
+          "cssWidth": 844,
+          "cssHeight": 390,
+          "antialias": true
+        },
+        "models": 10,
+        "variantModels": [
+          "hero.raynor",
+          "hero.tychus",
+          "hero.nova"
+        ],
+        "assetsPending": 0,
+        "economicModels": 3,
+        "podModel": true,
+        "resourceModels": 3,
+        "resourceInstances": 0,
+        "errors": [],
+        "originalAnimationModels": 10,
+        "proceduralAnimationModels": 0,
+        "originalDeathModels": 10,
+        "animationAtlasBytes": 8364704,
+        "lodRatios": {
+          "zergling": 0.29555555555555557,
+          "roach": 0.44686192468619246,
+          "baneling": 0.29977246871444824,
+          "ravager": 0.29987531172069826,
+          "hydralisk": 0.29652546406473107
+        },
+        "effectTextures": 46,
+        "effects": {
+          "attack": 0,
+          "hit": 0,
+          "death": 0,
+          "movement": 0,
+          "bile": 0,
+          "active": 0,
+          "dropped": 0
+        },
+        "textures": 18,
+        "fps": 60,
+        "requestedInstanceUploadBytes": 420,
+        "drawCalls": 169,
+        "triangles": 154806,
+        "entities": 1,
+        "maxStretch": 0,
+        "spatialVisits": 0,
+        "collisionContacts": 0,
+        "phase": "menu",
+        "stage": 1,
+        "endless": null,
+        "time": 0,
+        "stats": {
+          "kills": 0,
+          "rescued": 0,
+          "failed": 0,
+          "produced": 0,
+          "started": 0,
+          "shots": 0,
+          "healed": 0,
+          "damage": 0,
+          "scvsRescued": 0,
+          "scvsLost": 0,
+          "dronesKilled": 0,
+          "ambientSpawned": 0
+        },
+        "assetsReady": true,
+        "simulationBacklogSeconds": 0,
+        "audio": {
+          "originalDecoded": 10,
+          "decoded": [
+            {
+              "id": "shot",
+              "duration": 0.08995833333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "blast",
+              "duration": 0.3499583333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "alert",
+              "duration": 0.44995833333333335,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.scv.ready",
+              "duration": 2.1729166666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.attack",
+              "duration": 1.3626875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.hellion.attack",
+              "duration": 2.6566875,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.attack",
+              "duration": 0.8244791666666667,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.tank.siege",
+              "duration": 1.9696041666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.medivac.heal",
+              "duration": 9.092270833333334,
+              "channels": 2,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.zergling.attack",
+              "duration": 0.7786666666666666,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.roach.attack",
+              "duration": 1.46575,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.ravager.attack",
+              "duration": 1.1467708333333333,
+              "channels": 1,
+              "sampleRate": 48000
+            },
+            {
+              "id": "sc2.marine.death",
+              "duration": 1.0077083333333334,
+              "channels": 1,
+              "sampleRate": 48000
+            }
+          ],
+          "errors": [],
+          "played": {},
+          "activeHealers": 0
+        },
+        "gamepad": {
+          "active": false,
+          "selectedSkill": null,
+          "needsRightStickCalibration": false,
+          "index": null,
+          "calibrating": false,
+          "connected": [
+            {
+              "id": "QA standard",
+              "mapping": "standard",
+              "axes": 4,
+              "buttons": 17
+            }
+          ]
+        },
+        "controls": {
+          "desktop": "mouse",
+          "touch": "tap"
+        }
+      }
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,39 @@
+{
+  "method": "Mocked generic nonstandard controller, physical pad not connected.",
+  "checks": [
+    "custom face buttons, axes and analogue trigger calibration persisted",
+    "saved mapping reused after reload; controller deploy and pause"
+  ],
+  "errors": [],
+  "mapping": {
+    "x": 0,
+    "y": 1,
+    "invertX": 1,
+    "invertY": 1,
+    "confirm": {
+      "button": 2
+    },
+    "back": {
+      "button": 1
+    },
+    "stim": {
+      "button": 0
+    },
+    "siege": {
+      "button": 3
+    },
+    "pause": {
+      "button": 9
+    },
+    "previous": {
+      "axis": 2,
+      "sign": 1,
+      "rest": -1
+    },
+    "next": {
+      "axis": 3,
+      "sign": 1,
+      "rest": -1
+    }
+  }
+}

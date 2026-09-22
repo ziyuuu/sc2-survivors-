@@ -1,0 +1,3715 @@
+{
+  "method": "Independent M3Studio binary reader vs shipped GLB source names, bone IDs and clip durations. Local only; not a Blender-render or human visual acceptance.",
+  "readerSources": {
+    "io_m3.py": "9bd7b3f8632f9ba5e614d19d847ab1ca34bee448f4d1687a0a817e05e7ec901e",
+    "structures.xml": "d50574e91b5c885698c04f7c010ad2461a1de233873b118070da71e7e559df32",
+    "LICENSE": "b90ed8150a6d371c84b7dbaa680cd0e9893ef7c2558765e1e00930513efcfe3b"
+  },
+  "models": [
+    {
+      "id": "model.marine",
+      "source": "https://dist.sc2arcade.com/star-assets/models/marine.m3",
+      "bones": 38,
+      "bonesPresentInGlb": 38,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 24,
+      "checkedExportedClips": 24,
+      "glbClips": 25
+    },
+    {
+      "id": "model.hellion",
+      "source": "https://dist.sc2arcade.com/star-assets/models/hellionex1.m3",
+      "bones": 24,
+      "bonesPresentInGlb": 24,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 11,
+      "checkedExportedClips": 11,
+      "glbClips": 12
+    },
+    {
+      "id": "model.tank",
+      "source": "https://dist.sc2arcade.com/star-assets/models/tankex1.m3",
+      "bones": 51,
+      "bonesPresentInGlb": 51,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.zergling",
+      "source": "https://dist.sc2arcade.com/star-assets/models/zergling.m3",
+      "bones": 44,
+      "bonesPresentInGlb": 44,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 16,
+      "checkedExportedClips": 16,
+      "glbClips": 16
+    },
+    {
+      "id": "model.roach",
+      "source": "https://dist.sc2arcade.com/star-assets/models/roach.m3",
+      "bones": 44,
+      "bonesPresentInGlb": 44,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 27,
+      "checkedExportedClips": 27,
+      "glbClips": 27
+    },
+    {
+      "id": "model.baneling",
+      "source": "https://dist.sc2arcade.com/star-assets/models/banelingex1.m3",
+      "bones": 49,
+      "bonesPresentInGlb": 49,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 17,
+      "checkedExportedClips": 17,
+      "glbClips": 19
+    },
+    {
+      "id": "model.ravager",
+      "source": "https://dist.sc2arcade.com/star-assets/models/ravager.m3",
+      "bones": 52,
+      "bonesPresentInGlb": 52,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 20,
+      "checkedExportedClips": 20,
+      "glbClips": 20
+    },
+    {
+      "id": "model.tank.siege",
+      "source": "https://dist.sc2arcade.com/star-assets/models/siegetank.m3",
+      "bones": 55,
+      "bonesPresentInGlb": 55,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.tank.morph",
+      "source": "https://dist.sc2arcade.com/star-assets/models/siegetankmorph.m3",
+      "bones": 73,
+      "bonesPresentInGlb": 73,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.marine.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/marinedeathex1.m3",
+      "bones": 48,
+      "bonesPresentInGlb": 48,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.hellion.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/helliondeath.m3",
+      "bones": 27,
+      "bonesPresentInGlb": 27,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.tank.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/siegetankdeathex1.m3",
+      "bones": 56,
+      "bonesPresentInGlb": 56,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.zergling.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/zerglingdeathex1.m3",
+      "bones": 50,
+      "bonesPresentInGlb": 50,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.roach.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/roachdeathex1.m3",
+      "bones": 47,
+      "bonesPresentInGlb": 47,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 7,
+      "checkedExportedClips": 7,
+      "glbClips": 7
+    },
+    {
+      "id": "model.baneling.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/banelingex1deathrupture.m3",
+      "bones": 29,
+      "bonesPresentInGlb": 29,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.ravager.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/ravager_death_00.m3",
+      "bones": 70,
+      "bonesPresentInGlb": 70,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.droppod",
+      "source": "https://dist.sc2arcade.com/star-assets/models/droppodfalling.m3",
+      "bones": 53,
+      "bonesPresentInGlb": 53,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.scv",
+      "source": "https://dist.sc2arcade.com/star-assets/models/scv.m3",
+      "bones": 43,
+      "bonesPresentInGlb": 43,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 16,
+      "checkedExportedClips": 16,
+      "glbClips": 16
+    },
+    {
+      "id": "model.drone",
+      "source": "https://dist.sc2arcade.com/star-assets/models/drone.m3",
+      "bones": 45,
+      "bonesPresentInGlb": 45,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.egg",
+      "source": "https://dist.sc2arcade.com/star-assets/models/banelingegg.m3",
+      "bones": 21,
+      "bonesPresentInGlb": 21,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.terrain.rock",
+      "source": "https://dist.sc2arcade.com/star-assets/models/chardunerock_00.m3",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.terrain.wreck",
+      "source": "https://dist.sc2arcade.com/star-assets/models/barrackswrecked_00.m3",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 6,
+      "checkedExportedClips": 6,
+      "glbClips": 6
+    },
+    {
+      "id": "model.medivac",
+      "source": "https://dist.sc2arcade.com/star-assets/models/medivacex1.m3",
+      "bones": 47,
+      "bonesPresentInGlb": 47,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 11,
+      "checkedExportedClips": 11,
+      "glbClips": 11
+    },
+    {
+      "id": "model.medivac.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/medivacdeath_00.m3",
+      "bones": 25,
+      "bonesPresentInGlb": 25,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.loot.mineral",
+      "source": "https://dist.sc2arcade.com/star-assets/models/crystal.m3",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.loot.gas",
+      "source": "https://dist.sc2arcade.com/star-assets/models/gascanister.m3",
+      "bones": 8,
+      "bonesPresentInGlb": 8,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.loot.large",
+      "source": "https://dist.sc2arcade.com/star-assets/models/spacemineralcluster_00.m3",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.avernusbarrier_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.avernusbarrier_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.barrels_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.barrels_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.barrels_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.brambles_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.map.brambles_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.map.brambles_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.map.brambles_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.map.brambles_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.map.brambles_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.map.brambles_06",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.map.brambles_07",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.map.chainlinkfencediagonal_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.map.chainlinkfencepost",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.map.chainlinkfencestraight_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.map.chainlinkfencestraight_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.map.cliffmade13_bbbc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbbc_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbbc_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbbc_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbbd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbbd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbbd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbbd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbcc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbcc_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbcc_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbcc_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbcd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbdc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbdd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbdd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbdd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bbdd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bccc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bccc_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bccc_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bccc_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bccd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bdcc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bddd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bddd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bddd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_bddd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_cccd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_cccd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_cccd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_cccd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_ccdd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_ccdd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_ccdd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_ccdd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_cddd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_cddd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffmade13_cddd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_aabb_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_aabb_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_aadb_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_abbb_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_abbb_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_abcb_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_abcc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_abdb_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_abdd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_acdd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_addb_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_addd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_addd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbbc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbbc_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbbc_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbbc_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbbd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbbd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbbd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbbd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbcc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbcc_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbcc_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbcc_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbcd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbdc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbdd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbdd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbdd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bbdd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bcbc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bcbc_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bcbc_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bcbc_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bcbd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bccc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bccc_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bccc_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bccc_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bccd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bcdc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bcdd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bdbd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bdcc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bdcd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bddc_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bddd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bddd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bddd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_bddd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cccd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cccd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cccd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cccd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_ccdd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_ccdd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_ccdd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_ccdd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cdcd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cdcd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cdcd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cdcd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cddd_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cddd_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cddd_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.cliffnatural0ex1_cddd_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.compoundsewers_exhaustpipes_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.compoundsewers_exhaustpipes_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.compoundsewers_exhaustpipes_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.compoundsewers_exhaustpipes_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.compoundsewers_exhaustpipes_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.compoundsewers_exhaustpipes_06",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 6,
+      "bonesPresentInGlb": 6,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.compoundsewers_exhaustpipes_07",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.crate_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 6,
+      "checkedExportedClips": 6,
+      "glbClips": 6
+    },
+    {
+      "id": "model.map.crate_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 6,
+      "checkedExportedClips": 6,
+      "glbClips": 6
+    },
+    {
+      "id": "model.map.crate_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 6,
+      "checkedExportedClips": 6,
+      "glbClips": 6
+    },
+    {
+      "id": "model.map.crate_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 6,
+      "checkedExportedClips": 6,
+      "glbClips": 6
+    },
+    {
+      "id": "model.map.crate_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 6,
+      "checkedExportedClips": 6,
+      "glbClips": 6
+    },
+    {
+      "id": "model.map.crate_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 6,
+      "checkedExportedClips": 6,
+      "glbClips": 6
+    },
+    {
+      "id": "model.map.crystalslow_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.crystalslow_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.crystalslow_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.crystalslow_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.crystalslow_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.crystalslow_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.crystalslow_06",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.crystalslow_07",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.crystalslow_08",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.crystalslow_09",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.map.destructiblerockhuge",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 60,
+      "bonesPresentInGlb": 60,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 6,
+      "checkedExportedClips": 6,
+      "glbClips": 6
+    },
+    {
+      "id": "model.map.dom_labconsoles_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 13,
+      "bonesPresentInGlb": 13,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.dom_labglasswalls_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.dom_labglasswalls_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.dom_labstasistubewalls_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 13,
+      "bonesPresentInGlb": 13,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.dom_labwallscreens_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 11,
+      "bonesPresentInGlb": 11,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.map.dom_rocket_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.floodlight_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 7,
+      "bonesPresentInGlb": 7,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.gasstation",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.halfstructureplates_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.halfstructureplates_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.halfstructureplates_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.halfstructureplates_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.korhal_destructible_platform_large",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 4,
+      "bonesPresentInGlb": 4,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.labminerals_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 12,
+      "bonesPresentInGlb": 12,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.map.labminerals_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 12,
+      "bonesPresentInGlb": 12,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.map.labminerals_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 12,
+      "bonesPresentInGlb": 12,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.map.labminerals_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 12,
+      "bonesPresentInGlb": 12,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.map.labminerals_07",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 12,
+      "bonesPresentInGlb": 12,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.map.labminerals_08",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 12,
+      "bonesPresentInGlb": 12,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.map.labminerals_09",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 12,
+      "bonesPresentInGlb": 12,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.map.marsaracactus_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaracactus_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaracactus_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaracactus_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaracactus_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaracliffdoodadlarge_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 7,
+      "checkedExportedClips": 7,
+      "glbClips": 7
+    },
+    {
+      "id": "model.map.marsaracurtain_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaracurtain_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaracurtain_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaragroundprop_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaragroundprop_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaratreedead_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaratreedead_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaratreedead_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaratreedead_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaratreedead_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.marsaratreedead_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.newfolsommisc_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.newfolsommisc_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.pipescorner_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.pipescorner_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.pipescorner_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.pipesshort_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_large_rock_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_large_rock_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_large_rock_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_large_rock_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_large_rock_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_large_rock_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_large_rock_06",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_large_rock_07",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_medium_rock_group_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_medium_rock_group_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_medium_rock_group_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_medium_rock_group_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_medium_rock_group_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_medium_rock_group_06",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_medium_rock_group_07",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_small_rock_group_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_small_rock_group_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_small_rock_group_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.purificationdesert_small_rock_group_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.redstonerockspiresnobase_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.redstonerockspiresnobase_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.redstonerockspiresnobase_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.redstonerockspiresnobase_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.redstonerockspiresnobase_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_06",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_07",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_08",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_09",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rock_10",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_06",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_07",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_08",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_09",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_10",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_11",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_12",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_13",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_14",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_15",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_16",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_17",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_18",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_19",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_20",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_21",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_22",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.rocklarge_23",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.signswarning_13",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.slayn_brambles_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 6,
+      "bonesPresentInGlb": 6,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.slayn_brambles_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 6,
+      "bonesPresentInGlb": 6,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.slayn_brambles_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.slayn_brambles_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.storefrontcityprops_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 8,
+      "bonesPresentInGlb": 8,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.storefrontcityprops_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 8,
+      "bonesPresentInGlb": 8,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.supplytanks",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.tarsonis_store_front_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.tarsonis_store_front_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.unbuildableplates_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 19,
+      "bonesPresentInGlb": 19,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.map.vespenegeyser_ex2_low",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 30,
+      "bonesPresentInGlb": 30,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.map.cargotruck_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 8,
+      "bonesPresentInGlb": 8,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.map.colonisthut_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 20,
+      "bonesPresentInGlb": 20,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.colonisthut_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 20,
+      "bonesPresentInGlb": 20,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.colonisthut_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 20,
+      "bonesPresentInGlb": 20,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.colonisthut_06",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 23,
+      "bonesPresentInGlb": 23,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.dom_crate_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.dom_crate_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.dom_crate_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.dom_crate_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.jarbanminor_bloodsmear_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 0,
+      "staticProjectionTransformBaked": true,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 0
+    },
+    {
+      "id": "model.map.jarbanminor_cranepart_04",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.jarbanminor_cranepart_06",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.jarbanminor_cranepart_07",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.map.jarbanminor_crate_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.jarbanminor_crate_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.jarbanminor_crate_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.jarbanminor_crate_05",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.jarbanminor_miningbot_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 12,
+      "bonesPresentInGlb": 12,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.map.jarbanminor_miningbot_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 5,
+      "bonesPresentInGlb": 5,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.map.jarbanminor_miningbot_broken_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 5,
+      "bonesPresentInGlb": 5,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.map.mineralcart_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.mineralcart_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.mineralcart_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.mineralcart_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.spaceplatformbarrier_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 8,
+      "bonesPresentInGlb": 8,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.spaceplatformbarrier_02",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 8,
+      "bonesPresentInGlb": 8,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.spaceplatformbarrier_03",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 8,
+      "bonesPresentInGlb": 8,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.spaceplatformgeyser_ex3",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 22,
+      "bonesPresentInGlb": 22,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.map.spaceplatformsigntowerlarge_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 2,
+      "bonesPresentInGlb": 2,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.map.watertank_01",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.map.watertanktall_00",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.elite.marine.1",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 40,
+      "bonesPresentInGlb": 40,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 24,
+      "checkedExportedClips": 24,
+      "glbClips": 24
+    },
+    {
+      "id": "model.elite.marine.1.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 55,
+      "bonesPresentInGlb": 55,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 8,
+      "checkedExportedClips": 8,
+      "glbClips": 8
+    },
+    {
+      "id": "model.elite.marine.2",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 50,
+      "bonesPresentInGlb": 50,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 24,
+      "checkedExportedClips": 24,
+      "glbClips": 24
+    },
+    {
+      "id": "model.elite.marine.2.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 35,
+      "bonesPresentInGlb": 35,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.elite.marine.3",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 38,
+      "bonesPresentInGlb": 38,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 24,
+      "checkedExportedClips": 24,
+      "glbClips": 24
+    },
+    {
+      "id": "model.elite.marine.3.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 53,
+      "bonesPresentInGlb": 53,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 8,
+      "checkedExportedClips": 8,
+      "glbClips": 8
+    },
+    {
+      "id": "model.elite.marauder.1",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 52,
+      "bonesPresentInGlb": 52,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 14,
+      "checkedExportedClips": 14,
+      "glbClips": 14
+    },
+    {
+      "id": "model.elite.marauder.1.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 59,
+      "bonesPresentInGlb": 59,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.elite.marauder.2",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 51,
+      "bonesPresentInGlb": 51,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 14,
+      "checkedExportedClips": 14,
+      "glbClips": 14
+    },
+    {
+      "id": "model.elite.marauder.2.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 59,
+      "bonesPresentInGlb": 59,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.elite.marauder.3",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 56,
+      "bonesPresentInGlb": 56,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 20,
+      "checkedExportedClips": 20,
+      "glbClips": 20
+    },
+    {
+      "id": "model.elite.marauder.3.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 68,
+      "bonesPresentInGlb": 68,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.elite.hellion.1",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 23,
+      "bonesPresentInGlb": 23,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 11,
+      "checkedExportedClips": 11,
+      "glbClips": 11
+    },
+    {
+      "id": "model.elite.hellion.1.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 29,
+      "bonesPresentInGlb": 29,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.elite.hellion.2",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 23,
+      "bonesPresentInGlb": 23,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 11,
+      "checkedExportedClips": 11,
+      "glbClips": 11
+    },
+    {
+      "id": "model.elite.hellion.2.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 29,
+      "bonesPresentInGlb": 29,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.elite.hellion.3",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 24,
+      "bonesPresentInGlb": 24,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 11,
+      "checkedExportedClips": 11,
+      "glbClips": 11
+    },
+    {
+      "id": "model.elite.hellion.3.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 31,
+      "bonesPresentInGlb": 31,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.elite.tank.1",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 49,
+      "bonesPresentInGlb": 49,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 13,
+      "checkedExportedClips": 13,
+      "glbClips": 13
+    },
+    {
+      "id": "model.elite.tank.1.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 78,
+      "bonesPresentInGlb": 78,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.elite.tank.1.siege",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 84,
+      "bonesPresentInGlb": 84,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.elite.tank.1.morph",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 72,
+      "bonesPresentInGlb": 72,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.elite.tank.2",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 49,
+      "bonesPresentInGlb": 49,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.elite.tank.2.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 57,
+      "bonesPresentInGlb": 57,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.elite.tank.2.siege",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 54,
+      "bonesPresentInGlb": 54,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.elite.tank.2.morph",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 72,
+      "bonesPresentInGlb": 72,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.elite.tank.3",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 45,
+      "bonesPresentInGlb": 45,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.elite.tank.3.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 58,
+      "bonesPresentInGlb": 58,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.elite.tank.3.siege",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 54,
+      "bonesPresentInGlb": 54,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.elite.tank.3.morph",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 70,
+      "bonesPresentInGlb": 70,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.elite.medivac.1",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 47,
+      "bonesPresentInGlb": 47,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 11,
+      "checkedExportedClips": 11,
+      "glbClips": 11
+    },
+    {
+      "id": "model.elite.medivac.1.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 25,
+      "bonesPresentInGlb": 25,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.elite.medivac.2",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 38,
+      "bonesPresentInGlb": 38,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.elite.medivac.2.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 23,
+      "bonesPresentInGlb": 23,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.elite.medivac.3",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 36,
+      "bonesPresentInGlb": 36,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.elite.medivac.3.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 23,
+      "bonesPresentInGlb": 23,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.hero.raynor",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 48,
+      "bonesPresentInGlb": 48,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 27,
+      "checkedExportedClips": 27,
+      "glbClips": 27
+    },
+    {
+      "id": "model.hero.tychus",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 65,
+      "bonesPresentInGlb": 65,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 16,
+      "checkedExportedClips": 16,
+      "glbClips": 16
+    },
+    {
+      "id": "model.hero.nova",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 58,
+      "bonesPresentInGlb": 58,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 105,
+      "checkedExportedClips": 105,
+      "glbClips": 105
+    },
+    {
+      "id": "model.marauder",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 58,
+      "bonesPresentInGlb": 58,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 20,
+      "checkedExportedClips": 20,
+      "glbClips": 20
+    },
+    {
+      "id": "model.hydralisk",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 45,
+      "bonesPresentInGlb": 45,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 24,
+      "checkedExportedClips": 24,
+      "glbClips": 24
+    },
+    {
+      "id": "model.marauder.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 69,
+      "bonesPresentInGlb": 69,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.hydralisk.death",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 59,
+      "bonesPresentInGlb": 59,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.projectile.marauder",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 7,
+      "bonesPresentInGlb": 7,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.projectile.hydralisk",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "staticProjectionTransformBaked": false,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    }
+  ],
+  "external": [
+    {
+      "id": "model.marine",
+      "source": "https://dist.sc2arcade.com/star-assets/models/marine_swarmanims.m3a",
+      "originalSequences": {
+        "Flail": 0.834
+      },
+      "transformIds": 72,
+      "matchedIds": 72,
+      "imported": [
+        "Flail"
+      ],
+      "usedForCombat": false,
+      "binding": "accepted clips match base transform IDs"
+    },
+    {
+      "id": "model.hellion",
+      "source": "https://dist.sc2arcade.com/star-assets/models/hellion_swarmanims.m3a",
+      "originalSequences": {
+        "Flail": 0.8
+      },
+      "transformIds": 72,
+      "matchedIds": 72,
+      "imported": [
+        "Flail"
+      ],
+      "usedForCombat": false,
+      "binding": "accepted clips match base transform IDs"
+    },
+    {
+      "id": "model.tank",
+      "source": "https://dist.sc2arcade.com/star-assets/models/tank_swarmanims.m3a",
+      "originalSequences": {
+        "Flail": 0.867
+      },
+      "transformIds": 132,
+      "matchedIds": 126,
+      "imported": [],
+      "usedForCombat": false,
+      "binding": "rejected: not all track IDs bind to current base skeleton"
+    },
+    {
+      "id": "model.baneling",
+      "source": "https://dist.sc2arcade.com/star-assets/models/baneling_voidanims.m3a",
+      "originalSequences": {
+        "Birth A": 0.9,
+        "Birth A Walk": 1.0
+      },
+      "transformIds": 147,
+      "matchedIds": 147,
+      "imported": [
+        "Birth A",
+        "Birth A Walk"
+      ],
+      "usedForCombat": false,
+      "binding": "accepted clips match base transform IDs"
+    }
+  ],
+  "mismatches": [],
+  "totals": {
+    "models": 364,
+    "bones": 4045,
+    "clips": 1272,
+    "mismatches": 0
+  }
+}

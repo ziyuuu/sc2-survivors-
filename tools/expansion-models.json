@@ -1,0 +1,306 @@
+[
+  {
+    "id": "model.marauder",
+    "modelDataId": "Marauder",
+    "assetPath": "Assets/Units/Terran/Marauder/Marauder.m3",
+    "name": "marauder",
+    "sourceScale": null
+  },
+  {
+    "id": "model.hydralisk",
+    "modelDataId": "Hydralisk",
+    "assetPath": "Assets/Units/Zerg/Hydralisk/Hydralisk.m3",
+    "name": "hydralisk",
+    "sourceScale": "0.750000,0.750000,0.750000"
+  },
+  {
+    "id": "model.marauder.death",
+    "modelDataId": "MarauderDeath",
+    "assetPath": "Assets/Units/Terran/MarauderDeathEx1/MarauderDeathEx1.m3",
+    "name": "marauderdeathex1",
+    "sourceScale": null
+  },
+  {
+    "id": "model.hydralisk.death",
+    "modelDataId": "HydraliskDeath",
+    "assetPath": "Assets/Units/Zerg/HydraliskDeathEx1/HydraliskDeathEx1.m3",
+    "name": "hydraliskdeathex1",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marine.1",
+    "modelDataId": "Marine_CovertOps_Collection",
+    "assetPath": "Assets/Units/Terran/Marine_CovertOps_Collection/Marine_CovertOps_Collection.m3",
+    "name": "marine_covertops_collection",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marine.1.death",
+    "modelDataId": "Marine_CovertOps_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Marine_CovertOps_Collection_Death/Marine_CovertOps_Collection_Death.m3",
+    "name": "marine_covertops_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marine.2",
+    "modelDataId": "Marine_Merc_Collection",
+    "assetPath": "Assets/Units/Terran/MarineXPReward/MarineXPReward.m3",
+    "name": "marinexpreward",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marine.2.death",
+    "modelDataId": "Marine_Merc_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Marine_Merc_Collection_Death/Marine_Merc_Collection_Death.m3",
+    "name": "marine_merc_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marine.3",
+    "modelDataId": "Marine_Junker_Collection",
+    "assetPath": "Assets/Units/Terran/Marine_Junker_Collection/Marine_Junker_Collection.m3",
+    "name": "marine_junker_collection",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marine.3.death",
+    "modelDataId": "Marine_Junker_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Marine_Junker_Collection_Death/Marine_Junker_Collection_Death.m3",
+    "name": "marine_junker_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marauder.1",
+    "modelDataId": "Marauder_CovertOps_Collection",
+    "assetPath": "Assets/Units/Terran/Marauder_CovertOps_Collection/Marauder_CovertOps_Collection.m3",
+    "name": "marauder_covertops_collection",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marauder.1.death",
+    "modelDataId": "Marauder_CovertOps_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Marauder_CovertOps_Collection_Death/Marauder_CovertOps_Collection_Death.m3",
+    "name": "marauder_covertops_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marauder.2",
+    "modelDataId": "Marauder_Merc_Collection",
+    "assetPath": "Assets/Units/Terran/Marauder_Merc_Collection/Marauder_Merc_Collection.m3",
+    "name": "marauder_merc_collection",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marauder.2.death",
+    "modelDataId": "Marauder_Merc_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Marauder_Merc_Collection_Death/Marauder_Merc_Collection_Death.m3",
+    "name": "marauder_merc_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marauder.3",
+    "modelDataId": "Marauder_Junker_Collection",
+    "assetPath": "Assets/Units/Terran/Marauder_Junker_Collection/Marauder_Junker_Collection.m3",
+    "name": "marauder_junker_collection",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.marauder.3.death",
+    "modelDataId": "Marauder_Junker_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Marauder_Junker_Collection_Death/Marauder_Junker_Collection_Death.m3",
+    "name": "marauder_junker_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.hellion.1",
+    "modelDataId": "Hellion_CovertOps_Collection",
+    "assetPath": "Assets/Units/Terran/Hellion_CovertOps_Collection/Hellion_CovertOps_Collection.m3",
+    "name": "hellion_covertops_collection",
+    "sourceScale": "0.750000,0.750000,0.750000"
+  },
+  {
+    "id": "model.elite.hellion.1.death",
+    "modelDataId": "Hellion_CovertOps_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Hellion_CovertOps_Collection_Death/Hellion_CovertOps_Collection_Death.m3",
+    "name": "hellion_covertops_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.hellion.2",
+    "modelDataId": "Hellion_Merc_Collection",
+    "assetPath": "Assets/Units/Terran/Hellion_Merc_Collection/Hellion_Merc_Collection.m3",
+    "name": "hellion_merc_collection",
+    "sourceScale": "0.750000,0.750000,0.750000"
+  },
+  {
+    "id": "model.elite.hellion.2.death",
+    "modelDataId": "Hellion_Merc_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Hellion_Merc_Collection_Death/Hellion_Merc_Collection_Death.m3",
+    "name": "hellion_merc_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.hellion.3",
+    "modelDataId": "Hellion_Junker_Collection",
+    "assetPath": "Assets/Units/Terran/Hellion_Junker_Collection_MP/Hellion_Junker_Collection_MP.m3",
+    "name": "hellion_junker_collection_mp",
+    "sourceScale": "0.750000,0.750000,0.750000"
+  },
+  {
+    "id": "model.elite.hellion.3.death",
+    "modelDataId": "Hellion_Junker_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Hellion_Junker_Collection_Death/Hellion_Junker_Collection_Death.m3",
+    "name": "hellion_junker_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.tank.1",
+    "modelDataId": "SiegeTank_CovertOps_Collection_Tank",
+    "assetPath": "Assets/Units/Terran/SiegeTank_CovertOps_Collection_Tank/SiegeTank_CovertOps_Collection_Tank.m3",
+    "name": "siegetank_covertops_collection_tank",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.elite.tank.1.death",
+    "modelDataId": "SiegeTank_CovertOps_Collection_Tank_Death",
+    "assetPath": "Assets/Units/Terran/SiegeTank_CovertOps_Collection_Tank_Death/SiegeTank_CovertOps_Collection_Tank_Death.m3",
+    "name": "siegetank_covertops_collection_tank_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.tank.1.siege",
+    "modelDataId": "SiegeTank_CovertOps_Collection",
+    "assetPath": "Assets/Units/Terran/SiegeTank_CovertOps_Collection/SiegeTank_CovertOps_Collection.m3",
+    "name": "siegetank_covertops_collection",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.elite.tank.1.morph",
+    "modelDataId": "SiegeTank_CovertOps_Morph",
+    "assetPath": "Assets/Units/Terran/SiegeTank_CovertOps_Collection_Morph/SiegeTank_CovertOps_Collection_Morph.m3",
+    "name": "siegetank_covertops_collection_morph",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.elite.tank.2",
+    "modelDataId": "SiegeTank_Junker_Collection_Tank",
+    "assetPath": "Assets/Units/Terran/Tank_Junker_Collection/Tank_Junker_Collection.m3",
+    "name": "tank_junker_collection",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.elite.tank.2.death",
+    "modelDataId": "SiegeTank_Junker_Collection_Tank_Death",
+    "assetPath": "Assets/Units/Terran/Tank_Junker_Collection_Death/Tank_Junker_Collection_Death.m3",
+    "name": "tank_junker_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.tank.2.siege",
+    "modelDataId": "SiegeTank_Junker_Collection",
+    "assetPath": "Assets/Units/Terran/SiegeTank_Junker_Collection/SiegeTank_Junker_Collection.m3",
+    "name": "siegetank_junker_collection",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.elite.tank.2.morph",
+    "modelDataId": "SiegeTank_Junker_Morph",
+    "assetPath": "Assets/Units/Terran/SiegeTankMorph_Junker_Collection/SiegeTankMorph_Junker_Collection.m3",
+    "name": "siegetankmorph_junker_collection",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.elite.tank.3",
+    "modelDataId": "Tank_Commando_Collection",
+    "assetPath": "Assets/Units/Terran/Tank_Commando_Collection/Tank_Commando_Collection.m3",
+    "name": "tank_commando_collection",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.elite.tank.3.death",
+    "modelDataId": "Tank_Commando_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Tank_Commando_Collection_Death/Tank_Commando_Collection_Death.m3",
+    "name": "tank_commando_collection_death",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.tank.3.siege",
+    "modelDataId": "SiegeTank_Commando_Collection",
+    "assetPath": "Assets/Units/Terran/SiegeTank_Commando_Collection/SiegeTank_Commando_Collection.m3",
+    "name": "siegetank_commando_collection",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.elite.tank.3.morph",
+    "modelDataId": "SiegeTank_Commando_Morph",
+    "assetPath": "Assets/Units/Terran/SiegeTankMorph_Commando_Collection/SiegeTankMorph_Commando_Collection.m3",
+    "name": "siegetankmorph_commando_collection",
+    "sourceScale": "0.800000,0.800000,0.800000"
+  },
+  {
+    "id": "model.elite.medivac.1",
+    "modelDataId": "Medivac_CovertOps_Collection",
+    "assetPath": "Assets/Units/Terran/Medivac_CovertOps_Collection/Medivac_CovertOps_Collection.m3",
+    "name": "medivac_covertops_collection",
+    "sourceScale": "0.700000,0.700000,0.700000"
+  },
+  {
+    "id": "model.elite.medivac.1.death",
+    "modelDataId": "Medivac_CovertOps_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Medivac_CovertOps_Collection_Death/Medivac_CovertOps_Collection_Death_00.m3",
+    "name": "medivac_covertops_collection_death_00",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.medivac.2",
+    "modelDataId": "Medivac_Merc_Collection",
+    "assetPath": "Assets/Units/Terran/Medivac_Merc_Collection/Medivac_Merc_Collection.m3",
+    "name": "medivac_merc_collection",
+    "sourceScale": "0.700000,0.700000,0.700000"
+  },
+  {
+    "id": "model.elite.medivac.2.death",
+    "modelDataId": "Medivac_Merc_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Medivac_Merc_Collection_Death/Medivac_Merc_Collection_Death_00.m3",
+    "name": "medivac_merc_collection_death_00",
+    "sourceScale": null
+  },
+  {
+    "id": "model.elite.medivac.3",
+    "modelDataId": "Medivac_Junker_Collection",
+    "assetPath": "Assets/Units/Terran/Medivac_Junker_Collection/Medivac_Junker_Collection.m3",
+    "name": "medivac_junker_collection",
+    "sourceScale": "0.700000,0.700000,0.700000"
+  },
+  {
+    "id": "model.elite.medivac.3.death",
+    "modelDataId": "Medivac_Junker_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Medivac_Junker_Collection_Death/Medivac_Junker_Collection_Death_00.m3",
+    "name": "medivac_junker_collection_death_00",
+    "sourceScale": null
+  },
+  {
+    "id": "model.hero.raynor",
+    "modelDataId": "MutatorAmonRaynor",
+    "assetPath": "Assets/Units/Terran/MarineRaynorHEV_Ex3/MarineRaynorHEV_Ex3.m3",
+    "name": "marineraynorhev_ex3",
+    "sourceScale": "1.950000,1.950000,1.950000",
+    "definition": "mods/starcoop/starcoop.sc2mod/base.sc2data/gamedata/modeldata.xml"
+  },
+  {
+    "id": "model.hero.tychus",
+    "modelDataId": "MutatorAmonTychus",
+    "assetPath": "Assets/Units/Terran/MarineTychus/MarineTychus.m3",
+    "name": "marinetychus",
+    "sourceScale": "1.800000,1.800000,1.800000",
+    "definition": "mods/starcoop/starcoop.sc2mod/base.sc2data/gamedata/modeldata.xml"
+  },
+  {
+    "id": "model.hero.nova",
+    "modelDataId": "MutatorAmonNova",
+    "assetPath": "Assets/Units/Terran/Nova_COOP/Nova_COOP.m3",
+    "name": "nova_coop",
+    "sourceScale": "1.000000,1.000000,1.000000",
+    "definition": "mods/starcoop/starcoop.sc2mod/base.sc2data/gamedata/modeldata.xml"
+  }
+]

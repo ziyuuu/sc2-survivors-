@@ -1,0 +1,192 @@
+{
+  "method": "Desktop Chrome; mocked standard Gamepad API, actual focus/click handlers and fixed simulation. No physical gamepad or phone claim.",
+  "checks": [
+    "controller-only deploy",
+    "auto lock, trigger cycle, release-stick pursuit",
+    "keyboard takeover persists while old controller stick remains held",
+    "purchase stays in round, sold disabled, focus survives reroll, B focuses Continue, cross-round cost 90",
+    "disconnect pauses and clears movement",
+    "reconnect neutral gating and explicit resume"
+  ],
+  "errors": [],
+  "assets": {
+    "map": {
+      "name": "Kairos Junction LE",
+      "models": 292,
+      "placements": 4956,
+      "visibleInstances": 676,
+      "area": 1248.5,
+      "scale": 1,
+      "sourceSha256": "bc54ccf150f40935c5df1309a041144be2fce7a3861d4e4bceda8a36e852b2f2"
+    },
+    "order": {
+      "kind": "focus",
+      "targetId": 3,
+      "issuedAt": 1.7833333333333332
+    },
+    "resolution": {
+      "quality": "native",
+      "devicePixelRatio": 1,
+      "renderPixelRatio": 1,
+      "width": 1440,
+      "height": 900,
+      "cssWidth": 1440,
+      "cssHeight": 900,
+      "antialias": true
+    },
+    "models": 8,
+    "economicModels": 3,
+    "podModel": true,
+    "resourceModels": 3,
+    "resourceInstances": 3,
+    "errors": [],
+    "originalAnimationModels": 8,
+    "proceduralAnimationModels": 0,
+    "originalDeathModels": 8,
+    "animationAtlasBytes": 4707904,
+    "lodRatios": {
+      "zergling": 0.29555555555555557,
+      "roach": 0.44686192468619246,
+      "baneling": 0.29977246871444824,
+      "ravager": 0.29987531172069826
+    },
+    "effectTextures": 33,
+    "effects": {
+      "attack": 1,
+      "hit": 1,
+      "death": 0,
+      "movement": 5,
+      "bile": 0,
+      "active": 4,
+      "dropped": 0
+    },
+    "textures": 15,
+    "fps": 50.32907471931841,
+    "drawCalls": 229,
+    "triangles": 228199,
+    "entities": 3,
+    "maxStretch": 2.8295078205302793,
+    "spatialVisits": 6,
+    "collisionContacts": 0,
+    "phase": "battle",
+    "stage": 2,
+    "time": 2.2333333333333334,
+    "stats": {
+      "kills": 0,
+      "rescued": 0,
+      "failed": 0,
+      "produced": 0,
+      "started": 1,
+      "shots": 1,
+      "healed": 0,
+      "damage": 5,
+      "scvsRescued": 0,
+      "scvsLost": 0,
+      "dronesKilled": 0,
+      "ambientSpawned": 0
+    },
+    "assetsReady": true,
+    "simulationBacklogSeconds": 0,
+    "audio": {
+      "originalDecoded": 10,
+      "decoded": [
+        {
+          "id": "shot",
+          "duration": 0.08995833333333333,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "blast",
+          "duration": 0.3499583333333333,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "alert",
+          "duration": 0.44995833333333335,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.scv.ready",
+          "duration": 2.1729166666666666,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.marine.attack",
+          "duration": 1.3626875,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.hellion.attack",
+          "duration": 2.6566875,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.tank.attack",
+          "duration": 0.8244791666666667,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.tank.siege",
+          "duration": 1.9696041666666666,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.medivac.heal",
+          "duration": 9.092270833333334,
+          "channels": 2,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.zergling.attack",
+          "duration": 0.7786666666666666,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.roach.attack",
+          "duration": 1.46575,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.ravager.attack",
+          "duration": 1.1467708333333333,
+          "channels": 1,
+          "sampleRate": 48000
+        },
+        {
+          "id": "sc2.marine.death",
+          "duration": 1.0077083333333334,
+          "channels": 1,
+          "sampleRate": 48000
+        }
+      ],
+      "errors": [],
+      "played": {
+        "sc2.marine.attack": 1
+      },
+      "activeHealers": 0
+    },
+    "gamepad": {
+      "active": true,
+      "index": 0,
+      "calibrating": false,
+      "connected": [
+        {
+          "id": "QA controller",
+          "mapping": "standard",
+          "axes": 2,
+          "buttons": 17
+        }
+      ]
+    }
+  }
+}

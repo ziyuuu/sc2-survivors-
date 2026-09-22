@@ -1,0 +1,291 @@
+{
+  "method": "Independent M3Studio binary reader vs shipped GLB source names, bone IDs and clip durations. Local only; not a Blender-render or human visual acceptance.",
+  "readerSources": {
+    "io_m3.py": "9bd7b3f8632f9ba5e614d19d847ab1ca34bee448f4d1687a0a817e05e7ec901e",
+    "structures.xml": "d50574e91b5c885698c04f7c010ad2461a1de233873b118070da71e7e559df32",
+    "LICENSE": "b90ed8150a6d371c84b7dbaa680cd0e9893ef7c2558765e1e00930513efcfe3b"
+  },
+  "models": [
+    {
+      "id": "model.marine",
+      "source": "https://dist.sc2arcade.com/star-assets/models/marine.m3",
+      "bones": 38,
+      "bonesPresentInGlb": 38,
+      "originalSequences": 24,
+      "checkedExportedClips": 24,
+      "glbClips": 25
+    },
+    {
+      "id": "model.hellion",
+      "source": "https://dist.sc2arcade.com/star-assets/models/hellionex1.m3",
+      "bones": 24,
+      "bonesPresentInGlb": 24,
+      "originalSequences": 11,
+      "checkedExportedClips": 11,
+      "glbClips": 12
+    },
+    {
+      "id": "model.tank",
+      "source": "https://dist.sc2arcade.com/star-assets/models/tankex1.m3",
+      "bones": 51,
+      "bonesPresentInGlb": 51,
+      "originalSequences": 9,
+      "checkedExportedClips": 9,
+      "glbClips": 9
+    },
+    {
+      "id": "model.zergling",
+      "source": "https://dist.sc2arcade.com/star-assets/models/zergling.m3",
+      "bones": 44,
+      "bonesPresentInGlb": 44,
+      "originalSequences": 16,
+      "checkedExportedClips": 16,
+      "glbClips": 16
+    },
+    {
+      "id": "model.roach",
+      "source": "https://dist.sc2arcade.com/star-assets/models/roach.m3",
+      "bones": 44,
+      "bonesPresentInGlb": 44,
+      "originalSequences": 27,
+      "checkedExportedClips": 27,
+      "glbClips": 27
+    },
+    {
+      "id": "model.baneling",
+      "source": "https://dist.sc2arcade.com/star-assets/models/banelingex1.m3",
+      "bones": 49,
+      "bonesPresentInGlb": 49,
+      "originalSequences": 17,
+      "checkedExportedClips": 17,
+      "glbClips": 19
+    },
+    {
+      "id": "model.ravager",
+      "source": "https://dist.sc2arcade.com/star-assets/models/ravager.m3",
+      "bones": 52,
+      "bonesPresentInGlb": 52,
+      "originalSequences": 20,
+      "checkedExportedClips": 20,
+      "glbClips": 20
+    },
+    {
+      "id": "model.tank.siege",
+      "source": "https://dist.sc2arcade.com/star-assets/models/siegetank.m3",
+      "bones": 55,
+      "bonesPresentInGlb": 55,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.tank.morph",
+      "source": "https://dist.sc2arcade.com/star-assets/models/siegetankmorph.m3",
+      "bones": 73,
+      "bonesPresentInGlb": 73,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    },
+    {
+      "id": "model.marine.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/marinedeathex1.m3",
+      "bones": 48,
+      "bonesPresentInGlb": 48,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.hellion.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/helliondeath.m3",
+      "bones": 27,
+      "bonesPresentInGlb": 27,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.tank.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/siegetankdeathex1.m3",
+      "bones": 56,
+      "bonesPresentInGlb": 56,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.zergling.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/zerglingdeathex1.m3",
+      "bones": 50,
+      "bonesPresentInGlb": 50,
+      "originalSequences": 5,
+      "checkedExportedClips": 5,
+      "glbClips": 5
+    },
+    {
+      "id": "model.roach.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/roachdeathex1.m3",
+      "bones": 47,
+      "bonesPresentInGlb": 47,
+      "originalSequences": 7,
+      "checkedExportedClips": 7,
+      "glbClips": 7
+    },
+    {
+      "id": "model.baneling.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/banelingex1deathrupture.m3",
+      "bones": 29,
+      "bonesPresentInGlb": 29,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.ravager.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/ravager_death_00.m3",
+      "bones": 70,
+      "bonesPresentInGlb": 70,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.droppod",
+      "source": "https://dist.sc2arcade.com/star-assets/models/droppodfalling.m3",
+      "bones": 53,
+      "bonesPresentInGlb": 53,
+      "originalSequences": 3,
+      "checkedExportedClips": 3,
+      "glbClips": 3
+    },
+    {
+      "id": "model.scv",
+      "source": "https://dist.sc2arcade.com/star-assets/models/scv.m3",
+      "bones": 43,
+      "bonesPresentInGlb": 43,
+      "originalSequences": 16,
+      "checkedExportedClips": 16,
+      "glbClips": 16
+    },
+    {
+      "id": "model.drone",
+      "source": "https://dist.sc2arcade.com/star-assets/models/drone.m3",
+      "bones": 45,
+      "bonesPresentInGlb": 45,
+      "originalSequences": 10,
+      "checkedExportedClips": 10,
+      "glbClips": 10
+    },
+    {
+      "id": "model.egg",
+      "source": "https://dist.sc2arcade.com/star-assets/models/banelingegg.m3",
+      "bones": 21,
+      "bonesPresentInGlb": 21,
+      "originalSequences": 4,
+      "checkedExportedClips": 4,
+      "glbClips": 4
+    },
+    {
+      "id": "model.terrain.rock",
+      "source": "https://dist.sc2arcade.com/star-assets/models/chardunerock_00.m3",
+      "bones": 1,
+      "bonesPresentInGlb": 1,
+      "originalSequences": 1,
+      "checkedExportedClips": 1,
+      "glbClips": 1
+    },
+    {
+      "id": "model.terrain.wreck",
+      "source": "https://dist.sc2arcade.com/star-assets/models/barrackswrecked_00.m3",
+      "bones": 3,
+      "bonesPresentInGlb": 3,
+      "originalSequences": 6,
+      "checkedExportedClips": 6,
+      "glbClips": 6
+    },
+    {
+      "id": "model.medivac",
+      "source": "https://dist.sc2arcade.com/star-assets/models/medivacex1.m3",
+      "bones": 47,
+      "bonesPresentInGlb": 47,
+      "originalSequences": 11,
+      "checkedExportedClips": 11,
+      "glbClips": 11
+    },
+    {
+      "id": "model.medivac.death",
+      "source": "https://dist.sc2arcade.com/star-assets/models/medivacdeath_00.m3",
+      "bones": 25,
+      "bonesPresentInGlb": 25,
+      "originalSequences": 2,
+      "checkedExportedClips": 2,
+      "glbClips": 2
+    }
+  ],
+  "external": [
+    {
+      "id": "model.marine",
+      "source": "https://dist.sc2arcade.com/star-assets/models/marine_swarmanims.m3a",
+      "originalSequences": {
+        "Flail": 0.834
+      },
+      "transformIds": 72,
+      "matchedIds": 72,
+      "imported": [
+        "Flail"
+      ],
+      "usedForCombat": false,
+      "binding": "accepted clips match base transform IDs"
+    },
+    {
+      "id": "model.hellion",
+      "source": "https://dist.sc2arcade.com/star-assets/models/hellion_swarmanims.m3a",
+      "originalSequences": {
+        "Flail": 0.8
+      },
+      "transformIds": 72,
+      "matchedIds": 72,
+      "imported": [
+        "Flail"
+      ],
+      "usedForCombat": false,
+      "binding": "accepted clips match base transform IDs"
+    },
+    {
+      "id": "model.tank",
+      "source": "https://dist.sc2arcade.com/star-assets/models/tank_swarmanims.m3a",
+      "originalSequences": {
+        "Flail": 0.867
+      },
+      "transformIds": 132,
+      "matchedIds": 126,
+      "imported": [],
+      "usedForCombat": false,
+      "binding": "rejected: not all track IDs bind to current base skeleton"
+    },
+    {
+      "id": "model.baneling",
+      "source": "https://dist.sc2arcade.com/star-assets/models/baneling_voidanims.m3a",
+      "originalSequences": {
+        "Birth A": 0.9,
+        "Birth A Walk": 1.0
+      },
+      "transformIds": 147,
+      "matchedIds": 147,
+      "imported": [
+        "Birth A",
+        "Birth A Walk"
+      ],
+      "usedForCombat": false,
+      "binding": "accepted clips match base transform IDs"
+    }
+  ],
+  "mismatches": [],
+  "totals": {
+    "models": 24,
+    "bones": 995,
+    "clips": 208,
+    "mismatches": 0
+  }
+}
