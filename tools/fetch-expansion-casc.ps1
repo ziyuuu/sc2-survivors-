@@ -5,7 +5,7 @@ $ErrorActionPreference='Stop'
 $root=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 Set-Location -LiteralPath $root
 $lock=Get-Content tools/sc2-casc-lock.json -Raw | ConvertFrom-Json
-$models=Get-Content tools/expansion-models.json -Raw | ConvertFrom-Json
+$models=@(Get-Content tools/expansion-models.json -Raw | ConvertFrom-Json)+@(Get-Content tools/expansion-effects.json -Raw | ConvertFrom-Json)
 function LocalPath([string]$relative){$p=[IO.Path]::GetFullPath((Join-Path $root $relative));if(-not $p.StartsWith($root+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)){throw 'Path outside project'};return $p}
 $records=[Collections.Generic.List[object]]::new();$missing=[Collections.Generic.List[object]]::new()
 $previous=@();if(Test-Path tools/expansion-dependencies.json){$previous=@(Get-Content tools/expansion-dependencies.json -Raw | ConvertFrom-Json)}
@@ -59,6 +59,6 @@ foreach($model in $models){
 }
 foreach($name in @('btn-unit-terran-marauder','btn-unit-zerg-hydralisk','btn-unit-terran-marineraynorhev','btn-unit-terran-marinetychus','btn-unit-terran-nova','btn-ability-terran-penetratorround','btn-ability-terran-punishergrenade-color','btn-ability-terran-snipe-color')){$null=$textures.Add($name+'.dds')}
 foreach($name in $textures){$null=FetchOriginal ('texture.'+$name) ('Assets/Textures/'+$name) ('assets/private/dds/'+$name)}
-$records | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (LocalPath 'tools/expansion-dependencies.json') -Encoding utf8
-$missing | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (LocalPath 'reports/local/expansion-missing.json') -Encoding utf8
+ConvertTo-Json -InputObject @($records.ToArray()) -Depth 6 | Set-Content -LiteralPath (LocalPath 'tools/expansion-dependencies.json') -Encoding utf8
+ConvertTo-Json -InputObject @($missing.ToArray()) -Depth 6 | Set-Content -LiteralPath (LocalPath 'reports/local/expansion-missing.json') -Encoding utf8
 Write-Output ('Verified '+$records.Count+' files; missing '+$missing.Count)

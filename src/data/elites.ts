@@ -10,8 +10,8 @@ export const ELITE_TEMPLATES={
  mobile:{output:1.2,as:1.15,hp:1.2,move:1.2,armor:.5,dpsStep:.2,asStep:.06,hpStep:.12},
  support:{output:1.25,as:1,hp:1.25,move:1.1,armor:.5,dpsStep:.25,asStep:0,hpStep:.15},
 } as const;
-export interface EliteDefinition {id:EliteId;family:TerranType;name:string;template:EliteTemplate;description:string;model:string;icon:string}
-const family=(type:TerranType,rows:readonly (readonly [string,EliteTemplate,string])[]):EliteDefinition[]=>rows.map(([name,template,description],i)=>({id:`${type}.${i+1}` as EliteId,family:type,name,template,description,model:`elite.${type}.${i+1}`,icon:'unit.'+type}));
+export interface EliteDefinition {id:EliteId;family:TerranType;name:string;template:EliteTemplate;description:string;model:string;sourceModel:string;icon:string}
+const family=(type:TerranType,rows:readonly (readonly [string,EliteTemplate,string])[]):EliteDefinition[]=>rows.map(([name,template,description],i)=>({id:`${type}.${i+1}` as EliteId,family:type,name,template,description,model:`elite.${type}.${i+1}`,sourceModel:`${type} / ${i===0?'Covert Ops':i===1?(type==='tank'?'Junker':'Merc'):type==='tank'?'Commando':'Junker'}`,icon:'unit.'+type}));
 export const ELITES:Record<EliteId,EliteDefinition>=Object.fromEntries([
  ...family('marine',[['突击枪兵','quick','兴奋剂不扣血，期间每秒恢复 1% 最大生命。'],['重火力枪兵','heavy','对重甲总伤害额外提高 25%。'],['重装枪兵','guard','强化装甲与生命，适合持续交战。']]),
  ...family('marauder',[['压制劫掠者','quick','命中降低移速及攻速 30%，持续 1.5 秒；Boss 效果减半。'],['破甲劫掠者','heavy','每 15 秒额外发射三倍单发伤害的破甲弹药。'],['堡垒劫掠者','guard','高生命与护甲，承担前线压力。']]),

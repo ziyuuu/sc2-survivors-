@@ -17,13 +17,13 @@ for name, digest in PINS.items():
 spec=importlib.util.spec_from_file_location('independent_m3studio',CACHE/'io_m3.py');reader=importlib.util.module_from_spec(spec);spec.loader.exec_module(reader)
 pack=json.loads((ROOT/'assets/private/m3-pack.json').read_text(encoding='utf8'))
 def text(s,ref): return s[ref].content_to_string().rstrip('\0')
-def load(url): return reader.M3SectionList.load(str(ROOT/'assets/private/m3'/url.rsplit('/',1)[-1]))
+def load(url): return reader.M3SectionList.load(str(ROOT/'assets/private/m3'/url.replace('\\','/').rsplit('/',1)[-1].lower()))
 def sequences(s): return {text(s,q.name):(q.anim_ms_end-q.anim_ms_start)/1000 for q in s[s.model.sequences]}
 def ids(s): return {(getattr(b,k).header.id,k):text(s,b.name) for b in s[s.model.bones] for k in ['location','rotation','scale']}
 report={'method':'Independent M3Studio binary reader vs shipped GLB source names, bone IDs and clip durations. Local only; not a Blender-render or human visual acceptance.', 'readerSources':PINS,'models':[], 'external':[], 'mismatches':[]}
 for a in pack['manifest']:
     if a['kind']!='model': continue
-    s=load(a['source']);seq=sequences(s);bones=[text(s,b.name) for b in s[s.model.bones]]
+    s=load(a.get('sourcePath',a['source']));seq=sequences(s);bones=[text(s,b.name) for b in s[s.model.bones]]
     raw=(ROOT/a['packedFile']).read_bytes();assert raw[:4]==b'glTF';gltf=json.loads(raw[20:20+struct.unpack_from('<I',raw,12)[0]])
     names={n.get('name') for n in gltf.get('nodes',[])};missing=[n for n in bones if n not in names]
     checked=0
@@ -32,8 +32,9 @@ for a in pack['manifest']:
         if c['name'] not in seq or abs(seq[c['name']]-c['duration'])>.0011:
             report['mismatches'].append({'id':a['id'],'clip':c['name'],'sourceDuration':seq.get(c['name']),'exportDuration':c['duration']})
         checked+=1
-    if missing: report['mismatches'].append({'id':a['id'],'missingBones':missing})
-    report['models'].append({'id':a['id'],'source':a['source'],'bones':len(bones),'bonesPresentInGlb':len(bones)-len(missing),'originalSequences':len(seq),'checkedExportedClips':checked,'glbClips':len(gltf.get('animations',[]))})
+    static_projection=not gltf.get('skins') and not gltf.get('animations') and any(g.get('role')=='original-ground-projection' for g in a.get('geometry',[]))
+    if missing and not static_projection: report['mismatches'].append({'id':a['id'],'missingBones':missing})
+    report['models'].append({'id':a['id'],'source':a['source'],'bones':len(bones),'bonesPresentInGlb':len(bones)-len(missing),'staticProjectionTransformBaked':static_projection,'originalSequences':len(seq),'checkedExportedClips':checked,'glbClips':len(gltf.get('animations',[]))})
     original=ids(s)
     for extra in a.get('additionalAnimations',[]):
         if extra.get('status')=='missing': continue

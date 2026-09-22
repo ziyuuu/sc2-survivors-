@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fx.marauder.launch",
+    "name": "maraudermissilelaunch",
+    "assetPath": "Assets/Effects/Terran/MarauderMissileLaunch/MarauderMissileLaunch.m3",
+    "modelDataId": "MarauderAttackLaunch"
+  },
+  {
+    "id": "fx.marauder.missile",
+    "name": "maraudermissile",
+    "assetPath": "Assets/Effects/Terran/MarauderMissile/MarauderMissile.m3",
+    "modelDataId": "PunisherGrenadesLMWeapon"
+  },
+  {
+    "id": "fx.marauder.impact",
+    "name": "marauderbasemissileimpact",
+    "assetPath": "Assets/Effects/Terran/MarauderBaseMissileImpact/MarauderBaseMissileImpact.m3",
+    "modelDataId": "MarauderBaseAttackImpact"
+  },
+  {
+    "id": "fx.hydralisk.missile",
+    "name": "hydraliskmissile",
+    "assetPath": "Assets/Effects/Zerg/HydraliskMissile/HydraliskMissile.m3",
+    "modelDataId": "NeedleSpinesWeapon"
+  }
+]

@@ -4,6 +4,7 @@ let mapModels=[];try{mapModels=JSON.parse(fs.readFileSync(new URL('./map-models.
 export const M3_TOOL_REVISION='ee0eff037e2e40d2aad72f4f856af0710b8a44e5';
 export const EXPANSION_MODELS=JSON.parse(fs.readFileSync(new URL('./expansion-models.json',import.meta.url),'utf8'));
 export const M3_MODELS=[
+ ['model.projectile.marauder','maraudermissile'],['model.projectile.hydralisk','hydraliskmissile'],
  ...EXPANSION_MODELS.filter(a=>a.id.startsWith('model.elite.')||a.id.startsWith('model.hero.')).map(a=>[a.id,a.name]),
  ['model.marauder','marauder'],['model.hydralisk','hydralisk'],
  ['model.marauder.death','marauderdeathex1'],['model.hydralisk.death','hydraliskdeathex1'],
@@ -24,6 +25,7 @@ export const M3_MODELS=[
 // Original particle textures. The web renderer implements a documented subset of
 // the M3 particle system, not SC2's full material/physics/Actor renderer.
 export const M3_EFFECTS=[
+ ...JSON.parse(fs.readFileSync(new URL('./expansion-effects.json',import.meta.url),'utf8')).map(a=>[a.id,a.name]),
  ['fx.muzzle','marineweaponlaunch'],['fx.impact','marineweaponimpact'],
  ['fx.blood','bloodtargetimpact'],['fx.blast','siegetankweaponimpact'],
  ['fx.flame','hellionbeam'],['fx.flameimpact','hellionbeamimpact'],['fx.acid','roachmissileimpactex1'],['fx.bile','ravager_artillery_missile_impact'],

@@ -30,7 +30,7 @@ export class MapTerrain implements TerrainQuery {
  /** Radius-aware A* with shared cached routes. Direct unobstructed movement never runs a search. */
  routeGoal(a:Point,b:Point,r:number,_half:number):Point {
   if(this.walkLine(a,b,r))return b;
-  const from=this.cell(a),rawTo=this.cell(b),d=this.definition;if(from<0||rawTo<0)return a;
+  let from=this.cell(a);const rawTo=this.cell(b),d=this.definition;if(from<0||rawTo<0)return a;
   // Use the actual footprint; rounding the .9 anchor to 1.0 sealed valid passages.
   const grid=this.valid(r);let to=rawTo;
   if(!grid[to]||!this.walkLine(this.center(to),b,r)){
@@ -39,15 +39,25 @@ export class MapTerrain implements TerrainQuery {
     if(x<0||y<0||x>=d.walkWidth||y>=d.walkHeight||!grid[j])continue;const q=this.center(j),v=distance(q,b);if(v<closest&&this.walkLine(q,b,r)){closest=v;to=j;}}
    if(to<0)return a;
   }
+  const components=this.graph(r).components;
+  // Actual legal sub-cell positions can straddle a raster corner whose centre belongs
+  // to a different island. Reconnect through a physically walkable nearby centre;
+  // the returned route still moves continuously and cannot cross a cliff or wall.
+  if(!grid[from]||components[from]!==components[to]||!this.walkLine(a,this.center(from),r)){
+   const rawFrom=from;let best=Infinity;from=-1;
+   // Search nearby rings only on this exceptional sub-cell recovery path.
+   // Thin legal strips along raster edges may be several cells from a usable centre.
+   for(let ring=1;ring<=8&&from<0;ring++)for(let dy=-ring;dy<=ring;dy++)for(let dx=-ring;dx<=ring;dx++){if(ring>1&&Math.abs(dx)<ring&&Math.abs(dy)<ring)continue;const x=rawFrom%d.walkWidth+dx,y=Math.floor(rawFrom/d.walkWidth)+dy,j=y*d.walkWidth+x;if(x<0||y<0||x>=d.walkWidth||y>=d.walkHeight||!grid[j]||components[j]!==components[to])continue;const q=this.center(j),v=distance(a,q);if(v<best&&this.walkLine(a,q,r)){best=v;from=j;}}
+   if(from<0)return a;
+  }
   const exact=`${this.stage}:${from}:${to}:${r}`,key=this.stage+':'+Math.floor(from/d.walkWidth/6)+':'+Math.floor(from%d.walkWidth/6)+':'+to+':'+r;
   // Terrain and footprint graphs are static within a stage. A failed search for these
   // exact cells cannot become successful just because another simulation tick ran.
   // Do not share negative results across a bucket: a nearby body may be across a wall.
   if(this.failedRoutes.has(exact))return a;
-  const components=this.graph(r).components;
   if(components[from]&&components[from]!==components[to])return a;
   const remember=(cacheKey:string,route:Point[])=>{if(this.routes.size>=this.maxRoutes)this.routes.delete(this.routes.keys().next().value!);this.routes.set(cacheKey,route);return route;};
-  const search=(cacheKey:string)=>{const route=this.path(from,to,r);if(!route.length){if(this.failedRoutes.size>=2048)this.failedRoutes.delete(this.failedRoutes.values().next().value!);this.failedRoutes.add(exact);}return remember(cacheKey,route);};
+  const search=(cacheKey:string)=>{const route=this.path(from,to,r);if(!route.length){if(this.failedRoutes.size>=2048)this.failedRoutes.delete(this.failedRoutes.values().next().value!);this.failedRoutes.add(exact);}return remember(cacheKey,route.length?[this.center(from),...route]:route);};
   let path=this.routes.get(key),fresh=false;
   if(!path){path=search(key);fresh=true;}
   const visible=(route:Point[])=>{for(let j=route.length-1;j>=0;j--)if(distance(a,route[j])>.1&&this.walkLine(a,route[j],r))return route[j];return null;};

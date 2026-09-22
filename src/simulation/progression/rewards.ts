@@ -6,7 +6,7 @@ import {SC2_UNITS,TERRAN,type TerranType} from '../../data/sc2-units';
 import {DISCOUNTS} from '../../data/economy';
 import type {Reward,Building} from '../types';
 export const TECHS=[
- ['stim','兴奋剂','枪兵消耗 10 HP，攻速与移速提高 50%，持续 11 秒。','tech.stim',150,50],
+ ['stim','兴奋剂','枪兵／劫掠者分别消耗 10／20 HP，攻速与移速提高 50%，持续 11 秒。','tech.stim',150,50],
  ['shield','战斗盾牌','枪兵最大生命值 +10。','tech.shield',75,25],
  ['infantry','步兵武器','枪兵与劫掠者每发伤害 +1，劫掠者对重甲加成同步提高，最多三级。','tech.attack',125,50],
  ['vehicle','车辆武器','提升恶火与坦克的武器伤害，最多三级。','tech.vehicle',150,50],

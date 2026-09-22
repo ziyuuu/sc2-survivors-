@@ -15,14 +15,15 @@
     "test": "node --import tsx --test test/*.test.mjs test/*.test.ts",
     "typecheck": "tsc --noEmit",
     "build": "npm run assets:prepare && tsc --noEmit && vite build && node tools/build-demo.mjs",
-    "test:browser": "node tools/qa.mjs",
+    "test:browser": "node tools/qa-v15.mjs",
     "assets:resolve": "node tools/sync-assets.mjs --index-only",
     "assets:fetch": "node tools/sync-assets.mjs",
     "assets:prepare": "node tools/prepare-assets.mjs",
     "assets:download": "node tools/download-runtime.mjs",
     "assets:animate": "node tools/import-m3-pack.mjs && node tools/import-terrain.mjs && node tools/prepare-assets.mjs",
     "assets:originals": "pwsh -NoProfile -File tools/fetch-sc2-casc.ps1",
-    "assets:map": "node tools/import-original-map.mjs"
+    "assets:map": "node tools/import-original-map.mjs",
+    "assets:expansion": "node tools/prepare-expansion.mjs"
   },
   "dependencies": {
     "meshoptimizer": "1.2.0",

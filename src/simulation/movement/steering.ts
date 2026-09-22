@@ -50,7 +50,13 @@ export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:nu
  // Cruise until braking is necessary. The old distance * rate envelope crawled for metres.
  const arrival=Math.min(speed,Math.sqrt(2*braking*Math.max(0,d-.08)));
  if(d>.08){dx=(goal.x-u.x)/d*arrival;dz=(goal.z-u.z)/d*arrival;}
- dx+=separation.x;dz+=separation.z;
+ const forwardX=dx,forwardZ=dz;dx+=separation.x;dz+=separation.z;
+ // A separation force must not steer a legal route into a cliff shoulder.
+ // Contact resolution still enforces body spacing after the step.
+ if(!u.flying&&d>.08&&(separation.x!==0||separation.z!==0)&&(terrain||obstacles.length)){
+  const legal=(x:number,z:number)=>{const length=Math.hypot(x,z),scale=length>0?Math.min(speed,length)*dt/length:0,p={x:u.x+x*scale,z:u.z+z*scale};return !blocked(p,u.unitRadius,obstacles)&&(!terrain||terrain.canStep(u,p,u.unitRadius));};
+  if(!legal(dx,dz)&&legal(forwardX,forwardZ)){dx=forwardX;dz=forwardZ;}
+ }
  const magnitude=Math.hypot(dx,dz);let limited=Math.min(speed,magnitude);
  if(magnitude>.05){const heading=Math.atan2(dx,dz);u.facing=turn(u.facing,heading,rate*dt);
   if(vehicle){const error=Math.abs(angleDelta(u.facing,heading)),alignment=Math.max(0,Math.cos(error));

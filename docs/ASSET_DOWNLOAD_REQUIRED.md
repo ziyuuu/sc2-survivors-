@@ -44,3 +44,19 @@ npm run build
 ## V9 原地图与资源掉落
 
 原 Crystal、GasCanister、SpaceMineralCluster 三种掉落及 Kairos Junction LE 原地图已取得并载入，无待用户补交的运行素材。地图包路径 `assets/private/maps/KairosJunctionLE.SC2Map`；全部511个依赖精确URL/路径/哈希见 [map-dependencies.json](../tools/map-dependencies.json)，地图版本见 [map-lock.json](../tools/map-lock.json)。复现 `npm run assets:map`，失败项会输出 `reports/local/map-missing.json`，放入清单指定路径后重新执行，不需改代码。完整流程与视觉边界见 [MAP_PIPELINE.md](MAP_PIPELINE.md)。
+
+## V15 五兵种、精英与英雄
+
+新增原字节均已从固定公开 CASC 取得。43 项单位/死亡/坦克形态输入见 [expansion-models.json](../tools/expansion-models.json)；4 项劫掠者/刺蛇武器效果源文件见 [expansion-effects.json](../tools/expansion-effects.json)。完整 M3/DDS/图标路径、安装位置、文件头与哈希为 [expansion-dependencies.json](../tools/expansion-dependencies.json)，截至本轮 267 个依赖、缺失 0。
+
+```powershell
+python tools/resolve-expansion-models.py
+pwsh -NoProfile -File tools/fetch-expansion-casc.ps1
+node tools/import-m3-pack.mjs
+node tools/prepare-expansion-assets.mjs
+npm run build
+```
+
+CASC 工具首次安装仍由 `npm run assets:originals` 准备。下载失败会写 `reports/local/expansion-missing.json`，可按每条 installFile 手工放入原文件，验证后重跑。不把 HTML 错误页当 M3/GLB。英雄图标为雷诺/泰凯斯/诺娃原图标；15 款精英沿用对应原兵种图标，界面用名称、紫色标记和原皮肤辨识，并没有捏造独立原图标。
+
+当前没有待用户补交的必需模型。独立受击动作大多不存在，使用命中特效；爆虫通过原死亡动作表现自爆；医疗艇使用 Stand Work 治疗。英雄技能时间/弹道、原粒子材质的网页发射和发光轮廓属于明确的渲染适配。没有本地原字体，仍用系统回退。

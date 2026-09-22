@@ -430,6 +430,46 @@
     "bytes": 4082544
   },
   {
+    "installFile": "assets/private/m3/maraudermissilelaunch.m3",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/m3/maraudermissilelaunch.m3",
+    "sha256": "84a444cf91194a1aff18bfb96ab44f64c9088ca69d7a7eba50ef4f9ea8afee7c",
+    "id": "fx.marauder.launch",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/MarauderMissileLaunch/MarauderMissileLaunch.m3",
+    "verifiedCascBuild": true,
+    "bytes": 17088
+  },
+  {
+    "installFile": "assets/private/m3/maraudermissile.m3",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/m3/maraudermissile.m3",
+    "sha256": "f2fc13a2e7f9d3eabc3accd4fcd538d3e2faf68ac117d4a9700796e98be7de62",
+    "id": "fx.marauder.missile",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/MarauderMissile/MarauderMissile.m3",
+    "verifiedCascBuild": true,
+    "bytes": 79536
+  },
+  {
+    "installFile": "assets/private/m3/marauderbasemissileimpact.m3",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/m3/marauderbasemissileimpact.m3",
+    "sha256": "e68da3d24aacdfccc3a3530b7d3020e1842e607249fb2b1d6a265b5dea5054bc",
+    "id": "fx.marauder.impact",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/MarauderBaseMissileImpact/MarauderBaseMissileImpact.m3",
+    "verifiedCascBuild": true,
+    "bytes": 72160
+  },
+  {
+    "installFile": "assets/private/m3/hydraliskmissile.m3",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/m3/hydraliskmissile.m3",
+    "sha256": "f5cc0809a53e7fbd19124a4edf0b2e664debabbe41b66bfbd52e117c2d266ac6",
+    "id": "fx.hydralisk.missile",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Zerg/HydraliskMissile/HydraliskMissile.m3",
+    "verifiedCascBuild": true,
+    "bytes": 10288
+  },
+  {
     "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/marauder_diffuse.dds",
     "installFile": "assets/private/dds/marauder_diffuse.dds",
     "cachedFile": "assets/private/dds/marauder_diffuse.dds",
@@ -2428,6 +2468,126 @@
     "id": "texture.ghost_fx.dds",
     "sha256": "231b1cc8a1394913a4eacc58466d2bd31be6947bccd5bd2fd72cd48e5c8a55eb",
     "bytes": 22000
+  },
+  {
+    "installFile": "assets/private/dds/autoturret.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/autoturret.dds",
+    "sha256": "ffa2ddc689fe97b1996629665e0fd5103266022e43789713bd0dca57b8f5b1f5",
+    "id": "texture.autoturret.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/autoturret.dds",
+    "verifiedCascBuild": true,
+    "bytes": 349680
+  },
+  {
+    "installFile": "assets/private/dds/fireball_10.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/fireball_10.dds",
+    "sha256": "22c52f4a5efd2d1aebc66480ecc08d353a799093e29a8904c1d496a59ffeb25c",
+    "id": "texture.fireball_10.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/fireball_10.dds",
+    "verifiedCascBuild": true,
+    "bytes": 11064
+  },
+  {
+    "installFile": "assets/private/dds/firetail2.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/firetail2.dds",
+    "sha256": "6e5646015361365aec54bbdc0ffe7e68825a57e975bb31f4329c6f9ed8d5c232",
+    "id": "texture.firetail2.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/firetail2.dds",
+    "verifiedCascBuild": true,
+    "bytes": 22000
+  },
+  {
+    "installFile": "assets/private/dds/firescroll1.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/firescroll1.dds",
+    "sha256": "2b12acc4b6cd26b871e71f584bece430741cdf74509b1505d70f880064a5e7fd",
+    "id": "texture.firescroll1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/firescroll1.dds",
+    "verifiedCascBuild": true,
+    "bytes": 22000
+  },
+  {
+    "installFile": "assets/private/dds/concussivesmoke1.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/concussivesmoke1.dds",
+    "sha256": "269d5c887c0b62812147bfadb6b9e0171b0ffbe50bca8209e28ea7550917b455",
+    "id": "texture.concussivesmoke1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/concussivesmoke1.dds",
+    "verifiedCascBuild": true,
+    "bytes": 43832
+  },
+  {
+    "installFile": "assets/private/dds/energyplane3_red.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/energyplane3_red.dds",
+    "sha256": "612b8670cbaa01a6d57dd06e41acf4f4939bfea4d5d312e9e5425a3c54f2b3fa",
+    "id": "texture.energyplane3_red.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/energyplane3_red.dds",
+    "verifiedCascBuild": true,
+    "bytes": 87536
+  },
+  {
+    "installFile": "assets/private/dds/glow_yellow1.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/glow_yellow1.dds",
+    "sha256": "97f9344180314ac55bdbd23b65e49558f7e47eacb5c99b50acd687eb3b39cee0",
+    "id": "texture.glow_yellow1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/glow_yellow1.dds",
+    "verifiedCascBuild": true,
+    "bytes": 11064
+  },
+  {
+    "installFile": "assets/private/dds/glow_emmisivesam.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/glow_emmisivesam.dds",
+    "sha256": "e85ab0312e86687dea677b08a32235abbc055e59e91c0c2f86cc0484200bb122",
+    "id": "texture.glow_emmisivesam.dds",
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/glow_emmisivesam.dds",
+    "verifiedCascBuild": true,
+    "bytes": 22000
+  },
+  {
+    "installFile": "assets/private/dds/falloff_energy3_orange.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/falloff_energy3_orange.dds",
+    "sha256": "39be933159f142f4c05f33e2e1cfb6a11011e7eba8875d22d8c1945f22d2bebc",
+    "id": "texture.falloff_energy3_orange.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/falloff_energy3_orange.dds",
+    "verifiedCascBuild": true,
+    "bytes": 43832
+  },
+  {
+    "installFile": "assets/private/dds/bigwaves.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/bigwaves.dds",
+    "sha256": "89732a256d66baacbe2b57267ea1b7f486b35912fc1a3aa9eb57f0da18761602",
+    "id": "texture.bigwaves.dds",
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/bigwaves.dds",
+    "verifiedCascBuild": true,
+    "bytes": 43860
+  },
+  {
+    "installFile": "assets/private/dds/bigwaves_strength.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/bigwaves_strength.dds",
+    "sha256": "3f829f430cfd9d9ee8b40fd03dc74b769ec6376914231e6217c37398b72a1e0d",
+    "id": "texture.bigwaves_strength.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bigwaves_strength.dds",
+    "verifiedCascBuild": true,
+    "bytes": 43856
+  },
+  {
+    "installFile": "assets/private/dds/zergbone1.dds",
+    "version": "5.0.16.97563",
+    "cachedFile": "assets/private/dds/zergbone1.dds",
+    "sha256": "34639a9677f50b9a04ebea7369c24339bd018309c6be6e0fa523544f97cd2151",
+    "id": "texture.zergbone1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergbone1.dds",
+    "verifiedCascBuild": true,
+    "bytes": 1512
   },
   {
     "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-terran-marauder.dds",

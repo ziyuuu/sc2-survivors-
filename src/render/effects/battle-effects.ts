@@ -1,3 +1,4 @@
+import {OriginalProjectiles} from './original-projectiles';
 import {commitInstances,uploadActive} from '../units/instance-updates';
 import * as THREE from 'three';
 import {ASSETS,assetUrl} from '../../assets/manifest';
@@ -8,14 +9,15 @@ type Particle={asset:string;x:number;y:number;z:number;vx:number;vy:number;vz:nu
 type Batch={mesh:THREE.InstancedMesh;data:THREE.InstancedBufferAttribute;count:number;cells:number;start:number;end:number};
 const object=new THREE.Object3D(),color=new THREE.Color(),rotation=new THREE.Quaternion(),axis=new THREE.Vector3(0,0,1);
 const CAPACITY=256,POOL_SIZE=1280;
-const additive=new Set(['fx.muzzle.0','fx.flame.0','fx.flame.1','fx.muzzle.1','fx.flameimpact.0','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
+const additive=new Set(['fx.marauder.launch.1','fx.marauder.impact.2','fx.marauder.impact.3','fx.muzzle.0','fx.flame.0','fx.flame.1','fx.muzzle.1','fx.flameimpact.0','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
 /** Original M3-referenced sprites; authored web emission timing, not a full SC2 particle emulator. */
 export class BattleEffects {
  batches=new Map<string,Batch>();loaded=0;errors:string[]=[];lastSerial=0;
  particles:Particle[]=[];pool:Particle[]=[];steps=new Map<number,number>();
  stats={attack:0,hit:0,death:0,movement:0,bile:0,active:0,dropped:0};
- constructor(private scene:THREE.Scene){}
- async load(){for(const a of ASSETS.values()){if(a.kind!=='effect-texture')continue;const url=assetUrl(a.id);if(!url)continue;try{
+ readonly projectiles:OriginalProjectiles;
+ constructor(private scene:THREE.Scene){this.projectiles=new OriginalProjectiles(scene);}
+ async load(){await this.projectiles.load();this.errors.push(...this.projectiles.errors);for(const a of ASSETS.values()){if(a.kind!=='effect-texture')continue;const url=assetUrl(a.id);if(!url)continue;try{
    const texture=await new THREE.TextureLoader().loadAsync(url);texture.colorSpace=THREE.SRGBColorSpace;
    const sprite=(a as unknown as {sprite?:{columns:number;rows:number;startFrame?:number;endFrame?:number}}).sprite??{columns:1,rows:1};
    const geometry=new THREE.PlaneGeometry(1,1),data=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*2),2).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('spriteFrame',data);
@@ -44,6 +46,8 @@ export class BattleEffects {
     for(let i=0;i<8;i++)this.emit({asset:'fx.flame.0',x:muzzle.x+dx*i*.12,y:muzzle.y,z:muzzle.z+dz*i*.12,vx:dx*8,vy:.04,vz:dz*8,start:e.time+i*.015,life:Math.min(.5,length/8),size:.3+i*.035,growth:1.6,color:0xffffff,ground:false,angle:e.facing});
     this.burst(muzzle,'fx.flame.1',1,.25,0xffffff,.12);
    }
+   else if(e.unitType==='marauder'){this.projectiles.emit(e,mount);this.burst(muzzle,'fx.marauder.launch.1',1,.35,0xffffff,.1);this.burst({...e,...e.end,y:e.endY},'fx.marauder.impact.2',1,.6,0xffffff,.16);this.burst({...e,...e.end,y:e.endY},'fx.marauder.impact.0',2,.5,0xffffff,.3);}
+   else if(e.unitType==='hydralisk'){this.projectiles.emit(e,mount);}
    else if(e.unitType==='marine'||e.unitType==='tank'){
     if(e.unitType==='marine'){this.burst(muzzle,'fx.muzzle.0',1,.32,0xffffff,.09);this.burst(muzzle,'fx.muzzle.1',1,.2,0xffd491,.06);}
     else {this.burst(muzzle,'fx.blast.6',1,.9,0xffd491,.1);this.burst({...e,...e.end,y:e.endY},'fx.blast.3',3,e.siege?2.2:1.1,0xffffff,.55);}
@@ -55,6 +59,7 @@ export class BattleEffects {
   for(const e of w.visualEvents){if(e.serial<=this.lastSerial)continue;this.lastSerial=e.serial;if(visible(e)&&w.time-e.time<1.5)this.event(e,muzzle(e));}
   for(const u of w.entities.values()){if(u.hp<=0||u.flying||!visible(u))continue;const last=this.steps.get(u.id)??u.distanceWalked;if(u.distanceWalked-last>.7){this.stats.movement++;this.steps.set(u.id,u.distanceWalked);this.emit({asset:'fx.impact.1',x:u.x,y:(w.terrain?.height(u)??0)+.13,z:u.z,vx:-u.velocity.x*.12,vy:.2,vz:-u.velocity.z*.12,start:w.time,life:.5,size:u.unitType==='tank'?.8:.3,growth:.7,color:0x77726a,ground:false,angle:u.facing});}else if(!this.steps.has(u.id))this.steps.set(u.id,last);}
   for(const id of this.steps.keys())if(!w.entities.has(id))this.steps.delete(id);
+  this.projectiles.render(w.time,visible);
   for(const b of this.batches.values())b.count=0;
   let kept=0;for(const p of this.particles){const age=w.time-p.start,t=age/p.life;if(t>=1){this.pool.push(p);continue;}this.particles[kept++]=p;if(t<0||!visible(p))continue;const b=this.batches.get(p.asset)!;if(b.count>=CAPACITY)continue;
    object.position.set(p.x+p.vx*age,p.y+p.vy*age,p.z+p.vz*age);object.scale.setScalar(p.size*(1+t*p.growth));
