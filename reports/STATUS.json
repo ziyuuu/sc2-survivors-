@@ -1,239 +1,98 @@
 {
-  "checkedAt": "2026-09-22T13:51:41.496618+00:00",
+  "checkedAt": "2026-09-23T15:58:08Z",
   "repository": "ziyuuu/sc2-survivors-",
   "projectDirectory": "D:\\星际",
   "branch": "v3/playable-sc2-demo",
-  "runtimeCommit": "3684549dda4b2a636d5a19e9e74cfea47ece1146",
-  "pr": "https://github.com/ziyuuu/sc2-survivors-/pull/2",
-  "prBase": "v2/sc2-assets-ui",
-  "scope": "V18 movement-only intent, directional automatic targeting, bounded stop/fire/reposition, PC mouse/keyboard and touch tap/joystick settings, right-stick skill selection with A/X confirmation. Preserve map, economy, difficulty and assets.",
+  "release": "V22",
+  "scope": "Hard and Hell difficulties, enemy ranks and status effects, permanent seven-tier talents, an independent Acropolis LE endless battlefield and five central fortifications.",
   "tests": {
     "command": "npm test",
-    "passed": 365,
+    "passed": 387,
     "failed": 0,
-    "skipped": 0,
-    "log": "reports/local/v18-tests-final.txt"
+    "skipped": 0
   },
   "typecheck": {
-    "command": "npm run typecheck",
+    "command": "npm run build (tsc --noEmit)",
     "exitCode": 0
   },
   "build": {
     "command": "npm run build",
     "exitCode": 0,
     "file": "dist/SC2-Survivors-Demo.html",
-    "bytes": 206697492,
-    "mib": 197.12208938598633,
-    "sha256": "ab6861f3de34bd89f9b8ff962c2d3430990c1a2d177feff0f4373a04e62a1795",
-    "previousBytes": 206691735,
-    "reductionPercent": -0.0027853073080062927,
-    "sourceBytesIdentical": 647,
+    "bytes": 227791278,
+    "mib": 217.23869132995605,
+    "sha256": "5a3dd6450b9f1c5fdcf1849a5feca47b7ef5a345d0f6ad69008321443c50f269",
     "largeChunkWarning": true
   },
   "assets": {
-    "available": 647,
-    "manifestTotal": 647,
+    "available": 652,
+    "manifestTotal": 652,
     "requiredMissing": [],
-    "combatModels": 28,
-    "baseCombatModels": 10,
-    "eliteVariants": 15,
-    "heroes": 3,
-    "idleMoveDeathPlayback": 28,
-    "attackClips": 23,
-    "medicalWorkClips": 4,
-    "banelingAttack": "original death/detonation",
-    "iconsDecoded": 31,
-    "eliteIconPolicy": "15 skins use the five original family icons; not 15 distinct original portraits",
-    "audioDecoded": 10,
-    "expansionDependencyHashes": 267,
-    "independentOriginalAudit": {
-      "models": 364,
-      "bones": 4045,
-      "clips": 1272,
-      "mismatches": 0
-    },
+    "originalCombatModels": 28,
+    "newAcropolisAssets": 5,
+    "newAcropolisTerrainInputs": 21,
+    "sourceVersion": "SC2 5.0.16.97563",
     "humanVisualApproved": false,
-    "humanListeningApproved": false,
-    "originalClientPixelComparison": false,
-    "v16Validation": {
-      "restoredSourceSha256Equal": 647,
-      "combatModelsLoaded": 28,
-      "unchangedOriginalClips": true,
-      "newHumanVisualApproval": false,
-      "details": "V16 byte identity and browser load; animation playback coverage above is V15 historical evidence."
-    },
-    "v17Validation": {
-      "restoredSourceSha256Equal": 647,
-      "combatModelsLoaded": 28,
-      "iconsDecoded": 31,
-      "originalAudioDecoded": 10,
-      "originalAssetBytesUnchanged": true,
-      "animationPlaybackEvidence": "V15 historical per-action playback; V17 byte identity, loading and integration checks, not a new per-clip human review."
-    },
-    "v18Validation": {
-      "restoredSourceSha256Equal": 647,
-      "combatModelsLoaded": 28,
-      "iconsDecoded": 31,
-      "originalAudioDecoded": 10,
-      "originalAssetBytesUnchanged": true,
-      "animationPlaybackEvidence": "V15 original per-action evidence retained; V18 byte identity and integration checks, not new per-clip human review."
-    }
+    "originalClientPixelComparison": false
   },
   "map": {
-    "name": "Kairos Junction LE",
-    "geometryChanged": false,
-    "crowdingCases": 32,
-    "crowdingFailures": 0,
-    "friendlyCount": 25,
-    "evidence": "reports/qa/v18-navigation.json"
+    "campaign": "Kairos Junction LE",
+    "endless": "Acropolis LE",
+    "endlessArchiveSha256": "7a2788390662e907a4359ca17dd5149fef081a45ec315443d096b637694d753f",
+    "worldScale": 1,
+    "connectedOpenSamples": 51023,
+    "originalModelKinds": 16,
+    "originalModelPlacements": 150,
+    "missingDecorativePlacements": 3413,
+    "missingCliffModels": true,
+    "sourceHeightPathingMasks": true,
+    "originalTerrainLayersPacked": 8,
+    "originalTerrainMasksPacked": 2
   },
   "browser": {
-    "runtime": "reports/qa/v18-runtime.json",
-    "identityEndlessRegression": "reports/qa/v17-regression.json",
-    "controls": "reports/qa/v18-controls.json",
-    "viewports": [
-      [
-        1440,
-        900
-      ],
-      [
-        390,
-        844
-      ],
-      [
-        844,
-        390
-      ]
-    ],
+    "command": "node tools/qa-v22.mjs",
+    "evidence": "reports/local/qa-v22/report.json",
+    "talentPurchase": true,
+    "endlessMapLoaded": true,
+    "endlessFortifications": 5,
+    "allyIdentityPreserved": true,
+    "mobileTalentViewport": [390, 844],
+    "offlineHtmlReady": true,
+    "offlineAcropolisAssetsHashMatched": 5,
+    "httpRequests": 0,
     "errors": [],
+    "diagnosticDrawCalls": 208,
+    "diagnosticTriangles": 270474,
+    "diagnosticFps": 38.72966692486433,
     "physicalPhone": false,
     "physicalGamepad": false,
     "humanCampaignPlayed": false
   },
-  "restart": {
-    "coldFileReadySeconds": 24.307446999999996,
-    "offlineRestartMilliseconds": [
-      18.5,
-      17.30000001192093,
-      18.400000005960464,
-      28.900000005960464,
-      23.900000005960464
-    ],
-    "devRestartMilliseconds": [
-      22.69999998807907,
-      14.900000005960464,
-      12.800000011920929,
-      10.5,
-      12.299999982118607
-    ],
-    "repetitionsPerBuild": 5,
-    "sameWorldAndModels": true,
-    "newModelRequests": 0,
-    "gpuObjectCountsBefore": {
-      "geometries": 356,
-      "textures": 315,
-      "programs": 87
-    },
-    "gpuObjectCountsAfter": {
-      "geometries": 356,
-      "textures": 315,
-      "programs": 87
-    },
-    "notes": "UI click to ready-menu animation frame; includes fresh pods before each dev restart. Cached assets survive only while this page is open."
+  "talents": {
+    "lines": 4,
+    "tiersPerLine": 7,
+    "totalCost": 258,
+    "persistence": "local profile with backup and import/export",
+    "humanBalanceVerified": false
   },
-  "performance": {
-    "evidence": "reports/qa/v18-performance.json",
-    "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-    "friendly": 28,
-    "enemies": 300,
-    "averageFps": 39.611210971306825,
-    "p95ms": 33.400000000001455,
-    "drawCalls": 273,
-    "stepCpu": {
-      "count": 721,
-      "meanMs": 7.1224687928217625,
-      "p95ms": 12.599999994039536
-    },
-    "renderCpu": {
-      "count": 476,
-      "meanMs": 11.760714286014814,
-      "p95ms": 14.300000011920929
-    },
-    "simulationBacklogSeconds": 0.00013333333333786362,
-    "notes": [
-      "Single desktop Chrome development build sample, balanced, 1440x900 DPR1, 15-second warmup and 12-second capture.",
-      "No synchronized baseline comparison or FPS improvement claim; diagnostic fixture, not campaign or physical-device performance."
-    ]
-  },
-  "designOnly": {
-    "file": "docs/DIFFICULTY_AND_TALENTS_PROPOSAL.md",
-    "hardImplemented": false,
-    "hellImplemented": false,
-    "talentsImplemented": false,
-    "fullClearMeritProposal": {
-      "easy": 90,
-      "normal": 120,
-      "hard": 180,
-      "hell": 240
-    }
-  },
-  "knownLimits": [
-    "The 197 MiB offline HTML still needs about 23 seconds for this machine's first load; closing/reloading the page discards GPU caches.",
-    "Desktop diagnostic FPS remains variable; no physical-phone or guaranteed minimum FPS claim.",
-    "Normal tuning and future difficulty/talent values are not a new human full-campaign balance validation.",
-    "Original fonts remain absent with system fallbacks; original asset byte identity is not fresh human SC2-client visual/listening approval."
-  ],
   "endless": {
     "unlock": "optional after stage 12 victory",
-    "mapStage": 12,
     "roundSeconds": 240,
-    "initialIntervals": {
+    "initialSpawnIntervalsSeconds": {
       "wave": 8,
       "elite": 30,
       "boss": 90
     },
-    "accelerationEvery": {
-      "wave": 30,
-      "elite": 60,
-      "boss": 90
+    "fortifications": {
+      "bunkers": 4,
+      "repairStation": 1
     },
-    "intervalFactors": {
-      "wave": 0.9,
-      "elite": 0.85,
-      "boss": 0.85
-    },
-    "newSpecialMinimumGrowth": {
-      "health": 1.4,
-      "damage": 1.25,
-      "attackSpeed": 1.15
-    },
-    "existingSpecialsRescaled": false,
-    "campaignBalanceChanged": false,
-    "humanLongRunBalanceVerified": false,
-    "note": "V18 changes controls/combat behavior only; map, wave budgets, enemy statistics, economy and endless scaling unchanged."
+    "humanLongRunBalanceVerified": false
   },
-  "controls": {
-    "desktop": [
-      "mouse",
-      "keyboard"
-    ],
-    "touch": [
-      "tap",
-      "joystick"
-    ],
-    "defaults": {
-      "desktop": "mouse",
-      "touch": "joystick"
-    },
-    "targetSelection": false,
-    "gamepad": "Left stick moves, right stick selects a fixed skill sector, A/X confirms. Release does not pursue.",
-    "thinkSeconds": [
-      0.24,
-      0.285
-    ],
-    "minimumMovingWindupSeconds": 0.1,
-    "repositionSeconds": 0.22,
-    "maximumMovingAimSeconds": 0.38,
-    "legacyNonstandard": "Existing left axes/buttons retained; right axes may require completing calibration."
-  }
+  "knownLimits": [
+    "Acropolis source decoration and cliff models are incomplete; the browser scene is not a pixel-exact StarCraft II render.",
+    "The 217 MiB standalone HTML has not been measured for first-load time on this build.",
+    "Short headless Chrome QA is not a physical-phone, physical-gamepad or long-run performance result.",
+    "No human full-campaign or high-talent balance approval has been recorded."
+  ]
 }

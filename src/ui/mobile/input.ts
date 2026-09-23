@@ -20,7 +20,7 @@ export class Input {
    if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(code))e.preventDefault();if(e.repeat)return;
    this.keys.add(code);
    if(code==='Digit1')world.castHero('raynor');if(code==='Digit2')world.castHero('tychus');if(code==='Digit3')world.castHero('nova');
-   if(code==='KeyT')world.toggleTanks();if(code==='KeyE')world.stim();if(code==='Space')world.dash();
+   if(code==='KeyT')world.toggleTanks();if(code==='KeyE')world.stim();if(code==='Space')world.dash();if(code==='KeyF')world.airlift();
   });
   window.addEventListener('keyup',e=>this.keys.delete(e.code));
   const command=(e:PointerEvent)=>{

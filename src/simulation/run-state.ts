@@ -10,11 +10,13 @@ import {SquadFormation} from './formation/squad';
 import {ContactSolver} from './movement/contacts';
 import {SpatialHash} from './movement/spatial-hash';
 import {AttackLineCache} from './combat/attack-lines';
-import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,EconomicTarget,SquadOrder,RewardDrop,HeroRecord,HeroCast} from './types';
+import {CombatStatuses} from './combat/statuses';
+import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,EconomicTarget,SquadOrder,RewardDrop,HeroRecord,HeroCast,ExpansionHive,Fortification} from './types';
 /** Run-owned mutable state only. No listeners, terrain assets, closures or World references.
  * One fresh state resets a run without reloading the renderer or immutable asset pack. */
 export class RunState {
  podSerial=0;time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'lost'='menu';paused=false;
+ runId:string|null=null;endlessAwardedMinutes=0;
  endless:EndlessState|null=null;
  entities=new Map<number,Entity>();pods:Pod[]=[];buildings=new Map<number,Building>();upgrades=new Map<string,number>();
  wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
@@ -23,7 +25,14 @@ export class RunState {
  trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];rewardDrops:RewardDrop[]=[];hash=new SpatialHash<Body>();
  visualEvents:VisualEvent[]=[];protected visualSerial=0;
  protected offerSerial=0;rewards:Reward[]=[];rewardClaimed=false;rewardRound:'building'|'random'='building';clearReceipt:{stage:number;minerals:number;gas:number}|null=null;rerolls=0;nextBuilding=1;nextWave=Infinity;wave=0;stageWave=0;nextId=1;nextJob=1;
+ freeRerolls=0;freePurchases=0;
+ nextFreePodAt=0;nextEliteGrowthAt=Infinity;nextMercenaryAt=Infinity;nextTankSupportAt=Infinity;
+ supportUntil=0;nextSupportTick=Infinity;
  dashUntil=0;dashReady=0;hive:Body|null=null;maxStretch=0;distancePairs=0;collisionContacts=0;
+ airliftReady=0;airliftAt=Infinity;
+ expansionHives=new Map<number,ExpansionHive>();nextExpansionAt=Infinity;hiveWarningPoint:Point|null=null;mainHiveNextBatchAt=Infinity;mainHiveBatch=0;mainHivePending:ZergType[]=[];
+ fortifications=new Map<number,Fortification>();
+ lordWarningPoint:Point|null=null;
  stats={kills:0,rescued:0,failed:0,produced:0,started:0,shots:0,healed:0,damage:0,scvsRescued:0,scvsLost:0,dronesKilled:0,ambientSpawned:0};
  difficulty:Difficulty='normal';scvs=0;economicTargets=new Map<number,EconomicTarget>();
  anchorMovingFor=0;anchorStoppedFor=0;tankCommand:'tank'|'siege'='tank';
@@ -47,10 +56,13 @@ protected specialPlan:EnemyEvent[]=[];protected nextSpecial=0;
 
  heroes=new Map<HeroId,HeroRecord>();heroCasts:HeroCast[]=[];
  pendingElites:EliteId[]=[];
+ evolution=new Map<TerranType,{targetId:number;direction:'assault'|'guard'|'mobility';bank:number}>();
  protected burns=new Map<string,{target:number;source:number;damage:number;next:number;until:number}>();
  protected groupNext:Record<BuildingType,TerranType>={barracks:'marine',factory:'hellion',starport:'medivac'};
  protected groupUnlocks={marauder:false,tank:false};
  protected rngState=0;
  protected attackLines=new AttackLineCache();
+ statuses=new CombatStatuses();corrosionZones:{source:number;points:Point[];damage:number;until:number;nextTick:number}[]=[];zoneSlowed=new Set<number>();
+ auraArmor=new Map<number,number>();auraDamage=new Map<number,number>();auraAttackSpeed=new Map<number,number>();protected nextAuraUpdate=0;
 
 }

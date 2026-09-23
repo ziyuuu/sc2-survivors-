@@ -14,7 +14,7 @@ test('endless spawn intervals accelerate independently at 30/60/90 seconds',()=>
 test('each new endless special grows HP damage and attack speed without changing living enemies or ordinary units',()=>{
  const w=victory();w.startEndless();for(const tier of ['elite','boss'] as const){const a=w.spawnSpecial('hydralisk',tier,{x:10,z:0})!,hp=a.hp,damage=a.weaponDamage,period=a.attackPeriod;const b=w.spawnSpecial('hydralisk',tier,{x:15,z:0})!;
   assert.equal(a.endlessLevel,1);assert.equal(b.endlessLevel,2);near(b.maxHp,hp*1.4);near(b.weaponDamage,damage*1.25);near(b.attackPeriod,period/1.15);near(a.hp,hp);near(a.weaponDamage,damage);near(a.attackPeriod,period);}
- const normal=w.addUnit('hydralisk','zerg',20,0);assert.equal(normal.maxHp,SC2_UNITS.hydralisk.maxHp);assert.equal(normal.weaponDamage,SC2_UNITS.hydralisk.attackDamage);assert.equal(normal.endlessLevel,undefined);
+ const normal=w.addUnit('hydralisk','zerg',20,0);assert.equal(normal.maxHp,SC2_UNITS.hydralisk.maxHp*2.1);assert.equal(normal.weaponDamage,SC2_UNITS.hydralisk.attackDamage*1.45);assert.equal(normal.endlessLevel,undefined);
 });
 test('endless skill damage grows once while original ground warning duration remains dodgeable',()=>{
  const w=victory();w.startEndless();const b=w.spawnSpecial('ravager','boss',{x:0,z:0})!,a=w.allies()[0];a.x=0;a.z=5;a.hp=a.maxHp=100000;b.specialReady=0;w.hash.rebuild([b,a]);w.enemySpecials.act(b,1/60);const cast=w.enemySpecials.casts[0];near(cast.damage,70*1.2*endlessGrowth(1).damage);near(cast.at-w.time,1.5);

@@ -35,10 +35,10 @@ test('a fresh reverse command does not retain the old direction in target priori
  const w=setup(),u=w.allies()[0],right=foe(w,4),left=foe(w,-4);u.moveSpeed=0;u.weaponCooldown=10;w.input={x:1,z:0};w.advance(.1);assert.equal(u.attackTarget,right.id);
  w.input={x:-1,z:0};w.advance(.3);assert.equal(u.attackTarget,left.id);assert.ok(w.marchDirection.x<0);
 });
-test('automatic shots stop locomotion, preserve cooldowns and leave a movement window at high ranks',()=>{
- for(const type of ['marine','marauder','hellion','tank'] as const){const w=setup([type]),u=w.allies()[0],e=foe(w,4,1);u.rank=5;w.refreshStats(u);w.input={x:1,z:0};let stopTicks=0,moved=0;
-  for(let i=0;i<150;i++){e.x=u.x+4;e.z=u.z+1;const before={x:u.x,z:u.z};w.step();if(u.windup>0){stopTicks++;assert.ok(distance(u,before)<1e-8);}else moved+=distance(u,before);}
-  const shots=w.visualEvents.filter(e=>e.entityId===u.id&&e.kind==='attack');assert.ok(shots.length>=2,type);assert.ok(stopTicks>=10,type);assert.ok(moved>1,type);
+test('automatic shots keep marching through the windup without shortening weapon cooldowns',()=>{
+ for(const type of ['marine','marauder','hellion','tank'] as const){const w=setup([type]),u=w.allies()[0],e=foe(w,4,1);u.rank=5;w.refreshStats(u);w.input={x:1,z:0};let aimingTicks=0,aimingMovement=0,moved=0;
+  for(let i=0;i<150;i++){e.x=u.x+4;e.z=u.z+1;const before={x:u.x,z:u.z};w.step();if(u.windup>0){aimingTicks++;aimingMovement+=distance(u,before);}else moved+=distance(u,before);}
+  const shots=w.visualEvents.filter(e=>e.entityId===u.id&&e.kind==='attack');assert.ok(shots.length>=2,type);assert.ok(aimingTicks>=10,type);assert.ok(aimingMovement>.2,type);assert.ok(moved>1,type);
   for(let i=1;i<shots.length;i++)assert.ok(shots[i].time-shots[i-1].time>=Math.max(u.attackPeriod,C.repositionSeconds+C.movingWindup)-1/60-1e-8,type);
  }
 });

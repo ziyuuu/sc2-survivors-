@@ -4,6 +4,7 @@ import './ui/sc2-battle.css';
 import {configureMapAssets,loadMapDefinition} from './render/terrain/original-map';
 import {MapTerrain} from './simulation/movement/map-terrain';
 import {World} from './simulation/world';
+import {TalentProfile} from './simulation/progression/talent-profile';
 import {FixedStepper} from './simulation/fixed-stepper';
 import {TUNING} from './data/game';
 import {BattleRenderer} from './render/scene/battle-renderer';
@@ -15,7 +16,7 @@ import {AudioEffects} from './render/effects/audio';
 
 const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
-async function boot(){await loadEmbeddedAssets();configureMapAssets();const definition=await loadMapDefinition(),world=new World({terrain:new MapTerrain(definition)});let storage:Storage|undefined;try{storage=localStorage;}catch{}const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls),audio=new AudioEffects();
+async function boot(){await loadEmbeddedAssets();configureMapAssets();let storage:Storage|undefined;try{storage=localStorage;}catch{}const definition=await loadMapDefinition(),endlessDefinition=await loadMapDefinition('acropolis').catch(()=>null),talentProfile=new TalentProfile(storage),world=new World({terrain:new MapTerrain(definition),endlessTerrain:endlessDefinition?new MapTerrain(endlessDefinition):undefined,talentProfile});const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls),audio=new AudioEffects();
  const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,pick:(x,y,touch)=>view.pick(x,y,touch)});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,()=>hud.pause(),()=>input.reset());
  controls.listeners.add(()=>gamepad.reset());

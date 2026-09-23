@@ -1,0 +1,9 @@
+{
+  "name": "Acropolis LE",
+  "file": "AcropolisLE.SC2Map",
+  "source": "local:assets/private/maps/AcropolisLE.SC2Map",
+  "sha256": "7a2788390662e907a4359ca17dd5149fef081a45ec315443d096b637694d753f",
+  "bytes": 1057468,
+  "worldUnitsPerSc2Unit": 1,
+  "archiveParser": "mpyq==0.2.5"
+}

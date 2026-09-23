@@ -71,7 +71,7 @@ export function applyWeaponHit(target, weapon) {
     if (target.attributes.includes(entry.attribute)) bonus += entry.amount;
   }
   if (!target.hp) return { damage: 0, killed: false };
-  const perHit = Math.max(weapon.minimumDamage, weapon.damage + bonus - target.armor);
+  const perHit = Math.max(weapon.minimumDamage, weapon.damage + bonus - (weapon.armorOverride ?? target.armor));
   const before = target.hp;
   for (let hit = 0; hit < weapon.hits && target.hp > 0; hit++) target.hp = Math.max(0, target.hp - perHit);
   return { damage: before - target.hp, killed: target.hp === 0, killedId: target.hp === 0 ? target.id : null };

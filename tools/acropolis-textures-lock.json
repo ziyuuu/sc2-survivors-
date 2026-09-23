@@ -1,0 +1,149 @@
+[
+  {
+    "sha256": "3ace3e0e0280a6ff7d7fa3cd0e0d46fd85731e316fcb4965c4dc55e508b42b74",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "aiur4b_5normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/aiur4b_5normal.dds"
+  },
+  {
+    "sha256": "69609ea18537de0a1b736a1baa3b72586281fc30d17a6ae07347f436811b5230",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "aiurtemple_4.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/aiurtemple_4.dds"
+  },
+  {
+    "sha256": "84d20a0b8c02d9035ac8bd4e880c297b698a2cdb8abdc860f3ae7cf2cfc7d548",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "aiurtemple_4normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/aiurtemple_4normal.dds"
+  },
+  {
+    "sha256": "8a3f9d30dd8bf4dea055f3bc7c97f3630daecfd6d282e12968abb88a0c54bf73",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "castanarex2_panels.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/castanarex2_panels.dds"
+  },
+  {
+    "sha256": "916522bcf8de28141ee963251c8ab04b6d30e808e6269548dae49b1100abd241",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "castanarex2_panelsnormal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/castanarex2_panelsnormal.dds"
+  },
+  {
+    "sha256": "2fe99f655ae94bc7c42977d3950830725e7a73fc059fb1d7df41dfd01660c4b0",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "castanarex2_tiles.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/castanarex2_tiles.dds"
+  },
+  {
+    "sha256": "b37bd4a15c6137bc2d756b809641553ec11a2cfdf6b4664189bd8b6c0ab613ff",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "castanarex2_tilesnormal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/castanarex2_tilesnormal.dds"
+  },
+  {
+    "sha256": "787bc4160fe63d58f5afed12446b1108585467a42d28a7ae088fbcc0e54a7f22",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "elsecaro_1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_1.dds"
+  },
+  {
+    "sha256": "3264c59c980b0817fc3cd9046454693614b4a54aba9e5bccae1aeba81d7423e8",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "elsecaro_1normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_1normal.dds"
+  },
+  {
+    "sha256": "a47ef2ed8007027aa56dc9bb1df7e0ff9ff73fb1939607f06eb9b6614944fcf1",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "elsecaro_3.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_3.dds"
+  },
+  {
+    "sha256": "36671eb001202f0d9d80d094ab948ef80d09f3fd1d41725d36ab62b7b9b9027f",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "elsecaro_3normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_3normal.dds"
+  },
+  {
+    "sha256": "9b6c5e2a0553f43bb83211a2d117a59af40488b51fdc96753c79fece3ee0df69",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "elsecaro_5normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_5normal.dds"
+  },
+  {
+    "sha256": "c9402e9496200683bf70251eba2aab86452aa55ebb42809da3f95ee320100b24",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "elsecaro_7.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_7.dds"
+  },
+  {
+    "sha256": "9c83cbefd79ed0cdca6b7731f62067d5a7008ed33ab955fd951a808320d21268",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "elsecaro_7normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_7normal.dds"
+  },
+  {
+    "sha256": "274427c74f90bffe69a9d5a51fa97604b37c33ee79c9c324709003409c9eab4b",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "korhalwastes_2normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/korhalwastes_2normal.dds"
+  },
+  {
+    "sha256": "a799d6aeedef49f9ba64930c2bdc99fba010ac02f8e1e25597a16f0e09eb336f",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "meinhoffex3_2.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/meinhoffex3_2.dds"
+  },
+  {
+    "sha256": "df78fdb737b4a3776e2ffbd51a7d717e97548d6a16075a7875e1450cff1fec94",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "tyrador_big_bricks.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tyrador_big_bricks.dds"
+  },
+  {
+    "sha256": "59a890ad2c9e9dcbf51ed67f58c1c2a502d1bb273b7781e4bf23049be52afa65",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "tyrador_rubble.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tyrador_rubble.dds"
+  },
+  {
+    "sha256": "2ec48023f1a4a08a266566382decfb2610b42c1dbb620c161328e5371db77ceb",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "tyrador_square_bricks.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tyrador_square_bricks.dds"
+  },
+  {
+    "sha256": "6c32a480538fcdb58ac62c7b4322952d40e6f0a7f3fe3caec9f652446f119a16",
+    "version": "5.0.16.97563",
+    "bytes": 1398260,
+    "name": "tyrador_square_bricksnormal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tyrador_square_bricksnormal.dds"
+  },
+  {
+    "sha256": "ce4cc11b53391abf2a50f85c83a15cef11b00977cc9fb6bb094fd83d82309eda",
+    "version": "5.0.16.97563",
+    "bytes": 1398256,
+    "name": "zhakuldas_tiles.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zhakuldas_tiles.dds"
+  }
+]

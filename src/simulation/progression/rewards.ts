@@ -33,7 +33,7 @@ export function rewardPool(w?:RewardWorld):Reward[]{const factory=w&&[...w.build
  offer({id:'economy.salvage',name:'战地回收',description:'获得 75 矿物与 25 瓦斯。',icon:'building.factory',kind:'economy',value:'salvage',minerals:50,gas:0}),
  offer({id:'economy.supply',name:'补给运输',description:'获得 100 矿物与 25 瓦斯。',icon:'building.barracks',kind:'economy',value:'supply',minerals:75,gas:25}),
  ];}
-export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<number,Building>;upgrades:Map<string,number>;canAcquireHero?:(id:HeroId)=>boolean;canAcquireElite?:(id:EliteId)=>boolean;capacity:(t:TerranType)=>boolean;canRecruit:(t:TerranType,rank:number)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
+export type RewardWorld={stage:number;wallet:{minerals:number;gas:number};buildings:Map<number,Building>;upgrades:Map<string,number>;freePurchases?:number;rewardRound?:'building'|'random';rarityBonus?:number;canAcquireHero?:(id:HeroId)=>boolean;canAcquireElite?:(id:EliteId)=>boolean;capacity:(t:TerranType)=>boolean;canRecruit:(t:TerranType,rank:number)=>boolean;productionCost:(t:TerranType)=>{minerals:number;gas:number}};
 export function unlockedReward(w:RewardWorld,r:Reward){
  if(r.kind==='hero')return w.canAcquireHero?.(r.value as HeroId)??false;
  if(r.kind==='elite')return w.canAcquireElite?.(r.value as EliteId)??false;
@@ -45,10 +45,10 @@ export function unlockedReward(w:RewardWorld,r:Reward){
  if(r.kind==='tech'){const needsFactory=['vehicle','infernal','siege'].includes(r.value),needsStarport=['medivac','mechanicalHeal'].includes(r.value);return (r.value!=='siege'||[...w.buildings.values()].some(b=>b.type==='factory'&&b.techLab))&&(!needsFactory||[...w.buildings.values()].some(b=>b.type==='factory'))&&(!needsStarport||[...w.buildings.values()].some(b=>b.type==='starport'))&&(w.upgrades.get(r.value)??0)<(['infantry','vehicle'].includes(r.value)?3:1);}
  return true;
 }
-export function eligibleReward(w:RewardWorld,r:Reward){return !r.sold&&unlockedReward(w,r)&&w.wallet.minerals+1e-8>=r.minerals&&w.wallet.gas+1e-8>=r.gas;}
+export function eligibleReward(w:RewardWorld,r:Reward){return !r.sold&&unlockedReward(w,r)&&(w.rewardRound==='random'&&(w.freePurchases??0)>0||w.wallet.minerals+1e-8>=r.minerals&&w.wallet.gas+1e-8>=r.gas);}
 /** Rarity is rolled first, without looking at the wallet. Each tier always has real available effects. */
 export function drawReward(w:RewardWorld,rng:()=>number,map:boolean|'elite'=false,excluded:string[]=[]):Reward|undefined {
- const rarity=rollRarity(rng,map,w.upgrades.get('intelligence')??0),pool=rewardPool(w).filter(r=>r.kind!=='build'&&r.kind!=='research'&&r.kind!=='upgrade'&&r.rarity===rarity&&!excluded.includes(r.id)&&unlockedReward(w,r));
+ const rarity=rollRarity(rng,map,w.upgrades.get('intelligence')??0,w.rarityBonus??0),pool=rewardPool(w).filter(r=>r.kind!=='build'&&r.kind!=='research'&&r.kind!=='upgrade'&&r.rarity===rarity&&!excluded.includes(r.id)&&unlockedReward(w,r));
  // Factory labs stay ordinary random-round choices; map rewards never start building upgrades.
  if(!map&&rarity==='white')pool.push(...rewardPool(w).filter(r=>r.kind==='upgrade'&&!excluded.includes(r.id)&&unlockedReward(w,r)));
  return pool.length?pool[Math.floor(rng()*pool.length)]:undefined;
