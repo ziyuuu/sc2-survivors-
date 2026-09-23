@@ -13,7 +13,9 @@ const guards:number[][]=[[2,0,0,0],[3,0,0,0],[4,0,0,0],[6,1,0,0],[8,2,0,0],[10,2
 const rewards:readonly (readonly [number,number])[]=[[80,30],[250,125],[300,150],[250,150],[250,150],[250,175],[200,175],[200,200],[200,200],[225,225],[250,225],[300,250]];
 export const STAGES:StageConfig[]=names.map((name,i)=>({id:i+1,name,durationSeconds:60*(1+Math.floor(i/3)),ambient:counts([...ambient[i],[0,0,0,0,0,0,6,10,14,18,24,30][i]]),guards:counts([...guards[i],[0,0,0,0,0,0,1,1,1,2,2,3][i]]),entranceSpacing:i<3?.3:i<5?.8:.35,waves:[6,6,7,10,12,12,14,14,16,24,27,30][i],lingHp:[18,24,30][i]??35,speed:[1,1,1.1,1.1,1.12,1.12,1.15,1.15,1.18,1.18,1.2,1.2][i],width:[28,36,44,52,60,68,76,84,92,100,104,112][i],podHp:[600,900,1200,1500,1800,2100,2400,2400,2400,2400,2400,2400][i],reward:rewards[i],drones:i<2?4:i<3?2:i<9?3:4,eggs:i<2?3:2}));
 /** V17: Normal is 90% of the locked budget. Easy remains 50% of that original baseline. */
-export const enemyCountFactor=(difficulty:Difficulty)=>difficulty==='easy'?.5:.9;
+export const difficultyPressureFactor=(difficulty:Difficulty)=>difficulty==='easy'?.5:.9;
+export const enemyCountFactor=difficultyPressureFactor;
+export const bossHealthFactor=difficultyPressureFactor;
 export function stageConfig(stage:number,difficulty:Difficulty):StageConfig {
  const index=Math.max(0,Math.min(11,stage-1)),s=STAGES[index],factor=enemyCountFactor(difficulty),carry=emptyCounts();
  for(let i=0;i<index;i++)scaleCounts(STAGES[i].ambient,factor,carry,difficulty==='normal');

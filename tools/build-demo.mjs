@@ -5,6 +5,9 @@ const records=JSON.parse(await fs.readFile('reports/local/runtime-assets.json','
 const missing=records.filter(r=>r.required&&r.status!=='available');if(missing.length)throw Error('Cannot package friend demo with required missing assets: '+missing.map(r=>r.id).join(', '));
 const expansion=JSON.parse(await fs.readFile('tools/expansion-models.json','utf8'));
 const units=['marine','marauder','hellion','tank','medivac','zergling','roach','baneling','ravager','hydralisk'];
+const combatModels=units.map(type=>records.find(r=>r.id==='model.'+type));
+const nonGlb=combatModels.map((r,i)=>({r,type:units[i]})).filter(({r,type})=>!r||r.status!=='available'||r.url!==('assets/animated/model.'+type+'.glb')||!r.packedFile.endsWith('model.'+type+'.glb'));
+if(nonGlb.length)throw Error('Combat models must use self-contained GLB files from assets/animated: '+nonGlb.map(({r,type})=>r?.id??type).join(', '));
 const missingExpansion=expansion.filter(a=>!records.some(r=>r.id===a.id&&r.status==='available'&&r.animations?.length));if(missingExpansion.length)throw Error('Missing original expansion models: '+missingExpansion.map(a=>a.id).join(', '));
 const animationMissing=units.flatMap(t=>['model.'+t,'model.'+t+'.death']).concat(['model.tank.siege','model.tank.morph']).filter(id=>!records.some(r=>r.id===id&&r.status==='available'&&r.animations?.length));
 if(animationMissing.length)throw Error('Original animation pack required for friend Demo: '+animationMissing.join(', ')+'. Run npm run assets:animate.');

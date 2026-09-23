@@ -19,12 +19,9 @@ for(const a of assets){const ext=a.kind==='model'?'.glb':a.kind==='icon'||a.kind
  try{const bytes=await fs.readFile(file);record.bytes=bytes.length;
  if(a.kind==='model'){
   const info=inspectGlb(bytes);if(info.externalResources.length)throw Error('External GLB dependencies are unsupported; provide a self-contained GLB');
-  record.animations=info.animationNames;const json=JSON.parse(bytes.subarray(20,20+bytes.readUInt32LE(12)).toString());let bin;let offset=12;
-  while(offset<bytes.length){const length=bytes.readUInt32LE(offset),kind=bytes.readUInt32LE(offset+4);if(kind===0x004e4942)bin=bytes.subarray(offset+8,offset+8+length);offset+=length+8;}
-  const stem=path.basename(file,'.glb');await fs.mkdir('public/assets/textures',{recursive:true});
-  if(bin){await fs.writeFile(path.join(path.dirname(file),`${stem}.bin`),bin);json.buffers[0].uri=`${stem}.bin`;}
-  for(let i=0;i<(json.images??[]).length;i++){const image=json.images[i];if(image.bufferView!==undefined){const v=json.bufferViews[image.bufferView],extension=image.mimeType==='image/jpeg'?'jpg':'png';const imageName=`${stem}-${i}.${extension}`;await fs.writeFile(`public/assets/textures/${imageName}`,bin.subarray(v.byteOffset??0,(v.byteOffset??0)+v.byteLength));image.uri=`../textures/${imageName}`;delete image.bufferView;}}
-  const gltf=file.replace(/\.glb$/,'.gltf');await fs.writeFile(gltf,JSON.stringify(json));record.url=gltf.replace('public/','');record.glb=info;
+  // Keep runtime models as the self-contained GLB produced by the M3 pipeline.
+  // GLTFLoader accepts both glTF and GLB; one binary avoids sidecar fetches under file://.
+  record.animations=info.animationNames;record.url=file.replace('public/','');record.glb=info;
  }else if(path.extname(file)==='.png'&&bytes.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')throw Error('Invalid image magic');
  record.status='available';
  }catch(e){record.error=e.message;}
