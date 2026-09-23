@@ -1,1 +1,2 @@
 assets/private/** filter=lfs diff=lfs merge=lfs -text
+dist/SC2-Survivors-Demo.html filter=lfs diff=lfs merge=lfs -text
