@@ -13,7 +13,7 @@ import {BUILDINGS,FACTORY_TECH_LAB,OBSTACLES,STAGES,TUNING,type BuildingType,typ
 import {spend,applyWeaponHit,healBiological} from './rules.mjs';
 import {distance,angleDelta,turn,translate,locomote,steerGoal,clearLine,blocked} from './movement/steering';
 import {drawRewards,drawReward,drawBossReward,eligibleReward,unlockedReward} from './progression/rewards';
-import {stageConfig,stageSchedule,incomeFactor,enemyCountFactor,bossHealthFactor,scaleCounts,type Difficulty} from '../data/stages';
+import {stageConfig,stageSchedule,incomeFactor,enemyCountFactor,bossHealthFactor,bossDamageFactor,bossAttackSpeedFactor,scaleCounts,type Difficulty} from '../data/stages';
 import {CharTerrain} from '../data/terrain';
 import {rankStats} from '../data/ranks';
 import {ECONOMY,DROPS} from '../data/economy';
@@ -122,11 +122,11 @@ export class World extends RunState {
   const candidates=(this.terrain?.connectedLocations?.(this.anchor,radius,radius)??this.spawnCells).filter(p=>!blocked(p,radius,this.obstacles)&&(!this.terrain||this.terrain.canOccupy(p,radius))&&distance(p,this.anchor)>8);
   const p=position??candidates[Math.floor(this.random()*candidates.length)];if(!p||blocked(p,radius,this.obstacles)||this.terrain&&!this.terrain.canOccupy(p,radius))return undefined;
   const u=this.addUnit(type,'zerg',p.x,p.z);u.enemyTier=tier;u.enemyName=ENEMY_NAMES[tier][type];u.visualScale=scale;u.unitRadius=radius;u.specialReady=this.time+2;
-  if(tier==='boss'){const data=bossFor(type);u.hp=u.maxHp=data.hp*bossHealthFactor(this.difficulty);u.armor=data.armor;u.weaponDamage=SC2_UNITS[type].attackDamage*2;}
+  if(tier==='boss'){const data=bossFor(type),damageFactor=bossDamageFactor(this.difficulty,this.stage),attackSpeed=bossAttackSpeedFactor(this.difficulty,this.stage);u.hp=u.maxHp=data.hp*bossHealthFactor(this.difficulty);u.armor=data.armor;u.weaponDamage=SC2_UNITS[type].attackDamage*2*damageFactor;u.specialDamageMultiplier=damageFactor;u.attackPeriod/=attackSpeed;}
   else {u.hp=u.maxHp=u.maxHp*(type==='roach'?5:3);u.armor+=type==='roach'?3:1;u.weaponDamage*=1.3;u.attackPeriod/=1.1;if(type==='zergling')u.moveSpeed*=1.2;if(type==='roach')u.moveSpeed*=.9;}
   if(this.endless){const level=tier==='elite'?++this.endless.elites:++this.endless.bosses,g=endlessGrowth(level),last=this.endless.last[tier],baseDamage=u.weaponDamage;
    u.endlessLevel=level;u.hp=u.maxHp=Math.min(1e100,Math.max(u.maxHp*g.health,(last?.health??0)*ENDLESS.growth.health));
-   u.weaponDamage=Math.min(1e100,Math.max(baseDamage*g.damage,(last?.damage??0)*ENDLESS.growth.damage));u.specialDamageMultiplier=u.weaponDamage/baseDamage;
+   u.weaponDamage=Math.min(1e100,Math.max(baseDamage*g.damage,(last?.damage??0)*ENDLESS.growth.damage));u.specialDamageMultiplier=(u.specialDamageMultiplier??1)*(u.weaponDamage/baseDamage);
    u.attackPeriod=Math.max(TUNING.step,Math.min(u.attackPeriod/g.attackSpeed,(last?.period??Infinity)/ENDLESS.growth.attackSpeed));
    this.endless.last[tier]={health:u.maxHp,damage:u.weaponDamage,period:u.attackPeriod};u.enemyName+=' · 无尽 '+level;
   }

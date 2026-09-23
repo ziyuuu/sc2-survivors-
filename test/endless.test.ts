@@ -17,7 +17,7 @@ test('each new endless special grows HP damage and attack speed without changing
  const normal=w.addUnit('hydralisk','zerg',20,0);assert.equal(normal.maxHp,SC2_UNITS.hydralisk.maxHp);assert.equal(normal.weaponDamage,SC2_UNITS.hydralisk.attackDamage);assert.equal(normal.endlessLevel,undefined);
 });
 test('endless skill damage grows once while original ground warning duration remains dodgeable',()=>{
- const w=victory();w.startEndless();const b=w.spawnSpecial('ravager','boss',{x:0,z:0})!,a=w.allies()[0];a.x=0;a.z=5;a.hp=a.maxHp=100000;b.specialReady=0;w.hash.rebuild([b,a]);w.enemySpecials.act(b,1/60);const cast=w.enemySpecials.casts[0];near(cast.damage,70*endlessGrowth(1).damage);near(cast.at-w.time,1.5);
+ const w=victory();w.startEndless();const b=w.spawnSpecial('ravager','boss',{x:0,z:0})!,a=w.allies()[0];a.x=0;a.z=5;a.hp=a.maxHp=100000;b.specialReady=0;w.hash.rebuild([b,a]);w.enemySpecials.act(b,1/60);const cast=w.enemySpecials.casts[0];near(cast.damage,70*1.2*endlessGrowth(1).damage);near(cast.at-w.time,1.5);
 });
 test('endless schedule continues with all four elite and Boss types and keeps Easy elite pressure halved',()=>{
  const run=(difficulty:'easy'|'normal')=>{const w=victory();w.difficulty=difficulty;w.startEndless();const events:{tier:string;at:number;type:string}[]=[],waves:number[]=[];

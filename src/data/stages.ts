@@ -16,6 +16,9 @@ export const STAGES:StageConfig[]=names.map((name,i)=>({id:i+1,name,durationSeco
 export const difficultyPressureFactor=(difficulty:Difficulty)=>difficulty==='easy'?.5:.9;
 export const enemyCountFactor=difficultyPressureFactor;
 export const bossHealthFactor=difficultyPressureFactor;
+/** Normal-mode late campaign bosses deal 20% more damage and attack faster; HP is unchanged. */
+export const bossDamageFactor=(difficulty:Difficulty,stage:number)=>difficulty==='normal'&&[6,9,12].includes(stage)?1.2:1;
+export const bossAttackSpeedFactor=(difficulty:Difficulty,stage:number)=>difficulty==='normal'&&stage===6?1.05:difficulty==='normal'&&stage===9?1.1:difficulty==='normal'&&stage===12?1.2:1;
 export function stageConfig(stage:number,difficulty:Difficulty):StageConfig {
  const index=Math.max(0,Math.min(11,stage-1)),s=STAGES[index],factor=enemyCountFactor(difficulty),carry=emptyCounts();
  for(let i=0;i<index;i++)scaleCounts(STAGES[i].ambient,factor,carry,difficulty==='normal');
