@@ -17,14 +17,20 @@ function decode(raw:string|null):Snapshot|null {if(!raw)return null;try{const va
 /** Permanent local profile; no account or online service is involved. */
 export class TalentProfile {
  balance=0;levels:Record<string,number>={};receipts=new Set<string>();selectedHero:HeroId='raynor';
- recoveryNotice='';storageError='';private storage?:StoragePort;
- constructor(storage?:StoragePort){this.storage=storage;if(!storage)return;try{const primary=storage.getItem(KEY),backup=storage.getItem(BACKUP),loaded=decode(primary);if(loaded)this.assign(loaded);else if(primary){const recovered=decode(backup);if(recovered){this.assign(recovered);this.recoveryNotice='主档损坏；已载入上一份备份。请导出档案后确认恢复。';}else this.recoveryNotice='天赋档案损坏；请导入备份或明确重置。';}}catch{this.storageError='浏览器本地存储不可用；请定期导出天赋档案。';}}
+ recoveryNotice='';storageError='';readonly listeners=new Set<()=>void>();private storage?:StoragePort;
+ constructor(storage?:StoragePort){this.storage=storage;if(!storage)return;try{
+  const candidates=[['临时提交',storage.getItem(PENDING)],['主档',storage.getItem(KEY)],['备份',storage.getItem(BACKUP)]] as const;
+  for(const [name,raw] of candidates){const loaded=decode(raw);if(loaded){this.assign(loaded);if(name!=='主档')this.recoveryNotice=name==='临时提交'?'已恢复中断前的天赋提交。':'主档缺失或损坏；已载入上一份备份。';return;}}
+  if(candidates.some(([,raw])=>raw!==null))this.recoveryNotice='天赋档案损坏；请导入备份或明确重置。';
+ }catch{this.storageError='浏览器本地存储不可用；请定期导出天赋档案。';}}
+ static validJSON(raw:string){return decode(raw)!==null;}
+
  get locked(){return this.recoveryNotice.includes('请导入备份');}
  get spent(){return TALENTS.reduce((sum,node)=>sum+this.level(node.id)*node.cost,0);}
  get remainingCost(){return TOTAL_TALENT_COST-this.spent;}
  level(id:string){return this.levels[id]??0;}
  private assign(value:Snapshot){this.balance=value.balance;this.levels={...value.levels};this.receipts=new Set(value.receipts);this.selectedHero=value.selectedHero;}
- private persist(){if(!this.storage)return;const encoded=JSON.stringify(encode(this.balance,this.levels,this.receipts,this.selectedHero));try{const old=this.storage.getItem(KEY);this.storage.setItem(PENDING,encoded);if(!decode(this.storage.getItem(PENDING)))throw Error('pending snapshot failed verification');if(old&&decode(old))this.storage.setItem(BACKUP,old);this.storage.setItem(KEY,encoded);this.storage.removeItem(PENDING);this.storageError='';}catch{this.storageError='保存失败；当前改动仅在内存中，请立即导出档案。';}}
+ private persist(){for(const listener of this.listeners)listener();if(!this.storage)return;const encoded=JSON.stringify(encode(this.balance,this.levels,this.receipts,this.selectedHero));try{const old=this.storage.getItem(KEY);this.storage.setItem(PENDING,encoded);if(!decode(this.storage.getItem(PENDING)))throw Error('pending snapshot failed verification');if(old&&decode(old))this.storage.setItem(BACKUP,old);this.storage.setItem(KEY,encoded);this.storage.removeItem(PENDING);this.storageError='';}catch{this.storageError='保存失败；当前改动仅在内存中，请立即导出档案。';}}
  canBuy(id:string){const node=TALENT_BY_ID.get(id);if(!node||this.locked||this.balance<node.cost||this.level(id)>=node.max)return false;
   if(node.requires?.some(required=>this.level(required)<TALENT_BY_ID.get(required)!.max))return false;
   if(node.minRequires&&Object.entries(node.minRequires).some(([required,min])=>this.level(required)<min))return false;

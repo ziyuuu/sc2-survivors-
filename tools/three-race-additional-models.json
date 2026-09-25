@@ -1,0 +1,468 @@
+[
+  {
+    "id": "model.science_vessel",
+    "modelDataId": "ScienceVessel",
+    "assetPath": "Assets/Units/Terran/ScienceVessel/ScienceVessel.m3",
+    "name": "sciencevessel",
+    "sourceScale": null,
+    "definitionLayer": "campaign:liberty",
+    "modelInheritance": [
+      "Unit",
+      "ScienceVessel"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.swann",
+    "modelDataId": "Swann",
+    "assetPath": "Assets/Units/Terran/MarauderSwann/MarauderSwann.m3",
+    "name": "marauderswann",
+    "sourceScale": null,
+    "definitionLayer": "campaign:liberty",
+    "modelInheritance": [
+      "Unit",
+      "Swann"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.tosh",
+    "modelDataId": "Tosh",
+    "assetPath": "Assets/Units/Terran/Tosh/Tosh.m3",
+    "name": "tosh",
+    "sourceScale": null,
+    "definitionLayer": "campaign:liberty",
+    "modelInheritance": [
+      "Unit",
+      "Tosh"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.niadra",
+    "modelDataId": "HugeSwarmQueen",
+    "assetPath": "Assets/Units/Zerg/ExpeditionQueenLevel3/ExpeditionQueenLevel3.m3",
+    "name": "expeditionqueenlevel3",
+    "sourceScale": "1.250000,1.250000,1.250000",
+    "definitionLayer": "campaign:swarm",
+    "modelInheritance": [
+      "Unit",
+      "HugeSwarmQueen"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.alarak",
+    "modelDataId": "Alarak",
+    "assetPath": "Assets/Units/Protoss/Alarak/Alarak.m3",
+    "name": "alarak",
+    "sourceScale": null,
+    "definitionLayer": "campaign:void",
+    "modelInheritance": [
+      "Unit",
+      "Alarak"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.vorazun",
+    "modelDataId": "Vorazun",
+    "assetPath": "Assets/Units/Protoss/Vorazun/Vorazun.m3",
+    "name": "vorazun",
+    "sourceScale": null,
+    "definitionLayer": "campaign:void",
+    "modelInheritance": [
+      "Unit",
+      "Vorazun"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.reaper.1",
+    "modelDataId": "Reaper_CovertOps_Collection",
+    "assetPath": "Assets/Units/Terran/Reaper_CovertOps_Collection/Reaper_CovertOps_Collection.m3",
+    "name": "reaper_covertops_collection",
+    "sourceScale": "0.800000,0.800000,0.800000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "ReaperBase",
+      "Reaper_CovertOps_Collection"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Terran/Reaper_SwarmAnims/Reaper_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.thor.1",
+    "modelDataId": "Thor_CovertOps_Collection",
+    "assetPath": "Assets/Units/Terran/Thor_CovertOps_Collection/Thor_CovertOps_Collection.m3",
+    "name": "thor_covertops_collection",
+    "sourceScale": "0.500000,0.500000,0.500000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "ThorBase",
+      "Thor_CovertOps_Collection"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Terran/Thor_SwarmAnims/Thor_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.viking.1",
+    "modelDataId": "Viking_MercFighter_Collection",
+    "assetPath": "Assets/Units/Terran/Viking_MercFighter_Collection/Viking_MercFighter_Collection.m3",
+    "name": "viking_mercfighter_collection",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "VikingFighterBase",
+      "Viking_MercFighter_Collection"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Terran/VikingFighter_SwarmAnims/VikingFighter_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.banshee.1",
+    "modelDataId": "Banshee_CovertsOps_Collection",
+    "assetPath": "Assets/Units/Terran/Banshee_CovertsOps_Collection/Banshee_CovertsOps_Collection.m3",
+    "name": "banshee_covertsops_collection",
+    "sourceScale": "0.800000,0.800000,0.800000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "BansheeBase",
+      "Banshee_CovertsOps_Collection"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.science_vessel.1",
+    "modelDataId": "Hologram_Skin_ScienceVessel",
+    "assetPath": "Assets/Units/Terran/Hologram_Skin_ScienceVessel/Hologram_Skin_ScienceVessel.m3",
+    "name": "hologram_skin_sciencevessel",
+    "sourceScale": null,
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "Hologram_Skin_ScienceVessel"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.zergling.1",
+    "modelDataId": "Zergling_CollectionSkin_Webby",
+    "assetPath": "Assets/Units/Zerg/Zergling_CollectionSkin_Webby/Zergling_CollectionSkin_Webby.m3",
+    "name": "zergling_collectionskin_webby",
+    "sourceScale": "0.770000,0.770000,0.770000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "ZerglingBase",
+      "Zergling_CollectionSkin_Webby"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Zerg/Zergling_SwarmAnims/Zergling_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.baneling.1",
+    "modelDataId": "Baneling_Webby_Collection",
+    "assetPath": "Assets/Units/Zerg/Baneling_CollectionSkin_Webby_MP/Baneling_CollectionSkin_Webby_MP.m3",
+    "name": "baneling_collectionskin_webby_mp",
+    "sourceScale": "0.800000,0.800000,0.800000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "BanelingBase",
+      "Baneling_CollectionSkin_Webby",
+      "Baneling_Webby_Collection"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.roach.1",
+    "modelDataId": "Roach_CollectionSkin_Webby",
+    "assetPath": "Assets/Units/Zerg/Roach_CollectionSkin_Webby/Roach_CollectionSkin_Webby.m3",
+    "name": "roach_collectionskin_webby",
+    "sourceScale": "1.100000,1.100000,1.100000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "RoachBase",
+      "Roach_CollectionSkin_Webby"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Zerg/Roach_SwarmAnims/Roach_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.ravager.1",
+    "modelDataId": "Ravager_CollectionSkin_Webby",
+    "assetPath": "Assets/Units/Zerg/Ravager_CollectionSkin_Webby/Ravager_CollectionSkin_Webby.m3",
+    "name": "ravager_collectionskin_webby",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "RavagerBase",
+      "Ravager_CollectionSkin_Webby"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.hydralisk.1",
+    "modelDataId": "Hydralisk_Collection_Webby",
+    "assetPath": "Assets/Units/Zerg/Hydralisk_Collection_Webby/Hydralisk_Collection_Webby.m3",
+    "name": "hydralisk_collection_webby",
+    "sourceScale": "0.750000,0.750000,0.750000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "HydraliskBase",
+      "Hydralisk_Collection_Webby"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Zerg/Hydralisk_SwarmAnims/Hydralisk_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.queen.1",
+    "modelDataId": "Queen_CollectionSkin_Webby",
+    "assetPath": "Assets/Units/Zerg/Queen_CollectionSkin_Webby/Queen_CollectionSkin_Webby.m3",
+    "name": "queen_collectionskin_webby",
+    "sourceScale": "0.800000,0.800000,0.800000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "QueenBase",
+      "Queen_CollectionSkin_Webby"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Zerg/Queen_SwarmAnims/Queen_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.lurker.1",
+    "modelDataId": "Lurker_CollectionSkin_Webby",
+    "assetPath": "Assets/Units/Zerg/Lurker_CollectionSkin_Webby/Lurker_CollectionSkin_Webby.m3",
+    "name": "lurker_collectionskin_webby",
+    "sourceScale": "1.250000,1.250000,1.250000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "LurkerBase",
+      "Lurker_CollectionSkin_Webby"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.mutalisk.1",
+    "modelDataId": "Mutalisk_CollectionSkin_Webby",
+    "assetPath": "Assets/Units/Zerg/Mutalisk_CollectionSkin_Webby/Mutalisk_CollectionSkin_Webby.m3",
+    "name": "mutalisk_collectionskin_webby",
+    "sourceScale": "0.600000,0.600000,0.600000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "MutaliskBase",
+      "Mutalisk_CollectionSkin_Webby"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.corruptor.1",
+    "modelDataId": "Corruptor_CollectionSkin_Webby",
+    "assetPath": "Assets/Units/Zerg/Corruptor_CollectionSkin_Webby/Corruptor_CollectionSkin_Webby.m3",
+    "name": "corruptor_collectionskin_webby",
+    "sourceScale": "0.700000,0.700000,0.700000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "CorruptorBase",
+      "Corruptor_CollectionSkin_Webby"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Zerg/Corruptor_SwarmAnims/Corruptor_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.ultralisk.1",
+    "modelDataId": "Ultralisk_CollectionSkin_Webby",
+    "assetPath": "Assets/Units/Zerg/Ultralisk_CollectionSkin_Webby/Ultralisk_CollectionSkin_Webby.m3",
+    "name": "ultralisk_collectionskin_webby",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "Ultralisk_CollectionSkin_Webby"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.zealot.1",
+    "modelDataId": "Zealot_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/Zealot_Purifier_Collection/Zealot_Purifier_Collection.m3",
+    "name": "zealot_purifier_collection",
+    "sourceScale": "0.900000,0.900000,0.900000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "Zealot_Purifier_Collection"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.adept.1",
+    "modelDataId": "Adept_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/Adept_Purifier_Collection/Adept_Purifier_Collection.m3",
+    "name": "adept_purifier_collection",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "AdeptBase",
+      "Adept_Purifier_Collection"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.stalker.1",
+    "modelDataId": "Stalker_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/Stalker_Purifier_Collection/Stalker_Purifier_Collection.m3",
+    "name": "stalker_purifier_collection",
+    "sourceScale": "0.690000,0.690000,0.690000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "StalkerBase",
+      "Stalker_Purifier_Collection"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/Stalker_SwarmAnims/Stalker_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.sentry.1",
+    "modelDataId": "Sentry_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/Sentry_Purifier_Collection/Sentry_Purifier_Collection.m3",
+    "name": "sentry_purifier_collection",
+    "sourceScale": "0.600000,0.600000,0.600000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "SentryBase",
+      "Sentry_Purifier_Collection"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/Sentry_SwarmAnims/Sentry_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.immortal.1",
+    "modelDataId": "Immortal_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/Immortal_Purifier_Collection/Immortal_Purifier_Collection.m3",
+    "name": "immortal_purifier_collection",
+    "sourceScale": "0.750000,0.750000,0.750000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "Immortal_Purifier_Collection"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/Immortal_SwarmAnims/Immortal_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.colossus.1",
+    "modelDataId": "Colossus_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/Colossus_Purifier_Collection/Colossus_Purifier_Collection.m3",
+    "name": "colossus_purifier_collection",
+    "sourceScale": "0.750000,0.750000,0.750000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "ColossusBase",
+      "Colossus_Purifier_Collection"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/Colossus_SwarmAnims/Colossus_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.high_templar.1",
+    "modelDataId": "HighTemplar_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/HighTemplar_Purifier_Collection/HighTemplar_Purifier_Collection.m3",
+    "name": "hightemplar_purifier_collection",
+    "sourceScale": "0.950000,0.950000,0.950000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "HighTemplarBase",
+      "HighTemplar_Purifier_Collection"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/HighTemplar_SwarmAnims/HighTemplar_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.elite.phoenix.1",
+    "modelDataId": "Phoenix_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/Phoenix_Purifier_Collection/Phoenix_Purifier_Collection.m3",
+    "name": "phoenix_purifier_collection",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "PhoenixBase",
+      "Phoenix_Purifier_Collection"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.void_ray.1",
+    "modelDataId": "VoidRay_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/VoidRay_Purifier_Collection/VoidRay_Purifier_Collection.m3",
+    "name": "voidray_purifier_collection",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "VoidRayBase",
+      "VoidRay_Purifier_Collection"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.carrier.1",
+    "modelDataId": "Carrier_Purifier_Collection",
+    "assetPath": "Assets/Units/Protoss/Carrier_Purifier_Collection/Carrier_Purifier_Collection.m3",
+    "name": "carrier_purifier_collection",
+    "sourceScale": "0.800000,0.800000,0.800000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "CarrierBase",
+      "Carrier_Purifier_Collection"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.elite.viking.1.assault",
+    "modelDataId": "Viking_MercAssault_Collection",
+    "assetPath": "Assets/Units/Terran/Viking_MercAssault_Collection/Viking_MercAssault_Collection.m3",
+    "name": "viking_mercassault_collection",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "VikingAssaultBase",
+      "Viking_MercAssault_Collection"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Terran/VikingAssault_SwarmAnims/VikingAssault_SwarmAnims.m3a"
+    ]
+  }
+]

@@ -1,0 +1,121 @@
+{
+  "at": "2026-09-24T08:15:19.516Z",
+  "scope": "Air/ground spatial buckets for separation only; contact ordering, simulation rules and fixed 60Hz retained.",
+  "changes": [
+    {
+      "file": "src/simulation/movement/spatial-hash.ts",
+      "behavior": "Rebuild same-plane buckets from the same body order. Fall back to full buckets after in-step flight-state changes."
+    },
+    {
+      "file": "src/simulation/world.ts",
+      "behavior": "Separation queries only its current collision plane. Contact solver still queries the full bucket."
+    },
+    {
+      "file": "src/simulation/combat/expedition-combat.ts",
+      "behavior": "Invalidate plane buckets when a mode changes flying state."
+    },
+    {
+      "file": "src/simulation/combat/carriers.ts",
+      "behavior": "Invalidate plane buckets when an interceptor changes flying state."
+    },
+    {
+      "file": "src/simulation/combat/expedition-heroes.ts",
+      "behavior": "Invalidate plane buckets when a hero changes flying state."
+    }
+  ],
+  "validation": {
+    "typecheck": true,
+    "fullTests": {
+      "command": "npm test",
+      "passed": 590,
+      "failed": 0
+    },
+    "dataDocsCheck": true,
+    "build": {
+      "command": "npm run build",
+      "file": "dist/SC2-Survivors-Demo.html",
+      "bytes": 440971695,
+      "sha256": "e46f880de9cdde21e1161981ceb642b4d76b282b59fbefd049a536b0f3092562",
+      "assets": 745
+    },
+    "offline": {
+      "command": "npm run test:offline:save",
+      "races": [
+        "terran",
+        "zerg",
+        "protoss"
+      ],
+      "httpRequests": 0,
+      "errors": 0,
+      "evidence": "reports/local/qa-v23/offline.json"
+    }
+  },
+  "performance": {
+    "method": "Local Chrome headless, development build, real terrain and original models, 1440x900 DPR1, fixed seed421, 25 rank5 ordinary Terran + 3 heroes. Same creation order for the first100 enemies in all scenes. Native rules and AI remain active; health is boosted only to retain scene population. No production or automatic waves. Two seconds warmup + twelve seconds wall-clock sample, 2 pass(es) per selected case. Only World.step and BattleRenderer.render are timed. No CDP or CPU profiling. Render-disabled is a diagnostic CPU isolation experiment, not a playable experience. Submit time is not GPU time. These samples do not establish production/physical-device acceptance.",
+    "pairs": [
+      {
+        "round": 1,
+        "control": {
+          "wallSeconds": 12.033600000023842,
+          "simulationSeconds": 7.999999999999999,
+          "backlogSeconds": 4.033300000000021,
+          "meanStepMs": 12.953124999627471,
+          "meanFrameMs": 36.809509202453995
+        },
+        "layered": {
+          "wallSeconds": 12.034800000011922,
+          "simulationSeconds": 10,
+          "backlogSeconds": 2.0665000000000373,
+          "meanStepMs": 10.882333334783713,
+          "meanFrameMs": 34.383954154727796
+        }
+      },
+      {
+        "round": 2,
+        "control": {
+          "wallSeconds": 12.063199999988079,
+          "simulationSeconds": 7.05,
+          "backlogSeconds": 5.050000000000019,
+          "meanStepMs": 14.509219857817847,
+          "meanFrameMs": 39.65874587458745
+        },
+        "layered": {
+          "wallSeconds": 12.029,
+          "simulationSeconds": 9.766666666666666,
+          "backlogSeconds": 2.283433333333365,
+          "meanStepMs": 11.323890784291278,
+          "meanFrameMs": 33.52011173184357
+        }
+      }
+    ],
+    "denseMicrobenchmark": {
+      "bodies": 300,
+      "queriesPerSample": 36000,
+      "oldCandidateVisits": 14556,
+      "layeredCandidateVisits": 9138,
+      "oldMedianMs": 34.7879,
+      "layeredMedianMs": 24.4351,
+      "extraRebuildMsPerFrame": 0.038918
+    },
+    "deterministicWorldComparison": {
+      "steps": 90,
+      "result": "same unit position, HP, target, RNG and contact state"
+    },
+    "accepted300EnemyRealtime": false,
+    "evidence": "reports/local/performance-probe-20260924-plane-ab/results.json",
+    "limitations": "Two interleaved development-Chrome samples on one AMD host; simulated states diverge as progress differs. New and control arms both pay the new rebuild cost. Render timing measures CPU submission rather than GPU completion. All four scenes accumulate simulated-time debt."
+  },
+  "commands": [
+    "node --import tsx tools/benchmark-spatial-plane.mjs",
+    "npm run typecheck",
+    "npm test",
+    "npm run docs:check",
+    "npm run build",
+    "node tools/qa-performance-probe.mjs --output reports/local/performance-probe-20260924-plane-ab --port 5182 --cases 300-native-spatial-control,300-native --repeat 2",
+    "npm run test:offline:save"
+  ],
+  "limits": [
+    "300-enemy real-time performance remains unmet.",
+    "Human visual readability, physical input and production-build long-run GPU measurements remain unverified."
+  ]
+}

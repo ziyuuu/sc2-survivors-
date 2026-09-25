@@ -1,0 +1,299 @@
+{
+  "at": "2026-09-24T08:42:39.966Z",
+  "scope": "Ordinary early-campaign frame-rate investigation; no production gameplay, shader, asset or build change.",
+  "host": {
+    "cpu": "AMD Ryzen 7 5800U with Radeon Graphics         ",
+    "logicalCores": 16,
+    "totalRAM": 14877257728
+  },
+  "build": {
+    "file": "dist/SC2-Survivors-Demo.html",
+    "bytes": 440971695,
+    "sha256": "e46f880de9cdde21e1161981ceb642b4d76b282b59fbefd049a536b0f3092562"
+  },
+  "criteria": {
+    "userTarget": "60+ FPS in ordinary gameplay, including early stages",
+    "headlessInterpretation": "Near-60Hz stable pacing; this environment cannot prove >60 on a high-refresh physical display",
+    "metOnDesktop": false
+  },
+  "natural": {
+    "terran": {
+      "fps": 46.30346501773997,
+      "frameP95Ms": 33.30000000000291,
+      "framesOver20": 205,
+      "frameCount": 927,
+      "stepMeanMs": 0.3804166664679845,
+      "renderMeanMs": 6.332974137802577,
+      "backlogDeltaSeconds": 1.429412144204889e-15,
+      "meanDrawCalls": 158.72521551724137,
+      "meanTriangles": 150256.6734913793,
+      "phase": "battle"
+    },
+    "zerg": {
+      "fps": 49.2207136754218,
+      "frameP95Ms": 33.29999999999927,
+      "framesOver20": 200,
+      "frameCount": 985,
+      "stepMeanMs": 0.47239366186172194,
+      "renderMeanMs": 5.812880324241355,
+      "backlogDeltaSeconds": 0.01656666666667189,
+      "meanDrawCalls": 155.73022312373226,
+      "meanTriangles": 149531.0415821501,
+      "phase": "battle"
+    },
+    "protoss": {
+      "fps": 46.16330017641478,
+      "frameP95Ms": 33.400000000001455,
+      "framesOver20": 262,
+      "frameCount": 924,
+      "stepMeanMs": 0.4393005831652537,
+      "renderMeanMs": 6.173513513771264,
+      "backlogDeltaSeconds": 0.00003333333333409988,
+      "meanDrawCalls": 157.43027027027026,
+      "meanTriangles": 150493.7135135135,
+      "phase": "battle"
+    },
+    "terranPerformance": {
+      "fps": 45.52382346865676,
+      "frameP95Ms": 33.30000000000291,
+      "framesOver20": 201,
+      "frameCount": 684,
+      "stepMeanMs": 0.42441731373821856,
+      "renderMeanMs": 6.49562043743412,
+      "backlogDeltaSeconds": 0.0165333333333369,
+      "meanDrawCalls": 156.8861313868613,
+      "meanTriangles": 148114.37664233576,
+      "phase": "battle"
+    },
+    "terranNarrow": {
+      "fps": 59.80128392966528,
+      "frameP95Ms": 16.80000000000291,
+      "framesOver20": 1,
+      "frameCount": 898,
+      "stepMeanMs": 0.45322222179836696,
+      "renderMeanMs": 3.8497219126137,
+      "backlogDeltaSeconds": 0.016199999999999753,
+      "meanDrawCalls": 97.7908787541713,
+      "meanTriangles": 111923.32480533926,
+      "phase": "battle"
+    },
+    "offlineTerran": {
+      "fps": 41.41852192336293,
+      "frameP95Ms": 33.400000000001455,
+      "framesOver20": 290,
+      "frameCount": 829,
+      "backlogDeltaSeconds": -0.00006666666666605564
+    }
+  },
+  "stageReference": {
+    "stage3": {
+      "fps": 43.285959255732116,
+      "frameP95Ms": 33.400000000001455,
+      "framesOver20": 278,
+      "frameCount": 780,
+      "stepMeanMs": 0.5521739138484993,
+      "renderMeanMs": 6.873495516947992,
+      "backlogDeltaSeconds": 0.00013333333333823139,
+      "meanDrawCalls": 171.40717029449425,
+      "meanTriangles": 177896.7323943662,
+      "phase": "battle"
+    },
+    "stage6": {
+      "fps": 45.603075711182235,
+      "frameP95Ms": 33.30000000000291,
+      "framesOver20": 212,
+      "frameCount": 822,
+      "stepMeanMs": 0.6627541586013025,
+      "renderMeanMs": 7.446537059538275,
+      "backlogDeltaSeconds": -0.00003333333332651567,
+      "meanDrawCalls": 184.12150668286756,
+      "meanTriangles": 187130.29404617255,
+      "phase": "battle"
+    },
+    "stage6RenderDisabled": {
+      "fps": 59.92813067561769,
+      "frameP95Ms": 17,
+      "framesOver20": 0,
+      "frameCount": 1079,
+      "stepMeanMs": 0.6081556987718258,
+      "renderMeanMs": 0.0026851853286778485,
+      "backlogDeltaSeconds": 0.016566666666665078,
+      "meanDrawCalls": 164,
+      "meanTriangles": 178241,
+      "phase": "battle"
+    },
+    "qualification": "Authored wave schedule, controlled friendly formation and high friendly HP; not actual campaign progression."
+  },
+  "ablation": {
+    "halfPixels": {
+      "fps": 57.24936759419518,
+      "frameP95Ms": 16.799999999999272,
+      "framesOver20": 6,
+      "frameCount": 860,
+      "stepMeanMs": 0.4485555554760827,
+      "renderMeanMs": 6.072241580513989,
+      "backlogDeltaSeconds": 0.016600000000003133,
+      "meanDrawCalls": 156.9732868757259,
+      "meanTriangles": 148482.64459930314,
+      "phase": "battle"
+    },
+    "hideGround": {
+      "fps": 59.92728822366957,
+      "frameP95Ms": 16.799999999999272,
+      "framesOver20": 0,
+      "frameCount": 900,
+      "stepMeanMs": 0.48213096609655415,
+      "renderMeanMs": 5.394783574521343,
+      "backlogDeltaSeconds": -0.00016666666666367846,
+      "meanDrawCalls": 155.8534961154273,
+      "meanTriangles": 97342.26082130965,
+      "phase": "battle"
+    },
+    "hideProps": {
+      "fps": 53.984610059333576,
+      "frameP95Ms": 33.29999999999927,
+      "framesOver20": 80,
+      "frameCount": 811,
+      "stepMeanMs": 0.5538802663661424,
+      "renderMeanMs": 2.190640394323565,
+      "backlogDeltaSeconds": -0.016533333333328928,
+      "meanDrawCalls": 14.578817733990148,
+      "meanTriangles": 54845.39778325123,
+      "phase": "battle"
+    },
+    "hideMap": {
+      "fps": 59.952837101432564,
+      "frameP95Ms": 16.900000000001455,
+      "framesOver20": 0,
+      "frameCount": 900,
+      "stepMeanMs": 0.49578246292342887,
+      "renderMeanMs": 1.6987791344539969,
+      "backlogDeltaSeconds": -0.00016666666666612442,
+      "meanDrawCalls": 13.832408435072143,
+      "meanTriangles": 3885.863485016648,
+      "phase": "battle"
+    },
+    "noGlSubmit": {
+      "fps": 59.980295041711265,
+      "frameP95Ms": 16.799999999999272,
+      "framesOver20": 0,
+      "frameCount": 901,
+      "stepMeanMs": 0.49467849414258735,
+      "renderMeanMs": 0.44013303709928847,
+      "backlogDeltaSeconds": -0.00003333333333101207,
+      "meanDrawCalls": 149,
+      "meanTriangles": 145611,
+      "phase": "battle"
+    },
+    "removeGroundNormals": {
+      "fps": 56.81440185221301,
+      "frameP95Ms": 16.799999999999272,
+      "framesOver20": 6,
+      "frameCount": 854,
+      "stepMeanMs": 0.5404656310699996,
+      "renderMeanMs": 6.652397661250935,
+      "backlogDeltaSeconds": -0.000033333333332441484,
+      "meanDrawCalls": 156.90994152046784,
+      "meanTriangles": 148443.31695906434,
+      "phase": "battle"
+    },
+    "removeGroundColors": {
+      "fps": 57.059156429974365,
+      "frameP95Ms": 17,
+      "framesOver20": 33,
+      "frameCount": 857,
+      "stepMeanMs": 0.6372918991349249,
+      "renderMeanMs": 7.189510487037383,
+      "backlogDeltaSeconds": -0.00026666666666268213,
+      "meanDrawCalls": 157.02214452214452,
+      "meanTriangles": 148479.45454545456,
+      "phase": "battle"
+    },
+    "flatGround": {
+      "fps": 59.908171901087265,
+      "frameP95Ms": 16.799999999999272,
+      "framesOver20": 0,
+      "frameCount": 899,
+      "stepMeanMs": 0.45944444444444443,
+      "renderMeanMs": 5.6393333328432504,
+      "backlogDeltaSeconds": 3.552713678800501e-15,
+      "meanDrawCalls": 156.86333333333334,
+      "meanTriangles": 148413.77222222224,
+      "phase": "battle"
+    }
+  },
+  "offlineLong": {
+    "battleWindows": [
+      {
+        "wallSeconds": 10.021600000023842,
+        "fps": 33.22822702953698,
+        "stage": 1,
+        "phase": "battle",
+        "simTime": 12.25,
+        "backlog": 0.01659999999999953,
+        "drawCalls": 160,
+        "triangles": 149850
+      },
+      {
+        "wallSeconds": 10.03719999998808,
+        "fps": 30.984736779218245,
+        "stage": 1,
+        "phase": "battle",
+        "simTime": 22.28333333333333,
+        "backlog": 0.01656666666666275,
+        "drawCalls": 158,
+        "triangles": 155195
+      },
+      {
+        "wallSeconds": 10.326199999988079,
+        "fps": 33.79752474292604,
+        "stage": 1,
+        "phase": "battle",
+        "simTime": 32.516666666666666,
+        "backlog": 0.00003333333333329497,
+        "drawCalls": 160,
+        "triangles": 156731
+      },
+      {
+        "wallSeconds": 10.062100000023841,
+        "fps": 40.15066437414086,
+        "stage": 1,
+        "phase": "battle",
+        "simTime": 42.68333333333333,
+        "backlog": 0.01646666666667348,
+        "drawCalls": 165,
+        "triangles": 160962
+      }
+    ],
+    "endedPhase": "lost",
+    "endedAtSimulationSeconds": 46.11666666666667
+  },
+  "findings": [
+    "Desktop ordinary opening misses 60 FPS in all three races, including the production offline package; fixed-step simulation keeps up and is not the immediate early-stage limiter.",
+    "Hiding only the original ground returns near-60Hz pacing while keeping most decoration draws, and half pixel ratio also helps; the ground material is the first optimization target.",
+    "The ground shader samples eight color layers and eight normal layers per fragment plus masks and reveal. Reducing either set in diagnostic runs improves pacing.",
+    "Map props account for most draw calls and CPU render submission, but hiding only props does not restore stable 60.",
+    "At DPR1, native, balanced and performance all render at pixel ratio1, limiting the existing quality control for this bottleneck."
+  ],
+  "limitations": [
+    "Ablations are diagnostic visual degradations and are not proposed for shipping.",
+    "No independent GPU timer or physical-device/high-refresh display timing was collected.",
+    "Stage3 and stage6 are controlled reference scenes; natural no-input run ended in defeat during stage1, so stages2–6 need real-operation acceptance after optimization.",
+    "Small sequential samples on one host vary; no precise percentage improvement is claimed."
+  ],
+  "evidence": {
+    "natural": "reports/local/ordinary-performance-20260924/results.json",
+    "ablation": "reports/local/ordinary-performance-20260924-ablation/results.json",
+    "shader": "reports/local/ordinary-performance-20260924-shader/results.json",
+    "offline": "reports/local/ordinary-performance-20260924-offline/results.json",
+    "offlineLong": "reports/local/ordinary-performance-20260924-offline-long/results.json"
+  },
+  "commands": [
+    "node tools/qa-ordinary-performance.mjs --cases opening-terran-native",
+    "node tools/qa-ordinary-performance.mjs",
+    "node tools/qa-ordinary-performance.mjs --output reports/local/ordinary-performance-20260924-ablation --cases opening-terran-half-pixels,opening-terran-no-ground,opening-terran-no-props,opening-terran-no-map,opening-terran-no-gl-submit",
+    "node tools/qa-ordinary-performance.mjs --output reports/local/ordinary-performance-20260924-shader --cases opening-terran-no-ground-normals,opening-terran-no-ground-colors,opening-terran-flat-ground",
+    "node tools/qa-ordinary-offline-performance.mjs",
+    "node tools/qa-ordinary-offline-performance.mjs --output reports/local/ordinary-performance-20260924-offline-long --seconds 55"
+  ]
+}

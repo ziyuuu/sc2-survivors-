@@ -1,0 +1,65 @@
+import {chromium} from '@playwright/test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+
+const out='reports/local/qa-m6-talent-tree';
+await fs.mkdir(out,{recursive:true});
+const report={at:new Date().toISOString(),checks:[],errors:[]};
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+const watch=page=>{page.on('pageerror',error=>report.errors.push(error.message));page.on('console',message=>{if(message.type()==='error')report.errors.push(message.text());});};
+const ready=page=>page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:240000});
+const state=page=>page.evaluate(()=>{const p=window.__SC2_DEBUG__.world.permanentProfile;return {active:p.activeRace,terran:{level:p.levelFor('terran'),balance:p.raceBalance('terran')},zerg:{level:p.levelFor('zerg'),balance:p.raceBalance('zerg')},protoss:{level:p.levelFor('protoss'),balance:p.raceBalance('protoss')}};});
+try{
+ const context=await browser.newContext({viewport:{width:1440,height:900}});
+ const page=await context.newPage();watch(page);
+ await page.goto(process.env.SC2_QA_URL??'http://127.0.0.1:5173/',{timeout:240000});await ready(page);
+ await page.locator('[data-action=talents]').click();
+ assert.equal(await page.locator('.mvp-talent-line').count(),4);
+ assert.equal(await page.locator('.mvp-talent-node').count(),55);
+ assert.equal(await page.locator('.mvp-talent-node img').count(),55);
+ assert.equal(await page.locator('.mvp-talent-links path').count(),59);
+ await page.waitForFunction(()=>[...document.querySelectorAll('.mvp-talent-node img')].every(image=>image.complete),null,{timeout:10000});
+ const iconLayout=await page.locator('.mvp-talent-node img').evaluateAll(images=>images.map(image=>({loaded:image.complete&&image.naturalWidth>0,width:image.getBoundingClientRect().width,source:image.getAttribute('src')?.slice(0,80)})));
+ assert.ok(iconLayout.every(icon=>icon.loaded&&icon.width>=40),JSON.stringify(iconLayout.filter(icon=>!icon.loaded||icon.width<40)));
+ await page.locator('[data-action=mvp-talent-select][data-id=T-R02]').click();
+ assert.match(await page.locator('.mvp-talent-inspector').innerText(),/采集大师/);
+ assert.equal(await page.locator('[data-action=mvp-talent-buy]').isDisabled(),true);
+ await page.locator('[data-action=mvp-talent-select][data-id=T-R03]').focus();
+ assert.match(await page.locator('.mvp-talent-inspector').innerText(),/刷新爱好者/);
+ assert.equal(await page.evaluate(()=>document.activeElement?.dataset.id),'T-R03');
+ await page.evaluate(()=>{if(!window.__SC2_DEBUG__.world.permanentProfile.award('m6-qa:terran',5,'terran'))throw Error('Terran QA receipt rejected');});
+ await page.locator('[data-action=mvp-talent-select][data-id=T-R01]').click();
+ await page.locator('[data-action=mvp-talent-buy]').click();
+ assert.deepEqual(await state(page),{active:'terran',terran:{level:1,balance:4},zerg:{level:0,balance:0},protoss:{level:0,balance:0}});
+ await page.locator('[data-action=mvp-talent-race][data-race=zerg]').click();
+ assert.match(await page.locator('.mvp-talent-summary').innerText(),/虫族等级 0 \/ 80/);
+ await page.evaluate(()=>{if(!window.__SC2_DEBUG__.world.permanentProfile.award('m6-qa:zerg',5,'zerg'))throw Error('Zerg QA receipt rejected');});
+ await page.locator('[data-action=mvp-talent-select][data-id=Z-R01]').click();
+ await page.locator('[data-action=mvp-talent-buy]').click();
+ assert.deepEqual(await state(page),{active:'zerg',terran:{level:1,balance:4},zerg:{level:1,balance:4},protoss:{level:0,balance:0}});
+ await page.locator('[data-action=mvp-talent-race][data-race=terran]').click();
+ assert.deepEqual(await state(page),{active:'terran',terran:{level:1,balance:4},zerg:{level:1,balance:4},protoss:{level:0,balance:0}});
+ await page.screenshot({path:out+'/desktop.png'});
+ report.checks.push('Desktop tree has 4 lines, 55 loaded icons, 59 connectors; locked node can be inspected; race purchases remain separate');
+ await page.setViewportSize({width:390,height:844});
+ const mobile=await page.evaluate(()=>({documentWidth:document.documentElement.scrollWidth,viewportWidth:innerWidth,treeWidth:document.querySelector('.mvp-talents').getBoundingClientRect().width,icons:[...document.querySelectorAll('.mvp-talent-node img')].filter(img=>img.getBoundingClientRect().width>=40).length}));
+ assert.ok(mobile.documentWidth<=mobile.viewportWidth,mobile);
+ assert.equal(mobile.icons,55);
+ report.mobile=mobile;
+ await page.screenshot({path:out+'/mobile.png'});
+ report.checks.push('390×844 tree keeps all icons visible without horizontal page overflow');
+ await context.close();
+
+ const offline=await browser.newContext({viewport:{width:1440,height:900},offline:true});
+ const file=await offline.newPage();watch(file);
+ await file.goto(pathToFileURL(process.cwd()+'/dist/SC2-Survivors-Demo.html').href,{timeout:240000});await ready(file);
+ await file.locator('[data-action=talents]').click();
+ assert.equal(await file.locator('.mvp-talent-node img').count(),55);
+ assert.equal(await file.evaluate(()=>typeof window.__SC2_DEBUG__),'undefined');
+ report.checks.push('Standalone file opens the tree offline without a debug API');
+ await offline.close();
+ assert.deepEqual(report.errors,[]);
+ report.passed=true;
+}catch(error){report.failure=String(error?.stack??error);report.passed=false;process.exitCode=1;}
+finally{await fs.writeFile(out+'/report.json',JSON.stringify(report,null,2));await browser.close();console.log(JSON.stringify(report));}

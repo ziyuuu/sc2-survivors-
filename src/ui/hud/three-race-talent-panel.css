@@ -1,0 +1,25 @@
+.three-race-talents{width:min(1320px,calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right) - 24px));max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px);overscroll-behavior:contain}
+.three-talent-budget{display:flex;flex-wrap:wrap;gap:8px 20px;padding:10px 12px;border:1px solid #4d8693;background:#102d39;color:#d9e9ed}
+.three-talent-budget strong{color:#f0d491}
+.three-talent-races,.three-talent-presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.three-talent-races button,.three-talent-presets button{min-height:44px;padding:9px;border:1px solid #4e8993;background:#16313d;color:#e8f4f8;cursor:pointer}
+.three-talent-races button[aria-pressed=true],.three-talent-presets button[aria-pressed=true]{border:2px solid #e6c77b;background:#3f3928}
+.three-talent-presets button{display:flex;flex-direction:column;align-items:center;gap:5px;overflow-wrap:anywhere}
+.three-talent-presets small{color:#bdd2d7;font-size:12px}
+.three-talent-presets button:disabled{opacity:.6;cursor:default}
+.three-race-talents .three-talent-lines{grid-template-columns:repeat(3,minmax(0,1fr))}
+.three-talent-lines h3{display:flex;justify-content:space-between;gap:8px}
+.three-talent-lines h3 small{font-size:12px;color:#dfcf9e}
+.three-talent-branch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.three-race-talents .talent-node{min-width:0;min-height:128px;gap:6px;overflow-wrap:anywhere}
+.three-race-talents .talent-node b{font-size:13px}
+.three-race-talents .talent-node span{font-size:12px;line-height:1.5}
+.three-race-talents .talent-node em{margin-top:auto;font-size:11px;line-height:1.4;color:#bdcbd0;font-style:normal}
+.three-race-talents .talent-node:disabled{opacity:.75}
+.three-talent-capstone{grid-column:1/-1}
+.three-race-talents button:focus-visible{outline:3px solid #fff2b0;outline-offset:3px}
+.three-race-talents .three-talent-hint{font-size:13px;line-height:1.5}
+@media(max-width:1050px){.three-race-talents .three-talent-lines{grid-template-columns:1fr}.three-talent-branch{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.three-race-talents{padding:12px;width:calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right) - 12px);max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 12px)}.three-race-talents h2{font-size:23px}.three-talent-races,.three-talent-presets{gap:5px}.three-talent-presets small{font-size:11px}.three-race-talents .talent-node{padding:8px;min-height:140px}.three-talent-budget{gap:8px 12px;font-size:13px}}
+
+@media(max-width:550px){.three-race-talents{max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 100px)}}

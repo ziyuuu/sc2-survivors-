@@ -8,7 +8,10 @@ const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 /** Original map coordinates and collision data, shared with rendering. Cached routes are simulation data. */
 export class MapTerrain implements TerrainQuery {
  stage=1;readonly routes=new Map<string,Point[]>();private grids=new Map<number,Uint8Array>();private maxRoutes=512;private failedRoutes=new Set<string>();private graphs=new Map<number,{edges:Uint8Array;components:Int32Array}>();private cellHeights:Float64Array|undefined;
- constructor(readonly definition:MapDefinition){if(definition.version!==1||definition.source.worldUnitsPerSc2Unit!==1)throw Error('Unsupported map scale');}
+ private readonly maxTerrainHeight:number;
+ // A search completes synchronously. Stamps avoid clearing the whole map for each route.
+ private searchPrev?:Int32Array;private searchCost?:Float64Array;private searchSeen?:Uint32Array;private searchClosed?:Uint32Array;private searchGeneration=0;
+ constructor(readonly definition:MapDefinition){if(definition.version!==1||definition.source.worldUnitsPerSc2Unit!==1)throw Error('Unsupported map scale');let high=-Infinity;for(const value of definition.heights){if(!Number.isFinite(value)){high=Infinity;break;}if(value>high)high=value;}this.maxTerrainHeight=high;}
  setStage(stage:number){if(this.stage===stage)return;this.stage=stage;this.routes.clear();this.grids.clear();this.failedRoutes.clear();this.graphs.clear();this.openingPrefix=undefined;}
  private openingPrefix?:Uint32Array;
  private openingSum(){
@@ -38,9 +41,28 @@ export class MapTerrain implements TerrainQuery {
   if(r>.01)for(const [x,z] of FOOTPRINT){const j=this.cellAt(p.x+x*r,p.z+z*r);if(j<0||!d.opening[j]||d.opening[j]>this.stage)return false;}return true;}
 
  canStep(a:Point,b:Point,r:number){return this.canOccupy(b,r)&&Math.abs(this.height(a)-this.height(b))<=distance(a,b)*1.15+.035;}
- walkLine(a:Point,b:Point,r:number){const n=Math.max(1,Math.ceil(distance(a,b)/.4));let old=a;for(let j=1;j<=n;j++){const p={x:a.x+(b.x-a.x)*j/n,z:a.z+(b.z-a.z)*j/n};if(!this.canStep(old,p,r))return false;old=p;}return true;}
+ walkLine(a:Point,b:Point,r:number){
+  const n=Math.max(1,Math.ceil(distance(a,b)/.4));let old=a,oldHeight:number|undefined;
+  for(let j=1;j<=n;j++){const p={x:a.x+(b.x-a.x)*j/n,z:a.z+(b.z-a.z)*j/n};
+   // Keep occupancy first, including on the first sample. Height is static during
+   // this query, so the last accepted sample supplies the next segment's start.
+   if(!this.canOccupy(p,r))return false;
+   oldHeight??=this.height(old);const height=this.height(p);
+   if(!(Math.abs(oldHeight-height)<=distance(old,p)*1.15+.035))return false;
+   old=p;oldHeight=height;
+  }return true;
+ }
  sameContactLayer(a:Point,b:Point){return Math.abs(this.height(a)-this.height(b))<.8;}
- lineOfFire(a:Point,b:Point,airA=false,airB=false,melee=false){return melee?this.walkLine(a,b,0):terrainFireClear(p=>this.height(p),a,b,airA,airB,AIR_HEIGHT);}
+ lineOfFire(a:Point,b:Point,airA=false,airB=false,melee=false){
+  if(melee)return this.walkLine(a,b,0);
+  if(airA&&airB)return true;
+  // Height is bilinear between source vertices, so no point on the map can
+  // exceed their global maximum. This exact bound skips dense ray samples
+  // for airborne fire and shots from the highest ground.
+  const ceiling=Math.max(airA?AIR_HEIGHT:this.height(a)+.75,airB?AIR_HEIGHT:this.height(b)+.75);
+  if(this.maxTerrainHeight<=ceiling+.03)return true;
+  return terrainFireClear(p=>this.height(p),a,b,airA,airB,AIR_HEIGHT);
+ }
  bodyHeight(b:Pick<Body,'x'|'z'|'flying'>){return b.flying?AIR_HEIGHT:this.height(b);}
  /** Radius-aware A* with shared cached routes. Direct unobstructed movement never runs a search. */
  routeGoal(a:Point,b:Point,r:number,_half:number):Point {
@@ -101,13 +123,16 @@ export class MapTerrain implements TerrainQuery {
   }
   graph={edges,components};this.graphs.set(r,graph);return graph;
  }
- private path(start:number,end:number,r:number):Point[]{const d=this.definition,W=d.walkWidth,N=d.walk.length;const prev=new Int32Array(N).fill(-1),g=new Float64Array(N).fill(Infinity),closed=new Uint8Array(N),valid=this.valid(r),edges=this.graph(r).edges;const heap:{i:number;f:number}[]=[];const push=(i:number,f:number)=>{let n=heap.length;heap.push({i,f});while(n){const parent=(n-1)>>1;if(heap[parent].f<=f)break;heap[n]=heap[parent];n=parent;}heap[n]={i,f};};const pop=()=>{const first=heap[0],last=heap.pop()!;if(heap.length){let n=0;while(n*2+1<heap.length){let c=n*2+1;if(c+1<heap.length&&heap[c+1].f<heap[c].f)c++;if(heap[c].f>=last.f)break;heap[n]=heap[c];n=c;}heap[n]=last;}return first;};
-  const goal=this.center(end);g[start]=0;push(start,distance(this.center(start),goal));let visits=0;
-  while(heap.length&&visits<N){const {i}=pop();if(closed[i])continue;closed[i]=1;visits++;if(i===end){const path:Point[]=[];for(let n=end;n!==start&&n>=0;n=prev[n])path.push(this.center(n));return path.reverse();}const x=i%W,y=Math.floor(i/W),p=this.center(i);
-   for(let k=0;k<NEIGHBOURS.length;k++){const [dx,dy]=NEIGHBOURS[k],nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=W||ny>=d.walkHeight)continue;const j=ny*W+nx,q=this.center(j);if(closed[j])continue;
+ private path(start:number,end:number,r:number):Point[]{const d=this.definition,W=d.walkWidth,N=d.walk.length;
+  const prev=this.searchPrev??=new Int32Array(N),g=this.searchCost??=new Float64Array(N),seen=this.searchSeen??=new Uint32Array(N),closed=this.searchClosed??=new Uint32Array(N);
+  if(++this.searchGeneration===0xffffffff){seen.fill(0);closed.fill(0);this.searchGeneration=1;}
+  const generation=this.searchGeneration,valid=this.valid(r),edges=this.graph(r).edges;const heap:{i:number;f:number}[]=[];const push=(i:number,f:number)=>{let n=heap.length;heap.push({i,f});while(n){const parent=(n-1)>>1;if(heap[parent].f<=f)break;heap[n]=heap[parent];n=parent;}heap[n]={i,f};};const pop=()=>{const first=heap[0],last=heap.pop()!;if(heap.length){let n=0;while(n*2+1<heap.length){let c=n*2+1;if(c+1<heap.length&&heap[c+1].f<heap[c].f)c++;if(heap[c].f>=last.f)break;heap[n]=heap[c];n=c;}heap[n]=last;}return first;};
+  const goal=this.center(end);seen[start]=generation;g[start]=0;push(start,distance(this.center(start),goal));let visits=0;
+  while(heap.length&&visits<N){const {i}=pop();if(closed[i]===generation)continue;closed[i]=generation;visits++;if(i===end){const path:Point[]=[];for(let n=end;n!==start&&n>=0;n=prev[n])path.push(this.center(n));return path.reverse();}const x=i%W,y=Math.floor(i/W),p=this.center(i);
+   for(let k=0;k<NEIGHBOURS.length;k++){const [dx,dy]=NEIGHBOURS[k],nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=W||ny>=d.walkHeight)continue;const j=ny*W+nx,q=this.center(j);if(closed[j]===generation)continue;
     // An actor can occupy a legal sub-cell offset even when that cell's centre is invalid.
     if(valid[i]){if(!(edges[i]&(1<<k)))continue;}else if(!valid[j]||Math.abs(this.height(p)-this.height(q))>Math.hypot(dx,dy)*d.cellSize*1.15+.035||dx&&dy&&(!valid[y*W+nx]||!valid[ny*W+x]))continue;
-    const cost=g[i]+Math.hypot(dx,dy)*d.cellSize;if(cost>=g[j])continue;g[j]=cost;prev[j]=i;push(j,cost+distance(q,goal));}
+    const cost=g[i]+Math.hypot(dx,dy)*d.cellSize;if(seen[j]===generation&&cost>=g[j])continue;seen[j]=generation;g[j]=cost;prev[j]=i;push(j,cost+distance(q,goal));}
   }return [];
  }
 }

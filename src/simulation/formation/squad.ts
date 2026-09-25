@@ -17,7 +17,7 @@ export class SquadFormation {
   const legal=(p:Point,u:Entity)=>Math.abs(p.x)+u.unitRadius<half&&Math.abs(p.z)+u.unitRadius<half&&(u.flying||!blocked(p,u.unitRadius,obstacles)&&(!terrain||terrain.canOccupy(p,u.unitRadius)));
   const separate=(p:Point,u:Entity)=>placed.every(s=>s.air!==u.flying||distance(s.p,p)>s.r+u.unitRadius+.14);
   let back=FORMATION.frontOffset;
-  for(const type of order){const group=units.filter(u=>u.unitType===type).sort((a,b)=>a.slot-b.slot);if(!group.length)continue;
+  for(const type of [...order,...new Set(units.map(u=>u.unitType).filter(t=>!order.includes(t)))]){const group=units.filter(u=>u.unitType===type).sort((a,b)=>a.slot-b.slot);if(!group.length)continue;
    const radius=Math.max(...group.map(u=>u.unitRadius)),spacing=radius*2+FORMATION.bodyGap,columns=Math.min(FORMATION.columns,group.length),rows=Math.ceil(group.length/columns);
    if(type==='medivac')back=Math.max(3,back-1.5);
    for(let i=0;i<group.length;i++){const u=group[i],row=Math.floor(i/columns),count=Math.min(columns,group.length-row*columns),lane=(i%columns-(count-1)/2)*spacing;

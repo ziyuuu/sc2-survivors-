@@ -1,0 +1,506 @@
+[
+  {
+    "id": "model.reaper",
+    "modelDataId": "Reaper",
+    "assetPath": "Assets/Units/Terran/Reaper/Reaper.m3",
+    "name": "reaper",
+    "sourceScale": "0.800000,0.800000,0.800000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "ReaperBase",
+      "Reaper"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Terran/Reaper_SwarmAnims/Reaper_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.thor",
+    "modelDataId": "Thor",
+    "assetPath": "Assets/Units/Terran/ThorEx1/ThorEx1.m3",
+    "name": "thorex1",
+    "sourceScale": "0.500000,0.500000,0.500000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "ThorBase",
+      "Thor"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Terran/Thor_SwarmAnims/Thor_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.viking",
+    "modelDataId": "VikingFighter",
+    "assetPath": "Assets/Units/Terran/VikingFighter/VikingFighter.m3",
+    "name": "vikingfighter",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "VikingFighterBase",
+      "VikingFighter"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Terran/VikingFighter_SwarmAnims/VikingFighter_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.banshee",
+    "modelDataId": "Banshee",
+    "assetPath": "Assets/Units/Terran/Banshee/Banshee.m3",
+    "name": "banshee",
+    "sourceScale": "0.800000,0.800000,0.800000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "BansheeBase",
+      "Banshee"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.science_vessel",
+    "modelDataId": "ScienceVessel",
+    "assetPath": "Assets/Units/Terran/ScienceVessel/ScienceVessel.m3",
+    "name": "sciencevessel",
+    "sourceScale": null,
+    "definitionLayer": "campaign:liberty",
+    "modelInheritance": [
+      "Unit",
+      "ScienceVessel"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.queen",
+    "modelDataId": "Queen",
+    "assetPath": "Assets/Units/Zerg/Queen_Ex3/Queen_Ex3.m3",
+    "name": "queen_ex3",
+    "sourceScale": "0.800000,0.800000,0.800000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "QueenBase",
+      "Queen"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Zerg/Queen_SwarmAnims/Queen_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.lurker",
+    "modelDataId": "LurkerMP",
+    "assetPath": "Assets/Units/Zerg/Lurker_Ex2/Lurker_Ex2.m3",
+    "name": "lurker_ex2",
+    "sourceScale": "1.250000,1.250000,1.250000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "LurkerBase",
+      "LurkerMP"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.mutalisk",
+    "modelDataId": "Mutalisk",
+    "assetPath": "Assets/Units/Zerg/Mutalisk/Mutalisk.m3",
+    "name": "mutalisk",
+    "sourceScale": "0.600000,0.600000,0.600000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "MutaliskBase",
+      "Mutalisk"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.corruptor",
+    "modelDataId": "Corruptor",
+    "assetPath": "Assets/Units/Zerg/Corruptor/Corruptor.m3",
+    "name": "corruptor",
+    "sourceScale": "0.700000,0.700000,0.700000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "CorruptorBase",
+      "Corruptor"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Zerg/Corruptor_SwarmAnims/Corruptor_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.ultralisk",
+    "modelDataId": "Ultralisk",
+    "assetPath": "Assets/Units/Zerg/UltraliskEx1/UltraliskEx1.m3",
+    "name": "ultraliskex1",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "UltraliskBaseNoAnims",
+      "UltraliskBase",
+      "Ultralisk"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Zerg/UltraliskEx1_RequiredAnims/UltraliskEx1_RequiredAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.zealot",
+    "modelDataId": "Zealot",
+    "assetPath": "Assets/Units/Protoss/Zealot_Ex2/Zealot_Ex2.m3",
+    "name": "zealot_ex2",
+    "sourceScale": "0.900000,0.900000,0.900000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "ZealotBase",
+      "Zealot"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/Zealot_SwarmAnims/Zealot_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.adept",
+    "modelDataId": "Adept",
+    "assetPath": "Assets/Units/Protoss/Adept/Adept.m3",
+    "name": "adept",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "AdeptBase",
+      "Adept"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.stalker",
+    "modelDataId": "Stalker",
+    "assetPath": "Assets/Units/Protoss/Stalker/Stalker.m3",
+    "name": "stalker",
+    "sourceScale": "0.690000,0.690000,0.690000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "StalkerBase",
+      "Stalker"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/Stalker_SwarmAnims/Stalker_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.sentry",
+    "modelDataId": "Sentry",
+    "assetPath": "Assets/Units/Protoss/Sentry/Sentry.m3",
+    "name": "sentry",
+    "sourceScale": "0.600000,0.600000,0.600000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "SentryBase",
+      "Sentry"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/Sentry_SwarmAnims/Sentry_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.immortal",
+    "modelDataId": "Immortal",
+    "assetPath": "Assets/Units/Protoss/Immortal_EX2/Immortal_EX2.m3",
+    "name": "immortal_ex2",
+    "sourceScale": "0.750000,0.750000,0.750000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "ImmortalBase",
+      "Immortal"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/Immortal_SwarmAnims/Immortal_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.colossus",
+    "modelDataId": "Colossus",
+    "assetPath": "Assets/Units/Protoss/ColossusEx1/ColossusEx1.m3",
+    "name": "colossusex1",
+    "sourceScale": "0.750000,0.750000,0.750000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "ColossusBase",
+      "Colossus"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/Colossus_SwarmAnims/Colossus_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.high_templar",
+    "modelDataId": "HighTemplar",
+    "assetPath": "Assets/Units/Protoss/HighTemplar/HighTemplar.m3",
+    "name": "hightemplar",
+    "sourceScale": "0.950000,0.950000,0.950000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "HighTemplarBase",
+      "HighTemplar"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Protoss/HighTemplar_SwarmAnims/HighTemplar_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.phoenix",
+    "modelDataId": "Phoenix",
+    "assetPath": "Assets/Units/Protoss/Phoenix_Ex2/Phoenix_Ex2.m3",
+    "name": "phoenix_ex2",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "PhoenixBase",
+      "Phoenix"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.void_ray",
+    "modelDataId": "VoidRay",
+    "assetPath": "Assets/Units/Protoss/VoidRay/VoidRay.m3",
+    "name": "voidray",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "VoidRayBase",
+      "VoidRay"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.carrier",
+    "modelDataId": "Carrier",
+    "assetPath": "Assets/Units/Protoss/Carrier/Carrier.m3",
+    "name": "carrier",
+    "sourceScale": "0.800000,0.800000,0.800000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "CarrierBase",
+      "Carrier"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.interceptor",
+    "modelDataId": "Interceptor",
+    "assetPath": "Assets/Units/Protoss/InterceptorEX2/InterceptorEX2.m3",
+    "name": "interceptorex2",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "InterceptorBase",
+      "Interceptor"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hellion.hellbat",
+    "modelDataId": "HellionTank",
+    "assetPath": "Assets/Units/Terran/HellionEx1Tank/HellionEx1Tank.m3",
+    "name": "hellionex1tank",
+    "sourceScale": "0.750000,0.750000,0.750000",
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "Unit",
+      "HellionHellbatBase",
+      "HellionTank"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.viking.assault",
+    "modelDataId": "VikingAssault",
+    "assetPath": "Assets/Units/Terran/VikingAssault/VikingAssault.m3",
+    "name": "vikingassault",
+    "sourceScale": "0.850000,0.850000,0.850000",
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "Unit",
+      "VikingAssaultBase",
+      "VikingAssault"
+    ],
+    "requiredAnimations": [
+      "Assets/Units/Terran/VikingAssault_SwarmAnims/VikingAssault_SwarmAnims.m3a"
+    ]
+  },
+  {
+    "id": "model.hero.kerrigan",
+    "modelDataId": "MutatorAmonKerrigan",
+    "assetPath": "Assets/Units/Zerg/KerriganInfested/KerriganInfested.m3",
+    "name": "kerriganinfested",
+    "sourceScale": "1.800000,1.800000,1.800000",
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "Unit",
+      "MutatorAmonKerrigan"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.zagara",
+    "modelDataId": "ZagaraVoidCoop",
+    "assetPath": "Assets/Units/Zerg/Zagara/Zagara.m3",
+    "name": "zagara",
+    "sourceScale": "1.100000,1.100000,1.100000",
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "Unit",
+      "ZagaraVoidCoop"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.dehaka",
+    "modelDataId": "MutatorAmonDehaka",
+    "assetPath": "Assets/Units/Zerg/Dehaka/Dehaka.m3",
+    "name": "dehaka",
+    "sourceScale": null,
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "Unit",
+      "MutatorAmonDehaka"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.stukov",
+    "modelDataId": "InfestedStukovCoop",
+    "assetPath": "Assets/Units/Zerg/InfestedStukov/InfestedStukov.m3",
+    "name": "infestedstukov",
+    "sourceScale": null,
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "Unit",
+      "InfestedStukovCoop"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.artanis",
+    "modelDataId": "MutatorAmonArtanis",
+    "assetPath": "Assets/Units/Protoss/Artanis/Artanis.m3",
+    "name": "artanis",
+    "sourceScale": null,
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "Unit",
+      "MutatorAmonArtanis"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.zeratul",
+    "modelDataId": "MutatorAmonZeratul",
+    "assetPath": "Assets/Units/Protoss/Zeratul/Zeratul.m3",
+    "name": "zeratul",
+    "sourceScale": "1.200000,1.200000,1.200000",
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "Unit",
+      "MutatorAmonZeratul"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.fenix",
+    "modelDataId": "FenixDragoon",
+    "assetPath": "Assets/Units/Protoss/Dragoon_Purifier_Coop/Dragoon_Purifier_Coop.m3",
+    "name": "dragoon_purifier_coop",
+    "sourceScale": "1.600000,1.600000,1.600000",
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "Unit",
+      "FenixDragoon"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.swann",
+    "modelDataId": "Swann",
+    "assetPath": "Assets/Units/Terran/MarauderSwann/MarauderSwann.m3",
+    "name": "marauderswann",
+    "sourceScale": null,
+    "definitionLayer": "campaign:liberty",
+    "modelInheritance": [
+      "Unit",
+      "Swann"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.tosh",
+    "modelDataId": "Tosh",
+    "assetPath": "Assets/Units/Terran/Tosh/Tosh.m3",
+    "name": "tosh",
+    "sourceScale": null,
+    "definitionLayer": "campaign:liberty",
+    "modelInheritance": [
+      "Unit",
+      "Tosh"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.niadra",
+    "modelDataId": "HugeSwarmQueen",
+    "assetPath": "Assets/Units/Zerg/ExpeditionQueenLevel3/ExpeditionQueenLevel3.m3",
+    "name": "expeditionqueenlevel3",
+    "sourceScale": "1.250000,1.250000,1.250000",
+    "definitionLayer": "campaign:swarm",
+    "modelInheritance": [
+      "Unit",
+      "HugeSwarmQueen"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.alarak",
+    "modelDataId": "Alarak",
+    "assetPath": "Assets/Units/Protoss/Alarak/Alarak.m3",
+    "name": "alarak",
+    "sourceScale": null,
+    "definitionLayer": "campaign:void",
+    "modelInheritance": [
+      "Unit",
+      "Alarak"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.vorazun",
+    "modelDataId": "Vorazun",
+    "assetPath": "Assets/Units/Protoss/Vorazun/Vorazun.m3",
+    "name": "vorazun",
+    "sourceScale": null,
+    "definitionLayer": "campaign:void",
+    "modelInheritance": [
+      "Unit",
+      "Vorazun"
+    ],
+    "requiredAnimations": []
+  }
+]

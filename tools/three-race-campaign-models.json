@@ -1,0 +1,80 @@
+[
+  {
+    "id": "model.science_vessel",
+    "modelDataId": "ScienceVessel",
+    "assetPath": "Assets/Units/Terran/ScienceVessel/ScienceVessel.m3",
+    "name": "sciencevessel",
+    "sourceScale": null,
+    "definitionLayer": "campaign:liberty",
+    "modelInheritance": [
+      "Unit",
+      "ScienceVessel"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.swann",
+    "modelDataId": "Swann",
+    "assetPath": "Assets/Units/Terran/MarauderSwann/MarauderSwann.m3",
+    "name": "marauderswann",
+    "sourceScale": null,
+    "definitionLayer": "campaign:liberty",
+    "modelInheritance": [
+      "Unit",
+      "Swann"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.tosh",
+    "modelDataId": "Tosh",
+    "assetPath": "Assets/Units/Terran/Tosh/Tosh.m3",
+    "name": "tosh",
+    "sourceScale": null,
+    "definitionLayer": "campaign:liberty",
+    "modelInheritance": [
+      "Unit",
+      "Tosh"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.niadra",
+    "modelDataId": "HugeSwarmQueen",
+    "assetPath": "Assets/Units/Zerg/ExpeditionQueenLevel3/ExpeditionQueenLevel3.m3",
+    "name": "expeditionqueenlevel3",
+    "sourceScale": "1.250000,1.250000,1.250000",
+    "definitionLayer": "campaign:swarm",
+    "modelInheritance": [
+      "Unit",
+      "HugeSwarmQueen"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.alarak",
+    "modelDataId": "Alarak",
+    "assetPath": "Assets/Units/Protoss/Alarak/Alarak.m3",
+    "name": "alarak",
+    "sourceScale": null,
+    "definitionLayer": "campaign:void",
+    "modelInheritance": [
+      "Unit",
+      "Alarak"
+    ],
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.vorazun",
+    "modelDataId": "Vorazun",
+    "assetPath": "Assets/Units/Protoss/Vorazun/Vorazun.m3",
+    "name": "vorazun",
+    "sourceScale": null,
+    "definitionLayer": "campaign:void",
+    "modelInheritance": [
+      "Unit",
+      "Vorazun"
+    ],
+    "requiredAnimations": []
+  }
+]

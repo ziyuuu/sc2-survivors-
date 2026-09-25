@@ -1,9 +1,9 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {CharTerrain} from '../src/data/terrain';
+import {FlatTerrain} from '../src/simulation/movement/flat-terrain';
 
-const endless=()=>{const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[],endlessTerrain:new CharTerrain()});w.start();w.stage=12;w.prepareStage();assert.ok(w.hive);w.hive.hp=0;w.phase='won';assert.ok(w.startEndless());return w;};
+const endless=()=>{const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[],endlessTerrain:new FlatTerrain()});w.start();w.stage=18;w.prepareStage();assert.ok(w.hive);w.hive.hp=0;w.phase='won';assert.ok(w.chooseCampaignExit('endless'));assert.ok(w.skipReward());assert.ok(w.skipReward());const plan=w.previewEndlessTransition()!;assert.ok(plan);const token=`${plan.requestId}:${plan.expectedRevision}:${plan.mapHash}`;assert.ok(w.registerEndlessReadyToken(token));assert.ok(w.commitEndlessTransition(plan.requestId,plan.expectedRevision,token));return w;};
 
 test('endless deploys attackable bunkers and a repair station on the new field',()=>{
  const w=endless(),forts=[...w.fortifications.values()];assert.equal(forts.filter(f=>f.kind==='bunker').length,4);assert.equal(forts.filter(f=>f.kind==='repair').length,1);

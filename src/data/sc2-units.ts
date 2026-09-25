@@ -8,7 +8,8 @@ export const TERRAN = ['marine','marauder','hellion','tank','medivac'] as const;
 export const ZERG = ['zergling','roach','baneling','ravager','hydralisk'] as const;
 export type TerranType = typeof TERRAN[number];
 export type ZergType = typeof ZERG[number];
-export type UnitType = TerranType | ZergType;
+export type UnitType = import('./races').FamilyId;
+export type CombatUnitType = import('./races').CombatUnitType;
 export type Bonus = {attribute:string; amount:number};
 export interface UnitData {
  name:string; zh:string; maxHp:number; armor:number; movementSpeed:number;
@@ -23,7 +24,11 @@ const unit=(name:string,zh:string,hp:number,armor:number,speed:number,damage:num
  attackPeriod:period/FASTER,attackRange:range,targetType:'ground',splash:[],bonusDamage:bonus,
  attributes,productionTime:train/FASTER,mineralCost:minerals,gasCost:gas,unitRadius:radius,flying:false,damagePoint:0.167/FASTER,
 });
-export const SC2_UNITS:Record<UnitType,UnitData> = {
+import {VERIFIED_EXPANSION_UNITS} from './expansion-units';
+import {CAMPAIGN_SCIENCE_VESSEL} from './campaign-science-vessel';
+export const SC2_UNITS:Record<CombatUnitType,UnitData> = {
+ ...VERIFIED_EXPANSION_UNITS,
+ science_vessel:CAMPAIGN_SCIENCE_VESSEL,
  marine:{...unit('Marine','陆战队员',45,0,2.25,6,.8608,5,['Light','Biological'],25,50,0,.375),targetType:'both',damagePoint:.05/FASTER},
  marauder:{...unit('Marauder','劫掠者',125,1,2.25,10,1.5,6,['Armored','Biological'],30,100,25,.5625,[{attribute:'Armored',amount:10}]),damagePoint:0},
  hellion:{...unit('Hellion','恶火',90,0,4.25,8,2.5,5,['Light','Mechanical'],30,100,0,.625,[{attribute:'Light',amount:6}]),damagePoint:.25/FASTER},
@@ -34,6 +39,10 @@ export const SC2_UNITS:Record<UnitType,UnitData> = {
  baneling:{...unit('Baneling','爆虫',30,0,2.5,16,.833,.25,['Biological'],20,50,25,.375,[{attribute:'Light',amount:19}]),splash:[{radius:2.2,fraction:1}],damagePoint:0},
  hydralisk:{...unit('Hydralisk','刺蛇',90,0,2.25,12,.825,5,['Light','Biological'],33,100,50,.625),targetType:'both',damagePoint:.14/FASTER},
  ravager:{...unit('Ravager','破坏者',120,1,2.75,16,1.6,6,['Biological'],17,100,100,.75),damagePoint:.2/FASTER},
+ // M0 r6 experimental hero-only bodies. No production recipe or ordinary family slot.
+ yamato_battlecruiser:{...unit('Yamato Battlecruiser','大和战列巡洋舰',1100,4,2.62,40,.65,8,['Mechanical','Armored','Massive','Heroic'],0,0,0,1.7),movementSpeed:2.62,attackPeriod:.65,attacks:2,targetType:'both',flying:true},
+ hots_leviathan:{...unit('HotS Leviathan','利维坦',1300,4,2.5,60,.55,7.5,['Biological','Armored','Massive','Heroic'],0,0,0,1.8),movementSpeed:2.5,attackPeriod:.55,targetType:'both',flying:true},
+ purifier_flagship:{...unit('Purifier Flagship','净化者旗舰',850,4,2.62,0,1,8,['Mechanical','Armored','Massive','Heroic'],0,0,0,1.7),movementSpeed:2.62,attackPeriod:1,targetType:'none',flying:true},
 };
 export const HYDRALISK_MELEE={range:.5,period:.75/FASTER};
 export const SIEGE = {damage:40,bonus:[{attribute:'Armored',amount:30}],range:13,minRange:2,

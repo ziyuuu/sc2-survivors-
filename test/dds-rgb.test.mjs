@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {decodeDds} from '../tools/dds-png.mjs';
+function image(alpha=true){const b=Buffer.alloc(144);b.write('DDS ');b.writeUInt32LE(124,4);b.writeUInt32LE(8,8);b.writeUInt32LE(2,12);b.writeUInt32LE(1,16);b.writeUInt32LE(8,20);b.writeUInt32LE(alpha?0x41:0x40,80);b.writeUInt32LE(32,88);[0xff0000,0xff00,0xff,alpha?0xff000000:0].forEach((v,i)=>b.writeUInt32LE(v,92+i*4));b.writeUInt32LE(0x80402010,128);b.writeUInt32LE(0xff123456,136);return b;}
+test('original uncompressed campaign DDS icons preserve masks, alpha, and row pitch',()=>{const d=decodeDds(image());assert.equal(d.width,1);assert.equal(d.height,2);assert.deepEqual([...d.rgba],[64,32,16,128,18,52,86,255]);});
+test('RGB without alpha is opaque and truncated rows are rejected',()=>{assert.equal(decodeDds(image(false)).rgba[3],255);assert.throws(()=>decodeDds(image().subarray(0,140)),/Truncated/);});

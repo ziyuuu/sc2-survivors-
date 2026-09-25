@@ -1,0 +1,60 @@
+{
+  "at": "2026-09-24",
+  "scope": "Ordinary-play rendering optimization on the original Kairos ground, with first-use graphics preparation; no simulation, economy, enemy or asset change.",
+  "build": {
+    "file": "dist/SC2-Survivors-Demo.html",
+    "bytes": 440972749,
+    "sha256": "9470d9e6ec194976e68f18ab711b7e7c98aaea87754718e61bfcb09d3888602d",
+    "embeddedAssets": 745
+  },
+  "implementation": [
+    "Original-map color and normal array layers are sampled only for positive normalized mask weights; stage reveal and blend order remain unchanged.",
+    "Initial shaders finish asynchronous compilation and opened-map, pod, hive and effect textures are uploaded during loading.",
+    "Flat double-sided effect sprites use one draw pass. An offscreen force-draw experiment was rejected after its stage-six sample regressed."
+  ],
+  "comparison": {
+    "host": "Ryzen 7 5800U / Radeon, local Chrome headless, 1440x900 DPR1, Normal difficulty, zero talents; samples are sequential and subject to host variation",
+    "developmentOpeningFpsBefore": {"terran": 46.30, "zerg": 49.22, "protoss": 46.16},
+    "developmentOpeningFpsAfter": {"terran": 57.70, "zerg": 59.80, "protoss": 59.89},
+    "developmentStage6ReferenceFpsBefore": 45.60,
+    "developmentStage6ReferenceFpsAfter": 58.07,
+    "standaloneTerranFpsBefore": 41.42,
+    "standaloneOpeningFpsAfter": {"terran": 57.84, "zerg": 58.11, "protoss": 58.14},
+    "standaloneSecondTenSecondsFpsAfter": {"terran": 59.72, "zerg": 59.68, "protoss": 60.04},
+    "standaloneFrameP95MsAfter": {"terran": 16.8, "zerg": 16.8, "protoss": 16.8},
+    "standaloneFramesOver20MsAfter": {"terran": 9, "zerg": 7, "protoss": 4},
+    "standaloneMaxFrameMsAfter": {"terran": 199.9, "zerg": 183.4, "protoss": 233.4},
+    "standaloneSimulationDebtAfter": "Approximately zero for all three opening samples",
+    "groundCanvasDiff": "At 1440x900 on the same paused world, stage 1 sparse-versus-dense RGB was exact. Stage 6 differed on 0.00231% of pixels by more than one channel unit (mean absolute channel delta 0.00122); sparse-versus-sparse repeat also drifted by 0.00247%, so this small difference is within capture drift. This is not a human art review."
+  },
+  "stress": {
+    "fixture": "25 ordinary + 3 heroes + 300 enemies, real Kairos map, 12 wall seconds, development build, not natural campaign",
+    "simulationSeconds": [12.33, 12.37, 12.18],
+    "frameRateApprox": [37.7, 36.6, 33.9],
+    "interpretation": "The three local runs did not add simulation debt, but visual frame rate remains below 60 and this Terran fixture does not certify all races or prolonged play."
+  },
+  "validation": {
+    "typecheck": "passed",
+    "unitTests": "590/590 passed",
+    "dataDocsCheck": "passed",
+    "build": "passed, 745/745 assets",
+    "offlineSave": "three races passed, no HTTP requests or browser errors",
+    "groundPixelComparison": "stage 1 exact; stage 6 difference below sparse repeat drift"
+  },
+  "target60PlusAccepted": false,
+  "limits": [
+    "Headless Chrome is display-paced near 60Hz and cannot demonstrate more than 60 FPS on a physical high-refresh display.",
+    "First ten seconds retain intermittent 180-233ms GPU/driver first-use stalls. The prototype offscreen preload did not improve them.",
+    "Stage 3-6 reference scenes are not normal successful campaign playthroughs; prolonged ordinary play and physical-device visual QA remain outstanding."
+  ],
+  "evidence": {
+    "baseline": "reports/qa/ordinary-performance-20260924.json",
+    "development": "reports/local/ordinary-performance-20260924-final-dev/results.json",
+    "standaloneTerran": "reports/local/ordinary-performance-20260924-final-terran/results.json",
+    "standaloneZerg": "reports/local/ordinary-performance-20260924-final-zerg/results.json",
+    "standaloneProtoss": "reports/local/ordinary-performance-20260924-final-protoss/results.json",
+    "groundPixelDiff": "reports/local/ground-sparse-visual-20260924/pixel-diff.json",
+    "stressSingle": "reports/local/performance-probe-20260924-ground-final/results.json",
+    "stressRepeat": "reports/local/performance-probe-20260924-ground-final-repeat/results.json"
+  }
+}

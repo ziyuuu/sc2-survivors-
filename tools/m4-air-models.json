@@ -1,0 +1,34 @@
+[
+  {
+    "id": "model.hero.yamato_battlecruiser",
+    "modelDataId": "Battlecruiser",
+    "name": "battlecruiserex2",
+    "assetPath": "Assets/Units/Terran/BattlecruiserEX2/BattlecruiserEX2.m3",
+    "definitionLayer": "liberty",
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.yamato_battlecruiser.death",
+    "modelDataId": "BattlecruiserDeathA",
+    "name": "battlecruiserdeathaex1",
+    "assetPath": "Assets/Units/Terran/BattleCruiserDeathAEx1/BattleCruiserDeathAEx1.m3",
+    "definitionLayer": "liberty",
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.hots_leviathan",
+    "modelDataId": "HotSLeviathan",
+    "name": "leviathan",
+    "assetPath": "Assets/Units/Zerg/Leviathan/Leviathan.m3",
+    "definitionLayer": "swarm",
+    "requiredAnimations": []
+  },
+  {
+    "id": "model.hero.hots_leviathan.death",
+    "modelDataId": "SS_LeviathanDeath",
+    "name": "leviathandeath",
+    "assetPath": "Assets/Units/Zerg/LeviathanDeath/LeviathanDeath.m3",
+    "definitionLayer": "liberty",
+    "requiredAnimations": []
+  }
+]

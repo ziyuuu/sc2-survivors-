@@ -6,6 +6,8 @@ export class CombatStatuses {
  private byTarget=new Map<number,Map<string,CombatStatus>>();
  private expiry:{id:number;target:number;until:number}[]=[];
  private serial=0;
+ snapshot(){return {serial:this.serial,entries:[...this.byTarget.values()].flatMap(entries=>[...entries.values()])};}
+ restore(snapshot:{serial:number;entries:CombatStatus[]}){if(!snapshot||!Number.isSafeInteger(snapshot.serial)||!Array.isArray(snapshot.entries))throw Error('状态存档无效');this.byTarget.clear();this.expiry=[];this.serial=snapshot.serial;for(const status of snapshot.entries){if(!['bleed','corruption','acidArmor','neural','bloodlust'].includes(status.kind)||!Number.isFinite(status.until)||!Number.isFinite(status.value))throw Error('状态存档无效');let entries=this.byTarget.get(status.target);if(!entries)this.byTarget.set(status.target,entries=new Map());entries.set(this.key(status.kind,status.source),status);this.push({id:status.id,target:status.target,until:status.until});}}
  get count(){let n=0;for(const entries of this.byTarget.values())n+=entries.size;return n;}
  private key(kind:StatusKind,source:number){return kind+':'+source;}
  apply(target:number,source:number,kind:StatusKind,value:number,seconds:number,now:number){

@@ -6,10 +6,13 @@ import {distance,translate,clearLine} from '../movement/steering';
 export interface EnemyCast {id:number;source:number;tier:'elite'|'boss'|'lord';kind:'charge'|'cone'|'fan'|'bile';origin:Point;point:Point;points:Point[];angle:number;at:number;damage:number;count:number;range:number;radius:number;level:number;percent:number}
 interface Missile extends Point {cast:number;source:number;angle:number;remaining:number;damage:number;hits:Set<number>;level:number;percent:number}
 interface Charge {angle:number;remaining:number;damage:number;hits:Set<number>;level:number;percent:number}
+export interface EnemySpecialsSnapshot {serial:number;casts:EnemyCast[];missiles:Missile[];charges:Map<number,Charge>}
 /** Fixed-step, locked warning locations. Rendering cannot apply damage. */
 export class EnemySpecials {
  casts:EnemyCast[]=[];missiles:Missile[]=[];charges=new Map<number,Charge>();private serial=0;
  constructor(private w:World){}
+ snapshot():EnemySpecialsSnapshot{return {serial:this.serial,casts:this.casts,missiles:this.missiles,charges:this.charges};}
+ restore(data:EnemySpecialsSnapshot){if(!data||!Number.isSafeInteger(data.serial)||!Array.isArray(data.casts)||!Array.isArray(data.missiles)||!(data.charges instanceof Map)||data.missiles.some(m=>!(m.hits instanceof Set))||[...data.charges.values()].some(c=>!(c.hits instanceof Set)))throw Error('敌方技能存档无效');this.serial=data.serial;this.casts=data.casts;this.missiles=data.missiles;this.charges=data.charges;}
  private clear(a:Point,b:Point){return clearLine(a,b,0,this.w.obstacles,this.w.terrain);}
  private damage(b:Body,amount:number,percent=0){if(b.owner!=='terran'||b.hp<=0)return;this.w.hit(b,amount,[],1,'zerg',0,1);if(percent&&b.hp>0&&!b.attributes.includes('Structure'))this.w.hit(b,b.maxHp*percent,[],1,'zerg',0,1);}
  act(u:Entity,dt:number){if(!u.enemyTier)return false;const w=this.w,charge=this.charges.get(u.id);
@@ -27,7 +30,7 @@ export class EnemySpecials {
   if(kind!=='bile'){u.facing=angle;u.action='skill';u.velocity={x:0,z:0};return true;}return false;
  }
  update(dt:number){const w=this.w,pending:EnemyCast[]=[];
-  for(const c of this.casts){const source=w.entities.get(c.source);if(c.kind!=='bile'&&(!source||source.hp<=0))continue;if(c.at>w.time+1e-8){pending.push(c);continue;}
+  for(const c of this.casts){const source=w.entities.get(c.source);if(c.kind!=='bile'&&(!source||source.hp<=0))continue;if(w.expedition&&source&&(source.stoppedUntil??0)>w.time){c.at+=dt;pending.push(c);continue;}if(c.at>w.time+1e-8){pending.push(c);continue;}
    if(c.kind==='charge'){this.charges.set(c.source,{angle:c.angle,remaining:10,damage:c.damage,hits:new Set(),level:c.level,percent:c.percent});continue;}
    if(c.kind==='fan'){const hits=new Set<number>();for(let i=0;i<c.count;i++)this.missiles.push({...c.origin,cast:c.id,source:c.source,angle:c.angle+(i-(c.count-1)/2)*.20,remaining:c.range,damage:c.damage,hits,level:c.level,percent:c.percent});continue;}
    if(c.kind==='cone'){w.hash.query(c.origin,c.range+2,b=>{const d=distance(c.origin,b),angle=Math.atan2(b.x-c.origin.x,b.z-c.origin.z),delta=Math.atan2(Math.sin(angle-c.angle),Math.cos(angle-c.angle));if(b.owner==='terran'&&!b.flying&&d<=c.range+b.unitRadius&&Math.abs(delta)<=.6&&this.clear(c.origin,b)){this.damage(b,c.damage);const target=w.entities.get(b.id);if(target&&target.hp>0&&c.level>=2)w.applyStatus(target,c.source,'acidArmor',[0,1,1.5,2,3][c.level-1],4);}},'terran');}

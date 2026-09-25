@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {createAssetPack} from '../tools/offline-pack.mjs';
-import {restoreAssetPack} from '../src/assets/offline-pack';
+import {EmbeddedAssetStore,restoreAssetPack} from '../src/assets/offline-pack';
 const hash=(b:Uint8Array)=>createHash('sha256').update(b).digest('hex');
 function glb(seed:number){const image=Buffer.from(Array.from({length:2048},(_,i)=>i%251)),geometry=Buffer.alloc(2048,seed),bin=Buffer.concat([geometry,image]);
  const j=Buffer.from(JSON.stringify({asset:{version:'2.0'},buffers:[{byteLength:bin.length}],bufferViews:[{buffer:0,byteOffset:0,byteLength:geometry.length},{buffer:0,byteOffset:geometry.length,byteLength:image.length}],images:[{bufferView:1,mimeType:'image/png'}],animations:[{name:'Walk',channels:[],samplers:[]}]}));
@@ -17,4 +17,18 @@ test('offline pack rejects incomplete GLB files and missing/mis-sized chunks',as
  const bytes=glb(1).bytes;assert.throws(()=>createAssetPack([{id:'bad',mime:'model/gltf-binary',bytes:bytes.subarray(0,-1)}]),/header/);
  const {pack}=createAssetPack([{id:'text',mime:'text/plain',bytes:Buffer.from('hello')}]);const bad=structuredClone(pack);bad.chunks[0].bytes++;await assert.rejects(()=>restoreAssetPack(bad),/字节/);
  const missing=structuredClone(pack);missing.assets.text.parts=[50];await assert.rejects(()=>restoreAssetPack(missing),/缺失/);await assert.rejects(()=>restoreAssetPack({...pack,version:99}),/版本/);
+});
+test('embedded release pack prepares only requested assets and retries a failed batch without losing earlier URLs',async()=>{
+ const assets=[{id:'menu',mime:'text/plain',bytes:Buffer.from('menu')},{id:'battle',mime:'text/plain',bytes:Buffer.from('battle')}];
+ const {pack}=createAssetPack(assets),copy=structuredClone(pack),store=new EmbeddedAssetStore(copy);
+ await store.prepare(['menu']);assert.equal(store.preparedCount,1);assert.equal(store.totalCount,2);
+ assert.equal(await(await fetch(store.urls.menu)).text(),'menu');assert.equal(store.urls.battle,undefined);
+ const battleChunk=copy.assets.battle.parts[0],original=copy.chunks[battleChunk].bytes;
+ copy.chunks[battleChunk].bytes++;
+ await assert.rejects(()=>store.prepare(['battle']),/字节校验/);
+ assert.equal(store.preparedCount,1);assert.equal(store.urls.battle,undefined);
+ copy.chunks[battleChunk].bytes=original;
+ await store.prepare(['battle','menu']);
+ assert.equal(await(await fetch(store.urls.battle)).text(),'battle');assert.equal(store.preparedCount,2);
+ for(const url of Object.values(store.urls))URL.revokeObjectURL(url);
 });

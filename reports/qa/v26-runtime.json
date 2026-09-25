@@ -1,0 +1,461 @@
+{
+  "checkedAt": "2026-09-24T06:52:55.180Z",
+  "repository": "ziyuuu/sc2-survivors-",
+  "projectDirectory": "D:\\星际",
+  "branch": "main",
+  "baseCommit": "55fab3acb652dd30ceb0241b3235450895393ef6",
+  "release": "V26",
+  "deliveryState": "Local playable validation build; working-tree changes include preserved V23–V25 work. No commit or push. Formal completion criteria remain unmet.",
+  "formalAcceptance": false,
+  "scope": "Three races, 30 ordinary families, 15 hero candidates, 40 elites, continuous paid production, transactional receipt-time replacement, development and reinforcement choices, 117-node talent trees with 50 allocation points at 3 resources each, 18-stage campaign and endless continuation.",
+  "tests": {
+    "command": "npm test",
+    "passed": 586,
+    "failed": 0,
+    "skipped": 0,
+    "log": "reports/local/v26-tests-final.log"
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "dataDocumentation": {
+    "commands": [
+      "npm run docs:data",
+      "npm run docs:check"
+    ],
+    "exitCode": 0
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "file": "dist/SC2-Survivors-Demo.html",
+    "bytes": 440970449,
+    "mib": 420.54,
+    "sha256": "aa6be4b7a401125376aa93d19a90c47ae1b2adad625869569b13a159a8b004db",
+    "largeChunkWarning": true,
+    "log": "reports/local/v26-build.log"
+  },
+  "assets": {
+    "available": 745,
+    "manifestTotal": 745,
+    "requiredMissing": [],
+    "contentRecords": 104,
+    "newRuntimeModelChecks": 61,
+    "sourceProfiles": {
+      "ordinary": "5.0.15 export fbbd6429b1eb6978c78a092dc68ba09029d03171; fixed declared layers",
+      "scienceVessel": "5.0.16.97563 Liberty campaign and LibertyStory production, explicit separate adapter",
+      "originalArt": "5.0.16.97563 CASC original bytes"
+    },
+    "structuralFailures": [],
+    "humanVisualApproved": false,
+    "evidence": [
+      "reports/local/three-race-content-readiness.json",
+      "reports/local/qa-three-race-models.json"
+    ]
+  },
+  "roster": {
+    "races": 3,
+    "ordinaryFamilies": 30,
+    "ordinaryFamiliesPerRace": 10,
+    "activeFamilies": 5,
+    "bodiesPerFamily": 5,
+    "heroes": 15,
+    "heroesPerRace": 5,
+    "activeHeroIdentities": 3,
+    "elites": 40
+  },
+  "talents": {
+    "nodes": 117,
+    "presets": 9,
+    "maximumAllocated": 50,
+    "allocationCostPerRank": 1,
+    "resourceCostPerRank": 3,
+    "fullAllocationPrice": 150,
+    "freeRespec": true,
+    "runPresetFrozen": true,
+    "legacyPricesFrozen": true
+  },
+  "save": {
+    "archiveVersion": 1,
+    "runSchema": 1,
+    "containerRules": "survivors-v26",
+    "newRunRules": "three-race-18-v1",
+    "legacyCampaignStages": 12,
+    "legacyCapacity": 35,
+    "storage": "IndexedDB atomic legacy profile + three-race profile + run transaction",
+    "backupCount": 2,
+    "resumePaused": true,
+    "offlineTimeAdvances": false,
+    "portableImportExport": true
+  },
+  "browser": {
+    "headless": true,
+    "physicalDeviceTested": false,
+    "interaction": {
+      "evidence": "reports/local/qa-three-race/results.json",
+      "runs": [
+        {
+          "width": 1440,
+          "height": 900,
+          "races": [
+            "terran",
+            "zerg",
+            "protoss"
+          ],
+          "checks": [
+            "39 nodes per race; 3 resources / 1 point; free race switch and respec",
+            "All races: expected opening bodies; 25 ordinary + 3 original heroes; labels/actions fit; operation pause and detection",
+            "Blink pointer/touch preserves move order; Escape and gamepad B cancel without spending cooldown",
+            "Actual full-roster receipt freezes combat, previews five level5→3 records, commits one arrival and four remaining credits",
+            "Development target, production toggle, displayed repair quote, one free reinforcement"
+          ],
+          "errors": []
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "races": [
+            "terran",
+            "zerg",
+            "protoss"
+          ],
+          "checks": [
+            "39 nodes per race; 3 resources / 1 point; free race switch and respec",
+            "All races: expected opening bodies; 25 ordinary + 3 original heroes; labels/actions fit; operation pause and detection",
+            "Blink pointer/touch preserves move order; Escape and gamepad B cancel without spending cooldown",
+            "Actual full-roster receipt freezes combat, previews five level5→3 records, commits one arrival and four remaining credits",
+            "Development target, production toggle, displayed repair quote, one free reinforcement"
+          ],
+          "errors": []
+        }
+      ]
+    },
+    "development": {
+      "command": "npm run test:browser:save",
+      "exitCode": 0,
+      "checks": [
+        "actual GLB right/left skeletal poses, original sockets, Ready and Walk clearing",
+        "browser reload restores campaign HP, cooldowns, pod passengers, statuses, wallet, profile and original World state",
+        "reward round resumes identical offers, receipts and permanent points",
+        "Acropolis resume retains map, endless clocks and five fortifications",
+        "saved defeat cannot be continued",
+        "portable import restores the selected archive; corrupt import leaves it intact",
+        "narrow menu fits width and Continue is keyboard focusable"
+      ],
+      "errors": [],
+      "evidence": "reports/local/qa-v23/development.json"
+    },
+    "offline": {
+      "command": "npm run test:offline:save",
+      "exitCode": 0,
+      "checks": [
+        "terran: offline file:// HTML saves and resumes race, families, frozen talents, wallet and battle time without HTTP requests or mutation debug API",
+        "zerg: offline file:// HTML saves and resumes race, families, frozen talents, wallet and battle time without HTTP requests or mutation debug API",
+        "protoss: offline file:// HTML saves and resumes race, families, frozen talents, wallet and battle time without HTTP requests or mutation debug API"
+      ],
+      "races": [
+        {
+          "race": "terran",
+          "httpRequests": 0,
+          "restoredTime": 0.25
+        },
+        {
+          "race": "zerg",
+          "httpRequests": 0,
+          "restoredTime": 0.25
+        },
+        {
+          "race": "protoss",
+          "httpRequests": 0,
+          "restoredTime": 0.21666666666666667
+        }
+      ],
+      "errors": [],
+      "evidence": "reports/local/qa-v23/offline.json"
+    },
+    "mainHive": {
+      "evidence": "reports/local/qa-main-hive/results.json",
+      "errors": [],
+      "humanVisualApproved": false
+    }
+  },
+  "economy": {
+    "routes": 9,
+    "seedsPerRoute": 3,
+    "successfulTransactionSimulations": 27,
+    "assumptions": "Zero talents; no combat losses; successful rescue; actual payments and public transactions. Does not establish battle completion or win rate.",
+    "formationStages": [
+      7,
+      8,
+      12,
+      7,
+      9,
+      11,
+      9,
+      10,
+      11
+    ],
+    "evidence": "reports/local/expedition-builds-formation-first.json"
+  },
+  "combatSampling": {
+    "zeroTalentFirstSixVerified": false,
+    "seed": 89241,
+    "controller": "rescue-stutter-v2",
+    "maps": [
+      "flat",
+      "original"
+    ],
+    "results": "Input-only controller failed in stages 1–4. No crash or NaN reported. Limited tactics do not establish human impossibility.",
+    "evidence": [
+      "reports/local/expedition-survival-flat-v2.json",
+      "reports/local/expedition-survival-original-v2.json"
+    ]
+  },
+  "performance": {
+    "accepted": false,
+    "host": {
+      "platform": "win32",
+      "cpu": "AMD Ryzen 7 5800U with Radeon Graphics         ",
+      "logicalCores": 16,
+      "totalRAM": 14877257728
+    },
+    "browser": "153.0.8010.53",
+    "method": "Diagnostic development build in local headless Chrome, real terrain and original models. 25 ordinary + 3 heroes + 300 enemies; boosted ordinary/hero/enemy health keeps the short pressure scene populated. Native movement/attacks/effects remain enabled. Five Protoss carriers start with 40 interceptors using the real paid construction routine; diagnostic shield/air armor of 1000 reduces early interceptor losses; actual ending counts are reported. Fixed seed 421; 2s warmup then 12s wall-clock sample. World.step and public method timings are instrumented; profiler overhead is included. These are not campaign completion, physical phone, controller, production-build or target-hardware acceptance results.",
+    "runs": [
+      {
+        "race": "terran",
+        "width": 1440,
+        "height": 900,
+        "wallSeconds": 12.0395,
+        "simSeconds": 5.983333333333333,
+        "backlogDelta": 6.600066666666684,
+        "stepMs": {
+          "count": 359,
+          "mean": 16.732311978645644,
+          "p50": 14.599999964237213,
+          "p95": 32,
+          "p99": 46.90000003576279,
+          "max": 72.19999998807907
+        },
+        "frameMs": {
+          "count": 281,
+          "mean": 42.645907473309606,
+          "p50": 33.5,
+          "p95": 66.70000000000437,
+          "p99": 83.40000000000146,
+          "max": 116.59999999999854
+        },
+        "counts": {
+          "ordinary": 25,
+          "heroes": 3,
+          "enemies": 300,
+          "interceptors": 0
+        },
+        "errors": []
+      },
+      {
+        "race": "zerg",
+        "width": 1440,
+        "height": 900,
+        "wallSeconds": 12.058,
+        "simSeconds": 8.283333333333333,
+        "backlogDelta": 4.149966666666691,
+        "stepMs": {
+          "count": 497,
+          "mean": 14.16156941640305,
+          "p50": 12.100000023841858,
+          "p95": 28.400000035762787,
+          "p99": 45,
+          "max": 64.30000001192093
+        },
+        "frameMs": {
+          "count": 346,
+          "mean": 34.778612716762986,
+          "p50": 33.30000000000291,
+          "p95": 50.10000000000582,
+          "p99": 66.70000000000437,
+          "max": 100
+        },
+        "counts": {
+          "ordinary": 25,
+          "heroes": 3,
+          "enemies": 300,
+          "interceptors": 0
+        },
+        "errors": []
+      },
+      {
+        "race": "protoss",
+        "width": 1440,
+        "height": 900,
+        "wallSeconds": 12.040300000011921,
+        "simSeconds": 6.166666666666667,
+        "backlogDelta": 6.166733333333356,
+        "stepMs": {
+          "count": 370,
+          "mean": 16.366216217343872,
+          "p50": 14.199999988079071,
+          "p95": 32.89999997615814,
+          "p99": 42,
+          "max": 57.60000002384186
+        },
+        "frameMs": {
+          "count": 297,
+          "mean": 40.46026936026935,
+          "p50": 33.400000000001455,
+          "p95": 66.5,
+          "p99": 66.80000000000291,
+          "max": 83.20000000000437
+        },
+        "counts": {
+          "ordinary": 25,
+          "heroes": 3,
+          "enemies": 300,
+          "interceptors": 39
+        },
+        "errors": []
+      },
+      {
+        "race": "terran",
+        "width": 390,
+        "height": 844,
+        "wallSeconds": 12.0355,
+        "simSeconds": 11.733333333333333,
+        "backlogDelta": 0.7332666666666292,
+        "stepMs": {
+          "count": 704,
+          "mean": 11.212784090926023,
+          "p50": 10.200000047683716,
+          "p95": 17.899999976158142,
+          "p99": 29.600000023841858,
+          "max": 73.80000001192093
+        },
+        "frameMs": {
+          "count": 421,
+          "mean": 28.54299287410927,
+          "p50": 33.29999999999927,
+          "p95": 33.5,
+          "p99": 50.10000000000218,
+          "max": 83.40000000000146
+        },
+        "counts": {
+          "ordinary": 25,
+          "heroes": 3,
+          "enemies": 300,
+          "interceptors": 0
+        },
+        "errors": []
+      },
+      {
+        "race": "zerg",
+        "width": 390,
+        "height": 844,
+        "wallSeconds": 12.035399999976159,
+        "simSeconds": 9.116666666666667,
+        "backlogDelta": 3.466633333333368,
+        "stepMs": {
+          "count": 547,
+          "mean": 14.423948811656595,
+          "p50": 12.5,
+          "p95": 27.899999976158142,
+          "p99": 43.10000002384186,
+          "max": 79.80000001192093
+        },
+        "frameMs": {
+          "count": 387,
+          "mean": 31.007751937984494,
+          "p50": 33.29999999999927,
+          "p95": 50,
+          "p99": 66.60000000000218,
+          "max": 100
+        },
+        "counts": {
+          "ordinary": 25,
+          "heroes": 3,
+          "enemies": 300,
+          "interceptors": 0
+        },
+        "errors": []
+      },
+      {
+        "race": "protoss",
+        "width": 390,
+        "height": 844,
+        "wallSeconds": 12.0325,
+        "simSeconds": 8.3,
+        "backlogDelta": 4.016800000000015,
+        "stepMs": {
+          "count": 498,
+          "mean": 14.615261045684775,
+          "p50": 12.700000047683716,
+          "p95": 24.899999976158142,
+          "p99": 39.5,
+          "max": 204
+        },
+        "frameMs": {
+          "count": 376,
+          "mean": 31.87101063829787,
+          "p50": 33.29999999999927,
+          "p95": 50,
+          "p99": 99.89999999999782,
+          "max": 334
+        },
+        "counts": {
+          "ordinary": 25,
+          "heroes": 3,
+          "enemies": 300,
+          "interceptors": 37
+        },
+        "errors": []
+      }
+    ],
+    "evidence": "reports/local/three-race-performance.md",
+    "subsequentOptimization": {
+      "change": "MapTerrain.walkLine reuses the previous sample height with identical predicates.",
+      "equivalentRandomPaths": 43200,
+      "equivalentOriginalMapPaths": 8192,
+      "heightCallReductionPercent": 45.54,
+      "queryMedianReductionPercent": 4.5,
+      "wholeBrowserRemeasured": false,
+      "evidence": "reports/local/qa-map-walkline.json"
+    }
+  },
+  "documents": {
+    "index": "docs/README.md",
+    "design": "docs/DESIGN.md",
+    "contract": "docs/BUILD_RESEARCH.md",
+    "architecture": "docs/ARCHITECTURE.md",
+    "save": "docs/SAVE_SYSTEM.md",
+    "generatedData": "docs/GAME_DATA_REFERENCE.md",
+    "roadmap": "docs/ROADMAP.md",
+    "qa": "docs/QA.md"
+  },
+  "commands": [
+    "npm run typecheck",
+    "npm test",
+    "npm run docs:data",
+    "npm run docs:check",
+    "npm run build",
+    "npm run test:browser:save",
+    "npm run test:offline:save",
+    "node tools/qa-three-race.mjs",
+    "node tools/qa-three-race-models.mjs",
+    "node tools/qa-main-hive.mjs",
+    "node tools/qa-three-race-performance.mjs",
+    "node --import tsx tools/qa-expedition-builds.mts",
+    "node --import tsx tools/qa-expedition-survival.mts",
+    "node --import tsx tools/qa-expedition-survival.mts --original",
+    "node --import tsx tools/qa-map-walkline.mts"
+  ],
+  "evidence": "reports/qa/v26-runtime.json",
+  "limits": [
+    "High-load 300-enemy realtime performance has not passed; simulated time debt remains.",
+    "Full 18-stage human playthrough, all nine builds in combat, zero/mid/50 talent and other-difficulty balance are not verified.",
+    "Headless original-model loading, DOM and effect presence do not establish human visual readability or fidelity.",
+    "Physical phone and controller, long-duration memory and production-build stress performance remain unverified.",
+    "Thor missile weapons retain existing immediate-hit engine timing; source launch timing is documented, not fully reproduced.",
+    "Existing Acropolis decorative placements and cliff models remain incomplete as documented in V22.",
+    "file:// storage is browser/origin dependent; use the existing export feature before moving the HTML."
+  ]
+}

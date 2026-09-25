@@ -8,6 +8,6 @@ test('purple offer identifies first recruitment, pending replacement, current ra
 });
 test('hero ownership and visible HP distinguish wounded, dead, and paid revival states',()=>{
  const w=new World();w.start();w.acquireHero('raynor');const r=rewardPool(w).find(r=>r.id==='hero.raynor')!,u=w.heroEntity('raynor')!;
- assert.equal(specialUnitName(u),'雷诺');assert.equal(rewardOwnership(w,r),'已拥有 · Rank 1 → 2');u.hp=120;assert.deepEqual(healthReadout(u.hp,u.maxHp),{current:120,max:500,ratio:.24,critical:true});
+ assert.equal(specialUnitName(u),'雷诺');assert.equal(rewardOwnership(w,r),'已拥有 · Rank 1 → 2');u.hp=120;assert.deepEqual(healthReadout(u.hp,u.maxHp),{current:120,max:625,ratio:.192,critical:true});
  w.hit(u,99999);assert.match(rewardOwnership(w,r),/阵亡/);assert.equal(healthReadout(u.hp,u.maxHp).ratio,0);w.endStage();w.wallet={minerals:5000,gas:5000};assert.ok(w.reviveHero('raynor'));assert.match(rewardOwnership(w,r),/下关复活/);
 });

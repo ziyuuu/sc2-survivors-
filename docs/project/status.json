@@ -1,0 +1,1318 @@
+{
+  "schemaVersion": 1,
+  "iteration": "1.0 MVP",
+  "revision": "2026-09-24-r6",
+  "phase": "M6",
+  "state": "M6_RESOURCE_CLOSURE_DONE_LOADING_AND_PERFORMANCE_VALIDATION_OPEN",
+  "gameplayChanged": true,
+  "approvals": [
+    {
+      "id": "PD02",
+      "approvedAt": "2026-09-24T15:13:39.548600+00:00",
+      "approvedRevision": "2026-09-24-r6",
+      "document": "docs/MVP10_TALENTS.md",
+      "documentHash": "fee9e34cf4ba57474f6da3d915ddb26fd8a47e909d0aa125d3e276b52e8dbdb1",
+      "documents": [
+        {
+          "path": "docs/MVP10_TALENTS.md",
+          "sha256": "fee9e34cf4ba57474f6da3d915ddb26fd8a47e909d0aa125d3e276b52e8dbdb1"
+        }
+      ],
+      "userEvidence": "可以。现在M0可以确认了。",
+      "scope": "M0 r6首版策划与实施基线；不代表运行、素材、视觉或性能验收"
+    },
+    {
+      "id": "PD03",
+      "approvedAt": "2026-09-24T15:13:39.548600+00:00",
+      "approvedRevision": "2026-09-24-r6",
+      "document": "docs/MVP10_TALENTS.md",
+      "documentHash": "fee9e34cf4ba57474f6da3d915ddb26fd8a47e909d0aa125d3e276b52e8dbdb1",
+      "documents": [
+        {
+          "path": "docs/MVP10_TALENTS.md",
+          "sha256": "fee9e34cf4ba57474f6da3d915ddb26fd8a47e909d0aa125d3e276b52e8dbdb1"
+        }
+      ],
+      "userEvidence": "可以。现在M0可以确认了。",
+      "scope": "M0 r6首版策划与实施基线；不代表运行、素材、视觉或性能验收"
+    },
+    {
+      "id": "PD04",
+      "approvedAt": "2026-09-24T15:13:39.548600+00:00",
+      "approvedRevision": "2026-09-24-r6",
+      "document": "docs/MVP10_COMBAT_ASSETS.md",
+      "documentHash": "d7a6ae11a7570654dcb02adc05079aa9b4f69db010fd096f25d2bd9ddbb16089",
+      "documents": [
+        {
+          "path": "docs/MVP10_COMBAT_ASSETS.md",
+          "sha256": "d7a6ae11a7570654dcb02adc05079aa9b4f69db010fd096f25d2bd9ddbb16089"
+        },
+        {
+          "path": "docs/MVP10_ELITE_CATALOG.md",
+          "sha256": "433b4ff3ac92a07d40c7fe665f252e481104fb30676142e5b739cc6a33db6fa6"
+        }
+      ],
+      "userEvidence": "可以。现在M0可以确认了。",
+      "scope": "M0 r6首版策划与实施基线；不代表运行、素材、视觉或性能验收"
+    },
+    {
+      "id": "PD05",
+      "approvedAt": "2026-09-24T15:13:39.548600+00:00",
+      "approvedRevision": "2026-09-24-r6",
+      "document": "docs/MVP10_RUNTIME.md",
+      "documentHash": "d5fcc92a6ab4d48ad963e3d531cacb27f0ad894aec8b83f8f1baa7d44ccd290f",
+      "documents": [
+        {
+          "path": "docs/MVP10_RUNTIME.md",
+          "sha256": "d5fcc92a6ab4d48ad963e3d531cacb27f0ad894aec8b83f8f1baa7d44ccd290f"
+        }
+      ],
+      "userEvidence": "可以。现在M0可以确认了。",
+      "scope": "M0 r6首版策划与实施基线；不代表运行、素材、视觉或性能验收"
+    },
+    {
+      "id": "PD06",
+      "approvedAt": "2026-09-24T15:13:39.548600+00:00",
+      "approvedRevision": "2026-09-24-r6",
+      "document": "docs/MVP10_COMBAT_ASSETS.md",
+      "documentHash": "d7a6ae11a7570654dcb02adc05079aa9b4f69db010fd096f25d2bd9ddbb16089",
+      "documents": [
+        {
+          "path": "docs/MVP10_COMBAT_ASSETS.md",
+          "sha256": "d7a6ae11a7570654dcb02adc05079aa9b4f69db010fd096f25d2bd9ddbb16089"
+        },
+        {
+          "path": "docs/MVP10_ITERATION_PLAN.md",
+          "sha256": "a76fceb3ee1bd69294c3cbc5e1f99e86eb6305706759f89cbd44e504125180b9"
+        }
+      ],
+      "userEvidence": "可以。现在M0可以确认了。",
+      "scope": "M0 r6首版策划与实施基线；不代表运行、素材、视觉或性能验收"
+    },
+    {
+      "id": "PD07",
+      "approvedAt": "2026-09-24T15:13:39.548600+00:00",
+      "approvedRevision": "2026-09-24-r6",
+      "document": "docs/MVP10_RUNTIME.md",
+      "documentHash": "d5fcc92a6ab4d48ad963e3d531cacb27f0ad894aec8b83f8f1baa7d44ccd290f",
+      "documents": [
+        {
+          "path": "docs/MVP10_RUNTIME.md",
+          "sha256": "d5fcc92a6ab4d48ad963e3d531cacb27f0ad894aec8b83f8f1baa7d44ccd290f"
+        }
+      ],
+      "userEvidence": "可以。现在M0可以确认了。",
+      "scope": "M0 r6首版策划与实施基线；不代表运行、素材、视觉或性能验收"
+    },
+    {
+      "id": "PD08",
+      "approvedAt": "2026-09-24T15:13:39.548600+00:00",
+      "approvedRevision": "2026-09-24-r6",
+      "document": "docs/MVP10_COMBAT_ASSETS.md",
+      "documentHash": "d7a6ae11a7570654dcb02adc05079aa9b4f69db010fd096f25d2bd9ddbb16089",
+      "documents": [
+        {
+          "path": "docs/MVP10_COMBAT_ASSETS.md",
+          "sha256": "d7a6ae11a7570654dcb02adc05079aa9b4f69db010fd096f25d2bd9ddbb16089"
+        }
+      ],
+      "userEvidence": "可以。现在M0可以确认了。",
+      "scope": "M0 r6首版策划与实施基线；不代表运行、素材、视觉或性能验收"
+    }
+  ],
+  "requirements": [
+    "R00",
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "R07",
+    "R08",
+    "R09",
+    "R10",
+    "R11",
+    "R12"
+  ],
+  "decisions": [
+    "PD02",
+    "PD03",
+    "PD04",
+    "PD05",
+    "PD06",
+    "PD07",
+    "PD08"
+  ],
+  "tasks": [
+    {
+      "id": "M0-01",
+      "phase": "M0",
+      "title": "形成完整设计与只读现状核验",
+      "status": "DONE",
+      "ownerRole": "策划/整合",
+      "assignee": "本轮文档整合",
+      "requirements": [
+        "R00",
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "dependsOn": [],
+      "decisions": [],
+      "acceptance": [
+        "A39"
+      ],
+      "design": "docs/MVP10_ITERATION_PLAN.md",
+      "evidence": [
+        "docs/MVP10_ITERATION_PLAN.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M0-02",
+      "phase": "M0",
+      "title": "建立任务库、验收矩阵、管理检查器",
+      "status": "DONE",
+      "ownerRole": "整合",
+      "assignee": "本轮文档整合",
+      "requirements": [
+        "R10",
+        "R11"
+      ],
+      "dependsOn": [
+        "M0-01"
+      ],
+      "decisions": [],
+      "acceptance": [
+        "A39"
+      ],
+      "design": "docs/project/README.md",
+      "evidence": [
+        "docs/project/README.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M0-03",
+      "phase": "M0",
+      "title": "取得具体设计修订的用户确认",
+      "status": "DONE",
+      "ownerRole": "用户/策划",
+      "assignee": "用户确认／Codex登记",
+      "requirements": [
+        "R00",
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "dependsOn": [
+        "M0-01",
+        "M0-02"
+      ],
+      "decisions": [
+        "PD02",
+        "PD03",
+        "PD04",
+        "PD05",
+        "PD06",
+        "PD07",
+        "PD08"
+      ],
+      "acceptance": [
+        "A39"
+      ],
+      "design": "docs/project/DECISIONS.md",
+      "evidence": [
+        "docs/project/APPROVAL_M0_20260924.md",
+        "docs/project/REVIEW_SNAPSHOT.json"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M1-01",
+      "phase": "M1",
+      "title": "清点旧分支与共享代码，确定删除引用闭包",
+      "status": "DONE",
+      "ownerRole": "规则/整合",
+      "assignee": "Codex",
+      "requirements": [
+        "R01"
+      ],
+      "dependsOn": [
+        "M0-03"
+      ],
+      "decisions": [
+        "PD07"
+      ],
+      "acceptance": [
+        "A10"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M1_RUNTIME_AUDIT.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M1-02",
+      "phase": "M1",
+      "title": "唯一规则、数据与存档schema，退役旧运行路径",
+      "status": "DONE",
+      "ownerRole": "规则/存档",
+      "assignee": "Codex",
+      "requirements": [
+        "R01"
+      ],
+      "dependsOn": [
+        "M1-01"
+      ],
+      "decisions": [
+        "PD07"
+      ],
+      "acceptance": [
+        "A10",
+        "A11"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M1_RUNTIME_AUDIT.md",
+        "docs/project/M1_CLEANUP_PROOF.md",
+        "docs/project/M1_VALIDATION.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M1-03",
+      "phase": "M1",
+      "title": "复现并修正难度读档全链，UI与run配置一致",
+      "status": "DONE",
+      "ownerRole": "存档/UI",
+      "assignee": "Codex",
+      "requirements": [
+        "R05"
+      ],
+      "dependsOn": [
+        "M1-02"
+      ],
+      "decisions": [
+        "PD07"
+      ],
+      "acceptance": [
+        "A12",
+        "A13"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M1_VALIDATION.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M1-04",
+      "phase": "M1",
+      "title": "旧开发档备份导出与永久本金一次导入",
+      "status": "DONE",
+      "ownerRole": "存档",
+      "assignee": "Codex",
+      "requirements": [
+        "R01",
+        "R05"
+      ],
+      "dependsOn": [
+        "M1-02"
+      ],
+      "decisions": [
+        "PD07"
+      ],
+      "acceptance": [
+        "A11",
+        "A13"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M1_VALIDATION.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M1-05",
+      "phase": "M1",
+      "title": "精英救援/重复提交/暂停读档事务回归",
+      "status": "DONE",
+      "ownerRole": "QA/规则",
+      "assignee": "Codex",
+      "requirements": [
+        "R01",
+        "R05"
+      ],
+      "dependsOn": [
+        "M1-03",
+        "M1-04"
+      ],
+      "decisions": [
+        "PD07"
+      ],
+      "acceptance": [
+        "A13",
+        "A14"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M1_VALIDATION.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M2-01",
+      "phase": "M2",
+      "title": "接入三族165定义和唯一效果/前置解析",
+      "status": "DONE",
+      "ownerRole": "规则",
+      "assignee": "Codex",
+      "requirements": [
+        "R00"
+      ],
+      "dependsOn": [
+        "M1-02"
+      ],
+      "decisions": [
+        "PD03"
+      ],
+      "acceptance": [
+        "A01",
+        "A03",
+        "A05"
+      ],
+      "design": "docs/MVP10_TALENTS.md",
+      "evidence": [
+        "docs/project/M2_VALIDATION.md",
+        "test/m2-talents.test.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M2-02",
+      "phase": "M2",
+      "title": "四线共用80点、分层计价、全额退款、九预设和冻结",
+      "status": "DONE",
+      "ownerRole": "规则/存档",
+      "assignee": "Codex",
+      "requirements": [
+        "R00",
+        "R05"
+      ],
+      "dependsOn": [
+        "M2-01"
+      ],
+      "decisions": [
+        "PD03"
+      ],
+      "acceptance": [
+        "A02",
+        "A04",
+        "A13"
+      ],
+      "design": "docs/MVP10_TALENTS.md",
+      "evidence": [
+        "docs/project/M2_VALIDATION.md",
+        "test/m2-save-matrix.test.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M2-03",
+      "phase": "M2",
+      "title": "三族经济、免单、特约精英及掉落收据",
+      "status": "DONE",
+      "ownerRole": "规则",
+      "assignee": "Codex",
+      "requirements": [
+        "R00"
+      ],
+      "dependsOn": [
+        "M2-01"
+      ],
+      "decisions": [
+        "PD02",
+        "PD03"
+      ],
+      "acceptance": [
+        "A08",
+        "A09",
+        "A25"
+      ],
+      "design": "docs/MVP10_TALENTS.md",
+      "evidence": [
+        "docs/project/M2_VALIDATION.md",
+        "test/m2-economy-contract.test.ts",
+        "test/m2-rarity-loot.test.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M2-04",
+      "phase": "M2",
+      "title": "7身体/7军衔/临时兵与付费容量一致",
+      "status": "DONE",
+      "ownerRole": "规则",
+      "assignee": "Codex",
+      "requirements": [
+        "R00"
+      ],
+      "dependsOn": [
+        "M2-01"
+      ],
+      "decisions": [
+        "PD03"
+      ],
+      "acceptance": [
+        "A06"
+      ],
+      "design": "docs/MVP10_TALENTS.md",
+      "evidence": [
+        "docs/project/M2_VALIDATION.md",
+        "test/m2-tactical-production.test.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M2-05",
+      "phase": "M2",
+      "title": "微操7节点与三族操作效果，计入共享80点",
+      "status": "DONE",
+      "ownerRole": "规则/输入",
+      "assignee": "Codex",
+      "requirements": [
+        "R00"
+      ],
+      "dependsOn": [
+        "M2-01"
+      ],
+      "decisions": [
+        "PD03"
+      ],
+      "acceptance": [
+        "A07"
+      ],
+      "design": "docs/MVP10_TALENTS.md",
+      "evidence": [
+        "docs/project/M2_VALIDATION.md",
+        "test/m2-talent-transfer.test.ts",
+        "test/m2-apm-boundary.test.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M2-06",
+      "phase": "M2",
+      "title": "主树与微操界面、逐项数值及运行验收",
+      "status": "DONE",
+      "ownerRole": "UI/QA",
+      "assignee": "Codex",
+      "requirements": [
+        "R00",
+        "R08"
+      ],
+      "dependsOn": [
+        "M2-02",
+        "M2-03",
+        "M2-04",
+        "M2-05"
+      ],
+      "decisions": [
+        "PD02",
+        "PD03"
+      ],
+      "acceptance": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07",
+        "A08",
+        "A09"
+      ],
+      "design": "docs/MVP10_TALENTS.md",
+      "evidence": [
+        "docs/project/M2_VALIDATION.md",
+        "tools/qa-m2.mjs",
+        "tools/qa-m2-touch.mjs",
+        "tools/qa-m2-gamepad.mjs"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M2-07",
+      "phase": "M2",
+      "title": "玩家爆虫自爆留场与5秒停顿、敌方规则隔离",
+      "status": "DONE",
+      "ownerRole": "战斗规则/存档",
+      "assignee": "Codex",
+      "requirements": [
+        "R12"
+      ],
+      "dependsOn": [
+        "M1-02"
+      ],
+      "decisions": [],
+      "acceptance": [
+        "A41"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": [
+        "docs/project/M2_VALIDATION.md",
+        "test/m2-baneling.test.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M3-01",
+      "phase": "M3",
+      "title": "标题三入口与新游戏三族贴图/难度/天赋",
+      "status": "DONE",
+      "ownerRole": "UI",
+      "assignee": null,
+      "requirements": [
+        "R08"
+      ],
+      "dependsOn": [
+        "M1-03"
+      ],
+      "decisions": [
+        "PD03"
+      ],
+      "acceptance": [
+        "A15",
+        "A16",
+        "A37"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M3_VALIDATION.md",
+        "reports/local/qa-m3/report.json",
+        "test/m3-flow.test.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M3-02",
+      "phase": "M3",
+      "title": "共用加载协调器、真实进度、失败重试",
+      "status": "DONE",
+      "ownerRole": "运行/渲染",
+      "assignee": null,
+      "requirements": [
+        "R09"
+      ],
+      "dependsOn": [
+        "M1-02"
+      ],
+      "decisions": [
+        "PD06"
+      ],
+      "acceptance": [
+        "A17",
+        "A18"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M3_VALIDATION.md",
+        "reports/local/qa-m3-failure/report.json",
+        "src/app/asset-readiness.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M3-03",
+      "phase": "M3",
+      "title": "第18关胜利整备和显式无尽选择",
+      "status": "DONE",
+      "ownerRole": "规则/UI",
+      "assignee": null,
+      "requirements": [
+        "R03"
+      ],
+      "dependsOn": [
+        "M1-02"
+      ],
+      "decisions": [
+        "PD05"
+      ],
+      "acceptance": [
+        "A19",
+        "A20"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M3_VALIDATION.md",
+        "test/m3-endless.test.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M3-04",
+      "phase": "M3",
+      "title": "独立平地图与真实SC防御/维修建筑",
+      "status": "DONE",
+      "ownerRole": "地形/资源",
+      "assignee": null,
+      "requirements": [
+        "R04"
+      ],
+      "dependsOn": [
+        "M1-02"
+      ],
+      "decisions": [
+        "PD05"
+      ],
+      "acceptance": [
+        "A21",
+        "A23"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M3_VALIDATION.md",
+        "assets/private/m3-pack.json",
+        "reports/local/qa-m3/report.json"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M3-05",
+      "phase": "M3",
+      "title": "无尽转场原子提交、资源失败不进战斗",
+      "status": "DONE",
+      "ownerRole": "规则/运行",
+      "assignee": null,
+      "requirements": [
+        "R03",
+        "R04",
+        "R09"
+      ],
+      "dependsOn": [
+        "M3-02",
+        "M3-03",
+        "M3-04"
+      ],
+      "decisions": [
+        "PD05",
+        "PD06"
+      ],
+      "acceptance": [
+        "A20",
+        "A22"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M3_VALIDATION.md",
+        "test/m3-endless.test.ts",
+        "reports/local/qa-m3-failure/report.json"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M3-06",
+      "phase": "M3",
+      "title": "独立240秒轮次/分钟奖励及敌军调度",
+      "status": "DONE",
+      "ownerRole": "规则",
+      "assignee": null,
+      "requirements": [
+        "R03",
+        "R04"
+      ],
+      "dependsOn": [
+        "M3-05"
+      ],
+      "decisions": [
+        "PD05"
+      ],
+      "acceptance": [
+        "A24",
+        "A25"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M3_VALIDATION.md",
+        "test/m3-endless.test.ts"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M3-07",
+      "phase": "M3",
+      "title": "菜单/载入/无尽跨输入与离线回归",
+      "status": "DONE",
+      "ownerRole": "QA",
+      "assignee": null,
+      "requirements": [
+        "R03",
+        "R04",
+        "R05",
+        "R08",
+        "R09"
+      ],
+      "dependsOn": [
+        "M2-06",
+        "M3-01",
+        "M3-06"
+      ],
+      "decisions": [
+        "PD03",
+        "PD05",
+        "PD06",
+        "PD07"
+      ],
+      "acceptance": [
+        "A12",
+        "A15",
+        "A16",
+        "A17",
+        "A18",
+        "A19",
+        "A20",
+        "A21",
+        "A22",
+        "A23",
+        "A24",
+        "A25",
+        "A37"
+      ],
+      "design": "docs/MVP10_RUNTIME.md",
+      "evidence": [
+        "docs/project/M3_VALIDATION.md",
+        "reports/local/qa-m3/report.json",
+        "reports/local/qa-m3/input-report.json",
+        "reports/local/qa-m3-offline/report.json"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M4-01",
+      "phase": "M4",
+      "title": "九样板原模型/挂点/视觉与真实命中制作（每族含新增变体）",
+      "status": "REVIEW",
+      "ownerRole": "美术/渲染/规则",
+      "assignee": "Codex",
+      "requirements": [
+        "R02",
+        "R06"
+      ],
+      "dependsOn": [
+        "M0-03",
+        "M2-07"
+      ],
+      "decisions": [
+        "PD04"
+      ],
+      "acceptance": [
+        "A26",
+        "A28"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": [
+        "docs/project/M4_VALIDATION.md",
+        "test/m4-combat-samples.test.ts",
+        "reports/local/qa-m4/report.json"
+      ],
+      "blockReason": "九样板已制成，等待用户评价模型差异、出手感与预警可读性"
+    },
+    {
+      "id": "M4-03",
+      "phase": "M4",
+      "title": "三族空中英雄原SC战斗模型取得、转换与舰身/挂点样板",
+      "status": "DONE",
+      "ownerRole": "资源/动画/渲染",
+      "assignee": "Codex",
+      "requirements": [
+        "R02",
+        "R06"
+      ],
+      "dependsOn": [
+        "M0-03"
+      ],
+      "decisions": [
+        "PD08"
+      ],
+      "acceptance": [
+        "A43"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": [
+        "docs/project/M4_VALIDATION.md",
+        "tools/m4-air-dependencies.json",
+        "reports/local/qa-m4/report.json"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M4-02",
+      "phase": "M4",
+      "title": "九原样板＋三空中英雄样板用户视觉确认",
+      "status": "BLOCKED",
+      "ownerRole": "用户/QA",
+      "assignee": null,
+      "requirements": [
+        "R02",
+        "R06"
+      ],
+      "dependsOn": [
+        "M4-01",
+        "M4-03"
+      ],
+      "decisions": [
+        "PD04"
+      ],
+      "acceptance": [
+        "A26",
+        "A29",
+        "A41",
+        "A43"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": [],
+      "blockReason": "用户要求MVP完成后统一验收；样板画面及M4验证记录保留待总验收"
+    },
+    {
+      "id": "M5-01",
+      "phase": "M5",
+      "title": "90精英：五模板战力强化、三型共享表现、逐款专属效果",
+      "status": "REVIEW",
+      "ownerRole": "资源/渲染",
+      "assignee": "Codex",
+      "requirements": [
+        "R02"
+      ],
+      "dependsOn": [
+        "M2-07",
+        "M4-03"
+      ],
+      "decisions": [
+        "PD04"
+      ],
+      "acceptance": [
+        "A27"
+      ],
+      "design": "docs/MVP10_ELITE_CATALOG.md",
+      "evidence": [
+        "docs/project/M5_PROGRESS.md",
+        "test/m5-elites.test.ts",
+        "reports/local/qa-m5/report.json"
+      ],
+      "blockReason": "90项运行与浏览器核验已通过；逐项人工战斗表现并入MVP最终验收"
+    },
+    {
+      "id": "M5-02",
+      "phase": "M5",
+      "title": "18英雄逐名普攻/技能加强、三族空中英雄与航母机群",
+      "status": "REVIEW",
+      "ownerRole": "规则/渲染",
+      "assignee": "Codex",
+      "requirements": [
+        "R02",
+        "R06"
+      ],
+      "dependsOn": [
+        "M2-07",
+        "M4-03"
+      ],
+      "decisions": [
+        "PD04",
+        "PD08"
+      ],
+      "acceptance": [
+        "A28",
+        "A42",
+        "A43"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": [
+        "docs/project/M5_PROGRESS.md",
+        "test/m5-air-heroes.test.ts",
+        "test/m5-hero-fire-ice.test.ts",
+        "reports/local/qa-m5/report.json"
+      ],
+      "blockReason": "18项运行与浏览器核验已通过；逐项人工技能观感和自然实战尚未签收"
+    },
+    {
+      "id": "M5-03",
+      "phase": "M5",
+      "title": "108项精英/英雄动画、视觉、预警与事件对应验收",
+      "status": "BLOCKED",
+      "ownerRole": "QA/用户",
+      "assignee": null,
+      "requirements": [
+        "R02",
+        "R06"
+      ],
+      "dependsOn": [
+        "M5-01",
+        "M5-02"
+      ],
+      "decisions": [
+        "PD04",
+        "PD08"
+      ],
+      "acceptance": [
+        "A27",
+        "A28",
+        "A29",
+        "A42",
+        "A43"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": [],
+      "blockReason": "M0 r6设计已批准；待M5-01/02审阅及用户要求的MVP统一视觉验收"
+    },
+    {
+      "id": "M5-05",
+      "phase": "M5",
+      "title": "90精英与18英雄的客观规则、素材和事件核验",
+      "status": "DONE",
+      "ownerRole": "规则/资源/QA",
+      "assignee": "Codex",
+      "requirements": [
+        "R02",
+        "R06"
+      ],
+      "dependsOn": [
+        "M2-07",
+        "M4-03"
+      ],
+      "decisions": [
+        "PD04",
+        "PD08"
+      ],
+      "acceptance": [
+        "A44"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": [
+        "docs/project/M5_PROGRESS.md",
+        "reports/local/qa-m5-objective/report.json",
+        "reports/local/qa-m5-hero-trials.json",
+        "reports/local/qa-m5-hero-target-matrix.json",
+        "reports/local/qa-m5/report.json"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M5-04",
+      "phase": "M5",
+      "title": "九Build经济与三族英雄/天赋实战平衡",
+      "status": "IN_PROGRESS",
+      "ownerRole": "玩法/QA",
+      "assignee": "Codex",
+      "requirements": [
+        "R00",
+        "R06",
+        "R12"
+      ],
+      "dependsOn": [
+        "M2-06",
+        "M3-07",
+        "M5-05"
+      ],
+      "decisions": [
+        "PD02",
+        "PD03",
+        "PD04"
+      ],
+      "acceptance": [
+        "A30",
+        "A38",
+        "A41"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": [
+        "docs/project/M5_PROGRESS.md",
+        "reports/local/expedition-builds-formation-first.json",
+        "reports/local/expedition-survival-original-v5-stages18.json",
+        "reports/local/m7-natural-controller-matrix.json"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "M6-01",
+      "phase": "M6",
+      "title": "资源依赖裁剪与派生包体账",
+      "status": "DONE",
+      "ownerRole": "资源/构建",
+      "assignee": "本轮 M6 开发",
+      "requirements": [
+        "R07"
+      ],
+      "dependsOn": [
+        "M1-02",
+        "M3-04",
+        "M5-05"
+      ],
+      "decisions": [
+        "PD06"
+      ],
+      "acceptance": [
+        "A31",
+        "A32"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": ["docs/project/M6_PROGRESS.md", "reports/local/asset-reachability.json", "reports/local/release-manifest.json"],
+      "blockReason": null
+    },
+    {
+      "id": "M6-02",
+      "phase": "M6",
+      "title": "贴图/动作/网格优化与离线封装验证",
+      "status": "IN_PROGRESS",
+      "ownerRole": "资源/构建",
+      "assignee": "本轮 M6 开发",
+      "requirements": [
+        "R07",
+        "R09"
+      ],
+      "dependsOn": [
+        "M6-01"
+      ],
+      "decisions": [
+        "PD06"
+      ],
+      "acceptance": [
+        "A31",
+        "A32",
+        "A33"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": ["docs/project/M6_PROGRESS.md", "assets/private/m6-clip-manifest.json", "reports/local/m6-meshopt-probe.json", "reports/local/release-manifest.json", "reports/local/qa-m6-offline-matrix/report.json"],
+      "blockReason": null
+    },
+    {
+      "id": "M6-03",
+      "phase": "M6",
+      "title": "消除首次资源长帧并测普通1–6关60+",
+      "status": "BLOCKED",
+      "ownerRole": "渲染/性能",
+      "assignee": null,
+      "requirements": [
+        "R09"
+      ],
+      "dependsOn": [
+        "M3-02",
+        "M5-04",
+        "M6-02"
+      ],
+      "decisions": [
+        "PD06"
+      ],
+      "acceptance": [
+        "A18",
+        "A34"
+      ],
+      "design": "docs/MVP10_ITERATION_PLAN.md",
+      "evidence": ["docs/project/M6_PROGRESS.md", "reports/local/m6-natural-stage1/results.json", "reports/local/m6-headed-terran/results.json", "reports/local/m6-natural-screen-warm/results.json", "reports/local/m6-natural-checkpoints/results.json", "reports/local/m6-natural-checkpoints-dev/results.json", "reports/local/m6-frame-trace-terran-headed/report.json", "reports/local/qa-m6-loading/report.json", "reports/local/qa-m6-audio-failure/report.json", "reports/local/qa-m6-map-failure/report.json", "reports/local/m6-startup-memory/report.json"],
+      "blockReason": "读档已预载本关波次和已付款订单模型，第4关三族12秒离线样本P99约16.8–16.9ms；完整1—6关三种子和实体设备稳定60档未验收，仍依赖M5-04取得合法自然战役路线"
+    },
+    {
+      "id": "M6-04",
+      "phase": "M6",
+      "title": "35普通/3英雄/截击机及终章/无尽性能",
+      "status": "BLOCKED",
+      "ownerRole": "渲染/性能",
+      "assignee": null,
+      "requirements": [
+        "R02",
+        "R06",
+        "R09"
+      ],
+      "dependsOn": [
+        "M6-03"
+      ],
+      "decisions": [
+        "PD06"
+      ],
+      "acceptance": [
+        "A35",
+        "A36"
+      ],
+      "design": "docs/MVP10_ITERATION_PLAN.md",
+      "evidence": ["docs/project/M6_PROGRESS.md", "reports/local/qa-three-race-performance-before-talent/results.json", "reports/local/qa-three-race-performance-300-35/results.json"],
+      "blockReason": "M0 r6设计已批准；35普通＋3英雄＋截击机/300敌独立合成压力已记录，等待M6-03和终章/无尽正常场景实测"
+    },
+    {
+      "id": "M6-05",
+      "phase": "M6",
+      "title": "包体/冷暖启动/内存/离线最终对照",
+      "status": "BLOCKED",
+      "ownerRole": "QA",
+      "assignee": null,
+      "requirements": [
+        "R07",
+        "R09"
+      ],
+      "dependsOn": [
+        "M6-02",
+        "M6-04"
+      ],
+      "decisions": [
+        "PD06"
+      ],
+      "acceptance": [
+        "A32",
+        "A33",
+        "A34",
+        "A35",
+        "A36"
+      ],
+      "design": "docs/MVP10_COMBAT_ASSETS.md",
+      "evidence": ["docs/project/M6_PROGRESS.md", "reports/local/m6-startup-memory/report-serial.json", "reports/local/m6-startup-memory/report.json", "reports/local/qa-m6-offline-matrix/report.json"],
+      "blockReason": "M0 r6设计已批准；无头浏览器单文件暖启动/堆对照和三族断网存读已记录，待M6-02/04及正式硬件冷暖启动和内存对照"
+    },
+    {
+      "id": "M7-01",
+      "phase": "M7",
+      "title": "冻结候选并跑规则/数据/保存/浏览器全验",
+      "status": "BLOCKED",
+      "ownerRole": "整合/QA",
+      "assignee": null,
+      "requirements": [
+        "R00",
+        "R01",
+        "R03",
+        "R04",
+        "R05",
+        "R08",
+        "R09"
+      ],
+      "dependsOn": [
+        "M1-05",
+        "M3-07",
+        "M5-04",
+        "M6-05"
+      ],
+      "decisions": [
+        "PD02",
+        "PD03",
+        "PD05",
+        "PD06",
+        "PD07"
+      ],
+      "acceptance": [
+        "A01",
+        "A10",
+        "A12",
+        "A13",
+        "A14",
+        "A19",
+        "A24",
+        "A25",
+        "A33",
+        "A39",
+        "A40"
+      ],
+      "design": "docs/project/ACCEPTANCE.md",
+      "evidence": ["docs/project/M7_PREFLIGHT.md", "reports/local/qa-m7-web/report.json", "reports/local/qa-m2/report.json", "reports/local/qa-m5/report.json"],
+      "blockReason": "M7工程预检与Web目录构建已运行；等待M5-04和M6-05关闭，且前六关、后期、无尽自然性能与人工验收满足门槛后才冻结正式候选"
+    },
+    {
+      "id": "M7-02",
+      "phase": "M7",
+      "title": "三族完整玩法、人工视觉和真实输入验收",
+      "status": "BLOCKED_APPROVAL",
+      "ownerRole": "用户/QA",
+      "assignee": null,
+      "requirements": [
+        "R00",
+        "R02",
+        "R03",
+        "R04",
+        "R06",
+        "R08",
+        "R09"
+      ],
+      "dependsOn": [
+        "M7-01"
+      ],
+      "decisions": [
+        "PD02",
+        "PD03",
+        "PD04",
+        "PD05",
+        "PD06"
+      ],
+      "acceptance": [
+        "A26",
+        "A27",
+        "A28",
+        "A29",
+        "A30",
+        "A34",
+        "A35",
+        "A37",
+        "A38"
+      ],
+      "design": "docs/project/ACCEPTANCE.md",
+      "evidence": [],
+      "blockReason": "用户要求1.0 MVP内容完成后统一进行视觉与完整玩法验收；等待M7-01"
+    },
+    {
+      "id": "M7-03",
+      "phase": "M7",
+      "title": "关闭阻塞并形成1.0MVP交付清单/包/hash",
+      "status": "BLOCKED",
+      "ownerRole": "整合",
+      "assignee": null,
+      "requirements": [
+        "R00",
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11"
+      ],
+      "dependsOn": [
+        "M7-02",
+        "M4-02",
+        "M5-03"
+      ],
+      "decisions": [
+        "PD02",
+        "PD03",
+        "PD04",
+        "PD05",
+        "PD06",
+        "PD07"
+      ],
+      "acceptance": [
+        "A40"
+      ],
+      "design": "docs/MVP10_ITERATION_PLAN.md",
+      "evidence": [],
+      "blockReason": "等待M7-02完整验收通过后才可标记1.0 MVP"
+    }
+  ]
+}

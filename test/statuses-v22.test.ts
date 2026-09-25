@@ -33,5 +33,5 @@ test('one bile volley hits once through overlapping points and creates one perio
  const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[],initial:['marine']});w.start();const marine=w.allies()[0],ravager=w.spawnSpecial('ravager','elite',{x:4,z:0})!;marine.hp=marine.maxHp=500;marine.moveSpeed=0;ravager.specialReady=100;ravager.weaponCooldown=100;
  w.hash.rebuild(w.entities.values());w.enemySpecials.casts.push({id:1,source:ravager.id,tier:'elite',kind:'bile',origin:{x:4,z:0},point:{x:0,z:0},points:[{x:0,z:0},{x:0,z:0}],angle:0,at:0,damage:60,count:2,range:9,radius:1,level:3,percent:0});
  w.enemySpecials.update(1/60);assert.equal(marine.hp,440);assert.equal(w.corrosionZones.length,1);assert.equal(w.statuses.value(marine.id,'corruption',w.time),.3);
- w.advance(.5);assert.ok(Math.abs(marine.hp-(440-3))<1e-6);assert.ok(w.zoneSlowed.has(marine.id));
+ w.updateUnit=()=>{};w.advance(.5);assert.ok(Math.abs(marine.hp-(440-3))<1e-6);assert.ok(w.zoneSlowed.has(marine.id));
 });

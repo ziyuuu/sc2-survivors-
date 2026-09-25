@@ -1,0 +1,650 @@
+{
+  "at": "2026-09-24T07:28:28.173Z",
+  "scope": "User-authorized project disk/process cleanup and runtime optimization investigation; no gameplay or renderer implementation changes.",
+  "cleanup": {
+    "files": 8053,
+    "bytes": 11300329751,
+    "gib": 10.52425219770521,
+    "accounting": "Cumulative exact lengths of files actually deleted across receipts, not C/D free-space gain. Other application activity continued to create LFS temporary data during this task.",
+    "groups": [
+      {
+        "reason": "Unreferenced generated sidecar/legacy conversion; all current runtime resources have no external file URI and are retained.",
+        "files": 2082,
+        "bytes": 1033961151
+      },
+      {
+        "reason": "Unreferenced Vite public copy; not used by dist/index.html or standalone embedded HTML; not a source of map packaging.",
+        "files": 2374,
+        "bytes": 1375981083
+      },
+      {
+        "reason": "Verified obsolete V25 build backup",
+        "files": 3030,
+        "bytes": 1900704839
+      },
+      {
+        "reason": "Obsolete V22-or-earlier screenshot, profile or test build; text evidence retained",
+        "files": 379,
+        "bytes": 1603483453
+      },
+      {
+        "reason": "Obsolete pre-migration build; migration text/index backups retained",
+        "files": 3,
+        "bytes": 36296612
+      },
+      {
+        "reason": "Regenerable historical performance source snapshot",
+        "files": 161,
+        "bytes": 10267925
+      },
+      {
+        "reason": "Stale incomplete LFS temporary file; completed objects and index retained",
+        "files": 7,
+        "bytes": 1228347392
+      },
+      {
+        "reason": "Stable, unopened LFS temporary fragment",
+        "files": 17,
+        "bytes": 4111287296
+      }
+    ],
+    "sourceRelocation": {
+      "files": 488,
+      "bytes": 308058348,
+      "from": "C:/Users/zyuu/AppData/Local/Temp/sc2-v26-assets",
+      "to": "D:/星际/assets/private",
+      "allSha256Verified": true,
+      "countedAsDeletion": false
+    },
+    "preserved": [
+      "Current standalone HTML and all 745 runtime assets",
+      "292 GLBs used by offline map repackaging",
+      "Current V26 local QA/performance evidence and historical text/JSON summaries",
+      "Source code, tests, required raw M3/DDS/map sources, dependency/runtime tooling",
+      "Git completed objects, index, references and history; no tracking policy change"
+    ],
+    "inventoryBefore": [
+      {
+        "Path": ".git",
+        "Bytes": 4838362873,
+        "Files": 3983
+      },
+      {
+        "Path": "dist",
+        "Bytes": 2361844206,
+        "Files": 3123
+      },
+      {
+        "Path": "public",
+        "Bytes": 1919458242,
+        "Files": 3119
+      },
+      {
+        "Path": "reports",
+        "Bytes": 1711617521,
+        "Files": 917
+      },
+      {
+        "Path": "assets",
+        "Bytes": 370888331,
+        "Files": 1154
+      },
+      {
+        "Path": ".cache",
+        "Bytes": 257552857,
+        "Files": 2128
+      },
+      {
+        "Path": "node_modules",
+        "Bytes": 134268951,
+        "Files": 3428
+      },
+      {
+        "Path": "tools",
+        "Bytes": 1567533,
+        "Files": 139
+      },
+      {
+        "Path": "src",
+        "Bytes": 1071397,
+        "Files": 108
+      },
+      {
+        "Path": "test",
+        "Bytes": 356090,
+        "Files": 69
+      },
+      {
+        "Path": "docs",
+        "Bytes": 311106,
+        "Files": 19
+      },
+      {
+        "Path": "package-lock.json",
+        "Bytes": 53612,
+        "Files": 1
+      },
+      {
+        "Path": "preview",
+        "Bytes": 11930,
+        "Files": 2
+      },
+      {
+        "Path": "AGENTS.md",
+        "Bytes": 8709,
+        "Files": 1
+      },
+      {
+        "Path": "README.md",
+        "Bytes": 6054,
+        "Files": 1
+      },
+      {
+        "Path": "package.json",
+        "Bytes": 2001,
+        "Files": 1
+      },
+      {
+        "Path": ".github",
+        "Bytes": 1853,
+        "Files": 2
+      },
+      {
+        "Path": "index.html",
+        "Bytes": 444,
+        "Files": 1
+      },
+      {
+        "Path": "tsconfig.json",
+        "Bytes": 257,
+        "Files": 1
+      },
+      {
+        "Path": ".gitignore",
+        "Bytes": 224,
+        "Files": 1
+      },
+      {
+        "Path": "vite.config.ts",
+        "Bytes": 172,
+        "Files": 1
+      },
+      {
+        "Path": ".gitattributes",
+        "Bytes": 121,
+        "Files": 1
+      }
+    ],
+    "inventoryAfterAt": "2026-09-24T07:19:59.2475938Z",
+    "inventoryAfter": [
+      {
+        "Path": ".git",
+        "Bytes": 3276106489,
+        "Files": 3972
+      },
+      {
+        "Path": "dist",
+        "Bytes": 985863123,
+        "Files": 749
+      },
+      {
+        "Path": "public",
+        "Bytes": 885497091,
+        "Files": 1037
+      },
+      {
+        "Path": "assets",
+        "Bytes": 678946679,
+        "Files": 1642
+      },
+      {
+        "Path": ".cache",
+        "Bytes": 247284932,
+        "Files": 1967
+      },
+      {
+        "Path": "node_modules",
+        "Bytes": 134268951,
+        "Files": 3428
+      },
+      {
+        "Path": "reports",
+        "Bytes": 78419386,
+        "Files": 551
+      },
+      {
+        "Path": "tools",
+        "Bytes": 1596767,
+        "Files": 142
+      },
+      {
+        "Path": "src",
+        "Bytes": 1071397,
+        "Files": 108
+      },
+      {
+        "Path": "test",
+        "Bytes": 356090,
+        "Files": 69
+      },
+      {
+        "Path": "docs",
+        "Bytes": 311106,
+        "Files": 19
+      },
+      {
+        "Path": "package-lock.json",
+        "Bytes": 53612,
+        "Files": 1
+      },
+      {
+        "Path": "preview",
+        "Bytes": 11930,
+        "Files": 2
+      },
+      {
+        "Path": "AGENTS.md",
+        "Bytes": 8709,
+        "Files": 1
+      },
+      {
+        "Path": "README.md",
+        "Bytes": 6054,
+        "Files": 1
+      },
+      {
+        "Path": "package.json",
+        "Bytes": 2001,
+        "Files": 1
+      },
+      {
+        "Path": ".github",
+        "Bytes": 1853,
+        "Files": 2
+      },
+      {
+        "Path": "index.html",
+        "Bytes": 444,
+        "Files": 1
+      },
+      {
+        "Path": "tsconfig.json",
+        "Bytes": 257,
+        "Files": 1
+      },
+      {
+        "Path": ".gitignore",
+        "Bytes": 224,
+        "Files": 1
+      },
+      {
+        "Path": "vite.config.ts",
+        "Bytes": 172,
+        "Files": 1
+      },
+      {
+        "Path": ".gitattributes",
+        "Bytes": 121,
+        "Files": 1
+      }
+    ],
+    "drivesBefore": [
+      {
+        "Name": "C",
+        "Used": 182498476032,
+        "Free": 32249884672
+      },
+      {
+        "Name": "D",
+        "Used": 239069728768,
+        "Free": 56952709120
+      }
+    ],
+    "drivesAfterLastCleanup": [
+      {
+        "Name": "C",
+        "Free": 34679758848,
+        "Used": 180068601856
+      },
+      {
+        "Name": "D",
+        "Free": 59160551424,
+        "Used": 236861886464
+      }
+    ],
+    "receipts": [
+      "reports/local/cleanup-receipt-resources-20260924.json",
+      "reports/local/cleanup-receipt-20260924.json",
+      "reports/local/cleanup-lfs-receipt-20260924.json",
+      "reports/local/cleanup-lfs-final-20260924.json"
+    ]
+  },
+  "verification": {
+    "resourcePreparation": "npm run assets:prepare: 745/745, 0 required missing",
+    "sourceChecks": [
+      "node tools/build-expansion-unit-data.mjs --check",
+      "node tools/build-expansion-upgrades.mjs --check",
+      "node tools/build-campaign-science-vessel.mjs --check"
+    ],
+    "sourceChecksExitCode": 0,
+    "assetTests": {
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/local/cleanup-asset-tests.log"
+    },
+    "runtimeAssets": {
+      "count": 745,
+      "bytes": 543477159,
+      "sc2assetReferences": 868,
+      "matchingDistCopies": 745
+    },
+    "restoredSources": {
+      "count": 488,
+      "bytes": 308058348,
+      "sha256Verified": 488
+    },
+    "productionWeb": {
+      "races": [
+        {
+          "race": "terran",
+          "battle": {
+            "phase": "battle",
+            "stage": 1,
+            "time": 0.6666666666666666,
+            "race": "terran",
+            "families": [
+              "marine"
+            ],
+            "assetsReady": true,
+            "assetsPending": 0
+          },
+          "jsErrors": [],
+          "httpErrors": [],
+          "failedRequests": []
+        },
+        {
+          "race": "zerg",
+          "battle": {
+            "phase": "battle",
+            "stage": 1,
+            "time": 0.5166666666666666,
+            "race": "zerg",
+            "families": [
+              "zergling"
+            ],
+            "assetsReady": true,
+            "assetsPending": 0
+          },
+          "jsErrors": [],
+          "httpErrors": [],
+          "failedRequests": []
+        },
+        {
+          "race": "protoss",
+          "battle": {
+            "phase": "battle",
+            "stage": 1,
+            "time": 0.5166666666666666,
+            "race": "protoss",
+            "families": [
+              "zealot"
+            ],
+            "assetsReady": true,
+            "assetsPending": 0
+          },
+          "jsErrors": [],
+          "httpErrors": [],
+          "failedRequests": []
+        }
+      ],
+      "passed": true,
+      "evidence": "reports/local/cleanup-verification.json",
+      "initialAttempt": "The custom streaming HTTP test server produced request cancellations. The final server sends complete buffered responses with Connection: close; all three races passed without filtering failed requests."
+    },
+    "build": {
+      "file": "D:/星际/dist/SC2-Survivors-Demo.html",
+      "bytes": 440970449,
+      "sha256": "aa6be4b7a401125376aa93d19a90c47ae1b2adad625869569b13a159a8b004db",
+      "rebuilt": false
+    }
+  },
+  "processes": {
+    "initialUnusedProjectServersOrQaBrowsersFound": 0,
+    "finalSnapshotAt": "2026-09-24T07:19:59.2475938Z",
+    "projectListeners": [],
+    "projectOrHeadlessProcesses": [],
+    "probeProcessesClosed": true,
+    "validationProcessesClosed": true,
+    "retained": "Codex application, its tool runtimes, ordinary user applications and active Git operations were not classified as disposable project workers.",
+    "lfsInvestigation": "reports/local/lfs-process-investigation-20260924.json",
+    "lfsCaveat": "Captured a desktop-application git diff containing the large HTML and a concurrent LFS filter process. 15/16 stable fragment prefixes matched the HTML. Their total did not grow within the 40-second observation; the filter parent chain and interruption cause were not fully proven. Fresh transient fragments can reappear."
+  },
+  "performance": {
+    "method": "Local Chrome headless, development build, real terrain and original models, 1440x900 DPR1, fixed seed421, 25 rank5 ordinary Terran + 3 heroes. Same creation order for the first100 enemies in all scenes. Native rules and AI remain active; health is boosted only to retain scene population. No production or automatic waves. Two seconds warmup + twelve seconds wall-clock sample. Only World.step and BattleRenderer.render are timed. No CDP or CPU profiling. Render-disabled is a diagnostic CPU isolation experiment, not a playable experience. Submit time is not GPU time. Single samples do not establish statistical confidence or production/physical-device acceptance.",
+    "host": {
+      "platform": "win32",
+      "cpu": "AMD Ryzen 7 5800U with Radeon Graphics         ",
+      "logicalCores": 16,
+      "totalRAM": 14877257728
+    },
+    "gameCodeChanged": false,
+    "runs": [
+      {
+        "id": "100-native",
+        "enemies": 100,
+        "quality": "native",
+        "render": true,
+        "wallSeconds": 12.093899999976157,
+        "simSeconds": 12.666666666666666,
+        "backlogDelta": -0.5667666666666639,
+        "stepMs": {
+          "count": 760,
+          "mean": 5.590526315334596,
+          "p50": 4.899999976158142,
+          "p95": 11.200000047683716,
+          "p99": 15.899999976158142,
+          "max": 21.100000023841858
+        },
+        "renderSubmitMs": {
+          "count": 287,
+          "mean": 14.55365853733302,
+          "p50": 14.199999988079071,
+          "p95": 19.100000023841858,
+          "p99": 23.899999976158142,
+          "max": 128.5
+        },
+        "frameMs": {
+          "count": 286,
+          "mean": 42.19090909090909,
+          "p50": 33.5,
+          "p95": 50.69999999999709,
+          "p99": 83.40000000000146,
+          "max": 150.09999999999854
+        },
+        "drawCalls": {
+          "count": 287,
+          "mean": 218.3170731707317,
+          "p50": 220,
+          "p95": 223,
+          "p99": 224,
+          "max": 224
+        },
+        "triangles": {
+          "count": 287,
+          "mean": 480049.57839721255,
+          "p50": 479931,
+          "p95": 483313,
+          "p99": 484815,
+          "max": 487525
+        },
+        "errors": []
+      },
+      {
+        "id": "300-native",
+        "enemies": 300,
+        "quality": "native",
+        "render": true,
+        "wallSeconds": 12.064100000023842,
+        "simSeconds": 7.533333333333333,
+        "backlogDelta": 4.516866666666685,
+        "stepMs": {
+          "count": 452,
+          "mean": 13.045353982696492,
+          "p50": 11.699999988079071,
+          "p95": 23.5,
+          "p99": 31.5,
+          "max": 46.40000003576279
+        },
+        "renderSubmitMs": {
+          "count": 311,
+          "mean": 12.82122186180863,
+          "p50": 12.600000023841858,
+          "p95": 19,
+          "p99": 23.80000001192093,
+          "max": 32.5
+        },
+        "frameMs": {
+          "count": 310,
+          "mean": 38.76354838709676,
+          "p50": 33.39999999999782,
+          "p95": 50.200000000004366,
+          "p99": 66.79999999999927,
+          "max": 83.40000000000146
+        },
+        "drawCalls": {
+          "count": 311,
+          "mean": 218.13504823151126,
+          "p50": 220,
+          "p95": 223,
+          "p99": 224,
+          "max": 224
+        },
+        "triangles": {
+          "count": 311,
+          "mean": 884733.0321543409,
+          "p50": 914520,
+          "p95": 933868,
+          "p99": 937061,
+          "max": 938293
+        },
+        "errors": []
+      },
+      {
+        "id": "300-performance",
+        "enemies": 300,
+        "quality": "performance",
+        "render": true,
+        "wallSeconds": 12.033899999976159,
+        "simSeconds": 10.366666666666667,
+        "backlogDelta": 1.6501333333333448,
+        "stepMs": {
+          "count": 622,
+          "mean": 10.581189709844313,
+          "p50": 9.599999964237213,
+          "p95": 18.30000001192093,
+          "p99": 25.600000023841858,
+          "max": 34.80000001192093
+        },
+        "renderSubmitMs": {
+          "count": 354,
+          "mean": 11.12514124482365,
+          "p50": 10.600000023841858,
+          "p95": 17.399999976158142,
+          "p99": 20.099999964237213,
+          "max": 27.30000001192093
+        },
+        "frameMs": {
+          "count": 353,
+          "mean": 33.947592067988666,
+          "p50": 33.29999999999927,
+          "p95": 50,
+          "p99": 50.20000000000073,
+          "max": 83.30000000000291
+        },
+        "drawCalls": {
+          "count": 354,
+          "mean": 218.4774011299435,
+          "p50": 220,
+          "p95": 223,
+          "p99": 224,
+          "max": 224
+        },
+        "triangles": {
+          "count": 354,
+          "mean": 761373.4378531073,
+          "p50": 764136,
+          "p95": 808014,
+          "p99": 818090,
+          "max": 820168
+        },
+        "errors": []
+      },
+      {
+        "id": "300-render-disabled",
+        "enemies": 300,
+        "quality": "native",
+        "render": false,
+        "wallSeconds": 12.014299999952316,
+        "simSeconds": 12.633333333333333,
+        "backlogDelta": -0.583433333333326,
+        "stepMs": {
+          "count": 758,
+          "mean": 8.469525065381168,
+          "p50": 7.800000011920929,
+          "p95": 13.899999976158142,
+          "p99": 18.80000001192093,
+          "max": 31.5
+        },
+        "renderSubmitMs": {
+          "count": 703,
+          "mean": 0.0019914651154454366,
+          "p50": 0,
+          "p95": 0,
+          "p99": 0.10000002384185791,
+          "max": 0.10000002384185791
+        },
+        "frameMs": {
+          "count": 702,
+          "mean": 17.117521367521373,
+          "p50": 16.69999999999709,
+          "p95": 16.80000000000291,
+          "p99": 33.29999999999927,
+          "max": 49.900000000001455
+        },
+        "drawCalls": null,
+        "triangles": null,
+        "errors": []
+      }
+    ],
+    "priority": [
+      "Measure and reduce render submission, static map batch and material costs",
+      "Extend LOD to new families/modes while preserving hero and danger readability",
+      "Preserve candidate order while optimizing separation queries and A* reusable scratch space",
+      "Measure deferred offline decoding separately for startup and peak memory"
+    ],
+    "evidence": [
+      "reports/local/performance-probe-20260924/README.md",
+      "reports/local/performance-investigation-20260924.md"
+    ],
+    "limitations": "One sequential short sample per scenario on development Chrome; no GPU timer, production performance or physical-device acceptance. No claimed optimization percentage. No rule, enemy-count, fixed-step or debt-dropping shortcuts."
+  },
+  "knownSourceDiscrepancy": {
+    "file": "assets/private/dds/largesmoke1b.dds",
+    "description": "Predates this cleanup: size matches the old map source lock, SHA differs. Original bytes and current converted map inputs were retained; no silent source replacement."
+  },
+  "commands": [
+    "tools/cleanup-project-20260924.ps1 (preflight)",
+    "tools/cleanup-project-20260924.ps1 -Execute",
+    "Guarded PowerShell cleanup of stable, unopened .git/lfs/tmp fragments",
+    "node tools/qa-performance-probe.mjs",
+    "npm run assets:prepare",
+    "node tools/build-expansion-unit-data.mjs --check",
+    "node tools/build-expansion-upgrades.mjs --check",
+    "node tools/build-campaign-science-vessel.mjs --check",
+    "node --import tsx --test test/assets.test.mjs test/animations.test.ts test/original-map.test.ts test/offline-pack.test.ts test/m3-animation-bindings.test.mjs test/expansion-source-resolver.test.mjs",
+    "node --check tools/qa-cleanup-integrity.mjs",
+    "node tools/qa-cleanup-integrity.mjs",
+    "node tools/write-maintenance-report.mjs"
+  ]
+}

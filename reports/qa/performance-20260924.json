@@ -1,0 +1,127 @@
+{
+  "at": "2026-09-24T07:52:50.253Z",
+  "scope": "A* workspace reuse and ordinary-family original-geometry LOD coverage; fixed 60Hz, combat rules and enemy counts unchanged.",
+  "changes": [
+    {
+      "file": "src/simulation/movement/map-terrain.ts",
+      "behavior": "Reusable per-map Float64 costs, predecessors and generation-stamped visited/closed arrays; no full-map allocation or fill per search."
+    },
+    {
+      "file": "src/render/scene/battle-renderer.ts",
+      "behavior": "Original-geometry LOD eligibility covers all 30 ordinary families, death and existing mode models; hero/elite keys stay full detail."
+    }
+  ],
+  "validation": {
+    "typecheck": true,
+    "fullTests": {
+      "passed": 587,
+      "failed": 0,
+      "command": "npm test"
+    },
+    "dataDocsCheck": true,
+    "build": {
+      "file": "dist/SC2-Survivors-Demo.html",
+      "bytes": 440971153,
+      "sha256": "9be1439f3eb082bea6ade9015d42bb9882a7de4f2bb9e65d009470336dcbff4e",
+      "assets": 745,
+      "command": "npm run build"
+    },
+    "offline": {
+      "races": [
+        "terran",
+        "zerg",
+        "protoss"
+      ],
+      "httpRequests": 0,
+      "errors": 0,
+      "evidence": "reports/local/qa-v23/offline.json"
+    }
+  },
+  "performance": {
+    "baseline": {
+      "samplesPerCase": 1,
+      "native": {
+        "simulationSeconds": 7.533333333333333,
+        "backlogSeconds": 4.516866666666685,
+        "meanTriangles": 884733.0321543409
+      },
+      "reduced": {
+        "simulationSeconds": 10.366666666666667,
+        "backlogSeconds": 1.6501333333333448,
+        "meanTriangles": 761373.4378531073
+      }
+    },
+    "after": {
+      "samplesPerCase": 3,
+      "native": {
+        "count": 3,
+        "simulationSeconds": [
+          8.583333333333332,
+          9.266666666666667,
+          10.299999999999999
+        ],
+        "medianSimulationSeconds": 9.266666666666667,
+        "backlogSeconds": [
+          1.7167000000000265,
+          3.4667666666666963,
+          2.80003333333337
+        ],
+        "meanTriangles": [
+          913614.6482939633,
+          900968.2259036144,
+          898009.5555555555
+        ],
+        "meanDrawCalls": [
+          218.49606299212599,
+          218.77710843373495,
+          218.58187134502924
+        ]
+      },
+      "reduced": {
+        "count": 3,
+        "simulationSeconds": [
+          7.866666666666666,
+          9.566666666666666,
+          11.316666666666666
+        ],
+        "medianSimulationSeconds": 9.566666666666666,
+        "backlogSeconds": [
+          4.199833333333359,
+          2.4997333333333716,
+          0.7166333333333595
+        ],
+        "meanTriangles": [
+          423579.9969230769,
+          430996.17714285717,
+          434098.97164948453
+        ],
+        "meanDrawCalls": [
+          218.1476923076923,
+          218.72857142857143,
+          218.64948453608247
+        ]
+      }
+    },
+    "accepted300EnemyRealtime": false,
+    "evidence": [
+      "reports/local/performance-probe-20260924/results.json",
+      "reports/local/performance-probe-20260924-after/results.json",
+      "reports/local/performance-probe-20260924-repeat/results.json"
+    ],
+    "limitations": "Development Chrome on one AMD host. Previous baseline has one sample; new scenarios advance to different states. Render timing is CPU submission, not GPU completion. The lower triangle count does not prove a proportional frame-time improvement; 300 enemies still accumulate simulation debt."
+  },
+  "commands": [
+    "npm run typecheck",
+    "node --import tsx --test test/original-map.test.ts test/map-walkline.test.ts test/presentation.test.ts test/render-performance-v14.test.ts",
+    "npm test",
+    "npm run docs:check",
+    "npm run build",
+    "node tools/qa-performance-probe.mjs --output reports/local/performance-probe-20260924-after --port 5180",
+    "node tools/qa-performance-probe.mjs --output reports/local/performance-probe-20260924-repeat --port 5181 --cases 300-native,300-performance --repeat 2",
+    "npm run test:offline:save"
+  ],
+  "limits": [
+    "300-enemy real-time performance remains unmet.",
+    "Human visual readability, physical input and production-build long-run GPU measurements remain unverified."
+  ]
+}

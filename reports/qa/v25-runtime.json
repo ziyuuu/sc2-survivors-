@@ -1,0 +1,53 @@
+{
+  "version": "V25",
+  "checkedAt": "2026-09-24T03:18:37.961872+00:00",
+  "deliveryState": "Local working-tree changes; no commit or push in this iteration.",
+  "change": "Persistent original-portrait hero command badges with health and skill state, per-hero world aura, and brief cast identification; no gameplay or original asset mutation.",
+  "validation": {
+    "tests": {
+      "command": "npm test",
+      "passed": 401,
+      "failed": 0,
+      "skipped": 0
+    },
+    "typecheckExitCode": 0,
+    "docsCheckExitCode": 0,
+    "buildExitCode": 0,
+    "heroBrowserChecks": [
+      "three original hero portraits, names, ability-ready states and color-coded world auras are present at 1440x900",
+      "Nova skill moment identifies its caster without changing combat state",
+      "three hero beacons remain in bounds with no horizontal overflow at 390x844"
+    ],
+    "regressionBrowserChecks": [
+      "Nova uses corrected rifle assembly and nearby muzzle; hero/elite use separate glow tiers and visible labels",
+      "building choice displays Barracks 2, Factory 2 and Starport 1 without a third alternating type",
+      "production toggle keeps keyboard focus and survives browser reload",
+      "390x844 building production panel fits the viewport without horizontal overflow"
+    ],
+    "offlineChecks": [
+      "offline file:// HTML saves and resumes without HTTP requests or mutation debug API"
+    ],
+    "browserErrors": [],
+    "offlineHttpRequests": 0,
+    "desktopHeroCount": 3,
+    "mobileHeroCount": 3,
+    "auras": 3,
+    "mobileScrollWidth": 390
+  },
+  "artifact": {
+    "file": "dist/SC2-Survivors-Demo.html",
+    "bytes": 227823090,
+    "sha256": "497248cebfe45ada126597f95c95149053b4723261d286656a70cf1e86b4d5b9",
+    "assets": 652
+  },
+  "limits": [
+    "Human gameplay perception and original-client visual comparison remain unverified; headless checks validate DOM/model/effect presence and viewport bounds.",
+    "No human complete-campaign or long-term balance playthrough.",
+    "No physical phone or gamepad verification.",
+    "No measured performance improvement.",
+    "Future 18 stages, technology buildings, new unit roster and forced replacement are research only.",
+    "Acropolis decorative placements and cliff models remain incomplete as documented in V22.",
+    "file:// storage is browser/origin dependent; export before moving the HTML.",
+    "No multi-window progress merge."
+  ]
+}

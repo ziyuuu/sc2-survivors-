@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world.ts';
-import {SC2_UNITS,HEAL,SIEGE} from '../src/data/sc2-units.ts';
+import {SC2_UNITS,HEAL,SIEGE,TERRAN,ZERG} from '../src/data/sc2-units.ts';
 import {TUNING,STAGES} from '../src/data/game.ts';
 import {drawRewards,eligibleReward} from '../src/simulation/progression/rewards.ts';
 import {SpatialHash} from '../src/simulation/movement/spatial-hash.ts';
@@ -16,7 +16,7 @@ test('a normal new run starts with exactly one Rank-1 Marine, without a fixture 
  const initial=roster();w.start();w.advance(1);
  assert.equal(w.phase,'battle');assert.equal(w.stage,1);assert.deepEqual(roster(),initial);
 });
-test('fixed profile has exactly the requested ten units',()=>{assert.equal(Object.keys(SC2_UNITS).length,10);assert.equal(SC2_UNITS.tank.maxHp,175);close(SC2_UNITS.marine.movementSpeed,3.15);close(SC2_UNITS.baneling.attackDamage,16);});
+test('legacy ten-unit roster is preserved within the thirty-family registry',()=>{assert.equal(TERRAN.length+ZERG.length,10);assert.equal(Object.keys(SC2_UNITS).length,30);assert.equal(SC2_UNITS.tank.maxHp,175);close(SC2_UNITS.marine.movementSpeed,3.15);close(SC2_UNITS.baneling.attackDamage,16);});
 test('armor and independent HP never redirect death to another soldier',()=>{const w=world(['marine','marine']);const [a,b]=w.allies();a.rank=5;a.hp=2;w.hit(a,6);assert.equal(a.hp,0);assert.equal(b.hp,45);const roach=w.addUnit('roach','zerg',1,0);w.hit(roach,6);assert.equal(roach.hp,140);});
 test('Marine fire has a damage point and weapon cooldown',()=>{const w=world();const m=w.allies()[0],e=w.addUnit('roach','zerg',3,0);e.hp=e.maxHp=100000;e.weaponDamage=0;e.moveSpeed=0;m.facing=Math.PI/2;m.moveSpeed=0;w.step();assert.equal(e.hp,100000);assert.ok(m.windup>0);w.advance(.1);assert.equal(e.hp,99995);const hp=e.hp;w.advance(.3);assert.equal(e.hp,hp);w.advance(.4);assert.ok(e.hp<hp);});
 test('Medivac restores HP continuously, consumes energy, and caps HP',()=>{const w=world(['marine','medivac']);const [m,h]=w.allies();h.x=m.x;h.z=m.z;m.hp=10;const energy=h.energy;w.hash.rebuild(w.entities.values());w.heal(h,.5);close(m.hp,10+HEAL.hpPerSecond*.5);assert.ok(h.energy<energy);m.hp=44;w.heal(h,1);close(m.hp,45);});

@@ -1,5 +1,5 @@
 import {HEROES,HERO_IDS,type HeroId} from '../../data/heroes';
-import {ELITES,type EliteId} from '../../data/elites';
+import {LEGACY_ELITES as ELITES,type EliteId} from '../../data/elites';
 import {rollRarity,BUFFS,type Rarity} from '../../data/rewards';
 import {BUILDINGS,FACTORY_TECH_LAB,type BuildingType} from '../../data/game';
 import {SC2_UNITS,TERRAN,type TerranType} from '../../data/sc2-units';

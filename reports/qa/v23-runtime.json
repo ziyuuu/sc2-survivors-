@@ -1,0 +1,113 @@
+{
+  "checkedAt": "2026-09-24T00:47:14.460374+00:00",
+  "release": "V23",
+  "tests": {
+    "passed": 399,
+    "failed": 0,
+    "skipped": 0
+  },
+  "typecheck": true,
+  "build": {
+    "bytes": 227813401,
+    "mib": 217.2598,
+    "sha256": "3029d48e99bf70bef9aa6cc8ccecbb01bbfe29f07e19fff93af4fae66ff55392",
+    "assets": 652
+  },
+  "browser": {
+    "headless": true,
+    "desktopViewport": [
+      1440,
+      900
+    ],
+    "touchViewport": [
+      390,
+      844
+    ],
+    "developmentChecks": [
+      "actual GLB right/left skeletal poses, original sockets, Ready and Walk clearing",
+      "browser reload restores campaign HP, cooldowns, pod passengers, statuses, wallet, profile and original World state",
+      "reward round resumes identical offers, receipts and permanent points",
+      "Acropolis resume retains map, endless clocks and five fortifications",
+      "saved defeat cannot be continued",
+      "portable import restores the selected archive; corrupt import leaves it intact",
+      "narrow menu fits width and Continue is keyboard focusable"
+    ],
+    "offlineChecks": [
+      "offline file:// HTML saves and resumes without HTTP requests or mutation debug API"
+    ],
+    "errors": [],
+    "httpRequests": 0,
+    "animation": {
+      "poses": [
+        {
+          "sequence": 1,
+          "frame": 53,
+          "weight": 1
+        },
+        {
+          "walkCleared": 0
+        },
+        {
+          "sequence": 2,
+          "frame": 0,
+          "weight": 1
+        }
+      ],
+      "leftClip": "Attack Left",
+      "rightClip": "Attack Right",
+      "ready": "Stand Ready",
+      "tracks": [
+        "Attack Left",
+        "Attack Right"
+      ],
+      "leftOffset": 0,
+      "rightOffset": 53,
+      "muzzleSeparation": 0.8493016578049327
+    },
+    "exportBytes": 14934,
+    "narrowLayout": {
+      "width": 390,
+      "scrollWidth": 390,
+      "button": {
+        "x": 30,
+        "y": 393.46875,
+        "width": 330,
+        "height": 38,
+        "top": 393.46875,
+        "right": 360,
+        "bottom": 431.46875,
+        "left": 30
+      }
+    }
+  },
+  "scope": {
+    "newUnits": [],
+    "reaperDeferred": true,
+    "ordinaryCap": 25,
+    "ordinaryCapWithExistingTalent": 35,
+    "heroes": 3,
+    "totalRosterIncrease": false
+  },
+  "commands": [
+    "node --import tsx --test test/save-v23.test.ts test/animations.test.ts",
+    "npm test",
+    "npm run typecheck",
+    "npm run docs:data",
+    "npm run docs:check",
+    "npm run build",
+    "node tools/qa-v23.mjs --development",
+    "node tools/qa-v23.mjs --offline"
+  ],
+  "evidence": {
+    "development": "reports/local/qa-v23/development.json",
+    "offline": "reports/local/qa-v23/offline.json",
+    "tests": "reports/local/v23-tests.log",
+    "build": "reports/local/v23-build.log"
+  },
+  "notVerified": [
+    "human original-client visual comparison",
+    "human campaign or long-term balance",
+    "physical phone and gamepad",
+    "performance improvement"
+  ]
+}

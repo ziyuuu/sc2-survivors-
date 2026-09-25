@@ -62,7 +62,7 @@ test('default and persisted movement settings are independently validated',()=>{
 test('blocked browser storage does not prevent changing control modes',()=>{const c=new ControlSettings({getItem:()=>{throw Error('blocked');},setItem:()=>{throw Error('blocked');}});c.set('desktop','keyboard');assert.equal(c.desktop,'keyboard');});
 test('six fixed right-stick skill sectors retain selection at neutral and tolerate angular jitter',()=>{
  for(let i=0;i<SKILLS.length;i++){const a=i*Math.PI/3;assert.equal(stickSkill(Math.sin(a),-Math.cos(a),null),SKILLS[i].id);}
- assert.equal(stickSkill(0,0,'hero-nova'),'hero-nova');assert.equal(stickSkill(.1,.1,null),null);
+ assert.equal(stickSkill(0,0,'hero-slot-2'),'hero-slot-2');assert.equal(stickSkill(.1,.1,null),null);
  const a=Math.PI/6+.04;assert.equal(stickSkill(Math.sin(a),-Math.cos(a),'dash'),'dash');
 });
 test('right stick cannot become movement or menu navigation and old standard mappings still work',()=>{

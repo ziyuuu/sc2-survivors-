@@ -1,4 +1,6 @@
+import {localSourceFile} from './local-source-cache.mjs';
 /** Local-only M3 -> animated GLB / DDS -> PNG. No image upload or archive download. */
+import {normalizeBoneBindings} from './m3-animation-bindings.mjs';
 import {cascProvenance} from './casc-provenance.mjs';
 import {replacedBySelection} from './asset-selection.mjs';
 import {fetchBinary} from './fetch-binary.mjs';
@@ -21,7 +23,7 @@ const toolDir='.cache/m3-converter',privateDir='assets/private/m3';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 for(const dir of [toolDir,privateDir,'assets/private/dds','public/assets/animated','public/assets/effects'])await fs.mkdir(dir,{recursive:true});
 async function get(url,file,validate){
- let bytes;try{bytes=await fs.readFile(file);validate(bytes);return bytes;}catch{}
+ let bytes;try{bytes=await fs.readFile(localSourceFile(file));validate(bytes);return bytes;}catch{}
  bytes=await fetchBinary(url,120);validate(bytes);await fs.writeFile(file+'.part',bytes);await fs.rename(file+'.part',file);return bytes;
 }
 // Download only audited source files at a pinned revision; never execute package install scripts.
@@ -35,7 +37,7 @@ const selected=new Set(process.argv.slice(2)),matches=id=>!selected.size||select
 let previous={manifest:[],failures:[]};if(selected.size){try{previous=JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8'));}catch{}}
 const manifest=previous.manifest.filter(a=>!replacedBySelection(a.id,selected)),failures=previous.failures.filter(a=>!replacedBySelection(a.id,selected));
 function checkM3(b){if(b.length<24||!['43DM','33DM'].includes(b.subarray(0,4).toString()))throw Error('Invalid M3 magic/header');const index=b.readUInt32LE(4),count=b.readUInt32LE(8);if(index>=b.length||count===0||index+count*16>b.length)throw Error('Invalid M3 section table');}
-async function m3(name){const file=`${privateDir}/${name}.m3`,url=provider+`models/${name}.m3`;const bytes=await get(url,file,checkM3);return {sections:await parser.loadM3FromFile(file),source:url,sourceSha256:sha(bytes),...cascProvenance(file,bytes)};}
+async function m3(name){const file=`${privateDir}/${name}.m3`,url=provider+`models/${name}.m3`;const bytes=await get(url,file,checkM3);return {sections:await parser.loadM3FromFile(localSourceFile(file)),source:url,sourceSha256:sha(bytes),...cascProvenance(file,bytes)};}
 const textureCache=new Map();
 async function png(name,options={}){
  name=path.basename(name.replaceAll('\\','/')).toLowerCase();if(!/^[a-z0-9_. -]+\.dds$/.test(name))throw Error('Unsafe DDS name');
@@ -53,15 +55,20 @@ for(const layer of ['liberty','swarm','void']){try{const doc=new DOMParser().par
 function sourceScale(id){const expansion=EXPANSION_MODELS.find(a=>a.id===id);if(expansion?.sourceScale)return Number(expansion.sourceScale.split(',')[0]);const names={marine:'Marine',marauder:'Marauder',hydralisk:'Hydralisk',hellion:'Hellion',tank:'SiegeTank',medivac:'Medivac',zergling:'Zergling',roach:'Roach',baneling:'Baneling',ravager:'Ravager',scv:'SCV',drone:'Drone'};let name=names[id.replace('model.','').split('.')[0]];for(let n=0;name&&n<12;n++){const d=modelDefinitions.get(name);if(!d)break;if(d.scale>0)return d.scale;name=d.parent;}return name?1:undefined;}
 async function layerPixels(layer,normal=false){const name=layer.filename.toLowerCase(),file='assets/private/dds/'+name;const bytes=await get(provider+'textures/'+encodeURIComponent(name),file,b=>{if(b.length<128||b.subarray(0,4).toString()!=='DDS ')throw Error('Invalid DDS '+name);});return convertMaterialPixels(decodeDds(bytes),{normal,channel:normal?0:layer.channel});}
 async function extraAnimations(id,base){
- const names={'model.marine':'marine_swarmanims','model.hellion':'hellion_swarmanims','model.tank':'tank_swarmanims','model.baneling':'baneling_voidanims'},name=names[id];if(!name)return {clips:[],reports:[]};
- const source=provider+'models/'+name+'.m3a',file=privateDir+'/'+name+'.m3a';
- try{const bytes=await get(source,file,checkM3),s=await parser.loadM3FromFile(file),str=(s,r)=>String.fromCharCode(...(s.getSectionByReference(r)?.content??[])).replace(/\0/g,'');
+ const legacy={'model.marine':'marine_swarmanims','model.hellion':'hellion_swarmanims','model.tank':'tank_swarmanims','model.baneling':'baneling_voidanims'};
+ const definition=EXPANSION_MODELS.find(a=>a.id===id);
+ const paths=definition?.requiredAnimations?.length?definition.requiredAnimations:legacy[id]?[legacy[id]+'.m3a']:[];
+ const clips=[],reports=[];
+ for(const originalPath of paths){const name=path.basename(originalPath.replaceAll('\\','/')),source=provider+'models/'+name.toLowerCase(),file=privateDir+'/'+name.toLowerCase();
+ try{const bytes=await get(source,file,checkM3),s=await parser.loadM3FromFile(localSourceFile(file)),str=(s,r)=>String.fromCharCode(...(s.getSectionByReference(r)?.content??[])).replace(/\0/g,'');
   const original=new Map();for(const b of base.getSectionByReference(base.model.bones)?.content??[])for(const [key,property] of [['location','position'],['rotation','quaternion'],['scale','scale']])original.set(b[key].header.id,{name:str(base,b.name),property});
   const binding=new Map();for(const b of s.getSectionByReference(s.model.bones)?.content??[])for(const [key,property] of [['location','position'],['rotation','quaternion'],['scale','scale']]){const match=original.get(b[key].header.id);if(match&&match.property===property)binding.set(str(s,b.name)+'.'+property,match.name+'.'+property);}
-  const clips=parser.buildAnimationClips(s.model,s).filter(c=>c.tracks.length&&c.tracks.every(t=>binding.has(t.name)));for(const c of clips)for(const t of c.tracks)t.name=binding.get(t.name);
-  return {clips,reports:[{source,sha256:sha(bytes),clips:clips.map(c=>c.name),binding:clips.length?'matched original animation header IDs':'rejected: incomplete binding to current base skeleton',usedForCombat:false}]};
- }catch(e){return {clips:[],reports:[{source,status:'missing',error:e.message}]};}
+  const ignoredTracks=new Set();const imported=parser.buildAnimationClips(s.model,s).map(c=>{c.tracks=c.tracks.filter(t=>{if(binding.has(t.name))return true;ignoredTracks.add(t.name);return false;});return c;}).filter(c=>c.tracks.length);for(const c of imported)for(const t of c.tracks)t.name=binding.get(t.name);
+  clips.push(...imported);reports.push({source,...cascProvenance(file,bytes),sha256:sha(bytes),clips:imported.map(c=>c.name),ignoredTracks:[...ignoredTracks],binding:imported.length?'matched original animation header IDs':'rejected: incomplete binding to current base skeleton',usedForCombat:true});
+ }catch(e){reports.push({source,status:'missing',error:e.message});}}
+ return {clips,reports};
 }
+
 for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
  const {sections:s,...provenance}=await m3(name);let group,specs,geometryReport;
  if(!s.model.vertices.entries&&s.model.projections.entries&&s.model.materials_splatterrainbake.entries){
@@ -77,6 +84,7 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
  const clipSources=clips.map(c=>({name:c.name,source:additional.clips.includes(c)?additional.reports[0]?.source:provenance.source,duration:c.duration,tracks:c.tracks.length}));
  // Preserve a truly static Stand pose as a valid clip, without fabricating motion.
  clips=clips.map(c=>c.tracks.length?c:new AnimationClip(c.name,c.duration,bones[0]?[new QuaternionKeyframeTrack(bones[0].name+'.quaternion',[0,c.duration],[...bones[0].quaternion.toArray(),...bones[0].quaternion.toArray()])]:[])).filter(c=>c.tracks.length);
+ const renamedBones=normalizeBoneBindings(bones,clips);group.userData.originalBoneNames=Object.fromEntries(Object.entries(renamedBones).map(([original,current])=>[current,original]));
  group.updateMatrixWorld(true);
  const raw=Buffer.from(await new GLTFExporter().parseAsync(group,{binary:true,animations:clips}));const {j,bin}=unpack(raw);const chunks=[bin];let length=bin.length;
  const imageIds=new Map();j.images=[];j.textures=[];j.samplers=[{magFilter:9729,minFilter:9987,wrapS:10497,wrapT:10497}];

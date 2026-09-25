@@ -5,6 +5,18 @@ export function decodeDds(b){
  if(b.length<128||b.subarray(0,4).toString()!=='DDS '||b.readUInt32LE(4)!==124)throw Error('Invalid DDS header');
  const width=b.readUInt32LE(16),height=b.readUInt32LE(12),format=b.subarray(84,88).toString();
  if(!width||!height||width>8192||height>8192)throw Error('Unsupported DDS dimensions');
+ // Original campaign hero icons also use uncompressed masked RGB(A).
+ if((b.readUInt32LE(80)&0x40)!==0&&(b.readUInt32LE(80)&0x4)===0){
+  const bits=b.readUInt32LE(88),pixelBytes=bits/8;
+  if(![16,24,32].includes(bits))throw Error('Unsupported DDS RGB bit depth: '+bits);
+  const rowBytes=width*pixelBytes,pitch=(b.readUInt32LE(8)&8)?b.readUInt32LE(20):rowBytes;
+  if(pitch<rowBytes||b.length<128+pitch*height)throw Error('Truncated DDS RGB mip');
+  const masks=[92,96,100,104].map(offset=>b.readUInt32LE(offset));
+  const channels=masks.map((mask,i)=>{if(!mask)return ()=>i===3?255:0;let shift=0;while(((mask>>>shift)&1)===0)shift++;const max=mask>>>shift;if((max&(max+1))!==0)throw Error('Unsupported non-contiguous DDS channel mask');return word=>Math.round(((word&mask)>>>shift)*255/max);});
+  const rgba=Buffer.alloc(width*height*4);
+  for(let y=0;y<height;y++)for(let x=0;x<width;x++){const word=b.readUIntLE(128+y*pitch+x*pixelBytes,pixelBytes),offset=(y*width+x)*4;for(let c=0;c<4;c++)rgba[offset+c]=channels[c](word);}
+  return {width,height,rgba};
+ }
  if(!['DXT1','DXT3','DXT5'].includes(format))throw Error('Unsupported DDS compression: '+format);
  const blockBytes=format==='DXT1'?8:16,cols=Math.ceil(width/4),rows=Math.ceil(height/4);
  if(b.length<128+cols*rows*blockBytes)throw Error('Truncated DDS mip');

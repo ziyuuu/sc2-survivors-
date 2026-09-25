@@ -1,0 +1,82 @@
+[
+  {
+    "id": "animation.reaper_swarmanims",
+    "assetPath": "Assets/Units/Terran/Reaper_SwarmAnims/Reaper_SwarmAnims.m3a",
+    "name": "reaper_swarmanims"
+  },
+  {
+    "id": "animation.thor_swarmanims",
+    "assetPath": "Assets/Units/Terran/Thor_SwarmAnims/Thor_SwarmAnims.m3a",
+    "name": "thor_swarmanims"
+  },
+  {
+    "id": "animation.vikingfighter_swarmanims",
+    "assetPath": "Assets/Units/Terran/VikingFighter_SwarmAnims/VikingFighter_SwarmAnims.m3a",
+    "name": "vikingfighter_swarmanims"
+  },
+  {
+    "id": "animation.queen_swarmanims",
+    "assetPath": "Assets/Units/Zerg/Queen_SwarmAnims/Queen_SwarmAnims.m3a",
+    "name": "queen_swarmanims"
+  },
+  {
+    "id": "animation.corruptor_swarmanims",
+    "assetPath": "Assets/Units/Zerg/Corruptor_SwarmAnims/Corruptor_SwarmAnims.m3a",
+    "name": "corruptor_swarmanims"
+  },
+  {
+    "id": "animation.ultraliskex1_requiredanims",
+    "assetPath": "Assets/Units/Zerg/UltraliskEx1_RequiredAnims/UltraliskEx1_RequiredAnims.m3a",
+    "name": "ultraliskex1_requiredanims"
+  },
+  {
+    "id": "animation.zealot_swarmanims",
+    "assetPath": "Assets/Units/Protoss/Zealot_SwarmAnims/Zealot_SwarmAnims.m3a",
+    "name": "zealot_swarmanims"
+  },
+  {
+    "id": "animation.stalker_swarmanims",
+    "assetPath": "Assets/Units/Protoss/Stalker_SwarmAnims/Stalker_SwarmAnims.m3a",
+    "name": "stalker_swarmanims"
+  },
+  {
+    "id": "animation.sentry_swarmanims",
+    "assetPath": "Assets/Units/Protoss/Sentry_SwarmAnims/Sentry_SwarmAnims.m3a",
+    "name": "sentry_swarmanims"
+  },
+  {
+    "id": "animation.immortal_swarmanims",
+    "assetPath": "Assets/Units/Protoss/Immortal_SwarmAnims/Immortal_SwarmAnims.m3a",
+    "name": "immortal_swarmanims"
+  },
+  {
+    "id": "animation.colossus_swarmanims",
+    "assetPath": "Assets/Units/Protoss/Colossus_SwarmAnims/Colossus_SwarmAnims.m3a",
+    "name": "colossus_swarmanims"
+  },
+  {
+    "id": "animation.hightemplar_swarmanims",
+    "assetPath": "Assets/Units/Protoss/HighTemplar_SwarmAnims/HighTemplar_SwarmAnims.m3a",
+    "name": "hightemplar_swarmanims"
+  },
+  {
+    "id": "animation.vikingassault_swarmanims",
+    "assetPath": "Assets/Units/Terran/VikingAssault_SwarmAnims/VikingAssault_SwarmAnims.m3a",
+    "name": "vikingassault_swarmanims"
+  },
+  {
+    "id": "animation.zergling_swarmanims",
+    "assetPath": "Assets/Units/Zerg/Zergling_SwarmAnims/Zergling_SwarmAnims.m3a",
+    "name": "zergling_swarmanims"
+  },
+  {
+    "id": "animation.roach_swarmanims",
+    "assetPath": "Assets/Units/Zerg/Roach_SwarmAnims/Roach_SwarmAnims.m3a",
+    "name": "roach_swarmanims"
+  },
+  {
+    "id": "animation.hydralisk_swarmanims",
+    "assetPath": "Assets/Units/Zerg/Hydralisk_SwarmAnims/Hydralisk_SwarmAnims.m3a",
+    "name": "hydralisk_swarmanims"
+  }
+]

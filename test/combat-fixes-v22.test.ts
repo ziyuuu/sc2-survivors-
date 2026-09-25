@@ -22,6 +22,7 @@ test('ordinary bile uses its cast-time damage after the caster changes or dies',
  const bile=w.effects.find(e=>e.kind==='bile');assert.ok(bile);
  assert.equal(bile.damage,BILE.damage*2);
  ravager.weaponDamage=1;ravager.hp=0;
+ w.updateUnit=()=>{};
  w.advance(BILE.delay+1/60);
  assert.equal(ally.hp,500-BILE.damage*2);
 });

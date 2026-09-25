@@ -1,0 +1,78 @@
+{
+  "version": "V24",
+  "checkedAt": "2026-09-24T02:54:43.596027+00:00",
+  "deliveryState": "Local working-tree changes; no commit or push in this iteration.",
+  "implemented": [
+    "Building intermission production choice per Barracks, Factory and Starport: one or two selected types; future unpaid batches only",
+    "Nova runtime rifle/hand assembly and active rifle mesh selection; original texture and model bytes unchanged",
+    "Distinct hero and friendly elite rim, ring, muzzle and readable label styling",
+    "V23 run snapshots migrated with default production choices"
+  ],
+  "validation": {
+    "tests": {
+      "command": "npm test",
+      "passed": 401,
+      "failed": 0,
+      "skipped": 0
+    },
+    "typecheckExitCode": 0,
+    "docsCheckExitCode": 0,
+    "buildExitCode": 0,
+    "developmentBrowserChecks": [
+      "Nova uses corrected rifle assembly and nearby muzzle; hero/elite use separate glow tiers and visible labels",
+      "building choice displays Barracks 2, Factory 2 and Starport 1 without a third alternating type",
+      "production toggle keeps keyboard focus and survives browser reload",
+      "390x844 building production panel fits the viewport without horizontal overflow"
+    ],
+    "developmentBrowserErrors": [],
+    "offlineChecks": [
+      "offline file:// HTML saves and resumes without HTTP requests or mutation debug API"
+    ],
+    "offlineErrors": [],
+    "offlineHttpRequests": 0,
+    "buildingSelections": [
+      {
+        "label": "Barracks · 兵营",
+        "selected": 2,
+        "options": 2
+      },
+      {
+        "label": "Factory · 重工厂",
+        "selected": 2,
+        "options": 2
+      },
+      {
+        "label": "Starport · 星港",
+        "selected": 1,
+        "options": 1
+      }
+    ],
+    "visibleLabels": [
+      {
+        "type": "friendly-unit-label hero-world-label",
+        "text": "★ 诺娃 Ⅰ300 / 300"
+      },
+      {
+        "type": "friendly-unit-label elite-world-label",
+        "text": "◆ 突击枪兵 Ⅰ"
+      }
+    ],
+    "narrowScrollWidth": 390
+  },
+  "artifact": {
+    "file": "dist/SC2-Survivors-Demo.html",
+    "bytes": 227819145,
+    "sha256": "e2763685d8575fd258aacfffd263674b807fca3299d86a4fe6ba31b6ea600182",
+    "assets": 652
+  },
+  "limits": [
+    "No human original-client frame-by-frame visual approval; browser checks validate loaded geometry, clips, labels, effects and layout.",
+    "No human complete-campaign or long-term balance playthrough.",
+    "No physical phone or gamepad verification.",
+    "No measured performance improvement.",
+    "Future 18 stages, technology buildings, new unit roster and forced replacement are research only.",
+    "Acropolis decorative placements and cliff models remain incomplete as documented in V22.",
+    "file:// storage is browser/origin dependent; export before moving the HTML.",
+    "No multi-window progress merge."
+  ]
+}

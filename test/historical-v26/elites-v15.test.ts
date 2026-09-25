@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {ELITES,ELITE_TEMPLATES,eliteStats,type EliteId} from '../src/data/elites';
+import {LEGACY_ELITES as ELITES,ELITE_TEMPLATES,eliteStats,type LegacyEliteId as EliteId} from '../src/data/elites';
 import {SC2_UNITS,TERRAN,HEAL,SIEGE} from '../src/data/sc2-units';
 import {rarityWeights,rollRarity} from '../src/data/rewards';
 import {drawReward,rewardPool,unlockedReward} from '../src/simulation/progression/rewards';

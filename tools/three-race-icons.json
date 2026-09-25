@@ -1,0 +1,247 @@
+[
+  {
+    "id": "unit.reaper",
+    "name": "btn-unit-terran-reaper",
+    "assetPath": "Assets/Textures/btn-unit-terran-reaper.dds",
+    "sourceActorId": "Reaper",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.thor",
+    "name": "btn-unit-terran-thor",
+    "assetPath": "Assets/Textures/btn-unit-terran-thor.dds",
+    "sourceActorId": "Thor",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.viking",
+    "name": "btn-unit-terran-vikingfighter",
+    "assetPath": "Assets/Textures/btn-unit-terran-vikingfighter.dds",
+    "sourceActorId": "VikingFighter",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.banshee",
+    "name": "btn-unit-terran-banshee",
+    "assetPath": "Assets/Textures/btn-unit-terran-banshee.dds",
+    "sourceActorId": "Banshee",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.queen",
+    "name": "btn-unit-zerg-queen",
+    "assetPath": "Assets/Textures/btn-unit-zerg-queen.dds",
+    "sourceActorId": "Queen",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.lurker",
+    "name": "btn-unit-zerg-lurker",
+    "assetPath": "Assets/Textures/btn-unit-zerg-lurker.dds",
+    "sourceActorId": "LurkerMP",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.mutalisk",
+    "name": "btn-unit-zerg-mutalisk",
+    "assetPath": "Assets/Textures/btn-unit-zerg-mutalisk.dds",
+    "sourceActorId": "Mutalisk",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.corruptor",
+    "name": "btn-unit-zerg-corruptor",
+    "assetPath": "Assets/Textures/btn-unit-zerg-corruptor.dds",
+    "sourceActorId": "Corruptor",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.ultralisk",
+    "name": "btn-unit-zerg-omegalisk",
+    "assetPath": "Assets/Textures/btn-unit-zerg-omegalisk.dds",
+    "sourceActorId": "Ultralisk",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.zealot",
+    "name": "btn-unit-protoss-zealot",
+    "assetPath": "Assets/Textures/btn-unit-protoss-zealot.dds",
+    "sourceActorId": "Zealot",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.adept",
+    "name": "btn-unit-protoss-adept",
+    "assetPath": "Assets/Textures/btn-unit-protoss-adept.dds",
+    "sourceActorId": "Adept",
+    "sourceLayer": "void"
+  },
+  {
+    "id": "unit.stalker",
+    "name": "btn-unit-protoss-stalker",
+    "assetPath": "Assets/Textures/btn-unit-protoss-stalker.dds",
+    "sourceActorId": "Stalker",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.sentry",
+    "name": "btn-unit-protoss-sentry",
+    "assetPath": "Assets/Textures/btn-unit-protoss-sentry.dds",
+    "sourceActorId": "Sentry",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.immortal",
+    "name": "btn-unit-protoss-immortal",
+    "assetPath": "Assets/Textures/BTN-Unit-Protoss-Immortal.dds",
+    "sourceActorId": "Immortal",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.colossus",
+    "name": "btn-unit-protoss-colossus",
+    "assetPath": "Assets/Textures/btn-unit-protoss-colossus.dds",
+    "sourceActorId": "Colossus",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.high_templar",
+    "name": "btn-unit-protoss-hightemplar",
+    "assetPath": "Assets/Textures/btn-unit-protoss-hightemplar.dds",
+    "sourceActorId": "HighTemplar",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.phoenix",
+    "name": "btn-unit-protoss-phoenix",
+    "assetPath": "Assets/Textures/btn-unit-protoss-phoenix.dds",
+    "sourceActorId": "Phoenix",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.void_ray",
+    "name": "btn-unit-protoss-warpray",
+    "assetPath": "Assets/Textures/btn-unit-protoss-warpray.dds",
+    "sourceActorId": "VoidRay",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "unit.carrier",
+    "name": "btn-unit-protoss-carrier",
+    "assetPath": "Assets/Textures/btn-unit-protoss-carrier.dds",
+    "sourceActorId": "Carrier",
+    "sourceLayer": "liberty"
+  },
+  {
+    "id": "hero.kerrigan",
+    "name": "btn-unit-zerg-kerriganinfested",
+    "assetPath": "Assets/Textures/btn-unit-zerg-kerriganinfested.dds",
+    "sourceActorId": "MutatorAmonKerrigan",
+    "sourceLayer": "starcoop"
+  },
+  {
+    "id": "hero.zagara",
+    "name": "btn-unit-zerg-broodqueen",
+    "assetPath": "Assets/Textures/btn-unit-zerg-broodqueen.dds",
+    "sourceActorId": "ZagaraVoidCoop",
+    "sourceLayer": "starcoop"
+  },
+  {
+    "id": "hero.dehaka",
+    "name": "btn-unit-zerg-dehaka",
+    "assetPath": "Assets/Textures/btn-unit-zerg-dehaka.dds",
+    "sourceActorId": "MutatorAmonDehaka",
+    "sourceLayer": "starcoop"
+  },
+  {
+    "id": "hero.stukov",
+    "name": "btn-unit-zerg-stukov",
+    "assetPath": "Assets/Textures/btn-unit-zerg-Stukov.dds",
+    "sourceActorId": "InfestedStukovCoop",
+    "sourceLayer": "starcoop"
+  },
+  {
+    "id": "hero.artanis",
+    "name": "btn-unit-protoss-artanishero",
+    "assetPath": "Assets/Textures/btn-unit-protoss-artanishero.dds",
+    "sourceActorId": "MutatorAmonArtanis",
+    "sourceLayer": "starcoop"
+  },
+  {
+    "id": "hero.zeratul",
+    "name": "btn-unit-protoss-zeratul",
+    "assetPath": "Assets/Textures/btn-unit-protoss-zeratul.dds",
+    "sourceActorId": "MutatorAmonZeratul",
+    "sourceLayer": "starcoop"
+  },
+  {
+    "id": "hero.fenix",
+    "name": "btn-unit-protoss-dragoon-purifier",
+    "assetPath": "Assets/Textures/btn-unit-protoss-dragoon-purifier.dds",
+    "sourceActorId": "FenixDragoon",
+    "sourceLayer": "starcoop"
+  },
+  {
+    "id": "unit.science_vessel",
+    "name": "btn-unit-terran-sciencevessel",
+    "assetPath": "Assets/Textures/BTN-Unit-Terran-ScienceVessel.dds",
+    "sourceActorId": "ScienceVessel",
+    "sourceLayer": "campaign:liberty"
+  },
+  {
+    "id": "hero.swann",
+    "name": "btn-unit-terran-marauderswann",
+    "assetPath": "Assets/Textures/BTN-Unit-Terran-MarauderSwann.dds",
+    "sourceActorId": "Dutch",
+    "sourceLayer": "campaign:liberty"
+  },
+  {
+    "id": "hero.tosh",
+    "name": "btn-unit-terran-tosh",
+    "assetPath": "Assets/Textures/BTN-Unit-Terran-Tosh.dds",
+    "sourceActorId": "Tosh",
+    "sourceLayer": "campaign:liberty"
+  },
+  {
+    "id": "hero.niadra",
+    "name": "btn-unit-zerg-broodqueen",
+    "assetPath": "Assets/Textures/btn-unit-Zerg-broodqueen.dds",
+    "sourceActorId": "HugeSwarmQueen",
+    "sourceLayer": "campaign:swarm"
+  },
+  {
+    "id": "hero.alarak",
+    "name": "btn-unit-protoss-alarak",
+    "assetPath": "Assets/Textures/btn-unit-protoss-alarak.dds",
+    "sourceActorId": "AlarakChampion",
+    "sourceLayer": "campaign:void"
+  },
+  {
+    "id": "hero.vorazun",
+    "name": "btn-unit-protoss-vorazun",
+    "assetPath": "Assets/Textures/btn-unit-protoss-vorazun.dds",
+    "sourceActorId": "VorazunChampion",
+    "sourceLayer": "campaign:void"
+  },
+  {
+    "id": "hero.yamato_battlecruiser",
+    "name": "btn-unit-terran-battlecruiser",
+    "assetPath": "Assets/Textures/btn-unit-terran-battlecruiser.dds",
+    "sourceActorId": "BattlecruiserEX2",
+    "sourceLayer": "campaign:liberty"
+  },
+  {
+    "id": "hero.hots_leviathan",
+    "name": "btn-unit-zerg-leviathan",
+    "assetPath": "Assets/Textures/btn-unit-zerg-leviathan.dds",
+    "sourceActorId": "HotSLeviathan",
+    "sourceLayer": "campaign:swarm"
+  },
+  {
+    "id": "hero.purifier_flagship",
+    "name": "btn-unit-protoss-champion-carrier-purifier",
+    "assetPath": "Assets/Textures/btn-unit-protoss-champion-carrier-purifier.dds",
+    "sourceActorId": "FenixClolarionCarrier",
+    "sourceLayer": "starcoop"
+  }
+]

@@ -1,0 +1,118 @@
+{
+  "revision": "2026-09-24-r6",
+  "state": "M0_APPROVED",
+  "approved": true,
+  "gameplayChanged": false,
+  "createdAt": "2026-09-24T15:08:01.146605+00:00",
+  "files": [
+    {
+      "path": "docs/MVP10_ITERATION_PLAN.md",
+      "bytes": 28306,
+      "sha256": "a76fceb3ee1bd69294c3cbc5e1f99e86eb6305706759f89cbd44e504125180b9"
+    },
+    {
+      "path": "docs/MVP10_TALENTS.md",
+      "bytes": 87070,
+      "sha256": "fee9e34cf4ba57474f6da3d915ddb26fd8a47e909d0aa125d3e276b52e8dbdb1"
+    },
+    {
+      "path": "docs/MVP10_RUNTIME.md",
+      "bytes": 38912,
+      "sha256": "d5fcc92a6ab4d48ad963e3d531cacb27f0ad894aec8b83f8f1baa7d44ccd290f"
+    },
+    {
+      "path": "docs/MVP10_COMBAT_ASSETS.md",
+      "bytes": 51886,
+      "sha256": "d7a6ae11a7570654dcb02adc05079aa9b4f69db010fd096f25d2bd9ddbb16089"
+    },
+    {
+      "path": "docs/project/README.md",
+      "bytes": 5219,
+      "sha256": "488100d7e8d68dfa26dc63371de1a934b2472ea9773e6132565729c0ace0727b"
+    },
+    {
+      "path": "docs/project/BACKLOG.md",
+      "bytes": 6048,
+      "sha256": "66ec0d9545d27bc60447a4162b818431bd49b9e309aecad27f32afee6711dc87"
+    },
+    {
+      "path": "docs/project/DECISIONS.md",
+      "bytes": 7731,
+      "sha256": "60d7ab0dd3212119c9f36e1c76a1f13f449bc945287fd72f637a8469ccccb1f9"
+    },
+    {
+      "path": "docs/project/ACCEPTANCE.md",
+      "bytes": 9895,
+      "sha256": "7bd21a170e2cafb80d2322dead61d373e72043715d3befd28611f074b501c601"
+    },
+    {
+      "path": "docs/project/CHANGELOG.md",
+      "bytes": 3180,
+      "sha256": "9d996722de1cc5099ee9d42bd2e16d1f7e6489950e86d794b1d41cc3d70eef36"
+    },
+    {
+      "path": "docs/project/VALIDATION.md",
+      "bytes": 4657,
+      "sha256": "eab90fd67c757cc05da9a394f4fa8b45e4db8b0157bae5dfe5b6c92aa252d5a2"
+    },
+    {
+      "path": "docs/project/status.json",
+      "bytes": 29063,
+      "sha256": "2a63990ae6e257f427baf9d5cac9016fb34f8f0a095786c54f6f16a2571f5362"
+    },
+    {
+      "path": "tools/check-mvp-plan.mjs",
+      "bytes": 10707,
+      "sha256": "96394c468efc980e1639fd7962d523cea9a3fc4a9747a058b2797a1f2d110d99"
+    },
+    {
+      "path": "docs/MVP10_ELITE_CATALOG.md",
+      "bytes": 18381,
+      "sha256": "433b4ff3ac92a07d40c7fe665f252e481104fb30676142e5b739cc6a33db6fa6"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 13692,
+      "sha256": "a7f8da4fe25d4d98023854634832c0dc700f45d32ca48a995193032d8015a5d7"
+    },
+    {
+      "path": "docs/BUILD_RESEARCH.md",
+      "bytes": 16443,
+      "sha256": "035e58902cb4f27750e808813d213c7aca45ab6ad78909df8ed02fd5879040f0"
+    },
+    {
+      "path": "docs/DESIGN.md",
+      "bytes": 16085,
+      "sha256": "6571552a17a569edab40562c9601ad6ca0e54bbe06701420df970c006da3c5a4"
+    },
+    {
+      "path": "docs/ANIMATION_EFFECTS.md",
+      "bytes": 22504,
+      "sha256": "fae1af38b3123f7f3a7318c75293eec0d6264661a676c073810cf0ec84c593e2"
+    },
+    {
+      "path": "docs/ASSET_DOWNLOAD_REQUIRED.md",
+      "bytes": 6469,
+      "sha256": "f7048a7a7e0e3b4c1375b968edcfdf0522a3f140c6ca884150628d3e6123bdb0"
+    },
+    {
+      "path": "docs/project/APPROVAL_M0_20260924.md",
+      "bytes": 1843,
+      "sha256": "d519bfc2d6df5b504b3f76a5abb1b1ad6475febc34d1b657a84ccd38088ecbb0"
+    }
+  ],
+  "checks": [
+    "planning-contract: passed (37 tasks, 13 requirements, 7 approved decisions, 165 talents, 90 elites, 18 hero candidates)",
+    "approval-record: passed (PD02–PD08)",
+    "runtime-data-document-check: passed",
+    "scoped-diff-whitespace: passed"
+  ],
+  "build": {
+    "path": "dist/SC2-Survivors-Demo.html",
+    "bytes": 440973335,
+    "sha256": "6855597b49ec3dcf956dcf5f8747d978cae5fbc7a1a5eed1e6772509e8edc17d",
+    "rebuilt": false
+  },
+  "approvedAt": "2026-09-24T15:13:39.548600+00:00",
+  "userEvidence": "可以。现在M0可以确认了。"
+}

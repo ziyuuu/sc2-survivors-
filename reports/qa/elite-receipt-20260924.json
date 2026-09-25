@@ -1,0 +1,125 @@
+{
+  "at": "2026-09-24T10:07:57.052Z",
+  "issue": "Elite pickup leaves a stale reward overlay and blocks every action",
+  "reproduced": {
+    "source": "user-exported legacy stage-7 save",
+    "error": "RangeError: Maximum call stack size exceeded",
+    "evidence": "reports/local/elite-receipt-20260924/before.json"
+  },
+  "cause": "ensureUnitVariant notified synchronous HUD listeners before registering its pending promise; the reentrant HUD called it again. Pickup notification also ran before removing the claimed map drop.",
+  "changes": [
+    "Publish the shared loading promise and queue entry before notification",
+    "Commit pickup effect and source removal before notifying UI or saving",
+    "Keep save, export and return-to-title available during elite selection"
+  ],
+  "talents": {
+    "runtimeChanged": false,
+    "designStatus": "User rejected replacement as an approved design; adapt original design after confirmation",
+    "baseline": "five bodies and Rank 5 are untalented defaults",
+    "micro": "separate progression, earning method unconfirmed"
+  },
+  "tests": {
+    "command": "npm test",
+    "passed": 592,
+    "failed": 0,
+    "skipped": 0,
+    "targetedBefore": {
+      "passed": 0,
+      "failed": 2
+    },
+    "targetedAfter": {
+      "passed": 16,
+      "failed": 0
+    }
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0
+  },
+  "docs": {
+    "command": "npm run docs:check",
+    "exitCode": 0
+  },
+  "browser": {
+    "development": {
+      "at": "2026-09-24T10:02:18.945Z",
+      "mode": "development",
+      "checks": [
+        "user run opens five enabled elite replacement candidates; all saved state retained except required paused=true",
+        "save, return to title, continue and browser reload preserve the pending choice, wallet, HP, cooldowns, orders and original talents",
+        "narrow screen and keyboard confirm replacement once; no resource charge, duplicate drop, free healing or changes to other units/talents",
+        "battle resumes advancing and the elite does not receive a duplicate promotion"
+      ],
+      "errors": [],
+      "httpRequests": [],
+      "summary": {
+        "stage": 7,
+        "time": 702.4333333333333,
+        "eliteId": "medivac.1",
+        "rank": 1
+      }
+    },
+    "offline": {
+      "at": "2026-09-24T10:04:44.044Z",
+      "mode": "offline",
+      "checks": [
+        "user run opens five enabled elite replacement candidates; all saved state retained except required paused=true",
+        "save, return to title, continue and browser reload preserve the pending choice, wallet, HP, cooldowns, orders and original talents",
+        "narrow screen and keyboard confirm replacement once; no resource charge, duplicate drop, free healing or changes to other units/talents",
+        "battle resumes advancing and the elite does not receive a duplicate promotion"
+      ],
+      "errors": [],
+      "httpRequests": [],
+      "summary": {
+        "stage": 7,
+        "time": 702.3833333333333,
+        "eliteId": "medivac.1",
+        "rank": 1
+      }
+    },
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "headless": true,
+    "humanVisualApproved": false,
+    "physicalDeviceTested": false
+  },
+  "recovery": {
+    "file": "reports/local/elite-receipt-20260924/sc2-survivors-save-recovered.json",
+    "sha256": "8de843bae0d908e51037874b87217cbadf098edf204d4be7cc90c0abe9db5638",
+    "originalUnchanged": true,
+    "change": "Remove the already claimed source drop of pending medivac.1; retain every other decoded archive field"
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "file": "dist/SC2-Survivors-Demo.html",
+    "bytes": 440973335,
+    "mib": 420.54,
+    "sha256": "6855597b49ec3dcf956dcf5f8747d978cae5fbc7a1a5eed1e6772509e8edc17d",
+    "assets": 745,
+    "largeChunkWarning": true
+  },
+  "commands": [
+    "node --import tsx --test test/elite-receipt-regression.test.ts",
+    "node --import tsx --test test/elite-receipt-regression.test.ts test/elites-v15.test.ts",
+    "npm run typecheck",
+    "npm test",
+    "npm run docs:check",
+    "node --import tsx tools/qa-elite-receipt.mjs",
+    "npm run build",
+    "node --import tsx tools/qa-elite-receipt.mjs --offline"
+  ],
+  "limits": [
+    "Screenshots stay local; this is automated interaction and state verification, not human visual acceptance",
+    "This patch does not establish a new performance result",
+    "Talent restoration design remains unconfirmed; no runtime talent changes were made"
+  ]
+}
