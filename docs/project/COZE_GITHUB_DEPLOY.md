@@ -19,12 +19,12 @@
 
    ```sh
    git rev-parse HEAD
-   git lfs pull
+   git lfs pull -I "dist/SC2-Survivors-Demo.html" -X ""
    wc -c dist/SC2-Survivors-Demo.html
    head -c 32 dist/SC2-Survivors-Demo.html
    ```
 
-   游戏文件应大于 **300 MiB**，开头是 HTML。若显示 `version https://git-lfs.github.com/spec/v1`，那只是 LFS 指针。先运行 `git lfs pull`，并检查 Coze 是否允许下载及部署该文件；不能把指针当作页面。
+   游戏文件应大于 **300 MiB**，开头是 HTML。若显示 `version https://git-lfs.github.com/spec/v1`，那只是 LFS 指针。上面的命令只取回网页发行包，避免把运行时不需要的原素材也下载到 Coze；还须检查 Coze 是否允许下载及部署该文件，不能把指针当作页面。
 
 ## 配置预览与部署
 
@@ -38,7 +38,7 @@ node tools/coze-web-server.mjs
 
 可把下面整段交给 Coze 编程 AI：
 
-> 请把当前 GitHub 仓库作为网页应用部署。不要改动游戏逻辑、资源或重新构建。先确认 `dist/SC2-Survivors-Demo.html` 是大于 300 MiB 的真实 HTML，而非 Git LFS 指针；如未取回，尝试 `git lfs pull`。用 `node tools/coze-web-server.mjs` 作为启动命令，使用平台分配的 `PORT`。先预览 `/health` 和 `/`，确认页面能加载、三族标题菜单能打开且浏览器控制台没有资源错误。若 Coze 不支持此大文件或无法设置启动命令，请给出原始错误和日志，不要以占位页替代。预览通过后再部署，并给我正式网址与部署日志。
+> 请把当前 GitHub 仓库作为网页应用部署。不要改动游戏逻辑、资源或重新构建。先确认 `dist/SC2-Survivors-Demo.html` 是大于 300 MiB 的真实 HTML，而非 Git LFS 指针；如未取回，只执行 `git lfs pull -I "dist/SC2-Survivors-Demo.html" -X ""`。用 `node tools/coze-web-server.mjs` 作为启动命令，使用平台分配的 `PORT`。先预览 `/health` 和 `/`，确认页面能加载、三族标题菜单能打开且浏览器控制台没有资源错误。若 Coze 不支持此大文件或无法设置启动命令，请给出原始错误和日志，不要以占位页替代。预览通过后再部署，并给我正式网址与部署日志。
 
 在项目预览确认可玩后，由项目所有者点击右上角“部署”，检查部署版本、域名和日志。Coze 文档说明网页应用默认为**公开部署**，并可能受配额限制。部署成功后用正式网址再次检查新游戏、读档、三族模型和 3D 战斗。一个约 333 MiB 的 HTML 需要完整网络下载；实际首屏时间、Coze 文件/响应限制与手机表现，必须在该线上地址实测。
 
@@ -47,7 +47,7 @@ node tools/coze-web-server.mjs
 | 表现 | 处理 |
 |---|---|
 | GitHub 导入被 500 MB 限制拒绝 | 停止本次 Git 导入；不要发布缺资源版本。记录 Coze 原始报错，再考虑独立的、低于限额的发行仓库或其他静态托管方案。 |
-| 启动时报“Playable build is too small” | `git lfs pull` 未取得大文件，先解决 LFS 下载权限与配额。 |
+| 启动时报“Playable build is too small” | 定向 `git lfs pull -I "dist/SC2-Survivors-Demo.html" -X ""` 未取得大文件，先解决 LFS 下载权限与配额。 |
 | Coze 自动尝试 `npm run build` | 指定直接运行 `node tools/coze-web-server.mjs`；本仓库的 Git 内容不是完整的原素材重建环境。 |
 | 预览能开、部署后空白 | 查看部署日志及正式网址的网络请求，确认产物确实进入生产环境，不能只凭预览判断。 |
 | 用户要微信小游戏 | 这份流程只部署网页应用。微信小游戏要求适配小游戏运行时、分包/远程资源、真机验证，以及微信侧 AppID 和发布流程。 |
