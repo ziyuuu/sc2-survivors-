@@ -1,5 +1,7 @@
 # M6 包体与普通首关性能进度（2026-09-25）
 
+**2026-09-27用户纠正：**下文380MiB上限、320/280MiB目标及“低于上限”仅为历史记录，已撤销。现按[资源必要性和去重准则](PACKAGE_HYGIENE_20260927.md)执行；整类资源被加载不等于已证明无冗余，历史“全部有引用”不能作为全面精简完成证据。
+
 这是 M6 的可复现增量记录，不是 1.0 MVP 的性能签收。参考机上的浏览器测试均为本地无头 Chrome，1440×900、DPR1。WebGL 查询确认其通过 ANGLE D3D11 使用 AMD Radeon 核显，见 `reports/local/qa-m6-gpu-capabilities/report.json`；无头窗口的呈现节拍与实际可见游戏窗口不同，仍不能代替批准稿要求的实体设备实玩。
 
 ## 本轮天赋树与三族独立培养
@@ -80,3 +82,9 @@ CPU profile 将热点指向 `updateUnit`、空间查询与地图视线。地图�
 同一第4关存档在修复后的可见 Chrome 开发版三族各12秒：P99为16.8／17.2／16.8ms，最大帧间隔33.3／33.4／33.4ms，新增模拟欠账约0.017／0.017／0秒。更新后的**离线单HTML**三族各12秒：P95均约16.8ms、P99为16.9／16.8／16.8ms，超过20ms分别3/724、2/728、1/732帧，模拟欠账没有累计；最大间隔仍为83.1／33.4／66.6ms，需要在完整关卡中继续定位偶发呈现尖峰。见 `reports/local/m6-natural-checkpoints-dev/results.json`、`reports/local/m6-natural-checkpoints/results.json`；这是读档后局部实战诊断，**不是第1—6关完整时长或三种子验收**。早期脚本两次把恢复状态/隐藏暂停按钮处理错，已修正后重跑，错误样本不计入结果。
 
 本增量实际通过：`npm run typecheck`、`npm test`（454/454，含缺失待出敌军阻断读档回归）、`npm run docs:data`、`npm run docs:check`、`node tools/check-mvp-plan.mjs`、`npm run build`、`npm run test:browser:save`、`npm run test:offline:save`、`node tools/qa-m6-offline-matrix.mjs`（3/3）、`npm run test:browser:m6:loading`及 `git diff --check`。新单文件 `dist/SC2-Survivors-Demo.html` 为 **348,917,777字节（332.75 MiB）**，SHA-256 `AC8215286C0ED4F78D1CEA6CF8A35F2D5FF232497B69751E078EF7D32CBD6E1F`，751项资源齐全。M5-04、M6-03/04/05的完整自然关卡与后期／无尽性能门槛继续开放。
+
+## 2026-09-27 自主收尾性能复测
+
+见 [自然性能与资源探测](AUTONOMOUS_PERFORMANCE_20260927.md)。可见Chrome三族完整动作自然尝试实际到3/4/2关，P95约16.8ms、P99约16.8—16.9ms；友军峰值仅1—5，不能充当满编或完整六关证据。节能神族一轮P99约67.4ms、>20ms约2.16%，不通过；人族出现一次约1秒卡顿簇。带CPU采样复测未复现，不能称已修复。保留全部失败，不改敌军或已购效果。
+
+透明纹理显式预上传遗漏已修复，真实资源冷失败重试与晚音频进度覆盖错误页两项另有回归，不能把它们当上述随机卡顿的已证实根因。完整前六关、合法后期/无尽、180秒无累计欠账仍开放。最终包与全量/离线命令结果见自主收尾总记录，M6/M7未签收。

@@ -42,7 +42,7 @@ async function budget(difficulty:Difficulty,plan:typeof plans[number]){
   let eggs=0,drones=0;for(const e of schedule.events){if(e.kind==='egg'&&eggs++===0&&stage%plan.scvEvery===0)events.push({at:start+e.at+12,kind:'scv'});if(e.kind==='drone'&&drones++<Math.floor(s.drones*plan.droneFraction))events.push({at:start+e.at+12,kind:'loot',m:DROPS.drone[0]*f*ECONOMY.dropMultiplier,g:DROPS.drone[1]*f*ECONOMY.dropMultiplier});}events.sort((a,b)=>a.at-b.at);
   for(let tick=0;tick<s.durationSeconds*60;tick++){
    w.time=start+(tick+1)/60;w.updateEconomy(1/60);
-   while(events[0]?.at<=w.time){const e=events.shift();if(e.kind==='scv')w.scvs++;else grant(e.m,e.g);}
+   while(events[0]?.at<=w.time){const e=events.shift();if(e.kind==='scv')w.workers++;else grant(e.m,e.g);}
    w.updateProduction(1/60);
    for(const p of w.pods){if(p.status==='falling'&&p.landedAt<=w.time){p.status='active';landed++;guardsTotal+=p.guardTypes.length;hp+=p.guardTypes.reduce((n,t)=>n+enemyHp(t,p.stage),0);
      const serial=++podSerial,success=Math.floor(serial*plan.rescue)>Math.floor((serial-1)*plan.rescue),service=stage<=3?14:stage<=9?22:28;
@@ -65,7 +65,7 @@ async function budget(difficulty:Difficulty,plan:typeof plans[number]){
    w.skipReward();
   }
   const roster=Object.fromEntries(TERRAN.map(t=>[t,w.allies().filter(u=>u.unitType===t).map(u=>u.rank)]));
-  rows.push({stage,seconds:s.durationSeconds,scvs:w.scvs,rosterBefore,roster,landed,assumedRescued:successes,assumedFailed:failures,enemyHpBudget:round(hp),singleTargetCapacity:round(singleCapacity),areaSensitivityCapacity:round(areaCapacity),requiredFiringUptime:round(hp/singleCapacity),areaSensitivityUptime:round(hp/areaCapacity),sustainableBiologicalHealingPerSecond:round(w.allies().filter(u=>u.unitType==='medivac').reduce((n,u)=>n+u.energyRegen/HEAL.energyPerHp,0)),chosen,beforeCard:Object.fromEntries(Object.entries(beforeCard).map(([k,v])=>[k,round(v)])),wallet:Object.fromEntries(Object.entries(w.wallet).map(([k,v])=>[k,round(v)])),orders:w.stats.started,pendingPods:w.pods.filter(p=>p.status==='active'||p.status==='falling').length});
+  rows.push({stage,seconds:s.durationSeconds,scvs:w.workers,rosterBefore,roster,landed,assumedRescued:successes,assumedFailed:failures,enemyHpBudget:round(hp),singleTargetCapacity:round(singleCapacity),areaSensitivityCapacity:round(areaCapacity),requiredFiringUptime:round(hp/singleCapacity),areaSensitivityUptime:round(hp/areaCapacity),sustainableBiologicalHealingPerSecond:round(w.allies().filter(u=>u.unitType==='medivac').reduce((n,u)=>n+u.energyRegen/HEAL.energyPerHp,0)),chosen,beforeCard:Object.fromEntries(Object.entries(beforeCard).map(([k,v])=>[k,round(v)])),wallet:Object.fromEntries(Object.entries(w.wallet).map(([k,v])=>[k,round(v)])),orders:w.stats.started,pendingPods:w.pods.filter(p=>p.status==='active'||p.status==='falling').length});
  }
  const expectedM=50+w.economyTotals.passive.minerals+collected.minerals-w.economyTotals.production.minerals-w.economyTotals.purchases.minerals,expectedG=w.economyTotals.passive.gas+collected.gas-w.economyTotals.production.gas-w.economyTotals.purchases.gas;assert.ok(Math.abs(expectedM-w.wallet.minerals)<1e-6);assert.ok(Math.abs(expectedG-w.wallet.gas)<1e-6);assert.ok(w.wallet.minerals>=0&&w.wallet.gas>=0);
  return {difficulty,scenario:plan,rows,ledger:{start:{minerals:50,gas:0},passive:w.economyTotals.passive,assumedCollectedAndClear:collected,production:w.economyTotals.production,cards:w.economyTotals.purchases,final:w.wallet},guardsTotal,assumedLostRanks};

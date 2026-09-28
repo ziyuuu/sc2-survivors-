@@ -11,6 +11,7 @@ import {SaveRepository,type SaveBackend} from '../src/persistence/save-repositor
 import {openSaveProfile,RunSession} from '../src/app/run-session';
 import type {Race} from '../src/data/races';
 import type {Difficulty} from '../src/data/stages';
+import {RUN_SCHEMA} from '../src/simulation/persistence/run-snapshot';
 class MemoryBackend implements SaveBackend {
  slots:(string|null)[]=[null,null,null];fail=false;
  async read(){return [...this.slots];}
@@ -25,7 +26,7 @@ test('M1 new archives have one permanent profile, frozen zero talents and preser
  for(const race of ['terran','zerg','protoss'] as Race[])for(const difficulty of ['easy','normal','hard','hell'] as Difficulty[]){
   const w=new World({race,difficulty,terrain:false,waves:false,sandbox:true});w.start();
   const snapshot=w.captureRun(),raw=writeArchive({profile:w.permanentProfile.exportJSON(),run:snapshot});
-  assert.equal(JSON.parse(raw).version,2);assert.equal(snapshot.schema,6);
+  assert.equal(JSON.parse(raw).version,2);assert.equal(snapshot.schema,RUN_SCHEMA);
   assert.equal(snapshot.config.rulesId,'mvp-1.0');assert.deepEqual(snapshot.config.frozenTalents.levels,{});
   const parsed=readArchive(raw);assert.deepEqual(Object.keys(parsed.bundle).sort(),['profile','run']);
   const copy=new World({race:'terran',difficulty:'normal',terrain:false,waves:false,sandbox:true});

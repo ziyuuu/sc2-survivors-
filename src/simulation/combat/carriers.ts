@@ -3,6 +3,7 @@ import type {Body,Entity,Point} from '../types';
 import type {UnitData} from '../../data/sc2-units';
 import {SOURCE_ABILITIES,SOURCE_INTERCEPTOR} from '../../data/expansion-units';
 import {aggregateMvpTalentEffects} from '../progression/mvp-talent-effects';
+import {HERO_BASIC_ATTACK} from '../../data/heroes';
 import {TUNING} from '../../data/game';
 import {distance,translate} from '../movement/steering';
 import {eliteEffect} from './expedition-elites';
@@ -22,7 +23,7 @@ export function refreshInterceptorStats(w:World,u:Entity,fill=false){
  const friendly=carrier.team==='player',hero=carrier.heroId==='purifier_flagship',state=w.expedition,tech=friendly&&!hero?state?.tech??{}:{},growth=w.growth(carrier),talents=friendly&&state&&w.runConfig?aggregateMvpTalentEffects(w.runConfig.frozenTalents.levels,w.runConfig.race,hero?{team:'player',race:carrier.race,kind:'hero',attributes:carrier.attributes}:{team:'player',race:carrier.race,kind:'summon',ownerFamilyId:'carrier',summonType:'interceptor'}):{},card=friendly&&!hero?state?.cardTotals['weapon.carrier']??0:0;
  u.race='protoss';u.team=carrier.owner==='terran'?'player':'enemy';u.owner=carrier.owner;u.rank=1;u.attributes=[...BASE.attributes];if(!u.flying)w.hash.invalidatePlanes();u.flying=true;u.unitRadius=BASE.unitRadius*TUNING.unitScale;u.maxHp=BASE.maxHp;u.hp=fill?u.maxHp:Math.min(u.hp,u.maxHp);u.armor=BASE.armor+(tech['protoss.air_armor']??0);
  u.maxShield=BASE.maxShields;u.shield=fill?u.maxShield:Math.min(u.shield??0,u.maxShield);u.shieldArmor=BASE.shieldArmor+(tech['protoss.shields']??0);u.shieldRegen=BASE.shieldRegenPerSecond;u.shieldDelay=BASE.shieldRegenDelay;
- u.moveSpeed=BASE.movementSpeed;u.attackRange=BASE.weapon.attackRange;u.weaponDamage=(BASE.weapon.attackDamage+(tech['protoss.air_weapon']??0))*growth.damage*(1+card)*(1+(talents.weaponDamagePct??0))*eliteEffect(carrier,'interceptorDamageMultiplier')*(hero?1.2:1);u.attackPeriod=BASE.weapon.attackPeriod/growth.attackSpeed/(1+(talents.attackSpeedPct??0))*eliteEffect(carrier,'interceptorAttackPeriodMultiplier');u.shotInterval=u.attackPeriod;
+ u.moveSpeed=BASE.movementSpeed;u.attackRange=BASE.weapon.attackRange;u.weaponDamage=(BASE.weapon.attackDamage+(tech['protoss.air_weapon']??0))*growth.damage*(1+card)*(1+(talents.weaponDamagePct??0))*eliteEffect(carrier,'interceptorDamageMultiplier')*(hero?1.2*HERO_BASIC_ATTACK.damage:1);u.attackPeriod=BASE.weapon.attackPeriod/growth.attackSpeed/(1+(talents.attackSpeedPct??0))*eliteEffect(carrier,'interceptorAttackPeriodMultiplier')/(hero?HERO_BASIC_ATTACK.frequency:1);u.shotInterval=u.attackPeriod;
  u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;return true;
 }
 function spawnInterceptor(w:World,carrier:Entity){const hangar=carrier.carrierHangar!,serial=hangar.serial++,angle=serial*2.399963,p={x:carrier.x+Math.sin(angle)*.7,z:carrier.z+Math.cos(angle)*.7};

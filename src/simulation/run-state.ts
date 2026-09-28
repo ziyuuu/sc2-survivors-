@@ -47,8 +47,8 @@ export class RunState {
  expansionHives=new Map<number,ExpansionHive>();nextExpansionAt=Infinity;hiveWarningPoint:Point|null=null;mainHiveNextBatchAt=Infinity;mainHiveBatch=0;mainHivePending:ZergType[]=[];
  fortifications=new Map<number,Fortification>();
  lordWarningPoint:Point|null=null;
- stats={kills:0,rescued:0,failed:0,produced:0,started:0,shots:0,healed:0,damage:0,scvsRescued:0,scvsLost:0,dronesKilled:0,ambientSpawned:0};
- difficulty:Difficulty='normal';scvs=0;economicTargets=new Map<number,EconomicTarget>();
+ stats={kills:0,rescued:0,failed:0,produced:0,started:0,shots:0,healed:0,damage:0,workersRescued:0,workersLost:0,dronesKilled:0,ambientSpawned:0};
+ difficulty:Difficulty='normal';workers=0;economicTargets=new Map<number,EconomicTarget>();
  anchorMovingFor=0;anchorStoppedFor=0;tankCommand:'tank'|'siege'='tank';
  readonly economyTotals={passive:{minerals:0,gas:0},drops:{minerals:0,gas:0},clear:{minerals:0,gas:0},cards:{minerals:0,gas:0},production:{minerals:0,gas:0},purchases:{minerals:0,gas:0},rerolls:0};
 protected productionCursor=0;
@@ -94,7 +94,7 @@ protected specialPlan:(EnemyEvent|Campaign18Special)[]=[];protected nextSpecial=
   supportUntil:this.supportUntil, nextSupportTick:this.nextSupportTick, talentSupportImpacts:this.talentSupportImpacts, dashUntil:this.dashUntil, dashReady:this.dashReady, hive:this.hive,
   airliftReady:this.airliftReady, talentTransferPlan:this.talentTransferPlan, expansionHives:this.expansionHives, nextExpansionAt:this.nextExpansionAt, hiveWarningPoint:this.hiveWarningPoint,
   mainHiveNextBatchAt:this.mainHiveNextBatchAt, mainHiveBatch:this.mainHiveBatch, mainHivePending:this.mainHivePending, fortifications:this.fortifications, lordWarningPoint:this.lordWarningPoint,
-  stats:this.stats, difficulty:this.difficulty, scvs:this.scvs, economicTargets:this.economicTargets, anchorMovingFor:this.anchorMovingFor,
+  stats:this.stats, difficulty:this.difficulty, workers:this.workers, economicTargets:this.economicTargets, anchorMovingFor:this.anchorMovingFor,
   anchorStoppedFor:this.anchorStoppedFor, tankCommand:this.tankCommand, economyTotals:this.economyTotals, productionCursor:this.productionCursor, productionPlan:this.productionPlan,
   guardRemainders:this.guardRemainders, nextGuardCounts:this.nextGuardCounts, specialPlan:this.specialPlan, nextSpecial:this.nextSpecial, waves:this.waves,
   eventPlan:this.eventPlan, nextEvent:this.nextEvent, scheduledStage:this.scheduledStage, ambientBacklog:this.ambientBacklog, extraDeliveries:this.extraDeliveries,

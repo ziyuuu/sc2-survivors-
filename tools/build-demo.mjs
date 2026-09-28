@@ -32,7 +32,6 @@ const {pack,stats}=createAssetPack(resources);
 const result=await build({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true'}});
 const js=result.outputFiles.find(f=>f.path.endsWith('.js')).text.replace(/<\/script/gi,'<\\/script');const css=result.outputFiles.find(f=>f.path.endsWith('.css'))?.text??'';
 const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b24"><title>SC2 SURVIVORS · 星际幸存小队</title><style>${css}</style></head><body><canvas id="battle" aria-label="星际幸存小队战场"></canvas><main id="interface"></main><script id="sc2-resource-pack" type="application/json">${JSON.stringify(pack)}</script><script>${js}</script></body></html>`;
-const htmlBytes=Buffer.byteLength(html);if(htmlBytes>380*1048576)throw Error(`M6 offline HTML exceeds 380 MiB release ceiling: ${htmlBytes} bytes`);
 const output='dist/SC2-Survivors-Demo.html',temporary=output+'.tmp';
 try{await fs.writeFile(temporary,html);await fs.rename(temporary,output);}
 catch(error){await fs.rm(temporary,{force:true});throw error;}
@@ -43,5 +42,5 @@ await fs.writeFile('reports/local/offline-pack.json',JSON.stringify({...stats,ht
 const encodedById=new Map(stats.byAsset.map(item=>[item.id,item]));
 const rows=reachability.rows.map(row=>({...row,...encodedById.get(row.id)}));
 const categories=Object.values(Object.groupBy(rows,row=>row.kind)).map(group=>({kind:group[0].kind,count:group.length,rawBytes:group.reduce((n,row)=>n+row.bytes,0),newStoredBytes:group.reduce((n,row)=>n+row.newStoredBytes,0),newEncodedBytes:group.reduce((n,row)=>n+row.newEncodedBytes,0)})).sort((a,b)=>b.newEncodedBytes-a.newEncodedBytes);
-await fs.writeFile('reports/local/release-manifest.json',JSON.stringify({rulesId:'mvp-1.0',html:{path:output,bytes:stat.size,sha256:htmlSha256,ceilingBytes:380*1048576,stretchBytes:320*1048576},codec:'gzip + base85; per-asset encoded bytes attributed to first owner of each shared chunk',categories,excluded:reachability.excluded,unprovenCandidates:reachability.unprovenCandidates,assets:rows},null,2));
+await fs.writeFile('reports/local/release-manifest.json',JSON.stringify({rulesId:'mvp-1.0',packagePolicy:'Remove proven unused payloads and share identical content; no arbitrary byte quota',html:{path:output,bytes:stat.size,sha256:htmlSha256},codec:'gzip + base85; per-asset encoded bytes attributed to first owner of each shared chunk',categories,excluded:reachability.excluded,identicalContentGroups:reachability.identicalContentGroups,unprovenCandidates:reachability.unprovenCandidates,assets:rows},null,2));
 console.log(JSON.stringify(Object.fromEntries(Object.entries(stats).filter(([key])=>key!=='byAsset'))));

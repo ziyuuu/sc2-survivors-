@@ -1,5 +1,5 @@
 export type RenderQuality='native'|'balanced'|'performance';
-export const QUALITY_LABELS:Record<RenderQuality,string>={native:'清晰 · 屏幕分辨率',balanced:'均衡',performance:'省电'};
+export const QUALITY_LABELS:Record<RenderQuality,string>={native:'清晰 · 屏幕分辨率',balanced:'均衡',performance:'低分辨率'};
 export function resolveQuality(saved:string|null,mobile=false):RenderQuality{return saved==='native'||saved==='balanced'||saved==='performance'?saved:mobile?'balanced':'native';}
 export function renderPixelRatio(quality:RenderQuality,dpr:number,width:number,height:number,maxDimension=Infinity){
  const screen=Number.isFinite(dpr)&&dpr>0?dpr:1;
@@ -8,3 +8,15 @@ export function renderPixelRatio(quality:RenderQuality,dpr:number,width:number,h
 }
 export function loadQuality():RenderQuality{let saved:null|string=null;try{saved=localStorage.getItem('sc2.renderQuality');}catch{}return resolveQuality(saved,matchMedia('(pointer:coarse)').matches);}
 export function saveQuality(quality:RenderQuality){try{localStorage.setItem('sc2.renderQuality',quality);}catch{}}
+
+export type AnimationMode='complete'|'energy-saving';
+export const ANIMATION_MODE_LABELS:Record<AnimationMode,string>={complete:'完整动作（默认）','energy-saving':'节能动作 · 15Hz'};
+export function resolveAnimationMode(saved:string|null):AnimationMode{return saved==='energy-saving'?'energy-saving':'complete';}
+export function loadAnimationMode():AnimationMode{try{return resolveAnimationMode(localStorage.getItem('sc2.animationMode'));}catch{return 'complete';}}
+export function saveAnimationMode(mode:AnimationMode){try{localStorage.setItem('sc2.animationMode',mode);}catch{}}
+export type PoseClockState={time?:number;event?:string;mode?:AnimationMode};
+/** Only the pose clock is held. Transforms, projectiles and camera are not gated. */
+export function samplePoseClock(state:PoseClockState,mode:AnimationMode,time:number,event:string){
+ if(mode==='complete'||state.mode!==mode||state.event!==event||state.time===undefined||time<state.time||time-state.time>=1/15-1e-8){state.time=time;state.event=event;state.mode=mode;}
+ return state.time!;
+}

@@ -6,6 +6,8 @@ The source README identifies 5.0.15 (2025-10-08). This is a community-hosted Bli
 
 `node tools/fetch-data-source.mjs` downloaded unit, weapon, effect, ability and behavior XML. Local cache only. Selected inheritance: Core → Liberty → Swarm → Void → VoidMulti → BalanceMulti. LibertyMulti and SwarmMulti were inspected for context, not applied as additional legacy multiplayer balance layers.
 
+2026-09-27 verification: the original pinned fetch was rerun to restore 40 missing local XML fixtures (3,248,774 bytes). `node --test test/expansion-source-resolver.test.mjs` then passed all three tests with zero skips. Per-file locked URLs and SHA256 are in `reports/local/closeout-historical-resolver-sources.json`; see `project/AUTONOMOUS_SOURCE_20260927.md`. This verifies the historical 5.0.15 resolver only; the separately pinned B97563/5.0.16.97563 art/Actor acquisition is not substituted for this snapshot. No runtime values or release artifacts changed.
+
 Sources: CUnit LifeMax/LifeArmor/Speed/CostResource/Attributes; CWeaponLegacy Range/Period/DamagePoint; CEffectDamage Amount/AttributeBonus/AreaArray; CAbilTrain InfoArray Time; MedivacHeal RechargeVitalRate/DrainVitalCostFactor; SiegeMode/Unsiege morph sections; RavagerCorrosiveBile effects. Normal XML seconds convert to Faster time: durations / 1.4, movement/regen/healing rates × 1.4. Ranges/HP/damage/costs unchanged.
 
 | Unit | HP / armor | Speed | Damage | Period | Range | Minerals / gas |

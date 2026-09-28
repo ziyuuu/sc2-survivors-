@@ -59,7 +59,7 @@ try{
    const hero=heroIds.map(id=>{const u=w.heroEntity(id),m=u&&v.gpu.get(u.modelKey);return {id,model:u?.modelKey,clips:m?[...m.clips.keys()]:[],bones:m?.boneCount,attackClip:m?.actions.attack?.name??null,skillClip:m?.actions.skill?.name??null,weaponMountClips:m?[...m.weaponTracks.keys()]:[],flying:u?.flying,portrait:!!document.querySelector(`[data-hero="${id}"] img`)};});
    return {elite,hero,errors:[...v.modelErrors],schema:w.captureRun().schema};
   },fixture);
-  assert.equal(checked.elite.length,15);assert.equal(checked.hero.length,3);assert.equal(checked.schema,6);
+  assert.equal(checked.elite.length,15);assert.equal(checked.hero.length,3);assert.equal(checked.schema,8);
   assert.ok(checked.elite.every(item=>item.clips.length&&item.bones>0),`${label} elite model/animations`);
   assert.ok(checked.hero.every(item=>item.clips.length&&item.bones>0),`${label} hero model/animations`);
   assert.deepEqual(checked.errors,[]);

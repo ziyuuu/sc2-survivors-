@@ -48,7 +48,7 @@ test('repeated movement commands never retarget an already committed bullet or r
 });
 test('automatic targeting does not repeatedly pick an economic actor through local combat threats',()=>{
  const w=setup(),threat=foe(w,4),egg=w.spawnEconomic('egg',{x:1,z:0});w.advance(1);assert.ok(threat.hp<threat.maxHp);assert.equal(egg.hp,egg.maxHp);
- w.hit(threat,1e9);w.advance(3);assert.equal(egg.status,'rescued');assert.equal(w.scvs,1);
+ w.hit(threat,1e9);w.advance(3);assert.equal(egg.status,'rescued');assert.equal(w.workers,1);
 });
 test('stationary units keep defending locally but do not chase a remote attacker across the map',()=>{
  const w=setup(),u=w.allies()[0],e=foe(w,4);w.advance(1);assert.ok(e.hp<e.maxHp);const anchor={...w.anchor};e.x=30;w.advance(6);assert.deepEqual(w.anchor,anchor);assert.ok(distance(u,anchor)<8);

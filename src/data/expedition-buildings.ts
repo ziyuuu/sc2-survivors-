@@ -55,4 +55,16 @@ for(const [race,id,name,req,families] of [
  ['protoss','ground_weapon','地面武器','forge',['zealot','adept','stalker','sentry','immortal','colossus','high_templar']],['protoss','ground_armor','地面护甲','forge',['zealot','adept','stalker','sentry','immortal','colossus','high_templar']],['protoss','shields','护盾','forge',['zealot','adept','stalker','sentry','immortal','colossus','high_templar','phoenix','void_ray','carrier']],['protoss','air_weapon','航空武器','cybernetics_core',['phoenix','void_ray','carrier']],['protoss','air_armor','航空装甲','cybernetics_core',['phoenix','void_ray','carrier']],
 ] as const){add(race,`${race}.${id}`,name,'research',125,50,[req]);const entry=DEVELOPMENT.at(-1)!;entry.maxLevel=3;entry.families=[...families];}
 export function familyLine(family:FamilyId){return (Object.entries(PRODUCTION_LINES).find(([,line])=>line.families.includes(family))!)[0] as ProductionLineId;}
+const DIRECTION_ACTIONS:Record<ProductionLineId,readonly string[]>={
+ barracks:['barracks','barracks_lab','engineering_bay','stim','shield','terran.infantry','terran.infantry_armor'],
+ factory:['barracks','factory','factory_lab','armory','infernal','terran.vehicle','terran.vehicle_armor'],
+ starport:['barracks','factory','starport','starport_lab','science_facility','armory','cloak','support_efficiency','terran.air_weapon','terran.air_armor'],
+ 'zerg.basic':['hatchery','pool','roach_warren','baneling_nest','evolution_chamber','ling_speed','bane_speed','roach_speed','zerg.melee','zerg.missile','zerg.carapace'],
+ 'zerg.evolution':['hatchery','pool','lair','roach_warren','hydralisk_den','lurker_den','hive','ultralisk_cavern','evolution_chamber','hydra_range','lurker_deploy','zerg.melee','zerg.missile','zerg.carapace'],
+ 'zerg.air':['hatchery','pool','lair','spire','zerg.flyer_weapon','zerg.flyer_armor'],
+ gateway:['gateway','cybernetics_core','twilight_council','templar_archives','forge','charge','blink','glaives','storm','protoss.ground_weapon','protoss.ground_armor','protoss.shields'],
+ robotics:['gateway','cybernetics_core','robotics','robotics_bay','forge','colossus_range','protoss.ground_weapon','protoss.ground_armor','protoss.shields'],
+ stargate:['gateway','cybernetics_core','stargate','fleet_beacon','forge','protoss.air_weapon','protoss.air_armor','protoss.shields'],
+};
+export function developmentInDirection(id:string,line:ProductionLineId){return DIRECTION_ACTIONS[line].includes(id);}
 export function developmentPrice(d:DevelopmentDefinition,level:number){return d.maxLevel===3?{minerals:125+75*level,gas:50+50*level}:{minerals:d.minerals,gas:d.gas};}

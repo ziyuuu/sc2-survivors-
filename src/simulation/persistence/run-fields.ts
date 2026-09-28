@@ -11,7 +11,7 @@ export const RUN_FIELDS=[
  'offerSerial','rewards','rewardClaimed','rewardRound','clearReceipt','rerolls','nextBuilding','nextWave','wave','stageWave','nextId','nextJob','freeRerolls','freePurchases',
  'nextFreePodAt','nextEliteGrowthAt','nextMercenaryAt','nextTankSupportAt','supportUntil','nextSupportTick','talentSupportImpacts','dashUntil','dashReady','hive',
  'airliftReady','talentTransferPlan','expansionHives','nextExpansionAt','hiveWarningPoint','mainHiveNextBatchAt','mainHiveBatch','mainHivePending','fortifications','lordWarningPoint',
- 'stats','difficulty','scvs','economicTargets','anchorMovingFor','anchorStoppedFor','tankCommand','economyTotals','productionCursor','productionPlan',
+ 'stats','difficulty','workers','economicTargets','anchorMovingFor','anchorStoppedFor','tankCommand','economyTotals','productionCursor','productionPlan',
  'guardRemainders','nextGuardCounts','specialPlan','nextSpecial','waves','eventPlan','nextEvent','scheduledStage','ambientBacklog','extraDeliveries',
  'notice','noticeUntil','movementStall','detours','navigation','heroes','heroCasts','pendingElites','evolution','burns','productionChoices','groupNext','groupUnlocks','rngState',
  'corrosionZones','zoneSlowed','auraArmor','auraDamage','auraAttackSpeed','nextAuraUpdate'
@@ -28,6 +28,9 @@ export function validateRunData(data:RunData,defaults:object){
   if(a instanceof Map?!(b instanceof Map):a instanceof Set?!(b instanceof Set):Array.isArray(a)?!Array.isArray(b):a!==null&&a!==undefined&&typeof a!==typeof b)throw Error('续局字段类型错误：'+key);
  }
  if(!data.runConfig)throw Error('战局配置缺失');
+ if(![data.workers,data.stats?.workersRescued,data.stats?.workersLost].every(n=>Number.isSafeInteger(n)&&n>=0))throw Error('续局工人数量或救援统计无效');
+ const campaign=data.campaign18Runtime;
+ if(campaign&&(typeof campaign.finalBossKilled!=='boolean'||campaign.finalBossId!==null&&(!Number.isSafeInteger(campaign.finalBossId)||campaign.finalBossId<1)||campaign.finalBossKilled&&(campaign.stage!==18||campaign.finalBossId===null)))throw Error('最终首领击杀收据无效');
  const frozen=data.runConfig.frozenTalents;
  if(!frozen||frozen.ruleset!=='mvp-1.0'||frozen.race!==data.expedition.race||validateTalentAllocation(frozen.race,frozen.levels)||frozen.allocated!==allocationPoints(frozen.levels)||frozen.investment!==allocationCost(frozen.levels))throw Error('冻结天赋与战局状态不一致');
  if(!['battle','reward','won','endless-ready','finished','lost'].includes(data.phase)||!['easy','normal','hard','hell'].includes(data.difficulty)||!Number.isSafeInteger(data.tick)||data.tick<0||!Number.isFinite(data.time)||data.time<0||!Number.isInteger(data.stage)||data.stage<1||data.stage>18||typeof data.runId!=='string'||!data.runId||data.runConfig.rulesId!=='mvp-1.0'||data.runConfig.campaignId!=='campaign-18'||data.runConfig.mapId!=='campaign-kairos-v1'||!data.runConfig.mapHash||!Number.isSafeInteger(data.runConfig.seed)||data.runConfig.difficulty!==data.difficulty||data.runConfig.race!==data.expedition.race||!Number.isFinite(data.wallet?.minerals)||!Number.isFinite(data.wallet?.gas)||data.wallet.minerals<0||data.wallet.gas<0)throw Error('续局基本状态无效');
@@ -37,12 +40,14 @@ export function validateRunData(data:RunData,defaults:object){
  if(!Array.isArray(data.heroCasts)||data.heroCasts.some(cast=>{
   if(!cast||!Number.isSafeInteger(cast.id)||!Number.isSafeInteger(cast.source)||!Number.isSafeInteger(cast.target)||!Object.hasOwn(HEROES,cast.hero)||![cast.at,cast.damage,cast.origin?.x,cast.origin?.z,cast.point?.x,cast.point?.z].every(Number.isFinite))return true;
   if(cast.phase!==undefined&&!['impact','channel','dot','line-travel','area-pulse'].includes(cast.phase)||cast.launched!==undefined&&typeof cast.launched!=='boolean')return true;
+  if(cast.presentationLaunch&&(![cast.presentationLaunch.x,cast.presentationLaunch.z,cast.presentationLaunch.facing,cast.presentationLaunch.poseSeconds].every(Number.isFinite)||cast.presentationLaunch.poseSeconds<0))return true;
   if(cast.pulseIndex!==undefined&&(cast.hero!=='hots_leviathan'||cast.phase!=='area-pulse'||!Number.isInteger(cast.pulseIndex)||cast.pulseIndex<0||cast.pulseIndex>2))return true;
   return cast.phase==='line-travel'&&(!Number.isFinite(cast.progress)||cast.progress!<0||cast.progress!>1||!Array.isArray(cast.hitIds)||new Set(cast.hitIds).size!==cast.hitIds.length||cast.hitIds.some(id=>!Number.isSafeInteger(id)));
  }))throw Error('英雄弹体状态无效');
  if(!Array.isArray(data.talentSupportImpacts)||data.talentSupportImpacts.some(impact=>!impact||!Number.isSafeInteger(impact.id)||!['terran','zerg','protoss'].includes(impact.race)||![impact.at,impact.point?.x,impact.point?.z,impact.direction?.x,impact.direction?.z].every(Number.isFinite)||![0,1].includes(impact.packet)))throw Error('支援延迟命中数据无效');
  const transfer=data.talentTransferPlan;
  if(transfer!==null&&(!transfer||data.phase!=='battle'||![transfer.origin?.x,transfer.origin?.z,transfer.direction?.x,transfer.direction?.z,transfer.target?.x,transfer.target?.z,transfer.readyAt].every(Number.isFinite)||typeof transfer.mapHash!=='string'||!Number.isInteger(transfer.stage)||!Number.isInteger(transfer.endlessRound)||!Array.isArray(transfer.participants)||!transfer.participants.length||new Set(transfer.participants.map(item=>item.id)).size!==transfer.participants.length||transfer.participants.some(item=>!Number.isSafeInteger(item.id)||!Number.isFinite(item.generation))))throw Error('战术转移准备数据无效');
+ for(const drop of data.rewardDrops)if(drop.bossLootReceipt&&(!data.expedition.bossLootReceipts.includes(drop.bossLootReceipt)||data.expedition.bossLootClaimed.includes(drop.bossLootReceipt)||data.expedition.bossLootQueue.some(q=>q.receipt===drop.bossLootReceipt)||drop.reward.minerals!==0||drop.reward.gas!==0))throw Error('地图首领奖励收据无效');
  for(const drop of data.rewardDrops)if(drop.talentLoot&&(!['purple','orange'].includes(drop.talentLoot.rarity)||typeof drop.talentLoot.receipt!=='string'||!data.expedition.talentLootReceipts.includes(drop.talentLoot.receipt)))throw Error('地图天赋掉落收据无效');
  for(const p of data.pods)if(!(p.guardianIds instanceof Set)||!Array.isArray(p.passengers))throw Error('续局运输舱无效');
  for(const b of data.buildings.values())if(!Array.isArray(b.queue))throw Error('续局生产队列无效');

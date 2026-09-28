@@ -1,0 +1,156 @@
+{
+  "source": "assets/private/m3/pylonwarpin.m3",
+  "sha256": "9fc06a23070e1ea14c74f4e187320ccd7d1b24332e8c3539f3bcde1bdd497649",
+  "sequence": "Stand Build End",
+  "duration": 6,
+  "materials": [
+    {
+      "name": "222233dd",
+      "hdr": 1,
+      "blend": 2,
+      "emissive": {
+        "multiplier": {
+          "sourceAnimationId": 457189624,
+          "interpolation": 1,
+          "default": 0,
+          "times": [
+            0,
+            1.566,
+            2.033,
+            4.033,
+            4.6,
+            6
+          ],
+          "values": [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+          ]
+        },
+        "offset": {
+          "sourceAnimationId": 1499513982,
+          "interpolation": 1,
+          "default": {
+            "x": 0,
+            "y": 0
+          },
+          "times": [
+            0,
+            6
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 5,
+              "y": -11
+            }
+          ]
+        }
+      },
+      "alpha": null
+    },
+    {
+      "name": "pylon_te",
+      "hdr": 5,
+      "blend": 0,
+      "emissive": {
+        "multiplier": {
+          "sourceAnimationId": 1454549363,
+          "interpolation": 1,
+          "default": 0,
+          "times": [
+            0,
+            3.033,
+            3.133,
+            6
+          ],
+          "values": [
+            0,
+            0,
+            5,
+            5
+          ]
+        },
+        "offset": {
+          "sourceAnimationId": 832476199,
+          "interpolation": 1,
+          "default": {
+            "x": 0,
+            "y": 0
+          },
+          "times": [
+            0,
+            3.133,
+            6
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0.47000008821487427
+            }
+          ]
+        }
+      },
+      "alpha": {
+        "multiplier": {
+          "sourceAnimationId": 369869797,
+          "interpolation": 1,
+          "default": 0,
+          "times": [
+            0,
+            3.033,
+            3.133,
+            6
+          ],
+          "values": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "offset": {
+          "sourceAnimationId": 1075648519,
+          "interpolation": 1,
+          "default": {
+            "x": 0,
+            "y": 0
+          },
+          "times": [
+            0,
+            3.133,
+            6
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0.47000008821487427
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

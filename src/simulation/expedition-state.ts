@@ -1,5 +1,6 @@
 import {FAMILIES_BY_RACE,MVP_RULES,type Race,type FamilyId} from '../data/races';
 import {PRODUCTION_LINES,type ProductionLineId} from '../data/expedition-buildings';
+import {ELITES,type EliteId} from '../data/elites';
 import type {ExpeditionReward} from './progression/expedition-drafts';
 export interface Payment {minerals:number;gas:number}
 export type TacticalDirection='assault'|'guard'|'mobility';
@@ -21,9 +22,12 @@ export interface ExpeditionState {
  tacticalPlans:Partial<Record<FamilyId,TacticalPlan>>;
  pendingReceipt:FamilyReceiptRequest|null;completedReceipts:string[];refunds:Payment;
  developmentTarget:string|null;frozenDevelopmentTarget:string|null;developmentBought:boolean;
+ pendingShopElite:{offerId:string;variantId:EliteId;revision:number}|null;
+ developmentDirection:ProductionLineId|null;directionOffers:Partial<Record<ProductionLineId,ExpeditionReward[]>>;developmentQuotes:Record<string,ExpeditionReward>;shopRevision:number;shopPage:number;refreshCount:number;freePurchasesRemaining:number;
  freeRefresh:{chapter:number;building:number;random:number};bonusRefreshRemaining:number;paidRefresh:{building:boolean;random:boolean};
  draftWindow:number;draftTaken:boolean;draftClaims:string[];draftSeenHigh:boolean;lowWindows:number;draftHistory:{shown:string[];chosen:string|null}[];
  eliteContractWindow:number;eliteContracts:EliteContract[];
+ bossLootReceipts:string[];bossLootClaimed:string[];bossLootOpen:boolean;bossLootQueue:{receipt:string;reward:ExpeditionReward;variant:EliteId|null}[];
  talentLootReceipts:string[];pendingTalentLoot:TalentLootChoice|null;talentLootRngState:number;
  eliteRescueRights:EliteRescueRight[];eliteRescueCompleted:string[];
  temporaryOrdinaryCursor:number;temporaryEliteCursor:number;
@@ -42,9 +46,13 @@ export function newExpedition(race:Race):ExpeditionState {
  production[first.line]!.enabled[first.family]=true;
  return {weaponAreas:[],spells:[],rules:MVP_RULES,race,familySlots:[first.family],tech:{...first.tech},facilities:[{id:1,kind:first.kind,line:first.line,techLab:false}],nextFacility:2,production,
  ledger:[],credits:{},nextCredit:1,tacticalPlans:{},pendingReceipt:null,completedReceipts:[],refunds:{minerals:0,gas:0},developmentTarget:null,frozenDevelopmentTarget:null,developmentBought:false,
- freeRefresh:{chapter:1,building:1,random:1},bonusRefreshRemaining:0,paidRefresh:{building:false,random:false},draftWindow:0,draftTaken:false,draftClaims:[],draftSeenHigh:false,lowWindows:0,draftHistory:[],eliteContractWindow:0,eliteContracts:[],talentLootReceipts:[],pendingTalentLoot:null,talentLootRngState:1,eliteRescueRights:[],eliteRescueCompleted:[],temporaryOrdinaryCursor:0,temporaryEliteCursor:0,cardTotals:{},resourceCards:0,mapCardsByChapter:{},elitePaths:{},detectionReady:0,detectionFields:[],enemyScanReady:{},familyModes:{},talentPreset:0};
+ pendingShopElite:null,developmentDirection:null,directionOffers:{},developmentQuotes:{},shopRevision:0,shopPage:0,refreshCount:0,freePurchasesRemaining:0,
+ freeRefresh:{chapter:1,building:0,random:0},bonusRefreshRemaining:0,paidRefresh:{building:false,random:false},draftWindow:0,draftTaken:false,draftClaims:[],draftSeenHigh:false,lowWindows:0,draftHistory:[],eliteContractWindow:0,eliteContracts:[],bossLootReceipts:[],bossLootClaimed:[],bossLootOpen:false,bossLootQueue:[],talentLootReceipts:[],pendingTalentLoot:null,talentLootRngState:1,eliteRescueRights:[],eliteRescueCompleted:[],temporaryOrdinaryCursor:0,temporaryEliteCursor:0,cardTotals:{},resourceCards:0,mapCardsByChapter:{},elitePaths:{},detectionReady:0,detectionFields:[],enemyScanReady:{},familyModes:{},talentPreset:0};
 }
 export function validateExpedition(s:ExpeditionState){
+ if(s.pendingShopElite!==null&&(!s.pendingShopElite||typeof s.pendingShopElite.offerId!=='string'||!Object.hasOwn(ELITES,s.pendingShopElite.variantId)||s.pendingShopElite.revision!==s.shopRevision))throw Error('精英购买预览无效');
+ if(!Array.isArray(s.bossLootReceipts)||new Set(s.bossLootReceipts).size!==s.bossLootReceipts.length||!Array.isArray(s.bossLootClaimed)||new Set(s.bossLootClaimed).size!==s.bossLootClaimed.length||s.bossLootClaimed.some(r=>!s.bossLootReceipts.includes(r))||typeof s.bossLootOpen!=='boolean'||!Array.isArray(s.bossLootQueue)||new Set(s.bossLootQueue.map(q=>q.receipt)).size!==s.bossLootQueue.length||s.bossLootQueue.some(q=>!s.bossLootReceipts.includes(q.receipt)||s.bossLootClaimed.includes(q.receipt)||!q.reward||q.reward.sold||q.reward.minerals!==0||q.reward.gas!==0||!q.reward.expeditionEffect||!['elite','hero','resource'].includes(q.reward.expeditionEffect.kind)||q.variant!==null&&!Object.hasOwn(ELITES,q.variant)))throw Error('首领奖励收据无效');
+ if(s.developmentDirection!==null&&PRODUCTION_LINES[s.developmentDirection]?.race!==s.race||![s.shopRevision,s.shopPage,s.refreshCount,s.freePurchasesRemaining].every(n=>Number.isSafeInteger(n)&&n>=0)||s.freePurchasesRemaining>2||!s.directionOffers||!s.developmentQuotes)throw Error('关间购物状态无效');
  if(s.rules!==MVP_RULES||!Object.hasOwn(FAMILIES_BY_RACE,s.race)||!Array.isArray(s.familySlots)||s.familySlots.length>5||new Set(s.familySlots).size!==s.familySlots.length||s.familySlots.some(f=>!(FAMILIES_BY_RACE[s.race] as readonly string[]).includes(f)))throw Error('三族编制数据无效');
  if(!Array.isArray(s.weaponAreas)||s.weaponAreas.some(area=>!area||!Number.isSafeInteger(area.id)||!Number.isSafeInteger(area.source)||!['terran','zerg'].includes(area.owner)||!Array.isArray(area.points)||area.points.some(point=>![point.x,point.z].every(Number.isFinite))||!Number.isSafeInteger(area.nextIndex)||area.nextIndex<0||area.nextIndex>area.points.length||![area.next,area.period,area.radius,area.damage].every(Number.isFinite)||area.period<0||area.radius<0||!Array.isArray(area.hits)||new Set(area.hits).size!==area.hits.length||!Array.isArray(area.bonuses)||area.primaryTargetId!==undefined&&!Number.isSafeInteger(area.primaryTargetId)||area.primaryCrit!==undefined&&!Number.isFinite(area.primaryCrit)||area.apmDamage!==undefined&&(!Number.isFinite(area.apmDamage)||area.apmDamage<0)||area.apmBonuses!==undefined&&!Array.isArray(area.apmBonuses)||area.apmUsed!==undefined&&typeof area.apmUsed!=='boolean'))throw Error('武器范围结算数据无效');
  for(const entry of s.ledger){if(!Number.isSafeInteger(entry.id)||!Array.isArray(entry.passengers)||entry.passengers.length>5||entry.passengers.some(p=>!Number.isFinite(p.paid.minerals)||p.paid.minerals<0||!Number.isFinite(p.paid.gas)||p.paid.gas<0||!['body','rankTraining','tacticalProgress'].includes(p.purpose)||p.purpose==='tacticalProgress'&&(!Number.isSafeInteger(p.targetEntityId)||!Number.isFinite(p.targetGeneration)||!['assault','guard','mobility'].includes(p.direction??''))))throw Error('运输付款账本无效');}

@@ -4,9 +4,12 @@ import type {Race} from './races';
 
 /** M4 presentation only. These scales never enter collision, range or damage. */
 const LARGE=new Set(['thor','ultralisk','colossus','carrier']);
-export function modelPresentationScale(unit:Entity){
+export function modelPresentationScale(unit:Pick<Entity,'visualScale'|'modelKey'|'heroId'|'eliteId'|'flying'|'unitType'>){
  const base=unit.visualScale??1;
- if(unit.modelKey==='hero.yamato_battlecruiser'||unit.modelKey==='hero.hots_leviathan'||unit.heroId==='purifier_flagship')return base*1.15;
+ // Fixed caps from 24 Hz samples of every mapped original clip; never resize per frame.
+ if(unit.modelKey==='hero.yamato_battlecruiser')return base*1.15*.61742;
+ if(unit.modelKey==='hero.hots_leviathan')return base*1.15*.54065;
+ if(unit.heroId==='purifier_flagship')return base*1.15;
  if(unit.modelKey==='elite.carrier.1'&&!unit.eliteId&&!unit.heroId)return base*1.15;
  if(unit.heroId)return base*1.25;
  if(!unit.eliteId)return base;
@@ -16,6 +19,7 @@ export function modelPresentationScale(unit:Entity){
 
 /** Encodes only a small original-mesh accent. Enemy tiers keep their own shader path. */
 export function modelPresentationAccent(unit:Entity){
+ if(unit.heroId&&unit.team==='player')return 14;
  if(!unit.eliteId||unit.team!=='player')return 0;
  const variant=Number(unit.eliteId.at(-1));
  if(variant<1||variant>3)return 0;
@@ -58,6 +62,17 @@ const FAMILY_ATTACKS:Partial<Record<string,AttackPresentation>>={
  high_templar:{asset:'fx.muzzle.1',impact:'fx.impact.0',tint:0xc7d7ff,size:.42,impactSize:.6,life:.22},
 };
 export const heroPresentation=(id:HeroId):AttackPresentation=>HERO_ATTACKS[id];
+/** Skills keep the real cast timing while giving restoration, control and blast cores their own palette. */
+export function heroSkillPresentation(id:HeroId):AttackPresentation{
+ const base=HERO_ATTACKS[id];
+ if(id==='swann')return {...base,asset:'fx.muzzle.0',impact:'fx.impact.0',tint:0xffdb8a,impactSize:.58};
+ if(id==='niadra')return {...base,asset:'fx.bile.4',impact:'fx.bile.4',tint:0x98e9a0,impactSize:.64};
+ if(id==='artanis')return {...base,impact:'fx.muzzle.1',tint:0xa6e5ff,impactSize:.72};
+ if(id==='vorazun')return {...base,impact:'fx.muzzle.1',tint:0xb2a8ed,impactSize:.8};
+ if(id==='tychus')return {...base,asset:'fx.flame.0',impact:'fx.flameimpact.0',size:.62,impactSize:.95};
+ if(id==='tosh')return {...base,impact:'fx.blast.6',tint:0xa6dfff,impactSize:.85};
+ return {...base,size:base.size*1.25,impactSize:base.impactSize*1.35};
+}
 const RACE_ATTACKS:Record<Race,AttackPresentation>={
  terran:{asset:'fx.muzzle.0',impact:'fx.impact.0',tint:0xffdba5,size:.35,impactSize:.48,life:.13},
  zerg:{asset:'fx.impact.1',impact:'fx.acid.0',tint:0xc6e68f,size:.38,impactSize:.52,life:.16},

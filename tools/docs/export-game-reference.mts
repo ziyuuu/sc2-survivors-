@@ -1,12 +1,12 @@
 import fs from 'node:fs/promises';
 import {SC2_UNITS,SC2_PROFILE,FASTER} from '../../src/data/sc2-units';
-import {HEROES,ALL_HERO_IDS} from '../../src/data/heroes';
+import {HEROES,HERO_BASIC_ATTACK,ALL_HERO_IDS} from '../../src/data/heroes';
 import {ELITES,ELITE_TEMPLATES} from '../../src/data/elites';
 import {RACES,RACE_NAMES,FAMILIES_BY_RACE,ALL_FAMILIES,FAMILY_LIMIT,BODY_LIMIT,ORDINARY_RANK_LIMIT,HERO_LIMIT,MVP_RULES,type FamilyId} from '../../src/data/races';
 import {EXPANSION_SOURCE,SOURCE_UNIT_DETAILS,SOURCE_PRODUCTION_RECIPES,SOURCE_UNIT_MODES,SOURCE_UNIT_WEAPON_IDS,sourceWeaponsForUnit,type VerifiedAddedUnitType} from '../../src/data/expansion-units';
 import {CAMPAIGN_SCIENCE_VESSEL,SCIENCE_VESSEL_SOURCE,CAMPAIGN_SCIENCE_VESSEL_RECIPE,SCIENCE_VESSEL_ADAPTATION} from '../../src/data/campaign-science-vessel';
 import {PRODUCTION_LINES,FAMILY_REQUIREMENTS,HEAVY_FAMILIES,DEVELOPMENT,developmentPrice,familyLine} from '../../src/data/expedition-buildings';
-import {CAMPAIGN18_ID,CAMPAIGN18_STAGES,CAMPAIGN18_ENEMIES,CAMPAIGN18_WEIGHTS,CAMPAIGN18_TOTALS,CAMPAIGN18_HERO_WINDOWS,CAMPAIGN18_PURPLE_WINDOWS,campaign18StageConfig,campaign18EnemyPressure,campaign18ChapterGrowth} from '../../src/data/campaign18';
+import {CAMPAIGN18_ID,CAMPAIGN18_STAGES,CAMPAIGN18_ENEMIES,CAMPAIGN18_WEIGHTS,CAMPAIGN18_TOTALS,campaign18StageConfig,campaign18EnemyPressure,campaign18ChapterGrowth} from '../../src/data/campaign18';
 import {MVP_TALENTS,TALENT_LINES,TALENT_POINT_CAP,MAIN_TIER_COSTS,MICRO_TIER_COSTS,PREVIOUS_TIER_POINTS} from '../../src/data/mvp-talents';
 import {SOURCE_UPGRADE_PROFILE,SOURCE_WEAPON_UPGRADE_STEPS,SOURCE_RESEARCH_EFFECTS} from '../../src/data/expansion-upgrades';
 import {EXPEDITION_CARD_DEFINITIONS,expeditionRarityWeights} from '../../src/simulation/progression/expedition-drafts';
@@ -63,22 +63,22 @@ text.push('### 来源科技增量',`以下武器与特色研究增量来自同�
 text.push('## 新规则：持续生产和发展行动',
  '每条生产线最多配置两个产出，按顺序交替；开关只影响尚未付款的未来批次。每条线仍只允许一批在途。虫族每座孵化设施只归属一个序列，不能重复贡献产能。A16可把每家族身体与预付上限从5升至7，S14可把普通军衔升至7。',
  table(['生产线ID','种族','名称','合法家族'],Object.entries(PRODUCTION_LINES).map(([id,line])=>[id,RACE_NAMES[line.race],line.name,line.families.map(name).join('、')])),
- `共 ${DEVELOPMENT.length} 种发展定义。每个第1—17关后窗口至多购买一项，研究／建造即时生效，训练只消耗战斗时间。报价不因钱包不足隐藏，也不随机打折。`,
+ `共 ${DEVELOPMENT.length} 种发展定义。每个第1—17关后窗口至多购买一项，研究／建造即时生效，训练只消耗战斗时间。报价不因钱包不足隐藏。首次选择发展方向，后续记忆方向；购买或跳过后进入随机商店。随机折扣原价／85折／7折／5折的概率为50%／30%／15%／5%，与适用天赋折扣相乘后每资源向上取整。`,
  table(['ID','种族','行动','类型','价格矿／气','等级／设施上限','前置','最早已完成关卡','关联家族'],DEVELOPMENT.map(d=>[d.id,RACE_NAMES[d.race],d.name,d.kind,Array.from({length:d.maxLevel===3?3:1},(_,i)=>resource(developmentPrice(d,i))).join(' → '),d.maxLevel,list(d.requires),d.afterStage,d.families.map(name).join('、')||'—'])),
  '三级常规研究还受统一时点限制：二级须完成第6关，三级须完成第12关。单设施实验室选择具体未配实验室的对应设施；同一窗口最多购买一项。雷神、雷兽、航母另须完成第9关。',
- '每章分别有一次免费建筑刷新和强化刷新，不结转；每窗口每类还可付费刷新一次。建筑刷新为 50＋10×(章序−1)矿，强化刷新为30＋10×(章序−1)矿。',
+ '发展与商店共享递增刷新次数n：max(10, ceil((50＋40n−20×R03)×(1−0.1×R12)))矿。R06每窗口1／2／3次免费刷新也推进n；零天赋无免费刷新，购物无限刷新。',
  '新家族接收且五个家族槽已满时先冻结模拟，再展示替换。继承等级 = 1＋floor((旧等级−1)／2)，逐存活成员产生记录；每家族身体上限由A16决定为5或7。未出舱、已付款与已投放资产按各自支付账本结清，不能将培养记录重复兑现。');
 
-text.push('## 新规则：强化三选一',
+text.push('## 新规则：三件付费商品与Build卡组',
  table(['已完成关卡','白','绿','蓝','紫','橙'],[1,6,12].map((stage,index)=>[['1—5','6—11','12—17'][index],...expeditionRarityWeights(stage).map(v=>v+'%')])),
  table(['效果ID','名称','类别','白／绿／蓝／紫／橙（配置值）','同目标上限（配置值）'],Object.entries(EXPEDITION_CARD_DEFINITIONS).map(([id,c])=>[id,c.name,c.category,c.values.join('／'),c.cap])),
- '百分比卡的配置值0.03表示3%；护甲为固定加值，培养为等级增量。第一张须立即有收益，其余类别权重为核心50／协同30／通用20；已上场目标权重3、已配置且开启的未来产出2、其他合法目标1。',
- `英雄保底窗口：第 ${CAMPAIGN18_HERO_WINDOWS.join('／')} 关；第 ${CAMPAIGN18_PURPLE_WINDOWS.join('／')} 关至少一张紫色以上。连续三个窗口未展示蓝色以上，下个窗口至少蓝色。保底随窗口推进，刷新不推进保底计数。`,
- '每窗口默认免费领取一张；R09可从同组三张再领1或2张，不另抽牌。未入编家族只可获得生产支持，不靠卡牌直接引入新家族。地图永久强化每章最多一张，全程最多六张；R14另产生独立紫／橙击杀掉落，均保存收据。');
+ '百分比卡的配置值0.03表示3%；护甲为固定加值，培养为等级增量。第一张须立即有收益；后两张当前阵容／路线、通用协同、其他合法发展权重70／20／10，空池归一化。九套Build分阶段扩大推荐池，不封锁合法卡。',
+ '删除固定关卡英雄、紫卡、连续低品质和强制品质补位；保留分阶段基础稀有度。Boss每三关死亡掉一件：80%紫／20%橙，橙替代紫。',
+ '每页三件商品均可购买，售罄不补货；R09每窗口1／2次免单，刷新不消耗免单。数值卡白到橙基础价50/0、90/20、150/50、225/90、325/140；培养为完整配方乘实际等级增量；精英为配方乘5；英雄750/250。四种经济商品支付25矿/25矿/50矿/75矿25气，分别得到100矿/50气/75矿25气/100矿25气。未入编家族只可获得生产支持，不靠卡牌直接引入新家族。地图永久强化每章最多一张，全程最多六张；R14另产生独立紫／橙击杀掉落，均保存收据。');
 
 text.push(`## 新规则：${ALL_HERO_IDS.length}名英雄`,
  '各族五选三身份，阵亡仍占身份名额。招募顺序绑定技能槽1／2／3；等级1—5，同名卡升级但不复活。新增技能数值是本作实验参数，不能据原模型名称声称为原版技能。',
- table(['ID','种族','英雄','HP／护盾','生命护甲','单发 × 发数','周期秒','射程／移速','普攻目标','属性','先天隐形'],ALL_HERO_IDS.map(id=>{const h=HEROES[id];return [id,RACE_NAMES[h.race],h.name,`${h.hp}／${h.shield}`,h.armor,`${h.damage} × ${h.attacks}`,h.period,`${h.range}／${h.speed}`,h.target,list(h.attributes),h.innateCloak?'是':'否'];})),
+ table(['ID','种族','英雄','HP／护盾','生命护甲','单发 × 发数','周期秒','射程／移速','普攻目标','属性','先天隐形'],ALL_HERO_IDS.map(id=>{const h=HEROES[id];return [id,RACE_NAMES[h.race],h.name,`${h.hp}／${h.shield}`,h.armor,`${n(h.damage*HERO_BASIC_ATTACK.damage)} × ${h.attacks}`,n(h.period/HERO_BASIC_ATTACK.frequency),`${h.range}／${h.speed}`,h.target,list(h.attributes),h.innateCloak?'是':'否'];})),
  table(['英雄','主动技能','一级基础量','范围参数：射程／半径／长度／宽度','前摇或首个结算延迟秒','冷却秒','模型ID'],ALL_HERO_IDS.map(id=>{const h=HEROES[id];return [h.name,h.skill,h.skillDamage,`${h.skillRange}／${h.radius}／${h.length}／${h.width}`,h.delay,h.cooldown,h.model];})),
  '“一级基础量”依技能分别指单次伤害、每次治疗或每目标回盾，控制技能可为0；弹幕次数、持续伤害、合法目标及控制时长由技能执行器定义，不能将该列直接当作技能总伤害。伤害／治疗／回盾量每级增加25%，范围、冷却及控制不成长。复活价格250矿／100气×[1＋0.25×(等级−1)]，下一关部署且技能从完整冷却开始。');
 
@@ -94,7 +94,7 @@ text.push(`## 当前规则：${MVP_TALENTS.length}个天赋节点`,
  `前置依已批准的逐级节点图校验；上一层最低投入门槛依次为${PREVIOUS_TIER_POINTS.join('／')}点。不同种族的对象与效果逐节点独立定义，不把原版三主线替换成新列。`,
  '每族三份预设，共九份；只有一个活跃方案实际扣资源。局外按已花金额全额洗点、切换预设；开局冻结当前种族和天赋，读档使用战局快照。英雄与临时单位按逐节点对象规则处理，截击机仅继承母航母明确指定的输出和微操一次。');
 for(const race of RACES)for(const line of TALENT_LINES)text.push(`### ${RACE_NAMES[race]} · ${line.name}`,table(['层','ID','节点','等级上限','每级占点／资源','语义ID','节点前置','效果'],MVP_TALENTS.filter(t=>t.race===race&&t.line===line.id).map(t=>[t.tier,t.id,t.name,t.maxRank,`${t.allocationCost}／${t.resourceCost}`,t.semanticId,t.prerequisiteText,t.description])));
-text.push('同属性天赋百分比先相加后乘一次；卡牌同类增量也先相加。A16可把每家族身体上限5提高到7，S14可把普通军衔上限5提高到7，R09可从原组三张强化额外领取。新订单锁定修正后的价格和时间。');
+text.push('同属性天赋百分比先相加后乘一次；卡牌同类增量也先相加。A16可把每家族身体上限5提高到7，S14可把普通军衔上限5提高到7，R09提供随机商店免单次数。新订单锁定修正后的价格和时间。');
 
 text.push('## 新规则：18关固定战役',
  `配置ID：${CAMPAIGN18_ID}。${CAMPAIGN18_TOTALS.stages} 关／${CAMPAIGN18_TOTALS.chapters} 章／${CAMPAIGN18_TOTALS.intermissions} 个关间窗口，基础战斗 ${CAMPAIGN18_TOTALS.combatSeconds} 秒，基础威胁预算 ${CAMPAIGN18_TOTALS.baseThreat}；通关矿／气总额 ${CAMPAIGN18_TOTALS.minerals}／${CAMPAIGN18_TOTALS.gas}。预算不读取玩家军力或伤亡。`,

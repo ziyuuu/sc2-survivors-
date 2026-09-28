@@ -3,23 +3,37 @@ import type {Body,Entity,Point} from '../types';
 import {bossFor,type SpecialType} from '../../data/enemies';
 import {BILE,SC2_UNITS} from '../../data/sc2-units';
 import {distance,translate,clearLine} from '../movement/steering';
-export interface EnemyCast {id:number;source:number;tier:'elite'|'boss'|'lord';kind:'charge'|'cone'|'fan'|'bile';origin:Point;point:Point;points:Point[];angle:number;at:number;damage:number;count:number;range:number;radius:number;level:number;percent:number}
+export interface EnemyCast {id:number;source:number;tier:'elite'|'boss'|'lord';kind:'charge'|'cone'|'fan'|'bile'|'spikes'|'acid';origin:Point;point:Point;points:Point[];angle:number;at:number;damage:number;count:number;range:number;radius:number;level:number;percent:number}
 interface Missile extends Point {cast:number;source:number;angle:number;remaining:number;damage:number;hits:Set<number>;level:number;percent:number}
 interface Charge {angle:number;remaining:number;damage:number;hits:Set<number>;level:number;percent:number}
-export interface EnemySpecialsSnapshot {serial:number;casts:EnemyCast[];missiles:Missile[];charges:Map<number,Charge>}
+interface AcidZone {source:number;point:Point;radius:number;damage:number;nextTick:number;ticks:number}
+export interface EnemySpecialsSnapshot {acidZones:AcidZone[];serial:number;casts:EnemyCast[];missiles:Missile[];charges:Map<number,Charge>}
 /** Fixed-step, locked warning locations. Rendering cannot apply damage. */
 export class EnemySpecials {
- casts:EnemyCast[]=[];missiles:Missile[]=[];charges=new Map<number,Charge>();private serial=0;
+ acidZones:AcidZone[]=[];casts:EnemyCast[]=[];missiles:Missile[]=[];charges=new Map<number,Charge>();private serial=0;
  constructor(private w:World){}
- snapshot():EnemySpecialsSnapshot{return {serial:this.serial,casts:this.casts,missiles:this.missiles,charges:this.charges};}
- restore(data:EnemySpecialsSnapshot){if(!data||!Number.isSafeInteger(data.serial)||!Array.isArray(data.casts)||!Array.isArray(data.missiles)||!(data.charges instanceof Map)||data.missiles.some(m=>!(m.hits instanceof Set))||[...data.charges.values()].some(c=>!(c.hits instanceof Set)))throw Error('敌方技能存档无效');this.serial=data.serial;this.casts=data.casts;this.missiles=data.missiles;this.charges=data.charges;}
+ snapshot():EnemySpecialsSnapshot{return {acidZones:this.acidZones,serial:this.serial,casts:this.casts,missiles:this.missiles,charges:this.charges};}
+ restore(data:EnemySpecialsSnapshot){if(!data||!Number.isSafeInteger(data.serial)||!Array.isArray(data.casts)||!Array.isArray(data.missiles)||!(data.charges instanceof Map)||data.missiles.some(m=>!(m.hits instanceof Set))||[...data.charges.values()].some(c=>!(c.hits instanceof Set)))throw Error('敌方技能存档无效');if(!Array.isArray(data.acidZones)||data.acidZones.some(z=>![z.source,z.point?.x,z.point?.z,z.radius,z.damage,z.nextTick,z.ticks].every(Number.isFinite)||z.radius<=0||z.damage<0||!Number.isInteger(z.ticks)||z.ticks<1||z.ticks>4))throw Error('敌方酸蚀区域存档无效');this.acidZones=data.acidZones;this.serial=data.serial;this.casts=data.casts;this.missiles=data.missiles;this.charges=data.charges;}
  private clear(a:Point,b:Point){return clearLine(a,b,0,this.w.obstacles,this.w.terrain);}
  private damage(b:Body,amount:number,percent=0){if(b.owner!=='terran'||b.hp<=0)return;this.w.hit(b,amount,[],1,'zerg',0,1);if(percent&&b.hp>0&&!b.attributes.includes('Structure'))this.w.hit(b,b.maxHp*percent,[],1,'zerg',0,1);}
+ private newBoss(u:Entity){
+  const w=this.w,type=u.unitType;if(!['queen','lurker','ultralisk','mutalisk','corruptor'].includes(type))return null;
+  if(u.windup>0||w.time<(u.specialReady??0))return false;
+  if(type==='queen'){
+   const ally=[...w.entities.values()].filter(b=>b.id!==u.id&&b.owner==='zerg'&&b.hp>0&&b.hp<b.maxHp&&b.enemyTier!=='boss'&&b.enemyTier!=='lord'&&!b.attributes.includes('Structure')&&distance(u,b)<=8&&this.clear(u,b)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id)[0];
+   if(ally){ally.hp=Math.min(ally.maxHp,ally.hp+Math.min(1200,ally.maxHp*.08));w.effect('heal',u,ally,1,.5);u.specialReady=w.time+8;u.lastSkillAt=w.time;}return false;
+  }
+  const range=type==='lurker'?14:10,ground=type!=='mutalisk',target=[...w.entities.values(),...w.fortifications.values()].filter(b=>b.owner==='terran'&&b.hp>0&&(!ground||!b.flying)&&w.visibleTo(b,'zerg')&&distance(u,b)<=range+b.unitRadius&&this.clear(u,b)).sort((a,b)=>distance(u,a)-distance(u,b)||a.id-b.id)[0];
+  if(!target)return false;
+  const kind=type==='lurker'?'spikes':type==='ultralisk'?'charge':type==='mutalisk'?'fan':'acid',delay=type==='lurker'?1.2:type==='mutalisk'?1:1.5,data=bossFor(type as SpecialType),angle=Math.atan2(target.x-u.x,target.z-u.z),point={x:target.x,z:target.z};
+  this.casts.push({id:++this.serial,source:u.id,tier:u.enemyTier!,kind,origin:{x:u.x,z:u.z},point,points:[point],angle,at:w.time+delay,damage:data.damage*(u.specialDamageMultiplier??1)*w.enemyDamageFactor(u),count:kind==='spikes'||kind==='fan'?3:1,range,radius:kind==='acid'?3:kind==='spikes'?.6:1,level:1,percent:0});u.specialReady=w.time+data.cooldown;u.lastSkillAt=w.time;u.facing=angle;u.action='skill';u.velocity={x:0,z:0};return true;
+ }
  act(u:Entity,dt:number){if(!u.enemyTier)return false;const w=this.w,charge=this.charges.get(u.id);
-  if(charge){const before={x:u.x,z:u.z},step=Math.min(charge.remaining,12*dt);translate(u,{x:Math.sin(charge.angle)*step,z:Math.cos(charge.angle)*step},u.unitRadius,false,w.obstacles,w.mapHalf,w.terrain);const moved=distance(before,u);charge.remaining-=moved;u.facing=charge.angle;u.action='move';u.velocity={x:(u.x-before.x)/dt,z:(u.z-before.z)/dt};u.distanceWalked+=moved;
+  if(charge){const before={x:u.x,z:u.z},step=Math.min(charge.remaining,12*dt);if(u.unitType==='ultralisk'&&!clearLine(before,{x:u.x+Math.sin(charge.angle)*step,z:u.z+Math.cos(charge.angle)*step},u.unitRadius,w.obstacles,w.terrain)){this.charges.delete(u.id);u.action='idle';u.velocity={x:0,z:0};return true;}translate(u,{x:Math.sin(charge.angle)*step,z:Math.cos(charge.angle)*step},u.unitRadius,false,w.obstacles,w.mapHalf,w.terrain);const moved=distance(before,u);charge.remaining-=moved;u.facing=charge.angle;u.action='move';u.velocity={x:(u.x-before.x)/dt,z:(u.z-before.z)/dt};u.distanceWalked+=moved;
    w.hash.query(u,u.unitRadius+2,b=>{if(b.owner==='terran'&&b.hp>0&&!b.flying&&!charge.hits.has(b.id)&&distance(u,b)<=u.unitRadius+b.unitRadius+.15&&this.clear(u,b)){charge.hits.add(b.id);this.damage(b,charge.damage,charge.percent);const target=w.entities.get(b.id);if(target&&target.hp>0&&charge.level>=2)w.applyStatus(target,u,'bleed',[0,.2,.25,.3,.4][charge.level-1],3);if(charge.level>=3)w.applyStatus(u,u,'bloodlust',.25,3);}},'terran');
    if(moved<step*.5||charge.remaining<=.01)this.charges.delete(u.id);return true;}
   if(this.casts.some(c=>c.source===u.id&&c.kind!=='bile')){u.action='skill';u.velocity={x:0,z:0};return true;}
+  if(u.enemyTier==='boss'||u.enemyTier==='lord'){const handled=this.newBoss(u);if(handled!==null)return handled;}
   if(u.unitType==='roach'&&u.enemyTier==='elite'||u.windup>0||w.time<(u.specialReady??0))return false;
   const range=u.unitType==='zergling'?9:u.unitType==='roach'?7:10,target=w.findTarget(u,range);
   if(!target||w.edgeDistance(u,target)>range||!this.clear(u,target))return false;
@@ -33,10 +47,13 @@ export class EnemySpecials {
   for(const c of this.casts){const source=w.entities.get(c.source);if(c.kind!=='bile'&&(!source||source.hp<=0))continue;if(w.expedition&&source&&(source.stoppedUntil??0)>w.time){c.at+=dt;pending.push(c);continue;}if(c.at>w.time+1e-8){pending.push(c);continue;}
    if(c.kind==='charge'){this.charges.set(c.source,{angle:c.angle,remaining:10,damage:c.damage,hits:new Set(),level:c.level,percent:c.percent});continue;}
    if(c.kind==='fan'){const hits=new Set<number>();for(let i=0;i<c.count;i++)this.missiles.push({...c.origin,cast:c.id,source:c.source,angle:c.angle+(i-(c.count-1)/2)*.20,remaining:c.range,damage:c.damage,hits,level:c.level,percent:c.percent});continue;}
+   if(c.kind==='spikes'){const hits=new Set<number>();for(const angle of [c.angle-.2,c.angle,c.angle+.2]){const dx=Math.sin(angle),dz=Math.cos(angle);w.hash.query(c.origin,c.range+2,b=>{const x=b.x-c.origin.x,z=b.z-c.origin.z,along=x*dx+z*dz,across=Math.abs(x*dz-z*dx);if(b.owner!=='terran'||b.flying||b.hp<=0||hits.has(b.id)||along<0||along>c.range||across>c.radius+b.unitRadius||!this.clear(c.origin,b))return;hits.add(b.id);this.damage(b,c.damage);},'terran');}continue;}
+   if(c.kind==='acid'){w.hash.query(c.point,c.radius+2,b=>{if(b.owner==='terran'&&!b.flying&&distance(c.point,b)<=c.radius+b.unitRadius&&this.clear(c.point,b))this.damage(b,c.damage);},'terran');this.acidZones.push({source:c.source,point:c.point,radius:c.radius,damage:c.damage/6,nextTick:w.time+1,ticks:4});continue;}
    if(c.kind==='cone'){w.hash.query(c.origin,c.range+2,b=>{const d=distance(c.origin,b),angle=Math.atan2(b.x-c.origin.x,b.z-c.origin.z),delta=Math.atan2(Math.sin(angle-c.angle),Math.cos(angle-c.angle));if(b.owner==='terran'&&!b.flying&&d<=c.range+b.unitRadius&&Math.abs(delta)<=.6&&this.clear(c.origin,b)){this.damage(b,c.damage);const target=w.entities.get(b.id);if(target&&target.hp>0&&c.level>=2)w.applyStatus(target,c.source,'acidArmor',[0,1,1.5,2,3][c.level-1],4);}},'terran');}
    else {const hits=new Set<number>();for(const p of c.points){w.hash.query(p,c.radius+2,b=>{if(b.owner!=='terran'||b.flying||hits.has(b.id)||distance(p,b)>c.radius+b.unitRadius||!this.clear(p,b))return;hits.add(b.id);this.damage(b,c.damage,c.percent);const target=w.entities.get(b.id);if(target&&target.hp>0&&c.level>=2)w.applyStatus(target,c.source,'corruption',[0,.2,.3,.35,.4][c.level-1],4);},'terran');if(source)w.effect('explosion',source,p,c.radius,.5);}if(c.tier==='elite'&&c.level>=3)w.addCorrosionZone(c.source,c.points,c.damage);}
   }this.casts=pending;
   this.missiles=this.missiles.filter(m=>{const before={x:m.x,z:m.z},step=Math.min(m.remaining,16*dt);m.x+=Math.sin(m.angle)*step;m.z+=Math.cos(m.angle)*step;m.remaining-=step;if(!this.clear(before,m))return false;w.hash.query(m,2,b=>{if(b.owner==='terran'&&b.hp>0&&!m.hits.has(b.id)&&distance(m,b)<b.unitRadius+.2&&this.clear(before,b)){m.hits.add(b.id);this.damage(b,m.damage,m.percent);const target=w.entities.get(b.id);if(target&&target.hp>0&&m.level>=2)w.applyStatus(target,m.source,'neural',[0,.1,.15,.2,.3][m.level-1],3);}},'terran');return m.remaining>.01;});
+  for(const zone of this.acidZones)while(zone.ticks>0&&w.time+1e-8>=zone.nextTick){w.hash.query(zone.point,zone.radius+2,b=>{if(b.owner==='terran'&&!b.flying&&distance(zone.point,b)<=zone.radius+b.unitRadius&&this.clear(zone.point,b))this.damage(b,zone.damage);},'terran');zone.nextTick++;zone.ticks--;}this.acidZones=this.acidZones.filter(z=>z.ticks>0);
   for(const id of this.charges.keys())if((w.entities.get(id)?.hp??0)<=0)this.charges.delete(id);
  }
 }

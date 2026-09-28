@@ -1,0 +1,317 @@
+[
+  {
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/ActorData.xml",
+    "sha256": "d3864e4d5c14af95d7b0834ac3f90ac5edd92aeb5ce2767575feaeb150813712",
+    "bytes": 1383578,
+    "installFile": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/EffectData.xml",
+    "sha256": "6e0739ef81bf313f0bbe42d6d1b8b029a45753ad4892cf39fbeb2fc6442159f4",
+    "bytes": 303811,
+    "installFile": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/ModelData.xml",
+    "sha256": "73cf998aac18bca66461b97fad522928fcf6d9695d77a15ed04e2d755b03c508",
+    "bytes": 733145,
+    "installFile": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/UnitData.xml",
+    "sha256": "52026354da439891b67b4767f3caa7adb21088382aa61f167ac30f692574b963",
+    "bytes": 787142,
+    "installFile": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/UnitData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/WeaponData.xml",
+    "sha256": "c9eb8cd7bee1bd5a1264eb8705893c1749e435334b3eacec4fa7f422b9076801",
+    "bytes": 61531,
+    "installFile": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/swarm.sc2campaign/base.sc2data/GameData/ActorData.xml",
+    "sha256": "51408ea6a7b7b252f9142aaad4b51e3dd751e89e8c0aa63f115250d97ff0e39a",
+    "bytes": 1317407,
+    "installFile": "assets/private/actor-source/campaigns/swarm.sc2campaign/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/swarm.sc2campaign/base.sc2data/GameData/EffectData.xml",
+    "sha256": "c00010da9b172603bf5722aa52ffd0410a9d5e1c4181ea577444811a4d10755e",
+    "bytes": 526073,
+    "installFile": "assets/private/actor-source/campaigns/swarm.sc2campaign/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/swarm.sc2campaign/base.sc2data/GameData/ModelData.xml",
+    "sha256": "3a57ebb666642e8988d7f547ba55fff6010ff63dd0dae44635d18a07ea98936b",
+    "bytes": 686913,
+    "installFile": "assets/private/actor-source/campaigns/swarm.sc2campaign/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/swarm.sc2campaign/base.sc2data/GameData/UnitData.xml",
+    "sha256": "7686f7cc9babfd5559153b299e96390d8e95a1911c59ecde31759d187efe13b0",
+    "bytes": 940102,
+    "installFile": "assets/private/actor-source/campaigns/swarm.sc2campaign/base.sc2data/GameData/UnitData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/swarm.sc2campaign/base.sc2data/GameData/WeaponData.xml",
+    "sha256": "c6b59fc25508e96d4e8961f0a75d156486fba210e838d2208277bf4bfa478ed6",
+    "bytes": 113466,
+    "installFile": "assets/private/actor-source/campaigns/swarm.sc2campaign/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/void.sc2campaign/base.sc2data/GameData/ActorData.xml",
+    "sha256": "d635f23b84a9a09eb54fb57b380912c9c36dd84a64a32ea3db25cf4e14dfb8ab",
+    "bytes": 1776869,
+    "installFile": "assets/private/actor-source/campaigns/void.sc2campaign/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/void.sc2campaign/base.sc2data/GameData/EffectData.xml",
+    "sha256": "77965b0e9725ea32fc62931c73d74b1902ddcd2c379727887ad2c7125f810b50",
+    "bytes": 1019958,
+    "installFile": "assets/private/actor-source/campaigns/void.sc2campaign/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/void.sc2campaign/base.sc2data/GameData/ModelData.xml",
+    "sha256": "656ade6039301b7d30bd9e0472fb2eebbbc3caf5745e9cc525b7608309ad7883",
+    "bytes": 1270663,
+    "installFile": "assets/private/actor-source/campaigns/void.sc2campaign/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/void.sc2campaign/base.sc2data/GameData/UnitData.xml",
+    "sha256": "449c8ada0ecb9b2fb8fcb85b2a804d8660b331f6f70581ee8a3d9d3df9636269",
+    "bytes": 947854,
+    "installFile": "assets/private/actor-source/campaigns/void.sc2campaign/base.sc2data/GameData/UnitData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "campaigns/void.sc2campaign/base.sc2data/GameData/WeaponData.xml",
+    "sha256": "7548fadc46885119d99b34df5d650bdffe8a07c0526991fe6881cf99e8a6c9b5",
+    "bytes": 96558,
+    "installFile": "assets/private/actor-source/campaigns/void.sc2campaign/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "sha256": "fc14e39db8b0dac9d695e902d7d2066680e02e2f857d0828a6d702845ecf74f1",
+    "bytes": 259576,
+    "installFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "sha256": "c0e708a61db27c534e5e3c8cff6cf8db9489f9556ea691ef9d7f28bde1df90b5",
+    "bytes": 10099,
+    "installFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "sha256": "73f4cbec2e535325de60a185ef974b3a8bb9e2e05426fa9ac8313f70508a6710",
+    "bytes": 30443,
+    "installFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "sha256": "988848b0c0a95bebb4384b9a536d5ce34364d75a508cc5b6b4565444542556fb",
+    "bytes": 17081,
+    "installFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "sha256": "56c246f15fc41865cbae98cbc834e0bc8fee1d2e614b544d51fdaa7b48660440",
+    "bytes": 1777,
+    "installFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "sha256": "2fdc89e18629b74e44252be0c3dd28fbc9d9f9d48a297049b9ab0d4e47d7b4db",
+    "bytes": 1762016,
+    "installFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "sha256": "bfe511228873786e79d9a6fe3c56dc46392dbf0c90e896d795a759ad5d3f95cd",
+    "bytes": 164503,
+    "installFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "sha256": "98f1ffd0878b201ade5d814b4454426fef4283eb778736d1d2a146e59a5c7a04",
+    "bytes": 2167640,
+    "installFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "sha256": "1e1c25e5e35a232442a487f29914f237ef6292cc2dd50e93608a28c8c2331c69",
+    "bytes": 619542,
+    "installFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "sha256": "470592d74c91401db17bb855114554a5f5b6e2130b22152debe7bca04bd8fa00",
+    "bytes": 30182,
+    "installFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/novastoryassets.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "sha256": "95c8558c74641e7dde3eb5a062fe76a86edde19745e602b7e825f9ba5f53dee7",
+    "bytes": 457832,
+    "installFile": "assets/private/actor-source/mods/novastoryassets.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/novastoryassets.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "sha256": "7321344acddbf5cedb30c9c826760d6332df3566c221a5426f87627d2c6f9179",
+    "bytes": 144039,
+    "installFile": "assets/private/actor-source/mods/novastoryassets.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/novastoryassets.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "sha256": "83a6903e6457809bd2ce34ec021e4c3e3c26f1c76828cb3a02d22b9d6e7837bb",
+    "bytes": 407055,
+    "installFile": "assets/private/actor-source/mods/novastoryassets.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/novastoryassets.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "sha256": "21d7b3f2baebb55407732ccba7244165d6083fd6dbd5f8543091becfe5013549",
+    "bytes": 292322,
+    "installFile": "assets/private/actor-source/mods/novastoryassets.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/novastoryassets.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "sha256": "97058c1725b720e8fdd4f04f931e21dc66ec33a4bb85b786ec022e4d71bbc4d0",
+    "bytes": 33513,
+    "installFile": "assets/private/actor-source/mods/novastoryassets.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "sha256": "0931ff360bca0b58b9f1e8222c3b69d4d2f714af6a1379bf46e17f29b6e19797",
+    "bytes": 3083821,
+    "installFile": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "sha256": "4907febf4bf7d8c23e476448f7e16c3493f9ff2061215bb1b6c80553b7cc818e",
+    "bytes": 1511222,
+    "installFile": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "sha256": "c8dae7a89695b1042a06aca264155ba650473007e5eeea7a18d4c470211d2736",
+    "bytes": 1681430,
+    "installFile": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "sha256": "489cf45f1c88936c1c7aeca72200b04e0a18cfa6067352d45a083ed7e55b339f",
+    "bytes": 1795094,
+    "installFile": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "sha256": "6b0a7400cd1508c78710384500348a63ec473a1558314fa2641e98fdabd81e01",
+    "bytes": 183939,
+    "installFile": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "sha256": "7ae7dfa102f6e740ad85f3a46649d5daa21a5216a298791a2ca4d94516a38a98",
+    "bytes": 559991,
+    "installFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "sha256": "cccdc0f18ce6780989c7ddd9b663b84cbf581f1c51bacc8817c296f73237c415",
+    "bytes": 169497,
+    "installFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910",
+    "bytes": 53,
+    "installFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "sha256": "f400f58ecfc6ed4c6c147a742bd0fd842d610a9199fc776d2999996af2027cfa",
+    "bytes": 189838,
+    "installFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "sha256": "a2c4431244942c46ce4cef24577a628162027efafb01a01222ce202e88c560d2",
+    "bytes": 12280,
+    "installFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "sha256": "252c4612166b7620a71222d2f014cc2a81ae9d5681f627a9b65cf1ad1c1b2437",
+    "bytes": 411058,
+    "installFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "sha256": "51ad4b7ed3d584d4bc26c80afb90d31a72c36917d0e3ba68ade047489cf18224",
+    "bytes": 173078,
+    "installFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910",
+    "bytes": 53,
+    "installFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "sha256": "496ea3db0240af61f3021c8e7b500539656d3439292b3ef39c1a0b4617184ca7",
+    "bytes": 203182,
+    "installFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/UnitData.xml",
+    "build": "B97563"
+  },
+  {
+    "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "sha256": "c40b691e691b28fe80428e194ab6fd704a414d4f16054198da81d19fba14fa6f",
+    "bytes": 17806,
+    "installFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563"
+  }
+]

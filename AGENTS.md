@@ -1,9 +1,27 @@
 # Development contract · V26
 
+## Latest package correction · 2026-09-27
+
+- User requires removal of duplicated/unused shipped content, not a size quota. The 380MiB ceiling and 320/280MiB targets are superseded; never claim packaging is complete merely because it fits them. Record bytes/hashes, reference evidence, identical-content sharing and unresolved audit candidates. Acquire necessary external resources independently through the pinned original-source/local-processing workflow. See docs/project/PACKAGE_HYGIENE_20260927.md. Preserve source art; this is not disk-cleanup authorization.
+
+## F05–F07 approved implementation · 2026-09-27
+
+- User approved `docs/project/MVP_FEEDBACK_F05_F07_APPROVED.md`: three race workers and authentic Barracks/Hatchery/Pylon temporary delivery views; no delivery/economy rule rewrite.
+- Hero approved durability table plus basic hit damage ×1.15 and period ÷1.15, flagship children inherit once; preserve skills/armor/growth. Hero head text/slot removed, fine vitals remain input-transparent; fixed HUD unchanged; fine gold rim and main attack feedback. Air model planar cap5.5 with fixed sampled scale, not physics.
+- Reaper changes are diagnosis/fixes only, NOT the old proposed +2 light bonus. A shooting-slot omission was reproduced and repaired; range5, 2×4 and period0.785714 remain.
+- Current run schema8 uses neutral workers/stats. No old developer-save compatibility branch. F05 original-source extraction and F07 browser/performance evidence must be verified before completion; F02 full visual, M4/M5 visual, M6 and M7 remain open.
+
+## Latest approved feedback repair · 2026-09-27
+
+- The user's final F01–F04 plan supersedes the earlier feedback r1 and historical free-draft contract. Use `docs/project/MVP_FEEDBACK_F01_F04_APPROVED.md` and its validation record; do not restore all-enemy half HP, chapter free refreshes, guaranteed hero/purple windows or a free base card.
+- Running rules: ling bases18/24/30/35 with original difficulty growth; remembered development direction → one action → three independently paid goods with saved random discounts and unlimited rising shared refresh fees. R06/R09 are the explicit free-refresh/free-purchase talent sources. Six campaign Bosses and nine endless prototypes drop one free physical reward (80% purple/20% orange), with saved receipts and cancellable claims.
+- F01/F03/F04 engineering verified; F02 attack playback/two animation modes implemented, exact source actor mappings and full visual coverage remain REVIEW. Current run schema7. Do not declare M4/M5 visual, M6 complete performance or M7 acceptance complete. F05/F06 workers/carriers/hero rebalance remain out of this repair scope.
+
+
 ## Current MVP progress · 2026-09-25
 
 - M1–M3 are complete. M4 samples and M5's 90 elite / 18 hero content are implemented and machine-tested; the user explicitly deferred visual acceptance until the full MVP. Do not mark M4-02, M5-03 or M7 complete on automation alone. Use \`docs/project/status.json\`, \`M5_PROGRESS.md\` and \`M6_PROGRESS.md\` for current evidence.
-- M6's latest offline HTML is under the 380 MiB package ceiling. A real-screen loading prewarm removed the diagnosed first-unit GPU gaps in three-race stage-1 samples; full stages 1–6, late campaign, endless and real input/hardware acceptance remain outstanding. 300-enemy synthetic pressure is tracked separately. M7 engineering preflight and a local Web directory are recorded in `docs/project/M7_PREFLIGHT.md`, but no release candidate is frozen.
+- M6 tracks actual offline HTML bytes and resource necessity/sharing; there is no fixed package ceiling. A real-screen loading prewarm removed the diagnosed first-unit GPU gaps in three-race stage-1 samples; full stages 1–6, late campaign, endless and real input/hardware acceptance remain outstanding. 300-enemy synthetic pressure is tracked separately. M7 engineering preflight and a local Web directory are recorded in `docs/project/M7_PREFLIGHT.md`, but no release candidate is frozen.
 
 ## M2 runtime foundation · 2026-09-25
 

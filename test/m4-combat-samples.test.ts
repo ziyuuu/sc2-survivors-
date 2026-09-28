@@ -54,8 +54,8 @@ test('Raynor piercing shot advances over 0.2 seconds and saved mid-flight target
 });
 
 test('Dehaka and Fenix sample basics add bounded secondary damage without extra APM copies',()=>{
- const z=make('zerg');assert.ok(z.acquireHero('dehaka'));const dehaka=z.heroEntity('dehaka')!;dehaka.x=dehaka.z=0;const primary=foe(z,1,0),secondary=foe(z,1.6,.3),behind=foe(z,-1,0);z.hash.rebuild(z.entities.values());z.fire(dehaka,primary);assert.equal(primary.hp,9920);assert.equal(secondary.hp,9960);assert.equal(behind.hp,10000);
- const p=make('protoss');assert.ok(p.acquireHero('fenix'));const fenix=p.heroEntity('fenix')!;fenix.x=fenix.z=0;const center=foe(p,4),around=foe(p,4,.7),distant=foe(p,4,3);p.hash.rebuild(p.entities.values());p.fire(fenix,center);assert.equal(center.hp,9928);assert.ok(Math.abs(around.hp-(10000-72*.35))<1e-8);assert.equal(distant.hp,10000);
+ const z=make('zerg');assert.ok(z.acquireHero('dehaka'));const dehaka=z.heroEntity('dehaka')!;dehaka.x=dehaka.z=0;const primary=foe(z,1,0),secondary=foe(z,1.6,.3),behind=foe(z,-1,0);z.hash.rebuild(z.entities.values());z.fire(dehaka,primary);assert.equal(primary.hp,9908);assert.equal(secondary.hp,9954);assert.equal(behind.hp,10000);
+ const p=make('protoss');assert.ok(p.acquireHero('fenix'));const fenix=p.heroEntity('fenix')!;fenix.x=fenix.z=0;const center=foe(p,4),around=foe(p,4,.7),distant=foe(p,4,3);p.hash.rebuild(p.entities.values());p.fire(fenix,center);assert.equal(center.hp,9917.2);assert.ok(Math.abs(around.hp-(10000-72*1.15*.35))<1e-8);assert.equal(distant.hp,10000);
 });
 
 test('presentation scales never alter physics and the recovery signal has no death event',()=>{
@@ -66,5 +66,5 @@ test('presentation scales never alter physics and the recovery signal has no dea
  elite.eliteId='ravager.3';assert.equal(modelPresentationAccent(elite),10);
  elite.team='enemy';assert.equal(modelPresentationAccent(elite),0);
  const hero=w.heroEntity('dehaka')??(w.acquireHero('dehaka'),w.heroEntity('dehaka')!);assert.equal(modelPresentationScale(hero),1.25);
- const air=w.addUnit('carrier','terran',5,5);air.modelKey='hero.hots_leviathan';assert.equal(modelPresentationScale(air),1.15);
+ const air=w.addUnit('carrier','terran',5,5);air.modelKey='hero.hots_leviathan';assert.equal(modelPresentationScale(air),1.15*.54065);
 });

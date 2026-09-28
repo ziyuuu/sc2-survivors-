@@ -8,6 +8,7 @@ export const ENDLESS={
  elite:{interval:30,accelerateEvery:60,factor:.85,minInterval:1/60},
  boss:{interval:90,accelerateEvery:90,factor:.85,minInterval:1/60},
  growth:{health:1.4,damage:1.25,attackSpeed:1.15},
+ bossTypes:['queen','lurker','mutalisk','corruptor','ultralisk','zergling','roach','hydralisk','ravager'] as readonly SpecialType[],
  types:['zergling','roach','hydralisk','ravager'] as readonly SpecialType[],
  roundDuration:240,
  waveTemplateThreat:530.6,

@@ -4,6 +4,8 @@ import os from 'node:os';
 
 const seconds=Number(process.argv.includes('--seconds')?process.argv[process.argv.indexOf('--seconds')+1]:60);
 const headed=process.argv.includes('--headed');
+const animationMode=process.argv.includes('--animation-mode')?process.argv[process.argv.indexOf('--animation-mode')+1]:'complete';
+if(!['complete','energy-saving'].includes(animationMode))throw Error('Invalid animation mode');
 const races=(process.argv.includes('--races')?process.argv[process.argv.indexOf('--races')+1]:'terran,zerg,protoss').split(',');
 const output=process.argv.includes('--output')?process.argv[process.argv.indexOf('--output')+1]:'reports/local/m6-natural';
 if(!Number.isFinite(seconds)||seconds<1||seconds>450||races.some(r=>!['terran','zerg','protoss'].includes(r))||!/^reports\/local\/[a-z0-9-]+$/.test(output))throw Error('Invalid benchmark arguments');
@@ -11,10 +13,13 @@ await fs.mkdir(output,{recursive:true});
 const report={at:new Date().toISOString(),method:`Local ${headed?'headed':'headless'} Chrome, DPR1 1440x900, genuine new-run menu, Normal stage-1 natural waves and normal production. Samples start at battle resume; no warmup clipping or synthetic actors. Headed automation is not manual visible-window acceptance.`,host:{cpu:os.cpus()[0]?.model,logicalCores:os.cpus().length,totalRAM:os.totalmem()},seconds,runs:[]};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:!headed,args:['--enable-precise-memory-info']});
 report.browserVersion=browser.version();
+report.animationMode=animationMode;
+report.seed=89241;
 const summarize=values=>{const sorted=[...values].sort((a,b)=>a-b),q=x=>sorted.length?sorted[Math.min(sorted.length-1,Math.floor(sorted.length*x))]:null;return {count:values.length,p50:q(.5),p95:q(.95),p99:q(.99),max:sorted.at(-1)??null,over20:values.filter(x=>x>20).length,over50:values.filter(x=>x>50).length};};
 try{
  for(const race of races){
   const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1}),page=await context.newPage(),errors=[];
+  await context.addInitScript(mode=>localStorage.setItem('sc2.animationMode',mode),animationMode);
   page.on('pageerror',error=>errors.push(error.message));page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
   await page.goto(process.env.SC2_QA_URL??'http://127.0.0.1:5173/');
   await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:240000});

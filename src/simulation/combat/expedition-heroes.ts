@@ -1,4 +1,4 @@
-import {HEROES,HERO_IDS_BY_RACE,HERO_SKILL_FLIGHT,heroStats,type HeroId} from '../../data/heroes';
+import {HEROES,HERO_BASIC_ATTACK,HERO_IDS_BY_RACE,HERO_SKILL_FLIGHT,heroStats,type HeroId} from '../../data/heroes';
 import {RUNTIME_ASSETS} from '../../assets/runtime.generated';
 import {TUNING} from '../../data/game';
 import {FASTER,SC2_UNITS,type UnitType} from '../../data/sc2-units';
@@ -25,7 +25,7 @@ export function refreshExpeditionHero(w:World,u:Entity,fill=false):boolean{
  u.shieldArmor=(talents.shieldArmorFlat??0);u.shieldRegen=data.shield>0?(shieldSource?.shieldRegen??2)*FASTER:0;u.shieldDelay=data.shield>0?(shieldSource?.shieldDelay??10)/FASTER:0;
  u.maxShield=data.shield*growth.health*(1+(talents.maxShieldPct??0))+(data.race==='protoss'?u.maxHp*(talents.shieldFromHpPct??0):0);u.shield=fill?u.maxShield:Math.max(0,Math.min(u.maxShield,u.maxShield-lostShield));
  u.maxTalentShield=data.race!=='protoss'&&u.attributes.includes('Biological')?u.maxHp*(talents.shieldFromHpPct??0):0;u.talentShield=fill?u.maxTalentShield:Math.max(0,Math.min(u.maxTalentShield,u.maxTalentShield-lostTalentShield));
- u.armor=(data.armor+growth.armor)*(1+(talents.armorPct??0));u.moveSpeed=data.speed*(1+(talents.moveSpeedPct??0));u.weaponDamage=data.damage*growth.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/growth.attackSpeed/(1+(talents.attackSpeedPct??0));u.attackRange=data.range*(1+(talents.rangePct??0));
+ u.armor=(data.armor+growth.armor)*(1+(talents.armorPct??0));u.moveSpeed=data.speed*(1+(talents.moveSpeedPct??0));u.weaponDamage=data.damage*HERO_BASIC_ATTACK.damage*growth.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/HERO_BASIC_ATTACK.frequency/growth.attackSpeed/(1+(talents.attackSpeedPct??0));u.attackRange=data.range*(1+(talents.rangePct??0));
  u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;
  (u as ControlledEntity).cloaked=data.innateCloak;
  return true;
@@ -103,10 +103,10 @@ export function castExpeditionHero(w:World,id:HeroId):boolean{
  if(id==='purifier_flagship')w.effect('hero-warning',source,base.point,data.radius,1);
  resolveExpeditionHeroCasts(w);w.changed();return true;
 }
-function restoreHealth(w:World,source:Entity,target:Entity,amount:number){
+function restoreHealth(w:World,source:Entity,target:Entity,amount:number,castId?:number){
  const suppression=Math.min(.5,Math.max(w.statuses.value(target.id,'bleed',w.time),w.statuses.value(target.id,'corruption',w.time)));
  const restored=Math.min(target.maxHp-target.hp,amount*(1-suppression));if(restored<=0)return;
- target.hp+=restored;w.stats.healed+=restored;w.effect('heal',source,target,.3,.35);
+ target.hp+=restored;w.stats.healed+=restored;w.effect('heal',source,target,.3,.35);if(source.heroId==='swann'||source.heroId==='niadra')w.visual('skill-impact',source,target,castId);
 }
 function slow(w:World,target:Body,amount:number,seconds:number){
  const entity=w.entities.get(target.id);if(!entity)return;
@@ -127,7 +127,9 @@ export function resolveExpeditionHeroCasts(w:World):void{
   if(cancelledChannels.has(cast.id))continue;
   const source=w.entities.get(cast.source),target=w.body(cast.target),data=HEROES[cast.hero];
   if(cast.phase!=='dot'&&!cast.launched&&source&&source.hp>0&&w.time+1e-8>=cast.at-(HERO_SKILL_FLIGHT[cast.hero]??data.delay)){
-   w.visual('skill-launch',source,cast.point,cast.id);cast.launched=true;
+   // Save only the launch presentation anchor. The authored damage path keeps cast.origin.
+   cast.presentationLaunch??={x:source.x,z:source.z,facing:Math.atan2(cast.point.x-source.x,cast.point.z-source.z),poseSeconds:Math.max(0,w.time-(source.lastSkillAt??w.time))};
+   w.visual('skill-launch',source,cast.point,cast.id,cast.presentationLaunch);cast.launched=true;
   }
   if(cast.phase==='line-travel'){
    if(!source)continue;
@@ -154,12 +156,12 @@ export function resolveExpeditionHeroCasts(w:World):void{
    if(source){w.visual('skill-impact',source,cast.point,cast.id);w.effect(cast.hero==='hots_leviathan'?'bile':'explosion',source,cast.point,data.radius,.5);}continue;
   }
   if(!source)continue;
-  if(cast.hero==='swann'){if(target)restoreHealth(w,source,target as Entity,cast.damage);continue;}
+  if(cast.hero==='swann'){if(target)restoreHealth(w,source,target as Entity,cast.damage,cast.id);continue;}
   if(cast.hero==='niadra'||cast.hero==='artanis'){
    if(source.hp<=0)continue;
    for(const ally of alliesFor(w,cast.hero,source).slice(0,7)){
-    if(cast.hero==='niadra')restoreHealth(w,source,ally,cast.damage);
-    else{ally.shield=Math.min(ally.maxShield??0,(ally.shield??0)+cast.damage);w.effect('heal',source,ally,.45,.5);}
+    if(cast.hero==='niadra')restoreHealth(w,source,ally,cast.damage,cast.id);
+    else{ally.shield=Math.min(ally.maxShield??0,(ally.shield??0)+cast.damage);w.effect('heal',source,ally,.45,.5);w.visual('skill-impact',source,ally,cast.id);}
    }continue;
   }
   if(cast.hero==='nova'||cast.hero==='zeratul'||cast.hero==='dehaka'){

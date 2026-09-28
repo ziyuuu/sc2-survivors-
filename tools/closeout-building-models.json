@@ -1,0 +1,6 @@
+[
+ {"id":"source.pylon.birth","modelDataId":"PylonBirth","assetPath":"Assets/Buildings/Protoss/PylonWarpIn/PylonWarpIn.m3","name":"pylonwarpin"},
+ {"id":"source.pylon.death","modelDataId":"PylonDeath","assetPath":"Assets/Buildings/Protoss/PylonEx2Death/PylonEx2Death.m3","name":"pylonex2death"},
+ {"id":"source.barracks.death","modelDataId":"BarracksDeath","assetPath":"Assets/Buildings/Terran/BarracksDeathEx1/BarracksDeathEx1.m3","name":"barracksdeathex1"},
+ {"id":"source.hatchery.death","modelDataId":"HatcheryDeath","assetPath":"Assets/Buildings/Zerg/HatcheryDeathEx1/HatcheryDeathEx1.m3","name":"hatcherydeathex1"}
+]

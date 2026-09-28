@@ -1,3 +1,4 @@
+import {RESCUE_PRESENTATION} from '../data/economy';
 import type {RunSnapshot} from '../simulation/persistence/run-snapshot';
 import type {World} from '../simulation/world';
 import type {BattleRenderer} from '../render/scene/battle-renderer';
@@ -32,14 +33,15 @@ export class AssetReadinessCoordinator {
  async prepare(kind:ReadinessKind,request:ReadinessRequest={}){
   const generation=++this.generation;this.last={kind,request};this.update({kind,phase:'models',done:0,total:0,label:'准备资源清单',error:null});
   try{
+   const rescueRace=request.snapshot?.config.race??request.race??this.world.expedition.race,rescue=RESCUE_PRESENTATION[rescueRace];
    if(!this.view.initialAssetsLoaded){
     const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&['map-data','map-model','texture','effect-texture','audio'].includes(asset.kind)).map(asset=>asset.id);
-    const fixed=['model.scv','model.drone','model.egg','model.hive','model.droppod','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'];
+    const fixed=['model.'+rescue.workerModel,'model.'+rescue.carrierModel,...(rescue.carrierBirthModel?['model.'+rescue.carrierBirthModel]:[]),'model.drone','model.egg','model.hive','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'];
     await prepareEmbeddedAssetIds([...common,...fixed],(done,total,label)=>{if(generation===this.generation)this.update({phase:'models',done,total,label:`准备内置资源 ${label}`});});
    }
    if(generation!==this.generation)return false;
    const audioReady=this.audio?.preload((done,total,label)=>{if(generation===this.generation)this.update({phase:'audio',done,total,label:`解码音效 ${label}`});}).then(()=>null,error=>error as Error);
-   if(!this.view.initialAssetsLoaded){await this.view.load((label,done=0,total=0)=>{if(generation===this.generation)this.update({phase:label.startsWith('GPU')?'gpu':'models',label,done,total});});}
+   if(!this.view.initialAssetsLoaded){await this.view.load((label,done=0,total=0)=>{if(generation===this.generation)this.update({phase:label.startsWith('GPU')?'gpu':'models',label,done,total});},rescueRace);}
    if(generation!==this.generation)return false;
    if(kind==='load'&&request.snapshot)await this.view.prepareSnapshotAssets(request.snapshot,(done,total,label)=>{if(generation===this.generation)this.update({phase:'models',done,total,label});});
    else if(kind==='endless')await this.view.prepareEndlessAssets((done,total,label)=>{if(generation===this.generation)this.update({phase:'models',done,total,label});});
@@ -60,6 +62,6 @@ export class AssetReadinessCoordinator {
    if(kind==='load'&&request.snapshot)this.world.restoreRun(request.snapshot,true);
    if(this.view.modelErrors.length)throw Error(this.view.modelErrors.at(-1));
    this.update({phase:'ready',done:1,total:1,label:'就绪 · 请确认继续'});return true;
-  }catch(error){if(generation===this.generation)this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});return false;}
+  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}
  }
 }

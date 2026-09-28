@@ -6,8 +6,6 @@ export const CAMPAIGN18_ENEMIES=['zergling','roach','baneling','ravager','hydral
 export type Campaign18Enemy=typeof CAMPAIGN18_ENEMIES[number];
 export type Campaign18Counts=Record<Campaign18Enemy,number>;
 export const CAMPAIGN18_WEIGHTS:Readonly<Campaign18Counts>=Object.freeze({zergling:1,roach:3,baneling:2,ravager:4,hydralisk:3,queen:5,lurker:6,mutalisk:4,corruptor:4,ultralisk:12});
-export const CAMPAIGN18_HERO_WINDOWS=[6,9,12] as const;
-export const CAMPAIGN18_PURPLE_WINDOWS=[15] as const;
 export const CAMPAIGN18_DURATIONS=[60,60,60,75,75,75,90,90,90,105,105,105,120,120,120,150,150,150] as const;
 export const CAMPAIGN18_BUDGETS=[6,12,28,70,95,125,150,170,190,185,230,285,330,370,420,600,660,758] as const;
 export const CAMPAIGN18_CHAPTER_REWARDS=[[330,155],[550,300],[500,325],[400,375],[425,425],[550,475]] as const;
@@ -72,13 +70,13 @@ export interface Campaign18StageConfig {
  budget:number;waveBudget:number;mix:Campaign18Counts;reserves:Campaign18Reserves;ambient:Campaign18Counts;guardBudget:number;guards:Campaign18Counts;
  waves:number;entranceSpacing:number;lingHp:number;speed:number;width:number;podHp:number;reward:readonly [number,number];drones:number;eggs:number;
 }
-function reservesFor(stage:number,budget:number,difficulty?:Difficulty):Campaign18Reserves{return {captain:[3,9,15].includes(stage)?Math.floor(budget*.1):0,boss:[6,12].includes(stage)?Math.floor(budget*.2):0,mainHive:stage===18?Math.floor(budget*.3):0,expansionHive:difficulty==='hell'&&stage>=4?Math.floor(budget*.1):0};}
+function reservesFor(stage:number,budget:number,difficulty?:Difficulty):Campaign18Reserves{return {captain:0,boss:[3,6,9,12,15,18].includes(stage)?Math.floor(budget*.2):0,mainHive:stage===18?Math.floor(budget*.3):0,expansionHive:difficulty==='hell'&&stage>=4?Math.floor(budget*.1):0};}
 const reserveTotal=(r:Campaign18Reserves)=>r.captain+r.boss+r.mainHive+r.expansionHive;
 function chapterReward(index:number):readonly [number,number]{const total=CAMPAIGN18_CHAPTER_REWARDS[Math.floor(index/3)];return total.map(n=>index%3===2?n-2*Math.floor(n*.3):Math.floor(n*.3)) as unknown as readonly [number,number];}
 function baseStage(index:number):Campaign18StageConfig {
  const id=index+1,budget=CAMPAIGN18_BUDGETS[index],mix=rowCounts(mixes[index]),reserves=reservesFor(id,budget),waveBudget=budget-reserveTotal(reserves),events=stageEconomy(index);
  const guardBudget=Math.round(legacyValue(index,s=>Object.entries(s.guards).reduce((n,[type,count])=>n+count*CAMPAIGN18_WEIGHTS[type as Campaign18Enemy],0)));
- return {campaignId:CAMPAIGN18_ID,id,chapter:Math.floor(index/3)+1,name:names[index],durationSeconds:CAMPAIGN18_DURATIONS[index],budget,waveBudget,mix,reserves,ambient:allocateCampaign18Threat(waveBudget,mix).counts,guardBudget,guards:allocateCampaign18Threat(guardBudget,mix).counts,waves:Math.ceil(CAMPAIGN18_DURATIONS[index]/10),entranceSpacing:legacyValue(index,s=>s.entranceSpacing),lingHp:Math.round(legacyValue(index,s=>s.lingHp)),speed:legacyValue(index,s=>s.speed),width:legacyValue(index,s=>s.width),podHp:Math.round(legacyValue(index,s=>s.podHp)),reward:chapterReward(index),eggs:events.filter(e=>e.kind==='egg').length,drones:events.filter(e=>e.kind==='drone').length};
+ return {campaignId:CAMPAIGN18_ID,id,chapter:Math.floor(index/3)+1,name:names[index],durationSeconds:CAMPAIGN18_DURATIONS[index],budget,waveBudget,mix,reserves,ambient:allocateCampaign18Threat(waveBudget,mix).counts,guardBudget,guards:allocateCampaign18Threat(guardBudget,mix).counts,waves:Math.ceil(CAMPAIGN18_DURATIONS[index]/10),entranceSpacing:legacyValue(index,s=>s.entranceSpacing),lingHp:[18,24,30][index]??35,speed:legacyValue(index,s=>s.speed),width:legacyValue(index,s=>s.width),podHp:Math.round(legacyValue(index,s=>s.podHp)),reward:chapterReward(index),eggs:events.filter(e=>e.kind==='egg').length,drones:events.filter(e=>e.kind==='drone').length};
 }
 export const CAMPAIGN18_STAGES:readonly Campaign18StageConfig[]=CAMPAIGN18_DURATIONS.map((_,i)=>baseStage(i));
 /** serial is this stage's zero-based delivery number; retain it in the caller's run state. */
@@ -104,6 +102,7 @@ export interface MainHiveCast {id:number;kind:'fan'|'bile'|'line';origin:{x:numb
 export interface MainHiveMissile {id:number;cast:number;x:number;z:number;angle:number;remaining:number;speed:number;damage:number;hitIds:number[]}
 export interface MainHiveCombatState {nextEvent:number;serial:number;casts:MainHiveCast[];missiles:MainHiveMissile[]}
 export interface Campaign18Runtime {
+ finalBossId:number|null;finalBossKilled:boolean;
  mainCombat?:MainHiveCombatState;
  stage:number;difficulty:Difficulty;guardSerial:number;expansionId:number|null;expansionSpawned:boolean;mainPhase:number;nextMainSkillAt:number;
  accounting:Campaign18Schedule['accounting'];
@@ -122,7 +121,7 @@ export function campaign18Runtime(config:Campaign18StageConfig,schedule:Campaign
   const times=hive.kind==='main'?[0,12,27,40,57,77,97,112,130]:[hive.at+8,hive.at+20,hive.at+32].filter(at=>at<config.durationSeconds*.9);
   const batches=times.map(at=>({at,kind:hive.kind,types:[] as Campaign18Enemy[]}));types.forEach((type,i)=>batches[i%batches.length].types.push(type));hiveBatches.push(...batches);
  }
- return {mainCombat:{nextEvent:0,serial:0,casts:[],missiles:[]},stage:config.id,difficulty:config.difficulty??'normal',guardSerial:0,expansionId:null,expansionSpawned:false,mainPhase:0,nextMainSkillAt:4,accounting:{...schedule.accounting},mainStructureBudget:structure.main,expansionStructureBudget:structure.expansion,hiveBatches:hiveBatches.sort((a,b)=>a.at-b.at),spawned:{waves:0,specials:0,mainHive:0,expansionHive:0},withheld:0};
+ return {finalBossId:null,finalBossKilled:false,mainCombat:{nextEvent:0,serial:0,casts:[],missiles:[]},stage:config.id,difficulty:config.difficulty??'normal',guardSerial:0,expansionId:null,expansionSpawned:false,mainPhase:0,nextMainSkillAt:4,accounting:{...schedule.accounting},mainStructureBudget:structure.main,expansionStructureBudget:structure.expansion,hiveBatches:hiveBatches.sort((a,b)=>a.at-b.at),spawned:{waves:0,specials:0,mainHive:0,expansionHive:0},withheld:0};
 }
 function randomSeed(seed:number){let n=seed>>>0;return ()=>{n=(Math.imul(n,1664525)+1013904223)>>>0;return n/4294967296;};}
 /** Independent RNG streams keep economy stable when specials are disabled. No player inputs. */
@@ -136,7 +135,7 @@ export function campaign18Schedule(s:Campaign18StageConfig,seed:number,specialsE
  const specials:Campaign18Special[]=[];let mainHive:Campaign18Hive|null=null,expansionHive:Campaign18Hive|null=null;
  if(specialsEnabled){
   if(s.reserves.captain)specials.push({at:duration*.6,type:s.id===3?'zergling':s.id===9?'queen':'hydralisk',tier:'elite',role:'captain',budget:s.reserves.captain});
-  if(s.reserves.boss)specials.push({at:duration*.55,type:s.id===6?'roach':'ravager',tier:'boss',role:'boss',budget:s.reserves.boss});
+  if(s.reserves.boss)specials.push({at:s.id===3?30:s.id===6||s.id===12?duration*.625:s.id===9?duration*2/3:s.id===15?72:45,type:s.id===3?'zergling':s.id===6?'roach':s.id===9?'hydralisk':s.id===12?'ravager':s.id===15?'lurker':'ultralisk',tier:'boss',role:'boss',budget:s.reserves.boss});
   if(s.reserves.mainHive)mainHive={kind:'main',at:0,budget:s.reserves.mainHive,phases:[{from:0,until:45,name:'外围驻军'},{from:45,until:100,name:'主巢技能'},{from:100,until:150,name:'机制组合'}],alwaysAttackable:true,requiresSurvival:true,healBetweenPhases:false};
   if(s.reserves.expansionHive){const at=duration*.45;expansionHive={kind:'expansion',at,budget:s.reserves.expansionHive,warningAt:at-5,warningSeconds:5,maxNewPerStage:1,maxAlive:2};}
  }

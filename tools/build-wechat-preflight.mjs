@@ -1,0 +1,22 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {build} from 'esbuild';
+import {createHash} from 'node:crypto';
+
+const root=process.cwd(),out=path.resolve(root,'dist/wechat-preflight');
+await import('./build-wechat-assets.mjs');
+const manifest=JSON.parse(await fs.readFile(path.resolve(root,'dist/wechat/asset-manifest.json'),'utf8'));
+const origin=process.env.WECHAT_ASSET_ORIGIN??'';
+if(origin&&!/^https:\/\/[A-Za-z0-9.-]+(?::443)?(?:\/[A-Za-z0-9._/-]*)?$/.test(origin))throw Error('WECHAT_ASSET_ORIGIN must be an HTTPS directory URL');
+await fs.mkdir(out,{recursive:true});
+await build({entryPoints:[path.resolve(root,'src/platform/wechat/preflight.ts')],outfile:path.resolve(out,'runtime.js'),bundle:true,minify:true,format:'cjs',platform:'neutral',target:'es2020',logLevel:'warning',define:{__WECHAT_MANIFEST__:JSON.stringify(manifest),__WECHAT_ASSET_ORIGIN__:JSON.stringify(origin)}});
+await fs.writeFile(path.resolve(out,'game.js'),"require('./runtime.js');\n");
+await fs.writeFile(path.resolve(out,'game.json'),JSON.stringify({deviceOrientation:'landscape',showStatusBar:false},null,2));
+await fs.writeFile(path.resolve(out,'project.config.json'),JSON.stringify({appid:'touristappid',compileType:'game',projectname:'SC2 Survivors WeChat preflight',setting:{es6:true,minified:true}},null,2));
+const runtime=await fs.readFile(path.resolve(out,'runtime.js'));
+await fs.writeFile(path.resolve(out,'handoff.json'),JSON.stringify({kind:'wechat-3d-preflight',playable:false,rulesId:'mvp-1.0',assetCount:manifest.assetCount,assetBytes:manifest.totalBytes,assetOrigin:origin||null,runtimeSha256:createHash('sha256').update(runtime).digest('hex')},null,2));
+const names=['game.js','game.json','project.config.json','runtime.js','handoff.json'];
+const sizes=await Promise.all(names.map(async name=>(await fs.stat(path.resolve(out,name))).size));
+const total=sizes.reduce((a,b)=>a+b,0);
+if(total>4*1024*1024)throw Error('WeChat preflight exceeds 4 MiB main package');
+console.log(`WeChat preflight package: ${out}; ${total} bytes. This is a capability probe, not playable game.`);

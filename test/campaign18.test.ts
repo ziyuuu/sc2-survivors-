@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {STAGES,enemyPressure,chapterGrowth,type Difficulty} from '../src/data/stages';
 import {
  CAMPAIGN18_STAGES,CAMPAIGN18_DURATIONS,CAMPAIGN18_BUDGETS,CAMPAIGN18_TOTALS,CAMPAIGN18_CHAPTER_REWARDS,
- CAMPAIGN18_ENEMIES,CAMPAIGN18_WEIGHTS,CAMPAIGN18_HERO_WINDOWS,CAMPAIGN18_PURPLE_WINDOWS,
+ CAMPAIGN18_ENEMIES,CAMPAIGN18_WEIGHTS,
  campaign18StageConfig,campaign18Schedule,campaign18EnemyPressure,campaign18ChapterGrowth,campaign18GuardCounts,
  campaign18Threat,allocateCampaign18Threat,emptyCampaign18Counts,
 } from '../src/data/campaign18';
@@ -78,14 +78,13 @@ test('special and hive reserves are inside the stage budget, including Hell comb
   assert.deepEqual(delivered,s.ambient);
  }
 });
-test('captains occur on 3/9/15, bosses on 6/12, and eighteen has only the shared-budget main hive',()=>{
+test('bosses occur every third stage and stage eighteen shares its budget with the main hive',()=>{
  const schedules=CAMPAIGN18_STAGES.map(s=>campaign18Schedule(campaign18StageConfig(s.id,'normal'),42));
- assert.deepEqual(schedules.flatMap((p,i)=>p.specials.some(e=>e.role==='captain')?[i+1]:[]),[3,9,15]);
- assert.deepEqual(schedules.flatMap((p,i)=>p.specials.some(e=>e.role==='boss')?[i+1]:[]),[6,12]);
- const final=schedules[17];assert.equal(final.specials.length,0);assert.ok(final.mainHive);
+ assert.deepEqual(schedules.flatMap((p,i)=>p.specials.some(e=>e.role==='captain')?[i+1]:[]),[]);
+ assert.deepEqual(schedules.flatMap((p,i)=>p.specials.some(e=>e.role==='boss')?[i+1]:[]),[3,6,9,12,15,18]);
+ const final=schedules[17];assert.equal(final.specials.length,1);assert.ok(final.mainHive);
  assert.deepEqual(final.mainHive.phases?.map(p=>[p.from,p.until]),[[0,45],[45,100],[100,150]]);
  assert.equal(final.mainHive.alwaysAttackable,true);assert.equal(final.mainHive.requiresSurvival,true);assert.equal(final.mainHive.healBetweenPhases,false);
- assert.deepEqual(CAMPAIGN18_HERO_WINDOWS,[6,9,12]);assert.deepEqual(CAMPAIGN18_PURPLE_WINDOWS,[15]);
 });
 test('new threats have fixed introduction stages and do not enter the first two introductory waves',()=>{
  const introductions={roach:2,baneling:3,hydralisk:5,mutalisk:7,ravager:8,queen:9,lurker:11,ultralisk:13,corruptor:14};

@@ -103,7 +103,7 @@ export function simulateBuild(plan:BuildPlan,seed:number,strategy:'development-f
  }
  const totals=w.economyTotals;
  for(const kind of ['minerals','gas'] as const){const expected=initialWallet[kind]+totals.passive[kind]+totals.clear[kind]+totals.cards[kind]+totals.drops[kind]+s.refunds[kind]-totals.production[kind]-totals.purchases[kind]-(kind==='minerals'?totals.rerolls:0);assert.ok(Math.abs(expected-w.wallet[kind])<1e-6,`wallet conservation ${plan.id}/${seed}/${kind}`);}
-  assert.equal(totals.drops.minerals,0);assert.equal(totals.drops.gas,0);assert.equal(w.scvs,0);assert.equal(s.draftHistory.length,17);assert.ok(Object.keys(w.runConfig?.frozenTalents.levels??{}).length===0);assert.ok(s.familySlots.length<=5);
+  assert.equal(totals.drops.minerals,0);assert.equal(totals.drops.gas,0);assert.equal(w.workers,0);assert.equal(s.draftHistory.length,17);assert.ok(Object.keys(w.runConfig?.frozenTalents.levels??{}).length===0);assert.ok(s.familySlots.length<=5);
  return {id:plan.id,name:plan.name,race:plan.race,seed,strategy,scenario:'guaranteed-income-perfect-rescue',zeroTalents:true,windows:17,combatSeconds:round(w.time),target:plan.families,fullyFormedAt,full25At,arrivals,actionsBought:actionIndex,actionCount:plan.actions.length,finalWallet:money(w.wallet),totals,refunds:s.refunds,replacements,transitions,records};
 }
 export function runBuildMatrix(strategy:'development-first'|'formation-first'='formation-first'){return BUILD_PLANS.flatMap(plan=>seeds.map(seed=>simulateBuild(plan,seed,strategy)));}

@@ -75,7 +75,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "window_shop",
-    "description": "每次关间增加1／2／3次建筑与强化共享免费刷新；不结转；与基础章免费次数按3.2计。",
+    "description": "每窗口提供1／2／3次发展与购物共享免费刷新；无基础章免费次数；成功刷新推进共享计数，不结转。",
     "prerequisiteText": "R03满"
   },
   {
@@ -114,7 +114,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "free_purchase",
-    "description": "每次强化三选一额外可免费领取同组剩余1／2张；总上限2／3张，首次领取后不刷新；不能抵扣精英特约。",
+    "description": "每窗口提供1／2次购物免单，可用于普通商品、主组精英和英雄；跨刷新页保留、不结转；不能抵扣精英特约。",
     "prerequisiteText": "R06满"
   },
   {
@@ -790,7 +790,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "window_shop",
-    "description": "每次关间增加1／2／3次建筑与强化共享免费刷新；不结转；与基础章免费次数按3.2计。",
+    "description": "每窗口提供1／2／3次发展与购物共享免费刷新；无基础章免费次数；成功刷新推进共享计数，不结转。",
     "prerequisiteText": "R03满"
   },
   {
@@ -829,7 +829,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "free_purchase",
-    "description": "每次强化三选一额外可免费领取同组剩余1／2张；总上限2／3张，首次领取后不刷新；不能抵扣精英特约。",
+    "description": "每窗口提供1／2次购物免单，可用于普通商品、主组精英和英雄；跨刷新页保留、不结转；不能抵扣精英特约。",
     "prerequisiteText": "R06满"
   },
   {
@@ -1505,7 +1505,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "window_shop",
-    "description": "每次关间增加1／2／3次建筑与强化共享免费刷新；不结转；与基础章免费次数按3.2计。",
+    "description": "每窗口提供1／2／3次发展与购物共享免费刷新；无基础章免费次数；成功刷新推进共享计数，不结转。",
     "prerequisiteText": "R03满"
   },
   {
@@ -1544,7 +1544,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "free_purchase",
-    "description": "每次强化三选一额外可免费领取同组剩余1／2张；总上限2／3张，首次领取后不刷新；不能抵扣精英特约。",
+    "description": "每窗口提供1／2次购物免单，可用于普通商品、主组精英和英雄；跨刷新页保留、不结转；不能抵扣精英特约。",
     "prerequisiteText": "R06满"
   },
   {

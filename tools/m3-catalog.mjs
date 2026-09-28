@@ -7,7 +7,10 @@ export const THREE_RACE_ELITE_MODELS=JSON.parse(fs.readFileSync(new URL('./three
 export const M4_AIR_MODELS=JSON.parse(fs.readFileSync(new URL('./m4-air-models.json',import.meta.url),'utf8'));
 export const EXPANSION_MODELS=[...JSON.parse(fs.readFileSync(new URL('./expansion-models.json',import.meta.url),'utf8')),...THREE_RACE_MODELS,...THREE_RACE_ELITE_MODELS,...M4_AIR_MODELS];
 export const M3_FORT_MODELS=JSON.parse(fs.readFileSync(new URL('./m3-fort-models.json',import.meta.url),'utf8'));
+export const F05_RESCUE_MODELS=JSON.parse(fs.readFileSync(new URL('./f05-rescue-models.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
 export const M3_MODELS=[
+ ['model.pylon.birth','pylonwarpin'],
+ ...F05_RESCUE_MODELS.map(a=>[a.id,a.name]),
  ...M3_FORT_MODELS.map(a=>[a.id,a.name]),
  ['model.projectile.marauder','maraudermissile'],['model.projectile.hydralisk','hydraliskmissile'],
  ...EXPANSION_MODELS.filter(a=>a.id.startsWith('model.elite.')||a.id.startsWith('model.hero.')).map(a=>[a.id,a.name]),

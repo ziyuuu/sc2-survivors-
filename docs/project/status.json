@@ -118,6 +118,23 @@
       ],
       "userEvidence": "可以。现在M0可以确认了。",
       "scope": "M0 r6首版策划与实施基线；不代表运行、素材、视觉或性能验收"
+    },
+    {
+      "id": "CR-20260927-02",
+      "approvedAt": "2026-09-27",
+      "approvedRevision": "F01-F04-final",
+      "document": "docs/project/MVP_FEEDBACK_F01_F04_APPROVED.md",
+      "documentHash": "e231c925064f8992b8d7b5c353302a7630a10fc18313768d4ce8d2bebed7e8ca",
+      "userEvidence": "PLEASE IMPLEMENT THIS PLAN: 前四阶段修复计划：恢复原设定、Build卡组与Boss",
+      "scope": "仅用户最终F01—F04；不批准旧r1全部小兵半血、F05/F06英雄数值，不代表视觉或性能验收"
+    },
+    {
+      "id": "CR-20260927-F05-F07",
+      "approvedAt": "2026-09-27",
+      "document": "docs/project/MVP_FEEDBACK_F05_F07_APPROVED.md",
+      "scope": "用户批准三族救援、英雄耐久与普攻各15%伤害/频率、头顶去文字、三舰5.5、死神诊断及整合；不代表验收",
+      "documentHash": "00f18bde66f63c10765ae753c9b324e606eba0c86e36ee5eb9df7fb809178f82",
+      "userEvidence": "PLEASE IMPLEMENT THIS PLAN: F05—F07；英雄伤害与频率各增15%，死神先检测实际原因。"
     }
   ],
   "requirements": [
@@ -142,7 +159,10 @@
     "PD05",
     "PD06",
     "PD07",
-    "PD08"
+    "PD08",
+    "CR-20260927-01",
+    "CR-20260927-02",
+    "CR-20260927-F05-F07"
   ],
   "tasks": [
     {
@@ -1049,9 +1069,10 @@
         "docs/project/M5_PROGRESS.md",
         "reports/local/expedition-builds-formation-first.json",
         "reports/local/expedition-survival-original-v5-stages18.json",
-        "reports/local/m7-natural-controller-matrix.json"
+        "reports/local/m7-natural-controller-matrix.json",
+        "docs/project/AUTONOMOUS_CAMPAIGN_20260927.md"
       ],
-      "blockReason": null
+      "blockReason": "九Build×三固定种子27局合法尝试无异常但未通关；救援策略对照未改善关数。保留实际失败与合法第4关检查点，未调数值制造通过。"
     },
     {
       "id": "M6-01",
@@ -1076,7 +1097,11 @@
         "A32"
       ],
       "design": "docs/MVP10_COMBAT_ASSETS.md",
-      "evidence": ["docs/project/M6_PROGRESS.md", "reports/local/asset-reachability.json", "reports/local/release-manifest.json"],
+      "evidence": [
+        "docs/project/M6_PROGRESS.md",
+        "reports/local/asset-reachability.json",
+        "reports/local/release-manifest.json"
+      ],
       "blockReason": null
     },
     {
@@ -1102,7 +1127,13 @@
         "A33"
       ],
       "design": "docs/MVP10_COMBAT_ASSETS.md",
-      "evidence": ["docs/project/M6_PROGRESS.md", "assets/private/m6-clip-manifest.json", "reports/local/m6-meshopt-probe.json", "reports/local/release-manifest.json", "reports/local/qa-m6-offline-matrix/report.json"],
+      "evidence": [
+        "docs/project/M6_PROGRESS.md",
+        "assets/private/m6-clip-manifest.json",
+        "reports/local/m6-meshopt-probe.json",
+        "reports/local/release-manifest.json",
+        "reports/local/qa-m6-offline-matrix/report.json"
+      ],
       "blockReason": null
     },
     {
@@ -1128,7 +1159,20 @@
         "A34"
       ],
       "design": "docs/MVP10_ITERATION_PLAN.md",
-      "evidence": ["docs/project/M6_PROGRESS.md", "reports/local/m6-natural-stage1/results.json", "reports/local/m6-headed-terran/results.json", "reports/local/m6-natural-screen-warm/results.json", "reports/local/m6-natural-checkpoints/results.json", "reports/local/m6-natural-checkpoints-dev/results.json", "reports/local/m6-frame-trace-terran-headed/report.json", "reports/local/qa-m6-loading/report.json", "reports/local/qa-m6-audio-failure/report.json", "reports/local/qa-m6-map-failure/report.json", "reports/local/m6-startup-memory/report.json"],
+      "evidence": [
+        "docs/project/M6_PROGRESS.md",
+        "reports/local/m6-natural-stage1/results.json",
+        "reports/local/m6-headed-terran/results.json",
+        "reports/local/m6-natural-screen-warm/results.json",
+        "reports/local/m6-natural-checkpoints/results.json",
+        "reports/local/m6-natural-checkpoints-dev/results.json",
+        "reports/local/m6-frame-trace-terran-headed/report.json",
+        "reports/local/qa-m6-loading/report.json",
+        "reports/local/qa-m6-audio-failure/report.json",
+        "reports/local/qa-m6-map-failure/report.json",
+        "reports/local/m6-startup-memory/report.json",
+        "docs/project/AUTONOMOUS_PERFORMANCE_20260927.md"
+      ],
       "blockReason": "读档已预载本关波次和已付款订单模型，第4关三族12秒离线样本P99约16.8–16.9ms；完整1—6关三种子和实体设备稳定60档未验收，仍依赖M5-04取得合法自然战役路线"
     },
     {
@@ -1154,7 +1198,12 @@
         "A36"
       ],
       "design": "docs/MVP10_ITERATION_PLAN.md",
-      "evidence": ["docs/project/M6_PROGRESS.md", "reports/local/qa-three-race-performance-before-talent/results.json", "reports/local/qa-three-race-performance-300-35/results.json"],
+      "evidence": [
+        "docs/project/M6_PROGRESS.md",
+        "reports/local/qa-three-race-performance-before-talent/results.json",
+        "reports/local/qa-three-race-performance-300-35/results.json",
+        "docs/project/AUTONOMOUS_PERFORMANCE_20260927.md"
+      ],
       "blockReason": "M0 r6设计已批准；35普通＋3英雄＋截击机/300敌独立合成压力已记录，等待M6-03和终章/无尽正常场景实测"
     },
     {
@@ -1183,7 +1232,12 @@
         "A36"
       ],
       "design": "docs/MVP10_COMBAT_ASSETS.md",
-      "evidence": ["docs/project/M6_PROGRESS.md", "reports/local/m6-startup-memory/report-serial.json", "reports/local/m6-startup-memory/report.json", "reports/local/qa-m6-offline-matrix/report.json"],
+      "evidence": [
+        "docs/project/M6_PROGRESS.md",
+        "reports/local/m6-startup-memory/report-serial.json",
+        "reports/local/m6-startup-memory/report.json",
+        "reports/local/qa-m6-offline-matrix/report.json"
+      ],
       "blockReason": "M0 r6设计已批准；无头浏览器单文件暖启动/堆对照和三族断网存读已记录，待M6-02/04及正式硬件冷暖启动和内存对照"
     },
     {
@@ -1206,7 +1260,8 @@
         "M1-05",
         "M3-07",
         "M5-04",
-        "M6-05"
+        "M6-05",
+        "F07"
       ],
       "decisions": [
         "PD02",
@@ -1229,8 +1284,13 @@
         "A40"
       ],
       "design": "docs/project/ACCEPTANCE.md",
-      "evidence": ["docs/project/M7_PREFLIGHT.md", "reports/local/qa-m7-web/report.json", "reports/local/qa-m2/report.json", "reports/local/qa-m5/report.json"],
-      "blockReason": "M7工程预检与Web目录构建已运行；等待M5-04和M6-05关闭，且前六关、后期、无尽自然性能与人工验收满足门槛后才冻结正式候选"
+      "evidence": [
+        "docs/project/M7_PREFLIGHT.md",
+        "reports/local/qa-m7-web/report.json",
+        "reports/local/qa-m2/report.json",
+        "reports/local/qa-m5/report.json"
+      ],
+      "blockReason": "等待F07反馈修正整合、M5-04和M6-05关闭；工程预检不替代自然战役性能或人工验收"
     },
     {
       "id": "M7-02",
@@ -1313,6 +1373,284 @@
       "design": "docs/MVP10_ITERATION_PLAN.md",
       "evidence": [],
       "blockReason": "等待M7-02完整验收通过后才可标记1.0 MVP"
+    },
+    {
+      "id": "F00",
+      "phase": "FEEDBACK",
+      "title": "13项反馈检查与修正方案",
+      "status": "DONE",
+      "ownerRole": "策划/QA",
+      "assignee": "Codex",
+      "requirements": [
+        "R10",
+        "R11"
+      ],
+      "dependsOn": [],
+      "decisions": [],
+      "acceptance": [
+        "A39"
+      ],
+      "design": "docs/project/MVP_FEEDBACK_PLAN_20260927.md",
+      "evidence": [
+        "docs/project/MVP_FEEDBACK_AUDIT_20260927.md",
+        "reports/local/mvp-feedback-20260927/report.json"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "F01",
+      "phase": "FEEDBACK",
+      "title": "恢复跳虫教学基础生命与原难度成长",
+      "status": "DONE",
+      "ownerRole": "规则",
+      "assignee": "Codex",
+      "requirements": [
+        "R05"
+      ],
+      "dependsOn": [
+        "F00"
+      ],
+      "decisions": [
+        "CR-20260927-02"
+      ],
+      "acceptance": [
+        "F-AC01"
+      ],
+      "design": "docs/project/MVP_FEEDBACK_F01_F04_APPROVED.md",
+      "evidence": [
+        "test/feedback-health.test.ts",
+        "docs/project/FEEDBACK_F01_F04_VALIDATION_20260927.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "F02",
+      "phase": "FEEDBACK",
+      "title": "真实攻击动作与完整/节能模式",
+      "status": "REVIEW",
+      "ownerRole": "表现",
+      "assignee": "Codex",
+      "requirements": [
+        "R02",
+        "R09"
+      ],
+      "dependsOn": [
+        "F00"
+      ],
+      "decisions": [
+        "CR-20260927-02"
+      ],
+      "acceptance": [
+        "F-AC02"
+      ],
+      "design": "docs/project/MVP_FEEDBACK_F01_F04_APPROVED.md",
+      "evidence": [
+        "test/feedback-attack-playback.test.ts",
+        "docs/project/FEEDBACK_F02_IMPLEMENTATION_20260927.md",
+        "docs/project/FEEDBACK_F01_F04_VALIDATION_20260927.md",
+        "docs/project/AUTONOMOUS_SOURCE_20260927.md"
+      ],
+      "blockReason": "真实出手和两档工程已验证，原actor对应与全型号视觉仍待核验"
+    },
+    {
+      "id": "F03",
+      "phase": "FEEDBACK",
+      "title": "方向记忆、一次发展与付费随机商店",
+      "status": "DONE",
+      "ownerRole": "规则/UI",
+      "assignee": "Codex",
+      "requirements": [
+        "R00",
+        "R08"
+      ],
+      "dependsOn": [
+        "F00"
+      ],
+      "decisions": [
+        "CR-20260927-02"
+      ],
+      "acceptance": [
+        "F-AC04",
+        "F-AC05"
+      ],
+      "design": "docs/project/MVP_FEEDBACK_F01_F04_APPROVED.md",
+      "evidence": [
+        "test/feedback-shop.test.ts",
+        "test/feedback-build-cards.test.ts",
+        "docs/project/FEEDBACK_F01_F04_VALIDATION_20260927.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "F04",
+      "phase": "FEEDBACK",
+      "title": "六关Boss、九原型无尽与死亡单件掉落",
+      "status": "DONE",
+      "ownerRole": "规则",
+      "assignee": "Codex",
+      "requirements": [
+        "R00",
+        "R06"
+      ],
+      "dependsOn": [
+        "F03"
+      ],
+      "decisions": [
+        "CR-20260927-02"
+      ],
+      "acceptance": [
+        "F-AC06"
+      ],
+      "design": "docs/project/MVP_FEEDBACK_F01_F04_APPROVED.md",
+      "evidence": [
+        "test/feedback-bosses.test.ts",
+        "test/feedback-boss-loot.test.ts",
+        "docs/project/FEEDBACK_F01_F04_VALIDATION_20260927.md"
+      ],
+      "blockReason": null
+    },
+    {
+      "id": "F05",
+      "phase": "FEEDBACK",
+      "title": "三族工人和临时投放载体",
+      "status": "REVIEW",
+      "ownerRole": "资源/表现",
+      "assignee": "Codex",
+      "requirements": [
+        "R02"
+      ],
+      "dependsOn": [
+        "F02-ENG"
+      ],
+      "decisions": [
+        "CR-20260927-F05-F07"
+      ],
+      "acceptance": [
+        "F-AC03"
+      ],
+      "design": "docs/project/MVP_FEEDBACK_F05_F07_APPROVED.md",
+      "evidence": [
+        "docs/project/FEEDBACK_F05_F07_VALIDATION_20260927.md",
+        "docs/project/FEEDBACK_F05_IMPLEMENTATION_20260927.md",
+        "docs/project/AUTONOMOUS_SOURCE_20260927.md"
+      ],
+      "blockReason": "工程回归与桌面/窄屏、离线存读通过；完整素材动作覆盖及统一人工视觉仍待核验，不计最终签收。",
+      "approvalDocument": "docs/project/MVP_FEEDBACK_F05_F07_APPROVED.md"
+    },
+    {
+      "id": "F06",
+      "phase": "FEEDBACK",
+      "title": "英雄尺度弹道耐久与死神攻击诊断",
+      "status": "REVIEW",
+      "ownerRole": "战斗/表现",
+      "assignee": "Codex",
+      "requirements": [
+        "R02",
+        "R06"
+      ],
+      "dependsOn": [
+        "F02-ENG"
+      ],
+      "decisions": [
+        "CR-20260927-F05-F07"
+      ],
+      "acceptance": [
+        "F-AC07",
+        "F-AC08"
+      ],
+      "design": "docs/project/MVP_FEEDBACK_F05_F07_APPROVED.md",
+      "evidence": [
+        "docs/project/FEEDBACK_F05_F07_VALIDATION_20260927.md",
+        "docs/project/FEEDBACK_F06_VISUAL_20260927.md"
+      ],
+      "blockReason": "工程回归与桌面/窄屏、离线存读通过；完整素材动作覆盖及统一人工视觉仍待核验，不计最终签收。",
+      "approvalDocument": "docs/project/MVP_FEEDBACK_F05_F07_APPROVED.md"
+    },
+    {
+      "id": "F07",
+      "phase": "FEEDBACK",
+      "title": "反馈修正整合及M6性能回归",
+      "status": "BLOCKED",
+      "ownerRole": "QA/整合",
+      "assignee": "Codex",
+      "requirements": [
+        "R07",
+        "R09",
+        "R11"
+      ],
+      "dependsOn": [
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F05",
+        "F06"
+      ],
+      "decisions": [
+        "CR-20260927-F05-F07"
+      ],
+      "acceptance": [
+        "F-AC09"
+      ],
+      "design": "docs/project/MVP_FEEDBACK_F05_F07_APPROVED.md",
+      "evidence": [
+        "docs/project/FEEDBACK_F05_F07_VALIDATION_20260927.md",
+        "docs/project/AUTONOMOUS_CLOSEOUT_20260927.md",
+        "docs/project/AUTONOMOUS_INPUT_20260927.md"
+      ],
+      "blockReason": "本轮617项全量回归全通过；手柄Boss入口、载体加载重试、原动作与材质修复及三族离线存读通过。节能神族一次P99/长帧比例未达标，完整自然前六关及合法后期/无尽、原死亡物理/全单位动作视觉仍未完成。见自主收尾总记录。",
+      "approvalDocument": "docs/project/MVP_FEEDBACK_F05_F07_APPROVED.md"
+    },
+    {
+      "id": "F02-ENG",
+      "phase": "FEEDBACK",
+      "title": "已实现攻击序号播放与双动作模式工程基础（不含原actor完整视觉核验）",
+      "status": "DONE",
+      "ownerRole": "表现/QA",
+      "assignee": "Codex",
+      "requirements": [
+        "R02"
+      ],
+      "dependsOn": [],
+      "decisions": [],
+      "acceptance": [
+        "F-AC02"
+      ],
+      "design": "docs/project/MVP_FEEDBACK_F01_F04_APPROVED.md",
+      "evidence": [
+        "docs/project/FEEDBACK_F02_IMPLEMENTATION_20260927.md",
+        "docs/project/FEEDBACK_F01_F04_VALIDATION_20260927.md"
+      ],
+      "blockReason": null
     }
-  ]
+  ],
+  "feedbackReview": {
+    "revision": "2026-09-27-F01-F04-final",
+    "state": "F01_F03_F04_ENGINEERING_VERIFIED_F02_REVIEW",
+    "document": "docs/project/MVP_FEEDBACK_F01_F04_APPROVED.md",
+    "gameplayChanged": true,
+    "repairF05F07": {
+      "document": "docs/project/MVP_FEEDBACK_F05_F07_APPROVED.md",
+      "state": "ENGINEERING_REGRESSION_PASSED_VISUAL_AND_FULL_PERFORMANCE_OPEN",
+      "evidence": "docs/project/FEEDBACK_F05_F07_VALIDATION_20260927.md"
+    }
+  },
+  "autonomousCloseout": {
+    "document": "docs/project/AUTONOMOUS_CLOSEOUT_20260927.md",
+    "state": "ENGINEERING_INCREMENT_VERIFIED_PERFORMANCE_AND_CONTENT_GAPS_OPEN",
+    "humanVisualAccepted": false,
+    "fullNaturalPerformanceAccepted": false,
+    "packagePolicy": "reference-and-identical-content-audit-no-quota",
+    "artifact": {
+      "path": "dist/SC2-Survivors-Demo.html",
+      "bytes": 360854003,
+      "sha256": "A4BAFEDDB9F7F6BFBEA30EA1946333306753D7D1712A27C7AFE7999B5DEF08D0"
+    },
+    "tests": {
+      "total": 617,
+      "passed": 617,
+      "failed": 0,
+      "skipped": 0
+    }
+  }
 }

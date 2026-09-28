@@ -39,8 +39,17 @@
 | M6-03 | M6 | 消除首次资源长帧并测普通1–6关60+ | BLOCKED | 渲染/性能 | M3-02、M5-04、M6-02 | R09 | A18、A34 |
 | M6-04 | M6 | 35普通/3英雄/截击机及终章/无尽性能 | BLOCKED | 渲染/性能 | M6-03 | R02、R06、R09 | A35、A36 |
 | M6-05 | M6 | 包体/冷暖启动/内存/离线最终对照 | BLOCKED | QA | M6-02、M6-04 | R07、R09 | A32、A33、A34、A35、A36 |
-| M7-01 | M7 | 冻结候选并跑规则/数据/保存/浏览器全验 | BLOCKED | 整合/QA | M1-05、M3-07、M5-04、M6-05 | R00、R01、R03、R04、R05、R08、R09 | A01、A10、A12、A13、A14、A19、A24、A25、A33、A39、A40 |
+| M7-01 | M7 | 冻结候选并跑规则/数据/保存/浏览器全验 | BLOCKED | 整合/QA | M1-05、M3-07、M5-04、M6-05、F07 | R00、R01、R03、R04、R05、R08、R09 | A01、A10、A12、A13、A14、A19、A24、A25、A33、A39、A40 |
 | M7-02 | M7 | 三族完整玩法、人工视觉和真实输入验收 | BLOCKED_APPROVAL | 用户/QA | M7-01 | R00、R02、R03、R04、R06、R08、R09 | A26、A27、A28、A29、A30、A34、A35、A37、A38 |
 | M7-03 | M7 | 关闭阻塞并形成1.0MVP交付清单/包/hash | BLOCKED | 整合 | M7-02、M4-02、M5-03 | R00、R01、R02、R03、R04、R05、R06、R07、R08、R09、R10、R11 | A40 |
+| F00 | FEEDBACK | 13项反馈检查与修正方案 | DONE | 策划/QA | — | R10、R11 | A39 |
+| F01 | FEEDBACK | 恢复跳虫教学基础生命与原难度成长 | DONE | 规则 | F00 | R05 | F-AC01 |
+| F02 | FEEDBACK | 真实攻击动作与完整/节能模式 | REVIEW | 表现 | F00 | R02、R09 | F-AC02 |
+| F03 | FEEDBACK | 方向记忆、一次发展与付费随机商店 | DONE | 规则/UI | F00 | R00、R08 | F-AC04、F-AC05 |
+| F04 | FEEDBACK | 六关Boss、九原型无尽与死亡单件掉落 | DONE | 规则 | F03 | R00、R06 | F-AC06 |
+| F05 | FEEDBACK | 三族工人和临时投放载体 | REVIEW | 资源/表现 | F02-ENG | R02 | F-AC03 |
+| F06 | FEEDBACK | 英雄尺度弹道耐久与死神攻击诊断 | REVIEW | 战斗/表现 | F02-ENG | R02、R06 | F-AC07、F-AC08 |
+| F07 | FEEDBACK | 反馈修正整合及M6性能回归 | BLOCKED | QA/整合 | F01、F02、F03、F04、F05、F06 | R07、R09、R11 | F-AC09 |
+| F02-ENG | FEEDBACK | 已实现攻击序号播放与双动作模式工程基础（不含原actor完整视觉核验） | DONE | 表现/QA | — | R02 | F-AC02 |
 
 每项具体方案见status.json的design与[总计划](../MVP10_ITERATION_PLAN.md)相应阶段；决定见[DECISIONS](DECISIONS.md)，验收细节见[ACCEPTANCE](ACCEPTANCE.md)。

@@ -1,0 +1,6 @@
+[
+ {"id":"model.probe","modelDataId":"Probe","name":"probe","assetPath":"Assets/Units/Protoss/Probe/Probe.m3","definitionLayer":"liberty"},
+ {"id":"model.barracks","modelDataId":"Barracks","name":"barracks","assetPath":"Assets/Buildings/Terran/Barracks/Barracks.m3","definitionLayer":"liberty"},
+ {"id":"model.hatchery","modelDataId":"Hatchery","name":"hatcheryex1mp","assetPath":"Assets/Buildings/Zerg/HatcheryEx1MP/HatcheryEx1MP.m3","definitionLayer":"liberty"},
+ {"id":"model.pylon","modelDataId":"Pylon","name":"pylonex2","assetPath":"Assets/Buildings/Protoss/PylonEx2/PylonEx2.m3","definitionLayer":"liberty"}
+]
