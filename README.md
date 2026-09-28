@@ -6,7 +6,7 @@
 
 ## Coze / Web 部署
 
-直接使用[已构建应用](deploy/coze)与[分组资源工具](deploy/coze/fetch-resources.mjs)，不要让Coze导入整个原素材仓库，也不需要重新转换模型。运行资源位于`deploy/runtime/assets`，由Git LFS保存真实内容；入口与资源可同域部署，也可配置独立HTTPS资源域名。完整操作步骤、固定提交、断点下载、校验、缓存及更新见[部署指南](docs/project/COZE_GITHUB_DEPLOY.md)。业务统计后端暂缓。
+直接使用[已构建应用](deploy/coze)与[分组资源工具](deploy/coze/fetch-resources.mjs)，不要让Coze导入整个原素材仓库，也不需要重新转换模型。运行资源位于`deploy/runtime/assets`，由Git LFS保存真实内容；入口与资源可同域部署，也可配置独立HTTPS资源域名。完整操作步骤、固定提交、断点下载、校验、缓存及更新见[部署指南](docs/project/COZE_GITHUB_DEPLOY.md)。业务统计后端暂缓。已发布固定提交及全部远端资源下载校验见[交付回执](docs/project/RESOURCE_DELIVERY_20260928.json)。
 
 ## 开始试玩
 

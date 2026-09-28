@@ -1,0 +1,98 @@
+{
+  "commit": "e9e092770e8ebea2b4289fd9e1f3a594eec964c0",
+  "release": "89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61",
+  "group": "all",
+  "verified": 727,
+  "bytes": 458127859,
+  "remote": true,
+  "app": {
+    "commit": "e9e092770e8ebea2b4289fd9e1f3a594eec964c0",
+    "files": 11,
+    "bytes": 2187301,
+    "verified": true,
+    "rows": [
+      {
+        "path": "deploy/coze/public/asset-manifest.89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61.json",
+        "bytes": 175397,
+        "sha256": "1d5bafbe34eea1148edb042abb59617241fc5cb0e61cf7d3a10b129c4f53d7db",
+        "committedBytesExact": true,
+        "workingBytesExact": true
+      },
+      {
+        "path": "deploy/coze/public/assets/index-BFrziorw.js",
+        "bytes": 1590233,
+        "sha256": "2ddccd95dbe6b470b16552efb7b1924349c90fbaef2182f3f8469d2b52191df4",
+        "committedBytesExact": true,
+        "workingBytesExact": true
+      },
+      {
+        "path": "deploy/coze/public/assets/index-BlZP8Ct2.css",
+        "bytes": 63020,
+        "sha256": "52f899f3d43d8aef68467167cae14421b35aa38c0ccec75dc67d32f514e1e1c1",
+        "committedBytesExact": true,
+        "workingBytesExact": true
+      },
+      {
+        "path": "deploy/coze/public/index.html",
+        "bytes": 675,
+        "sha256": "e579bd70be7c2441cc641e87e6202446007e5632e05037635b1952c255c6f1b2",
+        "committedBytesExact": true,
+        "workingBytesExact": true
+      },
+      {
+        "path": "deploy/coze/public/runtime-config.json",
+        "bytes": 19,
+        "sha256": "126217dff5079b655a2d3b45211b2fa388ee35a7d413b1f54fbda29a0cb71b90",
+        "committedBytesExact": true,
+        "workingBytesExact": true
+      },
+      {
+        "path": "deploy/coze/public/web-release.json",
+        "bytes": 405,
+        "sha256": "b53b2365e31e06e033476c57a9320cfdf32d12fea3bd10cecf7264b599aaa046",
+        "committedBytesExact": true,
+        "workingBytesExact": true
+      },
+      {
+        "path": "deploy/coze/coze-web-server.mjs",
+        "bytes": 4351,
+        "sha256": "27aba5fba9425e7c48ce8deb09b87797d62fa97b8fde9fc0b1dfcaab4e740179",
+        "committedBytesExact": true,
+        "workingBytesExact": false
+      },
+      {
+        "path": "deploy/coze/fetch-resources.mjs",
+        "bytes": 4395,
+        "sha256": "e475c62c0cf6b7261e7d468ef89f3b57cee66d1f8dbec32f4aee96743643e274",
+        "committedBytesExact": true,
+        "workingBytesExact": false
+      },
+      {
+        "path": "deploy/coze/package.json",
+        "bytes": 170,
+        "sha256": "7d71836d4d0d8e831452b9750ed878d05eee7353644d187c8e6500f36d9dee4e",
+        "committedBytesExact": true,
+        "workingBytesExact": true
+      },
+      {
+        "path": "deploy/coze/resource-groups.json",
+        "bytes": 342003,
+        "sha256": "085852bb45201d97f6cfaf7ea4625727aaab3521bf78cfc1450149c09de4d4f3",
+        "committedBytesExact": true,
+        "workingBytesExact": true
+      },
+      {
+        "path": "deploy/coze/DEPLOY.md",
+        "bytes": 6633,
+        "sha256": "b588eef13fb437e00cb73c7f6a9b55516b7e7005d04e5ef53b44c066dbf0f553",
+        "committedBytesExact": true,
+        "workingBytesExact": false
+      }
+    ]
+  },
+  "trees": {
+    "deploy/runtime": "0e975400a652bc36da6b2280a907270a908a66cb",
+    "deploy/coze": "c578404fb95706ce0522b974c5862b31819885d2"
+  },
+  "verifiedAt": "2026-09-28"
+}

@@ -1800,7 +1800,11 @@
       "files": 727,
       "bytes": 458127859,
       "release": "89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61",
-      "remoteVerification": "PENDING_PUSH"
+      "remoteVerification": "PASS_ALL_BYTES_AND_HASHES",
+      "commit": "e9e092770e8ebea2b4289fd9e1f3a594eec964c0",
+      "verifiedFiles": 727,
+      "appVerifiedFiles": 11,
+      "receipt": "docs/project/RESOURCE_DELIVERY_20260928.json"
     },
     "checks": {
       "typecheck": "PASS",
@@ -1823,15 +1827,88 @@
       "evidence": "reports/local/twin-diagnostic"
     },
     "naturalController": {
-      "race": "terran",
       "seed": 7,
       "talents": 0,
       "assistance": false,
-      "easyLastStage": 18,
-      "easyCompletedStages": 17,
-      "normalLastStage": 3,
-      "normalCompletedStages": 2,
-      "state": "NO_NATURAL_CLEAR"
+      "state": "ZERG_EASY_CLEAR_OTHER_SAMPLES_LOST",
+      "samples": [
+        {
+          "race": "terran",
+          "build": "bio",
+          "seed": 7,
+          "difficulty": "easy",
+          "completed": 17,
+          "stage": 18,
+          "phase": "lost",
+          "time": 1734.85,
+          "endlessSeconds": 0,
+          "peakBodies": 20
+        },
+        {
+          "race": "zerg",
+          "build": "swarm",
+          "seed": 7,
+          "difficulty": "easy",
+          "completed": 18,
+          "stage": 18,
+          "phase": "battle",
+          "time": 2100,
+          "endlessSeconds": 300,
+          "peakBodies": 30
+        },
+        {
+          "race": "protoss",
+          "build": "shield",
+          "seed": 7,
+          "difficulty": "easy",
+          "completed": 15,
+          "stage": 16,
+          "phase": "lost",
+          "time": 1369.37,
+          "endlessSeconds": 0,
+          "peakBodies": 21
+        },
+        {
+          "race": "terran",
+          "build": "bio",
+          "seed": 7,
+          "difficulty": "normal",
+          "completed": 2,
+          "stage": 3,
+          "phase": "lost",
+          "time": 163.72,
+          "endlessSeconds": 0,
+          "peakBodies": 5
+        },
+        {
+          "race": "zerg",
+          "build": "swarm",
+          "seed": 7,
+          "difficulty": "normal",
+          "completed": 2,
+          "stage": 3,
+          "phase": "lost",
+          "time": 177.93,
+          "endlessSeconds": 0,
+          "peakBodies": 10
+        },
+        {
+          "race": "protoss",
+          "build": "shield",
+          "seed": 7,
+          "difficulty": "normal",
+          "completed": 2,
+          "stage": 3,
+          "phase": "lost",
+          "time": 163.72,
+          "endlessSeconds": 0,
+          "peakBodies": 3
+        }
+      ],
+      "evidence": [
+        "reports/local/twin-natural-easy",
+        "reports/local/twin-natural-normal"
+      ]
     },
     "performance": {
       "earlyZergComplete200s": "SAMPLE_GATE_PASS_PARTIAL_COVERAGE",
