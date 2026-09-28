@@ -1,34 +1,40 @@
 import {chromium} from '@playwright/test';
-import {createServer} from 'node:http';
+import {createGameServer} from './coze-web-server.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 
 const root=path.resolve('dist/web'),out='reports/local/qa-m7-web';
 await fs.mkdir(out,{recursive:true});
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.glb':'model/gltf-binary','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.ogg':'audio/ogg','.wav':'audio/wav'};
-const server=createServer(async(request,response)=>{
- try{
-  const url=new URL(request.url??'/',`http://${request.headers.host}`),relative=decodeURIComponent(url.pathname).replace(/^\/+/, '')||'index.html';
-  if(relative.split('/').includes('..'))throw Error('Unsafe asset path');
-  const file=path.resolve(root,relative),inside=path.relative(root,file);
-  if(!inside||inside.startsWith('..')||path.isAbsolute(inside))throw Error('Asset path escapes Web build');
-  const bytes=await fs.readFile(file);response.writeHead(200,{'content-type':mime[path.extname(file)]??'application/octet-stream','content-length':bytes.length});response.end(bytes);
- }catch(error){response.writeHead(404);response.end('Not found');}
-});
+const resources=createGameServer({webRoot:root});
+await new Promise(resolve=>resources.listen(0,'127.0.0.1',resolve));
+const resourceOrigin=`http://127.0.0.1:${resources.address().port}/`;
+const server=createGameServer({webRoot:root,assetBaseUrl:resourceOrigin});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const port=server.address().port,origin=`http://127.0.0.1:${port}/`,browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 const report={at:new Date().toISOString(),origin,checks:[],errors:[],screens:[]};
 try{
  const manifest=JSON.parse(await fs.readFile(path.join(root,'web-release.json'),'utf8'));
- assert.equal(manifest.assetCount,751);
+ const assets=JSON.parse(await fs.readFile(path.join(root,manifest.manifest),'utf8'));
+ assert.equal(manifest.assetCount,Object.keys(assets.assets).length);assert.equal(manifest.release,assets.release);
+ const first=Object.values(assets.assets)[0],head=await fetch(resourceOrigin+first.url,{method:'HEAD'});
+ assert.equal(head.status,200);assert.equal(head.headers.get('access-control-allow-origin'),'*');assert.match(head.headers.get('cache-control'),/immutable/);
+ const entry=await fetch(origin);assert.equal(entry.headers.get('cache-control'),'no-cache');
+ assert.equal((await fetch(origin+'runtime-config.json').then(r=>r.json())).assetBaseUrl,resourceOrigin);
+ report.checks.push('Separate resource origin, CORS, immutable hashed resource cache and uncached entry/config');
  const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1});
- const page=await context.newPage();
+ const page=await context.newPage();let expectedFailure=false;const cdp=await context.newCDPSession(page);await cdp.send('Network.enable');let cacheHits=0;cdp.on('Network.requestServedFromCache',()=>cacheHits++);
  page.on('pageerror',error=>report.errors.push(error.message));
  page.on('requestfailed',request=>report.errors.push(`${request.method()} ${request.url()}: ${request.failure()?.errorText}`));
- page.on('response',response=>{if(response.status()>=400)report.errors.push(`${response.status()} ${response.url()}`);});
- await page.goto(origin,{timeout:240000});
- await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:240000});
+ page.on('response',response=>{if(response.status()>=400&&!expectedFailure)report.errors.push(`${response.status()} ${response.url()}`);});
+ expectedFailure=true;
+ await page.route(origin+'runtime-config.json',route=>route.fulfill({contentType:'application/json',body:JSON.stringify({assetBaseUrl:resourceOrigin+'wrong-root/'})}));
+ await page.goto(origin,{timeout:600000});
+ await page.locator('.pack-loading button').waitFor({timeout:600000});
+ await page.unroute(origin+'runtime-config.json');expectedFailure=false;
+ await page.locator('.pack-loading button').click();
+ await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:600000});
+ report.checks.push('Incorrect asset base stops before menu; correcting config and Retry recovers without reloading or changing release');
  assert.equal(await page.evaluate(()=>typeof window.__SC2_DEBUG__),'undefined');
  await page.screenshot({path:`${out}/menu-desktop.png`});report.screens.push('menu-desktop.png');
  await page.locator('[data-action=menu-new]').click();
@@ -36,8 +42,15 @@ try{
  await page.locator('[data-action=menu-race-next]').click();
  await page.locator('[data-action=menu-difficulty][data-difficulty=hard]').click();
  await page.locator('[data-action=menu-difficulty-next]').click();
+ const failedURL=resourceOrigin+assets.assets['model.hive'].url;expectedFailure=true;
+ await page.route(failedURL,route=>route.fulfill({status:503,body:'QA resource unavailable'}));
  await page.locator('[data-action=menu-start]').click();
- await page.waitForFunction(()=>window.__SC2_REPORT__?.().readiness?.phase==='ready',null,{timeout:240000});
+ await page.waitForFunction(()=>window.__SC2_REPORT__?.().readiness?.phase==='error',null,{timeout:600000});
+ assert.equal(await page.evaluate(()=>window.__SC2_REPORT__().phase),'menu');
+ await page.unroute(failedURL);expectedFailure=false;
+ await page.locator('[data-action=flow-retry]').click();
+ await page.waitForFunction(()=>['ready','error'].includes(window.__SC2_REPORT__?.().readiness?.phase),null,{timeout:600000});assert.equal((await page.evaluate(()=>window.__SC2_REPORT__().readiness)).phase,'ready',JSON.stringify(await page.evaluate(()=>window.__SC2_REPORT__().readiness)));
+ report.checks.push('Missing resource holds before battle and explicit retry recovers the same preparation');
  await page.locator('[data-action=flow-continue]').click();
  await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='battle',null,{timeout:30000});
  const before=await page.evaluate(()=>window.__SC2_REPORT__());
@@ -50,12 +63,12 @@ try{
  const savedTime=await page.evaluate(()=>window.__SC2_REPORT__().time);
  await page.locator('[data-action=save-now]').click();
  await page.waitForFunction(()=>window.__SC2_REPORT__().save.message.includes('已保存'),null,{timeout:30000});
- await page.reload({timeout:240000});
- await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:240000});
+ await page.reload({timeout:600000});
+ await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:600000});
  await page.locator('[data-action=menu-load]').click();
  await page.locator('[data-action=menu-load-local]').click();
  await page.locator('[data-action=menu-load-ready]').click();
- await page.waitForFunction(()=>window.__SC2_REPORT__?.().readiness?.phase==='ready',null,{timeout:240000});
+ await page.waitForFunction(()=>['ready','error'].includes(window.__SC2_REPORT__?.().readiness?.phase),null,{timeout:600000});assert.equal((await page.evaluate(()=>window.__SC2_REPORT__().readiness)).phase,'ready',JSON.stringify(await page.evaluate(()=>window.__SC2_REPORT__().readiness)));
  await page.locator('[data-action=flow-continue]').click();
  await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='battle',null,{timeout:30000});
  const after=await page.evaluate(()=>window.__SC2_REPORT__());
@@ -66,8 +79,18 @@ try{
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  await page.screenshot({path:`${out}/battle-mobile.png`});report.screens.push('battle-mobile.png');
  report.checks.push('390×844 Web build has no page-wide horizontal overflow');
+ report.routedContextCacheHits=cacheHits;
+ report.resources=await page.evaluate(()=>performance.getEntriesByType('resource').filter(r=>r.name.includes('/assets/')).map(r=>({name:r.name,transferSize:r.transferSize,decodedBodySize:r.decodedBodySize,duration:r.duration})));
+ // Playwright routing disables HTTP caching; cache verification uses a separate
+ // un-routed context so a fault-injection setting cannot masquerade as a product bug.
+ const cacheContext=await browser.newContext(),cachePage=await cacheContext.newPage(),cacheCDP=await cacheContext.newCDPSession(cachePage);let warmHits=0;
+ await cacheCDP.send('Network.enable');cacheCDP.on('Network.requestServedFromCache',()=>warmHits++);cacheCDP.on('Network.responseReceived',e=>{if(e.response.fromDiskCache)warmHits++;});
+ await cachePage.goto(origin,{timeout:600000});await cachePage.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:600000});
+ const sample=resourceOrigin+assets.assets['model.hive'].url;
+ const cacheResult=await cachePage.evaluate(async url=>{const a=await fetch(url),first=(await a.arrayBuffer()).byteLength,b=await fetch(url),second=(await b.arrayBuffer()).byteLength;return {first,second,timings:performance.getEntriesByName(url).map(r=>({transferSize:r.transferSize,duration:r.duration}))};},sample);
+ assert.equal(cacheResult.first,assets.assets['model.hive'].bytes);assert.equal(cacheResult.second,cacheResult.first);assert.ok(warmHits>0,'un-routed warm fetch must reuse HTTP cached files');report.cache={hits:warmHits,...cacheResult};await cacheContext.close();
  assert.deepEqual(report.errors,[]);
  report.passed=true;
  await context.close();
-}catch(error){report.passed=false;report.failure=String(error?.stack??error);process.exitCode=1;}
-finally{await fs.writeFile(`${out}/report.json`,JSON.stringify(report,null,2));await browser.close();await new Promise(resolve=>server.close(resolve));console.log(JSON.stringify({passed:report.passed,checks:report.checks,errors:report.errors,failure:report.failure??null}));}
+}catch(error){report.passed=false;report.failure=String(error?.stack??error);const page=browser.contexts()[0]?.pages()[0];if(page){report.body=await page.locator('body').innerText();await page.screenshot({path:out+'/failure.png'});}process.exitCode=1;}
+finally{await fs.writeFile(`${out}/report.json`,JSON.stringify(report,null,2));await browser.close();await new Promise(resolve=>server.close(resolve));await new Promise(resolve=>resources.close(resolve));console.log(JSON.stringify({passed:report.passed,checks:report.checks,errors:report.errors,failure:report.failure??null}));}

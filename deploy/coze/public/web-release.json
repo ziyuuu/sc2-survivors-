@@ -1,0 +1,12 @@
+{
+  "rulesId": "mvp-1.0",
+  "mapId": "kairos",
+  "assetCount": 733,
+  "fileCount": 727,
+  "assetBytes": 458127859,
+  "logicalBytes": 458230327,
+  "sharedBytes": 102468,
+  "manifest": "asset-manifest.89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61.json",
+  "release": "89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61",
+  "source": "reports/local/asset-reachability.json"
+}

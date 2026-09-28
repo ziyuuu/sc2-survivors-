@@ -1,3 +1,4 @@
+import {PLAYER_COMBAT_FACTOR} from '../../data/player-unit-adaptations';
 import type {World} from '../world';
 import type {Body,Entity,Point} from '../types';
 import type {UnitData} from '../../data/sc2-units';
@@ -9,7 +10,7 @@ import {distance,translate} from '../movement/steering';
 import {eliteEffect} from './expedition-elites';
 
 const HANGAR=SOURCE_ABILITIES.carrierHangar,BASE=SOURCE_INTERCEPTOR;
-/** Survivors steering adaptation. Damage, shields, speed and hangar costs remain source values. */
+/** Survivors steering adaptation. Immutable source data plus the approved player adaptation; hangar costs remain unchanged. */
 export const INTERCEPTOR_STEERING={orbitRadius:1.4,leash:14,orbitSpeed:1.1} as const;
 export const isInterceptor=(u:Entity)=>u.summonKind==='interceptor';
 const isCarrier=(u:Entity)=>(u.unitType==='carrier'&&!u.heroId||u.heroId==='purifier_flagship')&&!u.summonKind;
@@ -20,10 +21,11 @@ export function interceptorUnitData():UnitData {
 /** Rebuild from immutable base + mother rank + scoped output once; never compound previous stats. */
 export function refreshInterceptorStats(w:World,u:Entity,fill=false){
  if(!isInterceptor(u))return false;const carrier=u.summonOwnerId===undefined?undefined:w.entities.get(u.summonOwnerId);if(!carrier||!isCarrier(carrier))return false;
+ const lostHp=Math.max(0,u.maxHp-u.hp),lostShield=Math.max(0,(u.maxShield??0)-(u.shield??0));
  const friendly=carrier.team==='player',hero=carrier.heroId==='purifier_flagship',state=w.expedition,tech=friendly&&!hero?state?.tech??{}:{},growth=w.growth(carrier),talents=friendly&&state&&w.runConfig?aggregateMvpTalentEffects(w.runConfig.frozenTalents.levels,w.runConfig.race,hero?{team:'player',race:carrier.race,kind:'hero',attributes:carrier.attributes}:{team:'player',race:carrier.race,kind:'summon',ownerFamilyId:'carrier',summonType:'interceptor'}):{},card=friendly&&!hero?state?.cardTotals['weapon.carrier']??0:0;
- u.race='protoss';u.team=carrier.owner==='terran'?'player':'enemy';u.owner=carrier.owner;u.rank=1;u.attributes=[...BASE.attributes];if(!u.flying)w.hash.invalidatePlanes();u.flying=true;u.unitRadius=BASE.unitRadius*TUNING.unitScale;u.maxHp=BASE.maxHp;u.hp=fill?u.maxHp:Math.min(u.hp,u.maxHp);u.armor=BASE.armor+(tech['protoss.air_armor']??0);
- u.maxShield=BASE.maxShields;u.shield=fill?u.maxShield:Math.min(u.shield??0,u.maxShield);u.shieldArmor=BASE.shieldArmor+(tech['protoss.shields']??0);u.shieldRegen=BASE.shieldRegenPerSecond;u.shieldDelay=BASE.shieldRegenDelay;
- u.moveSpeed=BASE.movementSpeed;u.attackRange=BASE.weapon.attackRange;u.weaponDamage=(BASE.weapon.attackDamage+(tech['protoss.air_weapon']??0))*growth.damage*(1+card)*(1+(talents.weaponDamagePct??0))*eliteEffect(carrier,'interceptorDamageMultiplier')*(hero?1.2*HERO_BASIC_ATTACK.damage:1);u.attackPeriod=BASE.weapon.attackPeriod/growth.attackSpeed/(1+(talents.attackSpeedPct??0))*eliteEffect(carrier,'interceptorAttackPeriodMultiplier')/(hero?HERO_BASIC_ATTACK.frequency:1);u.shotInterval=u.attackPeriod;
+ u.race='protoss';u.team=carrier.owner==='terran'?'player':'enemy';u.owner=carrier.owner;u.rank=1;u.attributes=[...BASE.attributes];if(!u.flying)w.hash.invalidatePlanes();u.flying=true;u.unitRadius=BASE.unitRadius*TUNING.unitScale;u.maxHp=BASE.maxHp*(friendly?PLAYER_COMBAT_FACTOR:1);u.hp=fill?u.maxHp:Math.max(0,u.maxHp-lostHp);u.armor=(BASE.armor+(tech['protoss.air_armor']??0))*(friendly?PLAYER_COMBAT_FACTOR:1);
+ u.maxShield=BASE.maxShields*(friendly?PLAYER_COMBAT_FACTOR:1);u.shield=fill?u.maxShield:Math.max(0,u.maxShield-lostShield);u.shieldArmor=(BASE.shieldArmor+(tech['protoss.shields']??0))*(friendly?PLAYER_COMBAT_FACTOR:1);u.shieldRegen=BASE.shieldRegenPerSecond;u.shieldDelay=BASE.shieldRegenDelay;
+ u.moveSpeed=BASE.movementSpeed*(friendly?PLAYER_COMBAT_FACTOR:1);u.attackRange=BASE.weapon.attackRange;u.weaponDamage=(BASE.weapon.attackDamage+(tech['protoss.air_weapon']??0))*growth.damage*(1+card)*(1+(talents.weaponDamagePct??0))*eliteEffect(carrier,'interceptorDamageMultiplier')*(hero?1.2*HERO_BASIC_ATTACK.damage:1)*(friendly?PLAYER_COMBAT_FACTOR:1);u.attackPeriod=BASE.weapon.attackPeriod/growth.attackSpeed/(1+(talents.attackSpeedPct??0))*eliteEffect(carrier,'interceptorAttackPeriodMultiplier')/(hero?HERO_BASIC_ATTACK.frequency:1)/(friendly?PLAYER_COMBAT_FACTOR:1);u.shotInterval=u.attackPeriod;
  u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;return true;
 }
 function spawnInterceptor(w:World,carrier:Entity){const hangar=carrier.carrierHangar!,serial=hangar.serial++,angle=serial*2.399963,p={x:carrier.x+Math.sin(angle)*.7,z:carrier.z+Math.cos(angle)*.7};

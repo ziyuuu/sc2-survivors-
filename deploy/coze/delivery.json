@@ -1,0 +1,13 @@
+{
+  "release": "89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61",
+  "app": [
+    "asset-manifest.89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61.json",
+    "assets/index-BFrziorw.js",
+    "assets/index-BlZP8Ct2.css",
+    "index.html",
+    "runtime-config.json",
+    "web-release.json"
+  ],
+  "assets": 727,
+  "resourceBytes": 458127859
+}

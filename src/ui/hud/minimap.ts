@@ -16,13 +16,28 @@ export function minimapFrame(d:MapDefinition,stage:number):MapFrame{
 }
 export const mapProject=(f:MapFrame,p:Point)=>({x:(p.x-f.left)/f.size,z:(p.z-f.top)/f.size});
 export const mapUnproject=(f:MapFrame,p:Point)=>({x:f.left+p.x*f.size,z:f.top+p.z*f.size});
+/** Same source colors, without allocating arrays and map points for each pixel. */
+export function paintMinimapTerrain(d:MapDefinition,terrain:Pick<TerrainQuery,'height'>,frame:MapFrame,stage:number,side:number,pixels:Uint8ClampedArray){
+ const p={x:0,z:0},closed=(i:number)=>!d.opening[i]||d.opening[i]>stage;
+ for(let y=0;y<side;y++)for(let x=0;x<side;x++){
+  p.x=frame.left+(x+.5)/side*frame.size;p.z=frame.top+(y+.5)/side*frame.size;
+  const gx=Math.floor((p.x+d.origin[0])/d.cellSize),gy=Math.floor((d.origin[1]-p.z)/d.cellSize),i=gy*d.walkWidth+gx,k=(y*side+x)*4;
+  let r=6,g=14,b=20;
+  if(gx>=0&&gy>=0&&gx<d.walkWidth&&gy<d.walkHeight){
+   const opened=d.reveal[i]>0&&d.reveal[i]<=stage,h=terrain.height(p),walk=d.walk[i]&&d.opening[i]>0;
+   if(!opened){r=12;g=22;b=29;}else if(walk){r=51+h*8;g=65+h*8;b=65+h*7;}else{r=26+h*4;g=32+h*4;b=35+h*4;}
+   if(opened&&walk&&(closed(i-1)||closed(i+1)||closed(i-d.walkWidth)||closed(i+d.walkWidth))){r=67;g=133;b=150;}
+  }
+  pixels[k]=r;pixels[k+1]=g;pixels[k+2]=b;pixels[k+3]=255;
+ }
+}
 export class Minimap {
  readonly element:HTMLElement;readonly canvas:HTMLCanvasElement;private ctx:CanvasRenderingContext2D;private backdrop=document.createElement('canvas');private stage=0;private mapTerrain?:TerrainQuery;private frame:MapFrame={left:-10,top:-10,size:20};private height=0;private observer:ResizeObserver;
  constructor(readonly world:World,readonly view:BattleRenderer,parent:HTMLElement,readonly controls:ControlSettings){
   this.element=document.createElement('aside');this.element.id='minimap';this.element.className='console';
   this.element.innerHTML='<header><span>战术地图</span><span aria-hidden="true">N ↑</span></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。点击模式下，鼠标或触屏轻点前往。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>';
   parent.append(this.element);this.canvas=this.element.querySelector('canvas')!;this.ctx=this.canvas.getContext('2d')!;
-  this.observer=new ResizeObserver(()=>{this.stage=0;this.update();});this.observer.observe(this.canvas);
+  this.observer=new ResizeObserver(()=>{const width=this.canvas.clientWidth;if(width>0&&Math.max(128,Math.round(width*Math.min(devicePixelRatio||1,2)))!==this.canvas.width)this.stage=0;this.update();});this.observer.observe(this.canvas);
   this.element.addEventListener('contextmenu',e=>e.preventDefault());
   let tap:{id:number;x:number;y:number;time:number;cancelled:boolean}|null=null;
   this.canvas.addEventListener('pointerdown',e=>{e.preventDefault();if(world.phase!=='battle'||world.paused)return;if(e.pointerType==='mouse'){if(e.button===0||e.button===2)this.command(e);return;}if(tap){tap.cancelled=true;return;}if(!e.isPrimary)return;tap={id:e.pointerId,x:e.clientX,y:e.clientY,time:performance.now(),cancelled:false};this.canvas.setPointerCapture(e.pointerId);});
@@ -38,12 +53,7 @@ export class Minimap {
  private background(){const d=this.world.terrain?.definition;if(!d)return;this.frame=minimapFrame(d,this.world.terrainStage);this.stage=this.world.terrainStage;this.mapTerrain=this.world.terrain;
   const side=Math.max(128,Math.round(this.canvas.clientWidth*Math.min(devicePixelRatio||1,2)));this.canvas.width=this.canvas.height=side;this.backdrop.width=this.backdrop.height=side;
   const c=this.backdrop.getContext('2d')!,im=c.createImageData(side,side),terrain=this.world.terrain!;
-  for(let y=0;y<side;y++)for(let x=0;x<side;x++){const p=mapUnproject(this.frame,{x:(x+.5)/side,z:(y+.5)/side}),gx=Math.floor((p.x+d.origin[0])/d.cellSize),gy=Math.floor((d.origin[1]-p.z)/d.cellSize),i=gy*d.walkWidth+gx,k=(y*side+x)*4;let rgb=[6,14,20];
-   if(gx>=0&&gy>=0&&gx<d.walkWidth&&gy<d.walkHeight){const opened=d.reveal[i]>0&&d.reveal[i]<=this.stage,h=terrain.height(p),walk=d.walk[i]&&d.opening[i]>0;
-    rgb=opened?(walk?[51+h*8,65+h*8,65+h*7]:[26+h*4,32+h*4,35+h*4]):[12,22,29];
-    if(opened&&walk&&[i-1,i+1,i-d.walkWidth,i+d.walkWidth].some(j=>!d.opening[j]||d.opening[j]>this.stage))rgb=[67,133,150];
-   }im.data.set([...rgb.map(v=>Math.max(0,Math.min(255,v))),255],k);
-  }c.putImageData(im,0,0);this.canvas.dataset.mapFrame=JSON.stringify(this.frame);
+  paintMinimapTerrain(d,terrain,this.frame,this.stage,side,im.data);c.putImageData(im,0,0);this.canvas.dataset.mapFrame=JSON.stringify(this.frame);
  }
  update(){const w=this.world;this.element.hidden=!w.terrain?.definition||w.phase!=='battle'||w.paused;if(this.element.hidden)return;if(this.stage!==w.terrainStage||this.mapTerrain!==w.terrain)this.background();const c=this.ctx,s=this.canvas.width;c.clearRect(0,0,s,s);c.drawImage(this.backdrop,0,0);const unit=s/180;
   const project=(p:Point)=>{const q=mapProject(this.frame,p);return {x:q.x*s,y:q.z*s};};

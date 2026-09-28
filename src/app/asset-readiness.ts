@@ -16,7 +16,7 @@ export type ReadinessRequest={snapshot?:RunSnapshot;race?:Race;hero?:HeroId|null
 export class AssetReadinessCoordinator {
  state:ReadinessState={kind:null,phase:'idle',done:0,total:0,label:'',error:null};
  private generation=0;private last:{kind:ReadinessKind;request:ReadinessRequest}|null=null;private reader:FileReader|null=null;
- onChange=()=>{};
+ onChange=()=>{};onReady:(kind:ReadinessKind,token:string)=>void=()=>{};
  constructor(private world:World,private view:BattleRenderer,private audio?:AudioEffects){}
  get blocking(){return this.state.kind!==null&&this.state.phase!=='ready'&&this.state.phase!=='error';}
  get readyToken(){return this.state.kind&&this.state.phase==='ready'?`${this.state.kind}:${this.generation}`:null;}
@@ -61,7 +61,7 @@ export class AssetReadinessCoordinator {
    if(kind==='endless'&&!this.world.previewEndlessTransition())throw Error('无尽战场落点或状态校验失败');
    if(kind==='load'&&request.snapshot)this.world.restoreRun(request.snapshot,true);
    if(this.view.modelErrors.length)throw Error(this.view.modelErrors.at(-1));
-   this.update({phase:'ready',done:1,total:1,label:'就绪 · 请确认继续'});return true;
+   this.update({phase:'ready',done:1,total:1,label:kind==='reinforcement'?'资源就绪':'就绪 · 请确认继续'});const token=this.readyToken;if(generation===this.generation&&token)this.onReady(kind,token);return true;
   }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}
  }
 }

@@ -27,9 +27,9 @@ export function modelPresentationAccent(unit:Entity){
  return 5+race*3+variant-1;
 }
 
-export interface AttackPresentation {asset:string;impact:string;tint:number;size:number;impactSize:number;life:number}
+export interface AttackPresentation {asset:string;impact:string;tint:number;size:number;impactSize:number;life:number;neutralize?:boolean}
 const HERO_ATTACKS:Record<HeroId,AttackPresentation>={
- raynor:{asset:'fx.muzzle.0',impact:'fx.impact.0',tint:0xfff1c8,size:.38,impactSize:.46,life:.12},
+ raynor:{asset:'fx.flame.1',impact:'fx.flameimpact.0',tint:0xff9b38,size:.62,impactSize:.58,life:.10},
  tychus:{asset:'fx.muzzle.0',impact:'fx.flameimpact.0',tint:0xffb169,size:.43,impactSize:.57,life:.15},
  nova:{asset:'fx.muzzle.1',impact:'fx.impact.0',tint:0xaeefff,size:.38,impactSize:.5,life:.14},
  swann:{asset:'fx.blast.6',impact:'fx.impact.0',tint:0xffdd96,size:.48,impactSize:.57,life:.17},
@@ -54,6 +54,7 @@ const AIR_SAMPLES:Record<string,AttackPresentation>={
  'elite.carrier.1':{asset:'fx.muzzle.1',impact:'fx.blast.6',tint:0xfff3bd,size:.78,impactSize:1.3,life:.22},
 };
 const FAMILY_ATTACKS:Partial<Record<string,AttackPresentation>>={
+ reaper:{asset:'fx.muzzle.0',impact:'fx.impact.0',tint:0xffbd62,size:.32,impactSize:.30,life:.10},
  hellion:{asset:'fx.flame.1',impact:'fx.flameimpact.0',tint:0xffa34b,size:.42,impactSize:.72,life:.22},
  viking:{asset:'fx.muzzle.1',impact:'fx.impact.0',tint:0xffd48c,size:.43,impactSize:.56,life:.16},
  lurker:{asset:'fx.impact.1',impact:'fx.impact.1',tint:0xdde8ae,size:.42,impactSize:.58,life:.18},
@@ -65,6 +66,8 @@ export const heroPresentation=(id:HeroId):AttackPresentation=>HERO_ATTACKS[id];
 /** Skills keep the real cast timing while giving restoration, control and blast cores their own palette. */
 export function heroSkillPresentation(id:HeroId):AttackPresentation{
  const base=HERO_ATTACKS[id];
+ // Preserve the original glow silhouette, remove its yellow before cyan tinting.
+ if(id==='raynor')return {...base,asset:'fx.flame.1',impact:'fx.blast.6',tint:0x46ceff,size:.9,impactSize:.85,life:.16,neutralize:true};
  if(id==='swann')return {...base,asset:'fx.muzzle.0',impact:'fx.impact.0',tint:0xffdb8a,impactSize:.58};
  if(id==='niadra')return {...base,asset:'fx.bile.4',impact:'fx.bile.4',tint:0x98e9a0,impactSize:.64};
  if(id==='artanis')return {...base,impact:'fx.muzzle.1',tint:0xa6e5ff,impactSize:.72};
@@ -82,7 +85,7 @@ function eliteTint(race:Race,variant:number){return race==='terran'?[0xffecc0,0x
 export function attackPresentation(event:VisualEvent):AttackPresentation|null {
  if(event.heroId)return HERO_ATTACKS[event.heroId];
  if(event.modelKey&&AIR_SAMPLES[event.modelKey]&&(!event.eliteId||event.modelKey!=='elite.carrier.1'))return AIR_SAMPLES[event.modelKey];
- if(!event.eliteId)return null;
+ if(!event.eliteId)return event.unitType==='reaper'?FAMILY_ATTACKS.reaper!:null;
  const source=FAMILY_ATTACKS[event.unitType??'']??RACE_ATTACKS[event.race??'terran'];
  const variant=Number(event.eliteId.at(-1));return {...source,tint:eliteTint(event.race??'terran',variant),size:source.size*[1.2,1.4,1.25][variant-1],impactSize:source.impactSize*[1,1.25,1.15][variant-1]};
 }

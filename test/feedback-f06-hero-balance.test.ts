@@ -18,8 +18,8 @@ for(const [id,hp,shield,damage,period] of rows)test(`F06 ${id}: approved durabil
  assert.ok(acquireExpeditionHero(w,id,()=>true));const u=w.heroEntity(id)!;
  for(const rank of [1,3,5]){
   u.rank=rank;refreshExpeditionHero(w,u,true);const g=heroStats(rank);
-  near(u.maxHp,hp*g.health);near(u.maxShield??0,shield*g.health);
-  near(u.weaponDamage,damage*g.damage*1.15);near(u.attackPeriod,period/g.attackSpeed/1.15);
+  near(u.maxHp,hp*g.health*1.15);near(u.maxShield??0,shield*g.health*1.15);
+  near(u.weaponDamage,damage*g.damage*1.15*1.15);near(u.attackPeriod,period/g.attackSpeed/1.15/1.15);
   u.hp-=71;if(u.maxShield)u.shield!-=43;u.weaponCooldown=.123;u.nextShotAt=17;
   for(let i=0;i<3;i++)refreshExpeditionHero(w,u);
   near(u.maxHp-u.hp,71);if(u.maxShield)near(u.maxShield-u.shield!,43);
@@ -32,8 +32,8 @@ test('F06 flagship interceptor output inherits the boost exactly once; ordinary 
  const hero=w.heroEntity('purifier_flagship')!;initializeCarrierSubsystem(w);
  const normalChild=ownedInterceptors(w,ordinary.id)[0],child=ownedInterceptors(w,hero.id)[0];
  for(const rank of [1,3,5]){hero.rank=rank;refreshExpeditionHero(w,hero);for(let i=0;i<3;i++)refreshInterceptorStats(w,child);
-  const g=heroStats(rank);near(child.weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.2*g.damage*1.15);
-  near(child.attackPeriod,SOURCE_INTERCEPTOR.weapon.attackPeriod/g.attackSpeed/1.15);
+  const g=heroStats(rank);near(child.weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.2*g.damage*1.15*1.15);
+  near(child.attackPeriod,SOURCE_INTERCEPTOR.weapon.attackPeriod/g.attackSpeed/1.15/1.15);
  }
- refreshInterceptorStats(w,normalChild);near(normalChild.weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage);near(normalChild.attackPeriod,SOURCE_INTERCEPTOR.weapon.attackPeriod);
+ refreshInterceptorStats(w,normalChild);near(normalChild.weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.15);near(normalChild.attackPeriod,SOURCE_INTERCEPTOR.weapon.attackPeriod/1.15);
 });

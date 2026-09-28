@@ -1,3 +1,4 @@
+import {racePreloadModels} from '../../app/race-preload';
 import {RESCUE_PRESENTATION} from '../../data/economy';
 import {preparePylonBirthMaterials} from '../units/pylon-birth-materials';
 import {BOSSES} from '../../data/enemies';
@@ -26,7 +27,7 @@ import type {RunSnapshot} from '../../simulation/persistence/run-snapshot';
 import type {Entity,Body,Point,Fortification,VisualEvent} from '../../simulation/types';
 import {mapAnimations,attackAction,selectAttackPresentation,type AttackPlaybackState} from '../loaders/animations';
 import {restoreSc2Materials} from '../loaders/sc2-materials';
-import {pickBattle} from '../input/battle-picking';
+import {pickBattle,pickMovement} from '../input/battle-picking';
 import {PodView} from '../units/pod-view';
 import {createTerrain} from '../terrain/char-terrain';
 import {createOriginalMap,type MapView} from '../terrain/original-map';
@@ -57,6 +58,7 @@ export class BattleRenderer {
  private hitTimes=new Map<number,number>();private lastVisual=0;
  readonly fx:BattleEffects;quality:RenderQuality=loadQuality();
  animationMode:AnimationMode=loadAnimationMode();
+ private destinationMarker!:THREE.Mesh;
  initialAssetsLoaded=false;targetPreview:Point|null=null;loadedModels=0;modelErrors:string[]=[];loadedTextures=0;fps=0;frameMs=0;frameTimes:number[]=[];showGrid=false;showColliders=false;
  private shadows:THREE.InstancedMesh;private health:THREE.InstancedMesh;private healthBack:THREE.InstancedMesh;private pickups:ResourceDrops;private rings:THREE.InstancedMesh;
  private lines:THREE.LineSegments;private linePositions=new Float32Array(6000);private lineColors=new Float32Array(6000);
@@ -80,10 +82,10 @@ export class BattleRenderer {
   this.pickups=new ResourceDrops(this.scene);
   const ring=new THREE.RingGeometry(.88,1,32);ring.rotateX(-Math.PI/2);this.rings=makeBatch(ring,new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide,transparent:true,opacity:.8,depthWrite:false}),1400);
   const lineGeo=new THREE.BufferGeometry();lineGeo.setAttribute('position',new THREE.BufferAttribute(this.linePositions,3).setUsage(THREE.DynamicDrawUsage));lineGeo.setAttribute('color',new THREE.BufferAttribute(this.lineColors,3).setUsage(THREE.DynamicDrawUsage));this.lines=new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.9}));this.lines.frustumCulled=false;this.scene.add(this.lines);
-  this.anchor=new THREE.Group();const cursor=new THREE.Mesh(new THREE.RingGeometry(.48,.56,4),new THREE.MeshBasicMaterial({color:0x67d9fb,transparent:true,opacity:.65}));cursor.rotation.x=-Math.PI/2;cursor.rotation.z=Math.PI/4;this.anchor.add(cursor);this.scene.add(this.anchor);
+  this.anchor=new THREE.Group();const cursor=new THREE.Mesh(new THREE.RingGeometry(.48,.56,4),new THREE.MeshBasicMaterial({color:0x67d9fb,transparent:true,opacity:.65}));cursor.rotation.x=-Math.PI/2;cursor.rotation.z=Math.PI/4;this.anchor.add(cursor);this.scene.add(this.anchor);this.destinationMarker=new THREE.Mesh(new THREE.RingGeometry(.58,.68,32),new THREE.MeshBasicMaterial({color:0x84eea7,transparent:true,opacity:.85,depthTest:false,depthWrite:false}));this.destinationMarker.rotation.x=-Math.PI/2;this.destinationMarker.renderOrder=20;this.destinationMarker.visible=false;this.scene.add(this.destinationMarker);
   this.grid.position.y=.08;this.grid.visible=false;this.scene.add(this.grid);
   this.labelLayer.id='pod-labels';document.body.append(this.labelLayer);this.friendlyLabels=new FriendlyLabels(this.labelLayer);
-  this.resize();window.addEventListener('resize',()=>this.resize());
+  this.resize();window.addEventListener('resize',()=>this.resize());new ResizeObserver(()=>this.resize()).observe(canvas);
   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();world.paused=true;world.announce('图形上下文丢失，请重新载入。');});
  }
  /** Retain GPU programs, original map and decoded models when starting a fresh run. */
@@ -136,6 +138,9 @@ export class BattleRenderer {
   if(!pending.length)return 0;
   const identity=new THREE.Matrix4(),white=new THREE.Color(0xffffff),renderer=this.renderer,gl=renderer.getContext();
   const target=renderer.getRenderTarget(),position=this.camera.position.clone(),quaternion=this.camera.quaternion.clone();
+  // Exercise the real screen pipeline without redrawing the entire map for each
+  // material. Preserve lights and the scene graph; only renderable visibility changes.
+  const screenVisibility=new Map<THREE.Object3D,boolean>();this.scene.traverse(node=>{if(node instanceof THREE.Mesh||node instanceof THREE.Line||node instanceof THREE.Sprite){screenVisibility.set(node,node.visible);node.visible=false;}});
   try{
    renderer.setRenderTarget(null);
    for(let i=0;i<pending.length;i++){
@@ -154,7 +159,7 @@ export class BattleRenderer {
     progress(i+1,pending.length,key);
     if((i+1)%4===0)await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));
    }
-  }finally{renderer.setRenderTarget(target);this.camera.position.copy(position);this.camera.quaternion.copy(quaternion);this.camera.updateMatrixWorld();}
+  }finally{for(const [node,visible] of screenVisibility)node.visible=visible;renderer.setRenderTarget(target);this.camera.position.copy(position);this.camera.quaternion.copy(quaternion);this.camera.updateMatrixWorld();}
   return pending.length;
  }
  private async finishProgramWarmup(progress:(done:number,total:number)=>void=()=>{}){
@@ -176,7 +181,7 @@ export class BattleRenderer {
   // Fail required race assets before constructing common scene objects. Successful
   // worker/templates cache individually, so retry reuses them without duplicate meshes.
   await this.prepareRescueAssets(rescueRace);
-  const initialTypes=this.requiredFamilies();await prepareEmbeddedAssetIds(initialTypes.flatMap(type=>[`model.${type}`,...['.death',...(type==='tank'?['.siege','.morph']:[])].map(suffix=>`model.${type}${suffix}`)].filter(id=>ASSETS.has(id))));
+  const initialTypes:UnitType[]=rescueRace==='terran'?['marine','zergling']:rescueRace==='protoss'?['zealot','zergling']:['zergling'];await prepareEmbeddedAssetIds(initialTypes.flatMap(type=>[`model.${type}`,...['.death',...(type==='tank'?['.siege','.morph']:[])].map(suffix=>`model.${type}${suffix}`)].filter(id=>ASSETS.has(id))));
   for(const type of initialTypes){progress(`载入 ${SC2_UNITS[type].name}`);try{const url=assetUrl('model.'+type);if(!url)throw Error('missing asset');const gltf=await restoreSc2Materials(await loader.loadAsync(url));this.prepareUnit(type,gltf);this.loadedModels++;}catch(e){this.modelErrors.push(type+': '+String(e));}}
   for(const key of initialTypes.flatMap(t=>[t+'.death',...(t==='tank'?['tank.siege','tank.morph']:[])])){const url=assetUrl('model.'+key);if(!url)continue;progress(`载入原始动画 ${key}`);try{const type=key.split('.')[0] as UnitType,g=await restoreSc2Materials(await loader.loadAsync(url)),base=this.gpu.get(type);this.gpu.set(key,new AnimatedBatch(g,this.scene,heights[type],base?.normalization));}catch(e){this.modelErrors.push(key+': '+String(e));}}
   await this.fx.load();await this.pickups.load();this.modelErrors.push(...this.pickups.errors.map(e=>'resource: '+e));
@@ -202,7 +207,7 @@ export class BattleRenderer {
     if(texture instanceof THREE.Texture)this.renderer.initTexture(texture);
    }
   }finally{for(const m of visible)m.visible=false;}
-  this.initialAssetsLoaded=true;this.prepareRosterAssets();
+  this.initialAssetsLoaded=true;
  }
  private variantLoads=new Map<string,Promise<boolean>>();private variantQueue=Promise.resolve();assetsPending=0;
  async waitForPendingAssets(){await this.variantQueue;if(this.assetsPending>0)throw Error('仍有资源未完成准备');}
@@ -226,7 +231,7 @@ export class BattleRenderer {
   for(const type of ENDLESS.bossTypes)if(!this.gpu.has(type)&&!await this.ensureUnitVariant(type,type))throw Error('无尽首领模型未就绪：'+type);
   const ids=['model.fort.bunker','model.fort.bunker.death','model.fort.repair','model.fort.repair.death'];let done=0;
   await prepareEmbeddedAssetIds(ids);
-  const loader=new GLTFLoader();for(const id of ids){const source=assetUrl(id);if(!source)throw Error('缺少原版建筑模型：'+id);const gltf=await restoreSc2Materials(await loader.loadAsync(source));const kind:Fortification['kind']=id.includes('bunker')?'bunker':'repair',death=id.endsWith('.death');const clip=death?gltf.animations.find(action=>action.name==='Death'):gltf.animations.find(action=>action.name==='Stand');if(!clip)throw Error('原版建筑动作缺失：'+id);
+  const loader=new GLTFLoader();for(const id of ids){const cachedKind:Fortification['kind']=id.includes('bunker')?'bunker':'repair';if((id.endsWith('.death')?this.fortDeathTemplates:this.fortTemplates).has(cachedKind)){progress(++done,ids.length+1,id);continue;}const source=assetUrl(id);if(!source)throw Error('缺少原版建筑模型：'+id);const gltf=await restoreSc2Materials(await loader.loadAsync(source));const kind:Fortification['kind']=id.includes('bunker')?'bunker':'repair',death=id.endsWith('.death');const clip=death?gltf.animations.find(action=>action.name==='Death'):gltf.animations.find(action=>action.name==='Stand');if(!clip)throw Error('原版建筑动作缺失：'+id);
    const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=(kind==='bunker'?3.2:4)/Math.max(size.x,size.z);const group=new THREE.Group();const model=clone(gltf.scene);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);model.scale.setScalar(scale);group.add(model);(death?this.fortDeathTemplates:this.fortTemplates).set(kind,group);this.fortClips.set(`${kind}:${death?'death':'stand'}`,clip);await this.renderer.compileAsync(group,this.camera,this.scene);this.preloadTextures(group);
    progress(++done,ids.length+1,id);
   }
@@ -266,10 +271,10 @@ export class BattleRenderer {
  }
  async prepareNewRunAssets(race:Race,hero:HeroId|null,progress:(done:number,total:number,label:string)=>void=()=>{}){
   await this.prepareRescueAssets(race);
-  const initial:UnitType[]=race==='terran'?['marine','zergling']:race==='zerg'?['zergling']:['zealot','zergling'];
-  const required=new Map<string,UnitType>(initial.map(type=>[type,type]));
+  const required=racePreloadModels(race);
   if(hero){const data=HEROES[hero];if(!data||data.race!==race)throw Error('开局英雄与种族不符');required.set(data.model,data.baseFamily);}
-  let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('开局模型未就绪：'+key);progress(++done,required.size,key);}
+  let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('开局模型未就绪：'+key);progress(++done,required.size,key);await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));}
+  await this.prepareEndlessAssets((done,total,label)=>progress(done,total,label));
  }
  async prepareCurrentAssets(progress:(done:number,total:number,label:string)=>void=()=>{}){
   await this.prepareRescueAssets(this.world.expedition.race);
@@ -285,7 +290,7 @@ export class BattleRenderer {
  }
  async prepareSnapshotAssets(snapshot:RunSnapshot,progress:(done:number,total:number,label:string)=>void=()=>{}){
   await this.prepareRescueAssets(snapshot.state.expedition.race);
-  const required=new Map<string,UnitType>();
+  const required:Map<string,UnitType>=racePreloadModels(snapshot.config.race);
   for(const family of snapshot.state.expedition.familySlots)required.set(family,family);
   for(const entry of snapshot.state.expedition.bossLootQueue){const effect=entry.reward.expeditionEffect;if(effect.kind==='elite')for(const elite of Object.values(ELITES).filter(e=>e.family===effect.family))required.set(elite.model,elite.family);else if(effect.kind==='hero'){const hero=HEROES[effect.heroId as HeroId];required.set(hero.model,hero.baseFamily);}}
   for(const plan of Object.values(snapshot.state.expedition.production))for(const family of plan?.outputs??[])if(plan?.enabled[family])required.set(family,family);
@@ -301,7 +306,7 @@ export class BattleRenderer {
   for(const family of offerFamilies)for(const elite of Object.values(ELITES).filter(e=>e.family===family&&(!snapshot.state.expedition.elitePaths[family]||snapshot.state.expedition.elitePaths[family]===e.id)))required.set(elite.model,elite.family);
   if(snapshot.state.expedition.pendingShopElite){const elite=ELITES[snapshot.state.expedition.pendingShopElite.variantId];required.set(elite.model,elite.family);}
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('必需单位模型未就绪：'+key);progress(++done,required.size,key);}
-  if(snapshot.state.battlefield.mode==='endless')await this.prepareEndlessAssets((n,total,label)=>progress(required.size+n,required.size+total,label));
+  await this.prepareEndlessAssets((n,total,label)=>progress(required.size+n,required.size+total,label));
  }
  private prepareUnit(type:UnitType,gltf:GLTF){gltf.scene.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());const scale=heights[type]*TUNING.unitScale/Math.max(.001,size.y);
   const batch:UnitBatch={gltf,meshes:[],data:[],scale,center,minY:box.min.y,clips:mapAnimations(gltf.animations)};
@@ -343,11 +348,11 @@ export class BattleRenderer {
   for(const cast of world.campaign18Runtime?.mainCombat?.casts??[]){if(cast.kind==='bile'){putRing(cast.point,cast.radius,0xff6846);putRing(cast.point,cast.radius*Math.max(.08,(cast.at-world.time)/1.5),0xffdf92);}else {const angles=cast.kind==='fan'?Array.from({length:5},(_,i)=>cast.angle+(i-2)*.22):[cast.angle];for(const angle of angles){const end={x:cast.origin.x+Math.sin(angle)*cast.range,z:cast.origin.z+Math.cos(angle)*cast.range};putLine(cast.origin,this.ground(cast.origin)+.14,end,this.ground(end)+.14,cast.kind==='fan'?0xffa36e:0xff645b);if(cast.kind==='line')for(const side of [-1,1])putLine({x:cast.origin.x+Math.cos(angle)*cast.radius*side,z:cast.origin.z-Math.sin(angle)*cast.radius*side},this.ground(cast.origin)+.12,{x:end.x+Math.cos(angle)*cast.radius*side,z:end.z-Math.sin(angle)*cast.radius*side},this.ground(end)+.12,0xff645b);}}}
   for(const c of world.enemySpecials.casts){const color=0xff763d;if(c.kind==='bile'||c.kind==='acid')for(const p of c.points)putRing(p,c.radius,color);else {const a=c.angle,ends=c.kind==='fan'||c.kind==='spikes'?Array.from({length:c.count},(_,i)=>a+(i-(c.count-1)/2)*.2):c.kind==='cone'?[a-.6,a+.6]:[a];for(const angle of ends){const end={x:c.origin.x+Math.sin(angle)*c.range,z:c.origin.z+Math.cos(angle)*c.range};putLine(c.origin,this.ground(c.origin)+.1,end,this.ground(end)+.1,color);if(c.kind==='spikes')for(const side of [-1,1])putLine({x:c.origin.x+Math.cos(angle)*c.radius*side,z:c.origin.z-Math.sin(angle)*c.radius*side},this.ground(c.origin)+.1,{x:end.x+Math.cos(angle)*c.radius*side,z:end.z-Math.sin(angle)*c.radius*side},this.ground(end)+.1,color);}putRing(c.origin,.6,color);}}
   for(const zone of world.enemySpecials.acidZones)putRing(zone.point,zone.radius,0xa2e87b);
-  const weaponMount=(event:VisualEvent)=>{const key=event.modelKey??event.unitType,model=key?this.gpu.get(key+(event.siege?'.siege':'')):null,weapon=model?.weaponAt(event.kind==='skill-launch'?'skill':attackAction(event.unitType,event.shotSequence),event.weaponPoseSeconds??Math.max(0,world.time-event.time)),unit=world.entities.get(event.entityId),scale=unit?modelPresentationScale(unit):event.unitType?modelPresentationScale({modelKey:event.modelKey,heroId:event.heroId,eliteId:event.eliteId,unitType:event.unitType,flying:event.flying}):1;return weaponWorldPoint(event,weapon??{x:0,y:.6,z:.6},scale,this.ground(event));};
+  const weaponMount=(event:VisualEvent,side?:'Left'|'Right')=>{const key=event.modelKey??event.unitType,model=key?this.gpu.get(key+(event.siege?'.siege':'')):null,weapon=model?.weaponAt(event.kind==='skill-launch'?'skill':attackAction(event.unitType,event.shotSequence),event.weaponPoseSeconds??Math.max(0,world.time-event.time),side),unit=world.entities.get(event.entityId),scale=unit?modelPresentationScale(unit):event.unitType?modelPresentationScale({modelKey:event.modelKey,heroId:event.heroId,eliteId:event.eliteId,unitType:event.unitType,flying:event.flying}):1;return weaponWorldPoint(event,weapon??{x:0,y:.6,z:.6},scale,this.ground(event));};
   for(const raw of world.visualEvents){const event=heroFeedbackEvent(raw,world.entities);if(!event.heroId||world.time-event.time>.09||!this.visible(event)&&!this.visible(event.end))continue;
-   const support=event.kind==='skill-impact'&&['swann','niadra','artanis'].includes(event.heroId);if(event.kind==='attack'&&HEROES[event.heroId].range>2||support){const mount=weaponMount(event);putLine(mount,mount.y,event.end,event.endY,heroPresentation(event.heroId).tint);}}
+   const support=event.kind==='skill-impact'&&['swann','niadra','artanis'].includes(event.heroId);if(support){const mount=weaponMount(event);putLine(mount,mount.y,event.end,event.endY,heroPresentation(event.heroId).tint);}}
 
-  const health=(b:Body,y:number)=>{if(bars>=400)return;const width=Math.max(.7,b.unitRadius*2),ratio=Math.max(0,b.hp/b.maxHp);this.healthBack.setMatrixAt(bars,this.matrix(b.x,y,b.z,width,1,1));this.health.setMatrixAt(bars,this.matrix(b.x-(1-ratio)*width/2,y+.015,b.z,width*ratio,1,1));this.health.setColorAt(bars++,_color.set(b.owner==='terran'?(ratio<.3?0xff7852:0x75ef95):0xd9573c));};
+  const health=(b:Body,y:number)=>{if(bars>=400)return;const width=Math.max(.7,b.unitRadius*2),ratio=Math.max(0,b.hp/b.maxHp);this.healthBack.setMatrixAt(bars,this.matrix(b.x,y,b.z,width,1,1));this.health.setMatrixAt(bars,this.matrix(b.x-(1-ratio)*width/2,y+.015,b.z,width*ratio,1,1));this.health.setColorAt(bars++,_color.set(b.owner==='terran'?(ratio<.3?0xff7852:0x75ef95):0xd9573c));const u=b as Entity;if(u.team==='player'&&(u.maxShield??0)>0&&bars<400){const shield=Math.max(0,(u.shield??0)/u.maxShield!);this.healthBack.setMatrixAt(bars,this.matrix(b.x,y+.025,b.z-.15,width,1,.55));this.health.setMatrixAt(bars,this.matrix(b.x-(1-shield)*width/2,y+.04,b.z-.15,width*shield,1,.55));this.health.setColorAt(bars++,_color.set(0x65b5ff));}};
   for(const u of world.entities.values()){const batch=this.batches.get(u.unitType);if(!batch&&!this.gpu.has(u.modelKey??u.unitType)||!this.visible(u)||!world.visibleTo(u,'terran'))continue;const dying=u.hp<=0,death=dying?Math.max(0,1-(world.time-(u.deadAt??world.time))/1.3):1,presentationScale=modelPresentationScale(u),recoveryScale=u.unitType==='baneling'&&(u.recoveryUntil??0)>world.time?.84+.04*Math.sin(world.time*5):1;
    const index=counts.get(u.unitType)??0;if(index>=UNIT_CAPACITY)continue;counts.set(u.unitType,index+1);
    const transit=u.cliffTransit?cliffRenderPosition(u,world.time):null,x=transit?.x??u.prev.x+(u.x-u.prev.x)*alpha,z=transit?.z??u.prev.z+(u.z-u.prev.z)*alpha,y=u.flying?AIR_HEIGHT:this.ground({x,z})+(transit?.lift??0);
@@ -393,13 +398,13 @@ export class BattleRenderer {
   for(const [id,c] of this.corpses){const model=this.gpu.get(c.type+'.death')??this.gpu.get(c.type);const age=world.time-c.at,life=Math.min(5,Math.max(1.5,model?.pose('dead')?.duration??1.5));if(age>life+.4){this.corpses.delete(id);continue;}if(model&&this.visible(c))model.add(c.x,c.y,c.z,c.facing,'dead',age,true,0,(age>life?Math.max(.01,1-(age-life)/.4):1)*c.scale);}
   for(const [id] of this.animationStates)if(!world.entities.has(id)){this.animationStates.delete(id);this.hitTimes.delete(id);}
   for(const [id,at] of this.hitTimes)if(world.time-at>.2)this.hitTimes.delete(id);
-  for(const e of world.economicTargets.values()){if(!this.visible(e))continue;const age=world.time-(e.resolvedAt??world.time),model=this.gpu.get(e.kind);if(e.status==='active'){model?.add(e.x,this.ground(e),e.z,e.facing,e.kind==='drone'?'move':'idle',world.time*1.4);health(e,this.ground(e)+1.65);if(e.kind==='egg')putRing(e,1.1,0xe8be6e);}else if(e.kind==='egg'&&e.status==='rescued'&&age<3.8){this.gpu.get(RESCUE_PRESENTATION[world.expedition.race].workerModel)?.add(e.x,this.ground(e),e.z,e.facing,'idle',age*1.4,false,0,age>3.4?Math.max(.01,(3.8-age)/.4):1);putRing(e,1.1,0x8be8a5);}else if(age<1.5)model?.add(e.x,this.ground(e),e.z,e.facing,'dead',age,true,0,Math.max(.01,1-age/1.5));}
+  for(const e of world.economicTargets.values()){if(!this.visible(e))continue;const age=world.time-(e.resolvedAt??world.time),model=this.gpu.get(e.kind);if(e.status==='active'){model?.add(e.x,this.ground(e),e.z,e.facing,e.kind==='drone'?'move':'idle',world.time*1.4);health(e,this.ground(e)+1.65);if(e.kind==='egg')putRing(e,1.1+.08*Math.sin(world.time*4),0xffd67d);}else if(e.kind==='egg'&&e.status==='rescued'&&age<3.8){this.gpu.get(RESCUE_PRESENTATION[world.expedition.race].workerModel)?.add(e.x,this.ground(e),e.z,e.facing,'idle',age*1.4,false,0,age>3.4?Math.max(.01,(3.8-age)/.4):1);putRing(e,1.1,0x8be8a5);}else if(age<1.5)model?.add(e.x,this.ground(e),e.z,e.facing,'dead',age,true,0,Math.max(.01,1-age/1.5));}
   for(const b of this.gpu.values())b.end();
   for(const p of world.pods){
    // Completed pods keep their simulation record, but expired skeletal views leave the scene.
    if((p.status==='rescued'||p.status==='destroyed')&&world.time-(p.resolvedAt??world.time)>=7){this.podViews.get(p.id)?.dispose();this.podViews.delete(p.id);this.podLabels.get(p.id)?.remove();this.podLabels.delete(p.id);continue;}
    this.podLabel(p);let v=this.podViews.get(p.id);const template=this.podTemplates.get(world.expedition.race);if(!v&&template){v=new PodView(template,this.scene,world.expedition.race,this.podBirthTemplates.get(world.expedition.race));this.podViews.set(p.id,v);}v?.update(p,world.time,this.visible(p),this.ground(p));
-   if(p.status==='active'||p.status==='opening'){health(p,this.ground(p)+2.9);putRing(p,this.showColliders?p.unitRadius:2.1,0xffa94e);}}
+   if(p.status==='active'||p.status==='opening'){health(p,this.ground(p)+2.9);putRing(p,this.showColliders?p.unitRadius:2.1+.1*Math.sin(world.time*4),0xffc26d);}}
   if(world.hive){if(!this.hiveView&&this.hiveTemplate){this.hiveView=clone(this.hiveTemplate);this.scene.add(this.hiveView);}if(this.hiveView){this.hiveView.position.set(world.hive.x,this.ground(world.hive),world.hive.z);this.hiveView.visible=world.hive.hp>0;}if(world.hive.hp>0)health(world.hive,this.ground(world.hive)+4);}
   for(const [id,v] of this.expansionViews)if(!world.expansionHives.has(id)){v.removeFromParent();this.expansionViews.delete(id);}
   for(const hive of world.expansionHives.values()){let v=this.expansionViews.get(hive.id);if(!v&&this.hiveTemplate){v=clone(this.hiveTemplate);v.scale.multiplyScalar(.8);this.scene.add(v);this.expansionViews.set(hive.id,v);}if(v){v.position.set(hive.x,this.ground(hive),hive.z);v.visible=this.visible(hive);}health(hive,this.ground(hive)+3.2);putRing(hive,hive.unitRadius+.35,world.hiveFrenzy?0xff6851:0xb97b5b);}
@@ -408,7 +413,7 @@ export class BattleRenderer {
   for(const fort of world.fortifications.values()){let v=this.fortViews.get(fort.id);if(!v){v=this.makeFortView(fort.id,fort.kind);v.userData.fortKind=fort.kind;this.fortViews.set(fort.id,v);}v.position.set(fort.x,this.ground(fort),fort.z);v.visible=this.visible(fort);if(v.visible){health(fort,this.ground(fort)+2.4);putRing(fort,fort.unitRadius+.2,fort.kind==='bunker'?0x71c4fa:0x70e7c9);}}
   for(const mixer of this.fortMixers.values())mixer.update(fortDt);
   for(const [id,death] of this.fortDeathViews){death.mixer.update(fortDt);if(world.time>=death.until){death.mixer.stopAllAction();death.group.removeFromParent();this.fortDeathViews.delete(id);}}
-  for(const fx of world.effects){const hero=world.entities.get(fx.source)?.heroId;if(hero&&(fx.kind==='bile'||fx.kind==='explosion'))continue;if(fx.kind==='bile'){putRing(fx.end,fx.radius+1,0xff7138);putRing(fx.end,Math.max(.15,(fx.until-world.time)/2.5*(fx.radius+1)),0xffda84);}else if(fx.kind==='hero-warning'){putRing(fx.end,fx.radius,0xf4d38c);}else if(fx.kind==='scan-warning'){putRing(fx.end,fx.radius,0xff6357);putRing(fx.end,Math.max(.15,fx.radius*(1-(fx.until-world.time))),0xffb26b);}else if(fx.kind==='hero-line')putLine(fx,this.ground(fx)+.7,fx.end,this.ground(fx.end)+.7,0xffcc78);else if(fx.kind==='explosion')putRing(fx.end,fx.radius*(1+(fx.until-world.time)),0xffbc59);}
+  for(const fx of world.effects){const hero=world.entities.get(fx.source)?.heroId;if(hero&&(fx.kind==='bile'||fx.kind==='explosion'||fx.kind==='hero-line'))continue;if(fx.kind==='bile'){putRing(fx.end,fx.radius+1,0xff7138);putRing(fx.end,Math.max(.15,(fx.until-world.time)/2.5*(fx.radius+1)),0xffda84);}else if(fx.kind==='hero-warning'){putRing(fx.end,fx.radius,0xf4d38c);}else if(fx.kind==='scan-warning'){putRing(fx.end,fx.radius,0xff6357);putRing(fx.end,Math.max(.15,fx.radius*(1-(fx.until-world.time))),0xffb26b);}else if(fx.kind==='hero-line')putLine(fx,this.ground(fx)+.7,fx.end,this.ground(fx.end)+.7,0xffcc78);else if(fx.kind==='explosion')putRing(fx.end,fx.radius*(1+(fx.until-world.time)),0xffbc59);}
 
   for(const field of world.expedition?.detectionFields??[])if(field.until>world.time){const color=field.team==='player'?(world.expedition?.race==='zerg'?0xc5a1ef:world.expedition?.race==='protoss'?0xffdd84:0x63dce8):0xff7963;putRing(field,field.radius,color);for(let i=0;i<4;i++){const a=world.time*.4+i*Math.PI/2;putLine({x:field.x+Math.cos(a)*(field.radius-.6),z:field.z+Math.sin(a)*(field.radius-.6)},this.ground(field)+.12,{x:field.x+Math.cos(a)*field.radius,z:field.z+Math.sin(a)*field.radius},this.ground(field)+.12,color);}}
   for(const spell of world.expedition?.spells??[])if(spell.until>world.time){if(spell.kind==='guardian')putRing(spell,spell.radius,0x79cfff);else if(spell.kind==='storm'){putRing(spell,spell.radius,spell.owner==='terran'?0xb597ff:0xff7963);for(let i=0;i<5;i++){const a=i*2.399+Math.floor(world.time*10)*.15,r=spell.radius*(.3+.13*i),p={x:spell.x+Math.cos(a)*r,z:spell.z+Math.sin(a)*r};putLine(p,this.ground(p)+.1,{x:p.x+.18,z:p.z-.12},this.ground(p)+1.5,0xc7b5ff);}}else if(spell.target!==null){const unit=world.entities.get(spell.target);if(unit)putRing(unit,unit.unitRadius+.3,0x89ec9d);}}
@@ -419,7 +424,7 @@ export class BattleRenderer {
   for(const u of world.entities.values())if(u.enemyTier&&u.hp>0){let el=this.enemyLabels.get(u.id);if(!el){el=document.createElement('div');el.className='enemy-special-label '+u.enemyTier;this.enemyLabels.set(u.id,el);this.labelLayer.append(el);}el.hidden=!this.visible(u)||world.phase!=='battle'||!world.visibleTo(u,'terran');if(!el.hidden){const effects=[statusReadout(world,u).short,world.auraArmor.has(u.id)?'甲壳护卫':'',world.auraDamage.has(u.id)?'狂热':'',world.hiveFrenzy?'亢奋':''].filter(Boolean).join(' · '),label=(u.enemyTier==='lord'?'♛ ':'')+(u.enemyName??'')+(effects?' · '+effects:'');if(el.textContent!==label)el.textContent=label;_vec.set(u.x,this.ground(u)+heights[u.unitType]*(u.visualScale??1)+.6,u.z).project(this.camera);el.style.transform=`translate(${(_vec.x*.5+.5)*this.viewportWidth}px,${(.5-_vec.y*.5)*this.viewportHeight}px) translate(-50%,-100%)`;}}
   this.friendlyLabels.update(world,u=>{const key=this.modelKey(u),model=this.gpu.get(key);const transit=u.cliffTransit?cliffRenderPosition(u,world.time):null,x=transit?.x??u.prev.x+(u.x-u.prev.x)*alpha,z=transit?.z??u.prev.z+(u.z-u.prev.z)*alpha,y=(u.flying?AIR_HEIGHT:this.ground({x,z})+(transit?.lift??0))+(model?.bodyHeight??heights[u.unitType]*TUNING.unitScale)*modelPresentationScale(u)+.25;_vec.set(x,y,z).project(this.camera);return {x:(_vec.x*.5+.5)*this.viewportWidth,y:(.5-_vec.y*.5)*this.viewportHeight,visible:!!model&&_vec.x>-1&&_vec.x<1&&_vec.y>-1&&_vec.y<1&&_vec.z>-1&&_vec.z<1};},this.viewportWidth);
   for(const cast of world.heroCasts){if(cast.launched||cast.phase==='dot'||cast.phase==='channel')continue;const hero=HEROES[cast.hero],angle=Math.atan2(cast.point.x-cast.origin.x,cast.point.z-cast.origin.z);if(hero.length){putLine(cast.origin,this.ground(cast.origin)+.1,{x:cast.origin.x+Math.sin(angle)*hero.length,z:cast.origin.z+Math.cos(angle)*hero.length},this.ground(cast.origin)+.1,0xffc177);}else putRing(cast.point,Math.max(.4,hero.radius),0xffc177);}
-  if(world.phase==='battle'&&world.order)putRing(world.order.point,.65+.08*Math.sin(world.time*7),0x84eea7);
+  this.destinationMarker.visible=world.phase==='battle'&&!!world.order;if(world.order){this.destinationMarker.position.set(world.order.point.x,this.ground(world.order.point)+.15,world.order.point.z);this.destinationMarker.scale.setScalar(1+.06*Math.sin(world.time*7));}
   commitInstances(this.shadows,shadows);commitInstances(this.rings,ring);
   for(const m of [this.health,this.healthBack])commitInstances(m,bars);
   const lootIds=new Set(world.rewardDrops.map(p=>p.id));for(const [id,el] of this.lootLabels)if(!lootIds.has(id)){el.remove();this.lootLabels.delete(id);}
@@ -430,7 +435,8 @@ export class BattleRenderer {
   this.renderer.render(this.scene,this.camera);
  }
  private podLabel(p:import('../../simulation/types').Pod){let el=this.podLabels.get(p.id);if(!el){el=document.createElement('div');el.className='pod-world-label';this.labelLayer.append(el);this.podLabels.set(p.id,el);}const active=['falling','active','opening'].includes(p.status);el.hidden=!active||!this.visible(p)||this.world.phase!=='battle'||this.world.paused;if(el.hidden)return;
-  _vec.set(p.x,this.ground(p)+3.4,p.z).project(this.camera);const x=(_vec.x*.5+.5)*this.viewportWidth,y=(.5-_vec.y*.5)*this.viewportHeight;el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;const text=`${icon('unit.'+p.unitType)}<span>${SC2_UNITS[p.unitType].zh} ×${p.passengers.filter(c=>c.status==='waiting').length} · 增援${p.number}<small>${this.world.podPurpose(p.unitType,p.passengers.filter(c=>c.status==='waiting').length)} · ${Math.ceil(p.hp)} / ${p.maxHp} HP</small><i style="width:${Math.max(0,p.hp/p.maxHp)*100}%"></i></span>`;if(el.dataset.content!==text){el.innerHTML=text;el.dataset.content=text;}}
+  _vec.set(p.x,this.ground(p)+3.4,p.z).project(this.camera);const x=(_vec.x*.5+.5)*this.viewportWidth,y=(.5-_vec.y*.5)*this.viewportHeight;el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;const text=`${icon('unit.'+p.unitType)}<span>${SC2_UNITS[p.unitType].zh} ×${p.passengers.filter(c=>c.status==='waiting').length}${p.injectedAt!==undefined&&this.world.time-p.injectedAt<3?' · 注卵 +'+p.injectedSeats+'名额':''} · 增援${p.number}<small>${this.world.podPurpose(p.unitType,p.passengers.filter(c=>c.status==='waiting').length)} · ${Math.ceil(p.hp)} / ${p.maxHp} HP</small><i style="width:${Math.max(0,p.hp/p.maxHp)*100}%"></i></span>`;if(el.dataset.content!==text){el.innerHTML=text;el.dataset.content=text;}}
+ pickMove(clientX:number,clientY:number){return pickMovement(clientX,clientY,this.canvas,this.camera,this.scene,this.world);}
  pick(clientX:number,clientY:number,touch=false){return pickBattle(clientX,clientY,touch,this.canvas,this.camera,this.scene,this.world);}
  screen(p:Point){_vec.set(p.x,this.ground(p),p.z).project(this.camera);return {x:(_vec.x*.5+.5)*this.viewportWidth,y:(-.5*_vec.y+.5)*this.viewportHeight};}
  report(){return {animationMode:this.animationMode,map:this.mapView?.report(),order:this.world.order?.kind==='move'?{...this.world.order,point:{...this.world.order.point}}:this.world.order?{...this.world.order}:null,resolution:{quality:this.quality,devicePixelRatio:window.devicePixelRatio||1,renderPixelRatio:this.renderer.getPixelRatio(),width:this.canvas.width,height:this.canvas.height,cssWidth:this.viewportWidth,cssHeight:this.viewportHeight,antialias:this.renderer.getContext().getContextAttributes()?.antialias},models:this.loadedModels,variantModels:[...this.gpu.keys()].filter(k=>(k.startsWith('elite.')||k.startsWith('hero.'))&&!k.endsWith('.death')&&!k.endsWith('.siege')&&!k.endsWith('.morph')),assetsPending:this.assetsPending,economicModels:['scv','drone','probe','egg'].filter(k=>this.gpu.has(k)).length,podModel:this.podTemplates.has(this.world.expedition.race),carrierModels:[...this.podTemplates.keys()],resourceModels:this.pickups.batches.size,resourceInstances:this.pickups.visible,errors:[...this.modelErrors,...this.fx.errors,...this.pickups.errors],originalAnimationModels:[...this.batches.values()].filter(b=>b.gltf.animations.length>0).length,proceduralAnimationModels:[...this.batches.values()].filter(b=>!b.gltf.animations.length).length,originalDeathModels:[...this.gpu.keys()].filter(k=>k.endsWith('.death')).length,animationAtlasBytes:[...this.gpu.values()].reduce((n,b)=>n+b.textureBytes,0),lodRatios:Object.fromEntries([...this.gpu].filter(([k])=>ordinaryLodKeys.has(k)).map(([k,b])=>[k,b.lodRatio])),effectTextures:this.fx.loaded,effects:this.fx.stats,textures:this.loadedTextures,fps:this.fps,requestedInstanceUploadBytes:requestedUploadBytes,drawCalls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles,entities:this.world.entities.size,maxStretch:this.world.maxStretch,spatialVisits:this.world.distancePairs,collisionContacts:this.world.collisionContacts};}

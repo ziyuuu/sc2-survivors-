@@ -3,7 +3,7 @@ import type {Point} from '../../simulation/types';
 import type {ControlSettings} from '../controls/settings';
 import {activateHeroSlot} from '../controls/skills';
 
-type BattlePointer={canvas:HTMLCanvasElement;pick:(x:number,y:number,touch:boolean)=>{point:Point}|null;previewTarget?:(point:Point|null)=>void};
+type BattlePointer={canvas:HTMLCanvasElement;pick:(x:number,y:number,touch:boolean)=>{point:Point}|null;pickMove?:(x:number,y:number)=>{point:Point}|null;previewTarget?:(point:Point|null)=>void};
 export class Input {
  keys=new Set<string>();stick={x:0,z:0};pointer:number|null=null;
  private cancelTap=()=>{};private cancelTarget=()=>{};
@@ -27,6 +27,7 @@ export class Input {
   window.addEventListener('blur',()=>this.reset());document.addEventListener('visibilitychange',()=>{if(document.hidden)this.reset();});
   settings.listeners.add(()=>{this.reset();world.cancelOrder();});
   window.addEventListener('keydown',e=>{
+   if(e.target instanceof HTMLElement&&e.target.closest('#battle-console')){if(e.code==='Escape'){const close=document.querySelector<HTMLButtonElement>('#unit-inspector.inspect-open [data-inspect-close]');if(close)close.click();else e.target.blur();e.preventDefault();}return;}
    if(e.target instanceof HTMLInputElement||e.target instanceof HTMLSelectElement)return;
    const code=e.code;if(code==='Escape'){if(target){this.cancelTarget();e.preventDefault();return;}if(world.talentTransferPlan){world.cancelTalentTransfer();e.preventDefault();return;}if(!e.repeat)onPause();return;}
    if(!canAct())return;
@@ -38,7 +39,7 @@ export class Input {
   window.addEventListener('keyup',e=>this.keys.delete(e.code));
   const command=(e:PointerEvent)=>{
    if(!canAct()||(!target&&!settings.pointerMoves(e.pointerType))||this.pointer!==null)return;
-   const hit=battle.pick(e.clientX,e.clientY,e.pointerType!=='mouse');if(hit){if(target){target=hit.point;preview();updateTransferPanel();confirmTarget();}else world.issueMove(hit.point);}
+   const hit=!target&&battle.pickMove?battle.pickMove(e.clientX,e.clientY):battle.pick(e.clientX,e.clientY,e.pointerType!=='mouse');if(hit){if(target){target=hit.point;preview();updateTransferPanel();confirmTarget();}else world.issueMove(hit.point);}
   };
   canvas.addEventListener('contextmenu',e=>e.preventDefault());
   canvas.addEventListener('pointerdown',e=>{

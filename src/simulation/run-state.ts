@@ -1,3 +1,4 @@
+import {newSwarmState} from '../data/swarm';
 import type {EndlessState} from '../data/endless';
 import type {EndlessConfig} from '../data/endless';
 import type {RunConfig} from './persistence/run-snapshot';
@@ -24,6 +25,7 @@ export class RunState {
  expedition:import('./expedition-state').ExpeditionState=newExpedition('terran');
  runConfig:RunConfig|null=null;
  campaign18Runtime:Campaign18Runtime|null=null;
+ swarm=newSwarmState();
  podSerial=0;time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'endless-ready'|'finished'|'lost'='menu';paused=false;
  battlefield:{mode:'campaign'|'endless';mapId:'campaign-kairos-v1'|'endless-flat-v1';mapHash:string}={mode:'campaign',mapId:'campaign-kairos-v1',mapHash:''};
  endlessEntry:{id:string;revision:number;ready:boolean}|null=null;
@@ -58,9 +60,11 @@ protected specialPlan:(EnemyEvent|Campaign18Special)[]=[];protected nextSpecial=
  protected waves:(Wave|Campaign18Wave)[]=[];protected eventPlan:EconomicSpawn[]=[];protected nextEvent=0;protected scheduledStage=0;
  protected ambientBacklog:{type:ZergType|Campaign18Enemy;bearing:number;at:number;campaignStage?:number;detector?:boolean}[]=[];protected extraDeliveries:TerranType[]=[];
  protected spawnCells:Point[]=[];
+ protected swarmSpawnCache:{cells:Point[];radius:number;points:Point[]}[]=[];
  notice='守住小队。生产完成后必须救援。';noticeUntil=8;revision=0;
  protected readonly contacts=new ContactSolver();
  protected readonly formation=new SquadFormation();
+ protected readonly destinationFormation=new SquadFormation();
  protected readonly engagement=new EngagementSlots();
  protected movementAllies:Entity[]|null=null;protected formationPlanned=false;
  protected configStage=0;protected configDifficulty:Difficulty|null=null;protected stageData!:StageConfig|Campaign18StageConfig|EndlessConfig;
@@ -82,7 +86,7 @@ protected specialPlan:(EnemyEvent|Campaign18Special)[]=[];protected nextSpecial=
 
  /** Typed DTO only; protected gameplay fields stay encapsulated on the live state. */
  snapshotData(){return {
-  expedition:this.expedition,runConfig:this.runConfig,campaign18Runtime:this.campaign18Runtime,podSerial:this.podSerial, time:this.time, tick:this.tick, stage:this.stage, stageElapsed:this.stageElapsed,
+  expedition:this.expedition,runConfig:this.runConfig,campaign18Runtime:this.campaign18Runtime,swarm:this.swarm,podSerial:this.podSerial, time:this.time, tick:this.tick, stage:this.stage, stageElapsed:this.stageElapsed,
   stageStartedAt:this.stageStartedAt, phase:this.phase, paused:this.paused, battlefield:this.battlefield,endlessEntry:this.endlessEntry,endlessTransitionReceipt:this.endlessTransitionReceipt,endlessRoundReceipts:this.endlessRoundReceipts,runId:this.runId,
   endlessAwardedMinutes:this.endlessAwardedMinutes, endless:this.endless, entities:this.entities, pods:this.pods, buildings:this.buildings,
   upgrades:this.upgrades, wallet:this.wallet, anchor:this.anchor, marchDirection:this.marchDirection, order:this.order,

@@ -1,3 +1,4 @@
+import {PLAYER_REAPER_DAMAGE_BONUS,PLAYER_COMBAT_FACTOR} from '../../src/data/player-unit-adaptations';
 import fs from 'node:fs/promises';
 import {SC2_UNITS,SC2_PROFILE,FASTER} from '../../src/data/sc2-units';
 import {HEROES,HERO_BASIC_ATTACK,ALL_HERO_IDS} from '../../src/data/heroes';
@@ -27,7 +28,7 @@ text.push('# 当前游戏数据参考 · 三族18关',
  '本文件由 `npm run docs:data` 从运行配置生成；请修改源码后重新生成。设计规则见 [DESIGN.md](DESIGN.md)，验证状态见 [QA.md](QA.md)。表格是配置参考，不代表全部内容已经通过人工视觉、操作或平衡验收。逐实体最终值还包括培养、科技、天赋、强化与临时状态。',
  '## 规则与来源边界',
  table(['规则','用途','普通家族／身体','英雄身份','战役'],[
-  [MVP_RULES,'当前唯一可玩规则',`${FAMILY_LIMIT} 家族 × ${BODY_LIMIT} 基础身体；A16至7身体，S14培养至7级`,HERO_LIMIT,`${CAMPAIGN18_ID}：18关`],
+  [MVP_RULES,'当前唯一可玩规则',`${FAMILY_LIMIT} 家族 × ${BODY_LIMIT} 基础名额；A16至7名额，跳虫每名额两身体，S14培养至7级`,HERO_LIMIT,`${CAMPAIGN18_ID}：18关`],
  ]),
  `三族目录各 ${FAMILIES_BY_RACE.terran.length} 个普通家族，共 ${ALL_FAMILIES.length} 个；模式、英雄与截击机不另计普通家族。`,
  `除科技球外的普通单位使用固定 SC2 ${SC2_PROFILE.version} 导出版本，修订 ${SC2_PROFILE.revision}。层序：${EXPANSION_SOURCE.layers.join(' → ')}。时钟：${SC2_PROFILE.clock}。已核对导出 XML，未声称与另一安装客户端版本等价。`,
@@ -35,11 +36,13 @@ text.push('# 当前游戏数据参考 · 三族18关',
  table(['科技球来源文件','SHA-256'],Object.values(SCIENCE_VESSEL_SOURCE.files).map(f=>[f.file,f.sha256])),
  '原模型来源的 CASC 版本为 5.0.16.97563；素材版本不改变上述战斗配置来源。英雄数值、精英能力、建筑报价、天赋、卡牌和战役是本作设计／实验参数。');
 
+text.push('## 玩家战斗统一适配',`所有难度玩家战斗单位（含精英、英雄、所属召唤物）的武器及附加伤害、最大生命、原生护盾、移速、生命/护盾护甲乘 ${PLAYER_COMBAT_FACTOR}，攻击周期除以该因子。工人、建筑、载体和技能/治疗不乘。下方普通来源表未包含这项适配；实际实体以派生值为准。`, '跳虫每名额为一对，共享军衔及精英身份，两身体独立战斗。缺员900固定步后存活者裂变；死亡、培养及换兵按配对账计算。虫后距落地载体6以内注卵，每只45秒冷却、同舱一次、最多两个一级普通名额、零付款、先扣除预付款占位。');
 text.push('## 新规则：30个普通家族',
  '以下为一级基础身体和默认主武器。雷神、虫后等多武器、变形与范围模式另见后表；科技球及医疗艇没有普通攻击，航母伤害由所属截击机结算。菌毯修正、护盾和恢复不合并成生命。');
 for(const race of RACES)text.push('### '+RACE_NAMES[race],table(['ID','兵种','HP／护盾','生命护甲','移速','单发 × 发数','周期秒','射程','默认目标','属性'],FAMILIES_BY_RACE[race].map(id=>{
- const u=SC2_UNITS[id];return [id,u.zh,`${u.maxHp}／${unitShield(id)}`,u.armor,n(u.movementSpeed),`${u.attackDamage} × ${u.attacks}`,n(u.attackPeriod),u.attackRange,u.targetType,list(u.attributes)];
+ const u=SC2_UNITS[id];return [id,u.zh,`${u.maxHp}／${unitShield(id)}`,u.armor,n(u.movementSpeed),`${u.attackDamage+(id==='reaper'?PLAYER_REAPER_DAMAGE_BONUS:0)} × ${u.attacks}`,n(u.attackPeriod),u.attackRange,u.targetType,list(u.attributes)];
 })));
+text.push('玩家死神使用本作适配：每周期两次、每次6伤害；锁定来源仍为2×4。军衔、精英、科技和强化在此基础上分别计算一次。');
 text.push('### 完整生产配方',
  '费用按最终交付的一名身体列出，进化体费用已包含基础体，不再重复收费。完整训练时间为基础体与进化阶段之和；跳虫通常一批双生，单体尾单按单体价格、同一配方时间。新订单锁定实际价格与训练时间，旧订单不追溯改价。',
  table(['家族','生产线','矿／气（每身体）','完整秒','基础秒＋进化秒','通常身体／配方','基础体','本作前置','额外关卡条件','来源训练项'],ALL_FAMILIES.map(id=>{
@@ -60,6 +63,13 @@ text.push('### 来源科技增量',`以下武器与特色研究增量来自同�
  table(['特色研究ID','源UpgradeID','实际效果字段'],Object.entries(SOURCE_RESEARCH_EFFECTS).map(([id,r])=>[id,r.sourceId,JSON.stringify(Object.fromEntries(Object.entries(r).filter(([key])=>key!=='sourceId')))])),
  '速度加值已换算为Faster时钟。潜伏者部署研究只缩短埋入，不能套到钻出；恢复卡分别增强已存在的生命恢复、原生回盾和治疗输出，每个通道只乘一次，不凭空增加恢复能力。');
 
+text.push('## 普通敌军与追加虫海',
+ '普通敌军：战役1—6关I级、7—12关II级、13—18关III级；无尽1—2轮III级、3—4轮IV级、第5轮起V级。军衔替换普通敌军旧章节生命／伤害／攻速成长。',
+ '等级L：攻速1＋0.15×(L−1)，每击伤害L÷攻速倍率，生命1＋0.8×(L−1)，额外护甲0.5×(L−1)。简单减半各增量；困难／地狱再应用一次既有压力。明确兵种阶段升级保留。',
+ '第1—6关普通敌人与普通救援守军：简单生命×0.80、普通×0.90，其他难度不变。跳虫最终简单14.4／19.2／24／28，普通16.2／21.6／27／31.5；后者对应第4—6关。精英、Boss、领主、建筑、经济目标不应用。出生后固定，保留原生恢复。',
+ '普通难度每关追加I级虫海：7—9关60、10—12关90、13—15关120、16—18关150、无尽每60秒60。70%跳虫／20%蟑螂／10%爆虫；第5秒开始每15秒分批，其他难度按原数量比例、累计余数分配。',
+ '追加兵始终使用固定I级基础属性，不叠章节、普通军衔、难度属性或后期兵种升级；正常奖励和击杀天赋。原事件优先，300敌人上限，积压跨关保存，数量不丢弃。');
+
 text.push('## 新规则：持续生产和发展行动',
  '每条生产线最多配置两个产出，按顺序交替；开关只影响尚未付款的未来批次。每条线仍只允许一批在途。虫族每座孵化设施只归属一个序列，不能重复贡献产能。A16可把每家族身体与预付上限从5升至7，S14可把普通军衔升至7。',
  table(['生产线ID','种族','名称','合法家族'],Object.entries(PRODUCTION_LINES).map(([id,line])=>[id,RACE_NAMES[line.race],line.name,line.families.map(name).join('、')])),
@@ -77,13 +87,13 @@ text.push('## 新规则：三件付费商品与Build卡组',
  '每页三件商品均可购买，售罄不补货；R09每窗口1／2次免单，刷新不消耗免单。数值卡白到橙基础价50/0、90/20、150/50、225/90、325/140；培养为完整配方乘实际等级增量；精英为配方乘5；英雄750/250。四种经济商品支付25矿/25矿/50矿/75矿25气，分别得到100矿/50气/75矿25气/100矿25气。未入编家族只可获得生产支持，不靠卡牌直接引入新家族。地图永久强化每章最多一张，全程最多六张；R14另产生独立紫／橙击杀掉落，均保存收据。');
 
 text.push(`## 新规则：${ALL_HERO_IDS.length}名英雄`,
- '各族五选三身份，阵亡仍占身份名额。招募顺序绑定技能槽1／2／3；等级1—5，同名卡升级但不复活。新增技能数值是本作实验参数，不能据原模型名称声称为原版技能。',
+ '各族六选三身份，阵亡仍占身份名额。招募顺序绑定技能槽1／2／3；等级1—5，同名卡升级但不复活。新增技能数值是本作实验参数，不能据原模型名称声称为原版技能。',
  table(['ID','种族','英雄','HP／护盾','生命护甲','单发 × 发数','周期秒','射程／移速','普攻目标','属性','先天隐形'],ALL_HERO_IDS.map(id=>{const h=HEROES[id];return [id,RACE_NAMES[h.race],h.name,`${h.hp}／${h.shield}`,h.armor,`${n(h.damage*HERO_BASIC_ATTACK.damage)} × ${h.attacks}`,n(h.period/HERO_BASIC_ATTACK.frequency),`${h.range}／${h.speed}`,h.target,list(h.attributes),h.innateCloak?'是':'否'];})),
  table(['英雄','主动技能','一级基础量','范围参数：射程／半径／长度／宽度','前摇或首个结算延迟秒','冷却秒','模型ID'],ALL_HERO_IDS.map(id=>{const h=HEROES[id];return [h.name,h.skill,h.skillDamage,`${h.skillRange}／${h.radius}／${h.length}／${h.width}`,h.delay,h.cooldown,h.model];})),
  '“一级基础量”依技能分别指单次伤害、每次治疗或每目标回盾，控制技能可为0；弹幕次数、持续伤害、合法目标及控制时长由技能执行器定义，不能将该列直接当作技能总伤害。伤害／治疗／回盾量每级增加25%，范围、冷却及控制不成长。复活价格250矿／100气×[1＋0.25×(等级−1)]，下一关部署且技能从完整冷却开始。');
 
 text.push(`## 新规则：${Object.keys(ELITES).length}款唯一精英`,
- '每个家族同时最多一名精英，占该家族普通身体席位；同局锁定一种变体。多变体家族不会获得更高抽中概率。下列新增专属效果只应用一次，不随精英等级额外重复相乘。',
+ '每个家族同时最多一个精英身份，占一个普通名额；精英跳虫为一对两只身体；同局锁定一种变体。多变体家族不会获得更高抽中概率。下列新增专属效果只应用一次，不随精英等级额外重复相乘。',
  table(['ID','名称','家族','模板','专属能力','新效果配置','模型ID'],Object.values(ELITES).map(e=>[e.id,e.name,name(e.family),e.template,e.id==='medivac.3'?'恢复输出＋25%，主系／跨系比例保持1与1/3。':e.description,e.effect?`${e.effect.stat}：${e.effect.amount}`:'由既有精英规则执行',e.model])),
  '医疗艇维修变体在当前规则改为恢复输出＋25%。皮肤来源和能力是两个维度，不能据皮肤声称对应原版技能。',
  table(['模板','输出倍率','攻速倍率','HP倍率','移速倍率','额外护甲','每级输出增量','每级攻速增量','每级HP增量'],Object.entries(ELITE_TEMPLATES).map(([id,t])=>[id,t.output,t.as,t.hp,t.move,t.armor,t.dpsStep,t.asStep,t.hpStep])),
@@ -106,7 +116,7 @@ for(const difficulty of difficulties)text.push(`### 新18关 · ${difficultyName
  table(['关','秒','波次数','总预算','普通波预算','普通兵量','预留：队长／Boss／主巢／扩张巢','首批守军兵量','奖励矿／气','Drone／虫卵'],CAMPAIGN18_STAGES.map(({id})=>{const s=campaign18StageConfig(id,difficulty);return [id,s.durationSeconds,s.waves,s.budget,s.waveBudget,CAMPAIGN18_ENEMIES.map(t=>s.ambient[t]).join('／'),Object.values(s.reserves).join('／'),CAMPAIGN18_ENEMIES.map(t=>s.guards[t]).join('／'),s.reward.join('／'),`${s.drones}／${s.eggs}`];})),
  table(['章节起始关','压力：总量／波次／守军','压力：HP／伤害／攻速／移速','章节成长：HP／伤害／攻速'],[1,4,7,10,13,16].map(stage=>{const p=campaign18EnemyPressure(difficulty,stage),g=campaign18ChapterGrowth(difficulty,stage);return [stage,[p.total,p.waves,p.guards].map(n).join('／'),[p.health,p.damage,p.attackSpeed,p.moveSpeed].map(n).join('／'),[g.health,g.damage,g.attackSpeed].map(n).join('／')];})));
 text.push('第18关主巢全程可攻击、阶段切换不回血；提前摧毁停止其攻击与生产，仍需完成150秒时限。通关要求主巢摧毁和时限结束同时满足。第1—17关按时间推进，存活敵人与伤损跨关保留。24关只是后续独立战役接口，不是当前内容。',
- '普通／简单每3关获得1永久资源，困难每3关2资源，地狱每关1资源；完整18关分别6／12／18。无尽每完整60秒战斗按普通／简单1、困难／地狱2资源结算，未新增20分钟领取上限。无尽保留本局资产，并使用240秒轮次及终章混合敌军池。');
+ '普通／简单每3关获得1永久资源，困难每3关2资源，地狱每关1资源；完整18关分别6／12／18。无尽每完整60秒战斗按普通／简单1、困难／地狱2资源结算，未新增20分钟领取上限。无尽保留本局资产，每60秒结算300矿／250气并购物，每4轮先发展；四分钟混合波次与经济事件切分为四个窗口，特殊敌人计时连续。');
 
 text.push('## 版本边界',
  '当前新局只运行 mvp-1.0 的三族18关、165节点和单套关间经济。M1空天赋档可规范化迁移；旧开发战局不续跑，只能导出原件并一次性核算已证实的永久资源。历史价格表仅供该只读导入核算，不参与当前游戏运行。',

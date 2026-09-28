@@ -118,3 +118,32 @@ body:has(#overlay:not([hidden])) #topbar{pointer-events:none}
 
 /* F06: only fine, noninteractive hero vitals; the fixed skill HUD retains identity. */
 .hero-world-label{pointer-events:none;gap:1px}.hero-world-label .hero-world-shield{position:relative;overflow:hidden;width:46px;height:3px;border:1px solid #314856;background:#12212d}.hero-world-shield i{position:absolute;inset:0 auto 0 0;background:#85c6eb}.hero-world-label .hero-world-shield[hidden]{display:none}
+
+#detection.cloak-threat{border-color:#ffd26b;box-shadow:0 0 9px #ffc34f80;color:#ffe5a2}#detection.cloak-threat:disabled{opacity:.8;border-color:#db9c35}
+/* 2026-09-28: choices first; optional management stays folded. */
+.compact-intermission{width:min(100%,1000px);margin:auto;padding:16px 24px 24px!important;min-height:0!important}
+.intermission-heading{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px;margin-bottom:14px}
+.intermission-heading h2{font-size:26px;margin:0!important}.intermission-heading>span{color:#b7dfe7}.intermission-heading small{margin-left:auto;color:#9dc5b4}
+.compact-intermission #reward-cards{gap:14px;margin:14px 0!important}.shop-offer{position:relative;min-width:0}
+.compact-intermission .reward-card{width:100%;min-height:220px!important;padding:16px!important;display:grid;grid-template-columns:52px 1fr;grid-template-rows:auto auto 1fr auto;gap:10px;text-align:left}
+.compact-intermission .reward-card>img{position:static;left:auto;top:auto;transform:none;width:48px;height:48px;margin:0!important;grid-column:1;grid-row:2}
+.compact-intermission .reward-card>.card-number{grid-column:1/-1;font-size:11px}.compact-intermission .reward-card>h3{grid-column:2;font-size:17px;margin:0;align-self:center}
+.compact-intermission .reward-card>p{grid-column:1/-1;margin:0;font-size:14px;line-height:1.4}.compact-intermission .reward-card>strong{grid-column:1/-1;font-size:16px;margin:0}.compact-intermission .reward-card>em,.compact-intermission .card-select{display:none}
+.compact-intermission .card-ownership{grid-column:1/-1;font-size:12px}.compact-intermission .reward-actions{display:flex;gap:12px;justify-content:flex-end;margin:14px 0;position:sticky;bottom:0;z-index:3;background:#0b1b24;padding:10px;border-top:1px solid #537781}
+.compact-intermission .primary-next{background:#164435;border-color:#87c8a9;color:#e6ffee;min-width:140px}.compact-intermission .refresh{min-height:44px}
+.offer-details{font-size:13px;margin-top:4px}.offer-details>summary{cursor:pointer;padding:6px;color:#abd3df;min-height:32px}.offer-details[open]>p{padding:8px 12px;background:#102732;line-height:1.5}
+.elite-family-card>.offer-details{grid-column:1/-1}.army-preparation,.direction-picker{border-top:1px solid #35515b}.army-preparation>summary,.direction-picker>summary{padding:12px 4px;cursor:pointer;color:#b6d1da;min-height:44px}
+.compact-intermission .expedition-production{margin:8px 0;padding:12px}.compact-intermission .production-lines{margin:0;gap:8px}
+#army-hud{position:fixed;left:16px;bottom:18px;max-width:330px;z-index:25;padding:0!important}#army-hud>summary{cursor:pointer;min-width:72px;min-height:44px;padding:12px;color:#c3e5ec}
+#production-detail{font-size:12px;padding:8px;max-height:20vh;overflow:auto}#production-detail>span{display:block}
+#stretch:empty{display:none}#hero-skills .hero-status{max-width:150px}#hero-skills .hero-vitals{height:4px}#hero-skills .hero-vitals>span{display:none}#hero-skills .hero-skill{min-height:48px}#hero-skills .hero-skill b{font-size:12px}#hero-skills .hero-skill small{font-size:11px}
+@media(max-width:600px){
+ .compact-intermission{padding:10px 12px 16px!important}.intermission-heading{gap:4px 10px;margin-bottom:8px}.intermission-heading h2{font-size:22px}.intermission-heading small{font-size:12px}
+ .compact-intermission #reward-cards{display:grid;grid-template-columns:1fr;gap:8px;margin:8px 0!important}.compact-intermission .reward-card{min-height:116px!important;grid-template-columns:42px 1fr auto;grid-template-rows:auto auto auto;gap:5px 9px;padding:10px!important}
+ .compact-intermission .reward-card>.card-number{grid-column:1;grid-row:1;font-size:10px;white-space:nowrap}.compact-intermission .reward-card>img{width:38px;height:38px;grid-row:2/4}
+ .compact-intermission .reward-card>h3{grid-row:1;grid-column:2/-1;font-size:15px}.compact-intermission .reward-card>p{grid-column:2/-1;grid-row:2;font-size:13px}.compact-intermission .reward-card>strong{grid-column:2/-1;grid-row:3;font-size:14px}.compact-intermission .reward-card>strong small{display:inline;margin-left:8px;font-size:10px}
+ .compact-intermission .card-ownership{display:none}.offer-details{margin:0}.offer-details>summary{padding:4px 8px;min-height:28px;font-size:12px}.compact-intermission .reward-actions{margin:8px 0;padding:8px;bottom:env(safe-area-inset-bottom)}
+ #army-hud{left:10px;bottom:calc(80px + env(safe-area-inset-bottom));max-width:240px}#army-hud>summary{font-size:12px;padding:8px;min-width:52px;min-height:36px}#hero-skills .hero-status{max-width:108px}#hero-skills .hero-skill img{width:30px;height:30px}
+}
+
+#interface:not(.in-battle) #army-hud{display:none}

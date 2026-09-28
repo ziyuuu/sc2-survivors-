@@ -54,8 +54,8 @@ test('Raynor piercing shot advances over 0.2 seconds and saved mid-flight target
 });
 
 test('Dehaka and Fenix sample basics add bounded secondary damage without extra APM copies',()=>{
- const z=make('zerg');assert.ok(z.acquireHero('dehaka'));const dehaka=z.heroEntity('dehaka')!;dehaka.x=dehaka.z=0;const primary=foe(z,1,0),secondary=foe(z,1.6,.3),behind=foe(z,-1,0);z.hash.rebuild(z.entities.values());z.fire(dehaka,primary);assert.equal(primary.hp,9908);assert.equal(secondary.hp,9954);assert.equal(behind.hp,10000);
- const p=make('protoss');assert.ok(p.acquireHero('fenix'));const fenix=p.heroEntity('fenix')!;fenix.x=fenix.z=0;const center=foe(p,4),around=foe(p,4,.7),distant=foe(p,4,3);p.hash.rebuild(p.entities.values());p.fire(fenix,center);assert.equal(center.hp,9917.2);assert.ok(Math.abs(around.hp-(10000-72*1.15*.35))<1e-8);assert.equal(distant.hp,10000);
+ const z=make('zerg');assert.ok(z.acquireHero('dehaka'));const dehaka=z.heroEntity('dehaka')!;dehaka.x=dehaka.z=0;const primary=foe(z,1,0),secondary=foe(z,1.6,.3),behind=foe(z,-1,0);z.hash.rebuild(z.entities.values());z.fire(dehaka,primary);assert.equal(primary.hp,10000-80*1.15*1.15);assert.equal(secondary.hp,10000-80*1.15*1.15*.5);assert.equal(behind.hp,10000);
+ const p=make('protoss');assert.ok(p.acquireHero('fenix'));const fenix=p.heroEntity('fenix')!;fenix.x=fenix.z=0;const center=foe(p,4),around=foe(p,4,.7),distant=foe(p,4,3);p.hash.rebuild(p.entities.values());p.fire(fenix,center);assert.equal(center.hp,10000-72*1.15*1.15);assert.ok(Math.abs(around.hp-(10000-72*1.15*1.15*.35))<1e-8);assert.equal(distant.hp,10000);
 });
 
 test('presentation scales never alter physics and the recovery signal has no death event',()=>{

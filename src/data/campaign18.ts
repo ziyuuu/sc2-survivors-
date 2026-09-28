@@ -89,7 +89,7 @@ export function campaign18StageConfig(stage:number,difficulty:Difficulty):Campai
 }
 
 export interface Campaign18Wave {at:number;types:Campaign18Enemy[];bearing:number}
-export interface Campaign18Special {at:number;type:Campaign18Enemy;tier:'elite'|'boss';role:'captain'|'boss';budget:number}
+export interface Campaign18Special {at:number;type:Campaign18Enemy;tier:'elite'|'boss';role:'captain'|'boss';budget:number;sourceStage?:number}
 export interface Campaign18Hive {
  at:number;budget:number;kind:'main'|'expansion';warningAt?:number;warningSeconds?:number;maxNewPerStage?:number;maxAlive?:number;
  phases?:readonly {from:number;until:number;name:string}[];alwaysAttackable?:boolean;requiresSurvival?:boolean;healBetweenPhases?:boolean;

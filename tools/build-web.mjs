@@ -15,15 +15,16 @@ if(selected.size!==reachability.selectedIds.length)throw Error('Duplicate select
 const rows=new Map(reachability.rows.map(row=>[row.id,row]));
 if(rows.size!==selected.size||[...selected].some(id=>!rows.has(id)))throw Error('Release resource rows do not match selection');
 const byId=new Map(records.map(record=>[record.id,record]));
-const files=new Map();
+const files=new Map(),assets={},sharing=new Map();
+const mime=ext=>({glb:'model/gltf-binary',gltf:'model/gltf+json',json:'application/json',webp:'image/webp',png:'image/png',jpg:'image/jpeg',ogg:'audio/ogg',mp3:'audio/mpeg',wav:'audio/wav'}[ext]??'application/octet-stream');
 for(const id of selected){
  const record=byId.get(id),row=rows.get(id);
  if(!record||record.status!=='available'||record.packedFile!==row.packedFile||!/^assets\/[A-Za-z0-9._/-]+$/.test(record.url)||record.url.split('/').includes('..'))throw Error('Invalid web resource: '+id);
  const source=path.resolve(root,record.packedFile),publicRoot=path.resolve(root,'public');
  if(!inside(publicRoot,source))throw Error('Web resource source escapes public: '+id);
- const previous=files.get(record.url);
- if(previous&&previous.sha256!==row.sha256)throw Error('Conflicting web resource URL: '+record.url);
- files.set(record.url,{source,bytes:row.bytes,sha256:row.sha256});
+ const ext=path.extname(record.url).slice(1).toLowerCase(),url=sharing.get(row.sha256)??`assets/${row.sha256}.${ext}`;
+ sharing.set(row.sha256,url);assets[id]={url,bytes:row.bytes,sha256:row.sha256,mime:mime(ext)};
+ files.set(url,{source,bytes:row.bytes,sha256:row.sha256});
 }
 await fs.mkdir(dist,{recursive:true});
 if(await fs.stat(staging).then(()=>true,()=>false))throw Error('Web staging directory already exists: '+staging);
@@ -39,9 +40,14 @@ try{
   await fs.mkdir(path.dirname(destination),{recursive:true});
   await fs.writeFile(destination,sourceBytes);bytes+=sourceBytes.length;
  }
- const index=await fs.readFile(path.join(staging,'index.html'),'utf8');
+ const release=createHash('sha256').update(JSON.stringify(assets)).digest('hex'),manifestName=`asset-manifest.${release}.json`;
+ await fs.writeFile(path.join(staging,manifestName),JSON.stringify({version:1,release,assets}));
+ await fs.writeFile(path.join(staging,'runtime-config.json'),JSON.stringify({assetBaseUrl:''}));
+ let index=await fs.readFile(path.join(staging,'index.html'),'utf8');
+ index=index.replace('<head>',`<head><meta name="sc2-asset-manifest" content="./${manifestName}">`);
+ await fs.writeFile(path.join(staging,'index.html'),index);
  if(!index.includes('id="battle"')||!index.includes('type="module"'))throw Error('Web entry point missing battle canvas or module');
- await fs.writeFile(path.join(staging,'web-release.json'),JSON.stringify({rulesId:'mvp-1.0',mapId:'kairos',assetCount:selected.size,fileCount:files.size,assetBytes:bytes,source:'reports/local/asset-reachability.json'},null,2));
+ await fs.writeFile(path.join(staging,'web-release.json'),JSON.stringify({rulesId:'mvp-1.0',mapId:'kairos',assetCount:selected.size,fileCount:files.size,assetBytes:bytes,logicalBytes:Object.values(assets).reduce((n,a)=>n+a.bytes,0),sharedBytes:Object.values(assets).reduce((n,a)=>n+a.bytes,0)-bytes,manifest:manifestName,release,source:'reports/local/asset-reachability.json'},null,2));
  staged=true;
 }finally{if(!staged)await fs.rm(staging,{recursive:true,force:true});}
 const exists=async target=>fs.stat(target).then(()=>true,()=>false);

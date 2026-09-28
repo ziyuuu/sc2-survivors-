@@ -17,16 +17,16 @@ function resolve(w:World,time:number){w.time=time;w.hash.rebuild(w.entities.valu
 
 test('three approved air heroes have independent combat identities outside 30 ordinary families',()=>{
  for(const [race,id] of [['terran','yamato_battlecruiser'],['zerg','hots_leviathan'],['protoss','purifier_flagship']] as const){
-  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.unitType,id);assert.equal(u.race,race);assert.equal(u.team,'player');assert.equal(u.flying,true);assert.equal(u.maxHp,data.hp);assert.equal(u.maxShield,data.shield);assert.equal(w.expedition.familySlots.includes(id as never),false);
+  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.unitType,id);assert.equal(u.race,race);assert.equal(u.team,'player');assert.equal(u.flying,true);assert.ok(Math.abs(u.maxHp-data.hp*1.15)<1e-8);assert.ok(Math.abs(u.maxShield!-data.shield*1.15)<1e-8);assert.equal(w.expedition.familySlots.includes(id as never),false);
  }
 });
 
 test('Yamato main gun has two native hits and fixed-point fusion cannon saves in flight',()=>{
  const w=setup('terran'),u=hero(w,'yamato_battlecruiser'),main=enemy(w,4),near=enemy(w,4,1),far=enemy(w,12);
- w.fire(u,main);assert.equal(main.hp,9908);assert.ok(castExpeditionHero(w,'yamato_battlecruiser'));
- resolve(w,1.24);assert.equal(main.hp,9908);const run=readArchive(writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()})).bundle.run!;
+ w.fire(u,main);assert.equal(main.hp,9894.2);assert.ok(castExpeditionHero(w,'yamato_battlecruiser'));
+ resolve(w,1.24);assert.equal(main.hp,9894.2);const run=readArchive(writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()})).bundle.run!;
  const restored=setup('terran');restored.restoreRun(run);restored.paused=false;resolve(restored,1.25);
- assert.equal(restored.entities.get(main.id)?.hp,9208);assert.equal(restored.entities.get(near.id)?.hp,9720);assert.equal(restored.entities.get(far.id)?.hp,10000);assert.equal(restored.heroCasts.length,0);
+ assert.equal(restored.entities.get(main.id)?.hp,9194.2);assert.equal(restored.entities.get(near.id)?.hp,9720);assert.equal(restored.entities.get(far.id)?.hp,10000);assert.equal(restored.heroCasts.length,0);
 });
 
 test('Leviathan plasma storm gives three real pulses without spawning extra bodies',()=>{
@@ -59,7 +59,7 @@ test('air-hero skills can target a real hive outside the entity spatial hash',()
 test('Purifier flagship owns four initial interceptors, pays for replacement and fires no ordinary hull gun',()=>{
  const w=setup('protoss'),carrier=hero(w,'purifier_flagship'),target=enemy(w);w.wallet.minerals=15;
  initializeCarrierSubsystem(w);const initial=ownedInterceptors(w,carrier.id);assert.equal(initial.length,4);
- assert.equal(initial[0].weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.2*1.15);
+ assert.equal(initial[0].weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.15*1.2*1.15);
  w.fire(carrier,target);assert.equal(target.hp,10000);
  assert.ok(castExpeditionHero(w,'purifier_flagship'));resolve(w,1.39);assert.equal(target.hp,10000);resolve(w,1.4);assert.equal(target.hp,9400);
  tickCarrierSubsystem(w,8.571428571428571);assert.equal(ownedInterceptors(w,carrier.id).length,5);assert.equal(w.wallet.minerals,0);

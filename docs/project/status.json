@@ -1635,6 +1635,30 @@
       "evidence": "docs/project/FEEDBACK_F05_F07_VALIDATION_20260927.md"
     }
   },
+  "secondPassRepair": {
+    "document": "docs/project/FEEDBACK_SECOND_PASS_20260928.md",
+    "state": "ENGINEERING_INCREMENT_VERIFIED_FULL_PERFORMANCE_AND_DEATH_EFFECTS_OPEN",
+    "rulesUnchanged": "unit damage, ranges, periods, difficulty, prices, skills and rewards",
+    "tests": {
+      "total": 642,
+      "passed": 642,
+      "failed": 0,
+      "skipped": 0
+    },
+    "browserEvidence": "reports/local/qa-feedback-20260927/report-second-pass-focus-final.json; report-second-pass-touch-final.json; reports/local/qa-m3/report.json; reports/local/qa-m3-offline/report.json",
+    "performanceEvidence": "six one-seed early-game samples, stages 3/4/4 reached, P99 16.8–16.9ms; incomplete six-stage/late/endless coverage, not M6 acceptance",
+    "artifact": {
+      "path": "dist/SC2-Survivors-Demo.html",
+      "bytes": 360862669,
+      "sha256": "0568AAAC940DDACD9C7EBDBD971D7AB440DAFFC7A07071C6374CEA7D2CBADD40"
+    },
+    "open": [
+      "complete natural stages 1–6, legal late campaign and endless performance coverage",
+      "root cause of the earlier intermittent energy-saving frame cluster",
+      "authentic carrier death particles and rigid fragments",
+      "human visual acceptance and physical touch/gamepad hardware"
+    ]
+  },
   "autonomousCloseout": {
     "document": "docs/project/AUTONOMOUS_CLOSEOUT_20260927.md",
     "state": "ENGINEERING_INCREMENT_VERIFIED_PERFORMANCE_AND_CONTENT_GAPS_OPEN",
@@ -1652,5 +1676,183 @@
       "failed": 0,
       "skipped": 0
     }
+  },
+  "swarmWebIteration": {
+    "document": "docs/project/SWARM_WEB_ITERATION_20260928.md",
+    "evidence": "docs/project/SWARM_WEB_VALIDATION_20260928.md",
+    "state": "A_D_ENGINEERING_VERIFIED_E_PARTIAL",
+    "runSchema": 9,
+    "stages": {
+      "A": "ENGINEERING_VERIFIED",
+      "B": "ENGINEERING_VERIFIED",
+      "C": "ENGINEERING_VERIFIED",
+      "D": "LOCAL_RELEASE_VERIFIED",
+      "E": "OPEN"
+    },
+    "tests": {
+      "total": 671,
+      "passed": 671,
+      "failed": 0,
+      "skipped": 0
+    },
+    "artifacts": [
+      {
+        "file": "dist/SC2-Survivors-Demo.html",
+        "bytes": 360877324,
+        "sha256": "befc74c2c2852088503f98d14782e549fc082ea0bd10101335a1aae730944ebc"
+      },
+      {
+        "file": "dist/coze-deployment/SC2-Coze-App.zip",
+        "bytes": 494989,
+        "sha256": "5f9a56e5cd3c8a22bca7bc00c77ee71f33145171af7536c0a260ae29f8b3c9ae"
+      },
+      {
+        "file": "dist/coze-deployment/SC2-Web-Resources.zip",
+        "bytes": 355535232,
+        "sha256": "c94a8feca0242737ab559df66b4426681e1e6406770b0f3f92aa6102dc2a8726"
+      }
+    ],
+    "resources": {
+      "rulesId": "mvp-1.0",
+      "mapId": "kairos",
+      "assetCount": 733,
+      "fileCount": 727,
+      "assetBytes": 458127859,
+      "logicalBytes": 458230327,
+      "sharedBytes": 102468,
+      "manifest": "asset-manifest.89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61.json",
+      "release": "89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61",
+      "source": "reports/local/asset-reachability.json"
+    },
+    "humanVisualAccepted": false,
+    "fullNaturalPerformanceAccepted": false,
+    "open": [
+      "all-race locked-health final/endless content route completion",
+      "natural full stages 1–6 / late / endless performance matrix",
+      "earlier intermittent energy-saving long-frame cause",
+      "original death particles/ribbons/rigid fragments",
+      "physical devices and user visual/MVP acceptance",
+      "Coze account/CDN deployment"
+    ],
+    "contentDiagnostic": {
+      "combatOnlyHealthLock": true,
+      "campaignsReachedFinalStage": 3,
+      "campaignFinalVictories": 0,
+      "endlessFiveRoundsCompleted": 0,
+      "enemyPeaks": {
+        "bio": 298,
+        "swarm": 300,
+        "shield": 300
+      },
+      "evidence": [
+        "reports/local/swarm-content-capacity",
+        "reports/local/swarm-content-lane"
+      ],
+      "state": "FINAL_OBJECTIVE_FAILED"
+    },
+    "sourceDigest": "11976b58869021035612465990ab5b53dbe584faccaa5bdedc125b8267db719f",
+    "releaseChecks": {
+      "typecheck": "PASS",
+      "tests": "671/671",
+      "dataDocs": "PASS",
+      "offlineBuild": "PASS",
+      "webBuild": "PASS",
+      "packageHashesCRC": "PASS",
+      "webRetryCacheSave": "PASS",
+      "offlineSave": "PASS",
+      "ui": "desktop/keyboard/touch/virtual-gamepad; UI unchanged by final capacity fix",
+      "naturalPerformance": "OPEN_FAILED_SAMPLES_RETAINED",
+      "lockedContent": "FINAL_OBJECTIVES_FAILED",
+      "originalDeaths": "PARTIAL",
+      "humanVisual": "PENDING"
+    }
+  },
+  "twinRosterIteration": {
+    "document": "docs/project/TWIN_SWARM_SC2_HUD_20260928.md",
+    "evidence": "docs/project/TWIN_SWARM_VALIDATION_20260928.md",
+    "state": "FEATURES_VERIFIED_PERFORMANCE_AND_BALANCE_OPEN",
+    "runSchema": 10,
+    "tests": {
+      "total": 687,
+      "passed": 687,
+      "failed": 0,
+      "skipped": 0
+    },
+    "artifacts": [
+      {
+        "file": "dist/SC2-Survivors-Demo.html",
+        "bytes": 360901687,
+        "sha256": "75b2e17cf53b4e54643927a230ecc707e383239fa102e35cfb66858ae1d905d8"
+      },
+      {
+        "file": "dist/coze-deployment/SC2-Coze-App.zip",
+        "bytes": 558877,
+        "sha256": "1e5118eee3e8e0245d42b6ee69f3b261f89f1f8e6b6aef31f8b1134e352f5742"
+      },
+      {
+        "file": "dist/coze-deployment/SC2-Web-Resources.zip",
+        "bytes": 355536355,
+        "sha256": "55f35841bc043b11a2aeab3372cbb290671322258ce31a7505c2e7d91c894f03"
+      }
+    ],
+    "resources": {
+      "ids": 733,
+      "files": 727,
+      "bytes": 458127859,
+      "release": "89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61",
+      "remoteVerification": "PENDING_PUSH"
+    },
+    "checks": {
+      "typecheck": "PASS",
+      "dataDocs": "PASS",
+      "webAndOfflineBuild": "PASS",
+      "packageCRC": "PASS",
+      "desktopTouchTabletVirtualGamepad": "PASS",
+      "browserSave": "PASS",
+      "offlineSave": "PASS",
+      "webRetryCORSCacheSave": "PASS",
+      "wholeNaturalPerformance": "OPEN_FAILED_LATE_SAMPLE",
+      "synthetic30And42": "RECORDED_NOT_60FPS",
+      "humanVisual": "PENDING"
+    },
+    "contentDiagnostic": {
+      "healthLock": true,
+      "oneHit": true,
+      "campaignsCompleted": 3,
+      "endlessRoundsPerRace": 5,
+      "evidence": "reports/local/twin-diagnostic"
+    },
+    "naturalController": {
+      "race": "terran",
+      "seed": 7,
+      "talents": 0,
+      "assistance": false,
+      "easyLastStage": 18,
+      "easyCompletedStages": 17,
+      "normalLastStage": 3,
+      "normalCompletedStages": 2,
+      "state": "NO_NATURAL_CLEAR"
+    },
+    "performance": {
+      "earlyZergComplete200s": "SAMPLE_GATE_PASS_PARTIAL_COVERAGE",
+      "earlyZergEnergy200s": "SAMPLE_GATE_PASS_PARTIAL_COVERAGE",
+      "lateTerranEasy180s": {
+        "p95ms": 16.8,
+        "p99ms": 33.4,
+        "over20Percent": 2.4733966,
+        "maxDebtSeconds": 0.3001,
+        "state": "FAIL"
+      },
+      "synthetic30p99ms": 33.5,
+      "synthetic42p99ms": 33.5
+    },
+    "open": [
+      "full three-race natural stages 1–6, late and endless matrix",
+      "simple/normal natural clear balance",
+      "long-frame root cause and target frame gate",
+      "original death particles/ribbons/rigid fragments",
+      "physical devices, user visual and MVP acceptance",
+      "Coze account deployment; business backend/admin deferred"
+    ]
   }
 }

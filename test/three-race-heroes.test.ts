@@ -16,7 +16,7 @@ test('three aligned six-hero rosters preserve legacy IDs and exact approved base
  assert.deepEqual(HERO_IDS,['raynor','tychus','nova']);assert.equal(ALL_HERO_IDS.length,18);for(const roster of Object.values(HERO_IDS_BY_RACE))assert.equal(roster.length,6);
  assert.equal(HEROES.artanis.attacks,2);assert.equal(HEROES.fenix.damage,72);assert.equal(HEROES.niadra.hp,1400);assert.equal(HEROES.swann.cooldown,15);
  for(const race of ['terran','zerg','protoss'] as const)for(const id of HERO_IDS_BY_RACE[race]){
-  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.race,race);assert.equal(u.maxHp,data.hp);assert.equal(u.maxShield,data.shield);assert.equal(u.weaponDamage,data.damage*1.15);assert.equal(u.attackRange,data.range);assert.equal(u.modelKey,data.model);assert.equal(u.maxEnergy,0);
+  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.race,race);close(u.maxHp,data.hp*1.15);close(u.maxShield!,data.shield*1.15);close(u.weaponDamage,data.damage*1.15*1.15);assert.equal(u.attackRange,data.range);assert.equal(u.modelKey,data.model);assert.equal(u.maxEnergy,0);
   const mechanical=['fenix','yamato_battlecruiser','purifier_flagship'].includes(id);
   assert.equal(u.attributes.includes('Mechanical'),mechanical);assert.equal(u.attributes.includes('Biological'),!mechanical);assert.equal(u.flying,!!data.flying);assert.equal(u.cloaked,data.innateCloak);
  }
@@ -30,7 +30,7 @@ test('three recruited identities include dead heroes, preserve slot order, and r
 
 test('hero upgrade preserves lost HP, lost shields, attack cooldown, and player command',()=>{
  const w=setup('protoss'),u=hero(w,'fenix');u.hp-=100;u.shield!-=50;u.weaponCooldown=.7;w.issueMove({x:20,z:4});const order=w.order;
- assert.ok(acquireExpeditionHero(w,'fenix',()=>true));assert.equal(u.maxHp,960);assert.equal(u.hp,860);assert.equal(u.maxShield,960);assert.equal(u.shield,910);assert.equal(u.weaponCooldown,.7);assert.equal(w.order,order);
+ assert.ok(acquireExpeditionHero(w,'fenix',()=>true));close(u.maxHp,960*1.15);close(u.hp,960*1.15-100);close(u.maxShield!,960*1.15);close(u.shield!,960*1.15-50);assert.equal(u.weaponCooldown,.7);assert.equal(w.order,order);
 });
 
 test('Swann requires real mechanical damage, heals four paid-cooldown pulses, and cancels on range loss',()=>{

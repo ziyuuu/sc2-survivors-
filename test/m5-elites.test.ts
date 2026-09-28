@@ -23,11 +23,11 @@ test('new elite damage conditions never leak between light, armored, air and gro
 
 test('new elite max HP, native shield, energy and movement rebuild from base without free recovery',()=>{
  const z=make('zerg'),roach=elite(z,'roach','roach.3');
- assert.equal(roach.maxHp,SC2_UNITS.roach.maxHp*z.growth(roach).health*1.25);
+ assert.equal(roach.maxHp,SC2_UNITS.roach.maxHp*z.growth(roach).health*1.25*1.15);
  roach.hp=roach.maxHp-47;const hp=roach.maxHp;z.refreshStats(roach);assert.equal(roach.maxHp,hp);assert.equal(roach.hp,roach.maxHp-47);
  const ling=elite(z,'zergling','zergling.2');assert.ok(ling.moveSpeed>SC2_UNITS.zergling.movementSpeed*z.growth(ling).movement);
  const queen=elite(z,'queen','queen.3');queen.energy=13;const max=queen.maxEnergy;z.refreshStats(queen);assert.equal(queen.maxEnergy,max);assert.equal(queen.energy,13);
- const p=make('protoss'),stalker=elite(p,'stalker','stalker.2');assert.equal(stalker.maxShield,SOURCE_UNIT_DETAILS.stalker.shields*p.growth(stalker).health*1.25);
+ const p=make('protoss'),stalker=elite(p,'stalker','stalker.2');assert.ok(Math.abs(stalker.maxShield!-SOURCE_UNIT_DETAILS.stalker.shields*p.growth(stalker).health*1.25*1.15)<1e-8);
  stalker.shield=stalker.maxShield-31;const shields=stalker.maxShield;p.refreshStats(stalker);assert.equal(stalker.maxShield,shields);assert.equal(stalker.shield,shields-31);
 });
 
@@ -44,14 +44,14 @@ test('Banshee stealth only changes ongoing drain and an elite Carrier buffs its 
  const t=make('terran'),banshee=elite(t,'banshee','banshee.2');banshee.cloaked=true;banshee.energy=100;banshee.energyRegen=0;
  tickExpeditionRecovery(t,banshee,1);assert.equal(banshee.energy,100-SOURCE_ABILITIES.bansheeCloak.energyDrainPerSecond*.8);
  const p=make('protoss'),carrier=elite(p,'carrier','carrier.2');initializeCarrierSubsystem(p);const children=ownedInterceptors(p,carrier.id);assert.equal(children.length,4);
- const child=children[0],expected=SOURCE_INTERCEPTOR.weapon.attackDamage*p.growth(carrier).damage*1.2;assert.equal(child.weaponDamage,expected);
- refreshInterceptorStats(p,child);assert.equal(child.weaponDamage,expected);
+ const child=children[0],expected=SOURCE_INTERCEPTOR.weapon.attackDamage*p.growth(carrier).damage*1.15*1.2;assert.ok(Math.abs(child.weaponDamage-expected)<1e-8);
+ refreshInterceptorStats(p,child);assert.ok(Math.abs(child.weaponDamage-expected)<1e-8);
 });
 
 test('fast Lurker variant changes only the buried attack cycle and keeps one identity',()=>{
  const w=make('zerg'),lurker=elite(w,'lurker','lurker.3');
- const mobile=lurker.attackPeriod;assert.equal(mobile,unitData(lurker).attackPeriod/w.growth(lurker).attackSpeed);
- lurker.nativeMode='lurker_burrowed';w.refreshStats(lurker);assert.ok(Math.abs(lurker.attackPeriod-unitData(lurker).attackPeriod/w.growth(lurker).attackSpeed*.85)<1e-8);
+ const mobile=lurker.attackPeriod;assert.equal(mobile,unitData(lurker).attackPeriod/w.growth(lurker).attackSpeed/1.15);
+ lurker.nativeMode='lurker_burrowed';w.refreshStats(lurker);assert.ok(Math.abs(lurker.attackPeriod-unitData(lurker).attackPeriod/w.growth(lurker).attackSpeed/1.15*.85)<1e-8);
  const buried=lurker.attackPeriod;w.refreshStats(lurker);assert.equal(lurker.attackPeriod,buried);
  lurker.nativeMode='lurker';w.refreshStats(lurker);assert.equal(lurker.attackPeriod,mobile);
 });

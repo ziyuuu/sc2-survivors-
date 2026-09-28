@@ -7,7 +7,7 @@ import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 
 test('actual damage and one death notify presentation without consuming gameplay IDs',()=>{
  const w=new World(),u=w.addUnit('marine','terran',0,0);const next=w.nextId;
- w.hit(u,6);assert.equal(u.hp,39);assert.equal(w.visualEvents.filter(e=>e.kind==='hit').length,1);
+ w.hit(u,6);assert.equal(u.hp,45*1.15-6);assert.equal(w.visualEvents.filter(e=>e.kind==='hit').length,1);
  w.hit(u,100);w.hit(u,100);assert.equal(w.visualEvents.filter(e=>e.kind==='death').length,1);assert.equal(w.nextId,next);
  assert.ok(w.visualEvents.every(e=>e.entityId===u.id&&e.time===w.time));
 });

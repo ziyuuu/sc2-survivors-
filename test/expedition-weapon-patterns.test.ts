@@ -24,7 +24,7 @@ test('Thor explosive mode splashes exactly four armor-resolved air hits and leav
  const w=world(),u=w.addUnit('thor','terran',0,0),primary=target(w.addUnit('mutalisk','zerg',5,0)),near=target(w.addUnit('mutalisk','zerg',5,.4)),far=target(w.addUnit('mutalisk','zerg',5,1));
  const ground=target(w.addUnit('roach','zerg',5,0)),ally=target(w.addUnit('viking','terran',5,.2));near.armor=2;
  selectWeapon(w,u,primary);assert.equal(u.activeWeapon,'JavelinMissileLaunchers');w.fire(u,primary);
- const p=SOURCE_WEAPONS.JavelinMissileLaunchers,raw=u.weaponDamage+p.bonusDamage[0].amount;close(damage(primary),raw*4);close(damage(near),(raw-2)*4);
+ const p=SOURCE_WEAPONS.JavelinMissileLaunchers,raw=u.weaponDamage+p.bonusDamage[0].amount*1.15;close(damage(primary),raw*4);close(damage(near),(raw-2)*4);
  for(const victim of [far,ground,ally])assert.equal(damage(victim),0);
 });
 

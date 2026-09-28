@@ -221,7 +221,7 @@ function shopPrice(c:Candidate){
  const effect=c.effect;
  if(effect.kind==='hero')return {minerals:750,gas:250};
  if(effect.kind==='elite'||effect.kind==='card'&&effect.effect==='cultivation'){
-  const recipe=effect.family==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[effect.family];const count=effect.kind==='elite'?5:effect.amount;
+  const recipe=effect.family==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[effect.family];const count=effect.kind==='elite'?5:effect.amount*(effect.family==='zergling'?2:1);
   if(!recipe)throw Error(`Missing paid recipe: ${effect.family}`);
   return {minerals:recipe.mineralCost*count,gas:recipe.gasCost*count};
  }

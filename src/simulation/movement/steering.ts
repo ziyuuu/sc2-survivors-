@@ -43,17 +43,17 @@ export function translate(body:Point,delta:Point,r:number,flying=false,obstacles
  if(flying||!blocked({x:nx,z:body.z},r,obstacles)&&(!terrain||terrain.canStep(body,{x:nx,z:body.z},r)))body.x=nx;
  if(flying||!blocked({x:body.x,z:nz},r,obstacles)&&(!terrain||terrain.canStep(body,{x:body.x,z:nz},r)))body.z=nz;
 }
-export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:number,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf,terrain?:TerrainQuery){
+export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:number,obstacles=OBSTACLES,worldHalf=TUNING.worldHalf,terrain?:TerrainQuery,arrivalShell=.08){
  const d=distance(u,goal);let dx=0,dz=0;
  const vehicle=u.unitType==='hellion'||u.unitType==='tank',rate=(u.unitType==='hellion'?4.8:u.unitType==='tank'?3.6:7)*(u.turnMultiplier??1);
  const braking=vehicle?24:u.flying?12:30,acceleration=(u.flying?10:vehicle?18:24)*(u.turnMultiplier??1);
  // Cruise until braking is necessary. The old distance * rate envelope crawled for metres.
- const arrival=Math.min(speed,Math.sqrt(2*braking*Math.max(0,d-.08)));
- if(d>.08){dx=(goal.x-u.x)/d*arrival;dz=(goal.z-u.z)/d*arrival;}
+ const arrival=Math.min(speed,Math.sqrt(2*braking*Math.max(0,d-arrivalShell)));
+ if(d>arrivalShell){dx=(goal.x-u.x)/d*arrival;dz=(goal.z-u.z)/d*arrival;}
  const forwardX=dx,forwardZ=dz;dx+=separation.x;dz+=separation.z;
  // A separation force must not steer a legal route into a cliff shoulder.
  // Contact resolution still enforces body spacing after the step.
- if(!u.flying&&d>.08&&(separation.x!==0||separation.z!==0)&&(terrain||obstacles.length)){
+ if(!u.flying&&d>arrivalShell&&(separation.x!==0||separation.z!==0)&&(terrain||obstacles.length)){
   const legal=(x:number,z:number)=>{const length=Math.hypot(x,z),scale=length>0?Math.min(speed,length)*dt/length:0,p={x:u.x+x*scale,z:u.z+z*scale};return !blocked(p,u.unitRadius,obstacles)&&(!terrain||terrain.canStep(u,p,u.unitRadius));};
   if(!legal(dx,dz)&&legal(forwardX,forwardZ)){dx=forwardX;dz=forwardZ;}
  }
@@ -68,7 +68,7 @@ export function locomote(u:Entity,goal:Point,speed:number,separation:Point,dt:nu
  const deltaX=dx-u.velocity.x,deltaZ=dz-u.velocity.z,delta=Math.hypot(deltaX,deltaZ),maxDelta=(limited<Math.hypot(u.velocity.x,u.velocity.z)?braking:acceleration)*dt;
  const blend=delta>0?Math.min(1,maxDelta/delta):1;u.velocity.x+=deltaX*blend;u.velocity.z+=deltaZ*blend;
  // Clip only this step's forward travel at the arrival shell; never relocate the unit.
- const step=Math.hypot(u.velocity.x,u.velocity.z)*dt,remaining=Math.max(0,d-.08);
+ const step=Math.hypot(u.velocity.x,u.velocity.z)*dt,remaining=Math.max(0,d-arrivalShell);
  if(step>remaining&&step>0&&separation.x===0&&separation.z===0&&(goal.x-u.x)*u.velocity.x+(goal.z-u.z)*u.velocity.z>0){const factor=remaining/step;u.velocity.x*=factor;u.velocity.z*=factor;}
 
  const before={x:u.x,z:u.z};translate(u,{x:u.velocity.x*dt,z:u.velocity.z*dt},u.unitRadius,u.flying,obstacles,worldHalf,terrain);

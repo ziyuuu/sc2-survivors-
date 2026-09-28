@@ -53,6 +53,11 @@ test('conflicting old profiles reject conversion without changing the current pr
  assert.throws(()=>inspectDevArchive(oldArchive(old,three)),/矛盾/);
  const profile=new PermanentProfile(9);assert.equal(profile.principal,9);
 });
+test('valid foreign seed restores from RunConfig without changing the candidate during preview',()=>{
+ const source=new World({seed:7,race:'zerg',difficulty:'easy',terrain:false,waves:false,sandbox:true});source.start();source.advance(1);const snap=source.captureRun(),target=new World({seed:89241,terrain:false,waves:false,sandbox:true});target.start();const before=target.captureRun();target.restoreRun(snap,true);assert.deepEqual(target.captureRun(),before);
+ target.restoreRun(snap);assert.equal(target.runConfig!.seed,7);assert.equal(target.captureRun().seed,7);assert.equal(target.rngState,snap.state.rngState);assert.equal(target.difficulty,'easy');assert.equal(target.paused,true);assert.deepEqual(target.runConfig!.frozenTalents,snap.config.frozenTalents);
+ const invalid=structuredClone(snap);invalid.seed=8;assert.throws(()=>target.restoreRun(invalid),/不兼容/);assert.equal(target.captureRun().seed,7);
+});
 test('a verified but contradictory developer save remains exportable and is never imported',async()=>{
  const old=new TalentProfile();old.balance=20;old.receipts.add('receipt-a');
  const raw=oldArchive(old,new ThreeRaceTalentProfile(10));

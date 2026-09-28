@@ -1,0 +1,11 @@
+{
+  "name": "sc2-coze-release",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node coze-web-server.mjs"
+  }
+}

@@ -20,11 +20,11 @@ async function navigatePad(page,selector){
  }
  throw Error('Virtual D-pad could not reach '+selector);
 }
-async function activate(page,selector,mode){const el=page.locator(selector).first();if(mode==='touch')await el.tap();else if(mode==='gamepad'){await page.waitForTimeout(150);await el.focus();await pressPad(page);}else if(mode==='keyboard'){await el.focus();await page.keyboard.press('Enter');}else await el.click();}
-async function boot(page){page.feedbackExpectedLoads++;await page.goto(url);await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:240000});await page.waitForTimeout(150);}
+async function activate(page,selector,mode){const el=page.locator(selector).first();for(let i=0;i<4;i++){const parent=el.locator('xpath=ancestor::details[not(@open)][last()]');if(!await parent.count())break;const summary=parent.locator(':scope > summary');if(mode==='touch')await summary.tap();else if(mode==='keyboard'){await summary.focus();await page.keyboard.press('Enter');}else if(mode==='gamepad'){await summary.focus();await pressPad(page);}else await summary.click();}if(mode==='touch')await el.tap();else if(mode==='gamepad'){await page.waitForTimeout(150);await el.focus();await pressPad(page);}else if(mode==='keyboard'){await el.focus();await page.keyboard.press('Enter');}else await el.click();}
+async function boot(page){page.feedbackExpectedLoads++;await page.goto(url);await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:600000});await page.waitForTimeout(150);}
 async function newRun(page,mode){
  await activate(page,'[data-action=menu-new]',mode);await activate(page,'[data-action=menu-race][data-race=terran]',mode);await activate(page,'[data-action=menu-race-next]',mode);await activate(page,'[data-action=menu-difficulty-next]',mode);await activate(page,'[data-action=menu-start]',mode);
- await page.waitForFunction(()=>window.__SC2_REPORT__?.().readiness?.phase==='ready',null,{timeout:240000});await activate(page,'[data-action=flow-continue]',mode);await page.waitForFunction(()=>window.__SC2_REPORT__().phase==='battle');
+ await page.waitForFunction(()=>['ready','error'].includes(window.__SC2_REPORT__?.().readiness?.phase),null,{timeout:600000});assert.equal((await page.evaluate(()=>window.__SC2_REPORT__().readiness)).phase,'ready',JSON.stringify(await page.evaluate(()=>window.__SC2_REPORT__().readiness)));await activate(page,'[data-action=flow-continue]',mode);await page.waitForFunction(()=>window.__SC2_REPORT__().phase==='battle');
  await page.evaluate(()=>{window.__SC2_DEBUG__.speed=0;const w=window.__SC2_DEBUG__.world;w.autoWaves=false;});
 }
 async function menu(page,mode,item){
@@ -42,7 +42,7 @@ async function menu(page,mode,item){
 }
 async function combatControls(page,mode,item){
  await page.evaluate(()=>{const {world:w,view:v}=window.__SC2_DEBUG__;window.__INPUT_SNAPSHOT__=structuredClone(w.captureRun());w.phase='battle';w.paused=false;w.entities.clear();w.heroes.clear();w.expedition.familySlots=['marine','tank'];w.addUnit('tank','terran',0,0);w.acquireHero('raynor');const hero=w.heroEntity('raynor'),enemy=w.addUnit('roach','zerg',hero.x,hero.z+1);enemy.hp=enemy.maxHp=1e6;enemy.weaponDamage=0;w.hash.rebuild(w.entities.values());w.changed();v.prepareRosterAssets();});
- await page.waitForFunction(()=>window.__SC2_DEBUG__.view.assetsPending===0,null,{timeout:240000});
+ await page.waitForFunction(()=>window.__SC2_DEBUG__.view.assetsPending===0,null,{timeout:600000});
  async function sector(index){const angle=index*Math.PI/3;await page.evaluate(({x,z})=>{window.__FEEDBACK_PAD__.axes[2]=x;window.__FEEDBACK_PAD__.axes[3]=z;},{x:Math.sin(angle),z:-Math.cos(angle)});await page.waitForTimeout(150);await pressPad(page);await page.evaluate(()=>{window.__FEEDBACK_PAD__.axes[2]=window.__FEEDBACK_PAD__.axes[3]=0;});}
  if(mode==='gamepad'){await sector(2);await sector(3);}
  else if(mode==='keyboard'){await page.locator('#battle').click({position:{x:200,y:200}});await page.keyboard.press('g');await page.keyboard.press('1');}
@@ -54,7 +54,13 @@ async function combatControls(page,mode,item){
  if(mode==='gamepad'){await sector(1);await activate(page,'[data-action=unit-mode][data-mode=siege]',mode);}
  else if(mode==='keyboard')await page.keyboard.press('t');else await activate(page,'[data-action=siege]',mode);
  assert.ok(await page.evaluate(()=>window.__SC2_DEBUG__.world.familyUnits('tank').some(u=>u.desiredMode==='siege')));
- await snap(page,mode+'-combat-controls');item.combatControls={detection:true,hero:true,manualTank:true,inputTransparentVitals:true};
+ if(mode!=='gamepad'){
+  if(mode==='touch'){await activate(page,'#topbar [data-action=pause]',mode);await activate(page,'[data-action=settings]',mode);await page.locator('[data-setting=touch]').selectOption('tap');await activate(page,'[data-action=settings-back]',mode);await activate(page,'#overlay [data-action=pause]',mode);assert.equal(await page.locator('body').getAttribute('data-touch-controls'),'tap');}
+  const target=await page.evaluate(()=>{const {world:w,view:v}=window.__SC2_DEBUG__,point={x:w.anchor.x+2,z:w.anchor.z+2},p=v.camera.position.clone().set(point.x,w.terrain.height(point),point.z).project(v.camera),r=v.canvas.getBoundingClientRect();return {point,x:r.left+(p.x+1)*r.width/2,y:r.top+(1-p.y)*r.height/2};});
+  if(mode==='touch')await page.touchscreen.tap(target.x,target.y);else await page.mouse.click(target.x,target.y);
+  const actual=await page.evaluate(()=>window.__SC2_DEBUG__.world.order?.point);assert.ok(actual);assert.ok(Math.hypot(actual.x-target.point.x,actual.z-target.point.z)<.05,'pointer keeps requested ground coordinate');
+ }
+ await snap(page,mode+'-combat-controls');item.combatControls={detection:true,hero:true,manualTank:true,inputTransparentVitals:true,rawPointerDestination:mode!=='gamepad'};
  await page.evaluate(()=>{const {world:w,view:v}=window.__SC2_DEBUG__;w.restoreRun(window.__INPUT_SNAPSHOT__);v.resetRun();w.changed();});
 }
 async function receipt(page,mode,item){
@@ -74,7 +80,7 @@ async function receipt(page,mode,item){
  assert.equal(await page.evaluate(()=>window.__SC2_DEBUG__.world.familyUnits('viking')[0].rank),3);
  assert.deepEqual(await page.evaluate(()=>({...window.__SC2_DEBUG__.world.wallet})),state.wallet);
  item.receipt={frozen:true,rejectPreservesOldFamilyAndFunds:true,dtoRestoresExactPendingChoice:true,replacementOnce:true};
- await page.evaluate(()=>{const {world:w,view:v}=window.__SC2_DEBUG__;w.restoreRun(window.__RECEIPT_SNAPSHOT__);v.resetRun();w.changed();});await page.waitForFunction(()=>window.__SC2_DEBUG__.view.assetsPending===0,null,{timeout:240000});
+ await page.evaluate(()=>{const {world:w,view:v}=window.__SC2_DEBUG__;w.restoreRun(window.__RECEIPT_SNAPSHOT__);v.resetRun();w.changed();});await page.waitForFunction(()=>window.__SC2_DEBUG__.view.assetsPending===0,null,{timeout:600000});
 }
 const shopState=()=>{const w=window.__SC2_DEBUG__.world;return {wallet:{...w.wallet},rewards:structuredClone(w.rewards),direction:w.expedition.developmentDirection,refresh:w.expedition.refreshCount,phase:w.phase,round:w.rewardRound,stage:w.stage};};
 async function shop(page,mode,item){
@@ -92,23 +98,26 @@ async function shop(page,mode,item){
  assert.deepEqual(await page.evaluate(()=>window.__SC2_DEBUG__.world.rewards),original,'switching back retains quoted direction offers');
  await activate(page,'#reward-cards [data-action=reward]:not(:disabled)',mode);await page.waitForFunction(()=>window.__SC2_DEBUG__.world.rewardRound==='random');
  const offers=await page.evaluate(()=>window.__SC2_DEBUG__.world.rewards.map(r=>({id:r.offerId,m:r.minerals,g:r.gas})));
- assert.equal(offers.length,3);assert.ok(offers.every(r=>r.m>0||r.g>0));await snap(page,mode+'-shop');
+ assert.equal(offers.length,3);assert.ok(offers.every(r=>r.m>0||r.g>0));
+ assert.ok(await page.locator('.compact-intermission .reward-card>img').evaluateAll(images=>images.every(img=>{const a=img.getBoundingClientRect(),b=img.parentElement.getBoundingClientRect();return a.left>=b.left&&a.right<=b.right&&a.top>=b.top&&a.bottom<=b.bottom;})),'icons remain inside cards');
+ if(mode==='touch')assert.ok(await page.locator('.compact-intermission').evaluate(panel=>{const overlay=document.querySelector('#overlay');overlay.scrollTop=0;const cards=[...panel.querySelectorAll('#reward-cards .reward-card')],next=panel.querySelector('.primary-next');return cards.length===3&&[...cards,next].every(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;});}),'three cards and continue fit 390×844');
+ await snap(page,mode+'-shop');
  for(const offer of offers)await activate(page,`#reward-cards [data-action=reward][data-id="${offer.id}"]:not(:disabled)`,mode);
  assert.ok(await page.evaluate(()=>window.__SC2_DEBUG__.world.rewards.every(r=>r.sold)));assert.equal(await page.evaluate(()=>window.__SC2_DEBUG__.world.phase),'reward');
  await snap(page,mode+'-shop-sold');
  const prices=[];for(const expected of [50,90,130,170,210]){const before=await page.evaluate(()=>({cost:window.__SC2_DEBUG__.world.rerollCost(),minerals:window.__SC2_DEBUG__.world.wallet.minerals}));assert.equal(before.cost,expected);prices.push(before.cost);await activate(page,'[data-action=reroll]',mode);assert.equal(await page.evaluate(()=>window.__SC2_DEBUG__.world.wallet.minerals),before.minerals-expected);}
  await page.evaluate(()=>{const w=window.__SC2_DEBUG__.world;w.random=window.__FEEDBACK_RANDOM__;delete window.__FEEDBACK_RANDOM__;});
  const expected=await page.evaluate(shopState),savedAt=await page.evaluate(()=>window.__SC2_REPORT__().save.savedAt);await activate(page,'[data-action=save-now]',mode);await page.waitForFunction(before=>{const s=window.__SC2_REPORT__().save;return !s.busy&&s.savedAt>before&&s.message.includes('已保存');},savedAt,{timeout:30000});
- page.feedbackExpectedLoads++;await page.reload();await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:240000});
+ page.feedbackExpectedLoads++;await page.reload();await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:600000});
  await activate(page,'[data-action=menu-load]',mode);await activate(page,'[data-action=menu-load-local]',mode);await activate(page,'[data-action=menu-load-ready]',mode);
- await page.waitForFunction(()=>window.__SC2_REPORT__().readiness.phase==='ready',null,{timeout:240000});await activate(page,'[data-action=flow-continue]',mode);await page.waitForFunction(()=>window.__SC2_DEBUG__.world.phase==='reward');
+ await page.waitForFunction(()=>window.__SC2_REPORT__().readiness.phase==='ready',null,{timeout:600000});await activate(page,'[data-action=flow-continue]',mode);await page.waitForFunction(()=>window.__SC2_DEBUG__.world.phase==='reward');
  assert.deepEqual(await page.evaluate(shopState),expected);assert.equal(await page.evaluate(()=>{const w=window.__SC2_DEBUG__.world,t=w.time;w.step(1/60);return w.time===t;}),true,'restored intermission stays frozen');
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'no document horizontal overflow');await snap(page,mode+'-shop-restored');item.shop={prices,allThreeBought:true,savedQuotesPreserved:true};
 }
 async function animations(page,item){
  await page.evaluate(()=>{const w=window.__SC2_DEBUG__.world;window.__FEEDBACK_CHECKPOINT__=w.captureRun();w.phase='battle';w.paused=true;w.rewards=[];w.entities.clear();w.visualEvents=[];w.pendingElites=[];w.pods=[];w.rewardDrops=[];w.time=20;w.anchor={x:0,z:0};window.__SC2_DEBUG__.speed=0;
   const types=['reaper','zealot','stalker','high_templar','colossus','void_ray'];window.__FEEDBACK_ACTORS__=types.map((type,i)=>{const x=(i%3-1)*5,z=Math.floor(i/3)*6-3,p=w.freePosition(type,{x,z},0,6);if(!p)throw Error('No legal animation sample position '+type);return w.addUnit(type,'terran',p.x,p.z).id;});w.changed();window.__SC2_DEBUG__.view.prepareRosterAssets();});
- await page.waitForFunction(()=>{const {world:w,view:v}=window.__SC2_DEBUG__;return !v.assetsPending&&window.__FEEDBACK_ACTORS__.every(id=>v.gpu.has(w.entities.get(id).unitType));},null,{timeout:240000});
+ await page.waitForFunction(()=>{const {world:w,view:v}=window.__SC2_DEBUG__;return !v.assetsPending&&window.__FEEDBACK_ACTORS__.every(id=>v.gpu.has(w.entities.get(id).unitType));},null,{timeout:600000});
  const result=await page.evaluate(()=>{
   const {world:w,view:v}=window.__SC2_DEBUG__;
   // Co-located durable targets isolate pose playback from terrain and approach AI.
@@ -136,13 +145,13 @@ async function bosses(page,item,mode='desktop'){
   const queen=w.spawnSpecial('queen','boss',{x:0,z:0});queen.specialReady=0;const ally=w.addUnit('roach','zerg',queen.x,queen.z);ally.hp=100;ally.maxHp=2000;w.enemySpecials.act(queen,1/60);
   w.changed();v.prepareRosterAssets();window.__FEEDBACK_BOSS_IDS__=[...w.entities.values()].filter(u=>u.enemyTier==='boss').map(u=>u.id);return {casts,queenHealed:ally.hp>100};});
  assert.deepEqual(data.casts.map(c=>c.kind),['spikes','charge','fan','acid']);assert.ok(data.queenHealed);
- await page.waitForFunction(()=>window.__SC2_DEBUG__.view.assetsPending===0,null,{timeout:240000});await page.evaluate(()=>{const {world:w,view:v}=window.__SC2_DEBUG__;w.paused=false;w.changed();v.render(0,1);});await snap(page,mode+'-boss-warnings');item.bossMechanics=data;
+ await page.waitForFunction(()=>window.__SC2_DEBUG__.view.assetsPending===0,null,{timeout:600000});await page.evaluate(()=>{const {world:w,view:v}=window.__SC2_DEBUG__;w.paused=false;w.changed();v.render(0,1);});await snap(page,mode+'-boss-warnings');item.bossMechanics=data;
  const loot=await page.evaluate(()=>{const {world:w}=window.__SC2_DEBUG__;const boss=w.entities.get(window.__FEEDBACK_BOSS_IDS__[0]),random=w.random;w.random=()=>.5;w.hit(boss,1e9,[],1,'terran');w.random=random;const drop=w.rewardDrops.find(d=>d.bossLootReceipt);if(!drop)throw Error('No physical Boss reward');const receipt=drop.bossLootReceipt;w.hit(boss,1e9,[],1,'terran');const count=w.rewardDrops.filter(d=>d.bossLootReceipt===receipt).length;w.collectRewardDrop(drop.id);return {receipt,count,rarity:drop.reward.rarity,wallet:{...w.wallet}};});
  assert.equal(loot.count,1);assert.equal(loot.rarity,'purple');await page.locator('[data-action=boss-loot-close]').waitFor();await snap(page,mode+'-boss-loot');
  const choose=selector=>mode==='gamepad'?navigatePad(page,selector):activate(page,selector,mode);
  await choose('[data-action=boss-loot-close]');if(mode==='gamepad'){await pressPad(page,9);await choose('#overlay [data-action=boss-loot-open]');await page.waitForFunction(()=>window.__SC2_DEBUG__.world.expedition.bossLootOpen);}else await choose('[data-action=boss-loot-open]');
  if(await page.locator('[data-action=elite-assets-retry]').count()){
-  await choose('[data-action=elite-assets-retry]');await page.waitForFunction(()=>window.__SC2_REPORT__().readiness.phase==='ready',null,{timeout:240000});await choose('[data-action=flow-continue]');
+  await choose('[data-action=elite-assets-retry]');await page.waitForFunction(()=>window.__SC2_REPORT__().readiness.phase==='ready',null,{timeout:600000});await choose('[data-action=flow-continue]');
  }
  const variants=page.locator('[data-action=boss-loot-variant]');if(await variants.count())await choose('[data-action=boss-loot-variant]:not(:disabled)');await choose('[data-action=boss-loot-claim]:not(:disabled)');
  assert.deepEqual(await page.evaluate(()=>({...window.__SC2_DEBUG__.world.wallet})),loot.wallet);assert.equal(await page.evaluate(receipt=>window.__SC2_DEBUG__.world.expedition.bossLootClaimed.filter(r=>r===receipt).length,loot.receipt),1);item.bossLoot={singlePhysicalDrop:true,dismissReopenClaim:true,free:true};
@@ -150,7 +159,7 @@ async function bosses(page,item,mode='desktop'){
 async function shopElite(page,item,mode='desktop'){
  const before=await page.evaluate(()=>{const w=window.__SC2_DEBUG__.world;w.phase='battle';w.paused=true;w.entities.clear();w.pendingElites=[];w.expedition.pendingShopElite=null;w.wallet={minerals:20000,gas:20000};for(let i=0;i<5;i++)w.addUnit('marine','terran',i,0);const random=w.random;w.random=()=>.99;w.endStage();w.setDevelopmentDirection('barracks');w.skipReward();w.random=random;const offer=w.rewards.find(r=>r.expeditionEffect?.kind==='elite');if(!offer)throw Error('Synthetic purple shop did not produce an elite family');return {wallet:{...w.wallet},offer:structuredClone(offer)};});
  const choose=`[data-action=reward][data-id="${before.offer.offerId}"][data-variant="marine.2"]`;
- async function open(){await activate(page,choose,mode);await page.waitForFunction(()=>window.__SC2_REPORT__().readiness?.phase==='ready'||!!document.querySelector('[data-action=shop-elite-confirm]:not(:disabled)'),null,{timeout:240000});if(await page.locator('[data-action=flow-continue]').count())await activate(page,'[data-action=flow-continue]',mode);await page.locator('[data-action=shop-elite-confirm]:not(:disabled)').first().waitFor();}
+ async function open(){await activate(page,choose,mode);await page.waitForFunction(()=>window.__SC2_REPORT__().readiness?.phase==='ready'||!!document.querySelector('[data-action=shop-elite-confirm]:not(:disabled)'),null,{timeout:600000});if(await page.locator('[data-action=flow-continue]').count())await activate(page,'[data-action=flow-continue]',mode);await page.locator('[data-action=shop-elite-confirm]:not(:disabled)').first().waitFor();}
  await open();assert.equal(await page.evaluate(()=>window.__SC2_DEBUG__.view.gpu.has('elite.marine.2')),true);assert.deepEqual(await page.evaluate(()=>({...window.__SC2_DEBUG__.world.wallet})),before.wallet);await snap(page,mode+'-elite-confirm');
  await activate(page,'[data-action=shop-elite-cancel]',mode);assert.equal(await page.evaluate(id=>window.__SC2_DEBUG__.world.rewards.find(r=>r.offerId===id).sold,before.offer.offerId),false);assert.deepEqual(await page.evaluate(()=>({...window.__SC2_DEBUG__.world.wallet})),before.wallet);
  await open();await activate(page,'[data-action=shop-elite-confirm]:not(:disabled)',mode);

@@ -2,6 +2,16 @@ import * as THREE from 'three';
 import type {World} from '../../simulation/world';
 import type {Body,Point} from '../../simulation/types';
 
+/** Movement intent ignores cliff walls and actors. Ability picking remains separate. */
+export function pickMovement(clientX:number,clientY:number,canvas:HTMLCanvasElement,camera:THREE.Camera,scene:THREE.Scene,world:World):{point:Point}|null {
+ const rect=canvas.getBoundingClientRect();if(clientX<rect.left||clientY<rect.top||clientX>rect.right||clientY>rect.bottom)return null;
+ const ray=new THREE.Raycaster();ray.setFromCamera(new THREE.Vector2((clientX-rect.left)/rect.width*2-1,1-(clientY-rect.top)/rect.height*2),camera);
+ const floors:THREE.Object3D[]=[];scene.traverseVisible(o=>{if(o.name==='char-traversable-ground')floors.push(o);});
+ const hit=ray.intersectObjects(floors,true)[0]?.point??ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0,1,0),0),new THREE.Vector3());
+ if(!hit)return null;const point={x:hit.x,z:hit.z};
+ return Math.abs(point.x)<world.mapHalf&&Math.abs(point.z)<world.mapHalf&&(!world.terrain?.isOpen||world.terrain.isOpen(point))?{point}:null;
+}
+
 /** Selection volumes follow simulation bodies; GPU-instanced animation is never game state. */
 export function pickBattle(clientX:number,clientY:number,touch:boolean,canvas:HTMLCanvasElement,camera:THREE.Camera,scene:THREE.Scene,world:World):{point:Point;targetId?:number}|null {
  const rect=canvas.getBoundingClientRect();if(clientX<rect.left||clientY<rect.top||clientX>rect.right||clientY>rect.bottom)return null;

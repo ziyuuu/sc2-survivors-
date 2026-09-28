@@ -1,3 +1,4 @@
+import {PLAYER_COMBAT_FACTOR as POWER} from '../../data/player-unit-adaptations';
 import {HEROES,HERO_BASIC_ATTACK,HERO_IDS_BY_RACE,HERO_SKILL_FLIGHT,heroStats,type HeroId} from '../../data/heroes';
 import {RUNTIME_ASSETS} from '../../assets/runtime.generated';
 import {TUNING} from '../../data/game';
@@ -20,12 +21,12 @@ export function refreshExpeditionHero(w:World,u:Entity,fill=false):boolean{
  const data=HEROES[u.heroId],growth=heroStats(u.rank),lostHp=u.maxHp-u.hp,lostShield=(u.maxShield??0)-(u.shield??0),lostTalentShield=(u.maxTalentShield??0)-(u.talentShield??0);
  u.race=data.race;u.team='player';u.owner='terran';u.attributes=[...data.attributes];if(u.flying!==!!data.flying)w.hash.invalidatePlanes();u.flying=!!data.flying;
  const talents=talentModifiers(w,u);
- u.maxHp=data.hp*growth.health*(1+(talents.maxHpPct??0));u.hp=fill?u.maxHp:Math.max(0,Math.min(u.maxHp,u.maxHp-lostHp));
+ u.maxHp=data.hp*POWER*growth.health*(1+(talents.maxHpPct??0));u.hp=fill?u.maxHp:Math.max(0,Math.min(u.maxHp,u.maxHp-lostHp));
  const shieldSource=SOURCE_UNIT_DETAILS[data.baseFamily==='purifier_flagship'?'carrier':data.baseFamily as UnitType];
- u.shieldArmor=(talents.shieldArmorFlat??0);u.shieldRegen=data.shield>0?(shieldSource?.shieldRegen??2)*FASTER:0;u.shieldDelay=data.shield>0?(shieldSource?.shieldDelay??10)/FASTER:0;
- u.maxShield=data.shield*growth.health*(1+(talents.maxShieldPct??0))+(data.race==='protoss'?u.maxHp*(talents.shieldFromHpPct??0):0);u.shield=fill?u.maxShield:Math.max(0,Math.min(u.maxShield,u.maxShield-lostShield));
+ u.shieldArmor=(talents.shieldArmorFlat??0)*POWER;u.shieldRegen=data.shield>0?(shieldSource?.shieldRegen??2)*FASTER:0;u.shieldDelay=data.shield>0?(shieldSource?.shieldDelay??10)/FASTER:0;
+ u.maxShield=data.shield*POWER*growth.health*(1+(talents.maxShieldPct??0))+(data.race==='protoss'?u.maxHp*(talents.shieldFromHpPct??0):0);u.shield=fill?u.maxShield:Math.max(0,Math.min(u.maxShield,u.maxShield-lostShield));
  u.maxTalentShield=data.race!=='protoss'&&u.attributes.includes('Biological')?u.maxHp*(talents.shieldFromHpPct??0):0;u.talentShield=fill?u.maxTalentShield:Math.max(0,Math.min(u.maxTalentShield,u.maxTalentShield-lostTalentShield));
- u.armor=(data.armor+growth.armor)*(1+(talents.armorPct??0));u.moveSpeed=data.speed*(1+(talents.moveSpeedPct??0));u.weaponDamage=data.damage*HERO_BASIC_ATTACK.damage*growth.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/HERO_BASIC_ATTACK.frequency/growth.attackSpeed/(1+(talents.attackSpeedPct??0));u.attackRange=data.range*(1+(talents.rangePct??0));
+ u.armor=(data.armor+growth.armor)*(1+(talents.armorPct??0))*POWER;u.moveSpeed=data.speed*POWER*(1+(talents.moveSpeedPct??0));u.weaponDamage=data.damage*POWER*HERO_BASIC_ATTACK.damage*growth.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/POWER/HERO_BASIC_ATTACK.frequency/growth.attackSpeed/(1+(talents.attackSpeedPct??0));u.attackRange=data.range*(1+(talents.rangePct??0));
  u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;
  (u as ControlledEntity).cloaked=data.innateCloak;
  return true;

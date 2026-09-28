@@ -1,3 +1,4 @@
+import {loadHttpAssets,prepareHttpAssetIds,httpAssetStatus} from './http-store';
 import {decode85} from './base85.mjs';
 import {gunzipSync} from 'three/addons/libs/fflate.module.js';
 export type AssetPack={version:number;chunks:{encoding:'raw'|'gzip';bytes:number;storedBytes?:number;data:string}[];assets:Record<string,{mime:string;bytes:number;sha256:string;parts:number[]}>};
@@ -61,9 +62,9 @@ export class EmbeddedAssetStore {
 }
 let embeddedStore:EmbeddedAssetStore|null=null;
 export async function prepareEmbeddedAssetIds(ids:Iterable<string>,progress:Progress=()=>{}){
- await embeddedStore?.prepare(ids,progress);
+ if(embeddedStore)await embeddedStore.prepare(ids,progress);else await prepareHttpAssetIds(ids,progress);
 }
-export function embeddedAssetStatus(){return embeddedStore?{prepared:embeddedStore.preparedCount,total:embeddedStore.totalCount}:null;}
+export function embeddedAssetStatus(){return embeddedStore?{prepared:embeddedStore.preparedCount,total:embeddedStore.totalCount}:httpAssetStatus();}
 /** Blob parts share immutable content. No models are re-exported or clips discarded. */
 export async function restoreAssetPack(pack:AssetPack,progress:(fraction:number)=>void=()=>{},release=false){
  if(pack.version!==1&&pack.version!==2)throw Error('不支持的资源包版本');
@@ -86,7 +87,7 @@ export async function restoreAssetPack(pack:AssetPack,progress:(fraction:number)
  }catch(error){for(const url of Object.values(urls))URL.revokeObjectURL(url);throw error;}
 }
 export async function loadEmbeddedAssets(){
- const element=document.getElementById('sc2-resource-pack');if(!element)return;
+ const element=document.getElementById('sc2-resource-pack');if(!element){await loadHttpAssets();return;}
  const root=document.getElementById('interface')!;
  root.innerHTML='<section class="pack-loading"><b>SC2 SURVIVORS</b><p role="status">正在读取并解析内置资源 · 当前步骤进度未知</p><progress max="1" aria-label="资源载入进度"></progress></section>';
  // Let the loading indicator paint before parsing a large local payload.

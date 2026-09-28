@@ -1,5 +1,21 @@
 # Development contract · V26
 
+## Latest approved twin-roster iteration · 2026-09-28
+
+- `docs/project/TWIN_SWARM_SC2_HUD_20260928.md` overrides older body-count and unboosted-stat wording: player combat basic/bonus damage, max HP/native shields, movement and armor ×1.15, attack period ÷1.15; exclude workers/structures/delivery carriers and unchanged skill/heal amounts.
+- Zerglings (ordinary and elite) use two actual bodies per roster seat, shared rank/elite identity, 900-step survivor regrowth; queens auto-inject landed ordinary carriers within6, own45s cooldown, once per pod, up to2 zero-paid seats after reservations. Current run schema10; no old-save branches.
+- Restore permanent SC2-style whole-army portrait grid, read-only inspector and existing command card; seven-by-two mobile pages. Purple/orange small badges and thin rims/vitals, no overhead names/skill text. 687 regression tests pass; browser, distribution and performance evidence is recorded in docs/project/TWIN_SWARM_VALIDATION_20260928.md.
+- User explicitly authorizes normal main push including actual runtime model resources via existing LFS distribution scope. Ship deploy/coze plus deploy/runtime; no duplicated ZIPs in Git. Business backend and analytics deferred; visual/M6/M7 acceptance remains open.
+
+
+## Latest approved swarm/Web iteration · 2026-09-28
+
+- `docs/project/SWARM_WEB_ITERATION_20260928.md` supersedes earlier Reaper, ordinary-enemy and endless timing notes: player Reaper 2×6, range5/original period; source SC data remains 2×4. Capability-based friendly engagement replaces the five-family whitelist.
+- Ordinary enemy ranks I/II/III at campaign1–6/7–12/13–18; early Easy/Normal ordinary HP ×.8/×.9. Rank replaces ordinary chapter HP/damage/attack-speed growth. Existing ordinary phase upgrades are fixed at birth. Specials retain independent scaling; regen/creep remain.
+- Independent I-rank additive ling/roach/baneling swarm, queued under the300 enemy cap with normal loot. Endless60-second rounds, development every fourth round, each round300/250 base reward. Old240-second wave/economic templates are sliced; special/minute clocks persist.
+- Current run schema9; no new developer-save compatibility. Coze application and hashed HTTP resources ship separately, with offline HTML still supported. No size quota or source-art cleanup.
+- Exact tests, failed content attempts and artifact hashes belong in `docs/project/SWARM_WEB_VALIDATION_20260928.md`. Locked-health content diagnostics are not natural balance/performance evidence. M4/M5 visual, complete M6 and M7 remain open.
+
 ## Latest package correction · 2026-09-27
 
 - User requires removal of duplicated/unused shipped content, not a size quota. The 380MiB ceiling and 320/280MiB targets are superseded; never claim packaging is complete merely because it fits them. Record bytes/hashes, reference evidence, identical-content sharing and unresolved audit candidates. Acquire necessary external resources independently through the pinned original-source/local-processing workflow. See docs/project/PACKAGE_HYGIENE_20260927.md. Preserve source art; this is not disk-cleanup authorization.

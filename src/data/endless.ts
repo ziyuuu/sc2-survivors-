@@ -10,7 +10,7 @@ export const ENDLESS={
  growth:{health:1.4,damage:1.25,attackSpeed:1.15},
  bossTypes:['queen','lurker','mutalisk','corruptor','ultralisk','zergling','roach','hydralisk','ravager'] as readonly SpecialType[],
  types:['zergling','roach','hydralisk','ravager'] as readonly SpecialType[],
- roundDuration:240,
+ roundDuration:60,
  waveTemplateThreat:530.6,
  roundReward:[300,250] as const,
  expansion:{firstAt:20,interval:40,latestAt:210,warningSeconds:5,maxAlive:2,hp:7500,armor:3,firstBatchDelay:8,batchInterval:12},
@@ -24,7 +24,7 @@ export function endlessConfig(difficulty:Difficulty):EndlessConfig {
  const budget=Math.floor(ENDLESS.waveTemplateThreat*pressure[difficulty]+.5),ambient=allocateCampaign18Threat(budget,ENDLESS_MIX).counts;
  return {endlessId:ENDLESS_MAP_ID,difficulty,id:18,chapter:6,name:'无尽战场',durationSeconds:ENDLESS.roundDuration,budget,waveBudget:budget,mix:{...ENDLESS_MIX},reserves:{captain:0,boss:0,mainHive:0,expansionHive:0},ambient,guardBudget:0,guards:allocateCampaign18Threat(0,ENDLESS_MIX).counts,waves:15,entranceSpacing:.1,lingHp:35,speed:1,width:160,podHp:600,reward:ENDLESS.roundReward,drones:4,eggs:2};
 }
-export function endlessWaveTemplate(seed:number,round:number,difficulty:Difficulty):Campaign18Wave[]{
+function fullEndlessWaveTemplate(seed:number,round:number,difficulty:Difficulty):Campaign18Wave[]{
  const config=endlessConfig(difficulty),waves:Array<Campaign18Wave>=Array.from({length:15},(_,i)=>({at:i*16,types:[],bearing:Math.atan2(ENDLESS_ENTRANCES[(i+round+seed)%8].x,ENDLESS_ENTRANCES[(i+round+seed)%8].z)}));
  const types=(Object.keys(config.ambient) as (keyof Campaign18Counts)[]).flatMap(type=>Array(config.ambient[type]).fill(type));
  let random=(seed^Math.imul(round,104729))>>>0;for(let i=types.length-1;i>0;i--){random=(Math.imul(1664525,random)+1013904223)>>>0;const j=random%(i+1);[types[i],types[j]]=[types[j],types[i]];}
@@ -32,8 +32,23 @@ export function endlessWaveTemplate(seed:number,round:number,difficulty:Difficul
  if(waves.reduce((total,wave)=>total+wave.types.reduce((n,type)=>n+CAMPAIGN18_WEIGHTS[type],0),0)>config.waveBudget)throw Error('无尽波次超出预算');
  return waves;
 }
-export function endlessEconomicEvents(seed:number,round:number){let random=(seed^Math.imul(round,8191))>>>0;return [{at:36,kind:'egg' as const},{at:156,kind:'egg' as const},...[48,96,144,192].map(at=>({at,kind:'drone' as const}))].map(event=>{random=(Math.imul(1664525,random)+1013904223)>>>0;return {...event,at:event.at+random/4294967296*4-2};}).sort((a,b)=>a.at-b.at);}
+function fullEndlessEconomicEvents(seed:number,round:number){let random=(seed^Math.imul(round,8191))>>>0;return [{at:36,kind:'egg' as const},{at:156,kind:'egg' as const},...[48,96,144,192].map(at=>({at,kind:'drone' as const}))].map(event=>{random=(Math.imul(1664525,random)+1013904223)>>>0;return {...event,at:event.at+random/4294967296*4-2};}).sort((a,b)=>a.at-b.at);}
 export type EndlessSource='wave'|'elite'|'boss';
 export interface EndlessState {round:number;startedAt:number;elites:number;bosses:number;progress:Record<EndlessSource,number>;retry:Record<'elite'|'boss',number>;last:Partial<Record<'elite'|'boss',{health:number;damage:number;period:number}>>}
 export function endlessInterval(source:EndlessSource,elapsed:number){const c=ENDLESS[source];return Math.max(c.minInterval,c.interval*Math.pow(c.factor,Math.floor(Math.max(0,elapsed+1e-8)/c.accelerateEvery)));}
 export function endlessGrowth(serial:number){const n=Math.max(1,serial);return {health:Math.min(1e12,ENDLESS.growth.health**n),damage:Math.min(1e12,ENDLESS.growth.damage**n),attackSpeed:Math.min(1e12,ENDLESS.growth.attackSpeed**n)};}
+
+/** Preserve the old four-minute schedule density while offering minute-long shop breaks. */
+export function endlessWaveTemplate(seed:number,round:number,difficulty:Difficulty){
+ const cycle=Math.floor((round-1)/4)+1,offset=(round-1)%4*60;
+ return fullEndlessWaveTemplate(seed,cycle,difficulty).filter(w=>w.at>=offset&&w.at<offset+60).map(w=>({...w,at:w.at-offset}));
+}
+export function endlessEconomicEvents(seed:number,round:number){
+ const cycle=Math.floor((round-1)/4)+1,offset=(round-1)%4*60;
+ return fullEndlessEconomicEvents(seed,cycle).filter(e=>e.at>=offset&&e.at<offset+60).map(e=>({...e,at:e.at-offset}));
+}
+export function nextEndlessExpansion(elapsed:number){
+ const cycle=Math.floor(elapsed/240),local=elapsed-cycle*240,p=ENDLESS.expansion;
+ for(let t=p.firstAt;t<=p.latestAt;t+=p.interval)if(t>local+1e-8)return cycle*240+t;
+ return (cycle+1)*240+p.firstAt;
+}

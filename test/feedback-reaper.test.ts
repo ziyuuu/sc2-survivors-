@@ -66,10 +66,10 @@ test('F06 illegal air target and target lost during windup do not create phantom
  w.time+=1/60;w.updateUnit(u,1/60);assert.equal(u.shotSequence??0,0);assert.equal(u.pendingTarget,null);
 });
 
-test('F06 reaper source stats and two separate armored impacts remain unchanged',()=>{
+test('F06 reaper source profile stays locked while approved hits become six',()=>{
  const w=make(),u=w.addUnit('reaper','terran',0,0),target=w.addUnit('roach','zerg',0,3);
- close(u.attackRange,5);close(u.attackPeriod,1.1/1.4);close(u.weaponDamage,4);assert.equal(SC2_UNITS.reaper.attacks,2);
- target.hp=target.maxHp=1000;target.armor=3;w.fire(u,target);close(target.hp,998);
+ close(u.attackRange,5);close(u.attackPeriod,1.1/1.4/1.15);close(u.weaponDamage,6*1.15);assert.equal(SC2_UNITS.reaper.attacks,2);
+ target.hp=target.maxHp=1000;target.armor=3;w.fire(u,target);close(target.hp,1000-(6*1.15-3)*2);
  assert.equal(u.shotSequence,1);assert.equal(w.visualEvents.filter(e=>e.kind==='attack'&&e.entityId===u.id).length,1);
 });
 
@@ -77,7 +77,7 @@ test('F06 diagnostic is bounded, records real shots and leaves saved simulation 
  const run=(enabled:boolean)=>{const w=make(),u=w.addUnit('reaper','terran',0,0),target=w.addUnit('roach','zerg',0,3);target.hp=target.maxHp=10000;target.armor=0;
   const diagnostics=enabled?installShotDiagnostics(w):undefined;diagnostics?.setEnabled(true);
   for(let i=0;i<900;i++){w.tick++;w.time+=1/60;w.anchorStoppedFor=1;w.hash.rebuild(w.entities.values());w.updateUnit(u,1/60);}
-  const report=diagnostics?.report();if(report){assert.ok(report.rows.length<=600);assert.ok(report.units.length<=16);assert.ok(report.units[0].shots>=15);assert.ok(report.rows.some(r=>r.reason==='shot'&&r.damage===8));assert.ok(report.rows.some(r=>r.reason==='cooldown'));}
+  const report=diagnostics?.report();if(report){assert.ok(report.rows.length<=600);assert.ok(report.units.length<=16);assert.ok(report.units[0].shots>=15);assert.ok(report.rows.some(r=>r.reason==='shot'&&Math.abs((r.damage??0)-12*1.15)<1e-6));assert.ok(report.rows.some(r=>r.reason==='cooldown'));}
   diagnostics?.dispose();return w.captureRun();
  };
  assert.deepEqual(run(true),run(false));
