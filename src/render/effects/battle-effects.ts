@@ -17,7 +17,7 @@ type Batch={mesh:THREE.InstancedMesh;data:THREE.InstancedBufferAttribute;count:n
 const object=new THREE.Object3D(),color=new THREE.Color(),rotation=new THREE.Quaternion(),axis=new THREE.Vector3(0,0,1);
 const along=new THREE.Vector3(),across=new THREE.Vector3(),normal=new THREE.Vector3(),basis=new THREE.Matrix4();
 const CAPACITY=256,POOL_SIZE=1280;
-const additive=new Set(['fx.marauder.launch.1','fx.marauder.impact.2','fx.marauder.impact.3','fx.muzzle.0','fx.flame.0','fx.flame.1','fx.muzzle.1','fx.flameimpact.0','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
+const additive=new Set(['fx.support.nuke.16','fx.support.nuke.2','fx.marauder.launch.1','fx.marauder.impact.2','fx.marauder.impact.3','fx.muzzle.0','fx.flame.0','fx.flame.1','fx.muzzle.1','fx.flameimpact.0','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
 /** Original M3-referenced sprites; authored web emission timing, not a full SC2 particle emulator. */
 export class BattleEffects {
  batches=new Map<string,Batch>();loaded=0;errors:string[]=[];lastSerial=0;
@@ -52,7 +52,8 @@ export class BattleEffects {
   }
  }
  event(e:VisualEvent,mount:{x:number;y:number;z:number}|null=null,leftMount:{x:number;y:number;z:number}|null=null){
-  if(e.kind==='shield-hit'||e.kind==='shield-break')this.burst(e,'fx.impact.0',e.kind==='shield-break'?5:2,e.kind==='shield-break'?.5:.28,0x69baff,.24);
+  if(e.kind==='support-impact'||e.kind==='strategic-impact'){const big=e.kind==='strategic-impact',zerg=e.race==='zerg',protoss=e.race==='protoss',tint=zerg?0xb4ed67:protoss?0x86d9ff:0xffc271;this.burst(e,zerg?'fx.bile.4':protoss?'fx.impact.0':big?'fx.support.nuke.1':'fx.blast.3',1,big?7:2,tint,big?1.4:.5,false,'core');this.burst(e,zerg?'fx.baneling.0':protoss?'fx.muzzle.1':big?'fx.support.nuke.16':'fx.blast.6',3,big?2.5:.8,tint,.5);if(big&&!zerg&&!protoss)this.burst(e,'fx.support.nuke.2',1,12,0xffffff,.8,true,'core');}
+  else if(e.kind==='shield-hit'||e.kind==='shield-break')this.burst(e,'fx.impact.0',e.kind==='shield-break'?5:2,e.kind==='shield-break'?.5:.28,0x69baff,.24);
   else if(e.kind==='queen-inject'){this.burst(e,'fx.impact.0',2,.35,0xaedb54,.5);this.burst({...e,x:e.end.x,z:e.end.z},'fx.impact.0',3,.7,0xaedb54,.65);}
   else if(e.kind==='hit'){this.stats.hit++;const metal=!e.unitType||['hellion','tank','medivac'].includes(e.unitType);this.burst(e,metal?'fx.impact.0':'fx.blood.0',metal?3:2,metal?.25:.5,metal?0xffcf80:e.unitType==='marine'?0xc94031:0x86a956,.28);}
   else if(e.kind==='death'){this.stats.death++;const metal=['hellion','tank','medivac'].includes(e.unitType??'');this.burst(e,metal?'fx.blast.3':e.unitType==='baneling'?'fx.baneling.1':'fx.blood.0',4,metal?1.6:1.1,0xffffff,.7);if(metal)this.burst(e,'fx.blast.4',3,1.5,0x605c57,1.4);}
@@ -98,6 +99,11 @@ export class BattleEffects {
   this.projectiles.render(w.time,visible);
   for(const b of this.batches.values())b.count=0;this.stats.culledByClass=counters();this.stats.projectileCulled=0;
   this.stats.pending=0;
+  const support=w.expedition.support,tint=w.expedition.race==='zerg'?0xb4ed67:w.expedition.race==='protoss'?0x86d9ff:0xffc271;
+  const glyph=(point:Point,y:number,size:number,asset:string,ground=false)=>{const b=this.batches.get(asset);if(!b||b.count>=CAPACITY||!visible(point))return;object.position.set(point.x,y,point.z);object.scale.setScalar(size);if(ground)object.rotation.set(-Math.PI/2,0,w.time*.3);else object.quaternion.copy(camera.quaternion);object.updateMatrix();b.mesh.setMatrixAt(b.count,object.matrix);b.mesh.setColorAt(b.count,color.set(tint));b.data.setXYZ(b.count++,b.start,1,0);};
+  if(w.expedition.race==='protoss')for(const mine of support.mines)glyph(mine.point,(w.terrain?.height(mine.point)??0)+.1,.8,'fx.impact.0',true);
+  for(const impact of support.impacts){const left=Math.max(0,impact.at-w.time),big=impact.kind==='strategic';glyph(impact.point,(w.terrain?.height(impact.point)??0)+left*(big?6:10),big?1.2:.55,w.expedition.race==='zerg'?'fx.bile.0':w.expedition.race==='protoss'?'fx.muzzle.1':'fx.blast.6');}
+
   for(const cast of w.heroCasts){
    if(!cast.launched||cast.phase==='dot'||cast.phase==='channel'||(cast.pulseIndex??0)>0)continue;
    const duration=HERO_SKILL_FLIGHT[cast.hero];if(!duration||cast.at<=w.time)continue;

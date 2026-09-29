@@ -12,23 +12,23 @@ const close=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
 const target=(u:Entity)=>{u.hp=u.maxHp=1000;u.armor=0;u.shield=0;u.shieldArmor=0;return u;};
 
 test('Thor switches upgraded weapons without ratio drift, healing, or resetting cooldowns',()=>{
- const w=world(),u=w.addUnit('thor','terran',0,0),ground=target(w.addUnit('roach','zerg',4,0)),air=target(w.addUnit('mutalisk','zerg',4,0));w.expedition!.tech['terran.vehicle']=1;w.refreshStats(u);u.hp-=37;u.nextShotAt=19;u.weaponCooldown=8;u.energy=0;
+ const w=world(),u=w.addUnit('thor','terran',0,0),ground=target(w.addUnit('roach','zerg',4,0)),air=target(w.addUnit('mutalisk','zerg',4,0));w.expedition!.tech['research.factory.weapon']=1;w.refreshStats(u);u.hp-=37;u.nextShotAt=19;u.weaponCooldown=8;u.energy=0;
  for(let i=0;i<20;i++){selectWeapon(w,u,air);close(u.weaponDamage,7*1.15);selectWeapon(w,u,ground);close(u.weaponDamage,33*1.15);}assert.equal(u.nextShotAt,19);assert.equal(u.weaponCooldown,8);close(u.maxHp-u.hp,37);
  selectWeapon(w,u,air);w.fire(u,air);close(1000-air.hp,56*1.15);selectWeapon(w,u,ground);w.fire(u,ground);close(1000-ground.hp,66*1.15);
 });
 
 test('Viking assault keeps aircraft weapon and armor research rather than borrowing vehicle levels',()=>{
- const w=world(),u=w.addUnit('viking','terran',0,0);w.expedition!.tech['terran.air_weapon']=1;w.expedition!.tech['terran.air_armor']=1;w.expedition!.tech['terran.vehicle']=3;w.expedition!.tech['terran.vehicle_armor']=3;
+ const w=world(),u=w.addUnit('viking','terran',0,0);w.expedition!.tech['research.starport.weapon']=1;w.expedition!.tech['research.starport.defense']=1;w.expedition!.tech['research.factory.weapon']=3;w.expedition!.tech['research.factory.defense']=3;
  u.nativeMode='viking_assault';u.activeWeapon=undefined;w.refreshStats(u);close(u.weaponDamage,13*1.15);close(u.armor,1*1.15);const p=target(w.addUnit('stalker','zerg',4,0));selectWeapon(w,u,p);w.fire(u,p);close(1000-p.hp,22*1.15);
 });
 
 test('Immortal and siege tank add their own source armored bonuses once',()=>{
- const w=world(),i=w.addUnit('immortal','terran',0,0),t=w.addUnit('tank','terran',0,2);w.expedition!.tech['protoss.ground_weapon']=1;w.expedition!.tech['terran.vehicle']=1;t.mode='siege';w.refreshStats(i);w.refreshStats(t);
+ const w=world(),i=w.addUnit('immortal','terran',0,0),t=w.addUnit('tank','terran',0,2);w.expedition!.tech['research.robotics.weapon']=1;w.expedition!.tech['research.factory.weapon']=1;t.mode='siege';w.refreshStats(i);w.refreshStats(t);
  const a=target(w.addUnit('roach','zerg',6,0)),b=target(w.addUnit('roach','zerg',6,2));w.fire(i,a);close(1000-a.hp,55*1.15);w.hash.rebuild([...w.entities.values()]);w.fire(t,b);close(1000-b.hp,75*1.15);close(t.weaponDamage,44*1.15);
 });
 
 test('Infernal research applies distinct source light bonuses to Hellion and Hellbat',()=>{
- const w=world(),u=w.addUnit('hellion','terran',0,0);w.expedition!.tech.infernal=1;w.expedition!.tech['terran.vehicle']=1;w.refreshStats(u);const p=target(w.addUnit('zergling','zerg',1.5,0));w.hash.rebuild([...w.entities.values()]);w.fire(u,p);close(1000-p.hp,21*1.15);
+ const w=world(),u=w.addUnit('hellion','terran',0,0);w.expedition!.tech.infernal=1;w.expedition!.tech['research.factory.weapon']=1;w.refreshStats(u);const p=target(w.addUnit('zergling','zerg',1.5,0));w.hash.rebuild([...w.entities.values()]);w.fire(u,p);close(1000-p.hp,21*1.15);
  p.hp=1000;u.nativeMode='hellbat';u.activeWeapon=undefined;w.refreshStats(u);w.fire(u,p);close(1000-p.hp,32*1.15);
 });
 
@@ -52,17 +52,17 @@ test('Sentry shield bonus depletes shields but never turns excess shield damage 
 });
 
 test('shield-only damage scales once with rank and weapon cards and retains separate shield armor',()=>{
- const w=world(),u=w.addUnit('sentry','terran',0,0,3),p=target(w.addUnit('stalker','zerg',3,0));w.expedition!.cardTotals['weapon.sentry']=.2;w.refreshStats(u);const scale=w.growth(u).damage*1.2*1.15;close(expeditionWeaponBonuses(w,u).shieldBonus,4*scale);p.shield=100;p.shieldArmor=2;w.fire(u,p);close(p.shield,100-(10*scale-2));close(p.hp,1000);
+ const w=world(),u=w.addUnit('sentry','terran',0,0,3),p=target(w.addUnit('stalker','zerg',3,0));w.expedition!.cardTotals['team.firepower.blue']=1;w.expedition!.cardTotals['team.firepower.purple']=1;w.refreshStats(u);const scale=w.growth(u).damage*1.2*1.15;close(expeditionWeaponBonuses(w,u).shieldBonus,4*scale);p.shield=100;p.shieldArmor=2;w.fire(u,p);close(p.shield,100-(10*scale-2));close(p.hp,1000);
 });
 
 
 test('heavy siege elite adds its timed range to derived talent range once and resets on undeploy',()=>{
  const w=world(),u=w.addUnit('tank','terran',0,0,3);u.eliteId='tank.1';u.mode=u.desiredMode='siege';w.runConfig!.frozenTalents.levels={'T-M02':3};w.refreshStats(u);u.hp-=27;u.nextShotAt=30;
- const base=SIEGE.range*1.12;w.time=1;w.tick=1;w.updateUnit(u,1/60);close(u.attackRange,base);
+ const base=SIEGE.range*1.15;w.time=1;w.tick=1;w.updateUnit(u,1/60);close(u.attackRange,base);
  for(const [time,extra] of [[4,1],[7,2],[10,3],[40,3]]){w.time=time;for(let i=0;i<10;i++){w.tick++;w.updateUnit(u,1/60);close(u.attackRange,base+extra);}}
  close(u.maxHp-u.hp,27);assert.equal(u.nextShotAt,30);
  u.modeTimer=1;u.action='unsieging';u.desiredMode='tank';w.updateUnit(u,1/60);close(u.attackRange,base);assert.equal(u.siegeSince,undefined);
- u.mode=u.desiredMode='tank';u.modeTimer=0;w.updateUnit(u,1/60);close(u.attackRange,SC2_UNITS.tank.attackRange*1.12);
+ u.mode=u.desiredMode='tank';u.modeTimer=0;w.updateUnit(u,1/60);close(u.attackRange,SC2_UNITS.tank.attackRange*1.15);
  u.mode=u.desiredMode='siege';w.time=50;w.updateUnit(u,1/60);close(u.attackRange,base);assert.equal(u.siegeSince,50);
 });
 

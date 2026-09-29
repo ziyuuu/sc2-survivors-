@@ -35,8 +35,8 @@ test('enemy-owned carriers never charge the player wallet and children keep thei
  const {w,carrier}=setup(1000,'zerg');tickCarrierSubsystem(w,100);assert.equal(w.wallet.minerals,1000);assert.equal(ownedInterceptors(w,carrier.id).length,4);for(const u of ownedInterceptors(w,carrier.id)){assert.equal(u.owner,'zerg');assert.equal(u.team,'enemy');assert.equal(u.race,'protoss');}
 });
 test('scoped carrier output is applied exactly once while mother shield/rank health bonuses do not leak',()=>{
- const {w,carrier}=setup();w.runConfig!.frozenTalents.levels={'P-S01':3,'P-S02':3,'P-S11':3};w.expedition!.cardTotals['weapon.carrier']=.2;w.expedition!.tech['protoss.air_weapon']=2;carrier.rank=3;
- const u=ownedInterceptors(w,carrier.id)[0],growth=w.growth(carrier),expected=7*growth.damage*1.2*1.6*1.15;for(let n=0;n<10;n++){refreshInterceptorStats(w,u);near(u.weaponDamage,expected);near(u.attackPeriod,source.weapon.attackPeriod/growth.attackSpeed/1.15/1.15);assert.equal(u.maxHp,40*1.15);assert.equal(u.maxShield,40*1.15);assert.equal(u.rank,1);}
+ const {w,carrier}=setup();w.runConfig!.frozenTalents.levels={'P-S01':3,'P-S02':3,'P-S11':3};w.expedition!.cardTotals['team.firepower.blue']=1;w.expedition!.cardTotals['team.firepower.purple']=1;w.expedition!.tech['research.stargate.weapon']=2;carrier.rank=3;
+ const u=ownedInterceptors(w,carrier.id)[0],growth=w.growth(carrier),expected=7*growth.damage*1.2*1.9*1.15;for(let n=0;n<10;n++){refreshInterceptorStats(w,u);near(u.weaponDamage,expected);near(u.attackPeriod,source.weapon.attackPeriod/growth.attackSpeed/1.225/1.1/1.15);assert.equal(u.maxHp,40*1.15);assert.equal(u.maxShield,40*1.15);assert.equal(u.rank,1);}
  u.hp=10;u.shield=5;refreshInterceptorStats(w,u);assert.equal(u.hp,10);assert.equal(u.shield,5);
 });
 test('interceptor attacks apply two source hits to legal ground or air targets after the source windup',()=>{

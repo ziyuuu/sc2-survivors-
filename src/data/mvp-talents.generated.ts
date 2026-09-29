@@ -10,7 +10,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "scv_savior",
-    "description": "每次成功救援一个工人救援目标，额外1／2／3名SCV；每个救援目标只触发一次；不加目标数量或救援成功率。",
+    "description": "每次成功救援一个工人救援目标，额外2／3／4名SCV；每个救援目标只触发一次；不加目标数量或救援成功率。",
     "prerequisiteText": "无"
   },
   {
@@ -23,7 +23,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "mining_master",
-    "description": "本族被动矿与气收入分别＋15%／30%／45%；不乘拾取、过关、退款或永久资源。",
+    "description": "本族被动矿与气收入分别＋20%／40%／60%；不乘拾取、过关、退款或永久资源。",
     "prerequisiteText": "R01满"
   },
   {
@@ -49,7 +49,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "frugal_build",
-    "description": "本族实体设施建造价−15%／30%／45%；附属实验室包括在内；研究不算建筑。",
+    "description": "修建及兵种、技能、攻防系统解锁费用−15%／30%／45%；不含后续六次攻防升级。",
     "prerequisiteText": "R01满"
   },
   {
@@ -88,7 +88,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "free_house",
-    "description": "每次合格建筑购买20%／40%／60%免第一座显示费用；先有付款资格再掷骰，按3.3可与双建并发。",
+    "description": "修建及解锁购买20%／40%／60%免单；需先有付款资格，不作用后续攻防升级；双建第二座仍付款。",
     "prerequisiteText": "R04满"
   },
   {
@@ -127,7 +127,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "double_build",
-    "description": "可重复生产设施购买时20%／40%再建1座并支付第二座完整折后价；两座独立产能；先检查设施上限。",
+    "description": "可重复生产设施购买时30%／60%再建1座并支付第二座完整折后价；两座独立产能；先检查设施上限。",
     "prerequisiteText": "R07满"
   },
   {
@@ -140,7 +140,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "bonus_income",
-    "description": "关卡结算矿、气奖励分别＋10%／20%／30%；不乘永久资源，不对同一关收据重复发。",
+    "description": "关卡结算矿、气奖励分别＋15%／30%／45%；不乘永久资源，不对同一关收据重复发。",
     "prerequisiteText": "R08满"
   },
   {
@@ -166,7 +166,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "instant_tech",
-    "description": "新兵营／工厂／星港33%／66%／99%命中：优先免费附带本局已有同类实验室，否则免费完成1项满足前置的关联研究；顺序见3.3。",
+    "description": "每座新设施33%／66%／99%免费完成同路线一个合法项目：标记目标、当前产出技能、攻防系统、较低攻防（同级先武器）、未解锁兵种、其他技能；无合法项目不掷骰。",
     "prerequisiteText": "R10满"
   },
   {
@@ -192,7 +192,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "elite_classroom",
-    "description": "每名正常付费兵营枪兵／劫掠者／死神身体15%／30%成为同家族合法紫色精英；不适用工厂／星港；回退规则见5.2。",
+    "description": "每名正常付费兵营枪兵／劫掠者／死神身体20%／40%成为同家族合法紫色精英；不适用工厂／星港；回退规则见5.2。",
     "prerequisiteText": "第1／2级：第五层2／3项满"
   },
   {
@@ -205,7 +205,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 5,
     "semanticId": "hero_support",
-    "description": "开局从雷诺、泰凯斯、诺娃、斯旺、托什中选1名一级英雄免费部署；占三身份中的第一席；不额外给英雄卡。",
+    "description": "开局从雷诺、泰凯斯、诺娃、斯旺、托什中选1名二级英雄免费部署；占三身份中的第一席；不额外给英雄卡。",
     "prerequisiteText": "R14满；R15满；第五层≥2项满"
   },
   {
@@ -218,7 +218,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "advanced_arms",
-    "description": "战斗组伤害、最大生命、生命护甲、移速、攻速、合法生命治疗输出各＋5%／10%／15%；护甲按已有值乘算，不凭空加基础护甲。",
+    "description": "战斗组伤害、最大生命、生命护甲、移速、攻速、合法生命治疗输出各＋7.5%／15%／22.5%；护甲按已有值乘算，不凭空加基础护甲。",
     "prerequisiteText": "无"
   },
   {
@@ -231,7 +231,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "weapon_upgrade",
-    "description": "战斗组普攻直接伤害与已有属性附伤＋5%／10%／15%；不增强技能、治疗或新造弹道。",
+    "description": "战斗组普攻直接伤害与已有属性附伤＋7.5%／15%／22.5%；不增强技能、治疗或新造弹道。",
     "prerequisiteText": "S01满"
   },
   {
@@ -244,7 +244,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "armor_upgrade",
-    "description": "战斗组护甲结算后的伤害再减少4%／8%／12%；普攻和技能均受影响；转移伤害不再次减伤。",
+    "description": "战斗组护甲结算后的伤害再减少6%／12%／18%；普攻和技能均受影响；转移伤害不再次减伤。",
     "prerequisiteText": "S01满"
   },
   {
@@ -257,7 +257,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "light_armor",
-    "description": "战斗组基础移动速度＋5%／10%／15%；碰撞半径、模式移动限制与目标层不变。",
+    "description": "战斗组基础移动速度＋7.5%／15%／22.5%；碰撞半径、模式移动限制与目标层不变。",
     "prerequisiteText": "S01满"
   },
   {
@@ -270,7 +270,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "headshot",
-    "description": "战斗组每次主武器攻击5%／10%／15%暴击；该次普通武器直接伤害×1.5；技能、持续伤害及衍生溅射不暴击。",
+    "description": "战斗组每次主武器攻击7.5%／15%／22.5%暴击；该次普通武器直接伤害×1.75；技能、持续伤害及衍生溅射不暴击。",
     "prerequisiteText": "S02满"
   },
   {
@@ -283,7 +283,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "bio_shield",
-    "description": "生物组获得独立附加盾，上限为修正后最大生命10%／20%／30%；受敌伤后5秒未再受伤，每秒回附加盾上限3%；不恢复生命。",
+    "description": "生物组获得独立附加盾，上限为修正后最大生命15%／30%／45%；受敌伤后5秒未再受伤，每秒回附加盾上限3%；不恢复生命。",
     "prerequisiteText": "S03满"
   },
   {
@@ -296,7 +296,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "veteran_dodge",
-    "description": "战斗组被一次普通武器攻击命中时3%／6%／9%闪避该次直接命中；地面预警、技能、范围溅射和持续伤害不能闪避。",
+    "description": "战斗组被一次普通武器攻击命中时4.5%／9%／13.5%闪避该次直接命中；地面预警、技能、范围溅射和持续伤害不能闪避。",
     "prerequisiteText": "S04满"
   },
   {
@@ -309,7 +309,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "rapid_attack",
-    "description": "战斗组普通攻击速度＋8%／16%；改变攻击周期，不增加技能频率，不清当前武器冷却。",
+    "description": "战斗组普通攻击速度＋12%／24%；改变攻击周期，不增加技能频率，不清当前武器冷却。",
     "prerequisiteText": "S05满"
   },
   {
@@ -348,7 +348,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "big_firepower",
-    "description": "战斗组普通武器直接伤害与已有属性附伤再＋10%／20%／30%；与S01、S02同伤害类相加后乘一次；不作用技能。",
+    "description": "战斗组普通武器直接伤害与已有属性附伤再＋15%／30%／45%；与S01、S02同伤害类相加后乘一次；不作用技能。",
     "prerequisiteText": "S08满"
   },
   {
@@ -374,7 +374,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "marathon",
-    "description": "战斗组移动速度再＋5%／10%／15%；与S01、S04同类相加，不让架起坦克移动。",
+    "description": "战斗组移动速度再＋7.5%／15%／22.5%；与S01、S04同类相加，不让架起坦克移动。",
     "prerequisiteText": "S10满"
   },
   {
@@ -400,7 +400,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "last_stand",
-    "description": "普通组每关首次未被其他保护化解的致死，维持1生命8／15秒；期间不可治疗、回盾或再次保命，时间到必死；不抵消自爆。",
+    "description": "普通组每关首次未被其他保护化解的致死，维持1生命10／18秒；期间不可治疗、回盾或再次保命，时间到必死；不抵消自爆。",
     "prerequisiteText": "S12满＋S13满"
   },
   {
@@ -413,7 +413,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 5,
     "semanticId": "star_warrior",
-    "description": "军衔≥5普通身体，每消耗7名正常付费同家族增援进阶I—V；三方向突击／坚守／机动的逐阶效果及收据见5.5；不是紫色精英，不增加身体。",
+    "description": "军衔≥5普通身体，每消耗5个名额正常付费同家族增援进阶I—V；三方向突击／坚守／机动的逐阶效果及收据见5.5；不是紫色精英，不增加身体。",
     "prerequisiteText": "S14满＋S15满"
   },
   {
@@ -426,7 +426,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "skilled_troop",
-    "description": "每名完成救援的普通乘员3%／6%／10%额外升1军衔；付费或免费均可；仍受本人上限及预付款培养容量限制。",
+    "description": "每名完成救援的普通乘员5%／10%／15%额外升1军衔；付费或免费均可；仍受本人上限及预付款培养容量限制。",
     "prerequisiteText": "无"
   },
   {
@@ -439,7 +439,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "experience_summary",
-    "description": "普通组造成的合格击杀，击杀者以1%／2%／3%概率升1军衔；无容量或已满级不掷骰；与A05/A08汇成一次晋升判定。",
+    "description": "普通组造成的合格击杀，击杀者以2%／4%／6%概率升1军衔；无容量或已满级不掷骰；与A05/A08汇成一次晋升判定。",
     "prerequisiteText": "A01满"
   },
   {
@@ -452,7 +452,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "reinforcement",
-    "description": "每次合格击杀1%／2%／3%生成1名已入编本族家族的免费普通救援乘员；需击败守军；全队成功后冷却60战斗秒，详见5.3。",
+    "description": "每次合格击杀2%／4%／6%生成1名已入编本族家族的免费普通救援乘员；需击败守军；全队成功后冷却45战斗秒，详见5.3。",
     "prerequisiteText": "A01满"
   },
   {
@@ -465,7 +465,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "orderly_army",
-    "description": "军衔≥2普通组致死时1%／2%／3%降1级后以新最大生命50%存活；每人每关至多成功1次；不保英雄／精英。",
+    "description": "军衔≥2普通组致死时5%／10%／15%降1级后以新最大生命50%存活；每人每关至多成功1次；不保英雄／精英。",
     "prerequisiteText": "A01满"
   },
   {
@@ -478,7 +478,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "battle_review",
-    "description": "合格普通击杀晋升概率再＋1／2／3个百分点；成功后优先同家族最低军衔合法成员，军衔相同按实体ID；只升一名。",
+    "description": "合格普通击杀晋升概率再＋2／4／6个百分点；成功后优先同家族最低军衔合法成员，军衔相同按实体ID；只升一名。",
     "prerequisiteText": "A02满"
   },
   {
@@ -491,7 +491,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "conscript_network",
-    "description": "A03免费普通救援身体最大生命＋10%／20%／30%，作为该身体来源标签保存至死亡；不增强免费守军或付费乘员。",
+    "description": "A03免费普通救援身体最大生命＋15%／30%／45%，作为该身体来源标签保存至死亡；不增强免费守军或付费乘员。",
     "prerequisiteText": "A03满"
   },
   {
@@ -504,7 +504,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "honor_archive",
-    "description": "A04降级存活恢复比例由50%提高至60%／70%／80%新最大生命；不是另外再次治疗，不作用S09/S15。",
+    "description": "A04降级存活恢复比例由50%提高至70%／85%／100%新最大生命；不是另外再次治疗，不作用S09/S15。",
     "prerequisiteText": "A04满"
   },
   {
@@ -517,7 +517,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "teach_experience",
-    "description": "击杀者家族存在活着的永久紫色精英时，A02/A05合并晋升概率再＋3／6个百分点；临时精英和战术进阶不能充当导师。",
+    "description": "击杀者家族存在活着的永久紫色精英时，A02/A05合并晋升概率再＋4／8个百分点；临时精英和战术进阶不能充当导师。",
     "prerequisiteText": "A05满"
   },
   {
@@ -530,7 +530,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "self_growth",
-    "description": "每累计360／240秒战斗时间，使1名活着且未满5级的永久紫色精英升1级；最低等级优先、ID破同分；无目标该次跳过，不存储次数。",
+    "description": "每累计240／120秒战斗时间，使1名活着且未满5级的永久紫色精英升1级；最低等级优先、ID破同分；无目标该次跳过，不存储次数。",
     "prerequisiteText": "A06满"
   },
   {
@@ -556,7 +556,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "advantage_army",
-    "description": "战斗组武器原有轻甲／重甲／生物等属性附加伤害＋10%／20%／30%；只改bonusDamage项，不乘基础伤害，不创造新克制。",
+    "description": "战斗组武器原有轻甲／重甲／生物等属性附加伤害＋15%／30%／45%；只改bonusDamage项，不乘基础伤害，不创造新克制。",
     "prerequisiteText": "A08满"
   },
   {
@@ -569,7 +569,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "proliferate",
-    "description": "合格击杀0.5%／1%／1.5%生成1名Rank 5临时枪兵或劫掠者；存活30秒，全队同时上限1／2／3；选择和排除见5.6。",
+    "description": "合格击杀1%／2%／3%生成1名Rank 5临时枪兵或劫掠者；存活30秒，全队同时上限1／2／3；选择和排除见5.6。",
     "prerequisiteText": "A09满"
   },
   {
@@ -582,7 +582,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "tank_support",
-    "description": "每90／60／45秒触发8秒支援，每秒1／2／3道坦克炮击与等量医疗艇治疗；不造实体，精确伤害／治疗／预约见5.7。",
+    "description": "每75／50／35秒触发8秒支援，每秒1／2／3道坦克炮击与等量医疗艇治疗；不造实体，精确伤害／治疗／预约见5.7。",
     "prerequisiteText": "A10满"
   },
   {
@@ -595,7 +595,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "elite_scout",
-    "description": "每成功救出一个SCV救援目标5%／10%生成1个同族合法精英救援权；R01额外SCV不再各掷骰，无合法对象或容量不掷骰。",
+    "description": "每成功救出一个SCV救援目标10%／20%生成1个同族合法精英救援权；R01额外SCV不再各掷骰，无合法对象或容量不掷骰。",
     "prerequisiteText": "A10满"
   },
   {
@@ -608,7 +608,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "mercenary",
-    "description": "每240／120秒召来1名Rank 5临时紫色精英，存活80秒；只从已解锁枪兵／劫掠者／死神中按5.6选；死亡后本周期不补。",
+    "description": "每180／90秒召来1名Rank 5临时紫色精英，存活80秒；只从已解锁枪兵／劫掠者／死神中按5.6选；死亡后本周期不补。",
     "prerequisiteText": "A11≥1＋A13≥1"
   },
   {
@@ -634,7 +634,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "tidy_squad",
-    "description": "战斗组落后锚点超过8／6／4距离时追赶移速＋10%／20%／30%；追赶倍率最高1.3，不穿墙、不自动切模式、不打断交火停步。",
+    "description": "战斗组落后锚点超过8／6／4距离时追赶移速＋15%／30%／45%；追赶倍率最高1.45，不穿墙、不自动切模式、不打断交火停步。",
     "prerequisiteText": "无"
   },
   {
@@ -647,7 +647,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "range_master",
-    "description": "战斗组合法普通武器射程＋4%／8%／12%，含近战接敌距离；技能、治疗、最小射程不变，仍检查地形阻隔。",
+    "description": "战斗组合法普通武器射程＋5%／10%／15%，含近战接敌距离；技能、治疗、最小射程不变，仍检查地形阻隔。",
     "prerequisiteText": "M01满"
   },
   {
@@ -660,7 +660,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "skill_recovery",
-    "description": "推进、G侦测、本族英雄主动、兴奋剂等有计时冷却的手动能力冷却−8%／16%／24%，总冷却倍率最低0.5；模式耗时不算冷却。",
+    "description": "推进、G侦测、本族英雄主动、兴奋剂等有计时冷却的手动能力冷却−10%／20%／30%，总冷却倍率最低0.5；模式耗时不算冷却。",
     "prerequisiteText": "M02满"
   },
   {
@@ -673,7 +673,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 6,
     "semanticId": "airlift",
-    "description": "冷却240／120秒；选择锚点前方合法集结点，准备2秒后搬运本次选中的合法地面战斗组；各单位保伤损命令，不能落地则原位且不耗冷却，见5.8。",
+    "description": "冷却180／90秒；选择锚点前方合法集结点，准备2秒后搬运本次选中的合法地面战斗组；各单位保伤损命令，不能落地则原位且不耗冷却，见5.8。",
     "prerequisiteText": "M03满"
   },
   {
@@ -699,7 +699,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 6,
     "semanticId": "stutter_king",
-    "description": "战斗组移动瞄准转向速度×1.5／2；合法移动开火机会50%／100%；武器原冷却不变，架起坦克不可移动，光束/持续引导不绕过自身锁定。",
+    "description": "战斗组移动瞄准转向速度×1.75／2.5；合法移动开火机会50%／100%；武器原冷却不变，架起坦克不可移动，光束/持续引导不绕过自身锁定。",
     "prerequisiteText": "M05满"
   },
   {
@@ -712,7 +712,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 10,
     "semanticId": "apm_master",
-    "description": "主武器一次攻击额外发射1次同威力直接命中，合计2次；共用一次冷却和暴击判定；不复制溅射／穿透／弹射／技能／治疗／掉落，见5.9。",
+    "description": "主武器一次攻击额外发射1次115%威力直接命中，合计2次；共用一次冷却和暴击判定；不复制溅射／穿透／弹射／技能／治疗／掉落，见5.9。",
     "prerequisiteText": "M06满"
   },
   {
@@ -725,7 +725,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "scv_savior",
-    "description": "每次成功救援一个工人救援目标，额外1／2／3名工蜂；不增加虫卵、不要求注卵，不复制救援事件。",
+    "description": "每次成功救援一个工人救援目标，额外2／3／4名工蜂；不增加虫卵、不要求注卵，不复制救援事件。",
     "prerequisiteText": "无"
   },
   {
@@ -738,7 +738,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "mining_master",
-    "description": "本族被动矿与气收入分别＋15%／30%／45%；不乘拾取、过关、退款或永久资源。",
+    "description": "本族被动矿与气收入分别＋20%／40%／60%；不乘拾取、过关、退款或永久资源。",
     "prerequisiteText": "R01满"
   },
   {
@@ -764,7 +764,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "frugal_build",
-    "description": "孵化设施及虫族科技建筑建造、设施巢穴／蜂巢升级价−15%／30%／45%；兵种进化配方不属于建筑。",
+    "description": "修建及兵种、技能、攻防系统解锁费用−15%／30%／45%；不含后续六次攻防升级。",
     "prerequisiteText": "R01满"
   },
   {
@@ -803,7 +803,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "free_house",
-    "description": "每次合格建筑购买20%／40%／60%免第一座显示费用；先有付款资格再掷骰，按3.3可与双建并发。",
+    "description": "修建及解锁购买20%／40%／60%免单；需先有付款资格，不作用后续攻防升级；双建第二座仍付款。",
     "prerequisiteText": "R04满"
   },
   {
@@ -842,7 +842,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "double_build",
-    "description": "购买新孵化设施时20%／40%再建1座并支付第二座完整折后价；两座序列与产能独立；不复制唯一科技建筑、巢穴或蜂巢升级。",
+    "description": "购买新孵化设施时30%／60%再建1座并支付第二座完整折后价；两座序列与产能独立；不复制唯一科技建筑、巢穴或蜂巢升级。",
     "prerequisiteText": "R07满"
   },
   {
@@ -855,7 +855,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "bonus_income",
-    "description": "关卡结算矿、气奖励分别＋10%／20%／30%；不乘永久资源，不对同一关收据重复发。",
+    "description": "关卡结算矿、气奖励分别＋15%／30%／45%；不乘永久资源，不对同一关收据重复发。",
     "prerequisiteText": "R08满"
   },
   {
@@ -881,7 +881,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "instant_tech",
-    "description": "新孵化设施33%／66%／99%免费完成1项所选序列相关的已解锁研究；基础/进化/飞行的精确顺序见3.3；不增加设施产能、不改全局前置。",
+    "description": "每座新设施33%／66%／99%免费完成同路线一个合法项目：标记目标、当前产出技能、攻防系统、较低攻防（同级先武器）、未解锁兵种、其他技能；无合法项目不掷骰。",
     "prerequisiteText": "R10满"
   },
   {
@@ -907,7 +907,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "elite_classroom",
-    "description": "每名正常付费基础序列的跳虫／爆虫／蟑螂／虫后身体15%／30%成为合法同家族精英；跳虫双生逐身体判定，爆虫完整配方只判定最终体一次。",
+    "description": "每名正常付费基础序列的跳虫／爆虫／蟑螂／虫后身体20%／40%成为合法同家族精英；跳虫双生逐身体判定，爆虫完整配方只判定最终体一次。",
     "prerequisiteText": "第1／2级：第五层2／3项满"
   },
   {
@@ -920,7 +920,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 5,
     "semanticId": "hero_support",
-    "description": "开局从凯瑞甘、扎加拉、德哈卡、斯托科夫、妮雅德拉中选1名一级英雄免费部署；占第一英雄身份；菌毯增益仍只应用其固有效果一次。",
+    "description": "开局从凯瑞甘、扎加拉、德哈卡、斯托科夫、妮雅德拉中选1名二级英雄免费部署；占第一英雄身份；菌毯增益仍只应用其固有效果一次。",
     "prerequisiteText": "R14满；R15满；第五层≥2项满"
   },
   {
@@ -933,7 +933,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "advanced_arms",
-    "description": "战斗组伤害、最大生命、生命护甲、移速、攻速、合法治疗输出各＋5%／10%／15%；治疗含虫后输血及英雄生命治疗，不增强回能或重复乘菌毯。",
+    "description": "战斗组伤害、最大生命、生命护甲、移速、攻速、合法治疗输出各＋7.5%／15%／22.5%；治疗含虫后输血及英雄生命治疗，不增强回能或重复乘菌毯。",
     "prerequisiteText": "无"
   },
   {
@@ -946,7 +946,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "weapon_upgrade",
-    "description": "战斗组普攻直接伤害与已有属性附伤＋5%／10%／15%；不增强技能、治疗或新造弹道。",
+    "description": "战斗组普攻直接伤害与已有属性附伤＋7.5%／15%／22.5%；不增强技能、治疗或新造弹道。",
     "prerequisiteText": "S01满"
   },
   {
@@ -959,7 +959,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "armor_upgrade",
-    "description": "战斗组护甲结算后的伤害再减少4%／8%／12%；普攻和技能均受影响；转移伤害不再次减伤。",
+    "description": "战斗组护甲结算后的伤害再减少6%／12%／18%；普攻和技能均受影响；转移伤害不再次减伤。",
     "prerequisiteText": "S01满"
   },
   {
@@ -972,7 +972,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "light_armor",
-    "description": "战斗组基础移动速度＋5%／10%／15%；碰撞半径、模式移动限制与目标层不变。",
+    "description": "战斗组基础移动速度＋7.5%／15%／22.5%；碰撞半径、模式移动限制与目标层不变。",
     "prerequisiteText": "S01满"
   },
   {
@@ -985,7 +985,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "headshot",
-    "description": "战斗组每次主武器攻击5%／10%／15%暴击；该次普通武器直接伤害×1.5；技能、持续伤害及衍生溅射不暴击。",
+    "description": "战斗组每次主武器攻击7.5%／15%／22.5%暴击；该次普通武器直接伤害×1.75；技能、持续伤害及衍生溅射不暴击。",
     "prerequisiteText": "S02满"
   },
   {
@@ -998,7 +998,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "bio_shield",
-    "description": "生物组获得最大生命10%／20%／30%的独立甲壳缓冲；受敌伤5秒后每秒恢复缓冲上限3%；不是生命再生、不能被输血填充，不改蟑螂固有再生。",
+    "description": "生物组获得最大生命15%／30%／45%的独立甲壳缓冲；受敌伤5秒后每秒恢复缓冲上限3%；不是生命再生、不能被输血填充，不改蟑螂固有再生。",
     "prerequisiteText": "S03满"
   },
   {
@@ -1011,7 +1011,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "veteran_dodge",
-    "description": "战斗组被一次普通武器攻击命中时3%／6%／9%闪避该次直接命中；地面预警、技能、范围溅射和持续伤害不能闪避。",
+    "description": "战斗组被一次普通武器攻击命中时4.5%／9%／13.5%闪避该次直接命中；地面预警、技能、范围溅射和持续伤害不能闪避。",
     "prerequisiteText": "S04满"
   },
   {
@@ -1024,7 +1024,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "rapid_attack",
-    "description": "战斗组普通攻击速度＋8%／16%；改变攻击周期，不增加技能频率，不清当前武器冷却。",
+    "description": "战斗组普通攻击速度＋12%／24%；改变攻击周期，不增加技能频率，不清当前武器冷却。",
     "prerequisiteText": "S05满"
   },
   {
@@ -1063,7 +1063,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "big_firepower",
-    "description": "战斗组普通武器直接伤害与已有属性附伤再＋10%／20%／30%；与S01、S02同伤害类相加后乘一次；不作用技能。",
+    "description": "战斗组普通武器直接伤害与已有属性附伤再＋15%／30%／45%；与S01、S02同伤害类相加后乘一次；不作用技能。",
     "prerequisiteText": "S08满"
   },
   {
@@ -1089,7 +1089,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "marathon",
-    "description": "战斗组移动速度再＋5%／10%／15%，与S01/S04同类相加；不使埋地潜伏者移动，不重复应用菌毯倍率。",
+    "description": "战斗组移动速度再＋7.5%／15%／22.5%，与S01/S04同类相加；不使埋地潜伏者移动，不重复应用菌毯倍率。",
     "prerequisiteText": "S10满"
   },
   {
@@ -1115,7 +1115,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "last_stand",
-    "description": "普通组每关首次未被其他保护化解的致死，维持1生命8／15秒；期间不可治疗、回盾或再次保命，时间到必死；不抵消自爆。",
+    "description": "普通组每关首次未被其他保护化解的致死，维持1生命10／18秒；期间不可治疗、回盾或再次保命，时间到必死；不抵消自爆。",
     "prerequisiteText": "S12满＋S13满"
   },
   {
@@ -1128,7 +1128,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 5,
     "semanticId": "star_warrior",
-    "description": "军衔≥5普通身体，每7名付费同家族最终进化体进阶I—V；选裂爪／厚甲／迅捷，数值见5.5；不消耗免费虫、不送中间体，爆虫爆后进阶真实丢失。",
+    "description": "军衔≥5普通身体，每5个名额付费同家族最终进化体进阶I—V；选裂爪／厚甲／迅捷，数值见5.5；不消耗免费虫、不送中间体，爆虫爆后进阶真实丢失。",
     "prerequisiteText": "S14满＋S15满"
   },
   {
@@ -1141,7 +1141,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "skilled_troop",
-    "description": "每名救援完成的普通最终体3%／6%／10%额外升1军衔；跳虫按身体分别判定，爆虫／破坏者／潜伏者只在最终体一次判定。",
+    "description": "每名救援完成的普通最终体5%／10%／15%额外升1军衔；跳虫按身体分别判定，爆虫／破坏者／潜伏者只在最终体一次判定。",
     "prerequisiteText": "无"
   },
   {
@@ -1154,7 +1154,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "experience_summary",
-    "description": "普通组造成的合格击杀，击杀者以1%／2%／3%概率升1军衔；无容量或已满级不掷骰；与A05/A08汇成一次晋升判定。",
+    "description": "普通组造成的合格击杀，击杀者以2%／4%／6%概率升1军衔；无容量或已满级不掷骰；与A05/A08汇成一次晋升判定。",
     "prerequisiteText": "A01满"
   },
   {
@@ -1167,7 +1167,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "reinforcement",
-    "description": "每次合格击杀1%／2%／3%生成1名已入编本族家族的免费普通救援乘员；需击败守军；全队成功后冷却60战斗秒，详见5.3。",
+    "description": "每次合格击杀2%／4%／6%生成1名已入编本族家族的免费普通救援乘员；需击败守军；全队成功后冷却45战斗秒，详见5.3。",
     "prerequisiteText": "A01满"
   },
   {
@@ -1180,7 +1180,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "orderly_army",
-    "description": "军衔≥2普通组致死时1%／2%／3%降1级后以新最大生命50%存活；每人每关至多成功1次；不保英雄／精英。",
+    "description": "军衔≥2普通组致死时5%／10%／15%降1级后以新最大生命50%存活；每人每关至多成功1次；不保英雄／精英。",
     "prerequisiteText": "A01满"
   },
   {
@@ -1193,7 +1193,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "battle_review",
-    "description": "合格普通击杀晋升概率再＋1／2／3个百分点；成功后优先同家族最低军衔合法成员，军衔相同按实体ID；只升一名。",
+    "description": "合格普通击杀晋升概率再＋2／4／6个百分点；成功后优先同家族最低军衔合法成员，军衔相同按实体ID；只升一名。",
     "prerequisiteText": "A02满"
   },
   {
@@ -1206,7 +1206,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "conscript_network",
-    "description": "A03免费救援虫族最终体最大生命＋10%／20%／30%；不额外赠同批第二跳虫，不把进化前体再当一次免费乘员。",
+    "description": "A03免费救援虫族最终体最大生命＋15%／30%／45%；不额外赠同批第二跳虫，不把进化前体再当一次免费乘员。",
     "prerequisiteText": "A03满"
   },
   {
@@ -1219,7 +1219,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "honor_archive",
-    "description": "A04降级存活恢复比例由50%提高至60%／70%／80%新最大生命；不是另外再次治疗，不作用S09/S15。",
+    "description": "A04降级存活恢复比例由50%提高至70%／85%／100%新最大生命；不是另外再次治疗，不作用S09/S15。",
     "prerequisiteText": "A04满"
   },
   {
@@ -1232,7 +1232,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "teach_experience",
-    "description": "击杀者家族存在活着的永久紫色精英时，A02/A05合并晋升概率再＋3／6个百分点；临时精英和战术进阶不能充当导师。",
+    "description": "击杀者家族存在活着的永久紫色精英时，A02/A05合并晋升概率再＋4／8个百分点；临时精英和战术进阶不能充当导师。",
     "prerequisiteText": "A05满"
   },
   {
@@ -1245,7 +1245,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "self_growth",
-    "description": "每累计360／240秒战斗时间，使1名活着且未满5级的永久紫色精英升1级；最低等级优先、ID破同分；无目标该次跳过，不存储次数。",
+    "description": "每累计240／120秒战斗时间，使1名活着且未满5级的永久紫色精英升1级；最低等级优先、ID破同分；无目标该次跳过，不存储次数。",
     "prerequisiteText": "A06满"
   },
   {
@@ -1271,7 +1271,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "advantage_army",
-    "description": "战斗组武器原有轻甲／重甲／生物等属性附加伤害＋10%／20%／30%；只改bonusDamage项，不乘基础伤害，不创造新克制。",
+    "description": "战斗组武器原有轻甲／重甲／生物等属性附加伤害＋15%／30%／45%；只改bonusDamage项，不乘基础伤害，不创造新克制。",
     "prerequisiteText": "A08满"
   },
   {
@@ -1284,7 +1284,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "proliferate",
-    "description": "合格击杀0.5%／1%／1.5%召来1只Rank 5临时跳虫或蟑螂，30秒，同时上限1／2／3身体；不是双生配方，不生成爆虫，不产资源。",
+    "description": "合格击杀1%／2%／3%召来1只Rank 5临时跳虫或蟑螂，30秒，同时上限1／2／3身体；不是双生配方，不生成爆虫，不产资源。",
     "prerequisiteText": "A09满"
   },
   {
@@ -1297,7 +1297,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "tank_support",
-    "description": "每90／60／45秒触发8秒支援，每秒1／2／3次可见地面目标胆汁及同数生命哺育；胆汁预警0.75秒，半径1.5，基础187.5伤害，生命恢复63/次；详见5.7。",
+    "description": "每75／50／35秒触发8秒支援，每秒1／2／3次可见地面目标胆汁及同数生命哺育；胆汁预警0.75秒，半径1.5，基础187.5伤害，生命恢复63/次；详见5.7。",
     "prerequisiteText": "A10满"
   },
   {
@@ -1310,7 +1310,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "elite_scout",
-    "description": "每成功救出一个工蜂救援目标5%／10%额外获得1个合法本族精英救援权；R01增员不重复抽，既有精英变体锁与容量照常。",
+    "description": "每成功救出一个工蜂救援目标10%／20%额外获得1个合法本族精英救援权；R01增员不重复抽，既有精英变体锁与容量照常。",
     "prerequisiteText": "A10满"
   },
   {
@@ -1323,7 +1323,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "mercenary",
-    "description": "每240／120秒召来1只Rank 5临时紫色精英，80秒；候选为已解锁跳虫／蟑螂／刺蛇，按5.6轮换；不产生永久精英路径、不触发增殖。",
+    "description": "每180／90秒召来1只Rank 5临时紫色精英，80秒；候选为已解锁跳虫／蟑螂／刺蛇，按5.6轮换；不产生永久精英路径、不触发增殖。",
     "prerequisiteText": "A11≥1＋A13≥1"
   },
   {
@@ -1349,7 +1349,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "tidy_squad",
-    "description": "战斗组落后锚点超过8／6／4距离时追赶移速＋10%／20%／30%；追赶倍率最高1.3，不穿墙、不自动切模式、不打断交火停步。",
+    "description": "战斗组落后锚点超过8／6／4距离时追赶移速＋15%／30%／45%；追赶倍率最高1.45，不穿墙、不自动切模式、不打断交火停步。",
     "prerequisiteText": "无"
   },
   {
@@ -1362,7 +1362,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "range_master",
-    "description": "战斗组合法普通武器射程＋4%／8%／12%，含近战接敌距离；技能、治疗、最小射程不变，仍检查地形阻隔。",
+    "description": "战斗组合法普通武器射程＋5%／10%／15%，含近战接敌距离；技能、治疗、最小射程不变，仍检查地形阻隔。",
     "prerequisiteText": "M01满"
   },
   {
@@ -1375,7 +1375,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "skill_recovery",
-    "description": "推进、G感知、本族英雄主动及M04地下转移等有计时冷却的手动能力冷却−8%／16%／24%，总倍率最低0.5；不缩自动胆汁/输血冷却或免能量，不改变潜伏埋出耗时。",
+    "description": "推进、G感知、本族英雄主动及M04地下转移等有计时冷却的手动能力冷却−10%／20%／30%，总倍率最低0.5；不缩自动胆汁/输血冷却或免能量，不改变潜伏埋出耗时。",
     "prerequisiteText": "M02满"
   },
   {
@@ -1388,7 +1388,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 6,
     "semanticId": "airlift",
-    "description": "冷却240／120秒，准备2秒；选择锚点前方同一开放区域合法集结点，运送可移动地面战斗组；是天赋转移效果，不赋予全部虫族常驻埋地或隐形，见5.8。",
+    "description": "冷却180／90秒，准备2秒；选择锚点前方同一开放区域合法集结点，运送可移动地面战斗组；是天赋转移效果，不赋予全部虫族常驻埋地或隐形，见5.8。",
     "prerequisiteText": "M03满"
   },
   {
@@ -1414,7 +1414,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 6,
     "semanticId": "stutter_king",
-    "description": "移动瞄准×1.5／2，合法移动开火机会50%／100%；埋地潜伏者不能移动，跳虫／雷兽近战仍需接触，异龙弹射不多造一跳。",
+    "description": "移动瞄准×1.75／2.5，合法移动开火机会50%／100%；埋地潜伏者不能移动，跳虫／雷兽近战仍需接触，异龙弹射不多造一跳。",
     "prerequisiteText": "M05满"
   },
   {
@@ -1427,7 +1427,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 10,
     "semanticId": "apm_master",
-    "description": "主武器一次攻击产生2次同威力直接命中，共用冷却；跳虫/雷兽为第二击动作，异龙只多首跳、潜伏者不复制地刺线，爆虫自爆不复制；详见5.9。",
+    "description": "主武器一次攻击产生2次115%威力直接命中，共用冷却；跳虫/雷兽为第二击动作，异龙只多首跳、潜伏者不复制地刺线，爆虫自爆不复制；详见5.9。",
     "prerequisiteText": "M06满"
   },
   {
@@ -1440,7 +1440,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "scv_savior",
-    "description": "每次成功救援一个工人救援目标，额外1／2／3名探机；不增加救援目标、救援概率或水晶塔供能范围。",
+    "description": "每次成功救援一个工人救援目标，额外2／3／4名探机；不增加救援目标、救援概率或水晶塔供能范围。",
     "prerequisiteText": "无"
   },
   {
@@ -1453,7 +1453,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "mining_master",
-    "description": "本族被动矿与气收入分别＋15%／30%／45%；不乘拾取、过关、退款或永久资源。",
+    "description": "本族被动矿与气收入分别＋20%／40%／60%；不乘拾取、过关、退款或永久资源。",
     "prerequisiteText": "R01满"
   },
   {
@@ -1479,7 +1479,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "frugal_build",
-    "description": "本族实体设施建造价−15%／30%／45%；控制核心、锻炉等科技建筑包含在内，研究和普通单位传送配方不属于建造。",
+    "description": "修建及兵种、技能、攻防系统解锁费用−15%／30%／45%；不含后续六次攻防升级。",
     "prerequisiteText": "R01满"
   },
   {
@@ -1518,7 +1518,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "free_house",
-    "description": "每次合格建筑购买20%／40%／60%免第一座显示费用；先有付款资格再掷骰，按3.3可与双建并发。",
+    "description": "修建及解锁购买20%／40%／60%免单；需先有付款资格，不作用后续攻防升级；双建第二座仍付款。",
     "prerequisiteText": "R04满"
   },
   {
@@ -1557,7 +1557,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "double_build",
-    "description": "购买传送门／机械台／星门时20%／40%付第二座折后价再建1座，双队列独立；不复制唯一科技建筑。",
+    "description": "购买传送门／机械台／星门时30%／60%付第二座折后价再建1座，双队列独立；不复制唯一科技建筑。",
     "prerequisiteText": "R07满"
   },
   {
@@ -1570,7 +1570,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "bonus_income",
-    "description": "关卡结算矿、气奖励分别＋10%／20%／30%；不乘永久资源，不对同一关收据重复发。",
+    "description": "关卡结算矿、气奖励分别＋15%／30%／45%；不乘永久资源，不对同一关收据重复发。",
     "prerequisiteText": "R08满"
   },
   {
@@ -1596,7 +1596,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "instant_tech",
-    "description": "新传送门／机械台／星门33%／66%／99%免费完成1项满足前置的本线研究；特色/常规精确顺序见3.3，常规只升1级，不额外强化已完成科技。",
+    "description": "每座新设施33%／66%／99%免费完成同路线一个合法项目：标记目标、当前产出技能、攻防系统、较低攻防（同级先武器）、未解锁兵种、其他技能；无合法项目不掷骰。",
     "prerequisiteText": "R10满"
   },
   {
@@ -1622,7 +1622,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "elite_classroom",
-    "description": "每名正常付费传送门狂热者／使徒／追猎者／哨兵身体15%／30%成为同家族合法精英；不覆盖高阶圣堂、机械台和星门，不给幻象。",
+    "description": "每名正常付费传送门狂热者／使徒／追猎者／哨兵身体20%／40%成为同家族合法精英；不覆盖高阶圣堂、机械台和星门，不给幻象。",
     "prerequisiteText": "第1／2级：第五层2／3项满"
   },
   {
@@ -1635,7 +1635,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 5,
     "semanticId": "hero_support",
-    "description": "开局从阿塔尼斯、泽拉图、阿拉纳克、菲尼克斯、沃拉尊中选1名一级英雄免费部署；身份占第一席；保持各自生物／机械属性和先天护盾。",
+    "description": "开局从阿塔尼斯、泽拉图、阿拉纳克、菲尼克斯、沃拉尊中选1名二级英雄免费部署；身份占第一席；保持各自生物／机械属性和先天护盾。",
     "prerequisiteText": "R14满；R15满；第五层≥2项满"
   },
   {
@@ -1648,7 +1648,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "advanced_arms",
-    "description": "战斗组伤害、最大生命、最大原生护盾、生命/护盾护甲、移速、攻速、合法生命治疗/原生回盾输出各＋5%／10%／15%；不增强回盾速度或回能。",
+    "description": "战斗组伤害、最大生命、最大原生护盾、生命/护盾护甲、移速、攻速、合法生命治疗/原生回盾输出各＋7.5%／15%／22.5%；不增强回盾速度或回能。",
     "prerequisiteText": "无"
   },
   {
@@ -1661,7 +1661,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "weapon_upgrade",
-    "description": "战斗组普攻直接伤害与已有属性附伤＋5%／10%／15%；不增强技能、治疗或新造弹道。",
+    "description": "战斗组普攻直接伤害与已有属性附伤＋7.5%／15%／22.5%；不增强技能、治疗或新造弹道。",
     "prerequisiteText": "S01满"
   },
   {
@@ -1674,7 +1674,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "armor_upgrade",
-    "description": "战斗组护甲结算后的伤害再减少4%／8%／12%；普攻和技能均受影响；转移伤害不再次减伤。",
+    "description": "战斗组护甲结算后的伤害再减少6%／12%／18%；普攻和技能均受影响；转移伤害不再次减伤。",
     "prerequisiteText": "S01满"
   },
   {
@@ -1687,7 +1687,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "light_armor",
-    "description": "战斗组基础移动速度＋5%／10%／15%；碰撞半径、模式移动限制与目标层不变。",
+    "description": "战斗组基础移动速度＋7.5%／15%／22.5%；碰撞半径、模式移动限制与目标层不变。",
     "prerequisiteText": "S01满"
   },
   {
@@ -1700,7 +1700,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "headshot",
-    "description": "战斗组每次主武器攻击5%／10%／15%暴击；该次普通武器直接伤害×1.5；技能、持续伤害及衍生溅射不暴击。",
+    "description": "战斗组每次主武器攻击7.5%／15%／22.5%暴击；该次普通武器直接伤害×1.75；技能、持续伤害及衍生溅射不暴击。",
     "prerequisiteText": "S02满"
   },
   {
@@ -1713,7 +1713,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "bio_shield",
-    "description": "战斗组最大原生护盾额外增加其修正后最大生命10%／20%／30%的固定盾值；使用本体回盾延迟/速度和护盾护甲，不再生成第二条生物盾，不恢复生命。",
+    "description": "战斗组最大原生护盾额外增加其修正后最大生命15%／30%／45%的固定盾值；使用本体回盾延迟/速度和护盾护甲，不再生成第二条生物盾，不恢复生命。",
     "prerequisiteText": "S03满"
   },
   {
@@ -1726,7 +1726,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "veteran_dodge",
-    "description": "战斗组普通攻击直接命中3%／6%／9%相位闪避；成功时该次不扣生命或原生盾；不闪避预警、范围溅射或持续伤害，不传送位置。",
+    "description": "战斗组普通攻击直接命中4.5%／9%／13.5%相位闪避；成功时该次不扣生命或原生盾；不闪避预警、范围溅射或持续伤害，不传送位置。",
     "prerequisiteText": "S04满"
   },
   {
@@ -1739,7 +1739,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "rapid_attack",
-    "description": "战斗组普通攻击速度＋8%／16%；改变攻击周期，不增加技能频率，不清当前武器冷却。",
+    "description": "战斗组普通攻击速度＋12%／24%；改变攻击周期，不增加技能频率，不清当前武器冷却。",
     "prerequisiteText": "S05满"
   },
   {
@@ -1778,7 +1778,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "big_firepower",
-    "description": "战斗组普通武器直接伤害与已有属性附伤再＋10%／20%／30%；与S01、S02同伤害类相加后乘一次；不作用技能。",
+    "description": "战斗组普通武器直接伤害与已有属性附伤再＋15%／30%／45%；与S01、S02同伤害类相加后乘一次；不作用技能。",
     "prerequisiteText": "S08满"
   },
   {
@@ -1804,7 +1804,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "marathon",
-    "description": "战斗组移动速度再＋5%／10%／15%，与S01/S04同类相加；不缩冲锋/闪烁冷却，不取消虚空辉光舰引导的移动限制。",
+    "description": "战斗组移动速度再＋7.5%／15%／22.5%，与S01/S04同类相加；不缩冲锋/闪烁冷却，不取消虚空辉光舰引导的移动限制。",
     "prerequisiteText": "S10满"
   },
   {
@@ -1830,7 +1830,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "last_stand",
-    "description": "普通组每关首次未被其他保护化解的致死，维持1生命8／15秒；期间不可治疗、回盾或再次保命，时间到必死；不抵消自爆。",
+    "description": "普通组每关首次未被其他保护化解的致死，维持1生命10／18秒；期间不可治疗、回盾或再次保命，时间到必死；不抵消自爆。",
     "prerequisiteText": "S12满＋S13满"
   },
   {
@@ -1843,7 +1843,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 5,
     "semanticId": "star_warrior",
-    "description": "军衔≥5普通身体，每7名付费同家族身体进阶I—V；选锋刃／圣盾／相位，具体三方向见5.5；航母输出仅向所属截击机传一次。",
+    "description": "军衔≥5普通身体，每5个名额付费同家族身体进阶I—V；选锋刃／圣盾／相位，具体三方向见5.5；航母输出仅向所属截击机传一次。",
     "prerequisiteText": "S14满＋S15满"
   },
   {
@@ -1856,7 +1856,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "skilled_troop",
-    "description": "每名完成救援的普通乘员3%／6%／10%额外升1军衔；付费或免费均可；仍受本人上限及预付款培养容量限制。",
+    "description": "每名完成救援的普通乘员5%／10%／15%额外升1军衔；付费或免费均可；仍受本人上限及预付款培养容量限制。",
     "prerequisiteText": "无"
   },
   {
@@ -1869,7 +1869,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "experience_summary",
-    "description": "普通组造成的合格击杀，击杀者以1%／2%／3%概率升1军衔；无容量或已满级不掷骰；与A05/A08汇成一次晋升判定。",
+    "description": "普通组造成的合格击杀，击杀者以2%／4%／6%概率升1军衔；无容量或已满级不掷骰；与A05/A08汇成一次晋升判定。",
     "prerequisiteText": "A01满"
   },
   {
@@ -1882,7 +1882,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "reinforcement",
-    "description": "每次合格击杀1%／2%／3%生成1名已入编本族家族的免费普通救援乘员；需击败守军；全队成功后冷却60战斗秒，详见5.3。",
+    "description": "每次合格击杀2%／4%／6%生成1名已入编本族家族的免费普通救援乘员；需击败守军；全队成功后冷却45战斗秒，详见5.3。",
     "prerequisiteText": "A01满"
   },
   {
@@ -1895,7 +1895,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "orderly_army",
-    "description": "军衔≥2普通组致死时1%／2%／3%降1级后以新最大生命50%存活；每人每关至多成功1次；不保英雄／精英。",
+    "description": "军衔≥2普通组致死时5%／10%／15%降1级后以新最大生命50%存活；每人每关至多成功1次；不保英雄／精英。",
     "prerequisiteText": "A01满"
   },
   {
@@ -1908,7 +1908,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "battle_review",
-    "description": "合格普通击杀晋升概率再＋1／2／3个百分点；成功后优先同家族最低军衔合法成员，军衔相同按实体ID；只升一名。",
+    "description": "合格普通击杀晋升概率再＋2／4／6个百分点；成功后优先同家族最低军衔合法成员，军衔相同按实体ID；只升一名。",
     "prerequisiteText": "A02满"
   },
   {
@@ -1921,7 +1921,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "conscript_network",
-    "description": "A03免费救援神族身体最大生命＋10%／20%／30%，最大原生护盾不加；只有该身体来源标签生效，不增强其截击机生命。",
+    "description": "A03免费救援神族身体最大生命＋15%／30%／45%，最大原生护盾不加；只有该身体来源标签生效，不增强其截击机生命。  同步增加原生护盾上限，保留已有伤损。",
     "prerequisiteText": "A03满"
   },
   {
@@ -1934,7 +1934,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "honor_archive",
-    "description": "A04降级存活恢复比例由50%提高至60%／70%／80%新最大生命；不是另外再次治疗，不作用S09/S15。",
+    "description": "A04降级存活恢复比例由50%提高至70%／85%／100%新最大生命；不是另外再次治疗，不作用S09/S15。",
     "prerequisiteText": "A04满"
   },
   {
@@ -1947,7 +1947,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "teach_experience",
-    "description": "击杀者家族存在活着的永久紫色精英时，A02/A05合并晋升概率再＋3／6个百分点；临时精英和战术进阶不能充当导师。",
+    "description": "击杀者家族存在活着的永久紫色精英时，A02/A05合并晋升概率再＋4／8个百分点；临时精英和战术进阶不能充当导师。",
     "prerequisiteText": "A05满"
   },
   {
@@ -1960,7 +1960,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 2,
     "semanticId": "self_growth",
-    "description": "每累计360／240秒战斗时间，使1名活着且未满5级的永久紫色精英升1级；最低等级优先、ID破同分；无目标该次跳过，不存储次数。",
+    "description": "每累计240／120秒战斗时间，使1名活着且未满5级的永久紫色精英升1级；最低等级优先、ID破同分；无目标该次跳过，不存储次数。",
     "prerequisiteText": "A06满"
   },
   {
@@ -1986,7 +1986,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "advantage_army",
-    "description": "战斗组武器原有轻甲／重甲／生物等属性附加伤害＋10%／20%／30%；只改bonusDamage项，不乘基础伤害，不创造新克制。",
+    "description": "战斗组武器原有轻甲／重甲／生物等属性附加伤害＋15%／30%／45%；只改bonusDamage项，不乘基础伤害，不创造新克制。",
     "prerequisiteText": "A08满"
   },
   {
@@ -1999,7 +1999,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "proliferate",
-    "description": "合格击杀0.5%／1%／1.5%召来1名Rank 5临时狂热者或使徒，30秒，同时上限1／2／3；不是幻象，不造截击机，不产资源或击杀连锁。",
+    "description": "合格击杀1%／2%／3%召来1名Rank 5临时狂热者或使徒，30秒，同时上限1／2／3；不是幻象，不造截击机，不产资源或击杀连锁。",
     "prerequisiteText": "A09满"
   },
   {
@@ -2012,7 +2012,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "tank_support",
-    "description": "每90／60／45秒触发8秒支援，每秒1／2／3道双段热能线及同数回盾；线长6宽1.2，各段62.5伤害，每目标每道两段；每次回63原生盾、不修生命；详见5.7。",
+    "description": "每75／50／35秒触发8秒支援，每秒1／2／3道双段热能线及同数回盾；线长6宽1.2，各段62.5伤害，每目标每道两段；每次回63原生盾、不修生命；详见5.7。",
     "prerequisiteText": "A10满"
   },
   {
@@ -2025,7 +2025,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "elite_scout",
-    "description": "每成功救出一个探机救援目标5%／10%额外获得1个合法本族精英救援权；不提高主动侦测范围或隐形命中，R01增员不重复掷骰。",
+    "description": "每成功救出一个探机救援目标10%／20%额外获得1个合法本族精英救援权；不提高主动侦测范围或隐形命中，R01增员不重复掷骰。",
     "prerequisiteText": "A10满"
   },
   {
@@ -2038,7 +2038,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "mercenary",
-    "description": "每240／120秒召来1名Rank 5临时紫色精英，80秒；候选已解锁狂热者／追猎者／不朽者，按5.6轮换；不占永久精英身份、不改变已有变体。",
+    "description": "每180／90秒召来1名Rank 5临时紫色精英，80秒；候选已解锁狂热者／追猎者／不朽者，按5.6轮换；不占永久精英身份、不改变已有变体。",
     "prerequisiteText": "A11≥1＋A13≥1"
   },
   {
@@ -2064,7 +2064,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "tidy_squad",
-    "description": "战斗组落后锚点超过8／6／4距离时追赶移速＋10%／20%／30%；追赶倍率最高1.3，不穿墙、不自动切模式、不打断交火停步。",
+    "description": "战斗组落后锚点超过8／6／4距离时追赶移速＋15%／30%／45%；追赶倍率最高1.45，不穿墙、不自动切模式、不打断交火停步。",
     "prerequisiteText": "无"
   },
   {
@@ -2077,7 +2077,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "range_master",
-    "description": "战斗组合法普通武器射程＋4%／8%／12%，含近战接敌距离；技能、治疗、最小射程不变，仍检查地形阻隔。",
+    "description": "战斗组合法普通武器射程＋5%／10%／15%，含近战接敌距离；技能、治疗、最小射程不变，仍检查地形阻隔。",
     "prerequisiteText": "M01满"
   },
   {
@@ -2090,7 +2090,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 3,
     "semanticId": "skill_recovery",
-    "description": "推进、G显迹、英雄主动、已解锁手动闪烁和M04召回冷却−8%／16%／24%，总倍率最低0.5；不缩风暴持续时间，不让自动风暴免能量，不缩普攻。",
+    "description": "推进、G显迹、英雄主动、已解锁手动闪烁和M04召回冷却−10%／20%／30%，总倍率最低0.5；不缩风暴持续时间，不让自动风暴免能量，不缩普攻。",
     "prerequisiteText": "M02满"
   },
   {
@@ -2103,7 +2103,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 6,
     "semanticId": "airlift",
-    "description": "冷却240／120秒，准备2秒后将选定可移动地面战斗组召回锚点前方合法集结点；保留生命/护盾/冷却/命令，飞行单位不参加；详见5.8。",
+    "description": "冷却180／90秒，准备2秒后将选定可移动地面战斗组召回锚点前方合法集结点；保留生命/护盾/冷却/命令，飞行单位不参加；详见5.8。",
     "prerequisiteText": "M03满"
   },
   {
@@ -2129,7 +2129,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 6,
     "semanticId": "stutter_king",
-    "description": "移动瞄准×1.5／2，合法移动开火机会50%／100%；虚空辉光舰的持续引导仍按本体锁定要求，不能靠此边移边无限引导；近战仍检查接触。",
+    "description": "移动瞄准×1.75／2.5，合法移动开火机会50%／100%；虚空辉光舰的持续引导仍按本体锁定要求，不能靠此边移边无限引导；近战仍检查接触。",
     "prerequisiteText": "M05满"
   },
   {
@@ -2142,7 +2142,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 10,
     "semanticId": "apm_master",
-    "description": "主武器一次攻击产生2次同威力直接命中，共用冷却；巨像不复制热能线范围，航母只由截击机继承一次第二发，连续光束每个完整武器周期只追加一次；详见5.9。",
+    "description": "主武器一次攻击产生2次115%威力直接命中，共用冷却；巨像不复制热能线范围，航母只由截击机继承一次第二发，连续光束每个完整武器周期只追加一次；详见5.9。",
     "prerequisiteText": "M06满"
   }
 ] as const;

@@ -1,0 +1,4 @@
+[
+  {"id":"model.support.mine","modelDataId":"SpiderMine","name":"spidermine","assetPath":"Assets/Units/Terran/SpiderMine/SpiderMine.m3","definitionLayer":"libertystory"},
+  {"id":"fx.support.nuke","modelDataId":"GhostNukeExplode","name":"nuke","assetPath":"Assets/Effects/Terran/Nuke/Nuke.m3","definitionLayer":"liberty"}
+]

@@ -263,6 +263,7 @@ export class BattleRenderer {
  }
  private podBirthTemplates=new Map<Race,GLTF>();
  async prepareRescueAssets(race:Race){
+  if(race==='terran'&&!this.gpu.has('support.mine')){await prepareEmbeddedAssetIds(['model.support.mine']);const url=assetUrl('model.support.mine');if(!url)throw Error('蜘蛛雷素材未就绪');this.gpu.set('support.mine',new AnimatedBatch(await restoreSc2Materials(await new GLTFLoader().loadAsync(url)),this.scene,.5));}
   const {workerModel,carrierModel,carrierBirthModel}=RESCUE_PRESENTATION[race],loader=new GLTFLoader();
   await prepareEmbeddedAssetIds(['model.'+workerModel,'model.'+carrierModel,...(carrierBirthModel?['model.'+carrierBirthModel]:[])]);
   if(!this.gpu.has(workerModel)){const url=assetUrl('model.'+workerModel);if(!url)throw Error('缺少原工人模型：'+workerModel);const height=workerModel==='scv'?1.35:workerModel==='probe'?.9:.7;this.gpu.set(workerModel,new AnimatedBatch(await restoreSc2Materials(await loader.loadAsync(url)),this.scene,height));}
@@ -399,6 +400,7 @@ export class BattleRenderer {
   for(const [id] of this.animationStates)if(!world.entities.has(id)){this.animationStates.delete(id);this.hitTimes.delete(id);}
   for(const [id,at] of this.hitTimes)if(world.time-at>.2)this.hitTimes.delete(id);
   for(const e of world.economicTargets.values()){if(!this.visible(e))continue;const age=world.time-(e.resolvedAt??world.time),model=this.gpu.get(e.kind);if(e.status==='active'){model?.add(e.x,this.ground(e),e.z,e.facing,e.kind==='drone'?'move':'idle',world.time*1.4);health(e,this.ground(e)+1.65);if(e.kind==='egg')putRing(e,1.1+.08*Math.sin(world.time*4),0xffd67d);}else if(e.kind==='egg'&&e.status==='rescued'&&age<3.8){this.gpu.get(RESCUE_PRESENTATION[world.expedition.race].workerModel)?.add(e.x,this.ground(e),e.z,e.facing,'idle',age*1.4,false,0,age>3.4?Math.max(.01,(3.8-age)/.4):1);putRing(e,1.1,0x8be8a5);}else if(age<1.5)model?.add(e.x,this.ground(e),e.z,e.facing,'dead',age,true,0,Math.max(.01,1-age/1.5));}
+  if(world.expedition.race!=='protoss')for(const mine of world.expedition.support.mines){if(!this.visible(mine.point))continue;this.gpu.get(world.expedition.race==='terran'?'support.mine':'egg')?.add(mine.point.x,this.ground(mine.point),mine.point.z,0,'idle',world.time,false,0,world.expedition.race==='zerg'?.4:1);}
   for(const b of this.gpu.values())b.end();
   for(const p of world.pods){
    // Completed pods keep their simulation record, but expired skeletal views leave the scene.

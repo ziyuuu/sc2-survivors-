@@ -1,3 +1,4 @@
+import {TEAM_CARD_VALUES,CARD_RARITIES} from '../../src/simulation/progression/team-cards';
 import {PLAYER_REAPER_DAMAGE_BONUS,PLAYER_COMBAT_FACTOR} from '../../src/data/player-unit-adaptations';
 import fs from 'node:fs/promises';
 import {SC2_UNITS,SC2_PROFILE,FASTER} from '../../src/data/sc2-units';
@@ -81,10 +82,11 @@ text.push('## 新规则：持续生产和发展行动',
 
 text.push('## 新规则：三件付费商品与Build卡组',
  table(['已完成关卡','白','绿','蓝','紫','橙'],[1,6,12].map((stage,index)=>[['1—5','6—11','12—17'][index],...expeditionRarityWeights(stage).map(v=>v+'%')])),
- table(['效果ID','名称','类别','白／绿／蓝／紫／橙（配置值）','同目标上限（配置值）'],Object.entries(EXPEDITION_CARD_DEFINITIONS).map(([id,c])=>[id,c.name,c.category,c.values.join('／'),c.cap])),
- '百分比卡的配置值0.03表示3%；护甲为固定加值，培养为等级增量。第一张须立即有收益；后两张当前阵容／路线、通用协同、其他合法发展权重70／20／10，空池归一化。九套Build分阶段扩大推荐池，不封锁合法卡。',
+ table(['效果ID','名称','类别','白／绿／蓝／紫／橙（配置值）','同目标上限（配置值）'],Object.entries(EXPEDITION_CARD_DEFINITIONS).filter(([id])=>['recovery','energy','production'].includes(id)).map(([id,c])=>[id,c.name,c.category,c.values.join('／'),c.cap])),
+ table(['品质','全军伤害／攻速','全军生命及盾／双护甲','每组每品质上限'],CARD_RARITIES.map((r,i)=>[r,`${TEAM_CARD_VALUES.damage[i]*100}%／${TEAM_CARD_VALUES.speed[i]*100}%`,`${TEAM_CARD_VALUES.health[i]*100}%／${TEAM_CARD_VALUES.armor[i]}`,3])),
+ '百分比卡的配置值0.03表示3%；护甲为固定加值。培养卡绿蓝紫橙将最低两名普通名额提升至II／III／IV／V，按实际所需等级增量定价。第一张须立即有收益；后两张当前阵容／路线、通用协同、其他合法发展权重70／20／10，空池归一化。九套Build分阶段扩大推荐池，不封锁合法卡。',
  '删除固定关卡英雄、紫卡、连续低品质和强制品质补位；保留分阶段基础稀有度。Boss每三关死亡掉一件：80%紫／20%橙，橙替代紫。',
- '每页三件商品均可购买，售罄不补货；R09每窗口1／2次免单，刷新不消耗免单。数值卡白到橙基础价50/0、90/20、150/50、225/90、325/140；培养为完整配方乘实际等级增量；精英为配方乘5；英雄750/250。四种经济商品支付25矿/25矿/50矿/75矿25气，分别得到100矿/50气/75矿25气/100矿25气。未入编家族只可获得生产支持，不靠卡牌直接引入新家族。地图永久强化每章最多一张，全程最多六张；R14另产生独立紫／橙击杀掉落，均保存收据。');
+ '每页三件商品均可购买，售罄不补货；R09每窗口1／2次免单，刷新不消耗免单。数值卡白到橙基础价50/0、90/20、150/50、225/90、325/140；培养为完整配方乘实际等级增量；紫精英为配方乘5，橙V级精英为紫价乘3；英雄750/250。四种经济商品支付25矿/25矿/50矿/75矿25气，分别得到100矿/50气/75矿25气/100矿25气。空投白绿蓝1／2／3名额，直接获兵绿蓝紫1／2／3名额（直接价格乘1.5），按路线攻防进度和卡片品质交集开放三档兵种；不解锁生产。趣味牌为布雷、随机轰炸、弹药变异与战略打击。地图掉落无章节额度，普通／经济工蜂／精英触发率2%／8%／40%；R14另产生独立紫／橙击杀掉落，均保存收据。');
 
 text.push(`## 新规则：${ALL_HERO_IDS.length}名英雄`,
  '各族六选三身份，阵亡仍占身份名额。招募顺序绑定技能槽1／2／3；等级1—5，同名卡升级但不复活。新增技能数值是本作实验参数，不能据原模型名称声称为原版技能。',

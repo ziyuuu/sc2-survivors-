@@ -14,9 +14,10 @@ test('split app serves its own scripts, immutable resource root, current manifes
   await mkdir(path.join(app,'assets'),{recursive:true});await mkdir(path.join(resources,'assets'),{recursive:true});
   const bytes=Buffer.from('verified model fixture'),sha=createHash('sha256').update(bytes).digest('hex'),url=`assets/${sha}.gltf`;
   const manifest={version:1,release:'fixture',assets:{model:{url,bytes:bytes.length,sha256:sha,mime:'model/gltf+json'}}};
-  await writeFile(path.join(resources,url),bytes);await writeFile(path.join(app,'manifest.json'),JSON.stringify(manifest));await writeFile(path.join(app,'web-release.json'),JSON.stringify({release:'fixture',manifest:'manifest.json'}));
+  await writeFile(path.join(resources,url),bytes);await writeFile(path.join(app,'manifest.json'),JSON.stringify(manifest));await writeFile(path.join(app,'web-release.json'),JSON.stringify({release:'fixture',manifest:'manifest.json',appBuildId:'app-fixture-v2',runSchema:12}));
   await writeFile(path.join(app,'index.html'),'<p>game</p>');await writeFile(path.join(app,'assets/index-abcdefgh.js'),'globalThis.game=1');
   server=createGameServer({webRoot:app,assetRoot:resources});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${server.address().port}/`;
+  const health=await (await fetch(base+'health')).json();assert.equal(health.appBuildId,'app-fixture-v2');assert.equal(health.assetReleaseId,'fixture');assert.equal(health.runSchema,12);
   const script=await fetch(base+'assets/index-abcdefgh.js');assert.equal(script.status,200);assert.match(script.headers.get('cache-control'),/immutable/);
   const resource=await fetch(base+url,{headers:{'Accept-Encoding':'gzip'}});assert.equal(resource.headers.get('content-type'),'model/gltf+json');assert.equal(resource.headers.get('content-encoding'),'gzip');assert.equal(resource.headers.get('access-control-allow-origin'),'*');assert.deepEqual(Buffer.from(await resource.arrayBuffer()),bytes);
   assert.equal((await fetch(base+'manifest.json')).headers.get('cache-control'),'no-cache');assert.equal((await fetch(base+'missing')).status,404);

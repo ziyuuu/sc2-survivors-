@@ -1942,5 +1942,20 @@
     "m6FullCoverage": "OPEN",
     "m7Acceptance": "OPEN",
     "performance": "Zerg normal stage1 complete/energy samples recorded; initial long frames and full M6 remain open"
+  },
+  "sharedTechIteration": {
+    "date": "2026-09-29",
+    "spec": "docs/project/SHARED_TECH_CARDS_20260929.md",
+    "validation": "docs/project/SHARED_TECH_VALIDATION_20260929.md",
+    "runSchema": 12,
+    "permanentProfile": 5,
+    "engineering": "implemented",
+    "tests": {
+      "passed": 716,
+      "failed": 0
+    },
+    "visualAcceptance": "deferred-by-user",
+    "naturalPerformance": "open",
+    "nineBuildFormationGoal": "partial: some routes form in stages10-14"
   }
 }

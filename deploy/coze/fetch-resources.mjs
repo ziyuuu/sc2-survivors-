@@ -11,7 +11,7 @@ const request=async(url,extra={})=>{const r=await fetch(url,{headers:{...headers
 // Fetch the index from the same fixed commit: a local stale manifest cannot silently mix releases.
 const index=await (await request(`https://raw.githubusercontent.com/${repo}/${commit}/deploy/coze/resource-groups.json`)).json();
 const localRelease=await fs.readFile(path.join(out,'web-release.json'),'utf8').then(JSON.parse).catch(e=>{if(e.code==='ENOENT')return null;throw e;});
-if(localRelease&&localRelease.release!==index.release)throw Error('The selected commit resources do not match this app release. Obtain the app from the same commit first.');
+if(!args.includes('--resources-only')&&localRelease&&localRelease.release!==index.release)throw Error('The selected commit resources do not match this app release. Obtain the app from the same commit first.');
 const groups=group.split(',');if(group!=='all'&&groups.some(g=>!index.groups.includes(g)))throw Error('Unknown group: '+group);
 const rows=index.files.filter(f=>group==='all'||f.groups.some(g=>groups.includes(g)));
 const digest=b=>createHash('sha256').update(b).digest('hex');

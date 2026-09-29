@@ -29,14 +29,14 @@ export function aggregateMvpTalentEffects(levels:TalentLevels,race:Race,subject:
  const out:MvpTalentEffects={};
  const add=(key:keyof MvpTalentEffects,amount:number)=>{if(amount)(out as Record<string,number>)[key]=((out as Record<string,number>)[key]??0)+amount;};
  if(subject.kind==='raceAbility'){
-  if(subject.manualAbility)add('abilityCooldownReductionPct',Math.min(.5,.08*rank('skill_recovery')));
+  if(subject.manualAbility)add('abilityCooldownReductionPct',Math.min(.5,.10*rank('skill_recovery')));
   return out;
  }
  if(subject.kind==='summon'){
   if(subject.summonType==='interceptor'&&subject.ownerFamilyId==='carrier'){
-   add('weaponDamagePct',.05*rank('advanced_arms')+.05*rank('weapon_upgrade')+.10*rank('big_firepower'));
-   add('bonusDamagePct',.1*rank('advantage_army'));
-   add('attackSpeedPct',.05*rank('advanced_arms')+.08*rank('rapid_attack'));
+   add('weaponDamagePct',.075*rank('advanced_arms')+.075*rank('weapon_upgrade')+.15*rank('big_firepower'));
+   add('bonusDamagePct',.15*rank('advantage_army'));
+   add('attackSpeedPct',.075*rank('advanced_arms')+.12*rank('rapid_attack'));
    out.apmDuplicate=rank('apm_master')?1:0;
   }
   return out;
@@ -44,28 +44,28 @@ export function aggregateMvpTalentEffects(levels:TalentLevels,race:Race,subject:
  const combat=subject.kind==='ordinary'||subject.kind==='elite'||subject.kind==='hero';
  if(!combat)return out;
  const s01=rank('advanced_arms'),s12=rank('super_meat');
- add('maxHpPct',.05*s01+(race==='protoss'?.10:.15)*s12);
- add('moveSpeedPct',.05*s01+.05*rank('light_armor')+.05*rank('marathon'));
- add('attackSpeedPct',.05*s01+.08*rank('rapid_attack'));
- add('healingPct',.05*s01);
- add('armorPct',.05*s01);
- add('postArmorReductionPct',.04*rank('armor_upgrade'));
- add('dodgeChance',.03*rank('veteran_dodge'));
- add('critChance',.05*rank('headshot'));
- add('bonusDamagePct',.1*rank('advantage_army'));
- add('rangePct',.04*rank('range_master'));
+ add('maxHpPct',.075*s01+(race==='protoss'?.10:.15)*s12);
+ add('moveSpeedPct',.075*s01+.075*rank('light_armor')+.075*rank('marathon'));
+ add('attackSpeedPct',.075*s01+.12*rank('rapid_attack'));
+ add('healingPct',.075*s01);
+ add('armorPct',.075*s01);
+ add('postArmorReductionPct',.06*rank('armor_upgrade'));
+ add('dodgeChance',.045*rank('veteran_dodge'));
+ add('critChance',.075*rank('headshot'));
+ add('bonusDamagePct',.15*rank('advantage_army'));
+ add('rangePct',.05*rank('range_master'));
  if(race==='protoss'){
-  add('maxShieldPct',.05*s01+.10*s12);
-  add('shieldArmorPct',.05*s01);
-  add('shieldHealingPct',.05*s01);
-  add('shieldFromHpPct',.10*rank('bio_shield'));
- }else if(subject.attributes?.includes('Biological'))add('shieldFromHpPct',.10*rank('bio_shield'));
- add('weaponDamagePct',.05*s01+.05*rank('weapon_upgrade')+.10*rank('big_firepower'));
- if(subject.kind==='hero')add('abilityDamagePct',.05*s01);
- if(subject.kind==='ordinary'&&subject.freeConscript)add('maxHpPct',.10*rank('conscript_network'));
- if(subject.manualAbility)add('abilityCooldownReductionPct',Math.min(.5,.08*rank('skill_recovery')));
- if(rank('tidy_squad')){const r=rank('tidy_squad');out.catchupThreshold=[0,8,6,4][r];out.catchupSpeedPct=.1*r;}
- if(rank('stutter_king')){out.aimingSpeedMultiplier=rank('stutter_king')===1?1.5:2;out.movingFireChance=.5*rank('stutter_king');}
+  add('maxShieldPct',.075*s01+.10*s12);
+  add('shieldArmorPct',.075*s01);
+  add('shieldHealingPct',.075*s01);
+  add('shieldFromHpPct',.15*rank('bio_shield'));
+ }else if(subject.attributes?.includes('Biological'))add('shieldFromHpPct',.15*rank('bio_shield'));
+ add('weaponDamagePct',.075*s01+.075*rank('weapon_upgrade')+.15*rank('big_firepower'));
+ if(subject.kind==='hero')add('abilityDamagePct',.075*s01);
+ if(subject.kind==='ordinary'&&subject.freeConscript){add('maxHpPct',.15*rank('conscript_network'));if(race==='protoss')add('maxShieldPct',.15*rank('conscript_network'));}
+ if(subject.manualAbility)add('abilityCooldownReductionPct',Math.min(.5,.10*rank('skill_recovery')));
+ if(rank('tidy_squad')){const r=rank('tidy_squad');out.catchupThreshold=[0,8,6,4][r];out.catchupSpeedPct=.15*r;}
+ if(rank('stutter_king')){out.aimingSpeedMultiplier=rank('stutter_king')===1?1.75:2.5;out.movingFireChance=.5*rank('stutter_king');}
  if(rank('apm_master'))out.apmDuplicate=1;
  if(subject.kind==='ordinary'&&subject.tacticalTier){
   const tier=Math.min(5,subject.tacticalTier);

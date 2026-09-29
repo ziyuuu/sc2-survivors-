@@ -20,7 +20,7 @@ export function createGameServer({webRoot,assetRoot=webRoot,assetBaseUrl=''}={})
   if(req.method==='OPTIONS'){res.writeHead(204,{'Access-Control-Allow-Methods':'GET, HEAD, OPTIONS'});res.end();return;}
   if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);res.end();return;}
   let name;try{name=decodeURIComponent(new URL(req.url,'http://localhost').pathname);}catch{res.writeHead(400);res.end();return;}
-  if(name==='/health'){res.writeHead(200,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify({ok:true,release:report.release,resources:assetBaseUrl?'external':'local'}));return;}
+  if(name==='/health'){res.writeHead(200,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify({ok:true,appBuildId:report.appBuildId,assetReleaseId:report.release,runSchema:report.runSchema,release:report.release,resources:assetBaseUrl?'external':'local'}));return;}
   if(name==='/runtime-config.json'){res.writeHead(200,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify({assetBaseUrl}));return;}
   if(name==='/')name='/index.html';const base=/^\/assets\/[a-f0-9]{64}\./.test(name)?resources:root,file=resolve(base,'.'+name),rel=relative(base,file);
   if(rel.startsWith('..')||isAbsolute(rel)||!existsSync(file)||!statSync(file).isFile()){res.writeHead(404);res.end('Not found');return;}

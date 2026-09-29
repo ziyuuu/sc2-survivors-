@@ -1,13 +1,15 @@
 {
-  "release": "89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61",
+  "appBuildId": "4673852b6388cc1490347adfd1a9f8d1e6de1049db8b1b645aab9c4c7227bfe6",
+  "runSchema": 12,
+  "release": "47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7",
   "app": [
-    "asset-manifest.89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61.json",
-    "assets/index-BRqG2qbM.css",
-    "assets/index-wyx_Z3ya.js",
+    "asset-manifest.47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7.json",
+    "assets/index-BfNZAn9q.css",
+    "assets/index-xvwrAnxC.js",
     "index.html",
     "runtime-config.json",
     "web-release.json"
   ],
-  "assets": 727,
-  "resourceBytes": 458127859
+  "assets": 730,
+  "resourceBytes": 458372920
 }

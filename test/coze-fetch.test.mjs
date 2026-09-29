@@ -24,5 +24,6 @@ const start=Number(options.headers?.Range?.match(/bytes=(\\d+)-/)?.[1]??0);retur
   r=run({},'zerg');assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/"verified":1/);assert.equal((await fs.readFile(log,'utf8')).trim().split('\n').length,3);
   await fs.rm(path.join(out,url));r=run({SC2_FAKE_POINTER:'1'});assert.notEqual(r.status,0);assert.match(r.stderr,/Hash\/size mismatch/);assert.equal(await fs.stat(path.join(out,url)).catch(()=>null),null);
   await fs.writeFile(path.join(out,'web-release.json'),JSON.stringify({release:'different'}));r=run();assert.notEqual(r.status,0);assert.match(r.stderr,/do not match this app release/);
+  const staged=spawnSync(process.execPath,['--import',pathToFileURL(mock).href,'tools/fetch-coze-resources.mjs','--commit',commit,'--group','common','--out',out,'--resources-only'],{encoding:'utf8',timeout:30000});assert.equal(staged.status,0,staged.stderr);assert.deepEqual(await fs.readFile(path.join(out,url)),content);assert.equal(JSON.parse(await fs.readFile(path.join(out,'web-release.json'),'utf8')).release,'different');
  }finally{await fs.rm(dir,{recursive:true,force:true});}
 });

@@ -45,7 +45,7 @@ test('M1 map reinforcement commits its drop before UI and save listeners run',()
  const restored=new World({sandbox:true,waves:false,obstacles:[],race:'terran'});
  restored.restoreRun(snapshot!);
  assert.equal(restored.collectRewardDrop(900001),false);
- assert.equal(restored.expedition.cardTotals[(reward as any).expeditionEffect.key]>0,true);
+ assert.equal(restored.expedition.cardTotals[((reward as any).expeditionEffect.kind==='teamCard'?`team.${(reward as any).expeditionEffect.group}.${reward.rarity}`:(reward as any).expeditionEffect.key)]>0,true);
 });
 
 test('a full-family elite choice survives save/load and can only be committed once',()=>{

@@ -14,11 +14,11 @@ def add(z,source,name):
 with zipfile.ZipFile(out/'SC2-Coze-App.zip','w') as z:
     app=root/'deploy/coze'
     delivery=json.loads((app/'delivery.json').read_text(encoding='utf-8'))
-    if delivery['release']!=release['release']:
+    if delivery['release']!=release['release'] or delivery['appBuildId']!=release['appBuildId']:
         raise RuntimeError('Run publish-coze-tree.mts for this Web release first')
     for relative in delivery['app']:
         add(z,app/'public'/relative,'SC2-Coze-App/public/'+relative)
-    for name in ['coze-web-server.mjs','fetch-resources.mjs','package.json','delivery.json','resource-groups.json','DEPLOY.md']:
+    for name in ['coze-web-server.mjs','fetch-resources.mjs','package.json','delivery.json','resource-groups.json','resource-delta.json','DEPLOY.md']:
         add(z,app/name,'SC2-Coze-App/'+name)
 with zipfile.ZipFile(out/'SC2-Web-Resources.zip','w') as z:
     for url,a in sorted(resources.items()):

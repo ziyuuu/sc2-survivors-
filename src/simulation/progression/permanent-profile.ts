@@ -14,7 +14,7 @@ export interface PermanentSnapshot {
  receipts:string[];imports:string[];
 }
 export interface FrozenTalentAllocation {
- ruleset:'mvp-1.0';race:Race;presetId:string;levels:TalentLevels;allocated:number;investment:number;
+ effectsVersion?:'shared-tech-20260929';ruleset:'mvp-1.0';race:Race;presetId:string;levels:TalentLevels;allocated:number;investment:number;
 }
 export interface TalentAllocationPreview {
  race:Race;slot:PresetSlot;levels:TalentLevels;expectedRevision:number;
@@ -122,7 +122,7 @@ export class PermanentProfile {
   return !!preview&&this.commitTalentAllocation(preview,preview.expectedRevision);
  }
  freezeRun():FrozenTalentAllocation {
-  return {ruleset:'mvp-1.0',race:this.activeRace,presetId:this.activeRace+':'+this.activePreset,levels:this.levels,allocated:this.allocated,investment:this.spent};
+  return {effectsVersion:'shared-tech-20260929',ruleset:'mvp-1.0',race:this.activeRace,presetId:this.activeRace+':'+this.activePreset,levels:this.levels,allocated:this.allocated,investment:this.spent};
  }
  award(receipt:string,amount:number,race:Race=this.activeRace){
   if(!validRace(race)||typeof receipt!=='string'||!receipt||receipt.length>128||!Number.isSafeInteger(amount)||amount<=0||this.state.receipts.includes(receipt)||!Number.isSafeInteger(this.raceBalance(race)+amount))return false;

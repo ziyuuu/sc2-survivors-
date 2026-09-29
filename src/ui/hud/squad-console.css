@@ -18,3 +18,36 @@ body.has-battle-console #battle{height:calc(100% - 224px)}body.has-battle-consol
 /* Modal scrolling ends above the persistent console, so touch/back controls stay reachable. */
 body.has-battle-console #overlay{bottom:224px;align-items:safe center}
 @media(max-width:900px){body.has-battle-console #overlay{bottom:250px;align-items:flex-start}}
+
+/* Current visual viewport: browser chrome and rotation never CSS-rotate the game. */
+html,body{width:var(--game-width,100vw);height:var(--game-height,100dvh);margin:0;overflow:hidden}#portrait-hint{display:none!important}
+@media(max-width:900px){#battle-console #army-pages button{min-width:44px;min-height:44px}#battle-console .army-heading{height:44px}#battle-console{height:272px;grid-template-rows:149px 104px}body.has-battle-console #battle{height:calc(100% - 272px)}body.has-battle-console #overlay{bottom:272px}body.has-battle-console #joystick{bottom:292px}#unit-inspector.inspect-open{bottom:282px}}
+@media(max-width:950px) and (orientation:landscape){
+ #battle-console{height:128px;grid-template-columns:82px minmax(310px,1fr) minmax(190px,.65fr);grid-template-rows:1fr;gap:6px;padding:3px max(5px,env(safe-area-inset-right)) max(3px,env(safe-area-inset-bottom)) max(5px,env(safe-area-inset-left))}
+ #battle-console #console-map{grid-column:1;grid-row:1}#battle-console #army-hud{grid-column:2;grid-row:1}#battle-console #console-commands{grid-column:3;grid-row:1;gap:3px}#battle-console .army-heading{height:27px}#battle-console #army-pages button{height:44px;min-height:44px;transform:translateY(-8px)}#battle-console #roster{grid-auto-rows:44px;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}#battle-console .squad-seat{height:44px}
+ #battle-console #minimap canvas{width:80px;height:80px}#battle-console #hero-skills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}#battle-console .hero-skill{height:48px}#battle-console #skills{display:flex;overflow-x:auto;min-height:48px}#battle-console #skills button{flex:0 0 48px;height:48px}
+ #unit-inspector{display:none}#unit-inspector.inspect-open{display:block;position:fixed;inset:35px 15px 138px;background:#10222efa;max-height:none;z-index:70}#unit-inspector .inspect-close{display:block}
+ body.has-battle-console #battle{height:calc(100% - 128px)}body.has-battle-console #overlay{bottom:128px;align-items:flex-start}body.has-battle-console #joystick{bottom:143px}body.has-battle-console #boss-loot-toggle{bottom:138px!important}
+ #overlay .reward-screen{padding:6px;max-height:100%;overflow:auto}#overlay #reward-cards{gap:6px}#overlay .reward-card{padding:7px}#overlay button{min-height:44px}
+}
+@media (orientation:landscape) and (max-height:450px){
+ #overlay .compact-intermission{padding:6px 12px!important;margin:auto;width:min(100%,1000px)}
+ #overlay .compact-intermission .intermission-heading{margin:0;gap:6px;min-height:28px}
+ #overlay .compact-intermission .intermission-heading h2{font-size:19px;margin:0}
+ #overlay .compact-intermission #reward-cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:6px 0!important}
+ #overlay .compact-intermission .reward-card{min-height:142px!important;padding:7px!important;grid-template-columns:32px 1fr;grid-template-rows:16px 32px 1fr auto;gap:4px}
+ #overlay .compact-intermission .reward-card>img{width:30px;height:30px;grid-column:1;grid-row:2}
+ #overlay .compact-intermission .reward-card>h3{font-size:14px;grid-column:2;grid-row:2}
+ #overlay .compact-intermission .reward-card>p{font-size:12px;grid-column:1/-1;grid-row:3;line-height:1.25}
+ #overlay .compact-intermission .reward-card>strong{font-size:13px;grid-column:1/-1;grid-row:4}
+ #overlay .compact-intermission .reward-card>strong small{font-size:10px;display:inline;margin-left:4px}
+ #overlay .compact-intermission .card-ownership{display:none}
+ #overlay .compact-intermission .offer-details>summary{min-height:44px;padding:10px 6px;font-size:12px}
+ #overlay .compact-intermission .reward-actions{position:static;padding:0;margin:4px 0;gap:8px;border:0}
+ #overlay .compact-intermission .reward-actions button{margin:0;min-height:44px;padding:6px 12px}
+}
+
+/* Target confirmation must sit above the persistent army console. */
+body.has-battle-console #transfer-picker{bottom:232px;z-index:75;max-height:calc(var(--game-height,100dvh) - 292px)}
+@media(max-width:900px){body.has-battle-console #transfer-picker{bottom:280px;max-height:calc(var(--game-height,100dvh) - 340px)}}
+@media(max-width:950px) and (orientation:landscape){body.has-battle-console #transfer-picker{bottom:136px;max-height:calc(var(--game-height,100dvh) - 196px)}}

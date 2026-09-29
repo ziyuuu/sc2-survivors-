@@ -37,7 +37,7 @@ function resolveImpact(w:World,impact:TalentSupportImpact){const targets=[...w.e
 }
 /** One fixed-step authority for A13; state and delayed impacts live in the run snapshot. */
 export function tickTalentSupport(w:World){const rank=w.talent('tank_support');if(rank<=0)return;
- if(w.time+1e-8>=w.nextTankSupportAt){w.supportUntil=w.time+8;w.nextSupportTick=w.time;w.nextTankSupportAt=w.time+[Infinity,90,60,45][rank];w.announce((w.expedition.race==='terran'?'坦克与医疗艇':w.expedition.race==='zerg'?'胆汁与哺育':'热能与护盾')+'支援 · 8 秒');}
+ if(w.time+1e-8>=w.nextTankSupportAt){w.supportUntil=w.time+8;w.nextSupportTick=w.time;w.nextTankSupportAt=w.time+[Infinity,75,50,35][rank];w.announce((w.expedition.race==='terran'?'坦克与医疗艇':w.expedition.race==='zerg'?'胆汁与哺育':'热能与护盾')+'支援 · 8 秒');}
  while(w.nextSupportTick<w.supportUntil-1e-8&&w.time+1e-8>=w.nextSupportTick){scheduleRound(w,rank);w.nextSupportTick+=1;}
  const due=w.talentSupportImpacts.filter(impact=>impact.at<=w.time+1e-8).sort((a,b)=>a.at-b.at||a.id-b.id);if(!due.length)return;
  w.talentSupportImpacts=w.talentSupportImpacts.filter(impact=>impact.at>w.time+1e-8);for(const impact of due)resolveImpact(w,impact);

@@ -1,3 +1,4 @@
+import {bindGameViewport} from '../ui/mobile/viewport';
 import {ControlSettings} from '../ui/controls/settings';
 import {embeddedAssetStatus,loadEmbeddedAssets} from '../assets/offline-pack';
 import {configureMapAssets,loadMapDefinition} from '../render/terrain/original-map';
@@ -31,6 +32,7 @@ export async function boot(){await loadEmbeddedAssets();configureMapAssets();let
  window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,expedition:world.expedition?{rules:world.expedition.rules,race:world.expedition.race,families:[...world.expedition.familySlots],talentPreset:world.expedition.talentPreset,frozenTalents:world.runConfig?.frozenTalents??null}:null,wallet:{...world.wallet},endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:view.initialAssetsLoaded,embeddedAssets:embeddedAssetStatus(),readiness:readiness.state,simulationBacklogSeconds:driver.accumulator,discardedSimulationBacklogSeconds:driver.discardedBacklogSeconds,audio:audio.report(),gamepad:gamepad.report(),controls:controls.report(),save:session.report()});
  world.listeners.add(()=>audio.update(world));
  let previous=performance.now(),wasSimulating=false;
+ bindGameViewport(()=>{view.resize();hud.update();},()=>{input.reset();gamepad.reset();previous=performance.now();wasSimulating=false;});
  const resetPresentation=()=>{input.reset();gamepad.reset();audio.reset();view.resetRun();driver.reset();wasSimulating=false;previous=performance.now();if(debug)debug.speed=1;};
  hud.saveUI=new SaveControls(session,()=>{if(session.resume()){resetPresentation();void audio.start();}hud.update();},()=>hud.update());session.onChange=()=>hud.update();
  let preparedNew:NewRunPreview|null=null;

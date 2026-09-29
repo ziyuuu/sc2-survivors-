@@ -17,7 +17,7 @@ const bar=(value:number,max:number)=>max>0?Math.max(0,Math.min(100,value/max*100
 export class SquadConsole {
  readonly root:HTMLElement;private grid:HTMLElement;private detail:HTMLElement;private pager:HTMLElement;
  private pagerHTML='';private detailHTML='';private selected='';private page=0;private structure='';private run='';private positions=new Map<number,number>();private rows:Seat[]=[];
- private suppressClickUntil=0;private swipeX=0;private narrow=matchMedia('(max-width:900px)');private detailOpen=false;
+ private suppressClickUntil=0;private swipeX=0;private narrow=matchMedia('(max-width:900px), (max-width:950px) and (orientation:landscape)');private detailOpen=false;
  constructor(private world:World,parent:HTMLElement){
   this.root=document.createElement('section');this.root.id='battle-console';this.root.setAttribute('aria-label','作战控制台');
   this.root.innerHTML='<div id="console-map"></div><section id="unit-inspector" aria-label="单位详情"></section><section id="army-hud"><div class="army-heading"><b>作战部队</b><div id="army-pages"></div></div><div id="roster" role="group" aria-label="全队单位"></div></section><section id="console-commands" aria-label="指令区"></section><div id="production-detail" hidden></div>';

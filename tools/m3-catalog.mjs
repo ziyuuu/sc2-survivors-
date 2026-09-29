@@ -9,6 +9,7 @@ export const EXPANSION_MODELS=[...JSON.parse(fs.readFileSync(new URL('./expansio
 export const M3_FORT_MODELS=JSON.parse(fs.readFileSync(new URL('./m3-fort-models.json',import.meta.url),'utf8'));
 export const F05_RESCUE_MODELS=JSON.parse(fs.readFileSync(new URL('./f05-rescue-models.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
 export const M3_MODELS=[
+ ['model.support.mine','spidermine'],
  ['model.pylon.birth','pylonwarpin'],
  ...F05_RESCUE_MODELS.map(a=>[a.id,a.name]),
  ...M3_FORT_MODELS.map(a=>[a.id,a.name]),
@@ -34,6 +35,7 @@ export const M3_MODELS=[
 // Original particle textures. The web renderer implements a documented subset of
 // the M3 particle system, not SC2's full material/physics/Actor renderer.
 export const M3_EFFECTS=[
+ ['fx.support.nuke','nuke'],
  ...JSON.parse(fs.readFileSync(new URL('./expansion-effects.json',import.meta.url),'utf8')).map(a=>[a.id,a.name]),
  ['fx.muzzle','marineweaponlaunch'],['fx.impact','marineweaponimpact'],
  ['fx.blood','bloodtargetimpact'],['fx.blast','siegetankweaponimpact'],

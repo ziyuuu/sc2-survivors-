@@ -6,6 +6,8 @@ import {World} from '../src/simulation/world';
 import {THREE_RACE_RULES,type Race,type FamilyId} from '../src/data/races';
 import type {EliteId} from '../src/data/elites';
 import {DEVELOPMENT,FAMILY_REQUIREMENTS,developmentPrice,familyLine,type ProductionLineId} from '../src/data/expedition-buildings';
+import {BUILDS} from './qa-campaign-controller';
+import {passengerReservation} from '../src/simulation/zerg-brood';
 import {productionQuote} from '../src/simulation/expedition-production';
 import {tickCarrierSubsystem} from '../src/simulation/combat/carriers';
 import type {ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
@@ -18,17 +20,7 @@ import type {ExpeditionReward} from '../src/simulation/progression/expedition-dr
  * worker rescue, drone income or ambient kill income is simulated.
  */
 export interface BuildPlan {id:string;name:string;race:Race;families:FamilyId[];actions:string[];}
-export const BUILD_PLANS:BuildPlan[]=[
- {id:'T1',name:'生化机动',race:'terran',families:['marine','marauder','reaper','viking','medivac'],actions:['barracks_lab','factory','starport','engineering_bay','stim','terran.infantry','terran.infantry_armor','armory','terran.air_weapon','terran.air_armor']},
- {id:'T2',name:'步坦推进',race:'terran',families:['marine','marauder','tank','viking','medivac'],actions:['factory','factory_lab','barracks_lab','starport','engineering_bay','terran.infantry','armory','terran.vehicle','terran.vehicle_armor','terran.air_weapon']},
- {id:'T3',name:'机械重装',race:'terran',families:['hellion','tank','thor','viking','science_vessel'],actions:['factory','factory_lab','starport','armory','science_facility','terran.vehicle','terran.vehicle_armor','terran.air_weapon','terran.air_armor','support_efficiency']},
- {id:'Z1',name:'虫群冲击',race:'zerg',families:['zergling','baneling','roach','hydralisk','queen'],actions:['baneling_nest','roach_warren','lair','hatchery','hydralisk_den','evolution_chamber','zerg.missile','zerg.carapace','hydra_range','ling_speed']},
- {id:'Z2',name:'地面阵地',race:'zerg',families:['roach','ravager','hydralisk','lurker','queen'],actions:['roach_warren','lair','hatchery','hydralisk_den','lurker_den','evolution_chamber','zerg.missile','zerg.carapace','hydra_range','lurker_deploy']},
- {id:'Z3',name:'空地重型',race:'zerg',families:['roach','ultralisk','mutalisk','corruptor','queen'],actions:['roach_warren','lair','hatchery','spire','hatchery','hive','ultralisk_cavern','evolution_chamber','zerg.carapace','zerg.flyer_weapon']},
- {id:'P1',name:'护盾机械',race:'protoss',families:['zealot','stalker','sentry','immortal','colossus'],actions:['cybernetics_core','robotics','robotics_bay','forge','protoss.ground_weapon','protoss.shields','protoss.ground_armor','colossus_range','protoss.ground_weapon','protoss.shields']},
- {id:'P2',name:'灵能范围',race:'protoss',families:['zealot','stalker','sentry','high_templar','immortal'],actions:['cybernetics_core','twilight_council','templar_archives','robotics','storm','forge','protoss.ground_weapon','protoss.shields','protoss.ground_armor','protoss.ground_weapon']},
- {id:'P3',name:'舰队护航',race:'protoss',families:['zealot','sentry','phoenix','void_ray','carrier'],actions:['cybernetics_core','stargate','fleet_beacon','forge','protoss.shields','protoss.air_weapon','protoss.air_armor','protoss.shields','protoss.air_weapon','protoss.ground_armor']},
-];
+export const BUILD_PLANS:BuildPlan[]=BUILDS.map((b,i)=>({...b,name:b.id,id:['T1','T2','T3','Z1','Z2','Z3','P1','P2','P3'][i]}));
 const seeds=[7,271,89241],dt=1/60;
 const round=(v:number)=>Math.round(v*100)/100;
 const money=(p:{minerals:number;gas:number})=>({minerals:round(p.minerals),gas:round(p.gas)});
@@ -38,13 +30,13 @@ export function simulateBuild(plan:BuildPlan,seed:number,strategy:'development-f
  const w=new World({rulesVersion:THREE_RACE_RULES,race:plan.race,seed,difficulty:'normal',waves:false,terrain:false,obstacles:[]});
  const s=w.expedition!,initialWallet={...w.wallet},records:StageRecord[]=[],arrivals:Record<string,{stage:number;second:number}>={},replacements:unknown[]=[],transitions:unknown[]=[];
  let actionIndex=0,fullyFormedAt:number|null=null,full25At:number|null=null;
- const pending=(family:FamilyId)=>s.ledger.filter(j=>j.family===family).reduce((n,j)=>n+j.passengers.filter(p=>p.status==='waiting').length,0);
+ const pending=(family:FamilyId)=>s.ledger.filter(j=>j.family===family).reduce((n,j)=>n+j.passengers.filter(p=>p.status==='waiting').reduce((n,p)=>n+passengerReservation(p,w),0),0);
  const alive=(family:FamilyId)=>w.familyUnits(family).length;
  const goalCount=(family:FamilyId)=>!plan.families.includes(family)?1:plan.families.every(f=>alive(f)>0)?w.stage>=16?5:w.stage>=13?3:2:1;
  const nextPrice=()=>{const d=DEVELOPMENT.find(d=>d.id===plan.actions[actionIndex]&&d.race===plan.race);return d?developmentPrice(d,s.tech[d.id]??0):{minerals:0,gas:0};};
  function configure(){
   if(plan.race==='zerg'){
-   const required:ProductionLineId[]=['zerg.basic',...(s.tech.lair&&plan.families.some(f=>familyLine(f)==='zerg.evolution')?['zerg.evolution' as const]:[]),...(s.tech.spire&&plan.families.some(f=>familyLine(f)==='zerg.air')?['zerg.air' as const]:[])];
+   const required:ProductionLineId[]=['zerg.basic',...(plan.families.some(f=>familyLine(f)==='zerg.air')?['zerg.air' as const]:[]),...(plan.families.some(f=>familyLine(f)==='zerg.evolution')?['zerg.evolution' as const]:[])];
    for(let i=0;i<s.facilities.length;i++){const facility=s.facilities[i],line=required[Math.min(i,required.length-1)];if(facility.line!==line)w.assignHatcherySequence(facility.id,line);}
   }
   for(const key of Object.keys(s.production)){
@@ -85,6 +77,7 @@ export function simulateBuild(plan:BuildPlan,seed:number,strategy:'development-f
    w.time+=dt;w.stageElapsed+=dt;w.tick++;w.updateEconomy(dt);manageProduction();w.updateProduction(dt);tickCarrierSubsystem(w,dt);resolveDeliveryAssumption();
   }
   const before={...w.wallet};w.endStage();assert.equal(w.phase,'reward');assert.equal(w.rewardRound,'building');const target=plan.actions[actionIndex];
+  if(target){const d=DEVELOPMENT.find(d=>d.id===target);const direction=d?.line??(plan.race==='zerg'?s.facilities.length===1?(plan.families.some(f=>familyLine(f)==='zerg.air')?'zerg.air':'zerg.evolution'):'zerg.evolution':familyLine(plan.families[0]));w.setDevelopmentDirection(direction!,s.shopRevision);}
   let action:string|null=null,actionCost:Payment|null=null,actionBlocked:string|null=null;
   const deferDeepening=strategy==='formation-first'&&plan.families.every(f=>FAMILY_REQUIREMENTS[f].every(id=>(s.tech[id]??0)>0))&&plan.families.some(f=>alive(f)===0);
   if(target&&deferDeepening)actionBlocked=`save-for-first-bodies:${target}`;
@@ -92,13 +85,13 @@ export function simulateBuild(plan:BuildPlan,seed:number,strategy:'development-f
    if(offer){if(w.wallet.minerals>=offer.minerals&&w.wallet.gas>=offer.gas){assert.equal(w.choose(offer.offerId),true);action=target;actionCost={minerals:offer.minerals,gas:offer.gas};actionIndex++;}else actionBlocked=`funds:${target}:${offer.minerals}/${offer.gas}`;}
    else actionBlocked=`prerequisite-or-target:${target}`;
   }
-  assert.equal(w.setDevelopmentTarget(plan.actions[actionIndex]??null),true);configure();assert.equal(w.skipReward(),true);assert.equal(w.rewardRound,'random');
+  assert.equal(w.setDevelopmentTarget(plan.actions[actionIndex]??null),true);configure();if(w.rewardRound==='building')assert.equal(w.skipReward(),true);assert.equal(w.rewardRound,'random');
   const score=(r:ExpeditionReward)=>r.expeditionEffect.kind==='hero'?100:r.expeditionEffect.kind==='resource'&&actionIndex<plan.actions.length?90:r.expeditionEffect.kind==='elite'?80:r.expeditionEffect.kind==='card'?(r.expeditionEffect.effect==='cultivation'?70:r.expeditionEffect.effect==='weapon'?60:40):0;
-  const cards=(w.rewards as ExpeditionReward[]).filter(r=>w.canChooseReward(r)).sort((a,b)=>score(b)-score(a));const card=cards[0];assert.ok(card);
-  const variant=card.expeditionEffect.kind==='elite'?`${card.expeditionEffect.family}.1` as EliteId:undefined;
-  assert.equal(w.choose(card.offerId,variant),true,`claim ${plan.id}/${seed}/stage${stage}: ${card.id} (${card.expeditionEffect.kind})`);
+  const cards=(w.rewards as ExpeditionReward[]).filter(r=>w.canChooseReward(r)).sort((a,b)=>score(b)-score(a));const card=cards.find(r=>w.wallet.minerals-r.minerals>=nextPrice().minerals&&w.wallet.gas-r.gas>=nextPrice().gas&&r.expeditionEffect.kind==='resource');
+  const variant=card?.expeditionEffect.kind==='elite'?`${card.expeditionEffect.family}.1` as EliteId:undefined;
+  if(card)assert.equal(w.choose(card.offerId,variant),true,`claim ${plan.id}/${seed}/stage${stage}: ${card.id} (${card.expeditionEffect.kind})`);
   const roster=s.familySlots.map(f=>({family:f,count:alive(f),ranks:w.familyUnits(f).map(u=>u.rank)}));
-  records.push({stage,walletBefore:money(before),walletAfter:money(w.wallet),action,actionCost,actionBlocked,card:card.id,outputs:Object.fromEntries(Object.entries(s.production).map(([id,p])=>[id,[...p!.outputs]])),stopped:s.familySlots.filter(f=>!s.production[familyLine(f)]?.outputs.includes(f)||s.production[familyLine(f)]?.enabled[f]===false),bodyCount:roster.reduce((n,f)=>n+f.count,0),formedFamilies:plan.families.filter(f=>alive(f)>0).length,unlockedFamilies:plan.families.filter(f=>w.isFamilyAvailable(f)).length,roster,heroes:w.heroes.size,paidOrders:s.ledger.filter(j=>j.state!=='settled').map(j=>({family:j.family,state:j.state,remaining:round(j.remaining),waiting:j.passengers.filter(p=>p.status==='waiting').length})),income:{passive:money(w.economyTotals.passive),clear:money(w.economyTotals.clear),cards:money(w.economyTotals.cards)},spending:{production:money(w.economyTotals.production),development:money(w.economyTotals.purchases)}});
+  records.push({stage,walletBefore:money(before),walletAfter:money(w.wallet),action,actionCost,actionBlocked,card:card?.id??null,outputs:Object.fromEntries(Object.entries(s.production).map(([id,p])=>[id,[...p!.outputs]])),stopped:s.familySlots.filter(f=>!s.production[familyLine(f)]?.outputs.includes(f)||s.production[familyLine(f)]?.enabled[f]===false),bodyCount:roster.reduce((n,f)=>n+f.count,0),formedFamilies:plan.families.filter(f=>alive(f)>0).length,unlockedFamilies:plan.families.filter(f=>w.isFamilyAvailable(f)).length,roster,heroes:w.heroes.size,paidOrders:s.ledger.filter(j=>j.state!=='settled').map(j=>({family:j.family,state:j.state,remaining:round(j.remaining),waiting:j.passengers.filter(p=>p.status==='waiting').length})),income:{passive:money(w.economyTotals.passive),clear:money(w.economyTotals.clear),cards:money(w.economyTotals.cards)},spending:{production:money(w.economyTotals.production),development:money(w.economyTotals.purchases)}});
   assert.equal(w.skipReward(),true);assert.equal(s.draftHistory.length,stage);assert.equal(w.stage,stage+1);
  }
  const totals=w.economyTotals;
@@ -108,7 +101,7 @@ export function simulateBuild(plan:BuildPlan,seed:number,strategy:'development-f
 }
 export function runBuildMatrix(strategy:'development-first'|'formation-first'='formation-first'){return BUILD_PLANS.flatMap(plan=>seeds.map(seed=>simulateBuild(plan,seed,strategy)));}
 function report(results:ReturnType<typeof runBuildMatrix>){
- const lines=['# 九构筑经济可达性记录','',`策略版本：${results[0]?.strategy}。`,'', '模型：普通难度、0 天赋、只计真实被动收入／固定结算／免费强化收入。真实生产付款、训练时间、空投落地与接收事务；17 个关间。假设完美救援运输且无战损，不计守军／波次掉落、虫卵工人、工蜂收入。**这不是战斗通关或真人时长验证。**','', '策略：标记并购买列出的建筑路径；每条产线最多两个产出，优先尚未成形的家族；额外身体让位于下一项建筑预算。formation-first 在全部配方前置已具备、五槽尚缺首次到场时暂停深化，先支付缺席家族的第一人；development-first 保持购买既定深化路径。免费卡优先英雄，其次缺钱时资源；无购买刷新。每个家族至少一名在场记为五槽成形，25 人另列。','', '| 构筑 | 种子 | 五槽成形关 | 25人关 | 6关：家族/身体/矿气 | 9关 | 12关 | 15关 | 17窗后矿气 | 动作数 | 换组 |','| --- | ---: | ---: | ---: | --- | --- | --- | --- | --- | ---: | ---: |'];
+ const lines=['# 九构筑经济可达性记录','',`策略版本：${results[0]?.strategy}。`,'', '模型：普通难度、0 天赋、只计真实被动收入／固定结算／付费经济卡净收入。真实生产付款、训练时间、空投落地与接收事务；17 个关间。假设完美救援运输且无战损，不计守军／波次掉落、虫卵工人、工蜂收入。**这不是战斗通关或真人时长验证。**','', '策略：标记并购买列出的建筑路径；每条产线最多两个产出，优先尚未成形的家族；额外身体让位于下一项建筑预算。formation-first 在全部配方前置已具备、五槽尚缺首次到场时暂停深化，先支付缺席家族的第一人；development-first 保持购买既定深化路径。商店只购买不挤占下一发展预算的经济商品；无购买刷新。每个家族至少一名在场记为五槽成形，25 人另列。','', '| 构筑 | 种子 | 五槽成形关 | 25人关 | 6关：家族/身体/矿气 | 9关 | 12关 | 15关 | 17窗后矿气 | 动作数 | 换组 |','| --- | ---: | ---: | ---: | --- | --- | --- | --- | --- | ---: | ---: |'];
  for(const r of results){const m=(stage:number)=>{const s=r.records[stage-1];return `${s.formedFamilies}/5 · ${s.bodyCount}人 · ${s.walletAfter.minerals}/${s.walletAfter.gas}`;};lines.push(`| ${r.id} ${r.name} | ${r.seed} | ${r.fullyFormedAt??'未成'} | ${r.full25At??'未满'} | ${[6,9,12,15].map(m).join(' | ')} | ${r.finalWallet.minerals}/${r.finalWallet.gas} | ${r.actionsBought}/${r.actionCount} | ${r.replacements.length} |`);}
  lines.push('', '完整逐关动作、付款、生产／停产、培养、到场时间、换组退款与损失记录见同名 JSON。钱包逐局按收入＋退款－支出守恒校验；未直接赋钱、科技、兵员或等级。', '');return lines.join('\n');
 }

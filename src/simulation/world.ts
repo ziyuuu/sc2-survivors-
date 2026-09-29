@@ -1,3 +1,4 @@
+import {tickShopSupport,recordMutation,previewStrategic,commitStrategic} from './combat/shop-support';
 import {enemyRouteGoal} from './movement/enemy-routes';
 import {findCarrierLanding,validCarrierLanding,carrierGuardPosition} from './movement/carrier-landing';
 import {createPair,joinPair,pairFor,rosterMembers,syncPair,notePairDeath,tickBroods,tickQueenInjection} from './zerg-brood';
@@ -373,9 +374,9 @@ export class World extends RunState {
   this.expedition.talentPreset=this.permanentProfile.activePreset;
   this.runConfig={rulesId:RUN_RULES,race:this.selectedRace,difficulty:this.difficulty,campaignId:'campaign-18',seed:this.seed,mapId:'campaign-kairos-v1',mapHash:this.mapIdentity(this.initialTerrain),frozenTalents:frozen};
   const growth=this.talent('self_growth'),mercenary=this.talent('mercenary'),support=this.talent('tank_support');
-  this.nextEliteGrowthAt=growth?(growth===1?360:240):Infinity;this.nextMercenaryAt=mercenary?(mercenary===1?240:120):Infinity;this.nextTankSupportAt=support?[Infinity,90,60,45][support]:Infinity;
+  this.nextEliteGrowthAt=growth?(growth===1?240:120):Infinity;this.nextMercenaryAt=mercenary?(mercenary===1?180:90):Infinity;this.nextTankSupportAt=support?[Infinity,75,50,35][support]:Infinity;
   if(this.expedition.race==='zerg'&&!this.expedition.zerglingPairs.length){const lings=this.familyBodies('zergling');for(let i=0;i<lings.length;i+=2){const p=joinPair(this,lings[i]);if(lings[i+1])joinPair(this,lings[i+1],p.id);else p.birthPending=true;}}this.allies().forEach(u=>this.refreshStats(u));this.runId=globalThis.crypto?.randomUUID?.()??String(Date.now())+'-'+String(this.random());
-  this.phase='battle';if(talentRank(frozen.levels,this.selectedRace,'hero_support'))this.acquireHero(starterHero!);if(!this.sandbox)this.updateProduction(0);this.changed();return true;
+  this.phase='battle';if(talentRank(frozen.levels,this.selectedRace,'hero_support')){this.acquireHero(starterHero!);this.acquireHero(starterHero!);}if(!this.sandbox)this.updateProduction(0);this.changed();return true;
  }
  allies(){const allies:Entity[]=[];for(const u of this.entities.values())if(u.owner==='terran'&&u.hp>0&&!u.summonKind)allies.push(u);return allies;}
  enemyCount(){let n=0;for(const u of this.entities.values())if(u.owner==='zerg'&&u.hp>0)n++;return n;}
@@ -443,7 +444,8 @@ export class World extends RunState {
  }else {this.pendingElites.push(id);this.announce(ELITES[id].name+' · 选择替换队员；已付费增援优先保留');}this.changed();return true;}
  replaceWithElite(id:EliteId,targetId:number){if(!this.pendingElites.includes(id)||!this.eliteCandidates(id).some(u=>u.id===targetId))return false;const u=this.entities.get(targetId)!;u.eliteId=id;u.rank=1;u.modelKey=ELITES[id].model;u.specialReady=this.time+15;this.refreshStats(u);this.pendingElites=this.pendingElites.filter(e=>e!==id);this.changed();return true;}
  private attackHit(u:Entity,target:Body,damage:number,bonuses:{attribute:string;amount:number}[],hits=1,shieldBonus=0,primary=true,crit=1){const factor=(u.eliteId==='marine.2'&&target.attributes.includes('Armored')?1.25:1)*this.enemyDamageFactor(u)*eliteDamageMultiplier(u,target),before=target.hp,penetration=u.owner==='zerg'&&u.unitType==='hydralisk'&&(u.enemyTier==='elite'||u.enemyTier==='lord')&&u.enemyLevel&&u.enemyLevel>=3?[0,0,.25,.35,.4][u.enemyLevel-1]:0,scaled=bonuses.map(b=>({...b,amount:b.amount*factor*crit}));this.hit(target,damage*factor*crit,scaled,hits,u.owner,.5,penetration,u.id,false,false,shieldBonus*factor*crit,primary);
-  if(primary&&target.hp>0&&(talentModifiers(this,u).apmDuplicate??0)>0)this.hit(target,damage*hits*factor*crit,scaled.map(b=>({...b,amount:b.amount*hits})),1,u.owner,.5,penetration,u.id,false,false,shieldBonus*hits*factor*crit,true);
+  if(primary)recordMutation(this,u,target,damage*factor*hits);
+  if(primary&&target.hp>0&&(talentModifiers(this,u).apmDuplicate??0)>0)this.hit(target,damage*hits*factor*crit*1.15,scaled.map(b=>({...b,amount:b.amount*hits*1.15})),1,u.owner,.5,penetration,u.id,false,false,shieldBonus*hits*factor*crit*1.15,true);
   const e=this.entities.get(target.id);if(e&&e.hp>0&&u.eliteId==='marauder.1'){e.slowUntil=this.time+1.5;e.slowFactor=e.enemyTier==='boss'?.15:.3;}
   if(e&&e.hp>0&&u.owner==='zerg'&&u.unitType==='roach'&&(u.enemyTier==='elite'||u.enemyTier==='lord')&&(u.enemyLevel??1)>=2){this.applyStatus(e,u,'acidArmor',[0,1,1.5,2,3][(u.enemyLevel??1)-1],4);}
   if(e&&e.hp>0&&u.eliteId==='hellion.2'){const key=u.id+':'+target.id,old=this.burns.get(key);this.burns.set(key,{source:u.id,target:target.id,damage:(before-target.hp)*.2,next:old?.next??this.time+1,until:this.time+3});}
@@ -506,7 +508,7 @@ export class World extends RunState {
  spawnEconomic(kind:'egg'|'drone',position?:Point){const p=position??this.eventPoint(5),hp=kind==='egg'?ECONOMY.eggHp:ECONOMY.droneHp;
   const target:EconomicTarget={id:this.nextId++,...p,origin:{...p},hp,maxHp:hp,armor:0,unitRadius:kind==='egg'?.65:.55,attributes:kind==='egg'?['Biological','Structure']:['Light','Biological'],owner:'zerg',flying:false,kind,createdAt:this.time,expiresAt:kind==='egg'?this.time+ECONOMY.eggSeconds:null,resolvedAt:null,status:'active',facing:0};this.economicTargets.set(target.id,target);if(kind==='egg')this.announce('发现被困 '+RESCUE_PRESENTATION[this.expedition.race].workerName+' · 30 秒内击破虫卵');return target;
  }
- updateEconomy(dt:number){if(!this.sandbox){const f=incomeFactor(this.difficulty)*(1+.15*this.talent('mining_master')),m=(ECONOMY.passive.minerals+this.workers*ECONOMY.perWorker.minerals)*dt*f,g=(ECONOMY.passive.gas+this.workers*ECONOMY.perWorker.gas)*dt*f;this.wallet.minerals+=m;this.wallet.gas+=g;this.economyTotals.passive.minerals+=m;this.economyTotals.passive.gas+=g;}
+ updateEconomy(dt:number){if(!this.sandbox){const f=incomeFactor(this.difficulty)*(1+.20*this.talent('mining_master')),m=(ECONOMY.passive.minerals+this.workers*ECONOMY.perWorker.minerals)*dt*f,g=(ECONOMY.passive.gas+this.workers*ECONOMY.perWorker.gas)*dt*f;this.wallet.minerals+=m;this.wallet.gas+=g;this.economyTotals.passive.minerals+=m;this.economyTotals.passive.gas+=g;}
   for(const e of this.economicTargets.values()){if(e.status!=='active')continue;
    if(e.kind==='egg'&&this.time>=e.expiresAt!-1e-8){e.status='expired';e.hp=0;e.resolvedAt=this.time;this.stats.workersLost++;this.visual('egg-expired',e);this.announce(RESCUE_PRESENTATION[this.expedition.race].workerName+' 未能获救');}
    else if(e.kind==='drone'){const goal={x:e.origin.x+Math.sin(this.time*.24+e.id)*1.2,z:e.origin.z+Math.cos(this.time*.24+e.id)*1.2},dx=goal.x-e.x,dz=goal.z-e.z;e.facing=turn(e.facing,Math.atan2(dx,dz),dt*3);translate(e,{x:dx*dt,z:dz*dt},e.unitRadius,false,this.obstacles,this.mapHalf,this.terrain);}
@@ -550,16 +552,16 @@ export class World extends RunState {
   }else if(!source||source.team!=='player'||source.hp<=0||source.temporary||source.summonKind)return false;
   if(source&&!source.heroId&&!source.eliteId&&!isAirHeroType(source.unitType)){
    const members=this.ordinaryUnits(source.unitType).filter(u=>u.rank<this.soldierCap()),eligible=members.filter(u=>this.availableCapacity(u.unitType as UnitType)>0),candidate=this.talent('battle_review')?eligible.sort((a,b)=>a.rank-b.rank||a.id-b.id)[0]:eligible.find(u=>u.id===source!.id||!!u.pairId&&u.pairId===source!.pairId);
-   const mentor=this.familyUnits(source.unitType).some(u=>!!u.eliteId&&u.hp>0&&!u.temporary),chance=.01*(this.talent('experience_summary')+this.talent('battle_review'))+(mentor?.03*this.talent('teach_experience'):0);
+   const mentor=this.familyUnits(source.unitType).some(u=>!!u.eliteId&&u.hp>0&&!u.temporary),chance=.02*(this.talent('experience_summary')+this.talent('battle_review'))+(mentor?.04*this.talent('teach_experience'):0);
    if(candidate&&chance>0&&this.random()<chance){candidate.rank++;this.refreshStats(candidate);}
   }
   if(this.talent('reinforcement')&&this.time>=this.nextFreePodAt){
    const pool=this.expedition.familySlots.filter(f=>availableFamily(this,f)&&this.capacity(f)).map(f=>({family:f,missing:this.rosterCap-this.familyUnits(f).length,average:this.ordinaryUnits(f).reduce((sum,u)=>sum+u.rank,0)/Math.max(1,this.ordinaryUnits(f).length)})).sort((a,b)=>b.missing-a.missing||a.average-b.average||a.family.localeCompare(b.family));
-   if(pool.length&&this.random()<.01*this.talent('reinforcement')){this.expedition.pendingFreeDeliveries.push({family:pool[0].family,jobId:this.nextJob++,retryAt:this.time});this.nextFreePodAt=this.time+60;}
+   if(pool.length&&this.random()<.02*this.talent('reinforcement')){this.expedition.pendingFreeDeliveries.push({family:pool[0].family,jobId:this.nextJob++,retryAt:this.time});this.nextFreePodAt=this.time+45;}
   }
   if(this.talent('proliferate')&&this.allies().filter(u=>u.temporaryKind==='proliferate'&&u.hp>0).length<this.talent('proliferate')){
    const candidates=(this.expedition.race==='terran'?['marine','marauder']:this.expedition.race==='zerg'?['zergling','roach']:['zealot','adept']).filter(f=>availableFamily(this,f as FamilyId)) as UnitType[];
-   if(candidates.length&&this.random()<.005*this.talent('proliferate')){const index=this.expedition.temporaryOrdinaryCursor++%candidates.length,type=candidates[index],p=this.freePosition(type,this.anchor,.8,6);if(p){const u=this.addUnit(type,'terran',p.x,p.z,5);u.temporary=true;u.temporaryKind='proliferate';u.temporaryUntil=this.time+30;this.refreshStats(u,true);}}
+   if(candidates.length&&this.random()<.01*this.talent('proliferate')){const index=this.expedition.temporaryOrdinaryCursor++%candidates.length,type=candidates[index],p=this.freePosition(type,this.anchor,.8,6);if(p){const u=this.addUnit(type,'terran',p.x,p.z,5);u.temporary=true;u.temporaryKind='proliferate';u.temporaryUntil=this.time+30;this.refreshStats(u,true);}}
   }
   return true;
  }
@@ -575,41 +577,41 @@ export class World extends RunState {
   if(this.expedition.eliteRescueCompleted.includes(receipt)||this.expedition.eliteRescueRights.some(right=>right.receipt===receipt))return;
   const candidates=Object.values(ELITES).filter(elite=>this.canAcquireElite(elite.id)&&!this.expedition.eliteRescueRights.some(right=>ELITES[right.eliteId as EliteId]?.family===elite.family));
   const fresh=candidates.filter(elite=>!this.familyUnits(elite.family).some(unit=>unit.eliteId&&!unit.temporary)),pool=fresh.length?fresh:candidates;
-  if(!pool.length||this.random()>=.05*rank)return;
+  if(!pool.length||this.random()>=.10*rank)return;
   const families=[...new Set(pool.map(elite=>elite.family))].sort(),family=families[Math.floor(this.random()*families.length)],variants=pool.filter(elite=>elite.family===family).sort((a,b)=>a.id.localeCompare(b.id)),selected=variants[0];
   if(!selected)return;this.expedition.eliteRescueRights.push({receipt,eliteId:selected.id});this.announce(selected.name+' · 精英救援权可领取或放弃');this.changed();
  }
  private updateTalentSupport(){
-  if(this.time>=this.nextEliteGrowthAt){const pool=rosterMembers(this,this.allies()).filter(u=>u.eliteId&&u.rank<5).sort((a,b)=>a.rank-b.rank||a.id-b.id);if(pool[0]){pool[0].rank++;this.refreshStats(pool[0]);this.announce(ELITES[pool[0].eliteId!].name+' · 自我成长晋升');}this.nextEliteGrowthAt=this.time+(this.talent('self_growth')===1?360:240);}
+  if(this.time>=this.nextEliteGrowthAt){const pool=rosterMembers(this,this.allies()).filter(u=>u.eliteId&&u.rank<5).sort((a,b)=>a.rank-b.rank||a.id-b.id);if(pool[0]){pool[0].rank++;this.refreshStats(pool[0]);this.announce(ELITES[pool[0].eliteId!].name+' · 自我成长晋升');}this.nextEliteGrowthAt=this.time+(this.talent('self_growth')===1?240:120);}
   if(this.time>=this.nextMercenaryAt){const families=this.expedition.race==='terran'?['marine','marauder','reaper']:this.expedition.race==='zerg'?['zergling','roach','hydralisk']:['zealot','stalker','immortal'];
    const candidates=families.filter(f=>availableFamily(this,f as FamilyId)).map(f=>{const variants=Object.values(ELITES).filter(e=>e.family===f);return variants[Math.floor(this.random()*variants.length)];}).filter((e):e is typeof ELITES[EliteId]=>!!e);
    if(candidates.length&&!this.allies().some(u=>u.temporaryKind==='mercenary'&&u.hp>0)){const elite=candidates[this.expedition.temporaryEliteCursor++%candidates.length],p=this.freePosition(elite.family,this.anchor,.8,6);if(p){const u=this.addUnit(elite.family,'terran',p.x,p.z,5);u.eliteId=elite.id;u.modelKey=elite.model;u.temporary=true;u.temporaryKind='mercenary';u.temporaryUntil=this.time+80;this.refreshStats(u,true);this.announce(elite.name+' · 雇佣兵抵达');}}
-   this.nextMercenaryAt=this.time+(this.talent('mercenary')===1?240:120);}
-  tickTalentSupport(this);
+   this.nextMercenaryAt=this.time+(this.talent('mercenary')===1?180:90);}
+  tickTalentSupport(this);tickShopSupport(this);
  }
  hit(target:Body,damage:number,bonuses:{attribute:string;amount:number}[]=[],hits=1,sourceOwner:'terran'|'zerg'='terran',minimum=.5,armorPenetration=0,sourceId?:number,forced=false,transferred=false,shieldBonus=0,ordinaryWeapon=false){
   if(target.hp<=0)return;damage=diagnosticAttackDamage(this,target,damage,sourceOwner);
   const acid=this.statuses.value(target.id,'acidArmor',this.time),armor=Math.max(0,target.armor+(this.auraArmor.get(target.id)??0)-Math.min(3,acid));
   const friendly=target.owner==='terran'&&sourceOwner==='zerg'?this.entities.get(target.id):undefined,attacker=sourceId===undefined?undefined:this.entities.get(sourceId);
-  if(!forced&&ordinaryWeapon&&friendly&&attacker&&this.talent('veteran_dodge')&&this.random()<.03*this.talent('veteran_dodge'))return;
+  if(!forced&&ordinaryWeapon&&friendly&&attacker&&this.talent('veteran_dodge')&&this.random()<.045*this.talent('veteran_dodge'))return;
   const bonus=bonuses.reduce((sum,b)=>sum+(target.attributes.includes(b.attribute)?b.amount:0),0),before=target.hp,beforeShield='shield' in target?Number(target.shield??0):0;
   let total=transferred?Math.min(target.hp,Math.max(0,damage)):expeditionDamage(this,target,damage+bonus,hits,minimum,armorPenetration,sourceOwner,armor,sourceId,shieldBonus);
-  if(friendly){if(!transferred)total*=1-.04*this.talent('armor_upgrade');friendly.lastDamagedAt=this.time;
+  if(friendly){if(!transferred)total*=1-.06*this.talent('armor_upgrade');friendly.lastDamagedAt=this.time;
    if(!transferred&&!friendly.heroId&&!friendly.temporary&&this.talent('team_share')&&total>0){const partners=this.allies().filter(u=>u.id!==friendly.id&&u.unitType===friendly.unitType&&u.hp>0&&!u.heroId&&!u.temporary&&!(u.lastStandUntil&&u.lastStandUntil>this.time)&&distance(u,friendly)<=8);if(partners.length){const share=total*.2*this.talent('team_share');total-=share;for(const partner of partners)this.hit(partner,share/partners.length,[],1,'zerg',0,1,undefined,false,true);}}
   }
   target.hp=Math.max(0,target.hp-total);this.stats.damage+=before-target.hp;preventDiagnosticDeath(this,target,before,total);
   if(before>target.hp)this.visual('hit',target);if(beforeShield>0&&'shield' in target&&Number(target.shield)<beforeShield)this.visual(Number(target.shield)>0?'shield-hit':'shield-break',target);
   if(friendly&&target.hp<=0&&!forced&&!friendly.temporary){
    if(friendly.lastStandUntil&&this.time<friendly.lastStandUntil)friendly.hp=1;
-   else if(!friendly.heroId&&!friendly.eliteId&&friendly.rank>=2&&friendly.orderlyStage!==this.stage&&this.random()<.01*this.talent('orderly_army')){friendly.orderlyStage=this.stage;friendly.rank--;this.refreshStats(friendly);friendly.hp=Math.max(1,friendly.maxHp*(.5+.1*this.talent('honor_archive')));}
+   else if(!friendly.heroId&&!friendly.eliteId&&friendly.rank>=2&&friendly.orderlyStage!==this.stage&&this.random()<.05*this.talent('orderly_army')){friendly.orderlyStage=this.stage;friendly.rank--;this.refreshStats(friendly);friendly.hp=Math.max(1,friendly.maxHp*([.5,.7,.85,1][this.talent('honor_archive')]));}
    else if(!friendly.heroId&&!friendly.eliteId&&friendly.charmStage!==this.stage&&this.random()<.33*this.talent('lovers_charm')){friendly.charmStage=this.stage;friendly.hp=1;}
-   else if(!friendly.heroId&&!friendly.eliteId&&friendly.lastStandStage!==this.stage&&this.talent('last_stand')){friendly.lastStandStage=this.stage;friendly.lastStandUntil=this.time+(this.talent('last_stand')===1?8:15);friendly.hp=1;}
+   else if(!friendly.heroId&&!friendly.eliteId&&friendly.lastStandStage!==this.stage&&this.talent('last_stand')){friendly.lastStandStage=this.stage;friendly.lastStandUntil=this.time+(this.talent('last_stand')===1?10:18);friendly.hp=1;}
   }
   const hive=this.expansionHives.get(target.id);if(hive&&hive.hp<=0&&!hive.rewarded){hive.rewarded=true;hive.pending=[];const profile=expansionProfile(hive.stage);this.drop(hive,profile.reward);this.tryRewardDrop(hive,false,'elite');this.expansionHives.delete(hive.id);this.stats.kills++;this.effect('explosion',hive,hive,2.4,.6);this.announce('扩张虫巢已清除 · 亢奋来源减少');return;}
   const fort=this.fortifications.get(target.id);if(fort&&fort.hp<=0){this.fortifications.delete(fort.id);this.effect('explosion',fort,fort,2,.5);this.announce(fort.kind==='bunker'?'防御地堡被摧毁':'修理设施被摧毁');return;}
   if(friendly&&friendly.hp<=0)notePairDeath(this,friendly);
   const economic=this.economicTargets.get(target.id);if(economic&&economic.status==='active'&&economic.hp<=0){economic.resolvedAt=this.time;
-   if(economic.kind==='egg'){if(sourceOwner==='terran'&&this.time<economic.expiresAt!-1e-8){economic.status='rescued';this.workers+=1+this.talent('scv_savior');this.stats.workersRescued++;this.visual('scv-rescue',economic);this.announce(RESCUE_PRESENTATION[this.expedition.race].workerName+' 已获救 · 自动采集提升');this.issueEliteRescue(economic);}else {economic.status='expired';this.stats.workersLost++;this.visual('egg-expired',economic);}}
+   if(economic.kind==='egg'){if(sourceOwner==='terran'&&this.time<economic.expiresAt!-1e-8){economic.status='rescued';this.workers+=1+(this.talent('scv_savior')?this.talent('scv_savior')+1:0);this.stats.workersRescued++;this.visual('scv-rescue',economic);this.announce(RESCUE_PRESENTATION[this.expedition.race].workerName+' 已获救 · 自动采集提升');this.issueEliteRescue(economic);}else {economic.status='expired';this.stats.workersLost++;this.visual('egg-expired',economic);}}
    else {economic.status='killed';this.stats.dronesKilled++;this.visual('drone-death',economic);this.drop(economic,DROPS.drone);this.tryRewardDrop(economic,true);}return;
   }
   if(target.hp<=0&&'unitType' in target&&this.entities.has(target.id)){const e=target as Entity;if(e.deadAt===null){e.deadAt=this.time;e.action='dead';e.velocity={x:0,z:0};this.statuses.removeTarget(e.id);if(e.owner==='zerg')this.nextAuraUpdate=this.time;
@@ -630,7 +632,7 @@ export class World extends RunState {
   }else this.rewardDrops.push({id,...p,reward});
  }
  collectRewardDrop(id:number){return this.atomicMutation(()=>{const index=this.rewardDrops.findIndex(p=>p.id===id);if(index<0||this.expedition.pendingTalentLoot)return false;const drop=this.rewardDrops[index],ok=drop.bossLootReceipt?collectBossLoot(this,drop):drop.talentLoot?openTalentLoot(this,drop.talentLoot.receipt,drop.talentLoot.rarity):collectMapReinforcement(this,drop.reward);if(ok)this.rewardDrops.splice(index,1);this.changed();return ok;});}
- visual(kind:VisualEvent['kind'],body:Body,end:Point=body,castId?:number,launch?:HeroCast['presentationLaunch']){const e=this.entities.get(body.id),sequence=e?.shotSequence;this.visualEvents.push({serial:++this.visualSerial,time:this.time,kind,castId,x:launch?.x??body.x,z:launch?.z??body.z,y:(body.flying?5.6:this.terrain?.height(launch??body)??0)+.6,endY:('flying' in end&&end.flying?5.6:this.terrain?.height(end)??0)+.6,unitType:e?.unitType??null,modelKey:e?.modelKey,heroId:e?.heroId,eliteId:e?.eliteId,race:e?.race,shotSequence:sequence,attackId:kind==='attack'&&sequence!==undefined?`${body.id}:${sequence}`:undefined,entityId:body.id,flying:body.flying,end:{x:end.x,z:end.z},facing:launch?.facing??(kind==='attack'||kind==='skill-launch'?e?.attackFacing??0:e?.facing??0),weaponPoseSeconds:launch?.poseSeconds,siege:e?.mode==='siege'});if(this.visualEvents.length>768)this.visualEvents.splice(0,256);}
+ visual(kind:VisualEvent['kind'],body:Body,end:Point=body,castId?:number,launch?:HeroCast['presentationLaunch']){const e=this.entities.get(body.id),sequence=e?.shotSequence;this.visualEvents.push({serial:++this.visualSerial,time:this.time,kind,castId,x:launch?.x??body.x,z:launch?.z??body.z,y:(body.flying?5.6:this.terrain?.height(launch??body)??0)+.6,endY:('flying' in end&&end.flying?5.6:this.terrain?.height(end)??0)+.6,unitType:e?.unitType??null,modelKey:e?.modelKey,heroId:e?.heroId,eliteId:e?.eliteId,race:e?.race??(['support-impact','strategic-impact'].includes(kind)?this.expedition.race:undefined),shotSequence:sequence,attackId:kind==='attack'&&sequence!==undefined?`${body.id}:${sequence}`:undefined,entityId:body.id,flying:body.flying,end:{x:end.x,z:end.z},facing:launch?.facing??(kind==='attack'||kind==='skill-launch'?e?.attackFacing??0:e?.facing??0),weaponPoseSeconds:launch?.poseSeconds,siege:e?.mode==='siege'});if(this.visualEvents.length>768)this.visualEvents.splice(0,256);}
  effect(kind:Effect['kind'],source:Body,end:Point,radius=.1,duration=.18){const fx:Effect={id:this.nextId++,kind,x:source.x,z:source.z,end:{...end},until:this.time+duration,radius,owner:source.owner,source:source.id};this.effects.push(fx);return fx;}
  fire(u:Entity,target:Body){
   if((u.recoveryUntil??0)>this.time)return;
@@ -640,7 +642,7 @@ export class World extends RunState {
   const d=unitData(u);
   this.stats.shots++;
   u.attackFacing=Math.atan2(target.x-u.x,target.z-u.z);u.lastShotAt=this.time;u.shotSequence=(u.shotSequence??0)+1;u.nextShotAt=this.time+u.shotInterval;this.visual('attack',u,target);
-  const nativeBonus=expeditionWeaponBonuses(this,u),bonus=nativeBonus.bonuses,critChance=u.unitType==='baneling'?0:talentModifiers(this,u).critChance??0,crit=critChance&&this.random()<critChance?1.5:1;let primary=true;
+  const nativeBonus=expeditionWeaponBonuses(this,u),bonus=nativeBonus.bonuses,critChance=u.unitType==='baneling'?0:talentModifiers(this,u).critChance??0,crit=critChance&&this.random()<critChance?1.75:1;let primary=true;
   if(fireWeaponPattern(this,u,target,bonus,(victim,damage,bonuses,hits=1)=>{this.attackHit(u,victim,damage,bonuses,hits,0,primary,primary?crit:1);primary=false;},crit))return;
   if(u.unitType==='hellion'){
    const angle=Math.atan2(target.x-u.x,target.z-u.z),length=6.5*(u.eliteId==='hellion.3'?1.25:1),width=.15*(u.eliteId==='hellion.3'?1.5:1),end={x:u.x+Math.sin(angle)*length,z:u.z+Math.cos(angle)*length};
@@ -653,7 +655,7 @@ export class World extends RunState {
    else this.hit(u,u.hp+u.armor,[],1,u.owner,0,1);
   }else if(u.mode==='siege'){
    const damage=u.weaponDamage*this.enemyDamageFactor(u),scaledBonuses=bonus.map(entry=>({...entry,amount:entry.amount*this.enemyDamageFactor(u)}));
-   this.hash.query(target,3,b=>{if(b.id===u.id||b.flying||b.hp<=0)return;const r=distance(target,b),primaryHit=b.id===target.id,band=SIEGE.splash.find(s=>r<=s.radius*(u.eliteId==='tank.2'?1.25:1)+b.unitRadius*.25);if(primaryHit||band){const fraction=band?.fraction??1,scaled=scaledBonuses.map(entry=>({...entry,amount:entry.amount*fraction*(primaryHit?crit:1)}));this.hit(b,damage*fraction*(primaryHit?crit:1),scaled,1,u.owner,.5,0,u.id,false,false,0,primaryHit);if(primaryHit&&b.hp>0&&(talentModifiers(this,u).apmDuplicate??0)>0)this.hit(b,damage*crit,scaledBonuses.map(entry=>({...entry,amount:entry.amount*crit})),1,u.owner,.5,0,u.id,false,false,0,true);}});this.effect('explosion',u,target,1.25,.4);
+   this.hash.query(target,3,b=>{if(b.id===u.id||b.flying||b.hp<=0)return;const r=distance(target,b),primaryHit=b.id===target.id,band=SIEGE.splash.find(s=>r<=s.radius*(u.eliteId==='tank.2'?1.25:1)+b.unitRadius*.25);if(primaryHit||band){const fraction=band?.fraction??1,scaled=scaledBonuses.map(entry=>({...entry,amount:entry.amount*fraction*(primaryHit?crit:1)}));this.hit(b,damage*fraction*(primaryHit?crit:1),scaled,1,u.owner,.5,0,u.id,false,false,0,primaryHit);if(primaryHit&&b.hp>0&&(talentModifiers(this,u).apmDuplicate??0)>0)this.hit(b,damage*crit*1.15,scaledBonuses.map(entry=>({...entry,amount:entry.amount*crit*1.15})),1,u.owner,.5,0,u.id,false,false,0,true);}});this.effect('explosion',u,target,1.25,.4);
   }else {this.attackHit(u,target,u.weaponDamage,bonus,d.attacks,nativeBonus.shieldBonus,true,crit);
    const splash=u.heroId?HERO_SPLASH[u.heroId]:undefined;
    if(splash){
@@ -855,7 +857,7 @@ export class World extends RunState {
   if(!this.endless&&this.difficulty==='hell'&&this.expansionHives.size){this.phase='lost';this.announce('扩张虫巢尚未清除 · 战线失守');return;}
   if(!this.endless&&this.stage===18&&(!this.hive||this.hive.hp>0||!this.campaign18Runtime?.finalBossKilled||!this.allies().some(u=>hasCombatPotential(this,u)))){this.phase='lost';this.announce('未能在期限内摧毁虫巢、击杀雷兽首领并保住小队');return;}
   if(!this.endless&&this.runId){const points=talentPointsForStage(this.difficulty,this.stage);if(points)this.awardPermanentResource(this.runId+':stage:'+this.stage,points);}
-   const [m,g]=this.config.reward,f=incomeFactor(this.difficulty)*(1+.1*this.talent('bonus_income')),roundReceipt=this.endless&&this.runId?`${this.runId}:endless-round:${this.endless.round}`:null,alreadyPaid=!!roundReceipt&&this.endlessRoundReceipts.includes(roundReceipt);
+   const [m,g]=this.config.reward,f=incomeFactor(this.difficulty)*(1+.15*this.talent('bonus_income')),roundReceipt=this.endless&&this.runId?`${this.runId}:endless-round:${this.endless.round}`:null,alreadyPaid=!!roundReceipt&&this.endlessRoundReceipts.includes(roundReceipt);
    this.clearReceipt={stage:this.stage,minerals:alreadyPaid?0:m*f,gas:alreadyPaid?0:g*f};if(!alreadyPaid){this.wallet.minerals+=m*f;this.wallet.gas+=g*f;this.economyTotals.clear.minerals+=m*f;this.economyTotals.clear.gas+=g*f;if(roundReceipt)this.endlessRoundReceipts.push(roundReceipt);}
   if(!this.endless&&this.stage===18){this.phase='won';this.rewards=[];this.rewardClaimed=true;this.announce('主巢已摧毁 · 小队撤离成功');return;}
   this.phase='reward';this.rewardRound=this.endless&&this.endless.round%4!==0?'random':'building';this.rewardClaimed=false;this.rerolls=0;
@@ -865,15 +867,17 @@ export class World extends RunState {
  }
  rerollCost(){return expeditionRefreshCost(this.expedition,this.draftStage,this.rewardRound,this.draftWindowId,this.talent('reroll_fan'),this.talent('permanent_discount'))??Infinity;}
  reroll(){return this.atomicMutation(()=>refreshOffers(this));}
- choose(id:string,variantId?:EliteId){return this.atomicMutation(()=>{if(this.expedition.pendingShopElite)return false;const offer=this.rewards.find(r=>r.offerId===id),effect=offer&&'expeditionEffect' in offer?(offer as import('./progression/expedition-drafts').ExpeditionReward).expeditionEffect:null;if(effect?.kind==='elite'&&offer&&this.canChooseReward(offer)){const selected=this.resolveEliteVariant(effect.family,variantId);if(!selected)return false;if(!this.eliteOwned(selected)&&this.familyUnits(effect.family).length>=this.rosterCap){this.expedition.pendingShopElite={offerId:id,variantId:selected,revision:this.expedition.shopRevision};this.changed();return true;}}const building=this.rewardRound==='building',ok=purchaseOffer(this,id,variantId);if(ok&&building)this.finishRewardRound();return ok;});}
+ choose(id:string,variantId?:EliteId){return this.atomicMutation(()=>{if(this.expedition.pendingShopElite||this.expedition.pendingShopSupply)return false;const offer=this.rewards.find(r=>r.offerId===id),effect=offer&&'expeditionEffect' in offer?(offer as import('./progression/expedition-drafts').ExpeditionReward).expeditionEffect:null;if(effect?.kind==='supply'&&effect.mode==='direct'&&offer&&this.canChooseReward(offer)&&!this.expedition.familySlots.includes(effect.family)&&this.expedition.familySlots.length===5){this.expedition.pendingShopSupply={offerId:id,revision:this.expedition.shopRevision};this.changed();return true;}if(effect?.kind==='elite'&&offer&&this.canChooseReward(offer)){const selected=this.resolveEliteVariant(effect.family,variantId);if(!selected)return false;if(!this.eliteOwned(selected)&&this.familyUnits(effect.family).length>=this.rosterCap){this.expedition.pendingShopElite={offerId:id,variantId:selected,revision:this.expedition.shopRevision};this.changed();return true;}}const building=this.rewardRound==='building',ok=purchaseOffer(this,id,variantId);if(ok&&building)this.finishRewardRound();return ok;});}
+ cancelShopSupply(){if(!this.expedition.pendingShopSupply)return false;this.expedition.pendingShopSupply=null;this.changed();return true;}
+ confirmShopSupply(old:FamilyId){return this.atomicMutation(()=>{const p=this.expedition.pendingShopSupply;if(!p||p.revision!==this.expedition.shopRevision)return false;const ok=purchaseOffer(this,p.offerId,undefined,undefined,old);if(ok){this.expedition.pendingShopSupply=null;this.changed();}return ok;});}
  cancelShopElite(){if(!this.expedition.pendingShopElite)return false;this.expedition.pendingShopElite=null;this.changed();return true;}
  confirmShopElite(targetId:number){return this.atomicMutation(()=>{const pending=this.expedition.pendingShopElite;if(!pending||pending.revision!==this.expedition.shopRevision)return false;const ok=this.expedition.eliteContracts.some(c=>c.id===pending.offerId)?purchaseEliteContract(this,pending.offerId,pending.variantId,targetId):purchaseOffer(this,pending.offerId,pending.variantId,targetId);if(ok){this.expedition.pendingShopElite=null;this.changed();}return ok;});}
- buyEliteContract(id:string,variantId?:EliteId){return this.atomicMutation(()=>{if(this.expedition.pendingShopElite)return false;const contract=this.expedition.eliteContracts.find(c=>c.id===id);if(this.phase!=='reward'||this.rewardRound!=='random'||!contract||contract.purchased||this.expedition.eliteContractWindow!==this.draftWindowId||this.wallet.minerals<contract.minerals||this.wallet.gas<contract.gas)return false;const selected=this.resolveEliteVariant(contract.family,variantId);if(!selected)return false;if(!this.eliteOwned(selected)&&this.familyUnits(contract.family).length>=this.rosterCap){this.expedition.pendingShopElite={offerId:id,variantId:selected,revision:this.expedition.shopRevision};this.changed();return true;}return purchaseEliteContract(this,id,selected);});}
+ buyEliteContract(id:string,variantId?:EliteId){return this.atomicMutation(()=>{if(this.expedition.pendingShopElite||this.expedition.pendingShopSupply)return false;const contract=this.expedition.eliteContracts.find(c=>c.id===id);if(this.phase!=='reward'||this.rewardRound!=='random'||!contract||contract.purchased||this.expedition.eliteContractWindow!==this.draftWindowId||this.wallet.minerals<contract.minerals||this.wallet.gas<contract.gas)return false;const selected=this.resolveEliteVariant(contract.family,variantId);if(!selected)return false;if(!this.eliteOwned(selected)&&this.familyUnits(contract.family).length>=this.rosterCap){this.expedition.pendingShopElite={offerId:id,variantId:selected,revision:this.expedition.shopRevision};this.changed();return true;}return purchaseEliteContract(this,id,selected);});}
  setTacticalEvolutionPlan(family:FamilyId,targetEntityId:number,direction:TacticalDirection){return this.atomicMutation(()=>setTacticalPlan(this,family,targetEntityId,direction));}
  setTacticalEvolutionEnabled(family:FamilyId,enabled:boolean){return this.atomicMutation(()=>setTacticalEnabled(this,family,enabled));}
  previewTacticalEvolutionCancellation(family:FamilyId){return previewTacticalCancellation(this,family);}
  cancelTacticalEvolutionPlan(family:FamilyId,expectedRevision:number){return this.atomicMutation(()=>cancelTacticalPlan(this,family,expectedRevision));}
- skipReward(){if(this.phase!=='reward'||this.rewardClaimed||this.expedition.pendingShopElite)return false;return this.finishRewardRound();}
+ skipReward(){if(this.phase!=='reward'||this.rewardClaimed||this.expedition.pendingShopElite||this.expedition.pendingShopSupply)return false;return this.finishRewardRound();}
  private finishRewardRound(){if(this.rewardRound==='building'){this.expedition.developmentBought=true;this.expedition.shopRevision++;this.rewardRound='random';this.rewards=[];this.rewards=reinforcementOffers(this);this.changed();return true;}endReinforcement(this);if(this.endlessEntry){this.endlessEntry.ready=true;this.phase='endless-ready';this.rewards=[];this.changed();return true;}return this.nextStage();}
  private nextStage(){
   // Capacity can delay an original event beyond its chapter. Keep its source
@@ -884,7 +888,9 @@ export class World extends RunState {
   this.deployPendingHeroes(true);this.changed();return true;
  }
  stim(){if(this.allies().some(u=>['marine','marauder'].includes(u.unitType)&&talentTransferContains(this,u.id)))cancelTransfer(this);if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.eliteId==='marine.1'?0:u.unitType==='marauder'?20:10;if(!u.heroId&&['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
- dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power)*Math.max(.5,1-.08*this.talent('skill_recovery'));return true;}
+ dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power)*Math.max(.5,1-.10*this.talent('skill_recovery'));return true;}
+ previewStrategicStrike(point:Point){return previewStrategic(this,point);}
+ commitStrategicStrike(point:Point){return commitStrategic(this,point);}
  airlift(point:Point=defaultTalentTransferTarget(this),participantIds?:number[]){return prepareTransfer(this,point,participantIds);}
  step(){if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;this.statuses.tick(this.time);
   if(this.talentTransferPlan&&this.time+1e-8>=this.talentTransferPlan.readyAt)finishTransfer(this);

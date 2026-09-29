@@ -3,6 +3,7 @@
  * a future effect requires deliberately removing it from this table. */
 const unusedEffect='No current emission/profile or model external dependency; historical catalog-only texture';
 export const RETIRED_ASSETS:Readonly<Record<string,string>>={
+ ...Object.fromEntries(Array.from({length:17},(_,i)=>i).filter(i=>![1,2,16].includes(i)).map(i=>['fx.support.nuke.'+i,'Support impact consumes only original cloud, shockwave and glow; unused extracted layers are not emitted'])),
  'model.droppod':'F05 replaces all race carriers with barracks/hatchery/pylon; no new/load/delivery path selects the old pod',
  ...Object.fromEntries([
   'fx.blood.1','fx.blast.1','fx.blast.2','fx.blast.5','fx.blast.7','fx.acid.1',

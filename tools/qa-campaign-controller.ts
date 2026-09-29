@@ -6,15 +6,193 @@ import type {Point} from '../src/simulation/types';
 import type {ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
 const assert={ok(value:unknown){if(!value)throw Error('Public action refused');}};
 export const BUILDS:{id:string;race:Race;families:FamilyId[];actions:string[]}[]=[
- {id:'bio',race:'terran',families:['marine','marauder','reaper','viking','medivac'],actions:['barracks_lab','factory','starport','engineering_bay','stim','shield','terran.infantry']},
- {id:'siege',race:'terran',families:['marine','marauder','tank','viking','medivac'],actions:['barracks_lab','factory','factory_lab','starport','engineering_bay','stim','terran.infantry']},
- {id:'mech',race:'terran',families:['hellion','tank','thor','viking','science_vessel'],actions:['factory','factory_lab','starport','armory','science_facility','terran.vehicle']},
- {id:'swarm',race:'zerg',families:['zergling','baneling','roach','hydralisk','queen'],actions:['roach_warren','baneling_nest','lair','hatchery','hydralisk_den','evolution_chamber','zerg.carapace']},
- {id:'entrench',race:'zerg',families:['roach','ravager','hydralisk','lurker','queen'],actions:['roach_warren','lair','hatchery','hydralisk_den','lurker_den','evolution_chamber','hydra_range']},
- {id:'heavy',race:'zerg',families:['roach','ultralisk','mutalisk','corruptor','queen'],actions:['roach_warren','lair','hatchery','spire','hatchery','hive','ultralisk_cavern']},
- {id:'shield',race:'protoss',families:['zealot','stalker','sentry','immortal','colossus'],actions:['cybernetics_core','robotics','robotics_bay','forge','protoss.ground_weapon','colossus_range','protoss.shields']},
- {id:'psionic',race:'protoss',families:['zealot','stalker','sentry','high_templar','immortal'],actions:['cybernetics_core','robotics','twilight_council','templar_archives','storm','forge','protoss.ground_weapon']},
- {id:'fleet',race:'protoss',families:['zealot','sentry','phoenix','void_ray','carrier'],actions:['cybernetics_core','stargate','fleet_beacon','forge','protoss.air_weapon','protoss.shields']},
+ {
+  "id": "bio",
+  "race": "terran",
+  "families": [
+   "marine",
+   "marauder",
+   "reaper",
+   "viking",
+   "medivac"
+  ],
+  "actions": [
+   "unlock.marauder",
+   "unlock.reaper",
+   "factory",
+   "starport",
+   "unlock.medivac",
+   "unlock.viking",
+   "stim",
+   "system.barracks",
+   "research.barracks.weapon"
+  ]
+ },
+ {
+  "id": "siege",
+  "race": "terran",
+  "families": [
+   "marine",
+   "marauder",
+   "tank",
+   "viking",
+   "medivac"
+  ],
+  "actions": [
+   "unlock.marauder",
+   "factory",
+   "unlock.tank",
+   "starport",
+   "unlock.medivac",
+   "unlock.viking",
+   "system.factory",
+   "research.factory.weapon"
+  ]
+ },
+ {
+  "id": "mech",
+  "race": "terran",
+  "families": [
+   "hellion",
+   "tank",
+   "thor",
+   "viking",
+   "science_vessel"
+  ],
+  "actions": [
+   "factory",
+   "unlock.hellion",
+   "unlock.tank",
+   "starport",
+   "unlock.viking",
+   "unlock.science_vessel",
+   "unlock.thor",
+   "system.factory",
+   "research.factory.weapon"
+  ]
+ },
+ {
+  "id": "swarm",
+  "race": "zerg",
+  "families": [
+   "zergling",
+   "baneling",
+   "roach",
+   "hydralisk",
+   "queen"
+  ],
+  "actions": [
+   "unlock.queen",
+   "unlock.roach",
+   "unlock.baneling",
+   "hatchery",
+   "unlock.hydralisk",
+   "system.zerg.basic",
+   "research.zerg.basic.weapon"
+  ]
+ },
+ {
+  "id": "entrench",
+  "race": "zerg",
+  "families": [
+   "roach",
+   "ravager",
+   "hydralisk",
+   "lurker",
+   "queen"
+  ],
+  "actions": [
+   "unlock.roach",
+   "unlock.queen",
+   "hatchery",
+   "unlock.ravager",
+   "unlock.hydralisk",
+   "unlock.lurker",
+   "hydra_range"
+  ]
+ },
+ {
+  "id": "heavy",
+  "race": "zerg",
+  "families": [
+   "roach",
+   "ultralisk",
+   "mutalisk",
+   "corruptor",
+   "queen"
+  ],
+  "actions": [
+   "unlock.roach",
+   "unlock.queen",
+   "hatchery",
+   "unlock.mutalisk",
+   "unlock.corruptor",
+   "hatchery",
+   "unlock.ultralisk"
+  ]
+ },
+ {
+  "id": "shield",
+  "race": "protoss",
+  "families": [
+   "zealot",
+   "stalker",
+   "sentry",
+   "immortal",
+   "colossus"
+  ],
+  "actions": [
+   "unlock.stalker",
+   "unlock.sentry",
+   "robotics",
+   "unlock.immortal",
+   "unlock.colossus",
+   "colossus_range",
+   "system.robotics",
+   "research.robotics.weapon"
+  ]
+ },
+ {
+  "id": "psionic",
+  "race": "protoss",
+  "families": [
+   "zealot",
+   "stalker",
+   "sentry",
+   "high_templar",
+   "immortal"
+  ],
+  "actions": [
+   "unlock.stalker",
+   "unlock.sentry",
+   "unlock.high_templar",
+   "storm",
+   "robotics",
+   "unlock.immortal",
+   "system.gateway",
+   "research.gateway.weapon"
+  ]
+ },
+ {
+  "id": "fleet",
+  "race": "protoss",
+  "families": [
+   "zealot",
+   "sentry",
+   "phoenix",
+   "void_ray",
+   "carrier"
+  ],
+  "actions": [
+   "unlock.sentry",
+   "stargate",
+   "unlock.phoenix",
+   "unlock.void_ray",
+   "unlock.carrier",
+   "system.stargate",
+   "research.stargate.weapon"
+  ]
+ }
 ];
 const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 const round=(n:number)=>Math.round(n*100)/100;
@@ -29,7 +207,7 @@ export function createCampaignController(w:World,build:typeof BUILDS[number],onC
  const save=()=>onCheckpoint?.();
  const count=(f:FamilyId)=>w.familyUnits(f).length+s.ledger.filter(j=>j.family===f).reduce((n,j)=>n+j.passengers.filter(p=>p.status==='waiting').reduce((sum,p)=>sum+passengerReservation(p,w),0),0);
  function configure(){
-  if(w.phase==='reward'&&build.race==='zerg'&&s.tech.lair)s.facilities.slice(1).forEach((f,i)=>w.assignHatcherySequence(f.id,build.id==='heavy'&&i===1?'zerg.air':'zerg.evolution'));
+  if(w.phase==='reward'&&build.race==='zerg')s.facilities.slice(1).forEach((f,i)=>w.assignHatcherySequence(f.id,build.id==='heavy'&&i===0?'zerg.air':'zerg.evolution'));
   // Retain starter production until the intended replacement can actually be trained.
   const starter:FamilyId=build.race==='terran'?'marine':build.race==='zerg'?'zergling':'zealot';
   const pool=[...new Set([...build.families,...(w.allies().length<4||!build.families.some(f=>!['queen','medivac','science_vessel','sentry'].includes(f)&&w.isFamilyAvailable(f))?[starter]:[])])];

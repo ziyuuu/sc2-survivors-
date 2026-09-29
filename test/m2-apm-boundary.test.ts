@@ -21,7 +21,7 @@ test('M07 Lurker spike line persists one direct duplicate for its original visib
  const restored=world('zerg');restored.restoreRun(snapshot);restored.paused=false;
  for(let i=0;i<60;i++){restored.time+=1/60;tickWeaponAreas(restored);}
  const a=restored.entities.get(primary.id)!,b=restored.entities.get(secondary.id)!;
- near(1000-a.hp,2*(1000-b.hp));assert.equal(restored.expedition.weaponAreas.length,0);
+ near(1000-a.hp,2.15*(1000-b.hp));assert.equal(restored.expedition.weaponAreas.length,0);
 });
 
 test('M07 Colossus adds one direct package for the whole two-sweep cycle, never another line',()=>{
@@ -29,7 +29,7 @@ test('M07 Colossus adds one direct package for the whole two-sweep cycle, never 
  const colossus=w.addUnit('colossus','terran',0,0),primary=durable(w.addUnit('roach','zerg',5,0)),secondary=durable(w.addUnit('roach','zerg',5,.2));
  w.fire(colossus,primary);assert.equal(w.expedition.weaponAreas.length,2);
  for(let i=0;i<60;i++){w.time+=1/60;tickWeaponAreas(w);}
- near(1000-primary.hp,2*(1000-secondary.hp));assert.equal(w.expedition.weaponAreas.length,0);
+ near(1000-primary.hp,2.15*(1000-secondary.hp));assert.equal(w.expedition.weaponAreas.length,0);
 });
 
 test('M07 multi-barrel and interceptor attacks append one armor-resolved direct package',()=>{
@@ -37,7 +37,7 @@ test('M07 multi-barrel and interceptor attacks append one armor-resolved direct 
  const carrier=w.addUnit('carrier','terran',0,0);initializeCarrierSubsystem(w);const child=ownedInterceptors(w,carrier.id)[0];
  const target=durable(w.addUnit('roach','zerg',1,0));target.armor=1;
  assert.equal(fireInterceptor(w,child,target),true);
- near(1000-target.hp,(child.weaponDamage-1)*2+(child.weaponDamage*2-1));
+ near(1000-target.hp,(child.weaponDamage-1)*2+(child.weaponDamage*2*1.15-1));
  assert.equal(w.stats.shots,1);
 });
 

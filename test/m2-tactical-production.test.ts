@@ -9,10 +9,10 @@ function setup(){const profile=new PermanentProfile(59),levels=Object.fromEntrie
  const units=Array.from({length:7},(_,i)=>w.addUnit('marine','terran',i*2,0,7));w.wallet={minerals:5000,gas:0};w.phase='reward';assert.equal(w.setTacticalEvolutionPlan('marine',units[0].id,'assault'),true);w.phase='battle';return {w,target:units[0]};}
 function payAndDeliver(w:World){updateExpeditionProduction(w,0,true);const job=w.expedition.ledger.at(-1)!;assert.equal(job.state,'training');assert.equal(job.passengers.length,1);assert.equal(job.passengers[0].purpose,'tacticalProgress');assert.equal(job.passengers[0].paid.minerals,50);
  updateExpeditionProduction(w,100,false);const pod=w.pods.find(p=>p.jobId===job.id)!;assert.ok(pod);const delivered=releasePaidPassenger(w,pod,0,{x:5,z:5});assert.ok(delivered);assert.equal(job.state,'settled');return job;}
-test('S16 pays for seven final bodies through the existing ledger and grants one tier without adding an eighth soldier',()=>{
+test('S16 pays for five final bodies through the existing ledger and grants one tier without adding an eighth soldier',()=>{
  const {w,target}=setup(),before=w.wallet.minerals,baseDamage=target.weaponDamage;
- for(let i=0;i<7;i++){payAndDeliver(w);assert.equal(w.familyUnits('marine').length,7);assert.equal(w.expedition.tacticalPlans.marine?.bank,(i+1)%7);}
- assert.equal(w.wallet.minerals,before-350);assert.equal(target.tacticalTier,1);assert.equal(target.tacticalDirection,'assault');assert.ok(target.weaponDamage>baseDamage);
+ for(let i=0;i<5;i++){payAndDeliver(w);assert.equal(w.familyUnits('marine').length,7);assert.equal(w.expedition.tacticalPlans.marine?.bank,(i+1)%5);}
+ assert.equal(w.wallet.minerals,before-250);assert.equal(target.tacticalTier,1);assert.equal(target.tacticalDirection,'assault');assert.ok(target.weaponDamage>baseDamage);
  const snapshot=w.captureRun(),copy=new World({race:'terran',waves:false,sandbox:true,terrain:false,obstacles:[],seed:90});copy.restoreRun(snapshot);
  assert.equal(copy.entities.get(target.id)?.tacticalTier,1);assert.equal(copy.expedition.tacticalPlans.marine?.bank,0);
 });

@@ -23,6 +23,7 @@ const requireModel=(key,reason)=>{
   useIfPresent(`model.${key}${suffix}`,`${reason}: ${suffix.slice(1)} action`);
 };
 
+requireAsset('model.support.mine','Terran support card persistent Spider Mine');
 for(const key of ['scv','drone','probe','barracks','hatchery','pylon','pylon.birth'])requireAsset(`model.${key}`,'F05 required authentic worker/carrier');
 
 // New-run, enemy, summon, three-race hero and elite paths are all reachable.

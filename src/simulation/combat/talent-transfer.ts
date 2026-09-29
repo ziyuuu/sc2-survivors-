@@ -50,5 +50,5 @@ export function finishTalentTransfer(w:World){const plan=w.talentTransferPlan;if
  const alive=plan.participants.filter(item=>{const unit=w.entities.get(item.id);return !!unit&&unit.hp>0&&unit.bornAt===item.generation;}).map(item=>item.id);
  const preview=previewFor(w,plan.origin,plan.direction,plan.target,alive,false);if(!preview.ok){cancelTalentTransfer(w);return false;}
  for(const item of preview.positions){const unit=w.entities.get(item.id)!;unit.x=item.x;unit.z=item.z;unit.prev={x:item.x,z:item.z};unit.velocity={x:0,z:0};}
- w.talentTransferPlan=null;w.airliftReady=w.time+(w.talent('airlift')===1?240:120)*Math.max(.5,1-.08*w.talent('skill_recovery'));w.announce('小队转移完成');w.changed();return true;
+ w.talentTransferPlan=null;w.airliftReady=w.time+(w.talent('airlift')===1?180:90)*Math.max(.5,1-.1*w.talent('skill_recovery'));w.announce('小队转移完成');w.changed();return true;
 }

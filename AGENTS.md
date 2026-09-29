@@ -1,3 +1,7 @@
+# Latest approved iteration · 2026-09-29
+
+- docs/project/SHARED_TECH_CARDS_20260929.md is the approved implementation contract: shared nine-line unlocks and six attack/defense levels; team cards; talents retain165 nodes/prices/80 points with specified boosts; mobile portrait/landscape allowed. Run schema12; no developer-save compatibility. Implemented; actual tests, distribution hashes, economic and browser limits are in docs/project/SHARED_TECH_VALIDATION_20260929.md. Never mark M6/M7 or human visual acceptance complete from this patch.
+
 # Development contract · V26
 
 ## Latest approved recovery repair · 2026-09-29

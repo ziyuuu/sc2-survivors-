@@ -12,6 +12,7 @@ try{targets.push(...JSON.parse(fs.readFileSync(new URL('./m5-air-icon-dependenci
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./m3-fort-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./f05-rescue-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./closeout-building-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
+try{targets.push(...JSON.parse(fs.readFileSync(new URL('./shop-support-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 const mapRecords=JSON.parse(fs.readFileSync(new URL('./map-dependencies.json',import.meta.url),'utf8')).filter(r=>r.verifiedCascBuild).map(r=>({...r,file:r.installFile,version:lock.version,buildConfig:lock.buildConfig}));
 /** Attribute cached bytes to CASC only when they match the pinned original content hash. */
 export function cascProvenance(file,bytes){
