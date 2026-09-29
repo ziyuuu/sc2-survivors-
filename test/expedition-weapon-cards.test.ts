@@ -16,6 +16,6 @@ test('undeployed Lurker and Carrier have weapon-card eligibility while pure heal
 });
 test('a map weapon card can improve Lurker once without changing its deployment mode',()=>{
  const w=world(),s=w.expedition!;s.familySlots=['lurker'];w.entities.clear();const u=w.addUnit('lurker','terran',0,0);s.cardTotals['vitality.lurker']=.5;
- const offer=mapReinforcement(w);assert.ok(offer);assert.equal(offer.expeditionEffect.kind,'card');assert.equal(offer.id,'map.weapon.lurker');
+ let offer:ReturnType<typeof mapReinforcement>=null;for(let i=0;i<100;i++){let rolls=[.96,i/100];w.random=()=>rolls.shift()??0;const candidate=mapReinforcement(w);if(candidate?.id==='card.weapon.lurker.blue'){offer=candidate;break;}}assert.ok(offer);assert.equal(offer.expeditionEffect.kind,'card');assert.equal(offer.id,'card.weapon.lurker.blue');
  const mode=u.nativeMode;assert.equal(collectMapReinforcement(w,offer),true);assert.equal(collectMapReinforcement(w,offer),false);assert.equal(s.cardTotals['weapon.lurker'],.08);assert.equal(u.nativeMode,mode);
 });

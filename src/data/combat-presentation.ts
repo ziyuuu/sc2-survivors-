@@ -31,7 +31,7 @@ export interface AttackPresentation {asset:string;impact:string;tint:number;size
 const HERO_ATTACKS:Record<HeroId,AttackPresentation>={
  raynor:{asset:'fx.flame.1',impact:'fx.flameimpact.0',tint:0xff9b38,size:.62,impactSize:.58,life:.10},
  tychus:{asset:'fx.muzzle.0',impact:'fx.flameimpact.0',tint:0xffb169,size:.43,impactSize:.57,life:.15},
- nova:{asset:'fx.muzzle.1',impact:'fx.impact.0',tint:0xaeefff,size:.38,impactSize:.5,life:.14},
+ nova:{asset:'fx.muzzle.1',impact:'fx.impact.0',tint:0x72ffd4,size:.38,impactSize:.5,life:.14},
  swann:{asset:'fx.blast.6',impact:'fx.impact.0',tint:0xffdd96,size:.48,impactSize:.57,life:.17},
  tosh:{asset:'fx.muzzle.0',impact:'fx.blast.3',tint:0xff8d69,size:.43,impactSize:.62,life:.18},
  yamato_battlecruiser:{asset:'fx.blast.6',impact:'fx.blast.3',tint:0xffe4a4,size:.75,impactSize:1.25,life:.2},

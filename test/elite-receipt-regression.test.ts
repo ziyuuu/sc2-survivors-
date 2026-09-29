@@ -31,7 +31,7 @@ test('a HUD notification requesting the same unloaded elite shares one pending l
 
 test('M1 map reinforcement commits its drop before UI and save listeners run',()=>{
  const w=new World({sandbox:true,waves:false,obstacles:[],race:'terran'});w.start();
- const reward=mapReinforcement(w);assert.ok(reward);
+ w.random=()=>0;const reward=mapReinforcement(w);assert.ok(reward);
  w.rewardDrops.push({id:900001,x:0,z:0,reward});
  let snapshot:ReturnType<World['captureRun']>|undefined,notifications=0;
  w.listeners.add(()=>{

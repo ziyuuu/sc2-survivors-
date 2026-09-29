@@ -42,6 +42,8 @@ export function validateRunData(data:RunData,defaults:object){
  // Saved: pair identity/rank/regrowth tick, queen cooldown, per-carrier injection receipt.
  // Rebuilt: console selection/pages and engagement positions. No view objects in these DTOs.
  for(const u of data.entities.values()){
+  const r=u.enemyRoute;
+  if(r&&(u.team!=='enemy'||typeof r.map!=='string'||!Array.isArray(r.points)||r.points.length<1||r.points.length>3||![...r.points,r.lastPosition,...(r.lastVisible?[r.lastVisible]:[])].every(p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.z))||!Number.isSafeInteger(r.index)||r.index<0||r.index>=r.points.length||!Number.isFinite(r.checkAt)||!Number.isSafeInteger(r.stalled)||r.stalled<0))throw Error('敌军巡逻状态无效');
   if(u.injectReady!==undefined&&(!Number.isFinite(u.injectReady)||u.injectReady<0||u.unitType!=='queen'))throw Error('注卵冷却无效');
   if(u.pairId!==undefined&&u.hp>0){const p=data.expedition.zerglingPairs.find(p=>p.id===u.pairId);if(u.unitType!=='zergling'||u.team!=='player'||u.temporary||!p||!p.members.includes(u.id)||u.hp>0&&(u.rank!==p.rank||u.eliteId!==p.eliteId))throw Error('双生编制无效');}
  }

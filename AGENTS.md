@@ -1,5 +1,12 @@
 # Development contract · V26
 
+## Latest approved recovery repair · 2026-09-29
+
+- `docs/project/RECOVERY_PATCH_20260929.md` overrides family elite-path locking, map chapter quotas, detection20s, Nova single-target and older carrier HP. Three variants coexist, one seat/group each (paired zerglings remain two bodies); automatic conversion samples unowned legal variants. Map loot2%/8%/40% uses original conditional qualities, Boss80%purple/20%orange; no chapter cap or added pity.
+- Detection10s; Nova650/9s/.35s locked line12×1, ground/air biological/mechanical, no buildings. Reaper basic particles only, no damage change. Carrier HP7–9/10–15/16–18=3600/4800/6000; endless7200+1200 per two rounds. Birth-only values, guardian counts/armor unchanged.
+- Run schema11 saves enemy routes, delivery retry rights and physical loot receipts. Safe carrier footprint/ring/reservations; no-target enemies patrol distinct static routes rather than world origin. No developer-save compatibility. Cleanup explicitly authorized this round: only individually audited unreferenced build objects, preserve source/runtime resources. Actual evidence belongs to RECOVERY_VALIDATION_20260929.md; M6/M7/human acceptance remain open.
+
+
 ## Latest approved twin-roster iteration · 2026-09-28
 
 - `docs/project/TWIN_SWARM_SC2_HUD_20260928.md` overrides older body-count and unboosted-stat wording: player combat basic/bonus damage, max HP/native shields, movement and armor ×1.15, attack period ÷1.15; exclude workers/structures/delivery carriers and unchanged skill/heal amounts.

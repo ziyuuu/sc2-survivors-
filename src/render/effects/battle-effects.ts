@@ -44,6 +44,13 @@ export class BattleEffects {
  trace(e:VisualEvent,from:{x:number;y:number;z:number},asset:string,tint:number,width:number){
   this.emit({asset,...from,to:{...e.end,y:e.endY},vx:0,vy:0,vz:0,start:e.time,life:.085,size:width,growth:0,color:tint,ground:false,angle:0,priority:'core'});
  }
+ bulletParticles(e:VisualEvent,from:{x:number;y:number;z:number},tint:number,nova=false){
+  const count=nova?7:4;
+  for(let i=0;i<count;i++){
+   const t=(i+.5)/count,dx=e.end.x-from.x,dy=e.endY-from.y,dz=e.end.z-from.z;
+   this.emit({asset:'fx.muzzle.1',x:from.x+dx*t,y:from.y+dy*t,z:from.z+dz*t,vx:0,vy:0,vz:0,start:e.time,life:nova?.09:.06,size:nova?.1:.065,growth:0,color:tint,ground:false,angle:e.facing,priority:'trail'});
+  }
+ }
  event(e:VisualEvent,mount:{x:number;y:number;z:number}|null=null,leftMount:{x:number;y:number;z:number}|null=null){
   if(e.kind==='shield-hit'||e.kind==='shield-break')this.burst(e,'fx.impact.0',e.kind==='shield-break'?5:2,e.kind==='shield-break'?.5:.28,0x69baff,.24);
   else if(e.kind==='queen-inject'){this.burst(e,'fx.impact.0',2,.35,0xaedb54,.5);this.burst({...e,x:e.end.x,z:e.end.z},'fx.impact.0',3,.7,0xaedb54,.65);}
@@ -53,6 +60,7 @@ export class BattleEffects {
   else if(e.kind==='baneling-recover')this.burst(e,'fx.baneling.0',5,.92,0xb4ef6b,.48);
   else if(e.kind==='barrier-start')this.burst(e,'fx.impact.0',3,.47,0x9ce9ff,.27);
   else if(e.kind==='storm-start')this.burst({...e,...e.end,y:e.endY},'fx.muzzle.1',2,.6,0xc8e0ff,.3);
+  else if(e.kind==='skill-line'&&e.heroId==='nova'){this.trace(e,mount??{x:e.x,y:e.y+.5,z:e.z},'fx.muzzle.1',0x9ffff0,.28);}
   else if(e.kind==='skill-launch'){const profile=e.heroId?heroSkillPresentation(e.heroId):attackPresentation(e);if(profile)this.burst({...e,...(mount??{})},profile.asset,1,profile.size,profile.tint,.12,false,'core',profile.neutralize);}
   else if(e.kind==='skill-impact'){const profile=e.heroId?heroSkillPresentation(e.heroId):attackPresentation(e);if(profile){const impact={...e,...e.end,y:e.endY};this.burst(impact,profile.impact,1,profile.impactSize,profile.tint,Math.max(.18,profile.life),false,'core');this.burst(impact,profile.impact,2,profile.impactSize*.45,profile.tint,profile.life);}}
   else if(e.kind==='skill-dot'){this.burst({...e,...e.end,y:e.endY},e.heroId==='tychus'?'fx.flame.1':'fx.bile.4',1,.32,e.heroId==='tychus'?0xffa35a:0xbad984,.2);}
@@ -61,10 +69,11 @@ export class BattleEffects {
   else if(e.kind==='egg-expired'||e.kind==='drone-death')this.burst(e,'fx.blood.0',3,1,0x9cbd66,.65);
   else if(e.kind==='attack'){this.stats.attack++;if(!e.heroId&&(e.unitType==='zergling'||e.unitType==='baneling'))return;const muzzle={...e,...(mount??{x:e.x+Math.sin(e.facing)*.6,y:.8,z:e.z+Math.cos(e.facing)*.6})},profile=attackPresentation(e);
    if(profile){this.burst(muzzle,profile.asset,1,profile.size,profile.tint,profile.life,false,'core');this.burst({...e,...e.end,y:e.endY},profile.impact,1,profile.impactSize,profile.tint,profile.life,false,'core');if(e.heroId&&HEROES[e.heroId].range<=2)this.emit({asset:profile.asset,x:e.end.x,y:e.endY,z:e.end.z,vx:0,vy:0,vz:0,start:e.time,life:.12,size:profile.impactSize*.65,growth:.3,color:profile.tint,ground:false,angle:-e.facing,aspect:2.4,priority:'trail'});}
-   if(e.heroId){if(HEROES[e.heroId].range>2&&profile){const fire=['raynor','tychus','swann'].includes(e.heroId),acid=['zagara','stukov','hots_leviathan'].includes(e.heroId);this.trace(e,muzzle,fire?'fx.flame.1':acid?'fx.bile.0':'fx.muzzle.1',profile.tint,e.heroId==='raynor'?.24:e.heroId==='nova'?.12:e.flying?.3:.17);}return;}
+   if(e.heroId==='nova'){this.bulletParticles(e,muzzle,0x72ffd4,true);return;}
+   if(e.heroId){if(HEROES[e.heroId].range>2&&profile){const fire=['raynor','tychus','swann'].includes(e.heroId),acid=['zagara','stukov','hots_leviathan'].includes(e.heroId);this.trace(e,muzzle,fire?'fx.flame.1':acid?'fx.bile.0':'fx.muzzle.1',profile.tint,e.heroId==='raynor'?.24:e.flying?.3:.17);}return;}
    if(e.unitType==='reaper'){
-    this.trace(e,muzzle,'fx.muzzle.0',0xffb859,.065);
-    if(leftMount){this.burst({...e,...leftMount},'fx.muzzle.0',1,.32,0xffbd62,.1,false,'core');this.trace(e,leftMount,'fx.muzzle.0',0xffb859,.065);}
+    this.bulletParticles(e,muzzle,0xffb859);
+    if(leftMount){this.burst({...e,...leftMount},'fx.muzzle.0',1,.32,0xffbd62,.1,false,'core');this.bulletParticles(e,leftMount,0xffb859);}
     return;
    }
    if(e.unitType==='hellion'){

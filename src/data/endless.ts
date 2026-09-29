@@ -20,9 +20,9 @@ export const ENDLESS_ENTRANCES=[{x:0,z:-70},{x:49.5,z:-49.5},{x:70,z:0},{x:49.5,
 export const ENDLESS_MIX:Readonly<Campaign18Counts>=Object.freeze({zergling:20,baneling:10,roach:20,ravager:15,hydralisk:15,queen:0,lurker:10,mutalisk:5,corruptor:0,ultralisk:5});
 export interface EndlessConfig extends Omit<Campaign18StageConfig,'campaignId'> {endlessId:typeof ENDLESS_MAP_ID}
 const pressure:Record<Difficulty,number>={easy:.5,normal:.9,hard:.9*1.4,hell:.9*1.8};
-export function endlessConfig(difficulty:Difficulty):EndlessConfig {
+export function endlessConfig(difficulty:Difficulty,round=1):EndlessConfig {
  const budget=Math.floor(ENDLESS.waveTemplateThreat*pressure[difficulty]+.5),ambient=allocateCampaign18Threat(budget,ENDLESS_MIX).counts;
- return {endlessId:ENDLESS_MAP_ID,difficulty,id:18,chapter:6,name:'无尽战场',durationSeconds:ENDLESS.roundDuration,budget,waveBudget:budget,mix:{...ENDLESS_MIX},reserves:{captain:0,boss:0,mainHive:0,expansionHive:0},ambient,guardBudget:0,guards:allocateCampaign18Threat(0,ENDLESS_MIX).counts,waves:15,entranceSpacing:.1,lingHp:35,speed:1,width:160,podHp:600,reward:ENDLESS.roundReward,drones:4,eggs:2};
+ return {endlessId:ENDLESS_MAP_ID,difficulty,id:18,chapter:6,name:'无尽战场',durationSeconds:ENDLESS.roundDuration,budget,waveBudget:budget,mix:{...ENDLESS_MIX},reserves:{captain:0,boss:0,mainHive:0,expansionHive:0},ambient,guardBudget:0,guards:allocateCampaign18Threat(0,ENDLESS_MIX).counts,waves:15,entranceSpacing:.1,lingHp:35,speed:1,width:160,podHp:7200+1200*Math.floor((round-1)/2),reward:ENDLESS.roundReward,drones:4,eggs:2};
 }
 function fullEndlessWaveTemplate(seed:number,round:number,difficulty:Difficulty):Campaign18Wave[]{
  const config=endlessConfig(difficulty),waves:Array<Campaign18Wave>=Array.from({length:15},(_,i)=>({at:i*16,types:[],bearing:Math.atan2(ENDLESS_ENTRANCES[(i+round+seed)%8].x,ENDLESS_ENTRANCES[(i+round+seed)%8].z)}));

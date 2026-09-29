@@ -55,7 +55,7 @@ function validEnemy(w:World,id:HeroId,source:Entity,target:Body):boolean{
  if(target.owner!=='zerg'||target.hp<=0||!visible(w,target)||w.edgeDistance(source,target)>HEROES[id].skillRange||!w.hasAttackLine(source,target))return false;
  if(['dehaka','zeratul','zagara'].includes(id)&&(target.flying||target.attributes.includes('Structure')))return false;
  if(id==='vorazun'&&target.attributes.includes('Structure'))return false;
- return id!=='nova'||target.attributes.includes('Biological')&&!target.attributes.includes('Structure');
+ return id!=='nova'||!target.attributes.includes('Structure');
 }
 function alliesFor(w:World,id:HeroId,source:Entity):Entity[]{
  return w.allies().filter(ally=>{
@@ -127,7 +127,7 @@ export function resolveExpeditionHeroCasts(w:World):void{
  for(const cast of w.heroCasts as ExtendedCast[]){
   if(cancelledChannels.has(cast.id))continue;
   const source=w.entities.get(cast.source),target=w.body(cast.target),data=HEROES[cast.hero];
-  if(cast.phase!=='dot'&&!cast.launched&&source&&source.hp>0&&w.time+1e-8>=cast.at-(HERO_SKILL_FLIGHT[cast.hero]??data.delay)){
+  if(cast.phase!=='dot'&&!cast.launched&&source&&source.hp>0&&w.time+1e-8>=cast.at-(cast.hero==='nova'?0:HERO_SKILL_FLIGHT[cast.hero]??data.delay)){
    // Save only the launch presentation anchor. The authored damage path keeps cast.origin.
    cast.presentationLaunch??={x:source.x,z:source.z,facing:Math.atan2(cast.point.x-source.x,cast.point.z-source.z),poseSeconds:Math.max(0,w.time-(source.lastSkillAt??w.time))};
    w.visual('skill-launch',source,cast.point,cast.id,cast.presentationLaunch);cast.launched=true;
@@ -145,6 +145,19 @@ export function resolveExpeditionHeroCasts(w:World):void{
   if(cast.phase==='channel'&&(!source||source.hp<=0||!target||target.hp<=0||w.edgeDistance(source,target)>data.skillRange||!target.attributes.includes('Mechanical'))){cancelledChannels.add(cast.id);continue;}
   if(cast.at>w.time+1e-8){pending.push(cast);continue;}
   if(cast.phase==='dot'){if(target&&target.hp>0){w.hit(target,cast.damage,[],1,'terran',0,1,cast.source);if(source)w.visual('skill-dot',source,target,cast.id);}continue;}
+  if(cast.hero==='nova'){
+   if(!source||source.hp<=0)continue;
+   const angle=Math.atan2(cast.point.x-cast.origin.x,cast.point.z-cast.origin.z),sin=Math.sin(angle),cos=Math.cos(angle),seen=new Set<number>();
+   const end={x:cast.origin.x+sin*data.length,z:cast.origin.z+cos*data.length};
+   w.hash.query(cast.origin,data.length+3,body=>{
+    if(body.hp<=0||body.owner!=='zerg'||body.attributes.includes('Structure')||seen.has(body.id))return;
+    const dx=body.x-cast.origin.x,dz=body.z-cast.origin.z,along=dx*sin+dz*cos,side=Math.abs(dx*cos-dz*sin);
+    if(along<0||along>data.length+body.unitRadius||side>data.width/2+body.unitRadius||w.terrain&&!w.terrain.lineOfFire(cast.origin,body,false,body.flying))return;
+    seen.add(body.id);w.hit(body,cast.damage,[],1,'terran',0,1,source.id);slow(w,body,.35,2);w.visual('skill-impact',source,body,cast.id);
+   },'zerg');
+   // One instant line event follows the completed windup. It carries the saved launch direction.
+   w.visual('skill-line',source,end,cast.id,{...cast.origin,facing:angle,poseSeconds:data.delay});continue;
+  }
   if(cast.hero==='yamato_battlecruiser'){
    const main=target&&target.hp>0&&distance(target,cast.point)<=target.unitRadius+.5?target:null;
    if(main)w.hit(main,cast.damage,[],1,'terran',0,1,cast.source);
@@ -165,10 +178,9 @@ export function resolveExpeditionHeroCasts(w:World):void{
     else{ally.shield=Math.min(ally.maxShield??0,(ally.shield??0)+cast.damage);w.effect('heal',source,ally,.45,.5);w.visual('skill-impact',source,ally,cast.id);}
    }continue;
   }
-  if(cast.hero==='nova'||cast.hero==='zeratul'||cast.hero==='dehaka'){
+  if(cast.hero==='zeratul'||cast.hero==='dehaka'){
    if(source.hp>0&&target&&validEnemy(w,cast.hero,source,target)){
     const before=target.hp;w.hit(target,cast.damage,[],1,'terran',0,1,source.id);w.effect('hero-line',source,target,.14,.2);w.visual('skill-impact',source,target,cast.id);
-    if(cast.hero==='nova'&&target.hp>0)slow(w,target,.35,2);
     if(cast.hero==='dehaka')restoreHealth(w,source,source,Math.min(150*heroStats(source.rank).skill,Math.max(0,before-target.hp)*.35));
     if(cast.hero==='zeratul'){
      const extra:Body[]=[];w.hash.query(target,1.2+3,body=>{if(body.id!==target.id&&body.owner==='zerg'&&body.hp>0&&!body.flying&&!body.attributes.includes('Structure')&&distance(body,target)<=1.2+body.unitRadius&&(!w.terrain||w.terrain.lineOfFire(target,body,false,false)))extra.push(body);},'zerg');

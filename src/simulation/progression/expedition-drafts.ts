@@ -4,7 +4,7 @@ import {DISCOUNTS} from '../../data/economy';
 import {SOURCE_PRODUCTION_RECIPES} from '../../data/expansion-units';
 import {CAMPAIGN_SCIENCE_VESSEL_RECIPE} from '../../data/campaign-science-vessel';
 import {buildRouteMatches} from '../../data/build-card-routes';
-import type {Rarity} from '../../data/rewards';
+import {rollRarity,type Rarity} from '../../data/rewards';
 import type {Reward} from '../types';
 import type {ExpeditionState} from '../expedition-state';
 
@@ -17,7 +17,7 @@ export type ExpeditionOfferEffect=
  | {kind:'elite';eliteId:string;family:FamilyId}
  | {kind:'resource';minerals:number;gas:number;fallback:boolean;fallbackReason?:'guarantee'|'pool-exhausted'};
 /** Extra fields are plain DTOs and can be stored with the existing World.rewards array. */
-export interface ExpeditionReward extends Reward {expeditionWindow:number;expeditionRound:ExpeditionDraftRound;expeditionEffect:ExpeditionOfferEffect;talentLootReceipt?:string;purchaseReceipt?:{minerals:number;gas:number;freeSource:'R07'|'R09'|null}}
+export interface ExpeditionReward extends Reward {mapSource?:boolean;expeditionWindow:number;expeditionRound:ExpeditionDraftRound;expeditionEffect:ExpeditionOfferEffect;talentLootReceipt?:string;purchaseReceipt?:{minerals:number;gas:number;freeSource:'R07'|'R09'|null}}
 export interface ExpeditionFamilyDraftInfo {
  name?:string;icon?:string;alive:number;canAttack:boolean;canSupport:boolean;usesEnergy:boolean;
  /** Free ordinary rank capacity after all paid deliveries and inheritance reservations. */
@@ -227,6 +227,13 @@ function shopPrice(c:Candidate){
  }
  if(effect.kind==='resource'){const costs:Record<string,[number,number]>={minerals:[25,0],gas:[25,0],salvage:[50,0],supply:[75,25]};const [minerals,gas]=costs[c.value]??[25,0];return {minerals,gas};}
  const [minerals,gas]=[[50,0],[90,20],[150,50],[225,90],[325,140]][tierIndex(c.rarity)];return {minerals,gas};
+}
+/** Physical map loot keeps the legacy quality roll, without shop weighting or chapter quotas. */
+export function drawMapLoot(ctx:ExpeditionDraftContext,elite=false):ExpeditionReward|null {
+ const rarity=rollRarity(ctx.random,elite?'elite':true),pool=reinforcementPool(ctx).filter(c=>c.rarity===rarity);
+ if(!pool.length)return null;
+ const c=pool[Math.floor(ctx.random()*pool.length)],reward=quote(ctx,c,'random'),base=shopPrice(c);
+ return {...reward,mapSource:true,baseMinerals:base.minerals,baseGas:base.gas};
 }
 /** Boss units use the old single purple elite / orange hero route, never the paid shop. */
 export function drawBossLoot(ctx:ExpeditionDraftContext,receipt:string,fixedRarity?:'purple'|'orange'):ExpeditionReward {

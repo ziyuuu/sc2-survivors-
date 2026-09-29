@@ -19,11 +19,11 @@ test('M4 template lift and three-way expansion families have exact approved effe
  assert.equal(EXPANSION_ELITES['viking.2'].effect.amount,1.25);assert.equal(EXPANSION_ELITES['ravager.2'].effect.amount,1.2);assert.equal(EXPANSION_ELITES['high_templar.3'].effect.amount,1.2);
 });
 
-test('elite family choice spends once, rejects implicit or cross-family selections, then locks the chosen path',()=>{
+test('elite family choice spends once, rejects implicit or cross-family selections, and keeps other variants available',()=>{
  const w=make('terran');w.expedition.familySlots.push('viking');w.expedition.tech.starport=1;const v=w.addUnit('viking','terran',1,0);w.refreshStats(v);
  assert.deepEqual(w.eliteVariants('viking').map(e=>e.id),['viking.1','viking.2','viking.3']);assert.equal(w.resolveEliteVariant('viking'),null);assert.equal(w.resolveEliteVariant('viking','ravager.2'),null);
- assert.equal(w.resolveEliteVariant('viking','viking.2'),'viking.2');assert.equal(w.acquireElite('viking.2'),true);assert.deepEqual(w.eliteVariants('viking').map(e=>e.id),['viking.2']);
- const copy=make('terran');copy.restoreRun(w.captureRun());assert.equal(copy.expedition.elitePaths.viking,'viking.2');assert.deepEqual(copy.eliteVariants('viking').map(e=>e.id),['viking.2']);
+ assert.equal(w.resolveEliteVariant('viking','viking.2'),'viking.2');assert.equal(w.acquireElite('viking.2'),true);assert.deepEqual(w.eliteVariants('viking').map(e=>e.id),['viking.1','viking.2','viking.3']);
+ const copy=make('terran');copy.restoreRun(w.captureRun());assert.equal(copy.eliteOwned('viking.2')?.rank,1);assert.deepEqual(copy.eliteVariants('viking').map(e=>e.id),['viking.1','viking.2','viking.3']);
 });
 
 test('three highlighted new variants apply only their approved target, radius, or storm conditions',()=>{

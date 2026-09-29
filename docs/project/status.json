@@ -1931,5 +1931,16 @@
       "physical devices, user visual and MVP acceptance",
       "Coze account deployment; business backend/admin deferred"
     ]
+  },
+  "recovery20260929": {
+    "design": "docs/project/RECOVERY_PATCH_20260929.md",
+    "evidence": "docs/project/RECOVERY_VALIDATION_20260929.md",
+    "rulesTests": 701,
+    "schema": 11,
+    "state": "ENGINEERING_VERIFIED_REMOTE_DELIVERY_PENDING",
+    "visualAcceptance": "OPEN",
+    "m6FullCoverage": "OPEN",
+    "m7Acceptance": "OPEN",
+    "performance": "Zerg normal stage1 complete/energy samples recorded; initial long frames and full M6 remain open"
   }
 }

@@ -38,9 +38,10 @@ function reconcileTacticalPlans(w:World){const s=w.expedition;
 export function productionQuote(w:World,f:UnitType){const d=f==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[f],s=w.expedition!,factor=1-.1*w.talent('permanent_discount');if(!d)throw Error('Unverified production recipe');return {minerals:d.mineralCost?Math.max(1,Math.ceil(d.mineralCost*factor)):0,gas:d.gasCost?Math.max(1,Math.ceil(d.gasCost*factor)):0,seconds:d.productionTime*(1-Math.min(.25,s.cardTotals['production.'+f]??0))};}
 export function updateExpeditionProduction(w:World,dt:number,automatic=true){const s=w.expedition!;
  reconcileTacticalPlans(w);
+ for(const delivery of [...s.pendingFreeDeliveries])if(w.time>=delivery.retryAt){if(w.trySpawnPod(delivery.family,undefined,delivery.jobId,1,true))s.pendingFreeDeliveries=s.pendingFreeDeliveries.filter(d=>d!==delivery);else delivery.retryAt=w.time+1;}
  for(const j of s.ledger){if(j.state==='risk'){const p=w.pods.find(p=>p.id===j.podId);if(p){p.passengers.forEach((passenger,i)=>{if(j.passengers[i].status==='waiting'&&passenger.status!=='waiting'){j.passengers[i].status=passenger.status;j.passengers[i].entityId=passenger.entityId;}});if(!j.passengers.some(p=>p.status==='waiting'))j.state='settled';}}
   if(j.state==='training'){j.remaining=Math.max(0,j.remaining-dt);if(j.remaining<=1e-8)j.state='awaiting';}
-  if(j.state==='awaiting'){const p=w.spawnPod(j.family as UnitType,undefined,j.id,j.passengers.length);j.podId=p.id;j.state='risk';w.stats.produced+=j.passengers.length;}
+  if(j.state==='awaiting'&&w.time>=(j.landingRetryAt??0)){const p=w.trySpawnPod(j.family as UnitType,undefined,j.id,j.passengers.length);if(p){j.podId=p.id;j.state='risk';w.stats.produced+=j.passengers.length;}else j.landingRetryAt=w.time+1;}
  }
  if(!automatic||w.phase!=='battle'||w.requiresPlayerDecision)return;
  for(const [key,p] of Object.entries(s.production)){const line=key as ProductionLineId;if(!p||!p.outputs.length||s.ledger.some(j=>j.line===line&&j.state!=='settled'))continue;
@@ -85,11 +86,10 @@ export function releasePaidPassenger(w:World,p:Pod,index:number,position:Point){
  const paid=!!j&&j.passengers[index].paid.minerals+j.passengers[index].paid.gas>0;
  const eligible=s.race==='terran'?['marine','marauder','reaper']:s.race==='zerg'?['zergling','baneling','roach','queen']:['zealot','adept','stalker','sentry'];
  if(paid&&body&&!companion&&eligible.includes(p.unitType)&&w.talent('elite_classroom')>0&&w.random()<.15*w.talent('elite_classroom')){
-  if(!w.familyUnits(p.unitType).some(member=>member.id!==u.id&&!!member.eliteId)){
-   const variants=Object.values(ELITES).filter(e=>e.family===p.unitType).sort((a,b)=>a.id.localeCompare(b.id)),locked=s.elitePaths[p.unitType],variant=locked?variants.find(e=>e.id===locked):variants[0];
-   if(variant&&w.canAcquireElite(variant.id)){u.eliteId=variant.id;u.modelKey=variant.model;u.rank=1;s.elitePaths[p.unitType]=variant.id;w.refreshStats(u,true);}
-   else if(w.availableCapacity(p.unitType)>=Math.max(0,5-u.rank)){u.rank=Math.max(5,u.rank);w.refreshStats(u,true);}
-  }else if(w.availableCapacity(p.unitType)>=Math.max(0,5-u.rank)){u.rank=Math.max(5,u.rank);w.refreshStats(u,true);}
+  const variants=Object.values(ELITES).filter(e=>e.family===p.unitType&&!w.eliteOwned(e.id)&&!w.pendingElites.includes(e.id)&&w.canAcquireElite(e.id)&&w.eliteCandidates(e.id).some(candidate=>candidate.id===u.id)).sort((a,b)=>a.id.localeCompare(b.id));
+  // Upgrade this paid ordinary seat, without occupying a second seat or preferring variant one.
+  if(variants.length){const variant=variants[Math.floor(w.random()*variants.length)];u.eliteId=variant.id;u.modelKey=variant.model;u.rank=1;w.refreshStats(u,true);}
+  else if(w.availableCapacity(p.unitType)>=Math.max(0,5-u.rank)){u.rank=Math.max(5,u.rank);w.refreshStats(u,true);}
  }
  if(!companion&&!u.eliteId&&w.talent('skilled_troop')&&u.rank<w.soldierCap()&&w.availableCapacity(p.unitType)>0&&w.random()<[0,.03,.06,.1][w.talent('skilled_troop')]){u.rank++;w.refreshStats(u);}
  if(p.passengers.every(c=>c.status!=='waiting')){p.status='rescued';p.resolvedAt=w.time;if(j)j.state='settled';}return u;

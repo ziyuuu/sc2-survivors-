@@ -9,7 +9,7 @@ import {DEVELOPMENT,PRODUCTION_LINES,type ProductionLineId} from '../data/expedi
 import {SOURCE_PRODUCTION_RECIPES} from '../data/expansion-units';
 import {CAMPAIGN_SCIENCE_VESSEL_RECIPE} from '../data/campaign-science-vessel';
 import {familyRace,type FamilyId} from '../data/races';
-import {beginExpeditionWindow,drawExpeditionDevelopment,drawExpeditionReinforcements,drawFixedRarityTalentLoot,canClaimTalentLoot,expeditionDevelopmentActions,canTakeExpeditionOffer,recordExpeditionOffer,expeditionRefreshCost,consumeExpeditionRefresh,finishExpeditionDraft,type ExpeditionDraftContext,type ExpeditionReward} from './progression/expedition-drafts';
+import {drawMapLoot,beginExpeditionWindow,drawExpeditionDevelopment,drawExpeditionReinforcements,drawFixedRarityTalentLoot,canClaimTalentLoot,expeditionDevelopmentActions,canTakeExpeditionOffer,recordExpeditionOffer,expeditionRefreshCost,consumeExpeditionRefresh,finishExpeditionDraft,type ExpeditionDraftContext,type ExpeditionReward} from './progression/expedition-drafts';
 // A family's weapon upgrades remain useful while its body is undeployed or its
 // weapon lives on paid hangar units. Pure healers must still stay out of this pool.
 const familyHasWeapon=(family:FamilyId)=>family==='lurker'||family==='carrier'||SC2_UNITS[family].targetType!=='none';
@@ -31,7 +31,7 @@ export function generateEliteContracts(w:World){const s=w.expedition,window=w.dr
   if(!families.length)break;
   const family=families[Math.floor(w.random()*families.length)];used.add(family);
   const variants=Object.values(ELITES).filter(e=>e.family===family&&w.canAcquireElite(e.id)).sort((a,b)=>a.id.localeCompare(b.id));
-  const locked=s.elitePaths[family],elite=locked?variants.find(e=>e.id===locked):variants[0];if(!elite)continue;
+  const elite=variants[0];if(!elite)continue;
   const recipe=family==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[family as UnitType],factor=1-.1*w.talent('permanent_discount');if(!recipe)continue;
   s.eliteContracts.push({id:`${window}:contract:${slot}:${elite.id}`,eliteId:elite.id,family,minerals:Math.max(1,Math.ceil(recipe.mineralCost*5*factor)),gas:recipe.gasCost?Math.max(1,Math.ceil(recipe.gasCost*5*factor)):0,purchased:false});
  }
@@ -86,9 +86,24 @@ export function purchaseOffer(w:World,id:string,variantId?:EliteId,targetId?:num
 }
 export function refreshOffers(w:World){const s=w.expedition;if(!s||s.pendingShopElite||w.phase!=='reward'||w.rewardRound==='building'&&!s.developmentDirection)return false;const stage=w.draftStage,windowId=w.draftWindowId,price=expeditionRefreshCost(s,stage,w.rewardRound,windowId,w.talent('reroll_fan'),w.talent('permanent_discount'));if(price===null||w.wallet.minerals<price)return false;w.wallet.minerals-=price;w.economyTotals.rerolls+=price;consumeExpeditionRefresh(s,stage,w.rewardRound,windowId,w.talent('reroll_fan'),w.talent('permanent_discount'));if(w.rewardRound==='random')s.shopPage++;w.rewards=w.rewardRound==='building'?drawExpeditionDevelopment(draftContext(w),true):drawExpeditionReinforcements(draftContext(w),true);w.changed();return true;}
 export function endReinforcement(w:World){if(w.expedition&&!w.expedition.draftTaken)finishExpeditionDraft(w.expedition);}
-/** One physical permanent reinforcement per campaign chapter; Boss cards belong to intermission. */
-export function mapReinforcement(w:World):ExpeditionReward|null {const s=w.expedition!,chapter=Math.ceil(w.stage/3);if((s.mapCardsByChapter[chapter]??0)>=1)return null;const candidates=s.familySlots.flatMap(f=>(['weapon','vitality'] as const).filter(effect=>(effect!=='weapon'||familyHasWeapon(f))&&(s.cardTotals[effect+'.'+f]??0)<(effect==='weapon'?.4:.5)).map(effect=>({f,effect})));if(!candidates.length)return null;const {f,effect}=candidates[Math.floor(w.random()*candidates.length)],amount=Math.min(effect==='weapon'?.08:.10,(effect==='weapon'?.4:.5)-(s.cardTotals[effect+'.'+f]??0)),id='map.'+effect+'.'+f;s.mapCardsByChapter[chapter]=1;return {id,offerId:id+':'+w.nextId++,name:SC2_UNITS[f].zh+' · '+(effect==='weapon'?'武器培养':'耐久培养'),description:`该家族${effect==='weapon'?'伤害':'最大生命'}增加 ${Math.round(amount*100)}%`,icon:'unit.'+f,kind:'buff',value:f,rarity:'blue',sold:false,minerals:0,gas:0,baseMinerals:0,baseGas:0,discount:0,expeditionWindow:s.draftWindow,expeditionRound:'random',expeditionEffect:{kind:'card',effect,family:f,amount,key:effect+'.'+f}};}
-export function collectMapReinforcement(w:World,r:Reward){if(!w.expedition||!('expeditionEffect' in r)||r.sold)return false;const effect=(r as ExpeditionReward).expeditionEffect;if(effect.kind!=='card')return false;const cap=effect.effect==='weapon'?.4:.5,current=w.expedition.cardTotals[effect.key]??0;w.expedition.cardTotals[effect.key]=Math.min(cap,current+effect.amount);r.sold=true;for(const u of w.allies())w.refreshStats(u);return true;}
+export function mapReinforcement(w:World,elite=false):ExpeditionReward|null {return drawMapLoot(draftContext(w),elite);}
+export function collectMapReinforcement(w:World,r:Reward){
+ if(!('expeditionEffect' in r)||r.sold)return false;
+ const offer=r as ExpeditionReward,effect=offer.expeditionEffect;
+ if(effect.kind==='hero'||effect.kind==='elite')return false; // Deferred, free unit selection uses the receipt queue.
+ if(!canClaimTalentLoot(draftContext(w),offer)){
+  w.wallet.minerals+=r.baseMinerals;w.wallet.gas+=r.baseGas;w.economyTotals.cards.minerals+=r.baseMinerals;w.economyTotals.cards.gas+=r.baseGas;
+ }else if(effect.kind==='card'){
+  if(effect.effect==='cultivation')for(let n=0;n<effect.amount;n++){
+   const u=w.ordinaryUnits(effect.family as UnitType).filter(u=>u.rank<w.soldierCap()).sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];
+   if(!u)throw Error('Validated map cultivation recipient missing');u.rank++;w.refreshStats(u);
+  }
+  w.expedition.cardTotals[effect.key]=(w.expedition.cardTotals[effect.key]??0)+effect.amount;
+ }else if(effect.kind==='resource'){
+  w.wallet.minerals+=effect.minerals;w.wallet.gas+=effect.gas;w.economyTotals.cards.minerals+=effect.minerals;w.economyTotals.cards.gas+=effect.gas;
+ }
+ r.sold=true;for(const u of w.allies())w.refreshStats(u);return true;
+}
 export function openTalentLoot(w:World,receipt:string,rarity:'purple'|'orange'){
  const s=w.expedition;if(!s||w.phase!=='battle'||s.pendingTalentLoot||!s.talentLootReceipts.includes(receipt))return false;
  s.pendingTalentLoot={receipt,rarity,offers:drawFixedRarityTalentLoot(draftContext(w),rarity,receipt)};w.changed();return true;

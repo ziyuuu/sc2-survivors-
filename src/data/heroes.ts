@@ -19,7 +19,7 @@ const define=(race:Race,name:string,hp:number,shield:number,armor:number,damage:
 export const HEROES:Record<HeroId,HeroDefinition>={
  raynor:define('terran','雷诺',1400,0,3,28,.18,6.5,3.5,'marine','穿透射击',300,12,10,.2,.5,12,1.4,{model:'hero.raynor'}),
  tychus:define('terran','泰凯斯',1500,0,4,14,.08,5.5,3.15,'marine','手雷',240,5,10,.6,3.2,0,0,{model:'hero.tychus'}),
- nova:define('terran','诺娃',1200,0,1,100,.7,9,3.8,'marine','狙击',650,12,9,.35,.5,0,0,{model:'hero.nova'}),
+ nova:define('terran','诺娃',1200,0,1,100,.7,9,3.8,'marine','狙击',650,12,9,.35,.5,12,1,{model:'hero.nova'}),
  swann:define('terran','斯旺',1400,0,3,28,.4,5,3.15,'marauder','紧急抢修',75,7,15,1,0,0,0,{model:'hero.swann',target:'ground'}),
  tosh:define('terran','托什',1300,0,1,52,.4,6.5,3.5,'marine','精神冲击',220,8,13,.5,2.8,0,0,{model:'hero.tosh'}),
  kerrigan:define('zerg','凯瑞甘',1500,0,3,52,.36,1,3.5,'zergling','灵能冲击',300,11,10,.5,0,11,2.2,{model:'hero.kerrigan',target:'ground'}),

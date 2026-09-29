@@ -1,7 +1,7 @@
 import {acquireEliteImmediately} from './elite-claim';
 import type {World} from './world';
 import type {Entity,RewardDrop} from './types';
-import {type EliteId} from '../data/elites';
+import {ELITES,type EliteId} from '../data/elites';
 import type {HeroId} from '../data/heroes';
 import {draftContext} from './expedition-economy';
 import {drawBossLoot,type ExpeditionReward} from './progression/expedition-drafts';
@@ -24,8 +24,12 @@ export function selectBossLootVariant(w:World,receipt:string,variant:EliteId|nul
 export function refreshBossLoot(w:World){
  const entry=w.expedition.bossLootQueue[0];if(!entry)return false;const effect=entry.reward.expeditionEffect;
  if(effect.kind==='elite'&&w.eliteVariants(effect.family).length){if(entry.variant&&!w.eliteVariants(effect.family).some(e=>e.id===entry.variant)){entry.variant=null;w.changed();return true;}return false;}
- if(effect.kind==='elite'&&w.expedition.familySlots.includes(effect.family)&&!w.familyUnits(effect.family).some(u=>u.eliteId&&u.rank>=5))return false;
+ if(effect.kind==='elite'&&w.expedition.familySlots.includes(effect.family)&&Object.values(ELITES).some(e=>e.family===effect.family&&(!w.eliteOwned(e.id)||w.eliteOwned(e.id)!.rank<5)))return false;
  if(effect.kind==='hero'&&w.canAcquireHero(effect.heroId as HeroId)||effect.kind==='resource')return false;
+ if(entry.reward.mapSource){
+  const reward=entry.reward;reward.expeditionEffect={kind:'resource',minerals:reward.baseMinerals,gas:reward.baseGas,fallback:true};
+  reward.name='补给回收';reward.description=`获得${reward.baseMinerals}矿／${reward.baseGas}气`;entry.variant=null;w.changed();return true;
+ }
  const rarity=entry.reward.rarity==='orange'?'orange':'purple',reward=drawBossLoot(draftContext(w),entry.receipt,rarity);delete reward.talentLootReceipt;reward.minerals=reward.gas=reward.baseMinerals=reward.baseGas=0;entry.reward=reward;entry.variant=null;w.changed();return true;
 }
 export function claimBossLoot(w:World,receipt:string,variantId?:EliteId,targetId?:number){

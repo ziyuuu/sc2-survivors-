@@ -19,7 +19,7 @@ test('eighteen stages retain the approved 30-minute / 4684-point contract withou
  assert.deepEqual(CAMPAIGN18_TOTALS,{stages:18,chapters:6,intermissions:17,combatSeconds:1800,baseThreat:4684,minerals:2755,gas:2055});
  assert.equal(CAMPAIGN18_STAGES[9].budget,185,'the transition stage is below stage nine pressure');
  assert.equal(CAMPAIGN18_STAGES[0].lingHp,STAGES[0].lingHp);
- assert.equal(CAMPAIGN18_STAGES[17].podHp,STAGES[11].podHp);
+ assert.equal(CAMPAIGN18_STAGES[17].podHp,6000);
  assert.equal(CAMPAIGN18_STAGES[17].width,STAGES[11].width);
 });
 test('chapter rewards use 30/30/remainder and retain the complete legacy mineral/gas budget',()=>{
