@@ -1965,5 +1965,21 @@
       "state": "published-main",
       "cozeAccountDeployment": "executor-required"
     }
+  },
+  "raceFunCache20260929": {
+    "unchangedModelDownloadsOnRevisit": 0,
+    "validation": "docs/project/RACE_FUN_CACHE_VALIDATION_20260929.md",
+    "raceCardCount": 8,
+    "runSchema": 13,
+    "resourceDeltaFiles": 0,
+    "testsPassed": 734,
+    "performanceAcceptance": "OPEN",
+    "uniqueCards": 12,
+    "design": "docs/project/RACE_FUN_CACHE_20260929.md",
+    "automaticCacheVerified": true,
+    "humanAcceptance": "OPEN",
+    "permanentProfile": 5,
+    "cozeAccountDeployment": "EXTERNAL_PENDING",
+    "state": "ENGINEERING_VALIDATED_VISUAL_AND_M6_OPEN"
   }
 }

@@ -1,3 +1,4 @@
+import {UNIQUE_SUPPORT,type UniqueSupportId} from '../../data/unique-support';
 import {supplyPrice,supplyTier,type SupplyMode} from './supply-cards';
 import type {SupportCard} from '../combat/shop-support';
 import type {TrainingTarget} from './training-cards';
@@ -164,7 +165,8 @@ function reinforcementPool(ctx:ExpeditionDraftContext,shop=false):Candidate[]{
  for(let rank=2;rank<=5;rank++){const plan=ctx.training?.(rank);if(plan)result.push({id:`training.${rank}`,name:`两名士兵晋升${['','I','II','III','IV','V'][rank]}`,description:`最低军衔的两名普通士兵提升至${rank}级`,icon:'tech.attack',rarity:RARITIES[rank-1],kind:'buff',value:'training',effect:{kind:'training',rank,...plan},category:'core',group:'training',immediate:true});}
  if(shop)for(const [kind,rarity,names,description] of [
  ['mines','green',['蜘蛛雷','爆裂虫卵','灵能地雷'],'每关布置地雷，最多叠加3张'],['bombardment','blue',['炮火轰炸','酸液轰炸','轨道轰击'],'持续轰炸可见敌军，叠加缩短间隔'],['mutation','purple',['燃烧弹','腐蚀弹','灼能弹'],'本族主力普攻附带持续伤害'],['strategic','orange',['核弹','生体巨爆','净化打击'],'获得一枚战略打击弹药']
- ] as const)if(ctx.supportLegal?.(kind))result.push({id:`support.${kind}`,name:names[['terran','zerg','protoss'].indexOf(ctx.state.race)],description,icon:'tech.attack',rarity,kind:'buff',value:kind,effect:{kind:'support',support:kind},category:'synergy',group:'support',immediate:true});
+ ] as const)if(ctx.supportLegal?.(kind))result.push({id:`support.${ctx.state.race}.${kind}`,name:names[['terran','zerg','protoss'].indexOf(ctx.state.race)],description,icon:'tech.attack',rarity,kind:'buff',value:kind,effect:{kind:'support',support:kind},category:'synergy',group:'support',immediate:true});
+ if(shop)for(const [id,card] of Object.entries(UNIQUE_SUPPORT))if(card.race===ctx.state.race&&ctx.supportLegal?.(id as UniqueSupportId))result.push({id:'support.'+id,name:card.name,description:card.description,icon:'tech.attack',rarity:card.rarity,kind:'buff',value:id,effect:{kind:'support',support:id as UniqueSupportId},category:'synergy',group:'support',immediate:true});
  if(shop)for(const family of FAMILIES_BY_RACE[ctx.state.race])for(const mode of ['pod','direct'] as const)for(let count=1;count<=3;count++)if(ctx.supplyLegal?.(family,count,mode)){const info=ctx.familyInfo(family),rarity=RARITIES[count-1+(mode==='direct'?1:0)];result.push({id:`supply.${mode}.${family}.${count}`,name:`${info.name??family} ×${count}${family==='zergling'?'对':''}`,description:mode==='pod'?'救援空投 · 不解锁持续生产':'立即加入 · 不解锁持续生产',icon:info.icon??'unit.'+family,rarity,kind:'buff',value:family,effect:{kind:'supply',family,count,mode},family,category:'core',group:'supply',immediate:mode==='direct'});}
  for(const family of FAMILIES_BY_RACE[ctx.state.race]){const info=ctx.familyInfo(family);
   for(const [effect,definition] of Object.entries(EXPEDITION_CARD_DEFINITIONS) as [ExpeditionCardEffect,typeof EXPEDITION_CARD_DEFINITIONS[ExpeditionCardEffect]][])for(let tier=0;tier<5;tier++){
@@ -189,7 +191,7 @@ function candidateWeight(ctx:ExpeditionDraftContext,c:Candidate,pool:readonly Ca
 }
 function guaranteeResource(tier:number,slot:number):Candidate {const rarity=RARITIES[tier],[minerals,gas]=RESOURCE_VALUES[tier];return {id:`fallback.guarantee.${rarity}.${slot}`,name:'保底资源补给',description:`本次保底没有合法的${rarity==='orange'?'橙':rarity==='purple'?'紫':'蓝'}色强化可供选择，改为${minerals}矿物与${gas}瓦斯；仍只领取一张。`,icon:'ui.minerals',rarity,kind:'economy',value:'guarantee',effect:{kind:'resource',minerals,gas,fallback:true,fallbackReason:'guarantee'},category:'general',group:'resource',immediate:true};}
 function pickReinforcement(ctx:ExpeditionDraftContext,pool:readonly Candidate[],picked:readonly Candidate[],minimum:number,immediate:boolean){
- let available=pool.filter(c=>!picked.some(p=>p.id===c.id||p.group===c.group)&&(!immediate||c.immediate));
+ let available=pool.filter(c=>!picked.some(p=>p.id===c.id||p.group===c.group&&c.effect.kind!=='support')&&(!immediate||c.immediate));
  if(!available.length)available=pool.filter(c=>!picked.some(p=>p.id===c.id)&&(!immediate||c.immediate));
  if(!available.length)return minimum>0?guaranteeResource(minimum,picked.length):undefined;
  const rolled=rollTier(ctx,minimum),rolledIndex=tierIndex(rolled);
@@ -197,6 +199,7 @@ function pickReinforcement(ctx:ExpeditionDraftContext,pool:readonly Candidate[],
  let same=available.filter(c=>c.rarity===rolled);
  if(!same.length){const order=[...Array.from({length:rolledIndex-minimum},(_,i)=>rolledIndex-1-i),...Array.from({length:4-rolledIndex},(_,i)=>rolledIndex+1+i)];for(const tier of order){same=available.filter(c=>tierIndex(c.rarity)===tier);if(same.length)break;}}
  if(!same.length)return minimum>0?guaranteeResource(minimum,picked.length):undefined;
+ const fun=same.filter(c=>c.effect.kind==='support'),other=same.filter(c=>c.effect.kind!=='support');if(fun.length&&(!other.length||ctx.random()<.25))return sample(fun,()=>1,ctx.random);if(other.length)same=other;
  if(immediate)return sample(same,c=>candidateWeight(ctx,c,same),ctx.random);
  const group=(c:Candidate)=>reinforcementOfferBucket(ctx,c.effect);
  const weights={current:70,shared:20,other:10};const buckets=(Object.keys(weights) as (keyof typeof weights)[]).filter(g=>same.some(c=>group(c)===g));

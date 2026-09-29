@@ -20,7 +20,7 @@ export class SquadConsole {
  private suppressClickUntil=0;private swipeX=0;private narrow=matchMedia('(max-width:900px), (max-width:950px) and (orientation:landscape)');private detailOpen=false;
  constructor(private world:World,parent:HTMLElement){
   this.root=document.createElement('section');this.root.id='battle-console';this.root.setAttribute('aria-label','作战控制台');
-  this.root.innerHTML='<div id="console-map"></div><section id="unit-inspector" aria-label="单位详情"></section><section id="army-hud"><div class="army-heading"><b>作战部队</b><div id="army-pages"></div></div><div id="roster" role="group" aria-label="全队单位"></div></section><section id="console-commands" aria-label="指令区"></section><div id="production-detail" hidden></div>';
+  this.root.innerHTML='<section id="unit-inspector" aria-label="单位详情"></section><section id="army-hud"><div class="army-heading"><b>作战部队</b><div id="army-pages"></div></div><div id="roster" role="group" aria-label="全队单位"></div></section><section id="console-commands" aria-label="指令区"></section><div id="production-detail" hidden></div>';
   parent.append(this.root);this.grid=this.root.querySelector('#roster')!;this.detail=this.root.querySelector('#unit-inspector')!;this.pager=this.root.querySelector('#army-pages')!;
   for(const id of ['hero-skills','skills']){const el=parent.querySelector('#'+id);if(el)this.root.querySelector('#console-commands')!.append(el);}
   this.root.addEventListener('pointerdown',e=>{e.stopPropagation();this.swipeX=e.clientX;});

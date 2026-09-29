@@ -1,3 +1,9 @@
+## Latest approved unique-support/cache iteration · 2026-09-29
+
+- `docs/project/RACE_FUN_CACHE_20260929.md` is the approved baseline for 12 unique race cards (each race green/blue/purple automatic plus orange tactical), original support visuals, fixed upper-left minimap and resource caching. Current run schema13, profilev5 unchanged. New fun cards shop-only, rarity first then25% legal fun/75% other pool; no map/Boss changes.
+- Ordinary play automatically persists verified content-hash resources. Cache/index are independent from gameplay saves. Same-page decoded/GPU resources are reused; context loss invalidates GPU only. No version-based cache purge, no cleanup authorization.
+- Offline HTML is local-only going forward; historical Git commits remain. Deliver small application updates and changed independent LFS resources, verify complete target resources before application switch. Coze deployment remains execution-party work. Evidence in RACE_FUN_CACHE_VALIDATION_20260929.md; M6/M7/human and source-death gaps remain open.
+
 # Latest approved iteration · 2026-09-29
 
 - docs/project/SHARED_TECH_CARDS_20260929.md is the approved implementation contract: shared nine-line unlocks and six attack/defense levels; team cards; talents retain165 nodes/prices/80 points with specified boosts; mobile portrait/landscape allowed. Run schema12; no developer-save compatibility. Implemented; actual tests, distribution hashes, economic and browser limits are in docs/project/SHARED_TECH_VALIDATION_20260929.md. Never mark M6/M7 or human visual acceptance complete from this patch.

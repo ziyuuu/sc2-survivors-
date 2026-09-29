@@ -8,7 +8,7 @@ export interface Point {x:number;z:number}
 export type SquadOrder={kind:'move';point:Point;arrived:boolean;issuedAt:number};
 export interface Body extends Point {id:number;hp:number;maxHp:number;armor:number;unitRadius:number;flying:boolean;attributes:string[];owner:'terran'|'zerg';race?:import('../data/races').Race;team?:import('../data/races').Team}
 export interface ExpansionHive extends Body {stage:number;spawnedAt:number;nextBatchAt:number;batchSerial:number;pending:ZergType[];rewarded:boolean}
-export interface Fortification extends Body {kind:'bunker'|'repair';nextActionAt:number}
+export interface Fortification extends Body {kind:'bunker'|'repair';nextActionAt:number;supportUntil?:number;supportRank?:number}
 export interface Entity extends Body {
  enemyRoute?:import('./movement/enemy-routes').EnemyRoute;
  pairId?:string;injectReady?:number;
@@ -36,7 +36,7 @@ export interface Entity extends Body {
  mode:'tank'|'siege';desiredMode:'tank'|'siege';modeTimer:number;windup:number;attackLock:number;pendingTarget:number|null;lastShotAt:number;nextShotAt:number;shotInterval:number;repositionUntil:number;aimStartedAt:number|null;
  energy:number;maxEnergy:number;energyRegen:number;healRate:number;healTarget:number|null;bileCooldown:number;guardianPod:number|null;guardOrigin?:boolean;stimUntil:number;
  deadAt:number|null;bornAt:number;thinkAt:number;distanceWalked:number;
- shield?:number;maxShield?:number;lastDamagedAt?:number;charmStage?:number;orderlyStage?:number;lastStandStage?:number;lastStandUntil?:number;temporaryUntil?:number;temporary?:boolean;temporaryKind?:'proliferate'|'mercenary';freeConscript?:boolean;tacticalTier?:number;tacticalDirection?:'assault'|'guard'|'mobility';recoveryUntil?:number;
+ shield?:number;maxShield?:number;lastDamagedAt?:number;charmStage?:number;orderlyStage?:number;lastStandStage?:number;lastStandUntil?:number;temporaryUntil?:number;temporary?:boolean;temporaryKind?:'proliferate'|'mercenary'|'fun-brood';freeConscript?:boolean;tacticalTier?:number;tacticalDirection?:'assault'|'guard'|'mobility';recoveryUntil?:number;
 }
 export interface Pod extends Body {injectedBy?:number;injectedSeats?:number;injectedAt?:number;number:number;unitType:UnitType;createdAt:number;landedAt:number;guardianIds:Set<number>;guardTypes:UnitType[];
  status:'falling'|'active'|'opening'|'rescued'|'destroyed';resolvedAt:number|null;recruitId:number|null;jobId:number;stage:number;passengers:{status:'waiting'|'released'|'lost';entityId:number|null}[];nextExitAt:number;freeConscript?:boolean}
@@ -46,7 +46,7 @@ export interface Building {id:number;type:BuildingType;remaining:number;queue:Jo
 export interface Effect extends Point {id:number;kind:'shot'|'flame'|'explosion'|'bile'|'heal'|'hero-line'|'scan-warning'|'hero-warning';end:Point;until:number;radius:number;owner:'terran'|'zerg';source:number;damage?:number}
 export interface Pickup extends Point {id:number;minerals:number;gas:number}
 /** Presentation never consumes gameplay IDs or random numbers. */
-export interface VisualEvent extends Point {weaponPoseSeconds?:number;shotSequence?:number;attackId?:string;castId?:number;heroId?:HeroId;eliteId?:EliteId;race?:Race;modelKey?:string;serial:number;time:number;y:number;endY:number;kind:'support-impact'|'strategic-impact'|'shield-hit'|'shield-break'|'queen-inject'|'attack'|'hit'|'death'|'bile-impact'|'baneling-recover'|'skill-launch'|'skill-impact'|'skill-line'|'skill-dot'|'barrier-start'|'storm-start'|'pod-land'|'pod-open'|'pod-destroy'|'scv-rescue'|'egg-expired'|'drone-death';unitType:CombatUnitType|null;entityId:number;flying:boolean;end:Point;facing:number;siege:boolean}
+export interface VisualEvent extends Point {weaponPoseSeconds?:number;shotSequence?:number;attackId?:string;castId?:number;heroId?:HeroId;eliteId?:EliteId;race?:Race;modelKey?:string;serial:number;time:number;y:number;endY:number;kind:'support-flight'|'support-pulse'|'support-impact'|'strategic-impact'|'shield-hit'|'shield-break'|'queen-inject'|'attack'|'hit'|'death'|'bile-impact'|'baneling-recover'|'skill-launch'|'skill-impact'|'skill-line'|'skill-dot'|'barrier-start'|'storm-start'|'pod-land'|'pod-open'|'pod-destroy'|'scv-rescue'|'egg-expired'|'drone-death';unitType:CombatUnitType|null;entityId:number;flying:boolean;end:Point;facing:number;siege:boolean}
 export interface Reward {id:string;offerId:string;sold:boolean;name:string;description:string;icon:string;rarity:Rarity;rank?:3|5;strength?:number;kind:'hero'|'elite'|'intelligence'|'build'|'research'|'train'|'veteran'|'buff'|'tech'|'upgrade'|'economy';value:string;minerals:number;gas:number;discount:number;baseMinerals:number;baseGas:number}
 
 export interface RewardDrop extends Point {id:number;reward:Reward;bossLootReceipt?:string;talentLoot?:{rarity:'purple'|'orange';receipt:string}}

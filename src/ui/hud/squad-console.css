@@ -51,3 +51,24 @@ html,body{width:var(--game-width,100vw);height:var(--game-height,100dvh);margin:
 body.has-battle-console #transfer-picker{bottom:232px;z-index:75;max-height:calc(var(--game-height,100dvh) - 292px)}
 @media(max-width:900px){body.has-battle-console #transfer-picker{bottom:280px;max-height:calc(var(--game-height,100dvh) - 340px)}}
 @media(max-width:950px) and (orientation:landscape){body.has-battle-console #transfer-picker{bottom:136px;max-height:calc(var(--game-height,100dvh) - 196px)}}
+
+/* Stable minimap anchor: independent of the responsive army console. */
+#interface>#minimap:not([hidden]){display:block!important}
+body:has(#minimap:not([hidden])) #overlay{left:calc(env(safe-area-inset-left) + 188px)}
+@media(max-width:900px) and (orientation:portrait){body:has(#minimap:not([hidden])) #overlay{left:0;top:calc(env(safe-area-inset-top) + 152px)}}
+@media(max-width:950px) and (orientation:landscape){body:has(#minimap:not([hidden])) #overlay{left:calc(env(safe-area-inset-left) + 116px)}}
+#interface>#minimap{position:fixed;z-index:55;left:calc(env(safe-area-inset-left) + 8px);top:calc(env(safe-area-inset-top) + 8px);right:auto;bottom:auto;width:172px;padding:5px;box-sizing:border-box}
+#interface>#minimap canvas{display:block;width:160px;height:160px;touch-action:none}
+#interface>#minimap header{font-size:10px}#interface>#minimap footer{display:none}
+#battle-console{grid-template-columns:215px minmax(360px,1fr) 260px}
+@media(min-width:901px) and (max-width:1100px){#battle-console{grid-template-columns:175px minmax(300px,1fr) 195px}}
+@media(max-width:900px){#interface>#minimap{width:116px}#interface>#minimap canvas{width:104px;height:104px}#battle-console{grid-template-columns:minmax(0,1fr)}#battle-console #console-commands{grid-column:1;grid-row:2}}
+@media(max-width:950px) and (orientation:landscape){#interface>#minimap{width:100px}#interface>#minimap canvas{width:88px;height:88px}#battle-console{grid-template-columns:minmax(310px,1fr) minmax(190px,.65fr)}#battle-console #army-hud{grid-column:1}#battle-console #console-commands{grid-column:2;grid-row:1}}
+
+body.has-battle-console #topbar{left:calc(env(safe-area-inset-left) + 188px);width:auto;right:max(8px,env(safe-area-inset-right))}
+@media(max-width:900px){body.has-battle-console #topbar{left:calc(env(safe-area-inset-left) + 128px);flex-wrap:wrap;gap:4px}body.has-battle-console #topbar .callsign{display:none}}
+@media(max-width:950px) and (orientation:landscape){body.has-battle-console #topbar{left:calc(env(safe-area-inset-left) + 112px)}}
+
+
+.resource-downloads{color:#d9e7ed;background:#111d27;border:1px solid #63849c;border-radius:6px;width:min(440px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:20px;box-sizing:border-box;box-shadow:0 12px 50px #000b}
+.resource-downloads::backdrop{background:#000a}.resource-downloads h2{margin:0 0 10px}.resource-downloads p{line-height:1.5;font-size:14px}.resource-downloads progress{width:100%;height:14px;accent-color:#74d9ef}.resource-downloads button{min-height:44px;margin:4px;padding:8px 12px;color:inherit;background:#243c4e;border:1px solid #65899e;border-radius:4px}.resource-downloads button:disabled{opacity:.5}

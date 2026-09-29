@@ -1,3 +1,4 @@
+import {uniqueShieldTick,absorbReserve,uniqueActiveStats} from './unique-support';
 import {teamCardEffects} from '../progression/team-cards';
 import {familyResearchLevel} from '../../data/expedition-buildings';
 import {PLAYER_REAPER_DAMAGE_BONUS,PLAYER_COMBAT_FACTOR} from '../../data/player-unit-adaptations';
@@ -53,11 +54,12 @@ export function refreshExpeditionStats(w:World,u:Entity,fill=false){
  const hpAdd=u.unitType==='marine'&&tech.shield?SOURCE_RESEARCH_EFFECTS.shield.maxHpAdd:u.unitType==='baneling'&&tech.bane_speed?SOURCE_RESEARCH_EFFECTS.bane_speed.maxHpAdd:0;
  u.maxHp=(d.maxHp+hpAdd)*r.health*(1+(t.maxHpPct??0))*(1+team.health)*eliteEffect(u,'maxHealthMultiplier')*power;u.hp=fill?u.maxHp:Math.min(u.maxHp,Math.max(0,u.maxHp-lost));
  u.armor=((d.armor+r.armor+(friendly?(familyResearchLevel(tech,u.unitType,'defense')):0))*(1+(t.armorPct??0))+(t.armorFlat??0)+team.armor+eliteEffect(u,'lifeArmorAdd',0))*power;
+ u.armor+=uniqueActiveStats(w,u).armor;
  const speedAdd=u.unitType==='zergling'&&tech.ling_speed?SOURCE_RESEARCH_EFFECTS.ling_speed.speedAdd:u.unitType==='baneling'&&tech.bane_speed?SOURCE_RESEARCH_EFFECTS.bane_speed.speedAdd:u.unitType==='roach'&&tech.roach_speed?SOURCE_RESEARCH_EFFECTS.roach_speed.speedAdd:u.unitType==='zealot'&&tech.charge?SOURCE_RESEARCH_EFFECTS.charge.speedAdd:u.unitType==='lurker'&&u.nativeMode!=='lurker_burrowed'&&tech.lurker_deploy?SOURCE_RESEARCH_EFFECTS.lurker_deploy.speedAdd:0;
- u.moveSpeed=(d.movementSpeed+speedAdd)*r.movement*(1+(t.moveSpeedPct??0))*(race==='zerg'?source.creep:1)*eliteEffect(u,'movementSpeedMultiplier')*power;
+ u.moveSpeed=(d.movementSpeed+speedAdd)*r.movement*(1+(t.moveSpeedPct??0)+uniqueActiveStats(w,u).move)*(race==='zerg'?source.creep:1)*eliteEffect(u,'movementSpeedMultiplier')*power;
  u.weaponDamage=(d.attackDamage+(friendly&&!u.heroId&&u.unitType==='reaper'?PLAYER_REAPER_DAMAGE_BONUS:0)+delta.damage)*r.damage*(1+(t.weaponDamagePct??0))*(1+team.damage)*power;
  u.attackRange=expeditionAttackRange(w,u,d,t);
- u.attackPeriod=d.attackPeriod/power/r.attackSpeed/(1+(t.attackSpeedPct??0))/(1+team.speed)/(u.unitType==='adept'&&tech.glaives?1+SOURCE_RESEARCH_EFFECTS.glaives.attackSpeedAdd:1)*(u.eliteId==='lurker.3'&&u.nativeMode!=='lurker_burrowed'?1:eliteEffect(u,'attackPeriodMultiplier'));
+ u.attackPeriod=d.attackPeriod/power/r.attackSpeed/(1+(t.attackSpeedPct??0))/(1+team.speed+uniqueActiveStats(w,u).speed)/(u.unitType==='adept'&&tech.glaives?1+SOURCE_RESEARCH_EFFECTS.glaives.attackSpeedAdd:1)*(u.eliteId==='lurker.3'&&u.nativeMode!=='lurker_burrowed'?1:eliteEffect(u,'attackPeriodMultiplier'));
  u.maxShield=(source.shields*(1+team.health)*r.health*(1+(t.maxShieldPct??0))*power+(race==='protoss'?u.maxHp*(t.shieldFromHpPct??0):0))*eliteEffect(u,'maxShieldMultiplier');u.shield=fill?u.maxShield:Math.min(u.maxShield,Math.max(0,u.maxShield-(oldShield-(u.shield??0))));u.shieldArmor=((source.shieldArmor+(friendly?(familyResearchLevel(tech,u.unitType,'defense')):0))*(1+(t.shieldArmorPct??0))+(t.shieldArmorFlat??0)+team.armor)*power;u.shieldRegen=source.shieldRegen*FASTER*(1+(t.shieldRegenPct??0))*(1+card('recovery'));u.shieldDelay=Math.max(1,source.shieldDelay/FASTER-(t.shieldDelayReductionSeconds??0));
  const oldTalentShield=u.maxTalentShield??0,lostTalentShield=oldTalentShield-(u.talentShield??0);u.maxTalentShield=u.attributes.includes('Biological')&&race!=='protoss'?u.maxHp*(t.shieldFromHpPct??0):0;u.talentShield=fill?u.maxTalentShield:Math.min(u.maxTalentShield,Math.max(0,u.maxTalentShield-lostTalentShield));
  u.maxEnergy=source.energy*r.energy*eliteEffect(u,'maxEnergyMultiplier')+(t.maxEnergyFlat??0);u.energy=fill?source.energyStart:Math.min(u.maxEnergy,oldEnergy);u.energyRegen=source.energyRegen*FASTER*r.energy*(1+(t.energyRegenPct??0))*(1+card('energy'));
@@ -83,6 +85,7 @@ export function castFamilyAbility(w:World,family:FamilyId,target?:Point){const s
 export function tickExpeditionRecovery(w:World,u:Entity,dt:number){const source=sourceDetails(u.unitType),t=talentModifiers(w,u),recovery=1+(u.owner==='terran'&&!u.heroId?w.expedition!.cardTotals['recovery.'+u.unitType]??0:0);u.energy=Math.min(u.maxEnergy,u.energy+u.energyRegen*dt);if(u.unitType==='banshee'&&u.cloaked){u.energy=Math.max(0,u.energy-SOURCE_ABILITIES.bansheeCloak.energyDrainPerSecond*eliteEffect(u,'cloakEnergyMultiplier')*dt);if(u.energy<=0)u.cloaked=false;}
  if(u.lastStandUntil&&u.lastStandUntil>w.time)return;
  if(u.maxTalentShield&&w.time-(u.lastDamagedAt??-Infinity)>=5)u.talentShield=Math.min(u.maxTalentShield,(u.talentShield??0)+u.maxTalentShield*.03*dt);
+ uniqueShieldTick(w,u,dt);
  if(w.time-(u.lastDamagedAt??-Infinity)>=u.shieldDelay!&&u.maxShield)u.shield=Math.min(u.maxShield,(u.shield??0)+(u.shieldRegen??0)*dt);
  const native=(!u.heroId||u.heroId==='hots_leviathan')&&w.time-(u.lastDamagedAt??-Infinity)>=source.lifeDelay/FASTER*eliteEffect(u,'regenDelayMultiplier')?source.lifeRegen*FASTER*eliteEffect(u,'innateRegenMultiplier'):0;u.hp=Math.min(u.maxHp,u.hp+(native+u.maxHp*(t.regenMaxHpPerSecond??0))*recovery*dt);
 }
@@ -92,6 +95,7 @@ export function expeditionDamage(w:World,target:Body,raw:number,hits:number,mini
  for(let i=0;i<hits;i++){let amount=raw;if(attacker&&attacker.attackRange>1&&w.expedition!.spells.some(s=>s.kind==='guardian'&&s.owner===target.owner&&s.until>w.time&&distance(s,target)<=s.radius+target.unitRadius))amount=Math.max(minimum,amount-SOURCE_ABILITIES.guardianShield.rangedDamageReduction);
   if(u?.barrier){const absorbed=Math.min(u.barrier,amount);u.barrier-=absorbed;amount-=absorbed;}
   if(u?.talentShield&&amount>0){const absorbed=Math.min(u.talentShield,amount);u.talentShield-=absorbed;amount-=absorbed;}
+  if(u&&amount>0)amount=absorbReserve(w,u,amount);
   if(u?.shield&&amount>0){const shieldHit=Math.max(minimum,amount+shieldBonus-(u.shieldArmor??0)*(1-penetration)),absorbed=Math.min(u.shield,shieldHit);u.shield-=absorbed;amount=Math.max(0,shieldHit-absorbed-shieldBonus);}
   if(amount>0)healthDamage+=Math.max(minimum,amount-armor*(1-penetration));
  }return Math.min(target.hp,healthDamage);}

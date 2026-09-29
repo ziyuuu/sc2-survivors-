@@ -20,6 +20,7 @@ try{
  await page.locator('[data-action=menu-start]').click();await page.waitForFunction(()=>['ready','error'].includes(window.__SC2_REPORT__?.().readiness?.phase),null,{timeout:600000});assert.equal((await page.evaluate(()=>window.__SC2_REPORT__().readiness)).phase,'ready',JSON.stringify(await page.evaluate(()=>window.__SC2_REPORT__().readiness)));
  assert.equal(await page.evaluate(()=>window.__SC2_REPORT__().phase),'menu');await page.locator('[data-action=flow-continue]').click();await page.waitForFunction(()=>window.__SC2_REPORT__().phase==='battle');
  const first=await page.evaluate(()=>{const w=window.__SC2_DEBUG__.world;return {runId:w.runId,race:w.expedition.race,difficulty:w.difficulty};});assert.equal(first.race,'zerg');assert.equal(first.difficulty,'hard');report.checks.push('new game is gated and keeps selected race/difficulty');
+ if(process.env.SC2_UNIQUE_QA){await(await import('./qa-tactical-gamepad.mjs')).checkTacticalGamepad(page);report.checks.push('virtual gamepad D-pad focuses tactical card; A activates it once');}
  await page.locator('#topbar [data-action=pause]').click();await page.locator('[data-action=save-now]').click();await page.waitForFunction(()=>window.__SC2_REPORT__().save.message.includes('已保存'),null,{timeout:30000});
  await page.locator('[data-action=restart]').click();await page.waitForFunction(()=>window.__SC2_REPORT__().phase==='menu');
  await page.locator('[data-action=menu-load]').click();assert.ok((await page.locator('[data-action=menu-load-local]').innerText()).includes('虫族'));

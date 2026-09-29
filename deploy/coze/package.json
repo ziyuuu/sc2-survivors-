@@ -6,6 +6,6 @@
     "node": ">=22"
   },
   "scripts": {
-    "start": "node coze-web-server.mjs"
+    "start": "node start-coze.mjs"
   }
 }

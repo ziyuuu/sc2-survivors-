@@ -7,19 +7,20 @@ import {blocked,distance} from './steering';
 export const CARRIER_RADIUS=1.25;
 const active=(p:Pod)=>['falling','active','opening'].includes(p.status)&&p.hp>0;
 /** Full circumferential clearance prevents a carrier from sealing a narrow passage. */
-export function validCarrierLanding(w:World,type:UnitType,p:Point,ignoreId?:number):boolean {
+export function validCarrierLanding(w:World,type:UnitType,p:Point,ignoreId?:number,radius=CARRIER_RADIUS):boolean {
  const body=Math.max(.9,SC2_UNITS[type].flying?0:SC2_UNITS[type].unitRadius*TUNING.unitScale,...w.allies().filter(u=>!u.flying).map(u=>u.unitRadius));
- const clearance=CARRIER_RADIUS+body*2+.15;
+ const clearance=radius+body*2+.15;
  if(Math.abs(p.x)+clearance>=w.mapHalf||Math.abs(p.z)+clearance>=w.mapHalf||blocked(p,clearance,w.obstacles)||w.terrain&&!w.terrain.canOccupy(p,clearance))return false;
  if(w.pods.some(q=>q.id!==ignoreId&&active(q)&&distance(p,q)<clearance+q.unitRadius)||[...w.fortifications.values()].some(f=>f.hp>0&&distance(p,f)<clearance+f.unitRadius))return false;
+ const landing=w.expedition.support.unique.landing;if(landing&&landing.id!==ignoreId&&distance(p,landing.point)<clearance+1.6)return false;
  const structures=[w.hive,...w.expansionHives.values(),...w.economicTargets.values()];
  if(structures.some(b=>b&&b.hp>0&&b.attributes.includes('Structure')&&distance(p,b)<clearance+b.unitRadius))return false;
  const terrain=w.terrain;
  if(!terrain)return true;
  let prev:Point|undefined;
  for(let i=0;i<=24;i++){
-  const a=i*Math.PI/12,q={x:p.x+Math.sin(a)*(CARRIER_RADIUS+body+.15),z:p.z+Math.cos(a)*(CARRIER_RADIUS+body+.15)};
-  const foot={x:p.x+Math.sin(a)*CARRIER_RADIUS,z:p.z+Math.cos(a)*CARRIER_RADIUS};
+  const a=i*Math.PI/12,q={x:p.x+Math.sin(a)*(radius+body+.15),z:p.z+Math.cos(a)*(radius+body+.15)};
+  const foot={x:p.x+Math.sin(a)*radius,z:p.z+Math.cos(a)*radius};
   if(Math.abs(terrain.height(foot)-terrain.height(p))>.15||!terrain.canOccupy(q,body)||prev&&!terrain.canStep(prev,q,body))return false;prev=q;
  }
  // Candidate centers belong to the anchor's connected component. Check the actual large body too.

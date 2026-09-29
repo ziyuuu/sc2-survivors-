@@ -55,7 +55,7 @@ export class Minimap {
   const c=this.backdrop.getContext('2d')!,im=c.createImageData(side,side),terrain=this.world.terrain!;
   paintMinimapTerrain(d,terrain,this.frame,this.stage,side,im.data);c.putImageData(im,0,0);this.canvas.dataset.mapFrame=JSON.stringify(this.frame);
  }
- update(){const w=this.world;this.element.hidden=!w.terrain?.definition||w.phase!=='battle'||w.paused;if(this.element.hidden)return;if(this.stage!==w.terrainStage||this.mapTerrain!==w.terrain)this.background();const c=this.ctx,s=this.canvas.width;c.clearRect(0,0,s,s);c.drawImage(this.backdrop,0,0);const unit=s/180;
+ update(){const w=this.world;this.element.hidden=!w.terrain?.definition||w.phase==='menu';if(this.element.hidden)return;if(this.stage!==w.terrainStage||this.mapTerrain!==w.terrain)this.background();const c=this.ctx,s=this.canvas.width;c.clearRect(0,0,s,s);c.drawImage(this.backdrop,0,0);const unit=s/180;
   const project=(p:Point)=>{const q=mapProject(this.frame,p);return {x:q.x*s,y:q.z*s};};
   const dot=(p:Point,color:string,r:number)=>{const q=project(p);c.fillStyle=color;c.beginPath();c.arc(q.x,q.y,r*unit,0,Math.PI*2);c.fill();};
   for(const p of w.pickups)dot(p,'#6d96b2',.8);

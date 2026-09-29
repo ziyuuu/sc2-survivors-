@@ -18,7 +18,7 @@ with zipfile.ZipFile(out/'SC2-Coze-App.zip','w') as z:
         raise RuntimeError('Run publish-coze-tree.mts for this Web release first')
     for relative in delivery['app']:
         add(z,app/'public'/relative,'SC2-Coze-App/public/'+relative)
-    for name in ['coze-web-server.mjs','fetch-resources.mjs','package.json','delivery.json','resource-groups.json','resource-delta.json','DEPLOY.md']:
+    for name in ['coze-web-server.mjs','fetch-resources.mjs','apply-update.mjs','start-coze.mjs','package.json','delivery.json','resource-groups.json','resource-delta.json','DEPLOY.md']:
         add(z,app/name,'SC2-Coze-App/'+name)
 with zipfile.ZipFile(out/'SC2-Web-Resources.zip','w') as z:
     for url,a in sorted(resources.items()):
@@ -29,8 +29,17 @@ with zipfile.ZipFile(out/'SC2-Web-Resources.zip','w') as z:
     add(z,web/release['manifest'],release['manifest'])
     add(z,web/'web-release.json','web-release.json')
     add(z,root/'docs/project/COZE_GITHUB_DEPLOY.md','DEPLOY.md')
+delta=json.loads((root/'deploy/coze/resource-delta.json').read_text(encoding='utf-8'))
+with zipfile.ZipFile(out/'SC2-Web-Resources-Update.zip','w') as z:
+    for a in delta['files']:
+        source=web/a['url']
+        if source.stat().st_size!=a['bytes'] or hashlib.sha256(source.read_bytes()).hexdigest()!=a['sha256']:
+            raise RuntimeError('Delta resource integrity mismatch')
+        add(z,source,a['url'])
+    add(z,root/'deploy/coze/resource-delta.json','resource-delta.json')
+    add(z,web/release['manifest'],release['manifest'])
 result={'release':release,'packages':[]}
-for name in ['SC2-Coze-App.zip','SC2-Web-Resources.zip']:
+for name in ['SC2-Coze-App.zip','SC2-Web-Resources.zip','SC2-Web-Resources-Update.zip']:
     file=out/name
     result['packages'].append({'file':name,'bytes':file.stat().st_size,'sha256':hashlib.sha256(file.read_bytes()).hexdigest()})
 (out/'CHECKSUMS.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')

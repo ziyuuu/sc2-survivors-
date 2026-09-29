@@ -120,3 +120,11 @@ test('exhausted high-quality pools sell honest white resource goods without lega
   assert.equal(recordExpeditionOffer(ctx.state,offers[0]),true);assert.equal(canTakeExpeditionOffer(ctx,offers[0]),false);assert.equal(canTakeExpeditionOffer(ctx,offers[1]),true);
  }
 });
+
+test('each race exposes eight distinct fun cards; quality-first sampling keeps a quarter of eligible first slots',()=>{
+ for(const race of ['terran','zerg','protoss'] as const){const ctx=context(race,17,20260929);ctx.supportLegal=()=>true;let eligible=0,fun=0,multiple=false;const seen=new Set<string>();
+  for(let i=0;i<2500;i++){const page=drawExpeditionReinforcements(ctx,true),first=page[0];if(first.rarity!=='white'){eligible++;if(first.expeditionEffect.kind==='support')fun++;}
+   const cards=page.filter(o=>o.expeditionEffect.kind==='support');if(cards.length>1)multiple=true;assert.equal(new Set(page.map(o=>o.value)).size,page.length);for(const o of cards){assert.ok(o.id.includes(`support.${race}.`));seen.add(o.value);}
+  }assert.equal(seen.size,8,race);assert.ok(multiple);assert.ok(fun/eligible>.22&&fun/eligible<.28,`${race}: ${fun}/${eligible}`);
+ }
+});

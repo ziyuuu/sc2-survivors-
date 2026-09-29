@@ -1,14 +1,86 @@
 {
-  "appBuildId": "4673852b6388cc1490347adfd1a9f8d1e6de1049db8b1b645aab9c4c7227bfe6",
-  "runSchema": 12,
+  "appBuildId": "dd555107fb164a5aa616178f05484c7ae76c255e6b6f5c9c2904c572f4e949ea",
+  "runSchema": 13,
   "release": "47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7",
   "app": [
     "asset-manifest.47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7.json",
-    "assets/index-BfNZAn9q.css",
-    "assets/index-xvwrAnxC.js",
+    "assets/index-D-5K9hfz.js",
+    "assets/index-DRPFfan_.css",
     "index.html",
     "runtime-config.json",
     "web-release.json"
+  ],
+  "appFiles": [
+    {
+      "path": "public/asset-manifest.47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7.json",
+      "bytes": 176267,
+      "sha256": "fc0d01ce9c4d3952c7e0cd7ba26c8915b50dd0ab5b63072f375111a8c9b2cbf0"
+    },
+    {
+      "path": "public/assets/index-D-5K9hfz.js",
+      "bytes": 1643444,
+      "sha256": "48cfb52d7e4fd5fc227f794f6fe5e645c5f9cb4cd710b487d91f776aec194c0d"
+    },
+    {
+      "path": "public/assets/index-DRPFfan_.css",
+      "bytes": 69700,
+      "sha256": "5bf9067b3f350f031b7a444cf1e8149247954490f68ff6e7ffc10276c8e1107f"
+    },
+    {
+      "path": "public/index.html",
+      "bytes": 675,
+      "sha256": "d083fcc366b93f5d312edf53808f1900a0c39e45b34a3947c8289f8c14027310"
+    },
+    {
+      "path": "public/runtime-config.json",
+      "bytes": 19,
+      "sha256": "126217dff5079b655a2d3b45211b2fa388ee35a7d413b1f54fbda29a0cb71b90"
+    },
+    {
+      "path": "public/web-release.json",
+      "bytes": 508,
+      "sha256": "654aa70af549a9a19f13b247f73652f58b9feac44da1803b4aafd520ff725fe9"
+    },
+    {
+      "path": "coze-web-server.mjs",
+      "bytes": 4477,
+      "sha256": "3e3690b1551476539c56e717d2605d4f993c09362fe4d604990f02cab2cbf329"
+    },
+    {
+      "path": "fetch-resources.mjs",
+      "bytes": 4459,
+      "sha256": "c02dc59eb8436c06a14fcc2a50133e644ac2b8bb272ba5c5e2e766d2d871edb6"
+    },
+    {
+      "path": "apply-update.mjs",
+      "bytes": 5120,
+      "sha256": "486e1e014debaa94a343b779270ac0d598e36b44d1b5ab9990ea290d1522bc77"
+    },
+    {
+      "path": "start-coze.mjs",
+      "bytes": 1023,
+      "sha256": "3c188d134fb093c8e6bad23f79ace973f14c89421ae00a1ce68a2c8f19bb21fd"
+    },
+    {
+      "path": "package.json",
+      "bytes": 165,
+      "sha256": "7a171cad229c54d58529942fb284b1101fe97dc70c298fe08892d1f24d0cbad7"
+    },
+    {
+      "path": "resource-groups.json",
+      "bytes": 343375,
+      "sha256": "db7c40a27580421b018af5b81de0c1086a212f1d208fb9a9c29f00de2a27632c"
+    },
+    {
+      "path": "resource-delta.json",
+      "bytes": 287,
+      "sha256": "8d00c961d1d4008d44fcb7903978dd224130cc99dbb266bf6cc69bae227d279e"
+    },
+    {
+      "path": "DEPLOY.md",
+      "bytes": 12735,
+      "sha256": "857d580d26b74eb18f41e677c3ec97fe09bb77f06326806a3d0222c097d3bcb5"
+    }
   ],
   "assets": 730,
   "resourceBytes": 458372920

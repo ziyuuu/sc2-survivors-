@@ -86,7 +86,8 @@ export class BattleRenderer {
   this.grid.position.y=.08;this.grid.visible=false;this.scene.add(this.grid);
   this.labelLayer.id='pod-labels';document.body.append(this.labelLayer);this.friendlyLabels=new FriendlyLabels(this.labelLayer);
   this.resize();window.addEventListener('resize',()=>this.resize());new ResizeObserver(()=>this.resize()).observe(canvas);
-  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();world.paused=true;world.announce('图形上下文丢失，请重新载入。');});
+  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.contextEpoch++;this.screenWarmed.clear();this.validatedPrograms.clear();world.paused=true;world.announce('画面连接中断，正在等待恢复');});
+  canvas.addEventListener('webglcontextrestored',()=>{world.announce('画面连接已恢复，请准备画面后继续');});
  }
  /** Retain GPU programs, original map and decoded models when starting a fresh run. */
  resetRun(){
@@ -106,30 +107,35 @@ export class BattleRenderer {
  /** Compile and make the first draw with the actual batches while the loading gate is active. */
  private async prewarmBatches(meshes:THREE.InstancedMesh[],includeTemplates=false){
   const identity=new THREE.Matrix4(),white=new THREE.Color(0xffffff);
-  const restored=meshes.map(mesh=>({mesh,count:mesh.count,visible:mesh.visible}));
+  const warmScene=new THREE.Scene();warmScene.environment=this.scene.environment;warmScene.fog=this.scene.fog;warmScene.environmentIntensity=this.scene.environmentIntensity;warmScene.environmentRotation.copy(this.scene.environmentRotation);
+  this.scene.traverseVisible(node=>{if(node instanceof THREE.Light)warmScene.add(node.clone());});
+  const restored=meshes.map(mesh=>({mesh,parent:mesh.parent,count:mesh.count,visible:mesh.visible}));
   const roots=includeTemplates?[...[...this.podTemplates.values(),...this.podBirthTemplates.values()].map(g=>g.scene),...(this.hiveTemplate?[this.hiveTemplate]:[])]:[];
   const target=new THREE.WebGLRenderTarget(1,1,{depthBuffer:false});
   const previous=this.renderer.getRenderTarget(),position=this.camera.position.clone(),quaternion=this.camera.quaternion.clone();
   try{
    for(const {mesh} of restored){
+    warmScene.add(mesh);
     mesh.visible=true;mesh.count=1;mesh.setMatrixAt(0,identity);
     // Effects and selection rings acquire instanceColor on first use. The skinned
     // batches already use the device's maximum attributes, so keep those white.
     if(!mesh.geometry.hasAttribute('unitPose'))mesh.setColorAt(0,white);
    }
-   for(const root of roots)this.scene.add(root);
+   for(const root of roots)warmScene.add(root);
    this.camera.position.set(0,34,26);this.camera.lookAt(0,0,0);this.camera.updateMatrixWorld();
-   await this.renderer.compileAsync(this.scene,this.camera);
-   this.preloadTextures(this.scene,true);
-   this.renderer.setRenderTarget(target);this.renderer.render(this.scene,this.camera);
+   await this.renderer.compileAsync(warmScene,this.camera);
+   this.preloadTextures(warmScene,true);
+   this.renderer.setRenderTarget(target);this.renderer.render(warmScene,this.camera);
   }finally{
    this.renderer.setRenderTarget(previous);target.dispose();
    this.camera.position.copy(position);this.camera.quaternion.copy(quaternion);this.camera.updateMatrixWorld();
    for(const root of roots)root.removeFromParent();
-   for(const {mesh,count,visible} of restored){mesh.count=count;mesh.visible=visible;}
+   for(const {mesh,parent,count,visible} of restored){if(parent)parent.add(mesh);else mesh.removeFromParent();mesh.count=count;mesh.visible=visible;}
   }
  }
  private validatedPrograms=new Set<number>();
+ contextEpoch=0;
+ get preparationKey(){return [this.contextEpoch,...this.gpu.keys(),this.mapViews.size,this.fortTemplates.size,this.fortDeathTemplates.size].join('|');}
  private screenWarmed=new Set<THREE.InstancedMesh>();
  /** Exercise each decoded unit material against the actual antialiased canvas.
   * Offscreen 1px prewarming does not cover the driver's first screen pipeline. */
@@ -219,7 +225,7 @@ export class BattleRenderer {
    const suffixes=['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])];
    await prepareEmbeddedAssetIds([`model.${key}`,...suffixes.map(suffix=>`model.${key}${suffix}`).filter(id=>ASSETS.has(id))]);
    const loader=new GLTFLoader(),url=assetUrl('model.'+key);if(!url)throw Error('missing original model');const gltf=await restoreSc2Materials(await loader.loadAsync(url));if(!gltf.animations.length)throw Error('missing original animation');if(key===type){this.prepareUnit(type,gltf);this.loadedModels++;}else this.gpu.set(key,new AnimatedBatch(gltf,this.scene,key==='interceptor'?.55:heights[type],undefined,TUNING.unitScale,key));const base=this.gpu.get(key)!;
-   for(const suffix of ['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])]){const path=assetUrl('model.'+key+suffix);if(!path){if(suffix!=='.death')throw Error('missing original tank form '+suffix);continue;}const form=await restoreSc2Materials(await loader.loadAsync(path));this.gpu.set(key+suffix,new AnimatedBatch(form,this.scene,heights[type],base.normalization));}this.filterTextures(this.scene);const hidden:THREE.Object3D[]=[],inactive:THREE.InstancedMesh[]=[];for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const m of b.meshes){if(!m.visible){hidden.push(m);m.visible=true;}if(m.count===0)inactive.push(m);}try{await this.renderer.compileAsync(this.scene,this.camera);await this.prewarmBatches(inactive);await this.finishProgramWarmup();}finally{for(const m of hidden)m.visible=false;}ok=true;
+   for(const suffix of ['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])]){const path=assetUrl('model.'+key+suffix);if(!path){if(suffix!=='.death')throw Error('missing original tank form '+suffix);continue;}const form=await restoreSc2Materials(await loader.loadAsync(path));this.gpu.set(key+suffix,new AnimatedBatch(form,this.scene,heights[type],base.normalization));}for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const mesh of b.meshes)this.filterTextures(mesh);const hidden:THREE.Object3D[]=[],inactive:THREE.InstancedMesh[]=[];for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const m of b.meshes){if(!m.visible){hidden.push(m);m.visible=true;}if(m.count===0)inactive.push(m);}try{await this.prewarmBatches(inactive);await this.finishProgramWarmup();}finally{for(const m of hidden)m.visible=false;}ok=true;
    }catch(e){this.modelErrors.push(key+': '+String(e));this.world.paused=true;this.world.announce('增援素材未能载入，请重新载入战场');}finally{this.assetsPending--;if(ok)this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));else this.variantLoads.delete(key);finish(ok);this.world.changed();}});this.world.changed();return result;
  }
  private syncMap(){const terrain=this.world.terrain;if(this.mapSwitching||terrain===this.mapTerrain||!terrain)return;this.mapTerrain=terrain;const cached=this.mapViews.get(terrain);for(const view of this.mapViews.values())view.setVisible(view===cached);if(cached){this.mapView=cached;this.cameraTarget.set(this.world.anchor.x,this.ground(this.world.anchor),this.world.anchor.z);this.terrainUpdate=()=>this.mapView?.update(this.camera);return;}
@@ -354,7 +360,7 @@ export class BattleRenderer {
    const support=event.kind==='skill-impact'&&['swann','niadra','artanis'].includes(event.heroId);if(support){const mount=weaponMount(event);putLine(mount,mount.y,event.end,event.endY,heroPresentation(event.heroId).tint);}}
 
   const health=(b:Body,y:number)=>{if(bars>=400)return;const width=Math.max(.7,b.unitRadius*2),ratio=Math.max(0,b.hp/b.maxHp);this.healthBack.setMatrixAt(bars,this.matrix(b.x,y,b.z,width,1,1));this.health.setMatrixAt(bars,this.matrix(b.x-(1-ratio)*width/2,y+.015,b.z,width*ratio,1,1));this.health.setColorAt(bars++,_color.set(b.owner==='terran'?(ratio<.3?0xff7852:0x75ef95):0xd9573c));const u=b as Entity;if(u.team==='player'&&(u.maxShield??0)>0&&bars<400){const shield=Math.max(0,(u.shield??0)/u.maxShield!);this.healthBack.setMatrixAt(bars,this.matrix(b.x,y+.025,b.z-.15,width,1,.55));this.health.setMatrixAt(bars,this.matrix(b.x-(1-shield)*width/2,y+.04,b.z-.15,width*shield,1,.55));this.health.setColorAt(bars++,_color.set(0x65b5ff));}};
-  for(const u of world.entities.values()){const batch=this.batches.get(u.unitType);if(!batch&&!this.gpu.has(u.modelKey??u.unitType)||!this.visible(u)||!world.visibleTo(u,'terran'))continue;const dying=u.hp<=0,death=dying?Math.max(0,1-(world.time-(u.deadAt??world.time))/1.3):1,presentationScale=modelPresentationScale(u),recoveryScale=u.unitType==='baneling'&&(u.recoveryUntil??0)>world.time?.84+.04*Math.sin(world.time*5):1;
+  for(const u of world.entities.values()){const batch=this.batches.get(u.unitType);if(!batch&&!this.gpu.has(u.modelKey??u.unitType)||!this.visible(u)||!world.visibleTo(u,'terran'))continue;const dying=u.hp<=0,death=dying?Math.max(0,1-(world.time-(u.deadAt??world.time))/1.3):1,presentationScale=modelPresentationScale(u)*(u.hp>0&&u.team==='player'&&world.expedition.race==='zerg'&&u.attributes.includes('Biological')&&world.expedition.support.unique.activeUntil>world.time?1.12:1),recoveryScale=u.unitType==='baneling'&&(u.recoveryUntil??0)>world.time?.84+.04*Math.sin(world.time*5):1;
    const index=counts.get(u.unitType)??0;if(index>=UNIT_CAPACITY)continue;counts.set(u.unitType,index+1);
    const transit=u.cliffTransit?cliffRenderPosition(u,world.time):null,x=transit?.x??u.prev.x+(u.x-u.prev.x)*alpha,z=transit?.z??u.prev.z+(u.z-u.prev.z)*alpha,y=u.flying?AIR_HEIGHT:this.ground({x,z})+(transit?.lift??0);
    if(u.hp>0&&shadows<1400)this.shadows.setMatrixAt(shadows++,this.matrix(x,this.ground({x,z})+.012,z,u.unitRadius*1.9,1,u.unitRadius*1.7));
@@ -400,6 +406,7 @@ export class BattleRenderer {
   for(const [id] of this.animationStates)if(!world.entities.has(id)){this.animationStates.delete(id);this.hitTimes.delete(id);}
   for(const [id,at] of this.hitTimes)if(world.time-at>.2)this.hitTimes.delete(id);
   for(const e of world.economicTargets.values()){if(!this.visible(e))continue;const age=world.time-(e.resolvedAt??world.time),model=this.gpu.get(e.kind);if(e.status==='active'){model?.add(e.x,this.ground(e),e.z,e.facing,e.kind==='drone'?'move':'idle',world.time*1.4);health(e,this.ground(e)+1.65);if(e.kind==='egg')putRing(e,1.1+.08*Math.sin(world.time*4),0xffd67d);}else if(e.kind==='egg'&&e.status==='rescued'&&age<3.8){this.gpu.get(RESCUE_PRESENTATION[world.expedition.race].workerModel)?.add(e.x,this.ground(e),e.z,e.facing,'idle',age*1.4,false,0,age>3.4?Math.max(.01,(3.8-age)/.4):1);putRing(e,1.1,0x8be8a5);}else if(age<1.5)model?.add(e.x,this.ground(e),e.z,e.facing,'dead',age,true,0,Math.max(.01,1-age/1.5));}
+  if(world.expedition.race==='zerg')for(const impact of world.expedition.support.impacts)if(impact.kind==='strategic'&&this.visible(impact.point))this.gpu.get('egg')?.add(impact.point.x,this.ground(impact.point)+Math.max(0,impact.at-world.time)*6,impact.point.z,world.time,'idle',world.time,false,0,2);
   if(world.expedition.race!=='protoss')for(const mine of world.expedition.support.mines){if(!this.visible(mine.point))continue;this.gpu.get(world.expedition.race==='terran'?'support.mine':'egg')?.add(mine.point.x,this.ground(mine.point),mine.point.z,0,'idle',world.time,false,0,world.expedition.race==='zerg'?.4:1);}
   for(const b of this.gpu.values())b.end();
   for(const p of world.pods){
@@ -411,14 +418,17 @@ export class BattleRenderer {
   for(const [id,v] of this.expansionViews)if(!world.expansionHives.has(id)){v.removeFromParent();this.expansionViews.delete(id);}
   for(const hive of world.expansionHives.values()){let v=this.expansionViews.get(hive.id);if(!v&&this.hiveTemplate){v=clone(this.hiveTemplate);v.scale.multiplyScalar(.8);this.scene.add(v);this.expansionViews.set(hive.id,v);}if(v){v.position.set(hive.x,this.ground(hive),hive.z);v.visible=this.visible(hive);}health(hive,this.ground(hive)+3.2);putRing(hive,hive.unitRadius+.35,world.hiveFrenzy?0xff6851:0xb97b5b);}
   const fortDt=Math.max(0,Math.min(.1,world.time-this.fortVisualTime));this.fortVisualTime=world.time;
-  for(const [id,v] of this.fortViews)if(!world.fortifications.has(id)){const kind=v.userData.fortKind as Fortification['kind']|undefined;if(kind)this.playFortDeath(id,kind,v.position);this.fortMixers.get(id)?.stopAllAction();this.fortMixers.delete(id);v.removeFromParent();this.fortViews.delete(id);}
-  for(const fort of world.fortifications.values()){let v=this.fortViews.get(fort.id);if(!v){v=this.makeFortView(fort.id,fort.kind);v.userData.fortKind=fort.kind;this.fortViews.set(fort.id,v);}v.position.set(fort.x,this.ground(fort),fort.z);v.visible=this.visible(fort);if(v.visible){health(fort,this.ground(fort)+2.4);putRing(fort,fort.unitRadius+.2,fort.kind==='bunker'?0x71c4fa:0x70e7c9);}}
+  for(const [id,v] of this.fortViews)if(!world.fortifications.has(id)&&world.expedition.support.unique.landing?.id!==id){const kind=v.userData.fortKind as Fortification['kind']|undefined;if(kind&&!(v.userData.supportUntil&&world.time>=v.userData.supportUntil))this.playFortDeath(id,kind,v.position);this.fortMixers.get(id)?.stopAllAction();this.fortMixers.delete(id);v.removeFromParent();this.fortViews.delete(id);}
+  const landing=world.expedition.support.unique.landing;
+  if(landing){let v=this.fortViews.get(landing.id);if(!v){v=this.makeFortView(landing.id,'bunker');this.fortViews.set(landing.id,v);}v.position.set(landing.point.x,this.ground(landing.point)+Math.max(0,landing.at-world.time)*8,landing.point.z);v.visible=this.visible(landing.point);}
+  for(const fort of world.fortifications.values()){let v=this.fortViews.get(fort.id);if(!v){v=this.makeFortView(fort.id,fort.kind);v.userData.fortKind=fort.kind;v.userData.supportUntil=fort.supportUntil;this.fortViews.set(fort.id,v);}v.userData.fortKind=fort.kind;v.userData.supportUntil=fort.supportUntil;v.position.set(fort.x,this.ground(fort),fort.z);v.visible=this.visible(fort);if(v.visible){health(fort,this.ground(fort)+2.4);putRing(fort,fort.unitRadius+.2,fort.kind==='bunker'?0x71c4fa:0x70e7c9);}}
   for(const mixer of this.fortMixers.values())mixer.update(fortDt);
   for(const [id,death] of this.fortDeathViews){death.mixer.update(fortDt);if(world.time>=death.until){death.mixer.stopAllAction();death.group.removeFromParent();this.fortDeathViews.delete(id);}}
   for(const fx of world.effects){const hero=world.entities.get(fx.source)?.heroId;if(hero&&(fx.kind==='bile'||fx.kind==='explosion'||fx.kind==='hero-line'))continue;if(fx.kind==='bile'){putRing(fx.end,fx.radius+1,0xff7138);putRing(fx.end,Math.max(.15,(fx.until-world.time)/2.5*(fx.radius+1)),0xffda84);}else if(fx.kind==='hero-warning'){putRing(fx.end,fx.radius,0xf4d38c);}else if(fx.kind==='scan-warning'){putRing(fx.end,fx.radius,0xff6357);putRing(fx.end,Math.max(.15,fx.radius*(1-(fx.until-world.time))),0xffb26b);}else if(fx.kind==='hero-line')putLine(fx,this.ground(fx)+.7,fx.end,this.ground(fx.end)+.7,0xffcc78);else if(fx.kind==='explosion')putRing(fx.end,fx.radius*(1+(fx.until-world.time)),0xffbc59);}
 
   for(const field of world.expedition?.detectionFields??[])if(field.until>world.time){const color=field.team==='player'?(world.expedition?.race==='zerg'?0xc5a1ef:world.expedition?.race==='protoss'?0xffdd84:0x63dce8):0xff7963;putRing(field,field.radius,color);for(let i=0;i<4;i++){const a=world.time*.4+i*Math.PI/2;putLine({x:field.x+Math.cos(a)*(field.radius-.6),z:field.z+Math.sin(a)*(field.radius-.6)},this.ground(field)+.12,{x:field.x+Math.cos(a)*field.radius,z:field.z+Math.sin(a)*field.radius},this.ground(field)+.12,color);}}
   for(const spell of world.expedition?.spells??[])if(spell.until>world.time){if(spell.kind==='guardian')putRing(spell,spell.radius,0x79cfff);else if(spell.kind==='storm'){putRing(spell,spell.radius,spell.owner==='terran'?0xb597ff:0xff7963);for(let i=0;i<5;i++){const a=i*2.399+Math.floor(world.time*10)*.15,r=spell.radius*(.3+.13*i),p={x:spell.x+Math.cos(a)*r,z:spell.z+Math.sin(a)*r};putLine(p,this.ground(p)+.1,{x:p.x+.18,z:p.z-.12},this.ground(p)+1.5,0xc7b5ff);}}else if(spell.target!==null){const unit=world.entities.get(spell.target);if(unit)putRing(unit,unit.unitRadius+.3,0x89ec9d);}}
+  if(this.targetPreview&&document.body.dataset.targetFamily==='tactical'){const p=this.targetPreview,d=Math.hypot(p.x-world.anchor.x,p.z-world.anchor.z);if(d>.01){const dx=(p.x-world.anchor.x)/d,dz=(p.z-world.anchor.z)/d;for(const side of [-1,1]){const from={x:world.anchor.x+dz*side,z:world.anchor.z-dx*side},to={x:from.x+dx*14,z:from.z+dz*14};putLine(from,this.ground(from)+.12,to,this.ground(to)+.12,0x90ddff);}}}
   if(this.targetPreview){putRing(this.targetPreview,.8,0x90ddff);putLine(world.anchor,this.ground(world.anchor)+.1,this.targetPreview,this.ground(this.targetPreview)+.1,0x90ddff);}
   for(const m of world.campaign18Runtime?.mainCombat?.missiles??[])putLine(m,this.ground(m)+.7,{x:m.x-Math.sin(m.angle)*.7,z:m.z-Math.cos(m.angle)*.7},this.ground(m)+.7,0xffb17c);
   for(const m of world.enemySpecials.missiles)putLine(m,this.ground(m)+.7,{x:m.x-Math.sin(m.angle)*.6,z:m.z-Math.cos(m.angle)*.6},this.ground(m)+.7,0xa2e87b);

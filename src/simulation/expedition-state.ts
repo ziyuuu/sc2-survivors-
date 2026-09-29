@@ -1,3 +1,4 @@
+import {validateUniqueSupport} from './combat/unique-support';
 import {newShopSupport,type ShopSupportState} from './combat/shop-support';
 import {FAMILIES_BY_RACE,MVP_RULES,type Race,type FamilyId} from '../data/races';
 import {PRODUCTION_LINES,type ProductionLineId} from '../data/expedition-buildings';
@@ -56,7 +57,8 @@ export function newExpedition(race:Race):ExpeditionState {
  freeRefresh:{chapter:1,building:0,random:0},bonusRefreshRemaining:0,paidRefresh:{building:false,random:false},draftWindow:0,draftTaken:false,draftClaims:[],draftSeenHigh:false,lowWindows:0,draftHistory:[],eliteContractWindow:0,eliteContracts:[],bossLootReceipts:[],bossLootClaimed:[],bossLootOpen:false,bossLootQueue:[],talentLootReceipts:[],pendingTalentLoot:null,talentLootRngState:1,eliteRescueRights:[],eliteRescueCompleted:[],temporaryOrdinaryCursor:0,temporaryEliteCursor:0,cardTotals:{},resourceCards:0,pendingFreeDeliveries:[],mapLootStats:{regular:{attempts:0,triggered:0,generated:0,empty:0},drone:{attempts:0,triggered:0,generated:0,empty:0},elite:{attempts:0,triggered:0,generated:0,empty:0}},detectionReady:0,detectionFields:[],enemyScanReady:{},familyModes:{},talentPreset:0};
 }
 export function validateExpedition(s:ExpeditionState){
- // Schema12 saves shared unlocks, per-quality team limits, and delayed support receipts.
+ // Schema13 additionally saves unique support state; shared unlocks, per-quality team limits, and delayed support receipts.
+ validateUniqueSupport(s.support?.unique,s.race);
  const support=s.support,point=(p:{x:number;z:number})=>p&&Number.isFinite(p.x)&&Number.isFinite(p.z);
  if(!support||!Number.isSafeInteger(support.ammo)||support.ammo<0||typeof support.stageReceipt!=='string'||!Number.isInteger(support.minePending)||support.minePending<0||support.minePending>12||!Number.isFinite(support.mineRetryAt)||!Number.isFinite(support.bombardAt)||['mines','bombardment','mutation'].some(k=>!Number.isInteger(support.levels[k as keyof typeof support.levels])||support.levels[k as keyof typeof support.levels]<0||support.levels[k as keyof typeof support.levels]>3)||!Array.isArray(support.mines)||support.mines.length>12||support.mines.some(m=>!Number.isSafeInteger(m.id)||!point(m.point))||!Array.isArray(support.impacts)||support.impacts.filter(i=>i.kind==='strategic').length>1||support.impacts.some(i=>!Number.isSafeInteger(i.id)||!['strategic','bombardment'].includes(i.kind)||!point(i.point)||!Number.isFinite(i.at))||!Array.isArray(support.burns)||support.burns.some(b=>![b.id,b.source,b.target].every(Number.isSafeInteger)||![b.damage,b.next,b.until].every(Number.isFinite)||b.damage<0))throw Error('战场支援状态无效');
  if(s.pendingShopSupply!==null&&(!s.pendingShopSupply||typeof s.pendingShopSupply.offerId!=='string'||s.pendingShopSupply.revision!==s.shopRevision))throw Error('增援购买预览无效');

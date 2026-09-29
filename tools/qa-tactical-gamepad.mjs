@@ -1,0 +1,7 @@
+import assert from 'node:assert/strict';
+export async function checkTacticalGamepad(page){
+ await page.evaluate(async()=>{const d=window.__SC2_DEBUG__;d.speed=0;d.healthLock(true);const {buySupport}=await import('/src/simulation/combat/shop-support.ts');buySupport(d.world,'zerg.evolve');d.world.changed();const pad={id:'Unique tactical QA',index:0,mapping:'standard',connected:true,axes:[0,0,0,0],buttons:Array.from({length:17},()=>({value:0}))};Object.defineProperty(navigator,'getGamepads',{configurable:true,value:()=>pad.connected?[pad]:[]});window.__QA_TACTICAL_PAD__=pad;});await page.waitForTimeout(200);
+ const press=async i=>{await page.evaluate(i=>window.__QA_TACTICAL_PAD__.buttons[i].value=1,i);await page.waitForTimeout(140);await page.evaluate(i=>window.__QA_TACTICAL_PAD__.buttons[i].value=0,i);await page.waitForTimeout(140);};
+ let found=false;for(let i=0;i<60;i++){await press(15);if(await page.evaluate(()=>document.activeElement?.getAttribute('data-action')==='tactical')){found=true;break;}}assert.ok(found,'D-pad can focus unique tactical command');await press(0);assert.ok(await page.evaluate(()=>window.__SC2_DEBUG__.world.expedition.support.unique.activeUntil>window.__SC2_DEBUG__.world.time));
+ await page.evaluate(()=>window.__QA_TACTICAL_PAD__.connected=false);await page.waitForTimeout(200);await page.evaluate(()=>{const d=window.__SC2_DEBUG__;d.healthLock(false);d.world.paused=false;d.world.changed();d.speed=1;});
+}

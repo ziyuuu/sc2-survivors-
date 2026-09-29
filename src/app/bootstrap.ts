@@ -53,6 +53,7 @@ export async function boot(){await loadEmbeddedAssets();configureMapAssets();let
    readiness.cancel();
   }else readiness.cancel();hud.update();};
  canvas.addEventListener('webglcontextlost',()=>readiness.fail('WebGL 上下文丢失，请等待恢复后重试或导出存档'));
+ canvas.addEventListener('webglcontextrestored',()=>{if(readiness.state.kind)void readiness.retry();else if(world.phase==='battle')void readiness.prepare('reinforcement');});
  hud.onRestart=()=>{
   hud.pendingStageAdvance=false;
   session.keepRun();

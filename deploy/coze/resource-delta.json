@@ -1,47 +1,7 @@
 {
-  "from": "89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61",
+  "from": "47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7",
   "to": "47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7",
-  "appBuildId": "4673852b6388cc1490347adfd1a9f8d1e6de1049db8b1b645aab9c4c7227bfe6",
-  "files": [
-    {
-      "url": "assets/9f481e0aa03dcde37d7842b764e500c0b20a4e6008b71dda705477d522012dc6.glb",
-      "bytes": 180144,
-      "sha256": "9f481e0aa03dcde37d7842b764e500c0b20a4e6008b71dda705477d522012dc6",
-      "mime": "model/gltf-binary",
-      "groups": [
-        "common"
-      ],
-      "ids": [
-        "model.support.mine"
-      ],
-      "gitPath": "deploy/runtime/assets/9f481e0aa03dcde37d7842b764e500c0b20a4e6008b71dda705477d522012dc6.glb"
-    },
-    {
-      "url": "assets/cc1fcd446aa7c03ee2bcfedb958245bb78babbbb1cce24e7f16365fe82fd951a.png",
-      "bytes": 27026,
-      "sha256": "cc1fcd446aa7c03ee2bcfedb958245bb78babbbb1cce24e7f16365fe82fd951a",
-      "mime": "image/png",
-      "groups": [
-        "common"
-      ],
-      "ids": [
-        "fx.support.nuke.2"
-      ],
-      "gitPath": "deploy/runtime/assets/cc1fcd446aa7c03ee2bcfedb958245bb78babbbb1cce24e7f16365fe82fd951a.png"
-    },
-    {
-      "url": "assets/ee8b832057cd050287064fa9803afc05585ddcfa9440b0504968289eb310e932.png",
-      "bytes": 37891,
-      "sha256": "ee8b832057cd050287064fa9803afc05585ddcfa9440b0504968289eb310e932",
-      "mime": "image/png",
-      "groups": [
-        "common"
-      ],
-      "ids": [
-        "fx.support.nuke.1"
-      ],
-      "gitPath": "deploy/runtime/assets/ee8b832057cd050287064fa9803afc05585ddcfa9440b0504968289eb310e932.png"
-    }
-  ],
+  "appBuildId": "dd555107fb164a5aa616178f05484c7ae76c255e6b6f5c9c2904c572f4e949ea",
+  "files": [],
   "retainedOldResources": true
 }
