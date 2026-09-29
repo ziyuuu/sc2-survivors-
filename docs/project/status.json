@@ -1956,6 +1956,14 @@
     },
     "visualAcceptance": "deferred-by-user",
     "naturalPerformance": "open",
-    "nineBuildFormationGoal": "partial: some routes form in stages10-14"
+    "nineBuildFormationGoal": "partial: some routes form in stages10-14",
+    "delivery": {
+      "commit": "b7e5556a50c1a572a7732bf119972c5b555f77ae",
+      "remoteResourcesVerified": 730,
+      "resourceBytes": 458372920,
+      "assetReleaseId": "47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7",
+      "state": "published-main",
+      "cozeAccountDeployment": "executor-required"
+    }
   }
 }
