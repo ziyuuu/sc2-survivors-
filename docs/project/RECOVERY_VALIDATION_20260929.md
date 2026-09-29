@@ -102,3 +102,28 @@
 | 节能 | 3589 | 16.8/16.8 | 3/3589（0.084%） | 116.7 | 1.6 | 7.9 | 首关结束、进入关间 |
 
 两次均无页面错误、特效池丢弃为0，draw calls163。完整动作/节能的首10秒分别包含150/116.7ms长帧，尚不能宣称消除加载后长帧。60Hz屏只报告60档采样，不声称超过60FPS。采样仅首关且关间会清理积债，因此负的首尾backlog差不作为180秒累计欠账通过证据；无后期/无尽通过结论，也没有旧版本相同输入的因果对照。原始统计与长任务记录在 `reports/local/recovery-natural-complete/results.json`、`reports/local/recovery-natural-energy/results.json`。
+
+## 合成CPU诊断（非自然性能验收）
+
+`reports/local/recovery-cpu-pressure.mts`：平地、三款枪兵精英同场、100个实体掉落，分别放置100/300敌人。诊断高生命与隐形友军用于隔离无目标巡逻负载；每项9000个实际固定步、150秒模拟。没有渲染/GPU，不能换算游戏FPS，也不代替180秒自然欠账检查。
+
+| 敌人数 | 模拟步P95(ms) | P99(ms) | 最大(ms) | 150秒模拟墙钟(ms) |
+|---:|---:|---:|---:|---:|
+| 100 | 0.905 | 1.262 | 16.710 | 4905 |
+| 300 | 3.973 | 5.597 | 16.249 | 22049 |
+
+两组结束仍有三精英和100掉落。原始结果：`reports/local/recovery-cpu-pressure.json`。初次夹具请求10800步，但关卡150秒结束后停止推进，已废弃该样本并改为9000个有效步重跑；没有将空转步计作180秒模拟。
+
+## Git交付
+
+实现提交 `3bfed3662cc79359355e3ed745c0038be1dcdfca` 已正常推送到 `origin/main`，远端从 `4ba44ec` 前进到 `3bfed36`。LFS确认上传1个真实离线HTML对象（360908871字节），未强推、未修改历史。运行模型内容与上一提交一致，不重复上传相同对象；以下远端验证仍按本次固定提交读取全部资源。
+
+远端全量验证通过：
+
+```text
+node tools/fetch-coze-resources.mjs --commit 3bfed3662cc79359355e3ed745c0038be1dcdfca --group all --verify-remote
+verified=727 bytes=458127859 remote=true
+release=89a06ffb34ac6a482dddbe8217a30e796d4a69db08823f65e37aba1ed87c9f61
+```
+
+每个文件从该固定提交的真实LFS下载地址流式读取，字节数及SHA-256全部相符，不是指针文件，不留下重复资源副本。完整记录：`reports/local/recovery-remote-resources.log`。本轮交付工程检查完成；自然救援、完整M6及人工视觉等上述未关闭项不因此变为通过。核验记录以独立文档提交补入main，发行资源不变。

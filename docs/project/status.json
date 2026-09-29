@@ -1937,7 +1937,7 @@
     "evidence": "docs/project/RECOVERY_VALIDATION_20260929.md",
     "rulesTests": 701,
     "schema": 11,
-    "state": "ENGINEERING_VERIFIED_REMOTE_DELIVERY_PENDING",
+    "state": "ENGINEERING_DELIVERED_FULL_M6_AND_VISUAL_OPEN",
     "visualAcceptance": "OPEN",
     "m6FullCoverage": "OPEN",
     "m7Acceptance": "OPEN",
