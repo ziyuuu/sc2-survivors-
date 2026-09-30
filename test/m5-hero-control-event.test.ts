@@ -15,7 +15,7 @@ test('Vorazun control emits one impact for the real stopped target and does not 
  assert.ok(castId);
  w.time=.25;resolveExpeditionHeroCasts(w);
  assert.ok((target.stoppedUntil??0)>w.time);
- assert.equal(w.visualEvents.filter(event=>event.kind==='skill-impact'&&event.castId===castId).length,1);
+ assert.equal(w.visualEvents.filter(event=>event.kind==='skill-status'&&event.castId===castId&&event.targetId===target.id).length,1);
  resolveExpeditionHeroCasts(w);
- assert.equal(w.visualEvents.filter(event=>event.kind==='skill-impact'&&event.castId===castId).length,1);
+ assert.equal(w.visualEvents.filter(event=>event.kind==='skill-status'&&event.castId===castId&&event.targetId===target.id).length,1);
 });

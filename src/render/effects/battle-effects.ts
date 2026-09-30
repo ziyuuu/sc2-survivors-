@@ -1,3 +1,4 @@
+import {CombatSculptures} from './combat-sculptures';
 import {OriginalProjectiles} from './original-projectiles';
 import {commitInstances,uploadActive} from '../units/instance-updates';
 import * as THREE from 'three';
@@ -23,9 +24,9 @@ export class BattleEffects {
  batches=new Map<string,Batch>();loaded=0;errors:string[]=[];lastSerial=0;
  particles:Particle[]=[];pool:Particle[]=[];steps=new Map<number,number>();
  stats={attack:0,hit:0,death:0,movement:0,bile:0,active:0,pending:0,dropped:0,droppedByClass:counters(),culledByClass:counters(),projectileCulled:0};
- readonly projectiles:OriginalProjectiles;
- constructor(private scene:THREE.Scene){this.projectiles=new OriginalProjectiles(scene);}
- reset(){this.pool.push(...this.particles);this.particles.length=0;this.steps.clear();this.lastSerial=0;this.projectiles.active.length=0;this.stats={attack:0,hit:0,death:0,movement:0,bile:0,active:0,pending:0,dropped:0,droppedByClass:counters(),culledByClass:counters(),projectileCulled:0};}
+ readonly projectiles:OriginalProjectiles;readonly sculptures:CombatSculptures;
+ constructor(private scene:THREE.Scene){this.projectiles=new OriginalProjectiles(scene);this.sculptures=new CombatSculptures(scene);}
+ reset(){this.sculptures.reset();this.pool.push(...this.particles);this.particles.length=0;this.steps.clear();this.lastSerial=0;this.stats={attack:0,hit:0,death:0,movement:0,bile:0,active:0,pending:0,dropped:0,droppedByClass:counters(),culledByClass:counters(),projectileCulled:0};}
  async load(){await this.projectiles.load();this.errors.push(...this.projectiles.errors);for(const a of ASSETS.values()){if(a.kind!=='effect-texture')continue;const url=assetUrl(a.id);if(!url)continue;try{
    const texture=await new THREE.TextureLoader().loadAsync(url);texture.colorSpace=THREE.SRGBColorSpace;
    const sprite=(a as unknown as {sprite?:{columns:number;rows:number;startFrame?:number;endFrame?:number}}).sprite??{columns:1,rows:1};
@@ -52,13 +53,15 @@ export class BattleEffects {
   }
  }
  event(e:VisualEvent,mount:{x:number;y:number;z:number}|null=null,leftMount:{x:number;y:number;z:number}|null=null){
+  this.sculptures.event(e,mount,leftMount);
+  if(e.kind==='projectile-impact'){const p=attackPresentation(e);if(p){this.burst({...e,...e.end,y:e.endY},p.impact,1,p.impactSize,p.tint,p.life,false,'core');}return;}
   if(e.kind==='support-flight'){if(e.race==='protoss'){this.trace(e,{x:e.x,y:e.y+1,z:e.z},'fx.muzzle.1',0x8beeff,.26);this.burst({...e,...e.end},'fx.impact.0',2,.45,0x9eeaff,.2,false,'core');}else this.bulletParticles(e,{x:e.x,y:e.y+1,z:e.z},0xffc373);return;}
   if(e.kind==='support-pulse'){if(e.race==='zerg'){this.burst(e,'fx.bile.4',3,.6,0xb4ed67,.45);this.burst(e,'fx.baneling.0',1,.7,0x88b956,.35,false,'core');}else if(e.race==='protoss'){for(let i=0;i<3;i++)this.burst({...e,x:e.x+Math.sin(i*2.1)*.5,z:e.z+Math.cos(i*2.1)*.5},'fx.impact.0',1,.25,0x96ddff,.5,false,'core');}else this.burst(e,'fx.blast.4',2,.35,0xffc271,.3);return;}
   if(e.kind==='support-impact'||e.kind==='strategic-impact'){if(e.race==='protoss'){for(let i=0;i<6;i++){const a=i*Math.PI/3;this.emit({asset:'fx.muzzle.1',x:e.x,y:e.y,z:e.z,vx:Math.sin(a)*4,vy:1.2,vz:Math.cos(a)*4,start:e.time,life:.35,size:.25,growth:-.4,color:0x8bddff,ground:false,angle:a,aspect:3,priority:'core'});}}else if(e.race==='zerg'){for(let i=0;i<7;i++){const a=i*Math.PI*2/7;this.emit({asset:'fx.bile.0',x:e.x,y:e.y,z:e.z,vx:Math.sin(a)*3,vy:2,vz:Math.cos(a)*3,start:e.time,life:.5,size:.35,growth:-.2,color:0xb4ed67,ground:false,angle:a,priority:'trail'});}}const big=e.kind==='strategic-impact',zerg=e.race==='zerg',protoss=e.race==='protoss',tint=zerg?0xb4ed67:protoss?0x86d9ff:0xffc271;this.burst(e,zerg?'fx.bile.4':protoss?'fx.impact.0':big?'fx.support.nuke.1':'fx.blast.3',1,big?7:2,tint,big?1.4:.5,false,'core');this.burst(e,zerg?'fx.baneling.0':protoss?'fx.muzzle.1':big?'fx.support.nuke.16':'fx.blast.6',3,big?2.5:.8,tint,.5);if(big&&!zerg&&!protoss)this.burst(e,'fx.support.nuke.2',1,12,0xffffff,.8,true,'core');}
   else if(e.kind==='shield-hit'||e.kind==='shield-break')this.burst(e,'fx.impact.0',e.kind==='shield-break'?5:2,e.kind==='shield-break'?.5:.28,0x69baff,.24);
   else if(e.kind==='queen-inject'){this.burst(e,'fx.impact.0',2,.35,0xaedb54,.5);this.burst({...e,x:e.end.x,z:e.end.z},'fx.impact.0',3,.7,0xaedb54,.65);}
-  else if(e.kind==='hit'){this.stats.hit++;const metal=!e.unitType||['hellion','tank','medivac'].includes(e.unitType);this.burst(e,metal?'fx.impact.0':'fx.blood.0',metal?3:2,metal?.25:.5,metal?0xffcf80:e.unitType==='marine'?0xc94031:0x86a956,.28);}
-  else if(e.kind==='death'){this.stats.death++;const metal=['hellion','tank','medivac'].includes(e.unitType??'');this.burst(e,metal?'fx.blast.3':e.unitType==='baneling'?'fx.baneling.1':'fx.blood.0',4,metal?1.6:1.1,0xffffff,.7);if(metal)this.burst(e,'fx.blast.4',3,1.5,0x605c57,1.4);}
+  else if(e.kind==='hit'){this.stats.hit++;const metal=!e.unitType||['hellion','tank','medivac','thor','viking','banshee','science_vessel','stalker','sentry','immortal','colossus','phoenix','void_ray','carrier'].includes(e.unitType);this.burst(e,metal?'fx.impact.0':'fx.blood.0',metal?3:2,metal?.25:.5,metal?0xffcf80:e.unitType==='marine'?0xc94031:0x86a956,.28);}
+  else if(e.kind==='death'){this.stats.death++;const metal=['hellion','tank','medivac','thor','viking','banshee','science_vessel','stalker','sentry','immortal','colossus','phoenix','void_ray','carrier'].includes(e.unitType??'');this.burst(e,metal?'fx.blast.3':e.unitType==='baneling'?'fx.baneling.1':'fx.blood.0',4,metal?1.6:1.1,0xffffff,.7);if(metal)this.burst(e,'fx.blast.4',3,1.5,0x605c57,1.4);}
   else if(e.kind==='bile-impact'){this.stats.bile++;this.burst(e,'fx.bile.6',5,1.6,0xffffff,.9);this.burst(e,'fx.bile.4',1,3,0xffffff,.5,true);}
   else if(e.kind==='baneling-recover')this.burst(e,'fx.baneling.0',5,.92,0xb4ef6b,.48);
   else if(e.kind==='barrier-start')this.burst(e,'fx.impact.0',3,.47,0x9ce9ff,.27);
@@ -71,9 +74,10 @@ export class BattleEffects {
   else if(e.kind==='pod-destroy')this.burst(e,'fx.blast.3',5,2.2,0xffffff,1);
   else if(e.kind==='egg-expired'||e.kind==='drone-death')this.burst(e,'fx.blood.0',3,1,0x9cbd66,.65);
   else if(e.kind==='attack'){this.stats.attack++;if(!e.heroId&&(e.unitType==='zergling'||e.unitType==='baneling'))return;const muzzle={...e,...(mount??{x:e.x+Math.sin(e.facing)*.6,y:.8,z:e.z+Math.cos(e.facing)*.6})},profile=attackPresentation(e);
-   if(profile){this.burst(muzzle,profile.asset,1,profile.size,profile.tint,profile.life,false,'core');this.burst({...e,...e.end,y:e.endY},profile.impact,1,profile.impactSize,profile.tint,profile.life,false,'core');if(e.heroId&&HEROES[e.heroId].range<=2)this.emit({asset:profile.asset,x:e.end.x,y:e.endY,z:e.end.z,vx:0,vy:0,vz:0,start:e.time,life:.12,size:profile.impactSize*.65,growth:.3,color:profile.tint,ground:false,angle:-e.facing,aspect:2.4,priority:'trail'});}
+   if(profile){this.burst(muzzle,profile.asset,1,profile.size,profile.tint,profile.life,false,'core');if(!e.projectileSpeed)this.burst({...e,...e.end,y:e.endY},profile.impact,1,profile.impactSize,profile.tint,profile.life,false,'core');if(e.heroId&&HEROES[e.heroId].range<=2)this.emit({asset:profile.asset,x:e.end.x,y:e.endY,z:e.end.z,vx:0,vy:0,vz:0,start:e.time,life:.12,size:profile.impactSize*.65,growth:.3,color:profile.tint,ground:false,angle:-e.facing,aspect:2.4,priority:'trail'});}
    if(e.heroId==='nova'){this.bulletParticles(e,muzzle,0x72ffd4,true);return;}
-   if(e.heroId){if(HEROES[e.heroId].range>2&&profile){const fire=['raynor','tychus','swann'].includes(e.heroId),acid=['zagara','stukov','hots_leviathan'].includes(e.heroId);this.trace(e,muzzle,fire?'fx.flame.1':acid?'fx.bile.0':'fx.muzzle.1',profile.tint,e.heroId==='raynor'?.24:e.flying?.3:.17);}return;}
+   if(e.heroId)return;
+   if(e.projectileSpeed){if(e.unitType==='marauder')this.burst(muzzle,'fx.marauder.launch.1',1,.35,0xffffff,.1,false,'core');return;}
    if(e.unitType==='reaper'){
     this.bulletParticles(e,muzzle,0xffb859);
     if(leftMount){this.burst({...e,...leftMount},'fx.muzzle.0',1,.32,0xffbd62,.1,false,'core');this.bulletParticles(e,leftMount,0xffb859);}
@@ -85,8 +89,8 @@ export class BattleEffects {
     for(let i=0;i<8;i++)this.emit({asset:'fx.flame.0',x:muzzle.x+dx*i*.12,y:muzzle.y,z:muzzle.z+dz*i*.12,vx:dx*8,vy:.04,vz:dz*8,start:e.time+i*.015,life:Math.min(.5,length/8),size:.3+i*.035,growth:1.6,color:0xffffff,ground:false,angle:e.facing});
     this.burst(muzzle,'fx.flame.1',1,.25,0xffffff,.12);
    }
-   else if(e.unitType==='marauder'){this.projectiles.emit(e,mount);this.burst(muzzle,'fx.marauder.launch.1',1,.35,0xffffff,.1);this.burst({...e,...e.end,y:e.endY},'fx.marauder.impact.2',1,.6,0xffffff,.16);this.burst({...e,...e.end,y:e.endY},'fx.marauder.impact.0',2,.5,0xffffff,.3);}
-   else if(e.unitType==='hydralisk'){this.projectiles.emit(e,mount);}
+
+
    else if(e.unitType==='marine'||e.unitType==='tank'){
     if(e.unitType==='marine'){this.burst(muzzle,'fx.muzzle.0',1,.32,0xffffff,.09);this.burst(muzzle,'fx.muzzle.1',1,.2,0xffd491,.06);}
     else {this.burst(muzzle,'fx.blast.6',1,.9,0xffd491,.1);this.burst({...e,...e.end,y:e.endY},'fx.blast.3',3,e.siege?2.2:1.1,0xffffff,.55);}
@@ -95,10 +99,10 @@ export class BattleEffects {
   }
  }
  render(w:World,camera:THREE.Camera,visible:(p:Point)=>boolean,muzzle:(e:VisualEvent,side?:'Left'|'Right')=>{x:number;y:number;z:number}|null=()=>null){
-  for(const e of w.visualEvents){if(e.serial<=this.lastSerial)continue;this.lastSerial=e.serial;if((visible(e)||visible(e.end))&&w.time-e.time<1.5)this.event(heroFeedbackEvent(e,w.entities),muzzle(e,e.unitType==='reaper'?'Right':undefined),e.unitType==='reaper'?muzzle(e,'Left'):null);}
+  for(const e of w.visualEvents){if(e.serial<=this.lastSerial)continue;this.lastSerial=e.serial;const paired=e.unitType==='reaper'||e.heroId==='yamato_battlecruiser';if((visible(e)||visible(e.end))&&w.time-e.time<1.5)this.event(heroFeedbackEvent(e,w.entities),muzzle(e,paired&&e.kind==='attack'?'Right':undefined),paired?muzzle(e,'Left'):null);}
   for(const u of w.entities.values()){if(u.hp<=0||u.flying||!visible(u))continue;const last=this.steps.get(u.id)??u.distanceWalked;if(u.distanceWalked-last>.7){this.stats.movement++;this.steps.set(u.id,u.distanceWalked);this.emit({asset:'fx.impact.1',x:u.x,y:(w.terrain?.height(u)??0)+.13,z:u.z,vx:-u.velocity.x*.12,vy:.2,vz:-u.velocity.z*.12,start:w.time,life:.5,size:u.unitType==='tank'?.8:.3,growth:.7,color:0x77726a,ground:false,angle:u.facing});}else if(!this.steps.has(u.id))this.steps.set(u.id,last);}
   for(const id of this.steps.keys())if(!w.entities.has(id))this.steps.delete(id);
-  this.projectiles.render(w.time,visible);
+  this.projectiles.renderFlights(w,visible,this.sculptures.mounts);this.sculptures.render(w,visible,muzzle);
   for(const b of this.batches.values())b.count=0;this.stats.culledByClass=counters();this.stats.projectileCulled=0;
   this.stats.pending=0;
   const support=w.expedition.support,tint=w.expedition.race==='zerg'?0xb4ed67:w.expedition.race==='protoss'?0x86d9ff:0xffc271;
@@ -122,24 +126,6 @@ export class BattleEffects {
   for(const orb of unique.orbs)glyph(orb.point,(w.terrain?.height(orb.point)??0)+.6,.38,'fx.bile.0');
   for(const id of Object.keys(unique.parasites)){const u=w.entities.get(+id);if(u?.hp)glyph(u,(w.terrain?.height(u)??0)+(u.flying?5.6:.7),.3,'fx.baneling.0');}
   for(const [id,r] of Object.entries(unique.reserves)){const u=w.entities.get(+id);if(!u?.hp||!r.amount)continue;const n=Math.min(5,Math.ceil(r.amount/Math.max(1,(u.maxShield??1)*.06)));for(let i=0;i<n;i++){const a=i*Math.PI*2/n,p={x:u.x+Math.sin(a)*(u.unitRadius+.2),z:u.z+Math.cos(a)*(u.unitRadius+.2)};glyph(p,(w.terrain?.height(u)??0)+(u.flying?5.6:.5),.16,'fx.impact.0');}}
-  for(const cast of w.heroCasts){
-   if(!cast.launched||cast.phase==='dot'||cast.phase==='channel'||(cast.pulseIndex??0)>0)continue;
-   const duration=HERO_SKILL_FLIGHT[cast.hero];if(!duration||cast.at<=w.time)continue;
-   const start=cast.at-duration;if(w.time<start)continue;
-   const hero=HEROES[cast.hero],profile=heroSkillPresentation(cast.hero),projectile=this.batches.get(profile.asset);if(!projectile)continue;if(projectile.count>=CAPACITY){this.stats.projectileCulled++;continue;}
-   const t=Math.max(0,Math.min(1,(w.time-start)/duration)),from=cast.origin,angle=Math.atan2(cast.point.x-from.x,cast.point.z-from.z);
-   const line=['raynor','kerrigan','alarak'].includes(cast.hero),to=line?{x:from.x+Math.sin(angle)*hero.length,z:from.z+Math.cos(angle)*hero.length}:cast.point;
-   const source=w.entities.get(cast.source),launch=castLaunchEvent(cast,source,w.time),mount=muzzle(launch),origin=mount??launch;const x=origin.x+(to.x-origin.x)*t,z=origin.z+(to.z-origin.z)*t;if(!visible({x,z}))continue;
-   const fromY=mount?.y??(hero.flying?AIR_HEIGHT+.6:(w.terrain?.height(from)??0)+1.2),target=w.body(cast.target),toY=target?.flying?AIR_HEIGHT+.6:(w.terrain?.height(to)??0)+1.2;
-   object.position.set(x,fromY+(toY-fromY)*t,z);object.quaternion.copy(camera.quaternion);object.scale.set(profile.size*1.4,profile.size,profile.size);
-   if(cast.hero==='raynor'){
-    // The visible tail stays behind the actual projectile head, never at a future hit.
-    along.set(to.x-origin.x,toY-fromY,to.z-origin.z);const distance=along.length();
-    if(distance>.001){along.divideScalar(distance);const length=Math.min(2.5,distance*t);object.position.addScaledVector(along,-length/2);normal.copy(camera.position).sub(object.position).normalize();across.crossVectors(normal,along).normalize();normal.crossVectors(along,across).normalize();basis.makeBasis(along,across,normal);object.quaternion.setFromRotationMatrix(basis);object.scale.set(Math.max(.15,length),profile.size,1);}
-   }
-   object.updateMatrix();
-   const count=projectile.count++;projectile.mesh.setMatrixAt(count,object.matrix);projectile.mesh.setColorAt(count,color.set(profile.tint));projectile.data.setXYZ(count,projectile.start,1,profile.neutralize?1:0);this.stats.pending++;
-  }
   let kept=0;for(const p of this.particles){const age=w.time-p.start,t=age/p.life;if(t>=1){this.pool.push(p);continue;}this.particles[kept++]=p;}this.particles.length=kept;this.stats.active=kept;
   for(const priority of ['core','trail','decoration'] as const)for(const p of this.particles){if((p.priority??'decoration')!==priority)continue;const age=w.time-p.start,t=age/p.life;if(t<0||!visible(p))continue;const b=this.batches.get(p.asset)!;if(b.count>=CAPACITY){this.stats.culledByClass[priority]++;continue;}
    object.position.set(p.x+p.vx*age,p.y+p.vy*age,p.z+p.vz*age);const size=p.size*(1+t*p.growth);object.scale.set(size*(p.aspect??1),size,size);

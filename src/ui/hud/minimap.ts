@@ -35,7 +35,7 @@ export class Minimap {
  readonly element:HTMLElement;readonly canvas:HTMLCanvasElement;private ctx:CanvasRenderingContext2D;private backdrop=document.createElement('canvas');private stage=0;private mapTerrain?:TerrainQuery;private frame:MapFrame={left:-10,top:-10,size:20};private height=0;private observer:ResizeObserver;
  constructor(readonly world:World,readonly view:BattleRenderer,parent:HTMLElement,readonly controls:ControlSettings){
   this.element=document.createElement('aside');this.element.id='minimap';this.element.className='console';
-  this.element.innerHTML='<header><span>战术地图</span><span aria-hidden="true">N ↑</span></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。点击模式下，鼠标或触屏轻点前往。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>';
+  this.element.innerHTML='<header><span>地图</span><span aria-hidden="true">N ↑</span></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。点击模式下，鼠标或触屏轻点前往。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>';
   parent.append(this.element);this.canvas=this.element.querySelector('canvas')!;this.ctx=this.canvas.getContext('2d')!;
   this.observer=new ResizeObserver(()=>{const width=this.canvas.clientWidth;if(width>0&&Math.max(128,Math.round(width*Math.min(devicePixelRatio||1,2)))!==this.canvas.width)this.stage=0;this.update();});this.observer.observe(this.canvas);
   this.element.addEventListener('contextmenu',e=>e.preventDefault());
@@ -50,12 +50,12 @@ export class Minimap {
   if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)return;
   w.issueMove(p);
  }
- private background(){const d=this.world.terrain?.definition;if(!d)return;this.frame=minimapFrame(d,this.world.terrainStage);this.stage=this.world.terrainStage;this.mapTerrain=this.world.terrain;
+ private background(){const d=this.world.terrain?.definition;this.frame=d?minimapFrame(d,this.world.terrainStage):{left:-80,top:-80,size:160};this.stage=this.world.terrainStage;this.mapTerrain=this.world.terrain;
   const side=Math.max(128,Math.round(this.canvas.clientWidth*Math.min(devicePixelRatio||1,2)));this.canvas.width=this.canvas.height=side;this.backdrop.width=this.backdrop.height=side;
   const c=this.backdrop.getContext('2d')!,im=c.createImageData(side,side),terrain=this.world.terrain!;
-  paintMinimapTerrain(d,terrain,this.frame,this.stage,side,im.data);c.putImageData(im,0,0);this.canvas.dataset.mapFrame=JSON.stringify(this.frame);
+  if(d)paintMinimapTerrain(d,terrain,this.frame,this.stage,side,im.data);else for(let y=0;y<side;y++)for(let x=0;x<side;x++){const p=mapUnproject(this.frame,{x:(x+.5)/side,z:(y+.5)/side}),open=terrain.isOpen?.(p),i=(y*side+x)*4;im.data.set(open?[51,65,65,255]:[12,22,29,255],i);}c.putImageData(im,0,0);this.canvas.dataset.mapFrame=JSON.stringify(this.frame);
  }
- update(){const w=this.world;this.element.hidden=!w.terrain?.definition||w.phase==='menu';if(this.element.hidden)return;if(this.stage!==w.terrainStage||this.mapTerrain!==w.terrain)this.background();const c=this.ctx,s=this.canvas.width;c.clearRect(0,0,s,s);c.drawImage(this.backdrop,0,0);const unit=s/180;
+ update(){const w=this.world;this.element.hidden=!w.terrain||w.phase==='menu';if(this.element.hidden)return;if(this.stage!==w.terrainStage||this.mapTerrain!==w.terrain)this.background();const c=this.ctx,s=this.canvas.width;c.clearRect(0,0,s,s);c.drawImage(this.backdrop,0,0);const unit=s/180;
   const project=(p:Point)=>{const q=mapProject(this.frame,p);return {x:q.x*s,y:q.z*s};};
   const dot=(p:Point,color:string,r:number)=>{const q=project(p);c.fillStyle=color;c.beginPath();c.arc(q.x,q.y,r*unit,0,Math.PI*2);c.fill();};
   for(const p of w.pickups)dot(p,'#6d96b2',.8);

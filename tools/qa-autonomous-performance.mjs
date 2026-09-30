@@ -9,18 +9,28 @@ const races=arg('--races','terran,zerg,protoss').split(','),mode=arg('--mode','c
 const out=arg('--output','reports/local/autonomous-performance');
 const profile=process.argv.includes('--profile'),gpuTiming=process.argv.includes('--gpu');
 const checkpoint=arg('--checkpoint','');
+const requestedBuild=arg('--build','');
+let completedActions=0;
+const seed=Number(arg('--seed','89241'));
+if(!Number.isSafeInteger(seed)||seed<0||seed>0xffffffff)throw Error('Invalid seed');
 if(checkpoint&&races.length!==1)throw Error('A checkpoint requires exactly one race');
 if(!Number.isFinite(seconds)||seconds<10||seconds>2000||!Number.isInteger(repeat)||repeat<1||repeat>3||races.some(r=>!['terran','zerg','protoss'].includes(r))||!['complete','energy-saving'].includes(mode)||!/^reports\/local\/[a-z0-9-]+$/.test(out))throw Error('Invalid arguments');
 await fs.mkdir(out,{recursive:true});
 const stats=a=>{const s=[...a].sort((a,b)=>a-b),q=p=>s[Math.min(s.length-1,Math.floor(s.length*p))]??null;return {count:s.length,p50:q(.5),p95:q(.95),p99:q(.99),max:s.at(-1)??null,over20:s.filter(x=>x>20).length,over20Percent:s.length?s.filter(x=>x>20).length/s.length*100:null};};
-const report={at:new Date().toISOString(),method:'Visible Chrome 1440x900 DPR1, menu-created Normal zero-talent seed89241. Public-action controller, real 60Hz app driver; UI Continue uses resource coordinator. No grants, stat edits, manual World stepping or excluded first ten seconds. First development window has no premarked target, unlike headless matrix. Render timings are battle-only; longTasksAllPhases includes loading. Transition frames are separately retained. Whole-step backlog discarded at a stage/pause transition is accumulated separately and must also satisfy the debt gate. Failed early runs are incomplete stage coverage, not campaign acceptance.',host:{cpu:os.cpus()[0]?.model,ram:os.totalmem()},mode,seconds,repeat,cpuProfile:profile,gpuTiming,controllerSHA256:createHash('sha256').update(await fs.readFile('tools/qa-campaign-controller.ts')).digest('hex'),runs:[]};
+const report={at:new Date().toISOString(),method:'Visible Chrome 1440x900 DPR1, menu-created Normal zero-talent seed'+seed+'. Public-action controller, real 60Hz app driver; UI Continue uses resource coordinator. No grants, stat edits, manual World stepping or excluded first ten seconds. First development window has no premarked target, unlike headless matrix. Render timings are battle-only; longTasksAllPhases includes loading. Transition frames are separately retained. Whole-step backlog discarded at a stage/pause transition is accumulated separately and must also satisfy the debt gate. Failed early runs are incomplete stage coverage, not campaign acceptance.',host:{cpu:os.cpus()[0]?.model,ram:os.totalmem()},mode,seconds,repeat,cpuProfile:profile,gpuTiming,controllerSHA256:createHash('sha256').update(await fs.readFile('tools/qa-campaign-controller.ts')).digest('hex'),runs:[]};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:false,args:['--enable-precise-memory-info']});
 if(checkpoint){report.checkpoint={path:checkpoint,sha256:createHash('sha256').update(await fs.readFile(checkpoint)).digest('hex'),provenance:JSON.parse(await fs.readFile(checkpoint+'.provenance.json','utf8'))};if(report.checkpoint.provenance.diagnosticHealthLock||report.checkpoint.provenance.diagnosticOneHit)throw Error('Natural performance requires an unassisted checkpoint');report.method='Visible Chrome 1440x900 DPR1; imported unassisted campaign checkpoint using menu file preview/load. Saved difficulty/talents/seed retained, no grants, locks or manual steps. Public-action controller resumes; first ten seconds included. '+report.method.slice(report.method.indexOf('Render timings'));}
+if(checkpoint&&report.checkpoint.provenance.build){
+ const path=await import('node:path'),historyPath=path.resolve(path.dirname(checkpoint),'..',report.checkpoint.provenance.build+'-'+report.checkpoint.provenance.seed+'.json');
+ const history=await fs.readFile(historyPath,'utf8').then(JSON.parse);const a=JSON.parse(await fs.readFile(checkpoint,'utf8'));
+ const root=new Map(a.data.nodes[a.data.root.ref].entries),run=new Map(a.data.nodes[root.get('run').ref].entries),state=new Map(a.data.nodes[run.get('state').ref].entries);
+ completedActions=history.events.filter(e=>e.kind==='development'&&e.time<=state.get('time')).length;
+}
 report.chrome=browser.version();
 try{
  for(const race of races)for(let trial=1;trial<=repeat;trial++){
   const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1});
-  await context.addInitScript(mode=>localStorage.setItem('sc2.animationMode',mode),mode);
+  await context.addInitScript(({mode,seed})=>{localStorage.setItem('sc2.animationMode',mode);const original=crypto.getRandomValues.bind(crypto);crypto.getRandomValues=array=>{if(array instanceof Uint32Array&&array.length===1){array[0]=seed;return array;}return original(array);};},{mode,seed});
   const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
   const cdp=profile?await context.newCDPSession(page):null;
   await page.goto(process.env.SC2_QA_URL??'http://127.0.0.1:5173');
@@ -29,14 +39,14 @@ try{
   else for(const selector of ['[data-action=menu-new]',`[data-action=menu-race][data-race=${race}]`,'[data-action=menu-race-next]','[data-action=menu-difficulty-next]','[data-action=menu-start]'])await page.locator(selector).click();
   await page.waitForFunction(()=>['ready','error'].includes(window.__SC2_REPORT__?.().readiness?.phase),null,{timeout:600000});
   const prepared=await page.evaluate(()=>window.__SC2_REPORT__().readiness);if(prepared.phase!=='ready')throw Error(prepared.error);
-  await page.evaluate(async ({race,gpuTiming})=>{
+  await page.evaluate(async ({race,gpuTiming,buildId,completedActions})=>{
    const {createCampaignController,BUILDS}=await import('/tools/qa-campaign-controller.ts');
    const {writeArchive}=await import('/src/persistence/archive.ts');
    const {world:w,view:v}=window.__SC2_DEBUG__;
    const p=window.__autonomousPerf={frames:[],steps:[],renders:[],spikes:[],longTasks:[],transitions:[],segments:[],segment:null,stages:{},last:0,lastStage:0,lastElapsed:0,nextThink:0,done:false,started:0,peakEntities:0,peakBodies:0,peakDrawCalls:0,maxDebt:0,discardedDebt:0,controller:null,error:null};
    // Menu-created RunConfig is never replaced just to seed a controller target.
    // Unlike the headless matrix, its first development window has no premarked target.
-   const startController=()=>{if(!p.controller){p.controller=createCampaignController(w,BUILDS.find(b=>b.race===race),undefined,{advanceIntermission:false});p.controller.configure();}};
+   const startController=()=>{if(!p.controller){p.controller=createCampaignController(w,BUILDS.find(b=>b.id===buildId)??BUILDS.find(b=>b.race===race),undefined,{advanceIntermission:false,completedActions});p.controller.configure();}};
    p.exportCheckpoint=()=>({archive:writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()}),config:w.runConfig,stage:w.stage,phase:w.phase,events:p.controller?.events??[]});
    const active=()=>w.phase==='battle'&&!w.paused&&!w.requiresPlayerDecision&&!window.__SC2_REPORT__().readiness.kind&&!v.assetsPending;
    const step=w.step.bind(w),render=v.render.bind(v);
@@ -65,16 +75,19 @@ try{
     }
     if(!p.done)requestAnimationFrame(frame);
    };requestAnimationFrame(frame);
-  },{race,gpuTiming});
+  },{race,gpuTiming,buildId:requestedBuild||report.checkpoint?.provenance.build,completedActions});
   await page.evaluate(()=>{window.__autonomousPerf.started=performance.now();});
   if(cdp){await cdp.send('Profiler.enable');await cdp.send('Profiler.start');}
   await page.locator('[data-action=flow-continue]').click();
+  const beginCombat=await page.evaluate(()=>window.__SC2_DEBUG__.world.time);
+  const actualConfig=await page.evaluate(()=>window.__SC2_DEBUG__.world.runConfig);if(!checkpoint&&actualConfig.seed!==seed)throw Error('Actual menu seed differs from requested seed');report.actualConfigs??=[];report.actualConfigs.push(actualConfig);
   if(checkpoint)await page.locator('#overlay [data-action=pause]').click();
   const start=Date.now(),savedStages=new Set();let lastProgress=start;
-  while(Date.now()-start<seconds*1000){
+  while(Date.now()-start<(checkpoint?seconds+600:seconds)*1000){
    const r=await page.evaluate(()=>({phase:window.__SC2_REPORT__().phase,stage:window.__SC2_REPORT__().stage,time:window.__SC2_REPORT__().time,ready:window.__SC2_REPORT__().readiness,error:window.__autonomousPerf.error}));
    if(Date.now()-lastProgress>=30000){lastProgress=Date.now();console.log(JSON.stringify({progress:true,race,mode,stage:r.stage,time:r.time,phase:r.phase}));}
    if(r.error)throw Error(r.error);
+   if(checkpoint&&r.time-beginCombat>=seconds)break;
    if(['lost','won'].includes(r.phase))break;
    if(r.ready.phase==='error')throw Error(r.ready.error);
    if(r.ready.phase==='ready'&&r.ready.kind!=='reinforcement')await page.locator('[data-action=flow-continue]').click();

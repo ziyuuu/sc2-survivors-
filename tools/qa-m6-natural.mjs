@@ -19,7 +19,7 @@ const summarize=values=>{const sorted=[...values].sort((a,b)=>a-b),q=x=>sorted.l
 try{
  for(const race of races){
   const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1}),page=await context.newPage(),errors=[];
-  await context.addInitScript(mode=>localStorage.setItem('sc2.animationMode',mode),animationMode);
+  await context.addInitScript(({mode,seed})=>{localStorage.setItem('sc2.animationMode',mode);const original=crypto.getRandomValues.bind(crypto);crypto.getRandomValues=(array)=>{if(array instanceof Uint32Array&&array.length===1){array[0]=seed;return array;}return original(array);};},{mode:animationMode,seed:report.seed});
   page.on('pageerror',error=>errors.push(error.message));page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
   await page.goto(process.env.SC2_QA_URL??'http://127.0.0.1:5173/');
   await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:240000});
@@ -40,14 +40,15 @@ try{
   await page.evaluate(()=>{window.__m6Perf.started=performance.now();});
   await page.locator('[data-action=flow-continue]').click();
   await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='battle',null,{timeout:30000});
-  const before=await page.evaluate(()=>{const p=window.__m6Perf;return {wall:p.started,time:window.__SC2_DEBUG__.world.time,backlog:window.__SC2_REPORT__().simulationBacklogSeconds};});
+  const before=await page.evaluate(()=>{const p=window.__m6Perf,{world:w,view:v}=window.__SC2_DEBUG__,gl=v.renderer.getContext(),ext=gl.getExtension('WEBGL_debug_renderer_info');return {gpu:ext?{renderer:gl.getParameter(ext.UNMASKED_RENDERER_WEBGL),vendor:gl.getParameter(ext.UNMASKED_VENDOR_WEBGL)}:{renderer:gl.getParameter(gl.RENDERER)},wall:p.started,time:w.time,seed:w.runConfig.seed,map:w.campaignRecipe,backlog:window.__SC2_REPORT__().simulationBacklogSeconds};});
+  if(before.seed!==report.seed)throw Error('Benchmark seed was not applied');
   await page.waitForTimeout(seconds*1000);
   const after=await page.evaluate(()=>{
    const {world:w,view:v}=window.__SC2_DEBUG__,p=window.__m6Perf;p.done=true;
    return {wall:performance.now(),time:w.time,backlog:window.__SC2_REPORT__().simulationBacklogSeconds,stage:w.stage,phase:w.phase,enemies:w.enemyCount(),allies:w.allies().length,drawCalls:v.renderer.info.render.calls,triangles:v.renderer.info.render.triangles,effectsDropped:v.fx.stats.dropped,heap:performance.memory?.usedJSHeapSize??null,frames:p.frames,first10:p.first10,steps:p.steps,renders:p.renders,frameSpikes:p.frameSpikes,stepSpikes:p.stepSpikes,renderSpikes:p.renderSpikes,longTasks:p.longTasks.filter(entry=>entry.at>=p.started)};
   });
   const run={race,wallSeconds:(after.wall-before.wall)/1000,simSeconds:after.time-before.time,backlogDelta:after.backlog-before.backlog,frameMs:summarize(after.frames),first10FrameMs:summarize(after.first10),stepMs:summarize(after.steps),renderMs:summarize(after.renders),frameSpikes:after.frameSpikes,stepSpikes:after.stepSpikes,renderSpikes:after.renderSpikes,longTasks:after.longTasks,stage:after.stage,phase:after.phase,enemies:after.enemies,allies:after.allies,drawCalls:after.drawCalls,triangles:after.triangles,effectsDropped:after.effectsDropped,heapMiB:after.heap/1048576,errors};
-  report.runs.push(run);await fs.writeFile(output+'/results.json',JSON.stringify(report,null,2));
+  Object.assign(run,{seed:before.seed,campaignMap:before.map,gpu:before.gpu,freeHostRAMMiB:os.freemem()/1048576});report.runs.push(run);await fs.writeFile(output+'/results.json',JSON.stringify(report,null,2));
   console.log(JSON.stringify({race,stage:run.stage,phase:run.phase,frame:run.frameMs,first10:run.first10FrameMs,step:run.stepMs,render:run.renderMs,backlog:run.backlogDelta,drawCalls:run.drawCalls,errors}));
   await context.close();
  }

@@ -13,7 +13,15 @@ const index=await (await request(`https://raw.githubusercontent.com/${repo}/${co
 const localRelease=await fs.readFile(path.join(out,'web-release.json'),'utf8').then(JSON.parse).catch(e=>{if(e.code==='ENOENT')return null;throw e;});
 if(!args.includes('--resources-only')&&localRelease&&localRelease.release!==index.release)throw Error('The selected commit resources do not match this app release. Obtain the app from the same commit first.');
 const groups=group.split(',');if(group!=='all'&&groups.some(g=>!index.groups.includes(g)))throw Error('Unknown group: '+group);
-const rows=index.files.filter(f=>group==='all'||f.groups.some(g=>groups.includes(g)));
+let rows=index.files.filter(f=>group==='all'||f.groups.some(g=>groups.includes(g)));
+// Release verification may stream only changed objects. Normal installation must
+// always check the full target index so a different deployed base also works.
+if(args.includes('--changed-only')){
+ if(!args.includes('--verify-remote'))throw Error('--changed-only is for remote verification, not installation.');
+ const delta=await(await request(`https://raw.githubusercontent.com/${repo}/${commit}/deploy/coze/resource-delta.json`)).json();
+ if(delta.to!==index.release)throw Error('Delta and full release index disagree');
+ const changed=new Set(delta.files.map(f=>f.sha256));rows=rows.filter(f=>changed.has(f.sha256));
+}
 const digest=b=>createHash('sha256').update(b).digest('hex');
 if(args.includes('--verify-remote')){
  let cursor=0,verified=0,bytes=0;await Promise.all(Array.from({length:6},async()=>{for(;;){const f=rows[cursor++];if(!f)break;

@@ -109,7 +109,7 @@ export function castExpeditionHero(w:World,id:HeroId):boolean{
 function restoreHealth(w:World,source:Entity,target:Entity,amount:number,castId?:number){
  const suppression=Math.min(.5,Math.max(w.statuses.value(target.id,'bleed',w.time),w.statuses.value(target.id,'corruption',w.time)));
  const restored=Math.min(target.maxHp-target.hp,amount*(1-suppression));if(restored<=0)return;
- target.hp+=restored;w.stats.healed+=restored;w.effect('heal',source,target,.3,.35);if(source.heroId==='swann'||source.heroId==='niadra')w.visual('skill-impact',source,target,castId);
+ target.hp+=restored;w.stats.healed+=restored;w.effect('heal',source,target,.3,.35);if(source.heroId==='swann'||source.heroId==='niadra')w.visual('skill-impact',source,target,castId);else if(source.heroId==='dehaka')w.visual('skill-heal',source,target,castId);
 }
 function slow(w:World,target:Body,amount:number,seconds:number){
  const entity=w.entities.get(target.id);if(!entity)return;
@@ -136,6 +136,7 @@ export function resolveExpeditionHeroCasts(w:World):void{
   }
   if(cast.phase==='line-travel'){
    if(!source)continue;
+   if(w.time<cast.at-.2-1e-8){pending.push(cast);continue;}
    const duration=.2,previous=cast.progress??0,progress=Math.min(1,Math.max(previous,(w.time-(cast.at-duration))/duration));
    const angle=Math.atan2(cast.point.x-cast.origin.x,cast.point.z-cast.origin.z),sin=Math.sin(angle),cos=Math.cos(angle),seen=new Set(cast.hitIds??[]),victims:Body[]=[];
    const consider=(body:Body)=>{if(body.hp<=0||body.owner!=='zerg'||seen.has(body.id))return;const dx=body.x-cast.origin.x,dz=body.z-cast.origin.z,along=dx*sin+dz*cos,side=Math.abs(dx*cos-dz*sin);if(along>=Math.max(0,previous*data.length-body.unitRadius)&&along<=progress*data.length+body.unitRadius&&side<=data.width/2+body.unitRadius&&(!w.terrain||w.terrain.lineOfFire(cast.origin,body,false,body.flying)))victims.push(body);};
@@ -206,10 +207,10 @@ export function resolveExpeditionHeroCasts(w:World):void{
     const entity=w.entities.get(body.id) as ControlledEntity|undefined;if(!entity)continue;
     if(entity.enemyTier==='boss'||entity.enemyTier==='lord'){entity.moveSlowFactor=Math.max(entity.moveSlowFactor??0,.3);entity.moveSlowUntil=Math.max(entity.moveSlowUntil??0,w.time+3);entity.attackSlowFactor=.3;entity.attackSlowUntil=w.time+3;}
     else entity.stoppedUntil=Math.max(entity.stoppedUntil??0,w.time+3);
-    impacted=true;
+    w.visual('skill-status',source,body,cast.id);impacted=true;
    }else{
     w.hit(body,cast.damage,[],1,'terran',0,1,source.id);impacted=true;
-    if(cast.hero==='tosh')slow(w,body,.35,3);
+    if(cast.hero==='tosh'){slow(w,body,.35,3);w.visual('skill-status',source,body,cast.id);}
     if((cast.hero==='stukov'||cast.hero==='tychus'&&!body.attributes.includes('Structure'))&&body.hp>0){
      for(let i=pending.length-1;i>=0;i--)if(pending[i].hero===cast.hero&&pending[i].phase==='dot'&&pending[i].source===cast.source&&pending[i].target===body.id)pending.splice(i,1);
      const pulseDamage=cast.hero==='tychus'?30:35,pulseCount=cast.hero==='tychus'?3:4;
@@ -217,7 +218,7 @@ export function resolveExpeditionHeroCasts(w:World):void{
     }
    }
   }
-  if(impacted)w.visual('skill-impact',source,cast.point,cast.id);
+  if(impacted&&cast.hero!=='vorazun')w.visual('skill-impact',source,cast.point,cast.id);
   w.effect(cast.hero==='stukov'?'bile':'explosion',source,cast.point,data.radius,.6);
  }
  const replacedDots=new Set(scheduled.filter(c=>c.phase==='dot').map(c=>`${c.source}:${c.target}`));

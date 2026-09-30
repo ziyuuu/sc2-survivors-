@@ -1,3 +1,4 @@
+import {settleWeaponFlights} from './helpers/weapon-flight';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {CombatStatuses} from '../src/simulation/combat/statuses';
@@ -25,7 +26,7 @@ test('healing suppression reduces restored HP and charges energy only for actual
 
 test('rank-II roach applies armor corrosion after its direct hit',()=>{
  const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[],initial:['marine']});w.start();w.stage=4;const marine=w.allies()[0],roach=w.spawnSpecial('roach','elite',{x:3,z:0})!;marine.hp=marine.maxHp=1000;marine.armor=2;
- const before=marine.hp;w.fire(roach,marine);assert.ok(marine.hp<before);assert.equal(w.statuses.value(marine.id,'acidArmor',w.time),1);
+ const before=marine.hp;w.fire(roach,marine);settleWeaponFlights(w);assert.ok(marine.hp<before);assert.equal(w.statuses.value(marine.id,'acidArmor',w.time),1);
  const hp=marine.hp;w.hit(marine,10,[],1,'zerg');assert.equal(hp-marine.hp,9);
 });
 

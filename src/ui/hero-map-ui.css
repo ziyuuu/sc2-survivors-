@@ -1,0 +1,70 @@
+/* One shared readable scale; race materials differ without moving controls. */
+:root{--text-scale:1;--game-copy:calc(16px * var(--text-scale));--game-detail:calc(14px * var(--text-scale));--game-mark:calc(12px * var(--text-scale));font-family:'Microsoft YaHei','PingFang SC',system-ui,sans-serif}
+#interface{font-size:var(--game-copy)}
+#interface button,#interface select,#interface summary{min-height:44px;min-width:44px}
+#overlay button,#overlay p,#overlay label,#overlay select,#overlay .reward-card>p{font-size:var(--game-copy)!important;line-height:1.45}
+#overlay small,#overlay .offer-details,#overlay .elite-variant small{font-size:var(--game-detail)!important;line-height:1.4}
+#overlay .card-number,#overlay kbd,#overlay .card-ownership{font-size:var(--game-mark)!important}
+#overlay{overflow:auto;overscroll-behavior:contain;scroll-padding:16px;bottom:env(safe-area-inset-bottom)}
+#overlay .reward-card{height:auto!important;grid-template-rows:auto auto minmax(0,1fr) auto!important}
+#overlay .reward-actions{position:sticky!important;bottom:0;background:var(--panel);z-index:4;flex-wrap:wrap}
+#interface #hero-skills .hero-skill b,#interface #hero-skills .hero-skill small,#interface .squad-seat .seat-rank,#interface #minimap header{font-size:var(--game-mark)}
+#interface #unit-inspector{font-size:var(--game-detail);overflow:auto;overscroll-behavior:contain}
+#interface #unit-inspector small,#interface #army-pages,#interface .army-heading{font-size:var(--game-mark)}
+#interface #battle-console #roster{grid-auto-rows:44px}
+#interface #console-commands{min-width:0;overflow:auto;overscroll-behavior:contain}
+body[data-race=zerg]{--panel:#211a26;--edge:#9c779e;--cyan:#cbafd6}
+body[data-race=zerg] .console,body[data-race=zerg] #overlay .reward-card{background:radial-gradient(ellipse at top,#37263e,#17141b 80%);border-color:#8c7196;border-radius:10px 10px 4px 4px}
+body[data-race=protoss]{--panel:#172b31;--edge:#beaf78;--cyan:#9eebff}
+body[data-race=protoss] .console,body[data-race=protoss] #overlay .reward-card{background:linear-gradient(135deg,#3b3b30,#14252d 20%,#193940);border-color:#b8a875}
+.pod-world-label{pointer-events:none!important;display:grid;grid-template-columns:30px auto;width:66px;gap:2px 4px;padding:3px!important;border:1px solid #5cb185!important;background:#0d251dd9!important;box-shadow:none!important}
+.pod-world-label img{width:28px;height:28px;object-fit:contain;filter:none;opacity:.95}
+.pod-world-label .carrier-count{font-size:14px;align-self:center;color:#b7f6c9}
+.pod-world-label .carrier-vital{grid-column:1/-1;height:3px;background:#1d4535;overflow:hidden}
+.pod-world-label .carrier-vital i{display:block;height:100%;background:#80e99f}
+body.has-battle-console #mission{left:calc(env(safe-area-inset-left) + 190px);max-width:calc(100vw - 220px)}
+body.has-battle-console #notice{left:calc(50% + 80px);max-width:calc(100vw - 240px);font-size:var(--game-mark)}
+#interface #topbar{height:auto;min-height:52px;row-gap:4px;flex-wrap:wrap}
+#carrier-inspector{position:absolute;right:max(12px,env(safe-area-inset-right));top:112px;max-width:min(340px,calc(100vw - 24px));padding:14px;pointer-events:auto;z-index:45;font-size:var(--game-detail)}
+#carrier-inspector[hidden]{display:none}
+#carrier-inspector>button{float:right;font-size:22px}
+#carrier-inspector>img{width:64px;height:64px;object-fit:contain;float:left;margin-right:10px}
+#carrier-inspector p{margin:8px 0}
+#interface #roster .seat-count,#interface #roster .seat-timer,#interface .hero-skill kbd,#interface .hero-skill em,#interface #skills button small{font-size:var(--game-mark)}
+#interface #unit-inspector p,#interface #unit-inspector dl{font-size:var(--game-detail)}
+#interface #topbar .stat,#interface #topbar button{font-size:var(--game-copy)}
+@media(max-width:900px){
+ body.has-battle-console #mission{left:calc(env(safe-area-inset-left) + 130px);max-width:calc(100vw - 142px)}
+ body.has-battle-console #mission .eyebrow{display:none}
+ body.has-battle-console #notice{left:50%;max-width:90%}
+ #overlay .compact-intermission #reward-cards{display:grid;grid-template-columns:1fr!important}
+ #overlay .compact-intermission .reward-card{min-height:114px!important}
+}
+@media(max-width:950px) and (orientation:landscape){
+ body.has-battle-console #mission{left:calc(env(safe-area-inset-left) + 116px);max-width:calc(100vw - 134px)}
+ body.has-battle-console #notice{left:55%;max-width:70%}
+ #overlay .compact-intermission #reward-cards{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ #overlay .compact-intermission .reward-card{padding:10px!important;min-height:170px!important}
+ #interface #battle-console #roster{grid-auto-rows:44px}
+ #interface #battle-console{height:142px;grid-template-columns:minmax(0,1fr) minmax(184px,.55fr)}
+ #interface #battle-console #army-hud{grid-column:1;grid-row:1}
+ #interface #battle-console #console-commands{grid-column:2;grid-row:1}
+ #interface #battle-console .army-heading{height:44px}
+ #interface #battle-console #army-pages button{transform:none}
+ body.has-battle-console #battle{height:calc(100% - 142px)}
+ body.has-battle-console #joystick{bottom:157px}
+ #carrier-inspector{top:58px;max-height:calc(100vh - 218px);overflow:auto}
+}
+body.has-battle-console #mission{top:calc(var(--battle-header-bottom,62px) + 8px);font-size:var(--game-detail)}
+body.has-battle-console #mission b{font-size:var(--game-copy)}
+body.has-battle-console #mission .eyebrow,#interface #topbar .stage{font-size:var(--game-mark)}
+body.has-battle-console #notice{top:calc(var(--battle-mission-bottom,110px) + 8px)}
+#interface #minimap header{white-space:nowrap;line-height:1.3}
+#interface #battle-console #skills{min-height:calc(64px * var(--text-scale));flex-shrink:0}
+#interface #battle-console #skills button{font-size:var(--game-copy);line-height:1.2;min-width:calc(76px * var(--text-scale));min-height:calc(60px * var(--text-scale));height:auto}
+#interface #battle-console #hero-skills .hero-skill{height:auto;min-height:calc(48px * var(--text-scale))}
+#interface #battle-console #hero-skills .hero-skill b{display:block;font-size:var(--game-copy);white-space:normal;line-height:1.2}
+#interface #battle-console #hero-skills .hero-skill small{font-size:var(--game-mark);max-width:none;line-height:1.3}
+#interface #battle-console #hero-skills{display:flex;overflow-x:auto;overflow-y:hidden;align-items:stretch;flex-shrink:0}
+#interface #battle-console #hero-skills .hero-status{flex:0 0 calc(116px * var(--text-scale));max-width:none;min-width:0}
+@media(min-width:1101px){#interface #battle-console{grid-template-columns:215px minmax(360px,1fr) 360px}}

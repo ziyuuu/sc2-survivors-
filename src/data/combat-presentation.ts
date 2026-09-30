@@ -1,6 +1,7 @@
 import type {Entity,VisualEvent} from '../simulation/types';
 import type {HeroId} from './heroes';
-import type {Race} from './races';
+import type {Race,FamilyId} from './races';
+import {UNIT_SPECTACLE} from './unit-spectacle';
 
 /** M4 presentation only. These scales never enter collision, range or damage. */
 const LARGE=new Set(['thor','ultralisk','colossus','carrier']);
@@ -53,15 +54,11 @@ const AIR_SAMPLES:Record<string,AttackPresentation>={
  'hero.hots_leviathan':{asset:'fx.bile.0',impact:'fx.bile.4',tint:0xc3f3a4,size:.72,impactSize:1.15,life:.24},
  'elite.carrier.1':{asset:'fx.muzzle.1',impact:'fx.blast.6',tint:0xfff3bd,size:.78,impactSize:1.3,life:.22},
 };
-const FAMILY_ATTACKS:Partial<Record<string,AttackPresentation>>={
- reaper:{asset:'fx.muzzle.0',impact:'fx.impact.0',tint:0xffbd62,size:.32,impactSize:.30,life:.10},
- hellion:{asset:'fx.flame.1',impact:'fx.flameimpact.0',tint:0xffa34b,size:.42,impactSize:.72,life:.22},
- viking:{asset:'fx.muzzle.1',impact:'fx.impact.0',tint:0xffd48c,size:.43,impactSize:.56,life:.16},
- lurker:{asset:'fx.impact.1',impact:'fx.impact.1',tint:0xdde8ae,size:.42,impactSize:.58,life:.18},
- ravager:{asset:'fx.bile.0',impact:'fx.bile.4',tint:0xcaff8f,size:.46,impactSize:.7,life:.24},
- immortal:{asset:'fx.muzzle.1',impact:'fx.blast.6',tint:0x91dfff,size:.46,impactSize:.65,life:.2},
- high_templar:{asset:'fx.muzzle.1',impact:'fx.impact.0',tint:0xc7d7ff,size:.42,impactSize:.6,life:.22},
-};
+const FAMILY_ATTACKS:Record<FamilyId,AttackPresentation>=Object.fromEntries(Object.entries(UNIT_SPECTACLE).map(([id,p])=>{
+ const asset=p.contact==='flame'?'fx.flame.1':p.contact==='acid'?'fx.bile.0':p.contact==='claw'?'fx.impact.1':p.contact==='gun'||p.contact==='shell'?'fx.muzzle.0':'fx.muzzle.1';
+ const impact=p.contact==='flame'?'fx.flameimpact.0':p.contact==='acid'?'fx.bile.4':p.contact==='claw'?'fx.blood.0':p.contact==='shell'?'fx.blast.3':'fx.impact.0';
+ return [id,{asset,impact,tint:p.color,size:p.size*2.2,impactSize:p.size*2.8,life:.14}];
+})) as Record<FamilyId,AttackPresentation>;
 export const heroPresentation=(id:HeroId):AttackPresentation=>HERO_ATTACKS[id];
 /** Skills keep the real cast timing while giving restoration, control and blast cores their own palette. */
 export function heroSkillPresentation(id:HeroId):AttackPresentation{
@@ -85,7 +82,7 @@ function eliteTint(race:Race,variant:number){return race==='terran'?[0xffecc0,0x
 export function attackPresentation(event:VisualEvent):AttackPresentation|null {
  if(event.heroId)return HERO_ATTACKS[event.heroId];
  if(event.modelKey&&AIR_SAMPLES[event.modelKey]&&(!event.eliteId||event.modelKey!=='elite.carrier.1'))return AIR_SAMPLES[event.modelKey];
- if(!event.eliteId)return event.unitType==='reaper'?FAMILY_ATTACKS.reaper!:null;
- const source=FAMILY_ATTACKS[event.unitType??'']??RACE_ATTACKS[event.race??'terran'];
+ if(!event.eliteId)return FAMILY_ATTACKS[event.unitType as FamilyId]??null;
+ const source=FAMILY_ATTACKS[event.unitType as FamilyId]??RACE_ATTACKS[event.race??'terran'];
  const variant=Number(event.eliteId.at(-1));return {...source,tint:eliteTint(event.race??'terran',variant),size:source.size*[1.2,1.4,1.25][variant-1],impactSize:source.impactSize*[1,1.25,1.15][variant-1]};
 }

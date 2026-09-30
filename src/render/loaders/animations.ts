@@ -53,7 +53,12 @@ export function selectAttackPresentation(unit:ShootingUnit,time:number,actions:R
 
 /** SC2 Marauder Actor increments WeaponNext: 1 selects Right, 0 selects Left. */
 export function attackAction(unitType:string|null,sequence=0){return unitType==='marauder'?(sequence%2?'attackRight':'attackLeft'):'attack';}
-export function weaponAttachmentNames(clipName:string){
+export function weaponAttachmentNames(clipName:string,profile?:string,mountSide?:string){
+ // Verified original B97563 nodes: BC 01/04 are opposed upper batteries,
+ // 09 is the bow. Leviathan 02..05 are four distinct lateral mouths.
+ const exact=profile==='hero.yamato_battlecruiser'?(mountSide==='Left'?'01':mountSide==='Right'?'04':/^Spell/i.test(clipName)?'09':'01'):profile==='hero.hots_leviathan'?(mountSide??'01'):null;
+ if(exact)return ['Ref_Weapon_'+exact,'Ref_Weapon '+exact];
+ if(mountSide)return ['Ref_Weapon '+mountSide,'Ref_Weapon_'+mountSide];
  const side=/left/i.test(clipName)?'Left':/right/i.test(clipName)?'Right':null;
  // GLTFLoader sanitizes whitespace in node names for PropertyBinding.
  // Several original SC bodies expose only side/bottom references; the Banshee's

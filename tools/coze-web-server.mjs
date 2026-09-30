@@ -14,7 +14,7 @@ export function createGameServer({webRoot,assetRoot=webRoot,assetBaseUrl=''}={})
   if(!/^assets\/[a-f0-9]{64}\.[a-z0-9]+$/.test(a.url))throw Error('Unsafe resource URL');
   const bytes=readFileSync(resolve(resources,a.url));if(bytes.length!==a.bytes||createHash('sha256').update(bytes).digest('hex')!==a.sha256)throw Error('Missing or corrupt resource: '+a.url);
  }
- const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.glb':'model/gltf-binary','.gltf':'model/gltf+json','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.ogg':'audio/ogg','.mp3':'audio/mpeg','.wav':'audio/wav'};
+ const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.glb':'model/gltf-binary','.gltf':'model/gltf+json','.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.ogg':'audio/ogg','.mp3':'audio/mpeg','.wav':'audio/wav'};
  return createServer((req,res)=>{
   res.setHeader('Access-Control-Allow-Origin','*');res.setHeader('Timing-Allow-Origin','*');res.setHeader('X-Content-Type-Options','nosniff');
   if(req.method==='OPTIONS'){res.writeHead(204,{'Access-Control-Allow-Methods':'GET, HEAD, OPTIONS'});res.end();return;}

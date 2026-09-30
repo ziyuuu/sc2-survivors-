@@ -94,6 +94,6 @@ export async function loadEmbeddedAssets(){
  await new Promise<void>(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
  const pack=JSON.parse(element.textContent!) as AssetPack;element.remove();
  embeddedStore=new EmbeddedAssetStore(pack);window.__SC2_EMBEDDED__=embeddedStore.urls;window.__SC2_PACK_ACTIVE__=true;
- const menuIds=['map.kairos','terrain.char',...Object.keys(pack.assets).filter(id=>id.startsWith('unit.')||id.startsWith('hero.')||id.startsWith('building.')||id.startsWith('tech.')||id.startsWith('ui.')||id.startsWith('skill.'))];
+ const menuIds=[...Object.keys(pack.assets).filter(id=>id.startsWith('unit.')||id.startsWith('hero.')||id.startsWith('building.')||id.startsWith('tech.')||id.startsWith('ui.')||id.startsWith('skill.'))];
  await embeddedStore.prepare(menuIds,(done,total,label)=>{root.querySelector('progress')!.value=total?done/total:0;root.querySelector('p')!.textContent=`正在准备菜单资源 · ${label} · ${done}/${total}`;});
 }

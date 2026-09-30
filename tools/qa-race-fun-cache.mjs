@@ -3,7 +3,7 @@ import {createGameServer} from './coze-web-server.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-const out='reports/local/race-fun-cache';await fs.mkdir(out,{recursive:true});
+const out=process.env.QA_OUT??'reports/local/race-fun-cache';await fs.mkdir(out,{recursive:true});
 const resources=createGameServer({webRoot:path.resolve('dist/web')});await new Promise(r=>resources.listen(0,'127.0.0.1',r));
 const assetBase=`http://127.0.0.1:${resources.address().port}/`;
 const server=createGameServer({webRoot:path.resolve('dist/web'),assetBaseUrl:assetBase});await new Promise(r=>server.listen(0,'127.0.0.1',r));

@@ -1,3 +1,5 @@
+import {CAMPAIGN_MAP_ID,RadialTerrain,campaignTerrain,type CampaignMapRecipe} from '../data/campaign-map';
+import {launchWeaponFlight,tickWeaponFlights,weaponFlightSpeed} from './combat/weapon-flight';
 import {uniquePrimary,uniqueDeath,uniqueShieldBreak,previewTactical,castTactical} from './combat/unique-support';
 import {tickShopSupport,recordMutation,previewStrategic,commitStrategic} from './combat/shop-support';
 import {enemyRouteGoal} from './movement/enemy-routes';
@@ -78,10 +80,10 @@ export class World extends RunState {
  private mutationDepth=0;private mutationChanged=false;
  private atomicMutation<T>(run:()=>T):T{this.mutationDepth++;try{return run();}finally{this.mutationDepth--;if(!this.mutationDepth&&this.mutationChanged){this.mutationChanged=false;this.changed();}}}
  terrain?:TerrainQuery;obstacles:Obstacle[];private initialObstacles:Obstacle[]=[];
- private readonly initialTerrain?:TerrainQuery;private readonly endlessTerrain?:TerrainQuery;
+ private initialTerrain?:TerrainQuery;private readonly endlessTerrain?:TerrainQuery;
  get spawnLocations(){return this.spawnCells;}
  get endlessField(){return this.endlessTerrain;}
- private readonly seed:number;private readonly sandbox:boolean;
+ private seed:number;private readonly sandbox:boolean;
  readonly permanentProfile:PermanentProfile;
  private selectedRace:Race;
  awardPermanentResource(receipt:string,amount:number){return this.permanentProfile.award(receipt,amount,this.runConfig?.race??this.selectedRace);}
@@ -144,7 +146,9 @@ export class World extends RunState {
   this.seed=options.seed??89241;this.rngState=this.seed;this.autoWaves=options.waves??true;this.sandbox=options.sandbox??false;this.difficulty=options.difficulty??'normal';this.obstacles=options.obstacles??OBSTACLES;this.terrain=typeof options.terrain==='object'?options.terrain:(options.terrain??(!this.sandbox&&options.obstacles===undefined))?new CharTerrain():undefined;this.initialTerrain=this.terrain;this.endlessTerrain=options.endlessTerrain??new FlatTerrain();if(this.terrain?.definition&&options.obstacles===undefined)this.obstacles=[];this.initialObstacles=[...this.obstacles];
   this.initializeRun();
  }
- private initializeRun(){this.expedition=newExpedition(this.selectedRace);this.battlefield={mode:'campaign',mapId:'campaign-kairos-v1',mapHash:this.mapIdentity(this.initialTerrain)};this.expedition.talentLootRngState=(this.seed^0x9e3779b9)>>>0;this.terrain?.setStage?.(this.stage);const baseline:readonly UnitType[]=this.selectedRace==='zerg'?['zergling','zergling']:this.selectedRace==='protoss'?['zealot']:['marine'];const initial=this.useDiagnosticInitial?this.initialUnits:baseline;initial.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
+ configureCampaign(recipe:CampaignMapRecipe){if(this.phase!=='menu')return false;this.initialTerrain=campaignTerrain(recipe);this.initialObstacles=[];this.seed=recipe.seed;this.resetRun();return true;}
+ get campaignRecipe(){return this.initialTerrain instanceof RadialTerrain?this.initialTerrain.recipe:undefined;}
+ private initializeRun(){this.expedition=newExpedition(this.selectedRace);this.battlefield={mode:'campaign',mapId:this.initialTerrain instanceof RadialTerrain?CAMPAIGN_MAP_ID:'campaign-kairos-v1',mapHash:this.mapIdentity(this.initialTerrain)};this.expedition.talentLootRngState=(this.seed^0x9e3779b9)>>>0;this.terrain?.setStage?.(this.stage);const baseline:readonly UnitType[]=this.selectedRace==='zerg'?['zergling','zergling']:this.selectedRace==='protoss'?['zealot']:['marine'];const initial=this.useDiagnosticInitial?this.initialUnits:baseline;initial.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
   this.wallet={minerals:this.selectedRace==='protoss'?0:50,gas:0};
   if(!this.sandbox){for(const u of this.allies()){const p=this.moveGoal(u);u.x=p.x;u.z=p.z;u.prev={...p};}}
   this.prepareStage();
@@ -164,21 +168,22 @@ export class World extends RunState {
  /** Validate detached state before touching the live World or its listeners. */
  restoreRun(snapshot:RunSnapshot,validateOnly=false){
   if(snapshot?.schema!==RUN_SCHEMA||snapshot.rules!==RUN_RULES)throw Error('续局版本不兼容；请使用对应版本或保留导出档案');
-  if(!Number.isSafeInteger(snapshot.seed)||snapshot.config?.seed!==snapshot.seed||snapshot.config.rulesId!==RUN_RULES||snapshot.config.campaignId!=='campaign-18'||snapshot.config.mapId!=='campaign-kairos-v1'||snapshot.config.mapHash!==this.mapIdentity(this.initialTerrain)||snapshot.sandbox!==this.sandbox||typeof snapshot.autoWaves!=='boolean')throw Error('续局运行配置不兼容');
+  const campaign=snapshot.config?.mapId===CAMPAIGN_MAP_ID?campaignTerrain(snapshot.config.campaignMap!):this.initialTerrain;
+  if(!Number.isSafeInteger(snapshot.seed)||snapshot.config?.seed!==snapshot.seed||snapshot.config.rulesId!==RUN_RULES||snapshot.config.campaignId!=='campaign-18'||!['campaign-kairos-v1',CAMPAIGN_MAP_ID].includes(snapshot.config.mapId)||snapshot.config.mapHash!==this.mapIdentity(campaign)||snapshot.sandbox!==this.sandbox||typeof snapshot.autoWaves!=='boolean')throw Error('续局运行配置不兼容');
   const fresh=new RunState();validateRunData(snapshot.state,fresh);
   if(!snapshot.state.runConfig||JSON.stringify(snapshot.config)!==JSON.stringify(snapshot.state.runConfig)||snapshot.config.difficulty!==snapshot.state.difficulty||snapshot.config.race!==snapshot.state.expedition.race)throw Error('续局配置与状态不一致');
-  const terrain=snapshot.state.battlefield.mode==='endless'?this.endlessTerrain:this.initialTerrain;
+  const terrain=snapshot.state.battlefield.mode==='endless'?this.endlessTerrain:campaign;
   if((!terrain&&!this.sandbox)||snapshot.map!==this.mapIdentity(terrain)||snapshot.state.battlefield.mapHash!==snapshot.map)throw Error('续局地图版本不匹配');
   const data=structuredClone(snapshot),statuses=new CombatStatuses(),specials=new EnemySpecials(this);
   statuses.restore(data.statuses);specials.restore(data.specials);if(validateOnly)return;
   Object.assign(this,fresh,data.state);this.selectedRace=data.config.race;this.statuses=statuses;this.enemySpecials=specials;this.autoWaves=data.autoWaves;
-  this.terrain=terrain;this.obstacles=data.state.battlefield.mode==='endless'?[]:[...this.initialObstacles];this.terrain?.setStage?.(this.terrainStage);this.input={x:0,z:0};if(this.phase==='battle')this.paused=true;
+  this.initialTerrain=campaign;this.seed=data.seed;this.terrain=terrain;this.obstacles=data.state.battlefield.mode==='endless'?[]:[...this.initialObstacles];this.terrain?.setStage?.(this.terrainStage);this.input={x:0,z:0};if(this.phase==='battle')this.paused=true;
   this.spawnCells=connectedSpawnCells(this.terrain,this.anchor,this.mapHalf,this.obstacles);
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active'),...this.expansionHives.values(),...this.fortifications.values()];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);
   this.changed();
  }
  get config(){const key=this.stage+(this.endless?this.endless.round*100:0);if(this.configStage!==key||this.configDifficulty!==this.difficulty||!!this.endless!==('endlessId' in (this.stageData??{}))){this.stageData=this.endless?endlessConfig(this.difficulty,this.endless.round):campaign18StageConfig(this.stage,this.difficulty);this.configStage=key;this.configDifficulty=this.difficulty;}return this.stageData;}
- get terrainStage(){return campaign18TerrainStage(this.stage);}
+ get terrainStage(){return this.terrain instanceof RadialTerrain?this.stage:campaign18TerrainStage(this.stage);}
  get mapHalf(){return this.terrain instanceof FlatTerrain?FlatTerrain.half:this.terrain?.definition?Math.max(this.terrain.definition.width,this.terrain.definition.height):this.sandbox?TUNING.worldHalf:this.config.width/2;}
  get duration(){return this.config.durationSeconds;}
  /** Whole-squad commands are simulation intent; picking and feedback live in the renderer. */
@@ -265,7 +270,7 @@ export class World extends RunState {
   for(const [id,p] of plan.pods){const pod=this.pods.find(p=>p.id===id)!;pod.x=p.x;pod.z=p.z;}
   this.terrain=terrain;this.battlefield={mode:'endless',mapId:ENDLESS_MAP_ID,mapHash:plan.mapHash};this.anchor={x:0,z:0,facing:0};this.trail=[{x:0,z:0}];this.resetCommand();
   this.obstacles=[];this.pods=this.pods.filter(p=>['falling','active','opening'].includes(p.status));this.enemySpecials=new EnemySpecials(this);
-  this.expansionHives.clear();this.hive=null;this.economicTargets.clear();this.pickups=[];recoverBossLoot(this);this.rewardDrops=[];this.effects=[];this.corrosionZones=[];this.ambientBacklog=[];this.campaign18Runtime=null;this.expedition.detectionFields=[];this.expedition.spells=[];this.hiveWarningPoint=null;this.lordWarningPoint=null;
+  this.expansionHives.clear();this.hive=null;this.economicTargets.clear();this.pickups=[];recoverBossLoot(this);this.rewardDrops=[];this.effects=[];this.weaponFlights=[];this.heroCasts=[];this.expedition.weaponAreas=[];this.corrosionZones=[];this.ambientBacklog=[];this.campaign18Runtime=null;this.expedition.detectionFields=[];this.expedition.spells=[];this.hiveWarningPoint=null;this.lordWarningPoint=null;
   this.endless={round:1,startedAt:this.time,elites:0,bosses:0,progress:{wave:0,elite:0,boss:0},retry:{elite:0,boss:0},last:{}};
   this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.paused=false;this.endlessTransitionReceipt=requestId;this.endlessEntry=null;this.endlessReadyToken=null;
   this.spawnCells=terrain.connectedLocations?.(this.anchor,.9,1.4)??[];this.expedition.support.unique.landing=null;this.placeEndlessFortifications();this.prepareEndlessRound();this.announce('无尽战场 · 守住小队');return true;
@@ -373,7 +378,7 @@ export class World extends RunState {
    if(!starterHero||!HERO_IDS_BY_RACE[this.selectedRace].includes(starterHero as never)||!this.canAcquireHero(starterHero)){this.announce('请选择本族可用的开局英雄');return false;}
   }
   this.expedition.talentPreset=this.permanentProfile.activePreset;
-  this.runConfig={rulesId:RUN_RULES,race:this.selectedRace,difficulty:this.difficulty,campaignId:'campaign-18',seed:this.seed,mapId:'campaign-kairos-v1',mapHash:this.mapIdentity(this.initialTerrain),frozenTalents:frozen};
+  this.runConfig={rulesId:RUN_RULES,race:this.selectedRace,difficulty:this.difficulty,campaignId:'campaign-18',seed:this.seed,mapId:this.initialTerrain instanceof RadialTerrain?CAMPAIGN_MAP_ID:'campaign-kairos-v1',mapHash:this.mapIdentity(this.initialTerrain),frozenTalents:frozen,...(this.initialTerrain instanceof RadialTerrain?{campaignMap:this.initialTerrain.recipe}:{})};
   const growth=this.talent('self_growth'),mercenary=this.talent('mercenary'),support=this.talent('tank_support');
   this.nextEliteGrowthAt=growth?(growth===1?240:120):Infinity;this.nextMercenaryAt=mercenary?(mercenary===1?180:90):Infinity;this.nextTankSupportAt=support?[Infinity,75,50,35][support]:Infinity;
   if(this.expedition.race==='zerg'&&!this.expedition.zerglingPairs.length){const lings=this.familyBodies('zergling');for(let i=0;i<lings.length;i+=2){const p=joinPair(this,lings[i]);if(lings[i+1])joinPair(this,lings[i+1],p.id);else p.birthPending=true;}}this.allies().forEach(u=>this.refreshStats(u));this.runId=globalThis.crypto?.randomUUID?.()??String(Date.now())+'-'+String(this.random());
@@ -444,13 +449,13 @@ export class World extends RunState {
   const u=this.addFamilyMember(type,pos);u.eliteId=id;u.modelKey=ELITES[id].model;u.specialReady=this.time+15;this.refreshStats(u);this.announce(ELITES[id].name+' · 已加入队伍');
  }else {this.pendingElites.push(id);this.announce(ELITES[id].name+' · 选择替换队员；已付费增援优先保留');}this.changed();return true;}
  replaceWithElite(id:EliteId,targetId:number){if(!this.pendingElites.includes(id)||!this.eliteCandidates(id).some(u=>u.id===targetId))return false;const u=this.entities.get(targetId)!;u.eliteId=id;u.rank=1;u.modelKey=ELITES[id].model;u.specialReady=this.time+15;this.refreshStats(u);this.pendingElites=this.pendingElites.filter(e=>e!==id);this.changed();return true;}
- private attackHit(u:Entity,target:Body,damage:number,bonuses:{attribute:string;amount:number}[],hits=1,shieldBonus=0,primary=true,crit=1){const factor=(u.eliteId==='marine.2'&&target.attributes.includes('Armored')?1.25:1)*this.enemyDamageFactor(u)*eliteDamageMultiplier(u,target),before=target.hp,penetration=u.owner==='zerg'&&u.unitType==='hydralisk'&&(u.enemyTier==='elite'||u.enemyTier==='lord')&&u.enemyLevel&&u.enemyLevel>=3?[0,0,.25,.35,.4][u.enemyLevel-1]:0,scaled=bonuses.map(b=>({...b,amount:b.amount*factor*crit}));this.hit(target,damage*factor*crit,scaled,hits,u.owner,.5,penetration,u.id,false,false,shieldBonus*factor*crit,primary);
+ attackHit(u:Entity,target:Body,damage:number,bonuses:{attribute:string;amount:number}[],hits=1,shieldBonus=0,primary=true,crit=1,frozen?:{enemyFactor:number;apm:boolean}){const factor=(u.eliteId==='marine.2'&&target.attributes.includes('Armored')?1.25:1)*(frozen?.enemyFactor??this.enemyDamageFactor(u))*eliteDamageMultiplier(u,target),before=target.hp,penetration=u.owner==='zerg'&&u.unitType==='hydralisk'&&(u.enemyTier==='elite'||u.enemyTier==='lord')&&u.enemyLevel&&u.enemyLevel>=3?[0,0,.25,.35,.4][u.enemyLevel-1]:0,scaled=bonuses.map(b=>({...b,amount:b.amount*factor*crit}));this.hit(target,damage*factor*crit,scaled,hits,u.owner,.5,penetration,u.id,false,false,shieldBonus*factor*crit,primary);
   if(primary){recordMutation(this,u,target,damage*factor*hits);uniquePrimary(this,u,target,(damage+bonuses.reduce((v,b)=>v+(target.attributes.includes(b.attribute)?b.amount:0),0))*factor);}
-  if(primary&&target.hp>0&&(talentModifiers(this,u).apmDuplicate??0)>0)this.hit(target,damage*hits*factor*crit*1.15,scaled.map(b=>({...b,amount:b.amount*hits*1.15})),1,u.owner,.5,penetration,u.id,false,false,shieldBonus*hits*factor*crit*1.15,true);
+  if(primary&&target.hp>0&&(frozen?.apm??((talentModifiers(this,u).apmDuplicate??0)>0)))this.hit(target,damage*hits*factor*crit*1.15,scaled.map(b=>({...b,amount:b.amount*hits*1.15})),1,u.owner,.5,penetration,u.id,false,false,shieldBonus*hits*factor*crit*1.15,true);
   const e=this.entities.get(target.id);if(e&&e.hp>0&&u.eliteId==='marauder.1'){e.slowUntil=this.time+1.5;e.slowFactor=e.enemyTier==='boss'?.15:.3;}
   if(e&&e.hp>0&&u.owner==='zerg'&&u.unitType==='roach'&&(u.enemyTier==='elite'||u.enemyTier==='lord')&&(u.enemyLevel??1)>=2){this.applyStatus(e,u,'acidArmor',[0,1,1.5,2,3][(u.enemyLevel??1)-1],4);}
   if(e&&e.hp>0&&u.eliteId==='hellion.2'){const key=u.id+':'+target.id,old=this.burns.get(key);this.burns.set(key,{source:u.id,target:target.id,damage:(before-target.hp)*.2,next:old?.next??this.time+1,until:this.time+3});}
-  if(u.eliteId==='marauder.2'&&this.time>=(u.specialReady??0)&&target.hp>0){u.specialReady=this.time+15;this.hit(target,damage*3,bonuses.map(b=>({...b,amount:b.amount*3})),hits,u.owner);this.effect('explosion',u,target,.6,.35);}
+  if(u.eliteId==='marauder.2'&&this.time>=((this.entities.get(u.id)??u).specialReady??0)&&target.hp>0){(this.entities.get(u.id)??u).specialReady=this.time+15;this.hit(target,damage*3,bonuses.map(b=>({...b,amount:b.amount*3})),hits,u.owner);this.effect('explosion',u,target,.6,.35);}
  }
  private updateBurns(){for(const [key,b] of this.burns){const target=this.entities.get(b.target);if(!target||target.hp<=0){this.burns.delete(key);continue;}while(b.next<=this.time+1e-8&&b.next<=b.until+1e-8){this.hit(target,b.damage+target.armor,[],1,'terran',0);b.next+=1;}if(this.time>=b.until)this.burns.delete(key);}}
  private updateElite(u:Entity,dt:number){if(u.eliteId==='marine.1'&&u.stimUntil>this.time)u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.01*dt);if(u.eliteId==='tank.1'){const baseRange=expeditionAttackRange(this,u);if(u.mode==='siege'&&u.modeTimer<=0){u.siegeSince??=this.time;u.attackRange=baseRange+Math.min(3,Math.floor((this.time-u.siegeSince)/3));}else {u.siegeSince=undefined;u.attackRange=baseRange;}}}
@@ -634,7 +639,7 @@ export class World extends RunState {
   }else this.rewardDrops.push({id,...p,reward});
  }
  collectRewardDrop(id:number){return this.atomicMutation(()=>{const index=this.rewardDrops.findIndex(p=>p.id===id);if(index<0||this.expedition.pendingTalentLoot)return false;const drop=this.rewardDrops[index],ok=drop.bossLootReceipt?collectBossLoot(this,drop):drop.talentLoot?openTalentLoot(this,drop.talentLoot.receipt,drop.talentLoot.rarity):collectMapReinforcement(this,drop.reward);if(ok)this.rewardDrops.splice(index,1);this.changed();return ok;});}
- visual(kind:VisualEvent['kind'],body:Body,end:Point=body,castId?:number,launch?:HeroCast['presentationLaunch']){const e=this.entities.get(body.id),sequence=e?.shotSequence;this.visualEvents.push({serial:++this.visualSerial,time:this.time,kind,castId,x:launch?.x??body.x,z:launch?.z??body.z,y:(body.flying?5.6:this.terrain?.height(launch??body)??0)+.6,endY:('flying' in end&&end.flying?5.6:this.terrain?.height(end)??0)+.6,unitType:e?.unitType??null,modelKey:e?.modelKey,heroId:e?.heroId,eliteId:e?.eliteId,race:e?.race??(['support-flight','support-pulse','support-impact','strategic-impact'].includes(kind)?this.expedition.race:undefined),shotSequence:sequence,attackId:kind==='attack'&&sequence!==undefined?`${body.id}:${sequence}`:undefined,entityId:body.id,flying:body.flying,end:{x:end.x,z:end.z},facing:launch?.facing??(kind==='attack'||kind==='skill-launch'?e?.attackFacing??0:e?.facing??0),weaponPoseSeconds:launch?.poseSeconds,siege:e?.mode==='siege'});if(this.visualEvents.length>768)this.visualEvents.splice(0,256);}
+ visual(kind:VisualEvent['kind'],body:Body,end:Point=body,castId?:number,launch?:HeroCast['presentationLaunch']){const e='unitType' in body?body as Entity:this.entities.get(body.id),sequence=e?.shotSequence;this.visualEvents.push({serial:++this.visualSerial,time:this.time,kind,castId,targetId:'id' in end?Number(end.id):undefined,targetTier:'enemyTier' in end?String(end.enemyTier):undefined,targetAlive:'hp' in end?Number(end.hp)>0:undefined,rank:e?.rank,projectileSpeed:e?weaponFlightSpeed(e):0,x:launch?.x??body.x,z:launch?.z??body.z,y:(body.flying?5.6:this.terrain?.height(launch??body)??0)+.6,endY:('flying' in end&&end.flying?5.6:this.terrain?.height(end)??0)+.6,unitType:e?.unitType??null,modelKey:e?.modelKey,heroId:e?.heroId,eliteId:e?.eliteId,race:e?.race??(['support-flight','support-pulse','support-impact','strategic-impact'].includes(kind)?this.expedition.race:undefined),shotSequence:sequence,attackId:kind==='attack'&&sequence!==undefined?`${body.id}:${sequence}`:undefined,entityId:body.id,flying:body.flying,end:{x:end.x,z:end.z},facing:launch?.facing??(kind==='attack'||kind==='skill-launch'?e?.attackFacing??0:e?.facing??0),weaponPoseSeconds:launch?.poseSeconds,siege:e?.mode==='siege'});if(this.visualEvents.length>768)this.visualEvents.splice(0,256);}
  effect(kind:Effect['kind'],source:Body,end:Point,radius=.1,duration=.18){const fx:Effect={id:this.nextId++,kind,x:source.x,z:source.z,end:{...end},until:this.time+duration,radius,owner:source.owner,source:source.id};this.effects.push(fx);return fx;}
  fire(u:Entity,target:Body){
   if((u.recoveryUntil??0)>this.time)return;
@@ -645,6 +650,7 @@ export class World extends RunState {
   this.stats.shots++;
   u.attackFacing=Math.atan2(target.x-u.x,target.z-u.z);u.lastShotAt=this.time;u.shotSequence=(u.shotSequence??0)+1;u.nextShotAt=this.time+u.shotInterval;this.visual('attack',u,target);
   const nativeBonus=expeditionWeaponBonuses(this,u),bonus=nativeBonus.bonuses,critChance=u.unitType==='baneling'?0:talentModifiers(this,u).critChance??0,crit=critChance&&this.random()<critChance?1.75:1;let primary=true;
+  if(launchWeaponFlight(this,u,target,bonus,nativeBonus.shieldBonus,crit))return;
   if(fireWeaponPattern(this,u,target,bonus,(victim,damage,bonuses,hits=1)=>{this.attackHit(u,victim,damage,bonuses,hits,0,primary,primary?crit:1);primary=false;},crit))return;
   if(u.unitType==='hellion'){
    const angle=Math.atan2(target.x-u.x,target.z-u.z),length=6.5*(u.eliteId==='hellion.3'?1.25:1),width=.15*(u.eliteId==='hellion.3'?1.5:1),end={x:u.x+Math.sin(angle)*length,z:u.z+Math.cos(angle)*length};
@@ -907,7 +913,7 @@ export class World extends RunState {
   if(this.autoWaves&&this.specialPlan[this.nextSpecial]?.tier==='lord'&&this.specialPlan[this.nextSpecial].at-this.stageElapsed<=5&&!this.lordWarningPoint){const radius=SC2_UNITS[this.specialPlan[this.nextSpecial].type].unitRadius*TUNING.unitScale*1.7,pool=this.spawnCells.filter(p=>distance(p,this.anchor)>8&&(!this.terrain||this.terrain.canOccupy(p,radius))&&!blocked(p,radius,this.obstacles));this.lordWarningPoint=pool.length?{...pool[Math.floor(this.random()*pool.length)]}:null;if(this.lordWarningPoint)this.announce('随机领主即将降临 · 5 秒');}
   if(this.autoWaves)while(this.specialPlan[this.nextSpecial]?.at<=this.stageElapsed){const e=this.specialPlan[this.nextSpecial],spawned='budget' in e?this.spawnCampaignSpecial(e):this.spawnSpecial(e.type,e.tier,e.tier==='lord'?this.lordWarningPoint??undefined:undefined);if(!spawned)break;this.nextSpecial++;if(e.tier==='lord')this.lordWarningPoint=null;if(e.tier==='elite')this.stats.ambientSpawned++;}
   if(this.autoWaves&&this.endless)this.updateEndlessSpawns(dt);this.releaseWaitingPodGuards();if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.ambientBacklog.length)this.releaseAmbient();if(this.autoWaves){this.updateHives();this.releaseSwarm();}
-  const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active'),...this.expansionHives.values(),...this.fortifications.values()];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);this.updateAuras();this.updateTalentSupport();this.resolveHeroCasts();tickDetection(this);tickAreaSpells(this);tickWeaponAreas(this);this.enemySpecials.update(dt);this.updateCorrosionZones();
+  const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active'),...this.expansionHives.values(),...this.fortifications.values()];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);this.updateAuras();this.updateTalentSupport();this.resolveHeroCasts();tickDetection(this);tickAreaSpells(this);tickWeaponAreas(this);tickWeaponFlights(this,dt);this.enemySpecials.update(dt);this.updateCorrosionZones();
   this.movementAllies=this.allies();this.formationPlanned=false;
   for(const u of this.entities.values())this.updateUnit(u,dt);
   tickBroods(this);this.updateFortifications();

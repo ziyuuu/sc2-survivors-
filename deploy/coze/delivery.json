@@ -1,35 +1,35 @@
 {
-  "appBuildId": "dd555107fb164a5aa616178f05484c7ae76c255e6b6f5c9c2904c572f4e949ea",
-  "runSchema": 13,
-  "release": "47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7",
+  "appBuildId": "349286b4a8f860330226b1428ec7d4458410dde9b4a36641848772d428b8f688",
+  "runSchema": 14,
+  "release": "ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64",
   "app": [
-    "asset-manifest.47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7.json",
-    "assets/index-D-5K9hfz.js",
-    "assets/index-DRPFfan_.css",
+    "asset-manifest.ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64.json",
+    "assets/index-7C2oNwUf.js",
+    "assets/index-ClNtyLQf.css",
     "index.html",
     "runtime-config.json",
     "web-release.json"
   ],
   "appFiles": [
     {
-      "path": "public/asset-manifest.47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7.json",
-      "bytes": 176267,
-      "sha256": "fc0d01ce9c4d3952c7e0cd7ba26c8915b50dd0ab5b63072f375111a8c9b2cbf0"
+      "path": "public/asset-manifest.ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64.json",
+      "bytes": 128885,
+      "sha256": "2fa6a908375408017e1dd0e0c8f22483a2ae2f774cdafb2a33fd2ab616bf580a"
     },
     {
-      "path": "public/assets/index-D-5K9hfz.js",
-      "bytes": 1643444,
-      "sha256": "48cfb52d7e4fd5fc227f794f6fe5e645c5f9cb4cd710b487d91f776aec194c0d"
+      "path": "public/assets/index-7C2oNwUf.js",
+      "bytes": 1699105,
+      "sha256": "c91d6733ad8b1f8ad1c431112ff9a3d5d760d99bf0755bab41de78057d1bc712"
     },
     {
-      "path": "public/assets/index-DRPFfan_.css",
-      "bytes": 69700,
-      "sha256": "5bf9067b3f350f031b7a444cf1e8149247954490f68ff6e7ffc10276c8e1107f"
+      "path": "public/assets/index-ClNtyLQf.css",
+      "bytes": 76069,
+      "sha256": "9e2060279f2851acc9ca2d804dea2e4c900b97473215b8e2abc1e6af399242a4"
     },
     {
       "path": "public/index.html",
       "bytes": 675,
-      "sha256": "d083fcc366b93f5d312edf53808f1900a0c39e45b34a3947c8289f8c14027310"
+      "sha256": "26ed62906f159d5a802eb57ba958ec68a313ef78525dc45b6daaa12af5e350ce"
     },
     {
       "path": "public/runtime-config.json",
@@ -38,18 +38,18 @@
     },
     {
       "path": "public/web-release.json",
-      "bytes": 508,
-      "sha256": "654aa70af549a9a19f13b247f73652f58b9feac44da1803b4aafd520ff725fe9"
+      "bytes": 520,
+      "sha256": "3d6f55b5c6b9f5e404bbecabc1d423cd1114bd7a52b2c4f33c8915de85375f70"
     },
     {
       "path": "coze-web-server.mjs",
-      "bytes": 4477,
-      "sha256": "3e3690b1551476539c56e717d2605d4f993c09362fe4d604990f02cab2cbf329"
+      "bytes": 4499,
+      "sha256": "ee2be47d861dec2a6c4b8316da93dae7eaf21b909432e6119300fc50c7bdfdc1"
     },
     {
       "path": "fetch-resources.mjs",
-      "bytes": 4459,
-      "sha256": "c02dc59eb8436c06a14fcc2a50133e644ac2b8bb272ba5c5e2e766d2d871edb6"
+      "bytes": 5081,
+      "sha256": "38cf22a1ec311b6cd69c0a019e467e56a75ee1c6cabe5bf66625eb07cd8dd8a9"
     },
     {
       "path": "apply-update.mjs",
@@ -68,20 +68,20 @@
     },
     {
       "path": "resource-groups.json",
-      "bytes": 343375,
-      "sha256": "db7c40a27580421b018af5b81de0c1086a212f1d208fb9a9c29f00de2a27632c"
+      "bytes": 250211,
+      "sha256": "b25f03ca893839f6479c00134c324c0bd31ad16c8ef3da7e9655f1616171d359"
     },
     {
       "path": "resource-delta.json",
-      "bytes": 287,
-      "sha256": "8d00c961d1d4008d44fcb7903978dd224130cc99dbb266bf6cc69bae227d279e"
+      "bytes": 41436,
+      "sha256": "f2aaba45a1ce02cd4b20236341d3336fbca4dedf6fb1abc5d868f5ad70d73c07"
     },
     {
       "path": "DEPLOY.md",
-      "bytes": 12735,
-      "sha256": "857d580d26b74eb18f41e677c3ec97fe09bb77f06326806a3d0222c097d3bcb5"
+      "bytes": 7522,
+      "sha256": "00b3b015ca77abe5356d7cab84879228d2a730637152ab16224d06c2a05c549e"
     }
   ],
-  "assets": 730,
-  "resourceBytes": 458372920
+  "assets": 531,
+  "resourceBytes": 599199318
 }

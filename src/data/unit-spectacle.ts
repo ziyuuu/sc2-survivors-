@@ -1,0 +1,36 @@
+import type {FamilyId} from './races';
+import type {CoreShape} from './hero-spectacle';
+export interface UnitSpectacle {core:CoreShape;color:number;edge:number;size:number;contact:'gun'|'claw'|'blade'|'flame'|'shell'|'beam'|'spine'|'acid'|'energy'|'support'|'children';death:'armor'|'bio'|'psionic'|'reactor';debris:number;}
+/** Authored for every ordinary family. Elites retain their family weapon and genuine mechanism. */
+export const UNIT_SPECTACLE:Record<FamilyId,UnitSpectacle>={
+ marine:{core:'slug',color:0xffc17a,edge:0xffebba,size:.10,contact:'gun',death:'armor',debris:3},
+ marauder:{core:'slug',color:0xd39964,edge:0xffdcb7,size:.18,contact:'shell',death:'armor',debris:5},
+ reaper:{core:'slug',color:0xf5aa5b,edge:0xffdfab,size:.10,contact:'gun',death:'armor',debris:4},
+ hellion:{core:'blade',color:0xff8a29,edge:0xffdf87,size:.16,contact:'flame',death:'reactor',debris:6},
+ tank:{core:'slug',color:0xfad789,edge:0xfff1cc,size:.25,contact:'shell',death:'reactor',debris:8},
+ thor:{core:'slug',color:0xe2b071,edge:0xffe7be,size:.22,contact:'shell',death:'reactor',debris:10},
+ viking:{core:'slug',color:0xc9d6e6,edge:0xffb354,size:.17,contact:'shell',death:'reactor',debris:6},
+ banshee:{core:'slug',color:0xd1c3a1,edge:0xff8d36,size:.13,contact:'shell',death:'reactor',debris:6},
+ medivac:{core:'plate',color:0x6fbea7,edge:0xdaf7be,size:.13,contact:'support',death:'reactor',debris:6},
+ science_vessel:{core:'plate',color:0x6ebedb,edge:0xf8d27e,size:.16,contact:'support',death:'reactor',debris:7},
+ zergling:{core:'blade',color:0xa9a770,edge:0xd4d39e,size:.12,contact:'claw',death:'bio',debris:4},
+ baneling:{core:'spore',color:0x99b634,edge:0xe1e793,size:.20,contact:'acid',death:'bio',debris:7},
+ roach:{core:'spore',color:0x78a443,edge:0xc5d771,size:.20,contact:'acid',death:'bio',debris:6},
+ queen:{core:'shard',color:0xbc8a5f,edge:0xe6c19b,size:.16,contact:'spine',death:'bio',debris:7},
+ ravager:{core:'spore',color:0xb08d32,edge:0xedce71,size:.23,contact:'acid',death:'bio',debris:8},
+ hydralisk:{core:'shard',color:0xbfc68d,edge:0xf3edba,size:.15,contact:'spine',death:'bio',debris:6},
+ lurker:{core:'shard',color:0x9c805c,edge:0xdacc91,size:.24,contact:'spine',death:'bio',debris:8},
+ ultralisk:{core:'blade',color:0xa09b70,edge:0xd8d4a1,size:.34,contact:'claw',death:'bio',debris:12},
+ mutalisk:{core:'blade',color:0xb6c365,edge:0xdce38b,size:.22,contact:'acid',death:'bio',debris:7},
+ corruptor:{core:'spore',color:0x9a8543,edge:0xcdd184,size:.25,contact:'acid',death:'bio',debris:8},
+ zealot:{core:'blade',color:0x63bdeb,edge:0xecfbff,size:.17,contact:'blade',death:'psionic',debris:5},
+ adept:{core:'crystal',color:0xb98c54,edge:0xffe6a4,size:.18,contact:'energy',death:'psionic',debris:5},
+ stalker:{core:'crystal',color:0x738cee,edge:0xb9e3ff,size:.21,contact:'energy',death:'reactor',debris:7},
+ sentry:{core:'orb',color:0x70bed6,edge:0xd2f9ff,size:.13,contact:'beam',death:'reactor',debris:5},
+ high_templar:{core:'orb',color:0xaaa4e3,edge:0xe2eaff,size:.22,contact:'energy',death:'psionic',debris:5},
+ immortal:{core:'slug',color:0xe9d49b,edge:0xeefaff,size:.21,contact:'gun',death:'reactor',debris:8},
+ colossus:{core:'shard',color:0xf09b61,edge:0xffe3b4,size:.21,contact:'beam',death:'reactor',debris:11},
+ phoenix:{core:'crystal',color:0xc5a75f,edge:0xf4e8b9,size:.16,contact:'energy',death:'reactor',debris:7},
+ void_ray:{core:'crystal',color:0x58b9e0,edge:0xc2f7ff,size:.2,contact:'beam',death:'reactor',debris:9},
+ carrier:{core:'crystal',color:0xd8c07b,edge:0xfff4c6,size:.17,contact:'children',death:'reactor',debris:12},
+};

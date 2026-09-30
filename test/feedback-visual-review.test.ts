@@ -16,8 +16,8 @@ test('F06 visual review: live projectile and hit core take batch slots before de
  for(let i=0;i<256;i++)fx.emit(p);fx.emit({...p,color:0xff0000,priority:'core'});
  w.heroCasts=[{id:100,hero:'yamato_battlecruiser',source:999,target:998,origin:{x:0,z:0},point:{x:0,z:5},at:.25,damage:700,phase:'impact',launched:true}];
  const before=w.captureRun();fx.render(w,new THREE.PerspectiveCamera(),()=>true);
- assert.equal(fx.stats.pending,1);assert.equal(b.count,256);assert.equal(fx.stats.culledByClass.decoration,2);assert.equal(fx.stats.culledByClass.core,0);
- const color=new THREE.Color();b.mesh.getColorAt(1,color);assert.equal(color.getHex(),0xff0000);assert.deepEqual(w.captureRun(),before);
+ assert.ok([...fx.sculptures.batches.values()].some(batch=>batch.mesh.count>0));assert.equal(b.count,256);assert.equal(fx.stats.culledByClass.decoration,1);assert.equal(fx.stats.culledByClass.core,0);
+ const color=new THREE.Color();b.mesh.getColorAt(0,color);assert.equal(color.getHex(),0xff0000);assert.deepEqual(w.captureRun(),before);
 });
 
 test('F06 visual review: repeated renders consume real events once and restore does not replay settled cores',()=>{

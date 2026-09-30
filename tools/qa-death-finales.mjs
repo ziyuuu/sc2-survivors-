@@ -1,0 +1,37 @@
+import {chromium} from '@playwright/test';
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const out=process.env.QA_OUT??'reports/local/hero-iteration/death-finales';await fs.mkdir(out,{recursive:true});
+const report={method:'Visible local Chrome. Real damage/death events, explicit 60Hz diagnostic time, complete runtime corpse fade. Individual hero clips and spatially separated ordinary/elite batches. Not natural balance/performance or human visual acceptance.',rows:[],carriers:[],errors:[]};
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:false,args:['--disable-backgrounding-occluded-windows','--disable-renderer-backgrounding','--disable-background-timer-throttling']});let page;
+try{
+ page=await browser.newPage({viewport:{width:1440,height:900}});page.on('pageerror',e=>report.errors.push(e.message));
+ await page.exposeFunction('saveDeathFilm',async(name,data)=>fs.writeFile(`${out}/${name}.webm`,Buffer.from(data,'base64')));
+ await page.goto(process.env.SC2_QA_URL??'http://127.0.0.1:5181');await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu');
+ let started=false;for(const race of ['terran','zerg','protoss']){
+  if(started){await page.evaluate(()=>{const w=window.__SC2_DEBUG__.world;w.phase='battle';w.paused=false;w.changed();});await page.locator('#topbar [data-action=pause]').click();await page.locator('[data-action=restart]').click();}
+  for(const selector of ['[data-action=menu-new]',`[data-action=menu-race][data-race=${race}]`,'[data-action=menu-race-next]','[data-action=menu-difficulty-next]','[data-action=menu-start]'])await page.locator(selector).click();
+  await page.waitForFunction(()=>['ready','error'].includes(window.__SC2_REPORT__?.().readiness?.phase),null,{timeout:600000});assert.equal(await page.evaluate(()=>window.__SC2_REPORT__().readiness.phase),'ready');await page.locator('[data-action=flow-continue]').click();started=true;
+  await page.evaluate(()=>{const d=window.__SC2_DEBUG__;Object.defineProperty(d,'speed',{configurable:true,get:()=>0,set:()=>{}});const w=d.world;w.autoWaves=false;w.sandbox=true;w.stage=18;w.terrain.setStage(18);w.hive=null;w.economicTargets.clear();for(const p of Object.values(w.expedition.production))p.enabled={};});
+  const rows=await page.evaluate(async race=>{const {ALL_FAMILIES,familyRace}=await import('/src/data/races.ts'),{ELITES}=await import('/src/data/elites.ts'),{HERO_IDS_BY_RACE}=await import('/src/data/heroes.ts');return [...HERO_IDS_BY_RACE[race].map(id=>({id,kind:'hero'})),...ALL_FAMILIES.filter(f=>familyRace(f)===race).map(id=>({id,kind:'ordinary',family:id})),...Object.values(ELITES).filter(e=>familyRace(e.family)===race).map(e=>({id:e.id,kind:'elite',family:e.family,model:e.model}))];},race);
+  const heroes=rows.filter(r=>r.kind==='hero'),army=rows.filter(r=>r.kind!=='hero');const groups=heroes.map(r=>[r]);for(let i=0;i<army.length;i+=8)groups.push(army.slice(i,i+8));
+  for(const [index,group] of groups.entries()){
+   const name=group.length===1?group[0].id:`${race}-army-${index-heroes.length+1}`;
+   const observed=await page.evaluate(async({group,name})=>{
+    const {world:w,view:v}=window.__SC2_DEBUG__;w.entities.clear();w.heroes.clear();w.visualEvents=[];w.effects=[];w.heroCasts=[];w.weaponFlights=[];w.pods=[];v.resetRun();w.phase='battle';w.paused=false;
+    const units=group.map((r,i)=>{const x=group.length===1?0:(i%4-1.5)*4,z=group.length===1?0:(Math.floor(i/4)-.5)*5;let u;if(r.kind==='hero'){w.acquireHero(r.id);u=w.heroEntity(r.id);}else{u=w.addUnit(r.family,'terran',x,z);if(r.kind==='elite'){u.eliteId=r.id;u.modelKey=r.model;w.refreshStats(u,true);}}if(!u)throw Error('Missing death actor '+r.id);u.x=u.prev.x=x;u.z=u.prev.z=z;u.facing=u.attackFacing=Math.PI;return u;});
+    w.hash.rebuild(w.entities.values());w.changed();await v.prepareRosterAssets();v.render(1/60,1);
+    const chunks=[],stream=document.querySelector('#battle').captureStream(30),rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9',videoBitsPerSecond:1400000});rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};rec.start();
+    for(let i=0;i<15;i++){w.time+=1/60;v.render(1/60,1);await new Promise(r=>setTimeout(r,16));}
+    const evidence=units.map((u,i)=>{const key=u.modelKey??u.unitType,model=v.gpu.get(key+'.death')??v.gpu.get(key);return {...group[i],entityId:u.id,position:{x:u.x,z:u.z},deathClip:model?.actions.dead?.name??null,sourceSeconds:model?.pose('dead')?.duration??null,finalPoseSeconds:model?.pose('dead')?.duration??null,runtimeSeconds:Math.min(5,Math.max(1.5,model?.pose('dead')?.duration??1.5))};});
+    for(const u of units)w.hit(u,1e9,[],1,'zerg');
+    const seconds=Math.max(...evidence.map(r=>r.runtimeSeconds))+.65;for(let i=0;i<Math.ceil(seconds*60);i++){w.time+=1/60;w.tick++;v.render(1/60,1);await new Promise(r=>setTimeout(r,16));}
+    for(const row of evidence){row.deathEvents=w.visualEvents.filter(e=>e.kind==='death'&&e.entityId===row.entityId).length;row.corpseGone=!v.corpses.has(row.entityId);row.film=name+'.webm';}
+    await new Promise(resolve=>{rec.onstop=resolve;rec.stop();});stream.getTracks().forEach(t=>t.stop());await window.saveDeathFilm(name,await new Promise(resolve=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.readAsDataURL(new Blob(chunks));}));return {evidence,errors:v.report().errors};
+   },{group,name});assert.deepEqual(observed.errors,[]);for(const r of observed.evidence){assert.equal(r.deathEvents,1,r.id);assert.equal(r.corpseGone,true,r.id);}report.rows.push(...observed.evidence);await fs.writeFile(out+'/progress.json',JSON.stringify(report,null,2));console.log(JSON.stringify({race,deathIdentities:report.rows.length}));
+  }
+  const carrier=await page.evaluate(async race=>{const {world:w,view:v}=window.__SC2_DEBUG__;w.entities.clear();w.visualEvents=[];w.pods=[];v.resetRun();const p=w.spawnPod(w.expedition.familySlots[0],{x:0,z:0});if(!p)throw Error('No carrier');p.status='active';p.landedAt=w.time;v.render(1/60,1);const chunks=[],stream=document.querySelector('#battle').captureStream(30),rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9',videoBitsPerSecond:1000000});rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};rec.start();p.hp=0;p.status='destroyed';p.resolvedAt=w.time;for(let i=0;i<420;i++){w.time+=1/60;v.render(1/60,1);await new Promise(r=>setTimeout(r,16));}const view=v.podViews.get(p.id),result={race,originalClip:!!view.deathModel,visibleAtEnd:view.root.visible,film:'carrier-'+race+'.webm'};await new Promise(resolve=>{rec.onstop=resolve;rec.stop();});stream.getTracks().forEach(t=>t.stop());await window.saveDeathFilm('carrier-'+race,await new Promise(resolve=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.readAsDataURL(new Blob(chunks));}));return result;},race);assert.equal(carrier.originalClip,true);assert.equal(carrier.visibleAtEnd,false);report.carriers.push(carrier);
+ }
+ assert.equal(report.rows.length,138);assert.deepEqual(report.errors,[]);
+}catch(e){report.failure=String(e.stack??e);process.exitCode=1;if(page)await page.screenshot({path:out+'/failure.png'});}
+finally{await fs.writeFile(out+'/report.json',JSON.stringify(report,null,2));await browser.close();console.log(JSON.stringify({identities:report.rows.length,carriers:report.carriers.length,failure:report.failure??null}));}

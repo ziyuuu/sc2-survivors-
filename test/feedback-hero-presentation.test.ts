@@ -48,5 +48,5 @@ test('F06 aircraft mounts preserve height, rotation and fixed scale; only flagsh
 test('F06 instant attacks have same-tick stationary cores, no synthetic delayed flight',()=>{
  const w=new World({race:'terran',sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();w.heroes.clear();assert.ok(w.acquireHero('nova'));const hero=w.heroEntity('nova')!,enemy=w.addUnit('roach','zerg',3,0);w.fire(hero,enemy);const event=w.visualEvents.find(e=>e.kind==='attack'&&e.heroId==='nova')!;
  const fx=new BattleEffects(new THREE.Scene()),profile=heroPresentation('nova');fx.batches.set(profile.asset,{} as never);fx.batches.set(profile.impact,{} as never);fx.event(event,{x:hero.x,y:1,z:hero.z});const core=fx.particles.find(p=>p.x===enemy.x&&p.z===enemy.z)!;
- assert.ok(enemy.hp<enemy.maxHp);assert.equal(core.start,w.time);assert.deepEqual([core.vx,core.vy,core.vz],[0,0,0]);assert.equal(fx.projectiles.active.length,0);assert.equal(w.heroCasts.length,0);
+ assert.ok(enemy.hp<enemy.maxHp);assert.equal(core.start,w.time);assert.deepEqual([core.vx,core.vy,core.vz],[0,0,0]);assert.equal(w.weaponFlights.length,0);assert.equal(w.heroCasts.length,0);
 });

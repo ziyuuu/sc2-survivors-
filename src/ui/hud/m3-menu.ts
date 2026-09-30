@@ -19,8 +19,8 @@ const descriptions:Record<Race,{icon:string;features:string;start:string}>={
 const difficultyInfo:Record<Difficulty,{label:string;threat:string;resource:string}>={
  easy:{label:'简单',threat:'敌军基础威胁 ×0.5',resource:'每完成 3 关＋1 永久资源'},
  normal:{label:'普通',threat:'敌军基础威胁 ×0.9',resource:'每完成 3 关＋1 永久资源'},
- hard:{label:'困难',threat:'沿用困难敌压倍率',resource:'每完成 3 关＋2 永久资源'},
- hell:{label:'地狱',threat:'沿用地狱敌压；第 4 关起有扩张巢',resource:'每完成 1 关＋1 永久资源'}
+ hard:{label:'困难',threat:'更强的敌军，更密集的攻势',resource:'每完成 3 关＋2 永久资源'},
+ hell:{label:'地狱',threat:'密集敌潮；第 4 关起出现扩张巢',resource:'每完成 1 关＋1 永久资源'}
 };
 const shell=(step:string,title:string,body:string,back=true)=>`<div class="title-screen m3-menu"><span class="eyebrow">SC2 SURVIVORS / ${step}</span><h2>${title}</h2>${body}<div class="m3-menu-footer"><button data-action="resource-downloads">资源下载</button><button data-action="fullscreen">${fullscreenLabel()}</button>${back?'<button data-action="menu-back">返回</button>':''}</div><small class="legal">非官方 · 非盈利 · 朋友试玩 / StarCraft II 素材属于 Blizzard Entertainment</small></div>`;
 export function renderMenu(selection:MenuSelection,profile:PermanentProfile,session:RunSession|null){
@@ -38,7 +38,8 @@ export function renderMenu(selection:MenuSelection,profile:PermanentProfile,sess
  return shell('LOAD / PREVIEW','检查存档',`<div class="m3-summary"><p>${escape(s.loadPreview?.summary??'未选择存档')}</p><p>来源：${s.loadPreview?.source==='local'?'本地续局':'导入文件'}。读档使用档内种族、难度和天赋。</p></div><button class="primary" data-action="menu-load-ready" ${s.loadPreview?'':'disabled'}>载入这份存档</button>${s.error?`<p role="alert" class="warning">${escape(s.error)}</p>`:''}`);
 }
 export function renderReadiness(state:ReadinessState){
- const finite=state.total>0,progress=finite?`<progress max="${state.total}" value="${state.done}"></progress><small>${state.done} / ${state.total}</small>`:'<p>当前步骤耗时取决于模型大小，进度未知。</p>';
+ const finite=state.total>0,progress=finite?`<progress max="${state.total}" value="${state.done}"></progress><small>${state.done} / ${state.total}</small>`:'<progress aria-label="正在准备"></progress>';
  const ready=state.phase==='ready',error=state.phase==='error';
- return `<div class="title-screen m3-menu m3-loading" role="status"><span class="eyebrow">RESOURCE READINESS</span><h2>${ready?'资源就绪':error?'资源准备失败':'正在准备战场'}</h2><p>${escape(error?state.error??'未知错误':state.label)}</p>${!ready&&!error?progress:''}<div class="m3-menu-footer">${ready?'<button class="primary" data-action="flow-continue">确认继续</button>':error?'<button data-action="flow-retry">重试失败项</button><button data-action="flow-cancel">返回</button><button data-action="save-export">导出存档</button>':'<button data-action="flow-cancel">取消并返回</button>'}</div></div>`;
+ const label=state.label.includes('下载资源')?'下载战场资源':state.phase==='read'?'读取战局':state.phase==='audio'?'准备战场音效':state.phase==='gpu'?'准备画面':state.phase==='validate'?'检查战局':'准备部队与战场';
+ return `<div class="title-screen m3-menu m3-loading" role="status"><span class="eyebrow">SC2 SURVIVORS</span><h2>${ready?'战场就绪':error?'暂时无法出发':'正在准备战场'}</h2>${error?`<p>部分资源未能就绪，请重试。</p><details><summary>查看原因</summary><p>${escape(state.error??'未知错误')}</p></details>`:ready?(state.label.includes('缓存空间不足')?'<p>本次资源未能全部缓存，下次进入时将补下载。</p>':''):`<p>${label}</p>${progress}`}<div class="m3-menu-footer">${ready?'<button class="primary" data-action="flow-continue">进入战场</button>':error?'<button data-action="flow-retry">重试</button><button data-action="flow-cancel">返回</button><button data-action="save-export">导出存档</button>':'<button data-action="flow-cancel">返回</button>'}</div></div>`;
 }

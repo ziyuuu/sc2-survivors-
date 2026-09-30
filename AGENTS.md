@@ -1,4 +1,17 @@
+## Resumed delivery verification · 2026-09-30
+
+- Hero/map/UI schema14 engineering:745 rule tests,138 complete corpse-finale identity recordings,3 authentic carrier finales,30 responsive layout checks and final browser/offline save checks passed. Long source death clips finish within bounded display lifetimes; they do not alter death/reward timing.
+- Six paired seed271 early natural samples met frame quantiles but ended at stages3/4. Unassisted Zerg stage10 checkpoint ran180.083 combat seconds; stage10/11 frame quantiles met, transient backlog peak0.11663s remains open. Full M6/M7, human visual and three hologram Science Vessel source-clip gaps remain OPEN. Evidence:docs/project/HERO_MAP_PERFORMANCE_20260930.md and HERO_MAP_UI_VALIDATION_20260929.md. No further cleanup.
+
 ## Latest approved unique-support/cache iteration · 2026-09-29
+
+## Approved hero/map/UI iteration · 2026-09-29
+
+- `docs/project/HERO_MAP_UI_20260929.md` is the latest approved presentation/map baseline: explicit 18 hero profiles, 30 ordinary / 90 elite identity audit, real-flight basic attacks, schema14 saved projectiles, three seeded radial themes / nine sparse layouts. Existing damage, skill timing and progression remain unchanged.
+- Map net-area sequence and connected clear corridors are tested. Runtime glTF semantic texture IDs must resolve through prepared resources; missing declared textures fail readiness. Worker/carrier original models are retained, overhead carrier details are icons/count/HP; detailed receipts stay in the inspector.
+- Death source clips and locally authored rigid-fragment playback are distinct. Three elite hologram Science Vessels retain their authentic body with dissolve presentation, and the missing original death clip stays documented. Human visual, full natural M6 and M7 remain OPEN.
+- Cleanup was limited to seven re-audited candidates and released 2,508,365,824 bytes. Do not repeat cleanup. Follow incremental Coze delivery; local offline HTML/ZIPs are not newly committed to Git.
+
 
 - `docs/project/RACE_FUN_CACHE_20260929.md` is the approved baseline for 12 unique race cards (each race green/blue/purple automatic plus orange tactical), original support visuals, fixed upper-left minimap and resource caching. Current run schema13, profilev5 unchanged. New fun cards shop-only, rarity first then25% legal fun/75% other pool; no map/Boss changes.
 - Ordinary play automatically persists verified content-hash resources. Cache/index are independent from gameplay saves. Same-page decoded/GPU resources are reused; context loss invalidates GPU only. No version-based cache purge, no cleanup authorization.

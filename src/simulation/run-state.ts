@@ -1,3 +1,4 @@
+import type {WeaponFlight} from './combat/weapon-flight';
 import {newSwarmState} from '../data/swarm';
 import type {EndlessState} from '../data/endless';
 import type {EndlessConfig} from '../data/endless';
@@ -27,7 +28,7 @@ export class RunState {
  campaign18Runtime:Campaign18Runtime|null=null;
  swarm=newSwarmState();
  podSerial=0;time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'endless-ready'|'finished'|'lost'='menu';paused=false;
- battlefield:{mode:'campaign'|'endless';mapId:'campaign-kairos-v1'|'endless-flat-v1';mapHash:string}={mode:'campaign',mapId:'campaign-kairos-v1',mapHash:''};
+ battlefield:{mode:'campaign'|'endless';mapId:'campaign-kairos-v1'|'campaign-radial-v1'|'endless-flat-v1';mapHash:string}={mode:'campaign',mapId:'campaign-kairos-v1',mapHash:''};
  endlessEntry:{id:string;revision:number;ready:boolean}|null=null;
  endlessTransitionReceipt:string|null=null;
  endlessRoundReceipts:string[]=[];
@@ -72,6 +73,7 @@ protected specialPlan:(EnemyEvent|Campaign18Special)[]=[];protected nextSpecial=
  protected detours=new Map<number,{body:number;first:Point;second:Point;phase:number;forward:Point;until:number}>();
  protected navigation=new Map<number,{goal:Point;requested:Point;until:number;stalled:boolean}>();
 
+ weaponFlights:WeaponFlight[]=[];
  heroes=new Map<HeroId,HeroRecord>();heroCasts:HeroCast[]=[];
  pendingElites:EliteId[]=[];
  evolution=new Map<TerranType,{targetId:number;direction:'assault'|'guard'|'mobility';bank:number}>();
@@ -103,7 +105,7 @@ protected specialPlan:(EnemyEvent|Campaign18Special)[]=[];protected nextSpecial=
   guardRemainders:this.guardRemainders, nextGuardCounts:this.nextGuardCounts, specialPlan:this.specialPlan, nextSpecial:this.nextSpecial, waves:this.waves,
   eventPlan:this.eventPlan, nextEvent:this.nextEvent, scheduledStage:this.scheduledStage, ambientBacklog:this.ambientBacklog, extraDeliveries:this.extraDeliveries,
   notice:this.notice, noticeUntil:this.noticeUntil, movementStall:this.movementStall, detours:this.detours, navigation:this.navigation,
-  heroes:this.heroes, heroCasts:this.heroCasts, pendingElites:this.pendingElites, evolution:this.evolution, burns:this.burns,
+  heroes:this.heroes, heroCasts:this.heroCasts,weaponFlights:this.weaponFlights, pendingElites:this.pendingElites, evolution:this.evolution, burns:this.burns,
   productionChoices:this.productionChoices, groupNext:this.groupNext, groupUnlocks:this.groupUnlocks, rngState:this.rngState, corrosionZones:this.corrosionZones, zoneSlowed:this.zoneSlowed,
   auraArmor:this.auraArmor, auraDamage:this.auraDamage, auraAttackSpeed:this.auraAttackSpeed, nextAuraUpdate:this.nextAuraUpdate
  };}

@@ -65,7 +65,7 @@ export async function loadHttpAssets(){
    const pinned=store.manifest;for(const url of new Set(Object.values(store.urls)))URL.revokeObjectURL(url);store=new HttpAssetStore(pinned,base.href);
   }
   store??=new HttpAssetStore(manifest,base.href);void store.cache.persist();configurePlatformAssetUrl(id=>store!.urls[id]??null);
-  const ids=['map.kairos','terrain.char',...Object.keys(store.manifest.assets).filter(id=>/^(unit|hero|building|tech|ui|skill)\./.test(id))];
+  const ids=[...Object.keys(store.manifest.assets).filter(id=>/^(unit|hero|building|tech|ui|skill)\./.test(id))];
   await store.prepare(ids,(done,total)=>{const p=root.querySelector('progress');if(p){p.max=Math.max(1,total);p.value=done;}const label=root.querySelector('[role="status"]');if(label)label.textContent=`准备菜单 ${done} / ${total}`;});
  };
  for(;;){root.innerHTML='<section class="pack-loading"><b>SC2 SURVIVORS</b><p role="status">正在准备菜单</p><progress></progress></section>';

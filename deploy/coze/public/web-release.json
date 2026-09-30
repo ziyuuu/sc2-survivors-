@@ -1,14 +1,14 @@
 {
-  "appBuildId": "dd555107fb164a5aa616178f05484c7ae76c255e6b6f5c9c2904c572f4e949ea",
-  "runSchema": 13,
+  "appBuildId": "349286b4a8f860330226b1428ec7d4458410dde9b4a36641848772d428b8f688",
+  "runSchema": 14,
   "rulesId": "mvp-1.0",
-  "mapId": "kairos",
-  "assetCount": 737,
-  "fileCount": 730,
-  "assetBytes": 458372920,
-  "logicalBytes": 458482965,
+  "mapId": "campaign-radial-v1",
+  "assetCount": 538,
+  "fileCount": 531,
+  "assetBytes": 599199318,
+  "logicalBytes": 599309363,
   "sharedBytes": 110045,
-  "manifest": "asset-manifest.47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7.json",
-  "release": "47069188a309497929f28f037f25168dc7986384fbdf69923d66f9e1b33f11b7",
+  "manifest": "asset-manifest.ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64.json",
+  "release": "ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64",
   "source": "reports/local/asset-reachability.json"
 }

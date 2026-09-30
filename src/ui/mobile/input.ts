@@ -3,7 +3,7 @@ import type {Point} from '../../simulation/types';
 import type {ControlSettings} from '../controls/settings';
 import {activateHeroSlot} from '../controls/skills';
 
-type BattlePointer={canvas:HTMLCanvasElement;pick:(x:number,y:number,touch:boolean)=>{point:Point}|null;pickMove?:(x:number,y:number)=>{point:Point}|null;previewTarget?:(point:Point|null)=>void};
+type BattlePointer={canvas:HTMLCanvasElement;inspect?:(x:number,y:number)=>boolean;pick:(x:number,y:number,touch:boolean)=>{point:Point}|null;pickMove?:(x:number,y:number)=>{point:Point}|null;previewTarget?:(point:Point|null)=>void};
 export class Input {
  keys=new Set<string>();stick={x:0,z:0};pointer:number|null=null;
  private cancelTap=()=>{};private cancelTarget=()=>{};
@@ -38,12 +38,15 @@ export class Input {
   });
   window.addEventListener('keyup',e=>this.keys.delete(e.code));
   const command=(e:PointerEvent)=>{
+   if(canAct()&&!target&&e.button===0&&battle.inspect?.(e.clientX,e.clientY))return;
    if(!canAct()||(!target&&!settings.pointerMoves(e.pointerType))||this.pointer!==null)return;
    const hit=!target&&battle.pickMove?battle.pickMove(e.clientX,e.clientY):battle.pick(e.clientX,e.clientY,e.pointerType!=='mouse');if(hit){if(target){target=hit.point;preview();updateTransferPanel();confirmTarget();}else world.issueMove(hit.point);}
   };
   canvas.addEventListener('contextmenu',e=>e.preventDefault());
   canvas.addEventListener('pointerdown',e=>{
-   if(!canAct()||(!target&&!settings.pointerMoves(e.pointerType)))return;
+   if(!canAct())return;
+   if(!target&&e.pointerType==='mouse'&&e.button===0&&battle.inspect?.(e.clientX,e.clientY)){e.preventDefault();return;}
+   if(!target&&!settings.pointerMoves(e.pointerType)&&e.pointerType==='mouse')return;
    if(e.pointerType==='mouse'){if(e.button===2||e.button===0){e.preventDefault();command(e);}return;}
    if(tap){tap.cancelled=true;return;}if(!e.isPrimary||e.button!==0||this.pointer!==null)return;
    e.preventDefault();tap={id:e.pointerId,x:e.clientX,y:e.clientY,at:performance.now(),cancelled:false};canvas.setPointerCapture(e.pointerId);

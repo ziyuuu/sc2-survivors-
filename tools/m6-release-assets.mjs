@@ -6,6 +6,7 @@ import {ALL_FAMILIES} from '../src/data/races.ts';
 import {HEROES} from '../src/data/heroes.ts';
 import {ELITES} from '../src/data/elites.ts';
 import {RETIRED_ASSETS} from '../src/assets/retired.ts';
+import {MAP_THEMES} from '../src/data/campaign-map.ts';
 
 const records=JSON.parse(await fs.readFile('reports/local/runtime-assets.json','utf8'));
 const textureDerivatives=new Map(JSON.parse(await fs.readFile('assets/private/m6-texture-webp-manifest.json','utf8')).records.map(record=>[record.id,record]));
@@ -24,7 +25,7 @@ const requireModel=(key,reason)=>{
 };
 
 requireAsset('model.support.mine','Terran support card persistent Spider Mine');
-for(const key of ['scv','drone','probe','barracks','hatchery','pylon','pylon.birth'])requireAsset(`model.${key}`,'F05 required authentic worker/carrier');
+for(const key of ['scv','drone','probe','barracks','hatchery','pylon','pylon.birth','barracks.death','hatchery.death','pylon.death'])requireAsset(`model.${key}`,'Required authentic worker/carrier and matching death');
 
 // New-run, enemy, summon, three-race hero and elite paths are all reachable.
 for(const family of ALL_FAMILIES)requireModel(family,`ordinary/enemy family ${family}`);
@@ -35,17 +36,14 @@ for(const key of ['hellion.hellbat','viking.assault','interceptor','scv','drone'
 for(const family of ['lurker','thor'])for(const record of available)
  if(record.id.startsWith(`model.${family}.`)&&!record.id.endsWith('.death'))requireAsset(record.id,`manual mode ${family}`);
 
-requireAsset('map.kairos','only campaign map in mvp-1.0');
-const mapRecord=byId.get('map.kairos');
-const map=JSON.parse(await fs.readFile(mapRecord.packedFile,'utf8'));
-for(const placement of [...map.placements,...map.cliffs??[]])
- if(placement.assetId)requireAsset(placement.assetId,`Kairos map placement`);
-for(const id of ['map.terrain.diffuse','map.terrain.normal','map.terrain.mask0','map.terrain.mask1','terrain.char'])
- requireAsset(id,'campaign terrain / endless flat / title');
+const activeProps=new Set(Object.values(MAP_THEMES).flatMap(theme=>[...theme.props]));
+for(const id of activeProps)requireAsset(id,'One of nine approved radial campaign layouts');
+for(const id of ['map.terrain.diffuse','map.terrain.normal','terrain.char'])requireAsset(id,'Original terrain pixels for radial campaign / endless flat');
+const retiredMapIds=new Set(available.filter(r=>r.id==='map.kairos'||['map.terrain.mask0','map.terrain.mask1'].includes(r.id)||r.id.startsWith('model.map.')&&!activeProps.has(r.id)).map(r=>r.id));
 
 // Models imported by GLTFLoader contain their images, while exported map
 // materials may also refer to standalone semantic sc2asset: texture IDs.
-for(const record of available.filter(record=>record.kind==='model'||record.kind==='map-model')){
+for(const record of available.filter(record=>(record.kind==='model'||record.kind==='map-model')&&!retiredMapIds.has(record.id))){
  const bytes=await fs.readFile(record.packedFile);
  const json=record.kind==='map-model'?bytes.toString('utf8'):(()=>{
   if(bytes.toString('ascii',0,4)!=='glTF')throw Error(`Invalid release GLB: ${record.id}`);
@@ -62,7 +60,7 @@ async function collect(folder){for(const entry of await fs.readdir(folder,{withF
  else if(/\.(ts|mjs)$/.test(entry.name)&&!/(runtime\.generated|expansion-content-readiness)\./.test(entry.name))sourceFiles.push(file);
 }}
 for(const root of sourceRoots)await collect(root);
-const sources=await Promise.all(sourceFiles.map(async file=>({file,text:await fs.readFile(file,'utf8')})));
+const sources=await Promise.all(sourceFiles.filter(file=>!/[\\/](original-map|char-terrain|map-surface)\.ts$/.test(file)).map(async file=>({file,text:await fs.readFile(file,'utf8')})));
 for(const record of available){
  const mention=sources.find(({text})=>text.includes(record.id));
  if(mention)useIfPresent(record.id,`runtime source ${mention.file.replaceAll('\\','/')}`);
@@ -75,13 +73,14 @@ for(const record of available){
 for(const record of available.filter(record=>record.kind==='icon'))
  requireAsset(record.id,'dynamic UI/talent/card icon catalog');
 
-const excluded=records.filter(record=>record.id==='map.acropolis'||record.id.startsWith('map.acropolis.'));
+const excluded=records.filter(record=>record.id==='map.acropolis'||record.id.startsWith('map.acropolis.')||retiredMapIds.has(record.id));
 // Do not turn an unproven candidate into a release deletion. Add explicit,
 // reviewed IDs here only after a zero-reference proof covers every run phase.
 const provenUnused=new Set(Object.keys(RETIRED_ASSETS));
 const unusedProof=RETIRED_ASSETS;
 for(const id of provenUnused){if(reasons.has(id))throw Error(`Referenced asset cannot be pruned: ${id}`);if(!byId.has(id))throw Error(`Unknown pruned asset: ${id}`);}
-const candidates=available.filter(record=>!reasons.has(record.id)&&!provenUnused.has(record.id));
+for(const id of retiredMapIds)if(reasons.has(id))throw Error('Retired campaign asset still referenced: '+id);
+const candidates=available.filter(record=>!reasons.has(record.id)&&!provenUnused.has(record.id)&&!excluded.includes(record));
 const selected=available.filter(record=>!excluded.includes(record)&&!provenUnused.has(record.id));
 const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 const rows=[];
@@ -96,7 +95,7 @@ for(const record of selected){
 }
 const category=Object.values(Object.groupBy(rows,row=>row.kind)).map(group=>({kind:group[0].kind,count:group.length,bytes:group.reduce((sum,row)=>sum+row.bytes,0)})).sort((a,b)=>b.bytes-a.bytes);
 const identicalContentGroups=Object.values(Object.groupBy(rows,row=>row.sha256)).filter(group=>group.length>1).map(group=>({sha256:group[0].sha256,bytes:group[0].bytes,ids:group.map(row=>row.id),policy:'Semantic IDs retained; offline pack shares identical byte chunks, not duplicate payloads'}));
-const report={rulesId:'mvp-1.0',mapId:'kairos',selectedIds:rows.map(row=>row.id),excluded:[...excluded.map(record=>({id:record.id,reason:'legacy Acropolis map excluded from mvp campaign and endless-flat-v1'})),...[...provenUnused].map(id=>({id,reason:unusedProof[id],bytes:byId.get(id).bytes}))],provenUnused:[...provenUnused],identicalContentGroups,unprovenCandidates:candidates.map(record=>({id:record.id,kind:record.kind,bytes:record.bytes})),category,rows};
+const report={rulesId:'mvp-1.0',mapId:'campaign-radial-v1',selectedIds:rows.map(row=>row.id),excluded:[...excluded.map(record=>({id:record.id,bytes:record.bytes,reason:'Production new/load uses saved radial recipe or endless-flat-v1. No original-map runtime caller; nine theme prop tables omit this ID. Source/legacy diagnostic utilities preserved.'})),...[...provenUnused].map(id=>({id,reason:unusedProof[id],bytes:byId.get(id).bytes}))],provenUnused:[...provenUnused],identicalContentGroups,unprovenCandidates:candidates.map(record=>({id:record.id,kind:record.kind,bytes:record.bytes})),category,rows};
 await fs.mkdir('reports/local',{recursive:true});
 await fs.writeFile('reports/local/asset-reachability.json',JSON.stringify(report,null,2));
 console.log(`M6 release closure: ${selected.length} assets, ${candidates.length} conservative candidates, ${excluded.length} legacy Acropolis and ${provenUnused.size} proven unused excluded; ${identicalContentGroups.length} identical-content groups share payloads.`);

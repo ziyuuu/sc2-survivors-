@@ -8,6 +8,7 @@ import {fileURLToPath} from 'node:url';
 import {World} from '../src/simulation/world';
 import {MapTerrain} from '../src/simulation/movement/map-terrain';
 import {writeArchive,readArchive} from '../src/persistence/archive';
+import {chooseCampaignMap} from '../src/data/campaign-map';
 
 import {BUILDS,observe,createCampaignController} from './qa-campaign-controller';
 export {BUILDS,observe};
@@ -17,12 +18,13 @@ export function campaign(build:typeof BUILDS[number],seed:number,out:string){
  const difficulty=(process.argv.includes('--difficulty')?process.argv[process.argv.indexOf('--difficulty')+1]:'normal') as import('../src/data/stages').Difficulty;assert.ok(['easy','normal','hard','hell'].includes(difficulty));
  const w=new World({race:build.race,seed,difficulty,waves:true,terrain:new MapTerrain(definition),endlessTerrain:new FlatTerrain(),obstacles:[]});
  const resume=process.argv.includes('--resume')?process.argv[process.argv.indexOf('--resume')+1]:null;
+ if(!resume)assert.ok(w.configureCampaign(chooseCampaignMap(seed)));
  let completedActions=0;
  if(resume){const bundle=readArchive(fs.readFileSync(resume,'utf8')).bundle;assert.ok(bundle.run);assert.equal(bundle.run.config.race,build.race);assert.equal(bundle.run.seed,seed);w.restoreRun(bundle.run);w.paused=false;const historyPath=path.resolve(path.dirname(resume),'..',`${build.id}-${seed}.json`);if(fs.existsSync(historyPath)){const history=JSON.parse(fs.readFileSync(historyPath,'utf8'));completedActions=history.events.filter((e:any)=>e.kind==='development'&&e.time<=w.time).length;}}
  const oneHit=process.argv.includes('--one-hit');if(oneHit)setDiagnosticOneHit(w,true);const locked=process.argv.includes('--health-lock');if(locked)setDiagnosticHealthLock(w,true);
  const s=w.expedition,samples:unknown[]=[],checkpoints:string[]=[],deaths:unknown[]=[];
  let lastProgress=Date.now(),nextThink=0,nextSample=0,completed=0,peakBodies=0,peakEnemies=0,issue:string|null=null,steps=0;
- const save=()=>{const key=w.endless?'endless':String(w.stage);if(!['1','4','10','16','endless'].includes(key)||checkpoints.includes(key))return;fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,`${build.id}-${seed}-stage-${key}.json`),writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()}));const archivePath=path.join(out,`${build.id}-${seed}-stage-${key}.json`);fs.writeFileSync(archivePath+'.provenance.json',JSON.stringify({race:build.race,build:build.id,seed,stage:w.stage,mode:w.endless?'endless':'campaign',controller:'visible-public-v9',diagnosticHealthLock:locked,diagnosticOneHit:oneHit,sourceRules:w.runConfig?.rulesId,mapHash:definition.source.sha256,historyHash:createHash('sha256').update(JSON.stringify(controller.events)).digest('hex'),archiveHash:createHash('sha256').update(fs.readFileSync(archivePath)).digest('hex'),path:archivePath},null,2));checkpoints.push(key);};
+ const save=()=>{const key=w.endless?'endless':String(w.stage);if(!['1','4','10','16','endless'].includes(key)||checkpoints.includes(key))return;fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,`${build.id}-${seed}-stage-${key}.json`),writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()}));const archivePath=path.join(out,`${build.id}-${seed}-stage-${key}.json`);fs.writeFileSync(archivePath+'.provenance.json',JSON.stringify({race:build.race,build:build.id,seed,stage:w.stage,mode:w.endless?'endless':'campaign',controller:'visible-public-v9',diagnosticHealthLock:locked,diagnosticOneHit:oneHit,sourceRules:w.runConfig?.rulesId,mapHash:w.terrain?.definition?.source.sha256,historyHash:createHash('sha256').update(JSON.stringify(controller.events)).digest('hex'),archiveHash:createHash('sha256').update(fs.readFileSync(archivePath)).digest('hex'),path:archivePath},null,2));checkpoints.push(key);};
  const stopAt=process.argv.includes('--combat-seconds')?w.time+Number(process.argv[process.argv.indexOf('--combat-seconds')+1]):Infinity;
  const controller=createCampaignController(w,build,save,{completedActions});
  const {configure,think,decisions,intermission}=controller;
@@ -46,6 +48,6 @@ if(process.argv[1]&&fileURLToPath(import.meta.url)===path.resolve(process.argv[1
  const seeds=process.argv.includes('--seed')?[Number(process.argv[process.argv.indexOf('--seed')+1])]:[7,271,89241];
  const dir=path.resolve(process.argv.includes('--output')?process.argv[process.argv.indexOf('--output')+1]:'reports/local/autonomous-campaign-final');fs.mkdirSync(dir,{recursive:true});const results=[];
  for(const build of BUILDS.filter(b=>!requested||b.id===requested))for(const seed of seeds){const r=campaign(build,seed,path.join(dir,'checkpoints'));fs.writeFileSync(path.join(dir,`${build.id}-${seed}.json`),JSON.stringify(r,null,2));results.push({build:r.build,seed,completed:r.completed,stage:r.stage,phase:r.phase,time:r.time,issue:r.issue,peakBodies:r.peakBodies,checkpoints:r.checkpoints});console.log(JSON.stringify(results.at(-1)));}
- fs.writeFileSync(path.join(dir,requested?`summary-${requested}.json`:'summary.json'),JSON.stringify({controllerHash:createHash('sha256').update(fs.readFileSync('tools/qa-campaign-controller.ts')).digest('hex'),diagnosticHealthLock:process.argv.includes('--health-lock'),diagnosticOneHit:process.argv.includes('--one-hit'),method:'Actual World 60 Hz, original map, CLI-selected difficulty (Normal by default), zero talents; visible enemies only; public player actions. Diagnostic bot evidence, not human win rate.',results},null,2));
+ fs.writeFileSync(path.join(dir,requested?`summary-${requested}.json`:'summary.json'),JSON.stringify({controllerHash:createHash('sha256').update(fs.readFileSync('tools/qa-campaign-controller.ts')).digest('hex'),diagnosticHealthLock:process.argv.includes('--health-lock'),diagnosticOneHit:process.argv.includes('--one-hit'),method:'Actual World 60 Hz, seeded radial campaign map, CLI-selected difficulty (Normal by default), zero talents; visible enemies only; public player actions. Diagnostic bot evidence, not human win rate.',results},null,2));
  if(results.some(r=>r.issue))process.exitCode=1;
 }

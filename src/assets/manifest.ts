@@ -1,6 +1,6 @@
 import {RUNTIME_ASSETS} from './runtime.generated';
-import {RETIRED_ASSETS} from './retired';
-export const ASSETS=new Map(RUNTIME_ASSETS.filter(a=>!Object.hasOwn(RETIRED_ASSETS,a.id)).map(a=>[a.id,a]));
+import {isRetiredAsset} from './retired';
+export const ASSETS=new Map(RUNTIME_ASSETS.filter(a=>!isRetiredAsset(a.id)).map(a=>[a.id,a]));
 declare global {interface Window {__SC2_EMBEDDED__?:Record<string,string>;__SC2_PACK_ACTIVE__?:boolean;__SC2_REPORT__?:unknown}}
 let platformAssetUrl:((id:string)=>string|null)|null=null;
 /** The mini-game host only exposes verified, locally prepared asset paths. */

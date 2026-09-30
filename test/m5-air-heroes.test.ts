@@ -1,3 +1,4 @@
+import {settleWeaponFlights} from './helpers/weapon-flight';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
@@ -23,9 +24,9 @@ test('three approved air heroes have independent combat identities outside 30 or
 
 test('Yamato main gun has two native hits and fixed-point fusion cannon saves in flight',()=>{
  const w=setup('terran'),u=hero(w,'yamato_battlecruiser'),main=enemy(w,4),near=enemy(w,4,1),far=enemy(w,12);
- w.fire(u,main);assert.equal(main.hp,9894.2);assert.ok(castExpeditionHero(w,'yamato_battlecruiser'));
- resolve(w,1.24);assert.equal(main.hp,9894.2);const run=readArchive(writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()})).bundle.run!;
- const restored=setup('terran');restored.restoreRun(run);restored.paused=false;resolve(restored,1.25);
+ w.fire(u,main);settleWeaponFlights(w);assert.equal(main.hp,9894.2);assert.ok(castExpeditionHero(w,'yamato_battlecruiser'));
+ resolve(w,w.heroCasts[0].at-.01);assert.equal(main.hp,9894.2);const run=readArchive(writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()})).bundle.run!;
+ const restored=setup('terran');restored.restoreRun(run);restored.paused=false;resolve(restored,restored.heroCasts[0].at);
  assert.equal(restored.entities.get(main.id)?.hp,9194.2);assert.equal(restored.entities.get(near.id)?.hp,9720);assert.equal(restored.entities.get(far.id)?.hp,10000);assert.equal(restored.heroCasts.length,0);
 });
 
@@ -60,7 +61,7 @@ test('Purifier flagship owns four initial interceptors, pays for replacement and
  const w=setup('protoss'),carrier=hero(w,'purifier_flagship'),target=enemy(w);w.wallet.minerals=15;
  initializeCarrierSubsystem(w);const initial=ownedInterceptors(w,carrier.id);assert.equal(initial.length,4);
  assert.equal(initial[0].weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.15*1.2*1.15);
- w.fire(carrier,target);assert.equal(target.hp,10000);
+ w.fire(carrier,target);settleWeaponFlights(w);assert.equal(target.hp,10000);
  assert.ok(castExpeditionHero(w,'purifier_flagship'));resolve(w,1.39);assert.equal(target.hp,10000);resolve(w,1.4);assert.equal(target.hp,9400);
  tickCarrierSubsystem(w,8.571428571428571);assert.equal(ownedInterceptors(w,carrier.id).length,5);assert.equal(w.wallet.minerals,0);
 });

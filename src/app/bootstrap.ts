@@ -1,7 +1,7 @@
+import {campaignTerrain,chooseCampaignMap} from '../data/campaign-map';
 import {bindGameViewport} from '../ui/mobile/viewport';
 import {ControlSettings} from '../ui/controls/settings';
 import {embeddedAssetStatus,loadEmbeddedAssets} from '../assets/offline-pack';
-import {configureMapAssets,loadMapDefinition} from '../render/terrain/original-map';
 import {MapTerrain} from '../simulation/movement/map-terrain';
 import {FlatTerrain} from '../simulation/movement/flat-terrain';
 import {World} from '../simulation/world';
@@ -22,8 +22,8 @@ import type {NewRunPreview} from './run-session';
 
 const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
-export async function boot(){await loadEmbeddedAssets();configureMapAssets();let storage:Storage|undefined,factory:IDBFactory|undefined;try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}const definition=await loadMapDefinition(),saved=await openSaveProfile(storage,factory),world=new World({terrain:new MapTerrain(definition),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,saved);const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls),audio=new AudioEffects(),readiness=new AssetReadinessCoordinator(world,view,audio);hud.session=session;hud.readiness=readiness;readiness.onChange=()=>hud.update();
- const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,pick:(x,y,touch)=>view.pick(x,y,touch),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:point=>{view.targetPreview=point;}});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
+export async function boot(){await loadEmbeddedAssets();let storage:Storage|undefined,factory:IDBFactory|undefined;try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}const saved=await openSaveProfile(storage,factory),world=new World({terrain:campaignTerrain(chooseCampaignMap(crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,saved);const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls),audio=new AudioEffects(),readiness=new AssetReadinessCoordinator(world,view,audio);hud.session=session;hud.readiness=readiness;readiness.onChange=()=>hud.update();
+ const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,inspect:(x,y)=>{const id=view.pickCarrier(x,y);if(id===null)return false;hud.carrierInspector.show(id);return true;},pick:(x,y,touch)=>view.pick(x,y,touch),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:point=>{view.targetPreview=point;}});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,()=>hud.pause(),()=>input.reset());
  controls.listeners.add(()=>gamepad.reset());
  const debug=import.meta.env.DEV?installDebug(world,view):null;
@@ -37,7 +37,7 @@ export async function boot(){await loadEmbeddedAssets();configureMapAssets();let
  hud.saveUI=new SaveControls(session,()=>{if(session.resume()){resetPresentation();void audio.start();}hud.update();},()=>hud.update());session.onChange=()=>hud.update();
  let preparedNew:NewRunPreview|null=null;
  hud.onCancelFlow=()=>{preparedNew=null;hud.pendingStageAdvance=false;session.cancelPreparedNewRun();session.cancelPreparedLoad();};
- hud.onPrepareNew=()=>{try{const preset=world.permanentProfile.getPreset(hud.menuRace,hud.menuPreset);if(!preset)throw Error('天赋预设不存在');const hero=talentRank(preset.levels,hud.menuRace,'hero_support')?(hud.starterHeroChoice??HERO_IDS_BY_RACE[hud.menuRace][0]):null;preparedNew=session.prepareNewRun(hud.menuRace,hud.menuDifficulty,hud.menuPreset,hero);void readiness.prepare('new',{race:preparedNew.race,hero:preparedNew.hero});}catch(error){hud.flowError=String((error as Error).message);hud.update();}};
+ hud.onPrepareNew=()=>{try{const preset=world.permanentProfile.getPreset(hud.menuRace,hud.menuPreset);if(!preset)throw Error('天赋预设不存在');const hero=talentRank(preset.levels,hud.menuRace,'hero_support')?(hud.starterHeroChoice??HERO_IDS_BY_RACE[hud.menuRace][0]):null;preparedNew=session.prepareNewRun(hud.menuRace,hud.menuDifficulty,hud.menuPreset,hero);void readiness.prepare('new',{race:preparedNew.race,hero:preparedNew.hero,campaignMap:preparedNew.campaignMap});}catch(error){hud.flowError=String((error as Error).message);hud.update();}};
  hud.onPrepareLoad=()=>{if(!hud.loadPreview){hud.flowError='请选择可读取的存档';hud.update();return;}void readiness.prepare('load',{snapshot:hud.loadPreview.snapshot??undefined});};
  hud.onPrepareEndless=()=>{void readiness.prepare('endless');};
  let preparedAdvance:{runId:string|null;window:number;revision:number}|null=null;

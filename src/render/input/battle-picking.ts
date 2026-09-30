@@ -6,7 +6,7 @@ import type {Body,Point} from '../../simulation/types';
 export function pickMovement(clientX:number,clientY:number,canvas:HTMLCanvasElement,camera:THREE.Camera,scene:THREE.Scene,world:World):{point:Point}|null {
  const rect=canvas.getBoundingClientRect();if(clientX<rect.left||clientY<rect.top||clientX>rect.right||clientY>rect.bottom)return null;
  const ray=new THREE.Raycaster();ray.setFromCamera(new THREE.Vector2((clientX-rect.left)/rect.width*2-1,1-(clientY-rect.top)/rect.height*2),camera);
- const floors:THREE.Object3D[]=[];scene.traverseVisible(o=>{if(o.name==='char-traversable-ground')floors.push(o);});
+ const floors:THREE.Object3D[]=[];scene.traverseVisible(o=>{if(['char-traversable-ground','endless-traversable-ground'].includes(o.name))floors.push(o);});
  const hit=ray.intersectObjects(floors,true)[0]?.point??ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0,1,0),0),new THREE.Vector3());
  if(!hit)return null;const point={x:hit.x,z:hit.z};
  return Math.abs(point.x)<world.mapHalf&&Math.abs(point.z)<world.mapHalf&&(!world.terrain?.isOpen||world.terrain.isOpen(point))?{point}:null;
@@ -16,7 +16,7 @@ export function pickMovement(clientX:number,clientY:number,canvas:HTMLCanvasElem
 export function pickBattle(clientX:number,clientY:number,touch:boolean,canvas:HTMLCanvasElement,camera:THREE.Camera,scene:THREE.Scene,world:World):{point:Point;targetId?:number}|null {
  const rect=canvas.getBoundingClientRect();if(clientX<rect.left||clientY<rect.top||clientX>rect.right||clientY>rect.bottom)return null;
  const ray=new THREE.Raycaster();ray.setFromCamera(new THREE.Vector2((clientX-rect.left)/rect.width*2-1,1-(clientY-rect.top)/rect.height*2),camera);
- const terrain:THREE.Object3D[]=[];scene.traverseVisible(object=>{if(object.name==='char-traversable-ground'||object.name==='char-solid-cliff-faces')terrain.push(object);});
+ const terrain:THREE.Object3D[]=[];scene.traverseVisible(object=>{if(['char-traversable-ground','endless-traversable-ground','char-solid-cliff-faces'].includes(object.name))terrain.push(object);});
  const hit=ray.intersectObjects(terrain,true)[0];if(!hit)return null;
  const unitsPerPixel=camera instanceof THREE.OrthographicCamera?(camera.top-camera.bottom)/rect.height:.04;
  const margin=unitsPerPixel*(touch?12:3),v=new THREE.Vector3(),box=new THREE.Box3();let best:Body|undefined,depth=Infinity;
@@ -30,4 +30,13 @@ export function pickBattle(clientX:number,clientY:number,touch:boolean,canvas:HT
  if(best)return {point:{x:best.x,z:best.z},targetId:best.id};
  // A vertical cliff face is not a walkable floor. Do not click through it.
  return hit.object.name==='char-solid-cliff-faces'?null:{point:{x:hit.point.x,z:hit.point.z}};
+}
+
+export function pickCarrier(x:number,y:number,canvas:HTMLCanvasElement,camera:THREE.Camera,world:World):number|null {
+ const rect=canvas.getBoundingClientRect();if(x<rect.left||x>rect.right||y<rect.top||y>rect.bottom)return null;
+ const ray=new THREE.Raycaster();ray.setFromCamera(new THREE.Vector2((x-rect.left)/rect.width*2-1,1-(y-rect.top)/rect.height*2),camera);
+ const box=new THREE.Box3(),point=new THREE.Vector3();let id:number|null=null,best=Infinity;
+ for(const pod of world.pods.values()){if(!['active','opening'].includes(pod.status))continue;const h=world.terrain?.height(pod)??0,r=pod.unitRadius;box.min.set(pod.x-r,h,pod.z-r);box.max.set(pod.x+r,h+2.6,pod.z+r);
+  if(ray.ray.intersectBox(box,point)){const d=point.distanceTo(ray.ray.origin);if(d<best){id=pod.id;best=d;}}
+ }return id;
 }

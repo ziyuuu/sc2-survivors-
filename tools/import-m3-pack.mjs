@@ -1,4 +1,5 @@
 import {localSourceFile} from './local-source-cache.mjs';
+import {prepareDeathMotion} from './m3-death-motion.mjs';
 /** Local-only M3 -> animated GLB / DDS -> PNG. No image upload or archive download. */
 import {normalizeBoneBindings} from './m3-animation-bindings.mjs';
 import {cascProvenance} from './casc-provenance.mjs';
@@ -82,6 +83,7 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
  const bones=group.userData.bones??[];group.userData={source:provenance.source,sc2ModelScale:sourceScale(id),attachments:parser.buildAttachmentPoints(s.model,s)};
  const additional=await extraAnimations(id,s);let clips=[...parser.buildAnimationClips(s.model,s),...additional.clips].filter(c=>c.duration>0);
  const clipSources=clips.map(c=>({name:c.name,source:additional.clips.includes(c)?additional.reports[0]?.source:provenance.source,duration:c.duration,tracks:c.tracks.length}));
+ let deathMotion;if(id.endsWith('.death')){const prepared=prepareDeathMotion(group,bones,s,clips);clips=prepared.clips;deathMotion=prepared.report;group.userData.deathMotion=deathMotion;}
  // Preserve a truly static Stand pose as a valid clip, without fabricating motion.
  clips=clips.map(c=>c.tracks.length?c:new AnimationClip(c.name,c.duration,bones[0]?[new QuaternionKeyframeTrack(bones[0].name+'.quaternion',[0,c.duration],[...bones[0].quaternion.toArray(),...bones[0].quaternion.toArray()])]:[])).filter(c=>c.tracks.length);
  const renamedBones=normalizeBoneBindings(bones,clips);group.userData.originalBoneNames=Object.fromEntries(Object.entries(renamedBones).map(([original,current])=>[current,original]));
@@ -111,7 +113,7 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
  j.buffers[0].byteLength=length;j.asset.extras={m3Source:provenance.source,converterRevision:M3_TOOL_REVISION,particleSystemsExported:false,materialPipelineVersion:3};
  const bytes=pack(j,Buffer.concat(chunks)),info=inspectGlb(bytes);if(!info.animationNames.length&&!id.startsWith('model.terrain.')&&!id.startsWith('model.loot.')&&!id.startsWith('model.map.')&&!id.startsWith('model.projectile.'))throw Error('No usable animations exported');
  const packedFile=`public/assets/animated/${id}.glb`;await fs.writeFile(packedFile,bytes);
- manifest.push({id,kind:'model',packedFile,required:false,materialPipelineVersion:3,materials:layerReport,geometry:geometryReport,clipSources,additionalAnimations:additional.reports,verification:{bytes:true,bindings:true,humanVisual:false},...provenance,sha256:sha(bytes),animations:info.animationNames,bones:bones.length,originalParticles:s.model.particle_systems?.entries??0});
+ manifest.push({id,kind:'model',packedFile,required:false,materialPipelineVersion:3,materials:layerReport,geometry:geometryReport,clipSources,deathMotion,additionalAnimations:additional.reports,verification:{bytes:true,bindings:true,humanVisual:false},...provenance,sha256:sha(bytes),animations:info.animationNames,bones:bones.length,originalParticles:s.model.particle_systems?.entries??0});
  console.log(`${id}: ${info.animationNames.length} clips, ${bones.length} bones, ${bytes.length} bytes`);
 }catch(e){failures.push({id,name,error:e.message});console.error(id,e.message);}}
 

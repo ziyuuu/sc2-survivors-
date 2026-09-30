@@ -1,3 +1,4 @@
+import {chooseCampaignMap,type CampaignMapRecipe} from '../data/campaign-map';
 import type {World} from '../simulation/world';
 import type {RunSnapshot} from '../simulation/persistence/run-snapshot';
 import {PermanentProfile} from '../simulation/progression/permanent-profile';
@@ -14,7 +15,7 @@ import type {SaveBundle} from '../persistence/archive';
 
 export type LegacyCandidate=LegacySaveCandidate;
 export interface LoadPreview {id:string;source:'local'|'import';summary:string;snapshot:RunSnapshot|null}
-export interface NewRunPreview {id:string;race:Race;difficulty:Difficulty;preset:PresetSlot;hero:HeroId|null;expectedRevision:number}
+export interface NewRunPreview {id:string;race:Race;difficulty:Difficulty;preset:PresetSlot;hero:HeroId|null;expectedRevision:number;campaignMap?:CampaignMapRecipe}
 export async function openSaveProfile(storage?:Pick<Storage,'getItem'|'setItem'|'removeItem'>,factory?:IDBFactory){
  let repository:SaveRepository|null=null,notice='',run:RunSnapshot|null=null,savedAt=0,legacy:LegacyCandidate|null=null,incompatible:IncompatibleSaveCandidate|null=null,archiveProfile:string|undefined;
  const profile=new PermanentProfile();
@@ -82,6 +83,7 @@ export class RunSession {
   const required=talentRank(allocation.levels,race,'hero_support')>0;
   if(required&&(!hero||!HERO_IDS_BY_RACE[race].includes(hero as never)))throw Error('请选择本族开局英雄');
   const preview:NewRunPreview={id:`new:${++this.sequence}`,race,difficulty,preset,hero:required?hero:null,expectedRevision:this.world.permanentProfile.revision};
+  if(this.world.campaignRecipe){const seed=globalThis.crypto.getRandomValues(new Uint32Array(1))[0];preview.campaignMap=chooseCampaignMap(seed,this.world.campaignRecipe.theme);}
   this.newTicket=preview;return preview;
  }
  cancelPreparedNewRun(){this.newTicket=null;}
@@ -91,6 +93,7 @@ export class RunSession {
   const oldProfile=p.exportJSON();
   this.restoring=true;
   try{
+   if(ticket.campaignMap&&!this.world.configureCampaign(ticket.campaignMap))throw Error('地图未就绪');
    if(!p.activatePreset(ticket.race,ticket.preset)||!this.world.selectRace(ticket.race)||!this.world.setDifficulty(ticket.difficulty)||!this.world.start(ticket.hero??undefined))throw Error('新局配置提交失败');
    this.pending=null;this.newTicket=null;this.loadTicket=null;this.lastTime=this.world.time;this.message='新战局已开始。';this.requestSave();return true;
   }catch(error){p.importJSON(oldProfile);this.world.selectRace(p.activeRace);this.world.resetRun();this.message='新局启动失败，原续局保留：'+String((error as Error).message);return false;}

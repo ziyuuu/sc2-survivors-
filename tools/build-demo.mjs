@@ -4,7 +4,7 @@ import {build} from 'esbuild';
 import {createHash} from 'node:crypto';
 const records=JSON.parse(await fs.readFile('reports/local/runtime-assets.json','utf8'));
 const reachability=JSON.parse(await fs.readFile('reports/local/asset-reachability.json','utf8'));
-if(reachability.rulesId!=='mvp-1.0'||reachability.mapId!=='kairos')throw Error('M6 release reachability is stale or for another ruleset');
+if(reachability.rulesId!=='mvp-1.0'||reachability.mapId!=='campaign-radial-v1')throw Error('M6 release reachability is stale or for another ruleset');
 const selectedIds=new Set(reachability.selectedIds);
 if(selectedIds.size!==reachability.selectedIds.length)throw Error('Duplicate asset in M6 release reachability');
 for(const id of selectedIds)if(!records.some(r=>r.id===id&&r.status==='available'))throw Error('Missing selected release asset: '+id);
@@ -20,12 +20,12 @@ if(animationMissing.length)throw Error('Original animation pack required for fri
 if(records.filter(r=>r.kind==='effect-texture'&&r.status==='available').length<24)throw Error('Original combat effect textures are incomplete. Run npm run assets:animate.');
 const materialMissing=units.filter(t=>!records.some(r=>r.id==='model.'+t&&r.materialPipelineVersion===3&&r.materials?.some(m=>m.layers.some(l=>l.role==='normal'))));
 if(materialMissing.length)throw Error('Original material maps required for friend Demo: '+materialMissing.join(', ')+'. Run npm run assets:animate.');
-for(const id of ['map.kairos','map.terrain.diffuse','map.terrain.normal','map.terrain.mask0','map.terrain.mask1','terrain.char','model.fort.bunker','model.fort.bunker.death','model.fort.repair','model.fort.repair.death','model.loot.mineral','model.loot.gas','model.loot.large'])if(!records.some(r=>r.id===id&&r.status==='available'))throw Error('M3 original asset required: '+id);
+for(const id of ['map.terrain.diffuse','map.terrain.normal','terrain.char','model.fort.bunker','model.fort.bunker.death','model.fort.repair','model.fort.repair.death','model.loot.mineral','model.loot.gas','model.loot.large'])if(!selectedIds.has(id))throw Error('Required campaign/endless original asset absent from release: '+id);
 const closureById=new Map(reachability.rows.map(row=>[row.id,row]));
 const resources=[];for(const r of records.filter(r=>selectedIds.has(r.id))){
  const bytes=await fs.readFile(r.packedFile),closure=closureById.get(r.id);
  if(!closure||closure.packedFile!==r.packedFile||closure.bytes!==bytes.length||closure.sha256!==createHash('sha256').update(bytes).digest('hex'))throw Error('M6 release resource changed after reachability audit: '+r.id);
- const mime=r.kind==='map-data'?'application/json':r.kind==='map-model'?'model/gltf+json':r.kind==='model'?'model/gltf-binary':r.kind==='audio'?(r.packedFile.endsWith('.ogg')?'audio/ogg':'audio/wav'):r.packedFile.endsWith('.webp')?'image/webp':r.packedFile.endsWith('.jpg')?'image/jpeg':'image/png';resources.push({id:r.id,mime,bytes});
+ const mime=r.kind==='map-data'?'application/json':r.kind==='map-model'?'model/gltf+json':r.kind==='model'?'model/gltf-binary':r.kind==='audio'?(r.packedFile.endsWith('.ogg')?'audio/ogg':'audio/wav'):r.packedFile.endsWith('.svg')?'image/svg+xml':r.packedFile.endsWith('.webp')?'image/webp':r.packedFile.endsWith('.jpg')?'image/jpeg':'image/png';resources.push({id:r.id,mime,bytes});
 }
 if(resources.length!==selectedIds.size)throw Error('M6 release asset selection mismatch');
 const {pack,stats}=createAssetPack(resources);

@@ -1,5 +1,6 @@
 import './prepare-expansion-assets.mjs';
 import './prepare-sc2-audio.mjs';
+import './prepare-unit-wireframes.mjs';
 import {cascProvenance} from './casc-provenance.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -14,6 +15,7 @@ let imported=[];try{imported=JSON.parse(await fs.readFile('assets/private/m3-pac
 try{imported.push(...JSON.parse(await fs.readFile('assets/private/terrain-pack.json','utf8')).manifest);}catch{}
 try{imported.push(...JSON.parse(await fs.readFile('assets/private/map-pack.json','utf8')).manifest);}catch{}
 try{imported.push(...JSON.parse(await fs.readFile('assets/private/expansion-ui.json','utf8')).manifest);}catch{}
+imported.push(...JSON.parse(await fs.readFile('assets/private/combat-wireframes.json','utf8')).manifest);
 const importedById=new Map(imported.map(a=>[a.id,a]));
 const assets=[...RUNTIME_ASSETS.map(a=>({...a,...importedById.get(a.id),required:a.required})),...[...importedById.values()].filter(a=>!RUNTIME_ASSETS.some(b=>b.id===a.id))];
 let optimized=[];try{optimized=JSON.parse(await fs.readFile('assets/private/m6-webp-manifest.json','utf8')).records??[];}catch{}

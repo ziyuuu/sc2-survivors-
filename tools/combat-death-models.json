@@ -1,0 +1,817 @@
+[
+  {
+    "id": "model.reaper.death",
+    "modelDataId": "ReaperDeath",
+    "assetPath": "Assets/Units/Terran/ReaperDeathEx1/ReaperDeathEx1_00.m3",
+    "name": "reaperdeathex1_00",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "ReaperDeathBase",
+      "ReaperDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Reaper"
+  },
+  {
+    "id": "model.thor.death",
+    "modelDataId": "ThorDeath",
+    "assetPath": "Assets/Units/Terran/ThorDeath/ThorDeath_00.m3",
+    "name": "thordeath_00",
+    "sourceScale": null,
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "UnitDeath",
+      "ThorDeathBase",
+      "ThorDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Thor"
+  },
+  {
+    "id": "model.viking.death",
+    "modelDataId": "VikingFighterDeath",
+    "assetPath": "Assets/Units/Terran/VikingFighterDeathEx1/VikingFighterDeathEx1_00.m3",
+    "name": "vikingfighterdeathex1_00",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "VikingFighterDeathBase",
+      "VikingFighterDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "VikingFighter"
+  },
+  {
+    "id": "model.banshee.death",
+    "modelDataId": "BansheeDeath",
+    "assetPath": "Assets/Units/Terran/BansheeDeathEx1/BansheeDeathEx1.m3",
+    "name": "bansheedeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "BansheeDeathBase",
+      "BansheeDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Banshee"
+  },
+  {
+    "id": "model.science_vessel.death",
+    "assetPath": "Assets/Units/Terran/ScienceVesselDeath/ScienceVesselDeath.m3",
+    "name": "sciencevesseldeath",
+    "definitionLayer": "B97563-CASC-identity-pair",
+    "modelDataId": "ScienceVesselDeath",
+    "modelInheritance": [],
+    "requiredAnimations": [],
+    "pathEvidence": "Exact original body/death file pair verified in B97563; public campaign CModel export unavailable.",
+    "bodyModelDataId": "ScienceVessel"
+  },
+  {
+    "id": "model.queen.death",
+    "modelDataId": "QueenDeath",
+    "assetPath": "Assets/Units/Zerg/QueenDeathEx1/QueenDeathEx1.m3",
+    "name": "queendeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "QueenDeathBase",
+      "QueenDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Queen"
+  },
+  {
+    "id": "model.lurker.death",
+    "modelDataId": "LurkerMPDeath",
+    "assetPath": "Assets/Units/Zerg/Lurker_Death_Ex2/Lurker_Death_Ex2_00.m3",
+    "name": "lurker_death_ex2_00",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "LurkerDeathBase",
+      "LurkerMPDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "LurkerMP"
+  },
+  {
+    "id": "model.mutalisk.death",
+    "modelDataId": "MutaliskDeath",
+    "assetPath": "Assets/Units/Zerg/MutaliskDeathEx1/MutaliskDeathEx1_00.m3",
+    "name": "mutaliskdeathex1_00",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "MutaliskDeathBase",
+      "MutaliskDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Mutalisk"
+  },
+  {
+    "id": "model.corruptor.death",
+    "modelDataId": "CorruptorDeath",
+    "assetPath": "Assets/Units/Zerg/CorruptorDeathEx1/CorruptorDeathEx1.m3",
+    "name": "corruptordeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "CorruptorDeathBase",
+      "CorruptorDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Corruptor"
+  },
+  {
+    "id": "model.ultralisk.death",
+    "modelDataId": "UltraliskDeath",
+    "assetPath": "Assets/Units/Zerg/UltraliskDeathEx1/UltraliskDeathEx1_00.m3",
+    "name": "ultraliskdeathex1_00",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "UltraliskDeathBase",
+      "UltraliskDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Ultralisk"
+  },
+  {
+    "id": "model.zealot.death",
+    "modelDataId": "ZealotDeath",
+    "assetPath": "Assets/Units/Protoss/ZealotDeath/ZealotDeath.m3",
+    "name": "zealotdeath",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "ZealotDeathBase",
+      "ZealotDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Zealot"
+  },
+  {
+    "id": "model.adept.death",
+    "modelDataId": "AdeptDeath",
+    "assetPath": "Assets/Units/Protoss/Adept_Death/Adept_Death.m3",
+    "name": "adept_death",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "AdeptDeathBase",
+      "AdeptDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Adept"
+  },
+  {
+    "id": "model.stalker.death",
+    "modelDataId": "StalkerDeath",
+    "assetPath": "Assets/Units/Protoss/StalkerDeathEx1/StalkerDeathEx1.m3",
+    "name": "stalkerdeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "StalkerDeathBase",
+      "StalkerDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Stalker"
+  },
+  {
+    "id": "model.sentry.death",
+    "modelDataId": "SentryDeath",
+    "assetPath": "Assets/Units/Protoss/SentryDeathEx1/SentryDeathEx1.m3",
+    "name": "sentrydeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "SentryDeathBase",
+      "SentryDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Sentry"
+  },
+  {
+    "id": "model.immortal.death",
+    "modelDataId": "ImmortalDeath",
+    "assetPath": "Assets/Units/Protoss/ImmortalDeathEx1/ImmortalDeathEx1_00.m3",
+    "name": "immortaldeathex1_00",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "ImmortalDeathBase",
+      "ImmortalDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Immortal"
+  },
+  {
+    "id": "model.colossus.death",
+    "modelDataId": "ColossusDeath",
+    "assetPath": "Assets/Units/Protoss/ColossusDeathEx1/ColossusDeathEx1_00.m3",
+    "name": "colossusdeathex1_00",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "ColossusDeathBase",
+      "ColossusDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Colossus"
+  },
+  {
+    "id": "model.high_templar.death",
+    "modelDataId": "HighTemplarDeath",
+    "assetPath": "Assets/Units/Protoss/HighTemplarDeath/HighTemplarDeath.m3",
+    "name": "hightemplardeath",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "HighTemplarDeathBase",
+      "HighTemplarDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "HighTemplar"
+  },
+  {
+    "id": "model.phoenix.death",
+    "modelDataId": "PhoenixDeath",
+    "assetPath": "Assets/Units/Protoss/PhoenixDeathEx1/PhoenixDeathEx1.m3",
+    "name": "phoenixdeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "PhoenixDeathBase",
+      "PhoenixDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Phoenix"
+  },
+  {
+    "id": "model.void_ray.death",
+    "modelDataId": "VoidRayDeath",
+    "assetPath": "Assets/Units/Protoss/VoidRayDeathEx1/VoidRayDeathEx1.m3",
+    "name": "voidraydeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "VoidRayDeathBase",
+      "VoidRayDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "VoidRay"
+  },
+  {
+    "id": "model.carrier.death",
+    "modelDataId": "CarrierDeath",
+    "assetPath": "Assets/Units/Protoss/CarrierDeathEx1/CarrierDeathEx1.m3",
+    "name": "carrierdeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "CarrierDeathBase",
+      "CarrierDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Carrier"
+  },
+  {
+    "id": "model.interceptor.death",
+    "modelDataId": "InterceptorDeath",
+    "assetPath": "Assets/Units/Protoss/InterceptorDeathEx1/InterceptorDeathEx1_00.m3",
+    "name": "interceptordeathex1_00",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "InterceptorDeathBase",
+      "InterceptorDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Interceptor"
+  },
+  {
+    "id": "model.hellion.hellbat.death",
+    "modelDataId": "HellionTankDeath",
+    "assetPath": "Assets/Units/Terran/HellionEx1TankDeath/HellionEx1TankDeath.m3",
+    "name": "hellionex1tankdeath",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "HellionHellbatDeathBase",
+      "HellionTankDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "HellionTank"
+  },
+  {
+    "id": "model.viking.assault.death",
+    "modelDataId": "VikingAssaultDeath",
+    "assetPath": "Assets/Units/Terran/VikingAssaultDeathEx1/VikingAssaultDeathEx1.m3",
+    "name": "vikingassaultdeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "VikingAssaultDeathBase",
+      "VikingAssaultDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "VikingAssault"
+  },
+  {
+    "id": "model.hero.zagara.death",
+    "assetPath": "Assets/Units/Zerg/ZagaraDeath/ZagaraDeath.m3",
+    "name": "zagaradeath",
+    "definitionLayer": "B97563-CASC-identity-pair",
+    "modelDataId": "ZagaraDeath",
+    "modelInheritance": [],
+    "requiredAnimations": [],
+    "pathEvidence": "Exact original body/death file pair verified in B97563; public campaign CModel export unavailable.",
+    "bodyModelDataId": "ZagaraVoidCoop"
+  },
+  {
+    "id": "model.hero.zeratul.death",
+    "modelDataId": "MutatorAmonZeratulDeath",
+    "assetPath": "Assets/Units/Protoss/ZeratulDeath/ZeratulDeath.m3",
+    "name": "zeratuldeath",
+    "sourceScale": null,
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "UnitDeath",
+      "MutatorAmonZeratulDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "MutatorAmonZeratul"
+  },
+  {
+    "id": "model.hero.fenix.death",
+    "modelDataId": "FenixDragoonDeath",
+    "assetPath": "Assets/Units/Protoss/Dragoon_Purifier_Coop_Death/Dragoon_Purifier_Coop_Death.m3",
+    "name": "dragoon_purifier_coop_death",
+    "sourceScale": null,
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "UnitDeath",
+      "FenixDragoonDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "FenixDragoon"
+  },
+  {
+    "id": "model.hero.niadra.death",
+    "assetPath": "Assets/Units/Zerg/ExpeditionQueenLevel3Death/ExpeditionQueenLevel3Death.m3",
+    "name": "expeditionqueenlevel3death",
+    "definitionLayer": "B97563-CASC-identity-pair",
+    "modelDataId": "ExpeditionQueenLevel3Death",
+    "modelInheritance": [],
+    "requiredAnimations": [],
+    "pathEvidence": "Exact original body/death file pair verified in B97563; public campaign CModel export unavailable.",
+    "bodyModelDataId": "HugeSwarmQueen"
+  },
+  {
+    "id": "model.elite.reaper.1.death",
+    "modelDataId": "Reaper_CovertOps_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Reaper_CovertOps_Collection_Death/Reaper_CovertOps_Collection_Death.m3",
+    "name": "reaper_covertops_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "ReaperDeathBase",
+      "Reaper_CovertOps_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "pathEvidence": "Pinned B97563 CASC exact identity path; inherited variation suffix corrected.",
+    "bodyModelDataId": "Reaper_CovertOps_Collection"
+  },
+  {
+    "id": "model.elite.thor.1.death",
+    "modelDataId": "Thor_CovertOps_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Thor_CovertOps_Collection_Death/Thor_CovertOps_Collection_Death_00.m3",
+    "name": "thor_covertops_collection_death_00",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "ThorDeathBase",
+      "Thor_CovertOps_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Thor_CovertOps_Collection"
+  },
+  {
+    "id": "model.elite.viking.1.death",
+    "modelDataId": "Viking_MercFighter_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Viking_MercFighter_Collection_Death/Viking_MercFighter_Collection_Death_00.m3",
+    "name": "viking_mercfighter_collection_death_00",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "VikingFighterDeathBase",
+      "Viking_MercFighter_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Viking_MercFighter_Collection"
+  },
+  {
+    "id": "model.elite.banshee.1.death",
+    "modelDataId": "Banshee_CovertsOps_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Banshee_CovertsOps_Collection_Death/Banshee_CovertsOps_Collection_Death.m3",
+    "name": "banshee_covertsops_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "BansheeDeathBase",
+      "Banshee_CovertsOps_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Banshee_CovertsOps_Collection"
+  },
+  {
+    "id": "model.elite.zergling.1.death",
+    "modelDataId": "Zergling_CollectionSkin_Webby_Death",
+    "assetPath": "Assets/Units/Zerg/Zergling_CollectionSkin_Webby_Death/Zergling_CollectionSkin_Webby_Death.m3",
+    "name": "zergling_collectionskin_webby_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "ZerglingDeathBase",
+      "Zergling_CollectionSkin_Webby_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Zergling_CollectionSkin_Webby"
+  },
+  {
+    "id": "model.elite.baneling.1.death",
+    "modelDataId": "Baneling_Webby_Collection_Death",
+    "assetPath": "Assets/Units/Zerg/Baneling_CollectionSkin_WebbyDeath/Baneling_CollectionSkin_WebbyDeath.m3",
+    "name": "baneling_collectionskin_webbydeath",
+    "sourceScale": null,
+    "definitionLayer": "starcoop",
+    "modelInheritance": [
+      "UnitDeath",
+      "BanelingDeathBase",
+      "Baneling_CollectionSkin_WebbyDeath",
+      "Baneling_Webby_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Baneling_Webby_Collection"
+  },
+  {
+    "id": "model.elite.roach.1.death",
+    "modelDataId": "Roach_CollectionSkin_Webby_Death",
+    "assetPath": "Assets/Units/Zerg/Roach_CollectionSkin_Webby_Death/Roach_CollectionSkin_Webby_Death.m3",
+    "name": "roach_collectionskin_webby_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "RoachDeathBase",
+      "Roach_CollectionSkin_Webby_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Roach_CollectionSkin_Webby"
+  },
+  {
+    "id": "model.elite.ravager.1.death",
+    "modelDataId": "Ravager_CollectionSkin_Webby_Death",
+    "assetPath": "Assets/Units/Zerg/Ravager_CollectionSkin_Webby_Death/Ravager_CollectionSkin_Webby_Death_00.m3",
+    "name": "ravager_collectionskin_webby_death_00",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "RavagerDeathBase",
+      "Ravager_CollectionSkin_Webby_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Ravager_CollectionSkin_Webby"
+  },
+  {
+    "id": "model.elite.hydralisk.1.death",
+    "modelDataId": "Hydralisk_Collection_Webby_Death",
+    "assetPath": "Assets/Units/Zerg/Hydralisk_Collection_Webby_Death/Hydralisk_Collection_Webby_Death.m3",
+    "name": "hydralisk_collection_webby_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "HydraliskDeathBase",
+      "Hydralisk_Collection_Webby_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Hydralisk_Collection_Webby"
+  },
+  {
+    "id": "model.elite.queen.1.death",
+    "modelDataId": "Queen_CollectionSkin_Webby_Death",
+    "assetPath": "Assets/Units/Zerg/Queen_CollectionSkin_Webby_Death/Queen_CollectionSkin_Webby_Death.m3",
+    "name": "queen_collectionskin_webby_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "QueenDeathBase",
+      "Queen_CollectionSkin_Webby_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Queen_CollectionSkin_Webby"
+  },
+  {
+    "id": "model.elite.lurker.1.death",
+    "modelDataId": "LurkerMP_Webby_Collection_Death",
+    "assetPath": "Assets/Units/Zerg/Lurker_CollectionSkin_Webby_Death/Lurker_CollectionSkin_Webby_Death_00.m3",
+    "name": "lurker_collectionskin_webby_death_00",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "LurkerDeathBase",
+      "Lurker_CollectionSkin_Webby_Death",
+      "LurkerMP_Webby_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "pathEvidence": "Pinned B97563 CASC exact identity path; inherited variation suffix corrected.",
+    "bodyModelDataId": "Lurker_CollectionSkin_Webby"
+  },
+  {
+    "id": "model.elite.mutalisk.1.death",
+    "modelDataId": "Mutalisk_CollectionSkin_Webby_Death",
+    "assetPath": "Assets/Units/Zerg/Mutalisk_CollectionSkin_Webby_Death/Mutalisk_CollectionSkin_Webby_Death.m3",
+    "name": "mutalisk_collectionskin_webby_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "MutaliskDeathBase",
+      "Mutalisk_CollectionSkin_Webby_Death"
+    ],
+    "requiredAnimations": [],
+    "pathEvidence": "Pinned B97563 CASC exact identity path; inherited variation suffix corrected.",
+    "bodyModelDataId": "Mutalisk_CollectionSkin_Webby"
+  },
+  {
+    "id": "model.elite.corruptor.1.death",
+    "modelDataId": "Corruptor_CollectionSkin_Webby_Death",
+    "assetPath": "Assets/Units/Zerg/Corruptor_CollectionSkin_Webby_Death/Corruptor_CollectionSkin_Webby_Death.m3",
+    "name": "corruptor_collectionskin_webby_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "CorruptorDeathBase",
+      "Corruptor_CollectionSkin_Webby_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Corruptor_CollectionSkin_Webby"
+  },
+  {
+    "id": "model.elite.ultralisk.1.death",
+    "modelDataId": "Ultralisk_CollectionSkin_Webby_Death",
+    "assetPath": "Assets/Units/Zerg/Ultralisk_CollectionSkin_Webby_Death/Ultralisk_CollectionSkin_Webby_Death.m3",
+    "name": "ultralisk_collectionskin_webby_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "UltraliskDeathBase",
+      "Ultralisk_CollectionSkin_Webby_Death"
+    ],
+    "requiredAnimations": [],
+    "pathEvidence": "Pinned B97563 CASC exact identity path; inherited variation suffix corrected.",
+    "bodyModelDataId": "Ultralisk_CollectionSkin_Webby"
+  },
+  {
+    "id": "model.elite.zealot.1.death",
+    "modelDataId": "Zealot_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/Zealot_Purifier_Collection_Death/Zealot_Purifier_Collection_Death_00.m3",
+    "name": "zealot_purifier_collection_death_00",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "Zealot_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Zealot_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.adept.1.death",
+    "modelDataId": "Adept_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/Adept_Purifier_Collection_Death/Adept_Purifier_Collection_Death.m3",
+    "name": "adept_purifier_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "AdeptDeathBase",
+      "Adept_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Adept_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.stalker.1.death",
+    "modelDataId": "Stalker_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/Stalker_Purifier_Collection_Death/Stalker_Purifier_Collection_Death.m3",
+    "name": "stalker_purifier_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "StalkerDeathBase",
+      "Stalker_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Stalker_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.sentry.1.death",
+    "modelDataId": "Sentry_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/Sentry_Purifier_Collection_Death/Sentry_Purifier_Collection_Death.m3",
+    "name": "sentry_purifier_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "SentryDeathBase",
+      "Sentry_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Sentry_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.immortal.1.death",
+    "modelDataId": "Immortal_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/Immortal_Purifier_Collection_Death/Immortal_Purifier_Collection_Death.m3",
+    "name": "immortal_purifier_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "Immortal_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Immortal_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.colossus.1.death",
+    "modelDataId": "Colossus_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/Colossus_Purifier_Collection_Death/Colossus_Purifier_Collection_Death.m3",
+    "name": "colossus_purifier_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "ColossusDeathBase",
+      "Colossus_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "pathEvidence": "Pinned B97563 CASC exact identity path; inherited variation suffix corrected.",
+    "bodyModelDataId": "Colossus_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.high_templar.1.death",
+    "modelDataId": "HighTemplar_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/HighTemplar_Purifier_Collection_Death/HighTemplar_Purifier_Collection_Death.m3",
+    "name": "hightemplar_purifier_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "HighTemplarDeathBase",
+      "HighTemplar_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "HighTemplar_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.phoenix.1.death",
+    "modelDataId": "Phoenix_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/Phoenix_Purifier_Collection_Death/Phoenix_Purifier_Collection_Death.m3",
+    "name": "phoenix_purifier_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "PhoenixDeathBase",
+      "Phoenix_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Phoenix_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.void_ray.1.death",
+    "modelDataId": "VoidRay_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/VoidRay_Purifier_Collection_Death/VoidRay_Purifier_Collection_Death.m3",
+    "name": "voidray_purifier_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "VoidRayDeathBase",
+      "VoidRay_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "VoidRay_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.carrier.1.death",
+    "modelDataId": "Carrier_Purifier_Collection_Death",
+    "assetPath": "Assets/Units/Protoss/Carrier_Purifier_Collection_Death/Carrier_Purifier_Collection_Death.m3",
+    "name": "carrier_purifier_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "Carrier_Purifier_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Carrier_Purifier_Collection"
+  },
+  {
+    "id": "model.elite.viking.1.assault.death",
+    "modelDataId": "Viking_MercAssault_Collection_Death",
+    "assetPath": "Assets/Units/Terran/Viking_MercAssault_Collection_Death/Viking_MercAssault_Collection_Death.m3",
+    "name": "viking_mercassault_collection_death",
+    "sourceScale": null,
+    "definitionLayer": "core",
+    "modelInheritance": [
+      "UnitDeath",
+      "VikingAssaultDeathBase",
+      "Viking_MercAssault_Collection_Death"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Viking_MercAssault_Collection"
+  },
+  {
+    "id": "model.scv.death",
+    "modelDataId": "SCVDeath",
+    "assetPath": "Assets/Units/Terran/SCVDeathEx1/SCVDeathEx1.m3",
+    "name": "scvdeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "SCVDeathBase",
+      "SCVDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "SCV"
+  },
+  {
+    "id": "model.drone.death",
+    "modelDataId": "DroneDeath",
+    "assetPath": "Assets/Units/Zerg/DroneDeathEx1/DroneDeathEx1.m3",
+    "name": "dronedeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "DroneDeathBase",
+      "DroneDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Drone"
+  },
+  {
+    "id": "model.probe.death",
+    "modelDataId": "ProbeDeath",
+    "assetPath": "Assets/Units/Protoss/ProbeDeathEx1/ProbeDeathEx1.m3",
+    "name": "probedeathex1",
+    "sourceScale": null,
+    "definitionLayer": "liberty",
+    "modelInheritance": [
+      "UnitDeath",
+      "ProbeDeathBase",
+      "ProbeDeath"
+    ],
+    "requiredAnimations": [],
+    "bodyModelDataId": "Probe"
+  }
+]

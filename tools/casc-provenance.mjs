@@ -2,6 +2,7 @@ import {localSourceFile} from './local-source-cache.mjs';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 const targets=JSON.parse(fs.readFileSync(new URL('./sc2-casc-targets.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
+try{targets.push(...JSON.parse(fs.readFileSync(new URL('./combat-death-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 const lock=JSON.parse(fs.readFileSync(new URL('./sc2-casc-lock.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./expansion-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}
 try{targets.push(...JSON.parse(fs.readFileSync(new URL('./three-race-dependencies.json',import.meta.url),'utf8').replace(/^\uFEFF/,'')));}catch{}

@@ -1981,5 +1981,45 @@
     "permanentProfile": 5,
     "cozeAccountDeployment": "EXTERNAL_PENDING",
     "state": "ENGINEERING_VALIDATED_VISUAL_AND_M6_OPEN"
+  },
+  "heroMapUi20260929": {
+    "design": "docs/project/HERO_MAP_UI_20260929.md",
+    "validation": "docs/project/HERO_MAP_UI_VALIDATION_20260929.md",
+    "runSchema": 14,
+    "permanentProfile": 5,
+    "identities": {
+      "ordinary": 30,
+      "elite": 90,
+      "hero": 18
+    },
+    "campaignThemes": 3,
+    "layouts": 9,
+    "cleanupReleasedBytes": 2508365824,
+    "state": "ENGINEERING_VALIDATED_DELIVERY_PENDING",
+    "humanAcceptance": "OPEN",
+    "naturalPerformance": "OPEN",
+    "originalDeathClipGap": [
+      "science_vessel.1",
+      "science_vessel.2",
+      "science_vessel.3"
+    ],
+    "cozeAccountDeployment": "EXTERNAL_PENDING",
+    "rulesTests": 745,
+    "heroDiagnosticVideos": 18,
+    "basicPlaybackIdentities": 120,
+    "convertedDeathBodies": 55,
+    "appBuildId": "349286b4a8f860330226b1428ec7d4458410dde9b4a36641848772d428b8f688",
+    "assetReleaseId": "ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64",
+    "resourceDeltaFiles": 90,
+    "resourceDeltaBytes": 170045790,
+    "fullCombatDiagnosticIdentities": 120,
+    "deathFinaleIdentities": 138,
+    "carrierDeathFinales": 3,
+    "naturalCampaignTrials": 27,
+    "bestUnassistedControllerCompletedStages": 13,
+    "naturalPerformanceEvidence": "docs/project/HERO_MAP_PERFORMANCE_20260930.md",
+    "naturalEarlyModeSamples": 6,
+    "naturalLateCombatSeconds": 180.08333333333337,
+    "naturalLatePeakBacklog": 0.11663333333332171
   }
 }

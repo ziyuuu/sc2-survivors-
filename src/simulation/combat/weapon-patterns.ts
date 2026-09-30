@@ -52,7 +52,7 @@ export function fireWeaponPattern(w:World,u:Entity,target:Body,bonuses:Bonus[],a
  }
  return false;
 }
-export function tickWeaponAreas(w:World){const s=w.expedition;if(!s)return;const targets=bodies(w);for(const area of s.weaponAreas){while(area.next<=w.time+1e-8&&area.nextIndex<area.points.length){const point=area.points[area.nextIndex++];for(const target of targets){if(target.hp<=0||target.owner===area.owner||target.flying||area.hits.includes(target.id)||distance(point,target)>area.radius+target.unitRadius)continue;area.hits.push(target.id);
+export function tickWeaponAreas(w:World){const s=w.expedition;if(!s)return;const targets=bodies(w);for(const area of s.weaponAreas){while(area.next<=w.time+1e-8&&area.nextIndex<area.points.length){const point=area.points[area.nextIndex++];const source=w.entities.get(area.source);if(source)w.visual('weapon-area',source,point,area.id);for(const target of targets){if(target.hp<=0||target.owner===area.owner||target.flying||area.hits.includes(target.id)||distance(point,target)>area.radius+target.unitRadius)continue;area.hits.push(target.id);
    const direct=target.id===area.primaryTargetId&&w.visibleTo(target,area.owner),crit=direct?area.primaryCrit??1:1;
    w.hit(target,area.damage*crit,scaled(area.bonuses,crit),1,area.owner,.5,0,area.source,false,false,0,direct);
    if(direct&&area.apmDamage&&!area.apmUsed){area.apmUsed=true;const source=w.entities.get(area.source);if(target.hp>0&&source?.hp&&w.targetAllowed(source,target))w.hit(target,area.apmDamage,area.apmBonuses??[],1,area.owner,.5,0,area.source,false,false,0,true);}

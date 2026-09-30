@@ -1,3 +1,4 @@
+import {settleWeaponFlights} from './helpers/weapon-flight';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
@@ -55,12 +56,12 @@ test('Raynor piercing shot advances over 0.2 seconds and saved mid-flight target
 
 test('Dehaka and Fenix sample basics add bounded secondary damage without extra APM copies',()=>{
  const z=make('zerg');assert.ok(z.acquireHero('dehaka'));const dehaka=z.heroEntity('dehaka')!;dehaka.x=dehaka.z=0;const primary=foe(z,1,0),secondary=foe(z,1.6,.3),behind=foe(z,-1,0);z.hash.rebuild(z.entities.values());z.fire(dehaka,primary);assert.equal(primary.hp,10000-80*1.15*1.15);assert.equal(secondary.hp,10000-80*1.15*1.15*.5);assert.equal(behind.hp,10000);
- const p=make('protoss');assert.ok(p.acquireHero('fenix'));const fenix=p.heroEntity('fenix')!;fenix.x=fenix.z=0;const center=foe(p,4),around=foe(p,4,.7),distant=foe(p,4,3);p.hash.rebuild(p.entities.values());p.fire(fenix,center);assert.equal(center.hp,10000-72*1.15*1.15);assert.ok(Math.abs(around.hp-(10000-72*1.15*1.15*.35))<1e-8);assert.equal(distant.hp,10000);
+ const p=make('protoss');assert.ok(p.acquireHero('fenix'));const fenix=p.heroEntity('fenix')!;fenix.x=fenix.z=0;const center=foe(p,4),around=foe(p,4,.7),distant=foe(p,4,3);p.hash.rebuild(p.entities.values());p.fire(fenix,center);settleWeaponFlights(p);assert.equal(center.hp,10000-72*1.15*1.15);assert.ok(Math.abs(around.hp-(10000-72*1.15*1.15*.35))<1e-8);assert.equal(distant.hp,10000);
 });
 
 test('presentation scales never alter physics and the recovery signal has no death event',()=>{
- const w=make('zerg'),bane=w.addUnit('baneling','terran',0,0),enemy=foe(w,1);w.hash.rebuild(w.entities.values());const radius=bane.unitRadius;w.fire(bane,enemy);assert.equal(bane.unitRadius,radius);assert.ok(w.visualEvents.some(e=>e.kind==='baneling-recover'&&e.entityId===bane.id));assert.equal(w.visualEvents.some(e=>e.kind==='death'&&e.entityId===bane.id),false);
- const elite=w.addUnit('ravager','terran',0,2);elite.eliteId='ravager.2';elite.modelKey=ELITES['ravager.2'].model;assert.equal(modelPresentationScale(elite),1.15);assert.equal(elite.unitRadius,w.addUnit('ravager','terran',2,2).unitRadius);const event=w.visualEvents.find(e=>e.kind==='attack');if(event)assert.equal(attackPresentation(event)?.tint??null,null);
+ const w=make('zerg'),bane=w.addUnit('baneling','terran',0,0),enemy=foe(w,1);w.hash.rebuild(w.entities.values());const radius=bane.unitRadius;w.fire(bane,enemy);settleWeaponFlights(w);assert.equal(bane.unitRadius,radius);assert.ok(w.visualEvents.some(e=>e.kind==='baneling-recover'&&e.entityId===bane.id));assert.equal(w.visualEvents.some(e=>e.kind==='death'&&e.entityId===bane.id),false);
+ const elite=w.addUnit('ravager','terran',0,2);elite.eliteId='ravager.2';elite.modelKey=ELITES['ravager.2'].model;assert.equal(modelPresentationScale(elite),1.15);assert.equal(elite.unitRadius,w.addUnit('ravager','terran',2,2).unitRadius);const event=w.visualEvents.find(e=>e.kind==='attack');assert.ok(event&&attackPresentation(event),'Baneling now has an explicit family presentation without a death event');
  assert.equal(modelPresentationAccent(elite),9);
  elite.eliteId='ravager.1';assert.equal(modelPresentationAccent(elite),8);
  elite.eliteId='ravager.3';assert.equal(modelPresentationAccent(elite),10);

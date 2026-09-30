@@ -1,3 +1,4 @@
+import {campaignPreloadAssets,type CampaignMapRecipe} from '../data/campaign-map';
 import {httpAssetStatus} from '../assets/http-store';
 import {RESCUE_PRESENTATION} from '../data/economy';
 import type {RunSnapshot} from '../simulation/persistence/run-snapshot';
@@ -11,7 +12,7 @@ import {prepareEmbeddedAssetIds} from '../assets/offline-pack';
 
 export type ReadinessKind='new'|'load'|'endless'|'reinforcement';
 export type ReadinessState={kind:ReadinessKind|null;phase:'idle'|'read'|'models'|'audio'|'gpu'|'validate'|'ready'|'error';done:number;total:number;label:string;error:string|null};
-export type ReadinessRequest={snapshot?:RunSnapshot;race?:Race;hero?:HeroId|null};
+export type ReadinessRequest={snapshot?:RunSnapshot;race?:Race;hero?:HeroId|null;campaignMap?:CampaignMapRecipe};
 
 /** A single entrance gate for every operation that can reveal new battle assets. */
 export class AssetReadinessCoordinator {
@@ -36,16 +37,18 @@ export class AssetReadinessCoordinator {
  async prepare(kind:ReadinessKind,request:ReadinessRequest={}){
   this.beganAt=performance.now();const generation=++this.generation;this.last={kind,request};this.update({kind,phase:'models',done:0,total:0,label:'准备资源清单',error:null});
   try{
+   const desiredMap=request.snapshot?.config.campaignMap??request.campaignMap;
    const rescueRace=request.snapshot?.config.race??request.race??this.world.expedition.race,rescue=RESCUE_PRESENTATION[rescueRace];
    if(!this.view.initialAssetsLoaded){
-    const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&['map-data','map-model','texture','effect-texture','audio'].includes(asset.kind)).map(asset=>asset.id);
-    const fixed=['model.'+rescue.workerModel,'model.'+rescue.carrierModel,...(rescue.carrierBirthModel?['model.'+rescue.carrierBirthModel]:[]),'model.drone','model.egg','model.hive','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'];
-    await prepareEmbeddedAssetIds([...common,...fixed],(done,total,label)=>{if(generation===this.generation)this.update({phase:'models',done,total,label});});
+    const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&['texture','effect-texture','audio'].includes(asset.kind)).map(asset=>asset.id);
+    const fixed=['model.'+rescue.workerModel,'model.'+rescue.carrierModel,'model.'+rescue.carrierDeathModel,...(rescue.carrierBirthModel?['model.'+rescue.carrierBirthModel]:[]),'model.drone','model.egg','model.hive','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'];
+    await prepareEmbeddedAssetIds([...common,...fixed,...campaignPreloadAssets()],(done,total,label)=>{if(generation===this.generation)this.update({phase:'models',done,total,label});});
    }
    if(generation!==this.generation)return false;
    const audioReady=this.audio?.preload((done,total,label)=>{if(generation===this.generation)this.update({phase:'audio',done,total,label:`解码音效 ${label}`});}).then(()=>null,error=>error as Error);
-   if(!this.view.initialAssetsLoaded){await this.view.load((label,done=0,total=0)=>{if(generation===this.generation)this.update({phase:label.startsWith('GPU')?'gpu':'models',label,done,total});},rescueRace);}
+   if(!this.view.initialAssetsLoaded){await this.view.load((label,done=0,total=0)=>{if(generation===this.generation)this.update({phase:label.startsWith('GPU')?'gpu':'models',label,done,total});},rescueRace,!!desiredMap);}
    if(generation!==this.generation)return false;
+   const mapRecipe=request.snapshot?.config.campaignMap??request.campaignMap;if(mapRecipe)await this.view.prepareCampaignAssets(mapRecipe);
    if(kind==='load'&&request.snapshot)await this.view.prepareSnapshotAssets(request.snapshot,(done,total,label)=>{if(generation===this.generation)this.update({phase:'models',done,total,label});});
    else if(kind==='endless')await this.view.prepareEndlessAssets((done,total,label)=>{if(generation===this.generation)this.update({phase:'models',done,total,label});});
    else if(kind==='new'&&request.race)await this.view.prepareNewRunAssets(request.race,request.hero??null,(done,total,label)=>{if(generation===this.generation)this.update({phase:'models',done,total,label});});
