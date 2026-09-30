@@ -1995,7 +1995,7 @@
     "campaignThemes": 3,
     "layouts": 9,
     "cleanupReleasedBytes": 2508365824,
-    "state": "ENGINEERING_VALIDATED_DELIVERY_PENDING",
+    "state": "ENGINEERING_DELIVERED_WITH_OPEN_ACCEPTANCE",
     "humanAcceptance": "OPEN",
     "naturalPerformance": "OPEN",
     "originalDeathClipGap": [
@@ -2020,6 +2020,14 @@
     "naturalPerformanceEvidence": "docs/project/HERO_MAP_PERFORMANCE_20260930.md",
     "naturalEarlyModeSamples": 6,
     "naturalLateCombatSeconds": 180.08333333333337,
-    "naturalLatePeakBacklog": 0.11663333333332171
+    "naturalLatePeakBacklog": 0.11663333333332171,
+    "delivery": {
+      "commit": "fad19db54504d8e37b6bec16d04cca5bea43946e",
+      "state": "published-main",
+      "remoteChangedResourcesVerified": 90,
+      "remoteResourceBytes": 170045790,
+      "remoteAppFilesVerified": 6,
+      "cozeAccountDeployment": "executor-required"
+    }
   }
 }
