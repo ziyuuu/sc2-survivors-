@@ -1,5 +1,9 @@
 /* Combat information is carried by portraits, vitals and ability state. */
 .hud-glyph{width:24px;height:24px;flex:none;pointer-events:none}
+.command-marker{position:absolute;right:3px;top:1px;font-size:12px;line-height:14px;font-style:normal;color:#a7d8ee;pointer-events:none}
+#interface #skills .command-blocked{border-style:dashed;border-color:#edbb75}
+#interface #skills .command-blocked .command-marker{color:#ffd293}
+#interface #skills [data-action-state=mixed]{border-style:double}
 #interface #army-toggle,#interface #map-toggle{display:grid;place-items:center;width:44px;height:44px;padding:6px}
 body.has-battle-console #topbar .callsign{display:none}
 body.has-battle-console #topbar .resource{font-size:calc(14px * var(--text-scale))}

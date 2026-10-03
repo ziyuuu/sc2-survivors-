@@ -1,3 +1,5 @@
+> P2最新操作基线：[战斗操作与商店诊断](project/NEXT_ITERATION_P2_20261003.md)。统一点击/触控/键盘/手柄入口，新增条件显示的家族指令与六扇区分页；未完成切换可取消、维京受阻不瞬移，方向松开即停。仅修复商店同产线投送误过滤，不改变战斗数值、自动能力、抽卡权重、schema14/profile v5；实测及OPEN项见[P2验证](project/NEXT_ITERATION_P2_VALIDATION_20261003.md)。
+
 > P1最新界面反馈：[视听语言修订](project/HUD_VISUAL_LANGUAGE_20261003.md)减少常驻文字，英雄小名字、肖像与冷却/施放状态代替长说明，单位详情按需打开。实际数值/schema14/profile v5保持；原地图/队伍与移动布局见[P1说明](project/NEXT_ITERATION_P1_20261003.md)。
 
 > 下一轮设计：[P0统一设计与差异](project/NEXT_ITERATION_P0_20261003.md)及[能力对照表](project/NEXT_ITERATION_P0_CAPABILITIES_20261003.md)。用户已批准P0 r2，英雄/保护/追踪雷新数值待后续阶段实施；P1只改界面与有效视口，以下仍为当前战斗基线。

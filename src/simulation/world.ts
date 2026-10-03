@@ -1,5 +1,7 @@
 import {CAMPAIGN_MAP_ID,RadialTerrain,campaignTerrain,type CampaignMapRecipe} from '../data/campaign-map';
 import {launchWeaponFlight,tickWeaponFlights,weaponFlightSpeed} from './combat/weapon-flight';
+import {canSetFamilyMode,familyActionBodies,familyAbilityState,familyModeState,type ModeFamily} from './combat/family-actions';
+import {routeDirection} from './movement/direction-route';
 import {uniquePrimary,uniqueDeath,uniqueShieldBreak,previewTactical,castTactical} from './combat/unique-support';
 import {tickShopSupport,recordMutation,previewStrategic,commitStrategic} from './combat/shop-support';
 import {enemyRouteGoal} from './movement/enemy-routes';
@@ -94,8 +96,9 @@ export class World extends RunState {
  setDevelopmentTarget(id:string|null){if(!['menu','reward'].includes(this.phase)||id!==null&&!DEVELOPMENT.some(d=>d.id===id&&d.race===this.expedition.race))return false;this.expedition.developmentTarget=id;this.changed();return true;}
  castDetection(){return castDetection(this);}
  castHeroSlot(slotIndex:number){const id=heroAtSlot(this,slotIndex);return id?this.castHero(id):false;}
- castFamilyAbility(family:FamilyId,target?:Point){if(this.familyUnits(family).some(unit=>talentTransferContains(this,unit.id)))cancelTransfer(this);return castFamilyAbility(this,family,target);}
- setFamilyMode(family:FamilyId,mode:string){if(this.familyUnits(family).some(unit=>talentTransferContains(this,unit.id)))cancelTransfer(this);return setFamilyMode(this,family,mode);}
+ castFamilyAbility(family:FamilyId,target?:Point){if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision)return false;const state=familyAbilityState(this,family,target);if(!state.enabled||family==='stalker'&&!state.positions.length)return false;return this.atomicMutation(()=>{if(state.ready.some(unit=>talentTransferContains(this,unit.id)))cancelTransfer(this);return castFamilyAbility(this,family,target);});}
+ setFamilyMode(family:FamilyId,mode:string){if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision||!canSetFamilyMode(this,family,mode))return false;return this.atomicMutation(()=>{if(familyActionBodies(this,family).some(unit=>talentTransferContains(this,unit.id)))cancelTransfer(this);return setFamilyMode(this,family,mode);});}
+ toggleFamilyMode(family:ModeFamily){return this.setFamilyMode(family,familyModeState(this,family).next);}
  visibleTo(target:Body,owner:Body['owner']){return visibleTo(this,target,owner);}
  get draftWindowId(){return this.endlessEntry?18:this.endless?18+this.endless.round:this.stage;}
  get draftStage(){return this.endlessEntry||this.endless?17:this.stage;}
@@ -188,7 +191,8 @@ export class World extends RunState {
  get duration(){return this.config.durationSeconds;}
  /** Whole-squad commands are simulation intent; picking and feedback live in the renderer. */
  cancelOrder(){this.order=null;this.movePending.clear();this.commandRoute=null;this.marchDirection={x:0,z:0};}
- private resetCommand(){this.cancelOrder();this.navigation.clear();this.detours.clear();for(const u of this.allies()){u.attackTarget=null;u.thinkAt=0;}this.input={x:0,z:0};}
+ resetDirectionalInput(){this.input={x:0,z:0};this.directionRoute=null;}
+ private resetCommand(){this.cancelOrder();this.navigation.clear();this.detours.clear();for(const u of this.allies()){u.attackTarget=null;u.thinkAt=0;}this.resetDirectionalInput();}
  private commandPoint(point:Point):Point|null {
   const radius=.9,half=this.mapHalf;
   if(!Number.isFinite(point.x)||!Number.isFinite(point.z)||Math.abs(point.x)>=half||Math.abs(point.z)>=half)return null;
@@ -197,11 +201,12 @@ export class World extends RunState {
    if(distance(this.anchor,p)<.15||distance(this.anchor,steerGoal(this.anchor,p,radius,this.obstacles,this.terrain,half))>.01)return p;
   }return null;
  }
- issueMove(point:Point){if(this.talentTransferPlan)cancelTransfer(this);if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision)return false;if(!Number.isFinite(point.x)||!Number.isFinite(point.z)||Math.abs(point.x)>=this.mapHalf||Math.abs(point.z)>=this.mapHalf||this.terrain?.isOpen&&!this.terrain.isOpen(point))return false;
+ issueMove(point:Point){if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision)return false;if(!Number.isFinite(point.x)||!Number.isFinite(point.z)||Math.abs(point.x)>=this.mapHalf||Math.abs(point.z)>=this.mapHalf||this.terrain?.isOpen&&!this.terrain.isOpen(point))return false;if(this.talentTransferPlan)cancelTransfer(this);
   this.resetCommand();this.order={kind:'move',point:{x:point.x,z:point.z},arrived:false,issuedAt:this.time};for(const u of this.allies())this.movePending.add(u.id);this.changed();return true;
  }
  private updateCommand(dt:number):Point {
-  if(Math.hypot(this.input.x,this.input.z)>.01){if(this.talentTransferPlan)cancelTransfer(this);if(this.order)this.cancelOrder();return this.input;}
+  if(Math.hypot(this.input.x,this.input.z)>.01){if(this.talentTransferPlan)cancelTransfer(this);if(this.order)this.cancelOrder();const result=routeDirection(this,this.input,this.directionRoute,dt);this.directionRoute=result.cache;return result.direction;}
+  this.directionRoute=null;
   const order=this.order;if(!order)return this.input;
   const goal=order.point;if(order.arrived)return {x:0,z:0};if(distance(this.anchor,goal)<.12){order.arrived=true;return {x:0,z:0};}
   let route=this.commandRoute;
@@ -672,7 +677,7 @@ export class World extends RunState {
    }
    this.effect('shot',u,target,.1,u.unitType==='marine'?.1:.2);}
  }
- toggleTanks(){if(this.allies().some(u=>u.unitType==='tank'&&talentTransferContains(this,u.id)))cancelTransfer(this);if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision)return false;const tanks=this.allies().filter(u=>u.unitType==='tank');if(!tanks.length)return false;this.tankCommand=this.tankCommand==='tank'?'siege':'tank';for(const u of tanks)u.desiredMode=this.tankCommand;this.changed();return true;}
+ toggleTanks(){return this.toggleFamilyMode('tank');}
  updateTank(u:Entity,_anchorDistance:number,dt:number){if(u.unitType!=='tank')return false;
   if(u.modeTimer>0){u.modeTimer=Math.max(0,u.modeTimer-dt);u.velocity={x:0,z:0};if(u.modeTimer<=1e-8){u.mode=u.action==='sieging'?'siege':'tank';u.siegeSince=u.mode==='siege'?this.time:undefined;u.action='idle';this.refreshStats(u);}return true;}
   if(u.mode!==u.desiredMode){u.action=u.desiredMode==='siege'?'sieging':'unsieging';u.modeTimer=Math.max(.25,(u.desiredMode==='siege'?SIEGE.deploySeconds:SIEGE.undeploySeconds)*(this.upgrades.has('siege')?.8:1)*(u.eliteId==='tank.3'?.75:1)*(1-(talentModifiers(this,u).transformTimeReductionPct??0)));u.siegeSince=undefined;u.velocity={x:0,z:0};u.windup=0;u.pendingTarget=null;return true;}
@@ -895,8 +900,8 @@ export class World extends RunState {
   if(deferred.length)this.specialPlan.unshift(...deferred);
   this.deployPendingHeroes(true);this.changed();return true;
  }
- stim(){if(this.allies().some(u=>['marine','marauder'].includes(u.unitType)&&talentTransferContains(this,u.id)))cancelTransfer(this);if(this.phase!=='battle'||this.paused||!this.upgrades.has('stim'))return false;let used=false;for(const u of this.allies()){const cost=u.eliteId==='marine.1'?0:u.unitType==='marauder'?20:10;if(!u.heroId&&['marine','marauder'].includes(u.unitType)&&u.hp>cost&&u.stimUntil<=this.time){u.hp-=cost;u.stimUntil=this.time+11;used=true;}}this.changed();return used;}
- dash(){if(this.phase!=='battle'||this.paused||this.time<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power)*Math.max(.5,1-.10*this.talent('skill_recovery'));return true;}
+ stim(){if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision||!this.upgrades.has('stim'))return false;const units=this.allies().filter(u=>!u.heroId&&['marine','marauder'].includes(u.unitType)&&u.hp>(u.eliteId==='marine.1'?0:u.unitType==='marauder'?20:10)&&u.stimUntil<=this.time);if(!units.length)return false;return this.atomicMutation(()=>{if(units.some(u=>talentTransferContains(this,u.id)))cancelTransfer(this);for(const u of units){u.hp-=u.eliteId==='marine.1'?0:u.unitType==='marauder'?20:10;u.stimUntil=this.time+11;}this.changed();return true;});}
+ dash(){if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision||this.time+1e-8<this.dashReady)return false;const power=this.upgrades.get('buff.tactical')??0;this.dashUntil=this.time+1.2+power*.6;this.dashReady=this.time+12/(1+power)*Math.max(.5,1-.10*this.talent('skill_recovery'));return true;}
  previewStrategicStrike(point:Point){return previewStrategic(this,point);}
  previewTactical(point?:Point){return previewTactical(this,point);}
  castTactical(point?:Point){return castTactical(this,point);}

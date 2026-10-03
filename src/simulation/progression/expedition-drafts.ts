@@ -189,6 +189,11 @@ function candidateWeight(ctx:ExpeditionDraftContext,c:Candidate,pool:readonly Ca
  const key=historyKey(c.id),previous=ctx.state.draftHistory.slice(0,-1).slice(-2);if(previous.some(h=>h.shown.some(id=>historyKey(id)===key)&&historyKey(h.chosen??'')!==key))weight*=.25;
  if(historyKey(previous.at(-1)?.chosen??'')===key)weight*=.5;return weight;
 }
+/** No sampling or state mutation. Weight is conditional on this rarity's legal pool. */
+export function inspectReinforcementPool(ctx:ExpeditionDraftContext){
+ const pool=reinforcementPool(ctx,true);
+ return pool.map(c=>({id:c.id,family:c.family??null,group:c.group,rarity:c.rarity,bucket:reinforcementOfferBucket(ctx,c.effect),effect:c.effect,weight:candidateWeight(ctx,c,pool.filter(o=>o.rarity===c.rarity)),historyKey:historyKey(c.id)}));
+}
 function guaranteeResource(tier:number,slot:number):Candidate {const rarity=RARITIES[tier],[minerals,gas]=RESOURCE_VALUES[tier];return {id:`fallback.guarantee.${rarity}.${slot}`,name:'保底资源补给',description:`本次保底没有合法的${rarity==='orange'?'橙':rarity==='purple'?'紫':'蓝'}色强化可供选择，改为${minerals}矿物与${gas}瓦斯；仍只领取一张。`,icon:'ui.minerals',rarity,kind:'economy',value:'guarantee',effect:{kind:'resource',minerals,gas,fallback:true,fallbackReason:'guarantee'},category:'general',group:'resource',immediate:true};}
 function pickReinforcement(ctx:ExpeditionDraftContext,pool:readonly Candidate[],picked:readonly Candidate[],minimum:number,immediate:boolean){
  let available=pool.filter(c=>!picked.some(p=>p.id===c.id||p.group===c.group&&c.effect.kind!=='support')&&(!immediate||c.immediate));

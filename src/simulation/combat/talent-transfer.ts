@@ -9,7 +9,8 @@ const directionOf=(angle:number)=>({x:Math.sin(angle),z:Math.cos(angle)});
 const currentRegion=(w:World)=>({mapHash:w.runConfig?.mapHash??'',stage:w.stage,endlessRound:w.endless?.round??0});
 const defaultParticipants=(w:World,origin:Point)=>w.allies().filter(unit=>eligibleParticipant(w,unit,origin)).map(unit=>unit.id);
 
-function eligibleParticipant(w:World,unit:Entity,origin:Point){return unit.team==='player'&&unit.hp>0&&!unit.flying&&!unit.temporary&&!unit.summonKind&&distance(unit,origin)<=12&&unit.mode!=='siege'&&unit.nativeMode!=='lurker_burrowed'&&unit.modeTimer<=0&&(unit.nativeModeUntil??0)<=w.time&&!(unit.lastStandUntil&&unit.lastStandUntil>w.time)&&(unit.stoppedUntil??0)<=w.time&&!w.heroCasts.some(cast=>cast.source===unit.id&&cast.at>w.time);}
+export function eligibleTransferParticipant(w:World,unit:Entity,origin:Point){return unit.team==='player'&&unit.hp>0&&!unit.flying&&!unit.temporary&&!unit.summonKind&&distance(unit,origin)<=12&&unit.mode!=='siege'&&unit.nativeMode!=='lurker_burrowed'&&unit.modeTimer<=0&&(unit.nativeModeUntil??0)<=w.time&&!(unit.lastStandUntil&&unit.lastStandUntil>w.time)&&(unit.stoppedUntil??0)<=w.time&&!w.heroCasts.some(cast=>cast.source===unit.id&&cast.at>w.time);}
+const eligibleParticipant=eligibleTransferParticipant;
 function targetLegal(w:World,origin:Point,direction:Point,target:Point){const dx=target.x-origin.x,dz=target.z-origin.z,length=Math.hypot(dx,dz);
  return Number.isFinite(length)&&length>=2-1e-8&&length<=16+1e-8&&(dx*direction.x+dz*direction.z)>=length*.5-1e-8&&Math.abs(target.x)<w.mapHalf&&Math.abs(target.z)<w.mapHalf;
 }

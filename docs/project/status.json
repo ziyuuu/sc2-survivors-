@@ -2061,7 +2061,7 @@
     "profileVersion": 5,
     "coverage": {"ordinaryFamilies": 30, "eliteVariants": 90, "heroes": 18, "raceFunCardIdentities": 24, "teamCardQualityGroups": 10},
     "checks": {"capabilityGeneration": "PASS", "capabilityConsistency": "PASS", "existingGameDataReference": "PASS"},
-    "nextStages": {"P1": "ENGINEERING_COMPLETE_WITH_OPEN_DEVICE_HOST_ACCEPTANCE", "P2": "NOT_STARTED", "P3": "DESIGN_APPROVED_NOT_STARTED", "P4": "DESIGN_APPROVED_NOT_STARTED", "P5": "B0_DESIGN_APPROVED_PRODUCTION_CONFIGURATION_OPEN", "P6": "NOT_STARTED"},
+    "nextStages": {"P1": "ENGINEERING_COMPLETE_WITH_OPEN_DEVICE_HOST_ACCEPTANCE", "P2": "ENGINEERING_COMPLETE_WITH_OPEN_HUMAN_DEVICE_HOST_ACCEPTANCE", "P3": "DESIGN_APPROVED_NOT_STARTED", "P4": "DESIGN_APPROVED_NOT_STARTED", "P5": "B0_DESIGN_APPROVED_PRODUCTION_CONFIGURATION_OPEN", "P6": "NOT_STARTED"},
     "acceptance": {"M6": "OPEN", "M7": "OPEN", "humanVisual": "OPEN", "physicalMobileAndGamepad": "OPEN", "hologramScienceVesselSourceDeathClips": "OPEN", "lateTransientBacklog": "OPEN"}
   },
   "nextIterationP1": {
@@ -2144,5 +2144,74 @@
       },
       "humanVisualAndAudio": "OPEN"
     }
+  },
+  "nextIterationP2": {
+    "revision": "2026-10-03-p2",
+    "state": "ENGINEERING_COMPLETE_WITH_OPEN_HUMAN_DEVICE_HOST_ACCEPTANCE",
+    "authorization": "开始p2。除了维京还要查其他按键入口。用户随后确认全部战斗操作、动态家族图标、新热键并要求实施方案。",
+    "document": "docs/project/NEXT_ITERATION_P2_20261003.md",
+    "validation": "docs/project/NEXT_ITERATION_P2_VALIDATION_20261003.md",
+    "baselineCommit": "f74fc496affb0fe8bdf8f2cc09f4a9646fc89ba5",
+    "scope": "battle-action-entries-direction-routing-native-modes-shop-legality-diagnostics",
+    "runtimeChanged": true,
+    "combatNumbersChanged": false,
+    "probabilityWeightsChanged": false,
+    "schemaChanged": false,
+    "runtimeSchema": 14,
+    "profileVersion": 5,
+    "resourceReleaseChanged": false,
+    "cleanupPerformed": false,
+    "cloudDeployed": false,
+    "checks": {
+      "rulesTests": 760,
+      "p2TargetedTests": 11,
+      "typecheck": "PASS",
+      "gameDataReference": "PASS",
+      "p0Consistency": "PASS_HASH_UPDATE_ONLY",
+      "planStructure": "PASS_47_13_10",
+      "manualInventory": {
+        "ordinaryFamilies": 30,
+        "eliteVariants": 90,
+        "heroes": 18
+      },
+      "all18HeroDispatchCooldownDeath": "PASS",
+      "nativeStartedSwitchCancel": "PASS_ALL_FIVE_FAMILIES",
+      "vikingBlockedSaveRestore": "PASS",
+      "multiBlinkLanding": "PASS",
+      "directionWallRampNarrowAnalogRelease": "PASS_RULES",
+      "sameLinePaidQueueSaveRestoreRelease": "PASS",
+      "battleInputRecords": 12,
+      "threeRaceLayoutStates": 96,
+      "shopLayoutStates": 24,
+      "virtualGamepadPagesAndReasons": "PASS",
+      "shopFixedSeedPages": 12000,
+      "walletCounterfactualIdentical": 12000,
+      "productionWebSaveReloadLoad": "PASS_UI_ONLY",
+      "offlineHtmlSaveReloadLoad": "PASS_UI_ONLY_OFFLINE_CONTEXT",
+      "productionDebugApi": "ABSENT"
+    },
+    "artifacts": {
+      "web": "dist/web/index.html",
+      "appBuildId": "da30c09f83bb617208a2cf62d8a78120ea00d8f9af420880e874e3eeb7f3790a",
+      "assetReleaseId": "ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64",
+      "assetIdentities": 538,
+      "assetFiles": 531,
+      "assetBytes": 599199318,
+      "offlineHtml": "dist/SC2-Survivors-Demo.html",
+      "offlineBytes": 415090604,
+      "offlineSha256": "a282b7157ee45dbb43ae3c8653e9d1cf907d084192e7638b051c6e84f191abf9"
+    },
+    "acceptance": {
+      "M6": "OPEN",
+      "M7": "OPEN",
+      "humanVisualAndAudio": "OPEN",
+      "physicalMobileAndGamepad": "OPEN",
+      "safari": "NOT_TESTED",
+      "cozeHostOutsideGame": "EXTERNAL_PENDING",
+      "physicalPinchZoom": "NOT_TESTED",
+      "hologramScienceVesselSourceDeathClips": "OPEN",
+      "lateTransientBacklog": "OPEN"
+    },
+    "followingPhases": "P3-P6_NOT_IMPLEMENTED_BY_P2"
   }
 }

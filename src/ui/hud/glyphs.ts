@@ -4,6 +4,7 @@ const paths={
  army:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',
  map:'<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z M9 3v15 M15 6v15"/>',
  units:'<circle cx="8" cy="7" r="3"/><path d="M2 20v-4a6 6 0 0 1 12 0v4 M17 4a3 3 0 0 1 0 6 M17 13a5 5 0 0 1 5 5v2"/>',
+ transfer:'<path d="M3 7h15l-4-4 M21 17H6l4 4 M18 7l-4 4 M6 17l4-4"/>',
  strike:'<path d="m12 2 3 6-3 3-3-3Z M12 11v11 M5 14l7-3 7 3 M4 20h16"/>',
  tactical:'<path d="m13 2-8 11h6l-1 9 9-13h-6Z"/>',
  loot:'<path d="M3 9h18v12H3Z M2 5h20v4H2Z M12 5v16 M12 5C6-2 2 5 12 5c10 0 6-7 0 0"/>',

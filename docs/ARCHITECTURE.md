@@ -1,3 +1,5 @@
+> P2边界：[操作契约](project/NEXT_ITERATION_P2_20261003.md)。`family-actions.ts`提供模式/技能只读预览，World再次验证并原子执行；`battle-actions.ts`连接四类输入，稳定指令DOM与既有HUD区分呈现/规则。`directionRoute`明确为重建字段，不进入schema14 DTO；素材准备清除输入。`supplyEligibility`供真实池与购买共用，`inspectReinforcementPool`只读、不耗RNG，诊断没有生产调试API。原付款/双体席位/恢复边界保持。
+
 > P1最新界面反馈：[视听语言修订](project/HUD_VISUAL_LANGUAGE_20261003.md)。冷却遮罩与就绪显示读取既有绝对计时，发射声音读取既有视觉事件并去重；详情只在点选后显示，终关图标读取既有生命/击杀收据/计时。保留统一有效视口、独立UI偏好、schema14/profile v5及当前战斗规则；P0战斗值待后续阶段实施。
 
 > 下一轮架构设计：[P0统一设计](project/NEXT_ITERATION_P0_20261003.md)明确World/表现/输入、视野DTO、限时复生预留、保护/追踪雷saved字段及后台旁路边界。P0已批准，战斗DTO与后台部分待后续阶段实施；P1不变更run schema14/profile v5。文档生成器只在独立内存World派生属性，不运行战斗或持久化。

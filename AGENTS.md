@@ -1,3 +1,11 @@
+## Approved P2 battle-control iteration · 2026-10-03
+
+- Final 760 regression tests, 11 P2 targeted checks, 12 browser input records, 96 layout states, 12000 fixed-seed/wallet counterfactual pages and production Web/offline UI-only save/reload/load passed. Exact fingerprints and failed harness attempts are in `docs/project/NEXT_ITERATION_P2_VALIDATION_20261003.md`; none closes human/device/M6/M7/source-clip gaps.
+
+- User approved P2 implementation after extending scope from Viking to all battle action entries. `docs/project/NEXT_ITERATION_P2_20261003.md` is the contract: shared action state/dispatch, conditional family icons, H/V/R/L/C/B/O/Q/X plus retained T/E/F/G/Space/1–3, four target confirm/cancel panels and existing six-sector gamepad home plus LT/RT pages. Preserve original automatic abilities; menus/talents are outside this action audit.
+- Unfinished native/Tank mode switches cancel immediately when returning to actual mode. Viking landing uses its current ground footprint and all occupied/reserved/static boundaries, waits when blocked and never teleports. Failed mode/ability/stim/move validation precedes cancelling a valid transfer. Short directional routing is rebuilt, bounded and cleared on release/pause/blur/rotation/readiness/restore; keep schema14/profile v5 and all combat numbers.
+- Shop-only same-line unsettled-delivery exclusion was a factual filter bug: independently paid queued deliveries retain separate receipts and release once; capacity/pair reservations remain enforced. Shared read-only supply reasons and fixed-seed diagnostics do not change rarity, fun-card probability, bucket/family/history weights or production serialization. Detailed results and fingerprints belong in P2 validation; no P3–P6 implementation, cleanup or cloud deployment, and existing OPEN acceptance gaps persist.
+
 ## Latest P1 HUD feedback revision · 2026-10-03
 
 - User asked to reduce constant UI text and oversized hero names, communicating through game audiovisual feedback. `docs/project/HUD_VISUAL_LANGUAGE_20261003.md` supersedes P1's uniform combat-label font requirement: hero names default 11px, portraits/vitals/cooldown masks/numeric countdown/cast glow/fallen marks carry state; descriptions and parameters appear on request. Keep clear decision/pricing information, accessible names and 44px touch targets.

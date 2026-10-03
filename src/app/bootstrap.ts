@@ -63,7 +63,7 @@ export async function boot(){await loadEmbeddedAssets();let storage:Storage|unde
  };
 
  const frame=(now:number)=>{const elapsed=(now-previous)/1000;previous=now;
-  if(!document.hidden){if(!readiness.state.kind)view.prepareRosterAssets();input.poll();gamepad.poll(now);let alpha=1;const simulating=world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind;if(simulating&&wasSimulating)alpha=driver.advance(elapsed*(debug?.speed??1));else driver.reset();wasSimulating=simulating;
+  if(!document.hidden){if(!readiness.state.kind)view.prepareRosterAssets();if(view.assetsPending||readiness.state.kind){input.reset();gamepad.reset();}else{input.poll();gamepad.poll(now);}let alpha=1;const simulating=world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind;if(simulating&&wasSimulating)alpha=driver.advance(elapsed*(debug?.speed??1));else driver.reset();wasSimulating=simulating;
    view.render(elapsed,alpha);
   }requestAnimationFrame(frame);
  };requestAnimationFrame(frame);

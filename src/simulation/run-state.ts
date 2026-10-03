@@ -38,6 +38,7 @@ export class RunState {
  wallet={minerals:TUNING.startingMinerals,gas:TUNING.startingGas};anchor={x:0,z:0,facing:Math.PI/2};input={x:0,z:0};
  marchDirection:Point={x:0,z:0};order:SquadOrder|null=null;protected movePending=new Set<number>();
  protected commandRoute:{requested:Point;goal:Point;until:number}|null=null;
+ protected directionRoute:import('./movement/direction-route').DirectionRouteCache|null=null;
  trail:Point[]=[{x:0,z:0}];effects:Effect[]=[];pickups:Pickup[]=[];rewardDrops:RewardDrop[]=[];hash=new SpatialHash<Body>();
  visualEvents:VisualEvent[]=[];protected visualSerial=0;
  protected offerSerial=0;rewards:Reward[]=[];rewardClaimed=false;rewardRound:'building'|'random'='building';clearReceipt:{stage:number;minerals:number;gas:number}|null=null;rerolls=0;nextBuilding=1;nextWave=Infinity;wave=0;stageWave=0;nextId=1;nextJob=1;

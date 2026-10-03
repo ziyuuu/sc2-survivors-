@@ -18,7 +18,7 @@ export const RUN_FIELDS=[
  'notice','noticeUntil','movementStall','detours','navigation','heroes','heroCasts','weaponFlights','pendingElites','evolution','burns','productionChoices','groupNext','groupUnlocks','rngState',
  'corrosionZones','zoneSlowed','auraArmor','auraDamage','auraAttackSpeed','nextAuraUpdate'
 ] as const;
-export const RUN_REBUILT_FIELDS=['input','hash','visualEvents','maxStretch','distancePairs','collisionContacts','spawnCells','swarmSpawnCache','revision','contacts','formation','destinationFormation','engagement','movementAllies','formationPlanned','configStage','configDifficulty','stageData','attackLines','statuses'] as const;
+export const RUN_REBUILT_FIELDS=['input','directionRoute','hash','visualEvents','maxStretch','distancePairs','collisionContacts','spawnCells','swarmSpawnCache','revision','contacts','formation','destinationFormation','engagement','movementAllies','formationPlanned','configStage','configDifficulty','stageData','attackLines','statuses'] as const;
 export type RunData=ReturnType<RunState['snapshotData']>;
 export function selectRunData(state:RunState):RunData {return state.snapshotData();}
 export function validateRunData(data:RunData,defaults:object){
