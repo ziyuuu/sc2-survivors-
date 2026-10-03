@@ -2031,8 +2031,8 @@
     }
   },
   "nextIterationP0": {
-    "revision": "2026-10-03-p0",
-    "state": "DOCUMENTATION_COMPLETE_NEW_PARAMETERS_AWAIT_CONFIRMATION",
+    "revision": "2026-10-03-p0-r2",
+    "state": "DOCUMENTATION_COMPLETE_R2_ELITE_HERO_PARAMETERS_AWAIT_CONFIRMATION",
     "phase": "P0",
     "scope": "documentation-and-detached-stat-export-only",
     "baselineCommit": "5980dc83d9e78605181805d35106658b3b126979",
@@ -2040,6 +2040,18 @@
     "capabilities": "docs/project/NEXT_ITERATION_P0_CAPABILITIES_20261003.md",
     "proposedValues": "docs/project/NEXT_ITERATION_P0_VALUES_20261003.json",
     "validation": "docs/project/NEXT_ITERATION_P0_VALIDATION_20261003.md",
+    "eliteHeroRevision": {
+      "document": "docs/project/ELITE_HERO_REDESIGN_20261003.md",
+      "eliteDesigns": 90,
+      "heroDesigns": 18,
+      "userSamples": 21,
+      "heroRoleComparisons": 18,
+      "allFiveRanksChecked": true,
+      "budgetScope": "ANALYTIC_PROPOSAL_NOT_COMBAT_OR_BALANCE_ACCEPTANCE",
+      "loneHunterScope": "REAPER_FAMILY_ONLY_USER_CONFIRMED",
+      "destroyerBlast": "AREA_FIVE_TIMES_USER_LATEST_CORRECTION",
+      "allAuthoredValuesApproved": false
+    },
     "runtimeChanged": false,
     "schemaChanged": false,
     "cleanupPerformed": false,

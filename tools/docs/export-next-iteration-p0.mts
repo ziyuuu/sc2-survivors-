@@ -9,7 +9,9 @@ import {ELITES,type EliteId} from '../../src/data/elites';
 import {HEROES,ALL_HERO_IDS,HERO_IDS_BY_RACE,heroStats,type HeroId} from '../../src/data/heroes';
 import {UNIQUE_SUPPORT} from '../../src/data/unique-support';
 import {SOURCE_UNIT_MODES} from '../../src/data/expansion-units';
-import {unitData} from '../../src/simulation/combat/expedition-combat';
+import {unitData,expeditionWeaponBonuses} from '../../src/simulation/combat/expedition-combat';
+import {SOURCE_WEAPONS} from '../../src/data/expansion-units';
+import {exportEliteHeroRedesign} from './export-elite-hero-redesign.mts';
 import {initializeCarrierSubsystem,ownedInterceptors} from '../../src/simulation/combat/carriers';
 import {CARD_RARITIES,TEAM_CARD_VALUES} from '../../src/simulation/progression/team-cards';
 import {EXPEDITION_CARD_DEFINITIONS} from '../../src/simulation/progression/expedition-drafts';
@@ -56,18 +58,21 @@ const roles:Record<FamilyId,[string,string,string]>={
  carrier:['母舰与所属截击机','原母舰、真实独立截击机出动/飞行/命中','母舰没有直接普攻；只计现存所属子机，各继承一次'],
 };
 const worlds=Object.fromEntries(RACES.map(race=>{const w=new World({race,sandbox:true,waves:false,terrain:false,obstacles:[]});assert.equal(w.start(),true);assert.equal(Object.keys(w.runConfig!.frozenTalents.levels).length,0);assert.equal(Object.keys(w.expedition.cardTotals).length,0);return [race,w];})) as Record<Race,World>;
-function snapshot(id:FamilyId|HeroId,rank:number,eliteId?:EliteId,mode?:string){
+function snapshot(id:FamilyId|HeroId,rank:number,eliteId?:EliteId,mode?:string,weapon?:string){
  const hero=Object.hasOwn(HEROES,id)?HEROES[id as HeroId]:undefined;
  const family=hero?.baseFamily??id as FamilyId,race=hero?.race??familyRace(family as FamilyId),w=worlds[race];w.entities.clear();w.heroes.clear();
  const u=w.addUnit(family,'terran',0,0,rank);
  if(hero){u.heroId=id as HeroId;u.modelKey=hero.model;}if(eliteId){u.eliteId=eliteId;u.modelKey=ELITES[eliteId].model;}
  if(family==='lurker')u.nativeMode='lurker_burrowed';
  if(mode==='siege')u.mode='siege';else if(mode)u.nativeMode=mode as typeof u.nativeMode;
+ if(weapon){assert.ok(Object.hasOwn(SOURCE_WEAPONS,weapon),weapon+': missing source weapon');u.activeWeapon=weapon;}
  w.refreshStats(u,true);const data=unitData(u);
  let dps=data.targetType==='none'?0:u.weaponDamage*data.attacks/u.attackPeriod,childCount=0;
  if(family==='carrier'||id==='purifier_flagship'){initializeCarrierSubsystem(w);const children=ownedInterceptors(w,u.id);childCount=children.length;dps=children.reduce((s,c)=>s+c.weaponDamage*unitData(c).attacks/c.attackPeriod,0);}
  const support=['medivac','science_vessel'].includes(family)?u.healRate:0;
- const result={hp:u.maxHp,shield:u.maxShield??0,armor:u.armor,dps,damage:u.weaponDamage,attacks:data.attacks,period:u.attackPeriod,range:u.attackRange,support,childCount,target:data.targetType,energy:u.maxEnergy};
+ const bonuses=expeditionWeaponBonuses(w,u).bonuses;
+ const maxBonusFactor=u.weaponDamage>0?1+bonuses.reduce((s,b)=>s+b.amount,0)/u.weaponDamage:1;
+ const result={hp:u.maxHp,shield:u.maxShield??0,armor:u.armor,dps,damage:u.weaponDamage,attacks:data.attacks,period:u.attackPeriod,range:u.attackRange,support,childCount,target:data.targetType,energy:u.maxEnergy,maxBonusFactor};
  for(const [key,v] of Object.entries(result))if(typeof v==='number')assert.ok(Number.isFinite(v)&&v>=0,`${id}/${rank}/${key}`);
  return result;
 }
@@ -95,10 +100,11 @@ const text:string[]=['# P0能力对照表 · 2026-10-03',
  '## 30普通家族：当前值、保留值与实际职责'];
 for(const race of RACES){text.push('### '+RACE_NAMES[race],table(['家族/职责','I：HP/盾；理论值','III','V','VII（需天赋）','拟变更/有效收益/反馈'],FAMILIES_BY_RACE[race].map(id=>[`${SC2_UNITS[id].zh} (${id})：${roles[id][0]}`,...[1,3,5,7].map(rank=>stats(snapshot(id,rank))),`数值保留；${roles[id][2]}；${roles[id][1]}`])));}
 text.push('### 可切换作战模式的独立核对',table(['家族/模式','普通V：HP/盾；理论值','目标/射程/周期','范围边界'],([['tank','siege'],['hellion','hellbat'],['viking','viking_assault']] as [FamilyId,string][]).map(([id,mode])=>{assert.ok(mode==='siege'||Object.hasOwn(SOURCE_UNIT_MODES,mode));const p=snapshot(id,5,undefined,mode);return [id+'/'+mode,stats(p),`${p.target}／${n(p.range)}／${n(p.period)}秒`,'切换共享身体、生命及冷却；本次无参数改动'];})));
-text.push('## 90精英：相对普通V的收益、对象与反馈',
- '各行拟值均保留当前值。模板成长和独有效果各计算一次。DPS比值含属性派生的周期改变，未包含条件额外伤害、范围覆盖、法术与控场收益；无武器家族用医修比。独有效果字段及描述是当前配置，实际兑现仍须有效命中/目标/能量/状态。');
-for(const race of RACES){text.push('### '+RACE_NAMES[race],table(['精英ID/名称/模板','I：HP/盾；理论值','V：HP/盾；理论值','相对普通V：I→V','当前独有效果/作用对象','拟变更/可辨认收益'],FAMILIES_BY_RACE[race].flatMap(family=>Object.values(ELITES).filter(e=>e.family===family).map(e=>{const low=snapshot(family,1,e.id),high=snapshot(family,5,e.id),base=snapshot(family,5);const ratio=base.dps?`DPS ${n(low.dps/base.dps)}→${n(high.dps/base.dps)}倍`:base.support?`医修 ${n(low.support/base.support)}→${n(high.support/base.support)}倍`:'普攻无比较值，独立技能核算';const effect=e.effect?`${e.effect.stat}=${e.effect.amount}；` :'';return [`${e.id} ${e.name}／${templateNames[e.template]}`,stats(low),stats(high),`${ratio}；HP ${n(low.hp/base.hp)}→${n(high.hp/base.hp)}倍`,effect+e.description,`数值保留；${roles[family][1]}；${templateNames[e.template]}呈现实际频率/重击/承伤/机动/恢复中的对应项`];}))));}
-text.push('## 18英雄：普攻/耐久保留及技能逐包提案',
+text.push('## 90精英：当前运行基线，r2重设计另列',
+ '本节仅记录当前运行值；旧P0保留精英的设计已由 [90精英/18英雄重设计](ELITE_HERO_REDESIGN_20261003.md) 覆盖。新提案不叠乘本表旧模板/独有效果。DPS比值含当前属性派生的周期改变，未包含条件额外伤害、范围覆盖、法术与控场收益；无武器家族用医修比。独有效果是当前配置，实际兑现仍须有效命中/目标/能量/状态。');
+for(const race of RACES){text.push('### '+RACE_NAMES[race],table(['精英ID/名称/模板','当前I：HP/盾；理论值','当前V：HP/盾；理论值','相对普通V：I→V','当前独有效果/作用对象','新提案入口/原反馈'],FAMILIES_BY_RACE[race].flatMap(family=>Object.values(ELITES).filter(e=>e.family===family).map(e=>{const low=snapshot(family,1,e.id),high=snapshot(family,5,e.id),base=snapshot(family,5);const ratio=base.dps?`DPS ${n(low.dps/base.dps)}→${n(high.dps/base.dps)}倍`:base.support?`医修 ${n(low.support/base.support)}→${n(high.support/base.support)}倍`:'普攻无比较值，独立技能核算';const effect=e.effect?`${e.effect.stat}=${e.effect.amount}；` :'';return [`${e.id} ${e.name}／${templateNames[e.template]}`,stats(low),stats(high),`${ratio}；HP ${n(low.hp/base.hp)}→${n(high.hp/base.hp)}倍`,effect+e.description,`运行基线；r2提案替换旧模板/独有效果，保留原模型；${roles[family][1]}`];}))));}
+text.push('## 18英雄：当前普攻/耐久与技能逐包提案',
+ '普攻/耐久列为当前运行基线；新的机体、被动与英雄高于精英的预算见 [r2重设计](ELITE_HERO_REDESIGN_20261003.md)。本节主动技包继续是同一提案源，未获得数值批准。',
  '新D为I—V：'+proposal.yamatoDamageByRank.join('／')+'；仅14名伤害英雄技能使用'+proposal.damageGrowthByRank.join('／')+'，替代旧技能成长，不叠加旧heroStats.skill、普攻15%或全队武器牌。既有针对hero技能的能力天赋按原语义施法时计算一次；零天赋基准不含它。',
  table(['英雄','当前I普攻/耐久','当前V普攻/耐久','当前技能I/III/V','新技能I/III/V（待确认）','冷却当前→拟秒/包结构/反馈'],RACES.flatMap(race=>HERO_IDS_BY_RACE[race].map(id=>{const h=HEROES[id],s=proposal.damageSkills.find(s=>s.id===id),p=proposal.supportSkills.find(s=>s.id===id);return [h.name+' ('+id+')',stats(snapshot(id,1)),stats(snapshot(id,5)),s?`${triple([1,2,3,4,5].map(rank=>s.currentFull*heroStats(rank).skill))}；${h.skill}`:p.current,s?triple(proposal.yamatoDamageByRank.map(d=>d*s.packets.reduce((a,b)=>a+b,0))):'见支援逐级表',`${h.cooldown}→${s?.cooldown??p.cooldown}；${s?.structure??p.target}；${s?.visual??p.visual}`];}))),
  '### 14伤害英雄：每个独立伤害包与兑现风险',table(['英雄','I逐包','III逐包','V逐包','次目标','I完整/冷却','兑现风险'],proposal.damageSkills.map(s=>[HEROES[s.id as HeroId].name,...[0,2,4].map(i=>s.packets.map(f=>n(proposal.yamatoDamageByRank[i]*f)).join('＋')),s.secondaryMax?`最多${s.secondaryMax}名，每名主包${pct(s.secondaryFraction)}`:'范围内每名实际命中者按本包；不增加额外对象',n(proposal.yamatoDamageByRank[0]*s.packets.reduce((a,b)=>a+b,0)/s.cooldown)+'/s',s.risk])),
@@ -139,20 +145,24 @@ text.push('## 高级卡牌：24趣味身份及全队/家族强化',
  '军衔/精英/英雄卡改变对应真实等级，未新增免费招募、重复身份或额度；攻防科技仍共享九线与六档，解锁/增量详见 [当前数据参考](../GAME_DATA_REFERENCE.md)。本次只要求把真实收益接入可辨认反馈，不另造卡牌成长曲线。');
 const sourcePaths=[proposalPath,'src/data/races.ts','src/data/ranks.ts','src/data/elites.ts','src/data/expansion-elites.ts','src/data/heroes.ts','src/data/sc2-units.ts','src/data/expansion-units.ts','src/data/unique-support.ts','src/data/player-unit-adaptations.ts','src/simulation/world.ts','src/simulation/combat/expedition-combat.ts','src/simulation/combat/expedition-elites.ts','src/simulation/combat/expedition-heroes.ts','src/simulation/combat/carriers.ts','src/simulation/combat/shop-support.ts','src/simulation/combat/unique-support.ts','src/simulation/progression/team-cards.ts','src/simulation/progression/expedition-drafts.ts'];
 text.push('## 生成核对与来源指纹','核对：30普通、每家族三型共90精英、18英雄（14伤害＋3支援＋1控制）、24趣味身份、10种全队品质组合。18英雄普攻/耐久、30家族I/III/V/VII、90精英I/V使用当前World派生。验证D成长、诺娃75%及简单Boss预算，不运行游戏验收。来源文本以UTF-8、CRLF规范化为LF后计算SHA-256，避免Windows/云端换行差异；不是本机CRLF文件的原始字节散列。',table(['源码/提案文件','SHA-256（UTF-8/LF）'],sourcePaths.map(path=>[path,crypto.createHash('sha256').update(fs.readFileSync(path,'utf8').replaceAll('\r\n','\n'),'utf8').digest('hex')])));
+const redesign=exportEliteHeroRedesign(proposal,snapshot,process.argv.includes('--check'));
 const generated=text.join('\n\n')+'\n';
 if(process.argv.includes('--check')){
  assert.equal(fs.readFileSync(out,'utf8').replaceAll('\r\n','\n'),generated,'P0 capability matrix differs; regenerate and review');
  const state=JSON.parse(fs.readFileSync('docs/project/status.json','utf8')).nextIterationP0;
  assert.equal(state.newParametersApproved,false);assert.equal(state.runtimeChanged,false);assert.equal(state.runtimeSchema,14);assert.equal(state.profileVersion,5);
+ assert.equal(state.revision,proposal.revision);assert.equal(state.eliteHeroRevision.allAuthoredValuesApproved,false);
+ assert.equal(state.eliteHeroRevision.eliteDesigns,90);assert.equal(state.eliteHeroRevision.heroDesigns,18);assert.equal(state.eliteHeroRevision.userSamples,21);assert.equal(state.eliteHeroRevision.heroRoleComparisons,18);assert.equal(state.eliteHeroRevision.allFiveRanksChecked,true);
+ assert.equal(state.eliteHeroRevision.loneHunterScope,'REAPER_FAMILY_ONLY_USER_CONFIRMED');assert.equal(state.eliteHeroRevision.destroyerBlast,'AREA_FIVE_TIMES_USER_LATEST_CORRECTION');
  assert.deepEqual(state.coverage,{ordinaryFamilies:30,eliteVariants:90,heroes:18,raceFunCardIdentities:24,teamCardQualityGroups:10});
  let localLinks=0;
- for(const file of ['docs/project/NEXT_ITERATION_P0_20261003.md',out,'docs/project/NEXT_ITERATION_P0_VALIDATION_20261003.md']){
+ for(const file of ['docs/project/NEXT_ITERATION_P0_20261003.md',out,redesign.path,'docs/project/NEXT_ITERATION_P0_VALIDATION_20261003.md']){
   const source=fs.readFileSync(file,'utf8');assert.equal(/[\t ]+$/m.test(source),false,file+': trailing whitespace');
   for(const m of source.matchAll(/\[[^\]]*\]\(([^)]+)\)/g)){
    const ref=m[1].split('#')[0];if(!ref||/^[a-z]+:\/\//i.test(ref)||ref.startsWith('mailto:'))continue;
    assert.ok(fs.existsSync(path.resolve(path.dirname(file),ref)),file+': missing link '+ref);localLinks++;
   }
  }
- process.stdout.write('P0 matrix check passed: 30 ordinary, 90 elites, 18 heroes, 24 fun identities; proposal math/status consistent; '+localLinks+' local links resolve.\n');
+ process.stdout.write('P0 r2 matrix check passed: 30 ordinary, 90 current/new elites, 18 current/new heroes, 21 user samples, 24 fun identities; 18 hero role and durability comparisons; '+localLinks+' local links resolve.\n');
 }
-else{fs.writeFileSync(out,generated,'utf8');process.stdout.write('Generated '+out+'; current stats and unapproved proposals remain separate.\n');}
+else{fs.writeFileSync(out,generated,'utf8');process.stdout.write('Generated '+out+' and '+redesign.path+'; current stats and unapproved proposals remain separate.\n');}

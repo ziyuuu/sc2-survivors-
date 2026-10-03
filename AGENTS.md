@@ -1,3 +1,9 @@
+## P0 r2 elite/hero design revision · 2026-10-03
+
+- `docs/project/ELITE_HERO_REDESIGN_20261003.md` is the P0 specialization for the user's 21 Terran elite samples, all 90 new elite designs and 18 stronger hero bodies/passives/actives. It supersedes P0's earlier elite/hero-body-unchanged proposal, not approved runtime. All new numeric proposals remain only in `NEXT_ITERATION_P0_VALUES_20261003.json`; runtime must not import it.
+- User clarified Lone Hunter limits only the Reaper family to one body; other families/heroes remain. The latest Destroyer correction is explosion AREA five times (radius sqrt(5)), superseding the preceding radius-five reply. Preserve explicit sample values and distinguish authored growth/limits/body/cooldown parameters from user-confirmed inputs.
+- The documentation generator checks all 90 IDs, 21 user samples, 18 hero role mappings covering 90 elites, and I–V analytic role/durability budgets. This is documentation math, not combat/balance/visual/performance acceptance. No runtime/schema/cleanup/cloud/deployment change; schema14/profile v5 and existing OPEN gaps persist.
+
 ## Next iteration P0 documentation · 2026-10-03
 
 - `docs/project/NEXT_ITERATION_P0_20261003.md` unifies the September 30 mobile/combat, hero and admin drafts; its generated capabilities cover 30 ordinary families, 90 elites, 18 heroes and 24 race fun-card identities. New values live only in `NEXT_ITERATION_P0_VALUES_20261003.json`, a documentation proposal that runtime must not import before approval.
