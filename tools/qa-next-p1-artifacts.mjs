@@ -5,7 +5,7 @@ import {pathToFileURL} from 'node:url';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-const out='reports/local/next-p1-artifacts-20261003';await fs.mkdir(out,{recursive:true});const report={method:'Production Web and offline HTML; actual UI-only start/save/reload/load. Page-scale emulation is separate from physical device and pinch gesture acceptance.',checks:[],errors:[]};
+const out=process.env.QA_OUT??'reports/local/next-p1-artifacts-20261003';await fs.mkdir(out,{recursive:true});const report={method:'Production Web and offline HTML; actual UI-only start/save/reload/load. Page-scale emulation is separate from physical device and pinch gesture acceptance.',checks:[],errors:[]};
 const server=createGameServer({webRoot:path.resolve('dist/web')});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});report.browser=browser.version();let page;
 const waitReady=()=>page.waitForFunction(()=>window.__SC2_REPORT__?.().readiness?.phase==='ready',null,{timeout:240000});

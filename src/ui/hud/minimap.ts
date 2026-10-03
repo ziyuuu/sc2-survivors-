@@ -6,6 +6,7 @@ import type {Point} from '../../simulation/types';
 import type {MapDefinition,TerrainQuery} from '../../data/map-definition';
 import type {BattleRenderer} from '../../render/scene/battle-renderer';
 import {SC2_UNITS} from '../../data/sc2-units';
+import {hudGlyph} from './glyphs';
 export type MapFrame={left:number;top:number;size:number};
 /** North is -z, exactly as in the battlefield. Fit the opened sector without stretching it. */
 export function minimapFrame(d:MapDefinition,stage:number):MapFrame{
@@ -37,7 +38,7 @@ export class Minimap {
  resetInput(){this.cancelTap();}
  constructor(readonly world:World,readonly view:BattleRenderer,parent:HTMLElement,readonly controls:ControlSettings){
   this.element=document.createElement('aside');this.element.id='minimap';this.element.className='console';
-  this.element.innerHTML='<header><span>地图 · N ↑</span><button type="button" id="map-toggle" aria-controls="minimap-canvas" aria-expanded="true" aria-label="收起地图">−</button></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。点击模式下，鼠标或触屏轻点前往。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>';
+  this.element.innerHTML=`<header><span>N ↑</span><button type="button" id="map-toggle" aria-controls="minimap-canvas" aria-expanded="true" aria-label="收起地图">${hudGlyph('map')}</button></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。点击模式下，鼠标或触屏轻点前往。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>`;
   parent.append(this.element);this.canvas=this.element.querySelector('canvas')!;this.ctx=this.canvas.getContext('2d')!;
   this.observer=new ResizeObserver(()=>{const width=this.canvas.clientWidth;if(width>0&&Math.max(128,Math.round(width*Math.min(devicePixelRatio||1,2)))!==this.canvas.width)this.stage=0;this.update(!this.element.hidden,this.element.classList.contains('map-collapsed'));});this.observer.observe(this.canvas);
   this.element.addEventListener('contextmenu',e=>e.preventDefault());
@@ -58,7 +59,7 @@ export class Minimap {
   const c=this.backdrop.getContext('2d')!,im=c.createImageData(side,side),terrain=this.world.terrain!;
   if(d)paintMinimapTerrain(d,terrain,this.frame,this.stage,side,im.data);else for(let y=0;y<side;y++)for(let x=0;x<side;x++){const p=mapUnproject(this.frame,{x:(x+.5)/side,z:(y+.5)/side}),open=terrain.isOpen?.(p),i=(y*side+x)*4;im.data.set(open?[51,65,65,255]:[12,22,29,255],i);}c.putImageData(im,0,0);this.canvas.dataset.mapFrame=JSON.stringify(this.frame);
  }
- update(visible=this.world.phase==='battle',collapsed=false){const w=this.world;this.element.hidden=!w.terrain||!visible;this.element.classList.toggle('map-collapsed',collapsed);this.canvas.hidden=collapsed;const button=this.element.querySelector<HTMLButtonElement>('#map-toggle')!;button.setAttribute('aria-expanded',String(!collapsed));button.setAttribute('aria-label',collapsed?'展开地图':'收起地图');button.textContent=collapsed?'地图':'−';if(this.element.hidden||collapsed){this.resetInput();return;}if(this.stage!==w.terrainStage||this.mapTerrain!==w.terrain)this.background();const c=this.ctx,s=this.canvas.width;c.clearRect(0,0,s,s);c.drawImage(this.backdrop,0,0);const unit=s/180;
+ update(visible=this.world.phase==='battle',collapsed=false){const w=this.world;this.element.hidden=!w.terrain||!visible;this.element.classList.toggle('map-collapsed',collapsed);this.canvas.hidden=collapsed;const button=this.element.querySelector<HTMLButtonElement>('#map-toggle')!;button.setAttribute('aria-expanded',String(!collapsed));button.setAttribute('aria-label',collapsed?'展开地图':'收起地图');button.title=collapsed?'展开地图':'收起地图';if(this.element.hidden||collapsed){this.resetInput();return;}if(this.stage!==w.terrainStage||this.mapTerrain!==w.terrain)this.background();const c=this.ctx,s=this.canvas.width;c.clearRect(0,0,s,s);c.drawImage(this.backdrop,0,0);const unit=s/180;
   const project=(p:Point)=>{const q=mapProject(this.frame,p);return {x:q.x*s,y:q.z*s};};
   const dot=(p:Point,color:string,r:number)=>{const q=project(p);c.fillStyle=color;c.beginPath();c.arc(q.x,q.y,r*unit,0,Math.PI*2);c.fill();};
   for(const p of w.pickups)dot(p,'#6d96b2',.8);

@@ -1,4 +1,4 @@
-> P1实施：[地图、队伍与移动布局](project/NEXT_ITERATION_P1_20261003.md)。P0已获用户批准；P1使用统一有效视口容器、实际控制台高度、独立UI折叠偏好和商店内容/操作区。schema14/profile v5不变，P0战斗值待P3实施；实际结果见[P1验证](project/NEXT_ITERATION_P1_VALIDATION_20261003.md)。下文P0“尚未实施”说明为其交付时的历史状态。
+> P1最新界面反馈：[视听语言修订](project/HUD_VISUAL_LANGUAGE_20261003.md)。冷却遮罩与就绪显示读取既有绝对计时，发射声音读取既有视觉事件并去重；详情只在点选后显示，终关图标读取既有生命/击杀收据/计时。保留统一有效视口、独立UI偏好、schema14/profile v5及当前战斗规则；P0战斗值待后续阶段实施。
 
 > 下一轮架构设计：[P0统一设计](project/NEXT_ITERATION_P0_20261003.md)明确World/表现/输入、视野DTO、限时复生预留、保护/追踪雷saved字段及后台旁路边界。P0已批准，战斗DTO与后台部分待后续阶段实施；P1不变更run schema14/profile v5。文档生成器只在独立内存World派生属性，不运行战斗或持久化。
 

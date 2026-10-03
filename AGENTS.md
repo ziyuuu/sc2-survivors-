@@ -1,3 +1,8 @@
+## Latest P1 HUD feedback revision · 2026-10-03
+
+- User asked to reduce constant UI text and oversized hero names, communicating through game audiovisual feedback. `docs/project/HUD_VISUAL_LANGUAGE_20261003.md` supersedes P1's uniform combat-label font requirement: hero names default 11px, portraits/vitals/cooldown masks/numeric countdown/cast glow/fallen marks carry state; descriptions and parameters appear on request. Keep clear decision/pricing information, accessible names and 44px touch targets.
+- Final 749 regression tests, 96 layout states, 8 requested-detail states and production Web/offline save/reload/load passed. Skill launch audio uses existing local sounds with event deduplication; do not call reused sounds original hero-specific audio or machine playback human listening acceptance. Schema14/profile v5, combat numbers and resource release remain unchanged; existing OPEN gaps remain.
+
 ## P0 approved; P1 execution · 2026-10-03
 
 - User explicitly approved P0 r2 and instructed "可以了P0通过。请开始P1". The P0 design parameters are accepted; do not request the same approval again. P1 covers battle-only map visibility, independent persistent map/army folding, the effective viewport, safe areas, rotation and readable shop layout. Combat values remain unchanged until P3; the documentation JSON is still not a runtime import.

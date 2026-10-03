@@ -1,4 +1,4 @@
-> P1实施：[地图、队伍与移动布局](project/NEXT_ITERATION_P1_20261003.md)。地图在非战斗界面隐藏，地图/队伍可独立折叠并记住偏好；移动端背景、安全区、旋转和商店网格/滚动操作区按批准P0落实。战斗规则和schema14/profile v5保留，P0战斗设计值待P3实施；实际验证见[P1记录](project/NEXT_ITERATION_P1_VALIDATION_20261003.md)。
+> P1最新界面反馈：[视听语言修订](project/HUD_VISUAL_LANGUAGE_20261003.md)减少常驻文字，英雄小名字、肖像与冷却/施放状态代替长说明，单位详情按需打开。实际数值/schema14/profile v5保持；原地图/队伍与移动布局见[P1说明](project/NEXT_ITERATION_P1_20261003.md)。
 
 > 下一轮设计：[P0统一设计与差异](project/NEXT_ITERATION_P0_20261003.md)及[能力对照表](project/NEXT_ITERATION_P0_CAPABILITIES_20261003.md)。用户已批准P0 r2，英雄/保护/追踪雷新数值待后续阶段实施；P1只改界面与有效视口，以下仍为当前战斗基线。
 
