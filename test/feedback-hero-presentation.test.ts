@@ -45,8 +45,8 @@ test('F06 aircraft mounts preserve height, rotation and fixed scale; only flagsh
  const ordinary=w.addUnit('carrier','terran',0,0);initializeCarrierSubsystem(w);const normal=ownedInterceptors(w,ordinary.id)[0];w.visual('attack',normal,{x:3,z:4});assert.equal(heroFeedbackEvent(w.visualEvents.at(-1)!,w.entities).heroId,undefined);
 });
 
-test('F06 instant attacks have same-tick stationary cores, no synthetic delayed flight',()=>{
+test('Approved hero basic presentation keeps instant damage and adds render-only travel',()=>{
  const w=new World({race:'terran',sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();w.heroes.clear();assert.ok(w.acquireHero('nova'));const hero=w.heroEntity('nova')!,enemy=w.addUnit('roach','zerg',3,0);w.fire(hero,enemy);const event=w.visualEvents.find(e=>e.kind==='attack'&&e.heroId==='nova')!;
- const fx=new BattleEffects(new THREE.Scene()),profile=heroPresentation('nova');fx.batches.set(profile.asset,{} as never);fx.batches.set(profile.impact,{} as never);fx.event(event,{x:hero.x,y:1,z:hero.z});const core=fx.particles.find(p=>p.x===enemy.x&&p.z===enemy.z)!;
- assert.ok(enemy.hp<enemy.maxHp);assert.equal(core.start,w.time);assert.deepEqual([core.vx,core.vy,core.vz],[0,0,0]);assert.equal(w.weaponFlights.length,0);assert.equal(w.heroCasts.length,0);
+ const fx=new BattleEffects(new THREE.Scene()),profile=heroPresentation('nova');fx.batches.set('fx.hero-basic.flare2b',{} as never);const before=w.captureRun();fx.event(event,{x:hero.x,y:1,z:hero.z});const core=fx.particles.find(p=>p.x===enemy.x&&p.z===enemy.z)!;
+ assert.ok(enemy.hp<enemy.maxHp);assert.ok(core.start>w.time);assert.equal(fx.heroBasic.flights.length,1);assert.deepEqual(w.captureRun(),before);assert.deepEqual([core.vx,core.vy,core.vz],[0,0,0]);assert.equal(w.weaponFlights.length,0);assert.equal(w.heroCasts.length,0);
 });

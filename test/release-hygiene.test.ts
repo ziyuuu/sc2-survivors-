@@ -15,7 +15,7 @@ test('all current hero attacks and skills keep their texture dependencies',()=>{
  }
 });
 test('every explicitly named combat texture remains in the runtime catalog',async()=>{
- for(const file of ['src/render/effects/battle-effects.ts','src/data/combat-presentation.ts']){
-  const source=await fs.readFile(file,'utf8');for(const [id] of source.matchAll(/fx\.[a-zA-Z0-9_.]+/g))assert.ok(ASSETS.has(id),`${file}: ${id}`);
+ for(const file of ['src/render/effects/battle-effects.ts','src/data/combat-presentation.ts','src/render/effects/hero-basic-effects.ts']){
+  const source=await fs.readFile(file,'utf8');for(const [id] of source.matchAll(/fx\.[a-zA-Z0-9_.-]+/g))assert.ok(id.endsWith('.')?[...ASSETS.keys()].some(key=>key.startsWith(id)):ASSETS.has(id),`${file}: ${id}`);
  }
 });

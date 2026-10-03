@@ -9,6 +9,7 @@ import {AIR_HEIGHT} from '../../data/terrain';
 import {commitInstances} from '../units/instance-updates';
 import {castLaunchEvent} from './hero-feedback';
 import type {WeaponFlight} from '../../simulation/combat/weapon-flight';
+import {isRevisedHero} from '../../data/terran-heroes';
 
 type Vec={x:number;y:number;z:number};
 type Fragment={shape:CoreShape;point:Vec;velocity:Vec;size:Vec;rotation:Vec;spin:Vec;color:number;start:number;life:number;gravity:number;core:boolean;collapse?:boolean};
@@ -37,6 +38,7 @@ export class CombatSculptures {
  event(e:VisualEvent,mount:Vec|null,left:Vec|null){
   const profile=e.heroId?HERO_SPECTACLE[e.heroId]:undefined,family=UNIT_SPECTACLE[e.unitType as FamilyId],tier=this.heroDetail==='low'?0:heroVisualTier(e.rank),from=mount??this.at(e),point=this.at(e,true);
   if(e.kind==='attack'&&e.attackId&&(e.projectileSpeed??0)>0)this.mounts.set(e.attackId,{...from});
+  if(isRevisedHero(e.heroId)&&['attack','projectile-impact','weapon-area'].includes(e.kind))return;
   if(e.kind==='skill-impact'&&['yamato_battlecruiser','hots_leviathan','purifier_flagship'].includes(e.heroId??''))this.shipImpacts.push(e);
   if(!profile&&e.kind==='attack'&&['sentry','void_ray'].includes(e.unitType??''))this.beams.push({...e,x:from.x,y:from.y,z:from.z});
   if(e.kind==='death'){
@@ -109,6 +111,7 @@ export class CombatSculptures {
   obj.position.set((from.x+to.x)/2,(from.y+to.y)/2,(from.z+to.z)/2);obj.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(to.x-from.x,to.y-from.y,to.z-from.z).normalize());obj.scale.set(width,d/1.26,width);obj.updateMatrix();b.mesh.setMatrixAt(b.count,obj.matrix);b.mesh.setColorAt(b.count,tint.set(color));b.count++;
  }
  private flight(w:World,p:WeaponFlight,visible:(p:Point)=>boolean,muzzle:(e:VisualEvent,side?:'Left'|'Right')=>Vec|null){
+  if(isRevisedHero(p.source.heroId))return;
   if(!visible(p.point))return;const u=p.source,hero=u.heroId?HERO_SPECTACLE[u.heroId]:undefined;
   // These two use their authentic original weapon meshes, rendered by OriginalProjectiles.
   if(!hero&&['marauder','hydralisk'].includes(u.unitType))return;

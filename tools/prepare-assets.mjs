@@ -9,6 +9,7 @@ import {RUNTIME_ASSETS,filename} from './runtime-catalog.mjs';
 import {inspectGlb} from './glb-inspect.mjs';
 import './generate-audio.mjs';
 import {SC2_AUDIO} from './sc2-audio-catalog.mjs';
+import {prepareHeroBasicEffects} from './prepare-hero-basic-effects.mjs';
 const records=[];
 let audioConversions=[];try{audioConversions=JSON.parse(await fs.readFile('assets/private/audio-conversion.json','utf8'));}catch{}
 let imported=[];try{imported=JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8')).manifest;}catch{}
@@ -16,6 +17,7 @@ try{imported.push(...JSON.parse(await fs.readFile('assets/private/terrain-pack.j
 try{imported.push(...JSON.parse(await fs.readFile('assets/private/map-pack.json','utf8')).manifest);}catch{}
 try{imported.push(...JSON.parse(await fs.readFile('assets/private/expansion-ui.json','utf8')).manifest);}catch{}
 imported.push(...JSON.parse(await fs.readFile('assets/private/combat-wireframes.json','utf8')).manifest);
+imported.push(...await prepareHeroBasicEffects());
 const importedById=new Map(imported.map(a=>[a.id,a]));
 const assets=[...RUNTIME_ASSETS.map(a=>({...a,...importedById.get(a.id),required:a.required})),...[...importedById.values()].filter(a=>!RUNTIME_ASSETS.some(b=>b.id===a.id))];
 let optimized=[];try{optimized=JSON.parse(await fs.readFile('assets/private/m6-webp-manifest.json','utf8')).records??[];}catch{}

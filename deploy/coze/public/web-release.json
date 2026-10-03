@@ -1,14 +1,14 @@
 {
-  "appBuildId": "7c7afaa430b81aac82144a764511d1cafb07ac370c2c28b75a9bde053ecf9239",
+  "appBuildId": "c5dc1f2334eafc02a77d90dc90f17667bc2931394d8a5fb2daf18e9eb4821956",
   "runSchema": 16,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-radial-v1",
-  "assetCount": 538,
-  "fileCount": 531,
-  "assetBytes": 599199318,
-  "logicalBytes": 599309363,
-  "sharedBytes": 110045,
-  "manifest": "asset-manifest.ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64.json",
-  "release": "ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64",
+  "assetCount": 553,
+  "fileCount": 544,
+  "assetBytes": 600105060,
+  "logicalBytes": 600276682,
+  "sharedBytes": 171622,
+  "manifest": "asset-manifest.24774de00fc9052018c8ff659f8b8f9f3844dbbc287d376c4f655f99fce10b59.json",
+  "release": "24774de00fc9052018c8ff659f8b8f9f3844dbbc287d376c4f655f99fce10b59",
   "source": "reports/local/asset-reachability.json"
 }

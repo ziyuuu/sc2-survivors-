@@ -7,7 +7,7 @@ import {heroSkillPresentation} from '../src/data/combat-presentation';
 import {castLaunchEvent} from '../src/render/effects/hero-feedback';
 import {castExpeditionHero,resolveExpeditionHeroCasts} from '../src/simulation/combat/expedition-heroes';
 
-function batch(){const mesh=new THREE.InstancedMesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial(),256);mesh.setColorAt(0,new THREE.Color(0xffffff));return {mesh,data:new THREE.InstancedBufferAttribute(new Float32Array(512),2),count:0,cells:1,start:0,end:0};}
+function batch(){const mesh=new THREE.InstancedMesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial(),256);mesh.setColorAt(0,new THREE.Color(0xffffff));return {mesh,data:new THREE.InstancedBufferAttribute(new Float32Array(768),3),count:0,cells:1,start:0,end:0};}
 const make=()=>{const w=new World({race:'terran',sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
 
 test('F06 visual review: live projectile and hit core take batch slots before decoration without changing World',()=>{
@@ -22,7 +22,7 @@ test('F06 visual review: live projectile and hit core take batch slots before de
 
 test('F06 visual review: repeated renders consume real events once and restore does not replay settled cores',()=>{
  const w=make();assert.ok(w.acquireHero('nova'));const hero=w.heroEntity('nova')!,target=w.addUnit('roach','zerg',3,0);target.hp=10000;w.fire(hero,target);
- const fx=new BattleEffects(new THREE.Scene());fx.batches.set('fx.muzzle.1',batch());fx.batches.set('fx.impact.0',batch());
+ const fx=new BattleEffects(new THREE.Scene());fx.batches.set('fx.hero-basic.flare2b',batch());fx.batches.set('fx.hero-basic.flare1_blueelec',batch());
  const camera=new THREE.PerspectiveCamera();fx.render(w,camera,()=>true);const count=fx.particles.length;assert.ok(count>0);fx.render(w,camera,()=>true);assert.equal(fx.particles.length,count);assert.equal(fx.stats.attack,1);
  const snapshot=w.captureRun();w.restoreRun(snapshot);fx.reset();fx.render(w,camera,()=>true);assert.equal(fx.particles.length,0);assert.equal(fx.stats.attack,0);
 });

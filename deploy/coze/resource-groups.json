@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "release": "ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64",
+  "release": "24774de00fc9052018c8ff659f8b8f9f3844dbbc287d376c4f655f99fce10b59",
   "groups": [
     "common",
     "terran",
@@ -153,6 +153,19 @@
         "model.hero.artanis"
       ],
       "gitPath": "deploy/runtime/assets/062f84a2238ca7d27152e6157b6c2609ed0cb5cb233a726ca28346491230de08.glb"
+    },
+    {
+      "url": "assets/06d07497dd9606b18fe0540594c233ca25fbcb54f95929d1c7244cea14a509f1.png",
+      "bytes": 14802,
+      "sha256": "06d07497dd9606b18fe0540594c233ca25fbcb54f95929d1c7244cea14a509f1",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.firestreak7"
+      ],
+      "gitPath": "deploy/runtime/assets/06d07497dd9606b18fe0540594c233ca25fbcb54f95929d1c7244cea14a509f1.png"
     },
     {
       "url": "assets/07124eed5bdf5b650397c1e4b83ec221e016ad0648f3ac6cb5f342996456fe5a.png",
@@ -531,6 +544,19 @@
         "hero.tychus"
       ],
       "gitPath": "deploy/runtime/assets/14b3172f41b7865e3e2c3b3d86c1c759b1fe549b35897519db95b782fea5312a.png"
+    },
+    {
+      "url": "assets/15c0c580aadf28d489a2061cf3070734db992f54f47ec93f35e362eb45fee8ae.png",
+      "bytes": 22963,
+      "sha256": "15c0c580aadf28d489a2061cf3070734db992f54f47ec93f35e362eb45fee8ae",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.flare2b"
+      ],
+      "gitPath": "deploy/runtime/assets/15c0c580aadf28d489a2061cf3070734db992f54f47ec93f35e362eb45fee8ae.png"
     },
     {
       "url": "assets/15cf19d22e3f0bf6f90c00a61bfabeb7ba581d7319b4f4384197ba710b6d973f.webp",
@@ -1135,6 +1161,19 @@
       "gitPath": "deploy/runtime/assets/26e56bdd4ba3473b0a88884b048c142898de8164769cf3780e08bf8149a0c98d.glb"
     },
     {
+      "url": "assets/26f7d0f6a61b28b6a6e171a0a8ec754f39aeb3cd1b12546e0f845b42ff351e19.png",
+      "bytes": 38508,
+      "sha256": "26f7d0f6a61b28b6a6e171a0a8ec754f39aeb3cd1b12546e0f845b42ff351e19",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.energyplane3"
+      ],
+      "gitPath": "deploy/runtime/assets/26f7d0f6a61b28b6a6e171a0a8ec754f39aeb3cd1b12546e0f845b42ff351e19.png"
+    },
+    {
       "url": "assets/27c5e80af25a804df5531ce73c38d2cd0a89d2674a4e9da1bd0af86968908811.glb",
       "bytes": 737632,
       "sha256": "27c5e80af25a804df5531ce73c38d2cd0a89d2674a4e9da1bd0af86968908811",
@@ -1328,6 +1367,19 @@
         "map.image.7911a68de29dc4286725882254ae460d8e152aaed855874004e2e1c8b7cd809c"
       ],
       "gitPath": "deploy/runtime/assets/2c42897e086f7d962be2d69b83b7bd57ae4ca74b564b2baa91ed7ef7b997063c.webp"
+    },
+    {
+      "url": "assets/2db2f69874cdb1e5203f2f86803d5debde30402590cf50a810afaba882184616.png",
+      "bytes": 97568,
+      "sha256": "2db2f69874cdb1e5203f2f86803d5debde30402590cf50a810afaba882184616",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.kenney-smoke_04"
+      ],
+      "gitPath": "deploy/runtime/assets/2db2f69874cdb1e5203f2f86803d5debde30402590cf50a810afaba882184616.png"
     },
     {
       "url": "assets/2e9567f6722a04360d4c7a2d5eeeaf29ad56381f6998d7d9b0245fac339010bc.webp",
@@ -1840,6 +1892,19 @@
       "gitPath": "deploy/runtime/assets/3eef81fbec9c2e18897a152de1efe3180b5413d2e8076b07e7bc372d2693d3c8.glb"
     },
     {
+      "url": "assets/3f3d687bd2c70b10add33bdbd4616deda28f0138f757d358f9f0b78fb38bde6e.png",
+      "bytes": 42174,
+      "sha256": "3f3d687bd2c70b10add33bdbd4616deda28f0138f757d358f9f0b78fb38bde6e",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.kenney-trace_05"
+      ],
+      "gitPath": "deploy/runtime/assets/3f3d687bd2c70b10add33bdbd4616deda28f0138f757d358f9f0b78fb38bde6e.png"
+    },
+    {
       "url": "assets/3f8f003d7d96f4634c58dbeed8cb18a63e949cec4e7acd6741d10d4abf50f4d0.glb",
       "bytes": 1984124,
       "sha256": "3f8f003d7d96f4634c58dbeed8cb18a63e949cec4e7acd6741d10d4abf50f4d0",
@@ -2134,7 +2199,8 @@
         "common"
       ],
       "ids": [
-        "fx.impact.0"
+        "fx.impact.0",
+        "fx.hero-basic.sparks4"
       ],
       "gitPath": "deploy/runtime/assets/4920d39fd26fbcbf39bf163593b1dffa733dcc1b49f286ae3011da0b48f7280c.png"
     },
@@ -2439,6 +2505,19 @@
       "gitPath": "deploy/runtime/assets/5672e0ae522f1b249c2dbc58a7ffd33fa03841139bf86abaef3f55c9c3372728.webp"
     },
     {
+      "url": "assets/569970988b4849cf5f05d6294332a0ef91d86f7ede744b4b37e3eaa3bef886bd.png",
+      "bytes": 119527,
+      "sha256": "569970988b4849cf5f05d6294332a0ef91d86f7ede744b4b37e3eaa3bef886bd",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.emergytrailcyan"
+      ],
+      "gitPath": "deploy/runtime/assets/569970988b4849cf5f05d6294332a0ef91d86f7ede744b4b37e3eaa3bef886bd.png"
+    },
+    {
       "url": "assets/56cb89a3d3f44825c0fb7302ead3a221af82cc3d3e0fc9f5f0dd0176df700771.glb",
       "bytes": 2008452,
       "sha256": "56cb89a3d3f44825c0fb7302ead3a221af82cc3d3e0fc9f5f0dd0176df700771",
@@ -2492,6 +2571,19 @@
       "gitPath": "deploy/runtime/assets/578819020f4db8ee6c1a65cc46446fe7d38ef4b542361969bb2dd0a70b5fb1db.webp"
     },
     {
+      "url": "assets/579983452d263ebeca78080714b6dd55a0f95fca7452f309e91a9d466de6c058.png",
+      "bytes": 57240,
+      "sha256": "579983452d263ebeca78080714b6dd55a0f95fca7452f309e91a9d466de6c058",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.kenney-muzzle_03"
+      ],
+      "gitPath": "deploy/runtime/assets/579983452d263ebeca78080714b6dd55a0f95fca7452f309e91a9d466de6c058.png"
+    },
+    {
       "url": "assets/57aa57b7d8a7d6d0445c2ea614f968c135760cba30546a680912b5a500e618aa.png",
       "bytes": 4894,
       "sha256": "57aa57b7d8a7d6d0445c2ea614f968c135760cba30546a680912b5a500e618aa",
@@ -2503,6 +2595,19 @@
         "fx.flame.1"
       ],
       "gitPath": "deploy/runtime/assets/57aa57b7d8a7d6d0445c2ea614f968c135760cba30546a680912b5a500e618aa.png"
+    },
+    {
+      "url": "assets/57f1c3ee4f947ccd4a21cc537d36918d863eabb6b2f955b8573d7df4856aaa90.png",
+      "bytes": 26324,
+      "sha256": "57f1c3ee4f947ccd4a21cc537d36918d863eabb6b2f955b8573d7df4856aaa90",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.flare1_blueelec"
+      ],
+      "gitPath": "deploy/runtime/assets/57f1c3ee4f947ccd4a21cc537d36918d863eabb6b2f955b8573d7df4856aaa90.png"
     },
     {
       "url": "assets/58a2fd0e2e150b24d5945fb37161941f459a505ad4d3b2343ff81f2a3407ae09.glb",
@@ -4261,7 +4366,8 @@
         "common"
       ],
       "ids": [
-        "fx.marauder.impact.0"
+        "fx.marauder.impact.0",
+        "fx.hero-basic.energyplane3_red"
       ],
       "gitPath": "deploy/runtime/assets/9653083bd3fd6a8b033589697a197c5b60b10f6fee9a26eff9696edd5b91efc2.png"
     },
@@ -4420,6 +4526,19 @@
         "model.loot.gas"
       ],
       "gitPath": "deploy/runtime/assets/9ad70d959fd053e45241dde18ed3e16096cc696904dbf6669773f8eeea9cf3ec.glb"
+    },
+    {
+      "url": "assets/9b94d3918a64f8ef6256947851a7321812b1d00db1c2fcda044a44514e70f880.png",
+      "bytes": 128500,
+      "sha256": "9b94d3918a64f8ef6256947851a7321812b1d00db1c2fcda044a44514e70f880",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.emergytrailorange"
+      ],
+      "gitPath": "deploy/runtime/assets/9b94d3918a64f8ef6256947851a7321812b1d00db1c2fcda044a44514e70f880.png"
     },
     {
       "url": "assets/9ba5fd271d80b20feedda095e6da97c22faae5118d117cdc02d6495248cca705.png",
@@ -5010,6 +5129,19 @@
       "gitPath": "deploy/runtime/assets/ad0d9d310977816b6af2250924fd6a6dd92fc34cd8cd9feaf5590d2338d3a514.glb"
     },
     {
+      "url": "assets/ad2d5d6cf9476682fccbe43d296eb6e2c69405582e2bb38f1b966e265e302acd.png",
+      "bytes": 10502,
+      "sha256": "ad2d5d6cf9476682fccbe43d296eb6e2c69405582e2bb38f1b966e265e302acd",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.fireball_10"
+      ],
+      "gitPath": "deploy/runtime/assets/ad2d5d6cf9476682fccbe43d296eb6e2c69405582e2bb38f1b966e265e302acd.png"
+    },
+    {
       "url": "assets/ad6a8f02eafd77a77965cd7b2a7951ab333f3ccb6c6e5239d06be5438d3f7189.webp",
       "bytes": 7194,
       "sha256": "ad6a8f02eafd77a77965cd7b2a7951ab333f3ccb6c6e5239d06be5438d3f7189",
@@ -5336,6 +5468,19 @@
       "gitPath": "deploy/runtime/assets/b9c6e5dbbc28eb37a8d5b65aabed45dd64446faf34c934a0862ed8164422b495.glb"
     },
     {
+      "url": "assets/ba3f4996a5a91ea3cba6817a9b4770a385a82ef0b9350cbda5c0f140d182af7e.png",
+      "bytes": 51060,
+      "sha256": "ba3f4996a5a91ea3cba6817a9b4770a385a82ef0b9350cbda5c0f140d182af7e",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.kenney-twirl_01"
+      ],
+      "gitPath": "deploy/runtime/assets/ba3f4996a5a91ea3cba6817a9b4770a385a82ef0b9350cbda5c0f140d182af7e.png"
+    },
+    {
       "url": "assets/ba9095ec0a20fe2de0aa23cbcd5d43e5d74d9f7ad571df856969d6d02265bb27.glb",
       "bytes": 2785436,
       "sha256": "ba9095ec0a20fe2de0aa23cbcd5d43e5d74d9f7ad571df856969d6d02265bb27",
@@ -5387,6 +5532,19 @@
         "model.hero.tychus"
       ],
       "gitPath": "deploy/runtime/assets/bb7094e0078043fc1933b9c07227f99e8d59adc7260897577d6520cd7c3e9ff8.glb"
+    },
+    {
+      "url": "assets/bc2d012c3bee75e668cc7800f965692b47af6edd6d3584081089a70abbe30a47.png",
+      "bytes": 54088,
+      "sha256": "bc2d012c3bee75e668cc7800f965692b47af6edd6d3584081089a70abbe30a47",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.kenney-muzzle_05"
+      ],
+      "gitPath": "deploy/runtime/assets/bc2d012c3bee75e668cc7800f965692b47af6edd6d3584081089a70abbe30a47.png"
     },
     {
       "url": "assets/bc73590601043ca2f95db805417c2fd19c3968456dfc0b338c2215eddd761887.glb",
@@ -5960,6 +6118,19 @@
         "skill.nova"
       ],
       "gitPath": "deploy/runtime/assets/d4224aa21992393a4b3d087e4edb30e11d820b268f1257071644ddfc756b1714.png"
+    },
+    {
+      "url": "assets/d42ffcd94b53f918987cca6f84d1ad52975c2d7a24d53ad1400b6d6cb239b9da.png",
+      "bytes": 242486,
+      "sha256": "d42ffcd94b53f918987cca6f84d1ad52975c2d7a24d53ad1400b6d6cb239b9da",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-basic.fireanim_x4"
+      ],
+      "gitPath": "deploy/runtime/assets/d42ffcd94b53f918987cca6f84d1ad52975c2d7a24d53ad1400b6d6cb239b9da.png"
     },
     {
       "url": "assets/d4d3dfe2d6bcb9026d188ee07afb4ef6e9faaaa0d0a8d50830b9ee06882fb424.glb",
