@@ -39,3 +39,12 @@ test('F06 moving cast preserves one actual launch origin and attachment pose thr
  assert.deepEqual({origin:cast.origin,point:cast.point,at:cast.at,damage:cast.damage},gameplay);assert.equal(copy.visualEvents.length,0);assert.equal(target.hp,10000);
  const bad=copy.captureRun();bad.state.heroCasts[0].presentationLaunch!.poseSeconds=NaN;assert.throws(()=>copy.restoreRun(bad),/英雄弹体/);
 });
+
+
+test('approved ship basic visuals show both original mounts for one saved two-hit packet without changing World',()=>{
+ const w=make();assert.ok(w.acquireHero('yamato_battlecruiser'));const hero=w.heroEntity('yamato_battlecruiser')!,enemy=w.addUnit('roach','zerg',3,0);enemy.hp=enemy.maxHp=1e6;w.fire(hero,enemy);
+ assert.equal(w.weaponFlights.length,1);assert.equal(w.weaponFlights[0].hits,2);
+ const fx=new BattleEffects(new THREE.Scene()),event=w.visualEvents.find(e=>e.kind==='attack')!;
+ fx.event(event,{x:0,y:6,z:-.4},{x:0,y:6,z:.4});const before=w.captureRun();fx.render(w,new THREE.PerspectiveCamera(),()=>true);
+ assert.equal(fx.heroBasic.stats.flights,2);assert.deepEqual(fx.sculptures.mounts.get(event.attackId!+':left'),{x:0,y:6,z:.4});assert.deepEqual(w.captureRun(),before);
+});

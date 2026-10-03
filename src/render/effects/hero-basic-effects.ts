@@ -72,17 +72,18 @@ export class HeroBasicEffects {
   let count=0;const ids=new Set<string>();
   this.visualFlights=this.visualFlights.filter(p=>w.time<p.end);
   for(const p of this.visualFlights){const t=Math.max(0,Math.min(1,(w.time-p.start)/(p.end-p.start)));p.point.x=p.from.x+(p.lastSeen.x-p.from.x)*t;p.point.z=p.from.z+(p.lastSeen.z-p.from.z)*t;}
-  for(const p of [...w.weaponFlights,...this.visualFlights]){
-   const id=p.source.heroId!;if(!isRevisedHero(id))continue;ids.add(p.attackId);if(!visible(p.point)||count>=256)continue;
+  const realFlights=w.weaponFlights.flatMap(p=>p.source.heroId==='yamato_battlecruiser'&&p.hits===2?[p,{...p,primary:false}]:[p]);
+  for(const p of [...realFlights,...this.visualFlights]){
+   const id=p.source.heroId!,left='primary' in p&&p.primary===false,key=p.attackId+(left?':left':'');if(!isRevisedHero(id))continue;ids.add(key);if(!visible(p.point)||count>=256)continue;
    const total=Math.max(.01,Math.hypot(p.lastSeen.x-p.from.x,p.lastSeen.z-p.from.z)),traveled=Math.hypot(p.point.x-p.from.x,p.point.z-p.from.z),t=Math.min(1,traveled/total),target=p.lost?undefined:w.body(p.target);
    const fromY=p.source.flying?AIR_HEIGHT+1:(w.terrain?.height(p.from)??0)+.8,toY=target?.flying?AIR_HEIGHT+.6:(w.terrain?.height(p.lastSeen)??0)+.65;
-   const mount='mount' in p?p.mount:mounts.get(p.attackId),blend=Math.max(0,1-traveled/2),head={x:p.point.x+(mount?mount.x-p.from.x:0)*blend,y:fromY+(toY-fromY)*t+(mount?mount.y-fromY:0)*blend,z:p.point.z+(mount?mount.z-p.from.z:0)*blend};
+   const mount='mount' in p?p.mount:mounts.get(key),blend=Math.max(0,1-traveled/2),head={x:p.point.x+(mount?mount.x-p.from.x:0)*blend,y:fromY+(toY-fromY)*t+(mount?mount.y-fromY:0)*blend,z:p.point.z+(mount?mount.z-p.from.z:0)*blend};
    direction.set(p.lastSeen.x-p.from.x,toY-fromY,p.lastSeen.z-p.from.z).normalize();
    // Sizes are presentation only: wider Raynor, longer Nova, wide and long ship cannon.
    const width=id==='raynor'?2.6:id==='nova'?1.35:id==='yamato_battlecruiser'?5:id==='tosh'?1.8:1.2;
    const length=id==='nova'?2.6:id==='yamato_battlecruiser'?1.9:id==='raynor'?1.15:id==='tychus'?.65:.4;
    object.position.set(head.x,head.y,head.z);object.quaternion.setFromUnitVectors(up,direction);object.scale.set(width,length,width);object.updateMatrix();this.cores.setMatrixAt(count,object.matrix);this.cores.setColorAt(count++,white.set(id==='nova'?0xd9faff:id==='tosh'?0xffb0db:0xffecc9));
-   if(w.time-(this.sampled.get(p.attackId)??-100)<1/60)continue;this.sampled.set(p.attackId,w.time);
+   if(w.time-(this.sampled.get(key)??-100)<1/60)continue;this.sampled.set(key,w.time);
    const tail={x:head.x-direction.x*Math.min(length,traveled+.15),y:head.y-direction.y*Math.min(length,traveled+.15),z:head.z-direction.z*Math.min(length,traveled+.15)};
    if(id==='nova'){this.ribbon(head,tail,'emergytrailcyan',.18,w.time,0xa5efff,.13);this.ribbon(head,tail,'energyplane3',.25,w.time,0xc2eeff,.085);}
    else if(id==='yamato_battlecruiser'){this.ribbon(head,tail,'emergytrailorange',.45,w.time,0xffc478,.12);this.ribbon(head,tail,'firestreak7',.36,w.time,0xffe7b3,.07);}

@@ -60,6 +60,7 @@ export class BattleEffects {
  }
  event(e:VisualEvent,mount:{x:number;y:number;z:number}|null=null,leftMount:{x:number;y:number;z:number}|null=null){
   this.heroBasic.event(e,mount);
+  if(e.kind==='attack'&&e.heroId==='yamato_battlecruiser'&&leftMount)this.heroBasic.event(e,leftMount);
   this.sculptures.heroDetail=this.heroQuality;this.heroLayers(e,mount);
   this.sculptures.event(e,mount,leftMount);
   if(isRevisedHero(e.heroId)&&['attack','projectile-impact','weapon-area'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}

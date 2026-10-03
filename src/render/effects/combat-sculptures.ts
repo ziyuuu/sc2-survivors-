@@ -38,6 +38,7 @@ export class CombatSculptures {
  event(e:VisualEvent,mount:Vec|null,left:Vec|null){
   const profile=e.heroId?HERO_SPECTACLE[e.heroId]:undefined,family=UNIT_SPECTACLE[e.unitType as FamilyId],tier=this.heroDetail==='low'?0:heroVisualTier(e.rank),from=mount??this.at(e),point=this.at(e,true);
   if(e.kind==='attack'&&e.attackId&&(e.projectileSpeed??0)>0)this.mounts.set(e.attackId,{...from});
+  if(e.kind==='attack'&&e.heroId==='yamato_battlecruiser'&&e.attackId&&left)this.mounts.set(e.attackId+':left',{...left});
   if(isRevisedHero(e.heroId)&&['attack','projectile-impact','weapon-area'].includes(e.kind))return;
   if(e.kind==='skill-impact'&&['yamato_battlecruiser','hots_leviathan','purifier_flagship'].includes(e.heroId??''))this.shipImpacts.push(e);
   if(!profile&&e.kind==='attack'&&['sentry','void_ray'].includes(e.unitType??''))this.beams.push({...e,x:from.x,y:from.y,z:from.z});

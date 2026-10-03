@@ -1,11 +1,11 @@
 {
-  "appBuildId": "c5dc1f2334eafc02a77d90dc90f17667bc2931394d8a5fb2daf18e9eb4821956",
+  "appBuildId": "f80032bfbe5eee341319212ae8631d11df4786a37637eed00ef66d43c232f0b7",
   "runSchema": 16,
   "release": "24774de00fc9052018c8ff659f8b8f9f3844dbbc287d376c4f655f99fce10b59",
   "app": [
     "asset-manifest.24774de00fc9052018c8ff659f8b8f9f3844dbbc287d376c4f655f99fce10b59.json",
     "assets/index-DubDv9NP.css",
-    "assets/index-o-4j7A84.js",
+    "assets/index-xCnldJ39.js",
     "index.html",
     "runtime-config.json",
     "web-release.json"
@@ -22,14 +22,14 @@
       "sha256": "6bd33543d1919c402f694b14f8ea598dd5628502ae00373f81589d878ddcfdb0"
     },
     {
-      "path": "public/assets/index-o-4j7A84.js",
-      "bytes": 1739577,
-      "sha256": "6a824f54d37582fc0fec633385cd3eee1b492fa0a88e4ca44b413f53376a6d1a"
+      "path": "public/assets/index-xCnldJ39.js",
+      "bytes": 1739895,
+      "sha256": "395b930671c079eba0890100c1758bf9e11b218f23a0d737d6e6e62335057a40"
     },
     {
       "path": "public/index.html",
       "bytes": 700,
-      "sha256": "3fec0b0d639de6d48c7ffab2bc56c009a232bd73099b51beded68c5c896aa2eb"
+      "sha256": "3037b4e00ce8b713d01beda906d85a825e4385063cce5c02d7a2dc6fbd76dcd0"
     },
     {
       "path": "public/runtime-config.json",
@@ -39,7 +39,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 520,
-      "sha256": "c4ed3edb7fcf8af17fda1df738800d35e2ea5fb783f7a57c91862110ee6c631b"
+      "sha256": "55e9d94f1fd6f8ce1453f9575cf75574423a977532502144b5531bcbf10c6b69"
     },
     {
       "path": "coze-web-server.mjs",
@@ -73,8 +73,8 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 6201,
-      "sha256": "6b370e620d2fc4741bf75b331709e943f0175612aa8d628364c9c37421cff46f"
+      "bytes": 287,
+      "sha256": "7a0ddab608539afe8a3f1777b4a07c6b562967cb68c6b46c715cc019401e90e2"
     },
     {
       "path": "DEPLOY.md",
