@@ -10,11 +10,13 @@
 
 实测：
 
-- `npm run typecheck`、`npm run docs:check` 通过；最终 `npm test` 为 807/807；最终双炮位修正新增一个 World 不变性断言并通过针对性复验，记录 `reports/hero-basic-tests-final.log`。旧“禁止视觉延迟飞行”断言按本轮用户批准更新；仍验证扣血时间、World 不变、事件去重和恢复不重播。
+- `npm run typecheck`、`npm run docs:check` 通过；最终 `npm test` 为 808/808（含双炮位 World 不变性断言），记录 `reports/hero-basic-tests-complete.log`。旧“禁止视觉延迟飞行”断言按本轮用户批准更新；仍验证扣血时间、World 不变、事件去重和恢复不重播。
 - `node tools/qa-hero-basic-game.mjs`：真实 World 及正式渲染器中的六英雄各连续 240 帧，目标实际扣血，效果加载错误 0、页面错误 0；另检查 390×844、844×390、667×375。使用固定高血量目标的内容诊断，不是自然平衡或 M6 性能验收。证据 `reports/local/hero-basic-game-20261003/report.json` 及战场截图。
 - 实际完整离线游戏 `dist/SC2-Survivors-Hero-Attacks-Final.html`：416,227,856 bytes（396.95 MiB），SHA-256 `f76d893aa2c201bafb23596cf4bf98ac6fa7d7ef2eb9bb6e8475fb630db77f51`。553 资源 ID，544 个 Web 资源文件，600,105,060 资源字节；资源按原增量应用/哈希文件分开交付。HTML 与截图只留本地和用户指定 Drive，不提交 Git。
-- `QA_RUN_SCHEMA=16 QA_OUT=reports/local/hero-basic-artifacts-20261003 node --import tsx tools/qa-next-p1-artifacts.mjs`：正式 Web 与完全离线 HTML 启动、导出、保存、刷新、载入及暂停恢复通过，状态字段一致，无生产调试 API，页面错误 0；390×844、844×390及 Web 1.25 倍页面缩放证据保存在该目录。首轮诊断使用了旧 schema14 默认断言，改用当前 schema16 后复验通过。
+- `QA_RUN_SCHEMA=16 QA_OUT=reports/local/hero-basic-artifacts-final-20261003 node --import tsx tools/qa-next-p1-artifacts.mjs`：正式 Web 与完全离线 HTML 启动、导出、保存、刷新、载入及暂停恢复通过，状态字段一致，无生产调试 API，页面错误 0；390×844、844×390及 Web 1.25 倍页面缩放证据保存在该目录。首轮诊断使用了旧 schema14 默认断言，改用当前 schema16 后复验通过。
 
 现有完整 M6/M7、人工视觉和三款全息科技球原死亡片段缺口继续 OPEN；本轮浏览器证据不能替代这些验收。
 
 Drive 对 397 MiB 整包的上传在 300 秒 blob 上传阶段超时，未取得成功文件 ID。完整离线版保留；另用 `tools/build-online-demo.mjs` 生成同一正式游戏的轻量单文件联网入口，内嵌程序、样式和资源清单，原资源从已授权发行仓库的固定提交按需读取，沿用正式 HTTP 哈希校验与内容缓存。不是简化规则或少资源版本，首次访问需要网络；没有新云端部署或权限设置。
+
+联网入口最终交付：`dist/SC2-Survivors-Online.html`，2,036,981 bytes，SHA-256 `22b54eba9fa12da9868bbdd4ec44deeabbc558029cbc01f96f4bef8d486e96f8`，固定资源提交 `6aa2f04fda3f3cb1bed29a41f74ba26cec9b1b3d`。`node --import tsx tools/qa-online-demo.mjs` 实际 Chrome 直接打开本地 HTML、联网加载原资源、开始游戏、保存/导出、刷新/载入和暂停恢复通过；页面错误 0、无生产调试 API，见 `reports/local/hero-basic-online-20261003/report.json`。Drive 上传成功，元数据回读大小一致：[完整游戏联网版](https://drive.google.com/file/d/1wIocjEZFdbEb7eE4ASMTNH2RQxtKRBXu/view?usp=drivesdk)。完整离线最终版另经正式保存恢复复验通过。资源增量以原交付 `0ed262d`（资源版 ab86912d…）为基准，13 个新增哈希文件共 905,742 bytes；重复应用构建不能将它们误记为空增量。

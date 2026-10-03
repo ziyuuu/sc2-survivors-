@@ -73,8 +73,8 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 287,
-      "sha256": "7a0ddab608539afe8a3f1777b4a07c6b562967cb68c6b46c715cc019401e90e2"
+      "bytes": 6201,
+      "sha256": "4a54836be5bbd934d1d4f0040f0bd9e06b179cb5cb4687b636cbff0e42ef5c8a"
     },
     {
       "path": "DEPLOY.md",
