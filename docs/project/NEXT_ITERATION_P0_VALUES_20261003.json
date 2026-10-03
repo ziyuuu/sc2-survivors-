@@ -1,0 +1,33 @@
+{
+  "revision": "2026-10-03-p0",
+  "status": "PROPOSAL_NOT_RUNTIME",
+  "benchmark": {"easyStage12Hp": 9000, "easyEndlessRound3NewBossHp": 23520},
+  "yamatoDamageByRank": [9200, 12880, 16560, 20240, 23920],
+  "damageGrowthByRank": [1, 1.4, 1.8, 2.2, 2.6],
+  "damageSkills": [
+    {"id": "raynor", "packets": [0.55], "cooldown": 12, "currentFull": 300, "structure": "每名贯穿者0.55D；长12、完整宽1.4", "risk": "站位成线；单次低于诺娃", "visual": "橙黄矛芯沿真实通道贯穿，各受伤者局部冲击"},
+    {"id": "tychus", "packets": [0.45, 0.05, 0.05, 0.05], "cooldown": 14, "currentFull": 330, "structure": "爆炸0.45D＋1/2/3秒各0.05D；半径3.2", "risk": "后续燃烧要求目标仍存活；不提前结算总量", "visual": "真实手雷飞行、爆心、三个有效燃烧脉冲"},
+    {"id": "nova", "packets": [0.75], "cooldown": 18, "currentFull": 650, "structure": "每名贯穿者0.75D；长12、完整宽1；不打建筑", "risk": "0.35秒前摇、窄线；每名命中者恒为同级大和75%", "visual": "细亮青绿束芯及逐目标贯穿裂光"},
+    {"id": "tosh", "packets": [0.5], "cooldown": 35, "currentFull": 220, "structure": "施放时当前战场视野内每名合法可见敌人0.50D", "risk": "视野覆盖较大，冷却较长；不含未侦测隐形敌人", "visual": "短暂低遮挡蓝色灵能反馈＋实际受伤目标裂光"},
+    {"id": "kerrigan", "packets": [0.6], "cooldown": 12, "currentFull": 300, "structure": "每名贯穿者0.60D；长11、完整宽2.2", "risk": "自身近战，承担前排压力", "visual": "爪前蓄势及沿实际贯穿方向的灵能裂痕"},
+    {"id": "zagara", "packets": [0.25, 0.25, 0.25], "cooldown": 16, "currentFull": 300, "structure": "三方向各一枚0.25D，单枚半径1.7，三枚最多0.75D", "risk": "至少两枚实际命中才满足对应Boss半血；几何可行性待实施验证", "visual": "三个独立酸囊和对应爆心；不把三发合成一次假大爆炸"},
+    {"id": "dehaka", "packets": [1.05], "cooldown": 20, "currentFull": 420, "structure": "地面非建筑主目标1.05D，真实命中后回自身最大生命20%", "risk": "距离3，近身单体；额外生命储备另列", "visual": "咬合冲击＋有效回血＋独立生体储备血条"},
+    {"id": "stukov", "packets": [0.2, 0.1125, 0.1125, 0.1125, 0.1125], "cooldown": 16, "currentFull": 220, "structure": "首击0.20D＋1/2/3/4秒各0.1125D；半径3", "risk": "同来源刷新，不叠多套四秒总量；缓释伤害需存活目标", "visual": "腐蚀弹抵达爆心与四次实际腐蚀脉冲"},
+    {"id": "zeratul", "packets": [1.1], "secondaryFraction": 0.35, "secondaryMax": 2, "cooldown": 18, "currentFull": 520, "structure": "地面非建筑主目标1.10D；邻敌最多2名各主伤35%，半径1.2", "risk": "距离3的近身爆发；隐形仍按原侦测规则", "visual": "单次虚空斩和实际邻敌短裂痕"},
+    {"id": "alarak", "packets": [0.6], "cooldown": 14, "currentFull": 300, "structure": "每名贯穿者0.60D；长10、完整宽2.6；原40%/2秒减速", "risk": "线形覆盖；不额外击退", "visual": "红色波芯及沿通道逐目标裂光"},
+    {"id": "fenix", "packets": [0.65], "cooldown": 16, "currentFull": 360, "structure": "炮弹半径3.2内每目标0.65D", "risk": "抵达锁定点后爆发，敌人可以移动脱离", "visual": "太阳炮蓄能、实体飞行和一次接触爆心"},
+    {"id": "yamato_battlecruiser", "packets": [1], "secondaryFraction": 0.4, "secondaryMax": 5, "cooldown": 25, "currentFull": 700, "structure": "主目标D，半径2.8内最多5名邻敌各0.40D", "risk": "总时间1.25秒，主目标须仍在锁定点命中范围", "visual": "前1秒持续高能引导束，末0.25秒收束后一次重爆；引导无伤害"},
+    {"id": "hots_leviathan", "packets": [0.3, 0.3, 0.3], "cooldown": 26, "currentFull": 540, "structure": "半径3.5内三次各0.30D，间隔0.8秒，共0.90D", "risk": "敌人离开区域会损失后续收益", "visual": "生体风暴、三个有区别的真实脉冲和酸雾退散"},
+    {"id": "purifier_flagship", "packets": [0.8], "cooldown": 30, "currentFull": 600, "structure": "半径4内每目标0.80D", "risk": "延迟1.4秒，宽覆盖且冷却长；截击机另按普攻系统", "visual": "净化核汇聚、实体抵达后一次核爆，保留危险预警可读性"}
+  ],
+  "supportSkills": [
+    {"id": "swann", "cooldown": 30, "duration": 5, "range": 7, "maxBodies": 7, "healPulses": 4, "healTotalMaxHpByRank": [0.25, 0.3125, 0.375, 0.4375, 0.5], "target": "机械永久普通/精英/英雄战斗友军；排除自身、召唤物、建筑、工人、投送载体；可选满血者", "current": "范围7内一名受伤机械友军，四次各75×旧技能成长的维修；没有无敌", "visual": "封闭机械保护结构；每个实际维修脉冲另显示纳米修复"},
+    {"id": "artanis", "cooldown": 24, "duration": 8, "range": 6, "maxBodies": 7, "pulseCount": 8, "immediateMaxShieldByRank": [0.2, 0.3, 0.4, 0.5, 0.6], "perPulseMaxShieldByRank": [0.1, 0.125, 0.15, 0.175, 0.2], "target": "有原生盾的永久普通/精英/英雄战斗友军，可含自身；最多7身体；排除召唤物、工人、建筑、投送载体", "current": "范围6内最多7名缺盾友军，各恢复150×旧技能成长；没有后续回盾脉冲", "visual": "原生盾壳逐秒重构；满盾空过不生成回血效果"},
+    {"id": "niadra", "cooldown": 35, "duration": 8, "range": 6, "maxSeats": 7, "maxHealBodies": 7, "chargesByRank": [2, 2, 3, 3, 4], "reviveMaxHpByRank": [0.4, 0.475, 0.55, 0.625, 0.7], "immediateMaxHpByRank": [0.2, 0.25, 0.3, 0.35, 0.4], "revivesPerSecond": 1, "target": "复生登记仅永久生物普通/精英名额；起手治疗沿当前合法生物战斗友军范围且排除自身；均排除召唤物、工人、建筑、投送载体", "current": "范围6内最多7名受伤生物友军，排除自身，各恢复120×旧技能成长；没有复生权", "visual": "受登记名额轻微孵化标记；真实阵亡后的原身份身体重新出场"},
+    {"id": "vorazun", "cooldown": 22, "durationByRank": [3, 3.5, 4, 4.5, 5], "bossSlowByRank": [0.3, 0.35, 0.4, 0.45, 0.5], "current": "半径3.2停滞普通敌人3秒，Boss/领主移速和攻速减30%；冷却16秒", "target": "维持范围9、半径3.2、排除建筑与未侦测隐形者", "visual": "目标时间残像及逐步恢复动作；控制没有伤害数字"}
+  ],
+  "dehakaReserve": {"duration": 8, "maxHpByRank": [0.3, 0.45, 0.6, 0.75, 0.9], "hitHealMaxHp": 0.2, "target": "真实吞噬命中后的自身"},
+  "terranMine": {"detectionRadius": 4, "chaseSpeed": 6, "emergeSeconds": 0.25, "explosionDistance": 1.2, "damage": 120, "radius": 2, "countsByStack": [6, 9, 12]},
+  "visualFeedback": {"status": "PRESENTATION_PROPOSAL", "damageCoreScaleMin": 1, "damageCoreScaleMax": 1.65, "formula": "clamp(1+0.18*log2(max(1,actualNonCriticalPacket/sameIdentityRankIBasePacket)),1,1.65)", "frequency": "真实发射事件；不新增虚假弹体、命中或伤害"},
+  "unchanged": ["普通军衔I至VII公式", "精英模板及90款独有效果", "英雄生命/盾/普攻成长", "全队攻防及既有卡牌收益", "九科技线、六攻防档、165天赋节点与80点价格", "地图、Boss成长、经济、掉落、缓存和增量交付"]
+}

@@ -1,3 +1,5 @@
+> 下一轮P0：[统一设计与差异](project/NEXT_ITERATION_P0_20261003.md)和[全量能力对照](project/NEXT_ITERATION_P0_CAPABILITIES_20261003.md)已补齐；高级内容职责/协同目标和新增数值提案分开。未修改科技、生产、军衔/精英、卡牌、天赋或运行schema。
+
 > 最新批准变更：[共享科技、全队卡牌、天赋与移动端](project/SHARED_TECH_CARDS_20260929.md)。旧逐设施科技与单家族数值牌被替代；运行schema12，永久档案及天赋价格不变。
 
 > 2026-09-29 修正优先级：当前规则以 [本轮批准差异](project/RECOVERY_PATCH_20260929.md) 为准。三型精英可共存、地图掉落不再限章、侦测冷却10秒、诺娃贯穿狙击与空投生命表覆盖下文历史值。工程证据见 [验证记录](project/RECOVERY_VALIDATION_20260929.md)。

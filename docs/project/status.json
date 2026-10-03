@@ -2029,5 +2029,26 @@
       "remoteAppFilesVerified": 6,
       "cozeAccountDeployment": "executor-required"
     }
+  },
+  "nextIterationP0": {
+    "revision": "2026-10-03-p0",
+    "state": "DOCUMENTATION_COMPLETE_NEW_PARAMETERS_AWAIT_CONFIRMATION",
+    "phase": "P0",
+    "scope": "documentation-and-detached-stat-export-only",
+    "baselineCommit": "5980dc83d9e78605181805d35106658b3b126979",
+    "document": "docs/project/NEXT_ITERATION_P0_20261003.md",
+    "capabilities": "docs/project/NEXT_ITERATION_P0_CAPABILITIES_20261003.md",
+    "proposedValues": "docs/project/NEXT_ITERATION_P0_VALUES_20261003.json",
+    "validation": "docs/project/NEXT_ITERATION_P0_VALIDATION_20261003.md",
+    "runtimeChanged": false,
+    "schemaChanged": false,
+    "cleanupPerformed": false,
+    "newParametersApproved": false,
+    "runtimeSchema": 14,
+    "profileVersion": 5,
+    "coverage": {"ordinaryFamilies": 30, "eliteVariants": 90, "heroes": 18, "raceFunCardIdentities": 24, "teamCardQualityGroups": 10},
+    "checks": {"capabilityGeneration": "PASS", "capabilityConsistency": "PASS", "existingGameDataReference": "PASS"},
+    "nextStages": {"P1": "NOT_STARTED", "P2": "NOT_STARTED", "P3": "NEW_PARAMETERS_AWAIT_CONFIRMATION", "P4": "NEW_MINE_PARAMETERS_AWAIT_CONFIRMATION", "P5": "B0_PARAMETERS_AND_PRODUCTION_CONFIGURATION_OPEN", "P6": "NOT_STARTED"},
+    "acceptance": {"M6": "OPEN", "M7": "OPEN", "humanVisual": "OPEN", "physicalMobileAndGamepad": "OPEN", "hologramScienceVesselSourceDeathClips": "OPEN", "lateTransientBacklog": "OPEN"}
   }
 }

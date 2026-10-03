@@ -1,3 +1,5 @@
+> 下一轮架构规划：[P0统一设计](project/NEXT_ITERATION_P0_20261003.md)明确World/表现/输入、视野DTO、限时复生预留、保护/追踪雷saved字段及后台旁路边界。尚未实施，run schema14/profile v5不变；文档生成器只在独立内存World派生属性，不运行战斗或持久化。
+
 > 本轮批准：[英雄专属表现、全量死亡、中心扩张地图与UI](project/HERO_MAP_UI_20260929.md)。战局schema14，永久档案v5不变；新局使用三主题九模板。实际证据见[本轮验证](project/HERO_MAP_UI_VALIDATION_20260929.md)。人工视觉、完整M6和M7仍开放。
 
 > 本轮批准：[三族独有趣味卡、缓存与增量交付](project/RACE_FUN_CACHE_20260929.md)。新增12张独有卡、schema13；永久v5不变，小地图固定左上，资源自动持久缓存，Git不再每轮提交离线HTML。

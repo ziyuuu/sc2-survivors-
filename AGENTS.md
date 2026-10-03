@@ -1,3 +1,9 @@
+## Next iteration P0 documentation · 2026-10-03
+
+- `docs/project/NEXT_ITERATION_P0_20261003.md` unifies the September 30 mobile/combat, hero and admin drafts; its generated capabilities cover 30 ordinary families, 90 elites, 18 heroes and 24 race fun-card identities. New values live only in `NEXT_ITERATION_P0_VALUES_20261003.json`, a documentation proposal that runtime must not import before approval.
+- P0 documentation is complete; new hero damage/cooldowns, protection allocation/limits, tracking-mine parameters and analytics retention remain proposals. No P1–P6 runtime changes, schema change, cleanup, cloud setup or new acceptance evidence. Existing schema14/profile v5 and open M6/M7/human/source-clip gaps remain.
+- `node --import tsx tools/docs/export-next-iteration-p0.mts --check` checks coverage/current detached stat derivation/proposal math. It is not combat, balance, browser, performance or visual acceptance. Preserve existing work and incremental Coze/LFS delivery scope.
+
 ## Resumed delivery verification · 2026-09-30
 
 - Hero/map/UI schema14 engineering:745 rule tests,138 complete corpse-finale identity recordings,3 authentic carrier finales,30 responsive layout checks and final browser/offline save checks passed. Long source death clips finish within bounded display lifetimes; they do not alter death/reward timing.

@@ -43,6 +43,8 @@ node deploy/coze/start-coze.mjs
 
 ## 4. 下一轮任务与批准边界
 
+2026-10-03 P0已形成[统一设计与差异](NEXT_ITERATION_P0_20261003.md)、[全量能力对照](NEXT_ITERATION_P0_CAPABILITIES_20261003.md)和[提案JSON](NEXT_ITERATION_P0_VALUES_20261003.json)。后续研发从该入口读取；P0只做文档，新增数值尚未批准。文档生成器依赖当前本地生成的运行元数据；云端仍须先完成第3节资源恢复，不因文档完成宣称云端已就绪。
+
 当前正在调查和设计下一轮修复，游戏尚未按本轮新稿修改：
 
 1. `MOBILE_COMBAT_FEEDBACK_PLAN_20260930.md`：手机布局、旋转、摇杆寻路、地图与队伍折叠、维京、商店候选、医疗和卡牌反馈。
