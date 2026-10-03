@@ -1,3 +1,6 @@
+import {isRevisedHero,terranHeroGrowth} from '../../data/terran-heroes';
+import {heroAura,heroState,permanentMechanical} from './terran-hero-passives';
+import {validBattleView,pointInBattleView,type BattleView} from './battle-view';
 import {uniqueActiveStats} from './unique-support';
 import {teamCardEffects} from '../progression/team-cards';
 import {PLAYER_COMBAT_FACTOR as POWER} from '../../data/player-unit-adaptations';
@@ -20,24 +23,24 @@ export function canAcquireExpeditionHero(w:World,id:HeroId,available=heroModelRe
 }
 export function refreshExpeditionHero(w:World,u:Entity,fill=false):boolean{
  if(!w.expedition||!u.heroId)return false;
- const data=HEROES[u.heroId],growth=heroStats(u.rank),lostHp=u.maxHp-u.hp,lostShield=(u.maxShield??0)-(u.shield??0),lostTalentShield=(u.maxTalentShield??0)-(u.talentShield??0);
+ const data=HEROES[u.heroId],revised=isRevisedHero(u.heroId),modern=terranHeroGrowth(u.rank),growth=revised?{health:modern.health,armor:modern.armor,damage:modern.damage,attackSpeed:1/modern.period}:heroStats(u.rank),power=revised?1:POWER,aura=heroAura(w,u),lostHp=u.maxHp-u.hp,lostShield=(u.maxShield??0)-(u.shield??0),lostTalentShield=(u.maxTalentShield??0)-(u.talentShield??0);
  u.race=data.race;u.team='player';u.owner='terran';u.attributes=[...data.attributes];if(u.flying!==!!data.flying)w.hash.invalidatePlanes();u.flying=!!data.flying;
  const talents=talentModifiers(w,u),team=teamCardEffects(w.expedition);
- u.maxHp=data.hp*(1+team.health)*POWER*growth.health*(1+(talents.maxHpPct??0));u.hp=fill?u.maxHp:Math.max(0,Math.min(u.maxHp,u.maxHp-lostHp));
+ u.maxHp=data.hp*(1+team.health+aura.health)*power*growth.health*(1+(talents.maxHpPct??0));u.hp=fill?u.maxHp:Math.max(0,Math.min(u.maxHp,u.maxHp-lostHp));
  const shieldSource=SOURCE_UNIT_DETAILS[data.baseFamily==='purifier_flagship'?'carrier':data.baseFamily as UnitType];
- u.shieldArmor=((talents.shieldArmorFlat??0)+team.armor)*POWER;u.shieldRegen=data.shield>0?(shieldSource?.shieldRegen??2)*FASTER:0;u.shieldDelay=data.shield>0?(shieldSource?.shieldDelay??10)/FASTER:0;
- u.maxShield=data.shield*(1+team.health)*POWER*growth.health*(1+(talents.maxShieldPct??0))+(data.race==='protoss'?u.maxHp*(talents.shieldFromHpPct??0):0);u.shield=fill?u.maxShield:Math.max(0,Math.min(u.maxShield,u.maxShield-lostShield));
+ u.shieldArmor=((talents.shieldArmorFlat??0)+team.armor)*power;u.shieldRegen=data.shield>0?(shieldSource?.shieldRegen??2)*FASTER:0;u.shieldDelay=data.shield>0?(shieldSource?.shieldDelay??10)/FASTER:0;
+ u.maxShield=data.shield*(1+team.health+aura.health)*power*growth.health*(1+(talents.maxShieldPct??0))+(data.race==='protoss'?u.maxHp*(talents.shieldFromHpPct??0):0);u.shield=fill?u.maxShield:Math.max(0,Math.min(u.maxShield,u.maxShield-lostShield));
  u.maxTalentShield=data.race!=='protoss'&&u.attributes.includes('Biological')?u.maxHp*(talents.shieldFromHpPct??0):0;u.talentShield=fill?u.maxTalentShield:Math.max(0,Math.min(u.maxTalentShield,u.maxTalentShield-lostTalentShield));
- u.armor=((data.armor+growth.armor)*(1+(talents.armorPct??0))+team.armor)*POWER;u.armor+=uniqueActiveStats(w,u).armor;u.moveSpeed=data.speed*POWER*(1+(talents.moveSpeedPct??0)+uniqueActiveStats(w,u).move);u.weaponDamage=data.damage*(1+team.damage)*POWER*HERO_BASIC_ATTACK.damage*growth.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/(1+team.speed+uniqueActiveStats(w,u).speed)/POWER/HERO_BASIC_ATTACK.frequency/growth.attackSpeed/(1+(talents.attackSpeedPct??0));u.attackRange=data.range*(1+(talents.rangePct??0));
+ u.armor=((data.armor+growth.armor)*(1+(talents.armorPct??0))+team.armor+aura.armor)*power;u.armor+=uniqueActiveStats(w,u).armor;u.moveSpeed=data.speed*power*(1+(talents.moveSpeedPct??0)+uniqueActiveStats(w,u).move+aura.move);u.weaponDamage=data.damage*(1+team.damage+aura.damage)*power*(revised?1:HERO_BASIC_ATTACK.damage)*growth.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/(1+team.speed+uniqueActiveStats(w,u).speed+aura.speed)/power/(revised?1:HERO_BASIC_ATTACK.frequency)/growth.attackSpeed/(1+(talents.attackSpeedPct??0));u.attackRange=data.range*(1+(talents.rangePct??0));
  u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;
- (u as ControlledEntity).cloaked=data.innateCloak;
+ if(revised){heroState(u);u.cloaked??=false;}else (u as ControlledEntity).cloaked=data.innateCloak;
  return true;
 }
 export function deployExpeditionHero(w:World,record:HeroRecord,revival:boolean):boolean{
  const data=HEROES[record.id],position=w.freePosition(data.baseFamily,w.anchor);if(!position)return false;
  const u=w.addUnit(data.baseFamily,'terran',position.x,position.z,record.rank);
  u.heroId=record.id;u.modelKey=data.model;u.slot=100+[...w.heroes.keys()].indexOf(record.id);u.unitRadius=(data.flying?SC2_UNITS[data.baseFamily].unitRadius:.45)*TUNING.unitScale;
- refreshExpeditionHero(w,u,true);record.entityId=u.id;record.awaitingSpawn=false;record.revivePaid=false;
+ record.entityId=u.id;refreshExpeditionHero(w,u,true);record.awaitingSpawn=false;record.revivePaid=false;
  if(revival)record.skillReady=w.time+data.cooldown;
  return true;
 }
@@ -46,7 +49,7 @@ export function acquireExpeditionHero(w:World,id:HeroId,available=heroModelReady
  let record=w.heroes.get(id);
  if(record){record.rank++;const u=w.heroEntity(id);if(u&&u.hp>0){u.rank=record.rank;refreshExpeditionHero(w,u);}}
  else{record={id,rank:1,entityId:null,skillReady:w.time,revivePaid:false,awaitingSpawn:true};w.heroes.set(id,record);deployExpeditionHero(w,record,false);}
- w.changed();return true;
+ for(const ally of w.allies())w.refreshStats(ally);w.changed();return true;
 }
 const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 function visible(w:World,target:Body):boolean{
@@ -60,10 +63,12 @@ function validEnemy(w:World,id:HeroId,source:Entity,target:Body):boolean{
  return id!=='nova'||!target.attributes.includes('Structure');
 }
 function alliesFor(w:World,id:HeroId,source:Entity):Entity[]{
+ if(id==='swann')return w.allies().filter(a=>a.id!==source.id&&permanentMechanical(a)&&w.edgeDistance(source,a)<=7&&w.hasAttackLine(source,a)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id);
+
  return w.allies().filter(ally=>{
   if(ally.hp<=0||w.edgeDistance(source,ally)>HEROES[id].skillRange||!w.hasAttackLine(source,ally))return false;
   if(id==='artanis')return (ally.maxShield??0)>(ally.shield??0);
-  return ally.id!==source.id&&ally.hp<ally.maxHp&&ally.attributes.includes(id==='swann'?'Mechanical':'Biological');
+  return ally.id!==source.id&&ally.hp<ally.maxHp&&ally.attributes.includes('Biological');
  }).sort((a,b)=>{
   const ratio=(u:Entity)=>id==='artanis'?(u.shield??0)/Math.max(1,u.maxShield??0):u.hp/u.maxHp;
   return ratio(a)-ratio(b)||a.id-b.id;
@@ -86,17 +91,20 @@ function castTarget(w:World,id:HeroId):Body|undefined{
  }
  return chosen;
 }
-export function canCastExpeditionHero(w:World,id:HeroId):boolean{
+export function canCastExpeditionHero(w:World,id:HeroId,battleView?:BattleView):boolean{
  const record=w.heroes.get(id),source=w.heroEntity(id);
- return !!w.expedition&&w.phase==='battle'&&!w.paused&&!w.requiresPlayerDecision&&!!record&&!!source&&source.hp>0&&((source as ControlledEntity).stoppedUntil??0)<=w.time&&w.time+1e-8>=record.skillReady&&!w.heroCasts.some(cast=>cast.hero===id&&(cast as ExtendedCast).phase!=='dot')&&!!castTarget(w,id);
+ return !!w.expedition&&w.phase==='battle'&&!w.paused&&!w.requiresPlayerDecision&&!!record&&!!source&&source.hp>0&&((source as ControlledEntity).stoppedUntil??0)<=w.time&&w.time+1e-8>=record.skillReady&&!w.heroCasts.some(cast=>cast.hero===id&&(cast as ExtendedCast).phase!=='dot')&&(id==='tosh'?validBattleView(battleView)&&toshTargets(w,source!,battleView).length>0:!!castTarget(w,id));
 }
-export function castExpeditionHero(w:World,id:HeroId):boolean{
- if(!canCastExpeditionHero(w,id))return false;
- const record=w.heroes.get(id)!,source=w.heroEntity(id)!,target=castTarget(w,id)!,data=HEROES[id],serial=w.nextId++;
+function toshTargets(w:World,source:Entity,view:BattleView){return [...w.entities.values(),...(w.hive?[w.hive]:[]),...w.expansionHives.values()].filter(b=>b.owner==='zerg'&&b.hp>0&&visible(w,b)&&pointInBattleView(view,b)&&w.hasAttackLine(source,b)).sort((a,b)=>a.id-b.id);}
+export function castExpeditionHero(w:World,id:HeroId,battleView?:BattleView):boolean{
+ if(!canCastExpeditionHero(w,id,battleView))return false;
+ const record=w.heroes.get(id)!,source=w.heroEntity(id)!,target=(id==='tosh'?toshTargets(w,source,battleView!)[0]:castTarget(w,id))!,data=HEROES[id],serial=w.nextId++;
  const talents=talentModifiers(w,source,'hero');record.skillReady=w.time+data.cooldown*(1-(talents.abilityCooldownReductionPct??0));source.lastSkillAt=w.time;
- const base:ExtendedCast={id:serial,hero:id,source:source.id,target:target.id,origin:{x:source.x,z:source.z},point:{x:target.x,z:target.z},at:w.time+data.delay,damage:data.skillDamage*heroStats(record.rank).skill*(1+(talents.abilityDamagePct??0)),phase:'impact'};
+ const base:ExtendedCast={rank:record.rank,id:serial,hero:id,source:source.id,target:target.id,origin:{x:source.x,z:source.z},point:{x:target.x,z:target.z},at:w.time+data.delay,damage:data.skillDamage*(isRevisedHero(id)?terranHeroGrowth(record.rank).skill/9200:heroStats(record.rank).skill)*(1+(talents.abilityDamagePct??0)),phase:'impact'};
  source.attackFacing=Math.atan2(target.x-source.x,target.z-source.z);source.action='skill';
- if(id==='swann'){for(let pulse=1;pulse<=4;pulse++)w.heroCasts.push({...base,at:w.time+pulse,phase:'channel'} as ExtendedCast);}
+ if(id==='nova')heroState(source).charge=1;
+ if(id==='swann'){const targets=alliesFor(w,id,source).slice(0,7);base.frozenTargets=targets.map(a=>({id:a.id,maxHp:a.maxHp}));for(const a of targets)heroState(a).protectedUntil=Math.max(heroState(a).protectedUntil,w.time+5);for(let pulse=1;pulse<=4;pulse++)w.heroCasts.push({...base,at:w.time+pulse,damage:(.25+.0625*(record.rank-1))/4,phase:'channel'});}
+ else if(id==='tosh'){base.frozenTargets=toshTargets(w,source,battleView!).map(a=>({id:a.id,maxHp:a.maxHp}));base.battleView=structuredClone(battleView!);w.heroCasts.push(base);}
  else if(id==='raynor'||id==='kerrigan'||id==='alarak')w.heroCasts.push({...base,phase:'line-travel',progress:0,hitIds:[]});
  else if(id==='hots_leviathan')for(let pulse=0;pulse<3;pulse++)w.heroCasts.push({...base,id:pulse===0?serial:w.nextId++,at:base.at+pulse*.8,phase:'area-pulse',launched:pulse>0,pulseIndex:pulse});
  else if(id==='zagara'){
@@ -128,7 +136,7 @@ export function resolveExpeditionHeroCasts(w:World):void{
  const pending:ExtendedCast[]=[],scheduled:ExtendedCast[]=[],cancelledChannels=new Set<number>();
  for(const cast of w.heroCasts as ExtendedCast[]){
   if(cancelledChannels.has(cast.id))continue;
-  const source=w.entities.get(cast.source),target=w.body(cast.target),data=HEROES[cast.hero];
+  const liveSource=w.entities.get(cast.source),source=liveSource&&cast.rank&&isRevisedHero(cast.hero)?{...liveSource,rank:cast.rank}:liveSource,target=w.body(cast.target),data=HEROES[cast.hero];
   if(cast.phase!=='dot'&&!cast.launched&&source&&source.hp>0&&w.time+1e-8>=cast.at-(cast.hero==='nova'?0:HERO_SKILL_FLIGHT[cast.hero]??data.delay)){
    // Save only the launch presentation anchor. The authored damage path keeps cast.origin.
    cast.presentationLaunch??={x:source.x,z:source.z,facing:Math.atan2(cast.point.x-source.x,cast.point.z-source.z),poseSeconds:Math.max(0,w.time-(source.lastSkillAt??w.time))};
@@ -145,7 +153,7 @@ export function resolveExpeditionHeroCasts(w:World):void{
    victims.sort((a,b)=>distance(cast.origin,a)-distance(cast.origin,b)||a.id-b.id);for(const body of victims){seen.add(body.id);w.hit(body,cast.damage,[],1,'terran',0,1,source.id);if(cast.hero==='alarak')slow(w,body,.4,2);w.visual('skill-impact',source,body,cast.id);}
    cast.hitIds=[...seen];cast.progress=progress;if(progress<1-1e-8)pending.push(cast);continue;
   }
-  if(cast.phase==='channel'&&(!source||source.hp<=0||!target||target.hp<=0||w.edgeDistance(source,target)>data.skillRange||!target.attributes.includes('Mechanical'))){cancelledChannels.add(cast.id);continue;}
+  if(cast.phase==='channel'&&cast.hero!=='swann'&&(!source||source.hp<=0||!target||target.hp<=0||w.edgeDistance(source,target)>data.skillRange||!target.attributes.includes('Mechanical'))){cancelledChannels.add(cast.id);continue;}
   if(cast.at>w.time+1e-8){pending.push(cast);continue;}
   if(cast.phase==='dot'){if(target&&target.hp>0){w.hit(target,cast.damage,[],1,'terran',0,1,cast.source);if(source)w.visual('skill-dot',source,target,cast.id);}continue;}
   if(cast.hero==='nova'){
@@ -156,7 +164,7 @@ export function resolveExpeditionHeroCasts(w:World):void{
     if(body.hp<=0||body.owner!=='zerg'||body.attributes.includes('Structure')||seen.has(body.id))return;
     const dx=body.x-cast.origin.x,dz=body.z-cast.origin.z,along=dx*sin+dz*cos,side=Math.abs(dx*cos-dz*sin);
     if(along<0||along>data.length+body.unitRadius||side>data.width/2+body.unitRadius||w.terrain&&!w.terrain.lineOfFire(cast.origin,body,false,body.flying))return;
-    seen.add(body.id);w.hit(body,cast.damage,[],1,'terran',0,1,source.id);slow(w,body,.35,2);w.visual('skill-impact',source,body,cast.id);
+    seen.add(body.id);w.hit(body,cast.damage,[],1,'terran',0,1,source.id);w.visual('skill-impact',source,body,cast.id);
    },'zerg');
    // One instant line event follows the completed windup. It carries the saved launch direction.
    w.visual('skill-line',source,end,cast.id,{...cast.origin,facing:angle,poseSeconds:data.delay});continue;
@@ -173,7 +181,8 @@ export function resolveExpeditionHeroCasts(w:World):void{
    if(source){w.visual('skill-impact',source,cast.point,cast.id);w.effect(cast.hero==='hots_leviathan'?'bile':'explosion',source,cast.point,data.radius,.5);}continue;
   }
   if(!source)continue;
-  if(cast.hero==='swann'){if(target)restoreHealth(w,source,target as Entity,cast.damage,cast.id);continue;}
+  if(cast.hero==='swann'){if(source.hp>0)for(const frozen of cast.frozenTargets??[]){const a=w.entities.get(frozen.id);if(a&&permanentMechanical(a)&&w.edgeDistance(source,a)<=7&&w.hasAttackLine(source,a))restoreHealth(w,source,a,frozen.maxHp*cast.damage,cast.id);}continue;}
+  if(cast.hero==='tosh'){for(const frozen of cast.frozenTargets??[]){const a=w.body(frozen.id);if(a&&a.hp>0&&a.owner==='zerg'){w.hit(a,cast.damage,[],1,'terran',0,1,cast.source);w.visual('skill-impact',source,a,cast.id);}}continue;}
   if(cast.hero==='niadra'||cast.hero==='artanis'){
    if(source.hp<=0)continue;
    for(const ally of alliesFor(w,cast.hero,source).slice(0,7)){
@@ -210,10 +219,9 @@ export function resolveExpeditionHeroCasts(w:World):void{
     w.visual('skill-status',source,body,cast.id);impacted=true;
    }else{
     w.hit(body,cast.damage,[],1,'terran',0,1,source.id);impacted=true;
-    if(cast.hero==='tosh'){slow(w,body,.35,3);w.visual('skill-status',source,body,cast.id);}
     if((cast.hero==='stukov'||cast.hero==='tychus'&&!body.attributes.includes('Structure'))&&body.hp>0){
      for(let i=pending.length-1;i>=0;i--)if(pending[i].hero===cast.hero&&pending[i].phase==='dot'&&pending[i].source===cast.source&&pending[i].target===body.id)pending.splice(i,1);
-     const pulseDamage=cast.hero==='tychus'?30:35,pulseCount=cast.hero==='tychus'?3:4;
+     const pulseDamage=cast.hero==='tychus'?data.skillDamage*(.05/.45):35,pulseCount=cast.hero==='tychus'?3:4;
      for(let pulse=1;pulse<=pulseCount;pulse++)scheduled.push({...cast,id:w.nextId++,target:body.id,at:w.time+pulse,damage:cast.damage/data.skillDamage*pulseDamage,phase:'dot',launched:true});
     }
    }

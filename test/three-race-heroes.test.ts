@@ -1,3 +1,6 @@
+import {isRevisedHero} from '../src/data/terran-heroes';
+import {heroAura} from '../src/simulation/combat/terran-hero-passives';
+const battleView={ground:[{x:-20,z:-20},{x:20,z:-20},{x:20,z:20},{x:-20,z:20}],air:[{x:-20,z:-20},{x:20,z:-20},{x:20,z:20},{x:-20,z:20}],occludedGround:[],occludedAir:[]};
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
@@ -14,9 +17,9 @@ const close=(actual:number,expected:number)=>assert.ok(Math.abs(actual-expected)
 
 test('three aligned six-hero rosters preserve legacy IDs and exact approved base profiles',()=>{
  assert.deepEqual(HERO_IDS,['raynor','tychus','nova']);assert.equal(ALL_HERO_IDS.length,18);for(const roster of Object.values(HERO_IDS_BY_RACE))assert.equal(roster.length,6);
- assert.equal(HEROES.artanis.attacks,2);assert.equal(HEROES.fenix.damage,72);assert.equal(HEROES.niadra.hp,1400);assert.equal(HEROES.swann.cooldown,15);
+ assert.equal(HEROES.artanis.attacks,2);assert.equal(HEROES.fenix.damage,72);assert.equal(HEROES.niadra.hp,1400);assert.equal(HEROES.swann.cooldown,30);
  for(const race of ['terran','zerg','protoss'] as const)for(const id of HERO_IDS_BY_RACE[race]){
-  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.race,race);close(u.maxHp,data.hp*1.15);close(u.maxShield!,data.shield*1.15);close(u.weaponDamage,data.damage*1.15*1.15);assert.equal(u.attackRange,data.range);assert.equal(u.modelKey,data.model);assert.equal(u.maxEnergy,0);
+  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.race,race);const modern=isRevisedHero(id),aura=heroAura(w,u);close(u.maxHp,data.hp*(modern?1+aura.health:1.15));close(u.maxShield!,data.shield*(modern?1+aura.health:1.15));close(u.weaponDamage,data.damage*(modern?1+aura.damage:1.15*1.15));assert.equal(u.attackRange,data.range);assert.equal(u.modelKey,data.model);assert.equal(u.maxEnergy,0);
   const mechanical=['fenix','yamato_battlecruiser','purifier_flagship'].includes(id);
   assert.equal(u.attributes.includes('Mechanical'),mechanical);assert.equal(u.attributes.includes('Biological'),!mechanical);assert.equal(u.flying,!!data.flying);assert.equal(u.cloaked,data.innateCloak);
  }
@@ -35,8 +38,8 @@ test('hero upgrade preserves lost HP, lost shields, attack cooldown, and player 
 
 test('Swann requires real mechanical damage, heals four paid-cooldown pulses, and cancels on range loss',()=>{
  const w=setup('terran'),u=hero(w,'swann');assert.equal(canCastExpeditionHero(w,'swann'),false);assert.equal(w.heroes.get('swann')!.skillReady,0);
- const ally=w.addUnit('tank','terran',2,0);ally.hp=1;ally.maxHp=1000;assert.ok(castExpeditionHero(w,'swann'));assert.equal(w.heroes.get('swann')!.skillReady,15);assert.equal(ally.hp,1);
- resolve(w,1);assert.equal(ally.hp,76);resolve(w,2);assert.equal(ally.hp,151);ally.x=30;resolve(w,3);assert.equal(ally.hp,151);assert.equal(w.heroCasts.length,0);assert.equal(u.energy,0);
+ const ally=w.addUnit('tank','terran',2,0);ally.hp=1;ally.maxHp=1000;assert.ok(castExpeditionHero(w,'swann'));assert.equal(w.heroes.get('swann')!.skillReady,30);assert.equal(ally.hp,1);
+ resolve(w,1);assert.equal(ally.hp,63.5);resolve(w,2);assert.equal(ally.hp,126);ally.x=30;resolve(w,3);assert.equal(ally.hp,126);assert.equal(w.heroCasts.length,1);assert.equal(u.energy,0);resolve(w,4);assert.equal(w.heroCasts.length,0);
 });
 
 test('Niadra heals five most injured biological allies, not herself or mechanical targets',()=>{
@@ -64,8 +67,8 @@ test('Dehaka heals from actual damage, respects ground unit targets, and cannot 
  w.heroes.get('dehaka')!.skillReady=0;const structure=target(w,1);structure.attributes=['Structure'];assert.equal(castExpeditionHero(w,'dehaka'),false);assert.equal(w.heroes.get('dehaka')!.skillReady,0);
 });
 
-test('Tosh and Alarak apply the configured ordinary/Boss slow values',()=>{
- const w=setup('terran');hero(w,'tosh');const normal=target(w,4),boss=target(w,4,1);boss.enemyTier='boss';assert.ok(castExpeditionHero(w,'tosh'));resolve(w,.49);assert.equal(normal.hp,10000);resolve(w,.5);assert.equal(normal.hp,9780);assert.equal(normal.moveSlowFactor,.35);assert.equal(boss.moveSlowFactor,.175);
+test('Tosh freezes visible damage recipients while Alarak keeps ordinary/Boss slow values',()=>{
+ const w=setup('terran');hero(w,'tosh');const normal=target(w,4),boss=target(w,4,1);boss.enemyTier='boss';assert.ok(castExpeditionHero(w,'tosh',battleView));resolve(w,.49);assert.equal(normal.hp,10000);resolve(w,.5);assert.equal(normal.hp,5400);assert.equal(normal.moveSlowFactor,undefined);assert.equal(boss.moveSlowFactor,undefined);
  const p=setup('protoss');hero(p,'alarak');const unit=target(p,4),leader=target(p,6);leader.enemyTier='boss';assert.ok(castExpeditionHero(p,'alarak'));resolve(p,.55);assert.equal(unit.hp,9700);assert.equal(unit.moveSlowFactor,.4);assert.equal(leader.moveSlowFactor,.2);
 });
 

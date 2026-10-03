@@ -23,7 +23,7 @@ test('F06 all hero profiles supply distinct real-event cores, including support 
  assert.equal(ALL_HERO_IDS.length,18);for(const id of ALL_HERO_IDS){const p=heroPresentation(id);assert.ok(p.asset&&p.impact&&p.size>0&&p.impactSize>0);}
  for(const id of ['swann','niadra','artanis'] as const){
   const w=new World({race:HEROES[id].race,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();w.heroes.clear();assert.ok(w.acquireHero(id));const hero=w.heroEntity(id)!;hero.x=hero.z=0;
-  const ally=w.addUnit(id==='swann'?'tank':id==='artanis'?'zealot':'roach','terran',1,0);ally.hp-=20;if(id==='artanis')ally.shield=(ally.maxShield??0)-20;w.hash.rebuild(w.entities.values());
+  const ally=w.addUnit(id==='swann'?'tank':id==='artanis'?'zealot':'roach','terran',1,0);ally.hp-=5;if(id==='artanis')ally.shield=(ally.maxShield??0)-20;w.hash.rebuild(w.entities.values());
   assert.ok(castExpeditionHero(w,id));if(id==='swann'){w.time=1;resolveExpeditionHeroCasts(w);}
   const impacts=w.visualEvents.filter(e=>e.kind==='skill-impact'&&e.heroId===id);assert.ok(impacts.some(e=>e.end.x===ally.x&&e.end.z===ally.z),id+' actual beneficiary');
   const saved=w.captureRun(),copy=new World({race:HEROES[id].race,sandbox:true,waves:false,terrain:false,obstacles:[]});copy.restoreRun(saved);assert.equal(copy.visualEvents.length,0);w.time=2;resolveExpeditionHeroCasts(w);assert.equal(w.visualEvents.filter(e=>e.kind==='skill-impact'&&e.heroId===id).length,impacts.length,'full targets do not flash restoration');

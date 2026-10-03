@@ -1,3 +1,6 @@
+import type {BattleView} from '../../simulation/combat/battle-view';
+const battleContexts=new WeakMap<World,()=>BattleView|undefined>();
+export function bindBattleView(w:World,get:()=>BattleView|undefined){battleContexts.set(w,get);}
 import type {World} from '../../simulation/world';
 import {HEROES,type HeroId} from '../../data/heroes';
 import {SC2_UNITS} from '../../data/sc2-units';
@@ -52,7 +55,7 @@ export function battleActionState(w:World,id:BattleActionId,allowPanelPause=fals
   state.phase=ability.off?ability.units.some(u=>!u.cloaked)?'mixed':'active':ability.enabled?'ready':ability.reason.includes('冷却')?'cooling':'locked';
  }else if(id.startsWith('hero-slot-')){
   const hero=heroForBattleSlot(w,Number(id.slice(-1))),data=hero&&HEROES[hero],entity=hero&&w.heroEntity(hero);
-  state.visible=!!hero;state.enabled=!!hero&&w.canCastHero(hero);state.name=data?`${data.name} · ${data.skill}`:'未招募英雄';state.remaining=hero?Math.max(0,(w.heroes.get(hero)?.skillReady??0)-w.time):0;
+  state.visible=!!hero;state.enabled=!!hero&&w.canCastHero(hero,hero==='tosh'?battleContexts.get(w)?.():undefined);state.name=data?`${data.name} · ${data.skill}`:'未招募英雄';state.remaining=hero?Math.max(0,(w.heroes.get(hero)?.skillReady??0)-w.time):0;
   state.reason=!hero?'未招募英雄':!entity||entity.hp<=0?'英雄未在场':state.remaining>1e-8?'英雄技能冷却中':!state.enabled?'没有合法施放目标':'';state.phase=state.remaining>1e-8?'cooling':state.enabled?'ready':'locked';
  }else if(id==='dash'||id==='detection'){
   state.remaining=Math.max(0,(id==='dash'?w.dashReady:w.expedition.detectionReady)-w.time);state.enabled=state.remaining<=1e-8;state.reason=state.enabled?'':state.name+'冷却中';state.phase=state.enabled?'ready':'cooling';
@@ -90,6 +93,6 @@ export function activateBattleAction(w:World,id:BattleActionId):boolean{
  else if(id==='strategic')used=target('strategic');
  else if(id==='tactical')used=w.expedition.race==='protoss'?target('tactical'):w.castTactical();
  else if(id==='unit-operations'){if(typeof document!=='undefined'){document.dispatchEvent(new Event('sc2-open-unit-operations'));used=true;}}
- else if(id.startsWith('hero-slot-')){const hero=heroForBattleSlot(w,Number(id.slice(-1)));used=!!hero&&w.castHero(hero);}
+ else if(id.startsWith('hero-slot-')){const hero=heroForBattleSlot(w,Number(id.slice(-1)));used=!!hero&&w.castHero(hero,hero==='tosh'?battleContexts.get(w)?.():undefined);}
  if(!used)w.announce('当前没有合法可执行对象');return used;
 }

@@ -6,6 +6,8 @@
 
 本轮P2已接入统一战斗指令、模式取消/落地受阻反馈、方向输入短绕行和商店合法池诊断。存活家族出现对应图标；新增 H恶火、V维京、R雷神、L潜伏者、C女妖、B闪烁、O单位操作、Q战术、X战略，原 T/E/F/G/Space/1–3 保留。手柄 LT/RT 翻页，闪烁/转移/战术/战略支持确认取消。范围及实测见[P2说明](docs/project/NEXT_ITERATION_P2_20261003.md)与[P2验证](docs/project/NEXT_ITERATION_P2_VALIDATION_20261003.md)。
 
+P3-A首批六名人族英雄已接入机体、I–V成长、被动、主动和原模型技能效果；独立全／均衡／低英雄效果档，震屏默认关闭。schema16/profile v5，807项测试通过。详见[六英雄说明](docs/project/NEXT_ITERATION_P3A_TERRAN_HEROES_20261003.md)和[实测记录](docs/project/NEXT_ITERATION_P3A_VALIDATION_20261003.md)。30人族精英、布雷车大型雷、其余英雄及人工／自然战局验收仍待后续。
+
 蜘蛛雷前置修正：人族趣味卡雷现在会钻出并沿合法地面路径追踪，数量/伤害不变，保存schema15。P3华丽特效范围仅18英雄，三个种族分阶段。见[蜘蛛雷说明与验证](docs/project/TRACKING_MINES_20261003.md)和[P3修订计划](docs/project/NEXT_ITERATION_P3_RACE_EFFECTS_20261003.md)。
 
 ## Coze / Web 部署

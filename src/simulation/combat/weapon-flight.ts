@@ -7,7 +7,7 @@ import {eliteEffect} from './expedition-elites';
 type Bonus={attribute:string;amount:number};
 /** Immutable attack payload. Entity is a plain DTO, never a live reference or Three object. */
 export interface WeaponFlight {
- id:number;attackId:string;source:Entity;target:number;from:Point;point:Point;lastSeen:Point;
+ primary?:boolean;id:number;attackId:string;source:Entity;target:number;from:Point;point:Point;lastSeen:Point;
  start:number;expires:number;speed:number;lost:boolean;damage:number;bonuses:Bonus[];hits:number;
  shieldBonus:number;crit:number;enemyFactor:number;apm:boolean;hop:number;seen:number[];
  bounceDamage?:number[];bounceBonuses?:Bonus[][];
@@ -22,11 +22,11 @@ export function weaponFlightSpeed(u:Pick<Entity,'unitType'|'heroId'|'nativeMode'
  if(u.unitType==='banshee')return 70;
  return ['roach','ravager','mutalisk','corruptor','adept','stalker','high_templar'].includes(u.unitType)?26.25:0;
 }
-export function launchWeaponFlight(w:World,u:Entity,target:Body,bonuses:Bonus[],shieldBonus:number,crit:number){
+export function launchWeaponFlight(w:World,u:Entity,target:Body,bonuses:Bonus[],shieldBonus:number,crit:number,hitsOverride?:number,primary=true){
  const speed=weaponFlightSpeed(u);if(!speed)return false;
- const p:WeaponFlight={id:w.nextId++,attackId:`${u.id}:${u.shotSequence}`,source:structuredClone(u),target:target.id,
+ const p:WeaponFlight={primary,id:w.nextId++,attackId:`${u.id}:${u.shotSequence}`,source:structuredClone(u),target:target.id,
   from:{x:u.x,z:u.z},point:{x:u.x,z:u.z},lastSeen:{x:target.x,z:target.z},start:w.time,expires:w.time+8,speed,lost:false,
-  damage:u.weaponDamage,bonuses:bonuses.map(b=>({...b})),hits:unitData(u).attacks,shieldBonus,crit,enemyFactor:w.enemyDamageFactor(u),apm:(talentModifiers(w,u).apmDuplicate??0)>0,hop:0,seen:[]};
+  damage:u.weaponDamage,bonuses:bonuses.map(b=>({...b})),hits:hitsOverride??unitData(u).attacks,shieldBonus,crit,enemyFactor:w.enemyDamageFactor(u),apm:(talentModifiers(w,u).apmDuplicate??0)>0,hop:0,seen:[]};
  if(!u.heroId&&u.unitType==='thor')p.hits=SOURCE_WEAPON_PATTERNS.thorExplosive.shots;
  if(!u.heroId&&u.unitType==='mutalisk'){
   const pattern=SOURCE_WEAPON_PATTERNS.mutalisk,scale=expeditionWeaponScale(w,u);
@@ -39,7 +39,7 @@ export function launchWeaponFlight(w:World,u:Entity,target:Body,bonuses:Bonus[],
 const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 function resolve(w:World,p:WeaponFlight,target:Body){
  const u=p.source;
- w.attackHit(u,target,p.damage,p.bonuses,p.hits,p.shieldBonus,p.hop===0,p.hop===0?p.crit:1,{enemyFactor:p.enemyFactor,apm:p.apm});
+ w.attackHit(u,target,p.damage,p.bonuses,p.hits,p.shieldBonus,(p.primary??true)&&p.hop===0,p.hop===0?p.crit:1,{enemyFactor:p.enemyFactor,apm:p.apm});
  w.visual('projectile-impact',u,target,p.id);
  if(!u.heroId&&u.unitType==='thor'){
   const bands=SOURCE_WEAPON_PATTERNS.thorExplosive.bands;
@@ -73,5 +73,5 @@ export function tickWeaponFlights(w:World,dt:number){
  w.weaponFlights=pending;
 }
 export function validateWeaponFlights(flights:WeaponFlight[]){
- const ids=new Set<number>();for(const p of flights){if(!p||!Number.isSafeInteger(p.id)||ids.has(p.id)||!p.source||!Number.isSafeInteger(p.source.id)||!Number.isSafeInteger(p.target)||typeof p.attackId!=='string'||!['terran','zerg'].includes(p.source.owner)||![p.start,p.expires,p.speed,p.damage,p.crit,p.enemyFactor,p.point?.x,p.point?.z,p.from?.x,p.from?.z,p.lastSeen?.x,p.lastSeen?.z].every(Number.isFinite)||p.speed<=0||p.damage<0||p.expires<p.start||!Number.isInteger(p.hits)||p.hits<1||typeof p.lost!=='boolean'||typeof p.apm!=='boolean'||!Array.isArray(p.seen)||!Array.isArray(p.bonuses)||p.bonuses.some(b=>typeof b.attribute!=='string'||!Number.isFinite(b.amount))||!Number.isInteger(p.hop)||p.hop<0||p.hop>2)throw Error('在途武器数据无效');ids.add(p.id);}
+ const ids=new Set<number>();for(const p of flights){if(!p||p.primary!==undefined&&typeof p.primary!=='boolean'||!Number.isSafeInteger(p.id)||ids.has(p.id)||!p.source||!Number.isSafeInteger(p.source.id)||!Number.isSafeInteger(p.target)||typeof p.attackId!=='string'||!['terran','zerg'].includes(p.source.owner)||![p.start,p.expires,p.speed,p.damage,p.crit,p.enemyFactor,p.point?.x,p.point?.z,p.from?.x,p.from?.z,p.lastSeen?.x,p.lastSeen?.z].every(Number.isFinite)||p.speed<=0||p.damage<0||p.expires<p.start||!Number.isInteger(p.hits)||p.hits<1||typeof p.lost!=='boolean'||typeof p.apm!=='boolean'||!Array.isArray(p.seen)||!Array.isArray(p.bonuses)||p.bonuses.some(b=>typeof b.attribute!=='string'||!Number.isFinite(b.amount))||!Number.isInteger(p.hop)||p.hop<0||p.hop>2)throw Error('在途武器数据无效');ids.add(p.id);}
 }

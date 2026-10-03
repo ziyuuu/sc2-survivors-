@@ -10,7 +10,7 @@ export const SKILLS=EXPEDITION_SKILLS;
 export type SkillId=BattleActionId;
 export interface SkillItem {id:SkillId;name:string;arrow:string}
 export function heroForSlot(w:Pick<World,'heroes'>,slot:number):HeroId|undefined{return slot>=0&&slot<3?[...w.heroes.keys()][slot]:undefined;}
-export function activateHeroSlot(w:World,slot:number){const id=heroForSlot(w,slot);return id?w.castHero(id):false;}
+export function activateHeroSlot(w:World,slot:number){const id=heroForSlot(w,slot);return id?activateBattleAction(w,`hero-slot-${slot}` as BattleActionId):false;}
 export function skillsFor(w:World):readonly SkillItem[]{return EXPEDITION_SKILLS.map(item=>{if(!item.id.startsWith('hero-slot-'))return item;const hero=heroForSlot(w,Number(item.id.slice(-1)));return {...item,name:hero?`${HEROES[hero].name} · ${HEROES[hero].skill}`:item.name};});}
 export function skillPages(w:World):readonly (readonly SkillItem[])[]{
  const extras=COMMAND_ACTIONS.filter(a=>!EXPEDITION_SKILLS.some(s=>s.id===a.id)&&battleActionState(w,a.id).visible).map(a=>({id:a.id,name:battleActionState(w,a.id).name,arrow:''}));

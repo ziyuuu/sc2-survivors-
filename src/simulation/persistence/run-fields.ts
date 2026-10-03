@@ -5,8 +5,10 @@ import {validateExpedition} from '../expedition-state';
 import {ALL_FAMILIES,combatRace,isAirHeroType,type FamilyId} from '../../data/races';
 import {allocationCost,allocationPoints,validateTalentAllocation} from '../../data/mvp-talents';
 import {HEROES} from '../../data/heroes';
+import {validBattleView} from '../combat/battle-view';
 /** Explicit schema: adding RunState state requires choosing persistence or rebuild. */
 export const RUN_FIELDS=[
+ // Saved inside entities.heroCombat / heroCasts: cycle, warmup, cloak episode/charge, protection expiry, cast rank/targets/view.
  // Saved in expedition.support.mines: phase, stable target, emergence timer, point/facing. Routes/poses rebuild.
  'expedition','runConfig','campaign18Runtime','swarm',
  'podSerial','time','tick','stage','stageElapsed','stageStartedAt','phase','paused','battlefield','endlessEntry','endlessTransitionReceipt','endlessRoundReceipts','runId','endlessAwardedMinutes','endless',
@@ -44,6 +46,8 @@ export function validateRunData(data:RunData,defaults:object){
  // Saved: pair identity/rank/regrowth tick, queen cooldown, per-carrier injection receipt.
  // Rebuilt: console selection/pages and engagement positions. No view objects in these DTOs.
  for(const u of data.entities.values()){
+  // Saved per-body combat receipts and protection expiry; render layers rebuild independently.
+  const h=u.heroCombat;if(h&&(![h.cycles,h.lastFire,h.cloakUntil,h.charge,h.protectedUntil].every(Number.isFinite)||!Number.isSafeInteger(h.cycles)||h.cycles<0||![0,1].includes(h.charge)||typeof h.cloakEpisode!=='boolean'||h.target!==null&&!Number.isSafeInteger(h.target)||h.warmupStart!==null&&!Number.isFinite(h.warmupStart)))throw Error('英雄被动状态无效');
   const r=u.enemyRoute;
   if(r&&(u.team!=='enemy'||typeof r.map!=='string'||!Array.isArray(r.points)||r.points.length<1||r.points.length>3||![...r.points,r.lastPosition,...(r.lastVisible?[r.lastVisible]:[])].every(p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.z))||!Number.isSafeInteger(r.index)||r.index<0||r.index>=r.points.length||!Number.isFinite(r.checkAt)||!Number.isSafeInteger(r.stalled)||r.stalled<0))throw Error('敌军巡逻状态无效');
   if(u.injectReady!==undefined&&(!Number.isFinite(u.injectReady)||u.injectReady<0||u.unitType!=='queen'))throw Error('注卵冷却无效');
@@ -51,6 +55,7 @@ export function validateRunData(data:RunData,defaults:object){
  }
  for(const pod of data.pods)if(pod.injectedBy!==undefined&&(!Number.isSafeInteger(pod.injectedBy)||![1,2].includes(pod.injectedSeats??0)||!Number.isFinite(pod.injectedAt)||pod.injectedAt!<0))throw Error('注卵收据无效');
  if(!Array.isArray(data.heroCasts)||data.heroCasts.some(cast=>{
+  if(cast.rank!==undefined&&(!Number.isInteger(cast.rank)||cast.rank<1||cast.rank>5)||cast.battleView!==undefined&&!validBattleView(cast.battleView)||cast.frozenTargets!==undefined&&(!Array.isArray(cast.frozenTargets)||new Set(cast.frozenTargets.map(t=>t.id)).size!==cast.frozenTargets.length||cast.frozenTargets.some(t=>!Number.isSafeInteger(t.id)||!Number.isFinite(t.maxHp)||t.maxHp<=0)||cast.hero==='swann'&&cast.frozenTargets.length>7))return true;
   if(!cast||!Number.isSafeInteger(cast.id)||!Number.isSafeInteger(cast.source)||!Number.isSafeInteger(cast.target)||!Object.hasOwn(HEROES,cast.hero)||![cast.at,cast.damage,cast.origin?.x,cast.origin?.z,cast.point?.x,cast.point?.z].every(Number.isFinite))return true;
   if(cast.phase!==undefined&&!['impact','channel','dot','line-travel','area-pulse'].includes(cast.phase)||cast.launched!==undefined&&typeof cast.launched!=='boolean')return true;
   if(cast.presentationLaunch&&(![cast.presentationLaunch.x,cast.presentationLaunch.z,cast.presentationLaunch.facing,cast.presentationLaunch.poseSeconds].every(Number.isFinite)||cast.presentationLaunch.poseSeconds<0))return true;

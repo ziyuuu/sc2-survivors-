@@ -1,3 +1,5 @@
+import {isRevisedHero,terranHeroGrowth} from '../src/data/terran-heroes';
+import {heroAura} from '../src/simulation/combat/terran-hero-passives';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
@@ -17,9 +19,9 @@ for(const [id,hp,shield,damage,period] of rows)test(`F06 ${id}: approved durabil
  const w=new World({race:HEROES[id].race,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();
  assert.ok(acquireExpeditionHero(w,id,()=>true));const u=w.heroEntity(id)!;
  for(const rank of [1,3,5]){
-  u.rank=rank;refreshExpeditionHero(w,u,true);const g=heroStats(rank);
-  near(u.maxHp,hp*g.health*1.15);near(u.maxShield??0,shield*g.health*1.15);
-  near(u.weaponDamage,damage*g.damage*1.15*1.15);near(u.attackPeriod,period/g.attackSpeed/1.15/1.15);
+  u.rank=rank;refreshExpeditionHero(w,u,true);const revised=isRevisedHero(id),modern=terranHeroGrowth(rank),aura=heroAura(w,u),g=heroStats(rank),body=HEROES[id];
+  near(u.maxHp,revised?body.hp*modern.health*(1+aura.health):hp*g.health*1.15);near(u.maxShield??0,revised?body.shield*modern.health*(1+aura.health):shield*g.health*1.15);
+  near(u.weaponDamage,revised?body.damage*modern.damage*(1+aura.damage):damage*g.damage*1.15*1.15);near(u.attackPeriod,revised?body.period*modern.period/(1+aura.speed):period/g.attackSpeed/1.15/1.15);
   u.hp-=71;if(u.maxShield)u.shield!-=43;u.weaponCooldown=.123;u.nextShotAt=17;
   for(let i=0;i<3;i++)refreshExpeditionHero(w,u);
   near(u.maxHp-u.hp,71);if(u.maxShield)near(u.maxShield-u.shield!,43);

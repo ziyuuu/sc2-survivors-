@@ -15,7 +15,7 @@ test('F06 independent review: actual hero basic hits apply approved boost once w
   const w=make(HEROES[id].race);assert.ok(w.acquireHero(id));const u=w.heroEntity(id)!;u.rank=3;w.refreshStats(u);u.x=u.z=0;
   const target=w.addUnit('roach','zerg',0,.8);target.hp=target.maxHp=10000;target.armor=0;w.hash.rebuild(w.entities.values());
   near(unitData(u).attackDamage,HEROES[id].damage);
-  w.fire(u,target);settleWeaponFlights(w);near(10000-target.hp,HEROES[id].damage*1.15*1.15*heroStats(3).damage*HEROES[id].attacks);
+  w.fire(u,target);settleWeaponFlights(w);near(10000-target.hp,u.weaponDamage*HEROES[id].attacks);
  }
 });
 

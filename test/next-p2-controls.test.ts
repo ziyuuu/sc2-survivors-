@@ -1,3 +1,5 @@
+import {bindBattleView} from '../src/ui/controls/battle-actions';
+const heroView={ground:[{x:-20,z:-20},{x:20,z:-20},{x:20,z:20},{x:-20,z:20}],air:[{x:-20,z:-20},{x:20,z:-20},{x:20,z:20},{x:-20,z:20}],occludedGround:[],occludedAir:[]};
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
@@ -44,7 +46,7 @@ test('pool inspection consumes no RNG, offers no wallet filtering and exposes ac
 test('all 18 recruited heroes share slot dispatch, preserve shot timing and reject repeated cooldown or death',()=>{
  for(const id of ALL_HERO_IDS){const w=make({race:HEROES[id].race});w.heroes.clear();assert.ok(acquireExpeditionHero(w,id,()=>true));const hero=w.heroEntity(id)!;hero.x=hero.z=0;hero.nextShotAt=21;
  for(const family of ['marine','tank','zealot'] as const){const u=w.addUnit(family,'terran',1,0);u.hp=1;u.shield=0;}
- const e=w.addUnit('roach','zerg',2,0);e.hp=e.maxHp=100000;w.hash.rebuild(w.entities.values());assert.equal(battleActionState(w,'hero-slot-0').enabled,w.canCastHero(id),id);assert.ok(activateBattleAction(w,'hero-slot-0'),id);assert.equal(hero.nextShotAt,21,id);const stable=()=>structuredClone({entities:w.entities,casts:w.heroCasts,wallet:w.wallet,heroes:w.heroes,rng:w.rngState});const after=stable();assert.equal(activateBattleAction(w,'hero-slot-0'),false,id);assert.deepEqual(stable(),after,id);hero.hp=0;w.heroes.get(id)!.skillReady=0;assert.equal(battleActionState(w,'hero-slot-0').enabled,false,id);assert.equal(activateBattleAction(w,'hero-slot-0'),false,id);}
+ const e=w.addUnit('roach','zerg',2,0);e.hp=e.maxHp=100000;w.hash.rebuild(w.entities.values());bindBattleView(w,()=>heroView);assert.equal(battleActionState(w,'hero-slot-0').enabled,w.canCastHero(id,heroView),id);assert.ok(activateBattleAction(w,'hero-slot-0'),id);assert.equal(hero.nextShotAt,21,id);const stable=()=>structuredClone({entities:w.entities,casts:w.heroCasts,wallet:w.wallet,heroes:w.heroes,rng:w.rngState});const after=stable();assert.equal(activateBattleAction(w,'hero-slot-0'),false,id);assert.deepEqual(stable(),after,id);hero.hp=0;w.heroes.get(id)!.skillReady=0;assert.equal(battleActionState(w,'hero-slot-0').enabled,false,id);assert.equal(activateBattleAction(w,'hero-slot-0'),false,id);}
 });
 
 test('direction input crosses an actual ramp legally, preserves analog speed in a narrow passage and turns immediately',()=>{

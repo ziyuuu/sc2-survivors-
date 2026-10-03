@@ -51,6 +51,8 @@ for(const key of ['tank.siege','tank.morph','hellion.hellbat','viking.assault'])
 const _obj=new THREE.Object3D(),_color=new THREE.Color(),_vec=new THREE.Vector3();
 const UNIT_CAPACITY=1024; // Rescue guardians may temporarily exceed the ambient-wave cap.
 export class BattleRenderer {
+ cameraShake=false;
+ setCameraShake(enabled:boolean){this.cameraShake=enabled;try{localStorage.setItem('sc2.cameraShake',String(enabled));}catch{}}
  private viewportWidth=1;private viewportHeight=1;
  renderer:THREE.WebGLRenderer;scene=new THREE.Scene();camera=new THREE.OrthographicCamera();
  batches=new Map<UnitType,UnitBatch>();gpu=new Map<string,AnimatedBatch>();
@@ -72,6 +74,7 @@ export class BattleRenderer {
  private podLabels=new Map<number,HTMLElement>();private labelLayer=document.createElement('div');
  private grid=new THREE.GridHelper(104,26,0x3aa8b4,0x245460);private tickTime=0;private frames=0;private cameraTarget=new THREE.Vector3();
  constructor(readonly canvas:HTMLCanvasElement,readonly world:World){
+  try{this.cameraShake=localStorage.getItem('sc2.cameraShake')==='true';}catch{}
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
   this.renderer.debug.onShaderError=(gl,program,vertex,fragment)=>{const error='Shader: '+gl.getProgramInfoLog(program)+' / '+gl.getShaderInfoLog(vertex)+' / '+gl.getShaderInfoLog(fragment);this.modelErrors.push(error);console.error(error);};
   this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1;
@@ -466,7 +469,7 @@ export class BattleRenderer {
   this.pickups.render(world.pickups,p=>this.ground(p),p=>this.visible(p));
   this.lines.visible=line>0;this.lines.geometry.setDrawRange(0,line*2);uploadActive(this.lines.geometry.attributes.position as THREE.BufferAttribute,line*2);uploadActive(this.lines.geometry.attributes.color as THREE.BufferAttribute,line*2);
   this.fx.render(world,this.camera,p=>this.visible(p),weaponMount);
-  this.renderer.render(this.scene,this.camera);
+  const shake=this.cameraShake&&!world.paused?[...world.visualEvents].reverse().find(e=>e.kind==='skill-impact'&&e.heroId==='yamato_battlecruiser'&&world.time-e.time<.3):undefined;if(shake){const offset=(1-(world.time-shake.time)/.3)*.13*Math.sin((world.time-shake.time)*70);this.camera.position.x+=offset;this.camera.updateMatrixWorld();this.renderer.render(this.scene,this.camera);this.camera.position.x-=offset;this.camera.updateMatrixWorld();}else this.renderer.render(this.scene,this.camera);
  }
  private podLabel(p:import('../../simulation/types').Pod){let el=this.podLabels.get(p.id);if(!el){el=document.createElement('div');el.className='pod-world-label';this.labelLayer.append(el);this.podLabels.set(p.id,el);}const active=['falling','active','opening'].includes(p.status);el.hidden=!active||!this.visible(p)||this.world.phase!=='battle'||this.world.paused;if(el.hidden)return;
   _vec.set(p.x,this.ground(p)+3.4,p.z).project(this.camera);const x=(_vec.x*.5+.5)*this.viewportWidth,y=(.5-_vec.y*.5)*this.viewportHeight;el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;const text=`${icon('wireframe.'+p.unitType)}<span class="carrier-count">×${p.passengers.filter(c=>c.status==='waiting').length}</span><span class="carrier-vital"><i style="width:${Math.max(0,p.hp/p.maxHp)*100}%"></i></span>`;if(el.dataset.content!==text){el.innerHTML=text;el.dataset.content=text;}}

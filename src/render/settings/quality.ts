@@ -1,4 +1,9 @@
 export type RenderQuality='native'|'balanced'|'performance';
+export type HeroEffectQuality='full'|'balanced'|'low';
+export const HERO_EFFECT_LABELS={full:'英雄特效 · 完整',balanced:'英雄特效 · 均衡',low:'英雄特效 · 精简'};
+export const resolveHeroEffects=(value:string|null,mobile=false):HeroEffectQuality=>value==='full'||value==='balanced'||value==='low'?value:mobile?'balanced':'full';
+export function loadHeroEffects(){try{return resolveHeroEffects(localStorage.getItem('sc2.heroEffects'),matchMedia('(pointer:coarse)').matches);}catch{return 'full' as const;}}
+export function saveHeroEffects(value:HeroEffectQuality){try{localStorage.setItem('sc2.heroEffects',value);}catch{}}
 export const QUALITY_LABELS:Record<RenderQuality,string>={native:'清晰 · 屏幕分辨率',balanced:'均衡',performance:'低分辨率'};
 export function resolveQuality(saved:string|null,mobile=false):RenderQuality{return saved==='native'||saved==='balanced'||saved==='performance'?saved:mobile?'balanced':'native';}
 export function renderPixelRatio(quality:RenderQuality,dpr:number,width:number,height:number,maxDimension=Infinity){

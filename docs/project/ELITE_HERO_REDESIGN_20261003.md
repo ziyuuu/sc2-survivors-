@@ -322,9 +322,9 @@
 
 **I级本体提案：** HP 6500，原生盾 1600，护甲 6，基础主目标DPS 1100，射程 10，移动 4.8。武器 550×1／0.5秒。
 
-**持续能力：** 幽灵猎杀：精英/Boss主击2倍；脱战两秒隐蔽并储一发三倍狙击，成功施放主技能后再储一发。
+**持续能力：** 幽灵猎杀：精英/Boss主击2倍；脱战两秒触发一次6秒无能耗隐蔽并储一发三倍狙击，开火显形，成功施放主技能后再储一发。
 
-**被动参数提案：** eliteAndBossDamageFactor=2；openingPacketFactor=3；脱战秒=2；temporaryCloakSeconds=6；cloakEnergyPerSecond=2；sniperChargeLimit=1。
+**被动参数提案：** eliteAndBossDamageFactor=2；openingPacketFactor=3；脱战秒=2；temporaryCloakSeconds=6；cloakEnergyPerSecond=0；sniperChargeLimit=1；cloakOncePerOutOfCombatEpisode=true；firingReveals=true。
 
 **主技能：** 狙击，每名贯穿者0.75D；长12、完整宽1；不打建筑；I完整主目标包 6900，V 17940，CD 18秒。0.35秒前摇、窄线；每名命中者恒为同级大和75%。
 

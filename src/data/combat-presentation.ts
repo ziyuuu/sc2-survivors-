@@ -20,6 +20,7 @@ export function modelPresentationScale(unit:Pick<Entity,'visualScale'|'modelKey'
 
 /** Encodes only a small original-mesh accent. Enemy tiers keep their own shader path. */
 export function modelPresentationAccent(unit:Entity){
+ if(unit.heroId==='nova'&&unit.cloaked&&unit.team==='player')return 15;
  if(unit.heroId&&unit.team==='player')return 14;
  if(!unit.eliteId||unit.team!=='player')return 0;
  const variant=Number(unit.eliteId.at(-1));
@@ -32,9 +33,9 @@ export interface AttackPresentation {asset:string;impact:string;tint:number;size
 const HERO_ATTACKS:Record<HeroId,AttackPresentation>={
  raynor:{asset:'fx.flame.1',impact:'fx.flameimpact.0',tint:0xff9b38,size:.62,impactSize:.58,life:.10},
  tychus:{asset:'fx.muzzle.0',impact:'fx.flameimpact.0',tint:0xffb169,size:.43,impactSize:.57,life:.15},
- nova:{asset:'fx.muzzle.1',impact:'fx.impact.0',tint:0x72ffd4,size:.38,impactSize:.5,life:.14},
+ nova:{asset:'fx.muzzle.1',impact:'fx.impact.0',tint:0x8cdbff,size:.38,impactSize:.5,life:.14},
  swann:{asset:'fx.blast.6',impact:'fx.impact.0',tint:0xffdd96,size:.48,impactSize:.57,life:.17},
- tosh:{asset:'fx.muzzle.0',impact:'fx.blast.3',tint:0xff8d69,size:.43,impactSize:.62,life:.18},
+ tosh:{asset:'fx.muzzle.0',impact:'fx.blast.3',tint:0xb66cff,size:.43,impactSize:.62,life:.18},
  yamato_battlecruiser:{asset:'fx.blast.6',impact:'fx.blast.3',tint:0xffe4a4,size:.75,impactSize:1.25,life:.2},
  kerrigan:{asset:'fx.muzzle.1',impact:'fx.impact.1',tint:0xd9b8ff,size:.52,impactSize:.68,life:.13},
  zagara:{asset:'fx.bile.0',impact:'fx.bile.4',tint:0xb8eb8b,size:.5,impactSize:.72,life:.22},
@@ -64,13 +65,13 @@ export const heroPresentation=(id:HeroId):AttackPresentation=>HERO_ATTACKS[id];
 export function heroSkillPresentation(id:HeroId):AttackPresentation{
  const base=HERO_ATTACKS[id];
  // Preserve the original glow silhouette, remove its yellow before cyan tinting.
- if(id==='raynor')return {...base,asset:'fx.flame.1',impact:'fx.blast.6',tint:0x46ceff,size:.9,impactSize:.85,life:.16,neutralize:true};
- if(id==='swann')return {...base,asset:'fx.muzzle.0',impact:'fx.impact.0',tint:0xffdb8a,impactSize:.58};
+ if(id==='raynor')return {...base,asset:'fx.flame.1',impact:'fx.blast.6',tint:0xffda92,size:.9,impactSize:.85,life:.16,neutralize:true};
+ if(id==='swann')return {...base,asset:'fx.muzzle.0',impact:'fx.impact.0',tint:0x8dffab,impactSize:.58};
  if(id==='niadra')return {...base,asset:'fx.bile.4',impact:'fx.bile.4',tint:0x98e9a0,impactSize:.64};
  if(id==='artanis')return {...base,impact:'fx.muzzle.1',tint:0xa6e5ff,impactSize:.72};
  if(id==='vorazun')return {...base,impact:'fx.muzzle.1',tint:0xb2a8ed,impactSize:.8};
  if(id==='tychus')return {...base,asset:'fx.flame.0',impact:'fx.flameimpact.0',size:.62,impactSize:.95};
- if(id==='tosh')return {...base,impact:'fx.blast.6',tint:0xa6dfff,impactSize:.85};
+ if(id==='tosh')return {...base,impact:'fx.blast.6',tint:0xd4a8ff,impactSize:.85};
  return {...base,size:base.size*1.25,impactSize:base.impactSize*1.35};
 }
 const RACE_ATTACKS:Record<Race,AttackPresentation>={

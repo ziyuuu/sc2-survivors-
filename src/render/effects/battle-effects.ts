@@ -1,3 +1,5 @@
+import {isRevisedHero} from '../../data/terran-heroes';
+import {loadHeroEffects,saveHeroEffects,type HeroEffectQuality} from '../settings/quality';
 import {CombatSculptures} from './combat-sculptures';
 import {OriginalProjectiles} from './original-projectiles';
 import {commitInstances,uploadActive} from '../units/instance-updates';
@@ -21,6 +23,8 @@ const CAPACITY=256,POOL_SIZE=1280;
 const additive=new Set(['fx.support.nuke.16','fx.support.nuke.2','fx.marauder.launch.1','fx.marauder.impact.2','fx.marauder.impact.3','fx.muzzle.0','fx.flame.0','fx.flame.1','fx.muzzle.1','fx.flameimpact.0','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
 /** Original M3-referenced sprites; authored web emission timing, not a full SC2 particle emulator. */
 export class BattleEffects {
+ heroQuality:HeroEffectQuality=loadHeroEffects();
+ setHeroQuality(value:HeroEffectQuality){this.heroQuality=value;saveHeroEffects(value);}
  batches=new Map<string,Batch>();loaded=0;errors:string[]=[];lastSerial=0;
  particles:Particle[]=[];pool:Particle[]=[];steps=new Map<number,number>();
  stats={attack:0,hit:0,death:0,movement:0,bile:0,active:0,pending:0,dropped:0,droppedByClass:counters(),culledByClass:counters(),projectileCulled:0};
@@ -53,6 +57,7 @@ export class BattleEffects {
   }
  }
  event(e:VisualEvent,mount:{x:number;y:number;z:number}|null=null,leftMount:{x:number;y:number;z:number}|null=null){
+  this.sculptures.heroDetail=this.heroQuality;this.heroLayers(e,mount);
   this.sculptures.event(e,mount,leftMount);
   if(e.kind==='projectile-impact'){const p=attackPresentation(e);if(p){this.burst({...e,...e.end,y:e.endY},p.impact,1,p.impactSize,p.tint,p.life,false,'core');}return;}
   if(e.kind==='support-flight'){if(e.race==='protoss'){this.trace(e,{x:e.x,y:e.y+1,z:e.z},'fx.muzzle.1',0x8beeff,.26);this.burst({...e,...e.end},'fx.impact.0',2,.45,0x9eeaff,.2,false,'core');}else this.bulletParticles(e,{x:e.x,y:e.y+1,z:e.z},0xffc373);return;}
@@ -66,6 +71,7 @@ export class BattleEffects {
   else if(e.kind==='baneling-recover')this.burst(e,'fx.baneling.0',5,.92,0xb4ef6b,.48);
   else if(e.kind==='barrier-start')this.burst(e,'fx.impact.0',3,.47,0x9ce9ff,.27);
   else if(e.kind==='storm-start')this.burst({...e,...e.end,y:e.endY},'fx.muzzle.1',2,.6,0xc8e0ff,.3);
+  else if(e.kind==='weapon-area'&&isRevisedHero(e.heroId)){this.burst({...e,...e.end,y:e.endY},'fx.blast.6',1,e.heroId==='tosh'?.65:.35,e.heroId==='tosh'?0xc695ff:0xffd18e,.15,false,'core');}
   else if(e.kind==='skill-line'&&e.heroId==='nova'){this.trace(e,mount??{x:e.x,y:e.y+.5,z:e.z},'fx.muzzle.1',0x9ffff0,.28);}
   else if(e.kind==='skill-launch'){const profile=e.heroId?heroSkillPresentation(e.heroId):attackPresentation(e);if(profile)this.burst({...e,...(mount??{})},profile.asset,1,profile.size,profile.tint,.12,false,'core',profile.neutralize);}
   else if(e.kind==='skill-impact'){const profile=e.heroId?heroSkillPresentation(e.heroId):attackPresentation(e);if(profile){const impact={...e,...e.end,y:e.endY};this.burst(impact,profile.impact,1,profile.impactSize,profile.tint,Math.max(.18,profile.life),false,'core');this.burst(impact,profile.impact,2,profile.impactSize*.45,profile.tint,profile.life);}}
@@ -98,11 +104,33 @@ export class BattleEffects {
    else if(!profile)this.burst({...e,...e.end,y:e.endY},e.unitType==='ravager'?'fx.bile.0':'fx.acid.0',2,.6,e.unitType==='ravager'?0xffa76a:0x99d56e,.4);
   }
  }
+ private heroLayers(e:VisualEvent,mount:{x:number;y:number;z:number}|null){
+  if(!isRevisedHero(e.heroId))return;
+  const rank=Math.max(1,Math.min(5,e.rank??1)),detail=this.heroQuality==='full'?rank:this.heroQuality==='balanced'?Math.min(rank,3):0,profile=e.heroId?heroSkillPresentation(e.heroId):null;
+  if(!profile)return;const from=mount??{x:e.x,y:e.y,z:e.z},impact={...e,...e.end,y:e.endY};
+  if(e.kind==='attack'){
+   // Core, colored muzzle sheath, real instant trace, and local contact. Flights get contact on arrival.
+   this.burst({...e,...from},'fx.muzzle.1',1,.18,0xffffff,.055,false,'core');
+   if(!e.projectileSpeed)this.trace(e,from,'fx.muzzle.1',profile.tint,.035);
+   if(e.heroId==='nova'&&e.heroOpening)this.trace(e,from,'fx.impact.0',0xdaf6ff,.09);
+   if(detail>0)this.burst({...e,...from},'fx.impact.0',detail,.07,profile.tint,.12,false,'decoration');
+  }
+  if(['skill-impact','projectile-impact','weapon-area'].includes(e.kind)){
+   const skill=e.kind==='skill-impact',size=skill?e.heroId==='yamato_battlecruiser'?2:.7:.18;
+   this.burst(impact,'fx.muzzle.1',1,size*.45,0xffffff,skill?.24:.075,false,'core');
+   this.burst(impact,'fx.impact.0',1,size,profile.tint,skill?.35:.12,true,'trail');
+   if(detail>0)this.burst(impact,'fx.impact.1',detail,size*.24,profile.tint,skill?.45:.18,false,'decoration');
+   if(skill&&detail>=3)this.burst(impact,'fx.blast.4',detail-2,size*.75,0x80756e,.65,false,'decoration');
+   if(skill&&detail>=4)this.burst(impact,'fx.blast.6',1,size*1.3,profile.tint,.28,true,'decoration');
+   if(skill&&detail===5)this.burst(impact,'fx.impact.0',5,size*.12,0xffffff,.5,false,'decoration');
+   if(e.heroId==='swann'&&skill)this.trace(e,from,'fx.muzzle.1',0x78ffaa,.065);
+  }
+ }
  render(w:World,camera:THREE.Camera,visible:(p:Point)=>boolean,muzzle:(e:VisualEvent,side?:'Left'|'Right')=>{x:number;y:number;z:number}|null=()=>null){
   for(const e of w.visualEvents){if(e.serial<=this.lastSerial)continue;this.lastSerial=e.serial;const paired=e.unitType==='reaper'||e.heroId==='yamato_battlecruiser';if((visible(e)||visible(e.end))&&w.time-e.time<1.5)this.event(heroFeedbackEvent(e,w.entities),muzzle(e,paired&&e.kind==='attack'?'Right':undefined),paired?muzzle(e,'Left'):null);}
   for(const u of w.entities.values()){if(u.hp<=0||u.flying||!visible(u))continue;const last=this.steps.get(u.id)??u.distanceWalked;if(u.distanceWalked-last>.7){this.stats.movement++;this.steps.set(u.id,u.distanceWalked);this.emit({asset:'fx.impact.1',x:u.x,y:(w.terrain?.height(u)??0)+.13,z:u.z,vx:-u.velocity.x*.12,vy:.2,vz:-u.velocity.z*.12,start:w.time,life:.5,size:u.unitType==='tank'?.8:.3,growth:.7,color:0x77726a,ground:false,angle:u.facing});}else if(!this.steps.has(u.id))this.steps.set(u.id,last);}
   for(const id of this.steps.keys())if(!w.entities.has(id))this.steps.delete(id);
-  this.projectiles.renderFlights(w,visible,this.sculptures.mounts);this.sculptures.render(w,visible,muzzle);
+  this.sculptures.heroDetail=this.heroQuality;this.projectiles.renderFlights(w,visible,this.sculptures.mounts);this.sculptures.render(w,visible,muzzle);
   for(const b of this.batches.values())b.count=0;this.stats.culledByClass=counters();this.stats.projectileCulled=0;
   this.stats.pending=0;
   const support=w.expedition.support,tint=w.expedition.race==='zerg'?0xb4ed67:w.expedition.race==='protoss'?0x86d9ff:0xffc271;

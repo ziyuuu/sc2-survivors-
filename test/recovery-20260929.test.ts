@@ -99,7 +99,7 @@ test('Nova locked line does not turn toward a moved target or damage structures'
  const w=make();w.acquireHero('nova');const hero=w.heroEntity('nova')!;hero.x=hero.z=0;
  const target=w.addUnit('roach','zerg',3,0),line=w.addUnit('roach','zerg',6,0);for(const t of [target,line]){t.hp=t.maxHp=5000;t.armor=0;}
  w.hash.rebuild(w.entities.values());assert.ok(w.castHero('nova'));target.z=4;line.cloaked=true;w.hash.rebuild(w.entities.values());w.time=.35;w.tick=21;resolveExpeditionHeroCasts(w);
- assert.equal(target.hp,5000);assert.equal(line.hp,4350,'a preselected area can damage cloaked units without revealing them');assert.equal(line.cloaked,true);
+ assert.equal(target.hp,5000);assert.equal(line.hp,0,'a preselected area can damage cloaked units without revealing them');assert.equal(line.cloaked,true);
 });
 
 test('Nova completes one locked penetrating shot against biological, mechanical and air bodies',()=>{
@@ -109,8 +109,8 @@ test('Nova completes one locked penetrating shot against biological, mechanical 
  const building=w.spawnEconomic('egg',{x:11,z:0});building.hp=building.maxHp=5000;
  w.hash.rebuild(w.entities.values());assert.ok(w.castHero('nova'));const snapshot=w.captureRun(),copy=make();copy.restoreRun(snapshot);copy.paused=false;copy.hash.rebuild(copy.entities.values());for(const t of targets){const u=copy.entities.get(t.id)!;u.shield=0;u.barrier=0;u.barrierReady=999;}
  for(let i=0;i<21;i++){copy.tick++;copy.time=copy.tick/60;resolveExpeditionHeroCasts(copy);}
- assert.deepEqual(targets.map(t=>copy.entities.get(t.id)!.hp),[4350,4350,4350,5000]);assert.equal(copy.economicTargets.get(building.id)!.hp,5000);assert.equal(copy.visualEvents.filter(e=>e.kind==='skill-line').length,1);
- resolveExpeditionHeroCasts(copy);assert.equal(copy.entities.get(targets[0].id)!.hp,4350);
+ assert.deepEqual(targets.map(t=>copy.entities.get(t.id)!.hp),[0,0,0,5000]);assert.equal(copy.economicTargets.get(building.id)!.hp,5000);assert.equal(copy.visualEvents.filter(e=>e.kind==='skill-line').length,1);
+ resolveExpeditionHeroCasts(copy);assert.equal(copy.entities.get(targets[0].id)!.hp,0);
 });
 
 

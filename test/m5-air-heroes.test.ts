@@ -18,16 +18,16 @@ function resolve(w:World,time:number){w.time=time;w.hash.rebuild(w.entities.valu
 
 test('three approved air heroes have independent combat identities outside 30 ordinary families',()=>{
  for(const [race,id] of [['terran','yamato_battlecruiser'],['zerg','hots_leviathan'],['protoss','purifier_flagship']] as const){
-  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.unitType,id);assert.equal(u.race,race);assert.equal(u.team,'player');assert.equal(u.flying,true);assert.ok(Math.abs(u.maxHp-data.hp*1.15)<1e-8);assert.ok(Math.abs(u.maxShield!-data.shield*1.15)<1e-8);assert.equal(w.expedition.familySlots.includes(id as never),false);
+  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.unitType,id);assert.equal(u.race,race);assert.equal(u.team,'player');assert.equal(u.flying,true);assert.ok(Math.abs(u.maxHp-data.hp*(id==='yamato_battlecruiser'?1:1.15))<1e-8);assert.ok(Math.abs(u.maxShield!-data.shield*(id==='yamato_battlecruiser'?1:1.15))<1e-8);assert.equal(w.expedition.familySlots.includes(id as never),false);
  }
 });
 
 test('Yamato main gun has two native hits and fixed-point fusion cannon saves in flight',()=>{
  const w=setup('terran'),u=hero(w,'yamato_battlecruiser'),main=enemy(w,4),near=enemy(w,4,1),far=enemy(w,12);
- w.fire(u,main);settleWeaponFlights(w);assert.equal(main.hp,9894.2);assert.ok(castExpeditionHero(w,'yamato_battlecruiser'));
- resolve(w,w.heroCasts[0].at-.01);assert.equal(main.hp,9894.2);const run=readArchive(writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()})).bundle.run!;
+ w.fire(u,main);settleWeaponFlights(w);assert.equal(main.hp,9400);assert.ok(castExpeditionHero(w,'yamato_battlecruiser'));
+ resolve(w,w.heroCasts[0].at-.01);assert.equal(main.hp,9400);const run=readArchive(writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()})).bundle.run!;
  const restored=setup('terran');restored.restoreRun(run);restored.paused=false;resolve(restored,restored.heroCasts[0].at);
- assert.equal(restored.entities.get(main.id)?.hp,9194.2);assert.equal(restored.entities.get(near.id)?.hp,9720);assert.equal(restored.entities.get(far.id)?.hp,10000);assert.equal(restored.heroCasts.length,0);
+ assert.equal(restored.entities.get(main.id)?.hp,200);assert.equal(restored.entities.get(near.id)?.hp,6320);assert.equal(restored.entities.get(far.id)?.hp,10000);assert.equal(restored.heroCasts.length,0);
 });
 
 test('Leviathan plasma storm gives three real pulses without spawning extra bodies',()=>{

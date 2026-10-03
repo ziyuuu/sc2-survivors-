@@ -1,3 +1,4 @@
+> 最新P3-A运行基线：[六人族英雄](project/NEXT_ITERATION_P3A_TERRAN_HEROES_20261003.md)，[实测记录](project/NEXT_ITERATION_P3A_VALIDATION_20261003.md)。六英雄按显式机体/成长与被动/主动运行；其他十二英雄保留当前规则。schema16/profile v5。应用层采样实际画布相机与固定HUD遮挡，World仅验证纯数字BattleView DTO并冻结托什目标身份；所有输入共享网关。英雄被动计数/隐蔽/预热/保护和施法rank/目标/视野保存，效果池与投影重建。原资源、独立英雄效果档与默认关闭震屏；渲染不决定伤害。30人族精英与大型雷待后续；P0 JSON仍禁止runtime导入。
 > 最新蜘蛛雷修正：[人族追踪雷](project/TRACKING_MINES_20261003.md)。人族趣味卡雷钻出、合法追踪、路径失效重选与一次引爆；战局schema15/profile v5，P3效果升级仅限18英雄。此前schema14等说明是相应历史基线。
 
 > P2边界：[操作契约](project/NEXT_ITERATION_P2_20261003.md)。`family-actions.ts`提供模式/技能只读预览，World再次验证并原子执行；`battle-actions.ts`连接四类输入，稳定指令DOM与既有HUD区分呈现/规则。`directionRoute`明确为重建字段，不进入schema14 DTO；素材准备清除输入。`supplyEligibility`供真实池与购买共用，`inspectReinforcementPool`只读、不耗RNG，诊断没有生产调试API。原付款/双体席位/恢复边界保持。

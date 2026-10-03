@@ -11,20 +11,20 @@ function advance(w:World,time:number){w.time=time;w.hash.rebuild(w.entities.valu
 test('Tychus grenade travels before impact and burns a biological enemy exactly three times across save/load',()=>{
  const w=setup();assert.ok(acquireExpeditionHero(w,'tychus',()=>true));const target=enemy(w);
  assert.ok(castExpeditionHero(w,'tychus'));advance(w,.59);assert.equal(target.hp,10000);advance(w,.6);
- assert.equal(target.hp,9760);assert.equal(w.heroCasts.filter(c=>c.phase==='dot').length,3);
+ assert.equal(target.hp,5860);assert.equal(w.heroCasts.filter(c=>c.phase==='dot').length,3);
  const run=readArchive(writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()})).bundle.run!;
  const restored=setup();restored.restoreRun(run);restored.paused=false;
  for(const time of [1.6,2.6,3.6])advance(restored,time);
- assert.equal(restored.entities.get(target.id)?.hp,9670);assert.equal(restored.heroCasts.length,0);
+ assert.equal(restored.entities.get(target.id)?.hp,4480);assert.equal(restored.heroCasts.length,0);
 });
 
 test('Tychus burning excludes structures while direct grenade damage remains legal',()=>{
  const w=setup();assert.ok(acquireExpeditionHero(w,'tychus',()=>true));const target=enemy(w);target.attributes=['Structure'];
- assert.ok(castExpeditionHero(w,'tychus'));advance(w,.6);assert.equal(target.hp,9760);assert.equal(w.heroCasts.filter(c=>c.phase==='dot').length,0);
+ assert.ok(castExpeditionHero(w,'tychus'));advance(w,.6);assert.equal(target.hp,5860);assert.equal(w.heroCasts.filter(c=>c.phase==='dot').length,0);
 });
 
-test('Nova frost applies only after a real biological hit and halves slow against bosses',()=>{
+test('Nova approved penetrating damage resolves after windup without old frost',()=>{
  const w=setup();assert.ok(acquireExpeditionHero(w,'nova',()=>true));const target=enemy(w);target.attributes=['Biological'];target.enemyTier='boss';
  assert.ok(castExpeditionHero(w,'nova'));advance(w,.34);assert.equal(target.hp,10000);assert.equal(target.moveSlowFactor,undefined);
- advance(w,.35);assert.equal(target.hp,9350);assert.equal(target.moveSlowFactor,.175);assert.equal(target.moveSlowUntil,2.35);
+ advance(w,.35);assert.equal(target.hp,3100);assert.equal(target.moveSlowFactor,undefined);assert.equal(target.moveSlowUntil,undefined);
 });

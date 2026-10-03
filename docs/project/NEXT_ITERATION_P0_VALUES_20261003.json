@@ -1,7 +1,13 @@
 {
   "revision": "2026-10-03-p0-r2",
   "status": "PROPOSAL_NOT_RUNTIME",
-  "approval": {"approved": true, "date": "2026-10-03", "userInstruction": "可以了P0通过。请开始P1", "scope": "P0_DESIGN_APPROVED_P1_EXECUTION_AUTHORIZED", "runtimeApplied": false},
+  "approval": {
+    "approved": true,
+    "date": "2026-10-03",
+    "userInstruction": "可以了P0通过。请开始P1",
+    "scope": "P0_DESIGN_APPROVED_P1_EXECUTION_AUTHORIZED",
+    "runtimeApplied": false
+  },
   "benchmark": {
     "easyStage12Hp": 9000,
     "easyEndlessRound3NewBossHp": 23520
@@ -2241,14 +2247,16 @@
           "range": 10,
           "speed": 4.8
         },
-        "passive": "幽灵猎杀：精英/Boss主击2倍；脱战两秒隐蔽并储一发三倍狙击，成功施放主技能后再储一发。",
+        "passive": "幽灵猎杀：精英/Boss主击2倍；脱战两秒触发一次6秒无能耗隐蔽并储一发三倍狙击，开火显形，成功施放主技能后再储一发。",
         "parameters": {
           "eliteAndBossDamageFactor": 2,
           "openingPacketFactor": 3,
           "outOfCombatSeconds": 2,
           "temporaryCloakSeconds": 6,
-          "cloakEnergyPerSecond": 2,
-          "sniperChargeLimit": 1
+          "cloakEnergyPerSecond": 0,
+          "sniperChargeLimit": 1,
+          "cloakOncePerOutOfCombatEpisode": true,
+          "firingReveals": true
         },
         "peerIds": [
           "marine.2",

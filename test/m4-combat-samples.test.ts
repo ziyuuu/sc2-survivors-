@@ -50,8 +50,8 @@ test('three highlighted new variants apply only their approved target, radius, o
 
 test('Raynor piercing shot advances over 0.2 seconds and saved mid-flight targets are hit once',()=>{
  const w=make('terran');assert.ok(w.acquireHero('raynor'));const hero=w.heroEntity('raynor')!;hero.x=hero.z=0;const near=foe(w,4),far=foe(w,9);w.hash.rebuild(w.entities.values());
- assert.ok(castExpeditionHero(w,'raynor'));assert.equal(w.heroCasts[0].phase,'line-travel');w.time=.08;resolveExpeditionHeroCasts(w);assert.equal(near.hp,9700);assert.equal(far.hp,10000);assert.deepEqual(w.heroCasts[0].hitIds,[near.id]);
- const copy=make('terran');copy.restoreRun(w.captureRun());copy.paused=false;copy.time=.16;copy.hash.rebuild(copy.entities.values());resolveExpeditionHeroCasts(copy);assert.equal(copy.entities.get(near.id)!.hp,9700);assert.equal(copy.entities.get(far.id)!.hp,9700);copy.time=.2;resolveExpeditionHeroCasts(copy);assert.equal(copy.heroCasts.length,0);assert.equal(copy.entities.get(near.id)!.hp,9700);assert.equal(copy.entities.get(far.id)!.hp,9700);
+ assert.ok(castExpeditionHero(w,'raynor'));assert.equal(w.heroCasts[0].phase,'line-travel');w.time=.08;resolveExpeditionHeroCasts(w);assert.equal(near.hp,4940);assert.equal(far.hp,10000);assert.deepEqual(w.heroCasts[0].hitIds,[near.id]);
+ const copy=make('terran');copy.restoreRun(w.captureRun());copy.paused=false;copy.time=.16;copy.hash.rebuild(copy.entities.values());resolveExpeditionHeroCasts(copy);assert.equal(copy.entities.get(near.id)!.hp,4940);assert.equal(copy.entities.get(far.id)!.hp,4940);copy.time=.2;resolveExpeditionHeroCasts(copy);assert.equal(copy.heroCasts.length,0);assert.equal(copy.entities.get(near.id)!.hp,4940);assert.equal(copy.entities.get(far.id)!.hp,4940);
 });
 
 test('Dehaka and Fenix sample basics add bounded secondary damage without extra APM copies',()=>{

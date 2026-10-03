@@ -5,9 +5,9 @@ export interface HeroSpectacleProfile {core:CoreShape;skill:CoreShape;color:numb
 export const HERO_SPECTACLE:Record<HeroId,HeroSpectacleProfile>={
  raynor:{core:'slug',skill:'helix',color:0xff951f,edge:0xffe0a0,size:.25,death:'armor',rhythm:'heavy-fire-pulse'},
  tychus:{core:'slug',skill:'plate',color:0xffc156,edge:0xffeacc,size:.18,death:'armor',rhythm:'rotary-staccato'},
- nova:{core:'crystal',skill:'shard',color:0x42ebbd,edge:0xd0fff2,size:.16,death:'armor',rhythm:'precision-crystal'},
+ nova:{core:'crystal',skill:'shard',color:0x64caff,edge:0xe1f7ff,size:.16,death:'armor',rhythm:'precision-crystal'},
  swann:{core:'plate',skill:'plate',color:0xff9c35,edge:0xffefb0,size:.2,death:'armor',rhythm:'weld-and-recoil'},
- tosh:{core:'shard',skill:'crystal',color:0xf56636,edge:0xffc75a,size:.28,death:'psionic',rhythm:'unstable-compression'},
+ tosh:{core:'shard',skill:'crystal',color:0xa252e0,edge:0xe6beff,size:.28,death:'psionic',rhythm:'unstable-compression'},
  yamato_battlecruiser:{core:'slug',skill:'orb',color:0xff6818,edge:0xfff3b8,size:.4,death:'reactor',rhythm:'paired-battery-fusion'},
  kerrigan:{core:'blade',skill:'blade',color:0xb955f7,edge:0xf1c3ff,size:.38,death:'psionic',rhythm:'claw-and-serrated-wave'},
  zagara:{core:'spore',skill:'spore',color:0xaab832,edge:0xf4cc6b,size:.32,death:'bio',rhythm:'sac-and-three-shells'},

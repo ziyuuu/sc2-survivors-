@@ -402,12 +402,12 @@
 
 | ID | 种族 | 英雄 | HP／护盾 | 生命护甲 | 单发 × 发数 | 周期秒 | 射程／移速 | 普攻目标 | 属性 | 先天隐形 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| raynor | 人族 | 雷诺 | 1400／0 | 3 | 32.2 × 1 | 0.1565 | 6.5／3.5 | both | Biological、Heroic | 否 |
-| tychus | 人族 | 泰凯斯 | 1500／0 | 4 | 16.1 × 1 | 0.0696 | 5.5／3.15 | both | Biological、Heroic | 否 |
-| nova | 人族 | 诺娃 | 1200／0 | 1 | 115 × 1 | 0.6087 | 9／3.8 | both | Biological、Heroic | 否 |
-| swann | 人族 | 斯旺 | 1400／0 | 3 | 32.2 × 1 | 0.3478 | 5／3.15 | ground | Biological、Heroic | 否 |
-| tosh | 人族 | 托什 | 1300／0 | 1 | 59.8 × 1 | 0.3478 | 6.5／3.5 | both | Biological、Heroic | 否 |
-| yamato_battlecruiser | 人族 | 大和战列巡洋舰 | 1600／0 | 4 | 46 × 2 | 0.5652 | 8／2.62 | both | Mechanical、Armored、Massive、Heroic | 否 |
+| raynor | 人族 | 雷诺 | 9500／0 | 10 | 207 × 1 | 0.1739 | 7.5／4 | both | Biological、Heroic | 否 |
+| tychus | 人族 | 泰凯斯 | 11000／0 | 12 | 138 × 1 | 0.087 | 6.5／3.6 | both | Biological、Heroic | 否 |
+| nova | 人族 | 诺娃 | 6500／1600 | 6 | 632.5 × 1 | 0.4348 | 10／4.8 | both | Biological、Heroic | 否 |
+| swann | 人族 | 斯旺 | 10000／0 | 14 | 241.5 × 1 | 0.2609 | 8／3.2 | ground | Biological、Heroic | 否 |
+| tosh | 人族 | 托什 | 8500／0 | 8 | 276 × 1 | 0.2609 | 8／4.3 | both | Biological、Heroic | 否 |
+| yamato_battlecruiser | 人族 | 大和战列巡洋舰 | 22000／0 | 18 | 345 × 2 | 0.1739 | 10／2.9 | both | Mechanical、Armored、Massive、Heroic | 否 |
 | kerrigan | 虫族 | 凯瑞甘 | 1500／0 | 3 | 59.8 × 1 | 0.313 | 1／3.5 | ground | Biological、Heroic | 否 |
 | zagara | 虫族 | 扎加拉 | 1300／0 | 1 | 41.4 × 1 | 0.313 | 6.5／3.5 | both | Biological、Heroic | 否 |
 | dehaka | 虫族 | 德哈卡 | 1600／0 | 4 | 92 × 1 | 0.5217 | 1.4／3.15 | ground | Biological、Heroic | 否 |
@@ -423,12 +423,12 @@
 
 | 英雄 | 主动技能 | 一级基础量 | 范围参数：射程／半径／长度／宽度 | 前摇或首个结算延迟秒 | 冷却秒 | 模型ID |
 | --- | --- | --- | --- | --- | --- | --- |
-| 雷诺 | 穿透射击 | 300 | 12／0.5／12／1.4 | 0.2 | 10 | hero.raynor |
-| 泰凯斯 | 手雷 | 240 | 5／3.2／0／0 | 0.6 | 10 | hero.tychus |
-| 诺娃 | 狙击 | 650 | 12／0.5／12／1 | 0.35 | 9 | hero.nova |
-| 斯旺 | 紧急抢修 | 75 | 7／0／0／0 | 1 | 15 | hero.swann |
-| 托什 | 精神冲击 | 220 | 8／2.8／0／0 | 0.5 | 13 | hero.tosh |
-| 大和战列巡洋舰 | 大和聚变炮 | 700 | 11／2.8／0／0 | 1.25 | 25 | hero.yamato_battlecruiser |
+| 雷诺 | 穿透射击 | 5060 | 12／0.5／12／1.4 | 0.2 | 12 | hero.raynor |
+| 泰凯斯 | 手雷 | 4140 | 5／3.2／0／0 | 0.6 | 14 | hero.tychus |
+| 诺娃 | 狙击 | 6900 | 12／0.5／12／1 | 0.35 | 18 | hero.nova |
+| 斯旺 | 紧急抢修 | 0 | 7／0／0／0 | 1 | 30 | hero.swann |
+| 托什 | 精神冲击 | 4600 | 10000／2.8／0／0 | 0.5 | 35 | hero.tosh |
+| 大和战列巡洋舰 | 大和聚变炮 | 9200 | 11／2.8／0／0 | 1.25 | 25 | hero.yamato_battlecruiser |
 | 凯瑞甘 | 灵能冲击 | 300 | 11／0／11／2.2 | 0.5 | 10 | hero.kerrigan |
 | 扎加拉 | 爆虫弹幕 | 100 | 9／1.7／0／0 | 0.7 | 12 | hero.zagara |
 | 德哈卡 | 原始吞噬 | 420 | 3／0／0／0 | 0.35 | 13 | hero.dehaka |

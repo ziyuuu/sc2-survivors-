@@ -18,6 +18,7 @@ const CAP=384,MAX=1200;
 const metalTypes=new Set(['hellion','tank','thor','viking','banshee','medivac','science_vessel','stalker','sentry','immortal','colossus','phoenix','void_ray','carrier']);
 /** Sculpted cores, blade paths and bounded ballistic debris. Never a gameplay collision body. */
 export class CombatSculptures {
+ heroDetail:'full'|'balanced'|'low'='full';
  readonly batches=new Map<CoreShape,Batch>();fragments:Fragment[]=[];mounts=new Map<string,Vec>();beams:VisualEvent[]=[];shipImpacts:VisualEvent[]=[];
  stats={coreDropped:0,decorationsDropped:0,active:0};
  constructor(scene:THREE.Scene){
@@ -34,7 +35,7 @@ export class CombatSculptures {
  }
  private at(e:VisualEvent,end=false):Vec{return {x:end?e.end.x:e.x,y:end?e.endY:e.y,z:end?e.end.z:e.z};}
  event(e:VisualEvent,mount:Vec|null,left:Vec|null){
-  const profile=e.heroId?HERO_SPECTACLE[e.heroId]:undefined,family=UNIT_SPECTACLE[e.unitType as FamilyId],tier=heroVisualTier(e.rank),from=mount??this.at(e),point=this.at(e,true);
+  const profile=e.heroId?HERO_SPECTACLE[e.heroId]:undefined,family=UNIT_SPECTACLE[e.unitType as FamilyId],tier=this.heroDetail==='low'?0:heroVisualTier(e.rank),from=mount??this.at(e),point=this.at(e,true);
   if(e.kind==='attack'&&e.attackId&&(e.projectileSpeed??0)>0)this.mounts.set(e.attackId,{...from});
   if(e.kind==='skill-impact'&&['yamato_battlecruiser','hots_leviathan','purifier_flagship'].includes(e.heroId??''))this.shipImpacts.push(e);
   if(!profile&&e.kind==='attack'&&['sentry','void_ray'].includes(e.unitType??''))this.beams.push({...e,x:from.x,y:from.y,z:from.z});
@@ -117,7 +118,7 @@ export class CombatSculptures {
   const mount=this.mounts.get(p.attackId),blend=Math.max(0,1-traveled/2),point={x:p.point.x+(mount?mount.x-p.from.x:0)*blend,y:y+(mount?mount.y-fromY:0)*blend,z:p.point.z+(mount?mount.z-p.from.z:0)*blend};
   this.draw(shape,point,{x:s,y:s*(shape==='slug'?3:1),z:s*(shape==='blade'?2:1)},{x:shape==='slug'?Math.PI/2:0,y:angle+w.time*(shape==='orb'||shape==='spore'?5:0),z:shape==='slug'?-angle:w.time*3},c);
   if(hero){this.draw(hero.core==='orb'?'helix':'crystal',point,{x:s*.5,y:s*.5,z:s*.5},{x:w.time*5,y:-w.time*6,z:angle},hero.edge);
-   if(u.heroId==='yamato_battlecruiser'){const side=.3,other=this.mounts.get(p.attackId+':left');this.draw('slug',{x:point.x+(other&&mount?(other.x-mount.x)*blend:Math.cos(angle)*side),y:point.y+(other&&mount?(other.y-mount.y)*blend:0),z:point.z+(other&&mount?(other.z-mount.z)*blend:-Math.sin(angle)*side)},{x:s*.8,y:s*2.4,z:s*.8},{x:Math.PI/2,y:0,z:-angle},hero.edge);}
+   if(u.heroId==='yamato_battlecruiser'&&p.hits===2){const side=.3,other=this.mounts.get(p.attackId+':left');this.draw('slug',{x:point.x+(other&&mount?(other.x-mount.x)*blend:Math.cos(angle)*side),y:point.y+(other&&mount?(other.y-mount.y)*blend:0),z:point.z+(other&&mount?(other.z-mount.z)*blend:-Math.sin(angle)*side)},{x:s*.8,y:s*2.4,z:s*.8},{x:Math.PI/2,y:0,z:-angle},hero.edge);}
   }
   for(let i=1;i<=3;i++){const d=Math.min(traveled,i*.25);this.draw(biological?'spore':'shard',{x:point.x-Math.sin(angle)*d,y:point.y,z:point.z-Math.cos(angle)*d},{x:s/(i+2),y:s/(i+2),z:s/(i+2)},{x:0,y:angle,z:0},c);}
  }
@@ -168,6 +169,14 @@ export class CombatSculptures {
    for(let i=0;i<5;i++){const f=(w.time*1.8+i/5)%1,a=w.time*9+i*1.25,p={x:from.x+(to.x-from.x)*f+Math.sin(a)*.06,y:from.y+(to.y-from.y)*f,z:from.z+(to.z-from.z)*f+Math.cos(a)*.06};this.draw(repair?'slug':'orb',p,{x:.09,y:repair?.22:.09,z:.09},{x:0,y:a,z:a},repair?0xffc76e:0x8bebbb);}
    this.draw(repair?'shard':'orb',to,{x:.17,y:.22,z:.17},{x:w.time*6,y:0,z:0},repair?0xffe8a2:0xb0ffd9);
   }
+  // Saved protection and actual repair recipients remain visible in every effect quality.
+  for(const u of w.entities.values())if(u.hp>0&&visible(u)){
+   const y=u.flying?AIR_HEIGHT+.7:(w.terrain?.height(u)??0)+.8;
+   if((u.heroCombat?.protectedUntil??0)>w.time)for(let i=0;i<6;i++){const a=i*Math.PI/3,r=u.unitRadius+.25;this.draw('plate',{x:u.x+Math.sin(a)*r,y,z:u.z+Math.cos(a)*r},{x:.32,y:.65,z:.08},{x:0,y:a,z:0},0xffce77);}
+   if(u.heroId==='swann')for(const id of u.healTargets??[]){const a=w.entities.get(id);if(a?.hp){const to={x:a.x,y:a.flying?AIR_HEIGHT+.6:(w.terrain?.height(a)??0)+.7,z:a.z};this.beam({x:u.x,y,z:u.z},to,.045,0x6eff9a);this.draw('orb',to,{x:.14,y:.14,z:.14},{x:0,y:w.time*5,z:0},0xc8ffd6);}}
+   if(u.heroId==='nova'&&u.cloaked){for(let i=0;i<3;i++){const a=w.time*2+i*Math.PI*2/3;this.draw('shard',{x:u.x+Math.sin(a)*.5,y:y-.3,z:u.z+Math.cos(a)*.5},{x:.04,y:.6,z:.04},{x:0,y:a,z:0},0x99dbff);}}
+   if(u.heroId==='raynor'&&this.heroDetail!=='low')for(const a of w.allies())if(a.hp>0&&(a.heroId==='raynor'||!a.heroId&&['marine','marauder','reaper'].includes(a.unitType))&&w.time-a.bornAt<1)this.draw('shard',{x:a.x,y:(w.terrain?.height(a)??0)+.5,z:a.z},{x:.05,y:.3,z:.05},{x:0,y:0,z:0},0xffce72);
+  }
   for(const spell of w.expedition.spells)if(spell.until>w.time&&visible(spell)){
    const y=(w.terrain?.height(spell)??0)+.1;
    if(spell.kind==='guardian'){for(let i=0;i<10;i++){const a=i*Math.PI*2/10,r=spell.radius*.9;this.draw('plate',{x:spell.x+Math.sin(a)*r,y:y+.5+Math.sin(a)*.1,z:spell.z+Math.cos(a)*r},{x:.32,y:.65,z:.18},{x:Math.PI/2,y:a,z:.3},0x6ea6d1);}}
@@ -176,9 +185,10 @@ export class CombatSculptures {
   }
   for(const p of w.weaponFlights)this.flight(w,p,visible,muzzle);
   const attacks=new Set(w.weaponFlights.map(p=>p.attackId));for(const id of this.mounts.keys())if(!attacks.has(id.replace(':left','')))this.mounts.delete(id);
-  for(const cast of w.heroCasts){if(cast.phase==='dot'||cast.phase==='channel'||(cast.pulseIndex??0)>0)continue;const source=w.entities.get(cast.source),profile=HERO_SPECTACLE[cast.hero],hero=HEROES[cast.hero],flight=HERO_SKILL_FLIGHT[cast.hero]??0,tier=heroVisualTier(source?.rank),launch=castLaunchEvent(cast,source,w.time),mount=muzzle(launch)??{x:launch.x,y:source?.flying?AIR_HEIGHT+1:(w.terrain?.height(launch)??0)+1,z:launch.z};
+  for(const cast of w.heroCasts){if(cast.phase==='dot'||cast.phase==='channel'||(cast.pulseIndex??0)>0)continue;const source=w.entities.get(cast.source),profile=HERO_SPECTACLE[cast.hero],hero=HEROES[cast.hero],flight=HERO_SKILL_FLIGHT[cast.hero]??0,tier=this.heroDetail==='low'?0:heroVisualTier(cast.rank??source?.rank),launch=castLaunchEvent(cast,source,w.time),mount=muzzle(launch)??{x:launch.x,y:source?.flying?AIR_HEIGHT+1:(w.terrain?.height(launch)??0)+1,z:launch.z};
    const begins=cast.at-flight;
    if(w.time<begins){const windup=hero.delay-flight,charge=windup>0?1-(begins-w.time)/windup:1;if(charge<=0||!visible(mount))continue;
+    if(cast.hero==='yamato_battlecruiser'){const target=w.body(cast.target),to={x:cast.point.x,y:target?.flying?AIR_HEIGHT+.6:(w.terrain?.height(cast.point)??0)+.7,z:cast.point.z};this.beam(mount,to,.035+charge*.035,0xbbefff);this.draw('orb',mount,{x:.2+charge*.3,y:.2+charge*.3,z:.2+charge*.3},{x:0,y:0,z:0},0xe5faff);}
     for(let i=0;i<3+tier;i++){const a=w.time*7+i*Math.PI*2/(3+tier),r=.65*(1-charge)+.1;this.draw(profile.skill,{x:mount.x+Math.sin(a)*r,y:mount.y+Math.cos(a)*r,z:mount.z},{x:.09+charge*.12,y:.12,z:.09+charge*.12},{x:a,y:-a,z:a},profile.edge);}continue;
    }
    if(!flight||cast.at<=w.time)continue;const t=Math.min(1,Math.max(0,(w.time-begins)/flight)),a=Math.atan2(cast.point.x-cast.origin.x,cast.point.z-cast.origin.z),line=cast.phase==='line-travel',end=line?{x:cast.origin.x+Math.sin(a)*hero.length,z:cast.origin.z+Math.cos(a)*hero.length}:cast.point,target=w.body(cast.target),toY=target?.flying?AIR_HEIGHT+.6:(w.terrain?.height(end)??0)+.8;

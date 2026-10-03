@@ -1,11 +1,11 @@
 {
-  "appBuildId": "349286b4a8f860330226b1428ec7d4458410dde9b4a36641848772d428b8f688",
-  "runSchema": 14,
+  "appBuildId": "7c7afaa430b81aac82144a764511d1cafb07ac370c2c28b75a9bde053ecf9239",
+  "runSchema": 16,
   "release": "ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64",
   "app": [
     "asset-manifest.ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64.json",
-    "assets/index-7C2oNwUf.js",
-    "assets/index-ClNtyLQf.css",
+    "assets/index-D8Q_0CJI.js",
+    "assets/index-DubDv9NP.css",
     "index.html",
     "runtime-config.json",
     "web-release.json"
@@ -17,19 +17,19 @@
       "sha256": "2fa6a908375408017e1dd0e0c8f22483a2ae2f774cdafb2a33fd2ab616bf580a"
     },
     {
-      "path": "public/assets/index-7C2oNwUf.js",
-      "bytes": 1699105,
-      "sha256": "c91d6733ad8b1f8ad1c431112ff9a3d5d760d99bf0755bab41de78057d1bc712"
+      "path": "public/assets/index-D8Q_0CJI.js",
+      "bytes": 1729848,
+      "sha256": "dc113ae1bb2b1069c9f90f3e061771536109049a45201113bbddced97791685d"
     },
     {
-      "path": "public/assets/index-ClNtyLQf.css",
-      "bytes": 76069,
-      "sha256": "9e2060279f2851acc9ca2d804dea2e4c900b97473215b8e2abc1e6af399242a4"
+      "path": "public/assets/index-DubDv9NP.css",
+      "bytes": 92381,
+      "sha256": "6bd33543d1919c402f694b14f8ea598dd5628502ae00373f81589d878ddcfdb0"
     },
     {
       "path": "public/index.html",
-      "bytes": 675,
-      "sha256": "26ed62906f159d5a802eb57ba958ec68a313ef78525dc45b6daaa12af5e350ce"
+      "bytes": 700,
+      "sha256": "e4980b755979f60cda89b922c9e982cd92a001cd18902e0d7c698288bdb6530f"
     },
     {
       "path": "public/runtime-config.json",
@@ -39,7 +39,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 520,
-      "sha256": "3d6f55b5c6b9f5e404bbecabc1d423cd1114bd7a52b2c4f33c8915de85375f70"
+      "sha256": "691bb69a1f77a51712ea632d5852139a76a4a6baa753b9a9f64ad96fd1df05e2"
     },
     {
       "path": "coze-web-server.mjs",
@@ -73,8 +73,8 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 41436,
-      "sha256": "f2aaba45a1ce02cd4b20236341d3336fbca4dedf6fb1abc5d868f5ad70d73c07"
+      "bytes": 287,
+      "sha256": "9dab6ed53973aa834d90212d184f0f31db52689cf2f296cc4467da450e3068d5"
     },
     {
       "path": "DEPLOY.md",

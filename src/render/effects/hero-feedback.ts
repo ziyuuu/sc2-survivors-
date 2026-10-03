@@ -14,5 +14,5 @@ export function weaponWorldPoint(event:VisualEvent,weapon:{x:number;y:number;z:n
 /** Rebuilt from an unresolved saved cast; completed events are never recreated. */
 export function castLaunchEvent(cast:HeroCast,source:Entity|undefined,time:number):VisualEvent{
  const launch=cast.presentationLaunch,hero=HEROES[cast.hero];
- return {serial:0,kind:'skill-launch',time,castId:cast.id,entityId:cast.source,heroId:cast.hero,unitType:source?.unitType??hero.baseFamily,modelKey:source?.modelKey??hero.model,race:hero.race,shotSequence:source?.shotSequence,flying:!!hero.flying,facing:launch?.facing??Math.atan2(cast.point.x-cast.origin.x,cast.point.z-cast.origin.z),x:launch?.x??cast.origin.x,z:launch?.z??cast.origin.z,weaponPoseSeconds:launch?.poseSeconds??0,y:0,endY:0,end:cast.point,siege:false};
+ return {rank:cast.rank??source?.rank,serial:0,kind:'skill-launch',time,castId:cast.id,entityId:cast.source,heroId:cast.hero,unitType:source?.unitType??hero.baseFamily,modelKey:source?.modelKey??hero.model,race:hero.race,shotSequence:source?.shotSequence,flying:!!hero.flying,facing:launch?.facing??Math.atan2(cast.point.x-cast.origin.x,cast.point.z-cast.origin.z),x:launch?.x??cast.origin.x,z:launch?.z??cast.origin.z,weaponPoseSeconds:launch?.poseSeconds??0,y:0,endY:0,end:cast.point,siege:false};
 }
