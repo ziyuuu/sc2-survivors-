@@ -7,6 +7,7 @@ import {allocationCost,allocationPoints,validateTalentAllocation} from '../../da
 import {HEROES} from '../../data/heroes';
 /** Explicit schema: adding RunState state requires choosing persistence or rebuild. */
 export const RUN_FIELDS=[
+ // Saved in expedition.support.mines: phase, stable target, emergence timer, point/facing. Routes/poses rebuild.
  'expedition','runConfig','campaign18Runtime','swarm',
  'podSerial','time','tick','stage','stageElapsed','stageStartedAt','phase','paused','battlefield','endlessEntry','endlessTransitionReceipt','endlessRoundReceipts','runId','endlessAwardedMinutes','endless',
  'entities','pods','buildings','upgrades','wallet','anchor','marchDirection','order','movePending','commandRoute','trail','effects','pickups','rewardDrops','visualSerial',

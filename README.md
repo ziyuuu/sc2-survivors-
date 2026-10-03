@@ -6,6 +6,8 @@
 
 本轮P2已接入统一战斗指令、模式取消/落地受阻反馈、方向输入短绕行和商店合法池诊断。存活家族出现对应图标；新增 H恶火、V维京、R雷神、L潜伏者、C女妖、B闪烁、O单位操作、Q战术、X战略，原 T/E/F/G/Space/1–3 保留。手柄 LT/RT 翻页，闪烁/转移/战术/战略支持确认取消。范围及实测见[P2说明](docs/project/NEXT_ITERATION_P2_20261003.md)与[P2验证](docs/project/NEXT_ITERATION_P2_VALIDATION_20261003.md)。
 
+蜘蛛雷前置修正：人族趣味卡雷现在会钻出并沿合法地面路径追踪，数量/伤害不变，保存schema15。P3华丽特效范围仅18英雄，三个种族分阶段。见[蜘蛛雷说明与验证](docs/project/TRACKING_MINES_20261003.md)和[P3修订计划](docs/project/NEXT_ITERATION_P3_RACE_EFFECTS_20261003.md)。
+
 ## Coze / Web 部署
 
 直接使用[已构建应用](deploy/coze)与[分组资源工具](deploy/coze/fetch-resources.mjs)，不要让Coze导入整个原素材仓库，也不需要重新转换模型。运行资源位于`deploy/runtime/assets`，由Git LFS保存真实内容；入口与资源可同域部署，也可配置独立HTTPS资源域名。完整操作步骤、固定提交、断点下载、校验、缓存及更新见[部署指南](docs/project/COZE_GITHUB_DEPLOY.md)。业务统计后端暂缓。已发布固定提交及全部远端资源下载校验见[交付回执](docs/project/RESOURCE_DELIVERY_20260928.json)。

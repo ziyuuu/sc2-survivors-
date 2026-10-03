@@ -2213,5 +2213,32 @@
       "lateTransientBacklog": "OPEN"
     },
     "followingPhases": "P3-P6_NOT_IMPLEMENTED_BY_P2"
+  },
+  "trackingMines20261003": {
+    "date": "2026-10-03",
+    "state": "ENGINEERING_COMPLETE_WITH_OPEN_HUMAN_DEVICE_ACCEPTANCE",
+    "scope": "Terran fun-card tracking mines; P3 visual upgrades limited to 18 heroes and actual owned children",
+    "runSchema": 15,
+    "profileVersion": 5,
+    "contract": "TRACKING_MINES_20261003.md",
+    "p3Plan": "NEXT_ITERATION_P3_RACE_EFFECTS_20261003.md",
+    "checks": {
+      "ruleTests": 768,
+      "newMineTests": 8,
+      "browserChecks": 3,
+      "browserErrors": 0,
+      "webBuild": "PASS",
+      "offlineBuild": "PASS",
+      "productionSaveReload": "WEB_AND_OFFLINE_PASS"
+    },
+    "open": [
+      "M6",
+      "M7",
+      "humanVisualAndAudio",
+      "physicalMobileAndGamepad",
+      "hologramScienceVesselSourceDeathClips",
+      "lateTransientBacklog"
+    ],
+    "followingPhases": "P3_NOT_STARTED; hellion.3 large mines remain P3-A"
   }
 }

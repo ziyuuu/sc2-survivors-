@@ -1,3 +1,9 @@
+## Spider-mine prepatch and P3 scope correction · 2026-10-03
+
+- User explicitly requests spider mines first; P3 visual upgrades cover only 18 heroes and their actual owned children. Ordinary/elite/fun-card visual remakes remain outside P3; approved P0 elite/hero mechanisms still apply. See docs/project/NEXT_ITERATION_P3_RACE_EFFECTS_20261003.md.
+- Terran fun-card mines now use buried/emerging/chasing state, discovery4, emergence0.25s, speed6, legal visible ground targets/pathing and once-only removal/damage. Preserve120 damage/radius2/trigger1.2/count6/9/12. Zerg/Protoss mines remain static; hellion.3 large mines remain P3-A, never mix their values into fun-card mines.
+- Run schema15 saves mine phase/target/emergence/point/facing, routes/poses rebuild; profile v5 unchanged, no developer-save compatibility or cleanup. Actual evidence belongs to docs/project/TRACKING_MINES_20261003.md; existing human/device/M6/M7/source-clip gaps persist.
+
 ## Approved P2 battle-control iteration · 2026-10-03
 
 - Final 760 regression tests, 11 P2 targeted checks, 12 browser input records, 96 layout states, 12000 fixed-seed/wallet counterfactual pages and production Web/offline UI-only save/reload/load passed. Exact fingerprints and failed harness attempts are in `docs/project/NEXT_ITERATION_P2_VALIDATION_20261003.md`; none closes human/device/M6/M7/source-clip gaps.
