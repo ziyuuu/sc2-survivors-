@@ -27,7 +27,7 @@ export class Input {
   window.addEventListener('blur',()=>this.reset());document.addEventListener('visibilitychange',()=>{if(document.hidden)this.reset();});
   settings.listeners.add(()=>{this.reset();world.cancelOrder();});
   window.addEventListener('keydown',e=>{
-   if(e.target instanceof HTMLElement&&e.target.closest('#battle-console')){if(e.code==='Escape'){const close=document.querySelector<HTMLButtonElement>('#unit-inspector.inspect-open [data-inspect-close]');if(close)close.click();else e.target.blur();e.preventDefault();}return;}
+   if(e.target instanceof HTMLElement&&e.target.closest('#battle-console,#minimap')){if(e.code==='Escape'){const close=document.querySelector<HTMLButtonElement>('#unit-inspector.inspect-open [data-inspect-close]');if(close)close.click();else e.target.blur();e.preventDefault();}return;}
    if(e.target instanceof HTMLInputElement||e.target instanceof HTMLSelectElement)return;
    const code=e.code;if(code==='Escape'){if(target){this.cancelTarget();e.preventDefault();return;}if(world.talentTransferPlan){world.cancelTalentTransfer();e.preventDefault();return;}if(!e.repeat)onPause();return;}
    if(!canAct())return;

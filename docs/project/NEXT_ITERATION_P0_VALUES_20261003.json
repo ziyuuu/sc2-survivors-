@@ -1,6 +1,7 @@
 {
   "revision": "2026-10-03-p0-r2",
   "status": "PROPOSAL_NOT_RUNTIME",
+  "approval": {"approved": true, "date": "2026-10-03", "userInstruction": "可以了P0通过。请开始P1", "scope": "P0_DESIGN_APPROVED_P1_EXECUTION_AUTHORIZED", "runtimeApplied": false},
   "benchmark": {
     "easyStage12Hp": 9000,
     "easyEndlessRound3NewBossHp": 23520

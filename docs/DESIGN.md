@@ -1,4 +1,6 @@
-> 下一轮规划：[P0统一设计与差异](project/NEXT_ITERATION_P0_20261003.md)及[能力对照表](project/NEXT_ITERATION_P0_CAPABILITIES_20261003.md)。2026-10-03已完成文档核对，英雄/保护/追踪雷新数值待确认，运行规则没有改变；以下仍为已批准基线。
+> P1实施：[地图、队伍与移动布局](project/NEXT_ITERATION_P1_20261003.md)。地图在非战斗界面隐藏，地图/队伍可独立折叠并记住偏好；移动端背景、安全区、旋转和商店网格/滚动操作区按批准P0落实。战斗规则和schema14/profile v5保留，P0战斗设计值待P3实施；实际验证见[P1记录](project/NEXT_ITERATION_P1_VALIDATION_20261003.md)。
+
+> 下一轮设计：[P0统一设计与差异](project/NEXT_ITERATION_P0_20261003.md)及[能力对照表](project/NEXT_ITERATION_P0_CAPABILITIES_20261003.md)。用户已批准P0 r2，英雄/保护/追踪雷新数值待后续阶段实施；P1只改界面与有效视口，以下仍为当前战斗基线。
 
 > 本轮批准：[英雄专属表现、全量死亡、中心扩张地图与UI](project/HERO_MAP_UI_20260929.md)。战局schema14，永久档案v5不变；新局使用三主题九模板。实际证据见[本轮验证](project/HERO_MAP_UI_VALIDATION_20260929.md)。人工视觉、完整M6和M7仍开放。
 

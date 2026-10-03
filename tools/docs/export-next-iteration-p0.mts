@@ -92,7 +92,7 @@ for(const s of proposal.damageSkills){assert.ok(s.cooldown>0);assert.ok(s.packet
 assert.ok(Math.abs((1+3*TEAM_CARD_VALUES.damage[4])*(1+3*TEAM_CARD_VALUES.speed[4])-1.8352)<1e-9);
 for(const s of proposal.supportSkills)for(const [key,values] of Object.entries(s))if(key.endsWith('ByRank'))assert.equal((values as unknown[]).length,5,`${s.id}/${key}`);
 const text:string[]=['# P0能力对照表 · 2026-10-03',
- '由 `node --import tsx tools/docs/export-next-iteration-p0.mts` 生成。主设计见 [P0统一设计与差异](NEXT_ITERATION_P0_20261003.md)，新数值唯一源为 [P0提案JSON](NEXT_ITERATION_P0_VALUES_20261003.json)。状态：当前数值核对＋待确认提案，未修改运行规则。',
+ '由 `node --import tsx tools/docs/export-next-iteration-p0.mts` 生成。主设计见 [P0统一设计与差异](NEXT_ITERATION_P0_20261003.md)，新数值唯一源为 [P0设计JSON](NEXT_ITERATION_P0_VALUES_20261003.json)。状态：P0 r2设计已于2026-10-03获用户确认，用户要求开始P1；本表新战斗数值尚未实施。',
  '## 读表口径',
  '30普通家族、90精英、18英雄、每族8张趣味牌共24个种族身份逐项覆盖。数值来自独立内存World的属性派生：零天赋、零全队牌、零科技、零临时Buff；没有运行战斗、伤害、存档或联网。均为玩家实体，已含适用的友军15%与英雄普攻15%；这些适配不得再乘。',
  'HP／原生盾分别列出；甲为生命护甲；随后为DPS、每次单发×次数／周期秒与射程。DPS为无护甲、无属性加成、无暴击/控制/有效命中损失的当前选定主武器理论值，不是实战输出。多武器不相加，条件加成见每项能力；医修为主系无缺血/能量限制的理论每秒值，跨系三分之一。航母为初始现存所属截击机理论总和，不是母舰武器。潜伏者采用埋地模式；普通坦克默认移动模式，其他模式另表。',
@@ -104,9 +104,9 @@ text.push('## 90精英：当前运行基线，r2重设计另列',
  '本节仅记录当前运行值；旧P0保留精英的设计已由 [90精英/18英雄重设计](ELITE_HERO_REDESIGN_20261003.md) 覆盖。新提案不叠乘本表旧模板/独有效果。DPS比值含当前属性派生的周期改变，未包含条件额外伤害、范围覆盖、法术与控场收益；无武器家族用医修比。独有效果是当前配置，实际兑现仍须有效命中/目标/能量/状态。');
 for(const race of RACES){text.push('### '+RACE_NAMES[race],table(['精英ID/名称/模板','当前I：HP/盾；理论值','当前V：HP/盾；理论值','相对普通V：I→V','当前独有效果/作用对象','新提案入口/原反馈'],FAMILIES_BY_RACE[race].flatMap(family=>Object.values(ELITES).filter(e=>e.family===family).map(e=>{const low=snapshot(family,1,e.id),high=snapshot(family,5,e.id),base=snapshot(family,5);const ratio=base.dps?`DPS ${n(low.dps/base.dps)}→${n(high.dps/base.dps)}倍`:base.support?`医修 ${n(low.support/base.support)}→${n(high.support/base.support)}倍`:'普攻无比较值，独立技能核算';const effect=e.effect?`${e.effect.stat}=${e.effect.amount}；` :'';return [`${e.id} ${e.name}／${templateNames[e.template]}`,stats(low),stats(high),`${ratio}；HP ${n(low.hp/base.hp)}→${n(high.hp/base.hp)}倍`,effect+e.description,`运行基线；r2提案替换旧模板/独有效果，保留原模型；${roles[family][1]}`];}))));}
 text.push('## 18英雄：当前普攻/耐久与技能逐包提案',
- '普攻/耐久列为当前运行基线；新的机体、被动与英雄高于精英的预算见 [r2重设计](ELITE_HERO_REDESIGN_20261003.md)。本节主动技包继续是同一提案源，未获得数值批准。',
+ '普攻/耐久列为当前运行基线；新的机体、被动与英雄高于精英的预算见 [r2重设计](ELITE_HERO_REDESIGN_20261003.md)。本节主动技包随P0设计获确认，仍待P3实施。',
  '新D为I—V：'+proposal.yamatoDamageByRank.join('／')+'；仅14名伤害英雄技能使用'+proposal.damageGrowthByRank.join('／')+'，替代旧技能成长，不叠加旧heroStats.skill、普攻15%或全队武器牌。既有针对hero技能的能力天赋按原语义施法时计算一次；零天赋基准不含它。',
- table(['英雄','当前I普攻/耐久','当前V普攻/耐久','当前技能I/III/V','新技能I/III/V（待确认）','冷却当前→拟秒/包结构/反馈'],RACES.flatMap(race=>HERO_IDS_BY_RACE[race].map(id=>{const h=HEROES[id],s=proposal.damageSkills.find(s=>s.id===id),p=proposal.supportSkills.find(s=>s.id===id);return [h.name+' ('+id+')',stats(snapshot(id,1)),stats(snapshot(id,5)),s?`${triple([1,2,3,4,5].map(rank=>s.currentFull*heroStats(rank).skill))}；${h.skill}`:p.current,s?triple(proposal.yamatoDamageByRank.map(d=>d*s.packets.reduce((a,b)=>a+b,0))):'见支援逐级表',`${h.cooldown}→${s?.cooldown??p.cooldown}；${s?.structure??p.target}；${s?.visual??p.visual}`];}))),
+ table(['英雄','当前I普攻/耐久','当前V普攻/耐久','当前技能I/III/V','新技能I/III/V（P0已确认）','冷却当前→拟秒/包结构/反馈'],RACES.flatMap(race=>HERO_IDS_BY_RACE[race].map(id=>{const h=HEROES[id],s=proposal.damageSkills.find(s=>s.id===id),p=proposal.supportSkills.find(s=>s.id===id);return [h.name+' ('+id+')',stats(snapshot(id,1)),stats(snapshot(id,5)),s?`${triple([1,2,3,4,5].map(rank=>s.currentFull*heroStats(rank).skill))}；${h.skill}`:p.current,s?triple(proposal.yamatoDamageByRank.map(d=>d*s.packets.reduce((a,b)=>a+b,0))):'见支援逐级表',`${h.cooldown}→${s?.cooldown??p.cooldown}；${s?.structure??p.target}；${s?.visual??p.visual}`];}))),
  '### 14伤害英雄：每个独立伤害包与兑现风险',table(['英雄','I逐包','III逐包','V逐包','次目标','I完整/冷却','兑现风险'],proposal.damageSkills.map(s=>[HEROES[s.id as HeroId].name,...[0,2,4].map(i=>s.packets.map(f=>n(proposal.yamatoDamageByRank[i]*f)).join('＋')),s.secondaryMax?`最多${s.secondaryMax}名，每名主包${pct(s.secondaryFraction)}`:'范围内每名实际命中者按本包；不增加额外对象',n(proposal.yamatoDamageByRank[0]*s.packets.reduce((a,b)=>a+b,0)/s.cooldown)+'/s',s.risk])),
  '完整AOE对简单对应基准至少半血的算术关系：托什I/V=4600/11960，分别≥4500/11760；扎加拉至少两枚=4600/11960，仍需真实几何命中验证。大和I/V=9200/23920，分别高于9000/23520；这只是预算检查，不是已经击杀。');
 text.push('### 支援、保护与控制逐级提案',table(['英雄/机制','I','II','III','IV','V','对象/数量/冷却'],proposal.supportSkills.map(s=>{let values:string[];if(s.id==='swann')values=s.healTotalMaxHpByRank.map(v=>`5秒敌伤无敌＋四脉冲总${pct(v)}最大HP`);else if(s.id==='artanis')values=s.immediateMaxShieldByRank.map((v,i)=>`立即${pct(v)}＋8次各${pct(s.perPulseMaxShieldByRank[i])}最大原生盾`);else if(s.id==='niadra')values=s.chargesByRank.map((v,i)=>`${v}次复生，各${pct(s.reviveMaxHpByRank[i])}HP；起手${pct(s.immediateMaxHpByRank[i])}HP`);else values=s.durationByRank.map((v,i)=>`普通停滞${v}s；Boss移速/攻速减${pct(s.bossSlowByRank[i])}`);return [HEROES[s.id as HeroId].name,...values,s.target+'；CD'+s.cooldown+'秒'];})),
@@ -114,7 +114,7 @@ text.push('### 支援、保护与控制逐级提案',table(['英雄/机制','I',
 
 // Per-race visual identities share the existing four rules, never borrow the Terran chase change.
 const shared=[
- {id:'mines',names:['蜘蛛雷','生体酸囊雷','晶体地雷'],rarity:'绿',levels:'6／9／12枚；每枚120，触发1.2，爆炸半径2',target:'可见地面敌人触发；爆炸按既有范围目标规则；关/轮开始布设',visual:['钻出、合法追踪、一次爆炸；新增4/6/0.25参数待确认','静态囊体触发后酸核炸开；不自动变追踪雷','静态晶体触发后能量裂爆；不自动变追踪雷']},
+ {id:'mines',names:['蜘蛛雷','生体酸囊雷','晶体地雷'],rarity:'绿',levels:'6／9／12枚；每枚120，触发1.2，爆炸半径2',target:'可见地面敌人触发；爆炸按既有范围目标规则；关/轮开始布设',visual:['钻出、合法追踪、一次爆炸；新增4/6/0.25参数已随P0确认，待P4实施','静态囊体触发后酸核炸开；不自动变追踪雷','静态晶体触发后能量裂爆；不自动变追踪雷']},
  {id:'bombardment',names:['轨道轰炸','酸液轰炸','灵能轰炸'],rarity:'蓝',levels:'每20／15／10秒；每次180，半径2.5，0.75秒预警',target:'可见敌人位置；区域合法敌军/建筑按当前规则',visual:['机械轨道落点、炮芯与残烟','生体上抛酸液、酸核与液滴','棱形汇聚、垂直能量芯与裂光']},
  {id:'mutation',names:['基因改造','生体变异','灵能灌注'],rarity:'紫',levels:'主击有效伤害30／45／60%，分3秒；每来源/目标最多3层',target:'陆战队／刺蛇／追猎者的普通或精英主武器命中；不含英雄/召唤物',visual:['主枪口强化及真实燃烧脉冲','刺囊、腐蚀脉冲','晶体充能及相位脉冲']},
  {id:'strategic',names:['战术核弹','生体核爆','净化打击'],rarity:'橙',levels:'每次购买+1弹药；每次3000，半径8，延迟3秒；一次最多1项待落点',target:'玩家合法落点；敌军地空与建筑，无友伤；不属于三层Buff',visual:['核弹落点预警、一次爆心与残烟','生体核坍缩、一次强酸爆心','净化核汇聚、一次能量爆心']},
@@ -150,8 +150,8 @@ const generated=text.join('\n\n')+'\n';
 if(process.argv.includes('--check')){
  assert.equal(fs.readFileSync(out,'utf8').replaceAll('\r\n','\n'),generated,'P0 capability matrix differs; regenerate and review');
  const state=JSON.parse(fs.readFileSync('docs/project/status.json','utf8')).nextIterationP0;
- assert.equal(state.newParametersApproved,false);assert.equal(state.runtimeChanged,false);assert.equal(state.runtimeSchema,14);assert.equal(state.profileVersion,5);
- assert.equal(state.revision,proposal.revision);assert.equal(state.eliteHeroRevision.allAuthoredValuesApproved,false);
+ assert.equal(state.newParametersApproved,proposal.approval.approved);assert.equal(state.runtimeChanged,false);assert.equal(state.runtimeSchema,14);assert.equal(state.profileVersion,5);
+ assert.equal(state.revision,proposal.revision);assert.equal(state.eliteHeroRevision.allAuthoredValuesApproved,proposal.approval.approved);assert.equal(proposal.approval.scope,'P0_DESIGN_APPROVED_P1_EXECUTION_AUTHORIZED');assert.equal(proposal.approval.runtimeApplied,false);
  assert.equal(state.eliteHeroRevision.eliteDesigns,90);assert.equal(state.eliteHeroRevision.heroDesigns,18);assert.equal(state.eliteHeroRevision.userSamples,21);assert.equal(state.eliteHeroRevision.heroRoleComparisons,18);assert.equal(state.eliteHeroRevision.allFiveRanksChecked,true);
  assert.equal(state.eliteHeroRevision.loneHunterScope,'REAPER_FAMILY_ONLY_USER_CONFIRMED');assert.equal(state.eliteHeroRevision.destroyerBlast,'AREA_FIVE_TIMES_USER_LATEST_CORRECTION');
  assert.deepEqual(state.coverage,{ordinaryFamilies:30,eliteVariants:90,heroes:18,raceFunCardIdentities:24,teamCardQualityGroups:10});
@@ -165,4 +165,4 @@ if(process.argv.includes('--check')){
  }
  process.stdout.write('P0 r2 matrix check passed: 30 ordinary, 90 current/new elites, 18 current/new heroes, 21 user samples, 24 fun identities; 18 hero role and durability comparisons; '+localLinks+' local links resolve.\n');
 }
-else{fs.writeFileSync(out,generated,'utf8');process.stdout.write('Generated '+out+' and '+redesign.path+'; current stats and unapproved proposals remain separate.\n');}
+else{fs.writeFileSync(out,generated,'utf8');process.stdout.write('Generated '+out+' and '+redesign.path+'; current stats and approved P0 designs remain separate.\n');}

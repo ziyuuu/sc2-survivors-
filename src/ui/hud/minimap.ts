@@ -33,13 +33,16 @@ export function paintMinimapTerrain(d:MapDefinition,terrain:Pick<TerrainQuery,'h
 }
 export class Minimap {
  readonly element:HTMLElement;readonly canvas:HTMLCanvasElement;private ctx:CanvasRenderingContext2D;private backdrop=document.createElement('canvas');private stage=0;private mapTerrain?:TerrainQuery;private frame:MapFrame={left:-10,top:-10,size:20};private height=0;private observer:ResizeObserver;
+ private cancelTap=()=>{};
+ resetInput(){this.cancelTap();}
  constructor(readonly world:World,readonly view:BattleRenderer,parent:HTMLElement,readonly controls:ControlSettings){
   this.element=document.createElement('aside');this.element.id='minimap';this.element.className='console';
-  this.element.innerHTML='<header><span>地图</span><span aria-hidden="true">N ↑</span></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。点击模式下，鼠标或触屏轻点前往。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>';
+  this.element.innerHTML='<header><span>地图 · N ↑</span><button type="button" id="map-toggle" aria-controls="minimap-canvas" aria-expanded="true" aria-label="收起地图">−</button></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。点击模式下，鼠标或触屏轻点前往。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>';
   parent.append(this.element);this.canvas=this.element.querySelector('canvas')!;this.ctx=this.canvas.getContext('2d')!;
-  this.observer=new ResizeObserver(()=>{const width=this.canvas.clientWidth;if(width>0&&Math.max(128,Math.round(width*Math.min(devicePixelRatio||1,2)))!==this.canvas.width)this.stage=0;this.update();});this.observer.observe(this.canvas);
+  this.observer=new ResizeObserver(()=>{const width=this.canvas.clientWidth;if(width>0&&Math.max(128,Math.round(width*Math.min(devicePixelRatio||1,2)))!==this.canvas.width)this.stage=0;this.update(!this.element.hidden,this.element.classList.contains('map-collapsed'));});this.observer.observe(this.canvas);
   this.element.addEventListener('contextmenu',e=>e.preventDefault());
   let tap:{id:number;x:number;y:number;time:number;cancelled:boolean}|null=null;
+  this.cancelTap=()=>{const id=tap?.id;tap=null;if(id!==undefined&&this.canvas.hasPointerCapture(id))this.canvas.releasePointerCapture(id);};
   this.canvas.addEventListener('pointerdown',e=>{e.preventDefault();if(world.phase!=='battle'||world.paused)return;if(e.pointerType==='mouse'){if(e.button===0||e.button===2)this.command(e);return;}if(tap){tap.cancelled=true;return;}if(!e.isPrimary)return;tap={id:e.pointerId,x:e.clientX,y:e.clientY,time:performance.now(),cancelled:false};this.canvas.setPointerCapture(e.pointerId);});
   this.canvas.addEventListener('pointermove',e=>{if(tap?.id===e.pointerId&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>10)tap.cancelled=true;});
   this.canvas.addEventListener('pointerup',e=>{if(tap?.id!==e.pointerId)return;const old=tap;tap=null;if(!old.cancelled&&performance.now()-old.time<450)this.command(e);if(this.canvas.hasPointerCapture(e.pointerId))this.canvas.releasePointerCapture(e.pointerId);});
@@ -55,7 +58,7 @@ export class Minimap {
   const c=this.backdrop.getContext('2d')!,im=c.createImageData(side,side),terrain=this.world.terrain!;
   if(d)paintMinimapTerrain(d,terrain,this.frame,this.stage,side,im.data);else for(let y=0;y<side;y++)for(let x=0;x<side;x++){const p=mapUnproject(this.frame,{x:(x+.5)/side,z:(y+.5)/side}),open=terrain.isOpen?.(p),i=(y*side+x)*4;im.data.set(open?[51,65,65,255]:[12,22,29,255],i);}c.putImageData(im,0,0);this.canvas.dataset.mapFrame=JSON.stringify(this.frame);
  }
- update(){const w=this.world;this.element.hidden=!w.terrain||w.phase==='menu';if(this.element.hidden)return;if(this.stage!==w.terrainStage||this.mapTerrain!==w.terrain)this.background();const c=this.ctx,s=this.canvas.width;c.clearRect(0,0,s,s);c.drawImage(this.backdrop,0,0);const unit=s/180;
+ update(visible=this.world.phase==='battle',collapsed=false){const w=this.world;this.element.hidden=!w.terrain||!visible;this.element.classList.toggle('map-collapsed',collapsed);this.canvas.hidden=collapsed;const button=this.element.querySelector<HTMLButtonElement>('#map-toggle')!;button.setAttribute('aria-expanded',String(!collapsed));button.setAttribute('aria-label',collapsed?'展开地图':'收起地图');button.textContent=collapsed?'地图':'−';if(this.element.hidden||collapsed){this.resetInput();return;}if(this.stage!==w.terrainStage||this.mapTerrain!==w.terrain)this.background();const c=this.ctx,s=this.canvas.width;c.clearRect(0,0,s,s);c.drawImage(this.backdrop,0,0);const unit=s/180;
   const project=(p:Point)=>{const q=mapProject(this.frame,p);return {x:q.x*s,y:q.z*s};};
   const dot=(p:Point,color:string,r:number)=>{const q=project(p);c.fillStyle=color;c.beginPath();c.arc(q.x,q.y,r*unit,0,Math.PI*2);c.fill();};
   for(const p of w.pickups)dot(p,'#6d96b2',.8);

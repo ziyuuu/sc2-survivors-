@@ -9,6 +9,7 @@ import {icon} from '../../assets/manifest';
 import {pairBodies,pairFor} from '../../simulation/zerg-brood';
 import {rankLabel,statusReadout} from '../unit-identity';
 import './squad-console.css';
+import type {HudSettings} from './preferences';
 
 type Seat={key:string;family?:FamilyId;unit?:Entity;bodies:Entity[];name:string;image:string;hero?:string;defeated?:boolean};
 const number=(n:number)=>Number(n.toFixed(2)).toString();
@@ -17,10 +18,11 @@ const bar=(value:number,max:number)=>max>0?Math.max(0,Math.min(100,value/max*100
 export class SquadConsole {
  readonly root:HTMLElement;private grid:HTMLElement;private detail:HTMLElement;private pager:HTMLElement;
  private pagerHTML='';private detailHTML='';private selected='';private page=0;private structure='';private run='';private positions=new Map<number,number>();private rows:Seat[]=[];
- private suppressClickUntil=0;private swipeX=0;private narrow=matchMedia('(max-width:900px), (max-width:950px) and (orientation:landscape)');private detailOpen=false;
- constructor(private world:World,parent:HTMLElement){
+ private suppressClickUntil=0;private swipeX=0;private detailOpen=false;
+ private get narrow(){const r=document.querySelector('#game-root')?.getBoundingClientRect(),width=r?.width??innerWidth,height=r?.height??innerHeight;return width<=900||width<=950&&width>height;}
+ constructor(private world:World,parent:HTMLElement,private preferences:HudSettings){
   this.root=document.createElement('section');this.root.id='battle-console';this.root.setAttribute('aria-label','作战控制台');
-  this.root.innerHTML='<section id="unit-inspector" aria-label="单位详情"></section><section id="army-hud"><div class="army-heading"><b>作战部队</b><div id="army-pages"></div></div><div id="roster" role="group" aria-label="全队单位"></div></section><section id="console-commands" aria-label="指令区"></section><div id="production-detail" hidden></div>';
+  this.root.innerHTML='<button type="button" id="army-toggle" aria-controls="army-hud unit-inspector" aria-expanded="true">收起队伍</button><section id="unit-inspector" aria-label="单位详情"></section><section id="army-hud"><div class="army-heading"><b>作战部队</b><div id="army-pages"></div></div><div id="roster" role="group" aria-label="全队单位"></div></section><section id="console-commands" aria-label="指令区"></section><div id="production-detail" hidden></div>';
   parent.append(this.root);this.grid=this.root.querySelector('#roster')!;this.detail=this.root.querySelector('#unit-inspector')!;this.pager=this.root.querySelector('#army-pages')!;
   for(const id of ['hero-skills','skills']){const el=parent.querySelector('#'+id);if(el)this.root.querySelector('#console-commands')!.append(el);}
   this.root.addEventListener('pointerdown',e=>{e.stopPropagation();this.swipeX=e.clientX;});
@@ -29,9 +31,9 @@ export class SquadConsole {
    if(button.dataset.seat){this.selected=button.dataset.seat;this.detailOpen=true;this.update();}
    if(button.dataset.page)this.turnPage(Number(button.dataset.page));
    if(button.dataset.inspectClose!==undefined){this.detailOpen=false;this.update();this.grid.querySelector<HTMLButtonElement>(`[data-seat="${this.selected}"]`)?.focus();}
+   if(button.id==='army-toggle')this.preferences.toggle('armyCollapsed');
   });
-  this.grid.addEventListener('keydown',e=>{const delta=({ArrowLeft:-1,ArrowRight:1,ArrowUp:this.narrow.matches?-7:-10,ArrowDown:this.narrow.matches?7:10} as Record<string,number>)[e.key];if(!delta)return;e.preventDefault();e.stopPropagation();const buttons=[...this.grid.querySelectorAll<HTMLButtonElement>('button')],index=buttons.indexOf(document.activeElement as HTMLButtonElement);buttons[Math.max(0,Math.min(buttons.length-1,index+delta))]?.focus();});
-  this.narrow.addEventListener('change',()=>{this.structure='';this.update();});
+  this.grid.addEventListener('keydown',e=>{const delta=({ArrowLeft:-1,ArrowRight:1,ArrowUp:this.narrow?-7:-10,ArrowDown:this.narrow?7:10} as Record<string,number>)[e.key];if(!delta)return;e.preventDefault();e.stopPropagation();const buttons=[...this.grid.querySelectorAll<HTMLButtonElement>('button')],index=buttons.indexOf(document.activeElement as HTMLButtonElement);buttons[Math.max(0,Math.min(buttons.length-1,index+delta))]?.focus();});
  }
  private turnPage(delta:number){this.page=Math.max(0,Math.min(Math.ceil(this.rows.length/14)-1,this.page+delta));this.structure='';this.update();}
  private seats():Seat[]{const w=this.world,rows:Seat[]=[];if(this.run!==w.runId){this.run=w.runId??'';this.positions.clear();this.selected='';this.page=0;}
@@ -43,15 +45,15 @@ export class SquadConsole {
   }
   const heroes=[...w.heroes.keys()];for(let i=0;i<3;i++){const id=heroes[i],u=id?w.heroEntity(id):undefined;rows.push({key:'hero:'+i,unit:u?.hp?u:undefined,bodies:u?.hp?[u]:[],hero:id,name:id?HEROES[id].name:'英雄席位',image:id?'hero.'+id:''});}return rows;
  }
- update(){const w=this.world;this.root.dataset.race=w.expedition.race;const visible=w.phase==='battle';this.root.hidden=!visible;document.body.classList.toggle('has-battle-console',visible);if(!visible)return;
+ update(visible=this.world.phase==='battle'){const w=this.world;this.root.dataset.race=w.expedition.race;this.root.hidden=!visible;document.body.classList.toggle('has-battle-console',visible);const collapsed=this.preferences.armyCollapsed;this.root.classList.toggle('army-collapsed',collapsed);this.root.querySelector<HTMLElement>('#army-hud')!.hidden=collapsed;this.detail.hidden=collapsed;const toggle=this.root.querySelector<HTMLButtonElement>('#army-toggle')!;toggle.setAttribute('aria-expanded',String(!collapsed));toggle.textContent=collapsed?'展开队伍':'收起队伍';if(!visible)return;
   this.rows=this.seats();if(!this.rows.some(s=>s.key===this.selected))this.selected=this.rows.find(s=>s.unit)?.key??this.rows[0]?.key??'';
-  const pages=Math.max(1,Math.ceil(this.rows.length/14));this.page=Math.min(this.page,pages-1);const shown=this.narrow.matches?this.rows.slice(this.page*14,(this.page+1)*14):this.rows;
+  const pages=Math.max(1,Math.ceil(this.rows.length/14));this.page=Math.min(this.page,pages-1);const shown=this.narrow?this.rows.slice(this.page*14,(this.page+1)*14):this.rows;
   const structure=shown.map(s=>[s.key,s.unit?.id,s.unit?.eliteId,s.hero,s.image,s.bodies.map(b=>b.id)].join('/')).join('|');
   if(this.structure!==structure){const focused=(document.activeElement as HTMLElement)?.dataset.seat;this.structure=structure;
    this.grid.innerHTML=shown.map(s=>`<button class="squad-seat ${s.hero?'hero-seat':s.unit?.eliteId?'elite-seat':''} ${s.unit?'':'empty-seat'}" data-seat="${s.key}" aria-label="${s.name}${s.unit?'':' · 空位'}">${s.image?icon(s.image,s.name):'<span class="seat-silhouette">◇</span>'}<span class="seat-badge">${s.hero?'★':s.unit?.eliteId?'◆':''}</span><span class="seat-rank"></span><span class="seat-count"></span><span class="seat-bars"><i class="seat-hp"><b></b></i><i class="seat-hp twin-hp"><b></b></i><i class="seat-shield"><b></b></i></span><span class="seat-timer"></span></button>`).join('');
    if(focused)this.grid.querySelector<HTMLButtonElement>(`[data-seat="${focused}"]`)?.focus({preventScroll:true});
   }
-  const pager=this.narrow.matches?`<button data-page="-1" ${this.page===0?'disabled':''} aria-label="上一页">‹</button><span>${this.page+1}/${pages}</span><button data-page="1" ${this.page===pages-1?'disabled':''} aria-label="下一页">›</button>`:'';if(this.pagerHTML!==pager){this.pagerHTML=pager;this.pager.innerHTML=pager;}
+  const pager=this.narrow?`<button data-page="-1" ${this.page===0?'disabled':''} aria-label="上一页">‹</button><span>${this.page+1}/${pages}</span><button data-page="1" ${this.page===pages-1?'disabled':''} aria-label="下一页">›</button>`:'';if(this.pagerHTML!==pager){this.pagerHTML=pager;this.pager.innerHTML=pager;}
   for(const s of shown){const node=this.grid.querySelector<HTMLElement>(`[data-seat="${s.key}"]`)!;node.setAttribute('aria-pressed',String(s.key===this.selected));node.querySelector('.seat-rank')!.textContent=s.unit?rankLabel(s.unit.rank):s.hero?'阵亡':'';
    node.querySelector('.seat-count')!.textContent=s.family==='zergling'&&s.unit?s.bodies.length+'/2':'';
    const bars=[...node.querySelectorAll<HTMLElement>('.seat-hp')];bars.forEach((el,i)=>{el.hidden=i===1&&s.family!=='zergling';const b=s.bodies[i];el.firstElementChild!.setAttribute('style',`width:${b?bar(b.hp,b.maxHp):0}%`);});

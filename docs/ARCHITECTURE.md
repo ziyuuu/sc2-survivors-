@@ -1,4 +1,6 @@
-> 下一轮架构规划：[P0统一设计](project/NEXT_ITERATION_P0_20261003.md)明确World/表现/输入、视野DTO、限时复生预留、保护/追踪雷saved字段及后台旁路边界。尚未实施，run schema14/profile v5不变；文档生成器只在独立内存World派生属性，不运行战斗或持久化。
+> P1实施：[地图、队伍与移动布局](project/NEXT_ITERATION_P1_20261003.md)。P0已获用户批准；P1使用统一有效视口容器、实际控制台高度、独立UI折叠偏好和商店内容/操作区。schema14/profile v5不变，P0战斗值待P3实施；实际结果见[P1验证](project/NEXT_ITERATION_P1_VALIDATION_20261003.md)。下文P0“尚未实施”说明为其交付时的历史状态。
+
+> 下一轮架构设计：[P0统一设计](project/NEXT_ITERATION_P0_20261003.md)明确World/表现/输入、视野DTO、限时复生预留、保护/追踪雷saved字段及后台旁路边界。P0已批准，战斗DTO与后台部分待后续阶段实施；P1不变更run schema14/profile v5。文档生成器只在独立内存World派生属性，不运行战斗或持久化。
 
 > 本轮批准：[英雄专属表现、全量死亡、中心扩张地图与UI](project/HERO_MAP_UI_20260929.md)。战局schema14，永久档案v5不变；新局使用三主题九模板。实际证据见[本轮验证](project/HERO_MAP_UI_VALIDATION_20260929.md)。人工视觉、完整M6和M7仍开放。
 

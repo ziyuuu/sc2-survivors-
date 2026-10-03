@@ -22,10 +22,10 @@ body[data-race=protoss] .console,body[data-race=protoss] #overlay .reward-card{b
 .pod-world-label .carrier-count{font-size:14px;align-self:center;color:#b7f6c9}
 .pod-world-label .carrier-vital{grid-column:1/-1;height:3px;background:#1d4535;overflow:hidden}
 .pod-world-label .carrier-vital i{display:block;height:100%;background:#80e99f}
-body.has-battle-console #mission{left:calc(env(safe-area-inset-left) + 190px);max-width:calc(100vw - 220px)}
-body.has-battle-console #notice{left:calc(50% + 80px);max-width:calc(100vw - 240px);font-size:var(--game-mark)}
+body.has-battle-console #mission{left:calc(env(safe-area-inset-left) + 190px);max-width:calc(100cqw - 220px)}
+body.has-battle-console #notice{left:calc(50% + 80px);max-width:calc(100cqw - 240px);font-size:var(--game-mark)}
 #interface #topbar{height:auto;min-height:52px;row-gap:4px;flex-wrap:wrap}
-#carrier-inspector{position:absolute;right:max(12px,env(safe-area-inset-right));top:112px;max-width:min(340px,calc(100vw - 24px));padding:14px;pointer-events:auto;z-index:45;font-size:var(--game-detail)}
+#carrier-inspector{position:absolute;right:max(12px,env(safe-area-inset-right));top:112px;max-width:min(340px,calc(100cqw - 24px));padding:14px;pointer-events:auto;z-index:45;font-size:var(--game-detail)}
 #carrier-inspector[hidden]{display:none}
 #carrier-inspector>button{float:right;font-size:22px}
 #carrier-inspector>img{width:64px;height:64px;object-fit:contain;float:left;margin-right:10px}
@@ -33,15 +33,15 @@ body.has-battle-console #notice{left:calc(50% + 80px);max-width:calc(100vw - 240
 #interface #roster .seat-count,#interface #roster .seat-timer,#interface .hero-skill kbd,#interface .hero-skill em,#interface #skills button small{font-size:var(--game-mark)}
 #interface #unit-inspector p,#interface #unit-inspector dl{font-size:var(--game-detail)}
 #interface #topbar .stat,#interface #topbar button{font-size:var(--game-copy)}
-@media(max-width:900px){
- body.has-battle-console #mission{left:calc(env(safe-area-inset-left) + 130px);max-width:calc(100vw - 142px)}
+@container game (max-width:900px){
+ body.has-battle-console #mission{left:calc(env(safe-area-inset-left) + 130px);max-width:calc(100cqw - 142px)}
  body.has-battle-console #mission .eyebrow{display:none}
  body.has-battle-console #notice{left:50%;max-width:90%}
  #overlay .compact-intermission #reward-cards{display:grid;grid-template-columns:1fr!important}
  #overlay .compact-intermission .reward-card{min-height:114px!important}
 }
-@media(max-width:950px) and (orientation:landscape){
- body.has-battle-console #mission{left:calc(env(safe-area-inset-left) + 116px);max-width:calc(100vw - 134px)}
+@container game (max-width:950px) and (aspect-ratio > 1/1){
+ body.has-battle-console #mission{left:calc(env(safe-area-inset-left) + 116px);max-width:calc(100cqw - 134px)}
  body.has-battle-console #notice{left:55%;max-width:70%}
  #overlay .compact-intermission #reward-cards{grid-template-columns:repeat(3,minmax(0,1fr))!important}
  #overlay .compact-intermission .reward-card{padding:10px!important;min-height:170px!important}
@@ -53,7 +53,7 @@ body.has-battle-console #notice{left:calc(50% + 80px);max-width:calc(100vw - 240
  #interface #battle-console #army-pages button{transform:none}
  body.has-battle-console #battle{height:calc(100% - 142px)}
  body.has-battle-console #joystick{bottom:157px}
- #carrier-inspector{top:58px;max-height:calc(100vh - 218px);overflow:auto}
+ #carrier-inspector{top:58px;max-height:calc(100cqh - 218px);overflow:auto}
 }
 body.has-battle-console #mission{top:calc(var(--battle-header-bottom,62px) + 8px);font-size:var(--game-detail)}
 body.has-battle-console #mission b{font-size:var(--game-copy)}
@@ -67,4 +67,4 @@ body.has-battle-console #notice{top:calc(var(--battle-mission-bottom,110px) + 8p
 #interface #battle-console #hero-skills .hero-skill small{font-size:var(--game-mark);max-width:none;line-height:1.3}
 #interface #battle-console #hero-skills{display:flex;overflow-x:auto;overflow-y:hidden;align-items:stretch;flex-shrink:0}
 #interface #battle-console #hero-skills .hero-status{flex:0 0 calc(116px * var(--text-scale));max-width:none;min-width:0}
-@media(min-width:1101px){#interface #battle-console{grid-template-columns:215px minmax(360px,1fr) 360px}}
+@container game (min-width:1101px){#interface #battle-console{grid-template-columns:215px minmax(360px,1fr) 360px}}

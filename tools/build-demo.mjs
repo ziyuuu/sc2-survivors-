@@ -31,7 +31,7 @@ if(resources.length!==selectedIds.size)throw Error('M6 release asset selection m
 const {pack,stats}=createAssetPack(resources);
 const result=await build({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true'}});
 const js=result.outputFiles.find(f=>f.path.endsWith('.js')).text.replace(/<\/script/gi,'<\\/script');const css=result.outputFiles.find(f=>f.path.endsWith('.css'))?.text??'';
-const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b24"><title>SC2 SURVIVORS · 星际幸存小队</title><style>${css}</style></head><body><canvas id="battle" aria-label="星际幸存小队战场"></canvas><main id="interface"></main><script id="sc2-resource-pack" type="application/json">${JSON.stringify(pack)}</script><script>${js}</script></body></html>`;
+const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b24"><title>SC2 SURVIVORS · 星际幸存小队</title><style>${css}</style></head><body><div id="game-root"><canvas id="battle" aria-label="星际幸存小队战场"></canvas><main id="interface"></main></div><script id="sc2-resource-pack" type="application/json">${JSON.stringify(pack)}</script><script>${js}</script></body></html>`;
 const output='dist/SC2-Survivors-Demo.html',temporary=output+'.tmp';
 try{await fs.writeFile(temporary,html);await fs.rename(temporary,output);}
 catch(error){await fs.rm(temporary,{force:true});throw error;}

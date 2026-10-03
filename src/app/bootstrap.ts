@@ -1,6 +1,7 @@
 import {campaignTerrain,chooseCampaignMap} from '../data/campaign-map';
 import {bindGameViewport} from '../ui/mobile/viewport';
 import {ControlSettings} from '../ui/controls/settings';
+import {HudSettings} from '../ui/hud/preferences';
 import {embeddedAssetStatus,loadEmbeddedAssets} from '../assets/offline-pack';
 import {MapTerrain} from '../simulation/movement/map-terrain';
 import {FlatTerrain} from '../simulation/movement/flat-terrain';
@@ -22,7 +23,7 @@ import type {NewRunPreview} from './run-session';
 
 const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
-export async function boot(){await loadEmbeddedAssets();let storage:Storage|undefined,factory:IDBFactory|undefined;try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}const saved=await openSaveProfile(storage,factory),world=new World({terrain:campaignTerrain(chooseCampaignMap(crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,saved);const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls),audio=new AudioEffects(),readiness=new AssetReadinessCoordinator(world,view,audio);hud.session=session;hud.readiness=readiness;readiness.onChange=()=>hud.update();
+export async function boot(){await loadEmbeddedAssets();let storage:Storage|undefined,factory:IDBFactory|undefined;try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}const saved=await openSaveProfile(storage,factory),world=new World({terrain:campaignTerrain(chooseCampaignMap(crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,saved);const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls,new HudSettings(storage)),audio=new AudioEffects(),readiness=new AssetReadinessCoordinator(world,view,audio);hud.session=session;hud.readiness=readiness;readiness.onChange=()=>hud.update();
  const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,inspect:(x,y)=>{const id=view.pickCarrier(x,y);if(id===null)return false;hud.carrierInspector.show(id);return true;},pick:(x,y,touch)=>view.pick(x,y,touch),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:point=>{view.targetPreview=point;}});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,()=>hud.pause(),()=>input.reset());
  controls.listeners.add(()=>gamepad.reset());
@@ -32,7 +33,7 @@ export async function boot(){await loadEmbeddedAssets();let storage:Storage|unde
  window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,expedition:world.expedition?{rules:world.expedition.rules,race:world.expedition.race,families:[...world.expedition.familySlots],talentPreset:world.expedition.talentPreset,frozenTalents:world.runConfig?.frozenTalents??null}:null,wallet:{...world.wallet},endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:view.initialAssetsLoaded,embeddedAssets:embeddedAssetStatus(),readiness:readiness.state,simulationBacklogSeconds:driver.accumulator,discardedSimulationBacklogSeconds:driver.discardedBacklogSeconds,audio:audio.report(),gamepad:gamepad.report(),controls:controls.report(),save:session.report()});
  world.listeners.add(()=>audio.update(world));
  let previous=performance.now(),wasSimulating=false;
- bindGameViewport(()=>{view.resize();hud.update();},()=>{input.reset();gamepad.reset();previous=performance.now();wasSimulating=false;});
+ bindGameViewport(()=>{view.resize();hud.update();},()=>{input.reset();hud.minimap.resetInput();gamepad.reset();previous=performance.now();wasSimulating=false;});
  const resetPresentation=()=>{input.reset();gamepad.reset();audio.reset();view.resetRun();driver.reset();wasSimulating=false;previous=performance.now();if(debug)debug.speed=1;};
  hud.saveUI=new SaveControls(session,()=>{if(session.resume()){resetPresentation();void audio.start();}hud.update();},()=>hud.update());session.onChange=()=>hud.update();
  let preparedNew:NewRunPreview|null=null;

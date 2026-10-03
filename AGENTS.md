@@ -1,3 +1,9 @@
+## P0 approved; P1 execution · 2026-10-03
+
+- User explicitly approved P0 r2 and instructed "可以了P0通过。请开始P1". The P0 design parameters are accepted; do not request the same approval again. P1 covers battle-only map visibility, independent persistent map/army folding, the effective viewport, safe areas, rotation and readable shop layout. Combat values remain unchanged until P3; the documentation JSON is still not a runtime import.
+- P1 UI preferences stay independent of gameplay saves, control settings and resource caches. Preserve schema14/profile v5, paid transactions and all existing OPEN acceptance gaps. No cleanup or cloud deployment is authorized by this phase.
+- P1 engineering and local artifacts are complete: 748 regression tests, 96 three-race layout states, 24 shop states, browser rotation/fullscreen/local HTTP iframe, and production Web/offline save/reload/load passed. Exact scope, fingerprints and failed harness attempts are in `docs/project/NEXT_ITERATION_P1_VALIDATION_20261003.md`. Physical phone/gamepad, Safari, real Coze host, human visual, full M6/M7 and original Science Vessel death clips remain OPEN.
+
 ## P0 r2 elite/hero design revision · 2026-10-03
 
 - `docs/project/ELITE_HERO_REDESIGN_20261003.md` is the P0 specialization for the user's 21 Terran elite samples, all 90 new elite designs and 18 stronger hero bodies/passives/actives. It supersedes P0's earlier elite/hero-body-unchanged proposal, not approved runtime. All new numeric proposals remain only in `NEXT_ITERATION_P0_VALUES_20261003.json`; runtime must not import it.
@@ -6,8 +12,8 @@
 
 ## Next iteration P0 documentation · 2026-10-03
 
-- `docs/project/NEXT_ITERATION_P0_20261003.md` unifies the September 30 mobile/combat, hero and admin drafts; its generated capabilities cover 30 ordinary families, 90 elites, 18 heroes and 24 race fun-card identities. New values live only in `NEXT_ITERATION_P0_VALUES_20261003.json`, a documentation proposal that runtime must not import before approval.
-- P0 documentation is complete; new hero damage/cooldowns, protection allocation/limits, tracking-mine parameters and analytics retention remain proposals. No P1–P6 runtime changes, schema change, cleanup, cloud setup or new acceptance evidence. Existing schema14/profile v5 and open M6/M7/human/source-clip gaps remain.
+- `docs/project/NEXT_ITERATION_P0_20261003.md` unifies the September 30 mobile/combat, hero and admin drafts; its generated capabilities cover 30 ordinary families, 90 elites, 18 heroes and 24 race fun-card identities. New values live only in `NEXT_ITERATION_P0_VALUES_20261003.json`, an approved design source that runtime must not import directly.
+- P0 documentation and design parameters are approved. P1 implementation is recorded separately above; hero damage/cooldowns, protection allocation/limits, tracking-mine parameters and analytics retention await their later execution phases. P0 itself changed no runtime/schema, performed no cleanup/cloud setup and created no game acceptance evidence. Existing schema14/profile v5 and open M6/M7/human/source-clip gaps remain.
 - `node --import tsx tools/docs/export-next-iteration-p0.mts --check` checks coverage/current detached stat derivation/proposal math. It is not combat, balance, browser, performance or visual acceptance. Preserve existing work and incremental Coze/LFS delivery scope.
 
 ## Resumed delivery verification · 2026-09-30
