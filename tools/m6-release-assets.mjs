@@ -19,6 +19,7 @@ const requireAsset=(id,reason)=>{
  const list=reasons.get(id)??[];if(!list.includes(reason))list.push(reason);reasons.set(id,list);
 };
 const useIfPresent=(id,reason)=>{if(byId.has(id))requireAsset(id,reason);};
+for(const r of available.filter(r=>r.kind==='ui-art'))requireAsset(r.id,'Approved R11 painted cards and nine covers used by formal UI');
 const requireModel=(key,reason)=>{
  requireAsset(`model.${key}`,reason);
  for(const suffix of ['.death',...(key==='tank'||key.startsWith('elite.tank.')?['.siege','.morph']:[]),...(key==='viking'||key.startsWith('elite.viking.')?['.assault']:[])])

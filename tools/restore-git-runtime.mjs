@@ -29,3 +29,18 @@ for(const output of outputs){
 if(process.argv.includes('--check')&&missing.length)throw Error('Runtime files have not been restored: '+missing.length);
 for(const output of missing){await fs.mkdir(path.dirname(output.file),{recursive:true});if(output.source)await fs.copyFile(output.source,output.file);else await fs.writeFile(output.file,output.bytes);}
 console.log(JSON.stringify({runtimeRecords:index.entries.length,verifiedFiles:checked.size,restoredFiles:missing.length,release:index.release}));
+// UI art has its own provenance; never append it to the original SC2 catalog.
+const ui=await fs.readFile('deploy/runtime/ui-assets.json','utf8').then(JSON.parse).catch(e=>{if(e.code!=='ENOENT')throw e;return null;});
+if(ui){
+ if(ui.version!==1||sha(await fs.readFile('src/assets/ui-art.generated.ts'))!==ui.generatedSha256)throw Error('UI generated registry differs');
+ for(const r of ui.records){
+  if(!/^public\/assets\/ui\/[a-f0-9]{64}\.(webp|png)$/.test(r.packedFile)||!r.sourceFile.startsWith('preview/ui-20261003/')||r.sourceFile.split('/').includes('..'))throw Error('Invalid UI resource path');
+  if(r.gitPath!=='deploy/runtime/assets/'+r.packedSha256+path.extname(r.sourceFile))throw Error('Invalid Git UI path: '+r.id);
+  const gitBytes=await fs.readFile(r.gitPath);if(gitBytes.length!==r.bytes||sha(gitBytes)!==r.packedSha256)throw Error('Git UI asset differs: '+r.id);
+  const source=await fs.readFile(r.sourceFile);if(source.length!==r.bytes||sha(source)!==r.sourceSha256||r.sourceSha256!==r.packedSha256)throw Error('UI source changed: '+r.id);
+  const current=await fs.readFile(r.packedFile).catch(e=>{if(e.code!=='ENOENT')throw e;return null;});
+  if(current&&sha(current)!==r.packedSha256)throw Error('Preserving changed UI asset: '+r.id);
+  if(!current){if(process.argv.includes('--check'))throw Error('UI asset not restored: '+r.id);await fs.mkdir(path.dirname(r.packedFile),{recursive:true});await fs.writeFile(r.packedFile,source);}
+ }
+ console.log(JSON.stringify({uiResources:ui.records.length,verified:true}));
+}

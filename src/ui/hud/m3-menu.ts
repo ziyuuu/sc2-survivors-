@@ -1,3 +1,4 @@
+import {COVER_HEROES,paintedArt} from '../presentation/painted-art';
 import {fullscreenLabel} from '../mobile/viewport';
 import {icon,assetUrl} from '../../assets/manifest';
 import {RACES,RACE_NAMES,type Race} from '../../data/races';
@@ -9,12 +10,12 @@ import type {LoadPreview,RunSession} from '../../app/run-session';
 import type {ReadinessState} from '../../app/asset-readiness';
 
 export type MenuPage='title'|'race'|'difficulty'|'confirm'|'load'|'load-preview';
-export interface MenuSelection {page:MenuPage;race:Race;difficulty:Difficulty;preset:PresetSlot;hero:HeroId|null;loadPreview:LoadPreview|null;error:string}
+export interface MenuSelection {page:MenuPage;race:Race;difficulty:Difficulty;preset:PresetSlot;hero:HeroId|null;loadPreview:LoadPreview|null;error:string;coverIndex?:number;coverAuto?:boolean}
 const escape=(s:string)=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 const descriptions:Record<Race,{icon:string;features:string;start:string}>={
- terran:{icon:'unit.marine',features:'远程火力与机械阵地；兵营、工厂、星港独立生产。坦克手动部署，医疗与维修各有主系。',start:'1 枪兵 · 兵营 · 50 矿 / 0 气'},
- zerg:{icon:'unit.zergling',features:'数量补员、恢复与反复冲击；孵化设施分配序列。玩家爆虫自爆后保留身体并停顿 5 秒。',start:'2 跳虫 · 孵化场＋血池 · 50 矿 / 0 气'},
- protoss:{icon:'unit.zealot',features:'原生护盾与高价质量单位；脱战回盾，闪烁、部署与灵能施法形成节奏。',start:'1 狂热者 · 传送门 · 0 矿 / 0 气'}
+ terran:{icon:'unit.marine',features:'远程火力与机械阵地；兵营、工厂、星港独立生产。坦克手动部署，医疗与维修各有主系。',start:'1 枪兵 · 兵营'},
+ zerg:{icon:'unit.zergling',features:'数量补员、恢复与反复冲击；孵化设施分配序列。玩家爆虫自爆后保留身体并停顿 5 秒。',start:'2 跳虫 · 孵化场＋血池'},
+ protoss:{icon:'unit.zealot',features:'原生护盾与高价质量单位；脱战回盾，闪烁、部署与灵能施法形成节奏。',start:'1 狂热者 · 传送门'}
 };
 const difficultyInfo:Record<Difficulty,{label:string;threat:string;resource:string}>={
  easy:{label:'简单',threat:'敌军基础威胁 ×0.5',resource:'每完成 3 关＋1 永久资源'},
@@ -25,8 +26,11 @@ const difficultyInfo:Record<Difficulty,{label:string;threat:string;resource:stri
 const shell=(step:string,title:string,body:string,back=true)=>`<div class="title-screen m3-menu"><span class="eyebrow">SC2 SURVIVORS / ${step}</span><h2>${title}</h2>${body}<div class="m3-menu-footer"><button data-action="resource-downloads">资源下载</button><button data-action="fullscreen">${fullscreenLabel()}</button>${back?'<button data-action="menu-back">返回</button>':''}</div><small class="legal">非官方 · 非盈利 · 朋友试玩 / StarCraft II 素材属于 Blizzard Entertainment</small></div>`;
 export function renderMenu(selection:MenuSelection,profile:PermanentProfile,session:RunSession|null){
  const s=selection;
- if(s.page==='title')return shell('TITLE','星际幸存小队',`<div class="m3-title-art" aria-hidden="true" style="background-image:url('${assetUrl('terrain.char')??''}')"></div><h1>SC2 <span>SURVIVORS</span></h1><p class="lead">选定种族，建立属于你的前线。</p><nav class="m3-main-actions"><button class="primary" data-action="menu-new">新游戏</button><button class="primary" data-action="menu-load">读档</button><button class="primary" data-action="talents">天赋</button></nav>${s.error?`<p class="warning" role="alert">${escape(s.error)}</p>`:''}<small>${escape(session?.message??'')}</small>`,false);
- if(s.page==='race')return shell('NEW GAME / 1','选择种族',`<div class="m3-race-cards" role="radiogroup" aria-label="选择种族">${RACES.map(r=>`<button class="m3-race-card" role="radio" aria-checked="${s.race===r}" data-action="menu-race" data-race="${r}">${icon(descriptions[r].icon,RACE_NAMES[r])}<strong>${RACE_NAMES[r]}</strong><span>${descriptions[r].features}</span><small>${descriptions[r].start}</small></button>`).join('')}</div><button class="primary" data-action="menu-race-next">继续 · 选择难度</button>`);
+ if(s.page==='title'){
+  const heroes=COVER_HEROES[s.race],hero=heroes[s.coverIndex??0];
+  return `<div class="formal-home" data-race="${s.race}"><div class="home-backdrop" aria-hidden="true"><img src="${assetUrl('ui.cover.'+hero)??''}" alt=""></div><header class="home-masthead"><span>SC2 SURVIVORS</span><span>通讯在线 / ${RACE_NAMES[s.race]}</span></header><div class="home-content"><span class="eyebrow">战役 · 18 关</span><h1><small>星际</small>幸存小队</h1><span class="home-rule"></span><nav class="m3-main-actions" aria-label="主菜单"><button class="primary" data-action="menu-new">新游戏　›</button><button data-action="menu-load">读取存档　›</button><button data-action="talents">天赋　›</button></nav><p>${RACE_NAMES[profile.activeRace]} · ${escape(profile.getPreset(profile.activeRace,profile.activePreset)?.name??'')} · ${profile.playerLevel} / 80</p>${s.error?`<p class="warning" role="alert">${escape(s.error)}</p>`:''}</div><aside class="home-resume"><small>本地续局</small><p>${escape(session?.summary||'暂无续局')}</p><button data-action="menu-load-summary">查看存档</button></aside><nav class="home-factions" aria-label="阵营封面">${RACES.map(r=>`<button data-action="cover-race" data-race="${r}" aria-pressed="${r===s.race}">${RACE_NAMES[r]}</button>`).join('')}</nav><div class="home-cover-controls"><button data-action="cover-prev" aria-label="上一张封面">‹</button><span>${HEROES[hero as HeroId].name}</span><button data-action="cover-next" aria-label="下一张封面">›</button><button data-action="cover-auto" aria-pressed="${s.coverAuto!==false}">${s.coverAuto===false?'自动轮换':'暂停轮换'}</button></div><footer class="home-footer"><span>非官方 · 非盈利 · 朋友试玩 / Blizzard Entertainment 素材</span><button data-action="resource-downloads">资源下载</button><button data-action="fullscreen">${fullscreenLabel()}</button></footer></div>`;
+ }
+ if(s.page==='race')return shell('NEW GAME / 1','选择种族',`<div class="m3-race-cards" role="radiogroup" aria-label="选择种族">${RACES.map(r=>`<button class="m3-race-card" role="radio" aria-checked="${s.race===r}" data-action="menu-race" data-race="${r}">${paintedArt(COVER_HEROES[r][0],RACE_NAMES[r])}<strong>${RACE_NAMES[r]}</strong><span>${descriptions[r].features}</span><small>${descriptions[r].start}</small></button>`).join('')}</div><button class="primary" data-action="menu-race-next">继续 · 选择难度</button>`);
  if(s.page==='difficulty')return shell('NEW GAME / 2','选择难度',`<div class="m3-difficulty-cards" role="radiogroup" aria-label="选择难度">${(Object.keys(difficultyInfo) as Difficulty[]).map(d=>`<button role="radio" aria-checked="${s.difficulty===d}" data-action="menu-difficulty" data-difficulty="${d}"><strong>${difficultyInfo[d].label}</strong><span>${difficultyInfo[d].threat}</span><small>${difficultyInfo[d].resource}</small></button>`).join('')}</div><button class="primary" data-action="menu-difficulty-next">继续 · 确认出发</button>`);
  if(s.page==='confirm'){
   const preset=profile.getPreset(s.race,s.preset)!,preview=profile.previewTalentAllocation(s.race,s.preset),levels=preset.levels;

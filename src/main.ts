@@ -3,6 +3,7 @@ import {boot} from './app/bootstrap';
 import './ui/hero-map-ui.css';
 import './ui/mobile/layout.css';
 import './ui/hud/compact.css';
+import './ui/presentation/formal-ui.css';
 import {setTextScale,textScale} from './ui/text-scale';
 setTextScale(textScale());
 boot().catch(error=>{

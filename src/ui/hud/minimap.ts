@@ -1,3 +1,4 @@
+import {battleInputCapture} from '../presentation/input-capture';
 import type {ControlSettings} from '../controls/settings';
 import {RARITIES} from '../../data/rewards';
 import {Vector3} from 'three';
@@ -49,7 +50,7 @@ export class Minimap {
   this.canvas.addEventListener('pointerup',e=>{if(tap?.id!==e.pointerId)return;const old=tap;tap=null;if(!old.cancelled&&performance.now()-old.time<450)this.command(e);if(this.canvas.hasPointerCapture(e.pointerId))this.canvas.releasePointerCapture(e.pointerId);});
   for(const name of ['pointercancel','lostpointercapture'])this.canvas.addEventListener(name,e=>{if(tap?.id===(e as PointerEvent).pointerId)tap=null;});
  }
- private command(e:PointerEvent){const w=this.world;if(!this.controls.pointerMoves(e.pointerType)||w.phase!=='battle'||w.paused||w.requiresPlayerDecision||!!document.body.dataset.targetFamily)return;
+ private command(e:PointerEvent){const w=this.world;if(battleInputCapture()||!this.controls.pointerMoves(e.pointerType)||w.phase!=='battle'||w.paused||w.requiresPlayerDecision||!!document.body.dataset.targetFamily)return;
   const r=this.canvas.getBoundingClientRect(),p=mapUnproject(this.frame,{x:(e.clientX-r.left)/r.width,z:(e.clientY-r.top)/r.height});
   if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)return;
   w.issueMove(p);

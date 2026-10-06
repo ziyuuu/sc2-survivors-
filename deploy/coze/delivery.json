@@ -1,10 +1,10 @@
 {
-  "status": "local map visual polish candidate; not deployed",
-  "appBuildId": "2b416df7c8a6a426cf0cf3c24e17844a760ea4855b58537e907abd2ba890f246",
-  "packageBuildId": "5149e50d3ad7b1f5831815864a1a8636e1b0f8964d5acfebe6ba001a6a3d4717",
+  "status": "local formal UI candidate; not deployed",
+  "appBuildId": "d189ed058ae2067a80a25ca41e1858f1da70b7ffc702edba18b2522877419b35",
+  "packageBuildId": "4fd2ed183bf7a0f459fd37968f7db029b77cd11456ac58781d14b61b116e983e",
   "runSchema": 26,
   "profileVersion": 6,
-  "release": "2f3a6406dc45752c6aaab48a66e47dabfb13bf66ae74d4914cac3b0b1d1c5cd8",
+  "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
   "appFiles": [
     {
       "path": ".env.example",
@@ -94,12 +94,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6134,
-      "sha256": "5df44ecf266dd20ef6172270370f323b6e8da769a3956c3d49361bbfd4ef9f0a"
+      "sha256": "ada1f41c74eef89a072ee3991ba7c13da4cd797c2fba0475188a0d6ad6bb84a0"
     },
     {
       "path": "package.json",
       "bytes": 352,
-      "sha256": "5705b13a6f18f2eb2c771fe4a5a48f0ead453bcdde8ca458bb86f585cfc02a6f"
+      "sha256": "756dadd1459f2cb2490f49e767b090f1490d798def6f892b01d9f5df3fc5d57e"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -107,24 +107,24 @@
       "sha256": "de36b7e029c2e4788e4072a32164d6ec7f0aba9a10b373e79d3aa5478c7b84ca"
     },
     {
-      "path": "public/asset-manifest.2f3a6406dc45752c6aaab48a66e47dabfb13bf66ae74d4914cac3b0b1d1c5cd8.json",
-      "bytes": 141222,
-      "sha256": "7a7b32f26207c6acd4d087723afc8ca0ab5d3982d879bb86fa74360a0a7b8bbb"
+      "path": "public/asset-manifest.2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a.json",
+      "bytes": 153505,
+      "sha256": "1257ad91f69c590d59abc862c539bb3aadc1a2c611110a69580dd5a8457f7bd3"
     },
     {
-      "path": "public/assets/index-B_Uw6FOu.css",
-      "bytes": 96511,
-      "sha256": "8857dcd5fe5686a8e82dba003bb06c63719f51eae8f14ab3aa345dced143c208"
+      "path": "public/assets/index-COY6WuTG.css",
+      "bytes": 122774,
+      "sha256": "8b5377152065b77420130a997ccebdbd4e31bffc17147679f2da1ebec00f56e4"
     },
     {
-      "path": "public/assets/index-DOc9XLVl.js",
-      "bytes": 2103304,
-      "sha256": "46f9742faac059d29918be8536f387cdcf4747e8f902f99f9a62b4f762855811"
+      "path": "public/assets/index-WtmnrpD9.js",
+      "bytes": 2173574,
+      "sha256": "fbb6d9122622546f7f50968da4a808789c55f2f2b6db3e4d853766767baa764e"
     },
     {
       "path": "public/index.html",
       "bytes": 802,
-      "sha256": "b34be8701d8a01c655e383f537ad4fb97a15aeaec8e60b1bac55a269c63ee8c4"
+      "sha256": "01c476790fc9cf5c7857e46d5437cbddd33111e84dbdc5b0f60e569de42561d5"
     },
     {
       "path": "public/runtime-config.json",
@@ -134,31 +134,41 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "d66601768397f57b1d3e3d42c637c093ff20e129bf075087933dcb22131289d2"
+      "sha256": "16c7c628c37be1c70fa536b044c89fd49267496a3148bf4e3767df9074417245"
     },
     {
       "path": "README.md",
-      "bytes": 2257,
-      "sha256": "b19348bb3831927992d84928fc76bc85a88575709d50caf8b8bdd18a7fd55f12"
+      "bytes": 2620,
+      "sha256": "6de5b7dc480fe080ae1a3c3dc72199a4763aed93ff6f3e8e0ca2e211e0384d62"
     },
     {
       "path": "resource-delta.json",
-      "bytes": 8268,
-      "sha256": "8ed0594016285a91922d47f9d5adb6a203beec5497946b0aa382516521b924b6"
+      "bytes": 25262,
+      "sha256": "f25084d64adb358fb48db8140259b929c2485f661e4b20fa2050a62a887f71a9"
     },
     {
       "path": "resource-groups.json",
-      "bytes": 270398,
-      "sha256": "fa254d587b2bf06657bcf16db4e6cb43f38888d8404ee40517f96b8a8fc68658"
+      "bytes": 295322,
+      "sha256": "b2468efd483dfeceea2660e953845be4f817422f1eb59a3fd9eb8188cbd0f82a"
     },
     {
       "path": "start-coze.mjs",
       "bytes": 1023,
       "sha256": "3c188d134fb093c8e6bad23f79ace973f14c89421ae00a1ce68a2c8f19bb21fd"
+    },
+    {
+      "path": "UI_INTEGRATION_20261006.md",
+      "bytes": 2797,
+      "sha256": "71c03749a015ca87cdcc5fc1d80e7e8c2d6b8f7ad50eb31b6328d9b60883ef16"
+    },
+    {
+      "path": "UI_INTEGRATION_VALIDATION_20261006.md",
+      "bytes": 5605,
+      "sha256": "4dff7f5c65d8c41fc9b03708a333adfee64b24c5c5331df2360092ee313b63e3"
     }
   ],
-  "assets": 574,
-  "resourceBytes": 603586885,
+  "assets": 629,
+  "resourceBytes": 648838732,
   "includesDatabase": false,
   "includesAccounts": false,
   "resourcesIncluded": 0

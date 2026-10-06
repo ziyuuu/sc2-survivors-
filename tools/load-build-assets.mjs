@@ -16,5 +16,12 @@ export async function loadBuildAssets(){
   if(bytes.length!==row.bytes||createHash('sha256').update(bytes).digest('hex')!==row.sha256)throw Error('Build resource missing or changed: '+r.packedFile);
   verified.add(r.packedFile);
  }
- return metadata.records;
+ const ui=JSON.parse(await fs.readFile('deploy/runtime/ui-assets.json','utf8'));
+ if(ui.version!==1||createHash('sha256').update(await fs.readFile('src/assets/ui-art.generated.ts')).digest('hex')!==ui.generatedSha256)throw Error('UI registry differs');
+ for(const r of ui.records){
+  if(byId.has(r.id)||!r.id.startsWith('ui.paint.')&&!r.id.startsWith('ui.cover.'))throw Error('Invalid UI identity: '+r.id);
+  byId.set(r.id,r);
+  for(const file of [r.sourceFile,r.packedFile]){const bytes=await fs.readFile(file);if(bytes.length!==r.bytes||createHash('sha256').update(bytes).digest('hex')!==r.packedSha256)throw Error('UI resource changed: '+file);}
+ }
+ return [...metadata.records,...ui.records];
 }

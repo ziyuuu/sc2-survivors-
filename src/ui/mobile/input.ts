@@ -1,3 +1,4 @@
+import {battleInputCapture} from '../presentation/input-capture';
 import {World} from '../../simulation/world';
 import type {Point} from '../../simulation/types';
 import type {ControlSettings} from '../controls/settings';
@@ -11,7 +12,7 @@ export class Input {
  reset(){this.cancelTarget();this.cancelTap();this.keys.clear();this.release();this.world.resetDirectionalInput();}
  constructor(readonly world:World,readonly joystick:HTMLElement,readonly onPause:()=>void,readonly settings:ControlSettings,battle:BattlePointer){
   let tap:{id:number;x:number;y:number;at:number;cancelled:boolean}|null=null;
-  const canvas=battle.canvas,canAct=()=>world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&document.body.dataset.battleActionsReady!=='false';
+  const canvas=battle.canvas,canAct=()=>!battleInputCapture()&&world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&document.body.dataset.battleActionsReady!=='false';
   let target:Point|null=null,targetKind:'stalker'|'transfer'|'strategic'|'tactical'|null=null,transferMemberIndex=0;const transferIds=new Set<number>(),transferCandidates=new Set<number>(),transferPanel=document.createElement('aside');transferPanel.id='transfer-picker';transferPanel.className='console';transferPanel.hidden=true;document.querySelector('#interface')?.append(transferPanel);
   const preview=()=>{battle.previewTarget?.(target);if(targetKind==='stalker'&&target){const result=familyAbilityState(world,'stalker',target);const status=transferPanel.querySelector('[role=status]');if(status)status.textContent=result.reason||'落点可用';const button=transferPanel.querySelector<HTMLButtonElement>('[data-transfer-confirm]');if(button)button.disabled=!result.enabled;}};
   const updateTransferPanel=(rebuild=false)=>{if(targetKind!=='transfer'||!target)return;const chosen=[...transferIds],result=world.previewTalentTransfer(target,chosen),members=world.allies().filter(unit=>transferCandidates.has(unit.id));if(rebuild){transferPanel.innerHTML=`<strong></strong><p role="status"></p><div class="transfer-members">${members.map(unit=>`<button data-transfer-id="${unit.id}" aria-pressed="false">${unit.heroId??unit.unitType} #${unit.id}</button>`).join('')}</div><button data-transfer-confirm>确认转移</button><button data-transfer-cancel>取消</button>`;}transferPanel.querySelector('strong')!.textContent=`微操转移 · ${chosen.length}名成员`;transferPanel.querySelector('[role=status]')!.textContent=result.ok?'全员可落地':result.reason;transferPanel.querySelector<HTMLButtonElement>('[data-transfer-confirm]')!.disabled=!result.ok;for(const [index,button] of [...transferPanel.querySelectorAll<HTMLButtonElement>('[data-transfer-id]')].entries()){const selected=transferIds.has(Number(button.dataset.transferId));button.setAttribute('aria-pressed',String(selected));button.classList.toggle('gamepad-member-selected',index===transferMemberIndex&&document.body.classList.contains('gamepad-active'));}};
@@ -25,7 +26,7 @@ export class Input {
   document.addEventListener('sc2-target-confirm',confirmTarget);
   document.addEventListener('sc2-target-nudge',e=>{if(!target||!canAct())return;const d=(e as CustomEvent<Point>).detail;if(Number.isFinite(d?.x)&&Number.isFinite(d?.z)){target={x:target.x+d.x,z:target.z+d.z};preview();updateTransferPanel();}});
   this.cancelTap=()=>{const id=tap?.id;tap=null;if(id!==undefined&&canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);};
-  window.addEventListener('blur',()=>this.reset());document.addEventListener('visibilitychange',()=>{if(document.hidden)this.reset();});
+  document.addEventListener('sc2-inspection-open',()=>this.reset());window.addEventListener('blur',()=>this.reset());document.addEventListener('visibilitychange',()=>{if(document.hidden)this.reset();});
   settings.listeners.add(()=>{this.reset();world.cancelOrder();});
   window.addEventListener('keydown',e=>{
    const el=e.target instanceof HTMLElement?e.target:null,code=e.code;
@@ -70,7 +71,7 @@ export class Input {
  updateStick(e:PointerEvent){const r=this.joystick.getBoundingClientRect(),radius=r.width*.32;let x=(e.clientX-r.left-r.width/2)/radius,z=(e.clientY-r.top-r.height/2)/radius;const m=Math.hypot(x,z);if(m>1){x/=m;z/=m;}this.stick={x,z};this.joystick.style.setProperty('--stick-x',`${x*radius}px`);this.joystick.style.setProperty('--stick-y',`${z*radius}px`);}
  release(){this.world.resetDirectionalInput();const id=this.pointer;this.pointer=null;if(id!==null&&this.joystick.hasPointerCapture(id))this.joystick.releasePointerCapture(id);this.stick={x:0,z:0};this.joystick.style.setProperty('--stick-x','0px');this.joystick.style.setProperty('--stick-y','0px');}
  poll(){
-  if(this.world.phase!=='battle'||this.world.paused||this.world.requiresPlayerDecision){this.reset();return;}
+  if(battleInputCapture()||this.world.phase!=='battle'||this.world.paused||this.world.requiresPlayerDecision){this.reset();return;}
   if(document.body.dataset.targetFamily){this.world.resetDirectionalInput();return;}
   const keyboard=this.settings.desktop==='keyboard';
   this.world.input={x:this.stick.x+(keyboard?Number(this.keys.has('KeyD')||this.keys.has('ArrowRight'))-Number(this.keys.has('KeyA')||this.keys.has('ArrowLeft')):0),z:this.stick.z+(keyboard?Number(this.keys.has('KeyS')||this.keys.has('ArrowDown'))-Number(this.keys.has('KeyW')||this.keys.has('ArrowUp')):0)};

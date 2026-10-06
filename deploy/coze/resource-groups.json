@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "release": "2f3a6406dc45752c6aaab48a66e47dabfb13bf66ae74d4914cac3b0b1d1c5cd8",
+  "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
   "groups": [
     "common",
     "terran",
@@ -103,6 +103,19 @@
       "gitPath": "deploy/runtime/assets/050929f94f9e8589dae738c0d5b78d66f658e4794212376e727fdb516ae95b5d.glb"
     },
     {
+      "url": "assets/05433f3b076e19eecb90d1ee7b72ece24a6cdeec56d739691edfdc50a9cddae0.webp",
+      "bytes": 691174,
+      "sha256": "05433f3b076e19eecb90d1ee7b72ece24a6cdeec56d739691edfdc50a9cddae0",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.zergling-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/05433f3b076e19eecb90d1ee7b72ece24a6cdeec56d739691edfdc50a9cddae0.webp"
+    },
+    {
       "url": "assets/059f3f55ecca9f33dd9bc71677ee56c879d917a2a9708063102f53b05c4f32ee.png",
       "bytes": 5643,
       "sha256": "059f3f55ecca9f33dd9bc71677ee56c879d917a2a9708063102f53b05c4f32ee",
@@ -153,6 +166,19 @@
         "model.map.marsaracactus_00"
       ],
       "gitPath": "deploy/runtime/assets/060b3ccaad7715543eeb51f3af4c59dd49b4f032966b4cec7a8652ac3bc363c2.gltf"
+    },
+    {
+      "url": "assets/06138b203341b3e11fb7ab8d8ea57e2aa7381d3ae62c9c949275ec819846567c.webp",
+      "bytes": 806968,
+      "sha256": "06138b203341b3e11fb7ab8d8ea57e2aa7381d3ae62c9c949275ec819846567c",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.high_templar-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/06138b203341b3e11fb7ab8d8ea57e2aa7381d3ae62c9c949275ec819846567c.webp"
     },
     {
       "url": "assets/062f84a2238ca7d27152e6157b6c2609ed0cb5cb233a726ca28346491230de08.glb",
@@ -284,6 +310,19 @@
         "model.tank.morph"
       ],
       "gitPath": "deploy/runtime/assets/09ac4392efca0ae2f7cbbf3a6f7e34fb84f9b490ccdbacc741397037e0a97165.glb"
+    },
+    {
+      "url": "assets/0aa766c66a08e41e5397a0aa3ede19dd46307e49092d4551ca7c20870edcab8d.webp",
+      "bytes": 506414,
+      "sha256": "0aa766c66a08e41e5397a0aa3ede19dd46307e49092d4551ca7c20870edcab8d",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.yamato_battlecruiser-single"
+      ],
+      "gitPath": "deploy/runtime/assets/0aa766c66a08e41e5397a0aa3ede19dd46307e49092d4551ca7c20870edcab8d.webp"
     },
     {
       "url": "assets/0b15252662bd7426dfeadfe0338c9577dda29592d5d140b1174630b8ef4144d0.webp",
@@ -506,6 +545,19 @@
         "unit.corruptor"
       ],
       "gitPath": "deploy/runtime/assets/10a7522ceddb20f1a2c692dad660ba264b30f5873769c55782ba1dc838fd28b3.png"
+    },
+    {
+      "url": "assets/110c4579c6d62d3ea925d5ab4bf1e9fa6c63a1667d6074e1d32d845b2080c034.png",
+      "bytes": 2236291,
+      "sha256": "110c4579c6d62d3ea925d5ab4bf1e9fa6c63a1667d6074e1d32d845b2080c034",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.cover.fenix"
+      ],
+      "gitPath": "deploy/runtime/assets/110c4579c6d62d3ea925d5ab4bf1e9fa6c63a1667d6074e1d32d845b2080c034.png"
     },
     {
       "url": "assets/1156a47aece22d25ed932cebdd00b1677ef30c6339c7953ec757398d9b509a45.png",
@@ -1241,6 +1293,19 @@
       "gitPath": "deploy/runtime/assets/2649994f4fdb02baaa00727b55518cd9417eff69f61a7fe4194079716ed03676.webp"
     },
     {
+      "url": "assets/265355e10aebf96206612475c64908b8085c9f3db0713a620a841dc79cbaa96b.webp",
+      "bytes": 798772,
+      "sha256": "265355e10aebf96206612475c64908b8085c9f3db0713a620a841dc79cbaa96b",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.zealot-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/265355e10aebf96206612475c64908b8085c9f3db0713a620a841dc79cbaa96b.webp"
+    },
+    {
       "url": "assets/26c4ad7b3e636d745eff69465c44fe5cdb8b2ea93d70c632591ff75278eb4eda.png",
       "bytes": 1993,
       "sha256": "26c4ad7b3e636d745eff69465c44fe5cdb8b2ea93d70c632591ff75278eb4eda",
@@ -1437,6 +1502,19 @@
       "gitPath": "deploy/runtime/assets/29d17a6ac5f7477ad24417b41217c64889cd8743d65fdf46e9b76623e6c9a32a.webp"
     },
     {
+      "url": "assets/2aa0ae5bf21e1f1aaf8b1bce524f71eeeadd89d98905f9ec19b6e02a00f518cd.webp",
+      "bytes": 786150,
+      "sha256": "2aa0ae5bf21e1f1aaf8b1bce524f71eeeadd89d98905f9ec19b6e02a00f518cd",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.colossus-atlas-v2"
+      ],
+      "gitPath": "deploy/runtime/assets/2aa0ae5bf21e1f1aaf8b1bce524f71eeeadd89d98905f9ec19b6e02a00f518cd.webp"
+    },
+    {
       "url": "assets/2abcfc287a0cba48efabdcc6d4fa0f4e29312908e0e67dfb6718616b384b9f37.webp",
       "bytes": 348094,
       "sha256": "2abcfc287a0cba48efabdcc6d4fa0f4e29312908e0e67dfb6718616b384b9f37",
@@ -1529,6 +1607,19 @@
       "gitPath": "deploy/runtime/assets/2db2f69874cdb1e5203f2f86803d5debde30402590cf50a810afaba882184616.png"
     },
     {
+      "url": "assets/2e24d42d6b16bd6c788ea5b9ffa29dd220c3c67cde3c725b9f047344310e0fa2.webp",
+      "bytes": 634890,
+      "sha256": "2e24d42d6b16bd6c788ea5b9ffa29dd220c3c67cde3c725b9f047344310e0fa2",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.medivac-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/2e24d42d6b16bd6c788ea5b9ffa29dd220c3c67cde3c725b9f047344310e0fa2.webp"
+    },
+    {
       "url": "assets/2e9567f6722a04360d4c7a2d5eeeaf29ad56381f6998d7d9b0245fac339010bc.webp",
       "bytes": 51094,
       "sha256": "2e9567f6722a04360d4c7a2d5eeeaf29ad56381f6998d7d9b0245fac339010bc",
@@ -1553,6 +1644,19 @@
         "model.elite.marine.2"
       ],
       "gitPath": "deploy/runtime/assets/2f2ecf6469fcc3382bf294e80b84be0dacd1acf89249d3c4ba12ca88ed3cf14c.glb"
+    },
+    {
+      "url": "assets/2f9a381169e3bdf8459f60c7feb5ecac4d9fea4633595e241c98792b6b95f43c.png",
+      "bytes": 2107992,
+      "sha256": "2f9a381169e3bdf8459f60c7feb5ecac4d9fea4633595e241c98792b6b95f43c",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.cover.kerrigan"
+      ],
+      "gitPath": "deploy/runtime/assets/2f9a381169e3bdf8459f60c7feb5ecac4d9fea4633595e241c98792b6b95f43c.png"
     },
     {
       "url": "assets/2fcf5dd0be32c55dd35450f6100e0a6b550159f6f9a402b1296ca8d0dae44427.webp",
@@ -1711,6 +1815,19 @@
       "gitPath": "deploy/runtime/assets/34145354f960b3d69fda3fe5062e863db91715196be8e308ca0eac867a94b3b3.webp"
     },
     {
+      "url": "assets/3427dad2daf34db8d5a241d82e0d612564fdc2fa51c96f2b3a70a45b13f9a9b5.webp",
+      "bytes": 686020,
+      "sha256": "3427dad2daf34db8d5a241d82e0d612564fdc2fa51c96f2b3a70a45b13f9a9b5",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.science_vessel-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/3427dad2daf34db8d5a241d82e0d612564fdc2fa51c96f2b3a70a45b13f9a9b5.webp"
+    },
+    {
       "url": "assets/3469ffb0ad1c0720a6d1b64ae1fd08dd09135279be5bb399b0347f8c4710c8b6.webp",
       "bytes": 92374,
       "sha256": "3469ffb0ad1c0720a6d1b64ae1fd08dd09135279be5bb399b0347f8c4710c8b6",
@@ -1750,6 +1867,19 @@
       "gitPath": "deploy/runtime/assets/3551598fbdcfcc4fd6c730cc31015ffb822ce7d57cb3327de75a68c12f7a60b8.webp"
     },
     {
+      "url": "assets/35e2db30e0f100569751e1c21b16d7002cec7bf5b31cbf657228dbdf7ad118f0.webp",
+      "bytes": 621710,
+      "sha256": "35e2db30e0f100569751e1c21b16d7002cec7bf5b31cbf657228dbdf7ad118f0",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.void_ray-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/35e2db30e0f100569751e1c21b16d7002cec7bf5b31cbf657228dbdf7ad118f0.webp"
+    },
+    {
       "url": "assets/35ec2eca7aaeae1649ae519b0260faa2b4675da2d036224e0d446248bdf615e3.glb",
       "bytes": 8672,
       "sha256": "35ec2eca7aaeae1649ae519b0260faa2b4675da2d036224e0d446248bdf615e3",
@@ -1775,6 +1905,32 @@
         "model.mutalisk"
       ],
       "gitPath": "deploy/runtime/assets/3659c6b8284d9f7a038eb0dc4cc01546aebcbfee760a04edf0a6bb44db70d709.glb"
+    },
+    {
+      "url": "assets/36de5164c7d58ed489d8fd7428d64eefb5724eb7259a25ceaebe8190f64c7986.webp",
+      "bytes": 469512,
+      "sha256": "36de5164c7d58ed489d8fd7428d64eefb5724eb7259a25ceaebe8190f64c7986",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.tank-atlas-v3"
+      ],
+      "gitPath": "deploy/runtime/assets/36de5164c7d58ed489d8fd7428d64eefb5724eb7259a25ceaebe8190f64c7986.webp"
+    },
+    {
+      "url": "assets/3794adeac955443f9b41e8d5b000afd1e949f52eed4154797637b4764a68c267.webp",
+      "bytes": 496172,
+      "sha256": "3794adeac955443f9b41e8d5b000afd1e949f52eed4154797637b4764a68c267",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.carrier.3-single"
+      ],
+      "gitPath": "deploy/runtime/assets/3794adeac955443f9b41e8d5b000afd1e949f52eed4154797637b4764a68c267.webp"
     },
     {
       "url": "assets/38217ad9a4f95645c64a1582f3dbe5bdc173b5767f5c27de36d1bc540d033dd0.glb",
@@ -2010,6 +2166,19 @@
         "map.image.3ceceb48a14d32a9cc4755c83021936912be4151fa024712724990c6fdd9bbb0"
       ],
       "gitPath": "deploy/runtime/assets/3da15834edc212869228406c14d951045eb0593a2ea3e36cedece725fa626398.webp"
+    },
+    {
+      "url": "assets/3e200cb002f81ac80fec5e71eaac466493c53dbc4eea0841eb63cf8bb21a5c0e.webp",
+      "bytes": 550850,
+      "sha256": "3e200cb002f81ac80fec5e71eaac466493c53dbc4eea0841eb63cf8bb21a5c0e",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.thor-atlas-v2"
+      ],
+      "gitPath": "deploy/runtime/assets/3e200cb002f81ac80fec5e71eaac466493c53dbc4eea0841eb63cf8bb21a5c0e.webp"
     },
     {
       "url": "assets/3edbcad5cddcb15cfbc7989e3c9f71fcc8da1b58fdd11142cfbf407731700823.glb",
@@ -2626,6 +2795,19 @@
       "gitPath": "deploy/runtime/assets/54fc64d084164883f0dce64949c3307bd3faaa147967c8beb77e2e837a077876.webp"
     },
     {
+      "url": "assets/550cfd91dca2e5d37e139a0a21c961fca49d4de7145de7204d7ffd0bd840f4ff.webp",
+      "bytes": 691330,
+      "sha256": "550cfd91dca2e5d37e139a0a21c961fca49d4de7145de7204d7ffd0bd840f4ff",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.roach-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/550cfd91dca2e5d37e139a0a21c961fca49d4de7145de7204d7ffd0bd840f4ff.webp"
+    },
+    {
       "url": "assets/550e9cc452ca7900ec9fea6db1c6debf383e2d601855f5f74c8b2726fd898e60.glb",
       "bytes": 1485872,
       "sha256": "550e9cc452ca7900ec9fea6db1c6debf383e2d601855f5f74c8b2726fd898e60",
@@ -2811,6 +2993,19 @@
       "gitPath": "deploy/runtime/assets/58a2fd0e2e150b24d5945fb37161941f459a505ad4d3b2343ff81f2a3407ae09.glb"
     },
     {
+      "url": "assets/5917afeb7c4461897b1e3a5c467f7a0c47b3226a16d04a671488897ce2bc219b.webp",
+      "bytes": 401182,
+      "sha256": "5917afeb7c4461897b1e3a5c467f7a0c47b3226a16d04a671488897ce2bc219b",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.viking-atlas-v3"
+      ],
+      "gitPath": "deploy/runtime/assets/5917afeb7c4461897b1e3a5c467f7a0c47b3226a16d04a671488897ce2bc219b.webp"
+    },
+    {
       "url": "assets/592f55582d8a5403d2da7a09ca978c1e76956ade1130a64e02f41b9ef7aded2a.webp",
       "bytes": 142560,
       "sha256": "592f55582d8a5403d2da7a09ca978c1e76956ade1130a64e02f41b9ef7aded2a",
@@ -2978,6 +3173,19 @@
         "fx.flame.0"
       ],
       "gitPath": "deploy/runtime/assets/5e4a34a6e34e6c74afe33eb9be57ceb5464d674785db159bb67cf61033670190.png"
+    },
+    {
+      "url": "assets/5e543f4ae2cda88a33d4b89cf9d3eb41014350eb080049d4e652014e3a08f88d.webp",
+      "bytes": 431190,
+      "sha256": "5e543f4ae2cda88a33d4b89cf9d3eb41014350eb080049d4e652014e3a08f88d",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.marine.2-single"
+      ],
+      "gitPath": "deploy/runtime/assets/5e543f4ae2cda88a33d4b89cf9d3eb41014350eb080049d4e652014e3a08f88d.webp"
     },
     {
       "url": "assets/5f4b222a05fac1523163d09baa6e4b04ad92265115bd121805d6b5d7becd9e9f.webp",
@@ -3762,6 +3970,45 @@
       "gitPath": "deploy/runtime/assets/75743017a4668e648c1741d2d993a169e6486b804d40a9da5f1e7893ea06d38b.svg"
     },
     {
+      "url": "assets/75b354d591c802bb42b1bf642884681f54c7a15bac9e08e4dd82a3d671c6dd3d.webp",
+      "bytes": 257394,
+      "sha256": "75b354d591c802bb42b1bf642884681f54c7a15bac9e08e4dd82a3d671c6dd3d",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.stukov-single"
+      ],
+      "gitPath": "deploy/runtime/assets/75b354d591c802bb42b1bf642884681f54c7a15bac9e08e4dd82a3d671c6dd3d.webp"
+    },
+    {
+      "url": "assets/769e64b8f96ffd093549ba05f0c9d3b38c16397bc2a6e61c5657665262711fdd.png",
+      "bytes": 2106747,
+      "sha256": "769e64b8f96ffd093549ba05f0c9d3b38c16397bc2a6e61c5657665262711fdd",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.cover.nova"
+      ],
+      "gitPath": "deploy/runtime/assets/769e64b8f96ffd093549ba05f0c9d3b38c16397bc2a6e61c5657665262711fdd.png"
+    },
+    {
+      "url": "assets/76e6d331d749f50f53d710cffd460ab7b85d590a150b54a2db7e0f7dd3283896.webp",
+      "bytes": 590728,
+      "sha256": "76e6d331d749f50f53d710cffd460ab7b85d590a150b54a2db7e0f7dd3283896",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.lurker-atlas-v2"
+      ],
+      "gitPath": "deploy/runtime/assets/76e6d331d749f50f53d710cffd460ab7b85d590a150b54a2db7e0f7dd3283896.webp"
+    },
+    {
       "url": "assets/782584323d8acf5cd4b8abe2b4e9769144ceb794524349b6b96643119d35fc45.webp",
       "bytes": 208278,
       "sha256": "782584323d8acf5cd4b8abe2b4e9769144ceb794524349b6b96643119d35fc45",
@@ -3814,6 +4061,32 @@
       "gitPath": "deploy/runtime/assets/7a5032aae95cb8ea5242499d9a8cef7b44d6cf3fe2cc5ba82431e2ffa7205d87.glb"
     },
     {
+      "url": "assets/7a7e1279cb0c454cb00c101427a60a44d79bca8b4fe5d943baf81774772f12f8.webp",
+      "bytes": 345810,
+      "sha256": "7a7e1279cb0c454cb00c101427a60a44d79bca8b4fe5d943baf81774772f12f8",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.marine-single"
+      ],
+      "gitPath": "deploy/runtime/assets/7a7e1279cb0c454cb00c101427a60a44d79bca8b4fe5d943baf81774772f12f8.webp"
+    },
+    {
+      "url": "assets/7ae782a7940c472672457eba677a2912d8dfe7d23482de78b748f5b18bd23f23.png",
+      "bytes": 2086210,
+      "sha256": "7ae782a7940c472672457eba677a2912d8dfe7d23482de78b748f5b18bd23f23",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.cover.tychus"
+      ],
+      "gitPath": "deploy/runtime/assets/7ae782a7940c472672457eba677a2912d8dfe7d23482de78b748f5b18bd23f23.png"
+    },
+    {
       "url": "assets/7b13cefe03ce479387e3b0221276b8c397f815bf74efe6aa31b62b6c733ae9f5.glb",
       "bytes": 1910748,
       "sha256": "7b13cefe03ce479387e3b0221276b8c397f815bf74efe6aa31b62b6c733ae9f5",
@@ -3825,6 +4098,19 @@
         "model.hero.raynor"
       ],
       "gitPath": "deploy/runtime/assets/7b13cefe03ce479387e3b0221276b8c397f815bf74efe6aa31b62b6c733ae9f5.glb"
+    },
+    {
+      "url": "assets/7b389b0e9eba936e85e823f639eb1779057cc526fb98f94b300c7482380ae283.webp",
+      "bytes": 628460,
+      "sha256": "7b389b0e9eba936e85e823f639eb1779057cc526fb98f94b300c7482380ae283",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.queen-atlas-v2"
+      ],
+      "gitPath": "deploy/runtime/assets/7b389b0e9eba936e85e823f639eb1779057cc526fb98f94b300c7482380ae283.webp"
     },
     {
       "url": "assets/7baba94d9d6b0705d5a765fc8e2dae0059000b0eaa59cf0b15e9d45e10353614.png",
@@ -3997,6 +4283,32 @@
       "gitPath": "deploy/runtime/assets/7ed15f68943ea5c8214a0df35040f79c9ad7ed5eb9b9de1b1da6e41313874975.glb"
     },
     {
+      "url": "assets/7f18bbb60e788dfd3bb2ca711c76c93b65a59dd5d0e124981d1fd38388bd769f.png",
+      "bytes": 2077522,
+      "sha256": "7f18bbb60e788dfd3bb2ca711c76c93b65a59dd5d0e124981d1fd38388bd769f",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.cover.raynor"
+      ],
+      "gitPath": "deploy/runtime/assets/7f18bbb60e788dfd3bb2ca711c76c93b65a59dd5d0e124981d1fd38388bd769f.png"
+    },
+    {
+      "url": "assets/7f8d120f0278a7c946254cf8c4a507dd55672df5b6d9bc1d175daf5c0e228e81.webp",
+      "bytes": 399686,
+      "sha256": "7f8d120f0278a7c946254cf8c4a507dd55672df5b6d9bc1d175daf5c0e228e81",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.niadra-single"
+      ],
+      "gitPath": "deploy/runtime/assets/7f8d120f0278a7c946254cf8c4a507dd55672df5b6d9bc1d175daf5c0e228e81.webp"
+    },
+    {
       "url": "assets/800ea07ab7c14092819b010b2fee42601693f2bdcfde0e0a2b4cb3079dc78d66.png",
       "bytes": 5309,
       "sha256": "800ea07ab7c14092819b010b2fee42601693f2bdcfde0e0a2b4cb3079dc78d66",
@@ -4021,6 +4333,19 @@
         "model.elite.immortal.1.death"
       ],
       "gitPath": "deploy/runtime/assets/80fef588e750eadf27abddafb3abf0a564f0b6b1f9c77e4eb96454fe20d6a3af.glb"
+    },
+    {
+      "url": "assets/811a8bdfe9312289e914424b08bbe10ef14687830f42f4d06bd64c6ecfe6b820.webp",
+      "bytes": 579530,
+      "sha256": "811a8bdfe9312289e914424b08bbe10ef14687830f42f4d06bd64c6ecfe6b820",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.banshee-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/811a8bdfe9312289e914424b08bbe10ef14687830f42f4d06bd64c6ecfe6b820.webp"
     },
     {
       "url": "assets/815aa1f7b8207461b4ebff531970b234615df9da5dd2b7b73ad4f34bdfc08fe4.png",
@@ -4101,6 +4426,19 @@
       "gitPath": "deploy/runtime/assets/848b83e696e577fc813e066c64d28dc5ee5672e1b9122124370b306045f6a9db.glb"
     },
     {
+      "url": "assets/85ad9d5d3f20d03b50f22b1507ee2d96d9eb85258f18c1ddc916d8ae5e4d65b6.webp",
+      "bytes": 454706,
+      "sha256": "85ad9d5d3f20d03b50f22b1507ee2d96d9eb85258f18c1ddc916d8ae5e4d65b6",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.swann-single"
+      ],
+      "gitPath": "deploy/runtime/assets/85ad9d5d3f20d03b50f22b1507ee2d96d9eb85258f18c1ddc916d8ae5e4d65b6.webp"
+    },
+    {
       "url": "assets/861a5f1f924eef668ab1b7468f6c0abfea27879d9eca3a286207d7ca912ac647.png",
       "bytes": 44808,
       "sha256": "861a5f1f924eef668ab1b7468f6c0abfea27879d9eca3a286207d7ca912ac647",
@@ -4151,6 +4489,32 @@
         "model.elite.void_ray.1"
       ],
       "gitPath": "deploy/runtime/assets/87fd92e8bc8b2c1797cdd2a72ed3579a9227489a37bc8deb2ec6e4aea93d4899.glb"
+    },
+    {
+      "url": "assets/880cbca4cde19e14595028724a1d94459fde78caa4cfe01f3eedcc38858017c0.webp",
+      "bytes": 650450,
+      "sha256": "880cbca4cde19e14595028724a1d94459fde78caa4cfe01f3eedcc38858017c0",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.marauder-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/880cbca4cde19e14595028724a1d94459fde78caa4cfe01f3eedcc38858017c0.webp"
+    },
+    {
+      "url": "assets/887867c5725026024d98514fd9e1d1ba688dce77d308617ea7d258a3ad54d676.png",
+      "bytes": 2288723,
+      "sha256": "887867c5725026024d98514fd9e1d1ba688dce77d308617ea7d258a3ad54d676",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.cover.artanis"
+      ],
+      "gitPath": "deploy/runtime/assets/887867c5725026024d98514fd9e1d1ba688dce77d308617ea7d258a3ad54d676.png"
     },
     {
       "url": "assets/88a30ba310232f1cdf4d5f39b59c700a67000b090fc54499b5837cc4e08f5b63.webp",
@@ -4205,6 +4569,19 @@
       "gitPath": "deploy/runtime/assets/8a5bfd765f9a2ed745e01c21abf63af74ec70b99b30a8c25d7889313fa6b9a49.glb"
     },
     {
+      "url": "assets/8a8cf0d2732b23414b423e54a95697581920863548ac762957e2a79a79cb6ecf.webp",
+      "bytes": 404094,
+      "sha256": "8a8cf0d2732b23414b423e54a95697581920863548ac762957e2a79a79cb6ecf",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.hydralisk-single"
+      ],
+      "gitPath": "deploy/runtime/assets/8a8cf0d2732b23414b423e54a95697581920863548ac762957e2a79a79cb6ecf.webp"
+    },
+    {
       "url": "assets/8b1344fd92e12c5150477e827ab4827c77a175d54b1ba891aa2f81ba771dd315.glb",
       "bytes": 2315596,
       "sha256": "8b1344fd92e12c5150477e827ab4827c77a175d54b1ba891aa2f81ba771dd315",
@@ -4216,6 +4593,19 @@
         "model.elite.tank.3.death"
       ],
       "gitPath": "deploy/runtime/assets/8b1344fd92e12c5150477e827ab4827c77a175d54b1ba891aa2f81ba771dd315.glb"
+    },
+    {
+      "url": "assets/8ca2cb9a79a8d63c46c064d4a38d9a662c6bf19de93a256ecadb108f004b1bcf.webp",
+      "bytes": 478714,
+      "sha256": "8ca2cb9a79a8d63c46c064d4a38d9a662c6bf19de93a256ecadb108f004b1bcf",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.vorazun-single"
+      ],
+      "gitPath": "deploy/runtime/assets/8ca2cb9a79a8d63c46c064d4a38d9a662c6bf19de93a256ecadb108f004b1bcf.webp"
     },
     {
       "url": "assets/8e0aff1f732fb12527d548ba3c034d2707330cde8924219b09e7729a367e553c.glb",
@@ -4533,6 +4923,19 @@
       "gitPath": "deploy/runtime/assets/940d70765907ccc7cf4cd2ced6e5670724d023f88e7cdc686a63e1dff6b97ac2.glb"
     },
     {
+      "url": "assets/944515a1906b051c4d1dbfc9e779192ce9644f36212f6c037ea6d640d893338b.webp",
+      "bytes": 568000,
+      "sha256": "944515a1906b051c4d1dbfc9e779192ce9644f36212f6c037ea6d640d893338b",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.mutalisk-atlas-v2"
+      ],
+      "gitPath": "deploy/runtime/assets/944515a1906b051c4d1dbfc9e779192ce9644f36212f6c037ea6d640d893338b.webp"
+    },
+    {
       "url": "assets/945999aed1939a7c1d6beb249de4c8d29a86acd5b7502a0fbfc79088333362ac.png",
       "bytes": 5637,
       "sha256": "945999aed1939a7c1d6beb249de4c8d29a86acd5b7502a0fbfc79088333362ac",
@@ -4570,6 +4973,19 @@
         "map.image.437aa1031e35607533264d4790929ea1ab2bbf2d9a34e31c650792b9a9a44b1c"
       ],
       "gitPath": "deploy/runtime/assets/94d4f3783dee24ddbdcef78a64602518fb4ea9b69a1e2a5e4305a99c6c721c5b.webp"
+    },
+    {
+      "url": "assets/952b58c5e5ab3dadcebd5e43a85d7783942f98416e0ac8e9e8cb74d07372a2c2.webp",
+      "bytes": 679838,
+      "sha256": "952b58c5e5ab3dadcebd5e43a85d7783942f98416e0ac8e9e8cb74d07372a2c2",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.sentry-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/952b58c5e5ab3dadcebd5e43a85d7783942f98416e0ac8e9e8cb74d07372a2c2.webp"
     },
     {
       "url": "assets/95c67bb4d8e1e1e912ae31d56385ecee07a6f58149f415e957efc85836ca0759.svg",
@@ -4727,6 +5143,19 @@
         "model.drone.death"
       ],
       "gitPath": "deploy/runtime/assets/984538efe8aedb039d552aa7c851587aa267c6c17699a7326676e81a07f810d0.glb"
+    },
+    {
+      "url": "assets/989f56743a3cff2e0a9f61795ceabb16f0d828f0f64e9978751130c5fd98962e.webp",
+      "bytes": 499160,
+      "sha256": "989f56743a3cff2e0a9f61795ceabb16f0d828f0f64e9978751130c5fd98962e",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.carrier.1-single"
+      ],
+      "gitPath": "deploy/runtime/assets/989f56743a3cff2e0a9f61795ceabb16f0d828f0f64e9978751130c5fd98962e.webp"
     },
     {
       "url": "assets/98b8d50eef184ee2446a8c55d444f3595fae97b48357d7bc7ae345ff2a9b11a6.png",
@@ -5017,6 +5446,19 @@
       "gitPath": "deploy/runtime/assets/9fb6ac54fb96503e2b216d6fddaa4b14639250a1cc056d4d518b74e4a6f5fa3e.glb"
     },
     {
+      "url": "assets/9fd91598e949e0b9fecf0767a7c498cd062b4b974c2fa4db88ee555b18ff4d2d.webp",
+      "bytes": 711444,
+      "sha256": "9fd91598e949e0b9fecf0767a7c498cd062b4b974c2fa4db88ee555b18ff4d2d",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.baneling-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/9fd91598e949e0b9fecf0767a7c498cd062b4b974c2fa4db88ee555b18ff4d2d.webp"
+    },
+    {
       "url": "assets/a09e6c07f669b10aa49664b626679da85ce4d95500fbba1537d4be0a6310c5b9.svg",
       "bytes": 28437,
       "sha256": "a09e6c07f669b10aa49664b626679da85ce4d95500fbba1537d4be0a6310c5b9",
@@ -5057,6 +5499,19 @@
       "gitPath": "deploy/runtime/assets/a0bb2afd3a813e480b627bde768d6a46e8874dbeaeeca477addec2d138807896.glb"
     },
     {
+      "url": "assets/a0fccaa02c5f07ec346586dd90778ed5388f406d09087f1eccf8e4a97f219b66.png",
+      "bytes": 2035608,
+      "sha256": "a0fccaa02c5f07ec346586dd90778ed5388f406d09087f1eccf8e4a97f219b66",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.cover.dehaka"
+      ],
+      "gitPath": "deploy/runtime/assets/a0fccaa02c5f07ec346586dd90778ed5388f406d09087f1eccf8e4a97f219b66.png"
+    },
+    {
       "url": "assets/a134d2349e84eef9a1d609576b867499105d40c27bc5e5fdad1674cd3e5612e5.png",
       "bytes": 249068,
       "sha256": "a134d2349e84eef9a1d609576b867499105d40c27bc5e5fdad1674cd3e5612e5",
@@ -5068,6 +5523,19 @@
         "fx.acid.0"
       ],
       "gitPath": "deploy/runtime/assets/a134d2349e84eef9a1d609576b867499105d40c27bc5e5fdad1674cd3e5612e5.png"
+    },
+    {
+      "url": "assets/a15fa145943797a2862d0093f81eea44ee76ed39642d5ac6e4035673cfaf5719.webp",
+      "bytes": 637306,
+      "sha256": "a15fa145943797a2862d0093f81eea44ee76ed39642d5ac6e4035673cfaf5719",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.marine-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/a15fa145943797a2862d0093f81eea44ee76ed39642d5ac6e4035673cfaf5719.webp"
     },
     {
       "url": "assets/a19c5eba887ad2b5d24c4c287753f0e83fa8d2b5fd0b492f16549191da842f51.webp",
@@ -5173,6 +5641,19 @@
         "model.elite.lurker.1"
       ],
       "gitPath": "deploy/runtime/assets/a402fa5d68b26c6835f930277fe767d6e9eab6502e9df041ace5acf068d06528.glb"
+    },
+    {
+      "url": "assets/a41dee0d5108d41fb29bd88924fe40bbfbf146eeefd6cbc705f48a92d6cb4db0.webp",
+      "bytes": 483428,
+      "sha256": "a41dee0d5108d41fb29bd88924fe40bbfbf146eeefd6cbc705f48a92d6cb4db0",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.corruptor-atlas-v3"
+      ],
+      "gitPath": "deploy/runtime/assets/a41dee0d5108d41fb29bd88924fe40bbfbf146eeefd6cbc705f48a92d6cb4db0.webp"
     },
     {
       "url": "assets/a44783d781729f037b036ae2705fa7878e401ab0ae38f48c9fac5fe09d833565.webp",
@@ -5396,6 +5877,19 @@
       "gitPath": "deploy/runtime/assets/ab332832a3b74a4bdb9ded8211b447d1d9651641dd81b535cc2986c61575a206.svg"
     },
     {
+      "url": "assets/ab5755faf453c99f837e79b6c1bdbfc2abe3146d5022ff280fb19b4302b6259b.webp",
+      "bytes": 438284,
+      "sha256": "ab5755faf453c99f837e79b6c1bdbfc2abe3146d5022ff280fb19b4302b6259b",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.purifier_flagship-single"
+      ],
+      "gitPath": "deploy/runtime/assets/ab5755faf453c99f837e79b6c1bdbfc2abe3146d5022ff280fb19b4302b6259b.webp"
+    },
+    {
       "url": "assets/ac8f1969155a0063a13946b35398d8bb6670a181c5b0abfd0b6ee3c1e6be5182.webp",
       "bytes": 217102,
       "sha256": "ac8f1969155a0063a13946b35398d8bb6670a181c5b0abfd0b6ee3c1e6be5182",
@@ -5513,6 +6007,19 @@
       "gitPath": "deploy/runtime/assets/aea463bdca9d53528f4892ba1c6b7a6499226c55edb371c58b6ab7eabf35a8f4.webp"
     },
     {
+      "url": "assets/aeb89d1c8e1e617c7db7a44f9f86c439e1556a246ce61f55262cc135160cf402.webp",
+      "bytes": 505958,
+      "sha256": "aeb89d1c8e1e617c7db7a44f9f86c439e1556a246ce61f55262cc135160cf402",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.hots_leviathan-single"
+      ],
+      "gitPath": "deploy/runtime/assets/aeb89d1c8e1e617c7db7a44f9f86c439e1556a246ce61f55262cc135160cf402.webp"
+    },
+    {
       "url": "assets/aeecb19cc9c4d272ca5b768c800b67d876240d04654bc237544ab959122f2344.gltf",
       "bytes": 143817,
       "sha256": "aeecb19cc9c4d272ca5b768c800b67d876240d04654bc237544ab959122f2344",
@@ -5589,6 +6096,19 @@
         "map.image.bcb2099557608c02a8032bab0c9f522faf29752aa3e7b3e13887ff21be6e9eb4"
       ],
       "gitPath": "deploy/runtime/assets/b38ef2f4fc06e41644eeb2c16e67815f4788705482e7cb7c9a5619137f897313.webp"
+    },
+    {
+      "url": "assets/b3c7f01bc34a6d3208c04e1e0e016b5ab107295d7dc1af5e1abeb1c3ff144800.webp",
+      "bytes": 443876,
+      "sha256": "b3c7f01bc34a6d3208c04e1e0e016b5ab107295d7dc1af5e1abeb1c3ff144800",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.alarak-single"
+      ],
+      "gitPath": "deploy/runtime/assets/b3c7f01bc34a6d3208c04e1e0e016b5ab107295d7dc1af5e1abeb1c3ff144800.webp"
     },
     {
       "url": "assets/b3d190e3699238c240f9fa91baa201eabd212df40a4b321c252561f27269ebaf.glb",
@@ -5787,6 +6307,19 @@
       "gitPath": "deploy/runtime/assets/b9c6e5dbbc28eb37a8d5b65aabed45dd64446faf34c934a0862ed8164422b495.glb"
     },
     {
+      "url": "assets/ba02ba9bcf19f40baade01c95c1c98684f23ea9d6392e5304ed73bb46fe5d373.webp",
+      "bytes": 644706,
+      "sha256": "ba02ba9bcf19f40baade01c95c1c98684f23ea9d6392e5304ed73bb46fe5d373",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.phoenix-atlas-v2"
+      ],
+      "gitPath": "deploy/runtime/assets/ba02ba9bcf19f40baade01c95c1c98684f23ea9d6392e5304ed73bb46fe5d373.webp"
+    },
+    {
       "url": "assets/ba3f4996a5a91ea3cba6817a9b4770a385a82ef0b9350cbda5c0f140d182af7e.png",
       "bytes": 51060,
       "sha256": "ba3f4996a5a91ea3cba6817a9b4770a385a82ef0b9350cbda5c0f140d182af7e",
@@ -5906,6 +6439,19 @@
       "gitPath": "deploy/runtime/assets/bd47af276679164c6e10da8069a10c3f51fec98df9e2cea17406761777eacb21.webp"
     },
     {
+      "url": "assets/bd5c8b7c0cf643f0c3dc747647cb88d2b29b53221307abbccc4a5e3116b21d11.webp",
+      "bytes": 608310,
+      "sha256": "bd5c8b7c0cf643f0c3dc747647cb88d2b29b53221307abbccc4a5e3116b21d11",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.hellion-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/bd5c8b7c0cf643f0c3dc747647cb88d2b29b53221307abbccc4a5e3116b21d11.webp"
+    },
+    {
       "url": "assets/bd66109e39633040c137857a6b61414e4697c75ff757689fe42a182d636310f7.svg",
       "bytes": 26597,
       "sha256": "bd66109e39633040c137857a6b61414e4697c75ff757689fe42a182d636310f7",
@@ -5944,6 +6490,19 @@
         "model.elite.tank.2"
       ],
       "gitPath": "deploy/runtime/assets/be6f419b9baa0b3c97e8801169120cce95d2138e3e6dc22040b3b53438610809.glb"
+    },
+    {
+      "url": "assets/bf0cee15019e42950c212cf69831bd5835751b9098dc77a667b2b50bd7f3ebe5.webp",
+      "bytes": 762280,
+      "sha256": "bf0cee15019e42950c212cf69831bd5835751b9098dc77a667b2b50bd7f3ebe5",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.hydralisk-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/bf0cee15019e42950c212cf69831bd5835751b9098dc77a667b2b50bd7f3ebe5.webp"
     },
     {
       "url": "assets/bf3c0f2a18c34bfbb25c1bc474004a93398d743ecc4921ca2fe3ea03ebbcb4bd.glb",
@@ -6024,6 +6583,19 @@
       "gitPath": "deploy/runtime/assets/c1af81f3f3a6e0da88b7f6b1e03e8a1c7802fe3bcc3ec9fc3d80c6aae76b36df.webp"
     },
     {
+      "url": "assets/c1df0f05e0c89678d76f62d6339b539da509e938230ae8ce5caee4ea720e9f10.webp",
+      "bytes": 376942,
+      "sha256": "c1df0f05e0c89678d76f62d6339b539da509e938230ae8ce5caee4ea720e9f10",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.zealot-single"
+      ],
+      "gitPath": "deploy/runtime/assets/c1df0f05e0c89678d76f62d6339b539da509e938230ae8ce5caee4ea720e9f10.webp"
+    },
+    {
       "url": "assets/c23517e735c6ff042fe4ba50c28e29a68ff2776b62fd9d393695089c17ccc56b.webp",
       "bytes": 197196,
       "sha256": "c23517e735c6ff042fe4ba50c28e29a68ff2776b62fd9d393695089c17ccc56b",
@@ -6074,6 +6646,19 @@
         "tech.armor"
       ],
       "gitPath": "deploy/runtime/assets/c2d2241fa3408c1f1e5cd3de63a0f72af6e9d5bdf394ac5a99f26360b2bcbdcc.png"
+    },
+    {
+      "url": "assets/c2e1fc0d5e39370b688f98fae4b10f8e82ad71ee4d5ea67b427d73565daef6b4.webp",
+      "bytes": 680528,
+      "sha256": "c2e1fc0d5e39370b688f98fae4b10f8e82ad71ee4d5ea67b427d73565daef6b4",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.adept-atlas-v3"
+      ],
+      "gitPath": "deploy/runtime/assets/c2e1fc0d5e39370b688f98fae4b10f8e82ad71ee4d5ea67b427d73565daef6b4.webp"
     },
     {
       "url": "assets/c2e9972ae619ad81bf109d03f627e35a229d1be92e4c27fb3b1b3c89678d1331.webp",
@@ -6349,6 +6934,19 @@
       "gitPath": "deploy/runtime/assets/ce7a949844acaf505be6131a56d1c3fe2589e6789a10cdfda2d835fa65b49535.glb"
     },
     {
+      "url": "assets/ced742e0c89d93e0b4f449a853f0b0eb51b0a11a51b432e2636e486430f708ec.webp",
+      "bytes": 739132,
+      "sha256": "ced742e0c89d93e0b4f449a853f0b0eb51b0a11a51b432e2636e486430f708ec",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.ultralisk-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/ced742e0c89d93e0b4f449a853f0b0eb51b0a11a51b432e2636e486430f708ec.webp"
+    },
+    {
       "url": "assets/ceddd76636d6e5e8fb4a9e531e2bc61198bfe2f298530a2cd96a98c153521f03.glb",
       "bytes": 4713232,
       "sha256": "ceddd76636d6e5e8fb4a9e531e2bc61198bfe2f298530a2cd96a98c153521f03",
@@ -6386,6 +6984,19 @@
         "map.image.6da003d3e5bc23be6e1ee200fb68748287fce8ba1a157fdada7f24cbb8d8d670"
       ],
       "gitPath": "deploy/runtime/assets/cf2aa0e9f460b7e984e30fbdece54bc5fb5da1410a023d192fb8fcbd96930e8d.webp"
+    },
+    {
+      "url": "assets/cfd504cf5b096cd4a025f5e8b9ceca92760ce5441d8690d41dd7baef4dafb593.png",
+      "bytes": 2023724,
+      "sha256": "cfd504cf5b096cd4a025f5e8b9ceca92760ce5441d8690d41dd7baef4dafb593",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.cover.zeratul"
+      ],
+      "gitPath": "deploy/runtime/assets/cfd504cf5b096cd4a025f5e8b9ceca92760ce5441d8690d41dd7baef4dafb593.png"
     },
     {
       "url": "assets/d0b3e74573f8394f5e639968ee7963f69a33ebf803cfcd21012102f1af7bc564.webp",
@@ -6704,6 +7315,19 @@
       "gitPath": "deploy/runtime/assets/daae6ea7ec6812edbf56ad0a9932fff3830172658efd0e88736a693e30d98c56.webp"
     },
     {
+      "url": "assets/db46ebbfdbe7df13a3c508361fdd5f4e8e6a319f6012bfe61cb6c26aa9a3bd79.webp",
+      "bytes": 750714,
+      "sha256": "db46ebbfdbe7df13a3c508361fdd5f4e8e6a319f6012bfe61cb6c26aa9a3bd79",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.ravager-atlas-v2"
+      ],
+      "gitPath": "deploy/runtime/assets/db46ebbfdbe7df13a3c508361fdd5f4e8e6a319f6012bfe61cb6c26aa9a3bd79.webp"
+    },
+    {
       "url": "assets/db8d66dc7eb696f65cb641543264e6f4c8b5467533db31fa5bd7a0275d6ee39b.webp",
       "bytes": 54,
       "sha256": "db8d66dc7eb696f65cb641543264e6f4c8b5467533db31fa5bd7a0275d6ee39b",
@@ -6952,6 +7576,19 @@
       "gitPath": "deploy/runtime/assets/e3730c3e8a52a273c4d4b24ad1839046f2c0d1e17658dc2a85d1e772e00adbe2.glb"
     },
     {
+      "url": "assets/e41137b44cedd89d9d0fd217344f3a07b33cd0ce587739ed56f635b0be2f0332.webp",
+      "bytes": 631682,
+      "sha256": "e41137b44cedd89d9d0fd217344f3a07b33cd0ce587739ed56f635b0be2f0332",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.stalker-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/e41137b44cedd89d9d0fd217344f3a07b33cd0ce587739ed56f635b0be2f0332.webp"
+    },
+    {
       "url": "assets/e43fe668a2c85a83f9ed4a45ed395042533e099b3069600ef7a9c5c2ebf2a5b1.webp",
       "bytes": 98848,
       "sha256": "e43fe668a2c85a83f9ed4a45ed395042533e099b3069600ef7a9c5c2ebf2a5b1",
@@ -7057,6 +7694,19 @@
       "gitPath": "deploy/runtime/assets/e641ca729acac5e9d31dcec425f6e9fb21fe3a27e357bc7fa6c231f4cb69e705.svg"
     },
     {
+      "url": "assets/e66fab907007a4f088d113c285d2fb5827719af3e0a07a8152179a7758abaf16.webp",
+      "bytes": 411708,
+      "sha256": "e66fab907007a4f088d113c285d2fb5827719af3e0a07a8152179a7758abaf16",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.carrier-single"
+      ],
+      "gitPath": "deploy/runtime/assets/e66fab907007a4f088d113c285d2fb5827719af3e0a07a8152179a7758abaf16.webp"
+    },
+    {
       "url": "assets/e6d85ac2cd4615b84fd12248ecb96faa33b0731bb05eb912df9f11b64b48bbb2.webp",
       "bytes": 116474,
       "sha256": "e6d85ac2cd4615b84fd12248ecb96faa33b0731bb05eb912df9f11b64b48bbb2",
@@ -7146,6 +7796,19 @@
         "map.image.0627fec50fa97349c47544ba3336b79c79dbf5fda47d5757036b9330a42b8fd4"
       ],
       "gitPath": "deploy/runtime/assets/ebd7cfa5d57e0988a5d62e9a20be3f0fb1b16e2073cb468b4cc714340aed8020.webp"
+    },
+    {
+      "url": "assets/ecb2a49d2cb1e936e4161433fb8a36231181c1732055bcbe99330a718f88e1cd.webp",
+      "bytes": 521608,
+      "sha256": "ecb2a49d2cb1e936e4161433fb8a36231181c1732055bcbe99330a718f88e1cd",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.reaper-atlas-v2"
+      ],
+      "gitPath": "deploy/runtime/assets/ecb2a49d2cb1e936e4161433fb8a36231181c1732055bcbe99330a718f88e1cd.webp"
     },
     {
       "url": "assets/ed5167054799b5dc8a675f05414dfca826cef77ef199521deddec137573d1070.png",
@@ -7291,6 +7954,19 @@
       "gitPath": "deploy/runtime/assets/f509e5d1e204fce99375b5803728b3ec5af81d558ed1e8d59395649a94852796.glb"
     },
     {
+      "url": "assets/f5532a3ccdc6d3229f86ea8d1f57a876c5825f11a28c4583549ec2b2cb6c04a3.webp",
+      "bytes": 538802,
+      "sha256": "f5532a3ccdc6d3229f86ea8d1f57a876c5825f11a28c4583549ec2b2cb6c04a3",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.carrier.2-single"
+      ],
+      "gitPath": "deploy/runtime/assets/f5532a3ccdc6d3229f86ea8d1f57a876c5825f11a28c4583549ec2b2cb6c04a3.webp"
+    },
+    {
       "url": "assets/f5584e9fb0861a4ecc20819f9bfef07b121732b2d038f248cd125576e31e0e2f.glb",
       "bytes": 1018004,
       "sha256": "f5584e9fb0861a4ecc20819f9bfef07b121732b2d038f248cd125576e31e0e2f",
@@ -7395,6 +8071,19 @@
       "gitPath": "deploy/runtime/assets/f9d3fba255169b7665dccdee4207375d88c5d57b2e27b3335a74e4c2187ea1be.glb"
     },
     {
+      "url": "assets/fa0637a7c3d17d42b6694f98c55a024d97c2faefcf0a57ade717d2ae7a84d48a.webp",
+      "bytes": 345520,
+      "sha256": "fa0637a7c3d17d42b6694f98c55a024d97c2faefcf0a57ade717d2ae7a84d48a",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.tosh-single"
+      ],
+      "gitPath": "deploy/runtime/assets/fa0637a7c3d17d42b6694f98c55a024d97c2faefcf0a57ade717d2ae7a84d48a.webp"
+    },
+    {
       "url": "assets/fb2b10c7cf2cea1bf79fa8ada33b565a575d9fe66e75fc9d15f8e03f35220384.png",
       "bytes": 4509,
       "sha256": "fb2b10c7cf2cea1bf79fa8ada33b565a575d9fe66e75fc9d15f8e03f35220384",
@@ -7471,6 +8160,32 @@
         "model.elite.medivac.3"
       ],
       "gitPath": "deploy/runtime/assets/fd467be3aeb250b5630ab3c4e5de2432a0e290f0dc57befe41a97c05f142202a.glb"
+    },
+    {
+      "url": "assets/fdea13399e87dd907a6d24846d8889e2b1d6dfe5fc1deacffa7887690727e0c9.webp",
+      "bytes": 748822,
+      "sha256": "fdea13399e87dd907a6d24846d8889e2b1d6dfe5fc1deacffa7887690727e0c9",
+      "mime": "image/webp",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.paint.immortal-atlas"
+      ],
+      "gitPath": "deploy/runtime/assets/fdea13399e87dd907a6d24846d8889e2b1d6dfe5fc1deacffa7887690727e0c9.webp"
+    },
+    {
+      "url": "assets/fe52cb1236264f41a38c8ac0ab2ec45b4a3382d40d36f02c2b14285953d0b98c.png",
+      "bytes": 2199076,
+      "sha256": "fe52cb1236264f41a38c8ac0ab2ec45b4a3382d40d36f02c2b14285953d0b98c",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.cover.zagara"
+      ],
+      "gitPath": "deploy/runtime/assets/fe52cb1236264f41a38c8ac0ab2ec45b4a3382d40d36f02c2b14285953d0b98c.png"
     },
     {
       "url": "assets/fe9b174f1e02be46edb0d334b13f7fae1b48bdad41554a2d744b3a0ef32da5e1.glb",

@@ -26,6 +26,8 @@ for(const [from,to] of [
  ['tools/coze-web-server.mjs','coze-web-server.mjs'],['tools/apply-coze-update.mjs','apply-update.mjs'],
  ['tools/start-coze.mjs','start-coze.mjs'],['tools/fetch-coze-resources.mjs','fetch-resources.mjs'],
  ['docs/project/CURRENT_COZE_HANDOFF_20261006.md','README.md'],
+ ['docs/project/UI_INTEGRATION_20261006.md','UI_INTEGRATION_20261006.md'],
+ ['docs/project/UI_INTEGRATION_VALIDATION_20261006.md','UI_INTEGRATION_VALIDATION_20261006.md'],
  ['docs/project/P6_COZE_DEPLOY_20261006.md','P6_COZE_DEPLOY_20261006.md'],
  ['docs/project/P5_BACKEND_HANDOFF_20261006.md','P5_BACKEND_HANDOFF_20261006.md'],
  ['docs/project/P5_PLAYER_DATA_NOTICE_20261006.md','PLAYER-DATA.md'],
@@ -34,21 +36,25 @@ for(const [from,to] of [
 const pkg=JSON.parse(await fs.readFile(path.join(baseline,'package.json'),'utf8'));
 const lock=JSON.parse(await fs.readFile(path.join(baseline,'package-lock.json'),'utf8'));
 pkg.name=lock.name=lock.packages[''].name='sc2-survivors-current-application';
-pkg.version=lock.version=lock.packages[''].version='0.6.3';
+pkg.version=lock.version=lock.packages[''].version='0.6.4';
 for(const [name,data]of [['package.json',pkg],['package-lock.json',lock]]as const)await fs.writeFile(path.join(destination,name),JSON.stringify(data,null,2)+'\n');
 const priorGroups=JSON.parse(await fs.readFile(path.join(baseline,'resource-groups.json'),'utf8'));
 const priorByUrl=new Map<string,any>(priorGroups.files.map((row:any)=>[row.url,row]));
 const sourceCatalog=JSON.parse(await fs.readFile('deploy/runtime/source-assets.json','utf8'));
 const sources=new Map<string,any>(sourceCatalog.entries.map((row:any)=>[row.sha256,row]));
+const uiCatalog=JSON.parse(await fs.readFile('deploy/runtime/ui-assets.json','utf8'));
+const uiSources=new Map<string,any>(uiCatalog.records.map((r:any)=>[r.packedSha256,r]));
+for(const row of uiCatalog.records){const b=await fs.readFile(row.sourceFile);if(b.length!==row.bytes||sha(b)!==row.sourceSha256||row.sourceSha256!==row.packedSha256||row.gitPath!=='deploy/runtime/assets/'+row.packedSha256+path.extname(row.sourceFile)||sha(await fs.readFile(row.gitPath))!==row.packedSha256)throw Error('UI source mismatch: '+row.id);}
 const currentByUrl=new Map<string,any>();
 for(const [id,asset]of Object.entries<any>(manifest.assets)){
  let row=currentByUrl.get(asset.url);
  if(!row){
-  const old=priorByUrl.get(asset.url),source=sources.get(asset.sha256);
-  if(!source||source.bytes!==asset.bytes)throw Error('Resource is not in the verified original catalog: '+id);
+  const old=priorByUrl.get(asset.url),source=sources.get(asset.sha256),ui=uiSources.get(asset.sha256);
+  const verified=source??(ui&&{bytes:ui.bytes,gitPath:ui.gitPath});
+  if(!verified||verified.bytes!==asset.bytes)throw Error('Resource is not in the verified original catalog: '+id);
   if(old&&(old.bytes!==asset.bytes||old.sha256!==asset.sha256))throw Error('Preserved resource changed: '+id);
-  if(!old&&!id.startsWith('model.map.'))throw Error('Unexpected non-map resource addition: '+id);
-  row={...asset,groups:old?.groups??['campaign'],ids:[],gitPath:source.gitPath};currentByUrl.set(asset.url,row);
+  if(!old&&!id.startsWith('model.map.')&&!(id.startsWith('ui.')&&ui?.id===id))throw Error('Unexpected non-map resource addition: '+id);
+  row={...asset,groups:old?.groups??(ui?['common']:['campaign']),ids:[],gitPath:verified.gitPath};currentByUrl.set(asset.url,row);
  }
  row.ids.push(id);
 }
@@ -61,5 +67,5 @@ await fs.writeFile(path.join(destination,'resource-delta.json'),JSON.stringify({
 async function list(dir:string,prefix=''):Promise<string[]>{const out:string[]=[];for(const e of await fs.readdir(dir,{withFileTypes:true}))out.push(...(e.isDirectory()?await list(path.join(dir,e.name),prefix+e.name+'/'):[prefix+e.name]));return out;}
 const appFiles=[];for(const file of await list(destination)){const b=await fs.readFile(path.join(destination,file));appFiles.push({path:file,bytes:b.length,sha256:sha(b)});}
 const packageBuildId=sha(JSON.stringify([...appFiles].sort((a,b)=>a.path.localeCompare(b.path))));
-await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:'local map visual polish candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0},null,2));
+await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:'local formal UI candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0},null,2));
 console.log(JSON.stringify({destination,packageBuildId,appBuildId:release.appBuildId,runSchema:release.runSchema,appFiles:appFiles.length,resourceAdditions:added.length,deployed:false}));

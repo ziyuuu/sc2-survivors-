@@ -4,6 +4,8 @@
 
 2026-10-06 当前版本：30个普通家族、90款显式精英、18名英雄、24张种族趣味卡、五张地图、18关战役和平地无尽。新局随机选择工业遗址、玛萨拉荒漠、查尔焦土、冰封哨站或边境矿场，均为160×160、从中心出发；读档保留原地图。采用 **schema26／永久档案v6**，不兼容或迁移旧存档。现行战斗数值、技能、模型和资源保留；本轮新增原版地表混合、真实缓坡、非对称场景组与积雪／裂纹等环境细节，范围与验证见[五地图补强](docs/project/MAP_VISUAL_POLISH_20261006.md)；前轮见[清理及五地图记录](docs/project/CLEANUP_FIVE_MAPS_20261006.md)，此前规则精简见[规则清理记录](docs/project/CURRENT_LOGIC_CLEANUP_20261006.md)。P6自然性能和强光遮蔽问题仍开放，Coze尚未部署，人工视觉、实体设备和完整M6/M7未因此验收。
 
+正式 UI 已接入主游戏，包含三族卡面、关间浏览与购买、实时单位详情、双行可折叠 HUD 及逐级返回。范围见[UI接入](docs/project/UI_INTEGRATION_20261006.md)，实际验证见[UI验证](docs/project/UI_INTEGRATION_VALIDATION_20261006.md)。
+
 下述P2/P3-A记录是历史阶段快照；当前十八英雄、九十精英及团队光环以[P4-C记录](docs/project/NEXT_ITERATION_P4C_VALIDATION_20261005.md)、[P4收尾](docs/project/NEXT_ITERATION_P4DE_VALIDATION_20261006.md)和[P5记录](docs/project/NEXT_ITERATION_P5_VALIDATION_20261006.md)为准。
 
 本轮P2已接入统一战斗指令、模式取消/落地受阻反馈、方向输入短绕行和商店合法池诊断。存活家族出现对应图标；新增 H恶火、V维京、R雷神、L潜伏者、C女妖、B闪烁、O单位操作、Q战术、X战略，原 T/E/F/G/Space/1–3 保留。手柄 LT/RT 翻页，闪烁/转移/战术/战略支持确认取消。范围及实测见[P2说明](docs/project/NEXT_ITERATION_P2_20261003.md)与[P2验证](docs/project/NEXT_ITERATION_P2_VALIDATION_20261003.md)。
