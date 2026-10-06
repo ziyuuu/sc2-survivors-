@@ -30,5 +30,7 @@ for(const race of ['terran','zerg','protoss']){
 }
 const output=`/** Generated from the approved M0 r6 design by tools/generate-m2-talents.mjs. Do not hand-edit. */\n`+
  `export const MVP_TALENT_ROWS = ${JSON.stringify(rows,null,2)} as const;\n`;
-writeFileSync(resolve(root,'src/data/mvp-talents.generated.ts'),output);
+const target=resolve(root,'src/data/mvp-talents.generated.ts');
+if(process.argv.includes('--check')){if(readFileSync(target,'utf8')!==output)throw Error('Generated talent descriptions are stale');}
+else writeFileSync(target,output);
 console.log(`Generated ${rows.length} approved talent definitions`);

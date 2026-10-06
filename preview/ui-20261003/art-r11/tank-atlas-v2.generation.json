@@ -1,0 +1,9 @@
+{
+  "key": "tank-atlas-v2",
+  "prompt": "Edit ONLY the four UPPER environment panels of this newly generated SC2 Siege Tank texture atlas. Remove every complete tank, turret vehicle, cannon unit and recognizable troop silhouette from those four backgrounds. Replace with empty artillery emplacements, tread marks, cratered terrain, spent debris and distant stone/industrial fortifications. Keep four distinct scenes: standard ruined artillery approach, very deep long-range horizon, intense smoking breach, fast dusty lane. No tank, artillery vehicle or unit body in the backgrounds, even distant. Preserve EXACTLY the four lower full-body isolated tank paintings, their weapons, support legs, dust and genuine alpha unchanged. Keep columns, transparency gap, dimensions and painted material detail; no new text, border or UI.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-58bceb77-668e-4cf8-8241-c8916fb79479.png",
+  "input": "tank-atlas.png",
+  "output": "tank-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

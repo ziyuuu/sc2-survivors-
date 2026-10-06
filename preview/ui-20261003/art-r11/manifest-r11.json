@@ -1,0 +1,4564 @@
+{
+  "revision": "r11",
+  "status": "all-required-painted-identities-present",
+  "counts": {
+    "identities": 129,
+    "ordinary": 30,
+    "elite": 90,
+    "additionalHeroes": 9,
+    "plates": 46
+  },
+  "missing": [],
+  "plates": {
+    "marine-atlas": {
+      "file": "marine-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "a15fa145943797a2862d0093f81eea44ee76ed39642d5ac6e4035673cfaf5719",
+      "png": "marine-atlas.png",
+      "pngSha256": "892e85ef9842377ac36b6876e1ed25c54b5d40b3ff027aa99f54dc15c8fbfb90"
+    },
+    "hydralisk-atlas": {
+      "file": "hydralisk-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "bf0cee15019e42950c212cf69831bd5835751b9098dc77a667b2b50bd7f3ebe5",
+      "png": "hydralisk-atlas.png",
+      "pngSha256": "02c52cd9e4fcb47aaf33fb31c476e3a030531ebb21e336a013011a71059e3507"
+    },
+    "marauder-atlas": {
+      "file": "marauder-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "880cbca4cde19e14595028724a1d94459fde78caa4cfe01f3eedcc38858017c0",
+      "png": "marauder-atlas.png",
+      "pngSha256": "4c83b02e8b319337f0df1a1f454b4b1c283aaa23030c942404dc3c4502d76b9a"
+    },
+    "zealot-atlas": {
+      "file": "zealot-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "265355e10aebf96206612475c64908b8085c9f3db0713a620a841dc79cbaa96b",
+      "png": "zealot-atlas.png",
+      "pngSha256": "961b41fa13d1a3b7f0df7c497c8ffbd797616542f45c3be7e094ff956c97747b"
+    },
+    "zergling-atlas": {
+      "file": "zergling-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "05433f3b076e19eecb90d1ee7b72ece24a6cdeec56d739691edfdc50a9cddae0",
+      "png": "zergling-atlas.png",
+      "pngSha256": "0a3e2df0044a6918c4e42ddaba4ce84f6014ea55c31da121fc6cae6b4d8a772f"
+    },
+    "banshee-atlas": {
+      "file": "banshee-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "811a8bdfe9312289e914424b08bbe10ef14687830f42f4d06bd64c6ecfe6b820",
+      "png": "banshee-atlas.png",
+      "pngSha256": "e5e0a260970e8912bbab219f1f9a10cf7d922d6ffc5a4bb9c74bf547e30d7b26"
+    },
+    "hellion-atlas": {
+      "file": "hellion-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "bd5c8b7c0cf643f0c3dc747647cb88d2b29b53221307abbccc4a5e3116b21d11",
+      "png": "hellion-atlas.png",
+      "pngSha256": "bc603061bed269c754ec7a5ea5e66c3c229c695559cd9d5083695d195877183e"
+    },
+    "medivac-atlas": {
+      "file": "medivac-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "2e24d42d6b16bd6c788ea5b9ffa29dd220c3c67cde3c725b9f047344310e0fa2",
+      "png": "medivac-atlas.png",
+      "pngSha256": "c07c1b61d387beb79bc2d033adb87dbc929badf73581a31f6d27c181281f19b4"
+    },
+    "science_vessel-atlas": {
+      "file": "science_vessel-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "3427dad2daf34db8d5a241d82e0d612564fdc2fa51c96f2b3a70a45b13f9a9b5",
+      "png": "science_vessel-atlas.png",
+      "pngSha256": "d56efd8820b26c21ee457de36ea8be67fe58d1dd9a183a2139ed4a1410d1e149"
+    },
+    "reaper-atlas-v2": {
+      "file": "reaper-atlas-v2.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "ecb2a49d2cb1e936e4161433fb8a36231181c1732055bcbe99330a718f88e1cd",
+      "png": "reaper-atlas-v2.png",
+      "pngSha256": "eff01077637fa32208dccf9a3a6484c3cd2cb96a7921ba3ed85c854f37dc6a3a"
+    },
+    "thor-atlas-v2": {
+      "file": "thor-atlas-v2.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "3e200cb002f81ac80fec5e71eaac466493c53dbc4eea0841eb63cf8bb21a5c0e",
+      "png": "thor-atlas-v2.png",
+      "pngSha256": "6430adfe13c964aa1710869109651f0bb2daa7932cd8acb30159955a1ff93174"
+    },
+    "baneling-atlas": {
+      "file": "baneling-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "9fd91598e949e0b9fecf0767a7c498cd062b4b974c2fa4db88ee555b18ff4d2d",
+      "png": "baneling-atlas.png",
+      "pngSha256": "e98be46d557e4d3119bd354cf9f2540d41447d9510d5c9eb5a72c1d0da4fd299"
+    },
+    "roach-atlas": {
+      "file": "roach-atlas.webp",
+      "width": 1672,
+      "height": 940,
+      "sha256": "550cfd91dca2e5d37e139a0a21c961fca49d4de7145de7204d7ffd0bd840f4ff",
+      "png": "roach-atlas.png",
+      "pngSha256": "6cc5b06d75b42caab63de4e429f3f787c6853fe35ca440d33852237d8164a8d2"
+    },
+    "ravager-atlas-v2": {
+      "file": "ravager-atlas-v2.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "db46ebbfdbe7df13a3c508361fdd5f4e8e6a319f6012bfe61cb6c26aa9a3bd79",
+      "png": "ravager-atlas-v2.png",
+      "pngSha256": "111d14218020d3b1db28b6004e2fe79df293f4c6e3973144dbb04e865e865feb"
+    },
+    "ultralisk-atlas": {
+      "file": "ultralisk-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "ced742e0c89d93e0b4f449a853f0b0eb51b0a11a51b432e2636e486430f708ec",
+      "png": "ultralisk-atlas.png",
+      "pngSha256": "f31bf52bf2a58beeaedd45ca40c6f493edecf7f8d6614687723bdf351541b598"
+    },
+    "viking-atlas-v3": {
+      "file": "viking-atlas-v3.webp",
+      "width": 1671,
+      "height": 941,
+      "sha256": "5917afeb7c4461897b1e3a5c467f7a0c47b3226a16d04a671488897ce2bc219b",
+      "png": "viking-atlas-v3.png",
+      "pngSha256": "ce79f7747b0c69c2e7183f760d6fb3c1af6be28c5d252b9e2819fcaf60f82424"
+    },
+    "colossus-atlas-v2": {
+      "file": "colossus-atlas-v2.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "2aa0ae5bf21e1f1aaf8b1bce524f71eeeadd89d98905f9ec19b6e02a00f518cd",
+      "png": "colossus-atlas-v2.png",
+      "pngSha256": "06c5fca3e38ccab3f71f5f8dd68179f5a6fd23900006eaee23433624d6057005"
+    },
+    "high_templar-atlas": {
+      "file": "high_templar-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "06138b203341b3e11fb7ab8d8ea57e2aa7381d3ae62c9c949275ec819846567c",
+      "png": "high_templar-atlas.png",
+      "pngSha256": "c75d6837be087fbfe9b99248bc55679a8aa2925d652dcea23935bdc41eb51995"
+    },
+    "immortal-atlas": {
+      "file": "immortal-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "fdea13399e87dd907a6d24846d8889e2b1d6dfe5fc1deacffa7887690727e0c9",
+      "png": "immortal-atlas.png",
+      "pngSha256": "453358f352fbbd160b53b1c96b59e2e6f7cae942af44ed0eeaa81996e86e3182"
+    },
+    "lurker-atlas-v2": {
+      "file": "lurker-atlas-v2.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "76e6d331d749f50f53d710cffd460ab7b85d590a150b54a2db7e0f7dd3283896",
+      "png": "lurker-atlas-v2.png",
+      "pngSha256": "b5ebc710de45531adf83ce845db0c085effb55920e64e6be2a49263695e6ab3a"
+    },
+    "mutalisk-atlas-v2": {
+      "file": "mutalisk-atlas-v2.webp",
+      "width": 1671,
+      "height": 941,
+      "sha256": "944515a1906b051c4d1dbfc9e779192ce9644f36212f6c037ea6d640d893338b",
+      "png": "mutalisk-atlas-v2.png",
+      "pngSha256": "26710fec27f8e362a65e9742e1b6e67f75ad9f34f21e0f515dc55b070672853e"
+    },
+    "phoenix-atlas-v2": {
+      "file": "phoenix-atlas-v2.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "ba02ba9bcf19f40baade01c95c1c98684f23ea9d6392e5304ed73bb46fe5d373",
+      "png": "phoenix-atlas-v2.png",
+      "pngSha256": "6ee732568b5d491e630da0c9b991d5c7c55757c453bd62e75ea9b4cfdbb09fb6"
+    },
+    "sentry-atlas": {
+      "file": "sentry-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "952b58c5e5ab3dadcebd5e43a85d7783942f98416e0ac8e9e8cb74d07372a2c2",
+      "png": "sentry-atlas.png",
+      "pngSha256": "975e352babb04839d6dad109b9eacc4cc36b4078c6ca49782f37ffc153b22c02"
+    },
+    "stalker-atlas": {
+      "file": "stalker-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "e41137b44cedd89d9d0fd217344f3a07b33cd0ce587739ed56f635b0be2f0332",
+      "png": "stalker-atlas.png",
+      "pngSha256": "9157b2771ca57b45c3c35156c90c92e06ba01b5f17f1f17d8311b743b6090419"
+    },
+    "void_ray-atlas": {
+      "file": "void_ray-atlas.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "35e2db30e0f100569751e1c21b16d7002cec7bf5b31cbf657228dbdf7ad118f0",
+      "png": "void_ray-atlas.png",
+      "pngSha256": "aee0f1b90a1f1e54ae98a3a9614e2c748c0f9679fc9e406b655fe6aa1d4041e6"
+    },
+    "corruptor-atlas-v3": {
+      "file": "corruptor-atlas-v3.webp",
+      "width": 1671,
+      "height": 941,
+      "sha256": "a41dee0d5108d41fb29bd88924fe40bbfbf146eeefd6cbc705f48a92d6cb4db0",
+      "png": "corruptor-atlas-v3.png",
+      "pngSha256": "ee30ccf4e32b8ee45adbadbb12829c71f5ac2f55c7e463f7156e2f3c2b549426"
+    },
+    "queen-atlas-v2": {
+      "file": "queen-atlas-v2.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "7b389b0e9eba936e85e823f639eb1779057cc526fb98f94b300c7482380ae283",
+      "png": "queen-atlas-v2.png",
+      "pngSha256": "786f9b4eedf7b1e93897cb0c6ffad09df163281c5d61a5aa4f66f1ebbba75e0e"
+    },
+    "adept-atlas-v3": {
+      "file": "adept-atlas-v3.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "c2e1fc0d5e39370b688f98fae4b10f8e82ad71ee4d5ea67b427d73565daef6b4",
+      "png": "adept-atlas-v3.png",
+      "pngSha256": "b7d7d1fe65a0935d2d9cc381d426ea358fedfea5e6015246dccb208db774666c"
+    },
+    "tank-atlas-v3": {
+      "file": "tank-atlas-v3.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "36de5164c7d58ed489d8fd7428d64eefb5724eb7259a25ceaebe8190f64c7986",
+      "png": "tank-atlas-v3.png",
+      "pngSha256": "cab92a5db22b75594e5684b8a1270bdfd815327c8475c966576cf254911cf4fb"
+    },
+    "marine-single": {
+      "file": "marine.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "7a7e1279cb0c454cb00c101427a60a44d79bca8b4fe5d943baf81774772f12f8",
+      "png": "marine.png",
+      "pngSha256": "9431e998cf5da1b0a1105e83e72aa34ebe027930ce816e106b18fc154716b041"
+    },
+    "hydralisk-single": {
+      "file": "hydralisk-v2.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "8a8cf0d2732b23414b423e54a95697581920863548ac762957e2a79a79cb6ecf",
+      "png": "hydralisk-v2.png",
+      "pngSha256": "e9db5949182cb108f261c7d608ec54da494c0cd965c71cfa00f6adbee14c9d08"
+    },
+    "zealot-single": {
+      "file": "zealot-v2.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "c1df0f05e0c89678d76f62d6339b539da509e938230ae8ce5caee4ea720e9f10",
+      "png": "zealot-v2.png",
+      "pngSha256": "131376c4d406f585b8c75b61a468e5925613cc5a94023b4a39f0a61be3990dd3"
+    },
+    "marine.2-single": {
+      "file": "marine.2-v2.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "5e543f4ae2cda88a33d4b89cf9d3eb41014350eb080049d4e652014e3a08f88d",
+      "png": "marine.2-v2.png",
+      "pngSha256": "557cd3742efce5bfcbca7a5beaadb654858bba78c1584696f5376d7420b40f89"
+    },
+    "carrier-single": {
+      "file": "carrier.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "e66fab907007a4f088d113c285d2fb5827719af3e0a07a8152179a7758abaf16",
+      "png": "carrier.png",
+      "pngSha256": "836bd0bd610a515d0331feb412a72b2740f63eabdd8a5d23f5d852df697e5255"
+    },
+    "carrier.1-single": {
+      "file": "carrier.1.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "989f56743a3cff2e0a9f61795ceabb16f0d828f0f64e9978751130c5fd98962e",
+      "png": "carrier.1.png",
+      "pngSha256": "d0ed1f3f7829956cfc887887b9b579fc1b92d8fe87ae4dd33809794331dcfddc"
+    },
+    "carrier.2-single": {
+      "file": "carrier.2.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "f5532a3ccdc6d3229f86ea8d1f57a876c5825f11a28c4583549ec2b2cb6c04a3",
+      "png": "carrier.2.png",
+      "pngSha256": "05f4f631c3ac1177d9c046960ff5b4efd0f6e2db1ba0f1d42a8ce802a9490bac"
+    },
+    "carrier.3-single": {
+      "file": "carrier.3.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "3794adeac955443f9b41e8d5b000afd1e949f52eed4154797637b4764a68c267",
+      "png": "carrier.3.png",
+      "pngSha256": "0ad931d2669dc6edcd5543cc6f5732fc0d2a0af79c23edda17a7bc9315396d36"
+    },
+    "swann-single": {
+      "file": "swann.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "85ad9d5d3f20d03b50f22b1507ee2d96d9eb85258f18c1ddc916d8ae5e4d65b6",
+      "png": "swann.png",
+      "pngSha256": "b6958f1a380e7de286292d29f154acd5186ed07b4055c1c39dc42c11df2a4028"
+    },
+    "tosh-single": {
+      "file": "tosh.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "fa0637a7c3d17d42b6694f98c55a024d97c2faefcf0a57ade717d2ae7a84d48a",
+      "png": "tosh.png",
+      "pngSha256": "4e063e8c67e0f0eb9e7e70193cebd1c8ec3986ffdbe30e3b1bad4a7446796a3c"
+    },
+    "yamato_battlecruiser-single": {
+      "file": "yamato_battlecruiser.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "0aa766c66a08e41e5397a0aa3ede19dd46307e49092d4551ca7c20870edcab8d",
+      "png": "yamato_battlecruiser.png",
+      "pngSha256": "023a6d75d8ed9d2cac24e1fc83b52ee30f46bfcc859fb636852b5203122c7ced"
+    },
+    "stukov-single": {
+      "file": "stukov-v2.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "75b354d591c802bb42b1bf642884681f54c7a15bac9e08e4dd82a3d671c6dd3d",
+      "png": "stukov-v2.png",
+      "pngSha256": "7e72d60709832ecd460e2ce286f12d2abac49e1625ceba3d743292632d1103a0"
+    },
+    "niadra-single": {
+      "file": "niadra-v2.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "7f8d120f0278a7c946254cf8c4a507dd55672df5b6d9bc1d175daf5c0e228e81",
+      "png": "niadra-v2.png",
+      "pngSha256": "33e6d79b215818d0ee603b42bfd3d2506e6f0d0481d62348c57ddda8ebe34596"
+    },
+    "hots_leviathan-single": {
+      "file": "hots_leviathan.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "aeb89d1c8e1e617c7db7a44f9f86c439e1556a246ce61f55262cc135160cf402",
+      "png": "hots_leviathan.png",
+      "pngSha256": "588f8d7f24ffed121299e46ca0b668166ea94d01f6209f4dc8b5c797b46ecfe4"
+    },
+    "alarak-single": {
+      "file": "alarak.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "b3c7f01bc34a6d3208c04e1e0e016b5ab107295d7dc1af5e1abeb1c3ff144800",
+      "png": "alarak.png",
+      "pngSha256": "20bd8d15e2a075f8fcae879588939003dd06cd6c7e6f4410db1d12fd7d5214cf"
+    },
+    "vorazun-single": {
+      "file": "vorazun.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "8ca2cb9a79a8d63c46c064d4a38d9a662c6bf19de93a256ecadb108f004b1bcf",
+      "png": "vorazun.png",
+      "pngSha256": "66c54f5bcda13364a04762148a1f4a3b1ce8f566a320f25312d2fd96ef3ed1f6"
+    },
+    "purifier_flagship-single": {
+      "file": "purifier_flagship-v2.webp",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "ab5755faf453c99f837e79b6c1bdbfc2abe3146d5022ff280fb19b4302b6259b",
+      "png": "purifier_flagship-v2.png",
+      "pngSha256": "a6aea868de49710f98338ae71367b875e5e82f91212d88eeb1af4fba76784aba"
+    }
+  },
+  "entries": {
+    "marine": {
+      "key": "marine",
+      "race": "terran",
+      "kind": "ordinary",
+      "family": "marine",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "marine-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 490
+      },
+      "bodyBounds": {
+        "x": 393,
+        "y": 511,
+        "width": 508,
+        "height": 712
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#333948",
+      "skyBottom": "#242832",
+      "atmosphere": "#575d6c",
+      "reviewNote": "厚重蓝灰动力装甲、琥珀护面、双手步枪与完整身体；冷色殖民地街口暖光反射；保留较高像素尺寸。"
+    },
+    "marine.1": {
+      "key": "marine.1",
+      "family": "marine",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 302
+      },
+      "bodyBounds": {
+        "x": 479,
+        "y": 319,
+        "width": 278,
+        "height": 580
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.6133508668719936,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "marine-atlas",
+      "skyTop": "#2e3b30",
+      "skyBottom": "#202922",
+      "atmosphere": "#525f54",
+      "reviewNote": "动力装甲、圆肩、护面与双手步枪保留；突击的个人注射管、重火力武器及厚甲轮廓不同；殖民地、注射舱、弹痕破口、掩体四场景。普通与重火力另选高分辨率校准画。"
+    },
+    "marine.2": {
+      "key": "marine.2",
+      "race": "terran",
+      "kind": "elite",
+      "family": "marine",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "marine.2-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 451
+      },
+      "bodyBounds": {
+        "x": 254,
+        "y": 503,
+        "width": 920,
+        "height": 693
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#65453c",
+      "skyBottom": "#47302a",
+      "atmosphere": "#896960",
+      "reviewNote": "完整重枪与供弹结构；修正首版被切断的枪口火光；暖光破口表现重甲火力。"
+    },
+    "marine.3": {
+      "key": "marine.3",
+      "family": "marine",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 302
+      },
+      "bodyBounds": {
+        "x": 1305,
+        "y": 324,
+        "width": 331,
+        "height": 578
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.44510579721847326,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "marine-atlas",
+      "skyTop": "#5d6371",
+      "skyBottom": "#41454f",
+      "atmosphere": "#818795",
+      "reviewNote": "动力装甲、圆肩、护面与双手步枪保留；突击的个人注射管、重火力武器及厚甲轮廓不同；殖民地、注射舱、弹痕破口、掩体四场景。普通与重火力另选高分辨率校准画。"
+    },
+    "hydralisk": {
+      "key": "hydralisk",
+      "race": "zerg",
+      "kind": "ordinary",
+      "family": "hydralisk",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "hydralisk-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 447
+      },
+      "bodyBounds": {
+        "x": 268,
+        "y": 535,
+        "width": 764,
+        "height": 675
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#4e424d",
+      "skyBottom": "#372e36",
+      "atmosphere": "#726671",
+      "reviewNote": "完整刺蛇背冠、镰爪与卷尾；修正初版背冠和场景相交。"
+    },
+    "hydralisk.1": {
+      "key": "hydralisk.1",
+      "family": "hydralisk",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 297
+      },
+      "bodyBounds": {
+        "x": 437,
+        "y": 337,
+        "width": 394,
+        "height": 572
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.43157019243975764,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "hydralisk-atlas",
+      "skyTop": "#544944",
+      "skyBottom": "#3b3330",
+      "atmosphere": "#786d68",
+      "reviewNote": "蛇形尾躯、背冠、两把镰爪保留；长刺、连续针刺轨迹、抬头猎空姿势区分。轨迹表示攻击过程，不表示增加每次攻击针刺数。普通另选完整高分辨率校准画。"
+    },
+    "hydralisk.2": {
+      "key": "hydralisk.2",
+      "family": "hydralisk",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 297
+      },
+      "bodyBounds": {
+        "x": 851,
+        "y": 399,
+        "width": 398,
+        "height": 508
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4195446151967891,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "hydralisk-atlas",
+      "skyTop": "#504341",
+      "skyBottom": "#382f2e",
+      "atmosphere": "#746765",
+      "reviewNote": "蛇形尾躯、背冠、两把镰爪保留；长刺、连续针刺轨迹、抬头猎空姿势区分。轨迹表示攻击过程，不表示增加每次攻击针刺数。普通另选完整高分辨率校准画。"
+    },
+    "hydralisk.3": {
+      "key": "hydralisk.3",
+      "family": "hydralisk",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 297
+      },
+      "bodyBounds": {
+        "x": 1301,
+        "y": 313,
+        "width": 353,
+        "height": 599
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4717139499748195,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "hydralisk-atlas",
+      "skyTop": "#6a788d",
+      "skyBottom": "#4a5463",
+      "atmosphere": "#8e9cb1",
+      "reviewNote": "蛇形尾躯、背冠、两把镰爪保留；长刺、连续针刺轨迹、抬头猎空姿势区分。轨迹表示攻击过程，不表示增加每次攻击针刺数。普通另选完整高分辨率校准画。"
+    },
+    "marauder": {
+      "key": "marauder",
+      "family": "marauder",
+      "race": "terran",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 265
+      },
+      "bodyBounds": {
+        "x": 21,
+        "y": 365,
+        "width": 390,
+        "height": 540
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.42509050201357895,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "marauder-atlas",
+      "skyTop": "#3b312d",
+      "skyBottom": "#29221f",
+      "atmosphere": "#5f5551",
+      "reviewNote": "低位头部与双臂榴弹器可认；冷色压制、暖色破甲开火、重装防线区分。金属厚度、枪口与受击门板可读。"
+    },
+    "marauder.1": {
+      "key": "marauder.1",
+      "family": "marauder",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 265
+      },
+      "bodyBounds": {
+        "x": 428,
+        "y": 373,
+        "width": 401,
+        "height": 529
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4442195019118096,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "marauder-atlas",
+      "skyTop": "#3c485c",
+      "skyBottom": "#2a3240",
+      "atmosphere": "#606c80",
+      "reviewNote": "低位头部与双臂榴弹器可认；冷色压制、暖色破甲开火、重装防线区分。金属厚度、枪口与受击门板可读。"
+    },
+    "marauder.2": {
+      "key": "marauder.2",
+      "family": "marauder",
+      "race": "terran",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 265
+      },
+      "bodyBounds": {
+        "x": 858,
+        "y": 378,
+        "width": 391,
+        "height": 527
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4123620662082201,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "marauder-atlas",
+      "skyTop": "#4b3e3b",
+      "skyBottom": "#352b29",
+      "atmosphere": "#6f625f",
+      "reviewNote": "低位头部与双臂榴弹器可认；冷色压制、暖色破甲开火、重装防线区分。金属厚度、枪口与受击门板可读。"
+    },
+    "marauder.3": {
+      "key": "marauder.3",
+      "family": "marauder",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 265
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 364,
+        "width": 395,
+        "height": 542
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.35683599145137607,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "marauder-atlas",
+      "skyTop": "#4b4f5a",
+      "skyBottom": "#35373f",
+      "atmosphere": "#6f737e",
+      "reviewNote": "低位头部与双臂榴弹器可认；冷色压制、暖色破甲开火、重装防线区分。金属厚度、枪口与受击门板可读。"
+    },
+    "zealot": {
+      "key": "zealot",
+      "race": "protoss",
+      "kind": "ordinary",
+      "family": "zealot",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "zealot-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 480
+      },
+      "bodyBounds": {
+        "x": 342,
+        "y": 529,
+        "width": 616,
+        "height": 708
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#877571",
+      "skyBottom": "#5f524f",
+      "atmosphere": "#ab9995",
+      "reviewNote": "完整长面、双前臂灵能刃与双脚；修正初版头部和场景相交。"
+    },
+    "zealot.1": {
+      "key": "zealot.1",
+      "family": "zealot",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 319
+      },
+      "bodyBounds": {
+        "x": 436,
+        "y": 393,
+        "width": 386,
+        "height": 488
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.3088436287793201,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "zealot-atlas",
+      "skyTop": "#a6927e",
+      "skyBottom": "#746658",
+      "atmosphere": "#cab6a2",
+      "reviewNote": "无口神族面部、金甲与双前臂灵能刃可认；突进、护盾、双臂交错连斩区分。普通另选完整高分辨率校准画。"
+    },
+    "zealot.2": {
+      "key": "zealot.2",
+      "family": "zealot",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 319
+      },
+      "bodyBounds": {
+        "x": 858,
+        "y": 390,
+        "width": 371,
+        "height": 517
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.2764759790483263,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "zealot-atlas",
+      "skyTop": "#8d7971",
+      "skyBottom": "#63554f",
+      "atmosphere": "#b19d95",
+      "reviewNote": "无口神族面部、金甲与双前臂灵能刃可认；突进、护盾、双臂交错连斩区分。普通另选完整高分辨率校准画。"
+    },
+    "zealot.3": {
+      "key": "zealot.3",
+      "family": "zealot",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 319
+      },
+      "bodyBounds": {
+        "x": 1272,
+        "y": 423,
+        "width": 389,
+        "height": 473
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.3848803495105746,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "zealot-atlas",
+      "skyTop": "#9c8575",
+      "skyBottom": "#6d5d52",
+      "atmosphere": "#c0a999",
+      "reviewNote": "无口神族面部、金甲与双前臂灵能刃可认；突进、护盾、双臂交错连斩区分。普通另选完整高分辨率校准画。"
+    },
+    "zergling": {
+      "key": "zergling",
+      "family": "zergling",
+      "race": "zerg",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 318
+      },
+      "bodyBounds": {
+        "x": 10,
+        "y": 453,
+        "width": 403,
+        "height": 411
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.6511766399406849,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "zergling-atlas",
+      "skyTop": "#6a5350",
+      "skyBottom": "#4a3a38",
+      "atmosphere": "#8e7774",
+      "reviewNote": "低奔姿势、镰爪与背刺保留；长爪连击、腾跃疾跑、厚壳守线区分。实际卡片由前端画双体和2/4/6只，不在背景隐藏额外友军。"
+    },
+    "zergling.1": {
+      "key": "zergling.1",
+      "family": "zergling",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 318
+      },
+      "bodyBounds": {
+        "x": 424,
+        "y": 451,
+        "width": 407,
+        "height": 452
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.6392031897649875,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "zergling-atlas",
+      "skyTop": "#765446",
+      "skyBottom": "#533b31",
+      "atmosphere": "#9a786a",
+      "reviewNote": "低奔姿势、镰爪与背刺保留；长爪连击、腾跃疾跑、厚壳守线区分。实际卡片由前端画双体和2/4/6只，不在背景隐藏额外友军。"
+    },
+    "zergling.2": {
+      "key": "zergling.2",
+      "family": "zergling",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 318
+      },
+      "bodyBounds": {
+        "x": 842,
+        "y": 466,
+        "width": 405,
+        "height": 409
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4428007461715327,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "zergling-atlas",
+      "skyTop": "#655b52",
+      "skyBottom": "#474039",
+      "atmosphere": "#897f76",
+      "reviewNote": "低奔姿势、镰爪与背刺保留；长爪连击、腾跃疾跑、厚壳守线区分。实际卡片由前端画双体和2/4/6只，不在背景隐藏额外友军。"
+    },
+    "zergling.3": {
+      "key": "zergling.3",
+      "family": "zergling",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 318
+      },
+      "bodyBounds": {
+        "x": 1276,
+        "y": 433,
+        "width": 386,
+        "height": 455
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5812960194982667,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "zergling-atlas",
+      "skyTop": "#52434c",
+      "skyBottom": "#392f35",
+      "atmosphere": "#766770",
+      "reviewNote": "低奔姿势、镰爪与背刺保留；长爪连击、腾跃疾跑、厚壳守线区分。实际卡片由前端画双体和2/4/6只，不在背景隐藏额外友军。"
+    },
+    "banshee": {
+      "key": "banshee",
+      "family": "banshee",
+      "race": "terran",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 324
+      },
+      "bodyBounds": {
+        "x": 17,
+        "y": 408,
+        "width": 393,
+        "height": 437
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.5571820531301893,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "banshee-atlas",
+      "skyTop": "#303a4c",
+      "skyBottom": "#222935",
+      "atmosphere": "#545e70",
+      "reviewNote": "双涵道旋翼与窄驾驶舱可认；远猎、透明折射隐形、双炮连射的动作和峡谷光照不同；完整双旋翼。"
+    },
+    "banshee.1": {
+      "key": "banshee.1",
+      "family": "banshee",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 324
+      },
+      "bodyBounds": {
+        "x": 435,
+        "y": 414,
+        "width": 389,
+        "height": 442
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.5173005626814379,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "banshee-atlas",
+      "skyTop": "#5b6c8c",
+      "skyBottom": "#404c62",
+      "atmosphere": "#7f90b0",
+      "reviewNote": "双涵道旋翼与窄驾驶舱可认；远猎、透明折射隐形、双炮连射的动作和峡谷光照不同；完整双旋翼。"
+    },
+    "banshee.2": {
+      "key": "banshee.2",
+      "family": "banshee",
+      "race": "terran",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 324
+      },
+      "bodyBounds": {
+        "x": 856,
+        "y": 433,
+        "width": 385,
+        "height": 415
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.2951230293207603,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "banshee-atlas",
+      "skyTop": "#2f3a52",
+      "skyBottom": "#212939",
+      "atmosphere": "#535e76",
+      "reviewNote": "双涵道旋翼与窄驾驶舱可认；远猎、透明折射隐形、双炮连射的动作和峡谷光照不同；完整双旋翼。"
+    },
+    "banshee.3": {
+      "key": "banshee.3",
+      "family": "banshee",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 324
+      },
+      "bodyBounds": {
+        "x": 1269,
+        "y": 439,
+        "width": 398,
+        "height": 401
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4643933752523704,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "banshee-atlas",
+      "skyTop": "#5c525a",
+      "skyBottom": "#40393f",
+      "atmosphere": "#80767e",
+      "reviewNote": "双涵道旋翼与窄驾驶舱可认；远猎、透明折射隐形、双炮连射的动作和峡谷光照不同；完整双旋翼。"
+    },
+    "hellion": {
+      "key": "hellion",
+      "family": "hellion",
+      "race": "terran",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 347
+      },
+      "bodyBounds": {
+        "x": 16,
+        "y": 505,
+        "width": 387,
+        "height": 331
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.6488513306695125,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "hellion-atlas",
+      "skyTop": "#464143",
+      "skyBottom": "#312e2f",
+      "atmosphere": "#6a6567",
+      "reviewNote": "低矮四轮喷焰车与前置喷嘴可认；高速扬尘、炽热罐体与扩散喷焰分别表达既有特点；三条烧灼路面有不同纵深。"
+    },
+    "hellion.1": {
+      "key": "hellion.1",
+      "family": "hellion",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 347
+      },
+      "bodyBounds": {
+        "x": 431,
+        "y": 460,
+        "width": 400,
+        "height": 400
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4950074040983132,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "hellion-atlas",
+      "skyTop": "#5e6a7b",
+      "skyBottom": "#424a56",
+      "atmosphere": "#828e9f",
+      "reviewNote": "低矮四轮喷焰车与前置喷嘴可认；高速扬尘、炽热罐体与扩散喷焰分别表达既有特点；三条烧灼路面有不同纵深。"
+    },
+    "hellion.2": {
+      "key": "hellion.2",
+      "family": "hellion",
+      "race": "terran",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 347
+      },
+      "bodyBounds": {
+        "x": 846,
+        "y": 508,
+        "width": 393,
+        "height": 325
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.6084555630010176,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "hellion-atlas",
+      "skyTop": "#77402c",
+      "skyBottom": "#532d1f",
+      "atmosphere": "#9b6450",
+      "reviewNote": "低矮四轮喷焰车与前置喷嘴可认；高速扬尘、炽热罐体与扩散喷焰分别表达既有特点；三条烧灼路面有不同纵深。"
+    },
+    "hellion.3": {
+      "key": "hellion.3",
+      "family": "hellion",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 347
+      },
+      "bodyBounds": {
+        "x": 1266,
+        "y": 512,
+        "width": 388,
+        "height": 342
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5858751313296768,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "hellion-atlas",
+      "skyTop": "#765f57",
+      "skyBottom": "#53433d",
+      "atmosphere": "#9a837b",
+      "reviewNote": "低矮四轮喷焰车与前置喷嘴可认；高速扬尘、炽热罐体与扩散喷焰分别表达既有特点；三条烧灼路面有不同纵深。"
+    },
+    "medivac": {
+      "key": "medivac",
+      "family": "medivac",
+      "race": "terran",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 301
+      },
+      "bodyBounds": {
+        "x": 6,
+        "y": 428,
+        "width": 398,
+        "height": 338
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5472089987714988,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "medivac-atlas",
+      "skyTop": "#282a35",
+      "skyBottom": "#1c1d25",
+      "atmosphere": "#4c4e59",
+      "reviewNote": "医疗艇船体与双引擎保留；单束治疗、三束群疗、工程装置与蓝色维修光区分。下方不画额外被治疗士兵。"
+    },
+    "medivac.1": {
+      "key": "medivac.1",
+      "family": "medivac",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 301
+      },
+      "bodyBounds": {
+        "x": 434,
+        "y": 405,
+        "width": 388,
+        "height": 394
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.43316185503685506,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "medivac-atlas",
+      "skyTop": "#282e39",
+      "skyBottom": "#1c2028",
+      "atmosphere": "#4c525d",
+      "reviewNote": "医疗艇船体与双引擎保留；单束治疗、三束群疗、工程装置与蓝色维修光区分。下方不画额外被治疗士兵。"
+    },
+    "medivac.2": {
+      "key": "medivac.2",
+      "family": "medivac",
+      "race": "terran",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 300
+      },
+      "bodyBounds": {
+        "x": 852,
+        "y": 405,
+        "width": 391,
+        "height": 437
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.31400951369750124,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "medivac-atlas",
+      "skyTop": "#2e383b",
+      "skyBottom": "#202729",
+      "atmosphere": "#525c5f",
+      "reviewNote": "医疗艇船体与双引擎保留；单束治疗、三束群疗、工程装置与蓝色维修光区分。下方不画额外被治疗士兵。"
+    },
+    "medivac.3": {
+      "key": "medivac.3",
+      "family": "medivac",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 300
+      },
+      "bodyBounds": {
+        "x": 1270,
+        "y": 405,
+        "width": 393,
+        "height": 465
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.3771441275341431,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "medivac-atlas",
+      "skyTop": "#333d4f",
+      "skyBottom": "#242b37",
+      "atmosphere": "#576173",
+      "reviewNote": "医疗艇船体与双引擎保留；单束治疗、三束群疗、工程装置与蓝色维修光区分。下方不画额外被治疗士兵。"
+    },
+    "reaper": {
+      "key": "reaper",
+      "family": "reaper",
+      "race": "terran",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 293
+      },
+      "bodyBounds": {
+        "x": 30,
+        "y": 374,
+        "width": 348,
+        "height": 522
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5736645736645737,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "reaper-atlas-v2",
+      "skyTop": "#6f6972",
+      "skyBottom": "#4e4a50",
+      "atmosphere": "#938d96",
+      "reviewNote": "双枪、背部推进器与人形比例保留；移除原版医疗兵白甲与人物十字标记。恢复、猎轻与装甲三张保留个人装备和不同战斗姿势；医疗走廊只作为环境。"
+    },
+    "reaper.1": {
+      "key": "reaper.1",
+      "family": "reaper",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 293
+      },
+      "bodyBounds": {
+        "x": 427,
+        "y": 361,
+        "width": 404,
+        "height": 552
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5361763278429945,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "reaper-atlas-v2",
+      "skyTop": "#464b4b",
+      "skyBottom": "#313535",
+      "atmosphere": "#6a6f6f",
+      "reviewNote": "双枪、背部推进器与人形比例保留；移除原版医疗兵白甲与人物十字标记。恢复、猎轻与装甲三张保留个人装备和不同战斗姿势；医疗走廊只作为环境。"
+    },
+    "reaper.2": {
+      "key": "reaper.2",
+      "family": "reaper",
+      "race": "terran",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 293
+      },
+      "bodyBounds": {
+        "x": 853,
+        "y": 360,
+        "width": 396,
+        "height": 553
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.49993554160220827,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "reaper-atlas-v2",
+      "skyTop": "#3c3738",
+      "skyBottom": "#2a2727",
+      "atmosphere": "#605b5c",
+      "reviewNote": "双枪、背部推进器与人形比例保留；移除原版医疗兵白甲与人物十字标记。恢复、猎轻与装甲三张保留个人装备和不同战斗姿势；医疗走廊只作为环境。"
+    },
+    "reaper.3": {
+      "key": "reaper.3",
+      "family": "reaper",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 293
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 368,
+        "width": 396,
+        "height": 545
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4847233597233597,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "reaper-atlas-v2",
+      "skyTop": "#4e505e",
+      "skyBottom": "#373842",
+      "atmosphere": "#727482",
+      "reviewNote": "双枪、背部推进器与人形比例保留；移除原版医疗兵白甲与人物十字标记。恢复、猎轻与装甲三张保留个人装备和不同战斗姿势；医疗走廊只作为环境。"
+    },
+    "science_vessel": {
+      "key": "science_vessel",
+      "family": "science_vessel",
+      "race": "terran",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 319
+      },
+      "bodyBounds": {
+        "x": 31,
+        "y": 415,
+        "width": 353,
+        "height": 361
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.5966881818971851,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "science_vessel-atlas",
+      "skyTop": "#4f5c70",
+      "skyBottom": "#37404e",
+      "atmosphere": "#738094",
+      "reviewNote": "球形工业船体、传感器和工程臂可认；修复器、储能组件、远距维修臂各有重点；维修废墟只作场景。"
+    },
+    "science_vessel.1": {
+      "key": "science_vessel.1",
+      "family": "science_vessel",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 322
+      },
+      "bodyBounds": {
+        "x": 424,
+        "y": 418,
+        "width": 392,
+        "height": 439
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.41895662735727357,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "science_vessel-atlas",
+      "skyTop": "#556e83",
+      "skyBottom": "#3b4d5c",
+      "atmosphere": "#7992a7",
+      "reviewNote": "球形工业船体、传感器和工程臂可认；修复器、储能组件、远距维修臂各有重点；维修废墟只作场景。"
+    },
+    "science_vessel.2": {
+      "key": "science_vessel.2",
+      "family": "science_vessel",
+      "race": "terran",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 324
+      },
+      "bodyBounds": {
+        "x": 857,
+        "y": 415,
+        "width": 392,
+        "height": 426
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5245122830211971,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "science_vessel-atlas",
+      "skyTop": "#576994",
+      "skyBottom": "#3d4a68",
+      "atmosphere": "#7b8db8",
+      "reviewNote": "球形工业船体、传感器和工程臂可认；修复器、储能组件、远距维修臂各有重点；维修废墟只作场景。"
+    },
+    "science_vessel.3": {
+      "key": "science_vessel.3",
+      "family": "science_vessel",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 323
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 418,
+        "width": 386,
+        "height": 433
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5973458012292964,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "science_vessel-atlas",
+      "skyTop": "#2b3b45",
+      "skyBottom": "#1e2930",
+      "atmosphere": "#4f5f69",
+      "reviewNote": "球形工业船体、传感器和工程臂可认；修复器、储能组件、远距维修臂各有重点；维修废墟只作场景。"
+    },
+    "tank": {
+      "key": "tank",
+      "family": "tank",
+      "race": "terran",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 322
+      },
+      "bodyBounds": {
+        "x": 19,
+        "y": 482,
+        "width": 379,
+        "height": 330
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.6646648116761202,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "tank-atlas-v3",
+      "skyTop": "#818796",
+      "skyBottom": "#5a5f69",
+      "atmosphere": "#a5abba",
+      "reviewNote": "履带、长炮和架起支脚保留；新版本补全支撑脚，重炮烟雾收在画幅内，避免旧版明显直边；远炮阵、火线与移动扬尘不同。"
+    },
+    "tank.1": {
+      "key": "tank.1",
+      "family": "tank",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 322
+      },
+      "bodyBounds": {
+        "x": 425,
+        "y": 424,
+        "width": 406,
+        "height": 396
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.6630493027908214,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "tank-atlas-v3",
+      "skyTop": "#93a3bf",
+      "skyBottom": "#677286",
+      "atmosphere": "#b7c7dc",
+      "reviewNote": "履带、长炮和架起支脚保留；新版本补全支撑脚，重炮烟雾收在画幅内，避免旧版明显直边；远炮阵、火线与移动扬尘不同。"
+    },
+    "tank.2": {
+      "key": "tank.2",
+      "family": "tank",
+      "race": "terran",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 321
+      },
+      "bodyBounds": {
+        "x": 846,
+        "y": 454,
+        "width": 400,
+        "height": 364
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5611199175715305,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "tank-atlas-v3",
+      "skyTop": "#685c5c",
+      "skyBottom": "#494040",
+      "atmosphere": "#8c8080",
+      "reviewNote": "履带、长炮和架起支脚保留；新版本补全支撑脚，重炮烟雾收在画幅内，避免旧版明显直边；远炮阵、火线与移动扬尘不同。"
+    },
+    "tank.3": {
+      "key": "tank.3",
+      "family": "tank",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 321
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 510,
+        "width": 395,
+        "height": 309
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5762463343108505,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "tank-atlas-v3",
+      "skyTop": "#858c98",
+      "skyBottom": "#5d626a",
+      "atmosphere": "#a9b0bc",
+      "reviewNote": "履带、长炮和架起支脚保留；新版本补全支撑脚，重炮烟雾收在画幅内，避免旧版明显直边；远炮阵、火线与移动扬尘不同。"
+    },
+    "thor": {
+      "key": "thor",
+      "family": "thor",
+      "race": "terran",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 296
+      },
+      "bodyBounds": {
+        "x": 7,
+        "y": 344,
+        "width": 406,
+        "height": 570
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.3440336742662324,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "thor-atlas-v2",
+      "skyTop": "#34486c",
+      "skyBottom": "#24324c",
+      "atmosphere": "#586c90",
+      "reviewNote": "双足重机甲、臂炮与肩部导弹可认；移除上方额外雷神。防空轨迹、双炮地面爆点、厚甲守线区分；身体完整。"
+    },
+    "thor.1": {
+      "key": "thor.1",
+      "family": "thor",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 296
+      },
+      "bodyBounds": {
+        "x": 432,
+        "y": 313,
+        "width": 393,
+        "height": 598
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.36729329752585566,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "thor-atlas-v2",
+      "skyTop": "#4c6b96",
+      "skyBottom": "#354b69",
+      "atmosphere": "#708fba",
+      "reviewNote": "双足重机甲、臂炮与肩部导弹可认；移除上方额外雷神。防空轨迹、双炮地面爆点、厚甲守线区分；身体完整。"
+    },
+    "thor.2": {
+      "key": "thor.2",
+      "family": "thor",
+      "race": "terran",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 296
+      },
+      "bodyBounds": {
+        "x": 846,
+        "y": 373,
+        "width": 403,
+        "height": 525
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.3875054758775689,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "thor-atlas-v2",
+      "skyTop": "#5b657d",
+      "skyBottom": "#404758",
+      "atmosphere": "#7f89a1",
+      "reviewNote": "双足重机甲、臂炮与肩部导弹可认；移除上方额外雷神。防空轨迹、双炮地面爆点、厚甲守线区分；身体完整。"
+    },
+    "thor.3": {
+      "key": "thor.3",
+      "family": "thor",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 296
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 361,
+        "width": 407,
+        "height": 551
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.3120697864883911,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "thor-atlas-v2",
+      "skyTop": "#60769a",
+      "skyBottom": "#43536c",
+      "atmosphere": "#849abe",
+      "reviewNote": "双足重机甲、臂炮与肩部导弹可认；移除上方额外雷神。防空轨迹、双炮地面爆点、厚甲守线区分；身体完整。"
+    },
+    "viking": {
+      "key": "viking",
+      "family": "viking",
+      "race": "terran",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 295
+      },
+      "bodyBounds": {
+        "x": 83,
+        "y": 476,
+        "width": 366,
+        "height": 288
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.7485963163142153,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "viking-atlas-v3",
+      "skyTop": "#888085",
+      "skyBottom": "#5f5a5d",
+      "atmosphere": "#aca4a9",
+      "reviewNote": "普通战机收起腿部，快速变形显示变形关节，猎舰为战机，突击为双足地面形态；单独记录裁切区域以保留普通战机的完整右翼。"
+    },
+    "viking.1": {
+      "key": "viking.1",
+      "family": "viking",
+      "race": "terran",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 295
+      },
+      "bodyBounds": {
+        "x": 513,
+        "y": 400,
+        "width": 307,
+        "height": 400
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.6024660736431687,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "viking-atlas-v3",
+      "skyTop": "#808a9e",
+      "skyBottom": "#5a616f",
+      "atmosphere": "#a4aec2",
+      "reviewNote": "普通战机收起腿部，快速变形显示变形关节，猎舰为战机，突击为双足地面形态；单独记录裁切区域以保留普通战机的完整右翼。"
+    },
+    "viking.2": {
+      "key": "viking.2",
+      "family": "viking",
+      "race": "terran",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 405,
+        "height": 295
+      },
+      "bodyBounds": {
+        "x": 892,
+        "y": 491,
+        "width": 344,
+        "height": 274
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.720755997498818,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "viking-atlas-v3",
+      "skyTop": "#81757b",
+      "skyBottom": "#5a5256",
+      "atmosphere": "#a5999f",
+      "reviewNote": "普通战机收起腿部，快速变形显示变形关节，猎舰为战机，突击为双足地面形态；单独记录裁切区域以保留普通战机的完整右翼。"
+    },
+    "viking.3": {
+      "key": "viking.3",
+      "family": "viking",
+      "race": "terran",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1259,
+        "y": 0,
+        "width": 406,
+        "height": 295
+      },
+      "bodyBounds": {
+        "x": 1288,
+        "y": 419,
+        "width": 321,
+        "height": 423
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.6458151086634059,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "viking-atlas-v3",
+      "skyTop": "#788ba5",
+      "skyBottom": "#546173",
+      "atmosphere": "#9cafc9",
+      "reviewNote": "普通战机收起腿部，快速变形显示变形关节，猎舰为战机，突击为双足地面形态；单独记录裁切区域以保留普通战机的完整右翼。"
+    },
+    "baneling": {
+      "key": "baneling",
+      "family": "baneling",
+      "race": "zerg",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 331
+      },
+      "bodyBounds": {
+        "x": 26,
+        "y": 472,
+        "width": 354,
+        "height": 377
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5827244532162565,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "baneling-atlas",
+      "skyTop": "#4f5347",
+      "skyBottom": "#373a32",
+      "atmosphere": "#73776b",
+      "reviewNote": "有机酸囊、细肢与绿色酸液可认；广域喷溅、裂纹高能酸囊、疾奔拖迹不同；避免通用发光球替代身体。"
+    },
+    "baneling.1": {
+      "key": "baneling.1",
+      "family": "baneling",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 335
+      },
+      "bodyBounds": {
+        "x": 424,
+        "y": 404,
+        "width": 405,
+        "height": 457
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.3833004922113833,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "baneling-atlas",
+      "skyTop": "#5c624e",
+      "skyBottom": "#404537",
+      "atmosphere": "#808672",
+      "reviewNote": "有机酸囊、细肢与绿色酸液可认；广域喷溅、裂纹高能酸囊、疾奔拖迹不同；避免通用发光球替代身体。"
+    },
+    "baneling.2": {
+      "key": "baneling.2",
+      "family": "baneling",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 333
+      },
+      "bodyBounds": {
+        "x": 854,
+        "y": 427,
+        "width": 386,
+        "height": 432
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4751713435923962,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "baneling-atlas",
+      "skyTop": "#464937",
+      "skyBottom": "#313327",
+      "atmosphere": "#6a6d5b",
+      "reviewNote": "有机酸囊、细肢与绿色酸液可认；广域喷溅、裂纹高能酸囊、疾奔拖迹不同；避免通用发光球替代身体。"
+    },
+    "baneling.3": {
+      "key": "baneling.3",
+      "family": "baneling",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 344
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 476,
+        "width": 398,
+        "height": 364
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5123323414780702,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "baneling-atlas",
+      "skyTop": "#545c52",
+      "skyBottom": "#3b4039",
+      "atmosphere": "#788076",
+      "reviewNote": "有机酸囊、细肢与绿色酸液可认；广域喷溅、裂纹高能酸囊、疾奔拖迹不同；避免通用发光球替代身体。"
+    },
+    "queen": {
+      "key": "queen",
+      "family": "queen",
+      "race": "zerg",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 260
+      },
+      "bodyBounds": {
+        "x": 23,
+        "y": 312,
+        "width": 383,
+        "height": 593
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5014161137509155,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "queen-atlas-v2",
+      "skyTop": "#472c27",
+      "skyBottom": "#321f1b",
+      "atmosphere": "#6b504b",
+      "reviewNote": "虫后背冠、腹部和关节长腿可认；节能输血以小型治疗光与生体脉络表达，移除新增下方卵群；强疗绿光与储能紫光分别集中在不同器官。背景孵化囊是巢穴环境。"
+    },
+    "queen.1": {
+      "key": "queen.1",
+      "family": "queen",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 260
+      },
+      "bodyBounds": {
+        "x": 426,
+        "y": 320,
+        "width": 405,
+        "height": 585
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4375737371332085,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "queen-atlas-v2",
+      "skyTop": "#65404c",
+      "skyBottom": "#472d35",
+      "atmosphere": "#896470",
+      "reviewNote": "虫后背冠、腹部和关节长腿可认；节能输血以小型治疗光与生体脉络表达，移除新增下方卵群；强疗绿光与储能紫光分别集中在不同器官。背景孵化囊是巢穴环境。"
+    },
+    "queen.2": {
+      "key": "queen.2",
+      "family": "queen",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 260
+      },
+      "bodyBounds": {
+        "x": 852,
+        "y": 321,
+        "width": 394,
+        "height": 579
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4105431021730581,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "queen-atlas-v2",
+      "skyTop": "#48483d",
+      "skyBottom": "#32322b",
+      "atmosphere": "#6c6c61",
+      "reviewNote": "虫后背冠、腹部和关节长腿可认；节能输血以小型治疗光与生体脉络表达，移除新增下方卵群；强疗绿光与储能紫光分别集中在不同器官。背景孵化囊是巢穴环境。"
+    },
+    "queen.3": {
+      "key": "queen.3",
+      "family": "queen",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 260
+      },
+      "bodyBounds": {
+        "x": 1267,
+        "y": 334,
+        "width": 389,
+        "height": 561
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.49280397738547516,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "queen-atlas-v2",
+      "skyTop": "#483c57",
+      "skyBottom": "#322a3d",
+      "atmosphere": "#6c607b",
+      "reviewNote": "虫后背冠、腹部和关节长腿可认；节能输血以小型治疗光与生体脉络表达，移除新增下方卵群；强疗绿光与储能紫光分别集中在不同器官。背景孵化囊是巢穴环境。"
+    },
+    "ravager": {
+      "key": "ravager",
+      "family": "ravager",
+      "race": "zerg",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 286
+      },
+      "bodyBounds": {
+        "x": 17,
+        "y": 346,
+        "width": 393,
+        "height": 536
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4260779863833299,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "ravager-atlas-v2",
+      "skyTop": "#5d4939",
+      "skyBottom": "#413328",
+      "atmosphere": "#816d5d",
+      "reviewNote": "已把错误前臂炮口改为完整有机爪，胆汁来自背囊/有机喷口。连续弹道、广域落酸、浓烈酸击区分，火山岩和胆汁暖光统一。"
+    },
+    "ravager.1": {
+      "key": "ravager.1",
+      "family": "ravager",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 287
+      },
+      "bodyBounds": {
+        "x": 424,
+        "y": 339,
+        "width": 398,
+        "height": 541
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.367460872048028,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "ravager-atlas-v2",
+      "skyTop": "#644f44",
+      "skyBottom": "#463730",
+      "atmosphere": "#887368",
+      "reviewNote": "已把错误前臂炮口改为完整有机爪，胆汁来自背囊/有机喷口。连续弹道、广域落酸、浓烈酸击区分，火山岩和胆汁暖光统一。"
+    },
+    "ravager.2": {
+      "key": "ravager.2",
+      "family": "ravager",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 292
+      },
+      "bodyBounds": {
+        "x": 842,
+        "y": 343,
+        "width": 407,
+        "height": 539
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.2683394979234733,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "ravager-atlas-v2",
+      "skyTop": "#6a6252",
+      "skyBottom": "#4a4539",
+      "atmosphere": "#8e8676",
+      "reviewNote": "已把错误前臂炮口改为完整有机爪，胆汁来自背囊/有机喷口。连续弹道、广域落酸、浓烈酸击区分，火山岩和胆汁暖光统一。"
+    },
+    "ravager.3": {
+      "key": "ravager.3",
+      "family": "ravager",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 293
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 339,
+        "width": 384,
+        "height": 532
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.43490460157126826,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "ravager-atlas-v2",
+      "skyTop": "#574636",
+      "skyBottom": "#3d3126",
+      "atmosphere": "#7b6a5a",
+      "reviewNote": "已把错误前臂炮口改为完整有机爪，胆汁来自背囊/有机喷口。连续弹道、广域落酸、浓烈酸击区分，火山岩和胆汁暖光统一。"
+    },
+    "roach": {
+      "key": "roach",
+      "family": "roach",
+      "race": "zerg",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 332
+      },
+      "bodyBounds": {
+        "x": 12,
+        "y": 415,
+        "width": 396,
+        "height": 456
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5842210332341912,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 940,
+      "assetKey": "roach-atlas",
+      "skyTop": "#3a3c3e",
+      "skyBottom": "#292a2b",
+      "atmosphere": "#5e6062",
+      "reviewNote": "重叠甲壳、低位肢体与喷酸口可认；再生脉络、集中酸击、重甲壳分别突出；湿巢与酸蚀甲片改变环境。"
+    },
+    "roach.1": {
+      "key": "roach.1",
+      "family": "roach",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 332
+      },
+      "bodyBounds": {
+        "x": 431,
+        "y": 411,
+        "width": 393,
+        "height": 445
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5519041769041769,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 940,
+      "assetKey": "roach-atlas",
+      "skyTop": "#3c412c",
+      "skyBottom": "#2a2e1f",
+      "atmosphere": "#606550",
+      "reviewNote": "重叠甲壳、低位肢体与喷酸口可认；再生脉络、集中酸击、重甲壳分别突出；湿巢与酸蚀甲片改变环境。"
+    },
+    "roach.2": {
+      "key": "roach.2",
+      "family": "roach",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 332
+      },
+      "bodyBounds": {
+        "x": 845,
+        "y": 448,
+        "width": 404,
+        "height": 398
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5440765226949438,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 940,
+      "assetKey": "roach-atlas",
+      "skyTop": "#53482f",
+      "skyBottom": "#3a3221",
+      "atmosphere": "#776c53",
+      "reviewNote": "重叠甲壳、低位肢体与喷酸口可认；再生脉络、集中酸击、重甲壳分别突出；湿巢与酸蚀甲片改变环境。"
+    },
+    "roach.3": {
+      "key": "roach.3",
+      "family": "roach",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 332
+      },
+      "bodyBounds": {
+        "x": 1264,
+        "y": 410,
+        "width": 391,
+        "height": 463
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4824170761670762,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 940,
+      "assetKey": "roach-atlas",
+      "skyTop": "#463540",
+      "skyBottom": "#31252d",
+      "atmosphere": "#6a5964",
+      "reviewNote": "重叠甲壳、低位肢体与喷酸口可认；再生脉络、集中酸击、重甲壳分别突出；湿巢与酸蚀甲片改变环境。"
+    },
+    "corruptor": {
+      "key": "corruptor",
+      "family": "corruptor",
+      "race": "zerg",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 280
+      },
+      "bodyBounds": {
+        "x": 57,
+        "y": 387,
+        "width": 327,
+        "height": 498
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.5806889271337078,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "corruptor-atlas-v3",
+      "skyTop": "#5c4744",
+      "skyBottom": "#403230",
+      "atmosphere": "#806b68",
+      "reviewNote": "移除误画的异龙翅膀，保留悬浮甲壳与垂挂触须；猎重甲使用一发浓酸，连射使用前后连续酸弹，远猎使用远空轨迹；不暗示三发齐射或范围攻击。"
+    },
+    "corruptor.1": {
+      "key": "corruptor.1",
+      "family": "corruptor",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 280
+      },
+      "bodyBounds": {
+        "x": 450,
+        "y": 299,
+        "width": 381,
+        "height": 584
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5159296278812164,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "corruptor-atlas-v3",
+      "skyTop": "#857a78",
+      "skyBottom": "#5d5554",
+      "atmosphere": "#a99e9c",
+      "reviewNote": "移除误画的异龙翅膀，保留悬浮甲壳与垂挂触须；猎重甲使用一发浓酸，连射使用前后连续酸弹，远猎使用远空轨迹；不暗示三发齐射或范围攻击。"
+    },
+    "corruptor.2": {
+      "key": "corruptor.2",
+      "family": "corruptor",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 405,
+        "height": 280
+      },
+      "bodyBounds": {
+        "x": 842,
+        "y": 413,
+        "width": 406,
+        "height": 465
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5794362922277785,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "corruptor-atlas-v3",
+      "skyTop": "#70605a",
+      "skyBottom": "#4e433f",
+      "atmosphere": "#94847e",
+      "reviewNote": "移除误画的异龙翅膀，保留悬浮甲壳与垂挂触须；猎重甲使用一发浓酸，连射使用前后连续酸弹，远猎使用远空轨迹；不暗示三发齐射或范围攻击。"
+    },
+    "corruptor.3": {
+      "key": "corruptor.3",
+      "family": "corruptor",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1259,
+        "y": 0,
+        "width": 406,
+        "height": 280
+      },
+      "bodyBounds": {
+        "x": 1259,
+        "y": 396,
+        "width": 386,
+        "height": 482
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.6232794477877686,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "corruptor-atlas-v3",
+      "skyTop": "#6a6f69",
+      "skyBottom": "#4a4e4a",
+      "atmosphere": "#8e938d",
+      "reviewNote": "移除误画的异龙翅膀，保留悬浮甲壳与垂挂触须；猎重甲使用一发浓酸，连射使用前后连续酸弹，远猎使用远空轨迹；不暗示三发齐射或范围攻击。"
+    },
+    "lurker": {
+      "key": "lurker",
+      "family": "lurker",
+      "race": "zerg",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 387
+      },
+      "bodyBounds": {
+        "x": 17,
+        "y": 491,
+        "width": 391,
+        "height": 352
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.6474378875100897,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "lurker-atlas-v2",
+      "skyTop": "#796062",
+      "skyBottom": "#554345",
+      "atmosphere": "#9d8486",
+      "reviewNote": "低扁宽体和放射尖足保留；宽地刺、长地刺、连续掘刺的地面痕迹不同。修正早版背景分隔与身体裁切；边缘远端尖刺仅作效果诊断记录。"
+    },
+    "lurker.1": {
+      "key": "lurker.1",
+      "family": "lurker",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 391
+      },
+      "bodyBounds": {
+        "x": 426,
+        "y": 457,
+        "width": 404,
+        "height": 405
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5281125753853027,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "lurker-atlas-v2",
+      "skyTop": "#927671",
+      "skyBottom": "#66534f",
+      "atmosphere": "#b69a95",
+      "reviewNote": "低扁宽体和放射尖足保留；宽地刺、长地刺、连续掘刺的地面痕迹不同。修正早版背景分隔与身体裁切；边缘远端尖刺仅作效果诊断记录。"
+    },
+    "lurker.2": {
+      "key": "lurker.2",
+      "family": "lurker",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 394
+      },
+      "bodyBounds": {
+        "x": 847,
+        "y": 494,
+        "width": 402,
+        "height": 353
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.6338796832398295,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "lurker-atlas-v2",
+      "skyTop": "#7f696e",
+      "skyBottom": "#594a4d",
+      "atmosphere": "#a38d92",
+      "reviewNote": "低扁宽体和放射尖足保留；宽地刺、长地刺、连续掘刺的地面痕迹不同。修正早版背景分隔与身体裁切；边缘远端尖刺仅作效果诊断记录。"
+    },
+    "lurker.3": {
+      "key": "lurker.3",
+      "family": "lurker",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 393
+      },
+      "bodyBounds": {
+        "x": 1267,
+        "y": 495,
+        "width": 393,
+        "height": 341
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.6091886511594541,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "lurker-atlas-v2",
+      "skyTop": "#916864",
+      "skyBottom": "#664946",
+      "atmosphere": "#b58c88",
+      "reviewNote": "低扁宽体和放射尖足保留；宽地刺、长地刺、连续掘刺的地面痕迹不同。修正早版背景分隔与身体裁切；边缘远端尖刺仅作效果诊断记录。"
+    },
+    "mutalisk": {
+      "key": "mutalisk",
+      "family": "mutalisk",
+      "race": "zerg",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 267
+      },
+      "bodyBounds": {
+        "x": 14,
+        "y": 307,
+        "width": 399,
+        "height": 585
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.5949263263803323,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "mutalisk-atlas-v2",
+      "skyTop": "#6a686f",
+      "skyBottom": "#4a494e",
+      "atmosphere": "#8e8c93",
+      "reviewNote": "皮膜翼、弯尾与有机躯干可认；修复普通右翼尖。弹射弧线、追猎攻击姿势、厚翼甲壳区分；巢穴高空具有不同光照。"
+    },
+    "mutalisk.1": {
+      "key": "mutalisk.1",
+      "family": "mutalisk",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 267
+      },
+      "bodyBounds": {
+        "x": 433,
+        "y": 297,
+        "width": 390,
+        "height": 589
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.531908223302882,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "mutalisk-atlas-v2",
+      "skyTop": "#686266",
+      "skyBottom": "#494547",
+      "atmosphere": "#8c868a",
+      "reviewNote": "皮膜翼、弯尾与有机躯干可认；修复普通右翼尖。弹射弧线、追猎攻击姿势、厚翼甲壳区分；巢穴高空具有不同光照。"
+    },
+    "mutalisk.2": {
+      "key": "mutalisk.2",
+      "family": "mutalisk",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 405,
+        "height": 267
+      },
+      "bodyBounds": {
+        "x": 846,
+        "y": 301,
+        "width": 401,
+        "height": 607
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.5868902661852626,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "mutalisk-atlas-v2",
+      "skyTop": "#6d6062",
+      "skyBottom": "#4c4345",
+      "atmosphere": "#918486",
+      "reviewNote": "皮膜翼、弯尾与有机躯干可认；修复普通右翼尖。弹射弧线、追猎攻击姿势、厚翼甲壳区分；巢穴高空具有不同光照。"
+    },
+    "mutalisk.3": {
+      "key": "mutalisk.3",
+      "family": "mutalisk",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1259,
+        "y": 0,
+        "width": 406,
+        "height": 267
+      },
+      "bodyBounds": {
+        "x": 1266,
+        "y": 293,
+        "width": 395,
+        "height": 616
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.5365160142608214,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1671,
+      "height": 941,
+      "assetKey": "mutalisk-atlas-v2",
+      "skyTop": "#544b5e",
+      "skyBottom": "#3b3542",
+      "atmosphere": "#786f82",
+      "reviewNote": "皮膜翼、弯尾与有机躯干可认；修复普通右翼尖。弹射弧线、追猎攻击姿势、厚翼甲壳区分；巢穴高空具有不同光照。"
+    },
+    "ultralisk": {
+      "key": "ultralisk",
+      "family": "ultralisk",
+      "race": "zerg",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 361
+      },
+      "bodyBounds": {
+        "x": 14,
+        "y": 473,
+        "width": 391,
+        "height": 383
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5724603914259087,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "ultralisk-atlas",
+      "skyTop": "#48403e",
+      "skyBottom": "#322d2b",
+      "atmosphere": "#6c6462",
+      "reviewNote": "巨型甲壳和双凯撒刃保留；厚甲、快速连续斩击、壮实躯干区分。巨躯画面强调生命韧性，静态尺寸不改写实际碰撞半径。"
+    },
+    "ultralisk.1": {
+      "key": "ultralisk.1",
+      "family": "ultralisk",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 366
+      },
+      "bodyBounds": {
+        "x": 431,
+        "y": 448,
+        "width": 396,
+        "height": 418
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4652750774489905,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "ultralisk-atlas",
+      "skyTop": "#5c5058",
+      "skyBottom": "#40383e",
+      "atmosphere": "#80747c",
+      "reviewNote": "巨型甲壳和双凯撒刃保留；厚甲、快速连续斩击、壮实躯干区分。巨躯画面强调生命韧性，静态尺寸不改写实际碰撞半径。"
+    },
+    "ultralisk.2": {
+      "key": "ultralisk.2",
+      "family": "ultralisk",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 352
+      },
+      "bodyBounds": {
+        "x": 844,
+        "y": 424,
+        "width": 400,
+        "height": 461
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.40123809563537916,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "ultralisk-atlas",
+      "skyTop": "#5b4e4d",
+      "skyBottom": "#403736",
+      "atmosphere": "#7f7271",
+      "reviewNote": "巨型甲壳和双凯撒刃保留；厚甲、快速连续斩击、壮实躯干区分。巨躯画面强调生命韧性，静态尺寸不改写实际碰撞半径。"
+    },
+    "ultralisk.3": {
+      "key": "ultralisk.3",
+      "family": "ultralisk",
+      "race": "zerg",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 363
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 456,
+        "width": 398,
+        "height": 398
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4757785467128028,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "ultralisk-atlas",
+      "skyTop": "#786d71",
+      "skyBottom": "#544c4f",
+      "atmosphere": "#9c9195",
+      "reviewNote": "巨型甲壳和双凯撒刃保留；厚甲、快速连续斩击、壮实躯干区分。巨躯画面强调生命韧性，静态尺寸不改写实际碰撞半径。"
+    },
+    "adept": {
+      "key": "adept",
+      "family": "adept",
+      "race": "protoss",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 349
+      },
+      "bodyBounds": {
+        "x": 27,
+        "y": 367,
+        "width": 386,
+        "height": 543
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.45666627930141446,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "adept-atlas-v3",
+      "skyTop": "#695656",
+      "skyBottom": "#4a3c3c",
+      "atmosphere": "#8d7a7a",
+      "reviewNote": "新版本保留前臂月刃发射器，修正近战剑误读；移除完整分身，改为抽象运动光线。再次重绘黑色不透明光效底块后，实际三卡已复查，无旧版明显矩形接缝。"
+    },
+    "adept.1": {
+      "key": "adept.1",
+      "family": "adept",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 350
+      },
+      "bodyBounds": {
+        "x": 424,
+        "y": 387,
+        "width": 407,
+        "height": 513
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.3930164590063067,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "adept-atlas-v3",
+      "skyTop": "#787070",
+      "skyBottom": "#544e4e",
+      "atmosphere": "#9c9494",
+      "reviewNote": "新版本保留前臂月刃发射器，修正近战剑误读；移除完整分身，改为抽象运动光线。再次重绘黑色不透明光效底块后，实际三卡已复查，无旧版明显矩形接缝。"
+    },
+    "adept.2": {
+      "key": "adept.2",
+      "family": "adept",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 349
+      },
+      "bodyBounds": {
+        "x": 842,
+        "y": 431,
+        "width": 407,
+        "height": 442
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.37975629191845406,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "adept-atlas-v3",
+      "skyTop": "#5c424a",
+      "skyBottom": "#402e34",
+      "atmosphere": "#80666e",
+      "reviewNote": "新版本保留前臂月刃发射器，修正近战剑误读；移除完整分身，改为抽象运动光线。再次重绘黑色不透明光效底块后，实际三卡已复查，无旧版明显矩形接缝。"
+    },
+    "adept.3": {
+      "key": "adept.3",
+      "family": "adept",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 349
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 410,
+        "width": 379,
+        "height": 466
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4753718706421409,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "adept-atlas-v3",
+      "skyTop": "#9d8784",
+      "skyBottom": "#6e5f5c",
+      "atmosphere": "#c1aba8",
+      "reviewNote": "新版本保留前臂月刃发射器，修正近战剑误读；移除完整分身，改为抽象运动光线。再次重绘黑色不透明光效底块后，实际三卡已复查，无旧版明显矩形接缝。"
+    },
+    "carrier": {
+      "key": "carrier",
+      "race": "protoss",
+      "kind": "ordinary",
+      "family": "carrier",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "carrier-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 380
+      },
+      "bodyBounds": {
+        "x": 84,
+        "y": 472,
+        "width": 1132,
+        "height": 608
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": true,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#44342c",
+      "skyBottom": "#30241f",
+      "atmosphere": "#685850",
+      "reviewNote": "完整普通航母的尖舰艏、尾翼和蓝色舰载舱口；金色轨道遗迹与冷暖舰体反光统一。没有额外截击机。实际三舰卡图计数为三个等大船体。"
+    },
+    "carrier.1": {
+      "key": "carrier.1",
+      "race": "protoss",
+      "kind": "elite",
+      "family": "carrier",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "carrier.1-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 371
+      },
+      "bodyBounds": {
+        "x": 108,
+        "y": 445,
+        "width": 1097,
+        "height": 707
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#243c61",
+      "skyBottom": "#192a44",
+      "atmosphere": "#486085",
+      "reviewNote": "完整前倾长舰体与较窄尾翼，蓝色连续武器轨迹、冷色小行星走廊；主体未被原分栏边缘截断，快攻不表示新增舰载机。"
+    },
+    "carrier.2": {
+      "key": "carrier.2",
+      "race": "protoss",
+      "kind": "elite",
+      "family": "carrier",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "carrier.2-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 428
+      },
+      "bodyBounds": {
+        "x": 61,
+        "y": 483,
+        "width": 1159,
+        "height": 565
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#56382a",
+      "skyBottom": "#3c271d",
+      "atmosphere": "#7a5c4e",
+      "reviewNote": "重叠金属板、较厚长舰体、稳定舷侧姿势、暖色下腹武器光；金色毁坏轨道平台同光。火力强化不表示新增舱室/容量。"
+    },
+    "carrier.3": {
+      "key": "carrier.3",
+      "race": "protoss",
+      "kind": "elite",
+      "family": "carrier",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "carrier.3-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 354
+      },
+      "bodyBounds": {
+        "x": 120,
+        "y": 458,
+        "width": 1088,
+        "height": 677
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#2a354b",
+      "skyBottom": "#1d2535",
+      "atmosphere": "#4e596f",
+      "reviewNote": "完整长船、尾翼及透明蓝色护盾，冷色行星圣所；实际竖屏详情中舰艏与护盾边界完整且没有硬黑底。"
+    },
+    "colossus": {
+      "key": "colossus",
+      "family": "colossus",
+      "race": "protoss",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 309
+      },
+      "bodyBounds": {
+        "x": 6,
+        "y": 339,
+        "width": 407,
+        "height": 568
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.4222389823655646,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "colossus-atlas-v2",
+      "skyTop": "#746458",
+      "skyBottom": "#51463e",
+      "atmosphere": "#98887c",
+      "reviewNote": "旧版高冠躯干已改为宽横向弧形舰体、四条高脚与双热能发射器；远距、连续扫灼、护盾三个场景不同。补景天空底层后，实际卡片不再露出黑色透明缺口。"
+    },
+    "colossus.1": {
+      "key": "colossus.1",
+      "family": "colossus",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 307
+      },
+      "bodyBounds": {
+        "x": 424,
+        "y": 345,
+        "width": 407,
+        "height": 532
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.43519171594881373,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "colossus-atlas-v2",
+      "skyTop": "#807b7f",
+      "skyBottom": "#5a5659",
+      "atmosphere": "#a49fa3",
+      "reviewNote": "旧版高冠躯干已改为宽横向弧形舰体、四条高脚与双热能发射器；远距、连续扫灼、护盾三个场景不同。补景天空底层后，实际卡片不再露出黑色透明缺口。"
+    },
+    "colossus.2": {
+      "key": "colossus.2",
+      "family": "colossus",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 307
+      },
+      "bodyBounds": {
+        "x": 842,
+        "y": 357,
+        "width": 407,
+        "height": 553
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.3795526240321193,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "colossus-atlas-v2",
+      "skyTop": "#796359",
+      "skyBottom": "#55453e",
+      "atmosphere": "#9d877d",
+      "reviewNote": "旧版高冠躯干已改为宽横向弧形舰体、四条高脚与双热能发射器；远距、连续扫灼、护盾三个场景不同。补景天空底层后，实际卡片不再露出黑色透明缺口。"
+    },
+    "colossus.3": {
+      "key": "colossus.3",
+      "family": "colossus",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 310
+      },
+      "bodyBounds": {
+        "x": 1269,
+        "y": 354,
+        "width": 392,
+        "height": 558
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.34193219296230387,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "colossus-atlas-v2",
+      "skyTop": "#6a6668",
+      "skyBottom": "#4a4749",
+      "atmosphere": "#8e8a8c",
+      "reviewNote": "旧版高冠躯干已改为宽横向弧形舰体、四条高脚与双热能发射器；远距、连续扫灼、护盾三个场景不同。补景天空底层后，实际卡片不再露出黑色透明缺口。"
+    },
+    "high_templar": {
+      "key": "high_templar",
+      "family": "high_templar",
+      "race": "protoss",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 249
+      },
+      "bodyBounds": {
+        "x": 16,
+        "y": 272,
+        "width": 370,
+        "height": 645
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.3815454971524336,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "high_templar-atlas",
+      "skyTop": "#474c5e",
+      "skyBottom": "#323542",
+      "atmosphere": "#6b7082",
+      "reviewNote": "无口长面、长袍和聚能双手可认；省能风暴、储能聚光、强化紫色电弧的动作和祭坛光照不同；不暗示自动解锁或免费补能。"
+    },
+    "high_templar.1": {
+      "key": "high_templar.1",
+      "family": "high_templar",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 249
+      },
+      "bodyBounds": {
+        "x": 436,
+        "y": 294,
+        "width": 381,
+        "height": 622
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.185052761642357,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "high_templar-atlas",
+      "skyTop": "#4c5b7c",
+      "skyBottom": "#354057",
+      "atmosphere": "#707fa0",
+      "reviewNote": "无口长面、长袍和聚能双手可认；省能风暴、储能聚光、强化紫色电弧的动作和祭坛光照不同；不暗示自动解锁或免费补能。"
+    },
+    "high_templar.2": {
+      "key": "high_templar.2",
+      "family": "high_templar",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 249
+      },
+      "bodyBounds": {
+        "x": 867,
+        "y": 289,
+        "width": 348,
+        "height": 614
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.3314538921475338,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "high_templar-atlas",
+      "skyTop": "#7b78a9",
+      "skyBottom": "#565476",
+      "atmosphere": "#9f9ccd",
+      "reviewNote": "无口长面、长袍和聚能双手可认；省能风暴、储能聚光、强化紫色电弧的动作和祭坛光照不同；不暗示自动解锁或免费补能。"
+    },
+    "high_templar.3": {
+      "key": "high_templar.3",
+      "family": "high_templar",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 249
+      },
+      "bodyBounds": {
+        "x": 1267,
+        "y": 293,
+        "width": 391,
+        "height": 611
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.2445960148272287,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "high_templar-atlas",
+      "skyTop": "#80769c",
+      "skyBottom": "#5a536d",
+      "atmosphere": "#a49ac0",
+      "reviewNote": "无口长面、长袍和聚能双手可认；省能风暴、储能聚光、强化紫色电弧的动作和祭坛光照不同；不暗示自动解锁或免费补能。"
+    },
+    "immortal": {
+      "key": "immortal",
+      "family": "immortal",
+      "race": "protoss",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 354
+      },
+      "bodyBounds": {
+        "x": 16,
+        "y": 377,
+        "width": 397,
+        "height": 513
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.47681334734145636,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "immortal-atlas",
+      "skyTop": "#93948e",
+      "skyBottom": "#676863",
+      "atmosphere": "#b7b8b2",
+      "reviewNote": "厚重四足行者与双炮保留；吸收屏障、暖色破甲炮击、原生蓝盾分开表达；装甲材质与黄金战线反光统一。"
+    },
+    "immortal.1": {
+      "key": "immortal.1",
+      "family": "immortal",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 354
+      },
+      "bodyBounds": {
+        "x": 434,
+        "y": 376,
+        "width": 396,
+        "height": 514
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4440184337969687,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "immortal-atlas",
+      "skyTop": "#8e8f9b",
+      "skyBottom": "#63646d",
+      "atmosphere": "#b2b3bf",
+      "reviewNote": "厚重四足行者与双炮保留；吸收屏障、暖色破甲炮击、原生蓝盾分开表达；装甲材质与黄金战线反光统一。"
+    },
+    "immortal.2": {
+      "key": "immortal.2",
+      "family": "immortal",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 350
+      },
+      "bodyBounds": {
+        "x": 842,
+        "y": 378,
+        "width": 398,
+        "height": 509
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.46325513330589474,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "immortal-atlas",
+      "skyTop": "#918279",
+      "skyBottom": "#665b55",
+      "atmosphere": "#b5a69d",
+      "reviewNote": "厚重四足行者与双炮保留；吸收屏障、暖色破甲炮击、原生蓝盾分开表达；装甲材质与黄金战线反光统一。"
+    },
+    "immortal.3": {
+      "key": "immortal.3",
+      "family": "immortal",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 353
+      },
+      "bodyBounds": {
+        "x": 1263,
+        "y": 377,
+        "width": 401,
+        "height": 512
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.393571679285965,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "immortal-atlas",
+      "skyTop": "#8ea4c3",
+      "skyBottom": "#637389",
+      "atmosphere": "#b2c8dc",
+      "reviewNote": "厚重四足行者与双炮保留；吸收屏障、暖色破甲炮击、原生蓝盾分开表达；装甲材质与黄金战线反光统一。"
+    },
+    "phoenix": {
+      "key": "phoenix",
+      "family": "phoenix",
+      "race": "protoss",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 321
+      },
+      "bodyBounds": {
+        "x": 33,
+        "y": 378,
+        "width": 376,
+        "height": 449
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.3418839660775145,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "phoenix-atlas-v2",
+      "skyTop": "#334568",
+      "skyBottom": "#243049",
+      "atmosphere": "#57698c",
+      "reviewNote": "新版本移除天空额外整架战机，改为离子轨迹；弧形金色战机完整；猎轻、远空射击、疾飞推进区分；实际卡片光晕能融入高空背景。"
+    },
+    "phoenix.1": {
+      "key": "phoenix.1",
+      "family": "phoenix",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 321
+      },
+      "bodyBounds": {
+        "x": 429,
+        "y": 379,
+        "width": 369,
+        "height": 408
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.4254379012443529,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "phoenix-atlas-v2",
+      "skyTop": "#425e88",
+      "skyBottom": "#2e425f",
+      "atmosphere": "#6682ac",
+      "reviewNote": "新版本移除天空额外整架战机，改为离子轨迹；弧形金色战机完整；猎轻、远空射击、疾飞推进区分；实际卡片光晕能融入高空背景。"
+    },
+    "phoenix.2": {
+      "key": "phoenix.2",
+      "family": "phoenix",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 321
+      },
+      "bodyBounds": {
+        "x": 850,
+        "y": 379,
+        "width": 393,
+        "height": 449
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.34382579059998414,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "phoenix-atlas-v2",
+      "skyTop": "#36598b",
+      "skyBottom": "#263e61",
+      "atmosphere": "#5a7daf",
+      "reviewNote": "新版本移除天空额外整架战机，改为离子轨迹；弧形金色战机完整；猎轻、远空射击、疾飞推进区分；实际卡片光晕能融入高空背景。"
+    },
+    "phoenix.3": {
+      "key": "phoenix.3",
+      "family": "phoenix",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 321
+      },
+      "bodyBounds": {
+        "x": 1293,
+        "y": 412,
+        "width": 336,
+        "height": 387
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.3183561860981216,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "phoenix-atlas-v2",
+      "skyTop": "#677c9b",
+      "skyBottom": "#48576d",
+      "atmosphere": "#8ba0bf",
+      "reviewNote": "新版本移除天空额外整架战机，改为离子轨迹；弧形金色战机完整；猎轻、远空射击、疾飞推进区分；实际卡片光晕能融入高空背景。"
+    },
+    "sentry": {
+      "key": "sentry",
+      "family": "sentry",
+      "race": "protoss",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 290
+      },
+      "bodyBounds": {
+        "x": 22,
+        "y": 457,
+        "width": 339,
+        "height": 377
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.5806149677117419,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "sentry-atlas",
+      "skyTop": "#829cc6",
+      "skyBottom": "#5b6d8b",
+      "atmosphere": "#a6c0dc",
+      "reviewNote": "金色悬浮外壳与中心能量球可认；持续守护、储能核心、广域圆罩的范围/结构和场景不同；实际卡片没有硬黑光效底块。"
+    },
+    "sentry.1": {
+      "key": "sentry.1",
+      "family": "sentry",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 291
+      },
+      "bodyBounds": {
+        "x": 426,
+        "y": 415,
+        "width": 405,
+        "height": 410
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.493974673974674,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "sentry-atlas",
+      "skyTop": "#798caf",
+      "skyBottom": "#55627a",
+      "atmosphere": "#9db0d3",
+      "reviewNote": "金色悬浮外壳与中心能量球可认；持续守护、储能核心、广域圆罩的范围/结构和场景不同；实际卡片没有硬黑光效底块。"
+    },
+    "sentry.2": {
+      "key": "sentry.2",
+      "family": "sentry",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 291
+      },
+      "bodyBounds": {
+        "x": 866,
+        "y": 409,
+        "width": 383,
+        "height": 427
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.42972594972594974,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "sentry-atlas",
+      "skyTop": "#8c98ad",
+      "skyBottom": "#626a79",
+      "atmosphere": "#b0bcd1",
+      "reviewNote": "金色悬浮外壳与中心能量球可认；持续守护、储能核心、广域圆罩的范围/结构和场景不同；实际卡片没有硬黑光效底块。"
+    },
+    "sentry.3": {
+      "key": "sentry.3",
+      "family": "sentry",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 290
+      },
+      "bodyBounds": {
+        "x": 1260,
+        "y": 397,
+        "width": 407,
+        "height": 442
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.49121555573168474,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "sentry-atlas",
+      "skyTop": "#84a1c9",
+      "skyBottom": "#5c718d",
+      "atmosphere": "#a8c5dc",
+      "reviewNote": "金色悬浮外壳与中心能量球可认；持续守护、储能核心、广域圆罩的范围/结构和场景不同；实际卡片没有硬黑光效底块。"
+    },
+    "stalker": {
+      "key": "stalker",
+      "family": "stalker",
+      "race": "protoss",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 292
+      },
+      "bodyBounds": {
+        "x": 27,
+        "y": 354,
+        "width": 368,
+        "height": 524
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.6074891252086938,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "stalker-atlas",
+      "skyTop": "#2d344d",
+      "skyBottom": "#1f2436",
+      "atmosphere": "#515871",
+      "reviewNote": "四足奈拉齐姆机械体可认；集中猎甲光、护盾、闪烁空间折射分别配合不同姿势和遗迹。"
+    },
+    "stalker.1": {
+      "key": "stalker.1",
+      "family": "stalker",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 292
+      },
+      "bodyBounds": {
+        "x": 438,
+        "y": 374,
+        "width": 385,
+        "height": 505
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.6018747420904585,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "stalker-atlas",
+      "skyTop": "#3e4a6d",
+      "skyBottom": "#2b344c",
+      "atmosphere": "#626e91",
+      "reviewNote": "四足奈拉齐姆机械体可认；集中猎甲光、护盾、闪烁空间折射分别配合不同姿势和遗迹。"
+    },
+    "stalker.2": {
+      "key": "stalker.2",
+      "family": "stalker",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 292
+      },
+      "bodyBounds": {
+        "x": 857,
+        "y": 384,
+        "width": 377,
+        "height": 492
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4585281457392397,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "stalker-atlas",
+      "skyTop": "#566282",
+      "skyBottom": "#3c455b",
+      "atmosphere": "#7a86a6",
+      "reviewNote": "四足奈拉齐姆机械体可认；集中猎甲光、护盾、闪烁空间折射分别配合不同姿势和遗迹。"
+    },
+    "stalker.3": {
+      "key": "stalker.3",
+      "family": "stalker",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 292
+      },
+      "bodyBounds": {
+        "x": 1294,
+        "y": 392,
+        "width": 368,
+        "height": 499
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": false,
+      "issues": [],
+      "clearLowerFraction": 0.4333183162150805,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "stalker-atlas",
+      "skyTop": "#323655",
+      "skyBottom": "#23263b",
+      "atmosphere": "#565a79",
+      "reviewNote": "四足奈拉齐姆机械体可认；集中猎甲光、护盾、闪烁空间折射分别配合不同姿势和遗迹。"
+    },
+    "void_ray": {
+      "key": "void_ray",
+      "family": "void_ray",
+      "race": "protoss",
+      "kind": "ordinary",
+      "column": 0,
+      "sceneBounds": {
+        "x": 6,
+        "y": 0,
+        "width": 406,
+        "height": 269
+      },
+      "bodyBounds": {
+        "x": 21,
+        "y": 378,
+        "width": 369,
+        "height": 400
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 220,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.5866495553995554,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "void_ray-atlas",
+      "skyTop": "#2c426a",
+      "skyBottom": "#1f2e4a",
+      "atmosphere": "#50668e",
+      "reviewNote": "曲面金色舰体与前部棱晶聚焦器可认；聚焦光、护盾、连续细束与深空晶体反光区分；远端射线只作画幅内效果，不是额外单位。"
+    },
+    "void_ray.1": {
+      "key": "void_ray.1",
+      "family": "void_ray",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 1,
+      "sceneBounds": {
+        "x": 424,
+        "y": 0,
+        "width": 406,
+        "height": 277
+      },
+      "bodyBounds": {
+        "x": 434,
+        "y": 369,
+        "width": 394,
+        "height": 425
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.620289511855777,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "void_ray-atlas",
+      "skyTop": "#31466a",
+      "skyBottom": "#22314a",
+      "atmosphere": "#556a8e",
+      "reviewNote": "曲面金色舰体与前部棱晶聚焦器可认；聚焦光、护盾、连续细束与深空晶体反光区分；远端射线只作画幅内效果，不是额外单位。"
+    },
+    "void_ray.2": {
+      "key": "void_ray.2",
+      "family": "void_ray",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 2,
+      "sceneBounds": {
+        "x": 842,
+        "y": 0,
+        "width": 406,
+        "height": 277
+      },
+      "bodyBounds": {
+        "x": 846,
+        "y": 368,
+        "width": 383,
+        "height": 425
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [],
+      "clearLowerFraction": 0.45503019448802584,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "void_ray-atlas",
+      "skyTop": "#3e4557",
+      "skyBottom": "#2b303d",
+      "atmosphere": "#62697b",
+      "reviewNote": "曲面金色舰体与前部棱晶聚焦器可认；聚焦光、护盾、连续细束与深空晶体反光区分；远端射线只作画幅内效果，不是额外单位。"
+    },
+    "void_ray.3": {
+      "key": "void_ray.3",
+      "family": "void_ray",
+      "race": "protoss",
+      "kind": "elite",
+      "column": 3,
+      "sceneBounds": {
+        "x": 1260,
+        "y": 0,
+        "width": 406,
+        "height": 275
+      },
+      "bodyBounds": {
+        "x": 1271,
+        "y": 378,
+        "width": 396,
+        "height": 434
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 300,
+      "air": true,
+      "issues": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "clearLowerFraction": 0.549737698386347,
+      "review": "agent-visually-reviewed-static-preview",
+      "width": 1672,
+      "height": 941,
+      "assetKey": "void_ray-atlas",
+      "skyTop": "#364661",
+      "skyBottom": "#263144",
+      "atmosphere": "#5a6a85",
+      "reviewNote": "曲面金色舰体与前部棱晶聚焦器可认；聚焦光、护盾、连续细束与深空晶体反光区分；远端射线只作画幅内效果，不是额外单位。"
+    },
+    "swann": {
+      "key": "swann",
+      "race": "terran",
+      "kind": "hero",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "swann-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 364
+      },
+      "bodyBounds": {
+        "x": 286,
+        "y": 395,
+        "width": 840,
+        "height": 840
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 310,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#715b4f",
+      "skyBottom": "#4f4037",
+      "atmosphere": "#957f73",
+      "reviewNote": "矮壮工程师、胡须护目镜、机械臂工具；暖色工业维修舱与焊光融合。"
+    },
+    "tosh": {
+      "key": "tosh",
+      "race": "terran",
+      "kind": "hero",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "tosh-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 333
+      },
+      "bodyBounds": {
+        "x": 182,
+        "y": 384,
+        "width": 909,
+        "height": 838
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 310,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#2d323b",
+      "skyBottom": "#1f2329",
+      "atmosphere": "#51565f",
+      "reviewNote": "深肤色、长辫、暗色幽魂装甲与长枪；隐秘废墟和折射烟雾。"
+    },
+    "yamato_battlecruiser": {
+      "key": "yamato_battlecruiser",
+      "race": "terran",
+      "kind": "hero",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "yamato_battlecruiser-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 408
+      },
+      "bodyBounds": {
+        "x": 31,
+        "y": 471,
+        "width": 1163,
+        "height": 722
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 310,
+      "air": true,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#3b4452",
+      "skyBottom": "#293039",
+      "atmosphere": "#5f6876",
+      "reviewNote": "完整大型工业战列舰船体、前部大和能量核心与引擎；轨道船坞统一冷暖反光。"
+    },
+    "stukov": {
+      "key": "stukov",
+      "race": "zerg",
+      "kind": "hero",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "stukov-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 340
+      },
+      "bodyBounds": {
+        "x": 378,
+        "y": 387,
+        "width": 488,
+        "height": 847
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 310,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#403d6c",
+      "skyBottom": "#2d2b4c",
+      "atmosphere": "#646190",
+      "reviewNote": "完整帽檐、胡须、军装、单侧有机装甲臂与双靴；修正首版帽顶相交，保持非血腥完整制服；工业黄昏。"
+    },
+    "niadra": {
+      "key": "niadra",
+      "race": "zerg",
+      "kind": "hero",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "niadra-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 406
+      },
+      "bodyBounds": {
+        "x": 289,
+        "y": 425,
+        "width": 777,
+        "height": 797
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 310,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#5b505c",
+      "skyBottom": "#403840",
+      "atmosphere": "#7f7480",
+      "reviewNote": "完整尖冠、女王型有机躯干与长肢；修复与上方巢穴的分隔；橙色生体光与菌巢一致。"
+    },
+    "hots_leviathan": {
+      "key": "hots_leviathan",
+      "race": "zerg",
+      "kind": "hero",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "hots_leviathan-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 413
+      },
+      "bodyBounds": {
+        "x": 17,
+        "y": 474,
+        "width": 1219,
+        "height": 755
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 310,
+      "air": true,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#514145",
+      "skyBottom": "#392e30",
+      "atmosphere": "#756569",
+      "reviewNote": "完整庞大有机战舰、深色甲壳、器官和长触须；行星上空空间具有体积感。"
+    },
+    "alarak": {
+      "key": "alarak",
+      "race": "protoss",
+      "kind": "hero",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "alarak-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 368
+      },
+      "bodyBounds": {
+        "x": 224,
+        "y": 382,
+        "width": 786,
+        "height": 840
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 310,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#573842",
+      "skyBottom": "#3d272e",
+      "atmosphere": "#7b5c66",
+      "reviewNote": "无口长面、尖冠、黑红塔达林装甲和双红刃；黑石祭坛同光源。"
+    },
+    "vorazun": {
+      "key": "vorazun",
+      "race": "protoss",
+      "kind": "hero",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "vorazun-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 407
+      },
+      "bodyBounds": {
+        "x": 130,
+        "y": 440,
+        "width": 988,
+        "height": 796
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 310,
+      "air": false,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#403b6a",
+      "skyBottom": "#2d294a",
+      "atmosphere": "#645f8e",
+      "reviewNote": "修长暗黑圣堂身形、深紫装甲、披风与曲刃；暗影遗迹和紫色反光。"
+    },
+    "purifier_flagship": {
+      "key": "purifier_flagship",
+      "race": "protoss",
+      "kind": "hero",
+      "width": 1254,
+      "height": 1254,
+      "assetKey": "purifier_flagship-single",
+      "sceneBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1254,
+        "height": 468
+      },
+      "bodyBounds": {
+        "x": 91,
+        "y": 562,
+        "width": 1142,
+        "height": 642
+      },
+      "bodyHeight": 224,
+      "bodyWidth": 310,
+      "air": true,
+      "issues": [],
+      "review": "agent-visually-reviewed-static-preview",
+      "skyTop": "#626376",
+      "skyBottom": "#454553",
+      "atmosphere": "#86879a",
+      "reviewNote": "单个完整白金巨舰、蓝色能量核心；已移除额外小型截击机，空舱光与离子痕迹保留；净化者轨道建筑同光色。"
+    }
+  },
+  "method": "Built-in image_gen, new text prompts and edits of these new generated plates only. Family atlases and independent paintings contain separately painted scenes/body layers. Frontend crops explicit regions and translates same-size alpha bodies for real quantities. Original full-resolution PNGs are retained; WebP encoding preserves dimensions. Geometry diagnostics are not human art acceptance."
+}

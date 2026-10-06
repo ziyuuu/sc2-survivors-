@@ -1,3 +1,4 @@
+import {revisedProtossElite,protossEliteChargeLanded} from '../combat/protoss-elite-runtime';
 import type {World} from '../world';
 import type {Body,Entity,Point} from '../types';
 import type {MapDefinition,MapPlacement,TerrainQuery} from '../../data/map-definition';
@@ -78,9 +79,9 @@ export function tickZealotCharge(w:World,u:Entity,target:Body|undefined,dt:numbe
  else {
   if(!target||manual||u.owner==='terran'&&!w.expedition.tech.charge||w.time<(u.chargeReadyAt??0)||u.windup>0||(u.stoppedUntil??0)>w.time||!chargeMovementAllowed(w,u,target))return false;
   const edge=w.edgeDistance(u,target);if(edge<=source.minTriggerDistance||edge>=source.maxTriggerDistance)return false;
-  u.chargeState={targetId:target.id,until:w.time+source.duration};u.chargeReadyAt=w.time+source.cooldown*eliteEffect(u,'chargeCooldownMultiplier');
+  u.chargeState={targetId:target.id,until:w.time+source.duration};u.chargeReadyAt=w.time+(revisedProtossElite(u)&&u.eliteId==='zealot.3'?10:source.cooldown*eliteEffect(u,'chargeCooldownMultiplier'));
  }
- const victim=target!,remaining=w.edgeDistance(u,victim)-Math.max(.1,u.attackRange*.8);if(remaining<=.01){u.chargeState=undefined;return false;}
+ const victim=target!,remaining=w.edgeDistance(u,victim)-Math.max(.1,u.attackRange*.8);if(remaining<=.01){u.chargeState=undefined;protossEliteChargeLanded(w,u);return false;}
  const dx=victim.x-u.x,dz=victim.z-u.z,d=Math.hypot(dx,dz)||1,step=Math.min(remaining,u.moveSpeed*source.speedMultiplier*dt),before={x:u.x,z:u.z};
  u.prev={...before};translate(u,{x:dx/d*step,z:dz/d*step},u.unitRadius,false,w.obstacles,w.mapHalf,w.terrain);u.velocity={x:dt?(u.x-before.x)/dt:0,z:dt?(u.z-before.z)/dt:0};u.distanceWalked+=distance(before,u);u.facing=Math.atan2(dx,dz);u.action='move';if(distance(before,u)<step*.5)u.chargeState=undefined;return true;
 }

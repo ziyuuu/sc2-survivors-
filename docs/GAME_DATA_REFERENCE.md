@@ -25,7 +25,7 @@
 
 ## 玩家战斗统一适配
 
-所有难度玩家战斗单位（含精英、英雄、所属召唤物）的武器及附加伤害、最大生命、原生护盾、移速、生命/护盾护甲乘 1.15，攻击周期除以该因子。工人、建筑、载体和技能/治疗不乘。下方普通来源表未包含这项适配；实际实体以派生值为准。
+普通和精英玩家战斗单位及其适用子体的武器及附加伤害、最大生命、原生护盾、移速、生命/护盾护甲乘 1.15，攻击周期除以该因子。工人、建筑、载体和技能/治疗不乘。P3已批准的18名英雄使用下列独立显式机体，普攻和机体不再重复乘该因子或旧1.15普攻适配；旗舰子机使用独立250/.4秒机枪。下方普通来源表未包含这项适配；实际实体以派生值为准。
 
 跳虫每名额为一对，共享军衔及精英身份，两身体独立战斗。缺员900固定步后存活者裂变；死亡、培养及换兵按配对账计算。虫后距落地载体6以内注卵，每只45秒冷却、同舱一次、最多两个一级普通名额、零付款、先扣除预付款占位。
 
@@ -188,7 +188,7 @@
 | lurker_burrowed | LurkerMP | 20 × 1 | 1.4286 | 0／8 | ground | Armored＋10 | 0 |
 | thor_high_impact | LanceMissileLaunchers | 25 × 1 | 0.9143 | 0／11 | air | Massive＋10 | 0 |
 
-范围伤害、异龙弹射、潜伏者线形穿刺、巨像双束与虚空基础反甲分别读取 `SOURCE_WEAPON_PATTERNS`。本表不是把每行武器同时对同一目标结算。异龙三跳独立读取9／3／1基值与每级1／0.333／0.111增量；爆虫对建筑读取独立80基值与每级5增量。射弹旅行沿用本工程即时命中适配：例如雷神四发仍在一次攻击结算，原发射间隔仅作为来源数据保留，不能据此声称完全复刻SC2弹道。坦克旧架炮配置见 `SIEGE`；变形共享身体、生命、能量、培养及武器冷却。
+范围伤害、异龙弹射、潜伏者线形穿刺、巨像双束与虚空基础反甲分别读取 `SOURCE_WEAPON_PATTERNS`。本表不是把每行武器同时对同一目标结算。异龙三跳独立读取9／3／1基值与每级1／0.333／0.111增量；爆虫对建筑读取独立80基值与每级5增量。来源武器表不代替实际结算：普通、精英和英雄按各自执行器使用实时命中、真实飞行或延迟包；已批准的多发、穿透、二次效果与持久化时钟分别执行，不能据此声称完全复刻SC2弹道。坦克旧架炮配置见 `SIEGE`；变形共享身体、生命、能量、培养及武器冷却。
 
 ### 来源科技增量
 
@@ -402,24 +402,24 @@
 
 | ID | 种族 | 英雄 | HP／护盾 | 生命护甲 | 单发 × 发数 | 周期秒 | 射程／移速 | 普攻目标 | 属性 | 先天隐形 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| raynor | 人族 | 雷诺 | 9500／0 | 10 | 207 × 1 | 0.1739 | 7.5／4 | both | Biological、Heroic | 否 |
-| tychus | 人族 | 泰凯斯 | 11000／0 | 12 | 138 × 1 | 0.087 | 6.5／3.6 | both | Biological、Heroic | 否 |
-| nova | 人族 | 诺娃 | 6500／1600 | 6 | 632.5 × 1 | 0.4348 | 10／4.8 | both | Biological、Heroic | 否 |
-| swann | 人族 | 斯旺 | 10000／0 | 14 | 241.5 × 1 | 0.2609 | 8／3.2 | ground | Biological、Heroic | 否 |
-| tosh | 人族 | 托什 | 8500／0 | 8 | 276 × 1 | 0.2609 | 8／4.3 | both | Biological、Heroic | 否 |
-| yamato_battlecruiser | 人族 | 大和战列巡洋舰 | 22000／0 | 18 | 345 × 2 | 0.1739 | 10／2.9 | both | Mechanical、Armored、Massive、Heroic | 否 |
-| kerrigan | 虫族 | 凯瑞甘 | 1500／0 | 3 | 59.8 × 1 | 0.313 | 1／3.5 | ground | Biological、Heroic | 否 |
-| zagara | 虫族 | 扎加拉 | 1300／0 | 1 | 41.4 × 1 | 0.313 | 6.5／3.5 | both | Biological、Heroic | 否 |
-| dehaka | 虫族 | 德哈卡 | 1600／0 | 4 | 92 × 1 | 0.5217 | 1.4／3.15 | ground | Biological、Heroic | 否 |
-| stukov | 虫族 | 斯托科夫 | 1400／0 | 2 | 57.5 × 1 | 0.3826 | 6.5／3.15 | both | Biological、Heroic | 否 |
-| niadra | 虫族 | 妮雅德拉 | 1400／0 | 2 | 36.8 × 1 | 0.3913 | 5.5／3.15 | both | Biological、Heroic | 否 |
-| hots_leviathan | 虫族 | 利维坦 | 1600／0 | 4 | 69 × 1 | 0.4783 | 7.5／2.5 | both | Biological、Armored、Massive、Heroic | 否 |
-| artanis | 神族 | 阿塔尼斯 | 750／750 | 3 | 39.1 × 2 | 0.4783 | 1／3.5 | ground | Biological、Heroic | 否 |
-| zeratul | 神族 | 泽拉图 | 600／600 | 1 | 103.5 × 1 | 0.4348 | 1／4.2 | ground | Biological、Heroic | 是 |
-| alarak | 神族 | 阿拉纳克 | 1000／500 | 3 | 97.75 × 1 | 0.5217 | 1.2／3.15 | ground | Biological、Heroic | 否 |
-| fenix | 神族 | 菲尼克斯 | 800／800 | 3 | 82.8 × 1 | 0.4348 | 7.5／3.15 | both | Mechanical、Armored、Heroic | 否 |
-| vorazun | 神族 | 沃拉尊 | 600／600 | 1 | 86.25 × 1 | 0.4348 | 1／4 | ground | Biological、Heroic | 是 |
-| purifier_flagship | 神族 | 净化者旗舰 | 850／750 | 4 | 0 × 1 | 0.8696 | 8／2.62 | none | Mechanical、Armored、Massive、Heroic | 否 |
+| raynor | 人族 | 雷诺 | 9500／0 | 10 | 360 × 1 | 0.2 | 7.5／4 | both | Biological、Heroic | 否 |
+| tychus | 人族 | 泰凯斯 | 11000／0 | 12 | 300 × 1 | 0.1 | 6.5／3.6 | both | Biological、Heroic | 否 |
+| nova | 人族 | 诺娃 | 11000／1600 | 6 | 1100 × 1 | 0.5 | 10／4.8 | both | Biological、Heroic | 否 |
+| swann | 人族 | 斯旺 | 10000／0 | 14 | 420 × 1 | 0.3 | 8／3.2 | ground | Biological、Heroic | 否 |
+| tosh | 人族 | 托什 | 8500／0 | 8 | 480 × 1 | 0.3 | 8／4.3 | both | Biological、Heroic | 否 |
+| yamato_battlecruiser | 人族 | 大和战列巡洋舰 | 22000／0 | 18 | 660 × 2 | 0.2 | 10／2.9 | both | Mechanical、Armored、Massive、Heroic | 否 |
+| kerrigan | 虫族 | 凯瑞甘 | 18000／0 | 14 | 1800 × 1 | 0.2 | 1.8／4.5 | ground | Biological、Heroic | 否 |
+| zagara | 虫族 | 扎加拉 | 13000／0 | 10 | 1150 × 1 | 0.2 | 8／3.8 | both | Biological、Heroic | 否 |
+| dehaka | 虫族 | 德哈卡 | 23000／0 | 16 | 2100 × 1 | 0.25 | 2／3.6 | ground | Biological、Heroic | 否 |
+| stukov | 虫族 | 斯托科夫 | 15000／0 | 12 | 1500 × 1 | 0.3 | 8／3.5 | both | Biological、Heroic | 否 |
+| niadra | 虫族 | 妮雅德拉 | 14500／0 | 11 | 650 × 1 | 0.4 | 7／3.7 | both | Biological、Heroic | 否 |
+| hots_leviathan | 虫族 | 利维坦 | 26000／0 | 18 | 2300 × 1 | 0.25 | 9／2.8 | both | Biological、Armored、Massive、Heroic | 否 |
+| artanis | 神族 | 阿塔尼斯 | 11000／10000 | 15 | 550 × 2 | 0.28 | 1.8／3.9 | ground | Biological、Heroic | 否 |
+| zeratul | 神族 | 泽拉图 | 8000／7000 | 8 | 800 × 1 | 0.24 | 1.6／5.2 | ground | Biological、Heroic | 是 |
+| alarak | 神族 | 阿拉纳克 | 15000／8000 | 14 | 800 × 1 | 0.22 | 2／3.9 | ground | Biological、Heroic | 否 |
+| fenix | 神族 | 菲尼克斯 | 11000／12000 | 15 | 950 × 1 | 0.25 | 9／3.5 | both | Mechanical、Armored、Heroic | 否 |
+| vorazun | 神族 | 沃拉尊 | 8500／7500 | 9 | 550 × 1 | 0.28 | 1.8／4.8 | ground | Biological、Heroic | 是 |
+| purifier_flagship | 神族 | 净化者旗舰 | 15000／16000 | 18 | 0 × 1 | 1 | 10／2.9 | none | Mechanical、Armored、Massive、Heroic | 否 |
 
 | 英雄 | 主动技能 | 一级基础量 | 范围参数：射程／半径／长度／宽度 | 前摇或首个结算延迟秒 | 冷却秒 | 模型ID |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -429,129 +429,206 @@
 | 斯旺 | 紧急抢修 | 0 | 7／0／0／0 | 1 | 30 | hero.swann |
 | 托什 | 精神冲击 | 4600 | 10000／2.8／0／0 | 0.5 | 35 | hero.tosh |
 | 大和战列巡洋舰 | 大和聚变炮 | 9200 | 11／2.8／0／0 | 1.25 | 25 | hero.yamato_battlecruiser |
-| 凯瑞甘 | 灵能冲击 | 300 | 11／0／11／2.2 | 0.5 | 10 | hero.kerrigan |
-| 扎加拉 | 爆虫弹幕 | 100 | 9／1.7／0／0 | 0.7 | 12 | hero.zagara |
-| 德哈卡 | 原始吞噬 | 420 | 3／0／0／0 | 0.35 | 13 | hero.dehaka |
-| 斯托科夫 | 腐蚀弹 | 80 | 9／3／0／0 | 0.25 | 12 | hero.stukov |
-| 妮雅德拉 | 哺育波 | 120 | 6／6／0／0 | 0 | 18 | hero.niadra |
-| 利维坦 | 生体等离子风暴 | 180 | 10／3.5／0／0 | 0.8 | 22 | hero.hots_leviathan |
-| 阿塔尼斯 | 护盾复苏 | 150 | 6／6／0／0 | 0 | 16 | hero.artanis |
-| 泽拉图 | 虚空斩 | 520 | 3／1.2／0／0 | 0.25 | 10 | hero.zeratul |
-| 阿拉纳克 | 毁灭波 | 300 | 10／0／10／2.6 | 0.55 | 12 | hero.alarak |
-| 菲尼克斯 | 太阳炮 | 360 | 10／3.2／0／0 | 0.6 | 13 | hero.fenix |
-| 沃拉尊 | 时间停滞 | 0 | 9／3.2／0／0 | 0.25 | 16 | hero.vorazun |
-| 净化者旗舰 | 聚变核爆 | 600 | 12／4／0／0 | 1.4 | 30 | elite.carrier.1 |
+| 凯瑞甘 | 灵能冲击 | 5520 | 11／0／11／2.2 | 0.5 | 12 | hero.kerrigan |
+| 扎加拉 | 爆虫弹幕 | 2300 | 9／1.7／0／0 | 0.7 | 16 | hero.zagara |
+| 德哈卡 | 原始吞噬 | 9660 | 3／0／0／0 | 0.35 | 20 | hero.dehaka |
+| 斯托科夫 | 腐蚀弹 | 1840 | 9／3／0／0 | 0.25 | 16 | hero.stukov |
+| 妮雅德拉 | 殖群复生 | 0 | 6／6／0／0 | 0 | 35 | hero.niadra |
+| 利维坦 | 生体等离子风暴 | 2760 | 10／3.5／0／0 | 0.8 | 26 | hero.hots_leviathan |
+| 阿塔尼斯 | 护盾复苏 | 0 | 6／6／0／0 | 0 | 24 | hero.artanis |
+| 泽拉图 | 虚空斩 | 10120 | 3／1.2／0／0 | 0.25 | 18 | hero.zeratul |
+| 阿拉纳克 | 毁灭波 | 5520 | 10／0／10／2.6 | 0.55 | 14 | hero.alarak |
+| 菲尼克斯 | 太阳炮 | 5980 | 10／3.2／0／0 | 0.6 | 16 | hero.fenix |
+| 沃拉尊 | 时间停滞 | 0 | 10／5.5／0／0 | 0.25 | 18 | hero.vorazun |
+| 净化者旗舰 | 聚变核爆 | 7360 | 12／4／0／0 | 1.4 | 30 | elite.carrier.1 |
 
-“一级基础量”依技能分别指单次伤害、每次治疗或每目标回盾，控制技能可为0；弹幕次数、持续伤害、合法目标及控制时长由技能执行器定义，不能将该列直接当作技能总伤害。伤害／治疗／回盾量每级增加25%，范围、冷却及控制不成长。复活价格250矿／100气×[1＋0.25×(等级−1)]，下一关部署且技能从完整冷却开始。
+“一级基础量”依技能分别指单次伤害、每次治疗或每目标回盾，控制技能可为0；弹幕次数、持续伤害、合法目标及控制时长由技能执行器定义，不能将该列直接当作技能总伤害。18英雄固定成长见下表；技能伤害基数按skill/9200缩放。治疗、回盾、复生次数、控制和被动分别读取专属规则，不将它们错误地统一写为每级25%。复活价格250矿／100气×[1＋0.25×(等级−1)]，下一关部署且技能从完整冷却开始。
 
-## 新规则：90款唯一精英
+### 英雄I–V固定成长及光环
 
-每个家族同时最多一个精英身份，占一个普通名额；精英跳虫为一对两只身体；同局锁定一种变体。多变体家族不会获得更高抽中概率。下列新增专属效果只应用一次，不随精英等级额外重复相乘。
-
-| ID | 名称 | 家族 | 模板 | 专属能力 | 新效果配置 | 模型ID |
+| 军衔 | 生命／原生盾倍率 | 单击倍率 | 周期倍率 | 额外生命护甲 | 被动量倍率 | 技能伤害基准 |
 | --- | --- | --- | --- | --- | --- | --- |
-| marine.1 | 突击枪兵 | 陆战队员 | quick | 兴奋剂不扣血，期间每秒恢复 1% 最大生命。 | 由既有精英规则执行 | elite.marine.1 |
-| marine.2 | 重火力枪兵 | 陆战队员 | heavy | 对重甲总伤害额外提高 25%。 | 由既有精英规则执行 | elite.marine.2 |
-| marine.3 | 重装枪兵 | 陆战队员 | guard | 强化装甲与生命，适合持续交战。 | 由既有精英规则执行 | elite.marine.3 |
-| marauder.1 | 压制劫掠者 | 劫掠者 | quick | 命中降低移速及攻速 30%，持续 1.5 秒；Boss 效果减半。 | 由既有精英规则执行 | elite.marauder.1 |
-| marauder.2 | 破甲劫掠者 | 劫掠者 | heavy | 每 15 秒额外发射三倍单发伤害的破甲弹药。 | 由既有精英规则执行 | elite.marauder.2 |
-| marauder.3 | 堡垒劫掠者 | 劫掠者 | guard | 高生命与护甲，承担前线压力。 | 由既有精英规则执行 | elite.marauder.3 |
-| hellion.1 | 高速恶火 | 恶火 | mobile | 转向与加速提高 20%。 | 由既有精英规则执行 | elite.hellion.1 |
-| hellion.2 | 焚烧恶火 | 恶火 | heavy | 附加三秒灼烧，每秒为该次直接伤害的 20%；同来源刷新。 | 由既有精英规则执行 | elite.hellion.2 |
-| hellion.3 | 清场恶火 | 恶火 | quick | 火焰宽度 ×1.5，长度 ×1.25。 | 由既有精英规则执行 | elite.hellion.3 |
-| tank.1 | 重型攻城坦克 | 攻城坦克 | heavy | 架起后每三秒射程 +1，最多 +3；收炮清除。 | 由既有精英规则执行 | elite.tank.1 |
-| tank.2 | 重炮坦克 | 攻城坦克 | heavy | 攻速 ×0.8、单发补偿，攻城溅射半径 ×1.25。 | 由既有精英规则执行 | elite.tank.2 |
-| tank.3 | 突击坦克 | 攻城坦克 | mobile | 架起与收起时间 ×0.75。 | 由既有精英规则执行 | elite.tank.3 |
-| medivac.1 | 急救医疗艇 | 医疗运输机 | support | 单目标治疗额外 ×1.25。 | 由既有精英规则执行 | elite.medivac.1 |
-| medivac.2 | 群疗医疗艇 | 医疗运输机 | support | 额外治疗两名伤员，各为主治疗量的一半；按实际治疗耗能。 | 由既有精英规则执行 | elite.medivac.2 |
-| medivac.3 | 维修医疗艇 | 医疗运输机 | support | 恢复输出＋25%，主系／跨系比例保持1与1/3。 | 由既有精英规则执行 | elite.medivac.3 |
-| reaper.1 | 突击死神 | 死神 | mobile | 脱战恢复等待时间 ×0.75。 | regenDelayMultiplier：0.75 | elite.reaper.1 |
-| thor.1 | 防空雷神 | 雷神 | guard | 对空普攻伤害 ×1.20。 | airAttackDamageMultiplier：1.2 | elite.thor.1 |
-| viking.1 | 快速变形维京 | 维京 | mobile | 变形时间 ×0.70。 | transformTimeMultiplier：0.7 | elite.viking.1 |
-| banshee.1 | 远程女妖 | 女妖 | quick | 对地射程 +1。 | groundAttackRangeAdd：1 | elite.banshee.1 |
-| science_vessel.1 | 修复科技球 | 科技球 | support | 恢复输出 ×1.25，保持主系与跨系比例。 | recoveryMultiplier：1.25 | elite.science_vessel.1 |
-| zergling.1 | 利爪跳虫 | 跳虫 | quick | 普攻周期 ×0.80。 | attackPeriodMultiplier：0.8 | elite.zergling.1 |
-| baneling.1 | 强酸爆虫 | 爆虫 | heavy | 爆炸半径 ×1.25。 | explosionRadiusMultiplier：1.25 | elite.baneling.1 |
-| roach.1 | 再生蟑螂 | 蟑螂 | guard | 固有再生 ×2。 | innateRegenMultiplier：2 | elite.roach.1 |
-| ravager.1 | 速射破坏者 | 破坏者 | heavy | 胆汁冷却 ×0.80。 | bileCooldownMultiplier：0.8 | elite.ravager.1 |
-| hydralisk.1 | 长刺刺蛇 | 刺蛇 | quick | 射程 +1。 | attackRangeAdd：1 | elite.hydralisk.1 |
-| lurker.1 | 宽刺潜伏者 | 潜伏者 | heavy | 穿刺宽度 ×1.25。 | spineWidthMultiplier：1.25 | elite.lurker.1 |
-| queen.1 | 哺育虫后 | 虫后 | support | 输血耗能 ×0.75。 | transfusionEnergyMultiplier：0.75 | elite.queen.1 |
-| mutalisk.1 | 弹射异龙 | 异龙 | mobile | 后续弹射伤害 ×1.25。 | secondaryBounceDamageMultiplier：1.25 | elite.mutalisk.1 |
-| corruptor.1 | 猎空腐化者 | 腐化者 | heavy | 对重甲空中目标普攻伤害 ×1.20。 | armoredAirDamageMultiplier：1.2 | elite.corruptor.1 |
-| ultralisk.1 | 厚甲雷兽 | 雷兽 | guard | 生命护甲 +2。 | lifeArmorAdd：2 | elite.ultralisk.1 |
-| zealot.1 | 突进狂热者 | 狂热者 | mobile | 已解锁冲锋冷却 ×0.75。 | chargeCooldownMultiplier：0.75 | elite.zealot.1 |
-| adept.1 | 穿透使徒 | 使徒 | quick | 对轻甲额外伤害 ×1.50。 | lightBonusMultiplier：1.5 | elite.adept.1 |
-| stalker.1 | 猎甲追猎者 | 追猎者 | mobile | 对重甲普攻伤害 ×1.20。 | armoredDamageMultiplier：1.2 | elite.stalker.1 |
-| sentry.1 | 守护哨兵 | 哨兵 | support | 守护者之盾持续时间 ×1.30。 | guardianShieldDurationMultiplier：1.3 | elite.sentry.1 |
-| immortal.1 | 屏障不朽者 | 不朽者 | guard | 护障吸收量 ×1.40。 | barrierAbsorptionMultiplier：1.4 | elite.immortal.1 |
-| colossus.1 | 远距巨像 | 巨像 | heavy | 射程 +1。 | attackRangeAdd：1 | elite.colossus.1 |
-| high_templar.1 | 风暴圣堂 | 高阶圣堂武士 | support | 已解锁灵能风暴耗能 ×0.80。 | stormEnergyMultiplier：0.8 | elite.high_templar.1 |
-| phoenix.1 | 猎轻凤凰 | 凤凰 | mobile | 对轻甲空中目标普攻伤害 ×1.25。 | lightAirDamageMultiplier：1.25 | elite.phoenix.1 |
-| void_ray.1 | 聚焦辉光舰 | 虚空辉光舰 | heavy | 对重甲额外伤害 ×1.50。 | armoredBonusMultiplier：1.5 | elite.void_ray.1 |
-| carrier.1 | 高速舰载航母 | 航母 | heavy | 已有截击机普攻周期 ×0.85。 | interceptorAttackPeriodMultiplier：0.85 | elite.carrier.1 |
-| viking.2 | 猎舰维京 | 维京 | heavy | 战机模式对重甲空中目标的普通攻击直接伤害＋25%；突击模式不加成。 | armoredAirDamageMultiplier：1.25 | elite.viking.1 |
-| viking.3 | 突击维京 | 维京 | mobile | 突击模式对地射程＋1；战机模式射程不变。 | assaultGroundRangeAdd：1 | elite.viking.1 |
-| ravager.2 | 广域破坏者 | 破坏者 | support | 自动胆汁伤害半径×1.20；预警圈与实际半径一致。 | bileRadiusMultiplier：1.2 | elite.ravager.1 |
-| ravager.3 | 猛酸破坏者 | 破坏者 | heavy | 自动胆汁直接伤害＋25%；半径和冷却不变。 | bileDamageMultiplier：1.25 | elite.ravager.1 |
-| high_templar.2 | 储能圣堂 | 高阶圣堂武士 | support | 最大能量＋25%；新增容量不免费回能，不能解锁风暴。 | maxEnergyMultiplier：1.25 | elite.high_templar.1 |
-| high_templar.3 | 强电圣堂 | 高阶圣堂武士 | heavy | 灵能风暴已研究后总伤害＋20%；按原tick比例分摊。 | stormDamageMultiplier：1.2 | elite.high_templar.1 |
-| reaper.2 | 猎轻死神 | 死神 | quick | 对轻甲目标的普攻直接伤害＋25%。 | lightAttackDamageMultiplier：1.25 | elite.reaper.1 |
-| reaper.3 | 装甲死神 | 死神 | guard | 最大生命＋25%；保留已损生命。 | maxHealthMultiplier：1.25 | elite.reaper.1 |
-| thor.2 | 重炮雷神 | 雷神 | heavy | 对地普攻直接伤害＋20%。 | groundAttackDamageMultiplier：1.2 | elite.thor.1 |
-| thor.3 | 堡垒雷神 | 雷神 | guard | 生命护甲＋2。 | lifeArmorAdd：2 | elite.thor.1 |
-| banshee.2 | 隐秘女妖 | 女妖 | mobile | 隐形已研究时持续每秒能耗×0.80。 | cloakEnergyMultiplier：0.8 | elite.banshee.1 |
-| banshee.3 | 速射女妖 | 女妖 | quick | 对地普攻周期×0.85。 | attackPeriodMultiplier：0.85 | elite.banshee.1 |
-| science_vessel.2 | 储能科技球 | 科技球 | support | 最大能量＋25%，不免费回能。 | maxEnergyMultiplier：1.25 | elite.science_vessel.1 |
-| science_vessel.3 | 远距科技球 | 科技球 | mobile | 合法治疗／维修射程＋1.5。 | healingRangeAdd：1.5 | elite.science_vessel.1 |
-| zergling.2 | 疾行跳虫 | 跳虫 | mobile | 地面移动速度＋15%。 | movementSpeedMultiplier：1.15 | elite.zergling.1 |
-| zergling.3 | 硬壳跳虫 | 跳虫 | guard | 生命护甲＋1.5。 | lifeArmorAdd：1.5 | elite.zergling.1 |
-| baneling.2 | 裂变爆虫 | 爆虫 | heavy | 一次真实自爆的直接伤害＋25%。 | explosionDamageMultiplier：1.25 | elite.baneling.1 |
-| baneling.3 | 疾行爆虫 | 爆虫 | mobile | 移动速度＋15%。 | movementSpeedMultiplier：1.15 | elite.baneling.1 |
-| roach.2 | 破甲蟑螂 | 蟑螂 | heavy | 对重甲地面目标的普攻直接伤害＋20%。 | armoredGroundDamageMultiplier：1.2 | elite.roach.1 |
-| roach.3 | 厚甲蟑螂 | 蟑螂 | guard | 最大生命＋25%；保留已损生命。 | maxHealthMultiplier：1.25 | elite.roach.1 |
-| hydralisk.2 | 连射刺蛇 | 刺蛇 | quick | 普攻周期×0.85，针刺数不变。 | attackPeriodMultiplier：0.85 | elite.hydralisk.1 |
-| hydralisk.3 | 猎空刺蛇 | 刺蛇 | heavy | 对空普攻直接伤害＋25%。 | airAttackDamageMultiplier：1.25 | elite.hydralisk.1 |
-| lurker.2 | 远刺潜伏者 | 潜伏者 | mobile | 完成埋地后地刺攻击射程＋1。 | burrowedRangeAdd：1 | elite.lurker.1 |
-| lurker.3 | 连刺潜伏者 | 潜伏者 | quick | 埋地普攻周期×0.85。 | attackPeriodMultiplier：0.85 | elite.lurker.1 |
-| queen.2 | 强疗虫后 | 虫后 | support | 自动输血实际恢复量＋25%。 | transfusionHealingMultiplier：1.25 | elite.queen.1 |
-| queen.3 | 储能虫后 | 虫后 | guard | 最大能量＋25%，不免费回能。 | maxEnergyMultiplier：1.25 | elite.queen.1 |
-| mutalisk.2 | 猎轻异龙 | 异龙 | quick | 第一段弹射对轻甲普攻直接伤害＋20%。 | firstBounceLightDamageMultiplier：1.2 | elite.mutalisk.1 |
-| mutalisk.3 | 厚翼异龙 | 异龙 | guard | 最大生命＋25%；保留已损生命。 | maxHealthMultiplier：1.25 | elite.mutalisk.1 |
-| corruptor.2 | 连射腐化者 | 腐化者 | quick | 对空普攻周期×0.85。 | attackPeriodMultiplier：0.85 | elite.corruptor.1 |
-| corruptor.3 | 远猎腐化者 | 腐化者 | mobile | 对空普攻射程＋1。 | attackRangeAdd：1 | elite.corruptor.1 |
-| ultralisk.2 | 猛攻雷兽 | 雷兽 | heavy | 对地普攻周期×0.85。 | attackPeriodMultiplier：0.85 | elite.ultralisk.1 |
-| ultralisk.3 | 巨躯雷兽 | 雷兽 | guard | 最大生命＋25%；碰撞半径不变。 | maxHealthMultiplier：1.25 | elite.ultralisk.1 |
-| zealot.2 | 坚盾狂热者 | 狂热者 | guard | 最大原生护盾＋25%；不治疗生命。 | maxShieldMultiplier：1.25 | elite.zealot.1 |
-| zealot.3 | 连斩狂热者 | 狂热者 | quick | 双刀完整攻击周期×0.85。 | attackPeriodMultiplier：0.85 | elite.zealot.1 |
-| adept.2 | 疾行使徒 | 使徒 | mobile | 移动速度＋15%。 | movementSpeedMultiplier：1.15 | elite.adept.1 |
-| adept.3 | 远击使徒 | 使徒 | heavy | 普攻射程＋1。 | attackRangeAdd：1 | elite.adept.1 |
-| stalker.2 | 坚盾追猎者 | 追猎者 | guard | 最大原生护盾＋25%。 | maxShieldMultiplier：1.25 | elite.stalker.1 |
-| stalker.3 | 迅闪追猎者 | 追猎者 | mobile | 已研究闪烁冷却×0.75。 | blinkCooldownMultiplier：0.75 | elite.stalker.1 |
-| sentry.2 | 储能哨兵 | 哨兵 | support | 最大能量＋25%，不免费回能。 | maxEnergyMultiplier：1.25 | elite.sentry.1 |
-| sentry.3 | 广域哨兵 | 哨兵 | guard | 守护者之盾真实生效半径×1.20。 | guardianShieldRadiusMultiplier：1.2 | elite.sentry.1 |
-| immortal.2 | 破甲不朽者 | 不朽者 | heavy | 对重甲地面目标普攻直接伤害＋25%。 | armoredGroundDamageMultiplier：1.25 | elite.immortal.1 |
-| immortal.3 | 坚盾不朽者 | 不朽者 | guard | 最大原生护盾＋25%。 | maxShieldMultiplier：1.25 | elite.immortal.1 |
-| colossus.2 | 连灼巨像 | 巨像 | quick | 完整热能攻击周期×0.85。 | attackPeriodMultiplier：0.85 | elite.colossus.1 |
-| colossus.3 | 坚盾巨像 | 巨像 | guard | 最大原生护盾＋25%。 | maxShieldMultiplier：1.25 | elite.colossus.1 |
-| phoenix.2 | 远猎凤凰 | 凤凰 | mobile | 对空普攻射程＋1。 | attackRangeAdd：1 | elite.phoenix.1 |
-| phoenix.3 | 迅翼凤凰 | 凤凰 | quick | 飞行移动速度＋15%。 | movementSpeedMultiplier：1.15 | elite.phoenix.1 |
-| void_ray.2 | 坚盾辉光舰 | 虚空辉光舰 | guard | 最大原生护盾＋25%。 | maxShieldMultiplier：1.25 | elite.void_ray.1 |
-| void_ray.3 | 连束辉光舰 | 虚空辉光舰 | quick | 完整光束结算周期×0.85。 | attackPeriodMultiplier：0.85 | elite.void_ray.1 |
-| carrier.2 | 强袭舰载航母 | 航母 | heavy | 所属截击机普攻直接伤害＋20%，继承一次。 | interceptorDamageMultiplier：1.2 | elite.carrier.1 |
-| carrier.3 | 坚盾航母 | 航母 | guard | 母体最大原生护盾＋25%。 | maxShieldMultiplier：1.25 | elite.carrier.1 |
+| 1 | 1 | 1 | 1 | 0 | 1 | 9200 |
+| 2 | 1.35 | 1.2825 | 0.95 | 0.5 | 1.35 | 12880 |
+| 3 | 1.7 | 1.53 | 0.9 | 1 | 1.7 | 16560 |
+| 4 | 2.05 | 1.7425 | 0.85 | 1.5 | 2.05 | 20240 |
+| 5 | 2.4 | 1.92 | 0.8 | 2 | 2.4 | 23920 |
 
-医疗艇维修变体在当前规则改为恢复输出＋25%。皮肤来源和能力是两个维度，不能据皮肤声称对应原版技能。
+三族18英雄采用相同固定成长曲线；基础量来自前表，不合并光环、科技、卡牌和独立护障。原有雷诺家族号令、扎加拉攻速/移动、利维坦近场生命以及实际治疗/回盾被动继续执行；阿塔尼斯原30%保护被40%替换一次。
 
-| 模板 | 输出倍率 | 攻速倍率 | HP倍率 | 移速倍率 | 额外护甲 | 每级输出增量 | 每级攻速增量 | 每级HP增量 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| quick | 1.7 | 1.5 | 1.35 | 1.1 | 0 | 0.25 | 0.1 | 0.12 |
-| heavy | 1.95 | 0.95 | 1.5 | 1 | 0.75 | 0.3 | 0.04 | 0.12 |
-| guard | 1.55 | 1 | 2 | 1 | 2 | 0.15 | 0.04 | 0.25 |
-| mobile | 1.65 | 1.25 | 1.5 | 1.25 | 0.75 | 0.2 | 0.06 | 0.12 |
-| support | 1.55 | 1 | 1.55 | 1.1 | 0.75 | 0.25 | 0 | 0.15 |
+| 英雄 | 现行足下光环规则 |
+| --- | --- |
+| 雷诺 | 战术号令：范围8内永久战斗友军武器伤害 +35%。 |
+| 泰凯斯 | 火力压制：范围7内敌方战斗单位攻速 −35%，对 Boss 完整生效。 |
+| 诺娃 | 锁定破绽：范围10内敌方战斗单位承受武器伤害 +40%，对 Boss 完整生效。 |
+| 斯旺 | 工程护甲：范围8内永久机械战斗友军生命护甲 +6。 |
+| 托什 | 精神压迫：范围8内敌方战斗单位武器伤害 −35%，对 Boss 完整生效。 |
+| 大和战列巡洋舰 | 舰队节奏：范围10内永久战斗友军攻速 +40%。 |
+| 凯瑞甘 | 刀锋意志：攻击＋50%、攻速＋30%、生命/原生盾＋35%、生命/盾护甲＋30%、移动＋25%；全队生物。 |
+| 扎加拉 | 虫群围压：敌攻速－45%、武器伤害－30%、移动－50%；半径10，Boss完整生效。 |
+| 德哈卡 | 原始威慑：敌武器伤害－50%、攻速－35%、移动－45%；半径9，Boss完整生效。 |
+| 斯托科夫 | 感染破绽：受到武器伤害＋45%、实际生命治疗－50%；每秒瘟疫为入圈时最大生命的普通6%/精英3%/Boss1.2%；半径10。 |
+| 妮雅德拉 | 殖群甲壳：生命＋60%、生命护甲＋10、每秒恢复最大生命3%；半径12。 |
+| 利维坦 | 母巢律动：攻击＋20%、攻速＋60%、生命/原生盾＋20%、生命/盾护甲＋30%、移动＋25%；全队生物。 |
+| 阿塔尼斯 | 达拉姆圣盾：原生盾上限＋60%、盾护甲＋10、生命护甲＋6、承受敌伤降低40%；半径12。 |
+| 泽拉图 | 虚空裂隙：受到武器伤害＋60%、正生命/盾护甲－65%、已有百分比减伤相对降低30%；半径10，Boss完整。 |
+| 阿拉纳克 | 高阶压制：敌武器伤害－45%、攻速－40%、移动－45%；半径10，Boss完整生效。 |
+| 菲尼克斯 | 净化武库：攻击＋60%、攻速＋25%、生命＋25%、原生盾＋40%、生命/盾护甲＋30%、移动＋25%；全队机械。 |
+| 沃拉尊 | 暗影迟滞：敌攻速－50%、武器伤害－30%、移动－50%；半径10，Boss完整生效。 |
+| 净化者旗舰 | 矩阵共鸣：攻击＋30%、攻速＋50%、生命＋25%、原生盾＋50%、生命护甲＋30%、盾护甲＋40%、移动＋25%；全队原生盾友军。 |
 
-模板相对于普通五级基准，具体比例由 `eliteStats()` 计算。精英永久死亡后重招从一级开始，沿用本局已锁定路径。
+游戏中显示足下效果，隐藏光环文字；此参考文档保留数值。身份相同取最强，不同英雄合格属性可相加；精英共享池取最强。永久身体、范围、来源存活、可见性、原生盾与生物/机械资格分别核对，真实子体只经母体继承一次；池变化保持伤损比例。
+
+| 两族英雄配置ID | 当前队伍配置（执行器还实施资格、时钟与实际生命上限） |
+| --- | --- |
+| kerrigan | {"effectName":"刀锋意志","kind":"buff","radius":null,"stats":{"damage":0.5,"speed":0.3,"maxHp":0.35,"maxShield":0.35,"armorPct":0.3,"shieldArmorPct":0.3,"move":0.25}} |
+| zagara | {"effectName":"虫群围压","kind":"debuff","radius":10,"stats":{"attackSlow":0.45,"weaponSuppression":0.3,"moveSlow":0.5},"bossControlScale":1} |
+| dehaka | {"effectName":"原始威慑","kind":"debuff","radius":9,"stats":{"weaponSuppression":0.5,"attackSlow":0.35,"moveSlow":0.45},"bossControlScale":1} |
+| stukov | {"effectName":"感染破绽","kind":"debuff","radius":10,"stats":{"vulnerability":0.45,"healingSuppression":0.5},"plague":{"ordinaryMaxHpPerSecond":0.06,"eliteMaxHpPerSecond":0.03,"bossMaxHpPerSecond":0.012,"period":1,"firstPulse":1}} |
+| niadra | {"effectName":"殖群甲壳","kind":"buff","radius":12,"stats":{"maxHp":0.6,"armorFlat":10,"regenHpPerSecond":0.03}} |
+| hots_leviathan | {"effectName":"母巢律动","kind":"buff","radius":null,"stats":{"damage":0.2,"speed":0.6,"maxHp":0.2,"maxShield":0.2,"armorPct":0.3,"shieldArmorPct":0.3,"move":0.25}} |
+| artanis | {"effectName":"达拉姆圣盾","kind":"buff","radius":12,"stats":{"maxShield":0.6,"shieldArmorFlat":10,"armorFlat":6,"damageReduction":0.4}} |
+| zeratul | {"effectName":"虚空裂隙","kind":"debuff","radius":10,"stats":{"vulnerability":0.6,"armorReduction":0.65,"defenseReduction":0.3}} |
+| alarak | {"effectName":"高阶压制","kind":"debuff","radius":10,"stats":{"weaponSuppression":0.45,"attackSlow":0.4,"moveSlow":0.45},"bossControlScale":1} |
+| fenix | {"effectName":"净化武库","kind":"buff","radius":null,"stats":{"damage":0.6,"speed":0.25,"maxHp":0.25,"maxShield":0.4,"armorPct":0.3,"shieldArmorPct":0.3,"move":0.25}} |
+| vorazun | {"effectName":"暗影迟滞","kind":"debuff","radius":10,"stats":{"attackSlow":0.5,"weaponSuppression":0.3,"moveSlow":0.5},"bossControlScale":1} |
+| purifier_flagship | {"effectName":"矩阵共鸣","kind":"buff","radius":null,"stats":{"damage":0.3,"speed":0.5,"maxHp":0.25,"maxShield":0.5,"armorPct":0.3,"shieldArmorPct":0.4,"move":0.25}} |
+
+## 当前规则：90款唯一精英
+
+每个家族同时最多一个精英身份，占一个普通名额；精英跳虫为一对两只身体；同局锁定一种变体。90项已使用显式P4规则，旧ELITE_TEMPLATES和旧显示描述不再代表当前机体。参数JSON来自运行源码，原设计JSON从不作为运行导入。
+
+| ID | 名称 | 家族 | 机体 | 核心机制与当前队伍覆盖 | 机体/专属基础参数 | 模型ID |
+| --- | --- | --- | --- | --- | --- | --- |
+| marine.1 | 金属风暴 | 陆战队员 | assault | 持续开火在5秒内预热至4倍攻速，满速压制10秒后停火排热2秒。轻甲伤害×1.6，移动速度略降。 | {"moveFactor":0.9,"warmupSeconds":5,"attackSpeedIncrease":3,"maximumSeconds":10,"forcedCoolingSeconds":2,"lightDamageFactor":1.6} | elite.marine.1 |
+| marine.2 | 精英杀手 | 陆战队员 | precision | 蓝色穿甲弹对精英造成3倍伤害、对Boss造成5倍伤害。I–V级闪避直接普通攻击的概率为12%／16%／20%／24%／28%。 | {"eliteDamageFactor":3,"bossDamageFactor":5,"dodgeByRank":[0.12,0.16,0.2,0.24,0.28]} | elite.marine.2 |
+| marine.3 | 战场指挥官 | 陆战队员 | bulwark | 全队普通与精英陆战队员的生命、护盾、武器伤害、攻速、移速和护甲提高20%；同类指挥加成只生效一次。 | {"familyAttributeIncrease":0.2,"auraRadius":null} | elite.marine.3 |
+| reaper.1 | 午夜死神 | 死神 | mobile | 每次攻击连续射出6发高速子弹，对轻甲造成1.8倍伤害；子弹逐发命中。 | {"shotsPerCycle":6,"lightDamageFactor":1.8,"moveFactor":1.4} | elite.reaper.1 |
+| reaper.2 | 大枪管 | 死神 | precision | 进入战斗后的前10轮攻击强化至3倍伤害，重甲伤害额外×1.5；命中向周围2.6范围溅射50%伤害。脱战2秒重置。 | {"openingCycles":10,"openingDamageFactor":3,"splashFraction":0.5,"splashRadius":2.6,"armoredDamageFactor":1.5,"outOfCombatSeconds":2} | elite.reaper.1 |
+| reaper.3 | 孤星猎手 | 死神 | bulwark | 死神家族仅保留这一名永久战士；吸收其余死神与后续送达死神，按军衔和精英身份积累成长。伤害、生命、护甲增长逐渐趋缓，上限分别为基础的4倍、5倍和额外10点护甲。其他兵种与英雄照常保留。 | {"familyOnly":true,"absorbAttributesOnly":true,"growthK":20,"dpsAsymptoteFactor":4,"hpAsymptoteFactor":5,"armorAsymptoteAdd":10} | elite.reaper.1 |
+| hellion.1 | 长炎 | 恶火 | assault | 火焰射程提高至4倍，沿窄幅直线灼烧地面目标；对轻甲造成1.8倍伤害。恶蝠形态同样延长火焰攻击距离。 | {"lengthIncrease":3,"lightDamageFactor":1.8,"widthFactor":1,"attackRangeFactor":4} | elite.hellion.1 |
+| hellion.2 | 地狱骑士 | 恶火 | assault | 火焰射程提高至2倍，覆盖前方150°扇面；对轻甲造成1.8倍伤害。恶蝠形态保留扇面喷火。 | {"fanDegrees":150,"lengthIncrease":1,"lightDamageFactor":1.8,"attackRangeFactor":2} | elite.hellion.2 |
+| hellion.3 | 布雷车 | 恶火 | mobile | 每12秒部署2枚大型追踪雷，最多保留8枚；发现6范围内地面敌人后出土并以6速度追击。I级爆炸1200、半径4.2，随后两次每秒180残火；随军衔强化。 | {"minePeriod":12,"mineCount":2,"mineDamageI":1200,"mineRadius":4.2,"fireSeconds":2,"fireDamagePerSecondI":180,"activeMineLimit":8,"chaseSpeed":6,"detectionRadius":6} | elite.hellion.3 |
+| marauder.1 | 震撼弹专家 | 劫掠者 | assault | 重型震撼弹在接触区压低敌方攻击速度、移动与攻击伤害。 三项独立状态，同来源刷新；Boss控制强度减半；攻击伤害降低不改固定技能/百分比伤害，不能永久归零。 | {"radius":3.2,"seconds":3,"attackSpeedReduction":0.35,"moveReduction":0.45,"attackDamageReduction":0.3,"bossControlFactor":0.5} | elite.marauder.1 |
+| marauder.2 | 破甲精英 | 劫掠者 | precision | 范围穿甲榴弹削弱敌人护甲，为全队打开重甲目标。 百分比作用于正护甲，不把护甲压成负数；来源同类取强值；原生盾甲按同样比例，生命/盾减伤分开。 | {"radius":3,"armorReductionByRank":[0.4,0.45,0.5,0.55,0.6],"seconds":5} | elite.marauder.2 |
+| marauder.3 | 拒绝者 | 劫掠者 | bulwark | 每周期三枚小范围榴弹组成弹幕，命中有机会推开冲锋者。 一次周期最多推同敌一次；按合法路径推，墙边缩短；Boss/领主免位移改短减速；无递归反弹。 | {"shells":3,"packetFraction":0.65,"radius":2,"knockbackChance":0.35,"knockbackDistance":2,"knockbackInternalSeconds":1,"bossMoveReduction":0.2,"bossSlowSeconds":1} | elite.marauder.3 |
+| tank.1 | 豹石 | 攻城坦克 | mobile | 保持机动时仍使用攻城炮，保留原生攻城弹与溅射；不能切换至驻扎形态，仍受攻城炮最小射程限制。 | {"weaponMode":"siege","moveFactor":1.3,"canFireMoving":true,"hasSiegeToggle":false} | elite.tank.1 |
+| tank.2 | 虎式 | 攻城坦克 | precision | 驻扎后攻击速度和炮弹伤害均提高至2倍，射程提高至3倍；移动形态保留机动，但不发射攻城炮。 | {"weaponMode":"siege","siegeDamageIncrease":1,"siegeAttackSpeedIncrease":1,"siegeRangeIncrease":2,"canFireMoving":false} | elite.tank.2 |
+| tank.3 | 毁灭者 | 攻城坦克 | precision | 驻扎炮击的爆炸面积扩大至5倍，原有各档溅射伤害保留；爆点1秒后造成一次50%炮击伤害的残火，同一炮手的残火对同一目标每秒最多一次。 | {"weaponMode":"siege","blastIncrease":4,"blastInterpretation":"AREA_USER_CONFIRMED","fireSeconds":1,"fireDamageFraction":0.5,"blastAreaFactor":5,"blastRadiusFactor":2.23606797749979} | elite.tank.3 |
+| thor.1 | 雷霆支点 | 雷神 | bulwark | 每第3轮对地攻击引发4范围震击，额外造成2倍本轮伤害并减速40%持续2秒，Boss减速减半。6范围永久机械友军额外获得4护甲。 | {"quakeEveryCycles":3,"quakeDamageFraction":2,"quakeRadius":4,"enemyMoveReduction":0.4,"slowSeconds":2,"allyArmorAdd":4,"allyRadius":6} | elite.thor.1 |
+| thor.2 | 天罚炮台 | 雷神 | precision | 对重甲空军造成3倍伤害，命中向3范围其他空军溅射60%；连续锁定同一空中目标3秒后攻速翻倍，换目标或脱战后重新锁定。 | {"airArmoredDamageFactor":3,"lockSeconds":3,"lockAttackSpeedIncrease":1,"splashFraction":0.6,"splashRadius":3} | elite.thor.1 |
+| thor.3 | 末日过载 | 雷神 | assault | 持续交战4秒蓄力后进入8秒过载，武器伤害提高至3倍；随后4秒冷却，再次循环。换目标不会跳过蓄力。 | {"chargeSeconds":4,"overdriveSeconds":8,"overdriveDpsFactor":3,"coolingSeconds":4,"coolingDpsFactor":1,"moveFactor":0.8} | elite.thor.1 |
+| viking.1 | 苍穹猎鹰 | 维京 | mobile | 首次对空攻击追加一对导弹，合计额外造成150%单发伤害；连续攻击同一空军每轮增加35%伤害，最多5层，换目标清除层数。 | {"lockStacks":5,"damagePerStack":0.35,"openingMissileFraction":1.5,"moveFactor":1.25} | elite.viking.1 |
+| viking.2 | 钢铁落锤 | 维京 | bulwark | 真实降落完成后造成4范围冲击，I级伤害1600、冷却12秒；地面形态武器伤害翻倍，额外获得5护甲。受阻时等待落点腾出。 | {"landingDamageI":1600,"landingRadius":4,"landingCooldown":12,"assaultDpsFactor":2,"assaultArmorAdd":5} | elite.viking.1 |
+| viking.3 | 双相王牌 | 维京 | assault | 真实形态转换完成后强化下10轮攻击至2.5倍，并获得相当于最大生命35%的6秒有限屏障；共用14秒触发冷却。 | {"empoweredCycles":10,"empoweredDpsFactor":2.5,"barrierMaxHp":0.35,"barrierSeconds":6,"triggerCooldown":14} | elite.viking.1 |
+| banshee.1 | 报丧女妖 | 女妖 | support | 8范围内可见敌人的正护甲降低40%，已有减伤效果相对降低25%；不会消除免疫或有限屏障。 | {"radius":8,"armorReduction":0.4,"defenseReduction":0.25} | elite.banshee.1 |
+| banshee.2 | 瘟疫女妖 | 女妖 | support | 7范围持续污染敌方战斗单位，每秒按进入范围时的最大生命造成3%／3.5%／4%／4.5%／5%伤害；敌精英减半，Boss与领主仅承受五分之一。 | {"radius":7,"ordinaryMaxHpPerSecondByRank":[0.03,0.035,0.04,0.045,0.05],"eliteMaxHpPerSecondFactor":0.5,"bossMaxHpPerSecondFactor":0.2,"secondsPerPulse":1} | elite.banshee.1 |
+| banshee.3 | 振奋女妖 | 女妖 | mobile | 脱战2秒后为下次交战蓄能，8秒蓄满；I级满蓄能造成5范围2600伤害，随军衔强化。脱战期间永久战斗友军移动速度提高30%。 | {"teamMoveIncrease":0.3,"chargeSeconds":8,"chargeMaximumI":2600,"blastRadius":5,"outOfCombatSeconds":2} | elite.banshee.1 |
+| medivac.1 | 战场女武神 | 医疗运输机 | bulwark | 治疗一个伤员；8范围永久战斗友军生命提高35%，额外获得5护甲。同类指挥加成只生效一次，进出范围保持生命比例。 | {"radius":8,"allyHpIncrease":0.35,"allyArmorAdd":5} | elite.medivac.1 |
+| medivac.2 | 精英救护 | 医疗运输机 | support | 同时用医疗束治疗最多5名伤员，优先照顾生命比例最低者。治疗生物单位为全效，机械单位为三分之一；按实际恢复消耗能量。 | {"healTargets":5,"range":8,"energyPerActualHealFactor":1} | elite.medivac.2 |
+| medivac.3 | 微光护盾 | 医疗运输机 | support | 治疗一个伤员；伤员最近2秒开火或受伤时，每实际恢复1生命额外生成1.2有限屏障，最高为其最大生命50%，持续6秒。 | {"shieldPerEffectiveHealFraction":1.2,"shieldMaxTargetHpFraction":0.5,"shieldSeconds":6,"range":8,"combatEntry":"EFFECTIVE_HEAL_TO_ALLY_ATTACKING_OR_ENEMY_DAMAGED_WITHIN_2_SECONDS"} | elite.medivac.3 |
+| science_vessel.1 | 铁幕研究员 | 科技球 | support | 以绿色纳米迷雾修复最多3名伤员。每实际恢复1生命额外生成1.5有限屏障，最高为伤员最大生命60%，持续7秒；机械单位全效、生物单位三分之一。 | {"repairTargets":3,"range":8,"barrierPerEffectiveRepair":1.5,"barrierMaxHp":0.6,"barrierSeconds":7} | elite.science_vessel.1 |
+| science_vessel.2 | 辐照工程师 | 科技球 | support | 纳米迷雾修复最多2名伤员；每10秒对8范围生物敌人施加6秒辐照，I级每秒对3范围生物敌人造成380伤害，随军衔强化，辐照跟随宿主。 | {"radiationCooldown":10,"radiationSeconds":6,"radiationDpsI":380,"radiationRadius":3,"repairTargets":2,"range":8} | elite.science_vessel.1 |
+| science_vessel.3 | 磁脉冲主宰 | 科技球 | support | 纳米迷雾修复最多3名伤员；每14秒释放5范围EMP，I级削去最多2400护盾并抽掉60%当前能量，随军衔强化护盾伤害。敌方攻速降低30%持续4秒，Boss减半；无护盾时不会转为生命伤害。 | {"empCooldown":14,"empRadius":5,"shieldDamageI":2400,"energyDrainFraction":0.6,"attackSpeedReduction":0.3,"debuffSeconds":4,"repairTargets":3,"range":8} | elite.science_vessel.1 |
+| zergling.1 | 裂爪狂潮 | 跳虫 | assault | 双身体交替撕咬；连续出手逐层叠加狂潮，打出远超普通虫群的近战密度。 两个真实身体共享狂潮层数，各自武器周期；不复制第三身体；幸存再生仍按900步。 | {"stacks":8,"attackSpeedPerStack":0.3,"stackExpireSeconds":2,"lightDamageFactor":1.5} | elite.zergling.1 |
+| zergling.2 | 噬甲獠牙 | 跳虫 | precision | 双身体同一周期连续命中后撕裂护甲，第三次啃咬释放处决伤害。 按身体真实周期计数；处决替换该次伤害，非额外四击；Boss可破甲不能秒杀，不打空军。 | {"armorReduction":0.5,"armorSeconds":4,"finisherEveryCycles":3,"finisherDamageFactor":4,"armoredDamageFactor":1.6} | elite.zergling.1 |
+| zergling.3 | 共生血巢 | 跳虫 | bulwark | 双身体分摊伤害，攻击吸收养分；一体存活维持另一体再生。 分摊不能回环；按有效生命伤吸血，不能吸盾/无敌；900步保留，任一体都死仍丧失名额。 当前队伍项覆盖：全队跳虫攻击、攻速、生命、原生盾、生命/盾护甲、移动各＋20%；主武器零甲持续输出×1.44。 | {"sharedDamageFraction":0.5,"lifeStealFraction":0.25,"survivorRegrowSteps":900,"regrowHpFraction":0.6} | elite.zergling.1 |
+| baneling.1 | 灾厄酸核 | 爆虫 | assault | 自爆伤害三倍、酸爆覆盖扩展，爆后存活但停顿五秒。 仅玩家爆虫存活；停顿不能通过升级/读档跳过；酸爆一次，无法对空，不把爆炸当免费技能连发。 | {"explosionDamageFactor":3,"radiusFactor":1.8,"postExplosionStopSeconds":5} | elite.baneling.1 |
+| baneling.2 | 腐土播种者 | 爆虫 | precision | 爆心留下腐土，五秒休眠期间继续侵蚀范围内地面敌军。 腐土逐秒按实在范围敌人结算，同源取强值；Boss允许固定伤害，无永久百分比蒸发。 | {"explosionDamageFactor":2,"acidGroundSeconds":5,"acidDpsI":420,"acidRadius":4,"postExplosionStopSeconds":5} | elite.baneling.1 |
+| baneling.3 | 甲壳反应堆 | 爆虫 | bulwark | 受到攻击积累酸压，爆炸释放储压并把部分威力变成自身再生。 只积累实际承受敌伤，不收无敌阻止量/友伤；储压一次消费，固定上限可被击杀，爆后同样停五秒。 | {"storedDamageFraction":0.5,"storedDamageMaxHpFraction":2,"explosionDamageFactor":1.8,"healMaxHpFraction":0.35,"postExplosionStopSeconds":5} | elite.baneling.1 |
+| roach.1 | 深壳堡垒 | 蟑螂 | bulwark | 血量越低甲壳越硬，濒危时自动钻地短时修复后出土。 自动钻地为明确新变体行为；受侦测仍可被击杀，钻地不攻击；不取消指令或无限躲避Boss。 | {"lowHpThreshold":0.35,"lowHpArmorAdd":8,"burrowSeconds":3,"burrowCooldown":18,"burrowHealMaxHpPerSecond":0.12} | elite.roach.1 |
+| roach.2 | 穿甲酸喉 | 蟑螂 | precision | 同目标连续酸击逐层软化重甲，第六发喷出高浓酸。 六发循环，转火清酸层；高浓酸替换第六发主伤，不把层数和四倍再无限相乘。 | {"stacks":5,"damagePerStack":0.3,"burstEveryCycles":6,"burstDamageFactor":4,"burstRadius":2.5} | elite.roach.1 |
+| roach.3 | 反噬菌甲 | 蟑螂 | assault | 受到近战攻击反射腐蚀，攻击命中后再生增强，成为能输出的生体前线。 反伤以实际受伤包为基数，无递归；只反近战敌人，不能让远程或空军无成本受伤。 | {"retaliationDamageFraction":0.6,"retaliationRadius":2,"retaliationInternalSeconds":0.5,"attackRegenMaxHpPerSecond":0.04,"regenSeconds":4} | elite.roach.1 |
+| ravager.1 | 连囊炮手 | 破坏者 | assault | 胆汁技能一次投出三枚，沿同一目标区域分段砸落。 三枚独立预警/落点，重叠允许三次实际伤害；仍需原胆汁技能解锁，不把普攻重复当技能。 | {"bileCount":3,"bilePacketFraction":1,"bileInterval":0.3,"bileCooldownFactor":0.75,"bileBaseDamageI":1200,"bileBaseCooldown":12} | elite.ravager.1 |
+| ravager.2 | 破城酸星 | 破坏者 | precision | 胆汁变为超重酸星，对重甲/建筑增伤并短时降低正护甲。 胆汁冷却不缩；体积与延迟保留，建筑/重甲倍率取一次；不是打Boss生命百分比。 | {"bileDamageFactor":4,"bileRadiusFactor":1.5,"armoredAndBuildingDamageFactor":1.5,"armorReduction":0.5,"armorSeconds":5,"bileBaseDamageI":1200,"bileBaseCooldown":12} | elite.ravager.1 |
+| ravager.3 | 腐蚀雨幕 | 破坏者 | support | 胆汁落点形成六秒酸雨，侵蚀并迟滞地面密集敌群。 本机雨区重叠取强值，敌人离区即停止收益；普攻对空能力不改变雨区只打地面的边界。 当前队伍项覆盖：半径8持续范围：敌正生命/盾护甲－45%，已有百分比减伤相对降低25%。 | {"rainSeconds":6,"rainRadius":4,"rainDpsI":380,"moveReduction":0.45,"bossMoveReduction":0.2,"bileBaseDamageI":1200,"bileBaseCooldown":12} | elite.ravager.1 |
+| hydralisk.1 | 千针风暴 | 刺蛇 | assault | 每周期五根实体骨针形成窄锥，主目标承受全部实际命中骨针。 单周期最多3.5倍主伤；五根针不能各触发一轮五针，地空同原合法层。 | {"needles":5,"needleDamageFraction":0.7,"coneDegrees":35,"rangeAdd":2} | elite.hydralisk.1 |
+| hydralisk.2 | 裂甲长棘 | 刺蛇 | precision | 重型骨棘贯穿敌阵，对装甲主目标提高伤害并穿过后排。 首目标全包，后排每敌一次80%；地空贯穿分层，不隔山射击。 | {"armoredDamageFactor":2.5,"pierceLength":12,"pierceWidth":1.2,"secondaryDamageFraction":0.8} | elite.hydralisk.1 |
+| hydralisk.3 | 毒囊猎手 | 刺蛇 | support | 主击把毒囊植入敌人，连续植入加强缓释毒伤并在敌人死亡时传播。 每来源最多四层；死亡传播只传播剩余一层且不再传播；Boss不传播，固定毒伤仍可用。 当前队伍项覆盖：每层毒囊附带受到武器伤害＋5%，4层上限＋20%；继发1层仅＋5%。 | {"poisonStacks":4,"poisonSeconds":5,"poisonDpsPerStackI":120,"spreadRadius":4,"spreadTargets":4} | elite.hydralisk.1 |
+| queen.1 | 母巢女王 | 虫后 | bulwark | 护育光环提高生物战斗友军生命和再生，自己以厚壳稳住后方。 再生只恢复HP；原45秒注卵与同舱一次保留，不把战斗光环兑换额外免费经济。 当前队伍项覆盖：半径9，生命＋45%、生命护甲＋6、每秒恢复最大生命2%。 | {"radius":8,"allyHpIncrease":0.4,"allyRegenMaxHpPerSecond":0.02,"allyArmorAdd":4} | elite.queen.1 |
+| queen.2 | 输血主母 | 虫后 | support | 输血改成多目标连续治疗，救回正在失血的生体阵线。 每个目标实际缺血封顶；消耗原输血能量来源，零能量不空放；机械不可受生物输血。 当前队伍项覆盖：原输血实际恢复后给予6秒：受到生命治疗＋30%，武器实际生命伤吸血15%，每体每秒吸血最多自身最大生命10%。 | {"healTargets":5,"healDpsI":240,"range":8,"channelSeconds":4,"healCooldown":12} | elite.queen.1 |
+| queen.3 | 毒巢守卫 | 虫后 | precision | 攻击登记巢毒，受伤友军附近的敌人优先被毒刺压制。 优先级不制造新追敌移动指令；Boss控制减半；不把毒刺封锁写成无限眩晕。 当前队伍项覆盖：半径8持续范围：武器伤害－30%、攻速－35%、移动－45%；Boss各半效。 | {"venomDamageFactor":2,"venomMoveReduction":0.5,"venomAttackSpeedReduction":0.3,"venomSeconds":3,"venomRadius":3} | elite.queen.1 |
+| lurker.1 | 三脊穿心 | 潜伏者 | assault | 埋地下每周期沿三条扇向释放真实刺脊，中央敌人可被三线交会命中。 需埋地；每条独立交集，未在交会处只中一/两条；不以动画给三倍虚假全场伤害。 | {"spineLines":3,"fanDegrees":40,"lineDamageFactor":1,"pierceLength":12} | elite.lurker.1 |
+| lurker.2 | 地裂巨刺 | 潜伏者 | precision | 每第四周期发出超长巨刺，击穿重甲并掀动地面敌人。 巨刺替换该周期；Boss慢速半效、不能掀飞；需地面连通/视线，无空中伤害。 | {"everyCycles":4,"giantDamageFactor":5,"giantLength":18,"giantWidth":2.2,"moveReduction":0.6,"slowSeconds":2} | elite.lurker.1 |
+| lurker.3 | 潜巢伏击者 | 潜伏者 | mobile | 埋地转场更快，第一次伏击前三个周期带高额伤害和护壳。 十二秒触发内置冷却，钻出钻入不无限重开；未埋地依旧不能发刺。 | {"burrowTimeFactor":0.4,"openingCycles":3,"openingDamageFactor":4,"barrierMaxHp":0.4,"barrierSeconds":5,"triggerCooldown":12} | elite.lurker.1 |
+| mutalisk.1 | 六翼回旋 | 异龙 | assault | 一枚刃虫最多六次反弹，后几跳保持高强度清空散群。 同一敌人最多一次命中；有六个合法邻敌才兑现全部，不把六跳全算单体。 | {"bouncePackets":[1,0.8,0.65,0.5,0.4,0.3],"bounceRadius":5} | elite.mutalisk.1 |
+| mutalisk.2 | 绞杀翼群 | 异龙 | precision | 三枚刃虫同时攻击一个目标，反弹削弱但主目标可承受三重绞杀。 三枚各有实际命中，共三倍主包；转火/飞行不能刷弹次，无虚假第四身体。 | {"glaives":3,"mainPacketFraction":1,"bouncePackets":[0.35,0.15],"armoredDamageFactor":1.5} | elite.mutalisk.1 |
+| mutalisk.3 | 血羽迁徙 | 异龙 | mobile | 脱战积蓄血羽护壳，进战前三秒高速吸血，随后恢复平常循环。 需要完整储能才最大护壳；进战消耗且不重复叠；吸血只主目标有效生命伤。 当前队伍项覆盖：来源脱战2秒后，全队生物移速＋30%；入战按真实储能比例给半径8内5名其他友军最多15%生命护障，4秒，团队触发间隔12秒。 | {"outOfCombatSeconds":2,"chargeSeconds":6,"barrierMaxHp":0.8,"openingSeconds":3,"openingAttackSpeedIncrease":2,"lifeStealFraction":0.35} | elite.mutalisk.1 |
+| corruptor.1 | 蚀空锁喉 | 腐化者 | precision | 对同一空中目标持续喷酸越久越强，最终形成重甲腐蚀锁。 换目标重置充能；无法攻击地面，不能把锁定爆发复制给地面Boss。 | {"lockSeconds":4,"maximumDamageFactor":4,"airArmoredDamageFactor":1.5,"armorReduction":0.45,"armorSeconds":4} | elite.corruptor.1 |
+| corruptor.2 | 空巢铁卫 | 腐化者 | bulwark | 护翼光环替附近空中友军承受部分直接敌伤，并靠厚甲支撑空战。 分摊量每秒有自身HP预算，不递归分摊；不是替地面全队无敌，友军真实HP伤先减少才记收益。 当前队伍项覆盖：新半径9属性场：生命/原生盾＋35%、生命/盾护甲＋6、攻速＋25%；原半径7分担继续。 | {"radius":7,"redirectFraction":0.3,"redirectMaxHpPerSecond":0.2,"selfDamageReduction":0.25} | elite.corruptor.1 |
+| corruptor.3 | 腐空瘟囊 | 腐化者 | support | 击中空军种下腐空囊，宿主死亡时爆炸并给附近空军补一个毒囊。 排除Boss/领主传播；每来源每目标一囊，继发囊不再传播，地面不受伤。 | {"poisonSeconds":5,"poisonDpsI":260,"deathExplosionI":1800,"deathRadius":4.5,"spreadTargets":3} | elite.corruptor.1 |
+| ultralisk.1 | 暴君镰刃 | 雷兽 | assault | 宽镰每第三击释放三倍撕裂，切断轻甲前排。 第三击替换而非额外三击；仍近战到位，不能通过墙/空军；大扇形只命中真实覆盖。 | {"thirdDamageFactor":3,"cleaveDegrees":170,"cleaveRangeFactor":1.8,"lightDamageFactor":1.5} | elite.ultralisk.1 |
+| ultralisk.2 | 不灭甲兽 | 雷兽 | bulwark | 满壳承伤积蓄甲盾，跌破生命阈值时消耗盾壳恢复并短暂稳住。 敌人可一次打穿触发阈值；护壳不是复活，冷却保存；不从免伤量储蓄，不永久免疫。 | {"damageStoredFraction":0.4,"storedMaxHpFraction":0.8,"triggerHpThreshold":0.3,"healMaxHpFraction":0.5,"triggerCooldown":25,"damageReduction":0.35,"reductionSeconds":5} | elite.ultralisk.1 |
+| ultralisk.3 | 原始踏碎者 | 雷兽 | precision | 短距冲锋结束踩碎地面，随后六秒以双倍攻速追猎重甲。 冲锋沿合法通道、撞墙截断；Boss不被击飞，冲锋不能穿崖/瞬移到落点。 | {"chargeCooldown":12,"chargeDistance":6,"stompDamageI":2200,"stompRadius":4,"attackSpeedIncrease":1,"empoweredSeconds":6,"armoredDamageFactor":1.5} | elite.ultralisk.1 |
+| zealot.1 | 誓刃狂徒 | 狂热者 | assault | 双刃连击逐层点燃战意，满层后每第三击扩大为灵能斩面。 两刃仍是一个武器周期；伤害只来自实在斩面，战意两秒无攻击清除；不新增对空。 | {"stacks":6,"attackSpeedPerStack":0.35,"cleaveEveryCycles":3,"cleaveRadius":3,"cleaveFraction":1.5} | elite.zealot.1 |
+| zealot.2 | 光盾卫士 | 狂热者 | bulwark | 受敌伤破盾时触发短反击窗口，近战斩击恢复有限原生盾。 只由敌伤击破原生盾触发，临时盾消失不触发；回盾按缺口和每秒预算封顶。 | {"shieldBreakCooldown":14,"retaliationDamageFactor":3,"retaliationSeconds":4,"shieldPerEffectiveDamageFraction":0.35,"shieldRestoreMaxPerSecondFraction":0.15} | elite.zealot.1 |
+| zealot.3 | 裂阵先锋 | 狂热者 | mobile | 冲锋触敌时横扫落点，前三个周期每击都撕裂敌阵。 合法冲锋路径、不得隔墙触发；前三次连击是实际攻击周期，冷却不被脱战抹掉。 当前队伍项覆盖：全队狂热者攻击、攻速、生命、原生盾、生命/盾护甲、移动各＋20%；主武器零甲持续输出×1.44。 | {"chargeDamageI":1800,"chargeRadius":3.5,"openingCycles":3,"openingDamageFactor":3,"chargeCooldown":10} | elite.zealot.1 |
+| adept.1 | 双相战刃 | 使徒 | assault | 同一周期发出实体刃与延迟相位刃，第二刃击中原落点才伤害。 回响用冻结落点，不凭残像必中；每个原周期一个回响、不递归趣味卡；无法对空。 | {"echoDelay":0.3,"echoDamageFactor":1.5,"lightDamageFactor":1.6} | elite.adept.1 |
+| adept.2 | 晨星巡猎 | 使徒 | mobile | 脱战后首个目标承受四周期突袭，随后靠高机动绕开近战。 脱战只按真实开火空窗；不新增必须手动影子切换，不靠攻击动画重置冷却。 | {"outOfCombatSeconds":2,"openingCycles":4,"openingDamageFactor":3,"moveFactor":1.35,"rangeAdd":2} | elite.adept.1 |
+| adept.3 | 裂光共振 | 使徒 | precision | 攻击标记敌人，第四次命中令标记爆裂并波及轻甲群。 第五倍包替换第四发主伤，邻敌只吃一包；本机标记不被别家兵反复兑换。 | {"hitsRequired":4,"resonanceDamageFactor":5,"resonanceRadius":3.5,"markSeconds":5} | elite.adept.1 |
+| stalker.1 | 虚空连射 | 追猎者 | assault | 持续锁定同一敌人使晶体连射成型，第四周期发射三连主弹。 三弹各真实飞行，共3.6倍该周期；切换不清累计周期但不刷新冷却，地空合法层保持。 | {"burstEveryCycles":4,"burstShots":3,"burstDamageFactor":1.2,"rangeAdd":2} | elite.stalker.1 |
+| stalker.2 | 裂隙刺客 | 追猎者 | mobile | 合法闪现后六次武器周期高爆发，并获得有限相位护障。 保留手动闪现与地形校验；无自动传送，无武器/CD刷新；触发有十二秒独立冷却。 | {"empoweredCycles":6,"empoweredDamageFactor":3,"barrierMaxShieldFraction":0.8,"barrierSeconds":5,"triggerCooldown":12} | elite.stalker.1 |
+| stalker.3 | 晶棘破甲 | 追猎者 | precision | 晶体弹穿过目标正护甲的一部分，并对重甲形成穿透线。 忽略正护甲为自身包规则，不改变全队敌甲；生命/盾分别算，不能忽略敌伤免疫。 | {"positiveArmorIgnoreFraction":0.7,"armoredDamageFactor":2.5,"pierceLength":10,"secondaryFraction":0.8} | elite.stalker.1 |
+| sentry.1 | 光穹织者 | 哨兵 | support | 守护者护盾升级为稳定织盾阵，圈内原生盾持续修复。 实际缺原生盾才恢复，消耗原能量；无原生盾不虚构治疗；与普通守护盾同通道取强值。 当前队伍项覆盖：新增常驻半径9：生命＋20%、原生盾＋40%、生命护甲＋3、盾护甲＋5。 | {"radius":7,"shieldRestorePerSecondI":180,"targets":7,"damageReduction":0.25} | elite.sentry.1 |
+| sentry.2 | 静滞监察者 | 哨兵 | support | 每个控制周期短暂停住范围普通敌人，Boss仅降攻速与移速。 敌人停滞期间本稿可受伤；同名停滞仅刷新有限期限，不叠加时长；Boss不完全停止；能源不足不施放。 当前队伍项覆盖：半径8持续范围：武器伤害－30%、攻速－35%、移动－45%；Boss各半效。 | {"controlCooldown":14,"controlRadius":4,"ordinaryStasisSeconds":2.5,"bossSlow":0.25} | elite.sentry.1 |
+| sentry.3 | 折射惩戒 | 哨兵 | precision | 敌伤被本体护盾实际吸收后储存折射，下一次武器周期释放穿透束。 敌伤经护甲后实际盾损才存入，不能从回盾/无敌无限刷；束伤不再次充能。 | {"storedShieldDamageFraction":0.7,"storedLimitMaxShieldFraction":2,"releaseCooldown":3,"beamLength":10,"beamWidth":1.6} | elite.sentry.1 |
+| immortal.1 | 破城判官 | 不朽者 | precision | 反甲双炮越打同一重甲越强，屏障耗尽时下一炮为重判。 重判只一次且不与锁定再多层递归；Boss取合法重甲属性，不把建筑/巨型当重甲。 | {"armoredDamageFactor":3,"lockStacks":4,"damagePerStack":0.25,"barrierBreakNextDamageFactor":1.5} | elite.immortal.1 |
+| immortal.2 | 永恒壁垒 | 不朽者 | bulwark | 屏障规模大增，被打破后短时恢复原生盾并保护自身前线位置。 屏障触发沿既有条件，新增破屏反应有独立冷却；有限屏障不等于斯旺无敌。 | {"barrierFactor":4,"barrierBreakShieldRestoreFraction":0.5,"damageReduction":0.3,"reductionSeconds":4,"triggerCooldown":16} | elite.immortal.1 |
+| immortal.3 | 引力裁决 | 不朽者 | support | 反甲炮在主目标周围生成短引力区，把地面杂兵收拢给后排清场。 每三秒一个牵引区；合法路径，Boss/领主免拉只减速；对空不生成拉地面效果。 当前队伍项覆盖：半径8：生命/盾护甲＋5，承受直接武器伤害降低15%。 | {"gravityRadius":4,"pullDistance":2,"pullCooldown":3,"splashFraction":0.8} | elite.immortal.1 |
+| colossus.1 | 焚天双束 | 巨像 | assault | 双束沿地面持续扫灼，第二秒后把同一目标灼成高热。 高热逐目标计时、离束重置；同源火区不叠，不解除巨像可被对空攻击的弱点。 | {"heatSeconds":2,"maximumDamageFactor":3,"lineWidthFactor":1.8,"fireSeconds":2,"fireDpsI":220} | elite.colossus.1 |
+| colossus.2 | 地平线切割 | 巨像 | precision | 射程和切割长度扩大，以窄双束远距贯穿敌人纵队。 射程/长度二倍，宽度变窄；视线障碍仍挡，不从地图外无成本开火。 | {"rangeIncrease":1,"lengthIncrease":1,"armoredDamageFactor":2.5,"widthFactor":0.75} | elite.colossus.1 |
+| colossus.3 | 震慑行者 | 巨像 | bulwark | 双束每第四周期释放一次广域震慑，延缓近敌进攻并重构自己护盾。 第四周期额外冲击只一包，Boss控制减半；回盾按缺口，不每个命中敌人恢复一次。 | {"everyCycles":4,"shockDamageFactor":2,"shockRadius":5,"moveReduction":0.5,"attackSpeedReduction":0.3,"seconds":2,"shieldRestoreFraction":0.15} | elite.colossus.1 |
+| high_templar.1 | 风暴执政 | 高阶圣堂武士 | precision | 灵能风暴覆盖加大，同一风暴脉冲更密、更强。 总伤只提高2.5倍，更密脉冲分拆该预算，不再乘2；保留能量、前置与合法目标。 | {"stormDamageFactor":2.5,"stormRadiusFactor":1.6,"stormPulsePeriodFactor":0.5,"totalStormDamageMultiplier":2.5,"stormBaseTotalI":1200,"stormBaseCooldown":12} | elite.high_templar.1 |
+| high_templar.2 | 反馈先知 | 高阶圣堂武士 | support | 优先抽取消耗敌方能量并转成灵能伤害，额外给高危目标固定反馈。 无能量敌人只受固定包；Boss不凭身份虚构能量，反馈总额冻结消耗一次。 当前队伍项覆盖：反馈实际命中后，受到武器伤害＋25%，持续6秒。 | {"feedbackCooldown":12,"feedbackRadius":4,"energyDamageRatio":6,"fixedFeedbackDamageI":1600,"energyDrainFraction":1} | elite.high_templar.1 |
+| high_templar.3 | 静电织网 | 高阶圣堂武士 | support | 每次风暴形成静电织网，圈内敌人攻速降低，友方能量缓慢回流。 不叠同源织网，Boss攻速减半；能量按各自上限，只给既有能量战斗身体。 当前队伍项覆盖：新增半径8持续范围：正生命/盾护甲－45%，已有百分比减伤相对降低25%。 | {"webSeconds":6,"webRadius":5,"attackSpeedReduction":0.4,"allyEnergyPerSecond":6,"allyTargets":7} | elite.high_templar.1 |
+| phoenix.1 | 离子六翼 | 凤凰 | assault | 空战每周期发射六枚离子弹，以高速压制轻型空军。 普通为双弹，六枚是三倍周期弹次；没有地面普通武器，引力仍沿合法地面目标。 | {"shotsPerCycle":6,"lightDamageFactor":1.6,"moveFactor":1.2} | elite.phoenix.1 |
+| phoenix.2 | 引力狩猎者 | 凤凰 | support | 同时维持两个合法引力目标，悬空目标接受更强己方离子打击。 只对原规则可举目标；Boss/领主不悬空，不能凭举起给建筑开对空射击资格。 | {"gravityTargets":2,"liftSeconds":4,"liftDamageFactor":3,"gravityCooldown":10} | elite.phoenix.1 |
+| phoenix.3 | 相位突击翼 | 凤凰 | mobile | 脱战储存一次相位冲击，进战首六周期以三倍离子火力突袭。 六秒脱战储能才护障完整，开火消耗；没有自动闪现/穿墙，无无限护障叠加。 当前队伍项覆盖：来源脱战2秒后，全队原生盾友军移速＋30%；入战按储能比例给半径8内5名其他友军最多20%原生盾护障，6秒，团队触发间隔12秒。 | {"outOfCombatSeconds":2,"openingCycles":6,"openingDamageFactor":3,"barrierMaxShieldFraction":0.75,"chargeSeconds":6} | elite.phoenix.1 |
+| void_ray.1 | 棱光处刑舰 | 虚空辉光舰 | precision | 同目标持续束流五秒后进入五倍棱镜处刑。 转火/两秒无合法束流重置；不能把新五倍再乘旧模板同类充能，直接替换。 | {"chargeSeconds":5,"maximumDamageFactor":5,"armoredDamageFactor":1.5,"moveFactor":0.8} | elite.void_ray.1 |
+| void_ray.2 | 裂光分束舰 | 虚空辉光舰 | assault | 主束旁分出三条辅助束，同时压制附近其他敌人。 主目标1.5倍，三个不同邻敌各普通主包75%；不对同一目标叠四束，不递归复制束流。 | {"secondaryTargets":3,"secondaryFraction":0.75,"secondaryRadius":5,"mainDamageFactor":1.5} | elite.void_ray.1 |
+| void_ray.3 | 能量虹吸舰 | 虚空辉光舰 | bulwark | 束流有效伤害回充自身原生盾，满盾溢出形成有限临时护障。 不吸无敌/未命中包，治疗溢出预算不可再回盾；临时护障不改变原生盾上限。 | {"shieldPerEffectiveDamageFraction":0.3,"shieldPerSecondMaxFraction":0.18,"barrierMaxShieldFraction":0.8,"barrierSeconds":6} | elite.void_ray.1 |
+| carrier.1 | 蜂群指挥舰 | 航母 | assault | 八架真实截击机围攻，连续锁定后进入蜂群超载。 每架独立所属身体；只存活出勤子机计火力；数量与攻速四倍峰值，不给母舰假普攻。 | {"interceptors":8,"childAttackSpeedIncrease":1,"overdriveSeconds":6,"overdriveCooldown":18} | elite.carrier.1 |
+| carrier.2 | 重矛母舰 | 航母 | precision | 四架截击机改为重型穿甲火力，每第四周期追加一次重矛包。 重矛追加一次已增强主包，单周期峰值九倍对甲；技能强度不从虚假新增模型/轰炸机计算。 | {"interceptors":4,"childDamageFactor":2.5,"childArmoredDamageFactor":1.8,"heavyEveryCycles":4,"heavyPacketFraction":1} | elite.carrier.1 |
+| carrier.3 | 圣盾巡航舰 | 航母 | bulwark | 母舰盾损先由有限矩阵分担，所属截击机回收时真实维修重整。 只有实际回到母舰近处且不攻击的子机维修；不满血传送重生，不改变其他航母/英雄所属权。 当前队伍项覆盖：生命＋30%、原生盾＋40%、攻速＋25%、生命/盾护甲＋5，半径10。 | {"parentDamageReduction":0.3,"interceptorHpFactor":2.5,"returnHealPerSecondFraction":0.15,"childDpsFactor":1.5,"repairRange":3} | elite.carrier.1 |
+
+| 机体 | 相对普通V生命 | 相对普通V输出 | 额外护甲I | 移速倍率 | 治疗倍率 |
+| --- | --- | --- | --- | --- | --- |
+| assault | 1.8 | 1.6 | 3 | 1 | 1 |
+| precision | 1.7 | 1.8 | 1 | 1 | 1 |
+| bulwark | 3 | 1.5 | 7 | 1 | 1 |
+| mobile | 1.9 | 1.6 | 2 | 1.15 | 1 |
+| support | 2.4 | 1.5 | 3 | 1 | 3 |
+
+| 军衔 | 输出／治疗成长 | 生命成长 | 额外护甲成长 | 能量倍率 |
+| --- | --- | --- | --- | --- |
+| 1 | 1 | 1 | 0 | 5 |
+| 2 | 1.35 | 1.3 | 0.5 | 6 |
+| 3 | 1.7 | 1.6 | 1 | 7 |
+| 4 | 2.05 | 1.9 | 1.5 | 8 |
+| 5 | 2.4 | 2.2 | 2 | 9 |
+
+I级机体以普通V为基准；以上成长仅描述机体层。专属包、周期、付费子机、有限治疗、技能护障、存储伤害与队伍增益由实际执行器结算一次。精英永久死亡后重招从一级开始，沿用本局已锁定路径。皮肤来源和能力是两个维度，不能据皮肤声称对应原版技能。
+
+| 两族精英配置ID | 当前队伍配置 |
+| --- | --- |
+| zergling.3 | {"effectName":"血巢号令","kind":"buff","radius":null,"stats":{"damage":0.2,"speed":0.2,"maxHp":0.2,"maxShield":0.2,"armorPct":0.2,"shieldArmorPct":0.2,"move":0.2}} |
+| ravager.3 | {"effectName":"腐蚀气溶胶","kind":"debuff","radius":8,"stats":{"armorReduction":0.45,"defenseReduction":0.25}} |
+| hydralisk.3 | {"effectName":"毒囊裂隙","kind":"conditional-debuff","radius":null,"stats":{"vulnerabilityPerStack":0.05},"trigger":{"maxStacks":4,"duration":5,"secondaryStacks":1},"rangeMode":"EXISTING_POISON_TARGETS_NOT_GLOBAL_FIELD"} |
+| queen.1 | {"effectName":"母巢护育","kind":"buff","radius":9,"stats":{"maxHp":0.45,"armorFlat":6,"regenHpPerSecond":0.02}} |
+| queen.2 | {"effectName":"鲜血共生","kind":"conditional-buff","radius":8,"stats":{"receivedHealing":0.3,"weaponLifeLeech":0.15},"trigger":{"duration":6,"leechMaxHpPerSecond":0.1,"requiresEffectiveHpHeal":true,"maxTargets":5}} |
+| queen.3 | {"effectName":"巢毒压制","kind":"debuff","radius":8,"stats":{"weaponSuppression":0.3,"attackSlow":0.35,"moveSlow":0.45},"bossControlScale":0.5} |
+| mutalisk.3 | {"effectName":"迁徙血羽","kind":"conditional-buff","radius":null,"stats":{"move":0.3},"trigger":{"outOfCombatSeconds":2,"chargeSeconds":6,"entryRadius":8,"maxTargets":5,"barrierMaxHp":0.15,"barrierSeconds":4,"entryCooldown":12}} |
+| corruptor.2 | {"effectName":"护翼巢域","kind":"buff","radius":9,"stats":{"maxHp":0.35,"maxShield":0.35,"armorFlat":6,"shieldArmorFlat":6,"speed":0.25}} |
+| zealot.3 | {"effectName":"先锋战旗","kind":"buff","radius":null,"stats":{"damage":0.2,"speed":0.2,"maxHp":0.2,"maxShield":0.2,"armorPct":0.2,"shieldArmorPct":0.2,"move":0.2}} |
+| sentry.1 | {"effectName":"光穹矩阵","kind":"buff","radius":9,"stats":{"maxHp":0.2,"maxShield":0.4,"armorFlat":3,"shieldArmorFlat":5}} |
+| sentry.2 | {"effectName":"静滞力场","kind":"debuff","radius":8,"stats":{"weaponSuppression":0.3,"attackSlow":0.35,"moveSlow":0.45},"bossControlScale":0.5} |
+| immortal.3 | {"effectName":"引力护阵","kind":"buff","radius":8,"stats":{"armorFlat":5,"shieldArmorFlat":5,"directWeaponReduction":0.15}} |
+| high_templar.2 | {"effectName":"反馈暴露","kind":"conditional-debuff","radius":4,"stats":{"vulnerability":0.25},"trigger":{"duration":6}} |
+| high_templar.3 | {"effectName":"离子解构场","kind":"debuff","radius":8,"stats":{"armorReduction":0.45,"defenseReduction":0.25}} |
+| phoenix.3 | {"effectName":"相位航路","kind":"conditional-buff","radius":null,"stats":{"move":0.3},"trigger":{"outOfCombatSeconds":2,"chargeSeconds":6,"entryRadius":8,"maxTargets":5,"barrierMaxShield":0.2,"barrierSeconds":6,"entryCooldown":12}} |
+| carrier.3 | {"effectName":"圣盾航阵","kind":"buff","radius":10,"stats":{"maxHp":0.3,"maxShield":0.4,"speed":0.25,"armorFlat":5,"shieldArmorFlat":5}} |
+
+虫后输血为有限六秒生命恢复/吸取；入圈护障固定原始额度与冷却；斯托科夫瘟疫冻结入圈最大生命并等待一秒首跳。Boss抑制与硬控免疫按各机制独立执行。
 
 ## 当前规则：165个天赋节点
 
@@ -762,7 +839,7 @@
 | 2 | P-A03 | 补充成员 | 3 | 1／1 | reinforcement | A01满 | 每次合格击杀2%／4%／6%生成1名已入编本族家族的免费普通救援乘员；需击败守军；全队成功后冷却45战斗秒，详见5.3。 |
 | 2 | P-A04 | 规整部队 | 3 | 1／1 | orderly_army | A01满 | 军衔≥2普通组致死时5%／10%／15%降1级后以新最大生命50%存活；每人每关至多成功1次；不保英雄／精英。 |
 | 3 | P-A05 | 战例复盘 | 3 | 1／1 | battle_review | A02满 | 合格普通击杀晋升概率再＋2／4／6个百分点；成功后优先同家族最低军衔合法成员，军衔相同按实体ID；只升一名。 |
-| 3 | P-A06 | 折跃征召 | 3 | 1／1 | conscript_network | A03满 | A03免费救援神族身体最大生命＋15%／30%／45%，最大原生护盾不加；只有该身体来源标签生效，不增强其截击机生命。  同步增加原生护盾上限，保留已有伤损。 |
+| 3 | P-A06 | 折跃征召 | 3 | 1／1 | conscript_network | A03满 | A03免费救援神族身体最大生命和最大原生护盾分别＋15%／30%／45%；仅对有该来源标签的身体生效，不增强其截击机生命；保留已有伤损。 |
 | 3 | P-A07 | 荣誉档案 | 3 | 1／1 | honor_archive | A04满 | A04降级存活恢复比例由50%提高至70%／85%／100%新最大生命；不是另外再次治疗，不作用S09/S15。 |
 | 4 | P-A08 | 传授经验 | 2 | 1／2 | teach_experience | A05满 | 击杀者家族存在活着的永久紫色精英时，A02/A05合并晋升概率再＋4／8个百分点；临时精英和战术进阶不能充当导师。 |
 | 4 | P-A09 | 自我成长 | 2 | 1／2 | self_growth | A06满 | 每累计240／120秒战斗时间，使1名活着且未满5级的永久紫色精英升1级；最低等级优先、ID破同分；无目标该次跳过，不存储次数。 |
@@ -970,7 +1047,7 @@
 
 ## 版本边界
 
-当前新局只运行 mvp-1.0 的三族18关、165节点和单套关间经济。M1空天赋档可规范化迁移；旧开发战局不续跑，只能导出原件并一次性核算已证实的永久资源。历史价格表仅供该只读导入核算，不参与当前游戏运行。
+当前战局schema23，永久档案v5。当前新局只运行 mvp-1.0 的三族18关、165节点和单套关间经济。M1空天赋档可规范化迁移；旧开发战局不续跑，只能导出原件并一次性核算已证实的永久资源。历史价格表仅供该只读导入核算，不参与当前游戏运行。
 
 ## 核对命令
 

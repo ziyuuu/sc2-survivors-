@@ -1,0 +1,16 @@
+import fs from 'node:fs/promises';import {createReadStream} from 'node:fs';import {createHash} from 'node:crypto';import assert from 'node:assert/strict';
+const out='reports/local/p6-20261006',baseline=JSON.parse(await fs.readFile(out+'/baseline.json','utf8'));
+async function sourcePaths(dir){const files=[];for(const entry of await fs.readdir(dir,{withFileTypes:true})){const file=dir+'/'+entry.name;files.push(...(entry.isDirectory()?await sourcePaths(file):[file]));}return files;}
+assert.deepEqual((await sourcePaths('src')).sort(),baseline.source.map(f=>f.path).sort(),'No unrecorded runtime source may be added or removed');
+async function fingerprint(path){const hash=createHash('sha256');let bytes=0;for await(const b of createReadStream(path)){bytes+=b.length;hash.update(b);}return {path,bytes,sha256:hash.digest('hex')};}
+const oldCopy='A03免费救援神族身体最大生命＋15%／30%／45%，最大原生护盾不加；只有该身体来源标签生效，不增强其截击机生命。  同步增加原生护盾上限，保留已有伤损。';
+const newCopy='A03免费救援神族身体最大生命和最大原生护盾分别＋15%／30%／45%；仅对有该来源标签的身体生效，不增强其截击机生命；保留已有伤损。';
+const sourceChanges=[],preserved={};for(const key of ['source','artifacts','proposals']){preserved[key]=[];for(const f of baseline[key]){const current=await fingerprint(f.path);if(key==='source'&&f.path==='src/data/mvp-talents.generated.ts'&&current.sha256!==f.sha256){const text=await fs.readFile(f.path,'utf8');assert.equal(text.split(newCopy).length,2);const restored=text.replace(newCopy,oldCopy);assert.equal(createHash('sha256').update(restored).digest('hex'),f.sha256,'Only the confirmed P-A06 description may change');sourceChanges.push({...current,baseline:f.sha256,kind:'P-A06 description only; inverse substitution matches entire original file'});continue;}assert.equal(current.sha256,f.sha256,f.path);assert.equal(current.bytes,f.bytes,f.path);preserved[key].push(current);}}
+assert.equal((await fingerprint(baseline.package.path)).sha256,baseline.package.sha256);
+const web=JSON.parse(await fs.readFile('dist/web/web-release.json','utf8')),manifest=JSON.parse(await fs.readFile('dist/web/'+web.manifest,'utf8'));assert.deepEqual(manifest,baseline.manifest);
+const physical=[...new Map(Object.values(manifest.assets).map(a=>[a.url,a])).values()];for(const a of physical){const f=await fingerprint('dist/web/'+a.url);assert.equal(f.bytes,a.bytes);assert.equal(f.sha256,a.sha256);}
+const html=await fingerprint('dist/SC2-Survivors-P6-20261006.html'),pkg=JSON.parse(await fs.readFile('dist/P6-Coze-Application-20261006/delivery.json','utf8'));
+for(const a of pkg.appFiles){const f=await fingerprint('dist/P6-Coze-Application-20261006/'+a.path);assert.equal(f.bytes,a.bytes);assert.equal(f.sha256,a.sha256);}
+assert.equal(pkg.appBuildId,web.appBuildId);assert.equal(pkg.release,manifest.release);
+const report={at:new Date().toISOString(),preserved,priorPackagePreserved:baseline.package,sourceChanges,resourceRecords:Object.keys(manifest.assets).length,physicalResourceFiles:physical.length,resourceBytes:physical.reduce((n,a)=>n+a.bytes,0),newResourceBytesAgainstP5:0,html,web,packageBuildId:pkg.packageBuildId};
+await fs.writeFile(out+'/preservation.json',JSON.stringify(report,null,2));console.log(JSON.stringify({sources:preserved.source.length,priorHTML:preserved.artifacts.length,resourceRecords:report.resourceRecords,physicalFiles:report.physicalResourceFiles,html,appBuildId:web.appBuildId,packageBuildId:pkg.packageBuildId}));

@@ -1,10 +1,13 @@
 node_modules/
 assets/private/
 reports/local/
+reports/*.log
+/error.log
 .cache/
 dist/
 .env
 .env.*
+!deploy/coze/.env.example
 *.ttf
 *.otf
 *.woff

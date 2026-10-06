@@ -1,4 +1,7 @@
 import {isRevisedHero,terranHeroGrowth} from '../src/data/terran-heroes';
+import {isZergHero,zergHeroGrowth} from '../src/data/zerg-heroes';
+import {isProtossHero,protossHeroGrowth} from '../src/data/protoss-heroes';
+import {groundHeroBuff} from '../src/simulation/combat/hero-ground-auras';
 import {heroAura} from '../src/simulation/combat/terran-hero-passives';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -19,8 +22,8 @@ for(const [id,hp,shield,damage,period] of rows)test(`F06 ${id}: approved durabil
  const w=new World({race:HEROES[id].race,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();
  assert.ok(acquireExpeditionHero(w,id,()=>true));const u=w.heroEntity(id)!;
  for(const rank of [1,3,5]){
-  u.rank=rank;refreshExpeditionHero(w,u,true);const revised=isRevisedHero(id),modern=terranHeroGrowth(rank),aura=heroAura(w,u),g=heroStats(rank),body=HEROES[id];
-  near(u.maxHp,revised?body.hp*modern.health*(1+aura.health):hp*g.health*1.15);near(u.maxShield??0,revised?body.shield*modern.health*(1+aura.health):shield*g.health*1.15);
+  u.rank=rank;refreshExpeditionHero(w,u,true);const revised=isRevisedHero(id)||isZergHero(id)||isProtossHero(id),modern=isProtossHero(id)?protossHeroGrowth(rank):isZergHero(id)?zergHeroGrowth(rank):terranHeroGrowth(rank),aura=heroAura(w,u),g=heroStats(rank),body=HEROES[id];
+  near(u.maxHp,revised?body.hp*modern.health*(1+aura.health):hp*g.health*1.15);near(u.maxShield??0,revised?body.shield*modern.health*(1+aura.shield):shield*g.health*1.15);
   near(u.weaponDamage,revised?body.damage*modern.damage*(1+aura.damage):damage*g.damage*1.15*1.15);near(u.attackPeriod,revised?body.period*modern.period/(1+aura.speed):period/g.attackSpeed/1.15/1.15);
   u.hp-=71;if(u.maxShield)u.shield!-=43;u.weaponCooldown=.123;u.nextShotAt=17;
   for(let i=0;i<3;i++)refreshExpeditionHero(w,u);
@@ -34,8 +37,9 @@ test('F06 flagship interceptor output inherits the boost exactly once; ordinary 
  const hero=w.heroEntity('purifier_flagship')!;initializeCarrierSubsystem(w);
  const normalChild=ownedInterceptors(w,ordinary.id)[0],child=ownedInterceptors(w,hero.id)[0];
  for(const rank of [1,3,5]){hero.rank=rank;refreshExpeditionHero(w,hero);for(let i=0;i<3;i++)refreshInterceptorStats(w,child);
-  const g=heroStats(rank);near(child.weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.2*g.damage*1.15*1.15);
-  near(child.attackPeriod,SOURCE_INTERCEPTOR.weapon.attackPeriod/g.attackSpeed/1.15/1.15);
+  const g=protossHeroGrowth(rank),aura=groundHeroBuff(w,hero);near(child.weaponDamage,250*g.damage*(1+aura.damage));
+  near(child.attackPeriod,.4*g.period/(1+aura.speed));
  }
- refreshInterceptorStats(w,normalChild);near(normalChild.weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.15);near(normalChild.attackPeriod,SOURCE_INTERCEPTOR.weapon.attackPeriod/1.15);
+ refreshInterceptorStats(w,normalChild);near(normalChild.weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.15*1.3);near(normalChild.attackPeriod,SOURCE_INTERCEPTOR.weapon.attackPeriod/1.15/1.5);
+ w.heroes.clear();refreshInterceptorStats(w,normalChild);near(normalChild.attackPeriod,SOURCE_INTERCEPTOR.weapon.attackPeriod/1.15);
 });

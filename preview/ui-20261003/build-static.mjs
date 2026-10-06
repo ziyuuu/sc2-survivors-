@@ -1,0 +1,32 @@
+import fs from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import crypto from 'node:crypto';
+const root=new URL('./',import.meta.url),project=new URL('../../',root),output=new URL('../../reports/local/ui-redesign-20261003/',root);
+const [html,baseCss,revisionCss,coverCss,layoutCss,menuCss,chassisCss,minimapCss,inputCss,cardCss,paintingCss,appJs,cardJs,familyJs,paintingJs,talents,talentCopy,cardFixture]=await Promise.all(['index.html','style.css','style-r2.css','style-r3.css','style-r4.css','style-r5.css','style-r6.css','style-r7.css','style-r8.css','style-r9.css','style-r10.css','app.mjs','card-ui-r9.mjs','family-art-r9.mjs','unit-illustrations-r10.mjs','talents.json','talent-copy-r5.json','cards-r9.json'].map(f=>fs.readFile(new URL(f,root),'utf8')));
+const css=[baseCss,revisionCss,coverCss,layoutCss,menuCss,chassisCss,minimapCss,inputCss,cardCss,paintingCss].join('\n');
+const js=paintingJs.replaceAll('export const ','const ').replace('export function unitPainting','function unitPainting')+'\n'+familyJs.replace('export const FAMILY_SCENES','const FAMILY_SCENES').replace('export function familyBackground','function familyBackground')+'\n'+cardJs.replace("import {familyBackground} from './family-art-r9.mjs';",'').replace("import {unitPainting} from './unit-illustrations-r10.mjs';",'').replace('export function createIntermissionUI','function createIntermissionUI')+'\n'+appJs.replace("import {createIntermissionUI} from './card-ui-r9.mjs';",'');
+const filename=process.argv[2]||'SC2-UI-Preview-r10.html';
+if(!/^SC2-UI-Preview(?:-r\d+)?\.html$/.test(filename))throw new Error('Invalid preview filename');
+const units=['marine','marauder','tank','medivac','reaper','thor','zergling','roach','hydralisk','queen','baneling','zealot','stalker','immortal','sentry','colossus','ultralisk','void_ray'];
+const heroes=['raynor','tychus','nova','kerrigan','zagara','dehaka','artanis','zeratul','fenix'];
+const ids=new Set([...js.matchAll(/['"]((?:unit|building|hero|tech|ui)\.[a-z_]+)['"]/g)].map(m=>m[1]));
+for(const card of JSON.parse(cardFixture).cards)ids.add(card.icon);
+for(const id of units)ids.add('unit.'+id);for(const id of heroes)ids.add('hero.'+id);
+const icons={},art={},covers={},maps={},coverMetadata=[],mapMetadata=[];
+for(const id of [...ids].sort())icons[id]='data:image/png;base64,'+(await fs.readFile(new URL(`public/assets/icons/${id}.png`,project))).toString('base64');
+// R4 pages use painted covers and the map compositions below. Keep the older
+// local art files intact; they are not referenced by the current preview.
+for(const name of (await fs.readdir(new URL('covers/',root))).filter(f=>f.endsWith('.png')).sort()){
+ const bytes=await fs.readFile(new URL('covers/'+name,root));
+ covers[name.slice(0,-4)]='data:image/png;base64,'+bytes.toString('base64');
+ coverMetadata.push({file:name,bytes:bytes.length,width:bytes.readUInt32BE(16),height:bytes.readUInt32BE(20),sha256:crypto.createHash('sha256').update(bytes).digest('hex')});
+}
+for(const race of ['terran','zerg','protoss'])for(const kind of ['landscape','portrait','wide']){
+ const name=race+'-'+kind,bytes=await fs.readFile(new URL('maps/'+name+'.jpg',root));maps[name]='data:image/jpeg;base64,'+bytes.toString('base64');mapMetadata.push({file:name+'.jpg',bytes:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')});
+}
+const minimap=await fs.readFile(new URL('maps/terran-minimap.jpg',root));maps['terran-minimap']='data:image/jpeg;base64,'+minimap.toString('base64');mapMetadata.push({file:'terran-minimap.jpg',bytes:minimap.length,sha256:crypto.createHash('sha256').update(minimap).digest('hex')});
+const data=`<script>window.__UI_ICONS__=${JSON.stringify(icons)};window.__UI_ART__=${JSON.stringify(art)};window.__UI_COVERS__=${JSON.stringify(covers)};window.__UI_MAPS__=${JSON.stringify(maps)};window.__UI_TALENTS__=${talents};window.__UI_TALENT_COPY__=${talentCopy};window.__UI_CARDS__=${cardFixture};</script>`;
+const standalone=html.replace('<link rel="stylesheet" href="./style.css">',`<style>${css}</style>`).replace(/<link rel="stylesheet" href="\.\/style-r\d+\.css">/g,'').replace('<script type="module" src="./app.mjs"></script>',`${data}<script type="module">${js.replace(/<\/script/gi,'<\\/script')}</script>`);
+await fs.mkdir(output,{recursive:true});const file=new URL(filename,output);await fs.writeFile(file,standalone);
+const report={artifact:fileURLToPath(file),bytes:Buffer.byteLength(standalone),sha256:crypto.createHash('sha256').update(standalone).digest('hex'),embeddedIcons:Object.keys(icons).length,localRenderedArt:Object.keys(art),paintedCovers:coverMetadata,mapCompositions:mapMetadata,talentDefinitions:JSON.parse(talents).length,talentDisplayCopy:Object.keys(JSON.parse(talentCopy)).length,talentFixtureSha256:crypto.createHash('sha256').update(talents).digest('hex'),cardFixtureSha256:crypto.createHash('sha256').update(cardFixture).digest('hex'),cards:JSON.parse(cardFixture).counts,cardSources:JSON.parse(cardFixture).sources,localIllustrationDrafts:{ordinaryFamilyBodies:30,explicitEliteEmphases:90,additionalHeroes:9,reusedHeroPaintings:9,editableVectorFiles:129,cohortScaling:'Every member keeps scale 1. Only translation and depth order change with 1/2/3 troops, paired Zerglings 2/4/6 and training targets.'},method:'Standalone static HTML/CSS/JS. R10 replaces the R9 small icons and abstract scenery with locally drawn vector illustration drafts for 30 family bodies, explicit current elite traits and nine additional heroes. These are authored previews, not authentic Blizzard paintings or a user-approved final art style. No remote generation or private-asset upload. R9 source-driven coverage of all intermission categories, 90 elites and 18 heroes remains, with rank/quality/price examples; 1152 presentation states do not mean 1152 unique card mechanisms. Filterable catalogue, current undiscounted prices, development/shop/elite/card-detail flow, state previews and restrained/reduced motion. Portrait lists scroll to retain large illustrations; elite confirmation shows its price persistently. R8 explicit desktop/mobile input, R7 minimap casing, R6 two-row folding console/rim, maps, covers and talent hierarchy preserved. No actual gameplay-save, runtime, rule or balance changes; no rollout, upload, push, deployment or acceptance closure.'};
+await fs.writeFile(new URL(filename.replace('SC2-UI-Preview','artifact').replace('.html','.json'),output),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));

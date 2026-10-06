@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {HEROES} from '../src/data/heroes';
 import {World} from '../src/simulation/world';
 import type {Race} from '../src/data/races';
 
@@ -23,7 +24,7 @@ test('Terran biological talent shield is separate from native shields and restor
 test('S01 benefits a recruited hero while temporary soldiers do not inherit it',()=>{
  const w=run(),hero=w.addUnit('marine','terran',0,0),temporary=w.addUnit('marine','terran',2,0);
  hero.heroId='raynor';temporary.temporary=true;w.runConfig!.frozenTalents.levels={'T-S01':3};w.refreshStats(hero);w.refreshStats(temporary);
- close(hero.maxHp,9500*1.225);close(hero.weaponDamage,180*1.225);close(temporary.maxHp,45*1.15);
+ close(hero.maxHp,9500*1.225);close(hero.weaponDamage,HEROES.raynor.damage*1.225);close(temporary.maxHp,45*1.15);
 });
 test('M07 adds 115% to only the primary direct hit of an area weapon',()=>{
  const w=run(),hellbat=w.addUnit('hellion','terran',0,0),main=w.addUnit('zergling','zerg',1,0),secondary=w.addUnit('zergling','zerg',1.5,.3);

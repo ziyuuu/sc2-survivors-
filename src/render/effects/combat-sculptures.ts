@@ -1,3 +1,8 @@
+import {isProtossEliteId} from '../../data/protoss-elites';
+import {isTerranEliteId} from '../../data/terran-elites';
+import {isZergEliteId} from '../../data/zerg-elites';
+import {revisedZergElite} from '../../simulation/combat/zerg-elite-runtime';
+import {revisedElite} from '../../simulation/combat/terran-elite-runtime';
 import * as THREE from 'three';
 import {HERO_SPECTACLE,heroVisualTier,type CoreShape} from '../../data/hero-spectacle';
 import {UNIT_SPECTACLE} from '../../data/unit-spectacle';
@@ -20,6 +25,7 @@ const metalTypes=new Set(['hellion','tank','thor','viking','banshee','medivac','
 /** Sculpted cores, blade paths and bounded ballistic debris. Never a gameplay collision body. */
 export class CombatSculptures {
  heroDetail:'full'|'balanced'|'low'='full';
+ ordinarySource:(u:Entity)=>boolean=()=>false;
  readonly batches=new Map<CoreShape,Batch>();fragments:Fragment[]=[];mounts=new Map<string,Vec>();beams:VisualEvent[]=[];shipImpacts:VisualEvent[]=[];
  stats={coreDropped:0,decorationsDropped:0,active:0};
  constructor(scene:THREE.Scene){
@@ -39,7 +45,7 @@ export class CombatSculptures {
   const profile=e.heroId?HERO_SPECTACLE[e.heroId]:undefined,family=UNIT_SPECTACLE[e.unitType as FamilyId],tier=this.heroDetail==='low'?0:heroVisualTier(e.rank),from=mount??this.at(e),point=this.at(e,true);
   if(e.kind==='attack'&&e.attackId&&(e.projectileSpeed??0)>0)this.mounts.set(e.attackId,{...from});
   if(e.kind==='attack'&&e.heroId==='yamato_battlecruiser'&&e.attackId&&left)this.mounts.set(e.attackId+':left',{...left});
-  if(isRevisedHero(e.heroId)&&['attack','projectile-impact','weapon-area'].includes(e.kind))return;
+  if(isRevisedHero(e.heroId)&&['attack','projectile-impact','weapon-area'].includes(e.kind)||!e.heroId&&isTerranEliteId(e.eliteId)&&e.kind==='attack')return;
   if(e.kind==='skill-impact'&&['yamato_battlecruiser','hots_leviathan','purifier_flagship'].includes(e.heroId??''))this.shipImpacts.push(e);
   if(!profile&&e.kind==='attack'&&['sentry','void_ray'].includes(e.unitType??''))this.beams.push({...e,x:from.x,y:from.y,z:from.z});
   if(e.kind==='death'){
@@ -112,7 +118,8 @@ export class CombatSculptures {
   obj.position.set((from.x+to.x)/2,(from.y+to.y)/2,(from.z+to.z)/2);obj.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),new THREE.Vector3(to.x-from.x,to.y-from.y,to.z-from.z).normalize());obj.scale.set(width,d/1.26,width);obj.updateMatrix();b.mesh.setMatrixAt(b.count,obj.matrix);b.mesh.setColorAt(b.count,tint.set(color));b.count++;
  }
  private flight(w:World,p:WeaponFlight,visible:(p:Point)=>boolean,muzzle:(e:VisualEvent,side?:'Left'|'Right')=>Vec|null){
-  if(isRevisedHero(p.source.heroId))return;
+  if(this.ordinarySource(p.source))return;
+  if(isRevisedHero(p.source.heroId)||revisedElite(p.source)||revisedZergElite(p.source)||isProtossEliteId(p.source.eliteId)||isProtossEliteId(w.entities.get(p.source.summonOwnerId??-1)?.eliteId)||w.time<p.start)return;
   if(!visible(p.point))return;const u=p.source,hero=u.heroId?HERO_SPECTACLE[u.heroId]:undefined;
   // These two use their authentic original weapon meshes, rendered by OriginalProjectiles.
   if(!hero&&['marauder','hydralisk'].includes(u.unitType))return;
@@ -168,7 +175,7 @@ export class CombatSculptures {
    }
   }
   // Support only follows actual simulation recipients. A moving wisp is a visual link, not delayed healing.
-  for(const u of w.entities.values())if(u.hp>0&&visible(u)&&!u.heroId&&['medivac','science_vessel'].includes(u.unitType))for(const id of u.healTargets??(u.healTarget?[u.healTarget]:[])){
+  for(const u of w.entities.values())if(u.hp>0&&visible(u)&&!u.heroId&&!this.ordinarySource(u)&&!(u.owner==='terran'&&!!u.eliteId&&['medivac','science_vessel'].includes(u.unitType))&&['medivac','science_vessel'].includes(u.unitType))for(const id of u.healTargets??(u.healTarget?[u.healTarget]:[])){
    const target=w.entities.get(id);if(!target||target.hp<=0)continue;const repair=u.unitType==='science_vessel',from={x:u.x,y:u.flying?AIR_HEIGHT-.1:(w.terrain?.height(u)??0)+.8,z:u.z},to={x:target.x,y:target.flying?AIR_HEIGHT+.5:(w.terrain?.height(target)??0)+.7,z:target.z};
    for(let i=0;i<5;i++){const f=(w.time*1.8+i/5)%1,a=w.time*9+i*1.25,p={x:from.x+(to.x-from.x)*f+Math.sin(a)*.06,y:from.y+(to.y-from.y)*f,z:from.z+(to.z-from.z)*f+Math.cos(a)*.06};this.draw(repair?'slug':'orb',p,{x:.09,y:repair?.22:.09,z:.09},{x:0,y:a,z:a},repair?0xffc76e:0x8bebbb);}
    this.draw(repair?'shard':'orb',to,{x:.17,y:.22,z:.17},{x:w.time*6,y:0,z:0},repair?0xffe8a2:0xb0ffd9);
@@ -181,7 +188,7 @@ export class CombatSculptures {
    if(u.heroId==='nova'&&u.cloaked){for(let i=0;i<3;i++){const a=w.time*2+i*Math.PI*2/3;this.draw('shard',{x:u.x+Math.sin(a)*.5,y:y-.3,z:u.z+Math.cos(a)*.5},{x:.04,y:.6,z:.04},{x:0,y:a,z:0},0x99dbff);}}
    if(u.heroId==='raynor'&&this.heroDetail!=='low')for(const a of w.allies())if(a.hp>0&&(a.heroId==='raynor'||!a.heroId&&['marine','marauder','reaper'].includes(a.unitType))&&w.time-a.bornAt<1)this.draw('shard',{x:a.x,y:(w.terrain?.height(a)??0)+.5,z:a.z},{x:.05,y:.3,z:.05},{x:0,y:0,z:0},0xffce72);
   }
-  for(const spell of w.expedition.spells)if(spell.until>w.time&&visible(spell)){
+  for(const spell of w.expedition.spells)if(spell.until>w.time&&visible(spell)){const source=w.entities.get(spell.source);if(source&&this.ordinarySource(source))continue;
    const y=(w.terrain?.height(spell)??0)+.1;
    if(spell.kind==='guardian'){for(let i=0;i<10;i++){const a=i*Math.PI*2/10,r=spell.radius*.9;this.draw('plate',{x:spell.x+Math.sin(a)*r,y:y+.5+Math.sin(a)*.1,z:spell.z+Math.cos(a)*r},{x:.32,y:.65,z:.18},{x:Math.PI/2,y:a,z:.3},0x6ea6d1);}}
    else if(spell.kind==='storm'){for(let i=0;i<4;i++){const tick=Math.floor(w.time*12),a=i*2.4+tick*.8,r=spell.radius*(.25+i*.18),p={x:spell.x+Math.cos(a)*r,y,z:spell.z+Math.sin(a)*r},top={x:p.x+.2,y:y+1.8,z:p.z-.3},mid={x:p.x-.2,y:y+.9,z:p.z+.1};this.beam(top,mid,.1,0xccc0ff);this.beam(mid,p,.13,0x8ba1ff);this.draw('crystal',p,{x:.12,y:.25,z:.12},{x:0,y:a,z:0},0xe6d4ff);}}

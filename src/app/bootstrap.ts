@@ -22,12 +22,24 @@ import {AssetReadinessCoordinator} from './asset-readiness';
 import {HERO_IDS_BY_RACE} from '../data/heroes';
 import {talentRank} from '../data/mvp-talents';
 import type {NewRunPreview} from './run-session';
+import {TelemetryClient,TELEMETRY_KEYS} from '../services/telemetry-client';
+import {GameObserver} from '../services/game-observer';
+import {LoadObserver} from '../services/load-observer';
+import {PlayerServices} from '../ui/hud/player-services';
+import {httpAssetStatus} from '../assets/http-store';
 
 const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
 export async function boot(){await loadEmbeddedAssets();let storage:Storage|undefined,factory:IDBFactory|undefined;try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}const saved=await openSaveProfile(storage,factory),world=new World({terrain:campaignTerrain(chooseCampaignMap(crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,saved);const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls,new HudSettings(storage)),audio=new AudioEffects(),readiness=new AssetReadinessCoordinator(world,view,audio);bindBattleView(world,()=>captureBattleView(canvas,view.camera));hud.session=session;hud.readiness=readiness;readiness.onChange=()=>hud.update();
  const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,inspect:(x,y)=>{const id=view.pickCarrier(x,y);if(id===null)return false;hud.carrierInspector.show(id);return true;},pick:(x,y,touch)=>view.pick(x,y,touch),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:point=>{view.targetPreview=point;}});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,()=>hud.pause(),()=>input.reset());
+ const telemetry=new TelemetryClient({storage}),loadingObservation=new LoadObserver(view.renderer);
+ const environment=()=>({build:document.querySelector<HTMLMetaElement>('meta[name="sc2-app-build"]')?.content??'development',release:httpAssetStatus()?.release??'development',device:(matchMedia('(pointer:coarse)').matches?'mobile':'desktop') as 'mobile'|'desktop',orientation:(innerWidth<innerHeight?'portrait':'landscape') as 'portrait'|'landscape',animation:view.animationMode,diagnostic:import.meta.env.DEV});
+ const observer=new GameObserver(world,telemetry,environment),playerServices=new PlayerServices(world,telemetry,observer,()=>{input.reset();gamepad.reset();},()=>hud.update(),()=>({build:environment().build,release:environment().release,race:world.phase==='menu'?hud.menuRace:world.expedition.race,difficulty:world.phase==='menu'?hud.menuDifficulty:world.difficulty,stage:world.phase==='menu'?0:world.endless?.round??world.stage,mode:world.endless?'endless':'campaign'}),storage);hud.playerServices=playerServices;
+ telemetry.onChange=()=>{observer.syncConsent();loadingObservation.setActive(telemetry.active);playerServices.refresh();};void telemetry.initialize();
+ window.addEventListener('storage',e=>{if(e.key===TELEMETRY_KEYS.identity)telemetry.synchronize();});window.addEventListener('online',()=>{void telemetry.retryPrivacy();void telemetry.flush();});setInterval(()=>observer.pulse(),15000);
+ let observedLoading:{kind:string;at:number;assets:ReturnType<typeof httpAssetStatus>;stats:ReturnType<LoadObserver['snapshot']>;consentId:string|undefined}|null=null;
+ readiness.onChange=()=>{if(telemetry.active&&readiness.state.kind&&!observedLoading)observedLoading={kind:readiness.state.kind,at:performance.now(),assets:httpAssetStatus(),stats:loadingObservation.snapshot(),consentId:telemetry.identity?.consentId};if(observedLoading&&['ready','error'].includes(readiness.state.phase)){const a=httpAssetStatus(),before=observedLoading.assets,stats=loadingObservation.snapshot();if(telemetry.active&&observedLoading.consentId===telemetry.identity?.consentId)telemetry.record({...environment(),runId:world.runId,kind:'load',data:{cold:(a?.downloadBytes??0)>(before?.downloadBytes??0),milliseconds:performance.now()-observedLoading.at,networkBytes:Math.max(0,(a?.downloadBytes??0)-(before?.downloadBytes??0)),cacheHits:Math.max(0,(a?.cacheHits??0)-(before?.cacheHits??0)),cacheMisses:Math.max(0,(a?.cacheMisses??0)-(before?.cacheMisses??0)),failures:stats.failures-observedLoading.stats.failures+(readiness.state.phase==='error'?1:0),parseMs:stats.parseMs-observedLoading.stats.parseMs,gpuMs:stats.gpuMs-observedLoading.stats.gpuMs}});observedLoading=null;}if(!readiness.state.kind)observedLoading=null;hud.update();};
  controls.listeners.add(()=>gamepad.reset());
  const debug=import.meta.env.DEV?installDebug(world,view):null;
  // Reserve up to 12 ms for fixed-step catch-up; debt is retained and frame work remains bounded.
@@ -65,11 +77,12 @@ export async function boot(){await loadEmbeddedAssets();let storage:Storage|unde
  };
 
  const frame=(now:number)=>{const elapsed=(now-previous)/1000;previous=now;
-  if(!document.hidden){if(!readiness.state.kind)view.prepareRosterAssets();if(view.assetsPending||readiness.state.kind){input.reset();gamepad.reset();}else{input.poll();gamepad.poll(now);}let alpha=1;const simulating=world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind;if(simulating&&wasSimulating)alpha=driver.advance(elapsed*(debug?.speed??1));else driver.reset();wasSimulating=simulating;
+  if(!document.hidden){if(!readiness.state.kind)view.prepareRosterAssets();if(view.assetsPending||readiness.state.kind||playerServices.blocking){input.reset();gamepad.reset();}else{input.poll();gamepad.poll(now);}let alpha=1;const simulating=world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind&&!playerServices.blocking;if(simulating&&wasSimulating)alpha=driver.advance(elapsed*(debug?.speed??1));else driver.reset();wasSimulating=simulating;
    view.render(elapsed,alpha);
+   try{observer.frame(elapsed*1000,driver.accumulator,simulating);}catch{}
   }requestAnimationFrame(frame);
  };requestAnimationFrame(frame);
  document.addEventListener('visibilitychange',()=>{previous=performance.now();driver.reset();if(document.hidden&&world.phase==='battle'){world.paused=true;world.changed();session.requestSave();}});
- window.addEventListener('pagehide',()=>{if(world.runId)void session.saveNow().catch(()=>{});});
+ window.addEventListener('pagehide',()=>{observer.leaving();if(world.runId)void session.saveNow().catch(()=>{});});
  hud.update();hud.root.querySelector<HTMLButtonElement>('[data-action="menu-new"]')?.focus();
 }

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="theme-color" content="#0b141e">
+ <title>星际幸存小队 · UI 设计预览</title>
+ <link rel="stylesheet" href="./style.css">
+ <link rel="stylesheet" href="./style-r2.css">
+ <link rel="stylesheet" href="./style-r3.css">
+ <link rel="stylesheet" href="./style-r4.css">
+ <link rel="stylesheet" href="./style-r5.css">
+ <link rel="stylesheet" href="./style-r6.css">
+ <link rel="stylesheet" href="./style-r7.css">
+ <link rel="stylesheet" href="./style-r8.css">
+ <link rel="stylesheet" href="./style-r9.css">
+ <link rel="stylesheet" href="./style-r10.css">
+</head>
+<body>
+ <header class="preview-toolbar">
+  <div class="preview-brand"><span class="preview-mark">Ⅱ</span><div><strong>星际幸存小队</strong><small>UI 设计预览 · 静态场景</small></div></div>
+  <div class="preview-tools">
+   <div class="view-switch" role="group" aria-label="预览版本"><button data-device="desktop" data-layout="landscape" aria-pressed="true">桌面</button><button data-device="mobile" data-layout="landscape" aria-label="移动横屏" aria-pressed="false">横屏</button><button data-device="mobile" data-layout="portrait" aria-label="移动竖屏" aria-pressed="false">竖屏</button></div>
+   <label class="page-select"><span class="sr-only">跳转页面</span><select id="page-select" aria-label="跳转页面"></select></label>
+   <button id="demo-button" aria-pressed="false">播放流程</button>
+   <button id="motion-button" class="motion-button" aria-pressed="true" aria-label="动态效果开关">动效 开</button>
+  </div>
+ </header>
+ <main class="preview-shell" data-layout="landscape">
+  <div id="game-frame" class="game-frame" data-race="terran" data-device="desktop" aria-label="星际幸存小队界面预览">
+   <div class="space-scene" aria-hidden="true"><div class="starfield"></div><div class="planet"></div><div class="orbital-line"></div><div class="dust"></div></div>
+   <div id="scene"></div>
+   <div id="overlay-root"></div>
+   <div id="toast" role="status" aria-live="polite"></div>
+   <div class="transition-shutter" aria-hidden="true"></div>
+  </div>
+ </main>
+ <script type="module" src="./app.mjs"></script>
+</body>
+</html>

@@ -13,7 +13,7 @@ test('upgraded Mutalisk uses three independently upgraded source hits before one
  for(const elite of [false,true]){
   const w=world(),u=w.addUnit('mutalisk','terran',0,0,3);if(elite)u.eliteId='mutalisk.1';w.expedition!.tech['research.zerg.air.weapon']=3;w.runConfig!.frozenTalents.levels={'Z-S01':3,'Z-S02':3};w.expedition!.cardTotals['team.firepower.blue']=1;w.expedition!.cardTotals['team.firepower.purple']=1;w.refreshStats(u);
   const enemies=[2,3.5,5].map(x=>target(w.addUnit('roach','zerg',x,0))),factor=w.growth(u).damage*1.45*1.2*1.15;w.fire(u,enemies[0]);settleWeaponFlights(w);
-  close(10000-enemies[0].hp,12*factor);close(10000-enemies[1].hp,(3+3*.333)*factor*(elite?1.25:1));close(10000-enemies[2].hp,(1+3*.111)*factor*(elite?1.25:1));
+  close(10000-enemies[0].hp,12*factor);close(10000-enemies[1].hp,elite?12*factor*.8:(3+3*.333)*factor);close(10000-enemies[2].hp,elite?12*factor*.65:(1+3*.111)*factor);
  }
 });
 test('Baneling building damage uses its independent source upgrade and ignores armor without inheriting light bonus',()=>{

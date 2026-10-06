@@ -1,0 +1,34 @@
+import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+const root=new URL('./',import.meta.url),out=new URL('../../reports/local/ui-redesign-20261003/',root);
+const partial=process.argv.includes('--partial');
+const manifest=JSON.parse(await fs.readFile(new URL('art-r11/manifest-r11.json',root),'utf8'));
+if(manifest.missing.length&&!partial)throw new Error('Cannot deliver incomplete art: '+manifest.missing.length+' missing');
+if(!partial&&Object.values(manifest.entries).some(e=>e.review!=='agent-visually-reviewed-static-preview'))throw new Error('Required new art has not been visually reviewed');
+const previous=await fs.readFile(new URL('SC2-UI-Preview-r10.html',out),'utf8');
+const baselineSha=crypto.createHash('sha256').update(previous).digest('hex');
+if(baselineSha!=='ae054b1d62c42be619053f0ec9b9800af496f9f5ed94ee1905b6e07650843aea')throw new Error('R10 preservation fingerprint differs');
+const plates={};let artBytes=0;
+for(const [key,p] of Object.entries(manifest.plates)){
+ const bytes=await fs.readFile(new URL('art-r11/'+p.file,root));
+ if(crypto.createHash('sha256').update(bytes).digest('hex')!==p.sha256)throw new Error('Plate hash mismatch '+key);
+ plates[key]='data:image/webp;base64,'+bytes.toString('base64');artBytes+=bytes.length;
+}
+const module=(await fs.readFile(new URL('painted-cards-r11.mjs',root),'utf8')).replaceAll('export function ','function ');
+const css=await fs.readFile(new URL('style-r11.css',root),'utf8');
+const copy=JSON.parse(await fs.readFile(new URL('player-copy-r11.json',root),'utf8'));
+if(Object.keys(copy).length!==90)throw new Error('Expected ninety elite card subtitles');
+const globals=`<script>window.__UI_PAINTED_PLATES__=${JSON.stringify(plates)};window.__UI_PAINTED_CARDS__=${JSON.stringify(manifest.entries)};window.__UI_CARD_COPY__=${JSON.stringify(copy)};</script>`;
+const before='const painting=unitPainting(c,bodies);',after='const painting=paintedCard(c,bodies);';
+if(previous.split(before).length!==2)throw new Error('Unexpected art-consumer patch count');
+const oldStat="function shortStat(c){if(c.subtype==='eliteVariant'){const match=c.stat.match(/^[^。；]+/);return match?match[0]:c.stat;}if(c.group==='support')return c.stat.length>26?c.stat.slice(0,25)+'…':c.stat;return c.stat;}";
+if(previous.split(oldStat).length!==2)throw new Error('Unexpected card-subtitle patch count');
+const oldScroll='<div class="modal-content">${body}</div>';
+if(previous.split(oldScroll).length!==2)throw new Error('Unexpected modal scroll-container patch count');
+const html=previous.replace('</head>',`<style>${css}</style></head>`).replace(before,after).replace(oldStat,'function shortStat(c){return cardSubtitle(c); }').replace(oldScroll,'<div class="modal-content" tabindex="0">${body}</div>').replaceAll('<div class="im-choice-grid"','<div class="im-choice-grid" tabindex="0"').replace('<script type="module">',`${globals}<script type="module">${module}\n`);
+const filename=partial?'SC2-UI-Preview-r11-internal.html':'SC2-UI-Preview-r11.html';
+await fs.writeFile(new URL(filename,out),html);
+const report={artifact:fileURLToPath(new URL(filename,out)),revision:'r11',status:partial?'partial internal QA, not delivered final':'complete static art coverage; human art acceptance remains open',bytes:Buffer.byteLength(html),sha256:crypto.createHash('sha256').update(html).digest('hex'),preservedR10Sha256:baselineSha,paintedArtBytes:artBytes,paintedCounts:manifest.counts,missingPaintings:manifest.missing,method:manifest.method,retainedHeroCovers:9,sourceFixture:'cards-r9.json unchanged',preservedScope:'R7/R8 field rim, minimap housing, two-row folding console, explicit desktop/mobile input, covers, maps, talent navigation and all existing routes. No game runtime or save changes.'};
+await fs.writeFile(new URL(partial?'artifact-r11-internal.json':'artifact-r11.json',out),JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({file:filename,bytes:report.bytes,sha256:report.sha256,paintedCounts:report.paintedCounts,missing:report.missingPaintings.length}));

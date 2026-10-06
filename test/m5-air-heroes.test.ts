@@ -18,22 +18,22 @@ function resolve(w:World,time:number){w.time=time;w.hash.rebuild(w.entities.valu
 
 test('three approved air heroes have independent combat identities outside 30 ordinary families',()=>{
  for(const [race,id] of [['terran','yamato_battlecruiser'],['zerg','hots_leviathan'],['protoss','purifier_flagship']] as const){
-  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.unitType,id);assert.equal(u.race,race);assert.equal(u.team,'player');assert.equal(u.flying,true);assert.ok(Math.abs(u.maxHp-data.hp*(id==='yamato_battlecruiser'?1:1.15))<1e-8);assert.ok(Math.abs(u.maxShield!-data.shield*(id==='yamato_battlecruiser'?1:1.15))<1e-8);assert.equal(w.expedition.familySlots.includes(id as never),false);
+  const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.unitType,id);assert.equal(u.race,race);assert.equal(u.team,'player');assert.equal(u.flying,true);assert.ok(Math.abs(u.maxHp-data.hp*(id==='yamato_battlecruiser'?1:id==='hots_leviathan'?1.45:1.25))<1e-8);assert.ok(Math.abs(u.maxShield!-data.shield*(id==='yamato_battlecruiser'?1:id==='hots_leviathan'?1.45:1.5))<1e-8);assert.equal(w.expedition.familySlots.includes(id as never),false);
  }
 });
 
 test('Yamato main gun has two native hits and fixed-point fusion cannon saves in flight',()=>{
  const w=setup('terran'),u=hero(w,'yamato_battlecruiser'),main=enemy(w,4),near=enemy(w,4,1),far=enemy(w,12);
- w.fire(u,main);settleWeaponFlights(w);assert.equal(main.hp,9400);assert.ok(castExpeditionHero(w,'yamato_battlecruiser'));
- resolve(w,w.heroCasts[0].at-.01);assert.equal(main.hp,9400);const run=readArchive(writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()})).bundle.run!;
+ w.fire(u,main);settleWeaponFlights(w);assert.equal(main.hp,10000-u.weaponDamage*2);assert.ok(castExpeditionHero(w,'yamato_battlecruiser'));
+ resolve(w,w.heroCasts[0].at-.01);assert.equal(main.hp,10000-u.weaponDamage*2);const run=readArchive(writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()})).bundle.run!;
  const restored=setup('terran');restored.restoreRun(run);restored.paused=false;resolve(restored,restored.heroCasts[0].at);
- assert.equal(restored.entities.get(main.id)?.hp,200);assert.equal(restored.entities.get(near.id)?.hp,6320);assert.equal(restored.entities.get(far.id)?.hp,10000);assert.equal(restored.heroCasts.length,0);
+ assert.equal(restored.entities.get(main.id)?.hp,Math.max(0,10000-u.weaponDamage*2-HEROES.yamato_battlecruiser.skillDamage));assert.equal(restored.entities.get(near.id)?.hp,6320);assert.equal(restored.entities.get(far.id)?.hp,10000);assert.equal(restored.heroCasts.length,0);
 });
 
 test('Leviathan plasma storm gives three real pulses without spawning extra bodies',()=>{
  const w=setup('zerg');hero(w,'hots_leviathan');const target=enemy(w);const count=w.entities.size;
  assert.ok(castExpeditionHero(w,'hots_leviathan'));assert.deepEqual(w.heroCasts.map(c=>Number(c.at.toFixed(2))),[.8,1.6,2.4]);
- for(const [time,hp] of [[.79,10000],[.8,9820],[1.6,9640],[2.4,9460]] as const){resolve(w,time);assert.equal(target.hp,hp);}
+ for(const [time,hp] of [[.79,10000],[.8,7240],[1.6,4480],[2.4,1720]] as const){resolve(w,time);assert.equal(target.hp,hp);}
  assert.equal(w.entities.size,count);assert.equal(w.heroCasts.length,0);
 });
 
@@ -57,13 +57,13 @@ test('air-hero skills can target a real hive outside the entity spatial hash',()
  }
 });
 
-test('Purifier flagship owns four initial interceptors, pays for replacement and fires no ordinary hull gun',()=>{
+test('Purifier flagship owns twelve initial interceptors, pays for replacement and fires no ordinary hull gun',()=>{
  const w=setup('protoss'),carrier=hero(w,'purifier_flagship'),target=enemy(w);w.wallet.minerals=15;
- initializeCarrierSubsystem(w);const initial=ownedInterceptors(w,carrier.id);assert.equal(initial.length,4);
- assert.equal(initial[0].weaponDamage,SOURCE_INTERCEPTOR.weapon.attackDamage*1.15*1.2*1.15);
+ initializeCarrierSubsystem(w);const initial=ownedInterceptors(w,carrier.id);assert.equal(initial.length,12);
+ assert.equal(initial[0].weaponDamage,325);
  w.fire(carrier,target);settleWeaponFlights(w);assert.equal(target.hp,10000);
- assert.ok(castExpeditionHero(w,'purifier_flagship'));resolve(w,1.39);assert.equal(target.hp,10000);resolve(w,1.4);assert.equal(target.hp,9400);
- tickCarrierSubsystem(w,8.571428571428571);assert.equal(ownedInterceptors(w,carrier.id).length,5);assert.equal(w.wallet.minerals,0);
+ assert.ok(castExpeditionHero(w,'purifier_flagship'));resolve(w,1.39);assert.equal(target.hp,10000);resolve(w,1.4);assert.equal(target.hp,2640);
+ initial[0].hp=0;tickCarrierSubsystem(w,8.571428571428571);assert.equal(ownedInterceptors(w,carrier.id).length,12);assert.equal(w.wallet.minerals,0);
 });
 
 test('Purifier flagship alone remains a viable squad through normal battle steps',()=>{
@@ -71,5 +71,5 @@ test('Purifier flagship alone remains a viable squad through normal battle steps
  for(let tick=0;tick<120;tick++)w.step();
  assert.equal(w.phase,'battle');
  assert.ok(carrier.hp>0);
- assert.equal(ownedInterceptors(w,carrier.id).length,4);
+ assert.equal(ownedInterceptors(w,carrier.id).length,12);
 });

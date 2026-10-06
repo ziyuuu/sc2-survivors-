@@ -7,8 +7,7 @@ export const TRACKING_MINE={discovery:4,emergeSeconds:.25,speed:6,trigger:1.2,da
 export interface SupportMine {id:number;point:Point;phase:'buried'|'emerging'|'chasing';targetId:number|null;emergeAt:number;facing:number;}
 export function newSupportMine(id:number,point:Point):SupportMine{return {id,point:{...point},phase:'buried',targetId:null,emergeAt:0,facing:0};}
 /** Returns true exactly once: the caller removes the mine before applying damage. */
-export function advanceTrackingMine(w:World,mine:SupportMine,enemies:Entity[]):boolean{
- const c=TRACKING_MINE;
+export function advanceTrackingMine(w:World,mine:SupportMine,enemies:Entity[],c:{discovery:number;emergeSeconds:number;speed:number;trigger:number;radius:number}=TRACKING_MINE):boolean{
  const obstacles=mineObstacles(w);
  const contact=(target:Entity)=>distance(mine.point,target)<=c.trigger&&clearLine(mine.point,target,c.radius,obstacles,w.terrain);
  const nextStep=(target:Entity):Point|null=>{
@@ -40,4 +39,4 @@ function mineObstacles(w:World){
  const bodies=[...w.fortifications.values(),...w.expansionHives.values(),...(w.hive?[w.hive]:[]),...w.pods.filter(p=>['falling','active','opening'].includes(p.status)),...[...w.economicTargets.values()].filter(b=>b.status==='active')].filter(b=>b.hp>0&&!b.flying);
  return bodies.length?[...w.obstacles,...bodies.map(b=>({x:b.x,z:b.z,w:b.unitRadius*2,h:b.unitRadius*2}))]:w.obstacles;
 }
-export function minePlacementLegal(w:World,p:Point){const r=TRACKING_MINE.radius;return Math.abs(p.x)+r<w.mapHalf&&Math.abs(p.z)+r<w.mapHalf&&!blocked(p,r,mineObstacles(w))&&(!w.terrain||w.terrain.canOccupy(p,r));}
+export function minePlacementLegal(w:World,p:Point,r:number=TRACKING_MINE.radius){return Math.abs(p.x)+r<w.mapHalf&&Math.abs(p.z)+r<w.mapHalf&&!blocked(p,r,mineObstacles(w))&&(!w.terrain||w.terrain.canOccupy(p,r));}

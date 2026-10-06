@@ -1,7 +1,7 @@
 {
   "from": "ab86912deb86a0a8bf083cb6b10c5be6b988b995220f87502b2910c8cbfb6e64",
-  "to": "24774de00fc9052018c8ff659f8b8f9f3844dbbc287d376c4f655f99fce10b59",
-  "appBuildId": "f80032bfbe5eee341319212ae8631d11df4786a37637eed00ef66d43c232f0b7",
+  "to": "8080b97112f3af93b5d3ddfeadc5f3d7f89c3892c344cfc8c8903a1ca799c9eb",
+  "appBuildId": "259663dc9f1e2aa60299ee719e6f66ab97c41e44f44eb6b911c41ac74d6e10a7",
   "files": [
     {
       "url": "assets/06d07497dd9606b18fe0540594c233ca25fbcb54f95929d1c7244cea14a509f1.png",
@@ -12,9 +12,49 @@
         "common"
       ],
       "ids": [
-        "fx.hero-basic.firestreak7"
+        "fx.hero-basic.firestreak7",
+        "fx.hero-skill.firestreak7"
       ],
       "gitPath": "deploy/runtime/assets/06d07497dd9606b18fe0540594c233ca25fbcb54f95929d1c7244cea14a509f1.png"
+    },
+    {
+      "url": "assets/0d41f0e8b423c00919a7bf8923cfee9d575024a5559b270f2bc20990bbb20a1f.png",
+      "bytes": 21494,
+      "sha256": "0d41f0e8b423c00919a7bf8923cfee9d575024a5559b270f2bc20990bbb20a1f",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-skill.flare1"
+      ],
+      "gitPath": "deploy/runtime/assets/0d41f0e8b423c00919a7bf8923cfee9d575024a5559b270f2bc20990bbb20a1f.png"
+    },
+    {
+      "url": "assets/0e6a20895e737852ee8336f79e9f885217241f35b72c83543f0b29a0e226e557.png",
+      "bytes": 87375,
+      "sha256": "0e6a20895e737852ee8336f79e9f885217241f35b72c83543f0b29a0e226e557",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-upgrade.smoke_wispy11"
+      ],
+      "gitPath": "deploy/runtime/assets/0e6a20895e737852ee8336f79e9f885217241f35b72c83543f0b29a0e226e557.png"
+    },
+    {
+      "url": "assets/119d3eec43ea09f9b0c475f282f8de3e9f951f6b8ba78e9736d89b18024ff795.png",
+      "bytes": 14710,
+      "sha256": "119d3eec43ea09f9b0c475f282f8de3e9f951f6b8ba78e9736d89b18024ff795",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "p4.texture.beam"
+      ],
+      "gitPath": "deploy/runtime/assets/119d3eec43ea09f9b0c475f282f8de3e9f951f6b8ba78e9736d89b18024ff795.png"
     },
     {
       "url": "assets/15c0c580aadf28d489a2061cf3070734db992f54f47ec93f35e362eb45fee8ae.png",
@@ -25,9 +65,49 @@
         "common"
       ],
       "ids": [
-        "fx.hero-basic.flare2b"
+        "fx.hero-basic.flare2b",
+        "fx.hero-skill.flare2b"
       ],
       "gitPath": "deploy/runtime/assets/15c0c580aadf28d489a2061cf3070734db992f54f47ec93f35e362eb45fee8ae.png"
+    },
+    {
+      "url": "assets/1e2c203f7be7e4fbfb612cffd5c65647efabdd985ccd0bbcf073fab6ed24b9f5.png",
+      "bytes": 222259,
+      "sha256": "1e2c203f7be7e4fbfb612cffd5c65647efabdd985ccd0bbcf073fab6ed24b9f5",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-skill.nebulacloudsalphaparticle_purple"
+      ],
+      "gitPath": "deploy/runtime/assets/1e2c203f7be7e4fbfb612cffd5c65647efabdd985ccd0bbcf073fab6ed24b9f5.png"
+    },
+    {
+      "url": "assets/23b8a335191bbc3c6cc1e9812d2b07767e8d2ddfbba8a3dba6fa3413a945eb5b.png",
+      "bytes": 27839,
+      "sha256": "23b8a335191bbc3c6cc1e9812d2b07767e8d2ddfbba8a3dba6fa3413a945eb5b",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "p4.texture.flare"
+      ],
+      "gitPath": "deploy/runtime/assets/23b8a335191bbc3c6cc1e9812d2b07767e8d2ddfbba8a3dba6fa3413a945eb5b.png"
+    },
+    {
+      "url": "assets/24673200fbdb0dab2c04e20c88d2bd9a6bf2cbc910cdbd9327a773d39c7d0c41.png",
+      "bytes": 231472,
+      "sha256": "24673200fbdb0dab2c04e20c88d2bd9a6bf2cbc910cdbd9327a773d39c7d0c41",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-skill.plasmaanimx1_blue"
+      ],
+      "gitPath": "deploy/runtime/assets/24673200fbdb0dab2c04e20c88d2bd9a6bf2cbc910cdbd9327a773d39c7d0c41.png"
     },
     {
       "url": "assets/26f7d0f6a61b28b6a6e171a0a8ec754f39aeb3cd1b12546e0f845b42ff351e19.png",
@@ -38,7 +118,8 @@
         "common"
       ],
       "ids": [
-        "fx.hero-basic.energyplane3"
+        "fx.hero-basic.energyplane3",
+        "fx.hero-skill.energyplane3"
       ],
       "gitPath": "deploy/runtime/assets/26f7d0f6a61b28b6a6e171a0a8ec754f39aeb3cd1b12546e0f845b42ff351e19.png"
     },
@@ -51,7 +132,8 @@
         "common"
       ],
       "ids": [
-        "fx.hero-basic.kenney-smoke_04"
+        "fx.hero-basic.kenney-smoke_04",
+        "fx.hero-skill.kenney-smoke_04"
       ],
       "gitPath": "deploy/runtime/assets/2db2f69874cdb1e5203f2f86803d5debde30402590cf50a810afaba882184616.png"
     },
@@ -69,6 +151,19 @@
       "gitPath": "deploy/runtime/assets/3f3d687bd2c70b10add33bdbd4616deda28f0138f757d358f9f0b78fb38bde6e.png"
     },
     {
+      "url": "assets/4f8ddba1aae49eb7f100897e42d5093bb844d0127bc20bcc5330a0b7ed0fc375.png",
+      "bytes": 47938,
+      "sha256": "4f8ddba1aae49eb7f100897e42d5093bb844d0127bc20bcc5330a0b7ed0fc375",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-skill.shockwave1_burn1"
+      ],
+      "gitPath": "deploy/runtime/assets/4f8ddba1aae49eb7f100897e42d5093bb844d0127bc20bcc5330a0b7ed0fc375.png"
+    },
+    {
       "url": "assets/569970988b4849cf5f05d6294332a0ef91d86f7ede744b4b37e3eaa3bef886bd.png",
       "bytes": 119527,
       "sha256": "569970988b4849cf5f05d6294332a0ef91d86f7ede744b4b37e3eaa3bef886bd",
@@ -77,7 +172,8 @@
         "common"
       ],
       "ids": [
-        "fx.hero-basic.emergytrailcyan"
+        "fx.hero-basic.emergytrailcyan",
+        "fx.hero-skill.emergytrailcyan"
       ],
       "gitPath": "deploy/runtime/assets/569970988b4849cf5f05d6294332a0ef91d86f7ede744b4b37e3eaa3bef886bd.png"
     },
@@ -103,9 +199,36 @@
         "common"
       ],
       "ids": [
-        "fx.hero-basic.flare1_blueelec"
+        "fx.hero-basic.flare1_blueelec",
+        "fx.hero-skill.flare1_blueelec"
       ],
       "gitPath": "deploy/runtime/assets/57f1c3ee4f947ccd4a21cc537d36918d863eabb6b2f955b8573d7df4856aaa90.png"
+    },
+    {
+      "url": "assets/70f1366ebf86ff7c87a29419ef36598a636b0ed9008b83d95141654f9de27c38.png",
+      "bytes": 6769,
+      "sha256": "70f1366ebf86ff7c87a29419ef36598a636b0ed9008b83d95141654f9de27c38",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "p4.texture.heal"
+      ],
+      "gitPath": "deploy/runtime/assets/70f1366ebf86ff7c87a29419ef36598a636b0ed9008b83d95141654f9de27c38.png"
+    },
+    {
+      "url": "assets/8335284153cc65672d2a7bfa58e6e82453caec9ee8bfc88509c8eccd1f257218.png",
+      "bytes": 7348,
+      "sha256": "8335284153cc65672d2a7bfa58e6e82453caec9ee8bfc88509c8eccd1f257218",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-skill.shockwave_blur1_blue"
+      ],
+      "gitPath": "deploy/runtime/assets/8335284153cc65672d2a7bfa58e6e82453caec9ee8bfc88509c8eccd1f257218.png"
     },
     {
       "url": "assets/9b94d3918a64f8ef6256947851a7321812b1d00db1c2fcda044a44514e70f880.png",
@@ -116,9 +239,36 @@
         "common"
       ],
       "ids": [
-        "fx.hero-basic.emergytrailorange"
+        "fx.hero-basic.emergytrailorange",
+        "fx.hero-skill.emergytrailorange"
       ],
       "gitPath": "deploy/runtime/assets/9b94d3918a64f8ef6256947851a7321812b1d00db1c2fcda044a44514e70f880.png"
+    },
+    {
+      "url": "assets/9cdf59a8d095163e86241f903d0a537445c4c3d2f817d7bfe5ea92a1a6c43401.glb",
+      "bytes": 90028,
+      "sha256": "9cdf59a8d095163e86241f903d0a537445c4c3d2f817d7bfe5ea92a1a6c43401",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "model.hero-upgrade.vikingfightermissile"
+      ],
+      "gitPath": "deploy/runtime/assets/9cdf59a8d095163e86241f903d0a537445c4c3d2f817d7bfe5ea92a1a6c43401.glb"
+    },
+    {
+      "url": "assets/9eb9e8d4daa30de0a88fe2fd6f88ff7c3b215b77dbc3fdb296be1a3fdfa09f30.png",
+      "bytes": 229233,
+      "sha256": "9eb9e8d4daa30de0a88fe2fd6f88ff7c3b215b77dbc3fdb296be1a3fdfa09f30",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-upgrade.newsmoke01"
+      ],
+      "gitPath": "deploy/runtime/assets/9eb9e8d4daa30de0a88fe2fd6f88ff7c3b215b77dbc3fdb296be1a3fdfa09f30.png"
     },
     {
       "url": "assets/ad2d5d6cf9476682fccbe43d296eb6e2c69405582e2bb38f1b966e265e302acd.png",
@@ -142,7 +292,8 @@
         "common"
       ],
       "ids": [
-        "fx.hero-basic.kenney-twirl_01"
+        "fx.hero-basic.kenney-twirl_01",
+        "fx.hero-skill.kenney-twirl_01"
       ],
       "gitPath": "deploy/runtime/assets/ba3f4996a5a91ea3cba6817a9b4770a385a82ef0b9350cbda5c0f140d182af7e.png"
     },
@@ -168,10 +319,39 @@
         "common"
       ],
       "ids": [
-        "fx.hero-basic.fireanim_x4"
+        "fx.hero-basic.fireanim_x4",
+        "fx.hero-skill.fireanim_x4"
       ],
       "gitPath": "deploy/runtime/assets/d42ffcd94b53f918987cca6f84d1ad52975c2d7a24d53ad1400b6d6cb239b9da.png"
+    },
+    {
+      "url": "assets/ed5167054799b5dc8a675f05414dfca826cef77ef199521deddec137573d1070.png",
+      "bytes": 159721,
+      "sha256": "ed5167054799b5dc8a675f05414dfca826cef77ef199521deddec137573d1070",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-upgrade.firetile4"
+      ],
+      "gitPath": "deploy/runtime/assets/ed5167054799b5dc8a675f05414dfca826cef77ef199521deddec137573d1070.png"
+    },
+    {
+      "url": "assets/f7c5f1f849657eed79fd7b663be5a57829450a1e4fdc4a062049a05b9a406e89.png",
+      "bytes": 101613,
+      "sha256": "f7c5f1f849657eed79fd7b663be5a57829450a1e4fdc4a062049a05b9a406e89",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "fx.hero-skill.kenney-spark_02"
+      ],
+      "gitPath": "deploy/runtime/assets/f7c5f1f849657eed79fd7b663be5a57829450a1e4fdc4a062049a05b9a406e89.png"
     }
   ],
+  "reused": 531,
+  "newResourceBytes": 2153541,
   "retainedOldResources": true
 }

@@ -1,0 +1,106 @@
+{
+  "method": "Authentic existing local SC2 GLB models; fixed original idle poses; local Three renderer. Battle background uses isolated development fixture, not gameplay or performance acceptance.",
+  "models": [
+    {
+      "id": "model.hero.raynor",
+      "reused": true
+    },
+    {
+      "id": "model.hero.kerrigan",
+      "reused": true
+    },
+    {
+      "id": "model.hero.artanis",
+      "reused": true
+    },
+    {
+      "id": "model.hero.tychus",
+      "reused": true
+    },
+    {
+      "id": "model.hero.nova",
+      "reused": true
+    },
+    {
+      "id": "model.hero.zagara",
+      "reused": true
+    },
+    {
+      "id": "model.hero.dehaka",
+      "reused": true
+    },
+    {
+      "id": "model.hero.zeratul",
+      "reused": true
+    },
+    {
+      "id": "model.hero.fenix",
+      "reused": true
+    }
+  ],
+  "errors": [],
+  "protoss": {
+    "method": "Static illustration only. Actual prepared original Protoss GLB models, original idle clips and the existing industrial campaign-map renderer. No World or gameplay simulation.",
+    "models": [
+      {
+        "id": "model.zealot",
+        "count": 5,
+        "clip": "Stand"
+      },
+      {
+        "id": "model.stalker",
+        "count": 5,
+        "clip": "Stand"
+      },
+      {
+        "id": "model.immortal",
+        "count": 5,
+        "clip": "Stand"
+      },
+      {
+        "id": "model.sentry",
+        "count": 5,
+        "clip": "Stand"
+      },
+      {
+        "id": "model.colossus",
+        "count": 5,
+        "clip": "Stand"
+      },
+      {
+        "id": "model.hero.artanis",
+        "count": 1,
+        "clip": "Stand"
+      },
+      {
+        "id": "model.hero.zeratul",
+        "count": 1,
+        "clip": "Stand"
+      },
+      {
+        "id": "model.hero.fenix",
+        "count": 1,
+        "clip": "Stand"
+      },
+      {
+        "id": "model.zergling",
+        "count": 12,
+        "clip": "Stand"
+      }
+    ],
+    "map": {
+      "version": 1,
+      "seed": 271,
+      "theme": "industrial",
+      "layout": 0,
+      "stage": 6
+    }
+  },
+  "attempts": [
+    {
+      "method": "Full-game Protoss preload after Zerg capture",
+      "outcome": "page.waitForFunction for readiness exceeded 240000ms; no acceptance claimed",
+      "fallback": "Direct static render using the existing campaign map and original unit/hero model resources"
+    }
+  ]
+}

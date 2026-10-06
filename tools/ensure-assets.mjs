@@ -1,4 +1,7 @@
 import fs from 'node:fs/promises';
+if(await fs.stat('deploy/runtime/source-assets.json').then(()=>true,()=>false)){
+ await import('./restore-git-runtime.mjs');
+}else{
 await import('./prepare-assets.mjs');
 let rows=JSON.parse(await fs.readFile('reports/local/runtime-assets.json','utf8'));
 if(rows.some(r=>r.required&&r.status==='missing')){
@@ -21,3 +24,4 @@ if(!rows.some(r=>r.id==='map.kairos'&&r.status==='available')){try{await import(
 
 const expansion=JSON.parse(await fs.readFile('tools/expansion-models.json','utf8'));rows=JSON.parse(await fs.readFile('reports/local/runtime-assets.json','utf8'));
 if(expansion.some(a=>!rows.some(r=>r.id===a.id&&r.status==='available'))){console.log('Preparing pinned five-unit / elite / hero originals locally.');try{await import('./prepare-expansion.mjs');}catch(e){console.error('Expansion originals missing; npm run assets:expansion. Exact install paths: tools/expansion-dependencies.json',e.message);}}
+}

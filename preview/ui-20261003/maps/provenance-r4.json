@@ -1,0 +1,4370 @@
+{
+  "method": "Locally rendered original SC2 terrain and model resources; separate static compositions and lighting. No original assets uploaded, no World, no gameplay math changed.",
+  "renders": [
+    {
+      "race": "terran",
+      "kind": "landscape",
+      "width": 1920,
+      "height": 780,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.marine",
+          "x": -5.8,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -4,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -2.2,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -5.8,
+          "z": 4.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -4,
+          "z": 4.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -5.8,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -4,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -2.2,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -5.8,
+          "z": -2.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -4,
+          "z": -2.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -16.4,
+          "z": 4.710000000000001,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -13,
+          "z": 5.8100000000000005,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -9.6,
+          "z": 5.8100000000000005,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -15.447372055837116,
+          "z": 9.760000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -12.45,
+          "z": 9.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -17.8,
+          "z": -11.68,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -13,
+          "z": -11.68,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -8.2,
+          "z": -11.68,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -16.150000000000002,
+          "z": -6.88,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -13,
+          "z": -6.88,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -14.8,
+          "z": -1.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -13,
+          "z": -1.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -11.2,
+          "z": -1.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -14.8,
+          "z": 0.17000000000000015,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -13,
+          "z": 0.17000000000000015,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.raynor",
+          "x": 1,
+          "z": -2,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.1171985717774462,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.tychus",
+          "x": 1,
+          "z": 3,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.1226237340535141,
+          "originalClip": "Stand 02"
+        },
+        {
+          "id": "model.hero.nova",
+          "x": -1,
+          "z": -7,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.47605064501349087,
+          "originalClip": "Stand A"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "terran-landscape.jpg"
+    },
+    {
+      "race": "terran",
+      "kind": "portrait",
+      "width": 960,
+      "height": 1152,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.marine",
+          "x": -5.8,
+          "z": 4.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -4,
+          "z": 4.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -2.2,
+          "z": 4.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -5.8,
+          "z": 6.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -4,
+          "z": 6.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": 0.19999999999999996,
+          "z": 8.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": 2,
+          "z": 8.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": 3.8,
+          "z": 8.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": 0.19999999999999996,
+          "z": 10.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": 2,
+          "z": 10.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -7.4,
+          "z": 13.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -4,
+          "z": 13.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -0.6000000000000001,
+          "z": 13.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -6.923686027918559,
+          "z": 16.935000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -4,
+          "z": 17.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": 0.20000000000000018,
+          "z": 10.32,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": 5,
+          "z": 10.32,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": 9.8,
+          "z": 10.32,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": 0.20000000000000018,
+          "z": 15.120000000000001,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": 5,
+          "z": 15.120000000000001,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -9.8,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -8,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -6.2,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -9.8,
+          "z": 3.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -8,
+          "z": 3.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.raynor",
+          "x": 0,
+          "z": 0,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.1171985717774462,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.tychus",
+          "x": 4,
+          "z": 2,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.1226237340535141,
+          "originalClip": "Stand 02"
+        },
+        {
+          "id": "model.hero.nova",
+          "x": -4,
+          "z": -1,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.47605064501349087,
+          "originalClip": "Stand A"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "terran-portrait.jpg"
+    },
+    {
+      "race": "terran",
+      "kind": "wide",
+      "width": 2200,
+      "height": 440,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.marine",
+          "x": -18.8,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -17,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -15.2,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -18.8,
+          "z": 1.1700000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -17,
+          "z": 1.1700000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -11.8,
+          "z": 0.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -10,
+          "z": 0.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -8.2,
+          "z": 0.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -11.8,
+          "z": 2.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -10,
+          "z": 2.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -7.675000000000001,
+          "z": -1.666313972081441,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -4,
+          "z": -1.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -0.6000000000000001,
+          "z": -1.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -6.8500000000000005,
+          "z": 2.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -4,
+          "z": 2.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -3.8,
+          "z": -4.68,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": 1,
+          "z": -4.68,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": 5.8,
+          "z": -4.68,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -3.8,
+          "z": 0.1200000000000001,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": 1,
+          "z": 0.1200000000000001,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": 3.2,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": 5,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": 6.8,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": 3.2,
+          "z": 3.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": 5,
+          "z": 3.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.raynor",
+          "x": 8,
+          "z": -3,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.1171985717774462,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.tychus",
+          "x": 9,
+          "z": 1,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.1226237340535141,
+          "originalClip": "Stand 02"
+        },
+        {
+          "id": "model.hero.nova",
+          "x": 8,
+          "z": 5,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.47605064501349087,
+          "originalClip": "Stand A"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18.476313972081442,
+          "z": -4.725,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.931259204458986,
+          "z": -4.857649525193613,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 21.35,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.75,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.4,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 20.8,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.2,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.4,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 20.8,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.2,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.4,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 20.8,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.2,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "terran-wide.jpg"
+    },
+    {
+      "race": "terran",
+      "kind": "minimap",
+      "width": 800,
+      "height": 800,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.marine",
+          "x": -5.8,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -4,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -2.2,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -5.8,
+          "z": 4.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marine",
+          "x": -4,
+          "z": 4.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.4370011153741486,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -5.8,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -4,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -2.2,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -5.8,
+          "z": -2.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.marauder",
+          "x": -4,
+          "z": -2.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6990105201450186,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -16.4,
+          "z": 4.710000000000001,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -13,
+          "z": 5.8100000000000005,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -9.6,
+          "z": 5.8100000000000005,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -15.447372055837116,
+          "z": 9.760000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.tank",
+          "x": -12.45,
+          "z": 9.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.2692327346801753,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -17.8,
+          "z": -11.68,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -13,
+          "z": -11.68,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -8.2,
+          "z": -11.68,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -16.150000000000002,
+          "z": -6.88,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.medivac",
+          "x": -13,
+          "z": -6.88,
+          "air": true,
+          "side": "friendly",
+          "footprint": 1.1082103176118283,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -14.8,
+          "z": -1.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -13,
+          "z": -1.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -11.2,
+          "z": -1.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -14.8,
+          "z": 0.17000000000000015,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.reaper",
+          "x": -13,
+          "z": 0.17000000000000015,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.521132133334339,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.raynor",
+          "x": 1,
+          "z": -2,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.1171985717774462,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.tychus",
+          "x": 1,
+          "z": 3,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.1226237340535141,
+          "originalClip": "Stand 02"
+        },
+        {
+          "id": "model.hero.nova",
+          "x": -1,
+          "z": -7,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.47605064501349087,
+          "originalClip": "Stand A"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "terran-minimap.jpg"
+    },
+    {
+      "race": "zerg",
+      "kind": "landscape",
+      "width": 1920,
+      "height": 780,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.zergling",
+          "x": -5.8,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -4.768740795541012,
+          "z": 3.162350474806386,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -3.45,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -2.4374815910820247,
+          "z": 3.304700949612773,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -2.2,
+          "z": 1.82,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -1.1500000000000001,
+          "z": 3.02,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -5.8,
+          "z": 4.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -4.768740795541012,
+          "z": 4.962350474806387,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -3.45,
+          "z": 4.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -2.4374815910820247,
+          "z": 5.1047009496127735,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -5.8,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -4,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -2.2,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -5.8,
+          "z": -2.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -4,
+          "z": -2.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -14.8,
+          "z": 6.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -12.45,
+          "z": 6.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -10.1,
+          "z": 6.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -14.657649525193614,
+          "z": 8.701259204458987,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -12.047372055837117,
+          "z": 8.72,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": -16.4,
+          "z": -11.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": -13,
+          "z": -11.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": -9.6,
+          "z": -11.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": -16.4,
+          "z": -7.79,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": -13,
+          "z": -7.79,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -14.8,
+          "z": -1.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -13,
+          "z": -1.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -11.2,
+          "z": -1.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -14.8,
+          "z": 0.17000000000000015,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -13,
+          "z": 0.17000000000000015,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.kerrigan",
+          "x": 1,
+          "z": -2,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.9296498336625612,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.zagara",
+          "x": 1.55,
+          "z": 3,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.75,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.dehaka",
+          "x": -1,
+          "z": -7,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.3627835378990787,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "zerg-landscape.jpg"
+    },
+    {
+      "race": "zerg",
+      "kind": "portrait",
+      "width": 960,
+      "height": 1152,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.zergling",
+          "x": -5.8,
+          "z": 4.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -4.768740795541012,
+          "z": 5.162350474806387,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -3.45,
+          "z": 4.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -2.4374815910820247,
+          "z": 5.304700949612773,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -2.2,
+          "z": 3.8200000000000003,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -1.1500000000000001,
+          "z": 5.0200000000000005,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -5.8,
+          "z": 6.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -4.768740795541012,
+          "z": 6.962350474806387,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -3.45,
+          "z": 6.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -2.4374815910820247,
+          "z": 7.1047009496127735,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": 0.19999999999999996,
+          "z": 8.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": 2,
+          "z": 8.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": 3.8,
+          "z": 8.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": 0.19999999999999996,
+          "z": 10.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": 2,
+          "z": 10.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -5.8,
+          "z": 14.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -3.45,
+          "z": 14.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -1.1,
+          "z": 14.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -5.657649525193613,
+          "z": 16.70125920445899,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -3.0473720558371173,
+          "z": 16.720000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": 2.0270514244191595,
+          "z": 12.403777613376963,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": 5,
+          "z": 10.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": 8.4,
+          "z": 10.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": 2.1500000000000004,
+          "z": 15.162627944162884,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": 5,
+          "z": 14.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -9.8,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -8,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -6.2,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -9.8,
+          "z": 3.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": -8,
+          "z": 3.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.kerrigan",
+          "x": 0,
+          "z": 0,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.9296498336625612,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.zagara",
+          "x": 4,
+          "z": 2,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.75,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.dehaka",
+          "x": -4,
+          "z": -1,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.3627835378990787,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "zerg-portrait.jpg"
+    },
+    {
+      "race": "zerg",
+      "kind": "wide",
+      "width": 2200,
+      "height": 440,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.zergling",
+          "x": -18.8,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -17.768740795541014,
+          "z": 0.16235047480638642,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -16.45,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -15.437481591082024,
+          "z": 0.30470094961277283,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -15.2,
+          "z": -1.1800000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -14.149999999999999,
+          "z": 0.020000000000000018,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -18.8,
+          "z": 1.1700000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -17.768740795541014,
+          "z": 1.9623504748063867,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -16.45,
+          "z": 1.1700000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": -15.437481591082024,
+          "z": 2.104700949612773,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -11.8,
+          "z": 0.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -10,
+          "z": 0.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -8.2,
+          "z": 0.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -11.8,
+          "z": 2.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.roach",
+          "x": -10,
+          "z": 2.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7458506844051249,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -5.8,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -3.45,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -1.1,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -5.657649525193613,
+          "z": 1.7012592044589878,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hydralisk",
+          "x": -3.0473720558371173,
+          "z": 1.7200000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.094504551136587,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": -2.4,
+          "z": -4.1899999999999995,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": 1,
+          "z": -4.1899999999999995,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": 4.4,
+          "z": -4.1899999999999995,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": 1.4500000000000006,
+          "z": -0.79,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.queen",
+          "x": 1.7117523740319323,
+          "z": 1.866296022294938,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.25,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": 3.75,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": 5,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": 6.8,
+          "z": 1.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": 3.2,
+          "z": 3.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.baneling",
+          "x": 5,
+          "z": 3.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5538065559793123,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.kerrigan",
+          "x": 8,
+          "z": -3,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.9296498336625612,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.zagara",
+          "x": 9.55,
+          "z": 1,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.75,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.dehaka",
+          "x": 8,
+          "z": 5,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.3627835378990787,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18.476313972081442,
+          "z": -4.725,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.931259204458986,
+          "z": -4.857649525193613,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 21.35,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.75,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.4,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 20.8,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.2,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.4,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 20.8,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.2,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.4,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 20.8,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.2,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "zerg-wide.jpg"
+    },
+    {
+      "race": "protoss",
+      "kind": "landscape",
+      "width": 1920,
+      "height": 780,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.zealot",
+          "x": -5.8,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -4,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -2.2,
+          "z": 2.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -5.8,
+          "z": 4.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -4,
+          "z": 4.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -5.8,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -4,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -2.2,
+          "z": -4.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -5.8,
+          "z": -2.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -4,
+          "z": -2.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -15.299999999999999,
+          "z": 5.8100000000000005,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -13,
+          "z": 5.8100000000000005,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -9.6,
+          "z": 5.8100000000000005,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -15.299999999999999,
+          "z": 9.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -13,
+          "z": 9.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": -14.8,
+          "z": -10.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": -13,
+          "z": -10.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": -11.2,
+          "z": -10.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": -14.8,
+          "z": -8.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": -13,
+          "z": -8.83,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -16.4,
+          "z": -2.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -13,
+          "z": -2.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -9.6,
+          "z": -2.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -16.4,
+          "z": 1.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -13,
+          "z": 1.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.artanis",
+          "x": 1,
+          "z": -2,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5308041965136376,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.zeratul",
+          "x": 1,
+          "z": 3,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6798497108037296,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.fenix",
+          "x": -1,
+          "z": -7,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.600549525319259,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 11,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 12.65,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 14.3,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 15.95,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "protoss-landscape.jpg"
+    },
+    {
+      "race": "protoss",
+      "kind": "portrait",
+      "width": 960,
+      "height": 1152,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.zealot",
+          "x": -5.8,
+          "z": 4.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -4,
+          "z": 4.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -2.2,
+          "z": 4.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -5.8,
+          "z": 6.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -4,
+          "z": 6.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": 0.19999999999999996,
+          "z": 8.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": 2,
+          "z": 8.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": 3.8,
+          "z": 8.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": 0.19999999999999996,
+          "z": 10.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": 2,
+          "z": 10.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -7.4,
+          "z": 13.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -4,
+          "z": 13.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -0.6000000000000001,
+          "z": 13.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -6.8500000000000005,
+          "z": 17.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -4,
+          "z": 17.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": 3.2,
+          "z": 11.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": 5,
+          "z": 11.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": 6.8,
+          "z": 11.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": 3.2,
+          "z": 13.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": 5,
+          "z": 13.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -11.4,
+          "z": 0.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -8,
+          "z": 0.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -4.6,
+          "z": 0.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -11.4,
+          "z": 4.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": -8,
+          "z": 4.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.artanis",
+          "x": 0,
+          "z": 0,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5308041965136376,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.zeratul",
+          "x": 4,
+          "z": 2,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6798497108037296,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.fenix",
+          "x": -4.825000000000001,
+          "z": -2.4289419162443235,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.600549525319259,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -15,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -13.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -12,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 2.825,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 4.275,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 5.725,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 7.175,
+          "z": -10.5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "protoss-portrait.jpg"
+    },
+    {
+      "race": "protoss",
+      "kind": "wide",
+      "width": 2200,
+      "height": 440,
+      "recipe": {
+        "version": 1,
+        "seed": 271,
+        "theme": "industrial",
+        "layout": 0
+      },
+      "stage": 6,
+      "map": {
+        "name": "工业遗址",
+        "models": 3,
+        "placements": 24,
+        "visibleInstances": 11,
+        "visibleMeshes": 4,
+        "area": 2558.5,
+        "scale": 1,
+        "sourceSha256": "campaign-radial-v1:industrial:0:271:f99bf8c1"
+      },
+      "units": [
+        {
+          "id": "model.zealot",
+          "x": -18.8,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -17,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -15.2,
+          "z": -0.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -18.8,
+          "z": 1.1700000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zealot",
+          "x": -17,
+          "z": 1.1700000000000002,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.45868276171847855,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -11.8,
+          "z": 0.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -10,
+          "z": 0.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -8.2,
+          "z": 0.37,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -11.8,
+          "z": 2.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.stalker",
+          "x": -10,
+          "z": 2.17,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.7581889745254315,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -7.4,
+          "z": -1.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -4,
+          "z": -1.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -0.6000000000000001,
+          "z": -1.19,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -7.4,
+          "z": 2.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.immortal",
+          "x": -4,
+          "z": 2.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.8725101593654968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": -0.8,
+          "z": -3.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": 1,
+          "z": -3.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": 2.8,
+          "z": -3.63,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": -1.752627944162883,
+          "z": -2.3799999999999994,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.sentry",
+          "x": 1,
+          "z": -1.8299999999999998,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6452107465856534,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": 1.6,
+          "z": 0.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": 5,
+          "z": 0.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": 8.4,
+          "z": 0.81,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": 1.6,
+          "z": 4.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.colossus",
+          "x": 5,
+          "z": 4.21,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.4072778842362794,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.artanis",
+          "x": 8,
+          "z": -3,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.5308041965136376,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.zeratul",
+          "x": 10.65,
+          "z": 1,
+          "air": false,
+          "side": "friendly",
+          "footprint": 0.6798497108037296,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.hero.fenix",
+          "x": 8.55,
+          "z": 5,
+          "air": false,
+          "side": "friendly",
+          "footprint": 1.600549525319259,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18.476313972081442,
+          "z": -4.725,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.931259204458986,
+          "z": -4.857649525193613,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 21.35,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.75,
+          "z": -5,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.4,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 20.8,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.2,
+          "z": -3.35,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.4,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 20.8,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.2,
+          "z": -1.7000000000000002,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 18,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 19.4,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 20.8,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        },
+        {
+          "id": "model.zergling",
+          "x": 22.2,
+          "z": -0.05000000000000071,
+          "air": false,
+          "side": "enemy",
+          "footprint": 0.5699592809014968,
+          "originalClip": "Stand"
+        }
+      ],
+      "scope": "Local static authoring only; original models and original campaign terrain. No World or gameplay acceptance.",
+      "file": "protoss-wide.jpg"
+    }
+  ]
+}

@@ -7,7 +7,7 @@ export class HttpAssetStore {
  private shared=new Map<string,Promise<string>>();
  private prefetching=new Map<string,Promise<void>>();
  readonly cache=new ResourceCache();
- readonly metrics={downloadBytes:0,cachedBytes:0,files:0};
+ readonly metrics={downloadBytes:0,cachedBytes:0,files:0,cacheHits:0,cacheMisses:0};
  constructor(readonly manifest:HttpAssetManifest,readonly base:string,private request:typeof fetch=(input,init)=>fetch(input,init)){
   if(manifest.version!==1||!manifest.release||!manifest.assets)throw Error('Web资源清单无效');
   for(const a of Object.values(manifest.assets))if(!/^assets\/[a-f0-9]{64}\.[a-z0-9]+$/.test(a.url)||!Number.isSafeInteger(a.bytes)||a.bytes<0||!/^[a-f0-9]{64}$/.test(a.sha256))throw Error('Web资源记录无效');
@@ -19,8 +19,8 @@ export class HttpAssetStore {
    await this.prefetching.get(asset.sha256);
    const valid=async(bytes:ArrayBuffer)=>bytes.byteLength===asset.bytes&&[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('')===asset.sha256;
    const cached=await this.cache.get(asset.sha256);
-   if(cached&&await valid(cached)){this.metrics.cachedBytes+=cached.byteLength;this.metrics.files++;return URL.createObjectURL(new Blob([cached],{type:asset.mime}));}
-   if(cached)await this.cache.remove(asset.sha256);
+   if(cached&&await valid(cached)){this.metrics.cacheHits++;this.metrics.cachedBytes+=cached.byteLength;this.metrics.files++;return URL.createObjectURL(new Blob([cached],{type:asset.mime}));}
+   this.metrics.cacheMisses++;if(cached)await this.cache.remove(asset.sha256);
    for(let attempt=0;attempt<2;attempt++){
     const response=await this.request(new URL(asset.url,this.base),{cache:attempt?'reload':'default',credentials:'omit'});
     if(!response.ok)throw Error(`${id} 下载失败 (${response.status})`);

@@ -1,3 +1,4 @@
+import {tickWeaponFlights} from '../src/simulation/combat/weapon-flight';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
@@ -43,7 +44,7 @@ for(const elite of [undefined,'reaper.1','reaper.2','reaper.3'] as const)for(con
  const w=make();if(talented)w.runConfig!.frozenTalents.levels={'T-S01':3,'T-M01':3,'T-M02':3,'T-M03':3,'T-M04':2,'T-M05':3,'T-M06':2};
  const u=w.addUnit('reaper','terran',0,0),target=w.addUnit('roach','zerg',0,4);if(elite){u.eliteId=elite as EliteId;u.modelKey=ELITES[elite].model;w.refreshStats(u,true);}
  target.hp=target.maxHp=10000;target.armor=0;const expected={period:u.attackPeriod,range:u.attackRange,damage:u.weaponDamage},shots:number[]=[];
- for(let i=0;i<360;i++){w.tick++;w.time+=1/60;w.anchorStoppedFor=1;w.hash.rebuild(w.entities.values());const old=u.shotSequence??0;w.updateUnit(u,1/60);if((u.shotSequence??0)>old)shots.push(w.time);}
+ for(let i=0;i<360;i++){w.tick++;w.time+=1/60;w.anchorStoppedFor=1;w.hash.rebuild(w.entities.values());const old=u.shotSequence??0;w.updateUnit(u,1/60);tickWeaponFlights(w,1/60);if((u.shotSequence??0)>old)shots.push(w.time);}
  assert.ok(shots.length>=7);for(let i=1;i<shots.length;i++)assert.ok(shots[i]-shots[i-1]+1e-8>=expected.period);
  for(let n=0;n<10;n++)w.refreshStats(u);close(u.attackPeriod,expected.period);close(u.attackRange,expected.range);close(u.weaponDamage,expected.damage);
  assert.ok(target.hp<10000);assert.equal(w.visualEvents.filter(e=>e.kind==='attack'&&e.entityId===u.id).length,shots.length);

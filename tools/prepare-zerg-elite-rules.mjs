@@ -1,0 +1,7 @@
+import fs from 'node:fs/promises';
+const d=JSON.parse(await fs.readFile('docs/project/NEXT_ITERATION_P4_VALUES_20261005.json','utf8'));
+const rows=d.approved.elites.filter(r=>r.race==='zerg');
+if(rows.length!==30)throw Error('Approved Zerg elite coverage');
+const rules=Object.fromEntries(rows.map(r=>[r.id,{name:r.name,body:r.body,parameters:r.parameters,description:r.loop+' '+r.limit,visual:r.visual}]));
+await fs.writeFile('src/data/zerg-elites.ts',`import {rankStats} from './ranks';\nimport {TERRAN_ELITE_BODIES,eliteFixedGrowth} from './terran-elites';\n/** Explicit approved P4-B runtime rules. The planning JSON is never imported by the game. */\nexport const ZERG_ELITE_RULES=${JSON.stringify(rules,null,2)} as const;\nexport type ZergEliteId=keyof typeof ZERG_ELITE_RULES;\nexport const ZERG_ELITE_IDS=Object.keys(ZERG_ELITE_RULES) as ZergEliteId[];\nexport const isZergEliteId=(id:string|undefined):id is ZergEliteId=>!!id&&Object.hasOwn(ZERG_ELITE_RULES,id);\nexport function zergEliteGrowth(id:ZergEliteId,rank:number){const base=rankStats(5),n=Math.max(0,Math.min(4,rank-1)),b=TERRAN_ELITE_BODIES[ZERG_ELITE_RULES[id].body];return {...base,rank,damage:base.damage*b.dps*eliteFixedGrowth(rank),health:base.health*b.hp*(1+.3*n),armor:base.armor,movement:b.move,healing:base.healing*b.heal*eliteFixedGrowth(rank),energy:5*(1+.2*n)};}\nexport const zergEliteArmor=(id:ZergEliteId,rank:number)=>TERRAN_ELITE_BODIES[ZERG_ELITE_RULES[id].body].armor+.5*Math.max(0,Math.min(4,rank-1));\n`);
+console.log('Authored thirty approved Zerg runtime records');

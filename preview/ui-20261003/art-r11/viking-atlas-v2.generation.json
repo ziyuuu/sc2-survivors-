@@ -1,0 +1,9 @@
+{
+  "key": "viking-atlas-v2",
+  "prompt": "Refine the LOWER units in this newly generated StarCraft II Viking atlas to show authentic aircraft-versus-ground identity. Keep four empty upper environments and all typography-free transparent layout. COLUMN 1 ordinary Viking: airborne FIGHTER MODE, recognizable central cockpit between twin elongated engine fuselages, wings fully visible, legs folded/retracted into the hull, NOT a standing robot. COLUMN 2 transform elite: dynamic partially transforming mode, distinct articulated joints and wings opening, remaining clearly the same Viking. COLUMN 3 anti-air elite: airborne FIGHTER MODE with folded legs and visible anti-air missile racks plus small bounded engine exhaust. COLUMN 4 ground-assault elite: keep the recognizable landed two-legged Viking with two arm cannons. Each whole unit, all wing/weapon tips, fits fully inside its column, no crossed bodies or cropped limbs. Four bodies total, one per column, genuine alpha outside. Preserve mature SC2 cinematic painted steel/material quality, no labels, new frame or checkerboard.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-0e1c08b4-aa55-4e3f-b283-ecce45ac1d87.png",
+  "input": "viking-atlas.png",
+  "output": "viking-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

@@ -24,6 +24,7 @@ const requireModel=(key,reason)=>{
   useIfPresent(`model.${key}${suffix}`,`${reason}: ${suffix.slice(1)} action`);
 };
 
+for(const id of ['p4.texture.beam','p4.texture.flare','p4.texture.heal'])requireAsset(id,'Verified original Terran elite healing presentation');
 requireAsset('model.support.mine','Terran support card persistent Spider Mine');
 for(const key of ['scv','drone','probe','barracks','hatchery','pylon','pylon.birth','barracks.death','hatchery.death','pylon.death'])requireAsset(`model.${key}`,'Required authentic worker/carrier and matching death');
 

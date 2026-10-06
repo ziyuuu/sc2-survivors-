@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R4 本地地图素材制作</title>
+<style>body{margin:0;background:#0b141c;color:#c5d7e3;font:14px 'Segoe UI','Microsoft YaHei',sans-serif}header{padding:12px 16px;display:flex;align-items:center;gap:12px}select,button{background:#152a3a;border:1px solid #567486;color:inherit;padding:8px}main{height:calc(100vh - 150px);display:grid;place-items:center}#render-preview{max-width:100%;max-height:100%;object-fit:contain}#render-status{margin:8px 16px;color:#92b4c9}#render-receipt{margin:8px 16px;max-height:55px;overflow:auto;font-size:10px;white-space:pre-wrap}</style></head><body>
+<header><b>R4 · 本地静态地图</b><label>阵营 <select id="map-race" aria-label="阵营"><option value="terran">人族</option><option value="zerg">虫族</option><option value="protoss">神族</option></select></label><label>构图 <select id="map-kind" aria-label="构图"><option value="landscape">横屏</option><option value="portrait">竖屏</option><option value="wide">手机横屏</option><option value="minimap">小地图</option></select></label><button id="render-map">制作场景</button></header>
+<main><img id="render-preview" alt="本地原素材绘制的静态地图"></main><p id="render-status" role="status">准备中</p><pre id="render-receipt"></pre>
+<script type="module" src="./render-maps-r4.bundle.js"></script></body></html>

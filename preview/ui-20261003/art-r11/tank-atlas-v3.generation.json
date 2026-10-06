@@ -1,0 +1,9 @@
+{
+  "key": "tank-atlas-v3",
+  "prompt": "Refine this newly generated four-column SC2 Siege Tank source atlas. Keep all four upper empty battlefield landscapes exactly and the same mature heavy tracked Terran tank design. Recompose ONLY the lower row: each of the four complete tanks must be comfortably isolated WITHIN its own quarter-column, including the entire long cannon, all tracks, FULL siege stabilizer feet and ground outrigger plates. Use a slightly adjusted three-quarter angle and body position to leave about 30px real-alpha margin at both sides of each quarter. Never clip any foot, cannon or hull at a column edge. All lower unused space genuinely transparent; no vertical separator line. Keep tank1 mobile, tank2 braced long-range siege with longer barrel, tank3 braced heavy siege firing, tank4 agile mobile driving with dust. Critical tank3 firing correction: replace its oversized left-boundary-clipped explosion/smoke with one SMALL circular muzzle flash and compact semi-transparent soft grey smoke fully inside column3 and clear of its edges. No cut-off rectangle or solid black mat. Tank4 dust similarly localized within its own column. Distinct hull structure/poses still read; realistically painted metal, scorch scratches, tracks and gold-red light. Clear 30px transparent separator below scenery. No words, labels, numbers, frames, no additional tanks in landscapes.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-5d5bc7da-8a1d-4294-84c3-9ecf3456eac1.png",
+  "output": "tank-atlas-v3.png",
+  "intent": "edit-newly-generated-art",
+  "input": "tank-atlas-v2.png",
+  "privateReferencesUploaded": false
+}

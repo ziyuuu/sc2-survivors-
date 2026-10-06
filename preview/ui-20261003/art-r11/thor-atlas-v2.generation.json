@@ -1,0 +1,9 @@
+{
+  "key": "thor-atlas-v2",
+  "prompt": "Edit ONLY the four UPPER environment panels of this newly generated SC2 Thor atlas. Remove recognizable intact fighting aircraft, ships, mechs, Thor units and the mech/cannon unit atop the defensive wall in the fourth panel. Keep empty huge industrial dock structures, missile contrails in cloud, cratered heavy battle terrain and an empty battered defensive wall respectively. Environment panels contain zero recognizable troop bodies; terrain and empty structures only. Preserve the four LOWER isolated Thor paintings exactly, all armor details, missile arrays, complete legs and alpha. Keep the four-column layout and full body separation. No text, new frame or labels.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-669879ed-483d-4e14-aa1e-25e83dca67c9.png",
+  "input": "thor-atlas.png",
+  "output": "thor-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

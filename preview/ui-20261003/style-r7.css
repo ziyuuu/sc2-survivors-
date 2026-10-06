@@ -1,0 +1,28 @@
+/* R7: SC2-inspired minimap housing. Its screen and the R6 playfield keep their size. */
+.battle-playfield .mini-map {
+ border: 1px solid #10181f;
+ background: #04090d;
+ box-shadow: inset 0 0 0 2px #000,0 2px 7px #0009;
+ overflow: visible;
+ clip-path: none;
+ isolation: isolate;
+ pointer-events: none;
+}
+.mini-map > img { opacity: 1; }
+.mini-map > .minimap-view { z-index: 2; border-color: #a4bdbbba; }
+.mini-map > svg.minimap-chassis {
+ position: absolute;
+ inset: -4px;
+ width: calc(100% + 8px);
+ height: calc(100% + 8px);
+ margin: 0;
+ overflow: visible;
+ z-index: 3;
+ pointer-events: none;
+ filter: drop-shadow(0 2px 2px #000a);
+}
+.game-frame[data-race=zerg] .minimap-lamps { stroke: #b69bc5; }
+.game-frame[data-race=protoss] .minimap-lamps { stroke: #d6c386; }
+@container game (max-height:500px) and (min-width:601px) {
+ .minimap-chassis .minimap-hazard { display: none; }
+}

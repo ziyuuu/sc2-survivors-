@@ -57,17 +57,10 @@ test('shield-only damage scales once with rank and weapon cards and retains sepa
 });
 
 
-test('heavy siege elite adds its timed range to derived talent range once and resets on undeploy',()=>{
- const w=world(),u=w.addUnit('tank','terran',0,0,3);u.eliteId='tank.1';u.mode=u.desiredMode='siege';w.runConfig!.frozenTalents.levels={'T-M02':3};w.refreshStats(u);u.hp-=27;u.nextShotAt=30;
- const base=SIEGE.range*1.15;w.time=1;w.tick=1;w.updateUnit(u,1/60);close(u.attackRange,base);
- for(const [time,extra] of [[4,1],[7,2],[10,3],[40,3]]){w.time=time;for(let i=0;i<10;i++){w.tick++;w.updateUnit(u,1/60);close(u.attackRange,base+extra);}}
- close(u.maxHp-u.hp,27);assert.equal(u.nextShotAt,30);
- u.modeTimer=1;u.action='unsieging';u.desiredMode='tank';w.updateUnit(u,1/60);close(u.attackRange,base);assert.equal(u.siegeSince,undefined);
- u.mode=u.desiredMode='tank';u.modeTimer=0;w.updateUnit(u,1/60);close(u.attackRange,SC2_UNITS.tank.attackRange*1.15);
- u.mode=u.desiredMode='siege';w.time=50;w.updateUnit(u,1/60);close(u.attackRange,base);assert.equal(u.siegeSince,50);
+test('formal mobile siege elite retains derived siege range and wounds through repeated refresh',()=>{
+ const w=world(),u=w.addUnit('tank','terran',0,0,3);u.eliteId='tank.1';u.mode=u.desiredMode='tank';w.runConfig!.frozenTalents.levels={'T-M02':3};w.refreshStats(u);u.hp-=27;u.nextShotAt=30;
+ const base=SIEGE.range*1.15;for(const time of [1,4,7,10,40]){w.time=time;w.refreshStats(u);close(u.attackRange,base);close(u.maxHp-u.hp,27);assert.equal(u.nextShotAt,30);}
 });
-
-test('legacy heavy siege elite preserves its historical range rule',()=>{
- const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();const u=w.addUnit('tank','terran',0,0);u.eliteId='tank.1';u.mode=u.desiredMode='siege';
- w.time=1;w.updateUnit(u,1/60);close(u.attackRange,SIEGE.range);w.time=10;w.updateUnit(u,1/60);close(u.attackRange,SIEGE.range+3);u.mode=u.desiredMode='tank';w.updateUnit(u,1/60);close(u.attackRange,SC2_UNITS.tank.attackRange);
+test('ordinary tank retains original siege/undeploy range; mobile elite always uses the siege weapon',()=>{
+ const w=world(),u=w.addUnit('tank','terran',0,0);u.mode='siege';w.refreshStats(u);close(u.attackRange,SIEGE.range);u.mode='tank';w.refreshStats(u);close(u.attackRange,SC2_UNITS.tank.attackRange);u.eliteId='tank.1';w.refreshStats(u);close(u.attackRange,SIEGE.range);
 });

@@ -1,4 +1,5 @@
 import {settleWeaponFlights} from './helpers/weapon-flight';
+import {tickProtossEliteState} from '../src/simulation/combat/protoss-elite-runtime';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
@@ -30,21 +31,21 @@ test('elite family choice spends once, rejects implicit or cross-family selectio
 test('three highlighted new variants apply only their approved target, radius, or storm conditions',()=>{
  const t=make('terran'),v=t.addUnit('viking','terran',0,0);v.eliteId='viking.2';t.refreshStats(v,true);
  const armoredAir=foe(t,3,0,true);armoredAir.attributes=['Armored','Biological'];
- assert.equal(eliteDamageMultiplier(v,armoredAir),1.25);
+ assert.equal(eliteDamageMultiplier(v,armoredAir),1);
  armoredAir.flying=false;assert.equal(eliteDamageMultiplier(v,armoredAir),1);
- v.eliteId='viking.3';v.nativeMode='viking_assault';assert.equal(expeditionAttackRange(t,v)-expeditionAttackRange(t,{...v,eliteId:'viking.2'}),1);
+ v.eliteId='viking.3';v.nativeMode='viking_assault';assert.equal(expeditionAttackRange(t,v)-expeditionAttackRange(t,{...v,eliteId:'viking.2'}),0);
  v.nativeMode='viking_fighter';assert.equal(expeditionAttackRange(t,v)-expeditionAttackRange(t,{...v,eliteId:'viking.2'}),0);
 
- const z=make('zerg'),r=z.addUnit('ravager','terran',0,0);r.eliteId='ravager.2';z.refreshStats(r,true);const bileTarget=foe(z,4,0);r.bileCooldown=0;z.updateBile(r,0);
- const bile=z.effects.find(effect=>effect.kind==='bile');assert.ok(bile);assert.equal(bile.radius,BILE.radius*1.2);
+ const z=make('zerg'),r=z.addUnit('ravager','terran',0,0);r.eliteId='ravager.2';z.refreshStats(r,true);const bileTarget=foe(z,4,0);r.bileCooldown=0;z.expedition.tech.bile=1;z.updateBile(r,0);
+ const bile=z.zergElites.biles[0];assert.ok(bile);assert.equal(bile.radius,BILE.radius*1.5);
  const edge=foe(z,bileTarget.x+BILE.radius+bileTarget.unitRadius+.05,0);edge.weaponDamage=0;edge.moveSpeed=0;bileTarget.weaponDamage=0;bileTarget.moveSpeed=0;
  const edgeHp=edge.hp;z.paused=false;z.advance(BILE.delay+.05);assert.ok(edge.hp<edgeHp,'enlarged warning radius also deals real damage at its edge');
 
  const p=make('protoss'),templar=p.addUnit('high_templar','terran',0,0);templar.eliteId='high_templar.3';p.refreshStats(templar,true);templar.energy=templar.maxEnergy=200;p.expedition.tech.storm=1;
  const victim=foe(p,4,0);tickAutoAbilities(p,templar);
- const spell=p.expedition.spells.find(effect=>effect.kind==='storm');assert.ok(spell);
- assert.equal(spell.amount,SOURCE_ABILITIES.psiStorm.damagePerTick*1.2);
- const before=victim.hp;p.time=spell.next;tickAreaSpells(p);
+ const spell=p.protossElites.fields.find(effect=>effect.kind==='storm');assert.ok(spell);
+ assert.equal(spell.amount,1200/SOURCE_ABILITIES.psiStorm.searchPeriods);
+ const before=victim.hp;p.time=spell.next;tickProtossEliteState(p);
  assert.ok(Math.abs(before-victim.hp-spell.amount)<1e-8);
 });
 
@@ -54,9 +55,10 @@ test('Raynor piercing shot advances over 0.2 seconds and saved mid-flight target
  const copy=make('terran');copy.restoreRun(w.captureRun());copy.paused=false;copy.time=.16;copy.hash.rebuild(copy.entities.values());resolveExpeditionHeroCasts(copy);assert.equal(copy.entities.get(near.id)!.hp,4940);assert.equal(copy.entities.get(far.id)!.hp,4940);copy.time=.2;resolveExpeditionHeroCasts(copy);assert.equal(copy.heroCasts.length,0);assert.equal(copy.entities.get(near.id)!.hp,4940);assert.equal(copy.entities.get(far.id)!.hp,4940);
 });
 
-test('Dehaka and Fenix sample basics add bounded secondary damage without extra APM copies',()=>{
- const z=make('zerg');assert.ok(z.acquireHero('dehaka'));const dehaka=z.heroEntity('dehaka')!;dehaka.x=dehaka.z=0;const primary=foe(z,1,0),secondary=foe(z,1.6,.3),behind=foe(z,-1,0);z.hash.rebuild(z.entities.values());z.fire(dehaka,primary);assert.equal(primary.hp,10000-80*1.15*1.15);assert.equal(secondary.hp,10000-80*1.15*1.15*.5);assert.equal(behind.hp,10000);
- const p=make('protoss');assert.ok(p.acquireHero('fenix'));const fenix=p.heroEntity('fenix')!;fenix.x=fenix.z=0;const center=foe(p,4),around=foe(p,4,.7),distant=foe(p,4,3);p.hash.rebuild(p.entities.values());p.fire(fenix,center);settleWeaponFlights(p);assert.equal(center.hp,10000-72*1.15*1.15);assert.ok(Math.abs(around.hp-(10000-72*1.15*1.15*.35))<1e-8);assert.equal(distant.hp,10000);
+test('Dehaka committed primary keeps its own ground identity; Fenix retains bounded secondary damage',()=>{
+ const z=make('zerg');assert.ok(z.acquireHero('dehaka'));const dehaka=z.heroEntity('dehaka')!;dehaka.x=dehaka.z=0;const primary=foe(z,1,0),secondary=foe(z,1.6,.3),behind=foe(z,-1,0);z.hash.rebuild(z.entities.values());z.fire(dehaka,primary);assert.equal(primary.hp,10000);settleWeaponFlights(z);assert.equal(primary.hp,10000-dehaka.weaponDamage);assert.equal(secondary.hp,10000);assert.equal(behind.hp,10000);
+ const p=make('protoss');assert.ok(p.acquireHero('fenix'));const fenix=p.heroEntity('fenix')!;fenix.x=fenix.z=0;const center=foe(p,4),around=foe(p,4,.7),distant=foe(p,10,3);p.hash.rebuild(p.entities.values());p.fire(fenix,center);settleWeaponFlights(p);assert.equal(center.hp,10000-fenix.weaponDamage);assert.equal(around.hp,10000);assert.equal(distant.hp,10000);
+ for(let i=0;i<3;i++){p.fire(fenix,center);settleWeaponFlights(p);}assert.ok(Math.abs(center.hp-(10000-fenix.weaponDamage*6.5))<1e-8);assert.ok(Math.abs(around.hp-(10000-fenix.weaponDamage*2.5))<1e-8);assert.equal(distant.hp,10000);
 });
 
 test('presentation scales never alter physics and the recovery signal has no death event',()=>{

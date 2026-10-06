@@ -1,7 +1,7 @@
 import type {World} from '../../simulation/world';
 import type {Entity} from '../../simulation/types';
 import {healthReadout,rankLabel,specialUnitName,statusReadout} from '../../ui/unit-identity';
-type Label={root:HTMLDivElement;title?:HTMLElement;shield?:HTMLElement;shieldFill?:HTMLElement;fill?:HTMLElement;meter?:HTMLElement;timer?:HTMLElement};
+type Label={root:HTMLDivElement;title?:HTMLElement;shield?:HTMLElement;shieldFill?:HTMLElement;reserve?:HTMLElement;reserveFill?:HTMLElement;fill?:HTMLElement;meter?:HTMLElement;timer?:HTMLElement};
 /** At most 18 special allies. Labels are pooled by entity identity and never receive input. */
 export class FriendlyLabels {
  private labels=new Map<number,Label>();
@@ -14,15 +14,16 @@ export class FriendlyLabels {
   for(const u of units){let label=this.labels.get(u.id);const hero=!!u.heroId,recovery=!hero&&!u.eliteId;
    if(!label){const root=document.createElement('div');root.className='friendly-unit-label '+(hero?'hero-world-label':recovery?'recovery-world-label':'elite-world-label');root.dataset.entityId=String(u.id);root.style.pointerEvents='none';if(u.heroId)root.dataset.hero=u.heroId;if(u.eliteId)root.dataset.elite=u.eliteId;
     root.innerHTML=!recovery
-     ?`<span class="special-badge">${hero?'★':'◆'}</span><div class="hero-world-shield" role="meter" aria-valuemin="0"><i></i></div><div class="hero-world-health" role="meter" aria-valuemin="0"><i></i></div>`
+     ?`<span class="special-badge">${hero?'★':'◆'}</span><div class="hero-world-shield" role="meter" aria-valuemin="0"><i></i></div><div class="hero-world-reserve" role="meter" aria-valuemin="0" style="height:3px;background:#263821;margin-bottom:1px"><i style="display:block;height:100%;background:#b5dc67"></i></div><div class="hero-world-health" role="meter" aria-valuemin="0"><i></i></div>`
      :recovery?'<span class="recovery-timer"></span><span class="unit-label-title"></span>':'<span class="elite-glyph">◆</span><span class="unit-label-title"></span>';
-    label={root,title:root.querySelector('.unit-label-title')!,shield:root.querySelector('.hero-world-shield')??undefined,shieldFill:root.querySelector('.hero-world-shield i')??undefined,meter:root.querySelector('.hero-world-health')??undefined,fill:root.querySelector('.hero-world-health i')??undefined,timer:root.querySelector('.recovery-timer')??undefined};this.parent.append(root);this.labels.set(u.id,label);
+    label={root,reserve:root.querySelector('.hero-world-reserve')??undefined,reserveFill:root.querySelector('.hero-world-reserve i')??undefined,title:root.querySelector('.unit-label-title')!,shield:root.querySelector('.hero-world-shield')??undefined,shieldFill:root.querySelector('.hero-world-shield i')??undefined,meter:root.querySelector('.hero-world-health')??undefined,fill:root.querySelector('.hero-world-health i')??undefined,timer:root.querySelector('.recovery-timer')??undefined};this.parent.append(root);this.labels.set(u.id,label);
    }
    const p=project(u);label.root.hidden=!p.visible||world.phase!=='battle'||world.paused||world.requiresPlayerDecision;if(label.root.hidden)continue;
    const name=recovery?'爆虫恢复中':specialUnitName(u);
    if(recovery){const status=statusReadout(world,u),title=`${name} ${rankLabel(u.rank)}${status.short?' · '+status.short:''}`;if(label.title!.textContent!==title)label.title!.textContent=title;label.root.title=title+' · '+status.detail;}
    if(!recovery){const h=healthReadout(u.hp,u.maxHp);label.fill!.style.width=`${h.ratio*100}%`;label.root.classList.toggle('critical',h.critical);label.meter!.setAttribute('aria-label',name+'生命');label.meter!.setAttribute('aria-valuenow',String(h.current));label.meter!.setAttribute('aria-valuemax',String(h.max));
     const max=(u.maxShield??0)+(u.maxTalentShield??0),shield=healthReadout((u.shield??0)+(u.talentShield??0),max);label.shield!.hidden=max<=0;label.shieldFill!.style.width=`${shield.ratio*100}%`;label.shield!.setAttribute('aria-label',name+'护盾');label.shield!.setAttribute('aria-valuenow',String(shield.current));label.shield!.setAttribute('aria-valuemax',String(shield.max));}
+   if(label.reserve&&label.reserveFill){const s=u.zergCombat,live=(s?.reserveUntil??0)>world.time?(s?.reserve??0):0;label.reserve.hidden=live<=0;label.reserveFill.style.width=Math.max(0,live/Math.max(1,s?.reserveMax??1))*100+'%';label.reserve.setAttribute('aria-label',name+'原始生命');label.reserve.setAttribute('aria-valuenow',String(Math.ceil(live)));label.reserve.setAttribute('aria-valuemax',String(Math.ceil(s?.reserveMax??0)));}
    if(recovery&&label.timer)label.timer.textContent=`${Math.ceil((u.recoveryUntil??world.time)-world.time)}s`;
    const w=hero?42:recovery?34:36,h=recovery?20:21,x=Math.max(w/2+2,Math.min(width-w/2-2,p.x));let y=p.y;label.root.style.width=w+'px';
    // Resolve fine vitals overlaps without introducing hero text.

@@ -5,6 +5,7 @@ import {World} from '../src/simulation/world';
 import {ALL_HERO_IDS,HEROES} from '../src/data/heroes';
 import {modelPresentationScale,modelPresentationAccent,heroPresentation} from '../src/data/combat-presentation';
 import {castExpeditionHero,resolveExpeditionHeroCasts} from '../src/simulation/combat/expedition-heroes';
+import {settleWeaponFlights} from './helpers/weapon-flight';
 import {BattleEffects} from '../src/render/effects/battle-effects';
 import {heroFeedbackEvent,weaponWorldPoint} from '../src/render/effects/hero-feedback';
 import {initializeCarrierSubsystem,ownedInterceptors} from '../src/simulation/combat/carriers';
@@ -25,8 +26,8 @@ test('F06 all hero profiles supply distinct real-event cores, including support 
   const w=new World({race:HEROES[id].race,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();w.heroes.clear();assert.ok(w.acquireHero(id));const hero=w.heroEntity(id)!;hero.x=hero.z=0;
   const ally=w.addUnit(id==='swann'?'tank':id==='artanis'?'zealot':'roach','terran',1,0);ally.hp-=5;if(id==='artanis')ally.shield=(ally.maxShield??0)-20;w.hash.rebuild(w.entities.values());
   assert.ok(castExpeditionHero(w,id));if(id==='swann'){w.time=1;resolveExpeditionHeroCasts(w);}
-  const impacts=w.visualEvents.filter(e=>e.kind==='skill-impact'&&e.heroId===id);assert.ok(impacts.some(e=>e.end.x===ally.x&&e.end.z===ally.z),id+' actual beneficiary');
-  const saved=w.captureRun(),copy=new World({race:HEROES[id].race,sandbox:true,waves:false,terrain:false,obstacles:[]});copy.restoreRun(saved);assert.equal(copy.visualEvents.length,0);w.time=2;resolveExpeditionHeroCasts(w);assert.equal(w.visualEvents.filter(e=>e.kind==='skill-impact'&&e.heroId===id).length,impacts.length,'full targets do not flash restoration');
+  const impacts=w.visualEvents.filter(e=>e.kind===(id!=='swann'?'skill-heal':'skill-impact')&&e.heroId===id);assert.ok(impacts.some(e=>e.end.x===ally.x&&e.end.z===ally.z),id+' actual beneficiary');
+  const saved=w.captureRun(),copy=new World({race:HEROES[id].race,sandbox:true,waves:false,terrain:false,obstacles:[]});copy.restoreRun(saved);assert.equal(copy.visualEvents.length,0);ally.hp=ally.maxHp;ally.shield=ally.maxShield;w.time=2;resolveExpeditionHeroCasts(w);assert.equal(w.visualEvents.filter(e=>e.kind===(id!=='swann'?'skill-heal':'skill-impact')&&e.heroId===id).length,impacts.length,'full targets do not flash restoration');
  }
 });
 
@@ -45,8 +46,8 @@ test('F06 aircraft mounts preserve height, rotation and fixed scale; only flagsh
  const ordinary=w.addUnit('carrier','terran',0,0);initializeCarrierSubsystem(w);const normal=ownedInterceptors(w,ordinary.id)[0];w.visual('attack',normal,{x:3,z:4});assert.equal(heroFeedbackEvent(w.visualEvents.at(-1)!,w.entities).heroId,undefined);
 });
 
-test('Approved hero basic presentation keeps instant damage and adds render-only travel',()=>{
+test('Confirmed hero basic attacks save physical travel while effect rendering cannot damage',()=>{
  const w=new World({race:'terran',sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();w.heroes.clear();assert.ok(w.acquireHero('nova'));const hero=w.heroEntity('nova')!,enemy=w.addUnit('roach','zerg',3,0);w.fire(hero,enemy);const event=w.visualEvents.find(e=>e.kind==='attack'&&e.heroId==='nova')!;
  const fx=new BattleEffects(new THREE.Scene()),profile=heroPresentation('nova');fx.batches.set('fx.hero-basic.flare2b',{} as never);const before=w.captureRun();fx.event(event,{x:hero.x,y:1,z:hero.z});const core=fx.particles.find(p=>p.x===enemy.x&&p.z===enemy.z)!;
- assert.ok(enemy.hp<enemy.maxHp);assert.ok(core.start>w.time);assert.equal(fx.heroBasic.flights.length,1);assert.deepEqual(w.captureRun(),before);assert.deepEqual([core.vx,core.vy,core.vz],[0,0,0]);assert.equal(w.weaponFlights.length,0);assert.equal(w.heroCasts.length,0);
+ assert.equal(enemy.hp,enemy.maxHp);assert.equal(w.heroAttacks.packets.length,1);assert.ok(core.start>w.time);assert.equal(fx.heroBasic.flights.length,1);assert.deepEqual(w.captureRun(),before);assert.deepEqual([core.vx,core.vy,core.vz],[0,0,0]);assert.equal(w.weaponFlights.length,0);assert.equal(w.heroCasts.length,0);settleWeaponFlights(w);assert.ok(enemy.hp<enemy.maxHp);
 });

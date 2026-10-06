@@ -1,0 +1,63 @@
+marine / 陆战队员
+Use case: stylized-concept
+Asset type: layered intermission card illustration plate
+Subject: round shoulder pauldrons, amber glass helmet visor, powered armored boots, C-14 gauss rifle held in both hands. Exactly one unit.
+Scene/backdrop: 废弃殖民地的街口与被子弹打碎的混凝土掩体.
+Style/medium: StarCraft II cinematic digital painting. Mature realistic proportions, weighty armor and deeply textured material, painterly atmospheric depth, dramatic directional light. No cartoon, chibi, low-poly/vector geometry, UI, letters, numbers, badges, watermarks or picture frame.
+Composition/framing: Production layered card plate, square PNG with genuine alpha. The UPPER HALF is a complete wide environment painting with NO characters or friendly troop silhouettes. The LOWER HALF contains exactly ONE isolated full-body subject centered with generous transparent margins, no ground, no backdrop and no other bodies. The subject receives the same light colors as the upper environment. Keep the halves strictly separate without a divider or text. This allows the frontend to place 1, 2, 3 or 6 full-size painted bodies on one scene using transparent compositing; do not draw a fake checkerboard.
+Lighting/mood: one coherent key light and soft atmospheric rim; clear readable head, weapon, limbs and full silhouette. No pasted hard black edge.
+
+---
+
+marine.2 / 重火力枪兵
+Use case: stylized-concept
+Asset type: layered elite intermission card illustration plate
+Subject: exactly ONE round shoulder pauldrons, amber glass helmet visor, powered armored boots, C-14 gauss rifle held in both hands. This elite has: 长枪管、重弹链与灼热枪口. Show a clear structural armor/weapon/anatomy difference plus a distinct action pose that expresses this trait, while retaining its unmistakable base-unit identity.
+Scene/backdrop: 废弃殖民地的街口与被子弹打碎的混凝土掩体；把长枪管、重弹链与灼热枪口产生的光、运动和命中痕迹融入环境，形成这一精英独有的战斗瞬间. Do not put extra soldiers or body silhouettes in the background; the environment carries impact and directional atmosphere.
+Style/medium: StarCraft II cinematic digital painting. Mature realistic proportions, weighty armor and deeply textured material, painterly atmospheric depth, dramatic directional light. No cartoon, chibi, low-poly/vector geometry, UI, letters, numbers, badges, watermarks or picture frame.
+Composition/framing: Production layered card plate, square PNG with genuine alpha. The UPPER HALF is a complete wide environment painting with NO characters or friendly troop silhouettes. The LOWER HALF contains exactly ONE isolated full-body subject centered with generous transparent margins, no ground, no backdrop and no other bodies. The subject receives the same light colors as the upper environment. Keep the halves strictly separate without a divider or text. This allows the frontend to place 1, 2, 3 or 6 full-size painted bodies on one scene using transparent compositing; do not draw a fake checkerboard.
+Lighting/mood: coherent material reflections and atmosphere, restrained #ffbd78 accent appropriate to its existing weapon or organic ability; accent alone cannot identify the elite.
+
+---
+
+hydralisk / 刺蛇
+Use case: stylized-concept
+Asset type: layered intermission card illustration plate
+Subject: iconic snake-bodied Zerg Hydralisk with a long coiled tail, broad spined hood, two curved scythe arms and fang-filled mouth. Exactly one unit.
+Scene/backdrop: 潮湿巢穴口、菌毯和斜向针刺撞击的岩壁.
+Style/medium: StarCraft II cinematic digital painting. Mature realistic proportions, weighty armor and deeply textured material, painterly atmospheric depth, dramatic directional light. No cartoon, chibi, low-poly/vector geometry, UI, letters, numbers, badges, watermarks or picture frame.
+Composition/framing: Production layered card plate, square PNG with genuine alpha. The UPPER HALF is a complete wide environment painting with NO characters or friendly troop silhouettes. The LOWER HALF contains exactly ONE isolated full-body subject centered with generous transparent margins, no ground, no backdrop and no other bodies. The subject receives the same light colors as the upper environment. Keep the halves strictly separate without a divider or text. This allows the frontend to place 1, 2, 3 or 6 full-size painted bodies on one scene using transparent compositing; do not draw a fake checkerboard.
+Lighting/mood: one coherent key light and soft atmospheric rim; clear readable head, weapon, limbs and full silhouette. No pasted hard black edge.
+
+---
+
+hydralisk.2 / 连射刺蛇
+Use case: stylized-concept
+Asset type: layered elite intermission card illustration plate
+Subject: exactly ONE iconic snake-bodied Zerg Hydralisk with a long coiled tail, broad spined hood, two curved scythe arms and fang-filled mouth. This elite has: 扇形连射针刺. Show a clear structural armor/weapon/anatomy difference plus a distinct action pose that expresses this trait, while retaining its unmistakable base-unit identity.
+Scene/backdrop: 潮湿巢穴口、菌毯和斜向针刺撞击的岩壁；把扇形连射针刺产生的光、运动和命中痕迹融入环境，形成这一精英独有的战斗瞬间. Do not put extra soldiers or body silhouettes in the background; the environment carries impact and directional atmosphere.
+Style/medium: StarCraft II cinematic digital painting. Mature realistic proportions, weighty armor and deeply textured material, painterly atmospheric depth, dramatic directional light. No cartoon, chibi, low-poly/vector geometry, UI, letters, numbers, badges, watermarks or picture frame.
+Composition/framing: Production layered card plate, square PNG with genuine alpha. The UPPER HALF is a complete wide environment painting with NO characters or friendly troop silhouettes. The LOWER HALF contains exactly ONE isolated full-body subject centered with generous transparent margins, no ground, no backdrop and no other bodies. The subject receives the same light colors as the upper environment. Keep the halves strictly separate without a divider or text. This allows the frontend to place 1, 2, 3 or 6 full-size painted bodies on one scene using transparent compositing; do not draw a fake checkerboard.
+Lighting/mood: coherent material reflections and atmosphere, restrained #e3ba98 accent appropriate to its existing weapon or organic ability; accent alone cannot identify the elite.
+
+---
+
+zealot / 狂热者
+Use case: stylized-concept
+Asset type: layered intermission card illustration plate
+Subject: tall mouthless Protoss warrior with a long alien head, ornate curved gold armor and two cyan forearm psi blades. Exactly one unit.
+Scene/backdrop: 破损圣堂台阶、暖色石材与灵能反光.
+Style/medium: StarCraft II cinematic digital painting. Mature realistic proportions, weighty armor and deeply textured material, painterly atmospheric depth, dramatic directional light. No cartoon, chibi, low-poly/vector geometry, UI, letters, numbers, badges, watermarks or picture frame.
+Composition/framing: Production layered card plate, square PNG with genuine alpha. The UPPER HALF is a complete wide environment painting with NO characters or friendly troop silhouettes. The LOWER HALF contains exactly ONE isolated full-body subject centered with generous transparent margins, no ground, no backdrop and no other bodies. The subject receives the same light colors as the upper environment. Keep the halves strictly separate without a divider or text. This allows the frontend to place 1, 2, 3 or 6 full-size painted bodies on one scene using transparent compositing; do not draw a fake checkerboard.
+Lighting/mood: one coherent key light and soft atmospheric rim; clear readable head, weapon, limbs and full silhouette. No pasted hard black edge.
+
+---
+
+zealot.3 / 连斩狂热者
+Use case: stylized-concept
+Asset type: layered elite intermission card illustration plate
+Subject: exactly ONE tall mouthless Protoss warrior with a long alien head, ornate curved gold armor and two cyan forearm psi blades. This elite has: 交错双刃与斩击光弧. Show a clear structural armor/weapon/anatomy difference plus a distinct action pose that expresses this trait, while retaining its unmistakable base-unit identity.
+Scene/backdrop: 破损圣堂台阶、暖色石材与灵能反光；把交错双刃与斩击光弧产生的光、运动和命中痕迹融入环境，形成这一精英独有的战斗瞬间. Do not put extra soldiers or body silhouettes in the background; the environment carries impact and directional atmosphere.
+Style/medium: StarCraft II cinematic digital painting. Mature realistic proportions, weighty armor and deeply textured material, painterly atmospheric depth, dramatic directional light. No cartoon, chibi, low-poly/vector geometry, UI, letters, numbers, badges, watermarks or picture frame.
+Composition/framing: Production layered card plate, square PNG with genuine alpha. The UPPER HALF is a complete wide environment painting with NO characters or friendly troop silhouettes. The LOWER HALF contains exactly ONE isolated full-body subject centered with generous transparent margins, no ground, no backdrop and no other bodies. The subject receives the same light colors as the upper environment. Keep the halves strictly separate without a divider or text. This allows the frontend to place 1, 2, 3 or 6 full-size painted bodies on one scene using transparent compositing; do not draw a fake checkerboard.
+Lighting/mood: coherent material reflections and atmosphere, restrained #b4eaf9 accent appropriate to its existing weapon or organic ability; accent alone cannot identify the elite.

@@ -1,0 +1,9 @@
+{
+  "key": "mutalisk-atlas-v2",
+  "prompt": "Refine only the lower four painted SC2 Mutalisk cutouts. Keep their recognizable batlike wings, armored serpentine torso and curled glaive-launching tail, and the distinct ordinary, bouncing-glaive, attack-speed, armored variants. The left wingtip of the first unit is cropped, and several tips approach neighboring columns. Restore ALL wing, tail and glaive tips; each entire creature and its restrained effect must fit INSIDE its own quarter. Center each subject at the exact middle of its quarter and use only 78% of the quarter's width, leaving generous true alpha gutters left/right. Leave all four upper empty rocky flight-corridor scenes unchanged. Keep complete material detail and mature proportions; no additional bodies, divider lines, labels, frame or checkerboard. Transparent lower surroundings.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-303ba317-8918-4455-9d8c-e0cdc697e090.png",
+  "input": "mutalisk-atlas.png",
+  "output": "mutalisk-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

@@ -1,0 +1,9 @@
+{
+  "key": "niadra-v2",
+  "prompt": "Polish only the lower Niadra figure placement in this newly generated SC2-style painting. Preserve her distinctive tall organic crown, brood-mother chitin body, complete spined limbs and orange incubation sacs, and preserve the entire upper empty brood-nest environment. The top crown currently touches the scene seam. Move the WHOLE complete character slightly down and reduce it just enough to provide a clearly empty 40-pixel true-alpha horizontal gap beneath the upper painting, with complete crown tip, claws and feet visible and ample margins at all sides. No part may touch or enter the upper landscape. Retain all fine painted chitin texture, coherent warm/cold lighting, non-graphic intact anatomy and recognizable broodmother identity. Exactly ONE subject. No new limbs, extra bodies, text, UI, frame, divider line or checkerboard.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-cdbc3a4b-41c7-41fe-9059-e77745e1c64a.png",
+  "output": "niadra-v2.png",
+  "intent": "edit-newly-generated-art",
+  "input": "niadra.png",
+  "privateReferencesUploaded": false
+}

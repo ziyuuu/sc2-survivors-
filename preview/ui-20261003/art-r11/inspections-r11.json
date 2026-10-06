@@ -1,0 +1,679 @@
+{
+  "hydralisk.png": {
+    "key": "hydralisk",
+    "file": "hydralisk.png",
+    "webp": "hydralisk.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 481
+    },
+    "bodyBounds": {
+      "x": 235,
+      "y": 483,
+      "width": 817,
+      "height": 713
+    },
+    "clearLowerFraction": 0.6849388554297657,
+    "opaqueLowerFraction": 0.26588242333459194,
+    "issues": [
+      "subject may overlap/touch landscape; inspect complete head and weapons"
+    ],
+    "pngBytes": 2016451,
+    "webpBytes": 493834,
+    "sha256": "838c0e977980b541307a9d21673807f85fe1b71270cd9f500b6cfd73f01df287",
+    "webpSha256": "72374c12b687321f2fd034c30fc3721173701c6e3344d57f589d3c879989c95f",
+    "race": "zerg",
+    "kind": "ordinary",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "marine.2.png": {
+    "key": "marine.2",
+    "file": "marine.2.png",
+    "webp": "marine.2.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 450
+    },
+    "bodyBounds": {
+      "x": 289,
+      "y": 467,
+      "width": 965,
+      "height": 745
+    },
+    "clearLowerFraction": 0.6740678584747712,
+    "opaqueLowerFraction": 0.2802197148230141,
+    "issues": [
+      "effect/body approaches edge; inspect actual subject crop"
+    ],
+    "pngBytes": 2037107,
+    "webpBytes": 510044,
+    "sha256": "841916ae895e3af2c1c38217f2d3accd46dab9ba207b22762fbc1f7ebf5f45a3",
+    "webpSha256": "7ac90570401dfbc06f14ca89427290e50f9257b18ac8ff30398d059d667f9ff4",
+    "race": "terran",
+    "kind": "elite",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "marine.png": {
+    "key": "marine",
+    "file": "marine.png",
+    "webp": "marine.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 490
+    },
+    "bodyBounds": {
+      "x": 393,
+      "y": 511,
+      "width": 508,
+      "height": 712
+    },
+    "clearLowerFraction": 0.7682619805105338,
+    "opaqueLowerFraction": 0.202353515869636,
+    "issues": [],
+    "pngBytes": 1631535,
+    "webpBytes": 345810,
+    "sha256": "9431e998cf5da1b0a1105e83e72aa34ebe027930ce816e106b18fc154716b041",
+    "webpSha256": "7a7e1279cb0c454cb00c101427a60a44d79bca8b4fe5d943baf81774772f12f8",
+    "race": "terran",
+    "kind": "ordinary",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "zealot.png": {
+    "key": "zealot",
+    "file": "zealot.png",
+    "webp": "zealot.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 522
+    },
+    "bodyBounds": {
+      "x": 380,
+      "y": 524,
+      "width": 544,
+      "height": 683
+    },
+    "clearLowerFraction": 0.7449691043306229,
+    "opaqueLowerFraction": 0.17663150050984391,
+    "issues": [
+      "subject may overlap/touch landscape; inspect complete head and weapons"
+    ],
+    "pngBytes": 1935566,
+    "webpBytes": 504000,
+    "sha256": "30a6a73e9ac70ab0cc9f358bc5644ed950db14f60c7f48134db2e656826d6731",
+    "webpSha256": "bd1700c4871de19437683cfaaa071e1901183e5c0643d52026c4e9e66fd1a394",
+    "race": "protoss",
+    "kind": "ordinary",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "hydralisk-v2.png": {
+    "key": "hydralisk",
+    "file": "hydralisk-v2.png",
+    "webp": "hydralisk-v2.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 447
+    },
+    "bodyBounds": {
+      "x": 268,
+      "y": 535,
+      "width": 764,
+      "height": 675
+    },
+    "clearLowerFraction": 0.7465695894574783,
+    "opaqueLowerFraction": 0.2179612600273919,
+    "issues": [],
+    "pngBytes": 1831689,
+    "webpBytes": 404094,
+    "sha256": "e9db5949182cb108f261c7d608ec54da494c0cd965c71cfa00f6adbee14c9d08",
+    "webpSha256": "8a8cf0d2732b23414b423e54a95697581920863548ac762957e2a79a79cb6ecf",
+    "race": "zerg",
+    "kind": "ordinary",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "marine.2-v2.png": {
+    "key": "marine.2",
+    "file": "marine.2-v2.png",
+    "webp": "marine.2-v2.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 451
+    },
+    "bodyBounds": {
+      "x": 254,
+      "y": 503,
+      "width": 920,
+      "height": 693
+    },
+    "clearLowerFraction": 0.6920310796236601,
+    "opaqueLowerFraction": 0.2591478129264064,
+    "issues": [],
+    "pngBytes": 1923323,
+    "webpBytes": 431190,
+    "sha256": "557cd3742efce5bfcbca7a5beaadb654858bba78c1584696f5376d7420b40f89",
+    "webpSha256": "5e543f4ae2cda88a33d4b89cf9d3eb41014350eb080049d4e652014e3a08f88d",
+    "race": "terran",
+    "kind": "elite",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "zealot-v2.png": {
+    "key": "zealot",
+    "file": "zealot-v2.png",
+    "webp": "zealot-v2.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 480
+    },
+    "bodyBounds": {
+      "x": 342,
+      "y": 529,
+      "width": 616,
+      "height": 708
+    },
+    "clearLowerFraction": 0.7730693305968703,
+    "opaqueLowerFraction": 0.1847297948889136,
+    "issues": [],
+    "pngBytes": 1702356,
+    "webpBytes": 376942,
+    "sha256": "131376c4d406f585b8c75b61a468e5925613cc5a94023b4a39f0a61be3990dd3",
+    "webpSha256": "c1df0f05e0c89678d76f62d6339b539da509e938230ae8ce5caee4ea720e9f10",
+    "race": "protoss",
+    "kind": "ordinary",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "alarak.png": {
+    "key": "alarak",
+    "file": "alarak.png",
+    "webp": "alarak.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 368
+    },
+    "bodyBounds": {
+      "x": 224,
+      "y": 382,
+      "width": 786,
+      "height": 840
+    },
+    "clearLowerFraction": 0.6352898715082391,
+    "opaqueLowerFraction": 0.2426708573197821,
+    "issues": [],
+    "pngBytes": 1744384,
+    "webpBytes": 443876,
+    "sha256": "20bd8d15e2a075f8fcae879588939003dd06cd6c7e6f4410db1d12fd7d5214cf",
+    "webpSha256": "b3c7f01bc34a6d3208c04e1e0e016b5ab107295d7dc1af5e1abeb1c3ff144800",
+    "race": "protoss",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "hots_leviathan.png": {
+    "key": "hots_leviathan",
+    "file": "hots_leviathan.png",
+    "webp": "hots_leviathan.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 413
+    },
+    "bodyBounds": {
+      "x": 17,
+      "y": 474,
+      "width": 1219,
+      "height": 755
+    },
+    "clearLowerFraction": 0.5287128750424326,
+    "opaqueLowerFraction": 0.4010178131524899,
+    "issues": [],
+    "pngBytes": 2027986,
+    "webpBytes": 505958,
+    "sha256": "588f8d7f24ffed121299e46ca0b668166ea94d01f6209f4dc8b5c797b46ecfe4",
+    "webpSha256": "aeb89d1c8e1e617c7db7a44f9f86c439e1556a246ce61f55262cc135160cf402",
+    "race": "zerg",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "niadra.png": {
+    "key": "niadra",
+    "file": "niadra.png",
+    "webp": "niadra.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 405
+    },
+    "bodyBounds": {
+      "x": 284,
+      "y": 407,
+      "width": 820,
+      "height": 834
+    },
+    "clearLowerFraction": 0.6902097035070812,
+    "opaqueLowerFraction": 0.24224765790694747,
+    "issues": [
+      "subject may overlap/touch landscape; inspect complete head and weapons"
+    ],
+    "pngBytes": 1839717,
+    "webpBytes": 475824,
+    "sha256": "eaab23772d14083c9053da24573aba6a63beef6cf5370a9cb84caeedc8466182",
+    "webpSha256": "26f764a8d3e74bd48fe03b4f7329191b588c4aeb83c27aeb4ca1d98dff4a99bb",
+    "race": "zerg",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "purifier_flagship.png": {
+    "key": "purifier_flagship",
+    "file": "purifier_flagship.png",
+    "webp": "purifier_flagship.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 469
+    },
+    "bodyBounds": {
+      "x": 17,
+      "y": 570,
+      "width": 1220,
+      "height": 630
+    },
+    "clearLowerFraction": 0.5503905972226455,
+    "opaqueLowerFraction": 0.3552311583823485,
+    "issues": [],
+    "pngBytes": 2164513,
+    "webpBytes": 576082,
+    "sha256": "532113e6af7d29e83d0227bdbb5d05a9c7ebc4e58aa1ad8ec2c7661a8b7c9022",
+    "webpSha256": "031562f260cfa86f3ed1100ab238dda30dcecd5751a75359e44d9e162c8850a9",
+    "race": "protoss",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "swann.png": {
+    "key": "swann",
+    "file": "swann.png",
+    "webp": "swann.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 364
+    },
+    "bodyBounds": {
+      "x": 286,
+      "y": 395,
+      "width": 840,
+      "height": 840
+    },
+    "clearLowerFraction": 0.6344739530132788,
+    "opaqueLowerFraction": 0.3011442037166461,
+    "issues": [],
+    "pngBytes": 1813029,
+    "webpBytes": 454706,
+    "sha256": "b6958f1a380e7de286292d29f154acd5186ed07b4055c1c39dc42c11df2a4028",
+    "webpSha256": "85ad9d5d3f20d03b50f22b1507ee2d96d9eb85258f18c1ddc916d8ae5e4d65b6",
+    "race": "terran",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "tosh.png": {
+    "key": "tosh",
+    "file": "tosh.png",
+    "webp": "tosh.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 333
+    },
+    "bodyBounds": {
+      "x": 182,
+      "y": 384,
+      "width": 909,
+      "height": 838
+    },
+    "clearLowerFraction": 0.6212735965864716,
+    "opaqueLowerFraction": 0.30057648315834495,
+    "issues": [],
+    "pngBytes": 1557319,
+    "webpBytes": 345520,
+    "sha256": "4e063e8c67e0f0eb9e7e70193cebd1c8ec3986ffdbe30e3b1bad4a7446796a3c",
+    "webpSha256": "fa0637a7c3d17d42b6694f98c55a024d97c2faefcf0a57ade717d2ae7a84d48a",
+    "race": "terran",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "vorazun.png": {
+    "key": "vorazun",
+    "file": "vorazun.png",
+    "webp": "vorazun.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 407
+    },
+    "bodyBounds": {
+      "x": 130,
+      "y": 440,
+      "width": 988,
+      "height": 796
+    },
+    "clearLowerFraction": 0.5845907029030126,
+    "opaqueLowerFraction": 0.2750377069646317,
+    "issues": [],
+    "pngBytes": 1959670,
+    "webpBytes": 478714,
+    "sha256": "66c54f5bcda13364a04762148a1f4a3b1ce8f566a320f25312d2fd96ef3ed1f6",
+    "webpSha256": "8ca2cb9a79a8d63c46c064d4a38d9a662c6bf19de93a256ecadb108f004b1bcf",
+    "race": "protoss",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "yamato_battlecruiser.png": {
+    "key": "yamato_battlecruiser",
+    "file": "yamato_battlecruiser.png",
+    "webp": "yamato_battlecruiser.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 408
+    },
+    "bodyBounds": {
+      "x": 31,
+      "y": 471,
+      "width": 1163,
+      "height": 722
+    },
+    "clearLowerFraction": 0.4821639312120835,
+    "opaqueLowerFraction": 0.4589559273209889,
+    "issues": [],
+    "pngBytes": 2190611,
+    "webpBytes": 506414,
+    "sha256": "023a6d75d8ed9d2cac24e1fc83b52ee30f46bfcc859fb636852b5203122c7ced",
+    "webpSha256": "0aa766c66a08e41e5397a0aa3ede19dd46307e49092d4551ca7c20870edcab8d",
+    "race": "terran",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "niadra-v2.png": {
+    "key": "niadra",
+    "file": "niadra-v2.png",
+    "webp": "niadra-v2.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 406
+    },
+    "bodyBounds": {
+      "x": 289,
+      "y": 425,
+      "width": 777,
+      "height": 797
+    },
+    "clearLowerFraction": 0.7052272351117932,
+    "opaqueLowerFraction": 0.22442805663386597,
+    "issues": [],
+    "pngBytes": 1690475,
+    "webpBytes": 399686,
+    "sha256": "33e6d79b215818d0ee603b42bfd3d2506e6f0d0481d62348c57ddda8ebe34596",
+    "webpSha256": "7f8d120f0278a7c946254cf8c4a507dd55672df5b6d9bc1d175daf5c0e228e81",
+    "race": "zerg",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "stukov.png": {
+    "key": "stukov",
+    "file": "stukov.png",
+    "webp": "stukov.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 439
+    },
+    "bodyBounds": {
+      "x": 362,
+      "y": 441,
+      "width": 504,
+      "height": 777
+    },
+    "clearLowerFraction": 0.7079441492744689,
+    "opaqueLowerFraction": 0.2746010313010636,
+    "issues": [
+      "subject may overlap/touch landscape; inspect complete head and weapons"
+    ],
+    "pngBytes": 1406200,
+    "webpBytes": 281578,
+    "sha256": "fbe26c732bb566d86ea9b20c97995ea074e9c6d40c00da620816c32b7feeb4f6",
+    "webpSha256": "d7e133b204784f67e8a36f889fa2cf4ac92e2c06cbbcc1c7d3a2c827b1290047",
+    "race": "zerg",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "purifier_flagship-v2.png": {
+    "key": "purifier_flagship",
+    "file": "purifier_flagship-v2.png",
+    "webp": "purifier_flagship-v2.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 468
+    },
+    "bodyBounds": {
+      "x": 91,
+      "y": 562,
+      "width": 1142,
+      "height": 642
+    },
+    "clearLowerFraction": 0.599709428556355,
+    "opaqueLowerFraction": 0.35663992273072226,
+    "issues": [],
+    "pngBytes": 2056271,
+    "webpBytes": 438284,
+    "sha256": "a6aea868de49710f98338ae71367b875e5e82f91212d88eeb1af4fba76784aba",
+    "webpSha256": "ab5755faf453c99f837e79b6c1bdbfc2abe3146d5022ff280fb19b4302b6259b",
+    "race": "protoss",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "stukov-v2.png": {
+    "key": "stukov",
+    "file": "stukov-v2.png",
+    "webp": "stukov-v2.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 340
+    },
+    "bodyBounds": {
+      "x": 378,
+      "y": 387,
+      "width": 488,
+      "height": 847
+    },
+    "clearLowerFraction": 0.7426449802644666,
+    "opaqueLowerFraction": 0.2334245949068015,
+    "issues": [],
+    "pngBytes": 1376459,
+    "webpBytes": 257394,
+    "sha256": "7e72d60709832ecd460e2ce286f12d2abac49e1625ceba3d743292632d1103a0",
+    "webpSha256": "75b354d591c802bb42b1bf642884681f54c7a15bac9e08e4dd82a3d671c6dd3d",
+    "race": "zerg",
+    "kind": "hero",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "carrier.1.png": {
+    "key": "carrier.1",
+    "file": "carrier.1.png",
+    "webp": "carrier.1.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 371
+    },
+    "bodyBounds": {
+      "x": 108,
+      "y": 445,
+      "width": 1097,
+      "height": 707
+    },
+    "clearLowerFraction": 0.6114241900437287,
+    "opaqueLowerFraction": 0.28934002358929345,
+    "issues": [],
+    "pngBytes": 1973453,
+    "webpBytes": 499160,
+    "sha256": "d0ed1f3f7829956cfc887887b9b579fc1b92d8fe87ae4dd33809794331dcfddc",
+    "webpSha256": "989f56743a3cff2e0a9f61795ceabb16f0d828f0f64e9978751130c5fd98962e",
+    "race": "protoss",
+    "kind": "elite",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "carrier.2.png": {
+    "key": "carrier.2",
+    "file": "carrier.2.png",
+    "webp": "carrier.2.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 428
+    },
+    "bodyBounds": {
+      "x": 61,
+      "y": 483,
+      "width": 1159,
+      "height": 565
+    },
+    "clearLowerFraction": 0.6445592023201301,
+    "opaqueLowerFraction": 0.31706288062220267,
+    "issues": [],
+    "pngBytes": 2103543,
+    "webpBytes": 538802,
+    "sha256": "05f4f631c3ac1177d9c046960ff5b4efd0f6e2db1ba0f1d42a8ce802a9490bac",
+    "webpSha256": "f5532a3ccdc6d3229f86ea8d1f57a876c5825f11a28c4583549ec2b2cb6c04a3",
+    "race": "protoss",
+    "kind": "elite",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "carrier.3.png": {
+    "key": "carrier.3",
+    "file": "carrier.3.png",
+    "webp": "carrier.3.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 354
+    },
+    "bodyBounds": {
+      "x": 120,
+      "y": 458,
+      "width": 1088,
+      "height": 677
+    },
+    "clearLowerFraction": 0.54546783625731,
+    "opaqueLowerFraction": 0.2917579301789828,
+    "issues": [],
+    "pngBytes": 1997478,
+    "webpBytes": 496172,
+    "sha256": "0ad931d2669dc6edcd5543cc6f5732fc0d2a0af79c23edda17a7bc9315396d36",
+    "webpSha256": "3794adeac955443f9b41e8d5b000afd1e949f52eed4154797637b4764a68c267",
+    "race": "protoss",
+    "kind": "elite",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  },
+  "carrier.png": {
+    "key": "carrier",
+    "file": "carrier.png",
+    "webp": "carrier.webp",
+    "width": 1254,
+    "height": 1254,
+    "sceneBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 380
+    },
+    "bodyBounds": {
+      "x": 84,
+      "y": 472,
+      "width": 1132,
+      "height": 608
+    },
+    "clearLowerFraction": 0.7094578812331432,
+    "opaqueLowerFraction": 0.2597080646279731,
+    "issues": [],
+    "pngBytes": 1709789,
+    "webpBytes": 411708,
+    "sha256": "836bd0bd610a515d0331feb412a72b2740f63eabdd8a5d23f5d852df697e5255",
+    "webpSha256": "e66fab907007a4f088d113c285d2fb5827719af3e0a07a8152179a7758abaf16",
+    "race": "protoss",
+    "kind": "ordinary",
+    "review": "pending visual inspection; alpha/geometry diagnostics are not art acceptance"
+  }
+}

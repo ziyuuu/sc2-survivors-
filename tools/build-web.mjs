@@ -47,12 +47,12 @@ try{
  }
  const appHash=createHash('sha256');
  async function hashApp(folder){for(const e of (await fs.readdir(folder,{withFileTypes:true})).sort((a,b)=>a.name.localeCompare(b.name))){const full=path.join(folder,e.name);if(e.isDirectory())await hashApp(full);else if(!files.has(path.relative(staging,full).replaceAll('\\','/')))appHash.update(path.relative(staging,full)).update(await fs.readFile(full));}}
- await hashApp(staging);for(const file of ['tools/coze-web-server.mjs','tools/start-coze.mjs','tools/apply-coze-update.mjs'])appHash.update(file).update(await fs.readFile(file));const appBuildId=appHash.digest('hex');
+ await hashApp(staging);for(const file of ['tools/coze-web-server.mjs','tools/start-coze.mjs','tools/apply-coze-update.mjs'])appHash.update(file).update(await fs.readFile(file));async function hashBackend(folder){for(const e of (await fs.readdir(folder,{withFileTypes:true})).sort((a,b)=>a.name.localeCompare(b.name))){const file=path.join(folder,e.name);if(e.isDirectory())await hashBackend(file);else appHash.update(file).update(await fs.readFile(file));}}await hashBackend('tools/backend');const appBuildId=appHash.digest('hex');
  const release=createHash('sha256').update(JSON.stringify(assets)).digest('hex'),manifestName=`asset-manifest.${release}.json`;
  await fs.writeFile(path.join(staging,manifestName),JSON.stringify({version:1,release,assets}));
  await fs.writeFile(path.join(staging,'runtime-config.json'),JSON.stringify({assetBaseUrl:''}));
  let index=await fs.readFile(path.join(staging,'index.html'),'utf8');
- index=index.replace('<head>',`<head><meta name="sc2-asset-manifest" content="./${manifestName}">`);
+ index=index.replace('<head>',`<head><meta name="sc2-app-build" content="${appBuildId}"><meta name="sc2-asset-manifest" content="./${manifestName}">`);
  await fs.writeFile(path.join(staging,'index.html'),index);
  if(!index.includes('id="battle"')||!index.includes('type="module"'))throw Error('Web entry point missing battle canvas or module');
  await fs.writeFile(path.join(staging,'web-release.json'),JSON.stringify({appBuildId,runSchema:RUN_SCHEMA,rulesId:'mvp-1.0',mapId:'campaign-radial-v1',assetCount:selected.size,fileCount:files.size,assetBytes:bytes,logicalBytes:Object.values(assets).reduce((n,a)=>n+a.bytes,0),sharedBytes:Object.values(assets).reduce((n,a)=>n+a.bytes,0)-bytes,manifest:manifestName,release,source:'reports/local/asset-reachability.json'},null,2));

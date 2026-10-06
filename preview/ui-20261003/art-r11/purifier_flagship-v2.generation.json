@@ -1,0 +1,9 @@
+{
+  "key": "purifier_flagship-v2",
+  "prompt": "Refine this newly generated Purifier flagship layered illustration. Preserve the distinctive single grand white-gold SC2-inspired carrier ship, giant blue power core, full gold armor and swept hull, and the existing upper sunlit orbital alien architecture landscape. Remove EVERY separate miniature fighter/interceptor craft surrounding or in front of the lower large flagship, including the little gold ships at its left, upper right and bottom. Their spaces should become genuine transparency; preserve the main hull and replace craft launch activity only with sparse blue ion light, empty lit launch apertures and abstract narrow energy streaks. There must be exactly ONE identifiable unit body in the lower cutout. Do not add allies, faces or ships to upper landscape. Make all main hull tips fit with 24px outer margin. Preserve separate top landscape and bottom cutout with at least 35px fully transparent divider. Finely painted material, same lighting and original ship character; no model screenshot look. No letters, numbers, labels or card frame. PNG with genuine transparency outside the lower single ship.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-ba2a0181-e7f1-4439-a15d-76ca2395207f.png",
+  "output": "purifier_flagship-v2.png",
+  "intent": "edit-newly-generated-art",
+  "input": "purifier_flagship.png",
+  "privateReferencesUploaded": false
+}

@@ -12,7 +12,7 @@ export const FAMILY_MODES={
  lurker:[['lurker','钻出'],['lurker_burrowed','埋地']],
 } as const;
 export type ModeFamily=keyof typeof FAMILY_MODES;
-export const familyActionBodies=(w:World,family:FamilyId)=>w.familyBodies(family);
+export const familyActionBodies=(w:World,family:FamilyId)=>w.familyBodies(family).filter(u=>u.eliteId!=='tank.1');
 export const currentFamilyMode=(u:Entity)=>u.unitType==='tank'?u.mode:u.nativeMode??u.unitType;
 
 /** Use the prospective ground footprint, even while the Viking is still flying. */

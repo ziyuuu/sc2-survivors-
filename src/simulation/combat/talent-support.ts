@@ -1,3 +1,4 @@
+import {observeRecovery} from '../observation';
 import type {World} from '../world';
 import type {Entity,Point} from '../types';
 
@@ -17,9 +18,9 @@ function scheduleRound(w:World,rank:number){const race=w.expedition.race,targets
   if(race==='protoss')w.talentSupportImpacts.push({id:w.nextId++,race,at:w.time+.45,point,direction,packet:1});
  }
  for(const patient of healCandidates(w,race).slice(0,rank)){
-  if(race==='protoss')patient.shield=Math.min(patient.maxShield??0,(patient.shield??0)+63);
+  const observedHp=patient.hp,observedShield=patient.shield??0;if(race==='protoss')patient.shield=Math.min(patient.maxShield??0,(patient.shield??0)+63);
   else {const amount=race==='terran'&&!patient.attributes.includes('Biological')?21:63;patient.hp=Math.min(patient.maxHp,patient.hp+amount);}
-  w.visual('hit',patient);w.stats.healed++;
+  observeRecovery(w,undefined,patient,patient.hp-observedHp,(patient.shield??0)-observedShield);w.visual('hit',patient);w.stats.healed++;
  }
 }
 function resolveImpact(w:World,impact:TalentSupportImpact){const targets=[...w.entities.values()].filter(unit=>unit.owner==='zerg'&&unit.hp>0&&!unit.flying);

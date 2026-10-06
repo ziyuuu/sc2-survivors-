@@ -1,0 +1,30 @@
+/* Painting backgrounds fill the panel; transparent bodies keep their aspect. */
+.im-painting-canvas{position:relative;display:block;width:100%;height:100%;overflow:hidden}
+.im-painting-scene{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.im-painting-canvas .im-raster-painting{position:relative;z-index:1}
+.has-unit-painting:has(.im-painting-canvas){background:#071622}
+.has-unit-painting:has(.im-painting-canvas) .im-art-surface{background:linear-gradient(0deg,#0b1929 0%,#0b192944 12%,transparent 31%,transparent 88%,#07152055);z-index:2}
+.im-raster-painting{filter:none}
+.im-card:has(.im-painting-canvas) .im-painting-badge{z-index:3;width:31px;height:31px;background:#091823e8;right:10px;bottom:11px;box-shadow:inset 0 0 0 2px #274151}
+.im-card:has(.im-painting-canvas) .im-painting-badge img{width:25px;height:25px}
+.im-elite-choice .im-painting-canvas{border:none;box-shadow:none}
+.im-detail-art .im-detail-rank{font:600 11px/1.2 'Microsoft YaHei','Noto Sans SC',sans-serif;letter-spacing:1px;left:12px;bottom:10px;padding:4px 6px;color:#d6e9f3;background:#08131fcc;border:1px solid #66859655;pointer-events:none}
+@container game (max-height:390px) and (min-width:601px){
+ .im-choice-grid .im-card:has(.im-painting-canvas){isolation:isolate;min-height:0}
+ .im-choice-grid .im-card:has(.im-painting-canvas) .im-card-face{grid-template-columns:112px minmax(0,1fr);position:static;min-height:0}
+ .im-choice-grid .im-card:has(.im-painting-canvas) .im-card-copy{grid-column:2}
+ .im-choice-grid .im-card:has(.im-painting-canvas) .has-unit-painting{position:absolute;inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);min-height:0;margin:0;z-index:-1;pointer-events:none}
+ .im-choice-grid .im-card:has(.im-painting-canvas) .im-raster-painting{width:154px;height:100%;margin-left:-5px}
+ .im-choice-grid .im-card:has(.im-painting-canvas) .im-art-surface{background:linear-gradient(90deg,transparent 8%,#09162322 35%,#091623e8 63%),linear-gradient(0deg,#091623e8,transparent 60%)}
+ .im-choice-grid .im-card:has(.im-painting-canvas) .im-painting-badge{display:none}
+}
+@container game (max-width:600px){
+ .im-card:has(.im-painting-canvas) .im-painting-scene{width:100%;margin:0}
+ .im-card:has(.im-painting-canvas) .im-raster-painting{width:100%;margin:0}
+ .im-catalogue-grid .im-card:has(.im-painting-canvas) .has-unit-painting{min-height:190px}
+ .im-choice-grid .im-card:has(.im-painting-canvas) .has-unit-painting{min-height:152px}
+}
+@container game (max-width:600px) and (max-height:660px){
+ .im-catalogue-grid .im-card:has(.im-painting-canvas) .has-unit-painting{min-height:150px}
+ .im-choice-grid .im-card:has(.im-painting-canvas) .has-unit-painting{min-height:136px}
+}

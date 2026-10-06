@@ -43,7 +43,7 @@ test('orange paired elite becomes V on both bodies with one paid receipt',()=>{
 test('team health and firepower reach hero and children once, never enemy bodies',()=>{
  const w=make('protoss'),carrier=w.addUnit('carrier','terran',3,0),enemy=w.addUnit('roach','zerg',10,0);w.acquireHero('purifier_flagship');initializeCarrierSubsystem(w);const child=ownedInterceptors(w,carrier.id)[0],hero=w.heroEntity('purifier_flagship')!;
  const base={childHp:child.maxHp,childDamage:child.weaponDamage,heroHp:hero.maxHp,enemyHp:enemy.maxHp};w.expedition.cardTotals[teamCardKey('firepower','blue')]=1;w.expedition.cardTotals[teamCardKey('defense','blue')]=1;for(const u of w.entities.values())w.refreshStats(u);for(const u of w.entities.values())w.refreshStats(u);
- near(child.maxHp,base.childHp*1.1);near(child.weaponDamage,base.childDamage*1.08);near(hero.maxHp,base.heroHp*1.1);near(enemy.maxHp,base.enemyHp);
+ near(child.maxHp,base.childHp*1.35/1.25);near(child.weaponDamage,base.childDamage*1.38/1.3);near(hero.maxHp,base.heroHp*1.35/1.25);near(enemy.maxHp,base.enemyHp);
 });
 test('mines deploy on next stage, persist without duplication, then are reclaimed',()=>{
  const w=make();tickShopSupport(w);buySupport(w,'mines');tickShopSupport(w);assert.equal(w.expedition.support.mines.length,0);w.stage++;tickShopSupport(w);assert.equal(w.expedition.support.mines.length,6);const ids=w.expedition.support.mines.map(m=>m.id);const loaded=make();loaded.restoreRun(w.captureRun());loaded.paused=false;tickShopSupport(loaded);assert.deepEqual(loaded.expedition.support.mines.map(m=>m.id),ids);loaded.stage++;tickShopSupport(loaded);assert.equal(loaded.expedition.support.mines.length,6);assert.ok(loaded.expedition.support.mines.every(m=>!ids.includes(m.id)));

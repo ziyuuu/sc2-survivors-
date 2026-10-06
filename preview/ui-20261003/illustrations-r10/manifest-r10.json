@@ -1,0 +1,1182 @@
+{
+  "revision": 10,
+  "sourceDate": "2026-10-05",
+  "method": "Locally authored vector illustration drafts, not model renders or authentic Blizzard paintings. 30 family bodies, 90 explicit current elite emphases, nine additional hero drawings; nine previously accepted painted hero covers are reused. Current source mechanics, prices and gameplay are unchanged. No remote generation or source-asset upload. All supplied bodies have constant per-member scale; quantity changes only translation and depth order.",
+  "counts": {
+    "ordinaryFamilies": 30,
+    "eliteIllustrations": 90,
+    "additionalHeroIllustrations": 9,
+    "files": 129,
+    "presentationStates": 1152
+  },
+  "checks": {
+    "sourceCoverage": true,
+    "currentEliteIdentityCoverage": true,
+    "allFamilyCardArtPresent": true,
+    "allSupplyCountsAtFixedScale": true,
+    "sourceFingerprintsMatchR9": true
+  },
+  "files": [
+    {
+      "file": "units/marine.svg",
+      "sourceId": "unlock.marine",
+      "name": "陆战队员",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 20282,
+      "sha256": "39e8e6083d9d0dcfb767ba2e1f757140cc7908d45cdadea0969b7e01ca22ee1c"
+    },
+    {
+      "file": "units/marauder.svg",
+      "sourceId": "unlock.marauder",
+      "name": "劫掠者",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 21131,
+      "sha256": "c69d2d69bcae8913921aec3162ee440adfa28ae7d1c86e053f37986b0dc79db1"
+    },
+    {
+      "file": "units/reaper.svg",
+      "sourceId": "unlock.reaper",
+      "name": "死神",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 15646,
+      "sha256": "939f5940c393ff807b0836d893f3106bed5419e95064f437c32df121c7930465"
+    },
+    {
+      "file": "units/hellion.svg",
+      "sourceId": "unlock.hellion",
+      "name": "恶火",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 12735,
+      "sha256": "9e62c72e3899079bce43250f162236477ec84c84a83870984e4750815711ee3a"
+    },
+    {
+      "file": "units/tank.svg",
+      "sourceId": "unlock.tank",
+      "name": "攻城坦克",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 12351,
+      "sha256": "38907e670c081cb721f1b94708426591b212c7061acf62261d104e2e44cf822b"
+    },
+    {
+      "file": "units/thor.svg",
+      "sourceId": "unlock.thor",
+      "name": "雷神",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 15029,
+      "sha256": "35e358db8fc128533a457148fee6d8ed8601e4399e95f2cb4383178a1b3de42f"
+    },
+    {
+      "file": "units/medivac.svg",
+      "sourceId": "unlock.medivac",
+      "name": "医疗运输机",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11361,
+      "sha256": "648e544e46cae42871ac3fc75cfb0fc996088fb19cedecac6fe67a4274498fed"
+    },
+    {
+      "file": "units/viking.svg",
+      "sourceId": "unlock.viking",
+      "name": "维京",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 10783,
+      "sha256": "4cf3f63280472be67b6f2c6f5bd712d92830a3eb24a920eb3be5876bdca96902"
+    },
+    {
+      "file": "units/banshee.svg",
+      "sourceId": "unlock.banshee",
+      "name": "女妖",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11132,
+      "sha256": "d11d2ca91a9fca11dcddafd74b87b8f40afb4d11660ec4fb6c2507ace099a5ad"
+    },
+    {
+      "file": "units/science_vessel.svg",
+      "sourceId": "unlock.science_vessel",
+      "name": "科技球",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11060,
+      "sha256": "a2a0fc169913035fa2b53fe120c7604411afb67bad2c8e825263f1ec0907598f"
+    },
+    {
+      "file": "units/zergling.svg",
+      "sourceId": "unlock.zergling",
+      "name": "跳虫",
+      "race": "zerg",
+      "bodies": 2,
+      "bytes": 16586,
+      "sha256": "2748909bda4298ec5a9e610f5d1db6cb046b3d0f66cd90c7a49f47ff6d796fdb"
+    },
+    {
+      "file": "units/baneling.svg",
+      "sourceId": "unlock.baneling",
+      "name": "爆虫",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11864,
+      "sha256": "e1b101d1d2b7428773f2a0db33eec7fab33a2f723991b0e3ac3c50cb3d1b3490"
+    },
+    {
+      "file": "units/roach.svg",
+      "sourceId": "unlock.roach",
+      "name": "蟑螂",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12025,
+      "sha256": "8536a67eb20327122f3677f4fe1b9857967d5fcd686a5fc5105de71a53e6dab1"
+    },
+    {
+      "file": "units/queen.svg",
+      "sourceId": "unlock.queen",
+      "name": "虫后",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11436,
+      "sha256": "7fbb5783f3d5ad57c8dd26a93c636bf50192525792df192faf79c217f6c747f9"
+    },
+    {
+      "file": "units/ravager.svg",
+      "sourceId": "unlock.ravager",
+      "name": "破坏者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12469,
+      "sha256": "6a6558049a4dfc59c8b9a556fed4b42e8cc147e440aac14d592987a7df9779f3"
+    },
+    {
+      "file": "units/hydralisk.svg",
+      "sourceId": "unlock.hydralisk",
+      "name": "刺蛇",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11439,
+      "sha256": "cf6652a334f8f4273c6b7f27f65e4b91c16f5cb2b68ce193f9b33be78b653a21"
+    },
+    {
+      "file": "units/lurker.svg",
+      "sourceId": "unlock.lurker",
+      "name": "潜伏者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12639,
+      "sha256": "cfa8cc73b0828d9f58f81a1581a6604ea9620ce1a853997308ab069da3020ce4"
+    },
+    {
+      "file": "units/ultralisk.svg",
+      "sourceId": "unlock.ultralisk",
+      "name": "雷兽",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12695,
+      "sha256": "d45f4e4d30c1875f8211a7a8ce5684aff82dab1758bf65ba277dda5b986c7762"
+    },
+    {
+      "file": "units/mutalisk.svg",
+      "sourceId": "unlock.mutalisk",
+      "name": "异龙",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 10800,
+      "sha256": "115609a6925b616671b28fde81131a6b2b29b2f2bd7acde1fa249064ad78966d"
+    },
+    {
+      "file": "units/corruptor.svg",
+      "sourceId": "unlock.corruptor",
+      "name": "腐化者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11250,
+      "sha256": "ad6065a8d466bb2466e1412edd636da5efa27a316b29eeb5ecfd4919679854fb"
+    },
+    {
+      "file": "units/zealot.svg",
+      "sourceId": "unlock.zealot",
+      "name": "狂热者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 12504,
+      "sha256": "4306b934fb02be2cc56f2e9d96d60fedcd71e8ccdff5955848db3e2c651fd39f"
+    },
+    {
+      "file": "units/adept.svg",
+      "sourceId": "unlock.adept",
+      "name": "使徒",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 12526,
+      "sha256": "fb59f5a77ccca56954a7748d300b92e32816e463a1aa7498cf5a20073508d1bb"
+    },
+    {
+      "file": "units/stalker.svg",
+      "sourceId": "unlock.stalker",
+      "name": "追猎者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10456,
+      "sha256": "73f63a27a6b75bc0973a44e039d5871d747194289c8691b14b2815b75fe40f02"
+    },
+    {
+      "file": "units/sentry.svg",
+      "sourceId": "unlock.sentry",
+      "name": "哨兵",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 9494,
+      "sha256": "5e355fcc6bdfb0b0342e0df3a930110e9065608ff1595bbe4e9b222575e4bb32"
+    },
+    {
+      "file": "units/high_templar.svg",
+      "sourceId": "unlock.high_templar",
+      "name": "高阶圣堂武士",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 12461,
+      "sha256": "a8b00cd97a7a2a2f4c6fd054c8c05123d104dae28b1cd41e9a3f377fe7cb5008"
+    },
+    {
+      "file": "units/immortal.svg",
+      "sourceId": "unlock.immortal",
+      "name": "不朽者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 11239,
+      "sha256": "4367ada4f1cbef14838638cab6254268374814200b1131a77e84ddcb7cf4a0b4"
+    },
+    {
+      "file": "units/colossus.svg",
+      "sourceId": "unlock.colossus",
+      "name": "巨像",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10208,
+      "sha256": "7f3cfab1471afbf6d669f1f1a45c318bca8b3c5c3556e0255791e7133eb0a32b"
+    },
+    {
+      "file": "units/phoenix.svg",
+      "sourceId": "unlock.phoenix",
+      "name": "凤凰",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 9551,
+      "sha256": "8136085271f2afed19daa9bf614604c761798d6c12a46f20401f1268c7d2b482"
+    },
+    {
+      "file": "units/void_ray.svg",
+      "sourceId": "unlock.void_ray",
+      "name": "虚空辉光舰",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 9487,
+      "sha256": "719eca0075504a8b1a6654823cdd44bdb4861ff593227ea7ae589bdfd0db28e3"
+    },
+    {
+      "file": "units/carrier.svg",
+      "sourceId": "unlock.carrier",
+      "name": "航母",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 11185,
+      "sha256": "ee15c18b00a46b3a4a389c111a937edfed8389c510a5d6d8a7e08d39c7f39fc8"
+    },
+    {
+      "file": "elites/marine.1.svg",
+      "sourceId": "marine.1",
+      "name": "突击枪兵",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 22073,
+      "sha256": "01e8042365cd44b744ec0fd8cde8d252292edb18f0cd609f6d107d9e99ee3d53"
+    },
+    {
+      "file": "elites/marine.2.svg",
+      "sourceId": "marine.2",
+      "name": "重火力枪兵",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 22262,
+      "sha256": "8bb5d5d1ae0fea7c166854cd78e174b08c711f0e09c2d26bb678633eb5ed89af"
+    },
+    {
+      "file": "elites/marine.3.svg",
+      "sourceId": "marine.3",
+      "name": "重装枪兵",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 23731,
+      "sha256": "38805f0afb75cca407113e6f6b47e929cfb76a3e2a277d012af9a5ef57330c40"
+    },
+    {
+      "file": "elites/marauder.1.svg",
+      "sourceId": "marauder.1",
+      "name": "压制劫掠者",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 22153,
+      "sha256": "a0a17fefbf21d88f0994c5754e729e2ae477f2ef639bdc75fab3d00d6679bf72"
+    },
+    {
+      "file": "elites/marauder.2.svg",
+      "sourceId": "marauder.2",
+      "name": "破甲劫掠者",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 22424,
+      "sha256": "298a116c1a1817ef9714a5b8163e4be2f172773f74e7741f56b0d1b3edf75617"
+    },
+    {
+      "file": "elites/marauder.3.svg",
+      "sourceId": "marauder.3",
+      "name": "堡垒劫掠者",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 23047,
+      "sha256": "58eca3d4c365252e3970b0d2b1b6d2d9141295523801a19c92dff6406dac5067"
+    },
+    {
+      "file": "elites/reaper.1.svg",
+      "sourceId": "reaper.1",
+      "name": "突击死神",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 17282,
+      "sha256": "758de41f93e8e45c11baf0edabe11ddd4fefdc63da5646433d69d0f5a56406a0"
+    },
+    {
+      "file": "elites/reaper.2.svg",
+      "sourceId": "reaper.2",
+      "name": "猎轻死神",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 16581,
+      "sha256": "78e8815e770aed928fdd943c395d085a33b9ab1e00d333402b2fb4dd571ff2f7"
+    },
+    {
+      "file": "elites/reaper.3.svg",
+      "sourceId": "reaper.3",
+      "name": "装甲死神",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 18945,
+      "sha256": "6bfda611c65a3d8dc2d9a6cbe6e5b5131981b604ab11c0018ab54d17c8372655"
+    },
+    {
+      "file": "elites/hellion.1.svg",
+      "sourceId": "hellion.1",
+      "name": "高速恶火",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 13656,
+      "sha256": "7ad3ac4fd588ba5f202e479df2b212234c4c87230f54a6e8b837fe500d47abbd"
+    },
+    {
+      "file": "elites/hellion.2.svg",
+      "sourceId": "hellion.2",
+      "name": "焚烧恶火",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 13872,
+      "sha256": "581932d829bde479da8b38a818c0221dc7a71de7a51a2f10f58efeb9edbb23fd"
+    },
+    {
+      "file": "elites/hellion.3.svg",
+      "sourceId": "hellion.3",
+      "name": "清场恶火",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 13864,
+      "sha256": "c82be11b50ad1ae9c139ebea2900d8e82c1b4d0c5ddff5dac4b20e4f2c7eba4e"
+    },
+    {
+      "file": "elites/tank.1.svg",
+      "sourceId": "tank.1",
+      "name": "重型攻城坦克",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 13142,
+      "sha256": "f7c2454becf795e11bce0a2c7b0ecf7a894398a88048304524cd8759bed8228a"
+    },
+    {
+      "file": "elites/tank.2.svg",
+      "sourceId": "tank.2",
+      "name": "重炮坦克",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 13389,
+      "sha256": "c361fae20781b829c068fa085dcea4070e385dceff80e173767c6f49231e2f86"
+    },
+    {
+      "file": "elites/tank.3.svg",
+      "sourceId": "tank.3",
+      "name": "突击坦克",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 13185,
+      "sha256": "729a05aa2d80896832c9c7ac41b7769728f87de175a3c9fd061084c3883c4cca"
+    },
+    {
+      "file": "elites/thor.1.svg",
+      "sourceId": "thor.1",
+      "name": "防空雷神",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 16477,
+      "sha256": "ea22c75c8141b5d54399049c9542ba168d51bba0493991707821cc7caa32b2ec"
+    },
+    {
+      "file": "elites/thor.2.svg",
+      "sourceId": "thor.2",
+      "name": "重炮雷神",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 16321,
+      "sha256": "299d7cae88ab15d65c9165e585be7ae648b7fd9dfb0a94f99d1b4218602c268e"
+    },
+    {
+      "file": "elites/thor.3.svg",
+      "sourceId": "thor.3",
+      "name": "堡垒雷神",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 15945,
+      "sha256": "a7200391718dd7917d760e3d9fa92f143c56e1a3d1421e9ee2d71a34ba88e443"
+    },
+    {
+      "file": "elites/viking.1.svg",
+      "sourceId": "viking.1",
+      "name": "快速变形维京",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11178,
+      "sha256": "049691cfd3f5dac39f9ae3a379173ecd667ebdfb2fd71785114c07b49311f37a"
+    },
+    {
+      "file": "elites/viking.2.svg",
+      "sourceId": "viking.2",
+      "name": "猎舰维京",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11928,
+      "sha256": "ece6bd64d6c710691662b8f5e7e767e16c9fd9101c22edae192eeecc9d208f9f"
+    },
+    {
+      "file": "elites/viking.3.svg",
+      "sourceId": "viking.3",
+      "name": "突击维京",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 10846,
+      "sha256": "c922c87c21ad37765312dd8ab841d732f8c71118acddbed6e382bdbea3f4305e"
+    },
+    {
+      "file": "elites/banshee.1.svg",
+      "sourceId": "banshee.1",
+      "name": "远程女妖",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11897,
+      "sha256": "1e81e9a808879e5e83246cdb4f0518ff24614ca897a1743c03977d3f29794a0d"
+    },
+    {
+      "file": "elites/banshee.2.svg",
+      "sourceId": "banshee.2",
+      "name": "隐秘女妖",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 12000,
+      "sha256": "d6808426b6be4d19a5db231ac73c783e98f0bfaeb95bbf591791cf254dadcc68"
+    },
+    {
+      "file": "elites/banshee.3.svg",
+      "sourceId": "banshee.3",
+      "name": "速射女妖",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 12298,
+      "sha256": "ba987fa6f199a3c029456b8132e21ac2bc6f09d1f7c87622792c6685708fbd53"
+    },
+    {
+      "file": "elites/medivac.1.svg",
+      "sourceId": "medivac.1",
+      "name": "急救医疗艇",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 12326,
+      "sha256": "eac9fc5eccb4c86db24df4c297d5a9debc3ab06f0795e09551b632d0600a67e6"
+    },
+    {
+      "file": "elites/medivac.2.svg",
+      "sourceId": "medivac.2",
+      "name": "群疗医疗艇",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 12983,
+      "sha256": "c434a0a2b5dbe053b4f15f805b9405ef636de7f7aaf1146671148a4f7d938e82"
+    },
+    {
+      "file": "elites/medivac.3.svg",
+      "sourceId": "medivac.3",
+      "name": "维修医疗艇",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 12336,
+      "sha256": "c50fd1394dfb76ee6514ce3b7d96badebb23fe8e750f149de1c93156acc4dedf"
+    },
+    {
+      "file": "elites/science_vessel.1.svg",
+      "sourceId": "science_vessel.1",
+      "name": "修复科技球",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11946,
+      "sha256": "5beb4c8ae88726e71503d8c4a168a1b96a6414b271a5aa4cabba5b677fa803bb"
+    },
+    {
+      "file": "elites/science_vessel.2.svg",
+      "sourceId": "science_vessel.2",
+      "name": "储能科技球",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11868,
+      "sha256": "5978a1a8a34b80ac30e255248c036309f846e237debe9020e91d31c29e85acc1"
+    },
+    {
+      "file": "elites/science_vessel.3.svg",
+      "sourceId": "science_vessel.3",
+      "name": "远距科技球",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11948,
+      "sha256": "1b746396dce3530659eba6a21876603c11d0e57f9c6c71c83f0c282d0a1c617e"
+    },
+    {
+      "file": "elites/zergling.1.svg",
+      "sourceId": "zergling.1",
+      "name": "利爪跳虫",
+      "race": "zerg",
+      "bodies": 2,
+      "bytes": 17816,
+      "sha256": "aa124d2da4ff22329bbcb822657ebd193be016b7a8de8fc9a1e44a7525c57dfd"
+    },
+    {
+      "file": "elites/zergling.2.svg",
+      "sourceId": "zergling.2",
+      "name": "疾行跳虫",
+      "race": "zerg",
+      "bodies": 2,
+      "bytes": 17924,
+      "sha256": "e3cd73cf8b558c5a4bd766d77450fc775ad3f5d9ceade6dcf04d97668a32e1fb"
+    },
+    {
+      "file": "elites/zergling.3.svg",
+      "sourceId": "zergling.3",
+      "name": "硬壳跳虫",
+      "race": "zerg",
+      "bodies": 2,
+      "bytes": 18732,
+      "sha256": "e5bc8852c72f915c786404afd10c4a990f3dbde6a8906555261e93a61afade7e"
+    },
+    {
+      "file": "elites/baneling.1.svg",
+      "sourceId": "baneling.1",
+      "name": "强酸爆虫",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12819,
+      "sha256": "a8937394b1d3c65cb4c6a9317f96b09b3c956ea25167a6e6250c2d783cd8bdfd"
+    },
+    {
+      "file": "elites/baneling.2.svg",
+      "sourceId": "baneling.2",
+      "name": "裂变爆虫",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12826,
+      "sha256": "d58a9a25de2ef57c24db7ac670905a91c1ce625c990d1da7c776dd72e2c25efe"
+    },
+    {
+      "file": "elites/baneling.3.svg",
+      "sourceId": "baneling.3",
+      "name": "疾行爆虫",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12597,
+      "sha256": "de7ce06d1025b86ed450566d905b3ef215d3744b2a2a67fed2df57738876115f"
+    },
+    {
+      "file": "elites/roach.1.svg",
+      "sourceId": "roach.1",
+      "name": "再生蟑螂",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12640,
+      "sha256": "8cfb779aba3e946b8514e90be7e3b403adad570edb0ac5ae706f5cdee074dc6c"
+    },
+    {
+      "file": "elites/roach.2.svg",
+      "sourceId": "roach.2",
+      "name": "破甲蟑螂",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 13035,
+      "sha256": "f92ed33fd2c1dec81e45d1013632cb52cf196d59480a5ffc299ce364f6be181a"
+    },
+    {
+      "file": "elites/roach.3.svg",
+      "sourceId": "roach.3",
+      "name": "厚甲蟑螂",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 13489,
+      "sha256": "1512ef582f0dd16954abed2d5d234b324e972e472b92f65bf59d11a0f49bace6"
+    },
+    {
+      "file": "elites/ravager.1.svg",
+      "sourceId": "ravager.1",
+      "name": "速射破坏者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 13646,
+      "sha256": "c3d746f4c8e1d1dc00db806b41702278cd6b9ff1df4d5f8f5c60a196eab628cb"
+    },
+    {
+      "file": "elites/ravager.2.svg",
+      "sourceId": "ravager.2",
+      "name": "广域破坏者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 13505,
+      "sha256": "53d7b0147ead215038c7fbd50e1c88d0dc294ab618275fd866e616f53daeb1af"
+    },
+    {
+      "file": "elites/ravager.3.svg",
+      "sourceId": "ravager.3",
+      "name": "猛酸破坏者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 13509,
+      "sha256": "5854f171672e72b1097e0f15d32fdfc7ba2746eea5fab25ebb86b6894914e049"
+    },
+    {
+      "file": "elites/hydralisk.1.svg",
+      "sourceId": "hydralisk.1",
+      "name": "长刺刺蛇",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11867,
+      "sha256": "c34f399272995dd2bfda752a9e1b4c8c147adfc9c686663a10bf116aa6fdb3db"
+    },
+    {
+      "file": "elites/hydralisk.2.svg",
+      "sourceId": "hydralisk.2",
+      "name": "连射刺蛇",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12534,
+      "sha256": "1669d62dcf912907ed2b2fa7f6166b2dfb1e56cfa2ad236ea47fc0b26743cee7"
+    },
+    {
+      "file": "elites/hydralisk.3.svg",
+      "sourceId": "hydralisk.3",
+      "name": "猎空刺蛇",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12543,
+      "sha256": "3b8d61c200673138dd37fb2f2fb83188fc8272061c028df722fa69dd971da19f"
+    },
+    {
+      "file": "elites/queen.1.svg",
+      "sourceId": "queen.1",
+      "name": "哺育虫后",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12007,
+      "sha256": "951f151ff9823dc4a4266668cbb3ce2b26aa8fbcbab71dd22fc273a2fe8824c6"
+    },
+    {
+      "file": "elites/queen.2.svg",
+      "sourceId": "queen.2",
+      "name": "强疗虫后",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12962,
+      "sha256": "1606e50f5b17d3c5e37d2f087594b4f1fba9d1220e658b84dd724aaedda3b530"
+    },
+    {
+      "file": "elites/queen.3.svg",
+      "sourceId": "queen.3",
+      "name": "储能虫后",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12256,
+      "sha256": "877567c0600b93a23cbdf55b36465ce1ed0d0d44fb3d5693e65738967d9bc1e8"
+    },
+    {
+      "file": "elites/lurker.1.svg",
+      "sourceId": "lurker.1",
+      "name": "宽刺潜伏者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 13891,
+      "sha256": "78b0278cae2a9786093ddd2437d181cce471ae3b9572fef747dfa75a4ec9ed3c"
+    },
+    {
+      "file": "elites/lurker.2.svg",
+      "sourceId": "lurker.2",
+      "name": "远刺潜伏者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 13897,
+      "sha256": "0a2b3146e667b3661549c49befad871b75d1114564a2403de7e4562de279aa17"
+    },
+    {
+      "file": "elites/lurker.3.svg",
+      "sourceId": "lurker.3",
+      "name": "连刺潜伏者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 13815,
+      "sha256": "af09551e9d243bcde5f42f9709398d6183f9a70408b5f301456ca55fabcb0ff6"
+    },
+    {
+      "file": "elites/mutalisk.1.svg",
+      "sourceId": "mutalisk.1",
+      "name": "弹射异龙",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11472,
+      "sha256": "2464ac2a5a1e9b91c8b50f527e1a279b28126f72c756986d9636aa83a4114ac0"
+    },
+    {
+      "file": "elites/mutalisk.2.svg",
+      "sourceId": "mutalisk.2",
+      "name": "猎轻异龙",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11470,
+      "sha256": "07448c60a5dc438b0768903f0091fd39b24d1f04a39b6aff877a122e381c6ef3"
+    },
+    {
+      "file": "elites/mutalisk.3.svg",
+      "sourceId": "mutalisk.3",
+      "name": "厚翼异龙",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11357,
+      "sha256": "f42abc4039077163eae19d4a50290e65439ed1f82cfa053565b344c4f3da4ff9"
+    },
+    {
+      "file": "elites/corruptor.1.svg",
+      "sourceId": "corruptor.1",
+      "name": "猎空腐化者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12330,
+      "sha256": "ccb4f36e632f14a3edac7d818134fa7f5df88099b1cd7b49d7018f13d92a86cb"
+    },
+    {
+      "file": "elites/corruptor.2.svg",
+      "sourceId": "corruptor.2",
+      "name": "连射腐化者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12321,
+      "sha256": "b85b1aa5f1ed683f15409004a7647bd1c7da834684a157e5193fe22ba60c13a6"
+    },
+    {
+      "file": "elites/corruptor.3.svg",
+      "sourceId": "corruptor.3",
+      "name": "远猎腐化者",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11926,
+      "sha256": "0da2e2ae5989f9c89ebeb9e3d289e4cf6a9aeeceb0a575d29381f31e3d47bc94"
+    },
+    {
+      "file": "elites/ultralisk.1.svg",
+      "sourceId": "ultralisk.1",
+      "name": "厚甲雷兽",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 14199,
+      "sha256": "c25a9a509d108d323ccdd95d88717c06ea5cf7ca09447d98d552ade3a2eb751f"
+    },
+    {
+      "file": "elites/ultralisk.2.svg",
+      "sourceId": "ultralisk.2",
+      "name": "猛攻雷兽",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 13459,
+      "sha256": "08d5c590a1991446f9f45b4d8e8e7dc9922dbbfa1bb103af449363666b523ec9"
+    },
+    {
+      "file": "elites/ultralisk.3.svg",
+      "sourceId": "ultralisk.3",
+      "name": "巨躯雷兽",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 14196,
+      "sha256": "cf046c42b2a1d446a1efc4dac5d4456f3efb0ff5babc77bd92e49215e6efcec5"
+    },
+    {
+      "file": "elites/zealot.1.svg",
+      "sourceId": "zealot.1",
+      "name": "突进狂热者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13358,
+      "sha256": "1ef7509f87e9286c8ce99dd1e448f4d65cc48c2b2da2f5267cdd7b4c26e30dd7"
+    },
+    {
+      "file": "elites/zealot.2.svg",
+      "sourceId": "zealot.2",
+      "name": "坚盾狂热者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13340,
+      "sha256": "85d6e2712c08c72586602232bc2d63762156d642d9f68582432934251a2eff80"
+    },
+    {
+      "file": "elites/zealot.3.svg",
+      "sourceId": "zealot.3",
+      "name": "连斩狂热者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13192,
+      "sha256": "ce422071f2574e720b9bb833bb3dd9b791e709ddf91fda7f41b4ab01a2bb1f65"
+    },
+    {
+      "file": "elites/adept.1.svg",
+      "sourceId": "adept.1",
+      "name": "穿透使徒",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13342,
+      "sha256": "4f8cd0ad790fcc774f5891ff082e9a5d75a8bc390048853fcb738a93483bc00a"
+    },
+    {
+      "file": "elites/adept.2.svg",
+      "sourceId": "adept.2",
+      "name": "疾行使徒",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13391,
+      "sha256": "eca973a849f7e87d6e76ea3d6fd5c42654d326443e194f50824bab0fd6033473"
+    },
+    {
+      "file": "elites/adept.3.svg",
+      "sourceId": "adept.3",
+      "name": "远击使徒",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13342,
+      "sha256": "e9acd102661f6e7ddeff192d0025cc72e45c24decd4cbab452679b45efa15f1b"
+    },
+    {
+      "file": "elites/stalker.1.svg",
+      "sourceId": "stalker.1",
+      "name": "猎甲追猎者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 11116,
+      "sha256": "bfcbbf9a64e40a0c2e839bb7f627eb538ee607a861165c1be7d2665a8cd7eb29"
+    },
+    {
+      "file": "elites/stalker.2.svg",
+      "sourceId": "stalker.2",
+      "name": "坚盾追猎者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 11150,
+      "sha256": "ca1da1cd48b7b3c8f0f29900efc6c49d703cd8aae53322aeb6e4e79d10f027e0"
+    },
+    {
+      "file": "elites/stalker.3.svg",
+      "sourceId": "stalker.3",
+      "name": "迅闪追猎者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 11346,
+      "sha256": "95c28cd092e1bce24237a7519ddb9d7a3a68aebc7c1f6a0b44faf8bf3cae11f1"
+    },
+    {
+      "file": "elites/sentry.1.svg",
+      "sourceId": "sentry.1",
+      "name": "守护哨兵",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10185,
+      "sha256": "4a3715e13c8e422b9a7019f24af6fbc18ef277f8437ac724c73647a2eb685855"
+    },
+    {
+      "file": "elites/sentry.2.svg",
+      "sourceId": "sentry.2",
+      "name": "储能哨兵",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10275,
+      "sha256": "94e4c0e2d8960d46b64114116af8fa1658abceca52b335ba74aae9cf794e10ff"
+    },
+    {
+      "file": "elites/sentry.3.svg",
+      "sourceId": "sentry.3",
+      "name": "广域哨兵",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10189,
+      "sha256": "e8ba22c67e3fa90caaa54a6c1d05136a95899bf31ed97f617c541f714f6c3dcb"
+    },
+    {
+      "file": "elites/immortal.1.svg",
+      "sourceId": "immortal.1",
+      "name": "屏障不朽者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 12023,
+      "sha256": "a6e1e3e6dbe761a1c40e34bb7e51b4f8e51058405e1b66e2856390d62d38d57c"
+    },
+    {
+      "file": "elites/immortal.2.svg",
+      "sourceId": "immortal.2",
+      "name": "破甲不朽者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 11983,
+      "sha256": "ccf840a81a97b5120d240c743e854a3e7244c7f78b08d1689c332f9850d5c248"
+    },
+    {
+      "file": "elites/immortal.3.svg",
+      "sourceId": "immortal.3",
+      "name": "坚盾不朽者",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 12022,
+      "sha256": "9f56a8ace88f49f8b497d616f2b95c5edd6c90599ed363f256495e8be18d0608"
+    },
+    {
+      "file": "elites/colossus.1.svg",
+      "sourceId": "colossus.1",
+      "name": "远距巨像",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10873,
+      "sha256": "9483f99c3cdee0554ca897b3e4a882b75df9411429c17d2da83b9b67f92187a0"
+    },
+    {
+      "file": "elites/colossus.2.svg",
+      "sourceId": "colossus.2",
+      "name": "连灼巨像",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 11070,
+      "sha256": "13a1253f56761e02b735e699bd2f1eb19b16b55cafc6ed3712b18b2a47c3e95b"
+    },
+    {
+      "file": "elites/colossus.3.svg",
+      "sourceId": "colossus.3",
+      "name": "坚盾巨像",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10913,
+      "sha256": "c6e25fb7386733a4d6a9eb7468cf2f95d8a07929c6cd2760300d634594d95599"
+    },
+    {
+      "file": "elites/high_templar.1.svg",
+      "sourceId": "high_templar.1",
+      "name": "风暴圣堂",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13726,
+      "sha256": "296e03809d659b2bafa92026a2636d39fe718d59bf16ecb3c4f2b69b5b83d378"
+    },
+    {
+      "file": "elites/high_templar.2.svg",
+      "sourceId": "high_templar.2",
+      "name": "储能圣堂",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13420,
+      "sha256": "b8753e9635ba4420df06c8480ad60417059b590b13fd0f7a53f5cedffca7ceb8"
+    },
+    {
+      "file": "elites/high_templar.3.svg",
+      "sourceId": "high_templar.3",
+      "name": "强电圣堂",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13723,
+      "sha256": "21bbdeaf5a016dc6bd6d9a485809bdc181bef019f9b89b3176d14b59ab523ae8"
+    },
+    {
+      "file": "elites/phoenix.1.svg",
+      "sourceId": "phoenix.1",
+      "name": "猎轻凤凰",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10632,
+      "sha256": "56bed15e6eda13d61bc6f3eec55952b948888580d43e8334d8557a7ad6a9a8a8"
+    },
+    {
+      "file": "elites/phoenix.2.svg",
+      "sourceId": "phoenix.2",
+      "name": "远猎凤凰",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10231,
+      "sha256": "d2c3f0d84ea24e4afaa1e711da9fc793e512dbc5f5086b9a1e59636d99e40625"
+    },
+    {
+      "file": "elites/phoenix.3.svg",
+      "sourceId": "phoenix.3",
+      "name": "迅翼凤凰",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10277,
+      "sha256": "bdc71f5326a22702e6238b16c40e9e7807b4a949b48ce53d19217cae6baed347"
+    },
+    {
+      "file": "elites/void_ray.1.svg",
+      "sourceId": "void_ray.1",
+      "name": "聚焦辉光舰",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10327,
+      "sha256": "c4b03230d16d84e16cdc773d3e35040d1ac498268fe66dfbc487042792be52d7"
+    },
+    {
+      "file": "elites/void_ray.2.svg",
+      "sourceId": "void_ray.2",
+      "name": "坚盾辉光舰",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10186,
+      "sha256": "a3515f01b1d1c7c6a2d4ac1fe3ee61086c0ea921e229932ac11508944ce93038"
+    },
+    {
+      "file": "elites/void_ray.3.svg",
+      "sourceId": "void_ray.3",
+      "name": "连束辉光舰",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 10556,
+      "sha256": "cd13d1a3a5cb027c0658760a88884c2637f566228aa78102d3154be4a33e16f4"
+    },
+    {
+      "file": "elites/carrier.1.svg",
+      "sourceId": "carrier.1",
+      "name": "高速舰载航母",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 12383,
+      "sha256": "dc999caaff9f5d9972790943fa3fe168ad7d63c8b5153988d66bb472dfe842f9"
+    },
+    {
+      "file": "elites/carrier.2.svg",
+      "sourceId": "carrier.2",
+      "name": "强袭舰载航母",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13384,
+      "sha256": "adce573778a6df3cdfbfe6d4aca85807423a2ef82667a24aa289ecdfbe221e64"
+    },
+    {
+      "file": "elites/carrier.3.svg",
+      "sourceId": "carrier.3",
+      "name": "坚盾航母",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 12018,
+      "sha256": "28d6f99c3b12a63673b997f32c5d4c38acbff41ec858b16be6c661b44a3a5fb0"
+    },
+    {
+      "file": "heroes/swann.svg",
+      "sourceId": "hero.swann",
+      "name": "斯旺",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 22230,
+      "sha256": "e665f0684235576f584a0a2843ff8a6d97cc2503aa47e2246c4ea912db159a20"
+    },
+    {
+      "file": "heroes/tosh.svg",
+      "sourceId": "hero.tosh",
+      "name": "托什",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 21278,
+      "sha256": "1dc2dc70767ebaddd8efc97461abe074f688bd490ea29f87332d1198fd1ddcdb"
+    },
+    {
+      "file": "heroes/yamato_battlecruiser.svg",
+      "sourceId": "hero.yamato_battlecruiser",
+      "name": "大和战列巡洋舰",
+      "race": "terran",
+      "bodies": 1,
+      "bytes": 11901,
+      "sha256": "ce559232042bf21d3cf1841cd67fef55d4f84e3b4b90cac0828c825ebac039cf"
+    },
+    {
+      "file": "heroes/stukov.svg",
+      "sourceId": "hero.stukov",
+      "name": "斯托科夫",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 10717,
+      "sha256": "6f06e4bdf5dd85d2e9ca3894b6365937aced7be073776d41713be54891ef332f"
+    },
+    {
+      "file": "heroes/niadra.svg",
+      "sourceId": "hero.niadra",
+      "name": "妮雅德拉",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 12096,
+      "sha256": "44e2171526a6e26996ea34ab5c66ae9c7754d59f3f307d6d2d2031e3c52239ac"
+    },
+    {
+      "file": "heroes/hots_leviathan.svg",
+      "sourceId": "hero.hots_leviathan",
+      "name": "利维坦",
+      "race": "zerg",
+      "bodies": 1,
+      "bytes": 11288,
+      "sha256": "01ac53249b55ae3b50d9e109f01d4d448c5b56d3f3aabe163656281e36ccde5b"
+    },
+    {
+      "file": "heroes/alarak.svg",
+      "sourceId": "hero.alarak",
+      "name": "阿拉纳克",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 12849,
+      "sha256": "234b4fcb5b8dd6018b94f262d485534970d358536b4f008fd7bf94ff05822ab1"
+    },
+    {
+      "file": "heroes/vorazun.svg",
+      "sourceId": "hero.vorazun",
+      "name": "沃拉尊",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 13153,
+      "sha256": "474533fda144b14b0fe5d44f92a708d67ed346faf98de1d009d2f5b6028d9b32"
+    },
+    {
+      "file": "heroes/purifier_flagship.svg",
+      "sourceId": "hero.purifier_flagship",
+      "name": "净化者旗舰",
+      "race": "protoss",
+      "bodies": 1,
+      "bytes": 12138,
+      "sha256": "a6a9469830d4aef6c72f26948e04294144d538df1c98ae61ca1f09aa15c96cf6"
+    }
+  ]
+}

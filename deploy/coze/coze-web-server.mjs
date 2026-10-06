@@ -4,8 +4,9 @@ import {createHash} from 'node:crypto';
 import {createGzip} from 'node:zlib';
 import {fileURLToPath} from 'node:url';
 import {resolve,dirname,extname,relative,isAbsolute} from 'node:path';
+import {createBackend} from './backend/service.mjs';
 const here=dirname(fileURLToPath(import.meta.url));
-export function createGameServer({webRoot,assetRoot=webRoot,assetBaseUrl=''}={}){
+export function createGameServer({webRoot,assetRoot=webRoot,assetBaseUrl='',backendOptions}={}){
  const root=resolve(webRoot),resources=resolve(assetRoot),report=JSON.parse(readFileSync(resolve(root,'web-release.json'),'utf8'));
  const manifest=JSON.parse(readFileSync(resolve(root,report.manifest),'utf8'));
  if(manifest.version!==1||manifest.release!==report.release)throw Error('Release manifest does not match app');
@@ -15,7 +16,8 @@ export function createGameServer({webRoot,assetRoot=webRoot,assetBaseUrl=''}={})
   const bytes=readFileSync(resolve(resources,a.url));if(bytes.length!==a.bytes||createHash('sha256').update(bytes).digest('hex')!==a.sha256)throw Error('Missing or corrupt resource: '+a.url);
  }
  const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.glb':'model/gltf-binary','.gltf':'model/gltf+json','.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.ogg':'audio/ogg','.mp3':'audio/mpeg','.wav':'audio/wav'};
- return createServer((req,res)=>{
+ const backend=createBackend(backendOptions),server=createServer((req,res)=>{
+  if(backend.handle(req,res))return;
   res.setHeader('Access-Control-Allow-Origin','*');res.setHeader('Timing-Allow-Origin','*');res.setHeader('X-Content-Type-Options','nosniff');
   if(req.method==='OPTIONS'){res.writeHead(204,{'Access-Control-Allow-Methods':'GET, HEAD, OPTIONS'});res.end();return;}
   if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);res.end();return;}
@@ -31,7 +33,7 @@ export function createGameServer({webRoot,assetRoot=webRoot,assetBaseUrl=''}={})
   if(zipped)res.setHeader('Content-Encoding','gzip');else res.setHeader('Content-Length',stat.size);
   res.writeHead(200);if(req.method==='HEAD'){res.end();return;}
   const stream=createReadStream(file);stream.on('error',()=>res.destroy());res.on('close',()=>stream.destroy());if(zipped)stream.pipe(createGzip({level:1})).pipe(res);else stream.pipe(res);
- });
+ });server.on('close',()=>{void backend.close();});server.backend=backend;return server;
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const webRoot=process.env.WEB_ROOT?resolve(process.env.WEB_ROOT):existsSync(resolve(here,'public/index.html'))?resolve(here,'public'):resolve(here,'../dist/web');

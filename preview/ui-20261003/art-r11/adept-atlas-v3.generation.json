@@ -1,0 +1,9 @@
+{
+  "key": "adept-atlas-v3",
+  "prompt": "Precisely refine this newly generated 4-column SC2-style Adept layered art source. Keep all four upper temple scenes, the same gold-red mouthless female Protoss Adepts, crescent forearm glaive casters, and the correct lower poses: ordinary standing, light-armor hunter firing, quick moving adept, ranged adept firing. Critical correction: all lower bodies/effects must be four genuinely separate TRANSPARENT cutouts. Remove all opaque black/grey halos, clouds, black mats or gradients from around the blue energy rings and purple afterimage. Only bodies, clothes, weapons and a few compact thin luminous lines remain, with actual zero alpha in all surrounding empty pixels. The black rectangles appear when these are cropped: eliminate their cause. Keep each COMPLETE body incl boots, capes and weapon fully inside its own one-quarter column, with 20px transparent outer gutters and no overlap into neighbors. Make firing energy rays short and narrow and within the same column. The moving version uses 2 or 3 thin semi-transparent curved purple motion strokes close to her armor, never a full humanoid clone or wide opaque shadow blanket. Upper landscapes stay independent, with fully opaque painted skies where there were accidental transparent sky holes. At least 25px transparent horizontal separator between scenery and all heads. Painterly mature metallic armor/material detail, same lighting. No labels, frame, text, numbers or card UI. Output PNG true alpha for the lower space; no black background.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-a76bd8a3-fef3-4326-8f40-90cab632dd0b.png",
+  "output": "adept-atlas-v3.png",
+  "intent": "edit-newly-generated-art",
+  "input": "adept-atlas-v2.png",
+  "privateReferencesUploaded": false
+}

@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';import path from 'node:path';import {openDatabase} from './database.mjs';import {Repository} from './repository.mjs';import {configFromEnv} from './security.mjs';import {refreshDaily} from './metrics.mjs';
+const [command,name,...flags]=process.argv.slice(2),cfg=configFromEnv();if(!cfg.enabled)throw Error('Set the explicitly configured backend environment first.');
+const db=await openDatabase(cfg),repo=new Repository(db,{backupDays:cfg.backupDays,journal:cfg.journal});
+try{
+ if(command==='create-admin'){if(!name)throw Error('Usage: create-admin NAME [--contacts]; password from stdin only');let password='';for await(const chunk of process.stdin){password+=chunk;if(password.length>300)throw Error('Password input too long');}await repo.createAdmin(name,password.replace(/\r?\n$/,''),flags.includes('--contacts'));console.log('Admin created. No password or session printed.');}
+ else if(command==='disable-admin'){if(!name)throw Error('Username required');await db.transaction(async tx=>{const r=await tx.query('UPDATE admin_users SET disabled=true WHERE username=$1 RETURNING id',[name.toLowerCase()]);if(!r.rows.length)throw Error('Admin not found');await tx.query('DELETE FROM admin_sessions WHERE user_id=$1',[r.rows[0].id]);});console.log('Admin disabled and sessions revoked.');}
+ else if(command==='maintenance'){console.log(JSON.stringify({daily:await refreshDaily(repo),cleanup:await repo.maintenance()}));}
+ else if(command==='export-deletions'){if(!name)throw Error('Output file required');await fs.writeFile(path.resolve(name),JSON.stringify(await repo.exportDeletionManifest(),null,2),{mode:0o600,flag:'wx'});console.log('Deletion manifest exported. Store independently of database backups.');}
+ else if(command==='replay-deletions'){if(!name)throw Error('Manifest or journal required');const raw=await fs.readFile(path.resolve(name),'utf8'),rows=raw.trim().startsWith('[')?JSON.parse(raw):raw.trim().split('\n').filter(Boolean).map(s=>JSON.parse(s));console.log(JSON.stringify(await repo.replayDeletionManifest(rows)));await repo.maintenance();}
+ else throw Error('Commands: create-admin, disable-admin, maintenance, export-deletions, replay-deletions');
+}finally{await db.close();}

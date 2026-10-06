@@ -1,0 +1,5022 @@
+{
+  "marine-atlas.png": {
+    "file": "marine-atlas.png",
+    "webp": "marine-atlas.webp",
+    "assetKey": "marine-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2396315,
+    "webpBytes": 637306,
+    "sha256": "892e85ef9842377ac36b6876e1ed25c54b5d40b3ff027aa99f54dc15c8fbfb90",
+    "webpSha256": "a15fa145943797a2862d0093f81eea44ee76ed39642d5ac6e4035673cfaf5719",
+    "entries": [
+      {
+        "key": "marine",
+        "family": "marine",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 302
+        },
+        "bodyBounds": {
+          "x": 55,
+          "y": 337,
+          "width": 309,
+          "height": 556
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5704129225255986,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "marine.1",
+        "family": "marine",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 302
+        },
+        "bodyBounds": {
+          "x": 479,
+          "y": 319,
+          "width": 278,
+          "height": 580
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6133508668719936,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "marine.2",
+        "family": "marine",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 302
+        },
+        "bodyBounds": {
+          "x": 849,
+          "y": 357,
+          "width": 400,
+          "height": 534
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4695643146347372,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "marine.3",
+        "family": "marine",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 302
+        },
+        "bodyBounds": {
+          "x": 1305,
+          "y": 324,
+          "width": 331,
+          "height": 578
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.44510579721847326,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "hydralisk-atlas.png": {
+    "file": "hydralisk-atlas.png",
+    "webp": "hydralisk-atlas.webp",
+    "assetKey": "hydralisk-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2520558,
+    "webpBytes": 762280,
+    "sha256": "02c52cd9e4fcb47aaf33fb31c476e3a030531ebb21e336a013011a71059e3507",
+    "webpSha256": "bf0cee15019e42950c212cf69831bd5835751b9098dc77a667b2b50bd7f3ebe5",
+    "entries": [
+      {
+        "key": "hydralisk",
+        "family": "hydralisk",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 297
+        },
+        "bodyBounds": {
+          "x": 19,
+          "y": 388,
+          "width": 391,
+          "height": 508
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4585819585819586,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "hydralisk.1",
+        "family": "hydralisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 297
+        },
+        "bodyBounds": {
+          "x": 437,
+          "y": 337,
+          "width": 394,
+          "height": 572
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.43157019243975764,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "hydralisk.2",
+        "family": "hydralisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 297
+        },
+        "bodyBounds": {
+          "x": 851,
+          "y": 399,
+          "width": 398,
+          "height": 508
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4195446151967891,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "hydralisk.3",
+        "family": "hydralisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 297
+        },
+        "bodyBounds": {
+          "x": 1301,
+          "y": 313,
+          "width": 353,
+          "height": 599
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4717139499748195,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "marauder-atlas.png": {
+    "file": "marauder-atlas.png",
+    "webp": "marauder-atlas.webp",
+    "assetKey": "marauder-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2487359,
+    "webpBytes": 650450,
+    "sha256": "4c83b02e8b319337f0df1a1f454b4b1c283aaa23030c942404dc3c4502d76b9a",
+    "webpSha256": "880cbca4cde19e14595028724a1d94459fde78caa4cfe01f3eedcc38858017c0",
+    "entries": [
+      {
+        "key": "marauder",
+        "family": "marauder",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 265
+        },
+        "bodyBounds": {
+          "x": 21,
+          "y": 365,
+          "width": 390,
+          "height": 540
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.42509050201357895,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "marauder.1",
+        "family": "marauder",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 265
+        },
+        "bodyBounds": {
+          "x": 428,
+          "y": 373,
+          "width": 401,
+          "height": 529
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4442195019118096,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "marauder.2",
+        "family": "marauder",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 265
+        },
+        "bodyBounds": {
+          "x": 858,
+          "y": 378,
+          "width": 391,
+          "height": 527
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4123620662082201,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "marauder.3",
+        "family": "marauder",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 265
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 364,
+          "width": 395,
+          "height": 542
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.35683599145137607,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "zealot-atlas.png": {
+    "file": "zealot-atlas.png",
+    "webp": "zealot-atlas.webp",
+    "assetKey": "zealot-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2619410,
+    "webpBytes": 798772,
+    "sha256": "961b41fa13d1a3b7f0df7c497c8ffbd797616542f45c3be7e094ff956c97747b",
+    "webpSha256": "265355e10aebf96206612475c64908b8085c9f3db0713a620a841dc79cbaa96b",
+    "entries": [
+      {
+        "key": "zealot",
+        "family": "zealot",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 319
+        },
+        "bodyBounds": {
+          "x": 30,
+          "y": 387,
+          "width": 355,
+          "height": 517
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.36959716220166383,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "zealot.1",
+        "family": "zealot",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 319
+        },
+        "bodyBounds": {
+          "x": 436,
+          "y": 393,
+          "width": 386,
+          "height": 488
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.3088436287793201,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "zealot.2",
+        "family": "zealot",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 319
+        },
+        "bodyBounds": {
+          "x": 858,
+          "y": 390,
+          "width": 371,
+          "height": 517
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.2764759790483263,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "zealot.3",
+        "family": "zealot",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 319
+        },
+        "bodyBounds": {
+          "x": 1272,
+          "y": 423,
+          "width": 389,
+          "height": 473
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.3848803495105746,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "zergling-atlas.png": {
+    "file": "zergling-atlas.png",
+    "webp": "zergling-atlas.webp",
+    "assetKey": "zergling-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2206220,
+    "webpBytes": 691174,
+    "sha256": "0a3e2df0044a6918c4e42ddaba4ce84f6014ea55c31da121fc6cae6b4d8a772f",
+    "webpSha256": "05433f3b076e19eecb90d1ee7b72ece24a6cdeec56d739691edfdc50a9cddae0",
+    "entries": [
+      {
+        "key": "zergling",
+        "family": "zergling",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 318
+        },
+        "bodyBounds": {
+          "x": 10,
+          "y": 453,
+          "width": 403,
+          "height": 411
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.6511766399406849,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "zergling.1",
+        "family": "zergling",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 318
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 451,
+          "width": 407,
+          "height": 452
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.6392031897649875,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "zergling.2",
+        "family": "zergling",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 318
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 466,
+          "width": 405,
+          "height": 409
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4428007461715327,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "zergling.3",
+        "family": "zergling",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 318
+        },
+        "bodyBounds": {
+          "x": 1276,
+          "y": 433,
+          "width": 386,
+          "height": 455
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5812960194982667,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "banshee-atlas.png": {
+    "file": "banshee-atlas.png",
+    "webp": "banshee-atlas.webp",
+    "assetKey": "banshee-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2160168,
+    "webpBytes": 579530,
+    "sha256": "e5e0a260970e8912bbab219f1f9a10cf7d922d6ffc5a4bb9c74bf547e30d7b26",
+    "webpSha256": "811a8bdfe9312289e914424b08bbe10ef14687830f42f4d06bd64c6ecfe6b820",
+    "entries": [
+      {
+        "key": "banshee",
+        "family": "banshee",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 324
+        },
+        "bodyBounds": {
+          "x": 17,
+          "y": 408,
+          "width": 393,
+          "height": 437
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5571820531301893,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "banshee.1",
+        "family": "banshee",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 324
+        },
+        "bodyBounds": {
+          "x": 435,
+          "y": 414,
+          "width": 389,
+          "height": 442
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5173005626814379,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "banshee.2",
+        "family": "banshee",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 324
+        },
+        "bodyBounds": {
+          "x": 856,
+          "y": 433,
+          "width": 385,
+          "height": 415
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.2951230293207603,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "banshee.3",
+        "family": "banshee",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 324
+        },
+        "bodyBounds": {
+          "x": 1269,
+          "y": 439,
+          "width": 398,
+          "height": 401
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4643933752523704,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "hellion-atlas.png": {
+    "file": "hellion-atlas.png",
+    "webp": "hellion-atlas.webp",
+    "assetKey": "hellion-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2260388,
+    "webpBytes": 608310,
+    "sha256": "bc603061bed269c754ec7a5ea5e66c3c229c695559cd9d5083695d195877183e",
+    "webpSha256": "bd5c8b7c0cf643f0c3dc747647cb88d2b29b53221307abbccc4a5e3116b21d11",
+    "entries": [
+      {
+        "key": "hellion",
+        "family": "hellion",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 347
+        },
+        "bodyBounds": {
+          "x": 16,
+          "y": 505,
+          "width": 387,
+          "height": 331
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6488513306695125,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "hellion.1",
+        "family": "hellion",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 347
+        },
+        "bodyBounds": {
+          "x": 431,
+          "y": 460,
+          "width": 400,
+          "height": 400
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4950074040983132,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "hellion.2",
+        "family": "hellion",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 347
+        },
+        "bodyBounds": {
+          "x": 846,
+          "y": 508,
+          "width": 393,
+          "height": 325
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6084555630010176,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "hellion.3",
+        "family": "hellion",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 347
+        },
+        "bodyBounds": {
+          "x": 1266,
+          "y": 512,
+          "width": 388,
+          "height": 342
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5858751313296768,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "medivac-atlas.png": {
+    "file": "medivac-atlas.png",
+    "webp": "medivac-atlas.webp",
+    "assetKey": "medivac-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2338077,
+    "webpBytes": 634890,
+    "sha256": "c07c1b61d387beb79bc2d033adb87dbc929badf73581a31f6d27c181281f19b4",
+    "webpSha256": "2e24d42d6b16bd6c788ea5b9ffa29dd220c3c67cde3c725b9f047344310e0fa2",
+    "entries": [
+      {
+        "key": "medivac",
+        "family": "medivac",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 301
+        },
+        "bodyBounds": {
+          "x": 6,
+          "y": 428,
+          "width": 398,
+          "height": 338
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5472089987714988,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "medivac.1",
+        "family": "medivac",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 301
+        },
+        "bodyBounds": {
+          "x": 434,
+          "y": 405,
+          "width": 388,
+          "height": 394
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.43316185503685506,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "medivac.2",
+        "family": "medivac",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 300
+        },
+        "bodyBounds": {
+          "x": 852,
+          "y": 405,
+          "width": 391,
+          "height": 437
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.31400951369750124,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "medivac.3",
+        "family": "medivac",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 300
+        },
+        "bodyBounds": {
+          "x": 1270,
+          "y": 405,
+          "width": 393,
+          "height": 465
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.3771441275341431,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "reaper-atlas.png": {
+    "file": "reaper-atlas.png",
+    "webp": "reaper-atlas.webp",
+    "assetKey": "reaper-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2088814,
+    "webpBytes": 644194,
+    "sha256": "76d58655edcc46ecee99f45edba887c90fb409ebc9373a456e6918b32efa8648",
+    "webpSha256": "a631a04104ad8a70377de3a35418e27dcb94973aa2948118cbdb9900364e7f57",
+    "entries": [
+      {
+        "key": "reaper",
+        "family": "reaper",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 30,
+          "y": 374,
+          "width": 346,
+          "height": 521
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5619758994181182,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "reaper.1",
+        "family": "reaper",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 427,
+          "y": 363,
+          "width": 401,
+          "height": 549
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5050067577032138,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "reaper.2",
+        "family": "reaper",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 852,
+          "y": 361,
+          "width": 397,
+          "height": 552
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.46281748901163383,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "reaper.3",
+        "family": "reaper",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 1261,
+          "y": 371,
+          "width": 394,
+          "height": 541
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4630446386994923,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "science_vessel-atlas.png": {
+    "file": "science_vessel-atlas.png",
+    "webp": "science_vessel-atlas.webp",
+    "assetKey": "science_vessel-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2265243,
+    "webpBytes": 686020,
+    "sha256": "d56efd8820b26c21ee457de36ea8be67fe58d1dd9a183a2139ed4a1410d1e149",
+    "webpSha256": "3427dad2daf34db8d5a241d82e0d612564fdc2fa51c96f2b3a70a45b13f9a9b5",
+    "entries": [
+      {
+        "key": "science_vessel",
+        "family": "science_vessel",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 319
+        },
+        "bodyBounds": {
+          "x": 31,
+          "y": 415,
+          "width": 353,
+          "height": 361
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5966881818971851,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "science_vessel.1",
+        "family": "science_vessel",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 322
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 418,
+          "width": 392,
+          "height": 439
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.41895662735727357,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "science_vessel.2",
+        "family": "science_vessel",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 324
+        },
+        "bodyBounds": {
+          "x": 857,
+          "y": 415,
+          "width": 392,
+          "height": 426
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5245122830211971,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "science_vessel.3",
+        "family": "science_vessel",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 323
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 418,
+          "width": 386,
+          "height": 433
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5973458012292964,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "tank-atlas.png": {
+    "file": "tank-atlas.png",
+    "webp": "tank-atlas.webp",
+    "assetKey": "tank-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2120538,
+    "webpBytes": 570198,
+    "sha256": "6161053408fcd47d9d881a3e9b6db0d442941e2fe8323b41b2bff949bd1552c5",
+    "webpSha256": "cc479c99d23049ddf05b63f8d27abb12b0be08ef4c51b6cea648e3c755604219",
+    "entries": [
+      {
+        "key": "tank",
+        "family": "tank",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 315
+        },
+        "bodyBounds": {
+          "x": 7,
+          "y": 460,
+          "width": 397,
+          "height": 352
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6594461147176802,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "tank.1",
+        "family": "tank",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 315
+        },
+        "bodyBounds": {
+          "x": 431,
+          "y": 419,
+          "width": 400,
+          "height": 402
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.672017646458541,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "tank.2",
+        "family": "tank",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 315
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 427,
+          "width": 403,
+          "height": 392
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4902347889568337,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "tank.3",
+        "family": "tank",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 315
+        },
+        "bodyBounds": {
+          "x": 1263,
+          "y": 509,
+          "width": 404,
+          "height": 287
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.585253275349122,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "thor-atlas.png": {
+    "file": "thor-atlas.png",
+    "webp": "thor-atlas.webp",
+    "assetKey": "thor-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2680745,
+    "webpBytes": 698486,
+    "sha256": "5f38b0bbdc7fc2e919b2499333851f20caedd61ff9426a6de27358e29b8d6b47",
+    "webpSha256": "ba127c7cc2c1a3ff420cd51c1582b1bf2f02f474ebfa75169974c9b238f6cbc7",
+    "entries": [
+      {
+        "key": "thor",
+        "family": "thor",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 294
+        },
+        "bodyBounds": {
+          "x": 7,
+          "y": 346,
+          "width": 406,
+          "height": 567
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.358057790824406,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "thor.1",
+        "family": "thor",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 294
+        },
+        "bodyBounds": {
+          "x": 431,
+          "y": 313,
+          "width": 393,
+          "height": 597
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.37484287716126974,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "thor.2",
+        "family": "thor",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 294
+        },
+        "bodyBounds": {
+          "x": 846,
+          "y": 373,
+          "width": 403,
+          "height": 525
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.39584702026742213,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "thor.3",
+        "family": "thor",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 294
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 364,
+          "width": 407,
+          "height": 548
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.3166647046090632,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "viking-atlas.png": {
+    "file": "viking-atlas.png",
+    "webp": "viking-atlas.webp",
+    "assetKey": "viking-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2172790,
+    "webpBytes": 605040,
+    "sha256": "74a3067ca32ba531543028c89aa4aba1ab0348d69ad175f47713b6c997bb275c",
+    "webpSha256": "e7bf95f698d49c27b668d58f3751eeae121a2dabc58a06cc1af31182fa4e8b68",
+    "entries": [
+      {
+        "key": "viking",
+        "family": "viking",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 7,
+          "y": 420,
+          "width": 391,
+          "height": 485
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5574972647391754,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "viking.1",
+        "family": "viking",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 395,
+          "width": 405,
+          "height": 488
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.561415596854734,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "viking.2",
+        "family": "viking",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 844,
+          "y": 402,
+          "width": 401,
+          "height": 486
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.49311168571569186,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "viking.3",
+        "family": "viking",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 387,
+          "width": 406,
+          "height": 525
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5174015590040243,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "reaper-atlas-v2.png": {
+    "file": "reaper-atlas-v2.png",
+    "webp": "reaper-atlas-v2.webp",
+    "assetKey": "reaper-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 1940072,
+    "webpBytes": 521608,
+    "sha256": "eff01077637fa32208dccf9a3a6484c3cd2cb96a7921ba3ed85c854f37dc6a3a",
+    "webpSha256": "ecb2a49d2cb1e936e4161433fb8a36231181c1732055bcbe99330a718f88e1cd",
+    "entries": [
+      {
+        "key": "reaper",
+        "family": "reaper",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 293
+        },
+        "bodyBounds": {
+          "x": 30,
+          "y": 374,
+          "width": 348,
+          "height": 522
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5736645736645737,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "reaper.1",
+        "family": "reaper",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 293
+        },
+        "bodyBounds": {
+          "x": 427,
+          "y": 361,
+          "width": 404,
+          "height": 552
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5361763278429945,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "reaper.2",
+        "family": "reaper",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 293
+        },
+        "bodyBounds": {
+          "x": 853,
+          "y": 360,
+          "width": 396,
+          "height": 553
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.49993554160220827,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "reaper.3",
+        "family": "reaper",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 293
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 368,
+          "width": 396,
+          "height": 545
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4847233597233597,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "tank-atlas-v2.png": {
+    "file": "tank-atlas-v2.png",
+    "webp": "tank-atlas-v2.webp",
+    "assetKey": "tank-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 1993262,
+    "webpBytes": 479976,
+    "sha256": "60ea46eed423736b2b538ab459797bc28a438247ab5ace788877d9807ec9dd23",
+    "webpSha256": "8e7bc333c96c828ea23c32e938f373f32a54a5e7da0be9bdc3bc07bf6f2639e2",
+    "entries": [
+      {
+        "key": "tank",
+        "family": "tank",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 319
+        },
+        "bodyBounds": {
+          "x": 8,
+          "y": 459,
+          "width": 397,
+          "height": 354
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6562053137615839,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "tank.1",
+        "family": "tank",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 319
+        },
+        "bodyBounds": {
+          "x": 432,
+          "y": 417,
+          "width": 399,
+          "height": 406
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.6671670208647701,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "tank.2",
+        "family": "tank",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 319
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 421,
+          "width": 406,
+          "height": 400
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.48221240825742434,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "tank.3",
+        "family": "tank",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 319
+        },
+        "bodyBounds": {
+          "x": 1265,
+          "y": 507,
+          "width": 402,
+          "height": 289
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5843834187885635,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "thor-atlas-v2.png": {
+    "file": "thor-atlas-v2.png",
+    "webp": "thor-atlas-v2.webp",
+    "assetKey": "thor-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2443288,
+    "webpBytes": 550850,
+    "sha256": "6430adfe13c964aa1710869109651f0bb2daa7932cd8acb30159955a1ff93174",
+    "webpSha256": "3e200cb002f81ac80fec5e71eaac466493c53dbc4eea0841eb63cf8bb21a5c0e",
+    "entries": [
+      {
+        "key": "thor",
+        "family": "thor",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 296
+        },
+        "bodyBounds": {
+          "x": 7,
+          "y": 344,
+          "width": 406,
+          "height": 570
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.3440336742662324,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "thor.1",
+        "family": "thor",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 296
+        },
+        "bodyBounds": {
+          "x": 432,
+          "y": 313,
+          "width": 393,
+          "height": 598
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.36729329752585566,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "thor.2",
+        "family": "thor",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 296
+        },
+        "bodyBounds": {
+          "x": 846,
+          "y": 373,
+          "width": 403,
+          "height": 525
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.3875054758775689,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "thor.3",
+        "family": "thor",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 296
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 361,
+          "width": 407,
+          "height": 551
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.3120697864883911,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "baneling-atlas.png": {
+    "file": "baneling-atlas.png",
+    "webp": "baneling-atlas.webp",
+    "assetKey": "baneling-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2391854,
+    "webpBytes": 711444,
+    "sha256": "e98be46d557e4d3119bd354cf9f2540d41447d9510d5c9eb5a72c1d0da4fd299",
+    "webpSha256": "9fd91598e949e0b9fecf0767a7c498cd062b4b974c2fa4db88ee555b18ff4d2d",
+    "entries": [
+      {
+        "key": "baneling",
+        "family": "baneling",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 331
+        },
+        "bodyBounds": {
+          "x": 26,
+          "y": 472,
+          "width": 354,
+          "height": 377
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5827244532162565,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "baneling.1",
+        "family": "baneling",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 335
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 404,
+          "width": 405,
+          "height": 457
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.3833004922113833,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "baneling.2",
+        "family": "baneling",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 333
+        },
+        "bodyBounds": {
+          "x": 854,
+          "y": 427,
+          "width": 386,
+          "height": 432
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4751713435923962,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "baneling.3",
+        "family": "baneling",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 344
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 476,
+          "width": 398,
+          "height": 364
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5123323414780702,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "queen-atlas.png": {
+    "file": "queen-atlas.png",
+    "webp": "queen-atlas.webp",
+    "assetKey": "queen-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2314157,
+    "webpBytes": 740608,
+    "sha256": "19693028a63a227061b9380813592cfed2c529535a5badeba63af56f207d9559",
+    "webpSha256": "af04976e6f6f2c44e8aca0360fa90108ce8b9384cc92e3789dfddcbaa78cdfab",
+    "entries": [
+      {
+        "key": "queen",
+        "family": "queen",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 259
+        },
+        "bodyBounds": {
+          "x": 24,
+          "y": 313,
+          "width": 381,
+          "height": 594
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5199046020160389,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "queen.1",
+        "family": "queen",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 259
+        },
+        "bodyBounds": {
+          "x": 430,
+          "y": 324,
+          "width": 396,
+          "height": 576
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.48122662785419384,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "queen.2",
+        "family": "queen",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 259
+        },
+        "bodyBounds": {
+          "x": 852,
+          "y": 322,
+          "width": 393,
+          "height": 579
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.41079495918205594,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "queen.3",
+        "family": "queen",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 259
+        },
+        "bodyBounds": {
+          "x": 1267,
+          "y": 334,
+          "width": 389,
+          "height": 561
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5076376029455208,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "ravager-atlas.png": {
+    "file": "ravager-atlas.png",
+    "webp": "ravager-atlas.webp",
+    "assetKey": "ravager-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2253658,
+    "webpBytes": 725722,
+    "sha256": "790246a374a45c6909b160fb298a45b02d1ad0268a3b86d8cdef5a7c54140c32",
+    "webpSha256": "a3e13670dfc729a02fc82e1024b69748538f3d055c0a9ccdca93aa45c1092e74",
+    "entries": [
+      {
+        "key": "ravager",
+        "family": "ravager",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 293
+        },
+        "bodyBounds": {
+          "x": 20,
+          "y": 353,
+          "width": 381,
+          "height": 532
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.44301498468165135,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "ravager.1",
+        "family": "ravager",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 290
+        },
+        "bodyBounds": {
+          "x": 436,
+          "y": 357,
+          "width": 356,
+          "height": 509
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.47573757251176607,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "ravager.2",
+        "family": "ravager",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 294
+        },
+        "bodyBounds": {
+          "x": 853,
+          "y": 359,
+          "width": 396,
+          "height": 519
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.36642375127691973,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "ravager.3",
+        "family": "ravager",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 294
+        },
+        "bodyBounds": {
+          "x": 1280,
+          "y": 359,
+          "width": 372,
+          "height": 521
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5349050047659012,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "roach-atlas.png": {
+    "file": "roach-atlas.png",
+    "webp": "roach-atlas.webp",
+    "assetKey": "roach-atlas",
+    "width": 1672,
+    "height": 940,
+    "pngBytes": 2448813,
+    "webpBytes": 691330,
+    "sha256": "6cc5b06d75b42caab63de4e429f3f787c6853fe35ca440d33852237d8164a8d2",
+    "webpSha256": "550cfd91dca2e5d37e139a0a21c961fca49d4de7145de7204d7ffd0bd840f4ff",
+    "entries": [
+      {
+        "key": "roach",
+        "family": "roach",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 332
+        },
+        "bodyBounds": {
+          "x": 12,
+          "y": 415,
+          "width": 396,
+          "height": 456
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5842210332341912,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "roach.1",
+        "family": "roach",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 332
+        },
+        "bodyBounds": {
+          "x": 431,
+          "y": 411,
+          "width": 393,
+          "height": 445
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5519041769041769,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "roach.2",
+        "family": "roach",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 332
+        },
+        "bodyBounds": {
+          "x": 845,
+          "y": 448,
+          "width": 404,
+          "height": 398
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5440765226949438,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "roach.3",
+        "family": "roach",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 332
+        },
+        "bodyBounds": {
+          "x": 1264,
+          "y": 410,
+          "width": 391,
+          "height": 463
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4824170761670762,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "viking-atlas-v2.png": {
+    "file": "viking-atlas-v2.png",
+    "webp": "viking-atlas-v2.webp",
+    "assetKey": "viking-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2007520,
+    "webpBytes": 501762,
+    "sha256": "4b98851ca8dd2eec34078e89567c98aff357cb820b3562b871c6b1b2d02a2b11",
+    "webpSha256": "6f431836bddc2a78167d6b210739e767c1180ad26c6e04fe5bf561119fcdd9a0",
+    "entries": [
+      {
+        "key": "viking",
+        "family": "viking",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 295
+        },
+        "bodyBounds": {
+          "x": 10,
+          "y": 412,
+          "width": 403,
+          "height": 349
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 184,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.634024539597295,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "viking.1",
+        "family": "viking",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 295
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 343,
+          "width": 407,
+          "height": 466
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5508515833593233,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "viking.2",
+        "family": "viking",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 295
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 433,
+          "width": 407,
+          "height": 328
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.6467659610074471,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "viking.3",
+        "family": "viking",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 294
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 374,
+          "width": 402,
+          "height": 536
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4863421803143596,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "corruptor-atlas.png": {
+    "file": "corruptor-atlas.png",
+    "webp": "corruptor-atlas.webp",
+    "assetKey": "corruptor-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 1942896,
+    "webpBytes": 604480,
+    "sha256": "e70d8b06aa0975d7b9f9a9fa49c7477cc34e794c8b5faf74b3659909819400c2",
+    "webpSha256": "7784a6ba9a5a37c6daec15bb054f31f44f4ba5575d8bb584c5ee622f950a03bb",
+    "entries": [
+      {
+        "key": "corruptor",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 277
+        },
+        "bodyBounds": {
+          "x": 21,
+          "y": 374,
+          "width": 381,
+          "height": 505
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.576400195376099,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "corruptor.1",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 277
+        },
+        "bodyBounds": {
+          "x": 438,
+          "y": 361,
+          "width": 393,
+          "height": 525
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4763328498268257,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "corruptor.2",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 277
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 376,
+          "width": 403,
+          "height": 503
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5700097688049496,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "corruptor.3",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 277
+        },
+        "bodyBounds": {
+          "x": 1276,
+          "y": 380,
+          "width": 373,
+          "height": 502
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.6309056866285782,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "lurker-atlas.png": {
+    "file": "lurker-atlas.png",
+    "webp": "lurker-atlas.webp",
+    "assetKey": "lurker-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2468090,
+    "webpBytes": 711490,
+    "sha256": "019d9f5f4e5c9f75b39246854076e2618d531561506a842d05ca496462797d28",
+    "webpSha256": "6edcd3fc7c559430cd5f6b6600801c2be7c772d7b8ac09a397cbc011942a1fe7",
+    "entries": [
+      {
+        "key": "lurker",
+        "family": "lurker",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 407
+        },
+        "bodyBounds": {
+          "x": 17,
+          "y": 411,
+          "width": 393,
+          "height": 421
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [
+          "inspect body/head overlap with scene"
+        ],
+        "clearLowerFraction": 0.6656038060532442,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "lurker.1",
+        "family": "lurker",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 411
+        },
+        "bodyBounds": {
+          "x": 435,
+          "y": 463,
+          "width": 392,
+          "height": 395
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5463307218024199,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "lurker.2",
+        "family": "lurker",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 409
+        },
+        "bodyBounds": {
+          "x": 851,
+          "y": 502,
+          "width": 393,
+          "height": 342
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6442703811124864,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "lurker.3",
+        "family": "lurker",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 413
+        },
+        "bodyBounds": {
+          "x": 1271,
+          "y": 499,
+          "width": 384,
+          "height": 323
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6321197230288139,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "mutalisk-atlas.png": {
+    "file": "mutalisk-atlas.png",
+    "webp": "mutalisk-atlas.webp",
+    "assetKey": "mutalisk-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2045594,
+    "webpBytes": 616292,
+    "sha256": "96b38766268d0d1ada36b51ac552acf7091fcaf8713d81fd3d5c3f72a47c39e7",
+    "webpSha256": "21b475d424b1223adbff7325e17f97ea8966d7ff33937166f1349c38fd2075d6",
+    "entries": [
+      {
+        "key": "mutalisk",
+        "family": "mutalisk",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 270
+        },
+        "bodyBounds": {
+          "x": 6,
+          "y": 322,
+          "width": 407,
+          "height": 558
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.6455435248281746,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "mutalisk.1",
+        "family": "mutalisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 270
+        },
+        "bodyBounds": {
+          "x": 433,
+          "y": 304,
+          "width": 390,
+          "height": 578
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5344071886545806,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "mutalisk.2",
+        "family": "mutalisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 269
+        },
+        "bodyBounds": {
+          "x": 850,
+          "y": 306,
+          "width": 389,
+          "height": 599
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.6110842985842986,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "mutalisk.3",
+        "family": "mutalisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 270
+        },
+        "bodyBounds": {
+          "x": 1272,
+          "y": 297,
+          "width": 391,
+          "height": 609
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5701783615345464,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "ravager-atlas-v2.png": {
+    "file": "ravager-atlas-v2.png",
+    "webp": "ravager-atlas-v2.webp",
+    "assetKey": "ravager-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2381460,
+    "webpBytes": 750714,
+    "sha256": "111d14218020d3b1db28b6004e2fe79df293f4c6e3973144dbb04e865e865feb",
+    "webpSha256": "db46ebbfdbe7df13a3c508361fdd5f4e8e6a319f6012bfe61cb6c26aa9a3bd79",
+    "entries": [
+      {
+        "key": "ravager",
+        "family": "ravager",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 286
+        },
+        "bodyBounds": {
+          "x": 17,
+          "y": 346,
+          "width": 393,
+          "height": 536
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4260779863833299,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "ravager.1",
+        "family": "ravager",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 287
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 339,
+          "width": 398,
+          "height": 541
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.367460872048028,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "ravager.2",
+        "family": "ravager",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 343,
+          "width": 407,
+          "height": 539
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.2683394979234733,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "ravager.3",
+        "family": "ravager",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 293
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 339,
+          "width": 384,
+          "height": 532
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.43490460157126826,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "ultralisk-atlas.png": {
+    "file": "ultralisk-atlas.png",
+    "webp": "ultralisk-atlas.webp",
+    "assetKey": "ultralisk-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2415194,
+    "webpBytes": 739132,
+    "sha256": "f31bf52bf2a58beeaedd45ca40c6f493edecf7f8d6614687723bdf351541b598",
+    "webpSha256": "ced742e0c89d93e0b4f449a853f0b0eb51b0a11a51b432e2636e486430f708ec",
+    "entries": [
+      {
+        "key": "ultralisk",
+        "family": "ultralisk",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 361
+        },
+        "bodyBounds": {
+          "x": 14,
+          "y": 473,
+          "width": 391,
+          "height": 383
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5724603914259087,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "ultralisk.1",
+        "family": "ultralisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 366
+        },
+        "bodyBounds": {
+          "x": 431,
+          "y": 448,
+          "width": 396,
+          "height": 418
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4652750774489905,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "ultralisk.2",
+        "family": "ultralisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 352
+        },
+        "bodyBounds": {
+          "x": 844,
+          "y": 424,
+          "width": 400,
+          "height": 461
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.40123809563537916,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "ultralisk.3",
+        "family": "ultralisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 363
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 456,
+          "width": 398,
+          "height": 398
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4757785467128028,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "viking-atlas-v3.png": {
+    "file": "viking-atlas-v3.png",
+    "webp": "viking-atlas-v3.webp",
+    "assetKey": "viking-atlas-v3",
+    "width": 1671,
+    "height": 941,
+    "pngBytes": 1680479,
+    "webpBytes": 401182,
+    "sha256": "ce79f7747b0c69c2e7183f760d6fb3c1af6be28c5d252b9e2819fcaf60f82424",
+    "webpSha256": "5917afeb7c4461897b1e3a5c467f7a0c47b3226a16d04a671488897ce2bc219b",
+    "entries": [
+      {
+        "key": "viking",
+        "family": "viking",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 295
+        },
+        "bodyBounds": {
+          "x": 83,
+          "y": 476,
+          "width": 366,
+          "height": 288
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.7485963163142153,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "viking.1",
+        "family": "viking",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 295
+        },
+        "bodyBounds": {
+          "x": 513,
+          "y": 400,
+          "width": 307,
+          "height": 400
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.6024660736431687,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "viking.2",
+        "family": "viking",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 405,
+          "height": 295
+        },
+        "bodyBounds": {
+          "x": 892,
+          "y": 491,
+          "width": 344,
+          "height": 274
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.720755997498818,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "viking.3",
+        "family": "viking",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1259,
+          "y": 0,
+          "width": 406,
+          "height": 295
+        },
+        "bodyBounds": {
+          "x": 1288,
+          "y": 419,
+          "width": 321,
+          "height": 423
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.6458151086634059,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "adept-atlas-v2.png": {
+    "file": "adept-atlas-v2.png",
+    "webp": "adept-atlas-v2.webp",
+    "assetKey": "adept-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2408622,
+    "webpBytes": 684004,
+    "sha256": "a19ffb1ed2522d6cf11b6b521816d2bee0d169c6fe8dc954c1111eec6ffe2cb9",
+    "webpSha256": "d3d7c5424e63698b781c8118c4e09206ac8d8f79c59581a47ab1651830ca2014",
+    "entries": [
+      {
+        "key": "adept",
+        "family": "adept",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 340
+        },
+        "bodyBounds": {
+          "x": 25,
+          "y": 369,
+          "width": 388,
+          "height": 541
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4015011835311336,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "adept.1",
+        "family": "adept",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 341
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 385,
+          "width": 407,
+          "height": 512
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.2028009828009828,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "adept.2",
+        "family": "adept",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 344
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 420,
+          "width": 407,
+          "height": 464
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.1121043382349915,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "adept.3",
+        "family": "adept",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 341
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 412,
+          "width": 407,
+          "height": 460
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.2542055692055692,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "carrier-atlas-v2.png": {
+    "file": "carrier-atlas-v2.png",
+    "webp": "carrier-atlas-v2.webp",
+    "assetKey": "carrier-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2625285,
+    "webpBytes": 702154,
+    "sha256": "468947a86c284e38bb76314701a41e6e10faf92c10b44b79afe2f624f63bf3bb",
+    "webpSha256": "9989c03cdebdd79c667fc40b2850f81b570ab016896f7c6be5b1da7e30ae9247",
+    "entries": [
+      {
+        "key": "carrier",
+        "family": "carrier",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 332
+        },
+        "bodyBounds": {
+          "x": 7,
+          "y": 381,
+          "width": 406,
+          "height": 482
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5070825415653002,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "carrier.1",
+        "family": "carrier",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 330
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 334,
+          "width": 407,
+          "height": 519
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect body/head overlap with scene",
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4084937489192808,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "carrier.2",
+        "family": "carrier",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 338
+        },
+        "bodyBounds": {
+          "x": 846,
+          "y": 384,
+          "width": 403,
+          "height": 475
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.32802408921811904,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "carrier.3",
+        "family": "carrier",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 339
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 417,
+          "width": 403,
+          "height": 460
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.3835739998530696,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "colossus-atlas-v2.png": {
+    "file": "colossus-atlas-v2.png",
+    "webp": "colossus-atlas-v2.webp",
+    "assetKey": "colossus-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2380516,
+    "webpBytes": 786150,
+    "sha256": "06c5fca3e38ccab3f71f5f8dd68179f5a6fd23900006eaee23433624d6057005",
+    "webpSha256": "2aa0ae5bf21e1f1aaf8b1bce524f71eeeadd89d98905f9ec19b6e02a00f518cd",
+    "entries": [
+      {
+        "key": "colossus",
+        "family": "colossus",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 309
+        },
+        "bodyBounds": {
+          "x": 6,
+          "y": 339,
+          "width": 407,
+          "height": 568
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4222389823655646,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "colossus.1",
+        "family": "colossus",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 307
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 345,
+          "width": 407,
+          "height": 532
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.43519171594881373,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "colossus.2",
+        "family": "colossus",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 307
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 357,
+          "width": 407,
+          "height": 553
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.3795526240321193,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "colossus.3",
+        "family": "colossus",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 310
+        },
+        "bodyBounds": {
+          "x": 1269,
+          "y": 354,
+          "width": 392,
+          "height": 558
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.34193219296230387,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "corruptor-atlas-v2.png": {
+    "file": "corruptor-atlas-v2.png",
+    "webp": "corruptor-atlas-v2.webp",
+    "assetKey": "corruptor-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2036374,
+    "webpBytes": 574848,
+    "sha256": "40df153ff15f75188a97fcb3479850c29312035e60e9c08734fffee6ef256fba",
+    "webpSha256": "aacae464da888314ee1ca1a79fc3b3423e834471debe138585ce0013f294d917",
+    "entries": [
+      {
+        "key": "corruptor",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 279
+        },
+        "bodyBounds": {
+          "x": 58,
+          "y": 387,
+          "width": 326,
+          "height": 497
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5755472583267145,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "corruptor.1",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 279
+        },
+        "bodyBounds": {
+          "x": 446,
+          "y": 304,
+          "width": 385,
+          "height": 578
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.47210077421557783,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "corruptor.2",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 279
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 414,
+          "width": 389,
+          "height": 463
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5094049006435714,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "corruptor.3",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 279
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 397,
+          "width": 384,
+          "height": 481
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.6202557954823816,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "high_templar-atlas.png": {
+    "file": "high_templar-atlas.png",
+    "webp": "high_templar-atlas.webp",
+    "assetKey": "high_templar-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2705834,
+    "webpBytes": 806968,
+    "sha256": "c75d6837be087fbfe9b99248bc55679a8aa2925d652dcea23935bdc41eb51995",
+    "webpSha256": "06138b203341b3e11fb7ab8d8ea57e2aa7381d3ae62c9c949275ec819846567c",
+    "entries": [
+      {
+        "key": "high_templar",
+        "family": "high_templar",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 249
+        },
+        "bodyBounds": {
+          "x": 16,
+          "y": 272,
+          "width": 370,
+          "height": 645
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.3815454971524336,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "high_templar.1",
+        "family": "high_templar",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 249
+        },
+        "bodyBounds": {
+          "x": 436,
+          "y": 294,
+          "width": 381,
+          "height": 622
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.185052761642357,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "high_templar.2",
+        "family": "high_templar",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 249
+        },
+        "bodyBounds": {
+          "x": 867,
+          "y": 289,
+          "width": 348,
+          "height": 614
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.3314538921475338,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "high_templar.3",
+        "family": "high_templar",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 249
+        },
+        "bodyBounds": {
+          "x": 1267,
+          "y": 293,
+          "width": 391,
+          "height": 611
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.2445960148272287,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "immortal-atlas.png": {
+    "file": "immortal-atlas.png",
+    "webp": "immortal-atlas.webp",
+    "assetKey": "immortal-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2466683,
+    "webpBytes": 748822,
+    "sha256": "453358f352fbbd160b53b1c96b59e2e6f7cae942af44ed0eeaa81996e86e3182",
+    "webpSha256": "fdea13399e87dd907a6d24846d8889e2b1d6dfe5fc1deacffa7887690727e0c9",
+    "entries": [
+      {
+        "key": "immortal",
+        "family": "immortal",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 354
+        },
+        "bodyBounds": {
+          "x": 16,
+          "y": 377,
+          "width": 397,
+          "height": 513
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.47681334734145636,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "immortal.1",
+        "family": "immortal",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 354
+        },
+        "bodyBounds": {
+          "x": 434,
+          "y": 376,
+          "width": 396,
+          "height": 514
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4440184337969687,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "immortal.2",
+        "family": "immortal",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 350
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 378,
+          "width": 398,
+          "height": 509
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.46325513330589474,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "immortal.3",
+        "family": "immortal",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 353
+        },
+        "bodyBounds": {
+          "x": 1263,
+          "y": 377,
+          "width": 401,
+          "height": 512
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.393571679285965,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "lurker-atlas-v2.png": {
+    "file": "lurker-atlas-v2.png",
+    "webp": "lurker-atlas-v2.webp",
+    "assetKey": "lurker-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2294875,
+    "webpBytes": 590728,
+    "sha256": "b5ebc710de45531adf83ce845db0c085effb55920e64e6be2a49263695e6ab3a",
+    "webpSha256": "76e6d331d749f50f53d710cffd460ab7b85d590a150b54a2db7e0f7dd3283896",
+    "entries": [
+      {
+        "key": "lurker",
+        "family": "lurker",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 387
+        },
+        "bodyBounds": {
+          "x": 17,
+          "y": 491,
+          "width": 391,
+          "height": 352
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6474378875100897,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "lurker.1",
+        "family": "lurker",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 391
+        },
+        "bodyBounds": {
+          "x": 426,
+          "y": 457,
+          "width": 404,
+          "height": 405
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5281125753853027,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "lurker.2",
+        "family": "lurker",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 394
+        },
+        "bodyBounds": {
+          "x": 847,
+          "y": 494,
+          "width": 402,
+          "height": 353
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.6338796832398295,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "lurker.3",
+        "family": "lurker",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 393
+        },
+        "bodyBounds": {
+          "x": 1267,
+          "y": 495,
+          "width": 393,
+          "height": 341
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6091886511594541,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "mutalisk-atlas-v2.png": {
+    "file": "mutalisk-atlas-v2.png",
+    "webp": "mutalisk-atlas-v2.webp",
+    "assetKey": "mutalisk-atlas-v2",
+    "width": 1671,
+    "height": 941,
+    "pngBytes": 2094366,
+    "webpBytes": 568000,
+    "sha256": "26710fec27f8e362a65e9742e1b6e67f75ad9f34f21e0f515dc55b070672853e",
+    "webpSha256": "944515a1906b051c4d1dbfc9e779192ce9644f36212f6c037ea6d640d893338b",
+    "entries": [
+      {
+        "key": "mutalisk",
+        "family": "mutalisk",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 267
+        },
+        "bodyBounds": {
+          "x": 14,
+          "y": 307,
+          "width": 399,
+          "height": 585
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5949263263803323,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "mutalisk.1",
+        "family": "mutalisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 267
+        },
+        "bodyBounds": {
+          "x": 433,
+          "y": 297,
+          "width": 390,
+          "height": 589
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.531908223302882,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "mutalisk.2",
+        "family": "mutalisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 405,
+          "height": 267
+        },
+        "bodyBounds": {
+          "x": 846,
+          "y": 301,
+          "width": 401,
+          "height": 607
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5868902661852626,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "mutalisk.3",
+        "family": "mutalisk",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1259,
+          "y": 0,
+          "width": 406,
+          "height": 267
+        },
+        "bodyBounds": {
+          "x": 1266,
+          "y": 293,
+          "width": 395,
+          "height": 616
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5365160142608214,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "phoenix-atlas-v2.png": {
+    "file": "phoenix-atlas-v2.png",
+    "webp": "phoenix-atlas-v2.webp",
+    "assetKey": "phoenix-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2297634,
+    "webpBytes": 644706,
+    "sha256": "6ee732568b5d491e630da0c9b991d5c7c55757c453bd62e75ea9b4cfdbb09fb6",
+    "webpSha256": "ba02ba9bcf19f40baade01c95c1c98684f23ea9d6392e5304ed73bb46fe5d373",
+    "entries": [
+      {
+        "key": "phoenix",
+        "family": "phoenix",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 321
+        },
+        "bodyBounds": {
+          "x": 33,
+          "y": 378,
+          "width": 376,
+          "height": 449
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.3418839660775145,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "phoenix.1",
+        "family": "phoenix",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 321
+        },
+        "bodyBounds": {
+          "x": 429,
+          "y": 379,
+          "width": 369,
+          "height": 408
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.4254379012443529,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "phoenix.2",
+        "family": "phoenix",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 321
+        },
+        "bodyBounds": {
+          "x": 850,
+          "y": 379,
+          "width": 393,
+          "height": 449
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.34382579059998414,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "phoenix.3",
+        "family": "phoenix",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 321
+        },
+        "bodyBounds": {
+          "x": 1293,
+          "y": 412,
+          "width": 336,
+          "height": 387
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.3183561860981216,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "sentry-atlas.png": {
+    "file": "sentry-atlas.png",
+    "webp": "sentry-atlas.webp",
+    "assetKey": "sentry-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2245150,
+    "webpBytes": 679838,
+    "sha256": "975e352babb04839d6dad109b9eacc4cc36b4078c6ca49782f37ffc153b22c02",
+    "webpSha256": "952b58c5e5ab3dadcebd5e43a85d7783942f98416e0ac8e9e8cb74d07372a2c2",
+    "entries": [
+      {
+        "key": "sentry",
+        "family": "sentry",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 290
+        },
+        "bodyBounds": {
+          "x": 22,
+          "y": 457,
+          "width": 339,
+          "height": 377
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5806149677117419,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "sentry.1",
+        "family": "sentry",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 291
+        },
+        "bodyBounds": {
+          "x": 426,
+          "y": 415,
+          "width": 405,
+          "height": 410
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.493974673974674,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "sentry.2",
+        "family": "sentry",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 291
+        },
+        "bodyBounds": {
+          "x": 866,
+          "y": 409,
+          "width": 383,
+          "height": 427
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.42972594972594974,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "sentry.3",
+        "family": "sentry",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 290
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 397,
+          "width": 407,
+          "height": 442
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.49121555573168474,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "stalker-atlas.png": {
+    "file": "stalker-atlas.png",
+    "webp": "stalker-atlas.webp",
+    "assetKey": "stalker-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2158035,
+    "webpBytes": 631682,
+    "sha256": "9157b2771ca57b45c3c35156c90c92e06ba01b5f17f1f17d8311b743b6090419",
+    "webpSha256": "e41137b44cedd89d9d0fd217344f3a07b33cd0ce587739ed56f635b0be2f0332",
+    "entries": [
+      {
+        "key": "stalker",
+        "family": "stalker",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 27,
+          "y": 354,
+          "width": 368,
+          "height": 524
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6074891252086938,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "stalker.1",
+        "family": "stalker",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 438,
+          "y": 374,
+          "width": 385,
+          "height": 505
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6018747420904585,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "stalker.2",
+        "family": "stalker",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 857,
+          "y": 384,
+          "width": 377,
+          "height": 492
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4585281457392397,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "stalker.3",
+        "family": "stalker",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 292
+        },
+        "bodyBounds": {
+          "x": 1294,
+          "y": 392,
+          "width": 368,
+          "height": 499
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4333183162150805,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "void_ray-atlas.png": {
+    "file": "void_ray-atlas.png",
+    "webp": "void_ray-atlas.webp",
+    "assetKey": "void_ray-atlas",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2121664,
+    "webpBytes": 621710,
+    "sha256": "aee0f1b90a1f1e54ae98a3a9614e2c748c0f9679fc9e406b655fe6aa1d4041e6",
+    "webpSha256": "35e2db30e0f100569751e1c21b16d7002cec7bf5b31cbf657228dbdf7ad118f0",
+    "entries": [
+      {
+        "key": "void_ray",
+        "family": "void_ray",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 269
+        },
+        "bodyBounds": {
+          "x": 21,
+          "y": 378,
+          "width": 369,
+          "height": 400
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5866495553995554,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "void_ray.1",
+        "family": "void_ray",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 277
+        },
+        "bodyBounds": {
+          "x": 434,
+          "y": 369,
+          "width": 394,
+          "height": 425
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.620289511855777,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "void_ray.2",
+        "family": "void_ray",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 277
+        },
+        "bodyBounds": {
+          "x": 846,
+          "y": 368,
+          "width": 383,
+          "height": 425
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.45503019448802584,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "void_ray.3",
+        "family": "void_ray",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 275
+        },
+        "bodyBounds": {
+          "x": 1271,
+          "y": 378,
+          "width": 396,
+          "height": 434
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.549737698386347,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "corruptor-atlas-v3.png": {
+    "file": "corruptor-atlas-v3.png",
+    "webp": "corruptor-atlas-v3.webp",
+    "assetKey": "corruptor-atlas-v3",
+    "width": 1671,
+    "height": 941,
+    "pngBytes": 1895985,
+    "webpBytes": 483428,
+    "sha256": "ee30ccf4e32b8ee45adbadbb12829c71f5ac2f55c7e463f7156e2f3c2b549426",
+    "webpSha256": "a41dee0d5108d41fb29bd88924fe40bbfbf146eeefd6cbc705f48a92d6cb4db0",
+    "entries": [
+      {
+        "key": "corruptor",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 280
+        },
+        "bodyBounds": {
+          "x": 57,
+          "y": 387,
+          "width": 327,
+          "height": 498
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": true,
+        "issues": [],
+        "clearLowerFraction": 0.5806889271337078,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "corruptor.1",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 280
+        },
+        "bodyBounds": {
+          "x": 450,
+          "y": 299,
+          "width": 381,
+          "height": 584
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5159296278812164,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "corruptor.2",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 405,
+          "height": 280
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 413,
+          "width": 406,
+          "height": 465
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5794362922277785,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "corruptor.3",
+        "family": "corruptor",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1259,
+          "y": 0,
+          "width": 406,
+          "height": 280
+        },
+        "bodyBounds": {
+          "x": 1259,
+          "y": 396,
+          "width": 386,
+          "height": 482
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": true,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.6232794477877686,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "queen-atlas-v2.png": {
+    "file": "queen-atlas-v2.png",
+    "webp": "queen-atlas-v2.webp",
+    "assetKey": "queen-atlas-v2",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2168436,
+    "webpBytes": 628460,
+    "sha256": "786f9b4eedf7b1e93897cb0c6ffad09df163281c5d61a5aa4f66f1ebbba75e0e",
+    "webpSha256": "7b389b0e9eba936e85e823f639eb1779057cc526fb98f94b300c7482380ae283",
+    "entries": [
+      {
+        "key": "queen",
+        "family": "queen",
+        "race": "zerg",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 260
+        },
+        "bodyBounds": {
+          "x": 23,
+          "y": 312,
+          "width": 383,
+          "height": 593
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5014161137509155,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "queen.1",
+        "family": "queen",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 260
+        },
+        "bodyBounds": {
+          "x": 426,
+          "y": 320,
+          "width": 405,
+          "height": 585
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4375737371332085,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "queen.2",
+        "family": "queen",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 260
+        },
+        "bodyBounds": {
+          "x": 852,
+          "y": 321,
+          "width": 394,
+          "height": 579
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.4105431021730581,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "queen.3",
+        "family": "queen",
+        "race": "zerg",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 260
+        },
+        "bodyBounds": {
+          "x": 1267,
+          "y": 334,
+          "width": 389,
+          "height": 561
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.49280397738547516,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "adept-atlas-v3.png": {
+    "file": "adept-atlas-v3.png",
+    "webp": "adept-atlas-v3.webp",
+    "assetKey": "adept-atlas-v3",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 2303712,
+    "webpBytes": 680528,
+    "sha256": "b7d7d1fe65a0935d2d9cc381d426ea358fedfea5e6015246dccb208db774666c",
+    "webpSha256": "c2e1fc0d5e39370b688f98fae4b10f8e82ad71ee4d5ea67b427d73565daef6b4",
+    "entries": [
+      {
+        "key": "adept",
+        "family": "adept",
+        "race": "protoss",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 349
+        },
+        "bodyBounds": {
+          "x": 27,
+          "y": 367,
+          "width": 386,
+          "height": 543
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.45666627930141446,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "adept.1",
+        "family": "adept",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 350
+        },
+        "bodyBounds": {
+          "x": 424,
+          "y": 387,
+          "width": 407,
+          "height": 513
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.3930164590063067,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "adept.2",
+        "family": "adept",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 349
+        },
+        "bodyBounds": {
+          "x": 842,
+          "y": 431,
+          "width": 407,
+          "height": 442
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.37975629191845406,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "adept.3",
+        "family": "adept",
+        "race": "protoss",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 349
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 410,
+          "width": 379,
+          "height": 466
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.4753718706421409,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  },
+  "tank-atlas-v3.png": {
+    "file": "tank-atlas-v3.png",
+    "webp": "tank-atlas-v3.webp",
+    "assetKey": "tank-atlas-v3",
+    "width": 1672,
+    "height": 941,
+    "pngBytes": 1958845,
+    "webpBytes": 469512,
+    "sha256": "cab92a5db22b75594e5684b8a1270bdfd815327c8475c966576cf254911cf4fb",
+    "webpSha256": "36de5164c7d58ed489d8fd7428d64eefb5724eb7259a25ceaebe8190f64c7986",
+    "entries": [
+      {
+        "key": "tank",
+        "family": "tank",
+        "race": "terran",
+        "kind": "ordinary",
+        "column": 0,
+        "sceneBounds": {
+          "x": 6,
+          "y": 0,
+          "width": 406,
+          "height": 322
+        },
+        "bodyBounds": {
+          "x": 19,
+          "y": 482,
+          "width": 379,
+          "height": 330
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 220,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.6646648116761202,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "tank.1",
+        "family": "tank",
+        "race": "terran",
+        "kind": "elite",
+        "column": 1,
+        "sceneBounds": {
+          "x": 424,
+          "y": 0,
+          "width": 406,
+          "height": 322
+        },
+        "bodyBounds": {
+          "x": 425,
+          "y": 424,
+          "width": 406,
+          "height": 396
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.6630493027908214,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "tank.2",
+        "family": "tank",
+        "race": "terran",
+        "kind": "elite",
+        "column": 2,
+        "sceneBounds": {
+          "x": 842,
+          "y": 0,
+          "width": 406,
+          "height": 321
+        },
+        "bodyBounds": {
+          "x": 846,
+          "y": 454,
+          "width": 400,
+          "height": 364
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [],
+        "clearLowerFraction": 0.5611199175715305,
+        "review": "pending actual art/identity inspection"
+      },
+      {
+        "key": "tank.3",
+        "family": "tank",
+        "race": "terran",
+        "kind": "elite",
+        "column": 3,
+        "sceneBounds": {
+          "x": 1260,
+          "y": 0,
+          "width": 406,
+          "height": 321
+        },
+        "bodyBounds": {
+          "x": 1260,
+          "y": 510,
+          "width": 395,
+          "height": 309
+        },
+        "bodyHeight": 224,
+        "bodyWidth": 300,
+        "air": false,
+        "issues": [
+          "inspect column edge: body/effect may touch"
+        ],
+        "clearLowerFraction": 0.5762463343108505,
+        "review": "pending actual art/identity inspection"
+      }
+    ]
+  }
+}

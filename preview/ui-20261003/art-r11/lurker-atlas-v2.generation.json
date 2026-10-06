@@ -1,0 +1,9 @@
+{
+  "key": "lurker-atlas-v2",
+  "prompt": "Refine the LOWER FOUR SC2 Lurker cutouts only; leave all four upper empty ground-spike landscapes unchanged. Preserve a recognizable low broad flat Lurker with splayed pointed crawling limbs, layered flattened carapace, and dorsal/forward ground-spike structures. Ordinary, large-spike elite, long-spike elite, rapid-spike elite should remain four clearly distinct animals. Repair cropped claws and spike tips: show the entire complete animal in each quarter with 10% transparent side gutters, center exactly in its own quarter, use only 78% of quarter width for the full silhouette including spikes. Do not let any limb or spike cross a quarter boundary. Keep rich painted organic chitin detail, directional lighting and full anatomical weight. Four complete cutouts total, exactly one per column, genuine alpha around them. No divider lines, labels, checkerboard, extra units or solid lower background.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-18faf91a-0c25-47dd-8243-d1b7db4b1029.png",
+  "input": "lurker-atlas.png",
+  "output": "lurker-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

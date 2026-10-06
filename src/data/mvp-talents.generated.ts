@@ -1921,7 +1921,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 1,
     "semanticId": "conscript_network",
-    "description": "A03免费救援神族身体最大生命＋15%／30%／45%，最大原生护盾不加；只有该身体来源标签生效，不增强其截击机生命。  同步增加原生护盾上限，保留已有伤损。",
+    "description": "A03免费救援神族身体最大生命和最大原生护盾分别＋15%／30%／45%；仅对有该来源标签的身体生效，不增强其截击机生命；保留已有伤损。",
     "prerequisiteText": "A03满"
   },
   {

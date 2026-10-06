@@ -1,0 +1,9 @@
+{
+  "key": "corruptor-atlas-v2",
+  "prompt": "Correct all FOUR lower StarCraft II Corruptor bodies: a SC2 Corruptor is a WINGLESS floating organic creature, NOT a Mutalisk or bat. REMOVE EVERY membrane wing. Give each a thick rounded armored carapace/head with bulbous yellow-green organic tissue and several long hanging curled tentacles; no legs, no feet, no bat wings. Ordinary column 1 neutral floating tentacled body; elite column 2 three compact anti-air acid globules emerging above its armored head; elite column 3 broader high-damage acid discharge from its mouth, bounded inside its column; elite column 4 long-range focused globule and a forward reaching tentacle posture. Preserve four distinct existing upper mist/cloud/acid-trajectory scenes, but replace any distant flying creature/organic-ship silhouettes with empty jagged rock islands and weather. Render exactly ONE fully visible complete wingless Corruptor in each lower quarter, all tentacle and acid tips contained with 10% side gutters, separated from upper scenes. Mature cinematic SC2 painted chitin, genuine transparency, no labels, borders, dividers, checkerboard or extra creatures.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-18a75dc6-4b4d-4dae-93f4-40aefa7baae4.png",
+  "input": "corruptor-atlas.png",
+  "output": "corruptor-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

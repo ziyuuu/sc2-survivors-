@@ -1,0 +1,7 @@
+/* R8: the selected platform determines the input overlay, independently of viewport size. */
+.game-frame[data-device=desktop] .battle-playfield .joystick { display: none; }
+.game-frame[data-device=mobile] .battle-playfield .joystick { display: block; }
+@media (max-width:600px) {
+ .view-switch button { padding-inline: 8px; }
+ .preview-tools { gap: 8px; }
+}

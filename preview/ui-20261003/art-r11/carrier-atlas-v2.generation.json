@@ -1,0 +1,9 @@
+{
+  "key": "carrier-atlas-v2",
+  "prompt": "Refine the unit count and small-scale readability of this new SC2 Carrier atlas. Preserve FOUR recognizable elongated gold/ivory Carrier hulls and the four distinct upper space/temple scenes. Remove ALL tiny identifiable interceptor/fighter hulls from both upper backgrounds and lower cutouts; represent launch activity using EMPTY lit hangar bays and abstract blue/gold motion trails only. The finished atlas contains exactly FOUR complete identifiable ships total: ONE large Carrier per lower quarter. Ordinary column 1: unmistakable elongated golden Carrier with visible empty launch bays. Elite column 2 high-speed: streamlined launch-bay fittings, forward-banked posture and bounded blue launch streaks, no mini ships. Elite column 3 expanded carrier: visibly more/wider hangar bays and a broader launch assembly with gold reflections, no mini ships. Elite column 4 armored: layered hull and restrained blue barrier. Restore every hull tip; all bodies and compact trails fit inside their own quarter with generous alpha gutters. No upper scene contains recognizable ships; only empty architecture, planets, rock/debris and abstract trajectories. Preserve mature SC2 painted metals, coherent light and genuine transparency. No labels, frame, divider or checkerboard.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-1222ac70-a7e4-4118-a842-e9baa115f90e.png",
+  "input": "carrier-atlas.png",
+  "output": "carrier-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

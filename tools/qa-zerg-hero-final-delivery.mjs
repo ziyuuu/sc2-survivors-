@@ -1,0 +1,22 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+const root='reports/local/zerg-heroes-20261005';
+const read=async name=>JSON.parse(await fs.readFile(root+'/'+name,'utf8'));
+const artifacts=await read('artifacts.json'),browser=await read('browser.json'),strength=await read('strength.json');
+const production=await read('production-heroes/report.json'),saves=await read('production-save/report.json');
+const test=await fs.readFile(root+'/tests-final-r2.log','utf8');
+const tests=Number(test.match(/ℹ tests (\d+)/)?.[1]),passed=Number(test.match(/ℹ pass (\d+)/)?.[1]),failed=Number(test.match(/ℹ fail (\d+)/)?.[1]);
+assert.equal(tests,875);assert.equal(passed,tests);assert.equal(failed,0);
+assert.equal(browser.sha256,artifacts.artifacts.find(a=>a.path==='dist/Six-Zerg-Heroes-Integrated-Game-Demo.html').sha256);
+assert.equal(browser.failure??null,null);assert.deepEqual(browser.errors,[]);assert.deepEqual(browser.remoteRequests,[]);
+assert.equal(browser.attacks.length,18);assert.equal(browser.skills.length,6);assert.equal(browser.revivals.length,2);assert.equal(browser.bosses.length,2);assert.equal(browser.controls.length,2);assert.equal(browser.layouts.length,12);
+assert.ok(strength.comparisons.every(r=>r.ratioI>=1.25));assert.ok(strength.durability.every(r=>r.ratioI>=1.25));assert.ok(strength.heals[0].ratio>=1.25);
+assert.ok(strength.bosses.every(b=>b.id==='dehaka'?b.remaining===0:b.fraction>=.5));
+assert.equal(production.appBuildId,artifacts.web.appBuildId);assert.equal(production.failure??null,null);assert.deepEqual(production.errors,[]);assert.equal(production.checks.length,2);assert.ok(production.checks.every(c=>c.schema===18&&c.mechanismsPreserved&&c.zergAuraDisplays===0&&c.terranAuraDisplays===0));
+assert.equal(saves.failure??null,null);assert.deepEqual(saves.errors,[]);assert.equal(saves.checks.filter(c=>c.saveFieldsPreserved).length,2);
+const sourcePaths=['src/data/heroes.ts','src/data/zerg-heroes.ts','src/data/hero-upgrades.ts','src/simulation/world.ts','src/simulation/combat/expedition-heroes.ts','src/simulation/combat/zerg-hero-passives.ts','src/simulation/combat/zerg-hero-revival.ts','src/simulation/combat/hero-attack-upgrades.ts','src/simulation/combat/hero-ground-auras.ts','src/simulation/persistence/run-snapshot.ts','src/render/effects/zerg-hero-effects.ts','src/render/effects/confirmed-hero/controller.ts','src/render/scene/battle-renderer.ts','preview/zerg-hero-integrated-demo/app.ts','preview/zerg-hero-integrated-demo/shell.html'];
+const source=[];for(const path of sourcePaths){const bytes=await fs.readFile(path);source.push({path,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')});}
+const delivery={scope:'Six Zerg heroes formally integrated; real buffs/debuffs remain, all twelve hero foot aura presentations hidden. Original approved Terran HTMLs verified byte-identical. Full/offline and standalone demo use the same production simulation/render modules. Machine evidence does not close full P3/M6/M7, human, physical-device or missing source-death acceptance.',tests:{tests,passed,failed},browser:{attacks:18,skills:6,revivals:2,bosses:2,controls:2,layouts:12,errors:0,remoteRequests:0,sha256:browser.sha256},productionGroups:production.checks,productionSaves:saves.checks,strength:{comparisons:strength.comparisons,durability:strength.durability,heals:strength.heals,bosses:strength.bosses},...artifacts,source};
+await fs.writeFile(root+'/delivery.json',JSON.stringify(delivery,null,2));
+console.log(JSON.stringify({tests:delivery.tests,browser:delivery.browser,productionGroups:production.checks.map(c=>c.heroes),productionSaves:saves.checks.filter(c=>c.saveFieldsPreserved).map(c=>c.mode),artifacts:artifacts.artifacts.slice(3,5)},null,2));

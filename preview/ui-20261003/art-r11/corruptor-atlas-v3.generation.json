@@ -1,0 +1,9 @@
+{
+  "key": "corruptor-atlas-v3",
+  "prompt": "Refine ONLY attack-origin effects and posture on the lower column 2 and column 3 WINGLESS SC2 Corruptors. Keep all four complete tentacled carapace bodies, intact tentacle tips and all upper empty environments. Column 2 actual specialty is more damage against heavy aircraft: replace the three upward acid plumes with ONE dense bright acid globule launched upward, a concentrated mouth/vent glow and heavier ridged forward carapace; never imply three simultaneous shots. Column 3 actual specialty is faster anti-air fire: replace the wide fan-shaped splash with a short narrow sequence of three compact acid globules in ONE direction, indicating successive attacks, no broad-area cone. Ordinary column 1 and long-range column 4 unchanged. Every effect fits in its own quarter and stays separate from the scene above. No wings, legs, extra bodies, labels, borders, dividers, checkerboard or lower background. Retain fine painterly chitin and coherent cinematic light.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-c1daff05-d271-41c6-8406-1eb35db4e982.png",
+  "output": "corruptor-atlas-v3.png",
+  "intent": "edit-newly-generated-art",
+  "input": "corruptor-atlas-v2.png",
+  "privateReferencesUploaded": false
+}

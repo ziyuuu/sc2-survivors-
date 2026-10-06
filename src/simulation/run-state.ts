@@ -1,3 +1,11 @@
+import {newProtossEliteRun} from './combat/protoss-elite-runtime';
+import {newTeamAuraRun} from './combat/team-auras';
+import {newTerranEliteRun} from './combat/terran-elite-runtime';
+import {newZergEliteRun} from './combat/zerg-elite-runtime';
+import {newP4Samples} from './combat/p4-samples';
+import {newProtossHeroRun} from './combat/protoss-hero-passives';
+import {newZergHeroRun} from './combat/zerg-hero-passives';
+import {newHeroAttackState,type HeroAttackState,type AttackEvent} from './combat/hero-attack-upgrades';
 import type {WeaponFlight} from './combat/weapon-flight';
 import {newSwarmState} from '../data/swarm';
 import type {EndlessState} from '../data/endless';
@@ -74,6 +82,13 @@ protected specialPlan:(EnemyEvent|Campaign18Special)[]=[];protected nextSpecial=
  protected detours=new Map<number,{body:number;first:Point;second:Point;phase:number;forward:Point;until:number}>();
  protected navigation=new Map<number,{goal:Point;requested:Point;until:number;stalled:boolean}>();
 
+ terranElites=newTerranEliteRun();
+ protossElites=newProtossEliteRun();teamAuras=newTeamAuraRun();
+ zergElites=newZergEliteRun();
+ p4Samples=newP4Samples();
+ protossHeroes=newProtossHeroRun();
+ zergHeroes=newZergHeroRun();
+ heroAttacks:HeroAttackState=newHeroAttackState();heroAttackEvents:AttackEvent[]=[];heroAuraMembership=new Map<number,string>();
  weaponFlights:WeaponFlight[]=[];
  heroes=new Map<HeroId,HeroRecord>();heroCasts:HeroCast[]=[];
  pendingElites:EliteId[]=[];
@@ -106,7 +121,7 @@ protected specialPlan:(EnemyEvent|Campaign18Special)[]=[];protected nextSpecial=
   guardRemainders:this.guardRemainders, nextGuardCounts:this.nextGuardCounts, specialPlan:this.specialPlan, nextSpecial:this.nextSpecial, waves:this.waves,
   eventPlan:this.eventPlan, nextEvent:this.nextEvent, scheduledStage:this.scheduledStage, ambientBacklog:this.ambientBacklog, extraDeliveries:this.extraDeliveries,
   notice:this.notice, noticeUntil:this.noticeUntil, movementStall:this.movementStall, detours:this.detours, navigation:this.navigation,
-  heroes:this.heroes, heroCasts:this.heroCasts,weaponFlights:this.weaponFlights, pendingElites:this.pendingElites, evolution:this.evolution, burns:this.burns,
+  protossElites:this.protossElites,teamAuras:this.teamAuras,zergElites:this.zergElites,terranElites:this.terranElites,p4Samples:this.p4Samples, heroes:this.heroes, heroCasts:this.heroCasts,protossHeroes:this.protossHeroes,weaponFlights:this.weaponFlights,heroAttacks:this.heroAttacks,zergHeroes:this.zergHeroes, pendingElites:this.pendingElites, evolution:this.evolution, burns:this.burns,
   productionChoices:this.productionChoices, groupNext:this.groupNext, groupUnlocks:this.groupUnlocks, rngState:this.rngState, corrosionZones:this.corrosionZones, zoneSlowed:this.zoneSlowed,
   auraArmor:this.auraArmor, auraDamage:this.auraDamage, auraAttackSpeed:this.auraAttackSpeed, nextAuraUpdate:this.nextAuraUpdate
  };}

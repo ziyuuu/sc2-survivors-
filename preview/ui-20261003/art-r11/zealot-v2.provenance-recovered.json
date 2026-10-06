@@ -1,0 +1,9 @@
+{
+  "output": "zealot-v2.png",
+  "source": "C:/Users/zyuu/.codex/generated_images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-3e2efeb4-589e-4b68-97df-ad1606d08676.png",
+  "tool": "built-in image_gen",
+  "intent": "edit-previous-newly-generated-calibration",
+  "privateReferencesUploaded": false,
+  "exactPrompt": null,
+  "promptReceiptStatus": "Local receipt writing initially failed because btoa was unavailable in the orchestration isolate. The exact executed prompt is not reconstructed or claimed here. Output path and byte-identical master were recovered from the original tool response; production brief remains available separately."
+}

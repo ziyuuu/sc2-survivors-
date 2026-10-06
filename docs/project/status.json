@@ -2061,7 +2061,7 @@
     "profileVersion": 5,
     "coverage": {"ordinaryFamilies": 30, "eliteVariants": 90, "heroes": 18, "raceFunCardIdentities": 24, "teamCardQualityGroups": 10},
     "checks": {"capabilityGeneration": "PASS", "capabilityConsistency": "PASS", "existingGameDataReference": "PASS"},
-    "nextStages": {"P1": "ENGINEERING_COMPLETE_WITH_OPEN_DEVICE_HOST_ACCEPTANCE", "P2": "ENGINEERING_COMPLETE_WITH_OPEN_HUMAN_DEVICE_HOST_ACCEPTANCE", "P3": "PARTIAL_SIX_TERRAN_HEROES_ENGINEERING_COMPLETE", "P4": "DESIGN_APPROVED_NOT_STARTED", "P5": "B0_DESIGN_APPROVED_PRODUCTION_CONFIGURATION_OPEN", "P6": "NOT_STARTED"},
+    "nextStages": {"P1": "ENGINEERING_COMPLETE_WITH_OPEN_DEVICE_HOST_ACCEPTANCE", "P2": "ENGINEERING_COMPLETE_WITH_OPEN_HUMAN_DEVICE_HOST_ACCEPTANCE", "P3": "EIGHTEEN_HEROES_ENGINEERING_COMPLETE_WITH_OPEN_ACCEPTANCE", "P4": "NINETY_ELITES_AND_ORDINARY_SUPPORT_ENGINEERING_COMPLETE_WITH_OPEN_ACCEPTANCE", "P5": "LOCAL_ENGINEERING_COMPLETE_PRODUCTION_CONFIGURATION_OPEN", "P6": "LOCAL_ENGINEERING_VERIFIED_PERFORMANCE_GATE_OPEN_NOT_DEPLOYED"},
     "acceptance": {"M6": "OPEN", "M7": "OPEN", "humanVisual": "OPEN", "physicalMobileAndGamepad": "OPEN", "hologramScienceVesselSourceDeathClips": "OPEN", "lateTransientBacklog": "OPEN"}
   },
   "nextIterationP1": {
@@ -2285,5 +2285,47 @@
       "hologramScienceVesselSourceDeathClips",
       "lateTransientBacklog"
     ]
+  }
+,
+  "nextIterationP6": {
+    "date": "2026-10-06",
+    "state": "LOCAL_ENGINEERING_VERIFIED; NATURAL_PERFORMANCE_GATE_NOT_CLOSED; NOT_DEPLOYED",
+    "authorization": "请完成P6；本机和coze",
+    "contract": "docs/project/NEXT_ITERATION_P6_20261006.md",
+    "validation": "docs/project/NEXT_ITERATION_P6_VALIDATION_20261006.md",
+    "delivery": "reports/local/p6-20261006/delivery.json",
+    "deployment": "docs/project/P6_COZE_DEPLOY_20261006.md",
+    "runtimeSchema": 23,
+    "profileVersion": 5,
+    "tests": 1188,
+    "appBuildId": "259663dc9f1e2aa60299ee719e6f66ab97c41e44f44eb6b911c41ac74d6e10a7",
+    "packageBuildId": "6e75e17b2d34a784dcfd0d5651b200fc34530bc6c557dd07dd6931ad0ed81bb8",
+    "assetReleaseId": "8080b97112f3af93b5d3ddfeadc5f3d7f89c3892c344cfc8c8903a1ca799c9eb",
+    "sourceChanges": [
+      {
+        "path": "src/data/mvp-talents.generated.ts",
+        "bytes": 69788,
+        "sha256": "1f3b443c93dfef75407b45e5c5971b85b649cf32de8b476cdf54b046c82c8dab",
+        "baseline": "284787f2ed5518cfa77386ac5c627f5448f87d89cf49661d8e611966cb6b410a",
+        "kind": "P-A06 description only; inverse substitution matches entire original file"
+      }
+    ],
+    "open": [
+      "Measured performance exceeds at least one existing frame/debt gate; full A34/A35 three-repeat0/41/80 matrix is incomplete",
+      "Human visual and physical mobile/gamepad/high-refresh/long-term acceptance",
+      "New Coze release and genuine production PostgreSQL/B4 activation",
+      "Three original Science Vessel death-source clips",
+      "P6-V01: natural endless round4 screenshot shows broad bright-effect washout; exact source and duration are not yet established"
+    ],
+    "boundaries": {
+      "combatNumbersChanged": false,
+      "simulationChanged": false,
+      "approvedEffectsChanged": false,
+      "resourceBytesChanged": false,
+      "priorArtifactsChanged": false,
+      "onlineWrites": false,
+      "gitPush": false,
+      "cleanup": false
+    }
   }
 }

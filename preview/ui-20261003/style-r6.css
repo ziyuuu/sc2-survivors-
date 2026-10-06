@@ -1,0 +1,55 @@
+/* R6: a recessed metal chassis and exactly two console rows. */
+.game-frame[data-page=battle] { border-color: #52636c73; box-shadow: 0 10px 36px #0006,inset 0 0 0 2px #09131a; }
+.battle-page { --console-height: 105px; }
+.battle-page.console-folded { --console-height: 6px; }
+.battle-page .battle-console { padding: 6px 8px; border-top: 1px solid #5a727c; background: linear-gradient(#263942,#111e27 15px,#0b1720); box-shadow: inset 0 1px 0 #8fa6af2c,inset 0 -1px 0 #040b10; }
+.battle-console .console-body { grid-template-rows: 44px 44px; gap: 4px; }
+.battle-console .portrait-grid { grid-template-columns: repeat(14,minmax(44px,1fr)); grid-template-rows: 44px; gap: 4px; }
+.battle-console .command-grid { grid-template-columns: repeat(8,minmax(44px,1fr)); gap: 4px; }
+.battle-console .unit-portrait { box-shadow: inset 0 0 0 2px #07141a; background: linear-gradient(#162b38,#0b1721); border-color: #455d6a; }
+.battle-console .unit-portrait.focused { border-color: #9abdc7; box-shadow: inset 0 0 0 2px #07141a,inset 0 -2px 0 #84b4c239; }
+.battle-console .command-key { background: linear-gradient(#223842,#101f2a); border-color: #4c6472; box-shadow: inset 0 1px 0 #8ea8b21c,inset 0 0 0 2px #0b1720; }
+.battle-console .hero-command { border-color: #8a7d594f; }
+.battle-console .roster-turn { border-left-color: #82959f; color: #c0d4dd; }
+.console-fold { width: 44px; height: 44px; min-height: 44px; top: -44px; right: 6px; border: 0; padding: 0; clip-path: none; box-shadow: none; background: transparent; }
+.console-fold::before { content: ''; position: absolute; inset: 9px 0 3px; clip-path: polygon(7px 0,100% 0,100% 100%,0 100%,0 7px); background: linear-gradient(150deg,#627480,#243743 8%,#14232d); box-shadow: inset 0 0 0 1px #617c886e,inset 0 2px 0 #9bafb529,inset 0 -2px 0 #060e15; }
+.console-fold > svg { position: relative; width: 16px; height: 16px; margin-top: 6px; color: #a7c2cc; }
+.console-fold:hover::before { background: linear-gradient(150deg,#82929c,#334b59 8%,#182c36); }
+.battle-page.console-folded .battle-console { padding-top: 0; padding-bottom: 0; }
+
+/* The grain belongs to the narrow metal rails; the field remains clear. */
+.battle-playfield { --map-rim: 4px; padding: var(--map-rim); background: repeating-linear-gradient(0deg,#a8bac506 0 1px,transparent 1px 3px),linear-gradient(135deg,#3e4b53,#121f28 24%,#283942 63%,#111b23); box-shadow: inset 0 1px 0 #89959b65,inset 0 -1px 0 #070d12,inset 1px 0 0 #b4c2c12b,inset -1px 0 0 #050d12; }
+.battle-map-image { box-shadow: none; }
+.battle-map-rim { inset: 0; }
+.battle-map-rim::before { content: ''; position: absolute; inset: 3px; border: 1px solid #0a131bd9; box-shadow: inset 0 1px 1px #03090f66; }
+.battle-map-rim i { width: 29px; height: 29px; border: 0; filter: none; background: repeating-linear-gradient(135deg,#dbe1dd0c 0 1px,transparent 1px 4px),linear-gradient(135deg,#77858a,#32454e 38%,#15232c); clip-path: polygon(0 0,100% 0,100% 5px,13px 5px,5px 13px,5px 100%,0 100%); }
+.battle-map-rim i::before { content: ''; position: absolute; width: 2px; height: 2px; left: 2px; top: 2px; background: #111a20; box-shadow: 0 1px 0 #b0b6ac66; }
+.battle-map-rim i::after { content: ''; position: absolute; top: 2px; left: 13px; width: 11px; height: 1px; background: rgba(var(--race-rgb),.65); box-shadow: 0 1px 0 #0a1014; }
+.battle-map-rim i:nth-child(1) { top: 0; left: 0; }
+.battle-map-rim i:nth-child(2) { top: 0; right: 0; }
+.battle-map-rim i:nth-child(3) { bottom: 0; right: 0; }
+.battle-map-rim i:nth-child(4) { bottom: 0; left: 0; }
+.battle-playfield .mini-map { top: 14px; left: 14px; border-color: #556770; box-shadow: inset 0 0 0 2px #0a141c,0 3px 9px #0008; }
+.battle-playfield .joystick { left: 16px; bottom: 16px; }
+
+@container game (max-width:999px) {
+ .battle-console .portrait-grid { grid-template-columns: repeat(7,minmax(44px,1fr)); }
+ .battle-console .command-grid { grid-template-columns: repeat(7,minmax(44px,1fr)); }
+}
+@container game (max-width:600px) {
+ .battle-page { --console-height: 102px; }
+ .battle-page.console-folded { --console-height: 6px; }
+ .battle-page .battle-console { padding: 5px 6px; }
+ .battle-console .console-body { grid-template-rows: 44px 44px; gap: 3px; }
+ .battle-console .portrait-grid,.battle-console .command-grid { gap: 2px; }
+ .battle-playfield .mini-map { top: 12px; left: 12px; }
+ .battle-playfield .joystick { left: 14px; bottom: 14px; }
+}
+@container game (max-height:500px) and (min-width:601px) {
+ .battle-page { --console-height: 102px; }
+ .battle-page.console-folded { --console-height: 6px; }
+ .battle-page .battle-console { padding: 5px 8px; }
+ .battle-console .console-body { grid-template-rows: 44px 44px; gap: 3px; }
+ .battle-playfield .mini-map { top: 11px; left: 11px; }
+ .battle-playfield .joystick { left: 14px; bottom: 13px; }
+}

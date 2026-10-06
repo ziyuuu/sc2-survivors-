@@ -1,3 +1,7 @@
+import {TERRAN_ELITE_RULES,isTerranEliteId,terranEliteGrowth} from './terran-elites';
+import {ZERG_ELITE_RULES,isZergEliteId,zergEliteGrowth} from './zerg-elites';
+import {PROTOSS_ELITE_RULES,isProtossEliteId,protossEliteGrowth} from './protoss-elites';
+import {TEAM_AURA_HELP} from './team-auras';
 import type {TerranType} from './sc2-units';
 import {rankStats} from './ranks';
 import {EXPANSION_ELITES,type ExpansionEliteId,type ExpansionEliteDefinition} from './expansion-elites';
@@ -22,6 +26,9 @@ export const LEGACY_ELITES:Record<LegacyEliteId,EliteDefinition>=Object.fromEntr
  ...family('medivac',[['急救医疗艇','support','单目标治疗额外 ×1.25。'],['群疗医疗艇','support','额外治疗两名伤员，各为主治疗量的一半；按实际治疗耗能。'],['维修医疗艇','support','机械治疗 ×1.5，能耗 ×0.75；仍需要纳米维修。']]),
 ].map(e=>[e.id,e])) as Record<LegacyEliteId,EliteDefinition>;
 export const ELITES:Record<EliteId,EliteDefinition>={...LEGACY_ELITES,...EXPANSION_ELITES,'medivac.3':{...LEGACY_ELITES['medivac.3'],description:'恢复输出 +25%；生物全效、机械 1/3，按实际恢复生命耗能。'}};
-export function eliteStats(id:EliteId,rank:number){const t=ELITE_TEMPLATES[ELITES[id].template],n=Math.max(0,Math.min(4,rank-1)),base=rankStats(5),attackSpeed=base.attackSpeed*t.as*(1+t.asStep*n)*(id==='tank.2'?.8:1),output=5*t.output*(1+t.dpsStep*n);
- return {rank,attackSpeed,damage:output/attackSpeed,health:base.health*t.hp*(1+t.hpStep*n),armor:base.armor+t.armor+.25*n,movement:t.move+(ELITES[id].template==='mobile'?.025*n:0),healing:5*1.75*(1+.25*n)*(id==='medivac.1'?1.25:1),energy:5*(1+.2*n)};
+for(const [id,r] of Object.entries(TERRAN_ELITE_RULES)){const old=ELITES[id as EliteId];ELITES[id as EliteId]={...old,name:r.name,description:r.description};}
+for(const [id,r] of Object.entries(ZERG_ELITE_RULES)){const old=ELITES[id as EliteId];ELITES[id as EliteId]={...old,name:r.name,description:r.description};}
+for(const [id,r] of Object.entries(PROTOSS_ELITE_RULES)){const old=ELITES[id as EliteId];ELITES[id as EliteId]={...old,name:r.name,description:r.description};}
+for(const [id,text]of Object.entries(TEAM_AURA_HELP))if(id in ELITES)ELITES[id as EliteId].description+=' '+text;
+export function eliteStats(id:EliteId,rank:number){if(isTerranEliteId(id))return terranEliteGrowth(id,rank);if(isZergEliteId(id))return zergEliteGrowth(id,rank);if(isProtossEliteId(id))return protossEliteGrowth(id,rank);throw Error('Unknown elite: '+id);
 }

@@ -1,0 +1,2821 @@
+{
+  "schemaVersion": 1,
+  "revision": "2026-10-05-team-auras-r1",
+  "status": "DESIGN_DELIVERY_NOT_RUNTIME",
+  "gameplayChangedByThisTask": false,
+  "userRequest": "以我人族精英为样本，重新设计平衡另外两族精英和英雄的光环效果。",
+  "scope": {
+    "eliteCoverage": 60,
+    "redesignedEliteTeamEffects": 16,
+    "retainedEliteCoreRoles": 44,
+    "redesignedHeroes": 12,
+    "terranHeroes": "REFERENCE_ONLY_UNCHANGED"
+  },
+  "provenance": {
+    "originalP0": {
+      "path": "docs/project/NEXT_ITERATION_P0_VALUES_20261003.json",
+      "sha256": "9c0f55d01ddc4f31379b42744a5409a427f9e95631f180bd9e2647888e6a4265"
+    },
+    "approvedP4": {
+      "path": "docs/project/NEXT_ITERATION_P4_VALUES_20261005.json",
+      "sha256": "ec210ca5891c1c10c470af9f3eb1456ea6c30b189bdcb7101e18277a9d1b4a3d"
+    },
+    "readOnlyAudit": "reports/local/buff-strength-audit-20261005/audit.json",
+    "authorship": "Original USER_SAMPLE identities and explicit userConfirmedParameterKeys are preserved; all new values in this revision are authored design proposals, not historical user quotations."
+  },
+  "rankPolicy": {
+    "percentagesRadiusCooldownDurationTargets": "FIXED_I_TO_V",
+    "retainedFixedDamageAndHealingGrowth": [
+      1,
+      1.35,
+      1.7,
+      2.05,
+      2.4
+    ]
+  },
+  "originalTerranUserSamples": [
+    {
+      "id": "marine.1",
+      "name": "金属风暴",
+      "race": "terran",
+      "body": "assault",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "moveFactor",
+        "warmupSeconds",
+        "attackSpeedIncrease",
+        "maximumSeconds",
+        "forcedCoolingSeconds"
+      ],
+      "parameters": {
+        "moveFactor": 0.9,
+        "warmupSeconds": 5,
+        "attackSpeedIncrease": 3,
+        "maximumSeconds": 10,
+        "forcedCoolingSeconds": 2,
+        "lightDamageFactor": 1.6
+      },
+      "loop": "开火进入战斗；攻击速度线性预热，满速压制后强制冷却，再次开火重新预热。",
+      "limit": "2秒无真实开火脱战并清预热；冷却2秒禁止开火，读档/停火不跳过冷却；重甲不享轻甲加成。"
+    },
+    {
+      "id": "marine.2",
+      "name": "精英杀手",
+      "race": "terran",
+      "body": "precision",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "eliteDamageFactor",
+        "bossDamageFactor"
+      ],
+      "parameters": {
+        "eliteDamageFactor": 3,
+        "bossDamageFactor": 5,
+        "dodgeByRank": [
+          0.12,
+          0.16,
+          0.2,
+          0.24,
+          0.28
+        ]
+      },
+      "loop": "蓝色穿甲弹专杀精英与Boss，固定闪避随等级成长。",
+      "limit": "敌身份倍率互斥，Boss取5倍；闪避只判可闪避的直接敌伤，DOT/地形不闪避，不增加攻击命中作弊。"
+    },
+    {
+      "id": "marine.3",
+      "name": "战场指挥官",
+      "race": "terran",
+      "body": "bulwark",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "familyAttributeIncrease"
+      ],
+      "parameters": {
+        "familyAttributeIncrease": 0.2,
+        "auraRadius": null
+      },
+      "loop": "全体普通与精英枪兵获得属性增益，自身承担前线指挥。",
+      "limit": "全队枪兵含自身；生命/原生盾/武器伤害/攻速/移动/护甲各提高20%，不含等级、价格、技能、闪避率或冷却；自身属性收益一次。"
+    },
+    {
+      "id": "reaper.1",
+      "name": "午夜死神",
+      "race": "terran",
+      "body": "mobile",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "shotsPerCycle"
+      ],
+      "parameters": {
+        "shotsPerCycle": 6,
+        "lightDamageFactor": 1.8,
+        "moveFactor": 1.4
+      },
+      "loop": "双枪每周期连续六发，冲入轻甲群并利用跳崖转场。",
+      "limit": "六发是真实弹次；保留同周期，不能把每发再次算成六发；只打地面，脱战恢复不刷新射击。"
+    },
+    {
+      "id": "reaper.2",
+      "name": "大枪管",
+      "race": "terran",
+      "body": "precision",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "openingCycles",
+        "openingDamageFactor",
+        "splashFraction",
+        "outOfCombatSeconds"
+      ],
+      "parameters": {
+        "openingCycles": 10,
+        "openingDamageFactor": 3,
+        "splashFraction": 0.5,
+        "splashRadius": 2.6,
+        "armoredDamageFactor": 1.5,
+        "outOfCombatSeconds": 2
+      },
+      "loop": "每次进入战斗的前十次武器周期都是重弹爆发，随后恢复普通射击。",
+      "limit": "两秒无攻击才重置；每武器周期计一次，主弹不再吃自己的溅射，邻敌只吃该主包50%；同目标两枪各结算。"
+    },
+    {
+      "id": "reaper.3",
+      "name": "孤星猎手",
+      "race": "terran",
+      "body": "bulwark",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "familyOnly",
+        "absorbAttributesOnly"
+      ],
+      "parameters": {
+        "familyOnly": true,
+        "absorbAttributesOnly": true,
+        "growthK": 20,
+        "dpsAsymptoteFactor": 4,
+        "hpAsymptoteFactor": 5,
+        "armorAsymptoteAdd": 10
+      },
+      "loop": "死神家族只保留猎手一个身体；入队吸收其他死神属性，后续收到死神继续成长。",
+      "limit": "其他家族与英雄照常。吸收普通及另外两款精英死神，记录已到账身份/等级/实付账本；吸收属性不复制技能。增长采用有界渐近提案，每次收集仍增加，详见成长与收据。"
+    },
+    {
+      "id": "hellion.1",
+      "name": "长炎",
+      "race": "terran",
+      "body": "assault",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "lengthIncrease"
+      ],
+      "parameters": {
+        "lengthIncrease": 3,
+        "lightDamageFactor": 1.8,
+        "widthFactor": 1,
+        "attackRangeFactor": 4
+      },
+      "loop": "窄直线火焰长度增加300%，变为原来的四倍，沿通道烧穿轻甲纵队。",
+      "limit": "长度4倍，不加宽；实际长通道需视线和合法地面敌人，不穿障碍、不获对空。"
+    },
+    {
+      "id": "hellion.2",
+      "name": "地狱骑士",
+      "race": "terran",
+      "body": "assault",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "fanDegrees",
+        "lengthIncrease"
+      ],
+      "parameters": {
+        "fanDegrees": 150,
+        "lengthIncrease": 1,
+        "lightDamageFactor": 1.8,
+        "attackRangeFactor": 2
+      },
+      "loop": "火焰改为前方大扇面，贴近群敌扫烧。",
+      "limit": "长度2倍、150度真实扇面，朝向固定到该次开火；不变360度，不穿障碍。"
+    },
+    {
+      "id": "hellion.3",
+      "name": "布雷车",
+      "race": "terran",
+      "body": "mobile",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "minePeriod",
+        "mineCount",
+        "fireSeconds"
+      ],
+      "parameters": {
+        "minePeriod": 12,
+        "mineCount": 2,
+        "mineDamageI": 1200,
+        "mineRadius": 4.2,
+        "fireSeconds": 2,
+        "fireDamagePerSecondI": 180,
+        "activeMineLimit": 8,
+        "chaseSpeed": 6,
+        "detectionRadius": 6
+      },
+      "loop": "保持喷火机动，每个周期在合法附近位置补下两枚大型蜘蛛雷。",
+      "limit": "首个补雷在入队12秒；碰撞安全落位、失败保留本次补雷权；雷只追合法地面敌人，一次引爆；火区不叠同源，不改变趣味卡雷。"
+    },
+    {
+      "id": "marauder.1",
+      "name": "震撼弹专家",
+      "race": "terran",
+      "body": "assault",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 3.2,
+        "seconds": 3,
+        "attackSpeedReduction": 0.35,
+        "moveReduction": 0.45,
+        "attackDamageReduction": 0.3,
+        "bossControlFactor": 0.5
+      },
+      "loop": "重型震撼弹在接触区压低敌方攻击速度、移动与攻击伤害。",
+      "limit": "三项独立状态，同来源刷新；Boss控制强度减半；攻击伤害降低不改固定技能/百分比伤害，不能永久归零。"
+    },
+    {
+      "id": "marauder.2",
+      "name": "破甲精英",
+      "race": "terran",
+      "body": "precision",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 3,
+        "armorReductionByRank": [
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6
+        ],
+        "seconds": 5
+      },
+      "loop": "范围穿甲榴弹削弱敌人护甲，为全队打开重甲目标。",
+      "limit": "百分比作用于正护甲，不把护甲压成负数；来源同类取强值；原生盾甲按同样比例，生命/盾减伤分开。"
+    },
+    {
+      "id": "marauder.3",
+      "name": "拒绝者",
+      "race": "terran",
+      "body": "bulwark",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "shells": 3,
+        "packetFraction": 0.65,
+        "radius": 2,
+        "knockbackChance": 0.35,
+        "knockbackDistance": 2,
+        "knockbackInternalSeconds": 1,
+        "bossMoveReduction": 0.2,
+        "bossSlowSeconds": 1
+      },
+      "loop": "每周期三枚小范围榴弹组成弹幕，命中有机会推开冲锋者。",
+      "limit": "一次周期最多推同敌一次；按合法路径推，墙边缩短；Boss/领主免位移改短减速；无递归反弹。"
+    },
+    {
+      "id": "tank.1",
+      "name": "豹石",
+      "race": "terran",
+      "body": "mobile",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "weaponMode",
+        "canFireMoving",
+        "hasSiegeToggle"
+      ],
+      "parameters": {
+        "weaponMode": "siege",
+        "moveFactor": 1.3,
+        "canFireMoving": true,
+        "hasSiegeToggle": false
+      },
+      "loop": "撤掉架炮形态，用攻城武器边移动边炮击，追随队伍推进。",
+      "limit": "这是明确变体例外，不改普通坦克手动架炮；保留炮击地面目标、射程和落点规则，不自动瞬移穿地形。"
+    },
+    {
+      "id": "tank.2",
+      "name": "虎式",
+      "race": "terran",
+      "body": "precision",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "siegeDamageIncrease",
+        "siegeAttackSpeedIncrease",
+        "siegeRangeIncrease",
+        "canFireMoving"
+      ],
+      "parameters": {
+        "weaponMode": "siege",
+        "siegeDamageIncrease": 1,
+        "siegeAttackSpeedIncrease": 1,
+        "siegeRangeIncrease": 2,
+        "canFireMoving": false
+      },
+      "loop": "停止后手动架起重炮，双倍伤害、双倍攻速、三倍射程封锁通道。",
+      "limit": "移动时不能攻击；必须合法完成架起，长射程仍检查视线/地形；不能自动解架救场。"
+    },
+    {
+      "id": "tank.3",
+      "name": "毁灭者",
+      "race": "terran",
+      "body": "precision",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "blastIncrease",
+        "blastInterpretation",
+        "blastAreaFactor",
+        "fireSeconds"
+      ],
+      "parameters": {
+        "weaponMode": "siege",
+        "blastIncrease": 4,
+        "blastInterpretation": "AREA_USER_CONFIRMED",
+        "fireSeconds": 1,
+        "fireDamageFraction": 0.5,
+        "blastAreaFactor": 5,
+        "blastRadiusFactor": 2.23606797749979
+      },
+      "loop": "炮弹大幅扩大爆炸覆盖，接触点留一秒燃烧地面。",
+      "limit": "用户最新纠正为爆炸面积5倍，对应半径√5约2.236倍；各原爆心伤害分档半径同步扩大，伤害分档系数不再乘5；火伤按炮弹主包50%，同源火区不叠无限层。"
+    },
+    {
+      "id": "banshee.1",
+      "name": "报丧女妖",
+      "race": "terran",
+      "body": "support",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 8,
+        "armorReduction": 0.4,
+        "defenseReduction": 0.25
+      },
+      "loop": "空中压迫光环降低敌人护甲与伤害减免，为地面火力开路。",
+      "limit": "防御率解释为百分比伤害减免；正护甲与减免分别相对降低，防御底线为0；不剥无敌、屏障或Boss身份，不叠同名光环。"
+    },
+    {
+      "id": "banshee.2",
+      "name": "瘟疫女妖",
+      "race": "terran",
+      "body": "support",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 7,
+        "ordinaryMaxHpPerSecondByRank": [
+          0.03,
+          0.035,
+          0.04,
+          0.045,
+          0.05
+        ],
+        "eliteMaxHpPerSecondFactor": 0.5,
+        "bossMaxHpPerSecondFactor": 0.2,
+        "secondsPerPulse": 1
+      },
+      "loop": "改装污染喷洒系统，在光环内每秒侵蚀敌方生命。",
+      "limit": "扣血基于入圈时最大HP；精英半效、Boss/领主五分之一为提案；排除建筑，脉冲为合法伤害不直接改HP；光环伤害不暴击、不递归。"
+    },
+    {
+      "id": "banshee.3",
+      "name": "振奋女妖",
+      "race": "terran",
+      "body": "mobile",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "teamMoveIncrease": 0.3,
+        "chargeSeconds": 8,
+        "chargeMaximumI": 2600,
+        "blastRadius": 5,
+        "outOfCombatSeconds": 2
+      },
+      "loop": "脱战全队机动增益，动力电容持续储能；进战把储能释放成范围电磁爆炸。",
+      "limit": "两秒无攻击脱战；储能最多一仓，进战一次消耗；团队移速不递归叠同名；不凭能量创造无冷却连续爆炸。"
+    },
+    {
+      "id": "medivac.1",
+      "name": "战场女武神",
+      "race": "terran",
+      "body": "bulwark",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 8,
+        "allyHpIncrease": 0.35,
+        "allyArmorAdd": 5
+      },
+      "loop": "空中医疗指挥光环提升战斗友军生命上限与护甲，维持普通医救。",
+      "limit": "离圈保留损失比例、不免费补满；全队战斗友军含普通/精英/英雄，排除工人/建筑/载体；同名不叠。"
+    },
+    {
+      "id": "medivac.2",
+      "name": "精英救护",
+      "race": "terran",
+      "body": "support",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "healTargets"
+      ],
+      "parameters": {
+        "healTargets": 5,
+        "range": 8,
+        "energyPerActualHealFactor": 1
+      },
+      "loop": "一次并行治疗五个身体，让受伤前线无需排队等医救。",
+      "limit": "每束独立实际恢复和能耗，生物全效/机械三分之一；不足能量按缺血比和ID分配，不治疗自己/建筑。"
+    },
+    {
+      "id": "medivac.3",
+      "name": "微光护盾",
+      "race": "terran",
+      "body": "support",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "shieldPerEffectiveHealFraction": 1.2,
+        "shieldMaxTargetHpFraction": 0.5,
+        "shieldSeconds": 6,
+        "range": 8,
+        "combatEntry": "EFFECTIVE_HEAL_TO_ALLY_ATTACKING_OR_ENEMY_DAMAGED_WITHIN_2_SECONDS"
+      },
+      "loop": "进入战斗后，实际获得治疗的身体同时获得一层额外救护盾。",
+      "limit": "只从有效治疗生成，满血空疗不给盾；生命25%盾上限等旧模板不叠，本稿替换；无原生盾也能有独立临时护盾。 无武器医救以对交战友军有效治疗入战，不能因没有开火事件永远不触发护盾。"
+    }
+  ],
+  "comparisonAnchors": [
+    {
+      "id": "marine.3",
+      "name": "战场指挥官",
+      "race": "terran",
+      "body": "bulwark",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "familyAttributeIncrease"
+      ],
+      "parameters": {
+        "familyAttributeIncrease": 0.2,
+        "auraRadius": null
+      },
+      "loop": "全体普通与精英枪兵获得属性增益，自身承担前线指挥。",
+      "limit": "全队枪兵含自身；生命/原生盾/武器伤害/攻速/移动/护甲各提高20%，不含等级、价格、技能、闪避率或冷却；自身属性收益一次。"
+    },
+    {
+      "id": "medivac.1",
+      "name": "战场女武神",
+      "race": "terran",
+      "body": "bulwark",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 8,
+        "allyHpIncrease": 0.35,
+        "allyArmorAdd": 5
+      },
+      "loop": "空中医疗指挥光环提升战斗友军生命上限与护甲，维持普通医救。",
+      "limit": "离圈保留损失比例、不免费补满；全队战斗友军含普通/精英/英雄，排除工人/建筑/载体；同名不叠。"
+    },
+    {
+      "id": "medivac.2",
+      "name": "精英救护",
+      "race": "terran",
+      "body": "support",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [
+        "healTargets"
+      ],
+      "parameters": {
+        "healTargets": 5,
+        "range": 8,
+        "energyPerActualHealFactor": 1
+      },
+      "loop": "一次并行治疗五个身体，让受伤前线无需排队等医救。",
+      "limit": "每束独立实际恢复和能耗，生物全效/机械三分之一；不足能量按缺血比和ID分配，不治疗自己/建筑。"
+    },
+    {
+      "id": "medivac.3",
+      "name": "微光护盾",
+      "race": "terran",
+      "body": "support",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "shieldPerEffectiveHealFraction": 1.2,
+        "shieldMaxTargetHpFraction": 0.5,
+        "shieldSeconds": 6,
+        "range": 8,
+        "combatEntry": "EFFECTIVE_HEAL_TO_ALLY_ATTACKING_OR_ENEMY_DAMAGED_WITHIN_2_SECONDS"
+      },
+      "loop": "进入战斗后，实际获得治疗的身体同时获得一层额外救护盾。",
+      "limit": "只从有效治疗生成，满血空疗不给盾；生命25%盾上限等旧模板不叠，本稿替换；无原生盾也能有独立临时护盾。 无武器医救以对交战友军有效治疗入战，不能因没有开火事件永远不触发护盾。"
+    },
+    {
+      "id": "marauder.1",
+      "name": "震撼弹专家",
+      "race": "terran",
+      "body": "assault",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 3.2,
+        "seconds": 3,
+        "attackSpeedReduction": 0.35,
+        "moveReduction": 0.45,
+        "attackDamageReduction": 0.3,
+        "bossControlFactor": 0.5
+      },
+      "loop": "重型震撼弹在接触区压低敌方攻击速度、移动与攻击伤害。",
+      "limit": "三项独立状态，同来源刷新；Boss控制强度减半；攻击伤害降低不改固定技能/百分比伤害，不能永久归零。"
+    },
+    {
+      "id": "banshee.1",
+      "name": "报丧女妖",
+      "race": "terran",
+      "body": "support",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 8,
+        "armorReduction": 0.4,
+        "defenseReduction": 0.25
+      },
+      "loop": "空中压迫光环降低敌人护甲与伤害减免，为地面火力开路。",
+      "limit": "防御率解释为百分比伤害减免；正护甲与减免分别相对降低，防御底线为0；不剥无敌、屏障或Boss身份，不叠同名光环。"
+    },
+    {
+      "id": "marauder.2",
+      "name": "破甲精英",
+      "race": "terran",
+      "body": "precision",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 3,
+        "armorReductionByRank": [
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6
+        ],
+        "seconds": 5
+      },
+      "loop": "范围穿甲榴弹削弱敌人护甲，为全队打开重甲目标。",
+      "limit": "百分比作用于正护甲，不把护甲压成负数；来源同类取强值；原生盾甲按同样比例，生命/盾减伤分开。"
+    },
+    {
+      "id": "thor.1",
+      "name": "雷霆支点",
+      "race": "terran",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "quakeEveryCycles": 3,
+        "quakeDamageFraction": 2,
+        "quakeRadius": 4,
+        "enemyMoveReduction": 0.4,
+        "slowSeconds": 2,
+        "allyArmorAdd": 4,
+        "allyRadius": 6
+      },
+      "loop": "重炮每第三周期引发落点地震，同时撑住附近机械阵线。",
+      "limit": "地震只伤地面；Boss减速强度减半；防空武器不凭空带地震，两种武器分别计数。"
+    },
+    {
+      "id": "banshee.3",
+      "name": "振奋女妖",
+      "race": "terran",
+      "body": "mobile",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "teamMoveIncrease": 0.3,
+        "chargeSeconds": 8,
+        "chargeMaximumI": 2600,
+        "blastRadius": 5,
+        "outOfCombatSeconds": 2
+      },
+      "loop": "脱战全队机动增益，动力电容持续储能；进战把储能释放成范围电磁爆炸。",
+      "limit": "两秒无攻击脱战；储能最多一仓，进战一次消耗；团队移速不递归叠同名；不凭能量创造无冷却连续爆炸。"
+    },
+    {
+      "id": "banshee.2",
+      "name": "瘟疫女妖",
+      "race": "terran",
+      "body": "support",
+      "origin": "USER_SAMPLE",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 7,
+        "ordinaryMaxHpPerSecondByRank": [
+          0.03,
+          0.035,
+          0.04,
+          0.045,
+          0.05
+        ],
+        "eliteMaxHpPerSecondFactor": 0.5,
+        "bossMaxHpPerSecondFactor": 0.2,
+        "secondsPerPulse": 1
+      },
+      "loop": "改装污染喷洒系统，在光环内每秒侵蚀敌方生命。",
+      "limit": "扣血基于入圈时最大HP；精英半效、Boss/领主五分之一为提案；排除建筑，脉冲为合法伤害不直接改HP；光环伤害不暴击、不递归。"
+    }
+  ],
+  "retainedEliteEnergyChannels": {
+    "continuousMedical": {
+      "energyPerActualHp": 0.33,
+      "shieldAndBarrierUseAlreadyPaidEffectiveHealOnly": true
+    },
+    "queen.2": {
+      "energyPerCast": 50,
+      "pulsePeriod": 0.25,
+      "firstPulse": 0.25,
+      "lastPulse": 4,
+      "pulseCount": 16,
+      "initialTargetLimit": 5,
+      "cooldownStartsAt": "SUCCESSFUL_CAST",
+      "replaceLegacyInstantAndHot": true,
+      "sourceDeathStopsPulses": true
+    },
+    "sentry.1": {
+      "energyPerActivation": 75,
+      "windowSeconds": 12.857142857142858,
+      "cooldownSeconds": 12.857142857142858,
+      "shieldPulsePeriod": 1,
+      "firstShieldPulse": 1,
+      "shieldPulsesNeedLivingSource": true,
+      "noPerShieldEnergyCharge": true,
+      "noSecondLegacyGuardian": true
+    },
+    "sentry.2": {
+      "energyPerCast": 75,
+      "sourceCostReference": "GuardianShield",
+      "cooldownSeconds": 14
+    },
+    "high_templar.1": {
+      "energyPerCast": 75,
+      "sourceCostReference": "PsiStorm",
+      "cooldownSeconds": 12
+    },
+    "high_templar.2": {
+      "energyPerCast": 75,
+      "authorship": "NEW_EQUIVALENT_PSI_STORM_COST_PROPOSAL_NOT_EXISTING_FEEDBACK_COST",
+      "cooldownSeconds": 12
+    },
+    "high_templar.3": {
+      "energyPerCast": 75,
+      "sourceCostReference": "PsiStorm",
+      "webFromActualStormOnly": true,
+      "extraEnergyForWeb": 0,
+      "cooldown": "PRESERVE_SOURCE_PSI_STORM_COOLDOWN"
+    }
+  },
+  "elites": [
+    {
+      "id": "zergling.1",
+      "name": "裂爪狂潮",
+      "race": "zerg",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "stacks": 8,
+        "attackSpeedPerStack": 0.3,
+        "stackExpireSeconds": 2,
+        "lightDamageFactor": 1.5
+      },
+      "loop": "双身体交替撕咬；连续出手逐层叠加狂潮，打出远超普通虫群的近战密度。",
+      "limit": "两个真实身体共享狂潮层数，各自武器周期；不复制第三身体；幸存再生仍按900步。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "zergling.2",
+      "name": "噬甲獠牙",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "armorReduction": 0.5,
+        "armorSeconds": 4,
+        "finisherEveryCycles": 3,
+        "finisherDamageFactor": 4,
+        "armoredDamageFactor": 1.6
+      },
+      "loop": "双身体同一周期连续命中后撕裂护甲，第三次啃咬释放处决伤害。",
+      "limit": "按身体真实周期计数；处决替换该次伤害，非额外四击；Boss可破甲不能秒杀，不打空军。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "zergling.3",
+      "name": "共生血巢",
+      "race": "zerg",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "sharedDamageFraction": 0.5,
+        "lifeStealFraction": 0.25,
+        "survivorRegrowSteps": 900,
+        "regrowHpFraction": 0.6
+      },
+      "loop": "双身体分摊伤害，攻击吸收养分；一体存活维持另一体再生。",
+      "limit": "分摊不能回环；按有效生命伤吸血，不能吸盾/无敌；900步保留，任一体都死仍丧失名额。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "zergling.3",
+        "role": "家族指挥",
+        "effectName": "血巢号令",
+        "kind": "buff",
+        "radius": null,
+        "recipients": "全队永久跳虫家族，普通与三种精英；每个实际双生身体各生效一次",
+        "anchorIds": [
+          "marine.3"
+        ],
+        "stats": {
+          "damage": 0.2,
+          "speed": 0.2,
+          "maxHp": 0.2,
+          "maxShield": 0.2,
+          "armorPct": 0.2,
+          "shieldArmorPct": 0.2,
+          "move": 0.2
+        },
+        "before": "只有双生分摊、吸血与幸存再生，没有团队指挥增益。",
+        "after": "全队跳虫攻击、攻速、生命、原生盾、生命/盾护甲、移动各＋20%；主武器零甲持续输出×1.44。",
+        "retained": "保留50%双生分摊、25%实际生命伤吸血、900步幸存再生及60%恢复生命。",
+        "rules": [
+          "来源两体任一存活即可维持；同席位两体不算两个光环源。",
+          "原生盾只放大已有盾；不凭光环给跳虫创造护盾。",
+          "与人族指挥官相同的家族指挥层；不能按两个身体重复乘1.2。"
+        ],
+        "presentation": "沿用共生血巢身体与攻击；来源脚下短促有机脉动，指挥范围为全队，不画巨大全图圈。"
+      }
+    },
+    {
+      "id": "baneling.1",
+      "name": "灾厄酸核",
+      "race": "zerg",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "explosionDamageFactor": 3,
+        "radiusFactor": 1.8,
+        "postExplosionStopSeconds": 5
+      },
+      "loop": "自爆伤害三倍、酸爆覆盖扩展，爆后存活但停顿五秒。",
+      "limit": "仅玩家爆虫存活；停顿不能通过升级/读档跳过；酸爆一次，无法对空，不把爆炸当免费技能连发。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "baneling.2",
+      "name": "腐土播种者",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "explosionDamageFactor": 2,
+        "acidGroundSeconds": 5,
+        "acidDpsI": 420,
+        "acidRadius": 4,
+        "postExplosionStopSeconds": 5
+      },
+      "loop": "爆心留下腐土，五秒休眠期间继续侵蚀范围内地面敌军。",
+      "limit": "腐土逐秒按实在范围敌人结算，同源取强值；Boss允许固定伤害，无永久百分比蒸发。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "baneling.3",
+      "name": "甲壳反应堆",
+      "race": "zerg",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "storedDamageFraction": 0.5,
+        "storedDamageMaxHpFraction": 2,
+        "explosionDamageFactor": 1.8,
+        "healMaxHpFraction": 0.35,
+        "postExplosionStopSeconds": 5
+      },
+      "loop": "受到攻击积累酸压，爆炸释放储压并把部分威力变成自身再生。",
+      "limit": "只积累实际承受敌伤，不收无敌阻止量/友伤；储压一次消费，固定上限可被击杀，爆后同样停五秒。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "roach.1",
+      "name": "深壳堡垒",
+      "race": "zerg",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "lowHpThreshold": 0.35,
+        "lowHpArmorAdd": 8,
+        "burrowSeconds": 3,
+        "burrowCooldown": 18,
+        "burrowHealMaxHpPerSecond": 0.12
+      },
+      "loop": "血量越低甲壳越硬，濒危时自动钻地短时修复后出土。",
+      "limit": "自动钻地为明确新变体行为；受侦测仍可被击杀，钻地不攻击；不取消指令或无限躲避Boss。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "roach.2",
+      "name": "穿甲酸喉",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "stacks": 5,
+        "damagePerStack": 0.3,
+        "burstEveryCycles": 6,
+        "burstDamageFactor": 4,
+        "burstRadius": 2.5
+      },
+      "loop": "同目标连续酸击逐层软化重甲，第六发喷出高浓酸。",
+      "limit": "六发循环，转火清酸层；高浓酸替换第六发主伤，不把层数和四倍再无限相乘。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "roach.3",
+      "name": "反噬菌甲",
+      "race": "zerg",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "retaliationDamageFraction": 0.6,
+        "retaliationRadius": 2,
+        "retaliationInternalSeconds": 0.5,
+        "attackRegenMaxHpPerSecond": 0.04,
+        "regenSeconds": 4
+      },
+      "loop": "受到近战攻击反射腐蚀，攻击命中后再生增强，成为能输出的生体前线。",
+      "limit": "反伤以实际受伤包为基数，无递归；只反近战敌人，不能让远程或空军无成本受伤。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "ravager.1",
+      "name": "连囊炮手",
+      "race": "zerg",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "bileCount": 3,
+        "bilePacketFraction": 1,
+        "bileInterval": 0.3,
+        "bileCooldownFactor": 0.75,
+        "bileBaseDamageI": 1200,
+        "bileBaseCooldown": 12
+      },
+      "loop": "胆汁技能一次投出三枚，沿同一目标区域分段砸落。",
+      "limit": "三枚独立预警/落点，重叠允许三次实际伤害；仍需原胆汁技能解锁，不把普攻重复当技能。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "ravager.2",
+      "name": "破城酸星",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "bileDamageFactor": 4,
+        "bileRadiusFactor": 1.5,
+        "armoredAndBuildingDamageFactor": 1.5,
+        "armorReduction": 0.5,
+        "armorSeconds": 5,
+        "bileBaseDamageI": 1200,
+        "bileBaseCooldown": 12
+      },
+      "loop": "胆汁变为超重酸星，对重甲/建筑增伤并短时降低正护甲。",
+      "limit": "胆汁冷却不缩；体积与延迟保留，建筑/重甲倍率取一次；不是打Boss生命百分比。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "ravager.3",
+      "name": "腐蚀雨幕",
+      "race": "zerg",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "rainSeconds": 6,
+        "rainRadius": 4,
+        "rainDpsI": 380,
+        "moveReduction": 0.45,
+        "bossMoveReduction": 0.2,
+        "bileBaseDamageI": 1200,
+        "bileBaseCooldown": 12
+      },
+      "loop": "胆汁落点形成六秒酸雨，侵蚀并迟滞地面密集敌群。",
+      "limit": "本机雨区重叠取强值，敌人离区即停止收益；普攻对空能力不改变雨区只打地面的边界。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "ravager.3",
+        "role": "范围破防",
+        "effectName": "腐蚀气溶胶",
+        "kind": "debuff",
+        "radius": 8,
+        "recipients": "范围内可见、有视线的地空敌方战斗单位",
+        "anchorIds": [
+          "banshee.1",
+          "marauder.2"
+        ],
+        "stats": {
+          "armorReduction": 0.45,
+          "defenseReduction": 0.25
+        },
+        "before": "原胆汁酸雨仅有固定伤害与地面迟滞，缺少稳定全队破防。",
+        "after": "半径8持续范围：敌正生命/盾护甲－45%，已有百分比减伤相对降低25%。",
+        "retained": "原胆汁、地面半径4酸雨、6秒、I级380/秒及移动降低均保留。",
+        "rules": [
+          "新气溶胶来自活来源半径8；旧酸雨仍只在真实落点半径4作用地面，不扩大原技能命中圈。",
+          "减伤30%变为22.5%，不是减去25个百分点；无敌和有限屏障不受此项剥除。",
+          "本光环与旧酸星/獠牙等百分比破甲取强；45%不会盖掉已有50%破甲。"
+        ],
+        "presentation": "保留已确认胆汁和酸雨；新增贴身酸蚀点闪，不画源到目标的牵连线。"
+      }
+    },
+    {
+      "id": "hydralisk.1",
+      "name": "千针风暴",
+      "race": "zerg",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "needles": 5,
+        "needleDamageFraction": 0.7,
+        "coneDegrees": 35,
+        "rangeAdd": 2
+      },
+      "loop": "每周期五根实体骨针形成窄锥，主目标承受全部实际命中骨针。",
+      "limit": "单周期最多3.5倍主伤；五根针不能各触发一轮五针，地空同原合法层。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "hydralisk.2",
+      "name": "裂甲长棘",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "armoredDamageFactor": 2.5,
+        "pierceLength": 12,
+        "pierceWidth": 1.2,
+        "secondaryDamageFraction": 0.8
+      },
+      "loop": "重型骨棘贯穿敌阵，对装甲主目标提高伤害并穿过后排。",
+      "limit": "首目标全包，后排每敌一次80%；地空贯穿分层，不隔山射击。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "hydralisk.3",
+      "name": "毒囊猎手",
+      "race": "zerg",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "poisonStacks": 4,
+        "poisonSeconds": 5,
+        "poisonDpsPerStackI": 120,
+        "spreadRadius": 4,
+        "spreadTargets": 4
+      },
+      "loop": "主击把毒囊植入敌人，连续植入加强缓释毒伤并在敌人死亡时传播。",
+      "limit": "每来源最多四层；死亡传播只传播剩余一层且不再传播；Boss不传播，固定毒伤仍可用。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "hydralisk.3",
+        "role": "集火易伤",
+        "effectName": "毒囊裂隙",
+        "kind": "conditional-debuff",
+        "radius": null,
+        "rangeMode": "EXISTING_POISON_TARGETS_NOT_GLOBAL_FIELD",
+        "recipients": "实际携带本机毒囊的合法敌人，沿用原地空命中与传播资格",
+        "anchorIds": [
+          "marauder.2",
+          "banshee.1"
+        ],
+        "stats": {
+          "vulnerabilityPerStack": 0.05
+        },
+        "trigger": {
+          "maxStacks": 4,
+          "duration": 5,
+          "secondaryStacks": 1
+        },
+        "before": "最多4层固定毒伤、死亡只传播剩余1层；没有队伍集火增益。",
+        "after": "每层毒囊附带受到武器伤害＋5%，4层上限＋20%；继发1层仅＋5%。",
+        "retained": "原每层I级120/秒、5秒、范围4、最多4个传播目标与禁止递归传播全部保留。",
+        "rules": [
+          "易伤跟随真实层数和原剩余期限，不单独刷新永久标记。",
+          "Boss可承受实际种下的固定毒伤/易伤，仍不触发死亡传播。",
+          "这是渐进集火，不声称20%易伤等于60%破甲；固定技能与毒伤本身不吃武器易伤。"
+        ],
+        "presentation": "保留骨针和毒囊；既有囊体按1–4层增强细节，不加粗弹道。"
+      }
+    },
+    {
+      "id": "queen.1",
+      "name": "母巢女王",
+      "race": "zerg",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 8,
+        "allyHpIncrease": 0.4,
+        "allyRegenMaxHpPerSecond": 0.02,
+        "allyArmorAdd": 4
+      },
+      "loop": "护育光环提高生物战斗友军生命和再生，自己以厚壳稳住后方。",
+      "limit": "再生只恢复HP；原45秒注卵与同舱一次保留，不把战斗光环兑换额外免费经济。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "queen.1",
+        "role": "生体防护",
+        "effectName": "母巢护育",
+        "kind": "buff",
+        "radius": 9,
+        "recipients": "范围内永久生物战斗友军，含英雄与来源",
+        "anchorIds": [
+          "medivac.1"
+        ],
+        "stats": {
+          "maxHp": 0.45,
+          "armorFlat": 6,
+          "regenHpPerSecond": 0.02
+        },
+        "replacements": {
+          "radius": 9,
+          "allyHpIncrease": 0.45,
+          "allyArmorAdd": 6
+        },
+        "before": "半径8，生命＋40%、生命护甲＋4、每秒恢复最大生命2%。",
+        "after": "半径9，生命＋45%、生命护甲＋6、每秒恢复最大生命2%。",
+        "retained": "原45秒注卵、同舱一次、真实攻击与2%生命再生规则保留。",
+        "rules": [
+          "相比医疗指挥的35%生命、5甲、半径8，生物限定换取更强生命维护。",
+          "进入/离开范围按伤损比例调整生命上限；不会自动补满。",
+          "同种女王不叠；与新的空巢生命光环同属精英生命层，取45%而非相乘。"
+        ],
+        "presentation": "保留已确认的细胞/膜纹医疗素材；真实恢复时在受益者处显示，无连接长线。"
+      }
+    },
+    {
+      "id": "queen.2",
+      "name": "输血主母",
+      "race": "zerg",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "healTargets": 5,
+        "healDpsI": 240,
+        "range": 8,
+        "channelSeconds": 4,
+        "healCooldown": 12
+      },
+      "loop": "输血改成多目标连续治疗，救回正在失血的生体阵线。",
+      "limit": "每个目标实际缺血封顶；消耗原输血能量来源，零能量不空放；机械不可受生物输血。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "queen.2",
+        "role": "治疗放大",
+        "effectName": "鲜血共生",
+        "kind": "conditional-buff",
+        "radius": 8,
+        "recipients": "本次输血冻结名单中实际获得生命恢复的最多5名永久生物战斗友军",
+        "anchorIds": [
+          "medivac.2",
+          "medivac.3"
+        ],
+        "stats": {
+          "receivedHealing": 0.3,
+          "weaponLifeLeech": 0.15
+        },
+        "trigger": {
+          "duration": 6,
+          "leechMaxHpPerSecond": 0.1,
+          "requiresEffectiveHpHeal": true,
+          "maxTargets": 5
+        },
+        "before": "50能量、12秒冷却；4秒内给5个冻结目标治疗，每体I级240/秒，无附加团队增益。",
+        "after": "原输血实际恢复后给予6秒：受到生命治疗＋30%，武器实际生命伤吸血15%，每体每秒吸血最多自身最大生命10%。",
+        "retained": "原240 I/秒、范围8、4秒16个脉冲、5个目标、12秒冷却、50能量及死亡停疗全部保留。",
+        "rules": [
+          "首次有效脉冲完成后授予增益；后续脉冲可受已有增益，每次治疗只放大一次。",
+          "只有有效生命恢复刷新6秒；对满血身体空放不授予/刷新。",
+          "吸血不吃受到治疗加成、不触发其他输血/吸血/治疗转盾；不从护盾、屏障或过量伤害吸血。",
+          "若身体原有同类吸血比例为L，本效果只补max(0,15%－L)的比例；新增部分每秒最多10%最大生命，旧吸血比例/上限不改。",
+          "同名授血增益取强并刷新剩余期限，不按治疗脉冲数叠加。按次付费的输血仍50能量；按有效HP付费的治疗仍按实际恢复量付费。"
+        ],
+        "presentation": "保留输血液流；仅在实际治疗和吸血时出现贴身微粒，不添加常驻粗线。"
+      }
+    },
+    {
+      "id": "queen.3",
+      "name": "毒巢守卫",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "venomDamageFactor": 2,
+        "venomMoveReduction": 0.5,
+        "venomAttackSpeedReduction": 0.3,
+        "venomSeconds": 3,
+        "venomRadius": 3
+      },
+      "loop": "攻击登记巢毒，受伤友军附近的敌人优先被毒刺压制。",
+      "limit": "优先级不制造新追敌移动指令；Boss控制减半；不把毒刺封锁写成无限眩晕。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "queen.3",
+        "role": "持续压制",
+        "effectName": "巢毒压制",
+        "kind": "debuff",
+        "radius": 8,
+        "recipients": "范围内可见、有视线的地空敌方战斗单位",
+        "anchorIds": [
+          "marauder.1"
+        ],
+        "stats": {
+          "weaponSuppression": 0.3,
+          "attackSlow": 0.35,
+          "moveSlow": 0.45
+        },
+        "bossControlScale": 0.5,
+        "before": "毒刺命中仅使攻速－30%、移动－50%，持续3秒。",
+        "after": "半径8持续范围：武器伤害－30%、攻速－35%、移动－45%；Boss各半效。",
+        "retained": "原2倍毒刺、半径3、3秒命中减益继续；原命中移动－50%仍可更强。",
+        "rules": [
+          "同源范围与命中减益逐属性取强，不把本机两种攻速降低相加。",
+          "离开范围即失去范围项；已真实命中的毒刺按原3秒到期。",
+          "普通敌原生武器DPS剩45.5%，Boss剩70.125%，与震撼弹专家整套压制对齐。"
+        ],
+        "presentation": "保留毒刺与命中素材；来源为低矮毒雾纹，敌体短暂毒性标记，不覆盖整片绿色实心圆。"
+      }
+    },
+    {
+      "id": "lurker.1",
+      "name": "三脊穿心",
+      "race": "zerg",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "spineLines": 3,
+        "fanDegrees": 40,
+        "lineDamageFactor": 1,
+        "pierceLength": 12
+      },
+      "loop": "埋地下每周期沿三条扇向释放真实刺脊，中央敌人可被三线交会命中。",
+      "limit": "需埋地；每条独立交集，未在交会处只中一/两条；不以动画给三倍虚假全场伤害。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "lurker.2",
+      "name": "地裂巨刺",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "everyCycles": 4,
+        "giantDamageFactor": 5,
+        "giantLength": 18,
+        "giantWidth": 2.2,
+        "moveReduction": 0.6,
+        "slowSeconds": 2
+      },
+      "loop": "每第四周期发出超长巨刺，击穿重甲并掀动地面敌人。",
+      "limit": "巨刺替换该周期；Boss慢速半效、不能掀飞；需地面连通/视线，无空中伤害。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "lurker.3",
+      "name": "潜巢伏击者",
+      "race": "zerg",
+      "body": "mobile",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "burrowTimeFactor": 0.4,
+        "openingCycles": 3,
+        "openingDamageFactor": 4,
+        "barrierMaxHp": 0.4,
+        "barrierSeconds": 5,
+        "triggerCooldown": 12
+      },
+      "loop": "埋地转场更快，第一次伏击前三个周期带高额伤害和护壳。",
+      "limit": "十二秒触发内置冷却，钻出钻入不无限重开；未埋地依旧不能发刺。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "mutalisk.1",
+      "name": "六翼回旋",
+      "race": "zerg",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "bouncePackets": [
+          1,
+          0.8,
+          0.65,
+          0.5,
+          0.4,
+          0.3
+        ],
+        "bounceRadius": 5
+      },
+      "loop": "一枚刃虫最多六次反弹，后几跳保持高强度清空散群。",
+      "limit": "同一敌人最多一次命中；有六个合法邻敌才兑现全部，不把六跳全算单体。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "mutalisk.2",
+      "name": "绞杀翼群",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "glaives": 3,
+        "mainPacketFraction": 1,
+        "bouncePackets": [
+          0.35,
+          0.15
+        ],
+        "armoredDamageFactor": 1.5
+      },
+      "loop": "三枚刃虫同时攻击一个目标，反弹削弱但主目标可承受三重绞杀。",
+      "limit": "三枚各有实际命中，共三倍主包；转火/飞行不能刷弹次，无虚假第四身体。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "mutalisk.3",
+      "name": "血羽迁徙",
+      "race": "zerg",
+      "body": "mobile",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "outOfCombatSeconds": 2,
+        "chargeSeconds": 6,
+        "barrierMaxHp": 0.8,
+        "openingSeconds": 3,
+        "openingAttackSpeedIncrease": 2,
+        "lifeStealFraction": 0.35
+      },
+      "loop": "脱战积蓄血羽护壳，进战前三秒高速吸血，随后恢复平常循环。",
+      "limit": "需要完整储能才最大护壳；进战消耗且不重复叠；吸血只主目标有效生命伤。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "mutalisk.3",
+        "role": "机动支援",
+        "effectName": "迁徙血羽",
+        "kind": "conditional-buff",
+        "radius": null,
+        "recipients": "移动项为全队永久生物战斗友军；入战护障为周围最多5名其他永久生物战斗友军",
+        "anchorIds": [
+          "banshee.3",
+          "medivac.3"
+        ],
+        "stats": {
+          "move": 0.3
+        },
+        "trigger": {
+          "outOfCombatSeconds": 2,
+          "chargeSeconds": 6,
+          "entryRadius": 8,
+          "maxTargets": 5,
+          "barrierMaxHp": 0.15,
+          "barrierSeconds": 4,
+          "entryCooldown": 12
+        },
+        "before": "原脱战储能/护壳/开场高速吸血只强化自身。",
+        "after": "来源脱战2秒后，全队生物移速＋30%；入战按真实储能比例给半径8内5名其他友军最多15%生命护障，4秒，团队触发间隔12秒。",
+        "retained": "原6秒储能、自身80%生命护障、3秒攻速＋200%、35%实际生命伤吸血保留。",
+        "rules": [
+          "复用原入战消费的冻结储能比例；不增设第二份可独立刷新的储能。",
+          "新团队护障排除来源，不再给自身加一层15%；五名按生命缺损比例、距离、稳定ID排序。",
+          "只在原真实开火入战时授予；护障同来源刷新到较高剩余值、不相加，切场/读档不重发。",
+          "范围内无合法友军不制造收益；移动项与其他精英同类行军光环取最高。"
+        ],
+        "presentation": "沿用血羽开场与护壳纹理；入战给真实受益者短促薄膜，不连接飞行长线。"
+      }
+    },
+    {
+      "id": "corruptor.1",
+      "name": "蚀空锁喉",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "lockSeconds": 4,
+        "maximumDamageFactor": 4,
+        "airArmoredDamageFactor": 1.5,
+        "armorReduction": 0.45,
+        "armorSeconds": 4
+      },
+      "loop": "对同一空中目标持续喷酸越久越强，最终形成重甲腐蚀锁。",
+      "limit": "换目标重置充能；无法攻击地面，不能把锁定爆发复制给地面Boss。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "corruptor.2",
+      "name": "空巢铁卫",
+      "race": "zerg",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 7,
+        "redirectFraction": 0.3,
+        "redirectMaxHpPerSecond": 0.2,
+        "selfDamageReduction": 0.25
+      },
+      "loop": "护翼光环替附近空中友军承受部分直接敌伤，并靠厚甲支撑空战。",
+      "limit": "分摊量每秒有自身HP预算，不递归分摊；不是替地面全队无敌，友军真实HP伤先减少才记收益。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "corruptor.2",
+        "role": "空军防护",
+        "effectName": "护翼巢域",
+        "kind": "buff",
+        "radius": 9,
+        "recipients": "范围内永久空中战斗友军，含空中英雄与来源；实际子机通过母体继承一次",
+        "anchorIds": [
+          "medivac.1",
+          "thor.1"
+        ],
+        "stats": {
+          "maxHp": 0.35,
+          "maxShield": 0.35,
+          "armorFlat": 6,
+          "shieldArmorFlat": 6,
+          "speed": 0.25
+        },
+        "before": "半径7内替空军分担30%直接生命伤，每秒受来源20%最大生命预算约束。",
+        "after": "新半径9属性场：生命/原生盾＋35%、生命/盾护甲＋6、攻速＋25%；原半径7分担继续。",
+        "retained": "原30%分担、自身20%最大生命/秒预算、自身25%减伤及真实空战武器不变。",
+        "rules": [
+          "属性范围9和分担范围7分开；不能把分担偷偷扩到9。",
+          "生命/盾上限精英层与同类范围增益取强；来自不同命名光环的固定护甲可相加。",
+          "分担仍可能耗尽预算或杀死来源，不能当全队永久30%减伤。",
+          "来源可吃属性场，不替自己二次分担；子机不能绕过母体重复领取。"
+        ],
+        "presentation": "保留护翼分担的受击反馈；新属性只用来源脚下薄膜及受益者短促甲壳闪。"
+      }
+    },
+    {
+      "id": "corruptor.3",
+      "name": "腐空瘟囊",
+      "race": "zerg",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "poisonSeconds": 5,
+        "poisonDpsI": 260,
+        "deathExplosionI": 1800,
+        "deathRadius": 4.5,
+        "spreadTargets": 3
+      },
+      "loop": "击中空军种下腐空囊，宿主死亡时爆炸并给附近空军补一个毒囊。",
+      "limit": "排除Boss/领主传播；每来源每目标一囊，继发囊不再传播，地面不受伤。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "ultralisk.1",
+      "name": "暴君镰刃",
+      "race": "zerg",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "thirdDamageFactor": 3,
+        "cleaveDegrees": 170,
+        "cleaveRangeFactor": 1.8,
+        "lightDamageFactor": 1.5
+      },
+      "loop": "宽镰每第三击释放三倍撕裂，切断轻甲前排。",
+      "limit": "第三击替换而非额外三击；仍近战到位，不能通过墙/空军；大扇形只命中真实覆盖。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "ultralisk.2",
+      "name": "不灭甲兽",
+      "race": "zerg",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "damageStoredFraction": 0.4,
+        "storedMaxHpFraction": 0.8,
+        "triggerHpThreshold": 0.3,
+        "healMaxHpFraction": 0.5,
+        "triggerCooldown": 25,
+        "damageReduction": 0.35,
+        "reductionSeconds": 5
+      },
+      "loop": "满壳承伤积蓄甲盾，跌破生命阈值时消耗盾壳恢复并短暂稳住。",
+      "limit": "敌人可一次打穿触发阈值；护壳不是复活，冷却保存；不从免伤量储蓄，不永久免疫。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "ultralisk.3",
+      "name": "原始踏碎者",
+      "race": "zerg",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "chargeCooldown": 12,
+        "chargeDistance": 6,
+        "stompDamageI": 2200,
+        "stompRadius": 4,
+        "attackSpeedIncrease": 1,
+        "empoweredSeconds": 6,
+        "armoredDamageFactor": 1.5
+      },
+      "loop": "短距冲锋结束踩碎地面，随后六秒以双倍攻速追猎重甲。",
+      "limit": "冲锋沿合法通道、撞墙截断；Boss不被击飞，冲锋不能穿崖/瞬移到落点。",
+      "runtimeStatus": "P4B_PRESENT_UNCHANGED_THIS_TURN",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "zealot.1",
+      "name": "誓刃狂徒",
+      "race": "protoss",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "stacks": 6,
+        "attackSpeedPerStack": 0.35,
+        "cleaveEveryCycles": 3,
+        "cleaveRadius": 3,
+        "cleaveFraction": 1.5
+      },
+      "loop": "双刃连击逐层点燃战意，满层后每第三击扩大为灵能斩面。",
+      "limit": "两刃仍是一个武器周期；伤害只来自实在斩面，战意两秒无攻击清除；不新增对空。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "zealot.2",
+      "name": "光盾卫士",
+      "race": "protoss",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "shieldBreakCooldown": 14,
+        "retaliationDamageFactor": 3,
+        "retaliationSeconds": 4,
+        "shieldPerEffectiveDamageFraction": 0.35,
+        "shieldRestoreMaxPerSecondFraction": 0.15
+      },
+      "loop": "受敌伤破盾时触发短反击窗口，近战斩击恢复有限原生盾。",
+      "limit": "只由敌伤击破原生盾触发，临时盾消失不触发；回盾按缺口和每秒预算封顶。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "zealot.3",
+      "name": "裂阵先锋",
+      "race": "protoss",
+      "body": "mobile",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "chargeDamageI": 1800,
+        "chargeRadius": 3.5,
+        "openingCycles": 3,
+        "openingDamageFactor": 3,
+        "chargeCooldown": 10
+      },
+      "loop": "冲锋触敌时横扫落点，前三个周期每击都撕裂敌阵。",
+      "limit": "合法冲锋路径、不得隔墙触发；前三次连击是实际攻击周期，冷却不被脱战抹掉。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "zealot.3",
+        "role": "家族指挥",
+        "effectName": "先锋战旗",
+        "kind": "buff",
+        "radius": null,
+        "recipients": "全队永久狂热者家族，普通与三种精英",
+        "anchorIds": [
+          "marine.3"
+        ],
+        "stats": {
+          "damage": 0.2,
+          "speed": 0.2,
+          "maxHp": 0.2,
+          "maxShield": 0.2,
+          "armorPct": 0.2,
+          "shieldArmorPct": 0.2,
+          "move": 0.2
+        },
+        "before": "原冲锋和开场三击仅强化本体，没有家族指挥增益。",
+        "after": "全队狂热者攻击、攻速、生命、原生盾、生命/盾护甲、移动各＋20%；主武器零甲持续输出×1.44。",
+        "retained": "原冲锋I级1800、半径3.5、前三周期3倍、10秒冷却与合法路径保持。",
+        "rules": [
+          "沿用人族指挥官的家族指挥层；英雄不因外形/使用狂热者模型被归入家族。",
+          "双刃是原实际武器周期，不因战旗多计命中或多乘一次伤害。"
+        ],
+        "presentation": "保留冲锋和剑光；来源脚下短促灵能旗纹，受益兵只在入场时亮一次护盾边缘。"
+      }
+    },
+    {
+      "id": "adept.1",
+      "name": "双相战刃",
+      "race": "protoss",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "echoDelay": 0.3,
+        "echoDamageFactor": 1.5,
+        "lightDamageFactor": 1.6
+      },
+      "loop": "同一周期发出实体刃与延迟相位刃，第二刃击中原落点才伤害。",
+      "limit": "回响用冻结落点，不凭残像必中；每个原周期一个回响、不递归趣味卡；无法对空。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "adept.2",
+      "name": "晨星巡猎",
+      "race": "protoss",
+      "body": "mobile",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "outOfCombatSeconds": 2,
+        "openingCycles": 4,
+        "openingDamageFactor": 3,
+        "moveFactor": 1.35,
+        "rangeAdd": 2
+      },
+      "loop": "脱战后首个目标承受四周期突袭，随后靠高机动绕开近战。",
+      "limit": "脱战只按真实开火空窗；不新增必须手动影子切换，不靠攻击动画重置冷却。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "adept.3",
+      "name": "裂光共振",
+      "race": "protoss",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "hitsRequired": 4,
+        "resonanceDamageFactor": 5,
+        "resonanceRadius": 3.5,
+        "markSeconds": 5
+      },
+      "loop": "攻击标记敌人，第四次命中令标记爆裂并波及轻甲群。",
+      "limit": "第五倍包替换第四发主伤，邻敌只吃一包；本机标记不被别家兵反复兑换。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "stalker.1",
+      "name": "虚空连射",
+      "race": "protoss",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "burstEveryCycles": 4,
+        "burstShots": 3,
+        "burstDamageFactor": 1.2,
+        "rangeAdd": 2
+      },
+      "loop": "持续锁定同一敌人使晶体连射成型，第四周期发射三连主弹。",
+      "limit": "三弹各真实飞行，共3.6倍该周期；切换不清累计周期但不刷新冷却，地空合法层保持。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "stalker.2",
+      "name": "裂隙刺客",
+      "race": "protoss",
+      "body": "mobile",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "empoweredCycles": 6,
+        "empoweredDamageFactor": 3,
+        "barrierMaxShieldFraction": 0.8,
+        "barrierSeconds": 5,
+        "triggerCooldown": 12
+      },
+      "loop": "合法闪现后六次武器周期高爆发，并获得有限相位护障。",
+      "limit": "保留手动闪现与地形校验；无自动传送，无武器/CD刷新；触发有十二秒独立冷却。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "stalker.3",
+      "name": "晶棘破甲",
+      "race": "protoss",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "positiveArmorIgnoreFraction": 0.7,
+        "armoredDamageFactor": 2.5,
+        "pierceLength": 10,
+        "secondaryFraction": 0.8
+      },
+      "loop": "晶体弹穿过目标正护甲的一部分，并对重甲形成穿透线。",
+      "limit": "忽略正护甲为自身包规则，不改变全队敌甲；生命/盾分别算，不能忽略敌伤免疫。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "sentry.1",
+      "name": "光穹织者",
+      "race": "protoss",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "radius": 7,
+        "shieldRestorePerSecondI": 180,
+        "targets": 7,
+        "damageReduction": 0.25
+      },
+      "loop": "守护者护盾升级为稳定织盾阵，圈内原生盾持续修复。",
+      "limit": "实际缺原生盾才恢复，消耗原能量；无原生盾不虚构治疗；与普通守护盾同通道取强值。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "sentry.1",
+        "role": "护盾防护",
+        "effectName": "光穹矩阵",
+        "kind": "buff",
+        "radius": 9,
+        "recipients": "范围内具有原生盾的永久战斗友军，含英雄与来源",
+        "anchorIds": [
+          "medivac.1",
+          "medivac.2"
+        ],
+        "stats": {
+          "maxHp": 0.2,
+          "maxShield": 0.4,
+          "armorFlat": 3,
+          "shieldArmorFlat": 5
+        },
+        "before": "P4原设计：半径7，花费75能量启动25%减伤和最多7体I级180/秒回盾。",
+        "after": "新增常驻半径9：生命＋20%、原生盾＋40%、生命护甲＋3、盾护甲＋5。",
+        "retained": "原主动织盾仍半径7、75能量、约12.86秒窗口/冷却（精确原值见参数）、25%减伤、7体180 I/秒；不把有限能量治疗改成永久免费。",
+        "rules": [
+          "原主动范围7不随新属性范围9扩张；每秒最多7个实际缺盾目标，首脉冲1秒。",
+          "原25%守护与普通守护属于原替换通道，不重复生成旧守护；与新阿塔尼斯保护按保护通道取强。",
+          "盾上限改变保持损伤比例，不把上限增长当实际回盾，不给无盾单位造盾。"
+        ],
+        "presentation": "沿用原生盾碎面/薄穹顶方向；受益者回盾闪烁，不恢复已被否决的连体射线。"
+      }
+    },
+    {
+      "id": "sentry.2",
+      "name": "静滞监察者",
+      "race": "protoss",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "controlCooldown": 14,
+        "controlRadius": 4,
+        "ordinaryStasisSeconds": 2.5,
+        "bossSlow": 0.25
+      },
+      "loop": "每个控制周期短暂停住范围普通敌人，Boss仅降攻速与移速。",
+      "limit": "敌人停滞期间本稿可受伤；同名停滞仅刷新有限期限，不叠加时长；Boss不完全停止；能源不足不施放。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "sentry.2",
+        "role": "持续压制",
+        "effectName": "静滞力场",
+        "kind": "debuff",
+        "radius": 8,
+        "recipients": "范围内可见、有视线的地空敌方战斗单位",
+        "anchorIds": [
+          "marauder.1"
+        ],
+        "stats": {
+          "weaponSuppression": 0.3,
+          "attackSlow": 0.35,
+          "moveSlow": 0.45
+        },
+        "bossControlScale": 0.5,
+        "before": "P4原设计：14秒/75能量的范围4短暂静滞，常驻团队压制缺位。",
+        "after": "半径8持续范围：武器伤害－30%、攻速－35%、移动－45%；Boss各半效。",
+        "retained": "原范围4、2.5秒普通静滞、14秒冷却、75能量及Boss仅25%攻速/移速降低保留。",
+        "rules": [
+          "同源主动减速与范围减速逐项取强，Boss主动25%仍可高于范围17.5%/22.5%。",
+          "普通静滞仍有限时长；新光环不使Boss停摆、不刷新停滞、不替代能量消耗。",
+          "范围压制离区即止，主动静滞按真实独立到期结算。"
+        ],
+        "presentation": "沿用地面灵能折射纹；敌体低频相位闪动，不拉出来源到目标的黏连线。"
+      }
+    },
+    {
+      "id": "sentry.3",
+      "name": "折射惩戒",
+      "race": "protoss",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "storedShieldDamageFraction": 0.7,
+        "storedLimitMaxShieldFraction": 2,
+        "releaseCooldown": 3,
+        "beamLength": 10,
+        "beamWidth": 1.6
+      },
+      "loop": "敌伤被本体护盾实际吸收后储存折射，下一次武器周期释放穿透束。",
+      "limit": "敌伤经护甲后实际盾损才存入，不能从回盾/无敌无限刷；束伤不再次充能。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "immortal.1",
+      "name": "破城判官",
+      "race": "protoss",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "armoredDamageFactor": 3,
+        "lockStacks": 4,
+        "damagePerStack": 0.25,
+        "barrierBreakNextDamageFactor": 1.5
+      },
+      "loop": "反甲双炮越打同一重甲越强，屏障耗尽时下一炮为重判。",
+      "limit": "重判只一次且不与锁定再多层递归；Boss取合法重甲属性，不把建筑/巨型当重甲。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "immortal.2",
+      "name": "永恒壁垒",
+      "race": "protoss",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "barrierFactor": 4,
+        "barrierBreakShieldRestoreFraction": 0.5,
+        "damageReduction": 0.3,
+        "reductionSeconds": 4,
+        "triggerCooldown": 16
+      },
+      "loop": "屏障规模大增，被打破后短时恢复原生盾并保护自身前线位置。",
+      "limit": "屏障触发沿既有条件，新增破屏反应有独立冷却；有限屏障不等于斯旺无敌。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "immortal.3",
+      "name": "引力裁决",
+      "race": "protoss",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "gravityRadius": 4,
+        "pullDistance": 2,
+        "pullCooldown": 3,
+        "splashFraction": 0.8
+      },
+      "loop": "反甲炮在主目标周围生成短引力区，把地面杂兵收拢给后排清场。",
+      "limit": "每三秒一个牵引区；合法路径，Boss/领主免拉只减速；对空不生成拉地面效果。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "immortal.3",
+        "role": "地面阵线防护",
+        "effectName": "引力护阵",
+        "kind": "buff",
+        "radius": 8,
+        "recipients": "范围内永久地面战斗友军，含地面英雄与来源",
+        "anchorIds": [
+          "thor.1"
+        ],
+        "stats": {
+          "armorFlat": 5,
+          "shieldArmorFlat": 5,
+          "directWeaponReduction": 0.15
+        },
+        "before": "P4原设计为真实牵引及溅射，没有保护地面队伍的常驻属性。",
+        "after": "半径8：生命/盾护甲＋5，承受直接武器伤害降低15%。",
+        "retained": "原3秒牵引间隔、半径4、合法拉近2、80%溅射、Boss免拉保持。",
+        "rules": [
+          "15%只处理直接武器包，不减固定技能、持续伤、分摊转移包；不与本机重复套两次。",
+          "与光穹/阿塔尼斯的百分比保护取同通道最强，不能把三层保护相乘；固定护甲来自不同命名来源可相加。",
+          "单纯进入护阵不拉动任何身体，不修改队伍移动/牵引控制。"
+        ],
+        "presentation": "保留反甲炮和引力作用；来源脚下薄盾片，受击者短闪，范围不画满屏几何大圆。"
+      }
+    },
+    {
+      "id": "colossus.1",
+      "name": "焚天双束",
+      "race": "protoss",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "heatSeconds": 2,
+        "maximumDamageFactor": 3,
+        "lineWidthFactor": 1.8,
+        "fireSeconds": 2,
+        "fireDpsI": 220
+      },
+      "loop": "双束沿地面持续扫灼，第二秒后把同一目标灼成高热。",
+      "limit": "高热逐目标计时、离束重置；同源火区不叠，不解除巨像可被对空攻击的弱点。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "colossus.2",
+      "name": "地平线切割",
+      "race": "protoss",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "rangeIncrease": 1,
+        "lengthIncrease": 1,
+        "armoredDamageFactor": 2.5,
+        "widthFactor": 0.75
+      },
+      "loop": "射程和切割长度扩大，以窄双束远距贯穿敌人纵队。",
+      "limit": "射程/长度二倍，宽度变窄；视线障碍仍挡，不从地图外无成本开火。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "colossus.3",
+      "name": "震慑行者",
+      "race": "protoss",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "everyCycles": 4,
+        "shockDamageFactor": 2,
+        "shockRadius": 5,
+        "moveReduction": 0.5,
+        "attackSpeedReduction": 0.3,
+        "seconds": 2,
+        "shieldRestoreFraction": 0.15
+      },
+      "loop": "双束每第四周期释放一次广域震慑，延缓近敌进攻并重构自己护盾。",
+      "limit": "第四周期额外冲击只一包，Boss控制减半；回盾按缺口，不每个命中敌人恢复一次。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "high_templar.1",
+      "name": "风暴执政",
+      "race": "protoss",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "stormDamageFactor": 2.5,
+        "stormRadiusFactor": 1.6,
+        "stormPulsePeriodFactor": 0.5,
+        "totalStormDamageMultiplier": 2.5,
+        "stormBaseTotalI": 1200,
+        "stormBaseCooldown": 12
+      },
+      "loop": "灵能风暴覆盖加大，同一风暴脉冲更密、更强。",
+      "limit": "总伤只提高2.5倍，更密脉冲分拆该预算，不再乘2；保留能量、前置与合法目标。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "high_templar.2",
+      "name": "反馈先知",
+      "race": "protoss",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "feedbackCooldown": 12,
+        "feedbackRadius": 4,
+        "energyDamageRatio": 6,
+        "fixedFeedbackDamageI": 1600,
+        "energyDrainFraction": 1
+      },
+      "loop": "优先抽取消耗敌方能量并转成灵能伤害，额外给高危目标固定反馈。",
+      "limit": "无能量敌人只受固定包；Boss不凭身份虚构能量，反馈总额冻结消耗一次。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "high_templar.2",
+        "role": "反馈集火",
+        "effectName": "反馈暴露",
+        "kind": "conditional-debuff",
+        "radius": 4,
+        "recipients": "实际被原反馈包命中的合法敌人",
+        "anchorIds": [
+          "marauder.2",
+          "banshee.1"
+        ],
+        "stats": {
+          "vulnerability": 0.25
+        },
+        "trigger": {
+          "duration": 6
+        },
+        "before": "P4原设计抽取真实能量转伤害，加固定反馈；没有后续集火窗口。",
+        "after": "反馈实际命中后，受到武器伤害＋25%，持续6秒。",
+        "retained": "原12秒冷却、75能量、范围4、实际能量×6、I级固定1600及一次消耗保持。",
+        "rules": [
+          "无能量敌人仍只按原固定包受击并得到标记；不虚构能量、不给Boss额外抽能预算。",
+          "本次反馈固定包不吃其自己刚授予的武器易伤；其后合法武器包生效。",
+          "同名标记刷新不叠层；Boss完整易伤但不会被硬控。"
+        ],
+        "presentation": "保留反馈爆点；标记使用目标上的短暂裂纹，不增加持续连接束。"
+      }
+    },
+    {
+      "id": "high_templar.3",
+      "name": "静电织网",
+      "race": "protoss",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "webSeconds": 6,
+        "webRadius": 5,
+        "attackSpeedReduction": 0.4,
+        "allyEnergyPerSecond": 6,
+        "allyTargets": 7
+      },
+      "loop": "每次风暴形成静电织网，圈内敌人攻速降低，友方能量缓慢回流。",
+      "limit": "不叠同源织网，Boss攻速减半；能量按各自上限，只给既有能量战斗身体。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "high_templar.3",
+        "role": "破防与能量支援",
+        "effectName": "离子解构场",
+        "kind": "debuff",
+        "radius": 8,
+        "recipients": "范围内可见、有视线的地空敌方战斗单位",
+        "anchorIds": [
+          "banshee.1",
+          "marauder.2"
+        ],
+        "stats": {
+          "armorReduction": 0.45,
+          "defenseReduction": 0.25
+        },
+        "before": "P4原设计只有实际风暴后的6秒织网、减攻速与7体能量回流。",
+        "after": "新增半径8持续范围：正生命/盾护甲－45%，已有百分比减伤相对降低25%。",
+        "retained": "原风暴与能量前置、范围5织网、6秒、敌攻速－40%（Boss半效）、7体每秒能量＋6保留。",
+        "rules": [
+          "新破防来自活来源半径8；织网仍是实际风暴落点半径5，不免费生成风暴。",
+          "能量只给已有能量池且未满的合法身体；每体最多恢复实际缺口，同名织网不叠加。",
+          "百分比破甲与其他源取强，45%不能与同类45%相加为90%。"
+        ],
+        "presentation": "保留细节丰富的风暴与织网；新增敌甲短促离子裂纹，不改变风暴射线/脉冲的已定表现。"
+      }
+    },
+    {
+      "id": "phoenix.1",
+      "name": "离子六翼",
+      "race": "protoss",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "shotsPerCycle": 6,
+        "lightDamageFactor": 1.6,
+        "moveFactor": 1.2
+      },
+      "loop": "空战每周期发射六枚离子弹，以高速压制轻型空军。",
+      "limit": "普通为双弹，六枚是三倍周期弹次；没有地面普通武器，引力仍沿合法地面目标。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "phoenix.2",
+      "name": "引力狩猎者",
+      "race": "protoss",
+      "body": "support",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "gravityTargets": 2,
+        "liftSeconds": 4,
+        "liftDamageFactor": 3,
+        "gravityCooldown": 10
+      },
+      "loop": "同时维持两个合法引力目标，悬空目标接受更强己方离子打击。",
+      "limit": "只对原规则可举目标；Boss/领主不悬空，不能凭举起给建筑开对空射击资格。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "phoenix.3",
+      "name": "相位突击翼",
+      "race": "protoss",
+      "body": "mobile",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "outOfCombatSeconds": 2,
+        "openingCycles": 6,
+        "openingDamageFactor": 3,
+        "barrierMaxShieldFraction": 0.75,
+        "chargeSeconds": 6
+      },
+      "loop": "脱战储存一次相位冲击，进战首六周期以三倍离子火力突袭。",
+      "limit": "六秒脱战储能才护障完整，开火消耗；没有自动闪现/穿墙，无无限护障叠加。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "phoenix.3",
+        "role": "机动支援",
+        "effectName": "相位航路",
+        "kind": "conditional-buff",
+        "radius": null,
+        "recipients": "移动项为全队具有原生盾的永久战斗友军；入战护障为周围最多5名其他原生盾友军",
+        "anchorIds": [
+          "banshee.3",
+          "medivac.3"
+        ],
+        "stats": {
+          "move": 0.3
+        },
+        "trigger": {
+          "outOfCombatSeconds": 2,
+          "chargeSeconds": 6,
+          "entryRadius": 8,
+          "maxTargets": 5,
+          "barrierMaxShield": 0.2,
+          "barrierSeconds": 6,
+          "entryCooldown": 12
+        },
+        "before": "P4原设计的脱战储能、首六周期3倍火力、75%原生盾护障只作用自身。",
+        "after": "来源脱战2秒后，全队原生盾友军移速＋30%；入战按储能比例给半径8内5名其他友军最多20%原生盾护障，6秒，团队触发间隔12秒。",
+        "retained": "原6秒储能、首6个周期3倍火力、自身75%原生盾护障及原开火资格保留。",
+        "rules": [
+          "复用原开火消费的储能比例，排除来源，不重复授予自身75%之外的20%护障。",
+          "按原生盾缺损比例、距离、稳定ID选择最多5名；临时护障不算原生盾恢复。",
+          "新护障同源刷新取较高剩余量，读档/过场不重发；全队行军与同类精英项取最高。",
+          "仍无地面普通武器，无自动闪现；不依赖成功举起Boss来触发入战保护。"
+        ],
+        "presentation": "沿用相位开场/护障纹理；受益者出现短促盾瓣，不增加悬空身体或假子机。"
+      }
+    },
+    {
+      "id": "void_ray.1",
+      "name": "棱光处刑舰",
+      "race": "protoss",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "chargeSeconds": 5,
+        "maximumDamageFactor": 5,
+        "armoredDamageFactor": 1.5,
+        "moveFactor": 0.8
+      },
+      "loop": "同目标持续束流五秒后进入五倍棱镜处刑。",
+      "limit": "转火/两秒无合法束流重置；不能把新五倍再乘旧模板同类充能，直接替换。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "void_ray.2",
+      "name": "裂光分束舰",
+      "race": "protoss",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "secondaryTargets": 3,
+        "secondaryFraction": 0.75,
+        "secondaryRadius": 5,
+        "mainDamageFactor": 1.5
+      },
+      "loop": "主束旁分出三条辅助束，同时压制附近其他敌人。",
+      "limit": "主目标1.5倍，三个不同邻敌各普通主包75%；不对同一目标叠四束，不递归复制束流。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "void_ray.3",
+      "name": "能量虹吸舰",
+      "race": "protoss",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "shieldPerEffectiveDamageFraction": 0.3,
+        "shieldPerSecondMaxFraction": 0.18,
+        "barrierMaxShieldFraction": 0.8,
+        "barrierSeconds": 6
+      },
+      "loop": "束流有效伤害回充自身原生盾，满盾溢出形成有限临时护障。",
+      "limit": "不吸无敌/未命中包，治疗溢出预算不可再回盾；临时护障不改变原生盾上限。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "carrier.1",
+      "name": "蜂群指挥舰",
+      "race": "protoss",
+      "body": "assault",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "interceptors": 8,
+        "childAttackSpeedIncrease": 1,
+        "overdriveSeconds": 6,
+        "overdriveCooldown": 18
+      },
+      "loop": "八架真实截击机围攻，连续锁定后进入蜂群超载。",
+      "limit": "每架独立所属身体；只存活出勤子机计火力；数量与攻速四倍峰值，不给母舰假普攻。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "carrier.2",
+      "name": "重矛母舰",
+      "race": "protoss",
+      "body": "precision",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "interceptors": 4,
+        "childDamageFactor": 2.5,
+        "childArmoredDamageFactor": 1.8,
+        "heavyEveryCycles": 4,
+        "heavyPacketFraction": 1
+      },
+      "loop": "四架截击机改为重型穿甲火力，每第四周期追加一次重矛包。",
+      "limit": "重矛追加一次已增强主包，单周期峰值九倍对甲；技能强度不从虚假新增模型/轰炸机计算。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "CORE_ROLE_RETAINED",
+      "proposal": null
+    },
+    {
+      "id": "carrier.3",
+      "name": "圣盾巡航舰",
+      "race": "protoss",
+      "body": "bulwark",
+      "origin": "AUTHORED_PROPOSAL",
+      "userConfirmedParameterKeys": [],
+      "parameters": {
+        "parentDamageReduction": 0.3,
+        "interceptorHpFactor": 2.5,
+        "returnHealPerSecondFraction": 0.15,
+        "childDpsFactor": 1.5,
+        "repairRange": 3
+      },
+      "loop": "母舰盾损先由有限矩阵分担，所属截击机回收时真实维修重整。",
+      "limit": "只有实际回到母舰近处且不攻击的子机维修；不满血传送重生，不改变其他航母/英雄所属权。",
+      "runtimeStatus": "P4_NOT_FORMALLY_INTEGRATED",
+      "disposition": "TEAM_EFFECT_REDESIGNED",
+      "proposal": {
+        "id": "carrier.3",
+        "role": "空军防护",
+        "effectName": "圣盾航阵",
+        "kind": "buff",
+        "radius": 10,
+        "recipients": "范围内永久空中战斗友军，含空中英雄与来源；子机通过母体继承一次",
+        "anchorIds": [
+          "medivac.1",
+          "thor.1"
+        ],
+        "stats": {
+          "maxHp": 0.3,
+          "maxShield": 0.4,
+          "speed": 0.25,
+          "armorFlat": 5,
+          "shieldArmorFlat": 5
+        },
+        "before": "P4原设计主要保护母舰本体和所属子机，没有全队空军属性场。",
+        "after": "生命＋30%、原生盾＋40%、攻速＋25%、生命/盾护甲＋5，半径10。",
+        "retained": "原母舰自身30%减伤、子机生命2.5倍/火力1.5倍、真实返航半径3内不攻击时每秒修复15%生命全部保留。",
+        "rules": [
+          "返航修复仍只限其实际所属子机，不变成全队空军15%/秒免费治疗。",
+          "最大生命/盾精英层与同类范围光环取强；子机先取母体最终修正，不能自己再次穿圈领取。",
+          "新光环不能补造阵亡子机、消除付费或改编所属权。"
+        ],
+        "presentation": "保留真实航母/子机和返航表现；属性受益用薄盾膜，母舰技能汇聚粗束保持原确认版。"
+      }
+    }
+  ],
+  "heroes": [
+    {
+      "id": "kerrigan",
+      "race": "zerg",
+      "name": "凯瑞甘",
+      "effectName": "刀锋意志",
+      "kind": "buff",
+      "radius": null,
+      "recipients": "全队永久生物战斗友军，含生物英雄与来源",
+      "anchorIds": [
+        "marine.3",
+        "zergling.3"
+      ],
+      "stats": {
+        "damage": 0.5,
+        "speed": 0.3,
+        "maxHp": 0.35,
+        "maxShield": 0.35,
+        "armorPct": 0.3,
+        "shieldArmorPct": 0.3,
+        "move": 0.25
+      },
+      "after": "攻击＋50%、攻速＋30%、生命/原生盾＋35%、生命/盾护甲＋30%、移动＋25%；全队生物。",
+      "retainedTeamEffects": [],
+      "retained": "原能量/屏障与确认版普攻、技能保持；光环不放大固定技能。",
+      "comparison": "团队零甲主武器DPS×1.95，高于指挥官×1.44；生命、甲、移动及覆盖一起比较。",
+      "previousFootAura": {
+        "name": "刀锋意志",
+        "kind": "buff",
+        "radius": 8,
+        "damage": 0.4
+      },
+      "previousFootAuraText": "半径8；武器伤害＋40%"
+    },
+    {
+      "id": "zagara",
+      "race": "zerg",
+      "name": "扎加拉",
+      "effectName": "虫群围压",
+      "kind": "debuff",
+      "radius": 10,
+      "recipients": "范围内可见、有视线的地空敌方战斗单位",
+      "anchorIds": [
+        "marauder.1",
+        "queen.3"
+      ],
+      "stats": {
+        "attackSlow": 0.45,
+        "weaponSuppression": 0.3,
+        "moveSlow": 0.5
+      },
+      "bossControlScale": 1,
+      "after": "敌攻速－45%、武器伤害－30%、移动－50%；半径10，Boss完整生效。",
+      "retainedTeamEffects": [
+        {
+          "kind": "bioCommand",
+          "radius": null,
+          "stats": {
+            "speed": 0.4,
+            "move": 0.2
+          }
+        }
+      ],
+      "retained": "原全队生物攻速＋40%、移动＋20%继续；临时爆虫仍真实自爆一次死亡。",
+      "comparison": "压制后敌武器DPS剩38.5%，精英基准剩45.5%；另有保留的友方1.40倍攻速。",
+      "previousFootAura": {
+        "name": "虫群围压",
+        "kind": "debuff",
+        "radius": 8,
+        "slow": 0.4
+      },
+      "previousFootAuraText": "半径8；敌攻速－40%"
+    },
+    {
+      "id": "dehaka",
+      "race": "zerg",
+      "name": "德哈卡",
+      "effectName": "原始威慑",
+      "kind": "debuff",
+      "radius": 9,
+      "recipients": "范围内可见、有视线的地空敌方战斗单位",
+      "anchorIds": [
+        "marauder.1",
+        "queen.3"
+      ],
+      "stats": {
+        "weaponSuppression": 0.5,
+        "attackSlow": 0.35,
+        "moveSlow": 0.45
+      },
+      "bossControlScale": 1,
+      "after": "敌武器伤害－50%、攻速－35%、移动－45%；半径9，Boss完整生效。",
+      "retainedTeamEffects": [],
+      "retained": "原精华、适应、独立生命储备与吞噬固定伤害/0.35秒时序保持。",
+      "comparison": "敌武器DPS剩32.5%；以近身威慑换取较强压制，不改变吞噬秒Boss的原固定包。",
+      "previousFootAura": {
+        "name": "原始威慑",
+        "kind": "debuff",
+        "radius": 7,
+        "suppression": 0.4
+      },
+      "previousFootAuraText": "半径7；敌武器伤害－40%"
+    },
+    {
+      "id": "stukov",
+      "race": "zerg",
+      "name": "斯托科夫",
+      "effectName": "感染破绽",
+      "kind": "debuff",
+      "radius": 10,
+      "recipients": "范围内可见、有视线的地空敌方战斗单位；建筑排除",
+      "anchorIds": [
+        "banshee.2",
+        "hydralisk.3"
+      ],
+      "stats": {
+        "vulnerability": 0.45,
+        "healingSuppression": 0.5
+      },
+      "plague": {
+        "ordinaryMaxHpPerSecond": 0.06,
+        "eliteMaxHpPerSecond": 0.03,
+        "bossMaxHpPerSecond": 0.012,
+        "period": 1,
+        "firstPulse": 1
+      },
+      "after": "受到武器伤害＋45%、实际生命治疗－50%；每秒瘟疫为入圈时最大生命的普通6%/精英3%/Boss1.2%；半径10。",
+      "retainedTeamEffects": [],
+      "retained": "原感染、既有酸池/寄生及确认版攻击技能保持；新瘟疫不是替换原固定技能。",
+      "comparison": "对照V级瘟疫女妖5%/2.5%/1%分别提高20%，并增加集火与抑疗；不能把易伤重复乘到瘟疫。",
+      "rules": [
+        "入圈冻结当时最大生命，满1秒才首跳；同目标共享每秒命中闸门，进出圈/多源/读档不补跳。",
+        "使用原百分比瘟疫对应的合法伤害管线、免疫和抗性；禁止直接减HP、阈值处决、吸血或传播递归。",
+        "来源死亡/离区停止后续瘟疫；目标重新合法入圈可更新快照但不能刷新同秒闸门。",
+        "抑疗只降低实际生命治疗，非负且不作用原生盾恢复；不抹去复活、付费重建、上限变更或生命储备。"
+      ],
+      "previousFootAura": {
+        "name": "感染破绽",
+        "kind": "debuff",
+        "radius": 9,
+        "vulnerability": 0.45
+      },
+      "previousFootAuraText": "半径9；受到武器伤害＋45%"
+    },
+    {
+      "id": "niadra",
+      "race": "zerg",
+      "name": "尼亚德拉",
+      "effectName": "殖群甲壳",
+      "kind": "buff",
+      "radius": 12,
+      "recipients": "范围内永久生物战斗友军，含生物英雄与来源",
+      "anchorIds": [
+        "medivac.1",
+        "queen.1"
+      ],
+      "stats": {
+        "maxHp": 0.6,
+        "armorFlat": 10,
+        "regenHpPerSecond": 0.03
+      },
+      "after": "生命＋60%、生命护甲＋10、每秒恢复最大生命3%；半径12。",
+      "retainedTeamEffects": [
+        {
+          "kind": "actualBiologicalHealing",
+          "radius": 8,
+          "targets": 7,
+          "healPerTargetI": 550
+        }
+      ],
+      "retained": "原七体每体550 I/秒、范围8的实际治疗与寄生/有限复生保留；扩大的是光环，不是旧治疗距离。",
+      "comparison": "相对新版母巢女王45%生命、6甲、2%再生、半径9逐项提高；原有限复生另计，不折成假DPS。",
+      "previousFootAura": {
+        "name": "殖群甲壳",
+        "kind": "buff",
+        "radius": 8,
+        "armor": 7
+      },
+      "previousFootAuraText": "半径8；生命护甲＋7"
+    },
+    {
+      "id": "hots_leviathan",
+      "race": "zerg",
+      "name": "利维坦",
+      "effectName": "母巢律动",
+      "kind": "buff",
+      "radius": null,
+      "recipients": "全队永久生物战斗友军，含生物英雄与来源",
+      "anchorIds": [
+        "marine.3",
+        "zergling.3",
+        "corruptor.2"
+      ],
+      "stats": {
+        "damage": 0.2,
+        "speed": 0.6,
+        "maxHp": 0.2,
+        "maxShield": 0.2,
+        "armorPct": 0.3,
+        "shieldArmorPct": 0.3,
+        "move": 0.25
+      },
+      "after": "攻击＋20%、攻速＋60%、生命/原生盾＋20%、生命/盾护甲＋30%、移动＋25%；全队生物。",
+      "retainedTeamEffects": [
+        {
+          "kind": "oldBioHealth",
+          "radius": 10,
+          "stats": {
+            "maxHp": 0.25
+          }
+        }
+      ],
+      "retained": "原半径10生物生命＋25%继续；与新20%在英雄生命层相加，圈内总＋45%、圈外＋20%。",
+      "comparison": "团队零甲主武器DPS×1.92，高于指挥官×1.44；保留母巢近场生命特色，避免把25%被动漏算或乘两次。",
+      "previousFootAura": {
+        "name": "母巢律动",
+        "kind": "buff",
+        "radius": 10,
+        "speed": 0.45
+      },
+      "previousFootAuraText": "半径10；攻速＋45%"
+    },
+    {
+      "id": "artanis",
+      "race": "protoss",
+      "name": "阿塔尼斯",
+      "effectName": "达拉姆圣盾",
+      "kind": "buff",
+      "radius": 12,
+      "recipients": "范围内具有原生盾的永久战斗友军，含英雄与来源",
+      "anchorIds": [
+        "medivac.1",
+        "sentry.1"
+      ],
+      "stats": {
+        "maxShield": 0.6,
+        "shieldArmorFlat": 10,
+        "armorFlat": 6,
+        "damageReduction": 0.4
+      },
+      "replacesRetainedTeamEffect": {
+        "kind": "nativeShieldProtection",
+        "oldRadius": 8,
+        "oldDamageReduction": 0.3
+      },
+      "after": "原生盾上限＋60%、盾护甲＋10、生命护甲＋6、承受敌伤降低40%；半径12。",
+      "retainedTeamEffects": [
+        {
+          "kind": "actualNativeShieldHealing",
+          "radius": 8,
+          "targets": 7,
+          "shieldPerTargetI": 560
+        }
+      ],
+      "retained": "原30%保护并入并提高至40%，只算一次；原七体每体560 I/秒、范围8回盾和主动8秒冻结窗口保持。",
+      "comparison": "与新版光穹常驻属性＋开启25%守护作整套生存对照；40%保护不再乘一次旧30%。",
+      "previousFootAura": {
+        "name": "达拉姆圣盾",
+        "kind": "buff",
+        "radius": 8,
+        "shieldArmor": 7
+      },
+      "previousFootAuraText": "半径8；盾护甲＋7"
+    },
+    {
+      "id": "zeratul",
+      "race": "protoss",
+      "name": "泽拉图",
+      "effectName": "虚空裂隙",
+      "kind": "debuff",
+      "radius": 10,
+      "recipients": "范围内可见、有视线的地空敌方战斗单位",
+      "anchorIds": [
+        "marauder.2",
+        "banshee.1",
+        "high_templar.2"
+      ],
+      "stats": {
+        "vulnerability": 0.6,
+        "armorReduction": 0.65,
+        "defenseReduction": 0.3
+      },
+      "after": "受到武器伤害＋60%、正生命/盾护甲－65%、已有百分比减伤相对降低30%；半径10，Boss完整。",
+      "retainedTeamEffects": [],
+      "retained": "原实际主生命＋盾伤的50%回响、0.4秒延迟及主动0.25秒时序保持。",
+      "comparison": "破甲超过V级60%，弱化减伤超过女妖25%；易伤、破甲分别入正确通道，回响不再重复吃60%易伤。",
+      "previousFootAura": {
+        "name": "虚空裂隙",
+        "kind": "debuff",
+        "radius": 8,
+        "vulnerability": 0.45
+      },
+      "previousFootAuraText": "半径8；受到武器伤害＋45%"
+    },
+    {
+      "id": "alarak",
+      "race": "protoss",
+      "name": "阿拉纳克",
+      "effectName": "高阶压制",
+      "kind": "debuff",
+      "radius": 10,
+      "recipients": "范围内可见、有视线的地空敌方战斗单位",
+      "anchorIds": [
+        "marauder.1",
+        "sentry.2"
+      ],
+      "stats": {
+        "weaponSuppression": 0.45,
+        "attackSlow": 0.4,
+        "moveSlow": 0.45
+      },
+      "bossControlScale": 1,
+      "after": "敌武器伤害－45%、攻速－40%、移动－45%；半径10，Boss完整生效。",
+      "retainedTeamEffects": [],
+      "retained": "原至多20层力量和确认版斩击/冲击波保持，不牺牲友军制造增益。",
+      "comparison": "敌武器DPS剩33%，强于精英基准45.5%；力量层数不能再放大这组百分比。",
+      "previousFootAura": {
+        "name": "高阶压制",
+        "kind": "debuff",
+        "radius": 8,
+        "suppression": 0.4
+      },
+      "previousFootAuraText": "半径8；敌武器伤害－40%"
+    },
+    {
+      "id": "fenix",
+      "race": "protoss",
+      "name": "菲尼克斯",
+      "effectName": "净化武库",
+      "kind": "buff",
+      "radius": null,
+      "recipients": "全队永久机械战斗友军，含机械英雄与来源；实际子机通过母体继承一次",
+      "anchorIds": [
+        "marine.3",
+        "thor.1",
+        "carrier.3"
+      ],
+      "stats": {
+        "damage": 0.6,
+        "speed": 0.25,
+        "maxHp": 0.25,
+        "maxShield": 0.4,
+        "armorPct": 0.3,
+        "shieldArmorPct": 0.3,
+        "move": 0.25
+      },
+      "after": "攻击＋60%、攻速＋25%、生命＋25%、原生盾＋40%、生命/盾护甲＋30%、移动＋25%；全队机械。",
+      "retainedTeamEffects": [],
+      "retained": "原第四击强化、真实破盾60%回盾/6秒超载/20秒冷却与模型材质保持。",
+      "comparison": "团队零甲主武器DPS×2.00；本体破盾超载只强化本人，不伪写为整队常驻翻倍。",
+      "previousFootAura": {
+        "name": "净化武库",
+        "kind": "buff",
+        "radius": 9,
+        "damage": 0.4
+      },
+      "previousFootAuraText": "半径9；武器伤害＋40%"
+    },
+    {
+      "id": "vorazun",
+      "race": "protoss",
+      "name": "沃拉尊",
+      "effectName": "暗影迟滞",
+      "kind": "debuff",
+      "radius": 10,
+      "recipients": "范围内可见、有视线的地空敌方战斗单位",
+      "anchorIds": [
+        "marauder.1",
+        "sentry.2",
+        "high_templar.3"
+      ],
+      "stats": {
+        "attackSlow": 0.5,
+        "weaponSuppression": 0.3,
+        "moveSlow": 0.5
+      },
+      "bossControlScale": 1,
+      "after": "敌攻速－50%、武器伤害－30%、移动－50%；半径10，Boss完整生效。",
+      "retainedTeamEffects": [],
+      "retained": "原6秒隐匿/14秒周期/开火显形、有限静滞与Boss只减速规则保持。",
+      "comparison": "敌武器DPS剩35%；同时高于织网40%减攻速和监察者组合，不能用光环把Boss变成永久静滞。",
+      "previousFootAura": {
+        "name": "暗影迟滞",
+        "kind": "debuff",
+        "radius": 9,
+        "slow": 0.4
+      },
+      "previousFootAuraText": "半径9；敌攻速－40%"
+    },
+    {
+      "id": "purifier_flagship",
+      "race": "protoss",
+      "name": "净化旗舰",
+      "effectName": "矩阵共鸣",
+      "kind": "buff",
+      "radius": null,
+      "recipients": "全队具有原生盾的永久战斗友军，含英雄与来源；实际子机通过母体继承一次",
+      "anchorIds": [
+        "marine.3",
+        "carrier.3"
+      ],
+      "stats": {
+        "damage": 0.3,
+        "speed": 0.5,
+        "maxHp": 0.25,
+        "maxShield": 0.5,
+        "armorPct": 0.3,
+        "shieldArmorPct": 0.4,
+        "move": 0.25
+      },
+      "after": "攻击＋30%、攻速＋50%、生命＋25%、原生盾＋50%、生命护甲＋30%、盾护甲＋40%、移动＋25%；全队原生盾友军。",
+      "retainedTeamEffects": [
+        {
+          "kind": "actualNativeShieldHealing",
+          "radius": 8,
+          "targets": 7,
+          "shieldPerTargetI": 420
+        }
+      ],
+      "retained": "原12架真实子机、付费补机、七体420 I/秒回盾、受伤子机超载及确认版小航母聚能粗束保持。",
+      "comparison": "团队零甲主武器DPS×1.95；光环收益经母体只传一次，不能给母舰捏造普通枪或额外子机。",
+      "previousFootAura": {
+        "name": "矩阵共鸣",
+        "kind": "buff",
+        "radius": 10,
+        "speed": 0.45
+      },
+      "previousFootAuraText": "半径10；攻速＋45%"
+    }
+  ],
+  "retainedTerranHeroFootAuras": {
+    "raynor": {
+      "name": "战术号令",
+      "kind": "buff",
+      "radius": 8,
+      "damage": 0.35
+    },
+    "tychus": {
+      "name": "火力压制",
+      "kind": "debuff",
+      "radius": 7,
+      "slow": 0.35
+    },
+    "nova": {
+      "name": "锁定破绽",
+      "kind": "debuff",
+      "radius": 10,
+      "vulnerability": 0.4
+    },
+    "swann": {
+      "name": "工程护甲",
+      "kind": "buff",
+      "radius": 8,
+      "armor": 6
+    },
+    "tosh": {
+      "name": "精神压迫",
+      "kind": "debuff",
+      "radius": 8,
+      "suppression": 0.35
+    },
+    "yamato_battlecruiser": {
+      "name": "舰队节奏",
+      "kind": "buff",
+      "radius": 10,
+      "speed": 0.4
+    }
+  },
+  "stackingRules": [
+    "同名/同身份光环取最强有效源。双生两体、重复候选记录、真实子机均不制造第二份来源；升级不留下旧阶副本。",
+    "不同英雄的攻击、攻速、生命/原生盾、移动与百分比护甲在各自英雄层相加后只乘一次。保留旧团队被动加入同一英雄层；单个英雄不是只展示新数字。",
+    "家族指挥层延续人族Commander：20%独立乘一次，同家族多个源取强。新的精英范围生命/原生盾项在精英范围层逐项取强后乘一次，不能将女王45%与护翼35%连乘；生命和盾可来自不同合法最强源。",
+    "新精英非家族攻击/攻速增益与其他不同命名来源在该增益层相加后一次应用；同来源的进入/退出仅更新成员。精英行军移动项取最高，再与英雄移动层组合。不同命名固定护甲在既有百分比/1.15适配后相加，继承时不能再适配一次。",
+    "正护甲降低逐项取最强：旧命中破甲、新范围破甲、英雄破甲不连乘，也不相加超过100%。生命/盾分别算，负护甲不被“破甲”反向加强。现有百分比减伤的弱化也取最强相对比例，免疫和独立有限屏障不被剥除。",
+    "武器易伤：同名取强，不同命名相加后一次乘入直接武器伤害预算；原主包派生的回响/弹射按实际预算继承，不能再吃第二遍易伤。固定技能、DOT和百分比瘟疫不吃武器易伤。",
+    "攻速降低沿现有英雄/精英/技能通道；每通道取强，同源范围/命中先合并取强，通道合成后保留已有最低10%攻击速率。武器降伤沿原英雄通道与精英通道各取强后一次结算；不偷偷添加新的总削弱上限或把旧人族削弱。",
+    "新增光穹、引力护阵与阿塔尼斯的团队百分比保护按适用伤害类型取同保护通道最高值；阿塔尼斯旧30%被新40%替代。固定护甲仍分开生效，空巢实际伤害分担不是百分比保护层，原预算/反递归继续。",
+    "再生类按实际缺血恢复，女王与尼亚德拉不同命名每秒百分比再生可相加；同名取强。受到治疗增益同类取强，只放大主动生命治疗，不放大百分比再生、吸血、生命储备或返航百分比维修。抑疗作用到最终实际生命治疗/吸血/百分比再生一次，不能产生负治疗。",
+    "生命/盾上限进出光环保持各自损伤比例；不视为治疗、伤害、破盾、吸血、复活或战斗事件。原生盾上限为0的身体保持0；临时屏障与原生盾分账。",
+    "友方只认活的永久战斗身体，工人/建筑/运输载具/临时召唤排除，永久英雄按生物/机械/原生盾/地空资格正常参与。拥有真实子机的母体先算，子机经母体继承一次，不再按子机世界坐标二次领取；本体自身能力仍按原所有权。",
+    "局部范围统一沿现有边缘距离（来源半径至目标身体边缘）、同方/敌方及视线规则。敌方范围需要可见目标，不授予额外反隐；全队友方指挥不要求局部视线。离区/来源死亡即撤掉常驻项，已发出的有限命中状态依其原到期规则处理。",
+    "百分比、半径、持续时间、冷却与目标数I–V固定；原固定伤害/治疗仍按既定1/1.35/1.70/2.05/2.40成长。这不是把20%按五阶累加成100%。英雄本体、主动固定包、确认版普攻/技能和Boss时序不由光环重算。"
+  ],
+  "presentation": {
+    "approvedAttackSkillModelMaterialBytes": "UNCHANGED",
+    "visibleHeroFootAuras": true,
+    "auraTextOnBattlefield": false,
+    "fullQualityCorePreserved": true,
+    "newTeamEffectDirection": "Reuse original race textures on source feet and actual recipients; no persistent joining lines, oversized plain circles or inflated attack reach."
+  },
+  "actualRuntime": {
+    "runSchema": 22,
+    "profileVersion": 5,
+    "protossEliteP4Integrated": false,
+    "newParametersImported": false
+  },
+  "acceptance": {
+    "designMathOnly": true,
+    "liveCombatValidated": false,
+    "naturalCampaignValidated": false,
+    "humanVisualValidated": false
+  }
+}

@@ -11,12 +11,12 @@ const BASE:FamilyId[]=['marine','hellion','medivac','zergling','roach','queen','
 const END:FamilyId[]=['thor','lurker','ultralisk','colossus','carrier'];
 export const supplyTier=(f:FamilyId)=>BASE.includes(f)?0:END.includes(f)?2:1;
 export function supplyUnlocked(w:World,f:FamilyId,maxTier:number){const s=w.expedition,line=familyLine(f),level=familyResearchLevel(s.tech,f,'weapon')+familyResearchLevel(s.tech,f,'defense');return FAMILIES_BY_RACE[s.race].includes(f as never)&&s.facilities.some(x=>x.line===line)&&supplyTier(f)<=Math.min(maxTier,Math.floor(level/2));}
-export function supplyCapacity(w:World,f:FamilyId,count:number,mode:SupplyMode){return Number.isInteger(count)&&count>=1&&count<=3&&w.rosterCap-w.familyUnits(f).length-pendingBodies(w,f)>=count&&w.availableCapacity(f)>=count;}
+export function supplyCapacity(w:World,f:FamilyId,count:number,mode:SupplyMode){return Number.isInteger(count)&&count>=1&&count<=3&&w.rosterCap-w.familySeatCount(f)-pendingBodies(w,f)>=count&&w.availableCapacity(f)>=count;}
 export function directPositions(w:World,f:FamilyId,count:number){const points:Point[]=[],radius=SC2_UNITS[f].unitRadius*TUNING.unitScale,width=f==='zergling'?2:1;
  for(let i=0;i<96&&points.length<count*width;i++){const a=i*2.399963,r=1+Math.floor(i/12)*1.1,origin={x:w.anchor.x+Math.sin(a)*r,z:w.anchor.z+Math.cos(a)*r},p=w.freePosition(f,origin,0,.15);if(p&&(!w.terrain?.isOpen||w.terrain.isOpen(p))&&(!w.terrain||SC2_UNITS[f].flying||w.terrain.canOccupy(p,radius))&&points.every(q=>Math.hypot(p.x-q.x,p.z-q.z)>=radius*2+.05))points.push(p);}return points.length===count*width?points:null;
 }
 export function supplyEligibility(w:World,f:FamilyId,count:number,mode:SupplyMode){
- const s=w.expedition,line=familyLine(f),alive=w.familyUnits(f).length,pending=pendingBodies(w,f),capacity=w.availableCapacity(f);
+ const s=w.expedition,line=familyLine(f),alive=w.familySeatCount(f),pending=pendingBodies(w,f),capacity=w.availableCapacity(f);
  const reasons:string[]=[];
  if(!FAMILIES_BY_RACE[s.race].includes(f as never))reasons.push('race');
  if(!s.facilities.some(x=>x.line===line))reasons.push('facility');

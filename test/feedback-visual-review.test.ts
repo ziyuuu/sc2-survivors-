@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import {World} from '../src/simulation/world';
 import {BattleEffects} from '../src/render/effects/battle-effects';
+import {ApprovedGunEffects} from '../src/render/effects/confirmed-hero/approved-gun-effects';
 import {heroSkillPresentation} from '../src/data/combat-presentation';
 import {castLaunchEvent} from '../src/render/effects/hero-feedback';
 import {castExpeditionHero,resolveExpeditionHeroCasts} from '../src/simulation/combat/expedition-heroes';
@@ -43,8 +44,7 @@ test('F06 moving cast preserves one actual launch origin and attachment pose thr
 
 test('approved ship basic visuals show both original mounts for one saved two-hit packet without changing World',()=>{
  const w=make();assert.ok(w.acquireHero('yamato_battlecruiser'));const hero=w.heroEntity('yamato_battlecruiser')!,enemy=w.addUnit('roach','zerg',3,0);enemy.hp=enemy.maxHp=1e6;w.fire(hero,enemy);
- assert.equal(w.weaponFlights.length,1);assert.equal(w.weaponFlights[0].hits,2);
+ assert.equal(w.heroAttacks.packets.length,1);assert.equal(w.heroAttacks.packets[0].hits,2);
  const fx=new BattleEffects(new THREE.Scene()),event=w.visualEvents.find(e=>e.kind==='attack')!;
- fx.event(event,{x:0,y:6,z:-.4},{x:0,y:6,z:.4});const before=w.captureRun();fx.render(w,new THREE.PerspectiveCamera(),()=>true);
- assert.equal(fx.heroBasic.stats.flights,2);assert.deepEqual(fx.sculptures.mounts.get(event.attackId!+':left'),{x:0,y:6,z:.4});assert.deepEqual(w.captureRun(),before);
+ const guns=new ApprovedGunEffects(new THREE.Scene(),fx),p=w.heroAttacks.packets[0];guns.useFlights(['Right','Left'].map((side,i)=>({attackId:'saved:'+p.id+':'+side,source:{heroId:p.hero,flying:true,unitType:'marauder'},from:p.from,point:p.from,lastSeen:p.to,target:p.target,lost:false,start:p.born,end:p.arrival,mount:{x:0,y:6,z:i?.4:-.4}})));const before=w.captureRun();guns.render(w,()=>true,new Map());assert.equal(guns.stats.flights,2);assert.deepEqual(w.captureRun(),before);
 });

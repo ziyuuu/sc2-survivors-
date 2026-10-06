@@ -1,4 +1,12 @@
-> 最新普攻表现接入：[六人族英雄普攻](project/HERO_BASIC_EFFECTS_20261003.md)。用户批准射击场效果接入，并要求雷诺更粗、诺娃更长、大和粗长重炮及明显受击。即时伤害保持，视觉飞行只在渲染层；现有真实弹丸读取仿真位置，15 个新原/CC0特效资源，schema16/profile v5不变。
+> 神族正式接入：[P3-C 合同](project/NEXT_ITERATION_P3C_PROTOSS_HEROES_20261005.md)，[实测记录](project/NEXT_ITERATION_P3C_VALIDATION_20261005.md)。`protoss-heroes.ts`显式数值；`protoss-hero-passives.ts`管理原生盾窗口、实际净伤回响、权势/开场/超载/帷幕；唯一伤害来自60Hz World/真实在途包。schema19保存纯DTO和原子所属/付费挂舱，profile v5不变。`ProtossHeroEffects`只读共享状态，原动作与纹理细刃/核心/护盾/停滞层同用于演示及生产；只有菲尼克斯自身材质HDR校准至.85，资源字节未改。互斥三族光环适配显示十八英雄、文字0，实际子机经母体继承一次；普通航母初始4/上限8及补造账本保留。其他精英/R7与OPEN验收不扩大。
+
+> 最新光环显示纠正：[修正与验证](project/HERO_AURA_DISPLAY_CORRECTION_20261005.md)。`HeroAuraEffects`按互斥的人族/虫族身份集合绘制，十二英雄足下纹理特效恢复、文字移除；人族原材质分支保留，虫族使用生体纹路与双色流动层。时间只读World并随暂停冻结，人数/层数/文字0供只读诊断；不改变规则半径、增减益、仿真或schema18/profile v5。以下首轮不绘制足下光环的解释已被用户纠正。
+
+> 虫族接入：[六虫族合同](project/NEXT_ITERATION_P3B_ZERG_HEROES_20261005.md)，[运行验证](project/NEXT_ITERATION_P3B_VALIDATION_20261005.md)。`zerg-heroes.ts`显式规则；`zerg-hero-passives.ts`持有精华/适应/护障/储备、感染/寄生/治疗池，`zerg-hero-revival.ts`持有真实永久编制与原身体冻结收据，死亡待复生席位贯通容量/精英/投送校验。schema18保存这些纯DTO及原在途包；`zerg-hero-effects.ts`只读原纹理/模型/动作，伤害仍由60Hz World唯一结算。实际buff/debuff成员缓存在恢复和普通属性刷新后正确重建。双跳虫完整登记、两体合法点原子恢复、受阻不花次数；profile v5、付款账本、其他六神族和增量资源边界保持。
+
+> 此前六人族确认版：[正式接入合同](project/HERO_CONFIRMED_INTEGRATION_20261005.md)，[运行验证](project/HERO_CONFIRMED_VALIDATION_20261005.md)。`hero-attack-upgrades.ts` 持有纯 DTO 的在途包、每目标 DOT、沿线冻结身份和共享弹射去重；World 的 60 Hz 到达/状态结算是唯一伤害来源。schema17明确保存 `heroAttacks` 和 `HeroCast.beganAt`，已由虫族轮升至schema18；profile v5不变。`confirmed-hero/`保留确认版枪弹/技能几何与着色器，通过只读帧适配正式World，原斯旺绘制块不改。光环保留实际距离/视线/永久身体资格，护甲在原倍率后加6、子机经母体一次继承，足下表现依最新指令隐藏。资源按原字节与来源哈希验证，演示和完整正式游戏共用同一仿真/渲染模块。
+
+> 历史普攻表现接入：[六人族英雄普攻](project/HERO_BASIC_EFFECTS_20261003.md)。此轮即时伤害、仅渲染飞行与 schema16 是当时边界；实际在途结算已由上条更新，原视觉几何和贴图保留。
 > 最新P3-A运行基线：[六人族英雄](project/NEXT_ITERATION_P3A_TERRAN_HEROES_20261003.md)，[实测记录](project/NEXT_ITERATION_P3A_VALIDATION_20261003.md)。六英雄按显式机体/成长与被动/主动运行；其他十二英雄保留当前规则。schema16/profile v5。应用层采样实际画布相机与固定HUD遮挡，World仅验证纯数字BattleView DTO并冻结托什目标身份；所有输入共享网关。英雄被动计数/隐蔽/预热/保护和施法rank/目标/视野保存，效果池与投影重建。原资源、独立英雄效果档与默认关闭震屏；渲染不决定伤害。30人族精英与大型雷待后续；P0 JSON仍禁止runtime导入。
 > 最新蜘蛛雷修正：[人族追踪雷](project/TRACKING_MINES_20261003.md)。人族趣味卡雷钻出、合法追踪、路径失效重选与一次引爆；战局schema15/profile v5，P3效果升级仅限18英雄。此前schema14等说明是相应历史基线。
 

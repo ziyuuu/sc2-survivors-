@@ -1,0 +1,299 @@
+{
+  "purpose": "Move existing frozen approval sources and locked XML test inputs out of ignored machine caches. Bytes unchanged.",
+  "records": [
+    {
+      "from": ".cache/hero-combat-lab/approved-20261005/source/approved-gun-effects.ts",
+      "to": "test/fixtures/confirmed-hero-20261005/approved-gun-effects.ts",
+      "bytes": 11588,
+      "sha256": "2b8ab262bc891d8d4029ef2e3260257b9a9b7e19c21df2f331db3ca106cfc09a"
+    },
+    {
+      "from": ".cache/hero-combat-lab/approved-20261005/source/skill-effects.ts",
+      "to": "test/fixtures/confirmed-hero-20261005/skill-effects.ts",
+      "bytes": 15235,
+      "sha256": "675cf6aa7fd7c1c71aa43d33ebba3d9ab37af9b0243744da5dd21269f4b5568c"
+    },
+    {
+      "from": ".cache/hero-combat-lab/approved-20261005/source/upgrade-materials.ts",
+      "to": "test/fixtures/confirmed-hero-20261005/upgrade-materials.ts",
+      "bytes": 7698,
+      "sha256": "4a660feefd8589e92c5c43fbc72d3a9c6f9704f5b4f743af6a50da10270b811c"
+    },
+    {
+      "from": ".cache/sc2-data/core-unitdata.xml",
+      "to": "test/fixtures/sc2-data/core-unitdata.xml",
+      "bytes": 16697,
+      "sha256": "20130acd8a421017a7a2733d6b903190544a2b1bd12e2d8bb6c060738ff4ebd8"
+    },
+    {
+      "from": ".cache/sc2-data/core-weapondata.xml",
+      "to": "test/fixtures/sc2-data/core-weapondata.xml",
+      "bytes": 1732,
+      "sha256": "7b46267af5ac5f5d69a15b935b2936dda9850adf0fbed903fb3474611f59182c"
+    },
+    {
+      "from": ".cache/sc2-data/core-effectdata.xml",
+      "to": "test/fixtures/sc2-data/core-effectdata.xml",
+      "bytes": 9854,
+      "sha256": "5b46eec46b8c0effe2e23290b269131824e77219a2b3adf052ed2e10d6be2c07"
+    },
+    {
+      "from": ".cache/sc2-data/core-abildata.xml",
+      "to": "test/fixtures/sc2-data/core-abildata.xml",
+      "bytes": 50378,
+      "sha256": "5a4673411d806c932d566b6a34902ee866393ef52e5ab17ef398e11b6ff9c234"
+    },
+    {
+      "from": ".cache/sc2-data/core-behaviordata.xml",
+      "to": "test/fixtures/sc2-data/core-behaviordata.xml",
+      "bytes": 11480,
+      "sha256": "466c8307249ed31e5592cd65f9ca529a0e129b2c69b0f948a0ae8648a726857a"
+    },
+    {
+      "from": ".cache/sc2-data/core-modeldata.xml",
+      "to": "test/fixtures/sc2-data/core-modeldata.xml",
+      "bytes": 29819,
+      "sha256": "24a24b44287296b7e9351bc05a7fafef107d16f541d9c27585ee58f9b418c678"
+    },
+    {
+      "from": ".cache/sc2-data/core-validatordata.xml",
+      "to": "test/fixtures/sc2-data/core-validatordata.xml",
+      "bytes": 33744,
+      "sha256": "dfce2da344a40432eb442082a3ed509124c8392bba046beeabcb1479f1bb8b7b"
+    },
+    {
+      "from": ".cache/sc2-data/core-moverdata.xml",
+      "to": "test/fixtures/sc2-data/core-moverdata.xml",
+      "bytes": 914,
+      "sha256": "60d07649ad7d62fd473ca325e32b8385ac8146d608673008f5e87c2153be0ef4"
+    },
+    {
+      "from": ".cache/sc2-data/liberty-unitdata.xml",
+      "to": "test/fixtures/sc2-data/liberty-unitdata.xml",
+      "bytes": 616838,
+      "sha256": "80e2ed9e0ca9488af221e0e38bfaa36b69a8bea7cf6dba85967dcd5a46c43087"
+    },
+    {
+      "from": ".cache/sc2-data/liberty-weapondata.xml",
+      "to": "test/fixtures/sc2-data/liberty-weapondata.xml",
+      "bytes": 30182,
+      "sha256": "470592d74c91401db17bb855114554a5f5b6e2130b22152debe7bca04bd8fa00"
+    },
+    {
+      "from": ".cache/sc2-data/liberty-effectdata.xml",
+      "to": "test/fixtures/sc2-data/liberty-effectdata.xml",
+      "bytes": 162482,
+      "sha256": "557ea12fef2f44d1f905251c68a2f9f56a1ab98b8e3d7d8df20db5c774d78585"
+    },
+    {
+      "from": ".cache/sc2-data/liberty-abildata.xml",
+      "to": "test/fixtures/sc2-data/liberty-abildata.xml",
+      "bytes": 193053,
+      "sha256": "1995bee8d76a979629ae1b628d83eb83325ceacbdbde560067d5424f85da2259"
+    },
+    {
+      "from": ".cache/sc2-data/liberty-behaviordata.xml",
+      "to": "test/fixtures/sc2-data/liberty-behaviordata.xml",
+      "bytes": 71787,
+      "sha256": "803b711079182b00287f113640b8285f915c87149c32e6ea4410c0da1a4f32a5"
+    },
+    {
+      "from": ".cache/sc2-data/liberty-modeldata.xml",
+      "to": "test/fixtures/sc2-data/liberty-modeldata.xml",
+      "bytes": 2117600,
+      "sha256": "3637083d848a34b62f806d7dfb69e6dea6bccf50115531f38871c952d0fe8432"
+    },
+    {
+      "from": ".cache/sc2-data/liberty-validatordata.xml",
+      "to": "test/fixtures/sc2-data/liberty-validatordata.xml",
+      "bytes": 126380,
+      "sha256": "a5ee3b6a168941b8938b1976450503a7347d1ba2950c95d2251b337983038617"
+    },
+    {
+      "from": ".cache/sc2-data/liberty-moverdata.xml",
+      "to": "test/fixtures/sc2-data/liberty-moverdata.xml",
+      "bytes": 32172,
+      "sha256": "99fc30b7141f4e4dfb85f6bfb341052ac1fee1b34fea18049ae1e208860a9f07"
+    },
+    {
+      "from": ".cache/sc2-data/swarm-unitdata.xml",
+      "to": "test/fixtures/sc2-data/swarm-unitdata.xml",
+      "bytes": 189838,
+      "sha256": "f400f58ecfc6ed4c6c147a742bd0fd842d610a9199fc776d2999996af2027cfa"
+    },
+    {
+      "from": ".cache/sc2-data/swarm-weapondata.xml",
+      "to": "test/fixtures/sc2-data/swarm-weapondata.xml",
+      "bytes": 12280,
+      "sha256": "a2c4431244942c46ce4cef24577a628162027efafb01a01222ce202e88c560d2"
+    },
+    {
+      "from": ".cache/sc2-data/swarm-effectdata.xml",
+      "to": "test/fixtures/sc2-data/swarm-effectdata.xml",
+      "bytes": 169497,
+      "sha256": "cccdc0f18ce6780989c7ddd9b663b84cbf581f1c51bacc8817c296f73237c415"
+    },
+    {
+      "from": ".cache/sc2-data/swarm-abildata.xml",
+      "to": "test/fixtures/sc2-data/swarm-abildata.xml",
+      "bytes": 90239,
+      "sha256": "6f1c6b76377f5d88b4a026846e48856304ddf2f94655e63fafc540dcdc5a6b0b"
+    },
+    {
+      "from": ".cache/sc2-data/swarm-behaviordata.xml",
+      "to": "test/fixtures/sc2-data/swarm-behaviordata.xml",
+      "bytes": 67367,
+      "sha256": "63b3149d5398f3b677ac94508dff690230c5e4753f41b0f6ee88c201fb0d563e"
+    },
+    {
+      "from": ".cache/sc2-data/swarm-modeldata.xml",
+      "to": "test/fixtures/sc2-data/swarm-modeldata.xml",
+      "bytes": 53,
+      "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910"
+    },
+    {
+      "from": ".cache/sc2-data/swarm-validatordata.xml",
+      "to": "test/fixtures/sc2-data/swarm-validatordata.xml",
+      "bytes": 54754,
+      "sha256": "3768e02fa651c71f3964a8de1a0bf566fbe05d9e5ebc9bd40de30485016829f8"
+    },
+    {
+      "from": ".cache/sc2-data/swarm-moverdata.xml",
+      "to": "test/fixtures/sc2-data/swarm-moverdata.xml",
+      "bytes": 15020,
+      "sha256": "ecc8a78dd488b8e2507209545889117c569479db892b3d04d1cf37fa6f7b1336"
+    },
+    {
+      "from": ".cache/sc2-data/void-unitdata.xml",
+      "to": "test/fixtures/sc2-data/void-unitdata.xml",
+      "bytes": 203182,
+      "sha256": "496ea3db0240af61f3021c8e7b500539656d3439292b3ef39c1a0b4617184ca7"
+    },
+    {
+      "from": ".cache/sc2-data/void-weapondata.xml",
+      "to": "test/fixtures/sc2-data/void-weapondata.xml",
+      "bytes": 17806,
+      "sha256": "c40b691e691b28fe80428e194ab6fd704a414d4f16054198da81d19fba14fa6f"
+    },
+    {
+      "from": ".cache/sc2-data/void-effectdata.xml",
+      "to": "test/fixtures/sc2-data/void-effectdata.xml",
+      "bytes": 173078,
+      "sha256": "51ad4b7ed3d584d4bc26c80afb90d31a72c36917d0e3ba68ade047489cf18224"
+    },
+    {
+      "from": ".cache/sc2-data/void-abildata.xml",
+      "to": "test/fixtures/sc2-data/void-abildata.xml",
+      "bytes": 92713,
+      "sha256": "8e204d6e2613915acd42bbbfe396dc55fac7e50b8ef5b936098575907e90e17a"
+    },
+    {
+      "from": ".cache/sc2-data/void-behaviordata.xml",
+      "to": "test/fixtures/sc2-data/void-behaviordata.xml",
+      "bytes": 56440,
+      "sha256": "f1730079d6b5d80a527e30c396ce836f0fffd1b9e79589517b6ac45c345b5d8a"
+    },
+    {
+      "from": ".cache/sc2-data/void-modeldata.xml",
+      "to": "test/fixtures/sc2-data/void-modeldata.xml",
+      "bytes": 53,
+      "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910"
+    },
+    {
+      "from": ".cache/sc2-data/void-validatordata.xml",
+      "to": "test/fixtures/sc2-data/void-validatordata.xml",
+      "bytes": 47451,
+      "sha256": "fce870e3e1a0701bd354f32fb124ca97b37e46a1c944abd16f343b213d13fbec"
+    },
+    {
+      "from": ".cache/sc2-data/void-moverdata.xml",
+      "to": "test/fixtures/sc2-data/void-moverdata.xml",
+      "bytes": 18818,
+      "sha256": "5f7a02bda489ba6fe60d03de8dd8c67f5b43868d3a7a1214eb1aedf0524ccb01"
+    },
+    {
+      "from": ".cache/sc2-data/voidmulti-unitdata.xml",
+      "to": "test/fixtures/sc2-data/voidmulti-unitdata.xml",
+      "bytes": 162763,
+      "sha256": "b3ba6d652d42e2495fdf678ad8edca2c9072f39b64e46fcba6a07f05c5d1f4dc"
+    },
+    {
+      "from": ".cache/sc2-data/voidmulti-weapondata.xml",
+      "to": "test/fixtures/sc2-data/voidmulti-weapondata.xml",
+      "bytes": 17594,
+      "sha256": "eb550e3d1c6cdcc0d1fe724195a3616b0dd1774b7c27c431291f8470c79eb775"
+    },
+    {
+      "from": ".cache/sc2-data/voidmulti-effectdata.xml",
+      "to": "test/fixtures/sc2-data/voidmulti-effectdata.xml",
+      "bytes": 131948,
+      "sha256": "c60100fbd9f66395185f9dc7a036b2b19936b199aede9e629e11395b8282f610"
+    },
+    {
+      "from": ".cache/sc2-data/voidmulti-abildata.xml",
+      "to": "test/fixtures/sc2-data/voidmulti-abildata.xml",
+      "bytes": 88337,
+      "sha256": "6aba666c98fb4f9f93a587a3efd1782b1e3d379feee81cf2302349284777d0cf"
+    },
+    {
+      "from": ".cache/sc2-data/voidmulti-behaviordata.xml",
+      "to": "test/fixtures/sc2-data/voidmulti-behaviordata.xml",
+      "bytes": 55397,
+      "sha256": "606cf3240686505dff65e37dea7a34e6b12f8a6fb1d0439c784f118e3cb56dea"
+    },
+    {
+      "from": ".cache/sc2-data/voidmulti-validatordata.xml",
+      "to": "test/fixtures/sc2-data/voidmulti-validatordata.xml",
+      "bytes": 50208,
+      "sha256": "e3df2b1804e5cf53327458c40b4677e09c57d955474f9b129185ed4d9e8e463e"
+    },
+    {
+      "from": ".cache/sc2-data/voidmulti-moverdata.xml",
+      "to": "test/fixtures/sc2-data/voidmulti-moverdata.xml",
+      "bytes": 6865,
+      "sha256": "74e452a90777732ad6b7bbf02246dee0cfa8a186116364ff7d86d03aebb9f783"
+    },
+    {
+      "from": ".cache/sc2-data/balancemulti-unitdata.xml",
+      "to": "test/fixtures/sc2-data/balancemulti-unitdata.xml",
+      "bytes": 148625,
+      "sha256": "53fc8109e55a75320bd7362d674a699e3d5de06f2c5319933a5669e6d3c2941a"
+    },
+    {
+      "from": ".cache/sc2-data/balancemulti-weapondata.xml",
+      "to": "test/fixtures/sc2-data/balancemulti-weapondata.xml",
+      "bytes": 13500,
+      "sha256": "f04013627827bb90e74c99e6fb77c337767bfccac1fd01ce41a30fdcffe087b9"
+    },
+    {
+      "from": ".cache/sc2-data/balancemulti-effectdata.xml",
+      "to": "test/fixtures/sc2-data/balancemulti-effectdata.xml",
+      "bytes": 101602,
+      "sha256": "2beb998f687882e313f3f01909f9a59849d6a0660300dbe358913d7e1180568e"
+    },
+    {
+      "from": ".cache/sc2-data/balancemulti-abildata.xml",
+      "to": "test/fixtures/sc2-data/balancemulti-abildata.xml",
+      "bytes": 69514,
+      "sha256": "95d90a2c8f21268e06a0b14976a231205364e6d2851541ea47de5b486e8af542"
+    },
+    {
+      "from": ".cache/sc2-data/balancemulti-behaviordata.xml",
+      "to": "test/fixtures/sc2-data/balancemulti-behaviordata.xml",
+      "bytes": 42694,
+      "sha256": "f50fde2cb856a8bfcb1f70fbcf40d058b5f4da07510f1d604412f07f25fdf924"
+    },
+    {
+      "from": ".cache/sc2-data/balancemulti-validatordata.xml",
+      "to": "test/fixtures/sc2-data/balancemulti-validatordata.xml",
+      "bytes": 37652,
+      "sha256": "8c8945cf9df25340956a2728a2813bd500c9633e075ff2bb7246739403bb77bd"
+    },
+    {
+      "from": ".cache/sc2-data/balancemulti-moverdata.xml",
+      "to": "test/fixtures/sc2-data/balancemulti-moverdata.xml",
+      "bytes": 6868,
+      "sha256": "e2c0540ab0264d61f4bafe973671fdd66b15eb6f030714ef2810a614d617976f"
+    }
+  ]
+}

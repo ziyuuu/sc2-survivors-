@@ -1,0 +1,132 @@
+/* R3: painted key art, with a shared landscape / portrait focal point. */
+#scene:has(.cover-backdrop) { isolation: isolate; }
+.cover-backdrop {
+  position: absolute; inset: 0; z-index: -1;
+  overflow: hidden; pointer-events: none; background: #060c15;
+}
+.cover-layer {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 50%;
+  opacity: 0; transition: opacity 1.25s ease;
+  filter: none; transform: scale(1.012);
+}
+.cover-layer.is-active { opacity: 1; animation: cover-breathe 22s ease-in-out infinite alternate; }
+.cover-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,#060d1780,#07101a33 31%,transparent 56%),
+    linear-gradient(0deg,#070e17f2 0,transparent 35%,#050a151a 100%);
+}
+.cover-atmosphere {
+  position: absolute; inset: 0; opacity: .32;
+  background: radial-gradient(ellipse at 68% 52%,rgba(var(--race-rgb),.14),transparent 60%),
+    radial-gradient(circle at 73% 71%,#b4e4ffb3 0 1px,transparent 2px),
+    radial-gradient(circle at 61% 40%,#cfdbff99 0 1px,transparent 2px),
+    radial-gradient(circle at 90% 27%,#eff8ff99 0 1px,transparent 2px);
+  animation: cover-haze 13s ease-in-out infinite alternate;
+}
+@keyframes cover-breathe { from { transform: scale(1.012); } to { transform: scale(1.032); } }
+@keyframes cover-haze { from { opacity: .15; transform: translate(0,6px); } to { opacity: .42; transform: translate(-9px,-6px); } }
+.home-copy { z-index: 2; }
+.home-page { overflow: visible; }
+.home-profile { background: #06101a55; }
+.cover-factions button { background: #08132099; backdrop-filter: blur(5px); }
+.cover-controls {
+  position: absolute; right: 6%; bottom: 19%; z-index: 3;
+  display: flex; align-items: center; gap: 2px; min-height: 44px;
+  color: #b4c8d5; border-bottom: 1px solid #9bbcd533;
+  background: linear-gradient(90deg,transparent,#070e175e); padding: 0 0 4px;
+}
+.cover-name { font-size: 13px; letter-spacing: 2px; min-width: 70px; padding-right: 7px; color: #d2e2eb; }
+.cover-controls button {
+  display: grid; place-items: center; width: 44px; height: 44px;
+  padding: 0; border: 1px solid transparent; background: transparent; color: #9eb9ca;
+}
+.cover-controls button:hover { color: #ebf7ff; background: #0c253e80; border-color: #84b6d455; }
+.cover-controls button:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+.cover-controls button > svg { width: 18px; height: 18px; }
+.cover-controls .cover-auto > svg { width: 14px; height: 14px; }
+.cover-dots { display: flex; gap: 0; }
+.cover-dots i { display: block; width: 5px; height: 5px; background: #94b0c080; border-radius: 50%; }
+.cover-dots [aria-pressed=true] i { background: var(--accent); box-shadow: 0 0 10px var(--accent); transform: scale(1.4); }
+.cover-auto[aria-pressed=false] { color: #637e91; }
+.painted-cover {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 82% 45%;
+  pointer-events: none; filter: none; mask-image: none;
+}
+.race-card-art { inset: 0; mask-image: none; }
+.race-card .race-card-art > img.painted-cover,
+.race-card:nth-child(1) .race-card-art > img.painted-cover,
+.race-card:nth-child(2) .race-card-art > img.painted-cover {
+  inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 82% 40%;
+  filter: brightness(.84); opacity: 1;
+}
+.race-card.selected .race-card-art > img.painted-cover { filter: brightness(1.05); }
+.race-card:hover .race-card-art > img.painted-cover { transform: scale(1.025); }
+.race-card-copy { z-index: 1; position: relative; background: linear-gradient(0deg,#07111cf5 17%,#07111cc4 60%,transparent); }
+.deployment-aside { position: relative; overflow: hidden; }
+.deployment-aside > .painted-cover { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 82% 38%; mask-image: linear-gradient(0deg,transparent,#000 36%,#000 92%,transparent); }
+.deployment-aside > div { position: relative; z-index: 1; }
+.deployment-art > .painted-cover { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 82% 38%; }
+.deployment-art-label { z-index: 1; background: linear-gradient(90deg,#06101be0,#06101b77,transparent); }
+.loading-portrait { inset: 0; opacity: .32; }
+.loading-portrait > .painted-cover { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.loading-page { background: linear-gradient(90deg,#070f1ae0,#070f1a77 65%,#070f1a33); }
+.hero-recruit-art { isolation: isolate; }
+.hero-recruit-art > .painted-cover { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 82% 40%; mask-image: linear-gradient(0deg,transparent,#000 30%,#000 95%,transparent); }
+.recruit-rank { z-index: 1; }
+
+@container game (max-width:1050px) and (min-width:601px) {
+  .cover-controls { right: 4%; bottom: 16%; }
+  .cover-name { min-width: 63px; font-size: 12px; letter-spacing: 1px; }
+  .cover-controls button { width: 40px; }
+}
+@container game (max-width:600px) {
+  .cover-layer { height: 64%; object-position: 82% 0; mask-image: linear-gradient(180deg,#000 0,#000 69%,transparent 100%); }
+  .cover-shade {
+    background: linear-gradient(0deg,#070e17 0,#070e17fa 29%,#070e17bb 46%,#070e1740 63%,#070e1722 100%),
+      linear-gradient(90deg,#060e1733,transparent 55%);
+  }
+  .home-page { overflow: visible; }
+  .home-copy { margin-bottom: 62px; }
+  .home-profile { display: none; }
+  .cover-controls { top: auto; bottom: 8px; left: 22px; right: 22px; justify-content: flex-end; border: 0; background: transparent; padding: 0; }
+  .cover-name { margin-right: auto; min-width: 0; font-size: 12px; letter-spacing: 1px; }
+  .cover-controls button { width: 44px; height: 44px; background: #06101a33; }
+  .cover-factions { top: 9px; }
+  .race-card-art { inset: 0; }
+  .race-card .race-card-art > img.painted-cover,
+  .race-card:nth-child(1) .race-card-art > img.painted-cover,
+  .race-card:nth-child(2) .race-card-art > img.painted-cover {
+    inset: 0; width: 100%; height: 100%; object-fit: cover;
+    object-position: 75% 35%; filter: brightness(.9); opacity: 1;
+  }
+  .race-card-copy { width: 70%; background: linear-gradient(90deg,#07111cea,#07111c70 69%,transparent); }
+  .deployment-art > .painted-cover { object-position: 75% 29%; }
+  .hero-recruit-art > .painted-cover { object-position: 73% 28%; mask-image: linear-gradient(0deg,transparent,#000 25%,#000 94%,transparent); }
+}
+@container game (max-width:370px) {
+  .cover-controls { left: 17px; right: 17px; gap: 0; }
+  .cover-controls [data-action=cover-prev] { display: none; }
+}
+@container game (max-height:680px) and (min-height:451px) and (min-width:601px) {
+  .home-copy { margin-top: 0; }
+  .home-copy .title-emblem { display: none; }
+  .wordmark-sc { font-size: min(5cqw,64px); }
+  .wordmark h1 { font-size: min(3.1cqw,39px); }
+  .wordmark-en { font-size: 14px; margin: 6px 0 14px; }
+  .title-rule { margin-bottom: 20px; }
+  .main-action { height: 54px; }
+  .main-action:first-child { height: 58px; }
+  .home-profile { margin-top: 18px; padding-top: 12px; }
+}
+@container game (max-height:450px) and (min-width:601px) {
+  .cover-controls { bottom: 5%; right: 4%; }
+  .cover-name { min-width: 60px; font-size: 11px; }
+  .cover-controls button { width: 36px; height: 44px; }
+  .cover-layer { object-position: 50% 28%; }
+}
+.reduce-motion .cover-layer,
+.reduce-motion .cover-atmosphere { animation: none; transition: none; transform: none; }
+.reduce-motion .race-card:hover .painted-cover { transform: none; }

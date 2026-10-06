@@ -1,0 +1,9 @@
+{
+  "key": "phoenix-atlas-v2",
+  "prompt": "Polish this new SC2 Phoenix atlas, preserving the four recognizable gold crescent-wing fighters. The background in upper column 4 contains a whole small fighter: remove it and leave only empty cloud, ruins, debris and an abstract blue flight streak. No recognizable aircraft bodies in ANY upper scene. In lower column 2, REMOVE all tiny golden mini-aircraft/missile-shaped hulls; a Phoenix fires paired ION CANNONS, so show two or three compact blue-white ion bolts emerging from its two wing cannons, no missiles or interceptor bodies. All lower FX should be compact and remain isolated inside the correct quarter. Keep column 1 ordinary crescent fighter, column 2 anti-air emphasis, column 3 long-range ion bolts, column 4 fast-bank posture with bounded engine trails. Exactly ONE complete fighter per lower quarter, all wing/nose tips intact within 10% transparent side gutters. Replace broad overlapping gray cloud blobs behind the cutouts with true alpha plus a very restrained local engine glow. Detailed cinematic SC2 painting, no labels, divider lines, border or checkerboard.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-f4d1ada6-dcd9-490d-94b6-be3fcd19fecf.png",
+  "input": "phoenix-atlas.png",
+  "output": "phoenix-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

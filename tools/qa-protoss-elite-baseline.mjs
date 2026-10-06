@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const dir='reports/local/protoss-elites-auras-20261005';
+const fingerprint=async path=>{const b=await fs.readFile(path);return {path,bytes:b.length,sha256:createHash('sha256').update(b).digest('hex')};};
+const files=async dir=>(await Promise.all((await fs.readdir(dir,{withFileTypes:true})).map(e=>e.isDirectory()?files(dir+'/'+e.name):[dir+'/'+e.name]))).flat();
+await fs.mkdir(dir,{recursive:true});
+const prior=JSON.parse(await fs.readFile('reports/local/zerg-elites-20261005/delivery.json','utf8'));
+const artifacts=await Promise.all(prior.artifacts.map(a=>fingerprint(a.path)));
+const source=await Promise.all((await files('src')).sort().map(fingerprint));
+const proposals=await Promise.all(['docs/project/TEAM_AURA_REBALANCE_VALUES_20261005.json','docs/project/NEXT_ITERATION_P4_VALUES_20261005.json'].map(fingerprint));
+const web=JSON.parse(await fs.readFile('dist/web/web-release.json','utf8'));
+await fs.writeFile(dir+'/baseline.json',JSON.stringify({source,artifacts,proposals,web,scope:'User authorized implementing the approved two-race aura design in existing elites/heroes and all thirty Protoss elites. Preserve intrinsic heroes, Terran rules, confirmed effects and previous HTMLs.'},null,2),{flag:'wx'});
+console.log(JSON.stringify({source:source.length,artifacts:artifacts.length,release:web.release}));

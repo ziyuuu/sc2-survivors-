@@ -1,0 +1,389 @@
+/* R2: faction portraits blend into the scene; game labels stay terse. */
+.game-frame { --race-rgb: 78,139,176; }
+.game-frame[data-race=zerg] { --race-rgb: 130,76,157; }
+.game-frame[data-race=protoss] { --race-rgb: 169,139,74; }
+.space-scene {
+  background:
+    radial-gradient(ellipse at 76% 43%, rgba(var(--race-rgb),.31), transparent 57%),
+    radial-gradient(ellipse at 65% 105%, rgba(var(--race-rgb),.15), transparent 70%),
+    #070e17;
+  transition: background .5s;
+}
+.space-scene::after {
+  background: linear-gradient(90deg,#050b13dd,transparent 67%),
+    linear-gradient(0deg,#050c15 0,transparent 35%,#070e1722 80%);
+}
+.planet, .orbital-line { opacity: .16; }
+.dust { background: radial-gradient(ellipse at 73% 52%,rgba(var(--race-rgb),.08),transparent 63%); }
+.faction-portrait {
+  object-fit: contain;
+  -webkit-mask-image: linear-gradient(180deg,transparent 0,#000 10%,#000 56%,transparent 94%),
+    linear-gradient(90deg,transparent 0,#000 18%,#000 85%,transparent 100%);
+  mask-image: linear-gradient(180deg,transparent 0,#000 10%,#000 56%,transparent 94%),
+    linear-gradient(90deg,transparent 0,#000 18%,#000 85%,transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  filter: brightness(1.14) contrast(1.02);
+  pointer-events: none;
+}
+.home-art {
+  inset: -7% -3% -5% 31%;
+  height: auto;
+  background: radial-gradient(ellipse at 58% 45%,rgba(var(--race-rgb),.13),transparent 57%);
+  mask-image: linear-gradient(transparent 0,#000 15%,#000 70%,transparent 100%);
+}
+.home-art::after {
+  content: '';
+  position: absolute; inset: 0; height: auto;
+  background: linear-gradient(90deg,#070e17aa,transparent 35%),
+    linear-gradient(0deg,#070e17 0,transparent 38%);
+}
+.home-art .hero-render {
+  width: 112%; height: 135%; right: -5%; bottom: -12%;
+  filter: brightness(1.17);
+  animation: portrait-in .7s ease-out both;
+}
+.game-frame[data-race=zerg] .home-art .hero-render { width: 119%; height: 138%; right: -9%; }
+.game-frame[data-race=protoss] .home-art .hero-render { height: 135%; right: -4%; }
+.home-copy { width: 44%; position: relative; }
+.title-emblem { color: var(--accent); }
+.title-rule { color: #92aebe; }
+.wordmark-sc { color: #d7e4ec; }
+.home-profile { max-width: 330px; }
+.cover-factions {
+  position: absolute; z-index: 3; right: 5.4%; top: 3%;
+  display: flex; gap: 5px;
+}
+.cover-factions button {
+  display: flex; align-items: center; gap: 7px; min-height: 44px;
+  border: 1px solid #68879b35; background: #08162388;
+  color: #91adbe; padding: 6px 13px; font-size: 12px;
+}
+.cover-factions img { width: 26px; height: 26px; opacity: .75; }
+.cover-factions [aria-pressed=true] { border-color: var(--accent); color: #d5e7f1; background: rgba(var(--race-rgb),.13); }
+.cover-factions [aria-pressed=true] img { opacity: 1; }
+.signal-readout { right: 6%; bottom: 5%; }
+@keyframes portrait-in { from { opacity: .1; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+
+.game-tags { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
+.game-tags > span {
+  color: #9eb5c5; font-size: 12px; line-height: 1.5;
+  padding-right: 12px; margin-right: 12px; border-right: 1px solid #7192a740;
+}
+.game-tags > span:last-child { padding-right: 0; margin-right: 0; border-right: 0; }
+.info-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-width: 38px; min-height: 38px; padding: 5px; flex-shrink: 0;
+  border: 1px solid transparent; background: transparent; color: #86a9bf;
+}
+.info-button svg { width: 18px; height: 18px; }
+.info-button:hover { color: #cbe5f3; border-color: #698d9f55; }
+.info-button.with-label { font-size: 12px; padding: 5px 0; }
+.detail-modal { width: 510px; }
+.detail-copy { white-space: pre-line; font-size: 15px; line-height: 1.9; color: #c3d4df; }
+.screen-heading { margin-bottom: 20px; }
+.screen-bottom > .info-button { margin-left: -6px; }
+
+.race-grid { gap: 18px; }
+.race-card, .race-card.selected, .race-card:hover {
+  background: radial-gradient(ellipse at 58% 36%,rgba(var(--portrait-rgb),.32),transparent 62%),
+    linear-gradient(160deg,#15212b66,#07111cf5);
+}
+.race-card-art {
+  position: absolute; inset: -2% -5% 3%; background: transparent;
+  mask-image: linear-gradient(transparent 0,#000 13%,#000 78%,transparent 100%);
+}
+.race-card .race-card-art > img,
+.race-card:nth-child(1) .race-card-art > img,
+.race-card:nth-child(2) .race-card-art > img {
+  height: 120%; width: 125%; left: -12.5%; bottom: -4%;
+  object-fit: contain; opacity: .87; filter: brightness(1.05);
+  transition: transform .4s, filter .4s, opacity .4s;
+}
+.race-card:nth-child(2) .race-card-art > img { height: 122%; width: 135%; left: -17.5%; }
+.race-card:nth-child(1) .race-card-art > img { left: 0; }
+.race-card.selected .race-card-art > img { opacity: 1; filter: brightness(1.21); }
+.race-card:hover .race-card-art > img { transform: scale(1.02); }
+.race-card-copy {
+  margin-top: auto; width: 100%; padding: 24px 26px 27px;
+  background: linear-gradient(0deg,#08111cf2 15%,#08111cb8 57%,transparent);
+}
+.race-card-title { margin-bottom: 13px; }
+.race-card-title h2 { font-size: 32px; letter-spacing: 4px; }
+.race-card-title > span { font-size: 13px; letter-spacing: 2px; }
+.race-card .game-tags > span { color: var(--card-accent); }
+.race-start { margin-top: 17px; padding-top: 11px; min-height: 38px; font-size: 12px; border-color: #738a9d27; }
+.race-start img { width: 30px; height: 30px; }
+.starter-building { margin-left: auto; color: #a8becb; }
+.race-resource { margin-top: 9px; display: flex; gap: 20px; }
+.race-resource .money { font-size: 14px; }
+.race-resource img { width: 19px; height: 19px; }
+
+.deployment-aside { border-right: 0; background: radial-gradient(ellipse at 50% 40%,rgba(var(--race-rgb),.16),transparent 65%); }
+.deployment-aside > .faction-portrait { height: 122%; width: 145%; left: -22%; bottom: -1%; opacity: 1; }
+.deployment-aside > div { padding: 16px 2px; background: transparent; }
+.deployment-aside .game-tags { margin-top: 8px; }
+.difficulty-card > div > span { font-size: 13px; }
+.difficulty-card { justify-content: flex-start; }
+.difficulty-reward { font-variant-numeric: tabular-nums; }
+.deployment-art {
+  background: radial-gradient(ellipse at 65% 35%,rgba(var(--race-rgb),.23),transparent 60%), #081420;
+  border-color: #506d7c50; box-shadow: none;
+}
+.deployment-art::before { opacity: .2; }
+.deployment-art > .faction-portrait { height: 132%; width: 125%; left: -12.5%; bottom: -9%; }
+.deployment-art-label { background: linear-gradient(90deg,#0a192aca,transparent); }
+.starting-resource { display: flex; gap: 22px; margin-top: 19px; }
+.starting-resource .money { font-size: 16px; }
+.departure-notice { align-items: center; font-size: 12px; gap: 12px; }
+.departure-notice > .info-button { border: 0; padding: 5px; margin-left: auto; }
+.departure-notice > .info-button svg { width: 17px; }
+.loading-page { overflow: hidden; isolation: isolate; }
+.loading-portrait { position: absolute; inset: -20% -7% -20% 46%; opacity: .16; z-index: -1; }
+.loading-portrait > img { width: 100%; height: 100%; }
+.loading-page > h1 { font-size: 28px; }
+.loading-page > #enter-battle { bottom: 13%; }
+
+.shop-intro { color: #8faebf; font-size: 12px; }
+.shop-intro > span:last-child { display: flex; gap: 5px; align-items: center; }
+.offer-summary { display: flex; align-items: center; justify-content: space-between; min-height: 38px; margin-top: 2px; gap: 6px; }
+.offer-summary .game-tags > span { font-size: 12px; padding-right: 8px; margin-right: 8px; }
+.offer-card h2 { margin-bottom: 5px; }
+.offer-card > .game-button { margin-top: 0; }
+.window-limit { margin-left: auto; color: #b5c9d6; font: 13px var(--data); }
+.development-direction { gap: 12px; }
+.hero-recruit-art { overflow: hidden; background: radial-gradient(ellipse at 45% 45%,rgba(var(--race-rgb),.15),transparent 65%); }
+.hero-recruit-art > .faction-portrait { height: 142%; width: 123%; left: -11%; bottom: -13%; filter: brightness(1.17); }
+.recruit-info > .game-tags { margin: 0 0 24px; }
+.hero-skill-panel { position: relative; padding: 17px; align-items: center; }
+.hero-skill-panel > div { flex: 1; display: grid; grid-template-columns: 1fr auto; gap: 5px 18px; align-items: center; }
+.hero-skill-panel small { grid-column: 1 / -1; color: #8aa9bf; font-size: 11px; }
+.hero-skill-panel b { color: #d1e1ec; font-size: 16px; }
+.hero-skill-panel span { color: #b7caD7; font: 16px var(--data); }
+.recruit-help { display: flex; align-items: center; gap: 12px; margin-top: 10px; font-size: 12px; color: #8fa9bd; }
+.recruit-help .info-button { min-height: 32px; }
+.talent-detail-help { margin: 9px 0 0; }
+.talent-detail-help .info-button { color: #acc4d4; }
+.talent-inspector > .primary { margin-top: auto; margin-bottom: 0; }
+.talent-inspector .talent-cost { margin-bottom: 17px; }
+.talent-trees .talent-node b { font-size: 11px; }
+.save-note { align-items: center; }
+.save-note > .info-button { margin-left: auto; }
+.save-note > svg { margin-top: 0; }
+.elite-candidate-label { font-size: 14px; color: #a9c5d6; margin: 22px 0 12px; }
+.endless-info > .info-button { position: absolute; right: 5%; bottom: 3%; }
+
+/* Medium landscape: keep the character large while preserving the menu. */
+@container game (max-width:1050px) and (min-width:601px) {
+  .home-art { inset: -8% -5% -7% 29%; }
+  .cover-factions { right: 4%; top: 3%; gap: 3px; }
+  .cover-factions button { padding: 5px 9px; font-size: 11px; }
+  .cover-factions img { width: 22px; height: 22px; }
+  .race-card-copy { padding: 17px 18px 19px; }
+  .race-card-title h2 { font-size: 26px; }
+  .race-card-title > span { font-size: 11px; }
+  .race-card .game-tags > span { font-size: 11px; padding-right: 7px; margin-right: 7px; }
+  .race-start { gap: 7px; font-size: 10px; margin-top: 12px; padding-top: 8px; }
+  .race-resource { gap: 14px; margin-top: 7px; }
+  .race-resource .money { font-size: 12px; }
+  .race-resource .money img { width: 16px; height: 16px; }
+  .offer-summary .game-tags > span { font-size: 11px; }
+  .hero-skill-panel { padding: 11px; }
+  .hero-skill-panel b { font-size: 13px; }
+  .hero-skill-panel span { font-size: 13px; }
+  .recruit-info > .game-tags { margin-bottom: 12px; }
+}
+/* Portrait: wide cropped portraits dissolve behind the faction labels. */
+@container game (max-width:600px) {
+  .home-page { justify-content: flex-end; overflow: hidden; }
+  .home-art { inset: -7% -20% auto -9%; width: auto; height: 64%; }
+  .home-art .hero-render { height: 135%; width: 124%; right: -11%; bottom: -17%; }
+  .game-frame[data-race=zerg] .home-art .hero-render { height: 132%; width: 135%; right: -17%; }
+  .game-frame[data-race=protoss] .home-art .hero-render { height: 136%; width: 128%; right: -13%; }
+  .home-art::after { background: linear-gradient(0deg,#070e17 0,transparent 40%); }
+  .home-copy { width: 100%; padding: 0 34px; z-index: 2; margin: 0 0 14px; }
+  .home-copy .title-emblem { display: none; }
+  .wordmark-sc { font-size: 54px; line-height: 1.06; }
+  .wordmark h1 { font-size: 31px; margin-top: 5px; }
+  .wordmark-en { margin: 8px 0 14px; }
+  .title-rule { margin-bottom: 18px; }
+  .home-profile { padding-top: 12px; margin-top: 15px; }
+  .cover-factions { top: 10px; right: 13px; gap: 3px; }
+  .cover-factions button { min-width: 44px; min-height: 44px; padding: 7px; border-color: transparent; background: #07142166; }
+  .cover-factions button span { display: none; }
+  .cover-factions img { width: 28px; height: 28px; }
+  .cover-factions [aria-pressed=true] { border-color: var(--accent); }
+  .signal-readout { display: none; }
+  .game-tags > span { font-size: 12px; padding-right: 8px; margin-right: 8px; }
+  .info-button { min-width: 44px; min-height: 44px; }
+  .info-button.with-label { font-size: 12px; }
+  .screen-heading { margin-bottom: 16px; }
+  .screen-heading:has(.header-wallet) { flex-wrap: nowrap; align-items: center; margin: 16px 20px 14px; gap: 9px; }
+  .screen-heading:has(.header-wallet) h1 { font-size: 24px; }
+  .screen-heading:has(.header-wallet) .heading-left { gap: 10px; }
+  .screen-heading:has(.header-wallet) p { font-size: 10px; margin-top: 3px; }
+  .screen-heading > .header-wallet { width: auto; padding-left: 0; flex-shrink: 0; flex-direction: column; gap: 5px; margin: 0 0 0 auto; align-items: flex-start; }
+  .screen-heading:has(.header-wallet) h1 { white-space: nowrap; }
+  .header-wallet .money { font-size: 13px; }
+  .header-wallet img { width: 18px; height: 18px; }
+  .intermission-steps { margin-bottom: 8px; padding-bottom: 8px; }
+  .shop-intro { flex-direction: row; align-items: center; margin: 0 20px 8px; min-height: 30px; }
+  .shop-intro > span { font-size: 10px; }
+  .shop-intro .info-button { min-height: 30px; min-width: 30px; }
+  .race-grid { gap: 10px; overflow: auto; grid-template-rows: repeat(3,minmax(140px,1fr)); }
+  .race-card { min-height: 140px; position: relative; }
+  .race-card-art { position: absolute; inset: -19% -16% -12% 32%; min-width: 0; min-height: 0; width: auto; height: auto; }
+  .race-card .race-card-art > img,
+  .race-card:nth-child(1) .race-card-art > img,
+  .race-card:nth-child(2) .race-card-art > img {
+    height: 135%; width: 153%; left: -24%; bottom: -15%;
+    filter: brightness(1.13); opacity: .94;
+  }
+  .race-card:nth-child(2) .race-card-art > img { width: 153%; height: 140%; left: -24%; bottom: -15%; }
+  .race-card-copy {
+    position: relative; margin: 0; padding: 15px 17px;
+    width: 70%; height: 100%; flex: none; display: flex; flex-direction: column;
+    background: linear-gradient(90deg,#07111ce8 0,#08121b90 68%,transparent);
+  }
+  .race-card-title { margin-bottom: 7px; gap: 9px; }
+  .race-card-title h2 { font-size: 25px; letter-spacing: 3px; }
+  .race-card-title > span { font-size: 10px; }
+  .race-card-title i { width: 17px; height: 17px; margin-left: 0; }
+  .race-card .game-tags > span { font-size: 11px; padding-right: 6px; margin-right: 6px; }
+  .race-start { min-height: 24px; border: 0; margin-top: auto; padding-top: 7px; gap: 6px; font-size: 10px; }
+  .race-start img { height: 22px; width: 22px; }
+  .starter-building { margin-left: 5px; font-size: 10px; }
+  .race-resource { margin-top: 4px; gap: 13px; }
+  .race-resource .money { font-size: 11px; gap: 4px; }
+  .race-resource .money img { width: 15px; height: 15px; }
+  .deployment-art > .faction-portrait { height: 176%; width: 100%; left: 14%; bottom: -58%; }
+  .deployment-art-label { left: 12px; bottom: 12px; padding: 10px 11px; width: 52%; }
+  .starting-resource { margin-top: 11px; }
+  .departure-notice { font-size: 11px; gap: 8px; }
+  .departure-notice button { min-height: 44px; }
+  .loading-portrait { inset: -9% -60% 20% 0; opacity: .14; }
+  .offer-card { min-height: 126px; padding: 12px 14px; grid-template-columns: 60px minmax(0,1fr); grid-template-rows: 25px 29px 44px; gap: 2px 12px; }
+  .offer-card .offer-type { display: none; }
+  .offer-card .offer-art { grid-column: 1; grid-row: 1 / 3; min-height: 55px; height: 55px; width: 55px; }
+  .offer-card .offer-art > img { height: 49px; width: 49px; }
+  .offer-card .offer-art-ring { height: 55px; width: 55px; }
+  .offer-card h2 { grid-row: 1; grid-column: 2; align-self: center; font-size: 16px; padding-right: 12px; }
+  .offer-summary { min-height: 29px; margin: 0; grid-column: 2; grid-row: 2; }
+  .offer-summary .game-tags > span { font-size: 11px; padding-right: 6px; margin-right: 6px; }
+  .offer-summary .info-button { min-height: 30px; min-width: 30px; }
+  .offer-card > .game-button { grid-row: 3; width: 100px; min-height: 44px; height: 44px; }
+  .offer-card .offer-price { grid-column: 1 / -1; grid-row: 3; margin: 0; align-self: center; gap: 10px; }
+  .offer-card .offer-price .money { font-size: 13px; gap: 3px; }
+  .offer-card .offer-price img { width: 18px; height: 18px; }
+  .offer-card .discount-badge { font-size: 8px; padding: 1px 4px; right: 9px; top: 6px; }
+  .screen-bottom:has(.reroll-block) { flex-direction: row; gap: 12px; margin-top: 12px; }
+  .screen-bottom:has(.reroll-block) > .primary { width: auto; min-width: 116px; min-height: 46px; }
+  .screen-bottom:has(.reroll-block) > .primary { order: 1; }
+  .screen-bottom:has(.reroll-block) > .reroll-block { order: 0; width: auto; }
+  .reroll-block { gap: 8px; flex-wrap: nowrap; }
+  .reroll-block > .small { padding: 7px 10px; min-height: 44px; }
+  .reroll-block .money { font-size: 12px; }
+  .reroll-block .money img { height: 17px; width: 17px; }
+  .window-limit { font-size: 11px; }
+  .development-direction > .info-button { margin-left: auto; }
+  .hero-recruit-art { height: 190px; min-height: 190px; mask-image: linear-gradient(transparent,#000 14%,#000 78%,transparent); }
+  .hero-recruit-art > .faction-portrait { height: 184%; width: 154%; left: -27%; bottom: -47%; }
+  .recruit-info > .game-tags { justify-content: center; margin-bottom: 15px; }
+  .hero-skill-panel { padding: 12px; }
+  .hero-skill-panel b { font-size: 14px; }
+  .hero-skill-panel span { font-size: 14px; }
+  .hero-skill-panel small { font-size: 10px; text-align: left; }
+  .hero-skill-panel .info-button { min-width: 32px; min-height: 32px; }
+  .recruit-help { justify-content: center; margin-top: 4px; }
+  .talent-controls { gap: 8px; margin-bottom: 11px; }
+  .talent-mobile-lines { margin-bottom: 9px; }
+  .talent-inspector {
+    height: 130px; min-height: 130px; padding: 12px 14px;
+    display: grid; grid-template-columns: 38px minmax(0,1fr) 88px;
+    grid-template-rows: 16px 24px 22px 30px; gap: 0 10px; overflow: hidden;
+  }
+  .talent-detail-icon { grid-column: 1; grid-row: 1 / 3; height: 38px; width: 38px; margin: 0; }
+  .talent-detail-icon img { width: 30px; height: 30px; }
+  .talent-inspector > small { grid-column: 2; grid-row: 1; margin: 0; font-size: 10px; }
+  .talent-inspector > h2 { grid-column: 2; grid-row: 2; font-size: 16px; line-height: 1.5; margin: 0; }
+  .talent-inspector .node-level { grid-column: 2; grid-row: 3; font-size: 12px; }
+  .talent-detail-help { grid-column: 2; grid-row: 4; margin: 0; }
+  .talent-detail-help .info-button { min-height: 30px; font-size: 11px; justify-content: flex-start; }
+  .talent-detail-help svg { width: 14px; height: 14px; }
+  .talent-inspector .talent-cost { grid-column: 3; grid-row: 1 / 3; margin: 0; align-self: start; justify-content: center; font-size: 12px; }
+  .talent-inspector > .primary { grid-column: 3; grid-row: 3 / 5; margin: 0; align-self: end; height: 44px; min-height: 44px; }
+  .talent-trees .talent-node b { font-size: 12px; }
+  .talent-node.unlocked b { color: #b5cbd9; }
+  .talent-bottom { margin-top: 10px; gap: 8px; }
+  .talent-bottom .small { min-height: 44px; padding: 5px 11px; }
+  .talent-bottom > .primary { min-width: 83px; }
+  .talent-bottom > .info-button { min-width: 34px; }
+  .detail-copy { font-size: 14px; }
+  .endless-info > .info-button { position: static; }
+}
+@container game (max-height:680px) and (max-width:600px) {
+  .home-art { height: 59%; inset: -12% -20% auto -9%; }
+  .home-art .hero-render { height: 145%; bottom: -22%; }
+  .home-copy { padding: 0 26px; margin-bottom: 8px; }
+  .wordmark-sc { font-size: 40px; }
+  .wordmark h1 { font-size: 26px; }
+  .wordmark-en { margin: 6px 0 10px; font-size: 10px; }
+  .title-rule { margin-bottom: 12px; }
+  .home-profile { padding-top: 8px; margin-top: 10px; }
+  .race-grid { grid-template-rows: repeat(3,minmax(140px,1fr)); }
+  .race-card { min-height: 140px; }
+}
+@container game (max-height:500px) and (min-width:601px) {
+  .cover-factions { top: 2px; }
+  .cover-factions button { min-height: 36px; padding: 5px 7px; }
+  .home-art .hero-render { height: 149%; bottom: -18%; }
+  .race-card-copy { padding: 14px 15px 15px; }
+  .race-card-title h2 { font-size: 24px; }
+  .race-card-title { margin-bottom: 6px; }
+  .race-card .game-tags > span { font-size: 10px; }
+  .race-start { margin-top: 8px; font-size: 9px; }
+  .race-resource { margin-top: 3px; }
+  .race-card .race-card-art > img,
+  .race-card:nth-child(1) .race-card-art > img,
+  .race-card:nth-child(2) .race-card-art > img { height: 145%; bottom: -17%; }
+  .offer-summary .game-tags > span { font-size: 10px; }
+  .offer-summary { min-height: 30px; }
+  .hero-skill-panel { margin-bottom: 11px; }
+  .hero-skill-panel .info-button { min-height: 28px; min-width: 28px; }
+  .hero-skill-panel > div { gap: 3px 10px; }
+  .hero-skill-panel small { font-size: 9px; }
+  .talent-detail-help { margin-top: 7px; }
+  .talent-inspector .talent-cost { margin: 10px 0; }
+}
+@container game (max-height:350px) and (min-width:601px) {
+  .cover-factions button { min-height: 33px; }
+  .race-card-copy { padding: 11px 12px; }
+  .race-card-title > span { display: none; }
+  .race-card-title h2 { font-size: 22px; }
+  .race-card .game-tags > span { font-size: 9px; padding-right: 5px; margin-right: 5px; }
+  .race-start { font-size: 8px; gap: 4px; padding-top: 5px; }
+  .race-start img { height: 21px; width: 21px; }
+  .race-resource .money { font-size: 10px; }
+  .starter-building { font-size: 8px; }
+  .offer-summary { grid-column: 1 / -1; grid-row: 3; min-height: 26px; }
+  .offer-summary .info-button { min-height: 26px; min-width: 26px; }
+  .offer-card > .game-button { grid-row: 5; }
+  .development-direction > .info-button { min-height: 29px; min-width: 29px; }
+  .recruit-help { display: none; }
+  .save-card { display: grid; grid-template-columns: 40% minmax(0,1fr); grid-template-rows: minmax(0,1fr); }
+  .save-scene { min-height: 0; height: 100%; border-bottom: 0; border-right: 1px solid #7694a566; }
+  .saved-stage { font-size: 25px; right: 10px; bottom: 13px; }
+  .saved-stage small { font-size: 11px; }
+  .save-tag { font-size: 8px; padding: 3px 6px; left: 9px; top: 10px; }
+  .save-copy { padding: 11px 12px; }
+  .save-copy > div:first-child { gap: 7px; }
+  .save-copy > div:first-child > img { width: 25px; height: 25px; }
+  .save-copy h2 { font-size: 13px; white-space: nowrap; }
+  .save-copy p { font-size: 9px; }
+  .save-copy dl { margin: 10px 0 4px; gap: 4px; font-size: 9px; }
+  .save-copy dd { font-size: 9px; }
+  .save-wallet { gap: 12px; margin: 8px 0; }
+  .save-wallet .money { font-size: 12px; }
+  .save-wallet img { width: 16px; height: 16px; }
+  .save-copy > .primary { min-height: 44px; height: 44px; font-size: 11px; padding: 6px 9px; margin-top: 0; }
+}

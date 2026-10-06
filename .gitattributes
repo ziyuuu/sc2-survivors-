@@ -1,3 +1,9 @@
 assets/private/** filter=lfs diff=lfs merge=lfs -text
 deploy/runtime/assets/** filter=lfs diff=lfs merge=lfs -text
 deploy/coze/** -text
+preview/ui-20261003/** -text
+preview/ui-20261003/**/*.png filter=lfs diff=lfs merge=lfs -text
+preview/ui-20261003/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+preview/ui-20261003/**/*.webp filter=lfs diff=lfs merge=lfs -text
+test/fixtures/confirmed-hero-20261005/** -text
+test/fixtures/sc2-data/** -text

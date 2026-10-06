@@ -1,0 +1,6 @@
+{
+  "viking-atlas-v3.png": {
+    "0": {"left": 6, "right": 477, "reason": "The restored full right wing extends into an empty alpha gutter; the adjacent transforming body begins after x=495. Keep the complete wing rather than cropping at the nominal column boundary."},
+    "1": {"left": 485, "right": 831, "reason": "Start after the ordinary fighter's restored wing; this alpha gap cleanly separates the two bodies."}
+  }
+}

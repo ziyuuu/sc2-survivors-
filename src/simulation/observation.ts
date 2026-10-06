@@ -1,0 +1,12 @@
+import type {World} from './world';import type {Body,Entity} from './types';
+export type ContributionKind='damage'|'healed'|'shieldRestored'|'deaths'|'revivals';
+export type ObservationSink=(identity:string,kind:ContributionKind,amount:number)=>void;
+const sinks=new WeakMap<World,ObservationSink>(),sources=new WeakMap<World,Map<number,string>>(),contexts=new WeakMap<World,string>();
+export function observeWorld(w:World,sink:ObservationSink|null){if(sink){sinks.set(w,sink);sources.set(w,new Map());}else{sinks.delete(w);sources.delete(w);contexts.delete(w);}}
+export function observationIdentity(w:World,u:Entity):string {if(u.summonKind&&u.summonOwnerId){const mother=w.entities.get(u.summonOwnerId);return mother?observationIdentity(w,mother):sources.get(w)?.get(u.summonOwnerId)??'unattributed';}if(u.temporaryKind==='fun-brood')return 'zerg.hatch';if(u.temporaryKind==='hero-baneling')return 'zagara';return u.heroId??u.eliteId??u.unitType;}
+export function rememberObservationSource(w:World,u:Entity){if(!sinks.has(w)||u.owner!=='terran')return;const map=sources.get(w)!;if(map.size>2048)map.delete(map.keys().next().value!);map.set(u.id,observationIdentity(w,u));}
+function source(w:World,id:Entity|number|string|undefined){if(typeof id==='string')return id;if(typeof id==='object')return observationIdentity(w,id);const u=id===undefined?undefined:w.entities.get(id);return u?observationIdentity(w,u):id===undefined?'unattributed':sources.get(w)?.get(id)??'unattributed';}
+export function observeAmount(w:World,id:Entity|number|string|undefined,kind:ContributionKind,amount:number){const sink=sinks.get(w);if(!sink||!Number.isFinite(amount)||amount<=0)return;try{sink(source(w,id),kind,amount);}catch{/* Observation can never abort a combat transaction. */}}
+export function observeDamage(w:World,target:Body,owner:string,sourceId:number|undefined,life:number,shield:number){if(owner!=='terran'||target.owner!=='zerg'||w.economicTargets.has(target.id))return;observeAmount(w,contexts.get(w)??sourceId,'damage',Math.max(0,life)+Math.max(0,shield));}
+export function observeRecovery(w:World,sourceId:Entity|number|string|undefined,target:Body,life:number,shield=0){if(target.owner!=='terran')return;observeAmount(w,sourceId,'healed',life);observeAmount(w,sourceId,'shieldRestored',shield);}
+export function hitFrom(w:World,id:string,...args:Parameters<World['hit']>){if(!sinks.has(w)){w.hit(...args);return;}const prior=contexts.get(w);contexts.set(w,id);try{w.hit(...args);}finally{if(prior)contexts.set(w,prior);else contexts.delete(w);}}

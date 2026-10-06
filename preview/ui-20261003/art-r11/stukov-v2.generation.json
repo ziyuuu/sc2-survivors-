@@ -1,0 +1,9 @@
+{
+  "key": "stukov-v2",
+  "prompt": "Refine this newly generated SC2-style admiral illustration only. Keep the mature face, grey beard, black officer cap with gold insignia, complete dark double-breasted uniform, one smooth purple chitin-armored arm, and industrial twilight background. This is a layered source plate, not a flattened cover: upper background rectangle must end at y=360 of a 1254x1254 image; render it as empty industrial landscape without any part of the admiral. Below it leave an entirely transparent horizontal separator at least 45 pixels high (y=360 through 405). Place the COMPLETE admiral including cap, hair, shoulders, both hands, coat hem, both boots, all entirely between y=415 and y=1220 with 30 px margins. Do not crop or intersect the cap with the background. Keep authentic painted dark military science-fiction textures, readable silhouette, coherent violet sunset rim lighting. No text, labels, names or card frame. No injury or exposed tissue. Actual PNG transparency in lower unused space, not black paint.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-c2fdc005-514e-45e6-a7d0-74cbd9954cd9.png",
+  "output": "stukov-v2.png",
+  "intent": "edit-newly-generated-art",
+  "input": "stukov.png",
+  "privateReferencesUploaded": false
+}

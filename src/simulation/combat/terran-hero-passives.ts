@@ -1,6 +1,9 @@
+import {observeRecovery} from '../observation';
+import {zergTeamBuff} from './zerg-hero-passives';
+import {groundHeroBuff} from './hero-ground-auras';
 import type {World} from '../world';
 import type {Body,Entity} from '../types';
-import {terranHeroGrowth} from '../../data/terran-heroes';
+import {terranHeroGrowth,TERRAN_HERO_REPAIR_PER_SECOND} from '../../data/terran-heroes';
 import {talentModifiers} from './expedition-combat';
 const distance=(a:Body,b:Body)=>Math.hypot(a.x-b.x,a.z-b.z);
 export interface HeroCombatState {cycles:number;target:number|null;warmupStart:number|null;lastFire:number;cloakUntil:number;cloakEpisode:boolean;charge:number;protectedUntil:number}
@@ -8,8 +11,10 @@ export const newHeroCombatState=():HeroCombatState=>({cycles:0,target:null,warmu
 export function heroState(u:Entity){return u.heroCombat??=newHeroCombatState();}
 export const permanentMechanical=(u:Entity)=>u.hp>0&&u.owner==='terran'&&!u.temporary&&!u.summonKind&&!u.attributes.includes('Structure')&&u.attributes.includes('Mechanical');
 /** Distinct named bonuses add before final multiplication; one living source per identity. */
-export function heroAura(w:World,u:Entity){const result={damage:0,speed:0,health:0,armor:0,move:0};if(u.owner!=='terran'||u.summonKind||u.temporary)return result;
+export function heroAura(w:World,u:Entity){const result={damage:0,speed:0,health:0,shield:0,armor:0,move:0};if(u.owner!=='terran'||u.summonKind||u.temporary)return result;
  const raynor=w.heroEntity('raynor');if(raynor&&raynor.hp>0&&(u.heroId==='raynor'||!u.heroId&&['marine','marauder','reaper'].includes(u.unitType)))Object.assign(result,{damage:.3,speed:.3,health:.3,armor:3,move:.2});
+ const brood=zergTeamBuff(w,u);result.health+=brood.health;result.speed+=brood.speed;result.move+=brood.move;
+ const ground=groundHeroBuff(w,u);result.damage+=ground.damage;result.speed+=ground.speed;result.shield=result.health+ground.shield;result.health+=ground.health;result.move+=ground.move;
  const swann=w.heroEntity('swann');if(swann&&swann.hp>0&&permanentMechanical(u)){result.damage+=.25;result.armor+=4;}return result;
 }
 export function heroAttackSpeed(w:World,u:Entity){if(u.heroId!=='tychus')return 1;const s=heroState(u);return s.warmupStart===null||w.time-s.lastFire>=2?1:1+2*Math.min(1,(w.time-s.warmupStart)/4);}
@@ -23,7 +28,7 @@ export function tickTerranHero(w:World,u:Entity,dt:number){if(!u.heroId||u.hp<=0
  if(u.heroId==='nova'){const s=heroState(u),idle=w.time-Math.max(s.lastFire,u.lastDamagedAt??-100)>=2;if(!idle){s.cloakEpisode=false;u.cloaked=false;}else if(!s.cloakEpisode){s.cloakEpisode=true;s.cloakUntil=w.time+6;s.charge=1;}u.cloaked=idle&&s.cloakUntil>w.time;}
  if(u.heroId==='tychus'&&w.time-heroState(u).lastFire>=2)heroState(u).warmupStart=null;
  if(u.heroId==='swann'){const targets=w.allies().filter(a=>a.id!==u.id&&permanentMechanical(a)&&a.hp<a.maxHp&&w.edgeDistance(u,a)<=8&&w.hasAttackLine(u,a)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id).slice(0,7);u.healTargets=[];
-  for(const a of targets){const suppression=Math.min(.5,Math.max(w.statuses.value(a.id,'bleed',w.time),w.statuses.value(a.id,'corruption',w.time))),gain=Math.min(a.maxHp-a.hp,200*terranHeroGrowth(u.rank).passive*(1+(talentModifiers(w,u).healingPct??0))*(1-suppression)*dt);if(gain>0){a.hp+=gain;w.stats.healed+=gain;u.healTargets.push(a.id);}}}
+  for(const a of targets){const suppression=Math.min(.5,Math.max(w.statuses.value(a.id,'bleed',w.time),w.statuses.value(a.id,'corruption',w.time))),gain=Math.min(a.maxHp-a.hp,TERRAN_HERO_REPAIR_PER_SECOND*terranHeroGrowth(u.rank).passive*(1+(talentModifiers(w,u).healingPct??0))*(1-suppression)*dt);if(gain>0){a.hp+=gain;w.stats.healed+=gain;observeRecovery(w,u,a,gain);u.healTargets.push(a.id);}}}
 }
 /** Snapshot one main cycle before launch. Secondary/APM packets never call this. */
 export function beginHeroAttack(w:World,u:Entity,target:Body){if(!u.heroId)return;const s=heroState(u);if(u.heroId==='tychus'&&(s.warmupStart===null||w.time-s.lastFire>=2))s.warmupStart=w.time;

@@ -1,0 +1,9 @@
+{
+  "key": "queen-atlas-v2",
+  "prompt": "Refine ONLY the second LOWER queen (column 2) to reflect her actual elite specialty: transfusion requires less energy. Replace the many purple egg/incubation sacs hanging from her abdomen with a recognizable intact armored Queen abdomen and restrained violet energy-storage nodules. Show one gently extended healing claw, one compact green healing pulse, and efficient fine energy veins across her carapace, not baby creatures or egg-laying. Keep Queen anatomy with spined crest, long articulated legs and characteristic broodmother silhouette. Her new posture must differ from the ordinary column 1 and strong-heal column 3, while preserving her identity and no additional creature bodies. Leave all other three lower Queens and all four upper empty environments unchanged. Entire figure and small pulse remain within column 2 with transparent gutters; crown/feet complete, no labels, dividers, frames, checkerboard or solid lower backdrop. Rich cinematic SC2 organic painting.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-16744f8a-7eb9-4860-ae71-ebd352b5294f.png",
+  "output": "queen-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "input": "queen-atlas.png",
+  "privateReferencesUploaded": false
+}

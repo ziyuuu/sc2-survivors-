@@ -1,11 +1,19 @@
 {
-  "name": "sc2-coze-release",
+  "name": "sc2-p6-application",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "start": "node start-coze.mjs"
+    "start": "node start-coze.mjs",
+    "backend": "node backend/cli.mjs"
+  },
+  "dependencies": {
+    "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8"
   }
 }

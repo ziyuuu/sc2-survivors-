@@ -1,0 +1,43 @@
+/** User-confirmed III/V attacks, promoted unchanged from the approved independent demo. */
+export const ATTACK_DEMO_TUNING={
+ raynor:{sideFraction:.3,iiiSides:1,vSides:2},
+ nova:{iiiFraction:.2,iiiTicks:3,vFraction:.3,vTicks:4,dotPeriod:1,lineWidth:1},
+ missiles:{everySalvos:5,damageFraction:1.5,iiiCount:1,vCount:3},
+ swann:{retainedFraction:.6,maxHops:2,range:3.5,iiiBranches:1,vBranches:2},
+ tosh:{iiiFraction:.35,iiiRadius:1.8,iiiSparks:18,vFraction:.6,vRadius:2.8,vSparks:36},
+} as const;
+export const HERO_GROUND_AURAS={
+ artanis:{"name":"达拉姆圣盾","kind":"buff","radius":12,"maxShield":0.6,"shieldArmorFlat":10,"armorFlat":6,"damageReduction":0.4},
+ zeratul:{"name":"虚空裂隙","kind":"debuff","radius":10,"vulnerability":0.6,"armorReduction":0.65,"defenseReduction":0.3},
+ alarak:{"name":"高阶压制","kind":"debuff","radius":10,"weaponSuppression":0.45,"attackSlow":0.4,"moveSlow":0.45},
+ fenix:{"name":"净化武库","kind":"buff","radius":null,"damage":0.6,"speed":0.25,"maxHp":0.25,"maxShield":0.4,"armorPct":0.3,"shieldArmorPct":0.3,"move":0.25},
+ vorazun:{"name":"暗影迟滞","kind":"debuff","radius":10,"attackSlow":0.5,"weaponSuppression":0.3,"moveSlow":0.5},
+ purifier_flagship:{"name":"矩阵共鸣","kind":"buff","radius":null,"damage":0.3,"speed":0.5,"maxHp":0.25,"maxShield":0.5,"armorPct":0.3,"shieldArmorPct":0.4,"move":0.25},
+ raynor:{name:'战术号令',kind:'buff',radius:8,damage:.35},
+ tychus:{name:'火力压制',kind:'debuff',radius:7,slow:.35},
+ nova:{name:'锁定破绽',kind:'debuff',radius:10,vulnerability:.4},
+ swann:{name:'工程护甲',kind:'buff',radius:8,armor:6},
+ tosh:{name:'精神压迫',kind:'debuff',radius:8,suppression:.35},
+ yamato_battlecruiser:{name:'舰队节奏',kind:'buff',radius:10,speed:.4},
+ kerrigan:{"name":"刀锋意志","kind":"buff","radius":null,"damage":0.5,"speed":0.3,"maxHp":0.35,"maxShield":0.35,"armorPct":0.3,"shieldArmorPct":0.3,"move":0.25},
+ zagara:{"name":"虫群围压","kind":"debuff","radius":10,"attackSlow":0.45,"weaponSuppression":0.3,"moveSlow":0.5},
+ dehaka:{"name":"原始威慑","kind":"debuff","radius":9,"weaponSuppression":0.5,"attackSlow":0.35,"moveSlow":0.45},
+ stukov:{"name":"感染破绽","kind":"debuff","radius":10,"vulnerability":0.45,"healingSuppression":0.5},
+ niadra:{"name":"殖群甲壳","kind":"buff","radius":12,"maxHp":0.6,"armorFlat":10,"regenHpPerSecond":0.03},
+ hots_leviathan:{"name":"母巢律动","kind":"buff","radius":null,"damage":0.2,"speed":0.6,"maxHp":0.2,"maxShield":0.2,"armorPct":0.3,"shieldArmorPct":0.3,"move":0.25},
+} as const;
+export const HERO_AURA_DESCRIPTIONS={
+ artanis:"达拉姆圣盾：原生盾上限＋60%、盾护甲＋10、生命护甲＋6、承受敌伤降低40%；半径12。",zeratul:"虚空裂隙：受到武器伤害＋60%、正生命/盾护甲－65%、已有百分比减伤相对降低30%；半径10，Boss完整。",alarak:"高阶压制：敌武器伤害－45%、攻速－40%、移动－45%；半径10，Boss完整生效。",fenix:"净化武库：攻击＋60%、攻速＋25%、生命＋25%、原生盾＋40%、生命/盾护甲＋30%、移动＋25%；全队机械。",vorazun:"暗影迟滞：敌攻速－50%、武器伤害－30%、移动－50%；半径10，Boss完整生效。",purifier_flagship:"矩阵共鸣：攻击＋30%、攻速＋50%、生命＋25%、原生盾＋50%、生命护甲＋30%、盾护甲＋40%、移动＋25%；全队原生盾友军。",
+ raynor:'战术号令：范围8内永久战斗友军武器伤害 +35%。',
+ tychus:'火力压制：范围7内敌方战斗单位攻速 −35%，对 Boss 完整生效。',
+ nova:'锁定破绽：范围10内敌方战斗单位承受武器伤害 +40%，对 Boss 完整生效。',
+ swann:'工程护甲：范围8内永久机械战斗友军生命护甲 +6。',
+ tosh:'精神压迫：范围8内敌方战斗单位武器伤害 −35%，对 Boss 完整生效。',
+ yamato_battlecruiser:'舰队节奏：范围10内永久战斗友军攻速 +40%。',
+ kerrigan:"刀锋意志：攻击＋50%、攻速＋30%、生命/原生盾＋35%、生命/盾护甲＋30%、移动＋25%；全队生物。",
+ zagara:"虫群围压：敌攻速－45%、武器伤害－30%、移动－50%；半径10，Boss完整生效。",
+ dehaka:"原始威慑：敌武器伤害－50%、攻速－35%、移动－45%；半径9，Boss完整生效。",
+ stukov:"感染破绽：受到武器伤害＋45%、实际生命治疗－50%；每秒瘟疫为入圈时最大生命的普通6%/精英3%/Boss1.2%；半径10。",
+ niadra:"殖群甲壳：生命＋60%、生命护甲＋10、每秒恢复最大生命3%；半径12。",
+ hots_leviathan:"母巢律动：攻击＋20%、攻速＋60%、生命/原生盾＋20%、生命/盾护甲＋30%、移动＋25%；全队生物。",
+} as const;

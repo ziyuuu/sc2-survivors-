@@ -1,0 +1,45 @@
+import * as THREE from 'three';
+import type {BattleEffects} from './battle-effects';
+import type {Point3} from '../../simulation/combat/hero-attack-upgrades';
+import {commitInstances,uploadActive} from '../units/instance-updates';
+
+const textures={blade:'fx.hero-basic.energyplane3',beam:'fx.hero-basic.emergytrailcyan',glow:'fx.hero-basic.flare2b',plasma:'fx.hero-skill.nebulacloudsalphaparticle_purple',spark:'fx.hero-basic.sparks4'} as const;
+type Layer=keyof typeof textures;
+type Batch={mesh:THREE.InstancedMesh;data:THREE.InstancedBufferAttribute;count:number;cells:number};
+const object=new THREE.Object3D(),along=new THREE.Vector3(),across=new THREE.Vector3(),normal=new THREE.Vector3(),basis=new THREE.Matrix4(),color=new THREE.Color(),observed=new THREE.Vector3();
+/** Isolated textured psionic sheets. Full-width energy, not the Terran thin filament shader. */
+export class ProtossHeroMaterials {
+ private batches=new Map<Layer,Batch>();private ribbons=0;private minimumAlignment=1;private sheet?:THREE.Mesh;private sheetVertices=0;private sheetIndices=0;private sheetCount=0;
+ constructor(private scene:THREE.Scene,private camera:THREE.Camera,private host:BattleEffects){}
+ prepare(){for(const [key,id] of Object.entries(textures)){
+  const original=this.host.batches.get(id);if(!original)throw Error('Missing original psionic material '+id);const source=original.mesh.material as THREE.ShaderMaterial,capacity=key==='blade'?3072:key==='beam'?256:512;
+  const geometry=new THREE.PlaneGeometry(1,1),data=new THREE.InstancedBufferAttribute(new Float32Array(capacity*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('psionicParams',data);
+  const material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,forceSinglePass:true,blending:THREE.AdditiveBlending,uniforms:{map:{value:source.uniforms.map.value},grid:{value:source.uniforms.grid.value},time:{value:0},mode:{value:key==='beam'?2:key==='blade'?1:0}},
+   vertexShader:`attribute vec4 psionicParams;uniform vec2 grid;varying vec2 uv0;varying vec2 sampleUv;varying vec3 c;varying vec3 params;void main(){uv0=uv;float f=psionicParams.x;sampleUv=(uv+vec2(mod(f,grid.x),grid.y-1.-floor(f/grid.x)))/grid;c=instanceColor;params=psionicParams.yzw;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}`,
+   fragmentShader:`uniform sampler2D map;uniform float time;uniform float mode;varying vec2 uv0;varying vec2 sampleUv;varying vec3 c;varying vec3 params;
+    void main(){vec4 tex=texture2D(map,sampleUv);float lum=max(tex.r,max(tex.g,tex.b));float d=abs(uv0.x-.5)*2.;float ends=smoothstep(0.,.04,uv0.y)*smoothstep(0.,.04,1.-uv0.y);float a;vec3 rgb;
+     if(mode>.5){float envelope=pow(max(0.,1.-d*d),1.7);float core=exp(-d*d*(mode>1.5?8.:12.));float flowing=.72+.28*sin(uv0.y*32.-time*16.+lum*4.);float textureGrain=.5+.5*lum;a=envelope*ends*params.x*textureGrain*(.76+.24*flowing);rgb=mix(c,vec3(1.,.97,.88),core*.72)*params.z*(.6+lum*.55);}
+     else {float radial=1.-smoothstep(.32,.5,length(uv0-.5));a=tex.a*radial*params.x*smoothstep(.015,.24,lum);rgb=mix(tex.rgb,vec3(lum),params.y)*c*params.z;}
+     if(a<.003)discard;gl_FragColor=vec4(rgb,a);
+     #include <tonemapping_fragment>
+     #include <colorspace_fragment>
+    }`});
+  const mesh=new THREE.InstancedMesh(geometry,material,capacity);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.setColorAt(0,color.set(0xffffff));mesh.renderOrder=4;this.scene.add(mesh);this.batches.set(key as Layer,{mesh,data,count:0,cells:original.cells});
+ }const source=this.batches.get('blade')!.mesh.material as THREE.ShaderMaterial,material=source.clone();material.vertexShader=`attribute vec4 psionicParams;attribute vec3 strokeColor;uniform vec2 grid;varying vec2 uv0;varying vec2 sampleUv;varying vec3 c;varying vec3 params;void main(){uv0=uv;float f=psionicParams.x;sampleUv=(uv+vec2(mod(f,grid.x),grid.y-1.-floor(f/grid.x)))/grid;c=strokeColor;params=psionicParams.yzw;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
+  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.BufferAttribute(new Float32Array(16384*3),3).setUsage(THREE.DynamicDrawUsage));geometry.setAttribute('uv',new THREE.BufferAttribute(new Float32Array(16384*2),2).setUsage(THREE.DynamicDrawUsage));geometry.setAttribute('strokeColor',new THREE.BufferAttribute(new Float32Array(16384*3),3).setUsage(THREE.DynamicDrawUsage));geometry.setAttribute('psionicParams',new THREE.BufferAttribute(new Float32Array(16384*4),4).setUsage(THREE.DynamicDrawUsage));geometry.setIndex(new THREE.BufferAttribute(new Uint16Array(49152),1).setUsage(THREE.DynamicDrawUsage));geometry.setDrawRange(0,0);this.sheet=new THREE.Mesh(geometry,material);this.sheet.frustumCulled=false;this.sheet.renderOrder=4;this.scene.add(this.sheet);
+ }
+ begin(time:number){this.ribbons=this.sheetVertices=this.sheetIndices=this.sheetCount=0;this.minimumAlignment=1;for(const b of this.batches.values()){b.count=0;(b.mesh.material as THREE.ShaderMaterial).uniforms.time.value=time;}if(this.sheet){this.sheet.geometry.setDrawRange(0,0);(this.sheet.material as THREE.ShaderMaterial).uniforms.time.value=time;}}
+ /** One connected UV strip per stroke; no per-segment end fading or repeated texture seams. */
+ stroke(points:Point3[],widths:number[],tint:number,opacity=1,intensity=1){if(!this.sheet||points.length<2||opacity<=.001)return;const g=this.sheet.geometry,n=points.length,base=this.sheetVertices;if(base+n*2>16384||this.sheetIndices+(n-1)*6>49152)return;const positions=g.getAttribute('position') as THREE.BufferAttribute,uv=g.getAttribute('uv') as THREE.BufferAttribute,colors=g.getAttribute('strokeColor') as THREE.BufferAttribute,params=g.getAttribute('psionicParams') as THREE.BufferAttribute;const rgb=color.set(tint);
+  for(let i=0;i<n;i++){const p=points[i],before=points[Math.max(0,i-1)],after=points[Math.min(n-1,i+1)];along.set(after.x-before.x,after.y-before.y,after.z-before.z).normalize();normal.set(this.camera.position.x-p.x,this.camera.position.y-p.y,this.camera.position.z-p.z).normalize();across.crossVectors(along,normal);if(across.lengthSq()<1e-8)across.set(1,0,0);across.normalize();const width=(widths[i]??0)*.5;for(let side=0;side<2;side++){const index=base+i*2+side,sign=side?1:-1;positions.setXYZ(index,p.x+across.x*width*sign,p.y+across.y*width*sign,p.z+across.z*width*sign);uv.setXY(index,side,i/(n-1));colors.setXYZ(index,rgb.r,rgb.g,rgb.b);params.setXYZW(index,0,opacity,1,intensity);}}
+  for(let i=0;i<n-1;i++){const a=base+i*2,b=a+2;for(const v of [a,a+1,b,a+1,b+1,b])g.index!.setX(this.sheetIndices++,v);}this.sheetVertices+=n*2;this.sheetCount++;
+ }
+ ribbon(key:Layer,tail:Point3,head:Point3,width:number,tint:number,opacity=1,frame=0,_neutralize=true,intensity=1){
+  along.set(head.x-tail.x,head.y-tail.y,head.z-tail.z);const length=along.length();if(length<.001||width<=0)return;along.divideScalar(length);object.position.set((tail.x+head.x)/2,(tail.y+head.y)/2,(tail.z+head.z)/2);normal.copy(this.camera.position).sub(object.position).normalize();across.crossVectors(along,normal);if(across.lengthSq()<1e-8)across.crossVectors(along,new THREE.Vector3(0,1,0));if(across.lengthSq()<1e-8)across.set(1,0,0);across.normalize();normal.crossVectors(across,along).normalize();basis.makeBasis(across,along,normal);object.quaternion.setFromRotationMatrix(basis);object.scale.set(width,length,1);observed.set(0,1,0).applyQuaternion(object.quaternion);this.minimumAlignment=Math.min(this.minimumAlignment,observed.dot(along));this.ribbons++;this.draw(key,tint,opacity,frame,true,intensity);
+ }
+ sprite(key:Layer,p:Point3,size:number,tint:number,opacity=1,frame=0,angle=0,neutralize=true,intensity=1){object.position.set(p.x,p.y,p.z);object.quaternion.copy(this.camera.quaternion);object.rotateZ(angle);object.scale.set(size,size,1);this.draw(key,tint,opacity,frame,neutralize,intensity);}
+ private draw(key:Layer,tint:number,opacity:number,frame:number,neutralize:boolean,intensity:number){const b=this.batches.get(key);if(!b||b.count>=b.mesh.instanceMatrix.count||opacity<=.001)return;object.updateMatrix();b.mesh.setMatrixAt(b.count,object.matrix);b.mesh.setColorAt(b.count,color.set(tint));b.data.setXYZW(b.count++,Math.max(0,Math.min(b.cells-1,Math.floor(frame))),opacity,neutralize?1:0,intensity);}
+ end(){for(const b of this.batches.values()){commitInstances(b.mesh,b.count);uploadActive(b.data,b.count);}if(this.sheet){for(const name of ['position','uv','strokeColor','psionicParams'])uploadActive(this.sheet.geometry.getAttribute(name) as THREE.BufferAttribute,this.sheetVertices);uploadActive(this.sheet.geometry.index!,this.sheetIndices);this.sheet.geometry.setDrawRange(0,this.sheetIndices);}}
+ reset(){this.begin(0);this.end();}
+ report(){return {style:'original-textured-wide-psionic-sheets',curvedSheets:this.sheetCount,sheetVertices:this.sheetVertices,ribbonOrientation:{count:this.ribbons,minimumAlignment:this.minimumAlignment},batches:[...this.batches].map(([key,b])=>({key,count:b.count,capacity:b.mesh.instanceMatrix.count,textured:true})),materials:Object.values(textures)};}
+}

@@ -1,0 +1,9 @@
+{
+  "key": "viking-atlas-v3",
+  "prompt": "Repair ONLY the lower subject layout of this newly generated Viking atlas. The previous output has wings crossing into neighboring columns and a cropped foot. Repaint each of the four complete lower units about 75% of its current width/height, centered in its own quarter, with generous 12% column-width TRANSPARENT gutters on both sides. Treat each quarter as a separate miniature canvas: all wings, feet, guns, exhausts must remain wholly within that quarter. Do NOT alter the four upper empty environments. Keep ordinary column 1 an airborne twin-fuselage Viking fighter with retracted legs, column 2 partially transforming, column 3 airborne anti-air missile fighter, column 4 ground Viking walker. Preserve their painted mechanical detail, mature SC2 proportions and coherent lighting. Do not add labels, dividing lines, borders, ground or extra units. Genuine alpha outside each complete lower subject.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-58f0d00a-6dd1-4ced-81d9-1570f99bd86f.png",
+  "input": "viking-atlas-v2.png",
+  "output": "viking-atlas-v3.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

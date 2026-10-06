@@ -1,0 +1,28 @@
+import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
+const root=new URL('./',import.meta.url),out=new URL('../../reports/local/ui-redesign-20261003/',root);
+const before=await fs.readFile(new URL('SC2-UI-Preview-r11.html',out),'utf8');
+const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
+if(hash(before)!=='6a7b27d854deff7ce932e0655599b9fbcc2c9509803c8304f7f07def935cee30')throw Error('R11 baseline changed');
+const [module,css,fixture]=await Promise.all(['unit-inspector-r12.mjs','style-r12.css','inspector-data-r12.json'].map(f=>fs.readFile(new URL(f,root),'utf8')));
+let html=before;const patches=[];
+function replace(a,b,name){if(typeof a==='string'&&html.split(a).length!==2)throw Error('Expected one '+name);if(a instanceof RegExp&&(html.match(new RegExp(a.source,'g'))??[]).length!==1)throw Error('Expected one '+name);html=html.replace(a,b);patches.push(name);}
+replace('</head>',`<style>${css}</style></head>`,'append inspector CSS');
+replace('<script type="module">',`<script>window.__UI_INSPECTOR_R12__=${fixture.trim()};</script><script type="module">${module}\n`,'embed isolated static fixture and module');
+replace(/function portraits\(\)\{[\s\S]*?(?=\r?\nfunction commands\()/,'function portraits(){return unitInspectionR12.portraits(rosterLayout());}','roster identities');
+replace(/function unitInspector\(\)\{[\s\S]*?(?=\r?\nfunction )/,'function unitInspector(){return unitInspectionR12.panel();}','unit overlay');
+replace('const intermissionUI=createIntermissionUI(',`const unitInspectionR12=createUnitInspectorR12({state,frame,scene,overlay,img,svg,esc,render,renderModal,pushModal,go,coverAsset});\nconst intermissionUI=createIntermissionUI(`,'wire isolated module');
+replace("if(intermissionUI.handle(action,b))return;","if(unitInspectionR12.handle(action,b)||intermissionUI.handle(action,b))return;",'inspector actions');
+replace("if(intermissionUI.keydown(e))return;","if(unitInspectionR12.keydown(e)||intermissionUI.keydown(e))return;",'inspector keyboard');
+replace('function popModal(){const layer=',"function popModal(){if(state.layers.at(-1)?.name==='unit'){state.layers.pop();unitInspectionR12.returnToBattle();history.replaceState({page:'battle'},'', '#battle');return;}const layer=",'return to inspected soldier');
+replace("syncCoverTimer();}\r\nfunction go(page", "unitInspectionR12.sync();syncCoverTimer();}\r\nfunction go(page",'scene input gate');
+replace("['battle','战场'],", "['battle','战场'],['unit-terran','单位属性 · 人族'],['unit-zerg','单位属性 · 虫族'],['unit-protoss','单位属性 · 神族'],",'preview routes');
+replace("return ['card','unit','details','elite','load-preview','talent'].includes(name)?state.page:name||state.page;", "return name==='unit'?'unit-'+state.race:['card','details','elite','load-preview','talent'].includes(name)?state.page:name||state.page;",'preview selector state');
+replace("$('#page-select').value=['card','unit','details','elite','load-preview','talent'].includes(name)?state.page:name;", "$('#page-select').value=previewRouteValue();",'preview selector on open');
+replace("function go(page,{record=true}={}){",`function go(page,{record=true}={}){\n if(page.startsWith('unit-')&&raceInfo[page.slice(5)]){state.race=page.slice(5);go('battle',{record:false});unitInspectionR12.open(raceInfo[state.race].unit);if(record)history.pushState({page},'', '#'+page);return;}`, 'direct inspector route');
+replace("UI 设计预览 · 静态场景","R12 · 单位属性 · 静态场景",'revision caption');
+replace("<title>星际幸存小队 · UI 设计预览</title>","<title>星际幸存小队 · R12 单位属性面板</title>",'title');
+await fs.writeFile(new URL('SC2-UI-Preview-r12.html',out),html);
+const report={revision:'r12',date:'2026-10-06',artifact:'SC2-UI-Preview-r12.html',bytes:Buffer.byteLength(html),sha256:hash(html),preservedR11Sha256:hash(before),patches,statSnapshots:Object.keys(JSON.parse(fixture).entries).length,sourceFixture:'inspector-data-r12.json',scope:'Static unit inspection only. R11 paintings reused. Runtime/data/save/assets untouched. UI wounds and remaining cooldowns are authored examples.'};
+await fs.writeFile(new URL('artifact-r12.json',out),JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify(report));

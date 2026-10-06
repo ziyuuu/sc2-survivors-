@@ -5,7 +5,7 @@ import type {EnemySpecialsSnapshot} from '../combat/enemy-specials';
 import type {Race} from '../../data/races';
 import type {Difficulty} from '../../data/stages';
 import type {FrozenTalentAllocation} from '../progression/permanent-profile';
-export const RUN_SCHEMA=16;
+export const RUN_SCHEMA=23;
 export const RUN_RULES='mvp-1.0' as const;
 export interface RunConfig {
  rulesId:typeof RUN_RULES;race:Race;difficulty:Difficulty;campaignId:'campaign-18';

@@ -1,0 +1,9 @@
+{
+  "key": "colossus-atlas-v2",
+  "prompt": "Correct all FOUR lower units into the unmistakable SC2 COLOSSUS silhouette. A Colossus is a huge long-legged four-legged spider-like WALKER, with a BROAD LOW HORIZONTAL crescent-shaped top hull and two widely separated lateral thermal-lance emitters. It is NOT a tall crowned Stalker, NOT humanoid, NOT a narrow vertical torso. Show FOUR exceptionally long thin articulated legs, full feet visible, spread enough to support its broad hull. Use a slightly elevated three-quarter angle with the horizontal hull near the top of each lower cutout. Ordinary: standard broad gold/blue hull with two compact orange lance origins. Elite 1 long-range: longer lateral emitter structures and straight focused lances. Elite 2 rapid sweep: two compact curved thermal sweeps with a distinct turning hull posture. Elite 3 armored: extra broad layered golden hull plates and a restrained transparent blue barrier, retain four long legs. Preserve all four existing upper empty thermal-scorched temple/canyon environments. One complete genuine Colossus per column, whole body and bounded FX within 10% alpha side gutters, no cropped feet or weapons, never touching upper scenes. Highly detailed SC2 painterly metal; no extra units, text, frame or dividers.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-ce63078b-b50a-445c-aeff-d63926a0badb.png",
+  "input": "colossus-atlas.png",
+  "output": "colossus-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

@@ -1,0 +1,9 @@
+{
+  "key": "ravager-atlas-v2",
+  "prompt": "Correct the anatomy and bile-attack origins of these four newly generated StarCraft II Ravagers while preserving their four painted empty upper volcanic/acid environments. A Ravager is a bulky hunched evolved Roach with very large luminous orange/yellow BILE SACS and a central vent/spine arrangement on its upper BACK. Its forelimbs end in solid clawed armored hands, NOT open barrels, hoses or tentacle cannons. Ordinary column 1: full tall hunched Ravager, solid claws and a clear back bile reservoir. Elite column 2 rapid bile: brighter twin back vents launch two compact arcing orange-green bile droplets upward. Elite column 3 wide-area: broad inflated back reservoir, a spreading bounded bile splash above its back, solid claws visible. Elite column 4 strong acid: bright focused back vent with one dense bile globule arcing upward. Retain recognizable Roach ancestry, large back sacs and distinct postures/structures. Four complete full-body cutouts total, one per column, no extra creatures. Everything including effects is inside its own quarter with 10% transparent side gutters. Keep head/legs/feet fully visible, separated from upper scenes. No alpha checkerboard, labels, borders or divider lines. Exquisite mature cinematic SC2 painted chitin/material quality.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-1100b61a-53c4-4ae2-a00c-ca17aa15e00b.png",
+  "input": "ravager-atlas.png",
+  "output": "ravager-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

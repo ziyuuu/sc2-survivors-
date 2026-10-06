@@ -1,5 +1,10 @@
 export type RenderQuality='native'|'balanced'|'performance';
 export type HeroEffectQuality='full'|'balanced'|'low';
+export type OrdinaryEffectQuality='full'|'balanced'|'low';
+export const ORDINARY_EFFECT_LABELS={full:'普通兵与支援 · 完整',balanced:'普通兵与支援 · 均衡',low:'普通兵与支援 · 精简'};
+export const resolveOrdinaryEffects=(value:string|null,mobile=false):OrdinaryEffectQuality=>value==='full'||value==='balanced'||value==='low'?value:mobile?'balanced':'full';
+export function loadOrdinaryEffects(){try{return resolveOrdinaryEffects(localStorage.getItem('sc2.ordinaryEffects'),matchMedia('(pointer:coarse)').matches);}catch{return 'full' as const;}}
+export function saveOrdinaryEffects(value:OrdinaryEffectQuality){try{localStorage.setItem('sc2.ordinaryEffects',value);}catch{}}
 export const HERO_EFFECT_LABELS={full:'英雄特效 · 完整',balanced:'英雄特效 · 均衡',low:'英雄特效 · 精简'};
 export const resolveHeroEffects=(value:string|null,mobile=false):HeroEffectQuality=>value==='full'||value==='balanced'||value==='low'?value:mobile?'balanced':'full';
 export function loadHeroEffects(){try{return resolveHeroEffects(localStorage.getItem('sc2.heroEffects'),matchMedia('(pointer:coarse)').matches);}catch{return 'full' as const;}}

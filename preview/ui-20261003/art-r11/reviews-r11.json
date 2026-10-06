@@ -1,0 +1,1214 @@
+{
+  "reviewer": "Codex agent visual review, 2026-10-05; user art acceptance remains open",
+  "scope": "New generated source plates viewed and revised. Actual desktop elite-family triplets checked in the browser; responsive and interaction evidence is recorded separately. Geometry issue flags alone do not prove visual acceptance.",
+  "plates": {
+    "marine-atlas": {
+      "file": "marine-atlas.png",
+      "pngSha256": "892e85ef9842377ac36b6876e1ed25c54b5d40b3ff027aa99f54dc15c8fbfb90",
+      "webpSha256": "a15fa145943797a2862d0093f81eea44ee76ed39642d5ac6e4035673cfaf5719",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "动力装甲、圆肩、护面与双手步枪保留；突击的个人注射管、重火力武器及厚甲轮廓不同；殖民地、注射舱、弹痕破口、掩体四场景。普通与重火力另选高分辨率校准画。"
+    },
+    "hydralisk-atlas": {
+      "file": "hydralisk-atlas.png",
+      "pngSha256": "02c52cd9e4fcb47aaf33fb31c476e3a030531ebb21e336a013011a71059e3507",
+      "webpSha256": "bf0cee15019e42950c212cf69831bd5835751b9098dc77a667b2b50bd7f3ebe5",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "蛇形尾躯、背冠、两把镰爪保留；长刺、连续针刺轨迹、抬头猎空姿势区分。轨迹表示攻击过程，不表示增加每次攻击针刺数。普通另选完整高分辨率校准画。"
+    },
+    "marauder-atlas": {
+      "file": "marauder-atlas.png",
+      "pngSha256": "4c83b02e8b319337f0df1a1f454b4b1c283aaa23030c942404dc3c4502d76b9a",
+      "webpSha256": "880cbca4cde19e14595028724a1d94459fde78caa4cfe01f3eedcc38858017c0",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "低位头部与双臂榴弹器可认；冷色压制、暖色破甲开火、重装防线区分。金属厚度、枪口与受击门板可读。"
+    },
+    "zealot-atlas": {
+      "file": "zealot-atlas.png",
+      "pngSha256": "961b41fa13d1a3b7f0df7c497c8ffbd797616542f45c3be7e094ff956c97747b",
+      "webpSha256": "265355e10aebf96206612475c64908b8085c9f3db0713a620a841dc79cbaa96b",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "无口神族面部、金甲与双前臂灵能刃可认；突进、护盾、双臂交错连斩区分。普通另选完整高分辨率校准画。"
+    },
+    "zergling-atlas": {
+      "file": "zergling-atlas.png",
+      "pngSha256": "0a3e2df0044a6918c4e42ddaba4ce84f6014ea55c31da121fc6cae6b4d8a772f",
+      "webpSha256": "05433f3b076e19eecb90d1ee7b72ece24a6cdeec56d739691edfdc50a9cddae0",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "低奔姿势、镰爪与背刺保留；长爪连击、腾跃疾跑、厚壳守线区分。实际卡片由前端画双体和2/4/6只，不在背景隐藏额外友军。"
+    },
+    "banshee-atlas": {
+      "file": "banshee-atlas.png",
+      "pngSha256": "e5e0a260970e8912bbab219f1f9a10cf7d922d6ffc5a4bb9c74bf547e30d7b26",
+      "webpSha256": "811a8bdfe9312289e914424b08bbe10ef14687830f42f4d06bd64c6ecfe6b820",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "双涵道旋翼与窄驾驶舱可认；远猎、透明折射隐形、双炮连射的动作和峡谷光照不同；完整双旋翼。"
+    },
+    "hellion-atlas": {
+      "file": "hellion-atlas.png",
+      "pngSha256": "bc603061bed269c754ec7a5ea5e66c3c229c695559cd9d5083695d195877183e",
+      "webpSha256": "bd5c8b7c0cf643f0c3dc747647cb88d2b29b53221307abbccc4a5e3116b21d11",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "低矮四轮喷焰车与前置喷嘴可认；高速扬尘、炽热罐体与扩散喷焰分别表达既有特点；三条烧灼路面有不同纵深。"
+    },
+    "medivac-atlas": {
+      "file": "medivac-atlas.png",
+      "pngSha256": "c07c1b61d387beb79bc2d033adb87dbc929badf73581a31f6d27c181281f19b4",
+      "webpSha256": "2e24d42d6b16bd6c788ea5b9ffa29dd220c3c67cde3c725b9f047344310e0fa2",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "医疗艇船体与双引擎保留；单束治疗、三束群疗、工程装置与蓝色维修光区分。下方不画额外被治疗士兵。"
+    },
+    "science_vessel-atlas": {
+      "file": "science_vessel-atlas.png",
+      "pngSha256": "d56efd8820b26c21ee457de36ea8be67fe58d1dd9a183a2139ed4a1410d1e149",
+      "webpSha256": "3427dad2daf34db8d5a241d82e0d612564fdc2fa51c96f2b3a70a45b13f9a9b5",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "球形工业船体、传感器和工程臂可认；修复器、储能组件、远距维修臂各有重点；维修废墟只作场景。"
+    },
+    "reaper-atlas-v2": {
+      "file": "reaper-atlas-v2.png",
+      "pngSha256": "eff01077637fa32208dccf9a3a6484c3cd2cb96a7921ba3ed85c854f37dc6a3a",
+      "webpSha256": "ecb2a49d2cb1e936e4161433fb8a36231181c1732055bcbe99330a718f88e1cd",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "双枪、背部推进器与人形比例保留；移除原版医疗兵白甲与人物十字标记。恢复、猎轻与装甲三张保留个人装备和不同战斗姿势；医疗走廊只作为环境。"
+    },
+    "thor-atlas-v2": {
+      "file": "thor-atlas-v2.png",
+      "pngSha256": "6430adfe13c964aa1710869109651f0bb2daa7932cd8acb30159955a1ff93174",
+      "webpSha256": "3e200cb002f81ac80fec5e71eaac466493c53dbc4eea0841eb63cf8bb21a5c0e",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "双足重机甲、臂炮与肩部导弹可认；移除上方额外雷神。防空轨迹、双炮地面爆点、厚甲守线区分；身体完整。"
+    },
+    "baneling-atlas": {
+      "file": "baneling-atlas.png",
+      "pngSha256": "e98be46d557e4d3119bd354cf9f2540d41447d9510d5c9eb5a72c1d0da4fd299",
+      "webpSha256": "9fd91598e949e0b9fecf0767a7c498cd062b4b974c2fa4db88ee555b18ff4d2d",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "有机酸囊、细肢与绿色酸液可认；广域喷溅、裂纹高能酸囊、疾奔拖迹不同；避免通用发光球替代身体。"
+    },
+    "roach-atlas": {
+      "file": "roach-atlas.png",
+      "pngSha256": "6cc5b06d75b42caab63de4e429f3f787c6853fe35ca440d33852237d8164a8d2",
+      "webpSha256": "550cfd91dca2e5d37e139a0a21c961fca49d4de7145de7204d7ffd0bd840f4ff",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "重叠甲壳、低位肢体与喷酸口可认；再生脉络、集中酸击、重甲壳分别突出；湿巢与酸蚀甲片改变环境。"
+    },
+    "ravager-atlas-v2": {
+      "file": "ravager-atlas-v2.png",
+      "pngSha256": "111d14218020d3b1db28b6004e2fe79df293f4c6e3973144dbb04e865e865feb",
+      "webpSha256": "db46ebbfdbe7df13a3c508361fdd5f4e8e6a319f6012bfe61cb6c26aa9a3bd79",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "已把错误前臂炮口改为完整有机爪，胆汁来自背囊/有机喷口。连续弹道、广域落酸、浓烈酸击区分，火山岩和胆汁暖光统一。"
+    },
+    "ultralisk-atlas": {
+      "file": "ultralisk-atlas.png",
+      "pngSha256": "f31bf52bf2a58beeaedd45ca40c6f493edecf7f8d6614687723bdf351541b598",
+      "webpSha256": "ced742e0c89d93e0b4f449a853f0b0eb51b0a11a51b432e2636e486430f708ec",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "巨型甲壳和双凯撒刃保留；厚甲、快速连续斩击、壮实躯干区分。巨躯画面强调生命韧性，静态尺寸不改写实际碰撞半径。"
+    },
+    "viking-atlas-v3": {
+      "file": "viking-atlas-v3.png",
+      "pngSha256": "ce79f7747b0c69c2e7183f760d6fb3c1af6be28c5d252b9e2819fcaf60f82424",
+      "webpSha256": "5917afeb7c4461897b1e3a5c467f7a0c47b3226a16d04a671488897ce2bc219b",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "普通战机收起腿部，快速变形显示变形关节，猎舰为战机，突击为双足地面形态；单独记录裁切区域以保留普通战机的完整右翼。"
+    },
+    "colossus-atlas-v2": {
+      "file": "colossus-atlas-v2.png",
+      "pngSha256": "06c5fca3e38ccab3f71f5f8dd68179f5a6fd23900006eaee23433624d6057005",
+      "webpSha256": "2aa0ae5bf21e1f1aaf8b1bce524f71eeeadd89d98905f9ec19b6e02a00f518cd",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "旧版高冠躯干已改为宽横向弧形舰体、四条高脚与双热能发射器；远距、连续扫灼、护盾三个场景不同。补景天空底层后，实际卡片不再露出黑色透明缺口。"
+    },
+    "high_templar-atlas": {
+      "file": "high_templar-atlas.png",
+      "pngSha256": "c75d6837be087fbfe9b99248bc55679a8aa2925d652dcea23935bdc41eb51995",
+      "webpSha256": "06138b203341b3e11fb7ab8d8ea57e2aa7381d3ae62c9c949275ec819846567c",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "无口长面、长袍和聚能双手可认；省能风暴、储能聚光、强化紫色电弧的动作和祭坛光照不同；不暗示自动解锁或免费补能。"
+    },
+    "immortal-atlas": {
+      "file": "immortal-atlas.png",
+      "pngSha256": "453358f352fbbd160b53b1c96b59e2e6f7cae942af44ed0eeaa81996e86e3182",
+      "webpSha256": "fdea13399e87dd907a6d24846d8889e2b1d6dfe5fc1deacffa7887690727e0c9",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "厚重四足行者与双炮保留；吸收屏障、暖色破甲炮击、原生蓝盾分开表达；装甲材质与黄金战线反光统一。"
+    },
+    "lurker-atlas-v2": {
+      "file": "lurker-atlas-v2.png",
+      "pngSha256": "b5ebc710de45531adf83ce845db0c085effb55920e64e6be2a49263695e6ab3a",
+      "webpSha256": "76e6d331d749f50f53d710cffd460ab7b85d590a150b54a2db7e0f7dd3283896",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "低扁宽体和放射尖足保留；宽地刺、长地刺、连续掘刺的地面痕迹不同。修正早版背景分隔与身体裁切；边缘远端尖刺仅作效果诊断记录。"
+    },
+    "mutalisk-atlas-v2": {
+      "file": "mutalisk-atlas-v2.png",
+      "pngSha256": "26710fec27f8e362a65e9742e1b6e67f75ad9f34f21e0f515dc55b070672853e",
+      "webpSha256": "944515a1906b051c4d1dbfc9e779192ce9644f36212f6c037ea6d640d893338b",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "皮膜翼、弯尾与有机躯干可认；修复普通右翼尖。弹射弧线、追猎攻击姿势、厚翼甲壳区分；巢穴高空具有不同光照。"
+    },
+    "phoenix-atlas-v2": {
+      "file": "phoenix-atlas-v2.png",
+      "pngSha256": "6ee732568b5d491e630da0c9b991d5c7c55757c453bd62e75ea9b4cfdbb09fb6",
+      "webpSha256": "ba02ba9bcf19f40baade01c95c1c98684f23ea9d6392e5304ed73bb46fe5d373",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "新版本移除天空额外整架战机，改为离子轨迹；弧形金色战机完整；猎轻、远空射击、疾飞推进区分；实际卡片光晕能融入高空背景。"
+    },
+    "sentry-atlas": {
+      "file": "sentry-atlas.png",
+      "pngSha256": "975e352babb04839d6dad109b9eacc4cc36b4078c6ca49782f37ffc153b22c02",
+      "webpSha256": "952b58c5e5ab3dadcebd5e43a85d7783942f98416e0ac8e9e8cb74d07372a2c2",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "金色悬浮外壳与中心能量球可认；持续守护、储能核心、广域圆罩的范围/结构和场景不同；实际卡片没有硬黑光效底块。"
+    },
+    "stalker-atlas": {
+      "file": "stalker-atlas.png",
+      "pngSha256": "9157b2771ca57b45c3c35156c90c92e06ba01b5f17f1f17d8311b743b6090419",
+      "webpSha256": "e41137b44cedd89d9d0fd217344f3a07b33cd0ce587739ed56f635b0be2f0332",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "四足奈拉齐姆机械体可认；集中猎甲光、护盾、闪烁空间折射分别配合不同姿势和遗迹。"
+    },
+    "void_ray-atlas": {
+      "file": "void_ray-atlas.png",
+      "pngSha256": "aee0f1b90a1f1e54ae98a3a9614e2c748c0f9679fc9e406b655fe6aa1d4041e6",
+      "webpSha256": "35e2db30e0f100569751e1c21b16d7002cec7bf5b31cbf657228dbdf7ad118f0",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "曲面金色舰体与前部棱晶聚焦器可认；聚焦光、护盾、连续细束与深空晶体反光区分；远端射线只作画幅内效果，不是额外单位。"
+    },
+    "corruptor-atlas-v3": {
+      "file": "corruptor-atlas-v3.png",
+      "pngSha256": "ee30ccf4e32b8ee45adbadbb12829c71f5ac2f55c7e463f7156e2f3c2b549426",
+      "webpSha256": "a41dee0d5108d41fb29bd88924fe40bbfbf146eeefd6cbc705f48a92d6cb4db0",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "移除误画的异龙翅膀，保留悬浮甲壳与垂挂触须；猎重甲使用一发浓酸，连射使用前后连续酸弹，远猎使用远空轨迹；不暗示三发齐射或范围攻击。"
+    },
+    "queen-atlas-v2": {
+      "file": "queen-atlas-v2.png",
+      "pngSha256": "786f9b4eedf7b1e93897cb0c6ffad09df163281c5d61a5aa4f66f1ebbba75e0e",
+      "webpSha256": "7b389b0e9eba936e85e823f639eb1779057cc526fb98f94b300c7482380ae283",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "虫后背冠、腹部和关节长腿可认；节能输血以小型治疗光与生体脉络表达，移除新增下方卵群；强疗绿光与储能紫光分别集中在不同器官。背景孵化囊是巢穴环境。"
+    },
+    "adept-atlas-v3": {
+      "file": "adept-atlas-v3.png",
+      "pngSha256": "b7d7d1fe65a0935d2d9cc381d426ea358fedfea5e6015246dccb208db774666c",
+      "webpSha256": "c2e1fc0d5e39370b688f98fae4b10f8e82ad71ee4d5ea67b427d73565daef6b4",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "新版本保留前臂月刃发射器，修正近战剑误读；移除完整分身，改为抽象运动光线。再次重绘黑色不透明光效底块后，实际三卡已复查，无旧版明显矩形接缝。"
+    },
+    "tank-atlas-v3": {
+      "file": "tank-atlas-v3.png",
+      "pngSha256": "cab92a5db22b75594e5684b8a1270bdfd815327c8475c966576cf254911cf4fb",
+      "webpSha256": "36de5164c7d58ed489d8fd7428d64eefb5724eb7259a25ceaebe8190f64c7986",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "履带、长炮和架起支脚保留；新版本补全支撑脚，重炮烟雾收在画幅内，避免旧版明显直边；远炮阵、火线与移动扬尘不同。"
+    },
+    "marine-single": {
+      "file": "marine.png",
+      "pngSha256": "9431e998cf5da1b0a1105e83e72aa34ebe027930ce816e106b18fc154716b041",
+      "webpSha256": "7a7e1279cb0c454cb00c101427a60a44d79bca8b4fe5d943baf81774772f12f8",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "厚重蓝灰动力装甲、琥珀护面、双手步枪与完整身体；冷色殖民地街口暖光反射；保留较高像素尺寸。"
+    },
+    "hydralisk-single": {
+      "file": "hydralisk-v2.png",
+      "pngSha256": "e9db5949182cb108f261c7d608ec54da494c0cd965c71cfa00f6adbee14c9d08",
+      "webpSha256": "8a8cf0d2732b23414b423e54a95697581920863548ac762957e2a79a79cb6ecf",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整刺蛇背冠、镰爪与卷尾；修正初版背冠和场景相交。"
+    },
+    "zealot-single": {
+      "file": "zealot-v2.png",
+      "pngSha256": "131376c4d406f585b8c75b61a468e5925613cc5a94023b4a39f0a61be3990dd3",
+      "webpSha256": "c1df0f05e0c89678d76f62d6339b539da509e938230ae8ce5caee4ea720e9f10",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整长面、双前臂灵能刃与双脚；修正初版头部和场景相交。"
+    },
+    "marine.2-single": {
+      "file": "marine.2-v2.png",
+      "pngSha256": "557cd3742efce5bfcbca7a5beaadb654858bba78c1584696f5376d7420b40f89",
+      "webpSha256": "5e543f4ae2cda88a33d4b89cf9d3eb41014350eb080049d4e652014e3a08f88d",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整重枪与供弹结构；修正首版被切断的枪口火光；暖光破口表现重甲火力。"
+    },
+    "carrier-single": {
+      "file": "carrier.png",
+      "pngSha256": "836bd0bd610a515d0331feb412a72b2740f63eabdd8a5d23f5d852df697e5255",
+      "webpSha256": "e66fab907007a4f088d113c285d2fb5827719af3e0a07a8152179a7758abaf16",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整普通航母的尖舰艏、尾翼和蓝色舰载舱口；金色轨道遗迹与冷暖舰体反光统一。没有额外截击机。实际三舰卡图计数为三个等大船体。"
+    },
+    "carrier.1-single": {
+      "file": "carrier.1.png",
+      "pngSha256": "d0ed1f3f7829956cfc887887b9b579fc1b92d8fe87ae4dd33809794331dcfddc",
+      "webpSha256": "989f56743a3cff2e0a9f61795ceabb16f0d828f0f64e9978751130c5fd98962e",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整前倾长舰体与较窄尾翼，蓝色连续武器轨迹、冷色小行星走廊；主体未被原分栏边缘截断，快攻不表示新增舰载机。"
+    },
+    "carrier.2-single": {
+      "file": "carrier.2.png",
+      "pngSha256": "05f4f631c3ac1177d9c046960ff5b4efd0f6e2db1ba0f1d42a8ce802a9490bac",
+      "webpSha256": "f5532a3ccdc6d3229f86ea8d1f57a876c5825f11a28c4583549ec2b2cb6c04a3",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "重叠金属板、较厚长舰体、稳定舷侧姿势、暖色下腹武器光；金色毁坏轨道平台同光。火力强化不表示新增舱室/容量。"
+    },
+    "carrier.3-single": {
+      "file": "carrier.3.png",
+      "pngSha256": "0ad931d2669dc6edcd5543cc6f5732fc0d2a0af79c23edda17a7bc9315396d36",
+      "webpSha256": "3794adeac955443f9b41e8d5b000afd1e949f52eed4154797637b4764a68c267",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整长船、尾翼及透明蓝色护盾，冷色行星圣所；实际竖屏详情中舰艏与护盾边界完整且没有硬黑底。"
+    },
+    "swann-single": {
+      "file": "swann.png",
+      "pngSha256": "b6958f1a380e7de286292d29f154acd5186ed07b4055c1c39dc42c11df2a4028",
+      "webpSha256": "85ad9d5d3f20d03b50f22b1507ee2d96d9eb85258f18c1ddc916d8ae5e4d65b6",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "矮壮工程师、胡须护目镜、机械臂工具；暖色工业维修舱与焊光融合。"
+    },
+    "tosh-single": {
+      "file": "tosh.png",
+      "pngSha256": "4e063e8c67e0f0eb9e7e70193cebd1c8ec3986ffdbe30e3b1bad4a7446796a3c",
+      "webpSha256": "fa0637a7c3d17d42b6694f98c55a024d97c2faefcf0a57ade717d2ae7a84d48a",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "深肤色、长辫、暗色幽魂装甲与长枪；隐秘废墟和折射烟雾。"
+    },
+    "yamato_battlecruiser-single": {
+      "file": "yamato_battlecruiser.png",
+      "pngSha256": "023a6d75d8ed9d2cac24e1fc83b52ee30f46bfcc859fb636852b5203122c7ced",
+      "webpSha256": "0aa766c66a08e41e5397a0aa3ede19dd46307e49092d4551ca7c20870edcab8d",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整大型工业战列舰船体、前部大和能量核心与引擎；轨道船坞统一冷暖反光。"
+    },
+    "stukov-single": {
+      "file": "stukov-v2.png",
+      "pngSha256": "7e72d60709832ecd460e2ce286f12d2abac49e1625ceba3d743292632d1103a0",
+      "webpSha256": "75b354d591c802bb42b1bf642884681f54c7a15bac9e08e4dd82a3d671c6dd3d",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整帽檐、胡须、军装、单侧有机装甲臂与双靴；修正首版帽顶相交，保持非血腥完整制服；工业黄昏。"
+    },
+    "niadra-single": {
+      "file": "niadra-v2.png",
+      "pngSha256": "33e6d79b215818d0ee603b42bfd3d2506e6f0d0481d62348c57ddda8ebe34596",
+      "webpSha256": "7f8d120f0278a7c946254cf8c4a507dd55672df5b6d9bc1d175daf5c0e228e81",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整尖冠、女王型有机躯干与长肢；修复与上方巢穴的分隔；橙色生体光与菌巢一致。"
+    },
+    "hots_leviathan-single": {
+      "file": "hots_leviathan.png",
+      "pngSha256": "588f8d7f24ffed121299e46ca0b668166ea94d01f6209f4dc8b5c797b46ecfe4",
+      "webpSha256": "aeb89d1c8e1e617c7db7a44f9f86c439e1556a246ce61f55262cc135160cf402",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "完整庞大有机战舰、深色甲壳、器官和长触须；行星上空空间具有体积感。"
+    },
+    "alarak-single": {
+      "file": "alarak.png",
+      "pngSha256": "20bd8d15e2a075f8fcae879588939003dd06cd6c7e6f4410db1d12fd7d5214cf",
+      "webpSha256": "b3c7f01bc34a6d3208c04e1e0e016b5ab107295d7dc1af5e1abeb1c3ff144800",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "无口长面、尖冠、黑红塔达林装甲和双红刃；黑石祭坛同光源。"
+    },
+    "vorazun-single": {
+      "file": "vorazun.png",
+      "pngSha256": "66c54f5bcda13364a04762148a1f4a3b1ce8f566a320f25312d2fd96ef3ed1f6",
+      "webpSha256": "8ca2cb9a79a8d63c46c064d4a38d9a662c6bf19de93a256ecadb108f004b1bcf",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "修长暗黑圣堂身形、深紫装甲、披风与曲刃；暗影遗迹和紫色反光。"
+    },
+    "purifier_flagship-single": {
+      "file": "purifier_flagship-v2.png",
+      "pngSha256": "a6aea868de49710f98338ae71367b875e5e82f91212d88eeb1af4fba76784aba",
+      "webpSha256": "ab5755faf453c99f837e79b6c1bdbfc2abe3146d5022ff280fb19b4302b6259b",
+      "status": "agent-visually-reviewed-static-preview",
+      "note": "单个完整白金巨舰、蓝色能量核心；已移除额外小型截击机，空舱光与离子痕迹保留；净化者轨道建筑同光色。"
+    }
+  },
+  "entries": {
+    "marine": {
+      "plate": "marine-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "厚重蓝灰动力装甲、琥珀护面、双手步枪与完整身体；冷色殖民地街口暖光反射；保留较高像素尺寸。"
+    },
+    "marine.1": {
+      "plate": "marine-atlas",
+      "sourceEffect": "兴奋剂不扣血，期间每秒恢复 1% 最大生命。",
+      "retainedGeometryDiagnostics": [],
+      "review": "动力装甲、圆肩、护面与双手步枪保留；突击的个人注射管、重火力武器及厚甲轮廓不同；殖民地、注射舱、弹痕破口、掩体四场景。普通与重火力另选高分辨率校准画。"
+    },
+    "marine.2": {
+      "plate": "marine.2-single",
+      "sourceEffect": "对重甲总伤害额外提高 25%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "完整重枪与供弹结构；修正首版被切断的枪口火光；暖光破口表现重甲火力。"
+    },
+    "marine.3": {
+      "plate": "marine-atlas",
+      "sourceEffect": "强化装甲与生命，适合持续交战。",
+      "retainedGeometryDiagnostics": [],
+      "review": "动力装甲、圆肩、护面与双手步枪保留；突击的个人注射管、重火力武器及厚甲轮廓不同；殖民地、注射舱、弹痕破口、掩体四场景。普通与重火力另选高分辨率校准画。"
+    },
+    "hydralisk": {
+      "plate": "hydralisk-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "完整刺蛇背冠、镰爪与卷尾；修正初版背冠和场景相交。"
+    },
+    "hydralisk.1": {
+      "plate": "hydralisk-atlas",
+      "sourceEffect": "射程 +1。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "蛇形尾躯、背冠、两把镰爪保留；长刺、连续针刺轨迹、抬头猎空姿势区分。轨迹表示攻击过程，不表示增加每次攻击针刺数。普通另选完整高分辨率校准画。"
+    },
+    "hydralisk.2": {
+      "plate": "hydralisk-atlas",
+      "sourceEffect": "攻击周期×0.85，针刺数不变。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "蛇形尾躯、背冠、两把镰爪保留；长刺、连续针刺轨迹、抬头猎空姿势区分。轨迹表示攻击过程，不表示增加每次攻击针刺数。普通另选完整高分辨率校准画。"
+    },
+    "hydralisk.3": {
+      "plate": "hydralisk-atlas",
+      "sourceEffect": "对空攻击直接伤害＋25%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "蛇形尾躯、背冠、两把镰爪保留；长刺、连续针刺轨迹、抬头猎空姿势区分。轨迹表示攻击过程，不表示增加每次攻击针刺数。普通另选完整高分辨率校准画。"
+    },
+    "marauder": {
+      "plate": "marauder-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "低位头部与双臂榴弹器可认；冷色压制、暖色破甲开火、重装防线区分。金属厚度、枪口与受击门板可读。"
+    },
+    "marauder.1": {
+      "plate": "marauder-atlas",
+      "sourceEffect": "命中降低移速及攻速 30%，持续 1.5 秒；首领 效果减半。",
+      "retainedGeometryDiagnostics": [],
+      "review": "低位头部与双臂榴弹器可认；冷色压制、暖色破甲开火、重装防线区分。金属厚度、枪口与受击门板可读。"
+    },
+    "marauder.2": {
+      "plate": "marauder-atlas",
+      "sourceEffect": "每 15 秒额外发射三倍单发伤害的破甲弹药。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "低位头部与双臂榴弹器可认；冷色压制、暖色破甲开火、重装防线区分。金属厚度、枪口与受击门板可读。"
+    },
+    "marauder.3": {
+      "plate": "marauder-atlas",
+      "sourceEffect": "高生命与护甲，承担前线压力。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "低位头部与双臂榴弹器可认；冷色压制、暖色破甲开火、重装防线区分。金属厚度、枪口与受击门板可读。"
+    },
+    "zealot": {
+      "plate": "zealot-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "完整长面、双前臂灵能刃与双脚；修正初版头部和场景相交。"
+    },
+    "zealot.1": {
+      "plate": "zealot-atlas",
+      "sourceEffect": "已解锁冲锋冷却 ×0.75。",
+      "retainedGeometryDiagnostics": [],
+      "review": "无口神族面部、金甲与双前臂灵能刃可认；突进、护盾、双臂交错连斩区分。普通另选完整高分辨率校准画。"
+    },
+    "zealot.2": {
+      "plate": "zealot-atlas",
+      "sourceEffect": "最大原生护盾＋25%；不治疗生命。",
+      "retainedGeometryDiagnostics": [],
+      "review": "无口神族面部、金甲与双前臂灵能刃可认；突进、护盾、双臂交错连斩区分。普通另选完整高分辨率校准画。"
+    },
+    "zealot.3": {
+      "plate": "zealot-atlas",
+      "sourceEffect": "双刀完整攻击周期×0.85。",
+      "retainedGeometryDiagnostics": [],
+      "review": "无口神族面部、金甲与双前臂灵能刃可认；突进、护盾、双臂交错连斩区分。普通另选完整高分辨率校准画。"
+    },
+    "zergling": {
+      "plate": "zergling-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "低奔姿势、镰爪与背刺保留；长爪连击、腾跃疾跑、厚壳守线区分。实际卡片由前端画双体和2/4/6只，不在背景隐藏额外友军。"
+    },
+    "zergling.1": {
+      "plate": "zergling-atlas",
+      "sourceEffect": "攻击周期 ×0.80。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "低奔姿势、镰爪与背刺保留；长爪连击、腾跃疾跑、厚壳守线区分。实际卡片由前端画双体和2/4/6只，不在背景隐藏额外友军。"
+    },
+    "zergling.2": {
+      "plate": "zergling-atlas",
+      "sourceEffect": "地面移动速度＋15%。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "低奔姿势、镰爪与背刺保留；长爪连击、腾跃疾跑、厚壳守线区分。实际卡片由前端画双体和2/4/6只，不在背景隐藏额外友军。"
+    },
+    "zergling.3": {
+      "plate": "zergling-atlas",
+      "sourceEffect": "护甲＋1.5。",
+      "retainedGeometryDiagnostics": [],
+      "review": "低奔姿势、镰爪与背刺保留；长爪连击、腾跃疾跑、厚壳守线区分。实际卡片由前端画双体和2/4/6只，不在背景隐藏额外友军。"
+    },
+    "banshee": {
+      "plate": "banshee-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "双涵道旋翼与窄驾驶舱可认；远猎、透明折射隐形、双炮连射的动作和峡谷光照不同；完整双旋翼。"
+    },
+    "banshee.1": {
+      "plate": "banshee-atlas",
+      "sourceEffect": "对地射程 +1。",
+      "retainedGeometryDiagnostics": [],
+      "review": "双涵道旋翼与窄驾驶舱可认；远猎、透明折射隐形、双炮连射的动作和峡谷光照不同；完整双旋翼。"
+    },
+    "banshee.2": {
+      "plate": "banshee-atlas",
+      "sourceEffect": "隐形已研究时持续每秒能耗×0.80。",
+      "retainedGeometryDiagnostics": [],
+      "review": "双涵道旋翼与窄驾驶舱可认；远猎、透明折射隐形、双炮连射的动作和峡谷光照不同；完整双旋翼。"
+    },
+    "banshee.3": {
+      "plate": "banshee-atlas",
+      "sourceEffect": "对地攻击周期×0.85。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "双涵道旋翼与窄驾驶舱可认；远猎、透明折射隐形、双炮连射的动作和峡谷光照不同；完整双旋翼。"
+    },
+    "hellion": {
+      "plate": "hellion-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "低矮四轮喷焰车与前置喷嘴可认；高速扬尘、炽热罐体与扩散喷焰分别表达既有特点；三条烧灼路面有不同纵深。"
+    },
+    "hellion.1": {
+      "plate": "hellion-atlas",
+      "sourceEffect": "转向与加速提高 20%。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "低矮四轮喷焰车与前置喷嘴可认；高速扬尘、炽热罐体与扩散喷焰分别表达既有特点；三条烧灼路面有不同纵深。"
+    },
+    "hellion.2": {
+      "plate": "hellion-atlas",
+      "sourceEffect": "附加三秒灼烧，每秒为该次直接伤害的 20%；再次命中会延长灼烧。",
+      "retainedGeometryDiagnostics": [],
+      "review": "低矮四轮喷焰车与前置喷嘴可认；高速扬尘、炽热罐体与扩散喷焰分别表达既有特点；三条烧灼路面有不同纵深。"
+    },
+    "hellion.3": {
+      "plate": "hellion-atlas",
+      "sourceEffect": "火焰宽度 ×1.5，长度 ×1.25。",
+      "retainedGeometryDiagnostics": [],
+      "review": "低矮四轮喷焰车与前置喷嘴可认；高速扬尘、炽热罐体与扩散喷焰分别表达既有特点；三条烧灼路面有不同纵深。"
+    },
+    "medivac": {
+      "plate": "medivac-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "医疗艇船体与双引擎保留；单束治疗、三束群疗、工程装置与蓝色维修光区分。下方不画额外被治疗士兵。"
+    },
+    "medivac.1": {
+      "plate": "medivac-atlas",
+      "sourceEffect": "单目标治疗额外 ×1.25。",
+      "retainedGeometryDiagnostics": [],
+      "review": "医疗艇船体与双引擎保留；单束治疗、三束群疗、工程装置与蓝色维修光区分。下方不画额外被治疗士兵。"
+    },
+    "medivac.2": {
+      "plate": "medivac-atlas",
+      "sourceEffect": "额外治疗两名伤员，各为主治疗量的一半；按实际治疗耗能。",
+      "retainedGeometryDiagnostics": [],
+      "review": "医疗艇船体与双引擎保留；单束治疗、三束群疗、工程装置与蓝色维修光区分。下方不画额外被治疗士兵。"
+    },
+    "medivac.3": {
+      "plate": "medivac-atlas",
+      "sourceEffect": "恢复输出 +25%；生物全效、机械 1/3，按实际恢复生命耗能。",
+      "retainedGeometryDiagnostics": [],
+      "review": "医疗艇船体与双引擎保留；单束治疗、三束群疗、工程装置与蓝色维修光区分。下方不画额外被治疗士兵。"
+    },
+    "reaper": {
+      "plate": "reaper-atlas-v2",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "双枪、背部推进器与人形比例保留；移除原版医疗兵白甲与人物十字标记。恢复、猎轻与装甲三张保留个人装备和不同战斗姿势；医疗走廊只作为环境。"
+    },
+    "reaper.1": {
+      "plate": "reaper-atlas-v2",
+      "sourceEffect": "脱战恢复等待时间 ×0.75。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "双枪、背部推进器与人形比例保留；移除原版医疗兵白甲与人物十字标记。恢复、猎轻与装甲三张保留个人装备和不同战斗姿势；医疗走廊只作为环境。"
+    },
+    "reaper.2": {
+      "plate": "reaper-atlas-v2",
+      "sourceEffect": "对轻甲目标的攻击直接伤害＋25%。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "双枪、背部推进器与人形比例保留；移除原版医疗兵白甲与人物十字标记。恢复、猎轻与装甲三张保留个人装备和不同战斗姿势；医疗走廊只作为环境。"
+    },
+    "reaper.3": {
+      "plate": "reaper-atlas-v2",
+      "sourceEffect": "最大生命＋25%；保留已损生命。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "双枪、背部推进器与人形比例保留；移除原版医疗兵白甲与人物十字标记。恢复、猎轻与装甲三张保留个人装备和不同战斗姿势；医疗走廊只作为环境。"
+    },
+    "science_vessel": {
+      "plate": "science_vessel-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "球形工业船体、传感器和工程臂可认；修复器、储能组件、远距维修臂各有重点；维修废墟只作场景。"
+    },
+    "science_vessel.1": {
+      "plate": "science_vessel-atlas",
+      "sourceEffect": "恢复输出 ×1.25，原有维修与治疗比例不变。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "球形工业船体、传感器和工程臂可认；修复器、储能组件、远距维修臂各有重点；维修废墟只作场景。"
+    },
+    "science_vessel.2": {
+      "plate": "science_vessel-atlas",
+      "sourceEffect": "最大能量＋25%，不免费回能。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "球形工业船体、传感器和工程臂可认；修复器、储能组件、远距维修臂各有重点；维修废墟只作场景。"
+    },
+    "science_vessel.3": {
+      "plate": "science_vessel-atlas",
+      "sourceEffect": "治疗与维修射程＋1.5。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "球形工业船体、传感器和工程臂可认；修复器、储能组件、远距维修臂各有重点；维修废墟只作场景。"
+    },
+    "tank": {
+      "plate": "tank-atlas-v3",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "履带、长炮和架起支脚保留；新版本补全支撑脚，重炮烟雾收在画幅内，避免旧版明显直边；远炮阵、火线与移动扬尘不同。"
+    },
+    "tank.1": {
+      "plate": "tank-atlas-v3",
+      "sourceEffect": "架起后每三秒射程 +1，最多 +3；收炮清除。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "履带、长炮和架起支脚保留；新版本补全支撑脚，重炮烟雾收在画幅内，避免旧版明显直边；远炮阵、火线与移动扬尘不同。"
+    },
+    "tank.2": {
+      "plate": "tank-atlas-v3",
+      "sourceEffect": "攻速 ×0.8、单发补偿，攻城溅射半径 ×1.25。",
+      "retainedGeometryDiagnostics": [],
+      "review": "履带、长炮和架起支脚保留；新版本补全支撑脚，重炮烟雾收在画幅内，避免旧版明显直边；远炮阵、火线与移动扬尘不同。"
+    },
+    "tank.3": {
+      "plate": "tank-atlas-v3",
+      "sourceEffect": "架起与收起时间 ×0.75。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "履带、长炮和架起支脚保留；新版本补全支撑脚，重炮烟雾收在画幅内，避免旧版明显直边；远炮阵、火线与移动扬尘不同。"
+    },
+    "thor": {
+      "plate": "thor-atlas-v2",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "双足重机甲、臂炮与肩部导弹可认；移除上方额外雷神。防空轨迹、双炮地面爆点、厚甲守线区分；身体完整。"
+    },
+    "thor.1": {
+      "plate": "thor-atlas-v2",
+      "sourceEffect": "对空攻击伤害 ×1.20。",
+      "retainedGeometryDiagnostics": [],
+      "review": "双足重机甲、臂炮与肩部导弹可认；移除上方额外雷神。防空轨迹、双炮地面爆点、厚甲守线区分；身体完整。"
+    },
+    "thor.2": {
+      "plate": "thor-atlas-v2",
+      "sourceEffect": "对地攻击直接伤害＋20%。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "双足重机甲、臂炮与肩部导弹可认；移除上方额外雷神。防空轨迹、双炮地面爆点、厚甲守线区分；身体完整。"
+    },
+    "thor.3": {
+      "plate": "thor-atlas-v2",
+      "sourceEffect": "护甲＋2。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "双足重机甲、臂炮与肩部导弹可认；移除上方额外雷神。防空轨迹、双炮地面爆点、厚甲守线区分；身体完整。"
+    },
+    "viking": {
+      "plate": "viking-atlas-v3",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "普通战机收起腿部，快速变形显示变形关节，猎舰为战机，突击为双足地面形态；单独记录裁切区域以保留普通战机的完整右翼。"
+    },
+    "viking.1": {
+      "plate": "viking-atlas-v3",
+      "sourceEffect": "变形时间 ×0.70。",
+      "retainedGeometryDiagnostics": [],
+      "review": "普通战机收起腿部，快速变形显示变形关节，猎舰为战机，突击为双足地面形态；单独记录裁切区域以保留普通战机的完整右翼。"
+    },
+    "viking.2": {
+      "plate": "viking-atlas-v3",
+      "sourceEffect": "战机模式对重甲空中目标的普通攻击直接伤害＋25%；突击模式不加成。",
+      "retainedGeometryDiagnostics": [],
+      "review": "普通战机收起腿部，快速变形显示变形关节，猎舰为战机，突击为双足地面形态；单独记录裁切区域以保留普通战机的完整右翼。"
+    },
+    "viking.3": {
+      "plate": "viking-atlas-v3",
+      "sourceEffect": "突击模式对地射程＋1；战机模式射程不变。",
+      "retainedGeometryDiagnostics": [],
+      "review": "普通战机收起腿部，快速变形显示变形关节，猎舰为战机，突击为双足地面形态；单独记录裁切区域以保留普通战机的完整右翼。"
+    },
+    "baneling": {
+      "plate": "baneling-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "有机酸囊、细肢与绿色酸液可认；广域喷溅、裂纹高能酸囊、疾奔拖迹不同；避免通用发光球替代身体。"
+    },
+    "baneling.1": {
+      "plate": "baneling-atlas",
+      "sourceEffect": "爆炸半径 ×1.25。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "有机酸囊、细肢与绿色酸液可认；广域喷溅、裂纹高能酸囊、疾奔拖迹不同；避免通用发光球替代身体。"
+    },
+    "baneling.2": {
+      "plate": "baneling-atlas",
+      "sourceEffect": "自爆伤害＋25%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "有机酸囊、细肢与绿色酸液可认；广域喷溅、裂纹高能酸囊、疾奔拖迹不同；避免通用发光球替代身体。"
+    },
+    "baneling.3": {
+      "plate": "baneling-atlas",
+      "sourceEffect": "移动速度＋15%。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "有机酸囊、细肢与绿色酸液可认；广域喷溅、裂纹高能酸囊、疾奔拖迹不同；避免通用发光球替代身体。"
+    },
+    "queen": {
+      "plate": "queen-atlas-v2",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "虫后背冠、腹部和关节长腿可认；节能输血以小型治疗光与生体脉络表达，移除新增下方卵群；强疗绿光与储能紫光分别集中在不同器官。背景孵化囊是巢穴环境。"
+    },
+    "queen.1": {
+      "plate": "queen-atlas-v2",
+      "sourceEffect": "输血耗能 ×0.75。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "虫后背冠、腹部和关节长腿可认；节能输血以小型治疗光与生体脉络表达，移除新增下方卵群；强疗绿光与储能紫光分别集中在不同器官。背景孵化囊是巢穴环境。"
+    },
+    "queen.2": {
+      "plate": "queen-atlas-v2",
+      "sourceEffect": "自动输血实际恢复量＋25%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "虫后背冠、腹部和关节长腿可认；节能输血以小型治疗光与生体脉络表达，移除新增下方卵群；强疗绿光与储能紫光分别集中在不同器官。背景孵化囊是巢穴环境。"
+    },
+    "queen.3": {
+      "plate": "queen-atlas-v2",
+      "sourceEffect": "最大能量＋25%，不免费回能。",
+      "retainedGeometryDiagnostics": [],
+      "review": "虫后背冠、腹部和关节长腿可认；节能输血以小型治疗光与生体脉络表达，移除新增下方卵群；强疗绿光与储能紫光分别集中在不同器官。背景孵化囊是巢穴环境。"
+    },
+    "ravager": {
+      "plate": "ravager-atlas-v2",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "已把错误前臂炮口改为完整有机爪，胆汁来自背囊/有机喷口。连续弹道、广域落酸、浓烈酸击区分，火山岩和胆汁暖光统一。"
+    },
+    "ravager.1": {
+      "plate": "ravager-atlas-v2",
+      "sourceEffect": "胆汁冷却 ×0.80。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "已把错误前臂炮口改为完整有机爪，胆汁来自背囊/有机喷口。连续弹道、广域落酸、浓烈酸击区分，火山岩和胆汁暖光统一。"
+    },
+    "ravager.2": {
+      "plate": "ravager-atlas-v2",
+      "sourceEffect": "自动胆汁伤害半径×1.20；预警圈与实际半径一致。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "已把错误前臂炮口改为完整有机爪，胆汁来自背囊/有机喷口。连续弹道、广域落酸、浓烈酸击区分，火山岩和胆汁暖光统一。"
+    },
+    "ravager.3": {
+      "plate": "ravager-atlas-v2",
+      "sourceEffect": "自动胆汁直接伤害＋25%；半径和冷却不变。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "已把错误前臂炮口改为完整有机爪，胆汁来自背囊/有机喷口。连续弹道、广域落酸、浓烈酸击区分，火山岩和胆汁暖光统一。"
+    },
+    "roach": {
+      "plate": "roach-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "重叠甲壳、低位肢体与喷酸口可认；再生脉络、集中酸击、重甲壳分别突出；湿巢与酸蚀甲片改变环境。"
+    },
+    "roach.1": {
+      "plate": "roach-atlas",
+      "sourceEffect": "固有再生 ×2。",
+      "retainedGeometryDiagnostics": [],
+      "review": "重叠甲壳、低位肢体与喷酸口可认；再生脉络、集中酸击、重甲壳分别突出；湿巢与酸蚀甲片改变环境。"
+    },
+    "roach.2": {
+      "plate": "roach-atlas",
+      "sourceEffect": "对重甲地面目标的攻击直接伤害＋20%。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "重叠甲壳、低位肢体与喷酸口可认；再生脉络、集中酸击、重甲壳分别突出；湿巢与酸蚀甲片改变环境。"
+    },
+    "roach.3": {
+      "plate": "roach-atlas",
+      "sourceEffect": "最大生命＋25%；保留已损生命。",
+      "retainedGeometryDiagnostics": [],
+      "review": "重叠甲壳、低位肢体与喷酸口可认；再生脉络、集中酸击、重甲壳分别突出；湿巢与酸蚀甲片改变环境。"
+    },
+    "corruptor": {
+      "plate": "corruptor-atlas-v3",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "移除误画的异龙翅膀，保留悬浮甲壳与垂挂触须；猎重甲使用一发浓酸，连射使用前后连续酸弹，远猎使用远空轨迹；不暗示三发齐射或范围攻击。"
+    },
+    "corruptor.1": {
+      "plate": "corruptor-atlas-v3",
+      "sourceEffect": "对重甲空中目标攻击伤害 ×1.20。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "移除误画的异龙翅膀，保留悬浮甲壳与垂挂触须；猎重甲使用一发浓酸，连射使用前后连续酸弹，远猎使用远空轨迹；不暗示三发齐射或范围攻击。"
+    },
+    "corruptor.2": {
+      "plate": "corruptor-atlas-v3",
+      "sourceEffect": "对空攻击周期×0.85。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "移除误画的异龙翅膀，保留悬浮甲壳与垂挂触须；猎重甲使用一发浓酸，连射使用前后连续酸弹，远猎使用远空轨迹；不暗示三发齐射或范围攻击。"
+    },
+    "corruptor.3": {
+      "plate": "corruptor-atlas-v3",
+      "sourceEffect": "对空攻击射程＋1。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "移除误画的异龙翅膀，保留悬浮甲壳与垂挂触须；猎重甲使用一发浓酸，连射使用前后连续酸弹，远猎使用远空轨迹；不暗示三发齐射或范围攻击。"
+    },
+    "lurker": {
+      "plate": "lurker-atlas-v2",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "低扁宽体和放射尖足保留；宽地刺、长地刺、连续掘刺的地面痕迹不同。修正早版背景分隔与身体裁切；边缘远端尖刺仅作效果诊断记录。"
+    },
+    "lurker.1": {
+      "plate": "lurker-atlas-v2",
+      "sourceEffect": "穿刺宽度 ×1.25。",
+      "retainedGeometryDiagnostics": [],
+      "review": "低扁宽体和放射尖足保留；宽地刺、长地刺、连续掘刺的地面痕迹不同。修正早版背景分隔与身体裁切；边缘远端尖刺仅作效果诊断记录。"
+    },
+    "lurker.2": {
+      "plate": "lurker-atlas-v2",
+      "sourceEffect": "完成埋地后地刺攻击射程＋1。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "低扁宽体和放射尖足保留；宽地刺、长地刺、连续掘刺的地面痕迹不同。修正早版背景分隔与身体裁切；边缘远端尖刺仅作效果诊断记录。"
+    },
+    "lurker.3": {
+      "plate": "lurker-atlas-v2",
+      "sourceEffect": "埋地攻击周期×0.85。",
+      "retainedGeometryDiagnostics": [],
+      "review": "低扁宽体和放射尖足保留；宽地刺、长地刺、连续掘刺的地面痕迹不同。修正早版背景分隔与身体裁切；边缘远端尖刺仅作效果诊断记录。"
+    },
+    "mutalisk": {
+      "plate": "mutalisk-atlas-v2",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "皮膜翼、弯尾与有机躯干可认；修复普通右翼尖。弹射弧线、追猎攻击姿势、厚翼甲壳区分；巢穴高空具有不同光照。"
+    },
+    "mutalisk.1": {
+      "plate": "mutalisk-atlas-v2",
+      "sourceEffect": "后续弹射伤害 ×1.25。",
+      "retainedGeometryDiagnostics": [],
+      "review": "皮膜翼、弯尾与有机躯干可认；修复普通右翼尖。弹射弧线、追猎攻击姿势、厚翼甲壳区分；巢穴高空具有不同光照。"
+    },
+    "mutalisk.2": {
+      "plate": "mutalisk-atlas-v2",
+      "sourceEffect": "第一段弹射对轻甲攻击直接伤害＋20%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "皮膜翼、弯尾与有机躯干可认；修复普通右翼尖。弹射弧线、追猎攻击姿势、厚翼甲壳区分；巢穴高空具有不同光照。"
+    },
+    "mutalisk.3": {
+      "plate": "mutalisk-atlas-v2",
+      "sourceEffect": "最大生命＋25%；保留已损生命。",
+      "retainedGeometryDiagnostics": [],
+      "review": "皮膜翼、弯尾与有机躯干可认；修复普通右翼尖。弹射弧线、追猎攻击姿势、厚翼甲壳区分；巢穴高空具有不同光照。"
+    },
+    "ultralisk": {
+      "plate": "ultralisk-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "巨型甲壳和双凯撒刃保留；厚甲、快速连续斩击、壮实躯干区分。巨躯画面强调生命韧性，静态尺寸不改写实际碰撞半径。"
+    },
+    "ultralisk.1": {
+      "plate": "ultralisk-atlas",
+      "sourceEffect": "护甲 +2。",
+      "retainedGeometryDiagnostics": [],
+      "review": "巨型甲壳和双凯撒刃保留；厚甲、快速连续斩击、壮实躯干区分。巨躯画面强调生命韧性，静态尺寸不改写实际碰撞半径。"
+    },
+    "ultralisk.2": {
+      "plate": "ultralisk-atlas",
+      "sourceEffect": "对地攻击周期×0.85。",
+      "retainedGeometryDiagnostics": [],
+      "review": "巨型甲壳和双凯撒刃保留；厚甲、快速连续斩击、壮实躯干区分。巨躯画面强调生命韧性，静态尺寸不改写实际碰撞半径。"
+    },
+    "ultralisk.3": {
+      "plate": "ultralisk-atlas",
+      "sourceEffect": "最大生命＋25%；碰撞半径不变。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "巨型甲壳和双凯撒刃保留；厚甲、快速连续斩击、壮实躯干区分。巨躯画面强调生命韧性，静态尺寸不改写实际碰撞半径。"
+    },
+    "adept": {
+      "plate": "adept-atlas-v3",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "新版本保留前臂月刃发射器，修正近战剑误读；移除完整分身，改为抽象运动光线。再次重绘黑色不透明光效底块后，实际三卡已复查，无旧版明显矩形接缝。"
+    },
+    "adept.1": {
+      "plate": "adept-atlas-v3",
+      "sourceEffect": "对轻甲额外伤害 ×1.50。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "新版本保留前臂月刃发射器，修正近战剑误读；移除完整分身，改为抽象运动光线。再次重绘黑色不透明光效底块后，实际三卡已复查，无旧版明显矩形接缝。"
+    },
+    "adept.2": {
+      "plate": "adept-atlas-v3",
+      "sourceEffect": "移动速度＋15%。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "新版本保留前臂月刃发射器，修正近战剑误读；移除完整分身，改为抽象运动光线。再次重绘黑色不透明光效底块后，实际三卡已复查，无旧版明显矩形接缝。"
+    },
+    "adept.3": {
+      "plate": "adept-atlas-v3",
+      "sourceEffect": "攻击射程＋1。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "新版本保留前臂月刃发射器，修正近战剑误读；移除完整分身，改为抽象运动光线。再次重绘黑色不透明光效底块后，实际三卡已复查，无旧版明显矩形接缝。"
+    },
+    "carrier": {
+      "plate": "carrier-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "完整普通航母的尖舰艏、尾翼和蓝色舰载舱口；金色轨道遗迹与冷暖舰体反光统一。没有额外截击机。实际三舰卡图计数为三个等大船体。"
+    },
+    "carrier.1": {
+      "plate": "carrier.1-single",
+      "sourceEffect": "已有截击机攻击周期 ×0.85。",
+      "retainedGeometryDiagnostics": [],
+      "review": "完整前倾长舰体与较窄尾翼，蓝色连续武器轨迹、冷色小行星走廊；主体未被原分栏边缘截断，快攻不表示新增舰载机。"
+    },
+    "carrier.2": {
+      "plate": "carrier.2-single",
+      "sourceEffect": "所属截击机攻击直接伤害＋20%，加成不会重复计算。",
+      "retainedGeometryDiagnostics": [],
+      "review": "重叠金属板、较厚长舰体、稳定舷侧姿势、暖色下腹武器光；金色毁坏轨道平台同光。火力强化不表示新增舱室/容量。"
+    },
+    "carrier.3": {
+      "plate": "carrier.3-single",
+      "sourceEffect": "母体最大原生护盾＋25%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "完整长船、尾翼及透明蓝色护盾，冷色行星圣所；实际竖屏详情中舰艏与护盾边界完整且没有硬黑底。"
+    },
+    "colossus": {
+      "plate": "colossus-atlas-v2",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "旧版高冠躯干已改为宽横向弧形舰体、四条高脚与双热能发射器；远距、连续扫灼、护盾三个场景不同。补景天空底层后，实际卡片不再露出黑色透明缺口。"
+    },
+    "colossus.1": {
+      "plate": "colossus-atlas-v2",
+      "sourceEffect": "射程 +1。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "旧版高冠躯干已改为宽横向弧形舰体、四条高脚与双热能发射器；远距、连续扫灼、护盾三个场景不同。补景天空底层后，实际卡片不再露出黑色透明缺口。"
+    },
+    "colossus.2": {
+      "plate": "colossus-atlas-v2",
+      "sourceEffect": "完整热能攻击周期×0.85。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "旧版高冠躯干已改为宽横向弧形舰体、四条高脚与双热能发射器；远距、连续扫灼、护盾三个场景不同。补景天空底层后，实际卡片不再露出黑色透明缺口。"
+    },
+    "colossus.3": {
+      "plate": "colossus-atlas-v2",
+      "sourceEffect": "最大原生护盾＋25%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "旧版高冠躯干已改为宽横向弧形舰体、四条高脚与双热能发射器；远距、连续扫灼、护盾三个场景不同。补景天空底层后，实际卡片不再露出黑色透明缺口。"
+    },
+    "high_templar": {
+      "plate": "high_templar-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "无口长面、长袍和聚能双手可认；省能风暴、储能聚光、强化紫色电弧的动作和祭坛光照不同；不暗示自动解锁或免费补能。"
+    },
+    "high_templar.1": {
+      "plate": "high_templar-atlas",
+      "sourceEffect": "已解锁灵能风暴耗能 ×0.80。",
+      "retainedGeometryDiagnostics": [],
+      "review": "无口长面、长袍和聚能双手可认；省能风暴、储能聚光、强化紫色电弧的动作和祭坛光照不同；不暗示自动解锁或免费补能。"
+    },
+    "high_templar.2": {
+      "plate": "high_templar-atlas",
+      "sourceEffect": "最大能量＋25%；新增能量上限不会立即补满，不能解锁风暴。",
+      "retainedGeometryDiagnostics": [],
+      "review": "无口长面、长袍和聚能双手可认；省能风暴、储能聚光、强化紫色电弧的动作和祭坛光照不同；不暗示自动解锁或免费补能。"
+    },
+    "high_templar.3": {
+      "plate": "high_templar-atlas",
+      "sourceEffect": "灵能风暴已研究后总伤害＋20%；每次风暴伤害均提高。",
+      "retainedGeometryDiagnostics": [],
+      "review": "无口长面、长袍和聚能双手可认；省能风暴、储能聚光、强化紫色电弧的动作和祭坛光照不同；不暗示自动解锁或免费补能。"
+    },
+    "immortal": {
+      "plate": "immortal-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "厚重四足行者与双炮保留；吸收屏障、暖色破甲炮击、原生蓝盾分开表达；装甲材质与黄金战线反光统一。"
+    },
+    "immortal.1": {
+      "plate": "immortal-atlas",
+      "sourceEffect": "护障吸收量 ×1.40。",
+      "retainedGeometryDiagnostics": [],
+      "review": "厚重四足行者与双炮保留；吸收屏障、暖色破甲炮击、原生蓝盾分开表达；装甲材质与黄金战线反光统一。"
+    },
+    "immortal.2": {
+      "plate": "immortal-atlas",
+      "sourceEffect": "对重甲地面目标攻击直接伤害＋25%。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "厚重四足行者与双炮保留；吸收屏障、暖色破甲炮击、原生蓝盾分开表达；装甲材质与黄金战线反光统一。"
+    },
+    "immortal.3": {
+      "plate": "immortal-atlas",
+      "sourceEffect": "最大原生护盾＋25%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "厚重四足行者与双炮保留；吸收屏障、暖色破甲炮击、原生蓝盾分开表达；装甲材质与黄金战线反光统一。"
+    },
+    "phoenix": {
+      "plate": "phoenix-atlas-v2",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "新版本移除天空额外整架战机，改为离子轨迹；弧形金色战机完整；猎轻、远空射击、疾飞推进区分；实际卡片光晕能融入高空背景。"
+    },
+    "phoenix.1": {
+      "plate": "phoenix-atlas-v2",
+      "sourceEffect": "对轻甲空中目标攻击伤害 ×1.25。",
+      "retainedGeometryDiagnostics": [],
+      "review": "新版本移除天空额外整架战机，改为离子轨迹；弧形金色战机完整；猎轻、远空射击、疾飞推进区分；实际卡片光晕能融入高空背景。"
+    },
+    "phoenix.2": {
+      "plate": "phoenix-atlas-v2",
+      "sourceEffect": "对空攻击射程＋1。",
+      "retainedGeometryDiagnostics": [],
+      "review": "新版本移除天空额外整架战机，改为离子轨迹；弧形金色战机完整；猎轻、远空射击、疾飞推进区分；实际卡片光晕能融入高空背景。"
+    },
+    "phoenix.3": {
+      "plate": "phoenix-atlas-v2",
+      "sourceEffect": "飞行移动速度＋15%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "新版本移除天空额外整架战机，改为离子轨迹；弧形金色战机完整；猎轻、远空射击、疾飞推进区分；实际卡片光晕能融入高空背景。"
+    },
+    "sentry": {
+      "plate": "sentry-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "金色悬浮外壳与中心能量球可认；持续守护、储能核心、广域圆罩的范围/结构和场景不同；实际卡片没有硬黑光效底块。"
+    },
+    "sentry.1": {
+      "plate": "sentry-atlas",
+      "sourceEffect": "守护者之盾持续时间 ×1.30。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "金色悬浮外壳与中心能量球可认；持续守护、储能核心、广域圆罩的范围/结构和场景不同；实际卡片没有硬黑光效底块。"
+    },
+    "sentry.2": {
+      "plate": "sentry-atlas",
+      "sourceEffect": "最大能量＋25%，不免费回能。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "金色悬浮外壳与中心能量球可认；持续守护、储能核心、广域圆罩的范围/结构和场景不同；实际卡片没有硬黑光效底块。"
+    },
+    "sentry.3": {
+      "plate": "sentry-atlas",
+      "sourceEffect": "守护者之盾真实生效半径×1.20。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "金色悬浮外壳与中心能量球可认；持续守护、储能核心、广域圆罩的范围/结构和场景不同；实际卡片没有硬黑光效底块。"
+    },
+    "stalker": {
+      "plate": "stalker-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "四足奈拉齐姆机械体可认；集中猎甲光、护盾、闪烁空间折射分别配合不同姿势和遗迹。"
+    },
+    "stalker.1": {
+      "plate": "stalker-atlas",
+      "sourceEffect": "对重甲攻击伤害 ×1.20。",
+      "retainedGeometryDiagnostics": [],
+      "review": "四足奈拉齐姆机械体可认；集中猎甲光、护盾、闪烁空间折射分别配合不同姿势和遗迹。"
+    },
+    "stalker.2": {
+      "plate": "stalker-atlas",
+      "sourceEffect": "最大原生护盾＋25%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "四足奈拉齐姆机械体可认；集中猎甲光、护盾、闪烁空间折射分别配合不同姿势和遗迹。"
+    },
+    "stalker.3": {
+      "plate": "stalker-atlas",
+      "sourceEffect": "已研究闪烁冷却×0.75。",
+      "retainedGeometryDiagnostics": [],
+      "review": "四足奈拉齐姆机械体可认；集中猎甲光、护盾、闪烁空间折射分别配合不同姿势和遗迹。"
+    },
+    "void_ray": {
+      "plate": "void_ray-atlas",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "曲面金色舰体与前部棱晶聚焦器可认；聚焦光、护盾、连续细束与深空晶体反光区分；远端射线只作画幅内效果，不是额外单位。"
+    },
+    "void_ray.1": {
+      "plate": "void_ray-atlas",
+      "sourceEffect": "对重甲额外伤害 ×1.50。",
+      "retainedGeometryDiagnostics": [],
+      "review": "曲面金色舰体与前部棱晶聚焦器可认；聚焦光、护盾、连续细束与深空晶体反光区分；远端射线只作画幅内效果，不是额外单位。"
+    },
+    "void_ray.2": {
+      "plate": "void_ray-atlas",
+      "sourceEffect": "最大原生护盾＋25%。",
+      "retainedGeometryDiagnostics": [],
+      "review": "曲面金色舰体与前部棱晶聚焦器可认；聚焦光、护盾、连续细束与深空晶体反光区分；远端射线只作画幅内效果，不是额外单位。"
+    },
+    "void_ray.3": {
+      "plate": "void_ray-atlas",
+      "sourceEffect": "完整光束结算周期×0.85。",
+      "retainedGeometryDiagnostics": [
+        "inspect column edge: body/effect may touch"
+      ],
+      "review": "曲面金色舰体与前部棱晶聚焦器可认；聚焦光、护盾、连续细束与深空晶体反光区分；远端射线只作画幅内效果，不是额外单位。"
+    },
+    "swann": {
+      "plate": "swann-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "矮壮工程师、胡须护目镜、机械臂工具；暖色工业维修舱与焊光融合。"
+    },
+    "tosh": {
+      "plate": "tosh-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "深肤色、长辫、暗色幽魂装甲与长枪；隐秘废墟和折射烟雾。"
+    },
+    "yamato_battlecruiser": {
+      "plate": "yamato_battlecruiser-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "完整大型工业战列舰船体、前部大和能量核心与引擎；轨道船坞统一冷暖反光。"
+    },
+    "stukov": {
+      "plate": "stukov-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "完整帽檐、胡须、军装、单侧有机装甲臂与双靴；修正首版帽顶相交，保持非血腥完整制服；工业黄昏。"
+    },
+    "niadra": {
+      "plate": "niadra-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "完整尖冠、女王型有机躯干与长肢；修复与上方巢穴的分隔；橙色生体光与菌巢一致。"
+    },
+    "hots_leviathan": {
+      "plate": "hots_leviathan-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "完整庞大有机战舰、深色甲壳、器官和长触须；行星上空空间具有体积感。"
+    },
+    "alarak": {
+      "plate": "alarak-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "无口长面、尖冠、黑红塔达林装甲和双红刃；黑石祭坛同光源。"
+    },
+    "vorazun": {
+      "plate": "vorazun-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "修长暗黑圣堂身形、深紫装甲、披风与曲刃；暗影遗迹和紫色反光。"
+    },
+    "purifier_flagship": {
+      "plate": "purifier_flagship-single",
+      "sourceEffect": null,
+      "retainedGeometryDiagnostics": [],
+      "review": "单个完整白金巨舰、蓝色能量核心；已移除额外小型截击机，空舱光与离子痕迹保留；净化者轨道建筑同光色。"
+    }
+  },
+  "diagnosticPolicy": "保留原始 alpha 边界告警。若告警只涉及远端光线、烟雾、尖刺或贴近分栏的像素，仍结合实际卡片检查主体；不会将保留的告警改写为全部零问题。绘画质量判定是代理检查，用户最终美术确认尚未取得。",
+  "superseded": {
+    "carrier-atlas.png / carrier-atlas-v2.png / carrier-atlas-v3.png": "初版额外小舰已修正，但后续分栏精修仍缺裁切余量；最终改为四张独立完整画。旧图版保留，不作为最终选图。",
+    "R10 geometric bodies": "未达到用户要求的绘画立绘与兵种环境特色；原 HTML 保留。",
+    "hydralisk.png / zealot.png": "冠部与背景相交，改用 v2；旧画保留。",
+    "marine.2.png": "枪口火光裁切，改用 v2；旧画保留。",
+    "viking-atlas.png / viking-atlas-v2.png": "战机形态和翼尖/分栏裁切错误，改用 v3及显式区域。",
+    "ravager-atlas.png": "错误的前臂炮口，改用 v2有机爪与背囊。",
+    "corruptor-atlas.png / corruptor-atlas-v2.png": "误画翅膀或错误攻击特点，改用 v3悬浮甲壳和实际攻击方向。",
+    "adept-atlas.png / adept-atlas-v2.png": "错误武器/完整分身与黑色光效底块，改用 v3。",
+    "colossus-atlas.png": "高冠人形化舰体不符辨识特点，改用横向舰体 v2。",
+    "tank-atlas.png / tank-atlas-v2.png": "额外背景单位或炮火/支脚明显裁切，改用 v3。",
+    "queen-atlas.png": "节能输血强化误画额外卵群，改用 v2。",
+    "stukov.png / niadra.png": "帽/冠与上景相交，改用 v2。",
+    "purifier_flagship.png / carrier-atlas.png / phoenix-atlas.png": "多余飞行单位干扰卡片身体计数，改用各自 v2。"
+  }
+}

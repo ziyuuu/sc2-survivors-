@@ -3,7 +3,7 @@ import {World} from '../src/simulation/world';import {rewardPool} from '../src/s
 test('purple offer identifies first recruitment, pending replacement, current rank, and permanent death',()=>{
  const w=new World();w.start();w.autoWaves=false;const offer=rewardPool(w).find(r=>r.id==='elite.marine.1')!;
  assert.match(rewardOwnership(w,offer),/未拥有/);w.acquireElite('marine.1');
- const unit=w.eliteOwned('marine.1')!;assert.equal(specialUnitName(unit),'突击枪兵');assert.equal(rewardOwnership(w,offer),'已拥有 · Rank 1 → 2');
+ const unit=w.eliteOwned('marine.1')!;assert.equal(specialUnitName(unit),'金属风暴');assert.equal(rewardOwnership(w,offer),'已拥有 · Rank 1 → 2');
  w.acquireElite('marine.1');assert.equal(rewardOwnership(w,offer),'已拥有 · Rank 2 → 3');unit.rank=5;assert.match(rewardOwnership(w,offer),/已满级/);w.hit(unit,99999);assert.match(rewardOwnership(w,offer),/未拥有/);
 });
 test('hero ownership and visible HP distinguish wounded, dead, and paid revival states',()=>{

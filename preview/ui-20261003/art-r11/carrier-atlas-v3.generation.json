@@ -1,0 +1,11 @@
+{
+  "key": "carrier-atlas-v3",
+  "prompt": "Refine ONLY the lower four Carrier cutouts in this newly generated StarCraft II painted source atlas. Preserve the four empty upper environment paintings exactly. Each lower cutout must be ONE complete recognizable SC2 gold elongated Carrier hull with blue hangar apertures, rich mature painted metal, no extra interceptor or aircraft bodies. Restore the complete sharp front nose, rear fins and all armor tips of every hull. Center each whole unit and its bounded abstract weapon trails inside its own quarter, with 12% quarter-width clear transparent gutters at left and right, and at least 45 pixels of completely transparent horizontal gap below the upper environments. Use only about 74% of each quarter width for the whole hull plus effect; maintain its original proportions, details and independent pose. All four cutouts remain equal illustration quality. Column 1 ordinary Carrier: standard gold hull, restrained blue hangar light. Column 2 rapid-fire Carrier: readable compact blue repeated ion trails below the belly; ONE parent hull only. Column 3 stronger-fire Carrier: heavier gold plates and compact warm weapon streaks, not additional ship capacity. Column 4 defensive Carrier: ONE hull with a restrained complete translucent blue shield envelope that remains inside its quarter. Lower background must be genuine transparent alpha, no black rectangle, cloud mass, frame, checkerboard, words or UI. No body, fin, nose, shield or weapon trail may cross a quarter boundary or touch upper scene. The cutouts must remain detailed enough for real game card artwork, not toy models or vectors.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-51964508-480d-41e2-b522-f98537067520.png",
+  "input": "carrier-atlas-v2.png",
+  "output": "carrier-atlas-v3.png",
+  "intent": "edit-newly-generated-art",
+  "privateReferencesUploaded": false,
+  "selected": false,
+  "review": "Rejected: unit noses and effect trails still reach quarter boundaries; independent complete paintings requested."
+}

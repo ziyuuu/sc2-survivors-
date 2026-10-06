@@ -1,8 +1,13 @@
+import {isProtossEliteId} from '../../data/protoss-elites';
+import {isTerranEliteId} from '../../data/terran-elites';
+import {isProtossHero} from '../../data/protoss-heroes';
+import {isZergHero} from '../../data/zerg-heroes';
 import {isRevisedHero} from '../../data/terran-heroes';
 import {loadHeroEffects,saveHeroEffects,type HeroEffectQuality} from '../settings/quality';
 import {CombatSculptures} from './combat-sculptures';
 import {HeroBasicEffects} from './hero-basic-effects';
 import {OriginalProjectiles} from './original-projectiles';
+import {isZergEliteId} from '../../data/zerg-elites';
 import {commitInstances,uploadActive} from '../units/instance-updates';
 import * as THREE from 'three';
 import {ASSETS,assetUrl} from '../../assets/manifest';
@@ -24,6 +29,8 @@ const CAPACITY=256,POOL_SIZE=1280;
 const additive=new Set(['fx.support.nuke.16','fx.support.nuke.2','fx.marauder.launch.1','fx.marauder.impact.2','fx.marauder.impact.3','fx.muzzle.0','fx.flame.0','fx.flame.1','fx.muzzle.1','fx.flameimpact.0','fx.blast.0','fx.blast.3','fx.blast.6','fx.blast.8','fx.impact.0','fx.bile.4','fx.baneling.0']);
 /** Original M3-referenced sprites; authored web emission timing, not a full SC2 particle emulator. */
 export class BattleEffects {
+ protossHeroes=false;zergHeroes=false;confirmedHeroes=false;
+ ordinaryEventIds=new Set<number>();supportPresentation=false;
  heroQuality:HeroEffectQuality=loadHeroEffects();
  setHeroQuality(value:HeroEffectQuality){this.heroQuality=value;saveHeroEffects(value);}
  batches=new Map<string,Batch>();loaded=0;errors:string[]=[];lastSerial=0;
@@ -37,7 +44,7 @@ export class BattleEffects {
    const texture=await new THREE.TextureLoader().loadAsync(url);texture.colorSpace=THREE.SRGBColorSpace;
    const sprite=(a as unknown as {sprite?:{columns:number;rows:number;startFrame?:number;endFrame?:number}}).sprite??{columns:1,rows:1};
    const geometry=new THREE.PlaneGeometry(1,1),data=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*3),3).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('spriteFrame',data);
-   const material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,forceSinglePass:true,blending:additive.has(a.id)||a.id.startsWith('fx.hero-basic.')&&!a.id.includes('smoke')?THREE.AdditiveBlending:THREE.NormalBlending,side:THREE.DoubleSide,uniforms:{map:{value:texture},grid:{value:new THREE.Vector2(sprite.columns,sprite.rows)}},
+   const material=new THREE.ShaderMaterial({transparent:true,depthWrite:false,forceSinglePass:true,blending:additive.has(a.id)||(a.id.startsWith('fx.hero-basic.')||a.id.startsWith('fx.hero-skill.'))&&!a.id.includes('smoke')?THREE.AdditiveBlending:THREE.NormalBlending,side:THREE.DoubleSide,uniforms:{map:{value:texture},grid:{value:new THREE.Vector2(sprite.columns,sprite.rows)}},
     vertexShader:`attribute vec3 spriteFrame; varying vec2 vUv; varying vec3 vColor; varying float vOpacity; varying float vNeutralize; uniform vec2 grid;
      void main(){float f=spriteFrame.x;vUv=(uv+vec2(mod(f,grid.x),grid.y-1.0-floor(f/grid.x)))/grid;vOpacity=spriteFrame.y;vNeutralize=spriteFrame.z;vColor=instanceColor;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.0);}`,
     fragmentShader:`uniform sampler2D map;varying vec2 vUv;varying vec3 vColor;varying float vOpacity;varying float vNeutralize;
@@ -59,6 +66,13 @@ export class BattleEffects {
   }
  }
  event(e:VisualEvent,mount:{x:number;y:number;z:number}|null=null,leftMount:{x:number;y:number;z:number}|null=null){
+  if(this.ordinaryEventIds.has(e.serial)){if(e.kind==='attack')this.stats.attack++;return;}
+  if(!e.heroId&&isProtossEliteId(e.eliteId)&&['attack','projectile-impact','weapon-area','storm-start','skill-launch','skill-impact','support-impact','strategic-impact','barrier-start'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}
+  if(!e.heroId&&isZergEliteId(e.eliteId)&&['attack','projectile-impact','weapon-area','skill-launch','skill-heal','skill-dot','bile-impact','baneling-recover','strategic-impact','support-flight','support-impact','support-pulse','barrier-start'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}
+  if(this.confirmedHeroes&&isRevisedHero(e.heroId)&&['attack','projectile-impact','weapon-area','skill-launch','skill-impact','skill-line','skill-dot'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}
+  if(this.protossHeroes&&isProtossHero(e.heroId)&&['attack','projectile-impact','weapon-area','skill-launch','skill-impact','skill-line','skill-heal','skill-status'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}
+  if(this.zergHeroes&&isZergHero(e.heroId)&&['attack','projectile-impact','weapon-area','skill-launch','skill-impact','skill-line','skill-dot','skill-heal'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}
+  if(!e.heroId&&isTerranEliteId(e.eliteId)&&(['support-impact','strategic-impact','weapon-area','skill-impact'].includes(e.kind)||e.kind==='attack'&&e.unitType==='hellion')){if(e.kind==='attack')this.stats.attack++;return;}
   this.heroBasic.event(e,mount);
   if(e.kind==='attack'&&e.heroId==='yamato_battlecruiser'&&leftMount)this.heroBasic.event(e,leftMount);
   this.sculptures.heroDetail=this.heroQuality;this.heroLayers(e,mount);
@@ -136,9 +150,10 @@ export class BattleEffects {
   for(const e of w.visualEvents){if(e.serial<=this.lastSerial)continue;this.lastSerial=e.serial;const paired=e.unitType==='reaper'||e.heroId==='yamato_battlecruiser';if((visible(e)||visible(e.end))&&w.time-e.time<1.5)this.event(heroFeedbackEvent(e,w.entities),muzzle(e,paired&&e.kind==='attack'?'Right':undefined),paired?muzzle(e,'Left'):null);}
   for(const u of w.entities.values()){if(u.hp<=0||u.flying||!visible(u))continue;const last=this.steps.get(u.id)??u.distanceWalked;if(u.distanceWalked-last>.7){this.stats.movement++;this.steps.set(u.id,u.distanceWalked);this.emit({asset:'fx.impact.1',x:u.x,y:(w.terrain?.height(u)??0)+.13,z:u.z,vx:-u.velocity.x*.12,vy:.2,vz:-u.velocity.z*.12,start:w.time,life:.5,size:u.unitType==='tank'?.8:.3,growth:.7,color:0x77726a,ground:false,angle:u.facing});}else if(!this.steps.has(u.id))this.steps.set(u.id,last);}
   for(const id of this.steps.keys())if(!w.entities.has(id))this.steps.delete(id);
-  this.sculptures.heroDetail=this.heroQuality;this.heroBasic.render(w,visible,this.sculptures.mounts);this.projectiles.renderFlights(w,visible,this.sculptures.mounts,this.heroBasic.flights);this.sculptures.render(w,visible,muzzle);
+  this.sculptures.heroDetail=this.heroQuality;if(!this.confirmedHeroes)this.heroBasic.render(w,visible,this.sculptures.mounts);this.projectiles.renderFlights(w,visible,this.sculptures.mounts,this.heroBasic.flights);this.sculptures.render(this.confirmedHeroes?Object.assign(Object.create(w),{heroCasts:w.heroCasts.filter(c=>!isRevisedHero(c.hero)&&!(this.zergHeroes&&isZergHero(c.hero))&&!(this.protossHeroes&&isProtossHero(c.hero)))}):w,visible,muzzle);
   for(const b of this.batches.values())b.count=0;this.stats.culledByClass=counters();this.stats.projectileCulled=0;
   this.stats.pending=0;
+  if(!this.supportPresentation){
   const support=w.expedition.support,tint=w.expedition.race==='zerg'?0xb4ed67:w.expedition.race==='protoss'?0x86d9ff:0xffc271;
   const glyph=(point:Point,y:number,size:number,asset:string,ground=false,aspect=1)=>{const b=this.batches.get(asset);if(!b||b.count>=CAPACITY||!visible(point))return;object.position.set(point.x,y,point.z);object.scale.set(size*aspect,size,1);if(ground)object.rotation.set(-Math.PI/2,0,w.time*.3);else object.quaternion.copy(camera.quaternion);object.updateMatrix();b.mesh.setMatrixAt(b.count,object.matrix);b.mesh.setColorAt(b.count,color.set(tint));b.data.setXYZ(b.count++,Math.min(b.end,b.start+Math.floor((b.end-b.start)*.35)),1,0);};
   if(w.expedition.race==='protoss')for(const mine of support.mines){const y=(w.terrain?.height(mine.point)??0)+.45;glyph(mine.point,y,.42,'fx.impact.0');for(let i=0;i<3;i++){const a=w.time+i*Math.PI*2/3;glyph({x:mine.point.x+Math.sin(a)*.35,z:mine.point.z+Math.cos(a)*.35},y,.13,'fx.muzzle.1');}}
@@ -160,6 +175,7 @@ export class BattleEffects {
   for(const orb of unique.orbs)glyph(orb.point,(w.terrain?.height(orb.point)??0)+.6,.38,'fx.bile.0');
   for(const id of Object.keys(unique.parasites)){const u=w.entities.get(+id);if(u?.hp)glyph(u,(w.terrain?.height(u)??0)+(u.flying?5.6:.7),.3,'fx.baneling.0');}
   for(const [id,r] of Object.entries(unique.reserves)){const u=w.entities.get(+id);if(!u?.hp||!r.amount)continue;const n=Math.min(5,Math.ceil(r.amount/Math.max(1,(u.maxShield??1)*.06)));for(let i=0;i<n;i++){const a=i*Math.PI*2/n,p={x:u.x+Math.sin(a)*(u.unitRadius+.2),z:u.z+Math.cos(a)*(u.unitRadius+.2)};glyph(p,(w.terrain?.height(u)??0)+(u.flying?5.6:.5),.16,'fx.impact.0');}}
+  }
   let kept=0;for(const p of this.particles){const age=w.time-p.start,t=age/p.life;if(t>=1){this.pool.push(p);continue;}this.particles[kept++]=p;}this.particles.length=kept;this.stats.active=kept;
   for(const priority of ['core','trail','decoration'] as const)for(const p of this.particles){if((p.priority??'decoration')!==priority)continue;const age=w.time-p.start,t=age/p.life;if(t<0||!visible(p))continue;const b=this.batches.get(p.asset)!;if(b.count>=CAPACITY){this.stats.culledByClass[priority]++;continue;}
    object.position.set(p.x+p.vx*age,p.y+p.vy*age,p.z+p.vz*age);const size=p.size*(1+t*p.growth);object.scale.set(size*(p.aspect??1),size,size);

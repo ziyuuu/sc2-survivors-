@@ -1,0 +1,9 @@
+{
+  "key": "adept-atlas-v2",
+  "prompt": "Refine the four lower SC2 Adepts and preserve their four upper empty temple scenes. An Adept is a slender female mouthless Protoss RANGED warrior with a distinctive forearm-mounted curved GLAIVE CASTER (gold mechanical crescent/disk emitter), NOT a Zealot with energy swords. Column 1 ordinary: replace the large melee psi blade with a clearly visible compact golden glaive-caster crescent on one forearm; alert ranged stance. Column 2 piercing elite: keep its focused forward firing pose but show one compact gold-blue psionic glaive, not a huge sword or continuous oversized laser. Column 3 phase elite: retain the moving Adept body, REMOVE all additional humanoid bodies/faces in the afterimages; replace them with abstract purple refraction ribbons and phase fragments. Exactly ONE actual character. Column 4 long-range elite: longer visible caster geometry, aimed posture and one compact ranged glaive trace. Full mature SC2 golden-red armor, elongated no-mouth face, digitigrade feet. All four complete bodies/weapons fit wholly inside their own columns, 10% transparent side gutters, no line dividers or frame; thin FX stay bounded. No extra soldiers, checkerboard or labels.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-7b173347-df29-4a9a-882e-ee15fb57f015.png",
+  "input": "adept-atlas.png",
+  "output": "adept-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

@@ -1,0 +1,9 @@
+{
+  "key": "reaper-atlas-v2",
+  "prompt": "Edit ONLY the SECOND lower Reaper cutout in this newly generated SC2 atlas. It is an ASSAULT REAPER with personal emergency regeneration, not a medic. Restore the same dark gunmetal/black-red worn assault armor as the other Reapers; remove every red medical cross or hospital symbol from this soldier's armor. Show two subtle green personal injection canisters/tubes on its belt/backpack instead. It must retain exactly the jetpack, two pistols and an aggressive running posture, no medical staff or healer device. Preserve the other three complete lower Reapers and all upper empty environments, body separation, dimensions, alpha and rich painted detail. No labels or UI.",
+  "source": "C:\\Users\\zyuu\\.codex\\generated_images\\01a0ff75-6cfc-7be0-b2f6-92489157b232\\exec-25b12218-0a99-48f0-9842-6139f55d62ce.png",
+  "input": "reaper-atlas.png",
+  "output": "reaper-atlas-v2.png",
+  "intent": "edit-newly-generated-art",
+  "privateOriginalReferencesUploaded": false
+}

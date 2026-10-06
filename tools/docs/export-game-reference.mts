@@ -2,8 +2,15 @@ import {TEAM_CARD_VALUES,CARD_RARITIES} from '../../src/simulation/progression/t
 import {PLAYER_REAPER_DAMAGE_BONUS,PLAYER_COMBAT_FACTOR} from '../../src/data/player-unit-adaptations';
 import fs from 'node:fs/promises';
 import {SC2_UNITS,SC2_PROFILE,FASTER} from '../../src/data/sc2-units';
-import {HEROES,HERO_BASIC_ATTACK,ALL_HERO_IDS} from '../../src/data/heroes';
-import {ELITES,ELITE_TEMPLATES} from '../../src/data/elites';
+import {HEROES,ALL_HERO_IDS} from '../../src/data/heroes';
+import {ELITES} from '../../src/data/elites';
+import {TERRAN_ELITE_RULES,TERRAN_ELITE_BODIES,terranEliteGrowth,terranEliteArmor} from '../../src/data/terran-elites';
+import {ZERG_ELITE_RULES} from '../../src/data/zerg-elites';
+import {PROTOSS_ELITE_RULES} from '../../src/data/protoss-elites';
+import {terranHeroGrowth} from '../../src/data/terran-heroes';
+import {HERO_AURA_DESCRIPTIONS} from '../../src/data/hero-upgrades';
+import {ELITE_TEAM_AURAS,HERO_TEAM_AURAS,TEAM_AURA_HELP} from '../../src/data/team-auras';
+import {RUN_SCHEMA} from '../../src/simulation/persistence/run-snapshot';
 import {RACES,RACE_NAMES,FAMILIES_BY_RACE,ALL_FAMILIES,FAMILY_LIMIT,BODY_LIMIT,ORDINARY_RANK_LIMIT,HERO_LIMIT,MVP_RULES,type FamilyId} from '../../src/data/races';
 import {EXPANSION_SOURCE,SOURCE_UNIT_DETAILS,SOURCE_PRODUCTION_RECIPES,SOURCE_UNIT_MODES,SOURCE_UNIT_WEAPON_IDS,sourceWeaponsForUnit,type VerifiedAddedUnitType} from '../../src/data/expansion-units';
 import {CAMPAIGN_SCIENCE_VESSEL,SCIENCE_VESSEL_SOURCE,CAMPAIGN_SCIENCE_VESSEL_RECIPE,SCIENCE_VESSEL_ADAPTATION} from '../../src/data/campaign-science-vessel';
@@ -24,6 +31,7 @@ const resource=(v:{minerals:number;gas:number})=>`${v.minerals}／${v.gas}`;
 const unitRecipe=(id:FamilyId)=>id==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[id]!;
 const unitShield=(id:FamilyId)=>id==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL.maxShields:SOURCE_UNIT_DETAILS[id]!.shields;
 const text:string[]=[];
+const currentElites={...TERRAN_ELITE_RULES,...ZERG_ELITE_RULES,...PROTOSS_ELITE_RULES};
 
 text.push('# 当前游戏数据参考 · 三族18关',
  '本文件由 `npm run docs:data` 从运行配置生成；请修改源码后重新生成。设计规则见 [DESIGN.md](DESIGN.md)，验证状态见 [QA.md](QA.md)。表格是配置参考，不代表全部内容已经通过人工视觉、操作或平衡验收。逐实体最终值还包括培养、科技、天赋、强化与临时状态。',
@@ -37,7 +45,7 @@ text.push('# 当前游戏数据参考 · 三族18关',
  table(['科技球来源文件','SHA-256'],Object.values(SCIENCE_VESSEL_SOURCE.files).map(f=>[f.file,f.sha256])),
  '原模型来源的 CASC 版本为 5.0.16.97563；素材版本不改变上述战斗配置来源。英雄数值、精英能力、建筑报价、天赋、卡牌和战役是本作设计／实验参数。');
 
-text.push('## 玩家战斗统一适配',`所有难度玩家战斗单位（含精英、英雄、所属召唤物）的武器及附加伤害、最大生命、原生护盾、移速、生命/护盾护甲乘 ${PLAYER_COMBAT_FACTOR}，攻击周期除以该因子。工人、建筑、载体和技能/治疗不乘。下方普通来源表未包含这项适配；实际实体以派生值为准。`, '跳虫每名额为一对，共享军衔及精英身份，两身体独立战斗。缺员900固定步后存活者裂变；死亡、培养及换兵按配对账计算。虫后距落地载体6以内注卵，每只45秒冷却、同舱一次、最多两个一级普通名额、零付款、先扣除预付款占位。');
+text.push('## 玩家战斗统一适配',`普通和精英玩家战斗单位及其适用子体的武器及附加伤害、最大生命、原生护盾、移速、生命/护盾护甲乘 ${PLAYER_COMBAT_FACTOR}，攻击周期除以该因子。工人、建筑、载体和技能/治疗不乘。P3已批准的18名英雄使用下列独立显式机体，普攻和机体不再重复乘该因子或旧1.15普攻适配；旗舰子机使用独立250/.4秒机枪。下方普通来源表未包含这项适配；实际实体以派生值为准。`, '跳虫每名额为一对，共享军衔及精英身份，两身体独立战斗。缺员900固定步后存活者裂变；死亡、培养及换兵按配对账计算。虫后距落地载体6以内注卵，每只45秒冷却、同舱一次、最多两个一级普通名额、零付款、先扣除预付款占位。');
 text.push('## 新规则：30个普通家族',
  '以下为一级基础身体和默认主武器。雷神、虫后等多武器、变形与范围模式另见后表；科技球及医疗艇没有普通攻击，航母伤害由所属截击机结算。菌毯修正、护盾和恢复不合并成生命。');
 for(const race of RACES)text.push('### '+RACE_NAMES[race],table(['ID','兵种','HP／护盾','生命护甲','移速','单发 × 发数','周期秒','射程','默认目标','属性'],FAMILIES_BY_RACE[race].map(id=>{
@@ -57,7 +65,7 @@ text.push('### 护盾、能量与固有恢复',table(['家族','护盾护甲','�
  '虫族默认满足菌毯条件，只将其实际拥有的菌毯效果应用一次。医修按实际恢复的生命耗能：医疗艇对生物全效／机械三分之一；科技球对机械全效／生物三分之一。降低跨类型恢复速率不再额外增加每点生命能耗。',
  `科技球本作适配：${JSON.stringify(SCIENCE_VESSEL_ADAPTATION)}。主动侦测为三族开局共有能力，不借科技球的战役被动侦测扩大首版能力范围。`);
 text.push('### 多武器与变形武器',table(['家族／模式','原武器ID','单发 × 发数','周期秒','最小／最大射程','目标','属性额外伤害','护盾额外伤害'],(Object.keys(SOURCE_UNIT_WEAPON_IDS) as VerifiedAddedUnitType[]).flatMap(id=>sourceWeaponsForUnit(id).map(w=>[name(id),w.weaponId,`${w.attackDamage} × ${w.attacks}`,n(w.attackPeriod),`${w.minimumRange}／${w.attackRange}`,w.targetType,w.bonusDamage.map(b=>`${b.attribute}＋${b.amount}`).join('、')||'—',w.shieldBonus])).concat(Object.entries(SOURCE_UNIT_MODES).flatMap(([mode,m])=>[m.weapon].map(w=>[mode,w.weaponId,`${w.attackDamage} × ${w.attacks}`,n(w.attackPeriod),`${w.minimumRange}／${w.attackRange}`,w.targetType,w.bonusDamage.map(b=>`${b.attribute}＋${b.amount}`).join('、')||'—',w.shieldBonus])))),
- '范围伤害、异龙弹射、潜伏者线形穿刺、巨像双束与虚空基础反甲分别读取 `SOURCE_WEAPON_PATTERNS`。本表不是把每行武器同时对同一目标结算。异龙三跳独立读取9／3／1基值与每级1／0.333／0.111增量；爆虫对建筑读取独立80基值与每级5增量。射弹旅行沿用本工程即时命中适配：例如雷神四发仍在一次攻击结算，原发射间隔仅作为来源数据保留，不能据此声称完全复刻SC2弹道。坦克旧架炮配置见 `SIEGE`；变形共享身体、生命、能量、培养及武器冷却。');
+ '范围伤害、异龙弹射、潜伏者线形穿刺、巨像双束与虚空基础反甲分别读取 `SOURCE_WEAPON_PATTERNS`。本表不是把每行武器同时对同一目标结算。异龙三跳独立读取9／3／1基值与每级1／0.333／0.111增量；爆虫对建筑读取独立80基值与每级5增量。来源武器表不代替实际结算：普通、精英和英雄按各自执行器使用实时命中、真实飞行或延迟包；已批准的多发、穿透、二次效果与持久化时钟分别执行，不能据此声称完全复刻SC2弹道。坦克旧架炮配置见 `SIEGE`；变形共享身体、生命、能量、培养及武器冷却。');
 
 text.push('### 来源科技增量',`以下武器与特色研究增量来自同一 ${SOURCE_UPGRADE_PROFILE.version} 固定导出。按实际攻击效果选择科技，维京的两种模式均属于航空升级。`,
  table(['原伤害效果ID','本作科技ID','一级／二级／三级每次升级增量：基础伤害；属性加成'],Object.entries(SOURCE_WEAPON_UPGRADE_STEPS).map(([id,u])=>[id,u.upgradeKey,u.perLevel.map(step=>`${step.damage}；${Object.entries(step.bonusDamage).map(([a,n])=>a+'＋'+n).join('、')||'无'}`).join('／')])),
@@ -90,16 +98,25 @@ text.push('## 新规则：三件付费商品与Build卡组',
 
 text.push(`## 新规则：${ALL_HERO_IDS.length}名英雄`,
  '各族六选三身份，阵亡仍占身份名额。招募顺序绑定技能槽1／2／3；等级1—5，同名卡升级但不复活。新增技能数值是本作实验参数，不能据原模型名称声称为原版技能。',
- table(['ID','种族','英雄','HP／护盾','生命护甲','单发 × 发数','周期秒','射程／移速','普攻目标','属性','先天隐形'],ALL_HERO_IDS.map(id=>{const h=HEROES[id];return [id,RACE_NAMES[h.race],h.name,`${h.hp}／${h.shield}`,h.armor,`${n(h.damage*HERO_BASIC_ATTACK.damage)} × ${h.attacks}`,n(h.period/HERO_BASIC_ATTACK.frequency),`${h.range}／${h.speed}`,h.target,list(h.attributes),h.innateCloak?'是':'否'];})),
+ table(['ID','种族','英雄','HP／护盾','生命护甲','单发 × 发数','周期秒','射程／移速','普攻目标','属性','先天隐形'],ALL_HERO_IDS.map(id=>{const h=HEROES[id];return [id,RACE_NAMES[h.race],h.name,`${h.hp}／${h.shield}`,h.armor,`${n(h.damage)} × ${h.attacks}`,n(h.period),`${h.range}／${h.speed}`,h.target,list(h.attributes),h.innateCloak?'是':'否'];})),
  table(['英雄','主动技能','一级基础量','范围参数：射程／半径／长度／宽度','前摇或首个结算延迟秒','冷却秒','模型ID'],ALL_HERO_IDS.map(id=>{const h=HEROES[id];return [h.name,h.skill,h.skillDamage,`${h.skillRange}／${h.radius}／${h.length}／${h.width}`,h.delay,h.cooldown,h.model];})),
- '“一级基础量”依技能分别指单次伤害、每次治疗或每目标回盾，控制技能可为0；弹幕次数、持续伤害、合法目标及控制时长由技能执行器定义，不能将该列直接当作技能总伤害。伤害／治疗／回盾量每级增加25%，范围、冷却及控制不成长。复活价格250矿／100气×[1＋0.25×(等级−1)]，下一关部署且技能从完整冷却开始。');
+ '“一级基础量”依技能分别指单次伤害、每次治疗或每目标回盾，控制技能可为0；弹幕次数、持续伤害、合法目标及控制时长由技能执行器定义，不能将该列直接当作技能总伤害。18英雄固定成长见下表；技能伤害基数按skill/9200缩放。治疗、回盾、复生次数、控制和被动分别读取专属规则，不将它们错误地统一写为每级25%。复活价格250矿／100气×[1＋0.25×(等级−1)]，下一关部署且技能从完整冷却开始。');
 
-text.push(`## 新规则：${Object.keys(ELITES).length}款唯一精英`,
- '每个家族同时最多一个精英身份，占一个普通名额；精英跳虫为一对两只身体；同局锁定一种变体。多变体家族不会获得更高抽中概率。下列新增专属效果只应用一次，不随精英等级额外重复相乘。',
- table(['ID','名称','家族','模板','专属能力','新效果配置','模型ID'],Object.values(ELITES).map(e=>[e.id,e.name,name(e.family),e.template,e.id==='medivac.3'?'恢复输出＋25%，主系／跨系比例保持1与1/3。':e.description,e.effect?`${e.effect.stat}：${e.effect.amount}`:'由既有精英规则执行',e.model])),
- '医疗艇维修变体在当前规则改为恢复输出＋25%。皮肤来源和能力是两个维度，不能据皮肤声称对应原版技能。',
- table(['模板','输出倍率','攻速倍率','HP倍率','移速倍率','额外护甲','每级输出增量','每级攻速增量','每级HP增量'],Object.entries(ELITE_TEMPLATES).map(([id,t])=>[id,t.output,t.as,t.hp,t.move,t.armor,t.dpsStep,t.asStep,t.hpStep])),
- '模板相对于普通五级基准，具体比例由 `eliteStats()` 计算。精英永久死亡后重招从一级开始，沿用本局已锁定路径。');
+text.push('### 英雄I–V固定成长及光环',
+ table(['军衔','生命／原生盾倍率','单击倍率','周期倍率','额外生命护甲','被动量倍率','技能伤害基准'],[1,2,3,4,5].map(rank=>{const g=terranHeroGrowth(rank);return [rank,g.health,n(g.damage),g.period,g.armor,g.passive,g.skill];})),
+ '三族18英雄采用相同固定成长曲线；基础量来自前表，不合并光环、科技、卡牌和独立护障。原有雷诺家族号令、扎加拉攻速/移动、利维坦近场生命以及实际治疗/回盾被动继续执行；阿塔尼斯原30%保护被40%替换一次。',
+ table(['英雄','现行足下光环规则'],ALL_HERO_IDS.map(id=>[HEROES[id].name,HERO_AURA_DESCRIPTIONS[id]])),
+ '游戏中显示足下效果，隐藏光环文字；此参考文档保留数值。身份相同取最强，不同英雄合格属性可相加；精英共享池取最强。永久身体、范围、来源存活、可见性、原生盾与生物/机械资格分别核对，真实子体只经母体继承一次；池变化保持伤损比例。',
+ table(['两族英雄配置ID','当前队伍配置（执行器还实施资格、时钟与实际生命上限）'],Object.entries(HERO_TEAM_AURAS).map(([id,v])=>[id,JSON.stringify(v)])));
+
+text.push(`## 当前规则：${Object.keys(currentElites).length}款唯一精英`,
+ '每个家族同时最多一个精英身份，占一个普通名额；精英跳虫为一对两只身体；同局锁定一种变体。90项已使用显式P4规则，旧ELITE_TEMPLATES和旧显示描述不再代表当前机体。参数JSON来自运行源码，原设计JSON从不作为运行导入。',
+ table(['ID','名称','家族','机体','核心机制与当前队伍覆盖','机体/专属基础参数','模型ID'],Object.entries(currentElites).map(([id,e])=>[id,e.name,name(ELITES[id as keyof typeof ELITES].family),e.body,e.description+(Object.hasOwn(TEAM_AURA_HELP,id)?' 当前队伍项覆盖：'+TEAM_AURA_HELP[id as keyof typeof TEAM_AURA_HELP]:''),JSON.stringify(e.parameters),ELITES[id as keyof typeof ELITES].model])),
+ table(['机体','相对普通V生命','相对普通V输出','额外护甲I','移速倍率','治疗倍率'],Object.entries(TERRAN_ELITE_BODIES).map(([id,b])=>[id,b.hp,b.dps,b.armor,b.move,b.heal])),
+ table(['军衔','输出／治疗成长','生命成长','额外护甲成长','能量倍率'],[1,2,3,4,5].map(rank=>{const g=terranEliteGrowth('marine.1',rank),i=terranEliteGrowth('marine.1',1);return [rank,n(g.damage/i.damage),n(g.health/i.health),n(terranEliteArmor('marine.1',rank)-terranEliteArmor('marine.1',1)),g.energy];})),
+ 'I级机体以普通V为基准；以上成长仅描述机体层。专属包、周期、付费子机、有限治疗、技能护障、存储伤害与队伍增益由实际执行器结算一次。精英永久死亡后重招从一级开始，沿用本局已锁定路径。皮肤来源和能力是两个维度，不能据皮肤声称对应原版技能。',
+ table(['两族精英配置ID','当前队伍配置'],Object.entries(ELITE_TEAM_AURAS).map(([id,v])=>[id,JSON.stringify(v)])),
+ '虫后输血为有限六秒生命恢复/吸取；入圈护障固定原始额度与冷却；斯托科夫瘟疫冻结入圈最大生命并等待一秒首跳。Boss抑制与硬控免疫按各机制独立执行。');
 
 text.push(`## 当前规则：${MVP_TALENTS.length}个天赋节点`,
  `每族资源管理、强化士兵、军队管控各16节点／41可购级，微操7节点／17可购级；四线共用${TALENT_POINT_CAP}点玩家等级。每买一级只占1点，资源依层收费。主线第1—7层每级依次${MAIN_TIER_COSTS.join('／')}资源；微操依次${MICRO_TIER_COSTS.join('／')}资源。主线满额41点／59资源，微操满额17点／64资源。`,
@@ -121,8 +138,8 @@ text.push('第18关主巢全程可攻击、阶段切换不回血；提前摧毁�
  '普通／简单每3关获得1永久资源，困难每3关2资源，地狱每关1资源；完整18关分别6／12／18。无尽每完整60秒战斗按普通／简单1、困难／地狱2资源结算，未新增20分钟领取上限。无尽保留本局资产，每60秒结算300矿／250气并购物，每4轮先发展；四分钟混合波次与经济事件切分为四个窗口，特殊敌人计时连续。');
 
 text.push('## 版本边界',
- '当前新局只运行 mvp-1.0 的三族18关、165节点和单套关间经济。M1空天赋档可规范化迁移；旧开发战局不续跑，只能导出原件并一次性核算已证实的永久资源。历史价格表仅供该只读导入核算，不参与当前游戏运行。',
+ `当前战局schema${RUN_SCHEMA}，永久档案v5。当前新局只运行 mvp-1.0 的三族18关、165节点和单套关间经济。M1空天赋档可规范化迁移；旧开发战局不续跑，只能导出原件并一次性核算已证实的永久资源。历史价格表仅供该只读导入核算，不参与当前游戏运行。`,
  '## 核对命令','```sh\nnpm run docs:data\nnpm run docs:check\nnode tools/build-expansion-unit-data.mjs --check\nnode tools/build-campaign-science-vessel.mjs --check\n```');
 const output=text.join('\n\n')+'\n',path=new URL('../../docs/GAME_DATA_REFERENCE.md',import.meta.url);
-if(process.argv.includes('--check')){if(await fs.readFile(path,'utf8')!==output)throw Error('数据参考过期，请运行 npm run docs:data');console.log('Game reference matches runtime data.');}
+if(process.argv.includes('--check')){if((await fs.readFile(path,'utf8')).replace(/\r\n/g,'\n')!==output)throw Error('数据参考过期，请运行 npm run docs:data');console.log('Game reference matches runtime data.');}
 else {await fs.writeFile(path,output);console.log(`Generated runtime reference: ${ALL_FAMILIES.length} units, ${ALL_HERO_IDS.length} heroes, ${Object.keys(ELITES).length} elites, ${MVP_TALENTS.length} current talents, ${CAMPAIGN18_STAGES.length} stages.`);}

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "fx.p4.medivacbeam",
+    "name": "p4_medivacbeam",
+    "assetPath": "Assets/Effects/Terran/MedivacBeam/MedivacBeam.m3"
+  },
+  {
+    "id": "fx.p4.medicheal",
+    "name": "p4_medicheal",
+    "assetPath": "Assets/Effects/Terran/MedicHeal/MedicHeal.m3"
+  },
+  {
+    "id": "fx.p4.repairbeam",
+    "name": "p4_repairbeam",
+    "assetPath": "Assets/Effects/Terran/NanoRepairBeam/NanoRepairBeam.m3"
+  },
+  {
+    "id": "fx.p4.repairimpact",
+    "name": "p4_repairimpact",
+    "assetPath": "Assets/Effects/Terran/NanoRepairBeamImpact/NanoRepairBeamImpact.m3"
+  }
+]

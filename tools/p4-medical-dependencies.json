@@ -1,0 +1,192 @@
+[
+  {
+    "cachedFile": "assets/private/m3/p4_medivacbeam.m3",
+    "id": "fx.p4.medivacbeam",
+    "sha256": "71fa04fe9f709f97e052fd4c751cedd4a8dfd6758ccc17c4d5145c92ae40c4d9",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/MedivacBeam/MedivacBeam.m3",
+    "installFile": "assets/private/m3/p4_medivacbeam.m3",
+    "version": "5.0.16.97563",
+    "bytes": 21632,
+    "verifiedCascBuild": true
+  },
+  {
+    "cachedFile": "assets/private/m3/p4_medicheal.m3",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/MedicHeal/MedicHeal.m3",
+    "installFile": "assets/private/m3/p4_medicheal.m3",
+    "id": "fx.p4.medicheal",
+    "version": "5.0.16.97563",
+    "sha256": "02d0d09b75285922990c4781fbbef924edd04844c7ee21baa7945c2f954bf88f",
+    "bytes": 17088,
+    "verifiedCascBuild": true
+  },
+  {
+    "cachedFile": "assets/private/m3/p4_repairbeam.m3",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/NanoRepairBeam/NanoRepairBeam.m3",
+    "installFile": "assets/private/m3/p4_repairbeam.m3",
+    "id": "fx.p4.repairbeam",
+    "version": "5.0.16.97563",
+    "sha256": "0ad653ffbbca8e4dfe8ce0e13795e214ed205146d29b42e9ab446268ac335621",
+    "bytes": 21600,
+    "verifiedCascBuild": true
+  },
+  {
+    "cachedFile": "assets/private/m3/p4_repairimpact.m3",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/NanoRepairBeamImpact/NanoRepairBeamImpact.m3",
+    "installFile": "assets/private/m3/p4_repairimpact.m3",
+    "id": "fx.p4.repairimpact",
+    "version": "5.0.16.97563",
+    "sha256": "0b79b934190b84bd0ce4a7ac36d4610632a1ef4b91a5794ad9119b4ea06c6014",
+    "bytes": 17088,
+    "verifiedCascBuild": true
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/flare2.dds",
+    "installFile": "assets/private/dds/flare2.dds",
+    "cachedFile": "assets/private/dds/flare2.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.flare2.dds",
+    "sha256": "1f4d1069e16fb7934cd7debab321c13dc894127a5db3ef69bfe3015b8a6c69db",
+    "bytes": 87536
+  },
+  {
+    "cachedFile": "assets/private/dds/beamgrad2.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/beamgrad2.dds",
+    "installFile": "assets/private/dds/beamgrad2.dds",
+    "id": "texture.beamgrad2.dds",
+    "version": "5.0.16.97563",
+    "sha256": "5aa1375fc51827fa073af0e63ea78cb9fceb6a0d7b3d4b3c922c77fd7b73b387",
+    "bytes": 22032,
+    "verifiedCascBuild": true
+  },
+  {
+    "cachedFile": "assets/private/dds/hololines_blue.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/hololines_blue.dds",
+    "installFile": "assets/private/dds/hololines_blue.dds",
+    "id": "texture.hololines_blue.dds",
+    "version": "5.0.16.97563",
+    "sha256": "33315ff10aae045a69f3e76b8a0eab6eb4dcdcee22b42db6410bc555854cfbd3",
+    "bytes": 21992,
+    "verifiedCascBuild": true
+  },
+  {
+    "cachedFile": "assets/private/dds/med2.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/med2.dds",
+    "installFile": "assets/private/dds/med2.dds",
+    "id": "texture.med2.dds",
+    "version": "5.0.16.97563",
+    "sha256": "f43c5706d2e4eec8892ce5ae45bd8265cefa69a00ba5ccc6f4cb63ca022e7c67",
+    "bytes": 22000,
+    "verifiedCascBuild": true
+  },
+  {
+    "cachedFile": "assets/private/dds/flare2_green.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/flare2_green.dds",
+    "installFile": "assets/private/dds/flare2_green.dds",
+    "id": "texture.flare2_green.dds",
+    "version": "5.0.16.97563",
+    "sha256": "0ae104c50f77362dc736435abee5ed19e5715bb9b049b45a243f8ea807df9769",
+    "bytes": 43832,
+    "verifiedCascBuild": true
+  },
+  {
+    "cachedFile": "assets/private/dds/gears1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gears1.dds",
+    "installFile": "assets/private/dds/gears1.dds",
+    "id": "texture.gears1.dds",
+    "version": "5.0.16.97563",
+    "sha256": "f40985571fc474751a1766f6dd7defe2ddf90f9a796e952d848b71ae1bab9072",
+    "bytes": 22000,
+    "verifiedCascBuild": true
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/glow_blue2.dds",
+    "installFile": "assets/private/dds/glow_blue2.dds",
+    "cachedFile": "assets/private/dds/glow_blue2.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.glow_blue2.dds",
+    "sha256": "ba7147bd72d5f20c35d16979bc110806c1b0d9c6219286a06981f163a07b6119",
+    "bytes": 22000
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-terran-marauder.dds",
+    "installFile": "assets/private/dds/btn-unit-terran-marauder.dds",
+    "cachedFile": "assets/private/dds/btn-unit-terran-marauder.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.btn-unit-terran-marauder.dds",
+    "sha256": "8581f9c929230b0a10437995ac3d4e1801ef7cc6a9f92027a3f0ceb56010b50a",
+    "bytes": 5904
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-zerg-hydralisk.dds",
+    "installFile": "assets/private/dds/btn-unit-zerg-hydralisk.dds",
+    "cachedFile": "assets/private/dds/btn-unit-zerg-hydralisk.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.btn-unit-zerg-hydralisk.dds",
+    "sha256": "b3c98dffe5c480137feec48a90ea24ec6b4c7fca91d425bb7df7c83aa77b7f7f",
+    "bytes": 5904
+  },
+  {
+    "bytes": 5904,
+    "cachedFile": "assets/private/dds/btn-unit-terran-marineraynorhev.dds",
+    "verifiedCascBuild": true,
+    "id": "texture.btn-unit-terran-marineraynorhev.dds",
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/btn-unit-terran-marineraynorhev.dds",
+    "sha256": "f6fee76037ea8ef85b1ef02b1323a17e84489fd2d221847a1569dd17beeae1f5",
+    "installFile": "assets/private/dds/btn-unit-terran-marineraynorhev.dds",
+    "version": "5.0.16.97563"
+  },
+  {
+    "bytes": 5904,
+    "cachedFile": "assets/private/dds/btn-unit-terran-marinetychus.dds",
+    "verifiedCascBuild": true,
+    "id": "texture.btn-unit-terran-marinetychus.dds",
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/btn-unit-terran-marinetychus.dds",
+    "sha256": "6f077badf980b7a0e5787a5d5b409291a72169b7e953c16da9c839be0749c3b1",
+    "installFile": "assets/private/dds/btn-unit-terran-marinetychus.dds",
+    "version": "5.0.16.97563"
+  },
+  {
+    "bytes": 5904,
+    "cachedFile": "assets/private/dds/btn-unit-terran-nova.dds",
+    "verifiedCascBuild": true,
+    "id": "texture.btn-unit-terran-nova.dds",
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/btn-unit-terran-nova.dds",
+    "sha256": "661481e64a7052d69abcad43377905d89c27a9a63cfccf6ecaba34df9bb62d7b",
+    "installFile": "assets/private/dds/btn-unit-terran-nova.dds",
+    "version": "5.0.16.97563"
+  },
+  {
+    "sha256": "78c848aea2e6e5587fbcdc8601ccb31cd171db569024d4e766840bc560a9226e",
+    "cachedFile": "assets/private/dds/btn-ability-terran-penetratorround.dds",
+    "bytes": 5904,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-ability-terran-penetratorround.dds",
+    "id": "texture.btn-ability-terran-penetratorround.dds",
+    "installFile": "assets/private/dds/btn-ability-terran-penetratorround.dds"
+  },
+  {
+    "sha256": "77e033b7e939a2ed1ade828bfa93f269557c4c215eb9151b672b0ab99408cc1c",
+    "cachedFile": "assets/private/dds/btn-ability-terran-punishergrenade-color.dds",
+    "bytes": 5904,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-ability-terran-punishergrenade-color.dds",
+    "id": "texture.btn-ability-terran-punishergrenade-color.dds",
+    "installFile": "assets/private/dds/btn-ability-terran-punishergrenade-color.dds"
+  },
+  {
+    "sha256": "44c53acad8ba4f9c19e7beb73203c9f316df003a7f139e547f09cedf5620aeea",
+    "cachedFile": "assets/private/dds/btn-ability-terran-snipe-color.dds",
+    "bytes": 5904,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-ability-terran-snipe-color.dds",
+    "id": "texture.btn-ability-terran-snipe-color.dds",
+    "installFile": "assets/private/dds/btn-ability-terran-snipe-color.dds"
+  }
+]

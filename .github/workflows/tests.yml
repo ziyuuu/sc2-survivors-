@@ -1,24 +1,28 @@
 name: Simulation and web build
 on:
   push:
-    branches: ['v3/**']
+    branches: ['main', 'codex/**', 'v3/**']
   pull_request:
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Fetch the current runtime assets
+        run: git lfs pull --include="deploy/runtime/assets/**" --exclude=""
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
       - run: npm ci --ignore-scripts
+      - run: npm run assets:restore
       - run: npm test
-      - run: npm run assets:prepare
       - run: npm run typecheck
+      - run: npm run docs:check
       # CI checks source compilation without uploading or redistributing game assets.
       # Full friend-demo packaging intentionally requires all mandatory local assets.
       - run: npx vite build
