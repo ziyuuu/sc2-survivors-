@@ -28,8 +28,8 @@ export async function readTerrainPixels(url:string){
   gl.deleteTexture(texture);gl.deleteProgram(program);for(const shader of shaders)gl.deleteShader(shader);gl.getExtension('WEBGL_lose_context')?.loseContext();bitmap.close();canvas.width=canvas.height=1;
  }
 }
-export async function campaignTerrainArray(url:string){
+export async function campaignTerrainArray(url:string,linear=false){
  const decoded=await readTerrainPixels(url),{pixels,side}=splitTerrainLayers(decoded.pixels,decoded.width,decoded.height);
- const texture=new THREE.DataArrayTexture(pixels,side,side,8);texture.colorSpace=THREE.SRGBColorSpace;
+ const texture=new THREE.DataArrayTexture(pixels,side,side,8);texture.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;
  texture.wrapS=texture.wrapT=THREE.RepeatWrapping;texture.minFilter=THREE.LinearMipmapLinearFilter;texture.magFilter=THREE.LinearFilter;texture.generateMipmaps=true;texture.anisotropy=8;texture.needsUpdate=true;return texture;
 }

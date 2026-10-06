@@ -2,7 +2,7 @@
 
 基于 Three.js、TypeScript、Vite 的单人小队动作生存游戏。控制方向与技能，小队自动索敌、移动和交战。
 
-2026-10-06 当前版本：30个普通家族、90款显式精英、18名英雄、24张种族趣味卡、五张地图、18关战役和平地无尽。新局随机选择工业遗址、玛萨拉荒漠、查尔焦土、冰封哨站或边境矿场，均为160×160、从中心出发；读档保留原地图。采用 **schema25／永久档案v6**，不兼容或迁移旧存档。现行战斗数值、技能、模型和资源保留；本轮范围与验证见[清理及五地图记录](docs/project/CLEANUP_FIVE_MAPS_20261006.md)，此前规则精简见[规则清理记录](docs/project/CURRENT_LOGIC_CLEANUP_20261006.md)。P6自然性能和强光遮蔽问题仍开放，Coze尚未部署，人工视觉、实体设备和完整M6/M7未因此验收。
+2026-10-06 当前版本：30个普通家族、90款显式精英、18名英雄、24张种族趣味卡、五张地图、18关战役和平地无尽。新局随机选择工业遗址、玛萨拉荒漠、查尔焦土、冰封哨站或边境矿场，均为160×160、从中心出发；读档保留原地图。采用 **schema26／永久档案v6**，不兼容或迁移旧存档。现行战斗数值、技能、模型和资源保留；本轮新增原版地表混合、真实缓坡、非对称场景组与积雪／裂纹等环境细节，范围与验证见[五地图补强](docs/project/MAP_VISUAL_POLISH_20261006.md)；前轮见[清理及五地图记录](docs/project/CLEANUP_FIVE_MAPS_20261006.md)，此前规则精简见[规则清理记录](docs/project/CURRENT_LOGIC_CLEANUP_20261006.md)。P6自然性能和强光遮蔽问题仍开放，Coze尚未部署，人工视觉、实体设备和完整M6/M7未因此验收。
 
 下述P2/P3-A记录是历史阶段快照；当前十八英雄、九十精英及团队光环以[P4-C记录](docs/project/NEXT_ITERATION_P4C_VALIDATION_20261005.md)、[P4收尾](docs/project/NEXT_ITERATION_P4DE_VALIDATION_20261006.md)和[P5记录](docs/project/NEXT_ITERATION_P5_VALIDATION_20261006.md)为准。
 
@@ -14,9 +14,9 @@ P3-A首批六名人族英雄曾接入机体、I–V成长、被动、主动和�
 
 ## Coze / Web 部署
 
-当前应用使用[当前增量交接](docs/project/CURRENT_COZE_HANDOFF_20261006.md)与 `dist/Five-Maps-Coze-Application-20261006.zip`。相对P6新增资源为0；相对已记录的Coze旧版，资源差额仍为26个文件、2153541字节，保存在 `dist/Current-Coze-Resources-From-Live-20261006.zip`。必须验证全部557个目标文件和锁定生产依赖后再切应用，保留原项目、域名、环境和资源。后台默认关闭，启用要求真实生产数据库与部署方配置，见[P5交接](docs/project/P5_BACKEND_HANDOFF_20261006.md)。
+当前应用使用[当前增量交接](docs/project/CURRENT_COZE_HANDOFF_20261006.md)与 `dist/Map-Polish-Coze-Application-20261006.zip`。相对P6新增17个原版场景模型、2234026字节；相对已记录的Coze旧版，资源差额为43个文件、4387567字节，保存在 `dist/Current-Coze-Resources-From-Live-20261006.zip`。必须验证全部574个目标文件和锁定生产依赖后再切应用，保留原项目、域名、环境和资源。后台默认关闭，启用要求真实生产数据库与部署方配置，见[P5交接](docs/project/P5_BACKEND_HANDOFF_20261006.md)。
 
-Git 当前交付为 schema25 源码和同一份五地图应用：`deploy/coze` 含锁定依赖和完整后台程序，`deploy/runtime` 保存校验过的 LFS 运行资源。先前 schema23 基线见[历史基线说明](docs/project/GIT_BASELINE_20261006.md)。Coze 仍保持原部署；数据库、凭据、缓存和本机 QA 输出不提交。
+Git 当前交付为 schema26 源码和同一份五地图应用：`deploy/coze` 含锁定依赖和完整后台程序，`deploy/runtime` 保存校验过的 LFS 运行资源。先前 schema23 基线见[历史基线说明](docs/project/GIT_BASELINE_20261006.md)。Coze 仍保持原部署；数据库、凭据、缓存和本机 QA 输出不提交。
 
 ## 开始试玩
 
@@ -48,7 +48,7 @@ npm run docs:check
 npm run build
 ```
 
-`npm run build`生成当前完整离线HTML；`npm run build:web`生成分文件Web发行。文件大小、SHA-256和实际测试以[当前验证](docs/project/CLEANUP_FIVE_MAPS_20261006.md)为准，历史[STATUS.json](reports/STATUS.json)仅保留过去记录。离线包无损还原全部内嵌原资源，不依赖在线解码器，不含修改状态的开发 API。
+`npm run build`生成当前完整离线HTML；`npm run build:web`生成分文件Web发行。文件大小、SHA-256和实际测试以[当前验证](docs/project/MAP_VISUAL_POLISH_20261006.md)为准，历史[STATUS.json](reports/STATUS.json)仅保留过去记录。离线包无损还原全部内嵌原资源，不依赖在线解码器，不含修改状态的开发 API。
 
 ```sh
 npm run test:save
@@ -86,7 +86,7 @@ npm run docs:data
 - 虫后可自动给落地普通增援注卵，最多两名额、每舱一次、45秒独立冷却；不占输血能量。
 - 战役胜利后选择撤离或整备进入独立`endless-flat-v1`；原版SC地堡和维修设施，240秒一轮，每四轮一次发展，之后购物。
 - 三族共165个天赋节点定义，每族四线独立80级、分层资源价格、免费全额洗点，开局冻结本局方案。
-- 当前战局与永久档案原子保存，两份备份；暂停、关间和加载不推进，读档不回血或补跑离线时间。仅接受schema24／永久档案v6，旧开发版本直接拒绝。
+- 当前战局与永久档案原子保存，两份备份；暂停、关间和加载不推进，读档不回血或补跑离线时间。仅接受schema26／永久档案v6，旧开发版本直接拒绝。
 
 ## 文档入口
 

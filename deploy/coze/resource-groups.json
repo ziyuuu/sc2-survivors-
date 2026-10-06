@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "release": "8080b97112f3af93b5d3ddfeadc5f3d7f89c3892c344cfc8c8903a1ca799c9eb",
+  "release": "2f3a6406dc45752c6aaab48a66e47dabfb13bf66ae74d4914cac3b0b1d1c5cd8",
   "groups": [
     "common",
     "terran",
@@ -75,6 +75,19 @@
         "tech.heal"
       ],
       "gitPath": "deploy/runtime/assets/03c3f49f9eb47c56d11c15f3cac60c6aed39218c38d4a072ad2dee4b17fd6179.png"
+    },
+    {
+      "url": "assets/0461969b585343a1e1a63840b7a53a7a31842771a32edcbeb70c319219f04106.gltf",
+      "bytes": 213319,
+      "sha256": "0461969b585343a1e1a63840b7a53a7a31842771a32edcbeb70c319219f04106",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.cargotruck_00"
+      ],
+      "gitPath": "deploy/runtime/assets/0461969b585343a1e1a63840b7a53a7a31842771a32edcbeb70c319219f04106.gltf"
     },
     {
       "url": "assets/050929f94f9e8589dae738c0d5b78d66f658e4794212376e727fdb516ae95b5d.glb",
@@ -1033,6 +1046,19 @@
       "gitPath": "deploy/runtime/assets/21c1a276f49b6521a7bca7bb1cf5b6120f6d2697d04073a394eeb26a7f749a3c.webp"
     },
     {
+      "url": "assets/220abc1e2bb8c0909ae54bd2422ef6710b380bd243411660589b59997bb8ff22.gltf",
+      "bytes": 145750,
+      "sha256": "220abc1e2bb8c0909ae54bd2422ef6710b380bd243411660589b59997bb8ff22",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.crystalslow_00"
+      ],
+      "gitPath": "deploy/runtime/assets/220abc1e2bb8c0909ae54bd2422ef6710b380bd243411660589b59997bb8ff22.gltf"
+    },
+    {
       "url": "assets/22465f4a53ac3fcc9cfd5a248d39a1a75aa8835240594680028fcb9481e6d55d.png",
       "bytes": 8246,
       "sha256": "22465f4a53ac3fcc9cfd5a248d39a1a75aa8835240594680028fcb9481e6d55d",
@@ -1174,6 +1200,19 @@
         "model.interceptor.death"
       ],
       "gitPath": "deploy/runtime/assets/24c99f62a7d221fc336abf0e5454dd90d2bfb315cd21cf24627e55a706b6641f.glb"
+    },
+    {
+      "url": "assets/24cb17d8408995a728c251fb54c557eef467789e88307e5b37c5985351179053.gltf",
+      "bytes": 12680,
+      "sha256": "24cb17d8408995a728c251fb54c557eef467789e88307e5b37c5985351179053",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.marsaratreedead_01"
+      ],
+      "gitPath": "deploy/runtime/assets/24cb17d8408995a728c251fb54c557eef467789e88307e5b37c5985351179053.gltf"
     },
     {
       "url": "assets/24e07540c74ca8fdf5f8eafddd8fa70cc3bc538155f53801867cfd2c40a44f7a.glb",
@@ -1448,6 +1487,32 @@
         "map.image.7911a68de29dc4286725882254ae460d8e152aaed855874004e2e1c8b7cd809c"
       ],
       "gitPath": "deploy/runtime/assets/2c42897e086f7d962be2d69b83b7bd57ae4ca74b564b2baa91ed7ef7b997063c.webp"
+    },
+    {
+      "url": "assets/2d03edc85f7f2799d8fb2c38af928f67d5662dad10ada5673da1313b4baf013b.gltf",
+      "bytes": 392013,
+      "sha256": "2d03edc85f7f2799d8fb2c38af928f67d5662dad10ada5673da1313b4baf013b",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.mineralcart_00"
+      ],
+      "gitPath": "deploy/runtime/assets/2d03edc85f7f2799d8fb2c38af928f67d5662dad10ada5673da1313b4baf013b.gltf"
+    },
+    {
+      "url": "assets/2d776d473b2dc13b19048967af641062fd395a73257f7536b1a5ab84b283b4c0.gltf",
+      "bytes": 96457,
+      "sha256": "2d776d473b2dc13b19048967af641062fd395a73257f7536b1a5ab84b283b4c0",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.halfstructureplates_00"
+      ],
+      "gitPath": "deploy/runtime/assets/2d776d473b2dc13b19048967af641062fd395a73257f7536b1a5ab84b283b4c0.gltf"
     },
     {
       "url": "assets/2db2f69874cdb1e5203f2f86803d5debde30402590cf50a810afaba882184616.png",
@@ -2535,6 +2600,19 @@
       "gitPath": "deploy/runtime/assets/544d38b16151a2fc78d490061893f61f8d6eef55c726b8edfeb679c40d198002.glb"
     },
     {
+      "url": "assets/54bd298b17dd14c70ca707fb5afc0cec7dd985971fd35ac3127d518c371c07d5.gltf",
+      "bytes": 45450,
+      "sha256": "54bd298b17dd14c70ca707fb5afc0cec7dd985971fd35ac3127d518c371c07d5",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.rocklarge_07"
+      ],
+      "gitPath": "deploy/runtime/assets/54bd298b17dd14c70ca707fb5afc0cec7dd985971fd35ac3127d518c371c07d5.gltf"
+    },
+    {
       "url": "assets/54fc64d084164883f0dce64949c3307bd3faaa147967c8beb77e2e837a077876.webp",
       "bytes": 4208,
       "sha256": "54fc64d084164883f0dce64949c3307bd3faaa147967c8beb77e2e837a077876",
@@ -2652,6 +2730,19 @@
         "fx.blast.4"
       ],
       "gitPath": "deploy/runtime/assets/570b75fd04880db1dfad1c6d8bd496471a333232c7ed5cde105b117a7fa4f6d9.png"
+    },
+    {
+      "url": "assets/57513a8a4274bfc68313af27855df7ffe806270f145cb115c8ed07448f01158e.gltf",
+      "bytes": 210031,
+      "sha256": "57513a8a4274bfc68313af27855df7ffe806270f145cb115c8ed07448f01158e",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.vespenegeyser_ex2_low"
+      ],
+      "gitPath": "deploy/runtime/assets/57513a8a4274bfc68313af27855df7ffe806270f145cb115c8ed07448f01158e.gltf"
     },
     {
       "url": "assets/578819020f4db8ee6c1a65cc46446fe7d38ef4b542361969bb2dd0a70b5fb1db.webp",
@@ -3372,6 +3463,19 @@
       "gitPath": "deploy/runtime/assets/6e8bfc3f14ec19bdc672ce52dae8a99bb80b7ee2294732b6aacbf483296adf2a.glb"
     },
     {
+      "url": "assets/6ed765a33b35ca3e40c726ff325c6ceaa0086bc9db095678f65f6717f830a104.gltf",
+      "bytes": 34290,
+      "sha256": "6ed765a33b35ca3e40c726ff325c6ceaa0086bc9db095678f65f6717f830a104",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.rocklarge_06"
+      ],
+      "gitPath": "deploy/runtime/assets/6ed765a33b35ca3e40c726ff325c6ceaa0086bc9db095678f65f6717f830a104.gltf"
+    },
+    {
       "url": "assets/6f5aa907fb0de302902b4b067c39f157938f8173569fc99891686662672de1b2.webp",
       "bytes": 2156,
       "sha256": "6f5aa907fb0de302902b4b067c39f157938f8173569fc99891686662672de1b2",
@@ -3461,6 +3565,19 @@
         "map.image.86d77f97877c97bee6a611e22c14c536fdb3aca1adf1270b08e661dc7c1966b6"
       ],
       "gitPath": "deploy/runtime/assets/706694579a66546ba8eae60dce2043b281b28dd5d318833d72abd1e1d476e8f7.webp"
+    },
+    {
+      "url": "assets/708afce4c4cdd3a0c8714ab412637bf39dd94eb7c70581ed3d75b6e6cca113c5.gltf",
+      "bytes": 114920,
+      "sha256": "708afce4c4cdd3a0c8714ab412637bf39dd94eb7c70581ed3d75b6e6cca113c5",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.supplytanks"
+      ],
+      "gitPath": "deploy/runtime/assets/708afce4c4cdd3a0c8714ab412637bf39dd94eb7c70581ed3d75b6e6cca113c5.gltf"
     },
     {
       "url": "assets/70f1366ebf86ff7c87a29419ef36598a636b0ed9008b83d95141654f9de27c38.png",
@@ -3736,6 +3853,19 @@
       "gitPath": "deploy/runtime/assets/7bd654b536631742ea9d089aeb3503bd4c5fa347c42388655633d8ad2bd0800d.glb"
     },
     {
+      "url": "assets/7c0e72303aad060c227171f2a5c3f7132f432498a1e89f866ef2af9621d11398.gltf",
+      "bytes": 100042,
+      "sha256": "7c0e72303aad060c227171f2a5c3f7132f432498a1e89f866ef2af9621d11398",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.floodlight_01"
+      ],
+      "gitPath": "deploy/runtime/assets/7c0e72303aad060c227171f2a5c3f7132f432498a1e89f866ef2af9621d11398.gltf"
+    },
+    {
       "url": "assets/7c532f9e09515a12c41ab63d2a1a83d90b898be948b50a709f856dffec57d899.glb",
       "bytes": 3240900,
       "sha256": "7c532f9e09515a12c41ab63d2a1a83d90b898be948b50a709f856dffec57d899",
@@ -3839,6 +3969,19 @@
         "fx.muzzle.0"
       ],
       "gitPath": "deploy/runtime/assets/7e9dff11baa7b26720ab2e0d6243041f0972c56ef654bf43fc2137125030533f.png"
+    },
+    {
+      "url": "assets/7e9f4b6b64631af35cb05ef59271c25ef5249528a2dd133425b39b18146a20b0.gltf",
+      "bytes": 83780,
+      "sha256": "7e9f4b6b64631af35cb05ef59271c25ef5249528a2dd133425b39b18146a20b0",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.purificationdesert_large_rock_00"
+      ],
+      "gitPath": "deploy/runtime/assets/7e9f4b6b64631af35cb05ef59271c25ef5249528a2dd133425b39b18146a20b0.gltf"
     },
     {
       "url": "assets/7ed15f68943ea5c8214a0df35040f79c9ad7ed5eb9b9de1b1da6e41313874975.glb",
@@ -4979,6 +5122,19 @@
       "gitPath": "deploy/runtime/assets/a284a47a1a3462e82f3ca7a607660397f648b95ac384f9f942ee7ae9957f4ae5.glb"
     },
     {
+      "url": "assets/a2bc08774a9fd8a24af4d5604b11df46a14008354a5a048a2c591244fa87ce00.gltf",
+      "bytes": 19228,
+      "sha256": "a2bc08774a9fd8a24af4d5604b11df46a14008354a5a048a2c591244fa87ce00",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.marsaragroundprop_00"
+      ],
+      "gitPath": "deploy/runtime/assets/a2bc08774a9fd8a24af4d5604b11df46a14008354a5a048a2c591244fa87ce00.gltf"
+    },
+    {
       "url": "assets/a2bdc938bffc3eab62e6eaf539ce3522fef7e7f163c7f58e77d4c0a6c5f29040.webp",
       "bytes": 2102,
       "sha256": "a2bdc938bffc3eab62e6eaf539ce3522fef7e7f163c7f58e77d4c0a6c5f29040",
@@ -5357,6 +5513,19 @@
       "gitPath": "deploy/runtime/assets/aea463bdca9d53528f4892ba1c6b7a6499226c55edb371c58b6ab7eabf35a8f4.webp"
     },
     {
+      "url": "assets/aeecb19cc9c4d272ca5b768c800b67d876240d04654bc237544ab959122f2344.gltf",
+      "bytes": 143817,
+      "sha256": "aeecb19cc9c4d272ca5b768c800b67d876240d04654bc237544ab959122f2344",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.redstonerockspiresnobase_02"
+      ],
+      "gitPath": "deploy/runtime/assets/aeecb19cc9c4d272ca5b768c800b67d876240d04654bc237544ab959122f2344.gltf"
+    },
+    {
       "url": "assets/b0694ac92da4cf7ce83aba0f90b219dacd72e6308e52fb25de0845b2fed798c9.webp",
       "bytes": 39332,
       "sha256": "b0694ac92da4cf7ce83aba0f90b219dacd72e6308e52fb25de0845b2fed798c9",
@@ -5670,6 +5839,19 @@
         "model.hero.tosh"
       ],
       "gitPath": "deploy/runtime/assets/bb5b5b0cc29fa15d02614b2f2d6c27771bacea1625ab09783c2179676f8f859f.glb"
+    },
+    {
+      "url": "assets/bb61dadeaf794f0b8c70bf1d5db63b4f7c80f4e66c807ba3f8a1895770aeb462.gltf",
+      "bytes": 84915,
+      "sha256": "bb61dadeaf794f0b8c70bf1d5db63b4f7c80f4e66c807ba3f8a1895770aeb462",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.redstonerockspiresnobase_01"
+      ],
+      "gitPath": "deploy/runtime/assets/bb61dadeaf794f0b8c70bf1d5db63b4f7c80f4e66c807ba3f8a1895770aeb462.gltf"
     },
     {
       "url": "assets/bb7094e0078043fc1933b9c07227f99e8d59adc7260897577d6520cd7c3e9ff8.glb",
@@ -6022,6 +6204,19 @@
         "map.image.d1e9aefebba667b55550132f0e41a00cdc00f4b79881d2882d367ae83df35f8b"
       ],
       "gitPath": "deploy/runtime/assets/c98cfa152cad494007858ed90a593422654d8ccbf754d2e2b7c9770304db0d54.webp"
+    },
+    {
+      "url": "assets/caa6cf77ab01ff8f6ce98c1cda590689b0accc539487e83d946379a84016884b.gltf",
+      "bytes": 209252,
+      "sha256": "caa6cf77ab01ff8f6ce98c1cda590689b0accc539487e83d946379a84016884b",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.jarbanminor_miningbot_broken_00"
+      ],
+      "gitPath": "deploy/runtime/assets/caa6cf77ab01ff8f6ce98c1cda590689b0accc539487e83d946379a84016884b.gltf"
     },
     {
       "url": "assets/cae2c445825281defcafe4752cb0183efb8ceaddad1f8abee138abacac175648.glb",
@@ -6483,6 +6678,19 @@
       "gitPath": "deploy/runtime/assets/da5a04bfd6410bc707f7b0dee4ba2c1f001e9661772ee74682bdb3b85a28d60b.glb"
     },
     {
+      "url": "assets/da83a83885a8008b55852d3451d3543e390d003e6f06183f0da42978e946d4af.gltf",
+      "bytes": 271154,
+      "sha256": "da83a83885a8008b55852d3451d3543e390d003e6f06183f0da42978e946d4af",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.dom_crate_00"
+      ],
+      "gitPath": "deploy/runtime/assets/da83a83885a8008b55852d3451d3543e390d003e6f06183f0da42978e946d4af.gltf"
+    },
+    {
       "url": "assets/daae6ea7ec6812edbf56ad0a9932fff3830172658efd0e88736a693e30d98c56.webp",
       "bytes": 36516,
       "sha256": "daae6ea7ec6812edbf56ad0a9932fff3830172658efd0e88736a693e30d98c56",
@@ -6716,6 +6924,19 @@
         "audio.sc2.medivac.heal"
       ],
       "gitPath": "deploy/runtime/assets/e33f08b0847825d34763adb82dab68338f8f3198c03a94dc3bdd24bd63dd3109.wav"
+    },
+    {
+      "url": "assets/e34cfafdddf161c37ab4e160293f04c0d5556e40bf4a4b15b9b9fff18c03fc67.gltf",
+      "bytes": 56928,
+      "sha256": "e34cfafdddf161c37ab4e160293f04c0d5556e40bf4a4b15b9b9fff18c03fc67",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.jarbanminor_cranepart_04"
+      ],
+      "gitPath": "deploy/runtime/assets/e34cfafdddf161c37ab4e160293f04c0d5556e40bf4a4b15b9b9fff18c03fc67.gltf"
     },
     {
       "url": "assets/e3730c3e8a52a273c4d4b24ad1839046f2c0d1e17658dc2a85d1e772e00adbe2.glb",

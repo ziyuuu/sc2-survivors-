@@ -15,7 +15,7 @@ const inside=(base,target)=>{const relative=path.relative(base,target);return re
 for(const target of [staging,published,backup])if(!inside(dist,target))throw Error('Web build destination escapes dist: '+target);
 const records=await loadBuildAssets();
 const reachability=JSON.parse(await fs.readFile('reports/local/asset-reachability.json','utf8'));
-if(reachability.rulesId!=='mvp-1.0'||reachability.mapId!=='campaign-five-v2')throw Error('Release resource closure is stale');
+if(reachability.rulesId!=='mvp-1.0'||reachability.mapId!=='campaign-five-v3')throw Error('Release resource closure is stale');
 const selected=new Set(reachability.selectedIds);
 if(selected.size!==reachability.selectedIds.length)throw Error('Duplicate selected release asset');
 const rows=new Map(reachability.rows.map(row=>[row.id,row]));

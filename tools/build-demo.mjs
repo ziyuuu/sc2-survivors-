@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {loadBuildAssets} from './load-build-assets.mjs';
 const records=await loadBuildAssets();
 const reachability=JSON.parse(await fs.readFile('reports/local/asset-reachability.json','utf8'));
-if(reachability.rulesId!=='mvp-1.0'||reachability.mapId!=='campaign-five-v2')throw Error('M6 release reachability is stale or for another ruleset');
+if(reachability.rulesId!=='mvp-1.0'||reachability.mapId!=='campaign-five-v3')throw Error('M6 release reachability is stale or for another ruleset');
 const selectedIds=new Set(reachability.selectedIds);
 if(selectedIds.size!==reachability.selectedIds.length)throw Error('Duplicate asset in M6 release reachability');
 for(const id of selectedIds)if(!records.some(r=>r.id===id&&r.status==='available'))throw Error('Missing selected release asset: '+id);

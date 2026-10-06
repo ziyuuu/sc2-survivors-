@@ -1,9 +1,231 @@
 {
   "from": "8080b97112f3af93b5d3ddfeadc5f3d7f89c3892c344cfc8c8903a1ca799c9eb",
-  "to": "8080b97112f3af93b5d3ddfeadc5f3d7f89c3892c344cfc8c8903a1ca799c9eb",
-  "appBuildId": "29c5b26d1ff9f3ae44a228c4d9efbf8bafe38a2854d92930ce88dc2bc763c9a8",
-  "files": [],
+  "to": "2f3a6406dc45752c6aaab48a66e47dabfb13bf66ae74d4914cac3b0b1d1c5cd8",
+  "appBuildId": "2b416df7c8a6a426cf0cf3c24e17844a760ea4855b58537e907abd2ba890f246",
+  "files": [
+    {
+      "url": "assets/0461969b585343a1e1a63840b7a53a7a31842771a32edcbeb70c319219f04106.gltf",
+      "bytes": 213319,
+      "sha256": "0461969b585343a1e1a63840b7a53a7a31842771a32edcbeb70c319219f04106",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.cargotruck_00"
+      ],
+      "gitPath": "deploy/runtime/assets/0461969b585343a1e1a63840b7a53a7a31842771a32edcbeb70c319219f04106.gltf"
+    },
+    {
+      "url": "assets/220abc1e2bb8c0909ae54bd2422ef6710b380bd243411660589b59997bb8ff22.gltf",
+      "bytes": 145750,
+      "sha256": "220abc1e2bb8c0909ae54bd2422ef6710b380bd243411660589b59997bb8ff22",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.crystalslow_00"
+      ],
+      "gitPath": "deploy/runtime/assets/220abc1e2bb8c0909ae54bd2422ef6710b380bd243411660589b59997bb8ff22.gltf"
+    },
+    {
+      "url": "assets/24cb17d8408995a728c251fb54c557eef467789e88307e5b37c5985351179053.gltf",
+      "bytes": 12680,
+      "sha256": "24cb17d8408995a728c251fb54c557eef467789e88307e5b37c5985351179053",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.marsaratreedead_01"
+      ],
+      "gitPath": "deploy/runtime/assets/24cb17d8408995a728c251fb54c557eef467789e88307e5b37c5985351179053.gltf"
+    },
+    {
+      "url": "assets/2d03edc85f7f2799d8fb2c38af928f67d5662dad10ada5673da1313b4baf013b.gltf",
+      "bytes": 392013,
+      "sha256": "2d03edc85f7f2799d8fb2c38af928f67d5662dad10ada5673da1313b4baf013b",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.mineralcart_00"
+      ],
+      "gitPath": "deploy/runtime/assets/2d03edc85f7f2799d8fb2c38af928f67d5662dad10ada5673da1313b4baf013b.gltf"
+    },
+    {
+      "url": "assets/2d776d473b2dc13b19048967af641062fd395a73257f7536b1a5ab84b283b4c0.gltf",
+      "bytes": 96457,
+      "sha256": "2d776d473b2dc13b19048967af641062fd395a73257f7536b1a5ab84b283b4c0",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.halfstructureplates_00"
+      ],
+      "gitPath": "deploy/runtime/assets/2d776d473b2dc13b19048967af641062fd395a73257f7536b1a5ab84b283b4c0.gltf"
+    },
+    {
+      "url": "assets/54bd298b17dd14c70ca707fb5afc0cec7dd985971fd35ac3127d518c371c07d5.gltf",
+      "bytes": 45450,
+      "sha256": "54bd298b17dd14c70ca707fb5afc0cec7dd985971fd35ac3127d518c371c07d5",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.rocklarge_07"
+      ],
+      "gitPath": "deploy/runtime/assets/54bd298b17dd14c70ca707fb5afc0cec7dd985971fd35ac3127d518c371c07d5.gltf"
+    },
+    {
+      "url": "assets/57513a8a4274bfc68313af27855df7ffe806270f145cb115c8ed07448f01158e.gltf",
+      "bytes": 210031,
+      "sha256": "57513a8a4274bfc68313af27855df7ffe806270f145cb115c8ed07448f01158e",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.vespenegeyser_ex2_low"
+      ],
+      "gitPath": "deploy/runtime/assets/57513a8a4274bfc68313af27855df7ffe806270f145cb115c8ed07448f01158e.gltf"
+    },
+    {
+      "url": "assets/6ed765a33b35ca3e40c726ff325c6ceaa0086bc9db095678f65f6717f830a104.gltf",
+      "bytes": 34290,
+      "sha256": "6ed765a33b35ca3e40c726ff325c6ceaa0086bc9db095678f65f6717f830a104",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.rocklarge_06"
+      ],
+      "gitPath": "deploy/runtime/assets/6ed765a33b35ca3e40c726ff325c6ceaa0086bc9db095678f65f6717f830a104.gltf"
+    },
+    {
+      "url": "assets/708afce4c4cdd3a0c8714ab412637bf39dd94eb7c70581ed3d75b6e6cca113c5.gltf",
+      "bytes": 114920,
+      "sha256": "708afce4c4cdd3a0c8714ab412637bf39dd94eb7c70581ed3d75b6e6cca113c5",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.supplytanks"
+      ],
+      "gitPath": "deploy/runtime/assets/708afce4c4cdd3a0c8714ab412637bf39dd94eb7c70581ed3d75b6e6cca113c5.gltf"
+    },
+    {
+      "url": "assets/7c0e72303aad060c227171f2a5c3f7132f432498a1e89f866ef2af9621d11398.gltf",
+      "bytes": 100042,
+      "sha256": "7c0e72303aad060c227171f2a5c3f7132f432498a1e89f866ef2af9621d11398",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.floodlight_01"
+      ],
+      "gitPath": "deploy/runtime/assets/7c0e72303aad060c227171f2a5c3f7132f432498a1e89f866ef2af9621d11398.gltf"
+    },
+    {
+      "url": "assets/7e9f4b6b64631af35cb05ef59271c25ef5249528a2dd133425b39b18146a20b0.gltf",
+      "bytes": 83780,
+      "sha256": "7e9f4b6b64631af35cb05ef59271c25ef5249528a2dd133425b39b18146a20b0",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.purificationdesert_large_rock_00"
+      ],
+      "gitPath": "deploy/runtime/assets/7e9f4b6b64631af35cb05ef59271c25ef5249528a2dd133425b39b18146a20b0.gltf"
+    },
+    {
+      "url": "assets/a2bc08774a9fd8a24af4d5604b11df46a14008354a5a048a2c591244fa87ce00.gltf",
+      "bytes": 19228,
+      "sha256": "a2bc08774a9fd8a24af4d5604b11df46a14008354a5a048a2c591244fa87ce00",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.marsaragroundprop_00"
+      ],
+      "gitPath": "deploy/runtime/assets/a2bc08774a9fd8a24af4d5604b11df46a14008354a5a048a2c591244fa87ce00.gltf"
+    },
+    {
+      "url": "assets/aeecb19cc9c4d272ca5b768c800b67d876240d04654bc237544ab959122f2344.gltf",
+      "bytes": 143817,
+      "sha256": "aeecb19cc9c4d272ca5b768c800b67d876240d04654bc237544ab959122f2344",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.redstonerockspiresnobase_02"
+      ],
+      "gitPath": "deploy/runtime/assets/aeecb19cc9c4d272ca5b768c800b67d876240d04654bc237544ab959122f2344.gltf"
+    },
+    {
+      "url": "assets/bb61dadeaf794f0b8c70bf1d5db63b4f7c80f4e66c807ba3f8a1895770aeb462.gltf",
+      "bytes": 84915,
+      "sha256": "bb61dadeaf794f0b8c70bf1d5db63b4f7c80f4e66c807ba3f8a1895770aeb462",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.redstonerockspiresnobase_01"
+      ],
+      "gitPath": "deploy/runtime/assets/bb61dadeaf794f0b8c70bf1d5db63b4f7c80f4e66c807ba3f8a1895770aeb462.gltf"
+    },
+    {
+      "url": "assets/caa6cf77ab01ff8f6ce98c1cda590689b0accc539487e83d946379a84016884b.gltf",
+      "bytes": 209252,
+      "sha256": "caa6cf77ab01ff8f6ce98c1cda590689b0accc539487e83d946379a84016884b",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.jarbanminor_miningbot_broken_00"
+      ],
+      "gitPath": "deploy/runtime/assets/caa6cf77ab01ff8f6ce98c1cda590689b0accc539487e83d946379a84016884b.gltf"
+    },
+    {
+      "url": "assets/da83a83885a8008b55852d3451d3543e390d003e6f06183f0da42978e946d4af.gltf",
+      "bytes": 271154,
+      "sha256": "da83a83885a8008b55852d3451d3543e390d003e6f06183f0da42978e946d4af",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.dom_crate_00"
+      ],
+      "gitPath": "deploy/runtime/assets/da83a83885a8008b55852d3451d3543e390d003e6f06183f0da42978e946d4af.gltf"
+    },
+    {
+      "url": "assets/e34cfafdddf161c37ab4e160293f04c0d5556e40bf4a4b15b9b9fff18c03fc67.gltf",
+      "bytes": 56928,
+      "sha256": "e34cfafdddf161c37ab4e160293f04c0d5556e40bf4a4b15b9b9fff18c03fc67",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.jarbanminor_cranepart_04"
+      ],
+      "gitPath": "deploy/runtime/assets/e34cfafdddf161c37ab4e160293f04c0d5556e40bf4a4b15b9b9fff18c03fc67.gltf"
+    }
+  ],
   "reused": 557,
-  "newResourceBytes": 0,
+  "newResourceBytes": 2234026,
   "retainedOldResources": true
 }

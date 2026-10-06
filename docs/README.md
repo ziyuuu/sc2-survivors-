@@ -1,5 +1,8 @@
 # 项目文档导航 · 1.0 MVP / M2
 
+> 2026-10-06 当前状态：[五地图补强](project/MAP_VISUAL_POLISH_20261006.md)、[当前规则精简](project/CURRENT_LOGIC_CLEANUP_20261006.md)与[运行数据参考](GAME_DATA_REFERENCE.md)。当前为 campaign-five-v3／战局schema26／永久档案v6，仅接收当前格式；旧迁移、旧地图及下文早期版本说明均为历史记录。五图同尺寸、中心随机开局，地表、脚底与弹道共用真实缓坡高度。Coze未部署，人工视觉、自然性能和实体设备验收仍开放。
+
+
 <!-- MVP10_PLANNING_ENTRY -->
 **先读[1.0 MVP完整迭代计划](MVP10_ITERATION_PLAN.md)。**M0 r6已获确认，M1与M2实现及验证见[项目管理与任务板](project/README.md)和[M2验证记录](project/M2_VALIDATION.md)。配套稿为[三族天赋](MVP10_TALENTS.md)、[运行/无尽/加载](MVP10_RUNTIME.md)、[精英/英雄/资源优化](MVP10_COMBAT_ASSETS.md)。以下V26材料作为历史依据，不以旧代码倒推新策划。
 <!-- /MVP10_PLANNING_ENTRY -->

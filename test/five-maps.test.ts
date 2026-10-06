@@ -11,12 +11,12 @@ test('all five fresh maps are reachable and no subsequent draw repeats the previ
   const next=Array.from({length:100},(_,seed)=>chooseCampaignMap(seed,previous).theme);
   assert.ok(next.every(theme=>theme!==previous));assert.equal(new Set(next).size,4);
  }
- for(const bad of [{version:1,seed:1,theme:'ice',layout:0},{version:2,seed:-1,theme:'ice'},{version:2,seed:1,theme:'missing'},{version:2,seed:1,theme:'ice',layout:0}])assert.throws(()=>validateMapRecipe(bad as never));
+ for(const bad of [{version:1,seed:1,theme:'ice',layout:0},{version:2,seed:1,theme:'ice'},{version:3,seed:-1,theme:'ice'},{version:3,seed:1,theme:'missing'},{version:3,seed:1,theme:'ice',layout:0}])assert.throws(()=>validateMapRecipe(bad as never));
 });
 
 test('all three races start at the center of every map and reload exactly that map',()=>{
  for(const theme of Object.keys(MAP_THEMES) as CampaignTheme[])for(const race of ['terran','zerg','protoss'] as const){
-  const recipe={version:2 as const,seed:917,theme},w=new World({terrain:campaignTerrain(recipe),race,waves:false});
+  const recipe={version:3 as const,seed:917,theme},w=new World({terrain:campaignTerrain(recipe),race,waves:false});
   assert.ok(w.start());assert.deepEqual([w.anchor.x,w.anchor.z],[0,0]);assert.equal(w.runConfig!.mapId,CAMPAIGN_MAP_ID);
   assert.deepEqual(w.runConfig!.campaignMap,recipe);
   const before=w.captureRun(),copy=new World({terrain:campaignTerrain(chooseCampaignMap(819)),waves:false});copy.restoreRun(before);
@@ -36,4 +36,15 @@ test('public new-run preparation draws browser entropy once and commits the froz
   w.resetRun();
  }
  assert.ok(seen.size>1);
+});
+
+test('the new relief blocks a low ground shot without blocking its traversable ramp or an air shot',()=>{
+ const terrain=campaignTerrain({version:3,seed:10608,theme:'industrial'});terrain.setStage(18);
+ const a={x:-49,z:30},b={x:-9,z:30};
+ assert.equal(terrain.height(a),0);assert.equal(terrain.height(b),0);
+ assert.ok(terrain.height({x:-29,z:30})>1);
+ assert.equal(terrain.walkLine(a,b,0),true);
+ assert.equal(terrain.lineOfFire(a,b,false,false,false),false);
+ assert.equal(terrain.lineOfFire(a,b,false,false,true),true);
+ assert.equal(terrain.lineOfFire(a,b,true,true,false),true);
 });

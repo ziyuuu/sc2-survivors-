@@ -9,7 +9,7 @@ const offline=process.argv.includes('--offline'),mapsOnly=process.argv.includes(
 await fs.mkdir(out,{recursive:true});
 const fixtures=[];
 for(const theme of Object.keys(MAP_THEMES) as CampaignTheme[]){
- const recipe={version:2 as const,seed:10608,theme},w=new World({terrain:campaignTerrain(recipe),waves:false});w.start();w.stage=18;w.terrain!.setStage!(18);w.paused=true;
+ const recipe={version:3 as const,seed:10608,theme},w=new World({terrain:campaignTerrain(recipe),waves:false});w.start();w.stage=18;w.terrain!.setStage!(18);w.paused=true;
  const run=w.captureRun(),copy=new World({terrain:campaignTerrain(recipe),waves:false});copy.restoreRun(run);
  const file=path.resolve(out,theme+'.json');await fs.writeFile(file,writeArchive({profile:w.permanentProfile.exportJSON(),run}));fixtures.push({theme,file,recipe,hash:run.config.mapHash});
 }

@@ -36,7 +36,7 @@ export class RunState {
  campaign18Runtime:Campaign18Runtime|null=null;
  swarm=newSwarmState();
  podSerial=0;time=0;tick=0;stage=1;stageElapsed=0;stageStartedAt=0;phase:'menu'|'battle'|'reward'|'won'|'endless-ready'|'finished'|'lost'='menu';paused=false;
- battlefield:{mode:'campaign'|'endless';mapId:'campaign-kairos-v1'|'campaign-five-v2'|'endless-flat-v1';mapHash:string}={mode:'campaign',mapId:'campaign-kairos-v1',mapHash:''};
+ battlefield:{mode:'campaign'|'endless';mapId:'campaign-kairos-v1'|'campaign-five-v3'|'endless-flat-v1';mapHash:string}={mode:'campaign',mapId:'campaign-kairos-v1',mapHash:''};
  endlessEntry:{id:string;revision:number;ready:boolean}|null=null;
  endlessTransitionReceipt:string|null=null;
  endlessRoundReceipts:string[]=[];

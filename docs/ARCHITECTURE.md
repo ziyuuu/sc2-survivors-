@@ -1,5 +1,8 @@
 > 神族正式接入：[P3-C 合同](project/NEXT_ITERATION_P3C_PROTOSS_HEROES_20261005.md)，[实测记录](project/NEXT_ITERATION_P3C_VALIDATION_20261005.md)。`protoss-heroes.ts`显式数值；`protoss-hero-passives.ts`管理原生盾窗口、实际净伤回响、权势/开场/超载/帷幕；唯一伤害来自60Hz World/真实在途包。schema19保存纯DTO和原子所属/付费挂舱，profile v5不变。`ProtossHeroEffects`只读共享状态，原动作与纹理细刃/核心/护盾/停滞层同用于演示及生产；只有菲尼克斯自身材质HDR校准至.85，资源字节未改。互斥三族光环适配显示十八英雄、文字0，实际子机经母体继承一次；普通航母初始4/上限8及补造账本保留。其他精英/R7与OPEN验收不扩大。
 
+> 2026-10-06 当前状态：[五地图补强](project/MAP_VISUAL_POLISH_20261006.md)、[当前规则精简](project/CURRENT_LOGIC_CLEANUP_20261006.md)与[运行数据参考](GAME_DATA_REFERENCE.md)。当前为 campaign-five-v3／战局schema26／永久档案v6，仅接收当前格式；旧迁移、旧地图及下文早期版本说明均为历史记录。五图同尺寸、中心随机开局，地表、脚底与弹道共用真实缓坡高度。Coze未部署，人工视觉、自然性能和实体设备验收仍开放。
+
+
 > 最新光环显示纠正：[修正与验证](project/HERO_AURA_DISPLAY_CORRECTION_20261005.md)。`HeroAuraEffects`按互斥的人族/虫族身份集合绘制，十二英雄足下纹理特效恢复、文字移除；人族原材质分支保留，虫族使用生体纹路与双色流动层。时间只读World并随暂停冻结，人数/层数/文字0供只读诊断；不改变规则半径、增减益、仿真或schema18/profile v5。以下首轮不绘制足下光环的解释已被用户纠正。
 
 > 虫族接入：[六虫族合同](project/NEXT_ITERATION_P3B_ZERG_HEROES_20261005.md)，[运行验证](project/NEXT_ITERATION_P3B_VALIDATION_20261005.md)。`zerg-heroes.ts`显式规则；`zerg-hero-passives.ts`持有精华/适应/护障/储备、感染/寄生/治疗池，`zerg-hero-revival.ts`持有真实永久编制与原身体冻结收据，死亡待复生席位贯通容量/精英/投送校验。schema18保存这些纯DTO及原在途包；`zerg-hero-effects.ts`只读原纹理/模型/动作，伤害仍由60Hz World唯一结算。实际buff/debuff成员缓存在恢复和普通属性刷新后正确重建。双跳虫完整登记、两体合法点原子恢复、受阻不花次数；profile v5、付款账本、其他六神族和增量资源边界保持。

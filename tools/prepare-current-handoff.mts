@@ -34,15 +34,32 @@ for(const [from,to] of [
 const pkg=JSON.parse(await fs.readFile(path.join(baseline,'package.json'),'utf8'));
 const lock=JSON.parse(await fs.readFile(path.join(baseline,'package-lock.json'),'utf8'));
 pkg.name=lock.name=lock.packages[''].name='sc2-survivors-current-application';
-pkg.version=lock.version=lock.packages[''].version='0.6.2';
+pkg.version=lock.version=lock.packages[''].version='0.6.3';
 for(const [name,data]of [['package.json',pkg],['package-lock.json',lock]]as const)await fs.writeFile(path.join(destination,name),JSON.stringify(data,null,2)+'\n');
-const groups=JSON.parse(await fs.readFile(path.join(baseline,'resource-groups.json'),'utf8'));
-if(groups.release!==release.release||groups.files.length!==resources.size)throw Error('Resource release must match the preserved P6 baseline');
-for(const row of groups.files){const b=await fs.readFile(path.join(web,row.url));if(!resources.has(row.url)||b.length!==row.bytes||sha(b)!==row.sha256)throw Error('Resource mismatch: '+row.url);}
+const priorGroups=JSON.parse(await fs.readFile(path.join(baseline,'resource-groups.json'),'utf8'));
+const priorByUrl=new Map<string,any>(priorGroups.files.map((row:any)=>[row.url,row]));
+const sourceCatalog=JSON.parse(await fs.readFile('deploy/runtime/source-assets.json','utf8'));
+const sources=new Map<string,any>(sourceCatalog.entries.map((row:any)=>[row.sha256,row]));
+const currentByUrl=new Map<string,any>();
+for(const [id,asset]of Object.entries<any>(manifest.assets)){
+ let row=currentByUrl.get(asset.url);
+ if(!row){
+  const old=priorByUrl.get(asset.url),source=sources.get(asset.sha256);
+  if(!source||source.bytes!==asset.bytes)throw Error('Resource is not in the verified original catalog: '+id);
+  if(old&&(old.bytes!==asset.bytes||old.sha256!==asset.sha256))throw Error('Preserved resource changed: '+id);
+  if(!old&&!id.startsWith('model.map.'))throw Error('Unexpected non-map resource addition: '+id);
+  row={...asset,groups:old?.groups??['campaign'],ids:[],gitPath:source.gitPath};currentByUrl.set(asset.url,row);
+ }
+ row.ids.push(id);
+}
+for(const row of priorGroups.files)if(!currentByUrl.has(row.url))throw Error('Preserved resource removed: '+row.url);
+const groups={version:priorGroups.version,release:release.release,groups:priorGroups.groups,files:[...currentByUrl.values()].sort((a,b)=>a.url.localeCompare(b.url))};
+for(const row of groups.files){const b=await fs.readFile(path.join(web,row.url));if(b.length!==row.bytes||sha(b)!==row.sha256)throw Error('Resource mismatch: '+row.url);}
+const added=groups.files.filter(row=>!priorByUrl.has(row.url));
 await fs.writeFile(path.join(destination,'resource-groups.json'),JSON.stringify(groups,null,2));
-await fs.writeFile(path.join(destination,'resource-delta.json'),JSON.stringify({from:groups.release,to:release.release,appBuildId:release.appBuildId,files:[],reused:groups.files.length,newResourceBytes:0,retainedOldResources:true},null,2));
+await fs.writeFile(path.join(destination,'resource-delta.json'),JSON.stringify({from:priorGroups.release,to:release.release,appBuildId:release.appBuildId,files:added,reused:groups.files.length-added.length,newResourceBytes:added.reduce((n,row)=>n+row.bytes,0),retainedOldResources:true},null,2));
 async function list(dir:string,prefix=''):Promise<string[]>{const out:string[]=[];for(const e of await fs.readdir(dir,{withFileTypes:true}))out.push(...(e.isDirectory()?await list(path.join(dir,e.name),prefix+e.name+'/'):[prefix+e.name]));return out;}
 const appFiles=[];for(const file of await list(destination)){const b=await fs.readFile(path.join(destination,file));appFiles.push({path:file,bytes:b.length,sha256:sha(b)});}
 const packageBuildId=sha(JSON.stringify([...appFiles].sort((a,b)=>a.path.localeCompare(b.path))));
-await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:'local five-map candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0},null,2));
-console.log(JSON.stringify({destination,packageBuildId,appBuildId:release.appBuildId,runSchema:release.runSchema,appFiles:appFiles.length,resourceAdditions:0,deployed:false}));
+await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:'local map visual polish candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0},null,2));
+console.log(JSON.stringify({destination,packageBuildId,appBuildId:release.appBuildId,runSchema:release.runSchema,appFiles:appFiles.length,resourceAdditions:added.length,deployed:false}));
