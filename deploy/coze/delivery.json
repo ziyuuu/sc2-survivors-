@@ -1,8 +1,8 @@
 {
-  "status": "local current-rule cleanup candidate; not deployed",
-  "appBuildId": "7b553dbbe931c44fb7bbcc337832e8c7ba7b764a322e461a61eb83cbcb9cbb55",
-  "packageBuildId": "d8eae9fd82988bf34a84442d98dfbb361335802f93502cc641209b210af11e0a",
-  "runSchema": 24,
+  "status": "local five-map candidate; not deployed",
+  "appBuildId": "29c5b26d1ff9f3ae44a228c4d9efbf8bafe38a2854d92930ce88dc2bc763c9a8",
+  "packageBuildId": "8445399a3e69d5dc0f6b880993ed5b02fbe020d5b73d24d2e51653ab9512603a",
+  "runSchema": 25,
   "profileVersion": 6,
   "release": "8080b97112f3af93b5d3ddfeadc5f3d7f89c3892c344cfc8c8903a1ca799c9eb",
   "appFiles": [
@@ -94,12 +94,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6134,
-      "sha256": "67882d6cba0f3ddf8c526991defad685474f30eee7b04a0ee59dfc8e51d11dc8"
+      "sha256": "1337a9d90c812fe37bdf54fbc01e22dd58c2db73320339a3920be755dfa3c50c"
     },
     {
       "path": "package.json",
       "bytes": 352,
-      "sha256": "f319d5ef6cbe9e97bdcf0e24e2abe5e871ba10897a60f336186773ae90ca5d8f"
+      "sha256": "8bb539770496366db1ceeb6f600765bd5730a557ffba736616606a7dfefb7376"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -117,14 +117,14 @@
       "sha256": "8857dcd5fe5686a8e82dba003bb06c63719f51eae8f14ab3aa345dced143c208"
     },
     {
-      "path": "public/assets/index-DDOPKz-A.js",
-      "bytes": 2088550,
-      "sha256": "51f4d7121cf041970b5f19473df94dd227be1393c9cb9a23857089c7a558502e"
+      "path": "public/assets/index-DXcn-zs9.js",
+      "bytes": 2091211,
+      "sha256": "4a69e8554a30fbf3aa8e4effbb9e978da02e46026ba69bded60957f86c85c512"
     },
     {
       "path": "public/index.html",
       "bytes": 802,
-      "sha256": "2b14ec485702d4242f93b5021e259142ecdbdd2f6a5c778d4f214d8cac9e4e04"
+      "sha256": "4b7b762b920c7e0986d1678f1c9e5ffb5701611d995159505ee6d93cc9e31c25"
     },
     {
       "path": "public/runtime-config.json",
@@ -133,18 +133,18 @@
     },
     {
       "path": "public/web-release.json",
-      "bytes": 520,
-      "sha256": "f47f62343f241d04ec4dae329347f1c2ce0f146eb423710480c4927c41a5f9c4"
+      "bytes": 518,
+      "sha256": "abe9c99ca4489721a4ca7500f6d4b408fcbbd99c17b4f3f8212952dced16b926"
     },
     {
       "path": "README.md",
-      "bytes": 1929,
-      "sha256": "cd3aa3ae4f3b32aabb7a963789908ce3b4f778c3182d9dc4709ac0cf5f594255"
+      "bytes": 2080,
+      "sha256": "c480945c8933e5b67abe853ee575a7ed60adbd4e01b4dba7e0c662947a646cfb"
     },
     {
       "path": "resource-delta.json",
       "bytes": 329,
-      "sha256": "3e800e0b64ccc8af54d15074fa7df143aa98c76518840c765d3e32ba2c23198b"
+      "sha256": "f6ecd7795bd13d977d97ae6c04507d84ded26bc21cccc0796f3e59711442e83d"
     },
     {
       "path": "resource-groups.json",

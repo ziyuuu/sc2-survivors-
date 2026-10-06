@@ -2,7 +2,7 @@
 
 基于 Three.js、TypeScript、Vite 的单人小队动作生存游戏。控制方向与技能，小队自动索敌、移动和交战。
 
-2026-10-06 当前版本：30个普通家族、90款显式精英、18名英雄、24张种族趣味卡、18关战役和平地无尽。已清理为单一当前运行规则，采用 **schema24／永久档案v6**，不兼容或迁移旧存档。现行数值、技能、模型和资源保留；范围与实际验证见[当前规则清理记录](docs/project/CURRENT_LOGIC_CLEANUP_20261006.md)。P6自然性能和强光遮蔽问题仍开放，Coze尚未部署，人工视觉、实体设备和完整M6/M7未因此验收。
+2026-10-06 当前版本：30个普通家族、90款显式精英、18名英雄、24张种族趣味卡、五张地图、18关战役和平地无尽。新局随机选择工业遗址、玛萨拉荒漠、查尔焦土、冰封哨站或边境矿场，均为160×160、从中心出发；读档保留原地图。采用 **schema25／永久档案v6**，不兼容或迁移旧存档。现行战斗数值、技能、模型和资源保留；本轮范围与验证见[清理及五地图记录](docs/project/CLEANUP_FIVE_MAPS_20261006.md)，此前规则精简见[规则清理记录](docs/project/CURRENT_LOGIC_CLEANUP_20261006.md)。P6自然性能和强光遮蔽问题仍开放，Coze尚未部署，人工视觉、实体设备和完整M6/M7未因此验收。
 
 下述P2/P3-A记录是历史阶段快照；当前十八英雄、九十精英及团队光环以[P4-C记录](docs/project/NEXT_ITERATION_P4C_VALIDATION_20261005.md)、[P4收尾](docs/project/NEXT_ITERATION_P4DE_VALIDATION_20261006.md)和[P5记录](docs/project/NEXT_ITERATION_P5_VALIDATION_20261006.md)为准。
 
@@ -14,13 +14,13 @@ P3-A首批六名人族英雄曾接入机体、I–V成长、被动、主动和�
 
 ## Coze / Web 部署
 
-当前应用使用[当前增量交接](docs/project/CURRENT_COZE_HANDOFF_20261006.md)与 `dist/Current-Coze-Application-20261006.zip`。相对P6新增资源为0；相对实际Coze旧版仍可复用 `dist/P6-Coze-Resources-From-Live-20261006.zip` 的26个资源文件、2153541字节。必须验证全部557个目标文件和锁定生产依赖后再切应用，保留原项目、域名、环境和资源。后台默认关闭，启用要求真实生产数据库与部署方配置，见[P5交接](docs/project/P5_BACKEND_HANDOFF_20261006.md)。
+当前应用使用[当前增量交接](docs/project/CURRENT_COZE_HANDOFF_20261006.md)与 `dist/Five-Maps-Coze-Application-20261006.zip`。相对P6新增资源为0；相对已记录的Coze旧版，资源差额仍为26个文件、2153541字节，保存在 `dist/Current-Coze-Resources-From-Live-20261006.zip`。必须验证全部557个目标文件和锁定生产依赖后再切应用，保留原项目、域名、环境和资源。后台默认关闭，启用要求真实生产数据库与部署方配置，见[P5交接](docs/project/P5_BACKEND_HANDOFF_20261006.md)。
 
-Git 当前交付为 schema24 源码和同一份清理后的应用：`deploy/coze` 含锁定依赖和完整后台程序，`deploy/runtime` 保存校验过的 LFS 运行资源。先前 schema23 基线见[历史基线说明](docs/project/GIT_BASELINE_20261006.md)。Coze 仍保持原部署；数据库、凭据、缓存和本机 QA 输出不提交。
+Git 当前交付为 schema25 源码和同一份五地图应用：`deploy/coze` 含锁定依赖和完整后台程序，`deploy/runtime` 保存校验过的 LFS 运行资源。先前 schema23 基线见[历史基线说明](docs/project/GIT_BASELINE_20261006.md)。Coze 仍保持原部署；数据库、凭据、缓存和本机 QA 输出不提交。
 
 ## 开始试玩
 
-- 当前单文件：`D:\星际\dist\SC2-Survivors-Current-20261006.html`，双击离线运行；历史HTML保留。
+- 当前单文件：`D:\星际\dist\SC2-Survivors-Current-20261006.html`，双击离线运行。按用户要求已清理旧包、缓存和旧测试材料，UI源稿及预览保留。
 - 主菜单“新游戏／读档／天赋”；新局选择种族、难度和天赋，读档保持原配置并先暂停。
 - 暂停、设置或关间可保存／导出；返回标题保留续局。部署新一局会替换当前续局，仍保留轮换备份。
 - 本地档案受浏览器和页面来源限制。移动 HTML、换浏览器或换电脑前，请导出完整存档；在目标环境标题界面导入。
@@ -39,7 +39,7 @@ npm run dev
 
 开发地址为 `http://127.0.0.1:5173/`。素材缺失时按 [原素材准备](docs/ASSET_DOWNLOAD_REQUIRED.md) 和 [地图管线](docs/MAP_PIPELINE.md) 操作，不用几何体代替缺失单位。
 
-全新检出可直接从 `deploy/runtime/source-assets.json` 恢复当前运行所需的文件，不依赖另一台机器的忽略缓存。`npm run build:ui-preview` 可重建独立 R10 → R11 → R12 UI 预览；它尚未接入正式游戏。重新转换原始素材仍使用原素材管线。
+全新检出可直接从 `deploy/runtime/source-assets.json` 恢复当前运行所需的文件；完整构建通过 `build-assets.json` 校验已锁定的资源，不再重建已清理的原始转换缓存。`npm run build:ui-preview` 可重建独立 R10 → R11 → R12 UI 预览；它尚未接入正式游戏。重新转换原始素材仍使用原素材管线。
 
 ```sh
 npm test
@@ -48,7 +48,7 @@ npm run docs:check
 npm run build
 ```
 
-`npm run build`生成当前完整离线HTML；`npm run build:web`生成分文件Web发行。文件大小、SHA-256和实际测试以[当前验证](docs/project/CURRENT_LOGIC_CLEANUP_20261006.md)为准，历史[STATUS.json](reports/STATUS.json)仅保留过去记录。离线包无损还原全部内嵌原资源，不依赖在线解码器，不含修改状态的开发 API。
+`npm run build`生成当前完整离线HTML；`npm run build:web`生成分文件Web发行。文件大小、SHA-256和实际测试以[当前验证](docs/project/CLEANUP_FIVE_MAPS_20261006.md)为准，历史[STATUS.json](reports/STATUS.json)仅保留过去记录。离线包无损还原全部内嵌原资源，不依赖在线解码器，不含修改状态的开发 API。
 
 ```sh
 npm run test:save

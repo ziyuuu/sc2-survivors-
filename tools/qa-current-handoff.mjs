@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';import {pathToFileURL} from 'node:url';
 import {applyUpdate} from './apply-coze-update.mjs';
-const out='reports/local/current-logic-20261006',app=path.resolve('dist/Current-Coze-Application-20261006'),resources=path.resolve('dist/web'),root=await fs.mkdtemp(path.resolve('.cache/current-update-')),assets=path.join(root,'public');
+const option=name=>{const index=process.argv.indexOf(name);return index>=0?process.argv[index+1]:null;};
+const out=option('--out')??'reports/local/current-logic-20261006',app=path.resolve(option('--app')??'dist/Current-Coze-Application-20261006'),resources=path.resolve('dist/web'),root=await fs.mkdtemp(path.resolve('.cache/current-update-')),assets=path.join(root,'public');
 const baseline=JSON.parse(await fs.readFile(path.join(app,'public',JSON.parse(await fs.readFile(path.join(app,'public/web-release.json'),'utf8')).manifest),'utf8')),release=JSON.parse(await fs.readFile(path.join(app,'public/web-release.json'),'utf8'));
 const oldFiles=[...new Map(Object.values(baseline.assets).map(a=>[a.url,a])).values()];
 for(const row of oldFiles){const target=path.join(assets,row.url);await fs.mkdir(path.dirname(target),{recursive:true});await fs.link(path.resolve('dist/web',row.url),target);}

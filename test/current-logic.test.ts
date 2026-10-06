@@ -19,7 +19,7 @@ test('current cleanup preserves 72 complete campaign configurations and 690 body
 test('only the current run schema is accepted; rejected older/future archives never mutate a live run',()=>{
  const w=new World({sandbox:true,terrain:false,waves:false});w.start();
  const stable=w.captureRun(),profile=w.permanentProfile.exportJSON(),session=new RunSession(w,null,{run:null,savedAt:0,notice:''});
- for(const schema of [2,3,4,5,16,20,21,22,23,RUN_SCHEMA+1]){
+ for(const schema of [2,3,4,5,16,20,21,22,23,24,RUN_SCHEMA+1]){
   const run={...structuredClone(stable),schema};
   const raw=writeArchive({profile,run:run as typeof stable});
   assert.throws(()=>readArchive(raw),/版本不兼容/);

@@ -6,10 +6,11 @@ import {ALL_FAMILIES} from '../src/data/races.ts';
 import {HEROES} from '../src/data/heroes.ts';
 import {ELITES} from '../src/data/elites.ts';
 import {RETIRED_ASSETS} from '../src/assets/retired.ts';
-import {MAP_THEMES} from '../src/data/campaign-map.ts';
+import {CAMPAIGN_MAP_ID,MAP_THEMES} from '../src/data/campaign-map.ts';
+import {loadBuildAssets} from './load-build-assets.mjs';
 
-const records=JSON.parse(await fs.readFile('reports/local/runtime-assets.json','utf8'));
-const textureDerivatives=new Map(JSON.parse(await fs.readFile('assets/private/m6-texture-webp-manifest.json','utf8')).records.map(record=>[record.id,record]));
+const records=await loadBuildAssets();
+const textureDerivatives=new Map(records.filter(record=>record.textureDerivative).map(record=>[record.id,record.textureDerivative]));
 const available=records.filter(record=>record.status==='available');
 const byId=new Map(available.map(record=>[record.id,record]));
 const reasons=new Map();
@@ -38,7 +39,7 @@ for(const family of ['lurker','thor'])for(const record of available)
  if(record.id.startsWith(`model.${family}.`)&&!record.id.endsWith('.death'))requireAsset(record.id,`manual mode ${family}`);
 
 const activeProps=new Set(Object.values(MAP_THEMES).flatMap(theme=>[...theme.props]));
-for(const id of activeProps)requireAsset(id,'One of nine approved radial campaign layouts');
+for(const id of activeProps)requireAsset(id,'One of five centered campaign maps');
 for(const id of ['map.terrain.diffuse','map.terrain.normal','terrain.char'])requireAsset(id,'Original terrain pixels for radial campaign / endless flat');
 const retiredMapIds=new Set(available.filter(r=>r.id==='map.kairos'||['map.terrain.mask0','map.terrain.mask1'].includes(r.id)||r.id.startsWith('model.map.')&&!activeProps.has(r.id)).map(r=>r.id));
 
@@ -89,14 +90,16 @@ for(const record of selected){
  const bytes=await fs.readFile(record.packedFile),packedSha256=sha256(bytes),derived=textureDerivatives.get(record.id);
  if(derived&&derived.packedFile===record.packedFile&&derived.sha256!==packedSha256)throw Error(`Texture derivative changed: ${record.id}`);
  const localSource=derived?.packedFile===record.packedFile?derived.sourceFile:null;
- if(localSource&&sha256(await fs.readFile(localSource))!==derived.sourceSha256)throw Error(`Texture source changed: ${record.id}`);
+ // The locked packed bytes have already been checked. Optional old conversion
+ // inputs can be cleaned; when present, their original audit hash still applies.
+ if(localSource){const original=await fs.readFile(localSource).catch(error=>{if(error.code!=='ENOENT')throw error;return null;});if(original&&sha256(original)!==derived.sourceSha256)throw Error(`Texture source changed: ${record.id}`);}
  const sourceFile=record.sourceSha256?(record.sourcePath??record.sourceFile??record.packedFile):(localSource??record.packedFile);
  const sourceSha256=record.sourceSha256??(localSource?derived.sourceSha256:packedSha256);
  rows.push({id:record.id,kind:record.kind,packedFile:record.packedFile,sourceFile,upstreamSourcePath:record.sourcePath??null,sourceBuild:record.sourceBuild??null,sourceSha256,bytes:bytes.length,sha256:packedSha256,optimization:record.optimization??null,reasons:reasons.get(record.id)??['conservatively retained: reachability not yet proven']});
 }
 const category=Object.values(Object.groupBy(rows,row=>row.kind)).map(group=>({kind:group[0].kind,count:group.length,bytes:group.reduce((sum,row)=>sum+row.bytes,0)})).sort((a,b)=>b.bytes-a.bytes);
 const identicalContentGroups=Object.values(Object.groupBy(rows,row=>row.sha256)).filter(group=>group.length>1).map(group=>({sha256:group[0].sha256,bytes:group[0].bytes,ids:group.map(row=>row.id),policy:'Semantic IDs retained; offline pack shares identical byte chunks, not duplicate payloads'}));
-const report={rulesId:'mvp-1.0',mapId:'campaign-radial-v1',selectedIds:rows.map(row=>row.id),excluded:[...excluded.map(record=>({id:record.id,bytes:record.bytes,reason:'Production new/load uses saved radial recipe or endless-flat-v1. No original-map runtime caller; nine theme prop tables omit this ID. Source/legacy diagnostic utilities preserved.'})),...[...provenUnused].map(id=>({id,reason:unusedProof[id],bytes:byId.get(id).bytes}))],provenUnused:[...provenUnused],identicalContentGroups,unprovenCandidates:candidates.map(record=>({id:record.id,kind:record.kind,bytes:record.bytes})),category,rows};
+const report={rulesId:'mvp-1.0',mapId:CAMPAIGN_MAP_ID,selectedIds:rows.map(row=>row.id),excluded:[...excluded.map(record=>({id:record.id,bytes:record.bytes,reason:'Production new/load uses one of five saved campaign recipes or endless-flat-v1. Five theme prop tables omit this ID; UI/source assets remain in the restoration catalog.'})),...[...provenUnused].map(id=>({id,reason:unusedProof[id],bytes:byId.get(id).bytes}))],provenUnused:[...provenUnused],identicalContentGroups,unprovenCandidates:candidates.map(record=>({id:record.id,kind:record.kind,bytes:record.bytes})),category,rows};
 await fs.mkdir('reports/local',{recursive:true});
 await fs.writeFile('reports/local/asset-reachability.json',JSON.stringify(report,null,2));
 console.log(`M6 release closure: ${selected.length} assets, ${candidates.length} conservative candidates, ${excluded.length} legacy Acropolis and ${provenUnused.size} proven unused excluded; ${identicalContentGroups.length} identical-content groups share payloads.`);

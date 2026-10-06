@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {build} from 'vite';
+import {loadBuildAssets} from './load-build-assets.mjs';
 // Read the authoritative constant without requiring native TypeScript loading on Node 22.
 const schemaSource=await fs.readFile(new URL('../src/simulation/persistence/run-snapshot.ts',import.meta.url),'utf8');
 const schemaMatch=/export\s+const\s+RUN_SCHEMA\s*=\s*(\d+)\s*;/.exec(schemaSource);
@@ -12,9 +13,9 @@ const root=process.cwd(),dist=path.resolve(root,'dist');
 const staging=path.resolve(dist,`web-staging-${process.pid}`),published=path.resolve(dist,'web'),backup=path.resolve(dist,'web-previous');
 const inside=(base,target)=>{const relative=path.relative(base,target);return relative!==''&&!relative.startsWith('..')&&!path.isAbsolute(relative);};
 for(const target of [staging,published,backup])if(!inside(dist,target))throw Error('Web build destination escapes dist: '+target);
-const records=JSON.parse(await fs.readFile('reports/local/runtime-assets.json','utf8'));
+const records=await loadBuildAssets();
 const reachability=JSON.parse(await fs.readFile('reports/local/asset-reachability.json','utf8'));
-if(reachability.rulesId!=='mvp-1.0'||reachability.mapId!=='campaign-radial-v1')throw Error('Release resource closure is stale');
+if(reachability.rulesId!=='mvp-1.0'||reachability.mapId!=='campaign-five-v2')throw Error('Release resource closure is stale');
 const selected=new Set(reachability.selectedIds);
 if(selected.size!==reachability.selectedIds.length)throw Error('Duplicate selected release asset');
 const rows=new Map(reachability.rows.map(row=>[row.id,row]));
@@ -55,7 +56,7 @@ try{
  index=index.replace('<head>',`<head><meta name="sc2-app-build" content="${appBuildId}"><meta name="sc2-asset-manifest" content="./${manifestName}">`);
  await fs.writeFile(path.join(staging,'index.html'),index);
  if(!index.includes('id="battle"')||!index.includes('type="module"'))throw Error('Web entry point missing battle canvas or module');
- await fs.writeFile(path.join(staging,'web-release.json'),JSON.stringify({appBuildId,runSchema:RUN_SCHEMA,rulesId:'mvp-1.0',mapId:'campaign-radial-v1',assetCount:selected.size,fileCount:files.size,assetBytes:bytes,logicalBytes:Object.values(assets).reduce((n,a)=>n+a.bytes,0),sharedBytes:Object.values(assets).reduce((n,a)=>n+a.bytes,0)-bytes,manifest:manifestName,release,source:'reports/local/asset-reachability.json'},null,2));
+ await fs.writeFile(path.join(staging,'web-release.json'),JSON.stringify({appBuildId,runSchema:RUN_SCHEMA,rulesId:'mvp-1.0',mapId:reachability.mapId,assetCount:selected.size,fileCount:files.size,assetBytes:bytes,logicalBytes:Object.values(assets).reduce((n,a)=>n+a.bytes,0),sharedBytes:Object.values(assets).reduce((n,a)=>n+a.bytes,0)-bytes,manifest:manifestName,release,source:'reports/local/asset-reachability.json'},null,2));
  staged=true;
 }finally{if(!staged)await fs.rm(staging,{recursive:true,force:true});}
 const exists=async target=>fs.stat(target).then(()=>true,()=>false);

@@ -1,0 +1,9 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+import {createServer} from 'vite';import {chromium} from '@playwright/test';
+const out='reports/local/cleanup-five-maps-20261006',expected=JSON.parse(await fs.readFile('test/fixtures/terrain-atlas-rgb.json','utf8'));
+const catalog=JSON.parse(await fs.readFile('deploy/runtime/source-assets.json','utf8')),row=catalog.entries.find((r:any)=>r.runtime.id==='map.terrain.diffuse');
+await fs.writeFile(out+'/pixel-probe.html',`<!doctype html><script type="module">import {readTerrainPixels} from '/src/render/terrain/campaign-textures.ts';try{const r=await readTerrainPixels('/${row.packedFile.slice(7)}');const hash=await crypto.subtle.digest('SHA-256',r.pixels);window.result={width:r.width,height:r.height,sha256:Array.from(new Uint8Array(hash)).map(v=>v.toString(16).padStart(2,'0')).join('')};}catch(e){window.result={error:String(e.stack||e)}};</script>`);
+const server=await createServer({configFile:false,server:{host:'127.0.0.1',port:0},root:process.cwd()});await server.listen();
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+try{const page=await browser.newPage();await page.goto(`http://127.0.0.1:${(server.httpServer!.address() as any).port}/${out}/pixel-probe.html`);await page.waitForFunction(()=>!!(window as any).result,null,{timeout:60000});const actual=await page.evaluate(()=>(window as any).result);await fs.writeFile(out+'/terrain-rgb-browser.json',JSON.stringify({source:row.sha256,expected,actual,method:'Compare all RGB channels decoded in Chrome against Pillow directly decoding the original exact-pixel WebP; alpha is made opaque because SC2 terrain alpha is blend data.'},null,2));assert.deepEqual(actual,expected);console.log(JSON.stringify({passed:true,pixels:expected.width*expected.height,sha256:actual.sha256}));}
+finally{await browser.close();await server.close();}

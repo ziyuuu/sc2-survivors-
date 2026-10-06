@@ -11,6 +11,7 @@ import {terranHeroGrowth} from '../../src/data/terran-heroes';
 import {HERO_AURA_DESCRIPTIONS} from '../../src/data/hero-upgrades';
 import {ELITE_TEAM_AURAS,HERO_TEAM_AURAS,TEAM_AURA_HELP} from '../../src/data/team-auras';
 import {RUN_SCHEMA} from '../../src/simulation/persistence/run-snapshot';
+import {CAMPAIGN_MAP_ID,CAMPAIGN_MAP_SIZE,MAP_THEMES} from '../../src/data/campaign-map';
 import {RACES,RACE_NAMES,FAMILIES_BY_RACE,ALL_FAMILIES,FAMILY_LIMIT,BODY_LIMIT,ORDINARY_RANK_LIMIT,HERO_LIMIT,MVP_RULES,type FamilyId} from '../../src/data/races';
 import {EXPANSION_SOURCE,SOURCE_UNIT_DETAILS,SOURCE_PRODUCTION_RECIPES,SOURCE_UNIT_MODES,SOURCE_UNIT_WEAPON_IDS,sourceWeaponsForUnit,type VerifiedAddedUnitType} from '../../src/data/expansion-units';
 import {CAMPAIGN_SCIENCE_VESSEL,SCIENCE_VESSEL_SOURCE,CAMPAIGN_SCIENCE_VESSEL_RECIPE,SCIENCE_VESSEL_ADAPTATION} from '../../src/data/campaign-science-vessel';
@@ -137,8 +138,11 @@ for(const difficulty of difficulties)text.push(`### 新18关 · ${difficultyName
 text.push('第18关主巢全程可攻击、阶段切换不回血；提前摧毁停止其攻击与生产，仍需完成150秒时限。通关要求主巢摧毁和时限结束同时满足。第1—17关按时间推进，存活敵人与伤损跨关保留。24关只是后续独立战役接口，不是当前内容。',
  '普通／简单每3关获得1永久资源，困难每3关2资源，地狱每关1资源；完整18关分别6／12／18。无尽每完整60秒战斗按普通／简单1、困难／地狱2资源结算，未新增20分钟领取上限。无尽保留本局资产，每60秒结算300矿／250气并购物，每4轮先发展；四分钟混合波次与经济事件切分为四个窗口，特殊敌人计时连续。');
 
-text.push('## 版本边界',
- `当前战局schema${RUN_SCHEMA}，永久档案v5。当前新局只运行 mvp-1.0 的三族18关、165节点和单套关间经济。M1空天赋档可规范化迁移；旧开发战局不续跑，只能导出原件并一次性核算已证实的永久资源。历史价格表仅供该只读导入核算，不参与当前游戏运行。`,
+text.push('## 当前地图',
+ `地图版本 ${CAMPAIGN_MAP_ID}，五张地图均为 ${CAMPAIGN_MAP_SIZE}×${CAMPAIGN_MAP_SIZE}，三族均从中心（0，0）出发，各关开放净面积相同。新局随机选择并避免与上一局重复；读档保留已选地图和随机种子。`,
+ table(['地图身份','环境'],Object.entries(MAP_THEMES).map(([id,theme])=>[id,theme.name])),
+ '## 版本边界',
+ `当前战局schema${RUN_SCHEMA}，永久档案v6。当前新局只运行 mvp-1.0 的三族18关、165节点和单套关间经济。只接收当前格式；旧战局、旧永久档案和旧地图配方直接拒绝，不转换、不提取旧资源。当前档案的导入导出、备份轮换和原子恢复保留。`,
  '## 核对命令','```sh\nnpm run docs:data\nnpm run docs:check\nnode tools/build-expansion-unit-data.mjs --check\nnode tools/build-campaign-science-vessel.mjs --check\n```');
 const output=text.join('\n\n')+'\n',path=new URL('../../docs/GAME_DATA_REFERENCE.md',import.meta.url);
 if(process.argv.includes('--check')){if((await fs.readFile(path,'utf8')).replace(/\r\n/g,'\n')!==output)throw Error('数据参考过期，请运行 npm run docs:data');console.log('Game reference matches runtime data.');}

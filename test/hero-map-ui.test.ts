@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
 import {tickWeaponFlights,weaponFlightSpeed} from '../src/simulation/combat/weapon-flight';
 import {settleWeaponFlights} from './helpers/weapon-flight';
-import {campaignTerrain,chooseCampaignMap,MAP_STAGE_AREAS,makeCampaignDefinition} from '../src/data/campaign-map';
+import {campaignTerrain,chooseCampaignMap,MAP_STAGE_AREAS,MAP_THEMES,makeCampaignDefinition,type CampaignTheme} from '../src/data/campaign-map';
 import {HERO_SPECTACLE} from '../src/data/hero-spectacle';
 import {ALL_HERO_IDS} from '../src/data/heroes';
 import {resolveExpeditionHeroCasts} from '../src/simulation/combat/expedition-heroes';
@@ -27,7 +27,7 @@ test('impact uses current armor, not the source stats changed after launch',()=>
  const unarmored=run(0),armored=run(4);assert.ok(unarmored.damage<100);assert.equal(unarmored.damage-armored.damage,4*armored.shot.hits);
 });
 test('a real new-map blocker prevents a ground projectile arriving through it',()=>{
- const terrain=campaignTerrain({version:1,seed:1041,theme:'industrial',layout:0});terrain.setStage(18);const b=terrain.definition.placements[0],x=b.position[0]-80,z=80-b.position[1];
+ const terrain=campaignTerrain({version:2,seed:1041,theme:'industrial'});terrain.setStage(18);const b=terrain.definition.placements[0],x=b.position[0]-80,z=80-b.position[1];
  const w=world();const u=w.addUnit('marauder','terran',x-5,z),t=w.addUnit('roach','zerg',x-4,z);t.hp=t.maxHp=10000;w.hash.rebuild(w.entities.values());w.fire(u,t);assert.equal(w.weaponFlights.length,1);w.terrain=terrain;t.x=x+5;w.hash.rebuild(w.entities.values());settleWeaponFlights(w);assert.equal(t.hp,10000);
 });
 test('line skill windup cannot hit a touching enemy before the actual release',()=>{
@@ -37,13 +37,14 @@ test('line skill windup cannot hit a touching enemy before the actual release',(
 test('pinned projectile timing excludes firearms, true beams, carrier mothers and high-impact Thor',()=>{
  const w=world();for(const [family,speed] of [['marauder',28],['hydralisk',56],['banshee',70],['stalker',26.25],['marine',0],['reaper',0],['void_ray',0],['carrier',0]] as const){const u=w.addUnit(family,'terran',0,0);assert.equal(weaponFlightSpeed(u),speed);}
 });
-test('nine sparse maps have exact net areas, level terrain and permanently open center/corridors',()=>{
- for(const theme of ['industrial','mar-sara','char'] as const)for(const layout of [0,1,2] as const){const d=makeCampaignDefinition({version:1,seed:1041,theme,layout});
-  assert.equal(d.walkWidth,320);assert.ok(d.heights.every(h=>h===0));assert.ok(d.walk.filter(v=>!v).length/d.walk.length<.05);
+test('five maps have equal dimensions and areas, centered spawns and connected paths at all 18 stages',()=>{
+ assert.equal(Object.keys(MAP_THEMES).length,5);
+ for(const theme of Object.keys(MAP_THEMES) as CampaignTheme[])for(const seed of [0,1041,0xffffffff]){const d=makeCampaignDefinition({version:2,seed,theme});
+  assert.deepEqual([d.width,d.height,d.walkWidth,d.walkHeight],[160,160,320,320]);assert.deepEqual(d.start,{x:0,z:0});assert.deepEqual(d.origin,[80,80]);assert.ok(d.placements.length>=16);assert.ok(d.heights.every(h=>h===0));assert.ok(d.walk.filter(v=>!v).length/d.walk.length<.05);
   for(let stage=1;stage<=18;stage++){const area=d.walk.reduce((n,v,i)=>n+(v&&d.opening[i]>0&&d.opening[i]<=stage?.25:0),0);assert.equal(area,MAP_STAGE_AREAS[stage-1]);}
   // Every open walk cell must connect to the central spawn, including new edge cells.
-  for(let stage=1;stage<=18;stage++){const seen=new Uint8Array(d.walk.length),queue=[160*320+160];seen[queue[0]]=1;for(let q=0;q<queue.length;q++){const at=queue[q];for(const to of [at-1,at+1,at-320,at+320])if(to>=0&&to<seen.length&&!seen[to]&&d.walk[to]&&d.opening[to]>0&&d.opening[to]<=stage){seen[to]=1;queue.push(to);}}assert.equal(queue.length,Math.round(MAP_STAGE_AREAS[stage-1]*4),`${theme}/${layout} stage${stage} connection`);}
-  const terrain=campaignTerrain({version:1,seed:1041,theme,layout});terrain.setStage(18);for(let i=-51;i<=51;i+=3){assert.ok(terrain.canOccupy({x:i,z:0},3.9));assert.ok(terrain.canOccupy({x:0,z:i},3.9));}
+  for(let stage=1;stage<=18;stage++){const seen=new Uint8Array(d.walk.length),queue=[160*320+160];seen[queue[0]]=1;for(let q=0;q<queue.length;q++){const at=queue[q],neighbours=[at-320,at+320];if(at%320)neighbours.push(at-1);if(at%320<319)neighbours.push(at+1);for(const to of neighbours)if(to>=0&&to<seen.length&&!seen[to]&&d.walk[to]&&d.opening[to]>0&&d.opening[to]<=stage){seen[to]=1;queue.push(to);}}assert.equal(queue.length,Math.round(MAP_STAGE_AREAS[stage-1]*4),`${theme}/${seed} stage${stage} connection`);}
+  const terrain=campaignTerrain({version:2,seed,theme});for(let stage=1;stage<=18;stage++){terrain.setStage(stage);assert.ok(terrain.canOccupy({x:0,z:0},3.9));const reach=Math.sqrt(MAP_STAGE_AREAS[stage-1]/Math.PI)-6;for(let angle=0;angle<8;angle++)assert.ok(terrain.walkLine({x:0,z:0},{x:Math.cos(angle*Math.PI/4)*reach,z:Math.sin(angle*Math.PI/4)*reach},3.9),`${theme}/${stage}/${angle} large-body route`);}
  }
 });
 test('preparing another snapshot of the same map cannot change the live chapter boundary',()=>{
