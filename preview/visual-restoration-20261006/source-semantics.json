@@ -1,0 +1,4854 @@
+{
+  "version": 1,
+  "sourceSha256": "d5f34c9efc37c120883764ca0dcc19162805afd707f7404f083fa98260c454e1",
+  "materials": [
+    {
+      "index": 0,
+      "name": "Immortal_trev",
+      "flags": 2147500032,
+      "blend": 0,
+      "hdrEmission": 3.5,
+      "hdrSpecular": 5,
+      "specularity": 40,
+      "layers": {
+        "diffuse": {
+          "filename": "Assets/Textures/Immortal_Diffuse.dds",
+          "flags": 236,
+          "channel": 1,
+          "uv": 0,
+          "color": {
+            "id": 1476045087,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1172272657,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1544532378,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 547123562,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1065437794,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1479976915,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive": {
+          "filename": "Assets/Textures/Immortal_Emissive.dds",
+          "flags": 204,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 1443052356,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 824783772,
+            "flags": 6,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1264237043,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1981536303,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 2027900198,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1147042257,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive2": {
+          "filename": "Assets/Textures/Immortal_Emissive.dds",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1798453439,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1675446353,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1051346706,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 829593740,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1218503869,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1808073270,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 1125472145,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1274685311,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 378349628,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 425064354,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1619495827,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1138912536,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha2": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 496896136,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1520707719,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 900485026,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 580135230,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1932786552,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 159040566,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        }
+      }
+    },
+    {
+      "index": 1,
+      "name": "16 - Default",
+      "flags": 2147500256,
+      "blend": 2,
+      "hdrEmission": 3,
+      "hdrSpecular": 1,
+      "specularity": 0,
+      "layers": {
+        "diffuse": {
+          "filename": "",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1357673819,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 879355204,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1649727339,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1519243612,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 301035942,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 549965126,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive": {
+          "filename": "Assets/Textures/Glow_Blue3.dds",
+          "flags": 204,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 666216465,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 710484084,
+            "flags": 6,
+            "interpolation": 1,
+            "default": 0,
+            "null": 1
+          },
+          "add": {
+            "id": 22945823,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 962288662,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1685601204,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1145302896,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive2": {
+          "filename": "",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1883384663,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1293373960,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 400354776,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1857572864,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1446883747,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1251249374,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 1483031673,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1697660198,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1073447670,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1184841518,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 2115690125,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1655956464,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha2": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 861147857,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1220348877,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1320424102,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1187327229,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 153246542,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 655032306,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        }
+      }
+    },
+    {
+      "index": 2,
+      "name": "15 - Default",
+      "flags": 2147500272,
+      "blend": 2,
+      "hdrEmission": 1.5,
+      "hdrSpecular": 1,
+      "specularity": 0,
+      "layers": {
+        "diffuse": {
+          "filename": "",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1827169170,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1458412358,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1033455734,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1533949335,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 739609542,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1785180915,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive": {
+          "filename": "Assets/Textures/EmergyTrail.dds",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1160893971,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1152763174,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1653047641,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 904701130,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 695713302,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 2130839564,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive2": {
+          "filename": "",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 514772485,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1218219573,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 134271196,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1641117959,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1856535778,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 329052206,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 914989355,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1622925595,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 539475954,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1240864297,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1183781836,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1002151680,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha2": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 920637164,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 273730560,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1229326978,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1479463031,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 146915205,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 451806610,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        }
+      }
+    },
+    {
+      "index": 3,
+      "name": "01 - Default",
+      "flags": 2147762408,
+      "blend": 2,
+      "hdrEmission": 1,
+      "hdrSpecular": 1,
+      "specularity": 0,
+      "layers": {
+        "diffuse": {
+          "filename": "",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 255051983,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1137995172,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1121016460,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1324739072,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 781176306,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1051008397,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive": {
+          "filename": "Assets/Textures/CyanStarFlash.dds",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1342710001,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 178552708,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1058067017,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1527921138,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 146919653,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1215010456,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive2": {
+          "filename": "",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1354724519,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1879727435,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 367679467,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1237139204,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1245538602,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1682558701,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 2023234441,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1479357029,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1036859589,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1637503018,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1645872644,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1282318787,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha2": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 239672722,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 668272360,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1910916362,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1091562891,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 492462098,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 410272678,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        }
+      }
+    },
+    {
+      "index": 4,
+      "name": "14 - Default",
+      "flags": 2147500256,
+      "blend": 2,
+      "hdrEmission": 2,
+      "hdrSpecular": 1,
+      "specularity": 0,
+      "layers": {
+        "diffuse": {
+          "filename": "",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 175988004,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1946753217,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 263321229,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 512407420,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1114147260,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1694930209,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive": {
+          "filename": "Assets/Textures/WarpLine2_blue.dds",
+          "flags": 204,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1742034324,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 927676198,
+            "flags": 6,
+            "interpolation": 1,
+            "default": 0,
+            "null": 1
+          },
+          "add": {
+            "id": 1213891187,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 40991672,
+            "flags": 14,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 1.2000000476837158
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 432626486,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 391174867,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive2": {
+          "filename": "",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1833974789,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1223651527,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1402061833,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1609430216,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1433854671,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 93875641,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 1165447979,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1623728105,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 2075568935,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 2009766886,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 2102496737,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 767492759,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha2": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 917254174,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1138961614,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1059372493,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1397437403,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1294286190,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1955792872,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        }
+      }
+    },
+    {
+      "index": 5,
+      "name": "Mat_Immortal_Shield_Scroll",
+      "flags": 2147500280,
+      "blend": 2,
+      "hdrEmission": 2,
+      "hdrSpecular": 1,
+      "specularity": 0,
+      "layers": {
+        "diffuse": {
+          "filename": "",
+          "flags": 236,
+          "channel": 1,
+          "uv": 0,
+          "color": {
+            "id": 170598774,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1902935653,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1619217203,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1695872805,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 226629339,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1970562953,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 4,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive": {
+          "filename": "Assets/Textures/TronSquare1_blue3.dds",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1655714608,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 1718957489,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 1.5,
+            "null": 1
+          },
+          "add": {
+            "id": 1693199941,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 272436392,
+            "flags": 14,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": -3
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 1246774610,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 1338868731,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 8,
+              "y": 15
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 1,
+            "exponent": 0.699999988079071,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "emissive2": {
+          "filename": "Assets/Textures/CyberWaterGrid1.dds",
+          "flags": 236,
+          "channel": 0,
+          "uv": 0,
+          "color": {
+            "id": 1013857938,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 643123234,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0.800000011920929,
+            "null": 1
+          },
+          "add": {
+            "id": 470279996,
+            "flags": 0,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1112058075,
+            "flags": 14,
+            "interpolation": 1,
+            "default": {
+              "x": -2,
+              "y": -1
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 528146064,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 821385242,
+            "flags": 8,
+            "interpolation": 1,
+            "default": {
+              "x": 2,
+              "y": 2
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0.5,
+            "min": 0,
+            "maxOffset": 0.800000011920929
+          }
+        },
+        "alpha": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 340349372,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 242362124,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 874547218,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1785710581,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 928887230,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 416429876,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        },
+        "alpha2": {
+          "filename": "",
+          "flags": 0,
+          "channel": 2,
+          "uv": 0,
+          "color": {
+            "id": 1477839099,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            },
+            "null": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "multiply": {
+            "id": 334331905,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 1,
+            "null": 1
+          },
+          "add": {
+            "id": 1767436237,
+            "flags": 0,
+            "interpolation": 0,
+            "default": 0,
+            "null": 0
+          },
+          "uvOffset": {
+            "id": 1474877273,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "uvAngle": {
+            "id": 918256951,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "null": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "uvTiling": {
+            "id": 997824655,
+            "flags": 0,
+            "interpolation": 0,
+            "default": {
+              "x": 1,
+              "y": 1
+            },
+            "null": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "fresnel": {
+            "type": 0,
+            "exponent": 0,
+            "min": 0,
+            "maxOffset": 1
+          }
+        }
+      }
+    }
+  ],
+  "composites": [
+    {
+      "name": "Mat_Immortal_Shield",
+      "parts": [
+        {
+          "materialReference": 5,
+          "material": {
+            "type": 1,
+            "index": 5
+          },
+          "alpha": {
+            "id": 1095849030,
+            "flags": 6,
+            "interpolation": 1,
+            "default": 0,
+            "null": 0
+          }
+        }
+      ]
+    }
+  ],
+  "compositeTracks": [
+    {
+      "name": "Cover Start_Immortal_Shield",
+      "id": 1095849030,
+      "frames": [
+        0,
+        0.166,
+        1.333
+      ],
+      "values": [
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Cover_Immortal_Shield",
+      "id": 1095849030,
+      "frames": [
+        0,
+        1.333
+      ],
+      "values": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Cover End_Immortal_Shield",
+      "id": 1095849030,
+      "frames": [
+        0,
+        0.166,
+        1.333
+      ],
+      "values": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "name": "Stand",
+      "duration": 2,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand_full",
+          "frames": [
+            0,
+            0.1,
+            0.866,
+            2
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1.100000023841858
+            },
+            {
+              "x": 0,
+              "y": 1.2000000476837158
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand_full",
+          "frames": [
+            0,
+            2
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -2.6666667461395264
+            },
+            {
+              "x": 0,
+              "y": -2.4666666984558105
+            }
+          ]
+        },
+        {
+          "id": 927676198,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Stand_full",
+          "frames": [
+            0,
+            0.1,
+            0.166,
+            0.4,
+            0.8,
+            0.866,
+            2
+          ],
+          "values": [
+            0,
+            0,
+            1,
+            1.5,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand_full",
+          "frames": [
+            0,
+            2
+          ],
+          "values": [
+            {
+              "x": -1.9285714626312256,
+              "y": -0.6666666865348816
+            },
+            {
+              "x": -1.8857142925262451,
+              "y": -0.46666666865348816
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0.9600000381469727
+            },
+            {
+              "x": 0,
+              "y": 0.8160000443458557
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -2.299999952316284
+            },
+            {
+              "x": 0,
+              "y": -2.200000047683716
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.850000023841858,
+              "y": -0.29999998211860657
+            },
+            {
+              "x": -1.8285714387893677,
+              "y": -0.19999998807907104
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Attack",
+      "duration": 2.334,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Attack_full",
+          "frames": [
+            0,
+            1.466,
+            2.333
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": -4
+            },
+            {
+              "x": 0,
+              "y": -3.941441535949707
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Attack_full",
+          "frames": [
+            0,
+            2.333
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -1.6333333253860474
+            },
+            {
+              "x": 0,
+              "y": -1.3999998569488525
+            }
+          ]
+        },
+        {
+          "id": 710484084,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Attack_full",
+          "frames": [
+            0,
+            0.066,
+            0.4,
+            2.333
+          ],
+          "values": [
+            0,
+            2,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 824783772,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Attack_full",
+          "frames": [
+            0,
+            0.133,
+            0.333,
+            0.666,
+            2.333
+          ],
+          "values": [
+            1,
+            2,
+            0.5,
+            1,
+            1
+          ]
+        },
+        {
+          "id": 927676198,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Attack_full",
+          "frames": [
+            0,
+            0.066,
+            1.366,
+            1.466,
+            2.333
+          ],
+          "values": [
+            0,
+            4,
+            4,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Attack_full",
+          "frames": [
+            0,
+            2.333
+          ],
+          "values": [
+            {
+              "x": -1.7071428298950195,
+              "y": 0.36666667461395264
+            },
+            {
+              "x": -1.6571428775787354,
+              "y": 0.6000000834465027
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk A",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk A_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -3.9189188480377197
+            },
+            {
+              "x": 0,
+              "y": -3.851351261138916
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk A_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -1.3666666746139526
+            },
+            {
+              "x": 0,
+              "y": -1.2666666507720947
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk A_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.649999976158142,
+              "y": 0.6333333253860474
+            },
+            {
+              "x": -1.6285713911056519,
+              "y": 0.73333340883255
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk B",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk B_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -3.8063063621520996
+            },
+            {
+              "x": 0,
+              "y": -3.738738775253296
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk B_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -1.1999999284744263
+            },
+            {
+              "x": 0,
+              "y": -1.100000023841858
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk B_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.6142857074737549,
+              "y": 0.8000000715255737
+            },
+            {
+              "x": -1.5928571224212646,
+              "y": 0.8999999761581421
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk C",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk C_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -3.6936936378479004
+            },
+            {
+              "x": 0,
+              "y": -3.6261260509490967
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk C_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -1.0333333015441895
+            },
+            {
+              "x": 0,
+              "y": -0.9333332777023315
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk C_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.5785714387893677,
+              "y": 0.9666666388511658
+            },
+            {
+              "x": -1.5571428537368774,
+              "y": 1.0666667222976685
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk D",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk D_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -3.5810811519622803
+            },
+            {
+              "x": 0,
+              "y": -3.5135135650634766
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk D_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -0.8666666150093079
+            },
+            {
+              "x": 0,
+              "y": -0.7666667103767395
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk D_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.5428571701049805,
+              "y": 1.133333444595337
+            },
+            {
+              "x": -1.5214285850524902,
+              "y": 1.2333333492279053
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk E",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk E_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -3.468468427658081
+            },
+            {
+              "x": 0,
+              "y": -3.4009008407592773
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk E_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -0.7000000476837158
+            },
+            {
+              "x": 0,
+              "y": -0.5999999642372131
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk E_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.5071429014205933,
+              "y": 1.2999999523162842
+            },
+            {
+              "x": -1.4857141971588135,
+              "y": 1.4000000953674316
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk F",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk F_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -3.355855941772461
+            },
+            {
+              "x": 0,
+              "y": -3.2882883548736572
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk F_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -0.5333333015441895
+            },
+            {
+              "x": 0,
+              "y": -0.4333333969116211
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk F_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.471428632736206,
+              "y": 1.4666666984558105
+            },
+            {
+              "x": -1.4500000476837158,
+              "y": 1.566666603088379
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk G",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk G_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -3.2432432174682617
+            },
+            {
+              "x": 0,
+              "y": -3.175675630569458
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk G_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -0.3666667342185974
+            },
+            {
+              "x": 0,
+              "y": -0.2666666507720947
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk G_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.4357142448425293,
+              "y": 1.6333332061767578
+            },
+            {
+              "x": -1.414285659790039,
+              "y": 1.7333333492279053
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk H",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk H_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -3.1306304931640625
+            },
+            {
+              "x": 0,
+              "y": -3.063063144683838
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk H_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -0.19999998807907104
+            },
+            {
+              "x": 0,
+              "y": -0.10000008344650269
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk H_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.399999976158142,
+              "y": 1.7999999523162842
+            },
+            {
+              "x": -1.3785715103149414,
+              "y": 1.8999998569488525
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk I",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk I_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -3.0180180072784424
+            },
+            {
+              "x": 0,
+              "y": -2.9504504203796387
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk I_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -0.033333420753479004
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk I_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.3642857074737549,
+              "y": 1.966666579246521
+            },
+            {
+              "x": -1.3428571224212646,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk J",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk J_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -2.9054055213928223
+            },
+            {
+              "x": 0,
+              "y": -2.8378376960754395
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk J_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk J_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.3285714387893677,
+              "y": 2
+            },
+            {
+              "x": -1.3071428537368774,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk K",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk K_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -2.792792797088623
+            },
+            {
+              "x": 0,
+              "y": -2.7252252101898193
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk K_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk K_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.2928571701049805,
+              "y": 2
+            },
+            {
+              "x": -1.2714285850524902,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk L",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk L_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -2.680180072784424
+            },
+            {
+              "x": 0,
+              "y": -2.612612724304199
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk L_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk L_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.2571427822113037,
+              "y": 2
+            },
+            {
+              "x": -1.2357141971588135,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk M",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk M_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -2.5675675868988037
+            },
+            {
+              "x": 0,
+              "y": -2.5
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk M_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk M_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.221428632736206,
+              "y": 2
+            },
+            {
+              "x": -1.2000000476837158,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk N",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk N_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -2.4549551010131836
+            },
+            {
+              "x": 0,
+              "y": -2.387387275695801
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk N_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk N_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.1857142448425293,
+              "y": 2
+            },
+            {
+              "x": -1.164285659790039,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk O",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk O_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -2.3423423767089844
+            },
+            {
+              "x": 0,
+              "y": -2.2747747898101807
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk O_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk O_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.149999976158142,
+              "y": 2
+            },
+            {
+              "x": -1.1285715103149414,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Walk P",
+      "duration": 1,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk P_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -2.229729652404785
+            },
+            {
+              "x": 0,
+              "y": -2.1621623039245605
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk P_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Walk P_full",
+          "frames": [
+            0,
+            1
+          ],
+          "values": [
+            {
+              "x": -1.1142857074737549,
+              "y": 2
+            },
+            {
+              "x": -1.0928571224212646,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stand 01",
+      "duration": 6,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand 01_full",
+          "frames": [
+            0,
+            6
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -1.8693692684173584
+            },
+            {
+              "x": 0,
+              "y": -1.4639639854431152
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand 01_full",
+          "frames": [
+            0,
+            6
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand 01_full",
+          "frames": [
+            0,
+            6
+          ],
+          "values": [
+            {
+              "x": -1,
+              "y": 2
+            },
+            {
+              "x": -0.8714286088943481,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stand Channel",
+      "duration": 2,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand Channel_full",
+          "frames": [
+            0,
+            2
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -1.1936936378479004
+            },
+            {
+              "x": 0,
+              "y": -1.058558464050293
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand Channel_full",
+          "frames": [
+            0,
+            2
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand Channel_full",
+          "frames": [
+            0,
+            2
+          ],
+          "values": [
+            {
+              "x": -0.7857142686843872,
+              "y": 2
+            },
+            {
+              "x": -0.7428570985794067,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stand 02",
+      "duration": 10,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand 02_full",
+          "frames": [
+            0,
+            10
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": -0.7432432174682617
+            },
+            {
+              "x": 0,
+              "y": -0.06756758689880371
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand 02_full",
+          "frames": [
+            0,
+            10
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Stand 02_full",
+          "frames": [
+            0,
+            10
+          ],
+          "values": [
+            {
+              "x": -0.6428571939468384,
+              "y": 2
+            },
+            {
+              "x": -0.4285714626312256,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Attack Superior",
+      "duration": 2.333,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Attack Superior_full",
+          "frames": [
+            0,
+            1.466,
+            2.333
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": -4
+            },
+            {
+              "x": 0,
+              "y": -0.5333333015441895
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Attack Superior_full",
+          "frames": [
+            0,
+            2.333
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 710484084,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Attack Superior_full",
+          "frames": [
+            0,
+            0.066,
+            0.4,
+            2.333
+          ],
+          "values": [
+            0,
+            2,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 824783772,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Attack Superior_full",
+          "frames": [
+            0,
+            0.133,
+            0.333,
+            0.666,
+            2.333
+          ],
+          "values": [
+            1,
+            2,
+            0.5,
+            1,
+            1
+          ]
+        },
+        {
+          "id": 927676198,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Attack Superior_full",
+          "frames": [
+            0,
+            0.066,
+            1.366,
+            1.466,
+            2.333
+          ],
+          "values": [
+            0,
+            4,
+            4,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Attack Superior_full",
+          "frames": [
+            0,
+            2.333
+          ],
+          "values": [
+            {
+              "x": -0.40714287757873535,
+              "y": 2
+            },
+            {
+              "x": -0.3571428060531616,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Attack Inferior",
+      "duration": 2.533,
+      "tracks": [
+        {
+          "id": 40991672,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Attack Inferior_full",
+          "frames": [
+            0,
+            1.466,
+            2.533
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": -4
+            },
+            {
+              "x": 0,
+              "y": -1.9354839324951172
+            }
+          ]
+        },
+        {
+          "id": 272436392,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Attack Inferior_full",
+          "frames": [
+            0,
+            2.533
+          ],
+          "values": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ]
+        },
+        {
+          "id": 710484084,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Attack Inferior_full",
+          "frames": [
+            0,
+            0.066,
+            0.4,
+            2.533
+          ],
+          "values": [
+            0,
+            2,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 824783772,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Attack Inferior_full",
+          "frames": [
+            0,
+            0.133,
+            0.333,
+            0.666,
+            2.533
+          ],
+          "values": [
+            1,
+            2,
+            0.5,
+            1,
+            1
+          ]
+        },
+        {
+          "id": 927676198,
+          "kind": "sdr3",
+          "concurrent": false,
+          "collection": "Attack Inferior_full",
+          "frames": [
+            0,
+            0.066,
+            1.366,
+            1.466,
+            2.533
+          ],
+          "values": [
+            0,
+            4,
+            4,
+            0,
+            0
+          ]
+        },
+        {
+          "id": 1112058075,
+          "kind": "sd2v",
+          "concurrent": false,
+          "collection": "Attack Inferior_full",
+          "frames": [
+            0,
+            2.533
+          ],
+          "values": [
+            {
+              "x": -0.35428571701049805,
+              "y": 2
+            },
+            {
+              "x": -0.2999999523162842,
+              "y": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cover Start",
+      "duration": 1.333,
+      "tracks": [
+        {
+          "id": 1095849030,
+          "kind": "sdr3",
+          "concurrent": true,
+          "collection": "Cover Start_Immortal_Shield",
+          "frames": [
+            0,
+            0.166,
+            1.333
+          ],
+          "values": [
+            0,
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cover",
+      "duration": 1.334,
+      "tracks": [
+        {
+          "id": 1095849030,
+          "kind": "sdr3",
+          "concurrent": true,
+          "collection": "Cover_Immortal_Shield",
+          "frames": [
+            0,
+            1.333
+          ],
+          "values": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cover End",
+      "duration": 1.333,
+      "tracks": [
+        {
+          "id": 1095849030,
+          "kind": "sdr3",
+          "concurrent": true,
+          "collection": "Cover End_Immortal_Shield",
+          "frames": [
+            0,
+            0.166,
+            1.333
+          ],
+          "values": [
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "sourceLight": {
+    "file": "assets/private/maps/KairosJunctionLE/Base.SC2Data/GameData/LightData.xml",
+    "sha256": "2ff3432320686fdc5ce9b7024eb188e6ef61bd01dae90f8c7525edce9f857ca2",
+    "ambient": "0.576471,0.537255,0.458824",
+    "parameters": {
+      "HDRExposure": 1.5,
+      "HDRWhitePoint": 1.85,
+      "HDRGain": 0,
+      "HDRScale": 0,
+      "TerrainSpecularExp": 11.27,
+      "TerrainHDRSpecular": 3,
+      "CreepSpecularExp": 30,
+      "CreepHDRSpecMultiplier": 3,
+      "ColorizationContrast": 1.066,
+      "ColorizationHue": 0.001,
+      "ColorizationBlend": 0.3,
+      "AOOcclusionRadius": 1,
+      "AONoOcclusion": 0.9,
+      "AOOcclusionPower": 2,
+      "AODetailOcclusionRadius": 0.01,
+      "AODetailNoOcclusion": 0.06,
+      "AODetailOcclusionPower": 4
+    }
+  },
+  "bodyProfiles": [
+    {
+      "id": "model.marine",
+      "sourceSha256": "56fc0f53681f12bafe7b4239aa4fe9117786dd0029eb1517d53af6b883bf7e13",
+      "materials": [
+        {
+          "name": "marine#0",
+          "specularity": 80,
+          "hdrSpecular": 2.5,
+          "blend": 0
+        }
+      ]
+    },
+    {
+      "id": "model.marauder",
+      "sourceSha256": "cb5c5fe1b6e5fcf6411187aa4fb7db68cb7a68aaf3579f4c7446f489d6240869",
+      "materials": [
+        {
+          "name": "Material #30#0",
+          "specularity": 40,
+          "hdrSpecular": 1.5,
+          "blend": 0
+        },
+        {
+          "name": "Standard_7#1",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        },
+        {
+          "name": "Material #31#2",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "erere#3",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        }
+      ]
+    },
+    {
+      "id": "model.tank",
+      "sourceSha256": "eeac554b0f8d34c0d74821b6db2a2fa6b54213cd51ac29348f29628f956a9c57",
+      "materials": [
+        {
+          "name": "Tank_Treads_L1#0",
+          "specularity": 20,
+          "hdrSpecular": 1,
+          "blend": 0
+        },
+        {
+          "name": "Siege_TANK#1",
+          "specularity": 80,
+          "hdrSpecular": 2,
+          "blend": 0
+        },
+        {
+          "name": "Tank_Treads_R1#2",
+          "specularity": 20,
+          "hdrSpecular": 1,
+          "blend": 0
+        },
+        {
+          "name": "Material #56#3",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        }
+      ]
+    },
+    {
+      "id": "model.roach",
+      "sourceSha256": "6156cd8390837780693b3f84628b9a6ef4c1277b98cc3c764be83c0cae89e341",
+      "materials": [
+        {
+          "name": "Material #188#0",
+          "specularity": 80,
+          "hdrSpecular": 2.5,
+          "blend": 0
+        },
+        {
+          "name": "Standard_14#1",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        },
+        {
+          "name": "rockdebris#2",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 0
+        },
+        {
+          "name": "cracks2#3",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        },
+        {
+          "name": "11 - Defaultrerer#4",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        }
+      ]
+    },
+    {
+      "id": "model.zealot",
+      "sourceSha256": "56fbfe67559d950e5d39fcb257bae345e4950634dabbd056624ad9b3c9f77d76",
+      "materials": [
+        {
+          "name": "Standard_7#0",
+          "specularity": 80,
+          "hdrSpecular": 2,
+          "blend": 0
+        },
+        {
+          "name": "Standard_blue#1",
+          "specularity": 20,
+          "hdrSpecular": 1,
+          "blend": 3
+        },
+        {
+          "name": "Sword_smoke_fg#2",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "Material #27#3",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "Standard_14#4",
+          "specularity": 20,
+          "hdrSpecular": 1.5,
+          "blend": 0
+        },
+        {
+          "name": "ChargeRibbon1#5",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 3
+        }
+      ]
+    },
+    {
+      "id": "model.hero.raynor",
+      "sourceSha256": "11978697d1a5e7a340d7031db33cd7baaec69b157c818d973b76331d5976f762",
+      "materials": [
+        {
+          "name": "Marine Body#0",
+          "specularity": 80,
+          "hdrSpecular": 3.5,
+          "blend": 0
+        },
+        {
+          "name": "Standard_10#1",
+          "specularity": 40,
+          "hdrSpecular": 2.5,
+          "blend": 0
+        },
+        {
+          "name": "Material #28rr#2",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "Materwewew#3",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "Standard_7#4",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        },
+        {
+          "name": "Marine Head#5",
+          "specularity": 80,
+          "hdrSpecular": 3.5,
+          "blend": 0
+        },
+        {
+          "name": "sdfdfd#6",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        },
+        {
+          "name": "fgfgfgfgf#7",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        },
+        {
+          "name": "15 - Defa#8",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 1
+        },
+        {
+          "name": "15 - Derereertrtr#9",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        }
+      ]
+    },
+    {
+      "id": "model.hero.fenix",
+      "sourceSha256": "bc72cad18dee28c45e4df8d34b41633731610d6217e30637f09de3979f119cf1",
+      "materials": [
+        {
+          "name": "Mat_Regular_Morph#0",
+          "specularity": 80,
+          "hdrSpecular": 3,
+          "blend": 0
+        },
+        {
+          "name": "Mat_Regular_Fine#1",
+          "specularity": 80,
+          "hdrSpecular": 3,
+          "blend": 0
+        },
+        {
+          "name": "19 - Default#2",
+          "specularity": 20,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "20 - Default#3",
+          "specularity": 20,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "21 - Default#4",
+          "specularity": 20,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "22 - Default#5",
+          "specularity": 20,
+          "hdrSpecular": 1,
+          "blend": 2
+        }
+      ]
+    },
+    {
+      "id": "model.immortal",
+      "sourceSha256": "d5f34c9efc37c120883764ca0dcc19162805afd707f7404f083fa98260c454e1",
+      "materials": [
+        {
+          "name": "Immortal_trev#0",
+          "specularity": 40,
+          "hdrSpecular": 5,
+          "blend": 0
+        },
+        {
+          "name": "16 - Default#1",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "15 - Default#2",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "01 - Default#3",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "14 - Default#4",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        },
+        {
+          "name": "Mat_Immortal_Shield_Scroll#5",
+          "specularity": 0,
+          "hdrSpecular": 1,
+          "blend": 2
+        }
+      ]
+    }
+  ]
+}
