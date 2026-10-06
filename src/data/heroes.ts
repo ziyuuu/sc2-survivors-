@@ -1,12 +1,8 @@
 import type {Race} from './races';
 import type {CombatUnitType} from './sc2-units';
-/** Keep this list frozen for legacy reward tables and legacy 1/2/3 bindings. */
-export const HERO_IDS=['raynor','tychus','nova'] as const;
 export const HERO_IDS_BY_RACE={terran:['raynor','tychus','nova','swann','tosh','yamato_battlecruiser'],zerg:['kerrigan','zagara','dehaka','stukov','niadra','hots_leviathan'],protoss:['artanis','zeratul','alarak','fenix','vorazun','purifier_flagship']} as const;
 export const ALL_HERO_IDS=[...HERO_IDS_BY_RACE.terran,...HERO_IDS_BY_RACE.zerg,...HERO_IDS_BY_RACE.protoss] as const;
 export type HeroId=typeof ALL_HERO_IDS[number];
-/** F06 approved basic attack modifiers, applied once at stat derivation (including flagship children). */
-export const HERO_BASIC_ATTACK={damage:1.15,frequency:1.15} as const;
 /** Actual simulation projectile travel, shared with presentation. Windup is delay minus this value. */
 export const HERO_SKILL_FLIGHT:Partial<Record<HeroId,number>>={raynor:.2,tychus:.6,tosh:.2,kerrigan:.2,zagara:.35,stukov:.25,alarak:.2,fenix:.4,yamato_battlecruiser:.25,hots_leviathan:.4,purifier_flagship:.4};
 export interface HeroDefinition {

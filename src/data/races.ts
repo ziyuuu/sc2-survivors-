@@ -1,12 +1,9 @@
-/** Explicit race and allegiance. Legacy `owner` values remain a save adapter only. */
+/** Explicit race and allegiance; owner identifies the allied/enemy combat side. */
 export type Race = 'terran' | 'zerg' | 'protoss';
 export type Team = 'player' | 'enemy' | 'neutral';
 export const RACES = ['terran', 'zerg', 'protoss'] as const;
 export const RACE_NAMES: Record<Race, string> = {terran:'人族',zerg:'虫族',protoss:'神族'};
 export const MVP_RULES = 'mvp-1.0' as const;
-/** Historical identifier is used only by the read-only developer archive inspector. */
-export const THREE_RACE_RULES = 'three-race-18-v1' as const;
-export const LEGACY_RULES = 'survivors-v24' as const;
 export type RulesVersion = typeof MVP_RULES;
 export const FAMILY_LIMIT = 5;
 export const BODY_LIMIT = 5;

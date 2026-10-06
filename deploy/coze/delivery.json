@@ -1,8 +1,9 @@
 {
-  "status": "local P6 release candidate; not deployed",
-  "appBuildId": "259663dc9f1e2aa60299ee719e6f66ab97c41e44f44eb6b911c41ac74d6e10a7",
-  "packageBuildId": "6e75e17b2d34a784dcfd0d5651b200fc34530bc6c557dd07dd6931ad0ed81bb8",
-  "runSchema": 23,
+  "status": "local current-rule cleanup candidate; not deployed",
+  "appBuildId": "7b553dbbe931c44fb7bbcc337832e8c7ba7b764a322e461a61eb83cbcb9cbb55",
+  "packageBuildId": "d8eae9fd82988bf34a84442d98dfbb361335802f93502cc641209b210af11e0a",
+  "runSchema": 24,
+  "profileVersion": 6,
   "release": "8080b97112f3af93b5d3ddfeadc5f3d7f89c3892c344cfc8c8903a1ca799c9eb",
   "appFiles": [
     {
@@ -86,14 +87,19 @@
       "sha256": "165cae31226f6e885221a8b2d10fc6357bc451624189dbf2595101321291f8fb"
     },
     {
+      "path": "P6_COZE_DEPLOY_20261006.md",
+      "bytes": 7025,
+      "sha256": "a6be7bd7568e89a9e78d55980b126f34f9b399e1caa311478879dd80745f3018"
+    },
+    {
       "path": "package-lock.json",
-      "bytes": 6104,
-      "sha256": "4c8007f071e1414fad52e544d9108e6f5a3ba96da014ee3c6d2580fcb603d70a"
+      "bytes": 6134,
+      "sha256": "67882d6cba0f3ddf8c526991defad685474f30eee7b04a0ee59dfc8e51d11dc8"
     },
     {
       "path": "package.json",
-      "bytes": 337,
-      "sha256": "3b0c40809ed93ed30f98b6d734f3c3df749f7d9372f7c1c9607fdb47f8cfdf52"
+      "bytes": 352,
+      "sha256": "f319d5ef6cbe9e97bdcf0e24e2abe5e871ba10897a60f336186773ae90ca5d8f"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -111,19 +117,14 @@
       "sha256": "8857dcd5fe5686a8e82dba003bb06c63719f51eae8f14ab3aa345dced143c208"
     },
     {
-      "path": "public/assets/index-C1VD93Xw.js",
-      "bytes": 2140565,
-      "sha256": "66eedf1a88eea2f748ec3764bc2c9177a5053c60aef20f97446a889a8d842b44"
-    },
-    {
-      "path": "public/assets/index-C_nOnvlz.js",
-      "bytes": 2140536,
-      "sha256": "7861be63509afef0b204e59aa4561bf3ac4efdc2c7b5644620b8b0c65ffba1b7"
+      "path": "public/assets/index-DDOPKz-A.js",
+      "bytes": 2088550,
+      "sha256": "51f4d7121cf041970b5f19473df94dd227be1393c9cb9a23857089c7a558502e"
     },
     {
       "path": "public/index.html",
       "bytes": 802,
-      "sha256": "813188989b8c7ed84bfe24e93b1e52c004422f843a6b2cf0db9ba3dccd5f28e1"
+      "sha256": "2b14ec485702d4242f93b5021e259142ecdbdd2f6a5c778d4f214d8cac9e4e04"
     },
     {
       "path": "public/runtime-config.json",
@@ -133,17 +134,17 @@
     {
       "path": "public/web-release.json",
       "bytes": 520,
-      "sha256": "332528dfaef878074ef798ddb91fbf925e00672f3662c8b770c6693e17dc58a5"
+      "sha256": "f47f62343f241d04ec4dae329347f1c2ce0f146eb423710480c4927c41a5f9c4"
     },
     {
       "path": "README.md",
-      "bytes": 7025,
-      "sha256": "a6be7bd7568e89a9e78d55980b126f34f9b399e1caa311478879dd80745f3018"
+      "bytes": 1929,
+      "sha256": "cd3aa3ae4f3b32aabb7a963789908ce3b4f778c3182d9dc4709ac0cf5f594255"
     },
     {
       "path": "resource-delta.json",
-      "bytes": 12518,
-      "sha256": "8b0815b020ea8116266d4c61b44233a26ff72b2930d7d710f81e529ecdec854b"
+      "bytes": 329,
+      "sha256": "3e800e0b64ccc8af54d15074fa7df143aa98c76518840c765d3e32ba2c23198b"
     },
     {
       "path": "resource-groups.json",

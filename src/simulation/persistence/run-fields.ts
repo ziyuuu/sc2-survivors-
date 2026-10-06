@@ -4,7 +4,7 @@ import {aggregateMvpTalentEffects} from '../progression/mvp-talent-effects';
 import {eliteFixedGrowth} from '../../data/terran-elites';
 import {validateTerranEliteRun,validateTerranEliteCombat,revisedElite} from '../combat/terran-elite-runtime';
 import {validateZergEliteRun,validateZergEliteCombat,revisedZergElite} from '../combat/zerg-elite-runtime';
-import {validateP4Samples} from '../combat/p4-samples';
+import {validateEliteSupport} from '../combat/elite-support';
 import {validateProtossHeroRun,validateProtossCombat} from '../combat/protoss-hero-passives';
 import {validateZergHeroRun} from '../combat/zerg-hero-passives';
 import {validateHeroAttacks} from '../combat/hero-attack-upgrades';
@@ -18,18 +18,18 @@ import {HEROES} from '../../data/heroes';
 import {validBattleView} from '../combat/battle-view';
 /** Explicit schema: adding RunState state requires choosing persistence or rebuild. */
 export const RUN_FIELDS=[
- 'protossElites','teamAuras','zergElites','terranElites','p4Samples',
+ 'protossElites','teamAuras','zergElites','terranElites','eliteSupport',
  // Saved inside entities.heroCombat / heroCasts: cycle, warmup, cloak episode/charge, protection expiry, cast rank/targets/view.
  // Saved in expedition.support.mines: phase, stable target, emergence timer, point/facing. Routes/poses rebuild.
  'expedition','runConfig','campaign18Runtime','swarm',
  'podSerial','time','tick','stage','stageElapsed','stageStartedAt','phase','paused','battlefield','endlessEntry','endlessTransitionReceipt','endlessRoundReceipts','runId','endlessAwardedMinutes','endless',
- 'entities','pods','buildings','upgrades','wallet','anchor','marchDirection','order','movePending','commandRoute','trail','effects','pickups','rewardDrops','visualSerial',
- 'offerSerial','rewards','rewardClaimed','rewardRound','clearReceipt','rerolls','nextBuilding','nextWave','wave','stageWave','nextId','nextJob','freeRerolls','freePurchases',
+ 'entities','pods','upgrades','wallet','anchor','marchDirection','order','movePending','commandRoute','trail','effects','pickups','rewardDrops','visualSerial',
+ 'offerSerial','rewards','rewardClaimed','rewardRound','clearReceipt','rerolls','nextWave','wave','stageWave','nextId','nextJob',
  'nextFreePodAt','nextEliteGrowthAt','nextMercenaryAt','nextTankSupportAt','supportUntil','nextSupportTick','talentSupportImpacts','dashUntil','dashReady','hive',
- 'airliftReady','talentTransferPlan','expansionHives','nextExpansionAt','hiveWarningPoint','mainHiveNextBatchAt','mainHiveBatch','mainHivePending','fortifications','lordWarningPoint',
- 'stats','difficulty','workers','economicTargets','anchorMovingFor','anchorStoppedFor','tankCommand','economyTotals','productionCursor','productionPlan',
- 'guardRemainders','nextGuardCounts','specialPlan','nextSpecial','waves','eventPlan','nextEvent','scheduledStage','ambientBacklog','extraDeliveries',
- 'notice','noticeUntil','movementStall','detours','navigation','heroes','heroCasts','weaponFlights','heroAttacks','zergHeroes','protossHeroes','pendingElites','evolution','burns','productionChoices','groupNext','groupUnlocks','rngState',
+ 'airliftReady','talentTransferPlan','expansionHives','nextExpansionAt','hiveWarningPoint','mainHiveNextBatchAt','mainHiveBatch','mainHivePending','fortifications',
+ 'stats','difficulty','workers','economicTargets','anchorMovingFor','anchorStoppedFor','tankCommand','economyTotals',
+ 'nextGuardCounts','specialPlan','nextSpecial','waves','eventPlan','nextEvent','scheduledStage','ambientBacklog',
+ 'notice','noticeUntil','movementStall','detours','navigation','heroes','heroCasts','weaponFlights','heroAttacks','zergHeroes','protossHeroes','pendingElites','rngState',
  'corrosionZones','zoneSlowed','auraArmor','auraDamage','auraAttackSpeed','nextAuraUpdate'
 ] as const;
 export const RUN_REBUILT_FIELDS=['input','directionRoute','hash','visualEvents','heroAttackEvents','heroAuraMembership','maxStretch','distancePairs','collisionContacts','spawnCells','swarmSpawnCache','revision','contacts','formation','destinationFormation','engagement','movementAllies','formationPlanned','configStage','configDifficulty','stageData','attackLines','statuses'] as const;
@@ -39,7 +39,7 @@ export function validateRunData(data:RunData,defaults:object){
  if(!data||typeof data!=='object'||Object.keys(data).length!==RUN_FIELDS.length)throw Error('续局字段不完整');
  if(!data.expedition||typeof data.expedition!=='object')throw Error('三族状态缺失');
  validateExpedition(data.expedition);
- validateProtossEliteRun(data.protossElites,data.time,data.entities,data.nextId);validateTeamAuraRun(data.teamAuras,data.time,data.entities);validateZergEliteRun(data.zergElites);validateTerranEliteRun(data.terranElites);validateP4Samples(data.p4Samples);validateSwarm(data.swarm);validateWeaponFlights(data.weaponFlights);validateHeroAttacks(data.heroAttacks);validateZergHeroRun(data.zergHeroes);validateProtossHeroRun(data.protossHeroes);
+ validateProtossEliteRun(data.protossElites,data.time,data.entities,data.nextId);validateTeamAuraRun(data.teamAuras,data.time,data.entities);validateZergEliteRun(data.zergElites);validateTerranEliteRun(data.terranElites);validateEliteSupport(data.eliteSupport);validateSwarm(data.swarm);validateWeaponFlights(data.weaponFlights);validateHeroAttacks(data.heroAttacks);validateZergHeroRun(data.zergHeroes);validateProtossHeroRun(data.protossHeroes);
  const template=defaults as Record<string,unknown>;
  for(const key of RUN_FIELDS){if(!Object.hasOwn(data,key))throw Error('续局字段缺失：'+key);const a=template[key],b=data[key];
   if(a instanceof Map?!(b instanceof Map):a instanceof Set?!(b instanceof Set):Array.isArray(a)?!Array.isArray(b):a!==null&&a!==undefined&&typeof a!==typeof b)throw Error('续局字段类型错误：'+key);
@@ -100,7 +100,7 @@ export function validateRunData(data:RunData,defaults:object){
  const zergAbility=(u:import('../types').Entity,ability:string)=>aggregateMvpTalentEffects(frozen.levels,data.expedition.race,{team:u.team,race:u.race,kind:'elite',familyId:u.unitType,attributes:u.attributes,mode:u.nativeMode,freeConscript:u.freeConscript,tacticalTier:u.tacticalTier,tacticalDirection:u.tacticalDirection,ability,manualAbility:false});
  for(const b of data.zergElites.biles){const expected=1200*eliteFixedGrowth(b.source.rank)*(b.source.eliteId==='ravager.2'?4:1)*(1+(zergAbility(b.source,'bile').abilityDamagePct??0));if(b.launchAt>data.time+.601||b.impactAt>data.time+3.101||Math.abs(b.damage-expected)>1e-6)throw Error('胆汁延迟或冻结载荷无效');}
  for(const h of data.zergElites.heals){const expected=240*eliteFixedGrowth(h.source.rank)*(1+(zergAbility(h.source,'transfusion').healingPct??0));if(h.until>data.time+4.001||h.next>data.time+1.001||Math.abs(h.amount-expected)>1e-6||h.targets.some(id=>{const t=data.entities.get(id);return t&&(!t.attributes.includes('Biological')||t.owner!==h.source.owner||t.temporary||t.summonKind||t.attributes.includes('Structure'));}))throw Error('输血窗口或冻结载荷无效');}
- const newIds=[...data.terranElites.areas.map(a=>a.id),...data.weaponFlights.map(p=>p.id),...data.p4Samples.mines.map(m=>m.id),...data.p4Samples.fires.map(f=>f.id),...data.terranElites.absorptions.flatMap(r=>[r.id,r.hunter])];
+ const newIds=[...data.terranElites.areas.map(a=>a.id),...data.weaponFlights.map(p=>p.id),...data.eliteSupport.mines.map(m=>m.id),...data.eliteSupport.fires.map(f=>f.id),...data.terranElites.absorptions.flatMap(r=>[r.id,r.hunter])];
  if(newIds.some(id=>id>=data.nextId))throw Error('精英实体序号冲突');
  const absorbed=new Map<number,number>();for(const r of data.terranElites.absorptions){if(data.entities.get(r.id)?.hp)throw Error('已吸收单位仍在场');const hunter=data.entities.get(r.hunter);if(hunter&&(hunter.eliteId!=='reaper.3'||!revisedElite(hunter)))throw Error('吸收者归属无效');absorbed.set(r.hunter,(absorbed.get(r.hunter)??0)+r.contribution);const job=data.expedition.ledger.find(j=>j.id===r.job);if(job&&r.passenger!==null){const p=job.passengers[r.passenger];if(!p||p.entityId!==r.id||p.status!=='released'||p.paid.minerals!==r.paid.minerals||p.paid.gas!==r.paid.gas)throw Error('吸收支付收据不一致');}}
  for(const u of data.entities.values())if(u.eliteId==='reaper.3'&&u.eliteCombat&&Math.abs(u.eliteCombat.absorbed-(absorbed.get(u.id)??0))>1e-6)throw Error('吸收成长与收据不一致');
@@ -108,6 +108,4 @@ export function validateRunData(data:RunData,defaults:object){
  for(const drop of data.rewardDrops)if(drop.talentLoot&&(!['purple','orange'].includes(drop.talentLoot.rarity)||typeof drop.talentLoot.receipt!=='string'||!data.expedition.talentLootReceipts.includes(drop.talentLoot.receipt)))throw Error('地图天赋掉落收据无效');
   // The full guardTypes recipe and retained guardianIds reconstruct the release cursor.
   for(const p of data.pods)if(!(p.guardianIds instanceof Set)||!Array.isArray(p.passengers))throw Error('续局运输舱无效');
- for(const b of data.buildings.values())if(!Array.isArray(b.queue))throw Error('续局生产队列无效');
- for(const group of ['barracks','factory','starport'] as const){const choice=data.productionChoices?.[group],allowed=group==='barracks'?['marine','marauder']:group==='factory'?['hellion','tank']:['medivac'];if(!Array.isArray(choice)||choice.length<1||choice.length>2||new Set(choice).size!==choice.length||choice.some(type=>!allowed.includes(type)))throw Error('续局生产选择无效');}
 }

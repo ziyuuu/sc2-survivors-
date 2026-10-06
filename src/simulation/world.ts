@@ -3,7 +3,7 @@ import {revisedProtossElite,protossEliteMainFactor,protossEliteAfterHit,fireProt
 import {compositeHeroDebuff,compositeEliteDebuff,teamWeaponLeech,tickTeamAuras} from './combat/team-auras';
 import {revisedZergElite,zergEliteMainFactor,zergEliteAfterHit,zergEliteCanFire,fireZergElite,tickZergElite,tickZergEliteState,zergEliteDebuff,zergEliteDefense,zergEliteRedirect,zergEliteAfterDamage,zergEliteDeath,zergEliteBile,pruneZergEliteState} from './combat/zerg-elite-runtime';
 import {revisedElite,eliteCombat,eliteMainFactor,eliteAfterHit,eliteCanFire,fireTerranElite,tickTerranElite,tickTerranEliteState,eliteDebuffValue,eliteDefenseReduction,absorbCurrentReapers} from './combat/terran-elite-runtime';
-import {p4Unit,p4Growth,tickP4Samples} from './combat/p4-samples';
+import {tickEliteSupport} from './combat/elite-support';
 import {CAMPAIGN_MAP_ID,RadialTerrain,campaignTerrain,type CampaignMapRecipe} from '../data/campaign-map';
 import {protossMainFactor,protossPrimary,protossBeforeAttack,protossDeath,protossAfterDamage,protossIncomingFactor,tickProtossHero,tickProtossHeroState,newProtossHeroRun} from './combat/protoss-hero-passives';
 import {isProtossHero,protossHeroGrowth} from '../data/protoss-heroes';
@@ -49,14 +49,14 @@ import {expeditionRefreshCost} from './progression/expedition-drafts';
 import {beginHeroAttack,heroMainFactor,heroExtraHits,heroAttackSpeed,tickTerranHero,heroIncomingFactor,enemyHeroDamageFactor} from './combat/terran-hero-passives';
 import type {BattleView} from './combat/battle-view';
 import {canAcquireExpeditionHero,acquireExpeditionHero,deployExpeditionHero,refreshExpeditionHero,canCastExpeditionHero,castExpeditionHero,resolveExpeditionHeroCasts,heroAtSlot} from './combat/expedition-heroes';
-import {canAcquireExpeditionElite,eliteDamageMultiplier,eliteEffect} from './combat/expedition-elites';
+import {canAcquireExpeditionElite} from './combat/expedition-elites';
 import {SOURCE_WEAPON_PATTERNS} from '../data/expansion-units';
 import {expeditionWeaponBonuses,expeditionWeaponUpgrade,expeditionWeaponScale,expeditionAttackRange} from './combat/expedition-combat';
 import {fireWeaponPattern,tickWeaponAreas} from './combat/weapon-patterns';
 import {tickCarrierSubsystem,tickInterceptor,refreshInterceptorStats,fireInterceptor,cleanupCarrierSummons,isInterceptor} from './combat/carriers';
 import {tickTalentSupport} from './combat/talent-support';
 import {previewTalentTransfer as previewTransfer,prepareTalentTransfer as prepareTransfer,cancelTalentTransfer as cancelTransfer,finishTalentTransfer as finishTransfer,defaultTalentTransferTarget,talentTransferContains} from './combat/talent-transfer';
-import {talentPointsForStage,talentPointsForEndlessMinute} from './progression/talent-profile';
+import {talentPointsForStage,talentPointsForEndlessMinute} from './progression/talent-rewards';
 import {ENDLESS,ENDLESS_MAP_ID,ENDLESS_ENTRANCES,endlessConfig,endlessWaveTemplate,endlessEconomicEvents,endlessInterval,endlessGrowth} from '../data/endless';
 import {FlatTerrain} from './movement/flat-terrain';
 import {expansionProfile,expansionBatch,mainHiveBatch} from '../data/hives';
@@ -68,7 +68,7 @@ import {ELITES,eliteStats,type EliteId} from '../data/elites';
 import {MAP_REWARDS} from '../data/rewards';
 import type {TerrainQuery} from '../data/map-definition';
 import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,BILE,HYDRALISK_MELEE,type UnitType,type CombatUnitType,type TerranType,type ZergType} from '../data/sc2-units';
-import {OBSTACLES,TUNING,type BuildingType,type Obstacle} from '../data/game';
+import {OBSTACLES,TUNING,type Obstacle} from '../data/game';
 import {spend} from './rules.mjs';
 import {distance,angleDelta,turn,translate,locomote,steerGoal,clearLine,blocked} from './movement/steering';
 import {tickCliffTraversal,tickZealotCharge} from './movement/native-traversal';
@@ -79,7 +79,7 @@ import {beginExpeditionWindow} from './progression/expedition-drafts';
 import {CharTerrain} from '../data/terrain';
 import {rankStats} from '../data/ranks';
 import {ECONOMY,DROPS} from '../data/economy';
-import type {Entity,Point,Pod,Body,Building,Reward,Effect,Pickup,VisualEvent,EconomicTarget,SquadOrder,RewardDrop,HeroRecord,HeroCast,ExpansionHive,Fortification} from './types';
+import type {Entity,Point,Pod,Body,Reward,Effect,Pickup,VisualEvent,EconomicTarget,SquadOrder,RewardDrop,HeroRecord,HeroCast,ExpansionHive,Fortification} from './types';
 
 const HERO_SPLASH:Partial<Record<HeroId,{center:'source'|'target';radius:number;arc:number;max:number;fraction:number;plane:'ground'|'same'}>>={
  kerrigan:{center:'source',radius:1.8,arc:70,max:2,fraction:.4,plane:'ground'},
@@ -157,7 +157,7 @@ export class World extends RunState {
  private autoWaves:boolean;
  enemySpecials=new EnemySpecials(this);
  get endlessElapsed(){return this.endless?this.time-this.endless.startedAt:0;}
- constructor(options:{seed?:number;waves?:boolean;obstacles?:Obstacle[];initial?:TerranType[];difficulty?:Difficulty;sandbox?:boolean;terrain?:boolean|TerrainQuery;endlessTerrain?:TerrainQuery;permanentProfile?:PermanentProfile;rulesVersion?:string;race?:Race}={}){
+ constructor(options:{seed?:number;waves?:boolean;obstacles?:Obstacle[];initial?:TerranType[];difficulty?:Difficulty;sandbox?:boolean;terrain?:boolean|TerrainQuery;endlessTerrain?:TerrainQuery;permanentProfile?:PermanentProfile;race?:Race}={}){
   super();this.permanentProfile=options.permanentProfile??new PermanentProfile();this.selectedRace=options.race??this.permanentProfile.activeRace;this.initialUnits=[...(options.initial??TUNING.initialSquad)];this.useDiagnosticInitial=!!options.sandbox&&options.initial!==undefined;this.configuredWaves=options.waves??true;
   this.seed=options.seed??89241;this.rngState=this.seed;this.autoWaves=options.waves??true;this.sandbox=options.sandbox??false;this.difficulty=options.difficulty??'normal';this.obstacles=options.obstacles??OBSTACLES;this.terrain=typeof options.terrain==='object'?options.terrain:(options.terrain??(!this.sandbox&&options.obstacles===undefined))?new CharTerrain():undefined;this.initialTerrain=this.terrain;this.endlessTerrain=options.endlessTerrain??new FlatTerrain();if(this.terrain?.definition&&options.obstacles===undefined)this.obstacles=[];this.initialObstacles=[...this.obstacles];
   this.initializeRun();
@@ -239,7 +239,7 @@ export class World extends RunState {
   this.terrain?.setStage?.(this.terrainStage);
   if(this.autoWaves)planSwarm(this.swarm,this.stage,this.difficulty,this.seed,this.stageStartedAt,this.duration);
   const plan=campaign18Schedule(this.config as Campaign18StageConfig,this.seed);
-  this.waves=plan.waves;this.specialPlan=plan.specials;this.nextSpecial=0;this.lordWarningPoint=null;
+  this.waves=plan.waves;this.specialPlan=plan.specials;this.nextSpecial=0;
   this.eventPlan=plan.events;this.stageWave=0;this.nextEvent=0;this.scheduledStage=this.stage;
   this.nextWave=this.stageStartedAt+(this.waves[0]?.at??Infinity);
   this.spawnCells=connectedSpawnCells(this.terrain,this.anchor,this.mapHalf,this.obstacles);
@@ -290,7 +290,7 @@ export class World extends RunState {
   for(const [id,p] of plan.pods){const pod=this.pods.find(p=>p.id===id)!;pod.x=p.x;pod.z=p.z;}
   this.terrain=terrain;this.battlefield={mode:'endless',mapId:ENDLESS_MAP_ID,mapHash:plan.mapHash};this.anchor={x:0,z:0,facing:0};this.trail=[{x:0,z:0}];this.resetCommand();
   this.obstacles=[];this.pods=this.pods.filter(p=>['falling','active','opening'].includes(p.status));this.enemySpecials=new EnemySpecials(this);
-  this.expansionHives.clear();this.hive=null;this.economicTargets.clear();this.pickups=[];recoverBossLoot(this);this.rewardDrops=[];this.effects=[];this.weaponFlights=[];this.heroAttacks=newHeroAttackState();this.zergHeroes=newZergHeroRun();this.protossHeroes=newProtossHeroRun();this.heroAttackEvents=[];this.heroAuraMembership.clear();this.heroCasts=[];this.expedition.weaponAreas=[];this.corrosionZones=[];this.ambientBacklog=[];this.campaign18Runtime=null;this.expedition.detectionFields=[];this.expedition.spells=[];this.hiveWarningPoint=null;this.lordWarningPoint=null;
+  this.expansionHives.clear();this.hive=null;this.economicTargets.clear();this.pickups=[];recoverBossLoot(this);this.rewardDrops=[];this.effects=[];this.weaponFlights=[];this.heroAttacks=newHeroAttackState();this.zergHeroes=newZergHeroRun();this.protossHeroes=newProtossHeroRun();this.heroAttackEvents=[];this.heroAuraMembership.clear();this.heroCasts=[];this.expedition.weaponAreas=[];this.corrosionZones=[];this.ambientBacklog=[];this.campaign18Runtime=null;this.expedition.detectionFields=[];this.expedition.spells=[];this.hiveWarningPoint=null;
   this.endless={round:1,startedAt:this.time,elites:0,bosses:0,progress:{wave:0,elite:0,boss:0},retry:{elite:0,boss:0},last:{}};
   this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.paused=false;this.endlessTransitionReceipt=requestId;this.endlessEntry=null;this.endlessReadyToken=null;
   this.spawnCells=terrain.connectedLocations?.(this.anchor,.9,1.4)??[];this.expedition.support.unique.landing=null;this.placeEndlessFortifications();this.prepareEndlessRound();this.announce('无尽战场 · 守住小队');return true;
@@ -318,9 +318,6 @@ export class World extends RunState {
  private hiveSpawnPoint(hive:Body,serial:number){for(let i=0;i<24;i++){const angle=(serial+i)*2.39996,r=hive.unitRadius+1.3+Math.floor(i/8)*.65,p={x:hive.x+Math.sin(angle)*r,z:hive.z+Math.cos(angle)*r};
    if(Math.abs(p.x)+.5>=this.mapHalf||Math.abs(p.z)+.5>=this.mapHalf||blocked(p,.5,this.obstacles)||this.terrain&&!this.terrain.canOccupy(p,.5)||!clearLine(hive,p,.5,this.obstacles,this.terrain)||[...this.entities.values()].some(u=>u.hp>0&&!u.flying&&distance(u,p)<u.unitRadius+.55))continue;return p;
   }return null;}
- private spawnHiveGarrison(hive:Body){const base:ZergType[]=['zergling','zergling','zergling','zergling','zergling','zergling','roach','roach','hydralisk'],factor=this.difficulty==='easy'?.5:enemyPressure(this.difficulty,this.stage).total;
-  for(let i=0;i<Math.round(base.length*factor);i++){const type=base[i%base.length],p=this.hiveSpawnPoint(hive,i);if(!p)break;const u=this.addUnit(type,'zerg',p.x,p.z);u.guardOrigin=true;}
- }
  private releaseHiveBatch(hive:Body,pending:ZergType[]){let serial=0;while(pending.length&&this.enemyCount()<this.nonBossCapacity()){const p=this.hiveSpawnPoint(hive,serial++);if(!p)break;const u=this.addUnit(pending.shift()!,'zerg',p.x,p.z);u.guardOrigin=true;}return !pending.length;}
  private updateHives(){
   if(!this.endless){this.updateCampaignHives();return;}
@@ -337,7 +334,7 @@ export class World extends RunState {
    if(this.releaseHiveBatch(this.hive,this.mainHivePending))this.mainHiveNextBatchAt=this.time+18;
   }
  }
- /** The campaign never borrows the legacy hive's unlimited reinforcement generator. */
+ /** Campaign hives spend their finite stage reserve. */
  private updateCampaignHives(){const state=this.campaign18Runtime;if(!state)return;
   if(this.nextExpansionAt<Infinity){
    if(this.time>=this.nextExpansionAt-5&&!this.hiveWarningPoint&&this.expansionHives.size<2){this.hiveWarningPoint=this.expansionPoint();if(this.hiveWarningPoint){this.nextExpansionAt=Math.max(this.nextExpansionAt,this.time+5);this.announce('扩张虫巢即将出现 · 5 秒');}}
@@ -470,7 +467,7 @@ export class World extends RunState {
   const u=this.addFamilyMember(type,pos);u.eliteId=id;u.modelKey=ELITES[id].model;u.specialReady=this.time+15;this.refreshStats(u);if(ELITES[id].family==='reaper'){const hunter=this.eliteOwned('reaper.3');if(hunter)absorbCurrentReapers(this,hunter);}this.announce(ELITES[id].name+' · 已加入队伍');
  }else {this.pendingElites.push(id);this.announce(ELITES[id].name+' · 选择替换队员；已付费增援优先保留');}this.changed();return true;}
  replaceWithElite(id:EliteId,targetId:number){if(!this.pendingElites.includes(id)||!this.eliteCandidates(id).some(u=>u.id===targetId))return false;const u=this.entities.get(targetId)!;u.eliteId=id;u.rank=1;u.modelKey=ELITES[id].model;u.specialReady=this.time+15;this.refreshStats(u);if(id==='reaper.3')absorbCurrentReapers(this,u);this.pendingElites=this.pendingElites.filter(e=>e!==id);this.changed();return true;}
- attackHit(u:Entity,target:Body,damage:number,bonuses:{attribute:string;amount:number}[],hits=1,shieldBonus=0,primary=true,crit=1,frozen?:{enemyFactor:number;apm:boolean;ordinary?:boolean;armorPen?:number}){rememberObservationSource(this,u);const factor=(primary?heroMainFactor(u,target)*protossMainFactor(this,u,target):1)*(!revisedElite(u)&&u.eliteId==='marine.2'&&target.attributes.includes('Armored')?1.25:1)*eliteMainFactor(u,target)*zergEliteMainFactor(u,target)*protossEliteMainFactor(u,target)*(frozen?.enemyFactor??this.enemyDamageFactor(u))*eliteDamageMultiplier(u,target),before=target.hp,beforeShield=(this.entities.get(target.id)?.shield??0),penetration=Math.max(frozen?.armorPen??0,dehakaPenetration(u),u.owner==='zerg'&&u.unitType==='hydralisk'&&(u.enemyTier==='elite'||u.enemyTier==='lord')&&u.enemyLevel&&u.enemyLevel>=3?[0,0,.25,.35,.4][u.enemyLevel-1]:0),scaled=bonuses.map(b=>({...b,amount:b.amount*factor*crit}));if(primary)zergBeforePrimary(this,u,target);this.hit(target,damage*factor*crit,scaled,hits,u.owner,.5,penetration,u.id,false,false,shieldBonus*factor*crit,frozen?.ordinary??true);
+ attackHit(u:Entity,target:Body,damage:number,bonuses:{attribute:string;amount:number}[],hits=1,shieldBonus=0,primary=true,crit=1,frozen?:{enemyFactor:number;apm:boolean;ordinary?:boolean;armorPen?:number}){rememberObservationSource(this,u);const factor=(primary?heroMainFactor(u,target)*protossMainFactor(this,u,target):1)*eliteMainFactor(u,target)*zergEliteMainFactor(u,target)*protossEliteMainFactor(u,target)*(frozen?.enemyFactor??this.enemyDamageFactor(u)),before=target.hp,beforeShield=(this.entities.get(target.id)?.shield??0),penetration=Math.max(frozen?.armorPen??0,dehakaPenetration(u),u.owner==='zerg'&&u.unitType==='hydralisk'&&(u.enemyTier==='elite'||u.enemyTier==='lord')&&u.enemyLevel&&u.enemyLevel>=3?[0,0,.25,.35,.4][u.enemyLevel-1]:0),scaled=bonuses.map(b=>({...b,amount:b.amount*factor*crit}));if(primary)zergBeforePrimary(this,u,target);this.hit(target,damage*factor*crit,scaled,hits,u.owner,.5,penetration,u.id,false,false,shieldBonus*factor*crit,frozen?.ordinary??true);
   protossEliteAfterHit(this,u,target,Math.max(0,before-target.hp)+Math.max(0,beforeShield-(this.entities.get(target.id)?.shield??0)),primary);
   zergEliteAfterHit(this,u,target,primary,Math.max(0,before-target.hp));
   if(primary){recordMutation(this,u,target,damage*factor*hits);uniquePrimary(this,u,target,(damage+bonuses.reduce((v,b)=>v+(target.attributes.includes(b.attribute)?b.amount:0),0))*factor);}
@@ -478,12 +475,9 @@ export class World extends RunState {
   if(primary)zergPrimary(this,u,target,damage*hits*factor*crit);
   if(primary)heroExtraHits(this,u,target,damage*(u.heroId==='yamato_battlecruiser'?2:hits)*factor*crit);
   if(primary&&target.hp>0&&(frozen?.apm??((talentModifiers(this,u).apmDuplicate??0)>0)))this.hit(target,damage*hits*factor*crit*1.15,scaled.map(b=>({...b,amount:b.amount*hits*1.15})),1,u.owner,.5,penetration,u.id,false,false,shieldBonus*hits*factor*crit*1.15,true);
-  eliteAfterHit(this,u,target,damage*crit*(frozen?.enemyFactor??this.enemyDamageFactor(u)),hits,primary,bonuses.map(b=>({...b,amount:b.amount*crit*(frozen?.enemyFactor??this.enemyDamageFactor(u))})));const e=this.entities.get(target.id);if(!revisedElite(u)&&e&&e.hp>0&&u.eliteId==='marauder.1'){e.slowUntil=this.time+1.5;e.slowFactor=e.enemyTier==='boss'?.15:.3;}
-  if(e&&e.hp>0&&u.owner==='zerg'&&u.unitType==='roach'&&(u.enemyTier==='elite'||u.enemyTier==='lord')&&(u.enemyLevel??1)>=2){this.applyStatus(e,u,'acidArmor',[0,1,1.5,2,3][(u.enemyLevel??1)-1],4);}
-  if(!revisedElite(u)&&e&&e.hp>0&&u.eliteId==='hellion.2'){const key=u.id+':'+target.id,old=this.burns.get(key);this.burns.set(key,{source:u.id,target:target.id,damage:(before-target.hp)*.2,next:old?.next??this.time+1,until:this.time+3});}
-  if(!revisedElite(u)&&u.eliteId==='marauder.2'&&this.time>=((this.entities.get(u.id)??u).specialReady??0)&&target.hp>0){(this.entities.get(u.id)??u).specialReady=this.time+15;this.hit(target,damage*3,bonuses.map(b=>({...b,amount:b.amount*3})),hits,u.owner);this.effect('explosion',u,target,.6,.35);}
+  eliteAfterHit(this,u,target,damage*crit*(frozen?.enemyFactor??this.enemyDamageFactor(u)),hits,primary,bonuses.map(b=>({...b,amount:b.amount*crit*(frozen?.enemyFactor??this.enemyDamageFactor(u))})));
+  const e=this.entities.get(target.id);if(e&&e.hp>0&&u.owner==='zerg'&&u.unitType==='roach'&&(u.enemyTier==='elite'||u.enemyTier==='lord')&&(u.enemyLevel??1)>=2){this.applyStatus(e,u,'acidArmor',[0,1,1.5,2,3][(u.enemyLevel??1)-1],4);}
  }
- private updateBurns(){for(const [key,b] of this.burns){const target=this.entities.get(b.target);if(!target||target.hp<=0){this.burns.delete(key);continue;}while(b.next<=this.time+1e-8&&b.next<=b.until+1e-8){this.hit(target,b.damage+target.armor,[],1,'terran',0);b.next+=1;}if(this.time>=b.until)this.burns.delete(key);}}
  private updateElite(u:Entity,dt:number){if(revisedElite(u)||revisedZergElite(u)||revisedProtossElite(u))return;if(u.eliteId==='marine.1'&&u.stimUntil>this.time)u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.01*dt);if(u.eliteId==='tank.1'){const baseRange=expeditionAttackRange(this,u);if(u.mode==='siege'&&u.modeTimer<=0){u.siegeSince??=this.time;u.attackRange=baseRange+Math.min(3,Math.floor((this.time-u.siegeSince)/3));}else {u.siegeSince=undefined;u.attackRange=baseRange;}}}
  reservedRanks(type:UnitType){return paidReservations(this,type);}
  familyBodies(type:UnitType){return this.allies().filter(u=>u.unitType===type&&!u.heroId&&!u.temporary);}
@@ -502,8 +496,6 @@ export class World extends RunState {
  }
  capacity(type:UnitType){return this.availableCapacity(type)>0;}
  productionCost=(type:UnitType)=>{const q=productionQuote(this,type);return {minerals:q.minerals,gas:q.gas};};
- buildingsOf(type:BuildingType){return [...this.buildings.values()].filter(b=>b.type===type);}
- addBuilding(type:BuildingType,remaining=0){const inheritedLab=type==='factory'&&this.talent('instant_tech')>0&&this.buildingsOf('factory').some(b=>b.techLab)&&this.random()<Math.min(.99,.33*this.talent('instant_tech'));const b:Building={id:this.nextBuilding++,type,remaining,queue:[],techLab:inheritedLab,upgradeRemaining:null};this.buildings.set(b.id,b);return b;}
  updateProduction(dt:number){updateExpeditionProduction(this,dt,!this.sandbox);}
  podPurpose(type:UnitType,count=1){const added=Math.min(count,this.familyCap()-this.familySeatCount(type)),promoted=Math.min(count-added,Math.max(0,this.ordinaryCapacity(type)-added));return [added?'新增 '+added:'',promoted?'晋升 '+promoted:''].filter(Boolean).join(' / ')||'培养已满';}
  trySpawnPod(type:UnitType,position?:Point,jobId=0,quantity=1,freeConscript=false){const p=findCarrierLanding(this,type,position);return p?this.spawnPod(type,p,jobId,quantity,freeConscript):null;}
@@ -518,7 +510,7 @@ export class World extends RunState {
  /** Capacity is shared by guards, waves and swarm; retain slots for the scheduled Bosses. */
  private nonBossCapacity(){
   if(!this.autoWaves||this.sandbox)return TUNING.enemyCap;
-  const reserved=this.endless?1:6-Math.floor(this.stage/3)+this.specialPlan.slice(this.nextSpecial).filter(e=>e.tier==='boss'||e.tier==='lord').length;
+  const reserved=this.endless?1:6-Math.floor(this.stage/3)+this.specialPlan.slice(this.nextSpecial).filter(e=>e.tier==='boss').length;
   return Math.max(0,TUNING.enemyCap-reserved);
  }
  private releasePodGuards(p:Pod,slots?:number){
@@ -621,7 +613,7 @@ export class World extends RunState {
    const candidates=families.filter(f=>availableFamily(this,f as FamilyId)).map(f=>{const variants=Object.values(ELITES).filter(e=>e.family===f);return variants[Math.floor(this.random()*variants.length)];}).filter((e):e is typeof ELITES[EliteId]=>!!e);
    if(candidates.length&&!this.allies().some(u=>u.temporaryKind==='mercenary'&&u.hp>0)){const elite=candidates[this.expedition.temporaryEliteCursor++%candidates.length],p=this.freePosition(elite.family,this.anchor,.8,6);if(p){const u=this.addUnit(elite.family,'terran',p.x,p.z,5);u.eliteId=elite.id;u.modelKey=elite.model;u.temporary=true;u.temporaryKind='mercenary';u.temporaryUntil=this.time+80;this.refreshStats(u,true);this.announce(elite.name+' · 雇佣兵抵达');}}
    this.nextMercenaryAt=this.time+(this.talent('mercenary')===1?180:90);}
-  tickTalentSupport(this);tickShopSupport(this);tickP4Samples(this);
+  tickTalentSupport(this);tickShopSupport(this);tickEliteSupport(this);
  }
  hit(target:Body,damage:number,bonuses:{attribute:string;amount:number}[]=[],hits=1,sourceOwner:'terran'|'zerg'='terran',minimum=.5,armorPenetration=0,sourceId?:number,forced=false,transferred=false,shieldBonus=0,ordinaryWeapon=false,shieldOnly=false){
   if(target.hp<=0)return;const incoming=target.owner==='terran'&&sourceOwner==='zerg'&&!forced?this.entities.get(target.id):undefined,incomingFactor=incoming?heroIncomingFactor(this,incoming,sourceId===undefined?undefined:this.entities.get(sourceId))*protossIncomingFactor(this,incoming,ordinaryWeapon):1;if(incomingFactor===0){if(incoming)this.visual('barrier-start',incoming);return;}const outgoing=sourceOwner==='zerg'&&sourceId!==undefined?this.entities.get(sourceId):undefined,heroFactor=incomingFactor*(outgoing?Math.max(0,enemyHeroDamageFactor(this,outgoing)-(ordinaryWeapon?heroGroundSuppression(this,outgoing):0)):1)*(ordinaryWeapon&&sourceOwner==='terran'?heroWeaponVulnerability(this,target):1);const eliteOutgoing=ordinaryWeapon&&outgoing?1-Math.max(eliteDebuffValue(this,outgoing,'damage'),compositeEliteDebuff(this,outgoing,'damage')):1;const defenseFactor=(1-eliteDefenseReduction(this,target))*(transferred?1:1-zergEliteDefense(this,target))*(1-protossEliteDefense(this,target));damage*=heroFactor*eliteOutgoing*defenseFactor;shieldBonus*=heroFactor*eliteOutgoing*defenseFactor;bonuses=bonuses.map(b=>({...b,amount:b.amount*heroFactor*eliteOutgoing*defenseFactor}));damage=diagnosticAttackDamage(this,target,damage,sourceOwner);
@@ -696,7 +688,7 @@ export class World extends RunState {
    const angle=Math.atan2(target.x-u.x,target.z-u.z),length=6.5*(u.eliteId==='hellion.3'?1.25:1),width=.15*(u.eliteId==='hellion.3'?1.5:1),end={x:u.x+Math.sin(angle)*length,z:u.z+Math.cos(angle)*length};
    this.hash.query(u,11,b=>{if(b.owner===u.owner||b.flying||b.hp<=0||!this.hasAttackLine(u,b))return;const along=(b.x-u.x)*Math.sin(angle)+(b.z-u.z)*Math.cos(angle);const across=Math.abs((b.x-u.x)*Math.cos(angle)-(b.z-u.z)*Math.sin(angle));if(along>=0&&along<=length+b.unitRadius&&across<=width+b.unitRadius)this.attackHit(u,b,u.weaponDamage,bonus,1,0,b.id===target.id,b.id===target.id?crit:1);});this.effect('flame',u,end,.35,.35);
   }else if(u.unitType==='baneling'){
-   const radius=2.2*eliteEffect(u,'explosionRadiusMultiplier'),source=SOURCE_WEAPON_PATTERNS.baneling,explosion=eliteEffect(u,'explosionDamageMultiplier'),structureDamage=(source.structureDamage+expeditionWeaponUpgrade(this,u,source.structureEffectId).damage)*expeditionWeaponScale(this,u)*this.enemyDamageFactor(u)*explosion;
+   const radius=2.2,source=SOURCE_WEAPON_PATTERNS.baneling,explosion=1,structureDamage=(source.structureDamage+expeditionWeaponUpgrade(this,u,source.structureEffectId).damage)*expeditionWeaponScale(this,u)*this.enemyDamageFactor(u)*explosion;
    this.hash.query(u,radius+2,b=>{if(b.owner!==u.owner&&!b.flying&&(!this.terrain||this.terrain.walkLine(u,b,0))&&this.edgeDistance(u,b)<=radius){const structure=b.attributes.includes('Structure');this.hit(b,structure?structureDamage:u.weaponDamage*this.enemyDamageFactor(u)*explosion,structure?[]:bonus.map(entry=>({...entry,amount:entry.amount*this.enemyDamageFactor(u)*explosion})),1,u.owner,.5,structure?1-source.structureArmorReduction:0,u.id);}});
    this.effect('explosion',u,u,radius,.55);
    if(u.team==='player'&&u.race==='zerg'&&u.temporaryKind!=='hero-baneling'){u.recoveryUntil=this.time+5;u.velocity={x:0,z:0};u.action='idle';u.windup=0;u.pendingTarget=null;u.attackTarget=null;this.visual('baneling-recover',u);}
@@ -708,19 +700,19 @@ export class World extends RunState {
    const splash=u.heroId?HERO_SPLASH[u.heroId]:undefined;
    if(splash){
     const center=splash.center==='source'?u:target,angle=u.attackFacing,extra=[...this.entities.values()].filter(b=>b.id!==target.id&&b.owner!==u.owner&&b.hp>0&&(splash.plane==='ground'?!b.flying:b.flying===target.flying)&&this.hasAttackLine(u,b)&&distance(center,b)<=splash.radius+b.unitRadius&&(splash.arc===360||Math.abs(angleDelta(Math.atan2(b.x-u.x,b.z-u.z),angle))<=splash.arc*Math.PI/360)).sort((a,b)=>distance(center,a)-distance(center,b)||a.id-b.id).slice(0,splash.max);
-    for(const victim of extra){const factor=this.enemyDamageFactor(u)*eliteDamageMultiplier(u,victim),fraction=splash.fraction;this.hit(victim,u.weaponDamage*fraction*factor,bonus.map(entry=>({...entry,amount:entry.amount*fraction*factor})),u.heroId==='artanis'?2:1,u.owner,.5,0,u.id,false,false,0,false);}
+    for(const victim of extra){const factor=this.enemyDamageFactor(u),fraction=splash.fraction;this.hit(victim,u.weaponDamage*fraction*factor,bonus.map(entry=>({...entry,amount:entry.amount*fraction*factor})),u.heroId==='artanis'?2:1,u.owner,.5,0,u.id,false,false,0,false);}
    }
    this.effect('shot',u,target,.1,u.unitType==='marine'?.1:.2);}
  }
  toggleTanks(){return this.toggleFamilyMode('tank');}
  updateTank(u:Entity,_anchorDistance:number,dt:number){if(u.unitType!=='tank'||revisedElite(u)&&u.eliteId==='tank.1')return false;
   if(u.modeTimer>0){u.modeTimer=Math.max(0,u.modeTimer-dt);u.velocity={x:0,z:0};if(u.modeTimer<=1e-8){u.mode=u.action==='sieging'?'siege':'tank';u.siegeSince=u.mode==='siege'?this.time:undefined;u.action='idle';this.refreshStats(u);}return true;}
-  if(u.mode!==u.desiredMode){u.action=u.desiredMode==='siege'?'sieging':'unsieging';u.modeTimer=Math.max(.25,(u.desiredMode==='siege'?SIEGE.deploySeconds:SIEGE.undeploySeconds)*(this.upgrades.has('siege')?.8:1)*(!revisedElite(u)&&u.eliteId==='tank.3'?.75:1)*(1-(talentModifiers(this,u).transformTimeReductionPct??0)));u.siegeSince=undefined;u.velocity={x:0,z:0};u.windup=0;u.pendingTarget=null;return true;}
+  if(u.mode!==u.desiredMode){u.action=u.desiredMode==='siege'?'sieging':'unsieging';u.modeTimer=Math.max(.25,(u.desiredMode==='siege'?SIEGE.deploySeconds:SIEGE.undeploySeconds)*(this.upgrades.has('siege')?.8:1)*(1-(talentModifiers(this,u).transformTimeReductionPct??0)));u.siegeSince=undefined;u.velocity={x:0,z:0};u.windup=0;u.pendingTarget=null;return true;}
   return false;
  }
  heal(u:Entity,dt:number){return healExpedition(this,u,dt);}
- updateBile(u:Entity,dt:number){if(zergEliteBile(this,u,dt))return;u.bileCooldown-=dt;if(u.bileCooldown>0)return;const radius=BILE.radius*eliteEffect(u,'bileRadiusMultiplier');const target=[...this.entities.values()].filter(e=>e.hp>0&&e.owner!==u.owner&&this.visibleTo(e,u.owner)&&this.edgeDistance(u,e)<=BILE.range&&this.hasAttackLine(u,e)&&!this.effects.some(f=>f.kind==='bile'&&f.owner===u.owner&&f.until>this.time&&distance(f.end,e)<radius*1.5)&&!this.zergElites.biles.some(f=>f.source.owner===u.owner&&f.impactAt>this.time&&distance(f.point,e)<f.radius*1.5)).sort((a,b)=>distance(u,a)-distance(u,b)||a.id-b.id)[0];
-  if(target&&this.edgeDistance(u,target)<=BILE.range){const fx=this.effect('bile',u,target,radius,BILE.delay);fx.damage=BILE.damage*(u.weaponDamage/SC2_UNITS.ravager.attackDamage)*this.enemyDamageFactor(u)*(1+(talentModifiers(this,u,'bile').abilityDamagePct??0))*eliteEffect(u,'bileDamageMultiplier');u.bileCooldown=BILE.cooldown*eliteEffect(u,'bileCooldownMultiplier')*(1-(talentModifiers(this,u,'bile').abilityCooldownReductionPct??0));}else u.bileCooldown=.12;
+ updateBile(u:Entity,dt:number){if(zergEliteBile(this,u,dt))return;u.bileCooldown-=dt;if(u.bileCooldown>0)return;const radius=BILE.radius;const target=[...this.entities.values()].filter(e=>e.hp>0&&e.owner!==u.owner&&this.visibleTo(e,u.owner)&&this.edgeDistance(u,e)<=BILE.range&&this.hasAttackLine(u,e)&&!this.effects.some(f=>f.kind==='bile'&&f.owner===u.owner&&f.until>this.time&&distance(f.end,e)<radius*1.5)&&!this.zergElites.biles.some(f=>f.source.owner===u.owner&&f.impactAt>this.time&&distance(f.point,e)<f.radius*1.5)).sort((a,b)=>distance(u,a)-distance(u,b)||a.id-b.id)[0];
+  if(target&&this.edgeDistance(u,target)<=BILE.range){const fx=this.effect('bile',u,target,radius,BILE.delay);fx.damage=BILE.damage*(u.weaponDamage/SC2_UNITS.ravager.attackDamage)*this.enemyDamageFactor(u)*(1+(talentModifiers(this,u,'bile').abilityDamagePct??0));u.bileCooldown=BILE.cooldown*(1-(talentModifiers(this,u,'bile').abilityCooldownReductionPct??0));}else u.bileCooldown=.12;
  }
  moveGoal(u:Entity){
   if(this.order?.kind==='move'&&(u.flying||u.unitType==='reaper'||u.unitType==='colossus')){
@@ -835,7 +827,7 @@ export class World extends RunState {
   // Hold a useful firing position while the anchor is still; do not turn back to the slot after every bullet.
   if(u.owner==='terran'&&u.unitType!=='medivac'&&target&&!hard&&this.anchorStoppedFor>.1&&this.edgeDistance(u,target)<=u.attackRange&&this.hasAttackLine(u,target)){u.velocity={x:0,z:0};u.action='idle';return;}
   if(u.unitType==='medivac'||u.unitType==='science_vessel'){const patient=this.heal(u,dt);if(patient&&!hard){
-   if(this.edgeDistance(u,patient)<=HEAL.range+eliteEffect(u,'healingRangeAdd',0)){if(this.anchorStoppedFor>.15){u.velocity.x=0;u.velocity.z=0;return;}}
+   if(this.edgeDistance(u,patient)<=HEAL.range){if(this.anchorStoppedFor>.15){u.velocity.x=0;u.velocity.z=0;return;}}
    else if(this.anchorStoppedFor>.15&&!leash)goal=patient;
   }}
   // Marching intent wins over a rear formation slot: do not reverse just to reform a row.
@@ -948,10 +940,9 @@ export class World extends RunState {
   if(this.scheduledStage!==this.stage)this.prepareStage();const direction=this.updateCommand(dt),mag=Math.hypot(direction.x,direction.z);this.marchDirection={x:direction.x/Math.max(1,mag),z:direction.z/Math.max(1,mag)};if(mag>.01){this.anchorMovingFor+=dt;this.anchorStoppedFor=0;}else {this.anchorStoppedFor+=dt;this.anchorMovingFor=0;}if(mag>.01){const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);this.anchor.facing=turn(this.anchor.facing,Math.atan2(direction.x,direction.z),5*dt);translate(this.anchor,{x:direction.x/Math.max(1,mag)*speed*dt,z:direction.z/Math.max(1,mag)*speed*dt},.8,false,this.obstacles,this.sandbox?TUNING.worldHalf:this.mapHalf,this.terrain);}
   if(distance(this.anchor,this.trail.at(-1)!)>.8)this.trail.push({x:this.anchor.x,z:this.anchor.z});
   if(this.trail.length>1200){this.trail.splice(0,200);for(const u of this.entities.values())u.trailIndex=Math.max(0,u.trailIndex-200);}
-  this.updateEconomy(dt);this.updateProduction(dt);tickCarrierSubsystem(this,dt);this.updateBurns();this.deployPendingHeroes();
+  this.updateEconomy(dt);this.updateProduction(dt);tickCarrierSubsystem(this,dt);this.deployPendingHeroes();
   if(!this.sandbox)while(this.eventPlan[this.nextEvent]?.at<=this.stageElapsed){this.spawnEconomic(this.eventPlan[this.nextEvent++].kind);}
-  if(this.autoWaves&&this.specialPlan[this.nextSpecial]?.tier==='lord'&&this.specialPlan[this.nextSpecial].at-this.stageElapsed<=5&&!this.lordWarningPoint){const radius=SC2_UNITS[this.specialPlan[this.nextSpecial].type].unitRadius*TUNING.unitScale*1.7,pool=this.spawnCells.filter(p=>distance(p,this.anchor)>8&&(!this.terrain||this.terrain.canOccupy(p,radius))&&!blocked(p,radius,this.obstacles));this.lordWarningPoint=pool.length?{...pool[Math.floor(this.random()*pool.length)]}:null;if(this.lordWarningPoint)this.announce('随机领主即将降临 · 5 秒');}
-  if(this.autoWaves)while(this.specialPlan[this.nextSpecial]?.at<=this.stageElapsed){const e=this.specialPlan[this.nextSpecial],spawned='budget' in e?this.spawnCampaignSpecial(e):this.spawnSpecial(e.type,e.tier,e.tier==='lord'?this.lordWarningPoint??undefined:undefined);if(!spawned)break;this.nextSpecial++;if(e.tier==='lord')this.lordWarningPoint=null;if(e.tier==='elite')this.stats.ambientSpawned++;}
+  if(this.autoWaves)while(this.specialPlan[this.nextSpecial]?.at<=this.stageElapsed){const e=this.specialPlan[this.nextSpecial],spawned=this.spawnCampaignSpecial(e);if(!spawned)break;this.nextSpecial++;if(e.tier==='elite')this.stats.ambientSpawned++;}
   if(this.autoWaves&&this.endless)this.updateEndlessSpawns(dt);this.releaseWaitingPodGuards();if(this.autoWaves&&this.time>=this.nextWave)this.spawnWave();if(this.ambientBacklog.length)this.releaseAmbient();if(this.autoWaves){this.updateHives();this.releaseSwarm();}
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active'),...this.expansionHives.values(),...this.fortifications.values()];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);refreshGroundHeroBuffs(this);this.updateAuras();this.updateTalentSupport();this.resolveHeroCasts();tickDetection(this);tickAreaSpells(this);tickWeaponAreas(this);tickWeaponFlights(this,dt);tickTerranEliteState(this);tickZergEliteState(this,dt);tickProtossEliteState(this);tickTeamAuras(this,dt);tickHeroAttacks(this);tickZergHeroState(this);tickProtossHeroState(this);this.enemySpecials.update(dt);this.updateCorrosionZones();
   this.movementAllies=this.allies();this.formationPlanned=false;

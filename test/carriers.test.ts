@@ -1,12 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {THREE_RACE_RULES} from '../src/data/races';
 import {SOURCE_ABILITIES,SOURCE_INTERCEPTOR} from '../src/data/expansion-units';
 import {initializeCarrierSubsystem,tickCarrierSubsystem,tickInterceptor,refreshInterceptorStats,ownedInterceptors,cleanupCarrierSummons,fireInterceptor,interceptorUnitData} from '../src/simulation/combat/carriers';
 
 const source=SOURCE_INTERCEPTOR,seconds=SOURCE_ABILITIES.carrierHangar.replacementSeconds;
-function setup(minerals=0,owner:'terran'|'zerg'='terran'){const w=new World({rulesVersion:THREE_RACE_RULES,race:'protoss',waves:false,sandbox:true,terrain:false,obstacles:[],seed:42});w.start();w.wallet.minerals=minerals;w.wallet.gas=7;const carrier=w.addUnit('carrier',owner,0,0);initializeCarrierSubsystem(w);return {w,carrier};}
+function setup(minerals=0,owner:'terran'|'zerg'='terran'){const w=new World({race:'protoss',waves:false,sandbox:true,terrain:false,obstacles:[],seed:42});w.start();w.wallet.minerals=minerals;w.wallet.gas=7;const carrier=w.addUnit('carrier',owner,0,0);initializeCarrierSubsystem(w);return {w,carrier};}
 const near=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`);
 test('a new carrier has four source-stat targetable interceptors without extra family or rank slots',()=>{
  const {w,carrier}=setup(),children=ownedInterceptors(w,carrier.id);assert.equal(children.length,4);assert.equal(w.familyUnits('carrier').length,1);assert.equal(w.ordinaryUnits('carrier').length,1);assert.equal(w.wallet.minerals,0);
@@ -15,7 +14,7 @@ test('a new carrier has four source-stat targetable interceptors without extra f
 });
 test('initialization and save restoration never reissue the four included children or erase paid progress',()=>{
  const {w,carrier}=setup(100);tickCarrierSubsystem(w,3);const child=ownedInterceptors(w,carrier.id)[0];child.hp=17;child.shield=9;const job=structuredClone(carrier.carrierHangar!.job);assert.equal(w.wallet.minerals,85);near(job!.remaining,seconds-3);initializeCarrierSubsystem(w);assert.equal(ownedInterceptors(w,carrier.id).length,4);
- const copy=new World({rulesVersion:THREE_RACE_RULES,race:'protoss',waves:false,sandbox:true,terrain:false,obstacles:[],seed:42});copy.restoreRun(w.captureRun());initializeCarrierSubsystem(copy);const restored=copy.entities.get(carrier.id)!;assert.equal(ownedInterceptors(copy,carrier.id).length,4);assert.equal(copy.entities.get(child.id)!.hp,17);assert.equal(copy.entities.get(child.id)!.shield,9);assert.deepEqual(restored.carrierHangar!.job,job);assert.equal(copy.wallet.minerals,85);copy.paused=false;tickCarrierSubsystem(copy,seconds-3);assert.equal(ownedInterceptors(copy,carrier.id).length,5);assert.equal(copy.wallet.minerals,70,'the next sequential paid job starts once');
+ const copy=new World({race:'protoss',waves:false,sandbox:true,terrain:false,obstacles:[],seed:42});copy.restoreRun(w.captureRun());initializeCarrierSubsystem(copy);const restored=copy.entities.get(carrier.id)!;assert.equal(ownedInterceptors(copy,carrier.id).length,4);assert.equal(copy.entities.get(child.id)!.hp,17);assert.equal(copy.entities.get(child.id)!.shield,9);assert.deepEqual(restored.carrierHangar!.job,job);assert.equal(copy.wallet.minerals,85);copy.paused=false;tickCarrierSubsystem(copy,seconds-3);assert.equal(ownedInterceptors(copy,carrier.id).length,5);assert.equal(copy.wallet.minerals,70,'the next sequential paid job starts once');
 });
 test('one replacement requires an actual 15 mineral payment and a complete sequential construction time',()=>{
  const {w,carrier}=setup();tickCarrierSubsystem(w,100);assert.equal(ownedInterceptors(w,carrier.id).length,4);assert.equal(carrier.carrierHangar!.job,null);w.wallet.minerals=15;tickCarrierSubsystem(w,seconds-.1);assert.equal(w.wallet.minerals,0);assert.equal(w.wallet.gas,7);assert.equal(ownedInterceptors(w,carrier.id).length,4);near(carrier.carrierHangar!.job!.remaining,.1);tickCarrierSubsystem(w,.1);assert.equal(ownedInterceptors(w,carrier.id).length,5);assert.equal(carrier.carrierHangar!.job,null);assert.equal(w.economyTotals.production.minerals,15);

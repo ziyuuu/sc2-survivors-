@@ -1,11 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {THREE_RACE_RULES} from '../src/data/races';
 import {SOURCE_ABILITIES} from '../src/data/expansion-units';
 import {draftContext} from '../src/simulation/expedition-economy';
 import {sourceDetails,tickExpeditionRecovery,tickAutoAbilities} from '../src/simulation/combat/expedition-combat';
-const world=()=>{const w=new World({rulesVersion:THREE_RACE_RULES,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
+const world=()=>{const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
 const close=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
 
 test('recovery draft eligibility includes native life and shield regeneration without labeling it team support',()=>{

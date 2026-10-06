@@ -1,6 +1,7 @@
-import {STAGES,chapterGrowth,enemyPressure,type Difficulty,type EnemyPressure} from './stages';
+import type {Difficulty,EnemyPressure} from './stages';
+import {CAMPAIGN_LAYOUT,CAMPAIGN_ECONOMY,CAMPAIGN_CHAPTERS} from './campaign-layout';
 
-/** The approved Survivors campaign, independent of the legacy twelve-stage table. */
+/** The approved Survivors campaign, with one authoritative set of current values. */
 export const CAMPAIGN18_ID='three-races-18' as const;
 export const CAMPAIGN18_ENEMIES=['zergling','roach','baneling','ravager','hydralisk','queen','lurker','mutalisk','corruptor','ultralisk'] as const;
 export type Campaign18Enemy=typeof CAMPAIGN18_ENEMIES[number];
@@ -20,24 +21,13 @@ const mixes:readonly (readonly number[])[]=[
 const names=['登陆','甲壳护卫','爆虫预警','窄口虫群','重甲侧袭','第一主力','地空夹击','胆汁火线','虫后支援','转型窗口','潜伏阵地','第二主力','雷兽冲击','空群混战','支援网络','外巢推进','主巢前哨','主巢决战'];
 const sum=(values:readonly number[])=>values.reduce((a,b)=>a+b,0);
 const starts=CAMPAIGN18_DURATIONS.map((_,i)=>sum(CAMPAIGN18_DURATIONS.slice(0,i)));
-const legacyStarts=STAGES.map((_,i)=>sum(STAGES.slice(0,i).map(s=>s.durationSeconds)));
 export const CAMPAIGN18_TOTALS=Object.freeze({stages:18,chapters:6,intermissions:17,combatSeconds:1800,baseThreat:4684,minerals:2755,gas:2055});
 export const emptyCampaign18Counts=():Campaign18Counts=>Object.fromEntries(CAMPAIGN18_ENEMIES.map(type=>[type,0])) as Campaign18Counts;
 const rowCounts=(row:readonly number[]):Campaign18Counts=>Object.fromEntries(CAMPAIGN18_ENEMIES.map((type,i)=>[type,row[i]??0])) as Campaign18Counts;
 export const campaign18Threat=(counts:Readonly<Campaign18Counts>)=>CAMPAIGN18_ENEMIES.reduce((total,type)=>total+counts[type]*CAMPAIGN18_WEIGHTS[type],0);
 function stageIndex(stage:number){if(!Number.isInteger(stage)||stage<1||stage>18)throw new RangeError('Campaign18 stage must be 1–18');return stage-1;}
-const lerp=(a:number,b:number,t:number)=>a+(b-a)*t;
-
-/** Six chapters span the existing four profiles, retaining both endpoints. */
-function profilePosition(stage:number){const chapter=Math.floor(stageIndex(stage)/3),position=chapter*3/5;return {low:Math.floor(position),high:Math.ceil(position),fraction:position-Math.floor(position)};}
-export function campaign18EnemyPressure(difficulty:Difficulty,stage:number):EnemyPressure {
- const {low,high,fraction}=profilePosition(stage),a=enemyPressure(difficulty,1+low*3),b=enemyPressure(difficulty,1+high*3);
- return Object.fromEntries(Object.keys(a).map(key=>[key,lerp(a[key as keyof EnemyPressure],b[key as keyof EnemyPressure],fraction)])) as unknown as EnemyPressure;
-}
-export function campaign18ChapterGrowth(difficulty:Difficulty,stage:number){
- const {low,high,fraction}=profilePosition(stage),a=chapterGrowth(difficulty,1+low*3),b=chapterGrowth(difficulty,1+high*3);
- return {health:lerp(a.health,b.health,fraction),damage:lerp(a.damage,b.damage,fraction),attackSpeed:lerp(a.attackSpeed,b.attackSpeed,fraction)};
-}
+export function campaign18EnemyPressure(difficulty:Difficulty,stage:number):EnemyPressure {return {...CAMPAIGN_CHAPTERS[difficulty][Math.floor(stageIndex(stage)/3)].pressure};}
+export function campaign18ChapterGrowth(difficulty:Difficulty,stage:number){return {...CAMPAIGN_CHAPTERS[difficulty][Math.floor(stageIndex(stage)/3)].growth};}
 const countRound=(n:number,difficulty:Difficulty)=>difficulty==='easy'?Math.floor(n+1e-8):Math.floor(n+.5+1e-8);
 /** Round the cumulative campaign budget, not each small family or wave separately. */
 function scaledBudget(stage:number,difficulty:Difficulty){let before=0;for(let s=1;s<stage;s++)before+=CAMPAIGN18_BUDGETS[s-1]*(difficulty==='easy'?.5:.9)*campaign18EnemyPressure(difficulty,s).total;const current=CAMPAIGN18_BUDGETS[stage-1]*(difficulty==='easy'?.5:.9)*campaign18EnemyPressure(difficulty,stage).total;return countRound(before+current,difficulty)-countRound(before,difficulty);}
@@ -53,16 +43,8 @@ export function allocateCampaign18Threat(budget:number,mix:Readonly<Campaign18Co
  return {counts,spent:budget-remaining,unspent:remaining};
 }
 
-/** Use elapsed campaign position for old battlefield/HP references, not stage 12 clamping. */
-function legacyValue(index:number,value:(s:typeof STAGES[number])=>number){
- const time=starts[index]/starts[17]*legacyStarts[11];let low=0;while(low<11&&legacyStarts[low+1]<=time)low++;const high=Math.min(11,low+1),fraction=high===low?0:(time-legacyStarts[low])/(legacyStarts[high]-legacyStarts[low]);return lerp(value(STAGES[low]),value(STAGES[high]),fraction);
-}
+const stageEconomy=(index:number)=>CAMPAIGN_ECONOMY.filter(e=>e.at>=starts[index]&&e.at<starts[index]+CAMPAIGN18_DURATIONS[index]).map(e=>({...e,at:Math.max(.01,e.at-starts[index])}));
 export interface Campaign18EconomicEvent {at:number;kind:'egg'|'drone'}
-/** Redistribute the old 26 eggs and 40 drones over the same 30 combat minutes. */
-const economicTimeline=STAGES.flatMap((s,index)=>(['egg','drone'] as const).flatMap(kind=>Array.from({length:kind==='egg'?s.eggs:s.drones},(_,i)=>{
- const local=s.id<=2?(kind==='egg'?[10,27,41][i]:[7,19,37,49][i]):s.durationSeconds*(kind==='egg'?.15+i*.5/Math.max(1,s.eggs-1):.2+i*.6/Math.max(1,s.drones-1));return {at:legacyStarts[index]+local,kind};
-}))).sort((a,b)=>a.at-b.at);
-const stageEconomy=(index:number)=>economicTimeline.filter(e=>e.at>=starts[index]&&e.at<starts[index]+CAMPAIGN18_DURATIONS[index]).map(e=>({...e,at:Math.max(.01,e.at-starts[index])}));
 export interface Campaign18Reserves {captain:number;boss:number;mainHive:number;expansionHive:number}
 export interface Campaign18StageConfig {
  campaignId:typeof CAMPAIGN18_ID;difficulty?:Difficulty;id:number;chapter:number;name:string;durationSeconds:number;
@@ -75,8 +57,8 @@ const reserveTotal=(r:Campaign18Reserves)=>r.captain+r.boss+r.mainHive+r.expansi
 function chapterReward(index:number):readonly [number,number]{const total=CAMPAIGN18_CHAPTER_REWARDS[Math.floor(index/3)];return total.map(n=>index%3===2?n-2*Math.floor(n*.3):Math.floor(n*.3)) as unknown as readonly [number,number];}
 function baseStage(index:number):Campaign18StageConfig {
  const id=index+1,budget=CAMPAIGN18_BUDGETS[index],mix=rowCounts(mixes[index]),reserves=reservesFor(id,budget),waveBudget=budget-reserveTotal(reserves),events=stageEconomy(index);
- const guardBudget=Math.round(legacyValue(index,s=>Object.entries(s.guards).reduce((n,[type,count])=>n+count*CAMPAIGN18_WEIGHTS[type as Campaign18Enemy],0)));
- return {campaignId:CAMPAIGN18_ID,id,chapter:Math.floor(index/3)+1,name:names[index],durationSeconds:CAMPAIGN18_DURATIONS[index],budget,waveBudget,mix,reserves,ambient:allocateCampaign18Threat(waveBudget,mix).counts,guardBudget,guards:allocateCampaign18Threat(guardBudget,mix).counts,waves:Math.ceil(CAMPAIGN18_DURATIONS[index]/10),entranceSpacing:legacyValue(index,s=>s.entranceSpacing),lingHp:[18,24,30][index]??35,speed:legacyValue(index,s=>s.speed),width:legacyValue(index,s=>s.width),podHp:index<6?Math.round(legacyValue(index,s=>s.podHp)):index<9?3600:index<15?4800:6000,reward:chapterReward(index),eggs:events.filter(e=>e.kind==='egg').length,drones:events.filter(e=>e.kind==='drone').length};
+ const [guardBudget,entranceSpacing,speed,width,podHp]=CAMPAIGN_LAYOUT[index];
+ return {campaignId:CAMPAIGN18_ID,id,chapter:Math.floor(index/3)+1,name:names[index],durationSeconds:CAMPAIGN18_DURATIONS[index],budget,waveBudget,mix,reserves,ambient:allocateCampaign18Threat(waveBudget,mix).counts,guardBudget,guards:allocateCampaign18Threat(guardBudget,mix).counts,waves:Math.ceil(CAMPAIGN18_DURATIONS[index]/10),entranceSpacing,lingHp:[18,24,30][index]??35,speed,width,podHp,reward:chapterReward(index),eggs:events.filter(e=>e.kind==='egg').length,drones:events.filter(e=>e.kind==='drone').length};
 }
 export const CAMPAIGN18_STAGES:readonly Campaign18StageConfig[]=CAMPAIGN18_DURATIONS.map((_,i)=>baseStage(i));
 /** serial is this stage's zero-based delivery number; retain it in the caller's run state. */

@@ -110,7 +110,7 @@ text.push('### 英雄I–V固定成长及光环',
  table(['两族英雄配置ID','当前队伍配置（执行器还实施资格、时钟与实际生命上限）'],Object.entries(HERO_TEAM_AURAS).map(([id,v])=>[id,JSON.stringify(v)])));
 
 text.push(`## 当前规则：${Object.keys(currentElites).length}款唯一精英`,
- '每个家族同时最多一个精英身份，占一个普通名额；精英跳虫为一对两只身体；同局锁定一种变体。90项已使用显式P4规则，旧ELITE_TEMPLATES和旧显示描述不再代表当前机体。参数JSON来自运行源码，原设计JSON从不作为运行导入。',
+ '每个家族同时最多一个精英身份，占一个普通名额；精英跳虫为一对两只身体；同局锁定一种变体。90项只读取三族正式精英规则与当前团队光环；旧模板、重复倍率和旧显示标签已删除。参数JSON来自运行源码，原设计JSON从不作为运行导入。',
  table(['ID','名称','家族','机体','核心机制与当前队伍覆盖','机体/专属基础参数','模型ID'],Object.entries(currentElites).map(([id,e])=>[id,e.name,name(ELITES[id as keyof typeof ELITES].family),e.body,e.description+(Object.hasOwn(TEAM_AURA_HELP,id)?' 当前队伍项覆盖：'+TEAM_AURA_HELP[id as keyof typeof TEAM_AURA_HELP]:''),JSON.stringify(e.parameters),ELITES[id as keyof typeof ELITES].model])),
  table(['机体','相对普通V生命','相对普通V输出','额外护甲I','移速倍率','治疗倍率'],Object.entries(TERRAN_ELITE_BODIES).map(([id,b])=>[id,b.hp,b.dps,b.armor,b.move,b.heal])),
  table(['军衔','输出／治疗成长','生命成长','额外护甲成长','能量倍率'],[1,2,3,4,5].map(rank=>{const g=terranEliteGrowth('marine.1',rank),i=terranEliteGrowth('marine.1',1);return [rank,n(g.damage/i.damage),n(g.health/i.health),n(terranEliteArmor('marine.1',rank)-terranEliteArmor('marine.1',1)),g.energy];})),

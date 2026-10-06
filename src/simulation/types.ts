@@ -3,7 +3,6 @@ import type {Race} from '../data/races';
 import type {EliteId} from '../data/elites';
 import type {Rarity} from '../data/rewards';
 import type {UnitType,CombatUnitType,TerranType,ZergType} from '../data/sc2-units';
-import type {BuildingType} from '../data/game';
 export interface Point {x:number;z:number}
 export type SquadOrder={kind:'move';point:Point;arrived:boolean;issuedAt:number};
 export interface Body extends Point {id:number;hp:number;maxHp:number;armor:number;unitRadius:number;flying:boolean;attributes:string[];owner:'terran'|'zerg';race?:import('../data/races').Race;team?:import('../data/races').Team;damageReduction?:number}
@@ -43,8 +42,6 @@ export interface Entity extends Body {protossEliteCombat?:import('./combat/proto
 export interface Pod extends Body {injectedBy?:number;injectedSeats?:number;injectedAt?:number;number:number;unitType:UnitType;createdAt:number;landedAt:number;guardianIds:Set<number>;guardTypes:UnitType[];
  status:'falling'|'active'|'opening'|'rescued'|'destroyed';resolvedAt:number|null;recruitId:number|null;jobId:number;stage:number;passengers:{status:'waiting'|'released'|'lost';entityId:number|null}[];nextExitAt:number;freeConscript?:boolean}
 export interface EconomicTarget extends Body {kind:'egg'|'drone';createdAt:number;expiresAt:number|null;resolvedAt:number|null;status:'active'|'rescued'|'expired'|'killed';origin:Point;facing:number}
-export interface Job {id:number;unitType:TerranType;quantity:number;buildingIds:number[];group:BuildingType;remaining:number;paid:{minerals:number;gas:number};passengerPayments?:{minerals:number;gas:number}[]}
-export interface Building {id:number;type:BuildingType;remaining:number;queue:Job[];techLab:boolean;upgradeRemaining:number|null}
 export interface Effect extends Point {id:number;kind:'shot'|'flame'|'explosion'|'bile'|'heal'|'hero-line'|'scan-warning'|'hero-warning';end:Point;until:number;radius:number;owner:'terran'|'zerg';source:number;damage?:number}
 export interface Pickup extends Point {id:number;minerals:number;gas:number}
 /** Presentation never consumes gameplay IDs or random numbers. */

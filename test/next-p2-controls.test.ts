@@ -3,7 +3,7 @@ const heroView={ground:[{x:-20,z:-20},{x:20,z:-20},{x:20,z:20},{x:-20,z:20}],air
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {THREE_RACE_RULES,FAMILIES_BY_RACE} from '../src/data/races';
+import {FAMILIES_BY_RACE} from '../src/data/races';
 import {ELITES} from '../src/data/elites';
 import {HEROES,ALL_HERO_IDS} from '../src/data/heroes';
 import {acquireExpeditionHero} from '../src/simulation/combat/expedition-heroes';
@@ -17,7 +17,7 @@ import {draftContext} from '../src/simulation/expedition-economy';
 import {inspectReinforcementPool} from '../src/simulation/progression/expedition-drafts';
 import {blocked,distance} from '../src/simulation/movement/steering';
 import {CharTerrain} from '../src/data/terrain';
-const make=(extra:any={})=>{const w=new World({rulesVersion:THREE_RACE_RULES,sandbox:true,waves:false,terrain:false,obstacles:[],...extra});w.start();w.entities.clear();for(const p of Object.values(w.expedition.production))p!.enabled={};return w;};
+const make=(extra:any={})=>{const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[],...extra});w.start();w.entities.clear();for(const p of Object.values(w.expedition.production))p!.enabled={};return w;};
 test('all five native mode families cancel unfinished transitions without changing combat resources',()=>{
  for(const family of Object.keys(FAMILY_MODES) as (keyof typeof FAMILY_MODES)[]){const w=make(),u=w.addUnit(family,'terran',0,0);w.expedition.tech['unlock.hellion']=1;const [base,next]=FAMILY_MODES[family];u.hp-=10;u.energy=17;u.nextShotAt=23;const before=[u.hp,u.shield,u.energy,u.nextShotAt];assert.ok(w.setFamilyMode(family,next[0]));if(family==='tank'){w.updateTank(u,0,1/60);assert.ok(u.modeTimer>0);assert.ok(w.setFamilyMode(family,base[0]));assert.equal(u.modeTimer,0);}else{tickNativeMode(w,u);assert.ok(u.nativeModeUntil!==undefined);assert.ok(w.setFamilyMode(family,base[0]));assert.equal(u.nativeModeUntil,undefined);}assert.deepEqual([u.hp,u.shield,u.energy,u.nextShotAt],before);}
 });

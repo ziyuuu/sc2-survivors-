@@ -2,11 +2,10 @@ import {settleWeaponFlights} from './helpers/weapon-flight';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {THREE_RACE_RULES} from '../src/data/races';
 import type {Entity} from '../src/simulation/types';
 import {SOURCE_WEAPON_PATTERNS} from '../src/data/expansion-units';
 import {sourceWeaponUpgradeDelta} from '../src/data/expansion-upgrades';
-const world=()=>{const w=new World({rulesVersion:THREE_RACE_RULES,race:'zerg',sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
+const world=()=>{const w=new World({race:'zerg',sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
 const close=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
 const target=(u:Entity)=>{u.hp=u.maxHp=10000;u.armor=0;u.shield=0;u.unitRadius=.1;return u;};
 test('upgraded Mutalisk uses three independently upgraded source hits before one rank/talent/card scale',()=>{

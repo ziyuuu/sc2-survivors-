@@ -1,12 +1,11 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {THREE_RACE_RULES} from '../src/data/races';
 import {HEAL} from '../src/data/sc2-units';
 import {tickAutoAbilities,tickAreaSpells,refreshExpeditionStats,selectWeapon,unitData,tickNativeMode} from '../src/simulation/combat/expedition-combat';
 import {tickWeaponAreas} from '../src/simulation/combat/weapon-patterns';
 import {SOURCE_ABILITIES,SOURCE_UNIT_MODES} from '../src/data/expansion-units';
-const world=()=>{const w=new World({rulesVersion:THREE_RACE_RULES,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
+const world=()=>{const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
 const close=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-6,`${a} != ${b}`);
 test('medivac main and cross type consume energy only for actual HP at 1 and 1/3 rates',()=>{const w=world(),h=w.addUnit('medivac','terran',0,0),p=w.addUnit('marine','terran',1,0);p.hp=1;const energy=h.energy;w.heal(h,1);close(p.hp,1+HEAL.hpPerSecond);close(energy-h.energy,HEAL.hpPerSecond*HEAL.energyPerHp);p.hp=p.maxHp;const tank=w.addUnit('tank','terran',1,1);tank.hp=1;const e=h.energy;w.heal(h,1);close(tank.hp,1+HEAL.hpPerSecond/3);close(e-h.energy,HEAL.hpPerSecond/3*HEAL.energyPerHp);});
 test('science vessel repairs mechanical full rate and biological one third without self healing',()=>{const w=world(),h=w.addUnit('science_vessel','terran',0,0),t=w.addUnit('tank','terran',1,0);h.hp=1;t.hp=1;w.heal(h,1);close(t.hp,1+HEAL.hpPerSecond);assert.equal(h.hp,1);t.hp=t.maxHp;const m=w.addUnit('marine','terran',1,1);m.hp=1;w.heal(h,1);close(m.hp,1+HEAL.hpPerSecond/3);});

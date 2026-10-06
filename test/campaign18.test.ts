@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {STAGES,enemyPressure,chapterGrowth,type Difficulty} from '../src/data/stages';
+import {enemyPressure,type Difficulty} from '../src/data/stages';
 import {
  CAMPAIGN18_STAGES,CAMPAIGN18_DURATIONS,CAMPAIGN18_BUDGETS,CAMPAIGN18_TOTALS,CAMPAIGN18_CHAPTER_REWARDS,
  CAMPAIGN18_ENEMIES,CAMPAIGN18_WEIGHTS,
@@ -10,19 +10,18 @@ import {
 
 const difficulties:Difficulty[]=['easy','normal','hard','hell'];
 const total=(values:readonly number[])=>values.reduce((a,b)=>a+b,0);
-test('eighteen stages retain the approved 30-minute / 4684-point contract without changing legacy stages',()=>{
- assert.equal(STAGES.length,12);
+test('eighteen stages retain the approved 30-minute / 4684-point contract',()=>{
  assert.equal(CAMPAIGN18_STAGES.length,18);
  assert.deepEqual(CAMPAIGN18_STAGES.map(s=>s.durationSeconds),[60,60,60,75,75,75,90,90,90,105,105,105,120,120,120,150,150,150]);
  assert.equal(total(CAMPAIGN18_DURATIONS),1800);
  assert.equal(total(CAMPAIGN18_BUDGETS),4684);
  assert.deepEqual(CAMPAIGN18_TOTALS,{stages:18,chapters:6,intermissions:17,combatSeconds:1800,baseThreat:4684,minerals:2755,gas:2055});
  assert.equal(CAMPAIGN18_STAGES[9].budget,185,'the transition stage is below stage nine pressure');
- assert.equal(CAMPAIGN18_STAGES[0].lingHp,STAGES[0].lingHp);
+ assert.equal(CAMPAIGN18_STAGES[0].lingHp,18);
  assert.equal(CAMPAIGN18_STAGES[17].podHp,6000);
- assert.equal(CAMPAIGN18_STAGES[17].width,STAGES[11].width);
+ assert.equal(CAMPAIGN18_STAGES[17].width,112);
 });
-test('chapter rewards use 30/30/remainder and retain the complete legacy mineral/gas budget',()=>{
+test('chapter rewards use 30/30/remainder and retain the approved mineral/gas budget',()=>{
  for(let chapter=0;chapter<6;chapter++)for(const currency of [0,1] as const){
   const expected=CAMPAIGN18_CHAPTER_REWARDS[chapter][currency],values=CAMPAIGN18_STAGES.slice(chapter*3,chapter*3+3).map(s=>s.reward[currency]);
   assert.deepEqual(values,[Math.floor(expected*.3),Math.floor(expected*.3),expected-2*Math.floor(expected*.3)]);
@@ -31,12 +30,12 @@ test('chapter rewards use 30/30/remainder and retain the complete legacy mineral
  assert.equal(total(CAMPAIGN18_STAGES.map(s=>s.reward[1])),2055);
  for(const difficulty of difficulties)assert.deepEqual(campaign18StageConfig(18,difficulty).reward,CAMPAIGN18_STAGES[17].reward,'income multipliers belong to the award transaction');
 });
-test('difficulty interpolation preserves the four-profile endpoints and uses six distinct chapters',()=>{
+test('current difficulty profiles preserve approved endpoints and six distinct chapters',()=>{
  for(const difficulty of difficulties){
   assert.deepEqual(campaign18EnemyPressure(difficulty,1),enemyPressure(difficulty,1));
   assert.deepEqual(campaign18EnemyPressure(difficulty,18),enemyPressure(difficulty,12));
-  assert.deepEqual(campaign18ChapterGrowth(difficulty,1),chapterGrowth(difficulty,1));
-  assert.deepEqual(campaign18ChapterGrowth(difficulty,18),chapterGrowth(difficulty,12));
+  assert.deepEqual(campaign18ChapterGrowth(difficulty,1),{health:1,damage:1,attackSpeed:1});
+  assert.deepEqual(campaign18ChapterGrowth(difficulty,18),{health:1+1.1*(difficulty==='easy'?.5:1),damage:1+.45*(difficulty==='easy'?.5:1),attackSpeed:1+.2*(difficulty==='easy'?.5:1)});
   for(let chapter=0;chapter<6;chapter++)assert.deepEqual(campaign18EnemyPressure(difficulty,chapter*3+1),campaign18EnemyPressure(difficulty,chapter*3+3));
  }
  assert.equal(new Set([1,4,7,10,13,16].map(s=>campaign18EnemyPressure('hard',s).total)).size,6);

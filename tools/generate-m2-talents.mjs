@@ -3,11 +3,75 @@ import {resolve} from 'node:path';
 
 const root=resolve(import.meta.dirname,'..');
 const document=readFileSync(resolve(root,'docs/MVP10_TALENTS.md'),'utf8');
-const historical=readFileSync(resolve(root,'src/data/talents.ts'),'utf8');
 const lines=['resources','soldiers','army','micro'];
 const prefixes={resources:'R',soldiers:'S',army:'A',micro:'M'};
-const semantics=Object.fromEntries(lines.map(line=>[line,[...historical.matchAll(new RegExp(`n\\('${line}',\\d+,\\d+,'([^']+)'`,'g'))].map(match=>match[1])]));
-for(const line of lines)if(semantics[line].length!==(line==='micro'?7:16))throw Error(`Historical semantic ID count for ${line} is ${semantics[line].length}`);
+// Stable current semantic IDs connect the approved rows to runtime effect handlers.
+const semantics={
+  "resources": [
+    "scv_savior",
+    "mining_master",
+    "reroll_fan",
+    "frugal_build",
+    "recycle",
+    "window_shop",
+    "free_house",
+    "battlefield_cleaner",
+    "free_purchase",
+    "double_build",
+    "bonus_income",
+    "permanent_discount",
+    "instant_tech",
+    "rarity_master",
+    "elite_classroom",
+    "hero_support"
+  ],
+  "soldiers": [
+    "advanced_arms",
+    "weapon_upgrade",
+    "armor_upgrade",
+    "light_armor",
+    "headshot",
+    "bio_shield",
+    "veteran_dodge",
+    "rapid_attack",
+    "lovers_charm",
+    "team_share",
+    "big_firepower",
+    "super_meat",
+    "marathon",
+    "elite_training",
+    "last_stand",
+    "star_warrior"
+  ],
+  "army": [
+    "skilled_troop",
+    "experience_summary",
+    "reinforcement",
+    "orderly_army",
+    "battle_review",
+    "conscript_network",
+    "honor_archive",
+    "teach_experience",
+    "self_growth",
+    "find_elites",
+    "advantage_army",
+    "proliferate",
+    "tank_support",
+    "elite_scout",
+    "mercenary",
+    "expanded_squad"
+  ],
+  "micro": [
+    "tidy_squad",
+    "range_master",
+    "skill_recovery",
+    "airlift",
+    "quick_siege",
+    "stutter_king",
+    "apm_master"
+  ]
+};
+for(const line of lines)if(semantics[line].length!==(line==='micro'?7:16))throw Error(`Current semantic ID count for ${line} is ${semantics[line].length}`);
 const rows=[];
 for(const raw of document.split(/\r?\n/)){
  const cells=raw.split('|').map(value=>value.trim());

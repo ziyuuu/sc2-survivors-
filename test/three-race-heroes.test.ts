@@ -6,7 +6,7 @@ const battleView={ground:[{x:-20,z:-20},{x:20,z:-20},{x:20,z:20},{x:-20,z:20}],a
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {HEROES,HERO_IDS,HERO_IDS_BY_RACE,ALL_HERO_IDS,type HeroId} from '../src/data/heroes';
+import {HEROES,HERO_IDS_BY_RACE,ALL_HERO_IDS,type HeroId} from '../src/data/heroes';
 import type {Race} from '../src/data/races';
 import {acquireExpeditionHero,canAcquireExpeditionHero,canCastExpeditionHero,castExpeditionHero,resolveExpeditionHeroCasts,heroAtSlot} from '../src/simulation/combat/expedition-heroes';
 import {EXPEDITION_SKILLS,skillsFor,heroForSlot,stickSkill} from '../src/ui/controls/skills';
@@ -17,8 +17,8 @@ function target(w:World,x=4,z=0){const u=w.addUnit('roach','zerg',x,z);u.hp=u.ma
 function resolve(w:World,time:number){w.time=time;w.hash.rebuild(w.entities.values());resolveExpeditionHeroCasts(w);}
 const close=(actual:number,expected:number)=>assert.ok(Math.abs(actual-expected)<1e-8,`${actual} ~= ${expected}`);
 
-test('three aligned six-hero rosters preserve legacy IDs and exact approved base profiles',()=>{
- assert.deepEqual(HERO_IDS,['raynor','tychus','nova']);assert.equal(ALL_HERO_IDS.length,18);for(const roster of Object.values(HERO_IDS_BY_RACE))assert.equal(roster.length,6);
+test('three aligned six-hero rosters preserve all current IDs and exact approved base profiles',()=>{
+ assert.equal(ALL_HERO_IDS.length,18);for(const roster of Object.values(HERO_IDS_BY_RACE))assert.equal(roster.length,6);
  assert.equal(HEROES.artanis.attacks,2);assert.equal(HEROES.fenix.damage,950);assert.equal(HEROES.niadra.hp,14500);assert.equal(HEROES.swann.cooldown,30);
  for(const race of ['terran','zerg','protoss'] as const)for(const id of HERO_IDS_BY_RACE[race]){
   const w=setup(race),u=hero(w,id),data=HEROES[id];assert.equal(u.race,race);const modern=isRevisedHero(id)||isZergHero(id)||isProtossHero(id),aura=heroAura(w,u);close(u.maxHp,data.hp*(modern?1+aura.health:1.15));close(u.maxShield!,data.shield*(modern?1+aura.shield:1.15));close(u.weaponDamage,data.damage*(modern?1+aura.damage:1.15*1.15));assert.equal(u.attackRange,data.range);assert.equal(u.modelKey,data.model);assert.equal(u.maxEnergy,0);

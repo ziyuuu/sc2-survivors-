@@ -5,7 +5,7 @@ import {AIR_HEIGHT} from '../../data/terrain';
 import type {BattleEffects} from './battle-effects';
 
 /** Read-only presentation of the opt-in P4 samples. No rule timers or combat RNG. */
-export class P4SampleEffects {
+export class EliteSupportEffects {
  quality:'full'|'balanced'|'low'='full';
  private group=new THREE.Group();private beams:THREE.Mesh[]=[];private shields:THREE.Mesh[]=[];private emitted=new Set<number>();private phases=new Map<number,string>();private tick=-1;
  private beamMaterial=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,uniforms:{clock:{value:0},tint:{value:new THREE.Color(0x9af1ba)},sourceMap:{value:new THREE.Texture()}},vertexShader:'varying vec2 uvBeam; void main(){uvBeam=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'uniform sampler2D sourceMap;uniform float clock;uniform vec3 tint;varying vec2 uvBeam;void main(){float y=abs(uvBeam.y-.5)*2.;vec3 sampleColor=texture2D(sourceMap,vec2(uvBeam.y,fract(uvBeam.x*2.-clock*.45))).rgb;float fiber=max(sampleColor.r,max(sampleColor.g,sampleColor.b));float core=exp(-y*y*36.);float veil=exp(-y*y*3.)*.16;float ends=smoothstep(0.,.03,uvBeam.x)*smoothstep(0.,.03,1.-uvBeam.x);gl_FragColor=vec4(mix(tint,vec3(.92,1.,.94),core*.6),(fiber*.62+veil)*ends);}' });
@@ -20,7 +20,7 @@ export class P4SampleEffects {
  reset(){this.emitted.clear();this.phases.clear();this.tick=-1;for(const m of [...this.beams,...this.shields,...this.fogs,...this.nodes])m.visible=false;}
  report(){return {beams:this.beams.filter(m=>m.visible).length,shields:this.shields.filter(m=>m.visible).length,fogTargets:this.fogCount,quality:this.quality};}
  render(w:World,camera:THREE.Camera,visible:(p:{x:number;z:number})=>boolean){
-  this.group.visible=w.p4Samples.enabled||[...w.entities.values()].some(u=>u.owner==='terran'&&!!u.eliteId)||!!w.p4Samples.mines.length||!!w.p4Samples.fires.length;if(!this.group.visible)return;
+  this.group.visible=[...w.entities.values()].some(u=>u.owner==='terran'&&!!u.eliteId)||!!w.eliteSupport.mines.length||!!w.eliteSupport.fires.length;if(!this.group.visible)return;
   for(const b of [...this.beams,...this.shields,...this.fogs,...this.nodes])b.visible=false;this.beamMaterial.uniforms.clock.value=w.time;this.shieldMaterial.uniforms.clock.value=w.time;
   let links=0,shells=0,clouds=0,nodes=0;this.fogCount=0;this.fogMaterial.uniforms.clock.value=w.time;
  const sprite=(p:THREE.Vector3,size:number,medical=false)=>{let m=this.nodes[nodes++];if(!m){m=new THREE.Sprite(this.flareMaterial);this.group.add(m);this.nodes.push(m);}m.material=medical?this.healMaterial:this.flareMaterial;m.position.copy(p);m.scale.setScalar(size);m.visible=true;};
@@ -28,7 +28,7 @@ export class P4SampleEffects {
  let mesh=this.beams[links];if(!mesh){mesh=new THREE.Mesh(this.plane,this.beamMaterial);mesh.frustumCulled=false;this.group.add(mesh);this.beams.push(mesh);}links++;
    const from=new THREE.Vector3(u.x,u.flying?AIR_HEIGHT-.1:(w.terrain?.height(u)??0)+.8,u.z),to=new THREE.Vector3(target.x,target.flying?AIR_HEIGHT+.5:(w.terrain?.height(target)??0)+.7,target.z),along=to.clone().sub(from),mid=from.clone().add(to).multiplyScalar(.5),length=along.length();along.normalize();const eye=camera.position.clone().sub(mid).normalize(),across=new THREE.Vector3().crossVectors(eye,along).normalize(),normal=new THREE.Vector3().crossVectors(along,across).normalize();mesh.position.copy(mid);mesh.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(along,across,normal));mesh.scale.set(length,.38,1);mesh.visible=true;sprite(from,.46);sprite(to,.6);for(let i=0;i<(this.quality==='low'?1:2);i++){const t=(w.time*.5+i*.5)%1;sprite(new THREE.Vector3(target.x+Math.sin(i*3+w.time)*.18,to.y+t*.9,target.z),.17*(1-t*.4),true);}
   }
-  for(const b of [...w.p4Samples.barriers,...[...w.entities.values()].filter(u=>u.eliteId==='viking.3'&&!!u.eliteCombat).map(u=>({target:u.id,amount:u.eliteCombat!.barrier,until:u.eliteCombat!.barrierUntil}))]){const u=w.entities.get(b.target);if(!u?.hp||b.until<=w.time||b.amount<=0||!visible(u))continue;let mesh=this.shields[shells];if(!mesh){mesh=new THREE.Mesh(this.sphere,this.shieldMaterial);this.group.add(mesh);this.shields.push(mesh);}shells++;mesh.visible=true;mesh.position.set(u.x,u.flying?AIR_HEIGHT+.5:(w.terrain?.height(u)??0)+.55,u.z);mesh.scale.set(Math.max(.7,u.unitRadius+ .35),.95,Math.max(.7,u.unitRadius+.35));}
+  for(const b of [...w.eliteSupport.barriers,...[...w.entities.values()].filter(u=>u.eliteId==='viking.3'&&!!u.eliteCombat).map(u=>({target:u.id,amount:u.eliteCombat!.barrier,until:u.eliteCombat!.barrierUntil}))]){const u=w.entities.get(b.target);if(!u?.hp||b.until<=w.time||b.amount<=0||!visible(u))continue;let mesh=this.shields[shells];if(!mesh){mesh=new THREE.Mesh(this.sphere,this.shieldMaterial);this.group.add(mesh);this.shields.push(mesh);}shells++;mesh.visible=true;mesh.position.set(u.x,u.flying?AIR_HEIGHT+.5:(w.terrain?.height(u)??0)+.55,u.z);mesh.scale.set(Math.max(.7,u.unitRadius+ .35),.95,Math.max(.7,u.unitRadius+.35));}
   // Mine dust, blast and residual fire are rendered by TerranEliteEffects using feathered original textures.
  }
 }

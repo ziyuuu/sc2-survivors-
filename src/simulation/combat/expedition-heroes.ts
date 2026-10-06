@@ -9,13 +9,12 @@ import {isZergHero,zergHeroGrowth} from '../../data/zerg-heroes';
 import {zergState,dehakaStats,dehakaDevour,registerZergRevival,permanentBiological} from './zerg-hero-passives';
 import {canRegisterZergRevivalSeat} from './zerg-hero-revival';
 import {groundHeroBuff} from './hero-ground-auras';
-import {isRevisedHero,terranHeroGrowth} from '../../data/terran-heroes';
+import {terranHeroGrowth} from '../../data/terran-heroes';
 import {heroAura,heroState,permanentMechanical} from './terran-hero-passives';
 import {validBattleView,pointInBattleView,type BattleView} from './battle-view';
 import {uniqueActiveStats} from './unique-support';
 import {teamCardEffects} from '../progression/team-cards';
-import {PLAYER_COMBAT_FACTOR as POWER} from '../../data/player-unit-adaptations';
-import {HEROES,HERO_BASIC_ATTACK,HERO_IDS_BY_RACE,HERO_SKILL_FLIGHT,heroStats,type HeroId} from '../../data/heroes';
+import {HEROES,HERO_IDS_BY_RACE,HERO_SKILL_FLIGHT,type HeroId} from '../../data/heroes';
 import {RUNTIME_ASSETS} from '../../assets/runtime.generated';
 import {TUNING} from '../../data/game';
 import {FASTER,SC2_UNITS,type UnitType} from '../../data/sc2-units';
@@ -34,20 +33,20 @@ export function canAcquireExpeditionHero(w:World,id:HeroId,available=heroModelRe
 }
 export function refreshExpeditionHero(w:World,u:Entity,fill=false):boolean{
  if(!w.expedition||!u.heroId)return false;
- const oldPools={hp:u.hp,maxHp:u.maxHp,shield:u.shield??0,maxShield:u.maxShield??0,factor:u.teamAuraFactors},ground=groundHeroBuff(w,u);const ea=eliteFriendlyAura(w,u),za=zergEliteFriendlyAura(w,u),oldEliteHp=(u.eliteHpAuraFactor??1)*(u.zergEliteHpAuraFactor??1);const data=HEROES[u.heroId],revised=isRevisedHero(u.heroId)||isZergHero(u.heroId)||isProtossHero(u.heroId),modern=isProtossHero(u.heroId)?protossHeroGrowth(u.rank):isZergHero(u.heroId)?zergHeroGrowth(u.rank):terranHeroGrowth(u.rank),growth=revised?{health:modern.health,armor:modern.armor,damage:modern.damage,attackSpeed:1/modern.period}:heroStats(u.rank),power=revised?1:POWER,adapt=isProtossHero(u.heroId)?protossStats(w,u):dehakaStats(u),aura=heroAura(w,u),lostHp=(u.maxHp-u.hp)/oldEliteHp,lostShield=(u.maxShield??0)-(u.shield??0),lostTalentShield=(u.maxTalentShield??0)-(u.talentShield??0);
+ const oldPools={hp:u.hp,maxHp:u.maxHp,shield:u.shield??0,maxShield:u.maxShield??0,factor:u.teamAuraFactors},ground=groundHeroBuff(w,u);const ea=eliteFriendlyAura(w,u),za=zergEliteFriendlyAura(w,u),oldEliteHp=(u.eliteHpAuraFactor??1)*(u.zergEliteHpAuraFactor??1);const data=HEROES[u.heroId],modern=isProtossHero(u.heroId)?protossHeroGrowth(u.rank):isZergHero(u.heroId)?zergHeroGrowth(u.rank):terranHeroGrowth(u.rank),growth={health:modern.health,armor:modern.armor,damage:modern.damage,attackSpeed:1/modern.period},adapt=isProtossHero(u.heroId)?protossStats(w,u):dehakaStats(u),aura=heroAura(w,u),lostHp=(u.maxHp-u.hp)/oldEliteHp,lostShield=(u.maxShield??0)-(u.shield??0),lostTalentShield=(u.maxTalentShield??0)-(u.talentShield??0);
  u.race=data.race;u.team='player';u.owner='terran';u.attributes=[...data.attributes];if(u.flying!==!!data.flying)w.hash.invalidatePlanes();u.flying=!!data.flying;
  const talents=talentModifiers(w,u),team=teamCardEffects(w.expedition);
- u.maxHp=data.hp*(1+team.health+aura.health)*power*growth.health*adapt.health*(1+(talents.maxHpPct??0))*Math.max(ea.hp,za.hp);u.hp=fill?u.maxHp:Math.max(0,Math.min(u.maxHp,u.maxHp-lostHp*ea.hp*za.hp));u.eliteHpAuraFactor=ea.hp;u.zergEliteHpAuraFactor=za.hp;
+ u.maxHp=data.hp*(1+team.health+aura.health)*growth.health*adapt.health*(1+(talents.maxHpPct??0))*Math.max(ea.hp,za.hp);u.hp=fill?u.maxHp:Math.max(0,Math.min(u.maxHp,u.maxHp-lostHp*ea.hp*za.hp));u.eliteHpAuraFactor=ea.hp;u.zergEliteHpAuraFactor=za.hp;
  const shieldSource=SOURCE_UNIT_DETAILS[data.baseFamily==='purifier_flagship'?'carrier':data.baseFamily as UnitType];
- u.shieldArmor=((talents.shieldArmorFlat??0)+team.armor)*power*(1+ground.shieldArmorPct)+protossShieldArmor(w,u)+za.shieldArmor;u.shieldRegen=data.shield>0?(shieldSource?.shieldRegen??2)*FASTER:0;u.shieldDelay=data.shield>0?(shieldSource?.shieldDelay??10)/FASTER:0;
- u.maxShield=data.shield*(1+team.health+aura.shield)*power*growth.health*(1+(talents.maxShieldPct??0))+(data.race==='protoss'?u.maxHp*(talents.shieldFromHpPct??0):0);u.maxShield*=za.shield;u.shield=fill?u.maxShield:Math.max(0,Math.min(u.maxShield,u.maxShield-lostShield));
+ u.shieldArmor=((talents.shieldArmorFlat??0)+team.armor)*(1+ground.shieldArmorPct)+protossShieldArmor(w,u)+za.shieldArmor;u.shieldRegen=data.shield>0?(shieldSource?.shieldRegen??2)*FASTER:0;u.shieldDelay=data.shield>0?(shieldSource?.shieldDelay??10)/FASTER:0;
+ u.maxShield=data.shield*(1+team.health+aura.shield)*growth.health*(1+(talents.maxShieldPct??0))+(data.race==='protoss'?u.maxHp*(talents.shieldFromHpPct??0):0);u.maxShield*=za.shield;u.shield=fill?u.maxShield:Math.max(0,Math.min(u.maxShield,u.maxShield-lostShield));
  u.maxTalentShield=data.race!=='protoss'&&u.attributes.includes('Biological')?u.maxHp*(talents.shieldFromHpPct??0):0;u.talentShield=fill?u.maxTalentShield:Math.max(0,Math.min(u.maxTalentShield,u.maxTalentShield-lostTalentShield));
- u.armor=((data.armor+growth.armor)*(1+(talents.armorPct??0))+team.armor+aura.armor)*power;u.armor+=adapt.armor+uniqueActiveStats(w,u).armor+ea.armor;u.armor=u.armor*(1+ground.armorPct)+ground.armor+za.armor;u.moveSpeed=data.speed*power*(1+(talents.moveSpeedPct??0)+uniqueActiveStats(w,u).move+aura.move)*ea.move*za.move;u.weaponDamage=data.damage*(1+team.damage+aura.damage)*power*(revised?1:HERO_BASIC_ATTACK.damage)*growth.damage*adapt.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/(1+team.speed+uniqueActiveStats(w,u).speed+aura.speed)/power/(revised?1:HERO_BASIC_ATTACK.frequency)/growth.attackSpeed/(1+(talents.attackSpeedPct??0))/(isProtossHero(u.heroId)?protossStats(w,u).speed:1)/za.speed;u.attackRange=(data.range+(u.heroId==='dehaka'&&(u.zergCombat?.flyingUntil??0)>w.time?1:0))*(1+(talents.rangePct??0));
+ u.armor=((data.armor+growth.armor)*(1+(talents.armorPct??0))+team.armor+aura.armor);u.armor+=adapt.armor+uniqueActiveStats(w,u).armor+ea.armor;u.armor=u.armor*(1+ground.armorPct)+ground.armor+za.armor;u.moveSpeed=data.speed*(1+(talents.moveSpeedPct??0)+uniqueActiveStats(w,u).move+aura.move)*ea.move*za.move;u.weaponDamage=data.damage*(1+team.damage+aura.damage)*growth.damage*adapt.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/(1+team.speed+uniqueActiveStats(w,u).speed+aura.speed)/growth.attackSpeed/(1+(talents.attackSpeedPct??0))/(isProtossHero(u.heroId)?protossStats(w,u).speed:1)/za.speed;u.attackRange=(data.range+(u.heroId==='dehaka'&&(u.zergCombat?.flyingUntil??0)>w.time?1:0))*(1+(talents.rangePct??0));
  preserveTeamWounds(u,oldPools,{hp:(1+team.health+aura.health)/(1+team.health)*Math.max(ea.hp,za.hp),shield:(1+team.health+aura.shield)/(1+team.health)*za.shield},fill);
  u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;
  if(isZergHero(u.heroId))zergState(u);
  if(isProtossHero(u.heroId)){protossState(u);u.cloaked=data.innateCloak||(u.protossCombat!.veilUntil>w.time);}
- if(revised){heroState(u);u.cloaked??=false;}else (u as ControlledEntity).cloaked=data.innateCloak;
+ heroState(u);u.cloaked??=false;
  return true;
 }
 export function deployExpeditionHero(w:World,record:HeroRecord,revival:boolean):boolean{
@@ -115,7 +114,7 @@ export function castExpeditionHero(w:World,id:HeroId,battleView?:BattleView):boo
  if(!canCastExpeditionHero(w,id,battleView))return false;
  const record=w.heroes.get(id)!,source=w.heroEntity(id)!,target=(id==='tosh'?toshTargets(w,source,battleView!)[0]:castTarget(w,id))!,data=HEROES[id],serial=w.nextId++;
  const talents=talentModifiers(w,source,'hero');record.skillReady=w.time+data.cooldown*(1-(talents.abilityCooldownReductionPct??0));source.lastSkillAt=w.time;
- const base:ExtendedCast={beganAt:w.time,rank:record.rank,id:serial,hero:id,source:source.id,target:target.id,origin:{x:source.x,z:source.z},point:{x:target.x,z:target.z},at:w.time+data.delay,damage:data.skillDamage*(isProtossHero(id)?protossHeroGrowth(record.rank).skill/9200:isZergHero(id)?zergHeroGrowth(record.rank).skill/9200:isRevisedHero(id)?terranHeroGrowth(record.rank).skill/9200:heroStats(record.rank).skill)*(1+(talents.abilityDamagePct??0)),phase:'impact'};
+ const base:ExtendedCast={beganAt:w.time,rank:record.rank,id:serial,hero:id,source:source.id,target:target.id,origin:{x:source.x,z:source.z},point:{x:target.x,z:target.z},at:w.time+data.delay,damage:data.skillDamage*(isProtossHero(id)?protossHeroGrowth(record.rank).skill/9200:isZergHero(id)?zergHeroGrowth(record.rank).skill/9200:terranHeroGrowth(record.rank).skill/9200)*(1+(talents.abilityDamagePct??0)),phase:'impact'};
  source.attackFacing=Math.atan2(target.x-source.x,target.z-source.z);source.action='skill';
  if(id==='artanis'){registerShieldReconstruction(w,source,serial,record.rank,alliesFor(w,id,source).slice(0,7));base.frozenTargets=alliesFor(w,id,source).slice(0,7).map(a=>({id:a.id,maxHp:a.maxShield!}));}
  if(id==='niadra'){registerZergRevival(w,source,serial,record.rank);base.frozenTargets=alliesFor(w,id,source).slice(0,7).map(a=>({id:a.id,maxHp:a.maxHp}));base.at=w.time+.3;}
@@ -153,7 +152,7 @@ export function resolveExpeditionHeroCasts(w:World):void{
  const pending:ExtendedCast[]=[],scheduled:ExtendedCast[]=[],cancelledChannels=new Set<number>();
  for(const cast of w.heroCasts as ExtendedCast[]){
   if(cancelledChannels.has(cast.id))continue;
-  const liveSource=w.entities.get(cast.source),source=liveSource&&cast.rank&&(isRevisedHero(cast.hero)||isZergHero(cast.hero)||isProtossHero(cast.hero))?{...liveSource,rank:cast.rank}:liveSource,target=w.body(cast.target),data=HEROES[cast.hero];
+  const liveSource=w.entities.get(cast.source),source=liveSource&&cast.rank?{...liveSource,rank:cast.rank}:liveSource,target=w.body(cast.target),data=HEROES[cast.hero];
   if(cast.phase!=='dot'&&!cast.launched&&source&&source.hp>0&&w.time+1e-8>=cast.at-(cast.hero==='nova'?0:HERO_SKILL_FLIGHT[cast.hero]??data.delay)){
    // Save only the launch presentation anchor. The authored damage path keeps cast.origin.
    cast.presentationLaunch??={x:source.x,z:source.z,facing:Math.atan2(cast.point.x-source.x,cast.point.z-source.z),poseSeconds:Math.max(0,w.time-(source.lastSkillAt??w.time))};

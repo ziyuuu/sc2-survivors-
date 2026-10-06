@@ -7,7 +7,6 @@ import type {World} from '../world';
 import type {Body,Entity,Point} from '../types';
 import {SOURCE_WEAPON_PATTERNS} from '../../data/expansion-units';
 import {expeditionWeaponScale,expeditionWeaponUpgrade,talentModifiers,unitData} from './expedition-combat';
-import {eliteEffect} from './expedition-elites';
 
 type Bonus={attribute:string;amount:number};
 /** Immutable attack payload. Entity is a plain DTO, never a live reference or Three object. */
@@ -36,9 +35,9 @@ export function launchWeaponFlight(w:World,u:Entity,target:Body,bonuses:Bonus[],
  if(!u.heroId&&u.unitType==='thor')p.hits=SOURCE_WEAPON_PATTERNS.thorExplosive.shots;
  if(!u.heroId&&u.unitType==='mutalisk'){
   const pattern=SOURCE_WEAPON_PATTERNS.mutalisk,scale=expeditionWeaponScale(w,u);
-  p.bounceDamage=pattern.damage.map((damage,i)=>(damage+expeditionWeaponUpgrade(w,u,`GlaiveWurmU${i+1}`).damage)*scale*(i?eliteEffect(u,'secondaryBounceDamageMultiplier'):1));
-  p.bounceBonuses=pattern.damage.map((damage,i)=>bonuses.map(b=>({...b,amount:b.amount*damage/pattern.damage[0]*(i?eliteEffect(u,'secondaryBounceDamageMultiplier'):1)})));
-  p.damage=p.bounceDamage[0]*(target.attributes.includes('Light')?eliteEffect(u,'firstBounceLightDamageMultiplier'):1);p.hits=1;
+  p.bounceDamage=pattern.damage.map((damage,i)=>(damage+expeditionWeaponUpgrade(w,u,`GlaiveWurmU${i+1}`).damage)*scale*(i?1:1));
+  p.bounceBonuses=pattern.damage.map((damage,i)=>bonuses.map(b=>({...b,amount:b.amount*damage/pattern.damage[0]*(i?1:1)})));
+  p.damage=p.bounceDamage[0]*(target.attributes.includes('Light')?1:1);p.hits=1;
  }
  w.weaponFlights.push(p);return true;
 }

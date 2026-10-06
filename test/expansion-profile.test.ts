@@ -4,7 +4,7 @@ import {SC2_UNITS} from '../src/data/sc2-units';
 import {ALL_FAMILIES,AIR_HERO_TYPES} from '../src/data/races';
 import {CAMPAIGN_SCIENCE_VESSEL,SCIENCE_VESSEL_SOURCE,SCIENCE_VESSEL_REPAIR,SCIENCE_VESSEL_ADAPTATION,CAMPAIGN_SCIENCE_VESSEL_RECIPE} from '../src/data/campaign-science-vessel';
 import {SOURCE_ABILITIES,SOURCE_WEAPON_PATTERNS,SOURCE_MOVEMENT,sourceWeaponsForUnit} from '../src/data/expansion-units';
-import {EXPANSION_ELITES} from '../src/data/expansion-elites';
+import {ELITES,eliteStats} from '../src/data/elites';
 import {RUNTIME_ASSETS} from '../src/assets/runtime.generated';
 test('science vessel is a separate verified campaign profile with the approved repair-only adapter',()=>{
  assert.equal(ALL_FAMILIES.length,30);assert.equal(Object.keys(AIR_HERO_TYPES).length,3);assert.equal(Object.keys(SC2_UNITS).length,33);assert.equal(SC2_UNITS.science_vessel,CAMPAIGN_SCIENCE_VESSEL);
@@ -20,9 +20,8 @@ test('weapon patterns preserve source target reuse and time domains',()=>{
  assert.equal(SOURCE_ABILITIES.charge.duration,2.5);assert.equal(SOURCE_ABILITIES.charge.speedMultiplier,2.2);assert.equal(SOURCE_MOVEMENT.CliffJumper.pathMode,'Jumper');assert.equal(SOURCE_MOVEMENT.Colossus.pathMode,'Scaler');
  assert.equal(sourceWeaponsForUnit('thor','thor' as never).length,2);assert.equal(sourceWeaponsForUnit('thor','thor_high_impact')[0].targetType,'ground');
 });
-test('25 expansion families each have three recruitable effects on a verified original family model',()=>{
- const all=Object.values(EXPANSION_ELITES),available=new Set(RUNTIME_ASSETS.filter(a=>a.status==='available').map(a=>a.id));assert.equal(all.length,75);assert.equal(new Set(all.map(e=>e.family)).size,25);
+test('30 current families each have three recruitable identities on a verified original family model',()=>{
+ const all=Object.values(ELITES),available=new Set(RUNTIME_ASSETS.filter(a=>a.status==='available').map(a=>a.id));assert.equal(all.length,90);assert.equal(new Set(all.map(e=>e.family)).size,30);
  for(const family of new Set(all.map(e=>e.family)))assert.deepEqual(all.filter(e=>e.family===family).map(e=>e.id).sort(),[`${family}.1`,`${family}.2`,`${family}.3`]);
- for(const elite of all){assert.ok(elite.model.startsWith('elite.'+elite.family+'.'));assert.ok(available.has('model.'+elite.model));assert.ok(elite.sourceModel.length>0);assert.ok(Number.isFinite(elite.effect.amount));}
- assert.equal(EXPANSION_ELITES['adept.1'].effect.stat,'lightBonusMultiplier');assert.equal(EXPANSION_ELITES['stalker.1'].effect.stat,'armoredDamageMultiplier');
+ for(const elite of all){assert.ok(elite.model.startsWith('elite.'+elite.family+'.'));assert.ok(available.has('model.'+elite.model));assert.ok(elite.sourceModel.length>0);assert.ok(Number.isFinite(eliteStats(elite.id,1).health));}
 });

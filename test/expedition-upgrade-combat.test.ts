@@ -3,12 +3,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
 import type {Entity} from '../src/simulation/types';
-import {THREE_RACE_RULES} from '../src/data/races';
 import {selectWeapon,tickNativeMode,expeditionWeaponBonuses} from '../src/simulation/combat/expedition-combat';
 import {SOURCE_ABILITIES,SOURCE_WEAPONS} from '../src/data/expansion-units';
 import {SIEGE,SC2_UNITS} from '../src/data/sc2-units';
 import {SOURCE_RESEARCH_EFFECTS} from '../src/data/expansion-upgrades';
-const world=()=>{const w=new World({rulesVersion:THREE_RACE_RULES,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
+const world=()=>{const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
 const close=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
 const target=(u:Entity)=>{u.hp=u.maxHp=1000;u.armor=0;u.shield=0;u.shieldArmor=0;return u;};
 

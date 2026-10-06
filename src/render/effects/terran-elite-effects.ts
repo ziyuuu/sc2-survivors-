@@ -81,8 +81,8 @@ export class TerranEliteEffects {
    }
   }
   for(const a of w.terranElites.areas)if(a.until>w.time&&visible(a.point))patch(a.point,a.radius,w.time-a.next+1,a.kind==='radiation'?0x7acf61:0xffa64d,a.kind==='fire');
-  for(const f of w.p4Samples.fires)if(f.until>w.time&&visible(f.point)){const age=w.time-(f.until-2);patch(f.point,4.2,age,0xffb974);if(age<.65){this.overlays.sprite('fire',point(f.point,.6),5.8,0xffd3a0,1-age/.7,Math.floor(age*24)%16);this.overlays.sprite('glow',point(f.point,.1),8,0xffa358,(1-age/.7)*.5);}}
-  for(const m of w.p4Samples.mines)if(visible(m.point)&&m.phase!=='buried'){const q={x:m.point.x-Math.sin(m.facing)*.35,z:m.point.z-Math.cos(m.facing)*.35};this.overlays.sprite('smoke',point(q,.2),m.phase==='emerging'?.9:.55,0xafa492,.3,0,w.time*.5);}
+  for(const f of w.eliteSupport.fires)if(f.until>w.time&&visible(f.point)){const age=w.time-(f.until-2);patch(f.point,4.2,age,0xffb974);if(age<.65){this.overlays.sprite('fire',point(f.point,.6),5.8,0xffd3a0,1-age/.7,Math.floor(age*24)%16);this.overlays.sprite('glow',point(f.point,.1),8,0xffa358,(1-age/.7)*.5);}}
+  for(const m of w.eliteSupport.mines)if(visible(m.point)&&m.phase!=='buried'){const q={x:m.point.x-Math.sin(m.facing)*.35,z:m.point.z-Math.cos(m.facing)*.35};this.overlays.sprite('smoke',point(q,.2),m.phase==='emerging'?.9:.55,0xafa492,.3,0,w.time*.5);}
   for(const u of w.allies()){if(!revisedElite(u)||!visible(u))continue;const s=u.eliteCombat;if(!s)continue;const head=point(u,u.flying?AIR_HEIGHT+.5:1.1);
    if(u.eliteId==='marine.1'&&s.started!==null){const heat=Math.min(1,(w.time-s.started)/5);this.overlays.sprite('glow',head,.28+heat*.22,0xff633c,.28+heat*.25);}
    if(u.eliteId==='thor.3'&&['warmup','overdrive'].includes(s.mode))for(let i=0;i<2;i++)this.overlays.sprite('glow',{...head,x:head.x+(i?1:-1)*.8},s.mode==='overdrive'?1.1:.65,0xff7c2f,.45);

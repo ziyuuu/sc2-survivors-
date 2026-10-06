@@ -1,5 +1,4 @@
 import {SC2_UNITS} from '../data/sc2-units';
-import type {Building} from '../simulation/types';
 import {ELITES,type EliteId} from '../data/elites';
 import {HEROES,type HeroId} from '../data/heroes';
 import type {World} from '../simulation/world';
@@ -15,7 +14,7 @@ export function statusReadout(w:World,u:Entity){const names={bleed:'裂伤',corr
  return {short:shown.slice(0,3).join(' · ')+(shown.length>3?` +${shown.length-3}`:''),detail:shown.join(' · ')};
 }
 /** Read current ownership, not the state when an offer was generated. */
-export function rewardOwnership(w:World,r:Reward):string{
+export function rewardOwnership(w:World,r:Pick<Reward,'kind'|'value'>):string{
  if(r.kind==='elite'){
   const id=r.value as EliteId,u=w.eliteOwned(id);if(u)return `已拥有 · Rank ${u.rank}${u.rank<5?' → '+(u.rank+1):' · 已满级'}`;
   if(w.pendingElites.includes(id))return '已获得 · 待编入';return '未拥有 · 替换同类普通队员';
@@ -28,6 +27,5 @@ export function rewardOwnership(w:World,r:Reward):string{
  return '';
 }
 
-/** Stable seats and per-type building ordinals, never global entity/transaction IDs. */
+/** Stable squad seats, never global entity/transaction IDs. */
 export function unitCallsign(u:Entity){return specialUnitName(u)||`${SC2_UNITS[u.unitType].zh} · 队伍${u.slot+1}`;}
-export function buildingCallsign(w:World,b:Building){return `${({barracks:'兵营',factory:'重工厂',starport:'星港'})[b.type]}${w.buildingsOf(b.type).findIndex(v=>v.id===b.id)+1}`;}

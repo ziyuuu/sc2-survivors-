@@ -5,7 +5,6 @@ import {World} from '../src/simulation/world';
 import {SC2_UNITS,HEAL} from '../src/data/sc2-units';
 import {SOURCE_ABILITIES,SOURCE_INTERCEPTOR,SOURCE_UNIT_DETAILS} from '../src/data/expansion-units';
 import {ELITES} from '../src/data/elites';
-import {eliteDamageMultiplier} from '../src/simulation/combat/expedition-elites';
 import {healExpedition,tickAutoAbilities,tickExpeditionRecovery,unitData} from '../src/simulation/combat/expedition-combat';
 import {initializeCarrierSubsystem,ownedInterceptors,refreshInterceptorStats} from '../src/simulation/combat/carriers';
 import type {Race} from '../src/data/races';
@@ -17,9 +16,9 @@ const elite=(w:World,type:UnitType,id:keyof typeof ELITES)=>{const u=w.addUnit(t
 test('new elite damage conditions never leak between light, armored, air and ground targets',()=>{
  const w=make('terran'),reaper=elite(w,'reaper','reaper.2'),thor=elite(w,'thor','thor.2');
  const victim=w.addUnit('zergling','zerg',2,0);victim.attributes=['Light','Biological'];
- assert.equal(eliteDamageMultiplier(reaper,victim),1);assert.equal(eliteMainFactor(reaper,victim),1);victim.attributes=['Armored','Biological'];assert.equal(eliteMainFactor(reaper,victim),1.5);
+ assert.equal(eliteMainFactor(reaper,victim),1);victim.attributes=['Armored','Biological'];assert.equal(eliteMainFactor(reaper,victim),1.5);
  assert.equal(eliteMainFactor(thor,victim),1);victim.flying=true;assert.equal(eliteMainFactor(thor,victim),3);
- const z=make('zerg'),roach=elite(z,'roach','roach.2');victim.flying=false;assert.equal(eliteDamageMultiplier(roach,victim),1);victim.flying=true;assert.equal(eliteDamageMultiplier(roach,victim),1);
+ const z=make('zerg'),roach=elite(z,'roach','roach.2');victim.flying=false;victim.flying=true;
 });
 
 test('new elite max HP, native shield, energy and movement rebuild from base without free recovery',()=>{

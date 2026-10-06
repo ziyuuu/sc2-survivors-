@@ -1,10 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {THREE_RACE_RULES} from '../src/data/races';
 import {draftContext,mapReinforcement,collectMapReinforcement} from '../src/simulation/expedition-economy';
 import {beginExpeditionWindow,drawExpeditionReinforcements} from '../src/simulation/progression/expedition-drafts';
-const world=()=>new World({rulesVersion:THREE_RACE_RULES,race:'zerg',sandbox:true,waves:false,terrain:false,obstacles:[]});
+const world=()=>new World({race:'zerg',sandbox:true,waves:false,terrain:false,obstacles:[]});
 
 test('undeployed Lurker and Carrier have weapon-card eligibility while pure healers do not',()=>{
  const w=world(),ctx=draftContext(w);

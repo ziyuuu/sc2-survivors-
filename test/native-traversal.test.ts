@@ -1,7 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {THREE_RACE_RULES} from '../src/data/races';
 import {SOURCE_ABILITIES} from '../src/data/expansion-units';
 import {MapTerrain} from '../src/simulation/movement/map-terrain';
 import {CharTerrain} from '../src/data/terrain';
@@ -9,7 +8,7 @@ import type {MapDefinition} from '../src/data/map-definition';
 import {CLIFF_TRAVERSAL,legalCliffCrossing,cliffLanding,tickCliffTraversal,cliffRenderPosition,tickZealotCharge} from '../src/simulation/movement/native-traversal';
 
 function fixture():MapDefinition {const width=21,height=21,walkWidth=40,walkHeight=40;return {version:1,source:{name:'one cliff fixture',sha256:'cliff-fixture',worldUnitsPerSc2Unit:1},width,height,bounds:[0,0,20,20],origin:[0,20,0],start:{x:3,z:10},hive:{x:18,z:10},heights:Array.from({length:width*height},(_,i)=>i%width>=10?3:0),syncHeights:[],levels:Array.from({length:width*height},(_,i)=>i%width>=10?2:1),walkWidth,walkHeight,cellSize:.5,walk:Array.from({length:1600},(_,i)=>i%walkWidth>=18&&i%walkWidth<20?0:1),opening:Array.from({length:1600},(_,i)=>i%walkWidth>=18&&i%walkWidth<20?0:1),reveal:Array(1600).fill(1),clearance:Array.from({length:1600},(_,i)=>i%walkWidth>=18&&i%walkWidth<20?0:3),placements:[],ramps:[],stageAreas:Array(12).fill(380)};}
-function make(terrain:MapTerrain|CharTerrain|false=false){const w=new World({rulesVersion:THREE_RACE_RULES,race:'protoss',waves:false,sandbox:true,terrain,obstacles:[],seed:912});w.start();return w;}
+function make(terrain:MapTerrain|CharTerrain|false=false){const w=new World({race:'protoss',waves:false,sandbox:true,terrain,obstacles:[],seed:912});w.start();return w;}
 function jumper(type:'reaper'|'colossus'='reaper'){const data=fixture(),terrain=new MapTerrain(data),w=make(terrain),u=w.addUnit(type,'terran',7.5,10);return {w,u,data,terrain,to:{x:11.5,z:10}};}
 const near=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`);
 test('Reaper and Colossus cross exactly one legal cliff while ordinary ground units still need the ramp',()=>{

@@ -2,7 +2,6 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {SpatialHash} from '../src/simulation/movement/spatial-hash';
 import {World} from '../src/simulation/world';
-import {THREE_RACE_RULES} from '../src/data/races';
 import type {Body} from '../src/simulation/types';
 
 test('plane query visits the same current-position neighbours in the same order',()=>{
@@ -18,7 +17,7 @@ test('plane query visits the same current-position neighbours in the same order'
 });
 
 test('a Viking changing planes between rebuilds preserves the current-plane query',()=>{
- const w=new World({rulesVersion:THREE_RACE_RULES,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();
+ const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();
  const v=w.addUnit('viking','terran',0,0),ground=w.addUnit('marine','terran',.5,0),air=w.addUnit('mutalisk','zerg',.8,0);
  w.hash.rebuild(w.entities.values());
  const ids=(flying:boolean)=>{const old:number[]=[],plane:number[]=[];w.hash.query(v,2,b=>{if(b.flying===flying)old.push(b.id);});w.hash.queryPlane(v,2,flying,b=>plane.push(b.id));assert.deepEqual(plane,old);return plane;};
@@ -28,7 +27,7 @@ test('a Viking changing planes between rebuilds preserves the current-plane quer
 });
 
 test('mixed-air battle steps match the unfiltered spatial-query control',()=>{
- const make=()=>{const w=new World({rulesVersion:THREE_RACE_RULES,sandbox:true,waves:false,terrain:false,obstacles:[],seed:421});w.start();w.entities.clear();w.autoWaves=false;
+ const make=()=>{const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[],seed:421});w.start();w.entities.clear();w.autoWaves=false;
   for(let i=0;i<15;i++)w.addUnit(i===0?'viking':'marine','terran',i%5*.65,Math.floor(i/5)*.7);
   for(let i=0;i<75;i++)w.addUnit(i%4===0?'mutalisk':i%3===0?'roach':'zergling','zerg',4+i%15*.7,Math.floor(i/15)*.7);
   w.hash.rebuild(w.entities.values());return w;};

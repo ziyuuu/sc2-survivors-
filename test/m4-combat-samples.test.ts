@@ -3,11 +3,9 @@ import {tickProtossEliteState} from '../src/simulation/combat/protoss-elite-runt
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {ELITE_TEMPLATES,ELITES} from '../src/data/elites';
-import {EXPANSION_ELITES} from '../src/data/expansion-elites';
+import {ELITES} from '../src/data/elites';
 import {modelPresentationAccent,modelPresentationScale,attackPresentation} from '../src/data/combat-presentation';
 import {castExpeditionHero,resolveExpeditionHeroCasts} from '../src/simulation/combat/expedition-heroes';
-import {eliteDamageMultiplier} from '../src/simulation/combat/expedition-elites';
 import {expeditionAttackRange,tickAutoAbilities,tickAreaSpells} from '../src/simulation/combat/expedition-combat';
 import {SOURCE_ABILITIES} from '../src/data/expansion-units';
 import {BILE} from '../src/data/sc2-units';
@@ -15,10 +13,8 @@ import {BILE} from '../src/data/sc2-units';
 const make=(race:'terran'|'zerg'|'protoss')=>{const w=new World({race,seed:67,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();w.heroes.clear();return w;};
 const foe=(w:World,x:number,z=0,flying=false)=>{const e=w.addUnit(flying?'mutalisk':'roach','zerg',x,z);e.hp=e.maxHp=10000;e.armor=0;w.hash.rebuild(w.entities.values());return e;};
 
-test('M4 template lift and three-way expansion families have exact approved effects',()=>{
- assert.deepEqual(Object.fromEntries(Object.entries(ELITE_TEMPLATES).map(([id,t])=>[id,[t.output,t.as,t.hp,t.move,t.armor]])),{quick:[1.7,1.5,1.35,1.1,0],heavy:[1.95,.95,1.5,1,.75],guard:[1.55,1,2,1,2],mobile:[1.65,1.25,1.5,1.25,.75],support:[1.55,1,1.55,1.1,.75]});
+test('current elite identities use the formal rules for all three variants',()=>{
  for(const family of ['viking','ravager','high_templar'])assert.deepEqual(Object.values(ELITES).filter(e=>e.family===family).map(e=>e.id),[`${family}.1`,`${family}.2`,`${family}.3`]);
- assert.equal(EXPANSION_ELITES['viking.2'].effect.amount,1.25);assert.equal(EXPANSION_ELITES['ravager.2'].effect.amount,1.2);assert.equal(EXPANSION_ELITES['high_templar.3'].effect.amount,1.2);
 });
 
 test('elite family choice spends once, rejects implicit or cross-family selections, and keeps other variants available',()=>{
@@ -31,8 +27,8 @@ test('elite family choice spends once, rejects implicit or cross-family selectio
 test('three highlighted new variants apply only their approved target, radius, or storm conditions',()=>{
  const t=make('terran'),v=t.addUnit('viking','terran',0,0);v.eliteId='viking.2';t.refreshStats(v,true);
  const armoredAir=foe(t,3,0,true);armoredAir.attributes=['Armored','Biological'];
- assert.equal(eliteDamageMultiplier(v,armoredAir),1);
- armoredAir.flying=false;assert.equal(eliteDamageMultiplier(v,armoredAir),1);
+
+ armoredAir.flying=false;
  v.eliteId='viking.3';v.nativeMode='viking_assault';assert.equal(expeditionAttackRange(t,v)-expeditionAttackRange(t,{...v,eliteId:'viking.2'}),0);
  v.nativeMode='viking_fighter';assert.equal(expeditionAttackRange(t,v)-expeditionAttackRange(t,{...v,eliteId:'viking.2'}),0);
 

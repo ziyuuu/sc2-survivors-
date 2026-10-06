@@ -1,7 +1,6 @@
 import type {World} from '../world';
 import type {Entity,Body,Point} from '../types';
 import {SOURCE_WEAPON_PATTERNS} from '../../data/expansion-units';
-import {eliteEffect,eliteDamageMultiplier} from './expedition-elites';
 import {distance} from '../movement/steering';
 import {expeditionWeaponUpgrade,expeditionWeaponScale,talentModifiers} from './expedition-combat';
 
@@ -20,7 +19,7 @@ const validAreaVictim=(u:Entity,b:Body,plane:'ground'|'air')=>b.hp>0&&b.owner!==
 /** Pinned source shapes; projectile travel remains the existing immediate-hit combat adapter. */
 export function fireWeaponPattern(w:World,u:Entity,target:Body,bonuses:Bonus[],attack?:PatternAttack,crit=1){
  if(u.heroId||u.summonKind||!w.expedition)return false;const s=w.expedition,angle=Math.atan2(target.x-u.x,target.z-u.z),dx=Math.sin(angle),dz=Math.cos(angle);
- const hit:PatternAttack=attack??((victim,damage,bonus,hits=1)=>{const f=w.enemyDamageFactor(u)*eliteDamageMultiplier(u,victim);w.hit(victim,damage*f,scaled(bonus,f),hits,u.owner,.5,0,u.id);});
+ const hit:PatternAttack=attack??((victim,damage,bonus,hits=1)=>{const f=w.enemyDamageFactor(u);w.hit(victim,damage*f,scaled(bonus,f),hits,u.owner,.5,0,u.id);});
  if(u.unitType==='hellion'&&u.nativeMode==='hellbat'){
   const p=SOURCE_WEAPON_PATTERNS.hellbat,origin={x:u.x+dx*(p.offsetByUnitRadius?u.unitRadius:0),z:u.z+dz*(p.offsetByUnitRadius?u.unitRadius:0)},radius=p.radius*(u.eliteId==='hellion.3'?1.25:1),arc=p.arcDegrees*(u.eliteId==='hellion.3'?1.5:1);
   hit(target,u.weaponDamage,bonuses);for(const victim of bodies(w))if(victim.id!==target.id&&validAreaVictim(u,victim,'ground')&&inWeaponArc(origin,angle,victim,radius,arc,p.extendByUnitRadius)&&w.hasAttackLine(u,victim))hit(victim,u.weaponDamage,bonuses);
@@ -39,7 +38,7 @@ export function fireWeaponPattern(w:World,u:Entity,target:Body,bonuses:Bonus[],a
  if(u.unitType==='lurker'&&u.nativeMode==='lurker_burrowed'){
   const p=SOURCE_WEAPON_PATTERNS.lurker,points=p.offsets.map(offset=>({x:u.x-dx*offset[1]+dz*offset[0],z:u.z-dz*offset[1]-dx*offset[0]})),f=w.enemyDamageFactor(u);
   const apm=(talentModifiers(w,u).apmDuplicate??0)>0;
-  s.weaponAreas.push({id:w.nextId++,source:u.id,owner:u.owner,points,nextIndex:0,next:w.time+(p.periodSeconds[0]??0),period:p.periodSeconds[1],radius:p.searchRadius*eliteEffect(u,'spineWidthMultiplier'),hits:[],damage:u.weaponDamage*f,bonuses:scaled(bonuses,f),primaryTargetId:target.id,primaryCrit:crit,...(apm?{apmDamage:u.weaponDamage*f*crit*1.15,apmBonuses:scaled(bonuses,f*crit*1.15),apmUsed:false}:{})});w.effect('hero-line',u,points.at(-1)!,p.searchRadius,.7);return true;
+  s.weaponAreas.push({id:w.nextId++,source:u.id,owner:u.owner,points,nextIndex:0,next:w.time+(p.periodSeconds[0]??0),period:p.periodSeconds[1],radius:p.searchRadius,hits:[],damage:u.weaponDamage*f,bonuses:scaled(bonuses,f),primaryTargetId:target.id,primaryCrit:crit,...(apm?{apmDamage:u.weaponDamage*f*crit*1.15,apmBonuses:scaled(bonuses,f*crit*1.15),apmUsed:false}:{})});w.effect('hero-line',u,points.at(-1)!,p.searchRadius,.7);return true;
  }
  if(u.unitType==='colossus'){
   const p=SOURCE_WEAPON_PATTERNS.colossus,f=w.enemyDamageFactor(u),apm=(talentModifiers(w,u).apmDuplicate??0)>0;for(const [index,offsets] of [p.forwardOffsets,p.reverseOffsets].entries()){const points=offsets.map(offset=>({x:target.x+dz*offset[0]-dx*offset[1],z:target.z-dx*offset[0]-dz*offset[1]}));s.weaponAreas.push({id:w.nextId++,source:u.id,owner:u.owner,points,nextIndex:0,next:w.time,period:p.stepSeconds,radius:p.searchRadius,hits:[],damage:u.weaponDamage*f,bonuses:scaled(bonuses,f),primaryTargetId:target.id,primaryCrit:crit,...(apm&&index===1?{apmDamage:u.weaponDamage*f*2*crit*1.15,apmBonuses:scaled(bonuses,f*2*crit*1.15),apmUsed:false}:{})});}w.effect('hero-line',u,target,.3,.3);return true;
@@ -47,7 +46,7 @@ export function fireWeaponPattern(w:World,u:Entity,target:Body,bonuses:Bonus[],a
  if(u.unitType==='mutalisk'){
   const p=SOURCE_WEAPON_PATTERNS.mutalisk,hitIds=new Set<number>();let victim=target,origin:Body=u;
   for(let bounce=0;bounce<p.maxTargets;bounce++){if(bounce){const next=bodies(w).filter(e=>e.hp>0&&e.owner!==u.owner&&!hitIds.has(e.id)&&w.visibleTo(e,u.owner)&&distance(e,victim)<=p.bounceRadius+e.unitRadius).sort((a,b)=>distance(a,victim)-distance(b,victim)||a.id-b.id)[0];if(!next)break;origin=victim;victim=next;}
-   hitIds.add(victim.id);const effect='GlaiveWurmU'+(bounce+1),upgrade=expeditionWeaponUpgrade(w,u,effect),special=bounce?eliteEffect(u,'secondaryBounceDamageMultiplier'):victim.attributes.includes('Light')?eliteEffect(u,'firstBounceLightDamageMultiplier'):1,f=expeditionWeaponScale(w,u)*special;hit(victim,(p.damage[bounce]+upgrade.damage)*f,scaled(bonuses,p.damage[bounce]/p.damage[0]*special));const fx=w.effect('shot',origin,victim,.1,.2);fx.owner=u.owner;fx.source=u.id;
+   hitIds.add(victim.id);const effect='GlaiveWurmU'+(bounce+1),upgrade=expeditionWeaponUpgrade(w,u,effect),special=bounce?1:victim.attributes.includes('Light')?1:1,f=expeditionWeaponScale(w,u)*special;hit(victim,(p.damage[bounce]+upgrade.damage)*f,scaled(bonuses,p.damage[bounce]/p.damage[0]*special));const fx=w.effect('shot',origin,victim,.1,.2);fx.owner=u.owner;fx.source=u.id;
   }return true;
  }
  return false;

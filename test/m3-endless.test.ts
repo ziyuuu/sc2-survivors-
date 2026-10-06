@@ -44,8 +44,8 @@ test('60-second round windows, minute awards and fourth-round development pay on
  }
 });
 
-test('old Acropolis endless snapshot remains exportable but is never remapped into flat play',async()=>{
+test('unsupported endless snapshots are rejected without remapping',async()=>{
  const w=prepared();enter(w);const run=w.captureRun() as any;run.schema=3;delete run.state.battlefield;delete run.state.endlessEntry;delete run.state.endlessTransitionReceipt;delete run.state.endlessRoundReceipts;
- const raw=writeArchive({profile:w.permanentProfile.exportJSON(),run});assert.throws(()=>readArchive(raw),/旧 Acropolis 无尽档/);
- const backend:SaveBackend={read:async()=>[raw,null,null],commit:async()=>{}};const loaded=await new SaveRepository(backend).load();assert.equal(loaded.bundle,null);assert.equal(loaded.incompatible?.raw,raw);
+ const raw=writeArchive({profile:w.permanentProfile.exportJSON(),run});assert.throws(()=>readArchive(raw),/版本不兼容/);
+ const backend:SaveBackend={read:async()=>[raw,null,null],commit:async()=>{}};const loaded=await new SaveRepository(backend).load();assert.equal(loaded.bundle,null);assert.match(loaded.notice,/当前版本/);
 });

@@ -1,9 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {THREE_RACE_RULES} from '../src/data/races';
 import {updateExpeditionProduction,receiptNeeded,releasePaidPassenger} from '../src/simulation/expedition-production';
-const world=(race:'terran'|'zerg'|'protoss'='terran')=>new World({rulesVersion:THREE_RACE_RULES,race,sandbox:true,waves:false,terrain:false,obstacles:[]});
+const world=(race:'terran'|'zerg'|'protoss'='terran')=>new World({race,sandbox:true,waves:false,terrain:false,obstacles:[]});
 function readyReplacement(){const w=world();w.start();const s=w.expedition!;s.familySlots=['marine','marauder','reaper','hellion','tank'];s.tech.starport=1;s.tech.factory=1;s.tech.starport_lab=1;w.entities.clear();for(let i=0;i<5;i++)w.addUnit('marine','terran',-8,i*2,5);w.addUnit('marauder','terran',-6,0,3);const pod=w.spawnPod('viking',{x:8,z:0},99,1);pod.status='opening';pod.resolvedAt=0;pod.guardianIds.clear();s.ledger.push({id:99,family:'viking',line:'starport',facilityIds:[1],remaining:0,state:'risk',podId:pod.id,passengers:[{paid:{minerals:125,gas:75},status:'waiting',entityId:null,purpose:'body'}]});receiptNeeded(w,pod,0);return {w,s,pod};}
 test('three races deploy equal 100 mineral starting budgets and distinct identity',()=>{for(const race of ['terran','zerg','protoss'] as const){const w=world(race);assert.equal(w.expedition!.familySlots.length,1);assert.ok(w.allies().every(u=>u.team==='player'&&u.race===race));assert.equal(w.allies().length,race==='zerg'?2:1);assert.equal(w.wallet.minerals,race==='protoss'?0:50);}});
 test('a prepaid batch survives output disabling with exact per-body payment',()=>{const w=world();w.start();w.wallet={minerals:1000,gas:1000};updateExpeditionProduction(w,0);const job=w.expedition!.ledger[0];assert.equal(job.passengers.length,1);assert.deepEqual(job.passengers[0].paid,{minerals:50,gas:0});const paid={...w.wallet};assert.ok(w.setProductionEnabled('marine',false));updateExpeditionProduction(w,100);assert.equal(job.state,'risk');assert.deepEqual(w.wallet,paid);assert.equal(w.expedition!.ledger.length,1);});

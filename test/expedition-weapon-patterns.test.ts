@@ -3,13 +3,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
 import type {Entity} from '../src/simulation/types';
-import {THREE_RACE_RULES} from '../src/data/races';
 import {selectWeapon} from '../src/simulation/combat/expedition-combat';
 import {tickWeaponAreas} from '../src/simulation/combat/weapon-patterns';
 import {SOURCE_WEAPONS,SOURCE_WEAPON_PATTERNS} from '../src/data/expansion-units';
 import {SOURCE_RESEARCH_EFFECTS,sourceWeaponUpgradeDelta,SOURCE_WEAPON_UPGRADE_STEPS} from '../src/data/expansion-upgrades';
 const close=(actual:number,expected:number)=>assert.ok(Math.abs(actual-expected)<1e-7,`${actual} != ${expected}`);
-const world=()=>{const w=new World({rulesVersion:THREE_RACE_RULES,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
+const world=()=>{const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();return w;};
 function target(u:Entity){u.maxHp=u.hp=1000;u.shield=0;u.armor=0;u.unitRadius=.1;return u;}
 const damage=(u:Entity)=>1000-u.hp;
 
