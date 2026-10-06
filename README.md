@@ -2,9 +2,11 @@
 
 基于 Three.js、TypeScript、Vite 的单人小队动作生存游戏。控制方向与技能，小队自动索敌、移动和交战。
 
-2026-10-06 当前版本：30个普通家族、90款显式精英、18名英雄、24张种族趣味卡、五张地图、18关战役和平地无尽。新局随机选择工业遗址、玛萨拉荒漠、查尔焦土、冰封哨站或边境矿场，均为160×160、从中心出发；读档保留原地图。采用 **schema26／永久档案v6**，不兼容或迁移旧存档。现行战斗数值、技能、模型和资源保留；本轮新增原版地表混合、真实缓坡、非对称场景组与积雪／裂纹等环境细节，范围与验证见[五地图补强](docs/project/MAP_VISUAL_POLISH_20261006.md)；前轮见[清理及五地图记录](docs/project/CLEANUP_FIVE_MAPS_20261006.md)，此前规则精简见[规则清理记录](docs/project/CURRENT_LOGIC_CLEANUP_20261006.md)。P6自然性能和强光遮蔽问题仍开放，Coze尚未部署，人工视觉、实体设备和完整M6/M7未因此验收。
+2026-10-06 当前版本：30个普通家族、90款显式精英、18名英雄、24张种族趣味卡、五张地图、18关战役和平地无尽。新局随机选择工业遗址、玛萨拉荒漠、查尔焦土、冰封哨站或边境矿场，均为160×160、从中心出发；读档保留原地图。采用 **schema26／永久档案v6**，不兼容或迁移旧存档。现行战斗数值、技能、模型和资源保留；此前地图阶段新增原版地表混合、真实缓坡、非对称场景组与积雪／裂纹等环境细节，范围与验证见[五地图补强](docs/project/MAP_VISUAL_POLISH_20261006.md)；前轮见[清理及五地图记录](docs/project/CLEANUP_FIVE_MAPS_20261006.md)，此前规则精简见[规则清理记录](docs/project/CURRENT_LOGIC_CLEANUP_20261006.md)。P6自然性能和强光遮蔽问题仍开放，Coze尚未部署，人工视觉、实体设备和完整M6/M7未因此验收。
 
 正式 UI 已接入主游戏，包含三族卡面、关间浏览与购买、实时单位详情、双行可折叠 HUD 及逐级返回。范围见[UI接入](docs/project/UI_INTEGRATION_20261006.md)，实际验证见[UI验证](docs/project/UI_INTEGRATION_VALIDATION_20261006.md)。
+
+固定场景性能轮精简了实时光环遍历，保持战斗状态和完整渲染不变。三族各三次30秒生产样本P95约16.8ms；额外300靶标的三轮平均帧间隔中位数减少约15.9%，但P95仍约33.4ms，性能门槛尚未关闭。方法、撤回的候选和限制见[性能验证](docs/project/FIXED_SCENE_PERFORMANCE_VALIDATION_20261006.md)。
 
 下述P2/P3-A记录是历史阶段快照；当前十八英雄、九十精英及团队光环以[P4-C记录](docs/project/NEXT_ITERATION_P4C_VALIDATION_20261005.md)、[P4收尾](docs/project/NEXT_ITERATION_P4DE_VALIDATION_20261006.md)和[P5记录](docs/project/NEXT_ITERATION_P5_VALIDATION_20261006.md)为准。
 
@@ -16,9 +18,9 @@ P3-A首批六名人族英雄曾接入机体、I–V成长、被动、主动和�
 
 ## Coze / Web 部署
 
-当前应用使用[当前增量交接](docs/project/CURRENT_COZE_HANDOFF_20261006.md)与 `dist/Map-Polish-Coze-Application-20261006.zip`。相对P6新增17个原版场景模型、2234026字节；相对已记录的Coze旧版，资源差额为43个文件、4387567字节，保存在 `dist/Current-Coze-Resources-From-Live-20261006.zip`。必须验证全部574个目标文件和锁定生产依赖后再切应用，保留原项目、域名、环境和资源。后台默认关闭，启用要求真实生产数据库与部署方配置，见[P5交接](docs/project/P5_BACKEND_HANDOFF_20261006.md)。
+当前应用使用[当前增量交接](docs/project/CURRENT_COZE_HANDOFF_20261006.md)与 `dist/Performance-Coze-Application-20261006.zip`。目标资源647条记录／629个文件／648838732字节，本性能轮新增资源为零。相对已记录的Coze旧版，复用531个文件，资源差额为98个文件／49639414字节，保存在 `dist/Current-Coze-Resources-From-Live-20261006.zip`。必须验证全部629个目标文件和锁定生产依赖后再切应用，保留原项目、域名、环境和资源。后台默认关闭，启用要求真实生产数据库与部署方配置，见[P5交接](docs/project/P5_BACKEND_HANDOFF_20261006.md)。
 
-Git 当前交付为 schema26 源码和同一份五地图应用：`deploy/coze` 含锁定依赖和完整后台程序，`deploy/runtime` 保存校验过的 LFS 运行资源。先前 schema23 基线见[历史基线说明](docs/project/GIT_BASELINE_20261006.md)。Coze 仍保持原部署；数据库、凭据、缓存和本机 QA 输出不提交。
+Git 当前交付为 schema26 源码和同一份正式UI／性能候选应用：`deploy/coze` 含锁定依赖和完整后台程序，`deploy/runtime` 保存校验过的 LFS 运行资源。先前 schema23 基线见[历史基线说明](docs/project/GIT_BASELINE_20261006.md)。Coze 仍保持原部署；数据库、凭据、缓存和本机 QA 输出不提交。
 
 ## 开始试玩
 

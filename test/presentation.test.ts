@@ -33,6 +33,11 @@ test('GPU atlas retains animated bone translation; rendering and pause do not ad
  const texture=(shader.uniforms as Record<string,{value:THREE.DataTexture}>).unitBoneAtlas.value;
  const data=Array.from(texture.image.data as Uint16Array,THREE.DataUtils.fromHalfFloat),p=batch.pose('move')!;assert.equal(data[p.offset*16+12],0);assert.equal(data[(p.offset+p.frames-1)*16+12],2);assert.ok(data.every(Number.isFinite));
  batch.begin();batch.end();assert.equal(batch.meshes[0].visible,false,'empty effects/death batches do not issue draw calls');
+ batch.begin();batch.end();assert.equal(batch.meshes[0].visible,false);
+ batch.begin();batch.add(3,2,1,0,'move',.75);batch.end();
+ assert.equal(batch.meshes[0].visible,true,'a body returns after consecutive empty frames');assert.equal(batch.meshes[0].count,1);
+ const restored=new THREE.Matrix4();batch.meshes[0].getMatrixAt(0,restored);assert.deepEqual(restored.elements.slice(12,15),[3,2,1]);
+ assert.notDeepEqual(Array.from(batch.attributes[0].array.slice(0,4)),first,'the restored body uploads its current pose');
 });
 
 test('LOD reuses original skinned vertices and restores full-detail indices',async()=>{

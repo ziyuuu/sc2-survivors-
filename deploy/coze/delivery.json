@@ -1,7 +1,7 @@
 {
-  "status": "local formal UI candidate; not deployed",
-  "appBuildId": "d189ed058ae2067a80a25ca41e1858f1da70b7ffc702edba18b2522877419b35",
-  "packageBuildId": "4fd2ed183bf7a0f459fd37968f7db029b77cd11456ac58781d14b61b116e983e",
+  "status": "local fixed-scene performance candidate; natural performance gate open; not deployed",
+  "appBuildId": "999dbb67982c4ed3660fb0be0fa444bee194f20948d92703726db89f51a7e049",
+  "packageBuildId": "c1f6dce757a9c8c29cfdce5ad75c29d147143368f2b85a62df358d47710da6c9",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
@@ -82,6 +82,16 @@
       "sha256": "38cf22a1ec311b6cd69c0a019e467e56a75ee1c6cabe5bf66625eb07cd8dd8a9"
     },
     {
+      "path": "FIXED_SCENE_PERFORMANCE_20261006.md",
+      "bytes": 1981,
+      "sha256": "91dbb9ffdce33c32ef19c6fbc2b9026f45c78eefa4a28a6940563f0c4c477257"
+    },
+    {
+      "path": "FIXED_SCENE_PERFORMANCE_VALIDATION_20261006.md",
+      "bytes": 8501,
+      "sha256": "2d851f74bcbbdaff09ec60000fec2c6718d809c25a79defe827180adb083259b"
+    },
+    {
       "path": "P5_BACKEND_HANDOFF_20261006.md",
       "bytes": 5858,
       "sha256": "165cae31226f6e885221a8b2d10fc6357bc451624189dbf2595101321291f8fb"
@@ -94,12 +104,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6134,
-      "sha256": "ada1f41c74eef89a072ee3991ba7c13da4cd797c2fba0475188a0d6ad6bb84a0"
+      "sha256": "307ed26139ffb36dd2bc9d0a876b6365c3d18a30124241732e301bb7e9d2b28b"
     },
     {
       "path": "package.json",
       "bytes": 352,
-      "sha256": "756dadd1459f2cb2490f49e767b090f1490d798def6f892b01d9f5df3fc5d57e"
+      "sha256": "9d0c6f2bec2c7f67943fd6ba3b0c39062c22ed8aca2d48a5b30861860a09004f"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -117,14 +127,14 @@
       "sha256": "8b5377152065b77420130a997ccebdbd4e31bffc17147679f2da1ebec00f56e4"
     },
     {
-      "path": "public/assets/index-WtmnrpD9.js",
-      "bytes": 2173574,
-      "sha256": "fbb6d9122622546f7f50968da4a808789c55f2f2b6db3e4d853766767baa764e"
+      "path": "public/assets/index-D8zDu-kj.js",
+      "bytes": 2173392,
+      "sha256": "f06f42265905a80338b2a1f46eb24c67e028d259bc036afbe521aa9c9dfa6a32"
     },
     {
       "path": "public/index.html",
       "bytes": 802,
-      "sha256": "01c476790fc9cf5c7857e46d5437cbddd33111e84dbdc5b0f60e569de42561d5"
+      "sha256": "b2958df5bc1b1283547a65a6dd75e579f55355e4e6c956d3873bf3444495985a"
     },
     {
       "path": "public/runtime-config.json",
@@ -134,17 +144,17 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "16c7c628c37be1c70fa536b044c89fd49267496a3148bf4e3767df9074417245"
+      "sha256": "a0e3f1fe41e9f43d425bd0732bbd72c769c99af39eb951a3016ffc739b19e19e"
     },
     {
       "path": "README.md",
-      "bytes": 2620,
-      "sha256": "6de5b7dc480fe080ae1a3c3dc72199a4763aed93ff6f3e8e0ca2e211e0384d62"
+      "bytes": 2870,
+      "sha256": "833ad25cfeaa2f859919de52d1e29daca5e2121c607a4f31ce945152c38f1faa"
     },
     {
       "path": "resource-delta.json",
-      "bytes": 25262,
-      "sha256": "f25084d64adb358fb48db8140259b929c2485f661e4b20fa2050a62a887f71a9"
+      "bytes": 329,
+      "sha256": "053e7a568049c7789b576daebb2bd7966aa976e303b591d99ae19a4bd5d1be19"
     },
     {
       "path": "resource-groups.json",

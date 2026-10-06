@@ -9,6 +9,18 @@ import {expeditionWeaponBonuses} from '../src/simulation/combat/expedition-comba
 const near=(a:number,b:number,t=1e-5)=>assert.ok(Math.abs(a-b)<t,`${a} != ${b}`);
 function hero(w:World,id:HeroId,x=0){const u=w.addUnit(HEROES[id].baseFamily,'terran',x,0);u.heroId=id;w.heroes.set(id,{id,rank:1,entityId:u.id,skillReady:0,revivePaid:false,awaitingSpawn:false});w.refreshStats(u,true);return u;}
 function elite(w:World,id:EliteId,x=0){const u=w.addUnit(ELITES[id].family,'terran',x,0);u.eliteId=id;w.refreshStats(u,true);return u;}
+
+test('elite aura source eligibility is live across death, ownership, temporary and child transitions',()=>{
+ const w=protossFixture(),friend=w.addUnit('stalker','terran',3,0),enemy=target(w),sources=[elite(w,'sentry.1'),elite(w,'sentry.2')];
+ const check=(active:boolean)=>{near(compositeEliteBuff(w,friend).maxShield,active?.4:0);near(compositeEliteDebuff(w,enemy,'speed'),active?.35:0);};
+ check(true);
+ for(const source of sources)source.hp=0;check(false);for(const source of sources)source.hp=source.maxHp;check(true);
+ for(const source of sources)source.owner='zerg';check(false);for(const source of sources)source.owner='terran';check(true);
+ for(const source of sources)source.temporary=true;check(false);for(const source of sources)source.temporary=false;check(true);
+ for(const source of sources)source.summonKind='interceptor';check(false);for(const source of sources)delete source.summonKind;check(true);
+ for(const source of sources)w.entities.delete(source.id);check(false);
+ elite(w,'sentry.1');elite(w,'sentry.2');check(true);
+});
 test('new command damage scales the native armored bonus once alongside the main weapon',()=>{const w=protossFixture(),u=w.addUnit('stalker','terran',40,0),base=expeditionWeaponBonuses(w,u).bonuses.find(b=>b.attribute==='Armored')!.amount,damage=u.weaponDamage;hero(w,'fenix');hero(w,'purifier_flagship');w.refreshStats(u);near(u.weaponDamage/damage,1.9);near(expeditionWeaponBonuses(w,u).bonuses.find(b=>b.attribute==='Armored')!.amount/base,1.9);hero(w,'raynor');w.refreshStats(u);near(expeditionWeaponBonuses(w,u).bonuses.find(b=>b.attribute==='Armored')!.amount/base,1.9);});
 test('Kerrigan global bio command and Leviathan stack additively once, old local HP remains distinct',()=>{const w=protossFixture(),b=w.addUnit('roach','terran',40,0);const base={hp:b.maxHp,damage:b.weaponDamage,period:b.attackPeriod,armor:b.armor,move:b.moveSpeed};const k=hero(w,'kerrigan'),l=hero(w,'hots_leviathan');w.refreshStats(b);near(b.weaponDamage/base.damage,1.7);near(base.period/b.attackPeriod,1.9);near(b.maxHp/base.hp,1.55);near(b.armor/base.armor,1.6);near(b.moveSpeed/base.move,1.5);b.hp=b.maxHp*.4;l.x=40;refreshGroundHeroBuffs(w);near(b.maxHp/base.hp,1.8);near(b.hp/b.maxHp,.4);k.hp=0;refreshGroundHeroBuffs(w);near(b.maxHp/base.hp,1.45);near(b.hp/b.maxHp,.4);});
 test('Fenix and Flagship global mechanical/native pools stack once; transient bodies and workers excluded',()=>{const w=protossFixture(),b=w.addUnit('stalker','terran',40,0);const base={hp:b.maxHp,shield:b.maxShield!,damage:b.weaponDamage,period:b.attackPeriod};hero(w,'fenix');hero(w,'purifier_flagship');w.refreshStats(b);near(b.maxHp/base.hp,1.5);near(b.maxShield!/base.shield,1.9);near(b.weaponDamage/base.damage,1.9);near(base.period/b.attackPeriod,1.75);const temp=w.addUnit('stalker','terran',1,1);temp.temporary=true;const worker={...temp,temporary:false,unitType:'probe'} as any;near(compositeHeroBuff(w,temp).damage,0);near(compositeHeroBuff(w,worker).damage,0);});
