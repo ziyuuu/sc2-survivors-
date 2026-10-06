@@ -32,15 +32,18 @@ console.log(JSON.stringify({runtimeRecords:index.entries.length,verifiedFiles:ch
 // UI art has its own provenance; never append it to the original SC2 catalog.
 const ui=await fs.readFile('deploy/runtime/ui-assets.json','utf8').then(JSON.parse).catch(e=>{if(e.code!=='ENOENT')throw e;return null;});
 if(ui){
- if(ui.version!==1||sha(await fs.readFile('src/assets/ui-art.generated.ts'))!==ui.generatedSha256)throw Error('UI generated registry differs');
+ if(ui.version!==1||sha((await fs.readFile('src/assets/ui-art.generated.ts','utf8')).replace(/\r\n/g,'\n'))!==ui.generatedSha256)throw Error('UI generated registry differs');
  for(const r of ui.records){
   if(!/^public\/assets\/ui\/[a-f0-9]{64}\.(webp|png)$/.test(r.packedFile)||!r.sourceFile.startsWith('preview/ui-20261003/')||r.sourceFile.split('/').includes('..'))throw Error('Invalid UI resource path');
   if(r.gitPath!=='deploy/runtime/assets/'+r.packedSha256+path.extname(r.sourceFile))throw Error('Invalid Git UI path: '+r.id);
   const gitBytes=await fs.readFile(r.gitPath);if(gitBytes.length!==r.bytes||sha(gitBytes)!==r.packedSha256)throw Error('Git UI asset differs: '+r.id);
-  const source=await fs.readFile(r.sourceFile);if(source.length!==r.bytes||sha(source)!==r.sourceSha256||r.sourceSha256!==r.packedSha256)throw Error('UI source changed: '+r.id);
+  const source=await fs.readFile(r.sourceFile);
+  const pointer=source.length<256?source.toString('utf8').match(/^version https:\/\/git-lfs.github.com\/spec\/v1\r?\noid sha256:([a-f0-9]{64})\r?\nsize (\d+)\r?\n?$/):null;
+  const sourceMatches=pointer?pointer[1]===r.sourceSha256&&Number(pointer[2])===r.bytes:source.length===r.bytes&&sha(source)===r.sourceSha256;
+  if(!sourceMatches||r.sourceSha256!==r.packedSha256)throw Error('UI source changed: '+r.id);
   const current=await fs.readFile(r.packedFile).catch(e=>{if(e.code!=='ENOENT')throw e;return null;});
   if(current&&sha(current)!==r.packedSha256)throw Error('Preserving changed UI asset: '+r.id);
-  if(!current){if(process.argv.includes('--check'))throw Error('UI asset not restored: '+r.id);await fs.mkdir(path.dirname(r.packedFile),{recursive:true});await fs.writeFile(r.packedFile,source);}
+  if(!current){if(process.argv.includes('--check'))throw Error('UI asset not restored: '+r.id);await fs.mkdir(path.dirname(r.packedFile),{recursive:true});await fs.writeFile(r.packedFile,gitBytes);}
  }
  console.log(JSON.stringify({uiResources:ui.records.length,verified:true}));
 }

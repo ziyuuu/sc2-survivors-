@@ -17,11 +17,15 @@ export async function loadBuildAssets(){
   verified.add(r.packedFile);
  }
  const ui=JSON.parse(await fs.readFile('deploy/runtime/ui-assets.json','utf8'));
- if(ui.version!==1||createHash('sha256').update(await fs.readFile('src/assets/ui-art.generated.ts')).digest('hex')!==ui.generatedSha256)throw Error('UI registry differs');
+ if(ui.version!==1||createHash('sha256').update((await fs.readFile('src/assets/ui-art.generated.ts','utf8')).replace(/\r\n/g,'\n')).digest('hex')!==ui.generatedSha256)throw Error('UI registry differs');
  for(const r of ui.records){
   if(byId.has(r.id)||!r.id.startsWith('ui.paint.')&&!r.id.startsWith('ui.cover.'))throw Error('Invalid UI identity: '+r.id);
   byId.set(r.id,r);
-  for(const file of [r.sourceFile,r.packedFile]){const bytes=await fs.readFile(file);if(bytes.length!==r.bytes||createHash('sha256').update(bytes).digest('hex')!==r.packedSha256)throw Error('UI resource changed: '+file);}
+  for(const file of [r.sourceFile,r.gitPath,r.packedFile]){
+   const bytes=await fs.readFile(file),pointer=file===r.sourceFile&&bytes.length<256?bytes.toString('utf8').match(/^version https:\/\/git-lfs.github.com\/spec\/v1\r?\noid sha256:([a-f0-9]{64})\r?\nsize (\d+)\r?\n?$/):null;
+   const matches=pointer?pointer[1]===r.packedSha256&&Number(pointer[2])===r.bytes:bytes.length===r.bytes&&createHash('sha256').update(bytes).digest('hex')===r.packedSha256;
+   if(!matches||r.sourceSha256!==r.packedSha256)throw Error('UI resource changed: '+file);
+  }
  }
  return [...metadata.records,...ui.records];
 }
