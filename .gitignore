@@ -19,3 +19,7 @@ public/assets/
 src/assets/runtime.generated.ts
 test-results/
 playwright-report/
+
+# Private Coze database bundles and runtime data never belong in Git.
+**/pglite-bundle.tgz
+deploy/coze/data/

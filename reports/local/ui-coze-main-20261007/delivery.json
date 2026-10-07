@@ -1,0 +1,95 @@
+{
+  "at": "2026-10-07T05:46:17.895Z",
+  "status": "Coze deployment branch and completed UI integrated and locally validated; Git main synchronization recorded separately",
+  "parents": {
+    "ui": "083c5ddd2338ac3b1c38bbbd18e63d98e232ddc2",
+    "coze": "ed70fe4cb8fd4723c61d3e9b43e2ae7630d862a5",
+    "commonBase": "bba13399049dfa3e7c16621dc88decbc4a351a1f"
+  },
+  "game": {
+    "appBuildId": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+    "runSchema": 26,
+    "profileVersion": 6,
+    "mapRecipeVersion": 3,
+    "gameSourceGitIdenticalToCompletedUi": true,
+    "publicUiByteIdentical": true,
+    "joystickCorrectionRetained": true,
+    "gameRulesUnchangedByMerge": true
+  },
+  "resources": {
+    "records": 647,
+    "files": 629,
+    "bytes": 648838732,
+    "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+    "added": 0
+  },
+  "coze": {
+    "vendoredPgliteFiles": 308,
+    "vendorBytes": 25437263,
+    "vendorMatchesPinnedPackage": true,
+    "launcherAndConfigAndAdminInherited": true,
+    "sourceAndPackagedBackendSynchronized": true,
+    "configurationEnabledAsSupplied": true,
+    "privateBundleIncluded": false,
+    "privateDatabaseOrAccountsIncluded": false,
+    "liveDeployPerformed": false,
+    "liveDatabaseOperated": false
+  },
+  "application": {
+    "path": "dist/UI-Coze-Main-Application-20261007.zip",
+    "bytes": 9469570,
+    "sha256": "30cf2905d9c4a5c1dec9bd28bb3d6c867a8963aeecc37316e5b300d5b516f3b0",
+    "packageBuildId": "143e25185a8a2f047b33e177521c1a39f65a7bd46f33ed54465862fadf2056dd",
+    "files": 345,
+    "localDeployCopyMatches": true
+  },
+  "checks": {
+    "regressions": 1161,
+    "typecheck": true,
+    "dataDocs": true,
+    "talents": 165,
+    "startupCases": [
+      "writable",
+      "readonly-bundle",
+      "active-release",
+      "invalid-database"
+    ],
+    "readonlyProbeSimulated": true,
+    "realPgliteRestore": true,
+    "webGroups": 6,
+    "productionWebRoot": "dist/UI-Coze-Main-Application-20261007/public",
+    "ordinaryFamilies": 30,
+    "heroes": 18,
+    "pageErrors": 0,
+    "resourceFilesVerified": 629,
+    "updateReused": 629,
+    "updateAdded": 0,
+    "oldEnvironmentAndRollbackPreserved": true,
+    "idempotent": true,
+    "tamperingRejected": true
+  },
+  "earlierUiEvidence": {
+    "path": "reports/local/ui-fidelity-round-20261006/delivery.json",
+    "allPriorIdsAndFindingsPreserved": true,
+    "uiOneToOneAndOfflineChecksInheritedNotRerunAsNewResults": true
+  },
+  "fixtureFailureHistory": [
+    "startup-first-fixture-failure.json",
+    "startup-empty-directory-fixture-failure.json"
+  ],
+  "open": [
+    "Live Coze release identity and operator / B4 acceptance",
+    "Durable production database, deletion-journal volume and cross-instance persistence",
+    "P6-V01",
+    "Natural/high-density performance and full M6/M7",
+    "Human visual and physical devices / high refresh / long term / low memory",
+    "Three Science Vessel source gaps"
+  ],
+  "evidence": {
+    "preservation": "reports/local/ui-coze-main-20261007/preservation.json",
+    "startup": "reports/local/ui-coze-main-20261007/startup.json",
+    "update": "reports/local/ui-coze-main-20261007/handoff-update.json",
+    "web": "reports/local/ui-coze-main-20261007/production/web/web.json",
+    "git": "reports/local/ui-coze-main-20261007/git-sync.json"
+  }
+}

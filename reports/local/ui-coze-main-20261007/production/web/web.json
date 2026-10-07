@@ -1,0 +1,158 @@
+{
+  "method": "Production UI imports six diagnostic World archives covering all30 ordinary families/all18 heroes, real support and actual child identities; export/save/reload/local-load. Browser keyboard, touch and virtual gamepad are engineering checks, not physical device acceptance.",
+  "offline": false,
+  "appBuildId": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+  "checks": [
+    {
+      "race": "terran",
+      "group": 0,
+      "families": [
+        "marine",
+        "marauder",
+        "reaper",
+        "hellion",
+        "tank"
+      ],
+      "heroes": [
+        "raynor",
+        "tychus",
+        "nova"
+      ],
+      "control": "keyboard",
+      "schema": 26,
+      "damage": 36550.18769230833,
+      "healed": 0,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": true,
+      "debugApi": false
+    },
+    {
+      "race": "terran",
+      "group": 1,
+      "families": [
+        "thor",
+        "viking",
+        "banshee",
+        "medivac",
+        "science_vessel"
+      ],
+      "heroes": [
+        "swann",
+        "tosh",
+        "yamato_battlecruiser"
+      ],
+      "control": "keyboard",
+      "schema": 26,
+      "damage": 40543.26923077018,
+      "healed": 80.84893939393726,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": false,
+      "debugApi": false
+    },
+    {
+      "race": "zerg",
+      "group": 0,
+      "families": [
+        "zergling",
+        "baneling",
+        "roach",
+        "ravager",
+        "hydralisk"
+      ],
+      "heroes": [
+        "kerrigan",
+        "zagara",
+        "dehaka"
+      ],
+      "control": "browser touch",
+      "schema": 26,
+      "damage": 196204.73076922866,
+      "healed": 0,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": true,
+      "debugApi": false
+    },
+    {
+      "race": "zerg",
+      "group": 1,
+      "families": [
+        "queen",
+        "lurker",
+        "mutalisk",
+        "corruptor",
+        "ultralisk"
+      ],
+      "heroes": [
+        "stukov",
+        "niadra",
+        "hots_leviathan"
+      ],
+      "control": "browser touch",
+      "schema": 26,
+      "damage": 1274503.726153848,
+      "healed": 950.1615485000125,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": false,
+      "debugApi": false
+    },
+    {
+      "race": "protoss",
+      "group": 0,
+      "families": [
+        "zealot",
+        "adept",
+        "stalker",
+        "sentry",
+        "immortal"
+      ],
+      "heroes": [
+        "artanis",
+        "zeratul",
+        "alarak"
+      ],
+      "control": "virtual standard gamepad",
+      "schema": 26,
+      "damage": 26827.08461538423,
+      "healed": 0,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": true,
+      "debugApi": false
+    },
+    {
+      "race": "protoss",
+      "group": 1,
+      "families": [
+        "colossus",
+        "high_templar",
+        "phoenix",
+        "void_ray",
+        "carrier"
+      ],
+      "heroes": [
+        "fenix",
+        "vorazun",
+        "purifier_flagship"
+      ],
+      "control": "virtual standard gamepad",
+      "schema": 26,
+      "damage": 114221.13653846225,
+      "healed": 159.97333333333518,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": false,
+      "debugApi": false
+    }
+  ],
+  "errors": []
+}

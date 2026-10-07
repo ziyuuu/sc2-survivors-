@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-07T05:40:47.741Z",
+  "passed": true,
+  "uiCommit": "083c5ddd2338ac3b1c38bbbd18e63d98e232ddc2",
+  "cozeCommit": "ed70fe4cb8fd4723c61d3e9b43e2ae7630d862a5",
+  "sourceFilesStampedByteIdentical": 247,
+  "offlineContainerCommittedTextIdentical": true,
+  "allGameSourceGitIdentical": true,
+  "uiArtAndRuntimeGitUnchanged": true,
+  "publicFilesByteIdentical": 6,
+  "vendorFilesByteIdentical": 308,
+  "vendorMatchesLockedDevPackage": true,
+  "vendorBytes": 25437263,
+  "inheritedCozeFiles": [
+    "start-coze.mjs",
+    "sc2-backend.conf",
+    "BACKEND_DEPLOY_LOGIC_20261007.md",
+    "backend/service.mjs",
+    "backend/admin/app.js",
+    "backend/admin/index.html"
+  ],
+  "databaseAdaptation": "Same canonical module in source and package; prefer vendored PGlite when present, fallback to locked npm for the development tree.",
+  "resources": {
+    "records": 647,
+    "files": 629,
+    "bytes": 648838732,
+    "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+    "added": 0
+  },
+  "appBuildId": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+  "packageBuildId": "143e25185a8a2f047b33e177521c1a39f65a7bd46f33ed54465862fadf2056dd",
+  "appFiles": 345,
+  "privateBundleTracked": false,
+  "privateDataInApplication": false
+}
