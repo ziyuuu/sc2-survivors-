@@ -1,0 +1,134 @@
+{
+  "at": "2026-10-07T02:08:20.327Z",
+  "phase": "UI accepted before any anchor/simulation source change",
+  "passed": true,
+  "views": [
+    {
+      "label": "desktop",
+      "width": 1280,
+      "height": 720,
+      "touch": false,
+      "archivePreserved": true,
+      "inspectorLive": true,
+      "allMainRoutes": true
+    },
+    {
+      "label": "portrait",
+      "width": 390,
+      "height": 844,
+      "touch": true,
+      "archivePreserved": true,
+      "inspectorLive": true,
+      "allMainRoutes": true
+    },
+    {
+      "label": "minimum",
+      "width": 320,
+      "height": 568,
+      "touch": true,
+      "archivePreserved": true,
+      "inspectorLive": true,
+      "allMainRoutes": true
+    },
+    {
+      "label": "short-landscape",
+      "width": 844,
+      "height": 390,
+      "touch": true,
+      "archivePreserved": true,
+      "inspectorLive": true,
+      "allMainRoutes": true
+    },
+    {
+      "label": "narrow-desktop",
+      "width": 1024,
+      "height": 768,
+      "touch": false,
+      "archivePreserved": true,
+      "inspectorLive": true,
+      "allMainRoutes": true
+    }
+  ],
+  "captures": 320,
+  "special": [
+    "Canceled full-roster contract preserves entire run and profile",
+    "Double click produces exactly one native paid elite transaction",
+    "Actual free talent gift stays available outside shop and equals native claim",
+    "Deferring real boss loot preserves reward, funds and explicit pause state",
+    "Escape retains mandatory family choice through save/load; rejection equals original command",
+    "125% and 150% actual font setting across minimum portrait, portrait and short landscape"
+  ],
+  "specialCaptures": 25,
+  "auxiliary": [
+    "Native resource window at three sizes",
+    "Privacy and feedback use current disabled backend facts",
+    "Feedback draft retained without submission",
+    "No statistics identity or POST request",
+    "Controller calibration returns one level"
+  ],
+  "auxiliaryCaptures": 10,
+  "regressions": 1155,
+  "equivalence": {
+    "bodyRanks": 690,
+    "fixedViewRaces": 3,
+    "ticksPerRace": 180,
+    "completeNativeTransactions": 5
+  },
+  "copyChecks": 1705,
+  "sourceProtection": {
+    "at": "2026-10-07T02:04:43.125Z",
+    "baseline": "bba13399049dfa3e7c16621dc88decbc4a351a1f",
+    "phase": "UI only, before anchor correction",
+    "source": {
+      "total": 228,
+      "changed": [
+        "src/app/bootstrap.ts",
+        "src/app/run-session.ts",
+        "src/main.ts",
+        "src/render/effects/audio.ts",
+        "src/ui/gamepad/controller.ts",
+        "src/ui/hud/battle-commands.ts",
+        "src/ui/hud/boss-loot-panel.ts",
+        "src/ui/hud/carrier-inspector.ts",
+        "src/ui/hud/expedition-panel.ts",
+        "src/ui/hud/m3-menu.ts",
+        "src/ui/hud/minimap.ts",
+        "src/ui/hud/mvp-talent-panel.ts",
+        "src/ui/hud/player-services.ts",
+        "src/ui/hud/resource-downloads.ts",
+        "src/ui/hud/squad-console.css",
+        "src/ui/hud/squad-console.ts",
+        "src/ui/hud.ts",
+        "src/ui/presentation/formal-ui.css",
+        "src/ui/presentation/input-capture.ts",
+        "src/ui/presentation/intermission.ts",
+        "src/ui/presentation/painted-art.ts",
+        "src/ui/presentation/unit-inspector.ts"
+      ],
+      "unchanged": 206
+    },
+    "protectedRules": 110,
+    "preview": {
+      "files": 448,
+      "bytes": 231541893
+    },
+    "additionalArt": {
+      "files": 1771,
+      "bytes": 1215021407
+    },
+    "passed": true
+  },
+  "adaptations": [
+    "Current real numeric data, prices, talents, ranks, roster, maps and effects replace obsolete prototype fixtures",
+    "Actual game-only archive/production/transaction/accessibility/privacy/input states use the original visual components",
+    "Prototype preview toolbar/state picker and user-removed cover-auto/friend trial controls are absent",
+    "Game camera keeps its original resize behavior for the restored playfield; fixed-BattleView comparisons do not claim identical outcomes at different visibility areas"
+  ],
+  "openExternalGates": [
+    "physical device and human acceptance",
+    "natural performance/full M6/M7",
+    "P6-V01",
+    "Science Vessel source gaps",
+    "Coze deployment and production backend/operator checks"
+  ]
+}

@@ -9,12 +9,13 @@ export class EmbeddedAssetStore {
  readonly urls:Record<string,string>={};
  private queue:Promise<unknown>=Promise.resolve();
  private remainingUses:number[];
- private encodedChunks:(Blob|null)[];
+ private encodedChunks:(string|null)[];
  constructor(private pack:AssetPack){
   if(pack.version!==2)throw Error('不支持的按需资源包版本');
-  // Keep not-yet-needed encoded bytes outside the JS heap. Typed arrays were
-  // measured at +269 MiB retained JS heap on the reference browser.
-  this.encodedChunks=pack.chunks.map(chunk=>{const blob=new Blob([chunk.data]);chunk.data='';return blob;});
+  // Retain the already parsed encoded strings without allocating encoded Blobs.
+  // Chrome's Blob storage also holds the decoded assets; the two copies together
+  // exhausted that storage budget before a battle could become ready.
+  this.encodedChunks=pack.chunks.map(chunk=>{const data=chunk.data;chunk.data='';return data;});
   this.remainingUses=Array(pack.chunks.length).fill(0);
   for(const [id,asset] of Object.entries(pack.assets))for(const index of new Set(asset.parts)){
    if(!pack.chunks[index])throw Error('资源分片缺失: '+id);
@@ -36,9 +37,9 @@ export class EmbeddedAssetStore {
   const chunks=new Map<number,Blob>();let done=0,lastYield=performance.now();
   progress(0,indices.length+needed.length,'解包所需资源');
   for(const index of indices){
-   const blob=this.encodedChunks[index];if(!blob)throw Error('资源分片不可用: '+index);
+   const data=this.encodedChunks[index];if(data===null)throw Error('资源分片不可用: '+index);
    const part=this.pack.chunks[index];
-   const stored=decode85(await blob.text(),part.storedBytes!);
+   const stored=decode85(data,part.storedBytes!);
    if(part.encoding!=='gzip'&&part.encoding!=='raw')throw Error('无效的资源压缩格式');
    const bytes=part.encoding==='gzip'?gunzipSync(stored):stored;
    if(bytes.length!==part.bytes)throw Error('资源包字节校验失败');

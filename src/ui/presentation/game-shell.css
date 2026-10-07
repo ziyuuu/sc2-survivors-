@@ -1,0 +1,6 @@
+/* Old shell rules remain available for unreplaced auxiliary flows, below the
+   approved reference cascade. Existing world-label styles are copied exactly. */
+@import '../sc2-battle.css' layer(legacy);
+@import '../mobile/layout.css' layer(legacy);
+@import '../hud/compact.css' layer(legacy);
+@import './formal-ui.css';

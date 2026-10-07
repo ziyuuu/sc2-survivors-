@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';import {createHash} from 'node:crypto';
+const output='reports/local/ui-fidelity-round-20261006';
+await fs.mkdir(output,{recursive:true});
+const old=JSON.parse(await fs.readFile('reports/local/mobile-correction-20261006/baseline.json','utf8'));
+if(old.commit!=='bba13399049dfa3e7c16621dc88decbc4a351a1f')throw Error('Unexpected starting baseline');
+const sha=b=>createHash('sha256').update(b).digest('hex');
+for(const row of [...old.source,...old.preview])if(sha(await fs.readFile(row.path))!==row.sha256)throw Error('Baseline differs: '+row.path);
+const state={at:new Date().toISOString(),commit:old.commit,source:old.source,preview:old.preview,release:old.release,manifest:old.manifest,audit:'reports/local/ui-fidelity-audit-20261006/audit.json'};
+await fs.writeFile(output+'/baseline.json',JSON.stringify(state,null,2),{flag:'wx'});
+console.log(JSON.stringify({source:state.source.length,preview:state.preview.length,release:state.release.appBuildId}));

@@ -1,0 +1,66 @@
+{
+  "method": "Current-map diagnostic archives, real frozen talents and support state; public operations/target UI only. Not natural earned campaigns or physical inputs.",
+  "checks": [
+    {
+      "race": "terran",
+      "operationsPausedAndReturned": true,
+      "targetCancellationPreservesAmmoAndNoTransferPlan": true,
+      "noWalletSpendingWithProductionDisabled": true,
+      "playerLabels": true,
+      "views": 3
+    },
+    {
+      "race": "zerg",
+      "operationsPausedAndReturned": true,
+      "targetCancellationPreservesAmmoAndNoTransferPlan": true,
+      "noWalletSpendingWithProductionDisabled": true,
+      "playerLabels": true,
+      "views": 3
+    },
+    {
+      "race": "protoss",
+      "operationsPausedAndReturned": true,
+      "targetCancellationPreservesAmmoAndNoTransferPlan": true,
+      "noWalletSpendingWithProductionDisabled": true,
+      "playerLabels": true,
+      "views": 3
+    }
+  ],
+  "screens": [
+    "terran-operations-1280",
+    "terran-transfer-1280",
+    "terran-strike-1280",
+    "terran-operations-390",
+    "terran-transfer-390",
+    "terran-strike-390",
+    "terran-operations-844",
+    "terran-transfer-844",
+    "terran-strike-844",
+    "zerg-operations-1280",
+    "zerg-transfer-1280",
+    "zerg-strike-1280",
+    "zerg-operations-390",
+    "zerg-transfer-390",
+    "zerg-strike-390",
+    "zerg-operations-844",
+    "zerg-transfer-844",
+    "zerg-strike-844",
+    "protoss-operations-1280",
+    "protoss-transfer-1280",
+    "protoss-strike-1280",
+    "protoss-blink-1280",
+    "protoss-sweep-1280",
+    "protoss-operations-390",
+    "protoss-transfer-390",
+    "protoss-strike-390",
+    "protoss-blink-390",
+    "protoss-sweep-390",
+    "protoss-operations-844",
+    "protoss-transfer-844",
+    "protoss-strike-844",
+    "protoss-blink-844",
+    "protoss-sweep-844"
+  ],
+  "errors": [],
+  "passed": true
+}

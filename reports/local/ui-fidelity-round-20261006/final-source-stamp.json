@@ -1,0 +1,997 @@
+{
+  "at": "2026-10-07T02:33:46.187Z",
+  "source": [
+    {
+      "path": "src/app/asset-readiness.ts",
+      "sha256": "49f478e4c0557395d5f55e9f25898cf95458eb8d4c2bdfa8c47b15c18956e80f"
+    },
+    {
+      "path": "src/app/bootstrap.ts",
+      "sha256": "72160f78160312cffb516c2f4da3f0f9c60a8eca758e1b05cab2345afdc5923b"
+    },
+    {
+      "path": "src/app/race-preload.ts",
+      "sha256": "0800c55b2be7c1d075afe79fd25880ac107e079c407ef3b82a6aa82ccef766ad"
+    },
+    {
+      "path": "src/app/run-session.ts",
+      "sha256": "a1724997017ee759946183a3fc1b129dc21f37aac0449d64c6e0547e2c12ef12"
+    },
+    {
+      "path": "src/assets/base85.mjs",
+      "sha256": "3e7905d65b1a56dae3d834555819f98ae55deb4e3721bef225790c10c55c6819"
+    },
+    {
+      "path": "src/assets/catalog.mjs",
+      "sha256": "24f04bb70c055a1fde6a76f6ac494e1d7567bab304e680ba6c06a704c918522e"
+    },
+    {
+      "path": "src/assets/http-store.ts",
+      "sha256": "a3d1cf464c3304515f711594aea543f129b5001bc1bcdebb7fb448edcf373f1d"
+    },
+    {
+      "path": "src/assets/manifest.ts",
+      "sha256": "333f4b4d2bbf3a4aa42b1f4bb24df225590051c992c3568faa08ebcfa4c9ee2c"
+    },
+    {
+      "path": "src/assets/offline-pack.ts",
+      "sha256": "99056dc2076bf546bab33677af727e1a5eea2fec6b558ce9be6627586411f094"
+    },
+    {
+      "path": "src/assets/persistent-cache.ts",
+      "sha256": "69f3eb0443ffee72fe3290716da18abb34078838946f144cd1823fd2e0c3a6c4"
+    },
+    {
+      "path": "src/assets/retired.ts",
+      "sha256": "43e8245cb463a91e734475e06231b163c2d23f10ac99be84dfa4f6e6d8b75f12"
+    },
+    {
+      "path": "src/assets/runtime.generated.ts",
+      "sha256": "c6b27e9f72dd5cff45d1187107407b16b93bb165d4b7fcf7f68170d585ef26fd"
+    },
+    {
+      "path": "src/assets/ui-art.generated.ts",
+      "sha256": "429592db0649ec9a8db2ce127712c876ebcdf85e8dce732b01936fc7d0afa357"
+    },
+    {
+      "path": "src/data/build-card-routes.ts",
+      "sha256": "d58e09b5878f00b25230bba4b3e29a8529547dda82a301a8536c513b6c070486"
+    },
+    {
+      "path": "src/data/campaign-landscape.ts",
+      "sha256": "11e1783d0a582ada176bf14f5e8961b259ef4a04333449aa28a7ad5d10abb16c"
+    },
+    {
+      "path": "src/data/campaign-layout.ts",
+      "sha256": "7f8253e1d3a39ad3a1347587c992da719b79af21f09f2172230cf1f306ce71d7"
+    },
+    {
+      "path": "src/data/campaign-map.ts",
+      "sha256": "2db0d9f0d4d8e9d23af922014caa7892fd5732b1aaa2d3e0ef7c7961729f35e8"
+    },
+    {
+      "path": "src/data/campaign-science-vessel.ts",
+      "sha256": "cb7d6e73f27bef6870fb442df89f30d5fe0fc6b25f429c71964ea3dd407ad396"
+    },
+    {
+      "path": "src/data/campaign18.ts",
+      "sha256": "5dfc80fe2d3003ca6ea628282b42780fafcdefe7bcdf5a6f1c169945856f4b7a"
+    },
+    {
+      "path": "src/data/combat-presentation.ts",
+      "sha256": "013abd20c8bd12153361c7a98609021e64095feae75ac8d9836ca592bd75ba24"
+    },
+    {
+      "path": "src/data/control-tuning.ts",
+      "sha256": "bdf18cd8086d5bd3ff04e8ef8727988e8dc2b11a71de0ac781320af83d84332a"
+    },
+    {
+      "path": "src/data/economy.ts",
+      "sha256": "b40094c2b6e12a3d18cbc9749fe1021b71591c0f4fd9eca1b5fe89dbfa24c2e2"
+    },
+    {
+      "path": "src/data/elites.ts",
+      "sha256": "e126725d89af33c62e692deaed2810921b3134ebb60dcac04644297e5f54bfcf"
+    },
+    {
+      "path": "src/data/endless.ts",
+      "sha256": "4d7ddf3d80bc94be8486d2332daf926d35a98ee57b081a9b0cbb23c05b5fe9c1"
+    },
+    {
+      "path": "src/data/enemies.ts",
+      "sha256": "47979b9ca9355eec4facc912e167faa34ffbe33c4f23897e2a95170994e1f803"
+    },
+    {
+      "path": "src/data/enemy-progression.ts",
+      "sha256": "94d62befda47a19fe0cb697fde1ee0d7435d5516f11fe1cfcc039aa59600038d"
+    },
+    {
+      "path": "src/data/expansion-content-readiness.ts",
+      "sha256": "8ba6317fb941ada55ec235c47eeff13b53b7c98e0f73a96a6a072b8a8dd4e370"
+    },
+    {
+      "path": "src/data/expansion-units.ts",
+      "sha256": "6748082fdfe815cc52c811460db2fe4ccfccd5b5e8341ec5122eed96c19e2ba7"
+    },
+    {
+      "path": "src/data/expansion-upgrades.ts",
+      "sha256": "26c58bdd56f6b869bc7d5e714ceab455617292c40652356e411165b4cc6b6c72"
+    },
+    {
+      "path": "src/data/expedition-buildings.ts",
+      "sha256": "fcb8c4d9b790be625252b05a5c2969e284bb3a9954e1dd362f5c40b84c22435f"
+    },
+    {
+      "path": "src/data/game.ts",
+      "sha256": "808331aa7559b3de0f73154e8c58ebe0920686c68b67eaa1a81b4a3af1c51991"
+    },
+    {
+      "path": "src/data/hero-spectacle.ts",
+      "sha256": "f105eeeb2a6ba7132502e945aa74f5c046815a63e42287d07e3705ff16769a27"
+    },
+    {
+      "path": "src/data/hero-upgrades.ts",
+      "sha256": "91536009f5001b88995342014b4761a64c05a997ea0f65d8f77196ac47f05b67"
+    },
+    {
+      "path": "src/data/heroes.ts",
+      "sha256": "f1b4d5706ba7e77d1c5d28ad9a31eb5ca220c3bb2da2445d867a229f750c397c"
+    },
+    {
+      "path": "src/data/hives.ts",
+      "sha256": "aa24d8f3ab7f1df25951d817cbfd77856a73e5315d14ed58d4fd828bb8f6e754"
+    },
+    {
+      "path": "src/data/map-definition.ts",
+      "sha256": "085aceec2602f57b82567f5c33c5c85ec5632ee2c54dbc28d7f84afebe2ebfe8"
+    },
+    {
+      "path": "src/data/mvp-talents.generated.ts",
+      "sha256": "1f3b443c93dfef75407b45e5c5971b85b649cf32de8b476cdf54b046c82c8dab"
+    },
+    {
+      "path": "src/data/mvp-talents.ts",
+      "sha256": "cf3cbcf1e5850b2adb61a4b3ff11e2725cbb0865a30bf654fe78d8e398fb8868"
+    },
+    {
+      "path": "src/data/player-unit-adaptations.ts",
+      "sha256": "df1bd7442472d024c865b80288c79225771cac7da8c3a8bd537d609c7ead5f52"
+    },
+    {
+      "path": "src/data/protoss-elites.ts",
+      "sha256": "9f7e313e5a920d6d885433156dbb785dbb7bd056ab90ccd15c7f4864da11f607"
+    },
+    {
+      "path": "src/data/protoss-heroes.ts",
+      "sha256": "9aa2f8d0980599365cd68eeb5271408d896d71877d73e85bbe06d410f6486ca6"
+    },
+    {
+      "path": "src/data/races.ts",
+      "sha256": "5ad0ee25f926a47ab547c2ffad97484952b0fc2a578418db655b3b08b82064b2"
+    },
+    {
+      "path": "src/data/ranks.ts",
+      "sha256": "4e286e8d2876325a02ab9edfaf0dcabe5b983729b50b970d76e96b6c1028e6c1"
+    },
+    {
+      "path": "src/data/rewards.ts",
+      "sha256": "82a36a86f7bbedee12fdb9e54780d2593ec1c6e0ccb54489086248d783be6cac"
+    },
+    {
+      "path": "src/data/roster.ts",
+      "sha256": "5061253aef0033992a5c7d1e1e22ccf5bd06fd2ad5c311cb599203eb004baf9a"
+    },
+    {
+      "path": "src/data/sc2-units.ts",
+      "sha256": "0aa67a33bb5785a82da36e4bc0e1faa7fad6d0fc6567788e65d024bcd6033ede"
+    },
+    {
+      "path": "src/data/stages.ts",
+      "sha256": "3a7e22655626dcb56ce0f8b1b8deaff88fbed900d64c377d2823e38ba0fef28e"
+    },
+    {
+      "path": "src/data/swarm.ts",
+      "sha256": "884b6bbce207555839761d90a5b2bd0c3e11a60e0e4ecfeb1f5f80bd4f1a1c64"
+    },
+    {
+      "path": "src/data/team-auras.ts",
+      "sha256": "35ea0a040b5812e07532dd7bb05d276ef790182b743b35759309793c9d4780fb"
+    },
+    {
+      "path": "src/data/terrain.ts",
+      "sha256": "dbd4a6ab20234b1df12d24b55d743f295fca5c6b0bf19483b83a610de3d4137e"
+    },
+    {
+      "path": "src/data/terran-elites.ts",
+      "sha256": "c4dd3940713f42e2782d1edf5e0615231578bcb224f2927ce8c4aeeaf72cad32"
+    },
+    {
+      "path": "src/data/terran-heroes.ts",
+      "sha256": "1557c0abccb7eb95f708c44406ac4fd072609d60763d8038a093ee5412cd00c0"
+    },
+    {
+      "path": "src/data/unique-support.ts",
+      "sha256": "6f2308f2045ee78580127549f27f0a12fd62738740618cc06abb3825c9e41332"
+    },
+    {
+      "path": "src/data/unit-spectacle.ts",
+      "sha256": "4afd063e11eb79165705a871b1bd5cad04b410c560d8ece3228a20a0628ec6a2"
+    },
+    {
+      "path": "src/data/zerg-elites.ts",
+      "sha256": "6b91308ee1788250370c71fdc1bdafb0c84f29cdd1fbe478829a3a67a7b7f074"
+    },
+    {
+      "path": "src/data/zerg-heroes.ts",
+      "sha256": "8e3fcad0711b816574fd4c205a30db4b12d48af57f62bba4f778fc02fa7c2d74"
+    },
+    {
+      "path": "src/diagnostics/combat-lock.ts",
+      "sha256": "91505d37ef1eaa80af9c2c02eb82f280725fda277dc27405f9720fa2b392c593"
+    },
+    {
+      "path": "src/diagnostics/debug.ts",
+      "sha256": "968b0910b612f60a474deb7889d12c7c5432ff9573f77a574fbca4b1e59646b6"
+    },
+    {
+      "path": "src/diagnostics/shot-diagnostics.ts",
+      "sha256": "77557979596a94f17b044652c3ab008d071d72e9223867143dabd8c186f446f2"
+    },
+    {
+      "path": "src/main.ts",
+      "sha256": "f522095ab82cef6e9d1fc01b9ef171b921750229261bad64e2efa36997377ca2"
+    },
+    {
+      "path": "src/persistence/archive.ts",
+      "sha256": "2173a9024d883686d83b1fb5f5d51c5de5ef5b18c10d9a9d563d29ee50365538"
+    },
+    {
+      "path": "src/persistence/graph-codec.ts",
+      "sha256": "5842ecb3fb47b175c6ba912f169b19eff87ad4efff2c84e66d9da5bfa4a75a70"
+    },
+    {
+      "path": "src/persistence/save-repository.ts",
+      "sha256": "8776a203addbb39a29731681a6070795440dfd582eb98dae1396f71877dc9b4b"
+    },
+    {
+      "path": "src/platform/wechat/asset-cache.ts",
+      "sha256": "35ce7a107753f2ab35aa3ea08bddbac0199fe763f4f0b13be6665763b6cc68e6"
+    },
+    {
+      "path": "src/platform/wechat/game-session.ts",
+      "sha256": "65bfdcb82ebbe27853dd0ae13132b2b7ee4a7ee7c1e7408aedd41117c2e45dc2"
+    },
+    {
+      "path": "src/platform/wechat/preflight.ts",
+      "sha256": "38896a389313a23b23ecebf0f7380f6da6df92b41264699af3123ce1ae715327"
+    },
+    {
+      "path": "src/platform/wechat/save-backend.ts",
+      "sha256": "cb5a376c7ccd9184e4eec81537309df2569e37f2b8e9e0869a7007b8f875b1a4"
+    },
+    {
+      "path": "src/platform/wechat/sha256.ts",
+      "sha256": "9ab1bf41a1dfec59293017d9b9027d79185465a3e38b65126d1ead292e2db09f"
+    },
+    {
+      "path": "src/render/effects/audio.ts",
+      "sha256": "eaa8253503fd80c1aae0aa68a44ac59c06eed7381104d32d9c586226750282ba"
+    },
+    {
+      "path": "src/render/effects/battle-effects.ts",
+      "sha256": "30c581e3824941beb5f1b00e368ebfd309bae765f586f5c3c674e940ff9b4399"
+    },
+    {
+      "path": "src/render/effects/combat-sculptures.ts",
+      "sha256": "ff635fb17a98d9d7f8700d9ee346b08a3a0ccbe1fbc0ba35e8b4287f198ac3af"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/approved-gun-effects.ts",
+      "sha256": "93594311036a123c0057844b1f4c658879be1abdb41f2dbbc68404f19e7c8276"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/attack-effects.ts",
+      "sha256": "34f819d1e9b98d660262012c5d6134b5a8dd4f5017611c773b87d66b915dbb7a"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/controller.ts",
+      "sha256": "bf601de12d11102429ae04ff96c206f2badb2da7d6d297a50c717fd190d292c6"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/hero-aura-effects.ts",
+      "sha256": "00bd290e5f49db6a8f87057bd7b9093a42a7b0abb3c43df2ddb716f9b550adda"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/skill-effects.ts",
+      "sha256": "76b2e2f6855a21bef43ef8821ecaa59d3bbbc2a2e7557e05b7cf78fc1da2fff7"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/upgrade-materials.ts",
+      "sha256": "82ee59d9804b9a761ebd59a42cfaab242a952ccf20b9cd605a020cf37a69de7a"
+    },
+    {
+      "path": "src/render/effects/elite-support-effects.ts",
+      "sha256": "807c973bcf77fedafa5985972bd56bb042481fcca9e72affa9297810e2233fd6"
+    },
+    {
+      "path": "src/render/effects/hero-basic-effects.ts",
+      "sha256": "95c115d05eba225af7113f14e56a108ee55b6235f497f6b5ff6ad54508d91318"
+    },
+    {
+      "path": "src/render/effects/hero-feedback.ts",
+      "sha256": "62bc2b0bcc48bc3e86bdcbb5210bbf3b2d7bd5447aeef218f601faafbb68112f"
+    },
+    {
+      "path": "src/render/effects/nonhero-effects.ts",
+      "sha256": "dd6cef4abb6b84d9889afcac0dc23263e3933daab6032988b559db1630a2ff01"
+    },
+    {
+      "path": "src/render/effects/ordinary-medical-effects.ts",
+      "sha256": "725d2f4fda5456cf3993e3de036339fcb6512ef6e394bd01bafe526740182e61"
+    },
+    {
+      "path": "src/render/effects/ordinary-presentation.ts",
+      "sha256": "16e74b6ecb639947325b8729d30f1c6ab34eb62a005d8f46b399f0736b9252d7"
+    },
+    {
+      "path": "src/render/effects/original-projectiles.ts",
+      "sha256": "a9565125fd83ab8b17293cf54ea613db9eaa94001b4f3e777ba3b85bd68cea78"
+    },
+    {
+      "path": "src/render/effects/protoss-elite-effects.ts",
+      "sha256": "930766b60136d60dc68de50456dbcf11c49f4099720cd558e89b2053721a8a6e"
+    },
+    {
+      "path": "src/render/effects/protoss-hero-effects.ts",
+      "sha256": "95c4ba01a43ffc6c0fcd43d183620d9700cf078fed43dbcc054467f366781aa5"
+    },
+    {
+      "path": "src/render/effects/protoss-hero-materials.ts",
+      "sha256": "f01c7fa417b6d0fd6d7608f1a0427ab05e524e6172baf3c7538f17429b1b0405"
+    },
+    {
+      "path": "src/render/effects/protoss-hero-presentation.ts",
+      "sha256": "2a6299662926a935211b3e9c14674e4d629cfe78b0c72e917ce0b2bb9678f059"
+    },
+    {
+      "path": "src/render/effects/terran-elite-effects.ts",
+      "sha256": "5f37e64c892c387df14772a76bbe6208db4bdaa58f06589055b4f9bebe322c0e"
+    },
+    {
+      "path": "src/render/effects/terran-elite-materials.ts",
+      "sha256": "22bc40acbf893f00c344c5653d35a287e9582c9ec5b16b17736373f0884b8023"
+    },
+    {
+      "path": "src/render/effects/terran-flame-fan.ts",
+      "sha256": "80ced520ae290eb48eb16b5be804f4ab3ec7592ac436f9f12c9f1072f0ee55b0"
+    },
+    {
+      "path": "src/render/effects/zerg-elite-effects.ts",
+      "sha256": "0c69c33a4b30735f34e3e82beeba3ae11c6ff1860fcbb1148c6a8099ea6fdaa0"
+    },
+    {
+      "path": "src/render/effects/zerg-elite-materials.ts",
+      "sha256": "0fdba204fb426814d384ba65dbf74ee971e739b605c7679bb99f8c80713e5d83"
+    },
+    {
+      "path": "src/render/effects/zerg-hero-effects.ts",
+      "sha256": "f68f4531f8d8d228a0691f419b1dfa34a5eb4c9e7e03fe4aeef8ee48c1fab5ee"
+    },
+    {
+      "path": "src/render/input/battle-picking.ts",
+      "sha256": "768d3151ff5bb8d6ac8758aa5ff145da4e45f6b101f0ab78f4fc246eb0ac072a"
+    },
+    {
+      "path": "src/render/input/battle-view.ts",
+      "sha256": "68c4e3f623209e53e2fea82f61cc30d381e8742b695a81b98c17a7dd049ab533"
+    },
+    {
+      "path": "src/render/loaders/animation-profiles.ts",
+      "sha256": "f2ff3e2005846b066480f48c3d005d832c87d82319a73a1c87451157245da50d"
+    },
+    {
+      "path": "src/render/loaders/animations.ts",
+      "sha256": "6088a294622ba953ae465ab2c2cb1a2f4a1eed6383b075b83d7b8a09b1b07b33"
+    },
+    {
+      "path": "src/render/loaders/sc2-materials.ts",
+      "sha256": "5e38038ffac774a215979a7e088742a31a9f2e6f3ed8c6691322cb266c7ff9ba"
+    },
+    {
+      "path": "src/render/loaders/semantic-gltf.ts",
+      "sha256": "0d4ef93cabdcfe5f76deba616b084a01da6c42762be5dbf5ee2c462d2be45885"
+    },
+    {
+      "path": "src/render/scene/battle-renderer.ts",
+      "sha256": "f0e544b8aca6ed7d08b61843e1820f0f35c524b8d8d97f824ab5991c5364ab13"
+    },
+    {
+      "path": "src/render/settings/quality.ts",
+      "sha256": "6461f2f4ef4f2bba5bd88b9d1cf4032ea4ac5134ed7f63a693251b214b86c99a"
+    },
+    {
+      "path": "src/render/terrain/campaign-ground.ts",
+      "sha256": "2fa233621f1a4961cf52fef285054708904e729d7cd3adc901be5e0798b64aed"
+    },
+    {
+      "path": "src/render/terrain/campaign-map.ts",
+      "sha256": "7a314b29ff395fd837e4441e92ead078232270ea27d1908760b6b4e3926647aa"
+    },
+    {
+      "path": "src/render/terrain/campaign-textures.ts",
+      "sha256": "2e13815ed6851ac8a0d05aaf991aaddd23cf62fb4d9a1519cd1fa7672b668326"
+    },
+    {
+      "path": "src/render/terrain/char-geometry.ts",
+      "sha256": "e345cb65c099182c58198b8278bd676841054a8cb1882e3eb5887bbfd0c51a94"
+    },
+    {
+      "path": "src/render/terrain/char-terrain.ts",
+      "sha256": "e508ab2cef7d8584c71369c91ec9e5d5d0a407d86b37d34e9e91271f486bd3df"
+    },
+    {
+      "path": "src/render/terrain/flat-map.ts",
+      "sha256": "a3d3655c76a324f448f9df6c420425f9777df29adda6d51a7c28222a0fd19974"
+    },
+    {
+      "path": "src/render/terrain/map-surface.ts",
+      "sha256": "01ff297793226c34bc1b6a3daf0d206ba0af055b77f03d376c113196cb15d222"
+    },
+    {
+      "path": "src/render/terrain/map-visibility.ts",
+      "sha256": "9f90b7de2a59353e5f60028468b7d82d9e698e712234a155a586ba09dcf47295"
+    },
+    {
+      "path": "src/render/terrain/original-map.ts",
+      "sha256": "32fb90f203507669884715c8df299021c63041fdb8bea3b25bf068848137923c"
+    },
+    {
+      "path": "src/render/units/animated-batch.ts",
+      "sha256": "f5595fc41abf94708fb9aaf774e7ff33e71adaee597a84eb735bbc34554d4963"
+    },
+    {
+      "path": "src/render/units/death-clock.ts",
+      "sha256": "a68784c5e75f36f0029deded60cc77452c64d7dfee31a8cf5c046b6fd3e52cd3"
+    },
+    {
+      "path": "src/render/units/friendly-labels.ts",
+      "sha256": "f6e7acf415c4b4fb9d37deae28b939f7c5620b3442d284c7727e000bec9b92dc"
+    },
+    {
+      "path": "src/render/units/instance-updates.ts",
+      "sha256": "f9697a7c9295cf001f1a8add5b7789859262425c0aabcbc2a058e2337b8de6ae"
+    },
+    {
+      "path": "src/render/units/pod-view.ts",
+      "sha256": "121c32e1d03a59085e58d786531f38e29adc53fb79b16b5fb5011685660695e5"
+    },
+    {
+      "path": "src/render/units/pylon-birth-materials.json",
+      "sha256": "6daa85b70e2c4b607ea79ea31cb3f1203cf701b8955de97519e57b26d24c7f1b"
+    },
+    {
+      "path": "src/render/units/pylon-birth-materials.ts",
+      "sha256": "a79320e0251b96588055d466e24f87ebd8fc7912c8c7c973ec5be773a9bdfecb"
+    },
+    {
+      "path": "src/render/units/resource-drops.ts",
+      "sha256": "4f81a979248cf9f398528243c0dbf3c3eb4acdaed7d44703eedaf0637d63aa0f"
+    },
+    {
+      "path": "src/services/game-observer.ts",
+      "sha256": "f63a49088cf7b5d2ece00fb534be60532ba9a1734d25de1ca2a927b323622b5a"
+    },
+    {
+      "path": "src/services/load-observer.ts",
+      "sha256": "019fc6057aa0b7968c06481ea887bb4e98259cb247b5ca4f068f25947e5bc48d"
+    },
+    {
+      "path": "src/services/telemetry-client.ts",
+      "sha256": "7313ffe4a36cd5d9dcfb1ac81b5c6ec5fd4d188def3bebb40b282418fcf3d4c2"
+    },
+    {
+      "path": "src/simulation/boss-loot.ts",
+      "sha256": "f23274986483decf101a0960194ad815ec7a6757ba330743a17acd0fdcefbe5a"
+    },
+    {
+      "path": "src/simulation/combat/attack-lines.ts",
+      "sha256": "90ddda265e4a0fc8de980457b414e3dac2fe53f424f65da94e46c8cd48c7b5bd"
+    },
+    {
+      "path": "src/simulation/combat/auto-targeting.ts",
+      "sha256": "a6f633bc429d3be5a2481a0eede8ece6a447910c0e2d8a43e4061411ecd8a7f4"
+    },
+    {
+      "path": "src/simulation/combat/battle-view.ts",
+      "sha256": "49a8c6b9a9ae591cf7eb552be3065a4551d60b90628d6fefcfe3d06daaab31da"
+    },
+    {
+      "path": "src/simulation/combat/carriers.ts",
+      "sha256": "f1cdd107d5b893cfaa225ca3333058bf1332fcfc39ef7dbbe1b81d548a6aac8e"
+    },
+    {
+      "path": "src/simulation/combat/combat-presence.ts",
+      "sha256": "cbd55095212af35229c755c369dac082df56072442db2dd87db0007a0d5e36ba"
+    },
+    {
+      "path": "src/simulation/combat/elite-support.ts",
+      "sha256": "6bbb93a2b3d1fa585a4f010bc244f891740bfcc84c024d2627ac76c59554f4ec"
+    },
+    {
+      "path": "src/simulation/combat/enemy-specials.ts",
+      "sha256": "2ea8a727ffc8f23183ac015191d260e152ef9b2e5a64e841996452f74cd83732"
+    },
+    {
+      "path": "src/simulation/combat/expedition-combat.ts",
+      "sha256": "133d2714ba339ebcb633fac653fdd863a85d8acbc51f301a58462d8c95f8ce0f"
+    },
+    {
+      "path": "src/simulation/combat/expedition-elites.ts",
+      "sha256": "948484f568264389790deeb51d7fe4763f75df03a1e84ee3f4bcca76482ac024"
+    },
+    {
+      "path": "src/simulation/combat/expedition-heroes.ts",
+      "sha256": "d3bf355c7d95b06b9d2882c4347d6585227d840a6d067868377b8437dd6588a0"
+    },
+    {
+      "path": "src/simulation/combat/family-actions.ts",
+      "sha256": "5a096b8372159b11f277c8bc39fa0d2be8822b14be0e291cdb716d4505c5a055"
+    },
+    {
+      "path": "src/simulation/combat/hero-attack-upgrades.ts",
+      "sha256": "958da9af621110dc9d2a198964de1ee65ba77c3417be78e489aebe3f38141c1b"
+    },
+    {
+      "path": "src/simulation/combat/hero-ground-auras.ts",
+      "sha256": "94c6cfcce8af3cf29f8c5cfb9292f5986f1e8a6486ec1e694d4e53bc7f539a79"
+    },
+    {
+      "path": "src/simulation/combat/main-hive.ts",
+      "sha256": "dd7f7e518abeb138a14d008a1b58b338b277840b673d30a386fec5f28640876d"
+    },
+    {
+      "path": "src/simulation/combat/protoss-elite-runtime.ts",
+      "sha256": "474db2ab108f6bb95319536de6f67cce58bba23650641db0498e2ac2b9db5ed0"
+    },
+    {
+      "path": "src/simulation/combat/protoss-hero-passives.ts",
+      "sha256": "9807a3b3f1cf69dc425f5c5494e453af973045e71a0202089a8a6595235e257c"
+    },
+    {
+      "path": "src/simulation/combat/shop-support.ts",
+      "sha256": "a3aacd69e3ca3ad08b699a42efb776585b931fc14c9ca50ab493bc1c29fcf61f"
+    },
+    {
+      "path": "src/simulation/combat/statuses.ts",
+      "sha256": "501c602b578bc9103052171eea70ad6d0db92b3d9e54d85f9de35b6e29ae217a"
+    },
+    {
+      "path": "src/simulation/combat/talent-support.ts",
+      "sha256": "5b61409d9030cb9dea22ef37875e1e2eda2fa88f1393b6a11bfaf0013997c5a6"
+    },
+    {
+      "path": "src/simulation/combat/talent-transfer.ts",
+      "sha256": "8c1bb53ee00e1280aaa6be67dfe4820f7bd636356496ac4927f989e0298f7c8e"
+    },
+    {
+      "path": "src/simulation/combat/team-auras.ts",
+      "sha256": "8f6e6e274566718e2aefbdb397ee625cda673a539bcb184de261ef142badf8ed"
+    },
+    {
+      "path": "src/simulation/combat/terrain-fire.ts",
+      "sha256": "2ad948fbc0924a0934b669ab24389c8a574a7b999c4fab68ee75f0173aa606e8"
+    },
+    {
+      "path": "src/simulation/combat/terran-elite-runtime.ts",
+      "sha256": "c4a20d6c45e702be69cc1a165c023d48ce25f9f29b26a83e929ae616554f42cf"
+    },
+    {
+      "path": "src/simulation/combat/terran-hero-passives.ts",
+      "sha256": "5dcf0e9fe82b81aa2556a2d1cad47e6f41146aa8d6e0f3910554c33cb4b35579"
+    },
+    {
+      "path": "src/simulation/combat/tracking-mines.ts",
+      "sha256": "3e7417c77eb9ff100c36805b4ff776c9a9b8652ef43f0069b91ea4a51fc317cb"
+    },
+    {
+      "path": "src/simulation/combat/unique-support.ts",
+      "sha256": "72bea0f8748cd1ae40eac3b20a4349498c6d71481330a89ba068ca700f5b2c83"
+    },
+    {
+      "path": "src/simulation/combat/weapon-flight.ts",
+      "sha256": "dd4285c131677b451e74507af0e00004b3dc579855bd881cc60bf4769dbf8187"
+    },
+    {
+      "path": "src/simulation/combat/weapon-patterns.ts",
+      "sha256": "0ca1a60a59ccb8a6625d27a3e34db85a18de2e8e283c52d886907b2c09b2f870"
+    },
+    {
+      "path": "src/simulation/combat/zerg-elite-runtime.ts",
+      "sha256": "5b83afa3b7ebf6663f96cade0ea34ccba9982eeea52e3f175164a0f53619b5f8"
+    },
+    {
+      "path": "src/simulation/combat/zerg-hero-passives.ts",
+      "sha256": "99f9c7466ea969c1834743b8c0c6cf5a966343cc489d3fe1aa7d47e890f4a8a6"
+    },
+    {
+      "path": "src/simulation/combat/zerg-hero-revival.ts",
+      "sha256": "7fbe31efa34474ea8a054b4fa6ef0984b3d42566277abc92a57f420df5dc8c76"
+    },
+    {
+      "path": "src/simulation/elite-claim.ts",
+      "sha256": "a7cf8bcf08b8d9a996f7215b75f07d86dc975833aabe3aeffdf59eb33a85c2bc"
+    },
+    {
+      "path": "src/simulation/expedition-economy.ts",
+      "sha256": "3c2f54c0b6963bf5d6eb39b45df7b27e5453482262b34f529294f198016728c4"
+    },
+    {
+      "path": "src/simulation/expedition-production.ts",
+      "sha256": "c16753ea48b092680e44a361e0186a49dee3d72da70e1db9d5a5f290f4fcb2bb"
+    },
+    {
+      "path": "src/simulation/expedition-state.ts",
+      "sha256": "0f51af17dce6d7df8227fdb73885b7feeda36d948580caff28f810d73d1d870a"
+    },
+    {
+      "path": "src/simulation/fixed-stepper.ts",
+      "sha256": "59e3dd01f8bff7ebf76d465f224432eeae66b9c52945a60c576e0bc2cfba4437"
+    },
+    {
+      "path": "src/simulation/formation/engagement.ts",
+      "sha256": "8dda6dddef1295591e40b5e533c5706ca694d54db2943b2939fd5c2a867801e8"
+    },
+    {
+      "path": "src/simulation/formation/squad.ts",
+      "sha256": "c08b7d2728ee4ca08b035cca0e9b0390c26676ad5b086f2f3a7a42972ed18b51"
+    },
+    {
+      "path": "src/simulation/movement/carrier-landing.ts",
+      "sha256": "370f2113c6d9c926f9bb903413b2eb0c81154de31fe97aaa9aef88cde062ba5a"
+    },
+    {
+      "path": "src/simulation/movement/contacts.ts",
+      "sha256": "f17040c80ef9911df7e2529acf421768c3265ce623aed138ff87e10937beb35b"
+    },
+    {
+      "path": "src/simulation/movement/control-anchor.ts",
+      "sha256": "6cd3b3ccc0e2cd8024bcc79eeac35ba81ab8527c63cdc0728347ec2d98abd204"
+    },
+    {
+      "path": "src/simulation/movement/direction-route.ts",
+      "sha256": "9d80764a8cb93bd4013f6f6547caeee384f65984ff684b3d8c275bbcd550adfd"
+    },
+    {
+      "path": "src/simulation/movement/enemy-routes.ts",
+      "sha256": "06e6d531ca9f8a5a26aee468821944685ef316457d471aef86069026fea2000e"
+    },
+    {
+      "path": "src/simulation/movement/flat-terrain.ts",
+      "sha256": "9dd7054683ff1b6cef383198f7a2a13b74a1612502e183c525c93e61f5c29bb9"
+    },
+    {
+      "path": "src/simulation/movement/map-terrain.ts",
+      "sha256": "ba873adcce176063952860a935b260e6093af0e860b3988e8da207367979ac01"
+    },
+    {
+      "path": "src/simulation/movement/native-traversal.ts",
+      "sha256": "8e253eff584ebc1b308a00917ffe2431910613b52da47c321c127bdb5c39038a"
+    },
+    {
+      "path": "src/simulation/movement/spatial-hash.ts",
+      "sha256": "a7361ea6e50639837acd3c45bfdd5ebad997ab2f700e33baa5ffe77430968dbf"
+    },
+    {
+      "path": "src/simulation/movement/spawn-cells.ts",
+      "sha256": "72b7fd6a112d55551819beaff4494c6b1325c93ebcb13173ab9f8ef32f142a39"
+    },
+    {
+      "path": "src/simulation/movement/steering.ts",
+      "sha256": "4e8b9d15e251ddfb5d08acc827e86cdac2c4a89caf0a8516aa5121b8ec87472a"
+    },
+    {
+      "path": "src/simulation/observation.ts",
+      "sha256": "bbf28d4c2ef4b65476cfca06c94caf83a6c13a3a52f50bd6f2045c2eb7451ce1"
+    },
+    {
+      "path": "src/simulation/persistence/run-fields.ts",
+      "sha256": "6b4c2aff1c4053e89b57d911eb04cd114c2f77da61c696061f6fd654da6bcf4c"
+    },
+    {
+      "path": "src/simulation/persistence/run-snapshot.ts",
+      "sha256": "a1853fc343037a6109ff9b804b8b65c164230c2e17f34f11fc7d8db58f922e90"
+    },
+    {
+      "path": "src/simulation/progression/expedition-drafts.ts",
+      "sha256": "93f7186b2b39bc131713871114e313193391459e8c70b2ceb5d01218fabea6b3"
+    },
+    {
+      "path": "src/simulation/progression/mvp-talent-effects.ts",
+      "sha256": "fc7c583f9362c24891347c30f701dd776ba92305caf48be1043027452c6dca74"
+    },
+    {
+      "path": "src/simulation/progression/permanent-profile.ts",
+      "sha256": "94ee1108be158a1f5c7d943b6a90a528b197e8016963b2d3f14cdb022cd0bd47"
+    },
+    {
+      "path": "src/simulation/progression/supply-cards.ts",
+      "sha256": "4f1d4121d9e82b2f31f6fa7cc392ec8c7b71e7adc786694ae1c22b49d5288e0b"
+    },
+    {
+      "path": "src/simulation/progression/talent-rewards.ts",
+      "sha256": "2192e1908a57d0ba6a4f6d81df762d4073877a5d9247e385ae76376916423c22"
+    },
+    {
+      "path": "src/simulation/progression/team-cards.ts",
+      "sha256": "b7c4dc1b4c3a2fd4ebe4d30272f0e113af7479e40119a483165f272b2089d05e"
+    },
+    {
+      "path": "src/simulation/progression/training-cards.ts",
+      "sha256": "58969041906127acca9576745c39fcb73cef45c45e8e7ba54f0edc233a9ed2dd"
+    },
+    {
+      "path": "src/simulation/rules.mjs",
+      "sha256": "e04bc7e89bd69ca0ecc09ff7c7aeadf590cfb763814f988955cd9fea7466da7f"
+    },
+    {
+      "path": "src/simulation/run-state.ts",
+      "sha256": "c77020171e94800393105203acb1e75deb5801cbc324d207d98d2a63638234fe"
+    },
+    {
+      "path": "src/simulation/types.ts",
+      "sha256": "22b400acd65f8004903564ad4289776ab0826ade4538d79626cd74be181c2997"
+    },
+    {
+      "path": "src/simulation/world.ts",
+      "sha256": "3244bcf9453bbde582e966b2638f856437ab7df80cffbb52f3cf7d1397aeb47f"
+    },
+    {
+      "path": "src/simulation/zerg-brood.ts",
+      "sha256": "e8c8ec71af847519100a7c61fd081fbe6c16ec83b06eb8e9748f5d4866fcfaa0"
+    },
+    {
+      "path": "src/ui/controls/battle-actions.ts",
+      "sha256": "7cd82ff6d8cab0aec729f47d686451784cc6b9bb9a571bd86ca8822dc52fad50"
+    },
+    {
+      "path": "src/ui/controls/settings.ts",
+      "sha256": "9359cea49b824dad23ea6a7a0303a4782b57554d8c98189403823c835a50900e"
+    },
+    {
+      "path": "src/ui/controls/skills.ts",
+      "sha256": "c646035fdf89484f329634d9d4ee6dce36d82d73b648f25527652ab7d87248ca"
+    },
+    {
+      "path": "src/ui/gamepad/controller.ts",
+      "sha256": "2a0a339739b68c37df1030a53c3cb3fb09731d2e6c83af5af8f9078e67766de5"
+    },
+    {
+      "path": "src/ui/gamepad/state.ts",
+      "sha256": "83b41fe8477156dbad60c05803fa98a8148340f3abe944642f823aa8a203a3e4"
+    },
+    {
+      "path": "src/ui/hero-map-ui.css",
+      "sha256": "b443402ebb6fe497c103d1e10e10a8bc77c1d83f6b44b81772e119c06d8da11d"
+    },
+    {
+      "path": "src/ui/hud/battle-commands.ts",
+      "sha256": "a6b379e6688b4ab8bab39baa7c7c5d74c0bb290127c472c0c898cd51034ae8dc"
+    },
+    {
+      "path": "src/ui/hud/boss-loot-panel.ts",
+      "sha256": "a99eec54de35e1bf8d25fbd1846bab4ee5c3a06701e884b615a66ed5396d9bfe"
+    },
+    {
+      "path": "src/ui/hud/carrier-inspector.ts",
+      "sha256": "8fd0142192a4984daf1275b1071cad5b2e1e82741d7e611573fde8f8b7a54462"
+    },
+    {
+      "path": "src/ui/hud/compact.css",
+      "sha256": "222941d09b2a6c5d895dc9c2a97ef7f1850d6119940681e6122cec8e06ad6c35"
+    },
+    {
+      "path": "src/ui/hud/detection-hint.ts",
+      "sha256": "374142e8074442968d7294fcf8a3835c7b2a25906356ab3b4dc22668d5397ca8"
+    },
+    {
+      "path": "src/ui/hud/expedition-panel.ts",
+      "sha256": "7bf1141462e988bfe840617dfc23c01f8700e323cdcddba15e38cc42ccc9152c"
+    },
+    {
+      "path": "src/ui/hud/glyphs.ts",
+      "sha256": "a48d94b9fbe1334af29012b625e428f21af50cdf6eabbcfe6608697e6c2ff2c8"
+    },
+    {
+      "path": "src/ui/hud/layout.ts",
+      "sha256": "6b1234a9f46964703b68d3832dfc41bff31823d19b6cd31b47a0bdc5632fc258"
+    },
+    {
+      "path": "src/ui/hud/m3-menu.ts",
+      "sha256": "723ab8fd592085c7041e4637bd66142091e4b03cb1f8caea5819767254c5bb10"
+    },
+    {
+      "path": "src/ui/hud/minimap.ts",
+      "sha256": "2cd7c0a3fdf7dd3a625f6b6cf3aed874aaea11eff5cb54158a900115dec39fef"
+    },
+    {
+      "path": "src/ui/hud/mvp-talent-panel.css",
+      "sha256": "b653860594ab4e4f9d888f72a17070eb9f1ace2ccbec385f9449d3906d0aa64d"
+    },
+    {
+      "path": "src/ui/hud/mvp-talent-panel.ts",
+      "sha256": "7de86230ab619a8f460c689078fbcb957c8e183d8a9cd8c91918fc6ff949a507"
+    },
+    {
+      "path": "src/ui/hud/objectives.ts",
+      "sha256": "db2d06825e596b2618aef1ccb9247e27b0bb7cae387ddf0216ccfa20afaaa80f"
+    },
+    {
+      "path": "src/ui/hud/player-services.css",
+      "sha256": "4f99c25194c26805d90d4de89973c5d83162bd88894e4e3dd5455ccfc629c727"
+    },
+    {
+      "path": "src/ui/hud/player-services.ts",
+      "sha256": "f32353772636673dfefdde0ad9a9fb299232c15e4833457194877d2a731c73d0"
+    },
+    {
+      "path": "src/ui/hud/preferences.ts",
+      "sha256": "eeb26de277952c01a6a14433d9e2438cef2badd21be01468743a0fbf6ca9fcf9"
+    },
+    {
+      "path": "src/ui/hud/resource-downloads.ts",
+      "sha256": "057c850a23afd261393862fb3626e11bdc7de8993f929f2d9a0b38a7946e339c"
+    },
+    {
+      "path": "src/ui/hud/save-controls.ts",
+      "sha256": "73c4247fcc995ff5ca756ba15c17a3cdd582284e1eba8be2856ffdeeec955603"
+    },
+    {
+      "path": "src/ui/hud/squad-console.css",
+      "sha256": "5764002c8fd12e0d0bc4291433ff777b8c99a5e7dfa4ee52429fb379f6f640c0"
+    },
+    {
+      "path": "src/ui/hud/squad-console.ts",
+      "sha256": "e7b9052282df5cc173bec91f45fdd93f6832c692c01bfbbba1a3efe7df71d1ec"
+    },
+    {
+      "path": "src/ui/hud.ts",
+      "sha256": "cdc25d0ff4fc1fcea5234d1886302179053691f76191a6bfdedca5db1f0675f4"
+    },
+    {
+      "path": "src/ui/mobile/input.ts",
+      "sha256": "d2eb71d63eb92b33eaaed52c3778067fbfd9b3de971740b79cb4ff7554184b95"
+    },
+    {
+      "path": "src/ui/mobile/layout.css",
+      "sha256": "ab01e6b0e73f28ee5d61d382ab3e87dbeb93fb2bb11a793d0cbfb3ac5498dfb8"
+    },
+    {
+      "path": "src/ui/mobile/viewport.ts",
+      "sha256": "e6b767653b233aa41c8330a1bd56d25d71dfb36f29ca4270d21b815533b65230"
+    },
+    {
+      "path": "src/ui/model-viewer.mjs",
+      "sha256": "f35815f1bc4c8b4850de1d8e5d8321002d51ad75dcd88eb1dda15690e925e853"
+    },
+    {
+      "path": "src/ui/presentation/ability-copy.ts",
+      "sha256": "c285d03b7ea0923a5346038323656af71ebc9501e244f8f48712cf3bc04f9aa0"
+    },
+    {
+      "path": "src/ui/presentation/card-presentation.generated.ts",
+      "sha256": "5c5d05cd1f7c8f07a63cb8b265cac13f1dd73405023bb0ababd2be5c5492e811"
+    },
+    {
+      "path": "src/ui/presentation/cover-transition.ts",
+      "sha256": "47836958d897ba209f7446458bc375a13a81665b4db5c1e5dcca154b8c65e06d"
+    },
+    {
+      "path": "src/ui/presentation/decision-screens.ts",
+      "sha256": "c1f885594e4f594846cc80d16566a105fd0c9fe5779acbe5f0a18af3d523cf35"
+    },
+    {
+      "path": "src/ui/presentation/end-screens.ts",
+      "sha256": "c70b9f84a6d04a74d5f7d6ef91301c178a22f98375abd1c494df80026e230ad8"
+    },
+    {
+      "path": "src/ui/presentation/formal-ui.css",
+      "sha256": "001026a66447897469447fb94ba298194bb58edfb197958bb5dae15bc6fdcd90"
+    },
+    {
+      "path": "src/ui/presentation/game-copy.ts",
+      "sha256": "93759fb8365964d99ea6ef12a7388b8ff2d2b8ddc259beead44b0045ba511480"
+    },
+    {
+      "path": "src/ui/presentation/game-shell.css",
+      "sha256": "be1fee9fba63584d40b09637b91b54300137e6d1ea000a1733f26b28f9ac11d5"
+    },
+    {
+      "path": "src/ui/presentation/input-capture.ts",
+      "sha256": "b2c318bd10ce7071b8c89b474d741ff72b8e4cbe67536c25b0f642d4db0cef4e"
+    },
+    {
+      "path": "src/ui/presentation/intermission.ts",
+      "sha256": "d6140e3cafee0a7684fa7652c1dd6b10b00163cc279fbbb6483c05092351c774"
+    },
+    {
+      "path": "src/ui/presentation/live-inspector.ts",
+      "sha256": "8cd389b8fb9a436396bf22cc99c891bb4572fe10df2adaae540969b94ae8f50c"
+    },
+    {
+      "path": "src/ui/presentation/map-preview.ts",
+      "sha256": "f0ac0636a61a7b9399aab5f5289f853f15600379d2a28433543e003fa3e08af2"
+    },
+    {
+      "path": "src/ui/presentation/navigation.ts",
+      "sha256": "c26a60f0da08f78a9dfde2d5dbcbc1bf61ba1a974b9d9a45e5ee636ce2bfb4ab"
+    },
+    {
+      "path": "src/ui/presentation/painted-art.ts",
+      "sha256": "fa4c5be02eab98e460ba2ff5eb2a4165455258987e8b2210b2d8f3590481faf5"
+    },
+    {
+      "path": "src/ui/presentation/reference-card.ts",
+      "sha256": "0af013078869852617a99f66397cbbb93dcdf2fa843833ee372523989c007a86"
+    },
+    {
+      "path": "src/ui/presentation/reference-engraving.ts",
+      "sha256": "136641339cde7d89b6327f7e8c85b363d27219981bf6879a33e5f19f828c9bb6"
+    },
+    {
+      "path": "src/ui/presentation/reference-glyphs.ts",
+      "sha256": "c79b9a7ea6ea8663cb813b41698c624942f42238bf9dcfa7203fb751e630be15"
+    },
+    {
+      "path": "src/ui/presentation/reference-minimap.ts",
+      "sha256": "783d7abe0f5575db2dfd62e0cdf143ef8cfa87fadbead6e5bdd2e02bd8a0be99"
+    },
+    {
+      "path": "src/ui/presentation/reference-primitives.ts",
+      "sha256": "9cdd57db0c9e211d66e266383bb5bb7b33990b581d7613d389451fd339ada326"
+    },
+    {
+      "path": "src/ui/presentation/reference-r12.css",
+      "sha256": "8309febfe24eae6b06d779130fd790a9821a3144e499ea5050b874760a856b72"
+    },
+    {
+      "path": "src/ui/presentation/settings-screen.ts",
+      "sha256": "dc3f1bc11f5deab02ab0c65fb74c13ccaf609c136f72a6f60a2367497c76965b"
+    },
+    {
+      "path": "src/ui/presentation/talent-presentation.generated.ts",
+      "sha256": "9bfb6cd6fade2a3c9ba1fa03fa217c4a7783ebefe9baf52df5d784e0816aff28"
+    },
+    {
+      "path": "src/ui/presentation/talent-screens.ts",
+      "sha256": "aac170dabbed70ad1f5c0b486274d13ae1b7b6891fcc5d2899ceabe7f810e908"
+    },
+    {
+      "path": "src/ui/presentation/text-scale-reference.generated.css",
+      "sha256": "2570745db022b7f211a1506ec49a0f869f1eff23f67b800da51ee1553238562c"
+    },
+    {
+      "path": "src/ui/presentation/unit-inspector.ts",
+      "sha256": "b96882fead430618db2983cb383032d9a36949e99a327a19f69b7a5ce24f4945"
+    },
+    {
+      "path": "src/ui/presentation/world-labels.css",
+      "sha256": "f37937139beec77f28adb4a2220d64bcc7df1dd2c32dbd27f02e29813ff38150"
+    },
+    {
+      "path": "src/ui/sc2-battle.css",
+      "sha256": "3ee1052446e37530422822086c6c6e881a00c6d2f61923af17877df0bad6b7ef"
+    },
+    {
+      "path": "src/ui/sc2-theme.css",
+      "sha256": "bfb5705f5cb9c1f4ab8440db71cdcfbfb5cb04100ebcc9de803b8e19cf6a24b9"
+    },
+    {
+      "path": "src/ui/text-scale.ts",
+      "sha256": "d694ac653f2e5ccf5fa0064dc0f37694b60071acb9b0b5934dd6082ea3eab5e0"
+    },
+    {
+      "path": "src/ui/unit-identity.ts",
+      "sha256": "e86c7ebc6bfc5544edf34d4cad20d3cf465f93e07a5a99654939592aac0d0b6f"
+    }
+  ]
+}

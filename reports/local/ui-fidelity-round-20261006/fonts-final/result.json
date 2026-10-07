@@ -1,0 +1,22 @@
+{
+  "method": "Isolated current-map engineering fixtures, native quotes/receipts, public UI operations; complete run and profile equality against the same native command. No natural campaign/device claim.",
+  "checks": [
+    "125% and 150% actual font setting across minimum portrait, portrait and short landscape"
+  ],
+  "screens": [
+    "text-settings-320x568-1.25",
+    "text-talents-320x568-1.25",
+    "text-settings-320x568-1.5",
+    "text-talents-320x568-1.5",
+    "text-settings-390x844-1.25",
+    "text-talents-390x844-1.25",
+    "text-settings-390x844-1.5",
+    "text-talents-390x844-1.5",
+    "text-settings-844x390-1.25",
+    "text-talents-844x390-1.25",
+    "text-settings-844x390-1.5",
+    "text-talents-844x390-1.5"
+  ],
+  "errors": [],
+  "passed": true
+}

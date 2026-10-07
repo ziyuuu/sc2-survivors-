@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-07T02:04:43.125Z",
+  "baseline": "bba13399049dfa3e7c16621dc88decbc4a351a1f",
+  "phase": "UI only, before anchor correction",
+  "source": {
+    "total": 228,
+    "changed": [
+      "src/app/bootstrap.ts",
+      "src/app/run-session.ts",
+      "src/main.ts",
+      "src/render/effects/audio.ts",
+      "src/ui/gamepad/controller.ts",
+      "src/ui/hud/battle-commands.ts",
+      "src/ui/hud/boss-loot-panel.ts",
+      "src/ui/hud/carrier-inspector.ts",
+      "src/ui/hud/expedition-panel.ts",
+      "src/ui/hud/m3-menu.ts",
+      "src/ui/hud/minimap.ts",
+      "src/ui/hud/mvp-talent-panel.ts",
+      "src/ui/hud/player-services.ts",
+      "src/ui/hud/resource-downloads.ts",
+      "src/ui/hud/squad-console.css",
+      "src/ui/hud/squad-console.ts",
+      "src/ui/hud.ts",
+      "src/ui/presentation/formal-ui.css",
+      "src/ui/presentation/input-capture.ts",
+      "src/ui/presentation/intermission.ts",
+      "src/ui/presentation/painted-art.ts",
+      "src/ui/presentation/unit-inspector.ts"
+    ],
+    "unchanged": 206
+  },
+  "protectedRules": 110,
+  "preview": {
+    "files": 448,
+    "bytes": 231541893
+  },
+  "additionalArt": {
+    "files": 1771,
+    "bytes": 1215021407
+  },
+  "passed": true
+}

@@ -46,9 +46,9 @@ test('defeated, regenerating and twin inspection states are distinct and read-on
  const dead:UnitSeat={key:'hero',hero:'dehaka',bodies:[],name:'德哈卡',image:'',defeated:true};
  const regrow:UnitSeat={key:'regrow',family:'baneling',bodies:[],name:'爆虫',image:'',regrowAt:w.tick+300};
  const before=snapshot(w);
- assert.match(renderUnitInspector(w,twin,[twin],'stats',new Set()),/跳虫 2/);
+ assert.match(renderUnitInspector(w,twin,[twin],'stats',new Set()),/跳虫 ②/);
  assert.match(renderUnitInspector(w,dead,[dead],'stats',new Set()),/英雄已阵亡/);
- assert.match(renderUnitInspector(w,regrow,[regrow],'stats',new Set()),/编制重生中/);
+ assert.match(renderUnitInspector(w,regrow,[regrow],'stats',new Set()),/重生/);
  assert.equal(snapshot(w),before);
 });
 

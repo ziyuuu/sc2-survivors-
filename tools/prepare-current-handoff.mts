@@ -6,6 +6,7 @@ import {createHash} from 'node:crypto';
 const arg=process.argv.indexOf('--out');
 const destination=path.resolve(arg>=0?process.argv[arg+1]:'dist/Current-Coze-Application-20261006');
 const performanceStage=process.argv.includes('--performance');
+const fidelityStage=process.argv.includes('--ui-fidelity');
 const web=path.resolve('dist/web'),baseline=path.resolve('deploy/coze');
 const relative=path.relative(path.resolve('dist'),destination);
 if(!relative||relative.startsWith('..')||path.isAbsolute(relative))throw Error('Output must be a new folder inside dist');
@@ -35,10 +36,11 @@ for(const [from,to] of [
  ['deploy/coze/.env.example','.env.example']
 ])await fs.copyFile(from,path.join(destination,to));
 if(performanceStage)for(const name of ['FIXED_SCENE_PERFORMANCE_20261006.md','FIXED_SCENE_PERFORMANCE_VALIDATION_20261006.md'])await fs.copyFile('docs/project/'+name,path.join(destination,name));
+if(fidelityStage)for(const name of ['UI_FIDELITY_ROUND_20261006.md','UI_FIDELITY_ROUND_VALIDATION_20261006.md'])await fs.copyFile('docs/project/'+name,path.join(destination,name));
 const pkg=JSON.parse(await fs.readFile(path.join(baseline,'package.json'),'utf8'));
 const lock=JSON.parse(await fs.readFile(path.join(baseline,'package-lock.json'),'utf8'));
 pkg.name=lock.name=lock.packages[''].name='sc2-survivors-current-application';
-pkg.version=lock.version=lock.packages[''].version=performanceStage?'0.6.5':'0.6.4';
+pkg.version=lock.version=lock.packages[''].version=fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
 for(const [name,data]of [['package.json',pkg],['package-lock.json',lock]]as const)await fs.writeFile(path.join(destination,name),JSON.stringify(data,null,2)+'\n');
 const priorGroups=JSON.parse(await fs.readFile(path.join(baseline,'resource-groups.json'),'utf8'));
 const priorByUrl=new Map<string,any>(priorGroups.files.map((row:any)=>[row.url,row]));
@@ -69,5 +71,5 @@ await fs.writeFile(path.join(destination,'resource-delta.json'),JSON.stringify({
 async function list(dir:string,prefix=''):Promise<string[]>{const out:string[]=[];for(const e of await fs.readdir(dir,{withFileTypes:true}))out.push(...(e.isDirectory()?await list(path.join(dir,e.name),prefix+e.name+'/'):[prefix+e.name]));return out;}
 const appFiles=[];for(const file of await list(destination)){const b=await fs.readFile(path.join(destination,file));appFiles.push({path:file,bytes:b.length,sha256:sha(b)});}
 const packageBuildId=sha(JSON.stringify([...appFiles].sort((a,b)=>a.path.localeCompare(b.path))));
-await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:performanceStage?'local fixed-scene performance candidate; natural performance gate open; not deployed':'local formal UI candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0},null,2));
+await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:fidelityStage?'local UI fidelity and intangible continuous control-point candidate; not deployed':performanceStage?'local fixed-scene performance candidate; natural performance gate open; not deployed':'local formal UI candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0},null,2));
 console.log(JSON.stringify({destination,packageBuildId,appBuildId:release.appBuildId,runSchema:release.runSchema,appFiles:appFiles.length,resourceAdditions:added.length,deployed:false}));

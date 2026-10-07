@@ -1,0 +1,351 @@
+{
+  "method": "All-identity inspector diagnostics use original stage16 duration through scripted public World transitions, not natural campaign acceptance. Production UI imports six diagnostic World archives covering all30 ordinary families/all18 heroes, real support and actual child identities; export/save/reload/local-load. Browser keyboard, touch and virtual gamepad are engineering checks, not physical device acceptance.",
+  "offline": false,
+  "appBuildId": "6256bfed00197d3c7b904fa95ef7c9dde95fe39abc6526e9c1a4da6decdbf3db",
+  "checks": [
+    {
+      "race": "terran",
+      "group": 0,
+      "families": [
+        "marine",
+        "marauder",
+        "reaper",
+        "hellion",
+        "tank"
+      ],
+      "heroes": [
+        "raynor",
+        "tychus",
+        "nova"
+      ],
+      "control": "keyboard",
+      "schema": 26,
+      "damage": 928154.6792901158,
+      "healed": 0,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": true,
+      "debugApi": false
+    },
+    {
+      "race": "terran",
+      "group": 1,
+      "families": [
+        "thor",
+        "viking",
+        "banshee",
+        "medivac",
+        "science_vessel"
+      ],
+      "heroes": [
+        "swann",
+        "tosh",
+        "yamato_battlecruiser"
+      ],
+      "control": "keyboard",
+      "schema": 26,
+      "damage": 9991927.02019038,
+      "healed": 0,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": false,
+      "debugApi": false
+    },
+    {
+      "race": "terran",
+      "group": 2,
+      "families": [
+        "reaper"
+      ],
+      "heroes": [],
+      "control": "keyboard",
+      "schema": 26,
+      "damage": 10217.88413461065,
+      "healed": 0,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": false,
+      "debugApi": false
+    },
+    {
+      "race": "zerg",
+      "group": 0,
+      "families": [
+        "zergling",
+        "baneling",
+        "roach",
+        "ravager",
+        "hydralisk"
+      ],
+      "heroes": [
+        "kerrigan",
+        "zagara",
+        "dehaka"
+      ],
+      "control": "browser touch",
+      "schema": 26,
+      "damage": 2539546.749346194,
+      "healed": 476.3717856922999,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": true,
+      "debugApi": false
+    },
+    {
+      "race": "zerg",
+      "group": 1,
+      "families": [
+        "queen",
+        "lurker",
+        "mutalisk",
+        "corruptor",
+        "ultralisk"
+      ],
+      "heroes": [
+        "stukov",
+        "niadra",
+        "hots_leviathan"
+      ],
+      "control": "browser touch",
+      "schema": 26,
+      "damage": 9964994.528132344,
+      "healed": 1974.5650812083218,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": false,
+      "debugApi": false
+    },
+    {
+      "race": "protoss",
+      "group": 0,
+      "families": [
+        "zealot",
+        "adept",
+        "stalker",
+        "sentry",
+        "immortal"
+      ],
+      "heroes": [
+        "artanis",
+        "zeratul",
+        "alarak"
+      ],
+      "control": "virtual standard gamepad",
+      "schema": 26,
+      "damage": 2384273.089820926,
+      "healed": 0,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": true,
+      "debugApi": false
+    },
+    {
+      "race": "protoss",
+      "group": 1,
+      "families": [
+        "colossus",
+        "high_templar",
+        "phoenix",
+        "void_ray",
+        "carrier"
+      ],
+      "heroes": [
+        "fenix",
+        "vorazun",
+        "purifier_flagship"
+      ],
+      "control": "virtual standard gamepad",
+      "schema": 26,
+      "damage": 2606224.8553302577,
+      "healed": 385.72000000000423,
+      "saveRestored": true,
+      "worldPreserved": true,
+      "unsupportedSaveRejected": true,
+      "newGameChecked": false,
+      "debugApi": false
+    }
+  ],
+  "errors": [],
+  "inspections": [
+    {
+      "group": "terran-0",
+      "identities": [
+        "marine",
+        "marine.1",
+        "marine.2",
+        "marine.3",
+        "marauder",
+        "marauder.1",
+        "marauder.2",
+        "marauder.3",
+        "reaper.3",
+        "hellion",
+        "hellion.1",
+        "hellion.2",
+        "hellion.3",
+        "tank",
+        "tank.1",
+        "tank.2",
+        "tank.3",
+        "raynor",
+        "tychus",
+        "nova"
+      ]
+    },
+    {
+      "group": "terran-1",
+      "identities": [
+        "thor",
+        "thor.1",
+        "thor.2",
+        "thor.3",
+        "viking",
+        "viking.1",
+        "viking.2",
+        "viking.3",
+        "banshee",
+        "banshee.1",
+        "banshee.2",
+        "banshee.3",
+        "medivac",
+        "medivac.1",
+        "medivac.2",
+        "medivac.3",
+        "science_vessel",
+        "science_vessel.1",
+        "science_vessel.2",
+        "science_vessel.3",
+        "swann",
+        "tosh",
+        "yamato_battlecruiser"
+      ]
+    },
+    {
+      "group": "terran-2",
+      "identities": [
+        "reaper",
+        "reaper.1",
+        "reaper.2"
+      ]
+    },
+    {
+      "group": "zerg-0",
+      "identities": [
+        "zergling",
+        "zergling.1",
+        "zergling.2",
+        "zergling.3",
+        "baneling",
+        "baneling.1",
+        "baneling.2",
+        "baneling.3",
+        "roach",
+        "roach.1",
+        "roach.2",
+        "roach.3",
+        "ravager",
+        "ravager.1",
+        "ravager.2",
+        "ravager.3",
+        "hydralisk",
+        "hydralisk.1",
+        "hydralisk.2",
+        "hydralisk.3",
+        "kerrigan",
+        "zagara",
+        "dehaka"
+      ]
+    },
+    {
+      "group": "zerg-1",
+      "identities": [
+        "queen",
+        "queen.1",
+        "queen.2",
+        "queen.3",
+        "lurker",
+        "lurker.1",
+        "lurker.2",
+        "lurker.3",
+        "mutalisk",
+        "mutalisk.1",
+        "mutalisk.2",
+        "mutalisk.3",
+        "corruptor",
+        "corruptor.1",
+        "corruptor.2",
+        "corruptor.3",
+        "ultralisk",
+        "ultralisk.1",
+        "ultralisk.2",
+        "ultralisk.3",
+        "stukov",
+        "niadra",
+        "hots_leviathan"
+      ]
+    },
+    {
+      "group": "protoss-0",
+      "identities": [
+        "zealot",
+        "zealot.1",
+        "zealot.2",
+        "zealot.3",
+        "adept",
+        "adept.1",
+        "adept.2",
+        "adept.3",
+        "stalker",
+        "stalker.1",
+        "stalker.2",
+        "stalker.3",
+        "sentry",
+        "sentry.1",
+        "sentry.2",
+        "sentry.3",
+        "immortal",
+        "immortal.1",
+        "immortal.2",
+        "immortal.3",
+        "artanis",
+        "zeratul",
+        "alarak"
+      ]
+    },
+    {
+      "group": "protoss-1",
+      "identities": [
+        "colossus",
+        "colossus.1",
+        "colossus.2",
+        "colossus.3",
+        "high_templar",
+        "high_templar.1",
+        "high_templar.2",
+        "high_templar.3",
+        "phoenix",
+        "phoenix.1",
+        "phoenix.2",
+        "phoenix.3",
+        "void_ray",
+        "void_ray.1",
+        "void_ray.2",
+        "void_ray.3",
+        "carrier",
+        "carrier.1",
+        "carrier.2",
+        "carrier.3",
+        "fenix",
+        "vorazun",
+        "purifier_flagship"
+      ]
+    }
+  ],
+  "eliteCoverage": 90
+}

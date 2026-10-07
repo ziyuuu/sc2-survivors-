@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+const out='reports/local/ui-fidelity-round-20261006',sha=b=>createHash('sha256').update(b).digest('hex'),b=JSON.parse(await fs.readFile(out+'/baseline.json','utf8'));
+const afterAnchor=process.argv.includes('--after-anchor'),allowed=['src/main.ts','src/app/bootstrap.ts','src/app/run-session.ts','src/render/effects/audio.ts',...(afterAnchor?['src/simulation/world.ts','src/simulation/movement/direction-route.ts','src/assets/offline-pack.ts']:[])],changed=[],unchanged=[];
+for(const r of b.source){const bytes=await fs.readFile(r.path);(sha(bytes)===r.sha256?unchanged:changed).push(r.path);}
+for(const name of changed)assert.ok(name.startsWith('src/ui/')||allowed.includes(name),'Unauthorized game source change: '+name);
+let previewBytes=0;for(const r of b.preview){const bytes=await fs.readFile(r.path);assert.equal(sha(bytes),r.sha256,r.path);assert.equal(bytes.length,r.bytes,r.path);previewBytes+=bytes.length;}
+const old=JSON.parse(await fs.readFile('reports/local/map-visual-polish-20261006/baseline.json','utf8'));let artworkBytes=0;for(const r of (old.ui??[]).filter(r=>!r.path.startsWith('src/ui/'))){const bytes=await fs.readFile(r.path);assert.equal(sha(bytes),r.sha256,r.path);artworkBytes+=bytes.length;}
+const protectedRules=b.source.filter(r=>/src\/(simulation|data|persistence)\//.test(r.path)&&!(afterAnchor&&allowed.includes(r.path)));for(const r of protectedRules)assert.ok(unchanged.includes(r.path),r.path);
+const result={at:new Date().toISOString(),baseline:b.commit,phase:afterAnchor?'UI plus separately authorized anchor collision correction':'UI only, before anchor correction',source:{total:b.source.length,changed,unchanged:unchanged.length},protectedRules:protectedRules.length,preview:{files:b.preview.length,bytes:previewBytes},additionalArt:{files:(old.ui??[]).filter(r=>!r.path.startsWith('src/ui/')).length,bytes:artworkBytes},passed:true};
+await fs.writeFile(out+'/'+(afterAnchor?'source-final.json':'source-ui-only.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));

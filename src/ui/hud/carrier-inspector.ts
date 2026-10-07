@@ -7,7 +7,7 @@ export class CarrierInspector {
  constructor(private world:World,parent:HTMLElement){
   document.addEventListener('sc2-inspection-open',e=>{if((e as CustomEvent).detail==='unit')this.close();});
   this.root.id='carrier-inspector';this.root.setAttribute('data-captures-battle-input','');this.root.className='console';this.root.hidden=true;this.root.setAttribute('aria-label','增援详情');parent.append(this.root);
-  this.entry.textContent='增援详情';this.entry.hidden=true;this.entry.addEventListener('click',e=>{e.stopPropagation();const pods=this.world.pods.filter(p=>['falling','active','opening'].includes(p.status)).sort((a,b)=>Math.hypot(a.x-world.anchor.x,a.z-world.anchor.z)-Math.hypot(b.x-world.anchor.x,b.z-world.anchor.z)||a.id-b.id);if(pods[0])this.show(pods[0].id);});parent.querySelector('#console-commands')?.append(this.entry);
+  this.entry.className='command-key';this.entry.innerHTML='<span>增援</span>';this.entry.setAttribute('aria-label','查看增援详情');this.entry.hidden=true;this.entry.addEventListener('click',e=>{e.stopPropagation();const pods=this.world.pods.filter(p=>['falling','active','opening'].includes(p.status)).sort((a,b)=>Math.hypot(a.x-world.anchor.x,a.z-world.anchor.z)-Math.hypot(b.x-world.anchor.x,b.z-world.anchor.z)||a.id-b.id);if(pods[0])this.show(pods[0].id);});parent.querySelector('#console-commands')?.append(this.entry);
   this.root.addEventListener('pointerdown',e=>e.stopPropagation());this.root.addEventListener('click',e=>{e.stopPropagation();if((e.target as HTMLElement).closest('button'))this.close();});
   this.root.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Escape'){e.preventDefault();this.close();}else if(e.key==='Tab'){e.preventDefault();this.root.querySelector<HTMLButtonElement>('button')?.focus();}});
  }

@@ -1,0 +1,156 @@
+{
+  "at": "2026-10-07T03:30:00.495Z",
+  "status": "completed local UI fidelity, independent control-point correction and lossless offline-container repair; not deployed",
+  "baseline": "bba13399049dfa3e7c16621dc88decbc4a351a1f",
+  "branch": "codex/ui-fidelity-20261006",
+  "ui": {
+    "originalConversationTurns": 16,
+    "userRequirements": 14,
+    "reviewedItems": 109,
+    "mainCaptures": 320,
+    "finalCorrectionCaptures": 80,
+    "transactionAndFontCaptures": 25,
+    "targets": 33,
+    "fontCaptures": 12,
+    "auxiliaryCaptures": 10,
+    "measured": 571,
+    "exactGeometryFontColor": 542,
+    "allMeasuredFontsAndColorsMatch": true,
+    "remainingGeometry": "Only complete current talent descriptions, retained production functions and the actual archive settings tab; explicitly listed in comparison.json",
+    "literalAllDynamicPixelsIdentical": false
+  },
+  "rules": {
+    "protectedSourceFiles": 108,
+    "existingSourceChanged": [
+      "src/app/bootstrap.ts",
+      "src/app/run-session.ts",
+      "src/assets/offline-pack.ts",
+      "src/main.ts",
+      "src/render/effects/audio.ts",
+      "src/simulation/movement/direction-route.ts",
+      "src/simulation/world.ts",
+      "src/ui/gamepad/controller.ts",
+      "src/ui/hud/battle-commands.ts",
+      "src/ui/hud/boss-loot-panel.ts",
+      "src/ui/hud/carrier-inspector.ts",
+      "src/ui/hud/expedition-panel.ts",
+      "src/ui/hud/m3-menu.ts",
+      "src/ui/hud/minimap.ts",
+      "src/ui/hud/mvp-talent-panel.ts",
+      "src/ui/hud/player-services.ts",
+      "src/ui/hud/resource-downloads.ts",
+      "src/ui/hud/squad-console.css",
+      "src/ui/hud/squad-console.ts",
+      "src/ui/hud.ts",
+      "src/ui/mobile/input.ts",
+      "src/ui/presentation/formal-ui.css",
+      "src/ui/presentation/input-capture.ts",
+      "src/ui/presentation/intermission.ts",
+      "src/ui/presentation/painted-art.ts",
+      "src/ui/presentation/unit-inspector.ts"
+    ],
+    "existingSourceUnchanged": 202,
+    "bodyRankChecks": 690,
+    "fixedViewRaces": 3,
+    "fixedViewTicks": 180,
+    "nativeFullRunAndProfileTransactionComparisons": true,
+    "runSchema": 26,
+    "profileVersion": 6,
+    "mapRecipeVersion": 3
+  },
+  "checks": {
+    "regression": 1161,
+    "typecheck": true,
+    "dataDocs": true,
+    "talents": 165,
+    "controlChecks": 32,
+    "offlineContainerChecks": 4,
+    "web": 6,
+    "fullIdentityWeb": 7,
+    "elites": 90,
+    "heroes": 18,
+    "offline": 6,
+    "ordinaryFamilies": 30,
+    "pageErrors": 0,
+    "copyItems": 1705
+  },
+  "resources": {
+    "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+    "records": 647,
+    "files": 629,
+    "bytes": 648838732,
+    "added": 0,
+    "originalSourceRecords": 899,
+    "originalSourceFiles": 866,
+    "originalSourceHashesVerified": true,
+    "preview": {
+      "files": 448,
+      "bytes": 231541893
+    },
+    "additionalArt": {
+      "files": 1771,
+      "bytes": 1215021407
+    },
+    "encodedBlobBytesRemoved": 472671305,
+    "originalBytesAndEncodedPayloadPreserved": true,
+    "uiAndSimulationAndHttpSourceUnchangedAfterUiAcceptance": true
+  },
+  "builds": {
+    "final": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+    "fullIdentityUi": "6256bfed00197d3c7b904fa95ef7c9dde95fe39abc6526e9c1a4da6decdbf3db",
+    "transportSourceProof": {
+      "originalUiBuild": "6256bfed00197d3c7b904fa95ef7c9dde95fe39abc6526e9c1a4da6decdbf3db",
+      "finalBuild": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+      "changed": [
+        "src/assets/offline-pack.ts"
+      ],
+      "uiAndSimulationAndHttpSourceUnchanged": true,
+      "codecAndPackedPayloadUnchanged": true
+    },
+    "html": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "bytes": 475931502,
+      "sha256": "71380b4e2443c6f7a28e561d1b417f370752380cf3a1235eb9f2ae2a134c13a7"
+    },
+    "application": {
+      "path": "dist/UI-Fidelity-Coze-Application-20261007.zip",
+      "packageBuildId": "927aa3ec42d1234f0fe277d2cde6610e8999c11e117385799e9a9e58b48f71b7",
+      "sha256": "c35be96b7daffacae7c79758eba6ce177080b12a39ed06209c2add0324d25829",
+      "files": 34,
+      "localDeployCopyMatches": true
+    }
+  },
+  "update": {
+    "passed": true,
+    "reused": 629,
+    "added": 0,
+    "backendDisabled": true,
+    "oldEnvironmentAndRollbackPreserved": true,
+    "idempotent": true,
+    "corruptionRejected": true
+  },
+  "deployed": false,
+  "backendActivated": false,
+  "open": [
+    "Human visual acceptance",
+    "Physical devices and controllers",
+    "High refresh / long-term / low-memory-device and JavaScript heap acceptance",
+    "Natural and high-density performance / full M6/M7",
+    "P6-V01",
+    "Three Science Vessel source gaps",
+    "Production backend / operator / B4"
+  ],
+  "evidence": {
+    "web": "reports\\local\\ui-fidelity-round-20261006\\transport-web-final\\web\\web.json",
+    "offline": "reports\\local\\ui-fidelity-round-20261006\\offline-container-final\\offline\\offline.json",
+    "identity": "reports\\local\\ui-fidelity-round-20261006\\production-final\\web\\web.json",
+    "comparison": "reports\\local\\ui-fidelity-round-20261006\\comparison.json",
+    "update": "reports\\local\\ui-fidelity-round-20261006\\handoff-update.json"
+  },
+  "failureHistory": [
+    "offline-private-failure.json",
+    "offline-parallel-memory-failure.json",
+    "offline-normal-profile/offline/offline.json"
+  ],
+  "gitSync": "git-sync.json"
+}

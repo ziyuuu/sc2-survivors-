@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-07T03:29:19.985Z",
+  "method": "Isolated local update from the supplied baseline resource hashes; old files are read-only hardlinks. Real locked npm installation, actual packaged server and all resource verification. No online write.",
+  "root": "D:\\星际\\.cache\\current-update-TO91TI",
+  "oldResourceFiles": 629,
+  "expectedReused": 629,
+  "expectedAdded": 0,
+  "checks": [
+    "629 verified old files retained, 0 added, zero full-resource redownload, old app/environment retained",
+    "Installed package starts with all 629 resources verified, backend disabled, protected API fail-closed",
+    "Same package repeat is idempotent and preserves rollback pointer",
+    "Corrupt application rejected without changing active pointer"
+  ],
+  "activation": {
+    "appBuildId": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+    "packageBuildId": "927aa3ec42d1234f0fe277d2cde6610e8999c11e117385799e9a9e58b48f71b7",
+    "retained": 629,
+    "installed": 0,
+    "downloadedMissing": 0,
+    "productionDependencies": 1,
+    "restartRequired": true
+  },
+  "health": {
+    "ok": true,
+    "appBuildId": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+    "assetReleaseId": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+    "runSchema": 26,
+    "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+    "resources": "local"
+  },
+  "passed": true
+}

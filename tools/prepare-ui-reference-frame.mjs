@@ -1,0 +1,8 @@
+import fs from 'node:fs/promises';import {createHash} from 'node:crypto';
+const source='reports/local/ui-redesign-20261003/SC2-UI-Preview-r12.html',dir='reports/local/ui-fidelity-round-20261006';
+const bytes=await fs.readFile(source),chromeOnly='<style data-qa-frame-normalization>.preview-toolbar,.preview-tools,.preview-note{display:none!important}.preview-shell{display:block!important;position:fixed!important;inset:0!important;padding:0!important;margin:0!important;max-width:none!important;width:100vw!important;height:100dvh!important}.game-frame{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important}body{padding:0!important}#scene{inset:0!important}</style>';
+await fs.writeFile(dir+'/reference-frame.html',bytes.toString('utf8').replace('</head>',chromeOnly+'</head>'));
+// Apply the user's explicit removal to the comparison copy only.
+const latestRemoval='<style data-user-removal>.cover-controls .cover-auto{display:none!important}</style>';
+await fs.writeFile(dir+'/reference-frame.html',bytes.toString('utf8').replace('</head>',chromeOnly+latestRemoval+'</head>'));
+await fs.writeFile(dir+'/reference-frame.json',JSON.stringify({source,sha256:createHash('sha256').update(bytes).digest('hex'),normalization:'Preview toolbar/shell/frame chrome only',authorizedDesignOverride:'User explicitly removed the cover rotation control; original asset bytes, fixtures and all other components unchanged',css:chromeOnly,override:latestRemoval},null,2));

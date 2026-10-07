@@ -3,7 +3,18 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {createAssetPack} from '../tools/offline-pack.mjs';
 import {EmbeddedAssetStore,restoreAssetPack} from '../src/assets/offline-pack';
+import {randomBytes} from 'node:crypto';
 const hash=(b:Uint8Array)=>createHash('sha256').update(b).digest('hex');
+test('an unused large resource does not prevent a small screen from loading in a bounded Blob host',async()=>{
+ const {pack}=createAssetPack([{id:'menu',mime:'text/plain',bytes:Buffer.from('ready')},{id:'unused',mime:'application/octet-stream',bytes:randomBytes(128*1024)}]);
+ const NativeBlob=globalThis.Blob;
+ class BoundedBlob extends NativeBlob {constructor(parts:BlobPart[],options?:BlobPropertyBag){super(parts,options);if(this.size>32*1024)throw Error('Blob storage budget exhausted');}}
+ globalThis.Blob=BoundedBlob as typeof Blob;
+ let url='';
+ try{const store=new EmbeddedAssetStore(structuredClone(pack));await store.prepare(['menu']);url=store.urls.menu;assert.equal(store.preparedCount,1);assert.equal(store.urls.unused,undefined);}
+ finally{globalThis.Blob=NativeBlob;}
+ try{assert.equal(await(await fetch(url)).text(),'ready');}finally{if(url)URL.revokeObjectURL(url);}
+});
 function glb(seed:number){const image=Buffer.from(Array.from({length:2048},(_,i)=>i%251)),geometry=Buffer.alloc(2048,seed),bin=Buffer.concat([geometry,image]);
  const j=Buffer.from(JSON.stringify({asset:{version:'2.0'},buffers:[{byteLength:bin.length}],bufferViews:[{buffer:0,byteOffset:0,byteLength:geometry.length},{buffer:0,byteOffset:geometry.length,byteLength:image.length}],images:[{bufferView:1,mimeType:'image/png'}],animations:[{name:'Walk',channels:[],samplers:[]}]}));
  const json=Buffer.concat([j,Buffer.alloc((4-j.length%4)%4,32)]),header=Buffer.alloc(12),jc=Buffer.alloc(8),bc=Buffer.alloc(8);header.write('glTF');header.writeUInt32LE(2,4);header.writeUInt32LE(28+json.length+bin.length,8);jc.writeUInt32LE(json.length);jc.writeUInt32LE(0x4e4f534a,4);bc.writeUInt32LE(bin.length);bc.writeUInt32LE(0x004e4942,4);return {bytes:Buffer.concat([header,jc,json,bc,bin]),image};}

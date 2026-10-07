@@ -8,6 +8,7 @@ import type {MapDefinition,TerrainQuery} from '../../data/map-definition';
 import type {BattleRenderer} from '../../render/scene/battle-renderer';
 import {SC2_UNITS} from '../../data/sc2-units';
 import {hudGlyph} from './glyphs';
+import {MINIMAP_CHASSIS} from '../presentation/reference-minimap';
 export type MapFrame={left:number;top:number;size:number};
 /** North is -z, exactly as in the battlefield. Fit the opened sector without stretching it. */
 export function minimapFrame(d:MapDefinition,stage:number):MapFrame{
@@ -38,9 +39,9 @@ export class Minimap {
  private cancelTap=()=>{};
  resetInput(){this.cancelTap();}
  constructor(readonly world:World,readonly view:BattleRenderer,parent:HTMLElement,readonly controls:ControlSettings){
-  this.element=document.createElement('aside');this.element.id='minimap';this.element.className='console';
+  this.element=document.createElement('aside');this.element.id='minimap';this.element.className='mini-map';
   this.element.innerHTML=`<header><span>N ↑</span><button type="button" id="map-toggle" aria-controls="minimap-canvas" aria-expanded="true" aria-label="收起地图">${hudGlyph('map')}</button></header><canvas id="minimap-canvas" role="img" aria-label="小地图：绿点友军，紫点精英，金色菱形英雄，红点敌人，橙框救援。点击模式下，鼠标或触屏轻点前往。"></canvas><footer><span class="mini-friend">小队</span><span class="mini-hostile">敌军</span><span class="mini-rescue">救援</span></footer>`;
-  parent.append(this.element);this.canvas=this.element.querySelector('canvas')!;this.ctx=this.canvas.getContext('2d')!;
+  this.element.insertAdjacentHTML('beforeend',MINIMAP_CHASSIS);parent.append(this.element);this.canvas=this.element.querySelector('canvas')!;this.ctx=this.canvas.getContext('2d')!;
   this.observer=new ResizeObserver(()=>{const width=this.canvas.clientWidth;if(width>0&&Math.max(128,Math.round(width*Math.min(devicePixelRatio||1,2)))!==this.canvas.width)this.stage=0;this.update(!this.element.hidden,this.element.classList.contains('map-collapsed'));});this.observer.observe(this.canvas);
   this.element.addEventListener('contextmenu',e=>e.preventDefault());
   let tap:{id:number;x:number;y:number;time:number;cancelled:boolean}|null=null;

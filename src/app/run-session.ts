@@ -42,6 +42,8 @@ export class RunSession {
   world.permanentProfile.listeners.add(()=>{if(!this.restoring)this.requestSave();});
  }
  get canResume(){return !!this.pending&&!['lost','finished'].includes(this.pending.state.phase);}
+ /** Read-only UI projection source; no preparation ticket or restoration is issued. */
+ get savedSnapshot():Readonly<RunSnapshot>|null{return this.pending;}
  get summary(){const s=this.pending?.state;if(!s)return '';return s.phase==='lost'?'上一局已结束':RACE_NAMES[s.runConfig!.race]+'／'+({easy:'简单',normal:'普通',hard:'困难',hell:'地狱'}[s.difficulty])+' · '+(s.endless?'无尽第 '+s.endless.round+' 轮':'第 '+s.stage+' 关')+' · '+Math.floor(s.time/60)+':'+String(Math.floor(s.time%60)).padStart(2,'0');}
  private observe(){if(this.restoring||this.world.phase==='menu')return;const w=this.world;if(!w.runId)return;
   const signature=[w.runId,w.phase,w.stage,w.endless?.round??0,w.paused,w.requiresPlayerDecision,w.stats.started,w.stats.produced,w.stats.rescued,w.stats.failed,w.rerolls,w.rewards.filter(r=>r.sold).map(r=>r.offerId).join(',')].join('|');

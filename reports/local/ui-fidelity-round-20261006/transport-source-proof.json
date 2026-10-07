@@ -1,0 +1,9 @@
+{
+  "originalUiBuild": "6256bfed00197d3c7b904fa95ef7c9dde95fe39abc6526e9c1a4da6decdbf3db",
+  "finalBuild": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+  "changed": [
+    "src/assets/offline-pack.ts"
+  ],
+  "uiAndSimulationAndHttpSourceUnchanged": true,
+  "codecAndPackedPayloadUnchanged": true
+}

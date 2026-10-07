@@ -1,7 +1,7 @@
 {
-  "status": "local fixed-scene performance candidate; natural performance gate open; not deployed",
-  "appBuildId": "999dbb67982c4ed3660fb0be0fa444bee194f20948d92703726db89f51a7e049",
-  "packageBuildId": "c1f6dce757a9c8c29cfdce5ad75c29d147143368f2b85a62df358d47710da6c9",
+  "status": "local UI fidelity and intangible continuous control-point candidate; not deployed",
+  "appBuildId": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+  "packageBuildId": "927aa3ec42d1234f0fe277d2cde6610e8999c11e117385799e9a9e58b48f71b7",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
@@ -82,16 +82,6 @@
       "sha256": "38cf22a1ec311b6cd69c0a019e467e56a75ee1c6cabe5bf66625eb07cd8dd8a9"
     },
     {
-      "path": "FIXED_SCENE_PERFORMANCE_20261006.md",
-      "bytes": 1981,
-      "sha256": "91dbb9ffdce33c32ef19c6fbc2b9026f45c78eefa4a28a6940563f0c4c477257"
-    },
-    {
-      "path": "FIXED_SCENE_PERFORMANCE_VALIDATION_20261006.md",
-      "bytes": 8501,
-      "sha256": "2d851f74bcbbdaff09ec60000fec2c6718d809c25a79defe827180adb083259b"
-    },
-    {
       "path": "P5_BACKEND_HANDOFF_20261006.md",
       "bytes": 5858,
       "sha256": "165cae31226f6e885221a8b2d10fc6357bc451624189dbf2595101321291f8fb"
@@ -104,12 +94,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6134,
-      "sha256": "307ed26139ffb36dd2bc9d0a876b6365c3d18a30124241732e301bb7e9d2b28b"
+      "sha256": "cc072e038dc45f82378601ace9cdd0fcda6934bac12117928872598fe3b1d2f3"
     },
     {
       "path": "package.json",
       "bytes": 352,
-      "sha256": "9d0c6f2bec2c7f67943fd6ba3b0c39062c22ed8aca2d48a5b30861860a09004f"
+      "sha256": "b1881e3a2ba68b64bdcc82322d87a21c099fe77aa8d764f3a6f2d1aad1cd34d3"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -122,19 +112,19 @@
       "sha256": "1257ad91f69c590d59abc862c539bb3aadc1a2c611110a69580dd5a8457f7bd3"
     },
     {
-      "path": "public/assets/index-COY6WuTG.css",
-      "bytes": 122774,
-      "sha256": "8b5377152065b77420130a997ccebdbd4e31bffc17147679f2da1ebec00f56e4"
+      "path": "public/assets/index-C6cz6UpK.js",
+      "bytes": 2516994,
+      "sha256": "e66fd0e633c2ee418dd8d4cdc2f449d4cc4209d2134b603dfbb55052ac528e3d"
     },
     {
-      "path": "public/assets/index-D8zDu-kj.js",
-      "bytes": 2173392,
-      "sha256": "f06f42265905a80338b2a1f46eb24c67e028d259bc036afbe521aa9c9dfa6a32"
+      "path": "public/assets/index-Y_pY0KuD.css",
+      "bytes": 383157,
+      "sha256": "6f49a64828c459a97780449a982b2e9760bc4ca89a45cccbe2dc6c2e57f5217f"
     },
     {
       "path": "public/index.html",
       "bytes": 802,
-      "sha256": "b2958df5bc1b1283547a65a6dd75e579f55355e4e6c956d3873bf3444495985a"
+      "sha256": "18959fb2d0a4844244aa4eb7249cde7a14e61a570c9ab3e3d78e5d0b8666797d"
     },
     {
       "path": "public/runtime-config.json",
@@ -144,17 +134,17 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "a0e3f1fe41e9f43d425bd0732bbd72c769c99af39eb951a3016ffc739b19e19e"
+      "sha256": "ce5affa9e5fb3722e719f2d47e16f8b9b19e233dfc356c8733bd240dfa77ad7d"
     },
     {
       "path": "README.md",
-      "bytes": 2870,
-      "sha256": "833ad25cfeaa2f859919de52d1e29daca5e2121c607a4f31ce945152c38f1faa"
+      "bytes": 2684,
+      "sha256": "5d076ced1dd93b0deebfef7436fb034ea157213b334c3713540a20d1368f1ab0"
     },
     {
       "path": "resource-delta.json",
       "bytes": 329,
-      "sha256": "053e7a568049c7789b576daebb2bd7966aa976e303b591d99ae19a4bd5d1be19"
+      "sha256": "6cd79a61cc81acda928cca9bd46953b19a4589f13c22e9d9c86f71b3374223aa"
     },
     {
       "path": "resource-groups.json",
@@ -165,6 +155,16 @@
       "path": "start-coze.mjs",
       "bytes": 1023,
       "sha256": "3c188d134fb093c8e6bad23f79ace973f14c89421ae00a1ce68a2c8f19bb21fd"
+    },
+    {
+      "path": "UI_FIDELITY_ROUND_20261006.md",
+      "bytes": 3966,
+      "sha256": "87ad5e7498363cd6fae2e7905b0ba0cc58e53da5cea194cbd54bdd6022ca730f"
+    },
+    {
+      "path": "UI_FIDELITY_ROUND_VALIDATION_20261006.md",
+      "bytes": 6522,
+      "sha256": "9ab4bd2f7a65d82fdb3cec3cd4de9150cb8aa8d51fffe9075dd84b0339791151"
     },
     {
       "path": "UI_INTEGRATION_20261006.md",

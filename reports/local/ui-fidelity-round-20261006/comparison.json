@@ -1,0 +1,6596 @@
+{
+  "method": "Same viewport and content-frame geometry; current UI sources are byte-identical to the final UI candidate; the last build changes only the offline encoded container. All build identities and source proof are retained.  reference and runtime are combined visually. Sample fixture values/art identity and required actual game states are listed separately. Captures keep their original candidate source stamp; final targeted corrections are independently verified.",
+  "views": 5,
+  "captures": 320,
+  "finalTargetedCaptures": 80,
+  "targetScreens": 33,
+  "fontScreens": 12,
+  "specialCaptures": 25,
+  "auxiliaryCaptures": 10,
+  "geometry": [
+    {
+      "page": "首页",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".home-copy",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-sc",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".wordmark h1",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-en",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".main-actions",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".race-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".difficulty-layout",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-tree-board",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 23.390625,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 11.703125,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 23.390625,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 11.6875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 3,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 4,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 5,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".im-library-filters",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "desktop",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".keyboard-diagram",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "desktop",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".home-copy",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-sc",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".wordmark h1",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-en",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".main-actions",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".race-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".difficulty-layout",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".talent-tree-board",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 43.1875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 21.59375,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 43.1875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 21.59375,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".im-library-filters",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "portrait",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 71,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 35.5,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 35.5,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "portrait",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 0,
+      "deltaPx": 27.40625,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 1,
+      "deltaPx": 27.421875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 2,
+      "deltaPx": 54.828125,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".keyboard-diagram",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "portrait",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".home-copy",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-sc",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".wordmark h1",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-en",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".main-actions",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".race-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".difficulty-layout",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".talent-tree-board",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 43.1875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 21.59375,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 43.1875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 21.59375,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".im-library-filters",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "minimum",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "minimum",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 0,
+      "deltaPx": 21.578125,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 1,
+      "deltaPx": 21.59375,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 2,
+      "deltaPx": 43.171875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".keyboard-diagram",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "minimum",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".home-copy",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-sc",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".wordmark h1",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-en",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".main-actions",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".race-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".difficulty-layout",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".talent-tree-board",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 18.6875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 9.34375,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 18.6875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 9.34375,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".im-library-filters",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "short-landscape",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "short-landscape",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".keyboard-diagram",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "short-landscape",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".home-copy",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-sc",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".wordmark h1",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".wordmark-en",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "首页",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".main-actions",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "阵营",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".race-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "难度",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".difficulty-layout",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".masthead",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "出发",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".screen-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋种族",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋方向",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-tree-board",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "完整天赋树",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".talent-menu-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 23.390625,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 11.703125,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 23.390625,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "天赋详情",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 11.6875,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "战场",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "属性",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "能力",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".ui12-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".mini-map",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "部队",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "建设",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "商店",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 3,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 4,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".im-card",
+      "index": 5,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "图鉴",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".im-library-filters",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "英雄",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-steps",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-caption",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-choice-grid",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-card",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "休整",
+      "view": "narrow-desktop",
+      "evidence": "cards-final",
+      "selector": ".im-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "暂停",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-playfield",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".battle-map-rim",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "生产",
+      "view": "narrow-desktop",
+      "evidence": "final-browser",
+      "selector": ".console-body",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-window",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-heading",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-content",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".modal-footer",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".settings-tabs button",
+      "index": 2,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".keyboard-diagram",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".setting-row",
+      "index": 1,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    },
+    {
+      "page": "操作设置",
+      "view": "narrow-desktop",
+      "evidence": "geometry-production",
+      "selector": ".battle-top",
+      "index": 0,
+      "deltaPx": 0,
+      "fontEqual": true,
+      "colorEqual": true
+    }
+  ],
+  "rows": [
+    {
+      "id": "F001",
+      "group": "全局",
+      "title": "接入方式",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F002",
+      "group": "全局",
+      "title": "金属表面与按钮",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F003",
+      "group": "全局",
+      "title": "字体与数值",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F004",
+      "group": "全局",
+      "title": "页面/面板转场",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F005",
+      "group": "全局",
+      "title": "UI 动效关闭",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F006",
+      "group": "全局",
+      "title": "开发文案",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F007",
+      "group": "全局",
+      "title": "真实数据接入",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "使用当前真实 World、价格、部队和冻结天赋。"
+    },
+    {
+      "id": "F008",
+      "group": "全局",
+      "title": "旧功能范围",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "原有存档、生产、收据、控制、资源和玩家服务保留，以原稿组件容纳。"
+    },
+    {
+      "id": "F009",
+      "group": "首页",
+      "title": "标题比例与位置",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F010",
+      "group": "首页",
+      "title": "立绘构图与融合",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F011",
+      "group": "首页",
+      "title": "阵营切换",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F012",
+      "group": "首页",
+      "title": "封面选择器",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F013",
+      "group": "首页",
+      "title": "自动轮换节奏",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F014",
+      "group": "首页",
+      "title": "九张封面资源",
+      "before": "已实现",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F015",
+      "group": "首页",
+      "title": "天赋方案摘要",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F016",
+      "group": "首页",
+      "title": "续局摘要",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F017",
+      "group": "首页",
+      "title": "设置入口",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F018",
+      "group": "首页",
+      "title": "主按钮结构",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F019",
+      "group": "首页",
+      "title": "底部遮挡",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F020",
+      "group": "首页",
+      "title": "不需要的内容",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F021",
+      "group": "首页",
+      "title": "短横屏适配",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F022",
+      "group": "新游戏 / 种族",
+      "title": "卡片构图",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F023",
+      "group": "新游戏 / 种族",
+      "title": "流程层级",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F024",
+      "group": "新游戏 / 种族",
+      "title": "阵营描述",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F025",
+      "group": "新游戏 / 难度",
+      "title": "整体布局",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F026",
+      "group": "新游戏 / 难度",
+      "title": "识别元素",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F027",
+      "group": "新游戏 / 难度",
+      "title": "难度实际规则",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "四难度继续使用批准规则；原稿样例不是数值依据。"
+    },
+    {
+      "id": "F028",
+      "group": "新游戏 / 确认",
+      "title": "确认页构图",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F029",
+      "group": "新游戏 / 确认",
+      "title": "英雄资格与覆盖续局",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "开局英雄资格、真实预设和覆盖续局保护保留。"
+    },
+    {
+      "id": "F030",
+      "group": "天赋",
+      "title": "多级导航是否存在",
+      "before": "已实现",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F031",
+      "group": "天赋",
+      "title": "种族及方向卡",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F032",
+      "group": "天赋",
+      "title": "完整树可见面积",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F033",
+      "group": "天赋",
+      "title": "滚动结构",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F034",
+      "group": "天赋",
+      "title": "节点及层级造型",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F035",
+      "group": "天赋",
+      "title": "面包屑与说明入口",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F036",
+      "group": "天赋",
+      "title": "详情外观",
+      "before": "差异",
+      "result": "保留真实游戏适配",
+      "note": "当前165天赋的完整技能说明、真实等级与前置条件保留，详情正文高度随内容变化。"
+    },
+    {
+      "id": "F037",
+      "group": "天赋",
+      "title": "预设功能",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "三套真实预设在独立窗口管理。"
+    },
+    {
+      "id": "F038",
+      "group": "读档与装载",
+      "title": "读档卡",
+      "before": "差异",
+      "result": "保留真实游戏适配",
+      "note": "读档图片使用已有渲染器截取当前战区；旧档无图片时展示真实地图总览。"
+    },
+    {
+      "id": "F039",
+      "group": "读档与装载",
+      "title": "检查存档页面",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F040",
+      "group": "读档与装载",
+      "title": "装载造型",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F041",
+      "group": "读档与装载",
+      "title": "真实资源与错误恢复",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "实际资源进度、失败、取消、重试与确认保留。"
+    },
+    {
+      "id": "F042",
+      "group": "关间发展",
+      "title": "整备页头与流程",
+      "before": "差异",
+      "result": "保留真实游戏适配",
+      "note": "原稿整备组件和次序保留；正式World阶段约束继续有效，以实际阶段进度标记表达，不能从原型按钮绕过阶段或重复领取。"
+    },
+    {
+      "id": "F043",
+      "group": "关间发展",
+      "title": "发展方向选择",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F044",
+      "group": "关间发展",
+      "title": "设施/研究/科技卡",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F045",
+      "group": "关间发展",
+      "title": "未选方向状态",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "未选发展方向继续保持原有空池规则。"
+    },
+    {
+      "id": "F046",
+      "group": "商店与卡片",
+      "title": "品质/卡框",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F047",
+      "group": "商店与卡片",
+      "title": "游戏短句",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F048",
+      "group": "商店与卡片",
+      "title": "自动截短规则",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F049",
+      "group": "商店与卡片",
+      "title": "费用表达与操作",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F050",
+      "group": "商店与卡片",
+      "title": "背景合成细节",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F051",
+      "group": "商店与卡片",
+      "title": "原画与单体尺度",
+      "before": "已实现",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F052",
+      "group": "商店与卡片",
+      "title": "详情形式",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F053",
+      "group": "图鉴",
+      "title": "筛选与查找",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F054",
+      "group": "图鉴",
+      "title": "卡面信息",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F055",
+      "group": "图鉴",
+      "title": "建筑/支援/培养的视觉",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F056",
+      "group": "图鉴",
+      "title": "精英名称对照",
+      "before": "旧稿冲突",
+      "result": "保留真实游戏适配",
+      "note": "旧稿精英名称与当前批准身份冲突时采用当前名称。"
+    },
+    {
+      "id": "F057",
+      "group": "图鉴",
+      "title": "已确认机制/画面冲突",
+      "before": "旧稿冲突",
+      "result": "保留真实游戏适配",
+      "note": "旧稿说明与当前批准机制冲突时采用当前机制；不改战斗数据。"
+    },
+    {
+      "id": "F058",
+      "group": "持续生产",
+      "title": "面板布局",
+      "before": "差异",
+      "result": "保留真实游戏适配",
+      "note": "原稿生产组件保留，新增原游戏已有的训练／订单／部署切换与实际生产开关。"
+    },
+    {
+      "id": "F059",
+      "group": "持续生产",
+      "title": "订单反馈",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F060",
+      "group": "持续生产",
+      "title": "方向/维修分组",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F061",
+      "group": "持续生产",
+      "title": "真实产线约束",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "保留两输出、设施、付款订单、孵化序列、训练和战术进阶规则。"
+    },
+    {
+      "id": "F062",
+      "group": "休整与英雄招募",
+      "title": "休整层级",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F063",
+      "group": "休整与英雄招募",
+      "title": "招募卡",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F064",
+      "group": "休整与英雄招募",
+      "title": "实际英雄报价",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "英雄仅按当前正式报价招募，不能按原型假钱包任意买入。"
+    },
+    {
+      "id": "F065",
+      "group": "精英招募与替换",
+      "title": "精英选择层级",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F066",
+      "group": "精英招募与替换",
+      "title": "禁用的规划术语",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F067",
+      "group": "精英招募与替换",
+      "title": "付费后旧兵选择",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F068",
+      "group": "精英招募与替换",
+      "title": "五类兵满员换兵",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F069",
+      "group": "精英招募与替换",
+      "title": "交易路径验证边界",
+      "before": "未验证",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F070",
+      "group": "战斗 HUD",
+      "title": "两排与独立折叠",
+      "before": "已实现",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F071",
+      "group": "战斗 HUD",
+      "title": "两排内部比例",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F072",
+      "group": "战斗 HUD",
+      "title": "分页空间",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F073",
+      "group": "战斗 HUD",
+      "title": "主地图框",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F074",
+      "group": "战斗 HUD",
+      "title": "小地图壳",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F075",
+      "group": "战斗 HUD",
+      "title": "顶栏对齐",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F076",
+      "group": "战斗 HUD",
+      "title": "常驻提示规则",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F077",
+      "group": "战斗 HUD",
+      "title": "桌面摇杆",
+      "before": "已实现",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F078",
+      "group": "战斗 HUD",
+      "title": "锚点寻路碰撞",
+      "before": "差异",
+      "result": "已修复（独立控制点阶段）",
+      "note": "连续输入只控制无体积的点；实际单位碰撞与点击移动保留。"
+    },
+    {
+      "id": "F079",
+      "group": "战斗 HUD",
+      "title": "最终锚点移动碰撞",
+      "before": "差异",
+      "result": "已修复（独立控制点阶段）",
+      "note": "连续输入只控制无体积的点；实际单位碰撞与点击移动保留。"
+    },
+    {
+      "id": "F080",
+      "group": "战斗 HUD",
+      "title": "真实场景与演示背景",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "使用当前五张正式地图和真实生产渲染器。"
+    },
+    {
+      "id": "F081",
+      "group": "R12 单位属性",
+      "title": "桌面整体分栏",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F082",
+      "group": "R12 单位属性",
+      "title": "上部立绘信息",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F083",
+      "group": "R12 单位属性",
+      "title": "核心属性识别",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F084",
+      "group": "R12 单位属性",
+      "title": "页签信息",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F085",
+      "group": "R12 单位属性",
+      "title": "能力页的内容结构",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F086",
+      "group": "R12 单位属性",
+      "title": "首次展开与切换",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F087",
+      "group": "R12 单位属性",
+      "title": "部队一览",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F088",
+      "group": "R12 单位属性",
+      "title": "邻近头像与固定返回",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F089",
+      "group": "R12 单位属性",
+      "title": "短横屏核心信息",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F090",
+      "group": "R12 单位属性",
+      "title": "小屏单滚动及触控",
+      "before": "已实现",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F091",
+      "group": "R12 单位属性",
+      "title": "生命/护盾/双体等真实值",
+      "before": "已实现",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F092",
+      "group": "R12 单位属性",
+      "title": "身份色",
+      "before": "已实现",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F093",
+      "group": "R12 单位属性",
+      "title": "模态背景语义",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F094",
+      "group": "暂停与设置",
+      "title": "暂停窗口",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F095",
+      "group": "暂停与设置",
+      "title": "设置窗口结构",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F096",
+      "group": "暂停与设置",
+      "title": "操作介绍",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F097",
+      "group": "暂停与设置",
+      "title": "设置分类",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F098",
+      "group": "暂停与设置",
+      "title": "正式额外设置",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "画质、完整特效、文字缩放、存档、资源、手柄与服务的原有功能保留。"
+    },
+    {
+      "id": "F099",
+      "group": "结算与无尽",
+      "title": "胜利页面",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F100",
+      "group": "结算与无尽",
+      "title": "失败/撤离完成",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F101",
+      "group": "结算与无尽",
+      "title": "无尽总览",
+      "before": "差异",
+      "result": "保留真实游戏适配",
+      "note": "图片使用当前真实战区，不换回原型旧地图。"
+    },
+    {
+      "id": "F102",
+      "group": "结算与无尽",
+      "title": "无尽阶段标识",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    },
+    {
+      "id": "F103",
+      "group": "结算与无尽",
+      "title": "无尽规则和数据",
+      "before": "必要适配",
+      "result": "保留真实游戏适配",
+      "note": "60 秒一轮、四轮整备，保留实际无尽转场规则。"
+    },
+    {
+      "id": "F104",
+      "group": "特殊状态与原稿范围",
+      "title": "真实首领掉落",
+      "before": "差异",
+      "result": "保留真实游戏适配",
+      "note": "当前游戏已有真实首领掉落，保留其收据和领取机制；不制作虚构奖励。"
+    },
+    {
+      "id": "F105",
+      "group": "特殊状态与原稿范围",
+      "title": "免费天赋掉落与精英救援",
+      "before": "差异",
+      "result": "保留真实游戏适配",
+      "note": "仅展示当前真实免费掉落／救援；与商店资格分开。"
+    },
+    {
+      "id": "F106",
+      "group": "特殊状态与原稿范围",
+      "title": "单位操作/增援/指定落点",
+      "before": "未验证",
+      "result": "保留真实游戏适配",
+      "note": "保留单位操作、实际增援、指定落点及原输入命令。"
+    },
+    {
+      "id": "F107",
+      "group": "特殊状态与原稿范围",
+      "title": "反馈/隐私/资源对话框",
+      "before": "未验证",
+      "result": "保留真实游戏适配",
+      "note": "反馈／隐私事实与授权不简化；后端仍关闭，草稿测试未提交数据。"
+    },
+    {
+      "id": "F108",
+      "group": "特殊状态与原稿范围",
+      "title": "浏览器与真实手机",
+      "before": "未验证",
+      "result": "工程验证／外部门槛保留",
+      "note": "五种浏览器画幅及虚拟输入为工程验收；真实设备／人工／高刷新率／长期验收仍 OPEN。"
+    },
+    {
+      "id": "F109",
+      "group": "商店与卡片",
+      "title": "晋升卡的真实兵种与人数",
+      "before": "差异",
+      "result": "已还原／验证",
+      "note": "原稿结构、样式、立绘合成、字体、图标和状态已接入当前游戏。"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+/* Preserved existing world labels; the old menu typography overrides are retired. */
+:root{--game-copy:calc(16px * var(--text-scale));--game-detail:calc(14px * var(--text-scale));--game-mark:calc(12px * var(--text-scale))}
+.pod-world-label{pointer-events:none!important;display:grid;grid-template-columns:30px auto;width:66px;gap:2px 4px;padding:3px!important;border:1px solid #5cb185!important;background:#0d251dd9!important;box-shadow:none!important}
+.pod-world-label img{width:28px;height:28px;object-fit:contain;filter:none;opacity:.95}
+.pod-world-label .carrier-count{font-size:14px;align-self:center;color:#b7f6c9}
+.pod-world-label .carrier-vital{grid-column:1/-1;height:3px;background:#1d4535;overflow:hidden}
+.pod-world-label .carrier-vital i{display:block;height:100%;background:#80e99f}
