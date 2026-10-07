@@ -18,13 +18,13 @@
     },
     {
       "path": "backend/admin/app.js",
-      "bytes": 15930,
-      "sha256": "97070f311e9b5f751a87acf53f676980b223a3a0d4d93407203a2e2d92d757d2"
+      "bytes": 16018,
+      "sha256": "2e75e9f0ced34d19a8d5f0f29c30aeae53e6ee6bc4466e1133013b3dbd440073"
     },
     {
       "path": "backend/admin/index.html",
-      "bytes": 3862,
-      "sha256": "2b8d7ebbf744449cbb6357cfb67421b76ca73f655367f9255a4f0d6bfe7b8c73"
+      "bytes": 3895,
+      "sha256": "8ef6fa9a93df23c534af8ea74224b463f4ac74c5d5de8193cff11cde5b7ba350"
     },
     {
       "path": "backend/admin/style.css",
@@ -43,8 +43,8 @@
     },
     {
       "path": "backend/database.mjs",
-      "bytes": 1443,
-      "sha256": "3947019f249b90c916bc2a361fe8928289a7d63d30e2130c415d22a00b22477b"
+      "bytes": 1483,
+      "sha256": "381e840b580117e872618d1d89f09da9f02ba70586d22cac697641571ca5e8eb"
     },
     {
       "path": "backend/metrics.mjs",
@@ -68,8 +68,8 @@
     },
     {
       "path": "backend/service.mjs",
-      "bytes": 10121,
-      "sha256": "1c119def68b6ffdd64419668272d8741d5e03d559520620423a1db7002313b22"
+      "bytes": 10289,
+      "sha256": "f3700487603330cde89138424db58ce8e448167d2f19ece29095c170ee25551c"
     },
     {
       "path": "coze-web-server.mjs",
@@ -163,8 +163,8 @@
     },
     {
       "path": "start-coze.mjs",
-      "bytes": 1023,
-      "sha256": "3c188d134fb093c8e6bad23f79ace973f14c89421ae00a1ce68a2c8f19bb21fd"
+      "bytes": 5910,
+      "sha256": "17fae4c903bac4005d5303e72979f7f8c96fe085270d15fb30db5b5ce4c11df9"
     },
     {
       "path": "UI_INTEGRATION_20261006.md",
