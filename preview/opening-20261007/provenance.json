@@ -1,0 +1,35 @@
+{
+  "originalThread": "01a0ff75-6cfc-7be0-b2f6-92489157b232",
+  "source": "starcraft-survivors-opening.html",
+  "sourceSha256": "d3b768212632e2500818a2f9b833619043c413e42402f693a4b6c30f66ce1e97",
+  "generatedSha256": "5c2543a185fe96248decac97dbe9068d7eed97c18cda18b6f9e3300de6b3283d",
+  "images": [
+    {
+      "bytes": 63648,
+      "sha256": "b3443c845c78e6184b8e47740c1917a607ef43da996ea2a0767092fd885e8d07"
+    },
+    {
+      "bytes": 189326,
+      "sha256": "74aa4104dd121926f0bac4beef805d693d788fd7f8ab657e3329b5bad9c48baa"
+    },
+    {
+      "bytes": 67106,
+      "sha256": "7ad7f9a97f9e858dbec6be76f88d258268a5c8bd96dd4bd5e324266874929294"
+    },
+    {
+      "bytes": 53748,
+      "sha256": "92495ed0d3d763e3c02e297acb786e0d82e032eeaaa04fba10dad9751accf3c1"
+    },
+    {
+      "bytes": 263530,
+      "sha256": "94b1f6d5d8eb41639057cbd814cd8d1b083f8e21fd6491012b7f2913fa635ff3"
+    }
+  ],
+  "allFiveApprovedImagesRetained": true,
+  "adaptations": [
+    "Full viewport instead of the preview carousel",
+    "Automatic portrait selection",
+    "Real startup progress instead of the 15-second demonstration loop",
+    "Reduced-motion and cleanup after entry"
+  ]
+}

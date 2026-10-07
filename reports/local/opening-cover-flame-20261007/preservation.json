@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-07T15:58:29.977Z",
+  "passed": true,
+  "baseline": "fdd37faaa1dd3ee32a194c4ea5de5e11c70a8e75",
+  "sourcePreserved": 555,
+  "sourceChanged": [
+    "src/app/bootstrap.ts",
+    "src/data/terran-elites.ts",
+    "src/main.ts",
+    "src/simulation/combat/expedition-combat.ts",
+    "src/ui/hud.ts",
+    "src/ui/hud/m3-menu.ts",
+    "src/ui/presentation/decision-screens.ts",
+    "src/ui/presentation/end-screens.ts",
+    "src/ui/presentation/formal-ui.css",
+    "src/ui/presentation/intermission.ts",
+    "src/ui/presentation/painted-art.ts",
+    "src/ui/presentation/reference-primitives.ts",
+    "src/ui/presentation/unit-inspector.ts"
+  ],
+  "onlyGameRuleChange": "hellion.2 range factor, corresponding length field and player description; reversible exact text proof",
+  "otherRulesAndAllRendererSourcesPreserved": true,
+  "oldUiAndOriginalResourceGitUnchanged": true,
+  "approvedImages": [
+    {
+      "bytes": 63648,
+      "sha256": "b3443c845c78e6184b8e47740c1917a607ef43da996ea2a0767092fd885e8d07"
+    },
+    {
+      "bytes": 189326,
+      "sha256": "74aa4104dd121926f0bac4beef805d693d788fd7f8ab657e3329b5bad9c48baa"
+    },
+    {
+      "bytes": 67106,
+      "sha256": "7ad7f9a97f9e858dbec6be76f88d258268a5c8bd96dd4bd5e324266874929294"
+    },
+    {
+      "bytes": 53748,
+      "sha256": "92495ed0d3d763e3c02e297acb786e0d82e032eeaaa04fba10dad9751accf3c1"
+    },
+    {
+      "bytes": 263530,
+      "sha256": "94b1f6d5d8eb41639057cbd814cd8d1b083f8e21fd6491012b7f2913fa635ff3"
+    }
+  ],
+  "allOpeningBitmapsAndLogoMatchOriginal": true,
+  "coverExplanationAdded": false,
+  "resources": {
+    "records": 647,
+    "files": 629,
+    "bytes": 648838732,
+    "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+    "added": 0
+  },
+  "appBuildId": "d502a132ea56395855ae3c1a3e04c0b254692df763ea96750153d82972ed986a",
+  "packageBuildId": "3669fb67da9b851316921b2247a7b626fc99d8f3b1bc6e406cfaf73adb850a2a",
+  "applicationFiles": 347,
+  "cozeSourceAndVendorPreserved": true,
+  "privateDataIncluded": false
+}

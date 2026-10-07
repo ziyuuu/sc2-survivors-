@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-07T16:00:44.275Z",
+  "appBuildId": "d502a132ea56395855ae3c1a3e04c0b254692df763ea96750153d82972ed986a",
+  "errors": [],
+  "fans": [
+    [
+      {
+        "source": 3,
+        "origin": {
+          "x": 0.5,
+          "z": 3.061616997868383e-17
+        },
+        "radius": 3.333333333333333,
+        "facing": 1.5707963267948966,
+        "arcDegrees": 150
+      }
+    ],
+    [
+      {
+        "source": 3,
+        "origin": {
+          "x": 0.5,
+          "z": 3.061616997868383e-17
+        },
+        "radius": 1.3333333333333333,
+        "facing": 1.5707963267948966,
+        "arcDegrees": 150
+      }
+    ]
+  ],
+  "method": "Production renderer reads actual frozen effects from an isolated archive; pause overlay hidden by diagnostic CSS for screenshots only. No World or renderer mutation.",
+  "passed": true
+}

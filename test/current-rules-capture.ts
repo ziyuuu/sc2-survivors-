@@ -9,7 +9,7 @@ import {acquireExpeditionHero} from '../src/simulation/combat/expedition-heroes'
 const hash=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const body=(u:any)=>hash(Object.fromEntries(['maxHp','maxShield','armor','shieldArmor','weaponDamage','attackPeriod','attackRange','moveSpeed','healRate','maxEnergy','energyRegen','unitRadius','flying','modelKey','shieldDelay','shieldRegen','nativeMode','activeWeapon'].map(key=>[key,u[key]])));
 /** Fingerprints captured from the approved 07b3f68 rules before removing obsolete code. */
-export function captureCurrentRules(){
+export function captureCurrentRules({legacyKnight=false}={}){
  const campaign:Record<string,string>={};
  for(const difficulty of ['easy','normal','hard','hell'] as const)for(let stage=1;stage<=18;stage++){
   const config=campaign18StageConfig(stage,difficulty);
@@ -19,7 +19,9 @@ export function captureCurrentRules(){
  for(const rank of [1,2,3,4,5])for(const [id,definition] of Object.entries(ELITES)){
   const w=new World({race:familyRace(definition.family),sandbox:true,waves:false,terrain:false,obstacles:[],seed:10511});w.start();w.entities.clear();
   const u=w.addUnit(definition.family,'terran',0,0,5);u.eliteId=id as keyof typeof ELITES;u.rank=rank;w.refreshStats(u,true);
-  bodies[id+':'+rank]=body(u);
+  // Test-only normalization isolates the expressly changed range from every
+  // other body field in the retained historical fingerprint. No runtime flag.
+  bodies[id+':'+rank]=body(legacyKnight&&id==='hellion.2'?{...u,attackRange:10}:u);
  }
  const heroes:Record<string,string>={},ordinary:Record<string,string>={};
  for(const rank of [1,2,3,4,5]){
@@ -30,6 +32,6 @@ export function captureCurrentRules(){
   }
   for(const family of ALL_FAMILIES){const w=new World({race:familyRace(family),sandbox:true,waves:false,terrain:false,obstacles:[],seed:10511});w.start();w.entities.clear();ordinary[family+':'+rank]=body(w.addUnit(family,'terran',0,0,rank));}
  }
- const currentElites=Object.values(ELITES).map(e=>({id:e.id,family:e.family,name:e.name,description:e.description,model:e.model,sourceModel:e.sourceModel,icon:e.icon}));
+ const currentElites=Object.values(ELITES).map(e=>({id:e.id,family:e.family,name:e.name,description:legacyKnight&&e.id==='hellion.2'?'火焰射程提高至2倍，覆盖前方150°扇面；对轻甲造成1.8倍伤害。恶蝠形态保留扇面喷火。':e.description,model:e.model,sourceModel:e.sourceModel,icon:e.icon}));
  return {campaign,bodies,heroes,ordinary,definitions:{stages:hash(CAMPAIGN18_STAGES),elites:hash(currentElites),heroes:hash(HEROES),families:hash(ALL_FAMILIES)}};
 }

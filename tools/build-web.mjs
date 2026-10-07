@@ -3,6 +3,7 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {build} from 'vite';
 import {loadBuildAssets} from './load-build-assets.mjs';
+await import('./import-opening-reference.mjs');
 // Read the authoritative constant without requiring native TypeScript loading on Node 22.
 const schemaSource=await fs.readFile(new URL('../src/simulation/persistence/run-snapshot.ts',import.meta.url),'utf8');
 const schemaMatch=/export\s+const\s+RUN_SCHEMA\s*=\s*(\d+)\s*;/.exec(schemaSource);

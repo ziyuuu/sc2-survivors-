@@ -1,0 +1,4024 @@
+{
+  "commit": "fdd37faaa1dd3ee32a194c4ea5de5e11c70a8e75",
+  "at": "2026-10-07T13:27:26.985Z",
+  "source": [
+    {
+      "path": "deploy/coze/sc2-backend.conf",
+      "sha256": "0d65a9fd3a0f89dc20a371c62b5da2bd46167518922a01d88d6e0dfb3f68af1f"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/LICENSE",
+      "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/README.md",
+      "sha256": "eaf848b398aba0f455e7f15179f34131c82acd4d0c9aa2e4cd11ff9cb0a9bf20"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/amcheck.tar.gz",
+      "sha256": "c1f90ddcf1d1051f49bf6c47b41221a4911e265b66ce31816b0abdc72e9285f6"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/auto_explain.tar.gz",
+      "sha256": "163e91d680257154912fbf3c3832e68a9671c1dc51a98b822047c8e75a99f8e1"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/bloom.tar.gz",
+      "sha256": "e2354bb24879316aee5362a3b6adb9db78bfea31f14ef22acb25934589ac2dcd"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/btree_gin.tar.gz",
+      "sha256": "bc8ae3deb7d7059bfd9a360661de1d474916da4f770fa6ad3eff2f8b2b199783"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/btree_gist.tar.gz",
+      "sha256": "a420978dcec1a8eb87b2c5e50129f6bfa09b9e6b7c6a9fcc3e3db03030b243e1"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-2BOC2OMW.js",
+      "sha256": "518217918b120059f84abfd5da2548c208cb232ed8fa45c330c7c358c472e185"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-2BOC2OMW.js.map",
+      "sha256": "35af937c1a20077618f993f385c2bb846c47ac6db4cf96bd107d87dd70eb9a84"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-DDJLRBDX.js",
+      "sha256": "09cdee35c53b92a6498c3f1ece5fe2d71063b637ea0036f808c08f7b11024393"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-DDJLRBDX.js.map",
+      "sha256": "bf0b9c2633f754fb3114ec5e07b55a8eac7ab98c42d39a3b08aac1eb19b61d84"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-F4GETNPB.js",
+      "sha256": "5ab11fd9fd74b259484f42a7855cd9569a5fe6ee1cf3c032238ac43a59511d97"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-F4GETNPB.js.map",
+      "sha256": "741c3a24e8f6c0477110924ea4a436b7a44d481ac741f1bd9a4f59b9172c8f85"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-JDT7TZ73.js",
+      "sha256": "ccc0c2ea7269c23559d23cd86e0d12b3a35beb6d420253790890ecd7d08e1852"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-JDT7TZ73.js.map",
+      "sha256": "2ae973788049a45d78e65eb41be4a94c02164929ed6ce7636ae2750426a58415"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-NNS5RQRF.js",
+      "sha256": "e04c14da71c248d5e7e02f45df665b8e2b136526ee0bef419274bb2b345a1017"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-NNS5RQRF.js.map",
+      "sha256": "ef26121a2bbbfd278145ffd4eb96bd4a7966d706267d2692c2300118fccbdb36"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-QY3QWFKW.js",
+      "sha256": "bff6d3144dd6ea2689b00d9d0eea1ea2267b9cc14505fb9107b6194c1832bdea"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-QY3QWFKW.js.map",
+      "sha256": "2d34b5c41d4be94269266b25b97b6aa8dd36718ab7ba0dd6e3b9d62eff2abf68"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-RYDTTX3G.js",
+      "sha256": "a929aa141dccfb2f412b0fbee3a1e5b4aab3b228f89d2131ac24f73ad1136a90"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/chunk-RYDTTX3G.js.map",
+      "sha256": "6a1653ffa15e5a61149410af187c1b5820f1cb07fec75d2f021c2babf8d00ef8"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/citext.tar.gz",
+      "sha256": "2d3841bb44dfba12c479053160edd47af280cc5ea2b74a1b0a3a49a4e46da2fd"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/amcheck.cjs",
+      "sha256": "062cd51f219906b086f6b8be75d632d77961f81ec5b8faa732b9993f0cea36a3"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/amcheck.cjs.map",
+      "sha256": "50eeee0d3dd6b2101a29765107ae807088591d575c41ad87b2d53d46b8248909"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/amcheck.d.cts",
+      "sha256": "86a8820793c8411fe69a00e0b390ef690614ca6e7eaa624d753dc3c9644ffa0c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/amcheck.d.ts",
+      "sha256": "5587900c73fc398e3f8db9933707f77385d9362f611453b633d4a8fcc1ac95e6"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/amcheck.js",
+      "sha256": "c42fb76c7abc11d63024115a024e21e00a57aa0a677ca5d4c99bf0a1e058cd2f"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/amcheck.js.map",
+      "sha256": "c33339c40772a1579ec64f70648972f259bc899a3c65ae843781f83f3c870332"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/auto_explain.cjs",
+      "sha256": "23154372eb48ed2a401c20f9d9c9a9e9cba56b3cd084d6125d8bd8444b6f3815"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/auto_explain.cjs.map",
+      "sha256": "ec1ba7f3708cc1d1f73280abbc55cfc5c226a847c996d7deb4887efa0918d2c1"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/auto_explain.d.cts",
+      "sha256": "2f2846db6d6b6e9b6952256c24f759c1909543f0f736b7c9bc82099a173c97e3"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/auto_explain.d.ts",
+      "sha256": "fbb16d9c792ddfd580ac9fd3d2b37a8a363ec303e246e02919ae15cacb994b12"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/auto_explain.js",
+      "sha256": "96ba0038c6735f4ded1cdded0307d02f9b2c076f31b78771c36e3ca3f2081b89"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/auto_explain.js.map",
+      "sha256": "e9e32ec0390e9aef5f0276dc3f2f58baa86a4186494c22404affde1fba731c28"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/bloom.cjs",
+      "sha256": "64454f3680e0fe148c237b41eb8c4f27dd216f1c302ac986c7c3e650fb798686"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/bloom.cjs.map",
+      "sha256": "4b59b2b9a37c0e400241d2c2f62f3cab8418ec582c6903fc3e292e1a54efc0f5"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/bloom.d.cts",
+      "sha256": "c541c05212d5aa432317ecefc0e1508a76477e743d17f5e2e0fd9e6eb3fbf052"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/bloom.d.ts",
+      "sha256": "51462f96dea2483530f3e8bade9d6c166f5b89b1bac0f37f62c5324dc0a15a48"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/bloom.js",
+      "sha256": "ea15d8c6f8f8dd7630e4f52241271d269d29a9ffcd75aeb6ffae61596ea39b63"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/bloom.js.map",
+      "sha256": "c283e641ec7b368d67afb19e674949e0d0eca949ab00e5a4b95def3c40e9c95e"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gin.cjs",
+      "sha256": "6d4bfa232e9d5d2970d4f610541acaece4d9ce5c66985ac5b1faeba4b80d8fd3"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gin.cjs.map",
+      "sha256": "2f12f7093a8e996449d1f5a4ecb22d7c4af1c52059251b1e38c77100de097bd7"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gin.d.cts",
+      "sha256": "f9271ff6c07336fac7c62242de0ae5b5d43d3a4da5459d3778290c24bb5dd6b0"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gin.d.ts",
+      "sha256": "88477ff9bc7f75985f1b362f8d92febb193404e3ff8817de5dd183de11dc6e83"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gin.js",
+      "sha256": "92dcb866c14a569528474d8e2b4546240d8a36b7db323f49de80a1eaf3744b90"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gin.js.map",
+      "sha256": "9bd9b495ed72aaffb16bb3c3ea472ad602070c1ffc542c6b930a8f08b3d0d635"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gist.cjs",
+      "sha256": "40e5b8720fa1587740b9153ec1960fa6cf06b2d3bf8f9aa5432eb82bed961e3b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gist.cjs.map",
+      "sha256": "28c01447632adddc989f20bca1facc04d66879ac7d579ffc0492fd8bc912e05a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gist.d.cts",
+      "sha256": "195733e53f3f39cd031f1707600e14e81c21154da552a0e0d6252f9c464b10e6"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gist.d.ts",
+      "sha256": "09d35b5690d0326f4bdcc979ff451d27b042a77fd42b664687d074f7f4fae403"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gist.js",
+      "sha256": "bc4fadb16724ada4ecda37d5883412ea7aa411ce43ad1c18876271334d410ddd"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/btree_gist.js.map",
+      "sha256": "45cee059231c4ee04ccf592869d4f4c460f5ee3ad50188933b770e557644e189"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/citext.cjs",
+      "sha256": "cede0868310c0cda7bb440394aaf9dc8daf2fd3abe640003e4f977ddcdfdc573"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/citext.cjs.map",
+      "sha256": "ed4133ef75babd286c90815750def5835a5cbce6d25d7520076fddf2a20e53cd"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/citext.d.cts",
+      "sha256": "d14b0c023f58f55e671af3c352c736e7b3b48ad8c62e783bcfd5b07a21c8f9ba"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/citext.d.ts",
+      "sha256": "92e6bdc3f3171858c4537e0e3c9919805b8d5304c2832c044fe861ae02c860f5"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/citext.js",
+      "sha256": "c5eb17066467537414bcd5cd6286042525b0fe89db0b8bf50ee54694ed8911f1"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/citext.js.map",
+      "sha256": "2b52c9023bf06472fc27803c7420afbc87e3a97d2a7d228d1630c257b9e857f4"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/cube.cjs",
+      "sha256": "01b98922b58f992870e8f98f9fda5b57c5fd7b3fcf7cc23c27a6455bb59c531d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/cube.cjs.map",
+      "sha256": "7e86cde6f2aa4e9beb19a71f13af7528869b3fe68cbf7441a4129dda2b485a52"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/cube.d.cts",
+      "sha256": "9b194bc7eba0189aff14da0ddc989453fa9c28a882654ff73717ed4418c7865a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/cube.d.ts",
+      "sha256": "ae01341c17833beb45707677de82d009ba89517c44e1e7bf872c56624a630d2f"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/cube.js",
+      "sha256": "edc9a2d3682b2d561a83270233b5b8787333c320eb77bf96a9c6ef28a51e6e68"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/cube.js.map",
+      "sha256": "3b560362e19cdbfc26e1a007e17ea3af82f28824ee42384a1dafc333ee933f52"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_int.cjs",
+      "sha256": "6bba45476a290f854c033e0313d992fb484f589accee8bc0d7ae8ef77ca7194d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_int.cjs.map",
+      "sha256": "dfea39b0340c95332a108b9453f7bcaeaea45d4eab2aea5bf0b1db24d05efa94"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_int.d.cts",
+      "sha256": "d9e28e26e838e620025bf2e07801e12cec858923f4a68d49b850921cf7290cbe"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_int.d.ts",
+      "sha256": "44d79af0701ddcd41f3e001931348fd67e358c7ff2ceb77ed2ce7846a4176db2"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_int.js",
+      "sha256": "8436e2522b92d63213f640e0703949cb5d09872c5671c4e45c79a399a5a1d34f"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_int.js.map",
+      "sha256": "02f45409ae654f3f42f3ee5469c16d015750863e9d8cfe3b21e8bfcaa6559883"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_xsyn.cjs",
+      "sha256": "d24eba693b8ffec344aad7f191f826db7aaf138bff200ae35f9dbb0fb8aebf57"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_xsyn.cjs.map",
+      "sha256": "b20a5c51164c3067d628022acf3658fa27c0e29024ec20c5f719c7e0fa8d0700"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_xsyn.d.cts",
+      "sha256": "3e4e06fd74d70f0d25771c16c1a4f254a546188070df46c89b5dc440dd50bae2"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_xsyn.d.ts",
+      "sha256": "a010aad55e2440096533d1cc1e9ec0485d80d71e3bc34a79a5b3b00060106758"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_xsyn.js",
+      "sha256": "6fa675fc56557cb23c6410fa9065a054ea77ab85941f7a2bb3d3694ea4498693"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/dict_xsyn.js.map",
+      "sha256": "bcc91c48ca50809575babac2f1031edef32de915ab7f151171385c6ce5d928ad"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/earthdistance.cjs",
+      "sha256": "4faf1204195de5fcd2039998c17af2b6299d4150bb201ae5ad1a338000424f2c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/earthdistance.cjs.map",
+      "sha256": "8fc34b35fbaca84af9ddc87fcca2a80f9c464cc2e52c831674ab1d7a791839c0"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/earthdistance.d.cts",
+      "sha256": "36d777dfcb4a0ba5a20be31a1f1d8b2fe0943f44b5d11c869e43c3c53b30e2a0"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/earthdistance.d.ts",
+      "sha256": "745660d59bbc15e0ba1aaa1bf3c8f22925bf3a0f56a41047cc73ed0ae2ea0daa"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/earthdistance.js",
+      "sha256": "b89864041ba8c7e46b36bf7714ab3d129fedc31240555adf718f7036a1f7b6cc"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/earthdistance.js.map",
+      "sha256": "2dbe1564acbdcb3df58636e39505c8c5a2ae3dd3b75431f3526de7c1676cb768"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/file_fdw.cjs",
+      "sha256": "b0764f9d204048508758a21395cb5bfbf5a4bc098b0362c0fcd9b778db7309c8"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/file_fdw.cjs.map",
+      "sha256": "395f2febe10563512a6727984d4d7dee161c72cafb8623ec946c3a2bb8b589eb"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/file_fdw.d.cts",
+      "sha256": "f364692783f6664f697be473ea2b1a1ea44e64f00762f07f93434eeb31b14d02"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/file_fdw.d.ts",
+      "sha256": "6987795206953f080d6c1f84fb79c68822a0c95bb88728ec0aad50413b60483e"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/file_fdw.js",
+      "sha256": "732e3f3c8fdc93385da1c2893b51cfe9c4df038ab37ea6ee54941d0ecf9e9e78"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/file_fdw.js.map",
+      "sha256": "0781e2f9a0b91458e069958d1a44450a5ce0d27f35729aebbd5f4da40e94e346"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/fuzzystrmatch.cjs",
+      "sha256": "f97a690557436ed2ecaa9348e3912495951d1d3888bdbada616bf59424e8e45e"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/fuzzystrmatch.cjs.map",
+      "sha256": "b206ff6dc09e5c57ee3098563820af3e98e1a02b0b6073d1d97b79f9d626c0c9"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/fuzzystrmatch.d.cts",
+      "sha256": "34a6b85d9d855bdcd8ccf6cb4a4b7b04ff9f427d495538dd608c4115f60944d5"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/fuzzystrmatch.d.ts",
+      "sha256": "826a5e0cf7b34695f5c88bb0cc3ed70ea374fc72722677e63a0e17eef6c1119a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/fuzzystrmatch.js",
+      "sha256": "2e6b73078c76b356864c1d732b1da780bed7a8779d0880d0582a2e085bae744c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/fuzzystrmatch.js.map",
+      "sha256": "0a5740134f47e2ca6c4b83b818efd0998c77ff20c320792c4e51e07f01fa6cc8"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/hstore.cjs",
+      "sha256": "b9cc25abca8f62c495421b37233f957224a5b2ef8ea3e758f2edf58a4e832959"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/hstore.cjs.map",
+      "sha256": "3d6223c4b9a6397345cd6dfda39f0bed8cee78e9d457195609415768e95fac84"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/hstore.d.cts",
+      "sha256": "90fce233722fa09b7851119027b81a98855fd7b1a880f137d4a5181c1273b0b5"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/hstore.d.ts",
+      "sha256": "61b57d50c6d8bda75087d58db3b55ac8a14f7503019cfd7c60731d57da43021c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/hstore.js",
+      "sha256": "799850dc9028268567022b4302c45dac9a96b9999c996d53e613ff20cd71a795"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/hstore.js.map",
+      "sha256": "42b1069b13b74634b6ce5f1a8cc27e78f0ff3c153e2db523b43f3d50ea85612c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/intarray.cjs",
+      "sha256": "3378adbfaddf4ca207a57931b37ab03ed46e327e7fb0d707590a5de6afea328f"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/intarray.cjs.map",
+      "sha256": "a8e066cd373679fc0447279da2bc97f040d7a9dbc510401130f027eb96729e99"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/intarray.d.cts",
+      "sha256": "5c15692500a593ec744983cfa9bf955e060db834b2edc471bf0623adc5b38f0f"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/intarray.d.ts",
+      "sha256": "c2cb2eaf16bdb00498f4517850b1fec15a9978d049b3a08e9f2c3676013e05f1"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/intarray.js",
+      "sha256": "c25f1a12daa75db7f9ecf583dc81997a26be7f9aa399185ab460ac701725a414"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/intarray.js.map",
+      "sha256": "c4c7b69917b3e95571124732ce9758c93450b8d5b7a3710b7bd09ee043bbf3b7"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/isn.cjs",
+      "sha256": "0101e02258109846958a6840319b830bec1ceb3f9215e541e6b744926f0d94af"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/isn.cjs.map",
+      "sha256": "1b90d6d89cc5bc8f8b0922e9af7fcee987452f047aa2c6bac4a215b2ad32653b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/isn.d.cts",
+      "sha256": "b9d8697e81675881919c7e4b9db79cd331bf3f1a0dab5ba48608a4a8d0da8c85"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/isn.d.ts",
+      "sha256": "ea23151088519c70b0594bf733ef62b8d6357fa6046e671f2e6b4422c536c869"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/isn.js",
+      "sha256": "794aaa661978527fcf6fea10bf148e98c7ddf447ef6971fb365a9e3ce596b7a8"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/isn.js.map",
+      "sha256": "6eb1150e946e053a47233a7428c29d047e0407b05f45a03434ae3be2db7ad505"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/lo.cjs",
+      "sha256": "659b1bf7bca0a8e23911d71b3ce3f2c7a778fd6f556f24873684de2f6de530d6"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/lo.cjs.map",
+      "sha256": "ebd7670aaeff48565fc8027b9180336d0c8a8c54eca2fa35e0d9be56467a7347"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/lo.d.cts",
+      "sha256": "735ddf06b5847c0964b2db4185722e7931bab1f35c4eab698214d2f074980a06"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/lo.d.ts",
+      "sha256": "ecef336736b034099b6a2c59e70258a2653063b81a21352b08c178b5483707e7"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/lo.js",
+      "sha256": "603445e6b73da0b5433463a214604d32d25962a25813512c4564f99aa3a5cf45"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/lo.js.map",
+      "sha256": "5fd797fa73a6b3fabe94b22b18ec4d102322ce23ce6b9c0c3f6cd795ccc178c2"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/ltree.cjs",
+      "sha256": "688fe32a68008894a5f0a2ffb990e3158bf6dcfe54aa8958aa36741a5dfa77ac"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/ltree.cjs.map",
+      "sha256": "4fa13e14c986d51c089362381d536fa6766b61dddb2dbce99fb10c4566fba096"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/ltree.d.cts",
+      "sha256": "6a01eeb3114699589d9067f520636747a2b4d1886f3dab9e9ef318b45aceeb55"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/ltree.d.ts",
+      "sha256": "4db0be7d575c196bc155cc3785b0ca522ffa932c413f7e05b8e148eb848388c7"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/ltree.js",
+      "sha256": "dc12e9e9bc4c4fa40a7562220eda38089d3384ba4132a22e980709d3fc13697d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/ltree.js.map",
+      "sha256": "7d9a50e769367c1c3517dc9b833ecce5ba16b131d338d36c0be038e5997826a1"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/moddatetime.cjs",
+      "sha256": "34c84bd125bd84a2d96918c8f9248e85fff9071b03700b3eede4684a8cb34347"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/moddatetime.cjs.map",
+      "sha256": "1b5dcbf5118f5122d6511934abe8110a1d78ffdb3e263feb16a249fed9a1fadc"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/moddatetime.d.cts",
+      "sha256": "e0b6affe73b3218276cac7ad82e34ae44fee0e4de2e9b8469ce1d865c78b281a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/moddatetime.d.ts",
+      "sha256": "068cf8be21bae1a5a9a16fe77c72d7709f4112f7fd65cfbc7a5414a084fc3e7c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/moddatetime.js",
+      "sha256": "812b3748fc94d2c67a36688612d11910176d55778b2cee3a565ff9f37b49fece"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/moddatetime.js.map",
+      "sha256": "a39e66f8630bf6d1b0a3c20de1e9515e0566306e712013e7a2bb40869a2bedea"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pageinspect.cjs",
+      "sha256": "df2b4bbb4c00d8b341d56fb0c2cff045e51add0bbc798baf16a9e02133f91905"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pageinspect.cjs.map",
+      "sha256": "b8b757ef5f985374b1a99a06703df8a98e0c889a59ac80cc1a0967f17c9eed07"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pageinspect.d.cts",
+      "sha256": "be3036c8d2c35220190a7819fbdf072933fa2962ac2c2db08e28422e68030592"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pageinspect.d.ts",
+      "sha256": "c813477c8f9fd9a9187e79356d265da9cfb71df9c32a5286aea778fc16f7c017"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pageinspect.js",
+      "sha256": "5ca11fa6667632867024123bd4c23e4e7acc945cd2946ffac2c862d84186e11c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pageinspect.js.map",
+      "sha256": "36df43e523464ffa015075631a97475e87cf35ee9a857d248d3b0b835cf0708f"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_buffercache.cjs",
+      "sha256": "f0dcfc2317f01c079371bd5773ce33987b0ccda0b3122a453f420260abf2c58c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_buffercache.cjs.map",
+      "sha256": "d23f9ef56f3aaaa6ae190d6f503e9c9e2eb606fd3e50e82b362e59495782239e"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_buffercache.d.cts",
+      "sha256": "5b936d427d76bfd089302e3ea9f453632010f0eabc1fce56661fc694cd1e5cfa"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_buffercache.d.ts",
+      "sha256": "eefd11e4f9a59c439e2fb92393c7573796181904ddf98b636cd1766f4a90f584"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_buffercache.js",
+      "sha256": "939443efb3fea41b274e15bfd97b74dc80a125c81f7a6ffe2e32037a36690aa7"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_buffercache.js.map",
+      "sha256": "29ae7663fe2750125e8e9de4aad96cc15976d6dca9e68736aebde833c82767e6"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_freespacemap.cjs",
+      "sha256": "986ca38ba8f3811b419f8c28f7017148daa8d4041e15f27f9aa4cbac53e265aa"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_freespacemap.cjs.map",
+      "sha256": "eed1e0c8b35746de5fb536eb83c2ddf0475917550e1961dc627f3f8f911f3f16"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_freespacemap.d.cts",
+      "sha256": "bf297a9d145afa7efb61a55e134e65633761360579d2eb58bc5ac8e9afe9a327"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_freespacemap.d.ts",
+      "sha256": "bdfa287163a9c6f755e902c9e80ecddf2e4ed1da8a13cc0a22fb0463f2cea9db"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_freespacemap.js",
+      "sha256": "545d804729452f73dd708eb3c55302026d0a906310d490e68bd0b66ad55eabdd"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_freespacemap.js.map",
+      "sha256": "51620fbc1240a63c9b476e4d5a0d28da6b70c8a767bdfb7a026aa69e929d2be8"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_stat_statements.cjs",
+      "sha256": "b920066a5cdded65a2b00a6dd790d2e5695a3caffd9c0dbc6c1bc6d035ca1b98"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_stat_statements.cjs.map",
+      "sha256": "915c4f52d2bb49a4613f645af981381822d2fff3ae9d9292b86c6dbf36641c19"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_stat_statements.d.cts",
+      "sha256": "9d5da89857bb93af1118327453db77e2b99c4bf5ec5e979445113ecbb22306f8"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_stat_statements.d.ts",
+      "sha256": "666e710721c86413493489b67c8cbc03f38ac4a0174213696051d67f301fa895"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_stat_statements.js",
+      "sha256": "1a7419c8286bcd968bb06365efaa90f3eac11420457468219e774fbc70936533"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_stat_statements.js.map",
+      "sha256": "8adbde884ad7ce9f200be909d59ed102fa1b7e483fd6c3a3b5ab1ff4d020916b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_surgery.cjs",
+      "sha256": "e2a665c333d718203cb3ab6e4cda3a8b0e6ad2067b7c25ec2862809468b748b7"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_surgery.cjs.map",
+      "sha256": "25223c2790fc92bacf1a6f73f982cf524f0373f11f68c4bdf055134b3389ad5d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_surgery.d.cts",
+      "sha256": "10c45870fa09b9695f3c644f8386eb8eaf2b7d79d4d782060363ff34e92bc337"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_surgery.d.ts",
+      "sha256": "563c5018dec98d1cabedb9985a9569abb077aa599c155a3ba371d626fc91aef8"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_surgery.js",
+      "sha256": "949a64f12498a8435b1f5268a682e625c31a4a18c9fe88fae88b58fed7d99686"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_surgery.js.map",
+      "sha256": "7a4bdf336f354f543dbfdde84938d86a7721b61eab2311fba84986b4a9b99bfb"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_trgm.cjs",
+      "sha256": "7b2a7831243a1db34523222c2e5e1e6cb5e229969e473dbb2632512ff4d2f2e6"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_trgm.cjs.map",
+      "sha256": "1e7c46947a4640345af891e713454a21f21c962f72ca33cdfccf4badf8036e56"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_trgm.d.cts",
+      "sha256": "392f5da0e4d75c958d715921b1205ac79620e9e6c20be9815de97d975ebc70dc"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_trgm.d.ts",
+      "sha256": "371f281f5d2216469370604042c52a87ae70beeff88a60948c78fd6c083f1faa"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_trgm.js",
+      "sha256": "fc5618e3a8633954902dedd9b4fe73c1aafe54c4b3745719ecc7873f35405384"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_trgm.js.map",
+      "sha256": "2ad4bffbdfb387fc2490c5148633ed0bfd7efc4339cf2d8bd281361f8514aa19"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_visibility.cjs",
+      "sha256": "099f67483a7827befcff361dae91a00ae07a312dadaa2e6ee3f4bd821faee037"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_visibility.cjs.map",
+      "sha256": "63a81d788e07363b85a50484c0d6b452f57ca810f11c017753956ebf91981595"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_visibility.d.cts",
+      "sha256": "bea5fe04b36c2592445a85e093996b9426288a9f1614961439ccc84fd6e13a6a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_visibility.d.ts",
+      "sha256": "fab9d9653f5393001c89f12f365ea9a7dfaee20ab91a4c2783d774fd0a7ecd6a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_visibility.js",
+      "sha256": "1326d079a84fab5eaffdd88927fda54f8714886aae685ed81711c1042aee8a4d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_visibility.js.map",
+      "sha256": "c007aab79baf637b183b8c19c1137abb5fd54593684d7c24e78cc895109afee3"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_walinspect.cjs",
+      "sha256": "9dce50af45067f4e0980f72067a3cf368098175136351c09a979cf3f9fd0d89b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_walinspect.cjs.map",
+      "sha256": "f229bb9cc24593505b028c7142a1b803d58623c40c4f81f17b30a5d57d3429aa"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_walinspect.d.cts",
+      "sha256": "5c789776b89b24c43ee4836cde6467fc1380a5b1aaeabe237dc3d73e2b9cea7b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_walinspect.d.ts",
+      "sha256": "79079ff745b7cf94aded677cc03dc8b8e1ca4101b6a524fcb7b29e66fa4a7ef9"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_walinspect.js",
+      "sha256": "1b85d87c17d9d6205dd1d38d7ce4891a59d4a63e54c704bc36901e79d35e0203"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pg_walinspect.js.map",
+      "sha256": "65f93cc508807355d5f5725951203b2e53133556b9b08fa95e1c8a23075ab6cd"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pgcrypto.cjs",
+      "sha256": "5b2251c6c3f782eaee84cb4c92ecfa89241f7712b10f6618e4dcf3108c692411"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pgcrypto.cjs.map",
+      "sha256": "046f42bfdaf99a72b18f53f43f1514b94ed06ee22409fb4770d5563f8cf78622"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pgcrypto.d.cts",
+      "sha256": "e08ba83f7ca9cb5b1c946de1d3bf8cfaed38f44d4bb9c12666b03e14549872a4"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pgcrypto.d.ts",
+      "sha256": "0aab4ffe8566c94501448c213aacfff6eaf2e3db4685e95c25ee96a73bf3d1ef"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pgcrypto.js",
+      "sha256": "3fb9b5f4c7eb15e29b3af759ffaa4e91c0c1a1d9707893cfb70a9255e0157a3b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/pgcrypto.js.map",
+      "sha256": "c2f2f044d73b323e60cd5f8ba949332a0bafc7bb46e0e9f04eafb86412d79947"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/seg.cjs",
+      "sha256": "48904aad673cb2583c632d0b7fba3f6563ade283eb9cbf0ef1728ce71cd59956"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/seg.cjs.map",
+      "sha256": "794f32b13079f1a61e37467eff11138bbbbab2817acadd188790056df0776799"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/seg.d.cts",
+      "sha256": "5beac3b5ce2cc9ed024d6331ae4e9e77c13e02c4f44fac9c7f843bd0fb444c14"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/seg.d.ts",
+      "sha256": "aa20167c8443bb165278f628c25e5829ca13a52449c47fe4672634c1731abf84"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/seg.js",
+      "sha256": "74860aca84b22803362df60cbb7caa264460d59bb19d5cb563edac4c887dc467"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/seg.js.map",
+      "sha256": "17c39b1f00a68efa47ba50208f8f4fbd64574a54dd1b58aa80a799d55b127269"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tablefunc.cjs",
+      "sha256": "0fce71ab50b5d9d089edb62d189ea638dbcf269a3f85d55052b5a64eb7167e1d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tablefunc.cjs.map",
+      "sha256": "e365bbc9b4a08a4876eae0cdc231957d17ffc62274df138d9135b8d62f17fd2c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tablefunc.d.cts",
+      "sha256": "25d7bbf2d0b342e48daebf93f73abd04e3936f50694076d97eb9014a00e70883"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tablefunc.d.ts",
+      "sha256": "8a65ff5afb52d02861494c287c8057e893369fb63a58d1dbae81555a56149c1b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tablefunc.js",
+      "sha256": "de057f87533442ee78b712fe86ae40364c4fda7e34e25e90ad0a702d5aa873c6"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tablefunc.js.map",
+      "sha256": "14e1061f2298c954f2a2ddec4319d643d26199ebbd97a898c7741366181f263d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tcn.cjs",
+      "sha256": "c123f9ebd62dd8fca456c32f13a471f33f0caa7aab8dc3c1f8588a5e17e59236"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tcn.cjs.map",
+      "sha256": "be46eea14fa4b2b5d34fe1b5741f84109771cd9be472e42829722dd8254eb4d6"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tcn.d.cts",
+      "sha256": "d50801b225aa1fab857d3f69204d3486af4d765e4cad7b582ad440dd00f6e399"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tcn.d.ts",
+      "sha256": "96200665c71499176e8e258ac88f7108521ab43be6845cf5b129387e63fe3354"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tcn.js",
+      "sha256": "37ced01df24e3beb9ae475885999b381fff4470b89ee1650238abebf8b8a13ee"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tcn.js.map",
+      "sha256": "84931f2c16ba3ac6c1e50b6f8c82daf2bbff48ce3f7c89f6433a035002ef868c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_rows.cjs",
+      "sha256": "08a69f9c137463ec7ab9f04e76ce26fd206a11d56ebb2d8215bbf9e0763bda84"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_rows.cjs.map",
+      "sha256": "e8d161bc5c791ec14b1f01c30d9904fafb598eaf736340124a3a9561417c591a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_rows.d.cts",
+      "sha256": "1b515d83934b1f79ff492b90ae23533b07106a9dc0e2f65651e3ebb2798e8570"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_rows.d.ts",
+      "sha256": "ea4f4d1594bf966a114c7370e3ee4b1a910148f1c04160d5da468bbe8bd0785a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_rows.js",
+      "sha256": "c63c24b562c5f05a7c02877e17c673d381349e2152a60e4bb73e3bd75ceae8fd"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_rows.js.map",
+      "sha256": "0920c3596808d89a826c839492cd161349f534ca9c33adce8267c2a3674581fb"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_time.cjs",
+      "sha256": "77da6f3b4c00aa3d09bd9045f39b15e222fe56255e7e6959942fba7751ef753b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_time.cjs.map",
+      "sha256": "165160123f6b48d297fe4c955931b66fa7e37b82636923a72fb7b071a2ad2daf"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_time.d.cts",
+      "sha256": "b87950489d2e76e3cc40a11f78f723e5e739b3f3ea42af3c9ce6794f3eaee54b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_time.d.ts",
+      "sha256": "48e8749cf490b789a6fc503aa5e42ad173edc1a712ddc238e66d9ff694f60179"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_time.js",
+      "sha256": "a9d2e5e9b4ba3fceb9cc3c08e70f42d97e314901785ba907ca2a08d197c0e3f7"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/tsm_system_time.js.map",
+      "sha256": "994d2365e2be0c622f53cd17d0957ab5c05abb52edac24904461d25c1ba435ee"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/unaccent.cjs",
+      "sha256": "54dac231f5b1e57dca3c26361876545775fa925052f7b865e27f368235206f0f"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/unaccent.cjs.map",
+      "sha256": "489fe4dffda3b78c87a90bc4d24dacdcb96d4ffd7c86c0ab622f4cf89820eec5"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/unaccent.d.cts",
+      "sha256": "e262d74baf946682dc9af5741bea9df12348ae084f5c19bbd74d42fd063df4ca"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/unaccent.d.ts",
+      "sha256": "85e5e8f8f9904de5f82bd30c5d388dbc972b9d351b009b3fd003d063efa1c757"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/unaccent.js",
+      "sha256": "525521d993dadca106c99e731e07c3baa10cce0cf7c73d834b0f65032c449111"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/unaccent.js.map",
+      "sha256": "a4d287055c2cdbdb78f76bb1a02f46edd9ffd6141a370d5644ea17f89a64a5f4"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/uuid_ossp.cjs",
+      "sha256": "2b6bc2576b908095b5d12cff4b33c9649bf2ca248a380bc67b3caf5d8b9d31bf"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/uuid_ossp.cjs.map",
+      "sha256": "a2934f563df02b0b3f3e6e0de01e5d5ee61c87574c3997c6479faa310ab68027"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/uuid_ossp.d.cts",
+      "sha256": "a558fd045d39c2d4dfe103e126f72c7036e24ce2d4f2c4a352e6a6a2f29dd049"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/uuid_ossp.d.ts",
+      "sha256": "bcb2ccedf73140e190b58627d490f03efb9476bdb44ba90a3c263e633bc3e1cb"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/uuid_ossp.js",
+      "sha256": "0d4a46aa5f8c3801f7c2ca7f4be7ac07936474c4d5526b2417ea663eb75451bd"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/contrib/uuid_ossp.js.map",
+      "sha256": "a1b328a4d0e7c340ba47a767fd3961ddc8ddc9f644882112a50decfe4d5bc952"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/cube.tar.gz",
+      "sha256": "47ebd0dbe61b30e3fb83355c7313334c4412c9741f3438d91814d716b88425c8"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/dict_int.tar.gz",
+      "sha256": "6728d610319356972f882c2677c1eb935530a06cf52c5420a7d35e1d80227745"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/dict_xsyn.tar.gz",
+      "sha256": "a6e07b0dd6cf11e521cef8e8c69e159f01cf3aeac5742bb3951a64b7c7fc3075"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/earthdistance.tar.gz",
+      "sha256": "e13d9f2430e2fedd3635cfb7298c5748dd37e773bc96ee6eb57dde5b33ded7d2"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/file_fdw.tar.gz",
+      "sha256": "f1e110af2b87d12755f0275538dff2e2cbf69c66d6e375126e6456d6b9ebaa9f"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/base.cjs",
+      "sha256": "d8a4149fabba22a64c479f45205bd0a5f3b49c5d69b1559044b36be11c55b0cf"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/base.cjs.map",
+      "sha256": "4bb3e4b5b522a8d3fe479c440ca874ab077fa160cc05eb7660866eac115e236a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/base.d.cts",
+      "sha256": "b0ed1c7829f1a37fc98f2ae44ffe68b60aa710f705cc164194d5a08cf4d835ac"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/base.d.ts",
+      "sha256": "93c02cae3854de98b9aa409015c9dfacf43e6c4f740d170971475ad76bd5a600"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/base.js",
+      "sha256": "8a840f204b540dac65a703fe71516ea73abfe9a1bbfb5e6b15864e0d22858063"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/base.js.map",
+      "sha256": "cba81f7ad4d5b1b629bf43823f1082e73a10d0c3114c937515e7f8c1047629b3"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/nodefs.cjs",
+      "sha256": "4cbd86aecbae4a3b3b6385f3fedc687a89c81de33dedb1c64ae365694c794ff7"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/nodefs.cjs.map",
+      "sha256": "6a5f81226d22471e831255d75f300292ac9572416dc43975dee22d6ecfef0389"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/nodefs.d.cts",
+      "sha256": "e909310f7b8504a835d1366fe9abb10afc28a102c807c3e48c0262a2038c400d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/nodefs.d.ts",
+      "sha256": "c303e5fab40a44caeb168a7775e4684c5f523b00f7e1d59f56c9b1c2d41974d5"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/nodefs.js",
+      "sha256": "7ffd7c0550fcf16ad7f5b3c1fc0e259ab0c213dc7c4f47188dd43d442fe14011"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/nodefs.js.map",
+      "sha256": "f14ae8052e2c5522f8ad057fd0a4ba54bd368bde12faba159c87ddc2253007b3"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/opfs-ahp.cjs",
+      "sha256": "e3b1b01d1a0f1981ff2356b7064a1188627f721d5d2722bd19c7110cb96321db"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/opfs-ahp.cjs.map",
+      "sha256": "3660579d02a11e2ded21eea802e818b21aeaed5302e1aee92cb44890c6e6ba8d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/opfs-ahp.d.cts",
+      "sha256": "905b56c7447618d42e926af2769072d2e04268daf135bf4d4b1de05a4df6a65c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/opfs-ahp.d.ts",
+      "sha256": "a384877261111098d44fb946a04dede34df55a1b7d60b461d9692f43b6714f4a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/opfs-ahp.js",
+      "sha256": "73de23a9f88d3dccb8abeb9ff689b7c03511b5736945146dd7797563f198ed8c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fs/opfs-ahp.js.map",
+      "sha256": "929b9961e4de148f1c8f999a8f35cdc75f326b09f991d0f3342c88f768bb2d7e"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/fuzzystrmatch.tar.gz",
+      "sha256": "3ed17a6e2f0946c7f003065669b958d9eec476c02f860f18d7a1299c188da6b4"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/hstore.tar.gz",
+      "sha256": "165f64c6c2be2ce9d2420d296335a8e3b31ab2c13bf002db6a81cf5bb064ee49"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/index.cjs",
+      "sha256": "aa6b681c119cb131287e26db74024f3dcd16149dcea7b7146939fa658e105963"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/index.cjs.map",
+      "sha256": "8cf890481e9cb1f6759d611423aa2d418d28bc73c8342343c15a03ea0b73951b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/index.d.cts",
+      "sha256": "d778f85fef02fefd87d34e7e1ff8d19a2e1dcc3e9d47af36c14fd2557c4fad80"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/index.d.ts",
+      "sha256": "e34d15f581a3a6de7099b021316d63f25c30f6b40cecbfe07574d9a879de645d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/index.js",
+      "sha256": "388fa6f88cfa02adda63b2f05853d310dec9a42fc0b91b0a78927f97d4bc5964"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/index.js.map",
+      "sha256": "924307dcdda38b37c47b5651b14ff0a8293aaa4bc5ecf914fe6e386d94c6a100"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/initdb.js",
+      "sha256": "6852f5292d9528c7aa2093a853236f0ba2ee6777b9d43a10f17b04ef22886194"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/initdb.wasm",
+      "sha256": "4c8988dca3b2f0bbfd23a0714023e4822a2909ead01804f37acffd9ff3ca9f8a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/intarray.tar.gz",
+      "sha256": "245fd8329a1cb153f4f6c564a12881d129ea2be589561fbdb43c8d02b435d79a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/isn.tar.gz",
+      "sha256": "47533e6d670b0209656819a836a4efe69a1b377f1a6c792c1e7bb0ff093deb4a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/live/index.cjs",
+      "sha256": "9de9765fc699b46cf0f179b153e4f67592d1710531baa98453499f7ac7dec69c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/live/index.cjs.map",
+      "sha256": "c5be88845066fe2ec01f1bbf7a6a181bd6375c709bf367651a102a87f4874457"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/live/index.d.cts",
+      "sha256": "20f4cba2fbef177ab8289cc54f3c57521f04d0863b8916410b1089bece45deba"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/live/index.d.ts",
+      "sha256": "4a41ff41f64116a33225f7ef2fc31849c3c141cf45492fa6f90e3fd584c6adb5"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/live/index.js",
+      "sha256": "93cea97af317afe95158544b2548cadba1ab806341cff7a929c12fcb97fe8507"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/live/index.js.map",
+      "sha256": "0fe4f89a78e5605b2f488cafa19cb5d4f2ca1a35399b0204269d62b94c8783aa"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/lo.tar.gz",
+      "sha256": "36f83c0cdf8a8fa6629e439897b3b8a0d5e1049a8712173b4d252b946a0317da"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/ltree.tar.gz",
+      "sha256": "5e38fe1363ba078bed886d41190101a6aedb152beefdc104181ff222603d1b6b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pageinspect.tar.gz",
+      "sha256": "ff65f950a002f4b2e7da143f535d231f72530b39d4441a6035b607e76dabc428"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/passwordcheck.tar.gz",
+      "sha256": "03cc5fdfd864f5c4624dc88809965b4bb8cd400f719fa648c30f0dd8c16df918"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pg_buffercache.tar.gz",
+      "sha256": "23b5d972143491987d75b2235bc0efeedd45b10338f355852def68d2305f1161"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pg_freespacemap.tar.gz",
+      "sha256": "1c11c342421593b5473e717f4570177e97255fb69ea953537b0340a854b8ce3d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pg_logicalinspect.tar.gz",
+      "sha256": "1494e80a22137f80d4342e381c2ef9d9511dc763ae2530cbf7cbb8ea6e4ed215"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pg_overexplain.tar.gz",
+      "sha256": "1c613bfeca7105a96cacc8e14a272e2075245c02583db41b18510ff0dff4863b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pg_stat_statements.tar.gz",
+      "sha256": "384650f6258a68ed5cf1ace17f2014cd4e60023f02439debaddd6398c2450d6b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pg_surgery.tar.gz",
+      "sha256": "09366168a6feb0360fbcd7cd62228c935b05b98be35d4ef41664bb694bc06d44"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pg_trgm.tar.gz",
+      "sha256": "4e76ac1614c092647846eecdbb1f7e8453113d5b326c3113984155b4f780e534"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pg_visibility.tar.gz",
+      "sha256": "f8a4058e459cf520b234beba91182a1f0ad5df963977ab0650fa6948c82e1528"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pg_walinspect.tar.gz",
+      "sha256": "0bf30ec08bb66493b43b778dd9a50abfb24e45fca6d2c5139f4142b413c04db2"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pgcrypto.tar.gz",
+      "sha256": "1646e1b4a6959142baaf56e153418922fe57d9a6e5fbb935f452e406025a8093"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pglite-BdeXTuy6.d.cts",
+      "sha256": "b2ca79d4d85198b0f500ece569af05ce36961a876fce9a66e55dc814fc6e6725"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pglite-BdeXTuy6.d.ts",
+      "sha256": "b2ca79d4d85198b0f500ece569af05ce36961a876fce9a66e55dc814fc6e6725"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pglite.cjs",
+      "sha256": "0c63476edc500c5e34b2d3f9f015c662309955dca4ab8907bbd0785166f6e8e1"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pglite.data",
+      "sha256": "c574cc331d96e33311470ec57bf58c579d972c111dbd9c0ab54bb42d79ec4c0d"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pglite.js",
+      "sha256": "d7db324430326d0a2189a4aa10a11214fd0c92fdbf0df5781bb57f947b491707"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/pglite.wasm",
+      "sha256": "356b89f6fcb2ab3a397bec4128327b67b7137ec2a900b13251dade81bcbc0ef0"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/seg.tar.gz",
+      "sha256": "a0e15eafa5ad7c60b356ff1eae2fd7e1c4e09ee4dafe7d78624a8c19846dce59"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/spi.tar.gz",
+      "sha256": "090c96b6f48c240770521bb6973798b9a47a2cf3ba82ff84a922e644b6540654"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/tablefunc.tar.gz",
+      "sha256": "04c5f45249e29c592867dc69f9cec252ace52d06d4b168437231c5fa568938f6"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/tcn.tar.gz",
+      "sha256": "0f11ab0d49bd709727d464e0f25ed2994e3ccbc31bb0a51b0326471046e2a7a7"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/templating.cjs",
+      "sha256": "5032ae8d46d08f95bd84fbb4a72ab2f08a58853d868ac85dc66cf1f250d4e710"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/templating.cjs.map",
+      "sha256": "3afd16ad0731eb0791444d4d494cd40d8718b9fe5deb72389b0f937c428edab2"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/templating.d.cts",
+      "sha256": "521404dcba3a5aaa83dcd69db2cca7cd5ae87ff1f79e194c26667ab33690034a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/templating.d.ts",
+      "sha256": "521404dcba3a5aaa83dcd69db2cca7cd5ae87ff1f79e194c26667ab33690034a"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/templating.js",
+      "sha256": "99508ccae5c9848d45b22d714a75649c5f8121840cf8000fda10000e3eaad767"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/templating.js.map",
+      "sha256": "cba81f7ad4d5b1b629bf43823f1082e73a10d0c3114c937515e7f8c1047629b3"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/tsm_system_rows.tar.gz",
+      "sha256": "161b6a2215d55e70a2efd93194e70e765b13ce40e15eaf3bead0fca0e88bd6c9"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/tsm_system_time.tar.gz",
+      "sha256": "e7ad2bfa856472df0c67768c64f2c070ca30a539d75c5687daa1bf544e8ce3ae"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/unaccent.tar.gz",
+      "sha256": "727d17e50cdbb4855dd1908a6715e4999e9090392be8d3c4aa0634419abb38f4"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/uuid-ossp.tar.gz",
+      "sha256": "7cd0fc7c868a5dc55f331c9f8189754aa9417a059ad3f5846fc200862f73906b"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/worker/index.cjs",
+      "sha256": "2c20eb7fe14d7639edfec13130c713a66695a2933c587454b25527b6f9de862c"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/worker/index.cjs.map",
+      "sha256": "ed5ff7829a97d848ea4be649298927fe50eaab4d1da87e2acbf65ef207503904"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/worker/index.d.cts",
+      "sha256": "b3c542c6408321ca38a2d2a1060da70c26a004e79f60a76ec70fe86f9e4a36d5"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/worker/index.d.ts",
+      "sha256": "77bfbf4d3f03561f622f48388d7725d4c8f8939d13dc2c60690cbe7d523fc74e"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/worker/index.js",
+      "sha256": "ff829fbbed763661f47b5975de044f0fa2f9a1075839778635e1e4eea0fc6d74"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/dist/worker/index.js.map",
+      "sha256": "26e5fdbf6b3a559438ba6e6dcf06a534f579e8db42ce7a45ccb2ed868108d1bf"
+    },
+    {
+      "path": "deploy/coze/vendor/pglite/package.json",
+      "sha256": "65dff2c93c707e526902eebfab246bcbf2df2eba1c6984a5b5e9a44177532b1c"
+    },
+    {
+      "path": "src/app/asset-readiness.ts",
+      "sha256": "49f478e4c0557395d5f55e9f25898cf95458eb8d4c2bdfa8c47b15c18956e80f"
+    },
+    {
+      "path": "src/app/bootstrap.ts",
+      "sha256": "72160f78160312cffb516c2f4da3f0f9c60a8eca758e1b05cab2345afdc5923b"
+    },
+    {
+      "path": "src/app/race-preload.ts",
+      "sha256": "0800c55b2be7c1d075afe79fd25880ac107e079c407ef3b82a6aa82ccef766ad"
+    },
+    {
+      "path": "src/app/run-session.ts",
+      "sha256": "a1724997017ee759946183a3fc1b129dc21f37aac0449d64c6e0547e2c12ef12"
+    },
+    {
+      "path": "src/assets/base85.mjs",
+      "sha256": "3e7905d65b1a56dae3d834555819f98ae55deb4e3721bef225790c10c55c6819"
+    },
+    {
+      "path": "src/assets/catalog.mjs",
+      "sha256": "24f04bb70c055a1fde6a76f6ac494e1d7567bab304e680ba6c06a704c918522e"
+    },
+    {
+      "path": "src/assets/http-store.ts",
+      "sha256": "a3d1cf464c3304515f711594aea543f129b5001bc1bcdebb7fb448edcf373f1d"
+    },
+    {
+      "path": "src/assets/manifest.ts",
+      "sha256": "333f4b4d2bbf3a4aa42b1f4bb24df225590051c992c3568faa08ebcfa4c9ee2c"
+    },
+    {
+      "path": "src/assets/offline-pack.ts",
+      "sha256": "81d83a9cbba329529b5403abbc6eab673f44906b3a283d2db5a2ba6fc3e8d60c"
+    },
+    {
+      "path": "src/assets/persistent-cache.ts",
+      "sha256": "69f3eb0443ffee72fe3290716da18abb34078838946f144cd1823fd2e0c3a6c4"
+    },
+    {
+      "path": "src/assets/retired.ts",
+      "sha256": "43e8245cb463a91e734475e06231b163c2d23f10ac99be84dfa4f6e6d8b75f12"
+    },
+    {
+      "path": "src/assets/ui-art.generated.ts",
+      "sha256": "429592db0649ec9a8db2ce127712c876ebcdf85e8dce732b01936fc7d0afa357"
+    },
+    {
+      "path": "src/data/build-card-routes.ts",
+      "sha256": "d58e09b5878f00b25230bba4b3e29a8529547dda82a301a8536c513b6c070486"
+    },
+    {
+      "path": "src/data/campaign-landscape.ts",
+      "sha256": "11e1783d0a582ada176bf14f5e8961b259ef4a04333449aa28a7ad5d10abb16c"
+    },
+    {
+      "path": "src/data/campaign-layout.ts",
+      "sha256": "7f8253e1d3a39ad3a1347587c992da719b79af21f09f2172230cf1f306ce71d7"
+    },
+    {
+      "path": "src/data/campaign-map.ts",
+      "sha256": "2db0d9f0d4d8e9d23af922014caa7892fd5732b1aaa2d3e0ef7c7961729f35e8"
+    },
+    {
+      "path": "src/data/campaign-science-vessel.ts",
+      "sha256": "cb7d6e73f27bef6870fb442df89f30d5fe0fc6b25f429c71964ea3dd407ad396"
+    },
+    {
+      "path": "src/data/campaign18.ts",
+      "sha256": "5dfc80fe2d3003ca6ea628282b42780fafcdefe7bcdf5a6f1c169945856f4b7a"
+    },
+    {
+      "path": "src/data/combat-presentation.ts",
+      "sha256": "013abd20c8bd12153361c7a98609021e64095feae75ac8d9836ca592bd75ba24"
+    },
+    {
+      "path": "src/data/control-tuning.ts",
+      "sha256": "bdf18cd8086d5bd3ff04e8ef8727988e8dc2b11a71de0ac781320af83d84332a"
+    },
+    {
+      "path": "src/data/economy.ts",
+      "sha256": "b40094c2b6e12a3d18cbc9749fe1021b71591c0f4fd9eca1b5fe89dbfa24c2e2"
+    },
+    {
+      "path": "src/data/elites.ts",
+      "sha256": "e126725d89af33c62e692deaed2810921b3134ebb60dcac04644297e5f54bfcf"
+    },
+    {
+      "path": "src/data/endless.ts",
+      "sha256": "4d7ddf3d80bc94be8486d2332daf926d35a98ee57b081a9b0cbb23c05b5fe9c1"
+    },
+    {
+      "path": "src/data/enemies.ts",
+      "sha256": "47979b9ca9355eec4facc912e167faa34ffbe33c4f23897e2a95170994e1f803"
+    },
+    {
+      "path": "src/data/enemy-progression.ts",
+      "sha256": "94d62befda47a19fe0cb697fde1ee0d7435d5516f11fe1cfcc039aa59600038d"
+    },
+    {
+      "path": "src/data/expansion-content-readiness.ts",
+      "sha256": "8ba6317fb941ada55ec235c47eeff13b53b7c98e0f73a96a6a072b8a8dd4e370"
+    },
+    {
+      "path": "src/data/expansion-units.ts",
+      "sha256": "6748082fdfe815cc52c811460db2fe4ccfccd5b5e8341ec5122eed96c19e2ba7"
+    },
+    {
+      "path": "src/data/expansion-upgrades.ts",
+      "sha256": "26c58bdd56f6b869bc7d5e714ceab455617292c40652356e411165b4cc6b6c72"
+    },
+    {
+      "path": "src/data/expedition-buildings.ts",
+      "sha256": "fcb8c4d9b790be625252b05a5c2969e284bb3a9954e1dd362f5c40b84c22435f"
+    },
+    {
+      "path": "src/data/game.ts",
+      "sha256": "808331aa7559b3de0f73154e8c58ebe0920686c68b67eaa1a81b4a3af1c51991"
+    },
+    {
+      "path": "src/data/hero-spectacle.ts",
+      "sha256": "f105eeeb2a6ba7132502e945aa74f5c046815a63e42287d07e3705ff16769a27"
+    },
+    {
+      "path": "src/data/hero-upgrades.ts",
+      "sha256": "91536009f5001b88995342014b4761a64c05a997ea0f65d8f77196ac47f05b67"
+    },
+    {
+      "path": "src/data/heroes.ts",
+      "sha256": "f1b4d5706ba7e77d1c5d28ad9a31eb5ca220c3bb2da2445d867a229f750c397c"
+    },
+    {
+      "path": "src/data/hives.ts",
+      "sha256": "aa24d8f3ab7f1df25951d817cbfd77856a73e5315d14ed58d4fd828bb8f6e754"
+    },
+    {
+      "path": "src/data/map-definition.ts",
+      "sha256": "085aceec2602f57b82567f5c33c5c85ec5632ee2c54dbc28d7f84afebe2ebfe8"
+    },
+    {
+      "path": "src/data/mvp-talents.generated.ts",
+      "sha256": "1f3b443c93dfef75407b45e5c5971b85b649cf32de8b476cdf54b046c82c8dab"
+    },
+    {
+      "path": "src/data/mvp-talents.ts",
+      "sha256": "cf3cbcf1e5850b2adb61a4b3ff11e2725cbb0865a30bf654fe78d8e398fb8868"
+    },
+    {
+      "path": "src/data/player-unit-adaptations.ts",
+      "sha256": "df1bd7442472d024c865b80288c79225771cac7da8c3a8bd537d609c7ead5f52"
+    },
+    {
+      "path": "src/data/protoss-elites.ts",
+      "sha256": "9f7e313e5a920d6d885433156dbb785dbb7bd056ab90ccd15c7f4864da11f607"
+    },
+    {
+      "path": "src/data/protoss-heroes.ts",
+      "sha256": "9aa2f8d0980599365cd68eeb5271408d896d71877d73e85bbe06d410f6486ca6"
+    },
+    {
+      "path": "src/data/races.ts",
+      "sha256": "5ad0ee25f926a47ab547c2ffad97484952b0fc2a578418db655b3b08b82064b2"
+    },
+    {
+      "path": "src/data/ranks.ts",
+      "sha256": "4e286e8d2876325a02ab9edfaf0dcabe5b983729b50b970d76e96b6c1028e6c1"
+    },
+    {
+      "path": "src/data/rewards.ts",
+      "sha256": "82a36a86f7bbedee12fdb9e54780d2593ec1c6e0ccb54489086248d783be6cac"
+    },
+    {
+      "path": "src/data/roster.ts",
+      "sha256": "5061253aef0033992a5c7d1e1e22ccf5bd06fd2ad5c311cb599203eb004baf9a"
+    },
+    {
+      "path": "src/data/sc2-units.ts",
+      "sha256": "0aa67a33bb5785a82da36e4bc0e1faa7fad6d0fc6567788e65d024bcd6033ede"
+    },
+    {
+      "path": "src/data/stages.ts",
+      "sha256": "3a7e22655626dcb56ce0f8b1b8deaff88fbed900d64c377d2823e38ba0fef28e"
+    },
+    {
+      "path": "src/data/swarm.ts",
+      "sha256": "884b6bbce207555839761d90a5b2bd0c3e11a60e0e4ecfeb1f5f80bd4f1a1c64"
+    },
+    {
+      "path": "src/data/team-auras.ts",
+      "sha256": "35ea0a040b5812e07532dd7bb05d276ef790182b743b35759309793c9d4780fb"
+    },
+    {
+      "path": "src/data/terrain.ts",
+      "sha256": "dbd4a6ab20234b1df12d24b55d743f295fca5c6b0bf19483b83a610de3d4137e"
+    },
+    {
+      "path": "src/data/terran-elites.ts",
+      "sha256": "c4dd3940713f42e2782d1edf5e0615231578bcb224f2927ce8c4aeeaf72cad32"
+    },
+    {
+      "path": "src/data/terran-heroes.ts",
+      "sha256": "1557c0abccb7eb95f708c44406ac4fd072609d60763d8038a093ee5412cd00c0"
+    },
+    {
+      "path": "src/data/unique-support.ts",
+      "sha256": "6f2308f2045ee78580127549f27f0a12fd62738740618cc06abb3825c9e41332"
+    },
+    {
+      "path": "src/data/unit-spectacle.ts",
+      "sha256": "4afd063e11eb79165705a871b1bd5cad04b410c560d8ece3228a20a0628ec6a2"
+    },
+    {
+      "path": "src/data/zerg-elites.ts",
+      "sha256": "6b91308ee1788250370c71fdc1bdafb0c84f29cdd1fbe478829a3a67a7b7f074"
+    },
+    {
+      "path": "src/data/zerg-heroes.ts",
+      "sha256": "8e3fcad0711b816574fd4c205a30db4b12d48af57f62bba4f778fc02fa7c2d74"
+    },
+    {
+      "path": "src/diagnostics/combat-lock.ts",
+      "sha256": "91505d37ef1eaa80af9c2c02eb82f280725fda277dc27405f9720fa2b392c593"
+    },
+    {
+      "path": "src/diagnostics/debug.ts",
+      "sha256": "968b0910b612f60a474deb7889d12c7c5432ff9573f77a574fbca4b1e59646b6"
+    },
+    {
+      "path": "src/diagnostics/shot-diagnostics.ts",
+      "sha256": "77557979596a94f17b044652c3ab008d071d72e9223867143dabd8c186f446f2"
+    },
+    {
+      "path": "src/main.ts",
+      "sha256": "f522095ab82cef6e9d1fc01b9ef171b921750229261bad64e2efa36997377ca2"
+    },
+    {
+      "path": "src/persistence/archive.ts",
+      "sha256": "2173a9024d883686d83b1fb5f5d51c5de5ef5b18c10d9a9d563d29ee50365538"
+    },
+    {
+      "path": "src/persistence/graph-codec.ts",
+      "sha256": "5842ecb3fb47b175c6ba912f169b19eff87ad4efff2c84e66d9da5bfa4a75a70"
+    },
+    {
+      "path": "src/persistence/save-repository.ts",
+      "sha256": "8776a203addbb39a29731681a6070795440dfd582eb98dae1396f71877dc9b4b"
+    },
+    {
+      "path": "src/platform/wechat/asset-cache.ts",
+      "sha256": "35ce7a107753f2ab35aa3ea08bddbac0199fe763f4f0b13be6665763b6cc68e6"
+    },
+    {
+      "path": "src/platform/wechat/game-session.ts",
+      "sha256": "65bfdcb82ebbe27853dd0ae13132b2b7ee4a7ee7c1e7408aedd41117c2e45dc2"
+    },
+    {
+      "path": "src/platform/wechat/preflight.ts",
+      "sha256": "38896a389313a23b23ecebf0f7380f6da6df92b41264699af3123ce1ae715327"
+    },
+    {
+      "path": "src/platform/wechat/save-backend.ts",
+      "sha256": "cb5a376c7ccd9184e4eec81537309df2569e37f2b8e9e0869a7007b8f875b1a4"
+    },
+    {
+      "path": "src/platform/wechat/sha256.ts",
+      "sha256": "9ab1bf41a1dfec59293017d9b9027d79185465a3e38b65126d1ead292e2db09f"
+    },
+    {
+      "path": "src/render/effects/audio.ts",
+      "sha256": "eaa8253503fd80c1aae0aa68a44ac59c06eed7381104d32d9c586226750282ba"
+    },
+    {
+      "path": "src/render/effects/battle-effects.ts",
+      "sha256": "30c581e3824941beb5f1b00e368ebfd309bae765f586f5c3c674e940ff9b4399"
+    },
+    {
+      "path": "src/render/effects/combat-sculptures.ts",
+      "sha256": "ff635fb17a98d9d7f8700d9ee346b08a3a0ccbe1fbc0ba35e8b4287f198ac3af"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/approved-gun-effects.ts",
+      "sha256": "93594311036a123c0057844b1f4c658879be1abdb41f2dbbc68404f19e7c8276"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/attack-effects.ts",
+      "sha256": "34f819d1e9b98d660262012c5d6134b5a8dd4f5017611c773b87d66b915dbb7a"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/controller.ts",
+      "sha256": "bf601de12d11102429ae04ff96c206f2badb2da7d6d297a50c717fd190d292c6"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/hero-aura-effects.ts",
+      "sha256": "00bd290e5f49db6a8f87057bd7b9093a42a7b0abb3c43df2ddb716f9b550adda"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/skill-effects.ts",
+      "sha256": "76b2e2f6855a21bef43ef8821ecaa59d3bbbc2a2e7557e05b7cf78fc1da2fff7"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/upgrade-materials.ts",
+      "sha256": "82ee59d9804b9a761ebd59a42cfaab242a952ccf20b9cd605a020cf37a69de7a"
+    },
+    {
+      "path": "src/render/effects/elite-support-effects.ts",
+      "sha256": "807c973bcf77fedafa5985972bd56bb042481fcca9e72affa9297810e2233fd6"
+    },
+    {
+      "path": "src/render/effects/hero-basic-effects.ts",
+      "sha256": "95c115d05eba225af7113f14e56a108ee55b6235f497f6b5ff6ad54508d91318"
+    },
+    {
+      "path": "src/render/effects/hero-feedback.ts",
+      "sha256": "62bc2b0bcc48bc3e86bdcbb5210bbf3b2d7bd5447aeef218f601faafbb68112f"
+    },
+    {
+      "path": "src/render/effects/nonhero-effects.ts",
+      "sha256": "dd6cef4abb6b84d9889afcac0dc23263e3933daab6032988b559db1630a2ff01"
+    },
+    {
+      "path": "src/render/effects/ordinary-medical-effects.ts",
+      "sha256": "725d2f4fda5456cf3993e3de036339fcb6512ef6e394bd01bafe526740182e61"
+    },
+    {
+      "path": "src/render/effects/ordinary-presentation.ts",
+      "sha256": "16e74b6ecb639947325b8729d30f1c6ab34eb62a005d8f46b399f0736b9252d7"
+    },
+    {
+      "path": "src/render/effects/original-projectiles.ts",
+      "sha256": "a9565125fd83ab8b17293cf54ea613db9eaa94001b4f3e777ba3b85bd68cea78"
+    },
+    {
+      "path": "src/render/effects/protoss-elite-effects.ts",
+      "sha256": "930766b60136d60dc68de50456dbcf11c49f4099720cd558e89b2053721a8a6e"
+    },
+    {
+      "path": "src/render/effects/protoss-hero-effects.ts",
+      "sha256": "95c4ba01a43ffc6c0fcd43d183620d9700cf078fed43dbcc054467f366781aa5"
+    },
+    {
+      "path": "src/render/effects/protoss-hero-materials.ts",
+      "sha256": "f01c7fa417b6d0fd6d7608f1a0427ab05e524e6172baf3c7538f17429b1b0405"
+    },
+    {
+      "path": "src/render/effects/protoss-hero-presentation.ts",
+      "sha256": "2a6299662926a935211b3e9c14674e4d629cfe78b0c72e917ce0b2bb9678f059"
+    },
+    {
+      "path": "src/render/effects/terran-elite-effects.ts",
+      "sha256": "5f37e64c892c387df14772a76bbe6208db4bdaa58f06589055b4f9bebe322c0e"
+    },
+    {
+      "path": "src/render/effects/terran-elite-materials.ts",
+      "sha256": "22bc40acbf893f00c344c5653d35a287e9582c9ec5b16b17736373f0884b8023"
+    },
+    {
+      "path": "src/render/effects/terran-flame-fan.ts",
+      "sha256": "80ced520ae290eb48eb16b5be804f4ab3ec7592ac436f9f12c9f1072f0ee55b0"
+    },
+    {
+      "path": "src/render/effects/zerg-elite-effects.ts",
+      "sha256": "0c69c33a4b30735f34e3e82beeba3ae11c6ff1860fcbb1148c6a8099ea6fdaa0"
+    },
+    {
+      "path": "src/render/effects/zerg-elite-materials.ts",
+      "sha256": "0fdba204fb426814d384ba65dbf74ee971e739b605c7679bb99f8c80713e5d83"
+    },
+    {
+      "path": "src/render/effects/zerg-hero-effects.ts",
+      "sha256": "f68f4531f8d8d228a0691f419b1dfa34a5eb4c9e7e03fe4aeef8ee48c1fab5ee"
+    },
+    {
+      "path": "src/render/input/battle-picking.ts",
+      "sha256": "768d3151ff5bb8d6ac8758aa5ff145da4e45f6b101f0ab78f4fc246eb0ac072a"
+    },
+    {
+      "path": "src/render/input/battle-view.ts",
+      "sha256": "68c4e3f623209e53e2fea82f61cc30d381e8742b695a81b98c17a7dd049ab533"
+    },
+    {
+      "path": "src/render/loaders/animation-profiles.ts",
+      "sha256": "f2ff3e2005846b066480f48c3d005d832c87d82319a73a1c87451157245da50d"
+    },
+    {
+      "path": "src/render/loaders/animations.ts",
+      "sha256": "6088a294622ba953ae465ab2c2cb1a2f4a1eed6383b075b83d7b8a09b1b07b33"
+    },
+    {
+      "path": "src/render/loaders/sc2-materials.ts",
+      "sha256": "5e38038ffac774a215979a7e088742a31a9f2e6f3ed8c6691322cb266c7ff9ba"
+    },
+    {
+      "path": "src/render/loaders/semantic-gltf.ts",
+      "sha256": "0d4ef93cabdcfe5f76deba616b084a01da6c42762be5dbf5ee2c462d2be45885"
+    },
+    {
+      "path": "src/render/scene/battle-renderer.ts",
+      "sha256": "f0e544b8aca6ed7d08b61843e1820f0f35c524b8d8d97f824ab5991c5364ab13"
+    },
+    {
+      "path": "src/render/settings/quality.ts",
+      "sha256": "6461f2f4ef4f2bba5bd88b9d1cf4032ea4ac5134ed7f63a693251b214b86c99a"
+    },
+    {
+      "path": "src/render/terrain/campaign-ground.ts",
+      "sha256": "2fa233621f1a4961cf52fef285054708904e729d7cd3adc901be5e0798b64aed"
+    },
+    {
+      "path": "src/render/terrain/campaign-map.ts",
+      "sha256": "7a314b29ff395fd837e4441e92ead078232270ea27d1908760b6b4e3926647aa"
+    },
+    {
+      "path": "src/render/terrain/campaign-textures.ts",
+      "sha256": "2e13815ed6851ac8a0d05aaf991aaddd23cf62fb4d9a1519cd1fa7672b668326"
+    },
+    {
+      "path": "src/render/terrain/char-geometry.ts",
+      "sha256": "e345cb65c099182c58198b8278bd676841054a8cb1882e3eb5887bbfd0c51a94"
+    },
+    {
+      "path": "src/render/terrain/char-terrain.ts",
+      "sha256": "e508ab2cef7d8584c71369c91ec9e5d5d0a407d86b37d34e9e91271f486bd3df"
+    },
+    {
+      "path": "src/render/terrain/flat-map.ts",
+      "sha256": "a3d3655c76a324f448f9df6c420425f9777df29adda6d51a7c28222a0fd19974"
+    },
+    {
+      "path": "src/render/terrain/map-surface.ts",
+      "sha256": "01ff297793226c34bc1b6a3daf0d206ba0af055b77f03d376c113196cb15d222"
+    },
+    {
+      "path": "src/render/terrain/map-visibility.ts",
+      "sha256": "9f90b7de2a59353e5f60028468b7d82d9e698e712234a155a586ba09dcf47295"
+    },
+    {
+      "path": "src/render/terrain/original-map.ts",
+      "sha256": "32fb90f203507669884715c8df299021c63041fdb8bea3b25bf068848137923c"
+    },
+    {
+      "path": "src/render/units/animated-batch.ts",
+      "sha256": "f5595fc41abf94708fb9aaf774e7ff33e71adaee597a84eb735bbc34554d4963"
+    },
+    {
+      "path": "src/render/units/death-clock.ts",
+      "sha256": "a68784c5e75f36f0029deded60cc77452c64d7dfee31a8cf5c046b6fd3e52cd3"
+    },
+    {
+      "path": "src/render/units/friendly-labels.ts",
+      "sha256": "f6e7acf415c4b4fb9d37deae28b939f7c5620b3442d284c7727e000bec9b92dc"
+    },
+    {
+      "path": "src/render/units/instance-updates.ts",
+      "sha256": "f9697a7c9295cf001f1a8add5b7789859262425c0aabcbc2a058e2337b8de6ae"
+    },
+    {
+      "path": "src/render/units/pod-view.ts",
+      "sha256": "121c32e1d03a59085e58d786531f38e29adc53fb79b16b5fb5011685660695e5"
+    },
+    {
+      "path": "src/render/units/pylon-birth-materials.json",
+      "sha256": "6daa85b70e2c4b607ea79ea31cb3f1203cf701b8955de97519e57b26d24c7f1b"
+    },
+    {
+      "path": "src/render/units/pylon-birth-materials.ts",
+      "sha256": "a79320e0251b96588055d466e24f87ebd8fc7912c8c7c973ec5be773a9bdfecb"
+    },
+    {
+      "path": "src/render/units/resource-drops.ts",
+      "sha256": "4f81a979248cf9f398528243c0dbf3c3eb4acdaed7d44703eedaf0637d63aa0f"
+    },
+    {
+      "path": "src/services/game-observer.ts",
+      "sha256": "f63a49088cf7b5d2ece00fb534be60532ba9a1734d25de1ca2a927b323622b5a"
+    },
+    {
+      "path": "src/services/load-observer.ts",
+      "sha256": "019fc6057aa0b7968c06481ea887bb4e98259cb247b5ca4f068f25947e5bc48d"
+    },
+    {
+      "path": "src/services/telemetry-client.ts",
+      "sha256": "7313ffe4a36cd5d9dcfb1ac81b5c6ec5fd4d188def3bebb40b282418fcf3d4c2"
+    },
+    {
+      "path": "src/simulation/boss-loot.ts",
+      "sha256": "f23274986483decf101a0960194ad815ec7a6757ba330743a17acd0fdcefbe5a"
+    },
+    {
+      "path": "src/simulation/combat/attack-lines.ts",
+      "sha256": "90ddda265e4a0fc8de980457b414e3dac2fe53f424f65da94e46c8cd48c7b5bd"
+    },
+    {
+      "path": "src/simulation/combat/auto-targeting.ts",
+      "sha256": "a6f633bc429d3be5a2481a0eede8ece6a447910c0e2d8a43e4061411ecd8a7f4"
+    },
+    {
+      "path": "src/simulation/combat/battle-view.ts",
+      "sha256": "49a8c6b9a9ae591cf7eb552be3065a4551d60b90628d6fefcfe3d06daaab31da"
+    },
+    {
+      "path": "src/simulation/combat/carriers.ts",
+      "sha256": "f1cdd107d5b893cfaa225ca3333058bf1332fcfc39ef7dbbe1b81d548a6aac8e"
+    },
+    {
+      "path": "src/simulation/combat/combat-presence.ts",
+      "sha256": "cbd55095212af35229c755c369dac082df56072442db2dd87db0007a0d5e36ba"
+    },
+    {
+      "path": "src/simulation/combat/elite-support.ts",
+      "sha256": "6bbb93a2b3d1fa585a4f010bc244f891740bfcc84c024d2627ac76c59554f4ec"
+    },
+    {
+      "path": "src/simulation/combat/enemy-specials.ts",
+      "sha256": "2ea8a727ffc8f23183ac015191d260e152ef9b2e5a64e841996452f74cd83732"
+    },
+    {
+      "path": "src/simulation/combat/expedition-combat.ts",
+      "sha256": "133d2714ba339ebcb633fac653fdd863a85d8acbc51f301a58462d8c95f8ce0f"
+    },
+    {
+      "path": "src/simulation/combat/expedition-elites.ts",
+      "sha256": "948484f568264389790deeb51d7fe4763f75df03a1e84ee3f4bcca76482ac024"
+    },
+    {
+      "path": "src/simulation/combat/expedition-heroes.ts",
+      "sha256": "d3bf355c7d95b06b9d2882c4347d6585227d840a6d067868377b8437dd6588a0"
+    },
+    {
+      "path": "src/simulation/combat/family-actions.ts",
+      "sha256": "5a096b8372159b11f277c8bc39fa0d2be8822b14be0e291cdb716d4505c5a055"
+    },
+    {
+      "path": "src/simulation/combat/hero-attack-upgrades.ts",
+      "sha256": "958da9af621110dc9d2a198964de1ee65ba77c3417be78e489aebe3f38141c1b"
+    },
+    {
+      "path": "src/simulation/combat/hero-ground-auras.ts",
+      "sha256": "94c6cfcce8af3cf29f8c5cfb9292f5986f1e8a6486ec1e694d4e53bc7f539a79"
+    },
+    {
+      "path": "src/simulation/combat/main-hive.ts",
+      "sha256": "dd7f7e518abeb138a14d008a1b58b338b277840b673d30a386fec5f28640876d"
+    },
+    {
+      "path": "src/simulation/combat/protoss-elite-runtime.ts",
+      "sha256": "474db2ab108f6bb95319536de6f67cce58bba23650641db0498e2ac2b9db5ed0"
+    },
+    {
+      "path": "src/simulation/combat/protoss-hero-passives.ts",
+      "sha256": "9807a3b3f1cf69dc425f5c5494e453af973045e71a0202089a8a6595235e257c"
+    },
+    {
+      "path": "src/simulation/combat/shop-support.ts",
+      "sha256": "a3aacd69e3ca3ad08b699a42efb776585b931fc14c9ca50ab493bc1c29fcf61f"
+    },
+    {
+      "path": "src/simulation/combat/statuses.ts",
+      "sha256": "501c602b578bc9103052171eea70ad6d0db92b3d9e54d85f9de35b6e29ae217a"
+    },
+    {
+      "path": "src/simulation/combat/talent-support.ts",
+      "sha256": "5b61409d9030cb9dea22ef37875e1e2eda2fa88f1393b6a11bfaf0013997c5a6"
+    },
+    {
+      "path": "src/simulation/combat/talent-transfer.ts",
+      "sha256": "8c1bb53ee00e1280aaa6be67dfe4820f7bd636356496ac4927f989e0298f7c8e"
+    },
+    {
+      "path": "src/simulation/combat/team-auras.ts",
+      "sha256": "8f6e6e274566718e2aefbdb397ee625cda673a539bcb184de261ef142badf8ed"
+    },
+    {
+      "path": "src/simulation/combat/terrain-fire.ts",
+      "sha256": "2ad948fbc0924a0934b669ab24389c8a574a7b999c4fab68ee75f0173aa606e8"
+    },
+    {
+      "path": "src/simulation/combat/terran-elite-runtime.ts",
+      "sha256": "c4a20d6c45e702be69cc1a165c023d48ce25f9f29b26a83e929ae616554f42cf"
+    },
+    {
+      "path": "src/simulation/combat/terran-hero-passives.ts",
+      "sha256": "5dcf0e9fe82b81aa2556a2d1cad47e6f41146aa8d6e0f3910554c33cb4b35579"
+    },
+    {
+      "path": "src/simulation/combat/tracking-mines.ts",
+      "sha256": "3e7417c77eb9ff100c36805b4ff776c9a9b8652ef43f0069b91ea4a51fc317cb"
+    },
+    {
+      "path": "src/simulation/combat/unique-support.ts",
+      "sha256": "72bea0f8748cd1ae40eac3b20a4349498c6d71481330a89ba068ca700f5b2c83"
+    },
+    {
+      "path": "src/simulation/combat/weapon-flight.ts",
+      "sha256": "dd4285c131677b451e74507af0e00004b3dc579855bd881cc60bf4769dbf8187"
+    },
+    {
+      "path": "src/simulation/combat/weapon-patterns.ts",
+      "sha256": "0ca1a60a59ccb8a6625d27a3e34db85a18de2e8e283c52d886907b2c09b2f870"
+    },
+    {
+      "path": "src/simulation/combat/zerg-elite-runtime.ts",
+      "sha256": "5b83afa3b7ebf6663f96cade0ea34ccba9982eeea52e3f175164a0f53619b5f8"
+    },
+    {
+      "path": "src/simulation/combat/zerg-hero-passives.ts",
+      "sha256": "99f9c7466ea969c1834743b8c0c6cf5a966343cc489d3fe1aa7d47e890f4a8a6"
+    },
+    {
+      "path": "src/simulation/combat/zerg-hero-revival.ts",
+      "sha256": "7fbe31efa34474ea8a054b4fa6ef0984b3d42566277abc92a57f420df5dc8c76"
+    },
+    {
+      "path": "src/simulation/elite-claim.ts",
+      "sha256": "a7cf8bcf08b8d9a996f7215b75f07d86dc975833aabe3aeffdf59eb33a85c2bc"
+    },
+    {
+      "path": "src/simulation/expedition-economy.ts",
+      "sha256": "3c2f54c0b6963bf5d6eb39b45df7b27e5453482262b34f529294f198016728c4"
+    },
+    {
+      "path": "src/simulation/expedition-production.ts",
+      "sha256": "c16753ea48b092680e44a361e0186a49dee3d72da70e1db9d5a5f290f4fcb2bb"
+    },
+    {
+      "path": "src/simulation/expedition-state.ts",
+      "sha256": "0f51af17dce6d7df8227fdb73885b7feeda36d948580caff28f810d73d1d870a"
+    },
+    {
+      "path": "src/simulation/fixed-stepper.ts",
+      "sha256": "59e3dd01f8bff7ebf76d465f224432eeae66b9c52945a60c576e0bc2cfba4437"
+    },
+    {
+      "path": "src/simulation/formation/engagement.ts",
+      "sha256": "8dda6dddef1295591e40b5e533c5706ca694d54db2943b2939fd5c2a867801e8"
+    },
+    {
+      "path": "src/simulation/formation/squad.ts",
+      "sha256": "c08b7d2728ee4ca08b035cca0e9b0390c26676ad5b086f2f3a7a42972ed18b51"
+    },
+    {
+      "path": "src/simulation/movement/carrier-landing.ts",
+      "sha256": "370f2113c6d9c926f9bb903413b2eb0c81154de31fe97aaa9aef88cde062ba5a"
+    },
+    {
+      "path": "src/simulation/movement/contacts.ts",
+      "sha256": "f17040c80ef9911df7e2529acf421768c3265ce623aed138ff87e10937beb35b"
+    },
+    {
+      "path": "src/simulation/movement/control-anchor.ts",
+      "sha256": "6cd3b3ccc0e2cd8024bcc79eeac35ba81ab8527c63cdc0728347ec2d98abd204"
+    },
+    {
+      "path": "src/simulation/movement/direction-route.ts",
+      "sha256": "9d80764a8cb93bd4013f6f6547caeee384f65984ff684b3d8c275bbcd550adfd"
+    },
+    {
+      "path": "src/simulation/movement/enemy-routes.ts",
+      "sha256": "06e6d531ca9f8a5a26aee468821944685ef316457d471aef86069026fea2000e"
+    },
+    {
+      "path": "src/simulation/movement/flat-terrain.ts",
+      "sha256": "9dd7054683ff1b6cef383198f7a2a13b74a1612502e183c525c93e61f5c29bb9"
+    },
+    {
+      "path": "src/simulation/movement/map-terrain.ts",
+      "sha256": "ba873adcce176063952860a935b260e6093af0e860b3988e8da207367979ac01"
+    },
+    {
+      "path": "src/simulation/movement/native-traversal.ts",
+      "sha256": "8e253eff584ebc1b308a00917ffe2431910613b52da47c321c127bdb5c39038a"
+    },
+    {
+      "path": "src/simulation/movement/spatial-hash.ts",
+      "sha256": "a7361ea6e50639837acd3c45bfdd5ebad997ab2f700e33baa5ffe77430968dbf"
+    },
+    {
+      "path": "src/simulation/movement/spawn-cells.ts",
+      "sha256": "72b7fd6a112d55551819beaff4494c6b1325c93ebcb13173ab9f8ef32f142a39"
+    },
+    {
+      "path": "src/simulation/movement/steering.ts",
+      "sha256": "4e8b9d15e251ddfb5d08acc827e86cdac2c4a89caf0a8516aa5121b8ec87472a"
+    },
+    {
+      "path": "src/simulation/observation.ts",
+      "sha256": "bbf28d4c2ef4b65476cfca06c94caf83a6c13a3a52f50bd6f2045c2eb7451ce1"
+    },
+    {
+      "path": "src/simulation/persistence/run-fields.ts",
+      "sha256": "6b4c2aff1c4053e89b57d911eb04cd114c2f77da61c696061f6fd654da6bcf4c"
+    },
+    {
+      "path": "src/simulation/persistence/run-snapshot.ts",
+      "sha256": "a1853fc343037a6109ff9b804b8b65c164230c2e17f34f11fc7d8db58f922e90"
+    },
+    {
+      "path": "src/simulation/progression/expedition-drafts.ts",
+      "sha256": "93f7186b2b39bc131713871114e313193391459e8c70b2ceb5d01218fabea6b3"
+    },
+    {
+      "path": "src/simulation/progression/mvp-talent-effects.ts",
+      "sha256": "fc7c583f9362c24891347c30f701dd776ba92305caf48be1043027452c6dca74"
+    },
+    {
+      "path": "src/simulation/progression/permanent-profile.ts",
+      "sha256": "94ee1108be158a1f5c7d943b6a90a528b197e8016963b2d3f14cdb022cd0bd47"
+    },
+    {
+      "path": "src/simulation/progression/supply-cards.ts",
+      "sha256": "4f1d4121d9e82b2f31f6fa7cc392ec8c7b71e7adc786694ae1c22b49d5288e0b"
+    },
+    {
+      "path": "src/simulation/progression/talent-rewards.ts",
+      "sha256": "2192e1908a57d0ba6a4f6d81df762d4073877a5d9247e385ae76376916423c22"
+    },
+    {
+      "path": "src/simulation/progression/team-cards.ts",
+      "sha256": "b7c4dc1b4c3a2fd4ebe4d30272f0e113af7479e40119a483165f272b2089d05e"
+    },
+    {
+      "path": "src/simulation/progression/training-cards.ts",
+      "sha256": "58969041906127acca9576745c39fcb73cef45c45e8e7ba54f0edc233a9ed2dd"
+    },
+    {
+      "path": "src/simulation/rules.mjs",
+      "sha256": "e04bc7e89bd69ca0ecc09ff7c7aeadf590cfb763814f988955cd9fea7466da7f"
+    },
+    {
+      "path": "src/simulation/run-state.ts",
+      "sha256": "c77020171e94800393105203acb1e75deb5801cbc324d207d98d2a63638234fe"
+    },
+    {
+      "path": "src/simulation/types.ts",
+      "sha256": "22b400acd65f8004903564ad4289776ab0826ade4538d79626cd74be181c2997"
+    },
+    {
+      "path": "src/simulation/world.ts",
+      "sha256": "3244bcf9453bbde582e966b2638f856437ab7df80cffbb52f3cf7d1397aeb47f"
+    },
+    {
+      "path": "src/simulation/zerg-brood.ts",
+      "sha256": "e8c8ec71af847519100a7c61fd081fbe6c16ec83b06eb8e9748f5d4866fcfaa0"
+    },
+    {
+      "path": "src/ui/controls/battle-actions.ts",
+      "sha256": "7cd82ff6d8cab0aec729f47d686451784cc6b9bb9a571bd86ca8822dc52fad50"
+    },
+    {
+      "path": "src/ui/controls/settings.ts",
+      "sha256": "9359cea49b824dad23ea6a7a0303a4782b57554d8c98189403823c835a50900e"
+    },
+    {
+      "path": "src/ui/controls/skills.ts",
+      "sha256": "c646035fdf89484f329634d9d4ee6dce36d82d73b648f25527652ab7d87248ca"
+    },
+    {
+      "path": "src/ui/gamepad/controller.ts",
+      "sha256": "2a0a339739b68c37df1030a53c3cb3fb09731d2e6c83af5af8f9078e67766de5"
+    },
+    {
+      "path": "src/ui/gamepad/state.ts",
+      "sha256": "83b41fe8477156dbad60c05803fa98a8148340f3abe944642f823aa8a203a3e4"
+    },
+    {
+      "path": "src/ui/hero-map-ui.css",
+      "sha256": "b443402ebb6fe497c103d1e10e10a8bc77c1d83f6b44b81772e119c06d8da11d"
+    },
+    {
+      "path": "src/ui/hud.ts",
+      "sha256": "cdc25d0ff4fc1fcea5234d1886302179053691f76191a6bfdedca5db1f0675f4"
+    },
+    {
+      "path": "src/ui/hud/battle-commands.ts",
+      "sha256": "a6b379e6688b4ab8bab39baa7c7c5d74c0bb290127c472c0c898cd51034ae8dc"
+    },
+    {
+      "path": "src/ui/hud/boss-loot-panel.ts",
+      "sha256": "a99eec54de35e1bf8d25fbd1846bab4ee5c3a06701e884b615a66ed5396d9bfe"
+    },
+    {
+      "path": "src/ui/hud/carrier-inspector.ts",
+      "sha256": "8fd0142192a4984daf1275b1071cad5b2e1e82741d7e611573fde8f8b7a54462"
+    },
+    {
+      "path": "src/ui/hud/compact.css",
+      "sha256": "222941d09b2a6c5d895dc9c2a97ef7f1850d6119940681e6122cec8e06ad6c35"
+    },
+    {
+      "path": "src/ui/hud/detection-hint.ts",
+      "sha256": "374142e8074442968d7294fcf8a3835c7b2a25906356ab3b4dc22668d5397ca8"
+    },
+    {
+      "path": "src/ui/hud/expedition-panel.ts",
+      "sha256": "7bf1141462e988bfe840617dfc23c01f8700e323cdcddba15e38cc42ccc9152c"
+    },
+    {
+      "path": "src/ui/hud/glyphs.ts",
+      "sha256": "a48d94b9fbe1334af29012b625e428f21af50cdf6eabbcfe6608697e6c2ff2c8"
+    },
+    {
+      "path": "src/ui/hud/layout.ts",
+      "sha256": "6b1234a9f46964703b68d3832dfc41bff31823d19b6cd31b47a0bdc5632fc258"
+    },
+    {
+      "path": "src/ui/hud/m3-menu.ts",
+      "sha256": "723ab8fd592085c7041e4637bd66142091e4b03cb1f8caea5819767254c5bb10"
+    },
+    {
+      "path": "src/ui/hud/minimap.ts",
+      "sha256": "2cd7c0a3fdf7dd3a625f6b6cf3aed874aaea11eff5cb54158a900115dec39fef"
+    },
+    {
+      "path": "src/ui/hud/mvp-talent-panel.css",
+      "sha256": "b653860594ab4e4f9d888f72a17070eb9f1ace2ccbec385f9449d3906d0aa64d"
+    },
+    {
+      "path": "src/ui/hud/mvp-talent-panel.ts",
+      "sha256": "7de86230ab619a8f460c689078fbcb957c8e183d8a9cd8c91918fc6ff949a507"
+    },
+    {
+      "path": "src/ui/hud/objectives.ts",
+      "sha256": "db2d06825e596b2618aef1ccb9247e27b0bb7cae387ddf0216ccfa20afaaa80f"
+    },
+    {
+      "path": "src/ui/hud/player-services.css",
+      "sha256": "4f99c25194c26805d90d4de89973c5d83162bd88894e4e3dd5455ccfc629c727"
+    },
+    {
+      "path": "src/ui/hud/player-services.ts",
+      "sha256": "f32353772636673dfefdde0ad9a9fb299232c15e4833457194877d2a731c73d0"
+    },
+    {
+      "path": "src/ui/hud/preferences.ts",
+      "sha256": "eeb26de277952c01a6a14433d9e2438cef2badd21be01468743a0fbf6ca9fcf9"
+    },
+    {
+      "path": "src/ui/hud/resource-downloads.ts",
+      "sha256": "057c850a23afd261393862fb3626e11bdc7de8993f929f2d9a0b38a7946e339c"
+    },
+    {
+      "path": "src/ui/hud/save-controls.ts",
+      "sha256": "73c4247fcc995ff5ca756ba15c17a3cdd582284e1eba8be2856ffdeeec955603"
+    },
+    {
+      "path": "src/ui/hud/squad-console.css",
+      "sha256": "5764002c8fd12e0d0bc4291433ff777b8c99a5e7dfa4ee52429fb379f6f640c0"
+    },
+    {
+      "path": "src/ui/hud/squad-console.ts",
+      "sha256": "e7b9052282df5cc173bec91f45fdd93f6832c692c01bfbbba1a3efe7df71d1ec"
+    },
+    {
+      "path": "src/ui/mobile/input.ts",
+      "sha256": "d2eb71d63eb92b33eaaed52c3778067fbfd9b3de971740b79cb4ff7554184b95"
+    },
+    {
+      "path": "src/ui/mobile/layout.css",
+      "sha256": "ab01e6b0e73f28ee5d61d382ab3e87dbeb93fb2bb11a793d0cbfb3ac5498dfb8"
+    },
+    {
+      "path": "src/ui/mobile/viewport.ts",
+      "sha256": "e6b767653b233aa41c8330a1bd56d25d71dfb36f29ca4270d21b815533b65230"
+    },
+    {
+      "path": "src/ui/model-viewer.mjs",
+      "sha256": "f35815f1bc4c8b4850de1d8e5d8321002d51ad75dcd88eb1dda15690e925e853"
+    },
+    {
+      "path": "src/ui/presentation/ability-copy.ts",
+      "sha256": "c285d03b7ea0923a5346038323656af71ebc9501e244f8f48712cf3bc04f9aa0"
+    },
+    {
+      "path": "src/ui/presentation/card-presentation.generated.ts",
+      "sha256": "5c5d05cd1f7c8f07a63cb8b265cac13f1dd73405023bb0ababd2be5c5492e811"
+    },
+    {
+      "path": "src/ui/presentation/cover-transition.ts",
+      "sha256": "47836958d897ba209f7446458bc375a13a81665b4db5c1e5dcca154b8c65e06d"
+    },
+    {
+      "path": "src/ui/presentation/decision-screens.ts",
+      "sha256": "c1f885594e4f594846cc80d16566a105fd0c9fe5779acbe5f0a18af3d523cf35"
+    },
+    {
+      "path": "src/ui/presentation/end-screens.ts",
+      "sha256": "c70b9f84a6d04a74d5f7d6ef91301c178a22f98375abd1c494df80026e230ad8"
+    },
+    {
+      "path": "src/ui/presentation/formal-ui.css",
+      "sha256": "001026a66447897469447fb94ba298194bb58edfb197958bb5dae15bc6fdcd90"
+    },
+    {
+      "path": "src/ui/presentation/game-copy.ts",
+      "sha256": "93759fb8365964d99ea6ef12a7388b8ff2d2b8ddc259beead44b0045ba511480"
+    },
+    {
+      "path": "src/ui/presentation/game-shell.css",
+      "sha256": "be1fee9fba63584d40b09637b91b54300137e6d1ea000a1733f26b28f9ac11d5"
+    },
+    {
+      "path": "src/ui/presentation/input-capture.ts",
+      "sha256": "b2c318bd10ce7071b8c89b474d741ff72b8e4cbe67536c25b0f642d4db0cef4e"
+    },
+    {
+      "path": "src/ui/presentation/intermission.ts",
+      "sha256": "d6140e3cafee0a7684fa7652c1dd6b10b00163cc279fbbb6483c05092351c774"
+    },
+    {
+      "path": "src/ui/presentation/live-inspector.ts",
+      "sha256": "8cd389b8fb9a436396bf22cc99c891bb4572fe10df2adaae540969b94ae8f50c"
+    },
+    {
+      "path": "src/ui/presentation/map-preview.ts",
+      "sha256": "f0ac0636a61a7b9399aab5f5289f853f15600379d2a28433543e003fa3e08af2"
+    },
+    {
+      "path": "src/ui/presentation/navigation.ts",
+      "sha256": "c26a60f0da08f78a9dfde2d5dbcbc1bf61ba1a974b9d9a45e5ee636ce2bfb4ab"
+    },
+    {
+      "path": "src/ui/presentation/painted-art.ts",
+      "sha256": "fa4c5be02eab98e460ba2ff5eb2a4165455258987e8b2210b2d8f3590481faf5"
+    },
+    {
+      "path": "src/ui/presentation/reference-card.ts",
+      "sha256": "0af013078869852617a99f66397cbbb93dcdf2fa843833ee372523989c007a86"
+    },
+    {
+      "path": "src/ui/presentation/reference-engraving.ts",
+      "sha256": "136641339cde7d89b6327f7e8c85b363d27219981bf6879a33e5f19f828c9bb6"
+    },
+    {
+      "path": "src/ui/presentation/reference-glyphs.ts",
+      "sha256": "c79b9a7ea6ea8663cb813b41698c624942f42238bf9dcfa7203fb751e630be15"
+    },
+    {
+      "path": "src/ui/presentation/reference-minimap.ts",
+      "sha256": "783d7abe0f5575db2dfd62e0cdf143ef8cfa87fadbead6e5bdd2e02bd8a0be99"
+    },
+    {
+      "path": "src/ui/presentation/reference-primitives.ts",
+      "sha256": "9cdd57db0c9e211d66e266383bb5bb7b33990b581d7613d389451fd339ada326"
+    },
+    {
+      "path": "src/ui/presentation/reference-r12.css",
+      "sha256": "8309febfe24eae6b06d779130fd790a9821a3144e499ea5050b874760a856b72"
+    },
+    {
+      "path": "src/ui/presentation/settings-screen.ts",
+      "sha256": "dc3f1bc11f5deab02ab0c65fb74c13ccaf609c136f72a6f60a2367497c76965b"
+    },
+    {
+      "path": "src/ui/presentation/talent-presentation.generated.ts",
+      "sha256": "9bfb6cd6fade2a3c9ba1fa03fa217c4a7783ebefe9baf52df5d784e0816aff28"
+    },
+    {
+      "path": "src/ui/presentation/talent-screens.ts",
+      "sha256": "aac170dabbed70ad1f5c0b486274d13ae1b7b6891fcc5d2899ceabe7f810e908"
+    },
+    {
+      "path": "src/ui/presentation/text-scale-reference.generated.css",
+      "sha256": "2570745db022b7f211a1506ec49a0f869f1eff23f67b800da51ee1553238562c"
+    },
+    {
+      "path": "src/ui/presentation/unit-inspector.ts",
+      "sha256": "b96882fead430618db2983cb383032d9a36949e99a327a19f69b7a5ce24f4945"
+    },
+    {
+      "path": "src/ui/presentation/world-labels.css",
+      "sha256": "f37937139beec77f28adb4a2220d64bcc7df1dd2c32dbd27f02e29813ff38150"
+    },
+    {
+      "path": "src/ui/sc2-battle.css",
+      "sha256": "3ee1052446e37530422822086c6c6e881a00c6d2f61923af17877df0bad6b7ef"
+    },
+    {
+      "path": "src/ui/sc2-theme.css",
+      "sha256": "bfb5705f5cb9c1f4ab8440db71cdcfbfb5cb04100ebcc9de803b8e19cf6a24b9"
+    },
+    {
+      "path": "src/ui/text-scale.ts",
+      "sha256": "d694ac653f2e5ccf5fa0064dc0f37694b60071acb9b0b5934dd6082ea3eab5e0"
+    },
+    {
+      "path": "src/ui/unit-identity.ts",
+      "sha256": "e86c7ebc6bfc5544edf34d4cad20d3cf465f93e07a5a99654939592aac0d0b6f"
+    },
+    {
+      "path": "tools/backend/admin/app.js",
+      "sha256": "2e75e9f0ced34d19a8d5f0f29c30aeae53e6ee6bc4466e1133013b3dbd440073"
+    },
+    {
+      "path": "tools/backend/admin/index.html",
+      "sha256": "8ef6fa9a93df23c534af8ea74224b463f4ac74c5d5de8193cff11cde5b7ba350"
+    },
+    {
+      "path": "tools/backend/admin/style.css",
+      "sha256": "82c211cd63152668c8642ad3a79ebaeba8b91ae906254c669d011f57221ec3a2"
+    },
+    {
+      "path": "tools/backend/cli.mjs",
+      "sha256": "430f6834db5af092e23b8df0770f03aae0c095b2e365f5ea92ea461c221ab93c"
+    },
+    {
+      "path": "tools/backend/contracts.mjs",
+      "sha256": "c8794463e24c0770844f84c92903b5ee69a239d9a58968acf0155718162a8bdc"
+    },
+    {
+      "path": "tools/backend/database.mjs",
+      "sha256": "25189f8fa774509ec790d4ed5c62e22fd0c9e8d4f84d6dd6f5ade97f4a27c191"
+    },
+    {
+      "path": "tools/backend/metrics.mjs",
+      "sha256": "f59ec572f894791b3243fa766645887fcfc8a5aae147e1bb915d5eeeb2ad591b"
+    },
+    {
+      "path": "tools/backend/migrations/001.sql",
+      "sha256": "2899c647b99808886449a2b52a6d4a17f67981c5837fb818a67f4e1c70a7f3e3"
+    },
+    {
+      "path": "tools/backend/repository.mjs",
+      "sha256": "4b1fe07470592f88bf9679d7d96fb5bf7b06db777ec7b16519d8945b800cb486"
+    },
+    {
+      "path": "tools/backend/security.mjs",
+      "sha256": "f57ca5ce34a1accddc6e6e866ff349f9bfca81f5f38789f3ea806187f932750a"
+    },
+    {
+      "path": "tools/backend/service.mjs",
+      "sha256": "f3700487603330cde89138424db58ce8e448167d2f19ece29095c170ee25551c"
+    },
+    {
+      "path": "tools/start-coze.mjs",
+      "sha256": "17fae4c903bac4005d5303e72979f7f8c96fe085270d15fb30db5b5ce4c11df9"
+    }
+  ],
+  "app": {
+    "status": "UI fidelity and Coze v10 deployment integration; local validation; live deployment not performed",
+    "appBuildId": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
+    "packageBuildId": "143e25185a8a2f047b33e177521c1a39f65a7bd46f33ed54465862fadf2056dd",
+    "runSchema": 26,
+    "profileVersion": 6,
+    "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+    "appFiles": [
+      {
+        "path": ".env.example",
+        "bytes": 559,
+        "sha256": "d65e9a0b5a582bd3f6927e1f8c42212a8133d47824b13e3d1927528ca3778f8b"
+      },
+      {
+        "path": "apply-update.mjs",
+        "bytes": 7871,
+        "sha256": "911f1d26747d86414df8d9ffa8a181329529e9ba4f441acc980781b14e28ed2f"
+      },
+      {
+        "path": "backend/admin/app.js",
+        "bytes": 16018,
+        "sha256": "2e75e9f0ced34d19a8d5f0f29c30aeae53e6ee6bc4466e1133013b3dbd440073"
+      },
+      {
+        "path": "backend/admin/index.html",
+        "bytes": 3895,
+        "sha256": "8ef6fa9a93df23c534af8ea74224b463f4ac74c5d5de8193cff11cde5b7ba350"
+      },
+      {
+        "path": "backend/admin/style.css",
+        "bytes": 6627,
+        "sha256": "82c211cd63152668c8642ad3a79ebaeba8b91ae906254c669d011f57221ec3a2"
+      },
+      {
+        "path": "backend/cli.mjs",
+        "bytes": 2236,
+        "sha256": "430f6834db5af092e23b8df0770f03aae0c095b2e365f5ea92ea461c221ab93c"
+      },
+      {
+        "path": "backend/contracts.mjs",
+        "bytes": 7406,
+        "sha256": "c8794463e24c0770844f84c92903b5ee69a239d9a58968acf0155718162a8bdc"
+      },
+      {
+        "path": "backend/database.mjs",
+        "bytes": 1631,
+        "sha256": "25189f8fa774509ec790d4ed5c62e22fd0c9e8d4f84d6dd6f5ade97f4a27c191"
+      },
+      {
+        "path": "backend/metrics.mjs",
+        "bytes": 12563,
+        "sha256": "f59ec572f894791b3243fa766645887fcfc8a5aae147e1bb915d5eeeb2ad591b"
+      },
+      {
+        "path": "backend/migrations/001.sql",
+        "bytes": 4589,
+        "sha256": "2899c647b99808886449a2b52a6d4a17f67981c5837fb818a67f4e1c70a7f3e3"
+      },
+      {
+        "path": "backend/repository.mjs",
+        "bytes": 17334,
+        "sha256": "4b1fe07470592f88bf9679d7d96fb5bf7b06db777ec7b16519d8945b800cb486"
+      },
+      {
+        "path": "backend/security.mjs",
+        "bytes": 3325,
+        "sha256": "f57ca5ce34a1accddc6e6e866ff349f9bfca81f5f38789f3ea806187f932750a"
+      },
+      {
+        "path": "backend/service.mjs",
+        "bytes": 10289,
+        "sha256": "f3700487603330cde89138424db58ce8e448167d2f19ece29095c170ee25551c"
+      },
+      {
+        "path": "BACKEND_DEPLOY_LOGIC_20261007.md",
+        "bytes": 2763,
+        "sha256": "b6244ee1e26b906e823763d77332b2160ea392602fe0f4f7ae05936d28c3105f"
+      },
+      {
+        "path": "coze-web-server.mjs",
+        "bytes": 4728,
+        "sha256": "be5fc03d6a81aab693aa706986c30d64c0e6df1117b40d9c80634c675a442ec0"
+      },
+      {
+        "path": "fetch-resources.mjs",
+        "bytes": 5081,
+        "sha256": "38cf22a1ec311b6cd69c0a019e467e56a75ee1c6cabe5bf66625eb07cd8dd8a9"
+      },
+      {
+        "path": "P5_BACKEND_HANDOFF_20261006.md",
+        "bytes": 5858,
+        "sha256": "165cae31226f6e885221a8b2d10fc6357bc451624189dbf2595101321291f8fb"
+      },
+      {
+        "path": "P6_COZE_DEPLOY_20261006.md",
+        "bytes": 7025,
+        "sha256": "a6be7bd7568e89a9e78d55980b126f34f9b399e1caa311478879dd80745f3018"
+      },
+      {
+        "path": "package-lock.json",
+        "bytes": 6134,
+        "sha256": "5389efedac9a0a45f0e2234b216c62ebd96ab7919708ab140f94c7730db212bc"
+      },
+      {
+        "path": "package.json",
+        "bytes": 352,
+        "sha256": "bf612383605359433e37ed558a0647b25cd14d98b9da0785b24737a30c36a238"
+      },
+      {
+        "path": "PLAYER-DATA.md",
+        "bytes": 5817,
+        "sha256": "de36b7e029c2e4788e4072a32164d6ec7f0aba9a10b373e79d3aa5478c7b84ca"
+      },
+      {
+        "path": "public/asset-manifest.2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a.json",
+        "bytes": 153505,
+        "sha256": "1257ad91f69c590d59abc862c539bb3aadc1a2c611110a69580dd5a8457f7bd3"
+      },
+      {
+        "path": "public/assets/index-C6cz6UpK.js",
+        "bytes": 2516994,
+        "sha256": "e66fd0e633c2ee418dd8d4cdc2f449d4cc4209d2134b603dfbb55052ac528e3d"
+      },
+      {
+        "path": "public/assets/index-Y_pY0KuD.css",
+        "bytes": 383157,
+        "sha256": "6f49a64828c459a97780449a982b2e9760bc4ca89a45cccbe2dc6c2e57f5217f"
+      },
+      {
+        "path": "public/index.html",
+        "bytes": 802,
+        "sha256": "18959fb2d0a4844244aa4eb7249cde7a14e61a570c9ab3e3d78e5d0b8666797d"
+      },
+      {
+        "path": "public/runtime-config.json",
+        "bytes": 19,
+        "sha256": "126217dff5079b655a2d3b45211b2fa388ee35a7d413b1f54fbda29a0cb71b90"
+      },
+      {
+        "path": "public/web-release.json",
+        "bytes": 518,
+        "sha256": "ce5affa9e5fb3722e719f2d47e16f8b9b19e233dfc356c8733bd240dfa77ad7d"
+      },
+      {
+        "path": "README.md",
+        "bytes": 3251,
+        "sha256": "ed968915ddf805a2909aa406ce698882d5fdc2ab27c1a30fc25ed673940c4f0e"
+      },
+      {
+        "path": "resource-delta.json",
+        "bytes": 329,
+        "sha256": "6cd79a61cc81acda928cca9bd46953b19a4589f13c22e9d9c86f71b3374223aa"
+      },
+      {
+        "path": "resource-groups.json",
+        "bytes": 295322,
+        "sha256": "b2468efd483dfeceea2660e953845be4f817422f1eb59a3fd9eb8188cbd0f82a"
+      },
+      {
+        "path": "sc2-backend.conf",
+        "bytes": 379,
+        "sha256": "0d65a9fd3a0f89dc20a371c62b5da2bd46167518922a01d88d6e0dfb3f68af1f"
+      },
+      {
+        "path": "start-coze.mjs",
+        "bytes": 5910,
+        "sha256": "17fae4c903bac4005d5303e72979f7f8c96fe085270d15fb30db5b5ce4c11df9"
+      },
+      {
+        "path": "UI_COZE_MAIN_20261007.md",
+        "bytes": 3034,
+        "sha256": "8769530b1e071ec9e3eda61e73647f1e6c335f69c6bae916004b73f5e35a11e3"
+      },
+      {
+        "path": "UI_FIDELITY_ROUND_20261006.md",
+        "bytes": 3966,
+        "sha256": "87ad5e7498363cd6fae2e7905b0ba0cc58e53da5cea194cbd54bdd6022ca730f"
+      },
+      {
+        "path": "UI_FIDELITY_ROUND_VALIDATION_20261006.md",
+        "bytes": 6522,
+        "sha256": "9ab4bd2f7a65d82fdb3cec3cd4de9150cb8aa8d51fffe9075dd84b0339791151"
+      },
+      {
+        "path": "UI_INTEGRATION_20261006.md",
+        "bytes": 2797,
+        "sha256": "71c03749a015ca87cdcc5fc1d80e7e8c2d6b8f7ad50eb31b6328d9b60883ef16"
+      },
+      {
+        "path": "UI_INTEGRATION_VALIDATION_20261006.md",
+        "bytes": 5605,
+        "sha256": "4dff7f5c65d8c41fc9b03708a333adfee64b24c5c5331df2360092ee313b63e3"
+      },
+      {
+        "path": "vendor/pglite/dist/amcheck.tar.gz",
+        "bytes": 21887,
+        "sha256": "c1f90ddcf1d1051f49bf6c47b41221a4911e265b66ce31816b0abdc72e9285f6"
+      },
+      {
+        "path": "vendor/pglite/dist/auto_explain.tar.gz",
+        "bytes": 2693,
+        "sha256": "163e91d680257154912fbf3c3832e68a9671c1dc51a98b822047c8e75a99f8e1"
+      },
+      {
+        "path": "vendor/pglite/dist/bloom.tar.gz",
+        "bytes": 5465,
+        "sha256": "e2354bb24879316aee5362a3b6adb9db78bfea31f14ef22acb25934589ac2dcd"
+      },
+      {
+        "path": "vendor/pglite/dist/btree_gin.tar.gz",
+        "bytes": 5465,
+        "sha256": "bc8ae3deb7d7059bfd9a360661de1d474916da4f770fa6ad3eff2f8b2b199783"
+      },
+      {
+        "path": "vendor/pglite/dist/btree_gist.tar.gz",
+        "bytes": 21858,
+        "sha256": "a420978dcec1a8eb87b2c5e50129f6bfa09b9e6b7c6a9fcc3e3db03030b243e1"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-2BOC2OMW.js",
+        "bytes": 18384,
+        "sha256": "518217918b120059f84abfd5da2548c208cb232ed8fa45c330c7c358c472e185"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-2BOC2OMW.js.map",
+        "bytes": 81430,
+        "sha256": "35af937c1a20077618f993f385c2bb846c47ac6db4cf96bd107d87dd70eb9a84"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-DDJLRBDX.js",
+        "bytes": 103734,
+        "sha256": "09cdee35c53b92a6498c3f1ece5fe2d71063b637ea0036f808c08f7b11024393"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-DDJLRBDX.js.map",
+        "bytes": 308529,
+        "sha256": "bf0b9c2633f754fb3114ec5e07b55a8eac7ab98c42d39a3b08aac1eb19b61d84"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-F4GETNPB.js",
+        "bytes": 998,
+        "sha256": "5ab11fd9fd74b259484f42a7855cd9569a5fe6ee1cf3c032238ac43a59511d97"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-F4GETNPB.js.map",
+        "bytes": 6730,
+        "sha256": "741c3a24e8f6c0477110924ea4a436b7a44d481ac741f1bd9a4f59b9172c8f85"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-JDT7TZ73.js",
+        "bytes": 4220,
+        "sha256": "ccc0c2ea7269c23559d23cd86e0d12b3a35beb6d420253790890ecd7d08e1852"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-JDT7TZ73.js.map",
+        "bytes": 23398,
+        "sha256": "2ae973788049a45d78e65eb41be4a94c02164929ed6ce7636ae2750426a58415"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-NNS5RQRF.js",
+        "bytes": 2174,
+        "sha256": "e04c14da71c248d5e7e02f45df665b8e2b136526ee0bef419274bb2b345a1017"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-NNS5RQRF.js.map",
+        "bytes": 8630,
+        "sha256": "ef26121a2bbbfd278145ffd4eb96bd4a7966d706267d2692c2300118fccbdb36"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-QY3QWFKW.js",
+        "bytes": 1335,
+        "sha256": "bff6d3144dd6ea2689b00d9d0eea1ea2267b9cc14505fb9107b6194c1832bdea"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-QY3QWFKW.js.map",
+        "bytes": 619,
+        "sha256": "2d34b5c41d4be94269266b25b97b6aa8dd36718ab7ba0dd6e3b9d62eff2abf68"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-RYDTTX3G.js",
+        "bytes": 917,
+        "sha256": "a929aa141dccfb2f412b0fbee3a1e5b4aab3b228f89d2131ac24f73ad1136a90"
+      },
+      {
+        "path": "vendor/pglite/dist/chunk-RYDTTX3G.js.map",
+        "bytes": 5191,
+        "sha256": "6a1653ffa15e5a61149410af187c1b5820f1cb07fec75d2f021c2babf8d00ef8"
+      },
+      {
+        "path": "vendor/pglite/dist/citext.tar.gz",
+        "bytes": 5090,
+        "sha256": "2d3841bb44dfba12c479053160edd47af280cc5ea2b74a1b0a3a49a4e46da2fd"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/amcheck.cjs",
+        "bytes": 797,
+        "sha256": "062cd51f219906b086f6b8be75d632d77961f81ec5b8faa732b9993f0cea36a3"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/amcheck.cjs.map",
+        "bytes": 1639,
+        "sha256": "50eeee0d3dd6b2101a29765107ae807088591d575c41ad87b2d53d46b8248909"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/amcheck.d.cts",
+        "bytes": 233,
+        "sha256": "86a8820793c8411fe69a00e0b390ef690614ca6e7eaa624d753dc3c9644ffa0c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/amcheck.d.ts",
+        "bytes": 232,
+        "sha256": "5587900c73fc398e3f8db9933707f77385d9362f611453b633d4a8fcc1ac95e6"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/amcheck.js",
+        "bytes": 207,
+        "sha256": "c42fb76c7abc11d63024115a024e21e00a57aa0a677ca5d4c99bf0a1e058cd2f"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/amcheck.js.map",
+        "bytes": 660,
+        "sha256": "c33339c40772a1579ec64f70648972f259bc899a3c65ae843781f83f3c870332"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/auto_explain.cjs",
+        "bytes": 822,
+        "sha256": "23154372eb48ed2a401c20f9d9c9a9e9cba56b3cd084d6125d8bd8444b6f3815"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/auto_explain.cjs.map",
+        "bytes": 1675,
+        "sha256": "ec1ba7f3708cc1d1f73280abbc55cfc5c226a847c996d7deb4887efa0918d2c1"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/auto_explain.d.cts",
+        "bytes": 243,
+        "sha256": "2f2846db6d6b6e9b6952256c24f759c1909543f0f736b7c9bc82099a173c97e3"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/auto_explain.d.ts",
+        "bytes": 242,
+        "sha256": "fbb16d9c792ddfd580ac9fd3d2b37a8a363ec303e246e02919ae15cacb994b12"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/auto_explain.js",
+        "bytes": 227,
+        "sha256": "96ba0038c6735f4ded1cdded0307d02f9b2c076f31b78771c36e3ca3f2081b89"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/auto_explain.js.map",
+        "bytes": 685,
+        "sha256": "e9e32ec0390e9aef5f0276dc3f2f58baa86a4186494c22404affde1fba731c28"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/bloom.cjs",
+        "bytes": 787,
+        "sha256": "64454f3680e0fe148c237b41eb8c4f27dd216f1c302ac986c7c3e650fb798686"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/bloom.cjs.map",
+        "bytes": 1625,
+        "sha256": "4b59b2b9a37c0e400241d2c2f62f3cab8418ec582c6903fc3e292e1a54efc0f5"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/bloom.d.cts",
+        "bytes": 229,
+        "sha256": "c541c05212d5aa432317ecefc0e1508a76477e743d17f5e2e0fd9e6eb3fbf052"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/bloom.d.ts",
+        "bytes": 228,
+        "sha256": "51462f96dea2483530f3e8bade9d6c166f5b89b1bac0f37f62c5324dc0a15a48"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/bloom.js",
+        "bytes": 199,
+        "sha256": "ea15d8c6f8f8dd7630e4f52241271d269d29a9ffcd75aeb6ffae61596ea39b63"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/bloom.js.map",
+        "bytes": 650,
+        "sha256": "c283e641ec7b368d67afb19e674949e0d0eca949ab00e5a4b95def3c40e9c95e"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gin.cjs",
+        "bytes": 807,
+        "sha256": "6d4bfa232e9d5d2970d4f610541acaece4d9ce5c66985ac5b1faeba4b80d8fd3"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gin.cjs.map",
+        "bytes": 1653,
+        "sha256": "2f12f7093a8e996449d1f5a4ecb22d7c4af1c52059251b1e38c77100de097bd7"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gin.d.cts",
+        "bytes": 237,
+        "sha256": "f9271ff6c07336fac7c62242de0ae5b5d43d3a4da5459d3778290c24bb5dd6b0"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gin.d.ts",
+        "bytes": 236,
+        "sha256": "88477ff9bc7f75985f1b362f8d92febb193404e3ff8817de5dd183de11dc6e83"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gin.js",
+        "bytes": 215,
+        "sha256": "92dcb866c14a569528474d8e2b4546240d8a36b7db323f49de80a1eaf3744b90"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gin.js.map",
+        "bytes": 670,
+        "sha256": "9bd9b495ed72aaffb16bb3c3ea472ad602070c1ffc542c6b930a8f08b3d0d635"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gist.cjs",
+        "bytes": 812,
+        "sha256": "40e5b8720fa1587740b9153ec1960fa6cf06b2d3bf8f9aa5432eb82bed961e3b"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gist.cjs.map",
+        "bytes": 1661,
+        "sha256": "28c01447632adddc989f20bca1facc04d66879ac7d579ffc0492fd8bc912e05a"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gist.d.cts",
+        "bytes": 239,
+        "sha256": "195733e53f3f39cd031f1707600e14e81c21154da552a0e0d6252f9c464b10e6"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gist.d.ts",
+        "bytes": 238,
+        "sha256": "09d35b5690d0326f4bdcc979ff451d27b042a77fd42b664687d074f7f4fae403"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gist.js",
+        "bytes": 219,
+        "sha256": "bc4fadb16724ada4ecda37d5883412ea7aa411ce43ad1c18876271334d410ddd"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/btree_gist.js.map",
+        "bytes": 675,
+        "sha256": "45cee059231c4ee04ccf592869d4f4c460f5ee3ad50188933b770e557644e189"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/citext.cjs",
+        "bytes": 792,
+        "sha256": "cede0868310c0cda7bb440394aaf9dc8daf2fd3abe640003e4f977ddcdfdc573"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/citext.cjs.map",
+        "bytes": 1632,
+        "sha256": "ed4133ef75babd286c90815750def5835a5cbce6d25d7520076fddf2a20e53cd"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/citext.d.cts",
+        "bytes": 231,
+        "sha256": "d14b0c023f58f55e671af3c352c736e7b3b48ad8c62e783bcfd5b07a21c8f9ba"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/citext.d.ts",
+        "bytes": 230,
+        "sha256": "92e6bdc3f3171858c4537e0e3c9919805b8d5304c2832c044fe861ae02c860f5"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/citext.js",
+        "bytes": 203,
+        "sha256": "c5eb17066467537414bcd5cd6286042525b0fe89db0b8bf50ee54694ed8911f1"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/citext.js.map",
+        "bytes": 655,
+        "sha256": "2b52c9023bf06472fc27803c7420afbc87e3a97d2a7d228d1630c257b9e857f4"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/cube.cjs",
+        "bytes": 782,
+        "sha256": "01b98922b58f992870e8f98f9fda5b57c5fd7b3fcf7cc23c27a6455bb59c531d"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/cube.cjs.map",
+        "bytes": 1618,
+        "sha256": "7e86cde6f2aa4e9beb19a71f13af7528869b3fe68cbf7441a4129dda2b485a52"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/cube.d.cts",
+        "bytes": 227,
+        "sha256": "9b194bc7eba0189aff14da0ddc989453fa9c28a882654ff73717ed4418c7865a"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/cube.d.ts",
+        "bytes": 226,
+        "sha256": "ae01341c17833beb45707677de82d009ba89517c44e1e7bf872c56624a630d2f"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/cube.js",
+        "bytes": 195,
+        "sha256": "edc9a2d3682b2d561a83270233b5b8787333c320eb77bf96a9c6ef28a51e6e68"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/cube.js.map",
+        "bytes": 645,
+        "sha256": "3b560362e19cdbfc26e1a007e17ea3af82f28824ee42384a1dafc333ee933f52"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_int.cjs",
+        "bytes": 802,
+        "sha256": "6bba45476a290f854c033e0313d992fb484f589accee8bc0d7ae8ef77ca7194d"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_int.cjs.map",
+        "bytes": 1646,
+        "sha256": "dfea39b0340c95332a108b9453f7bcaeaea45d4eab2aea5bf0b1db24d05efa94"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_int.d.cts",
+        "bytes": 235,
+        "sha256": "d9e28e26e838e620025bf2e07801e12cec858923f4a68d49b850921cf7290cbe"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_int.d.ts",
+        "bytes": 234,
+        "sha256": "44d79af0701ddcd41f3e001931348fd67e358c7ff2ceb77ed2ce7846a4176db2"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_int.js",
+        "bytes": 211,
+        "sha256": "8436e2522b92d63213f640e0703949cb5d09872c5671c4e45c79a399a5a1d34f"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_int.js.map",
+        "bytes": 665,
+        "sha256": "02f45409ae654f3f42f3ee5469c16d015750863e9d8cfe3b21e8bfcaa6559883"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_xsyn.cjs",
+        "bytes": 807,
+        "sha256": "d24eba693b8ffec344aad7f191f826db7aaf138bff200ae35f9dbb0fb8aebf57"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_xsyn.cjs.map",
+        "bytes": 1653,
+        "sha256": "b20a5c51164c3067d628022acf3658fa27c0e29024ec20c5f719c7e0fa8d0700"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_xsyn.d.cts",
+        "bytes": 237,
+        "sha256": "3e4e06fd74d70f0d25771c16c1a4f254a546188070df46c89b5dc440dd50bae2"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_xsyn.d.ts",
+        "bytes": 236,
+        "sha256": "a010aad55e2440096533d1cc1e9ec0485d80d71e3bc34a79a5b3b00060106758"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_xsyn.js",
+        "bytes": 215,
+        "sha256": "6fa675fc56557cb23c6410fa9065a054ea77ab85941f7a2bb3d3694ea4498693"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/dict_xsyn.js.map",
+        "bytes": 670,
+        "sha256": "bcc91c48ca50809575babac2f1031edef32de915ab7f151171385c6ce5d928ad"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/earthdistance.cjs",
+        "bytes": 827,
+        "sha256": "4faf1204195de5fcd2039998c17af2b6299d4150bb201ae5ad1a338000424f2c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/earthdistance.cjs.map",
+        "bytes": 1684,
+        "sha256": "8fc34b35fbaca84af9ddc87fcca2a80f9c464cc2e52c831674ab1d7a791839c0"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/earthdistance.d.cts",
+        "bytes": 245,
+        "sha256": "36d777dfcb4a0ba5a20be31a1f1d8b2fe0943f44b5d11c869e43c3c53b30e2a0"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/earthdistance.d.ts",
+        "bytes": 244,
+        "sha256": "745660d59bbc15e0ba1aaa1bf3c8f22925bf3a0f56a41047cc73ed0ae2ea0daa"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/earthdistance.js",
+        "bytes": 231,
+        "sha256": "b89864041ba8c7e46b36bf7714ab3d129fedc31240555adf718f7036a1f7b6cc"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/earthdistance.js.map",
+        "bytes": 692,
+        "sha256": "2dbe1564acbdcb3df58636e39505c8c5a2ae3dd3b75431f3526de7c1676cb768"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/file_fdw.cjs",
+        "bytes": 802,
+        "sha256": "b0764f9d204048508758a21395cb5bfbf5a4bc098b0362c0fcd9b778db7309c8"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/file_fdw.cjs.map",
+        "bytes": 1646,
+        "sha256": "395f2febe10563512a6727984d4d7dee161c72cafb8623ec946c3a2bb8b589eb"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/file_fdw.d.cts",
+        "bytes": 235,
+        "sha256": "f364692783f6664f697be473ea2b1a1ea44e64f00762f07f93434eeb31b14d02"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/file_fdw.d.ts",
+        "bytes": 234,
+        "sha256": "6987795206953f080d6c1f84fb79c68822a0c95bb88728ec0aad50413b60483e"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/file_fdw.js",
+        "bytes": 211,
+        "sha256": "732e3f3c8fdc93385da1c2893b51cfe9c4df038ab37ea6ee54941d0ecf9e9e78"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/file_fdw.js.map",
+        "bytes": 665,
+        "sha256": "0781e2f9a0b91458e069958d1a44450a5ce0d27f35729aebbd5f4da40e94e346"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/fuzzystrmatch.cjs",
+        "bytes": 827,
+        "sha256": "f97a690557436ed2ecaa9348e3912495951d1d3888bdbada616bf59424e8e45e"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/fuzzystrmatch.cjs.map",
+        "bytes": 1684,
+        "sha256": "b206ff6dc09e5c57ee3098563820af3e98e1a02b0b6073d1d97b79f9d626c0c9"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/fuzzystrmatch.d.cts",
+        "bytes": 245,
+        "sha256": "34a6b85d9d855bdcd8ccf6cb4a4b7b04ff9f427d495538dd608c4115f60944d5"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/fuzzystrmatch.d.ts",
+        "bytes": 244,
+        "sha256": "826a5e0cf7b34695f5c88bb0cc3ed70ea374fc72722677e63a0e17eef6c1119a"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/fuzzystrmatch.js",
+        "bytes": 231,
+        "sha256": "2e6b73078c76b356864c1d732b1da780bed7a8779d0880d0582a2e085bae744c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/fuzzystrmatch.js.map",
+        "bytes": 692,
+        "sha256": "0a5740134f47e2ca6c4b83b818efd0998c77ff20c320792c4e51e07f01fa6cc8"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/hstore.cjs",
+        "bytes": 792,
+        "sha256": "b9cc25abca8f62c495421b37233f957224a5b2ef8ea3e758f2edf58a4e832959"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/hstore.cjs.map",
+        "bytes": 1632,
+        "sha256": "3d6223c4b9a6397345cd6dfda39f0bed8cee78e9d457195609415768e95fac84"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/hstore.d.cts",
+        "bytes": 231,
+        "sha256": "90fce233722fa09b7851119027b81a98855fd7b1a880f137d4a5181c1273b0b5"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/hstore.d.ts",
+        "bytes": 230,
+        "sha256": "61b57d50c6d8bda75087d58db3b55ac8a14f7503019cfd7c60731d57da43021c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/hstore.js",
+        "bytes": 203,
+        "sha256": "799850dc9028268567022b4302c45dac9a96b9999c996d53e613ff20cd71a795"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/hstore.js.map",
+        "bytes": 655,
+        "sha256": "42b1069b13b74634b6ce5f1a8cc27e78f0ff3c153e2db523b43f3d50ea85612c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/intarray.cjs",
+        "bytes": 802,
+        "sha256": "3378adbfaddf4ca207a57931b37ab03ed46e327e7fb0d707590a5de6afea328f"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/intarray.cjs.map",
+        "bytes": 1646,
+        "sha256": "a8e066cd373679fc0447279da2bc97f040d7a9dbc510401130f027eb96729e99"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/intarray.d.cts",
+        "bytes": 235,
+        "sha256": "5c15692500a593ec744983cfa9bf955e060db834b2edc471bf0623adc5b38f0f"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/intarray.d.ts",
+        "bytes": 234,
+        "sha256": "c2cb2eaf16bdb00498f4517850b1fec15a9978d049b3a08e9f2c3676013e05f1"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/intarray.js",
+        "bytes": 211,
+        "sha256": "c25f1a12daa75db7f9ecf583dc81997a26be7f9aa399185ab460ac701725a414"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/intarray.js.map",
+        "bytes": 665,
+        "sha256": "c4c7b69917b3e95571124732ce9758c93450b8d5b7a3710b7bd09ee043bbf3b7"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/isn.cjs",
+        "bytes": 777,
+        "sha256": "0101e02258109846958a6840319b830bec1ceb3f9215e541e6b744926f0d94af"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/isn.cjs.map",
+        "bytes": 1611,
+        "sha256": "1b90d6d89cc5bc8f8b0922e9af7fcee987452f047aa2c6bac4a215b2ad32653b"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/isn.d.cts",
+        "bytes": 225,
+        "sha256": "b9d8697e81675881919c7e4b9db79cd331bf3f1a0dab5ba48608a4a8d0da8c85"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/isn.d.ts",
+        "bytes": 224,
+        "sha256": "ea23151088519c70b0594bf733ef62b8d6357fa6046e671f2e6b4422c536c869"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/isn.js",
+        "bytes": 191,
+        "sha256": "794aaa661978527fcf6fea10bf148e98c7ddf447ef6971fb365a9e3ce596b7a8"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/isn.js.map",
+        "bytes": 640,
+        "sha256": "6eb1150e946e053a47233a7428c29d047e0407b05f45a03434ae3be2db7ad505"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/lo.cjs",
+        "bytes": 772,
+        "sha256": "659b1bf7bca0a8e23911d71b3ce3f2c7a778fd6f556f24873684de2f6de530d6"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/lo.cjs.map",
+        "bytes": 1604,
+        "sha256": "ebd7670aaeff48565fc8027b9180336d0c8a8c54eca2fa35e0d9be56467a7347"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/lo.d.cts",
+        "bytes": 223,
+        "sha256": "735ddf06b5847c0964b2db4185722e7931bab1f35c4eab698214d2f074980a06"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/lo.d.ts",
+        "bytes": 222,
+        "sha256": "ecef336736b034099b6a2c59e70258a2653063b81a21352b08c178b5483707e7"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/lo.js",
+        "bytes": 187,
+        "sha256": "603445e6b73da0b5433463a214604d32d25962a25813512c4564f99aa3a5cf45"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/lo.js.map",
+        "bytes": 635,
+        "sha256": "5fd797fa73a6b3fabe94b22b18ec4d102322ce23ce6b9c0c3f6cd795ccc178c2"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/ltree.cjs",
+        "bytes": 787,
+        "sha256": "688fe32a68008894a5f0a2ffb990e3158bf6dcfe54aa8958aa36741a5dfa77ac"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/ltree.cjs.map",
+        "bytes": 1625,
+        "sha256": "4fa13e14c986d51c089362381d536fa6766b61dddb2dbce99fb10c4566fba096"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/ltree.d.cts",
+        "bytes": 229,
+        "sha256": "6a01eeb3114699589d9067f520636747a2b4d1886f3dab9e9ef318b45aceeb55"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/ltree.d.ts",
+        "bytes": 228,
+        "sha256": "4db0be7d575c196bc155cc3785b0ca522ffa932c413f7e05b8e148eb848388c7"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/ltree.js",
+        "bytes": 199,
+        "sha256": "dc12e9e9bc4c4fa40a7562220eda38089d3384ba4132a22e980709d3fc13697d"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/ltree.js.map",
+        "bytes": 650,
+        "sha256": "7d9a50e769367c1c3517dc9b833ecce5ba16b131d338d36c0be038e5997826a1"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/moddatetime.cjs",
+        "bytes": 809,
+        "sha256": "34c84bd125bd84a2d96918c8f9248e85fff9071b03700b3eede4684a8cb34347"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/moddatetime.cjs.map",
+        "bytes": 1660,
+        "sha256": "1b5dcbf5118f5122d6511934abe8110a1d78ffdb3e263feb16a249fed9a1fadc"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/moddatetime.d.cts",
+        "bytes": 241,
+        "sha256": "e0b6affe73b3218276cac7ad82e34ae44fee0e4de2e9b8469ce1d865c78b281a"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/moddatetime.d.ts",
+        "bytes": 240,
+        "sha256": "068cf8be21bae1a5a9a16fe77c72d7709f4112f7fd65cfbc7a5414a084fc3e7c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/moddatetime.js",
+        "bytes": 215,
+        "sha256": "812b3748fc94d2c67a36688612d11910176d55778b2cee3a565ff9f37b49fece"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/moddatetime.js.map",
+        "bytes": 672,
+        "sha256": "a39e66f8630bf6d1b0a3c20de1e9515e0566306e712013e7a2bb40869a2bedea"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pageinspect.cjs",
+        "bytes": 817,
+        "sha256": "df2b4bbb4c00d8b341d56fb0c2cff045e51add0bbc798baf16a9e02133f91905"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pageinspect.cjs.map",
+        "bytes": 1668,
+        "sha256": "b8b757ef5f985374b1a99a06703df8a98e0c889a59ac80cc1a0967f17c9eed07"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pageinspect.d.cts",
+        "bytes": 241,
+        "sha256": "be3036c8d2c35220190a7819fbdf072933fa2962ac2c2db08e28422e68030592"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pageinspect.d.ts",
+        "bytes": 240,
+        "sha256": "c813477c8f9fd9a9187e79356d265da9cfb71df9c32a5286aea778fc16f7c017"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pageinspect.js",
+        "bytes": 223,
+        "sha256": "5ca11fa6667632867024123bd4c23e4e7acc945cd2946ffac2c862d84186e11c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pageinspect.js.map",
+        "bytes": 680,
+        "sha256": "36df43e523464ffa015075631a97475e87cf35ee9a857d248d3b0b835cf0708f"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pgcrypto.cjs",
+        "bytes": 802,
+        "sha256": "5b2251c6c3f782eaee84cb4c92ecfa89241f7712b10f6618e4dcf3108c692411"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pgcrypto.cjs.map",
+        "bytes": 1646,
+        "sha256": "046f42bfdaf99a72b18f53f43f1514b94ed06ee22409fb4770d5563f8cf78622"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pgcrypto.d.cts",
+        "bytes": 235,
+        "sha256": "e08ba83f7ca9cb5b1c946de1d3bf8cfaed38f44d4bb9c12666b03e14549872a4"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pgcrypto.d.ts",
+        "bytes": 234,
+        "sha256": "0aab4ffe8566c94501448c213aacfff6eaf2e3db4685e95c25ee96a73bf3d1ef"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pgcrypto.js",
+        "bytes": 211,
+        "sha256": "3fb9b5f4c7eb15e29b3af759ffaa4e91c0c1a1d9707893cfb70a9255e0157a3b"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pgcrypto.js.map",
+        "bytes": 665,
+        "sha256": "c2f2f044d73b323e60cd5f8ba949332a0bafc7bb46e0e9f04eafb86412d79947"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_buffercache.cjs",
+        "bytes": 832,
+        "sha256": "f0dcfc2317f01c079371bd5773ce33987b0ccda0b3122a453f420260abf2c58c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_buffercache.cjs.map",
+        "bytes": 1691,
+        "sha256": "d23f9ef56f3aaaa6ae190d6f503e9c9e2eb606fd3e50e82b362e59495782239e"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_buffercache.d.cts",
+        "bytes": 247,
+        "sha256": "5b936d427d76bfd089302e3ea9f453632010f0eabc1fce56661fc694cd1e5cfa"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_buffercache.d.ts",
+        "bytes": 246,
+        "sha256": "eefd11e4f9a59c439e2fb92393c7573796181904ddf98b636cd1766f4a90f584"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_buffercache.js",
+        "bytes": 235,
+        "sha256": "939443efb3fea41b274e15bfd97b74dc80a125c81f7a6ffe2e32037a36690aa7"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_buffercache.js.map",
+        "bytes": 697,
+        "sha256": "29ae7663fe2750125e8e9de4aad96cc15976d6dca9e68736aebde833c82767e6"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_freespacemap.cjs",
+        "bytes": 837,
+        "sha256": "986ca38ba8f3811b419f8c28f7017148daa8d4041e15f27f9aa4cbac53e265aa"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_freespacemap.cjs.map",
+        "bytes": 1718,
+        "sha256": "eed1e0c8b35746de5fb536eb83c2ddf0475917550e1961dc627f3f8f911f3f16"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_freespacemap.d.cts",
+        "bytes": 249,
+        "sha256": "bf297a9d145afa7efb61a55e134e65633761360579d2eb58bc5ac8e9afe9a327"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_freespacemap.d.ts",
+        "bytes": 248,
+        "sha256": "bdfa287163a9c6f755e902c9e80ecddf2e4ed1da8a13cc0a22fb0463f2cea9db"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_freespacemap.js",
+        "bytes": 239,
+        "sha256": "545d804729452f73dd708eb3c55302026d0a906310d490e68bd0b66ad55eabdd"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_freespacemap.js.map",
+        "bytes": 722,
+        "sha256": "51620fbc1240a63c9b476e4d5a0d28da6b70c8a767bdfb7a026aa69e929d2be8"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_stat_statements.cjs",
+        "bytes": 898,
+        "sha256": "b920066a5cdded65a2b00a6dd790d2e5695a3caffd9c0dbc6c1bc6d035ca1b98"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_stat_statements.cjs.map",
+        "bytes": 1817,
+        "sha256": "915c4f52d2bb49a4613f645af981381822d2fff3ae9d9292b86c6dbf36641c19"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_stat_statements.d.cts",
+        "bytes": 297,
+        "sha256": "9d5da89857bb93af1118327453db77e2b99c4bf5ec5e979445113ecbb22306f8"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_stat_statements.d.ts",
+        "bytes": 296,
+        "sha256": "666e710721c86413493489b67c8cbc03f38ac4a0174213696051d67f301fa895"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_stat_statements.js",
+        "bytes": 297,
+        "sha256": "1a7419c8286bcd968bb06365efaa90f3eac11420457468219e774fbc70936533"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_stat_statements.js.map",
+        "bytes": 815,
+        "sha256": "8adbde884ad7ce9f200be909d59ed102fa1b7e483fd6c3a3b5ab1ff4d020916b"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_surgery.cjs",
+        "bytes": 812,
+        "sha256": "e2a665c333d718203cb3ab6e4cda3a8b0e6ad2067b7c25ec2862809468b748b7"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_surgery.cjs.map",
+        "bytes": 1661,
+        "sha256": "25223c2790fc92bacf1a6f73f982cf524f0373f11f68c4bdf055134b3389ad5d"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_surgery.d.cts",
+        "bytes": 239,
+        "sha256": "10c45870fa09b9695f3c644f8386eb8eaf2b7d79d4d782060363ff34e92bc337"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_surgery.d.ts",
+        "bytes": 238,
+        "sha256": "563c5018dec98d1cabedb9985a9569abb077aa599c155a3ba371d626fc91aef8"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_surgery.js",
+        "bytes": 219,
+        "sha256": "949a64f12498a8435b1f5268a682e625c31a4a18c9fe88fae88b58fed7d99686"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_surgery.js.map",
+        "bytes": 675,
+        "sha256": "7a4bdf336f354f543dbfdde84938d86a7721b61eab2311fba84986b4a9b99bfb"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_trgm.cjs",
+        "bytes": 797,
+        "sha256": "7b2a7831243a1db34523222c2e5e1e6cb5e229969e473dbb2632512ff4d2f2e6"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_trgm.cjs.map",
+        "bytes": 1639,
+        "sha256": "1e7c46947a4640345af891e713454a21f21c962f72ca33cdfccf4badf8036e56"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_trgm.d.cts",
+        "bytes": 233,
+        "sha256": "392f5da0e4d75c958d715921b1205ac79620e9e6c20be9815de97d975ebc70dc"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_trgm.d.ts",
+        "bytes": 232,
+        "sha256": "371f281f5d2216469370604042c52a87ae70beeff88a60948c78fd6c083f1faa"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_trgm.js",
+        "bytes": 207,
+        "sha256": "fc5618e3a8633954902dedd9b4fe73c1aafe54c4b3745719ecc7873f35405384"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_trgm.js.map",
+        "bytes": 660,
+        "sha256": "2ad4bffbdfb387fc2490c5148633ed0bfd7efc4339cf2d8bd281361f8514aa19"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_visibility.cjs",
+        "bytes": 827,
+        "sha256": "099f67483a7827befcff361dae91a00ae07a312dadaa2e6ee3f4bd821faee037"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_visibility.cjs.map",
+        "bytes": 1684,
+        "sha256": "63a81d788e07363b85a50484c0d6b452f57ca810f11c017753956ebf91981595"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_visibility.d.cts",
+        "bytes": 245,
+        "sha256": "bea5fe04b36c2592445a85e093996b9426288a9f1614961439ccc84fd6e13a6a"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_visibility.d.ts",
+        "bytes": 244,
+        "sha256": "fab9d9653f5393001c89f12f365ea9a7dfaee20ab91a4c2783d774fd0a7ecd6a"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_visibility.js",
+        "bytes": 231,
+        "sha256": "1326d079a84fab5eaffdd88927fda54f8714886aae685ed81711c1042aee8a4d"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_visibility.js.map",
+        "bytes": 692,
+        "sha256": "c007aab79baf637b183b8c19c1137abb5fd54593684d7c24e78cc895109afee3"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_walinspect.cjs",
+        "bytes": 827,
+        "sha256": "9dce50af45067f4e0980f72067a3cf368098175136351c09a979cf3f9fd0d89b"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_walinspect.cjs.map",
+        "bytes": 1684,
+        "sha256": "f229bb9cc24593505b028c7142a1b803d58623c40c4f81f17b30a5d57d3429aa"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_walinspect.d.cts",
+        "bytes": 245,
+        "sha256": "5c789776b89b24c43ee4836cde6467fc1380a5b1aaeabe237dc3d73e2b9cea7b"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_walinspect.d.ts",
+        "bytes": 244,
+        "sha256": "79079ff745b7cf94aded677cc03dc8b8e1ca4101b6a524fcb7b29e66fa4a7ef9"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_walinspect.js",
+        "bytes": 231,
+        "sha256": "1b85d87c17d9d6205dd1d38d7ce4891a59d4a63e54c704bc36901e79d35e0203"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/pg_walinspect.js.map",
+        "bytes": 692,
+        "sha256": "65f93cc508807355d5f5725951203b2e53133556b9b08fa95e1c8a23075ab6cd"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/seg.cjs",
+        "bytes": 777,
+        "sha256": "48904aad673cb2583c632d0b7fba3f6563ade283eb9cbf0ef1728ce71cd59956"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/seg.cjs.map",
+        "bytes": 1611,
+        "sha256": "794f32b13079f1a61e37467eff11138bbbbab2817acadd188790056df0776799"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/seg.d.cts",
+        "bytes": 225,
+        "sha256": "5beac3b5ce2cc9ed024d6331ae4e9e77c13e02c4f44fac9c7f843bd0fb444c14"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/seg.d.ts",
+        "bytes": 224,
+        "sha256": "aa20167c8443bb165278f628c25e5829ca13a52449c47fe4672634c1731abf84"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/seg.js",
+        "bytes": 191,
+        "sha256": "74860aca84b22803362df60cbb7caa264460d59bb19d5cb563edac4c887dc467"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/seg.js.map",
+        "bytes": 640,
+        "sha256": "17c39b1f00a68efa47ba50208f8f4fbd64574a54dd1b58aa80a799d55b127269"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tablefunc.cjs",
+        "bytes": 807,
+        "sha256": "0fce71ab50b5d9d089edb62d189ea638dbcf269a3f85d55052b5a64eb7167e1d"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tablefunc.cjs.map",
+        "bytes": 1653,
+        "sha256": "e365bbc9b4a08a4876eae0cdc231957d17ffc62274df138d9135b8d62f17fd2c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tablefunc.d.cts",
+        "bytes": 237,
+        "sha256": "25d7bbf2d0b342e48daebf93f73abd04e3936f50694076d97eb9014a00e70883"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tablefunc.d.ts",
+        "bytes": 236,
+        "sha256": "8a65ff5afb52d02861494c287c8057e893369fb63a58d1dbae81555a56149c1b"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tablefunc.js",
+        "bytes": 215,
+        "sha256": "de057f87533442ee78b712fe86ae40364c4fda7e34e25e90ad0a702d5aa873c6"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tablefunc.js.map",
+        "bytes": 670,
+        "sha256": "14e1061f2298c954f2a2ddec4319d643d26199ebbd97a898c7741366181f263d"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tcn.cjs",
+        "bytes": 777,
+        "sha256": "c123f9ebd62dd8fca456c32f13a471f33f0caa7aab8dc3c1f8588a5e17e59236"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tcn.cjs.map",
+        "bytes": 1611,
+        "sha256": "be46eea14fa4b2b5d34fe1b5741f84109771cd9be472e42829722dd8254eb4d6"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tcn.d.cts",
+        "bytes": 225,
+        "sha256": "d50801b225aa1fab857d3f69204d3486af4d765e4cad7b582ad440dd00f6e399"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tcn.d.ts",
+        "bytes": 224,
+        "sha256": "96200665c71499176e8e258ac88f7108521ab43be6845cf5b129387e63fe3354"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tcn.js",
+        "bytes": 191,
+        "sha256": "37ced01df24e3beb9ae475885999b381fff4470b89ee1650238abebf8b8a13ee"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tcn.js.map",
+        "bytes": 640,
+        "sha256": "84931f2c16ba3ac6c1e50b6f8c82daf2bbff48ce3f7c89f6433a035002ef868c"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_rows.cjs",
+        "bytes": 837,
+        "sha256": "08a69f9c137463ec7ab9f04e76ce26fd206a11d56ebb2d8215bbf9e0763bda84"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_rows.cjs.map",
+        "bytes": 1718,
+        "sha256": "e8d161bc5c791ec14b1f01c30d9904fafb598eaf736340124a3a9561417c591a"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_rows.d.cts",
+        "bytes": 249,
+        "sha256": "1b515d83934b1f79ff492b90ae23533b07106a9dc0e2f65651e3ebb2798e8570"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_rows.d.ts",
+        "bytes": 248,
+        "sha256": "ea4f4d1594bf966a114c7370e3ee4b1a910148f1c04160d5da468bbe8bd0785a"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_rows.js",
+        "bytes": 239,
+        "sha256": "c63c24b562c5f05a7c02877e17c673d381349e2152a60e4bb73e3bd75ceae8fd"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_rows.js.map",
+        "bytes": 722,
+        "sha256": "0920c3596808d89a826c839492cd161349f534ca9c33adce8267c2a3674581fb"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_time.cjs",
+        "bytes": 837,
+        "sha256": "77da6f3b4c00aa3d09bd9045f39b15e222fe56255e7e6959942fba7751ef753b"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_time.cjs.map",
+        "bytes": 1718,
+        "sha256": "165160123f6b48d297fe4c955931b66fa7e37b82636923a72fb7b071a2ad2daf"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_time.d.cts",
+        "bytes": 249,
+        "sha256": "b87950489d2e76e3cc40a11f78f723e5e739b3f3ea42af3c9ce6794f3eaee54b"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_time.d.ts",
+        "bytes": 248,
+        "sha256": "48e8749cf490b789a6fc503aa5e42ad173edc1a712ddc238e66d9ff694f60179"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_time.js",
+        "bytes": 239,
+        "sha256": "a9d2e5e9b4ba3fceb9cc3c08e70f42d97e314901785ba907ca2a08d197c0e3f7"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/tsm_system_time.js.map",
+        "bytes": 722,
+        "sha256": "994d2365e2be0c622f53cd17d0957ab5c05abb52edac24904461d25c1ba435ee"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/unaccent.cjs",
+        "bytes": 802,
+        "sha256": "54dac231f5b1e57dca3c26361876545775fa925052f7b865e27f368235206f0f"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/unaccent.cjs.map",
+        "bytes": 1646,
+        "sha256": "489fe4dffda3b78c87a90bc4d24dacdcb96d4ffd7c86c0ab622f4cf89820eec5"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/unaccent.d.cts",
+        "bytes": 235,
+        "sha256": "e262d74baf946682dc9af5741bea9df12348ae084f5c19bbd74d42fd063df4ca"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/unaccent.d.ts",
+        "bytes": 234,
+        "sha256": "85e5e8f8f9904de5f82bd30c5d388dbc972b9d351b009b3fd003d063efa1c757"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/unaccent.js",
+        "bytes": 211,
+        "sha256": "525521d993dadca106c99e731e07c3baa10cce0cf7c73d834b0f65032c449111"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/unaccent.js.map",
+        "bytes": 665,
+        "sha256": "a4d287055c2cdbdb78f76bb1a02f46edd9ffd6141a370d5644ea17f89a64a5f4"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/uuid_ossp.cjs",
+        "bytes": 807,
+        "sha256": "2b6bc2576b908095b5d12cff4b33c9649bf2ca248a380bc67b3caf5d8b9d31bf"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/uuid_ossp.cjs.map",
+        "bytes": 1653,
+        "sha256": "a2934f563df02b0b3f3e6e0de01e5d5ee61c87574c3997c6479faa310ab68027"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/uuid_ossp.d.cts",
+        "bytes": 237,
+        "sha256": "a558fd045d39c2d4dfe103e126f72c7036e24ce2d4f2c4a352e6a6a2f29dd049"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/uuid_ossp.d.ts",
+        "bytes": 236,
+        "sha256": "bcb2ccedf73140e190b58627d490f03efb9476bdb44ba90a3c263e633bc3e1cb"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/uuid_ossp.js",
+        "bytes": 215,
+        "sha256": "0d4a46aa5f8c3801f7c2ca7f4be7ac07936474c4d5526b2417ea663eb75451bd"
+      },
+      {
+        "path": "vendor/pglite/dist/contrib/uuid_ossp.js.map",
+        "bytes": 670,
+        "sha256": "a1b328a4d0e7c340ba47a767fd3961ddc8ddc9f644882112a50decfe4d5bc952"
+      },
+      {
+        "path": "vendor/pglite/dist/cube.tar.gz",
+        "bytes": 15707,
+        "sha256": "47ebd0dbe61b30e3fb83355c7313334c4412c9741f3438d91814d716b88425c8"
+      },
+      {
+        "path": "vendor/pglite/dist/dict_int.tar.gz",
+        "bytes": 1364,
+        "sha256": "6728d610319356972f882c2677c1eb935530a06cf52c5420a7d35e1d80227745"
+      },
+      {
+        "path": "vendor/pglite/dist/dict_xsyn.tar.gz",
+        "bytes": 2007,
+        "sha256": "a6e07b0dd6cf11e521cef8e8c69e159f01cf3aeac5742bb3951a64b7c7fc3075"
+      },
+      {
+        "path": "vendor/pglite/dist/earthdistance.tar.gz",
+        "bytes": 2344,
+        "sha256": "e13d9f2430e2fedd3635cfb7298c5748dd37e773bc96ee6eb57dde5b33ded7d2"
+      },
+      {
+        "path": "vendor/pglite/dist/file_fdw.tar.gz",
+        "bytes": 4877,
+        "sha256": "f1e110af2b87d12755f0275538dff2e2cbf69c66d6e375126e6456d6b9ebaa9f"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/base.cjs",
+        "bytes": 101269,
+        "sha256": "d8a4149fabba22a64c479f45205bd0a5f3b49c5d69b1559044b36be11c55b0cf"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/base.cjs.map",
+        "bytes": 309043,
+        "sha256": "4bb3e4b5b522a8d3fe479c440ca874ab077fa160cc05eb7660866eac115e236a"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/base.d.cts",
+        "bytes": 158,
+        "sha256": "b0ed1c7829f1a37fc98f2ae44ffe68b60aa710f705cc164194d5a08cf4d835ac"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/base.d.ts",
+        "bytes": 157,
+        "sha256": "93c02cae3854de98b9aa409015c9dfacf43e6c4f740d170971475ad76bd5a600"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/base.js",
+        "bytes": 224,
+        "sha256": "8a840f204b540dac65a703fe71516ea73abfe9a1bbfb5e6b15864e0d22858063"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/base.js.map",
+        "bytes": 71,
+        "sha256": "cba81f7ad4d5b1b629bf43823f1082e73a10d0c3114c937515e7f8c1047629b3"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/nodefs.cjs",
+        "bytes": 97926,
+        "sha256": "4cbd86aecbae4a3b3b6385f3fedc687a89c81de33dedb1c64ae365694c794ff7"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/nodefs.cjs.map",
+        "bytes": 304610,
+        "sha256": "6a5f81226d22471e831255d75f300292ac9572416dc43975dee22d6ecfef0389"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/nodefs.d.cts",
+        "bytes": 397,
+        "sha256": "e909310f7b8504a835d1366fe9abb10afc28a102c807c3e48c0262a2038c400d"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/nodefs.d.ts",
+        "bytes": 396,
+        "sha256": "c303e5fab40a44caeb168a7775e4684c5f523b00f7e1d59f56c9b1c2d41974d5"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/nodefs.js",
+        "bytes": 565,
+        "sha256": "7ffd7c0550fcf16ad7f5b3c1fc0e259ab0c213dc7c4f47188dd43d442fe14011"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/nodefs.js.map",
+        "bytes": 1766,
+        "sha256": "f14ae8052e2c5522f8ad057fd0a4ba54bd368bde12faba159c87ddc2253007b3"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/opfs-ahp.cjs",
+        "bytes": 111450,
+        "sha256": "e3b1b01d1a0f1981ff2356b7064a1188627f721d5d2722bd19c7110cb96321db"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/opfs-ahp.cjs.map",
+        "bytes": 345141,
+        "sha256": "3660579d02a11e2ded21eea802e818b21aeaed5302e1aee92cb44890c6e6ba8d"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/opfs-ahp.d.cts",
+        "bytes": 3862,
+        "sha256": "905b56c7447618d42e926af2769072d2e04268daf135bf4d4b1de05a4df6a65c"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/opfs-ahp.d.ts",
+        "bytes": 3861,
+        "sha256": "a384877261111098d44fb946a04dede34df55a1b7d60b461d9692f43b6714f4a"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/opfs-ahp.js",
+        "bytes": 10112,
+        "sha256": "73de23a9f88d3dccb8abeb9ff689b7c03511b5736945146dd7797563f198ed8c"
+      },
+      {
+        "path": "vendor/pglite/dist/fs/opfs-ahp.js.map",
+        "bytes": 36553,
+        "sha256": "929b9961e4de148f1c8f999a8f35cdc75f326b09f991d0f3342c88f768bb2d7e"
+      },
+      {
+        "path": "vendor/pglite/dist/fuzzystrmatch.tar.gz",
+        "bytes": 11446,
+        "sha256": "3ed17a6e2f0946c7f003065669b958d9eec476c02f860f18d7a1299c188da6b4"
+      },
+      {
+        "path": "vendor/pglite/dist/hstore.tar.gz",
+        "bytes": 22036,
+        "sha256": "165f64c6c2be2ce9d2420d296335a8e3b31ab2c13bf002db6a81cf5bb064ee49"
+      },
+      {
+        "path": "vendor/pglite/dist/index.cjs",
+        "bytes": 605391,
+        "sha256": "aa6b681c119cb131287e26db74024f3dcd16149dcea7b7146939fa658e105963"
+      },
+      {
+        "path": "vendor/pglite/dist/index.cjs.map",
+        "bytes": 1456709,
+        "sha256": "8cf890481e9cb1f6759d611423aa2d418d28bc73c8342343c15a03ea0b73951b"
+      },
+      {
+        "path": "vendor/pglite/dist/index.d.cts",
+        "bytes": 17304,
+        "sha256": "d778f85fef02fefd87d34e7e1ff8d19a2e1dcc3e9d47af36c14fd2557c4fad80"
+      },
+      {
+        "path": "vendor/pglite/dist/index.d.ts",
+        "bytes": 17302,
+        "sha256": "e34d15f581a3a6de7099b021316d63f25c30f6b40cecbfe07574d9a879de645d"
+      },
+      {
+        "path": "vendor/pglite/dist/index.js",
+        "bytes": 464072,
+        "sha256": "388fa6f88cfa02adda63b2f05853d310dec9a42fc0b91b0a78927f97d4bc5964"
+      },
+      {
+        "path": "vendor/pglite/dist/index.js.map",
+        "bytes": 983495,
+        "sha256": "924307dcdda38b37c47b5651b14ff0a8293aaa4bc5ecf914fe6e386d94c6a100"
+      },
+      {
+        "path": "vendor/pglite/dist/initdb.js",
+        "bytes": 109978,
+        "sha256": "6852f5292d9528c7aa2093a853236f0ba2ee6777b9d43a10f17b04ef22886194"
+      },
+      {
+        "path": "vendor/pglite/dist/initdb.wasm",
+        "bytes": 395242,
+        "sha256": "4c8988dca3b2f0bbfd23a0714023e4822a2909ead01804f37acffd9ff3ca9f8a"
+      },
+      {
+        "path": "vendor/pglite/dist/intarray.tar.gz",
+        "bytes": 15480,
+        "sha256": "245fd8329a1cb153f4f6c564a12881d129ea2be589561fbdb43c8d02b435d79a"
+      },
+      {
+        "path": "vendor/pglite/dist/isn.tar.gz",
+        "bytes": 31872,
+        "sha256": "47533e6d670b0209656819a836a4efe69a1b377f1a6c792c1e7bb0ff093deb4a"
+      },
+      {
+        "path": "vendor/pglite/dist/live/index.cjs",
+        "bytes": 21357,
+        "sha256": "9de9765fc699b46cf0f179b153e4f67592d1710531baa98453499f7ac7dec69c"
+      },
+      {
+        "path": "vendor/pglite/dist/live/index.cjs.map",
+        "bytes": 104127,
+        "sha256": "c5be88845066fe2ec01f1bbf7a6a181bd6375c709bf367651a102a87f4874457"
+      },
+      {
+        "path": "vendor/pglite/dist/live/index.d.cts",
+        "bytes": 5142,
+        "sha256": "20f4cba2fbef177ab8289cc54f3c57521f04d0863b8916410b1089bece45deba"
+      },
+      {
+        "path": "vendor/pglite/dist/live/index.d.ts",
+        "bytes": 5141,
+        "sha256": "4a41ff41f64116a33225f7ef2fc31849c3c141cf45492fa6f90e3fd584c6adb5"
+      },
+      {
+        "path": "vendor/pglite/dist/live/index.js",
+        "bytes": 11231,
+        "sha256": "93cea97af317afe95158544b2548cadba1ab806341cff7a929c12fcb97fe8507"
+      },
+      {
+        "path": "vendor/pglite/dist/live/index.js.map",
+        "bytes": 37909,
+        "sha256": "0fe4f89a78e5605b2f488cafa19cb5d4f2ca1a35399b0204269d62b94c8783aa"
+      },
+      {
+        "path": "vendor/pglite/dist/lo.tar.gz",
+        "bytes": 1620,
+        "sha256": "36f83c0cdf8a8fa6629e439897b3b8a0d5e1049a8712173b4d252b946a0317da"
+      },
+      {
+        "path": "vendor/pglite/dist/ltree.tar.gz",
+        "bytes": 21701,
+        "sha256": "5e38fe1363ba078bed886d41190101a6aedb152beefdc104181ff222603d1b6b"
+      },
+      {
+        "path": "vendor/pglite/dist/pageinspect.tar.gz",
+        "bytes": 16116,
+        "sha256": "ff65f950a002f4b2e7da143f535d231f72530b39d4441a6035b607e76dabc428"
+      },
+      {
+        "path": "vendor/pglite/dist/passwordcheck.tar.gz",
+        "bytes": 1065,
+        "sha256": "03cc5fdfd864f5c4624dc88809965b4bb8cd400f719fa648c30f0dd8c16df918"
+      },
+      {
+        "path": "vendor/pglite/dist/pgcrypto.tar.gz",
+        "bytes": 1153698,
+        "sha256": "1646e1b4a6959142baaf56e153418922fe57d9a6e5fbb935f452e406025a8093"
+      },
+      {
+        "path": "vendor/pglite/dist/pglite-BdeXTuy6.d.cts",
+        "bytes": 48679,
+        "sha256": "b2ca79d4d85198b0f500ece569af05ce36961a876fce9a66e55dc814fc6e6725"
+      },
+      {
+        "path": "vendor/pglite/dist/pglite-BdeXTuy6.d.ts",
+        "bytes": 48679,
+        "sha256": "b2ca79d4d85198b0f500ece569af05ce36961a876fce9a66e55dc814fc6e6725"
+      },
+      {
+        "path": "vendor/pglite/dist/pglite.cjs",
+        "bytes": 453554,
+        "sha256": "0c63476edc500c5e34b2d3f9f015c662309955dca4ab8907bbd0785166f6e8e1"
+      },
+      {
+        "path": "vendor/pglite/dist/pglite.data",
+        "bytes": 6295316,
+        "sha256": "c574cc331d96e33311470ec57bf58c579d972c111dbd9c0ab54bb42d79ec4c0d"
+      },
+      {
+        "path": "vendor/pglite/dist/pglite.js",
+        "bytes": 516332,
+        "sha256": "d7db324430326d0a2189a4aa10a11214fd0c92fdbf0df5781bb57f947b491707"
+      },
+      {
+        "path": "vendor/pglite/dist/pglite.wasm",
+        "bytes": 10088161,
+        "sha256": "356b89f6fcb2ab3a397bec4128327b67b7137ec2a900b13251dade81bcbc0ef0"
+      },
+      {
+        "path": "vendor/pglite/dist/pg_buffercache.tar.gz",
+        "bytes": 4570,
+        "sha256": "23b5d972143491987d75b2235bc0efeedd45b10338f355852def68d2305f1161"
+      },
+      {
+        "path": "vendor/pglite/dist/pg_freespacemap.tar.gz",
+        "bytes": 1579,
+        "sha256": "1c11c342421593b5473e717f4570177e97255fb69ea953537b0340a854b8ce3d"
+      },
+      {
+        "path": "vendor/pglite/dist/pg_logicalinspect.tar.gz",
+        "bytes": 1983,
+        "sha256": "1494e80a22137f80d4342e381c2ef9d9511dc763ae2530cbf7cbb8ea6e4ed215"
+      },
+      {
+        "path": "vendor/pglite/dist/pg_overexplain.tar.gz",
+        "bytes": 3164,
+        "sha256": "1c613bfeca7105a96cacc8e14a272e2075245c02583db41b18510ff0dff4863b"
+      },
+      {
+        "path": "vendor/pglite/dist/pg_stat_statements.tar.gz",
+        "bytes": 11571,
+        "sha256": "384650f6258a68ed5cf1ace17f2014cd4e60023f02439debaddd6398c2450d6b"
+      },
+      {
+        "path": "vendor/pglite/dist/pg_surgery.tar.gz",
+        "bytes": 2646,
+        "sha256": "09366168a6feb0360fbcd7cd62228c935b05b98be35d4ef41664bb694bc06d44"
+      },
+      {
+        "path": "vendor/pglite/dist/pg_trgm.tar.gz",
+        "bytes": 15830,
+        "sha256": "4e76ac1614c092647846eecdbb1f7e8453113d5b326c3113984155b4f780e534"
+      },
+      {
+        "path": "vendor/pglite/dist/pg_visibility.tar.gz",
+        "bytes": 4515,
+        "sha256": "f8a4058e459cf520b234beba91182a1f0ad5df963977ab0650fa6948c82e1528"
+      },
+      {
+        "path": "vendor/pglite/dist/pg_walinspect.tar.gz",
+        "bytes": 4711,
+        "sha256": "0bf30ec08bb66493b43b778dd9a50abfb24e45fca6d2c5139f4142b413c04db2"
+      },
+      {
+        "path": "vendor/pglite/dist/seg.tar.gz",
+        "bytes": 10079,
+        "sha256": "a0e15eafa5ad7c60b356ff1eae2fd7e1c4e09ee4dafe7d78624a8c19846dce59"
+      },
+      {
+        "path": "vendor/pglite/dist/spi.tar.gz",
+        "bytes": 6568,
+        "sha256": "090c96b6f48c240770521bb6973798b9a47a2cf3ba82ff84a922e644b6540654"
+      },
+      {
+        "path": "vendor/pglite/dist/tablefunc.tar.gz",
+        "bytes": 5280,
+        "sha256": "04c5f45249e29c592867dc69f9cec252ace52d06d4b168437231c5fa568938f6"
+      },
+      {
+        "path": "vendor/pglite/dist/tcn.tar.gz",
+        "bytes": 1676,
+        "sha256": "0f11ab0d49bd709727d464e0f25ed2994e3ccbc31bb0a51b0326471046e2a7a7"
+      },
+      {
+        "path": "vendor/pglite/dist/templating.cjs",
+        "bytes": 1472,
+        "sha256": "5032ae8d46d08f95bd84fbb4a72ab2f08a58853d868ac85dc66cf1f250d4e710"
+      },
+      {
+        "path": "vendor/pglite/dist/templating.cjs.map",
+        "bytes": 6877,
+        "sha256": "3afd16ad0731eb0791444d4d494cd40d8718b9fe5deb72389b0f937c428edab2"
+      },
+      {
+        "path": "vendor/pglite/dist/templating.d.cts",
+        "bytes": 2356,
+        "sha256": "521404dcba3a5aaa83dcd69db2cca7cd5ae87ff1f79e194c26667ab33690034a"
+      },
+      {
+        "path": "vendor/pglite/dist/templating.d.ts",
+        "bytes": 2356,
+        "sha256": "521404dcba3a5aaa83dcd69db2cca7cd5ae87ff1f79e194c26667ab33690034a"
+      },
+      {
+        "path": "vendor/pglite/dist/templating.js",
+        "bytes": 161,
+        "sha256": "99508ccae5c9848d45b22d714a75649c5f8121840cf8000fda10000e3eaad767"
+      },
+      {
+        "path": "vendor/pglite/dist/templating.js.map",
+        "bytes": 71,
+        "sha256": "cba81f7ad4d5b1b629bf43823f1082e73a10d0c3114c937515e7f8c1047629b3"
+      },
+      {
+        "path": "vendor/pglite/dist/tsm_system_rows.tar.gz",
+        "bytes": 1678,
+        "sha256": "161b6a2215d55e70a2efd93194e70e765b13ce40e15eaf3bead0fca0e88bd6c9"
+      },
+      {
+        "path": "vendor/pglite/dist/tsm_system_time.tar.gz",
+        "bytes": 1760,
+        "sha256": "e7ad2bfa856472df0c67768c64f2c070ca30a539d75c5687daa1bf544e8ce3ae"
+      },
+      {
+        "path": "vendor/pglite/dist/unaccent.tar.gz",
+        "bytes": 12656,
+        "sha256": "727d17e50cdbb4855dd1908a6715e4999e9090392be8d3c4aa0634419abb38f4"
+      },
+      {
+        "path": "vendor/pglite/dist/uuid-ossp.tar.gz",
+        "bytes": 16491,
+        "sha256": "7cd0fc7c868a5dc55f331c9f8189754aa9417a059ad3f5846fc200862f73906b"
+      },
+      {
+        "path": "vendor/pglite/dist/worker/index.cjs",
+        "bytes": 25100,
+        "sha256": "2c20eb7fe14d7639edfec13130c713a66695a2933c587454b25527b6f9de862c"
+      },
+      {
+        "path": "vendor/pglite/dist/worker/index.cjs.map",
+        "bytes": 139981,
+        "sha256": "ed5ff7829a97d848ea4be649298927fe50eaab4d1da87e2acbf65ef207503904"
+      },
+      {
+        "path": "vendor/pglite/dist/worker/index.d.cts",
+        "bytes": 5714,
+        "sha256": "b3c542c6408321ca38a2d2a1060da70c26a004e79f60a76ec70fe86f9e4a36d5"
+      },
+      {
+        "path": "vendor/pglite/dist/worker/index.d.ts",
+        "bytes": 5713,
+        "sha256": "77bfbf4d3f03561f622f48388d7725d4c8f8939d13dc2c60690cbe7d523fc74e"
+      },
+      {
+        "path": "vendor/pglite/dist/worker/index.js",
+        "bytes": 8698,
+        "sha256": "ff829fbbed763661f47b5975de044f0fa2f9a1075839778635e1e4eea0fc6d74"
+      },
+      {
+        "path": "vendor/pglite/dist/worker/index.js.map",
+        "bytes": 36027,
+        "sha256": "26e5fdbf6b3a559438ba6e6dcf06a534f579e8db42ce7a45ccb2ed868108d1bf"
+      },
+      {
+        "path": "vendor/pglite/LICENSE",
+        "bytes": 10173,
+        "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+      },
+      {
+        "path": "vendor/pglite/package.json",
+        "bytes": 5318,
+        "sha256": "65dff2c93c707e526902eebfab246bcbf2df2eba1c6984a5b5e9a44177532b1c"
+      },
+      {
+        "path": "vendor/pglite/README.md",
+        "bytes": 7305,
+        "sha256": "eaf848b398aba0f455e7f15179f34131c82acd4d0c9aa2e4cd11ff9cb0a9bf20"
+      }
+    ],
+    "assets": 629,
+    "resourceBytes": 648838732,
+    "includesDatabase": false,
+    "includesAccounts": false,
+    "resourcesIncluded": 0,
+    "coze": {
+      "baseline": "ed70fe4",
+      "configurationIncluded": true,
+      "vendoredPglite": true,
+      "privateBundleIncluded": false
+    }
+  }
+}

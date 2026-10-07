@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import {build} from 'esbuild';
 import {createHash} from 'node:crypto';
 import {loadBuildAssets} from './load-build-assets.mjs';
+await import('./import-opening-reference.mjs');
 const records=await loadBuildAssets();
 const reachability=JSON.parse(await fs.readFile('reports/local/asset-reachability.json','utf8'));
 if(reachability.rulesId!=='mvp-1.0'||reachability.mapId!=='campaign-five-v3')throw Error('M6 release reachability is stale or for another ruleset');
@@ -32,7 +33,8 @@ if(resources.length!==selectedIds.size)throw Error('M6 release asset selection m
 const {pack,stats}=createAssetPack(resources);
 const result=await build({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true'}});
 const js=result.outputFiles.find(f=>f.path.endsWith('.js')).text.replace(/<\/script/gi,'<\\/script');const css=result.outputFiles.find(f=>f.path.endsWith('.css'))?.text??'';
-const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b24"><title>SC2 SURVIVORS · 星际幸存小队</title><style>${css}</style></head><body><div id="game-root"><canvas id="battle" aria-label="星际幸存小队战场"></canvas><main id="interface"></main></div><script id="sc2-resource-pack" type="application/json">${JSON.stringify(pack)}</script><script>${js}</script></body></html>`;
+const opening=await fs.readFile('src/ui/presentation/opening.generated.html','utf8');
+const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b24"><title>SC2 SURVIVORS · 星际幸存小队</title><style>${css}</style></head><body>${opening}<div id="game-root" inert><canvas id="battle" aria-label="星际幸存小队战场"></canvas><main id="interface"></main></div><script id="sc2-resource-pack" type="application/json">${JSON.stringify(pack)}</script><script>${js}</script></body></html>`;
 const output=process.env.SC2_DEMO_OUTPUT??'dist/SC2-Survivors-Current-20261006.html',temporary=output+'.tmp';
 try{await fs.writeFile(temporary,html);await fs.rename(temporary,output);}
 catch(error){await fs.rm(temporary,{force:true});throw error;}

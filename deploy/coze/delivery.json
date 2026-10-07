@@ -1,7 +1,7 @@
 {
   "status": "UI fidelity and Coze v10 deployment integration; local validation; live deployment not performed",
-  "appBuildId": "4b241eb22ff39aeaf57b0fd78c6637b23c5ebb1c58c8c2025f7c8c146f493c06",
-  "packageBuildId": "143e25185a8a2f047b33e177521c1a39f65a7bd46f33ed54465862fadf2056dd",
+  "appBuildId": "d502a132ea56395855ae3c1a3e04c0b254692df763ea96750153d82972ed986a",
+  "packageBuildId": "3669fb67da9b851316921b2247a7b626fc99d8f3b1bc6e406cfaf73adb850a2a",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
@@ -87,6 +87,11 @@
       "sha256": "38cf22a1ec311b6cd69c0a019e467e56a75ee1c6cabe5bf66625eb07cd8dd8a9"
     },
     {
+      "path": "OPENING_COVER_FLAME_20261007.md",
+      "bytes": 4553,
+      "sha256": "241048dd0b7e23eea668a2646c75855744304f4a314538b6eaabc1e4c679fd44"
+    },
+    {
       "path": "P5_BACKEND_HANDOFF_20261006.md",
       "bytes": 5858,
       "sha256": "165cae31226f6e885221a8b2d10fc6357bc451624189dbf2595101321291f8fb"
@@ -99,12 +104,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6134,
-      "sha256": "5389efedac9a0a45f0e2234b216c62ebd96ab7919708ab140f94c7730db212bc"
+      "sha256": "2c0191173d9899a004153a60b5800cc74d0033fc863db9064d2fe7e7aef3e259"
     },
     {
       "path": "package.json",
       "bytes": 352,
-      "sha256": "bf612383605359433e37ed558a0647b25cd14d98b9da0785b24737a30c36a238"
+      "sha256": "1b9849733f20d25627db7249f2a87f308c46a32d08f80b9c44c5bf02d1e11378"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -117,19 +122,19 @@
       "sha256": "1257ad91f69c590d59abc862c539bb3aadc1a2c611110a69580dd5a8457f7bd3"
     },
     {
-      "path": "public/assets/index-C6cz6UpK.js",
-      "bytes": 2516994,
-      "sha256": "e66fd0e633c2ee418dd8d4cdc2f449d4cc4209d2134b603dfbb55052ac528e3d"
+      "path": "public/assets/index-BrbUkuwI.css",
+      "bytes": 384909,
+      "sha256": "0385bdb6924da1f3013d534c098b6f82975ede2ecaaaef5e41f8139b4d59c907"
     },
     {
-      "path": "public/assets/index-Y_pY0KuD.css",
-      "bytes": 383157,
-      "sha256": "6f49a64828c459a97780449a982b2e9760bc4ca89a45cccbe2dc6c2e57f5217f"
+      "path": "public/assets/index-D3Dn68fQ.js",
+      "bytes": 2869105,
+      "sha256": "40e55c7c9903559b587f6b5d4568fd3c898bf5070f449ee7da89f84299acca3a"
     },
     {
       "path": "public/index.html",
-      "bytes": 802,
-      "sha256": "18959fb2d0a4844244aa4eb7249cde7a14e61a570c9ab3e3d78e5d0b8666797d"
+      "bytes": 955146,
+      "sha256": "2ec89ab718aca4132063d726fe1a10e7896583af1e46b69d448b6f07c35fc185"
     },
     {
       "path": "public/runtime-config.json",
@@ -139,17 +144,17 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "ce5affa9e5fb3722e719f2d47e16f8b9b19e233dfc356c8733bd240dfa77ad7d"
+      "sha256": "6a64466ec2240ad52cf0ac6f346334a03136682526b4a2a662dfde91ffaf41fd"
     },
     {
       "path": "README.md",
-      "bytes": 3251,
-      "sha256": "ed968915ddf805a2909aa406ce698882d5fdc2ab27c1a30fc25ed673940c4f0e"
+      "bytes": 3629,
+      "sha256": "2374e9861517be0296e93ca0b32d036b02e58abf022424c7975ff90d09422b67"
     },
     {
       "path": "resource-delta.json",
       "bytes": 329,
-      "sha256": "6cd79a61cc81acda928cca9bd46953b19a4589f13c22e9d9c86f71b3374223aa"
+      "sha256": "8d86546626ae7ba016fbddca1f616f98fe5f76a704d528ebce7baf340e7c385d"
     },
     {
       "path": "resource-groups.json",
@@ -180,6 +185,11 @@
       "path": "UI_FIDELITY_ROUND_VALIDATION_20261006.md",
       "bytes": 6522,
       "sha256": "9ab4bd2f7a65d82fdb3cec3cd4de9150cb8aa8d51fffe9075dd84b0339791151"
+    },
+    {
+      "path": "UI_FLOW_ART_AUDIT_20261007.md",
+      "bytes": 5979,
+      "sha256": "60987fd757b1531f762e640ac304059c720ae12abe247b7c71ffc89513e31ff8"
     },
     {
       "path": "UI_INTEGRATION_20261006.md",

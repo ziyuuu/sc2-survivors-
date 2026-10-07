@@ -8,6 +8,7 @@ const destination=path.resolve(arg>=0?process.argv[arg+1]:'dist/Current-Coze-App
 const performanceStage=process.argv.includes('--performance');
 const fidelityStage=process.argv.includes('--ui-fidelity');
 const cozeStage=process.argv.includes('--coze');
+const openingStage=process.argv.includes('--opening');
 const web=path.resolve('dist/web'),baseline=path.resolve('deploy/coze');
 const relative=path.relative(path.resolve('dist'),destination);
 if(!relative||relative.startsWith('..')||path.isAbsolute(relative))throw Error('Output must be a new folder inside dist');
@@ -43,10 +44,11 @@ if(cozeStage){
  for(const name of ['sc2-backend.conf','BACKEND_DEPLOY_LOGIC_20261007.md'])await fs.copyFile(path.join(baseline,name),path.join(destination,name));
  await fs.copyFile('docs/project/UI_COZE_MAIN_20261007.md',path.join(destination,'UI_COZE_MAIN_20261007.md'));
 }
+if(openingStage)for(const name of ['OPENING_COVER_FLAME_20261007.md','UI_FLOW_ART_AUDIT_20261007.md'])await fs.copyFile('docs/project/'+name,path.join(destination,name));
 const pkg=JSON.parse(await fs.readFile(path.join(baseline,'package.json'),'utf8'));
 const lock=JSON.parse(await fs.readFile(path.join(baseline,'package-lock.json'),'utf8'));
 pkg.name=lock.name=lock.packages[''].name='sc2-survivors-current-application';
-pkg.version=lock.version=lock.packages[''].version=cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
+pkg.version=lock.version=lock.packages[''].version=openingStage?'0.6.8':cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
 for(const [name,data]of [['package.json',pkg],['package-lock.json',lock]]as const)await fs.writeFile(path.join(destination,name),JSON.stringify(data,null,2)+'\n');
 const priorGroups=JSON.parse(await fs.readFile(path.join(baseline,'resource-groups.json'),'utf8'));
 const priorByUrl=new Map<string,any>(priorGroups.files.map((row:any)=>[row.url,row]));

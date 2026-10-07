@@ -8,7 +8,7 @@ import {pathToFileURL} from 'node:url';
 import {gzipSync} from 'node:zlib';
 
 const arg=process.argv.indexOf('--app'),app=path.resolve(arg<0?'dist/UI-Coze-Main-Application-20261007':process.argv[arg+1]);
-const out=path.resolve('reports/local/ui-coze-main-20261007');await fs.mkdir(out,{recursive:true});
+const outputArg=process.argv.indexOf('--out'),out=path.resolve(outputArg<0?'reports/local/ui-coze-main-20261007':process.argv[outputArg+1]);await fs.mkdir(out,{recursive:true});
 const root=await fs.mkdtemp(path.resolve('.cache/ui-coze-main-'));
 const release=JSON.parse(await fs.readFile(path.join(app,'public/web-release.json'),'utf8'));
 const application=JSON.parse(await fs.readFile(path.join(app,'delivery.json'),'utf8'));
@@ -52,8 +52,8 @@ async function tarDirectory(dir,prefix){
 const {openDatabase}=await import(pathToFileURL(path.join(app,'backend/database.mjs')).href);
 async function checkHttp(run,enabled){
  assert.equal(run.config.enabled,enabled);const health=await(await fetch(run.origin+'/health')).json();assert.equal(health.appBuildId,release.appBuildId);assert.equal(health.assetReleaseId,release.release);assert.equal(health.runSchema,26);
- assert.equal((await fetch(run.origin)).status,200);
- for(const file of ['', '/app.js','/style.css'])assert.equal((await fetch(run.origin+'/sc2-ops-7f3k9m2q'+file)).status,200);
+ const game=await fetch(run.origin);assert.equal(game.status,200);await game.arrayBuffer();
+ for(const file of ['', '/app.js','/style.css']){const response=await fetch(run.origin+'/sc2-ops-7f3k9m2q'+file);assert.equal(response.status,200);await response.arrayBuffer();}
  assert.equal((await fetch(run.origin+'/admin')).status,404);
  assert.equal((await fetch(run.origin+'/api/sc2-ops-7f3k9m2q/metrics')).status,enabled?401:503);
  if(enabled)assert.equal((await fetch(run.origin+'/api/admin/login',{method:'POST',headers:{Origin:run.origin,'Content-Type':'application/json','X-SC2-Client':'1'},body:'{}'})).status,404);

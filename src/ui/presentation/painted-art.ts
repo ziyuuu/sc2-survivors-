@@ -9,7 +9,7 @@ const positions:Record<number,readonly (readonly [number,number])[]>={1:[[0,0]],
 export function paintedArt(identity:string,name:string,bodies=1,context=identity,bodyIdentities?:readonly string[]):string{
  if(!positions[bodies])throw Error('Unsupported painted body count: '+bodies);
  const a=(PAINTED_CARDS as Record<string,Plate>)[identity];
- if(!a){const cover=assetUrl('ui.cover.'+identity);return cover?`<span class="painted-art hero-cover"><img src="${cover}" alt="${escapeHtml(name)}" draggable="false"></span>`:'';}
+ if(!a){const cover=assetUrl('ui.cover.'+identity);return cover?`<span class="im-painting-canvas painted-art hero-cover" data-art-key="${escapeHtml(identity)}" data-body-count="1"><img class="im-painted" src="${cover}" alt="${escapeHtml(name)}" draggable="false"></span>`:'';}
  const url=assetUrl('ui.paint.'+a.assetKey);if(!url)return '';
  const bb=a.bodyBounds,sb=a.sceneBounds,scale=Math.min((a.bodyWidth??(a.air?240:184))/bb.width,(a.bodyHeight??(a.air?150:224))/bb.height),w=bb.width*scale,h=bb.height*scale;
  // IDs depend only on presentation identity/context. A live readout does not

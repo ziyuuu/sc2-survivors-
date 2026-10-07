@@ -1,0 +1,89 @@
+{
+  "at": "2026-10-07T15:54:29.356Z",
+  "appBuildId": "d502a132ea56395855ae3c1a3e04c0b254692df763ea96750153d82972ed986a",
+  "checks": [
+    {
+      "decision": "talent",
+      "sizes": 4,
+      "saveRestored": true,
+      "exportRestored": true,
+      "fullArchiveUnchangedBySaveExport": true,
+      "fullRunUnchangedByReload": true,
+      "profileMatchesNativeImport": true
+    },
+    {
+      "decision": "rescue",
+      "sizes": 4,
+      "saveRestored": true,
+      "exportRestored": true,
+      "fullArchiveUnchangedBySaveExport": true,
+      "fullRunUnchangedByReload": true,
+      "profileMatchesNativeImport": true
+    },
+    {
+      "decision": "paid-promotion",
+      "sizes": 4,
+      "saveRestored": true,
+      "exportRestored": true,
+      "fullArchiveUnchangedBySaveExport": true,
+      "fullRunUnchangedByReload": true,
+      "profileMatchesNativeImport": true
+    },
+    {
+      "decision": "free-promotion",
+      "sizes": 4,
+      "saveRestored": true,
+      "exportRestored": true,
+      "fullArchiveUnchangedBySaveExport": true,
+      "fullRunUnchangedByReload": true,
+      "profileMatchesNativeImport": true
+    },
+    {
+      "decision": "won",
+      "sizes": 4,
+      "saveRestored": true,
+      "exportRestored": true,
+      "fullArchiveUnchangedBySaveExport": true,
+      "fullRunUnchangedByReload": true,
+      "profileMatchesNativeImport": true
+    },
+    {
+      "decision": "endless",
+      "sizes": 4,
+      "saveRestored": false,
+      "exportRestored": true,
+      "fullArchiveUnchangedBySaveExport": true,
+      "fullRunUnchangedByReload": true,
+      "profileMatchesNativeImport": true
+    }
+  ],
+  "screens": [
+    "talent-1280x720",
+    "talent-390x844",
+    "talent-844x390",
+    "talent-844x350",
+    "rescue-1280x720",
+    "rescue-390x844",
+    "rescue-844x390",
+    "rescue-844x350",
+    "paid-promotion-1280x720",
+    "paid-promotion-390x844",
+    "paid-promotion-844x390",
+    "paid-promotion-844x350",
+    "free-promotion-1280x720",
+    "free-promotion-390x844",
+    "free-promotion-844x390",
+    "free-promotion-844x350",
+    "won-1280x720",
+    "won-390x844",
+    "won-844x390",
+    "won-844x350",
+    "endless-1280x720",
+    "endless-390x844",
+    "endless-844x390",
+    "endless-844x350"
+  ],
+  "errors": [],
+  "method": "Current validated diagnostic decision archives, actual save/export/local-reload controls; no paid claim, decline or phase advance occurs during archive tests. Not natural campaigns or physical-device acceptance.",
+  "passed": true
+}

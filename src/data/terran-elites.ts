@@ -91,11 +91,11 @@ export const TERRAN_ELITE_RULES={
     "body": "assault",
     "parameters": {
       "fanDegrees": 150,
-      "lengthIncrease": 1,
+      "lengthIncrease": -1/3,
       "lightDamageFactor": 1.8,
-      "attackRangeFactor": 2
+      "attackRangeFactor": 2/3
     },
-    "description": "火焰射程提高至2倍，覆盖前方150°扇面；对轻甲造成1.8倍伤害。恶蝠形态保留扇面喷火。"
+    "description": "火焰半径为普通恶火／恶蝠对应形态的2/3，覆盖前方150°扇面；对轻甲造成1.8倍伤害。恶蝠形态保留扇面喷火。"
   },
   "hellion.3": {
     "name": "布雷车",

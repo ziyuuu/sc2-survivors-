@@ -10,10 +10,13 @@ import {SaveRepository} from '../src/persistence/save-repository';
 import {RunSession} from '../src/app/run-session';
 import {RUN_SCHEMA} from '../src/simulation/persistence/run-snapshot';
 
-test('current cleanup preserves 72 complete campaign configurations and 690 body/rank fingerprints',()=>{
+test('72 campaigns and 690 bodies retain the historical rules except the requested knight range and its description',()=>{
  const {commit,...expected}=JSON.parse(fs.readFileSync(new URL('./fixtures/current-rules-20261006.json',import.meta.url),'utf8'));
  assert.equal(commit,'07b3f68e56f02fae1902ba4e563cb67a3e821c05');
- assert.deepEqual(captureCurrentRules(),expected);
+ assert.deepEqual(captureCurrentRules({legacyKnight:true}),expected);
+ const current=captureCurrentRules();assert.deepEqual(current.campaign,expected.campaign);assert.deepEqual(current.heroes,expected.heroes);assert.deepEqual(current.ordinary,expected.ordinary);
+ assert.deepEqual(Object.keys(current.bodies).filter(key=>current.bodies[key]!==expected.bodies[key]),[1,2,3,4,5].map(rank=>'hellion.2:'+rank));
+ assert.deepEqual(Object.keys(current.definitions).filter(key=>current.definitions[key as keyof typeof current.definitions]!==expected.definitions[key]),['elites']);
 });
 
 test('only the current run schema is accepted; rejected older/future archives never mutate a live run',()=>{

@@ -34,6 +34,23 @@ body[data-ui-phase=menu] #topbar,body[data-ui-phase=talents] #topbar,body[data-u
 body[data-ui-phase=menu] #mission,body[data-ui-phase=menu] #notice{display:none}
 #interface .reference-page .game-footer{padding-bottom:env(safe-area-inset-bottom)}
 #interface .reference-page .cover-controls{padding-bottom:max(4px,env(safe-area-inset-bottom))}
+#interface .game-brand-logo{display:block;object-fit:contain}
+#interface .masthead .mini-brand .game-brand-logo{width:108px;height:36px;max-height:100%}
+#interface .masthead.status-only{justify-content:flex-end}
+#interface .wordmark .home-brand-logo{width:min(100%,430px);height:auto;aspect-ratio:2098/750;object-position:left center}
+#interface .cover-factions button[data-current=true]{border-color:var(--accent);color:var(--text)}
+#interface .hero-cover{position:absolute;inset:0;display:block;width:100%;height:100%;overflow:hidden}
+#interface .starting-roster .starting-art{position:relative;flex-shrink:0;width:112px;aspect-ratio:4/3;overflow:hidden;border:1px solid #536c7d;background:#0a1823}
+#interface .starting-roster+.starting-roster{margin-top:12px}
+#interface .starting-art .im-raster-painting{width:100%;height:100%;display:block}
+#interface .starting-art .hero-cover{display:block;width:100%;height:100%}
+#interface .starting-art .hero-cover>img{display:block;width:100%;height:100%;object-fit:cover;object-position:78% 20%;mask-image:none;filter:none}
+@container game (max-width:600px){#interface .starting-roster .starting-art{width:88px}}
+@container game (max-height:560px) and (min-width:601px){#interface .starting-roster .starting-art{width:72px}}
+#interface .decision-archive-actions{display:flex;gap:8px;margin-right:auto;flex-wrap:wrap}
+#interface .im-footer:has(.decision-archive-actions),#interface .modal-footer:has(.decision-archive-actions){flex-wrap:wrap}
+#interface .formal-ending .victory-footer{display:flex;flex-wrap:wrap;justify-content:center;flex-shrink:0}
+@container game (max-height:350px) and (min-width:601px){#interface .formal-ending .victory-page{overflow:auto;align-content:start}#interface .formal-ending .victory-footer{grid-column:1/-1;grid-row:5}}
 #interface #overlay{inset:0;display:block;align-items:initial;justify-content:initial}
 #interface #topbar{position:absolute;inset:0 0 auto;height:48px;min-height:48px;padding:4px 15px;gap:22px;border-bottom:1px solid #6a8496;z-index:5}
 #interface #battle-ui-field{position:absolute;left:0;right:0;top:var(--battle-header-bottom,48px);bottom:var(--battle-console-height,105px);pointer-events:none;grid-row:auto;background:none;box-shadow:inset 0 1px 0 #89959b65,inset 0 -1px 0 #070d12,inset 1px 0 0 #b4c2c12b,inset -1px 0 0 #050d12}

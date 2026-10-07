@@ -1,0 +1,536 @@
+{
+  "at": "2026-10-07T15:54:26.727Z",
+  "appBuildId": "d502a132ea56395855ae3c1a3e04c0b254692df763ea96750153d82972ed986a",
+  "checks": [
+    {
+      "opening": "1280x720",
+      "geometry": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "logo": [
+          217.6015625,
+          151.1875,
+          844.796875,
+          301.9375
+        ],
+        "loader": [
+          364.8046875,
+          518.390625,
+          550.390625,
+          59.6875
+        ],
+        "portrait": false,
+        "images": [
+          1280,
+          896,
+          896,
+          896,
+          960,
+          1536
+        ],
+        "reduced": true
+      }
+    },
+    {
+      "menu": "1280x720",
+      "controlsRemoved": true,
+      "homeAuxiliaryRowRemoved": true,
+      "oneLogoPerPage": true,
+      "initialTroops": [
+        {
+          "race": "zerg",
+          "family": "zergling",
+          "bodies": 2,
+          "geometry": {
+            "art": [
+              593.03125,
+              428.59375,
+              112,
+              84
+            ],
+            "copy": [
+              720.03125,
+              445.4375,
+              71,
+              50.296875
+            ],
+            "panel": [
+              567.03125,
+              360.796875,
+              678.96875,
+              219.796875
+            ]
+          }
+        },
+        {
+          "race": "protoss",
+          "family": "zealot",
+          "bodies": 1,
+          "geometry": {
+            "art": [
+              593.03125,
+              428.59375,
+              112,
+              84
+            ],
+            "copy": [
+              720.03125,
+              445.4375,
+              69.78125,
+              50.296875
+            ],
+            "panel": [
+              567.03125,
+              360.796875,
+              678.96875,
+              219.796875
+            ]
+          }
+        },
+        {
+          "race": "terran",
+          "family": "marine",
+          "bodies": 1,
+          "geometry": {
+            "art": [
+              593.03125,
+              428.59375,
+              112,
+              84
+            ],
+            "copy": [
+              720.03125,
+              445.4375,
+              86.78125,
+              50.296875
+            ],
+            "panel": [
+              567.03125,
+              360.796875,
+              678.96875,
+              219.796875
+            ]
+          }
+        }
+      ],
+      "lockSurvivesReload": true,
+      "allMenuLogosMatch": true
+    },
+    {
+      "opening": "390x844",
+      "geometry": {
+        "viewport": [
+          390,
+          844
+        ],
+        "logo": [
+          15.6015625,
+          278.515625,
+          358.796875,
+          128.234375
+        ],
+        "loader": [
+          50.703125,
+          540.15625,
+          288.59375,
+          59.6875
+        ],
+        "portrait": true,
+        "images": [
+          1280,
+          896,
+          896,
+          896,
+          960,
+          1536
+        ],
+        "reduced": true
+      }
+    },
+    {
+      "menu": "390x844",
+      "controlsRemoved": true,
+      "homeAuxiliaryRowRemoved": true,
+      "oneLogoPerPage": true,
+      "initialTroops": [
+        {
+          "race": "zerg",
+          "family": "zergling",
+          "bodies": 2,
+          "geometry": {
+            "art": [
+              37,
+              575,
+              88,
+              66
+            ],
+            "copy": [
+              140,
+              585.921875,
+              65.078125,
+              44.140625
+            ],
+            "panel": [
+              18,
+              523,
+              354,
+              171
+            ]
+          }
+        },
+        {
+          "race": "protoss",
+          "family": "zealot",
+          "bodies": 1,
+          "geometry": {
+            "art": [
+              37,
+              575,
+              88,
+              66
+            ],
+            "copy": [
+              140,
+              585.921875,
+              57.46875,
+              44.140625
+            ],
+            "panel": [
+              18,
+              523,
+              354,
+              171
+            ]
+          }
+        },
+        {
+          "race": "terran",
+          "family": "marine",
+          "bodies": 1,
+          "geometry": {
+            "art": [
+              37,
+              575,
+              88,
+              66
+            ],
+            "copy": [
+              140,
+              585.921875,
+              71.46875,
+              44.140625
+            ],
+            "panel": [
+              18,
+              523,
+              354,
+              171
+            ]
+          }
+        }
+      ],
+      "lockSurvivesReload": true,
+      "allMenuLogosMatch": true
+    },
+    {
+      "opening": "844x390",
+      "geometry": {
+        "viewport": [
+          844,
+          390
+        ],
+        "logo": [
+          246,
+          63,
+          352,
+          125.8125
+        ],
+        "loader": [
+          240.546875,
+          216,
+          362.90625,
+          59.6875
+        ],
+        "portrait": false,
+        "images": [
+          1280,
+          896,
+          896,
+          896,
+          960,
+          1536
+        ],
+        "reduced": true
+      }
+    },
+    {
+      "menu": "844x390",
+      "controlsRemoved": true,
+      "homeAuxiliaryRowRemoved": true,
+      "oneLogoPerPage": true,
+      "initialTroops": [
+        {
+          "race": "zerg",
+          "family": "zergling",
+          "bodies": 2,
+          "geometry": {
+            "art": [
+              295,
+              296.1875,
+              72,
+              54
+            ],
+            "copy": [
+              377,
+              302.9375,
+              59.15625,
+              40.5
+            ],
+            "panel": [
+              277,
+              252.59375,
+              545,
+              154.59375
+            ]
+          }
+        },
+        {
+          "race": "protoss",
+          "family": "zealot",
+          "bodies": 1,
+          "geometry": {
+            "art": [
+              295,
+              296.1875,
+              72,
+              54
+            ],
+            "copy": [
+              377,
+              302.9375,
+              49.265625,
+              40.5
+            ],
+            "panel": [
+              277,
+              252.59375,
+              545,
+              154.59375
+            ]
+          }
+        },
+        {
+          "race": "terran",
+          "family": "marine",
+          "bodies": 1,
+          "geometry": {
+            "art": [
+              295,
+              296.1875,
+              72,
+              54
+            ],
+            "copy": [
+              377,
+              302.9375,
+              61.265625,
+              40.5
+            ],
+            "panel": [
+              277,
+              252.59375,
+              545,
+              154.59375
+            ]
+          }
+        }
+      ],
+      "lockSurvivesReload": true,
+      "allMenuLogosMatch": true
+    },
+    {
+      "opening": "883x850",
+      "geometry": {
+        "viewport": [
+          883,
+          850
+        ],
+        "logo": [
+          150.1171875,
+          178.5,
+          582.765625,
+          208.28125
+        ],
+        "loader": [
+          251.65625,
+          612,
+          379.6875,
+          59.6875
+        ],
+        "portrait": false,
+        "images": [
+          1280,
+          896,
+          896,
+          896,
+          960,
+          1536
+        ],
+        "reduced": true
+      }
+    },
+    {
+      "menu": "883x850",
+      "controlsRemoved": true,
+      "homeAuxiliaryRowRemoved": true,
+      "oneLogoPerPage": true,
+      "initialTroops": [
+        {
+          "race": "zerg",
+          "family": "zergling",
+          "bodies": 2,
+          "geometry": {
+            "art": [
+              366.390625,
+              404.09375,
+              112,
+              84
+            ],
+            "copy": [
+              493.390625,
+              420.9375,
+              71,
+              50.296875
+            ],
+            "panel": [
+              345.390625,
+              341.296875,
+              503.609375,
+              209.796875
+            ]
+          }
+        },
+        {
+          "race": "protoss",
+          "family": "zealot",
+          "bodies": 1,
+          "geometry": {
+            "art": [
+              366.390625,
+              404.09375,
+              112,
+              84
+            ],
+            "copy": [
+              493.390625,
+              420.9375,
+              69.78125,
+              50.296875
+            ],
+            "panel": [
+              345.390625,
+              341.296875,
+              503.609375,
+              209.796875
+            ]
+          }
+        },
+        {
+          "race": "terran",
+          "family": "marine",
+          "bodies": 1,
+          "geometry": {
+            "art": [
+              366.390625,
+              404.09375,
+              112,
+              84
+            ],
+            "copy": [
+              493.390625,
+              420.9375,
+              86.78125,
+              50.296875
+            ],
+            "panel": [
+              345.390625,
+              341.296875,
+              503.609375,
+              209.796875
+            ]
+          }
+        }
+      ],
+      "lockSurvivesReload": true,
+      "allMenuLogosMatch": true
+    },
+    "Most-used race selected independently of current profile race",
+    "Idle cover rotates automatically; upper race lock stops rotation",
+    "Actual ordinary/elite mode command retained; ordinary range2, knight range4/3 after switching; current save exports correctly",
+    {
+      "heroChoices": [
+        "raynor",
+        "tychus",
+        "nova",
+        "swann",
+        "tosh",
+        "yamato_battlecruiser",
+        "kerrigan",
+        "zagara",
+        "dehaka",
+        "stukov",
+        "niadra",
+        "hots_leviathan",
+        "artanis",
+        "zeratul",
+        "alarak",
+        "fenix",
+        "vorazun",
+        "purifier_flagship"
+      ],
+      "usesExistingPaintedArt": true,
+      "actualProfileImport": true,
+      "ordinaryCountAndHeroSelectionPreserved": true
+    }
+  ],
+  "screens": [
+    "opening-1280x720",
+    "opening-progress-1280x720",
+    "home-1280x720",
+    "race-logo-1280x720",
+    "deployment-zerg-1280x720",
+    "deployment-protoss-1280x720",
+    "deployment-logo-1280x720",
+    "opening-390x844",
+    "opening-progress-390x844",
+    "home-390x844",
+    "race-logo-390x844",
+    "deployment-zerg-390x844",
+    "deployment-protoss-390x844",
+    "deployment-logo-390x844",
+    "opening-844x390",
+    "opening-progress-844x390",
+    "home-844x390",
+    "race-logo-844x390",
+    "deployment-zerg-844x390",
+    "deployment-protoss-844x390",
+    "deployment-logo-844x390",
+    "opening-883x850",
+    "opening-progress-883x850",
+    "home-883x850",
+    "race-logo-883x850",
+    "deployment-zerg-883x850",
+    "deployment-protoss-883x850",
+    "deployment-logo-883x850",
+    "knight-flame-paused",
+    "hellbat-mode",
+    "deployment-hero-terran",
+    "deployment-hero-zerg",
+    "deployment-hero-protoss"
+  ],
+  "errors": [],
+  "method": "Production Web, isolated preference state and diagnostic archives; not earned campaigns or physical-device acceptance.",
+  "passed": true
+}

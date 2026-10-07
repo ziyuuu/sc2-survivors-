@@ -1,0 +1,222 @@
+{
+  "at": "2026-10-07T16:09:31.717Z",
+  "status": "Completed local opening, artwork, original-flow correction, cover preference and expressly requested fan radius update; main synchronization recorded separately",
+  "baseline": "fdd37faaa1dd3ee32a194c4ea5de5e11c70a8e75",
+  "appBuildId": "d502a132ea56395855ae3c1a3e04c0b254692df763ea96750153d82972ed986a",
+  "packageBuildId": "3669fb67da9b851316921b2247a7b626fc99d8f3b1bc6e406cfaf73adb850a2a",
+  "ui": {
+    "originalFiveOpeningImagesAndLogoExact": true,
+    "sourceThread": "01a0ff75-6cfc-7be0-b2f6-92489157b232",
+    "openingAndMenuViews": 4,
+    "checks": 12,
+    "captures": 33,
+    "oneHomeLogo": true,
+    "homeAuxiliaryRowRemoved": true,
+    "initialRosterPainted": true,
+    "all18StarterHeroesChecked": true,
+    "realStartupProgress": true,
+    "manualCoverControlsRemoved": true,
+    "upperRaceLockRetained": true,
+    "commonRaceUsesSuccessfulLocalStarts": true,
+    "coverExplanationAdded": false
+  },
+  "audit": {
+    "beforeUi": "edb18487d8753aa4b3b0f8c90e4654c700e7cdc9",
+    "previousUi": "fdd37faaa1dd3ee32a194c4ea5de5e11c70a8e75",
+    "flows": 12,
+    "findings": [
+      {
+        "id": "FLOW-01",
+        "issue": "Standalone hero waiting/recruit presentation was imported from preview",
+        "status": "removed",
+        "gameStagesAdded": false
+      },
+      {
+        "id": "FLOW-02",
+        "issue": "Pending reward/rescue/promotion and ending/endless archive actions were omitted",
+        "status": "restored original save/export/title controls; no rule changes"
+      },
+      {
+        "id": "ART-01",
+        "issue": "Nine cover-based hero cards lacked original im-painted image layout",
+        "status": "fixed without changing images",
+        "identities": [
+          "raynor",
+          "nova",
+          "tychus",
+          "kerrigan",
+          "zagara",
+          "dehaka",
+          "artanis",
+          "zeratul",
+          "fenix"
+        ]
+      },
+      {
+        "id": "HOME-01",
+        "issue": "Prototype home profile/resume row and duplicate Logo rejected by user",
+        "status": "removed"
+      },
+      {
+        "id": "START-01",
+        "issue": "Deployment starter used model icons and omitted ordinary bodies when a starter hero was selected",
+        "status": "existing paintings; ordinary starting bodies plus additional level-II hero match native World.start"
+      }
+    ],
+    "independentHeroRouteRemoved": true,
+    "originalDecisionEndingAndEndlessArchiveActionsRestored": true,
+    "archiveCases": 6,
+    "archiveCaptures": 24,
+    "originalArtworkIdentities": 138,
+    "ordinary": 30,
+    "elite": 90,
+    "heroes": 18,
+    "runtimeIdentityChecks": 414,
+    "artChecks": 9,
+    "artCaptures": 165,
+    "artEvidenceBuild": "a8a6888748f27ab136067268a5211a9e2fd29d5ab0df4b2d96610ff1e89e6d0a",
+    "webEvidenceBuild": "a8a6888748f27ab136067268a5211a9e2fd29d5ab0df4b2d96610ff1e89e6d0a",
+    "subsequentChange": "Original archive controls/short-screen visibility and accurate ordinary-plus-hero starter display restored after complete art/six-group checks; painted-art, reference-card, intermission, all images and crop metadata unchanged. Final menu/starter/archive/offline/renderer/package checks use the final build.",
+    "textScaleComparisons": 4,
+    "originalFontSizesUnchanged": true,
+    "oldUiReportsNotReinterpretedAsProofOfNoIssues": true
+  },
+  "combat": {
+    "family": "hellion",
+    "variant": "hellion.2",
+    "ordinaryRanges": {
+      "hellion": 5,
+      "hellbat": 2
+    },
+    "factor": 0.6666666666666666,
+    "baseFanRadii": {
+      "hellion": 3.3333333333333335,
+      "hellbat": 1.3333333333333333
+    },
+    "arcDegrees": 150,
+    "lightMultiplier": 1.8,
+    "renderedFanReports": [
+      [
+        {
+          "source": 3,
+          "origin": {
+            "x": 0.5,
+            "z": 3.061616997868383e-17
+          },
+          "radius": 3.333333333333333,
+          "facing": 1.5707963267948966,
+          "arcDegrees": 150
+        }
+      ],
+      [
+        {
+          "source": 3,
+          "origin": {
+            "x": 0.5,
+            "z": 3.061616997868383e-17
+          },
+          "radius": 1.3333333333333333,
+          "facing": 1.5707963267948966,
+          "arcDegrees": 150
+        }
+      ]
+    ],
+    "modeSwitchRetained": true,
+    "longRangeAndMineVariantsUnchanged": true,
+    "otherRulesAndAllRendererSourcesPreserved": true,
+    "old72CampaignsUnchanged": true,
+    "old690FingerprintsExceptFiveKnightRangesPreserved": true,
+    "originalP4JsonAndFrozenFixtureUnchanged": true
+  },
+  "checks": {
+    "regressions": 1163,
+    "typecheck": true,
+    "dataDocs": true,
+    "talents": 165,
+    "precedingWebGroups": 6,
+    "ordinaryFamilies": 30,
+    "heroes": 18,
+    "finalOfflineGroups": 1,
+    "offlineGroup": "terran-0",
+    "offlineNetworkDisabled": true,
+    "cozeStartup": 4,
+    "readonlyRootProbeSimulated": true,
+    "updateRetained": 629,
+    "updateAdded": 0,
+    "oldEnvironmentAndRollbackPreserved": true,
+    "idempotent": true,
+    "tamperingRejected": true,
+    "errors": 0
+  },
+  "protection": {
+    "existingSourcesPreserved": 555,
+    "existingSourcesChanged": [
+      "src/app/bootstrap.ts",
+      "src/data/terran-elites.ts",
+      "src/main.ts",
+      "src/simulation/combat/expedition-combat.ts",
+      "src/ui/hud.ts",
+      "src/ui/hud/m3-menu.ts",
+      "src/ui/presentation/decision-screens.ts",
+      "src/ui/presentation/end-screens.ts",
+      "src/ui/presentation/formal-ui.css",
+      "src/ui/presentation/intermission.ts",
+      "src/ui/presentation/painted-art.ts",
+      "src/ui/presentation/reference-primitives.ts",
+      "src/ui/presentation/unit-inspector.ts"
+    ],
+    "originalImagesAndModelsModified": false,
+    "backendLauncherConfigAndVendorPreserved": true,
+    "runSchema": 26,
+    "profileVersion": 6,
+    "mapRecipeVersion": 3,
+    "resources": {
+      "records": 647,
+      "files": 629,
+      "bytes": 648838732,
+      "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+      "added": 0
+    }
+  },
+  "artifacts": {
+    "game": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "bytes": 477239567,
+      "sha256": "0f51543575a01c6100e155441602eae2ddf33fb1b27489964faa191ae7b7c042"
+    },
+    "previousGame": {
+      "path": "dist/SC2-Survivors-UI-Coze-Main-20261007.html",
+      "sha256": "71380b4e2443c6f7a28e561d1b417f370752380cf3a1235eb9f2ae2a134c13a7"
+    },
+    "application": {
+      "path": "dist/Opening-Cover-Coze-Application-20261007.zip",
+      "bytes": 10824687,
+      "sha256": "cfc4ee35846232d68f315fd2d97e24a7697110ce0a85f5ee85ade8100ae1325b",
+      "files": 347,
+      "deployCopyMatches": true
+    }
+  },
+  "privateDataOrAccountsIncluded": false,
+  "liveCozeDeployed": false,
+  "productionDatabaseOperated": false,
+  "earlierEvidenceAndPackagesPreserved": true,
+  "limitations": [
+    "Diagnostic archives/browser inputs are not natural campaigns or physical-device acceptance",
+    "Full-card/six-group evidence retains its actual preceding build; later archive controls have final-build checks",
+    "P6-V01, natural/high-density/fullM6/M7, human/physical/high-refresh/long-term/low-memory, Science Vessel and production operator/B4 gates remain open"
+  ],
+  "evidence": {
+    "preservation": "reports/local/opening-cover-flame-20261007/preservation.json",
+    "flow-art-source-audit": "reports/local/opening-cover-flame-20261007/flow-art-source-audit.json",
+    "browser/result": "reports/local/opening-cover-flame-20261007/browser/result.json",
+    "art-flow/result": "reports/local/opening-cover-flame-20261007/art-flow/result.json",
+    "text-scale/result": "reports/local/opening-cover-flame-20261007/text-scale/result.json",
+    "archive-actions/result": "reports/local/opening-cover-flame-20261007/archive-actions/result.json",
+    "production/web/web": "reports/local/opening-cover-flame-20261007/production/web/web.json",
+    "offline-smoke/offline/offline": "reports/local/opening-cover-flame-20261007/offline-smoke/offline/offline.json",
+    "rendered-flame/result": "reports/local/opening-cover-flame-20261007/rendered-flame/result.json",
+    "coze-startup/startup": "reports/local/opening-cover-flame-20261007/coze-startup/startup.json",
+    "handoff-update": "reports/local/opening-cover-flame-20261007/handoff-update.json",
+    "git-sync": "reports/local/opening-cover-flame-20261007/git-sync.json"
+  }
+}
