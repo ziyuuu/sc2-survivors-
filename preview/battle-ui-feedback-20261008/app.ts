@@ -8,7 +8,7 @@ import {FixedStepper} from '../../src/simulation/fixed-stepper';
 import {HEROES,type HeroId} from '../../src/data/heroes';
 import {SC2_UNITS} from '../../src/data/sc2-units';
 import type {FamilyId} from '../../src/data/races';
-import {DEVELOPMENT,PRODUCTION_LINES,LINE_SKILLS,lineResearch,type ProductionLineId} from '../../src/data/expedition-buildings';
+import {PRODUCTION_LINES,lineResearch,type ProductionLineId} from '../../src/data/expedition-buildings';
 import {ASSETS,assetUrl} from '../../src/assets/manifest';
 import {loadEmbeddedAssets,prepareEmbeddedAssetIds} from '../../src/assets/offline-pack';
 import {captureBattleView} from '../../src/render/input/battle-view';
@@ -27,9 +27,10 @@ import {supplyEligibility} from '../../src/simulation/progression/supply-cards';
 import {teamCardEffects} from '../../src/simulation/progression/team-cards';
 import {EXPEDITION_CARD_DEFINITIONS,type ExpeditionReward} from '../../src/simulation/progression/expedition-drafts';
 import {commandSlots,type CommandSlot} from './console-model';
+import {lineTechnology} from './technology-model';
 
 type Scene='battle'|'building'|'supply'|'full'|'no-heroes';
-type BaseTab='facilities'|'production'|'orders'|'plans';
+type BaseTab='facilities'|'production'|'technology';
 const $=(id:string)=>document.getElementById(id)!;
 const families:FamilyId[]=['medivac','marine','hellion','tank','marauder'];
 const heroes:HeroId[]=['raynor','tychus','nova'];
@@ -43,9 +44,9 @@ const world=new World({race:'terran',sandbox:true,waves:false,terrain:false,obst
 const canvas=$('battle') as HTMLCanvasElement,view=new BattleRenderer(canvas,world),root=$('interface');
 view.fx.heroQuality='full';view.cameraShake=false;bindBattleView(world,()=>captureBattleView(canvas,view.camera));
 let ready=false,scene:Scene='battle',baseTab:BaseTab='facilities',baseOpen=false,baseWasPaused=false,armyFolded=false,commandsFolded=false;
-let inspectorKey='',inspectorTab:InspectorTab='stats',inspectorHTML='',offerId='',progressOpen=false,service:'repair'|'revive'|null=null,previous=performance.now(),lastUi=0,structure='';
+let inspectorKey='',inspectorTab:InspectorTab='stats',inspectorHTML='',offerId='',progressOpen=false,progressWasPaused=false,service:'repair'|'revive'|null=null,previous=performance.now(),lastUi=0,structure='';
 const nav=new IntermissionNavigation(),expanded=new Set<string>(),events:{action:string;ok:boolean;at:number}[]=[];
-root.innerHTML=`<header id="topbar" class="battle-top"><span class="battle-location">据点防线</span><div id="sample-wallet" class="battle-resources"></div><div class="battle-stage"><b id="sample-stage"></b><strong id="sample-clock"></strong></div><button class="sample-base-button" data-sample="base" aria-label="基地 · 设施调整">${image('building.barracks')}<span>基地</span></button><button class="icon-button" data-sample="pause" aria-label="暂停">${glyph('pause')}</button></header><div id="notice" role="status"></div><section id="battle-console"><div class="console-body"><div class="sample-army"><button class="sample-fold" id="army-toggle" data-sample="fold-army" aria-label="收起队伍" aria-controls="roster" aria-expanded="true"></button><div id="roster" role="group" aria-label="五个兵种与三名英雄"></div></div><div class="sample-commands"><button class="sample-fold" id="commands-toggle" data-sample="fold-commands" aria-label="收起指令" aria-controls="sample-command-list" aria-expanded="true"></button><div id="sample-command-list" class="sample-command-list"></div></div></div></section><div id="joystick" aria-label="移动摇杆"><i></i></div><section id="overlay" data-captures-battle-input hidden></section><div id="unit-inspector" data-captures-battle-input hidden></div>`;
+root.innerHTML=`<header id="topbar" class="battle-top"><span class="battle-location">据点防线</span><div id="sample-wallet" class="battle-resources"></div><div class="battle-stage"><b id="sample-stage"></b><strong id="sample-clock"></strong></div><button class="sample-base-button" data-sample="progress" aria-label="强化一览">${image('tech.attack')}<span>强化</span></button><button class="sample-base-button" data-sample="base" aria-label="基地 · 设施调整">${image('building.barracks')}<span>基地</span></button><button class="icon-button" data-sample="pause" aria-label="暂停">${glyph('pause')}</button></header><div id="notice" role="status"></div><section id="battle-console"><div class="console-body"><div class="sample-army"><button class="sample-fold" id="army-toggle" data-sample="fold-army" aria-label="收起部队" aria-controls="roster" aria-expanded="true"></button><div id="roster" role="group" aria-label="英雄与部队技能"></div></div><div class="sample-commands"><button class="sample-fold" id="commands-toggle" data-sample="fold-commands" aria-label="收起指令" aria-controls="sample-command-list" aria-expanded="true"></button><div id="sample-command-list" class="sample-command-list"></div></div></div></section><div id="joystick" aria-label="移动摇杆"><i></i></div><section id="overlay" data-captures-battle-input hidden></section><div id="unit-inspector" data-captures-battle-input hidden></div>`;
 const controls=new ControlSettings();controls.set('desktop','keyboard');
 const input=new Input(world,$('joystick'),()=>closeTopOrPause(),controls,{canvas,pick:(x,y)=>view.pick(x,y),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:p=>{view.targetPreview=p;}});
 new ResizeObserver(()=>{view.resize();view.camera.zoom=canvas.clientWidth<canvas.clientHeight?1.18:1.3;view.camera.updateProjectionMatrix();}).observe(canvas);
@@ -87,13 +88,13 @@ function cast(slot:CommandSlot){
  const ok=activateBattleAction(world,slot.action);events.push({action:slot.action,ok,at:world.time});render();
 }
 function arrow(collapsed:boolean){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="${collapsed?'M5 15l7-7 7 7':'M5 9l7 7 7-7'}"/></svg>`;}
-function fold(id:string,folded:boolean,label:string,region:string){const b=$(id);b.innerHTML=arrow(folded);b.setAttribute('aria-expanded',String(!folded));b.setAttribute('aria-label',(folded?'展开':'收起')+label);b.title=b.getAttribute('aria-label')!;$(region).hidden=folded;b.parentElement!.classList.toggle('collapsed',folded);}
+function fold(id:string,folded:boolean,label:string,region:string){const b=$(id),html=arrow(folded)+`<span>${label}</span>`;if(b.innerHTML!==html)b.innerHTML=html;b.setAttribute('aria-expanded',String(!folded));b.setAttribute('aria-label',(folded?'展开':'收起')+label);b.title=b.getAttribute('aria-label')!;$(region).hidden=folded;b.parentElement!.classList.toggle('collapsed',folded);}
 function skillLabel(slot:CommandSlot){if(slot.hero)return HEROES[slot.hero].skill;if(!slot.action)return '';const state=battleActionState(world,slot.action);return slot.action==='stim'?'兴奋剂':state.name.split(' · ').at(-1)!;}
 function renderConsole(){
  const slots=commandSlots(world),key=slots.map(s=>[s.key,s.image,s.action].join('/')).join('|');
- if(structure!==key){structure=key;$('roster').innerHTML=slots.map(s=>`<button class="sample-slot ${s.hero?'hero':''} ${s.family||s.hero?'':'empty-slot'}" data-slot="${s.key}" ${s.family||s.hero?'':'disabled'}>${s.image?image(s.image,s.name):'<span class="slot-silhouette">◇</span>'}<span class="slot-copy"><span class="slot-name">${s.name}</span><span class="slot-ability"></span></span><span class="slot-count"></span><span class="slot-key"></span><span class="slot-health"><i></i></span><span class="slot-cooldown"></span></button>`).join('');}
+ if(structure!==key){structure=key;$('roster').style.setProperty('--sample-slot-count',String(slots.length));$('roster').innerHTML=slots.map(s=>`<button class="sample-slot ${s.hero?'hero':''} ${(s.families?.length??0)>1?'shared-skill':''} ${s.family||s.hero?'':'empty-slot'}" data-slot="${s.key}" ${s.family||s.hero?'':'disabled'}>${s.image?image(s.image,s.name):'<span class="slot-silhouette">◇</span>'}<span class="slot-copy"><span class="slot-name">${s.name}</span><span class="slot-ability"></span></span><span class="slot-count"></span><span class="slot-key"></span><span class="slot-health"><i></i></span><span class="slot-cooldown"></span></button>`).join('');}
  for(const s of slots){const b=root.querySelector<HTMLElement>(`[data-slot="${s.key}"]`)!;b.dataset.battleAction=s.action??'';b.classList.toggle('skill-ready',!!s.action&&s.enabled);b.classList.toggle('cooling',s.remaining>0);b.setAttribute('aria-label',s.name+(s.action?' · '+skillLabel(s)+(s.reason?' · '+s.reason:'')+' · 点击施放':' · 查看详情'));b.title=b.getAttribute('aria-label')!+' · 右键或长按详情';b.querySelector('.slot-ability')!.textContent=skillLabel(s);b.querySelector('.slot-count')!.textContent=s.family?'×'+s.count:'';b.querySelector('.slot-cooldown')!.textContent=s.remaining>0?String(Math.ceil(s.remaining)):'';(b.querySelector('.slot-health i')as HTMLElement).style.width=(s.maxHp?Math.max(0,s.hp)/s.maxHp*100:0)+'%';b.querySelector('.slot-key')!.textContent=s.hero?String(Number(s.key.slice(-1))+1):COMMAND_ACTIONS.find(a=>a.id===s.action)?.key??'';}
- fold('army-toggle',armyFolded,'队伍','roster');fold('commands-toggle',commandsFolded,'指令','sample-command-list');
+ fold('army-toggle',armyFolded,'部队','roster');fold('commands-toggle',commandsFolded,'指令','sample-command-list');$('battle-console').classList.toggle('both-collapsed',armyFolded&&commandsFolded);
  const commands=globals.map(id=>({id,state:battleActionState(world,id)})).filter(s=>s.state.visible);
  const globalKey=commands.map(c=>c.id).join('|'),list=$('sample-command-list');
  if(list.dataset.structure!==globalKey){list.dataset.structure=globalKey;list.innerHTML=commands.map(({id})=>{const meta=COMMAND_ACTIONS.find(a=>a.id===id)!;return `<button class="sample-command" data-command="${id}">${'icon'in meta?image(meta.icon):glyph(meta.glyph==='scan'?'target':meta.glyph)}<b></b><kbd>${meta.key}</kbd></button>`;}).join('');}
@@ -106,13 +107,16 @@ function totals(){
  const team=teamCardEffects(world.expedition),pct=(v:number)=>Number((v*100).toFixed(1))+'%';
  return `<section class="sample-cumulative"><h3>累计强化</h3><div class="sample-totals"><span>全军伤害 <b>+${pct(team.damage)}</b> · 攻速 <b>+${pct(team.speed)}</b></span><span>全军生命／护盾 <b>+${pct(team.health)}</b> · 护甲 <b>+${Number(team.armor.toFixed(2))}</b></span>${world.expedition.familySlots.flatMap(f=>Object.keys(EXPEDITION_CARD_DEFINITIONS).flatMap(kind=>{const value=world.expedition.cardTotals[kind+'.'+f];return value?[`<span>${SC2_UNITS[f].zh} · ${(EXPEDITION_CARD_DEFINITIONS as any)[kind].name} <b>+${kind==='armor'||kind==='cultivation'?Number(value.toFixed(2)):pct(value)}</b></span>`]:[];})).join('')}</div></section>`;
 }
+function unlockList(rows:{id:string;name:string;image:string;unlocked:boolean}[]){return `<div class="sample-unlocks">${rows.map(r=>`<div class="sample-unlock ${r.unlocked?'unlocked':'locked'}" data-tech="${r.id}" data-unlocked="${r.unlocked}">${image(r.image,r.name)}<span>${r.name}</span><b>${r.unlocked?'已解锁':'未解锁'}</b></div>`).join('')}</div>`;}
 function facilities(){
- return `<div class="sample-facility-list">${(['barracks','factory','starport']as const).map(line=>{const facilities=world.expedition.facilities.filter(f=>f.line===line),p=world.expedition.production[line],techs=(LINE_SKILLS[line]??[]).filter(([id])=>world.expedition.tech[id]);return `<section class="sample-facility-card"><header>${image('building.'+line)}<h2>${PRODUCTION_LINES[line].name}</h2><small>${facilities.length} 座</small></header><div class="sample-research">${research(line,'weapon')}${research(line,'defense')}</div><p class="sample-output">训练：${p?.outputs.map(f=>SC2_UNITS[f].zh).join(' / ')||'未选择'}</p>${techs.length?`<p class="sample-techs">${techs.map(([,name])=>name).join(' · ')}</p>`:''}</section>`;}).join('')}</div><div class="sample-next-target"><label><span>下次发展目标</span><select data-sample-setting="development-target" ${world.phase==='battle'?'disabled title="关间整备时调整"':''}><option value="">跟随当前编制</option>${DEVELOPMENT.filter(d=>d.race==='terran').map(d=>`<option value="${d.id}" ${world.expedition.developmentTarget===d.id?'selected':''}>${d.name}</option>`).join('')}</select></label></div>${totals()}`;
+ return `<div class="sample-facility-list">${(['barracks','factory','starport']as const).map(line=>{const count=world.expedition.facilities.filter(f=>f.line===line).length,p=world.expedition.production[line];return `<section class="sample-facility-card" data-line="${line}"><header>${image('building.'+line)}<h2>${PRODUCTION_LINES[line].name}</h2><strong class="sample-facility-count"><b>${count}</b> 座</strong></header>${unlockList(lineTechnology(world,line).families)}<p class="sample-output">当前训练：${p?.outputs.map(f=>SC2_UNITS[f].zh).join(' / ')||'未选择'}</p></section>`;}).join('')}</div>`;
 }
+function technology(){return `<div class="sample-facility-list">${(['barracks','factory','starport']as const).map(line=>{const t=lineTechnology(world,line);return `<section class="sample-tech-card" data-line="${line}"><header>${image('building.'+line)}<h2>${PRODUCTION_LINES[line].name}</h2><span class="sample-system ${t.system.unlocked?'unlocked':'locked'}" data-tech="${t.system.id}" data-unlocked="${t.system.unlocked}">攻防系统 · ${t.system.unlocked?'已解锁':'未解锁'}</span></header><div class="sample-research">${research(line,'weapon')}${research(line,'defense')}</div><h3>兵种</h3>${unlockList(t.families)}<h3>技能科技</h3>${unlockList(t.skills)}</section>`;}).join('')}</div>`;}
+function reinforcements(){return totals()+`<section class="sample-research-summary"><h3>武器与防护研究</h3>${(['barracks','factory','starport']as const).map(line=>`<div class="sample-research-line"><h4>${PRODUCTION_LINES[line].name}</h4><div class="sample-research">${research(line,'weapon')}${research(line,'defense')}</div></div>`).join('')}</section>`;}
 function renderBase(){
- const tabs=`<nav class="settings-tabs" role="group" aria-label="基地类别">${(['facilities','production','orders','plans']as const).map(t=>button(({facilities:'设施',production:'训练',orders:'订单',plans:'部署'})[t],'sample-base-tab','',`data-tab="${t}" aria-pressed="${baseTab===t}"`)).join('')}</nav>`;
- if(baseTab==='facilities')return modal('基地','',tabs+facilities(),'production-modal',button('返回','sample-base-close','primary'),'sample-base-close');
- return renderProductionWindow(world,baseTab,'sample-base-close').replace(/<nav class="settings-tabs"[\s\S]*?<\/nav>/,tabs).replace('持续生产','基地').replace('<select data-setting="development-target"',`<select data-setting="development-target" ${world.phase==='battle'?'disabled title="关间整备时调整"':''}`);
+ const tabs=`<nav class="settings-tabs" role="group" aria-label="基地类别">${(['facilities','production','technology']as const).map(t=>button(({facilities:'设施',production:'训练',technology:'当前科技'})[t],'sample-base-tab','',`data-tab="${t}" aria-pressed="${baseTab===t}"`)).join('')}</nav>`;
+ if(baseTab!=='production')return modal('设施调整','',tabs+(baseTab==='facilities'?facilities():technology()),'production-modal sample-base-modal',button('返回','sample-base-close','primary'),'sample-base-close');
+ return renderProductionWindow(world,'production','sample-base-close').replace(/<nav class="settings-tabs"[\s\S]*?<\/nav>/,tabs).replace('持续生产','设施调整').replace('production-modal','production-modal sample-base-modal');
 }
 function supplyCard(r:ExpeditionReward){
  const v=offerView(world,r),e=r.expeditionEffect;
@@ -139,17 +143,18 @@ function render(){
  put('sample-wallet',money(world.wallet.minerals,world.wallet.gas));$('sample-stage').textContent=world.phase==='reward'?'第 '+world.stage+' 关完成':'第 '+world.stage+' 关';$('sample-clock').textContent=world.phase==='battle'?Math.floor(world.time/60).toString().padStart(2,'0')+':'+Math.floor(world.time%60).toString().padStart(2,'0'):'';
  root.querySelector('[data-sample=pause]')!.setAttribute('aria-label',world.paused?'继续':'暂停');
  $('notice').textContent=world.time<world.noticeUntil?world.notice:'';renderConsole();
- let overlay=baseOpen?renderBase():world.phase==='reward'?renderReward():'';
- if(progressOpen)overlay+=modal('强化一览','',facilities(),'production-modal',button('返回','sample-progress-close','primary'),'sample-progress-close');
+ let overlay=progressOpen?modal('强化一览','',reinforcements(),'production-modal sample-progress-modal',button('返回','sample-progress-close','primary'),'sample-progress-close'):baseOpen?renderBase():world.phase==='reward'?renderReward():'';
  if(service)overlay+=modal(service==='repair'?'修复部队':'英雄复活','',service==='repair'?renderRepairs(world):'<div class="im-choice-grid">'+restCards(world).slice(1).map((c,i)=>referenceCard({...c,detailAction:'ui-rest-revivals',detailAttrs:''},i)).join('')+'</div>','production-modal',button('返回','sample-service-close','primary'),'sample-service-close');
  $('overlay').hidden=!overlay;put('overlay',overlay);
  const seats=allSeats(),seat=seats.find(s=>s.key===inspectorKey);$('unit-inspector').hidden=!seat;
  if(seat){const html=renderUnitInspector(world,seat,seats,inspectorTab,expanded);if(inspectorHTML!==html){inspectorHTML=html;updateLiveInspector($('unit-inspector'),html);}}else if(inspectorHTML){inspectorHTML='';$('unit-inspector').innerHTML='';}
  const captures=!!overlay||!!seat;$('topbar').inert=captures;$('battle-console').inert=captures;$('joystick').hidden=captures;
 }
-function openBase(){if(baseOpen)return;baseOpen=true;baseTab='facilities';baseWasPaused=world.paused;if(world.phase==='battle')world.paused=true;input.reset();stepper.reset();render();root.querySelector<HTMLElement>('.production-modal [data-autofocus],.production-modal .modal-header button')?.focus();}
+function openBase(){if(baseOpen)return;if(progressOpen)closeProgress();baseOpen=true;baseTab='facilities';baseWasPaused=world.paused;if(world.phase==='battle')world.paused=true;input.reset();stepper.reset();render();root.querySelector<HTMLElement>('.production-modal [data-autofocus],.production-modal .modal-header button')?.focus();}
 function closeBase(){baseOpen=false;if(world.phase==='battle')world.paused=baseWasPaused;input.reset();stepper.reset();render();root.querySelector<HTMLElement>(world.phase==='reward'?'[data-action=sample-base]':'[data-sample=base]')?.focus();}
-function closeTopOrPause(){if(inspectorKey){inspectorKey='';render();return;}if(service){service=null;render();return;}if(progressOpen){progressOpen=false;render();return;}if(offerId){offerId='';render();return;}if(baseOpen){closeBase();return;}if(world.phase==='battle'){world.paused=!world.paused;input.reset();stepper.reset();render();}}
+function openProgress(){if(progressOpen)return;if(baseOpen)closeBase();progressOpen=true;progressWasPaused=world.paused;if(world.phase==='battle')world.paused=true;input.reset();stepper.reset();render();root.querySelector<HTMLElement>('.sample-progress-modal .modal-header button')?.focus();}
+function closeProgress(){progressOpen=false;if(world.phase==='battle')world.paused=progressWasPaused;input.reset();stepper.reset();render();root.querySelector<HTMLElement>(world.phase==='reward'?'[data-action=sample-progress]':'[data-sample=progress]')?.focus();}
+function closeTopOrPause(){if(inspectorKey){inspectorKey='';render();return;}if(service){service=null;render();return;}if(progressOpen){closeProgress();return;}if(offerId){offerId='';render();return;}if(baseOpen){closeBase();return;}if(world.phase==='battle'){world.paused=!world.paused;input.reset();stepper.reset();render();}}
 let press:{id:number;key:string;x:number;y:number;timer:number}|null=null,suppressUntil=0;
 const clearPress=()=>{if(press)clearTimeout(press.timer);press=null;};
 root.addEventListener('pointerdown',e=>{
@@ -164,6 +169,7 @@ root.addEventListener('click',e=>{
  if(b.dataset.slot){if(performance.now()<suppressUntil){e.preventDefault();return;}const slot=commandSlots(world).find(s=>s.key===b.dataset.slot);if(slot)cast(slot);return;}
  if(b.dataset.command){if(!battleInputCapture()){const ok=activateBattleAction(world,b.dataset.command as BattleActionId);events.push({action:b.dataset.command,ok,at:world.time});render();}return;}
  if(b.dataset.sample==='base'||b.dataset.action==='sample-base'){openBase();return;}
+ if(b.dataset.sample==='progress'){openProgress();return;}
  if(b.dataset.sample==='pause'){closeTopOrPause();return;}
  if(b.dataset.sample==='fold-army'){armyFolded=!armyFolded;render();return;}
  if(b.dataset.sample==='fold-commands'){commandsFolded=!commandsFolded;render();return;}
@@ -178,8 +184,8 @@ root.addEventListener('click',e=>{
  if(action==='revive'){world.reviveHero(b.dataset.id as HeroId);render();return;}
  if(action==='sample-base-close'){closeBase();return;}
  if(action==='sample-base-tab'||action==='ui-production-tab'){baseTab=b.dataset.tab as BaseTab;render();return;}
- if(action==='sample-progress'){progressOpen=true;input.reset();render();return;}
- if(action==='sample-progress-close'){progressOpen=false;render();return;}
+ if(action==='sample-progress'){openProgress();return;}
+ if(action==='sample-progress-close'){closeProgress();return;}
  if(action==='ui-menu'){openBase();return;}
  if(action==='sample-offer-close'||action==='ui-back'){offerId='';nav.reset();render();return;}
  if(action==='ui-offer'){offerId=b.dataset.id!;input.reset();render();return;}
@@ -191,7 +197,6 @@ root.addEventListener('click',e=>{
  if(action==='production-enable'){const f=b.dataset.family as FamilyId,p=Object.values(world.expedition.production).find(p=>p?.outputs.includes(f))!;world.setProductionEnabled(f,!p.enabled[f]);render();return;}
  if(action==='production-line-enable'){const p=world.expedition.production[b.dataset.line as ProductionLineId]!,next=!p.outputs.some(f=>p.enabled[f]);for(const f of p.outputs)world.setProductionEnabled(f,next);render();return;}
 });
-root.addEventListener('change',e=>{const el=e.target as HTMLSelectElement;if(el.dataset.sampleSetting==='development-target'||el.dataset.setting==='development-target'){world.setDevelopmentTarget(el.value||null);render();}});
 $('unit-inspector').addEventListener('toggle',e=>{const d=e.target as HTMLDetailsElement;if(d.dataset.ability){if(d.open)expanded.add(d.dataset.ability);else expanded.delete(d.dataset.ability);}},true);
 root.addEventListener('keydown',e=>{if((e.shiftKey&&e.key==='F10'||e.key==='ContextMenu')&&(e.target as HTMLElement).dataset.slot){e.preventDefault();const slot=commandSlots(world).find(s=>s.key===(e.target as HTMLElement).dataset.slot);if(slot)inspect(slot);}const capture=battleInputCapture();if(capture)trapTab(e,capture);});
 $('sample-scene').addEventListener('change',e=>chooseScene((e.target as HTMLSelectElement).value as Scene));$('sample-reset').addEventListener('click',()=>chooseScene(scene));
@@ -209,7 +214,7 @@ async function load(){
  ready=true;chooseScene('battle');await view.warmPresentationBatches();$('sample-loading').hidden=true;document.body.dataset.battleActionsReady='true';previous=performance.now();
 }
 requestAnimationFrame(frame);
-(window as any).__BATTLE_UI_SAMPLE_REPORT__=()=>({ready,scene,phase:world.phase,rewardRound:world.rewardRound,paused:world.paused,time:world.time,anchor:{...world.anchor},slots:commandSlots(world).map(s=>({key:s.key,name:s.name,action:s.action,count:s.count,remaining:s.remaining})),events:[...events],heroCasts:world.heroCasts.map(c=>({hero:c.hero,phase:c.phase})),heroes:[...world.heroes].map(([id,h])=>({id,skillReady:h.skillReady})),families:world.familyUnits('hellion').map(u=>({mode:u.nativeMode,desired:u.desiredNativeMode})),stim:world.familyBodies('marine').map(u=>u.stimUntil),wallet:{...world.wallet},research:{...world.expedition.tech},cardTotals:{...world.expedition.cardTotals},production:world.expedition.production,facilities:world.expedition.facilities,ledger:world.expedition.ledger.map(j=>({id:j.id,family:j.family,state:j.state,passengers:j.passengers.map(p=>({status:p.status,paid:p.paid}))})),rewards:world.rewards.map(r=>({id:r.offerId,name:r.name,effect:(r as ExpeditionReward).expeditionEffect,sold:r.sold,minerals:r.minerals,gas:r.gas,legal:world.canChooseReward(r)})),developmentTarget:world.expedition.developmentTarget,ui:{baseOpen,baseTab,armyFolded,commandsFolded,inspectorKey,inspectorTab,service},errors:[...view.modelErrors,...view.fx.errors],renderer:view.report()});
+(window as any).__BATTLE_UI_SAMPLE_REPORT__=()=>({ready,scene,phase:world.phase,rewardRound:world.rewardRound,paused:world.paused,time:world.time,anchor:{...world.anchor},slots:commandSlots(world).map(s=>({key:s.key,name:s.name,families:s.families,action:s.action,count:s.count,remaining:s.remaining})),events:[...events],heroCasts:world.heroCasts.map(c=>({hero:c.hero,phase:c.phase})),heroes:[...world.heroes].map(([id,h])=>({id,skillReady:h.skillReady})),families:world.familyUnits('hellion').map(u=>({mode:u.nativeMode,desired:u.desiredNativeMode})),stim:world.familyBodies('marine').map(u=>u.stimUntil),stimMarauder:world.familyBodies('marauder').map(u=>u.stimUntil),wallet:{...world.wallet},research:{...world.expedition.tech},cardTotals:{...world.expedition.cardTotals},production:world.expedition.production,facilities:world.expedition.facilities,ledger:world.expedition.ledger.map(j=>({id:j.id,family:j.family,state:j.state,passengers:j.passengers.map(p=>({status:p.status,paid:p.paid}))})),rewards:world.rewards.map(r=>({id:r.offerId,name:r.name,effect:(r as ExpeditionReward).expeditionEffect,sold:r.sold,minerals:r.minerals,gas:r.gas,legal:world.canChooseReward(r)})),developmentTarget:world.expedition.developmentTarget,ui:{baseOpen,baseTab,progressOpen,armyFolded,commandsFolded,inspectorKey,inspectorTab,service},errors:[...view.modelErrors,...view.fx.errors],renderer:view.report()});
 (window as any).__BATTLE_UI_SAMPLE_ARCHIVE__=()=>({run:world.captureRun(),profile:world.permanentProfile.exportJSON()});
 await load();
 }
