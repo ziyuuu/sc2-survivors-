@@ -6,7 +6,8 @@
 
 样例场景：战斗、基地建设、战备补给、满员增援、尚无英雄。人族五个兵种为陆战队员、劫掠者、恶火、坦克和医疗运输机，三名英雄为雷诺、泰凯斯和诺娃。
 
-- 第一排按三名英雄、兵种技能、无技能兵种排列；相同主动技能合并。陆战队员和劫掠者共用一个兴奋剂入口，五个兵种身份仍全部保留，本场景共七个按钮。没有技能的兵种点按看详情。
+- 上排是五个独立兵种，不合并相同技能，有手动技能的兵种优先、没有技能的兵种在后。陆战队员和劫掠者各有自己的按钮，均调用原兴奋剂操作。
+- 下排先放已有英雄的主动技能，再放推进／主动侦测等既有全局指令；没有英雄时不显示空英雄位。上排与下排分别折叠。
 - 鼠标左键／手机短按施放；鼠标右键／手机长按 480ms 查看原单位详情。冷却时详情仍可打开。详情保留所有士兵和三名英雄的切换。
 - 取消样例里的“单位操作”按钮；全局推进、侦测等仍单列。
 - 两排分别折叠，收起时箭头向上，展开时向下。按钮始终位于自己的面板内，持续显示“部队／指令”名称；两排都收起时，两个带名称的展开按钮留在底栏。
@@ -22,6 +23,7 @@
 
 预览：`node tools/serve-battle-ui-sample.mjs`，仅在本机提供该 HTML，默认端口 4195。离线文件内置原始素材，不访问游戏后端。
 
-检查：`node tools/qa-battle-ui-sample.mjs`；`node --import tsx --test test/battle-ui-sample.test.ts`；`node node_modules/typescript/bin/tsc -p preview/battle-ui-feedback-20261008/tsconfig.json --noEmit`；`node tools/verify-battle-ui-sample.mjs`。本轮证据位于 `reports/local/battle-ui-sample-20261008/revision-2/`，最终截图对应具体 HTML 哈希。
+检查：`node tools/qa-battle-ui-sample.mjs`；`node --import tsx --test test/battle-ui-sample.test.ts`；`node node_modules/typescript/bin/tsc -p preview/battle-ui-feedback-20261008/tsconfig.json --noEmit`；`node tools/verify-battle-ui-sample.mjs`。本轮证据位于 `reports/local/battle-ui-sample-20261008/revision-3/`，最终截图对应具体 HTML 哈希。
 
 第一版 HTML 原字节保留为 `dist/Battle-UI-Feedback-Sample-R1-20261008.html`，第一版证据与文档保留原位置，不重新标记为本轮结果。
+第二版原字节保留为 `dist/Battle-UI-Feedback-Sample-R2-20261008.html`，第二版证据仍在 `revision-2/`。

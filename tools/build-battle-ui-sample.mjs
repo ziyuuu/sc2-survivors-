@@ -5,7 +5,7 @@ import {execFileSync} from 'node:child_process';
 import {loadBuildAssets} from './load-build-assets.mjs';
 import {createAssetPack} from './offline-pack.mjs';
 
-const root='preview/battle-ui-feedback-20261008',out='reports/local/battle-ui-sample-20261008/revision-2';
+const root='preview/battle-ui-feedback-20261008',out='reports/local/battle-ui-sample-20261008/revision-3';
 await fs.mkdir(out,{recursive:true});
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const records=await loadBuildAssets(),byId=new Map(records.map(r=>[r.id,r]));
@@ -35,5 +35,5 @@ const output='dist/Battle-UI-Feedback-Sample-20261008.html';await fs.writeFile(o
 const protectedPaths=execFileSync('git',['ls-files','src','deploy','backend','vendor','start-coze.mjs','sc2-backend.conf','index.html','vite.config.ts','package.json','package-lock.json'],{encoding:'utf8'}).trim().split(/\r?\n/).filter(Boolean),protectedFiles=[];
 for(const file of protectedPaths)protectedFiles.push({file,sha256:sha(await fs.readFile(file))});
 const report={at:new Date().toISOString(),baseline:'ed215df3e0b50ccf7c5bc04d06b99114514db43a',sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),output,bytes:Buffer.byteLength(html),sha256:sha(html),sampleBuildId:sha(js+'\n'+css),assets:provenance.length,provenance,pack:stats,protectedFiles,productionWeb:JSON.parse(await fs.readFile('dist/web/web-release.json','utf8')).appBuildId,
- revision:2,scope:'Independent diagnostic sample, actual unchanged World/skills/renderer/approved artwork. Heroes first, identical family skills merged, five family identities retained. Independent enhancements and facilities, native technology flags. No production entry, run/profile storage, backend or balance edits.'};
+ revision:3,scope:'Independent diagnostic sample, actual unchanged World/skills/renderer/approved artwork. Upper row has five independent families, without shared-skill merging. Owned heroes precede global commands in the lower row; no empty hero placeholders. Independent enhancements and facilities retained. No production entry, run/profile storage, backend or balance edits.'};
 await fs.writeFile(out+'/build.json',JSON.stringify(report,null,2));console.log(JSON.stringify({output,bytes:report.bytes,build:report.sampleBuildId,assets:report.assets,protected:protectedFiles.length}));

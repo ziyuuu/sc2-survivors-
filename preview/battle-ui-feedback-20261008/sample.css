@@ -14,7 +14,7 @@
 .sample-page #battle-console .sample-army{height:64px}.sample-page #battle-console .sample-commands{height:52px}
 .sample-page #battle-console [hidden]{display:none!important}
 .sample-fold{width:52px;min-width:52px;height:44px;padding:2px 4px;background:#162b37;border:1px solid #506974;box-shadow:inset 0 0 0 2px #0a1620;flex:none;color:#b8cdd6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;font-size:11px;line-height:14px}
-.sample-fold svg{width:20px;height:20px}.sample-page #roster{display:grid;grid-template-columns:repeat(var(--sample-slot-count,7),minmax(0,1fr));gap:4px;flex:1;min-width:0;position:static;grid-template-rows:64px;padding:0;background:none;transform:none}
+.sample-fold svg{width:20px;height:20px}.sample-page #roster{display:grid;grid-template-columns:repeat(var(--sample-slot-count,5),minmax(0,1fr));gap:4px;flex:1;min-width:0;position:static;grid-template-rows:64px;padding:0;background:none;transform:none}
 .sample-page #interface #battle-console #army-toggle,.sample-page #interface #battle-console #commands-toggle{position:static;inset:auto;transform:none;margin:0;align-self:center;width:52px;height:44px;min-width:52px;min-height:44px;flex:none}
 .sample-page #battle-console .sample-army.collapsed,.sample-page #battle-console .sample-commands.collapsed{height:44px;min-height:44px}
 .sample-page #battle-console.both-collapsed .console-body{flex-direction:row;gap:6px}.sample-page #battle-console.both-collapsed .collapsed{width:auto}
@@ -40,17 +40,19 @@
 
 /* Keep this independent console outside the production shell's two-column grid. */
 .sample-page #interface #battle-console{display:block;grid-template-columns:none}
-.sample-page #interface #battle-console #roster{width:auto;max-width:none;grid-template-columns:repeat(var(--sample-slot-count,7),minmax(0,1fr));grid-template-rows:64px}
+.sample-page #interface #battle-console #roster{width:auto;max-width:none;grid-template-columns:repeat(var(--sample-slot-count,5),minmax(0,1fr));grid-template-rows:64px}
+.sample-page #interface #battle-console #sample-command-list{display:grid;grid-template-columns:repeat(var(--sample-lower-count,5),minmax(44px,1fr));grid-template-rows:52px;gap:4px;align-items:center}
+.sample-page #interface #sample-command-list>.sample-slot,.sample-page #interface #sample-command-list>.sample-command{min-width:44px;width:auto;height:52px;min-height:44px}
 .sample-page #interface #joystick{display:none}
 @media(pointer:coarse){.sample-page #interface #joystick{display:block}}
 @media(min-width:701px){.sample-slot .slot-name{font-size:12px}.sample-slot .slot-ability{font-size:10px}}
 @media(max-width:700px){
  .sample-page #interface #topbar{gap:5px;padding:0 6px}.sample-page #topbar .sample-base-button{min-width:44px;width:44px;padding:2px;display:flex;flex-direction:column;gap:0;font-size:10px;line-height:13px}.sample-page #topbar .sample-base-button img{width:21px;height:21px}
- .sample-page #battle-console .sample-army{height:56px}.sample-page #interface #battle-console #roster{grid-template-rows:56px;gap:2px}.sample-page .sample-slot{height:56px;padding:2px}.sample-page .sample-fold{width:52px;min-width:52px}
- .sample-slot.shared-skill .slot-copy{display:block;position:absolute;bottom:5px;left:1px;right:1px;text-align:center}.sample-slot.shared-skill .slot-name{display:none}.sample-slot.shared-skill .slot-ability{font-size:9px;line-height:12px}.sample-slot.shared-skill img{width:26px;height:26px;align-self:flex-start;margin-top:3px}.sample-slot.shared-skill .slot-count{top:1px;bottom:auto}
+ .sample-page #battle-console .sample-army,.sample-page #battle-console .sample-commands{height:56px}.sample-page #interface #battle-console #roster{grid-template-rows:56px;gap:2px}.sample-page .sample-slot{height:56px;padding:2px}.sample-page .sample-fold{width:52px;min-width:52px}
+ .sample-page #interface #battle-console #sample-command-list{grid-template-rows:56px;gap:2px}.sample-page #interface #sample-command-list>.sample-slot,.sample-page #interface #sample-command-list>.sample-command{height:56px}.sample-page #interface #sample-command-list>.sample-command{flex-direction:column;justify-content:center;gap:1px;padding:2px;font-size:10px}.sample-page #sample-command-list>.sample-command b{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:12px}
  .sample-unlock{font-size:11px;padding:6px;gap:5px}.sample-unlock img{width:23px;height:23px}.sample-unlock b{font-size:9px;padding:3px}.sample-facility-count{min-width:65px;padding:3px 8px}.sample-facility-count b{font-size:26px}.sample-tech-card{padding:12px}.sample-tech-card header{gap:8px;flex-wrap:wrap}.sample-tech-card h2{font-size:17px}.sample-system{font-size:10px}
 }
-@media(max-width:370px){.sample-page #battle-console .sample-army:not(.collapsed){height:114px}.sample-page #interface #battle-console #roster{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:56px 56px;gap:2px}.sample-page #topbar #sample-clock{display:none}.sample-page #topbar .battle-resources{gap:6px}.sample-page .sample-unlocks{grid-template-columns:1fr}}
+@media(max-width:370px){.sample-page #topbar #sample-clock{display:none}.sample-page #topbar .battle-resources{gap:6px}.sample-page .sample-unlocks{grid-template-columns:1fr}}
 .sample-page #interface #reward-cards{overflow:auto}
 @media(min-width:701px){.sample-page #interface #reward-cards .im-card{min-height:350px}.sample-page #interface #reward-cards .im-card-art{min-height:125px}}
 @media(max-width:700px){.sample-page #topbar .battle-stage strong{font-size:12px;margin-left:0}}
