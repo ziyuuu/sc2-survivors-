@@ -5,12 +5,13 @@ import {execFileSync} from 'node:child_process';
 import {loadBuildAssets} from './load-build-assets.mjs';
 import {createAssetPack} from './offline-pack.mjs';
 
-const root='preview/battle-ui-feedback-20261008',out='reports/local/battle-ui-sample-20261008/revision-3';
+const root='preview/battle-ui-feedback-20261008',out='reports/local/battle-ui-sample-20261008/revision-4';
 await fs.mkdir(out,{recursive:true});
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const records=await loadBuildAssets(),byId=new Map(records.map(r=>[r.id,r]));
 const families=['marine','marauder','hellion','tank','medivac','roach','zergling'],heroes=['raynor','tychus','nova'];
-const artIdentities=['marine','marauder','reaper','hellion','tank','thor','medivac','viking','banshee','science_vessel',...heroes];
+const terranFamilies=['marine','marauder','reaper','hellion','tank','thor','medivac','viking','banshee','science_vessel'];
+const artIdentities=[...terranFamilies,...terranFamilies.flatMap(f=>[1,2,3].map(n=>f+'.'+n)),...heroes];
 const ids=new Set(['terrain.rock','terrain.rock.normal','model.hero-upgrade.vikingfightermissile','model.scv','model.scv.death','model.barracks','model.barracks.death','model.support.mine','ui.minerals','ui.gas','building.barracks','building.factory','building.starport','tech.attack','tech.armor','tech.stim','tech.boost']);
 for(const f of families){ids.add('model.'+f);ids.add('unit.'+f);for(const r of records)if(r.id.startsWith('model.'+f+'.'))ids.add(r.id);}
 for(const h of heroes){ids.add('model.hero.'+h);ids.add('hero.'+h);ids.add('ui.cover.'+h);}
@@ -35,5 +36,5 @@ const output='dist/Battle-UI-Feedback-Sample-20261008.html';await fs.writeFile(o
 const protectedPaths=execFileSync('git',['ls-files','src','deploy','backend','vendor','start-coze.mjs','sc2-backend.conf','index.html','vite.config.ts','package.json','package-lock.json'],{encoding:'utf8'}).trim().split(/\r?\n/).filter(Boolean),protectedFiles=[];
 for(const file of protectedPaths)protectedFiles.push({file,sha256:sha(await fs.readFile(file))});
 const report={at:new Date().toISOString(),baseline:'ed215df3e0b50ccf7c5bc04d06b99114514db43a',sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),output,bytes:Buffer.byteLength(html),sha256:sha(html),sampleBuildId:sha(js+'\n'+css),assets:provenance.length,provenance,pack:stats,protectedFiles,productionWeb:JSON.parse(await fs.readFile('dist/web/web-release.json','utf8')).appBuildId,
- revision:3,scope:'Independent diagnostic sample, actual unchanged World/skills/renderer/approved artwork. Upper row has five independent families, without shared-skill merging. Owned heroes precede global commands in the lower row; no empty hero placeholders. Independent enhancements and facilities retained. No production entry, run/profile storage, backend or balance edits.'};
+ revision:4,scope:'Independent diagnostic sample. Full-width desktop packs only actual units, without empty seats. One row until real units need a second row; unframed skill group follows the panel. Mobile has a smaller full-width six-column bottom roster, touch paging and equal 44px controls. Detection is central, Raynor above, Tychus upper-right, Nova right, acceleration lower-right, circular roster fold directly below. Joystick aligns with detection above the roster. Full playfield canvas; portrait diagnostic camera keeps at least 20 horizontal world units. Touch completion and click fallback prevent missing or duplicate actions after paging. Manual-skill ordinary units first; heroes only when owned. Research separate from shop totals and actual purchase sources. Fixed seed 10812 and original native transactions prepare examples. Unchanged production World/skills/renderer/art/schema/backend/balance.'};
 await fs.writeFile(out+'/build.json',JSON.stringify(report,null,2));console.log(JSON.stringify({output,bytes:report.bytes,build:report.sampleBuildId,assets:report.assets,protected:protectedFiles.length}));
