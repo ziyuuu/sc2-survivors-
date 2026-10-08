@@ -4,3 +4,5 @@
 @import '../mobile/layout.css' layer(legacy);
 @import '../hud/compact.css' layer(legacy);
 @import './formal-ui.css';
+
+@import './battle-feedback.css';

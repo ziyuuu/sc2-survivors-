@@ -9,6 +9,7 @@ const performanceStage=process.argv.includes('--performance');
 const fidelityStage=process.argv.includes('--ui-fidelity');
 const cozeStage=process.argv.includes('--coze');
 const openingStage=process.argv.includes('--opening');
+const battleUiStage=process.argv.includes('--battle-ui');
 const web=path.resolve('dist/web'),baseline=path.resolve('deploy/coze');
 const relative=path.relative(path.resolve('dist'),destination);
 if(!relative||relative.startsWith('..')||path.isAbsolute(relative))throw Error('Output must be a new folder inside dist');
@@ -45,10 +46,11 @@ if(cozeStage){
  await fs.copyFile('docs/project/UI_COZE_MAIN_20261007.md',path.join(destination,'UI_COZE_MAIN_20261007.md'));
 }
 if(openingStage)for(const name of ['OPENING_COVER_FLAME_20261007.md','UI_FLOW_ART_AUDIT_20261007.md'])await fs.copyFile('docs/project/'+name,path.join(destination,name));
+if(battleUiStage)for(const name of ['BATTLE_UI_INTEGRATION_20261008.md','BATTLE_UI_INTEGRATION_VALIDATION_20261008.md'])await fs.copyFile('docs/project/'+name,path.join(destination,name));
 const pkg=JSON.parse(await fs.readFile(path.join(baseline,'package.json'),'utf8'));
 const lock=JSON.parse(await fs.readFile(path.join(baseline,'package-lock.json'),'utf8'));
 pkg.name=lock.name=lock.packages[''].name='sc2-survivors-current-application';
-pkg.version=lock.version=lock.packages[''].version=openingStage?'0.6.8':cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
+pkg.version=lock.version=lock.packages[''].version=battleUiStage?'0.6.9':openingStage?'0.6.8':cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
 for(const [name,data]of [['package.json',pkg],['package-lock.json',lock]]as const)await fs.writeFile(path.join(destination,name),JSON.stringify(data,null,2)+'\n');
 const priorGroups=JSON.parse(await fs.readFile(path.join(baseline,'resource-groups.json'),'utf8'));
 const priorByUrl=new Map<string,any>(priorGroups.files.map((row:any)=>[row.url,row]));
@@ -79,5 +81,5 @@ await fs.writeFile(path.join(destination,'resource-delta.json'),JSON.stringify({
 async function list(dir:string,prefix=''):Promise<string[]>{const out:string[]=[];for(const e of await fs.readdir(dir,{withFileTypes:true}))out.push(...(e.isDirectory()?await list(path.join(dir,e.name),prefix+e.name+'/'):[prefix+e.name]));return out;}
 const appFiles=[];for(const file of await list(destination)){const b=await fs.readFile(path.join(destination,file));appFiles.push({path:file,bytes:b.length,sha256:sha(b)});}
 const packageBuildId=sha(JSON.stringify([...appFiles].sort((a,b)=>a.path.localeCompare(b.path))));
-await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:cozeStage?'UI fidelity and Coze v10 deployment integration; local validation; live deployment not performed':fidelityStage?'local UI fidelity and intangible continuous control-point candidate; not deployed':performanceStage?'local fixed-scene performance candidate; natural performance gate open; not deployed':'local formal UI candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0,...(cozeStage?{coze:{baseline:'ed70fe4',configurationIncluded:true,vendoredPglite:true,privateBundleIncluded:false}}:{})},null,2));
+await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:battleUiStage?'Approved battle HUD and card presentation integration; local validation; live deployment not performed':cozeStage?'UI fidelity and Coze v10 deployment integration; local validation; live deployment not performed':fidelityStage?'local UI fidelity and intangible continuous control-point candidate; not deployed':performanceStage?'local fixed-scene performance candidate; natural performance gate open; not deployed':'local formal UI candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0,...(cozeStage?{coze:{baseline:'ed70fe4',configurationIncluded:true,vendoredPglite:true,privateBundleIncluded:false}}:{})},null,2));
 console.log(JSON.stringify({destination,packageBuildId,appBuildId:release.appBuildId,runSchema:release.runSchema,appFiles:appFiles.length,resourceAdditions:added.length,deployed:false}));

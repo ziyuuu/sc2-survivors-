@@ -83,3 +83,17 @@
 .sample-page #interface .sample-purchased-cards h3{font-size:16px;margin-bottom:12px}.sample-purchased-cards h3 span{font:12px var(--data);color:#aec6d1;margin-left:10px}
 .sample-source-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}.sample-source-card{display:flex;gap:12px;padding:14px;border:1px solid var(--source-color);background:linear-gradient(#1a303d,#0b1c28);min-width:0}.sample-source-card>img{width:44px;height:44px;object-fit:contain;flex:none}.sample-source-card>div{flex:1;min-width:0}.sample-source-card header{display:flex;align-items:flex-start;gap:8px}.sample-source-card h4{font-size:13px;line-height:1.5}.sample-source-card header>span{font-size:10px;color:var(--source-color);white-space:nowrap;margin-left:auto}.sample-source-card p{font-size:11px;line-height:1.7;color:#b6cbd5;margin:7px 0}.source-paid{display:flex;gap:8px}.source-paid .money{font-size:11px}.source-paid .money img{width:18px;height:18px}
 @media(max-width:700px){.sample-source-list{grid-template-columns:1fr}.sample-source-card{padding:12px}.sample-source-card h4{font-size:12px}.sample-source-card>img{width:38px;height:38px}}
+
+.sample-page #interface #minimap header{width:22px;height:22px;min-height:22px;inset:3px 3px auto auto}.sample-page #interface #map-toggle{width:22px;height:22px;min-width:22px;min-height:22px;padding:0;font:20px/20px Arial,sans-serif}.sample-page #interface #minimap.map-collapsed,.sample-page.mobile-layout #interface #minimap.map-collapsed{width:28px;height:28px;padding:0}.sample-page #interface #minimap.map-collapsed .minimap-chassis{display:none}
+
+.sample-page.mobile-layout #interface #sample-unit-roster{grid-template-columns:repeat(var(--roster-columns,6),var(--roster-seat-width,48px));grid-template-rows:repeat(var(--roster-rows,1),30px)}
+.sample-page.mobile-layout #interface .single-row #sample-unit-roster{grid-template-rows:30px}
+.sample-page.mobile-layout #interface .sample-seat{height:30px;padding:1px 2px}
+.sample-page.mobile-layout .sample-seat img{top:11px;width:14px;height:14px}
+.sample-page.mobile-layout .sample-seat .seat-name{top:1px;line-height:9px}
+.sample-page.mobile-layout .sample-seat .seat-rank{top:1px}
+.sample-page.mobile-layout .sample-seat .seat-vitals{bottom:6px;font-size:6px}
+.sample-page.mobile-layout .sample-seat .seat-health{bottom:1px}
+.sample-page.mobile-layout .sample-seat .seat-shield{bottom:4px}
+
+@media(min-width:701px){.sample-page #interface #reward-cards .im-card:has(.im-card-progress){min-height:420px}.sample-page #interface #reward-cards .im-card:has(.im-card-progress) .im-card-art{min-height:125px}}

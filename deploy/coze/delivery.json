@@ -1,7 +1,7 @@
 {
-  "status": "UI fidelity and Coze v10 deployment integration; local validation; live deployment not performed",
-  "appBuildId": "d502a132ea56395855ae3c1a3e04c0b254692df763ea96750153d82972ed986a",
-  "packageBuildId": "3669fb67da9b851316921b2247a7b626fc99d8f3b1bc6e406cfaf73adb850a2a",
+  "status": "Approved battle HUD and card presentation integration; local validation; live deployment not performed",
+  "appBuildId": "8b5a776f01f644c9c583d82d53a6e0f94f4de0575dd09ef55dab07053fbdd229",
+  "packageBuildId": "5a28a845efad91a367d553701d56f39ac6322b0831d4aa10614f9a3c05441701",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
@@ -77,6 +77,16 @@
       "sha256": "b6244ee1e26b906e823763d77332b2160ea392602fe0f4f7ae05936d28c3105f"
     },
     {
+      "path": "BATTLE_UI_INTEGRATION_20261008.md",
+      "bytes": 2465,
+      "sha256": "626bdffe7b4a8fac76d5bc43a7f2235c2a9184f22921ba35537a585e480eee8c"
+    },
+    {
+      "path": "BATTLE_UI_INTEGRATION_VALIDATION_20261008.md",
+      "bytes": 5656,
+      "sha256": "d6c2e67161521f5db2c479e559ba1abce4e9f09f4ee01ceeb24fd4255310c9c0"
+    },
+    {
       "path": "coze-web-server.mjs",
       "bytes": 4728,
       "sha256": "be5fc03d6a81aab693aa706986c30d64c0e6df1117b40d9c80634c675a442ec0"
@@ -104,12 +114,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6134,
-      "sha256": "2c0191173d9899a004153a60b5800cc74d0033fc863db9064d2fe7e7aef3e259"
+      "sha256": "91d7e46cc03ab19b8d577e15dac7475551f456302573ec31265be3b88da65080"
     },
     {
       "path": "package.json",
       "bytes": 352,
-      "sha256": "1b9849733f20d25627db7249f2a87f308c46a32d08f80b9c44c5bf02d1e11378"
+      "sha256": "a83a9f707a87a287c3dccb005fe12819a1ae34308f551e6fac80b48f9fa7683e"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -122,19 +132,19 @@
       "sha256": "1257ad91f69c590d59abc862c539bb3aadc1a2c611110a69580dd5a8457f7bd3"
     },
     {
-      "path": "public/assets/index-BrbUkuwI.css",
-      "bytes": 384909,
-      "sha256": "0385bdb6924da1f3013d534c098b6f82975ede2ecaaaef5e41f8139b4d59c907"
+      "path": "public/assets/index-orW_PbAG.js",
+      "bytes": 2879119,
+      "sha256": "7245a1647e3fa8f261f7e4e9d0848db1afac54e404fffe61d4a1ffc87667b16b"
     },
     {
-      "path": "public/assets/index-D3Dn68fQ.js",
-      "bytes": 2869105,
-      "sha256": "40e55c7c9903559b587f6b5d4568fd3c898bf5070f449ee7da89f84299acca3a"
+      "path": "public/assets/index-qLqHJIKO.css",
+      "bytes": 401131,
+      "sha256": "7088caa90c3b83439ed498314725350acd32122d55ad0c7105fb71e3e666c858"
     },
     {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "2ec89ab718aca4132063d726fe1a10e7896583af1e46b69d448b6f07c35fc185"
+      "sha256": "6a89b0f7b31f535e06ba86f88be617d5d0417d89f5f548aadf96919431c15f90"
     },
     {
       "path": "public/runtime-config.json",
@@ -144,7 +154,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "6a64466ec2240ad52cf0ac6f346334a03136682526b4a2a662dfde91ffaf41fd"
+      "sha256": "4d26bb8e48dec73496f98877ca5b1ed5110eb306d8f75dc5aebb561a8c12ae28"
     },
     {
       "path": "README.md",
@@ -154,7 +164,7 @@
     {
       "path": "resource-delta.json",
       "bytes": 329,
-      "sha256": "8d86546626ae7ba016fbddca1f616f98fe5f76a704d528ebce7baf340e7c385d"
+      "sha256": "f7147e00a2097685901cfbc1df68a2b4912e380153e1ffe5a4c311524827af76"
     },
     {
       "path": "resource-groups.json",

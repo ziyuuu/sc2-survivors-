@@ -33,6 +33,7 @@ import {lineTechnology} from './technology-model';
 import {liveSeats} from './roster-model';
 import {EnhancementJournal} from './enhancement-model';
 import {minimapSource} from './minimap-model';
+import {shopProgress} from '../../src/ui/presentation/shop-progress';
 
 type Scene='battle'|'building'|'supply'|'full'|'no-heroes'|'roster-full';
 type BaseTab='facilities'|'production'|'technology';
@@ -64,7 +65,9 @@ minimap.element.querySelector('#map-toggle')!.addEventListener('click',()=>{mapC
 const input=new Input(world,$('joystick'),()=>closeTopOrPause(),controls,{canvas,pick:(x,y)=>view.pick(x,y),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:p=>{view.targetPreview=p;}});
 new ResizeObserver(()=>{view.resize();const portrait=canvas.clientWidth<canvas.clientHeight;view.camera.zoom=portrait?Math.min(1.18,(view.camera.right-view.camera.left)/20):1.3;view.camera.updateProjectionMatrix();}).observe(canvas);
 const mobileQuery=matchMedia('(pointer:coarse)'),smallQuery=matchMedia('(max-width:700px)');
-function updateLayout(){document.body.classList.toggle('mobile-layout',mobileQuery.matches||smallQuery.matches);if(ready)render();}
+let wasLandscape=false;const mobileLandscape=()=>document.body.classList.contains('mobile-layout')&&matchMedia('(orientation:landscape) and (max-height:500px)').matches;
+function updateLayout(){document.body.classList.toggle('mobile-layout',mobileQuery.matches||smallQuery.matches);const landscape=mobileLandscape();if(landscape!==wasLandscape){armyFolded=landscape;rosterPage=0;wasLandscape=landscape;}if(ready)render();}
+window.addEventListener('resize',updateLayout);
 mobileQuery.addEventListener('change',updateLayout);smallQuery.addEventListener('change',updateLayout);updateLayout();
 
 /** Diagnostic setup only. All subsequent skills, purchases and production use World. */
@@ -74,7 +77,7 @@ function chooseScene(next:Scene){
  world.expedition.facilities=[{id:1,kind:'barracks',line:'barracks',techLab:false},{id:2,kind:'factory',line:'factory',techLab:false},{id:3,kind:'starport',line:'starport',techLab:false}];world.expedition.nextFacility=4;
  for(const family of families)world.expedition.tech['unlock.'+family]=1;
  Object.assign(world.expedition.tech,{barracks:1,factory:1,starport:1,stim:1,'system.barracks':1,'system.factory':1,'system.starport':1,'research.barracks.weapon':2,'research.barracks.defense':1,'research.factory.weapon':1,'research.factory.defense':1});
- world.upgrades.set('stim',1);journal.reset();
+ world.upgrades.set('stim',1);journal.reset();shopProgress(world).restore(undefined);
  for(const [id,plan]of Object.entries(world.expedition.production)){if(!plan)continue;plan.enabled={};plan.outputs=id==='barracks'?['marine','marauder']:id==='factory'?['hellion','tank']:['medivac'];}
  families.forEach((family,i)=>{for(let j=0;j<(family==='marine'?2:1);j++)world.addFamilyMember(family,{x:-2+(i%3)*1.5,z:-2.5+Math.floor(i/3)*3+j},j+1);});
  if(next!=='no-heroes')for(const [i,id]of heroes.entries()){if(!world.acquireHero(id))throw Error('Cannot prepare '+id);const u=world.heroEntity(id)!;u.x=-2+i*2;u.z=1.5;u.prev={x:u.x,z:u.z};}
@@ -88,7 +91,7 @@ function chooseScene(next:Scene){
  world.stage=3;world.stageElapsed=0;
  if(next==='roster-full')for(const f of families)while(world.familySeatCount(f)<world.rosterCap)world.addFamilyMember(f,{x:-3,z:world.familySeatCount(f)},1);
  for(let i=0;i<8;i++){const e=world.addUnit(i%3===0?'zergling':'roach','zerg',4+(i%4)*1.2,-2+Math.floor(i/4)*3,1,'regular',3);e.hp=e.maxHp=200000;e.moveSpeed=0;e.stoppedUntil=e.specialReady=1e9;}
- world.hash.rebuild(world.entities.values());baseOpen=false;progressOpen=false;researchOpen=false;progressTab='summary';rosterPage=0;unitStructure='';service=null;inspectorKey='';offerId='';inspectorHTML='';baseTab='facilities';nav.reset();structure='';events.length=0;armyFolded=false;stepper.reset();
+ world.hash.rebuild(world.entities.values());baseOpen=false;progressOpen=false;researchOpen=false;progressTab='summary';rosterPage=0;unitStructure='';service=null;inspectorKey='';offerId='';inspectorHTML='';baseTab='facilities';nav.reset();structure='';events.length=0;armyFolded=mobileLandscape();stepper.reset();
  if(next==='building'){world.endStage();world.setDevelopmentDirection('barracks');}
  else if(next==='supply'||next==='full'){
   world.endStage();world.skipReward();
@@ -99,7 +102,7 @@ function chooseScene(next:Scene){
  world.paused=false;document.body.dataset.battleActionsReady=String(ready);($('sample-scene')as HTMLSelectElement).value=next;render();world.changed();
 }
 function allSeats():UnitSeat[]{return liveSeats(world);}
-function purchase(id:string){const r=world.rewards.find(r=>r.offerId===id)as ExpeditionReward|undefined,ok=world.choose(id);if(ok&&r)journal.record(r);return ok;}
+function purchase(id:string){shopProgress(world).observe();const r=world.rewards.find(r=>r.offerId===id)as ExpeditionReward|undefined,ok=world.choose(id);if(ok&&r)journal.record(r);shopProgress(world).observe();return ok;}
 function inspectSeat(key:string){if(!allSeats().some(s=>s.key===key))return;inspectorKey=key;inspectorTab='stats';expanded.clear();input.reset();render();$('unit-inspector').querySelector<HTMLElement>('[data-inspect-close]')?.focus({preventScroll:true});}
 function inspect(slot:CommandSlot){
  if(!slot.family&&!slot.hero)return;
@@ -115,10 +118,10 @@ function skillLabel(slot:CommandSlot){if(slot.hero)return HEROES[slot.hero].skil
 function slotHTML(s:CommandSlot){return `<button class="sample-slot ${s.hero?'hero':'family-info'}" data-slot="${s.key}">${image(s.image,s.name)}<span class="slot-copy"><span class="slot-name">${s.name}</span><span class="slot-ability"></span></span><span class="slot-rank"></span><span class="slot-hp"></span><span class="slot-count"></span><span class="slot-key"></span><span class="slot-health"><i></i></span><span class="slot-cooldown"></span></button>`;}
 function compactHp(value:number){return value>=1000?Number((value/1000).toFixed(1))+'k':String(Math.ceil(value));}
 function renderUnitRoster(){
- const mobile=document.body.classList.contains('mobile-layout'),seats=allSeats(),columns=mobile?6:Math.max(1,Math.min(14,Math.floor(($('game-root').clientWidth-192)/70))),hasSecondRow=seats.length>columns;
+ const mobile=document.body.classList.contains('mobile-layout'),seats=allSeats(),rosterWidth=$('sample-unit-roster').clientWidth,columns=mobile?Math.max(6,Math.floor((rosterWidth+2)/50)):Math.max(1,Math.min(14,Math.floor(($('game-root').clientWidth-192)/70))),hasSecondRow=seats.length>columns;
  $('army-toggle').hidden=!hasSecondRow;$('battle-console').classList.toggle('has-roster-overflow',hasSecondRow);if(!hasSecondRow&&armyFolded){armyFolded=false;rosterPage=0;}
  const size=columns*(armyFolded?1:2),pages=Math.max(1,Math.ceil(seats.length/size));rosterPage=Math.max(0,Math.min(pages-1,rosterPage));
- $('sample-unit-roster').style.setProperty('--roster-columns',String(columns));
+ $('sample-unit-roster').style.setProperty('--roster-columns',String(columns));if(mobile)$('sample-unit-roster').style.setProperty('--roster-seat-width',Math.min(48,(rosterWidth-(columns-1)*2)/columns)+'px');
  const shown=seats.slice(rosterPage*size,rosterPage*size+size),key=shown.map(s=>s.key+'/'+s.image+'/'+!!s.unit).join('|');
  $('sample-unit-roster').style.setProperty('--roster-rows',String(Math.max(1,Math.ceil(shown.length/columns))));
  if(unitStructure!==key){unitStructure=key;$('sample-unit-roster').innerHTML=shown.map(s=>`<button class="sample-seat ${s.hero?'hero':''}" data-seat="${s.key}">${image(s.image,s.name)}<span class="seat-name">${s.name}</span><span class="seat-rank"></span><span class="seat-vitals"></span><span class="seat-health"><i></i></span><span class="seat-shield"><i></i></span></button>`).join('');}
@@ -161,8 +164,8 @@ function supplyCard(r:ExpeditionReward){
  if(e.kind==='supply'){
   const q=supplyEligibility(world,e.family,e.count,e.mode),capacity=q.reasons.includes('capacity');
   if(!r.sold&&!q.legal){v.reason=capacity?'编制已满':q.reasons.includes('research')?'研究不足':q.reasons.includes('facility')?'缺少设施':'暂无可用落点';v.label=capacity?'编制已满':'暂不可购买';}
-  v.stat+=(e.mode==='direct'?' · 即刻加入':' · 空投后救援')+' · '+SC2_UNITS[e.family].zh+' '+q.alive+' / '+world.rosterCap;
-  v.detail+=' 当前编制 '+q.alive+' / '+world.rosterCap+'，待部署 '+q.pending+'。';
+
+
  }
  return v;
 }
@@ -171,6 +174,7 @@ function renderReward(){
  let html=renderIntermission(world,'',nav);
  if(world.rewardRound==='random')html=html.replace(/<div class="im-choice-grid" id="reward-cards"[\s\S]*?(?=<footer class="im-footer reward-actions">)/,`<div class="im-choice-grid" id="reward-cards" aria-label="商店选项">${world.rewards.map((r,i)=>rewardCard(r as ExpeditionReward,i)).join('')}</div>`);
  const at=html.indexOf('</nav>');if(at>=0)html=html.slice(0,at+6)+progressStrip()+html.slice(at+6);
+ html=html.replace(/<button[^>]+data-action="battle-base"[^>]*>[\s\S]*?<\/button>/,'').replace(/<div class="feedback-progress-strip"[\s\S]*?<\/div>/,'');
  html=html.replace('<div class="im-refresh">',`${button('设施调整','sample-base','sample-base-button')}<div class="im-refresh">`);
  if(offerId){const r=world.rewards.find(r=>r.offerId===offerId)as ExpeditionReward|undefined;if(r)html+=modal(r.name,offerView(world,r).kicker,referenceCardDetail(supplyCard(r)),'im-detail-dialog',button('返回','sample-offer-close','secondary')+button(world.canChooseReward(r)?'确认购买':supplyCard(r).reason??'不可购买','reward','primary',`data-id="${esc(r.offerId)}" ${world.canChooseReward(r)?'':'disabled'}`),'sample-offer-close');}
  return html;
@@ -200,11 +204,14 @@ let press:{id:number;key:string;kind:'slot'|'seat';x:number;y:number;timer:numbe
 let uiTap:{id:number;button:HTMLButtonElement;x:number;y:number;at:number;cancelled:boolean}|null=null,lastClick={key:'',at:0},compatClick={key:'',until:0};
 const buttonKey=(b:HTMLButtonElement)=>b.id||JSON.stringify({...b.dataset});
 const clearPress=()=>{if(press)clearTimeout(press.timer);press=null;};
+let ignorePressClick=false;
+root.addEventListener('pointerdown',()=>{ignorePressClick=false;},true);
+root.addEventListener('click',e=>{if(ignorePressClick){ignorePressClick=false;e.preventDefault();e.stopImmediatePropagation();}},true);
 root.addEventListener('pointerdown',e=>{
  if(e.pointerType==='touch'&&e.button===0){const button=(e.target as HTMLElement).closest<HTMLButtonElement>('button');compatClick={key:'',until:0};if(button&&!button.disabled)uiTap={id:e.pointerId,button,x:e.clientX,y:e.clientY,at:performance.now(),cancelled:false};}
  const b=(e.target as HTMLElement).closest<HTMLElement>('[data-slot],[data-seat]');if(!b||e.button!==0||e.pointerType==='mouse')return;
  if(b.dataset.seat&&document.body.classList.contains('mobile-layout'))rosterSwipe={id:e.pointerId,x:e.clientX,y:e.clientY};
- clearPress();press={id:e.pointerId,key:b.dataset.slot??b.dataset.seat!,kind:b.dataset.seat?'seat':'slot',x:e.clientX,y:e.clientY,timer:window.setTimeout(()=>{if(press?.kind==='seat'){suppressUntil=performance.now()+900;inspectSeat(press.key);}else{const slot=commandSlots(world).find(s=>s.key===press?.key);if(slot){suppressUntil=performance.now()+900;inspect(slot);}}clearPress();},480)};
+ clearPress();press={id:e.pointerId,key:b.dataset.slot??b.dataset.seat!,kind:b.dataset.seat?'seat':'slot',x:e.clientX,y:e.clientY,timer:window.setTimeout(()=>{ignorePressClick=true;if(press?.kind==='seat'){suppressUntil=performance.now()+900;inspectSeat(press.key);}else{const slot=commandSlots(world).find(s=>s.key===press?.key);if(slot){suppressUntil=performance.now()+900;inspect(slot);}}clearPress();},480)};
 });
 root.addEventListener('pointermove',e=>{if(uiTap?.id===e.pointerId&&Math.hypot(e.clientX-uiTap.x,e.clientY-uiTap.y)>10)uiTap.cancelled=true;if(press&&e.pointerId===press.id&&Math.hypot(e.clientX-press.x,e.clientY-press.y)>10)clearPress();});
 for(const name of ['pointerup','pointercancel','lostpointercapture'])root.addEventListener(name,e=>{const p=e as PointerEvent,tap=uiTap?.id===p.pointerId?uiTap:null;if(name==='pointerup'&&rosterSwipe?.id===p.pointerId){const dx=p.clientX-rosterSwipe.x,dy=p.clientY-rosterSwipe.y;if(Math.abs(dx)>36&&Math.abs(dx)>Math.abs(dy)*1.2){if(tap)tap.cancelled=true;suppressUntil=performance.now()+500;rosterPage+=dx<0?1:-1;unitStructure='';requestAnimationFrame(()=>render());}}

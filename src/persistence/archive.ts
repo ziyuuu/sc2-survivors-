@@ -3,7 +3,7 @@ import {PermanentProfile} from '../simulation/progression/permanent-profile';
 import {RUN_SCHEMA,RUN_RULES,type RunSnapshot} from '../simulation/persistence/run-snapshot';
 import {validateRunData} from '../simulation/persistence/run-fields';
 import {RunState} from '../simulation/run-state';
-export interface SaveBundle {profile:string;run:RunSnapshot|null}
+export interface SaveBundle {profile:string;run:RunSnapshot|null;shopProgress?:import('../ui/presentation/shop-progress').ShopProgressSnapshot}
 export interface SaveArchive {format:'sc2-survivors-save';version:2;savedAt:number;data:Graph;checksum:string}
 export function writeArchive(bundle:SaveBundle,now=Date.now()){
  if(!PermanentProfile.parseJSON(bundle.profile))throw Error('永久档案无效');
