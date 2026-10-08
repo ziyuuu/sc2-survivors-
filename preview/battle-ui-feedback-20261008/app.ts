@@ -21,6 +21,7 @@ import {battleInputCapture,trapTab} from '../../src/ui/presentation/input-captur
 import {renderUnitInspector,type UnitSeat,type InspectorTab} from '../../src/ui/presentation/unit-inspector';
 import {updateLiveInspector} from '../../src/ui/presentation/live-inspector';
 import {rankLabel} from '../../src/ui/unit-identity';
+import {Minimap} from '../../src/ui/hud/minimap';
 import {renderProductionWindow,renderRepairs} from '../../src/ui/hud/expedition-panel';
 import {renderIntermission,IntermissionNavigation,offerView,restCards} from '../../src/ui/presentation/intermission';
 import {referenceCard,referenceCardDetail} from '../../src/ui/presentation/reference-card';
@@ -31,6 +32,7 @@ import {commandSlots,familyAction,type CommandSlot} from './console-model';
 import {lineTechnology} from './technology-model';
 import {liveSeats} from './roster-model';
 import {EnhancementJournal} from './enhancement-model';
+import {minimapSource} from './minimap-model';
 
 type Scene='battle'|'building'|'supply'|'full'|'no-heroes'|'roster-full';
 type BaseTab='facilities'|'production'|'technology';
@@ -48,7 +50,7 @@ const canvas=$('battle') as HTMLCanvasElement,view=new BattleRenderer(canvas,wor
 view.fx.heroQuality='full';view.cameraShake=false;bindBattleView(world,()=>captureBattleView(canvas,view.camera));
 let ready=false,scene:Scene='battle',baseTab:BaseTab='facilities',baseOpen=false,baseWasPaused=false,armyFolded=false;
 let inspectorKey='',inspectorTab:InspectorTab='stats',inspectorHTML='',offerId='',progressOpen=false,progressWasPaused=false,service:'repair'|'revive'|null=null,previous=performance.now(),lastUi=0,structure='';
-let progressTab:'summary'|'sources'='summary',researchOpen=false,researchWasPaused=false,rosterPage=0,unitStructure='';
+let progressTab:'summary'|'sources'='summary',researchOpen=false,researchWasPaused=false,rosterPage=0,unitStructure='',mapCollapsed=false;
 const journal=new EnhancementJournal();
 const nav=new IntermissionNavigation(),expanded=new Set<string>(),events:{action:string;ok:boolean;at:number}[]=[];
 root.innerHTML=`<header id="topbar" class="battle-top"><span class="battle-location">据点防线</span><div id="sample-wallet" class="battle-resources"></div><div class="battle-stage"><b id="sample-stage"></b><strong id="sample-clock"></strong></div><button class="sample-base-button" data-sample="progress" aria-label="强化一览">${image('tech.attack')}<span>强化</span></button><button class="sample-base-button" data-sample="base" aria-label="基地 · 设施调整">${image('building.barracks')}<span>基地</span></button><button class="icon-button" data-sample="pause" aria-label="暂停">${glyph('pause')}</button></header>
@@ -57,6 +59,8 @@ root.innerHTML=`<header id="topbar" class="battle-top"><span class="battle-locat
 <div class="sample-army"><button class="sample-fold" id="army-toggle" data-sample="fold-army" aria-label="收起为一排" aria-controls="army-info" aria-expanded="true"></button><div id="army-info"><div id="sample-unit-roster" role="group" aria-label="全队单位信息"></div></div><nav id="sample-roster-pages" aria-label="部队分页"></nav></div>
 </div></section><div id="joystick" aria-label="移动摇杆"><i></i></div><section id="overlay" data-captures-battle-input hidden></section><div id="unit-inspector" data-captures-battle-input hidden></div>`;
 const controls=new ControlSettings();controls.set('desktop','keyboard');
+const minimap=new Minimap(minimapSource(world),view,root,controls);
+minimap.element.querySelector('#map-toggle')!.addEventListener('click',()=>{mapCollapsed=!mapCollapsed;render();});
 const input=new Input(world,$('joystick'),()=>closeTopOrPause(),controls,{canvas,pick:(x,y)=>view.pick(x,y),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:p=>{view.targetPreview=p;}});
 new ResizeObserver(()=>{view.resize();const portrait=canvas.clientWidth<canvas.clientHeight;view.camera.zoom=portrait?Math.min(1.18,(view.camera.right-view.camera.left)/20):1.3;view.camera.updateProjectionMatrix();}).observe(canvas);
 const mobileQuery=matchMedia('(pointer:coarse)'),smallQuery=matchMedia('(max-width:700px)');
@@ -65,7 +69,7 @@ mobileQuery.addEventListener('change',updateLayout);smallQuery.addEventListener(
 
 /** Diagnostic setup only. All subsequent skills, purchases and production use World. */
 function chooseScene(next:Scene){
- input.reset();view.resetRun();world.resetRun();world.start();world.entities.clear();world.heroes.clear();world.pods=[];world.hive=null;world.expansionHives.clear();world.economicTargets.clear();world.fortifications.clear();world.pickups=[];world.rewardDrops=[];
+ input.reset();minimap.resetInput();view.resetRun();world.resetRun();world.start();world.entities.clear();world.heroes.clear();world.pods=[];world.hive=null;world.expansionHives.clear();world.economicTargets.clear();world.fortifications.clear();world.pickups=[];world.rewardDrops=[];
  scene=next;world.stage=3;world.stageElapsed=0;world.wallet={minerals:10000,gas:1000};world.expedition.familySlots=[...families];
  world.expedition.facilities=[{id:1,kind:'barracks',line:'barracks',techLab:false},{id:2,kind:'factory',line:'factory',techLab:false},{id:3,kind:'starport',line:'starport',techLab:false}];world.expedition.nextFacility=4;
  for(const family of families)world.expedition.tech['unlock.'+family]=1;
@@ -183,6 +187,7 @@ function render(){
  const seats=allSeats(),seat=seats.find(s=>s.key===inspectorKey);$('unit-inspector').hidden=!seat;
  if(seat){const html=renderUnitInspector(world,seat,seats,inspectorTab,expanded);if(inspectorHTML!==html){inspectorHTML=html;updateLiveInspector($('unit-inspector'),html);}}else if(inspectorHTML){inspectorHTML='';$('unit-inspector').innerHTML='';}
  const captures=!!overlay||!!seat;$('topbar').inert=captures;$('battle-console').inert=captures;$('joystick').hidden=captures;
+ minimap.element.inert=captures;minimap.update(world.phase==='battle',mapCollapsed);
 }
 function openBase(){if(baseOpen)return;if(progressOpen)closeProgress();if(researchOpen)closeResearch();baseOpen=true;baseTab='facilities';baseWasPaused=world.paused;if(world.phase==='battle')world.paused=true;input.reset();stepper.reset();render();root.querySelector<HTMLElement>('.production-modal [data-autofocus],.production-modal .modal-header button')?.focus();}
 function closeBase(){baseOpen=false;if(world.phase==='battle')world.paused=baseWasPaused;input.reset();stepper.reset();render();root.querySelector<HTMLElement>(world.phase==='reward'?'[data-action=sample-base]':'[data-sample=base]')?.focus();}

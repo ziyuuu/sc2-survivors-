@@ -11,7 +11,8 @@
 - 手机按后续竖屏批注：部队同样铺满底部，以实兵紧凑排列，每排六个，超过一排才出现第二排；没有空位或占格子的“部队”按钮。折叠改成栏外 44px 小圆箭头，不足一排时隐藏。更多部队左右滑动翻页，底边小圆点标示当前页。右侧 44px 等大圆按钮以中央探测、雷诺正上、泰凯斯右上、诺娃正右、加速右下排布，折叠圆钮在探测正下，和左侧摇杆的中心高度对齐，均在部队栏上方并随其行数移动。没有英雄时只显示两个全局按钮。
 - 鼠标左键／手机短按施放；鼠标右键／手机长按 480ms 查看原单位详情。冷却时详情仍可打开。详情保留所有士兵和三名英雄的切换。
 - 取消样例里的“单位操作”按钮；全局推进、侦测等仍单列。
-- 仅部队栏保留带“部队”名称的折叠按钮，收成一排后箭头向上，展开后向下；技能按钮始终可见。
+- 仅部队栏保留折叠按钮，手机使用栏外圆箭头，收成一排后箭头向上，展开后向下；技能按钮始终可见。
+- 原小地图与原金属外框接回顶栏下的左上区域，显示真实单位、英雄、敌军、救援及视野，地图自身独立折叠。手机横屏避开摇杆，整备时隐藏，菜单／详情打开时地图停止接收操作。诊断平面的地图显示查询只在 UI 侧提供，不改变原 `World.terrain`、移动边界、保存内容或规则。
 - 战斗中“基地”和关间“设施调整”直接进入设施／训练／当前科技面板。设施数量突出展示，所有所属兵种逐一显示已解锁或未解锁。当前科技列出原攻防系统、研究等级和技能科技。训练复用原开关与待救援状态；去掉样例里的订单／部署标签和“下次发展目标”控件，建设购买仍只发生于原建设阶段。
 - “强化”与“基地”独立进入各自面板，关间“强化一览”与“设施调整”也互相独立。武器与防护研究另设独立页面；商店强化提供“总体加成／已购卡牌”两个页签，不混入攻防研究。来源记录实际完成的原生卡牌购买，保留名称、稀有度、原说明和真实支付金额；不根据聚合数值编造卡牌来源。
 - 满员场景先生成真正合法的增援报价，再用诊断场景补满编制。原报价保留，但按现有容量规则显示“编制已满”，禁止购买；不改抽取概率、扣款或人口规则。
@@ -24,8 +25,9 @@
 
 预览：`node tools/serve-battle-ui-sample.mjs`，仅在本机提供该 HTML，默认端口 4195。离线文件内置原始素材，不访问游戏后端。
 
-检查：`node tools/qa-battle-ui-sample.mjs`；`node --import tsx --test test/battle-ui-sample.test.ts test/battle-ui-sample-layout.test.ts`；`node node_modules/typescript/bin/tsc -p preview/battle-ui-feedback-20261008/tsconfig.json --noEmit`；`node tools/verify-battle-ui-sample.mjs`。本轮证据位于 `reports/local/battle-ui-sample-20261008/revision-4/`，最终截图对应具体 HTML 哈希。
+检查：`node tools/qa-battle-ui-sample.mjs`；`node --import tsx --test test/battle-ui-sample.test.ts test/battle-ui-sample-layout.test.ts test/battle-ui-sample-minimap.test.ts`；`node node_modules/typescript/bin/tsc -p preview/battle-ui-feedback-20261008/tsconfig.json --noEmit`；`node tools/verify-battle-ui-sample.mjs`。本轮证据位于 `reports/local/battle-ui-sample-20261008/revision-5/`，最终截图对应具体 HTML 哈希。
 
 第一版 HTML 原字节保留为 `dist/Battle-UI-Feedback-Sample-R1-20261008.html`，第一版证据与文档保留原位置，不重新标记为本轮结果。
 第二版原字节保留为 `dist/Battle-UI-Feedback-Sample-R2-20261008.html`，第二版证据仍在 `revision-2/`。
-第三版原字节保留为 `dist/Battle-UI-Feedback-Sample-R3-20261008.html`，第三版证据仍在 `revision-3/`。本轮范围和验证另见 `docs/project/BATTLE_UI_SAMPLE_R4_20261008.md` 与对应验证文档。
+第三版原字节保留为 `dist/Battle-UI-Feedback-Sample-R3-20261008.html`，第三版证据仍在 `revision-3/`。第四轮范围和验证另见 `docs/project/BATTLE_UI_SAMPLE_R4_20261008.md` 与对应验证文档。
+第四版原字节保留为 `dist/Battle-UI-Feedback-Sample-R4-20261008.html`，证据仍在 `revision-4/`。小地图补接范围见 `docs/project/BATTLE_UI_SAMPLE_R5_20261008.md` 与对应验证文档。

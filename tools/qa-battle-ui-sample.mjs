@@ -4,7 +4,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';
 
-const out='reports/local/battle-ui-sample-20261008/revision-4';
+const out='reports/local/battle-ui-sample-20261008/revision-5';
 await fs.mkdir(out,{recursive:true});
 try{
  const old=JSON.parse(await fs.readFile(out+'/browser.json','utf8'));
@@ -39,6 +39,15 @@ async function unlocksMatch(){
  assert.ok(rows.length>=10);
  for(const r of rows){assert.equal(r.unlocked,String(!!s.research[r.id]),r.id);assert.ok(r.label.includes(s.research[r.id]?'已解锁':'未解锁'),r.id);}
 }
+async function mapCheck(name){
+ const beforeState=await state(),paused=beforeState.paused;if(!paused)await page.locator('[data-sample=pause]').click();
+ const before=await page.evaluate(()=>window.__BATTLE_UI_SAMPLE_ARCHIVE__());assert.equal(await page.locator('#minimap').isVisible(),true);assert.equal(await page.locator('#minimap-canvas').isVisible(),true);
+ const map=await page.locator('#minimap').boundingBox(),bar=await page.locator('#topbar').boundingBox(),army=await page.locator('.sample-army').boundingBox();assert.equal(map.width,map.height);assert.ok(map.y>=bar.y+bar.height+7);assert.ok(map.y+map.height<army.y);assert.ok(map.x>=0&&map.x+map.width<=page.viewportSize().width);
+ const pixels=await page.locator('#minimap-canvas').evaluate(c=>{const colors=new Set(),data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;for(let i=0;i<data.length;i+=4)colors.add(data[i]+','+data[i+1]+','+data[i+2]);return {width:c.width,colors:colors.size,frame:JSON.parse(c.dataset.mapFrame)};});assert.ok(pixels.width>=128);assert.ok(pixels.colors>5);assert.deepEqual(pixels.frame,{left:-80,top:-80,size:160});
+ for(const selector of ['#joystick','.sample-commands']){if(!await page.locator(selector).isVisible())continue;const r=await page.locator(selector).boundingBox();assert.ok(map.x+map.width<=r.x||r.x+r.width<=map.x||map.y+map.height<=r.y||r.y+r.height<=map.y,JSON.stringify({map,r}));}
+ await capture(name+'-minimap');await page.locator('#map-toggle').click();assert.equal(await page.locator('#minimap-canvas').isVisible(),false);assert.equal(await page.locator('#map-toggle').getAttribute('aria-label'),'展开地图');await capture(name+'-minimap-folded');await page.locator('#map-toggle').click();assert.equal(await page.locator('#minimap-canvas').isVisible(),true);assert.equal(await page.locator('#map-toggle').getAttribute('aria-label'),'收起地图');assert.deepEqual(await page.evaluate(()=>window.__BATTLE_UI_SAMPLE_ARCHIVE__()),before);
+ if(!paused)await page.locator('[data-sample=pause]').click();
+}
 async function foldGeometry(){
  const boxes=await page.locator('.sample-fold').evaluateAll(nodes=>nodes.map(n=>{
   const b=n.getBoundingClientRect(),p=n.parentElement.getBoundingClientRect(),c=document.getElementById('battle-console').getBoundingClientRect();
@@ -60,6 +69,7 @@ async function rowFoldStates(name){
 try{
  const context=await browser.newContext({viewport:{width:1280,height:720}});await context.setOffline(true);page=await context.newPage();wire();
  await page.goto(pathToFileURL(path.resolve(artifact.output)).href,{timeout:240000});await waitReady();report.initial=await state();await capture('desktop-battle-initial');
+ await check('original live minimap is visible, folds independently and never changes game state',()=>mapCheck('desktop'));
  await check('full-width desktop roster and tightly attached unframed skills follow the annotation',async()=>{
   const s=await state();assert.equal(s.slots.length,8);assert.deepEqual(s.slots.slice(0,5).map(s=>s.key),['family:marine','family:hellion','family:tank','family:marauder','family:medivac']);assert.deepEqual(s.slots.slice(5).map(s=>s.action),['hero-slot-0','hero-slot-1','hero-slot-2']);assert.equal(s.slots[0].count,2);assert.equal(s.slots[3].count,1);assert.equal(await page.locator('#sample-unit-roster [data-battle-action=stim]').count(),3);assert.equal(await page.locator('#roster').count(),0);assert.deepEqual(await page.locator('#sample-command-list > button').evaluateAll(ns=>ns.map(n=>n.dataset.slot??n.dataset.command)),['hero:0','hero:1','hero:2','dash','detection']);assert.equal(await page.locator('[data-battle-action=unit-operations],[data-command=unit-operations]').count(),0);assert.ok(!(await page.locator('#interface').innerText()).includes('单位操作'));
   assert.equal(await page.locator('#roster').count(),0);assert.equal(await page.locator('#sample-unit-roster > button').count(),s.seats.length);assert.equal(s.seats.length,9);assert.equal(s.seats[0].family,'marine');assert.equal(s.seats.at(-1).family,'medivac');assert.equal(await page.locator('.sample-seat.empty-seat,[data-seat^="empty:"]').count(),0);const bar=await page.locator('#battle-console').boundingBox(),commands=await page.locator('.sample-commands').boundingBox(),army=await page.locator('.sample-army').boundingBox();assert.equal(bar.width,1280-24);assert.equal(bar.x,12);assert.equal(army.width,bar.width);assert.ok(Math.abs(commands.y+commands.height-army.y+2)<.5);const style=await page.locator('.sample-commands').evaluate(n=>({border:getComputedStyle(n).borderWidth,background:getComputedStyle(n).backgroundImage,shadow:getComputedStyle(n).boxShadow}));assert.deepEqual(style,{border:'0px',background:'none',shadow:'none'});assert.equal(await page.locator('.sample-commands .sample-fold').count(),0);const rows=await page.locator('#sample-unit-roster').evaluate(n=>getComputedStyle(n).gridTemplateRows.split(' '));assert.equal(rows.length,1);assert.equal(await page.locator('#army-toggle').isVisible(),false);for(const node of await page.locator('.sample-seat').all()){assert.ok((await node.getAttribute('aria-label')).includes('军衔'));assert.ok((await node.locator('.seat-vitals').innerText()).includes('/'));}
@@ -129,6 +139,7 @@ try{
  assert.deepEqual(report.errors,[]);await context.close();
  for(const size of [{width:390,height:844},{width:844,height:390},{width:320,height:700}]){
   const name=size.width+'x'+size.height,ctx=await browser.newContext({viewport:size,hasTouch:true,isMobile:true});await ctx.setOffline(true);page=await ctx.newPage();wire();await page.goto(pathToFileURL(path.resolve(artifact.output)).href,{timeout:240000});await waitReady();
+  await check(name+' live minimap remains clear of the topbar, roster, skills and joystick',()=>mapCheck(name));
   await check(name+' full-width six-column packed roster and radial skills aligned with the joystick',async()=>{
    const rects=async(selector)=>page.locator(selector).evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};}));
    const units=await rects('#sample-unit-roster > button'),skills=await rects('#sample-command-list > button');assert.equal(units.length,9);assert.equal(skills.length,5);assert.equal(await page.locator('#sample-command-list .hero').count(),3);assert.equal(await page.locator('#roster,[data-seat^="empty:"]').count(),0);
