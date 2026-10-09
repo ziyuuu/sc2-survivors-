@@ -26,7 +26,7 @@ export function decorateShopCard(w:World,r:ExpeditionReward,c:CardView){
   const name=SC2_UNITS[e.family].zh,amount=`${e.count}${e.family==='zergling'?'对':'名'}`;
   c.stat=e.mode==='pod'?`获得 ${amount}空投${name}。`:`获得 ${amount}${name}，立即加入小队。`;c.detail=c.stat;
   const availability=supplyEligibility(w,e.family,e.count,e.mode);
-  if(!r.sold&&!availability.legal){c.reason=availability.reasons.includes('capacity')?'编制已满':availability.reasons.includes('research')?'研究不足':availability.reasons.includes('facility')?'缺少设施':'暂无可用落点';c.label=c.reason;}
+  if(!r.sold&&!availability.legal){c.reason=availability.reasons.includes('capacity')?(availability.full&&w.ordinaryUnits(e.family).every(u=>u.rank>=w.soldierCap())?'军衔已满':'增援已安排'):availability.reasons.includes('research')?'研究不足':availability.reasons.includes('facility')?'缺少设施':'暂无可用落点';c.label=c.reason;}
 
  }
  return c;

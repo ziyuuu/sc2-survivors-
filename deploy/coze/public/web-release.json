@@ -1,14 +1,14 @@
 {
-  "appBuildId": "d651fd89dcafffff21f304a406717c5221a2582285aa107ee3e45fbb28750eaa",
+  "appBuildId": "8f1a80a4c0b6e700c949ec6750fd533e54134eb763348ca6f590076eb33f3ed4",
   "runSchema": 26,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-five-v3",
-  "assetCount": 647,
-  "fileCount": 629,
-  "assetBytes": 648838732,
-  "logicalBytes": 649752092,
+  "assetCount": 656,
+  "fileCount": 638,
+  "assetBytes": 667894443,
+  "logicalBytes": 668807803,
   "sharedBytes": 913360,
-  "manifest": "asset-manifest.2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a.json",
-  "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+  "manifest": "asset-manifest.f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151.json",
+  "release": "f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151",
   "source": "reports/local/asset-reachability.json"
 }

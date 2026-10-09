@@ -1,4 +1,5 @@
 import './arrival-cards.css';
+import '../intermission-skin/card-material.css';
 import type {World} from '../../simulation/world';
 import {takeUnitArrivals,type UnitArrival} from '../../simulation/boss-loot';
 import {paintedArt,escapeHtml} from './painted-art';
@@ -21,7 +22,7 @@ export class ArrivalCards {
   const item=this.current,card=document.createElement('article');card.className='arrival-card '+item.kind;
   const duration=item.kind==='hero'?2900:2400;
   card.style.setProperty('--arrival-duration',duration+'ms');
-  card.dataset.identity=item.identity;
+  card.dataset.identity=item.identity;card.dataset.quality=item.kind==='hero'?'orange':'purple';card.dataset.cardRace=this.world.expedition.race;
   const particles=Array.from({length:item.kind==='hero'?38:24},(_,i)=>{
    const angle=i*2.399963,reach=.85+(i%5)*.13;
    return `<i style="--reach:${reach};--spark-size:${i%3+2}px;--spark-delay:${(duration*.285)+(i%4)*21}ms;--spark-angle:${angle}rad"></i>`;

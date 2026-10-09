@@ -1,9 +1,127 @@
 {
   "from": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
-  "to": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
-  "appBuildId": "d651fd89dcafffff21f304a406717c5221a2582285aa107ee3e45fbb28750eaa",
-  "files": [],
+  "to": "f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151",
+  "appBuildId": "8f1a80a4c0b6e700c949ec6750fd533e54134eb763348ca6f590076eb33f3ed4",
+  "files": [
+    {
+      "url": "assets/1e0579f3c86628f06de17baceb65605fc32e4cd19523e667346382c248e9ebd8.png",
+      "bytes": 2040989,
+      "sha256": "1e0579f3c86628f06de17baceb65605fc32e4cd19523e667346382c248e9ebd8",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.intermission.background-protoss"
+      ],
+      "gitPath": "deploy/runtime/assets/1e0579f3c86628f06de17baceb65605fc32e4cd19523e667346382c248e9ebd8.png"
+    },
+    {
+      "url": "assets/3621a7b8459c0430b0580ad041c31adba881d0baede6b9e96280bf85da52b6a9.png",
+      "bytes": 1906118,
+      "sha256": "3621a7b8459c0430b0580ad041c31adba881d0baede6b9e96280bf85da52b6a9",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.intermission.objects-zerg"
+      ],
+      "gitPath": "deploy/runtime/assets/3621a7b8459c0430b0580ad041c31adba881d0baede6b9e96280bf85da52b6a9.png"
+    },
+    {
+      "url": "assets/49bada5cdd44ad17f1833dc61d0291aa3dbdad59fb7e4e0d34b3518ffd96198d.png",
+      "bytes": 1925375,
+      "sha256": "49bada5cdd44ad17f1833dc61d0291aa3dbdad59fb7e4e0d34b3518ffd96198d",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.intermission.objects-protoss"
+      ],
+      "gitPath": "deploy/runtime/assets/49bada5cdd44ad17f1833dc61d0291aa3dbdad59fb7e4e0d34b3518ffd96198d.png"
+    },
+    {
+      "url": "assets/62ecc1cf88e30b377df16f3d3edc6b9f7f7f48c29ad066c9a82f37e5d0485a5c.png",
+      "bytes": 2543279,
+      "sha256": "62ecc1cf88e30b377df16f3d3edc6b9f7f7f48c29ad066c9a82f37e5d0485a5c",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.intermission.line-equipment-protoss"
+      ],
+      "gitPath": "deploy/runtime/assets/62ecc1cf88e30b377df16f3d3edc6b9f7f7f48c29ad066c9a82f37e5d0485a5c.png"
+    },
+    {
+      "url": "assets/7894063ca3920403787ba3788d5be88c2a361e0c29f0af63ecc00347a43293cb.png",
+      "bytes": 1933764,
+      "sha256": "7894063ca3920403787ba3788d5be88c2a361e0c29f0af63ecc00347a43293cb",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.intermission.background-terran"
+      ],
+      "gitPath": "deploy/runtime/assets/7894063ca3920403787ba3788d5be88c2a361e0c29f0af63ecc00347a43293cb.png"
+    },
+    {
+      "url": "assets/a8c36e2528f0da26d7c8daffbcf7997ba536b5ebca1ac3a9962b31e6d4f8e5f8.png",
+      "bytes": 1852112,
+      "sha256": "a8c36e2528f0da26d7c8daffbcf7997ba536b5ebca1ac3a9962b31e6d4f8e5f8",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.intermission.objects-terran"
+      ],
+      "gitPath": "deploy/runtime/assets/a8c36e2528f0da26d7c8daffbcf7997ba536b5ebca1ac3a9962b31e6d4f8e5f8.png"
+    },
+    {
+      "url": "assets/cf61deb4d2e34fc8cc8ce8bec7aaa342d731b6b68bf24aeaa4f71483327e6895.png",
+      "bytes": 2261857,
+      "sha256": "cf61deb4d2e34fc8cc8ce8bec7aaa342d731b6b68bf24aeaa4f71483327e6895",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.intermission.line-equipment-terran"
+      ],
+      "gitPath": "deploy/runtime/assets/cf61deb4d2e34fc8cc8ce8bec7aaa342d731b6b68bf24aeaa4f71483327e6895.png"
+    },
+    {
+      "url": "assets/d66d015b796c81c6a131e35e922444064ca7ccc6edfcc0643e0b17d1af3858bc.png",
+      "bytes": 2335665,
+      "sha256": "d66d015b796c81c6a131e35e922444064ca7ccc6edfcc0643e0b17d1af3858bc",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.intermission.line-equipment-zerg"
+      ],
+      "gitPath": "deploy/runtime/assets/d66d015b796c81c6a131e35e922444064ca7ccc6edfcc0643e0b17d1af3858bc.png"
+    },
+    {
+      "url": "assets/fbc8c3d7d2a654a4b8cad707f89f0e4963e9312c7fe53c35828ce6b47e36f243.png",
+      "bytes": 2256552,
+      "sha256": "fbc8c3d7d2a654a4b8cad707f89f0e4963e9312c7fe53c35828ce6b47e36f243",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.intermission.background-zerg"
+      ],
+      "gitPath": "deploy/runtime/assets/fbc8c3d7d2a654a4b8cad707f89f0e4963e9312c7fe53c35828ce6b47e36f243.png"
+    }
+  ],
   "reused": 629,
-  "newResourceBytes": 0,
+  "newResourceBytes": 19055711,
   "retainedOldResources": true
 }

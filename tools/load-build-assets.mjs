@@ -1,3 +1,4 @@
+import {loadIntermissionAssets} from './intermission-assets.mjs';
 import fs from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 
@@ -27,5 +28,5 @@ export async function loadBuildAssets(){
    if(!matches||r.sourceSha256!==r.packedSha256)throw Error('UI resource changed: '+file);
   }
  }
- return [...metadata.records,...ui.records];
+ return [...metadata.records,...ui.records,...await loadIntermissionAssets()];
 }
