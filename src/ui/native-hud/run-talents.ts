@@ -1,0 +1,5 @@
+import type {World} from '../../simulation/world';
+import {TALENT_BY_ID,TALENT_LINES} from '../../data/mvp-talents';
+import {RACE_NAMES} from '../../data/races';
+import {esc,modal,button} from '../presentation/reference-primitives';
+export function renderRunTalents(w:World){const allocation=w.runConfig?.frozenTalents;return modal('本局天赋',allocation?`${RACE_NAMES[allocation.race]} · 已投入 ${allocation.allocated} 点`:'',allocation?`<div class="native-run-talents" data-ui-scroll>${TALENT_LINES.map(line=>{const nodes=Object.entries(allocation.levels).map(([id,rank])=>({node:TALENT_BY_ID.get(id),rank})).filter(v=>v.rank>0&&v.node?.line===line.id);return nodes.length?`<section><h2>${line.name}</h2>${nodes.map(({node,rank})=>`<article><h3>${esc(node!.name)} <small>${rank} / ${node!.maxRank}</small></h3><p>${esc(node!.description)}</p></article>`).join('')}</section>`:'';}).join('')||'<p>本局未投入天赋。</p>'}</div>`:'<p>本局尚未开始。</p>','production-modal',button('返回','battle-panel-close','primary'),'battle-panel-close');}

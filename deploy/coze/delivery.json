@@ -1,10 +1,10 @@
 {
-  "status": "Ordered entrance loading and cancellation, pod health, responsive menu/card layout and formal save notice; original gameplay/resources retained; no live deployment",
-  "appBuildId": "8fe4ce100758fcf415621b95f28efb32cbd66dece6819e1e409914755c32bbde",
-  "packageBuildId": "8f0f77a88c21b3bad33ae8f4400a393068df63dada4b1336e59769845777645d",
+  "status": "Approved native HUD, original six skin frames, per-race hard campaign cosmetic unlock and retained battle actions; local validation only; no live deployment",
+  "appBuildId": "5c1a664d68eaa96c356379a8490413ed184351d254898977ae8ddce2c2498756",
+  "packageBuildId": "b37cd4b10fac4176fd1bac8cd081f83bab40d637f3fa3e738a548fe731cbc050",
   "runSchema": 26,
   "profileVersion": 6,
-  "release": "f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151",
+  "release": "2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5",
   "appFiles": [
     {
       "path": ".env.example",
@@ -112,6 +112,11 @@
       "sha256": "107ac4b414a3b9f01b4d6f1271523250ff447f0621830b36cfd15f060f462e14"
     },
     {
+      "path": "NATIVE_HUD_INTEGRATION_20261010.md",
+      "bytes": 3404,
+      "sha256": "f5f4bc355f8c3cd84dd4d434eaa55c4f415f27a04e789db7240371bb092f08c0"
+    },
+    {
       "path": "OPENING_COVER_FLAME_20261007.md",
       "bytes": 4553,
       "sha256": "241048dd0b7e23eea668a2646c75855744304f4a314538b6eaabc1e4c679fd44"
@@ -129,12 +134,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "152d2a8ec32681f6268b1a8d6f39e0afd482834a7da7d343446ae545ab004dc5"
+      "sha256": "a0c2d9033192253491472effe17f72f9b30f159b5999d7067ace505065fc12ab"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "40567c4007343540a5363ef99f55fafd94411a7ee64ef2ab0cd9a4570b17fe9e"
+      "sha256": "1a3413c3f958a0a8757b7f6d78c347b80e0026efdce25427c590de08345345e0"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -142,24 +147,24 @@
       "sha256": "de36b7e029c2e4788e4072a32164d6ec7f0aba9a10b373e79d3aa5478c7b84ca"
     },
     {
-      "path": "public/asset-manifest.f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151.json",
-      "bytes": 155602,
-      "sha256": "6182417637480b36db27d6935a550404d08a9a56baec3733a6f9f308479ba889"
+      "path": "public/asset-manifest.2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5.json",
+      "bytes": 164495,
+      "sha256": "f99512f34c22dbefa46d9697f02984b47b09704764b3abbff7516ccd2010cdf0"
     },
     {
-      "path": "public/assets/index-IAp3WUPz.css",
-      "bytes": 468677,
-      "sha256": "4dcae7e4dc2cd43c8f23b7207974d12dc74b4f36b9ad6abe32d95079839c133a"
+      "path": "public/assets/index-CnTymvdV.css",
+      "bytes": 489073,
+      "sha256": "a17106618e8f4ac803443116572bdd5035a7d6eea43b69db37ab73259d8acd89"
     },
     {
-      "path": "public/assets/index-SFf3eiBb.js",
-      "bytes": 2895970,
-      "sha256": "ec234ee39a36f25497086344cdcd745c2538ce744a9686577b3a9719d002c150"
+      "path": "public/assets/index-CUAcMH7c.js",
+      "bytes": 2939661,
+      "sha256": "0ca8e264d5f09fcb7cc74ab18dd4fe861768a980ae62564e80d0c71e8010734f"
     },
     {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "e6e38949e8b5e698aa4dead22bd598d61d145d5b5d84d950e8774ef79eb701a3"
+      "sha256": "608e7e5c18fc95ed652cdccd397d884a70cae3cfba3c7a27504edd29b134c0da"
     },
     {
       "path": "public/runtime-config.json",
@@ -169,7 +174,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "01694716ac69ed3706c4f9d9db80914529a46c6aac68913b7aa5786013bd9861"
+      "sha256": "c0039d5f3d321bbcc23cf840bb4e62db5d26fe92f32ffa95eeb9fb1d8644aba0"
     },
     {
       "path": "README.md",
@@ -183,13 +188,13 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 329,
-      "sha256": "f5419252e879fa6018e93809f9f3a959de5ed85654df020bf4dac08d47c17444"
+      "bytes": 17702,
+      "sha256": "736eae46664ea68f471c232625b85725df044c3f7b38f6990c915c7f551ce0b5"
     },
     {
       "path": "resource-groups.json",
-      "bytes": 299480,
-      "sha256": "9adac812ac34924a8145cac52f894d00ee40ea2f90c787ff8aed7d2b55bba88a"
+      "bytes": 316846,
+      "sha256": "274f73cdcfc435a1fad2b8371824a751145d33e42da61c3c0007796914349e20"
     },
     {
       "path": "sc2-backend.conf",
@@ -912,8 +917,8 @@
       "sha256": "eaf848b398aba0f455e7f15179f34131c82acd4d0c9aa2e4cd11ff9cb0a9bf20"
     }
   ],
-  "assets": 638,
-  "resourceBytes": 667894443,
+  "assets": 675,
+  "resourceBytes": 668621453,
   "includesDatabase": false,
   "includesAccounts": false,
   "resourcesIncluded": 0,

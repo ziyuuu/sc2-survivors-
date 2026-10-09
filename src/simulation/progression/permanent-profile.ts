@@ -77,6 +77,19 @@ export class PermanentProfile {
  selectRace(race:Race){if(!validRace(race))return false;if(this.activeRace===race)return true;this.state.activeRace=race;this.changed();return true;}
  get revision(){return this.state.revision;}
  get receipts(){return new Set(this.state.receipts);}
+ /** Cosmetic receipts use the existing exported receipt container; no currency is awarded. */
+ hasVeteranHud(race:Race){return this.state.receipts.includes('cosmetic:hud:hard:'+race);}
+ recordHardCampaignClear(race:Race){
+  if(!validRace(race)||this.hasVeteranHud(race))return false;
+  this.state.receipts.push('cosmetic:hud:hard:'+race);this.changed();return true;
+ }
+ hudSkin(race:Race):1|2{return this.hasVeteranHud(race)&&this.state.receipts.includes('cosmetic:hud:selected:'+race+':2')?2:1;}
+ selectHudSkin(race:Race,variant:1|2){
+  if(!validRace(race)||(variant!==1&&variant!==2)||variant===2&&!this.hasVeteranHud(race))return false;
+  if(this.hudSkin(race)===variant)return true;
+  this.state.receipts=this.state.receipts.filter(r=>r!=='cosmetic:hud:selected:'+race+':2');
+  if(variant===2)this.state.receipts.push('cosmetic:hud:selected:'+race+':2');this.changed();return true;
+ }
  get levels():TalentLevels{return this.levelsFor(this.activeRace);}
  levelsFor(race:Race):TalentLevels{return {...this.state.presets[race][this.activePresetFor(race)].levels};}
  get allocated(){return this.levelFor(this.activeRace);}

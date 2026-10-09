@@ -898,7 +898,7 @@ export class World extends RunState {
   if(!this.endless&&this.runId){const points=talentPointsForStage(this.difficulty,this.stage);if(points)this.awardPermanentResource(this.runId+':stage:'+this.stage,points);}
    const [m,g]=this.config.reward,f=incomeFactor(this.difficulty)*(1+.15*this.talent('bonus_income')),roundReceipt=this.endless&&this.runId?`${this.runId}:endless-round:${this.endless.round}`:null,alreadyPaid=!!roundReceipt&&this.endlessRoundReceipts.includes(roundReceipt);
    this.clearReceipt={stage:this.stage,minerals:alreadyPaid?0:m*f,gas:alreadyPaid?0:g*f};if(!alreadyPaid){this.wallet.minerals+=m*f;this.wallet.gas+=g*f;this.economyTotals.clear.minerals+=m*f;this.economyTotals.clear.gas+=g*f;if(roundReceipt)this.endlessRoundReceipts.push(roundReceipt);}
-  if(!this.endless&&this.stage===18){this.phase='won';this.rewards=[];this.rewardClaimed=true;this.announce('主巢已摧毁 · 小队撤离成功');return;}
+  if(!this.endless&&this.stage===18){this.phase='won';this.rewards=[];this.rewardClaimed=true;if(!this.sandbox&&this.runId&&(this.difficulty==='hard'||this.difficulty==='hell'))this.permanentProfile.recordHardCampaignClear(this.runConfig?.race??this.selectedRace);this.announce('主巢已摧毁 · 小队撤离成功');return;}
   this.phase='reward';this.rewardRound=this.endless&&this.endless.round%4!==0?'random':'building';this.rewardClaimed=false;this.rerolls=0;
   beginExpeditionWindow(this.expedition,this.draftStage,this.draftWindowId,this.talent('window_shop'),this.talent('free_purchase'));
   if(this.rewardRound==='random')this.expedition.developmentBought=true;

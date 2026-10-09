@@ -1,9 +1,491 @@
 {
   "from": "f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151",
-  "to": "f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151",
-  "appBuildId": "8fe4ce100758fcf415621b95f28efb32cbd66dece6819e1e409914755c32bbde",
-  "files": [],
+  "to": "2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5",
+  "appBuildId": "5c1a664d68eaa96c356379a8490413ed184351d254898977ae8ddce2c2498756",
+  "files": [
+    {
+      "url": "assets/025536c312138612932bb909169613ce50f9c87a522798f72157aaffbf19f898.png",
+      "bytes": 9726,
+      "sha256": "025536c312138612932bb909169613ce50f9c87a522798f72157aaffbf19f898",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-protoss-immortal"
+      ],
+      "gitPath": "deploy/runtime/assets/025536c312138612932bb909169613ce50f9c87a522798f72157aaffbf19f898.png"
+    },
+    {
+      "url": "assets/0e9549af7a2c220680db3d2b5ff34dff0e0943bf832f8f8c8c1ddebae53212c7.png",
+      "bytes": 5127,
+      "sha256": "0e9549af7a2c220680db3d2b5ff34dff0e0943bf832f8f8c8c1ddebae53212c7",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_console_commandbutton_normal_defaultzerg"
+      ],
+      "gitPath": "deploy/runtime/assets/0e9549af7a2c220680db3d2b5ff34dff0e0943bf832f8f8c8c1ddebae53212c7.png"
+    },
+    {
+      "url": "assets/1c4e6cd92ee9cb5d29ec1ee46b76a8fc043c82754e1f79083a9eafc776ace2da.png",
+      "bytes": 102835,
+      "sha256": "1c4e6cd92ee9cb5d29ec1ee46b76a8fc043c82754e1f79083a9eafc776ace2da",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.sc2_ui_collection_huds_large_fenix_consoleprotoss"
+      ],
+      "gitPath": "deploy/runtime/assets/1c4e6cd92ee9cb5d29ec1ee46b76a8fc043c82754e1f79083a9eafc776ace2da.png"
+    },
+    {
+      "url": "assets/1f46acaf08c01f537cf9f8c6cde18cc4dc724833ca82b859dbf66ef5ccf73e3b.png",
+      "bytes": 4644,
+      "sha256": "1f46acaf08c01f537cf9f8c6cde18cc4dc724833ca82b859dbf66ef5ccf73e3b",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_ingame_lotv_herounitframe_zergsingle"
+      ],
+      "gitPath": "deploy/runtime/assets/1f46acaf08c01f537cf9f8c6cde18cc4dc724833ca82b859dbf66ef5ccf73e3b.png"
+    },
+    {
+      "url": "assets/2519fc3b743a4ce616aed5f207ef085c79323777211b1196301155a22441912f.png",
+      "bytes": 6839,
+      "sha256": "2519fc3b743a4ce616aed5f207ef085c79323777211b1196301155a22441912f",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-zerg-roach"
+      ],
+      "gitPath": "deploy/runtime/assets/2519fc3b743a4ce616aed5f207ef085c79323777211b1196301155a22441912f.png"
+    },
+    {
+      "url": "assets/255550ae26c16deb78bcc9d546f74f932cdb1d0d8170606241044347a701e114.png",
+      "bytes": 3869,
+      "sha256": "255550ae26c16deb78bcc9d546f74f932cdb1d0d8170606241044347a701e114",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.btn-ability-zerg-transfusion"
+      ],
+      "gitPath": "deploy/runtime/assets/255550ae26c16deb78bcc9d546f74f932cdb1d0d8170606241044347a701e114.png"
+    },
+    {
+      "url": "assets/258be43af7f456f34408ec26cb3183280b08f6f43053aa0eb6ce48ab02b77722.png",
+      "bytes": 262,
+      "sha256": "258be43af7f456f34408ec26cb3183280b08f6f43053aa0eb6ce48ab02b77722",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_ingame_lotv_healthbar"
+      ],
+      "gitPath": "deploy/runtime/assets/258be43af7f456f34408ec26cb3183280b08f6f43053aa0eb6ce48ab02b77722.png"
+    },
+    {
+      "url": "assets/4fa6cbf8f7dcaf4bd16ab103cb448777ee8bdead692c34311192bbf187d3b9a2.png",
+      "bytes": 4602,
+      "sha256": "4fa6cbf8f7dcaf4bd16ab103cb448777ee8bdead692c34311192bbf187d3b9a2",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_ingame_lotv_herounitframeshield"
+      ],
+      "gitPath": "deploy/runtime/assets/4fa6cbf8f7dcaf4bd16ab103cb448777ee8bdead692c34311192bbf187d3b9a2.png"
+    },
+    {
+      "url": "assets/5066c70785e52cae37f0eaf8ff0b8bee8f010d7146a3a5d5c5220b3dceb8ba85.png",
+      "bytes": 7995,
+      "sha256": "5066c70785e52cae37f0eaf8ff0b8bee8f010d7146a3a5d5c5220b3dceb8ba85",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-zerg-ultralisk"
+      ],
+      "gitPath": "deploy/runtime/assets/5066c70785e52cae37f0eaf8ff0b8bee8f010d7146a3a5d5c5220b3dceb8ba85.png"
+    },
+    {
+      "url": "assets/5596733268047f8213d1843eef41e12d188b4450958c12d07973f5d743ffa2f1.png",
+      "bytes": 85794,
+      "sha256": "5596733268047f8213d1843eef41e12d188b4450958c12d07973f5d743ffa2f1",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.sc2_ui_collection_huds_large_consoleskinzergdefault"
+      ],
+      "gitPath": "deploy/runtime/assets/5596733268047f8213d1843eef41e12d188b4450958c12d07973f5d743ffa2f1.png"
+    },
+    {
+      "url": "assets/62d1dff9a70d15abb2c89113d34510a1ae2c819120ec456dcb27380bccf4d561.png",
+      "bytes": 3074,
+      "sha256": "62d1dff9a70d15abb2c89113d34510a1ae2c819120ec456dcb27380bccf4d561",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_ingame_lotv_herounitframe_terr"
+      ],
+      "gitPath": "deploy/runtime/assets/62d1dff9a70d15abb2c89113d34510a1ae2c819120ec456dcb27380bccf4d561.png"
+    },
+    {
+      "url": "assets/6b8e89347bb7f363c48698a6512030da4908815fcc9148626befa17305b36432.png",
+      "bytes": 102726,
+      "sha256": "6b8e89347bb7f363c48698a6512030da4908815fcc9148626befa17305b36432",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.sc2_ui_collection_huds_large_dehaka_consolezerg"
+      ],
+      "gitPath": "deploy/runtime/assets/6b8e89347bb7f363c48698a6512030da4908815fcc9148626befa17305b36432.png"
+    },
+    {
+      "url": "assets/6f979bd7fd5bb47c2c348c4d2736cf38f03aa45a3b94cb2989541bdfef16094e.png",
+      "bytes": 6026,
+      "sha256": "6f979bd7fd5bb47c2c348c4d2736cf38f03aa45a3b94cb2989541bdfef16094e",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_ingame_lotv_herounitframe_protsingle"
+      ],
+      "gitPath": "deploy/runtime/assets/6f979bd7fd5bb47c2c348c4d2736cf38f03aa45a3b94cb2989541bdfef16094e.png"
+    },
+    {
+      "url": "assets/7101b4599e51457a4e4bc2dd7c0506c586a7a27540f7e34aad03f89329568612.png",
+      "bytes": 85133,
+      "sha256": "7101b4599e51457a4e4bc2dd7c0506c586a7a27540f7e34aad03f89329568612",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.sc2_ui_collection_huds_large_consoleprotoss_nerazim"
+      ],
+      "gitPath": "deploy/runtime/assets/7101b4599e51457a4e4bc2dd7c0506c586a7a27540f7e34aad03f89329568612.png"
+    },
+    {
+      "url": "assets/7341de4b2df73b529915169ba3b1e96791dbcba0f946045f8f4f73b338e29951.png",
+      "bytes": 5451,
+      "sha256": "7341de4b2df73b529915169ba3b1e96791dbcba0f946045f8f4f73b338e29951",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.btn-ability-protoss-massrecall"
+      ],
+      "gitPath": "deploy/runtime/assets/7341de4b2df73b529915169ba3b1e96791dbcba0f946045f8f4f73b338e29951.png"
+    },
+    {
+      "url": "assets/8024cb81df7e06c5cafa4e6ca915b966c4c86c1888de79512228545f88a4c468.png",
+      "bytes": 6596,
+      "sha256": "8024cb81df7e06c5cafa4e6ca915b966c4c86c1888de79512228545f88a4c468",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-terran-marine"
+      ],
+      "gitPath": "deploy/runtime/assets/8024cb81df7e06c5cafa4e6ca915b966c4c86c1888de79512228545f88a4c468.png"
+    },
+    {
+      "url": "assets/838bbaa8b15e2319846cbd14d648dfe1dd15d6b6e0f3c3591815307dd7c44a23.png",
+      "bytes": 10084,
+      "sha256": "838bbaa8b15e2319846cbd14d648dfe1dd15d6b6e0f3c3591815307dd7c44a23",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.btn-ability-spearofadun-purifierbeam"
+      ],
+      "gitPath": "deploy/runtime/assets/838bbaa8b15e2319846cbd14d648dfe1dd15d6b6e0f3c3591815307dd7c44a23.png"
+    },
+    {
+      "url": "assets/890dc922700d3a1ec5e99a90d11c3525481ed2f5d860875b86a152df3677bb1b.png",
+      "bytes": 4450,
+      "sha256": "890dc922700d3a1ec5e99a90d11c3525481ed2f5d860875b86a152df3677bb1b",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.btn-ability-terran-scannersweep"
+      ],
+      "gitPath": "deploy/runtime/assets/890dc922700d3a1ec5e99a90d11c3525481ed2f5d860875b86a152df3677bb1b.png"
+    },
+    {
+      "url": "assets/8a8ddfe193a84427962945dbeb4a76516ab976ea2c4f2effc5b29b8753b293d8.png",
+      "bytes": 10744,
+      "sha256": "8a8ddfe193a84427962945dbeb4a76516ab976ea2c4f2effc5b29b8753b293d8",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-terran-medivac"
+      ],
+      "gitPath": "deploy/runtime/assets/8a8ddfe193a84427962945dbeb4a76516ab976ea2c4f2effc5b29b8753b293d8.png"
+    },
+    {
+      "url": "assets/9749ab4a12346e68b2b8fca2f8c876a06b45ac96036b453790ffe9fbd09083d4.png",
+      "bytes": 2587,
+      "sha256": "9749ab4a12346e68b2b8fca2f8c876a06b45ac96036b453790ffe9fbd09083d4",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.btn-ability-terran-fireonthemove"
+      ],
+      "gitPath": "deploy/runtime/assets/9749ab4a12346e68b2b8fca2f8c876a06b45ac96036b453790ffe9fbd09083d4.png"
+    },
+    {
+      "url": "assets/97a8bac80a95c87ca906bb43ae69e31e062529b335f473a25c0cc0d2fc9745e1.png",
+      "bytes": 81207,
+      "sha256": "97a8bac80a95c87ca906bb43ae69e31e062529b335f473a25c0cc0d2fc9745e1",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.sc2_ui_collection_huds_large_consoleterran_classic"
+      ],
+      "gitPath": "deploy/runtime/assets/97a8bac80a95c87ca906bb43ae69e31e062529b335f473a25c0cc0d2fc9745e1.png"
+    },
+    {
+      "url": "assets/982f2816a33c18ac41e8aa4eae616ef865033c2505b34effb8d2af7ce6fb601c.png",
+      "bytes": 5072,
+      "sha256": "982f2816a33c18ac41e8aa4eae616ef865033c2505b34effb8d2af7ce6fb601c",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_console_commandbutton_normal_defaultprotoss"
+      ],
+      "gitPath": "deploy/runtime/assets/982f2816a33c18ac41e8aa4eae616ef865033c2505b34effb8d2af7ce6fb601c.png"
+    },
+    {
+      "url": "assets/9a898c7fcbc971982ceead2b2518dbe3d580dd982243da2b6aedde85f852ebd8.png",
+      "bytes": 7331,
+      "sha256": "9a898c7fcbc971982ceead2b2518dbe3d580dd982243da2b6aedde85f852ebd8",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-protoss-stalker"
+      ],
+      "gitPath": "deploy/runtime/assets/9a898c7fcbc971982ceead2b2518dbe3d580dd982243da2b6aedde85f852ebd8.png"
+    },
+    {
+      "url": "assets/9aacea00f71e6377dc8046eeebb08a0ff4e3a21482f28f3ce0e7169ec5c4aba4.png",
+      "bytes": 9590,
+      "sha256": "9aacea00f71e6377dc8046eeebb08a0ff4e3a21482f28f3ce0e7169ec5c4aba4",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-terran-siegetank-tankmode"
+      ],
+      "gitPath": "deploy/runtime/assets/9aacea00f71e6377dc8046eeebb08a0ff4e3a21482f28f3ce0e7169ec5c4aba4.png"
+    },
+    {
+      "url": "assets/9b409236864405a81fb5e361e44b5b3bcbb78f687eeef48feadb66625af95709.png",
+      "bytes": 2570,
+      "sha256": "9b409236864405a81fb5e361e44b5b3bcbb78f687eeef48feadb66625af95709",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.btn-ability-terran-nuclearstrike"
+      ],
+      "gitPath": "deploy/runtime/assets/9b409236864405a81fb5e361e44b5b3bcbb78f687eeef48feadb66625af95709.png"
+    },
+    {
+      "url": "assets/9dc60c1f8384fbda13cf0b898193ae1a487b7c21af50320af0df9198fbdce435.png",
+      "bytes": 2887,
+      "sha256": "9dc60c1f8384fbda13cf0b898193ae1a487b7c21af50320af0df9198fbdce435",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.btn-command-move"
+      ],
+      "gitPath": "deploy/runtime/assets/9dc60c1f8384fbda13cf0b898193ae1a487b7c21af50320af0df9198fbdce435.png"
+    },
+    {
+      "url": "assets/a51085f168d5bc6bffd592ee772842c9629fa149aacd02b1a3d05c126b9bf067.png",
+      "bytes": 6541,
+      "sha256": "a51085f168d5bc6bffd592ee772842c9629fa149aacd02b1a3d05c126b9bf067",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-zerg-hydralisk"
+      ],
+      "gitPath": "deploy/runtime/assets/a51085f168d5bc6bffd592ee772842c9629fa149aacd02b1a3d05c126b9bf067.png"
+    },
+    {
+      "url": "assets/aaffe22defa7b02b0a6ea0ce3f9d3e5871060ca9a68e783465071df39b22bb3c.png",
+      "bytes": 5124,
+      "sha256": "aaffe22defa7b02b0a6ea0ce3f9d3e5871060ca9a68e783465071df39b22bb3c",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_console_commandbutton_normal_defaultterran"
+      ],
+      "gitPath": "deploy/runtime/assets/aaffe22defa7b02b0a6ea0ce3f9d3e5871060ca9a68e783465071df39b22bb3c.png"
+    },
+    {
+      "url": "assets/ae819ba7e8a5a99c4752467160a8c72b7a0bcfd99a0994ea5384add9cd3a36bb.png",
+      "bytes": 3311,
+      "sha256": "ae819ba7e8a5a99c4752467160a8c72b7a0bcfd99a0994ea5384add9cd3a36bb",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.btn-ability-protoss-blink"
+      ],
+      "gitPath": "deploy/runtime/assets/ae819ba7e8a5a99c4752467160a8c72b7a0bcfd99a0994ea5384add9cd3a36bb.png"
+    },
+    {
+      "url": "assets/b1dbaa35f142c75886593fc29c57c1e02a12aa17243495e6aac9fabe670b92e9.png",
+      "bytes": 6198,
+      "sha256": "b1dbaa35f142c75886593fc29c57c1e02a12aa17243495e6aac9fabe670b92e9",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-zerg-zergling"
+      ],
+      "gitPath": "deploy/runtime/assets/b1dbaa35f142c75886593fc29c57c1e02a12aa17243495e6aac9fabe670b92e9.png"
+    },
+    {
+      "url": "assets/b4cf31abe6d7abc8dfef34dcb0d1e1ad07385196f584f7564fbcaf9fd764fa2a.png",
+      "bytes": 8644,
+      "sha256": "b4cf31abe6d7abc8dfef34dcb0d1e1ad07385196f584f7564fbcaf9fd764fa2a",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-protoss-zealot"
+      ],
+      "gitPath": "deploy/runtime/assets/b4cf31abe6d7abc8dfef34dcb0d1e1ad07385196f584f7564fbcaf9fd764fa2a.png"
+    },
+    {
+      "url": "assets/b8abdccd2217b7bbc77227c5cc3a2a2c72747c8951faa6b7628736aedc46443e.png",
+      "bytes": 2880,
+      "sha256": "b8abdccd2217b7bbc77227c5cc3a2a2c72747c8951faa6b7628736aedc46443e",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_ingame_lotv_herounitframe_energy_terr"
+      ],
+      "gitPath": "deploy/runtime/assets/b8abdccd2217b7bbc77227c5cc3a2a2c72747c8951faa6b7628736aedc46443e.png"
+    },
+    {
+      "url": "assets/c2c63576767905bdd6496bc14412cff81a866eedfae223b19a681235da87c8e2.png",
+      "bytes": 10396,
+      "sha256": "c2c63576767905bdd6496bc14412cff81a866eedfae223b19a681235da87c8e2",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.btn-ability-zerg-nyduswormmove"
+      ],
+      "gitPath": "deploy/runtime/assets/c2c63576767905bdd6496bc14412cff81a866eedfae223b19a681235da87c8e2.png"
+    },
+    {
+      "url": "assets/c5f9e096dd6acddf72906abb724b3eb7477b717d0b5c9b38a09923411ea7dd3a.png",
+      "bytes": 7437,
+      "sha256": "c5f9e096dd6acddf72906abb724b3eb7477b717d0b5c9b38a09923411ea7dd3a",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-protoss-colossus"
+      ],
+      "gitPath": "deploy/runtime/assets/c5f9e096dd6acddf72906abb724b3eb7477b717d0b5c9b38a09923411ea7dd3a.png"
+    },
+    {
+      "url": "assets/c9e5e6560f1b501055f344bb67679a753464e627ca0daa813fde4e4732e5ae1e.png",
+      "bytes": 209,
+      "sha256": "c9e5e6560f1b501055f344bb67679a753464e627ca0daa813fde4e4732e5ae1e",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.ui_ingame_lotv_energybar"
+      ],
+      "gitPath": "deploy/runtime/assets/c9e5e6560f1b501055f344bb67679a753464e627ca0daa813fde4e4732e5ae1e.png"
+    },
+    {
+      "url": "assets/cb95a0c7c52677f11eb61f42cb5727e93c93cf6c8c3c4361bdc0c5a63e946ca0.png",
+      "bytes": 90756,
+      "sha256": "cb95a0c7c52677f11eb61f42cb5727e93c93cf6c8c3c4361bdc0c5a63e946ca0",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.sc2_ui_collection_huds_large_consoleterran_machined"
+      ],
+      "gitPath": "deploy/runtime/assets/cb95a0c7c52677f11eb61f42cb5727e93c93cf6c8c3c4361bdc0c5a63e946ca0.png"
+    },
+    {
+      "url": "assets/d3b6df48683a9313149e82c4e4e0b9f38f7afb3723295e14d0a2605be81677d9.png",
+      "bytes": 8293,
+      "sha256": "d3b6df48683a9313149e82c4e4e0b9f38f7afb3723295e14d0a2605be81677d9",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "ui.native.wireframe-terran-marauder"
+      ],
+      "gitPath": "deploy/runtime/assets/d3b6df48683a9313149e82c4e4e0b9f38f7afb3723295e14d0a2605be81677d9.png"
+    }
+  ],
   "reused": 638,
-  "newResourceBytes": 0,
+  "newResourceBytes": 727010,
   "retainedOldResources": true
 }

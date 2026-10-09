@@ -93,7 +93,9 @@ export class RunSession {
  /** Inspection never changes the live World or permanent profile. The preview ID is single-use. */
  prepareLoad(raw?:string):LoadPreview{
   const source=raw===undefined?'local':'import';
-  const candidate=raw===undefined?{kind:'current' as const,bundle:{profile:this.archiveProfile,run:this.pending,shopProgress:this.pendingProgress}}:this.inspectSave(raw);
+  // Local continuation keeps current in-memory settings even if durable saving
+  // is delayed or unavailable. Explicit file imports still own their profile.
+  const candidate=raw===undefined?{kind:'current' as const,bundle:{profile:this.world.permanentProfile.exportJSON(),run:this.pending,shopProgress:this.pendingProgress}}:this.inspectSave(raw);
   const {bundle}=candidate;
   if(!PermanentProfile.parseJSON(bundle.profile))throw Error('永久档案无效');
   if(bundle.run)this.world.restoreRun(bundle.run,true);
