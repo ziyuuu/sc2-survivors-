@@ -18,6 +18,7 @@ const blue=new THREE.Color(0x235cc2),red=new THREE.Color(0x893733);
 
 /** Display adapter: uses original textures and original material clocks, with stable World IDs. */
 export class MaterialRepair {
+ readonly specularAA={value:1};
  private surfaces:Surface[]=[];private prepared=new Set<string>();private enabled=true;private covers=new Map<number,{active:boolean;endedAt:number}>();private owners=new Map<number,string>();private identity:InstanceIdentity;
  constructor(readonly r:BattleRenderer,readonly input:Input){this.identity=new InstanceIdentity(r);}
  async prepare(){
@@ -26,7 +27,7 @@ export class MaterialRepair {
    for(const mesh of batch.meshes){if(Array.isArray(mesh.material))throw Error('Unexpected material array '+key);const original=mesh.material as THREE.MeshStandardMaterial;
     const raw=g.parser.json.materials.find((m:{name:string})=>m.name===original.name),source=profile.materials.find(m=>m.name+'#'+m.index===original.name);if(!source||!raw)continue;
     const effect=original.userData.sc2?.role==='effect';
-    const restored=effect?new THREE.MeshBasicMaterial({name:'source:'+original.name,transparent:original.transparent,depthWrite:original.depthWrite,side:original.side,blending:original.blending,alphaTest:original.alphaTest,vertexColors:original.vertexColors}):sourcePhong(original,source);
+    const restored=effect?new THREE.MeshBasicMaterial({name:'source:'+original.name,transparent:original.transparent,depthWrite:original.depthWrite,side:original.side,blending:original.blending,alphaTest:original.alphaTest,vertexColors:original.vertexColors}):sourcePhong(original,source,this.specularAA);
     restored.userData=structuredClone(original.userData);
     const data=new Float32Array(WIDTH*ROWS*4),texture=new THREE.DataTexture(data,WIDTH,ROWS,THREE.RGBAFormat,THREE.FloatType);texture.minFilter=texture.magFilter=THREE.NearestFilter;texture.needsUpdate=true;
     const surface:Surface={batch,mesh,original,restored,source,profile,data,texture,key,composite:profile.composites.some(c=>c.parts.some(p=>p.material.type===1&&p.material.index===source.index))};
@@ -95,7 +96,7 @@ export class MaterialRepair {
    }if(changed)s.texture.needsUpdate=true;
   }
  }
- report(){return{enabled:this.enabled,surfaces:this.surfaces.length,sourceModels:[...this.prepared],stableIdentity:true,identityAssignments:this.identity.assignments,productionSourceEdits:0,originalMaterialTracks:true,sourceTextureMasks:true,capacity:WIDTH};}
+ report(){return{enabled:this.enabled,specularAA:this.specularAA.value===1,surfaces:this.surfaces.length,sourceModels:[...this.prepared],stableIdentity:true,identityAssignments:this.identity.assignments,productionSourceEdits:0,originalMaterialTracks:true,sourceTextureMasks:true,capacity:WIDTH};}
 }
 
 /** GLTF's unlit extension drops emissiveTexture. Restore its original image on static displays. */

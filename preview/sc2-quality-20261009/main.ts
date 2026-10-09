@@ -13,7 +13,7 @@ import {DECK_BLOCKERS,inspectDeck} from './scenario';
 import {source,stamp as sourceStamp} from './sample-data';
 import {loadEmbeddedAssets,prepareEmbeddedAssetIds} from '../../src/assets/offline-pack';
 
-const REVISION='r15';
+const REVISION='r16';
 const query=new URLSearchParams(location.search),race=query.get('roster')??'terran',look=query.get('look')??'restored';
 const el=<T extends HTMLElement>(id:string)=>document.getElementById(id) as T,canvas=el<HTMLCanvasElement>('battle');
 const status=(s:string)=>{el('status').textContent=s;el('loadtext').textContent=s;};
@@ -64,7 +64,8 @@ try{
  el('death').addEventListener('click',()=>{const u=[...world.entities.values()].find(u=>u.hp>0&&u.unitType===(race==='protoss'?'zealot':race==='zerg'?'hydralisk':'marine'));if(u){world.hit(u,1e7,[],1,'zerg');const paused=world.paused;world.paused=false;world.step();world.paused=paused;r.render(1/60,1);report();}});
  el('prepare').addEventListener('click',()=>void prepareBattle());
  el('barrier').addEventListener('click',()=>{const type=race==='protoss'?'immortal':race==='zerg'?'ultralisk':'thor',u=[...world.entities.values()].find(u=>u.hp>0&&u.unitType===type);if(u){world.hit(u,10,[],1,'zerg');checks.push({kind:'native-hit',id:u.id,type:u.unitType,barrier:u.barrier??0,hp:u.hp,time:world.time});report();}});
- for(const [id,count] of [['step',12],['step60',60]] as const)el(id).addEventListener('click',()=>{if(preparing)return;const paused=world.paused;world.paused=false;for(let i=0;i<count&&world.phase==='battle';i++){stepWorld();r.render(1/60,1);}world.paused=paused||world.phase!=='battle';report();});
+ for(const [id,count] of [['step2',2],['step',12],['step60',60]] as const)el(id).addEventListener('click',()=>{if(preparing)return;const paused=world.paused;world.paused=false;for(let i=0;i<count&&world.phase==='battle';i++){stepWorld();r.render(1/60,1);}world.paused=paused||world.phase!=='battle';report();});
+ for(const id of ['specularAA','fxaa'])el(id).addEventListener('change',()=>{const before=state(),enabled=el<HTMLInputElement>(id).checked;if(id==='specularAA')materials.specularAA.value=enabled?1:0;else quality.fxaa.enabled=enabled;checks.push({kind:id,sameWorld:before===state(),enabled});report();});
  el('bench').addEventListener('click',()=>{measure={start:performance.now(),previous:0,frames:[],submit:[],draws:[],gpu:[],triangles:[],state:state()};status('测量中 · 10 秒');});
  el<HTMLInputElement>('ao').addEventListener('change',()=>{const before=state();quality.aoEnabled=el<HTMLInputElement>('ao').checked;checks.push({kind:'ao-switch',sameWorld:before===state(),enabled:quality.aoEnabled});report();});
  for(const id of ['shadow','msaa','bloom','environment','shadowSize','bloomScale'])el(id).addEventListener('change',()=>{const before=state();if(id==='shadow')quality.setShadows(el<HTMLInputElement>(id).checked);if(id==='msaa')quality.setMultisample(el<HTMLInputElement>(id).checked);if(id==='bloom')quality.bloom.enabled=el<HTMLInputElement>(id).checked;if(id==='environment')quality.setEnvironment(el<HTMLInputElement>(id).checked);if(id==='shadowSize')quality.setShadowResolution(Number(el<HTMLSelectElement>(id).value));if(id==='bloomScale')quality.setBloomScale(Number(el<HTMLSelectElement>(id).value));checks.push({kind:id,sameWorld:before===state()});report();});

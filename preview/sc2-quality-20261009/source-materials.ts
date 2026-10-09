@@ -26,11 +26,18 @@ export function coverAlpha(profile:SourceProfile,phase:'inactive'|'start'|'hold'
  const name=phase==='start'?'Cover Start_Immortal_Shield':phase==='hold'?'Cover_Immortal_Shield':'Cover End_Immortal_Shield';
  return Number(sampleTrack(profile.compositeTracks.find(t=>t.name===name),seconds,phase==='end'?0:1));
 }
-export function sourcePhong(original:THREE.MeshStandardMaterial,profile:{specularity:number;hdrSpecular:number}){
+export function sourcePhong(original:THREE.MeshStandardMaterial,profile:{specularity:number;hdrSpecular:number},specularAA={value:1}){
  const base=original as THREE.MeshPhysicalMaterial;
  const mat=new THREE.MeshPhongMaterial({name:'source-specular:'+original.name,color:original.color,map:original.map,normalMap:original.normalMap,normalScale:original.normalScale,emissive:original.emissive,emissiveMap:original.emissiveMap,emissiveIntensity:original.emissiveIntensity,shininess:profile.specularity,specular:0xffffff,specularMap:base.specularColorMap,transparent:original.transparent,opacity:original.opacity,alphaMap:original.alphaMap,alphaTest:original.alphaTest,side:original.side,depthWrite:original.depthWrite,blending:original.blending,vertexColors:original.vertexColors});
  mat.userData=structuredClone(original.userData);
- mat.onBeforeCompile=(s,r)=>{original.onBeforeCompile(s,r);s.fragmentShader=s.fragmentShader.replace('#include <specularmap_fragment>','float specularStrength=1.0;vec3 vrSpecular=vec3(1.0);\n#ifdef USE_SPECULARMAP\nvrSpecular=texture2D(specularMap,vSpecularMapUv).rgb;\n#endif').replace('#include <lights_phong_fragment>','#include <lights_phong_fragment>\nmaterial.specularColor*=vrSpecular*'+Number(profile.hdrSpecular).toFixed(6)+';');};
- mat.customProgramCacheKey=()=>original.customProgramCacheKey()+':source-phong-v1:'+profile.specularity+':'+profile.hdrSpecular;
+ mat.onBeforeCompile=(s,r)=>{original.onBeforeCompile(s,r);s.uniforms.qrSpecularAA=specularAA;
+  s.fragmentShader=s.fragmentShader.replace('#include <common>','#include <common>\nuniform float qrSpecularAA;').replace('#include <specularmap_fragment>','float specularStrength=1.0;vec3 vrSpecular=vec3(1.0);\n#ifdef USE_SPECULARMAP\nvrSpecular=texture2D(specularMap,vSpecularMapUv).rgb;\n#endif').replace('#include <lights_phong_fragment>',`#include <lights_phong_fragment>
+material.specularColor*=vrSpecular*${Number(profile.hdrSpecular).toFixed(6)};
+// Broaden unresolved highlights using the final normal, including the normal map.
+// Three's normalized Blinn-Phong lobe preserves energy as its exponent changes.
+vec3 qrDx=dFdx(normal),qrDy=dFdy(normal);
+float qrVariance=min(0.18,0.5*(dot(qrDx,qrDx)+dot(qrDy,qrDy)))*qrSpecularAA;
+material.specularShininess=max(0.0,2.0/(2.0/(shininess+2.0)+qrVariance)-2.0);`);};
+ mat.customProgramCacheKey=()=>original.customProgramCacheKey()+':source-phong-filtered-v2:'+profile.specularity+':'+profile.hdrSpecular;
  return mat;
 }
