@@ -5,7 +5,7 @@ import {pathToFileURL} from 'node:url';
 import path from 'node:path';
 const out='reports/local/arrival-cards-20261009';
 const build=JSON.parse(await fs.readFile(out+'/build.json','utf8'));
-const report={build:build.sampleBuildId,checks:[],errors:[],captures:[]};
+const report={build:build.sampleBuildId,checks:[],errors:[],captures:[],faceGeometry:[]};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--allow-file-access-from-files','--disable-background-timer-throttling','--disable-renderer-backgrounding']});
 try{
  let page=await browser.newPage({viewport:{width:1440,height:900},hasTouch:false});
@@ -20,6 +20,8 @@ try{
   await page.locator('[data-arrival=sequence]').click();await page.waitForTimeout(200);
   let s=await state();assert.equal(s.current?.kind,'elite');assert.equal(s.hero,1);assert.equal(s.elite,1);assert.equal(s.paused,false);
   const box=await page.locator('.arrival-card').boundingBox();assert.ok(box.width>=140&&box.height>=60);assert.ok(box.x>=0&&box.x+box.width<=width&&box.y+box.height<=height);
+  const geometry=await page.locator('.arrival-body').evaluate(body=>Array.from(body.children).filter(e=>e.matches('.arrival-front,.arrival-back')).map(e=>({width:e.offsetWidth,height:e.offsetHeight,radius:getComputedStyle(e).borderRadius})));
+  assert.deepEqual(geometry[0],geometry[1]);report.faceGeometry.push({viewport:name,...geometry[0]});
   for(const selector of ['#minimap','#joystick','.sample-army']){
    const b=await page.locator(selector).boundingBox();if(b&&await page.locator(selector).isVisible())assert.ok(box.x+box.width<=b.x||b.x+b.width<=box.x||box.y+box.height<=b.y||b.y+b.height<=box.y,'Overlaps '+selector+' '+name);
   }
@@ -31,9 +33,11 @@ try{
   assert.equal(await page.locator('.arrival-art > [data-art-key]').getAttribute('data-art-key'),'raynor');await capture(name+'-hero');
   await page.waitForFunction(()=>window.__ARRIVAL_DEMO_REPORT__().current===null);
   s=await state();assert.deepEqual(s.history.map(x=>x.kind),['elite','hero']);assert.ok(s.time>2);report.checks.push(name+': correct art, native joins, queue, dismissal, uninterrupted simulation, HUD separation');
-  for(const [phase,time] of [['charge',400],['elite-burst',800],['elite',1300]]){
+  for(const [phase,time] of [['charge',400],['flip',700],['elite-burst',800],['elite',1300]]){
    await page.locator('[data-arrival=elite]').click();
    await page.locator('.arrival-card').evaluate((el,time)=>{for(const a of el.getAnimations({subtree:true})){a.pause();a.currentTime=time;}},time);
+   const faces=await page.locator('.arrival-body').evaluate(body=>Array.from(body.children).filter(e=>e.matches('.arrival-front,.arrival-back')).map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};}));
+   for(const key of ['x','y','width','height'])assert.ok(Math.abs(faces[0][key]-faces[1][key])<.25,name+' '+phase+' shared '+key);
    if(phase==='elite-burst')assert.ok(await page.locator('.arrival-sparks i').evaluateAll(nodes=>nodes.some(e=>Number(getComputedStyle(e).opacity)>0)));
    await capture(name+'-'+phase);
   }

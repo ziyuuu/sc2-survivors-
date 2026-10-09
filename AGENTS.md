@@ -1,5 +1,7 @@
 ## Independent arrival-card demo · 2026-10-09
 
+- R4 fixes the user-reported front/back size mismatch: no horizontal back inset; same border box/radius/pivot and one shared3D turn animation. Four sizes measured equal front/back dimensions and four motion phases each have <0.25px projected-bound difference;9 checks/22 captures, no page/model errors.1374 protected production hashes remain unchanged.
+
 - R3 user steering: closer Hearthstone-style rarity reveal and shared-logo metallic dog-tag backs. Original brandLogo, brushed pressed steel/bevel/eyelet; charge/shudder/quick flip/local radial burst/settle. Purple24 sparks/2400ms, gold38/2900ms. Four-size9groups/18captures and original logo decoding pass; production1374 hashes remain identical. R2 timings below are historical. First R3 visual failure is retained and corrected, not accepted evidence.
 
 - User requested an independent HTML first, and asked whether old packages/demo HTMLs were cleared. New preview/arrival-cards-20261009 and tools/build/serve/qa-arrival-cards-demo reuse the original R10 sample through a build-only adapter. Native acquisition precedes original-art purple elite/orange-gold hero cards; R2 rarity reveal: purple16 sparks/2100ms, orange-gold26 sparks/2500ms; charge, card-back turn, local burst and settle; no input capture or pause, true rank-II promotion. Formal boss-drop flow and twelve repairs remain unimplemented.
