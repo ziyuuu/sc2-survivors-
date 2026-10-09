@@ -1,0 +1,110 @@
+{
+  "digest": "7315e6df6634be6e219a22fb976b2a96a5acc25eb2811d274baff9f766bd9022",
+  "files": [
+    {
+      "path": "preview/sc2-quality-20261009/build.mjs",
+      "bytes": 4322,
+      "sha256": "f5c0a8e5e0ab8b37e29cfbd3b11dc2f96f1e41216a9f29e7974d5adb0070429a"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/depth-contact.ts",
+      "bytes": 2467,
+      "sha256": "d0e34d3b938fc2843e1617e740c874596f716b7a5a8877d079020c1f63a2377d"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/index.html",
+      "bytes": 2237,
+      "sha256": "77154db269f7ace1bcfc383b60379f328a5f533a3795baa6b463a0e3ade4c5a4"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/instance-identity.ts",
+      "bytes": 1412,
+      "sha256": "ee867b6daf4325fb0aa5049fd692a0f941bd4c5a77aa726abc09087d4918a854"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/main.ts",
+      "bytes": 15215,
+      "sha256": "d1d54b704bd75fe820a0c35b6c1852045964114ce9932c3c2fd0ecdc247d541c"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/material-repair.ts",
+      "bytes": 12206,
+      "sha256": "aa91af7bf0b24cb5a15fb43f062fad80ddcf58ad77c4a43e4157d6daec5c1efe"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/materials-source.json",
+      "bytes": 1344492,
+      "sha256": "bb7a630a9706c4ea6f872170ebd090742e47439b737c755f2ede21c21ec06139"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/pose-shadow.ts",
+      "bytes": 2608,
+      "sha256": "41cc395a0377e0654382e0df20b46a169a13108f06761f09fe24fd4eb7287dd6"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/prepare-source.mjs",
+      "bytes": 5940,
+      "sha256": "161e130640c6bcbba3484353d1c6ca168e50b7bb93709d1b4ad57ea54c3b97a9"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/quality.ts",
+      "bytes": 5750,
+      "sha256": "aff3cffcb30d5d53d9401cf34aa9b17484d30d9a19dc9438474d1d7258ad7079"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/sample-data.ts",
+      "bytes": 275,
+      "sha256": "6e596d74eb82cbff6da157e68f71ea6c1e94a1ade4cb56462e179367e57dd917"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/scenario.ts",
+      "bytes": 849,
+      "sha256": "1a6d7d659519835349e7032fdda09f1f86418f730c9e65ea2494e148afc62f68"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/serve.mjs",
+      "bytes": 873,
+      "sha256": "f49c16df58e356216526734fd7664c6beb9b229f4f7eb958a1f25ecfb507c0cb"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/source-materials.ts",
+      "bytes": 3456,
+      "sha256": "f8eaac1ea0a63276e5ced94410f4abb5bee1a8a3ef0d06a0bca008511e0fd341"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/stage.ts",
+      "bytes": 10284,
+      "sha256": "9949a29f7784a04f7b88ba8367e11ced30a82fccad90f226a172db37ce148e17"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/stamp.mjs",
+      "bytes": 1120,
+      "sha256": "4c43e4d0d7d57a6a501ee9d9f15616d0e46e9dc8bd08b0a43a45a5dd7e455bb7"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/style.css",
+      "bytes": 2176,
+      "sha256": "6b7477184cc67d1d5b2f9b5b6fcc77ec1fedeb39c5c08c0f7bd83678abe5feac"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/tsconfig.json",
+      "bytes": 88,
+      "sha256": "d609249b477aa9c1ee152f1cb2b83668683f65d910055b53a0690b9f817f25d4"
+    },
+    {
+      "path": "preview/sc2-quality-20261009/verify-scenario.mts",
+      "bytes": 2574,
+      "sha256": "0402a4a5a20cdf313914ab9c4270bef095b5f3ba79b1a2ad934b3b83371f0f1e"
+    },
+    {
+      "path": "src/render/units/animated-batch.ts",
+      "bytes": 16526,
+      "sha256": "f5595fc41abf94708fb9aaf774e7ff33e71adaee597a84eb735bbc34554d4963"
+    },
+    {
+      "path": "src/render/scene/battle-renderer.ts",
+      "bytes": 83371,
+      "sha256": "f0e544b8aca6ed7d08b61843e1820f0f35c524b8d8d97f824ab5991c5364ab13"
+    }
+  ]
+}
