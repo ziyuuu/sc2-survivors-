@@ -80,7 +80,7 @@ export function releasePaidPassenger(w:World,p:Pod,index:number,position:Point){
  }
  const companion=p.unitType==='zergling'&&cargo?.pairHalf===1;
  const body=companion||w.familySeatCount(p.unitType)<w.rosterCap;
- if(cargo?.source&&!body)return null;
+ if(cargo?.source&&cargo.source!=='shop-supply'&&!body)return null;
  let u:Entity;
  if(body){const pair=companion?s.zerglingPairs.find(pair=>pair.id===cargo!.pairId):undefined;const rank=pair?.rank??(s.credits[p.unitType]??[]).shift()?.rank??1;
   u=p.unitType==='zergling'&&!cargo?w.addFamilyMember(p.unitType,position,rank):w.addUnit(p.unitType,'terran',position.x,position.z,rank);

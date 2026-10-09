@@ -1,10 +1,10 @@
 {
-  "status": "Items 4/5/9: automatic pickup arrivals, approved R4 reveal, closed player catalogue, first-facility baseline unlocks; no live deployment",
-  "appBuildId": "d651fd89dcafffff21f304a406717c5221a2582285aa107ee3e45fbb28750eaa",
-  "packageBuildId": "6ececc30f6fdbe3c7d614f14c997e96b27ed40ec0413147ce88056dc65670190",
+  "status": "Approved shop/development UI, four peer services, two settings categories, unified arrival cards, approved full-roster supply promotion; no live deployment",
+  "appBuildId": "8f1a80a4c0b6e700c949ec6750fd533e54134eb763348ca6f590076eb33f3ed4",
+  "packageBuildId": "9ffa1953032fe1b7ca624f1aada9f1e4c2076847a2740ad97dbece507290706f",
   "runSchema": 26,
   "profileVersion": 6,
-  "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
+  "release": "f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151",
   "appFiles": [
     {
       "path": ".env.example",
@@ -77,6 +77,16 @@
       "sha256": "b6244ee1e26b906e823763d77332b2160ea392602fe0f4f7ae05936d28c3105f"
     },
     {
+      "path": "BATTLE_UI_INTEGRATION_20261008.md",
+      "bytes": 2465,
+      "sha256": "626bdffe7b4a8fac76d5bc43a7f2235c2a9184f22921ba35537a585e480eee8c"
+    },
+    {
+      "path": "BATTLE_UI_INTEGRATION_VALIDATION_20261008.md",
+      "bytes": 5656,
+      "sha256": "d6c2e67161521f5db2c479e559ba1abce4e9f09f4ee01ceeb24fd4255310c9c0"
+    },
+    {
       "path": "coze-web-server.mjs",
       "bytes": 4728,
       "sha256": "be5fc03d6a81aab693aa706986c30d64c0e6df1117b40d9c80634c675a442ec0"
@@ -87,9 +97,19 @@
       "sha256": "38cf22a1ec311b6cd69c0a019e467e56a75ee1c6cabe5bf66625eb07cd8dd8a9"
     },
     {
+      "path": "INTERMISSION_INTEGRATION_20261009.md",
+      "bytes": 2529,
+      "sha256": "cd938d899c181ff8cbdfb89ee42e7217cc1ae0812b18803ac8578dfa078ce1e5"
+    },
+    {
       "path": "MAINTENANCE_SCOPE_20261008.md",
       "bytes": 2695,
       "sha256": "107ac4b414a3b9f01b4d6f1271523250ff447f0621830b36cfd15f060f462e14"
+    },
+    {
+      "path": "OPENING_COVER_FLAME_20261007.md",
+      "bytes": 4553,
+      "sha256": "241048dd0b7e23eea668a2646c75855744304f4a314538b6eaabc1e4c679fd44"
     },
     {
       "path": "P5_BACKEND_HANDOFF_20261006.md",
@@ -104,12 +124,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "f0ec6504d6cf53a3b6590861815f58610509ff709e98fa230665d4380917ca57"
+      "sha256": "3f44de855ec51a317314f9f889f67365f9a1e28d792d925a3fb3dc121c33d952"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "64f0200b7b85de9a6a449f164eba7cae007359c546e11b6dd67041c7e17beb44"
+      "sha256": "d63f21461e8cb20e115b9d46e010f2e7c17a26f1008990cf6a0375809cb7ea67"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -117,24 +137,24 @@
       "sha256": "de36b7e029c2e4788e4072a32164d6ec7f0aba9a10b373e79d3aa5478c7b84ca"
     },
     {
-      "path": "public/asset-manifest.2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a.json",
-      "bytes": 153505,
-      "sha256": "1257ad91f69c590d59abc862c539bb3aadc1a2c611110a69580dd5a8457f7bd3"
+      "path": "public/asset-manifest.f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151.json",
+      "bytes": 155602,
+      "sha256": "6182417637480b36db27d6935a550404d08a9a56baec3733a6f9f308479ba889"
     },
     {
-      "path": "public/assets/index-BtByoOr0.css",
-      "bytes": 410161,
-      "sha256": "efdc1a614e14f2ed42893189ac104c8b8f550a11893330a2b006aa62f2f28b8d"
+      "path": "public/assets/index-BopUEvuh.css",
+      "bytes": 444074,
+      "sha256": "c2e6c48281979c76515590ba14ae38f9abd767ee24a9f69c723ccf7aecf8f112"
     },
     {
-      "path": "public/assets/index-DGEtdZma.js",
-      "bytes": 2876744,
-      "sha256": "a03338ee0e3fb21824493b344547921e09f3134e08e629196d6df2086a00f2c3"
+      "path": "public/assets/index-Cnp57y5h.js",
+      "bytes": 2891644,
+      "sha256": "f3654e7e4d25eb8ddb16a8b72e3dce15805f50c8ad6848f2b08989d585f24aed"
     },
     {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "727ccc55e2f26021e3f1304ba63ad1b3665bd135e632d495b7c0e789f86ffdcc"
+      "sha256": "e9d33d45794c275c6aa3ab6eb9f90b07ad8157170c80128a55278d34770fb22c"
     },
     {
       "path": "public/runtime-config.json",
@@ -144,7 +164,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "d4379609c4bbd45adea2ecc15eda3bc224a4ab0db64c609d0130901b58704544"
+      "sha256": "6608881effea9a714948f6a0b5de9113c3856b8fc8d3da5a67233d0abac281ec"
     },
     {
       "path": "README.md",
@@ -158,13 +178,13 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 329,
-      "sha256": "3e8f9c23e1f021b77486387033a0b1749df5b32fbe7ab124dc3157942b0933c8"
+      "bytes": 4496,
+      "sha256": "66dfbb7b71099074946dde280d6b7af2ea275a3d70629b4471e502d4bf51df16"
     },
     {
       "path": "resource-groups.json",
-      "bytes": 295322,
-      "sha256": "b2468efd483dfeceea2660e953845be4f817422f1eb59a3fd9eb8188cbd0f82a"
+      "bytes": 299480,
+      "sha256": "9adac812ac34924a8145cac52f894d00ee40ea2f90c787ff8aed7d2b55bba88a"
     },
     {
       "path": "sc2-backend.conf",
@@ -190,6 +210,11 @@
       "path": "UI_FIDELITY_ROUND_VALIDATION_20261006.md",
       "bytes": 6522,
       "sha256": "9ab4bd2f7a65d82fdb3cec3cd4de9150cb8aa8d51fffe9075dd84b0339791151"
+    },
+    {
+      "path": "UI_FLOW_ART_AUDIT_20261007.md",
+      "bytes": 5979,
+      "sha256": "60987fd757b1531f762e640ac304059c720ae12abe247b7c71ffc89513e31ff8"
     },
     {
       "path": "UI_INTEGRATION_20261006.md",
@@ -877,8 +902,8 @@
       "sha256": "eaf848b398aba0f455e7f15179f34131c82acd4d0c9aa2e4cd11ff9cb0a9bf20"
     }
   ],
-  "assets": 629,
-  "resourceBytes": 648838732,
+  "assets": 638,
+  "resourceBytes": 667894443,
   "includesDatabase": false,
   "includesAccounts": false,
   "resourcesIncluded": 0,

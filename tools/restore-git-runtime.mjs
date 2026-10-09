@@ -1,3 +1,4 @@
+import {loadIntermissionAssets} from './intermission-assets.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
@@ -47,3 +48,5 @@ if(ui){
  }
  console.log(JSON.stringify({uiResources:ui.records.length,verified:true}));
 }
+
+await loadIntermissionAssets({restore:true,check:process.argv.includes('--check')});

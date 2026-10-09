@@ -1,0 +1,25 @@
+/* The approved shop and arrival cards share the same frame, title strip and rarity palette. */
+#interface{--imx-card-fill:#172228e8;--imx-card-border:#bdcccc91;--imx-title-fill:#eeede4;--imx-title-ink:#1a252d}
+#interface :is(.im-card,.arrival-card)[data-quality=white]{--tier:#c3c8c8}
+#interface :is(.im-card,.arrival-card)[data-quality=green]{--tier:#7fdc96}
+#interface :is(.im-card,.arrival-card)[data-quality=blue]{--tier:#56c5f8}
+#interface :is(.im-card,.arrival-card)[data-quality=purple]{--tier:#b98af3}
+#interface :is(.im-card,.arrival-card)[data-quality=orange]{--tier:#ffa147}
+#interface #overlay.imx .im-card{background:var(--imx-card-fill);border-color:var(--imx-card-border)}
+#interface #overlay.imx .imx-name{background:var(--imx-title-fill);color:var(--imx-title-ink)}
+#interface .arrival-card{--arrival-radius:0px;--arrival-rgb:185,138,243;font-family:'Microsoft YaHei UI','Microsoft YaHei','Segoe UI',sans-serif}
+#interface .arrival-card.hero{--arrival-rgb:255,161,71}
+#interface .arrival-front{padding:7px;background:var(--imx-card-fill);border:1px solid var(--imx-card-border);box-shadow:0 12px 28px #0008,0 0 17px color-mix(in srgb,var(--tier) 30%,transparent)}
+#interface .arrival-art{border:0}
+#interface .arrival-type{letter-spacing:0;color:var(--tier);padding:2px 2px 7px}
+#interface .arrival-caption{padding:0;gap:0}
+#interface .arrival-caption strong{display:grid;place-items:center;text-align:center;padding:8px 3px;min-height:36px;font-size:20px;line-height:1.2;background:var(--imx-title-fill);color:var(--imx-title-ink);border-bottom:4px solid var(--tier);text-shadow:0 1px #fff}
+#interface .arrival-caption span{padding:8px 3px 3px;text-align:center;color:#cbd5d3}
+#interface .arrival-back{padding:7px;border:1px solid var(--imx-card-border);background:var(--imx-card-fill);box-shadow:0 12px 28px #0008,0 0 17px color-mix(in srgb,var(--tier) 30%,transparent)}
+#interface .arrival-back:before{inset:7px;border:1px solid #acb9bd66;border-radius:0;background:repeating-linear-gradient(3deg,#fff0 0 2px,#ffffff08 2.5px,#06121a18 3px),linear-gradient(120deg,#20313b,#4d6068 24%,#17232c 51%,#53656c 79%,#1b2b34)}
+#interface .arrival-back:after{inset:12px;border-radius:0;border:1px solid var(--tier);opacity:.45}
+#interface .arrival-tag-eyelet{display:none}
+#interface .arrival-tag-inset{width:86%;padding:18px 3px;margin:0;border-color:#eeede449;background:#10232a88}
+#interface .arrival-tag-grooves{height:3px;bottom:21px;background:var(--tier)}
+@media(max-width:600px){#interface .arrival-front{padding:5px}#interface .arrival-caption strong{font-size:16px;min-height:30px;padding:5px 2px}#interface .arrival-caption span{padding-top:5px}}
+@media(max-height:500px) and (min-width:601px){#interface .arrival-front{padding:6px}#interface .arrival-caption strong{font-size:15px;min-height:0;padding:3px 2px;border-bottom-width:2px}#interface .arrival-caption span{padding:3px 0 0}#interface .arrival-tag-logo{max-height:42px}}
