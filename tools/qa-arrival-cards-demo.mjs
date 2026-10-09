@@ -25,11 +25,17 @@ try{
   }
   assert.equal(await page.locator('#arrival-layer').evaluate(e=>getComputedStyle(e).pointerEvents),'none');
   assert.equal(await page.locator('.arrival-art > [data-art-key]').getAttribute('data-art-key'),'marine.2');
-  await capture(name+'-elite');
-  await page.waitForFunction(()=>window.__ARRIVAL_DEMO_REPORT__().current?.kind==='hero');await page.waitForTimeout(170);
+  await page.waitForFunction(()=>window.__ARRIVAL_DEMO_REPORT__().current?.kind==='hero');await page.waitForTimeout(820);
   assert.equal(await page.locator('.arrival-art > [data-art-key]').getAttribute('data-art-key'),'raynor');await capture(name+'-hero');
   await page.waitForFunction(()=>window.__ARRIVAL_DEMO_REPORT__().current===null);
   s=await state();assert.deepEqual(s.history.map(x=>x.kind),['elite','hero']);assert.ok(s.time>2);report.checks.push(name+': correct art, native joins, queue, dismissal, uninterrupted simulation, HUD separation');
+  for(const [phase,time] of [['charge',200],['elite-burst',680],['elite',1100]]){
+   await page.locator('[data-arrival=elite]').click();
+   await page.locator('.arrival-card').evaluate((el,time)=>{for(const a of el.getAnimations({subtree:true})){a.pause();a.currentTime=time;}},time);
+   if(phase==='elite-burst')assert.ok(await page.locator('.arrival-sparks i').evaluateAll(nodes=>nodes.some(e=>Number(getComputedStyle(e).opacity)>0)));
+   await capture(name+'-'+phase);
+  }
+
  }
  await page.setViewportSize({width:1440,height:900});await page.locator('[data-arrival=promotion]').click();await page.waitForTimeout(200);
  let s=await state();assert.equal(s.elite,2);assert.equal(s.current.promoted,true);assert.equal(s.current.rank,2);await capture('promotion');report.checks.push('Native repeat acquisition is a rank-II promotion');

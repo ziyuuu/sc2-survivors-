@@ -22,9 +22,15 @@ export async function installArrivalDemo(world:World,view:BattleRenderer,reset:(
  function showNext(){
   current=queue.shift()??null;layer.replaceChildren();if(!current)return;
   const item=current,card=document.createElement('article');card.className='arrival-card '+item.kind;
+  const duration=item.kind==='hero'?2500:2100;
+  card.style.setProperty('--arrival-duration',duration+'ms');
   card.dataset.identity=item.identity;
-  card.innerHTML=`<div class="arrival-type">${item.kind==='elite'?'精英':'英雄'} · ${item.promoted?'晋升':'加入部队'}</div><div class="arrival-art">${paintedArt(item.identity,item.name,1,'arrival')}</div><div class="arrival-caption"><strong>${escapeHtml(item.name)}</strong><span>${item.promoted?'军衔提升至 ':'军衔 '}${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'][item.rank-1]??item.rank}</span></div>`;
-  layer.append(card);history.push({...item});timer=window.setTimeout(showNext,1500);
+  const particles=Array.from({length:item.kind==='hero'?26:16},(_,i)=>{
+   const angle=i*2.399963,length=45+(i%5)*13;
+   return `<i style="--dx:${Math.cos(angle)*length}px;--dy:${Math.sin(angle)*length}px;--spark-size:${i%3+2}px;--spark-delay:${(duration*.26)+(i%4)*24}ms"></i>`;
+  }).join('');
+  card.innerHTML=`<div class="arrival-aura" aria-hidden="true"></div><div class="arrival-ring" aria-hidden="true"></div><div class="arrival-sparks" aria-hidden="true">${particles}</div><div class="arrival-flash" aria-hidden="true"></div><div class="arrival-back" aria-hidden="true"><div class="arrival-seal"><span>✦</span></div></div><div class="arrival-front"><div class="arrival-type">${item.kind==='elite'?'精英':'英雄'} · ${item.promoted?'晋升':'加入部队'}</div><div class="arrival-art">${paintedArt(item.identity,item.name,1,'arrival')}</div><div class="arrival-caption"><strong>${escapeHtml(item.name)}</strong><span>${item.promoted?'军衔提升至 ':'军衔 '}${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'][item.rank-1]??item.rank}</span></div><div class="arrival-sheen" aria-hidden="true"></div></div>`;
+  layer.append(card);history.push({...item});timer=window.setTimeout(showNext,duration);
  }
  function enqueue(item:Arrival){queue.push(item);if(!current)showNext();}
  function acquire(kind:'elite'|'hero'){
