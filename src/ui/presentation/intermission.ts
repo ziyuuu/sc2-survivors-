@@ -12,7 +12,7 @@ import {FAMILIES_BY_RACE,RACES,RACE_NAMES,type Race,type FamilyId} from '../../d
 import {PRODUCTION_LINES,DEVELOPMENT} from '../../data/expedition-buildings';
 import {UNIQUE_SUPPORT} from '../../data/unique-support';
 import {RARITIES,type Rarity} from '../../data/rewards';
-import {renderExpeditionProduction,renderRepairs,renderProductionWindow} from '../hud/expedition-panel';
+import {renderProductionWindow} from '../hud/expedition-panel';
 import {rewardOwnership,rankLabel} from '../unit-identity';
 import {paintedArt} from './painted-art';
 import {button,image,glyph,money,esc,modal} from './reference-primitives';
