@@ -19,17 +19,19 @@ try{
   await page.setViewportSize({width,height});await page.waitForTimeout(250);
   await page.locator('[data-arrival=sequence]').click();await page.waitForTimeout(200);
   let s=await state();assert.equal(s.current?.kind,'elite');assert.equal(s.hero,1);assert.equal(s.elite,1);assert.equal(s.paused,false);
-  const box=await page.locator('.arrival-card').boundingBox();assert.ok(box.x>=0&&box.x+box.width<=width&&box.y+box.height<=height);
+  const box=await page.locator('.arrival-card').boundingBox();assert.ok(box.width>=140&&box.height>=60);assert.ok(box.x>=0&&box.x+box.width<=width&&box.y+box.height<=height);
   for(const selector of ['#minimap','#joystick','.sample-army']){
    const b=await page.locator(selector).boundingBox();if(b&&await page.locator(selector).isVisible())assert.ok(box.x+box.width<=b.x||b.x+b.width<=box.x||box.y+box.height<=b.y||b.y+b.height<=box.y,'Overlaps '+selector+' '+name);
   }
+  assert.equal(await page.locator('.arrival-back .arrival-tag-logo').evaluate(e=>e.complete&&e.naturalWidth>100),true);
+  assert.equal(await page.locator('.arrival-tag-eyelet').count(),1);
   assert.equal(await page.locator('#arrival-layer').evaluate(e=>getComputedStyle(e).pointerEvents),'none');
   assert.equal(await page.locator('.arrival-art > [data-art-key]').getAttribute('data-art-key'),'marine.2');
-  await page.waitForFunction(()=>window.__ARRIVAL_DEMO_REPORT__().current?.kind==='hero');await page.waitForTimeout(820);
+  await page.waitForFunction(()=>window.__ARRIVAL_DEMO_REPORT__().current?.kind==='hero');await page.waitForTimeout(1100);
   assert.equal(await page.locator('.arrival-art > [data-art-key]').getAttribute('data-art-key'),'raynor');await capture(name+'-hero');
   await page.waitForFunction(()=>window.__ARRIVAL_DEMO_REPORT__().current===null);
   s=await state();assert.deepEqual(s.history.map(x=>x.kind),['elite','hero']);assert.ok(s.time>2);report.checks.push(name+': correct art, native joins, queue, dismissal, uninterrupted simulation, HUD separation');
-  for(const [phase,time] of [['charge',200],['elite-burst',680],['elite',1100]]){
+  for(const [phase,time] of [['charge',400],['elite-burst',800],['elite',1300]]){
    await page.locator('[data-arrival=elite]').click();
    await page.locator('.arrival-card').evaluate((el,time)=>{for(const a of el.getAnimations({subtree:true})){a.pause();a.currentTime=time;}},time);
    if(phase==='elite-burst')assert.ok(await page.locator('.arrival-sparks i').evaluateAll(nodes=>nodes.some(e=>Number(getComputedStyle(e).opacity)>0)));

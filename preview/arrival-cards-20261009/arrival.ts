@@ -4,6 +4,7 @@ import type {BattleRenderer} from '../../src/render/scene/battle-renderer';
 import {ELITES} from '../../src/data/elites';
 import {HEROES} from '../../src/data/heroes';
 import {paintedArt,escapeHtml} from '../../src/ui/presentation/painted-art';
+import {brandLogo} from '../../src/ui/presentation/reference-primitives';
 
 type Arrival={identity:string;name:string;kind:'elite'|'hero';rank:number;promoted:boolean};
 /** Independent presentation demo: native acquisition precedes the notification. */
@@ -22,14 +23,14 @@ export async function installArrivalDemo(world:World,view:BattleRenderer,reset:(
  function showNext(){
   current=queue.shift()??null;layer.replaceChildren();if(!current)return;
   const item=current,card=document.createElement('article');card.className='arrival-card '+item.kind;
-  const duration=item.kind==='hero'?2500:2100;
+  const duration=item.kind==='hero'?2900:2400;
   card.style.setProperty('--arrival-duration',duration+'ms');
   card.dataset.identity=item.identity;
-  const particles=Array.from({length:item.kind==='hero'?26:16},(_,i)=>{
-   const angle=i*2.399963,length=45+(i%5)*13;
-   return `<i style="--dx:${Math.cos(angle)*length}px;--dy:${Math.sin(angle)*length}px;--spark-size:${i%3+2}px;--spark-delay:${(duration*.26)+(i%4)*24}ms"></i>`;
+  const particles=Array.from({length:item.kind==='hero'?38:24},(_,i)=>{
+   const angle=i*2.399963,reach=.85+(i%5)*.13;
+   return `<i style="--reach:${reach};--spark-size:${i%3+2}px;--spark-delay:${(duration*.285)+(i%4)*21}ms;--spark-angle:${angle}rad"></i>`;
   }).join('');
-  card.innerHTML=`<div class="arrival-aura" aria-hidden="true"></div><div class="arrival-ring" aria-hidden="true"></div><div class="arrival-sparks" aria-hidden="true">${particles}</div><div class="arrival-flash" aria-hidden="true"></div><div class="arrival-back" aria-hidden="true"><div class="arrival-seal"><span>✦</span></div></div><div class="arrival-front"><div class="arrival-type">${item.kind==='elite'?'精英':'英雄'} · ${item.promoted?'晋升':'加入部队'}</div><div class="arrival-art">${paintedArt(item.identity,item.name,1,'arrival')}</div><div class="arrival-caption"><strong>${escapeHtml(item.name)}</strong><span>${item.promoted?'军衔提升至 ':'军衔 '}${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'][item.rank-1]??item.rank}</span></div><div class="arrival-sheen" aria-hidden="true"></div></div>`;
+  card.innerHTML=`<div class="arrival-aura" aria-hidden="true"></div><div class="arrival-flare" aria-hidden="true"></div><div class="arrival-ring" aria-hidden="true"></div><div class="arrival-sparks" aria-hidden="true">${particles}</div><div class="arrival-flash" aria-hidden="true"></div><div class="arrival-back" aria-hidden="true"><span class="arrival-tag-eyelet"></span><div class="arrival-tag-inset">${brandLogo('arrival-tag-logo')}</div><span class="arrival-tag-grooves"></span></div><div class="arrival-front"><div class="arrival-type">${item.kind==='elite'?'精英':'英雄'} · ${item.promoted?'晋升':'加入部队'}</div><div class="arrival-art">${paintedArt(item.identity,item.name,1,'arrival')}</div><div class="arrival-caption"><strong>${escapeHtml(item.name)}</strong><span>${item.promoted?'军衔提升至 ':'军衔 '}${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'][item.rank-1]??item.rank}</span></div><div class="arrival-sheen" aria-hidden="true"></div></div>`;
   layer.append(card);history.push({...item});timer=window.setTimeout(showNext,duration);
  }
  function enqueue(item:Arrival){queue.push(item);if(!current)showNext();}
