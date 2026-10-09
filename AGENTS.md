@@ -1,3 +1,9 @@
+## Independent arrival-card demo · 2026-10-09
+
+- User requested an independent HTML first, and asked whether old packages/demo HTMLs were cleared. New preview/arrival-cards-20261009 and tools/build/serve/qa-arrival-cards-demo reuse the original R10 sample through a build-only adapter. Native acquisition precedes original-art purple elite/orange-gold hero cards; sequential 1500ms, no input capture or pause, true rank-II promotion. Formal boss-drop flow and twelve repairs remain unimplemented.
+- Output dist/Arrival-Cards-Demo-20261009.html. Typecheck plus9 browser groups/10 captures across four sizes pass, no page/model errors; mobile joystick/acceleration and keyboard work during display.1374 protected hashes unchanged; production and original R10 sample Git diff empty. This is a diagnostic preview, not natural/physical acceptance or production deployment. Scope/results/inventory: docs/project/ARRIVAL_CARDS_DEMO_20261009.md; evidence reports/local/arrival-cards-20261009.
+- Prior old outputs were NOT deleted:17 HTML+14 ZIP=4203321540 bytes, plus222199564 bytes extracted packages excluding web, counted before this new demo. Includes current/historical/other-thread outputs. Prior cleanup removed caches/disposable fixtures/deployment-unused files. This turn only inventories; preserve other-thread intermission-ui-kit, approved history/art/evidence and current game outputs.
+
 ## Maintenance and twelve-item feedback audit · 2026-10-08 workset
 
 - User added on 2026-10-09: automatic elite/hero entry may show a brief nonblocking identity card, purple light for elites and orange-gold for heroes. Plan uses original matched artwork/name, about1.5s then fades; actual entry happens first, no claim/confirm button or combat pause, no input capture. Duplicate identity promotion must show promotion/new rank instead of falsely announcing a new unit. This is an approved plan addition, not yet runtime implementation; see repair-plan item4.
