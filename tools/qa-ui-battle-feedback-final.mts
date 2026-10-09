@@ -1,0 +1,39 @@
+import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';import {pathToFileURL} from 'node:url';
+import {chromium} from '@playwright/test';import {createGameServer} from './coze-web-server.mjs';
+import {World} from '../src/simulation/world';import {campaignTerrain} from '../src/data/campaign-map';import {writeArchive} from '../src/persistence/archive';
+const offline=process.argv.includes('--offline'),out=process.env.SC2_FEEDBACK_FINAL_QA_DIR??`reports/local/ui-battle-feedback-20261009/${offline?'offline-final':'layout-final'}`;await fs.mkdir(out,{recursive:true});
+const combatOnly=process.argv.includes('--combat-only');
+// A native full-health rear squad keeps the pause check reachable after the observed front casualty.
+const combat=new World({race:'terran',seed:529,waves:false,terrain:campaignTerrain({version:3,seed:529,theme:'industrial'})});assert.ok(combat.start());for(const p of Object.values(combat.expedition.production))p.enabled={};
+const victim=combat.allies()[0];victim.hp=1;for(const p of [{x:1,z:1},{x:-8,z:0},{x:-8,z:-2}])assert.ok(combat.addFamilyMember('marine',p,1));
+const enemy=combat.addUnit('zergling','zerg',victim.x+.8,victim.z,1);enemy.weaponCooldown=.6;enemy.nextShotAt=.6;
+(combat as any).autoWaves=true;(combat as any).specialPlan=[{at:1.5,type:'zergling',tier:'boss',role:'boss',budget:100}];(combat as any).nextSpecial=0;
+await fs.writeFile(out+'/combat.json',writeArchive({profile:combat.permanentProfile.exportJSON(),run:combat.captureRun()}));
+const server=offline?null:createGameServer({webRoot:path.resolve('dist/web'),assetRoot:path.resolve('dist/web'),backendOptions:{config:{enabled:false}}});if(server)await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));
+const offlineFile=process.env.SC2_FEEDBACK_OFFLINE_FILE??'dist/SC2-Survivors-UI-Battle-Feedback-Final-20261009.html';
+const url=offline?pathToFileURL(path.resolve(offlineFile)).href:'http://127.0.0.1:'+(server!.address()as any).port;
+const profile=offline?await fs.mkdtemp(path.resolve('.cache/ui-feedback-offline-')):null;
+const browser=offline?null:await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+const context=offline?await chromium.launchPersistentContext(profile!,{executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--allow-file-access-from-files'],viewport:{width:1440,height:900}}):await browser!.newContext({viewport:{width:1440,height:900}});
+if(offline)await context.setOffline(true);const page=context.pages()[0]??await context.newPage();page.setDefaultTimeout(25000);
+const report:any={build:JSON.parse(await fs.readFile('dist/web/web-release.json','utf8')),offline,offlineFile:offline?offlineFile:null,profile,checks:[],geometry:[],screens:[],errors:[],method:'Final production layout/feedback check. Current fixtures reach native actions; no compatibility matching.'};page.on('pageerror',e=>report.errors.push(e.message));
+async function shot(name:string){await page.waitForTimeout(500);await page.screenshot({path:out+'/'+name+'.png'});report.screens.push(name);}
+async function load(name:string){await page.goto(url,{timeout:300000});await page.waitForFunction(()=>window.__SC2_REPORT__?.().phase==='menu',null,{timeout:300000});await page.locator('.main-actions [data-action=menu-load]').click();const f=page.waitForEvent('filechooser');await page.locator('[data-action=menu-load-file]').click();await(await f).setFiles(path.resolve((name==='combat'?out:'reports/local/ui-battle-feedback-20261009/browser-r4')+'/'+name+'.json'));await page.locator('[data-action=menu-load-ready]').click();await page.waitForFunction(()=>window.__SC2_REPORT__?.().readiness?.phase==='ready',null,{timeout:300000});await page.locator('[data-action=flow-continue]').click();}
+try{
+ if(!combatOnly){
+ await load('terran-shop');await page.locator('.imx-copy').first().waitFor();
+ const sizes=offline?[[1440,900]]:[[1440,900],[1203,1063],[390,844],[844,390],[320,640]];
+ for(const scale of offline?[1]:[1,1.25,1.5])for(const[width,height]of sizes){await page.setViewportSize({width,height});await page.evaluate(s=>document.documentElement.style.setProperty('--text-scale',String(s)),scale);await page.waitForTimeout(850);
+  const metrics=await page.locator('#reward-cards>.im-card').evaluateAll(ns=>ns.map(n=>Object.fromEntries(['.imx-art','.imx-name','.imx-kind','.imx-copy','.im-card-price>.money','.im-card-action'].map(s=>{const e=n.querySelector<HTMLElement>(s)!;const r=e.getBoundingClientRect();return [s,{x:r.x,y:r.y,w:r.width,h:r.height,scroll:e.scrollWidth,client:e.clientWidth}];}))));
+  report.geometry.push({scale,width,height,metrics});for(const card of metrics)for(const m of Object.values(card)as any[]){assert.ok(m.x>=-.6&&m.x+m.w<=width+.6);assert.ok(m.scroll<=m.client+3,'internal text overflow');}
+  if(width>700){for(const selector of ['.imx-art','.imx-name','.imx-kind','.imx-copy','.im-card-price>.money','.im-card-action']){const ys=metrics.map((m:any)=>m[selector].y);assert.ok(Math.max(...ys)-Math.min(...ys)<=1.01,`${selector} baseline at ${width}/${scale}: ${ys}`);}}
+  await shot(`shop-${width}-${scale}`);
+ }
+ await page.setViewportSize({width:390,height:844});await page.evaluate(()=>document.documentElement.style.setProperty('--text-scale','1.5'));await page.locator('#overlay [data-action=battle-progress]').click();await page.locator('[data-tab=sources]').click();assert.equal(await page.locator('.source-count').textContent(),'×2');await shot('grouped-sources');await page.locator('[data-tab=summary]').click();await shot('summary');report.checks.push(`Card alignment at ${sizes.length} sizes/${offline?1:3} scales; grouped enhancements at 390px/150%`);
+ }
+ await page.evaluate(()=>document.documentElement.style.setProperty('--text-scale','1'));await page.setViewportSize({width:1440,height:900});await load('combat');if(await page.locator('.pause-actions [data-action=pause]').isVisible())await page.locator('.pause-actions [data-action=pause]').click();
+ const samples=await page.evaluate(`new Promise(resolve=>{const rows=[],started=performance.now();let shook=false;function tick(){const r=window.__SC2_REPORT__(),d=r.distress;rows.push({time:r.time,...d});shook=shook||Math.abs(d.shakeX)>0;if((shook&&d.boss&&d.casualty&&d.shakeX===0)||performance.now()-started>15000)resolve(rows);else requestAnimationFrame(tick);}tick();})`);report.motion=samples;assert.ok(samples.some(r=>Math.abs(r.shakeX)>0),'Boss entrance shake');assert.ok(samples.some(r=>r.casualty),'native casualty');assert.ok(samples.every(r=>Number.isFinite(r.shakeX)&&r.opacity<=.64));assert.ok(samples.some(r=>r.boss&&r.shakeX===0));
+ assert.equal(await page.locator('#interface').evaluate(e=>e.classList.contains('packed-mobile')),false);assert.equal(await page.locator('#battle-distress').evaluate(e=>getComputedStyle(e).pointerEvents),'none');await shot('desktop-combat');
+ await page.locator('#topbar [data-action=pause]').click();await page.waitForTimeout(100);assert.equal(await page.locator('#battle-distress').isVisible(),false);report.checks.push('PC horizontal controls, native Boss shake decays, real casualty and pause, no input interception');assert.deepEqual(report.errors,[]);assert.deepEqual((await page.evaluate(()=>window.__SC2_REPORT__())).errors,[]);
+}catch(e){report.failure=String((e as Error).stack??e);await shot('failure').catch(()=>{});process.exitCode=1;}
+finally{report.final=await page.evaluate(()=>window.__SC2_REPORT__?.()).catch(()=>null);await fs.writeFile(out+'/result.json',JSON.stringify(report,null,2));await context.close();await browser?.close();if(server)await new Promise<void>(r=>server.close(()=>r()));console.log(JSON.stringify({checks:report.checks,screens:report.screens.length,errors:report.errors,failure:report.failure}));}

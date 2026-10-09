@@ -2,6 +2,8 @@
 
 基于 Three.js、TypeScript、Vite 的单人小队动作生存游戏。控制方向与技能，小队自动索敌、移动和交战。
 
+2026-10-09 更新：统一金色主操作、作战部署与强化面板，修复卡牌排版、进入战场居中高亮及资源不足提示；已购强化卡按身份合并角标。新增真实阵亡/Boss 红边和短暂登场震动，黄红地面提示保留在小地图。范围见 [UI 与战斗反馈](docs/project/UI_BATTLE_FEEDBACK_20261009.md)，证据和限制见 [验证记录](docs/project/UI_BATTLE_FEEDBACK_VALIDATION_20261009.md)。原模拟规则、操作、地图、模型和攻击效果模块未改。此前已批准的关间 UI、自动拾取与入场卡保留；未开展旧存档匹配。
+
 2026-10-06 当前版本：30个普通家族、90款显式精英、18名英雄、24张种族趣味卡、五张地图、18关战役和平地无尽。新局随机选择工业遗址、玛萨拉荒漠、查尔焦土、冰封哨站或边境矿场，均为160×160、从中心出发；读档保留原地图。采用 **schema26／永久档案v6**，不兼容或迁移旧存档。现行战斗数值、技能、模型和资源保留；此前地图阶段新增原版地表混合、真实缓坡、非对称场景组与积雪／裂纹等环境细节，范围与验证见[五地图补强](docs/project/MAP_VISUAL_POLISH_20261006.md)；前轮见[清理及五地图记录](docs/project/CLEANUP_FIVE_MAPS_20261006.md)，此前规则精简见[规则清理记录](docs/project/CURRENT_LOGIC_CLEANUP_20261006.md)。P6自然性能和强光遮蔽问题仍开放，Coze尚未部署，人工视觉、实体设备和完整M6/M7未因此验收。
 
 正式 UI 已接入主游戏，包含三族卡面、关间浏览与购买、实时单位详情、双行可折叠 HUD 及逐级返回。范围见[UI接入](docs/project/UI_INTEGRATION_20261006.md)，实际验证见[UI验证](docs/project/UI_INTEGRATION_VALIDATION_20261006.md)。
@@ -18,7 +20,7 @@ P3-A首批六名人族英雄曾接入机体、I–V成长、被动、主动和�
 
 ## Coze / Web 部署
 
-当前应用使用[当前增量交接](docs/project/CURRENT_COZE_HANDOFF_20261006.md)与 `dist/Performance-Coze-Application-20261006.zip`。目标资源647条记录／629个文件／648838732字节，本性能轮新增资源为零。相对已记录的Coze旧版，复用531个文件，资源差额为98个文件／49639414字节，保存在 `dist/Current-Coze-Resources-From-Live-20261006.zip`。必须验证全部629个目标文件和锁定生产依赖后再切应用，保留原项目、域名、环境和资源。后台默认关闭，启用要求真实生产数据库与部署方配置，见[P5交接](docs/project/P5_BACKEND_HANDOFF_20261006.md)。
+当前应用使用[当前增量交接](docs/project/CURRENT_COZE_HANDOFF_20261006.md)与 `dist/UI-Battle-Feedback-Coze-Application-Final-20261009.zip`。目标资源656条记录／638个文件／667894443字节，本轮相对已批准关间 UI 新增资源为零。必须验证全部638个目标文件和锁定依赖后再切应用，保留原项目、域名、环境和回滚指针。保留原 Coze v10 配置及 vendor，本地预览显式关闭后端；本轮没有线上部署或数据库操作。生产条件见[P5交接](docs/project/P5_BACKEND_HANDOFF_20261006.md)。
 
 Git 当前交付为 schema26 源码和同一份正式UI／性能候选应用：`deploy/coze` 含锁定依赖和完整后台程序，`deploy/runtime` 保存校验过的 LFS 运行资源。先前 schema23 基线见[历史基线说明](docs/project/GIT_BASELINE_20261006.md)。Coze 仍保持原部署；数据库、凭据、缓存和本机 QA 输出不提交。
 
@@ -43,7 +45,7 @@ npm run dev
 
 开发地址为 `http://127.0.0.1:5173/`。素材缺失时按 [原素材准备](docs/ASSET_DOWNLOAD_REQUIRED.md) 和 [地图管线](docs/MAP_PIPELINE.md) 操作，不用几何体代替缺失单位。
 
-全新检出可直接从 `deploy/runtime/source-assets.json` 恢复当前运行所需的文件；完整构建通过 `build-assets.json` 校验已锁定的资源，不再重建已清理的原始转换缓存。`npm run build:ui-preview` 可重建独立 R10 → R11 → R12 UI 预览；它尚未接入正式游戏。重新转换原始素材仍使用原素材管线。
+全新检出可从 `deploy/runtime/source-assets.json` 及 UI 资源清单恢复当前运行所需的文件；完整构建校验已锁定的资源，不再重建已清理的原始转换缓存。`npm run build:ui-preview` 可重建独立 R10 → R11 → R12 历史 UI 预览；其获批设计已接入正式游戏，原稿仍独立保留。重新转换原始素材仍使用原素材管线。
 
 ```sh
 npm test
