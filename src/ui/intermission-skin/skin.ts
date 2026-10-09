@@ -1,6 +1,7 @@
 import './skin.css';
 import './card-material.css';
 import './refinements.css';
+import './adaptive-layout.css';
 import type {World} from '../../simulation/world';
 import type {ExpeditionReward} from '../../simulation/progression/expedition-drafts';
 import {offerView,catalogueCards,restCards} from '../../ui/presentation/intermission';

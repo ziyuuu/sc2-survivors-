@@ -11,7 +11,7 @@ import {ZergHeroEffects} from '../effects/zerg-hero-effects';
 import {deathPoseTime} from '../units/death-clock';
 import {createCampaignMap} from '../terrain/campaign-map';
 import {RadialTerrain,campaignTerrain,campaignMapAssets,type CampaignMapRecipe} from '../../data/campaign-map';
-import {racePreloadModels} from '../../app/race-preload';
+import {racePreloadModels,modelPreloadAssets} from '../../app/race-preload';
 import {RESCUE_PRESENTATION} from '../../data/economy';
 import {preparePylonBirthMaterials} from '../units/pylon-birth-materials';
 import {BOSSES} from '../../data/enemies';
@@ -277,7 +277,7 @@ export class BattleRenderer {
   const terrain=this.world.endlessField;if(!(terrain instanceof FlatTerrain))throw Error('无尽地图定义不是独立平地');
   for(const type of ENDLESS.bossTypes)if(!this.gpu.has(type)&&!await this.ensureUnitVariant(type,type))throw Error('无尽首领模型未就绪：'+type);
   const ids=['model.fort.bunker','model.fort.bunker.death','model.fort.repair','model.fort.repair.death'];let done=0;
-  await prepareEmbeddedAssetIds(ids);
+  await prepareEmbeddedAssetIds([...ids,'terrain.char']);
   const loader=new GLTFLoader();for(const id of ids){const cachedKind:Fortification['kind']=id.includes('bunker')?'bunker':'repair';if((id.endsWith('.death')?this.fortDeathTemplates:this.fortTemplates).has(cachedKind)){progress(++done,ids.length+1,id);continue;}const source=assetUrl(id);if(!source)throw Error('缺少原版建筑模型：'+id);const gltf=await restoreSc2Materials(await loader.loadAsync(source));const kind:Fortification['kind']=id.includes('bunker')?'bunker':'repair',death=id.endsWith('.death');const clip=death?gltf.animations.find(action=>action.name==='Death'):gltf.animations.find(action=>action.name==='Stand');if(!clip)throw Error('原版建筑动作缺失：'+id);
    const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=(kind==='bunker'?3.2:4)/Math.max(size.x,size.z);const group=new THREE.Group();const model=clone(gltf.scene);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);model.scale.setScalar(scale);group.add(model);(death?this.fortDeathTemplates:this.fortTemplates).set(kind,group);this.fortClips.set(`${kind}:${death?'death':'stand'}`,clip);await this.renderer.compileAsync(group,this.camera,this.scene);this.preloadTextures(group);
    progress(++done,ids.length+1,id);
@@ -329,7 +329,8 @@ export class BattleRenderer {
   await this.prepareRescueAssets(race);
   const required=racePreloadModels(race);
   if(hero){const data=HEROES[hero];if(!data||data.race!==race)throw Error('开局英雄与种族不符');required.set(data.model,data.baseFamily);}
-  let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('开局模型未就绪：'+key);progress(++done,required.size,key);await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));}
+  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key))));
+  let done=0;for(const [key,type] of required){const missing=!this.gpu.has(key);if(missing&&!await this.ensureUnitVariant(key,type))throw Error('开局模型未就绪：'+key);progress(++done,required.size,key);if(missing)await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));}
   await this.prepareEndlessAssets((done,total,label)=>progress(done,total,label));
  }
  async prepareCurrentAssets(progress:(done:number,total:number,label:string)=>void=()=>{}){
@@ -342,6 +343,7 @@ export class BattleRenderer {
   for(const offer of this.world.rewards)if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value))for(const elite of this.world.eliteVariants(ELITES[offer.value as EliteId].family))required.set(elite.model,elite.family);
   for(const contract of this.world.expedition.eliteContracts)if(!contract.purchased)for(const elite of this.world.eliteVariants(contract.family))required.set(elite.model,elite.family);
   if(this.world.expedition.pendingShopElite){const elite=ELITES[this.world.expedition.pendingShopElite.variantId];required.set(elite.model,elite.family);}
+  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key))));
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('增援模型未就绪：'+key);progress(++done,required.size,key);}
  }
  async prepareSnapshotAssets(snapshot:RunSnapshot,progress:(done:number,total:number,label:string)=>void=()=>{}){
@@ -361,6 +363,7 @@ export class BattleRenderer {
   for(const contract of snapshot.state.expedition.eliteContracts)if(!contract.purchased)offerFamilies.push(contract.family);
   for(const family of offerFamilies)for(const elite of Object.values(ELITES).filter(e=>e.family===family))required.set(elite.model,elite.family);
   if(snapshot.state.expedition.pendingShopElite){const elite=ELITES[snapshot.state.expedition.pendingShopElite.variantId];required.set(elite.model,elite.family);}
+  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key))));
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('必需单位模型未就绪：'+key);progress(++done,required.size,key);}
   await this.prepareEndlessAssets((n,total,label)=>progress(required.size+n,required.size+total,label));
  }
@@ -501,7 +504,7 @@ export class BattleRenderer {
   if(offsetX||offsetZ){this.camera.position.x+=offsetX;this.camera.position.z+=offsetZ;this.camera.updateMatrixWorld();this.renderScene();this.camera.position.x-=offsetX;this.camera.position.z-=offsetZ;this.camera.updateMatrixWorld();}else this.renderScene();
  }
  private podLabel(p:import('../../simulation/types').Pod){let el=this.podLabels.get(p.id);if(!el){el=document.createElement('div');el.className='pod-world-label';this.labelLayer.append(el);this.podLabels.set(p.id,el);}const active=['falling','active','opening'].includes(p.status);el.hidden=!active||!this.visible(p)||this.world.phase!=='battle'||this.world.paused;if(el.hidden)return;
-  _vec.set(p.x,this.ground(p)+3.4,p.z).project(this.camera);const x=(_vec.x*.5+.5)*this.viewportWidth,y=(.5-_vec.y*.5)*this.viewportHeight;el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;const text=`${icon('wireframe.'+p.unitType)}<span class="carrier-count">×${p.passengers.filter(c=>c.status==='waiting').length}</span><span class="carrier-vital"><i style="width:${Math.max(0,p.hp/p.maxHp)*100}%"></i></span>`;if(el.dataset.content!==text){el.innerHTML=text;el.dataset.content=text;}}
+  _vec.set(p.x,this.ground(p)+3.4,p.z).project(this.camera);const x=(_vec.x*.5+.5)*this.viewportWidth,y=(.5-_vec.y*.5)*this.viewportHeight;el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;const text=`${icon('wireframe.'+p.unitType)}<span class="carrier-count">×${p.passengers.filter(c=>c.status==='waiting').length}</span><span class="carrier-vital" role="meter" aria-label="投递建筑生命" aria-valuemin="0" aria-valuemax="${p.maxHp}" aria-valuenow="${Math.max(0,Math.ceil(p.hp))}"><i style="width:${Math.max(0,Math.min(1,p.hp/p.maxHp))*100}%"></i></span>`;if(el.dataset.content!==text){el.innerHTML=text;el.dataset.content=text;}}
  pickCarrier(x:number,y:number){return pickCarrier(x,y,this.canvas,this.camera,this.world);}
  pickMove(clientX:number,clientY:number){return pickMovement(clientX,clientY,this.canvas,this.camera,this.scene,this.world);}
  pick(clientX:number,clientY:number,touch=false){return pickBattle(clientX,clientY,touch,this.canvas,this.camera,this.scene,this.world);}

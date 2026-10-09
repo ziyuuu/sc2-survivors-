@@ -1,0 +1,84 @@
+/* One reference surface owns menu scale. Battlefield touch controls are outside it. */
+#interface.game-frame #overlay{inset:0 auto auto 0;transform-origin:0 0;container:game/size;overflow:hidden}
+#interface #overlay .modal-window{max-height:calc(var(--ui-layout-height,100dvh) - 40px)}
+#interface #overlay .modal-scrim{box-sizing:border-box;max-height:100%;overflow:hidden}
+#interface #overlay .modal-scrim>.modal-window{box-sizing:border-box;min-width:0;max-width:100%}
+#interface #overlay .talent-modal .preset-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+#interface #overlay .talent-modal .preset-tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-width:0;white-space:normal;overflow-wrap:anywhere;height:auto;padding:9px 5px}
+#interface #overlay .talent-modal .preset-tabs button :is(b,small){display:block;max-width:100%;line-height:1.4}
+#interface #overlay .main-action{height:auto;min-height:calc(32px + 20px * var(--text-scale,1))}
+#interface #overlay.imx .reference-page{height:100%;min-height:0}
+#interface #overlay.imx .intermission-screen:has(>.im-footer){height:100%;min-height:0;overflow:hidden;padding-bottom:14px;display:flex;flex-direction:column}
+#interface #overlay.imx .intermission-screen:has(>.im-footer)>*{flex-shrink:0}
+#interface #overlay.imx .intermission-screen>.im-choice-grid{flex:1 1 0;min-height:0;overflow:auto;overscroll-behavior:contain;align-content:start;margin:0 auto;padding-bottom:18px;scroll-padding-block:10px}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid:has(>.im-card:only-child){grid-template-columns:minmax(0,1fr);width:min(100%,380px)}
+#interface #overlay.imx .intermission-screen>.im-footer{position:static!important;z-index:auto;flex:none;margin:0;padding:10px 0 0;background:transparent;box-shadow:none;border-top:1px solid #8c9d9b66}
+#interface #overlay.imx .intermission-screen>.im-footer>.primary{margin-left:auto}
+#interface #overlay .m3-deployment .departure-notice h2{color:#d9e8ef}
+
+/* The cards retain their desktop fronts in landscape and fit the available row. */
+#interface #overlay.imx .intermission-screen>.im-choice-grid :is(.im-card,.imx-art,.imx-name,.imx-copy,.im-card-bottom,.im-card-status){box-sizing:border-box}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid{align-content:stretch;grid-template-rows:minmax(48px,1fr) max-content max-content calc(42px * var(--text-scale,1) + 18px) max-content max-content max-content;row-gap:0;padding-bottom:8px}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid>.im-card{display:grid;container:none;grid-template-rows:subgrid;grid-row:1 / span 7;height:auto;min-height:0;row-gap:0}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid .imx-card-body{display:contents}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid .imx-art{grid-row:1;min-height:0;height:100%;max-height:none;aspect-ratio:auto}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid .imx-name{grid-row:2;height:auto;min-height:0;padding:6px;line-height:1.2;font-size:calc(20px * var(--text-scale,1))}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid .imx-kind{grid-row:3;margin:4px 0 0;font-size:calc(12px * var(--text-scale,1))}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid .imx-copy{grid-row:4;height:100%;min-height:0;padding:6px 6px 12px;font-size:calc(14px * var(--text-scale,1));line-height:1.5}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid .imx-service-detail{grid-row:5;margin:0;justify-self:start}
+#interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid .im-card-bottom{grid-row:6;min-height:calc(46px * var(--text-scale,1));padding:4px 3px 2px;margin:0}
+#interface #overlay.imx .intermission-screen>.im-choice-grid .im-card-status{position:static;grid-row:7;align-self:stretch;justify-self:start;height:auto;min-height:0;max-width:100%;margin:3px 0 0;font-size:calc(11px * var(--text-scale,1));line-height:1.3;white-space:normal;overflow-wrap:anywhere}
+@container game (min-width:701px) and (max-width:1000px){
+ #interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid .im-card-bottom{display:grid;grid-template-columns:minmax(0,1fr);gap:4px}
+ #interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid .im-card-action{width:100%}
+}
+
+/* Short desktop surfaces share a row for steps and services, preserving card artwork. */
+@container game (min-width:1000px) and (max-height:800px){
+ #interface #overlay.imx .intermission-screen:has(>.im-footer){gap:8px;padding:14px 28px 10px}
+ #interface #overlay.imx .intermission-screen:has(>.stage-navigation){display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto auto minmax(0,1fr) auto;gap:8px 16px;padding:14px 28px 10px}
+ #interface #overlay.imx .intermission-screen:has(>.stage-navigation)>.im-heading{grid-column:1/-1;grid-row:1}
+ #interface #overlay.imx .intermission-screen:has(>.stage-navigation)>.im-steps{grid-column:1;grid-row:2;padding:3px 0 6px;align-self:center}
+ #interface #overlay.imx .intermission-screen:has(>.stage-navigation)>.feedback-progress-strip{grid-column:2;grid-row:2;align-self:center}
+ #interface #overlay.imx .intermission-screen:has(>.stage-navigation)>:is(.im-caption,.im-direction){grid-column:1/-1;grid-row:3}
+ #interface #overlay.imx .intermission-screen:has(>.stage-navigation)>.im-choice-grid{grid-column:1/-1;grid-row:4;width:min(100%,1120px);grid-template-rows:minmax(110px,1fr) max-content max-content calc(42px * var(--text-scale,1) + 18px) max-content max-content max-content}
+ #interface #overlay.imx .intermission-screen:has(>.stage-navigation)>.im-footer{grid-column:1/-1;grid-row:5}
+ #interface #overlay.imx .intermission-screen:has(>.im-footer) h1{font-size:calc(34px * var(--text-scale,1))}
+ #interface #overlay.imx .intermission-screen:has(>.im-footer) .im-eyebrow{margin-bottom:4px}
+}
+
+/* Portrait keeps every image, effect, price and action in compact horizontal cards. */
+#interface #overlay[data-layout=portrait].imx .intermission-screen{gap:10px;padding:14px 16px}
+#interface #overlay[data-layout=portrait].imx .im-heading{gap:10px;min-height:44px}
+#interface #overlay[data-layout=portrait].imx h1{font-size:calc(28px * var(--text-scale,1));line-height:1.2}
+#interface #overlay[data-layout=portrait].imx .im-wallet .money b{font-size:calc(15px * var(--text-scale,1))}
+#interface #overlay[data-layout=portrait].imx .im-steps{gap:10px;padding:5px 0 9px;flex-wrap:nowrap}
+#interface #overlay[data-layout=portrait].imx .im-steps>span{font-size:calc(12px * var(--text-scale,1));gap:5px;white-space:nowrap}
+#interface #overlay[data-layout=portrait].imx .im-steps>i{width:14px;flex-shrink:1}
+#interface #overlay[data-layout=portrait].imx .feedback-progress-strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0}
+#interface #overlay[data-layout=portrait].imx .feedback-progress-strip button{font-size:calc(14px * var(--text-scale,1));padding:6px 8px;min-height:36px}
+#interface #overlay[data-layout=portrait].imx .im-direction{gap:6px}
+#interface #overlay[data-layout=portrait].imx .im-direction>button{font-size:calc(13px * var(--text-scale,1));min-height:36px;padding:5px 8px;gap:6px}
+#interface #overlay[data-layout=portrait].imx .im-direction img{width:24px;height:24px}
+#interface #overlay[data-layout=portrait].imx .im-caption{font-size:calc(13px * var(--text-scale,1))}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid{width:100%;max-width:none;grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-auto-rows:max-content;gap:14px;padding:5px 3px 16px}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid>.im-card{display:grid;grid-template-columns:112px minmax(0,1fr);grid-template-rows:auto auto minmax(calc(40px * var(--text-scale,1) + 15px),1fr) auto auto auto;grid-template-areas:'art name' 'art kind' 'art copy' 'art service' 'art price' 'status status';gap:3px 8px;height:auto;min-height:184px;padding:5px;box-sizing:border-box}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-card-body{display:contents}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-art{grid-area:art;min-height:0;height:100%;aspect-ratio:auto;border:1px solid #bdcccc44}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-object{width:94%;height:auto;max-height:94%;top:50%;transform:translate(-50%,-50%)}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-badges{inset:6px 5px auto;font-size:calc(12px * var(--text-scale,1))}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-badges strong{font-size:calc(17px * var(--text-scale,1))}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-name{grid-area:name;height:auto;min-height:0;padding:5px 4px;font-size:calc(18px * var(--text-scale,1));line-height:1.25;border-bottom-width:3px}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-kind{grid-area:kind;min-width:0;margin:1px 0;font-size:calc(11px * var(--text-scale,1));line-height:1.4;gap:5px}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-copy{grid-area:copy;min-height:0;height:100%;padding:5px 2px 16px;font-size:calc(15px * var(--text-scale,1));line-height:1.45;overflow:auto}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-copy>i svg{width:14px;height:14px}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .im-card-bottom{grid-area:price;display:flex;flex-wrap:nowrap;gap:6px;min-height:0;margin:0;padding:3px 0 0}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .im-card-price{display:flex;gap:4px 8px;flex-wrap:wrap;min-width:0}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .im-card-price .money{gap:3px}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .im-card-price .money b{font-size:calc(14px * var(--text-scale,1))}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .im-card-price .money img{width:18px;height:18px}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .im-card-action{width:auto;min-width:68px;min-height:calc(34px * var(--text-scale,1));padding:5px 7px;font-size:calc(13px * var(--text-scale,1))}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .im-card-status{grid-area:status;min-height:0;margin:0;font-size:calc(10px * var(--text-scale,1));line-height:1.3}
+#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-service-detail{grid-area:service;justify-self:start;min-width:0;margin:0;padding:4px 8px;min-height:32px;font-size:calc(12px * var(--text-scale,1))}
+#interface #overlay[data-layout=portrait].imx .im-footer{gap:8px}
+#interface #overlay[data-layout=portrait].imx .im-footer>.primary{min-height:44px;font-size:calc(14px * var(--text-scale,1))}

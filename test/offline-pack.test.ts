@@ -29,6 +29,11 @@ test('offline pack rejects incomplete GLB files and missing/mis-sized chunks',as
  const {pack}=createAssetPack([{id:'text',mime:'text/plain',bytes:Buffer.from('hello')}]);const bad=structuredClone(pack);bad.chunks[0].bytes++;await assert.rejects(()=>restoreAssetPack(bad),/字节/);
  const missing=structuredClone(pack);missing.assets.text.parts=[50];await assert.rejects(()=>restoreAssetPack(missing),/缺失/);await assert.rejects(()=>restoreAssetPack({...pack,version:99}),/版本/);
 });
+test('different GLB headers share identical binary bodies without changing either asset',async()=>{
+ const a=glb(7).bytes,b=Buffer.from(a);const header=Buffer.from('Walk'),index=b.indexOf(header);assert.ok(index>0);b.write('Idle',index);
+ const {pack,stats}=createAssetPack([{id:'walk',mime:'model/gltf-binary',bytes:a},{id:'idle',mime:'model/gltf-binary',bytes:b}]);assert.ok(stats.deduplicatedBytes>=4096,'geometry and image bytes survive once despite distinct JSON');
+ const store=new EmbeddedAssetStore(pack);await store.prepare(['walk']);await store.prepare(['idle']);try{assert.deepEqual(Buffer.from(await(await fetch(store.urls.walk)).arrayBuffer()),a);assert.deepEqual(Buffer.from(await(await fetch(store.urls.idle)).arrayBuffer()),b);}finally{for(const url of Object.values(store.urls))URL.revokeObjectURL(url);}
+});
 test('embedded release pack prepares only requested assets and retries a failed batch without losing earlier URLs',async()=>{
  const assets=[{id:'menu',mime:'text/plain',bytes:Buffer.from('menu')},{id:'battle',mime:'text/plain',bytes:Buffer.from('battle')}];
  const {pack}=createAssetPack(assets),copy=structuredClone(pack),store=new EmbeddedAssetStore(copy);

@@ -1,7 +1,7 @@
 {
-  "status": "Unified UI actions, grouped purchased enhancements, minimap telegraphs and casualty/Boss presentation; no gameplay rule change or live deployment",
-  "appBuildId": "19ec7a4ca4122b067b5b13c4cae7fedf7cf4def75c41dc109c3aec95d608be05",
-  "packageBuildId": "4cfe204485553d310ca90d965743f1d0be391995efc4ed019b774618f0bcd58c",
+  "status": "Ordered entrance loading and cancellation, pod health, responsive menu/card layout and formal save notice; original gameplay/resources retained; no live deployment",
+  "appBuildId": "8fe4ce100758fcf415621b95f28efb32cbd66dece6819e1e409914755c32bbde",
+  "packageBuildId": "8f0f77a88c21b3bad33ae8f4400a393068df63dada4b1336e59769845777645d",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151",
@@ -92,6 +92,11 @@
       "sha256": "be5fc03d6a81aab693aa706986c30d64c0e6df1117b40d9c80634c675a442ec0"
     },
     {
+      "path": "ENTRY_FIXES_20261009.md",
+      "bytes": 3531,
+      "sha256": "c39b506f8fcb53f48e9dac2806c7e3f5d000e178b6188309ae0da7f195c516bd"
+    },
+    {
       "path": "fetch-resources.mjs",
       "bytes": 5081,
       "sha256": "38cf22a1ec311b6cd69c0a019e467e56a75ee1c6cabe5bf66625eb07cd8dd8a9"
@@ -124,12 +129,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "033efa5a6a552cdc2f6951ad370e906d125ddb14082d1ac2c94d0e19bfc020ee"
+      "sha256": "152d2a8ec32681f6268b1a8d6f39e0afd482834a7da7d343446ae545ab004dc5"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "442c661c86775dcd53790a4b7ef7b8cbc56a7fcb91434615ac1de401ba9309b2"
+      "sha256": "40567c4007343540a5363ef99f55fafd94411a7ee64ef2ab0cd9a4570b17fe9e"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -142,19 +147,19 @@
       "sha256": "6182417637480b36db27d6935a550404d08a9a56baec3733a6f9f308479ba889"
     },
     {
-      "path": "public/assets/index-CEZqg1S2.js",
-      "bytes": 2894189,
-      "sha256": "7e861900dc3a3da83c46a0eec1d2eba31df64e11ec7bd746ce91c84fa3328129"
+      "path": "public/assets/index-IAp3WUPz.css",
+      "bytes": 468677,
+      "sha256": "4dcae7e4dc2cd43c8f23b7207974d12dc74b4f36b9ad6abe32d95079839c133a"
     },
     {
-      "path": "public/assets/index-DKlA1xh2.css",
-      "bytes": 456629,
-      "sha256": "e40d8fcf5ebb09e0de79469b98a31f92aed88a98f1b49b5a1150dd5d1d6c55f0"
+      "path": "public/assets/index-SFf3eiBb.js",
+      "bytes": 2895970,
+      "sha256": "ec234ee39a36f25497086344cdcd745c2538ce744a9686577b3a9719d002c150"
     },
     {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "0cbf407ff6ffd9946f954483a0dc9fd8881a32f83dcce9192ed5aa45ae2823a9"
+      "sha256": "e6e38949e8b5e698aa4dead22bd598d61d145d5b5d84d950e8774ef79eb701a3"
     },
     {
       "path": "public/runtime-config.json",
@@ -164,12 +169,12 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "fbb9447c2f275dfb602d8f340498bfaddb428c2f733801c6a75ea5cf79519622"
+      "sha256": "01694716ac69ed3706c4f9d9db80914529a46c6aac68913b7aa5786013bd9861"
     },
     {
       "path": "README.md",
-      "bytes": 5484,
-      "sha256": "16640856d08d167b9df94b93cb1385ad9c966512be112400893c591afcc2d7ce"
+      "bytes": 5579,
+      "sha256": "0e1b4f9cfcad0c1dafeb26f6c89d5f284f72507f16974adbc9a017649967fcfb"
     },
     {
       "path": "REPAIRS_459_20261009.md",
@@ -179,7 +184,7 @@
     {
       "path": "resource-delta.json",
       "bytes": 329,
-      "sha256": "b2e1d3940bc91fcb828b5bef37f5943d253445ded851277e51d1752e7892e173"
+      "sha256": "f5419252e879fa6018e93809f9f3a959de5ed85654df020bf4dac08d47c17444"
     },
     {
       "path": "resource-groups.json",

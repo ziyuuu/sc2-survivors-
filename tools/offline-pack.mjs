@@ -3,8 +3,8 @@ import {createHash} from 'node:crypto';
 import {gzipSync} from 'node:zlib';
 
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
-/** Split only at embedded-image boundaries. Every source byte, including GLB padding,
- * survives unchanged; all clips, materials and geometry remain in the offline build. */
+/** Share unchanged GLB body bytes independently of per-file JSON headers and images.
+ * Every source byte, including padding, clips, materials and geometry survives. */
 export function assetParts(bytes){
  if(bytes.length<12||bytes.toString('ascii',0,4)!=='glTF')return [bytes];
  if(bytes.readUInt32LE(4)!==2||bytes.readUInt32LE(8)!==bytes.length)throw Error('Invalid GLB header');
@@ -14,7 +14,7 @@ export function assetParts(bytes){
   if(type===0x004e4942){binOffset=at+8;binLength=n;}at+=8+n;
  }
  if(!json)throw Error('GLB missing JSON');
- const cuts=new Set([0,bytes.length]);
+ const cuts=new Set([0,bytes.length]);if(binOffset)cuts.add(binOffset);
  for(const image of json.images??[]){if(image.bufferView===undefined)continue;const view=json.bufferViews?.[image.bufferView];
   if(!view||view.buffer!==0||!binOffset)throw Error('Unsupported embedded image buffer');
   const start=view.byteOffset??0,end=start+view.byteLength;if(start<0||end>binLength)throw Error('Invalid image bounds');

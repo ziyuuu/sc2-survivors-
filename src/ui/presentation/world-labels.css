@@ -4,4 +4,4 @@
 .pod-world-label img{width:28px;height:28px;object-fit:contain;filter:none;opacity:.95}
 .pod-world-label .carrier-count{font-size:14px;align-self:center;color:#b7f6c9}
 .pod-world-label .carrier-vital{grid-column:1/-1;height:3px;background:#1d4535;overflow:hidden}
-.pod-world-label .carrier-vital i{display:block;height:100%;background:#80e99f}
+.pod-world-label .carrier-vital i{display:block;height:100%;margin:0;background:#80e99f}
