@@ -33,7 +33,7 @@ test('catalogue and multi-level intermission navigation are read-only for all ra
   const w=new World({race,sandbox:true,waves:false,terrain:false});w.start();const before=snapshot(w),nav=new IntermissionNavigation();
   nav.sync(w);
   for(const filter of ['ordinary','elite','hero','development','support','training'] as const){nav.filter=filter;const items=catalogue(w,filter);assert.ok(items.length);if(filter==='ordinary')assert.equal(items.length,10);if(filter==='elite')assert.equal(items.length,30);if(filter==='hero')assert.equal(items.length,6);
-   nav.push({page:'catalog'},'[data-action="ui-page"]',200);for(const item of items){nav.push({page:'catalog-detail',id:item.id});assert.ok(renderIntermission(w,'',nav).includes(item.name));nav.back();}assert.equal(nav.current.page,'catalog');const entry=nav.back();assert.equal(entry?.scroll,200);assert.equal(nav.current.page,'root');
+   nav.push({page:'catalog'});assert.equal(nav.current.page,'root');for(const item of items){nav.push({page:'catalog-detail',id:item.id});assert.equal(nav.current.page,'root');}assert.doesNotMatch(renderIntermission(w,'',nav),/data-page="catalog"/);
   }
   assert.equal(snapshot(w),before);
  }

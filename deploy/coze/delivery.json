@@ -1,7 +1,7 @@
 {
-  "status": "Maintenance: unreachable UI removed and deployment-only development files omitted; twelve reported repairs are audited and planned, not applied; live deployment not performed",
-  "appBuildId": "dfff366dc58005c627d5167c992224eec06fa8fac30207e83a23855e0d0ebfe7",
-  "packageBuildId": "15b625616dbda6d5892be239c6e9caadcba729b8e1222fdd1f0e4014f2fd4ca2",
+  "status": "Items 4/5/9: automatic pickup arrivals, approved R4 reveal, closed player catalogue, first-facility baseline unlocks; no live deployment",
+  "appBuildId": "d651fd89dcafffff21f304a406717c5221a2582285aa107ee3e45fbb28750eaa",
+  "packageBuildId": "6ececc30f6fdbe3c7d614f14c997e96b27ed40ec0413147ce88056dc65670190",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "2848cfe41f50528ce1cc9128edd1e5ddccdf9bd7e889aa15af72df16f3fc287a",
@@ -77,16 +77,6 @@
       "sha256": "b6244ee1e26b906e823763d77332b2160ea392602fe0f4f7ae05936d28c3105f"
     },
     {
-      "path": "BATTLE_UI_INTEGRATION_20261008.md",
-      "bytes": 2465,
-      "sha256": "626bdffe7b4a8fac76d5bc43a7f2235c2a9184f22921ba35537a585e480eee8c"
-    },
-    {
-      "path": "BATTLE_UI_INTEGRATION_VALIDATION_20261008.md",
-      "bytes": 5656,
-      "sha256": "d6c2e67161521f5db2c479e559ba1abce4e9f09f4ee01ceeb24fd4255310c9c0"
-    },
-    {
       "path": "coze-web-server.mjs",
       "bytes": 4728,
       "sha256": "be5fc03d6a81aab693aa706986c30d64c0e6df1117b40d9c80634c675a442ec0"
@@ -98,13 +88,8 @@
     },
     {
       "path": "MAINTENANCE_SCOPE_20261008.md",
-      "bytes": 2665,
-      "sha256": "850a7717e97cc8c7c772093b9b95f0c0e85e20b460dc6aa8f9efd35cfdf6fd72"
-    },
-    {
-      "path": "OPENING_COVER_FLAME_20261007.md",
-      "bytes": 4553,
-      "sha256": "241048dd0b7e23eea668a2646c75855744304f4a314538b6eaabc1e4c679fd44"
+      "bytes": 2695,
+      "sha256": "107ac4b414a3b9f01b4d6f1271523250ff447f0621830b36cfd15f060f462e14"
     },
     {
       "path": "P5_BACKEND_HANDOFF_20261006.md",
@@ -119,12 +104,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "b7ce48c55427147301d0f871d7fd63f34540d97ea5e948e143646fe3a1a16905"
+      "sha256": "f0ec6504d6cf53a3b6590861815f58610509ff709e98fa230665d4380917ca57"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "8045845ee6c51ec82b80945274c4884d28772c74f49f743336ad6232273ed3e2"
+      "sha256": "64f0200b7b85de9a6a449f164eba7cae007359c546e11b6dd67041c7e17beb44"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -137,19 +122,19 @@
       "sha256": "1257ad91f69c590d59abc862c539bb3aadc1a2c611110a69580dd5a8457f7bd3"
     },
     {
-      "path": "public/assets/index-qLqHJIKO.css",
-      "bytes": 401131,
-      "sha256": "7088caa90c3b83439ed498314725350acd32122d55ad0c7105fb71e3e666c858"
+      "path": "public/assets/index-BtByoOr0.css",
+      "bytes": 410161,
+      "sha256": "efdc1a614e14f2ed42893189ac104c8b8f550a11893330a2b006aa62f2f28b8d"
     },
     {
-      "path": "public/assets/index-rzNj-Cwi.js",
-      "bytes": 2876605,
-      "sha256": "2aacde429f5c36105a7feb42fb29c3be08024c6d602c3897b97a489ad60605ed"
+      "path": "public/assets/index-DGEtdZma.js",
+      "bytes": 2876744,
+      "sha256": "a03338ee0e3fb21824493b344547921e09f3134e08e629196d6df2086a00f2c3"
     },
     {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "b4e6362e836c1278e912e8ff18bd62502d4ac4f66d66643a2850b08654828dd5"
+      "sha256": "727ccc55e2f26021e3f1304ba63ad1b3665bd135e632d495b7c0e789f86ffdcc"
     },
     {
       "path": "public/runtime-config.json",
@@ -159,7 +144,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "719a73882a2c7c48580043ceda4fed5819e8017e04af3472e3b142927aefda83"
+      "sha256": "d4379609c4bbd45adea2ecc15eda3bc224a4ab0db64c609d0130901b58704544"
     },
     {
       "path": "README.md",
@@ -167,9 +152,14 @@
       "sha256": "2374e9861517be0296e93ca0b32d036b02e58abf022424c7975ff90d09422b67"
     },
     {
+      "path": "REPAIRS_459_20261009.md",
+      "bytes": 3160,
+      "sha256": "66451364c2e01e85d8c354d172ef4870e4121540c1dfa3c39ea047a06853df25"
+    },
+    {
       "path": "resource-delta.json",
       "bytes": 329,
-      "sha256": "a40301379a46e20a6b313ab476a1d92564db0db6104ea2412d6ddf94fb1c9e25"
+      "sha256": "3e8f9c23e1f021b77486387033a0b1749df5b32fbe7ab124dc3157942b0933c8"
     },
     {
       "path": "resource-groups.json",
@@ -200,11 +190,6 @@
       "path": "UI_FIDELITY_ROUND_VALIDATION_20261006.md",
       "bytes": 6522,
       "sha256": "9ab4bd2f7a65d82fdb3cec3cd4de9150cb8aa8d51fffe9075dd84b0339791151"
-    },
-    {
-      "path": "UI_FLOW_ART_AUDIT_20261007.md",
-      "bytes": 5979,
-      "sha256": "60987fd757b1531f762e640ac304059c720ae12abe247b7c71ffc89513e31ff8"
     },
     {
       "path": "UI_INTEGRATION_20261006.md",

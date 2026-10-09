@@ -62,6 +62,12 @@ function applyDevelopment(w:World,r:ExpeditionReward,definition:(typeof DEVELOPM
  s.tech[definition.id]=(s.tech[definition.id]??0)+1;
  if(definition.unlock==='skill')w.upgrades.set(definition.id,1);
  if(definition.kind!=='facility')return;
+ const baseline=definition.id==='factory'?'hellion':definition.id==='starport'?'medivac':null;
+ if(baseline&&s.tech[definition.id]===1){
+  s.tech['unlock.'+baseline]=Math.max(1,s.tech['unlock.'+baseline]??0);
+  const plan=s.production[definition.line!];
+  if(plan&&!plan.outputs.length){plan.outputs=[baseline];plan.enabled[baseline]=true;plan.cursor=0;}
+ }
  const level=w.talent('instant_tech');
  const build=()=>{const line=definition.id==='hatchery'?(s.developmentDirection??'zerg.basic'):definition.line!;
   const facility={id:s.nextFacility++,kind:definition.id,line,techLab:false};s.facilities.push(facility);

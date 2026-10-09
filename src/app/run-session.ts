@@ -98,7 +98,7 @@ export class RunSession {
   if(!PermanentProfile.parseJSON(bundle.profile))throw Error('永久档案无效');
   if(bundle.run)this.world.restoreRun(bundle.run,true);
   const state=bundle.run?.state;
-  const decision=state?.expedition.bossLootQueue.length?'待领取首领奖励':state?.expedition.pendingReceipt?'待决定换兵':state?.expedition.eliteRescueRights.length?'待领取精英救援':state?.pendingElites.length?'待决定精英编入':state?.expedition.pendingTalentLoot?'待领取特殊强化':state?.phase==='reward'?'待选择关间强化':state?.phase==='won'?'待选择撤离或无尽':state?.phase==='endless-ready'?'无尽整备已完成':state?.phase==='battle'&&state.paused?'战斗已暂停':'';
+  const decision=state?.expedition.pendingReceipt?'待决定换兵':state?.expedition.eliteRescueRights.length?'待领取精英救援':state?.pendingElites.length?'待决定精英编入':state?.expedition.pendingTalentLoot?'待领取特殊强化':state?.phase==='reward'?'待选择关间强化':state?.phase==='won'?'待选择撤离或无尽':state?.phase==='endless-ready'?'无尽整备已完成':state?.phase==='battle'&&state.paused?'战斗已暂停':'';
   const summary=state?`${RACE_NAMES[state.runConfig!.race]}／${({easy:'简单',normal:'普通',hard:'困难',hell:'地狱'}[state.difficulty])} · ${state.endless?'无尽第'+state.endless.round+'轮':'第'+state.stage+'关'}${decision?' · '+decision:''}`:'仅永久档案';
   const preview:LoadPreview={id:`load:${++this.sequence}`,source,summary,snapshot:bundle.run};
   this.loadTicket={preview,bundle};return preview;

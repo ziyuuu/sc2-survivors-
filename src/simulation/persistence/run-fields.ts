@@ -14,6 +14,7 @@ import type {RunState} from '../run-state';
 import {validateExpedition} from '../expedition-state';
 import {ALL_FAMILIES,combatRace,isAirHeroType,type FamilyId} from '../../data/races';
 import {allocationCost,allocationPoints,validateTalentAllocation} from '../../data/mvp-talents';
+import {ELITES} from '../../data/elites';
 import {HEROES} from '../../data/heroes';
 import {validBattleView} from '../combat/battle-view';
 /** Explicit schema: adding RunState state requires choosing persistence or rebuild. */
@@ -104,6 +105,7 @@ export function validateRunData(data:RunData,defaults:object){
  if(newIds.some(id=>id>=data.nextId))throw Error('精英实体序号冲突');
  const absorbed=new Map<number,number>();for(const r of data.terranElites.absorptions){if(data.entities.get(r.id)?.hp)throw Error('已吸收单位仍在场');const hunter=data.entities.get(r.hunter);if(hunter&&(hunter.eliteId!=='reaper.3'||!revisedElite(hunter)))throw Error('吸收者归属无效');absorbed.set(r.hunter,(absorbed.get(r.hunter)??0)+r.contribution);const job=data.expedition.ledger.find(j=>j.id===r.job);if(job&&r.passenger!==null){const p=job.passengers[r.passenger];if(!p||p.entityId!==r.id||p.status!=='released'||p.paid.minerals!==r.paid.minerals||p.paid.gas!==r.paid.gas)throw Error('吸收支付收据不一致');}}
  for(const u of data.entities.values())if(u.eliteId==='reaper.3'&&u.eliteCombat&&Math.abs(u.eliteCombat.absorbed-(absorbed.get(u.id)??0))>1e-6)throw Error('吸收成长与收据不一致');
+ for(const drop of data.rewardDrops)if(drop.bossLootVariant!==undefined&&(!drop.bossLootReceipt||!Object.hasOwn(ELITES,drop.bossLootVariant)||!('expeditionEffect' in drop.reward)||((drop.reward as import('../progression/expedition-drafts').ExpeditionReward).expeditionEffect.kind!=='elite')||ELITES[drop.bossLootVariant].family!==((drop.reward as import('../progression/expedition-drafts').ExpeditionReward).expeditionEffect as {family:string}).family))throw Error('掉落精英身份无效');
  for(const drop of data.rewardDrops)if(drop.bossLootReceipt&&(!data.expedition.bossLootReceipts.includes(drop.bossLootReceipt)||data.expedition.bossLootClaimed.includes(drop.bossLootReceipt)||data.expedition.bossLootQueue.some(q=>q.receipt===drop.bossLootReceipt)||drop.reward.minerals!==0||drop.reward.gas!==0))throw Error('地图首领奖励收据无效');
  for(const drop of data.rewardDrops)if(drop.talentLoot&&(!['purple','orange'].includes(drop.talentLoot.rarity)||typeof drop.talentLoot.receipt!=='string'||!data.expedition.talentLootReceipts.includes(drop.talentLoot.receipt)))throw Error('地图天赋掉落收据无效');
   // The full guardTypes recipe and retained guardianIds reconstruct the release cursor.

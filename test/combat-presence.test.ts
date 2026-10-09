@@ -7,7 +7,8 @@ import {ownedInterceptors,tickCarrierSubsystem} from '../src/simulation/combat/c
 import {campaign18Schedule,campaign18StageConfig} from '../src/data/campaign18';
 
 function single(type:UnitType){const w=new World({race:type==='lurker'?'zerg':type==='medivac'||type==='science_vessel'?'terran':'protoss',sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();const u=w.addUnit(type,'terran',0,0);return {w,u};}
-function finale(w:World){w.stage=18;w.stageElapsed=150;w.prepareStage();w.hive!.hp=0;const event=campaign18Schedule(campaign18StageConfig(18,w.difficulty),w.seed).specials[0],boss=(w as any).spawnCampaignSpecial(event);assert.ok(boss);w.hit(boss,1e9,[],1,'terran');assert.equal(boss.hp,0);w.endStage();}
+function finale(w:World){w.stage=18;w.stageElapsed=150;w.prepareStage();w.hive!.hp=0;const event=campaign18Schedule(campaign18StageConfig(18,w.difficulty),w.seed).specials[0],boss=(w as any).spawnCampaignSpecial(event);assert.ok(boss);w.hit(boss,1e9,[],1,'terran');assert.equal(boss.hp,0);w.rewardDrops=[]; // Isolate the combat-presence gate from automatic reinforcement drops.
+ w.endStage();}
 function enterEndless(w:World){assert.equal(w.chooseCampaignExit('endless'),true);assert.equal(w.skipReward(),true);assert.equal(w.skipReward(),true);const plan=w.previewEndlessTransition()!;assert.ok(plan);const token=`${plan.requestId}:${plan.expectedRevision}:${plan.mapHash}`;assert.equal(w.registerEndlessReadyToken(token),true);assert.equal(w.commitEndlessTransition(plan.requestId,plan.expectedRevision,token),true);}
 
 test('a lone carrier remains a fighter and can win then enter endless with indirect weapons',()=>{

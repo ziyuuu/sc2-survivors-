@@ -22,7 +22,7 @@ import {findCarrierLanding,validCarrierLanding,carrierGuardPosition} from './mov
 import {createPair,joinPair,pairFor,rosterMembers,syncPair,notePairDeath,tickBroods,tickQueenInjection} from './zerg-brood';
 import {nextEndlessExpansion} from '../data/endless';
 import {RESCUE_PRESENTATION} from '../data/economy';
-import {dropBossLoot,collectBossLoot,recoverBossLoot,refreshBossLoot,claimBossLoot,selectBossLootVariant} from './boss-loot';
+import {dropBossLoot,collectBossLoot,recoverBossLoot,settlePendingLoot,freezeLootVariant,clearUnitArrivals} from './boss-loot';
 import {tickMainHive} from './combat/main-hive';
 import {selectRunData,validateRunData} from './persistence/run-fields';
 import {RUN_RULES,RUN_SCHEMA,type RunSnapshot} from './persistence/run-snapshot';
@@ -93,6 +93,7 @@ const HERO_SPLASH:Partial<Record<HeroId,{center:'source'|'target';radius:number;
 
 export class World extends RunState {
  readonly listeners=new Set<()=>void>();
+ arrivalVersion=0;
  private mutationDepth=0;private mutationChanged=false;
  private atomicMutation<T>(run:()=>T):T{this.mutationDepth++;try{return run();}finally{this.mutationDepth--;if(!this.mutationDepth&&this.mutationChanged){this.mutationChanged=false;this.changed();}}}
  terrain?:TerrainQuery;obstacles:Obstacle[];private initialObstacles:Obstacle[]=[];
@@ -135,11 +136,8 @@ export class World extends RunState {
  rejectIncomingBatch(id:string,revision:number){return rejectReceipt(this,id,revision);}
  planPassengerReceipt(deliveryId:number,passengerId:number){const p=this.pods.find(p=>p.id===deliveryId);if(this.phase!=='battle'||!p||p.status!=='opening'||p.hp<=0||p.passengers[passengerId]?.status!=='waiting'||p.passengers.findIndex(c=>c.status==='waiting')!==passengerId||this.time<p.nextExitAt||this.time-(p.resolvedAt??this.time)<ECONOMY.openingSeconds-1e-8)return false;if([...this.entities.values()].some(u=>u.owner==='zerg'&&u.hp>0&&(p.guardianIds.has(u.id)||distance(u,p)<=6+u.unitRadius))||!this.freePosition(p.unitType,p,1.8,4.5))return false;return receiptNeeded(this,p,passengerId);}
  rerollOffers(windowId:string,kind:'building'|'random'){return windowId===this.draftWindowKey&&kind===this.rewardRound&&refreshOffers(this);}
- get requiresPlayerDecision(){return this.expedition.bossLootOpen&&this.expedition.bossLootQueue.length>0||this.requiresEliteChoice||!!this.expedition.pendingReceipt||!!this.expedition.pendingTalentLoot||this.expedition.eliteRescueRights.length>0;}
- openBossLoot(){if(!this.expedition.bossLootQueue.length||this.phase==='menu')return false;this.expedition.bossLootOpen=true;refreshBossLoot(this);this.changed();return true;}
- closeBossLoot(){if(!this.expedition.bossLootOpen)return false;this.expedition.bossLootOpen=false;this.changed();return true;}
- selectBossLootVariant(receipt:string,variant:EliteId|null){return selectBossLootVariant(this,receipt,variant);}
- claimBossLoot(receipt:string,variant?:EliteId,target?:number){return this.atomicMutation(()=>claimBossLoot(this,receipt,variant,target));}
+ get requiresPlayerDecision(){return this.requiresEliteChoice||!!this.expedition.pendingReceipt||!!this.expedition.pendingTalentLoot||this.expedition.eliteRescueRights.length>0;}
+
  claimTalentLoot(receipt:string,offerId:string,variantId?:EliteId){return this.atomicMutation(()=>claimTalentLoot(this,receipt,offerId,variantId));}
  previewTalentTransfer(target:Point,participantIds?:number[]){return previewTransfer(this,target,participantIds);}
  cancelTalentTransfer(){return cancelTransfer(this);}
@@ -165,7 +163,7 @@ export class World extends RunState {
  }
  configureCampaign(recipe:CampaignMapRecipe){if(this.phase!=='menu')return false;this.initialTerrain=campaignTerrain(recipe);this.initialObstacles=[];this.seed=recipe.seed;this.resetRun();return true;}
  get campaignRecipe(){return this.initialTerrain instanceof RadialTerrain?this.initialTerrain.recipe:undefined;}
- private initializeRun(){this.expedition=newExpedition(this.selectedRace);this.battlefield={mode:'campaign',mapId:this.initialTerrain instanceof RadialTerrain?CAMPAIGN_MAP_ID:'campaign-kairos-v1',mapHash:this.mapIdentity(this.initialTerrain)};this.expedition.talentLootRngState=(this.seed^0x9e3779b9)>>>0;this.terrain?.setStage?.(this.stage);const baseline:readonly UnitType[]=this.selectedRace==='zerg'?['zergling','zergling']:this.selectedRace==='protoss'?['zealot']:['marine'];const initial=this.useDiagnosticInitial?this.initialUnits:baseline;initial.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
+ private initializeRun(){this.arrivalVersion++;clearUnitArrivals(this);this.expedition=newExpedition(this.selectedRace);this.battlefield={mode:'campaign',mapId:this.initialTerrain instanceof RadialTerrain?CAMPAIGN_MAP_ID:'campaign-kairos-v1',mapHash:this.mapIdentity(this.initialTerrain)};this.expedition.talentLootRngState=(this.seed^0x9e3779b9)>>>0;this.terrain?.setStage?.(this.stage);const baseline:readonly UnitType[]=this.selectedRace==='zerg'?['zergling','zergling']:this.selectedRace==='protoss'?['zealot']:['marine'];const initial=this.useDiagnosticInitial?this.initialUnits:baseline;initial.forEach((t,i)=>this.addUnit(t,'terran',-i*1.15,(i%2)*1.4));
   this.wallet={minerals:this.selectedRace==='protoss'?0:50,gas:0};
   if(!this.sandbox){for(const u of this.allies()){const p=this.moveGoal(u);u.x=p.x;u.z=p.z;u.prev={...p};}}
   this.prepareStage();
@@ -194,12 +192,12 @@ export class World extends RunState {
   if((!terrain&&!this.sandbox)||snapshot.map!==this.mapIdentity(terrain)||snapshot.state.battlefield.mapHash!==snapshot.map)throw Error('续局地图版本不匹配');
   const data=structuredClone(snapshot),statuses=new CombatStatuses(),specials=new EnemySpecials(this);
   statuses.restore(data.statuses);specials.restore(data.specials);if(validateOnly)return;
-  Object.assign(this,fresh,data.state);this.selectedRace=data.config.race;this.statuses=statuses;this.enemySpecials=specials;this.autoWaves=data.autoWaves;
+  this.arrivalVersion++;clearUnitArrivals(this);Object.assign(this,fresh,data.state);this.selectedRace=data.config.race;this.statuses=statuses;this.enemySpecials=specials;this.autoWaves=data.autoWaves;
   rebuildGroundHeroBuffs(this);
   this.initialTerrain=campaign;this.seed=data.seed;this.terrain=terrain;this.obstacles=data.state.battlefield.mode==='endless'?[]:[...this.initialObstacles];this.terrain?.setStage?.(this.terrainStage);this.input={x:0,z:0};if(this.phase==='battle')this.paused=true;
   this.spawnCells=connectedSpawnCells(this.terrain,this.anchor,this.mapHalf,this.obstacles);
   const bodies:Body[]=[...this.entities.values(),...this.pods.filter(p=>p.status==='active'||p.status==='opening'),...[...this.economicTargets.values()].filter(e=>e.status==='active'),...this.expansionHives.values(),...this.fortifications.values()];if(this.hive&&this.hive.hp>0)bodies.push(this.hive);this.hash.rebuild(bodies);
-  this.changed();
+  this.atomicMutation(()=>{settlePendingLoot(this);this.changed();});
  }
  get config(){const key=this.stage+(this.endless?this.endless.round*100:0);if(this.configStage!==key||this.configDifficulty!==this.difficulty||!!this.endless!==('endlessId' in (this.stageData??{}))){this.stageData=this.endless?endlessConfig(this.difficulty,this.endless.round):campaign18StageConfig(this.stage,this.difficulty);this.configStage=key;this.configDifficulty=this.difficulty;}return this.stageData;}
  get terrainStage(){return this.terrain instanceof RadialTerrain?this.stage:campaign18TerrainStage(this.stage);}
@@ -291,7 +289,7 @@ export class World extends RunState {
   for(const [id,p] of plan.pods){const pod=this.pods.find(p=>p.id===id)!;pod.x=p.x;pod.z=p.z;}
   this.terrain=terrain;this.battlefield={mode:'endless',mapId:ENDLESS_MAP_ID,mapHash:plan.mapHash};this.anchor={x:0,z:0,facing:0};this.trail=[{x:0,z:0}];this.resetCommand();
   this.obstacles=[];this.pods=this.pods.filter(p=>['falling','active','opening'].includes(p.status));this.enemySpecials=new EnemySpecials(this);
-  this.expansionHives.clear();this.hive=null;this.economicTargets.clear();this.pickups=[];recoverBossLoot(this);this.rewardDrops=[];this.effects=[];this.weaponFlights=[];this.heroAttacks=newHeroAttackState();this.zergHeroes=newZergHeroRun();this.protossHeroes=newProtossHeroRun();this.heroAttackEvents=[];this.heroAuraMembership.clear();this.heroCasts=[];this.expedition.weaponAreas=[];this.corrosionZones=[];this.ambientBacklog=[];this.campaign18Runtime=null;this.expedition.detectionFields=[];this.expedition.spells=[];this.hiveWarningPoint=null;
+  this.expansionHives.clear();this.hive=null;this.economicTargets.clear();this.pickups=[];this.atomicMutation(()=>recoverBossLoot(this));this.rewardDrops=[];this.effects=[];this.weaponFlights=[];this.heroAttacks=newHeroAttackState();this.zergHeroes=newZergHeroRun();this.protossHeroes=newProtossHeroRun();this.heroAttackEvents=[];this.heroAuraMembership.clear();this.heroCasts=[];this.expedition.weaponAreas=[];this.corrosionZones=[];this.ambientBacklog=[];this.campaign18Runtime=null;this.expedition.detectionFields=[];this.expedition.spells=[];this.hiveWarningPoint=null;
   this.endless={round:1,startedAt:this.time,elites:0,bosses:0,progress:{wave:0,elite:0,boss:0},retry:{elite:0,boss:0},last:{}};
   this.stageElapsed=0;this.stageStartedAt=this.time;this.phase='battle';this.paused=false;this.endlessTransitionReceipt=requestId;this.endlessEntry=null;this.endlessReadyToken=null;
   this.spawnCells=terrain.connectedLocations?.(this.anchor,.9,1.4)??[];this.expedition.support.unique.landing=null;this.placeEndlessFortifications();this.prepareEndlessRound();this.announce('无尽战场 · 守住小队');return true;
@@ -662,7 +660,7 @@ export class World extends RunState {
   const id=this.nextId++,effect=reward.expeditionEffect;
   if(effect.kind==='elite'||effect.kind==='hero'){
    const receipt=`${this.runId}:map:${id}`;this.expedition.bossLootReceipts.push(receipt);
-   this.rewardDrops.push({id,...p,reward,bossLootReceipt:receipt});
+   this.rewardDrops.push({id,...p,reward,bossLootReceipt:receipt,bossLootVariant:freezeLootVariant(this,reward,receipt)});
   }else this.rewardDrops.push({id,...p,reward});
  }
  collectRewardDrop(id:number){return this.atomicMutation(()=>{const index=this.rewardDrops.findIndex(p=>p.id===id);if(index<0||this.expedition.pendingTalentLoot)return false;const drop=this.rewardDrops[index],ok=drop.bossLootReceipt?collectBossLoot(this,drop):drop.talentLoot?openTalentLoot(this,drop.talentLoot.receipt,drop.talentLoot.rarity):collectMapReinforcement(this,drop.reward);if(ok)this.rewardDrops.splice(index,1);this.changed();return ok;});}
@@ -894,7 +892,7 @@ export class World extends RunState {
    if(SWARM_TYPES.every(t=>batch.counts[t]===0))this.swarm.pending.shift();
   }
  }
- endStage(){if(this.phase!=='battle'||!this.endless&&this.stage===18&&this.stageElapsed<this.duration-1e-8)return;recoverBossLoot(this);if(this.talentTransferPlan)cancelTransfer(this);this.cancelOrder();
+ endStage(){if(this.phase!=='battle'||!this.endless&&this.stage===18&&this.stageElapsed<this.duration-1e-8)return;this.atomicMutation(()=>recoverBossLoot(this));if(this.talentTransferPlan)cancelTransfer(this);this.cancelOrder();
   if(!this.endless&&this.difficulty==='hell'&&this.expansionHives.size){this.phase='lost';this.announce('扩张虫巢尚未清除 · 战线失守');return;}
   if(!this.endless&&this.stage===18&&(!this.hive||this.hive.hp>0||!this.campaign18Runtime?.finalBossKilled||!this.allies().some(u=>hasCombatPotential(this,u)))){this.phase='lost';this.announce('未能在期限内摧毁虫巢、击杀雷兽首领并保住小队');return;}
   if(!this.endless&&this.runId){const points=talentPointsForStage(this.difficulty,this.stage);if(points)this.awardPermanentResource(this.runId+':stage:'+this.stage,points);}
@@ -935,7 +933,7 @@ export class World extends RunState {
  castTactical(point?:Point){return castTactical(this,point);}
  commitStrategicStrike(point:Point){return commitStrategic(this,point);}
  airlift(point:Point=defaultTalentTransferTarget(this),participantIds?:number[]){return prepareTransfer(this,point,participantIds);}
- step(){if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision)return;const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;this.statuses.tick(this.time);
+ step(){if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision)return;if(this.expedition.bossLootQueue.length)this.atomicMutation(()=>settlePendingLoot(this));const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;this.statuses.tick(this.time);
   if(this.talentTransferPlan&&this.time+1e-8>=this.talentTransferPlan.readyAt)finishTransfer(this);
   if(this.endless&&this.runId){const minutes=Math.floor((this.endlessElapsed+1e-8)/60);while(this.endlessAwardedMinutes<minutes){this.endlessAwardedMinutes++;this.awardPermanentResource(this.runId+':endless:'+this.endlessAwardedMinutes,talentPointsForEndlessMinute(this.difficulty));}}
   if(this.scheduledStage!==this.stage)this.prepareStage();const direction=this.updateCommand(dt),mag=Math.hypot(direction.x,direction.z);this.marchDirection={x:direction.x/Math.max(1,mag),z:direction.z/Math.max(1,mag)};if(mag>.01){this.anchorMovingFor+=dt;this.anchorStoppedFor=0;}else {this.anchorStoppedFor+=dt;this.anchorMovingFor=0;}if(mag>.01){const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);this.anchor.facing=turn(this.anchor.facing,Math.atan2(direction.x,direction.z),5*dt);const delta={x:direction.x/Math.max(1,mag)*speed*dt,z:direction.z/Math.max(1,mag)*speed*dt},half=this.sandbox?TUNING.worldHalf:this.mapHalf;if(Math.hypot(this.input.x,this.input.z)>.01)translateControlAnchor(this.anchor,delta,half,this.terrain);else translate(this.anchor,delta,.8,false,this.obstacles,half,this.terrain);}

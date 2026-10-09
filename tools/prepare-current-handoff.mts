@@ -10,7 +10,8 @@ const fidelityStage=process.argv.includes('--ui-fidelity');
 const cozeStage=process.argv.includes('--coze');
 const openingStage=process.argv.includes('--opening');
 const battleUiStage=process.argv.includes('--battle-ui');
-const maintenanceStage=process.argv.includes('--maintenance');
+const repairs459Stage=process.argv.includes('--repairs-459');
+const maintenanceStage=process.argv.includes('--maintenance')||repairs459Stage;
 const web=path.resolve('dist/web'),baseline=path.resolve('deploy/coze');
 const relative=path.relative(path.resolve('dist'),destination);
 if(!relative||relative.startsWith('..')||path.isAbsolute(relative))throw Error('Output must be a new folder inside dist');
@@ -52,11 +53,12 @@ if(cozeStage){
 }
 if(openingStage)for(const name of ['OPENING_COVER_FLAME_20261007.md','UI_FLOW_ART_AUDIT_20261007.md'])await fs.copyFile('docs/project/'+name,path.join(destination,name));
 if(battleUiStage)for(const name of ['BATTLE_UI_INTEGRATION_20261008.md','BATTLE_UI_INTEGRATION_VALIDATION_20261008.md'])await fs.copyFile('docs/project/'+name,path.join(destination,name));
+if(repairs459Stage)await fs.copyFile('docs/project/REPAIRS_459_20261009.md',path.join(destination,'REPAIRS_459_20261009.md'));
 if(maintenanceStage)await fs.copyFile('docs/project/MAINTENANCE_SCOPE_20261008.md',path.join(destination,'MAINTENANCE_SCOPE_20261008.md'));
 const pkg=JSON.parse(await fs.readFile(path.join(baseline,'package.json'),'utf8'));
 const lock=JSON.parse(await fs.readFile(path.join(baseline,'package-lock.json'),'utf8'));
 pkg.name=lock.name=lock.packages[''].name='sc2-survivors-current-application';
-pkg.version=lock.version=lock.packages[''].version=maintenanceStage?'0.6.10':battleUiStage?'0.6.9':openingStage?'0.6.8':cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
+pkg.version=lock.version=lock.packages[''].version=repairs459Stage?'0.6.11':maintenanceStage?'0.6.10':battleUiStage?'0.6.9':openingStage?'0.6.8':cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
 for(const [name,data]of [['package.json',pkg],['package-lock.json',lock]]as const)await fs.writeFile(path.join(destination,name),JSON.stringify(data,null,2)+'\n');
 const priorGroups=JSON.parse(await fs.readFile(path.join(baseline,'resource-groups.json'),'utf8'));
 const priorByUrl=new Map<string,any>(priorGroups.files.map((row:any)=>[row.url,row]));
@@ -87,5 +89,5 @@ await fs.writeFile(path.join(destination,'resource-delta.json'),JSON.stringify({
 async function list(dir:string,prefix=''):Promise<string[]>{const out:string[]=[];for(const e of await fs.readdir(dir,{withFileTypes:true}))out.push(...(e.isDirectory()?await list(path.join(dir,e.name),prefix+e.name+'/'):[prefix+e.name]));return out;}
 const appFiles=[];for(const file of await list(destination)){const b=await fs.readFile(path.join(destination,file));appFiles.push({path:file,bytes:b.length,sha256:sha(b)});}
 const packageBuildId=sha(JSON.stringify([...appFiles].sort((a,b)=>a.path.localeCompare(b.path))));
-await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:maintenanceStage?'Maintenance: unreachable UI removed and deployment-only development files omitted; twelve reported repairs are audited and planned, not applied; live deployment not performed':battleUiStage?'Approved battle HUD and card presentation integration; local validation; live deployment not performed':cozeStage?'UI fidelity and Coze v10 deployment integration; local validation; live deployment not performed':fidelityStage?'local UI fidelity and intangible continuous control-point candidate; not deployed':performanceStage?'local fixed-scene performance candidate; natural performance gate open; not deployed':'local formal UI candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0,...(cozeStage?{coze:{baseline:'ed70fe4',configurationIncluded:true,vendoredPglite:true,privateBundleIncluded:false}}:{})},null,2));
+await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:repairs459Stage?'Items 4/5/9: automatic pickup arrivals, approved R4 reveal, closed player catalogue, first-facility baseline unlocks; no live deployment':maintenanceStage?'Maintenance: unreachable UI removed and deployment-only development files omitted; twelve reported repairs are audited and planned, not applied; live deployment not performed':battleUiStage?'Approved battle HUD and card presentation integration; local validation; live deployment not performed':cozeStage?'UI fidelity and Coze v10 deployment integration; local validation; live deployment not performed':fidelityStage?'local UI fidelity and intangible continuous control-point candidate; not deployed':performanceStage?'local fixed-scene performance candidate; natural performance gate open; not deployed':'local formal UI candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0,...(cozeStage?{coze:{baseline:'ed70fe4',configurationIncluded:true,vendoredPglite:true,privateBundleIncluded:false}}:{})},null,2));
 console.log(JSON.stringify({destination,packageBuildId,appBuildId:release.appBuildId,runSchema:release.runSchema,appFiles:appFiles.length,resourceAdditions:added.length,deployed:false}));

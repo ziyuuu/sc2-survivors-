@@ -9,7 +9,7 @@ import {campaign18StageConfig} from '../src/data/campaign18';
 import {endlessConfig} from '../src/data/endless';
 import {rollRarity} from '../src/data/rewards';
 import {mapReinforcement} from '../src/simulation/expedition-economy';
-import {claimBossLoot} from '../src/simulation/boss-loot';
+
 import {resolveExpeditionHeroCasts} from '../src/simulation/combat/expedition-heroes';
 import {updateExpeditionProduction} from '../src/simulation/expedition-production';
 const make=(race:'terran'|'zerg'|'protoss'='terran')=>{const w=new World({race,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();return w;};
@@ -37,12 +37,12 @@ test('three elite zergling variants are three shared-rank pairs, not six seats',
  assert.ok(w.acquireElite('zergling.3'));assert.ok(w.familyBodies('zergling').filter(u=>u.eliteId==='zergling.3').every(u=>u.rank===2));
 });
 
-test('physical map rewards have no chapter quota and free hero claims survive cancel/load',()=>{
+test('physical map rewards have no chapter quota and free hero pickups survive load',()=>{
  const w=make();w.random=()=>.96;const a=mapReinforcement(w),b=mapReinforcement(w);assert.equal(a?.rarity,'blue');assert.equal(b?.rarity,'blue');assert.notEqual(a?.offerId,b?.offerId);
  let seq=[0,.999,.999];w.random=()=>seq.shift()??0;w.tryRewardDrop({x:2,z:2});const drop=w.rewardDrops[0];assert.equal(drop.reward.rarity,'orange');assert.equal(drop.reward.minerals,0);
- const money={...w.wallet};assert.ok(w.collectRewardDrop(drop.id));w.expedition.bossLootOpen=false;
- const copy=make();copy.restoreRun(w.captureRun());copy.expedition.bossLootOpen=true;
- assert.ok(claimBossLoot(copy,drop.bossLootReceipt!));assert.deepEqual(copy.wallet,money);assert.equal(copy.heroes.size,1);assert.equal(claimBossLoot(copy,drop.bossLootReceipt!),false);
+ const money={...w.wallet};assert.ok(w.collectRewardDrop(drop.id));assert.equal(w.expedition.bossLootOpen,false);
+ const copy=make();copy.restoreRun(w.captureRun());assert.equal(copy.expedition.bossLootOpen,false);
+ assert.equal(copy.expedition.bossLootQueue.length,0);assert.deepEqual(copy.wallet,money);assert.equal(copy.heroes.size,1);assert.equal(copy.collectRewardDrop(drop.id),false);
 });
 
 test('legacy conditional quality probabilities remain exact at boundaries and statistically represented',()=>{
