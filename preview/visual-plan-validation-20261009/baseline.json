@@ -1,0 +1,92 @@
+{
+  "head": "ae4c2ac4b02b94b2dadf9b07f43cde1f7a4b63ec",
+  "sourceDigest": "fb2417b2aba0400995875e11d24a8f94bc9b0797cfd45029946452c54f5d3a3e",
+  "counts": {
+    "identities": 138,
+    "ordinary": 30,
+    "elites": 90,
+    "heroes": 18,
+    "ranks": 690,
+    "placements": 690,
+    "groups": 36,
+    "modes": 5,
+    "resourceRecords": 656,
+    "models": 206
+  },
+  "release": {
+    "build": "8f1a80a4c0b6e700c949ec6750fd533e54134eb763348ca6f590076eb33f3ed4",
+    "release": "f6ac93dc0d0b4c20079e7a7229846026cbbe5d2f48885f3f43ecc35b0e678151",
+    "mismatches": []
+  },
+  "diagnosticSource": {
+    "revision": "plan-validation-v12-final",
+    "sha256": "552fe0a3e58571745ac2d30b2ac7ec3d062f53d1d4224bc6d4bb70f52ddb9d6f",
+    "files": [
+      {
+        "name": "audit.mts",
+        "bytes": 8101,
+        "sha256": "003cbeb58adb6c4342f7c7907d131a4d3fab55ddfca389914ea3065332819b52"
+      },
+      {
+        "name": "catalog.ts",
+        "bytes": 3080,
+        "sha256": "f1fff2d384038a504adfe5d31d687531a5dc6c02af542c869b14413bc9f15e36"
+      },
+      {
+        "name": "events.ts",
+        "bytes": 680,
+        "sha256": "3c5e9d25476d3f4ed91c6f0675b9aa07a39d2e7550e56f26eae2c6f3f9e23f98"
+      },
+      {
+        "name": "index.html",
+        "bytes": 3426,
+        "sha256": "a190834c55de0e5caa80f6938bc8e7824781ff7efb2c3df363e33be8f46db3cd"
+      },
+      {
+        "name": "main.ts",
+        "bytes": 23698,
+        "sha256": "f6e90272b487df332561136b3652f3c669a9f30e5ecab0ddafc63a2f6ea9e7e8"
+      },
+      {
+        "name": "scenario.ts",
+        "bytes": 7234,
+        "sha256": "a59c2a076e7f69f45e06adb49b00714f6bf4af7a28d057ae8696f7dfd9353400"
+      },
+      {
+        "name": "source-audit.mjs",
+        "bytes": 6079,
+        "sha256": "8ca99f9164a5a142210fa849ed9146dbd4f9a29f882a77ef71d6ec397587c370"
+      },
+      {
+        "name": "stamp.mjs",
+        "bytes": 1153,
+        "sha256": "8d7e4e24eb1691624e1c3982b9f1dc95ce2d8785efa5fc26287fdfcd4b3b42ff"
+      },
+      {
+        "name": "style.css",
+        "bytes": 1903,
+        "sha256": "bc3d1f384f3c4ef11a5d86198214c2e117192ebafad6c8f7e0236337dbb90ec4"
+      },
+      {
+        "name": "tsconfig.json",
+        "bytes": 94,
+        "sha256": "6595dd05d644ca33d2816b432b98d603047f861a0754092570a093740c1db8c8"
+      },
+      {
+        "name": "verify-events.mts",
+        "bytes": 1531,
+        "sha256": "b5e3df8b73210ff4d72ce8ff11b62d7b298c5d15ca732750132e6fd11252d7df"
+      },
+      {
+        "name": "verify-supplemental.mts",
+        "bytes": 1672,
+        "sha256": "3063c5c038b750059592384ad0b74530f26fbafa0150de65d4de2f9ec97cddb9"
+      },
+      {
+        "name": "view.ts",
+        "bytes": 8221,
+        "sha256": "ebf3528c8f473070492b6376bf0eccf0926ccbc115a2d4668597ccccd9119d78"
+      }
+    ]
+  }
+}
