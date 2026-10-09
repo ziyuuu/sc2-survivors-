@@ -1,5 +1,5 @@
 {
-  "digest": "c8dcad8c59424a1fe2edd671cf82ab32c8a94684ca313d6c98016f8a3a2cacb3",
+  "digest": "864086d968bef4e179043574562c019ba27aab9910a08c396f4fff0b3b26546e",
   "files": [
     {
       "path": "preview/sc2-quality-20261009/build.mjs",
@@ -23,8 +23,8 @@
     },
     {
       "path": "preview/sc2-quality-20261009/main.ts",
-      "bytes": 15531,
-      "sha256": "d2d073d6108c99766f5a9e60eb8b40ef84fde69ad8a21440f5fc95b8c448c36b"
+      "bytes": 15566,
+      "sha256": "7d0b18efba37d02419bc3fd0e1d1204aca68b05671df02980fb6760a7e95e3ab"
     },
     {
       "path": "preview/sc2-quality-20261009/material-repair.ts",
@@ -48,8 +48,8 @@
     },
     {
       "path": "preview/sc2-quality-20261009/quality.ts",
-      "bytes": 6098,
-      "sha256": "0d89f076fed35017fc75697d22ff05ddfbd11e5a3d7f259dfb17b486548f9394"
+      "bytes": 6151,
+      "sha256": "3a18103288552275f52b051aef94a16b6fb47a6ff263f10f6bd9d847f512ba20"
     },
     {
       "path": "preview/sc2-quality-20261009/sample-data.ts",

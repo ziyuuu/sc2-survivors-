@@ -7,13 +7,13 @@ import {RUNTIME_ASSETS} from '../../src/assets/runtime.generated';
 import {checksum,encodeGraph} from '../../src/persistence/graph-codec';
 import type {CombatUnitType} from '../../src/data/sc2-units';
 import {createIndustrialStage} from './stage';
-import {QualityView} from './quality';
+import {QualityView,DEFAULT_VIEW_HEIGHT} from './quality';
 import {MaterialRepair} from './material-repair';
 import {DECK_BLOCKERS,inspectDeck} from './scenario';
 import {source,stamp as sourceStamp} from './sample-data';
 import {loadEmbeddedAssets,prepareEmbeddedAssetIds} from '../../src/assets/offline-pack';
 
-const REVISION='r16';
+const REVISION='r17';
 const query=new URLSearchParams(location.search),race=query.get('roster')??'terran',look=query.get('look')??'restored';
 const el=<T extends HTMLElement>(id:string)=>document.getElementById(id) as T,canvas=el<HTMLCanvasElement>('battle');
 const status=(s:string)=>{el('status').textContent=s;el('loadtext').textContent=s;};
@@ -47,14 +47,14 @@ try{
  const measurements:unknown[]=[],checks:unknown[]=[];
  let queuedMove:{x:number;z:number}|null=null;
  const state=()=>checksum(JSON.stringify(encodeGraph({run:world.captureRun(),profile:world.permanentProfile.exportJSON()})));
- const report=()=>{el('report').textContent=JSON.stringify({revision:REVISION,sourceBaseline:'91ea5c8',sourceStamp,hardware,race,paused:world.paused,phase:world.phase,time:world.time,entities:world.entities.size,living:[...world.entities.values()].filter(u=>u.hp>0).length,state:state(),scenario:inspectDeck(world),queuedMove,boundaryViolations,quality:quality.report(),materials:materials.report(),stage:stage.report(),runtime:r.report(),errors:[...errors,...r.modelErrors],checks,measurements,discardedSimulationSeconds:discarded,diagnostic:true,method:'Current World and original models. Authored industrial set with matching diagnostic deck blockers; not a new campaign map.'},null,2);};
+ const report=()=>{el('report').textContent=JSON.stringify({revision:REVISION,sourceBaseline:'b50b47f',sourceStamp,hardware,race,paused:world.paused,phase:world.phase,time:world.time,entities:world.entities.size,living:[...world.entities.values()].filter(u=>u.hp>0).length,state:state(),scenario:inspectDeck(world),queuedMove,boundaryViolations,quality:quality.report(),materials:materials.report(),stage:stage.report(),runtime:r.report(),errors:[...errors,...r.modelErrors],checks,measurements,discardedSimulationSeconds:discarded,diagnostic:true,method:'Current World and original models. Authored industrial set with matching diagnostic deck blockers; not a new campaign map.'},null,2);};
  const percentile=(a:number[],p:number)=>[...a].sort((x,y)=>x-y)[Math.min(a.length-1,Math.floor(a.length*p))]??0,mean=(a:number[])=>a.reduce((x,y)=>x+y,0)/Math.max(1,a.length);
  async function prepareBattle(){if(combatStarted)return;if(preparing)return;preparing=true;for(const id of ['play','reset','prepare','death','step','step60'])el<HTMLButtonElement>(id).disabled=true;
   try{status('准备交战模型…');for(const type of ['roach','hydralisk','zergling'] as const)await r.ensureUnitVariant(type,type);await materials.prepare();for(let i=0;i<17;i++){const u=unit(i%4===0?'hydralisk':i%3===0?'roach':'zergling',-6.5+(i%8)*1.65,-9.5-Math.floor(i/8)*1.9,'zerg');u.facing=0;}world.hash.rebuild(world.entities.values());combatStarted=true;status('交战已准备 · 暂停');}
   finally{preparing=false;for(const id of ['play','reset','prepare','death','step','step60'])el<HTMLButtonElement>(id).disabled=false;report();}
  }
  async function play(){if(preparing)return;if(world.phase!=='battle')reset();await prepareBattle();world.paused=!world.paused;el('play').textContent=world.paused?'继续交战':'暂停';status(world.paused?'已暂停':'交战中');report();}
- function reset(){if(preparing)return;world.permanentProfile.importJSON(profile);world.restoreRun(initial);world.paused=true;combatStarted=false;r.resetRun();materials.reset();quality.cameraTarget.set(0,0,-1);quality.height=16.5;queuedMove=null;debt=0;boundaryViolations=0;el('play').textContent='开始交战';status('已重置');const sameRun=checksum(JSON.stringify(encodeGraph(world.captureRun())))===checksum(JSON.stringify(encodeGraph(initial)));checks.push({kind:'reset',sameRun,time:world.time,entities:world.entities.size});if(!sameRun)errors.push('Reset state differs from immutable initial fixture');report();}
+ function reset(){if(preparing)return;world.permanentProfile.importJSON(profile);world.restoreRun(initial);world.paused=true;combatStarted=false;r.resetRun();materials.reset();quality.cameraTarget.set(0,0,-1);quality.height=DEFAULT_VIEW_HEIGHT;queuedMove=null;debt=0;boundaryViolations=0;el('play').textContent='开始交战';status('已重置');const sameRun=checksum(JSON.stringify(encodeGraph(world.captureRun())))===checksum(JSON.stringify(encodeGraph(initial)));checks.push({kind:'reset',sameRun,time:world.time,entities:world.entities.size});if(!sameRun)errors.push('Reset state differs from immutable initial fixture');report();}
  function stepWorld(){if(queuedMove){const accepted=world.issueMove(queuedMove);checks.push({kind:'queued-order-executed',accepted,...queuedMove});queuedMove=null;status(accepted?'编队移动':'移动指令无法执行');}world.step();boundaryViolations+=inspectDeck(world).blocked.length;if(world.phase!=='battle'){world.paused=true;el('play').textContent='重新演示';status('本段交战结束');}}
  el('play').addEventListener('click',()=>void play());el('reset').addEventListener('click',reset);
  el('clean').addEventListener('click',()=>{document.body.classList.toggle('clean');canvas.focus();});

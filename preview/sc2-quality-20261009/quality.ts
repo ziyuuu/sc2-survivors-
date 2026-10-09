@@ -11,11 +11,13 @@ import {ShadowTrial} from './pose-shadow';
 import {SceneDepthContactPass} from './depth-contact';
 import type {MaterialRepair} from './material-repair';
 
+export const DEFAULT_VIEW_HEIGHT=19;
+
 export class QualityView {
  readonly shadow:ShadowTrial;readonly composer:EffectComposer;readonly ao:SceneDepthContactPass;readonly bloom:UnrealBloomPass;readonly fxaa=new ShaderPass(FXAAShader);
  private hemi:THREE.HemisphereLight;private key:THREE.DirectionalLight;private fill=new THREE.DirectionalLight(0x8eabbf,.45);private rim=new THREE.DirectionalLight(0xcee2e9,.55);
  private env:THREE.WebGLRenderTarget;private size='';private mode='restored';private baseline:()=>void;
- cameraTarget=new THREE.Vector3(0,0,-1);height=16.5;aoEnabled=true;shadowEnabled=true;shadowResolution=1024;bloomScale=.5;multisample=false;environmentEnabled=false;
+ cameraTarget=new THREE.Vector3(0,0,-1);height=DEFAULT_VIEW_HEIGHT;aoEnabled=true;shadowEnabled=true;shadowResolution=1024;bloomScale=.5;multisample=false;environmentEnabled=false;
  constructor(readonly r:BattleRenderer,readonly materials:MaterialRepair){
   this.hemi=r.scene.children.find(n=>n instanceof THREE.HemisphereLight) as THREE.HemisphereLight;this.key=r.scene.children.find(n=>n instanceof THREE.DirectionalLight) as THREE.DirectionalLight;
   this.fill.position.set(16,12,9);this.rim.position.set(-6,17,-18);r.scene.add(this.fill,this.rim);
