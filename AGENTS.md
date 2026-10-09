@@ -1,3 +1,11 @@
+## Project cleanup and external D-drive audit · 2026-10-09
+
+- User accepted arrival R4 and requested another project junk/cache cleanup, then read-only inspection of scattered project files elsewhere on D. Preview approval is not formal game integration or completion of the twelve repairs.
+- Removed5095 ignored obsolete build/package/extracted/test/browser-resource-cache files,3739696824 logical bytes,1527 empty directories. Measured deletion-window disk free80545792000→84293783552, observed+3747991552. Earlier initial free39520034816 rose separately before deletion; do not attribute that unrelated increase to this work. Snapshot current free≈78.5GiB.
+- This authorized cleanup supersedes historical preserve-all-old-output notes only for the listed removed obsolete candidates/packages: plan/result in reports/local/disk-cleanup-20261009. Keep current Maintenance package/HTML aliases/web/deploy, previous Battle-UI-Final HTML+ZIP, approved R5–R9/R10/ArrivalR4, original UI/art/source data, Git/LFS, dependencies, all reports/screens and browser IndexedDB/Local Storage/saves. Other-thread work excluded. No source/gameplay/deployment change.
+-16347 retained files checked:16338 hash-identical,0 missing;9 concurrently modified files all belong to excluded active preview/battle-playfield-20261009, not cleanup. Current game4196 and demo4197 HEAD200. Do not recreate test caches merely to validate deletion.
+- Read-only D inventory scanned587302 files,124 inaccessible locations, skipped links/project/system locations. Seven confirmed external project files:four historical WeChat HTML/ZIP deliveries1011755954bytes;three Downloads saves711825bytes with distinct hashes. Only Demo(3) matches an existing Git LFS object. No external files deleted. Full unrelated disk listing stays local. Scope/result: docs/project/DISK_CLEANUP_20261009.md.
+
 ## Independent arrival-card demo · 2026-10-09
 
 - R4 fixes the user-reported front/back size mismatch: no horizontal back inset; same border box/radius/pivot and one shared3D turn animation. Four sizes measured equal front/back dimensions and four motion phases each have <0.25px projected-bound difference;9 checks/22 captures, no page/model errors.1374 protected production hashes remain unchanged.
