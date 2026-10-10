@@ -1,0 +1,48 @@
+/** Extract the first repair batch's original semantics without changing M3, DDS or GLB bytes. */
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+
+const root=process.cwd(),out='reports/local/material-batch1-20261010';
+const keys=['immortal','elite.immortal.1','zealot.death','elite.zealot.1.death'];
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const pack=JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8'));
+const {loadM3FromFile}=await import(pathToFileURL(path.resolve('.cache/visual-restoration-reader/m3-loader.js')).href);
+const profiles={},sources=new Map();
+for(const key of keys){
+ const record=pack.manifest.find(a=>a.id==='model.'+key);assert.ok(record,'Missing source '+key);
+ const basename=(record.sourcePath??record.source).replaceAll('\\','/').split('/').at(-1).toLowerCase();
+ const sourceFile=path.join('assets/private/m3',basename),bytes=await fs.readFile(sourceFile),s=await loadM3FromFile(path.resolve(sourceFile));
+ sources.set(sourceFile,{file:sourceFile,bytes:bytes.length,sha256:hash(bytes)});
+ const glbFile='public/assets/optimized/model.'+key+'.glb',glb=await fs.readFile(glbFile),json=JSON.parse(glb.toString('utf8',20,20+glb.readUInt32LE(12)));
+ const get=r=>s.getSectionByReference(r)?.content??[],str=r=>String.fromCharCode(...get(r)).replaceAll('\0','');
+ const value=v=>typeof v==='number'?v:v?Object.fromEntries(['x','y','z','w','r','g','b','a'].filter(k=>typeof v[k]==='number').map(k=>[k,v[k]])):null;
+ const ref=r=>r?{id:r.header.id,interpolation:r.header.interpolation,default:value(r.default)}:null;
+ const layer=l=>l?{filename:str(l.color_bitmap).replaceAll('\\','/').split('/').at(-1).toLowerCase(),flags:l.flags,channel:l.color_channels,uv:l.uv_source,color:ref(l.color_value),multiply:ref(l.color_multiply),add:ref(l.color_add),uvOffset:ref(l.uv_offset),uvAngle:ref(l.uv_angle),uvTiling:ref(l.uv_tiling),fresnel:{type:l.fresnel_type,exponent:l.fresnel_exponent,min:l.fresnel_min,maxOffset:l.fresnel_max_offset}}:null;
+ const roleKeys={diffuse:'layer_diff',normal:'layer_norm',specular:'layer_spec',emissive:'layer_emis1',emissive2:'layer_emis2',alpha:'layer_alpha1',alpha2:'layer_alpha2'};
+ const allMaterials=get(s.model.materials_standard).map((m,index)=>({index,name:str(m.name),flags:m.flags,blend:m.blend_mode,hdrEmission:m.hdr_emis,layers:Object.fromEntries(Object.entries(roleKeys).map(([role,k])=>[role,layer(get(m[k])[0])]).filter(([,v])=>v))}));
+ const materials=allMaterials.filter(m=>json.materials.some(raw=>raw.name===m.name+'#'+m.index));
+ assert.ok(json.materials.every(raw=>materials.some(m=>raw.name===m.name+'#'+m.index)),'Unmapped runtime material '+key);
+ for(const m of materials)for(const l of Object.values(m.layers)){if(!l.filename)continue;const file=path.join('assets/private/dds',l.filename);if(!sources.has(file)){const b=await fs.readFile(file);sources.set(file,{file,bytes:b.length,sha256:hash(b)});}}
+ const refs=get(s.model.material_references),composites=get(s.model.materials_composite).map(m=>({name:str(m.name),parts:get(m.sections).map(p=>{const r=refs[p.material_reference_index];return {material:{type:r.type,index:r.material_index},alpha:ref(p.alpha_factor)};})}));
+ const stcs=get(s.model.sequence_transformation_collections),stgs=get(s.model.sequence_transformation_groups),sd=['sdev','sd2v','sd3v','sd4q','sdcc','sdr3','sdu8','sds6','sdu6','sds3','sdu3','sdfg','sdmb'];
+ const ids=new Set(materials.flatMap(m=>Object.values(m.layers).flatMap(l=>[l.color,l.multiply,l.add,l.uvOffset,l.uvAngle,l.uvTiling].filter(Boolean).map(r=>r.id))));
+ for(const c of composites)for(const p of c.parts)if(p.alpha)ids.add(p.alpha.id);
+ const tracks=(c,offset=0)=>{const animIds=get(c.anim_ids),animRefs=get(c.anim_refs),result=[];animIds.forEach((id,i)=>{if(!ids.has(id))return;const packed=animRefs[i],entry=get(c[sd[packed>>>16]])[packed&0xffff];if(entry)result.push({id,frames:get(entry.frames).map(t=>(t-offset)/1000),values:get(entry.keys).map(value)});});return result;};
+ const clips=get(s.model.sequences).map((q,index)=>({name:str(q.name),duration:(q.anim_ms_end-q.anim_ms_start)/1000,tracks:get(stgs[index]?.stc_indices).flatMap(ci=>tracks(stcs[ci],q.anim_ms_start))}));
+ const compositeIds=new Set(composites.flatMap(c=>c.parts.map(p=>p.alpha?.id))),compositeTracks=stcs.flatMap(c=>tracks(c).filter(t=>compositeIds.has(t.id)).map(t=>({name:str(c.name),...t})));
+ profiles[key]={source:basename,sourceSha256:hash(bytes),glbSha256:hash(glb),materials,composites,compositeTracks,clips};
+ console.log(JSON.stringify({key,materials:materials.length,clips:clips.length,tracks:clips.reduce((n,c)=>n+c.tracks.length,0),compositeTracks:compositeTracks.map(t=>({name:t.name,frames:t.frames,values:t.values}))}));
+}
+await fs.mkdir(out,{recursive:true});await fs.mkdir('src/render/materials',{recursive:true});
+const generated='// Generated by tools/material-batch-source.mjs from unchanged original sources.\nimport type {UnitMaterialProfile} from \'./source-tracks\';\nexport const UNIT_MATERIAL_PROFILES:Record<string,UnitMaterialProfile> = '+JSON.stringify(profiles)+';\n';
+if(process.argv.includes('--check')){
+ assert.equal((await fs.readFile('src/render/materials/unit-material-profiles.ts','utf8')).replace(/\r\n/g,'\n'),generated,'Generated material profiles differ from original sources');
+ const previous=JSON.parse(await fs.readFile(out+'/source-stamp.json','utf8'));
+ assert.deepEqual(previous.sources,[...sources.values()]);assert.equal(previous.generatedSha256,hash(generated));console.log('Original material profile and source hashes verified');
+}else{
+ await fs.writeFile('src/render/materials/unit-material-profiles.ts',generated);
+ await fs.writeFile(out+'/source-stamp.json',JSON.stringify({models:keys,sources:[...sources.values()],generatedSha256:hash(generated),method:'Original four M3 files and every referenced current-geometry DDS read; no original or runtime asset rewritten.'},null,2));
+}

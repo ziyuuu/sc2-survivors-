@@ -1,0 +1,1536 @@
+{
+  "at": "2026-10-10T05:35:23.340Z",
+  "status": "Approved first material batch integrated and locally verified; Git synchronization recorded separately",
+  "passed": true,
+  "baseline": "3b2ad8bf42bad588ee5ebbc620fc80499b3961ed",
+  "appBuildId": "4d0402758734b05e65c4ba03027a4932a9cd1eeea9aaa07df4fb47f58f43655a",
+  "packageBuildId": "402a4b4a0a41ba827ce4d6e3cc442f4fca5842e1c938ab329b61c043a9a31e80",
+  "version": "0.6.16",
+  "applicationFiles": 183,
+  "resources": {
+    "records": 693,
+    "files": 675,
+    "bytes": 668621453,
+    "release": "2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5",
+    "additions": 0
+  },
+  "protection": {
+    "baselineFiles": 2532,
+    "rawUnchanged": 2346,
+    "authorizedExistingEdits": [
+      "src/render/scene/battle-renderer.ts",
+      "src/render/units/animated-batch.ts",
+      "tools/prepare-current-handoff.mts"
+    ],
+    "missing": [],
+    "packagedBackendVendorConfigIdentical": 152
+  },
+  "models": [
+    {
+      "key": "immortal",
+      "source": "immortal_ex2.m3",
+      "sourceSha256": "d5f34c9efc37c120883764ca0dcc19162805afd707f7404f083fa98260c454e1",
+      "glbSha256": "71cfca0037dca6cee533a28d64fd85cab2291c682b8287b50e5849171c7dd22f",
+      "materials": 4,
+      "clips": 28
+    },
+    {
+      "key": "elite.immortal.1",
+      "source": "immortal_purifier_collection.m3",
+      "sourceSha256": "89bc87e6e6f568e270b5c668d5144dc3a20cbfd9a366eeb0e93403abf87094df",
+      "glbSha256": "e0d18712ef1d961084b93d2e94195b011bf9ee749f427d21ffdfcf356c8db9fd",
+      "materials": 2,
+      "clips": 28
+    },
+    {
+      "key": "zealot.death",
+      "source": "zealotdeath.m3",
+      "sourceSha256": "9e1b40c8200d0170d3b2a706d175c7be93005bd53f71f708017e8d69c43c7f22",
+      "glbSha256": "6c7a7841a1911a39e2d6e5dc205403ba319fe5e98609eb59a622f4957086e04b",
+      "materials": 6,
+      "clips": 3
+    },
+    {
+      "key": "elite.zealot.1.death",
+      "source": "zealot_purifier_collection_death_00.m3",
+      "sourceSha256": "ba2341dba3b0801eae4e9a630a59f69eb1a136a9f6935df2ded49c93124bfe02",
+      "glbSha256": "f96e68dc87654ee56bb962356853cafe8851975a00e739fe1f8603954a2ebdf7",
+      "materials": 4,
+      "clips": 1
+    }
+  ],
+  "originalSources": [
+    {
+      "file": "assets\\private\\m3\\immortal_ex2.m3",
+      "bytes": 664608,
+      "sha256": "d5f34c9efc37c120883764ca0dcc19162805afd707f7404f083fa98260c454e1"
+    },
+    {
+      "file": "assets\\private\\dds\\immortal_diffuse.dds",
+      "bytes": 1398256,
+      "sha256": "5950b4fbb4017250ca5fda86ff3adc2f142bd4b2c87c036ade2340757b46465d"
+    },
+    {
+      "file": "assets\\private\\dds\\immortal_normal.dds",
+      "bytes": 1398260,
+      "sha256": "596d401d3e14a912b4f70d234ff37d1170030da6a67d6561ccd0d2927428690e"
+    },
+    {
+      "file": "assets\\private\\dds\\immortal_specular.dds",
+      "bytes": 699192,
+      "sha256": "b7a238dc00c75489d81fd0bff2a5165b36b92b1ab34a2c5b17a5b5b23f21a391"
+    },
+    {
+      "file": "assets\\private\\dds\\immortal_emissive.dds",
+      "bytes": 1398256,
+      "sha256": "bb2847d89f8e7181e2d33bb894a61a2a0bc00ccff0927318bfa30e3bb331fca7"
+    },
+    {
+      "file": "assets\\private\\dds\\glow_blue3.dds",
+      "bytes": 22000,
+      "sha256": "5bf2191cbb72f4f1ba07e580864dff53d59bc1bc6429e645c01d8b0fd526dc29"
+    },
+    {
+      "file": "assets\\private\\dds\\warpline2_blue.dds",
+      "bytes": 22032,
+      "sha256": "41966053b9c146aa82942d707fa318ce76354008c1b996b1137236a51b71c9e0"
+    },
+    {
+      "file": "assets\\private\\dds\\tronsquare1_blue3.dds",
+      "bytes": 22000,
+      "sha256": "e5f3a03d243d961484000a3527281610e906998b4641ddce406862cd5ca502e7"
+    },
+    {
+      "file": "assets\\private\\dds\\cyberwatergrid1.dds",
+      "bytes": 349680,
+      "sha256": "77cfcf1aee2686f4f0061982a359b54d3ee82799390e7ca36bd97b4d6ba3dbad"
+    },
+    {
+      "file": "assets\\private\\m3\\immortal_purifier_collection.m3",
+      "bytes": 754144,
+      "sha256": "89bc87e6e6f568e270b5c668d5144dc3a20cbfd9a366eeb0e93403abf87094df"
+    },
+    {
+      "file": "assets\\private\\dds\\immortal_purifier_collection_diff.dds",
+      "bytes": 1398256,
+      "sha256": "37b3470f039a0d8bdada0734fd2782794b5cde7659978af7815ca53229fe6ed0"
+    },
+    {
+      "file": "assets\\private\\dds\\immortal_purifier_collection_norm.dds",
+      "bytes": 1398260,
+      "sha256": "464d2461c0f3c39cf9453960674e1897ec6e1786bf378f58ed134783800b23d9"
+    },
+    {
+      "file": "assets\\private\\dds\\immortal_purifier_collection_spec.dds",
+      "bytes": 1398256,
+      "sha256": "bd619ab617ad576ffb4eb9a74ec87fba62a780495f535e7e6adcac82f59062d2"
+    },
+    {
+      "file": "assets\\private\\dds\\immortal_purifier_collection_emis.dds",
+      "bytes": 699192,
+      "sha256": "f55f5d0a7ab5c8d570ae04c2045b006fffca23bf8087b0c7710b67704f5e04b4"
+    },
+    {
+      "file": "assets\\private\\m3\\zealotdeath.m3",
+      "bytes": 343648,
+      "sha256": "9e1b40c8200d0170d3b2a706d175c7be93005bd53f71f708017e8d69c43c7f22"
+    },
+    {
+      "file": "assets\\private\\dds\\tesla_particle01.dds",
+      "bytes": 8320,
+      "sha256": "5dfb913af6339a2374f64aae9415e429679d4be3409026204facb6bfc17b7e1a"
+    },
+    {
+      "file": "assets\\private\\dds\\glow_white1.dds",
+      "bytes": 22000,
+      "sha256": "ede4e929e3b6d0c4820bf080c35afefebd681a73487f11031bd41da4fc5cd6d0"
+    },
+    {
+      "file": "assets\\private\\dds\\genericglow64.dds",
+      "bytes": 5616,
+      "sha256": "6532f368e1c0ff5d1db2593e85e71d3ebc359af634e3b2d8096acf2e59a4977c"
+    },
+    {
+      "file": "assets\\private\\dds\\zealot_diffuse.dds",
+      "bytes": 349680,
+      "sha256": "561ccb453cd54563ffaeb9a313ae2c8f6268fa1a5dc6831711d2c00146a3736d"
+    },
+    {
+      "file": "assets\\private\\dds\\zealot_normal.dds",
+      "bytes": 1398260,
+      "sha256": "d0df508a3f9d78c791387e1c4edc3f178a3c85b1a202d1242af49ca3ee13a2f5"
+    },
+    {
+      "file": "assets\\private\\dds\\zealot_specular.dds",
+      "bytes": 349680,
+      "sha256": "8ce8b6930d362f40a10e7d8b90a1eafd58a3f954e2a9ae0ff38f2af0054679a7"
+    },
+    {
+      "file": "assets\\private\\dds\\blastmark4.dds",
+      "bytes": 349680,
+      "sha256": "195d172a1e2177fc4c1cc7f76574943d58b7a8c3ec7bf1f67ba96b86b61b3d4d"
+    },
+    {
+      "file": "assets\\private\\dds\\firetail2_white.dds",
+      "bytes": 22000,
+      "sha256": "2e421a59583dd39849fc069b8e2221e1175bad9de2e3e432b1f885053e1e18c7"
+    },
+    {
+      "file": "assets\\private\\m3\\zealot_purifier_collection_death_00.m3",
+      "bytes": 348496,
+      "sha256": "ba2341dba3b0801eae4e9a630a59f69eb1a136a9f6935df2ded49c93124bfe02"
+    },
+    {
+      "file": "assets\\private\\dds\\zealot_purifier_collection_diff.dds",
+      "bytes": 1398256,
+      "sha256": "76e83aeb119895aa09c51042f0e70914b965d52fd2927f1027700da8e41320aa"
+    },
+    {
+      "file": "assets\\private\\dds\\zealot_purifier_collection_norm.dds",
+      "bytes": 1398260,
+      "sha256": "828a66e751afd804050face0f3f2534950dcd51e8983281a588b657f8db58660"
+    },
+    {
+      "file": "assets\\private\\dds\\zealot_purifier_collection_spec.dds",
+      "bytes": 1398256,
+      "sha256": "94e36763f5ff275d9e6bf94eab6809fa091ac2aa6edd6adbe6169e225acfdd76"
+    },
+    {
+      "file": "assets\\private\\dds\\zealot_purifier_collection_emiss.dds",
+      "bytes": 699192,
+      "sha256": "71fed408edebf9ecbf362bc581041b8d71720b866ef53467d39617c0b104a45f"
+    },
+    {
+      "file": "assets\\private\\dds\\storm_blastmark02.dds",
+      "bytes": 174904,
+      "sha256": "6824a5b6b221e32ef535e1a7ff33437f8513a0d4e629d1f4e83698c8366edde0"
+    },
+    {
+      "file": "assets\\private\\dds\\zealotpurifier_spec.dds",
+      "bytes": 699192,
+      "sha256": "791b8e6f802c2fcf3a2d515d269657a23f02ce8f8ac4432a0cafa8f823fb9af1"
+    },
+    {
+      "file": "assets\\private\\dds\\warplines2_grey.dds",
+      "bytes": 21992,
+      "sha256": "ae0afd9940b187c08668db7814455e74f8506fc498bdf8277b67520979c26f43"
+    },
+    {
+      "file": "assets\\private\\dds\\zealotbladeglow.dds",
+      "bytes": 11064,
+      "sha256": "f243f078f2260cd1a17431177fbdb436cd069ba70afa7e1104d355bd08561d51"
+    },
+    {
+      "file": "assets\\private\\dds\\storm_energytile03.dds",
+      "bytes": 43832,
+      "sha256": "637d4345b1a45f3c6a34e0285b617518c8f989055f2bbbedae817f5300a68f6a"
+    }
+  ],
+  "previousArtifacts": [
+    {
+      "path": "dist/SC2-Survivors-Native-HUD-20261010.html",
+      "bytes": 501213711,
+      "sha256": "2913fa0936b7b45ac98a1baea6043c5124dedb37a819c29d5d80a7bf71317bd6"
+    },
+    {
+      "path": "dist/Native-HUD-Release-Application-20261010.zip",
+      "bytes": 9480535,
+      "sha256": "2ccb86287a205e401af9794a0956a460bee3f3ae434504e32cbdecf367f2a7bb"
+    }
+  ],
+  "html": {
+    "path": "dist/SC2-Survivors-Material-Batch1-Final-20261010.html",
+    "bytes": 501292910,
+    "sha256": "e0e10fe2d2de1b247eda7a3eb5a91a7697d955666f1d924c981d9c984f6cc8fa",
+    "decodedAssets": 693
+  },
+  "zip": {
+    "path": "dist/Material-Batch1-Final-Application-20261010.zip",
+    "bytes": 9498038,
+    "sha256": "53040f23a6c6fa2c3273df369419f55deeaf881221dae28633e8594a6b245ec1",
+    "files": 184,
+    "packageBuildId": "402a4b4a0a41ba827ce4d6e3cc442f4fca5842e1c938ab329b61c043a9a31e80",
+    "verifiedRoundTrip": true,
+    "deployed": false
+  },
+  "checks": {
+    "regressions": 1293,
+    "typecheck": true,
+    "dataDocs": true,
+    "talentDefinitions": 165,
+    "pairedWorldProfileRngStates": 79,
+    "functionalScreens": 107,
+    "beforeScreens": 79,
+    "heroDeaths": [
+      {
+        "id": "artanis",
+        "sourceDuration": 1,
+        "life": 1.5,
+        "reclaimedAt": 1.9166666666666667
+      },
+      {
+        "id": "alarak",
+        "sourceDuration": 2,
+        "life": 2,
+        "reclaimedAt": 2.4166666666666665
+      },
+      {
+        "id": "vorazun",
+        "sourceDuration": 1.3329999446868896,
+        "life": 1.5,
+        "reclaimedAt": 1.9166666666666667
+      }
+    ],
+    "web": {
+      "checks": 24,
+      "screens": 51
+    },
+    "offline": {
+      "checks": 24,
+      "screens": 51
+    },
+    "startupCases": 4,
+    "updateReused": 675,
+    "updateAdded": 0,
+    "textureFilteringSamples": 117
+  },
+  "comparison": {
+    "pairs": [
+      {
+        "after": "final-core-r2",
+        "before": "before-core-r1",
+        "screens": 31,
+        "beforeBuild": "c4e9c5155f07ec6ca5998e82f245d5e43f3a9ba7f47380f40521e01aeab364ac",
+        "afterBuild": "29f5afa88967eab03f8a38962129e35f79c1718683fc260fdec1b172b6b512fe"
+      },
+      {
+        "after": "final-maps-r2",
+        "before": "before-maps-r1",
+        "screens": 21,
+        "beforeBuild": "c4e9c5155f07ec6ca5998e82f245d5e43f3a9ba7f47380f40521e01aeab364ac",
+        "afterBuild": "29f5afa88967eab03f8a38962129e35f79c1718683fc260fdec1b172b6b512fe"
+      },
+      {
+        "after": "final-mobile-r2",
+        "before": "before-mobile-r1",
+        "screens": 17,
+        "beforeBuild": "c4e9c5155f07ec6ca5998e82f245d5e43f3a9ba7f47380f40521e01aeab364ac",
+        "afterBuild": "29f5afa88967eab03f8a38962129e35f79c1718683fc260fdec1b172b6b512fe"
+      },
+      {
+        "after": "final-color-r3",
+        "before": "before-color-r1",
+        "screens": 10,
+        "beforeBuild": "c4e9c5155f07ec6ca5998e82f245d5e43f3a9ba7f47380f40521e01aeab364ac",
+        "afterBuild": "29f5afa88967eab03f8a38962129e35f79c1718683fc260fdec1b172b6b512fe"
+      }
+    ],
+    "renderInputs": [
+      {
+        "build": "29f5afa88967eab03f8a38962129e35f79c1718683fc260fdec1b172b6b512fe",
+        "sourceDigest": "08798b501398dfd117947d51fc554ce387a7740d6ef64f29aac80edd1a281d42",
+        "checked": 172
+      }
+    ],
+    "stateChecks": 79,
+    "errors": 0,
+    "heroDeaths": [
+      {
+        "group": "artanis",
+        "start": {
+          "id": 2,
+          "key": "hero.artanis",
+          "clip": "Death",
+          "duration": 1,
+          "life": 1.5,
+          "count": 1,
+          "retained": true
+        },
+        "checks": [
+          {
+            "tick": 12,
+            "id": 2,
+            "key": "hero.artanis",
+            "clip": "Death",
+            "duration": 1,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 30,
+            "id": 2,
+            "key": "hero.artanis",
+            "clip": "Death",
+            "duration": 1,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 89,
+            "id": 2,
+            "key": "hero.artanis",
+            "clip": "Death",
+            "duration": 1,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 90,
+            "id": 2,
+            "key": "hero.artanis",
+            "clip": "Death",
+            "duration": 1,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 91,
+            "id": 2,
+            "key": "hero.artanis",
+            "clip": "Death",
+            "duration": 1,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 113,
+            "id": 2,
+            "key": "hero.artanis",
+            "clip": "Death",
+            "duration": 1,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 115,
+            "id": 2,
+            "key": "hero.artanis",
+            "clip": "Death",
+            "duration": 1,
+            "life": 1.5,
+            "count": 0,
+            "retained": false
+          }
+        ]
+      },
+      {
+        "group": "alarak",
+        "start": {
+          "id": 2,
+          "key": "hero.alarak",
+          "clip": "Death",
+          "duration": 2,
+          "life": 2,
+          "count": 1,
+          "retained": true
+        },
+        "checks": [
+          {
+            "tick": 12,
+            "id": 2,
+            "key": "hero.alarak",
+            "clip": "Death",
+            "duration": 2,
+            "life": 2,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 30,
+            "id": 2,
+            "key": "hero.alarak",
+            "clip": "Death",
+            "duration": 2,
+            "life": 2,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 90,
+            "id": 2,
+            "key": "hero.alarak",
+            "clip": "Death",
+            "duration": 2,
+            "life": 2,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 119,
+            "id": 2,
+            "key": "hero.alarak",
+            "clip": "Death",
+            "duration": 2,
+            "life": 2,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 121,
+            "id": 2,
+            "key": "hero.alarak",
+            "clip": "Death",
+            "duration": 2,
+            "life": 2,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 143,
+            "id": 2,
+            "key": "hero.alarak",
+            "clip": "Death",
+            "duration": 2,
+            "life": 2,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 145,
+            "id": 2,
+            "key": "hero.alarak",
+            "clip": "Death",
+            "duration": 2,
+            "life": 2,
+            "count": 0,
+            "retained": false
+          }
+        ]
+      },
+      {
+        "group": "vorazun",
+        "start": {
+          "id": 2,
+          "key": "hero.vorazun",
+          "clip": "Death",
+          "duration": 1.3329999446868896,
+          "life": 1.5,
+          "count": 1,
+          "retained": true
+        },
+        "checks": [
+          {
+            "tick": 12,
+            "id": 2,
+            "key": "hero.vorazun",
+            "clip": "Death",
+            "duration": 1.3329999446868896,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 30,
+            "id": 2,
+            "key": "hero.vorazun",
+            "clip": "Death",
+            "duration": 1.3329999446868896,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 89,
+            "id": 2,
+            "key": "hero.vorazun",
+            "clip": "Death",
+            "duration": 1.3329999446868896,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 90,
+            "id": 2,
+            "key": "hero.vorazun",
+            "clip": "Death",
+            "duration": 1.3329999446868896,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 91,
+            "id": 2,
+            "key": "hero.vorazun",
+            "clip": "Death",
+            "duration": 1.3329999446868896,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 113,
+            "id": 2,
+            "key": "hero.vorazun",
+            "clip": "Death",
+            "duration": 1.3329999446868896,
+            "life": 1.5,
+            "count": 1,
+            "retained": true
+          },
+          {
+            "tick": 115,
+            "id": 2,
+            "key": "hero.vorazun",
+            "clip": "Death",
+            "duration": 1.3329999446868896,
+            "life": 1.5,
+            "count": 0,
+            "retained": false
+          }
+        ]
+      }
+    ],
+    "functionalScreens": 107,
+    "shieldChecks": 10,
+    "colorChecks": 6,
+    "textureFiltering": [
+      {
+        "key": "zealot.death",
+        "role": "diffuse",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "diffuse",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "immortal",
+        "role": "diffuse",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "immortal",
+        "role": "emissive2",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "immortal",
+        "role": "emissive2",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "diffuse",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "emissive2",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "native",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "key": "zealot.death",
+        "role": "diffuse",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "diffuse",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "immortal",
+        "role": "diffuse",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "immortal",
+        "role": "emissive2",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "immortal",
+        "role": "emissive2",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "diffuse",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "emissive2",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "balanced",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "key": "zealot.death",
+        "role": "diffuse",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "diffuse",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "zealot.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "immortal",
+        "role": "diffuse",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "immortal",
+        "role": "emissive2",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "immortal",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "immortal",
+        "role": "emissive2",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "diffuse",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.immortal.1",
+        "role": "emissive2",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "diffuse",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "emissive",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "key": "elite.zealot.1.death",
+        "role": "alpha",
+        "quality": "performance",
+        "actual": 1,
+        "expected": 1
+      }
+    ],
+    "passed": true
+  },
+  "cost": [
+    {
+      "label": "before-cost-r2",
+      "build": "c4e9c5155f07ec6ca5998e82f245d5e43f3a9ba7f47380f40521e01aeab364ac",
+      "sourceDigest": "f01c8688c73fc3ba59dfaf9bd3d1fac3af04c897ca3566e56187fd71746e6299",
+      "seconds": 5.001,
+      "frames": 300,
+      "rafMs": {
+        "mean": 16.6603333333383,
+        "p95": 17,
+        "min": 14.799999997019768,
+        "max": 17.5
+      },
+      "cpuSubmitMs": {
+        "mean": 2.7633333333830037,
+        "p95": 3.2999999970197678,
+        "min": 2.2000000029802322,
+        "max": 7.4000000059604645
+      },
+      "drawCalls": {
+        "mean": 29,
+        "p95": 29,
+        "min": 29,
+        "max": 29
+      },
+      "triangles": {
+        "mean": 94840,
+        "p95": 94840,
+        "min": 94840,
+        "max": 94840
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "visibility": [
+        "visible"
+      ],
+      "focused": [
+        true
+      ],
+      "method": "Short paused rendering cost record, not stable-FPS or natural performance acceptance"
+    },
+    {
+      "label": "final-cost-r2",
+      "build": "29f5afa88967eab03f8a38962129e35f79c1718683fc260fdec1b172b6b512fe",
+      "sourceDigest": "08798b501398dfd117947d51fc554ce387a7740d6ef64f29aac80edd1a281d42",
+      "seconds": 5.01670000000298,
+      "frames": 301,
+      "rafMs": {
+        "mean": 16.65747508307628,
+        "p95": 17,
+        "min": 14,
+        "max": 18.69999999552965
+      },
+      "cpuSubmitMs": {
+        "mean": 3.0219269101306847,
+        "p95": 3.7999999970197678,
+        "min": 2.399999998509884,
+        "max": 4.899999998509884
+      },
+      "drawCalls": {
+        "mean": 43,
+        "p95": 43,
+        "min": 43,
+        "max": 43
+      },
+      "triangles": {
+        "mean": 94854,
+        "p95": 94854,
+        "min": 94854,
+        "max": 94854
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "visibility": [
+        "visible"
+      ],
+      "focused": [
+        true
+      ],
+      "method": "Short paused rendering cost record, not stable-FPS or natural performance acceptance"
+    }
+  ],
+  "currentAliasMatches": true,
+  "localRepositoryMirrorMatches": true,
+  "onlineDeployment": false,
+  "limits": [
+    "Five-second paused render records, not GPU timings, stable 60 FPS, natural performance or device acceptance",
+    "Heroes Artanis/Alarak/Vorazun have separate native Death clips; no shared Zealot death model was replaced",
+    "Earlier smoke-r1 profile-fixture mismatch, final-color-r1 off-map fixture and first update manifest-path failure retained",
+    "Other-unit material risks, P6-V01, human, low-memory, high-refresh, Science Vessel, production backend and B4 remain open",
+    "First packaged candidate missed custom-sampler registration in the existing texture filtering path; R6 restores the original 8/4/1 settings and preloading, with all first-candidate evidence retained"
+  ],
+  "evidenceRoot": "reports/local/material-batch1-20261010",
+  "supersededCandidates": [
+    {
+      "path": "dist/SC2-Survivors-Material-Batch1-20261010.html",
+      "bytes": 501292795,
+      "sha256": "74367aaf844524c42064caa6dbbe4123c903c49cac596383c07398a68048d2f7"
+    },
+    {
+      "path": "dist/Material-Batch1-Application-20261010.zip",
+      "bytes": 9497924,
+      "sha256": "7ba2f3f2fffeff5feb2311b526f2269fc01d8f2ff4c52fe4c4ec28b826d3bdb1"
+    }
+  ],
+  "preview": {
+    "url": "http://127.0.0.1:4196",
+    "pid": 19252,
+    "health": {
+      "ok": true,
+      "appBuildId": "4d0402758734b05e65c4ba03027a4932a9cd1eeea9aaa07df4fb47f58f43655a",
+      "assetReleaseId": "2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5",
+      "runSchema": 26,
+      "release": "2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5",
+      "resources": "local"
+    },
+    "backendEnabled": false,
+    "localOnly": true
+  }
+}

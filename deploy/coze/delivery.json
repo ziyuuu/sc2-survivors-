@@ -1,7 +1,7 @@
 {
-  "status": "Approved native HUD, original six skin frames, per-race hard campaign cosmetic unlock and retained battle actions; local validation only; no live deployment",
-  "appBuildId": "5c1a664d68eaa96c356379a8490413ed184351d254898977ae8ddce2c2498756",
-  "packageBuildId": "b37cd4b10fac4176fd1bac8cd081f83bab40d637f3fa3e738a548fe731cbc050",
+  "status": "Original Immortal barrier and Zealot death material tracks, per-instance clocks and fixed linear HDR/Bloom/ACES/sRGB output; original gameplay and resources retained; local validation only; no live deployment",
+  "appBuildId": "4d0402758734b05e65c4ba03027a4932a9cd1eeea9aaa07df4fb47f58f43655a",
+  "packageBuildId": "402a4b4a0a41ba827ce4d6e3cc442f4fca5842e1c938ab329b61c043a9a31e80",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5",
@@ -112,6 +112,11 @@
       "sha256": "107ac4b414a3b9f01b4d6f1271523250ff447f0621830b36cfd15f060f462e14"
     },
     {
+      "path": "MATERIAL_BATCH1_20261010.md",
+      "bytes": 4110,
+      "sha256": "0ea86836a0e7e319cb9f7fd33fd8b70fb20b795d4feba9eb40ed3f4df26f9ad2"
+    },
+    {
       "path": "NATIVE_HUD_INTEGRATION_20261010.md",
       "bytes": 3404,
       "sha256": "f5f4bc355f8c3cd84dd4d434eaa55c4f415f27a04e789db7240371bb092f08c0"
@@ -134,12 +139,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "a0c2d9033192253491472effe17f72f9b30f159b5999d7067ace505065fc12ab"
+      "sha256": "917c0976ca17bf7ec86586480be799f7df94340594b400036df1e6bf50700ede"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "1a3413c3f958a0a8757b7f6d78c347b80e0026efdce25427c590de08345345e0"
+      "sha256": "14d5fb552d84175fe52f73d946a5ffd5c40bbe0893c1e7a79119a1abce5ca6b9"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -157,14 +162,14 @@
       "sha256": "a17106618e8f4ac803443116572bdd5035a7d6eea43b69db37ab73259d8acd89"
     },
     {
-      "path": "public/assets/index-CUAcMH7c.js",
-      "bytes": 2939661,
-      "sha256": "0ca8e264d5f09fcb7cc74ab18dd4fe861768a980ae62564e80d0c71e8010734f"
+      "path": "public/assets/index-DO0wuZld.js",
+      "bytes": 3018828,
+      "sha256": "8d5fbb340bafb8e9d772847a9e4895405b4f147aef94d74f2613189f3b145a65"
     },
     {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "608e7e5c18fc95ed652cdccd397d884a70cae3cfba3c7a27504edd29b134c0da"
+      "sha256": "1f39a822fc3414f00c097b44878fe64f8118a886db7bc932fe17dcc6985b1be5"
     },
     {
       "path": "public/runtime-config.json",
@@ -174,7 +179,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "c0039d5f3d321bbcc23cf840bb4e62db5d26fe92f32ffa95eeb9fb1d8644aba0"
+      "sha256": "a3d15e7cfc0d4cf820e62683c6ae9650989060a56e2b436b3802a32ba7701a11"
     },
     {
       "path": "README.md",
@@ -188,8 +193,8 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 17702,
-      "sha256": "736eae46664ea68f471c232625b85725df044c3f7b38f6990c915c7f551ce0b5"
+      "bytes": 329,
+      "sha256": "8372fc8cf0c3a9e1daa10c24488f2dc9918ebc1db9c8cba7f72ae46deb122801"
     },
     {
       "path": "resource-groups.json",

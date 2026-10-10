@@ -5,6 +5,8 @@ import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import {sc2BodyBounds,sc2ModelScale} from '../loaders/sc2-materials';
 import {mapAnimations,weaponAttachmentNames} from '../loaders/animations';
 import type {AnimationMode} from '../settings/quality';
+import {createUnitMaterialSurface,type UnitMaterialSurface} from '../materials/unit-material-batch';
+import type {UnitMaterialContext} from '../materials/source-tracks';
 
 export type PoseClip={offset:number;frames:number;duration:number};
 const FPS=24,CAPACITY=1024;
@@ -24,6 +26,7 @@ export class AnimatedBatch {
  private lodIndices:{full:THREE.BufferAttribute;low:THREE.BufferAttribute}[]=[];private lowDetail=false;lodRatio=1;
  count=0;bodyHeight:number;scale:number;normalization:THREE.Matrix4;textureBytes=0;boneCount=0;
  animationMode:AnimationMode='complete';
+ readonly materialSurfaces:UnitMaterialSurface[]=[];
  constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string){
   // Nova's exported Bone_Gun is offset from her hand by 0.89 source units.
   // The A rifle pose requires the weapon root at the hand; texture links are already correct.
@@ -74,8 +77,8 @@ export class AnimatedBatch {
    const aim=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*2),2).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitAim',aim);
    const assetMatrix=this.normalization.clone().multiply(n.matrixWorld).multiply(n.bindMatrixInverse),bind=n.bindMatrix.clone();
    geometry.computeBoundingBox();const accentTop=geometry.boundingBox?.max.y??0,accentBottom=geometry.boundingBox?.min.y??0,accentStart=accentTop-Math.max(.001,accentTop-accentBottom)*.18;
-   const materials=(Array.isArray(n.material)?n.material:[n.material]).map(m=>{const mat=m.clone() as THREE.MeshStandardMaterial;
-    mat.onBeforeCompile=(shader,renderer)=>{m.onBeforeCompile(shader,renderer);
+   const materials=(Array.isArray(n.material)?n.material:[n.material]).map(m=>{const surface=createUnitMaterialSurface(m,CAPACITY),mat=surface?.material??m.clone();if(surface)this.materialSurfaces.push(surface);
+    mat.onBeforeCompile=(shader,renderer)=>{if(!surface)m.onBeforeCompile(shader,renderer);
      shader.uniforms.turretPivot={value:this.turretPivot};shader.uniforms.unitBoneAtlas={value:textures.get(paletteKey(n.skeleton))};shader.uniforms.unitBind={value:bind};shader.uniforms.unitAsset={value:assetMatrix};shader.uniforms.unitAccentRange={value:new THREE.Vector2(accentStart,accentTop)};
      shader.vertexShader=shader.vertexShader.replace('#include <common>',`#include <common>
       attribute vec2 unitAim; attribute float unitTurret; uniform vec3 turretPivot;
@@ -96,7 +99,8 @@ export class AnimatedBatch {
       .replace('#include <beginnormal_vertex>','#include <beginnormal_vertex>\nobjectNormal=mat3(unitTransform)*objectNormal;objectNormal=mix(objectNormal,aimTurret(objectNormal),unitTurret);')
       .replace('#include <begin_vertex>','vec3 transformed=(unitTransform*vec4(position,1.0)).xyz; transformed=mix(transformed,aimTurret(transformed-turretPivot)+turretPivot,unitTurret); unitHit=unitPose.w; specialTier=unitTier; localAccent=smoothstep(unitAccentRange.x,unitAccentRange.y,position.y);');
      shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float unitHit; varying float specialTier; varying float localAccent;').replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance += vec3(1.5,0.72,0.28)*unitHit; if(specialTier<-.5){float dissolve=clamp(-specialTier-1.0,0.0,1.0);float grain=fract(sin(dot(vViewPosition.xy,vec2(12.9898,78.233)))*43758.5453);if(grain<dissolve)discard;totalEmissiveRadiance+=vec3(.15,.5,.68)*sin(dissolve*3.14159)*.8;} if(specialTier>0.5&&specialTier<4.5){float rim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),2.0);vec3 glow=specialTier>2.5?vec3(1.0,.58,.12):specialTier>1.5?vec3(1.0,.32,.03):vec3(.54,.1,.85);totalEmissiveRadiance += glow*(specialTier>2.5?.2+rim*2.1:.12+rim*1.5);} if(specialTier>4.5&&specialTier<13.5){float variant=mod(specialTier-5.0,3.0);vec3 accent=specialTier<7.5?(variant<.5?vec3(.60,.49,.27):variant<1.5?vec3(.75,.30,.07):vec3(.16,.42,.71)):specialTier<10.5?(variant<.5?vec3(.54,.53,.35):variant<1.5?vec3(.67,.45,.08):vec3(.10,.49,.40)):(variant<.5?vec3(.58,.54,.31):variant<1.5?vec3(.25,.45,.73):vec3(.29,.23,.58));float eliteRim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),7.0);totalEmissiveRadiance+=accent*localAccent*.34+vec3(.66,.27,1.0)*eliteRim*.65;} if(specialTier>14.5){float phase=fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453);if(phase<.7)discard;totalEmissiveRadiance+=vec3(.12,.35,.6)*.45;} if(specialTier>13.5){float heroRim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),7.0);totalEmissiveRadiance+=vec3(1.0,.49,.10)*heroRim*.72;}');
-    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v9:'+m.customProgramCacheKey();return mat;});
+     surface?.compile(shader,geometry);
+    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v9:'+(surface?.programKey??m.customProgramCacheKey());return mat;});
    const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);this.aimAttributes.push(aim);
   }
   mixer.stopAllAction();mixer.uncacheRoot(gltf.scene);
@@ -105,14 +109,15 @@ export class AnimatedBatch {
  setLod(low:boolean){if(this.lowDetail===low)return;this.lowDetail=low;this.meshes.forEach((mesh,i)=>{const indices=this.lodIndices[i];if(indices){mesh.geometry.setIndex(low?indices.low:indices.full);if(mesh.geometry.groups.length===1)mesh.geometry.groups[0].count=mesh.geometry.getIndex()!.count;}});}
  begin(){this.count=0;}
  pose(action:keyof ReturnType<typeof mapAnimations>){const clip=this.actions[action]??this.actions.idle;return clip?this.clips.get(clip.name):this.clips.values().next().value;}
- add(x:number,y:number,z:number,facing:number,action:keyof ReturnType<typeof mapAnimations>,seconds:number,once=false,hit=0,shrink=1,interpolate=true,attackSeconds=-1,turretYaw=0,tier=0,attackKey:keyof ReturnType<typeof mapAnimations>='attack',poseSampled=false){
+ add(x:number,y:number,z:number,facing:number,action:keyof ReturnType<typeof mapAnimations>,seconds:number,once=false,hit=0,shrink=1,interpolate=true,attackSeconds=-1,turretYaw=0,tier=0,attackKey:keyof ReturnType<typeof mapAnimations>='attack',poseSampled=false,materialContext?:UnitMaterialContext){
   if(this.count>=CAPACITY)return;const p=this.pose(action);if(!p)return;
   if(this.animationMode==='energy-saving'){interpolate=false;if(!poseSampled){seconds=Math.floor(seconds*15)/15;if(attackSeconds>=0)attackSeconds=Math.floor(attackSeconds*15)/15;}}
   const t=once?Math.min(p.duration,Math.max(0,seconds)):((seconds%p.duration)+p.duration)%p.duration;
   const frame=t/p.duration*(p.frames-1),a=Math.floor(frame),b=Math.min(p.frames-1,a+1);
   const attack=this.pose(attackKey),shot=attack&&attackSeconds>=0?Math.min(attack.frames-1,attackSeconds/attack.duration*(attack.frames-1)):0,sa=Math.floor(shot),sb=Math.min((attack?.frames??1)-1,sa+1),weight=attackSeconds>=0?(attackKey==='attackLeft'||attackKey==='attackRight'?Math.min(1,Math.max(0,((attack?.duration??0)-attackSeconds)/.12)):Math.max(0,1-attackSeconds/.55)):0;
+  if(this.materialSurfaces.length){const pose={clip:(this.actions[action]??this.actions.idle)?.name??'',seconds:t,attackClip:weight>.001?this.actions[attackKey]?.name:undefined,attackSeconds:Math.max(0,Math.min(attack?.duration??0,attackSeconds))};for(const surface of this.materialSurfaces)surface.write(this.count,pose,materialContext);}
   object.position.set(x,y,z);object.rotation.set(0,facing,0);object.scale.setScalar(shrink);object.updateMatrix();
   this.meshes.forEach((m,i)=>{m.setMatrixAt(this.count,object.matrix);this.tierAttributes[i].setX(this.count,tier);this.aimAttributes[i].setXY(this.count,Math.sin(turretYaw),Math.cos(turretYaw));this.attributes[i].setXYZW(this.count,p.offset+a,p.offset+b,interpolate?frame-a:0,hit);this.blendAttributes[i].setXYZW(this.count,(attack?.offset??0)+sa,(attack?.offset??0)+sb,interpolate?shot-sa:0,weight);});this.count++;
  }
- end(){this.meshes.forEach((m,i)=>{commitInstances(m,this.count);uploadActive(this.attributes[i],this.count);uploadActive(this.blendAttributes[i],this.count);uploadActive(this.aimAttributes[i],this.count);uploadActive(this.tierAttributes[i],this.count);});}
+ end(){this.meshes.forEach((m,i)=>{commitInstances(m,this.count);uploadActive(this.attributes[i],this.count);uploadActive(this.blendAttributes[i],this.count);uploadActive(this.aimAttributes[i],this.count);uploadActive(this.tierAttributes[i],this.count);});for(const surface of this.materialSurfaces)surface.flush();}
 }
