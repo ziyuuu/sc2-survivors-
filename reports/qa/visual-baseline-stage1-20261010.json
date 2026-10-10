@@ -1,0 +1,3624 @@
+{
+  "baseline": "07f1d39f5feece18a8599b8f239bcd63370cf732",
+  "scope": "Stage 1 baseline and diagnostic tools only; no production rendering/gameplay/UI/resource changes.",
+  "release": {
+    "build": "5c1a664d68eaa96c356379a8490413ed184351d254898977ae8ddce2c2498756",
+    "release": "2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5",
+    "mismatches": []
+  },
+  "counts": {
+    "identities": 138,
+    "ordinary": 30,
+    "elites": 90,
+    "heroes": 18,
+    "ranks": 690,
+    "placements": 690,
+    "groups": 36,
+    "modes": 5,
+    "resourceRecords": 693,
+    "models": 206
+  },
+  "lab": {
+    "revision": "visual-baseline-r2",
+    "sourceDigest": "38282bbac62dc864d322c466e3ed7d8b15aa81be8721c825918de5460fb45f11",
+    "jsSha256": "c690c9492f1a3bb66acadabc6f06cb6e6cac9160e78b5b8d4d625f4ad1e59fc3",
+    "checkedInputs": 203
+  },
+  "hardware": [
+    "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  ],
+  "resources": {
+    "thisStageAdded": 0,
+    "thisStageChanged": 0,
+    "thisStageRemoved": 0,
+    "unchangedRuntimeModels": 206,
+    "retainedFromPrevious": 656,
+    "preexistingHUDAdditions": 37
+  },
+  "source": {
+    "inheritedParsedModels": 204,
+    "activeGapReferences": 0,
+    "inactiveGapReferences": 19,
+    "reparsed": false,
+    "scienceVesselGate": "OPEN"
+  },
+  "riskCounts": {
+    "candidates": 37,
+    "candidateModels": 27,
+    "invalidCombinations": 9
+  },
+  "materialRisks": [
+    {
+      "model": "model.medivac",
+      "material": "red lightwww#2",
+      "emissiveOnlyUnlit": false,
+      "illegalExtensionCombination": true
+    },
+    {
+      "model": "model.elite.medivac.1",
+      "material": "red lightwww#2",
+      "emissiveOnlyUnlit": false,
+      "illegalExtensionCombination": true
+    },
+    {
+      "model": "model.elite.medivac.2",
+      "material": "red lightwww#2",
+      "emissiveOnlyUnlit": false,
+      "illegalExtensionCombination": true
+    },
+    {
+      "model": "model.elite.medivac.3",
+      "material": "red light#1",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.elite.medivac.3",
+      "material": "red lightwww#3",
+      "emissiveOnlyUnlit": false,
+      "illegalExtensionCombination": true
+    },
+    {
+      "model": "model.hero.nova",
+      "material": "ghost glow#9",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.projectile.marauder",
+      "material": "45454#2",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.dehaka",
+      "material": "15 - Default#7",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.dehaka",
+      "material": "claws#8",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.artanis",
+      "material": "Standard_blue#4",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.artanis",
+      "material": "Standard_blue#4",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.artanis",
+      "material": "Standard_green#8",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.immortal",
+      "material": "Mat_Immortal_Shield_Scroll#5",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.carrier",
+      "material": "23232323#1",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.alarak",
+      "material": "Standard_blue#2",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.vorazun",
+      "material": "Mat_BladeGlows#7",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.vorazun",
+      "material": "Mat_BladeGlows2#8",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.elite.science_vessel.1",
+      "material": "Standard_9#3",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.elite.immortal.1",
+      "material": "Mat_Immortal_Shield_Scroll#1",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.elite.carrier.1",
+      "material": "23232323#1",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.science_vessel",
+      "material": "Standard_9#3",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.yamato_battlecruiser",
+      "material": "15 - Default#3",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.barracks",
+      "material": "Standard_20#3",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.zealot.death",
+      "material": "Standard_2222222#2",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.zealot.death",
+      "material": "45454#4",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.zealot.death",
+      "material": "eredv#5",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.zealot.death",
+      "material": "wewew#6",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.colossus.death",
+      "material": "Material #1333#11",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.high_templar.death",
+      "material": "08 - Default#0",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.high_templar.death",
+      "material": "08 - Default#0",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.phoenix.death",
+      "material": "Material #1333#9",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": true
+    },
+    {
+      "model": "model.void_ray.death",
+      "material": "Material #1333#8",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": true
+    },
+    {
+      "model": "model.hero.zeratul.death",
+      "material": "08 - Default#3",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.zeratul.death",
+      "material": "08 - Default#3",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero.zeratul.death",
+      "material": "deathsphere#5",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.elite.stalker.1.death",
+      "material": "Standard_7ww#9",
+      "emissiveOnlyUnlit": false,
+      "illegalExtensionCombination": true
+    },
+    {
+      "model": "model.elite.high_templar.1.death",
+      "material": "08 - Default#5",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.elite.phoenix.1.death",
+      "material": "Material #1333#9",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": true
+    },
+    {
+      "model": "model.elite.void_ray.1.death",
+      "material": "Material #1333#7",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": true
+    },
+    {
+      "model": "model.elite.colossus.1.death",
+      "material": "Material #1333#11",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.pylon.death",
+      "material": "2222#6",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    },
+    {
+      "model": "model.hero-upgrade.vikingfightermissile",
+      "material": "sdsdswwww#1",
+      "emissiveOnlyUnlit": true,
+      "illegalExtensionCombination": false
+    }
+  ],
+  "identities": [
+    {
+      "id": "marine",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "marine",
+      "model": "marine",
+      "death": "marine.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "marauder",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "marauder",
+      "model": "marauder",
+      "death": "marauder.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "reaper",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "reaper",
+      "model": "reaper",
+      "death": "reaper.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "hellion",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "hellion",
+      "model": "hellion",
+      "death": "hellion.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "tank",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "tank",
+      "model": "tank",
+      "death": "tank.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "thor",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "thor",
+      "model": "thor",
+      "death": "thor.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "viking",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "viking",
+      "model": "viking",
+      "death": "viking.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "banshee",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "banshee",
+      "model": "banshee",
+      "death": "banshee.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "medivac",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "medivac",
+      "model": "medivac",
+      "death": "medivac.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.medivac"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "science_vessel",
+      "kind": "ordinary",
+      "race": "terran",
+      "family": "science_vessel",
+      "model": "science_vessel",
+      "death": "science_vessel.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.science_vessel"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zergling",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "zergling",
+      "model": "zergling",
+      "death": "zergling.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "baneling",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "baneling",
+      "model": "baneling",
+      "death": "baneling.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "roach",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "roach",
+      "model": "roach",
+      "death": "roach.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "ravager",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "ravager",
+      "model": "ravager",
+      "death": "ravager.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "hydralisk",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "hydralisk",
+      "model": "hydralisk",
+      "death": "hydralisk.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "queen",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "queen",
+      "model": "queen",
+      "death": "queen.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "lurker",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "lurker",
+      "model": "lurker",
+      "death": "lurker.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "mutalisk",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "mutalisk",
+      "model": "mutalisk",
+      "death": "mutalisk.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "corruptor",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "corruptor",
+      "model": "corruptor",
+      "death": "corruptor.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "ultralisk",
+      "kind": "ordinary",
+      "race": "zerg",
+      "family": "ultralisk",
+      "model": "ultralisk",
+      "death": "ultralisk.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zealot",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "zealot",
+      "model": "zealot",
+      "death": "zealot.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.zealot.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "adept",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "adept",
+      "model": "adept",
+      "death": "adept.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "stalker",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "stalker",
+      "model": "stalker",
+      "death": "stalker.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "sentry",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "sentry",
+      "model": "sentry",
+      "death": "sentry.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "immortal",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "immortal",
+      "model": "immortal",
+      "death": "immortal.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.immortal"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "colossus",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "colossus",
+      "model": "colossus",
+      "death": "colossus.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.colossus.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "high_templar",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "high_templar",
+      "model": "high_templar",
+      "death": "high_templar.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.high_templar.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "phoenix",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "phoenix",
+      "model": "phoenix",
+      "death": "phoenix.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.phoenix.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "void_ray",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "void_ray",
+      "model": "void_ray",
+      "death": "void_ray.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.void_ray.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "carrier",
+      "kind": "ordinary",
+      "race": "protoss",
+      "family": "carrier",
+      "model": "carrier",
+      "death": "carrier.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.carrier"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "marine.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "marine",
+      "model": "elite.marine.1",
+      "death": "elite.marine.1.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "marine.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "marine",
+      "model": "elite.marine.2",
+      "death": "elite.marine.2.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "marine.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "marine",
+      "model": "elite.marine.3",
+      "death": "elite.marine.3.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "marauder.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "marauder",
+      "model": "elite.marauder.1",
+      "death": "elite.marauder.1.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "marauder.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "marauder",
+      "model": "elite.marauder.2",
+      "death": "elite.marauder.2.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "marauder.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "marauder",
+      "model": "elite.marauder.3",
+      "death": "elite.marauder.3.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "hellion.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "hellion",
+      "model": "elite.hellion.1",
+      "death": "elite.hellion.1.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "hellion.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "hellion",
+      "model": "elite.hellion.2",
+      "death": "elite.hellion.2.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "hellion.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "hellion",
+      "model": "elite.hellion.3",
+      "death": "elite.hellion.3.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "tank.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "tank",
+      "model": "elite.tank.1",
+      "death": "elite.tank.1.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "tank.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "tank",
+      "model": "elite.tank.2",
+      "death": "elite.tank.2.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "tank.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "tank",
+      "model": "elite.tank.3",
+      "death": "elite.tank.3.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "medivac.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "medivac",
+      "model": "elite.medivac.1",
+      "death": "elite.medivac.1.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.elite.medivac.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "medivac.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "medivac",
+      "model": "elite.medivac.2",
+      "death": "elite.medivac.2.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.elite.medivac.2"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "medivac.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "medivac",
+      "model": "elite.medivac.3",
+      "death": "elite.medivac.3.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.elite.medivac.3"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "reaper.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "reaper",
+      "model": "elite.reaper.1",
+      "death": "elite.reaper.1.death",
+      "sharedWith": [
+        "reaper.2",
+        "reaper.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "thor.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "thor",
+      "model": "elite.thor.1",
+      "death": "elite.thor.1.death",
+      "sharedWith": [
+        "thor.2",
+        "thor.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "viking.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "viking",
+      "model": "elite.viking.1",
+      "death": "elite.viking.1.death",
+      "sharedWith": [
+        "viking.2",
+        "viking.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "banshee.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "banshee",
+      "model": "elite.banshee.1",
+      "death": "elite.banshee.1.death",
+      "sharedWith": [
+        "banshee.2",
+        "banshee.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "science_vessel.1",
+      "kind": "elite",
+      "race": "terran",
+      "family": "science_vessel",
+      "model": "elite.science_vessel.1",
+      "death": "science_vessel.death",
+      "sharedWith": [
+        "science_vessel.2",
+        "science_vessel.3"
+      ],
+      "riskModels": [
+        "model.elite.science_vessel.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zergling.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "zergling",
+      "model": "elite.zergling.1",
+      "death": "elite.zergling.1.death",
+      "sharedWith": [
+        "zergling.2",
+        "zergling.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "baneling.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "baneling",
+      "model": "elite.baneling.1",
+      "death": "elite.baneling.1.death",
+      "sharedWith": [
+        "baneling.2",
+        "baneling.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "roach.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "roach",
+      "model": "elite.roach.1",
+      "death": "elite.roach.1.death",
+      "sharedWith": [
+        "roach.2",
+        "roach.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "ravager.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "ravager",
+      "model": "elite.ravager.1",
+      "death": "elite.ravager.1.death",
+      "sharedWith": [
+        "ravager.2",
+        "ravager.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "hydralisk.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "hydralisk",
+      "model": "elite.hydralisk.1",
+      "death": "elite.hydralisk.1.death",
+      "sharedWith": [
+        "hydralisk.2",
+        "hydralisk.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "lurker.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "lurker",
+      "model": "elite.lurker.1",
+      "death": "elite.lurker.1.death",
+      "sharedWith": [
+        "lurker.2",
+        "lurker.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "queen.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "queen",
+      "model": "elite.queen.1",
+      "death": "elite.queen.1.death",
+      "sharedWith": [
+        "queen.2",
+        "queen.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "mutalisk.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "mutalisk",
+      "model": "elite.mutalisk.1",
+      "death": "elite.mutalisk.1.death",
+      "sharedWith": [
+        "mutalisk.2",
+        "mutalisk.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "corruptor.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "corruptor",
+      "model": "elite.corruptor.1",
+      "death": "elite.corruptor.1.death",
+      "sharedWith": [
+        "corruptor.2",
+        "corruptor.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "ultralisk.1",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "ultralisk",
+      "model": "elite.ultralisk.1",
+      "death": "elite.ultralisk.1.death",
+      "sharedWith": [
+        "ultralisk.2",
+        "ultralisk.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zealot.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "zealot",
+      "model": "elite.zealot.1",
+      "death": "elite.zealot.1.death",
+      "sharedWith": [
+        "zealot.2",
+        "zealot.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "adept.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "adept",
+      "model": "elite.adept.1",
+      "death": "elite.adept.1.death",
+      "sharedWith": [
+        "adept.2",
+        "adept.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "stalker.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "stalker",
+      "model": "elite.stalker.1",
+      "death": "elite.stalker.1.death",
+      "sharedWith": [
+        "stalker.2",
+        "stalker.3"
+      ],
+      "riskModels": [
+        "model.elite.stalker.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "sentry.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "sentry",
+      "model": "elite.sentry.1",
+      "death": "elite.sentry.1.death",
+      "sharedWith": [
+        "sentry.2",
+        "sentry.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "immortal.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "immortal",
+      "model": "elite.immortal.1",
+      "death": "elite.immortal.1.death",
+      "sharedWith": [
+        "immortal.2",
+        "immortal.3"
+      ],
+      "riskModels": [
+        "model.elite.immortal.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "colossus.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "colossus",
+      "model": "elite.colossus.1",
+      "death": "elite.colossus.1.death",
+      "sharedWith": [
+        "colossus.2",
+        "colossus.3"
+      ],
+      "riskModels": [
+        "model.elite.colossus.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "high_templar.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "high_templar",
+      "model": "elite.high_templar.1",
+      "death": "elite.high_templar.1.death",
+      "sharedWith": [
+        "high_templar.2",
+        "high_templar.3"
+      ],
+      "riskModels": [
+        "model.elite.high_templar.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "phoenix.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "phoenix",
+      "model": "elite.phoenix.1",
+      "death": "elite.phoenix.1.death",
+      "sharedWith": [
+        "phoenix.2",
+        "phoenix.3"
+      ],
+      "riskModels": [
+        "model.elite.phoenix.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "void_ray.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "void_ray",
+      "model": "elite.void_ray.1",
+      "death": "elite.void_ray.1.death",
+      "sharedWith": [
+        "void_ray.2",
+        "void_ray.3"
+      ],
+      "riskModels": [
+        "model.elite.void_ray.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "carrier.1",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "carrier",
+      "model": "elite.carrier.1",
+      "death": "elite.carrier.1.death",
+      "sharedWith": [
+        "carrier.2",
+        "carrier.3",
+        "purifier_flagship"
+      ],
+      "riskModels": [
+        "model.elite.carrier.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "viking.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "viking",
+      "model": "elite.viking.1",
+      "death": "elite.viking.1.death",
+      "sharedWith": [
+        "viking.1",
+        "viking.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "viking.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "viking",
+      "model": "elite.viking.1",
+      "death": "elite.viking.1.death",
+      "sharedWith": [
+        "viking.1",
+        "viking.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "ravager.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "ravager",
+      "model": "elite.ravager.1",
+      "death": "elite.ravager.1.death",
+      "sharedWith": [
+        "ravager.1",
+        "ravager.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "ravager.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "ravager",
+      "model": "elite.ravager.1",
+      "death": "elite.ravager.1.death",
+      "sharedWith": [
+        "ravager.1",
+        "ravager.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "high_templar.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "high_templar",
+      "model": "elite.high_templar.1",
+      "death": "elite.high_templar.1.death",
+      "sharedWith": [
+        "high_templar.1",
+        "high_templar.3"
+      ],
+      "riskModels": [
+        "model.elite.high_templar.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "high_templar.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "high_templar",
+      "model": "elite.high_templar.1",
+      "death": "elite.high_templar.1.death",
+      "sharedWith": [
+        "high_templar.1",
+        "high_templar.2"
+      ],
+      "riskModels": [
+        "model.elite.high_templar.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "reaper.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "reaper",
+      "model": "elite.reaper.1",
+      "death": "elite.reaper.1.death",
+      "sharedWith": [
+        "reaper.1",
+        "reaper.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "reaper.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "reaper",
+      "model": "elite.reaper.1",
+      "death": "elite.reaper.1.death",
+      "sharedWith": [
+        "reaper.1",
+        "reaper.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "thor.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "thor",
+      "model": "elite.thor.1",
+      "death": "elite.thor.1.death",
+      "sharedWith": [
+        "thor.1",
+        "thor.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "thor.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "thor",
+      "model": "elite.thor.1",
+      "death": "elite.thor.1.death",
+      "sharedWith": [
+        "thor.1",
+        "thor.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "banshee.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "banshee",
+      "model": "elite.banshee.1",
+      "death": "elite.banshee.1.death",
+      "sharedWith": [
+        "banshee.1",
+        "banshee.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "banshee.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "banshee",
+      "model": "elite.banshee.1",
+      "death": "elite.banshee.1.death",
+      "sharedWith": [
+        "banshee.1",
+        "banshee.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "science_vessel.2",
+      "kind": "elite",
+      "race": "terran",
+      "family": "science_vessel",
+      "model": "elite.science_vessel.1",
+      "death": "science_vessel.death",
+      "sharedWith": [
+        "science_vessel.1",
+        "science_vessel.3"
+      ],
+      "riskModels": [
+        "model.elite.science_vessel.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "science_vessel.3",
+      "kind": "elite",
+      "race": "terran",
+      "family": "science_vessel",
+      "model": "elite.science_vessel.1",
+      "death": "science_vessel.death",
+      "sharedWith": [
+        "science_vessel.1",
+        "science_vessel.2"
+      ],
+      "riskModels": [
+        "model.elite.science_vessel.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zergling.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "zergling",
+      "model": "elite.zergling.1",
+      "death": "elite.zergling.1.death",
+      "sharedWith": [
+        "zergling.1",
+        "zergling.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zergling.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "zergling",
+      "model": "elite.zergling.1",
+      "death": "elite.zergling.1.death",
+      "sharedWith": [
+        "zergling.1",
+        "zergling.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "baneling.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "baneling",
+      "model": "elite.baneling.1",
+      "death": "elite.baneling.1.death",
+      "sharedWith": [
+        "baneling.1",
+        "baneling.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "baneling.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "baneling",
+      "model": "elite.baneling.1",
+      "death": "elite.baneling.1.death",
+      "sharedWith": [
+        "baneling.1",
+        "baneling.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "roach.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "roach",
+      "model": "elite.roach.1",
+      "death": "elite.roach.1.death",
+      "sharedWith": [
+        "roach.1",
+        "roach.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "roach.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "roach",
+      "model": "elite.roach.1",
+      "death": "elite.roach.1.death",
+      "sharedWith": [
+        "roach.1",
+        "roach.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "hydralisk.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "hydralisk",
+      "model": "elite.hydralisk.1",
+      "death": "elite.hydralisk.1.death",
+      "sharedWith": [
+        "hydralisk.1",
+        "hydralisk.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "hydralisk.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "hydralisk",
+      "model": "elite.hydralisk.1",
+      "death": "elite.hydralisk.1.death",
+      "sharedWith": [
+        "hydralisk.1",
+        "hydralisk.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "lurker.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "lurker",
+      "model": "elite.lurker.1",
+      "death": "elite.lurker.1.death",
+      "sharedWith": [
+        "lurker.1",
+        "lurker.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "lurker.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "lurker",
+      "model": "elite.lurker.1",
+      "death": "elite.lurker.1.death",
+      "sharedWith": [
+        "lurker.1",
+        "lurker.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "queen.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "queen",
+      "model": "elite.queen.1",
+      "death": "elite.queen.1.death",
+      "sharedWith": [
+        "queen.1",
+        "queen.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "queen.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "queen",
+      "model": "elite.queen.1",
+      "death": "elite.queen.1.death",
+      "sharedWith": [
+        "queen.1",
+        "queen.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "mutalisk.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "mutalisk",
+      "model": "elite.mutalisk.1",
+      "death": "elite.mutalisk.1.death",
+      "sharedWith": [
+        "mutalisk.1",
+        "mutalisk.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "mutalisk.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "mutalisk",
+      "model": "elite.mutalisk.1",
+      "death": "elite.mutalisk.1.death",
+      "sharedWith": [
+        "mutalisk.1",
+        "mutalisk.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "corruptor.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "corruptor",
+      "model": "elite.corruptor.1",
+      "death": "elite.corruptor.1.death",
+      "sharedWith": [
+        "corruptor.1",
+        "corruptor.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "corruptor.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "corruptor",
+      "model": "elite.corruptor.1",
+      "death": "elite.corruptor.1.death",
+      "sharedWith": [
+        "corruptor.1",
+        "corruptor.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "ultralisk.2",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "ultralisk",
+      "model": "elite.ultralisk.1",
+      "death": "elite.ultralisk.1.death",
+      "sharedWith": [
+        "ultralisk.1",
+        "ultralisk.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "ultralisk.3",
+      "kind": "elite",
+      "race": "zerg",
+      "family": "ultralisk",
+      "model": "elite.ultralisk.1",
+      "death": "elite.ultralisk.1.death",
+      "sharedWith": [
+        "ultralisk.1",
+        "ultralisk.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zealot.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "zealot",
+      "model": "elite.zealot.1",
+      "death": "elite.zealot.1.death",
+      "sharedWith": [
+        "zealot.1",
+        "zealot.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zealot.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "zealot",
+      "model": "elite.zealot.1",
+      "death": "elite.zealot.1.death",
+      "sharedWith": [
+        "zealot.1",
+        "zealot.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "adept.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "adept",
+      "model": "elite.adept.1",
+      "death": "elite.adept.1.death",
+      "sharedWith": [
+        "adept.1",
+        "adept.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "adept.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "adept",
+      "model": "elite.adept.1",
+      "death": "elite.adept.1.death",
+      "sharedWith": [
+        "adept.1",
+        "adept.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "stalker.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "stalker",
+      "model": "elite.stalker.1",
+      "death": "elite.stalker.1.death",
+      "sharedWith": [
+        "stalker.1",
+        "stalker.3"
+      ],
+      "riskModels": [
+        "model.elite.stalker.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "stalker.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "stalker",
+      "model": "elite.stalker.1",
+      "death": "elite.stalker.1.death",
+      "sharedWith": [
+        "stalker.1",
+        "stalker.2"
+      ],
+      "riskModels": [
+        "model.elite.stalker.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "sentry.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "sentry",
+      "model": "elite.sentry.1",
+      "death": "elite.sentry.1.death",
+      "sharedWith": [
+        "sentry.1",
+        "sentry.3"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "sentry.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "sentry",
+      "model": "elite.sentry.1",
+      "death": "elite.sentry.1.death",
+      "sharedWith": [
+        "sentry.1",
+        "sentry.2"
+      ],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "immortal.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "immortal",
+      "model": "elite.immortal.1",
+      "death": "elite.immortal.1.death",
+      "sharedWith": [
+        "immortal.1",
+        "immortal.3"
+      ],
+      "riskModels": [
+        "model.elite.immortal.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "immortal.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "immortal",
+      "model": "elite.immortal.1",
+      "death": "elite.immortal.1.death",
+      "sharedWith": [
+        "immortal.1",
+        "immortal.2"
+      ],
+      "riskModels": [
+        "model.elite.immortal.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "colossus.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "colossus",
+      "model": "elite.colossus.1",
+      "death": "elite.colossus.1.death",
+      "sharedWith": [
+        "colossus.1",
+        "colossus.3"
+      ],
+      "riskModels": [
+        "model.elite.colossus.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "colossus.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "colossus",
+      "model": "elite.colossus.1",
+      "death": "elite.colossus.1.death",
+      "sharedWith": [
+        "colossus.1",
+        "colossus.2"
+      ],
+      "riskModels": [
+        "model.elite.colossus.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "phoenix.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "phoenix",
+      "model": "elite.phoenix.1",
+      "death": "elite.phoenix.1.death",
+      "sharedWith": [
+        "phoenix.1",
+        "phoenix.3"
+      ],
+      "riskModels": [
+        "model.elite.phoenix.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "phoenix.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "phoenix",
+      "model": "elite.phoenix.1",
+      "death": "elite.phoenix.1.death",
+      "sharedWith": [
+        "phoenix.1",
+        "phoenix.2"
+      ],
+      "riskModels": [
+        "model.elite.phoenix.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "void_ray.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "void_ray",
+      "model": "elite.void_ray.1",
+      "death": "elite.void_ray.1.death",
+      "sharedWith": [
+        "void_ray.1",
+        "void_ray.3"
+      ],
+      "riskModels": [
+        "model.elite.void_ray.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "void_ray.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "void_ray",
+      "model": "elite.void_ray.1",
+      "death": "elite.void_ray.1.death",
+      "sharedWith": [
+        "void_ray.1",
+        "void_ray.2"
+      ],
+      "riskModels": [
+        "model.elite.void_ray.1.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "carrier.2",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "carrier",
+      "model": "elite.carrier.1",
+      "death": "elite.carrier.1.death",
+      "sharedWith": [
+        "carrier.1",
+        "carrier.3",
+        "purifier_flagship"
+      ],
+      "riskModels": [
+        "model.elite.carrier.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "carrier.3",
+      "kind": "elite",
+      "race": "protoss",
+      "family": "carrier",
+      "model": "elite.carrier.1",
+      "death": "elite.carrier.1.death",
+      "sharedWith": [
+        "carrier.1",
+        "carrier.2",
+        "purifier_flagship"
+      ],
+      "riskModels": [
+        "model.elite.carrier.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "raynor",
+      "kind": "hero",
+      "race": "terran",
+      "family": "marine",
+      "model": "hero.raynor",
+      "death": "marine.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "tychus",
+      "kind": "hero",
+      "race": "terran",
+      "family": "marine",
+      "model": "hero.tychus",
+      "death": "marine.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "nova",
+      "kind": "hero",
+      "race": "terran",
+      "family": "marine",
+      "model": "hero.nova",
+      "death": "marine.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.hero.nova"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "swann",
+      "kind": "hero",
+      "race": "terran",
+      "family": "marauder",
+      "model": "hero.swann",
+      "death": "marauder.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "tosh",
+      "kind": "hero",
+      "race": "terran",
+      "family": "marine",
+      "model": "hero.tosh",
+      "death": "marine.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "kerrigan",
+      "kind": "hero",
+      "race": "zerg",
+      "family": "zergling",
+      "model": "hero.kerrigan",
+      "death": "zergling.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zagara",
+      "kind": "hero",
+      "race": "zerg",
+      "family": "queen",
+      "model": "hero.zagara",
+      "death": "hero.zagara.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "dehaka",
+      "kind": "hero",
+      "race": "zerg",
+      "family": "ultralisk",
+      "model": "hero.dehaka",
+      "death": "ultralisk.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.hero.dehaka"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "stukov",
+      "kind": "hero",
+      "race": "zerg",
+      "family": "hydralisk",
+      "model": "hero.stukov",
+      "death": "hydralisk.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "niadra",
+      "kind": "hero",
+      "race": "zerg",
+      "family": "queen",
+      "model": "hero.niadra",
+      "death": "hero.niadra.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "artanis",
+      "kind": "hero",
+      "race": "protoss",
+      "family": "zealot",
+      "model": "hero.artanis",
+      "death": "zealot.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.hero.artanis",
+        "model.zealot.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "zeratul",
+      "kind": "hero",
+      "race": "protoss",
+      "family": "zealot",
+      "model": "hero.zeratul",
+      "death": "hero.zeratul.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.hero.zeratul.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "alarak",
+      "kind": "hero",
+      "race": "protoss",
+      "family": "zealot",
+      "model": "hero.alarak",
+      "death": "zealot.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.hero.alarak",
+        "model.zealot.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "fenix",
+      "kind": "hero",
+      "race": "protoss",
+      "family": "immortal",
+      "model": "hero.fenix",
+      "death": "hero.fenix.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "vorazun",
+      "kind": "hero",
+      "race": "protoss",
+      "family": "zealot",
+      "model": "hero.vorazun",
+      "death": "zealot.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.hero.vorazun",
+        "model.zealot.death"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "yamato_battlecruiser",
+      "kind": "hero",
+      "race": "terran",
+      "family": "yamato_battlecruiser",
+      "model": "hero.yamato_battlecruiser",
+      "death": "hero.yamato_battlecruiser.death",
+      "sharedWith": [],
+      "riskModels": [
+        "model.hero.yamato_battlecruiser"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "hots_leviathan",
+      "kind": "hero",
+      "race": "zerg",
+      "family": "hots_leviathan",
+      "model": "hero.hots_leviathan",
+      "death": "hero.hots_leviathan.death",
+      "sharedWith": [],
+      "riskModels": [],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    },
+    {
+      "id": "purifier_flagship",
+      "kind": "hero",
+      "race": "protoss",
+      "family": "purifier_flagship",
+      "model": "elite.carrier.1",
+      "death": "elite.carrier.1.death",
+      "sharedWith": [
+        "carrier.1",
+        "carrier.2",
+        "carrier.3"
+      ],
+      "riskModels": [
+        "model.elite.carrier.1"
+      ],
+      "nativeReplay": true,
+      "historicalVisualRecord": "VISUAL_ALL_UNIT_MATRIX_20261009.md; retains original ae4c2ac build identity; not relabelled."
+    }
+  ],
+  "baselineMatrix": [
+    {
+      "key": "density-terran-18|char",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "214dc59d"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.799999999999272,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 3.9723981364392653,
+      "simulationMeanMedian": 1.4600665558520054,
+      "submitMeanMedian": 8.19500831944772,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-char-r2/001-density-terran-18-char-baseline-live-1.json",
+        "baseline-char-r2/002-density-terran-18-char-baseline-live-2.json",
+        "baseline-char-r2/003-density-terran-18-char-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-48|char",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "61af7b81"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.80000000000291,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 4.312024425956742,
+      "simulationMeanMedian": 3.2918469218441135,
+      "submitMeanMedian": 8.23943427621624,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-char-r2/004-density-terran-48-char-baseline-live-1.json",
+        "baseline-char-r2/005-density-terran-48-char-baseline-live-2.json",
+        "baseline-char-r2/006-density-terran-48-char-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-96|char",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "d98dc33b"
+      ],
+      "frameMeanMedian": 16.75041876046901,
+      "p95Range": [
+        16.80000000000291,
+        16.800000000017462
+      ],
+      "gpuMeanMedian": 5.152709250425898,
+      "simulationMeanMedian": 5.846333333042761,
+      "submitMeanMedian": 9.22558528420369,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-char-r2/007-density-terran-96-char-baseline-live-1.json",
+        "baseline-char-r2/008-density-terran-96-char-baseline-live-2.json",
+        "baseline-char-r2/009-density-terran-96-char-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-18|char",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "c8e35d45"
+      ],
+      "frameMeanMedian": 16.722408026755854,
+      "p95Range": [
+        16.79999999998836,
+        16.79999999998836
+      ],
+      "gpuMeanMedian": 3.9730402671118497,
+      "simulationMeanMedian": 1.6913188648268656,
+      "submitMeanMedian": 8.094342761993804,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-char-r2/010-density-zerg-18-char-baseline-live-1.json",
+        "baseline-char-r2/011-density-zerg-18-char-baseline-live-2.json",
+        "baseline-char-r2/012-density-zerg-18-char-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-48|char",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "1168502e"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.79999999998836,
+        16.800000000017462
+      ],
+      "gpuMeanMedian": 4.397613327787016,
+      "simulationMeanMedian": 4.0825291181513155,
+      "submitMeanMedian": 8.32612312808261,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-char-r2/013-density-zerg-48-char-baseline-live-1.json",
+        "baseline-char-r2/014-density-zerg-48-char-baseline-live-2.json",
+        "baseline-char-r2/015-density-zerg-48-char-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-96|char",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "d501536d"
+      ],
+      "frameMeanMedian": 26.85415549597849,
+      "p95Range": [
+        49.89999999999418,
+        66.70000000001164
+      ],
+      "gpuMeanMedian": 6.293685865384615,
+      "simulationMeanMedian": 15.105614973003055,
+      "submitMeanMedian": 11.288770053714991,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-char-r2/016-density-zerg-96-char-baseline-live-1.json",
+        "baseline-char-r2/017-density-zerg-96-char-baseline-live-2.json",
+        "baseline-char-r2/018-density-zerg-96-char-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-18|char",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "44848205"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.79999999998836,
+        16.800000000046566
+      ],
+      "gpuMeanMedian": 4.079488319467559,
+      "simulationMeanMedian": 1.70848585706136,
+      "submitMeanMedian": 7.040432612332647,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-char-r2/019-density-protoss-18-char-baseline-live-1.json",
+        "baseline-char-r2/020-density-protoss-18-char-baseline-live-2.json",
+        "baseline-char-r2/021-density-protoss-18-char-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-48|char",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "b773ed33"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.79999999998836,
+        16.79999999998836
+      ],
+      "gpuMeanMedian": 4.320332895174705,
+      "simulationMeanMedian": 4.394509151416789,
+      "submitMeanMedian": 6.725623960031844,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-char-r2/022-density-protoss-48-char-baseline-live-1.json",
+        "baseline-char-r2/023-density-protoss-48-char-baseline-live-2.json",
+        "baseline-char-r2/024-density-protoss-48-char-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-96|char",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "304722a2"
+      ],
+      "frameMeanMedian": 19.48233009708731,
+      "p95Range": [
+        33.40000000002328,
+        33.40000000002328
+      ],
+      "gpuMeanMedian": 5.82395930232558,
+      "simulationMeanMedian": 10.85542635641299,
+      "submitMeanMedian": 8.191860465347304,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-char-r2/025-density-protoss-96-char-baseline-live-1.json",
+        "baseline-char-r2/026-density-protoss-96-char-baseline-live-2.json",
+        "baseline-char-r2/027-density-protoss-96-char-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-18|frontier",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "3d2999f3"
+      ],
+      "frameMeanMedian": 16.66666666666667,
+      "p95Range": [
+        16.80000000000291,
+        16.89999999999418
+      ],
+      "gpuMeanMedian": 3.5550205324459245,
+      "simulationMeanMedian": 1.4212978370425704,
+      "submitMeanMedian": 6.524958402587848,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-frontier-r2/001-density-terran-18-frontier-baseline-live-1.json",
+        "baseline-frontier-r2/002-density-terran-18-frontier-baseline-live-2.json",
+        "baseline-frontier-r2/003-density-terran-18-frontier-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-48|frontier",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "88314107"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.80000000000291,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 4.699642512479203,
+      "simulationMeanMedian": 3.6020202019599954,
+      "submitMeanMedian": 9.158402662246973,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-frontier-r2/004-density-terran-48-frontier-baseline-live-1.json",
+        "baseline-frontier-r2/005-density-terran-48-frontier-baseline-live-2.json",
+        "baseline-frontier-r2/006-density-terran-48-frontier-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-96|frontier",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "42c9e243"
+      ],
+      "frameMeanMedian": 16.69465776293824,
+      "p95Range": [
+        16.80000000000291,
+        16.89999999999418
+      ],
+      "gpuMeanMedian": 5.249047749999997,
+      "simulationMeanMedian": 5.215166666942338,
+      "submitMeanMedian": 9.961833333149553,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-frontier-r2/007-density-terran-96-frontier-baseline-live-1.json",
+        "baseline-frontier-r2/008-density-terran-96-frontier-baseline-live-2.json",
+        "baseline-frontier-r2/009-density-terran-96-frontier-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-18|frontier",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "a8eebb07"
+      ],
+      "frameMeanMedian": 16.722408026755854,
+      "p95Range": [
+        16.89999999999418,
+        16.89999999999418
+      ],
+      "gpuMeanMedian": 3.7460273288814725,
+      "simulationMeanMedian": 1.8750418762066456,
+      "submitMeanMedian": 7.100834724501099,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-frontier-r2/010-density-zerg-18-frontier-baseline-live-1.json",
+        "baseline-frontier-r2/011-density-zerg-18-frontier-baseline-live-2.json",
+        "baseline-frontier-r2/012-density-zerg-18-frontier-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-48|frontier",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "f113c614"
+      ],
+      "frameMeanMedian": 16.69449081803005,
+      "p95Range": [
+        16.800000000017462,
+        17
+      ],
+      "gpuMeanMedian": 4.631317399999998,
+      "simulationMeanMedian": 4.164833333306015,
+      "submitMeanMedian": 8.688666666708887,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-frontier-r2/013-density-zerg-48-frontier-baseline-live-1.json",
+        "baseline-frontier-r2/014-density-zerg-48-frontier-baseline-live-2.json",
+        "baseline-frontier-r2/015-density-zerg-48-frontier-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-96|frontier",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "47ed2f9d"
+      ],
+      "frameMeanMedian": 23.364485981308412,
+      "p95Range": [
+        50,
+        50
+      ],
+      "gpuMeanMedian": 5.811121687041568,
+      "simulationMeanMedian": 11.958741258543272,
+      "submitMeanMedian": 10.993473193393303,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-frontier-r2/016-density-zerg-96-frontier-baseline-live-1.json",
+        "baseline-frontier-r2/017-density-zerg-96-frontier-baseline-live-2.json",
+        "baseline-frontier-r2/018-density-zerg-96-frontier-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-18|frontier",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "3115debd"
+      ],
+      "frameMeanMedian": 16.666833333333294,
+      "p95Range": [
+        16.900000000023283,
+        17
+      ],
+      "gpuMeanMedian": 3.815462595673883,
+      "simulationMeanMedian": 1.9261231281470736,
+      "submitMeanMedian": 6.758402662336231,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-frontier-r2/019-density-protoss-18-frontier-baseline-live-1.json",
+        "baseline-frontier-r2/020-density-protoss-18-frontier-baseline-live-2.json",
+        "baseline-frontier-r2/021-density-protoss-18-frontier-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-48|frontier",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "678d4ba5"
+      ],
+      "frameMeanMedian": 16.666833333333294,
+      "p95Range": [
+        16.79999999998836,
+        16.899999999965075
+      ],
+      "gpuMeanMedian": 4.706206888519137,
+      "simulationMeanMedian": 4.811980033699367,
+      "submitMeanMedian": 7.993143812706538,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-frontier-r2/022-density-protoss-48-frontier-baseline-live-1.json",
+        "baseline-frontier-r2/023-density-protoss-48-frontier-baseline-live-2.json",
+        "baseline-frontier-r2/024-density-protoss-48-frontier-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-96|frontier",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "b64a3437"
+      ],
+      "frameMeanMedian": 23.80952380952381,
+      "p95Range": [
+        50,
+        50
+      ],
+      "gpuMeanMedian": 5.724286355140192,
+      "simulationMeanMedian": 13.889073634356473,
+      "submitMeanMedian": 9.399049880881208,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-frontier-r2/025-density-protoss-96-frontier-baseline-live-1.json",
+        "baseline-frontier-r2/026-density-protoss-96-frontier-baseline-live-2.json",
+        "baseline-frontier-r2/027-density-protoss-96-frontier-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-18|ice",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "a14acf75"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.799999999999272,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 2.986178702163062,
+      "simulationMeanMedian": 1.437603993381617,
+      "submitMeanMedian": 7.566222961539536,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-ice-r2/001-density-terran-18-ice-baseline-live-1.json",
+        "baseline-ice-r2/002-density-terran-18-ice-baseline-live-2.json",
+        "baseline-ice-r2/003-density-terran-18-ice-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-48|ice",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "72bd26e3"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.80000000000291,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 3.4310488186356056,
+      "simulationMeanMedian": 3.0176372711551367,
+      "submitMeanMedian": 7.957570715523797,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-ice-r2/004-density-terran-48-ice-baseline-live-1.json",
+        "baseline-ice-r2/005-density-terran-48-ice-baseline-live-2.json",
+        "baseline-ice-r2/006-density-terran-48-ice-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-96|ice",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "f40574b5"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.79999999998836,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 4.196602229617307,
+      "simulationMeanMedian": 5.600501672405263,
+      "submitMeanMedian": 8.490016638835932,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-ice-r2/007-density-terran-96-ice-baseline-live-1.json",
+        "baseline-ice-r2/008-density-terran-96-ice-baseline-live-2.json",
+        "baseline-ice-r2/009-density-terran-96-ice-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-18|ice",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "fcab8233"
+      ],
+      "frameMeanMedian": 16.69432387312186,
+      "p95Range": [
+        16.79999999998836,
+        16.800000000017462
+      ],
+      "gpuMeanMedian": 3.1420688461538493,
+      "simulationMeanMedian": 1.5122073578047115,
+      "submitMeanMedian": 6.788851913380841,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-ice-r2/010-density-zerg-18-ice-baseline-live-1.json",
+        "baseline-ice-r2/011-density-zerg-18-ice-baseline-live-2.json",
+        "baseline-ice-r2/012-density-zerg-18-ice-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-48|ice",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "ffe36de2"
+      ],
+      "frameMeanMedian": 16.69449081803005,
+      "p95Range": [
+        16.79999999998836,
+        16.79999999998836
+      ],
+      "gpuMeanMedian": 3.6875615666666657,
+      "simulationMeanMedian": 3.893843594052133,
+      "submitMeanMedian": 8.249833333405356,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-ice-r2/013-density-zerg-48-ice-baseline-live-1.json",
+        "baseline-ice-r2/014-density-zerg-48-ice-baseline-live-2.json",
+        "baseline-ice-r2/015-density-zerg-48-ice-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-96|ice",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "78b9dc00"
+      ],
+      "frameMeanMedian": 21.691540130151946,
+      "p95Range": [
+        33.40000000002328,
+        49.79999999998836
+      ],
+      "gpuMeanMedian": 5.179178058035714,
+      "simulationMeanMedian": 10.753679653621598,
+      "submitMeanMedian": 10.406696428428404,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-ice-r2/016-density-zerg-96-ice-baseline-live-1.json",
+        "baseline-ice-r2/017-density-zerg-96-ice-baseline-live-2.json",
+        "baseline-ice-r2/018-density-zerg-96-ice-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-18|ice",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "2676d153"
+      ],
+      "frameMeanMedian": 16.666833333333294,
+      "p95Range": [
+        16.79999999998836,
+        16.800000000046566
+      ],
+      "gpuMeanMedian": 3.383706891891891,
+      "simulationMeanMedian": 1.8379367721482442,
+      "submitMeanMedian": 7.443760399252622,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-ice-r2/019-density-protoss-18-ice-baseline-live-1.json",
+        "baseline-ice-r2/020-density-protoss-18-ice-baseline-live-2.json",
+        "baseline-ice-r2/021-density-protoss-18-ice-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-48|ice",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "8fdcf709"
+      ],
+      "frameMeanMedian": 16.694166666666668,
+      "p95Range": [
+        16.79999999998836,
+        16.79999999998836
+      ],
+      "gpuMeanMedian": 3.75563945091514,
+      "simulationMeanMedian": 4.547579299042837,
+      "submitMeanMedian": 7.100000000101655,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-ice-r2/022-density-protoss-48-ice-baseline-live-1.json",
+        "baseline-ice-r2/023-density-protoss-48-ice-baseline-live-2.json",
+        "baseline-ice-r2/024-density-protoss-48-ice-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-96|ice",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "8d47bb6e"
+      ],
+      "frameMeanMedian": 19.607843137254903,
+      "p95Range": [
+        33.40000000002328,
+        33.40000000002328
+      ],
+      "gpuMeanMedian": 4.984882331288343,
+      "simulationMeanMedian": 10.258904109656111,
+      "submitMeanMedian": 8.713496932375163,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-ice-r2/025-density-protoss-96-ice-baseline-live-1.json",
+        "baseline-ice-r2/026-density-protoss-96-ice-baseline-live-2.json",
+        "baseline-ice-r2/027-density-protoss-96-ice-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-18|industrial",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "bb64481f"
+      ],
+      "frameMeanMedian": 16.666500000000003,
+      "p95Range": [
+        16.799999999999272,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 3.913400166389344,
+      "simulationMeanMedian": 1.4064891847616028,
+      "submitMeanMedian": 8.149417637179477,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-industrial-r2/001-density-terran-18-industrial-baseline-live-1.json",
+        "baseline-industrial-r2/002-density-terran-18-industrial-baseline-live-2.json",
+        "baseline-industrial-r2/003-density-terran-18-industrial-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-48|industrial",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "004e526b"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.80000000000291,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 4.499169384359399,
+      "simulationMeanMedian": 3.2011647254302975,
+      "submitMeanMedian": 8.538768718797037,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-industrial-r2/004-density-terran-48-industrial-baseline-live-1.json",
+        "baseline-industrial-r2/005-density-terran-48-industrial-baseline-live-2.json",
+        "baseline-industrial-r2/006-density-terran-48-industrial-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-96|industrial",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "b4bfee57"
+      ],
+      "frameMeanMedian": 16.722408026755875,
+      "p95Range": [
+        16.80000000000291,
+        16.800000000017462
+      ],
+      "gpuMeanMedian": 5.195519432387318,
+      "simulationMeanMedian": 5.643071786502069,
+      "submitMeanMedian": 9.163105175322006,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-industrial-r2/007-density-terran-96-industrial-baseline-live-1.json",
+        "baseline-industrial-r2/008-density-terran-96-industrial-baseline-live-2.json",
+        "baseline-industrial-r2/009-density-terran-96-industrial-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-18|industrial",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "763cf179"
+      ],
+      "frameMeanMedian": 16.72257525083608,
+      "p95Range": [
+        16.79999999998836,
+        16.800000000017462
+      ],
+      "gpuMeanMedian": 3.905216444073453,
+      "simulationMeanMedian": 1.6045150501049283,
+      "submitMeanMedian": 7.622203672792955,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-industrial-r2/010-density-zerg-18-industrial-baseline-live-1.json",
+        "baseline-industrial-r2/011-density-zerg-18-industrial-baseline-live-2.json",
+        "baseline-industrial-r2/012-density-zerg-18-industrial-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-48|industrial",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "06df290a"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.79999999998836,
+        16.79999999998836
+      ],
+      "gpuMeanMedian": 4.393647004991679,
+      "simulationMeanMedian": 4.008485856932431,
+      "submitMeanMedian": 8.458402662353587,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-industrial-r2/013-density-zerg-48-industrial-baseline-live-1.json",
+        "baseline-industrial-r2/014-density-zerg-48-industrial-baseline-live-2.json",
+        "baseline-industrial-r2/015-density-zerg-48-industrial-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-96|industrial",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "2108599b"
+      ],
+      "frameMeanMedian": 21.691973969631235,
+      "p95Range": [
+        49.79999999998836,
+        50
+      ],
+      "gpuMeanMedian": 5.768343722943722,
+      "simulationMeanMedian": 10.680303030167565,
+      "submitMeanMedian": 10.610389610357357,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-industrial-r2/016-density-zerg-96-industrial-baseline-live-1.json",
+        "baseline-industrial-r2/017-density-zerg-96-industrial-baseline-live-2.json",
+        "baseline-industrial-r2/018-density-zerg-96-industrial-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-18|industrial",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "033e0711"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.79999999998836,
+        16.800000000046566
+      ],
+      "gpuMeanMedian": 3.7327535075885305,
+      "simulationMeanMedian": 1.9439267886433744,
+      "submitMeanMedian": 7.712978369309978,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-industrial-r2/019-density-protoss-18-industrial-baseline-live-1.json",
+        "baseline-industrial-r2/020-density-protoss-18-industrial-baseline-live-2.json",
+        "baseline-industrial-r2/021-density-protoss-18-industrial-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-48|industrial",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "bc2c2e15"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.79999999998836,
+        16.79999999998836
+      ],
+      "gpuMeanMedian": 4.257562412645596,
+      "simulationMeanMedian": 4.599001663930702,
+      "submitMeanMedian": 7.3179700496961395,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-industrial-r2/022-density-protoss-48-industrial-baseline-live-1.json",
+        "baseline-industrial-r2/023-density-protoss-48-industrial-baseline-live-2.json",
+        "baseline-industrial-r2/024-density-protoss-48-industrial-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-96|industrial",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "9af05b58"
+      ],
+      "frameMeanMedian": 19.959880239521006,
+      "p95Range": [
+        33.399999999965075,
+        33.40000000002328
+      ],
+      "gpuMeanMedian": 5.43037523904383,
+      "simulationMeanMedian": 10.806772908143907,
+      "submitMeanMedian": 8.74174573066056,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-industrial-r2/025-density-protoss-96-industrial-baseline-live-1.json",
+        "baseline-industrial-r2/026-density-protoss-96-industrial-baseline-live-2.json",
+        "baseline-industrial-r2/027-density-protoss-96-industrial-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-18|mar-sara",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "bfe4016d"
+      ],
+      "frameMeanMedian": 16.66666666666667,
+      "p95Range": [
+        16.799999999995634,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 3.763107333333333,
+      "simulationMeanMedian": 1.499168053393356,
+      "submitMeanMedian": 7.926955074766115,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-mar-sara-r2/001-density-terran-18-mar-sara-baseline-live-1.json",
+        "baseline-mar-sara-r2/002-density-terran-18-mar-sara-baseline-live-2.json",
+        "baseline-mar-sara-r2/003-density-terran-18-mar-sara-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-48|mar-sara",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "928b72a3"
+      ],
+      "frameMeanMedian": 16.666666666666668,
+      "p95Range": [
+        16.79999999998836,
+        16.80000000000291
+      ],
+      "gpuMeanMedian": 3.9287241597337745,
+      "simulationMeanMedian": 3.1432612312464863,
+      "submitMeanMedian": 8.218968385827422,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-mar-sara-r2/004-density-terran-48-mar-sara-baseline-live-1.json",
+        "baseline-mar-sara-r2/005-density-terran-48-mar-sara-baseline-live-2.json",
+        "baseline-mar-sara-r2/006-density-terran-48-mar-sara-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-terran-96|mar-sara",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "c8843d8d"
+      ],
+      "frameMeanMedian": 16.694323873121885,
+      "p95Range": [
+        16.80000000000291,
+        16.800000000017462
+      ],
+      "gpuMeanMedian": 4.683905783333333,
+      "simulationMeanMedian": 5.593510815275589,
+      "submitMeanMedian": 8.915000000049671,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-mar-sara-r2/007-density-terran-96-mar-sara-baseline-live-1.json",
+        "baseline-mar-sara-r2/008-density-terran-96-mar-sara-baseline-live-2.json",
+        "baseline-mar-sara-r2/009-density-terran-96-mar-sara-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-18|mar-sara",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "76f6c9b1"
+      ],
+      "frameMeanMedian": 16.722240802675575,
+      "p95Range": [
+        16.79999999998836,
+        16.800000000017462
+      ],
+      "gpuMeanMedian": 3.900886543001684,
+      "simulationMeanMedian": 1.7081803003565497,
+      "submitMeanMedian": 7.809682804612265,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-mar-sara-r2/010-density-zerg-18-mar-sara-baseline-live-1.json",
+        "baseline-mar-sara-r2/011-density-zerg-18-mar-sara-baseline-live-2.json",
+        "baseline-mar-sara-r2/012-density-zerg-18-mar-sara-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-48|mar-sara",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "b105a646"
+      ],
+      "frameMeanMedian": 16.69449081803005,
+      "p95Range": [
+        16.79999999998836,
+        16.800000000017462
+      ],
+      "gpuMeanMedian": 4.059581200000007,
+      "simulationMeanMedian": 3.9199999999875823,
+      "submitMeanMedian": 8.204326123036383,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-mar-sara-r2/013-density-zerg-48-mar-sara-baseline-live-1.json",
+        "baseline-mar-sara-r2/014-density-zerg-48-mar-sara-baseline-live-2.json",
+        "baseline-mar-sara-r2/015-density-zerg-48-mar-sara-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-zerg-96|mar-sara",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "674b119c"
+      ],
+      "frameMeanMedian": 22.727272727272794,
+      "p95Range": [
+        33.40000000002328,
+        50
+      ],
+      "gpuMeanMedian": 5.695388344671204,
+      "simulationMeanMedian": 11.467346938660626,
+      "submitMeanMedian": 10.781405895762568,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-mar-sara-r2/016-density-zerg-96-mar-sara-baseline-live-1.json",
+        "baseline-mar-sara-r2/017-density-zerg-96-mar-sara-baseline-live-2.json",
+        "baseline-mar-sara-r2/018-density-zerg-96-mar-sara-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-18|mar-sara",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "19c427bf"
+      ],
+      "frameMeanMedian": 16.66650000000004,
+      "p95Range": [
+        16.79999999998836,
+        16.79999999998836
+      ],
+      "gpuMeanMedian": 3.4780771381031608,
+      "simulationMeanMedian": 1.8128119800704687,
+      "submitMeanMedian": 7.581364392750771,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-mar-sara-r2/019-density-protoss-18-mar-sara-baseline-live-1.json",
+        "baseline-mar-sara-r2/020-density-protoss-18-mar-sara-baseline-live-2.json",
+        "baseline-mar-sara-r2/021-density-protoss-18-mar-sara-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-48|mar-sara",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "230c90bf"
+      ],
+      "frameMeanMedian": 16.69449081803005,
+      "p95Range": [
+        16.79999999998836,
+        16.79999999998836
+      ],
+      "gpuMeanMedian": 4.508195445378145,
+      "simulationMeanMedian": 4.779499999818703,
+      "submitMeanMedian": 7.199500831894688,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-mar-sara-r2/022-density-protoss-48-mar-sara-baseline-live-1.json",
+        "baseline-mar-sara-r2/023-density-protoss-48-mar-sara-baseline-live-2.json",
+        "baseline-mar-sara-r2/024-density-protoss-48-mar-sara-baseline-live-3.json"
+      ]
+    },
+    {
+      "key": "density-protoss-96|mar-sara",
+      "samples": 3,
+      "valid": 3,
+      "gpuValid": 3,
+      "initialStates": [
+        "fc3d4c7a"
+      ],
+      "frameMeanMedian": 19.723668639053187,
+      "p95Range": [
+        33.40000000002328,
+        33.40000000002328
+      ],
+      "gpuMeanMedian": 5.37218899803536,
+      "simulationMeanMedian": 10.55728346474586,
+      "submitMeanMedian": 8.80235756378921,
+      "maxDiscarded": 0,
+      "references": [
+        "baseline-mar-sara-r2/025-density-protoss-96-mar-sara-baseline-live-1.json",
+        "baseline-mar-sara-r2/026-density-protoss-96-mar-sara-baseline-live-2.json",
+        "baseline-mar-sara-r2/027-density-protoss-96-mar-sara-baseline-live-3.json"
+      ]
+    }
+  ],
+  "baselineSamples": 135,
+  "baselineValid": 135,
+  "hud": {
+    "samples": [
+      {
+        "race": "terran",
+        "frame": {
+          "count": 3010,
+          "mean": 19.939069767441858,
+          "p50": 16.69999999999709,
+          "p95": 33.39999999999418,
+          "p99": 50,
+          "max": 233.30000000001746,
+          "over20Percent": 16.046511627906977
+        },
+        "seconds": 60.01579999999999,
+        "combatSeconds": 59.86666666666667,
+        "discardedDelta": 0.06666666666666667,
+        "debt": 0.00009999999999275172,
+        "validity": {
+          "timingValid": true,
+          "reasons": [],
+          "naturalAcceptance": false
+        },
+        "errors": []
+      },
+      {
+        "race": "zerg",
+        "frame": {
+          "count": 3387,
+          "mean": 17.719751992914084,
+          "p50": 16.69999999999709,
+          "p95": 16.89999999999418,
+          "p99": 33.400000000001455,
+          "max": 433.3000000000029,
+          "over20Percent": 3.7791555949217597
+        },
+        "seconds": 60.013100000001494,
+        "combatSeconds": 59.86666666666667,
+        "discardedDelta": 0.03333333333333333,
+        "debt": 0.00019999999999819468,
+        "validity": {
+          "timingValid": true,
+          "reasons": [],
+          "naturalAcceptance": false
+        },
+        "errors": []
+      },
+      {
+        "race": "protoss",
+        "frame": {
+          "count": 3521,
+          "mean": 17.040613462084636,
+          "p50": 16.69999999999709,
+          "p95": 16.80000000000291,
+          "p99": 33.30000000000291,
+          "max": 66.70000000000437,
+          "over20Percent": 2.044873615450156
+        },
+        "seconds": 60.00059999999851,
+        "combatSeconds": 59.9,
+        "discardedDelta": 0.05,
+        "debt": 0.00006666666666124699,
+        "validity": {
+          "timingValid": true,
+          "reasons": [],
+          "naturalAcceptance": false
+        },
+        "errors": []
+      }
+    ],
+    "method": "Exact production Web; synthetic full roster and three heroes, 1440x900 DPR1. One 60-second sample per race. Not comparable by subtraction to scene-only matrix; no private GPU hook.",
+    "captures": 12
+  },
+  "visual": {
+    "groups": 10,
+    "captures": 30,
+    "suites": [
+      {
+        "label": "visual-heroes-r1",
+        "build": "38282bbac62dc864d322c466e3ed7d8b15aa81be8721c825918de5460fb45f11",
+        "records": [
+          {
+            "name": "heroes-terran-0-baseline",
+            "state": "d5a27657",
+            "screen": "visual-heroes-r1/heroes-terran-0-baseline.png"
+          },
+          {
+            "name": "heroes-terran-0-no-bloom",
+            "state": "d5a27657",
+            "screen": "visual-heroes-r1/heroes-terran-0-no-bloom.png"
+          },
+          {
+            "name": "heroes-terran-0-direct",
+            "state": "d5a27657",
+            "screen": "visual-heroes-r1/heroes-terran-0-direct.png"
+          },
+          {
+            "name": "heroes-zerg-0-baseline",
+            "state": "7be496bf",
+            "screen": "visual-heroes-r1/heroes-zerg-0-baseline.png"
+          },
+          {
+            "name": "heroes-zerg-0-no-bloom",
+            "state": "7be496bf",
+            "screen": "visual-heroes-r1/heroes-zerg-0-no-bloom.png"
+          },
+          {
+            "name": "heroes-zerg-0-direct",
+            "state": "7be496bf",
+            "screen": "visual-heroes-r1/heroes-zerg-0-direct.png"
+          },
+          {
+            "name": "heroes-protoss-1-baseline",
+            "state": "1542b554",
+            "screen": "visual-heroes-r1/heroes-protoss-1-baseline.png"
+          },
+          {
+            "name": "heroes-protoss-1-no-bloom",
+            "state": "1542b554",
+            "screen": "visual-heroes-r1/heroes-protoss-1-no-bloom.png"
+          },
+          {
+            "name": "heroes-protoss-1-direct",
+            "state": "1542b554",
+            "screen": "visual-heroes-r1/heroes-protoss-1-direct.png"
+          }
+        ]
+      },
+      {
+        "label": "visual-r1",
+        "build": "38282bbac62dc864d322c466e3ed7d8b15aa81be8721c825918de5460fb45f11",
+        "records": [
+          {
+            "name": "immortal-baseline",
+            "state": "3ee1c85f",
+            "screen": "visual-r1/immortal-baseline.png"
+          },
+          {
+            "name": "immortal-no-bloom",
+            "state": "3ee1c85f",
+            "screen": "visual-r1/immortal-no-bloom.png"
+          },
+          {
+            "name": "immortal-direct",
+            "state": "3ee1c85f",
+            "screen": "visual-r1/immortal-direct.png"
+          },
+          {
+            "name": "zealot-baseline",
+            "state": "13114ea4",
+            "screen": "visual-r1/zealot-baseline.png"
+          },
+          {
+            "name": "zealot-no-bloom",
+            "state": "13114ea4",
+            "screen": "visual-r1/zealot-no-bloom.png"
+          },
+          {
+            "name": "zealot-direct",
+            "state": "13114ea4",
+            "screen": "visual-r1/zealot-direct.png"
+          },
+          {
+            "name": "baneling-baseline",
+            "state": "541f39f6",
+            "screen": "visual-r1/baneling-baseline.png"
+          },
+          {
+            "name": "baneling-no-bloom",
+            "state": "541f39f6",
+            "screen": "visual-r1/baneling-no-bloom.png"
+          },
+          {
+            "name": "baneling-direct",
+            "state": "541f39f6",
+            "screen": "visual-r1/baneling-direct.png"
+          },
+          {
+            "name": "ravager-baseline",
+            "state": "eba99c02",
+            "screen": "visual-r1/ravager-baseline.png"
+          },
+          {
+            "name": "ravager-no-bloom",
+            "state": "eba99c02",
+            "screen": "visual-r1/ravager-no-bloom.png"
+          },
+          {
+            "name": "ravager-direct",
+            "state": "eba99c02",
+            "screen": "visual-r1/ravager-direct.png"
+          },
+          {
+            "name": "marine-baseline",
+            "state": "cd0c2b12",
+            "screen": "visual-r1/marine-baseline.png"
+          },
+          {
+            "name": "marine-no-bloom",
+            "state": "cd0c2b12",
+            "screen": "visual-r1/marine-no-bloom.png"
+          },
+          {
+            "name": "marine-direct",
+            "state": "cd0c2b12",
+            "screen": "visual-r1/marine-direct.png"
+          },
+          {
+            "name": "tank-baseline",
+            "state": "41f89210",
+            "screen": "visual-r1/tank-baseline.png"
+          },
+          {
+            "name": "tank-no-bloom",
+            "state": "41f89210",
+            "screen": "visual-r1/tank-no-bloom.png"
+          },
+          {
+            "name": "tank-direct",
+            "state": "41f89210",
+            "screen": "visual-r1/tank-direct.png"
+          },
+          {
+            "name": "carrier-baseline",
+            "state": "084470b2",
+            "screen": "visual-r1/carrier-baseline.png"
+          },
+          {
+            "name": "carrier-no-bloom",
+            "state": "084470b2",
+            "screen": "visual-r1/carrier-no-bloom.png"
+          },
+          {
+            "name": "carrier-direct",
+            "state": "084470b2",
+            "screen": "visual-r1/carrier-direct.png"
+          }
+        ]
+      }
+    ],
+    "method": "Paused same-state output comparisons; not death-animation, temporal shimmer or reference-client acceptance."
+  },
+  "r1Reassessment": {
+    "scope": "Post-sample audit; original R1 records are unchanged and retain their initial validity implementation.",
+    "excludedFromFinalMatrix": "baseline-industrial-r1",
+    "reasonForNewRevision": "R1 checked whole-window low sampling but missed a short burst of unexplained 1 Hz callbacks.",
+    "identifiedRecord": "baseline-industrial-r1/019-density-protoss-18-industrial-baseline-live-1.json",
+    "unexplainedIntervalsMs": [
+      1000,
+      1000,
+      1000.4,
+      1000.1
+    ],
+    "correspondingCpuWorkMs": [
+      12.1,
+      26.8,
+      22.4,
+      27,
+      27.4
+    ],
+    "longTasks": [],
+    "discardedSimulationSeconds": 3.0005,
+    "actualTicks": 463,
+    "interpretation": "Do not attribute the gap to gameplay simulation or report this sample as valid performance. Browser/OS scheduling or occlusion remains unproven. R2 rejects unexplained individual callback gaps and retains genuinely attributed CPU/long-task stalls.",
+    "preservedBuild": "lab-r1/build.json",
+    "newCoverageTests": 9
+  },
+  "checks": {
+    "commands": [
+      "node --import tsx --test test/*.test.mjs test/*.test.ts",
+      "node node_modules/typescript/bin/tsc --noEmit",
+      "node node_modules/typescript/bin/tsc --noEmit -p preview/visual-baseline-20261010/tsconfig.json",
+      "node --import tsx tools/docs/export-game-reference.mts --check",
+      "node tools/check-mvp-plan.mjs"
+    ],
+    "exitCode": 0,
+    "regressions": 1286,
+    "addedValidityTests": 9,
+    "typecheck": true,
+    "labTypecheck": true,
+    "dataDocs": true,
+    "talentDefinitions": 165,
+    "evidence": "regression-final.log and completed terminal check chain"
+  },
+  "protection": {
+    "total": 2520,
+    "same": 2520,
+    "changed": [],
+    "missing": []
+  },
+  "gates": {
+    "naturalPerformance": "OPEN",
+    "physicalDevices": "OPEN",
+    "humanArtReview": "OPEN",
+    "P6V01": "OPEN",
+    "sourceReferenceClientMatch": "OPEN",
+    "productionBackend": "OUT_OF_SCOPE"
+  },
+  "interpretation": "Valid measurements can be slow. Synthetic fixtures and short windows do not satisfy the existing 3x180s natural performance contract.",
+  "deferred": "Candidate lighting/shadow/contact/AA cost matrix, material changes and release defaults remain for later approved stages; no old result relabelled.",
+  "evidenceRoot": "reports/local/visual-baseline-20261010"
+}

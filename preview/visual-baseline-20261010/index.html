@@ -1,0 +1,5 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>画面修复第一阶段 · 当前基线</title><link rel="stylesheet" href="./style.css"></head>
+<body><main><canvas id="battle" aria-label="当前原生战场基线"></canvas></main>
+<header><strong>阶段 1 · 当前基线</strong><label>编队 <select id="group"></select></label><label>地图 <select id="theme"></select></label><button id="load">载入并准备真实交战</button><label>画面对照 <select id="mode"></select></label><button id="reset">恢复测量起点</button><label>秒数 <select id="seconds"><option>10</option><option>60</option><option>180</option></select></label><button id="paused">暂停图形测量</button><button id="live">连续交战测量</button><button id="capture">保存画面状态</button></header>
+<footer><span id="status">加载中</span><span id="summary"></span><details><summary>实际记录</summary><pre id="report"></pre></details></footer><script type="module" src="./main.ts"></script></body></html>
