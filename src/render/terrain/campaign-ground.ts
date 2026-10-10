@@ -19,23 +19,26 @@ export async function createCampaignGround(terrain:RadialTerrain,resources:Lands
  }
  const pixels=new Uint8Array([255,255,255,255]),flatNormal=new Uint8Array([128,128,255,255]);
  const map=new THREE.DataTexture(pixels,1,1),normalMap=new THREE.DataTexture(flatNormal,1,1);map.needsUpdate=normalMap.needsUpdate=true;textures.push(map,normalMap);
- const resolution=512,weights=new Uint8Array(resolution*resolution*4),detail=new Uint8Array(weights.length);
+ const resolution=512,weights=new Uint8Array(resolution*resolution*4),detail=new Uint8Array(weights.length),legacyShadePixels=new Uint8Array(weights.length);
  const solids=terrain.definition.placements.filter(p=>p.type==='landmark');
  for(let y=0;y<resolution;y++)for(let x=0;x<resolution;x++){
   const wx=(x+.5)/resolution*size-size/2,wz=size/2-(y+.5)/resolution*size,at=(y*resolution+x)*4;
-  const field=campaignSurface(theme,wx,wz,seed);let shade=1;
+  const field=campaignSurface(theme,wx,wz,seed);let shade=1,contactShade=1,projectedShade=1;
   for(const p of solids){
    const r=p.blockerSize!,dx=wx-(p.position[0]-size/2),dz=wz-(size/2-p.position[1]);
    if(Math.abs(dx)>r*4||Math.abs(dz)>r*4)continue;
    const contact=Math.max(0,1-Math.hypot(dx,dz)/(r*1.3));
    const shadow=Math.max(0,1-Math.hypot((dx-r*.65)/(r*1.7),(dz+r*.45)/(r*.95)));
    shade*=1-contact*.23-shadow*.26;
+   contactShade*=1-contact*.23;projectedShade*=1-shadow*.26;
   }
   weights[at]=Math.round(field.weights[0]*255);weights[at+1]=Math.round(field.weights[1]*255);weights[at+2]=Math.round(field.weights[2]*255);weights[at+3]=Math.round(Math.max(.45,shade)*255);
+  legacyShadePixels.set([Math.round(Math.max(.45,contactShade)*255),Math.round(Math.max(.45,projectedShade)*255),255,255],at);
   detail[at]=Math.round(field.paint*255);detail[at+1]=Math.round(field.glow*255);detail[at+2]=Math.round((field.variation-.7)/.7*255);detail[at+3]=255;
  }
  const fieldTexture=(data:Uint8Array,width:number,height:number)=>{const t=new THREE.DataTexture(data,width,height);t.minFilter=t.magFilter=THREE.LinearFilter;t.needsUpdate=true;textures.push(t);return t;};
- const field=fieldTexture(weights,resolution,resolution),paint=fieldTexture(detail,resolution,resolution);
+ const field=fieldTexture(weights,resolution,resolution),paint=fieldTexture(detail,resolution,resolution),legacyShade=fieldTexture(legacyShadePixels,resolution,resolution);
+ const shadowActive={value:0},contactActive={value:0};
  const rw=terrain.definition.walkWidth,rh=terrain.definition.walkHeight,revealPixels=new Uint8Array(rw*rh),horizontal=new Float32Array(rw*rh);
  const reveal=new THREE.DataTexture(revealPixels,rw,rh,THREE.RedFormat);reveal.minFilter=reveal.magFilter=THREE.LinearFilter;textures.push(reveal);
  const updateStage=(value:number)=>{
@@ -55,11 +58,11 @@ export async function createCampaignGround(terrain:RadialTerrain,resources:Lands
  const third=theme==='char'?'texture2D(charCracked,groundUV).rgb':layerColor(palette.layers[2]);
  const paintColor=theme==='industrial'?'vec3(.46,.32,.105)':theme==='frontier'?'vec3(.11,.13,.14)':'vec3(.16,.15,.135)';
  material.onBeforeCompile=s=>{
-  Object.assign(s.uniforms,{groundLayers:{value:colorLayers},groundNormals:{value:normalLayers},groundField:{value:field},groundPaint:{value:paint},groundReveal:{value:reveal},groundStage:stage,...charUniforms});
+  Object.assign(s.uniforms,{groundLayers:{value:colorLayers},groundNormals:{value:normalLayers},groundField:{value:field},groundPaint:{value:paint},groundReveal:{value:reveal},groundStage:stage,groundLegacyShade:{value:legacyShade},groundShadowActive:shadowActive,groundContactActive:contactActive,...charUniforms});
   s.fragmentShader=s.fragmentShader.replace('#include <common>',`#include <common>
    uniform highp sampler2DArray groundLayers;
    uniform highp sampler2DArray groundNormals;
-   uniform sampler2D groundField;uniform sampler2D groundPaint;uniform sampler2D groundReveal;
+   uniform sampler2D groundField;uniform sampler2D groundPaint;uniform sampler2D groundReveal;uniform sampler2D groundLegacyShade;uniform float groundShadowActive;uniform float groundContactActive;
    uniform float groundStage;${Object.keys(charUniforms).map(name=>'uniform sampler2D '+name+';').join('')}`);
   s.fragmentShader=s.fragmentShader.replace('#include <map_fragment>',`
    vec2 groundUV=vMapUv*${theme==='industrial'?'20.0':theme==='char'?'13.0':'18.0'};
@@ -79,7 +82,9 @@ export async function createCampaignGround(terrain:RadialTerrain,resources:Lands
    float frame=abs(pad-8.0);paintAmount=max(stripes,(1.0-smoothstep(.045,.045+fwidth(frame)*1.4,frame))*.55)*(.35+detail.b*.5);`:''}
    groundColor=mix(groundColor,${paintColor},paintAmount*.7);
    float opened=texture2D(groundReveal,vMapUv).r;
-   diffuseColor.rgb*=groundColor*field.a*(.7+detail.b*.7)*mix(.28,1.0,opened);`);
+   vec2 legacyShade=texture2D(groundLegacyShade,vMapUv).rg;
+   float groundShade=groundShadowActive>.5?(groundContactActive>.5?1.0:legacyShade.r):(groundContactActive>.5?legacyShade.g:field.a);
+   diffuseColor.rgb*=groundColor*groundShade*(.7+detail.b*.7)*mix(.28,1.0,opened);`);
   s.fragmentShader=s.fragmentShader.replace('#include <normal_fragment_maps>',theme==='char'?`
    vec3 rockNormal=mix(texture2D(charRockNormal,groundUV).rgb,texture2D(charRockNormal,charRockUV).rgb,charMix);
    vec3 groundNormal=mix(texture2D(charSoilNormal,groundUV).rgb,rockNormal,weights.y+weights.z);
@@ -90,11 +95,11 @@ export async function createCampaignGround(terrain:RadialTerrain,resources:Lands
    vec3 mapN=normalize(groundNormal*2.0-1.0);mapN.xy*=normalScale;normal=normalize(tbn*mapN);`);
   if(theme==='char')s.fragmentShader=s.fragmentShader.replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\nfloat heat=max(0.0,secondGround.r-max(secondGround.g,secondGround.b)*1.45);totalEmissiveRadiance+=vec3(2.4,.25,.012)*heat*weights.y*opened;');
  };
- material.customProgramCacheKey=()=>`campaign-painted-ground-${theme}-v3`;
+ material.customProgramCacheKey=()=>`campaign-painted-ground-${theme}-v4`;
  const geometry=new THREE.PlaneGeometry(size,size,size,size);geometry.rotateX(-Math.PI/2);
  const positions=geometry.getAttribute('position'),uv=geometry.getAttribute('uv');
  for(let i=0;i<positions.count;i++){const x=positions.getX(i),z=positions.getZ(i);positions.setY(i,terrain.height({x,z})-.018);uv.setXY(i,(x+size/2)/size,(size/2-z)/size);}
  geometry.computeVertexNormals();geometry.computeBoundingSphere();geometries.push(geometry);
  const ground=new THREE.Mesh(geometry,material);ground.name='campaign-traversable-ground';
- return {ground,stage,updateStage};
+ return {ground,stage,updateStage,setLighting:(active:{shadow:boolean;contact:boolean})=>{shadowActive.value=Number(active.shadow);contactActive.value=Number(active.contact);}};
 }

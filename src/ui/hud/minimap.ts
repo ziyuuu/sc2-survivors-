@@ -1,4 +1,3 @@
-import {minimapThreats} from './minimap-threats';
 import {battleInputCapture} from '../presentation/input-capture';
 import type {ControlSettings} from '../controls/settings';
 import {RARITIES} from '../../data/rewards';
@@ -74,10 +73,8 @@ export class Minimap {
   if(w.hive&&w.hive.hp>0){const p=project(w.hive);c.strokeStyle='#fa746b';c.lineWidth=2*unit;c.strokeRect(p.x-4*unit,p.y-4*unit,8*unit,8*unit);}
   for(const hive of w.expansionHives.values()){const p=project(hive);c.strokeStyle='#ff614f';c.lineWidth=2*unit;c.strokeRect(p.x-3*unit,p.y-3*unit,6*unit,6*unit);}
   for(const fort of w.fortifications.values()){const p=project(fort);c.fillStyle=fort.kind==='bunker'?'#6ec4ff':'#73ebcf';c.fillRect(p.x-2.5*unit,p.y-2.5*unit,5*unit,5*unit);}
-  const threats=minimapThreats(w);for(const threat of threats){const p=project(threat.point);c.strokeStyle=threat.kind==='scan'?'#ff6357':threat.kind==='arrival'?'#ffbb61':'#f69055';c.lineWidth=1.5*unit;c.beginPath();c.arc(p.x,p.y,Math.max(3*unit,threat.radius/this.frame.size*s),0,Math.PI*2);c.stroke();if(threat.end){const end=project(threat.end);c.beginPath();c.moveTo(p.x,p.y);c.lineTo(end.x,end.y);c.stroke();}}
-  this.canvas.dataset.threatCount=String(threats.length);
+  this.canvas.dataset.threatCount='0';
   this.height=w.terrain?.height(w.anchor)??0;c.strokeStyle='#d0e2e080';c.lineWidth=unit;c.beginPath();for(const [i,[x,y]]of [[-1,1],[1,1],[1,-1],[-1,-1]].entries()){const near=new Vector3(x,y,-1).unproject(this.view.camera),far=new Vector3(x,y,1).unproject(this.view.camera),v=far.sub(near),t=(this.height-near.y)/v.y,q=project({x:near.x+v.x*t,z:near.z+v.z*t});if(i)c.lineTo(q.x,q.y);else c.moveTo(q.x,q.y);}c.closePath();c.stroke();
-  if(w.order){const p=project(w.order.point);c.strokeStyle='#7fefff';c.lineWidth=unit;c.beginPath();c.arc(p.x,p.y,5*unit,0,Math.PI*2);c.stroke();}
   const a=project(w.anchor);c.fillStyle='#9aefff';c.beginPath();c.moveTo(a.x,a.y-4*unit);c.lineTo(a.x+3*unit,a.y+3*unit);c.lineTo(a.x-3*unit,a.y+3*unit);c.closePath();c.fill();
   this.canvas.title=`${w.endless?'无尽第 '+w.endless.round+' 轮':'第 '+w.stage+' 关'} · 右键 / 轻点前往 · ${w.pods.filter(p=>['falling','active','opening'].includes(p.status)).map(p=>{const n=p.passengers.filter(c=>c.status==='waiting').length;return `${SC2_UNITS[p.unitType].zh} ×${n} · 增援${p.number} · ${Math.ceil(p.hp)}/${p.maxHp} HP · ${w.podPurpose(p.unitType,n)}`;}).join(' / ')}`;
  }

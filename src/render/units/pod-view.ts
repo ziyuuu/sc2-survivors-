@@ -1,4 +1,5 @@
 import {deathPoseTime} from './death-clock';
+import {copySourceDepth} from '../materials/posed-depth';
 import * as THREE from 'three';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import {clone} from 'three/addons/utils/SkeletonUtils.js';
@@ -38,7 +39,7 @@ export class PodView {
   if(death){const clip=death.animations.find(c=>/^Death/.test(c.name));if(!clip)throw Error('载体原死亡动作缺失');this.deathModel=clone(death.scene);this.deathMixer=new THREE.AnimationMixer(this.deathModel);this.deathSourceDuration=clip.duration;this.deathDuration=Math.min(6,clip.duration);const action=this.deathMixer.clipAction(clip);action.setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();this.deathMixer.setTime(0);attach(this.deathModel);this.deathModel.visible=false;}
   if(birth){const clip=birth.animations.find(c=>c.name==='Stand Build End');if(!clip)throw Error('原水晶塔出现动作缺失：Stand Build End');this.birthModel=clone(birth.scene);this.birthMixer=new THREE.AnimationMixer(this.birthModel);this.birthDuration=clip.duration;const action=this.birthMixer.clipAction(clip);action.setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();this.birthMixer.setTime(0);attach(this.birthModel);this.birthModel.visible=false;}
   scene.add(this.root);
-  this.root.traverse(n=>{if(!(n instanceof THREE.Mesh))return;n.frustumCulled=false;const materials=(Array.isArray(n.material)?n.material:[n.material]).map((source:THREE.Material)=>{const material=source.clone(),standard=material as THREE.MeshStandardMaterial;material.onBeforeCompile=source.onBeforeCompile;material.customProgramCacheKey=source.customProgramCacheKey;this.materials.push({material,opacity:material.opacity,emissive:typeof standard.emissiveIntensity==='number'?standard.emissiveIntensity:null});if(this.birthModel?.getObjectById(n.id)){const binding=bindPylonBirthMaterial(source,material);if(binding)this.birthMaterials.push(binding);}return material;});n.material=Array.isArray(n.material)?materials:materials[0];});
+  this.root.traverse(n=>{if(!(n instanceof THREE.Mesh))return;n.frustumCulled=false;const materials=(Array.isArray(n.material)?n.material:[n.material]).map((source:THREE.Material)=>{const material=source.clone(),standard=material as THREE.MeshStandardMaterial;material.onBeforeCompile=source.onBeforeCompile;material.customProgramCacheKey=source.customProgramCacheKey;copySourceDepth(source,material);this.materials.push({material,opacity:material.opacity,emissive:typeof standard.emissiveIntensity==='number'?standard.emissiveIntensity:null});if(this.birthModel?.getObjectById(n.id)){const binding=bindPylonBirthMaterial(source,material);if(binding)this.birthMaterials.push(binding);}return material;});n.material=Array.isArray(n.material)?materials:materials[0];});
  }
  dispose(){
   this.mixer.stopAllAction();this.mixer.uncacheRoot(this.mixer.getRoot());this.root.removeFromParent();for(const {material} of this.materials)material.dispose();

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import source from './pylon-birth-materials.json';
+import {clearSourceDepth} from '../materials/posed-depth';
 const alphaTextures=new WeakMap<THREE.Material,THREE.Texture>();
 type Curve<T>={default:T;times:number[];values:T[];interpolation:number};
 function sample<T extends number|{x:number;y:number}>(curve:Curve<T>,time:number):T{
@@ -33,7 +34,7 @@ export function bindPylonBirthMaterial(original:THREE.Material,material:THREE.Ma
  if(data.blend===2)m.color.set(0);
  // Original auxiliary alpha is now the standard independent alphaMap; do not
  // multiply by its source default zero again in the generic static-layer shader.
- m.onBeforeCompile=()=>{};m.customProgramCacheKey=()=>`sc2-pylon-birth-v1:${data.name}`;m.needsUpdate=true;
+ m.onBeforeCompile=()=>{};m.customProgramCacheKey=()=>`sc2-pylon-birth-v1:${data.name}`;clearSourceDepth(m);m.needsUpdate=true;
  return {update(seconds){
   const time=THREE.MathUtils.clamp(seconds,0,source.duration),emission=sample(data.emissive.offset,time);
   m.emissiveIntensity=data.hdr*sample(data.emissive.multiplier,time);m.emissiveMap?.offset.set(emission.x,emission.y);

@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
+import {bindSourceDepth} from '../materials/posed-depth';
 type Layer={role:string;index?:number;uv?:number;multiplier:number;add:number;constant?:number;invert?:boolean};
 /** Restore auxiliary blend/opacity channels GLTF PBR cannot express. No opaque fallback for distortions. */
 export async function restoreSc2Materials(g:GLTF){
@@ -16,6 +17,7 @@ export async function restoreSc2Materials(g:GLTF){
     shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\n'+vertex+varying).replace('#include <uv_vertex>','#include <uv_vertex>\n'+uvs);
     shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+varying+uniforms).replace('#include <alphamap_fragment>','#include <alphamap_fragment>\n'+alpha).replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\n'+emissive);
    };m.customProgramCacheKey=()=> 'sc2-material-v3:'+JSON.stringify(layers.map(l=>[l.role,l.uv,l.index===undefined,l.multiplier,l.add,l.invert]));
+   const compile=m.onBeforeCompile,programKey=m.customProgramCacheKey;bindSourceDepth(m,{key:()=>programKey.call(m),compile:(shader,renderer)=>compile.call(m,shader,renderer)});
   })());
  }});await Promise.all(jobs);return g;
 }

@@ -44,7 +44,7 @@ export class UnitMaterialSurface {
   row(10,[alpha,0,0,0]);row(TEAM,[...(context?.teamColor??DEFAULT_TEAM),context?.activity??0]);
  }
  flush(){if(this.changed){this.texture.needsUpdate=true;this.changed=false;}}
- compile(shader:Shader,geometry:THREE.BufferGeometry,instanced=true){
+ compile(shader:Shader,geometry:THREE.BufferGeometry,instanced=true,depthOnly=false){
   const {source,textures,teamTexture}=this.prepared,hasUV1=geometry.hasAttribute('uv1');
   const varying='flat varying int umInstance; varying vec2 umUV0; varying vec2 umUV1; varying vec3 umNormal; varying vec3 umView; varying vec4 umClip;';
   const uvDeclaration=hasUV1?'\n#ifndef USE_UV1\nattribute vec2 uv1;\n#endif\n':'';
@@ -54,6 +54,7 @@ export class UnitMaterialSurface {
   let helpers=varying+'uniform sampler2D umState;vec4 umData(int row){return texelFetch(umState,ivec2(umInstance,row),0);}\n';
   const number=(v:number)=>Number(v).toFixed(8),enabled=(role:MaterialRole)=>!!textures[role]||!!(source.layers[role]?.flags&0x400);
   for(const [i,role]of MATERIAL_ROLES.entries()){
+   if(depthOnly&&role!=='alpha'&&role!=='alpha2'&&!(role==='diffuse'&&source.blend&&source.layers.diffuse?.channel===1))continue;
    const layer=source.layers[role];if(!layer)continue;
    const texture=textures[role],uv=layer.uv;
    // UV1 can be absent on source submeshes that do not carry the decal; use the source UV0 only for that submesh.
@@ -72,13 +73,14 @@ export class UnitMaterialSurface {
    if(layer.rawChannels){if(layer.channel>=2)helpers+=`tex=vec4(tex.${['','','a','r','g','b'][layer.channel]});`;else if(layer.channel===0)helpers+='tex.a=1.0;';}
    helpers+=`${layer.flags&16?'tex.rgb=1.0-tex.rgb;':''}vec3 value=tex.rgb*p.x+p.y;${layer.flags&32?'value=clamp(value,0.0,1.0);':''}return vec4(value*${fresnel},tex.a);}\n`;
   }
-  if(teamTexture){shader.uniforms.umTeamTexture={value:teamTexture};helpers+='uniform sampler2D umTeamTexture;\n';}
+  if(teamTexture&&!depthOnly){shader.uniforms.umTeamTexture={value:teamTexture};helpers+='uniform sampler2D umTeamTexture;\n';}
   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+helpers);
   const sample=(role:MaterialRole,fallback:string)=>enabled(role)?`umLayer${MATERIAL_ROLES.indexOf(role)}().rgb`:fallback;
   let alpha='diffuseColor.a*=umData(10).x;';
   for(const role of ['alpha','alpha2']as const)if(source.layers[role])alpha+=`diffuseColor.a*=clamp(umLayer${MATERIAL_ROLES.indexOf(role)}().r,0.0,1.0);`;
   if(source.blend&&source.layers.diffuse?.channel===1&&textures.diffuse)alpha+='diffuseColor.a*=umLayer0().a;';
   shader.fragmentShader=shader.fragmentShader.replace('#include <alphamap_fragment>',alpha);
+  if(depthOnly)return;
   let diffuse=`vec3 umDiffuse=${sample('diffuse','vec3(0.0)')};`;
   if(teamTexture)diffuse+=`vec4 umTeam=texture2D(umTeamTexture,umUv0());float umMask=1.0-umTeam.a;umDiffuse=mix(umTeam.rgb,umData(${TEAM}).rgb,umMask)*umData(0).x+umData(0).y;`;
   if(enabled('decal'))diffuse+=`vec4 umDecal=umLayer7();umDiffuse=mix(umDiffuse,umDecal.rgb,umDecal.a);`;

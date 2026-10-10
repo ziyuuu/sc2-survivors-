@@ -1,4 +1,6 @@
 import {commitInstances,uploadActive} from './instance-updates';
+import {compileUnitPose} from './unit-pose-shader';
+import {bindSourceDepth} from '../materials/posed-depth';
 import * as THREE from 'three';
 import {MeshoptSimplifier} from 'meshoptimizer';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
@@ -80,30 +82,14 @@ export class AnimatedBatch {
    const aim=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*2),2).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitAim',aim);
    const assetMatrix=this.normalization.clone().multiply(n.matrixWorld).multiply(n.bindMatrixInverse),bind=n.bindMatrix.clone();
    geometry.computeBoundingBox();const accentTop=geometry.boundingBox?.max.y??0,accentBottom=geometry.boundingBox?.min.y??0,accentStart=accentTop-Math.max(.001,accentTop-accentBottom)*.18;
+   const poseUniforms={atlas:textures.get(paletteKey(n.skeleton))!,bind,asset:assetMatrix,pivot:this.turretPivot,accent:new THREE.Vector2(accentStart,accentTop)};
    const materials=(Array.isArray(n.material)?n.material:[n.material]).map(m=>{const surface=createUnitMaterialSurface(m,CAPACITY),mat=surface?.material??m.clone();if(surface)this.materialSurfaces.push(surface);
     mat.onBeforeCompile=(shader,renderer)=>{if(!surface)m.onBeforeCompile(shader,renderer);
-     shader.uniforms.turretPivot={value:this.turretPivot};shader.uniforms.unitBoneAtlas={value:textures.get(paletteKey(n.skeleton))};shader.uniforms.unitBind={value:bind};shader.uniforms.unitAsset={value:assetMatrix};shader.uniforms.unitAccentRange={value:new THREE.Vector2(accentStart,accentTop)};
-     shader.vertexShader=shader.vertexShader.replace('#include <common>',`#include <common>
-      attribute vec2 unitAim; attribute float unitTurret; uniform vec3 turretPivot;
-      vec3 aimTurret(vec3 p){float s=unitAim.x,c=unitAim.y;return vec3(p.x*c+p.z*s,p.y,p.z*c-p.x*s);}
-      attribute vec4 unitPose; attribute vec4 unitBlend; attribute float unitUpper; attribute vec4 skinIndex; attribute vec4 skinWeight;
-      uniform sampler2D unitBoneAtlas; uniform mat4 unitBind; uniform mat4 unitAsset;
-      varying float unitHit; varying float specialTier; varying float localAccent; attribute float unitTier; uniform vec2 unitAccentRange;
-      mat4 unitBone(float bone,float frame){int x=int(bone)*4;int y=int(frame);return mat4(texelFetch(unitBoneAtlas,ivec2(x,y),0),texelFetch(unitBoneAtlas,ivec2(x+1,y),0),texelFetch(unitBoneAtlas,ivec2(x+2,y),0),texelFetch(unitBoneAtlas,ivec2(x+3,y),0));}
-      mat4 unitFrame(float frame){mat4 a=unitBone(skinIndex.x,frame)*skinWeight.x;
-       if(skinWeight.y>0.0)a+=unitBone(skinIndex.y,frame)*skinWeight.y;
-       if(skinWeight.z>0.0)a+=unitBone(skinIndex.z,frame)*skinWeight.z;
-       if(skinWeight.w>0.0)a+=unitBone(skinIndex.w,frame)*skinWeight.w;return a;}
-      mat4 unitSkin(){mat4 a=unitFrame(unitPose.x);
-       if(unitPose.z>0.001)a=a*(1.0-unitPose.z)+unitFrame(unitPose.y)*unitPose.z;
-       if(unitBlend.w>0.001&&unitUpper>0.001){mat4 b=unitFrame(unitBlend.x);if(unitBlend.z>0.001)b=b*(1.0-unitBlend.z)+unitFrame(unitBlend.y)*unitBlend.z;float w=unitBlend.w*unitUpper;a=a*(1.0-w)+b*w;}
-       return unitAsset*a*unitBind;}`)
-      .replace(/void main\(\)\s*\{/, 'void main() {\nmat4 unitTransform=unitSkin();')
-      .replace('#include <beginnormal_vertex>','#include <beginnormal_vertex>\nobjectNormal=mat3(unitTransform)*objectNormal;objectNormal=mix(objectNormal,aimTurret(objectNormal),unitTurret);')
-      .replace('#include <begin_vertex>','vec3 transformed=(unitTransform*vec4(position,1.0)).xyz; transformed=mix(transformed,aimTurret(transformed-turretPivot)+turretPivot,unitTurret); unitHit=unitPose.w; specialTier=unitTier; localAccent=smoothstep(unitAccentRange.x,unitAccentRange.y,position.y);');
+     compileUnitPose(shader,poseUniforms);
      shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float unitHit; varying float specialTier; varying float localAccent;').replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\nfloat hitRim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),3.0); totalEmissiveRadiance += (diffuseColor.rgb*.32+vec3(.18,.07,.025))*unitHit*(.12+.88*hitRim); if(specialTier<-.5){float dissolve=clamp(-specialTier-1.0,0.0,1.0);float grain=fract(sin(dot(vViewPosition.xy,vec2(12.9898,78.233)))*43758.5453);if(grain<dissolve)discard;totalEmissiveRadiance+=vec3(.15,.5,.68)*sin(dissolve*3.14159)*.8;} if(specialTier>0.5&&specialTier<4.5){float rim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),2.0);vec3 glow=specialTier>2.5?vec3(1.0,.58,.12):specialTier>1.5?vec3(1.0,.32,.03):vec3(.54,.1,.85);totalEmissiveRadiance += glow*(specialTier>2.5?.2+rim*2.1:.12+rim*1.5);} if(specialTier>14.5){float phase=fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453);if(phase<.7)discard;totalEmissiveRadiance+=vec3(.12,.35,.6)*.45;} if(specialTier>13.5){float heroRim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),7.0);totalEmissiveRadiance+=vec3(1.0,.49,.10)*heroRim*.72;}');
      surface?.compile(shader,geometry);
-    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v10:'+(surface?.programKey??m.customProgramCacheKey());return mat;});
+    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v11:'+(surface?.programKey??m.customProgramCacheKey());
+    bindSourceDepth(mat,{key:()=>mat.customProgramCacheKey(),compile:(shader,renderer)=>{if(!surface)m.onBeforeCompile(shader,renderer);compileUnitPose(shader,poseUniforms);surface?.compile(shader,geometry,true,true);shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float specialTier;').replace('#include <alphatest_fragment>','#include <alphatest_fragment>\nif(specialTier<-.5||specialTier>14.5)discard;');}});return mat;});
    const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);this.aimAttributes.push(aim);
   }
   mixer.stopAllAction();mixer.uncacheRoot(gltf.scene);

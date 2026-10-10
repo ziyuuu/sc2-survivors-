@@ -1,7 +1,7 @@
 {
-  "status": "All roster source-bound material channels and timelines, original team masks, calibrated elite bodies and native mechanism feedback; original gameplay and resource bytes retained; local validation only; no live deployment",
-  "appBuildId": "5c721b81c3351ae97756204ab08f533ea8cdf0b3fdb11f07e3d94b199450f054",
-  "packageBuildId": "faa94df713c02b24f35bdf0d2c995936cc549d61bfbb2f4c1003b498acae6b37",
+  "status": "Approved auxiliary-marker cleanup, native acid surfaces, five-map lighting, posed PCF shadows and ambient contact; gameplay, original resources and output chain retained; local validation only; no live deployment",
+  "appBuildId": "6a077fe25578af0a5bfc3941be550a0683e87fed8e123f0507c62743e7f7992e",
+  "packageBuildId": "4e166a0b9a6401ac77a31cd66e766501ead241518f334e729e796ab687681131",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "26ee3ecb09a8cc6f1abc16f43d62a0f24aa5ebc242aa0c55d4867f177de83b20",
@@ -107,6 +107,11 @@
       "sha256": "cd938d899c181ff8cbdfb89ee42e7217cc1ae0812b18803ac8578dfa078ce1e5"
     },
     {
+      "path": "LIGHTING_BATCH3_20261010.md",
+      "bytes": 5913,
+      "sha256": "c6c7f6c548251a844a03729681184149fad747de697c68c2e328d097c9068e4c"
+    },
+    {
       "path": "MAINTENANCE_SCOPE_20261008.md",
       "bytes": 2695,
       "sha256": "107ac4b414a3b9f01b4d6f1271523250ff447f0621830b36cfd15f060f462e14"
@@ -144,12 +149,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "c7cca6a9b9e2485aef03c9879a11d861399ebea85072c365783be97765d191ab"
+      "sha256": "29e2d97dff2cd36c041063ac0869ae6a211b4eee0b34f00c8aad5938913f6e53"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "26717b31ed4fce212d8961c35188852fe483d46cfab7749fa53344ff5114f92a"
+      "sha256": "f381128a29db8138ed8fade6dc366aa4e64d8f0dd7d4af97c1d7e8daf82d7264"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -162,19 +167,19 @@
       "sha256": "4c7c49ac3523f3a95d7033dd2cad09727d62a88f61f59f4a2817c7bcd9640a22"
     },
     {
-      "path": "public/assets/index-BXMB69H4.js",
-      "bytes": 6621343,
-      "sha256": "5dca68491a5bba9675ddcd6354867c879af07d4fb67b2f0a8355a5330c071e38"
-    },
-    {
       "path": "public/assets/index-CnTymvdV.css",
       "bytes": 489073,
       "sha256": "a17106618e8f4ac803443116572bdd5035a7d6eea43b69db37ab73259d8acd89"
     },
     {
+      "path": "public/assets/index-DCzlJP7r.js",
+      "bytes": 6639074,
+      "sha256": "f8231ca57d03ac3feb784942ea281f78a2c4252a7a0cb755a541b8df4661cb98"
+    },
+    {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "6b76fdb7a9db91cec8cbaefa086a2fdde3922e9c2d8b75f36718881363051679"
+      "sha256": "a22c3d2d37ee24a28b7ed5c3ba5e0f3b08b1a351474833bbee821d0ad254dc3d"
     },
     {
       "path": "public/runtime-config.json",
@@ -184,7 +189,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "8ed5313020ba5cb4a1127abf5cb77d0c580b76462f302bcbfdad76ebdfd1719c"
+      "sha256": "c97dab680499a5df3938d4f4afb6901e49245e4fe6f3eaacda1e7af7df844702"
     },
     {
       "path": "README.md",
@@ -198,8 +203,8 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 74348,
-      "sha256": "0d2edbb3ec88f31a6f6a5ce1f19fcf9cce16ce10cd0ff94dd13b565517c5a3bd"
+      "bytes": 329,
+      "sha256": "dcb1ee2e879a9bb37cd772973e890056ed5df86e1c01c619cd6b582ce59cdf77"
     },
     {
       "path": "resource-groups.json",

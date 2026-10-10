@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import type {ShadowViewContext} from '../scene/scene-shadows';
 import {loadSemanticGltf} from '../loaders/semantic-gltf';
 import {CAMPAIGN_MAP_SIZE,MAP_THEMES,RadialTerrain} from '../../data/campaign-map';
 import {sc2BodyBounds} from '../loaders/sc2-materials';
@@ -15,7 +16,7 @@ export async function createCampaignMap(scene:THREE.Scene,terrain:RadialTerrain)
  const {textures,geometries,materials}=resources;
  const dispose=()=>{root.removeFromParent();for(const g of new Set(geometries))g.dispose();for(const m of new Set(materials))m.dispose();for(const t of new Set(textures))t.dispose();};
  try{
-  const {ground,stage,updateStage}=await createCampaignGround(terrain,resources);root.add(ground);
+  const {ground,stage,updateStage,setLighting}=await createCampaignGround(terrain,resources);root.add(ground);
   const batches:{mesh:THREE.InstancedMesh;matrices:THREE.Matrix4[];bounds:THREE.Sphere[];points:{x:number;z:number;backdrop:boolean}[]}[]=[];
   const matrix=new THREE.Object3D(),vertex=new THREE.Vector3(),color=new THREE.Color();
   for(const id of theme.props){
@@ -57,8 +58,8 @@ export async function createCampaignMap(scene:THREE.Scene,terrain:RadialTerrain)
    g.scene.traverse(n=>{if(!(n instanceof THREE.Mesh))return;geometries.push(n.geometry);for(const m of Array.isArray(n.material)?n.material:[n.material]){materials.push(m);for(const value of Object.values(m))if(value instanceof THREE.Texture)textures.push(value);}});
   }
   let lastStage=0,visible=0;const visibility=new MapVisibility();
-  const update=(camera?:THREE.Camera)=>{
-   const changed=camera?visibility.update(camera):false;if(lastStage===terrain.stage&&!changed)return;
+  const update=(camera?:THREE.Camera,shadow?:ShadowViewContext)=>{
+   const changed=camera?visibility.update(camera,shadow):false;if(lastStage===terrain.stage&&!changed)return;
    if(lastStage!==terrain.stage)updateStage(terrain.stage);lastStage=terrain.stage;stage.value=lastStage;visible=0;
    for(const b of batches){let n=0;
     for(let i=0;i<b.points.length;i++)if(!camera||visibility.intersects(b.bounds[i])){
@@ -71,7 +72,7 @@ export async function createCampaignMap(scene:THREE.Scene,terrain:RadialTerrain)
   };update();
   return {
    bindTerrain:t=>{if(!(t instanceof RadialTerrain)||t.definition.source.sha256!==d.source.sha256)throw Error('地图身份不匹配');terrain=t;lastStage=0;update();},
-   update,setVisible:v=>{root.visible=v;},dispose,
+   update,setLighting,setVisible:v=>{root.visible=v;},dispose,
    report:()=>({name:theme.name,models:theme.props.length,placements:d.placements.length,visibleInstances:visible,visibleMeshes:batches.filter(b=>b.mesh.count>0).length,area:d.stageAreas[terrain.stage-1],scale:1,sourceSha256:d.source.sha256}),
   };
  }catch(error){dispose();throw error;}
