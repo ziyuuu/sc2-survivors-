@@ -7,12 +7,15 @@ export interface MaterialLayer {
  filename:string;flags:number;channel:number;uv:number;
  color:MaterialRef;multiply:MaterialRef;add:MaterialRef;uvOffset:MaterialRef;uvAngle:MaterialRef;uvTiling:MaterialRef;
  fresnel:{type:number;exponent:number;min:number;maxOffset:number};
+ brightness?:MaterialRef;flipbook?:{rows:number;cols:number;frame:MaterialRef};
+ texture?:string;cubeTextures?:string[];rawChannels?:boolean;
 }
-export interface SourceMaterial {index:number;name:string;flags:number;blend:number;hdrEmission:number;layers:Record<string,MaterialLayer>}
+export interface SourceMaterial {index:number;name:string;flags:number;blend:number;hdrEmission:number;layers:Record<string,MaterialLayer>;alphaTest?:number;hdrSpecular?:number;specularity?:number;role?:string;teamColor?:boolean;teamTexture?:string;version?:number;geometryVisible?:boolean;emissionModes?:number[];layerBlend?:number}
 export interface UnitMaterialProfile {
  source:string;sourceSha256:string;glbSha256:string;materials:SourceMaterial[];
  composites:{name:string;parts:{material:{type:number;index:number};alpha:MaterialRef}[]}[];
  compositeTracks:(MaterialTrack&{name:string})[];clips:MaterialClip[];
+ animationSources?:{source:string;sha256:string;clips?:{name:string;tracks:number}[];alias?:{from:string;to:string;reason:string}}[];
 }
 export function sampleMaterialTrack(track:MaterialTrack|undefined,time:number,ref:MaterialRef):MaterialValue {
  if(!track?.frames.length)return ref.default;
@@ -41,6 +44,7 @@ export function sampleBarrierAlpha(profile:UnitMaterialProfile,materialIndex:num
 /** Read-only render context. Never persisted and never used to change combat. */
 export interface UnitMaterialContext {
  entityId:number;runId:string;time:number;deathAt?:number;barrier?:BarrierPhase;
+ teamColor?:readonly [number,number,number];activity?:number;
 }
 export interface UnitMaterialPose {clip:string;seconds:number;attackClip?:string;attackSeconds?:number}
 

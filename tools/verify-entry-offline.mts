@@ -1,7 +1,9 @@
 import fs from 'node:fs/promises';import {createHash} from 'node:crypto';import assert from 'node:assert/strict';
-import {EmbeddedAssetStore,type AssetPack} from '../src/assets/offline-pack';
+import {EmbeddedAssetStore,restoreEmbeddedContainerChunks,type AssetPack} from '../src/assets/offline-pack';
 const file=process.env.SC2_ENTRY_HTML??'dist/SC2-Survivors-Entry-Fixes-20261009.html',out=process.env.SC2_ENTRY_PACK_REPORT??'reports/local/entry-fixes-20261009/offline-byte-verification.json';
-async function readPack(){const bytes=await fs.readFile(file),tag=Buffer.from('<script id="sc2-resource-pack" type="application/json">'),start=bytes.indexOf(tag)+tag.length,end=bytes.indexOf('</script>',start);assert.ok(start>=tag.length&&end>start);return {pack:JSON.parse(bytes.toString('utf8',start,end)) as AssetPack,htmlBytes:bytes.length,htmlSha256:createHash('sha256').update(bytes).digest('hex')};}
+async function readPack(){const bytes=await fs.readFile(file),tag=Buffer.from('<script id="sc2-resource-pack" type="application/json">'),start=bytes.indexOf(tag)+tag.length,end=bytes.indexOf('</script>',start);assert.ok(start>=tag.length&&end>start);const pack=JSON.parse(bytes.toString('utf8',start,end)) as AssetPack;
+ if(pack.container==='chunks-v1'){function* parts(){const tag=Buffer.from('<script type="application/json" data-sc2-resource-chunk="');let at=end;while((at=bytes.indexOf(tag,at))>=0){const numberStart=at+tag.length,contentStart=bytes.indexOf('">',numberStart)+2,contentEnd=bytes.indexOf('</script>',contentStart);assert.ok(contentStart>numberStart&&contentEnd>contentStart);yield {index:Number(bytes.toString('ascii',numberStart,contentStart-2)),payload:bytes.toString('utf8',contentStart,contentEnd)};at=contentEnd+9;}}restoreEmbeddedContainerChunks(pack,parts());}
+ return {pack,htmlBytes:bytes.length,htmlSha256:createHash('sha256').update(bytes).digest('hex')};}
 const {pack,htmlBytes,htmlSha256}=await readPack();(globalThis as any).gc?.();
 const original=JSON.parse(await fs.readFile('reports/local/asset-reachability.json','utf8')),byId=new Map<string,any>(original.rows.map((r:any)=>[r.id,r]));
 assert.deepEqual(Object.keys(pack.assets).sort(),[...original.selectedIds].sort());

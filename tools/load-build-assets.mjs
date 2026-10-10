@@ -1,5 +1,6 @@
 import {loadIntermissionAssets} from './intermission-assets.mjs';
 import {loadNativeHudAssets} from './native-hud-assets.mjs';
+import {loadMaterialTextures} from './material-textures.mjs';
 import fs from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 
@@ -29,5 +30,7 @@ export async function loadBuildAssets(){
    if(!matches||r.sourceSha256!==r.packedSha256)throw Error('UI resource changed: '+file);
   }
  }
- return [...metadata.records,...ui.records,...await loadIntermissionAssets(),...await loadNativeHudAssets()];
+ const records=[...metadata.records,...ui.records,...await loadIntermissionAssets(),...await loadNativeHudAssets(),...await loadMaterialTextures()];
+ if(new Set(records.map(r=>r.id)).size!==records.length)throw Error('Duplicate combined build asset ID');
+ return records;
 }

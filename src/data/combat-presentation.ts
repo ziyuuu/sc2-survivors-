@@ -2,9 +2,9 @@ import type {Entity,VisualEvent} from '../simulation/types';
 import type {HeroId} from './heroes';
 import type {Race,FamilyId} from './races';
 import {UNIT_SPECTACLE} from './unit-spectacle';
+import {ELITE_VISUAL_PROFILES} from './elite-visual-profiles';
 
 /** M4 presentation only. These scales never enter collision, range or damage. */
-const LARGE=new Set(['thor','ultralisk','colossus','carrier']);
 export function modelPresentationScale(unit:Pick<Entity,'visualScale'|'modelKey'|'heroId'|'eliteId'|'flying'|'unitType'>){
  const base=unit.visualScale??1;
  // Fixed caps from 24 Hz samples of every mapped original clip; never resize per frame.
@@ -14,8 +14,8 @@ export function modelPresentationScale(unit:Pick<Entity,'visualScale'|'modelKey'
  if(unit.modelKey==='elite.carrier.1'&&!unit.eliteId&&!unit.heroId)return base*1.15;
  if(unit.heroId)return base*1.25;
  if(!unit.eliteId)return base;
- const variant=Number(unit.eliteId.at(-1)),index=variant>=1&&variant<=3?variant-1:0;
- return base*(unit.flying?[1.07,1.10,1.13][index]:LARGE.has(unit.unitType)?[1.05,1.08,1.10][index]:[1.10,1.15,1.20][index]);
+ const profile=ELITE_VISUAL_PROFILES[unit.eliteId];
+ return base*(unit.flying?profile.flyingScale:profile.groundScale);
 }
 
 /** Encodes only a small original-mesh accent. Enemy tiers keep their own shader path. */

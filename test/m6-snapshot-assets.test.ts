@@ -3,23 +3,30 @@ import {test} from 'node:test';
 import {BattleRenderer} from '../src/render/scene/battle-renderer';
 import type {RunSnapshot} from '../src/simulation/persistence/run-snapshot';
 import {newExpedition} from '../src/simulation/expedition-state';
+const sourceRosterPreparation={raceModels:(BattleRenderer.prototype as any).raceModels};
 
 test('loading a campaign save prepares upcoming wave and paid-order models before resume',async()=>{
  const requested:string[]=[];
- const renderer={prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
+ const renderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
  const snapshot={config:{race:'terran'},state:{stage:4,phase:'battle',battlefield:{mode:'campaign'},expedition:{...newExpedition('terran'),familySlots:['marine'],production:{barracks:{outputs:['marauder'],enabled:{marauder:true}}},ledger:[{family:'tank',state:'training'}]},entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
  await BattleRenderer.prototype.prepareSnapshotAssets.call(renderer as BattleRenderer,snapshot);
  for(const model of ['marine','marauder','tank','zergling','roach','baneling'])assert.ok(requested.includes(model),`${model} must be ready before combat resumes`);
 });
 
 test('a missing upcoming enemy model blocks restored combat',async()=>{
- const renderer={prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>key!=='roach'};
+ const renderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>key!=='roach'};
  const snapshot={config:{race:'terran'},state:{stage:4,phase:'battle',battlefield:{mode:'campaign'},expedition:{...newExpedition('terran'),familySlots:['marine'],production:{},ledger:[]},entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
  await assert.rejects(BattleRenderer.prototype.prepareSnapshotAssets.call(renderer as BattleRenderer,snapshot),/必需单位模型未就绪：roach/);
 });
+test('Protoss readiness includes separate flagship and elite carrier displays for their shared immutable asset',async()=>{
+ const requested:string[]=[],renderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
+ const snapshot={config:{race:'protoss'},state:{stage:1,phase:'battle',battlefield:{mode:'campaign'},expedition:newExpedition('protoss'),entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
+ await BattleRenderer.prototype.prepareSnapshotAssets.call(renderer as BattleRenderer,snapshot);
+ assert.equal(requested.filter(key=>key==='hero.purifier_flagship').length,1);assert.equal(requested.filter(key=>key==='elite.carrier.1').length,1);assert.ok(!requested.includes('purifier_flagship'));
+});
 
 test('loading stage fifteen prepares its scheduled lurker Boss before it appears',async()=>{
- const requested:string[]=[],renderer={prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
+ const requested:string[]=[],renderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
  const snapshot={config:{race:'terran'},state:{stage:15,phase:'battle',battlefield:{mode:'campaign'},expedition:newExpedition('terran'),entities:new Map(),pods:[],rewards:[]}} as unknown as RunSnapshot;
  await BattleRenderer.prototype.prepareSnapshotAssets.call(renderer as BattleRenderer,snapshot);assert.ok(requested.includes('lurker'));
 });
@@ -29,7 +36,7 @@ test('shop asset preparation includes every offered elite variant and a selected
  const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();for(let i=1;i<5;i++)w.addUnit('marine','terran',i,0);w.wallet={minerals:10000,gas:10000};w.endStage();w.skipReward();const ctx=draftContext(w);ctx.random=()=>.99;w.rewards=drawExpeditionReinforcements(ctx,true);const offer=w.rewards.find(r=>r.kind==='elite')!;const wallet={...w.wallet},positions=w.familyUnits('marine').map(u=>[u.id,u.x,u.z]);assert.equal(w.choose(offer.offerId,'marine.3'),true);
  const requested:string[]=[],renderer={world:w,prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),requiredFamilies:()=>[],ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
  await BattleRenderer.prototype.prepareCurrentAssets.call(renderer as unknown as BattleRenderer);for(const variant of [1,2,3])assert.ok(requested.includes(`elite.marine.${variant}`));assert.deepEqual(w.wallet,wallet);assert.deepEqual(w.familyUnits('marine').map(u=>[u.id,u.x,u.z]),positions);assert.equal(w.pendingElites.length,0);
- const restored:string[]=[],snapshotRenderer={prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{restored.push(key);return true;}};
+ const restored:string[]=[],snapshotRenderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{restored.push(key);return true;}};
  await BattleRenderer.prototype.prepareSnapshotAssets.call(snapshotRenderer as BattleRenderer,w.captureRun());for(const variant of [1,2,3])assert.ok(restored.includes(`elite.marine.${variant}`));
 });
 

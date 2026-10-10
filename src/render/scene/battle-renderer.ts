@@ -55,6 +55,7 @@ import type {TerrainQuery} from '../../data/map-definition';
 import {ResourceDrops} from '../units/resource-drops';
 import {AnimatedBatch} from '../units/animated-batch';
 import {loadUnitMaterialGltf,unitMaterialTextures} from '../materials/unit-material-loader';
+import {displayModelKey,displayActiveModelKey,displayDeathModelKey,displayAssetModelKey,displayLoadModelKey,unitMaterialIdentity} from '../materials/elite-visual';
 import {BarrierMaterialTimeline} from '../materials/source-tracks';
 import {heroFeedbackEvent,weaponWorldPoint} from '../effects/hero-feedback';
 import {BattleEffects} from '../effects/battle-effects';
@@ -77,7 +78,7 @@ export class BattleRenderer {
  private animationStates=new Map<number,{action:string;since:number;modeDuration:number;playback:AttackPlaybackState;poseClock:PoseClockState;sampled?:{at:number;action:keyof ReturnType<typeof mapAnimations>;seconds:number;once:boolean;attackSeconds:number;attackKey:keyof ReturnType<typeof mapAnimations>}}>();
  private friendlyLabels:FriendlyLabels;
  private enemyLabels=new Map<number,HTMLElement>();
- private corpses=new Map<number,{scale:number;type:string;x:number;z:number;y:number;facing:number;at:number}>();
+ private corpses=new Map<number,{scale:number;type:string;x:number;z:number;y:number;facing:number;at:number;teamColor?:readonly [number,number,number]}>();
  private hitTimes=new Map<number,number>();private lastVisual=0;
  private barrierMaterials=new BarrierMaterialTimeline();
  private hiveDeathTemplate?:GLTF;private hiveWasAlive=false;
@@ -219,11 +220,11 @@ export class BattleRenderer {
   // worker/templates cache individually, so retry reuses them without duplicate meshes.
   await this.prepareRescueAssets(rescueRace);
   const initialTypes:UnitType[]=rescueRace==='terran'?['marine','zergling']:rescueRace==='protoss'?['zealot','zergling']:['zergling'];await prepareEmbeddedAssetIds(initialTypes.flatMap(type=>[`model.${type}`,...['.death',...(type==='tank'?['.siege','.morph']:[])].map(suffix=>`model.${type}${suffix}`)].filter(id=>ASSETS.has(id))));
-  for(const type of initialTypes){progress(`载入 ${SC2_UNITS[type].name}`);try{const url=assetUrl('model.'+type);if(!url)throw Error('missing asset');const gltf=await restoreSc2Materials(await loader.loadAsync(url));this.prepareUnit(type,gltf);this.loadedModels++;}catch(e){this.modelErrors.push(type+': '+String(e));}}
+  for(const type of initialTypes){progress(`载入 ${SC2_UNITS[type].name}`);try{const url=assetUrl('model.'+type);if(!url)throw Error('missing asset');const gltf=await loadUnitMaterialGltf(loader,url,type);this.prepareUnit(type,gltf);this.loadedModels++;}catch(e){this.modelErrors.push(type+': '+String(e));}}
   for(const key of initialTypes.flatMap(t=>[t+'.death',...(t==='tank'?['tank.siege','tank.morph']:[])])){const url=assetUrl('model.'+key);if(!url)continue;progress(`载入原始动画 ${key}`);try{const type=key.split('.')[0] as UnitType,g=await loadUnitMaterialGltf(loader,url,key),base=this.gpu.get(type);this.gpu.set(key,new AnimatedBatch(g,this.scene,heights[type],base?.normalization));}catch(e){this.modelErrors.push(key+': '+String(e));}}
   await this.fx.load();await this.nonHeroEffects.load();await this.protossEliteEffects.load();await this.zergEliteEffects.load();await this.eliteSupportEffects.loadMedicalTextures();await this.terranEliteEffects.load();await this.confirmedHeroes.prepare();await this.zergHeroes.prepare();this.protossHeroes.prepare();await this.pickups.load();this.modelErrors.push(...this.pickups.errors.map(e=>'resource: '+e));
   if(!skipMap&&this.world.terrain?.definition){this.mapTerrain=this.world.terrain;this.mapView=this.world.terrain instanceof RadialTerrain?await createCampaignMap(this.scene,this.world.terrain):await Promise.reject<MapView>(new Error('不支持的战役地图'));this.mapView.setVisible(true);this.mapViews.set(this.mapTerrain,this.mapView);this.terrainUpdate=()=>this.mapView?.update(this.camera);}else if(!skipMap)this.terrainUpdate=await createTerrain(this.scene,this.world);
-  for(const [key,height] of [['drone',.7],['egg',1.3]] as const){if(this.gpu.has(key))continue;const url=assetUrl('model.'+key);if(!url){this.modelErrors.push(key+': missing model');continue;}try{this.gpu.set(key,new AnimatedBatch(await restoreSc2Materials(await loader.loadAsync(url)),this.scene,height));}catch(e){this.modelErrors.push(key+': '+String(e));}}
+  for(const [key,height] of [['drone',.7],['egg',1.3]] as const){if(this.gpu.has(key))continue;const url=assetUrl('model.'+key);if(!url){this.modelErrors.push(key+': missing model');continue;}try{this.gpu.set(key,new AnimatedBatch(await loadUnitMaterialGltf(loader,url,key),this.scene,height));}catch(e){this.modelErrors.push(key+': '+String(e));}}
   await this.prepareWorkerDeath('drone',.7);
   if(!this.hiveDeathTemplate){await prepareEmbeddedAssetIds(['model.hatchery.death']);const url=assetUrl('model.hatchery.death');if(!url)throw Error('主巢死亡资源未就绪');this.hiveDeathTemplate=await restoreSc2Materials(await loader.loadAsync(url));await this.renderer.compileAsync(this.hiveDeathTemplate.scene,this.camera,this.scene);this.preloadTextures(this.hiveDeathTemplate.scene);}
   const hiveUrl=assetUrl('model.hive');if(hiveUrl){try{const g=await loader.loadAsync(hiveUrl);const box=new THREE.Box3().setFromObject(g.scene),size=box.getSize(new THREE.Vector3());g.scene.scale.setScalar(6/Math.max(size.x,size.z));this.hiveTemplate=g.scene;}catch(e){this.modelErrors.push('hive: '+String(e));}}
@@ -250,20 +251,18 @@ export class BattleRenderer {
  }
  private variantLoads=new Map<string,Promise<boolean>>();private variantQueue=Promise.resolve();assetsPending=0;
  async waitForPendingAssets(){await this.variantQueue;if(this.assetsPending>0)throw Error('仍有资源未完成准备');}
- ensureUnitVariant(key:string,type:UnitType):Promise<boolean>{const existing=this.variantLoads.get(key);if(existing)return existing;if(this.gpu.has(key))return Promise.resolve(true);this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));
+ ensureUnitVariant(key:string,type:UnitType):Promise<boolean>{key=displayLoadModelKey(key,type);if(key.startsWith('elite.')){if(!this.gpu.has(type))void this.ensureUnitVariant(type,type);if(key.endsWith('.assault')&&!this.gpu.has('viking.assault'))void this.ensureUnitVariant('viking.assault','viking');}const existing=this.variantLoads.get(key);if(existing)return existing;if(this.gpu.has(key))return Promise.resolve(true);this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));
   // HUD listeners can request this same model synchronously. Publish both the promise and
   // queue entry before notifying them, so one arrival cannot recursively start more loads.
   let finish!:(ok:boolean)=>void;const result=new Promise<boolean>(resolve=>finish=resolve);this.variantLoads.set(key,result);this.assetsPending++;
   this.variantQueue=this.variantQueue.then(async()=>{let ok=false;try{
    const suffixes=['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])];
-   await prepareEmbeddedAssetIds([`model.${key}`,...suffixes.map(suffix=>`model.${key}${suffix}`).filter(id=>ASSETS.has(id))]);
-   const loader=new GLTFLoader(),url=assetUrl('model.'+key);if(!url)throw Error('missing original model');const gltf=await loadUnitMaterialGltf(loader,url,key);if(!gltf.animations.length)throw Error('missing original animation');if(key===type){this.prepareUnit(type,gltf);this.loadedModels++;}else this.gpu.set(key,new AnimatedBatch(gltf,this.scene,key==='interceptor'?.55:heights[type],undefined,TUNING.unitScale,key));const base=this.gpu.get(key)!;
-   // The original Fenix asset uses a 7.5 HDR emission with its body color map.
-   // Preserve that texture and animation while keeping plating readable under bloom.
-   if(key==='hero.fenix')for(const mesh of base.meshes)for(const material of Array.isArray(mesh.material)?mesh.material:[mesh.material]){const m=material as THREE.MeshStandardMaterial;m.emissiveIntensity=Math.min(m.emissiveIntensity,.85);}
+   const assetKey=displayAssetModelKey(key);
+   await prepareEmbeddedAssetIds([`model.${assetKey}`,...suffixes.map(suffix=>`model.${assetKey}${suffix}`).filter(id=>ASSETS.has(id))]);
+   const loader=new GLTFLoader(),url=assetUrl('model.'+assetKey);if(!url)throw Error('missing original model');const gltf=await loadUnitMaterialGltf(loader,url,assetKey);if(!gltf.animations.length)throw Error('missing original animation');if(key===type){this.prepareUnit(type,gltf);this.loadedModels++;}else this.gpu.set(key,new AnimatedBatch(gltf,this.scene,key==='interceptor'?.55:heights[type],undefined,TUNING.unitScale,key,key.startsWith('elite.')?this.gpu.get(key.endsWith('.assault')?'viking.assault':type)?.bodyHeight:undefined));const base=this.gpu.get(key)!;
    // The approved showcase casts both rifle skills from their original firing pose.
    if(key==='hero.raynor'||key==='hero.nova')base.actions.skill=base.actions.attack;
-   for(const suffix of ['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])]){const path=assetUrl('model.'+key+suffix);if(!path){if(suffix!=='.death')throw Error('missing original tank form '+suffix);continue;}const form=await loadUnitMaterialGltf(loader,path,key+suffix);this.gpu.set(key+suffix,new AnimatedBatch(form,this.scene,heights[type],base.normalization));}for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const mesh of b.meshes)this.filterTextures(mesh);const hidden:THREE.Object3D[]=[],inactive:THREE.InstancedMesh[]=[];for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const m of b.meshes){if(!m.visible){hidden.push(m);m.visible=true;}if(m.count===0)inactive.push(m);}try{await this.prewarmBatches(inactive);await this.finishProgramWarmup();}finally{for(const m of hidden)m.visible=false;}ok=true;
+   for(const suffix of ['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])]){const path=assetUrl('model.'+assetKey+suffix);if(!path){if(suffix!=='.death')throw Error('missing original tank form '+suffix);continue;}const form=await loadUnitMaterialGltf(loader,path,assetKey+suffix);this.gpu.set(key+suffix,new AnimatedBatch(form,this.scene,heights[type],base.normalization));}for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const mesh of b.meshes)this.filterTextures(mesh);const hidden:THREE.Object3D[]=[],inactive:THREE.InstancedMesh[]=[];for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const m of b.meshes){if(!m.visible){hidden.push(m);m.visible=true;}if(m.count===0)inactive.push(m);}try{await this.prewarmBatches(inactive);await this.finishProgramWarmup();}finally{for(const m of hidden)m.visible=false;}ok=true;
    }catch(e){this.modelErrors.push(key+': '+String(e));this.world.paused=true;this.world.announce('增援素材未能载入，请重新载入战场');}finally{this.assetsPending--;if(ok)this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));else this.variantLoads.delete(key);finish(ok);this.world.changed();}});this.world.changed();return result;
  }
  async prepareCampaignAssets(recipe:CampaignMapRecipe){const terrain=campaignTerrain(recipe);await prepareEmbeddedAssetIds(campaignMapAssets(recipe));if(![...this.mapViews.keys()].some(t=>t.definition?.source.sha256===terrain.definition.source.sha256)){const view=await createCampaignMap(this.scene,terrain);this.mapViews.set(terrain,view);view.setVisible(true);try{this.preloadTextures(this.scene.getObjectByName(terrain.definition.source.sha256)!);await this.renderer.compileAsync(this.scene,this.camera);}finally{view.setVisible(this.world.terrain===terrain);}}
@@ -297,29 +296,24 @@ export class BattleRenderer {
   for(const type of w.endless?ENDLESS.bossTypes:BOSSES[stage]?[BOSSES[stage].type]:[])families.add(type);
   return [...families];
  }
- private modelKey(u:Entity):string{
-  const base=u.modelKey??u.unitType;if(u.heroId||u.modelKey==='interceptor')return base;
-  if(u.unitType==='tank')return base+(u.action==='sieging'||u.action==='unsieging'?'.morph':u.mode==='siege'?'.siege':'');
-  if(!u.eliteId&&u.unitType==='hellion'&&u.nativeMode==='hellbat')return 'hellion.hellbat';
-  if(!u.eliteId&&u.unitType==='viking'&&u.nativeMode==='viking_assault')return 'viking.assault';
-  return base;
- }
+ private raceModels(race:Race){const models=new Map([...racePreloadModels(race)].map(([key,type])=>[displayLoadModelKey(key,type),type] as const));if(race==='protoss')models.set(ELITES['carrier.1'].model,'carrier');return models;}
+ private modelKey(u:Entity):string{return displayActiveModelKey(u);}
  prepareRosterAssets(){if(!this.initialAssetsLoaded)return;this.syncMap();for(const family of this.requiredFamilies())if(!this.gpu.has(family))void this.ensureUnitVariant(family,family);
-  for(const u of this.world.entities.values()){for(const key of [u.modelKey,this.modelKey(u)])if(key&&!this.gpu.has(key))void this.ensureUnitVariant(key,u.unitType);if(!u.heroId&&u.desiredNativeMode==='hellbat')void this.ensureUnitVariant('hellion.hellbat',u.unitType);if(!u.heroId&&u.desiredNativeMode==='viking_assault')void this.ensureUnitVariant('viking.assault',u.unitType);}
-  for(const offer of this.world.rewards){if(offer.kind==='hero'&&Object.hasOwn(HEROES,offer.value)){const hero=HEROES[offer.value as HeroId];void this.ensureUnitVariant(hero.model,hero.baseFamily);}else if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value)){const elite=ELITES[offer.value as EliteId];void this.ensureUnitVariant(elite.model,elite.family);}}
+  for(const u of this.world.entities.values()){for(const key of [displayModelKey(u),this.modelKey(u)])if(key&&!this.gpu.has(key))void this.ensureUnitVariant(key,u.unitType);if(!u.heroId&&u.desiredNativeMode==='hellbat')void this.ensureUnitVariant('hellion.hellbat',u.unitType);if(!u.heroId&&u.desiredNativeMode==='viking_assault')void this.ensureUnitVariant('viking.assault',u.unitType);}
+  for(const offer of this.world.rewards){if(offer.kind==='hero'&&Object.hasOwn(HEROES,offer.value)){const hero=HEROES[offer.value as HeroId];void this.ensureUnitVariant(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}else if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value)){const elite=ELITES[offer.value as EliteId];void this.ensureUnitVariant(elite.model,elite.family);}}
  }
  private podBirthTemplates=new Map<Race,GLTF>();private podDeathTemplates=new Map<Race,GLTF>();
  private async prepareWorkerDeath(key:string,height:number){
   if(this.gpu.has(key+'.death'))return;const id='model.'+key+'.death';await prepareEmbeddedAssetIds([id]);const url=assetUrl(id);if(!url)throw Error('工人死亡资源未就绪：'+key);
-  const g=await restoreSc2Materials(await new GLTFLoader().loadAsync(url));this.gpu.set(key+'.death',new AnimatedBatch(g,this.scene,height,this.gpu.get(key)?.normalization));
+  const g=await loadUnitMaterialGltf(new GLTFLoader(),url,key+'.death');this.gpu.set(key+'.death',new AnimatedBatch(g,this.scene,height,this.gpu.get(key)?.normalization));
  }
- async prepareEliteSupportAssets(){if(!this.gpu.has('support.mine')){await prepareEmbeddedAssetIds(['model.support.mine']);const url=assetUrl('model.support.mine');if(!url)throw Error('蜘蛛雷素材未就绪');this.gpu.set('support.mine',new AnimatedBatch(await restoreSc2Materials(await new GLTFLoader().loadAsync(url)),this.scene,.5));}}
+ async prepareEliteSupportAssets(){if(!this.gpu.has('support.mine')){await prepareEmbeddedAssetIds(['model.support.mine']);const url=assetUrl('model.support.mine');if(!url)throw Error('蜘蛛雷素材未就绪');this.gpu.set('support.mine',new AnimatedBatch(await loadUnitMaterialGltf(new GLTFLoader(),url,'support.mine'),this.scene,.5));}}
  async prepareRescueAssets(race:Race){
-  if(race==='terran'&&!this.gpu.has('support.mine')){await prepareEmbeddedAssetIds(['model.support.mine']);const url=assetUrl('model.support.mine');if(!url)throw Error('蜘蛛雷素材未就绪');this.gpu.set('support.mine',new AnimatedBatch(await restoreSc2Materials(await new GLTFLoader().loadAsync(url)),this.scene,.5));}
+  if(race==='terran'&&!this.gpu.has('support.mine')){await prepareEmbeddedAssetIds(['model.support.mine']);const url=assetUrl('model.support.mine');if(!url)throw Error('蜘蛛雷素材未就绪');this.gpu.set('support.mine',new AnimatedBatch(await loadUnitMaterialGltf(new GLTFLoader(),url,'support.mine'),this.scene,.5));}
   const {workerModel,carrierModel,carrierBirthModel,carrierDeathModel}=RESCUE_PRESENTATION[race],loader=new GLTFLoader();
   await prepareEmbeddedAssetIds([...racePreloadModels(race).keys()].filter(k=>!k.includes('.')).map(k=>'wireframe.'+k).filter(id=>ASSETS.has(id)));
   await prepareEmbeddedAssetIds(['model.'+workerModel,'model.'+carrierModel,'model.'+carrierDeathModel,...(carrierBirthModel?['model.'+carrierBirthModel]:[])]);
-  if(!this.gpu.has(workerModel)){const url=assetUrl('model.'+workerModel);if(!url)throw Error('缺少原工人模型：'+workerModel);const height=workerModel==='scv'?1.35:workerModel==='probe'?.9:.7;this.gpu.set(workerModel,new AnimatedBatch(await restoreSc2Materials(await loader.loadAsync(url)),this.scene,height));}
+  if(!this.gpu.has(workerModel)){const url=assetUrl('model.'+workerModel);if(!url)throw Error('缺少原工人模型：'+workerModel);const height=workerModel==='scv'?1.35:workerModel==='probe'?.9:.7;this.gpu.set(workerModel,new AnimatedBatch(await loadUnitMaterialGltf(loader,url,workerModel),this.scene,height));}
   await this.prepareWorkerDeath(workerModel,workerModel==='scv'?1.35:workerModel==='probe'?.9:.7);
   if(!this.podTemplates.has(race)){const url=assetUrl('model.'+carrierModel);if(!url)throw Error('缺少原出兵载体：'+carrierModel);const g=await restoreSc2Materials(await loader.loadAsync(url));await this.renderer.compileAsync(g.scene,this.camera,this.scene);this.preloadTextures(g.scene);this.podTemplates.set(race,g);}
   if(!this.podDeathTemplates.has(race)){const url=assetUrl('model.'+carrierDeathModel);if(!url)throw Error('载体死亡资源未就绪');const g=await restoreSc2Materials(await loader.loadAsync(url));if(!g.animations.some(c=>/^Death/.test(c.name)))throw Error('载体死亡动作缺失');await this.renderer.compileAsync(g.scene,this.camera,this.scene);this.preloadTextures(g.scene);this.podDeathTemplates.set(race,g);}
@@ -327,43 +321,43 @@ export class BattleRenderer {
  }
  async prepareNewRunAssets(race:Race,hero:HeroId|null,progress:(done:number,total:number,label:string)=>void=()=>{}){
   await this.prepareRescueAssets(race);
-  const required=racePreloadModels(race);
+  const required=this.raceModels(race);
   if(hero){const data=HEROES[hero];if(!data||data.race!==race)throw Error('开局英雄与种族不符');required.set(data.model,data.baseFamily);}
-  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key))));
+  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));
   let done=0;for(const [key,type] of required){const missing=!this.gpu.has(key);if(missing&&!await this.ensureUnitVariant(key,type))throw Error('开局模型未就绪：'+key);progress(++done,required.size,key);if(missing)await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));}
   await this.prepareEndlessAssets((done,total,label)=>progress(done,total,label));
  }
  async prepareCurrentAssets(progress:(done:number,total:number,label:string)=>void=()=>{}){
   await this.prepareRescueAssets(this.world.expedition.race);
   const required=new Map<string,UnitType>();for(const type of this.requiredFamilies())required.set(type,type);
-  for(const unit of this.world.entities.values())if(unit.hp>0&&unit.modelKey)required.set(unit.modelKey,unit.unitType);
+  for(const unit of this.world.entities.values())if(unit.hp>0){required.set(displayModelKey(unit),unit.unitType);required.set(displayActiveModelKey(unit),unit.unitType);}
   if(this.world.eliteChoice){const elite=ELITES[this.world.eliteChoice];required.set(elite.model,elite.family);}
-  for(const offer of this.world.rewards){if(offer.kind==='hero'&&Object.hasOwn(HEROES,offer.value)){const hero=HEROES[offer.value as HeroId];required.set(hero.model,hero.baseFamily);}else if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value)){const elite=ELITES[offer.value as EliteId];required.set(elite.model,elite.family);}}
-  for(const entry of this.world.expedition.bossLootQueue){const effect=entry.reward.expeditionEffect;if(effect.kind==='elite')for(const elite of this.world.eliteVariants(effect.family))required.set(elite.model,elite.family);else if(effect.kind==='hero'){const hero=HEROES[effect.heroId as HeroId];required.set(hero.model,hero.baseFamily);}}
+  for(const offer of this.world.rewards){if(offer.kind==='hero'&&Object.hasOwn(HEROES,offer.value)){const hero=HEROES[offer.value as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}else if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value)){const elite=ELITES[offer.value as EliteId];required.set(elite.model,elite.family);}}
+  for(const entry of this.world.expedition.bossLootQueue){const effect=entry.reward.expeditionEffect;if(effect.kind==='elite')for(const elite of this.world.eliteVariants(effect.family))required.set(elite.model,elite.family);else if(effect.kind==='hero'){const hero=HEROES[effect.heroId as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}}
   for(const offer of this.world.rewards)if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value))for(const elite of this.world.eliteVariants(ELITES[offer.value as EliteId].family))required.set(elite.model,elite.family);
   for(const contract of this.world.expedition.eliteContracts)if(!contract.purchased)for(const elite of this.world.eliteVariants(contract.family))required.set(elite.model,elite.family);
   if(this.world.expedition.pendingShopElite){const elite=ELITES[this.world.expedition.pendingShopElite.variantId];required.set(elite.model,elite.family);}
-  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key))));
+  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('增援模型未就绪：'+key);progress(++done,required.size,key);}
  }
  async prepareSnapshotAssets(snapshot:RunSnapshot,progress:(done:number,total:number,label:string)=>void=()=>{}){
   await this.prepareRescueAssets(snapshot.state.expedition.race);
-  const required:Map<string,UnitType>=racePreloadModels(snapshot.config.race);
+  const required:Map<string,UnitType>=this.raceModels(snapshot.config.race);
   for(const family of snapshot.state.expedition.familySlots)required.set(family,family);
-  for(const entry of snapshot.state.expedition.bossLootQueue){const effect=entry.reward.expeditionEffect;if(effect.kind==='elite')for(const elite of Object.values(ELITES).filter(e=>e.family===effect.family))required.set(elite.model,elite.family);else if(effect.kind==='hero'){const hero=HEROES[effect.heroId as HeroId];required.set(hero.model,hero.baseFamily);}}
+  for(const entry of snapshot.state.expedition.bossLootQueue){const effect=entry.reward.expeditionEffect;if(effect.kind==='elite')for(const elite of Object.values(ELITES).filter(e=>e.family===effect.family))required.set(elite.model,elite.family);else if(effect.kind==='hero'){const hero=HEROES[effect.heroId as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}}
   for(const plan of Object.values(snapshot.state.expedition.production))for(const family of plan?.outputs??[])if(plan?.enabled[family])required.set(family,family);
   for(const job of snapshot.state.expedition.ledger)if(job.state!=='settled')required.set(job.family,job.family);
   const stage=snapshot.state.battlefield.mode==='endless'?18:Math.min(18,snapshot.state.stage+(snapshot.state.phase==='reward'?1:0));
   for(const [family,share] of Object.entries(CAMPAIGN18_STAGES[stage-1].mix))if(share>0)required.set(family as UnitType,family as UnitType);
   for(const type of snapshot.state.battlefield.mode==='endless'?ENDLESS.bossTypes:BOSSES[stage]?[BOSSES[stage].type]:[])required.set(type,type);
-  for(const unit of snapshot.state.entities.values())if(unit.hp>0){if(!isAirHeroType(unit.unitType))required.set(unit.unitType,unit.unitType);if(unit.modelKey)required.set(unit.modelKey,unit.unitType);}
+  for(const unit of snapshot.state.entities.values())if(unit.hp>0){if(!isAirHeroType(unit.unitType))required.set(unit.unitType,unit.unitType);required.set(displayModelKey(unit),unit.unitType);required.set(displayActiveModelKey(unit),unit.unitType);}
   for(const pod of snapshot.state.pods)if(['falling','active','opening'].includes(pod.status)){required.set(pod.unitType,pod.unitType);for(const guard of pod.guardTypes)required.set(guard,guard);}
-  for(const reward of snapshot.state.rewards){if(reward.kind==='hero'&&Object.hasOwn(HEROES,reward.value)){const hero=HEROES[reward.value as HeroId];required.set(hero.model,hero.baseFamily);}else if(reward.kind==='elite'&&Object.hasOwn(ELITES,reward.value)){const elite=ELITES[reward.value as EliteId];required.set(elite.model,elite.family);}}
+  for(const reward of snapshot.state.rewards){if(reward.kind==='hero'&&Object.hasOwn(HEROES,reward.value)){const hero=HEROES[reward.value as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}else if(reward.kind==='elite'&&Object.hasOwn(ELITES,reward.value)){const elite=ELITES[reward.value as EliteId];required.set(elite.model,elite.family);}}
   const offerFamilies=snapshot.state.rewards.filter(offer=>offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value)).map(offer=>ELITES[offer.value as EliteId].family);
   for(const contract of snapshot.state.expedition.eliteContracts)if(!contract.purchased)offerFamilies.push(contract.family);
   for(const family of offerFamilies)for(const elite of Object.values(ELITES).filter(e=>e.family===family))required.set(elite.model,elite.family);
   if(snapshot.state.expedition.pendingShopElite){const elite=ELITES[snapshot.state.expedition.pendingShopElite.variantId];required.set(elite.model,elite.family);}
-  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key))));
+  await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('必需单位模型未就绪：'+key);progress(++done,required.size,key);}
   await this.prepareEndlessAssets((n,total,label)=>progress(required.size+n,required.size+total,label));
  }
@@ -408,26 +402,26 @@ export class BattleRenderer {
   const counts=new Map<UnitType,number>();let bars=0,line=0,ring=0,shadows=0;
   for(const [key,b] of this.gpu){b.animationMode=this.animationMode;b.setLod(ordinaryLodKeys.has(key)&&(this.quality!=='native'||heights[key.split('.')[0] as UnitType]*this.viewportHeight/(this.camera.top-this.camera.bottom)<28));b.begin();}
   const poseTime=world.time-(world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision?(1-alpha)/60:0);
-  for(const event of world.visualEvents){if(event.serial<=this.lastVisual)continue;this.lastVisual=event.serial;if(event.kind==='hit')this.hitTimes.set(event.entityId,event.time);if(event.kind==='death'&&event.unitType)this.corpses.set(event.entityId,{scale:world.entities.get(event.entityId)?modelPresentationScale(world.entities.get(event.entityId)!):1,type:event.modelKey??event.unitType,x:event.x,z:event.z,y:event.flying?AIR_HEIGHT:this.ground(event),facing:event.facing,at:event.time});}
+  for(const event of world.visualEvents){if(event.serial<=this.lastVisual)continue;this.lastVisual=event.serial;if(event.kind==='hit')this.hitTimes.set(event.entityId,event.time);if(event.kind==='death'&&event.unitType)this.corpses.set(event.entityId,{scale:world.entities.get(event.entityId)?modelPresentationScale(world.entities.get(event.entityId)!):1,type:world.entities.get(event.entityId)?displayDeathModelKey(world.entities.get(event.entityId)!):displayModelKey({...event,unitType:event.unitType}),teamColor:world.entities.get(event.entityId)?unitMaterialIdentity(world.entities.get(event.entityId)!,world.time).teamColor:undefined,x:event.x,z:event.z,y:event.flying?AIR_HEIGHT:this.ground(event),facing:event.facing,at:event.time});}
   const putLine=(a:Point,ay:number,b:Point,by:number,color:number)=>{if(line>=990)return;const offset=line*6;this.linePositions.set([a.x,ay,a.z,b.x,by,b.z],offset);_color.set(color);this.lineColors.set([_color.r,_color.g,_color.b,_color.r,_color.g,_color.b],offset);line++;};
   const putRing=(p:Point,r:number,color:number)=>{if(ring>=1400)return;this.rings.setMatrixAt(ring,this.matrix(p.x,this.ground(p)+.09,p.z,r,1,r));this.rings.setColorAt(ring++,_color.set(color));};
   // Enemy telegraphs are presented by the minimap; authored attack effects stay below.
   for(const zone of world.enemySpecials.acidZones)putRing(zone.point,zone.radius,0xa2e87b);
   const weaponMount=(event:VisualEvent,side?:'Left'|'Right')=>{
-   const key=event.modelKey??event.unitType,model=key?this.gpu.get(key+(event.siege?'.siege':'')):null,skill=event.kind==='skill-launch'||event.kind==='skill-line',action=skill?'skill':attackAction(event.unitType,event.shotSequence);
+   const source=world.entities.get(event.entityId),key=event.unitType?displayActiveModelKey({...event,unitType:event.unitType,action:'idle',mode:event.siege?'siege':'tank',nativeMode:event.unitType==='viking'?(event.flying?'viking':'viking_assault'):source?.nativeMode}):undefined,model=key?this.gpu.get(key):null,skill=event.kind==='skill-launch'||event.kind==='skill-line',action=skill?'skill':attackAction(event.unitType,event.shotSequence);
    const pose=event.weaponPoseSeconds??(skill?0:Math.min(model?.actions[action]?.duration??0,(event.unitType?SC2_UNITS[event.unitType].damagePoint:0)*1.4));
    const mountSide=event.heroId==='hots_leviathan'&&!skill?String(2+((event.shotSequence??1)-1)%4).padStart(2,'0'):side;
    const weapon=model?.weaponAt(action,pose,mountSide),unit=world.entities.get(event.entityId),scale=unit?modelPresentationScale(unit):event.unitType?modelPresentationScale({modelKey:event.modelKey,heroId:event.heroId,eliteId:event.eliteId,unitType:event.unitType,flying:event.flying}):1;return weaponWorldPoint(event,weapon??{x:0,y:.6,z:.6},scale,this.ground(event));
   };
   const health=(b:Body,y:number)=>{if(bars>=400)return;const width=Math.max(.7,b.unitRadius*2),ratio=Math.max(0,b.hp/b.maxHp);this.healthBack.setMatrixAt(bars,this.matrix(b.x,y,b.z,width,1,1));this.health.setMatrixAt(bars,this.matrix(b.x-(1-ratio)*width/2,y+.015,b.z,width*ratio,1,1));this.health.setColorAt(bars++,_color.set(b.owner==='terran'?(ratio<.3?0xff7852:0x75ef95):0xd9573c));const u=b as Entity;if(u.team==='player'&&(u.maxShield??0)>0&&bars<400){const shield=Math.max(0,(u.shield??0)/u.maxShield!);this.healthBack.setMatrixAt(bars,this.matrix(b.x,y+.025,b.z-.15,width,1,.55));this.health.setMatrixAt(bars,this.matrix(b.x-(1-shield)*width/2,y+.04,b.z-.15,width*shield,1,.55));this.health.setColorAt(bars++,_color.set(0x65b5ff));}};
-  for(const u of world.entities.values()){const batch=this.batches.get(u.unitType);if(!batch&&!this.gpu.has(u.modelKey??u.unitType)||!this.visible(u)||!world.visibleTo(u,'terran'))continue;const fleetPose=this.protossHeroes.childPresentation(u),dying=u.hp<=0,death=dying?Math.max(0,1-(world.time-(u.deadAt??world.time))/1.3):1,presentationScale=(fleetPose?.scale??modelPresentationScale(u))*(u.hp>0&&u.team==='player'&&world.expedition.race==='zerg'&&u.attributes.includes('Biological')&&world.expedition.support.unique.activeUntil>world.time?1.12:1),recoveryScale=u.unitType==='baneling'&&(u.recoveryUntil??0)>world.time?.84+.04*Math.sin(world.time*5):1;
+  for(const u of world.entities.values()){const batch=this.batches.get(u.unitType);if(!batch&&!this.gpu.has(displayModelKey(u))||!this.visible(u)||!world.visibleTo(u,'terran'))continue;const fleetPose=this.protossHeroes.childPresentation(u),dying=u.hp<=0,death=dying?Math.max(0,1-(world.time-(u.deadAt??world.time))/1.3):1,presentationScale=(fleetPose?.scale??modelPresentationScale(u))*(u.hp>0&&u.team==='player'&&world.expedition.race==='zerg'&&u.attributes.includes('Biological')&&world.expedition.support.unique.activeUntil>world.time?1.12:1),recoveryScale=u.unitType==='baneling'&&(u.recoveryUntil??0)>world.time?.84+.04*Math.sin(world.time*5):1;
    const index=counts.get(u.unitType)??0;if(index>=UNIT_CAPACITY)continue;counts.set(u.unitType,index+1);
    const transit=u.cliffTransit?cliffRenderPosition(u,world.time):null,x=fleetPose?.point.x??transit?.x??u.prev.x+(u.x-u.prev.x)*alpha,z=fleetPose?.point.z??transit?.z??u.prev.z+(u.z-u.prev.z)*alpha,y=fleetPose?.point.y??(u.flying?AIR_HEIGHT:this.ground({x,z})+(transit?.lift??0));
    if(u.hp>0&&shadows<1400)this.shadows.setMatrixAt(shadows++,this.matrix(x,this.ground({x,z})+.012,z,u.unitRadius*1.9,1,u.unitRadius*1.7));
-   if(this.gpu.has(u.modelKey??u.unitType)){
-    const baseKey=u.modelKey??u.unitType;if(u.modelKey&&!this.gpu.has(baseKey)){void this.ensureUnitVariant(baseKey,u.unitType);continue;}
-    if(dying){if(!this.corpses.has(u.id))this.corpses.set(u.id,{scale:presentationScale,type:baseKey,x,z,y,facing:u.facing,at:u.deadAt??world.time});continue;}
-    const key=fleetPose?.modelKey??this.modelKey(u);if(!this.gpu.has(key)){void this.ensureUnitVariant(key,u.unitType);continue;}
+   if(this.gpu.has(displayModelKey(u))){
+    const baseKey=displayModelKey(u);if(u.modelKey&&!this.gpu.has(baseKey)){void this.ensureUnitVariant(baseKey,u.unitType);continue;}
+    if(dying){if(!this.corpses.has(u.id))this.corpses.set(u.id,{scale:presentationScale,type:displayDeathModelKey(u),teamColor:unitMaterialIdentity(u,world.time).teamColor,x,z,y,facing:u.facing,at:u.deadAt??world.time});continue;}
+    const key=fleetPose&&world.entities.get(u.summonOwnerId??-1)?.heroId==='purifier_flagship'?'hero.purifier_flagship':fleetPose?.modelKey??this.modelKey(u);if(!this.gpu.has(key)){void this.ensureUnitVariant(key,u.unitType);continue;}
     const model=this.gpu.get(key)??this.gpu.get(baseKey)!;let state=this.animationStates.get(u.id);const signature=key+':'+(u.zergEliteCombat?.burrowPhase??0)+':'+u.nativeMode+':'+u.desiredNativeMode+':'+u.nativeModeUntil+':'+u.action+(u.action==='attack'?':'+u.lastShotAt:'');
     if(!state||state.action!==signature){state={...state,action:signature,since:world.time,modeDuration:u.nativeModeUntil?u.nativeModeUntil-world.time:u.modeTimer,playback:state?.playback??{},poseClock:state?.poseClock??{}};this.animationStates.set(u.id,state);}
     let seconds=Math.max(0,poseTime-state.since);const nativeAction=revisedZergElite(u)&&u.unitType==='roach'&&u.zergEliteCombat?.burrowPhase?(u.zergEliteCombat.burrowPhase===1?'burrow':u.zergEliteCombat.burrowPhase===2?'burrowIdle':'unburrow'):!u.heroId&&u.unitType==='lurker'?(u.nativeModeUntil?(u.desiredNativeMode==='lurker_burrowed'?'burrow':'unburrow'):u.nativeMode==='lurker_burrowed'?(u.action==='attack'?'burrowAttack':'burrowIdle'):u.action):!u.heroId&&u.unitType==='thor'?(u.nativeModeUntil?(u.desiredNativeMode==='thor_high_impact'?'highImpactMorph':'highImpactUnmorph'):u.nativeMode==='thor_high_impact'?(u.action==='attack'?(world.body(u.attackTarget??-1)?.flying?'highImpactAttack':'attack'):'highImpactIdle'):u.action):u.action;const p=model.pose(nativeAction);let once=['attack','skill','spawn','sieging','unsieging'].includes(u.action)||!!u.nativeModeUntil||nativeAction==='burrowIdle';
@@ -447,7 +441,7 @@ export class BattleRenderer {
     const sampledAt=samplePoseClock(state.poseClock,this.animationMode,poseTime,eventKey);
     if(!state.sampled||sampledAt!==state.sampled.at||state.sampled.action!==displayAction)state.sampled={at:sampledAt,action:displayAction,seconds,once,attackSeconds,attackKey:shotAction};
     const sampled=state.sampled;
-    model.add(x,y,z,fleetPose?.facing??u.facing,sampled.action,sampled.seconds,sampled.once,Math.max(0,1-(world.time-(this.hitTimes.get(u.id)??-100))/.2),presentationScale*recoveryScale,this.animationMode==='complete',sampled.attackSeconds,u.unitType==='tank'&&u.modeTimer<=0?u.attackFacing-u.facing:0,modelPresentationAccent(u)||(u.enemyTier==='boss'||u.enemyTier==='lord'?2:u.enemyTier==='elite'?1:0),sampled.attackKey,true,model.materialSurfaces.length?{entityId:u.id,runId:world.runId??'',time:world.time,barrier:this.barrierMaterials.get(u.id)}:undefined);
+    model.add(x,y,z,fleetPose?.facing??u.facing,sampled.action,sampled.seconds,sampled.once,Math.max(0,1-(world.time-(this.hitTimes.get(u.id)??-100))/.2),presentationScale*recoveryScale,this.animationMode==='complete',sampled.attackSeconds,u.unitType==='tank'&&u.modeTimer<=0?u.attackFacing-u.facing:0,modelPresentationAccent(u)||(u.enemyTier==='boss'||u.enemyTier==='lord'?2:u.enemyTier==='elite'?1:0),sampled.attackKey,true,model.materialSurfaces.length?{entityId:u.id,runId:world.runId??'',time:world.time,barrier:this.barrierMaterials.get(u.id),...unitMaterialIdentity(u,world.time)}:undefined);
 
    }else{
     _obj.position.set(x,y,z);_obj.rotation.set(dying?Math.PI/2*(1-death):u.unitType==='baneling'?u.distanceWalked*2:0,u.facing,0);_obj.scale.setScalar(Math.max(.01,death)*presentationScale*recoveryScale);_obj.updateMatrix();
@@ -459,7 +453,7 @@ export class BattleRenderer {
    if(!dying&&!fleetPose&&!u.heroId&&(u.owner==='terran'||u.hp<u.maxHp||!!u.enemyTier))health(transit?{...u,x,z}:u,y+heights[u.unitType]*TUNING.unitScale*presentationScale+.22);
   }
   for(const [type,b] of this.batches){b.meshes.forEach((m,i)=>{const count=counts.get(type)??0;commitInstances(m,count);uploadActive(b.data[i],count);});}
-  for(const [id,c] of this.corpses){const model=this.gpu.get(c.type+'.death')??this.gpu.get(c.type);const age=world.time-c.at,life=Math.min(5,Math.max(1.5,model?.pose('dead')?.duration??1.5));if(age>life+.4){this.corpses.delete(id);continue;}if(model&&this.visible(c)){const hologram=c.type==='elite.science_vessel.1'&&!model.actions.dead;model.add(c.x,c.y,c.z,c.facing,hologram?'idle':'dead',hologram?0:deathPoseTime(age,model.pose('dead')?.duration??life,life),true,0,(age>life?Math.max(.01,1-(age-life)/.4):1)*c.scale,true,-1,0,hologram?-1-Math.min(1,age/life):0,'attack',false,model.materialSurfaces.length?{entityId:id,runId:world.runId??'',time:world.time,deathAt:c.at}:undefined);}}
+  for(const [id,c] of this.corpses){const model=this.gpu.get(c.type+'.death')??this.gpu.get(c.type);const age=world.time-c.at,life=Math.min(5,Math.max(1.5,model?.pose('dead')?.duration??1.5));if(age>life+.4){this.corpses.delete(id);continue;}if(model&&this.visible(c)){const hologram=c.type==='elite.science_vessel.1'&&!model.actions.dead;model.add(c.x,c.y,c.z,c.facing,hologram?'idle':'dead',hologram?0:deathPoseTime(age,model.pose('dead')?.duration??life,life),true,0,(age>life?Math.max(.01,1-(age-life)/.4):1)*c.scale,true,-1,0,hologram?-1-Math.min(1,age/life):0,'attack',false,model.materialSurfaces.length?{entityId:id,runId:world.runId??'',time:world.time,deathAt:c.at,teamColor:c.teamColor}:undefined);}}
   for(const [id] of this.animationStates)if(!world.entities.has(id)){this.animationStates.delete(id);this.hitTimes.delete(id);}
   for(const [id,at] of this.hitTimes)if(world.time-at>.25)this.hitTimes.delete(id);
   for(const e of world.economicTargets.values()){if(!this.visible(e))continue;const age=world.time-(e.resolvedAt??world.time),model=this.gpu.get(e.kind);if(e.status==='active'){model?.add(e.x,this.ground(e),e.z,e.facing,e.kind==='drone'?'move':'idle',world.time*1.4);health(e,this.ground(e)+1.65);}else if(e.kind==='egg'&&e.status==='rescued'&&age<3.8){this.gpu.get(RESCUE_PRESENTATION[world.expedition.race].workerModel)?.add(e.x,this.ground(e),e.z,e.facing,'idle',age*1.4,false,0,age>3.4?Math.max(.01,(3.8-age)/.4):1);putRing(e,1.1,0x8be8a5);}else {const death=this.gpu.get(e.kind+'.death')??model,life=Math.min(5,death?.pose('dead')?.duration??1.5);if(age<life+.3)death?.add(e.x,this.ground(e),e.z,e.facing,'dead',deathPoseTime(age,death?.pose('dead')?.duration??life,life),true,0,age>life?Math.max(.01,1-(age-life)/.3):1);}}

@@ -1,5 +1,6 @@
 import {loadIntermissionAssets} from './intermission-assets.mjs';
 import {loadNativeHudAssets} from './native-hud-assets.mjs';
+import {loadMaterialTextures} from './material-textures.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
@@ -12,7 +13,8 @@ const fidelityStage=process.argv.includes('--ui-fidelity');
 const cozeStage=process.argv.includes('--coze');
 const openingStage=process.argv.includes('--opening');
 const battleUiStage=process.argv.includes('--battle-ui');
-const materialBatchStage=process.argv.includes('--material-batch1');
+const materialBatch2Stage=process.argv.includes('--material-batch2');
+const materialBatchStage=process.argv.includes('--material-batch1')||materialBatch2Stage;
 const nativeHudStage=process.argv.includes('--native-hud')||materialBatchStage;
 const entryStage=process.argv.includes('--entry-fixes')||nativeHudStage;
 const feedbackStage=process.argv.includes('--ui-battle-feedback')||entryStage;
@@ -66,12 +68,13 @@ if(intermissionStage)await fs.copyFile('docs/project/INTERMISSION_INTEGRATION_20
 if(feedbackStage)await fs.copyFile('docs/project/UI_BATTLE_FEEDBACK_20261009.md',path.join(destination,'UI_BATTLE_FEEDBACK_20261009.md'));
 if(nativeHudStage)for(const name of ['NATIVE_HUD_INTEGRATION_20261010.md'])await fs.copyFile('docs/project/'+name,path.join(destination,name));
 if(materialBatchStage)await fs.copyFile('docs/project/MATERIAL_BATCH1_20261010.md',path.join(destination,'MATERIAL_BATCH1_20261010.md'));
+if(materialBatch2Stage)await fs.copyFile('docs/project/MATERIAL_BATCH2_20261010.md',path.join(destination,'MATERIAL_BATCH2_20261010.md'));
 if(entryStage)await fs.copyFile('docs/project/ENTRY_FIXES_20261009.md',path.join(destination,'ENTRY_FIXES_20261009.md'));
 if(maintenanceStage)await fs.copyFile('docs/project/MAINTENANCE_SCOPE_20261008.md',path.join(destination,'MAINTENANCE_SCOPE_20261008.md'));
 const pkg=JSON.parse(await fs.readFile(path.join(baseline,'package.json'),'utf8'));
 const lock=JSON.parse(await fs.readFile(path.join(baseline,'package-lock.json'),'utf8'));
 pkg.name=lock.name=lock.packages[''].name='sc2-survivors-current-application';
-pkg.version=lock.version=lock.packages[''].version=materialBatchStage?'0.6.16':nativeHudStage?'0.6.15':entryStage?'0.6.14':feedbackStage?'0.6.13':intermissionStage?'0.6.12':repairs459Stage?'0.6.11':maintenanceStage?'0.6.10':battleUiStage?'0.6.9':openingStage?'0.6.8':cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
+pkg.version=lock.version=lock.packages[''].version=materialBatch2Stage?'0.6.17':materialBatchStage?'0.6.16':nativeHudStage?'0.6.15':entryStage?'0.6.14':feedbackStage?'0.6.13':intermissionStage?'0.6.12':repairs459Stage?'0.6.11':maintenanceStage?'0.6.10':battleUiStage?'0.6.9':openingStage?'0.6.8':cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
 for(const [name,data]of [['package.json',pkg],['package-lock.json',lock]]as const)await fs.writeFile(path.join(destination,name),JSON.stringify(data,null,2)+'\n');
 const priorGroups=JSON.parse(await fs.readFile(path.join(baseline,'resource-groups.json'),'utf8'));
 const priorByUrl=new Map<string,any>(priorGroups.files.map((row:any)=>[row.url,row]));
@@ -81,17 +84,18 @@ const uiCatalog=JSON.parse(await fs.readFile('deploy/runtime/ui-assets.json','ut
 uiCatalog.records.push(...await loadIntermissionAssets());
 uiCatalog.records.push(...await loadNativeHudAssets());
 const uiSources=new Map<string,any>(uiCatalog.records.map((r:any)=>[r.packedSha256,r]));
+const materialSources=new Map<string,any>((await loadMaterialTextures()).map((r:any)=>[r.packedSha256,r]));
 for(const row of uiCatalog.records){const b=await fs.readFile(row.sourceFile);if(b.length!==row.bytes||sha(b)!==row.sourceSha256||row.sourceSha256!==row.packedSha256||row.gitPath!=='deploy/runtime/assets/'+row.packedSha256+path.extname(row.sourceFile)||sha(await fs.readFile(row.gitPath))!==row.packedSha256)throw Error('UI source mismatch: '+row.id);}
 const currentByUrl=new Map<string,any>();
 for(const [id,asset]of Object.entries<any>(manifest.assets)){
  let row=currentByUrl.get(asset.url);
  if(!row){
-  const old=priorByUrl.get(asset.url),source=sources.get(asset.sha256),ui=uiSources.get(asset.sha256);
-  const verified=source??(ui&&{bytes:ui.bytes,gitPath:ui.gitPath});
+  const old=priorByUrl.get(asset.url),source=sources.get(asset.sha256),ui=uiSources.get(asset.sha256),material=materialSources.get(asset.sha256);
+  const verified=source??((ui??material)&&{bytes:(ui??material).bytes,gitPath:(ui??material).gitPath});
   if(!verified||verified.bytes!==asset.bytes)throw Error('Resource is not in the verified original catalog: '+id);
   if(old&&(old.bytes!==asset.bytes||old.sha256!==asset.sha256))throw Error('Preserved resource changed: '+id);
-  if(!old&&!id.startsWith('model.map.')&&!(id.startsWith('ui.')&&ui?.id===id))throw Error('Unexpected non-map resource addition: '+id);
-  row={...asset,groups:old?.groups??(ui?['common']:['campaign']),ids:[],gitPath:verified.gitPath};currentByUrl.set(asset.url,row);
+  if(!old&&!id.startsWith('model.map.')&&!(id.startsWith('ui.')&&ui?.id===id)&&!(materialBatch2Stage&&id.startsWith('material.')&&material))throw Error('Unexpected non-map resource addition: '+id);
+  row={...asset,groups:old?.groups??(ui||material?['common']:['campaign']),ids:[],gitPath:verified.gitPath};currentByUrl.set(asset.url,row);
  }
  row.ids.push(id);
 }
@@ -104,5 +108,5 @@ await fs.writeFile(path.join(destination,'resource-delta.json'),JSON.stringify({
 async function list(dir:string,prefix=''):Promise<string[]>{const out:string[]=[];for(const e of await fs.readdir(dir,{withFileTypes:true}))out.push(...(e.isDirectory()?await list(path.join(dir,e.name),prefix+e.name+'/'):[prefix+e.name]));return out;}
 const appFiles=[];for(const file of await list(destination)){const b=await fs.readFile(path.join(destination,file));appFiles.push({path:file,bytes:b.length,sha256:sha(b)});}
 const packageBuildId=sha(JSON.stringify([...appFiles].sort((a,b)=>a.path.localeCompare(b.path))));
-await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:materialBatchStage?'Original Immortal barrier and Zealot death material tracks, per-instance clocks and fixed linear HDR/Bloom/ACES/sRGB output; original gameplay and resources retained; local validation only; no live deployment':nativeHudStage?'Approved native HUD, original six skin frames, per-race hard campaign cosmetic unlock and retained battle actions; local validation only; no live deployment':entryStage?'Ordered entrance loading and cancellation, pod health, responsive menu/card layout and formal save notice; original gameplay/resources retained; no live deployment':feedbackStage?'Unified UI actions, grouped purchased enhancements, minimap telegraphs and casualty/Boss presentation; no gameplay rule change or live deployment':intermissionStage?'Approved shop/development UI, four peer services, two settings categories, unified arrival cards, approved full-roster supply promotion; no live deployment':repairs459Stage?'Items 4/5/9: automatic pickup arrivals, approved R4 reveal, closed player catalogue, first-facility baseline unlocks; no live deployment':maintenanceStage?'Maintenance: unreachable UI removed and deployment-only development files omitted; twelve reported repairs are audited and planned, not applied; live deployment not performed':battleUiStage?'Approved battle HUD and card presentation integration; local validation; live deployment not performed':cozeStage?'UI fidelity and Coze v10 deployment integration; local validation; live deployment not performed':fidelityStage?'local UI fidelity and intangible continuous control-point candidate; not deployed':performanceStage?'local fixed-scene performance candidate; natural performance gate open; not deployed':'local formal UI candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0,...(cozeStage?{coze:{baseline:'ed70fe4',configurationIncluded:true,vendoredPglite:true,privateBundleIncluded:false}}:{})},null,2));
+await fs.writeFile(path.join(destination,'delivery.json'),JSON.stringify({status:materialBatch2Stage?'All roster source-bound material channels and timelines, original team masks, calibrated elite bodies and native mechanism feedback; original gameplay and resource bytes retained; local validation only; no live deployment':materialBatchStage?'Original Immortal barrier and Zealot death material tracks, per-instance clocks and fixed linear HDR/Bloom/ACES/sRGB output; original gameplay and resources retained; local validation only; no live deployment':nativeHudStage?'Approved native HUD, original six skin frames, per-race hard campaign cosmetic unlock and retained battle actions; local validation only; no live deployment':entryStage?'Ordered entrance loading and cancellation, pod health, responsive menu/card layout and formal save notice; original gameplay/resources retained; no live deployment':feedbackStage?'Unified UI actions, grouped purchased enhancements, minimap telegraphs and casualty/Boss presentation; no gameplay rule change or live deployment':intermissionStage?'Approved shop/development UI, four peer services, two settings categories, unified arrival cards, approved full-roster supply promotion; no live deployment':repairs459Stage?'Items 4/5/9: automatic pickup arrivals, approved R4 reveal, closed player catalogue, first-facility baseline unlocks; no live deployment':maintenanceStage?'Maintenance: unreachable UI removed and deployment-only development files omitted; twelve reported repairs are audited and planned, not applied; live deployment not performed':battleUiStage?'Approved battle HUD and card presentation integration; local validation; live deployment not performed':cozeStage?'UI fidelity and Coze v10 deployment integration; local validation; live deployment not performed':fidelityStage?'local UI fidelity and intangible continuous control-point candidate; not deployed':performanceStage?'local fixed-scene performance candidate; natural performance gate open; not deployed':'local formal UI candidate; not deployed',appBuildId:release.appBuildId,packageBuildId,runSchema:release.runSchema,profileVersion:6,release:release.release,appFiles,assets:groups.files.length,resourceBytes:release.assetBytes,includesDatabase:false,includesAccounts:false,resourcesIncluded:0,...(cozeStage?{coze:{baseline:'ed70fe4',configurationIncluded:true,vendoredPglite:true,privateBundleIncluded:false}}:{})},null,2));
 console.log(JSON.stringify({destination,packageBuildId,appBuildId:release.appBuildId,runSchema:release.runSchema,appFiles:appFiles.length,resourceAdditions:added.length,deployed:false}));

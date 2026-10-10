@@ -1,8 +1,21 @@
 import {loadHttpAssets,prepareHttpAssetIds,httpAssetStatus} from './http-store';
 import {decode85} from './base85.mjs';
 import {gunzipSync} from 'three/addons/libs/fflate.module.js';
-export type AssetPack={version:number;chunks:{encoding:'raw'|'gzip';bytes:number;storedBytes?:number;data:string}[];assets:Record<string,{mime:string;bytes:number;sha256:string;parts:number[]}>};
+export type AssetPack={version:number;container?:'chunks-v1';chunks:{encoding:'raw'|'gzip';bytes:number;storedBytes?:number;data:string}[];assets:Record<string,{mime:string;bytes:number;sha256:string;parts:number[]}>};
 type Progress=(done:number,total:number,label:string)=>void;
+
+/** A single HTML can exceed V8's individual string limit. Parse bounded original chunks separately. */
+export function restoreEmbeddedContainerChunks(pack:AssetPack,parts:Iterable<{index:number;payload:string}>){
+ if(pack.version!==2||pack.container!=='chunks-v1')throw Error('无效的分段资源容器');
+ const seen=new Set<number>();
+ for(const {index,payload}of parts){
+  if(!Number.isInteger(index)||index<0||index>=pack.chunks.length||seen.has(index))throw Error('资源容器分片编号无效');
+  const expected=pack.chunks[index],chunk=JSON.parse(payload) as AssetPack['chunks'][number];
+  if(!chunk||typeof chunk.data!=='string'||chunk.encoding!==expected.encoding||chunk.bytes!==expected.bytes||chunk.storedBytes!==expected.storedBytes)throw Error('资源容器分片元数据不匹配');
+  pack.chunks[index]=chunk;seen.add(index);
+ }
+ if(seen.size!==pack.chunks.length)throw Error('资源容器分片缺失');
+}
 
 /** Decode only the assets needed by the next screen or battle transition. */
 export class EmbeddedAssetStore {
@@ -94,6 +107,10 @@ export async function loadEmbeddedAssets(){
  // Let the loading indicator paint before parsing a large local payload.
  await new Promise<void>(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
  const pack=JSON.parse(element.textContent!) as AssetPack;element.remove();
+ if(pack.container==='chunks-v1'){
+  function* parts(){for(const node of document.querySelectorAll<HTMLScriptElement>('script[data-sc2-resource-chunk]')){const index=Number(node.dataset.sc2ResourceChunk),payload=node.textContent!;node.remove();yield {index,payload};}}
+  restoreEmbeddedContainerChunks(pack,parts());
+ }
  embeddedStore=new EmbeddedAssetStore(pack);window.__SC2_EMBEDDED__=embeddedStore.urls;window.__SC2_PACK_ACTIVE__=true;
  const menuIds=[...Object.keys(pack.assets).filter(id=>id.startsWith('unit.')||id.startsWith('hero.')||id.startsWith('building.')||id.startsWith('tech.')||id.startsWith('ui.')||id.startsWith('skill.'))];
  await embeddedStore.prepare(menuIds,(done,total,label)=>{root.querySelector('progress')!.value=total?done/total:0;root.querySelector('p')!.textContent=`正在准备菜单资源 · ${label} · ${done}/${total}`;});

@@ -59,7 +59,7 @@ test('Dehaka committed primary keeps its own ground identity; Fenix retains boun
 
 test('presentation scales never alter physics and the recovery signal has no death event',()=>{
  const w=make('zerg'),bane=w.addUnit('baneling','terran',0,0),enemy=foe(w,1);w.hash.rebuild(w.entities.values());const radius=bane.unitRadius;w.fire(bane,enemy);settleWeaponFlights(w);assert.equal(bane.unitRadius,radius);assert.ok(w.visualEvents.some(e=>e.kind==='baneling-recover'&&e.entityId===bane.id));assert.equal(w.visualEvents.some(e=>e.kind==='death'&&e.entityId===bane.id),false);
- const elite=w.addUnit('ravager','terran',0,2);elite.eliteId='ravager.2';elite.modelKey=ELITES['ravager.2'].model;assert.equal(modelPresentationScale(elite),1.15);assert.equal(elite.unitRadius,w.addUnit('ravager','terran',2,2).unitRadius);const event=w.visualEvents.find(e=>e.kind==='attack');assert.ok(event&&attackPresentation(event),'Baneling now has an explicit family presentation without a death event');
+ const elite=w.addUnit('ravager','terran',0,2);elite.eliteId='ravager.2';elite.modelKey=ELITES['ravager.2'].model;assert.equal(modelPresentationScale(elite),1.25);assert.equal(elite.unitRadius,w.addUnit('ravager','terran',2,2).unitRadius);const event=w.visualEvents.find(e=>e.kind==='attack');assert.ok(event&&attackPresentation(event),'Baneling now has an explicit family presentation without a death event');
  assert.equal(modelPresentationAccent(elite),9);
  elite.eliteId='ravager.1';assert.equal(modelPresentationAccent(elite),8);
  elite.eliteId='ravager.3';assert.equal(modelPresentationAccent(elite),10);

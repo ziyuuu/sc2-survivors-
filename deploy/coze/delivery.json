@@ -1,10 +1,10 @@
 {
-  "status": "Original Immortal barrier and Zealot death material tracks, per-instance clocks and fixed linear HDR/Bloom/ACES/sRGB output; original gameplay and resources retained; local validation only; no live deployment",
-  "appBuildId": "4d0402758734b05e65c4ba03027a4932a9cd1eeea9aaa07df4fb47f58f43655a",
-  "packageBuildId": "402a4b4a0a41ba827ce4d6e3cc442f4fca5842e1c938ab329b61c043a9a31e80",
+  "status": "All roster source-bound material channels and timelines, original team masks, calibrated elite bodies and native mechanism feedback; original gameplay and resource bytes retained; local validation only; no live deployment",
+  "appBuildId": "5c721b81c3351ae97756204ab08f533ea8cdf0b3fdb11f07e3d94b199450f054",
+  "packageBuildId": "faa94df713c02b24f35bdf0d2c995936cc549d61bfbb2f4c1003b498acae6b37",
   "runSchema": 26,
   "profileVersion": 6,
-  "release": "2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5",
+  "release": "26ee3ecb09a8cc6f1abc16f43d62a0f24aa5ebc242aa0c55d4867f177de83b20",
   "appFiles": [
     {
       "path": ".env.example",
@@ -117,6 +117,11 @@
       "sha256": "0ea86836a0e7e319cb9f7fd33fd8b70fb20b795d4feba9eb40ed3f4df26f9ad2"
     },
     {
+      "path": "MATERIAL_BATCH2_20261010.md",
+      "bytes": 5388,
+      "sha256": "6fe0058ab499035e1fd9b3b308cfaa76f08339743bd2a729daec996d7c00bcee"
+    },
+    {
       "path": "NATIVE_HUD_INTEGRATION_20261010.md",
       "bytes": 3404,
       "sha256": "f5f4bc355f8c3cd84dd4d434eaa55c4f415f27a04e789db7240371bb092f08c0"
@@ -139,12 +144,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "917c0976ca17bf7ec86586480be799f7df94340594b400036df1e6bf50700ede"
+      "sha256": "c7cca6a9b9e2485aef03c9879a11d861399ebea85072c365783be97765d191ab"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "14d5fb552d84175fe52f73d946a5ffd5c40bbe0893c1e7a79119a1abce5ca6b9"
+      "sha256": "26717b31ed4fce212d8961c35188852fe483d46cfab7749fa53344ff5114f92a"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -152,9 +157,14 @@
       "sha256": "de36b7e029c2e4788e4072a32164d6ec7f0aba9a10b373e79d3aa5478c7b84ca"
     },
     {
-      "path": "public/asset-manifest.2ceccc4865bd761cecc694f47bf39983660c6774cf13ce1ad8c94b4edd4ebbb5.json",
-      "bytes": 164495,
-      "sha256": "f99512f34c22dbefa46d9697f02984b47b09704764b3abbff7516ccd2010cdf0"
+      "path": "public/asset-manifest.26ee3ecb09a8cc6f1abc16f43d62a0f24aa5ebc242aa0c55d4867f177de83b20.json",
+      "bytes": 201865,
+      "sha256": "4c7c49ac3523f3a95d7033dd2cad09727d62a88f61f59f4a2817c7bcd9640a22"
+    },
+    {
+      "path": "public/assets/index-BXMB69H4.js",
+      "bytes": 6621343,
+      "sha256": "5dca68491a5bba9675ddcd6354867c879af07d4fb67b2f0a8355a5330c071e38"
     },
     {
       "path": "public/assets/index-CnTymvdV.css",
@@ -162,14 +172,9 @@
       "sha256": "a17106618e8f4ac803443116572bdd5035a7d6eea43b69db37ab73259d8acd89"
     },
     {
-      "path": "public/assets/index-DO0wuZld.js",
-      "bytes": 3018828,
-      "sha256": "8d5fbb340bafb8e9d772847a9e4895405b4f147aef94d74f2613189f3b145a65"
-    },
-    {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "1f39a822fc3414f00c097b44878fe64f8118a886db7bc932fe17dcc6985b1be5"
+      "sha256": "6b76fdb7a9db91cec8cbaefa086a2fdde3922e9c2d8b75f36718881363051679"
     },
     {
       "path": "public/runtime-config.json",
@@ -179,7 +184,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "a3d15e7cfc0d4cf820e62683c6ae9650989060a56e2b436b3802a32ba7701a11"
+      "sha256": "8ed5313020ba5cb4a1127abf5cb77d0c580b76462f302bcbfdad76ebdfd1719c"
     },
     {
       "path": "README.md",
@@ -193,13 +198,13 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 329,
-      "sha256": "8372fc8cf0c3a9e1daa10c24488f2dc9918ebc1db9c8cba7f72ae46deb122801"
+      "bytes": 74348,
+      "sha256": "0d2edbb3ec88f31a6f6a5ce1f19fcf9cce16ce10cd0ff94dd13b565517c5a3bd"
     },
     {
       "path": "resource-groups.json",
-      "bytes": 316846,
-      "sha256": "274f73cdcfc435a1fad2b8371824a751145d33e42da61c3c0007796914349e20"
+      "bytes": 390856,
+      "sha256": "2caf00fd5fe7512b60da1a5fb5fb047ac1d725107062e6e78fe430082d19caf1"
     },
     {
       "path": "sc2-backend.conf",
@@ -922,8 +927,8 @@
       "sha256": "eaf848b398aba0f455e7f15179f34131c82acd4d0c9aa2e4cd11ff9cb0a9bf20"
     }
   ],
-  "assets": 675,
-  "resourceBytes": 668621453,
+  "assets": 835,
+  "resourceBytes": 760556883,
   "includesDatabase": false,
   "includesAccounts": false,
   "resourcesIncluded": 0,

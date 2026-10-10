@@ -34,13 +34,18 @@ const {pack,stats}=createAssetPack(resources);
 const result=await build({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true'}});
 const js=result.outputFiles.find(f=>f.path.endsWith('.js')).text.replace(/<\/script/gi,'<\\/script');const css=result.outputFiles.find(f=>f.path.endsWith('.css'))?.text??'';
 const opening=await fs.readFile('src/ui/presentation/opening.generated.html','utf8');
-const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b24"><title>SC2 SURVIVORS · 星际幸存小队</title><style>${css}</style></head><body>${opening}<div id="game-root" inert><canvas id="battle" aria-label="星际幸存小队战场"></canvas><main id="interface"></main></div><script id="sc2-resource-pack" type="application/json">${JSON.stringify(pack)}</script><script>${js}</script></body></html>`;
+const metadata={version:pack.version,container:'chunks-v1',assets:pack.assets,chunks:pack.chunks.map(({data,...meta})=>({...meta,data:''}))};
+const prefix=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b24"><title>SC2 SURVIVORS · 星际幸存小队</title><style>${css}</style></head><body>${opening}<div id="game-root" inert><canvas id="battle" aria-label="星际幸存小队战场"></canvas><main id="interface"></main></div><script id="sc2-resource-pack" type="application/json">${JSON.stringify(metadata)}</script>`;
 const output=process.env.SC2_DEMO_OUTPUT??'dist/SC2-Survivors-Current-20261006.html',temporary=output+'.tmp';
-try{await fs.writeFile(temporary,html);await fs.rename(temporary,output);}
-catch(error){await fs.rm(temporary,{force:true});throw error;}
+const htmlHash=createHash('sha256');let handle;
+try{handle=await fs.open(temporary,'w');const write=async text=>{const bytes=Buffer.from(text);await handle.writeFile(bytes);htmlHash.update(bytes);};
+ await write(prefix);
+ for(const [index,chunk]of pack.chunks.entries())await write(`<script type="application/json" data-sc2-resource-chunk="${index}">${JSON.stringify(chunk)}</script>`);
+ await write(`<script>${js}</script></body></html>`);await handle.close();handle=null;await fs.rename(temporary,output);}
+catch(error){await handle?.close();await fs.rm(temporary,{force:true});throw error;}
 const stat=await fs.stat(output);console.log(`Standalone offline Demo: ${stat.size} bytes (${(stat.size/1048576).toFixed(2)} MiB), ${resources.length} losslessly embedded assets; no debug control API.`);
 
-const htmlSha256=createHash('sha256').update(html).digest('hex');
+const htmlSha256=htmlHash.digest('hex');
 await fs.writeFile('reports/local/offline-pack.json',JSON.stringify({...stats,htmlBytes:stat.size,htmlSha256,codec:'gzip per unique byte chunk + HTML-safe base85; local decoder; exact source-byte reconstruction'},null,2));
 const encodedById=new Map(stats.byAsset.map(item=>[item.id,item]));
 const rows=reachability.rows.map(row=>({...row,...encodedById.get(row.id)}));

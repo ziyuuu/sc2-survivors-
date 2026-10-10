@@ -1,5 +1,6 @@
 import {loadIntermissionAssets} from './intermission-assets.mjs';
 import {loadNativeHudAssets} from './native-hud-assets.mjs';
+import {loadMaterialTextures} from './material-textures.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
@@ -52,3 +53,4 @@ if(ui){
 
 await loadIntermissionAssets({restore:true,check:process.argv.includes('--check')});
 await loadNativeHudAssets({restore:true,check:process.argv.includes('--check')});
+await loadMaterialTextures({restore:true,check:process.argv.includes('--check')});

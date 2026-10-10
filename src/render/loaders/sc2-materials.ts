@@ -23,7 +23,7 @@ export async function restoreSc2Materials(g:GLTF){
 /** Bounds for the physical body only. Particle/displacement helpers never set world scale. */
 export function sc2BodyBounds(root:THREE.Object3D){
  root.updateMatrixWorld(true);const box=new THREE.Box3();
- root.traverse(n=>{if(n instanceof THREE.Mesh&&n.userData.sc2Role==='body')box.union(new THREE.Box3().setFromObject(n,true));});
+ root.traverse(n=>{if(n instanceof THREE.Mesh&&n.userData.sc2Role==='body'&&(Array.isArray(n.material)?n.material:[n.material]).some(m=>m.visible))box.union(new THREE.Box3().setFromObject(n,true));});
  return box.isEmpty()?new THREE.Box3().setFromObject(root,true):box;
 }
 export function sc2ModelScale(root:THREE.Object3D){let scale:number|undefined;root.traverse(n=>{if(typeof n.userData.sc2ModelScale==='number')scale=n.userData.sc2ModelScale;});return scale;}
