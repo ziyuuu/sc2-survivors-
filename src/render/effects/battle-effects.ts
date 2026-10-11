@@ -66,6 +66,7 @@ export class BattleEffects {
   }
  }
  event(e:VisualEvent,mount:{x:number;y:number;z:number}|null=null,leftMount:{x:number;y:number;z:number}|null=null){
+  if(e.kind==='squad-transfer'){for(const p of [{x:e.x,y:e.y,z:e.z},{...e.end,y:e.endY}])this.emit({asset:'fx.impact.0',...p,vx:0,vy:.5,vz:0,start:e.time,life:.45,size:1,growth:.6,color:0x96ddff,ground:false,angle:0,aspect:1.8,priority:'core'});return;}
   if(this.ordinaryEventIds.has(e.serial)){if(e.kind==='attack')this.stats.attack++;return;}
   if(!e.heroId&&isProtossEliteId(e.eliteId)&&['attack','projectile-impact','weapon-area','storm-start','skill-launch','skill-impact','support-impact','strategic-impact','barrier-start'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}
   if(!e.heroId&&isZergEliteId(e.eliteId)&&['attack','projectile-impact','weapon-area','skill-launch','skill-heal','skill-dot','bile-impact','baneling-recover','strategic-impact','support-flight','support-impact','support-pulse','barrier-start'].includes(e.kind)){if(e.kind==='attack')this.stats.attack++;return;}

@@ -1,3 +1,4 @@
+import {bodyOutline} from './body-outline';
 import {deathPoseTime} from './death-clock';
 import {copySourceDepth} from '../materials/posed-depth';
 import * as THREE from 'three';
@@ -26,7 +27,7 @@ export class CarrierViewAdapter {
 }
 /** Original temporary building model; its animation never alters the delivery transaction. */
 export class PodView {
- root=new THREE.Group();mixer:THREE.AnimationMixer;state='';adapter:CarrierViewAdapter;
+ bodyHeight:number;bodyOutline:THREE.Vector3[];root=new THREE.Group();mixer:THREE.AnimationMixer;state='';adapter:CarrierViewAdapter;
  birthMixer?:THREE.AnimationMixer;private model:THREE.Object3D;private birthModel?:THREE.Object3D;private birthDuration=0;
  private deathModel?:THREE.Object3D;private deathMixer?:THREE.AnimationMixer;private deathDuration=0;private deathSourceDuration=0;
  private materials:{material:THREE.Material;opacity:number;emissive:number|null}[]=[];
@@ -35,7 +36,7 @@ export class PodView {
   const model=this.model=clone(g.scene);this.mixer=new THREE.AnimationMixer(model);this.adapter=new CarrierViewAdapter(race,g.animations);
   const stand=this.adapter.clip('active');if(stand){this.mixer.clipAction(stand).play();this.mixer.setTime(0);}model.updateMatrixWorld(true);
   const attach=(body:THREE.Object3D)=>{const box=sc2BodyBounds(body),center=box.getCenter(new THREE.Vector3()),scale=2.7/Math.max(.01,box.max.x-box.min.x,box.max.z-box.min.z);body.scale.setScalar(scale);body.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);this.root.add(body);};
-  attach(model);
+  attach(model);this.bodyOutline=bodyOutline(this.root,new THREE.Matrix4());this.bodyHeight=Math.max(0,...this.bodyOutline.map(p=>p.y));
   if(death){const clip=death.animations.find(c=>/^Death/.test(c.name));if(!clip)throw Error('载体原死亡动作缺失');this.deathModel=clone(death.scene);this.deathMixer=new THREE.AnimationMixer(this.deathModel);this.deathSourceDuration=clip.duration;this.deathDuration=Math.min(6,clip.duration);const action=this.deathMixer.clipAction(clip);action.setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();this.deathMixer.setTime(0);attach(this.deathModel);this.deathModel.visible=false;}
   if(birth){const clip=birth.animations.find(c=>c.name==='Stand Build End');if(!clip)throw Error('原水晶塔出现动作缺失：Stand Build End');this.birthModel=clone(birth.scene);this.birthMixer=new THREE.AnimationMixer(this.birthModel);this.birthDuration=clip.duration;const action=this.birthMixer.clipAction(clip);action.setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();this.birthMixer.setTime(0);attach(this.birthModel);this.birthModel.visible=false;}
   scene.add(this.root);

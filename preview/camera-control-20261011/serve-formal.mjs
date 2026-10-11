@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {createGameServer} from '../../deploy/coze/coze-web-server.mjs';
+const root='reports/local/camera-control-20261011',read=async p=>JSON.parse(await fs.readFile(p,'utf8'));
+const port=Number(process.argv[2]??4354);assert.ok(Number.isInteger(port)&&port>=1024&&port<=65535);
+const approved=await read(root+'/delivery-preflight.json'),delivery=await read('deploy/coze/delivery.json');
+assert.equal(approved.passed,true);assert.equal(delivery.appBuildId,approved.appBuildId);assert.equal(delivery.packageBuildId,approved.packageBuildId);
+const server=createGameServer({webRoot:'deploy/coze/public',assetRoot:'deploy/runtime',backendOptions:{config:{enabled:false}}});
+await new Promise(resolve=>server.listen(port,'127.0.0.1',resolve));
+const url='http://127.0.0.1:'+port,health=await (await fetch(url+'/health')).json(),config=await (await fetch(url+'/api/config')).json();
+assert.equal(health.appBuildId,approved.appBuildId);assert.equal(health.release,approved.assetRelease);assert.equal(config.enabled,false);
+const result={at:new Date().toISOString(),url,pid:process.pid,health,backendEnabled:config.enabled,localOnly:true,webRoot:'deploy/coze/public',assetRoot:'deploy/runtime',packageBuildId:delivery.packageBuildId};
+await fs.writeFile(root+'/preview-final.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));

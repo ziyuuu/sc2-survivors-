@@ -14,7 +14,8 @@ const fidelityStage=process.argv.includes('--ui-fidelity');
 const cozeStage=process.argv.includes('--coze');
 const openingStage=process.argv.includes('--opening');
 const battleUiStage=process.argv.includes('--battle-ui');
-const cameraStage=process.argv.includes('--camera-calibration');
+const cameraControlStage=process.argv.includes('--camera-control');
+const cameraStage=process.argv.includes('--camera-calibration')||cameraControlStage;
 const terrainBatch4Stage=process.argv.includes('--terrain-batch4')||cameraStage;
 const lightingBatch3Stage=process.argv.includes('--lighting-batch3')||terrainBatch4Stage;
 const materialBatch2Stage=process.argv.includes('--material-batch2')||lightingBatch3Stage;
@@ -74,6 +75,7 @@ if(nativeHudStage)for(const name of ['NATIVE_HUD_INTEGRATION_20261010.md'])await
 if(materialBatchStage)await fs.copyFile('docs/project/MATERIAL_BATCH1_20261010.md',path.join(destination,'MATERIAL_BATCH1_20261010.md'));
 if(materialBatch2Stage)await fs.copyFile('docs/project/MATERIAL_BATCH2_20261010.md',path.join(destination,'MATERIAL_BATCH2_20261010.md'));
 if(lightingBatch3Stage)await fs.copyFile('docs/project/LIGHTING_BATCH3_20261010.md',path.join(destination,'LIGHTING_BATCH3_20261010.md'));
+if(cameraControlStage)await fs.copyFile('docs/project/CAMERA_CONTROL_20261011.md',path.join(destination,'CAMERA_CONTROL_20261011.md'));
 if(cameraStage)await fs.copyFile('docs/project/CAMERA_CALIBRATION_20261011.md',path.join(destination,'CAMERA_CALIBRATION_20261011.md'));
 if(terrainBatch4Stage)await fs.copyFile('docs/project/TERRAIN_BATCH4_20261011.md',path.join(destination,'TERRAIN_BATCH4_20261011.md'));
 if(entryStage)await fs.copyFile('docs/project/ENTRY_FIXES_20261009.md',path.join(destination,'ENTRY_FIXES_20261009.md'));
@@ -81,7 +83,7 @@ if(maintenanceStage)await fs.copyFile('docs/project/MAINTENANCE_SCOPE_20261008.m
 const pkg=JSON.parse(await fs.readFile(path.join(baseline,'package.json'),'utf8'));
 const lock=JSON.parse(await fs.readFile(path.join(baseline,'package-lock.json'),'utf8'));
 pkg.name=lock.name=lock.packages[''].name='sc2-survivors-current-application';
-pkg.version=lock.version=lock.packages[''].version=cameraStage?'0.6.20':terrainBatch4Stage?'0.6.19':lightingBatch3Stage?'0.6.18':materialBatch2Stage?'0.6.17':materialBatchStage?'0.6.16':nativeHudStage?'0.6.15':entryStage?'0.6.14':feedbackStage?'0.6.13':intermissionStage?'0.6.12':repairs459Stage?'0.6.11':maintenanceStage?'0.6.10':battleUiStage?'0.6.9':openingStage?'0.6.8':cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
+pkg.version=lock.version=lock.packages[''].version=cameraControlStage?'0.6.21':cameraStage?'0.6.20':terrainBatch4Stage?'0.6.19':lightingBatch3Stage?'0.6.18':materialBatch2Stage?'0.6.17':materialBatchStage?'0.6.16':nativeHudStage?'0.6.15':entryStage?'0.6.14':feedbackStage?'0.6.13':intermissionStage?'0.6.12':repairs459Stage?'0.6.11':maintenanceStage?'0.6.10':battleUiStage?'0.6.9':openingStage?'0.6.8':cozeStage?'0.6.7':fidelityStage?'0.6.6':performanceStage?'0.6.5':'0.6.4';
 for(const [name,data]of [['package.json',pkg],['package-lock.json',lock]]as const)await fs.writeFile(path.join(destination,name),JSON.stringify(data,null,2)+'\n');
 const priorGroups=JSON.parse(await fs.readFile(path.join(baseline,'resource-groups.json'),'utf8'));
 const priorByUrl=new Map<string,any>(priorGroups.files.map((row:any)=>[row.url,row]));

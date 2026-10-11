@@ -1,4 +1,5 @@
 import {commitInstances,uploadActive} from './instance-updates';
+import {bodyOutline} from './body-outline';
 import {compileUnitPose} from './unit-pose-shader';
 import {bindSourceDepth} from '../materials/posed-depth';
 import * as THREE from 'three';
@@ -26,7 +27,7 @@ export class AnimatedBatch {
  weaponTracks=new Map<string,THREE.Vector3[]>();
  clips=new Map<string,PoseClip>();actions:ReturnType<typeof mapAnimations>;
  private lodIndices:{full:THREE.BufferAttribute;low:THREE.BufferAttribute}[]=[];private lowDetail=false;lodRatio=1;
- count=0;bodyHeight:number;scale:number;normalization:THREE.Matrix4;textureBytes=0;boneCount=0;
+ count=0;bodyOutline:THREE.Vector3[];bodyRadius:number;bodyHeight:number;scale:number;normalization:THREE.Matrix4;textureBytes=0;boneCount=0;
  animationMode:AnimationMode='complete';
  readonly materialSurfaces:UnitMaterialSurface[]=[];
  constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number){
@@ -43,7 +44,8 @@ export class AnimatedBatch {
   // This avoids compounding differently sized original skins; death/forms reuse the same normalization.
   if(referenceBodyHeight!==undefined&&referenceBodyHeight>0)this.scale=referenceBodyHeight/Math.max(.001,box.max.y-box.min.y);
   this.normalization=normalization?.clone()??new THREE.Matrix4().makeScale(this.scale,this.scale,this.scale).multiply(new THREE.Matrix4().makeTranslation(-center.x,-box.min.y,-center.z));
-  const body=box.clone().applyMatrix4(this.normalization);this.bodyHeight=body.max.y-body.min.y;
+  const body=box.clone().applyMatrix4(this.normalization);this.bodyHeight=body.max.y-body.min.y;this.bodyRadius=Math.max(body.max.x-body.min.x,body.max.z-body.min.z)/2;
+  this.bodyOutline=bodyOutline(gltf.scene,this.normalization);
   const turret=gltf.scene.getObjectByName('Bone_Turret_Base'),turretBones=new Set<THREE.Object3D>();turret?.traverse(n=>turretBones.add(n));turret?.getWorldPosition(this.turretPivot).applyMatrix4(this.normalization);
   // Only gameplay clips; dance/fidget/portrait sequences remain in the GLB but do not cost GPU memory.
   const clips=[...new Set(Object.values(this.actions).filter((c):c is THREE.AnimationClip=>!!c))];

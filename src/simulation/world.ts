@@ -932,7 +932,7 @@ export class World extends RunState {
  previewTactical(point?:Point){return previewTactical(this,point);}
  castTactical(point?:Point){return castTactical(this,point);}
  commitStrategicStrike(point:Point){return commitStrategic(this,point);}
- airlift(point:Point=defaultTalentTransferTarget(this),participantIds?:number[]){return prepareTransfer(this,point,participantIds);}
+ airlift(){return prepareTransfer(this,defaultTalentTransferTarget(this));}
  step(){if(this.phase!=='battle'||this.paused||this.requiresPlayerDecision)return;if(this.expedition.bossLootQueue.length)this.atomicMutation(()=>settlePendingLoot(this));const dt=TUNING.step;this.tick++;this.time=this.tick*dt;this.stageElapsed+=dt;this.statuses.tick(this.time);
   if(this.talentTransferPlan&&this.time+1e-8>=this.talentTransferPlan.readyAt)finishTransfer(this);
   if(this.endless&&this.runId){const minutes=Math.floor((this.endlessElapsed+1e-8)/60);while(this.endlessAwardedMinutes<minutes){this.endlessAwardedMinutes++;this.awardPermanentResource(this.runId+':endless:'+this.endlessAwardedMinutes,talentPointsForEndlessMinute(this.difficulty));}}

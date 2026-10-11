@@ -11,6 +11,7 @@ export class CarrierInspector {
   this.root.addEventListener('pointerdown',e=>e.stopPropagation());this.root.addEventListener('click',e=>{e.stopPropagation();if((e.target as HTMLElement).closest('button'))this.close();});
   this.root.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Escape'){e.preventDefault();this.close();}else if(e.key==='Tab'){e.preventDefault();this.root.querySelector<HTMLButtonElement>('button')?.focus();}});
  }
+ get selectedId(){return this.id;}
  show(id:number){this.previousFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;document.dispatchEvent(new CustomEvent('sc2-inspection-open',{detail:'carrier'}));this.id=id;this.signature='';this.update();this.root.querySelector<HTMLButtonElement>('button')?.focus({preventScroll:true});}
  close(){const wasOpen=!this.root.hidden;this.id=null;this.root.hidden=true;if(wasOpen&&this.previousFocus?.isConnected)this.previousFocus.focus({preventScroll:true});this.previousFocus=null;}
  update(){this.entry.hidden=this.world.phase!=='battle'||!this.world.pods.some(p=>['falling','active','opening'].includes(p.status));const pod=this.id===null?undefined:this.world.pods.find(p=>p.id===this.id);if(!pod||this.world.phase!=='battle'||!['falling','active','opening'].includes(pod.status)){this.close();return;}

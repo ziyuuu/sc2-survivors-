@@ -673,7 +673,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 6,
     "semanticId": "airlift",
-    "description": "冷却180／90秒；选择锚点前方合法集结点，准备2秒后搬运本次选中的合法地面战斗组；各单位保伤损命令，不能落地则原位且不耗冷却，见5.8。",
+    "description": "冷却180／90秒，准备2秒；朝当前移动目的地转移全体合法地面成员，集结中心最远16码；保留伤损与原移动命令，无目标或落地失败静默且不耗冷却，见5.8。",
     "prerequisiteText": "M03满"
   },
   {
@@ -1388,7 +1388,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 6,
     "semanticId": "airlift",
-    "description": "冷却180／90秒，准备2秒；选择锚点前方同一开放区域合法集结点，运送可移动地面战斗组；是天赋转移效果，不赋予全部虫族常驻埋地或隐形，见5.8。",
+    "description": "冷却180／90秒，准备2秒；朝当前移动目的地转移全体合法地面成员，集结中心最远16码；不赋予常驻埋地或隐形，失败静默且不耗冷却，见5.8。",
     "prerequisiteText": "M03满"
   },
   {
@@ -2103,7 +2103,7 @@ export const MVP_TALENT_ROWS = [
     "allocationCost": 1,
     "resourceCost": 6,
     "semanticId": "airlift",
-    "description": "冷却180／90秒，准备2秒后将选定可移动地面战斗组召回锚点前方合法集结点；保留生命/护盾/冷却/命令，飞行单位不参加；详见5.8。",
+    "description": "冷却180／90秒，准备2秒；朝当前移动目的地召回全体合法地面成员，集结中心最远16码；保留生命/盾/能量/冷却/命令，飞行单位不参加，见5.8。",
     "prerequisiteText": "M03满"
   },
   {

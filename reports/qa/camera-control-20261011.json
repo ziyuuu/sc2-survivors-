@@ -1,0 +1,319 @@
+{
+  "passed": true,
+  "at": "2026-10-11T16:53:29.011Z",
+  "appBuildId": "2bc589bf5fca1153bb2ffe51f910e7b55346ae76dd5bbc7402e67125d2f88c0e",
+  "assetRelease": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+  "packageBuildId": "33f3907a9cc5b7d1582bc0de0a3ae1d4bcf78167263b64937e3bd58ebed1bf63",
+  "htmlSha256": "d83268d0a76f555c6b662d2dc34c2c038a93f3b978ca69d978d56aa6436dc61d",
+  "zipSha256": "ac1b29acbaccdc110f71c69591377427e58a4ba76c5c15ee70342b6aa1896d1d",
+  "pairedStates": 660,
+  "formalReports": 11,
+  "recordings": [
+    {
+      "name": "solo-end",
+      "wallSeconds": 20.008,
+      "simulationTicks": 1200,
+      "frames": 1200,
+      "discardedSeconds": 0,
+      "video": {
+        "path": "reports/local/camera-control-20261011/recording-r2/solo-native-20s.webm",
+        "bytes": 5519331,
+        "sha256": "24d76c94fcf8e8772633097d9ea25f16712b418a795ba75bb302b9b7f846f80d"
+      }
+    },
+    {
+      "name": "lag-end",
+      "wallSeconds": 20.0175,
+      "simulationTicks": 1200,
+      "frames": 1198,
+      "discardedSeconds": 0,
+      "video": {
+        "path": "reports/local/camera-control-20261011/recording-r2/lag-native-20s.webm",
+        "bytes": 6702982,
+        "sha256": "8575c7757ca888b53801c49c8b26b326b205bd9905fc447e95bcee1fe07c58cd"
+      }
+    },
+    {
+      "name": "anchor-end",
+      "wallSeconds": 20.01180000001192,
+      "simulationTicks": 1200,
+      "frames": 1199,
+      "discardedSeconds": 0,
+      "video": {
+        "path": "reports/local/camera-control-20261011/recording-r2/anchor-native-20s.webm",
+        "bytes": 6095664,
+        "sha256": "cd015b0c04055cd3fd908259bb1109592020d9ed9317a176e03566eb4ef1c8c6"
+      }
+    },
+    {
+      "name": "enemy-end",
+      "wallSeconds": 20.0125,
+      "simulationTicks": 1200,
+      "frames": 1202,
+      "discardedSeconds": 0,
+      "video": {
+        "path": "reports/local/camera-control-20261011/recording-r2/enemy-native-20s.webm",
+        "bytes": 6279476,
+        "sha256": "a64f564b26bc096d0439bb78cb09cc16a34fc9b5f24c31856512a50ddae42e71"
+      }
+    },
+    {
+      "name": "rescue-end",
+      "wallSeconds": 20.01519999998808,
+      "simulationTicks": 1200,
+      "frames": 1200,
+      "discardedSeconds": 0,
+      "video": {
+        "path": "reports/local/camera-control-20261011/recording-r2/rescue-native-20s.webm",
+        "bytes": 6125981,
+        "sha256": "9136689772444dca204da5b71966e6a3674db18f27563fd8a81d317c24fd1d27"
+      }
+    }
+  ],
+  "compiledInputs": 321,
+  "diagnostics": {
+    "baseline-matrix-r1": {
+      "records": 108,
+      "checks": 0,
+      "build": "1fbfc5d1bed4c58eb436bc888bca3634954630621d93f1146c458d81c42ff8ad"
+    },
+    "matrix-r9": {
+      "records": 324,
+      "checks": 0,
+      "build": "aa8f141dd61f87d97430045484b8bd46c08b4114764aa5994f49b8fbdeded5dc"
+    },
+    "baseline-identities-r1": {
+      "records": 138,
+      "checks": 0,
+      "build": "1fbfc5d1bed4c58eb436bc888bca3634954630621d93f1146c458d81c42ff8ad"
+    },
+    "identities-r9": {
+      "records": 138,
+      "checks": 0,
+      "build": "aa8f141dd61f87d97430045484b8bd46c08b4114764aa5994f49b8fbdeded5dc"
+    },
+    "baseline-edges-r2": {
+      "records": 99,
+      "checks": 0,
+      "build": "e41d0372c0b7ea7a1800a7baad38c062d34df31382f20dbcdb9986e952b360b2"
+    },
+    "edges-r10": {
+      "records": 198,
+      "checks": 0,
+      "build": "a99c0d50f75725b4eebb6027dbb8146a6082e77b20e133b3a8d28b12d0539bd4"
+    },
+    "pitch-r9": {
+      "records": 162,
+      "checks": 0,
+      "build": "aa8f141dd61f87d97430045484b8bd46c08b4114764aa5994f49b8fbdeded5dc"
+    },
+    "behaviors-r9": {
+      "records": 50,
+      "checks": 9,
+      "build": "aa8f141dd61f87d97430045484b8bd46c08b4114764aa5994f49b8fbdeded5dc"
+    },
+    "actors-r8": {
+      "records": 27,
+      "checks": 0,
+      "build": "aa8f141dd61f87d97430045484b8bd46c08b4114764aa5994f49b8fbdeded5dc"
+    },
+    "lifecycle-r9": {
+      "records": 20,
+      "checks": 5,
+      "build": "aa8f141dd61f87d97430045484b8bd46c08b4114764aa5994f49b8fbdeded5dc"
+    },
+    "recording-r2": {
+      "records": 10,
+      "checks": 5,
+      "build": "aa8f141dd61f87d97430045484b8bd46c08b4114764aa5994f49b8fbdeded5dc"
+    }
+  },
+  "formal": {
+    "input-web-r2": {
+      "records": 6,
+      "screens": 110,
+      "exports": 70
+    },
+    "formal-web-r2": {
+      "checks": 0,
+      "screens": 12,
+      "exports": 12
+    },
+    "missing-web-r1": {
+      "checks": 2,
+      "screens": 2,
+      "exports": 0
+    },
+    "tosh-web-r1": {
+      "records": 9,
+      "screens": 9,
+      "exports": 24
+    },
+    "input-offline-r1": {
+      "records": 6,
+      "screens": 110,
+      "exports": 70
+    },
+    "formal-offline-r1": {
+      "checks": 0,
+      "screens": 12,
+      "exports": 12
+    },
+    "tosh-offline-r1": {
+      "records": 9,
+      "screens": 9,
+      "exports": 24
+    },
+    "transfer-input-web-r3": {
+      "records": 4,
+      "screens": 8,
+      "exports": 8
+    },
+    "transfer-input-offline-r1": {
+      "records": 4,
+      "screens": 8,
+      "exports": 8
+    },
+    "auto-web-r2": {
+      "records": 9,
+      "screens": 18,
+      "exports": 18
+    },
+    "auto-offline-r1": {
+      "records": 9,
+      "screens": 18,
+      "exports": 18
+    }
+  },
+  "gallery": {
+    "pairs": 660,
+    "files": 1585,
+    "formalScreens": 316,
+    "extraScreens": 259
+  },
+  "regressions": 1352,
+  "docsMatch": true,
+  "baseline": "f106ac52269248cb0fab761a1283e1ad8e861b61",
+  "scope": "Nine pitch settings, fixed/automatic framing, unified health bars and destination-based silent squad transfer; native movement arrow retained.",
+  "schemas": {
+    "run": 26,
+    "profile": 6,
+    "mapRecipe": 3
+  },
+  "resources": {
+    "records": 881,
+    "files": 863,
+    "bytes": 776676720,
+    "added": 0,
+    "originalSources": 799
+  },
+  "protection": {
+    "records": 5927,
+    "counts": {
+      "same": 5900,
+      "authorized-edit": 24,
+      "application": 3
+    },
+    "productionInputs": 222
+  },
+  "delivery": {
+    "passed": true,
+    "at": "2026-10-11T16:53:29.008Z",
+    "appBuildId": "2bc589bf5fca1153bb2ffe51f910e7b55346ae76dd5bbc7402e67125d2f88c0e",
+    "packageBuildId": "33f3907a9cc5b7d1582bc0de0a3ae1d4bcf78167263b64937e3bd58ebed1bf63",
+    "resourceRelease": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+    "html": {
+      "path": "dist/SC2-Survivors-Camera-Control-Final-20261011.html",
+      "bytes": 635724296,
+      "sha256": "d83268d0a76f555c6b662d2dc34c2c038a93f3b978ca69d978d56aa6436dc61d"
+    },
+    "zip": {
+      "passed": true,
+      "path": "dist/Camera-Control-Final-Application-20261011.zip",
+      "bytes": 10001542,
+      "sha256": "ac1b29acbaccdc110f71c69591377427e58a4ba76c5c15ee70342b6aa1896d1d",
+      "members": 189,
+      "packageBuildId": "33f3907a9cc5b7d1582bc0de0a3ae1d4bcf78167263b64937e3bd58ebed1bf63",
+      "appBuildId": "2bc589bf5fca1153bb2ffe51f910e7b55346ae76dd5bbc7402e67125d2f88c0e",
+      "resourceRelease": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+      "embeddedRuntimeResources": 0,
+      "verifiedRoundTrip": true
+    },
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "identical": true
+    },
+    "localMirror": {
+      "path": "deploy/coze",
+      "files": 188,
+      "allManifestHashesMatch": true
+    },
+    "preview": {
+      "url": "http://127.0.0.1:4354",
+      "backendEnabled": false
+    },
+    "gallery": "http://127.0.0.1:4353/comparison-gallery.html",
+    "onlineOperations": 0
+  },
+  "visual": {
+    "passed": true,
+    "method": "Bounded model visual review of actual saved screenshots and browser-decoded video frames. Index sheets only scale or explicitly crop existing pixels; original images remain authoritative. This is not human acceptance or an every-frame video review.",
+    "identityImagesReviewed": 138,
+    "matrixImagesReviewed": 108,
+    "finalEdgeImagesReviewed": 44,
+    "actorImagesReviewed": 9,
+    "additionalNativeImages": [
+      "behaviors-r9/hots_leviathan-selected.png",
+      "auto-web-r2/protoss-390-moving.png",
+      "input-web-r2/390-pitch-50.png"
+    ],
+    "indices": [
+      "visual-review-index/identities-index.json",
+      "visual-review-index/matrix-index.json",
+      "visual-review-edge-r10/edges-index.json",
+      "visual-review-index/actors-index.json",
+      "visual-review-index/videos-index.json"
+    ],
+    "actorSubset": [
+      "terran-full",
+      "protoss-damaged",
+      "zerg-damaged"
+    ],
+    "videosFullyPlayed": 5,
+    "playbackRate": 4,
+    "decodedFramesReviewed": 20,
+    "frameTimesSeconds": [
+      2,
+      6,
+      12,
+      18
+    ],
+    "recording": "recording-r2",
+    "observations": [
+      "All 138 default centered body crops and the reviewed five-map/endless desktop/portrait views show no new missing-model or material-color fault in this bounded review.",
+      "The selected Leviathan bar lies above the visible body. Final edge fixtures show real body fragments at the edge; old bbox-corner slivers were rejected as body-visibility evidence.",
+      "Portrait settings contain the nine-stop pitch slider and camera/health choices without truncating the controls in the reviewed 390px screenshot.",
+      "Solo converges toward 110% and 45 degrees. The slow tank remains inside the viewport at an observed maximum anchor lag of about 10.878 world units; this sample does not require further widening.",
+      "Enemy entry and rescue approach expand the view; after the enemy is removed the camera closes again. The decoded frames retain visible bodies and coherent terrain transitions.",
+      "The deliberately stopped main unit with an anchor moved about 27.907 units away leaves the frame despite reaching 60 degrees/60%. Of 201 timeline samples, 161 have a primary center outside and 177 have a conservative primary box clipped. Actual frames at 6/12/18 seconds confirm that limitation. This is not accepted as universal dynamic core visibility.",
+      "High-zoom fixed giant tops, crowded child health bars, low-pixel bodies and dark Char remain limits. Original authored hero/skill auras remain intentional."
+    ],
+    "universalDynamicCoreVisibilityAccepted": false,
+    "humanAcceptance": false,
+    "matchedOriginalClientParity": false,
+    "naturalCampaignAcceptance": false,
+    "stableFpsAcceptance": false
+  },
+  "limitations": [
+    "Controlled fixtures and virtual standard Gamepad, not physical devices/controller or natural campaign acceptance",
+    "Automatic framing remains bounded by 40–60 degrees and 60–180% zoom; giant tops and distant targets can remain outside",
+    "Dense child health bars can overlap; small body pixels and dark Char remain",
+    "Body outline uses original reference pose, not every animated skin vertex",
+    "No stable FPS/GPU/performance improvement claim; overall quality tiers deferred",
+    "Full combat FX, remaining dynamic clarity and traceable actual-client matched repair still precede overall performance",
+    "Natural/physical/high-refresh/low-memory/human/source/ScienceVessel/P6-V01/production/B4 gates open"
+  ],
+  "evidenceRoot": "reports/local/camera-control-20261011",
+  "otherThreadWorkExcluded": true,
+  "gitSynchronization": "Recorded separately after the normal main commit/push and remote comparison."
+}

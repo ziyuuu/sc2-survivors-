@@ -79,7 +79,7 @@ export function battleActionState(w:World,id:BattleActionId,allowPanelPause=fals
 
 export function activateBattleAction(w:World,id:BattleActionId):boolean{
  const state=battleActionState(w,id);
- if(!state.enabled||typeof document!=='undefined'&&document.body.dataset.battleActionsReady==='false'){w.announce(state.reason||'战场素材准备中');return false;}
+ if(!state.enabled||typeof document!=='undefined'&&document.body.dataset.battleActionsReady==='false'){if(id!=='airlift')w.announce(state.reason||'战场素材准备中');return false;}
  if(typeof document!=='undefined')document.dispatchEvent(new Event('sc2-target-cancel'));
  const target=(kind:string)=>{if(typeof document==='undefined')return false;document.dispatchEvent(new CustomEvent('sc2-target-family',{detail:kind}));return true;};
  const family=actionModeFamily(id);let used=false;
@@ -89,10 +89,10 @@ export function activateBattleAction(w:World,id:BattleActionId):boolean{
  else if(id==='dash')used=w.dash();
  else if(id==='detection')used=w.castDetection();
  else if(id==='stim')used=w.stim();
- else if(id==='airlift')used=target('transfer');
+ else if(id==='airlift')used=w.airlift();
  else if(id==='strategic')used=target('strategic');
  else if(id==='tactical')used=w.expedition.race==='protoss'?target('tactical'):w.castTactical();
  else if(id==='unit-operations'){if(typeof document!=='undefined'){document.dispatchEvent(new Event('sc2-open-unit-operations'));used=true;}}
  else if(id.startsWith('hero-slot-')){const hero=heroForBattleSlot(w,Number(id.slice(-1)));used=!!hero&&w.castHero(hero,hero==='tosh'?battleContexts.get(w)?.():undefined);}
- if(!used)w.announce('当前没有合法可执行对象');return used;
+ if(!used&&id!=='airlift')w.announce('当前没有合法可执行对象');return used;
 }
