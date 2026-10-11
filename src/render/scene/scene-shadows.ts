@@ -13,7 +13,7 @@ function elevationRange(terrain:TerrainQuery|undefined){if(!terrain)return {min:
 export class ShadowViewContext {
  readonly frustum=new THREE.Frustum();readonly matrix=new THREE.Matrix4();revision=0;private sphere=new THREE.Sphere();
  bounds={width:0,height:0,texelX:0,texelY:0,centerX:0,centerY:0,near:.5,far:1,maxCasterHeight:32};
- fit(camera:THREE.OrthographicCamera,light:THREE.DirectionalLight,terrain:TerrainQuery|undefined){
+ fit(camera:THREE.Camera,light:THREE.DirectionalLight,terrain:TerrainQuery|undefined){
   camera.updateMatrixWorld();const range=elevationRange(terrain),points:THREE.Vector3[]=[];
   for(const y of [range.min-.1,range.max+.1])for(const x of [-1,1])for(const z of [-1,1]){const a=new THREE.Vector3(x,z,-1).unproject(camera),b=new THREE.Vector3(x,z,1).unproject(camera).sub(a);if(Math.abs(b.y)<1e-6)throw Error('Shadow view requires a ground-facing camera');points.push(a.addScaledVector(b,(y-a.y)/b.y));}
   let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity,minZ=Infinity,maxZ=-Infinity;
@@ -38,7 +38,7 @@ export class SceneShadows {
   if(renderer.capabilities.maxTextureSize<SHADOW_RESOLUTION){this.enabled=false;this.fallback='Required 1024 shadow texture is unsupported';}
   renderer.shadowMap.enabled=this.enabled;renderer.shadowMap.type=THREE.PCFShadowMap;light.castShadow=this.enabled;light.shadow.mapSize.set(SHADOW_RESOLUTION,SHADOW_RESOLUTION);light.shadow.bias=-.00008;light.shadow.normalBias=.035;
  }
- update(camera:THREE.OrthographicCamera,terrain:TerrainQuery|undefined){if(this.enabled)this.view.fit(camera,this.light,terrain);}
+ update(camera:THREE.Camera,terrain:TerrainQuery|undefined){if(this.enabled)this.view.fit(camera,this.light,terrain);}
  prepare(root:THREE.Object3D=this.scene){if(this.enabled)this.depth.configure(root);}
  restore(){this.light.shadow.map?.dispose();this.light.shadow.map=null;this.light.shadow.needsUpdate=true;this.renderer.shadowMap.needsUpdate=true;}
  report(){let meshes=0,surfaces=0,posed=0;this.scene.traverseVisible(node=>{if(!(node instanceof THREE.Mesh)||!node.castShadow||node instanceof THREE.InstancedMesh&&node.count===0)return;meshes++;if(node instanceof THREE.SkinnedMesh||node.geometry.hasAttribute('unitPose'))posed++;surfaces+=(Array.isArray(node.material)?node.material:[node.material]).filter(physicalSurface).length;});return {enabled:this.enabled,method:'PCF',resolution:SHADOW_RESOLUTION,ready:this.enabled&&!!this.light.shadow.map,fallback:this.fallback,casters:meshes,surfaces,posedCasters:posed,view:{...this.view.bounds},revision:this.view.revision,poseDepth:true};}

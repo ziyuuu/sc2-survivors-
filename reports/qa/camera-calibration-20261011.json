@@ -1,0 +1,2572 @@
+{
+  "passed": true,
+  "at": "2026-10-11T11:39:18.388Z",
+  "appBuildId": "09b2b7173983997b4f51fa0bc7c18d697011e14505d5a8b344f6f2bd74488d99",
+  "assetRelease": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+  "packageBuildId": "3c2b0ea2bf320557a3197c3a4ec99118870fa64627408695dab366d1ac705770",
+  "htmlSha256": "10f4088cd41bc0f6c76aaa71ec623c708b0d4e4e3d1e8943f482cf386e6a3cf7",
+  "zipSha256": "42b4839163951360942e66746e2b94906166d25d91fa792aa06887a46b760482",
+  "pairedStates": 1893,
+  "formalReports": 11,
+  "recordings": [
+    {
+      "name": "industrial-terran-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 0,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4001.2000000029802,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8011.70000000298,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12001.5,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16001.40000000596,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.009,
+        "simulationTicks": 1200,
+        "frames": 1173,
+        "backlogSeconds": 0.0012999999970203131,
+        "discardedSeconds": 0,
+        "rafP95": 18.099999994039536,
+        "visible": "visible",
+        "focus": true,
+        "state": "1826ac77",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 52946,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/industrial-terran-native-20s.webm",
+        "bytes": 5442125,
+        "sha256": "07b10fa498b2815cab9e6d61629cd7d24976d99d3d51017f09b8084eff443f5b"
+      }
+    },
+    {
+      "name": "industrial-zerg-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 0.10000000894069672,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4006.6000000089407,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8006.4000000059605,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12006.300000011921,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16006.300000011921,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.0135,
+        "simulationTicks": 1200,
+        "frames": 1201,
+        "backlogSeconds": 0.006300000011921585,
+        "discardedSeconds": 0,
+        "rafP95": 17,
+        "visible": "visible",
+        "focus": true,
+        "state": "dbf22eed",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 97408.39999999106,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/industrial-zerg-native-20s.webm",
+        "bytes": 6487738,
+        "sha256": "332d5678fb9c2e3b60201d3b98c32a9b7cc07e30c93ea2f339e3b5f98d26efa3"
+      }
+    },
+    {
+      "name": "industrial-protoss-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 12.5,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4012.5999999940395,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8012.5999999940395,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12013.20000000298,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16012.59999999404,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.007,
+        "simulationTicks": 1199,
+        "frames": 1160,
+        "backlogSeconds": 0.012666666666667156,
+        "discardedSeconds": 0,
+        "rafP95": 24.799999997019768,
+        "visible": "visible",
+        "focus": true,
+        "state": "a52cd077",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 143118.70000000298,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/industrial-protoss-native-20s.webm",
+        "bytes": 6336839,
+        "sha256": "2dd630282a47b4d79f6c152cbdef22a3b1ef4930161036f748775d51e3dd4c66"
+      }
+    },
+    {
+      "name": "mar-sara-terran-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 0.10000000894069672,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4009.2000000029802,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8009.100000008941,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12001.29999999702,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16009.10000000894,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.01979999999702,
+        "simulationTicks": 1200,
+        "frames": 1193,
+        "backlogSeconds": 0.00920000000298083,
+        "discardedSeconds": 0,
+        "rafP95": 17,
+        "visible": "visible",
+        "focus": true,
+        "state": "94a63c5a",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 188955.39999999106,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/mar-sara-terran-native-20s.webm",
+        "bytes": 5526883,
+        "sha256": "0f8b181e804305e3a784d8acdeeef489b356b82d4162fe2c20f6f24d1ddf29de"
+      }
+    },
+    {
+      "name": "mar-sara-zerg-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 0,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4004.5,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8004.5,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12004.5,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16004.39999999106,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.01509999999404,
+        "simulationTicks": 1200,
+        "frames": 1202,
+        "backlogSeconds": 0.004500000000000632,
+        "discardedSeconds": 0,
+        "rafP95": 16.900000005960464,
+        "visible": "visible",
+        "focus": true,
+        "state": "4f223787",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 229959.59999999404,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/mar-sara-zerg-native-20s.webm",
+        "bytes": 5475045,
+        "sha256": "542c0024d43467bdaaa8077c49aa343d42de82ca258eb0f855aa1553687bb5b2"
+      }
+    },
+    {
+      "name": "mar-sara-protoss-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 0.10000000894069672,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4003.7000000029802,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8003.600000008941,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12003.800000011921,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16015.800000011921,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.013400000005962,
+        "simulationTicks": 1200,
+        "frames": 1152,
+        "backlogSeconds": 0.0009000000059610005,
+        "discardedSeconds": 0,
+        "rafP95": 27.099999994039536,
+        "visible": "visible",
+        "focus": true,
+        "state": "9d725ec5",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 271210.89999999106,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/mar-sara-protoss-native-20s.webm",
+        "bytes": 4989918,
+        "sha256": "16566c0ab44c95884cdc7989c73e414b34e817c82883cd457f7948a30a98d185"
+      }
+    },
+    {
+      "name": "char-terran-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 0,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4005.2999999970198,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8005.29999999702,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12005.199999988079,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16005.09999999404,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.01579999999702,
+        "simulationTicks": 1200,
+        "frames": 1199,
+        "backlogSeconds": 0.005199999988079591,
+        "discardedSeconds": 0,
+        "rafP95": 16.900000005960464,
+        "visible": "visible",
+        "focus": true,
+        "state": "2e541697",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 312642.700000003,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/char-terran-native-20s.webm",
+        "bytes": 6551022,
+        "sha256": "34f60be0aa907ef517c2248d47eac14ec9051a275327fc3ea6a5cdd381c6198e"
+      }
+    },
+    {
+      "name": "char-zerg-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 13.799999997019768,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4013.7000000029802,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8013.5999999940395,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12013.70000000298,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16013.59999999404,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.004,
+        "simulationTicks": 1199,
+        "frames": 1200,
+        "backlogSeconds": 0.013466666663687146,
+        "discardedSeconds": 0,
+        "rafP95": 16.900000005960464,
+        "visible": "visible",
+        "focus": true,
+        "state": "ae6ef1d0",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 357384.39999999106,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/char-zerg-native-20s.webm",
+        "bytes": 6708427,
+        "sha256": "f6a3c522909509858276ab13a3a140e61fe0821f1c4a2c58ed0ef2ac48b0839e"
+      }
+    },
+    {
+      "name": "char-protoss-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 0.09999999403953552,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4007.2000000029802,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8007.4000000059605,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12007.09999999404,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16007.09999999404,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.00259999999404,
+        "simulationTicks": 1199,
+        "frames": 1196,
+        "backlogSeconds": 0.007266666660706838,
+        "discardedSeconds": 0,
+        "rafP95": 17,
+        "visible": "visible",
+        "focus": true,
+        "state": "cfdec32f",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 402457.299999997,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/char-protoss-native-20s.webm",
+        "bytes": 6167862,
+        "sha256": "51b11c3f078af59ece2920cc2a63c64d7549485f491247c0198bf5d6b2d72336"
+      }
+    },
+    {
+      "name": "ice-terran-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 0.09999999403953552,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4001.5,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8001.29999999702,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12001.5,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16001.5,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.01089999999106,
+        "simulationTicks": 1200,
+        "frames": 1144,
+        "backlogSeconds": 0.0015000000000005079,
+        "discardedSeconds": 0,
+        "rafP95": 27.200000002980232,
+        "visible": "visible",
+        "focus": true,
+        "state": "e904ed27",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 447212.799999997,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/ice-terran-native-20s.webm",
+        "bytes": 6385108,
+        "sha256": "27fa7bc4b7df8118a750accb8fe55939f65f72eb252d9d524886cb60a32748c9"
+      }
+    },
+    {
+      "name": "ice-zerg-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 9.5,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4009.5,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8009.600000008941,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12009.60000000894,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16009.5,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.021,
+        "simulationTicks": 1200,
+        "frames": 1200,
+        "backlogSeconds": 0.009500000000000612,
+        "discardedSeconds": 0,
+        "rafP95": 17,
+        "visible": "visible",
+        "focus": true,
+        "state": "c6262ef5",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 491854.89999999106,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/ice-zerg-native-20s.webm",
+        "bytes": 6110309,
+        "sha256": "707e5dce52609eb860666879583553b54ad21e642aadf7a0ca4501beb27e2320"
+      }
+    },
+    {
+      "name": "ice-protoss-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 10.599999994039536,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4010.9000000059605,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8020.5,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12013,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16001.79999999702,
+            "tick": 1348,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.893333333333329,
+              "facing": -3.141592653589794
+            }
+          }
+        ],
+        "wallSeconds": 20.00770000000298,
+        "simulationTicks": 1199,
+        "frames": 1023,
+        "backlogSeconds": 0.012266666660706606,
+        "discardedSeconds": 0,
+        "rafP95": 31,
+        "visible": "visible",
+        "focus": true,
+        "state": "d7fec0f3",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 535770,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/ice-protoss-native-20s.webm",
+        "bytes": 5676276,
+        "sha256": "b026ea9a64c64d009e10d8225df7731df4baa64ad5b958e0d57d6295164bcff8"
+      }
+    },
+    {
+      "name": "frontier-terran-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 5.699999988079071,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4005.699999988079,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8005.699999988079,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12005.59999999404,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16005.89999999106,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.01629999999702,
+        "simulationTicks": 1200,
+        "frames": 1195,
+        "backlogSeconds": 0.005799999997020272,
+        "discardedSeconds": 0,
+        "rafP95": 17,
+        "visible": "visible",
+        "focus": true,
+        "state": "04fe2b83",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 580625,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/frontier-terran-native-20s.webm",
+        "bytes": 6708889,
+        "sha256": "fc2fd2454fdee4ed970a6def570bac82c87bc2a33b289ebaa221f247b80e75f4"
+      }
+    },
+    {
+      "name": "frontier-zerg-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 0,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4006.8999999910593,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8006.899999991059,
+            "tick": 869,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.20000000000008,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12006.89999999106,
+            "tick": 1109,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.20000000000008,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16006.89999999106,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.799999999999996,
+              "facing": -3.1415926535897936
+            }
+          }
+        ],
+        "wallSeconds": 20.017099999994038,
+        "simulationTicks": 1200,
+        "frames": 1202,
+        "backlogSeconds": 0.006899999991059825,
+        "discardedSeconds": 0,
+        "rafP95": 17,
+        "visible": "visible",
+        "focus": true,
+        "state": "5c59d0a3",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 627873.700000003,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/frontier-zerg-native-20s.webm",
+        "bytes": 6464667,
+        "sha256": "dc9c026265c2e7a07f850b1e1256dfe6215552b24f5fd33cedc6418c956e7270"
+      }
+    },
+    {
+      "name": "frontier-protoss-continuous-end",
+      "clock": {
+        "timeline": [
+          {
+            "wallMs": 10,
+            "tick": 390,
+            "zoom": 1,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 0,
+              "z": 2.7999999999999985,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 4009.7999999970198,
+            "tick": 629,
+            "zoom": 0.7,
+            "direction": {
+              "x": 0,
+              "z": 1
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 2.7999999999999985,
+              "facing": 1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 8006.70000000298,
+            "tick": 868,
+            "zoom": 1.6,
+            "direction": {
+              "x": -1,
+              "z": 0
+            },
+            "anchor": {
+              "x": 22.306666666666736,
+              "z": 25.106666666666747,
+              "facing": 0
+            }
+          },
+          {
+            "wallMs": 12008.29999999702,
+            "tick": 1108,
+            "zoom": 1,
+            "direction": {
+              "x": 0,
+              "z": -1
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 25.106666666666747,
+              "facing": -1.5707963267948966
+            }
+          },
+          {
+            "wallMs": 16009.79999999702,
+            "tick": 1349,
+            "zoom": 0.7,
+            "direction": {
+              "x": 1,
+              "z": 0
+            },
+            "anchor": {
+              "x": -0.09333333333333588,
+              "z": 2.6133333333333293,
+              "facing": -3.141592653589794
+            }
+          }
+        ],
+        "wallSeconds": 20.00520000000298,
+        "simulationTicks": 1199,
+        "frames": 1180,
+        "backlogSeconds": 0.00996666666368691,
+        "discardedSeconds": 0,
+        "rafP95": 21,
+        "visible": "visible",
+        "focus": true,
+        "state": "39a45ff4",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper. Optional camera sequence feeds native directional input and renderer zoom APIs; physical input is verified separately. Not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 672337.700000003,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "video": {
+        "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/frontier-protoss-native-20s.webm",
+        "bytes": 6118372,
+        "sha256": "7488b50d198eb2a72abdf979a9abcee66aa2d89078828c208f114065ece2b696"
+      }
+    }
+  ],
+  "compiledInputs": 318,
+  "status": "Camera calibration integrated and locally verified; Git synchronization recorded separately",
+  "baseline": "431d304870baabbd0159bf3134710888e13b811c",
+  "version": "0.6.20",
+  "applicationFiles": 187,
+  "runSchema": 26,
+  "profileVersion": 6,
+  "mapRecipe": 3,
+  "camera": {
+    "projection": "perspective",
+    "pitchFromHorizontal": 56,
+    "tiltFromVertical": 34,
+    "verticalFovDegrees": 27.8,
+    "desktopDefaultDistance": 34,
+    "zoomRange": [
+      0.7,
+      1.6
+    ],
+    "independentOrientationPreferences": true,
+    "fixedPitchDuringZoom": true
+  },
+  "resources": {
+    "records": 881,
+    "files": 863,
+    "bytes": 776676720,
+    "release": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+    "additions": 0,
+    "originalSourceHashes": 799
+  },
+  "protection": {
+    "total": 5876,
+    "counts": {
+      "same": 5858,
+      "authorized-edit": 15,
+      "application": 3
+    },
+    "compiledInputs": 318,
+    "backendVendorConfig": 152,
+    "dependencyChanges": 0
+  },
+  "html": {
+    "path": "dist/SC2-Survivors-Camera-Calibrated-Final-20261011.html",
+    "bytes": 635708048,
+    "sha256": "10f4088cd41bc0f6c76aaa71ec623c708b0d4e4e3d1e8943f482cf386e6a3cf7",
+    "decodedAssets": 881,
+    "decodedLogicalBytes": 777590080
+  },
+  "zip": {
+    "passed": true,
+    "path": "dist/Camera-Calibrated-Final-Application-20261011.zip",
+    "bytes": 9994799,
+    "sha256": "42b4839163951360942e66746e2b94906166d25d91fa792aa06887a46b760482",
+    "members": 188,
+    "packageBuildId": "3c2b0ea2bf320557a3197c3a4ec99118870fa64627408695dab366d1ac705770",
+    "appBuildId": "09b2b7173983997b4f51fa0bc7c18d697011e14505d5a8b344f6f2bd74488d99",
+    "resourceRelease": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+    "embeddedRuntimeResources": 0,
+    "verifiedRoundTrip": true
+  },
+  "checks": {
+    "regressions": 1343,
+    "identities": 138,
+    "pairedStates": 1893,
+    "lifecycleScreens": 20,
+    "startupCases": 4,
+    "updateReused": 863,
+    "updateAdded": 0,
+    "formal": [
+      {
+        "label": "perspective-zoom-r1",
+        "offline": false,
+        "records": 6,
+        "screens": 24,
+        "exports": 2,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-coupled-r8",
+        "offline": false,
+        "records": 8,
+        "screens": 6,
+        "exports": 4,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-tosh-r1",
+        "offline": false,
+        "records": 9,
+        "screens": 9,
+        "exports": 24,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-formal-web-r1",
+        "offline": false,
+        "screens": 12,
+        "exports": 12,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-formal-offline-r1",
+        "offline": true,
+        "screens": 12,
+        "exports": 12,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-controls-r1",
+        "offline": false,
+        "records": 4,
+        "screens": 22,
+        "exports": 32,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-offline-zoom-r1",
+        "offline": true,
+        "records": 6,
+        "screens": 24,
+        "exports": 2,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-offline-coupled-r1",
+        "offline": true,
+        "records": 8,
+        "screens": 6,
+        "exports": 4,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-offline-tosh-r1",
+        "offline": true,
+        "records": 9,
+        "screens": 9,
+        "exports": 24,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-offline-controls-r1",
+        "offline": true,
+        "records": 4,
+        "screens": 22,
+        "exports": 32,
+        "httpRequests": 0
+      },
+      {
+        "label": "perspective-missing-r1",
+        "offline": false,
+        "screens": 2,
+        "exports": 0,
+        "httpRequests": 0
+      }
+    ]
+  },
+  "comparisonSources": {
+    "matrix": {
+      "before": "baseline-matrix-r1",
+      "after": "perspective-matrix-r2"
+    },
+    "identities": {
+      "before": "baseline-identities-r1",
+      "after": "perspective-identities-complete-r1"
+    },
+    "edges": {
+      "before": "baseline-edges-r1",
+      "after": "perspective-edges-r2"
+    },
+    "web": "perspective-formal-web-r1",
+    "offline": "perspective-formal-offline-r1",
+    "controls": [
+      "perspective-controls-r1",
+      "perspective-offline-controls-r1"
+    ],
+    "zoom": [
+      "perspective-zoom-r1",
+      "perspective-offline-zoom-r1"
+    ],
+    "missing": "perspective-missing-r1",
+    "tosh": [
+      "perspective-tosh-r1",
+      "perspective-offline-tosh-r1"
+    ],
+    "coupled": [
+      "perspective-coupled-r8",
+      "perspective-offline-coupled-r1"
+    ],
+    "formal": [
+      "perspective-zoom-r1",
+      "perspective-coupled-r8",
+      "perspective-tosh-r1",
+      "perspective-formal-web-r1",
+      "perspective-formal-offline-r1",
+      "perspective-controls-r1",
+      "perspective-offline-zoom-r1",
+      "perspective-offline-coupled-r1",
+      "perspective-offline-tosh-r1",
+      "perspective-offline-controls-r1",
+      "perspective-missing-r1"
+    ],
+    "realtime": "perspective-realtime-r2",
+    "cost": [
+      "perspective-before-cost-r1",
+      "perspective-after-cost-r1"
+    ],
+    "note": "Acceptance requires each referenced report to pass. This index assigns paths, never relabels captures or marks pending runs accepted."
+  },
+  "pairs": [
+    {
+      "suite": "matrix",
+      "beforeBuild": "c0e1bda194bac15e95cf472b60ae03005faa67b689376f75cae542eb21022e50",
+      "afterBuild": "27f4b15e1d948dc0049ee658c1654817c3ff076574f4f3e453c640afc6d9d02c",
+      "beforeRecords": 288,
+      "afterRecords": 864
+    },
+    {
+      "suite": "identities",
+      "beforeBuild": "c0e1bda194bac15e95cf472b60ae03005faa67b689376f75cae542eb21022e50",
+      "afterBuild": "27f4b15e1d948dc0049ee658c1654817c3ff076574f4f3e453c640afc6d9d02c",
+      "beforeRecords": 354,
+      "afterRecords": 354
+    },
+    {
+      "suite": "edges",
+      "beforeBuild": "67e35e4c296b5afc7fa3e8f7de104f8465472fe6e3c781a29bc95a27e314fd0f",
+      "afterBuild": "9aef127a652a56ed896f660a0f7dc47a5594f5502ef3ed698258f61e16140042",
+      "beforeRecords": 225,
+      "afterRecords": 675
+    }
+  ],
+  "cost": [
+    {
+      "label": "perspective-before-cost-r1",
+      "build": "c0e1bda194bac15e95cf472b60ae03005faa67b689376f75cae542eb21022e50",
+      "state": "2b482257",
+      "time": 5,
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1.0000000298023224,
+        "renderPixelRatio": 1,
+        "width": 1280,
+        "height": 720,
+        "cssWidth": 1280,
+        "cssHeight": 720,
+        "antialias": true
+      },
+      "subjects": [
+        {
+          "identity": "immortal",
+          "entityId": 2,
+          "hp": 229.99999999999997,
+          "barrier": 0,
+          "deadAt": null,
+          "x": -7,
+          "z": -4,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.1",
+          "entityId": 3,
+          "hp": 1642.1999999999998,
+          "barrier": 0,
+          "deadAt": null,
+          "x": 7,
+          "z": -4,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.2",
+          "entityId": 4,
+          "hp": 2898.0000000000005,
+          "barrier": 0,
+          "deadAt": null,
+          "x": -7,
+          "z": 5,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.3",
+          "entityId": 5,
+          "hp": 2318.3999999999996,
+          "barrier": 0,
+          "deadAt": null,
+          "x": 7,
+          "z": 5,
+          "action": "spawn"
+        }
+      ],
+      "frames": 300,
+      "seconds": 5.00170000000298,
+      "cpuSubmitMs": {
+        "mean": 4.173000000566244,
+        "p95": 4.9000000059604645
+      },
+      "rafMs": {
+        "mean": 16.6593333333234,
+        "p95": 17.099999994039536
+      },
+      "drawCalls": {
+        "mean": 72,
+        "p95": 72
+      },
+      "triangles": {
+        "mean": 255055,
+        "p95": 255055
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "method": "Five-second visible paused render cost only. CPU submit duration is not GPU time; this does not establish sustained FPS or natural-play performance.",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36"
+    },
+    {
+      "label": "perspective-after-cost-r1",
+      "build": "27f4b15e1d948dc0049ee658c1654817c3ff076574f4f3e453c640afc6d9d02c",
+      "state": "2b482257",
+      "time": 5,
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1.0000000298023224,
+        "renderPixelRatio": 1,
+        "width": 1280,
+        "height": 720,
+        "cssWidth": 1280,
+        "cssHeight": 720,
+        "antialias": true
+      },
+      "subjects": [
+        {
+          "identity": "immortal",
+          "entityId": 2,
+          "hp": 229.99999999999997,
+          "barrier": 0,
+          "deadAt": null,
+          "x": -7,
+          "z": -4,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.1",
+          "entityId": 3,
+          "hp": 1642.1999999999998,
+          "barrier": 0,
+          "deadAt": null,
+          "x": 7,
+          "z": -4,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.2",
+          "entityId": 4,
+          "hp": 2898.0000000000005,
+          "barrier": 0,
+          "deadAt": null,
+          "x": -7,
+          "z": 5,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.3",
+          "entityId": 5,
+          "hp": 2318.3999999999996,
+          "barrier": 0,
+          "deadAt": null,
+          "x": 7,
+          "z": 5,
+          "action": "spawn"
+        }
+      ],
+      "frames": 300,
+      "seconds": 5.002,
+      "cpuSubmitMs": {
+        "mean": 4.105666667024295,
+        "p95": 4.700000002980232
+      },
+      "rafMs": {
+        "mean": 16.66,
+        "p95": 17.099999994039536
+      },
+      "drawCalls": {
+        "mean": 64,
+        "p95": 64
+      },
+      "triangles": {
+        "mean": 236883,
+        "p95": 236883
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "method": "Five-second visible paused render cost only. CPU submit duration is not GPU time; this does not establish sustained FPS or natural-play performance.",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36"
+    }
+  ],
+  "visual": {
+    "passed": true,
+    "at": "2026-10-11T11:36:42.569Z",
+    "meaningOfPassed": "The bounded review is completed and its limitations are recorded; this is not overall visual-quality or human acceptance.",
+    "humanAcceptance": false,
+    "dynamicCoreVisibilityAccepted": false,
+    "decodedFramesReviewed": 60,
+    "observations": {
+      "matrix": {
+        "scope": "Bounded model visual review of saved images, not human acceptance or original-client parity.",
+        "index": "visual-review-index/matrix-index.json",
+        "reviewedSheets": [
+          "industrial-desktop",
+          "industrial-portrait",
+          "industrial-small",
+          "mar-sara-desktop",
+          "mar-sara-portrait",
+          "mar-sara-small",
+          "char-desktop",
+          "char-portrait",
+          "char-small",
+          "ice-desktop",
+          "ice-portrait",
+          "ice-small",
+          "frontier-desktop",
+          "frontier-portrait",
+          "frontier-small",
+          "endless-desktop",
+          "endless-portrait",
+          "endless-small"
+        ],
+        "images": 108,
+        "additionalFullResolutionImages": [
+          "perspective-matrix-r2/char-protoss-1-desktop-100.png",
+          "perspective-identities-r1/marine-default.png"
+        ],
+        "observations": [
+          "At the same native state the new desktop default presents larger bodies and less terrain than the old default; perspective produces depth-dependent footprint changes rather than a uniform model rescale.",
+          "Industrial paving, desert, Char, ice and frontier ground remain textured; projected body shadows remain visible. This subset shows no blank contact target, full-screen black shader failure or rectangular ash artifact.",
+          "Portrait and small-screen diagnostic rows extend off the left and right edges. The fixed team-following camera deliberately does not fit the entire synthetic horizontal roster; these views do not establish whole-army visibility.",
+          "Native endless formations are compact and their central bodies remain visible; peripheral facilities cross viewport edges with the tighter framing.",
+          "Char and parts of frontier retain dark body/background separation. Small bodies still occupy limited pixels, especially in downscaled indexes. Both are explicit later-stage readability limits.",
+          "The centered Marine full screenshot retains the native model and materials with a small but discernible silhouette; detail crops will be labelled with native projected body dimensions, not presented as full-screen footprint evidence."
+        ],
+        "remaining": "138 identity detail review, giant/flying edge images, formal HUD screenshots and actual decoded recording frames remain pending."
+      },
+      "identities": {
+        "scope": "Bounded model review of all 138 centered identity screenshots using recorded crops; not human acceptance or original-client parity.",
+        "index": "visual-review-index-r2/identities-index.json",
+        "reviewedOriginalSheets": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "reviewedCorrectedSheets": [
+          9,
+          10,
+          11
+        ],
+        "correction": "The first contact-sheet script let padded crop rectangles extend outside the source image, adding black padding above some flying bodies. R2 clips rectangles to actual screenshot bounds; no original capture changed. All 138 body details were inspected in the first index and the affected final three sheets were inspected again. Crop rectangles, native projected body bounds and display scales are recorded; these are not full-screen footprint images.",
+        "observations": [
+          "All 30 ordinary, 90 elite and 18 hero identities have a rendered centered body in this subset. Ordinary/elite proportions, source textures and distinct hero silhouettes remain visible.",
+          "Flying Viking, Banshee, Medivac, Phoenix, Void Ray, Carrier, Battlecruiser, Leviathan and Flagship bodies remain complete in centered views. Later endpoint/edge tests separately cover actual frustum boundaries.",
+          "Small Marine, Zergling and Stukov silhouettes still occupy limited pixels; the crop indexes must not be used to claim their full-screen readability is solved.",
+          "Nova retains the existing cloaked outline treatment; Sentry/Phoenix authored emission and hero auras remain. No generic missing-material white body or stretched geometry was observed in these inspected frames.",
+          "Carrier and Flagship child bars remain visually crowded. Dark elite surfaces and pre-existing Science Vessel source/provenance limitations remain explicit later-stage concerns."
+        ]
+      },
+      "formal": {
+        "scope": "Bounded model review of 24 actual formal captures, not human acceptance or physical-device testing.",
+        "index": "visual-review-index-r2/formal-index.json",
+        "reviewedSheets": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "additionalControlsIndex": "visual-review-index-r2/controls-index.json",
+        "additionalControlsSheetsReviewed": [
+          0,
+          1,
+          2
+        ],
+        "additionalControlsCaptures": 9,
+        "observations": [
+          "Six viewport default battlefield captures show the centered Terran body, textured industrial paving and original native HUD. Portrait retains its right roster and lower-right commands; the narrow surface still has limited body pixels.",
+          "The six 160% settings captures visibly contain the zoom slider, percentage, reset and instructions. The smallest portrait wraps explanatory text within the existing settings surface; lower settings use the existing scrolling region.",
+          "Five-map and endless restore screenshots in both Web and actual offline versions show the native pause panel and blurred battlefield. Several Web captures caught the panel fade at partial opacity. These captures establish restored UI presentation only and cannot establish unobscured battlefield detail or a Web/offline opacity difference.",
+          "Underlying terrain and native frames remain present. Unobscured map/body review is covered by the separate diagnostic matrix and identity indexes; continuous movement and zoom require the separately recorded videos.",
+          "Nine additional Web control captures show unobscured industrial terrain and the native transfer panel at four sizes, plus actual endless entry. The panel remains contained on the smallest portrait; its route line is visible. Endless retains flat Char terrain and native support pods at the edges, with no gray ash rectangles observed. Small Terran body detail remains limited at full-screen scale."
+        ]
+      },
+      "edges": {
+        "scope": "Bounded model inspection of 60 actual portrait endpoint/edge images from 675 passing diagnostic edge records; not human acceptance or continuous-frame culling verification.",
+        "report": "perspective-edges-r2/results.json",
+        "index": "visual-review-index-r2/edges-index.json",
+        "reviewedAllSheets": true,
+        "sheets": 15,
+        "groups": [
+          "thor",
+          "ultralisk",
+          "carrier",
+          "colossus",
+          "yamato_battlecruiser",
+          "kerrigan",
+          "zagara",
+          "niadra",
+          "hots_leviathan",
+          "fenix",
+          "purifier_flagship"
+        ],
+        "fullResolutionAdditionalImages": [
+          "carrier-3-portrait-160-center.png",
+          "colossus-3-portrait-160-center.png",
+          "purifier_flagship-0-portrait-160-center.png"
+        ],
+        "observations": [
+          "The inspected centered ground and flying bodies remain complete at 70% and 160%; other members in multi-identity diagnostic rows can be clipped at the top or bottom. The centered identity claim does not extend to the whole row.",
+          "Perspective foreshortening and actual cast shadows remain visible. No white missing-material bodies, black full-screen contact pass or stretched geometry were observed in this subset.",
+          "Edge positioning uses the actual posed axis-aligned source bounds at NDC +/-0.97 or +/-1.03. Bounds include empty space, so a partly intersecting bound need not contain many opaque body pixels. These views and renderer participation assertions must not be described as proof that opaque body pixels occupy the full bound.",
+          "Carrier/Flagship child bars and the existing textured hero auras remain visible at the edge; some can remain in view after the primary body has moved out. They are original child/effect presentation, not new generic circle markers.",
+          "Small 70% bodies, dark surfaces and crowded child bars remain readability limits. A still-image review does not establish absence of temporal shimmer; separately recorded movement/zoom videos are required for the bounded motion review."
+        ]
+      }
+    },
+    "motion": {
+      "scope": "All 15 videos played fully at 4x by the browser checker; bounded model visual review of 60 actual decoded frames at 4s/16s and 6s/10s, across all ten review sheets. Not a visual inspection of every video frame.",
+      "indices": [
+        "visual-review-index-r2/videos-index.json",
+        "visual-review-index-r2/videozoom-index.json"
+      ],
+      "observations": [
+        "Original bodies, terrain, shadows and changing native positions are visible. No missing-material white body, full-screen black contact pass or ash rectangle was observed in these decoded frames. This bounded sample does not rule out temporal shimmer.",
+        "At 70% the recorded groups have broader context. At 160% slow Immortals can leave the upper/right frame as the native control anchor moves ahead. This includes loss of the main group, not merely peripheral cropping.",
+        "A separate tick-bounded native replay reproduces the displacement: at 10s slow Immortals lag by approximately 8–14 world units; projected feet inside the screen are 0/4 industrial, 2/4 Mar Sara, 0/4 Char, 2/4 ice and 1/4 frontier. Unit feet are not posed-body visibility, and tick-boundary replay is not relabelled wall-clock recording evidence.",
+        "The production camera follows the existing smoothed control anchor; native movement, combat, formation and follow semantics were not changed. High-zoom dynamic core visibility remains unresolved.",
+        "Dark Char surfaces, crowded child health bars and small low-zoom silhouettes remain limitations."
+      ]
+    },
+    "followAnalysis": "follow-analysis.json"
+  },
+  "gallery": {
+    "passed": true,
+    "at": "2026-10-11T11:19:12.680Z",
+    "errors": [],
+    "checks": [
+      {
+        "suite": "matrix",
+        "records": 864,
+        "firstAndLastLoaded": true
+      },
+      {
+        "suite": "identities",
+        "records": 354,
+        "firstAndLastLoaded": true
+      },
+      {
+        "suite": "edges",
+        "records": 675,
+        "firstAndLastLoaded": true
+      },
+      {
+        "identities": 138,
+        "maps": 5
+      },
+      {
+        "formalScreens": 148
+      }
+    ],
+    "screens": [
+      "matrix-desktop",
+      "identities-desktop",
+      "edges-desktop",
+      "original-references",
+      "mobile"
+    ],
+    "videos": [
+      {
+        "src": "perspective-realtime-r2/industrial-terran-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.97,
+        "ended": true,
+        "decoded": 497
+      },
+      {
+        "src": "perspective-realtime-r2/industrial-zerg-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.975,
+        "ended": true,
+        "decoded": 599
+      },
+      {
+        "src": "perspective-realtime-r2/industrial-protoss-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.97,
+        "ended": true,
+        "decoded": 595
+      },
+      {
+        "src": "perspective-realtime-r2/mar-sara-terran-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.983,
+        "ended": true,
+        "decoded": 595
+      },
+      {
+        "src": "perspective-realtime-r2/mar-sara-zerg-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.975,
+        "ended": true,
+        "decoded": 600
+      },
+      {
+        "src": "perspective-realtime-r2/mar-sara-protoss-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.975,
+        "ended": true,
+        "decoded": 587
+      },
+      {
+        "src": "perspective-realtime-r2/char-terran-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.977,
+        "ended": true,
+        "decoded": 599
+      },
+      {
+        "src": "perspective-realtime-r2/char-zerg-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.971,
+        "ended": true,
+        "decoded": 600
+      },
+      {
+        "src": "perspective-realtime-r2/char-protoss-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.978,
+        "ended": true,
+        "decoded": 597
+      },
+      {
+        "src": "perspective-realtime-r2/ice-terran-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.977,
+        "ended": true,
+        "decoded": 592
+      },
+      {
+        "src": "perspective-realtime-r2/ice-zerg-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.971,
+        "ended": true,
+        "decoded": 600
+      },
+      {
+        "src": "perspective-realtime-r2/ice-protoss-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.976,
+        "ended": true,
+        "decoded": 563
+      },
+      {
+        "src": "perspective-realtime-r2/frontier-terran-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.975,
+        "ended": true,
+        "decoded": 596
+      },
+      {
+        "src": "perspective-realtime-r2/frontier-zerg-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.98,
+        "ended": true,
+        "decoded": 600
+      },
+      {
+        "src": "perspective-realtime-r2/frontier-protoss-native-20s.webm",
+        "width": 1425,
+        "height": 900,
+        "duration": 19.969,
+        "ended": true,
+        "decoded": 596
+      }
+    ],
+    "frames": [
+      {
+        "source": "perspective-realtime-r2/industrial-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 523,
+        "file": "gallery-review/video-0-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/industrial-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 595,
+        "file": "gallery-review/video-0-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/industrial-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 621,
+        "file": "gallery-review/video-1-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/industrial-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 699,
+        "file": "gallery-review/video-1-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/industrial-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 616,
+        "file": "gallery-review/video-2-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/industrial-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 690,
+        "file": "gallery-review/video-2-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/mar-sara-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 616,
+        "file": "gallery-review/video-3-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/mar-sara-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 690,
+        "file": "gallery-review/video-3-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/mar-sara-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 622,
+        "file": "gallery-review/video-4-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/mar-sara-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-4-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/mar-sara-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 609,
+        "file": "gallery-review/video-5-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/mar-sara-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 681,
+        "file": "gallery-review/video-5-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/char-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 621,
+        "file": "gallery-review/video-6-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/char-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 699,
+        "file": "gallery-review/video-6-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/char-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 622,
+        "file": "gallery-review/video-7-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/char-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-7-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/char-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 619,
+        "file": "gallery-review/video-8-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/char-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 695,
+        "file": "gallery-review/video-8-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/ice-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 610,
+        "file": "gallery-review/video-9-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/ice-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 682,
+        "file": "gallery-review/video-9-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/ice-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 622,
+        "file": "gallery-review/video-10-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/ice-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-10-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/ice-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 585,
+        "file": "gallery-review/video-11-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/ice-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 634,
+        "file": "gallery-review/video-11-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/frontier-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 618,
+        "file": "gallery-review/video-12-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/frontier-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 693,
+        "file": "gallery-review/video-12-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/frontier-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 622,
+        "file": "gallery-review/video-13-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/frontier-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-13-16s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/frontier-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 618,
+        "file": "gallery-review/video-14-4s.png"
+      },
+      {
+        "source": "perspective-realtime-r2/frontier-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 623,
+        "file": "gallery-review/video-14-16s.png"
+      }
+    ],
+    "finishedAt": "2026-10-11T11:20:50.141Z"
+  },
+  "galleryIndex": {
+    "passed": true,
+    "rows": 1893,
+    "images": 2760,
+    "identities": 138,
+    "videos": 15,
+    "formalScreens": 148,
+    "sources": {
+      "matrix": {
+        "before": "baseline-matrix-r1",
+        "after": "perspective-matrix-r2"
+      },
+      "identities": {
+        "before": "baseline-identities-r1",
+        "after": "perspective-identities-complete-r1"
+      },
+      "edges": {
+        "before": "baseline-edges-r1",
+        "after": "perspective-edges-r2"
+      },
+      "web": "perspective-formal-web-r1",
+      "offline": "perspective-formal-offline-r1",
+      "controls": [
+        "perspective-controls-r1",
+        "perspective-offline-controls-r1"
+      ],
+      "zoom": [
+        "perspective-zoom-r1",
+        "perspective-offline-zoom-r1"
+      ],
+      "missing": "perspective-missing-r1",
+      "tosh": [
+        "perspective-tosh-r1",
+        "perspective-offline-tosh-r1"
+      ],
+      "coupled": [
+        "perspective-coupled-r8",
+        "perspective-offline-coupled-r1"
+      ],
+      "formal": [
+        "perspective-zoom-r1",
+        "perspective-coupled-r8",
+        "perspective-tosh-r1",
+        "perspective-formal-web-r1",
+        "perspective-formal-offline-r1",
+        "perspective-controls-r1",
+        "perspective-offline-zoom-r1",
+        "perspective-offline-coupled-r1",
+        "perspective-offline-tosh-r1",
+        "perspective-offline-controls-r1",
+        "perspective-missing-r1"
+      ],
+      "realtime": "perspective-realtime-r2",
+      "cost": [
+        "perspective-before-cost-r1",
+        "perspective-after-cost-r1"
+      ],
+      "note": "Acceptance requires each referenced report to pass. This index assigns paths, never relabels captures or marks pending runs accepted."
+    },
+    "suites": [
+      {
+        "suite": "matrix",
+        "beforeBuild": "c0e1bda194bac15e95cf472b60ae03005faa67b689376f75cae542eb21022e50",
+        "afterBuild": "27f4b15e1d948dc0049ee658c1654817c3ff076574f4f3e453c640afc6d9d02c",
+        "beforeRecords": 288,
+        "afterRecords": 864
+      },
+      {
+        "suite": "identities",
+        "beforeBuild": "c0e1bda194bac15e95cf472b60ae03005faa67b689376f75cae542eb21022e50",
+        "afterBuild": "27f4b15e1d948dc0049ee658c1654817c3ff076574f4f3e453c640afc6d9d02c",
+        "beforeRecords": 354,
+        "afterRecords": 354
+      },
+      {
+        "suite": "edges",
+        "beforeBuild": "67e35e4c296b5afc7fa3e8f7de104f8465472fe6e3c781a29bc95a27e314fd0f",
+        "afterBuild": "9aef127a652a56ed896f660a0f7dc47a5594f5502ef3ed698258f61e16140042",
+        "beforeRecords": 225,
+        "afterRecords": 675
+      }
+    ]
+  },
+  "preview": {
+    "at": "2026-10-11T11:38:30.188Z",
+    "url": "http://127.0.0.1:4316",
+    "pid": 31104,
+    "health": {
+      "ok": true,
+      "appBuildId": "09b2b7173983997b4f51fa0bc7c18d697011e14505d5a8b344f6f2bd74488d99",
+      "assetReleaseId": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+      "runSchema": 26,
+      "release": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+      "resources": "local"
+    },
+    "backendEnabled": false,
+    "localOnly": true,
+    "webRoot": "deploy/coze/public",
+    "assetRoot": "deploy/runtime",
+    "packageBuildId": "3c2b0ea2bf320557a3197c3a4ec99118870fa64627408695dab366d1ac705770"
+  },
+  "currentAliasMatches": true,
+  "localMirrorMatches": true,
+  "onlineDeployment": false,
+  "evidenceRoot": "reports/local/camera-calibration-20261011",
+  "limits": [
+    "No complete original-client visual parity, natural campaign, physical-device, high-refresh, low-memory, stable FPS or human acceptance claim.",
+    "At 160% during directional combat movement, slow Immortals can lag the native control anchor by about 8–14 world units and the main group can leave the frame. The fixed-anchor camera follows its intended target; this is an unresolved dynamic framing limitation, not dynamic-core readability acceptance.",
+    "Original ZoomTable links pitch and distance; this implementation uses the source default perspective and fixed-pitch team-centred zoom.",
+    "Primary user reference lacks source settings, skin and zoom metadata. Experimental building form and scale do not match its hatchery and were not transferred to production.",
+    "Complete combat FX, remaining dynamic clarity, traceable matched SC2 actual-client comparisons and repairs must precede overall performance and quality tiers; recheck visuals afterward.",
+    "Small unit footprints, narrow-screen group-edge clipping, dark Char lighting and existing source/ScienceVessel/P6-V01/production/B4 gates remain open.",
+    "All early orthographic/perspective candidates, failed fixtures and window probes retain their actual versions. Visibility-hidden acceptance is not inferred from a real blur test."
+  ],
+  "evidenceFiles": [
+    {
+      "path": "reports/local/camera-calibration-20261011/delivery.json",
+      "bytes": 79461,
+      "sha256": "87c49dd8d492fedeac7449d96bddf2ee0d7a3c149cc0ae82877c95ae33c859cb"
+    },
+    {
+      "path": "reports/local/camera-calibration-20261011/formal-source-binding.json",
+      "bytes": 55326,
+      "sha256": "34a486d6b369e5a76370b2579ce188147238f57d4fd0b57605f782ffd01891fd"
+    },
+    {
+      "path": "reports/local/camera-calibration-20261011/paired-states.json",
+      "bytes": 2206298,
+      "sha256": "1a9bbd128aaf29154ddafe10b0aee3c1bdb40f8cbf1f3a489f6a87c052bbf069"
+    },
+    {
+      "path": "reports/local/camera-calibration-20261011/visual-review.json",
+      "bytes": 10416,
+      "sha256": "e99724eee156c13c44296023972bcb58ac8c9ae6dd12eabeb8a5ae00642b07e6"
+    },
+    {
+      "path": "reports/local/camera-calibration-20261011/gallery-review.json",
+      "bytes": 9484,
+      "sha256": "52411ac6020bb75a33968c7cc370e75d652f543c71303743c0397da413205e46"
+    },
+    {
+      "path": "reports/local/camera-calibration-20261011/video-zoom-review/results.json",
+      "bytes": 8364,
+      "sha256": "023fc1e7f947be3d7bb00557a06e6eea97eaf839ec70ed5c2faa17938e4dd942"
+    },
+    {
+      "path": "reports/local/camera-calibration-20261011/follow-analysis.json",
+      "bytes": 129968,
+      "sha256": "561fd79bab79b29a8ff24ecf8e916b42f9bc6a6ed5b6d45a757f3e3a879f87e9"
+    },
+    {
+      "path": "reports/local/camera-calibration-20261011/gallery-caption-delta.json",
+      "bytes": 764,
+      "sha256": "76dc19568e0b816a925ec9d2224a9b9547fb174e525940bd976910c245225ef8"
+    },
+    {
+      "path": "reports/local/camera-calibration-20261011/perspective-realtime-r2/results.json",
+      "bytes": 7417360,
+      "sha256": "fa2e28f50d9ee8e40590ca2c4db515e398e03c282b1453a02eb2b65a1b30c438"
+    }
+  ]
+}

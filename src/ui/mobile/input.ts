@@ -1,3 +1,5 @@
+import {CanvasPinch} from './canvas-pinch';
+import {wheelZoomDelta} from '../../render/scene/camera-controller';
 import {battleInputCapture} from '../presentation/input-capture';
 import {World} from '../../simulation/world';
 import type {Point} from '../../simulation/types';
@@ -7,14 +9,17 @@ import {familyAbilityState} from '../../simulation/combat/family-actions';
 import {SC2_UNITS} from '../../data/sc2-units';
 import {specialUnitName,rankLabel} from '../unit-identity';
 
-type BattlePointer={canvas:HTMLCanvasElement;inspect?:(x:number,y:number)=>boolean;pick:(x:number,y:number,touch:boolean)=>{point:Point}|null;pickMove?:(x:number,y:number)=>{point:Point}|null;previewTarget?:(point:Point|null)=>void};
+type BattlePointer={canvas:HTMLCanvasElement;zoom?:()=>number;setZoom?:(value:number)=>void;adjustZoom?:(delta:number)=>void;resetZoom?:()=>void;inspect?:(x:number,y:number)=>boolean;pick:(x:number,y:number,touch:boolean)=>{point:Point}|null;pickMove?:(x:number,y:number)=>{point:Point}|null;previewTarget?:(point:Point|null)=>void};
 export class Input {
  keys=new Set<string>();stick={x:0,z:0};pointer:number|null=null;
- private cancelTap=()=>{};private cancelTarget=()=>{};
- reset(){this.cancelTarget();this.cancelTap();this.keys.clear();this.release();this.world.resetDirectionalInput();}
+ private cancelTap=()=>{};private cancelTarget=()=>{};private cancelGesture=()=>{};
+ reset(){this.cancelGesture();this.cancelTarget();this.cancelTap();this.keys.clear();this.release();this.world.resetDirectionalInput();}
  constructor(readonly world:World,readonly joystick:HTMLElement,readonly onPause:()=>void,readonly settings:ControlSettings,battle:BattlePointer){
   let tap:{id:number;x:number;y:number;at:number;cancelled:boolean}|null=null;
   const canvas=battle.canvas,canAct=()=>!battleInputCapture()&&world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&document.body.dataset.battleActionsReady!=='false';
+  const pinch=new CanvasPinch(()=>battle.zoom?.()??1,value=>battle.setZoom?.(value));
+  this.cancelGesture=()=>{pinch.cancel();};
+  window.addEventListener('orientationchange',()=>{pinch.cancel();this.cancelTap();});
   let target:Point|null=null,targetKind:'stalker'|'transfer'|'strategic'|'tactical'|null=null,transferMemberIndex=0;const transferIds=new Set<number>(),transferCandidates=new Set<number>(),transferPanel=document.createElement('aside');transferPanel.id='transfer-picker';transferPanel.className='console';transferPanel.hidden=true;document.querySelector('#interface')?.append(transferPanel);
   const preview=()=>{battle.previewTarget?.(target);if(targetKind==='stalker'&&target){const result=familyAbilityState(world,'stalker',target);const status=transferPanel.querySelector('[role=status]');if(status)status.textContent=result.reason||'落点可用';const button=transferPanel.querySelector<HTMLButtonElement>('[data-transfer-confirm]');if(button)button.disabled=!result.enabled;}};
   const updateTransferPanel=(rebuild=false)=>{if(targetKind!=='transfer'||!target)return;const chosen=[...transferIds],result=world.previewTalentTransfer(target,chosen),members=world.allies().filter(unit=>transferCandidates.has(unit.id));if(rebuild){transferPanel.innerHTML=`<strong></strong><p role="status"></p><div class="transfer-members">${members.map((unit,index)=>`<button class="game-button small" data-transfer-id="${unit.id}" aria-pressed="false">${specialUnitName(unit)||SC2_UNITS[unit.unitType].zh} ${rankLabel(unit.rank)} · ${index+1}</button>`).join('')}</div><button data-transfer-confirm>确认转移</button><button data-transfer-cancel>取消</button>`;}transferPanel.querySelector('strong')!.textContent=`小队转移 · ${chosen.length}名队员`;transferPanel.querySelector('[role=status]')!.textContent=result.ok?'全员可落地':result.reason;transferPanel.querySelector<HTMLButtonElement>('[data-transfer-confirm]')!.disabled=!result.ok;for(const [index,button] of [...transferPanel.querySelectorAll<HTMLButtonElement>('[data-transfer-id]')].entries()){const selected=transferIds.has(Number(button.dataset.transferId));button.setAttribute('aria-pressed',String(selected));button.classList.toggle('gamepad-member-selected',index===transferMemberIndex&&document.body.classList.contains('gamepad-active'));}};
@@ -39,6 +44,7 @@ export class Input {
    if(target&&code==='Enter'){e.preventDefault();confirmTarget();return;}
    if(!canAct()||el?.closest('dialog[open],#overlay:not([hidden])'))return;
    if(el?.closest('#battle-console,#minimap')&&code.startsWith('Arrow'))return;
+   if(['PageUp','PageDown','Home'].includes(code)){e.preventDefault();if(code==='Home')battle.resetZoom?.();else battle.adjustZoom?.(code==='PageUp'?.1:-.1);return;}
    const action=actionForCode(code);if(action){e.preventDefault();activateBattleAction(world,action);return;}
    if(target)return;
    if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(code))e.preventDefault();
@@ -51,20 +57,22 @@ export class Input {
    const hit=!target&&battle.pickMove?battle.pickMove(e.clientX,e.clientY):battle.pick(e.clientX,e.clientY,e.pointerType!=='mouse');if(hit){if(target){target=hit.point;preview();updateTransferPanel();confirmTarget();}else world.issueMove(hit.point);}
   };
   canvas.addEventListener('contextmenu',e=>e.preventDefault());
+  canvas.addEventListener('wheel',e=>{if(!canAct()||e.ctrlKey||e.metaKey)return;e.preventDefault();battle.adjustZoom?.(wheelZoomDelta(e.deltaY,e.deltaMode,canvas.clientHeight));},{passive:false});
   canvas.addEventListener('pointerdown',e=>{
    if(!canAct())return;
+   if(e.pointerType==='touch'){e.preventDefault();canvas.setPointerCapture(e.pointerId);if(pinch.down(e.pointerId,e.clientX,e.clientY)){tap=null;return;}}
    if(!target&&e.pointerType==='mouse'&&e.button===0&&battle.inspect?.(e.clientX,e.clientY)){e.preventDefault();return;}
    if(!target&&!settings.pointerMoves(e.pointerType)&&e.pointerType==='mouse')return;
    if(e.pointerType==='mouse'){if(e.button===2||e.button===0){e.preventDefault();command(e);}return;}
    if(tap){tap.cancelled=true;return;}if(!e.isPrimary||e.button!==0||this.pointer!==null)return;
    e.preventDefault();tap={id:e.pointerId,x:e.clientX,y:e.clientY,at:performance.now(),cancelled:false};canvas.setPointerCapture(e.pointerId);
   });
-  canvas.addEventListener('pointermove',e=>{if(target&&canAct()){const hit=battle.pick(e.clientX,e.clientY,e.pointerType!=='mouse');if(hit){target=hit.point;preview();updateTransferPanel();}}if(tap?.id===e.pointerId&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>12)tap.cancelled=true;});
-  canvas.addEventListener('pointerup',e=>{if(tap?.id!==e.pointerId)return;const t=tap;tap=null;
+  canvas.addEventListener('pointermove',e=>{if(e.pointerType==='touch'){if(!canAct()){pinch.cancel();tap=null;}else pinch.move(e.pointerId,e.clientX,e.clientY);if(pinch.active)return;}if(target&&canAct()){const hit=battle.pick(e.clientX,e.clientY,e.pointerType!=='mouse');if(hit){target=hit.point;preview();updateTransferPanel();}}if(tap?.id===e.pointerId&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>12)tap.cancelled=true;});
+  canvas.addEventListener('pointerup',e=>{if(e.pointerType==='touch'){const suppressed=pinch.up(e.pointerId);if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(suppressed){tap=null;return;}}if(tap?.id!==e.pointerId)return;const t=tap;tap=null;
    if(!t.cancelled&&performance.now()-t.at<450&&Math.hypot(e.clientX-t.x,e.clientY-t.y)<=12)command(e);
    if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
   });
-  for(const name of ['pointercancel','lostpointercapture'])canvas.addEventListener(name,e=>{if(tap?.id===(e as PointerEvent).pointerId)tap=null;});
+  for(const name of ['pointercancel','lostpointercapture'])canvas.addEventListener(name,e=>{const id=(e as PointerEvent).pointerId;pinch.cancel();pinch.up(id);if(tap?.id===id)tap=null;});
   joystick.addEventListener('contextmenu',e=>e.preventDefault());
   joystick.addEventListener('pointerdown',e=>{if(settings.touch!=='joystick'||this.pointer!==null||!canAct())return;e.preventDefault();this.pointer=e.pointerId;joystick.setPointerCapture(e.pointerId);this.updateStick(e);});
   joystick.addEventListener('pointermove',e=>{if(e.pointerId===this.pointer){e.preventDefault();this.updateStick(e);}});

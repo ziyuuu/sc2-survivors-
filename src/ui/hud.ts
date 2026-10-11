@@ -107,6 +107,7 @@ export class HUD {
   this.importInput.addEventListener('change',async()=>{const file=this.importInput.files?.[0];if(!file)return;try{if(file.size>32*1024*1024)throw Error('存档文件过大');const raw=await (this.readiness?.readImportFile(file)??file.text());if(raw===null)return;this.readiness?.cancel();this.loadPreview=this.session?.prepareLoad(raw)??null;this.settingsOpen=false;this.menuPage='load-preview';this.flowError='';}catch(error){this.readiness?.cancel();this.flowError=String((error as Error).message);}this.importInput.value='';this.update();});
   bindHudSafeLayout(this.root);
   this.root.addEventListener('keydown',e=>{const dialog=[...this.root.querySelectorAll<HTMLElement>('#overlay .modal-window')].at(-1);if(dialog)trapTab(e,dialog);});
+  this.root.addEventListener('input',e=>{const el=e.target;if(el instanceof HTMLInputElement&&el.dataset.setting==='camera-zoom'){view.setCameraZoom(Number(el.value)/100);const output=el.parentElement?.querySelector('output');if(output)output.textContent=Math.round(view.cameraZoom*100)+'%';}});
   this.root.addEventListener('input',e=>{const el=e.target;if(!(el instanceof HTMLInputElement)||!el.dataset.audio||!this.audio)return;const a=this.audio,v=Math.max(0,Math.min(1,Number(el.value)/100));a.setMix(el.dataset.audio==='master'?v:a.masterVolume,el.dataset.audio==='battle'?v:a.battleVolume,el.dataset.audio==='interface'?v:a.interfaceVolume);const output=el.parentElement?.querySelector('output');if(output)output.textContent=Math.round(v*100)+'%';});
   this.root.addEventListener('input',e=>{const el=e.target;if(el instanceof HTMLInputElement&&el.dataset.catalogFilter==='query'){this.intermission.query=el.value;this.intermission.page=0;this.update();const input=this.root.querySelector<HTMLInputElement>('[data-catalog-filter="query"]');input?.focus({preventScroll:true});input?.setSelectionRange(el.selectionStart,el.selectionEnd);}});
 
@@ -172,6 +173,7 @@ export class HUD {
    else if(action==='pause-production'){this.auxiliaryProduction=true;}
    else if(action==='pause-production-close')this.auxiliaryProduction=false;
    else if(action==='ui-production-tab'&&['facilities','production','technology'].includes(button.dataset.tab??'')){this.productionTab=button.dataset.tab as typeof this.productionTab;this.intermission.productionTab=this.productionTab;}
+   else if(action==='camera-zoom-reset'){view.resetCameraZoom();}
    else if(action==='toggle-ui-motion'){this.uiMotion=!this.uiMotion;this.root.classList.toggle('ui-reduced-motion',!this.uiMotion);try{localStorage.setItem('sc2.ui-motion',String(this.uiMotion));}catch{}}
    else if(action==='production-line-enable'){const p=world.expedition.production[button.dataset.line as ProductionLineId],next=!p?.outputs.some(f=>p.enabled[f]);if(p)for(const f of p.outputs)world.setProductionEnabled(f,next);}
    else if(action==='production-output'){const line=button.dataset.line as ProductionLineId,family=button.dataset.family as FamilyId,plan=world.expedition.production[line];if(plan)world.setProductionOutputs(line,plan.outputs.includes(family)?plan.outputs.filter(id=>id!==family):[...plan.outputs,family]);}

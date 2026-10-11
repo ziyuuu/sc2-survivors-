@@ -1,3 +1,4 @@
+import {hudMode} from '../native-hud/mode';
 import {text,attr,style,reconcile} from '../native-hud/dom';
 import type {World} from '../../simulation/world';
 import {HEROES} from '../../data/heroes';
@@ -26,7 +27,7 @@ export class SquadConsole {
  get isOpen(){return this.detailOpen&&!this.root.hidden;}
  get mobile(){return matchMedia('(pointer:coarse)').matches||matchMedia('(max-width:700px)').matches||matchMedia('(max-width:1100px) and (max-height:600px)').matches;}
  get landscape(){return this.mobile&&innerWidth>innerHeight;}
- get mode():HudMode{return !this.mobile?'pc':this.landscape?'landscape':'portrait';}
+ get mode():HudMode{return hudMode(innerWidth,innerHeight,matchMedia('(pointer:coarse)').matches);}
  constructor(private world:World,parent:HTMLElement,private preferences:HudSettings,private onUse=()=>{}){
   this.root=document.createElement('section');this.root.id='battle-console';this.root.className='battle-console packed-console';this.root.setAttribute('aria-label','作战控制台');
   this.root.innerHTML=`<div class="console-body"><div class="command-row"><div class="native-command-frame"></div><section id="console-commands" aria-label="英雄技能与全局指令"></section><nav id="native-command-pages" aria-label="技能分页"></nav></div><div class="army-row"><div class="native-army-frame"></div><button id="army-toggle" class="console-fold" aria-controls="army-hud"></button><section id="army-hud"><div id="roster" role="group" aria-label="全队单位"></div></section><nav id="army-pages" aria-label="部队分页"></nav></div></div><section id="native-selection" hidden aria-label="所选士兵生命"></section><div id="unit-inspector" data-captures-battle-input hidden></div><div id="production-detail" hidden></div>`;

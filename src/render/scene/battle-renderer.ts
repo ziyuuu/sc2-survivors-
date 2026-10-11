@@ -1,3 +1,4 @@
+import {CameraController} from './camera-controller';
 import {BattleDistress} from './battle-distress';
 import {SceneLighting} from './scene-lighting';
 import {SceneShadows} from './scene-shadows';
@@ -78,7 +79,7 @@ export class BattleRenderer {
  private distress=new BattleDistress();private distressLayer=document.createElement('div');
  setCameraShake(enabled:boolean){this.cameraShake=enabled;try{localStorage.setItem('sc2.cameraShake',String(enabled));}catch{}}
  private viewportWidth=1;private viewportHeight=1;
- renderer:THREE.WebGLRenderer;scene=new THREE.Scene();camera=new THREE.OrthographicCamera();private lighting:SceneLighting;private sceneShadows:SceneShadows;private contact:SceneContact;
+ renderer:THREE.WebGLRenderer;scene=new THREE.Scene();camera=new THREE.PerspectiveCamera();private lighting:SceneLighting;private sceneShadows:SceneShadows;private contact:SceneContact;
  batches=new Map<UnitType,UnitBatch>();gpu=new Map<string,AnimatedBatch>();
  private animationStates=new Map<number,{action:string;since:number;modeDuration:number;playback:AttackPlaybackState;poseClock:PoseClockState;sampled?:{at:number;action:keyof ReturnType<typeof mapAnimations>;seconds:number;once:boolean;attackSeconds:number;attackKey:keyof ReturnType<typeof mapAnimations>}}>();
  private friendlyLabels:FriendlyLabels;
@@ -99,7 +100,7 @@ export class BattleRenderer {
  private podViews=new Map<number,PodView>();private podTemplates=new Map<Race,GLTF>();private terrainUpdate=()=>{};private mapView?:MapView;private mapTerrain?:TerrainQuery;private mapViews=new Map<TerrainQuery,MapView>();private mapSwitching=false;private hiveTemplate:THREE.Object3D|null=null;private hiveView:THREE.Object3D|null=null;private expansionViews=new Map<number,THREE.Object3D>();private fortViews=new Map<number,THREE.Group>();private fortTemplates=new Map<Fortification['kind'],THREE.Group>();private fortDeathTemplates=new Map<Fortification['kind'],THREE.Group>();private fortClips=new Map<string,THREE.AnimationClip>();private fortMixers=new Map<number,THREE.AnimationMixer>();private fortDeathViews=new Map<number,{group:THREE.Group;mixer:THREE.AnimationMixer;until:number}>();private fortVisualTime=0;
  private lootLabels=new Map<number,HTMLElement>();
  private podLabels=new Map<number,HTMLElement>();private labelLayer=document.createElement('div');
- private grid=new THREE.GridHelper(104,26,0x3aa8b4,0x245460);private tickTime=0;private frames=0;private cameraTarget=new THREE.Vector3();
+ private grid=new THREE.GridHelper(104,26,0x3aa8b4,0x245460);private tickTime=0;private frames=0;private cameraController=new CameraController(this.camera,(()=>{try{return localStorage;}catch{return undefined;}})());private cameraTarget=this.cameraController.target;private safeProbe=document.createElement('div');
  constructor(readonly canvas:HTMLCanvasElement,readonly world:World){
   try{this.cameraShake=localStorage.getItem('sc2.cameraShake')!=='false';}catch{}
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
@@ -122,6 +123,7 @@ export class BattleRenderer {
   this.grid.position.y=.08;this.grid.visible=false;this.scene.add(this.grid);
   this.distressLayer.id='battle-distress';this.distressLayer.setAttribute('aria-hidden','true');canvas.parentElement!.append(this.distressLayer);
   this.labelLayer.id='pod-labels';canvas.parentElement!.append(this.labelLayer);this.friendlyLabels=new FriendlyLabels(this.labelLayer);
+  this.safeProbe.style.cssText='position:fixed;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)';canvas.parentElement!.append(this.safeProbe);
   this.resize();window.addEventListener('resize',()=>this.resize());new ResizeObserver(()=>this.resize()).observe(canvas);
   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.contextEpoch++;this.screenWarmed.clear();this.validatedPrograms.clear();world.paused=true;world.announce('画面连接中断，正在等待恢复');});
   canvas.addEventListener('webglcontextrestored',()=>{this.sceneShadows.restore();this.contact.restore();world.announce('画面连接已恢复，请准备画面后继续');});
@@ -160,7 +162,7 @@ export class BattleRenderer {
     if(!mesh.geometry.hasAttribute('unitPose'))mesh.setColorAt(0,white);
    }
    for(const root of roots)warmScene.add(root);
-   this.camera.position.set(0,34,26);this.camera.lookAt(0,0,0);this.camera.updateMatrixWorld();
+   this.cameraController.pose(new THREE.Vector3());
    for(const root of extraRoots)warmScene.add(root);this.sceneShadows.prepare(warmScene);this.contact.prepare(warmScene);
    await this.renderer.compileAsync(warmScene,this.camera);
    this.preloadTextures(warmScene,true);
@@ -195,7 +197,7 @@ export class BattleRenderer {
     try{
      mesh.visible=true;mesh.count=1;mesh.setMatrixAt(0,identity);mesh.instanceMatrix.needsUpdate=true;
      if(!mesh.geometry.hasAttribute('unitPose'))mesh.setColorAt(0,white);
-     this.camera.position.set(0,34,26);this.camera.lookAt(0,0,0);this.camera.updateMatrixWorld();
+     this.cameraController.pose(new THREE.Vector3());
      renderer.render(this.scene,this.camera);gl.finish();
      this.screenWarmed.add(mesh);
     }finally{
@@ -211,7 +213,7 @@ export class BattleRenderer {
  }
  private warmLightingFrame(){
   const position=this.camera.position.clone(),quaternion=this.camera.quaternion.clone();
-  try{const p=this.world.anchor,y=this.ground(p);this.camera.position.set(p.x,y+34,p.z+26);this.camera.lookAt(p.x,y,p.z);this.camera.updateMatrixWorld();this.sceneShadows.update(this.camera,this.world.terrain);this.renderScene();this.renderer.getContext().finish();}
+  try{const p=this.world.anchor,y=this.ground(p);this.cameraController.pose(new THREE.Vector3(p.x,y,p.z));this.sceneShadows.update(this.camera,this.world.terrain);this.renderScene();this.renderer.getContext().finish();}
   finally{this.camera.position.copy(position);this.camera.quaternion.copy(quaternion);this.camera.updateMatrixWorld();}
  }
  private async finishProgramWarmup(progress:(done:number,total:number)=>void=()=>{}){
@@ -228,7 +230,7 @@ export class BattleRenderer {
    if(checked%8===0)await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));
   }
  }
- resize(){const w=this.viewportWidth=this.canvas.clientWidth||innerWidth,h=this.viewportHeight=this.canvas.clientHeight||innerHeight,gl=this.renderer.getContext();this.renderer.setPixelRatio(renderPixelRatio(this.quality,window.devicePixelRatio||1,w,h,gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)));this.renderer.setSize(w,h,false);const height=w<h?30:h<420?17.5:25;this.camera.left=-height*w/h/2;this.camera.right=height*w/h/2;this.camera.top=height/2;this.camera.bottom=-height/2;this.camera.near=.1;this.camera.far=180;this.camera.updateProjectionMatrix();}
+ resize(){const w=this.viewportWidth=this.canvas.clientWidth||innerWidth,h=this.viewportHeight=this.canvas.clientHeight||innerHeight,gl=this.renderer.getContext();this.renderer.setPixelRatio(renderPixelRatio(this.quality,window.devicePixelRatio||1,w,h,gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)));this.renderer.setSize(w,h,false);const safe=getComputedStyle(this.safeProbe);this.cameraController.resize(w,h,matchMedia('(pointer:coarse)').matches,{left:parseFloat(safe.paddingLeft)||0,right:parseFloat(safe.paddingRight)||0,top:parseFloat(safe.paddingTop)||0,bottom:parseFloat(safe.paddingBottom)||0});}
  async load(progress:(label:string,done?:number,total?:number)=>void,rescueRace:Race=this.world.expedition.race,skipMap=false){await MeshoptSimplifier.ready;const loader=new GLTFLoader();
   // Fail required race assets before constructing common scene objects. Successful
   // worker/templates cache individually, so retry reuses them without duplicate meshes.
@@ -407,15 +409,15 @@ export class BattleRenderer {
  }
  private removeHiveDeath(id:number){const d=this.hiveDeaths.get(id);if(!d)return;d.mixer.stopAllAction();d.mixer.uncacheRoot(d.mixer.getRoot());d.root.removeFromParent();const skeletons=new Set<THREE.Skeleton>();d.root.traverse(n=>{if(n instanceof THREE.SkinnedMesh)skeletons.add(n.skeleton);});for(const skeleton of skeletons)skeleton.dispose();this.hiveDeaths.delete(id);}
  private bodyVisible(p:Point){return this.visible(p)||this.sceneShadows.enabled&&this.sceneShadows.view.body(p,this.ground(p));}
- private visible(p:Point){return Math.abs(p.x-this.cameraTarget.x)<Math.max(20,this.camera.right+5)&&Math.abs(p.z-this.cameraTarget.z)<24;}
+ private visible(p:Point){return this.cameraController.visible(p,this.ground(p));}
  render(dt:number,alpha:number){const world=this.world;this.frames++;this.tickTime+=dt;if(this.tickTime>=.5){this.fps=this.frames/this.tickTime;this.frames=0;this.tickTime=0;}this.frameMs=dt*1000;this.frameTimes.push(this.frameMs);if(this.frameTimes.length>240)this.frameTimes.shift();
-  resetUploadStats();this.lighting.bind(world.terrain);this.cameraTarget.lerp(_vec.set(world.anchor.x,this.ground(world.anchor),world.anchor.z),1-Math.exp(-dt*6));this.camera.position.set(this.cameraTarget.x,34+this.cameraTarget.y,this.cameraTarget.z+26);this.camera.lookAt(this.cameraTarget);this.camera.updateMatrixWorld();this.sceneShadows.update(this.camera,world.terrain);this.mapView?.setLighting?.({shadow:this.sceneShadows.enabled,contact:this.contact.enabled});this.terrainUpdate();this.grid.visible=this.showGrid;
+  resetUploadStats();this.lighting.bind(world.terrain);this.cameraController.update({x:world.anchor.x,y:this.ground(world.anchor),z:world.anchor.z},dt,matchMedia('(prefers-reduced-motion: reduce)').matches||!!document.querySelector('#interface.ui-reduced-motion'));this.sceneShadows.update(this.camera,world.terrain);this.mapView?.setLighting?.({shadow:this.sceneShadows.enabled,contact:this.contact.enabled});this.terrainUpdate();this.grid.visible=this.showGrid;
   this.protossHeroes.beginFrame();
   this.barrierMaterials.begin(world.runId??'',world.time);
   for(const unit of world.entities.values())if(!unit.heroId&&unit.unitType==='immortal')this.barrierMaterials.observe(unit.id,unit.hp>0&&(unit.barrier??0)>0,(unit.barrierReady??0)-SOURCE_ABILITIES.immortalBarrier.cooldown,unit.lastDamagedAt);
   this.barrierMaterials.finish();
   const counts=new Map<UnitType,number>();let bars=0,line=0,shadows=0;
-  for(const [key,b] of this.gpu){b.animationMode=this.animationMode;b.setLod(ordinaryLodKeys.has(key)&&(this.quality!=='native'||heights[key.split('.')[0] as UnitType]*this.viewportHeight/(this.camera.top-this.camera.bottom)<28));b.begin();}
+  for(const [key,b] of this.gpu){b.animationMode=this.animationMode;b.setLod(ordinaryLodKeys.has(key)&&(this.quality!=='native'||heights[key.split('.')[0] as UnitType]*this.viewportHeight/this.cameraController.verticalSpan<28));b.begin();}
   const poseTime=world.time-(world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision?(1-alpha)/60:0);
   for(const event of world.visualEvents){if(event.serial<=this.lastVisual)continue;this.lastVisual=event.serial;if(event.kind==='hit')this.hitTimes.set(event.entityId,event.time);if(event.kind==='death'&&event.unitType)this.corpses.set(event.entityId,{revealed:!!world.entities.get(event.entityId)&&world.visibleTo(world.entities.get(event.entityId)!,'terran'),scale:world.entities.get(event.entityId)?modelPresentationScale(world.entities.get(event.entityId)!):1,type:world.entities.get(event.entityId)?displayDeathModelKey(world.entities.get(event.entityId)!):displayModelKey({...event,unitType:event.unitType}),teamColor:world.entities.get(event.entityId)?unitMaterialIdentity(world.entities.get(event.entityId)!,world.time).teamColor:undefined,x:event.x,z:event.z,y:event.flying?AIR_HEIGHT:this.ground(event),facing:event.facing,at:event.time});}
   const putLine=(a:Point,ay:number,b:Point,by:number,color:number)=>{if(line>=990)return;const offset=line*6;this.linePositions.set([a.x,ay,a.z,b.x,by,b.z],offset);_color.set(color);this.lineColors.set([_color.r,_color.g,_color.b,_color.r,_color.g,_color.b],offset);line++;};
@@ -525,5 +527,9 @@ export class BattleRenderer {
  screen(p:Point){_vec.set(p.x,this.ground(p),p.z).project(this.camera);return {x:(_vec.x*.5+.5)*this.viewportWidth,y:(-.5*_vec.y+.5)*this.viewportHeight};}
  /** Linear HDR scene and bloom, followed by one OutputPass (ACES exposure 1, then sRGB). */
  private renderScene(){this.sceneShadows.prepare();const ratio=this.renderer.getPixelRatio(),width=this.viewportWidth,height=this.viewportHeight;if(width!==this.composerSize.width||height!==this.composerSize.height||ratio!==this.composerSize.ratio){this.composerSize={width,height,ratio};this.heroComposer.setPixelRatio(ratio);this.heroComposer.setSize(width,height);}this.contact.render(this.scene,this.camera,width*ratio,height*ratio);this.heroComposer.render();}
- report(){return {lighting:this.lighting.report(),shadows:this.sceneShadows.report(),contact:this.contact.report(),distress:{...this.distress.frame},nonHeroes:this.nonHeroEffects.report(),protossElites:this.protossEliteEffects.report(),zergElites:this.zergEliteEffects.report(),terranElites:{...this.terranEliteEffects.report(),medical:this.eliteSupportEffects.report()},protossHeroes:this.protossHeroes.report(),zergHeroes:this.zergHeroes.report(),confirmedHeroes:this.confirmedHeroes.report(),animationMode:this.animationMode,map:this.mapView?.report(),order:this.world.order?.kind==='move'?{...this.world.order,point:{...this.world.order.point}}:this.world.order?{...this.world.order}:null,resolution:{quality:this.quality,devicePixelRatio:window.devicePixelRatio||1,renderPixelRatio:this.renderer.getPixelRatio(),width:this.canvas.width,height:this.canvas.height,cssWidth:this.viewportWidth,cssHeight:this.viewportHeight,antialias:this.renderer.getContext().getContextAttributes()?.antialias},models:this.loadedModels,variantModels:[...this.gpu.keys()].filter(k=>(k.startsWith('elite.')||k.startsWith('hero.'))&&!k.endsWith('.death')&&!k.endsWith('.siege')&&!k.endsWith('.morph')),assetsPending:this.assetsPending,economicModels:['scv','drone','probe','egg'].filter(k=>this.gpu.has(k)).length,podModel:this.podTemplates.has(this.world.expedition.race),carrierModels:[...this.podTemplates.keys()],resourceModels:this.pickups.batches.size,resourceInstances:this.pickups.visible,errors:[...this.modelErrors,...this.fx.errors,...this.pickups.errors],originalAnimationModels:[...this.batches.values()].filter(b=>b.gltf.animations.length>0).length,proceduralAnimationModels:[...this.batches.values()].filter(b=>!b.gltf.animations.length).length,originalDeathModels:[...this.gpu.keys()].filter(k=>k.endsWith('.death')).length,animationAtlasBytes:[...this.gpu.values()].reduce((n,b)=>n+b.textureBytes,0),lodRatios:Object.fromEntries([...this.gpu].filter(([k])=>ordinaryLodKeys.has(k)).map(([k,b])=>[k,b.lodRatio])),effectTextures:this.fx.loaded,effects:this.fx.stats,sculptedEffects:this.fx.sculptures.stats,textures:this.loadedTextures,fps:this.fps,requestedInstanceUploadBytes:requestedUploadBytes,drawCalls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles,entities:this.world.entities.size,maxStretch:this.world.maxStretch,spatialVisits:this.world.distancePairs,collisionContacts:this.world.collisionContacts};}
+ get cameraZoom(){return this.cameraController.zoom;}
+ setCameraZoom(value:number){this.cameraController.setZoom(value);}
+ adjustCameraZoom(delta:number){this.cameraController.adjustZoom(delta);}
+ resetCameraZoom(){this.cameraController.resetZoom();}
+ report(){return {camera:{...this.cameraController.report(),targetPreview:this.targetPreview?{...this.targetPreview}:null},lighting:this.lighting.report(),shadows:this.sceneShadows.report(),contact:this.contact.report(),distress:{...this.distress.frame},nonHeroes:this.nonHeroEffects.report(),protossElites:this.protossEliteEffects.report(),zergElites:this.zergEliteEffects.report(),terranElites:{...this.terranEliteEffects.report(),medical:this.eliteSupportEffects.report()},protossHeroes:this.protossHeroes.report(),zergHeroes:this.zergHeroes.report(),confirmedHeroes:this.confirmedHeroes.report(),animationMode:this.animationMode,map:this.mapView?.report(),order:this.world.order?.kind==='move'?{...this.world.order,point:{...this.world.order.point}}:this.world.order?{...this.world.order}:null,resolution:{quality:this.quality,devicePixelRatio:window.devicePixelRatio||1,renderPixelRatio:this.renderer.getPixelRatio(),width:this.canvas.width,height:this.canvas.height,cssWidth:this.viewportWidth,cssHeight:this.viewportHeight,antialias:this.renderer.getContext().getContextAttributes()?.antialias},models:this.loadedModels,variantModels:[...this.gpu.keys()].filter(k=>(k.startsWith('elite.')||k.startsWith('hero.'))&&!k.endsWith('.death')&&!k.endsWith('.siege')&&!k.endsWith('.morph')),assetsPending:this.assetsPending,economicModels:['scv','drone','probe','egg'].filter(k=>this.gpu.has(k)).length,podModel:this.podTemplates.has(this.world.expedition.race),carrierModels:[...this.podTemplates.keys()],resourceModels:this.pickups.batches.size,resourceInstances:this.pickups.visible,errors:[...this.modelErrors,...this.fx.errors,...this.pickups.errors],originalAnimationModels:[...this.batches.values()].filter(b=>b.gltf.animations.length>0).length,proceduralAnimationModels:[...this.batches.values()].filter(b=>!b.gltf.animations.length).length,originalDeathModels:[...this.gpu.keys()].filter(k=>k.endsWith('.death')).length,animationAtlasBytes:[...this.gpu.values()].reduce((n,b)=>n+b.textureBytes,0),lodRatios:Object.fromEntries([...this.gpu].filter(([k])=>ordinaryLodKeys.has(k)).map(([k,b])=>[k,b.lodRatio])),effectTextures:this.fx.loaded,effects:this.fx.stats,sculptedEffects:this.fx.sculptures.stats,textures:this.loadedTextures,fps:this.fps,requestedInstanceUploadBytes:requestedUploadBytes,drawCalls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles,entities:this.world.entities.size,maxStretch:this.world.maxStretch,spatialVisits:this.world.distancePairs,collisionContacts:this.world.collisionContacts};}
 }

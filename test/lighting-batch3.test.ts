@@ -77,7 +77,7 @@ test('cached template callbacks cloned into carrier views inject contact once an
  const shader={uniforms:{},vertexShader:THREE.ShaderLib.standard.vertexShader,fragmentShader:THREE.ShaderLib.standard.fragmentShader} as any;clone.onBeforeCompile(shader,{} as never);
  assert.equal(originalCalls,1);assert.equal(shader.uniforms.sceneContactMap,current.sceneContactMap);
  for(const declaration of ['uniform sampler2D sceneContactMap;','float sceneAmbientContact(){','reflectedLight.indirectDiffuse*=sceneAmbientContact();','float sourceAlphaHook(){'])assert.equal(shader.fragmentShader.split(declaration).length-1,1,declaration);
- assert.equal(clone.customProgramCacheKey(),'source-alpha:ambient-contact-v1');
+ assert.equal(clone.customProgramCacheKey(),'source-alpha:ambient-contact-v2');
 });
 test('the opaque original Yamato unlit body casts depth while its own colour and HUD basic materials remain unshaded',()=>{
  const body=new THREE.MeshBasicMaterial(),hud=new THREE.MeshBasicMaterial(),effect=new THREE.MeshBasicMaterial({transparent:true});body.userData.sc2={role:'body',blend:0};effect.userData.sc2={role:'effect',blend:2};
