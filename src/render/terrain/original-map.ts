@@ -8,11 +8,13 @@ import {assetUrl} from '../../assets/manifest';
 import {restoreSc2Materials} from '../loaders/sc2-materials';
 import type {World} from '../../simulation/world';
 import type {MapDefinition,MapPlacement} from '../../data/map-definition';
+import type {EnvironmentFrame} from './environment-atmosphere';
+import type {MapVisualFeatures} from './map-visual-profile';
 const url=(id:string)=>{const value=assetUrl(id);if(!value)throw Error('Missing original map asset: '+id);return value;};
 /** Resolve semantic image IDs in both Vite and file://; all original pixels remain local. */
 export function configureMapAssets(){THREE.Cache.enabled=true;THREE.DefaultLoadingManager.setURLModifier(value=>value.includes('sc2asset:')?url(value.slice(value.lastIndexOf('sc2asset:')+9)):value);}
 export async function loadMapDefinition(id:'kairos'|'acropolis'='kairos'):Promise<MapDefinition>{const response=await fetch(url('map.'+id));if(!response.ok)throw Error('Original map data unavailable');return response.json();}
-export interface MapView {bindTerrain?:(terrain:import('../../data/map-definition').TerrainQuery)=>void;dispose?:()=>void;update:(camera?:THREE.Camera,shadow?:ShadowViewContext)=>void;setLighting?:(active:{shadow:boolean;contact:boolean})=>void;setVisible:(visible:boolean)=>void;report:()=>{name:string;models:number;placements:number;visibleInstances:number;visibleMeshes:number;area:number;scale:number;sourceSha256:string}}
+export interface MapView {bindTerrain?:(terrain:import('../../data/map-definition').TerrainQuery)=>void;dispose?:()=>void;update:(camera?:THREE.Camera,shadow?:ShadowViewContext)=>void;updateEnvironment?:(frame:EnvironmentFrame)=>void;setVisualParts?:(features:Partial<MapVisualFeatures>)=>Promise<void>;setLighting?:(active:{shadow:boolean;contact:boolean})=>void;setVisible:(visible:boolean)=>void;report:()=>{name:string;models:number;placements:number;visibleInstances:number;visibleMeshes:number;area:number;scale:number;sourceSha256:string;environment?:unknown}}
 export async function createOriginalMap(scene:THREE.Scene,w:World,progress:(s:string)=>void):Promise<MapView>{
  const terrain=w.terrain!,d=terrain.definition!,prefix=d.source.name==='Acropolis LE'&&assetUrl('map.acropolis.terrain.diffuse')?'map.acropolis':'map',maskPrefix=d.source.name==='Acropolis LE'&&assetUrl('map.acropolis.terrain.mask0')?'map.acropolis':'map',root=new THREE.Group();root.name='terrain-'+d.source.name;scene.add(root);const texture=async(id:string,linear=false)=>{const t=await new THREE.TextureLoader().loadAsync(url(id));t.flipY=false;t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.anisotropy=8;return t;};
  try{

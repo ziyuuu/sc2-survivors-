@@ -1,4 +1,6 @@
 import {campaignMapAssets,campaignPreloadAssets,type CampaignMapRecipe} from '../data/campaign-map';
+import {environmentAssetIds,MAP_VISUAL_PROFILES} from '../render/terrain/map-visual-profile';
+import type {CampaignTheme} from '../data/campaign-landscape';
 import {httpAssetStatus} from '../assets/http-store';
 import {RESCUE_PRESENTATION} from '../data/economy';
 import type {RunSnapshot} from '../simulation/persistence/run-snapshot';
@@ -53,7 +55,8 @@ export class AssetReadinessCoordinator {
    const desiredMap=request.snapshot?.config.campaignMap??request.campaignMap;
    const rescueRace=request.snapshot?.config.race??request.race??this.world.expedition.race,rescue=RESCUE_PRESENTATION[rescueRace];
    if(!this.view.initialAssetsLoaded){
-    const mapAssets=desiredMap?campaignMapAssets(desiredMap):campaignPreloadAssets(),otherMapAssets=new Set(campaignPreloadAssets().filter(id=>!mapAssets.includes(id)));
+    const allMapAssets=[...campaignPreloadAssets(),...(Object.keys(MAP_VISUAL_PROFILES) as CampaignTheme[]).flatMap(environmentAssetIds)];
+    const mapAssets=desiredMap?[...campaignMapAssets(desiredMap),...environmentAssetIds(desiredMap.theme)]:allMapAssets,otherMapAssets=new Set(allMapAssets.filter(id=>!mapAssets.includes(id)));
     const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&['texture','effect-texture','audio'].includes(asset.kind)&&!otherMapAssets.has(asset.id)).map(asset=>asset.id);
     const fixed=['model.'+rescue.workerModel,'model.'+rescue.carrierModel,'model.'+rescue.carrierDeathModel,...(rescue.carrierBirthModel?['model.'+rescue.carrierBirthModel]:[]),'model.drone','model.egg','model.hive','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'];
     await prepareEmbeddedAssetIds([...common,...fixed,...mapAssets],report('models',.05,.1));

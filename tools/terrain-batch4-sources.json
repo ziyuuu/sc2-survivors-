@@ -1,0 +1,290 @@
+{
+  "version": 1,
+  "catalog": {
+    "revision": "fbbd6429b1eb6978c78a092dc68ba09029d03171",
+    "url": "https://raw.githubusercontent.com/Joshua-Leibold/SC2Data/fbbd6429b1eb6978c78a092dc68ba09029d03171/mods/swarm.sc2mod/base.sc2data/gamedata/terraintexdata.xml",
+    "sha256": "c21887c1d329417722c32f83a8bdaa3cfc8415ac8adbf59078c7d45029f978c9"
+  },
+  "sources": [
+    {
+      "file": "assets/private/dds/marsaraex2_2.dds",
+      "filename": "marsaraex2_2.dds",
+      "sourcePath": "Assets/Textures/marsaraex2_2.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/marsaraex2_2.dds",
+      "bytes": 1398256,
+      "sha256": "d2fa7a429b73f1b13f7fd05fd443d813987a1bdb64f78a54f8772f7a32d3aa6a",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/meinhoffex3_1normal.dds",
+      "filename": "meinhoffex3_1normal.dds",
+      "sourcePath": "Assets/Textures/meinhoffex3_1normal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/meinhoffex3_1normal.dds",
+      "bytes": 262272,
+      "sha256": "ba984902a76ebe03b265f51340705327996d8fd00c2cf5b9accef096a1a8b785",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/marsaraex2_3.dds",
+      "filename": "marsaraex2_3.dds",
+      "sourcePath": "Assets/Textures/marsaraex2_3.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/marsaraex2_3.dds",
+      "bytes": 1398256,
+      "sha256": "001425f40533b204a45aef540a3ed885cf9c1f3060eb326da8339034b55a0e09",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/korhalcityex2_7normal.dds",
+      "filename": "korhalcityex2_7normal.dds",
+      "sourcePath": "Assets/Textures/korhalcityex2_7normal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/korhalcityex2_7normal.dds",
+      "bytes": 262272,
+      "sha256": "f13ddc53dbf5e1e88840aaaf948cd0d97bb619e15c9b2de12db886d25206ad76",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/marsaraex2_4.dds",
+      "filename": "marsaraex2_4.dds",
+      "sourcePath": "Assets/Textures/marsaraex2_4.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/marsaraex2_4.dds",
+      "bytes": 1398256,
+      "sha256": "16c9f894e99633730b6d8abf37b606b554e6ee1516b2389ee2094ec560a273ff",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/marsaraex2_4normal.dds",
+      "filename": "marsaraex2_4normal.dds",
+      "sourcePath": "Assets/Textures/marsaraex2_4normal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/marsaraex2_4normal.dds",
+      "bytes": 1398260,
+      "sha256": "9a29ddfe4aed7b606a88e225f1d8f67fa05ec75d2baaa146bd6426c60df5c023",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/marsaraex2_6.dds",
+      "filename": "marsaraex2_6.dds",
+      "sourcePath": "Assets/Textures/marsaraex2_6.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/marsaraex2_6.dds",
+      "bytes": 1398256,
+      "sha256": "aee4914e239ef50fa3d1ef1dce80474c4d80caa4656743bc8b8dd7493d4cfd8d",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/snowrefinery_05normal.dds",
+      "filename": "snowrefinery_05normal.dds",
+      "sourcePath": "Assets/Textures/snowrefinery_05normal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/snowrefinery_05normal.dds",
+      "bytes": 262272,
+      "sha256": "5e070e325a3b38b62b877486735e7c43730dcd51caeb64fee2134f7971e9d4bb",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/castanarex2_panels.dds",
+      "filename": "castanarex2_panels.dds",
+      "sourcePath": "Assets/Textures/castanarex2_panels.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/castanarex2_panels.dds",
+      "bytes": 1398256,
+      "sha256": "8a3f9d30dd8bf4dea055f3bc7c97f3630daecfd6d282e12968abb88a0c54bf73",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/castanarex2_panelsnormal.dds",
+      "filename": "castanarex2_panelsnormal.dds",
+      "sourcePath": "Assets/Textures/castanarex2_panelsnormal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/castanarex2_panelsnormal.dds",
+      "bytes": 1398260,
+      "sha256": "916522bcf8de28141ee963251c8ab04b6d30e808e6269548dae49b1100abd241",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/prisonship_7.dds",
+      "filename": "prisonship_7.dds",
+      "sourcePath": "Assets/Textures/prisonship_7.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/prisonship_7.dds",
+      "bytes": 262272,
+      "sha256": "095f2a84034467d4b4925e7f7f639e15116daf33f53e77699adfd660c958e03c",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/prisonship_7normal.dds",
+      "filename": "prisonship_7normal.dds",
+      "sourcePath": "Assets/Textures/prisonship_7normal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/prisonship_7normal.dds",
+      "bytes": 262272,
+      "sha256": "46da32cd428b1372d6f28a077923bc0d411092aa566185f78b26a04a100110e6",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/char_dirt.dds",
+      "filename": "char_dirt.dds",
+      "sourcePath": "Assets/Textures/char_dirt.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/char_dirt.dds",
+      "bytes": 262272,
+      "sha256": "0c18bfcfeed5cbb97eb152e6c64fd1bd85992fbd5a17c8dcb030c65fc6a65d09",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/char_dirtnormal.dds",
+      "filename": "char_dirtnormal.dds",
+      "sourcePath": "Assets/Textures/char_dirtnormal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/char_dirtnormal.dds",
+      "bytes": 262272,
+      "sha256": "28bc079f94a624f174140b850594d8f773ce24ae8fd6524efbe8cb1698f0975a",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/char_rock.dds",
+      "filename": "char_rock.dds",
+      "sourcePath": "Assets/Textures/char_rock.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/char_rock.dds",
+      "bytes": 262272,
+      "sha256": "8e0259a10d0b647e06e0fafd76acd5ef1ea088ba66c6d8e4b7ec8a6ce3d7a31b",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/char_rocknormal.dds",
+      "filename": "char_rocknormal.dds",
+      "sourcePath": "Assets/Textures/char_rocknormal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/char_rocknormal.dds",
+      "bytes": 262272,
+      "sha256": "d0b1cbdc0c82dfe4cf707e27445d573144e73f400adcf6d01710c12ae65bc1dc",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/char_dirt_cracked.dds",
+      "filename": "char_dirt_cracked.dds",
+      "sourcePath": "Assets/Textures/char_dirt_cracked.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/char_dirt_cracked.dds",
+      "bytes": 262272,
+      "sha256": "35fa232de800779403ac9614e9b468bbbc195046f7da85831928bb932e75a3c4",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/char_dirt_crackednormal.dds",
+      "filename": "char_dirt_crackednormal.dds",
+      "sourcePath": "Assets/Textures/char_dirt_crackednormal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/char_dirt_crackednormal.dds",
+      "bytes": 262272,
+      "sha256": "2a6b37d38f1e60b70ed9c8b17ff422d0c7ab6a5a424ede458d19c8e26e868cea",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/iceworld_1.dds",
+      "filename": "iceworld_1.dds",
+      "sourcePath": "Assets/Textures/iceworld_1.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/iceworld_1.dds",
+      "bytes": 262272,
+      "sha256": "70250012e39a746950414efab0e7eeb236f950e37ec176fa55223447c2d36841",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/iceworld_1normal.dds",
+      "filename": "iceworld_1normal.dds",
+      "sourcePath": "Assets/Textures/iceworld_1normal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/iceworld_1normal.dds",
+      "bytes": 262272,
+      "sha256": "4c6adb7459740bd7aa04247c0520769e92ed1473e09d9506ff7fab8420ebfef8",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "file": "assets/private/dds/iceworld_2.dds",
+      "filename": "iceworld_2.dds",
+      "sourcePath": "Assets/Textures/iceworld_2.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/iceworld_2.dds",
+      "bytes": 1398256,
+      "sha256": "947bd772e5dd1851eddafeb50085280c772269c7db3dc3a6551f90b8521f2325",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/iceworld_2normal.dds",
+      "filename": "iceworld_2normal.dds",
+      "sourcePath": "Assets/Textures/iceworld_2normal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/iceworld_2normal.dds",
+      "bytes": 1398260,
+      "sha256": "22cdc00d2da04c7d65cb0a024351ae64e706166a49fa4c661fe206433ab61b13",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/iceworld_8.dds",
+      "filename": "iceworld_8.dds",
+      "sourcePath": "Assets/Textures/iceworld_8.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/iceworld_8.dds",
+      "bytes": 1398256,
+      "sha256": "bb02debd4b893d7f43f24cb9b60b6bd9698baf23cafc74b1a9db3491f4a26430",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/iceworld_8normal.dds",
+      "filename": "iceworld_8normal.dds",
+      "sourcePath": "Assets/Textures/iceworld_8normal.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/iceworld_8normal.dds",
+      "bytes": 1398260,
+      "sha256": "d08dba0bfa32e18ad1e21f9943fadd229695832c37f1caf89fb6f43d6d77526f",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "file": "assets/private/dds/dust3.dds",
+      "filename": "dust3.dds",
+      "sourcePath": "Assets/Textures/dust3.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/dust3.dds",
+      "bytes": 5616,
+      "sha256": "cbafd0dc52de1dbcf0adfeb6d42d8a5dea669e80fdb0fe24eef192c12cbd7524",
+      "width": 64,
+      "height": 64
+    },
+    {
+      "file": "assets/private/dds/smoke_wispy11.dds",
+      "filename": "smoke_wispy11.dds",
+      "sourcePath": "Assets/Textures/smoke_wispy11.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/smoke_wispy11.dds",
+      "bytes": 87536,
+      "sha256": "7ea661b3c3e8d1bc69fb8284c9f78247f008421cb020af7553641a4f39769131",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "assets/private/dds/ash_r1.dds",
+      "filename": "ash_r1.dds",
+      "sourcePath": "Assets/Textures/ash_r1.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/ash_r1.dds",
+      "bytes": 87536,
+      "sha256": "b0294515b071eb0b761ef03e14d3dabe88f25f2efe7121959b383dff371d3e44",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "assets/private/dds/dustdots2.dds",
+      "filename": "dustdots2.dds",
+      "sourcePath": "Assets/Textures/dustdots2.dds",
+      "source": "https://dist.sc2arcade.com/star-assets/textures/dustdots2.dds",
+      "bytes": 22000,
+      "sha256": "e616e1b6d5ebf65fa92ef965463db1da875aef9b8a3409a9abea8df898526aeb",
+      "width": 128,
+      "height": 128
+    }
+  ]
+}

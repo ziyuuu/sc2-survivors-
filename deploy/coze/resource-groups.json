@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "release": "26ee3ecb09a8cc6f1abc16f43d62a0f24aa5ebc242aa0c55d4867f177de83b20",
+  "release": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
   "groups": [
     "common",
     "terran",
@@ -49,6 +49,19 @@
         "map.image.36ce6f040953512916341e69fb5cac9f1f68bcbc5212c03795b302e4cf55425b"
       ],
       "gitPath": "deploy/runtime/assets/0231d841bbdbc121aea273b022d3fe37d343b6fa8a2f2bffe7be1269fb7a8025.webp"
+    },
+    {
+      "url": "assets/02346f52eff4965223e301e6f2bc46d6c4c3370eeac1a4919af0b18e3c3cff67.png",
+      "bytes": 635860,
+      "sha256": "02346f52eff4965223e301e6f2bc46d6c4c3370eeac1a4919af0b18e3c3cff67",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.rock"
+      ],
+      "gitPath": "deploy/runtime/assets/02346f52eff4965223e301e6f2bc46d6c4c3370eeac1a4919af0b18e3c3cff67.png"
     },
     {
       "url": "assets/025536c312138612932bb909169613ce50f9c87a522798f72157aaffbf19f898.png",
@@ -586,6 +599,19 @@
       "gitPath": "deploy/runtime/assets/0d8679265df171d91ba6f2bd75c02d48f68427a5923489875f3a4245dc645b53.glb"
     },
     {
+      "url": "assets/0db05d5a34d083a01590304dcbe160b4552f8b18d0dfb0b1ed767e6d0df1bfe3.png",
+      "bytes": 873093,
+      "sha256": "0db05d5a34d083a01590304dcbe160b4552f8b18d0dfb0b1ed767e6d0df1bfe3",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.cracked"
+      ],
+      "gitPath": "deploy/runtime/assets/0db05d5a34d083a01590304dcbe160b4552f8b18d0dfb0b1ed767e6d0df1bfe3.png"
+    },
+    {
       "url": "assets/0de037c3da2586b0c6c0c162167a217124339a86cc590c62f8f00fb284098d96.png",
       "bytes": 959259,
       "sha256": "0de037c3da2586b0c6c0c162167a217124339a86cc590c62f8f00fb284098d96",
@@ -768,6 +794,19 @@
       "gitPath": "deploy/runtime/assets/1156a47aece22d25ed932cebdd00b1677ef30c6339c7953ec757398d9b509a45.png"
     },
     {
+      "url": "assets/1199b51bd6b3733dacf4608d54f399e78f3757364d5039c7118cf3bade5fd16c.png",
+      "bytes": 229891,
+      "sha256": "1199b51bd6b3733dacf4608d54f399e78f3757364d5039c7118cf3bade5fd16c",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.char-soil"
+      ],
+      "gitPath": "deploy/runtime/assets/1199b51bd6b3733dacf4608d54f399e78f3757364d5039c7118cf3bade5fd16c.png"
+    },
+    {
       "url": "assets/119d3eec43ea09f9b0c475f282f8de3e9f951f6b8ba78e9736d89b18024ff795.png",
       "bytes": 14710,
       "sha256": "119d3eec43ea09f9b0c475f282f8de3e9f951f6b8ba78e9736d89b18024ff795",
@@ -857,6 +896,19 @@
         "map.image.d9830818007d3314b2db88b1d32f347b1650ffecf81f174e37ed7ed8e404f496"
       ],
       "gitPath": "deploy/runtime/assets/146b6d8e4c44567b147bc3b7384de92c4ffedd3034b0468c3fd777d169fa38a5.webp"
+    },
+    {
+      "url": "assets/14ab456aa3e459d53c67f27a5d36bc3015c397409c1550de19c988822b1dd7c2.png",
+      "bytes": 878592,
+      "sha256": "14ab456aa3e459d53c67f27a5d36bc3015c397409c1550de19c988822b1dd7c2",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.ice"
+      ],
+      "gitPath": "deploy/runtime/assets/14ab456aa3e459d53c67f27a5d36bc3015c397409c1550de19c988822b1dd7c2.png"
     },
     {
       "url": "assets/14b3172f41b7865e3e2c3b3d86c1c759b1fe549b35897519db95b782fea5312a.png",
@@ -2648,6 +2700,19 @@
       "gitPath": "deploy/runtime/assets/3936f94f1572ae3cfc76da86ed9f0c234a793e469cc68a2cf52cb1cfbfd70233.svg"
     },
     {
+      "url": "assets/399993acb0fac4a5f562da73dcfacff8d6ed73399c5d8015b17be317e89d05d8.png",
+      "bytes": 453627,
+      "sha256": "399993acb0fac4a5f562da73dcfacff8d6ed73399c5d8015b17be317e89d05d8",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.dark-rock-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/399993acb0fac4a5f562da73dcfacff8d6ed73399c5d8015b17be317e89d05d8.png"
+    },
+    {
       "url": "assets/399ac48a4628fe9fba9b52204b65994d6fd2108f93b22b2f225ead7a608617de.webp",
       "bytes": 84604,
       "sha256": "399ac48a4628fe9fba9b52204b65994d6fd2108f93b22b2f225ead7a608617de",
@@ -2828,6 +2893,19 @@
         "model.elite.zergling.1.death"
       ],
       "gitPath": "deploy/runtime/assets/3cd0b4f9cfc8e29f24da958d4466fe679f8b2712349ac26f70a6571b1a5319f3.glb"
+    },
+    {
+      "url": "assets/3cf0305cdb90be3e810e7d602a8e900f394eb41e0b45a0ccc09775443e48fb91.png",
+      "bytes": 469137,
+      "sha256": "3cf0305cdb90be3e810e7d602a8e900f394eb41e0b45a0ccc09775443e48fb91",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.sand"
+      ],
+      "gitPath": "deploy/runtime/assets/3cf0305cdb90be3e810e7d602a8e900f394eb41e0b45a0ccc09775443e48fb91.png"
     },
     {
       "url": "assets/3d74aaccaa8bf03c0bb525f1704e77f0c12bdaca69e0de9c6a7b75930ba7b3b5.glb",
@@ -3183,6 +3261,19 @@
       "gitPath": "deploy/runtime/assets/4541e82b4578202aa739982e0272ea20ec69a35a79dd34e7c0f024b9d96f8e87.webp"
     },
     {
+      "url": "assets/45cd96ba0285a879cc220b070f0afef3004a04d4e12e3069ab652d37650daa29.png",
+      "bytes": 1176235,
+      "sha256": "45cd96ba0285a879cc220b070f0afef3004a04d4e12e3069ab652d37650daa29",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.ice-rock"
+      ],
+      "gitPath": "deploy/runtime/assets/45cd96ba0285a879cc220b070f0afef3004a04d4e12e3069ab652d37650daa29.png"
+    },
+    {
       "url": "assets/45f28c668088dafce0af0f174ed2a5ba979488094a3d57d0505d1f7de4ad9b3e.png",
       "bytes": 791814,
       "sha256": "45f28c668088dafce0af0f174ed2a5ba979488094a3d57d0505d1f7de4ad9b3e",
@@ -3483,6 +3574,19 @@
       "gitPath": "deploy/runtime/assets/4bd0a3028cfa4eb080fe062710b805b5e118aba62abedbee28293775d2cff978.webp"
     },
     {
+      "url": "assets/4c73fe70b694c24596e112bffcc9bf81055f61bae2e1f99cd6d3f3dba7cc3438.png",
+      "bytes": 603089,
+      "sha256": "4c73fe70b694c24596e112bffcc9bf81055f61bae2e1f99cd6d3f3dba7cc3438",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.char-cracked-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/4c73fe70b694c24596e112bffcc9bf81055f61bae2e1f99cd6d3f3dba7cc3438.png"
+    },
+    {
       "url": "assets/4c82e68dc8b542520f51ba1d4640e9c5a1286fcfbdb54269b66de2bc4b208f09.webp",
       "bytes": 1000,
       "sha256": "4c82e68dc8b542520f51ba1d4640e9c5a1286fcfbdb54269b66de2bc4b208f09",
@@ -3679,6 +3783,19 @@
       "gitPath": "deploy/runtime/assets/50a8123cd2dd0541994a65235c9ba41972dd7644f2ef54b6bf090187b561df8c.png"
     },
     {
+      "url": "assets/50d8c458028d0ebf8f05247d402bbf318cdd800c4b83879cfee29adee86d5121.png",
+      "bytes": 463992,
+      "sha256": "50d8c458028d0ebf8f05247d402bbf318cdd800c4b83879cfee29adee86d5121",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.rock-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/50d8c458028d0ebf8f05247d402bbf318cdd800c4b83879cfee29adee86d5121.png"
+    },
+    {
       "url": "assets/51d18570b688eb83bc5d34c9ed6b201faae1df200213d2d48c9835de8fa3b183.png",
       "bytes": 1219624,
       "sha256": "51d18570b688eb83bc5d34c9ed6b201faae1df200213d2d48c9835de8fa3b183",
@@ -3755,6 +3872,19 @@
         "model.elite.hellion.2"
       ],
       "gitPath": "deploy/runtime/assets/541bfd298a55ffebaa4b98769fb69c1fe2cd75a8b101f6342003023baab634d3.glb"
+    },
+    {
+      "url": "assets/542726b35d4a66f731a3a26c518292b310ff74fb1b62d1b37ca1f921f0691a35.png",
+      "bytes": 150941,
+      "sha256": "542726b35d4a66f731a3a26c518292b310ff74fb1b62d1b37ca1f921f0691a35",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.plates"
+      ],
+      "gitPath": "deploy/runtime/assets/542726b35d4a66f731a3a26c518292b310ff74fb1b62d1b37ca1f921f0691a35.png"
     },
     {
       "url": "assets/544d38b16151a2fc78d490061893f61f8d6eef55c726b8edfeb679c40d198002.glb",
@@ -4163,6 +4293,19 @@
       "gitPath": "deploy/runtime/assets/5c7ab02e28337708818a67abda49b400a86614a434d9755539154d6b15e0f189.glb"
     },
     {
+      "url": "assets/5d571738306396ed8537d9bfe2c5f6f8540d1022fd11d96b3ae2c14eb0dedbae.png",
+      "bytes": 36791,
+      "sha256": "5d571738306396ed8537d9bfe2c5f6f8540d1022fd11d96b3ae2c14eb0dedbae",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.smoke"
+      ],
+      "gitPath": "deploy/runtime/assets/5d571738306396ed8537d9bfe2c5f6f8540d1022fd11d96b3ae2c14eb0dedbae.png"
+    },
+    {
       "url": "assets/5d70e0b04749e48e5c86477e29a6e67bc34647cf716c623d4685aef13f16d65c.glb",
       "bytes": 2847044,
       "sha256": "5d70e0b04749e48e5c86477e29a6e67bc34647cf716c623d4685aef13f16d65c",
@@ -4499,6 +4642,19 @@
         "map.image.9f8571cd639f61dcaa213230aef162150c752cc9584906b0d2dbfe7ac4f8c44b"
       ],
       "gitPath": "deploy/runtime/assets/647bf7da9b3d97f753edd08088054024dbfcd7a2048b3f8bb0bde65e7cf63fe7.webp"
+    },
+    {
+      "url": "assets/6578f7d42b0960c7e7ad619f7b52797ccd3dee163d82e292c8fa9dcc3777759b.png",
+      "bytes": 35034,
+      "sha256": "6578f7d42b0960c7e7ad619f7b52797ccd3dee163d82e292c8fa9dcc3777759b",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.ash"
+      ],
+      "gitPath": "deploy/runtime/assets/6578f7d42b0960c7e7ad619f7b52797ccd3dee163d82e292c8fa9dcc3777759b.png"
     },
     {
       "url": "assets/65ddf30b7c371b4bad52ae5a3d9e0e8c169b7c04028218959b8b0a0aabcda3ec.glb",
@@ -5101,6 +5257,19 @@
       "gitPath": "deploy/runtime/assets/71a9f3bed4162d35389be10937601e66395d12f7fe088ca9f4b55fb229868548.svg"
     },
     {
+      "url": "assets/71adbce29a2c24f51334e7675084cafe60a9594c5e98d165be88460985fa78c8.png",
+      "bytes": 674858,
+      "sha256": "71adbce29a2c24f51334e7675084cafe60a9594c5e98d165be88460985fa78c8",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.panels"
+      ],
+      "gitPath": "deploy/runtime/assets/71adbce29a2c24f51334e7675084cafe60a9594c5e98d165be88460985fa78c8.png"
+    },
+    {
       "url": "assets/71ccb83fed33174ff1ea87f68a81ecb2057ab7e23fda32a6e0a24829af24bf9d.glb",
       "bytes": 841884,
       "sha256": "71ccb83fed33174ff1ea87f68a81ecb2057ab7e23fda32a6e0a24829af24bf9d",
@@ -5216,6 +5385,19 @@
         "material.team.b3df499eca39f7d49e12"
       ],
       "gitPath": "deploy/runtime/assets/73b6715426d8a1277115b5633b05e19adf3dfb0f039d9c8e04b9b721a3b6a806.png"
+    },
+    {
+      "url": "assets/7444c7fe09ec5d1bf6405b72b21d9464d1cb32b0bb89061d1d1b9003899cce3c.png",
+      "bytes": 498037,
+      "sha256": "7444c7fe09ec5d1bf6405b72b21d9464d1cb32b0bb89061d1d1b9003899cce3c",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.char-soil-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/7444c7fe09ec5d1bf6405b72b21d9464d1cb32b0bb89061d1d1b9003899cce3c.png"
     },
     {
       "url": "assets/7458b3e06478fd83a119da41525f1ffb27265eb4104642c8f57d1c9238e47358.glb",
@@ -5346,6 +5528,19 @@
         "map.image.3306c61ce2522dd5364b7ee936c26d55d741a31e1a4a5525d53c241dfa0acc2a"
       ],
       "gitPath": "deploy/runtime/assets/782584323d8acf5cd4b8abe2b4e9769144ceb794524349b6b96643119d35fc45.webp"
+    },
+    {
+      "url": "assets/785bcde623e230a4277935b7ba6ca8aae98589b0276da46baf65518228d0843c.png",
+      "bytes": 496134,
+      "sha256": "785bcde623e230a4277935b7ba6ca8aae98589b0276da46baf65518228d0843c",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.char-rock-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/785bcde623e230a4277935b7ba6ca8aae98589b0276da46baf65518228d0843c.png"
     },
     {
       "url": "assets/7889e76c8628d7998dbd96d1c0a6d9e08d39c6a0020c7c4bb8cbffbe2152580b.png",
@@ -5947,6 +6142,19 @@
       "gitPath": "deploy/runtime/assets/861a5f1f924eef668ab1b7468f6c0abfea27879d9eca3a286207d7ca912ac647.png"
     },
     {
+      "url": "assets/86290b53c9d07a968200f3c6f243ee3740da820c5dd93095d48142255a9bf2fd.png",
+      "bytes": 2584,
+      "sha256": "86290b53c9d07a968200f3c6f243ee3740da820c5dd93095d48142255a9bf2fd",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.dust"
+      ],
+      "gitPath": "deploy/runtime/assets/86290b53c9d07a968200f3c6f243ee3740da820c5dd93095d48142255a9bf2fd.png"
+    },
+    {
       "url": "assets/8688dc9a999b371e94374c069131e1b1284bd341caa86dd65407dc2f8cfb254e.webp",
       "bytes": 201934,
       "sha256": "8688dc9a999b371e94374c069131e1b1284bd341caa86dd65407dc2f8cfb254e",
@@ -6075,6 +6283,19 @@
         "map.image.88d0820dcd90d575f1affeafbeaa1b44cb8ea8283899fa23bfaf2a9af90e43f4"
       ],
       "gitPath": "deploy/runtime/assets/88d0820dcd90d575f1affeafbeaa1b44cb8ea8283899fa23bfaf2a9af90e43f4.png"
+    },
+    {
+      "url": "assets/88d78ba5904ef1af6c6a82d37d270fcbcd639832bc84e214791a1dd97bb59632.png",
+      "bytes": 738070,
+      "sha256": "88d78ba5904ef1af6c6a82d37d270fcbcd639832bc84e214791a1dd97bb59632",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.dark-rock"
+      ],
+      "gitPath": "deploy/runtime/assets/88d78ba5904ef1af6c6a82d37d270fcbcd639832bc84e214791a1dd97bb59632.png"
     },
     {
       "url": "assets/88fdeb9326af6892005dcf8abeaa14fd9ae9368b5d3de197ad56f9be7f3a4373.glb",
@@ -6703,6 +6924,19 @@
         "ui.native.btn-ability-terran-fireonthemove"
       ],
       "gitPath": "deploy/runtime/assets/9749ab4a12346e68b2b8fca2f8c876a06b45ac96036b453790ffe9fbd09083d4.png"
+    },
+    {
+      "url": "assets/97518c4da75f3c709f813412c89ab64c4677ee991f0e48c73fd8566a4e770d8e.png",
+      "bytes": 266519,
+      "sha256": "97518c4da75f3c709f813412c89ab64c4677ee991f0e48c73fd8566a4e770d8e",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.char-rock"
+      ],
+      "gitPath": "deploy/runtime/assets/97518c4da75f3c709f813412c89ab64c4677ee991f0e48c73fd8566a4e770d8e.png"
     },
     {
       "url": "assets/9758a4e43b9e3be39f5b95e1e09b6df1b98d2879d389c4dba67a92efdeae76ed.webp",
@@ -7801,6 +8035,19 @@
       "gitPath": "deploy/runtime/assets/aca3c8988a3ebdebe23b80a2bedb86144cf1563445326bca13595ea4da499983.glb"
     },
     {
+      "url": "assets/ace43e1f12c11956e2006e3588ca12aeb6c37ba330a11dbcd9c3ba9e5b3da00c.png",
+      "bytes": 276229,
+      "sha256": "ace43e1f12c11956e2006e3588ca12aeb6c37ba330a11dbcd9c3ba9e5b3da00c",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.char-cracked"
+      ],
+      "gitPath": "deploy/runtime/assets/ace43e1f12c11956e2006e3588ca12aeb6c37ba330a11dbcd9c3ba9e5b3da00c.png"
+    },
+    {
       "url": "assets/ad0d9d310977816b6af2250924fd6a6dd92fc34cd8cd9feaf5590d2338d3a514.glb",
       "bytes": 4470192,
       "sha256": "ad0d9d310977816b6af2250924fd6a6dd92fc34cd8cd9feaf5590d2338d3a514",
@@ -7955,6 +8202,19 @@
         "material.team.fd425a08a14b5748b8b3"
       ],
       "gitPath": "deploy/runtime/assets/af1098c3950e06a58230809e7679ead45d3e00144c575da94f5c58ba4a08671d.png"
+    },
+    {
+      "url": "assets/af503082f0a1cef0ef211396a856a296460951813956af011a33f89957b54c60.png",
+      "bytes": 1946,
+      "sha256": "af503082f0a1cef0ef211396a856a296460951813956af011a33f89957b54c60",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.snow-fleck"
+      ],
+      "gitPath": "deploy/runtime/assets/af503082f0a1cef0ef211396a856a296460951813956af011a33f89957b54c60.png"
     },
     {
       "url": "assets/b006a918464896d5134c598cd9c1d305ac2eb895dbd6e349959a146265641226.png",
@@ -8255,6 +8515,19 @@
         "fx.bile.6"
       ],
       "gitPath": "deploy/runtime/assets/b7b5eeca0ab5f1c607f107fec3fa8c54cc8925743d3f36924fe2ac1fea81c1b9.png"
+    },
+    {
+      "url": "assets/b7b98a2eedb1cf86f4365becb3b121538937e044454a4b2fdddc34dd7b8bfff6.png",
+      "bytes": 1498241,
+      "sha256": "b7b98a2eedb1cf86f4365becb3b121538937e044454a4b2fdddc34dd7b8bfff6",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.cracked-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/b7b98a2eedb1cf86f4365becb3b121538937e044454a4b2fdddc34dd7b8bfff6.png"
     },
     {
       "url": "assets/b7e5a8ada0773df0f2e622f75b086fa5ec735e43446aa6cd202f8e5fe0e5b35f.png",
@@ -8558,6 +8831,19 @@
       "gitPath": "deploy/runtime/assets/bd47af276679164c6e10da8069a10c3f51fec98df9e2cea17406761777eacb21.webp"
     },
     {
+      "url": "assets/bd4c07f74f6f3cb894028a59d4ecd67a5241927c83a0e5f25e73a796af6feffa.png",
+      "bytes": 236505,
+      "sha256": "bd4c07f74f6f3cb894028a59d4ecd67a5241927c83a0e5f25e73a796af6feffa",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.snow"
+      ],
+      "gitPath": "deploy/runtime/assets/bd4c07f74f6f3cb894028a59d4ecd67a5241927c83a0e5f25e73a796af6feffa.png"
+    },
+    {
       "url": "assets/bd5c8b7c0cf643f0c3dc747647cb88d2b29b53221307abbccc4a5e3116b21d11.webp",
       "bytes": 608310,
       "sha256": "bd5c8b7c0cf643f0c3dc747647cb88d2b29b53221307abbccc4a5e3116b21d11",
@@ -8622,6 +8908,19 @@
         "ui.paint.hydralisk-atlas"
       ],
       "gitPath": "deploy/runtime/assets/bf0cee15019e42950c212cf69831bd5835751b9098dc77a667b2b50bd7f3ebe5.webp"
+    },
+    {
+      "url": "assets/bf2222eb85c933ce7756d16f6cd7c151eafb50ed0ba44aceb139d957d11f11d0.png",
+      "bytes": 670931,
+      "sha256": "bf2222eb85c933ce7756d16f6cd7c151eafb50ed0ba44aceb139d957d11f11d0",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.panels-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/bf2222eb85c933ce7756d16f6cd7c151eafb50ed0ba44aceb139d957d11f11d0.png"
     },
     {
       "url": "assets/bf2c23a79e82041abac2da0da1bdd4bf023eb6c5a08d9bf6f7f64a2f3712eb64.png",
@@ -8778,6 +9077,19 @@
         "map.image.ba201a318bae4bb52c45748ce0f6818f3804a22dfeaf2710e61ede5c621d39d9"
       ],
       "gitPath": "deploy/runtime/assets/c23517e735c6ff042fe4ba50c28e29a68ff2776b62fd9d393695089c17ccc56b.webp"
+    },
+    {
+      "url": "assets/c286b81a3f0d3e11b04144eb234b073b28032b75747e63163d65c9f0952a6a7c.png",
+      "bytes": 401352,
+      "sha256": "c286b81a3f0d3e11b04144eb234b073b28032b75747e63163d65c9f0952a6a7c",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.sand-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/c286b81a3f0d3e11b04144eb234b073b28032b75747e63163d65c9f0952a6a7c.png"
     },
     {
       "url": "assets/c291602655c715d32e485ce64de3e096c7b9f0fd0c79d35b378d0e006d126b28.glb",
@@ -8999,6 +9311,19 @@
         "model.elite.science_vessel.1"
       ],
       "gitPath": "deploy/runtime/assets/c6563b5a739abdead4e270ac771fb731170190514b1bb005eaf6a91dd8f5ea0f.glb"
+    },
+    {
+      "url": "assets/c6b6057d4db284456948464e95b899f87dac9bcdd4f551638c1d83031f3199a4.png",
+      "bytes": 387892,
+      "sha256": "c6b6057d4db284456948464e95b899f87dac9bcdd4f551638c1d83031f3199a4",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.snow-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/c6b6057d4db284456948464e95b899f87dac9bcdd4f551638c1d83031f3199a4.png"
     },
     {
       "url": "assets/c707751ae398269816684c264d0e2b8214b5470a2ccb359b061f66c19218e7bf.png",
@@ -9916,6 +10241,19 @@
       "gitPath": "deploy/runtime/assets/dfc0d3a1ae220c1c678ef8499baf08c9967e75ca6f97c89f2147145cc6dec933.png"
     },
     {
+      "url": "assets/e06eb7566e07ba065ea0f17e1646266789a523b5cc0ff4a0b807496e8c83bca6.png",
+      "bytes": 243710,
+      "sha256": "e06eb7566e07ba065ea0f17e1646266789a523b5cc0ff4a0b807496e8c83bca6",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.plates-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/e06eb7566e07ba065ea0f17e1646266789a523b5cc0ff4a0b807496e8c83bca6.png"
+    },
+    {
       "url": "assets/e07cd9de59fe6c9dd54e8e485d150a31dd91c8a5577a8621d27d03f9359ec710.webp",
       "bytes": 238048,
       "sha256": "e07cd9de59fe6c9dd54e8e485d150a31dd91c8a5577a8621d27d03f9359ec710",
@@ -10385,6 +10723,19 @@
       "gitPath": "deploy/runtime/assets/ee8b832057cd050287064fa9803afc05585ddcfa9440b0504968289eb310e932.png"
     },
     {
+      "url": "assets/eeb8466bc6e5c6d410a292d19d6c774fe53c3511c0774d95a844dd1f94d83ab9.png",
+      "bytes": 2230409,
+      "sha256": "eeb8466bc6e5c6d410a292d19d6c774fe53c3511c0774d95a844dd1f94d83ab9",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.ice-rock-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/eeb8466bc6e5c6d410a292d19d6c774fe53c3511c0774d95a844dd1f94d83ab9.png"
+    },
+    {
       "url": "assets/ef0cd2fd53c89ef97db893b2707fd59f77fcedf118eb70b2999b6c97e778dc04.webp",
       "bytes": 129170,
       "sha256": "ef0cd2fd53c89ef97db893b2707fd59f77fcedf118eb70b2999b6c97e778dc04",
@@ -10643,6 +10994,19 @@
         "model.elite.queen.1.death"
       ],
       "gitPath": "deploy/runtime/assets/f7e9e0549480848028f9770f6022ab73ce6ceea75ccfad6bba665d1ce3f4047b.glb"
+    },
+    {
+      "url": "assets/f7ec8f603e7a0096e2020f79f425ea65a528daf3de1375be07267e63244fdde9.png",
+      "bytes": 1490138,
+      "sha256": "f7ec8f603e7a0096e2020f79f425ea65a528daf3de1375be07267e63244fdde9",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "terrain.visual.ice-normal"
+      ],
+      "gitPath": "deploy/runtime/assets/f7ec8f603e7a0096e2020f79f425ea65a528daf3de1375be07267e63244fdde9.png"
     },
     {
       "url": "assets/f8c397c9a6fecf9f2ed10e1bee548f196f932e1d07048a80f9e1d794c7886969.glb",

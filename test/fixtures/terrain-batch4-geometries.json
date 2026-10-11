@@ -1,0 +1,490 @@
+{
+  "baseline": "41391803ced755ec26d5ac248263a7ca5aa118ef",
+  "seeds": [
+    10609,
+    89241,
+    3735928559
+  ],
+  "geometries": [
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "industrial",
+        "seed": 10609
+      },
+      "mapHash": "campaign-five-v3:industrial:10609:ec0628b2",
+      "digests": {
+        "heights": "0fbab125acd7d136b06f918ab9ea0ff0aa055d038f6493288de48c3f4502bda9",
+        "syncHeights": "0fbab125acd7d136b06f918ab9ea0ff0aa055d038f6493288de48c3f4502bda9",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "5f3a0b5acadf15d1a92f59ec832583cd6becb944b44d7180c75d39dadb8df640",
+        "opening": "4c9bf1d53f84fafc173f42b3d1290cedda2c26ff36d1e451b64078aacacfbcf8",
+        "reveal": "4c9bf1d53f84fafc173f42b3d1290cedda2c26ff36d1e451b64078aacacfbcf8",
+        "clearance": "5cd1d05f6082b59a5bf0105900a74f4239255b1643425f894b7cb4b23e68ed10",
+        "placements": "f87ef1c0919f1e5630029be0472534e6ddcc641a945001ec7c46b26175bb606c",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 230,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "industrial",
+        "seed": 89241
+      },
+      "mapHash": "campaign-five-v3:industrial:89241:27b0b2d3",
+      "digests": {
+        "heights": "0fbab125acd7d136b06f918ab9ea0ff0aa055d038f6493288de48c3f4502bda9",
+        "syncHeights": "0fbab125acd7d136b06f918ab9ea0ff0aa055d038f6493288de48c3f4502bda9",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "f936e56a118da3a945576081bc80c149ccec10f03ae4852da7c3082c69acd9cd",
+        "opening": "e819ab5da3f44e4929f60b34e0790d96940b4b7c7b5cb46734c4a9028cc70acc",
+        "reveal": "e819ab5da3f44e4929f60b34e0790d96940b4b7c7b5cb46734c4a9028cc70acc",
+        "clearance": "231fdd68143dce55b02a6f1da8ae29e8a5f0a3bdd1e0019d4804b1883fd29445",
+        "placements": "3430d7c843dba165825189a6c70363a0ebf3629c3a3a62f5cb233a7ea32ca645",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 230,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "industrial",
+        "seed": 3735928559
+      },
+      "mapHash": "campaign-five-v3:industrial:3735928559:6432b9b8",
+      "digests": {
+        "heights": "0fbab125acd7d136b06f918ab9ea0ff0aa055d038f6493288de48c3f4502bda9",
+        "syncHeights": "0fbab125acd7d136b06f918ab9ea0ff0aa055d038f6493288de48c3f4502bda9",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "665370f773928b5ad06d50448ce140e823481f5f2cfbb4f0e11058c827b845cb",
+        "opening": "37571b5fa6eed04e10fb76ab78875f6f7e668f16df9a6131be9b8a9c16c9698f",
+        "reveal": "37571b5fa6eed04e10fb76ab78875f6f7e668f16df9a6131be9b8a9c16c9698f",
+        "clearance": "d236df1c2159fedee759e2c1cd378d0d0167abdeea6c715b4750b2112b8cb671",
+        "placements": "ca554c853f2860db0ecd8d4c30c3c9f9688968e1b4c2cf2f4b234f224fa9a684",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 243,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "mar-sara",
+        "seed": 10609
+      },
+      "mapHash": "campaign-five-v3:mar-sara:10609:c3e5ea16",
+      "digests": {
+        "heights": "d45c9501e823fda3277874d04a4bbb6ee121f5803903a8cfc89adc0e0f3662d7",
+        "syncHeights": "d45c9501e823fda3277874d04a4bbb6ee121f5803903a8cfc89adc0e0f3662d7",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "66485417b3b3ce4da84d8cb9e6c3bc6f18c38fcdaa77c03a50b0cf32ae48a1b5",
+        "opening": "5521f937f8568e3fd08820b0674fde8ff25185a63321018854dd30e2ff18c36c",
+        "reveal": "5521f937f8568e3fd08820b0674fde8ff25185a63321018854dd30e2ff18c36c",
+        "clearance": "8e1d393d29ad6a0d7f1d599a2c41727ced6b6dd298302f98e78a0508610cc1b5",
+        "placements": "3fe70ca6197751a6745e30e6fd2050dd0c7232a490a13738403e851e451d72cb",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 217,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "mar-sara",
+        "seed": 89241
+      },
+      "mapHash": "campaign-five-v3:mar-sara:89241:f020f058",
+      "digests": {
+        "heights": "d45c9501e823fda3277874d04a4bbb6ee121f5803903a8cfc89adc0e0f3662d7",
+        "syncHeights": "d45c9501e823fda3277874d04a4bbb6ee121f5803903a8cfc89adc0e0f3662d7",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "6751dd667c93a2b6907e42911d66cfc80dab2405ea9998e69e92aad810d697ce",
+        "opening": "5a048d48dbfa78375eed1ef3f934a8fd2e8dea9541f013c21c05893ffb63918c",
+        "reveal": "5a048d48dbfa78375eed1ef3f934a8fd2e8dea9541f013c21c05893ffb63918c",
+        "clearance": "4c46ea80f6905a56e435e995ec7f8e5e93e3a9032edd3b10c2da643a23b92e92",
+        "placements": "2bed4b71b029e88cb41d7294cbe59d7837a083852eabc8e56274384c3faeaa0f",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 229,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "mar-sara",
+        "seed": 3735928559
+      },
+      "mapHash": "campaign-five-v3:mar-sara:3735928559:800e3708",
+      "digests": {
+        "heights": "d45c9501e823fda3277874d04a4bbb6ee121f5803903a8cfc89adc0e0f3662d7",
+        "syncHeights": "d45c9501e823fda3277874d04a4bbb6ee121f5803903a8cfc89adc0e0f3662d7",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "a02299e04400cca013e97f5df0be00948adca680a1a6830a9116e599aa4939cd",
+        "opening": "21008cff7f6da6205365a84ecfc0863ebdc880563c814d70d62b26c10a2fde65",
+        "reveal": "21008cff7f6da6205365a84ecfc0863ebdc880563c814d70d62b26c10a2fde65",
+        "clearance": "7cd9f02e2c9cd3ad3be914695a9fe6388d52e5fd1e57d929918c52df201ef82d",
+        "placements": "8e46988a5b73ced43aa3a5d61a8ed03675a7c086ee3cd4a87040ee9e6b2a6e18",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 236,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "char",
+        "seed": 10609
+      },
+      "mapHash": "campaign-five-v3:char:10609:6e0a3478",
+      "digests": {
+        "heights": "0fa537d6657964d9e059c419d6daf11c8db3f6f245a72fcb32b36d6f7c1746a9",
+        "syncHeights": "0fa537d6657964d9e059c419d6daf11c8db3f6f245a72fcb32b36d6f7c1746a9",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "494817407e7cfafdb3342cead86d67c0e5db73a2fb4673e6ec13744b0f576968",
+        "opening": "338b4ae101837d7097e9a08429d06282d69147ca9e13bfcf15c8468692ec5ea8",
+        "reveal": "338b4ae101837d7097e9a08429d06282d69147ca9e13bfcf15c8468692ec5ea8",
+        "clearance": "ec4088ec9c08d7dffd4742eb367c8928d3f25fa8acd86e6542acf7c5edfa1393",
+        "placements": "7d9a27da4b328061b323db6d304dc5013f52e9d8a3ffbac3a106f5129f42bbd8",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 234,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "char",
+        "seed": 89241
+      },
+      "mapHash": "campaign-five-v3:char:89241:61f34b45",
+      "digests": {
+        "heights": "0fa537d6657964d9e059c419d6daf11c8db3f6f245a72fcb32b36d6f7c1746a9",
+        "syncHeights": "0fa537d6657964d9e059c419d6daf11c8db3f6f245a72fcb32b36d6f7c1746a9",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "86fe9c7683fc0ced41b52afd388ac21b7d39eb6a83ac6c35725ef9c72942b022",
+        "opening": "7acea30af5238e1faef3f12697fa5b5a29b13d67bf1f3b7a087500e1c9f233b6",
+        "reveal": "7acea30af5238e1faef3f12697fa5b5a29b13d67bf1f3b7a087500e1c9f233b6",
+        "clearance": "a5d7f57c9c9488cc32f6f43e37a5eb3950b6ba45fd95a7ed7bf7706dd28e8109",
+        "placements": "6a4d434ccbb3bc0980b986e43b71232b5e77271a4b718f8fdddc3c7315c3d0ca",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 225,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "char",
+        "seed": 3735928559
+      },
+      "mapHash": "campaign-five-v3:char:3735928559:869dc938",
+      "digests": {
+        "heights": "0fa537d6657964d9e059c419d6daf11c8db3f6f245a72fcb32b36d6f7c1746a9",
+        "syncHeights": "0fa537d6657964d9e059c419d6daf11c8db3f6f245a72fcb32b36d6f7c1746a9",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "9a2eb3f9f257e086f8ffb6fd7f4863ac7a503947c59b21b44bbf73262404dbdb",
+        "opening": "9b98d7cd6e324b4dd2917668383a673eebed9cdab0f9af38b1705f2c059ac75e",
+        "reveal": "9b98d7cd6e324b4dd2917668383a673eebed9cdab0f9af38b1705f2c059ac75e",
+        "clearance": "a1cb720d6aa2ea9a17263bfeca5f0f73adc31780773531a47e8a102d275daf97",
+        "placements": "a2d15b3ab686802221d242e9c81b3ace945d85292929887c22f5f279883e3f06",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 231,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "ice",
+        "seed": 10609
+      },
+      "mapHash": "campaign-five-v3:ice:10609:19d349fc",
+      "digests": {
+        "heights": "535be273a0df747c8d204511abb46902a4ae635148237b81b392c0ee0b69b037",
+        "syncHeights": "535be273a0df747c8d204511abb46902a4ae635148237b81b392c0ee0b69b037",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "167b28fd3f66a3f9347f54ee55afa04f3732920a4ffd7614203dbb449cb651f5",
+        "opening": "bcd0bbd04758e1de40b5444ebbbc960d87e253d6783e1086457bacf55e36eb37",
+        "reveal": "bcd0bbd04758e1de40b5444ebbbc960d87e253d6783e1086457bacf55e36eb37",
+        "clearance": "745dcd00fc94ca80238f55e49b174f8ce3aa5ccc1e2625e6b5aa5d47ca50cc5f",
+        "placements": "92ac4d617328bb7fb1df252407f69e2f4102c287b75d3562b036d3a055b63d88",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 225,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "ice",
+        "seed": 89241
+      },
+      "mapHash": "campaign-five-v3:ice:89241:42cd23c0",
+      "digests": {
+        "heights": "535be273a0df747c8d204511abb46902a4ae635148237b81b392c0ee0b69b037",
+        "syncHeights": "535be273a0df747c8d204511abb46902a4ae635148237b81b392c0ee0b69b037",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "4ca02fb8ea2affbf330255914753c51e007a7ab24311ee0fe13a185fe8774da9",
+        "opening": "c1aae52f6a6a940fbb28c1dd8ed55ffaa6ab2e97b884d8c62d663f896e7ed792",
+        "reveal": "c1aae52f6a6a940fbb28c1dd8ed55ffaa6ab2e97b884d8c62d663f896e7ed792",
+        "clearance": "c5def6f6af350428b987b4fff886a7ac28e7c62b8ef6563d52780e3d04a77a95",
+        "placements": "f46bca6476e11a8659817f3059e67ab6fb015992b79316dfdf7b2297cd3a3843",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 230,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "ice",
+        "seed": 3735928559
+      },
+      "mapHash": "campaign-five-v3:ice:3735928559:c3c62499",
+      "digests": {
+        "heights": "535be273a0df747c8d204511abb46902a4ae635148237b81b392c0ee0b69b037",
+        "syncHeights": "535be273a0df747c8d204511abb46902a4ae635148237b81b392c0ee0b69b037",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "94fb923cde620ca0d5c1cf75f42ebcea47bfc25df2d4193ce5c080dc131f647f",
+        "opening": "9e170d899333cdef66e47af30191c95d4765c8ac5a4086e7ead74c8c37d8f527",
+        "reveal": "9e170d899333cdef66e47af30191c95d4765c8ac5a4086e7ead74c8c37d8f527",
+        "clearance": "33ed49dd89ebed054cd5d7f567aaad9e134f0dec7ecc28e1f5f73ab388b924e2",
+        "placements": "651a06f90ad84b8d3462423a2b5a6c7f9619f86da09d34faf0fa7021beffc200",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 245,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "frontier",
+        "seed": 10609
+      },
+      "mapHash": "campaign-five-v3:frontier:10609:974bfc1f",
+      "digests": {
+        "heights": "a157e657205a777c2a631e8eceeba44c1041835ea45d1a63112e453d7c2190bf",
+        "syncHeights": "a157e657205a777c2a631e8eceeba44c1041835ea45d1a63112e453d7c2190bf",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "35072064dd2c6f2bdd7254c93b09a58ca6f7b4310f0c0598bdbff032ece6985c",
+        "opening": "ce9e1ba8407480c31acd067ca0a613f1fe05b5a88030a4213607460fb4d0d462",
+        "reveal": "ce9e1ba8407480c31acd067ca0a613f1fe05b5a88030a4213607460fb4d0d462",
+        "clearance": "eac61af44a230c274041e8b46889714df4c8fdc50dc5cf9f4c9f2273fbec591f",
+        "placements": "4de05ede19035fa18390025718db47555dd096b41b9ba17269cf9b643cefc0eb",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 232,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "frontier",
+        "seed": 89241
+      },
+      "mapHash": "campaign-five-v3:frontier:89241:81fa60c0",
+      "digests": {
+        "heights": "a157e657205a777c2a631e8eceeba44c1041835ea45d1a63112e453d7c2190bf",
+        "syncHeights": "a157e657205a777c2a631e8eceeba44c1041835ea45d1a63112e453d7c2190bf",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "723b026f702b00686b681aafe9d57b2ed6d933f265973f16bb28aaba9cb354a8",
+        "opening": "22f23f4dcc00e4708fd560c101da2c14923057cbfe717b5c20a94735c8fb8d08",
+        "reveal": "22f23f4dcc00e4708fd560c101da2c14923057cbfe717b5c20a94735c8fb8d08",
+        "clearance": "92878a3c1d6274868cbc523a3ca32bd0835eddbde10fbdb731ce26134d6bc499",
+        "placements": "89f334da2e8e421809b9fb16290715cadad4f4fe94929c1b0fb3eec48c5d91d5",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 223,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    },
+    {
+      "recipe": {
+        "version": 3,
+        "theme": "frontier",
+        "seed": 3735928559
+      },
+      "mapHash": "campaign-five-v3:frontier:3735928559:342cb66",
+      "digests": {
+        "heights": "a157e657205a777c2a631e8eceeba44c1041835ea45d1a63112e453d7c2190bf",
+        "syncHeights": "a157e657205a777c2a631e8eceeba44c1041835ea45d1a63112e453d7c2190bf",
+        "levels": "218e7ae155983bee3d49e8e0d45b502c4394dd280828fde4ebe57c8dbb29a26a",
+        "walk": "4c18539610d4ad4c55935957551049cb2d2fdc5bab707311f06a31492bf216c7",
+        "opening": "dfa7655c522a2fbaf63283bc2c280f0034bebd243a45786be1854f037cd53170",
+        "reveal": "dfa7655c522a2fbaf63283bc2c280f0034bebd243a45786be1854f037cd53170",
+        "clearance": "6179232541f2d508c986e0ffcbe104d9c5024f2ab22de00e5ec1cfed4a704371",
+        "placements": "32dd47f22711cbec443a8e6cbda3bd123d771c8abfa20577046a260aca5ca22a",
+        "ramps": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "stageAreas": "0c68d33b99be8ba87f271cf1331c25b216f1a78f3f252fe7fb7ccbd0f63aea9a",
+        "cliffs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "bounds": "1133236570431c4a04ae56a695b7be85eb1a2af95ca620f7bf37bf46750c652f",
+        "origin": "0ba74ebe883ef0c1aaeb5be094325ed2f09cf982a41fe7464d912d52ed3f29e1",
+        "start": "fe9d69a91b6205191df01cff54dccf1245266dbeeb1d15343153b0fa923d718a",
+        "hive": "2645551372fde0c414b68c674017f7a82ac080a5f2a847d81134ab84647cb4fc"
+      },
+      "placements": 236,
+      "dimensions": [
+        160,
+        160,
+        320,
+        320
+      ]
+    }
+  ]
+}

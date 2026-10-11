@@ -1,0 +1,2376 @@
+{
+  "passed": true,
+  "at": "2026-10-11T04:47:44.622Z",
+  "appBuildId": "36f5f27ab2ac9fb5259ad3896a9e2fed756c10588041e240cb9607ad7090fb84",
+  "assetRelease": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+  "packageBuildId": "38eadd07719babd930c27fd76b74ef2f04e142cfbb21718c46e8d38ca21b3ed9",
+  "htmlSha256": "409e512595dc3f89fa42fbab036fd2b3a9a356a4c5b8add606ff781f902587b4",
+  "zipSha256": "400469fd6f9fd177b65b8b290ef3fcc96ebeca714932ca7a8a7fdfc79f15edc7",
+  "pairedStates": 613,
+  "recordings": [
+    {
+      "name": "industrial-terran-continuous-end",
+      "video": {
+        "file": "industrial-terran-native-20s.webm",
+        "bytes": 5391369,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/industrial-terran-native-20s.webm",
+        "sha256": "97107be40560701459896b769097fad4c726e904ad1c302a8bb10e2869d97998"
+      },
+      "clock": {
+        "wallSeconds": 20.01420000000298,
+        "simulationTicks": 1200,
+        "frames": 1194,
+        "backlogSeconds": 0.004399999998510842,
+        "discardedSeconds": 0,
+        "rafP95": 17.30000000447035,
+        "visible": "visible",
+        "focus": true,
+        "state": "44f81a75",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 60672.70000000298,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "industrial",
+        "state": "44f81a75",
+        "time": 26,
+        "tick": 1560,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "industrial-zerg-continuous-end",
+      "video": {
+        "file": "industrial-zerg-native-20s.webm",
+        "bytes": 4976951,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/industrial-zerg-native-20s.webm",
+        "sha256": "d2d20528a407620808856f4beef3a6d22e7fe074771469be673aed762115fcf6"
+      },
+      "clock": {
+        "wallSeconds": 20.01530000000447,
+        "simulationTicks": 1200,
+        "frames": 1187,
+        "backlogSeconds": 0.004800000004471339,
+        "discardedSeconds": 0,
+        "rafP95": 19,
+        "visible": "visible",
+        "focus": true,
+        "state": "fbf16926",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 109340.20000000298,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "industrial",
+        "state": "fbf16926",
+        "time": 26,
+        "tick": 1560,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "industrial-protoss-continuous-end",
+      "video": {
+        "file": "industrial-protoss-native-20s.webm",
+        "bytes": 6348585,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/industrial-protoss-native-20s.webm",
+        "sha256": "6de9dd66b634fd1eaf37634a93b4d5cf35020cd6fbd06409da24c3476e1bd23d"
+      },
+      "clock": {
+        "wallSeconds": 20.014700000002982,
+        "simulationTicks": 1200,
+        "frames": 1196,
+        "backlogSeconds": 0.0027000000029812204,
+        "discardedSeconds": 0,
+        "rafP95": 17.19999999552965,
+        "visible": "visible",
+        "focus": true,
+        "state": "949a25ac",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 150509.1000000015,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "industrial",
+        "state": "949a25ac",
+        "time": 26,
+        "tick": 1560,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "mar-sara-terran-continuous-end",
+      "video": {
+        "file": "mar-sara-terran-native-20s.webm",
+        "bytes": 6134607,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/mar-sara-terran-native-20s.webm",
+        "sha256": "a4ce15649a0a523196bff0857886ab9925feaf69f625bcab2caf8f52384d207c"
+      },
+      "clock": {
+        "wallSeconds": 20.0165,
+        "simulationTicks": 1200,
+        "frames": 1190,
+        "backlogSeconds": 0.004000000000000871,
+        "discardedSeconds": 0,
+        "rafP95": 21.600000001490116,
+        "visible": "visible",
+        "focus": true,
+        "state": "6715cc79",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 198074.6000000015,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "mar-sara",
+        "state": "6715cc79",
+        "time": 26,
+        "tick": 1560,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "mar-sara-zerg-continuous-end",
+      "video": {
+        "file": "mar-sara-zerg-native-20s.webm",
+        "bytes": 3810095,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/mar-sara-zerg-native-20s.webm",
+        "sha256": "2b38a153a3511b23dd69ad5dde4d30588bf026d1a0b50b4c39e11326cf9a1e5c"
+      },
+      "clock": {
+        "wallSeconds": 20.002,
+        "simulationTicks": 1199,
+        "frames": 1201,
+        "backlogSeconds": 0.010866666662197308,
+        "discardedSeconds": 0,
+        "rafP95": 17,
+        "visible": "visible",
+        "focus": true,
+        "state": "8fc11bf9",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 246966.70000000298,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "mar-sara",
+        "state": "8fc11bf9",
+        "time": 25.983333333333334,
+        "tick": 1559,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "mar-sara-protoss-continuous-end",
+      "video": {
+        "file": "mar-sara-protoss-native-20s.webm",
+        "bytes": 6173637,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/mar-sara-protoss-native-20s.webm",
+        "sha256": "62e40fd057a26da18282c7049cd69af436e4dc5c727c191539e419ea8c077da4"
+      },
+      "clock": {
+        "wallSeconds": 20.00770000000298,
+        "simulationTicks": 1199,
+        "frames": 1169,
+        "backlogSeconds": 0.013366666669650012,
+        "discardedSeconds": 0,
+        "rafP95": 24.100000001490116,
+        "visible": "visible",
+        "focus": true,
+        "state": "6caf66f4",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 284079.200000003,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "mar-sara",
+        "state": "6caf66f4",
+        "time": 25.983333333333334,
+        "tick": 1559,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "char-terran-continuous-end",
+      "video": {
+        "file": "char-terran-native-20s.webm",
+        "bytes": 6368075,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/char-terran-native-20s.webm",
+        "sha256": "bb04678e37915fb175db8251e6c7c3a39c21f6eb01deea24d47dfc652de7121b"
+      },
+      "clock": {
+        "wallSeconds": 20.00739999999851,
+        "simulationTicks": 1199,
+        "frames": 1197,
+        "backlogSeconds": 0.013066666665177619,
+        "discardedSeconds": 0,
+        "rafP95": 17.200000002980232,
+        "visible": "visible",
+        "focus": true,
+        "state": "e3048d4b",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 330481.200000003,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "char",
+        "state": "e3048d4b",
+        "time": 25.983333333333334,
+        "tick": 1559,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "char-zerg-continuous-end",
+      "video": {
+        "file": "char-zerg-native-20s.webm",
+        "bytes": 5709013,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/char-zerg-native-20s.webm",
+        "sha256": "dd7c0b287b061c9ab3c8b20e25fe49c5277f517f012cc44413e50216001884c1"
+      },
+      "clock": {
+        "wallSeconds": 20.008900000005962,
+        "simulationTicks": 1200,
+        "frames": 1201,
+        "backlogSeconds": 0.0008000000044713143,
+        "discardedSeconds": 0,
+        "rafP95": 17,
+        "visible": "visible",
+        "focus": true,
+        "state": "1c19ca16",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 376359.8999999985,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "char",
+        "state": "1c19ca16",
+        "time": 26,
+        "tick": 1560,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "char-protoss-continuous-end",
+      "video": {
+        "file": "char-protoss-native-20s.webm",
+        "bytes": 6277857,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/char-protoss-native-20s.webm",
+        "sha256": "c6d757fa1de069f72e154fe991c6b84be752689bb66d69f707ce5509beabc53e"
+      },
+      "clock": {
+        "wallSeconds": 20.00810000000149,
+        "simulationTicks": 1199,
+        "frames": 1139,
+        "backlogSeconds": 0.013966666671138214,
+        "discardedSeconds": 0,
+        "rafP95": 26.69999999552965,
+        "visible": "visible",
+        "focus": true,
+        "state": "8c2b09f2",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 420029.700000003,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "char",
+        "state": "8c2b09f2",
+        "time": 25.983333333333334,
+        "tick": 1559,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "ice-terran-continuous-end",
+      "video": {
+        "file": "ice-terran-native-20s.webm",
+        "bytes": 6381377,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/ice-terran-native-20s.webm",
+        "sha256": "83fd0a12166e43de98675181f8fe8a650662e13bfb27a6f2b0ee274bf25175f6"
+      },
+      "clock": {
+        "wallSeconds": 20.00670000000298,
+        "simulationTicks": 1199,
+        "frames": 1173,
+        "backlogSeconds": 0.012366666669647704,
+        "discardedSeconds": 0,
+        "rafP95": 24.30000000447035,
+        "visible": "visible",
+        "focus": true,
+        "state": "301d393d",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 467364.6000000015,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "ice",
+        "state": "301d393d",
+        "time": 25.983333333333334,
+        "tick": 1559,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "ice-zerg-continuous-end",
+      "video": {
+        "file": "ice-zerg-native-20s.webm",
+        "bytes": 4047827,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/ice-zerg-native-20s.webm",
+        "sha256": "301e0cdfea002567b36096a12157fceacf3dcb164e589edd4ea81e5ea1c0d501"
+      },
+      "clock": {
+        "wallSeconds": 20.01239999999851,
+        "simulationTicks": 1200,
+        "frames": 1193,
+        "backlogSeconds": 0.0038000000044713447,
+        "discardedSeconds": 0,
+        "rafP95": 21.100000001490116,
+        "visible": "visible",
+        "focus": true,
+        "state": "e2f9ff50",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 513772.5,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "ice",
+        "state": "e2f9ff50",
+        "time": 26,
+        "tick": 1560,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "ice-protoss-continuous-end",
+      "video": {
+        "file": "ice-protoss-native-20s.webm",
+        "bytes": 5944109,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/ice-protoss-native-20s.webm",
+        "sha256": "4751f1cc4701a62a56efc8b01f4c3877a7b9aa1dbe0916f2b1c10f5d01113d5f"
+      },
+      "clock": {
+        "wallSeconds": 20.03029999999702,
+        "simulationTicks": 1200,
+        "frames": 1074,
+        "backlogSeconds": 0.011500000000000218,
+        "discardedSeconds": 0,
+        "rafP95": 29.5,
+        "visible": "visible",
+        "focus": true,
+        "state": "84a426a0",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 551075.8999999985,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "ice",
+        "state": "84a426a0",
+        "time": 26,
+        "tick": 1560,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "frontier-terran-continuous-end",
+      "video": {
+        "file": "frontier-terran-native-20s.webm",
+        "bytes": 6280867,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/frontier-terran-native-20s.webm",
+        "sha256": "4b16a5ed87e9d71c877504e282d1a9dc5c91db391ac1e3c2516b4a1f08988515"
+      },
+      "clock": {
+        "wallSeconds": 20.00080000000447,
+        "simulationTicks": 1199,
+        "frames": 1200,
+        "backlogSeconds": 0.009266666668157779,
+        "discardedSeconds": 0,
+        "rafP95": 17.100000001490116,
+        "visible": "visible",
+        "focus": true,
+        "state": "430b5fc1",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 598534.799999997,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "frontier",
+        "state": "430b5fc1",
+        "time": 25.983333333333334,
+        "tick": 1559,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "frontier-zerg-continuous-end",
+      "video": {
+        "file": "frontier-zerg-native-20s.webm",
+        "bytes": 5394851,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/frontier-zerg-native-20s.webm",
+        "sha256": "8712e195bfbf1ab711754f9530f2f81174266d8748918011a2916a8ad6e85e29"
+      },
+      "clock": {
+        "wallSeconds": 20.00979999999702,
+        "simulationTicks": 1200,
+        "frames": 1201,
+        "backlogSeconds": 0.0016999999955306898,
+        "discardedSeconds": 0,
+        "rafP95": 17,
+        "visible": "visible",
+        "focus": true,
+        "state": "d15e79de",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 644409.200000003,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "frontier",
+        "state": "d15e79de",
+        "time": 26,
+        "tick": 1560,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    },
+    {
+      "name": "frontier-protoss-continuous-end",
+      "video": {
+        "file": "frontier-protoss-native-20s.webm",
+        "bytes": 6480936,
+        "mime": "video/webm",
+        "method": "Browser MediaRecorder of actual WebGL canvas over measured wall time",
+        "path": "reports/local/terrain-batch4-20261011/after-final-realtime/frontier-protoss-native-20s.webm",
+        "sha256": "93ce6e072ab059e71650faa85862e4066850780fd654a28aeea688b34b9017de"
+      },
+      "clock": {
+        "wallSeconds": 20.0125,
+        "simulationTicks": 1200,
+        "frames": 1195,
+        "backlogSeconds": 0.0014000000059613896,
+        "discardedSeconds": 0,
+        "rafP95": 17.5,
+        "visible": "visible",
+        "focus": true,
+        "state": "16ed9c84",
+        "method": "Visible wall-clock recording of a controlled native fixture with native FixedStepper; not natural campaign or stable-FPS acceptance",
+        "visibilityEvents": [
+          {
+            "at": 686338.799999997,
+            "visible": "visible",
+            "focus": true
+          }
+        ]
+      },
+      "finalState": {
+        "theme": "frontier",
+        "state": "16ed9c84",
+        "time": 26,
+        "tick": 1560,
+        "phase": "battle"
+      },
+      "detail": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json"
+    }
+  ],
+  "formalMaps": 5,
+  "offlineMaps": 5,
+  "status": "Approved fourth visual batch integrated and locally verified; Git synchronization recorded separately",
+  "baseline": "41391803ced755ec26d5ac248263a7ca5aa118ef",
+  "version": "0.6.19",
+  "applicationFiles": 186,
+  "runSchema": 26,
+  "profileVersion": 6,
+  "mapRecipe": 3,
+  "resources": {
+    "records": 881,
+    "files": 863,
+    "bytes": 776676720,
+    "release": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+    "addedRecords": 28,
+    "addedFiles": 28,
+    "addedBytes": 16119837,
+    "originalSourceHashes": 799,
+    "terrainSourceHashes": 28,
+    "terrainSourceBytes": 18993056
+  },
+  "protection": {
+    "baselineFiles": 5785,
+    "counts": {
+      "authorized-edit": 14,
+      "same": 5767,
+      "application": 4
+    },
+    "compiledInputs": 215,
+    "packagedBackendVendorConfigIdentical": 152,
+    "dependencyChanges": 0
+  },
+  "html": {
+    "path": "dist/SC2-Survivors-Terrain-Batch4-Final-20261011.html",
+    "bytes": 635700769,
+    "sha256": "409e512595dc3f89fa42fbab036fd2b3a9a356a4c5b8add606ff781f902587b4",
+    "decodedAssets": 881,
+    "decodedLogicalBytes": 777590080
+  },
+  "zip": {
+    "path": "dist/Terrain-Batch4-Final-Application-20261011.zip",
+    "bytes": 9988349,
+    "sha256": "400469fd6f9fd177b65b8b290ef3fcc96ebeca714932ca7a8a7fdfc79f15edc7",
+    "files": 187,
+    "packageBuildId": "38eadd07719babd930c27fd76b74ef2f04e142cfbb21718c46e8d38ca21b3ed9",
+    "verifiedRoundTrip": true,
+    "deployed": false
+  },
+  "checks": {
+    "regressions": 1326,
+    "typecheck": true,
+    "dataDocs": true,
+    "talentDefinitions": 165,
+    "geometryPairs": 270,
+    "flatSamplePoints": 6889,
+    "identities": 138,
+    "pairedWorldProfileRngStates": 613,
+    "lifecycleCaptures": 20,
+    "lifecycleChecks": 24,
+    "web": {
+      "maps": 5,
+      "screens": 12,
+      "exports": 12,
+      "endlessExactRecovery": true
+    },
+    "offline": {
+      "maps": 5,
+      "screens": 12,
+      "exports": 12,
+      "endlessExactRecovery": true,
+      "httpRequests": 0
+    },
+    "missingRequiredResourceAndRetry": true,
+    "controls": {
+      "sizes": 4,
+      "screens": 22,
+      "exports": 32,
+      "exactRecovery": true,
+      "endlessExactRecovery": true
+    },
+    "startupCases": 4,
+    "updateReused": 835,
+    "updateAdded": 28
+  },
+  "pairs": [
+    {
+      "suite": "stage",
+      "beforeBuild": "0654a8a4ff86985cf9595ce9ec7252e26f45102d5ce7fabf4a2b5ddedd360670",
+      "afterBuild": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+      "records": 240,
+      "correctedCharRecords": 48
+    },
+    {
+      "suite": "maps",
+      "beforeBuild": "0654a8a4ff86985cf9595ce9ec7252e26f45102d5ce7fabf4a2b5ddedd360670",
+      "afterBuild": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+      "records": 180,
+      "correctedCharRecords": 36,
+      "identities": [
+        "marine",
+        "marine.1",
+        "marine.2",
+        "marine.3",
+        "marauder",
+        "marauder.1",
+        "marauder.2",
+        "marauder.3",
+        "reaper",
+        "reaper.1",
+        "reaper.2",
+        "reaper.3",
+        "hellion",
+        "hellion.1",
+        "hellion.2",
+        "hellion.3",
+        "tank",
+        "tank.1",
+        "tank.2",
+        "tank.3",
+        "thor",
+        "thor.1",
+        "thor.2",
+        "thor.3",
+        "viking",
+        "viking.1",
+        "viking.2",
+        "viking.3",
+        "banshee",
+        "banshee.1",
+        "banshee.2",
+        "banshee.3",
+        "medivac",
+        "medivac.1",
+        "medivac.2",
+        "medivac.3",
+        "science_vessel",
+        "science_vessel.1",
+        "science_vessel.2",
+        "science_vessel.3",
+        "zergling",
+        "zergling.1",
+        "zergling.2",
+        "zergling.3",
+        "baneling",
+        "baneling.1",
+        "baneling.2",
+        "baneling.3",
+        "roach",
+        "roach.1",
+        "roach.2",
+        "roach.3",
+        "ravager",
+        "ravager.1",
+        "ravager.2",
+        "ravager.3",
+        "hydralisk",
+        "hydralisk.1",
+        "hydralisk.2",
+        "hydralisk.3",
+        "queen",
+        "queen.1",
+        "queen.2",
+        "queen.3",
+        "lurker",
+        "lurker.1",
+        "lurker.2",
+        "lurker.3",
+        "mutalisk",
+        "mutalisk.1",
+        "mutalisk.2",
+        "mutalisk.3",
+        "corruptor",
+        "corruptor.1",
+        "corruptor.2",
+        "corruptor.3",
+        "ultralisk",
+        "ultralisk.1",
+        "ultralisk.2",
+        "ultralisk.3",
+        "zealot",
+        "zealot.1",
+        "zealot.2",
+        "zealot.3",
+        "adept",
+        "adept.1",
+        "adept.2",
+        "adept.3",
+        "stalker",
+        "stalker.1",
+        "stalker.2",
+        "stalker.3",
+        "sentry",
+        "sentry.1",
+        "sentry.2",
+        "sentry.3",
+        "immortal",
+        "immortal.1",
+        "immortal.2",
+        "immortal.3",
+        "colossus",
+        "colossus.1",
+        "colossus.2",
+        "colossus.3",
+        "high_templar",
+        "high_templar.1",
+        "high_templar.2",
+        "high_templar.3",
+        "phoenix",
+        "phoenix.1",
+        "phoenix.2",
+        "phoenix.3",
+        "void_ray",
+        "void_ray.1",
+        "void_ray.2",
+        "void_ray.3",
+        "carrier",
+        "carrier.1",
+        "carrier.2",
+        "carrier.3",
+        "raynor",
+        "tychus",
+        "nova",
+        "swann",
+        "tosh",
+        "yamato_battlecruiser",
+        "kerrigan",
+        "zagara",
+        "dehaka",
+        "stukov",
+        "niadra",
+        "hots_leviathan",
+        "artanis",
+        "zeratul",
+        "alarak",
+        "fenix",
+        "vorazun",
+        "purifier_flagship"
+      ]
+    },
+    {
+      "suite": "edge",
+      "beforeBuild": "0654a8a4ff86985cf9595ce9ec7252e26f45102d5ce7fabf4a2b5ddedd360670",
+      "afterBuild": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+      "records": 6,
+      "correctedCharRecords": 0
+    },
+    {
+      "suite": "sequence",
+      "beforeBuild": "0654a8a4ff86985cf9595ce9ec7252e26f45102d5ce7fabf4a2b5ddedd360670",
+      "afterBuild": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+      "records": 112,
+      "correctedCharRecords": 0
+    },
+    {
+      "suite": "dense",
+      "beforeBuild": "0654a8a4ff86985cf9595ce9ec7252e26f45102d5ce7fabf4a2b5ddedd360670",
+      "afterBuild": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+      "records": 75,
+      "correctedCharRecords": 15
+    }
+  ],
+  "geometry": {
+    "baseline": "41391803ced755ec26d5ac248263a7ca5aa118ef",
+    "geometries": 15,
+    "records": 270,
+    "flat": {
+      "sampledPoints": 6889,
+      "zeroElevation": true,
+      "occupancyUnchanged": true,
+      "noNewObjects": true
+    }
+  },
+  "lifecycle": {
+    "build": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+    "checks": [
+      {
+        "name": "industrial-pause",
+        "state": "13657f1a",
+        "particles": {
+          "count": 8,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "industrial-exact-restore",
+        "state": "13657f1a"
+      },
+      {
+        "name": "industrial-context",
+        "before": "60e31e70",
+        "after": "a3d765ab",
+        "gameplayAfter": "60e31e70",
+        "nativeNotice": {
+          "before": [
+            "守住小队。生产完成后必须救援。",
+            8
+          ],
+          "after": [
+            "画面连接已恢复，请准备画面后继续",
+            18
+          ]
+        },
+        "particles": {
+          "count": 8,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "industrial-samplers",
+        "samplersChecked": 171
+      },
+      {
+        "name": "mar-sara-previous-map-disposed"
+      },
+      {
+        "name": "mar-sara-pause",
+        "state": "b4aedb8c",
+        "particles": {
+          "count": 20,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "mar-sara-exact-restore",
+        "state": "b4aedb8c"
+      },
+      {
+        "name": "mar-sara-context",
+        "before": "c9206e06",
+        "after": "3a836ef7",
+        "gameplayAfter": "c9206e06",
+        "nativeNotice": {
+          "before": [
+            "守住小队。生产完成后必须救援。",
+            8
+          ],
+          "after": [
+            "画面连接已恢复，请准备画面后继续",
+            18
+          ]
+        },
+        "particles": {
+          "count": 20,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "mar-sara-samplers",
+        "samplersChecked": 651
+      },
+      {
+        "name": "char-previous-map-disposed"
+      },
+      {
+        "name": "char-pause",
+        "state": "3390b14e",
+        "particles": {
+          "count": 21,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "char-exact-restore",
+        "state": "3390b14e"
+      },
+      {
+        "name": "char-context",
+        "before": "6b80ab55",
+        "after": "56a43808",
+        "gameplayAfter": "6b80ab55",
+        "nativeNotice": {
+          "before": [
+            "守住小队。生产完成后必须救援。",
+            8
+          ],
+          "after": [
+            "画面连接已恢复，请准备画面后继续",
+            18
+          ]
+        },
+        "particles": {
+          "count": 21,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "char-samplers",
+        "samplersChecked": 783
+      },
+      {
+        "name": "ice-previous-map-disposed"
+      },
+      {
+        "name": "ice-pause",
+        "state": "0b8b13d6",
+        "particles": {
+          "count": 28,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "ice-exact-restore",
+        "state": "0b8b13d6"
+      },
+      {
+        "name": "ice-context",
+        "before": "3e7e9c43",
+        "after": "c453ffb8",
+        "gameplayAfter": "3e7e9c43",
+        "nativeNotice": {
+          "before": [
+            "守住小队。生产完成后必须救援。",
+            8
+          ],
+          "after": [
+            "画面连接已恢复，请准备画面后继续",
+            18
+          ]
+        },
+        "particles": {
+          "count": 29,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "ice-samplers",
+        "samplersChecked": 744
+      },
+      {
+        "name": "frontier-previous-map-disposed"
+      },
+      {
+        "name": "frontier-pause",
+        "state": "933b95ae",
+        "particles": {
+          "count": 19,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "frontier-exact-restore",
+        "state": "933b95ae"
+      },
+      {
+        "name": "frontier-context",
+        "before": "726b3b2b",
+        "after": "cedbcb9e",
+        "gameplayAfter": "726b3b2b",
+        "nativeNotice": {
+          "before": [
+            "守住小队。生产完成后必须救援。",
+            8
+          ],
+          "after": [
+            "画面连接已恢复，请准备画面后继续",
+            18
+          ]
+        },
+        "particles": {
+          "count": 19,
+          "visible": true,
+          "rootVisible": true,
+          "cast": false,
+          "receive": false
+        }
+      },
+      {
+        "name": "frontier-samplers",
+        "samplersChecked": 354
+      }
+    ],
+    "detail": "reports/local/terrain-batch4-20261011/environment-lifecycle-r4/results.json"
+  },
+  "cost": [
+    {
+      "label": "before-final-cost",
+      "build": "0654a8a4ff86985cf9595ce9ec7252e26f45102d5ce7fabf4a2b5ddedd360670",
+      "sourceDigest": "99f01baa55cd4f859e725c7d00667da04bec6b79964210b7d5399d8c3a15c12a",
+      "state": "edbdb889",
+      "time": 5,
+      "subjects": [
+        {
+          "identity": "immortal",
+          "entityId": 2,
+          "hp": 229.99999999999997,
+          "barrier": 0,
+          "deadAt": null,
+          "x": -7,
+          "z": -4,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.1",
+          "entityId": 3,
+          "hp": 1642.1999999999998,
+          "barrier": 0,
+          "deadAt": null,
+          "x": 7,
+          "z": -4,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.2",
+          "entityId": 4,
+          "hp": 2898.0000000000005,
+          "barrier": 0,
+          "deadAt": null,
+          "x": -7,
+          "z": 5,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.3",
+          "entityId": 5,
+          "hp": 2318.3999999999996,
+          "barrier": 0,
+          "deadAt": null,
+          "x": 7,
+          "z": 5,
+          "action": "spawn"
+        }
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1.0000000298023224,
+        "renderPixelRatio": 1,
+        "width": 1280,
+        "height": 720,
+        "cssWidth": 1280,
+        "cssHeight": 720,
+        "antialias": true
+      },
+      "seconds": 5.00360000000149,
+      "frames": 300,
+      "rafMs": {
+        "mean": 16.662000000004966,
+        "p95": 17,
+        "min": 14.900000005960464,
+        "max": 17.5
+      },
+      "cpuSubmitMs": {
+        "mean": 4.870999999741713,
+        "p95": 5.600000001490116,
+        "min": 4.199999995529652,
+        "max": 8.100000001490116
+      },
+      "drawCalls": {
+        "mean": 70,
+        "p95": 70,
+        "min": 70,
+        "max": 70
+      },
+      "triangles": {
+        "mean": 346017,
+        "p95": 346017,
+        "min": 346017,
+        "max": 346017
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "visibility": [
+        "visible"
+      ],
+      "focused": [
+        true
+      ],
+      "method": "Short paused rendering cost record, not stable-FPS or natural performance acceptance",
+      "presentation": {
+        "headful": true,
+        "nativeThrottlingDefaults": true,
+        "removedAutomationFlags": [
+          "--disable-background-timer-throttling",
+          "--disable-backgrounding-occluded-windows",
+          "--disable-renderer-backgrounding"
+        ]
+      }
+    },
+    {
+      "label": "after-final-cost",
+      "build": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+      "sourceDigest": "d1001993e8b5e6dfabdf8cfe64f740a0820abd95fb4e6c2c07257b6fb15258c9",
+      "state": "edbdb889",
+      "time": 5,
+      "subjects": [
+        {
+          "identity": "immortal",
+          "entityId": 2,
+          "hp": 229.99999999999997,
+          "barrier": 0,
+          "deadAt": null,
+          "x": -7,
+          "z": -4,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.1",
+          "entityId": 3,
+          "hp": 1642.1999999999998,
+          "barrier": 0,
+          "deadAt": null,
+          "x": 7,
+          "z": -4,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.2",
+          "entityId": 4,
+          "hp": 2898.0000000000005,
+          "barrier": 0,
+          "deadAt": null,
+          "x": -7,
+          "z": 5,
+          "action": "spawn"
+        },
+        {
+          "identity": "immortal.3",
+          "entityId": 5,
+          "hp": 2318.3999999999996,
+          "barrier": 0,
+          "deadAt": null,
+          "x": 7,
+          "z": 5,
+          "action": "spawn"
+        }
+      ],
+      "resolution": {
+        "quality": "native",
+        "devicePixelRatio": 1.0000000298023224,
+        "renderPixelRatio": 1,
+        "width": 1280,
+        "height": 720,
+        "cssWidth": 1280,
+        "cssHeight": 720,
+        "antialias": true
+      },
+      "seconds": 5.00279999999702,
+      "frames": 300,
+      "rafMs": {
+        "mean": 16.6593333333234,
+        "p95": 17,
+        "min": 14.5,
+        "max": 17.700000002980232
+      },
+      "cpuSubmitMs": {
+        "mean": 4.812000000004967,
+        "p95": 5.5,
+        "min": 4.100000001490116,
+        "max": 6.600000001490116
+      },
+      "drawCalls": {
+        "mean": 72,
+        "p95": 72,
+        "min": 72,
+        "max": 72
+      },
+      "triangles": {
+        "mean": 346033,
+        "p95": 346033,
+        "min": 346033,
+        "max": 346033
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "visibility": [
+        "visible"
+      ],
+      "focused": [
+        true
+      ],
+      "method": "Short paused rendering cost record, not stable-FPS or natural performance acceptance",
+      "presentation": {
+        "headful": true,
+        "nativeThrottlingDefaults": true,
+        "removedAutomationFlags": [
+          "--disable-background-timer-throttling",
+          "--disable-backgrounding-occluded-windows",
+          "--disable-renderer-backgrounding"
+        ]
+      }
+    }
+  ],
+  "visual": {
+    "passed": true,
+    "at": "2026-10-11T04:38:25.216Z",
+    "reviewer": "Codex bounded image review",
+    "method": "Consolidates original version-bound review reports without rewriting their historical completion states. The two initial reports record completed subsets instead of a passed field. Final Char supplements replace affected imagery only; all other images retain their actual builds.",
+    "reviews": [
+      {
+        "file": "visual-stage-review.json",
+        "sha256": "a47b3bf9e7d4c7b4e911c8fe43686a14476e6ab50258987a1fc874ee6ddb8d26",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "at": "2026-10-11T02:03:05.283Z",
+          "completedSubset": "Stage composition: 30 before/after pairs, 60 original captures indexed on ten contact pages and inspected.",
+          "index": [
+            "visual-review-index/industrial-desktop.jpg",
+            "visual-review-index/industrial-narrow.jpg",
+            "visual-review-index/mar-sara-desktop.jpg",
+            "visual-review-index/mar-sara-narrow.jpg",
+            "visual-review-index/char-desktop.jpg",
+            "visual-review-index/char-narrow.jpg",
+            "visual-review-index/ice-desktop.jpg",
+            "visual-review-index/ice-narrow.jpg",
+            "visual-review-index/frontier-desktop.jpg",
+            "visual-review-index/frontier-narrow.jpg"
+          ],
+          "findings": [
+            {
+              "area": "industrial",
+              "finding": "Source panel joints are legible and the earlier outlined roadway square is replaced by a continuous soft transition. Matched units retain their poses and outlines."
+            },
+            {
+              "area": "mar-sara",
+              "finding": "Sand now reads distinctly from red compacted soil and rocky areas. The large warm surface is intentionally quieter, with retained original terrain relief and foliage."
+            },
+            {
+              "area": "char",
+              "finding": "Repetitive evenly tiled fissures are reduced; localized red source cracks remain within dark gray soil. This map remains dark under its unchanged third-batch lighting; global dynamic readability/client calibration remains subsequent work."
+            },
+            {
+              "area": "ice",
+              "finding": "Actual snow and ice source detail replaces flat pale tint. Facility paving retains original placement and now blends through snow; original rocks and their shadows remain."
+            },
+            {
+              "area": "frontier",
+              "finding": "Mining route and mechanical surfaces blend into mineral soil with less hard rectangular segmentation. Mineral identity colors and units remain distinct."
+            },
+            {
+              "area": "narrow/expansion",
+              "finding": "The native stage-open mask remains at identical bounds. Landscape, portrait and 320-pixel views preserve the original camera and therefore the earlier group-edge cropping; this batch does not claim to repair camera framing."
+            }
+          ],
+          "scope": "Only these inspected composition pages are completed at this point; identity/dense/video review is pending. Originals are unretouched, contact pages only downscale."
+        }
+      },
+      {
+        "file": "visual-identity-review.json",
+        "sha256": "b7951696a61745169de68488bcc369e51a5fb76df0d093a501d2f4ae2e92ff65",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "at": "2026-10-11T02:20:11.541Z",
+          "completedSubset": true,
+          "build": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+          "method": "Viewed all 25 full-image contact pages (180 actual five-map group captures, all 138 identities), plus six original-resolution giant/environment frames. Contact pages downscale only. This is a bounded model review of composition and silhouettes, not human approval, client parity or a new unit-material audit.",
+          "pages": [
+            "visual-review-index/industrial-identities-0.jpg",
+            "visual-review-index/industrial-identities-1.jpg",
+            "visual-review-index/industrial-identities-2.jpg",
+            "visual-review-index/industrial-identities-3.jpg",
+            "visual-review-index/industrial-identities-4.jpg",
+            "visual-review-index/mar-sara-identities-0.jpg",
+            "visual-review-index/mar-sara-identities-1.jpg",
+            "visual-review-index/mar-sara-identities-2.jpg",
+            "visual-review-index/mar-sara-identities-3.jpg",
+            "visual-review-index/mar-sara-identities-4.jpg",
+            "visual-review-index/char-identities-0.jpg",
+            "visual-review-index/char-identities-1.jpg",
+            "visual-review-index/char-identities-2.jpg",
+            "visual-review-index/char-identities-3.jpg",
+            "visual-review-index/char-identities-4.jpg",
+            "visual-review-index/ice-identities-0.jpg",
+            "visual-review-index/ice-identities-1.jpg",
+            "visual-review-index/ice-identities-2.jpg",
+            "visual-review-index/ice-identities-3.jpg",
+            "visual-review-index/ice-identities-4.jpg",
+            "visual-review-index/frontier-identities-0.jpg",
+            "visual-review-index/frontier-identities-1.jpg",
+            "visual-review-index/frontier-identities-2.jpg",
+            "visual-review-index/frontier-identities-3.jpg",
+            "visual-review-index/frontier-identities-4.jpg"
+          ],
+          "captures": 180,
+          "identities": 138,
+          "additionalRawFrames": [
+            "after-final-maps/thor-ice-far.png",
+            "after-final-maps/ultralisk-char-far.png",
+            "after-final-maps/colossus-ice-far.png",
+            "environment-review-r5/ice-landmark-4.png",
+            "environment-review-r5/ice-landmark-0.png",
+            "environment-review-r5/char-landmark-4.png"
+          ],
+          "findings": [
+            "No missing body, texture failure or newly blocked silhouette found in the indexed five-map views. Ground remains subordinate to the inherited unit palette and light profiles.",
+            "Snow has distinct surface detail behind blue/dark bodies. Flying body and projected shadow separation remains visible.",
+            "Char remains a dark scene under the unchanged light profile; small-body pixel footprint and dark-metal contrast still limit detail. Dynamic clarity and camera calibration remain subsequent visual work.",
+            "The pre-existing textured hero auras remain intentionally preserved; no new auxiliary circle or marker was introduced.",
+            "The exact source models, poses and World/Profile/RNG pairing are independently checked. Existing Science Vessel source gaps remain open."
+          ]
+        }
+      },
+      {
+        "file": "visual-industrial-review.json",
+        "sha256": "8264350afc7c83d0ada9e1a8053b7417e39037917eeae28395660748c4b38c28",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "at": "2026-10-11 02:42:52 UTC",
+          "passed": true,
+          "kind": "bounded recorded-image review",
+          "source": [
+            "before-final-industrial/results.json",
+            "after-final-industrial/results.json"
+          ],
+          "index": "visual-review-index/industrial-index.json",
+          "pages": 5,
+          "images": 20,
+          "steps": [
+            "rollback",
+            "ground",
+            "environment",
+            "atmosphere"
+          ],
+          "observations": [
+            "Independent switches retain the original industrial state and placement across three race samples and two closer base views.",
+            "Source metal panels and soil blends replace the former hard painted rectangle; panel edges remain straight while soil variation remains continuous.",
+            "Environment-only changes add local equipment coating and repair documented emission surfaces without replacing or moving source models.",
+            "Low-opacity atmosphere is deliberately subtle in these stills. Continuous motion is separately recorded and reviewed."
+          ],
+          "limits": [
+            "These are controlled diagnostic screenshots at the inherited camera. Small-body pixel footprint, full effects and human/original-client acceptance remain separate."
+          ]
+        }
+      },
+      {
+        "file": "visual-dense-review.json",
+        "sha256": "ca51c142f0fd649c1b226d3c9090abe889df33c968a50a079bd320963109a2ef",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "at": "2026-10-11 02:39:23 UTC",
+          "passed": true,
+          "kind": "bounded recorded-image review",
+          "source": [
+            "before-final-dense/results.json",
+            "after-final-dense/results.json"
+          ],
+          "index": "visual-review-index/dense-index.json",
+          "pages": 5,
+          "images": 30,
+          "pairedViews": 15,
+          "sample": "dense-combat-6 for each of five maps and three races",
+          "observations": [
+            "Native crowd arrangement, body poses, HP bars and authored attack silhouettes remain aligned in all fifteen reviewed before/after views.",
+            "New environment layers do not add foreground structures over the crowd. The continuous industrial road blend, distinct desert sand and textured ice/snow remain visible around combat.",
+            "Char red fissures occupy smaller localized source regions, with dark gray detail preserved under the unchanged lighting. Small-body dark contrast remains a later clarity/camera concern.",
+            "Source weapon trails, flames and hero auras are retained; density readability is limited by the existing scene and is not represented as fully repaired."
+          ],
+          "limits": [
+            "The fixture label 96 counts selected subjects, not total entities and not a gameplay army cap. These thirty original captures are diagnostic stills, not performance or natural-campaign evidence."
+          ]
+        }
+      },
+      {
+        "file": "visual-edge-review.json",
+        "sha256": "84c3589cc2a87a6c79e3fe40e33b51f9402b5d4495969e943a49bc38077dac64",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "at": "2026-10-11 02:25:38 UTC",
+          "passed": true,
+          "kind": "bounded recorded-image review",
+          "source": "after-final-edge/results.json",
+          "index": "visual-review-index/edge-index.json",
+          "pages": 2,
+          "images": 12,
+          "pairedViews": 6,
+          "reviewed": [
+            "thor-body-outside-left",
+            "thor-body-outside-right",
+            "ultralisk-body-outside-left",
+            "ultralisk-body-outside-right",
+            "carrier-body-outside-left",
+            "carrier-body-outside-right"
+          ],
+          "observations": [
+            "Paired original states and camera views retain the same unit bodies and silhouettes. The primary body lies outside the view; other group members may remain inside.",
+            "Left-edge cast silhouettes remain visible on the continuous new industrial surface. Right-edge views retain source scene geometry without introducing new outlines.",
+            "Ground panel and soil changes are visible while the existing projection/contact relationship is retained."
+          ],
+          "limits": [
+            "This bounded review is not a natural gameplay, complete effects, camera/readability, temporal shimmer, original-client or human acceptance claim."
+          ]
+        }
+      },
+      {
+        "file": "visual-sequence-review.json",
+        "sha256": "8346fb2f662c2b075bc566980b4729f5f2b9bbc6aab53c64a4abd4c53678b979",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "at": "2026-10-11 02:29:58 UTC",
+          "passed": true,
+          "kind": "bounded recorded-image review",
+          "source": [
+            "before-final-sequence/results.json",
+            "after-final-sequence/results.json"
+          ],
+          "index": "visual-review-index/sequence-index.json",
+          "pages": 4,
+          "images": 24,
+          "pairedViews": 12,
+          "groups": [
+            "marine",
+            "baneling",
+            "immortal",
+            "zealot"
+          ],
+          "samples": [
+            "idle-03",
+            "move-11",
+            "attack-06"
+          ],
+          "observations": [
+            "Native body poses, team materials and authored firing/attack layers remain aligned in selected before/after idle, turning movement and attack frames.",
+            "New ground panel pixels and soft soil edges retain visible unit silhouettes and the preceding actual-pose projection. No terrain layer overlays the unit body in these samples.",
+            "Source attack dust/cloud and blue blade arc remain real effects; these are not auxiliary ground markers."
+          ],
+          "limits": [
+            "Only these twelve keyframe pairs were visually inspected in this subset. The full sequence has 112 paired diagnostic frames but is not a real-time video or complete effects/temporal-clarity acceptance."
+          ]
+        }
+      },
+      {
+        "file": "visual-char-final-review.json",
+        "sha256": "9557ddf91890b5af2aa6c1f5a91f5baf5d009f8d0fdfa4dd5ec2c6f7c9f273ad",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "passed": true,
+          "reviewer": "Codex visual inspection, not human acceptance",
+          "build": "candidate-r11",
+          "index": "visual-review-index/char-final-index.json",
+          "viewedPages": 8,
+          "viewedImages": 54,
+          "coverage": {
+            "stageBeforeAfterImages": 12,
+            "identityFinalImages": 36,
+            "identitiesRepresented": 138,
+            "denseBeforeAfterImages": 6
+          },
+          "findings": [
+            "All eight indexes were opened and visually inspected. They preserve complete original captures with scaling only.",
+            "Final gray-black ground layers and localized red fissures remain visible. No rectangular ash plane was observed in this inspected set after the original alpha correction.",
+            "The 36 final identity captures retain the bodies, flying shadows and original aura effects. Ash does not introduce a new opaque overlay in these views.",
+            "Three dense-combat comparisons retain the same native crowd, attacks and state while using the final ash texture. Existing combat effects and crowd overlap remain outside this batch's repair scope."
+          ],
+          "limits": [
+            "Char retains the prior lighting profile and a deliberately dark surface. Small units at the unchanged camera remain limited by screen footprint; narrow group-edge clipping is unchanged.",
+            "This record supplements earlier five-map reviews. It does not relabel old Char captures or establish all-frame temporal, original-client or human acceptance.",
+            "Actual final Web/offline endless screenshots and the fifteen continuous recordings require their separate review records."
+          ]
+        }
+      },
+      {
+        "file": "visual-endless-web-review.json",
+        "sha256": "5709782b45fa3f56ddf3873d5ad1023cd6bdd3caeaf7ff5e3d3740b297b74498",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "passed": true,
+          "reviewer": "Codex visual inspection, not human acceptance",
+          "viewed": [
+            "formal-web-r1/endless-entered.png",
+            "formal-web-r2/endless-entered.png"
+          ],
+          "findings": [
+            "The first candidate clearly shows gray square ash sprite backgrounds. The actual final Web endless image no longer shows those gray squares.",
+            "The final flat Char surface retains gray-black detail and localized original red fissures. Native buildings, units and HUD remain present.",
+            "These are separate native-entry screenshots with their real wall-clock timing; they are not asserted to be an exact-pose or same-state pair. Exact native-state comparison is covered separately by the 613 diagnostic pairs."
+          ],
+          "scope": "Actual final production Web endless entry. Actual offline endless and continuous-video inspections are separate checks."
+        }
+      },
+      {
+        "file": "visual-endless-offline-review.json",
+        "sha256": "3472969794f9b713175fd08d45155283d0b6dcb0f8f65f236e631bf42a754599",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "passed": true,
+          "reviewer": "Codex visual inspection, not human acceptance",
+          "viewed": "formal-offline-r2/endless-entered.png",
+          "artifact": "dist/SC2-Survivors-Terrain-Batch4-Final-20261011.html",
+          "artifactSha256": "409e512595dc3f89fa42fbab036fd2b3a9a356a4c5b8add606ff781f902587b4",
+          "findings": [
+            "Opened and inspected the actual offline endless entry capture. No gray rectangular ash background is visible.",
+            "The flat Char ground retains dark gray detail and localized red fissures, with native buildings, units and HUD present.",
+            "The original DDS-alpha correction is represented in both the actual Web and offline entry captures. These entry images are not asserted to have an identical native tick or pose."
+          ],
+          "scope": "Bounded visual inspection of one actual offline entry image. Exact restoration, zero HTTP requests and decode hashes are verified separately by their machine-readable reports."
+        }
+      },
+      {
+        "file": "visual-controls-review.json",
+        "sha256": "779a81cc490a3edae55f992de4bdf09b8ed4480a6208bddf5537261095d8fba9",
+        "interpretedScope": "Completed bounded subset at the recorded version; original report unchanged",
+        "report": {
+          "passed": true,
+          "reviewer": "Codex visual inspection, not human acceptance",
+          "viewed": [
+            "controls-r2/1440-target.png",
+            "controls-r2/844-target.png",
+            "controls-r2/390-target.png",
+            "controls-r2/320-target.png"
+          ],
+          "findings": [
+            "Opened all four original screenshots. The industrial metal layers, softened soil boundary and existing props render beneath the original HUD and native noncircular target guide.",
+            "Original responsive HUD geometry remains present. The short landscape transfer panel uses the existing overflow:auto scroll surface; this batch does not change that UI or establish physical-device acceptance.",
+            "Functional keyboard, touch, minimap, dash, target cancellation and exact save recovery checks are recorded separately in controls-r2/result.json."
+          ]
+        }
+      }
+    ],
+    "video": {
+      "passed": true,
+      "at": "2026-10-11T04:38:25.213Z",
+      "reviewer": "Codex bounded image review; not human or original-client approval",
+      "build": {
+        "label": "candidate-r11",
+        "sourceDigest": "d1001993e8b5e6dfabdf8cfe64f740a0820abd95fb4e6c2c07257b6fb15258c9",
+        "jsSha256": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+        "manifestSha256": "df2d0f44852d14220620bac39f5f957542f4573e32a4e03e1a628132122fdb19",
+        "release": {
+          "appBuildId": "6a077fe25578af0a5bfc3941be550a0683e87fed8e123f0507c62743e7f7992e",
+          "runSchema": 26,
+          "rulesId": "mvp-1.0",
+          "mapId": "campaign-five-v3",
+          "assetCount": 853,
+          "fileCount": 835,
+          "assetBytes": 760556883,
+          "logicalBytes": 761470243,
+          "sharedBytes": 913360,
+          "manifest": "asset-manifest.26ee3ecb09a8cc6f1abc16f43d62a0f24aa5ebc242aa0c55d4867f177de83b20.json",
+          "release": "26ee3ecb09a8cc6f1abc16f43d62a0f24aa5ebc242aa0c55d4867f177de83b20",
+          "source": "reports/local/asset-reachability.json"
+        }
+      },
+      "index": "visual-review-index/videos-index.json",
+      "viewedPages": [
+        "visual-review-index/videos-0.jpg",
+        "visual-review-index/videos-1.jpg",
+        "visual-review-index/videos-2.jpg",
+        "visual-review-index/videos-3.jpg",
+        "visual-review-index/videos-4.jpg"
+      ],
+      "viewedFrames": [
+        {
+          "label": "industrial-terran-native-20s.webm / 4s",
+          "file": "gallery-review/video-0-4s.png"
+        },
+        {
+          "label": "industrial-terran-native-20s.webm / 16s",
+          "file": "gallery-review/video-0-16s.png"
+        },
+        {
+          "label": "industrial-zerg-native-20s.webm / 4s",
+          "file": "gallery-review/video-1-4s.png"
+        },
+        {
+          "label": "industrial-zerg-native-20s.webm / 16s",
+          "file": "gallery-review/video-1-16s.png"
+        },
+        {
+          "label": "industrial-protoss-native-20s.webm / 4s",
+          "file": "gallery-review/video-2-4s.png"
+        },
+        {
+          "label": "industrial-protoss-native-20s.webm / 16s",
+          "file": "gallery-review/video-2-16s.png"
+        },
+        {
+          "label": "mar-sara-terran-native-20s.webm / 4s",
+          "file": "gallery-review/video-3-4s.png"
+        },
+        {
+          "label": "mar-sara-terran-native-20s.webm / 16s",
+          "file": "gallery-review/video-3-16s.png"
+        },
+        {
+          "label": "mar-sara-zerg-native-20s.webm / 4s",
+          "file": "gallery-review/video-4-4s.png"
+        },
+        {
+          "label": "mar-sara-zerg-native-20s.webm / 16s",
+          "file": "gallery-review/video-4-16s.png"
+        },
+        {
+          "label": "mar-sara-protoss-native-20s.webm / 4s",
+          "file": "gallery-review/video-5-4s.png"
+        },
+        {
+          "label": "mar-sara-protoss-native-20s.webm / 16s",
+          "file": "gallery-review/video-5-16s.png"
+        },
+        {
+          "label": "char-terran-native-20s.webm / 4s",
+          "file": "gallery-review/video-6-4s.png"
+        },
+        {
+          "label": "char-terran-native-20s.webm / 16s",
+          "file": "gallery-review/video-6-16s.png"
+        },
+        {
+          "label": "char-zerg-native-20s.webm / 4s",
+          "file": "gallery-review/video-7-4s.png"
+        },
+        {
+          "label": "char-zerg-native-20s.webm / 16s",
+          "file": "gallery-review/video-7-16s.png"
+        },
+        {
+          "label": "char-protoss-native-20s.webm / 4s",
+          "file": "gallery-review/video-8-4s.png"
+        },
+        {
+          "label": "char-protoss-native-20s.webm / 16s",
+          "file": "gallery-review/video-8-16s.png"
+        },
+        {
+          "label": "ice-terran-native-20s.webm / 4s",
+          "file": "gallery-review/video-9-4s.png"
+        },
+        {
+          "label": "ice-terran-native-20s.webm / 16s",
+          "file": "gallery-review/video-9-16s.png"
+        },
+        {
+          "label": "ice-zerg-native-20s.webm / 4s",
+          "file": "gallery-review/video-10-4s.png"
+        },
+        {
+          "label": "ice-zerg-native-20s.webm / 16s",
+          "file": "gallery-review/video-10-16s.png"
+        },
+        {
+          "label": "ice-protoss-native-20s.webm / 4s",
+          "file": "gallery-review/video-11-4s.png"
+        },
+        {
+          "label": "ice-protoss-native-20s.webm / 16s",
+          "file": "gallery-review/video-11-16s.png"
+        },
+        {
+          "label": "frontier-terran-native-20s.webm / 4s",
+          "file": "gallery-review/video-12-4s.png"
+        },
+        {
+          "label": "frontier-terran-native-20s.webm / 16s",
+          "file": "gallery-review/video-12-16s.png"
+        },
+        {
+          "label": "frontier-zerg-native-20s.webm / 4s",
+          "file": "gallery-review/video-13-4s.png"
+        },
+        {
+          "label": "frontier-zerg-native-20s.webm / 16s",
+          "file": "gallery-review/video-13-16s.png"
+        },
+        {
+          "label": "frontier-protoss-native-20s.webm / 4s",
+          "file": "gallery-review/video-14-4s.png"
+        },
+        {
+          "label": "frontier-protoss-native-20s.webm / 16s",
+          "file": "gallery-review/video-14-16s.png"
+        }
+      ],
+      "playbackEvidence": "gallery-review.json",
+      "fullPlayback": 15,
+      "playbackRate": 4,
+      "method": "All 15 WebM recordings played to their ends by browser QA. All 30 decoded 4s/16s frames were visually inspected on five complete-image contact pages. Page scaling only; raw frames and unedited recordings remain available.",
+      "findings": [
+        "All five environments retain their source ground layers, unit bodies, inherited projected shadows and native combat effects in the inspected frames.",
+        "Final Char ash no longer shows the earlier gray rectangular sprite backgrounds; sparse atmosphere does not form an opaque screen layer in the inspected frames.",
+        "Dark Char lighting, small-body screen footprint and dense-unit occlusion remain later dynamic clarity/camera/client-reference work."
+      ],
+      "limits": [
+        "Frame review is bounded to the recorded 4s and 16s images. Full decode/playback verifies file usability, not every-frame human visual approval.",
+        "Controlled 20-second native recordings and five-second paused costs do not establish natural campaign, stable FPS, physical-device, high-refresh, low-memory or human acceptance."
+      ]
+    },
+    "gallery": {
+      "rows": 633,
+      "identities": 138,
+      "images": 1251,
+      "videos": 15,
+      "fullPlayback": 15,
+      "decodedFrames": 30,
+      "qa": "gallery-review.json",
+      "visuallyViewedLayouts": [
+        "gallery-review/stage-desktop.png",
+        "gallery-review/mobile.png"
+      ],
+      "observations": "Desktop and narrow gallery controls, images and video areas fit within the captured surfaces."
+    },
+    "finalResourceManifest": "df2d0f44852d14220620bac39f5f957542f4573e32a4e03e1a628132122fdb19",
+    "finalAssetRelease": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+    "limits": [
+      "This is a bounded model review, not a human sign-off or original SC2 client visual parity.",
+      "Complete effects, dynamic clarity/camera and traceable matched original SC2 actual-client gameplay comparison/repairs remain before overall performance/FPS/quality tiers.",
+      "Existing small-body pixels, narrow group-edge clipping, Char darkness and source/Science Vessel/P6-V01/production/B4 gates remain open."
+    ]
+  },
+  "gallery": {
+    "passed": true,
+    "at": "2026-10-11T04:30:58.663Z",
+    "errors": [],
+    "checks": [
+      {
+        "suite": "stage",
+        "records": 240,
+        "firstAndLastLoaded": true
+      },
+      {
+        "suite": "maps",
+        "records": 180,
+        "firstAndLastLoaded": true
+      },
+      {
+        "suite": "industrial",
+        "records": 20,
+        "firstAndLastLoaded": true
+      },
+      {
+        "suite": "dense",
+        "records": 75,
+        "firstAndLastLoaded": true
+      },
+      {
+        "suite": "edge",
+        "records": 6,
+        "firstAndLastLoaded": true
+      },
+      {
+        "suite": "sequence",
+        "records": 112,
+        "firstAndLastLoaded": true
+      },
+      {
+        "identities": 138,
+        "maps": 5
+      }
+    ],
+    "screens": [
+      "stage-desktop",
+      "maps-desktop",
+      "industrial-desktop",
+      "dense-desktop",
+      "edge-desktop",
+      "sequence-desktop",
+      "mobile"
+    ],
+    "videos": [
+      {
+        "src": "after-final-realtime/industrial-terran-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.973,
+        "ended": true,
+        "decoded": 490
+      },
+      {
+        "src": "after-final-realtime/industrial-zerg-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.97,
+        "ended": true,
+        "decoded": 593
+      },
+      {
+        "src": "after-final-realtime/industrial-protoss-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.99,
+        "ended": true,
+        "decoded": 599
+      },
+      {
+        "src": "after-final-realtime/mar-sara-terran-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.97,
+        "ended": true,
+        "decoded": 595
+      },
+      {
+        "src": "after-final-realtime/mar-sara-zerg-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.982,
+        "ended": true,
+        "decoded": 600
+      },
+      {
+        "src": "after-final-realtime/mar-sara-protoss-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.962,
+        "ended": true,
+        "decoded": 598
+      },
+      {
+        "src": "after-final-realtime/char-terran-native-20s.webm",
+        "width": 1440,
+        "height": 864,
+        "duration": 20.052,
+        "ended": true,
+        "decoded": 601
+      },
+      {
+        "src": "after-final-realtime/char-zerg-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.986,
+        "ended": true,
+        "decoded": 600
+      },
+      {
+        "src": "after-final-realtime/char-protoss-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.961,
+        "ended": true,
+        "decoded": 593
+      },
+      {
+        "src": "after-final-realtime/ice-terran-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.969,
+        "ended": true,
+        "decoded": 600
+      },
+      {
+        "src": "after-final-realtime/ice-zerg-native-20s.webm",
+        "width": 1440,
+        "height": 864,
+        "duration": 20.068,
+        "ended": true,
+        "decoded": 601
+      },
+      {
+        "src": "after-final-realtime/ice-protoss-native-20s.webm",
+        "width": 1440,
+        "height": 864,
+        "duration": 20.076,
+        "ended": true,
+        "decoded": 574
+      },
+      {
+        "src": "after-final-realtime/frontier-terran-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.971,
+        "ended": true,
+        "decoded": 600
+      },
+      {
+        "src": "after-final-realtime/frontier-zerg-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.988,
+        "ended": true,
+        "decoded": 600
+      },
+      {
+        "src": "after-final-realtime/frontier-protoss-native-20s.webm",
+        "width": 1425,
+        "height": 864,
+        "duration": 19.948,
+        "ended": true,
+        "decoded": 598
+      }
+    ],
+    "frames": [
+      {
+        "source": "after-final-realtime/industrial-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 504,
+        "file": "gallery-review/video-0-4s.png"
+      },
+      {
+        "source": "after-final-realtime/industrial-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 580,
+        "file": "gallery-review/video-0-16s.png"
+      },
+      {
+        "source": "after-final-realtime/industrial-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 613,
+        "file": "gallery-review/video-1-4s.png"
+      },
+      {
+        "source": "after-final-realtime/industrial-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 689,
+        "file": "gallery-review/video-1-16s.png"
+      },
+      {
+        "source": "after-final-realtime/industrial-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 620,
+        "file": "gallery-review/video-2-4s.png"
+      },
+      {
+        "source": "after-final-realtime/industrial-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 698,
+        "file": "gallery-review/video-2-16s.png"
+      },
+      {
+        "source": "after-final-realtime/mar-sara-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 615,
+        "file": "gallery-review/video-3-4s.png"
+      },
+      {
+        "source": "after-final-realtime/mar-sara-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 690,
+        "file": "gallery-review/video-3-16s.png"
+      },
+      {
+        "source": "after-final-realtime/mar-sara-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 622,
+        "file": "gallery-review/video-4-4s.png"
+      },
+      {
+        "source": "after-final-realtime/mar-sara-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-4-16s.png"
+      },
+      {
+        "source": "after-final-realtime/mar-sara-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 620,
+        "file": "gallery-review/video-5-4s.png"
+      },
+      {
+        "source": "after-final-realtime/mar-sara-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 698,
+        "file": "gallery-review/video-5-16s.png"
+      },
+      {
+        "source": "after-final-realtime/char-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 623,
+        "file": "gallery-review/video-6-4s.png"
+      },
+      {
+        "source": "after-final-realtime/char-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 702,
+        "file": "gallery-review/video-6-16s.png"
+      },
+      {
+        "source": "after-final-realtime/char-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 622,
+        "file": "gallery-review/video-7-4s.png"
+      },
+      {
+        "source": "after-final-realtime/char-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-7-16s.png"
+      },
+      {
+        "source": "after-final-realtime/char-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 615,
+        "file": "gallery-review/video-8-4s.png"
+      },
+      {
+        "source": "after-final-realtime/char-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 690,
+        "file": "gallery-review/video-8-16s.png"
+      },
+      {
+        "source": "after-final-realtime/ice-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 622,
+        "file": "gallery-review/video-9-4s.png"
+      },
+      {
+        "source": "after-final-realtime/ice-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-9-16s.png"
+      },
+      {
+        "source": "after-final-realtime/ice-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 623,
+        "file": "gallery-review/video-10-4s.png"
+      },
+      {
+        "source": "after-final-realtime/ice-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-10-16s.png"
+      },
+      {
+        "source": "after-final-realtime/ice-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 595,
+        "file": "gallery-review/video-11-4s.png"
+      },
+      {
+        "source": "after-final-realtime/ice-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 657,
+        "file": "gallery-review/video-11-16s.png"
+      },
+      {
+        "source": "after-final-realtime/frontier-terran-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 622,
+        "file": "gallery-review/video-12-4s.png"
+      },
+      {
+        "source": "after-final-realtime/frontier-terran-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-12-16s.png"
+      },
+      {
+        "source": "after-final-realtime/frontier-zerg-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 622,
+        "file": "gallery-review/video-13-4s.png"
+      },
+      {
+        "source": "after-final-realtime/frontier-zerg-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 701,
+        "file": "gallery-review/video-13-16s.png"
+      },
+      {
+        "source": "after-final-realtime/frontier-protoss-native-20s.webm",
+        "requested": 4,
+        "actual": 4,
+        "decoded": 620,
+        "file": "gallery-review/video-14-4s.png"
+      },
+      {
+        "source": "after-final-realtime/frontier-protoss-native-20s.webm",
+        "requested": 16,
+        "actual": 16,
+        "decoded": 698,
+        "file": "gallery-review/video-14-16s.png"
+      }
+    ],
+    "finishedAt": "2026-10-11T04:32:30.565Z"
+  },
+  "preview": {
+    "at": "2026-10-11T04:41:35.653Z",
+    "url": "http://127.0.0.1:4316",
+    "pid": 28964,
+    "health": {
+      "ok": true,
+      "appBuildId": "36f5f27ab2ac9fb5259ad3896a9e2fed756c10588041e240cb9607ad7090fb84",
+      "assetReleaseId": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+      "runSchema": 26,
+      "release": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+      "resources": "local"
+    },
+    "backendEnabled": false,
+    "localOnly": true,
+    "webRoot": "deploy/coze/public",
+    "assetRoot": "deploy/runtime",
+    "packageBuildId": "38eadd07719babd930c27fd76b74ef2f04e142cfbb21718c46e8d38ca21b3ed9"
+  },
+  "sourceCatalog": {
+    "revision": "fbbd6429b1eb6978c78a092dc68ba09029d03171",
+    "url": "https://raw.githubusercontent.com/Joshua-Leibold/SC2Data/fbbd6429b1eb6978c78a092dc68ba09029d03171/mods/swarm.sc2mod/base.sc2data/gamedata/terraintexdata.xml",
+    "sha256": "c21887c1d329417722c32f83a8bdaa3cfc8415ac8adbf59078c7d45029f978c9"
+  },
+  "metadataCorrection": {
+    "passed": true,
+    "unchangedSourceAndPngHashes": 28,
+    "runtimeAssetIdentifiersUnchanged": true,
+    "reason": "Normal alpha-X was correctly decoded but the sourceAlpha.used label incorrectly said false; only provenance metadata corrected."
+  },
+  "ashCorrection": {
+    "passed": true,
+    "at": "2026-10-11T03:26:17.782Z",
+    "reason": "Actual endless Web capture exposed gray rectangular ash sprites. Original ash RGB has nonzero background; preserve the original DDS alpha cutout instead.",
+    "beforeRelease": "677d58f2cb87a52775652c12bb30f685de36b98817f51804a0f4cff513013bd3",
+    "afterRelease": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+    "appBuildId": "36f5f27ab2ac9fb5259ad3896a9e2fed756c10588041e240cb9607ad7090fb84",
+    "diagnosticJavaScript": "4abff7c41b891bcc0a04f07758f69d7ad025af6dc07e3d7e4cd001b0e30fbc36",
+    "diagnosticInputsUnchanged": 218,
+    "productionInputsUnchanged": 215,
+    "webJsCssUnchanged": 2,
+    "originalSourcesUnchanged": 28,
+    "unchangedDerivedTextures": 27,
+    "changedIds": [
+      "terrain.visual.ash"
+    ],
+    "changes": [
+      {
+        "id": "terrain.visual.ash",
+        "before": {
+          "id": "terrain.visual.ash",
+          "kind": "environment-texture",
+          "status": "available",
+          "required": true,
+          "url": "assets/environment/terrain.visual.ash.png",
+          "packedFile": "public/assets/environment/terrain.visual.ash.png",
+          "gitPath": "deploy/runtime/assets/0a78d8bf06f38316779f71d4eb174e1be48018450aab25fd69cf6eb5df0ec1f3.png",
+          "sourceFile": "assets/private/dds/ash_r1.dds",
+          "sourcePath": "Assets/Textures/ash_r1.dds",
+          "source": "https://dist.sc2arcade.com/star-assets/textures/ash_r1.dds",
+          "sourceSha256": "b0294515b071eb0b761ef03e14d3dabe88f25f2efe7121959b383dff371d3e44",
+          "packedSha256": "0a78d8bf06f38316779f71d4eb174e1be48018450aab25fd69cf6eb5df0ec1f3",
+          "bytes": 25979,
+          "width": 256,
+          "height": 256,
+          "role": "particle",
+          "colorSpace": "srgb",
+          "sourceAlpha": {
+            "min": 0,
+            "max": 210,
+            "used": false,
+            "purpose": "unused; no source alpha height or opacity inference"
+          },
+          "conversion": "Original sprite maximum RGB luminance into alpha; white tintable RGB"
+        },
+        "after": {
+          "id": "terrain.visual.ash",
+          "kind": "environment-texture",
+          "status": "available",
+          "required": true,
+          "url": "assets/environment/terrain.visual.ash.png",
+          "packedFile": "public/assets/environment/terrain.visual.ash.png",
+          "gitPath": "deploy/runtime/assets/6578f7d42b0960c7e7ad619f7b52797ccd3dee163d82e292c8fa9dcc3777759b.png",
+          "sourceFile": "assets/private/dds/ash_r1.dds",
+          "sourcePath": "Assets/Textures/ash_r1.dds",
+          "source": "https://dist.sc2arcade.com/star-assets/textures/ash_r1.dds",
+          "sourceSha256": "b0294515b071eb0b761ef03e14d3dabe88f25f2efe7121959b383dff371d3e44",
+          "packedSha256": "6578f7d42b0960c7e7ad619f7b52797ccd3dee163d82e292c8fa9dcc3777759b",
+          "bytes": 35034,
+          "width": 256,
+          "height": 256,
+          "role": "particle",
+          "colorSpace": "srgb",
+          "sourceAlpha": {
+            "min": 0,
+            "max": 210,
+            "used": true,
+            "purpose": "Explicit original DDS alpha retained as ash sprite coverage; not terrain height or blend weight"
+          },
+          "conversion": "Original DDS alpha preserved pixel-for-pixel; white tintable RGB; original RGB is not a cutout mask"
+        }
+      }
+    ],
+    "exactOriginalAlphaPixels": 65536,
+    "transparentPixels": 26847,
+    "derivedBytes": 16119837,
+    "method": "Only the ash PNG alpha and its resource hashes change. Production JavaScript, CSS, diagnostic inputs, geometry, other 27 environment PNGs and original DDS bytes are identical. Earlier unaffected captures retain their actual build; Char records are recaptured."
+  },
+  "retainedFirstArtifacts": [
+    {
+      "path": "dist/SC2-Survivors-Terrain-Batch4-20261011.html",
+      "sha256": "7c397d2aa23c137c3e3f5bd50d73a1cb4a9e67cbfd65c5e87557190fea9ec494"
+    },
+    {
+      "path": "dist/Terrain-Batch4-Application-20261011.zip",
+      "sha256": "42952d1b44a0961ce62f4ee8ddcb3b2687ef287778cceefd1ae36500ba32767b"
+    }
+  ],
+  "materialBindingAudit": {
+    "files": 292,
+    "targetedEmissiveOnlyBindings": 5
+  },
+  "sourceGaps": [
+    {
+      "key": "hive",
+      "reason": "No original M3 source metadata; retain existing runtime model"
+    },
+    {
+      "key": "terrain.rock",
+      "material": "Standard_9",
+      "role": "ao",
+      "texture": "rocktower01ambientocclusion.dds",
+      "reason": "Missing original DDS; retain embedded runtime texture when present"
+    },
+    {
+      "key": "loot.large",
+      "material": "new mat",
+      "role": "environment",
+      "texture": "reflection_belshir.dds",
+      "reason": "Missing original DDS; retain embedded runtime texture when present"
+    },
+    {
+      "key": "hero-upgrade.vikingfightermissile",
+      "reason": "No original M3 source metadata; retain existing runtime model"
+    }
+  ],
+  "currentAliasMatches": true,
+  "localRepositoryMirrorMatches": true,
+  "onlineDeployment": false,
+  "evidenceRoot": "reports/local/terrain-batch4-20261011",
+  "limits": [
+    "This batch changes rendering only. Original map heights, placements, open areas, collision, World/Profile/RNG and run26/profile6/maprecipe3 are preserved. Current-schema restores do not establish old-save migration.",
+    "Complete effects, dynamic clarity/camera, traceable matched original SC2 actual-client gameplay comparisons and repairs remain subsequent visual stages before overall performance/FPS/quality tiers. Recheck visual regressions after performance work.",
+    "Five-second paused costs, controlled density fixtures and fifteen 20-second native recordings do not establish stable FPS, natural campaign, physical-device, high-refresh, low-memory or human acceptance. Synthetic 96 subjects are not an army cap or total entity count.",
+    "Original art provenance and PBR/source-normal adaptations do not establish original-client parity. IceWorld identities are pinned to the source catalog; source alpha is normal-X or original ash coverage only where documented, never guessed as height or blend.",
+    "Earlier candidates and failures remain at their actual versions: pale industrial candidate, circular base-material candidate, excessive UV-warp candidate, native context-notice assertion mismatch, global contact-texture disposal assertion mismatch, initial spawn permission errors and the rectangular-ash candidate exposed by actual Web endless review. The first offline run was interrupted after visual rejection; first named HTML/ZIP and partial evidence remain. No earlier evidence is relabelled.",
+    "The context-restore comparison validates native notice/noticeUntil changes then normalizes only these fields on a cloned snapshot for gameplay comparison; actual full before/after checksums are retained.",
+    "All 138 identities have five-map captures with matched native states. Matrix automation verifies state and renderer readiness; the visual review describes the bounded inspected images and decoded frames, not a fabricated human sign-off.",
+    "Existing source gaps, Science Vessel, P6-V01 and production/B4 gates remain open. No online Coze, database or administrator operation was performed."
+  ],
+  "evidenceFiles": [
+    {
+      "path": "reports/local/terrain-batch4-20261011/delivery.json",
+      "bytes": 3287750,
+      "sha256": "305f63ccc7a50870939bdb025588abf8ba3c5de9e3754701cc39cf35d0c93905"
+    },
+    {
+      "path": "reports/local/terrain-batch4-20261011/environment-lifecycle-r4/results.json",
+      "bytes": 1916031,
+      "sha256": "0953b1748bf879f40b6f67b18d61de68c7a9a0b06eeb9b6c173182d23dbd5c95"
+    },
+    {
+      "path": "reports/local/terrain-batch4-20261011/after-final-realtime/results.json",
+      "bytes": 7267937,
+      "sha256": "b052d9fdc765d178f8acb71dd7a3bcd01447685f24b924e4c50df6bd5f7f4186"
+    },
+    {
+      "path": "reports/local/terrain-batch4-20261011/visual-review.json",
+      "bytes": 72256,
+      "sha256": "06149a2277556bee3c649fcba840027637e27e574def7277aeb5e2b8d734779b"
+    },
+    {
+      "path": "reports/local/terrain-batch4-20261011/gallery-review.json",
+      "bytes": 9617,
+      "sha256": "26060d8204f968560735632402e7ae38346b7d5aa75366fceb1c2bebc9b6f1cf"
+    }
+  ]
+}
