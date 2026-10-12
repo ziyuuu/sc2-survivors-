@@ -1,0 +1,90 @@
+[
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "version": "5.0.16.97563",
+    "id": "core.AttachMethod",
+    "installFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "bytes": 15391,
+    "sha256": "033f964abc9b64286e068d8f635885b06cc7f0d28c8005cbd190306c74feed00",
+    "requestedFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "build": "B97563",
+    "verifiedCascBuild": true
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "version": "5.0.16.97563",
+    "id": "liberty.AttachMethod",
+    "installFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "bytes": 196,
+    "sha256": "8ed37ab8eb438fe6bb24873fde346bcac697c586555d741b266a10ff997c334e",
+    "requestedFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "build": "B97563",
+    "verifiedCascBuild": true
+  },
+  {
+    "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "version": "5.0.16.97563",
+    "id": "swarm.AttachMethod",
+    "installFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "bytes": 3097,
+    "sha256": "afa823d778f92bb4c13f972df48ca59ce990e2a052e22e59a8acbc4153c27ac3",
+    "requestedFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "build": "B97563",
+    "verifiedCascBuild": true
+  },
+  {
+    "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "version": "5.0.16.97563",
+    "id": "void.AttachMethod",
+    "installFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "bytes": 474,
+    "sha256": "1490224cb6af6bff28441f86ad11825460f2208abeb439d9de86c658a34d0403",
+    "requestedFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "build": "B97563",
+    "verifiedCascBuild": true
+  },
+  {
+    "sourcePath": "mods/libertymulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "version": "5.0.16.97563",
+    "id": "libertymulti.AttachMethod",
+    "installFile": "assets/private/actor-source/mods/libertymulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "bytes": 55,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "requestedFile": "assets/private/actor-source/mods/libertymulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "build": "B97563",
+    "verifiedCascBuild": true
+  },
+  {
+    "sourcePath": "mods/swarmmulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "version": "5.0.16.97563",
+    "id": "swarmmulti.AttachMethod",
+    "installFile": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "bytes": 279,
+    "sha256": "c583470e17515b928ba4c67831aaf0204b3ea5e422d813edae9c0c3221557f89",
+    "requestedFile": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "build": "B97563",
+    "verifiedCascBuild": true
+  },
+  {
+    "sourcePath": "mods/voidmulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "version": "5.0.16.97563",
+    "id": "voidmulti.AttachMethod",
+    "installFile": "assets/private/actor-source/mods/voidmulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "bytes": 53,
+    "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910",
+    "requestedFile": "assets/private/actor-source/mods/voidmulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "build": "B97563",
+    "verifiedCascBuild": true
+  },
+  {
+    "sourcePath": "mods/balancemulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "version": "5.0.16.97563",
+    "id": "balancemulti.AttachMethod",
+    "installFile": "assets/private/actor-source/mods/balancemulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "bytes": 55,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "requestedFile": "assets/private/actor-source/mods/balancemulti.sc2mod/base.sc2data/GameData/AttachMethodData.xml",
+    "build": "B97563",
+    "verifiedCascBuild": true
+  }
+]

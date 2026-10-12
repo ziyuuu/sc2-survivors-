@@ -229,3 +229,7 @@ PylonBirth材质使用限定源适配器：原M3的Stand Build End材质乘数/U
 ### 2026-10-12 开屏预算与第三种镜头模式
 
 BackgroundPreparation 串行调度可选资源与正式入场；开屏按 navigation 计时，菜单/关间选择改变未开始任务的优先级，已解码资源、实际 HDR 首绘和正式就绪分别管理。取消与重试共用入口通道，后台临时场景不写入可见画布或 World。可选模型限量回收，地图沿用当前/下一张的原生回收，并在重新选择时核对实际缓存。CameraController 新增 cinematic 分支；fixed/auto 保留，实际输出与本地手动偏好分离。详见 project/CINEMATIC_PRELOAD_20261012.md。
+
+### 2026-10-12 原始战斗效果
+
+CombatFxProfile 为实际身份／武器／形态分配核心表现层；SourceCombatEffects 只读原生回执、已保存飞行与持续状态，SourceEffectPlayer 解析原始网格、材质曲线、粒子、光带和投影。瞬时回执不存档，持续效果按原生时钟恢复；独立视觉随机值不进入 World RNG。源资源进入既有正式准备、离线封装和内容散列更新管线。旧通用替代层退出已接管的核心路径，英雄专属和精英机制保留。屏幕位移材质的背景折射尚未实现，源数据保留并单独报告。详见 project/COMBAT_EFFECTS_20261012.md。

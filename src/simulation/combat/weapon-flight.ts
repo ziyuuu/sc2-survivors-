@@ -45,7 +45,7 @@ const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 function resolve(w:World,p:WeaponFlight,target:Body){
  const u=p.source;if(eliteFlightImpact(w,p,target)||zergEliteFlightImpact(w,p,target)||protossEliteFlightImpact(w,p,target))return;
  w.attackHit(u,target,p.damage,p.bonuses,p.hits,p.shieldBonus,(p.primary??true)&&p.hop===0,p.hop===0?p.crit:1,{enemyFactor:p.enemyFactor,apm:p.apm});
- w.visual('projectile-impact',u,target,p.id);
+ w.visual('projectile-impact',u,target,p.id,undefined,{weaponHop:p.hop});
  if(!u.heroId&&!revisedElite(u)&&u.unitType==='thor'){
   const bands=SOURCE_WEAPON_PATTERNS.thorExplosive.bands;
   w.hash.query(target,2,b=>{if(b.id===target.id||b.hp<=0||b.owner===u.owner||!b.flying&&(!('unitType' in b)||b.unitType!=='colossus'))return;

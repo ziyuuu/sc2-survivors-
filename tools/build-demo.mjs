@@ -27,7 +27,7 @@ const closureById=new Map(reachability.rows.map(row=>[row.id,row]));
 const resources=[];for(const r of records.filter(r=>selectedIds.has(r.id))){
  const bytes=await fs.readFile(r.packedFile),closure=closureById.get(r.id);
  if(!closure||closure.packedFile!==r.packedFile||closure.bytes!==bytes.length||closure.sha256!==createHash('sha256').update(bytes).digest('hex'))throw Error('M6 release resource changed after reachability audit: '+r.id);
- const mime=r.kind==='map-data'?'application/json':r.kind==='map-model'?'model/gltf+json':r.kind==='model'?'model/gltf-binary':r.kind==='audio'?(r.packedFile.endsWith('.ogg')?'audio/ogg':'audio/wav'):r.packedFile.endsWith('.svg')?'image/svg+xml':r.packedFile.endsWith('.webp')?'image/webp':r.packedFile.endsWith('.jpg')?'image/jpeg':'image/png';resources.push({id:r.id,mime,bytes});
+ const mime=r.kind==='map-data'?'application/json':r.kind==='map-model'?'model/gltf+json':(r.kind==='model'||r.kind==='combat-effect-model')?'model/gltf-binary':r.kind==='audio'?(r.packedFile.endsWith('.ogg')?'audio/ogg':'audio/wav'):r.packedFile.endsWith('.svg')?'image/svg+xml':r.packedFile.endsWith('.webp')?'image/webp':r.packedFile.endsWith('.jpg')?'image/jpeg':'image/png';resources.push({id:r.id,mime,bytes});
 }
 if(resources.length!==selectedIds.size)throw Error('M6 release asset selection mismatch');
 const {pack,stats}=createAssetPack(resources);

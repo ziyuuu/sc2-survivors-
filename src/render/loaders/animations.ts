@@ -58,7 +58,7 @@ export function weaponAttachmentNames(clipName:string,profile?:string,mountSide?
  // 09 is the bow. Leviathan 02..05 are four distinct lateral mouths.
  const exact=profile==='hero.yamato_battlecruiser'?(mountSide==='Left'?'01':mountSide==='Right'?'04':/^Spell/i.test(clipName)?'09':'01'):profile==='hero.hots_leviathan'?(mountSide??'01'):null;
  if(exact)return ['Ref_Weapon_'+exact,'Ref_Weapon '+exact];
- if(mountSide)return ['Ref_Weapon '+mountSide,'Ref_Weapon_'+mountSide];
+ if(mountSide){const side=mountSide.replace(/^Weapon[ _]+/,'');return [mountSide,mountSide.replace(/\s/g,'_'),'Ref_Weapon '+side,'Ref_Weapon_'+side,...(side==='Left'?['Unit_Terran_Banshee_Pod1','Banshee_Pod1']:side==='Right'?['Unit_Terran_Banshee_Pod2','Banshee_Pod2']:side==='Bottom'?['Ref_Origin']:side==='Center'?['Ref_Center']:[])];}
  const side=/left/i.test(clipName)?'Left':/right/i.test(clipName)?'Right':null;
  // GLTFLoader sanitizes whitespace in node names for PropertyBinding.
  // Several original SC bodies expose only side/bottom references; the Banshee's

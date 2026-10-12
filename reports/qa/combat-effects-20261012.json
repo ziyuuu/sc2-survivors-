@@ -1,0 +1,258 @@
+{
+  "passed": true,
+  "at": "2026-10-12T17:13:26.985Z",
+  "baseline": "e832844b66e50decc7364599a6640ebfdae98f88",
+  "version": "0.6.24",
+  "appBuildId": "0854ed362e7c5d223973e86917b1317b6a5918f43cf41b9237ba0af41b8d0059",
+  "packageBuildId": "e7507b201b889b4dd7ddc42a6f28382503ba9667d8258c32fccc3d72d3662257",
+  "applicationFiles": 194,
+  "html": {
+    "path": "dist/SC2-Survivors-Combat-Effects-Final-R3-20261012.html",
+    "bytes": 688752322,
+    "sha256": "dcb7c082b8759e46e1462a62e46ac30032f4ede0be3c61e93f6d5c8a380f8ab9"
+  },
+  "zip": {
+    "path": "dist/Combat-Effects-Final-R3-Application-20261012.zip",
+    "bytes": 15008694,
+    "sha256": "b4c52fa2e601dec4952c12656304ebda3975ee8e8286a831ded10f7c98b45c5a",
+    "files": 195,
+    "packageBuildId": "e7507b201b889b4dd7ddc42a6f28382503ba9667d8258c32fccc3d72d3662257",
+    "verifiedRoundTrip": true,
+    "deployed": false
+  },
+  "regressions": 1389,
+  "typecheck": true,
+  "dataDocs": true,
+  "compiledInputs": 334,
+  "diagnosticInputs": 236,
+  "pairedNativeStates": 895,
+  "diagnosticSuites": {
+    "native-terran": 225,
+    "native-zerg": 294,
+    "native-protoss": 173,
+    "matrix": 46,
+    "branches": 111,
+    "edges": 25,
+    "witnesses": 21,
+    "lifecycle": 31,
+    "density": 93,
+    "models": 29
+  },
+  "coverage": {
+    "routes": 43,
+    "identities": 138,
+    "models": 83,
+    "modelsWithPositiveNativeLayers": 82,
+    "unsupportedDisplacementRows": 15,
+    "unsupportedDisplacementModels": 14,
+    "routesWithActualNativeEvidence": 43,
+    "sourceComplete": false
+  },
+  "formal": {
+    "formal-web-r1": {
+      "screens": 14,
+      "exports": 14,
+      "maps": 5,
+      "checks": 6,
+      "records": 0,
+      "offline": false,
+      "errors": 0,
+      "httpRequests": null
+    },
+    "formal-offline-r1": {
+      "screens": 14,
+      "exports": 14,
+      "maps": 5,
+      "checks": 6,
+      "records": 0,
+      "offline": true,
+      "errors": 0,
+      "httpRequests": 0
+    },
+    "formal-missing-r1": {
+      "screens": 2,
+      "exports": 0,
+      "maps": 0,
+      "checks": 2,
+      "records": 0,
+      "offline": false,
+      "errors": 0,
+      "httpRequests": null
+    },
+    "controls-web-r1": {
+      "screens": 12,
+      "exports": 6,
+      "maps": 0,
+      "checks": 0,
+      "records": 3,
+      "offline": false,
+      "errors": 0,
+      "httpRequests": null
+    },
+    "controls-offline-r1": {
+      "screens": 12,
+      "exports": 6,
+      "maps": 0,
+      "checks": 0,
+      "records": 3,
+      "offline": true,
+      "errors": 0,
+      "httpRequests": 0
+    }
+  },
+  "nativeRecordings": [
+    {
+      "race": "terran",
+      "file": "reports/local/combat-effects-20261012/final-recordings-r2/terran-20s.webm",
+      "sha256": "044d9340e10eff4f83246a8aae6dd91c632b703cb55500347894fdcd346696ea",
+      "wallSeconds": 20.0675,
+      "ticks": 1201,
+      "discarded": 0,
+      "visibility": "visible and focused at all recorded samples",
+      "build": "cd73bb3db28ca749d5892c3e21241fc098915a3e130fd9ab4056d599ed3f5d48"
+    },
+    {
+      "race": "zerg",
+      "file": "reports/local/combat-effects-20261012/final-recordings-r2/zerg-20s.webm",
+      "sha256": "8adf6652ba447a8f310bac3316c0a866135f957ac75d9e265a93fb44053b7e5d",
+      "wallSeconds": 20.02579999999702,
+      "ticks": 1200,
+      "discarded": 0,
+      "visibility": "visible and focused at all recorded samples",
+      "build": "cd73bb3db28ca749d5892c3e21241fc098915a3e130fd9ab4056d599ed3f5d48"
+    },
+    {
+      "race": "protoss",
+      "file": "reports/local/combat-effects-20261012/final-recordings-r2/protoss-20s.webm",
+      "sha256": "458b6cdf580430d096fed704bcce80c27dab78e6d6df6b96c699302fd0bc140c",
+      "wallSeconds": 20.06279999999702,
+      "ticks": 1200,
+      "discarded": 0,
+      "visibility": "visible and focused at all recorded samples",
+      "build": "cd73bb3db28ca749d5892c3e21241fc098915a3e130fd9ab4056d599ed3f5d48"
+    }
+  ],
+  "visual": {
+    "reviewedImages": 695,
+    "finalSelectedDiagnosticImagesReviewed": 452,
+    "finalScreens": 54,
+    "decodedFrames": 15,
+    "gallery": {
+      "records": 1117,
+      "images": 2012,
+      "pairs": 895,
+      "videos": 3,
+      "identityFilters": 138,
+      "routeJumps": 43,
+      "layoutScreensReviewed": 2
+    }
+  },
+  "resources": {
+    "records": 1157,
+    "files": 1110,
+    "bytes": 808224980,
+    "logicalBytes": 812431540,
+    "retainedRecords": 881,
+    "retainedFiles": 863,
+    "newRecords": 276,
+    "newFiles": 247,
+    "newBytes": 31548260,
+    "release": "f215909d007c35a7a8a607624e67ae3c8ab4e2fcd2457ec2ec155fc31d5c2f2c",
+    "originalSources": 799,
+    "effectSourceFiles": 312,
+    "actorModelXmlSources": 32,
+    "attachmentXmlSources": 8
+  },
+  "startupCases": 4,
+  "update": {
+    "reused": 863,
+    "added": 247
+  },
+  "unchangedBackendVendorConfig": 152,
+  "dependencyChanges": 0,
+  "schemas": {
+    "run": 26,
+    "profile": 6,
+    "mapRecipe": 3
+  },
+  "protection": {
+    "total": 4820,
+    "counts": {
+      "same": 4799,
+      "authorized-edit": 21
+    }
+  },
+  "limits": [
+    "M3 type 2 screen displacement/refraction is unimplemented on 14 models / 15 source layer rows. Source-complete acceptance is false.",
+    "Guardian shields and overlapping beams obscure bodies in dense Protoss combat; zero supported-layer capacity drops are not universal clarity acceptance.",
+    "Small units, child health bars, dark Char, narrow-screen and anchor-distance framing limitations remain. Fixed-camera wide diagnostic layouts intentionally crop on portrait.",
+    "Final formal paused screenshots have native blur; some restored views have native fade. Effects behind the blur are not judged pixel exact.",
+    "Instantaneous impact receipts do not replay after restore; ongoing native flights/channels/fields reconstruct. No restored-effect pixel-equality claim.",
+    "Ultralisk original Attack/Attack 01 has zero active source particles. Its native body/contact feedback remains; no invented substitute slash.",
+    "138 identities have native subject and event records, but not every conditional elite/hero mechanism is triggered in these captures.",
+    "83 source definitions and 82 positive native layer submissions do not establish complete original-client appearance or every layer visible at every instant.",
+    "Science Vessel historical source limitations, matched original-client/human/natural/physical/high-refresh/low-memory/P6-V01/production/B4 remain open. Overall FPS/quality-tier work follows remaining visual/client repair."
+  ],
+  "onlineOperation": false,
+  "currentAndMirrorSynchronized": true,
+  "gitSynchronization": "Recorded separately after the authorized normal main commit and push.",
+  "density": {
+    "records": 93,
+    "supportedLayerCapacityDrops": 0,
+    "maxParticles": 7041,
+    "maxRibbonQuads": 1702,
+    "maxProjectionQuads": 0,
+    "maxUnrenderedDisplacementQuads": 122,
+    "maxBatchCapacity": 4096
+  },
+  "localDelivery": {
+    "passed": true,
+    "at": "2026-10-12T17:15:41.460Z",
+    "appBuildId": "0854ed362e7c5d223973e86917b1317b6a5918f43cf41b9237ba0af41b8d0059",
+    "packageBuildId": "e7507b201b889b4dd7ddc42a6f28382503ba9667d8258c32fccc3d72d3662257",
+    "html": {
+      "path": "dist/SC2-Survivors-Combat-Effects-Final-R3-20261012.html",
+      "bytes": 688752322,
+      "sha256": "dcb7c082b8759e46e1462a62e46ac30032f4ede0be3c61e93f6d5c8a380f8ab9"
+    },
+    "zip": {
+      "path": "dist/Combat-Effects-Final-R3-Application-20261012.zip",
+      "bytes": 15008694,
+      "sha256": "b4c52fa2e601dec4952c12656304ebda3975ee8e8286a831ded10f7c98b45c5a",
+      "files": 195,
+      "packageBuildId": "e7507b201b889b4dd7ddc42a6f28382503ba9667d8258c32fccc3d72d3662257",
+      "verifiedRoundTrip": true,
+      "deployed": false
+    },
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "identical": true
+    },
+    "localMirror": {
+      "path": "deploy/coze",
+      "files": 194,
+      "identical": true,
+      "priorPackage": "0e998471598658c1e69fd234fb603b32da0b8dbbc6a4037a24d550412fe75e6b"
+    },
+    "onlineOperations": false,
+    "gitSynchronization": "Pending normal main commit/push; see git-sync.json after completion.",
+    "postSynchronizationProtection": {
+      "file": "final-r3/protection-after-sync.json",
+      "total": 4820,
+      "counts": {
+        "same": 4794,
+        "authorized-edit": 22,
+        "local-application": 4
+      },
+      "unexpected": 0
+    },
+    "priorInstructionsRetained": true,
+    "preview": {
+      "pid": 29400,
+      "game": "http://127.0.0.1:4390",
+      "gallery": "http://127.0.0.1:4391/comparison.html",
+      "backendEnabled": false,
+      "evidence": "preview.json"
+    }
+  }
+}

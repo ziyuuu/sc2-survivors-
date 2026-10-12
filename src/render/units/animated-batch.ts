@@ -52,7 +52,7 @@ export class AnimatedBatch {
   // Only gameplay clips; dance/fidget/portrait sequences remain in the GLB but do not cost GPU memory.
   const clips=[...new Set(Object.values(this.actions).filter((c):c is THREE.AnimationClip=>!!c))];
   let total=0;for(const c of clips){const frames=Math.max(2,Math.ceil(c.duration*FPS)+1);this.clips.set(c.name,{offset:total,frames,duration:c.duration});total+=frames;}
-  const mountSides=profile==='hero.hots_leviathan'?[undefined,'02','03','04','05']:profile==='hero.yamato_battlecruiser'||profile==='reaper'||profile?.startsWith('elite.reaper.')?[undefined,'Left','Right']:[undefined];
+  const mountSides:(string|undefined)[]=[undefined,'Left','Right','Bottom','Center'];gltf.scene.traverse(node=>{const match=/^Ref_Weapon[ _](.+)$/.exec(node.name);if(match&&!mountSides.includes(match[1]))mountSides.push(match[1]);});
   for(const clip of clips)for(const side of mountSides){const names=weaponAttachmentNames(clip.name,profile,side);const attachment=names.map(name=>gltf.scene.getObjectByName(name)).find(Boolean);if(!attachment)continue;const p=this.clips.get(clip.name)!,points:THREE.Vector3[]=[];mixer.stopAllAction();const action=mixer.clipAction(clip).reset().setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();for(let f=0;f<p.frames;f++){mixer.setTime(f/(p.frames-1)*clip.duration);gltf.scene.updateMatrixWorld(true);points.push(attachment.getWorldPosition(new THREE.Vector3()).applyMatrix4(this.normalization));}this.weaponTracks.set(clip.name+(side?':'+side:''),points);}
   this.weapon.copy(this.weaponAt('attack',.05));
   const nodes:THREE.SkinnedMesh[]=[];gltf.scene.traverse(n=>{

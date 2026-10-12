@@ -1,0 +1,789 @@
+[
+  {
+    "key": "marine",
+    "family": "marine",
+    "weapon": "GaussRifle",
+    "kind": "instant",
+    "actors": [
+      "MarineAttack"
+    ],
+    "models": {
+      "launch": [
+        "MarineAttackLaunch"
+      ],
+      "impact": [
+        "MarineAttackImpact"
+      ],
+      "reactionFlesh": [
+        "BloodTargetImpact"
+      ]
+    }
+  },
+  {
+    "key": "marauder",
+    "family": "marauder",
+    "weapon": "PunisherGrenades",
+    "kind": "missile",
+    "actors": [
+      "MarauderAttack"
+    ],
+    "models": {
+      "launch": [
+        "MarauderAttackLaunch"
+      ],
+      "flight": [
+        "PunisherGrenadesLMWeapon"
+      ],
+      "impact": [
+        "MarauderBaseAttackImpact"
+      ],
+      "reactionFlesh": [
+        "BloodTargetImpact"
+      ]
+    }
+  },
+  {
+    "key": "reaper",
+    "family": "reaper",
+    "weapon": "P38ScytheGuassPistol",
+    "kind": "instant",
+    "actors": [
+      "ReaperAttack"
+    ],
+    "models": {
+      "launch": [
+        "ReaperAttackLaunch"
+      ],
+      "impact": [
+        "ReaperAttackImpact"
+      ],
+      "reactionFlesh": [
+        "BloodTargetImpact"
+      ]
+    },
+    "mounts": [
+      "Right",
+      "Left"
+    ]
+  },
+  {
+    "key": "hellion",
+    "family": "hellion",
+    "weapon": "InfernalFlameThrower",
+    "kind": "flame",
+    "actors": [
+      "HellionAttack"
+    ],
+    "models": {
+      "beam": [
+        "HellionAttackBeam"
+      ],
+      "impact": [
+        "HellionAttackDamageReaction"
+      ]
+    }
+  },
+  {
+    "key": "hellbat",
+    "family": "hellion",
+    "weapon": "HellionTank",
+    "kind": "fan",
+    "actors": [
+      "HellionTankAttack"
+    ],
+    "models": {
+      "launch": [
+        "HellionTankAttackLaunch"
+      ],
+      "impact": [
+        "HellionTankAttackFireAddition"
+      ]
+    },
+    "mode": "hellbat"
+  },
+  {
+    "key": "tank",
+    "family": "tank",
+    "weapon": "90mmCannons",
+    "kind": "instant",
+    "actors": [
+      "SiegeTankAttack"
+    ],
+    "models": {
+      "launch": [
+        "SiegeTankAttackLaunch"
+      ],
+      "impact": [
+        "SiegeTankAttackImpact"
+      ]
+    }
+  },
+  {
+    "key": "tank-siege",
+    "family": "tank",
+    "weapon": "CrucioShockCannon",
+    "kind": "instant",
+    "actors": [
+      "SiegeTankSiegedAttack"
+    ],
+    "models": {
+      "launch": [
+        "SiegeTankSiegedAttackLaunch"
+      ],
+      "impact": [
+        "SiegeTankSiegedAttackImpact"
+      ]
+    },
+    "mode": "siege"
+  },
+  {
+    "key": "thor-ground",
+    "family": "thor",
+    "weapon": "ThorsHammer",
+    "kind": "instant",
+    "actors": [
+      "ThorAttack"
+    ],
+    "models": {
+      "launch": [
+        "ThorHandGunAttackLaunch"
+      ],
+      "impact": [
+        "ThorHandGunAttackImpact"
+      ]
+    },
+    "mounts": [
+      "05",
+      "07"
+    ]
+  },
+  {
+    "key": "thor-air",
+    "family": "thor",
+    "weapon": "JavelinMissileLaunchers",
+    "kind": "missile",
+    "actors": [
+      "ThorAAAttack"
+    ],
+    "models": {
+      "launch": [
+        "ThorAAAttackLaunch"
+      ],
+      "flight": [
+        "ThorAAWeapon"
+      ],
+      "impact": [
+        "ThorAAAttackImpact"
+      ]
+    },
+    "mounts": [
+      "15",
+      "16",
+      "17",
+      "18"
+    ]
+  },
+  {
+    "key": "thor-high-impact",
+    "family": "thor",
+    "weapon": "LanceMissileLaunchers",
+    "kind": "instant",
+    "actors": [
+      "ThorAALanceAttack"
+    ],
+    "models": {
+      "launch": [
+        "ThorAAAttackLaunchLance"
+      ],
+      "impact": [
+        "ThorAAAttackImpactLance"
+      ]
+    },
+    "mode": "thor_high_impact",
+    "mounts": [
+      "01",
+      "03"
+    ]
+  },
+  {
+    "key": "viking",
+    "family": "viking",
+    "weapon": "LanzerTorpedoes",
+    "kind": "missile",
+    "actors": [
+      "VikingFighterAttack"
+    ],
+    "models": {
+      "launch": [
+        "VikingFighterAttackLaunch"
+      ],
+      "flight": [
+        "VikingFighterWeapon"
+      ],
+      "impact": [
+        "VikingFighterAttackImpact"
+      ],
+      "reactionFlesh": [
+        "BloodTargetImpact"
+      ]
+    },
+    "mounts": [
+      "10",
+      "14"
+    ]
+  },
+  {
+    "key": "viking-assault",
+    "family": "viking",
+    "weapon": "TwinGatlingCannons",
+    "kind": "instant",
+    "actors": [
+      "VikingAssaultAttack"
+    ],
+    "models": {
+      "launch": [
+        "VikingAssaultAttackLaunch"
+      ],
+      "impact": [
+        "VikingAssaultAttackImpact"
+      ],
+      "reactionFlesh": [
+        "BloodTargetImpact"
+      ]
+    },
+    "mode": "viking_assault",
+    "mounts": [
+      "Left",
+      "Right"
+    ]
+  },
+  {
+    "key": "banshee",
+    "family": "banshee",
+    "weapon": "BacklashRockets",
+    "kind": "missile",
+    "actors": [
+      "BansheeAttack"
+    ],
+    "models": {
+      "flight": [
+        "BacklashRocketsLMWeapon"
+      ],
+      "impact": [
+        "BansheeAttackImpact"
+      ]
+    },
+    "mounts": [
+      "Right",
+      "Left"
+    ]
+  },
+  {
+    "key": "medivac",
+    "family": "medivac",
+    "weapon": null,
+    "kind": "healing",
+    "actors": [
+      "MedivacHealBeam"
+    ],
+    "models": {
+      "beam": [
+        "MedivacHealBeam"
+      ],
+      "impact": [
+        "MedicHealModel"
+      ]
+    }
+  },
+  {
+    "key": "science-vessel",
+    "family": "science_vessel",
+    "weapon": null,
+    "kind": "repair",
+    "actors": [],
+    "models": {},
+    "adaptation": "Retain the approved recipient nano-mist; historical Science Vessel source gate remains open."
+  },
+  {
+    "key": "zergling",
+    "family": "zergling",
+    "weapon": "Claws",
+    "kind": "melee",
+    "actors": [
+      "ZerglingAttack"
+    ],
+    "models": {}
+  },
+  {
+    "key": "baneling",
+    "family": "baneling",
+    "weapon": "VolatileBurst",
+    "kind": "detonation",
+    "actors": [
+      "BanelingAttack"
+    ],
+    "models": {
+      "impact": [
+        "BanelingDeath"
+      ]
+    }
+  },
+  {
+    "key": "roach",
+    "family": "roach",
+    "weapon": "AcidSaliva",
+    "kind": "missile",
+    "actors": [
+      "RoachAttack"
+    ],
+    "models": {
+      "flight": [
+        "AcidSalivaWeapon"
+      ],
+      "impact": [
+        "RoachMissileImpact"
+      ]
+    }
+  },
+  {
+    "key": "ravager",
+    "family": "ravager",
+    "weapon": "RavagerWeapon",
+    "kind": "missile",
+    "actors": [
+      "RavagerAttack"
+    ],
+    "models": {
+      "flight": [
+        "RavagerWeaponMissile"
+      ],
+      "impact": [
+        "RavagerWeaponImpact"
+      ]
+    }
+  },
+  {
+    "key": "ravager-bile",
+    "family": "ravager",
+    "weapon": "CorrosiveBile",
+    "kind": "artillery",
+    "actors": [
+      "RavagerCorrosiveBileAttackUp",
+      "RavagerCorrosiveBileAttackDown"
+    ],
+    "models": {
+      "flight": [
+        "RavagerCorrosiveBileMissile"
+      ],
+      "impact": [
+        "RavagerCorrosiveBileImpact"
+      ]
+    }
+  },
+  {
+    "key": "hydralisk",
+    "family": "hydralisk",
+    "weapon": "NeedleSpines",
+    "kind": "missile",
+    "actors": [
+      "HydraliskAttack"
+    ],
+    "models": {
+      "flight": [
+        "NeedleSpinesWeapon"
+      ],
+      "impact": [
+        "HydraliskAttackImpact"
+      ],
+      "reactionFlesh": [
+        "BloodTargetImpact"
+      ]
+    }
+  },
+  {
+    "key": "queen-melee",
+    "family": "queen",
+    "weapon": "Talons",
+    "kind": "melee",
+    "actors": [
+      "QueenAttack"
+    ],
+    "models": {
+      "launch": [
+        "QueenAttackLaunch"
+      ]
+    }
+  },
+  {
+    "key": "queen-ground",
+    "family": "queen",
+    "weapon": "TalonsMissile",
+    "kind": "missile",
+    "actors": [
+      "TalonsLMAttack"
+    ],
+    "models": {
+      "flight": [
+        "TalonsMissileWeapon"
+      ],
+      "impact": [
+        "QueenMissileImpact"
+      ],
+      "reactionFlesh": [
+        "BloodTargetImpact"
+      ]
+    }
+  },
+  {
+    "key": "queen-air",
+    "family": "queen",
+    "weapon": "AcidSpines",
+    "kind": "missile",
+    "actors": [
+      "AcidSpinesAttack"
+    ],
+    "models": {
+      "flight": [
+        "AcidSpinesWeapon"
+      ],
+      "impact": [
+        "QueenMissileImpact"
+      ],
+      "launch": [
+        "AcidSpinesAttackLaunch"
+      ]
+    }
+  },
+  {
+    "key": "queen-heal",
+    "family": "queen",
+    "weapon": "Transfusion",
+    "kind": "healing",
+    "actors": [
+      "SquibTransfusion"
+    ],
+    "models": {
+      "impact": [
+        "SquibTransfusion"
+      ]
+    }
+  },
+  {
+    "key": "lurker",
+    "family": "lurker",
+    "weapon": "LurkerMP",
+    "kind": "spikes",
+    "actors": [
+      "LurkerMPAttackSpike",
+      "LurkerMPAttackSpikes",
+      "LurkerMPAttackSpikeEx2"
+    ],
+    "models": {
+      "impact": [
+        "LurkerMPAttackSpike",
+        "LurkerAttackSpikeEx2"
+      ]
+    },
+    "mode": "lurker_burrowed"
+  },
+  {
+    "key": "mutalisk",
+    "family": "mutalisk",
+    "weapon": "GlaiveWurm",
+    "kind": "bounce",
+    "actors": [
+      "MutaliskAttackSegment1",
+      "MutaliskAttackSegment2",
+      "MutaliskAttackSegment3"
+    ],
+    "models": {
+      "flight": [
+        "GlaiveWurmWeapon"
+      ],
+      "impact": [
+        "MutaliskAttackSegment1Impact",
+        "MutaliskAttackSegment2Impact",
+        "MutaliskAttackSegment3Impact"
+      ]
+    }
+  },
+  {
+    "key": "corruptor",
+    "family": "corruptor",
+    "weapon": "ParasiteSpore",
+    "kind": "missile",
+    "actors": [
+      "CorruptorAttack"
+    ],
+    "models": {
+      "launch": [
+        "CorruptorAttackLaunch"
+      ],
+      "flight": [
+        "ParasiteSporeWeapon"
+      ],
+      "impact": [
+        "CorruptorAttackImpact"
+      ]
+    }
+  },
+  {
+    "key": "ultralisk",
+    "family": "ultralisk",
+    "weapon": "KaiserBlades",
+    "kind": "melee",
+    "actors": [
+      "UltraliskAttack"
+    ],
+    "models": {
+      "body": [
+        "Ultralisk"
+      ]
+    }
+  },
+  {
+    "key": "zealot",
+    "family": "zealot",
+    "weapon": "PsiBlades",
+    "kind": "melee",
+    "actors": [
+      "ZealotAttack"
+    ],
+    "models": {
+      "body": [
+        "Zealot"
+      ]
+    }
+  },
+  {
+    "key": "adept",
+    "family": "adept",
+    "weapon": "Adept",
+    "kind": "missile",
+    "actors": [
+      "AdeptAttack"
+    ],
+    "models": {
+      "flight": [
+        "AdeptWeapon"
+      ],
+      "impact": [
+        "AdeptImpact"
+      ]
+    }
+  },
+  {
+    "key": "stalker",
+    "family": "stalker",
+    "weapon": "ParticleDisruptors",
+    "kind": "missile",
+    "actors": [
+      "StalkerAttack"
+    ],
+    "models": {
+      "flight": [
+        "StalkerWeapon"
+      ],
+      "impact": [
+        "StalkerAttackImpact"
+      ],
+      "reactionFlesh": [
+        "BloodTargetImpact"
+      ]
+    }
+  },
+  {
+    "key": "sentry",
+    "family": "sentry",
+    "weapon": "DisruptionBeam",
+    "kind": "beam",
+    "actors": [
+      "SentryAttack"
+    ],
+    "models": {
+      "beam": [
+        "SentryAttackBeam"
+      ]
+    }
+  },
+  {
+    "key": "guardian",
+    "family": "sentry",
+    "weapon": "GuardianShield",
+    "kind": "field",
+    "actors": [
+      "GuardianShield"
+    ],
+    "models": {
+      "field": [
+        "GuardianShield"
+      ],
+      "impact": [
+        "GuardianShieldImpact"
+      ]
+    }
+  },
+  {
+    "key": "immortal",
+    "family": "immortal",
+    "weapon": "PhaseDisruptors",
+    "kind": "instant",
+    "actors": [
+      "ImmortalAttack"
+    ],
+    "models": {
+      "body": [
+        "Immortal"
+      ],
+      "impact": [
+        "ImmortalAttackImpact"
+      ]
+    },
+    "sourceBodyLaunch": true
+  },
+  {
+    "key": "colossus",
+    "family": "colossus",
+    "weapon": "ThermalLances",
+    "kind": "sweep",
+    "actors": [
+      "ColossusAttackBeam",
+      "ColossusAttackBeamReverse"
+    ],
+    "models": {
+      "beam": [
+        "ColossusAttackBeam"
+      ],
+      "impact": [
+        "ColossusAttackBeamImpact"
+      ]
+    }
+  },
+  {
+    "key": "high-templar",
+    "family": "high_templar",
+    "weapon": "HighTemplarWeapon",
+    "kind": "missile",
+    "actors": [
+      "HighTemplarAttack"
+    ],
+    "models": {
+      "flight": [
+        "HighTemplarWeapon"
+      ],
+      "impact": [
+        "HighTemplarAttackImpact"
+      ]
+    }
+  },
+  {
+    "key": "storm",
+    "family": "high_templar",
+    "weapon": "PsiStorm",
+    "kind": "field",
+    "actors": [
+      "HighTemplarPsiStormModel",
+      "HighTemplarPsiStormImpact"
+    ],
+    "models": {
+      "field": [
+        "HighTemplarPsiStormModel"
+      ],
+      "impact": [
+        "HighTemplarPsiStormImpact"
+      ]
+    }
+  },
+  {
+    "key": "phoenix",
+    "family": "phoenix",
+    "weapon": "IonCannons",
+    "kind": "missile",
+    "actors": [
+      "PhoenixAirAttackLeft",
+      "PhoenixAirAttackRight"
+    ],
+    "models": {
+      "flight": [
+        "IonCannonsWeapon"
+      ],
+      "impact": [
+        "PhoenixAirAttackImpact"
+      ],
+      "reactionFlesh": [
+        "BloodTargetImpact"
+      ]
+    },
+    "mounts": [
+      "Weapon 01",
+      "Weapon 03"
+    ]
+  },
+  {
+    "key": "void-ray",
+    "family": "void_ray",
+    "weapon": "VoidRaySwarm",
+    "kind": "beam",
+    "actors": [
+      "VoidRaySwarmAttack",
+      "VoidRaySwarmEnhancedAttack"
+    ],
+    "models": {
+      "beam": [
+        "VoidRayAttackBeam"
+      ],
+      "impact": [
+        "VoidRayCenterBeam"
+      ]
+    }
+  },
+  {
+    "key": "carrier",
+    "family": "carrier",
+    "weapon": "InterceptorLaunch",
+    "kind": "carrier",
+    "actors": [],
+    "models": {}
+  },
+  {
+    "key": "interceptor",
+    "family": "carrier",
+    "weapon": "InterceptorBeam",
+    "kind": "beam",
+    "actors": [
+      "InterceptorAttack"
+    ],
+    "models": {
+      "beam": [
+        "InterceptorAttackBeam"
+      ],
+      "impact": [
+        "InterceptorAttackImpact"
+      ]
+    },
+    "summon": "interceptor"
+  },
+  {
+    "key": "shield-hit",
+    "family": "shield",
+    "weapon": null,
+    "kind": "shield",
+    "actors": [
+      "ShieldImpact",
+      "ProtossShieldFacer",
+      "ProtossShieldFacerRipple",
+      "ProtossShieldHeader",
+      "ProtossShieldFull"
+    ],
+    "models": {
+      "impact": [
+        "ProtossShieldDamage",
+        "ProtossShieldRipple"
+      ],
+      "area": [
+        "ProtossShieldFull"
+      ]
+    },
+    "adaptation": "Target-owned original shield response. Native body radius and real absorbed hit determine placement; no damage or shield-state change."
+  }
+]

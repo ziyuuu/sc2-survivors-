@@ -1,0 +1,500 @@
+[
+  {
+    "id": "model.combat-fx.MarineAttackLaunch",
+    "name": "marineweaponlaunch",
+    "assetPath": "Assets/Effects/Terran/MarineWeaponLaunch/MarineWeaponLaunch.m3",
+    "modelDataId": "MarineAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.MarineAttackImpact",
+    "name": "marineweaponimpact",
+    "assetPath": "Assets/Effects/Terran/MarineWeaponImpact/MarineWeaponImpact.m3",
+    "modelDataId": "MarineAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.MarauderAttackLaunch",
+    "name": "maraudermissilelaunch",
+    "assetPath": "Assets/Effects/Terran/MarauderMissileLaunch/MarauderMissileLaunch.m3",
+    "modelDataId": "MarauderAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.PunisherGrenadesLMWeapon",
+    "name": "maraudermissile",
+    "assetPath": "Assets/Effects/Terran/MarauderMissile/MarauderMissile.m3",
+    "modelDataId": "PunisherGrenadesLMWeapon"
+  },
+  {
+    "id": "model.combat-fx.MarauderBaseAttackImpact",
+    "name": "marauderbasemissileimpact",
+    "assetPath": "Assets/Effects/Terran/MarauderBaseMissileImpact/MarauderBaseMissileImpact.m3",
+    "modelDataId": "MarauderBaseAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.ReaperAttackLaunch",
+    "name": "reaperweaponlaunch",
+    "assetPath": "Assets/Effects/Terran/ReaperWeaponLaunch/ReaperWeaponLaunch.m3",
+    "modelDataId": "ReaperAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.ReaperAttackImpact",
+    "name": "reaperweaponimpact",
+    "assetPath": "Assets/Effects/Terran/ReaperWeaponImpact/ReaperWeaponImpact.m3",
+    "modelDataId": "ReaperAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.HellionAttackBeam",
+    "name": "hellionbeam",
+    "assetPath": "Assets/Effects/Terran/HellionBeam/HellionBeam.m3",
+    "modelDataId": "HellionAttackBeam"
+  },
+  {
+    "id": "model.combat-fx.HellionAttackDamageReaction",
+    "name": "hellionbeamimpact",
+    "assetPath": "Assets/Effects/Terran/HellionBeamImpact/HellionBeamImpact.m3",
+    "modelDataId": "HellionAttackDamageReaction"
+  },
+  {
+    "id": "model.combat-fx.HellionTankAttackLaunch",
+    "name": "helliontankattack",
+    "assetPath": "Assets/Effects/Terran/HellionTankAttack/HellionTankAttack.m3",
+    "modelDataId": "HellionTankAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.HellionTankAttackFireAddition",
+    "name": "fireimpact",
+    "assetPath": "Assets/Effects/Terran/FireImpact/FireImpact.m3",
+    "modelDataId": "HellionTankAttackFireAddition"
+  },
+  {
+    "id": "model.combat-fx.SiegeTankAttackLaunch",
+    "name": "tankweaponlaunch",
+    "assetPath": "Assets/Effects/Terran/TankWeaponLaunch/TankWeaponLaunch.m3",
+    "modelDataId": "SiegeTankAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.SiegeTankAttackImpact",
+    "name": "tankweaponimpact",
+    "assetPath": "Assets/Effects/Terran/TankWeaponImpact/TankWeaponImpact.m3",
+    "modelDataId": "SiegeTankAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.SiegeTankSiegedAttackLaunch",
+    "name": "siegetankweaponlaunch",
+    "assetPath": "Assets/Effects/Terran/SiegeTankWeaponLaunch/SiegeTankWeaponLaunch.m3",
+    "modelDataId": "SiegeTankSiegedAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.SiegeTankSiegedAttackImpact",
+    "name": "siegetankweaponimpact",
+    "assetPath": "Assets/Effects/Terran/SiegeTankWeaponImpact/SiegeTankWeaponImpact.m3",
+    "modelDataId": "SiegeTankSiegedAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.ThorHandGunAttackLaunch",
+    "name": "thorarmmissilelaunch",
+    "assetPath": "Assets/Effects/Terran/ThorArmMissileLaunch/ThorArmMissileLaunch.m3",
+    "modelDataId": "ThorHandGunAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.ThorHandGunAttackImpact",
+    "name": "thorarmmissileimpact",
+    "assetPath": "Assets/Effects/Terran/ThorArmMissileImpact/ThorArmMissileImpact.m3",
+    "modelDataId": "ThorHandGunAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.ThorAAAttackLaunch",
+    "name": "thorshouldermissilelaunch",
+    "assetPath": "Assets/Effects/Terran/ThorShoulderMissileLaunch/ThorShoulderMissileLaunch.m3",
+    "modelDataId": "ThorAAAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.ThorAAWeapon",
+    "name": "thorshouldermissile",
+    "assetPath": "Assets/Effects/Terran/ThorShoulderMissile/ThorShoulderMissile.m3",
+    "modelDataId": "ThorAAWeapon"
+  },
+  {
+    "id": "model.combat-fx.ThorAAAttackImpact",
+    "name": "thorchestmissileimpact",
+    "assetPath": "Assets/Effects/Terran/ThorChestMissileImpact/ThorChestMissileImpact.m3",
+    "modelDataId": "ThorAAAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.ThorAAAttackLaunchLance",
+    "name": "thorarmmissilelaunch",
+    "assetPath": "Assets/Effects/Terran/ThorArmMissileLaunch/ThorArmMissileLaunch.m3",
+    "modelDataId": "ThorAAAttackLaunchLance"
+  },
+  {
+    "id": "model.combat-fx.ThorAAAttackImpactLance",
+    "name": "thoraircannonimpact",
+    "assetPath": "Assets/Effects/Terran/ThorAirCannonImpact/ThorAirCannonImpact.m3",
+    "modelDataId": "ThorAAAttackImpactLance"
+  },
+  {
+    "id": "model.combat-fx.VikingFighterAttackLaunch",
+    "name": "vikingfightermissilelaunch",
+    "assetPath": "Assets/Effects/Terran/VikingFighterMissileLaunch/VikingFighterMissileLaunch.m3",
+    "modelDataId": "VikingFighterAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.VikingFighterWeapon",
+    "name": "vikingfightermissile",
+    "assetPath": "Assets/Effects/Terran/VikingFighterMissile/VikingFighterMissile.m3",
+    "modelDataId": "VikingFighterWeapon"
+  },
+  {
+    "id": "model.combat-fx.VikingFighterAttackImpact",
+    "name": "vikingfightermissileimpact",
+    "assetPath": "Assets/Effects/Terran/VikingFighterMissileImpact/VikingFighterMissileImpact.m3",
+    "modelDataId": "VikingFighterAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.VikingAssaultAttackLaunch",
+    "name": "vikingassaultweaponlaunch",
+    "assetPath": "Assets/Effects/Terran/VikingAssaultWeaponLaunch/VikingAssaultWeaponLaunch.m3",
+    "modelDataId": "VikingAssaultAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.VikingAssaultAttackImpact",
+    "name": "vikingassaultweaponimpact",
+    "assetPath": "Assets/Effects/Terran/VikingAssaultWeaponImpact/VikingAssaultWeaponImpact.m3",
+    "modelDataId": "VikingAssaultAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.BacklashRocketsLMWeapon",
+    "name": "bansheemissile",
+    "assetPath": "Assets/Effects/Terran/BansheeMissile/BansheeMissile.m3",
+    "modelDataId": "BacklashRocketsLMWeapon"
+  },
+  {
+    "id": "model.combat-fx.BansheeAttackImpact",
+    "name": "bansheemissileimpact",
+    "assetPath": "Assets/Effects/Terran/BansheeMissileImpact/BansheeMissileImpact.m3",
+    "modelDataId": "BansheeAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.MedivacHealBeam",
+    "name": "medivacbeam",
+    "assetPath": "Assets/Effects/Terran/MedivacBeam/MedivacBeam.m3",
+    "modelDataId": "MedivacHealBeam"
+  },
+  {
+    "id": "model.combat-fx.MedicHealModel",
+    "name": "medicheal",
+    "assetPath": "Assets/Effects/Terran/MedicHeal/MedicHeal.m3",
+    "modelDataId": "MedicHealModel"
+  },
+  {
+    "id": "model.combat-fx.BanelingDeath",
+    "name": "banelingex1death",
+    "assetPath": "Assets/Units/Zerg/BanelingEx1Death/BanelingEx1Death.m3",
+    "modelDataId": "BanelingDeath"
+  },
+  {
+    "id": "model.combat-fx.AcidSalivaWeapon",
+    "name": "roachmissileex1",
+    "assetPath": "Assets/Effects/Zerg/RoachMissileEx1/RoachMissileEx1.m3",
+    "modelDataId": "AcidSalivaWeapon"
+  },
+  {
+    "id": "model.combat-fx.RoachMissileImpact",
+    "name": "roachmissileimpactex1",
+    "assetPath": "Assets/Effects/Zerg/RoachMissileImpactEx1/RoachMissileImpactEx1.m3",
+    "modelDataId": "RoachMissileImpact"
+  },
+  {
+    "id": "model.combat-fx.RavagerWeaponMissile",
+    "name": "ravager_missile",
+    "assetPath": "Assets/Effects/Zerg/Ravager_Missile/Ravager_Missile.m3",
+    "modelDataId": "RavagerWeaponMissile"
+  },
+  {
+    "id": "model.combat-fx.RavagerWeaponImpact",
+    "name": "ravager_missile_impact",
+    "assetPath": "Assets/Effects/Zerg/Ravager_Missile_Impact/Ravager_Missile_Impact.m3",
+    "modelDataId": "RavagerWeaponImpact"
+  },
+  {
+    "id": "model.combat-fx.RavagerCorrosiveBileMissile",
+    "name": "ravager_artillery_missile",
+    "assetPath": "Assets/Effects/Zerg/Ravager_Artillery_Missile/Ravager_Artillery_Missile.m3",
+    "modelDataId": "RavagerCorrosiveBileMissile"
+  },
+  {
+    "id": "model.combat-fx.RavagerCorrosiveBileImpact",
+    "name": "ravager_artillery_missile_impact",
+    "assetPath": "Assets/Effects/Zerg/Ravager_Artillery_Missile_Impact/Ravager_Artillery_Missile_Impact.m3",
+    "modelDataId": "RavagerCorrosiveBileImpact"
+  },
+  {
+    "id": "model.combat-fx.NeedleSpinesWeapon",
+    "name": "hydraliskmissile",
+    "assetPath": "Assets/Effects/Zerg/HydraliskMissile/HydraliskMissile.m3",
+    "modelDataId": "NeedleSpinesWeapon"
+  },
+  {
+    "id": "model.combat-fx.HydraliskAttackImpact",
+    "name": "mutaliskmissileimpact",
+    "assetPath": "Assets/Effects/Zerg/MutaliskMissileImpact/MutaliskMissileImpact.m3",
+    "modelDataId": "HydraliskAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.TalonsMissileWeapon",
+    "name": "hydraliskmissile",
+    "assetPath": "Assets/Effects/Zerg/HydraliskMissile/HydraliskMissile.m3",
+    "modelDataId": "TalonsMissileWeapon"
+  },
+  {
+    "id": "model.combat-fx.QueenMissileImpact",
+    "name": "mutaliskmissileimpact",
+    "assetPath": "Assets/Effects/Zerg/MutaliskMissileImpact/MutaliskMissileImpact.m3",
+    "modelDataId": "QueenMissileImpact"
+  },
+  {
+    "id": "model.combat-fx.AcidSpinesWeapon",
+    "name": "hydraliskmissile",
+    "assetPath": "Assets/Effects/Zerg/HydraliskMissile/HydraliskMissile.m3",
+    "modelDataId": "AcidSpinesWeapon"
+  },
+  {
+    "id": "model.combat-fx.SquibTransfusion",
+    "name": "regeneration",
+    "assetPath": "Assets/Effects/Zerg/Regeneration/Regeneration.m3",
+    "modelDataId": "SquibTransfusion"
+  },
+  {
+    "id": "model.combat-fx.LurkerMPAttackSpike",
+    "name": "lurkermissile_impact_ex2",
+    "assetPath": "Assets/Effects/Zerg/LurkerMissile_Impact_EX2/LurkerMissile_Impact_EX2.m3",
+    "modelDataId": "LurkerMPAttackSpike"
+  },
+  {
+    "id": "model.combat-fx.LurkerAttackSpikeEx2",
+    "name": "lurkermissile_ac",
+    "assetPath": "Assets/Effects/Zerg/LurkerMissile_AC/LurkerMissile_AC.m3",
+    "modelDataId": "LurkerAttackSpikeEx2"
+  },
+  {
+    "id": "model.combat-fx.GlaiveWurmWeapon",
+    "name": "mutaliskmissile",
+    "assetPath": "Assets/Effects/Zerg/MutaliskMissile/MutaliskMissile.m3",
+    "modelDataId": "GlaiveWurmWeapon"
+  },
+  {
+    "id": "model.combat-fx.MutaliskAttackSegment1Impact",
+    "name": "mutaliskmissileimpact",
+    "assetPath": "Assets/Effects/Zerg/MutaliskMissileImpact/MutaliskMissileImpact.m3",
+    "modelDataId": "MutaliskAttackSegment1Impact"
+  },
+  {
+    "id": "model.combat-fx.CorruptorAttackLaunch",
+    "name": "corruptormissilelaunch",
+    "assetPath": "Assets/Effects/Zerg/CorruptorMissileLaunch/CorruptorMissileLaunch.m3",
+    "modelDataId": "CorruptorAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.ParasiteSporeWeapon",
+    "name": "corruptormissile",
+    "assetPath": "Assets/Effects/Zerg/CorruptorMissile/CorruptorMissile.m3",
+    "modelDataId": "ParasiteSporeWeapon"
+  },
+  {
+    "id": "model.combat-fx.CorruptorAttackImpact",
+    "name": "corruptormissileimpact",
+    "assetPath": "Assets/Effects/Zerg/CorruptorMissileImpact/CorruptorMissileImpact.m3",
+    "modelDataId": "CorruptorAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.Ultralisk",
+    "name": "ultraliskex1",
+    "assetPath": "Assets/Units/Zerg/UltraliskEx1/UltraliskEx1.m3",
+    "modelDataId": "Ultralisk"
+  },
+  {
+    "id": "model.combat-fx.Zealot",
+    "name": "zealot_ex2",
+    "assetPath": "Assets/Units/Protoss/Zealot_Ex2/Zealot_Ex2.m3",
+    "modelDataId": "Zealot"
+  },
+  {
+    "id": "model.combat-fx.AdeptWeapon",
+    "name": "adept_missile",
+    "assetPath": "Assets/Effects/Protoss/Adept_Missile/Adept_Missile.m3",
+    "modelDataId": "AdeptWeapon"
+  },
+  {
+    "id": "model.combat-fx.AdeptImpact",
+    "name": "adept_missile_impact",
+    "assetPath": "Assets/Effects/Protoss/Adept_Missile_Impact/Adept_Missile_Impact.m3",
+    "modelDataId": "AdeptImpact"
+  },
+  {
+    "id": "model.combat-fx.StalkerWeapon",
+    "name": "stalkermissile",
+    "assetPath": "Assets/Effects/Protoss/StalkerMissile/StalkerMissile.m3",
+    "modelDataId": "StalkerWeapon"
+  },
+  {
+    "id": "model.combat-fx.StalkerAttackImpact",
+    "name": "stalkermissileimpact",
+    "assetPath": "Assets/Effects/Protoss/StalkerMissileImpact/StalkerMissileImpact.m3",
+    "modelDataId": "StalkerAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.SentryAttackBeam",
+    "name": "nullifierbeam",
+    "assetPath": "Assets/Effects/Protoss/NullifierBeam/NullifierBeam.m3",
+    "modelDataId": "SentryAttackBeam"
+  },
+  {
+    "id": "model.combat-fx.GuardianShield",
+    "name": "sentryshieldbubble_ex2",
+    "assetPath": "Assets/Effects/Protoss/SentryShieldBubble_Ex2/SentryShieldBubble_Ex2.m3",
+    "modelDataId": "GuardianShield"
+  },
+  {
+    "id": "model.combat-fx.GuardianShieldImpact",
+    "name": "sentryshieldimpact",
+    "assetPath": "Assets/Effects/Protoss/SentryShieldImpact/SentryShieldImpact.m3",
+    "modelDataId": "GuardianShieldImpact"
+  },
+  {
+    "id": "model.combat-fx.Immortal",
+    "name": "immortal_ex2",
+    "assetPath": "Assets/Units/Protoss/Immortal_EX2/Immortal_EX2.m3",
+    "modelDataId": "Immortal"
+  },
+  {
+    "id": "model.combat-fx.ImmortalAttackImpact",
+    "name": "immortalmissileimpact",
+    "assetPath": "Assets/Effects/Protoss/ImmortalMissileImpact/ImmortalMissileImpact.m3",
+    "modelDataId": "ImmortalAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.ColossusAttackBeam",
+    "name": "colossusbeam",
+    "assetPath": "Assets/Effects/Protoss/ColossusBeam/ColossusBeam.m3",
+    "modelDataId": "ColossusAttackBeam"
+  },
+  {
+    "id": "model.combat-fx.ColossusAttackBeamImpact",
+    "name": "colossusbeamburn",
+    "assetPath": "Assets/Effects/Protoss/ColossusBeamBurn/ColossusBeamBurn.m3",
+    "modelDataId": "ColossusAttackBeamImpact"
+  },
+  {
+    "id": "model.combat-fx.HighTemplarWeapon",
+    "name": "adeptsoulmissile",
+    "assetPath": "Assets/Effects/Protoss/AdeptSoulMissile/AdeptSoulMissile.m3",
+    "modelDataId": "HighTemplarWeapon"
+  },
+  {
+    "id": "model.combat-fx.HighTemplarAttackImpact",
+    "name": "adeptsoulmissileimpact",
+    "assetPath": "Assets/Effects/Protoss/AdeptSoulMissileImpact/AdeptSoulMissileImpact.m3",
+    "modelDataId": "HighTemplarAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.HighTemplarPsiStormModel",
+    "name": "psistorm",
+    "assetPath": "Assets/Effects/Protoss/PsiStorm/PsiStorm.m3",
+    "modelDataId": "HighTemplarPsiStormModel"
+  },
+  {
+    "id": "model.combat-fx.HighTemplarPsiStormImpact",
+    "name": "psistormimpact",
+    "assetPath": "Assets/Effects/Protoss/PsiStormImpact/PsiStormImpact.m3",
+    "modelDataId": "HighTemplarPsiStormImpact"
+  },
+  {
+    "id": "model.combat-fx.IonCannonsWeapon",
+    "name": "phoenixmissile",
+    "assetPath": "Assets/Effects/Protoss/PhoenixMissile/PhoenixMissile.m3",
+    "modelDataId": "IonCannonsWeapon"
+  },
+  {
+    "id": "model.combat-fx.PhoenixAirAttackImpact",
+    "name": "phoenixmissileimpact",
+    "assetPath": "Assets/Effects/Protoss/PhoenixMissileImpact/PhoenixMissileImpact.m3",
+    "modelDataId": "PhoenixAirAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.VoidRayAttackBeam",
+    "name": "warpraymissile",
+    "assetPath": "Assets/Effects/Protoss/WarpRayMissile/WarpRayMissile.m3",
+    "modelDataId": "VoidRayAttackBeam"
+  },
+  {
+    "id": "model.combat-fx.VoidRayCenterBeam",
+    "name": "voidraycenterbeam",
+    "assetPath": "Assets/Effects/Protoss/VoidRayCenterBeam/VoidRayCenterBeam.m3",
+    "modelDataId": "VoidRayCenterBeam"
+  },
+  {
+    "id": "model.combat-fx.InterceptorAttackBeam",
+    "name": "interceptormissile",
+    "assetPath": "Assets/Effects/Protoss/InterceptorMissile/InterceptorMissile.m3",
+    "modelDataId": "InterceptorAttackBeam"
+  },
+  {
+    "id": "model.combat-fx.InterceptorAttackImpact",
+    "name": "interceptormissileimpact",
+    "assetPath": "Assets/Effects/Protoss/InterceptorMissileImpact/InterceptorMissileImpact.m3",
+    "modelDataId": "InterceptorAttackImpact"
+  },
+  {
+    "id": "model.combat-fx.ProtossShieldDamage",
+    "name": "protossshield",
+    "assetPath": "Assets/Effects/Protoss/ProtossShield/ProtossShield.m3",
+    "modelDataId": "ProtossShieldDamage"
+  },
+  {
+    "id": "model.combat-fx.ProtossShieldRipple",
+    "name": "protossshieldimpactpoint",
+    "assetPath": "Assets/Effects/Protoss/ProtossShieldImpactPoint/ProtossShieldImpactPoint.m3",
+    "modelDataId": "ProtossShieldRipple"
+  },
+  {
+    "id": "model.combat-fx.ProtossShieldFull",
+    "name": "protossshieldfull",
+    "assetPath": "Assets/Effects/Protoss/ProtossShieldFull/ProtossShieldFull.m3",
+    "modelDataId": "ProtossShieldFull"
+  },
+  {
+    "id": "model.combat-fx.BloodTargetImpact",
+    "name": "bloodtargetimpact",
+    "assetPath": "Assets/Effects/Other/BloodTargetImpact/BloodTargetImpact.m3",
+    "modelDataId": "BloodTargetImpact"
+  },
+  {
+    "id": "model.combat-fx.HydraliskGroundAttackImpactShield",
+    "name": "hydraliskmissileimpactshield",
+    "assetPath": "Assets/Effects/Zerg/HydraliskMissileImpactShield/HydraliskMissileImpactShield.m3",
+    "modelDataId": "HydraliskGroundAttackImpactShield"
+  },
+  {
+    "id": "model.combat-fx.QueenAttackLaunch",
+    "name": "hydraliskmissilelaunch",
+    "assetPath": "Assets/Effects/Zerg/HydraliskMissileLaunch/HydraliskMissileLaunch.m3",
+    "modelDataId": "QueenAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.AcidSpinesAttackLaunch",
+    "name": "hydraliskmissilelaunch",
+    "assetPath": "Assets/Effects/Zerg/HydraliskMissileLaunch/HydraliskMissileLaunch.m3",
+    "modelDataId": "AcidSpinesAttackLaunch"
+  },
+  {
+    "id": "model.combat-fx.MutaliskAttackSegment2Impact",
+    "name": "mutaliskmissileimpact",
+    "assetPath": "Assets/Effects/Zerg/MutaliskMissileImpact/MutaliskMissileImpact.m3",
+    "modelDataId": "MutaliskAttackSegment2Impact"
+  },
+  {
+    "id": "model.combat-fx.MutaliskAttackSegment3Impact",
+    "name": "mutaliskmissileimpact",
+    "assetPath": "Assets/Effects/Zerg/MutaliskMissileImpact/MutaliskMissileImpact.m3",
+    "modelDataId": "MutaliskAttackSegment3Impact"
+  }
+]

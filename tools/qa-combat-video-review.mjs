@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import {chromium} from '@playwright/test';import {labServer} from '../preview/camera-control-20261011/server.mjs';
+const root='reports/local/combat-effects-20261012',out=root+'/'+(process.argv[3]??'video-review-r1'),source=process.argv[2]??'final-recordings-r1';
+await fs.mkdir(out);await fs.copyFile(new URL(import.meta.url),out+'/runner.mjs');const server=labServer(root);await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true}),page=await browser.newPage({viewport:{width:1280,height:720}});const report={videos:[],frames:[],errors:[],passed:false};page.on('pageerror',e=>report.errors.push(e.message));
+try{for(const race of ['terran','zerg','protoss']){
+ await page.goto('http://127.0.0.1:'+server.address().port+'/'+source+'/'+race+'-20s.webm');const video=page.locator('video');
+ const result=await video.evaluate(async v=>{v.muted=true;v.playbackRate=4;await v.play();await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Playback timeout')),60000);v.addEventListener('ended',()=>{clearTimeout(timer);resolve();},{once:true});});return {duration:v.duration,width:v.videoWidth,height:v.videoHeight,ended:v.ended,decoded:v.getVideoPlaybackQuality().totalVideoFrames};});assert.ok(result.ended&&result.duration>=19&&result.decoded>1);report.videos.push({race,...result});
+ await video.evaluate(v=>{v.style.width='1280px';v.style.height='720px';v.controls=false;});
+ for(const time of [2,6,9,12,17]){await video.evaluate(async(v,t)=>{await new Promise(r=>{v.addEventListener('seeked',r,{once:true});v.currentTime=t;});},time);const file=race+'-'+time+'s.png';await video.screenshot({path:out+'/'+file});report.frames.push({race,time,file});}
+ }assert.deepEqual(report.errors,[]);report.passed=true;
+}catch(e){report.failure=String(e.stack??e);process.exitCode=1;}finally{await fs.writeFile(out+'/result.json',JSON.stringify(report,null,2));await browser.close();await new Promise(r=>server.close(r));console.log(JSON.stringify({passed:report.passed,videos:report.videos.length,frames:report.frames.length,failure:report.failure}));}

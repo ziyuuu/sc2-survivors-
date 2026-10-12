@@ -21,6 +21,7 @@ const requireAsset=(id,reason)=>{
 const useIfPresent=(id,reason)=>{if(byId.has(id))requireAsset(id,reason);};
 for(const r of available.filter(r=>r.kind==='ui-art'))requireAsset(r.id,'Approved R11 painted cards and nine covers used by formal UI');
 for(const r of available.filter(r=>r.kind==='material-texture'))requireAsset(r.id,'Source-bound original unit material channel');
+for(const r of available.filter(r=>r.kind==='combat-effect-texture'||r.kind==='combat-effect-model'))requireAsset(r.id,'Source-bound combat mesh, emitter, ribbon or projection');
 for(const r of available.filter(r=>r.kind==='environment-texture'))requireAsset(r.id,'Approved five-map environment source pixels');
 const requireModel=(key,reason)=>{
  requireAsset(`model.${key}`,reason);

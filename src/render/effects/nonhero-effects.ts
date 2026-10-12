@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {sourceOwnsWeapon,sourceOwnsFlight} from './combat-fx-profile';
 import type {World} from '../../simulation/world';
 import type {Entity,Point,VisualEvent} from '../../simulation/types';
 import type {BattleEffects} from './battle-effects';
@@ -42,8 +43,8 @@ export class NonHeroEffects {
   const glow=(at:P,size:number,tint:number,opacity=.8)=>this.psionic.sprite('glow',at,size,tint,opacity,Math.floor(w.time*24)%16);
   const energy=(a:P,b:P,width:number,tint:number,opacity=.8)=>{this.psionic.ribbon('beam',a,b,width,tint,opacity,0,true,.9);};
   const streak=(a:P,b:P,width:number,tint:number,opacity=.8)=>this.terran.ribbon('trace',a,b,width,tint,opacity,0,true,1);
-  this.fx.ordinaryEventIds.clear();this.fx.sculptures.ordinarySource=u=>ordinaryActor(u,w);this.fx.supportPresentation=true;
-  for(const e of w.visualEvents){const own=ordinaryEvent(e,w),support=!e.heroId&&!e.eliteId&&e.entityId===0&&['support-flight','support-pulse','support-impact','strategic-impact','bile-impact'].includes(e.kind);if(own||support)this.fx.ordinaryEventIds.add(e.serial);if(e.serial<=this.serial||w.time-e.time>.45||!own&&!support)continue;
+  this.fx.ordinaryEventIds.clear();this.fx.sculptures.ordinarySource=u=>ordinaryActor(u,w)||sourceOwnsWeapon(u)||!u.heroId&&u.unitType==='medivac';this.fx.supportPresentation=true;
+  for(const e of w.visualEvents){const own=ordinaryEvent(e,w),support=!e.heroId&&!e.eliteId&&e.entityId===0&&['support-flight','support-pulse','support-impact','strategic-impact','bile-impact'].includes(e.kind);if(own||support)this.fx.ordinaryEventIds.add(e.serial);if(this.fx.sourceEventIds.has(e.serial)||e.serial<=this.serial||w.time-e.time>.45||!own&&!support)continue;
    const from=own?muzzle(e):{x:e.x,y:e.y,z:e.z},u=w.entities.get(e.entityId);if(e.attackId)this.fx.sculptures.mounts.set(e.attackId,{...from});
    this.echoes.push({e:structuredClone(e),from:{...from},left:e.unitType==='reaper'?{...muzzle(e,'Left')}:undefined,life:e.kind==='attack'?e.unitType==='zealot'||e.unitType==='ultralisk'?.28:.18:e.kind==='strategic-impact'?1.15:.5,scale:u?ordinaryEmissionScale(u):1});
   }this.serial=w.visualEvents.at(-1)?.serial??this.serial;this.echoes=this.echoes.filter(a=>w.time-a.e.time<a.life).slice(-512);
@@ -71,7 +72,7 @@ export class NonHeroEffects {
    this.contact(end,e.race??w.expedition.race,big?3:r,fade,age);this.counts.contacts++;
    for(let i=0;i<Math.ceil((big?14:4)*density);i++){const a=i*2.399,dist=Math.min(r,age*r*2),q={x:end.x+Math.sin(a)*dist,y:end.y+.1+age*(i%3),z:end.z+Math.cos(a)*dist};if(e.race==='zerg'||!e.race&&w.expedition.race==='zerg')this.organic.sprite('venom',q,.28,color,fade*.6,Math.floor(age*24));else this.terran.sprite('spark',q,.24,color,fade,Math.floor(age*24));this.counts.decorations++;}
   }
-  for(const f of w.weaponFlights){const u=f.source;if(!ordinaryActor(u,w)||w.time<f.start||!visible(f.point))continue;
+  for(const f of w.weaponFlights){const u=f.source;if(sourceOwnsFlight(u)||!ordinaryActor(u,w)||w.time<f.start||!visible(f.point))continue;
    if(f.hop===0&&!this.fx.sculptures.mounts.has(f.attackId)){
     // Reconstruct a frozen socket after save/load from the saved launch body and pose.
     const at=p({...f.from,flying:u.flying}),end=p({...f.lastSeen,flying:w.body(f.target)?.flying});
@@ -87,14 +88,14 @@ export class NonHeroEffects {
    else {energy(tail,head,u.unitType==='adept'?.28:.23,color);glow(head,.52,color,.75);}
    if(u.race==='zerg')this.organic.ribbon('fluid',tail,head,.15,color,.55);else if(u.race==='terran')this.terran.ribbon('warmTrail',tail,head,.18,0xffc17b,.5);this.counts.flights++;
   }
-  for(const f of w.effects){const u=w.entities.get(f.source);if(!ordinaryActor(u,w)||f.until<=w.time||!visible(f.end))continue;
+  for(const f of w.effects){const u=w.entities.get(f.source);if((f.kind==='flame'||f.kind==='bile')&&sourceOwnsWeapon(u)||!ordinaryActor(u,w)||f.until<=w.time||!visible(f.end))continue;
    if(f.kind==='flame'&&u!.unitType==='hellion'){const from=p(f,.12),to=p(f.end,.12),fade=Math.min(1,(f.until-w.time)/.1),a=Math.atan2(to.x-from.x,to.z-from.z);
     if(f.radius>.4&&this.flameFans&&this.fanCount<128){const radius=SOURCE_WEAPON_PATTERNS.hellbat.radius,origin={x:to.x-Math.sin(a)*radius,y:to.y,z:to.z-Math.cos(a)*radius};object.position.set(origin.x,origin.y,origin.z);object.rotation.set(0,a,0);object.scale.set(radius,1,radius);object.updateMatrix();this.flameFans.setMatrixAt(this.fanCount,object.matrix);this.flameFans.setColorAt(this.fanCount++,new THREE.Color(fade,fade,fade));this.flameExtents.push({origin,radius,arc:SOURCE_WEAPON_PATTERNS.hellbat.arcDegrees});}
     else this.terran.ribbon('fireTrail',{...from,y:from.y+.3},{...to,y:to.y+.3},.3,0xffa346,.75*fade,Math.floor(w.time*24));this.counts.beams++;}
    if(f.kind==='bile'){const left=f.until-w.time,head=p(f.end,Math.max(.2,left*4));this.organic.sprite('acid',head,.9,0xd3d378,.9,Math.floor(w.time*24));this.organic.ribbon('fluid',{...head,y:head.y+.9},head,.4,0xb0c55a,.6);this.counts.flights++;}
   }
-  for(const s of w.expedition.spells){const u=w.entities.get(s.source);if(!ordinaryActor(u,w)||s.until<=w.time||!visible(s))continue;const at=p(s,.15);if(s.kind==='storm'){for(let i=0;i<7;i++){const a=i*2.399,r=s.radius*Math.sqrt((i+.5)/7)*.8,b={x:at.x+Math.sin(a)*r,y:at.y,z:at.z+Math.cos(a)*r},points=Array.from({length:6},(_,j)=>({x:b.x+Math.sin(i*3+j*6+w.time*11)*.15,y:b.y+2.5-j*.5,z:b.z+Math.cos(j*3+i)*.1}));this.psionic.stroke(points,[.02,.1,.13,.11,.08,.01],0xb5cfff,.65,.9);}this.psionic.sprite('plasma',at,s.radius*2,0x98acdd,.16,Math.floor(w.time*16)%16);}else if(s.kind==='transfusion'){const patient=s.target===null?undefined:w.entities.get(s.target);if(patient?.hp){const a=p(u!),b=p(patient),points=Array.from({length:9},(_,i)=>{const t=i/8,q=mix(a,b,t);return {...q,y:q.y+Math.sin(t*Math.PI)*.65};});for(let i=1;i<points.length;i++)this.organic.ribbon('fluid',points[i-1],points[i],.22,0xb8e598,.6);this.organic.skin(b,{x:.65,y:.8,z:.65},0xa7d984);this.counts.medical++;}}else{this.psionic.sprite('plasma',at,s.radius*1.5,0x9bdefc,.18,Math.floor(w.time*16)%16);}this.counts.fields++;}
-  for(const u of w.entities.values()){if(!ordinaryActor(u,w)||u.hp<=0||!visible(u))continue;if((u.barrier??0)>0){this.psionic.sprite('plasma',p(u),Math.max(1.3,u.unitRadius*2.5),0x9bd7f4,.28,Math.floor(w.time*20)%16);this.counts.statuses++;}if((u.recoveryUntil??0)>w.time){this.organic.skin(p(u,.35),{x:.48,y:.5,z:.48},0xc2d477);this.counts.statuses++;}}
+  for(const s of w.expedition.spells){const u=w.entities.get(s.source);if(sourceOwnsWeapon(u)||!ordinaryActor(u,w)||s.until<=w.time||!visible(s))continue;const at=p(s,.15);if(s.kind==='storm'){for(let i=0;i<7;i++){const a=i*2.399,r=s.radius*Math.sqrt((i+.5)/7)*.8,b={x:at.x+Math.sin(a)*r,y:at.y,z:at.z+Math.cos(a)*r},points=Array.from({length:6},(_,j)=>({x:b.x+Math.sin(i*3+j*6+w.time*11)*.15,y:b.y+2.5-j*.5,z:b.z+Math.cos(j*3+i)*.1}));this.psionic.stroke(points,[.02,.1,.13,.11,.08,.01],0xb5cfff,.65,.9);}this.psionic.sprite('plasma',at,s.radius*2,0x98acdd,.16,Math.floor(w.time*16)%16);}else if(s.kind==='transfusion'){const patient=s.target===null?undefined:w.entities.get(s.target);if(patient?.hp){const a=p(u!),b=p(patient),points=Array.from({length:9},(_,i)=>{const t=i/8,q=mix(a,b,t);return {...q,y:q.y+Math.sin(t*Math.PI)*.65};});for(let i=1;i<points.length;i++)this.organic.ribbon('fluid',points[i-1],points[i],.22,0xb8e598,.6);this.organic.skin(b,{x:.65,y:.8,z:.65},0xa7d984);this.counts.medical++;}}else{this.psionic.sprite('plasma',at,s.radius*1.5,0x9bdefc,.18,Math.floor(w.time*16)%16);}this.counts.fields++;}
+  for(const u of w.entities.values()){if(!ordinaryActor(u,w)||u.hp<=0||!visible(u))continue;if(u.unitType!=='immortal'&&(u.barrier??0)>0){this.psionic.sprite('plasma',p(u),Math.max(1.3,u.unitRadius*2.5),0x9bd7f4,.28,Math.floor(w.time*20)%16);this.counts.statuses++;}if((u.recoveryUntil??0)>w.time){this.organic.skin(p(u,.35),{x:.48,y:.5,z:.48},0xc2d477);this.counts.statuses++;}}
   this.support(w,visible,p,glow,energy,streak,density);this.acidGround.render(w,visible);
   this.medical.quality=this.quality;this.medical.render(w,this.camera,visible);this.psionic.end();this.organic.end();this.terran.end();if(this.flameFans)commitInstances(this.flameFans,this.fanCount);for(const m of this.missiles)commitInstances(m,Math.min(512,this.missileCount));for(const m of this.needles)commitInstances(m,Math.min(512,this.needleCount));
  }

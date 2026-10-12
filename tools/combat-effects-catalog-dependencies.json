@@ -1,0 +1,162 @@
+[
+  {
+    "sourcePath": "mods/libertymulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/libertymulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563",
+    "sha256": "47e2d50077d7af0cccb93cfa9bed16718cca25a103a1f988d34aadc0f9c8426c",
+    "bytes": 6512,
+    "id": "libertymulti.Actor"
+  },
+  {
+    "sourcePath": "mods/libertymulti.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/libertymulti.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563",
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55,
+    "id": "libertymulti.Model"
+  },
+  {
+    "sourcePath": "mods/libertymulti.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/libertymulti.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563",
+    "sha256": "ce94311c18c1d91918d406fa58291f8747dc668596292ce6d973654fed1c1109",
+    "bytes": 2301,
+    "id": "libertymulti.Weapon"
+  },
+  {
+    "sourcePath": "mods/libertymulti.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/libertymulti.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563",
+    "sha256": "5a26f8145e20915c91e1494e470e09cede668857a858178dd01da3e812e3c986",
+    "bytes": 10501,
+    "id": "libertymulti.Effect"
+  },
+  {
+    "sourcePath": "mods/swarmmulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563",
+    "sha256": "13160cdcd85ae96f45a8da15a90155f0746c6865a97969f8e64f5b75a7f1cf28",
+    "bytes": 68878,
+    "id": "swarmmulti.Actor"
+  },
+  {
+    "sourcePath": "mods/swarmmulti.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563",
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55,
+    "id": "swarmmulti.Model"
+  },
+  {
+    "sourcePath": "mods/swarmmulti.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563",
+    "sha256": "69b539b7c9564d12b9f21a5c5fae0b6b6064ef78b1d0200eecda6633c274cce2",
+    "bytes": 6887,
+    "id": "swarmmulti.Weapon"
+  },
+  {
+    "sourcePath": "mods/swarmmulti.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563",
+    "sha256": "280fc99e839f17e6c7fab294ea4fde7877d945ad807bc964302a106b40879006",
+    "bytes": 31997,
+    "id": "swarmmulti.Effect"
+  },
+  {
+    "sourcePath": "mods/voidmulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/voidmulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563",
+    "sha256": "a99b306a0e18cbf5c42d300479e1e3cf26114a55d8f3af209586f8db90a3c33d",
+    "bytes": 232494,
+    "id": "voidmulti.Actor"
+  },
+  {
+    "sourcePath": "mods/voidmulti.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/voidmulti.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563",
+    "sha256": "4bf340f2634d34924bb3015f959e7b0d71f35f4f2ce6b198b878d1ef0a313bdc",
+    "bytes": 72695,
+    "id": "voidmulti.Model"
+  },
+  {
+    "sourcePath": "mods/voidmulti.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/voidmulti.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563",
+    "sha256": "a54f185b35fe471df1d8dfeaf602f9bf90fc305bfa63a158e8b65f21a126d3cb",
+    "bytes": 20176,
+    "id": "voidmulti.Weapon"
+  },
+  {
+    "sourcePath": "mods/voidmulti.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/voidmulti.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563",
+    "sha256": "ace1403f8d39cb9c0e8c6ef71e8571a30b25dda331b91f3902879f7cdefbda6b",
+    "bytes": 156804,
+    "id": "voidmulti.Effect"
+  },
+  {
+    "sourcePath": "mods/balancemulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/balancemulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+    "build": "B97563",
+    "sha256": "f17b2e857acf60e3bb1238af1aa0c1483ccb70f92241d0b3990dbf45523f51df",
+    "bytes": 158658,
+    "id": "balancemulti.Actor"
+  },
+  {
+    "sourcePath": "mods/balancemulti.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/balancemulti.sc2mod/base.sc2data/GameData/ModelData.xml",
+    "build": "B97563",
+    "sha256": "62423fd13edabc7b57a020121601385c737488858e68e604c25bfc754756f38d",
+    "bytes": 57965,
+    "id": "balancemulti.Model"
+  },
+  {
+    "sourcePath": "mods/balancemulti.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/balancemulti.sc2mod/base.sc2data/GameData/WeaponData.xml",
+    "build": "B97563",
+    "sha256": "e1431c5399900a622ef8b6d871862b543464597c0e18a49731d8c4b1c021e652",
+    "bytes": 13835,
+    "id": "balancemulti.Weapon"
+  },
+  {
+    "sourcePath": "mods/balancemulti.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/actor-source/mods/balancemulti.sc2mod/base.sc2data/GameData/EffectData.xml",
+    "build": "B97563",
+    "sha256": "82320d1eb94d6311fdf6c70969ebb3645eb0d1c8490531ce1a60cdb4e99175d0",
+    "bytes": 103754,
+    "id": "balancemulti.Effect"
+  }
+]
