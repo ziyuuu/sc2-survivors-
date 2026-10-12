@@ -102,4 +102,6 @@
 
 首次本地同步因子进程未返回 stdout／stderr，旧脚本合并日志得到 NaN 而中止；具体子进程启动错误未被当时脚本保存，不能断言其 OS 原因。`local-sync-failed-r1.json` 确认 Current 及镜像全部 190 个旧文件仍原样保留，只有散列与最终 R3 相同的临时 HTML 已写入。脚本补充启动错误记录，并仅在旧文件和临时文件全部通过散列检查后重试；`mirror-sync-r2.log` 与 `delivery.json` 记录成功同步。
 
+首个正常提交 `91deff4` 的 Linux CI 有 1386 项通过、3 项失败：外部动画源、材质 DDS 源和本轮效果 M3 源的散列检查。运行资源成功还原，但工作流只下载 `deploy/runtime/assets/**`，原始来源仍是 Git LFS 指针。`ci-r1-cause.json` 将三个实际错误散列逐一匹配到仓库指针字节，指针中的原始散列与本地真实文件相符。后续仅在 CI 下载中加入已跟踪的 `assets/private/m3/**` 和 `assets/private/dds/**` 两个目录，保留原测试和全部散列断言；不上传额外私有档案，不修改源资源或 R3 游戏成品。相关两个测试文件的 27 项本地复验全部通过，334 个正式编译输入再次保持一致。远端复验结果和后续提交号见 `git-sync.json`；首次失败日志保留在 `ci-r1-failure.log`，本地首次子进程 EPERM 和成功重跑分别保留在 `ci-source-regressions.log`／`ci-source-regressions-r2.log`。
+
 其余线程的 ROADMAP、dev、三族流程规范、随机事件／Starship 概念及三套预览保持。未完成的屏幕折射、科学球来源、密集可读性、原版实际客户端匹配、人类／自然／物理设备／高刷新／低内存及既有 source／P6-V01／production／B4 门槛继续开放。整体性能与画质档仍在剩余视觉／客户端修复之后，并需再做视觉回归。

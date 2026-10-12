@@ -12,8 +12,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch the current runtime assets
-        run: git lfs pull --include="deploy/runtime/assets/**" --exclude=""
+      - name: Fetch runtime assets and original provenance test sources
+        run: git lfs pull --include="deploy/runtime/assets/**,assets/private/m3/**,assets/private/dds/**" --exclude=""
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
