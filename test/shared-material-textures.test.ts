@@ -20,3 +20,10 @@ test('failed material source remains retryable; cube face order is part of ident
  assert.equal(cubes,1);assert.notEqual(a,b);assert.equal(a.source,b.source);
  await cache.cube([...faces].reverse());assert.equal(cubes,2);
 });
+
+
+test('retiring an optional decode removes only cache ownership and leaves live wrappers intact',async()=>{
+ let loads=0;const cache=new SharedMaterialTextures({loadAsync:async()=>{loads++;return new Texture({width:4,height:4});}}as any);
+ const live=await cache.image('retired'),source=live.source;cache.forget(['retired']);assert.equal(live.source,source);assert.equal(live.image.width,4);
+ const next=await cache.image('retired');assert.equal(loads,2);assert.notEqual(next.source,source);assert.equal(live.source,source);
+});

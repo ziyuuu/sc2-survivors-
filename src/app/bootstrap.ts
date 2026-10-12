@@ -1,3 +1,4 @@
+import {BackgroundPreparation} from './background-preparation';
 import {pickFriendly} from '../ui/native-hud/pick-friendly';
 import {bindBattleView} from '../ui/controls/battle-actions';
 import {captureBattleView} from '../render/input/battle-view';
@@ -32,9 +33,9 @@ import {openingProgress,prepareOpeningMenu} from '../ui/presentation/opening';
 
 const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
-export async function boot(){openingProgress(null);await loadEmbeddedAssets();openingProgress(25);let storage:Storage|undefined,factory:IDBFactory|undefined;try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}const saved=await openSaveProfile(factory);openingProgress(50);const world=new World({terrain:campaignTerrain(chooseCampaignMap(crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,saved);const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls,new HudSettings(storage)),audio=new AudioEffects(),readiness=new AssetReadinessCoordinator(world,view,audio);bindBattleView(world,()=>captureBattleView(canvas,view.camera));hud.session=session;hud.readiness=readiness;hud.audio=audio;readiness.onChange=()=>hud.update();
+export async function boot(){openingProgress(null);await loadEmbeddedAssets();openingProgress(25);let storage:Storage|undefined,factory:IDBFactory|undefined;try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}const saved=await openSaveProfile(factory);openingProgress(50);const world=new World({terrain:campaignTerrain(chooseCampaignMap(crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,saved);const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls,new HudSettings(storage)),audio=new AudioEffects(),background=new BackgroundPreparation(),readiness=new AssetReadinessCoordinator(world,view,audio,background);bindBattleView(world,()=>captureBattleView(canvas,view.camera));hud.session=session;hud.readiness=readiness;hud.audio=audio;readiness.onChange=()=>hud.update();
  view.selectedHealthBodies=()=>new Set([...hud.squadConsole.selectedEntityIds,...(hud.carrierInspector.selectedId===null?[]:[hud.carrierInspector.selectedId])]);
- const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,zoom:()=>view.cameraZoom,setZoom:value=>view.setCameraZoom(value),adjustZoom:delta=>view.adjustCameraZoom(delta),resetZoom:()=>view.resetCameraZoom(),inspect:(x,y)=>{const id=view.pickCarrier(x,y);if(id!==null){hud.carrierInspector.show(id);return true;}const unit=pickFriendly(x,y,view,world);return unit!==null&&hud.squadConsole.selectEntity(unit);},pick:(x,y,touch)=>view.pick(x,y,touch),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:point=>{view.targetPreview=point;}});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
+ const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,zoom:()=>view.cameraInputZoom,setZoom:value=>view.setCameraZoom(value),adjustZoom:delta=>view.adjustCameraZoom(delta),resetZoom:()=>view.resetCameraZoom(),inspect:(x,y)=>{const id=view.pickCarrier(x,y);if(id!==null){hud.carrierInspector.show(id);return true;}const unit=pickFriendly(x,y,view,world);return unit!==null&&hud.squadConsole.selectEntity(unit);},pick:(x,y,touch)=>view.pick(x,y,touch),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:point=>{view.targetPreview=point;}});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,()=>hud.pause(),()=>input.reset());
  const telemetry=new TelemetryClient({storage}),loadingObservation=new LoadObserver(view.renderer);
  const environment=()=>({build:document.querySelector<HTMLMetaElement>('meta[name="sc2-app-build"]')?.content??'development',release:httpAssetStatus()?.release??'development',device:(matchMedia('(pointer:coarse)').matches?'mobile':'desktop') as 'mobile'|'desktop',orientation:(innerWidth<innerHeight?'portrait':'landscape') as 'portrait'|'landscape',animation:view.animationMode,diagnostic:import.meta.env.DEV});
@@ -47,7 +48,7 @@ export async function boot(){openingProgress(null);await loadEmbeddedAssets();op
  const debug=import.meta.env.DEV?installDebug(world,view):null;
  // Reserve up to 12 ms for fixed-step catch-up; debt is retained and frame work remains bounded.
  const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind;},()=>performance.now(),12);
- window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,expedition:world.expedition?{rules:world.expedition.rules,race:world.expedition.race,families:[...world.expedition.familySlots],talentPreset:world.expedition.talentPreset,frozenTalents:world.runConfig?.frozenTalents??null}:null,wallet:{...world.wallet},endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:view.initialAssetsLoaded,embeddedAssets:embeddedAssetStatus(),readiness:readiness.state,simulationBacklogSeconds:driver.accumulator,discardedSimulationBacklogSeconds:driver.discardedBacklogSeconds,audio:audio.report(),gamepad:gamepad.report(),controls:controls.report(),save:session.report()});
+ window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,expedition:world.expedition?{rules:world.expedition.rules,race:world.expedition.race,families:[...world.expedition.familySlots],talentPreset:world.expedition.talentPreset,frozenTalents:world.runConfig?.frozenTalents??null}:null,wallet:{...world.wallet},endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:view.initialAssetsLoaded,embeddedAssets:embeddedAssetStatus(),readiness:readiness.state,background:background.report(),simulationBacklogSeconds:driver.accumulator,discardedSimulationBacklogSeconds:driver.discardedBacklogSeconds,audio:audio.report(),gamepad:gamepad.report(),controls:controls.report(),save:session.report()});
  world.listeners.add(()=>audio.update(world));
  let previous=performance.now(),wasSimulating=false;
  bindGameViewport(()=>{view.resize();hud.update();},()=>{input.reset();hud.minimap.resetInput();gamepad.reset();previous=performance.now();wasSimulating=false;});
@@ -79,14 +80,25 @@ export async function boot(){openingProgress(null);await loadEmbeddedAssets();op
   world.resetRun();hud.root.querySelector<HTMLButtonElement>('[data-action=save-continue]:not(:disabled),[data-action=start]')?.focus();
  };
 
+ let choiceKey='';
+ const selectBackground=()=>{
+  const snapshot=hud.menuPage==='load-preview'?hud.loadPreview?.snapshot:world.phase==='menu'&&['title','load'].includes(hud.menuPage)?session.savedSnapshot:null;
+  const race=snapshot?.config.race??(world.phase==='menu'?hud.menuRace:world.expedition.race),preset=world.permanentProfile.getPreset(race,hud.menuPreset);
+  const hero=!snapshot&&world.phase==='menu'&&preset&&talentRank(preset.levels,race,'hero_support')?(hud.starterHeroChoice??HERO_IDS_BY_RACE[race][0]):null;
+  const map=snapshot?.config.campaignMap??(world.phase==='reward'?world.runConfig?.campaignMap:undefined);
+  const key=JSON.stringify([view.contextEpoch,world.phase,hud.menuPage,race,hero,map,hud.loadPreview?.id,snapshot?.state.runId,snapshot?.state.time,world.stage,world.expedition.shopRevision]);
+  if(key!==choiceKey){choiceKey=key;background.select(view.backgroundJobs(race,hero,map,snapshot??undefined));}
+ };
+ for(const event of ['pointerdown','keydown','wheel'])document.addEventListener(event,()=>background.input(),{capture:true,passive:true});
  const frame=(now:number)=>{const elapsed=(now-previous)/1000;previous=now;
-  if(!document.hidden){if(!readiness.state.kind)view.prepareRosterAssets();if(view.assetsPending||readiness.state.kind||playerServices.blocking){input.reset();gamepad.reset();}else{input.poll();gamepad.poll(now);}let alpha=1;const simulating=world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind&&!playerServices.blocking;if(simulating&&wasSimulating)alpha=driver.advance(elapsed*(debug?.speed??1));else driver.reset();wasSimulating=simulating;
+  if(!document.hidden){if(!readiness.state.kind&&!background.busy&&world.phase==='battle')view.prepareRosterAssets();if(view.assetsPending&&!background.busy||readiness.state.kind||playerServices.blocking){input.reset();gamepad.reset();}else{input.poll();gamepad.poll(now);}let alpha=1;const simulating=world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind&&!playerServices.blocking;if(simulating&&wasSimulating)alpha=driver.advance(elapsed*(debug?.speed??1));else driver.reset();wasSimulating=simulating;
    view.render(elapsed,alpha);
    hud.afterRender();
+   if(!readiness.state.kind&&(world.phase==='menu'||world.phase==='reward')){selectBackground();background.frame(elapsed*1000);background.tick();}
    try{observer.frame(elapsed*1000,driver.accumulator,simulating);}catch{}
   }requestAnimationFrame(frame);
  };requestAnimationFrame(frame);
  document.addEventListener('visibilitychange',()=>{previous=performance.now();driver.reset();if(document.hidden&&world.phase==='battle'){world.paused=true;world.changed();session.requestSave();}});
  window.addEventListener('pagehide',()=>{observer.leaving();if(world.runId)void session.saveNow().catch(()=>{});});
- hud.update();void view.prewarmOpeningAssets();await prepareOpeningMenu(hud.root);hud.root.querySelector<HTMLButtonElement>('[data-action="menu-new"]')?.focus();
+ hud.update();selectBackground();await prepareOpeningMenu(hud.root,background.opening(performance.now(),()=>new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()))));hud.root.querySelector<HTMLButtonElement>('[data-action="menu-new"]')?.focus();
 }

@@ -1,0 +1,19 @@
+import fs from 'node:fs/promises';import path from 'node:path';import {createHash} from 'node:crypto';import {build} from 'vite';import {build as bundle} from 'esbuild';
+const label=process.argv[2];if(!/^[a-z0-9-]+$/.test(label))throw Error('label');const root='reports/local/cinematic-preload-20261012',base=root+'/baseline-web',out=root+'/'+label;
+const dedupe=process.argv.includes('--dedupe-warmup'),warmSource='try{await this.prewarmBatches(inactive);await this.finishProgramWarmup();}finally',warmReplacement='try{if(!silent){await this.prewarmBatches(inactive);await this.finishProgramWarmup();}}finally';
+const transform=(source,file)=>{if(!dedupe||!file.replaceAll('\\','/').endsWith('src/render/scene/battle-renderer.ts'))return source;if(source.split(warmSource).length!==2)throw Error('Unexpected isolated warmup experiment source');return source.replace(warmSource,warmReplacement);};
+const vitePlugin={name:'isolated-dedupe-warmup',enforce:'pre',transform(source,id){const code=transform(source,id);return code===source?null:{code,map:null};}};
+const esPlugin={name:'isolated-dedupe-warmup',setup(b){b.onLoad({filter:/battle-renderer\.ts$/},async args=>({contents:transform(await fs.readFile(args.path,'utf8'),args.path),loader:'ts'}));}};
+await fs.access(out).then(()=>{throw Error('Evidence exists');},e=>{if(e.code!=='ENOENT')throw e;});
+await build({root:process.cwd(),base:'./',publicDir:false,plugins:dedupe?[vitePlugin]:[],build:{target:'es2022',sourcemap:false,assetsInlineLimit:0,outDir:path.resolve(out),emptyOutDir:false}});
+const release=JSON.parse(await fs.readFile(base+'/web-release.json','utf8'));const manifest=(await fs.readdir(base)).find(p=>p.startsWith('asset-manifest.')&&p.endsWith('.json'));
+const assets=JSON.parse(await fs.readFile(base+'/'+manifest,'utf8')).assets;
+for(const file of new Set(Object.values(assets).map(a=>a.url))){await fs.mkdir(path.dirname(out+'/'+file),{recursive:true});await fs.link(path.resolve(base,file),path.resolve(out,file));}
+for(const file of [manifest,'runtime-config.json'])await fs.copyFile(base+'/'+file,out+'/'+file);
+const html=await fs.readFile(out+'/index.html','utf8'),sha=b=>createHash('sha256').update(b).digest('hex'),js=(await fs.readdir(out+'/assets')).find(p=>/^index-.*\.js$/.test(p)),appBuildId=sha(await fs.readFile(out+'/assets/'+js));
+await fs.writeFile(out+'/index.html',html.replace('</head>',`<meta name="sc2-app-build" content="${appBuildId}"><meta name="sc2-asset-manifest" content="${manifest}"></head>`));
+await fs.writeFile(out+'/web-release.json',JSON.stringify({...release,appBuildId,experimental:true},null,2));
+const compiled=await bundle({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',metafile:true,plugins:dedupe?[esPlugin]:[],define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true'}}),inputs=[];
+for(const file of Object.keys(compiled.metafile.inputs).sort()){const original=await fs.readFile(file),bytes=dedupe&&file==='src/render/scene/battle-renderer.ts'?Buffer.from(transform(original.toString('utf8'),file)):original;inputs.push({file,bytes:bytes.length,sha256:sha(bytes),...(bytes!==original?{originalSha256:sha(original),isolatedTransform:true}:{})});if(!file.startsWith('node_modules/')){const dest=out+'/sources/'+file;await fs.mkdir(path.dirname(dest),{recursive:true});await fs.writeFile(dest,bytes);}}
+await fs.writeFile(out+'/build.json',JSON.stringify({at:new Date().toISOString(),appBuildId,inputs,experiment:dedupe?'Skip the separate 1px unit warmup in optional and formal entry lanes; actual HDR warmup and readiness gate remain required. Workspace production source is unchanged.':null,htmlSha256:sha(await fs.readFile(out+'/index.html')),resourceRelease:release.release??release.resourceRelease},null,2));
+console.log(JSON.stringify({out,appBuildId,inputs:inputs.length}));

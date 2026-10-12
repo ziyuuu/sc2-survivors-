@@ -6,6 +6,9 @@ export class SharedMaterialTextures {
  private images=new Map<string,Promise<Texture>>();
  private cubes=new Map<string,Promise<CubeTexture>>();
  constructor(private imageLoader=new TextureLoader(),private cubeLoader=new CubeTextureLoader()){}
+ /** Drop cache references for retired optional models. Live material wrappers
+  * retain their Source; never close or mutate an image still used by a material. */
+ forget(urls:Iterable<string>){const retired=new Set(urls);for(const url of retired)this.images.delete(url);for(const key of this.cubes.keys())if((JSON.parse(key) as string[]).some(url=>retired.has(url)))this.cubes.delete(key);}
  async image(url:string){
   let pending=this.images.get(url);
   if(!pending){pending=this.imageLoader.loadAsync(url);this.images.set(url,pending);pending.catch(()=>this.images.delete(url));}

@@ -1,3 +1,4 @@
+import type {BackgroundPreparation} from './background-preparation';
 import {campaignMapAssets,campaignPreloadAssets,type CampaignMapRecipe} from '../data/campaign-map';
 import {environmentAssetIds,MAP_VISUAL_PROFILES} from '../render/terrain/map-visual-profile';
 import type {CampaignTheme} from '../data/campaign-landscape';
@@ -24,7 +25,7 @@ export class AssetReadinessCoordinator {
  get showLoading(){return this.state.kind!==null&&(this.state.phase==='ready'||this.state.phase==='error'||performance.now()-this.beganAt>=120);}
  private generation=0;private last:{kind:ReadinessKind;request:ReadinessRequest}|null=null;private reader:FileReader|null=null;
  onChange=()=>{};onReady:(kind:ReadinessKind,token:string)=>void=()=>{};
- constructor(private world:World,private view:BattleRenderer,private audio?:AudioEffects){}
+ constructor(private world:World,private view:BattleRenderer,private audio?:AudioEffects,private background?:BackgroundPreparation){}
  get blocking(){return this.state.kind!==null&&this.state.phase!=='ready'&&this.state.phase!=='error';}
  get readyToken(){return this.state.kind&&this.state.phase==='ready'?`${this.state.kind}:${this.generation}`:null;}
  private update(patch:Partial<ReadinessState>){
@@ -51,7 +52,11 @@ export class AssetReadinessCoordinator {
   this.beganAt=performance.now();const generation=++this.generation;this.last={kind,request};this.update({kind,phase:'read',done:0,total:0,label:'准备战局',error:null,progress:0});this.revealPending(generation);
   // Independent jobs report into ordered portions of one entrance, never reset its bar.
   const report=(phase:ReadinessState['phase'],start:number,span:number)=>(done:number,total:number,label:string)=>{if(generation===this.generation)this.update({phase,done,total,label,progress:Math.max(this.state.progress??0,start+(total>0?Math.max(0,Math.min(1,done/total))*span:0))});};
+  const release=this.background?await this.background.enter():undefined;
+  const errorsBefore=[...(this.view.modelErrors??[])];
   try{
+   if(generation!==this.generation)return false;
+   this.view.entryPreparation=true;
    const desiredMap=request.snapshot?.config.campaignMap??request.campaignMap;
    const rescueRace=request.snapshot?.config.race??request.race??this.world.expedition.race,rescue=RESCUE_PRESENTATION[rescueRace];
    if(!this.view.initialAssetsLoaded){
@@ -78,7 +83,7 @@ export class AssetReadinessCoordinator {
    report('gpu',.76,0)(0,1,'准备战场');
    if(desiredMap)await this.view.prepareCampaignAssets(desiredMap);
    if(generation!==this.generation)return false;
-   const prepareKey=this.view.preparationKey;if(this.preparedKey!==prepareKey)await this.view.renderer.compileAsync(this.view.scene,this.view.camera);
+   const prepareKey=this.view.preparationKey;if(this.preparedKey!==prepareKey)await this.view.compilePresentation(this.view.scene,this.view.camera);
    if(generation!==this.generation)return false;
    const warmed=await this.view.warmPresentationBatches((done,total,label)=>report('gpu',.8,.17)(done,total,`准备实战模型 ${label}`));
    if(generation!==this.generation)return false;
@@ -90,6 +95,7 @@ export class AssetReadinessCoordinator {
    if(kind==='load'&&request.snapshot)this.world.restoreRun(request.snapshot,true);
    if(this.view.modelErrors.length)throw Error(this.view.modelErrors.at(-1));
    this.update({phase:'ready',done:1,total:1,progress:1,label:(kind==='reinforcement'?'资源就绪':'就绪 · 请确认继续')+(httpAssetStatus()?.warning?' · 本次缓存空间不足，下次可能需补下载':'')});const token=this.readyToken;if(generation===this.generation&&token)this.onReady(kind,token);return true;
-  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}
+  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}finally{if(generation!==this.generation)this.view.modelErrors=errorsBefore;this.view.entryPreparation=false;release?.();}
  }
 }
+

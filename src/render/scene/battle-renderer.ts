@@ -1,3 +1,5 @@
+import {sharedMaterialTextures} from '../materials/shared-textures';
+import type {PreparationJob} from '../../app/background-preparation';
 import {bodyOutline} from '../units/body-outline';
 import {HealthBars,type HealthBarMode} from '../units/health-bars';
 import {CameraController,type AutoFrame,type CameraMode} from './camera-controller';
@@ -147,7 +149,7 @@ export class BattleRenderer {
  /** Start shader compilation with the same linear target as gameplay. compileAsync
   * creates programs synchronously before polling, so restore the target immediately
   * and let normal frames continue safely while the returned promise is pending. */
- private compilePresentation(object:THREE.Object3D,camera:THREE.Camera,targetScene?:THREE.Scene){
+ compilePresentation(object:THREE.Object3D,camera:THREE.Camera,targetScene?:THREE.Scene){
   const target=this.renderer.getRenderTarget();
   try{this.renderer.setRenderTarget(this.heroComposer.readBuffer);return this.renderer.compileAsync(object,camera,targetScene);}
   finally{this.renderer.setRenderTarget(target);}
@@ -190,10 +192,10 @@ export class BattleRenderer {
  /** Exercise every decoded unit in the real half-float HDR target, then output once.
   * Direct scene-to-canvas warming compiles ACES/sRGB variants that gameplay no
   * longer uses, and fails to exercise the actual half-float presentation chain. */
- async warmPresentationBatches(progress:(done:number,total:number,label:string)=>void=()=>{}){
+ async warmPresentationBatches(progress:(done:number,total:number,label:string)=>void=()=>{},background=false){
   this.sceneShadows.prepare();this.contact.prepare(this.scene);
   const pending=[...this.gpu.entries()].flatMap(([key,batch])=>batch.meshes.filter(mesh=>!this.screenWarmed.has(mesh)).map(mesh=>({key,mesh})));
-  if(!pending.length){this.warmLightingFrame();return 0;}
+  if(!pending.length){if(!background)this.warmLightingFrame();return 0;}
   const identity=new THREE.Matrix4(),white=new THREE.Color(0xffffff),renderer=this.renderer;
   const target=renderer.getRenderTarget(),position=this.camera.position.clone(),quaternion=this.camera.quaternion.clone();
   // Exercise the real screen pipeline without redrawing the entire map for each
@@ -224,10 +226,14 @@ export class BattleRenderer {
   }finally{for(const [node,visible] of screenVisibility)node.visible=visible;renderer.setRenderTarget(target);this.camera.position.copy(position);this.camera.quaternion.copy(quaternion);this.camera.updateMatrixWorld();}
   // The final lighting frame waits once for all earlier GPU submissions too.
   // Only then record the batches as ready; no per-submesh GPU round trips.
-  this.warmLightingFrame();
+  if(background)await this.waitForGpu();else this.warmLightingFrame();
   if(renderer.getContext().isContextLost())throw Error('WebGL 上下文丢失，预热未完成');
   for(const {mesh} of pending)this.screenWarmed.add(mesh);
   return pending.length;
+ }
+ private async waitForGpu(){
+  const gl=this.renderer.getContext() as WebGL2RenderingContext,fence=gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE,0);if(!fence)throw Error('GPU fence unavailable');
+  gl.flush();try{for(;;){if(gl.isContextLost())throw Error('WebGL context lost during background preparation');const status=gl.clientWaitSync(fence,0,0);if(status===gl.ALREADY_SIGNALED||status===gl.CONDITION_SATISFIED)return;if(status===gl.WAIT_FAILED)throw Error('GPU background preparation failed');await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));}}finally{gl.deleteSync(fence);}
  }
  private warmLightingFrame(){
   const position=this.camera.position.clone(),quaternion=this.camera.quaternion.clone();
@@ -249,26 +255,65 @@ export class BattleRenderer {
   }
  }
  resize(){const w=this.viewportWidth=this.canvas.clientWidth||innerWidth,h=this.viewportHeight=this.canvas.clientHeight||innerHeight,gl=this.renderer.getContext();this.renderer.setPixelRatio(renderPixelRatio(this.quality,window.devicePixelRatio||1,w,h,gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)));this.renderer.setSize(w,h,false);const safe=getComputedStyle(this.safeProbe);this.cameraController.resize(w,h,matchMedia('(pointer:coarse)').matches,{left:parseFloat(safe.paddingLeft)||0,right:parseFloat(safe.paddingRight)||0,top:parseFloat(safe.paddingTop)||0,bottom:parseFloat(safe.paddingBottom)||0});}
- private openingPreparation:Promise<void>|null=null;
- /** One common enemy and its death material are useful for every race. Begin
-  * behind the opening/menu; the actual entry joins the same job before loading. */
- prewarmOpeningAssets(){
-  if(!this.openingPreparation)this.openingPreparation=(async()=>{
-   await MeshoptSimplifier.ready;
-   // Fetch the small complete dependency set before creating any optional batch.
-   // A missing source can then be retried by the normal entrance without a partial model.
-   await prepareEmbeddedAssetIds([...modelPreloadAssets([['zergling','zergling']]),...unitMaterialDependencies('zergling'),...unitMaterialDependencies('zergling.death')]);
-   if(await this.ensureUnitVariant('zergling','zergling'))await this.warmPresentationBatches();
-  })().catch(()=>{}); // Optional work never hides the menu; entry checks required assets again.
-  return this.openingPreparation;
+ private preparedCommon=new Set<string>();
+ private backgroundModels=new Set<string>();
+ private backgroundDesired=new Set<string>();
+ private retireOptional(key:string){
+  const retired=new Set<string>();for(const [id,batch] of this.gpu)if(id===key||id.startsWith(key+'.')){for(const asset of unitMaterialDependencies(displayAssetModelKey(id)))retired.add(asset);for(const mesh of batch.meshes)this.screenWarmed.delete(mesh);batch.dispose();this.gpu.delete(id);}
+  for(const id of this.gpu.keys())for(const asset of unitMaterialDependencies(displayAssetModelKey(id)))retired.delete(asset);
+  sharedMaterialTextures.forget([...retired].map(assetUrl).filter((url):url is string=>!!url));
+  if(this.batches.delete(key as UnitType))this.loadedModels--;this.variantLoads.delete(key);this.backgroundModels.delete(key);
  }
- async load(progress:(label:string,done?:number,total?:number)=>void,rescueRace:Race=this.world.expedition.race,skipMap=false){await this.openingPreparation;await MeshoptSimplifier.ready;const loader=new GLTFLoader();
+ backgroundBusy=false;entryPreparation=false;
+ private async commonTask(key:string,run:()=>Promise<unknown>){if(this.preparedCommon.has(key))return;await run();if(key==='effects'&&this.fx.errors.length||key==='pickups'&&this.pickups.errors.length)throw Error('公共资源未完成：'+key);this.preparedCommon.add(key);}
+ private commonAssetIds(){return [...ASSETS.values()].filter(a=>a.status==='available'&&(a.kind==='effect-texture'||['p4.texture.beam','p4.texture.flare','p4.texture.heal','model.hero-upgrade.vikingfightermissile','model.baneling','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'].includes(a.id))).map(a=>a.id);}
+ private commonTasks():PreparationJob[]{return [
+  {key:'effects',run:()=>this.fx.load()}, {key:'ordinary-effects',run:()=>this.nonHeroEffects.load()},
+  {key:'protoss-elites',run:()=>this.protossEliteEffects.load()}, {key:'zerg-elites',run:()=>this.zergEliteEffects.load()},
+  {key:'medical',run:()=>this.eliteSupportEffects.loadMedicalTextures()}, {key:'terran-elites',run:()=>this.terranEliteEffects.load()},
+  {key:'heroes',run:()=>this.confirmedHeroes.prepare()}, {key:'zerg-heroes',run:()=>this.zergHeroes.prepare()},
+  {key:'protoss-heroes',run:async()=>this.protossHeroes.prepare()}, {key:'pickups',run:()=>this.pickups.load()}
+ ];}
+ /** Optional models are capped across selection changes. Formal entrance owns the
+  * uncapped required roster; optional work never changes World or publishes readiness. */
+ backgroundJobs(race:Race,hero:HeroId|null=null,map?:CampaignMapRecipe,snapshot?:Readonly<RunSnapshot>):PreparationJob[]{
+  const jobs:PreparationJob[]=[],models=new Map<string,UnitType>([['zergling','zergling']]);
+  if(hero&&HEROES[hero]?.race===race)models.set(HEROES[hero].model,HEROES[hero].baseFamily);
+  if(snapshot){for(const u of snapshot.state.entities.values())if(u.hp>0)models.set(displayActiveModelKey(u),u.unitType);
+   const stage=snapshot.state.battlefield.mode==='endless'?18:Math.min(18,snapshot.state.stage+(snapshot.state.phase==='reward'?1:0));
+   for(const [family,share] of Object.entries(CAMPAIGN18_STAGES[stage-1].mix))if(share>0)models.set(family as UnitType,family as UnitType);
+   for(const type of snapshot.state.battlefield.mode==='endless'?ENDLESS.bossTypes:BOSSES[stage]?[BOSSES[stage].type]:[])models.set(type,type);
+  }
+  if(this.world.phase==='reward')for(const entry of this.currentModels())models.set(...entry);
+  for(const entry of this.raceModels(race))models.set(...entry);
+  const selectedModels=[...models].slice(0,24);this.backgroundDesired=new Set(selectedModels.map(([key])=>key));
+  const addModel=(key:string,type:UnitType)=>jobs.push({key:'unit:'+key,isReady:()=>this.gpu.has(key),run:async()=>{
+   if(!this.gpu.has(key)&&this.backgroundModels.size>=24){const stale=[...this.backgroundModels].find(k=>!this.backgroundDesired.has(k));if(stale&&!this.initialAssetsLoaded&&this.world.phase==='menu')this.retireOptional(stale);else return;}
+   await MeshoptSimplifier.ready;
+   await prepareEmbeddedAssetIds([...modelPreloadAssets([[displayAssetModelKey(key),type]]),...unitMaterialDependencies(displayAssetModelKey(key)),...unitMaterialDependencies(displayAssetModelKey(key)+'.death')]);
+   if(!await this.ensureUnitVariant(key,type,true))throw Error('Optional model unavailable');
+   this.backgroundModels.add(key);await this.warmPresentationBatches(()=>{},true);
+  }});
+  const first=selectedModels.slice(0,2);for(const [key,type] of first)addModel(key,type);
+  if(map)jobs.push({key:'map:'+JSON.stringify(map),isReady:()=>[...this.mapViews.keys()].some(t=>t.definition?.source.sha256===campaignTerrain(map).definition.source.sha256),run:()=>this.prepareCampaignAssets(map)});
+  // Small immutable decode jobs precede material creation, and are shared with the gate.
+  for(const id of this.commonAssetIds())jobs.push({key:'asset:'+id,run:()=>prepareEmbeddedAssetIds([id])});
+  for(const task of this.commonTasks())jobs.push({key:'common:'+task.key,run:async()=>{
+   if(this.commonAssetIds().some(id=>!assetUrl(id)))throw Error('Optional dependencies incomplete');
+   const previous=new Set<THREE.Object3D>();this.scene.traverse(n=>previous.add(n));await this.commonTask(task.key,task.run);
+   const added:THREE.InstancedMesh[]=[];this.scene.traverse(n=>{if(n instanceof THREE.InstancedMesh&&!previous.has(n)&&n.count===0)added.push(n);});
+   for(let i=0;i<added.length;i+=4){await this.prewarmBatches(added.slice(i,i+4));await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));}
+  }});
+  for(const [key,type] of selectedModels.slice(2))addModel(key,type);
+  return jobs.map(job=>({key:this.contextEpoch+':'+job.key,isReady:job.isReady,run:async()=>{this.backgroundBusy=true;try{return await job.run();}finally{this.backgroundBusy=false;}}}));
+ }
+ async load(progress:(label:string,done?:number,total?:number)=>void,rescueRace:Race=this.world.expedition.race,skipMap=false){await MeshoptSimplifier.ready;const loader=new GLTFLoader();
   // Fail required race assets before constructing common scene objects. Successful
   // worker/templates cache individually, so retry reuses them without duplicate meshes.
   await this.prepareRescueAssets(rescueRace);
   const initialTypes:UnitType[]=rescueRace==='terran'?['marine','zergling']:rescueRace==='protoss'?['zealot','zergling']:['zergling'];await prepareEmbeddedAssetIds(initialTypes.flatMap(type=>[`model.${type}`,...['.death',...(type==='tank'?['.siege','.morph']:[])].map(suffix=>`model.${type}${suffix}`)].filter(id=>ASSETS.has(id))));
   for(const type of initialTypes){progress(`载入 ${SC2_UNITS[type].name}`);if(!await this.ensureUnitVariant(type,type))throw Error('开局模型未就绪：'+type);}
-  await this.fx.load();await this.nonHeroEffects.load();await this.protossEliteEffects.load();await this.zergEliteEffects.load();await this.eliteSupportEffects.loadMedicalTextures();await this.terranEliteEffects.load();await this.confirmedHeroes.prepare();await this.zergHeroes.prepare();this.protossHeroes.prepare();await this.pickups.load();this.modelErrors.push(...this.pickups.errors.map(e=>'resource: '+e));
+  await prepareEmbeddedAssetIds(this.commonAssetIds());for(const task of this.commonTasks())await this.commonTask(task.key,task.run);this.modelErrors.push(...this.pickups.errors.map(e=>'resource: '+e));
   if(!skipMap&&this.world.terrain?.definition){this.mapTerrain=this.world.terrain;this.mapView=this.world.terrain instanceof RadialTerrain?await createCampaignMap(this.scene,this.world.terrain):await Promise.reject<MapView>(new Error('不支持的战役地图'));this.mapView.setVisible(true);this.mapViews.set(this.mapTerrain,this.mapView);this.terrainUpdate=()=>this.mapView?.update(this.camera,this.sceneShadows.enabled?this.sceneShadows.view:undefined);}else if(!skipMap)this.terrainUpdate=await createTerrain(this.scene,this.world);
   for(const [key,height] of [['drone',.7],['egg',1.3]] as const){if(this.gpu.has(key))continue;const url=assetUrl('model.'+key);if(!url){this.modelErrors.push(key+': missing model');continue;}try{this.gpu.set(key,new AnimatedBatch(await loadUnitMaterialGltf(loader,url,key),this.scene,height));}catch(e){this.modelErrors.push(key+': '+String(e));}}
   await this.prepareWorkerDeath('drone',.7);
@@ -297,19 +342,19 @@ export class BattleRenderer {
  }
  private variantLoads=new Map<string,Promise<boolean>>();private variantQueue=Promise.resolve();assetsPending=0;
  async waitForPendingAssets(){await this.variantQueue;if(this.assetsPending>0)throw Error('仍有资源未完成准备');}
- ensureUnitVariant(key:string,type:UnitType):Promise<boolean>{key=displayLoadModelKey(key,type);if(key.startsWith('elite.')){if(!this.gpu.has(type))void this.ensureUnitVariant(type,type);if(key.endsWith('.assault')&&!this.gpu.has('viking.assault'))void this.ensureUnitVariant('viking.assault','viking');}const existing=this.variantLoads.get(key);if(existing)return existing;if(this.gpu.has(key))return Promise.resolve(true);this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));
+ ensureUnitVariant(key:string,type:UnitType,optional=false):Promise<boolean>{const silent=optional||this.entryPreparation;key=displayLoadModelKey(key,type);if(key.startsWith('elite.')){if(!this.gpu.has(type))void this.ensureUnitVariant(type,type,optional);if(key.endsWith('.assault')&&!this.gpu.has('viking.assault'))void this.ensureUnitVariant('viking.assault','viking',optional);}const existing=this.variantLoads.get(key);if(existing)return existing;if(this.gpu.has(key))return Promise.resolve(true);this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));
   // HUD listeners can request this same model synchronously. Publish both the promise and
   // queue entry before notifying them, so one arrival cannot recursively start more loads.
   let finish!:(ok:boolean)=>void;const result=new Promise<boolean>(resolve=>finish=resolve);this.variantLoads.set(key,result);this.assetsPending++;
-  this.variantQueue=this.variantQueue.then(async()=>{let ok=false;try{
+  this.variantQueue=this.variantQueue.then(async()=>{const existingKeys=new Set(this.gpu.keys());let ok=false;try{
    const suffixes=['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])];
    const assetKey=displayAssetModelKey(key);
    await prepareEmbeddedAssetIds([`model.${assetKey}`,...suffixes.map(suffix=>`model.${assetKey}${suffix}`).filter(id=>ASSETS.has(id))]);
    const loader=new GLTFLoader(),url=assetUrl('model.'+assetKey);if(!url)throw Error('missing original model');const gltf=await loadUnitMaterialGltf(loader,url,assetKey);if(!gltf.animations.length)throw Error('missing original animation');if(key===type){this.prepareUnit(type,gltf);this.loadedModels++;}else this.gpu.set(key,new AnimatedBatch(gltf,this.scene,key==='interceptor'?.55:heights[type],undefined,TUNING.unitScale,key,key.startsWith('elite.')?this.gpu.get(key.endsWith('.assault')?'viking.assault':type)?.bodyHeight:undefined));const base=this.gpu.get(key)!;
    // The approved showcase casts both rifle skills from their original firing pose.
    if(key==='hero.raynor'||key==='hero.nova')base.actions.skill=base.actions.attack;
-   for(const suffix of ['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])]){const path=assetUrl('model.'+assetKey+suffix);if(!path){if(suffix!=='.death')throw Error('missing original tank form '+suffix);continue;}const form=await loadUnitMaterialGltf(loader,path,assetKey+suffix);this.gpu.set(key+suffix,new AnimatedBatch(form,this.scene,heights[type],base.normalization));}for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const mesh of b.meshes)this.filterTextures(mesh);const hidden:THREE.Object3D[]=[],inactive:THREE.InstancedMesh[]=[];for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const m of b.meshes){if(!m.visible){hidden.push(m);m.visible=true;}if(m.count===0)inactive.push(m);}try{await this.prewarmBatches(inactive);await this.finishProgramWarmup();}finally{for(const m of hidden)m.visible=false;}ok=true;
-   }catch(e){this.modelErrors.push(key+': '+String(e));this.world.paused=true;this.world.announce('增援素材未能载入，请重新载入战场');}finally{this.assetsPending--;if(ok)this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));else this.variantLoads.delete(key);finish(ok);this.world.changed();}});this.world.changed();return result;
+   for(const suffix of ['.death',...(type==='tank'&&!key.startsWith('hero.')?['.siege','.morph']:[])]){const path=assetUrl('model.'+assetKey+suffix);if(!path){if(suffix!=='.death')throw Error('missing original tank form '+suffix);continue;}const form=await loadUnitMaterialGltf(loader,path,assetKey+suffix);this.gpu.set(key+suffix,new AnimatedBatch(form,this.scene,heights[type],base.normalization));}for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const mesh of b.meshes)this.filterTextures(mesh);const hidden:THREE.Object3D[]=[],inactive:THREE.InstancedMesh[]=[];for(const [id,b] of this.gpu)if(id===key||id.startsWith(key+'.'))for(const m of b.meshes){if(!m.visible){hidden.push(m);m.visible=true;}if(m.count===0)inactive.push(m);}try{if(!silent){await this.prewarmBatches(inactive);await this.finishProgramWarmup();}}finally{for(const m of hidden)m.visible=false;}ok=true;
+   }catch(e){for(const [id,batch] of this.gpu)if(!existingKeys.has(id)&&(id===key||id.startsWith(key+'.'))){batch.dispose();this.gpu.delete(id);}if(!existingKeys.has(key)&&this.batches.delete(key as UnitType))this.loadedModels--;if(!optional)this.modelErrors.push(key+': '+String(e));if(!silent){this.world.paused=true;this.world.announce('增援素材未能载入，请重新载入战场');}}finally{this.assetsPending--;if(ok)this.modelErrors=this.modelErrors.filter(error=>!error.startsWith(key+':'));else this.variantLoads.delete(key);finish(ok);if(!silent)this.world.changed();}});if(!silent)this.world.changed();return result;
  }
  async prepareCampaignAssets(recipe:CampaignMapRecipe){const terrain=campaignTerrain(recipe);await prepareEmbeddedAssetIds([...campaignMapAssets(recipe),...environmentAssetIds(recipe.theme)]);if(![...this.mapViews.keys()].some(t=>t.definition?.source.sha256===terrain.definition.source.sha256)){const view=await createCampaignMap(this.scene,terrain);this.mapViews.set(terrain,view);view.setVisible(true);try{const root=this.scene.getObjectByName(terrain.definition.source.sha256)!;this.filterTextures(root);this.preloadTextures(root);this.sceneShadows.prepare();this.contact.prepare(this.scene);await this.compilePresentation(this.scene,this.camera);}finally{view.setVisible(this.world.terrain===terrain);}}
   for(const [key,view] of this.mapViews)if(key instanceof RadialTerrain&&key.definition.source.sha256!==terrain.definition.source.sha256&&key!==this.world.terrain){view.dispose?.();this.mapViews.delete(key);}
@@ -373,8 +418,7 @@ export class BattleRenderer {
   let done=0;for(const [key,type] of required){const missing=!this.gpu.has(key);if(missing&&!await this.ensureUnitVariant(key,type))throw Error('开局模型未就绪：'+key);progress(++done,required.size,key);if(missing)await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));}
   await this.prepareEndlessAssets((done,total,label)=>progress(done,total,label));
  }
- async prepareCurrentAssets(progress:(done:number,total:number,label:string)=>void=()=>{}){
-  await this.prepareRescueAssets(this.world.expedition.race);
+ private currentModels(){
   const required=new Map<string,UnitType>();for(const type of this.requiredFamilies())required.set(type,type);
   for(const unit of this.world.entities.values())if(unit.hp>0){required.set(displayModelKey(unit),unit.unitType);required.set(displayActiveModelKey(unit),unit.unitType);}
   if(this.world.eliteChoice){const elite=ELITES[this.world.eliteChoice];required.set(elite.model,elite.family);}
@@ -383,6 +427,11 @@ export class BattleRenderer {
   for(const offer of this.world.rewards)if(offer.kind==='elite'&&Object.hasOwn(ELITES,offer.value))for(const elite of this.world.eliteVariants(ELITES[offer.value as EliteId].family))required.set(elite.model,elite.family);
   for(const contract of this.world.expedition.eliteContracts)if(!contract.purchased)for(const elite of this.world.eliteVariants(contract.family))required.set(elite.model,elite.family);
   if(this.world.expedition.pendingShopElite){const elite=ELITES[this.world.expedition.pendingShopElite.variantId];required.set(elite.model,elite.family);}
+  return required;
+ }
+ async prepareCurrentAssets(progress:(done:number,total:number,label:string)=>void=()=>{}){
+  await this.prepareRescueAssets(this.world.expedition.race);
+  const required=this.currentModels();
   await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('增援模型未就绪：'+key);progress(++done,required.size,key);}
  }
@@ -443,7 +492,7 @@ export class BattleRenderer {
  private objectOutline(root:THREE.Object3D|null|undefined){if(!root)return;root.updateWorldMatrix(true,true);let points=this.outlineCache.get(root);if(!points){points=bodyOutline(root,root.matrixWorld.clone().invert());this.outlineCache.set(root,points);}return this.transformOutline(points,root.matrixWorld);}
 
  private cameraFrame():AutoFrame|undefined{
-  if(this.cameraController.cameraMode!=='auto')return;
+  if(this.cameraController.cameraMode==='fixed')return;
   const w=this.world,active=w.phase==='battle'&&!w.paused&&!w.requiresPlayerDecision;
   if(!active)return {active:false,bodies:[],occluded:[]};
   const mains=w.allies().filter(u=>!u.summonKind&&!u.temporary),near=(p:Point)=>Math.hypot(p.x-w.anchor.x,p.z-w.anchor.z)<=24||mains.some(u=>Math.hypot(p.x-u.x,p.z-u.z)<=24);
@@ -454,11 +503,11 @@ export class BattleRenderer {
   for(const p of [...(w.hive?[w.hive]:[]),...w.expansionHives.values(),...w.fortifications.values()])if(p.hp>0&&near(p)){const root=p===w.hive?this.hiveView:this.expansionViews.get(p.id)??this.fortViews.get(p.id),outline=this.objectOutline(root);bodies.push({x:p.x,y:this.ground(p),z:p.z,radius:p.unitRadius,height:outline?.length?Math.max(...outline.map(v=>v.y))-this.ground(p):4,primary:false});}
   const rect=this.canvas.getBoundingClientRect(),selector='#topbar,#minimap,.native-map-utilities button,.native-army-frame,.native-command-frame,#army-toggle,#native-selection,#joystick,#unit-inspector,.fixed-hud';
   const occluded=[...document.querySelectorAll<HTMLElement>(selector)].filter(el=>{const s=getComputedStyle(el);return s.display!=='none'&&s.visibility!=='hidden';}).map(el=>el.getBoundingClientRect()).filter(r=>r.width>1&&r.height>1).map(r=>({left:r.left-rect.left,right:r.right-rect.left,top:r.top-rect.top,bottom:r.bottom-rect.top}));
-  return {active,bodies,occluded};
+  return {active,bodies,occluded,moving:w.order?.kind==='move'&&Math.hypot(w.order.point.x-w.anchor.x,w.order.point.z-w.anchor.z)>.5,combat:mains.some(u=>w.time-u.lastShotAt<2||w.time-(u.lastDamagedAt??-Infinity)<2)};
  }
  private bodyVisible(p:Point){return this.visible(p)||this.sceneShadows.enabled&&this.sceneShadows.view.body(p,this.ground(p));}
  private visible(p:Point){return this.cameraController.visible(p,this.ground(p));}
- render(dt:number,alpha:number){const world=this.world;this.frames++;this.tickTime+=dt;if(this.tickTime>=.5){this.fps=this.frames/this.tickTime;this.frames=0;this.tickTime=0;}this.frameMs=dt*1000;this.frameTimes.push(this.frameMs);if(this.frameTimes.length>240)this.frameTimes.shift();
+ render(dt:number,alpha:number){if(this.backgroundBusy||this.entryPreparation)return;const world=this.world;this.frames++;this.tickTime+=dt;if(this.tickTime>=.5){this.fps=this.frames/this.tickTime;this.frames=0;this.tickTime=0;}this.frameMs=dt*1000;this.frameTimes.push(this.frameMs);if(this.frameTimes.length>240)this.frameTimes.shift();
   resetUploadStats();this.lighting.bind(world.terrain);this.cameraController.update({x:world.anchor.x,y:this.ground(world.anchor),z:world.anchor.z},dt,matchMedia('(prefers-reduced-motion: reduce)').matches||!!document.querySelector('#interface.ui-reduced-motion'),this.cameraFrame());this.sceneShadows.update(this.camera,world.terrain);this.mapView?.setLighting?.({shadow:this.sceneShadows.enabled,contact:this.contact.enabled});this.terrainUpdate();this.grid.visible=this.showGrid;
   this.protossHeroes.beginFrame();
   this.barrierMaterials.begin(world.runId??'',world.time);
@@ -578,6 +627,8 @@ export class BattleRenderer {
  private preparePresentationSize(){const ratio=this.renderer.getPixelRatio(),width=this.viewportWidth,height=this.viewportHeight;if(width!==this.composerSize.width||height!==this.composerSize.height||ratio!==this.composerSize.ratio){this.composerSize={width,height,ratio};this.heroComposer.setPixelRatio(ratio);this.heroComposer.setSize(width,height);}}
  private renderScene(){this.sceneShadows.prepare();this.preparePresentationSize();const ratio=this.renderer.getPixelRatio();this.contact.render(this.scene,this.camera,this.viewportWidth*ratio,this.viewportHeight*ratio);this.heroComposer.render();}
  get cameraPitch(){return this.cameraController.pitch;}
+ get cameraOutput(){return {pitch:this.cameraController.effectivePitch,zoom:this.cameraController.effectiveZoom};}
+ get cameraInputZoom(){return this.cameraController.inputZoom;}
  get cameraMode(){return this.cameraController.cameraMode;}
  get healthBarMode(){return this.healthBars.mode;}
  setCameraPitch(value:number){this.cameraController.setPitch(value);}

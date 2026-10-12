@@ -1,3 +1,4 @@
+import {unitMaterialTextures} from '../materials/unit-material-loader';
 import {commitInstances,uploadActive} from './instance-updates';
 import {bodyOutline} from './body-outline';
 import {compileUnitPose} from './unit-pose-shader';
@@ -29,6 +30,7 @@ export class AnimatedBatch {
  private lodIndices:{full:THREE.BufferAttribute;low:THREE.BufferAttribute}[]=[];private lowDetail=false;lodRatio=1;
  count=0;bodyOutline:THREE.Vector3[];bodyRadius:number;bodyHeight:number;scale:number;normalization:THREE.Matrix4;textureBytes=0;boneCount=0;
  animationMode:AnimationMode='complete';
+ private ownedPoseTextures:THREE.Texture[]=[];
  readonly materialSurfaces:UnitMaterialSurface[]=[];
  constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number){
   // Nova's exported Bone_Gun is offset from her hand by 0.89 source units.
@@ -94,7 +96,14 @@ export class AnimatedBatch {
     bindSourceDepth(mat,{key:()=>mat.customProgramCacheKey(),compile:(shader,renderer)=>{if(!surface)m.onBeforeCompile(shader,renderer);compileUnitPose(shader,poseUniforms);surface?.compile(shader,geometry,true,true);shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float specialTier;').replace('#include <alphatest_fragment>','#include <alphatest_fragment>\nif(specialTier<-.5||specialTier>14.5)discard;');}});return mat;});
    const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);this.aimAttributes.push(aim);
   }
+  this.ownedPoseTextures=[...textures.values()];
   mixer.stopAllAction();mixer.uncacheRoot(gltf.scene);
+ }
+ /** Retire optional batches that have never entered a battle. Shared image data
+  * remains in the immutable decoder cache; only this batch's GPU wrappers retire. */
+ dispose(){const textures=new Set<THREE.Texture>([...this.ownedPoseTextures,...this.materialSurfaces.map(s=>s.texture)]);
+  for(const mesh of this.meshes){mesh.removeFromParent();mesh.geometry.dispose();for(const material of Array.isArray(mesh.material)?mesh.material:[mesh.material]){for(const value of Object.values(material))if(value instanceof THREE.Texture)textures.add(value);for(const value of unitMaterialTextures(material))textures.add(value);material.dispose();}mesh.dispose();}
+  for(const texture of textures)texture.dispose();
  }
  weaponAt(action:keyof ReturnType<typeof mapAnimations>,seconds:number,side?:string){const clip=this.actions[action],points=clip?this.weaponTracks.get(clip.name+(side?':'+side:''))??this.weaponTracks.get(clip.name):undefined;if(!clip||!points?.length)return this.weapon.clone();const f=Math.max(0,Math.min(points.length-1,seconds/clip.duration*(points.length-1))),i=Math.floor(f);return points[i].clone().lerp(points[Math.min(i+1,points.length-1)],f-i);}
  setLod(low:boolean){if(this.lowDetail===low)return;this.lowDetail=low;this.meshes.forEach((mesh,i)=>{const indices=this.lodIndices[i];if(indices){mesh.geometry.setIndex(low?indices.low:indices.full);if(mesh.geometry.groups.length===1)mesh.geometry.groups[0].count=mesh.geometry.getIndex()!.count;}});}

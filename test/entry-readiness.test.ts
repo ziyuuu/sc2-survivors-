@@ -10,7 +10,7 @@ test('parallel audio and model batches produce ordered steps and one monotonic e
  const audio={preload:async(cb:any)=>{sound=cb;cb(0,1,'音效');}};
  const view:any={initialAssetsLoaded:true,modelErrors:[],preparationKey:'same-roster',
   prepareNewRunAssets:async(_:any,_hero:any,cb:any)=>{calls.push('troops');for(let i=0;i<=999;i++){sound!(1,1,'音效');cb(i,999,'body');}cb(0,4,'forts');cb(4,4,'forts');},
-  prepareCampaignAssets:async()=>{calls.push('field');},waitForPendingAssets:async()=>{},renderer:{compileAsync:async()=>{calls.push('compile');}},warmPresentationBatches:async(cb:any)=>{cb(1,1,'mesh');return 0;}};
+  prepareCampaignAssets:async()=>{calls.push('field');},waitForPendingAssets:async()=>{},compilePresentation:async()=>{calls.push('compile');},warmPresentationBatches:async(cb:any)=>{cb(1,1,'mesh');return 0;}};
  const gate=new AssetReadinessCoordinator({expedition:{race:'terran'}}as any,view,audio as any);
  gate.onChange=()=>{rendered++;seen.push({phase:gate.state.phase,progress:gate.state.progress??0});};
  assert.ok(await gate.prepare('new',{race:'terran',campaignMap:{version:3,seed:1,theme:'industrial'}}));
@@ -33,4 +33,11 @@ test('one stalled resource reveals the loading screen after its grace period and
  const gate=new AssetReadinessCoordinator({expedition:{race:'terran'}}as any,view);const visible:boolean[]=[];gate.onChange=()=>visible.push(gate.showLoading);
  const pending=gate.prepare('reinforcement');assert.equal(gate.showLoading,false);await new Promise(r=>setTimeout(r,180));assert.ok(visible.includes(true),'loading must appear without another resource callback');gate.cancel();release();assert.equal(await pending,false);
  const next=gate.prepare('reinforcement');gate.cancel();const count=visible.length;await new Promise(r=>setTimeout(r,180));assert.equal(visible.length,count,'canceled delayed reveal must not notify');release();assert.equal(await next,false);
+});
+
+test('required cancellation and replacement wait for old scene work before validating a snapshot',async()=>{
+ const {BackgroundPreparation}=await import('../src/app/background-preparation');const lane=new BackgroundPreparation(()=>0,()=>true),calls:string[]=[];let finish!:()=>void;
+ const view:any={initialAssetsLoaded:true,modelErrors:[],preparationKey:'lane',prepareCurrentAssets:async()=>{calls.push('old-start');await new Promise<void>(r=>finish=r);calls.push('old-end');},prepareSnapshotAssets:async()=>{calls.push('new-models');},waitForPendingAssets:async()=>{},compilePresentation:async()=>{},warmPresentationBatches:async()=>0};
+ const world:any={expedition:{race:'terran'},restoreRun:()=>calls.push('validate')},gate=new AssetReadinessCoordinator(world,view,undefined,lane);
+ const old=gate.prepare('reinforcement');while(!finish)await Promise.resolve();gate.cancel();const replacement=gate.prepare('load',{snapshot:{config:{race:'terran'}} as any});await Promise.resolve();assert.deepEqual(calls,['old-start']);finish();assert.equal(await old,false);assert.equal(await replacement,true);assert.deepEqual(calls,['old-start','old-end','new-models','validate']);assert.equal(lane.report().held,0);
 });

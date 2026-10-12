@@ -1,7 +1,7 @@
 {
   "status": "Shared original texture decoding, exact generated shader reuse, bounded screen prewarming and optional common opening warmup; original camera, gameplay, assets and saves retained; local validation only; no live deployment",
-  "appBuildId": "8c91b5d6512dc439fcaaefea6c11288b029b5a3ea85850d13652e46559792d7d",
-  "packageBuildId": "6e3d1712c04d8866f2d43ae08c4f63eda333c527dddce7728b9c6ac7932a0172",
+  "appBuildId": "acb315a5191c0f67e13a63b919fc728a66ce0956fc434eb92cb6ff5bd4bb33e8",
+  "packageBuildId": "0e998471598658c1e69fd234fb603b32da0b8dbbc6a4037a24d550412fe75e6b",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
@@ -97,6 +97,11 @@
       "sha256": "a6a9ff63d793fc5366e5f29e0c5409339a72b1d55a32c8dcf90f3ce1d2b38a59"
     },
     {
+      "path": "CINEMATIC_PRELOAD_20261012.md",
+      "bytes": 5121,
+      "sha256": "cfe1006c57c779a766b768f5eb2be7540dc5a42c848e7ee3119566cf89306e19"
+    },
+    {
       "path": "coze-web-server.mjs",
       "bytes": 4728,
       "sha256": "be5fc03d6a81aab693aa706986c30d64c0e6df1117b40d9c80634c675a442ec0"
@@ -164,12 +169,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "c9a85b5510f08ff0e7d3d606142ae9be4b1de04d9d7021af28a7050cb0ae0d7d"
+      "sha256": "16af9f9f16e89c98c8906176e996fb6685e550426635e8d467827e09a0aff32e"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "c4ff6f4e002168cd7c38eeb520fc5d92321734dddfd58d887612b745b18e023c"
+      "sha256": "e30ed163254230933fc2f015a0fcedda80d15837f6454ad17a940f616cfa14ce"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -182,19 +187,19 @@
       "sha256": "eff0ae3ac9d4333eaab3aa3aee319155c2ecdd08a02c6de92ff8398184aa948c"
     },
     {
+      "path": "public/assets/index-BR7KHFJN.js",
+      "bytes": 6698370,
+      "sha256": "3a3d745e401c0082dbeea373e6344b01f9235fa364b905cd7e41968328bd0c13"
+    },
+    {
       "path": "public/assets/index-CnTymvdV.css",
       "bytes": 489073,
       "sha256": "a17106618e8f4ac803443116572bdd5035a7d6eea43b69db37ab73259d8acd89"
     },
     {
-      "path": "public/assets/index-PdEEywBX.js",
-      "bytes": 6687477,
-      "sha256": "6fe50cbf6c97426da8aa84487b9fea1b4a4a5d17fc024a3b220b3560a2737bbd"
-    },
-    {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "bd85f8d9c259c521b4dad92af1344cfe94034d7bf65c3baf6446ba79d95d0587"
+      "sha256": "d2a8f25f0c85614f024396709fc3ef65aa67c3150344fc15fa3dce6c67f4b851"
     },
     {
       "path": "public/runtime-config.json",
@@ -204,7 +209,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "a01175d3e56d36f0b0114f2ad5601e6c5565ebe03e8fd8cc7a22b675f4841e03"
+      "sha256": "38bd740fb149f1bcaf6e51a33439794f78174c09b5846878a7afd4c73d9a29a5"
     },
     {
       "path": "README.md",
@@ -219,7 +224,7 @@
     {
       "path": "resource-delta.json",
       "bytes": 329,
-      "sha256": "27e1457e63bc6182a0a608e82c67f7589d8920345d35bca1c1d259882271e5e9"
+      "sha256": "b7942390838b27aa63ef2a57f00c50e3ad8d203c5cfe2dbf72425534657ff30e"
     },
     {
       "path": "resource-groups.json",

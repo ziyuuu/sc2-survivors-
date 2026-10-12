@@ -43,7 +43,7 @@ test('second pass move picking passes cliff faces while ability picking still re
 });
 test('second pass readiness emits one completion token and failures cannot auto-continue',async()=>{
  const w=new World({terrain:false,waves:false,sandbox:true});w.start();let fail=false,completed=0;
- const view:any={initialAssetsLoaded:true,modelErrors:[],prepareCurrentAssets:async()=>{if(fail)throw Error('missing');},waitForPendingAssets:async()=>{},renderer:{compileAsync:async()=>{}},warmPresentationBatches:async()=>false};
+ const view:any={initialAssetsLoaded:true,modelErrors:[],prepareCurrentAssets:async()=>{if(fail)throw Error('missing');},waitForPendingAssets:async()=>{},compilePresentation:async()=>{},warmPresentationBatches:async()=>false};
  const gate=new AssetReadinessCoordinator(w,view);gate.onReady=(kind,token)=>{assert.equal(kind,'reinforcement');assert.equal(token,gate.readyToken);completed++;gate.cancel();};
  assert.ok(await gate.prepare('reinforcement'));assert.equal(completed,1);assert.equal(gate.readyToken,null);
  fail=true;assert.equal(await gate.prepare('reinforcement'),false);assert.equal(completed,1);

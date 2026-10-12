@@ -10,7 +10,7 @@ test('a HUD notification requesting the same unloaded elite shares one pending l
  try{
   let notifications=0,nested:Promise<boolean>|undefined;
   const view=Object.assign(Object.create(BattleRenderer.prototype),{
-   gpu:new Map(),variantLoads:new Map(),variantQueue:Promise.resolve(),assetsPending:0,modelErrors:[],
+   gpu:new Map(),batches:new Map(),variantLoads:new Map(),variantQueue:Promise.resolve(),assetsPending:0,modelErrors:[],
    world:{paused:false,announce(){},changed(){
     assert.ok(++notifications<10,'loading notifications must not recursively start the same asset');
     if(view.assetsPending)nested=view.ensureUnitVariant('qa-missing-elite','medivac');

@@ -1,0 +1,295 @@
+{
+  "passed": true,
+  "at": "2026-10-12T07:10:52.223Z",
+  "baseline": "b1a7cfb4ce8983fc57fc6d4493724f8d89daadca",
+  "appBuildId": "acb315a5191c0f67e13a63b919fc728a66ce0956fc434eb92cb6ff5bd4bb33e8",
+  "packageBuildId": "0e998471598658c1e69fd234fb603b32da0b8dbbc6a4037a24d550412fe75e6b",
+  "version": "0.6.23",
+  "applicationFiles": 190,
+  "html": {
+    "path": "dist/SC2-Survivors-Cinematic-Preload-Final-R2-20261012.html",
+    "bytes": 635737122,
+    "sha256": "76733b1d9c05e472fee0280a251432874e245b3b25e601f57275e45d953c41f8"
+  },
+  "zip": {
+    "path": "dist/Cinematic-Preload-Final-R2-Application-20261012.zip",
+    "bytes": 10011168,
+    "sha256": "9c1aa290fa70f1cd63c1eea76782d2c64d7e1a40d98207d18089d55e0104502f",
+    "files": 191,
+    "packageBuildId": "0e998471598658c1e69fd234fb603b32da0b8dbbc6a4037a24d550412fe75e6b",
+    "verifiedRoundTrip": true,
+    "deployed": false
+  },
+  "regressions": 1373,
+  "compiledInputs": 323,
+  "pairedNativeStates": 36,
+  "pixelExactPairs": 12,
+  "reviewBinding": {
+    "passed": true,
+    "reviewedBuild": "14c82c358e985f6e29c2080932fb9be58da15eea1cdd0851e9bbed8b86f86001",
+    "inputs": 323,
+    "changes": [
+      {
+        "file": "src/render/scene/battle-renderer.ts",
+        "before": "02322e3aa41d6b655a42dccef909f38bc13455f9e3c7916a429fb625186e1976",
+        "after": "2f54255755f5bd731c8f50d0ed31b3686630038074e2e0396158f171242ebbd5",
+        "scope": "Optional map cache readiness predicate and skipping the redundant 1px unit warmup inside optional/formal entry lanes. Required actual HDR first draw remains. No camera, material GLSL, geometry, simulation or HUD changes."
+      }
+    ],
+    "diagnostics": [
+      {
+        "label": "recordings-r4-r3",
+        "jsSha256": "8054d44ca07c561394e9687420de6c9d1d261a2dab9d42e42c38215c9e2fe5e8",
+        "runtimeInputs": 198
+      },
+      {
+        "label": "sequence-candidate-r4",
+        "jsSha256": "8054d44ca07c561394e9687420de6c9d1d261a2dab9d42e42c38215c9e2fe5e8",
+        "runtimeInputs": 198
+      }
+    ],
+    "method": "Earlier screenshots and videos retain their actual r4 builds. All compiled inputs match final production except the explicitly compared two explicit loading expressions. Diagnostic runtime source inputs match the reviewed r4 source. Final formal Web/offline and manual HUD checks run against the final build."
+  },
+  "formal": {
+    "formal-web-r1": {
+      "screens": 8,
+      "exports": 8,
+      "maps": 5,
+      "checks": 0,
+      "offline": false
+    },
+    "formal-offline-r1": {
+      "screens": 8,
+      "exports": 8,
+      "maps": 5,
+      "checks": 0,
+      "offline": true
+    },
+    "formal-missing-r1": {
+      "screens": 2,
+      "exports": 0,
+      "maps": 0,
+      "checks": 2,
+      "offline": false
+    },
+    "controls-final-web-r1": {
+      "screens": 12,
+      "exports": 6,
+      "records": 3,
+      "offline": false
+    },
+    "controls-final-offline-r1": {
+      "screens": 12,
+      "exports": 6,
+      "records": 3,
+      "offline": true
+    }
+  },
+  "controls": {
+    "races": 3,
+    "viewports": 3,
+    "records": 9,
+    "screens": 27,
+    "exports": 18
+  },
+  "backgroundChecks": {
+    "candidate": 5,
+    "final": 5
+  },
+  "nativeRecordings": 3,
+  "decodedReviewedFrames": 15,
+  "visual": {
+    "reviewedImages": 118,
+    "finalScreens": 47,
+    "gallery": {
+      "passed": true,
+      "images": 94,
+      "pairs": 12,
+      "videos": 3,
+      "errors": []
+    }
+  },
+  "responsiveness": {
+    "selectionRoundTrips": [
+      {
+        "race": "zerg",
+        "milliseconds": 75.40750000000116
+      },
+      {
+        "race": "terran",
+        "milliseconds": 171.55389999999898
+      },
+      {
+        "race": "protoss",
+        "milliseconds": 155.6815999999999
+      },
+      {
+        "race": "zerg",
+        "milliseconds": 4754.337099999997
+      },
+      {
+        "race": "terran",
+        "milliseconds": 87.40450000000055
+      }
+    ],
+    "longTasks": 94,
+    "longestTaskMs": 13803,
+    "method": "Playwright selector/action/protocol round trip, not physical input-to-photon latency. Long tasks include startup and formal entry; no hard per-frame guarantee.",
+    "acceptedAsSmooth": false
+  },
+  "resources": {
+    "records": 881,
+    "files": 863,
+    "bytes": 776676720,
+    "new": 0,
+    "originalSources": 799,
+    "unchangedBackendVendorConfig": 152,
+    "release": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195"
+  },
+  "startupCases": 4,
+  "timing": {
+    "method": "Three matched baseline and three final sequential fresh-browser local observations; the final series follows the baseline series and isolated warmup experiment, TERRAN native seed 529, matched map, 1280x720 DPR1 and same GPU. No other game QA browser/build/full regression during this timing queue. OS/driver/file caches are not reset; not OS-cold, universal device, GPU timing or FPS acceptance. Menu 15s/30s dwell and optional queue completion are single final-build observations, not matched distributions. Optional queue completion does not mean formal entry readiness.",
+    "pairs": [
+      {
+        "pair": 1,
+        "map": "玛萨拉荒漠",
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "before": {
+          "menu": 2430,
+          "entry": 88739.69999999925,
+          "total": 92740.79999999888,
+          "start": 4001.0999999996275
+        },
+        "after": {
+          "menu": 15449.700000001118,
+          "entry": 103618.29999999888,
+          "total": 121411.59999999963,
+          "start": 17793.300000000745
+        }
+      },
+      {
+        "pair": 2,
+        "map": "玛萨拉荒漠",
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "before": {
+          "menu": 2279.0999999996275,
+          "entry": 92034.29999999888,
+          "total": 95902.29999999888,
+          "start": 3868
+        },
+        "after": {
+          "menu": 16074.400000000373,
+          "entry": 99062.79999999888,
+          "total": 117484.69999999925,
+          "start": 18421.900000000373
+        }
+      },
+      {
+        "pair": 3,
+        "map": "玛萨拉荒漠",
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "before": {
+          "menu": 2903.5999999996275,
+          "entry": 95998.80000000075,
+          "total": 100886.90000000037,
+          "start": 4888.0999999996275
+        },
+        "after": {
+          "menu": 15947.699999999255,
+          "entry": 92186,
+          "total": 110555.30000000075,
+          "start": 18369.300000000745
+        }
+      }
+    ],
+    "distribution": {
+      "before": {
+        "menu": {
+          "min": 2279.0999999996275,
+          "median": 2430,
+          "max": 2903.5999999996275
+        },
+        "entry": {
+          "min": 88739.69999999925,
+          "median": 92034.29999999888,
+          "max": 95998.80000000075
+        },
+        "total": {
+          "min": 92740.79999999888,
+          "median": 95902.29999999888,
+          "max": 100886.90000000037
+        }
+      },
+      "after": {
+        "menu": {
+          "min": 15449.700000001118,
+          "median": 15947.699999999255,
+          "max": 16074.400000000373
+        },
+        "entry": {
+          "min": 92186,
+          "median": 99062.79999999888,
+          "max": 103618.29999999888
+        },
+        "total": {
+          "min": 110555.30000000075,
+          "median": 117484.69999999925,
+          "max": 121411.59999999963
+        }
+      }
+    },
+    "dwell": [
+      {
+        "label": "timing-dwell-15000",
+        "menu": 18853.300000000745,
+        "dwell": 15000,
+        "entry": 70047.60000000149,
+        "total": 106193.19999999925,
+        "start": 36145.599999997765,
+        "optionalQueueCompletedAt": null,
+        "pendingBeforeStart": 9,
+        "failedBeforeStart": []
+      },
+      {
+        "label": "timing-dwell-30000",
+        "menu": 17772.699999999255,
+        "dwell": 30000,
+        "entry": 57753.400000002235,
+        "total": 107856.69999999925,
+        "start": 50103.29999999702,
+        "optionalQueueCompletedAt": null,
+        "pendingBeforeStart": 0,
+        "failedBeforeStart": []
+      },
+      {
+        "label": "timing-optional-complete",
+        "menu": 15376.39999999851,
+        "dwell": 0,
+        "entry": 65892,
+        "total": 120889.89999999851,
+        "start": 54997.89999999851,
+        "optionalQueueCompletedAt": 54255.300000000745,
+        "pendingBeforeStart": 0,
+        "failedBeforeStart": []
+      }
+    ]
+  },
+  "protection": {
+    "total": 2519,
+    "counts": {
+      "authorized-edit": 14,
+      "same": 2505
+    }
+  },
+  "limits": [
+    "Final paused screenshots retain native backdrop blur; endless restore may capture native fade. These frames do not establish unobscured body clarity.",
+    "Candidate r4 screenshots/videos retain their actual source and paths. Final R2 adds the map readiness predicate and skips redundant 1px entrance warmup; actual HDR readiness and paired final-entry checks remain.",
+    "Fixed before/after sampling comprises two groups of 18 paired records and six pixel-exact start/end pairs each, not 36 independent scenes or all 138 identities.",
+    "Cinematic bounds cannot guarantee primary visibility when the main body is far from the anchor. Narrow-screen clipping, tiny bodies, child health-bar overlap and dark Char remain open.",
+    "Paused transition from manually set 180% can initially retain that view; the 60–160% cinematic target is reached after resumed motion.",
+    "Menu timing budget is not a cross-device hard guarantee. Final local immediate-start median total is higher; no total loading-speed improvement, GPU timing or FPS claim.",
+    "Original SC2 matched-client references, full combat FX and remaining visual repairs, natural campaign, physical devices, high refresh, low memory, human experience, source/Science Vessel/P6-V01/production/B4 remain open.",
+    "One final menu selection automation round trip took approximately 4754 ms. Background work can still stall the menu; no always-responsive or hard per-frame guarantee. The 13803 ms largest long task spans the full test including startup/formal entry and is not attributed to menu work."
+  ],
+  "onlineOperation": false
+}
