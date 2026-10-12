@@ -88,5 +88,5 @@ export async function boot(){openingProgress(null);await loadEmbeddedAssets();op
  };requestAnimationFrame(frame);
  document.addEventListener('visibilitychange',()=>{previous=performance.now();driver.reset();if(document.hidden&&world.phase==='battle'){world.paused=true;world.changed();session.requestSave();}});
  window.addEventListener('pagehide',()=>{observer.leaving();if(world.runId)void session.saveNow().catch(()=>{});});
- hud.update();await prepareOpeningMenu(hud.root);hud.root.querySelector<HTMLButtonElement>('[data-action="menu-new"]')?.focus();
+ hud.update();void view.prewarmOpeningAssets();await prepareOpeningMenu(hud.root);hud.root.querySelector<HTMLButtonElement>('[data-action="menu-new"]')?.focus();
 }

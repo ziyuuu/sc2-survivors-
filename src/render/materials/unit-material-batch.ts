@@ -2,14 +2,19 @@ import * as THREE from 'three';
 import {MATERIAL_ROLES,preparedUnitMaterial,bindUnitMaterial,type PreparedUnitMaterial,type MaterialRole} from './unit-material-loader';
 import {sampleMaterialTrack,sampleBarrierAlpha,type MaterialRef,type UnitMaterialContext,type UnitMaterialPose} from './source-tracks';
 
-type Shader=Parameters<THREE.Material['onBeforeCompile']>[0];
+type Shader=Pick<Parameters<THREE.Material['onBeforeCompile']>[0],'uniforms'|'vertexShader'|'fragmentShader'>;
 const PARAM=(i:number)=>i<5?i*2:11+(i-5)*2,COLOR=MATERIAL_ROLES.length*2+1,TEAM=COLOR+MATERIAL_ROLES.length,ROWS=TEAM+1;
 const linear=(v:number)=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4;
 const DEFAULT_TEAM=[linear(0x52/255),linear(0x82/255),linear(0xb4/255)] as const;
+// Intern exact generated source, not a lossy hash or an asset identity. Different
+// models can use the same program while retaining their own textures/uniforms.
+const sourcePrograms=new Map<string,number>();
+const shaderHooks=()=>({uniforms:{},vertexShader:'#include <common>\n#include <project_vertex>',fragmentShader:['common','map_fragment','alphamap_fragment','emissivemap_fragment','normal_fragment_maps','lights_physical_fragment','lights_fragment_end','aomap_fragment','opaque_fragment'].map(name=>`#include <${name}>`).join('\n')});
 /** Source curves are indexed by draw slot, populated from stable entity clocks each frame. */
 export class UnitMaterialSurface {
  readonly material:THREE.Material;readonly texture:THREE.DataTexture;readonly data:Float32Array;
  private changed=false;private clipTracks=new Map<string,Map<number,import('./source-tracks').MaterialTrack>>();
+ private programKeys=new Map<string,string>();
  constructor(readonly prepared:PreparedUnitMaterial,original:THREE.Material,readonly capacity:number){
   this.material=original.clone();bindUnitMaterial(this.material,prepared);
   const {source}=prepared;this.material.visible=source.geometryVisible!==false;
@@ -107,6 +112,12 @@ export class UnitMaterialSurface {
   // Add ignores texture alpha, but source composite opacity still gates the whole surface.
   if(source.blend===2)shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>','#include <opaque_fragment>\ngl_FragColor.rgb*=umData(10).x;');
  }
- get programKey(){return 'm3-instance-material-v2:'+this.prepared.profile.glbSha256+':'+this.prepared.source.index;}
+ programKey(geometry:THREE.BufferGeometry,instanced=true){
+  const layout=`${instanced}:${geometry.hasAttribute('uv1')}`;let key=this.programKeys.get(layout);if(key)return key;
+  const color=shaderHooks(),depth=shaderHooks();this.compile(color,geometry,instanced);this.compile(depth,geometry,instanced,true);
+  const source=JSON.stringify([this.material.type,color.vertexShader,color.fragmentShader,depth.vertexShader,depth.fragmentShader]);
+  let id=sourcePrograms.get(source);if(id===undefined){id=sourcePrograms.size;sourcePrograms.set(source,id);}
+  key='m3-instance-material-v3:'+id;this.programKeys.set(layout,key);return key;
+ }
 }
 export function createUnitMaterialSurface(original:THREE.Material,capacity:number){const prepared=preparedUnitMaterial(original);return prepared?new UnitMaterialSurface(prepared,original,capacity):undefined;}

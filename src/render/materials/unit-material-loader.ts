@@ -5,6 +5,7 @@ import {prepareEmbeddedAssetIds} from '../../assets/offline-pack';
 import {restoreSc2Materials} from '../loaders/sc2-materials';
 import {UNIT_MATERIAL_CATALOG} from './unit-material-catalog';
 import type {SourceMaterial,UnitMaterialProfile} from './source-tracks';
+import {sharedMaterialTextures} from './shared-textures';
 
 // First five roles retain the batch-1 row contract; new channels follow the composite row.
 export const MATERIAL_ROLES=['diffuse','emissive','emissive2','alpha','alpha2','specular','normal','decal','gloss','ao','environment','environmentMask'] as const;
@@ -35,7 +36,7 @@ export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:stri
  const sha=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('');
  if(sha!==profile.glbSha256)throw Error('Original material profile/GLB hash mismatch: '+key);
  await prepareEmbeddedAssetIds(unitMaterialDependencies(key));
- const gltf=await loader.parseAsync(legalMaterialGlb(bytes),''),imageLoader=new THREE.TextureLoader(),cubeLoader=new THREE.CubeTextureLoader();
+ const gltf=await loader.parseAsync(legalMaterialGlb(bytes),'');
  const derivedUrl=(id:string)=>{const value=assetUrl(id);if(!value)throw Error('Original material resource missing: '+id);return value;};
  const seen=new Set<THREE.Material>(),jobs:Promise<void>[]=[];
  gltf.scene.traverse(n=>{if(!(n instanceof THREE.Mesh))return;for(const material of Array.isArray(n.material)?n.material:[n.material]){
@@ -51,8 +52,8 @@ export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:stri
     const layer=source.layers[role];if(!layer?.filename)continue;
     const info=role==='diffuse'?raw.pbrMetallicRoughness?.baseColorTexture:role==='normal'?raw.normalTexture:role==='specular'?raw.extensions?.KHR_materials_specular?.specularColorTexture:role==='emissive'?raw.emissiveTexture:raw.extras?.sc2?.layers?.find((l:{role:string})=>l.role===role);
     let texture:THREE.Texture;
-    if(layer.cubeTextures)texture=await cubeLoader.loadAsync(layer.cubeTextures.map(derivedUrl));
-    else if(layer.texture)texture=await imageLoader.loadAsync(derivedUrl(layer.texture));
+    if(layer.cubeTextures)texture=await sharedMaterialTextures.cube(layer.cubeTextures.map(derivedUrl));
+    else if(layer.texture)texture=await sharedMaterialTextures.image(derivedUrl(layer.texture));
     else if(info?.index!==undefined)texture=(await gltf.parser.getDependency('texture',info.index) as THREE.Texture).clone();
     else if(role==='specular'&&material instanceof THREE.MeshBasicMaterial)continue;
     else if(['decal','gloss','ao','environment','environmentMask'].includes(role))continue; // Recorded source gaps only.
@@ -63,7 +64,7 @@ export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:stri
     texture.needsUpdate=true;textures[role]=texture;
    }
    let teamTexture:THREE.Texture|undefined;
-   if(source.teamTexture){teamTexture=await imageLoader.loadAsync(derivedUrl(source.teamTexture));teamTexture.flipY=false;teamTexture.colorSpace=THREE.SRGBColorSpace;teamTexture.wrapS=textures.diffuse?.wrapS??THREE.RepeatWrapping;teamTexture.wrapT=textures.diffuse?.wrapT??THREE.RepeatWrapping;teamTexture.needsUpdate=true;}
+   if(source.teamTexture){teamTexture=await sharedMaterialTextures.image(derivedUrl(source.teamTexture));teamTexture.flipY=false;teamTexture.colorSpace=THREE.SRGBColorSpace;teamTexture.wrapS=textures.diffuse?.wrapS??THREE.RepeatWrapping;teamTexture.wrapT=textures.diffuse?.wrapT??THREE.RepeatWrapping;teamTexture.needsUpdate=true;}
    prepared.set(material,{profile,source,textures,teamTexture});
   })());
  }});

@@ -221,3 +221,7 @@ PylonBirth材质使用限定源适配器：原M3的Stand Build End材质乘数/U
 运行快照 schema11，不保留旧开发档分支。Entity.enemyRoute 保存静态巡逻路点、索引、最后可见位置及有界失败重试状态；公共地图中心缓存通过 WeakMap 重建，不读取隐藏玩家坐标。精英身份由实体与双生记录保存，删除 family elitePaths 和 mapCardsByChapter。
 
 载体共用完整占地、环绕通行、静态路线及预约检测。已付款 ledger.landingRetryAt 和 pendingFreeDeliveries 保存等待权，落地前复检；没有落点不重新付款。地图掉落触发/生成/空池计数保存于 mapLootStats。普通/精英/工蜂各自品质抽样；免费精英/英雄复用已持久化的实体奖励队列与防重收据，并以 mapSource 区分 Boss 回退规则。Nova 前摇使用现有 heroCasts 保存；贯穿伤害由模拟完成，skill-line 为不存档的一次性表现事件。UI 与寻路/空间缓存均可重建。
+
+## 2026-10-12 加载与材质缓存边界
+
+见 [加载优化](project/LOADING_OPTIMIZATION_20261012.md)。开屏可选通用模型预热与正式入口共享一个任务，入口等待它后再修改场景；不写 World 或存档。源纹理解码复用，材质包装与每实体状态独立。着色器仅在生成的颜色／深度 GLSL、实例模式及 UV 布局精确一致时共享自定义程序键，Three 自身仍处理其余变体。预编译与分组绘制共用正式线性 HDR 目标；启动异步编译即恢复目标，最终后处理帧统一等待 GPU；上下文失效不标记就绪。模拟、相机、光照、资源与格式不改。

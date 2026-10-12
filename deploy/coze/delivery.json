@@ -1,7 +1,7 @@
 {
-  "status": "Calibrated team-following perspective camera, independent orientation zoom preferences, native wheel/keyboard/canvas pinch controls and settings; original gameplay/resources/save schemas retained; local validation only; no live deployment",
-  "appBuildId": "2bc589bf5fca1153bb2ffe51f910e7b55346ae76dd5bbc7402e67125d2f88c0e",
-  "packageBuildId": "33f3907a9cc5b7d1582bc0de0a3ae1d4bcf78167263b64937e3bd58ebed1bf63",
+  "status": "Shared original texture decoding, exact generated shader reuse, bounded screen prewarming and optional common opening warmup; original camera, gameplay, assets and saves retained; local validation only; no live deployment",
+  "appBuildId": "8c91b5d6512dc439fcaaefea6c11288b029b5a3ea85850d13652e46559792d7d",
+  "packageBuildId": "6e3d1712c04d8866f2d43ae08c4f63eda333c527dddce7728b9c6ac7932a0172",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
@@ -122,6 +122,11 @@
       "sha256": "c6c7f6c548251a844a03729681184149fad747de697c68c2e328d097c9068e4c"
     },
     {
+      "path": "LOADING_OPTIMIZATION_20261012.md",
+      "bytes": 4718,
+      "sha256": "cd75a414c17ac1ec1c2862d807e06651e8aab5eb556d87a4aa07043d9cc3bac5"
+    },
+    {
       "path": "MAINTENANCE_SCOPE_20261008.md",
       "bytes": 2695,
       "sha256": "107ac4b414a3b9f01b4d6f1271523250ff447f0621830b36cfd15f060f462e14"
@@ -159,12 +164,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "613d96cc89ab6a493b0b8c547873a6a4280450b790866e5f74cdfc9e94142a58"
+      "sha256": "c9a85b5510f08ff0e7d3d606142ae9be4b1de04d9d7021af28a7050cb0ae0d7d"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "a8b60399002c6f4c1b90370427ecfe3fee0e459237309ac89e7b28ec05921d30"
+      "sha256": "c4ff6f4e002168cd7c38eeb520fc5d92321734dddfd58d887612b745b18e023c"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -177,19 +182,19 @@
       "sha256": "eff0ae3ac9d4333eaab3aa3aee319155c2ecdd08a02c6de92ff8398184aa948c"
     },
     {
-      "path": "public/assets/index-BHusfXFm.js",
-      "bytes": 6685869,
-      "sha256": "c4bfb46c3b1cb67e21530f73d57cd56f30e92aeb03ed535c827b3e3e8152ee34"
-    },
-    {
       "path": "public/assets/index-CnTymvdV.css",
       "bytes": 489073,
       "sha256": "a17106618e8f4ac803443116572bdd5035a7d6eea43b69db37ab73259d8acd89"
     },
     {
+      "path": "public/assets/index-PdEEywBX.js",
+      "bytes": 6687477,
+      "sha256": "6fe50cbf6c97426da8aa84487b9fea1b4a4a5d17fc024a3b220b3560a2737bbd"
+    },
+    {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "e172ff7bd082753b1f975e9523b33d727dc0badc7c0ba39789be30e1c02ecb18"
+      "sha256": "bd85f8d9c259c521b4dad92af1344cfe94034d7bf65c3baf6446ba79d95d0587"
     },
     {
       "path": "public/runtime-config.json",
@@ -199,7 +204,7 @@
     {
       "path": "public/web-release.json",
       "bytes": 518,
-      "sha256": "c56a0e9c09282e445a31eb4db9c7804ea2e68ada51996b86bc59b48042b07e9d"
+      "sha256": "a01175d3e56d36f0b0114f2ad5601e6c5565ebe03e8fd8cc7a22b675f4841e03"
     },
     {
       "path": "README.md",
@@ -214,7 +219,7 @@
     {
       "path": "resource-delta.json",
       "bytes": 329,
-      "sha256": "1145951f48b68e7cfdee6cf854721d4e227b33482ed98765f3f74b6b3c8434da"
+      "sha256": "27e1457e63bc6182a0a608e82c67f7589d8920345d35bca1c1d259882271e5e9"
     },
     {
       "path": "resource-groups.json",

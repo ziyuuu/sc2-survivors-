@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "at": "2026-10-12T04:20:18.831Z",
+  "appBuildId": "8c91b5d6512dc439fcaaefea6c11288b029b5a3ea85850d13652e46559792d7d",
+  "packageBuildId": "6e3d1712c04d8866f2d43ae08c4f63eda333c527dddce7728b9c6ac7932a0172",
+  "assetRelease": "439f1237ec50ffab8b7f82882b7d8abbe1d70742efd844d18f2e301e773ed195",
+  "html": {
+    "path": "dist/SC2-Survivors-Loading-Optimized-Final-20261012.html",
+    "bytes": 635725977,
+    "sha256": "f92c24aa8bbfecc30e7293114b885d43ef41d9f40187bb7ce4e0f2fb81fe99bd"
+  },
+  "zip": {
+    "path": "dist/Loading-Optimized-Final-Application-20261012.zip",
+    "bytes": 10005032,
+    "sha256": "2a9b49bebbfa96d7a89cadbbc159d3590d8671657654f4c62a76c1c6301f1699",
+    "files": 190,
+    "packageBuildId": "6e3d1712c04d8866f2d43ae08c4f63eda333c527dddce7728b9c6ac7932a0172",
+    "verifiedRoundTrip": true,
+    "deployed": false
+  },
+  "regressions": 1361,
+  "compiledInputs": 322,
+  "pairedStates": 178,
+  "pixelExact": 128,
+  "diagnostics": {
+    "visual-baseline-final": {
+      "records": 138,
+      "build": "a99c0d50f75725b4eebb6027dbb8146a6082e77b20e133b3a8d28b12d0539bd4"
+    },
+    "visual-candidate-r1": {
+      "records": 138,
+      "build": "e1b18f7204aa3c4af4708adb23b05c64b0985a678c2061d4248910574b7fabc0"
+    },
+    "sequence-baseline-r2": {
+      "records": 40,
+      "build": "a99c0d50f75725b4eebb6027dbb8146a6082e77b20e133b3a8d28b12d0539bd4"
+    },
+    "sequence-candidate-r2": {
+      "records": 40,
+      "build": "e1b18f7204aa3c4af4708adb23b05c64b0985a678c2061d4248910574b7fabc0"
+    },
+    "lifecycle-candidate-r1": {
+      "records": 20,
+      "build": "e1b18f7204aa3c4af4708adb23b05c64b0985a678c2061d4248910574b7fabc0"
+    }
+  },
+  "formal": {
+    "formal-web-r3": {
+      "screens": 8,
+      "exports": 8,
+      "maps": 5,
+      "checks": 0,
+      "offline": false
+    },
+    "formal-offline-r1": {
+      "screens": 8,
+      "exports": 8,
+      "maps": 5,
+      "checks": 0,
+      "offline": true
+    },
+    "formal-missing-r1": {
+      "screens": 2,
+      "exports": 0,
+      "maps": 0,
+      "checks": 2,
+      "offline": false
+    }
+  },
+  "startupCases": 4,
+  "resources": {
+    "records": 881,
+    "files": 863,
+    "new": 0,
+    "originalSources": 799,
+    "unchangedBackendVendorConfig": 152
+  },
+  "loading": {
+    "race": "terran",
+    "map": "玛萨拉荒漠",
+    "method": "Single paired cold-browser local observation, fixed native seed 529, 1280x720 DPR1, same AMD integrated GPU. Not a universal device or natural performance claim.",
+    "beforeEntryMs": 121987.6000000001,
+    "afterEntryMs": 93765.90000000037,
+    "reductionPercent": 23.13489239889931,
+    "beforeNavigationToReadyMs": 125790,
+    "afterNavigationToReadyMs": 97924,
+    "beforeMenuMs": 3047.0999999996275,
+    "afterMenuMs": 2340.2999999998137
+  },
+  "limits": [
+    "Anchor-priority camera and existing framing limits retained",
+    "Localized screenshot color differences recorded, not pixel-perfect equivalence",
+    "Not original-client or human visual acceptance",
+    "Natural campaign, physical devices, high-refresh/low-memory, source/Science Vessel/P6-V01/production/B4 gates remain open",
+    "Overall FPS and quality-tier optimization remains deferred"
+  ],
+  "onlineOperation": false
+}
