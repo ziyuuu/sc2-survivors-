@@ -265,6 +265,22 @@
     "cause": "CI fetched only deploy/runtime/assets/**; original M3/M3A/DDS provenance tests read untouched Git LFS pointers. All three observed wrong hashes exactly match tracked pointer bytes. Two DDS paths share one pointer, so there are four matching paths.",
     "fix": "Download only the already-tracked m3 and dds source directories in the existing CI LFS fetch. Keep all provenance assertions unchanged.",
     "gameBuildUnchanged": true,
-    "finalResultEvidence": "reports/local/combat-effects-20261012/git-sync.json"
+    "finalResultEvidence": "reports/local/combat-effects-20261012/git-sync.json",
+    "secondRun": {
+      "commit": "886f31d278ca62501b03983c3cb843c70fd0c537",
+      "run": 38285348439,
+      "passed": 1386,
+      "failed": 3,
+      "cause": "Three original-provenance tests progressed past pointer checks and found local-only extracted originals absent from the checkout.",
+      "repair": {
+        "requiredSources": 236,
+        "trackedSources": 67,
+        "fromPinnedCasc": 169,
+        "downloadBytes": 108248976,
+        "freshSamplesVerified": 3,
+        "newPrivateOriginalFilesPublished": 0,
+        "sourceAssertionsUnchanged": true
+      }
+    }
   }
 }

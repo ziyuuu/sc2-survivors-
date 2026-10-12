@@ -104,4 +104,6 @@
 
 首个正常提交 `91deff4` 的 Linux CI 有 1386 项通过、3 项失败：外部动画源、材质 DDS 源和本轮效果 M3 源的散列检查。运行资源成功还原，但工作流只下载 `deploy/runtime/assets/**`，原始来源仍是 Git LFS 指针。`ci-r1-cause.json` 将三个实际错误散列逐一匹配到仓库指针字节，指针中的原始散列与本地真实文件相符。后续仅在 CI 下载中加入已跟踪的 `assets/private/m3/**` 和 `assets/private/dds/**` 两个目录，保留原测试和全部散列断言；不上传额外私有档案，不修改源资源或 R3 游戏成品。相关两个测试文件的 27 项本地复验全部通过，334 个正式编译输入再次保持一致。远端复验结果和后续提交号见 `git-sync.json`；首次失败日志保留在 `ci-r1-failure.log`，本地首次子进程 EPERM 和成功重跑分别保留在 `ci-source-regressions.log`／`ci-source-regressions-r2.log`。
 
+第二次 CI `38285348439` 成功读取这些 LFS 原件后，仍有 3 项因缺少本地提取缓存中的来源文件而失败。完整清单核对显示：既有来源测试读取 236 个文件，其中 67 个已在 Git，169 个／108248976 bytes 需按既有依赖表从公开、锁定的 B97563 CASC 恢复。`prepare-ci-provenance.mts` 逐一验证已有原件，拒绝覆盖改变的原件，只为缺失文件生成带源路径、字节数和 SHA-256 的恢复清单；CI 调用已有 CASC 提取器，新增 `-SkipAudio` 仅用于不涉及音频的来源测试准备。原测试保持，忽略的私有原件不新增到 Git 或 CI 上传产物。三个实际失败样本 Reaper M3、外部 M3A、Zagara DDS 在隔离缓存重新下载并逐字节校验通过；证据为 `ci-checkout-source-plan.json`、`ci-fresh-download-r1.json` 与 `ci-source-restoration-verification.json`，第二次远端失败日志保留在 `ci-r2-failure.log`。R3 游戏成品和全部正式编译输入保持原样。
+
 其余线程的 ROADMAP、dev、三族流程规范、随机事件／Starship 概念及三套预览保持。未完成的屏幕折射、科学球来源、密集可读性、原版实际客户端匹配、人类／自然／物理设备／高刷新／低内存及既有 source／P6-V01／production／B4 门槛继续开放。整体性能与画质档仍在剩余视觉／客户端修复之后，并需再做视觉回归。

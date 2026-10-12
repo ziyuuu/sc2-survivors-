@@ -11,6 +11,8 @@
 
 - CI follow-up: first normal commit91deff4 uploaded234new LFS objects; Linux CI1386pass/3fail because original M3/M3A/DDS were still LFS pointers (all3wrong SHA values exactly proven as pointer bytes). Fetch the already-tracked assets/private/m3/** and assets/private/dds/** in CI as well as runtime assets; retain all source hash tests. This changes workflow/docs only, not final R3 game bytes. Keep ci-r1-failure.log and ci-r1-cause.json; final remote commit/CI result recorded separately in git-sync.json.
 
+- CI follow-up2: run38285348439 exposed absent local-only originals after LFS pointers were resolved. Existing exact-source tests need236files:67tracked and169/108248976bytes restored from pinned public B97563 CASC using existing path/size/SHA metadata. prepare-ci-provenance.mts refuses changed originals and creates a missing-only plan; fetch-sc2-casc -SkipAudio keeps its normal audio path unchanged. Fresh isolated Reaper M3/M3A and Zagara DDS downloads hash-pass. No new private-original Git publication or CI artifact upload, no weakened source tests, no changed R3 runtime bytes. Preserve both failed remote runs and all local evidence; final CI is recorded in git-sync.json.
+
 ## Approved opening budget, background preparation and cinematic camera · 2026-10-12
 
 - User explicitly approved the complete plan from b1a7cfb, retaining fixed/auto and perspective size variation, then named delivery, local mirror and detailed normal main commit/push. Scope/results: docs/project/CINEMATIC_PRELOAD_20261012.md and CINEMATIC_PRELOAD_VALIDATION_20261012.md; raw evidence reports/local/cinematic-preload-20261012. Do not revert to earlier answers-only restrictions.

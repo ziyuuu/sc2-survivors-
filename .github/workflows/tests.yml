@@ -20,6 +20,10 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm run assets:restore
+      - run: node --import tsx tools/prepare-ci-provenance.mts
+      - name: Restore missing pinned original test sources
+        shell: pwsh
+        run: ./tools/fetch-sc2-casc.ps1 -TargetFile '../.cache/ci-provenance-targets.json' -OutputFile 'reports/local/ci-source-provenance.json' -SkipAudio
       - run: npm test
       - run: npm run typecheck
       - run: npm run docs:check

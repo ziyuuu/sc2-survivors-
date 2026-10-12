@@ -1,6 +1,6 @@
 #requires -Version 7.4
 # Public SC2 CDN, exact pinned files only. No full client/archive download or credentials.
-param([string]$Python='python', [switch]$VerifyOnly, [switch]$Refetch, [string]$TargetFile='sc2-casc-targets.json', [string]$OutputFile='assets/private/casc-import.json')
+param([string]$Python='python', [switch]$VerifyOnly, [switch]$Refetch, [switch]$SkipAudio, [string]$TargetFile='sc2-casc-targets.json', [string]$OutputFile='assets/private/casc-import.json')
 $ErrorActionPreference='Stop'
 $projectRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $lock=Get-Content (Join-Path $PSScriptRoot 'sc2-casc-lock.json') -Raw | ConvertFrom-Json
@@ -78,5 +78,7 @@ $report=ProjectPath $OutputFile
 $records | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $report -Encoding utf8
 Write-Output ('Verified and installed '+$records.Count+' original SC2 files. Run assets:prepare/build for runtime packaging.')
 
-& $Python -X utf8 (Join-Path $PSScriptRoot 'convert-sc2-audio.py')
-if($LASTEXITCODE){throw 'Original files downloaded; PCM conversion needs the local audio requirements shown above.'}
+if(-not $SkipAudio){
+ & $Python -X utf8 (Join-Path $PSScriptRoot 'convert-sc2-audio.py')
+ if($LASTEXITCODE){throw 'Original files downloaded; PCM conversion needs the local audio requirements shown above.'}
+}
