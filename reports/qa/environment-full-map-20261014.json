@@ -1,0 +1,458 @@
+{
+  "at": "2026-10-14T03:14:14.121Z",
+  "passed": true,
+  "status": "Authorized steps 1 and 2 implemented and locally verified; building integration checked before edits.",
+  "wholeMvpComplete": false,
+  "wholeMvp5Complete": false,
+  "building": {
+    "preEditExactFiles": 21,
+    "existingFormalInputs": 315,
+    "existingFormalFiles": 6,
+    "freshFocusedRules": 151,
+    "afterExactFiles": 20,
+    "sharedRenderer": "Only full-map factory import and model preparation list changed.",
+    "newRunsOnly": true
+  },
+  "layout": {
+    "themes": 5,
+    "groupsPerTheme": 20,
+    "transitionsPerTheme": 6,
+    "boundariesPerTheme": 4,
+    "ruleSeeds": [
+      529,
+      1,
+      4294967295
+    ],
+    "posedGeometrySeed": 529,
+    "independentPresentationRng": true,
+    "nativeTerrainAndCollisionPreserved": true
+  },
+  "formal": {
+    "web": "dist/MVP5-Full-Map-Main-20261014-R3",
+    "appBuildId": "a69897a3ce015483cf217afba674633e1aeea0653902047ed7b95a43a052a697",
+    "diagnostic": false,
+    "compiledInputs": 324,
+    "builtFiles": [
+      {
+        "file": "asset-manifest.b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615.json",
+        "bytes": 289072,
+        "sha256": "8488fd0475a67b07c54785a2ca15ca697eaf358126891d1f437dd59422c527df"
+      },
+      {
+        "file": "assets/index-C75osoaH.js",
+        "bytes": 24166643,
+        "sha256": "2901b968a63e7a18023e6b9b0602432e93035ea7c5ab96322759b982b22964c5"
+      },
+      {
+        "file": "assets/index-CjyyYeaB.css",
+        "bytes": 504082,
+        "sha256": "a58604df280ae616671a26e8624ec73952bf23e5d6f20b03a4ad06245cbdd2d2"
+      },
+      {
+        "file": "index.html",
+        "bytes": 955146,
+        "sha256": "0f519042af976387423831dcb3bea305514357c79baf66ac4d35ea908d8dfe2a"
+      },
+      {
+        "file": "runtime-config.json",
+        "bytes": 19,
+        "sha256": "126217dff5079b655a2d3b45211b2fa388ee35a7d413b1f54fbda29a0cb71b90"
+      },
+      {
+        "file": "web-release.json",
+        "bytes": 595,
+        "sha256": "ad02217b242290e39cf0c6da527d00d2dea1a9ca8f739a6019311f342ded529a"
+      }
+    ],
+    "threeRaceBrowser": {
+      "actualBuild": "a69897a3ce015483cf217afba674633e1aeea0653902047ed7b95a43a052a697",
+      "actualDirectory": "dist/MVP5-Full-Map-Main-20261014-R1",
+      "checks": 7,
+      "screens": 16,
+      "errors": 0,
+      "contextRestore": 1
+    },
+    "finalR3Zerg": {
+      "checks": 2,
+      "screens": 5,
+      "errors": 0
+    },
+    "metadataCorrection": {
+      "at": "2026-10-14T02:53:48.340Z",
+      "oldBuild": "dist/MVP5-Full-Map-Main-20261014-R1",
+      "newBuild": "dist/MVP5-Full-Map-Main-20261014-R2",
+      "changedFiles": [
+        "web-release.json"
+      ],
+      "reason": "R1 inherited the previous release sharedBytes statistic; R2 recomputes it from its own logical and physical bytes.",
+      "oldSharedBytes": 4228144,
+      "sharedBytes": 4375579,
+      "identicalCompiledInputs": 324,
+      "identicalGameAndManifestFiles": [
+        "asset-manifest.b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615.json",
+        "assets/index-C75osoaH.js",
+        "assets/index-CjyyYeaB.css",
+        "index.html",
+        "runtime-config.json"
+      ],
+      "appBuildId": "a69897a3ce015483cf217afba674633e1aeea0653902047ed7b95a43a052a697",
+      "priorEvidenceMustKeepR1": true
+    },
+    "byteEquality": {
+      "at": "2026-10-14T03:09:59.572Z",
+      "passed": true,
+      "prior": "dist/MVP5-Full-Map-Main-20261014-R2",
+      "final": "dist/MVP5-Full-Map-Main-20261014-R3",
+      "changedSourceFiles": [
+        "src/render/terrain/environment-sample-shores.ts"
+      ],
+      "reason": "Remove one trailing source-code space only",
+      "identicalBuiltFiles": [
+        {
+          "file": "asset-manifest.b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615.json",
+          "bytes": 289072,
+          "sha256": "8488fd0475a67b07c54785a2ca15ca697eaf358126891d1f437dd59422c527df"
+        },
+        {
+          "file": "assets/index-C75osoaH.js",
+          "bytes": 24166643,
+          "sha256": "2901b968a63e7a18023e6b9b0602432e93035ea7c5ab96322759b982b22964c5"
+        },
+        {
+          "file": "assets/index-CjyyYeaB.css",
+          "bytes": 504082,
+          "sha256": "a58604df280ae616671a26e8624ec73952bf23e5d6f20b03a4ad06245cbdd2d2"
+        },
+        {
+          "file": "index.html",
+          "bytes": 955146,
+          "sha256": "0f519042af976387423831dcb3bea305514357c79baf66ac4d35ea908d8dfe2a"
+        },
+        {
+          "file": "runtime-config.json",
+          "bytes": 19,
+          "sha256": "126217dff5079b655a2d3b45211b2fa388ee35a7d413b1f54fbda29a0cb71b90"
+        },
+        {
+          "file": "web-release.json",
+          "bytes": 595,
+          "sha256": "ad02217b242290e39cf0c6da527d00d2dea1a9ca8f739a6019311f342ded529a"
+        }
+      ],
+      "identicalViewerAndOfflineBundles": true,
+      "appBuildId": "a69897a3ce015483cf217afba674633e1aeea0653902047ed7b95a43a052a697"
+    }
+  },
+  "nativeFiveMap": {
+    "build": "fd69fb8b492e61c16ff6296cdcad6f20f405ba66f2874ec7a132f70b69112c72",
+    "checks": 15,
+    "screens": 15,
+    "errors": 0,
+    "fixtures": "Map ticket theme/seed; stage18 anchor/native-camera fixture only for late boundary. Native new-run readiness and keyboard movement; not natural campaign."
+  },
+  "viewer": {
+    "first": {
+      "screens": 44,
+      "visualIssue": "Ice shoreline overlapped a native outer pipe; retained"
+    },
+    "corrected": {
+      "screens": 24,
+      "errors": 0,
+      "actualContextRestoreExact": true,
+      "pauseCanvasExact": true,
+      "repeatedResourceCounts": [
+        {
+          "geometries": 29,
+          "textures": 79
+        },
+        {
+          "geometries": 32,
+          "textures": 66
+        },
+        {
+          "geometries": 29,
+          "textures": 79
+        },
+        {
+          "geometries": 32,
+          "textures": 66
+        }
+      ]
+    },
+    "boundedVisualReview": "reports/local/mvp5-full-map-20261014/visual-review.json"
+  },
+  "offlineViewer": {
+    "file": "dist/SC2-Survivors-Environment-Full-Maps-20261014.html",
+    "bytes": 66004808,
+    "sha256": "65249c459de3522867edbc6822c106d26196291c3891818d17e4d0d4e4cee68e",
+    "embeddedAssets": 169,
+    "currentPoints": 40,
+    "oldThemes": 5,
+    "screens": 11,
+    "httpRequests": 0,
+    "errors": 0,
+    "firstAttempt": "Retained incomplete after an unexplained stall; identical HTML passed full second run with explicit progress and bounded waits.",
+    "playableGame": false
+  },
+  "resources": {
+    "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+    "ids": 1217,
+    "files": 1168,
+    "physicalBytes": 823440309,
+    "logicalBytes": 827815888,
+    "sharedBytes": 4375579,
+    "old1177HashesRetained": true,
+    "newIds": [
+      "model.map.barrels_01",
+      "model.map.brambles_01",
+      "model.map.cliffmade13_bbbc_00",
+      "model.map.cliffnatural0ex1_bbbc_00",
+      "model.map.compoundsewers_exhaustpipes_02",
+      "model.map.crate_01",
+      "model.map.crate_02",
+      "model.map.crystalslow_01",
+      "model.map.halfstructureplates_01",
+      "model.map.marsaracactus_01",
+      "model.map.marsaratreedead_02",
+      "model.map.pipescorner_01",
+      "model.map.purificationdesert_medium_rock_group_00",
+      "model.map.rock_01",
+      "model.map.rocklarge_01",
+      "model.map.dom_crate_01",
+      "model.map.jarbanminor_cranepart_06",
+      "model.map.mineralcart_01",
+      "environment.sample.elsecaro_rock_mediumgroup_splat_diff_00",
+      "environment.sample.elsecaro_rock_mediumgroup_splat_norm_00",
+      "environment.sample.cargotruck_environmentmap",
+      "environment.sample.cargotruck_environmentmask",
+      "environment.sample.jarbonminor_crane_gloss",
+      "environment.sample.jarbanminor_cranepart_splat04",
+      "environment.sample.jarbanminor_cranepart_splat06",
+      "environment.sample.jarbanminor_miningbot_gloss",
+      "environment.sample.fireball_1",
+      "environment.sample.jarbanminor_miningbot_splat00",
+      "environment.sample.heatwave1backup",
+      "environment.sample.largesmoke1_b",
+      "environment.sample.jarbanminor_miningbot_broken_splat00_diff",
+      "environment.sample.jarbanminor_miningbot_broken_splat00_norm",
+      "environment.sample.jarbanminor_miningbot_broken_splat00_spec",
+      "environment.sample.cliffnatural2_diffuse_00",
+      "environment.sample.cliffnatural2_normal_00",
+      "environment.sample.lavabase",
+      "environment.sample.lavatoprocknormal",
+      "environment.sample.lavatoprock",
+      "environment.sample.lavatoprockemissive",
+      "environment.sample.lavarandom_r1"
+    ],
+    "newOriginalPixels": false,
+    "dependenciesChanged": false,
+    "pinnedOriginalPreparation": {
+      "required": 281,
+      "tracked": 74,
+      "missingToRestore": 207,
+      "isolatedNestedSourceBytes": 1398260
+    }
+  },
+  "cost": {
+    "method": "Three alternating-order fresh-context pairs per industrial/ice map, same frozen native camera and seed 529, 1440x900 DPR1. Existing pre-layout bundle and full-layout bundle. Terrain viewer only, headless Chrome on this host, normal browser throttling; OS/driver/filesystem caches not reset. RAF samples and manual draw-to-GPU-completion samples are separate. Does not establish ordinary gameplay 60 FPS, physical latency or 7B acceptance.",
+    "summary": [
+      {
+        "theme": "industrial",
+        "before": true,
+        "runs": 3,
+        "loadMs": 613.5,
+        "rafMedianMs": 16.699999999999818,
+        "rafP95Ms": 16.799999999999727,
+        "drawThroughGpuCompletionMs": 0.8000000007450581,
+        "wholeFrameDrawCalls": 48,
+        "wholeFrameTriangles": 212274,
+        "memory": {
+          "geometries": 12,
+          "textures": 56
+        }
+      },
+      {
+        "theme": "industrial",
+        "before": false,
+        "runs": 3,
+        "loadMs": 820,
+        "rafMedianMs": 16.699999999999818,
+        "rafP95Ms": 16.800000000000182,
+        "drawThroughGpuCompletionMs": 1.300000000745058,
+        "wholeFrameDrawCalls": 78,
+        "wholeFrameTriangles": 189106,
+        "memory": {
+          "geometries": 32,
+          "textures": 62
+        }
+      },
+      {
+        "theme": "ice",
+        "before": true,
+        "runs": 3,
+        "loadMs": 704.3000000007451,
+        "rafMedianMs": 16.699999999999818,
+        "rafP95Ms": 16.799999999999955,
+        "drawThroughGpuCompletionMs": 0.8000000007450581,
+        "wholeFrameDrawCalls": 48,
+        "wholeFrameTriangles": 176779,
+        "memory": {
+          "geometries": 13,
+          "textures": 52
+        }
+      },
+      {
+        "theme": "ice",
+        "before": false,
+        "runs": 3,
+        "loadMs": 851.9000000003725,
+        "rafMedianMs": 16.699999999999818,
+        "rafP95Ms": 16.800000000000182,
+        "drawThroughGpuCompletionMs": 1.300000000745058,
+        "wholeFrameDrawCalls": 76,
+        "wholeFrameTriangles": 192994,
+        "memory": {
+          "geometries": 29,
+          "textures": 64
+        }
+      }
+    ],
+    "performanceAcceptance": false
+  },
+  "regressions": {
+    "passed": 1412,
+    "failed": 0,
+    "typecheck": true,
+    "dataDocs": true,
+    "talentDefinitions": 165
+  },
+  "evidence": [
+    {
+      "file": "reports/local/mvp5-full-map-20261014/building-entry-audit.json",
+      "bytes": 63421,
+      "sha256": "c2f6ecae7a8a1591d3593a903bc1d229689686cd5a3388ade05d047461b98c63"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/building-post-layout.json",
+      "bytes": 6113,
+      "sha256": "ddc819f612c92a1eae81184c5b71f986fed41829b4f0d094b52b55b1d2a141d5"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/renderer-map-only.diff",
+      "bytes": 5179,
+      "sha256": "1ff8193aefe24d337fe0e80ee6bb1cae4a8862d06308ee5c4620d6d906603b6d"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/main-r1/result.json",
+      "bytes": 1119689,
+      "sha256": "2aa8bd1b1c9f6a9f7b4c54f357b511440dda2a376c4de77193e821b46377ea2e"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/main-r2/result.json",
+      "bytes": 7755302,
+      "sha256": "3116cf159c55029fa4a9b0925ab27e6219505494f95c35f12c63f0e317c53bf1"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/formal-r1/result.json",
+      "bytes": 14504550,
+      "sha256": "c6f4930e7040eceadb2e394e01c24cc0d4d6a419f780738ea5209f163263e33e"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/formal-r3-zerg/result.json",
+      "bytes": 4215498,
+      "sha256": "bf2ada7f4d503c7b1c82d3a9e301f4a8dfd52306d89662ec2824b19a1c1614fa"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/formal-r3-http.json",
+      "bytes": 1106,
+      "sha256": "35c551630f66229edf0408311f5e0cecea9b6c7258fcaac7295e4bb6236d88b3"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/viewer-r1/result.json",
+      "bytes": 14563073,
+      "sha256": "42d292e1fc29e3a7fadf380ca8b6c340f51f54d8f8c310811ffb990b1e548dc4"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/viewer-r2/result.json",
+      "bytes": 7657867,
+      "sha256": "0f7bb575dbeacca6363eb05c29629384ecdbef595785fc89522170444139f7bd"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/viewer-build.json",
+      "bytes": 22960,
+      "sha256": "dd0c7a1e2d70534c1ff5604c0fd9ac7f8e60c69ca6a2aad2a99e23acf4dab4a8"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/offline-viewer/build.json",
+      "bytes": 45880,
+      "sha256": "51f5788813f7f1bba4ef6e8c4b65f0e9a7e9cdcd197d0f34e5815ab73068c773"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/offline-viewer/check-r1/failure.json",
+      "bytes": 455,
+      "sha256": "d4087216401e827c1a874904dd3c6710ad5f9511bd07bc510dea3d0c5fe20445"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/offline-viewer/check-r2/result.json",
+      "bytes": 2431,
+      "sha256": "71a9ad9fb0d25abf3687c6c464acecd6d2d8ab20c399b40377569b19a1fab880"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/cost-r1/result.json",
+      "bytes": 2380537,
+      "sha256": "edef4d745f526ba0383c170255eff28d57ed777e5a2e360e0ae29e47b5e7326e"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/ci-nested-restoration/result.json",
+      "bytes": 570,
+      "sha256": "de319630a48eb8d2840a5c3f900f8164ecd8ca6382d938c34190294ea4f1a72b"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/visual-review.json",
+      "bytes": 15875,
+      "sha256": "4c4da66fdd30b3e36fd5ab39cd48f2d9887f2a4326ade2b4592d21e72a3aa709"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/formal-metadata-correction.json",
+      "bytes": 773,
+      "sha256": "278f7381c2aee94b48f494d2d9354a65793adcc666120f1cb17fe8e1867f6a60"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/formal-r3-byte-equality.json",
+      "bytes": 1453,
+      "sha256": "1acc41df0d817736d64d48dff423e3b435191bfa7b49e546514a78e6ca0903a7"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/regression-r1.log",
+      "bytes": 149394,
+      "sha256": "0fb7993239405319f71af2419d04592bcbf29bdee33feccd6546ea1d9004bd2d"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/building-focused-r2.log",
+      "bytes": 15550,
+      "sha256": "fa7364d9b86a03ffd75193f3ac827ef1e54d587f073ae5ab6d1bc413bb39c9d3"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/layout-r3.log",
+      "bytes": 579,
+      "sha256": "0098e1c6028739515086fdbb6c4d6c48af91ea601142bcf88c0aa06e58ebfdec"
+    },
+    {
+      "file": "reports/local/mvp5-full-map-20261014/runtime-check.log",
+      "bytes": 175,
+      "sha256": "fc2f26d8df7896c2103ef6beb646b145923d528928f2f53e636ec9e9f87f2b78"
+    }
+  ],
+  "remaining": [
+    "Step3 complete playable offline package, application/update lifecycle and five-map/endless affected resource failures/restores",
+    "Step4 natural movement, production delivery and interaction tour",
+    "Step5 final candidate delivery and concentrated user review",
+    "Old-save migration/final restoration, physical input, human acceptance, full-content 60FPS/7B, production/B4"
+  ],
+  "deliveryBoundary": {
+    "currentAndApplicationMirror": "Previous 0.6.26 retained",
+    "onlineDeployment": false,
+    "privateOriginalPublication": false,
+    "unrelatedStarshipWorkIncluded": false
+  }
+}

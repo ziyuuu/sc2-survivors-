@@ -1,0 +1,1106 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "environment.sample.elsecaro_rock_mediumgroup_splat_diff_00",
+      "url": "assets/environment-samples/elsecaro_rock_mediumgroup_splat_diff_00.png",
+      "packedFile": "public/assets/environment-samples/elsecaro_rock_mediumgroup_splat_diff_00.png",
+      "bytes": 18028,
+      "sha256": "9cdfdcf05fb582a96d2ed95fc083dace6227122866adb4fed2e87c6bdcf002c9",
+      "width": 256,
+      "height": 256,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_rock_mediumgroup_splat_diff_00.dds",
+      "sourceSha256": "f6aeeec415e21adc770a43beccdd1512fc1c65506639f6afec50f5f8faf59dd2",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.elsecaro_rock_mediumgroup_splat_norm_00",
+      "url": "assets/environment-samples/elsecaro_rock_mediumgroup_splat_norm_00.png",
+      "packedFile": "public/assets/environment-samples/elsecaro_rock_mediumgroup_splat_norm_00.png",
+      "bytes": 2696,
+      "sha256": "74ad3fa173716f143b6796ceff45cc241aaf623e3bbd8c0362ffbd94abc4f608",
+      "width": 256,
+      "height": 256,
+      "linear": true,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_rock_mediumgroup_splat_norm_00.dds",
+      "sourceSha256": "76da69f2b0e92c946444247d315c0289be129e66c91c2aa8af8132e433da389c",
+      "conversion": "SC2 tangent X from alpha, inverted green Y; reconstructed normalized Z",
+      "face": null
+    },
+    {
+      "id": "environment.sample.cargotruck_environmentmap",
+      "url": "assets/environment-samples/cargotruck_environmentmap.png",
+      "packedFile": "public/assets/environment-samples/cargotruck_environmentmap.png",
+      "bytes": 1258,
+      "sha256": "bedd960cb02fa8cf5e55125b7e179fb1a9d45a1f2bf40ddfaa723cc4d3b4d85d",
+      "width": 64,
+      "height": 64,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cargotruck_environmentmap.dds",
+      "sourceSha256": "a8f3a7fa8ca1d7ab2f37d00b51e1ccf627da20672efa2fb7d973b1ae8c6a508d",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.cargotruck_environmentmask",
+      "url": "assets/environment-samples/cargotruck_environmentmask.png",
+      "packedFile": "public/assets/environment-samples/cargotruck_environmentmask.png",
+      "bytes": 316052,
+      "sha256": "3e6f40529ae83c61b4cf21d5ade88a00e23978b4beb9e4df92af66765facbf43",
+      "width": 1024,
+      "height": 1024,
+      "linear": true,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cargotruck_environmentmask.dds",
+      "sourceSha256": "e33421f57af50d869ab2a3f0b27b5d865eebcd2fb85cdb03fa6e86d625b74904",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.jarbonminor_crane_gloss",
+      "url": "assets/environment-samples/jarbonminor_crane_gloss.png",
+      "packedFile": "public/assets/environment-samples/jarbonminor_crane_gloss.png",
+      "bytes": 742307,
+      "sha256": "8a46265cb469fb44144e2f0c84d2f4f180decd7e419824ded310e7a0b0c059fb",
+      "width": 1024,
+      "height": 1024,
+      "linear": true,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbonminor_crane_gloss.dds",
+      "sourceSha256": "ea70d9119b30608d37863a77095f5768b303ef019bd9d574c3c8968dc5a00211",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.jarbanminor_cranepart_splat04",
+      "url": "assets/environment-samples/jarbanminor_cranepart_splat04.png",
+      "packedFile": "public/assets/environment-samples/jarbanminor_cranepart_splat04.png",
+      "bytes": 1932,
+      "sha256": "3948849453325257d818c094447eda99836e8b247960deb6ae44130b091329e1",
+      "width": 128,
+      "height": 128,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_cranepart_splat04.dds",
+      "sourceSha256": "105052eb607b305e9d511ab1c91ae01b71b3657e9faa604fbb1240e604d7f8d5",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.jarbanminor_cranepart_splat06",
+      "url": "assets/environment-samples/jarbanminor_cranepart_splat06.png",
+      "packedFile": "public/assets/environment-samples/jarbanminor_cranepart_splat06.png",
+      "bytes": 3131,
+      "sha256": "e625a32c9e922896f2bbd0364ddab36282b95b9bac7898ced92367e7fcd58add",
+      "width": 128,
+      "height": 128,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_cranepart_splat06.dds",
+      "sourceSha256": "e9abc619135537d71e38e5a1c2302c90354cd9fe912b8328bba8af5826073f32",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.jarbanminor_miningbot_gloss",
+      "url": "assets/environment-samples/jarbanminor_miningbot_gloss.png",
+      "packedFile": "public/assets/environment-samples/jarbanminor_miningbot_gloss.png",
+      "bytes": 554390,
+      "sha256": "6c65f92a5c24e90d8b39582da1c9d29448effe1ec402e1167c9f3eb34713ab1f",
+      "width": 1024,
+      "height": 1024,
+      "linear": true,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_gloss.dds",
+      "sourceSha256": "17449dcaa59b0d59af063f7221980b944f5bb38bbd9dad7f3c47322df7130e44",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.fireball_1",
+      "url": "assets/environment-samples/fireball_1.png",
+      "packedFile": "public/assets/environment-samples/fireball_1.png",
+      "bytes": 67830,
+      "sha256": "17115017e60f1720ef1b2f6a0226f2687627b6df20045e045ba314c398c7b162",
+      "width": 256,
+      "height": 256,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/fireball_1.dds",
+      "sourceSha256": "a00e05173f5c3a3f8201283af53ed36e864d856c69aea5014b16e96f798850f3",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.jarbanminor_miningbot_splat00",
+      "url": "assets/environment-samples/jarbanminor_miningbot_splat00.png",
+      "packedFile": "public/assets/environment-samples/jarbanminor_miningbot_splat00.png",
+      "bytes": 7717,
+      "sha256": "c74c86f81147a3ff34c871e7620fafe50055660a87e27ab83afb13dc595cc33c",
+      "width": 128,
+      "height": 128,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_splat00.dds",
+      "sourceSha256": "c2e96651dad5870c24a4c0ce39f8c72f5e7577fc6838a2edbd0a253738039bd0",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.heatwave1backup",
+      "url": "assets/environment-samples/heatwave1backup.png",
+      "packedFile": "public/assets/environment-samples/heatwave1backup.png",
+      "bytes": 147435,
+      "sha256": "5897c7d6219fa846c988ade5b44073a9d8398497ff08879e42ec75422753e706",
+      "width": 256,
+      "height": 256,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/heatwave1backup.dds",
+      "sourceSha256": "e96e624acbcfd066d3c0e45fb8e7aaf28bea527c84c0854ba45a729e6a3074b4",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.largesmoke1_b",
+      "url": "assets/environment-samples/largesmoke1_b.png",
+      "packedFile": "public/assets/environment-samples/largesmoke1_b.png",
+      "bytes": 33887,
+      "sha256": "09ca4809656a740c825931647d595ab092b7572ea4c2127ee6c0c5e44181974c",
+      "width": 256,
+      "height": 256,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/largesmoke1_b.dds",
+      "sourceSha256": "c6061c600ed7f5f811af9a47542f80c96293f6a600b2e6044e83531a1cbfc13c",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.jarbanminor_miningbot_broken_splat00_diff",
+      "url": "assets/environment-samples/jarbanminor_miningbot_broken_splat00_diff.png",
+      "packedFile": "public/assets/environment-samples/jarbanminor_miningbot_broken_splat00_diff.png",
+      "bytes": 121645,
+      "sha256": "af0bdb545436c4b74c55690af3ea0120ab0fd95c4d8c9dd08973273bce598c2b",
+      "width": 512,
+      "height": 512,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_broken_splat00_diff.dds",
+      "sourceSha256": "a6f1a9b987285d5db980545f1e1729233469f52bbc45244a48d11477c7fa41e9",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.jarbanminor_miningbot_broken_splat00_norm",
+      "url": "assets/environment-samples/jarbanminor_miningbot_broken_splat00_norm.png",
+      "packedFile": "public/assets/environment-samples/jarbanminor_miningbot_broken_splat00_norm.png",
+      "bytes": 25345,
+      "sha256": "55ea2af427d99b3b440f65691e9d57f6176373e1d04490f4ac8ce41d79fd5d98",
+      "width": 512,
+      "height": 512,
+      "linear": true,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_broken_splat00_norm.dds",
+      "sourceSha256": "7fea687238dcebc2b4f1ea1b228971723ed617e7da6ee74c888b657b543d954a",
+      "conversion": "SC2 tangent X from alpha, inverted green Y; reconstructed normalized Z",
+      "face": null
+    },
+    {
+      "id": "environment.sample.jarbanminor_miningbot_broken_splat00_spec",
+      "url": "assets/environment-samples/jarbanminor_miningbot_broken_splat00_spec.png",
+      "packedFile": "public/assets/environment-samples/jarbanminor_miningbot_broken_splat00_spec.png",
+      "bytes": 15558,
+      "sha256": "da8ac227b9c1c43559faa60bc3b00ea09d712849505f823cacd311016d60adc6",
+      "width": 512,
+      "height": 512,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_broken_splat00_spec.dds",
+      "sourceSha256": "50c3761fe7fd15ec9337798a9d298c593eee27ca8976a7c0d018c3cfa15d7609",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.cliffnatural2_diffuse_00",
+      "url": "assets/environment-samples/cliffnatural2_diffuse_00.png",
+      "packedFile": "public/assets/environment-samples/cliffnatural2_diffuse_00.png",
+      "bytes": 2596798,
+      "sha256": "82b461e1e2d41fd95b30105bfb3a19db6aadb7205755e09f71802d33ab3a6576",
+      "width": 1024,
+      "height": 1024,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cliffnatural2_diffuse_00.dds",
+      "sourceSha256": "34bb87b2d31029f968720962367cd874c2bbde46a107940bfe69ba2d1fca2e78",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.cliffnatural2_normal_00",
+      "url": "assets/environment-samples/cliffnatural2_normal_00.png",
+      "packedFile": "public/assets/environment-samples/cliffnatural2_normal_00.png",
+      "bytes": 2165994,
+      "sha256": "c7f745071e7e6faac3acd835feb3eb026e7f8060544dc2fa155980420d880b65",
+      "width": 1024,
+      "height": 1024,
+      "linear": true,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cliffnatural2_normal_00.dds",
+      "sourceSha256": "1383d4bd882a10622976942535e723dfe797f300408eac9d0e27df801bba3d80",
+      "conversion": "SC2 tangent X from alpha, inverted green Y; reconstructed normalized Z",
+      "face": null
+    },
+    {
+      "id": "environment.sample.lavabase",
+      "url": "assets/environment-samples/lavabase.png",
+      "packedFile": "public/assets/environment-samples/lavabase.png",
+      "bytes": 39259,
+      "sha256": "921667b5a98be4534730fd3184d3de45b188d54cb3210e065aa2675ad16bcabf",
+      "width": 128,
+      "height": 128,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavabase.dds",
+      "sourceSha256": "0c83b834ed76e3fac25a7fb17786db81fe900c6b31db59053304df9c64885bc2",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.lavatoprocknormal",
+      "url": "assets/environment-samples/lavatoprocknormal.png",
+      "packedFile": "public/assets/environment-samples/lavatoprocknormal.png",
+      "bytes": 2608436,
+      "sha256": "98760392771e93596a88ad4114c962120fadae4d2bd2d28c363abfe4e55360c2",
+      "width": 1024,
+      "height": 1024,
+      "linear": true,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavatoprocknormal.dds",
+      "sourceSha256": "16d7b5b778a2e11775a2a566612cf3b6dd00fecb08262e399d4fb5de8a7707e4",
+      "conversion": "SC2 tangent X from alpha, inverted green Y; reconstructed normalized Z",
+      "face": null
+    },
+    {
+      "id": "environment.sample.lavatoprock",
+      "url": "assets/environment-samples/lavatoprock.png",
+      "packedFile": "public/assets/environment-samples/lavatoprock.png",
+      "bytes": 2538584,
+      "sha256": "7df17faa927327b33c44195cc7047ba6c1c6f34d45204cdf1470286ce553de9c",
+      "width": 1024,
+      "height": 1024,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavatoprock.dds",
+      "sourceSha256": "b1d55732717b20e8c59db7112c669d012382fde5bd3f175c820c342663e68ae0",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.lavatoprockemissive",
+      "url": "assets/environment-samples/lavatoprockemissive.png",
+      "packedFile": "public/assets/environment-samples/lavatoprockemissive.png",
+      "bytes": 874954,
+      "sha256": "8b78a786705067bcf9e4f998fb52d602a09a8c90bffcd5445fe79cbbc9021d0e",
+      "width": 1024,
+      "height": 1024,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavatoprockemissive.dds",
+      "sourceSha256": "55c612850bbde284e8e7d89be43748f7e8307c9206e2d6e061f1a91adfd9f326",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    },
+    {
+      "id": "environment.sample.lavarandom_r1",
+      "url": "assets/environment-samples/lavarandom_r1.png",
+      "packedFile": "public/assets/environment-samples/lavarandom_r1.png",
+      "bytes": 86004,
+      "sha256": "647c5bb1051babd49ce0163f319ac7963dd822137a5cb7afbdb5bfe44749883a",
+      "width": 256,
+      "height": 256,
+      "linear": false,
+      "sourceFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavarandom_r1.dds",
+      "sourceSha256": "509a24a15d91a02b3090c94062f81a2fbe804383c533f00a30d1b9986a669f91",
+      "conversion": "Original decoded RGBA, no recoloring",
+      "face": null
+    }
+  ],
+  "files": {
+    "elsecaro_rock_mediumgroup_splat_diff_00.dds": [
+      "environment.sample.elsecaro_rock_mediumgroup_splat_diff_00"
+    ],
+    "elsecaro_rock_mediumgroup_splat_norm_00.dds": [
+      "environment.sample.elsecaro_rock_mediumgroup_splat_norm_00"
+    ],
+    "cargotruck_environmentmap.dds": [
+      "environment.sample.cargotruck_environmentmap"
+    ],
+    "cargotruck_environmentmask.dds": [
+      "environment.sample.cargotruck_environmentmask"
+    ],
+    "jarbonminor_crane_gloss.dds": [
+      "environment.sample.jarbonminor_crane_gloss"
+    ],
+    "jarbanminor_cranepart_splat04.dds": [
+      "environment.sample.jarbanminor_cranepart_splat04"
+    ],
+    "jarbanminor_cranepart_splat06.dds": [
+      "environment.sample.jarbanminor_cranepart_splat06"
+    ],
+    "jarbanminor_miningbot_gloss.dds": [
+      "environment.sample.jarbanminor_miningbot_gloss"
+    ],
+    "fireball_1.dds": [
+      "environment.sample.fireball_1"
+    ],
+    "jarbanminor_miningbot_splat00.dds": [
+      "environment.sample.jarbanminor_miningbot_splat00"
+    ],
+    "heatwave1backup.dds": [
+      "environment.sample.heatwave1backup"
+    ],
+    "largesmoke1_b.dds": [
+      "environment.sample.largesmoke1_b"
+    ],
+    "jarbanminor_miningbot_broken_splat00_diff.dds": [
+      "environment.sample.jarbanminor_miningbot_broken_splat00_diff"
+    ],
+    "jarbanminor_miningbot_broken_splat00_norm.dds": [
+      "environment.sample.jarbanminor_miningbot_broken_splat00_norm"
+    ],
+    "jarbanminor_miningbot_broken_splat00_spec.dds": [
+      "environment.sample.jarbanminor_miningbot_broken_splat00_spec"
+    ],
+    "cliffnatural2_diffuse_00.dds": [
+      "environment.sample.cliffnatural2_diffuse_00"
+    ],
+    "cliffnatural2_normal_00.dds": [
+      "environment.sample.cliffnatural2_normal_00"
+    ],
+    "lavabase.dds": [
+      "environment.sample.lavabase"
+    ],
+    "lavatoprocknormal.dds": [
+      "environment.sample.lavatoprocknormal"
+    ],
+    "lavatoprock.dds": [
+      "environment.sample.lavatoprock"
+    ],
+    "lavatoprockemissive.dds": [
+      "environment.sample.lavatoprockemissive"
+    ],
+    "lavarandom_r1.dds": [
+      "environment.sample.lavarandom_r1"
+    ]
+  },
+  "models": {
+    "model.map.cliffnatural0ex1_bbbc_00": {
+      "sourceFile": "assets/private/m3/cliffnatural0ex1_bbbc_00.m3",
+      "sourceSha256": "900c65076326b64db0675688ce39c2db71070baa6f85073239fa21a756abefa1",
+      "standard": [
+        {
+          "name": "Desert Cliff 0#0",
+          "index": 0,
+          "flags": 2147500070,
+          "blend": 1,
+          "specularity": 5,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "cliffnatural2_diffuse_00.dds",
+              "uv": 18,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "cliffnatural2_diffuse_00.dds",
+              "uv": 18,
+              "channel": 5,
+              "multiply": 0.07500000298023224,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_alpha1": {
+              "filename": "cliffnatural2_diffuse_00.dds",
+              "uv": 18,
+              "channel": 2,
+              "multiply": 1,
+              "add": 1,
+              "flags": 236
+            },
+            "layer_norm": {
+              "filename": "cliffnatural2_normal_00.dds",
+              "uv": 18,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        }
+      ],
+      "projections": []
+    },
+    "model.map.cargotruck_00": {
+      "sourceFile": "assets/private/m3/cargotruck_00.m3",
+      "sourceSha256": "a5f3ec93da0be093fea8a10de6230d834f81e3dd2af8a0b929b9ff4efc42c9f9",
+      "standard": [
+        {
+          "name": "Standard_2#0",
+          "index": 0,
+          "flags": 16388,
+          "blend": 0,
+          "specularity": 20,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "cargotruck_diffuse_red.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "cargotruck_spec.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_emis1": {
+              "filename": "cargotruck_emissive.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_envi": {
+              "filename": "cargotruck_environmentmap.dds",
+              "uv": 3,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 204
+            },
+            "layer_envi_mask": {
+              "filename": "cargotruck_environmentmask.dds",
+              "uv": 0,
+              "channel": 3,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_norm": {
+              "filename": "cargotruck_normal.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        },
+        {
+          "name": "Material #27#1",
+          "index": 1,
+          "flags": 4,
+          "blend": 0,
+          "specularity": 20,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "gascanister.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "gascanister-specular.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        }
+      ],
+      "projections": []
+    },
+    "model.map.jarbanminor_cranepart_04": {
+      "sourceFile": "assets/private/m3/jarbanminor_cranepart_04.m3",
+      "sourceSha256": "50f993ef689b16373b39b7b3fcc3d54150e68c97394bb622cd3f56e9f35fd214",
+      "standard": [
+        {
+          "name": "Standard_12#0",
+          "index": 0,
+          "flags": 2147483648,
+          "blend": 0,
+          "specularity": 40,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "jarbonminor_crane_diff.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "jarbonminor_crane_spec.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_gloss": {
+              "filename": "jarbonminor_crane_gloss.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_norm": {
+              "filename": "jarbonminor_crane_norm.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        }
+      ],
+      "projections": [
+        {
+          "bone": "006",
+          "active": 1,
+          "box": [
+            -3,
+            3,
+            -3,
+            3
+          ],
+          "layers": {
+            "layer_diff": {
+              "filename": "jarbanminor_cranepart_splat04.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          },
+          "name": "04"
+        }
+      ]
+    },
+    "model.map.jarbanminor_cranepart_06": {
+      "sourceFile": "assets/private/m3/jarbanminor_cranepart_06.m3",
+      "sourceSha256": "a8d93083192851c410a59c78230051f9f7ec0fa6cb0be5e00672cc5eb4014e46",
+      "standard": [
+        {
+          "name": "Standard_12#0",
+          "index": 0,
+          "flags": 2147483648,
+          "blend": 0,
+          "specularity": 40,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "jarbonminor_crane_diff.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "jarbonminor_crane_spec.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_gloss": {
+              "filename": "jarbonminor_crane_gloss.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_norm": {
+              "filename": "jarbonminor_crane_norm.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        }
+      ],
+      "projections": [
+        {
+          "bone": "008",
+          "active": 1,
+          "box": [
+            -3,
+            3,
+            -3,
+            3
+          ],
+          "layers": {
+            "layer_diff": {
+              "filename": "jarbanminor_cranepart_splat06.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          },
+          "name": "06"
+        }
+      ]
+    },
+    "model.map.jarbanminor_miningbot_00": {
+      "sourceFile": "assets/private/m3/jarbanminor_miningbot_00.m3",
+      "sourceSha256": "9643e47ad459a279302767500360bb335a9b407a58613dea820c16cc8eb8121a",
+      "standard": [
+        {
+          "name": "diffuse#0",
+          "index": 0,
+          "flags": 2147500032,
+          "blend": 0,
+          "specularity": 40,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "jarbanminor_miningbot_diff.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "jarbanminor_miningbot_spec.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_gloss": {
+              "filename": "jarbanminor_miningbot_gloss.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_emis1": {
+              "filename": "jarbanminor_miningbot_emis.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_norm": {
+              "filename": "jarbanminor_miningbot_norm.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        },
+        {
+          "name": "foglight#1",
+          "index": 1,
+          "flags": 2147500272,
+          "blend": 3,
+          "specularity": 0,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "mist1.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_alpha1": {
+              "filename": "mist1.dds",
+              "uv": 0,
+              "channel": 2,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        },
+        {
+          "name": "bulb#2",
+          "index": 2,
+          "flags": 2147500272,
+          "blend": 3,
+          "specularity": 0,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "glow_blue3.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_emis1": {
+              "filename": "glow_blue3.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_alpha1": {
+              "filename": "glow_blue3.dds",
+              "uv": 0,
+              "channel": 2,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        },
+        {
+          "name": "smoke#3",
+          "index": 3,
+          "flags": 2147500272,
+          "blend": 3,
+          "specularity": 0,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "greysmoke1.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_alpha1": {
+              "filename": "greysmoke1.dds",
+              "uv": 0,
+              "channel": 2,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        },
+        {
+          "name": "fire#4",
+          "index": 4,
+          "flags": 2147500272,
+          "blend": 3,
+          "specularity": 0,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "fireball_1.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_emis1": {
+              "filename": "fireball_1.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_alpha1": {
+              "filename": "fireball_1.dds",
+              "uv": 0,
+              "channel": 2,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        },
+        {
+          "name": "sparks#5",
+          "index": 5,
+          "flags": 2147500272,
+          "blend": 3,
+          "specularity": 0,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "fireball_1.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_emis1": {
+              "filename": "fireball_1.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_alpha1": {
+              "filename": "fireball_1.dds",
+              "uv": 0,
+              "channel": 2,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        }
+      ],
+      "projections": [
+        {
+          "bone": "SC2Projector001",
+          "active": 1,
+          "box": [
+            -1.6999999284744263,
+            1.6999999284744263,
+            -1.6999999284744263,
+            1.6999999284744263
+          ],
+          "layers": {
+            "layer_diff": {
+              "filename": "jarbanminor_miningbot_splat00.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          },
+          "name": "00"
+        }
+      ]
+    },
+    "model.map.jarbanminor_miningbot_broken_00": {
+      "sourceFile": "assets/private/m3/jarbanminor_miningbot_broken_00.m3",
+      "sourceSha256": "3a2e247ca178cdd30baa59be83c3f9667b5e5cc4c2ceecff156961f3637e8aee",
+      "standard": [
+        {
+          "name": "diffuse#0",
+          "index": 0,
+          "flags": 2147500032,
+          "blend": 0,
+          "specularity": 40,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "jarbanminor_miningbot_broken_diff.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "jarbanminor_miningbot_spec.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_gloss": {
+              "filename": "jarbanminor_miningbot_gloss.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_emis1": {
+              "filename": "jarbanminor_miningbot_emis.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_norm": {
+              "filename": "jarbanminor_miningbot_norm.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        },
+        {
+          "name": "14 - Default#1",
+          "index": 1,
+          "flags": 2147500208,
+          "blend": 1,
+          "specularity": 20,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "cloudsa1.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_alpha1": {
+              "filename": "largesmoke1.dds",
+              "uv": 0,
+              "channel": 2,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_alpha2": {
+              "filename": "smoke3.dds",
+              "uv": 0,
+              "channel": 2,
+              "multiply": 2,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        }
+      ],
+      "projections": [
+        {
+          "bone": "SC2Projector001",
+          "active": 1,
+          "box": [
+            -2.299999952316284,
+            2.299999952316284,
+            -2.299999952316284,
+            2.299999952316284
+          ],
+          "layers": {
+            "layer_diff": {
+              "filename": "jarbanminor_miningbot_broken_splat00_diff.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_norm": {
+              "filename": "jarbanminor_miningbot_broken_splat00_norm.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "jarbanminor_miningbot_broken_splat00_spec.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          },
+          "name": "splat00"
+        }
+      ]
+    },
+    "model.map.purificationdesert_medium_rock_group_00": {
+      "sourceFile": "assets/private/m3/purificationdesert_medium_rock_group_00.m3",
+      "sourceSha256": "8419a90be88b954530dfaadd681f6e71c8dabdee9652e822342e8ce0ead2db9b",
+      "standard": [
+        {
+          "name": "03 - Default#0",
+          "index": 0,
+          "flags": 2147500032,
+          "blend": 0,
+          "specularity": 80,
+          "hdrEnvironment": 1,
+          "layers": {
+            "layer_diff": {
+              "filename": "purification_rocks_medium_master.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "elsecaro_rocks_medium_spec.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_norm": {
+              "filename": "elsecaro_rocks_medium_norm.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          }
+        }
+      ],
+      "projections": [
+        {
+          "bone": "SC2Projector001",
+          "active": 1,
+          "box": [
+            -2.5,
+            2.5,
+            -2.5,
+            2.5
+          ],
+          "layers": {
+            "layer_diff": {
+              "filename": "elsecaro_rock_mediumgroup_splat_diff_00.dds",
+              "uv": 0,
+              "channel": 1,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_norm": {
+              "filename": "elsecaro_rock_mediumgroup_splat_norm_00.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            },
+            "layer_spec": {
+              "filename": "elsecaro_rock_mediumgroup_splat_diff_00.dds",
+              "uv": 0,
+              "channel": 0,
+              "multiply": 1,
+              "add": 0,
+              "flags": 236
+            }
+          },
+          "name": "07 - Default"
+        }
+      ]
+    }
+  }
+}

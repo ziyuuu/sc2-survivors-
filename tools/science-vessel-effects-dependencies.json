@@ -1,0 +1,88 @@
+[
+  {
+    "requestedFile": "assets/private/m3/generic_purifier_hologram_death.m3",
+    "verifiedCascBuild": true,
+    "sha256": "5fabde6b9dc4e5a7361529705fdb061b70aa184c40eea49013e05217a9d3f8ff",
+    "version": "5.0.16.97563",
+    "id": "Hologram_Death_Large",
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/Generic_Purifier_Hologram_Death/Generic_Purifier_Hologram_Death.m3",
+    "installFile": "assets/private/m3/generic_purifier_hologram_death.m3",
+    "bytes": 82064
+  },
+  {
+    "sha256": "efc5b350127f7c5f6ca027a1f182bc52bb74308b3e1dec35aecd7fd0fe0a4a0e",
+    "id": "texture.googlow_orange.dds",
+    "cachedFile": "assets/private/dds/googlow_orange.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/googlow_orange.dds",
+    "verifiedCascBuild": true,
+    "bytes": 174904,
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/dds/googlow_orange.dds"
+  },
+  {
+    "requestedFile": "assets/private/dds/flare1_orange4_long.dds",
+    "verifiedCascBuild": true,
+    "sha256": "57e4611aa6b0106a2c732af5cd4522797186a1f8e32c52da06023e12d30b3619",
+    "version": "5.0.16.97563",
+    "id": "texture.flare1_orange4_long.dds",
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/flare1_orange4_long.dds",
+    "installFile": "assets/private/dds/flare1_orange4_long.dds",
+    "bytes": 87568
+  },
+  {
+    "requestedFile": "assets/private/dds/troncube3d_orange.dds",
+    "verifiedCascBuild": true,
+    "sha256": "709848fab45112bf3c96bb406a2fc1a829b642da3a95d9a8b77a50de82b5e242",
+    "version": "5.0.16.97563",
+    "id": "texture.troncube3d_orange.dds",
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/troncube3d_orange.dds",
+    "installFile": "assets/private/dds/troncube3d_orange.dds",
+    "bytes": 87536
+  },
+  {
+    "requestedFile": "assets/private/dds/screenpixels_orangeyellow.dds",
+    "verifiedCascBuild": true,
+    "sha256": "ee3e0c73703eb3706703c80e30a008be288631aff55b5c1f380143fc1e41321c",
+    "version": "5.0.16.97563",
+    "id": "texture.screenpixels_orangeyellow.dds",
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/screenpixels_orangeyellow.dds",
+    "installFile": "assets/private/dds/screenpixels_orangeyellow.dds",
+    "bytes": 22000
+  },
+  {
+    "build": "B97563",
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/flare1_blue.dds",
+    "bytes": 87536,
+    "requestedFile": "assets/private/dds/flare1_blue.dds",
+    "id": "texture.flare1_blue.dds",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/dds/flare1_blue.dds",
+    "sha256": "20fe3c3cb77817ab5dbc56d4242e73c36039275019366fba379a28bacbf48294",
+    "version": "5.0.16.97563"
+  },
+  {
+    "requestedFile": "assets/private/dds/glow_hero1.dds",
+    "verifiedCascBuild": true,
+    "sha256": "d21208734970a01f06c46dffe91cf0426467b09d3137000d6841bfd4efb0ff20",
+    "version": "5.0.16.97563",
+    "id": "texture.glow_hero1.dds",
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/glow_hero1.dds",
+    "installFile": "assets/private/dds/glow_hero1.dds",
+    "bytes": 87536
+  },
+  {
+    "sha256": "a46c3c6fcea00867e42b2aa689ce7ad62f719315d882a776546bcf183dd7f7e3",
+    "id": "texture.smoketile6.dds",
+    "cachedFile": "assets/private/dds/smoketile6.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smoketile6.dds",
+    "verifiedCascBuild": true,
+    "bytes": 87536,
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/dds/smoketile6.dds"
+  }
+]

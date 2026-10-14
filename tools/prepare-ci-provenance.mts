@@ -12,15 +12,19 @@ const sha=(bytes:Uint8Array)=>createHash('sha256').update(bytes).digest('hex');
 const read=async(file:string)=>JSON.parse(await fs.readFile(file,'utf8'));
 const required=new Map<string,string>();
 function requireSource(file:string,digest:string){
- assert.match(file,/^assets\/private\/(m3|dds)\/[a-z0-9_.-]+\.(m3|m3a|dds)$/i);assert.match(digest,/^[a-f0-9]{64}$/);
+ assert.match(file,/^assets\/private\/(m3|dds|environment-samples)\/[a-z0-9_./ -]+\.(m3|m3a|dds|xml)$/i);assert.ok(!file.split('/').includes('..'));assert.match(digest,/^[a-f0-9]{64}$/);
  const prior=required.get(file);assert.ok(!prior||prior===digest,'Conflicting original source: '+file);required.set(file,digest);
 }
 const effects=await read('src/render/effects/source/catalog.json');
 for(const r of Object.values(effects) as {source:string;sourceSha256:string}[])requireSource(r.source,r.sourceSha256);
 for(const profile of Object.values(UNIT_MATERIAL_CATALOG))for(const r of profile.animationSources??[])requireSource('assets/private/m3/'+r.source,r.sha256);
 for(const r of (await read('deploy/runtime/material-textures.json')).records)requireSource(r.sourceFile,r.sourceSha256);
+const scenerySources=(await read('tools/environment-sample-sources.json')).sources;
+for(const r of scenerySources)requireSource(r.installFile,r.sha256);
+for(const r of Object.values((await read('src/render/terrain/environment-sample-assets.json')).models) as {sourceFile:string;sourceSha256:string}[])requireSource(r.sourceFile,r.sourceSha256);
 const manifests=(await fs.readdir('tools')).filter(f=>f.endsWith('dependencies.json')).sort();manifests.push('sc2-casc-targets.json');
 const refs:{manifest:string;row:any}[]=[];
+for(const row of scenerySources)refs.push({manifest:'tools/environment-sample-sources.json',row});
 for(const file of manifests){const rows=await read('tools/'+file);if(Array.isArray(rows))for(const row of rows)refs.push({manifest:'tools/'+file,row});}
 const lock=await read('tools/sc2-casc-lock.json'),targets:any[]=[],verified:string[]=[];
 // This read-only audit mode exposes dependencies hidden by a populated local

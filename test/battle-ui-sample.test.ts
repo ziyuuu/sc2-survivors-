@@ -30,6 +30,6 @@ test('different native skills remain separate and families without unlocked skil
 test('facility technology lists unlocked and locked native units, skills and systems from current state only',()=>{
  const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();Object.assign(w.expedition.tech,{'unlock.marine':1,'unlock.marauder':1,stim:1,'system.barracks':1});
  const before=JSON.stringify(encodeGraph(w.captureRun())),t=lineTechnology(w,'barracks');
- assert.deepEqual(t.families.map(f=>[f.family,f.unlocked]),[['marine',true],['marauder',true],['reaper',false]]);assert.deepEqual(t.skills.map(s=>[s.id,s.unlocked]),[['stim',true],['shield',false]]);assert.equal(t.system.unlocked,true);
- assert.equal(JSON.stringify(encodeGraph(w.captureRun())),before);w.expedition.tech['unlock.reaper']=1;assert.equal(lineTechnology(w,'barracks').families[2].unlocked,true);
+ assert.deepEqual(t.families.map(f=>[f.family,f.unlocked]),[['marine',true],['reaper',false],['marauder',true]]);assert.deepEqual(t.skills.map(s=>[s.id,s.unlocked]),[['stim',true],['shield',false]]);assert.equal(t.system.unlocked,true);
+ assert.equal(JSON.stringify(encodeGraph(w.captureRun())),before);w.expedition.tech['unlock.reaper']=1;assert.equal(lineTechnology(w,'barracks').families[1].unlocked,true);
 });

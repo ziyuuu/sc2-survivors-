@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "sourceBuild": "5.0.16.97563",
+  "status": "SOURCE_MAPPING_RESOLVED_PLAYBACK_SEPARATE",
+  "sources": [
+    {
+      "file": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/SkinData.xml",
+      "sha256": "5440c757941577de024d475e165ebedfe132aef3800bbc69bce07ee2d1de0517",
+      "bytes": 157930,
+      "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/SkinData.xml",
+      "version": "5.0.16.97563"
+    },
+    {
+      "file": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/ModelData.xml",
+      "sha256": "c8dae7a89695b1042a06aca264155ba650473007e5eeea7a18d4c470211d2736",
+      "bytes": 1681430,
+      "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/ModelData.xml",
+      "version": "5.0.16.97563"
+    },
+    {
+      "file": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/ActorData.xml",
+      "sha256": "d3864e4d5c14af95d7b0834ac3f90ac5edd92aeb5ce2767575feaeb150813712",
+      "bytes": 1383578,
+      "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/ActorData.xml",
+      "version": "5.0.16.97563"
+    },
+    {
+      "file": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/ModelData.xml",
+      "sha256": "73cf998aac18bca66461b97fad522928fcf6d9695d77a15ed04e2d755b03c508",
+      "bytes": 733145,
+      "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/ModelData.xml",
+      "version": "5.0.16.97563"
+    },
+    {
+      "file": "assets/private/m3/hologram_skin_sciencevessel.m3",
+      "sha256": "cd5c851aaa51c6b51cbf1e803a6c868dce49a7d82c669466c8f2f000e9892bba",
+      "bytes": 291920,
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Terran/Hologram_Skin_ScienceVessel/Hologram_Skin_ScienceVessel.m3",
+      "version": "5.0.16.97563"
+    },
+    {
+      "file": "assets/private/m3/sciencevesseldeath.m3",
+      "sha256": "7f8cbb713ca43589910f9ad757aa6e09e32d6e645e0aaaea5e17fc6e9dfdda6a",
+      "bytes": 354816,
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Terran/ScienceVesselDeath/ScienceVesselDeath.m3",
+      "version": "5.0.16.97563"
+    },
+    {
+      "file": "assets/private/m3/generic_purifier_hologram_death.m3",
+      "sha256": "5fabde6b9dc4e5a7361529705fdb061b70aa184c40eea49013e05217a9d3f8ff",
+      "bytes": 82064,
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/Generic_Purifier_Hologram_Death/Generic_Purifier_Hologram_Death.m3",
+      "version": "5.0.16.97563"
+    }
+  ],
+  "ordinary": {
+    "modelId": "ScienceVessel",
+    "death": "ScienceVesselDeath",
+    "actor": "<CActorUnit id=\"ScienceVessel\" parent=\"GenericUnitBase\" unitName=\"ScienceVessel\">\n        <PortraitModel value=\"ScienceVesselPortrait\"/>\n        <On Terms=\"Abil.Irradiate.SourceCastStart\" Send=\"$Spell\"/>\n        <DeathArray index=\"Normal\" ModelLink=\"ScienceVesselDeath\" SoundLink=\"\"/>\n        <DeathActorModel value=\"ScienceVesselDeathModel\"/>\n        <LifeArmorIcon value=\"Assets\\Textures\\btn-upgrade-terran-shipplatinglevel0.dds\"/>\n        <UnitIcon value=\"Assets\\Textures\\BTN-Unit-Terran-ScienceVessel.dds\"/>\n        <HeroIcon value=\"Assets\\Textures\\BTN-Unit-Terran-ScienceVessel.dds\"/>\n        <GroupIcon>\n            <Image value=\"Assets\\Textures\\Wireframe-Terran-sciencevessel.dds\"/>\n        </GroupIcon>\n        <Wireframe>\n            <Image value=\"Assets\\Textures\\Wireframe-Terran-sciencevessel.dds\"/>\n        </Wireframe>\n        <BarWidth value=\"100\"/>\n        <Aliases value=\"_UnitHuge\"/>\n    </CActorUnit>",
+    "model": "<CModel id=\"ScienceVesselDeath\" parent=\"UnitDeath\" Race=\"Terran\">\n        <Occlusion value=\"Show\"/>\n        <LowQualityModel value=\"ScienceVesselDeathLow\"/>\n        <Events>\n            <Anim value=\"Death,00\"/>\n            <Name value=\"TerranPreExplosionSmall\"/>\n            <Type value=\"Sound\"/>\n            <Time value=\"0.010000\"/>\n        </Events>\n        <Events>\n            <Anim value=\"Death,00\"/>\n            <Name value=\"TerranExplosionMedium\"/>\n            <Type value=\"Sound\"/>\n            <Time value=\"0.933000\"/>\n        </Events>\n    </CModel>"
+  },
+  "hologram": {
+    "identities": [
+      "science_vessel.1",
+      "science_vessel.2",
+      "science_vessel.3"
+    ],
+    "skin": "PurifierHologram",
+    "replacements": [
+      {
+        "catalog": "Model",
+        "from": "ScienceVessel",
+        "to": "Hologram_Skin_ScienceVessel"
+      },
+      {
+        "catalog": "Model",
+        "from": "ScienceVesselDeath",
+        "to": "Hologram_Death_Large"
+      }
+    ],
+    "deathModel": "<CModel id=\"Hologram_Death_Large\">\n        <Model value=\"Assets\\Units\\Zerg\\Generic_Purifier_Hologram_Death\\Generic_Purifier_Hologram_Death.m3\"/>\n        <ScaleMax value=\"2.000000,2.000000,2.000000\"/>\n        <ScaleMin value=\"2.000000,2.000000,2.000000\"/>\n        <Events>\n            <Anim value=\"Death,00\"/>\n            <Name value=\"Hologram_Death_Large\"/>\n            <Type value=\"Sound\"/>\n            <Time value=\"0.010000\"/>\n            <Payload value=\"Hologram_Death_Large\"/>\n        </Events>\n    </CModel>",
+    "bodyModel": "<CModel id=\"Hologram_Skin_ScienceVessel\" parent=\"ScienceVessel\">\n        <Model value=\"Assets\\Units\\Terran\\Hologram_Skin_ScienceVessel\\Hologram_Skin_ScienceVessel.m3\"/>\n    </CModel>",
+    "runtimeModel": "Hologram_Death_Large",
+    "scale": [
+      2,
+      2,
+      2
+    ],
+    "particles": 4,
+    "clips": [
+      {
+        "name": "Death",
+        "duration": 1
+      }
+    ],
+    "reason": "The original skin replaces the death catalog identity. A unit-name-plus-Death filename search misses this shared original effect."
+  },
+  "historicalGap": "Three elite identities share one source model. Historical failed searches and local dissolve fallback remain historical evidence, not original-client acceptance.",
+  "clientParity": false
+}

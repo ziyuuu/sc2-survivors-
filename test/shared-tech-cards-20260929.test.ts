@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {World} from '../src/simulation/world';
-import {DEVELOPMENT,PRODUCTION_LINES,familyUnlock,lineSystem,lineResearch,seatRecipe,type ProductionLineId} from '../src/data/expedition-buildings';
+import {DEVELOPMENT,PRODUCTION_LINES,familyUnlock,lineSystem,lineResearch,seatRecipe,TREE_STEPS,type ProductionLineId} from '../src/data/expedition-buildings';
 import {beginExpeditionWindow,expeditionDevelopmentActions,canTakeExpeditionOffer,drawExpeditionReinforcements,type ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
 import {draftContext,purchaseOffer} from '../src/simulation/expedition-economy';
 import {teamCardEffects,teamCardKey} from '../src/simulation/progression/team-cards';
@@ -15,13 +15,19 @@ import {ELITES} from '../src/data/elites';
 const make=(race:'terran'|'zerg'|'protoss'='terran')=>{const w=new World({race,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.wallet={minerals:100000,gas:100000};return w;};
 const window=(w:World,stage=12)=>{w.stage=stage;w.phase='reward';w.rewardRound='random';beginExpeditionWindow(w.expedition,stage);};
 const near=(a:number,b:number)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
-test('nine lines expose shared family unlocks and exactly six research levels',()=>{
- for(const [key,line] of Object.entries(PRODUCTION_LINES)){const id=key as ProductionLineId,w=make(line.race);window(w);w.expedition.facilities.push({id:99,kind:line.race==='zerg'?'hatchery':key,line:id,techLab:false});
-  const before=expeditionDevelopmentActions(draftContext(w));for(const f of line.families)if(!w.expedition.tech[familyUnlock(f)]){const a=before.find(a=>a.definition.id===familyUnlock(f));assert.ok(a,f);assert.deepEqual({minerals:a.definition.minerals,gas:a.definition.gas},seatRecipe(f));}
-  w.expedition.tech[lineSystem(id)]=1;for(const kind of ['weapon','defense'] as const){const def=DEVELOPMENT.find(d=>d.id===lineResearch(id,kind))!;assert.equal(def.maxLevel,3);for(let lv=0;lv<3;lv++){w.expedition.tech[def.id]=lv;assert.ok(expeditionDevelopmentActions(draftContext(w)).some(a=>a.definition.id===def.id));}w.expedition.tech[def.id]=3;assert.ok(!expeditionDevelopmentActions(draftContext(w)).some(a=>a.definition.id===def.id));}
+test('nine lines expose sequential shared family unlocks and exactly six research levels',()=>{
+ for(const [key,line] of Object.entries(PRODUCTION_LINES)){
+  const id=key as ProductionLineId,w=make(line.race);
+  if(line.race==='zerg'){const g=w.grantFacility('hatchery')!;if(id==='zerg.evolution'){g.directions=['ground'];w.expedition.tech['unlock.hydralisk']=1;}if(id==='zerg.air'){w.expedition.building!.groups[0].directions=['ground'];g.directions=['air'];w.expedition.tech['unlock.mutalisk']=1;}}
+  else w.grantFacility(id as 'barracks'|'factory'|'starport'|'gateway'|'robotics'|'stargate');
+  window(w);
+  for(const tier of TREE_STEPS[id])for(const f of tier){if(w.expedition.tech[familyUnlock(f)])continue;const a=expeditionDevelopmentActions(draftContext(w)).find(a=>a.definition.id===familyUnlock(f));assert.ok(a,f);assert.deepEqual({minerals:a.definition.minerals,gas:a.definition.gas},seatRecipe(f));w.expedition.tech[familyUnlock(f)]=1;}
+  w.expedition.tech[lineSystem(id)]=1;
+  for(const kind of ['weapon','defense'] as const){const def=DEVELOPMENT.find(d=>d.id===lineResearch(id,kind))!;assert.equal(def.maxLevel,3);for(let lv=0;lv<3;lv++){w.expedition.tech[def.id]=lv;assert.ok(expeditionDevelopmentActions(draftContext(w)).some(a=>a.definition.id===def.id));}w.expedition.tech[def.id]=3;assert.ok(!expeditionDevelopmentActions(draftContext(w)).some(a=>a.definition.id===def.id));}
  }
 });
-test('future facilities share unlocked recipes without a local laboratory',()=>{const w=make();w.expedition.tech[familyUnlock('marauder')]=1;assert.ok(w.isFamilyAvailable('marauder'));w.expedition.facilities.push({id:9,kind:'barracks',line:'barracks',techLab:false});assert.ok(w.isFamilyAvailable('marauder'));assert.ok(!w.isFamilyAvailable('reaper'));});
+
+test('future facilities share unlocked recipes without a local laboratory',()=>{const w=make();w.expedition.tech[familyUnlock('marauder')]=1;assert.ok(w.isFamilyAvailable('marauder'));w.grantFacility('barracks');assert.ok(w.isFamilyAvailable('marauder'));assert.ok(!w.isFamilyAvailable('reaper'));});
 test('team cards add within their group, retain wounds and refresh idempotently',()=>{const w=make(),u=w.allies()[0],base={hp:u.maxHp,damage:u.weaponDamage,period:u.attackPeriod};u.hp-=10;w.expedition.cardTotals[teamCardKey('firepower','white')]=3;w.expedition.cardTotals[teamCardKey('firepower','orange')]=1;w.expedition.cardTotals[teamCardKey('defense','blue')]=2;w.refreshStats(u);near(u.weaponDamage,base.damage*1.25);near(u.attackPeriod,base.period/1.14);near(u.maxHp,base.hp*1.2);near(u.maxHp-u.hp,10);for(let i=0;i<5;i++)w.refreshStats(u);near(u.weaponDamage,base.damage*1.25);assert.equal(teamCardEffects(w.expedition).armor,.6);});
 test('two-seat training rejects an incomplete quote and upgrades both twins once',()=>{const w=make('zerg');assert.equal(trainingTargets(w,3),null);w.addFamilyMember('zergling',{x:4,z:0});const quote=trainingTargets(w,3)!;assert.equal(quote.targets.length,2);assert.equal(quote.minerals,seatRecipe('zergling').minerals*4);assert.ok(applyTrainingTargets(w,3,quote.targets));assert.ok(w.familyBodies('zergling').every(u=>u.rank===3));assert.equal(applyTrainingTargets(w,3,quote.targets),false);});
 test('direct locked-family cards do not unlock production and pair cards reserve full quantity',()=>{const w=make();w.expedition.tech[lineResearch('barracks','weapon')]=2;assert.ok(canSupply(w,'reaper',2,'direct'));assert.ok(applySupply(w,'reaper',2,'direct',{minerals:0,gas:0}));assert.equal(w.familyUnits('reaper').length,2);assert.equal(w.isFamilyAvailable('reaper'),false);const z=make('zerg');assert.ok(applySupply(z,'zergling',3,'pod',{minerals:151,gas:1}));const j=z.expedition.ledger[0];assert.equal(j.passengers.length,6);assert.equal(j.passengers.reduce((n,p)=>n+p.paid.minerals,0),151);assert.equal(canSupply(z,'zergling',1,'pod'),true);assert.ok(applySupply(z,'zergling',1,'pod',{minerals:50,gas:0}));assert.equal(canSupply(z,'zergling',1,'pod'),true);assert.ok(applySupply(z,'zergling',1,'pod',{minerals:50,gas:0}));assert.ok(z.expedition.ledger.at(-1)!.passengers.every(p=>p.purpose==='rankTraining'));while(canSupply(z,'zergling',3,'pod'))assert.ok(applySupply(z,'zergling',3,'pod',{minerals:150,gas:0}));assert.equal(canSupply(z,'zergling',1,'pod'),false);});

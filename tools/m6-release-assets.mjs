@@ -7,6 +7,7 @@ import {HEROES} from '../src/data/heroes.ts';
 import {ELITES} from '../src/data/elites.ts';
 import {RETIRED_ASSETS} from '../src/assets/retired.ts';
 import {CAMPAIGN_MAP_ID,MAP_THEMES} from '../src/data/campaign-map.ts';
+import {fullEnvironmentModelIds} from '../src/render/terrain/environment-compositions.ts';
 import {loadBuildAssets} from './load-build-assets.mjs';
 
 const records=await loadBuildAssets();
@@ -42,7 +43,7 @@ for(const key of ['hellion.hellbat','viking.assault','interceptor','scv','drone'
 for(const family of ['lurker','thor'])for(const record of available)
  if(record.id.startsWith(`model.${family}.`)&&!record.id.endsWith('.death'))requireAsset(record.id,`manual mode ${family}`);
 
-const activeProps=new Set(Object.values(MAP_THEMES).flatMap(theme=>[...theme.props]));
+const activeProps=new Set([...Object.values(MAP_THEMES).flatMap(theme=>[...theme.props]),...Object.keys(MAP_THEMES).flatMap(theme=>fullEnvironmentModelIds(theme))]);
 for(const id of activeProps)requireAsset(id,'One of five centered campaign maps');
 for(const id of ['map.terrain.diffuse','map.terrain.normal','terrain.char'])requireAsset(id,'Original terrain pixels for radial campaign / endless flat');
 const retiredMapIds=new Set(available.filter(r=>r.id==='map.kairos'||['map.terrain.mask0','map.terrain.mask1'].includes(r.id)||r.id.startsWith('model.map.')&&!activeProps.has(r.id)).map(r=>r.id));

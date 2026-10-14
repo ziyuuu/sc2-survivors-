@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-13T16:35:54.938Z",
+  "batchDate": "2026-10-13",
+  "closeoutDate": "2026-10-14",
+  "passed": true,
+  "status": "new-run building integration locally delivered",
+  "wholeMvpComplete": false,
+  "wholeBuildingPackageComplete": false,
+  "scope": "Approved building integration on accepted 0.6.26 scene baseline; player archive migration, physical/human/full-campaign/performance/production/B4 acceptance remain outside this local result.",
+  "formal": {
+    "web": "dist/MVP1-Building-Main-20261013-R4-Frozen",
+    "appBuildId": "1f9dfa10f086ae1f48791669d9231ccc33bdfe3ace96f162d1093d6fbcb9eff6",
+    "diagnostic": false,
+    "inputs": 315,
+    "sourceRoot": "D:\\星际\\reports\\local\\mvp1-building-main-20261013\\frozen-source-r1",
+    "compiledFiles": 6,
+    "validation": "formal-r5-frozen",
+    "checks": 7,
+    "screens": 16,
+    "errors": 0,
+    "httpErrors": 0
+  },
+  "main": {
+    "validation": "browser-r9-frozen",
+    "checks": 33,
+    "screens": 41,
+    "races": 3,
+    "errors": 0,
+    "httpErrors": 0,
+    "method": "Actual main-game boot, menus, required asset preparation and HUD controls in fresh isolated browser contexts. Wallet and stage-end fixtures use native World calls; no forced carrier arrival, health, combat, clock or renderer transform. Natural transport has separate native tests. Not human, physical-device, performance, balance, save or whole-MVP acceptance."
+  },
+  "standalone": {
+    "file": "dist/mvp1-intermission-design-20261013/index-connection-r7-main-shared-final.html",
+    "sha256": "f453ae890897779a7e1262f41837e7599586799efa7dd5643d467ad537dc0fd8",
+    "bytes": 51263103,
+    "embeddedAssets": 80,
+    "checks": 15,
+    "screens": 28,
+    "errors": [],
+    "externalHttp": []
+  },
+  "tests": {
+    "workspaceAll": 1411,
+    "workspaceExternalAdditionalEnvironmentTests": 3,
+    "frozenFocused": 149,
+    "finalUiFocused": 107,
+    "finalSkin": 62,
+    "typecheck": true,
+    "dataReferenceCheck": true,
+    "naturalTransportRaces": 3,
+    "naturalEvidence": "natural-final-r1"
+  },
+  "resource": {
+    "release": "cc35c4025c6da0949c70f68fefe9b421734faae6e0b49a015831a5c297086d6a",
+    "records": 1177,
+    "files": 1129,
+    "newIds": 0,
+    "newFiles": 0,
+    "dependenciesChanged": 0,
+    "serverVerifiedAll": true
+  },
+  "sourceBinding": {
+    "all315": true,
+    "formalDiagnosticSame": true,
+    "acceptedTerrain": true,
+    "workspaceReverted": false
+  },
+  "protection": {
+    "rows": 578,
+    "same": 531,
+    "owned": 28,
+    "externalPreserved": 19,
+    "unexpected": []
+  },
+  "localServer": {
+    "at": "2026-10-13T16:19:35.611Z",
+    "pid": 12108,
+    "url": "http://127.0.0.1:3253",
+    "web": "dist/MVP1-Building-Main-20261013-R4-Frozen",
+    "appBuildId": "1f9dfa10f086ae1f48791669d9231ccc33bdfe3ace96f162d1093d6fbcb9eff6",
+    "backendEnabled": false,
+    "scope": "Local building integration review with accepted scene baseline; no production service or publication."
+  },
+  "operations": {
+    "currentUpdated": false,
+    "applicationMirrorUpdated": false,
+    "gitCommit": false,
+    "gitPush": false,
+    "onlinePublication": false,
+    "playerOldArchivesOperated": false
+  },
+  "historyBindingCorrection": "First protection summary omitted two newly updated owned preview READMEs; original failed summary retained, both exact file paths classified after inspection."
+}

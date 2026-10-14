@@ -1,5 +1,5 @@
 #requires -Version 7.4
-param([switch]$CatalogsOnly,[switch]$AttachmentCatalogs,[string]$Evidence='reports/local/combat-effects-20261012/source-fetch-r1')
+param([switch]$CatalogsOnly,[switch]$AttachmentCatalogs,[string]$Evidence='reports/local/combat-effects-20261012/source-fetch-r1',[string]$Models='tools/combat-effects-models.json',[string]$AssetManifest='tools/combat-effects-dependencies.json')
 $ErrorActionPreference='Stop'
 $root=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 Set-Location -LiteralPath $root
@@ -82,12 +82,12 @@ if($AttachmentCatalogs){
   $missing.Add(@{id=$id;assetPath=$assetPath;installFile=$file;error='Unavailable in pinned public CASC roots'});return $null
  }
  $textures=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
- foreach($model in @(Get-Content tools/combat-effects-models.json -Raw|ConvertFrom-Json)){
+ foreach($model in @(Get-Content -LiteralPath (LocalPath $Models) -Raw|ConvertFrom-Json)){
   $bytes=FetchOriginal $model.id $model.assetPath ('assets/private/m3/'+$model.name+[IO.Path]::GetExtension($model.assetPath))
   if($bytes){foreach($match in [regex]::Matches([Text.Encoding]::ASCII.GetString($bytes),'(?i)(?:[a-z0-9_ .-]+)\.dds')){$null=$textures.Add($match.Value.Trim().ToLowerInvariant())}}
  }
  foreach($name in $textures){$null=FetchOriginal ('texture.'+$name) ('Assets/Textures/'+$name) ('assets/private/dds/'+$name)}
- $manifest='tools/combat-effects-dependencies.json'
+ $manifest=$AssetManifest
 }
 ConvertTo-Json -InputObject @($records.ToArray()) -Depth 8|Set-Content -LiteralPath (Join-Path $out 'verified.json') -Encoding utf8
 ConvertTo-Json -InputObject @($missing.ToArray()) -Depth 8|Set-Content -LiteralPath (Join-Path $out 'missing.json') -Encoding utf8

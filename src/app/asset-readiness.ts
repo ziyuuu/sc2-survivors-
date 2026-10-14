@@ -57,6 +57,7 @@ export class AssetReadinessCoordinator {
   try{
    if(generation!==this.generation)return false;
    this.view.entryPreparation=true;
+   this.view.preparationControl={cancelled:()=>generation!==this.generation};
    const desiredMap=request.snapshot?.config.campaignMap??request.campaignMap;
    const rescueRace=request.snapshot?.config.race??request.race??this.world.expedition.race,rescue=RESCUE_PRESENTATION[rescueRace];
    if(!this.view.initialAssetsLoaded){
@@ -95,7 +96,7 @@ export class AssetReadinessCoordinator {
    if(kind==='load'&&request.snapshot)this.world.restoreRun(request.snapshot,true);
    if(this.view.modelErrors.length)throw Error(this.view.modelErrors.at(-1));
    this.update({phase:'ready',done:1,total:1,progress:1,label:(kind==='reinforcement'?'资源就绪':'就绪 · 请确认继续')+(httpAssetStatus()?.warning?' · 本次缓存空间不足，下次可能需补下载':'')});const token=this.readyToken;if(generation===this.generation&&token)this.onReady(kind,token);return true;
-  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}finally{if(generation!==this.generation)this.view.modelErrors=errorsBefore;this.view.entryPreparation=false;release?.();}
+  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}finally{if(generation!==this.generation)this.view.modelErrors=errorsBefore;this.view.preparationControl=undefined;this.view.entryPreparation=false;release?.();}
  }
 }
 

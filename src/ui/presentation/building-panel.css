@@ -1,0 +1,116 @@
+/* Shared R17 building presentation; no global game/camera styles. */
+#interface #overlay.imx .feedback-base-modal{width:min(1120px,calc(100vw - 24px));max-height:calc(100dvh - 24px);display:flex;flex-direction:column;min-height:0}
+#interface #overlay.imx .feedback-base-modal .modal-heading,#interface #overlay.imx .feedback-base-modal .modal-footer{flex-shrink:0}
+#interface #overlay.imx .feedback-base-modal .modal-heading h1{font-size:26px}
+#interface #overlay.imx .feedback-base-modal .modal-content{min-height:0;overflow:auto}
+#interface #overlay.imx .feedback-base-modal .feedback-facility-list{display:flex;flex-direction:column;gap:12px}
+#interface #overlay.imx .wb-facility{padding:15px;border:1px solid #f1eeda42;background:#16293288}
+#interface #overlay.imx .wb-facility header{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+#interface #overlay.imx .wb-facility header h2{margin:0;font-size:18px}
+#interface #overlay.imx .wb-facility header img{height:32px;width:32px;object-fit:contain}
+.wb-direction-label{margin-left:auto;color:#c8d6db;font-size:12px}
+#interface #overlay.imx .wb-output-list{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+#interface #overlay.imx .wb-output-list button{font-size:12px;min-height:44px;padding:7px 10px}
+#interface #overlay.imx .wb-output-list button[aria-pressed=true]{border-color:#eee5b2;background:#566060}
+#interface #overlay.imx .wb-output-list img{height:25px;width:25px;object-fit:contain;margin-right:6px;vertical-align:middle}
+.wb-production-order{display:flex;gap:12px;align-items:center;justify-content:flex-end;font-size:13px}
+.wb-target-label{display:flex;gap:10px;align-items:center;margin-top:20px}
+.wb-target-label select{padding:10px;background:#223843;color:#f3f1e8;border:1px solid #9cacae;max-width:100%}
+@media(max-width:700px){.wb-direction-label{margin-left:0}.wb-production-order{flex-wrap:wrap}.wb-target-label{align-items:stretch;flex-direction:column}}
+.wb-tree{display:flex;flex-direction:column;gap:16px}.wb-tree-line{border:1px solid #f1eeda42;padding:18px;background:#182d3788}.wb-tree-line header{display:flex;justify-content:space-between;align-items:center;gap:14px}.wb-tree-line h2{margin:0;font-size:20px}.wb-tree-line header span,.wb-tree-line p{font-size:12px;line-height:1.7;color:#c2d0d1}.wb-tree-line h3{font-size:14px;margin:16px 0 9px}.wb-tree-steps{display:flex;flex-wrap:wrap;gap:22px;list-style:none;padding:0;margin:18px 0}.wb-tree-steps>li{flex:1;min-width:130px;position:relative}.wb-tree-steps>li:not(:last-child)::after{content:'→';position:absolute;right:-18px;top:28px;color:#c2d0d1}.wb-tree-branch{display:flex;flex-direction:column;gap:8px}.wb-tree-node{display:grid;grid-template-columns:28px 1fr;gap:6px 8px;align-items:center;padding:10px;border:1px solid #7d919755;background:#13232c;min-height:76px}.wb-tree-node img{width:28px;height:28px;object-fit:contain;grid-row:span 2}.wb-tree-node strong{font-size:13px}.wb-tree-node small{font-size:11px;color:#c2d0d1}.wb-tree-node.unlocked{border-color:#9fb5a8}.wb-tree-node.next{border-color:#decc86}.wb-tree-skills{display:flex;flex-wrap:wrap;gap:8px}.wb-tree-skills span{font-size:12px;padding:7px 9px;background:#11222b;border:1px solid #f1eeda30}.wb-front-production{border-block:1px solid #8b9da24a;margin:18px 0;padding:10px 0}.wb-front-production p{margin:8px 0;font-size:14px}.wb-front-actions{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:700px){.wb-tree-line{padding:12px}.wb-tree-steps{flex-direction:column;gap:23px}.wb-tree-steps>li{width:100%}.wb-tree-steps>li:not(:last-child)::after{content:'↓';right:auto;top:auto;left:50%;bottom:-22px}.wb-tree-branch{flex-direction:row;flex-wrap:wrap}.wb-tree-node{flex:1;min-width:110px}.wb-front{padding:20px;width:100%;margin:12px 0}.wb-front h2{font-size:22px}.wb-front-production p{font-size:13px}}
+#interface #overlay.imx .wb-base-tabs{flex-shrink:0;flex-wrap:nowrap;margin:0;padding:12px 28px;gap:12px;background:#192b36;border-bottom:1px solid #a1b5bf66}
+#interface #overlay.imx .wb-base-tabs button{font-size:17px;min-height:48px;flex:1;min-width:0}
+#interface #overlay.imx .wb-tech-line header h2{font-size:22px;margin:0}
+#interface #overlay.imx .wb-tech-line header>span{font-size:14px;color:#c5d2d5;margin-left:auto}
+#interface #overlay.imx .wb-line-technology h3{font-size:20px;margin:22px 0 12px;font-weight:600}
+.wb-skill-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.wb-skill-card{display:flex;gap:18px;align-items:center;min-width:0;padding:16px;background:#14232c;border:1px solid #71848b66}
+.wb-skill-card.available{border-color:#baac79}
+.wb-skill-icon{width:72px;height:72px;flex:0 0 72px;position:relative;border:1px solid #a3b1b766;background:#21353e;padding:4px}
+.wb-skill-icon>img{width:100%;height:100%;object-fit:contain}
+.wb-skill-mark{position:absolute;width:27px;height:27px;right:-6px;bottom:-6px;padding:3px;background:#21353e;border:1px solid #bfcbd0}
+.wb-skill-mark svg,.wb-system-icon svg{width:100%;height:100%}
+.wb-skill-body,.wb-system-body{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.wb-skill-body>strong,.wb-system-body>strong{font-size:20px;line-height:1.4}
+.wb-tech-state{display:flex;align-items:center;justify-content:center;gap:5px;color:#c7d2d5;font-size:14px;line-height:1.4}
+.wb-tech-state.ready{color:#eedc9d}.wb-tech-state svg,.wb-stage-gate svg{width:18px;height:18px;flex-shrink:0}
+.wb-tech-requirement{display:flex;align-items:center;gap:8px;font-size:16px;color:#d4dfe0;line-height:1.4}
+.wb-tech-requirement img,.wb-tech-requirement .wb-facility-icon{width:28px;height:28px;object-fit:contain;flex-shrink:0}
+.wb-tech-empty{display:flex;align-items:center;gap:12px;background:#14232c;padding:16px;font-size:16px;color:#c7d2d5;border:1px solid #71848b66}.wb-tech-empty svg{width:40px;height:40px}
+.wb-research-grid{display:grid;grid-template-columns:210px minmax(0,1fr);gap:28px;align-items:stretch}
+.wb-system-card{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:18px 14px;background:#14232c;border:1px solid #baac79;align-self:start;min-height:210px}
+.wb-system-body{align-items:center;text-align:center}
+.wb-system-icon{width:68px;height:68px;color:#ead69a;padding:8px;border:1px solid #baac79;background:#21353e}
+.wb-system-branch{position:absolute;right:-25px;top:calc(50% - 10px);width:20px;height:20px;color:#c4d0d1}.wb-system-branch svg{width:100%;height:100%}
+#interface #overlay.imx .wb-system-icon svg,#interface #overlay.imx .wb-system-branch svg,#interface #overlay.imx .wb-skill-mark svg{width:100%;height:100%}
+#interface #overlay.imx .wb-tech-state svg,#interface #overlay.imx .wb-stage-gate svg{width:18px;height:18px}
+.wb-research-paths{display:flex;flex-direction:column;gap:14px;min-width:0}
+.wb-research-track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:0;padding:0;list-style:none}
+.wb-research-node{position:relative;display:flex;align-items:center;flex-direction:column;gap:8px;min-width:0;border:1px solid #71848b66;background:#14232c;padding:14px 8px;text-align:center}
+.wb-research-node.available{border-color:#baac79}.wb-research-node:not(:last-child)::after{content:'→';position:absolute;right:-18px;top:calc(50% - 11px);color:#c4d0d1;font-size:18px}
+.wb-level-art{position:relative;width:68px;height:68px;border:1px solid #81959b;background:#21353e}
+.wb-equipment-icon{display:block;width:100%;height:100%;background-size:200% 300%;background-repeat:no-repeat}
+.wb-level-art b{position:absolute;right:-7px;bottom:-7px;display:grid;place-items:center;width:26px;height:26px;background:#21353e;border:1px solid #c7cfcc;color:#f1e6bc;font-size:17px;font-weight:600}
+.wb-research-node>strong{font-size:18px;line-height:1.4}.wb-stage-gate{display:flex;align-items:center;gap:5px;font-size:14px;color:#d1dce0;min-height:20px}
+#interface #overlay.imx .wb-tree-line h3{font-size:20px}.wb-tree-line p{font-size:14px}
+@media(max-width:700px){
+ #interface #overlay.imx .wb-base-tabs{padding:10px 15px;gap:6px}#interface #overlay.imx .wb-base-tabs button{font-size:16px;padding:10px 6px;min-height:46px}
+ #interface #overlay.imx .wb-tech-line{padding:12px}#interface #overlay.imx .wb-tech-line header>span{margin-left:0}
+ .wb-skill-grid{grid-template-columns:1fr}.wb-skill-card{gap:16px;padding:14px 12px}.wb-skill-icon{width:64px;height:64px;flex-basis:64px}.wb-skill-body>strong{font-size:19px}
+ .wb-research-grid{grid-template-columns:1fr;gap:22px}.wb-system-card{flex-direction:row;justify-content:flex-start;padding:14px;gap:16px;min-height:0}.wb-system-body{align-items:flex-start;text-align:left}.wb-system-icon{width:64px;height:64px;flex:0 0 64px}.wb-system-branch{right:auto;top:auto;left:calc(50% - 10px);bottom:-22px;transform:rotate(90deg)}
+ .wb-research-track{gap:10px}.wb-research-node{padding:12px 4px;gap:8px}.wb-research-node:not(:last-child)::after{right:-10px;font-size:14px}.wb-level-art{width:52px;height:52px}.wb-research-node>strong{font-size:16px}.wb-level-art b{font-size:15px;width:22px;height:22px;right:-5px;bottom:-5px}.wb-stage-gate{font-size:14px;gap:3px}.wb-tech-state{font-size:14px;flex-wrap:wrap;gap:3px}.wb-research-node .wb-tech-state svg{display:none}
+}
+#interface #overlay.imx .wb-prerequisite{display:flex;align-items:center;justify-content:center;padding:24px;width:100%;min-width:0;min-height:330px}
+.wb-prerequisite-card{display:flex;flex-direction:column;align-items:center;gap:14px;width:340px;max-width:100%;padding:24px;background:#172b36dd;border:1px solid #a6b8bd77;color:#eef0e7}
+.wb-prerequisite-heading{font-size:18px;color:#cbd9dc}
+.wb-prerequisite-art{position:relative;width:96px;height:96px;padding:8px;background:#20343e;border:1px solid #a8bbbd77}
+.wb-facility-icon{display:block;background-repeat:no-repeat;background-size:400% 400%;background-position:66.6666667% 0%}
+.wb-prerequisite-art>img,.wb-prerequisite-art>.wb-facility-icon{width:100%;height:100%;object-fit:contain}
+.wb-prerequisite-mark{position:absolute;right:-7px;bottom:-7px;width:30px;height:30px;padding:4px;border:1px solid #c4d1d1;background:#20343e}
+#interface #overlay.imx .wb-prerequisite-mark svg{width:100%;height:100%}
+#interface #overlay.imx .wb-prerequisite-card h2{margin:0;font-size:24px;line-height:1.4}
+.wb-prerequisite-state{display:flex;align-items:center;gap:8px;font-size:16px;line-height:1.5;color:#d5dfe1}
+#interface #overlay.imx .wb-prerequisite-state svg{width:20px;height:20px;flex-shrink:0}
+#interface #overlay.imx .wb-prerequisite-card button{width:100%;font-size:16px;min-height:48px;margin-top:4px}
+@media(max-width:700px){#interface #overlay.imx .wb-prerequisite{padding:12px 0;min-height:330px}.wb-prerequisite-card{padding:22px 16px}}
+/* Preserve the approved physical icon/text sizes inside the native scaled overlay. */
+#interface #overlay.imx{--wb-icon-size:calc(28px / var(--ui-layout-scale,1));--wb-name-size:calc(14px / var(--ui-layout-scale,1));--wb-state-size:calc(12px / var(--ui-layout-scale,1));--wb-heading-size:calc(16px / var(--ui-layout-scale,1))}
+#interface #overlay.imx .wb-ui-icon{display:flex;align-items:center;justify-content:center;position:relative;width:var(--wb-icon-size);height:var(--wb-icon-size);min-width:var(--wb-icon-size);min-height:var(--wb-icon-size);flex:0 0 var(--wb-icon-size);padding:0;border:0;background:transparent}
+#interface #overlay.imx .wb-ui-icon>img,#interface #overlay.imx .wb-ui-icon>.wb-facility-icon,#interface #overlay.imx .wb-ui-icon>.wb-equipment-icon,#interface #overlay.imx .wb-ui-icon>svg{display:block;width:100%;height:100%;object-fit:contain}
+#interface #overlay.imx .wb-tree-node{grid-template-columns:var(--wb-icon-size) minmax(0,1fr);padding:10px;gap:8px;min-height:56px;align-items:center}
+#interface #overlay.imx .wb-item-heading{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;min-width:0}
+#interface #overlay.imx .wb-item-heading>strong{font-size:var(--wb-name-size);line-height:1.4;min-width:0;overflow-wrap:anywhere}
+#interface #overlay.imx .wb-node-state{font-size:var(--wb-state-size);line-height:1.4;color:#c7d2d5;white-space:nowrap}
+#interface #overlay.imx .wb-tree-line>header h2,#interface #overlay.imx .wb-tech-line>header h2,#interface #overlay.imx .wb-line-technology h3{font-size:var(--wb-heading-size)}
+#interface #overlay.imx .wb-line-technology h3{margin:16px 0 10px}
+#interface #overlay.imx .wb-tree-line>header span{font-size:var(--wb-state-size)}
+#interface #overlay.imx .wb-tech-state{font-size:var(--wb-state-size);gap:4px;flex-shrink:0;white-space:nowrap}
+#interface #overlay.imx .wb-tech-state svg{width:14px;height:14px}
+#interface #overlay.imx .wb-tech-requirement{gap:8px;min-width:0;font-size:var(--wb-state-size)}
+#interface #overlay.imx .wb-tech-requirement>span:last-child{min-width:0;overflow-wrap:anywhere}
+#interface #overlay.imx .wb-tree-steps>li{min-width:160px}
+#interface #overlay.imx .wb-tree-steps>li:not(:last-child)::after{top:18px}
+#interface #overlay.imx .wb-tree-requirement,#interface #overlay.imx .wb-tree-crystal{max-width:320px;margin:12px 0}
+#interface #overlay.imx .wb-skill-card{gap:10px;padding:12px}
+#interface #overlay.imx .wb-skill-body,#interface #overlay.imx .wb-system-body{gap:4px}
+#interface #overlay.imx .wb-skill-mark,#interface #overlay.imx .wb-prerequisite-mark{width:14px;height:14px;right:-4px;bottom:-4px;padding:1px}
+#interface #overlay.imx .wb-research-grid{grid-template-columns:200px minmax(0,1fr);gap:24px}
+#interface #overlay.imx .wb-system-card{flex-direction:row;justify-content:flex-start;min-height:56px;padding:10px;gap:8px}
+#interface #overlay.imx .wb-system-body{align-items:flex-start;text-align:left}
+#interface #overlay.imx .wb-research-paths{gap:10px}
+#interface #overlay.imx .wb-research-node{display:grid;grid-template-columns:var(--wb-icon-size) minmax(0,1fr);align-items:center;gap:8px;padding:10px;min-height:56px;text-align:left}
+#interface #overlay.imx .wb-tech-empty{padding:12px;font-size:var(--wb-state-size)}
+#interface #overlay.imx .wb-tech-empty svg{width:28px;height:28px}
+#interface #overlay.imx .wb-prerequisite{min-height:240px}
+#interface #overlay.imx .wb-prerequisite-card{width:280px;gap:12px;padding:20px}
+#interface #overlay.imx .wb-prerequisite-card h2{font-size:20px}
+#interface #overlay.imx .wb-prerequisite-state{font-size:var(--wb-name-size)}
+.wb-production-order{justify-content:flex-end}
+#interface #overlay.imx .wb-refresh-cost,#interface #overlay.imx .wb-refresh-cost .money{display:inline-flex;align-items:center;gap:6px}
+#interface #overlay.imx .wb-refresh-cost img{width:20px;height:20px;object-fit:contain}
+#interface #overlay.imx .wb-refresh-cost b{font-size:var(--wb-name-size)}
+@media(max-width:1000px){#interface #overlay.imx .wb-research-node{display:flex;flex-direction:column;gap:6px;padding:10px 4px;text-align:center}#interface #overlay.imx .wb-research-node>.wb-item-heading{justify-content:center}}
+@media(max-width:700px){#interface #overlay[data-layout=portrait].imx .feedback-progress-strip{grid-template-columns:repeat(3,minmax(0,1fr))}#interface #overlay.imx .wb-tree-branch>.wb-tree-node{min-width:160px}#interface #overlay.imx .wb-tree-steps>li:not(:last-child)::after{top:auto}#interface #overlay.imx .wb-research-grid{grid-template-columns:1fr}}
+
+#interface #overlay.imx .feedback-progress-strip{grid-template-columns:repeat(3,minmax(0,1fr))}

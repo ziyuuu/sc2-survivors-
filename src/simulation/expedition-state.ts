@@ -5,10 +5,11 @@ import {FAMILIES_BY_RACE,MVP_RULES,type Race,type FamilyId} from '../data/races'
 import {PRODUCTION_LINES,type ProductionLineId} from '../data/expedition-buildings';
 import {ELITES,type EliteId} from '../data/elites';
 import type {ExpeditionReward} from './progression/expedition-drafts';
+import {newBuildingState,type BuildingState} from './building/rules';
 export interface Payment {minerals:number;gas:number}
 export type TacticalDirection='assault'|'guard'|'mobility';
 export interface DeliveryPassenger {pairId?:string;pairHalf?:0|1;source?:'queen-inject'|'shop-supply';paid:Payment;status:'waiting'|'released'|'lost'|'refunded';entityId:number|null;purpose:'body'|'rankTraining'|'tacticalProgress';targetEntityId?:number;targetGeneration?:number;tacticalTierAtOrder?:number;direction?:TacticalDirection;}
-export interface DeliveryLedger {landingRetryAt?:number;id:number;family:FamilyId;line:ProductionLineId;facilityIds:number[];remaining:number;state:'training'|'awaiting'|'risk'|'settled';podId:number|null;passengers:DeliveryPassenger[];}
+export interface DeliveryLedger {producerId?:string;landingRetryAt?:number;id:number;family:FamilyId;line:ProductionLineId;facilityIds:number[];remaining:number;state:'training'|'awaiting'|'risk'|'settled';podId:number|null;passengers:DeliveryPassenger[];}
 export interface CultivationCredit {id:number;rank:number;sourceId:number;}
 export interface FamilyReceiptRequest {id:string;podId:number;passengerIndex:number;family:FamilyId;readyTick:number;}
 export interface EliteContract {id:string;eliteId:string;family:FamilyId;minerals:number;gas:number;purchased:boolean;}
@@ -16,6 +17,8 @@ export interface TacticalPlan {targetEntityId:number;targetGeneration:number;dir
 export interface TalentLootChoice {receipt:string;rarity:'purple'|'orange';offers:ExpeditionReward[];}
 export interface EliteRescueRight {receipt:string;eliteId:string;}
 export interface ExpeditionState {
+ /** New-run building package. Legacy player archives are not converted by this integration. */
+ building?:BuildingState;
  support:ShopSupportState;
  pendingFreeDeliveries:{family:FamilyId;jobId:number;retryAt:number}[];
  mapLootStats:Record<'regular'|'drone'|'elite',{attempts:number;triggered:number;generated:number;empty:number}>;
@@ -48,11 +51,11 @@ export function newExpedition(race:Race):ExpeditionState {
   terran:{family:'marine',kind:'barracks',line:'barracks',tech:{barracks:1}},
   zerg:{family:'zergling',kind:'hatchery',line:'zerg.basic',tech:{hatchery:1,pool:1}},
   protoss:{family:'zealot',kind:'gateway',line:'gateway',tech:{gateway:1}},
- };const first=initial[race];
+ };const first=initial[race],building=newBuildingState(race,{minerals:0,gas:0});building.stage=0;building.window=0;building.phase='front';building.tech={...first.tech,['unlock.'+first.family]:1};
  const production:ExpeditionState['production']={};
  for(const [id,line] of Object.entries(PRODUCTION_LINES))if(line.race===race)production[id as ProductionLineId]={outputs:id===first.line?[first.family]:[],enabled:{},cursor:0};
  production[first.line]!.enabled[first.family]=true;
- return {support:newShopSupport(),zerglingPairs:[],weaponAreas:[],spells:[],rules:MVP_RULES,race,familySlots:[first.family],tech:{...first.tech,['unlock.'+first.family]:1},facilities:[{id:1,kind:first.kind,line:first.line,techLab:false}],nextFacility:2,production,
+ return {building,support:newShopSupport(),zerglingPairs:[],weaponAreas:[],spells:[],rules:MVP_RULES,race,familySlots:[first.family],tech:building.tech,facilities:[{id:1,kind:first.kind,line:first.line,techLab:false}],nextFacility:2,production,
  ledger:[],credits:{},nextCredit:1,tacticalPlans:{},pendingReceipt:null,completedReceipts:[],refunds:{minerals:0,gas:0},developmentTarget:null,frozenDevelopmentTarget:null,developmentBought:false,
  pendingShopSupply:null,pendingShopElite:null,developmentDirection:null,directionOffers:{},developmentQuotes:{},shopRevision:0,shopPage:0,refreshCount:0,freePurchasesRemaining:0,
  freeRefresh:{chapter:1,building:0,random:0},bonusRefreshRemaining:0,paidRefresh:{building:false,random:false},draftWindow:0,draftTaken:false,draftClaims:[],draftSeenHigh:false,lowWindows:0,draftHistory:[],eliteContractWindow:0,eliteContracts:[],bossLootReceipts:[],bossLootClaimed:[],bossLootOpen:false,bossLootQueue:[],talentLootReceipts:[],pendingTalentLoot:null,talentLootRngState:1,eliteRescueRights:[],eliteRescueCompleted:[],temporaryOrdinaryCursor:0,temporaryEliteCursor:0,cardTotals:{},resourceCards:0,pendingFreeDeliveries:[],mapLootStats:{regular:{attempts:0,triggered:0,generated:0,empty:0},drone:{attempts:0,triggered:0,generated:0,empty:0},elite:{attempts:0,triggered:0,generated:0,empty:0}},detectionReady:0,detectionFields:[],enemyScanReady:{},familyModes:{},talentPreset:0};

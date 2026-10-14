@@ -1,0 +1,9 @@
+[
+  {
+    "id": "Hologram_Death_Large",
+    "modelDataId": "Hologram_Death_Large",
+    "assetPath": "Assets/Units/Zerg/Generic_Purifier_Hologram_Death/Generic_Purifier_Hologram_Death.m3",
+    "name": "generic_purifier_hologram_death",
+    "scale": [2, 2, 2]
+  }
+]

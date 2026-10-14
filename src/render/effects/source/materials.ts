@@ -6,10 +6,11 @@ import {sharedMaterialTextures} from '../../materials/shared-textures';
 import {MATERIAL_ROLES,bindUnitMaterial,type PreparedUnitMaterial} from '../../materials/unit-material-loader';
 import {UnitMaterialSurface} from '../../materials/unit-material-batch';
 import type {SourceEffectDefinition} from './types';
+import type {DisplacementResource} from './displacement';
 
 export interface SourceMaterialResource {base:THREE.Material;prepared:PreparedUnitMaterial}
-export interface SourceEffectResource {definition:SourceEffectDefinition;materials:SourceMaterialResource[];gltf?:GLTF}
-export function sourceDependencies(def:SourceEffectDefinition){return [...new Set([...(def.glbId?[def.glbId]:[]),...def.materialProfile.materials.flatMap(m=>Object.values(m.layers).flatMap(l=>l.texture?[l.texture]:l.cubeTextures??[]))])];}
+export interface SourceEffectResource {definition:SourceEffectDefinition;materials:SourceMaterialResource[];displacement:DisplacementResource[];gltf?:GLTF;displacementGltf?:GLTF}
+export function sourceDependencies(def:SourceEffectDefinition){return [...new Set([...(def.glbId?[def.glbId]:[]),...(def.displacementGlb?[def.displacementGlb.id]:[]),...def.materialProfile.materials.flatMap(m=>Object.values(m.layers).flatMap(l=>l.texture?[l.texture]:l.cubeTextures??[])),...(def.displacementMaterials??[]).flatMap(m=>Object.values(m.layers).flatMap(l=>l?.texture?[l.texture]:l?.cubeTextures??[]))])];}
 export async function loadSourceEffect(definition:SourceEffectDefinition):Promise<SourceEffectResource>{
  await prepareEmbeddedAssetIds(sourceDependencies(definition));
  const materials:SourceMaterialResource[]=[];
@@ -34,7 +35,11 @@ export async function loadSourceEffect(definition:SourceEffectDefinition):Promis
    const bind=(m:THREE.Material)=>{const resource=materials.find(r=>r.base.name===m.name);if(!resource)throw Error('Unbound combat surface: '+m.name);return resource.base;};n.material=Array.isArray(n.material)?n.material.map(bind):bind(n.material);
   });
  }
- return {definition,materials,gltf};
+ const displacement:DisplacementResource[]=[];
+ for(const source of definition.displacementMaterials??[]){const textures:DisplacementResource['textures']={};for(const role of ['normal','strength']as const){const layer=source.layers[role];if(!layer?.texture)continue;const url=assetUrl(layer.texture);if(!url)throw Error('Missing original displacement texture '+layer.texture);const texture=await sharedMaterialTextures.image(url);texture.flipY=false;texture.colorSpace=THREE.NoColorSpace;texture.wrapS=layer.flags&4?THREE.RepeatWrapping:THREE.ClampToEdgeWrapping;texture.wrapT=layer.flags&8?THREE.RepeatWrapping:THREE.ClampToEdgeWrapping;texture.needsUpdate=true;textures[role]=texture;}displacement.push({definition,source,textures});}
+ let displacementGltf:GLTF|undefined;
+ if(definition.displacementGlb){const {id,sha256}=definition.displacementGlb,url=assetUrl(id);if(!url)throw Error('Missing original displacement mesh '+id);const response=await fetch(url);if(!response.ok)throw Error('Could not load original displacement mesh '+id);const bytes=await response.arrayBuffer(),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(b=>b.toString(16).padStart(2,'0')).join('');if(hash!==sha256)throw Error('Displacement mesh/source mismatch '+id);displacementGltf=await new GLTFLoader().parseAsync(bytes,'');}
+ return {definition,materials,displacement,gltf,displacementGltf};
 }
 /** Each draw owns source curves; immutable images are shared through independent wrappers. */
 export function sourceSurface(resource:SourceMaterialResource,geometry:THREE.BufferGeometry,capacity:number,particles=false){

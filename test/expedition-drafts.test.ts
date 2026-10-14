@@ -25,22 +25,22 @@ test('opening and restoring a window preserve offers, frozen target, random stat
 });
 test('development gives distinct legal choices, pins a frozen target and locks discounted quotes',()=>{
  const ctx=context();nextWindow(ctx,2);ctx.state.frozenDevelopmentTarget='factory';ctx.state.developmentDirection='factory';
- const offers=drawExpeditionDevelopment(ctx);assert.equal(offers.length,2);assert.deepEqual(new Set(offers.map(o=>o.value)),new Set(['factory','barracks']));assert.equal(offers[0].value,'factory');assert.equal(offers[0].baseMinerals,150);assert.equal(offers[0].baseGas,100);assert.equal(offers[0].minerals,Math.ceil(150*(1-offers[0].discount)));assert.equal(offers[0].gas,Math.ceil(100*(1-offers[0].discount)));
+ const offers=drawExpeditionDevelopment(ctx);assert.equal(offers.length,1);assert.deepEqual(new Set(offers.map(o=>o.value)),new Set(['factory']));assert.equal(offers[0].value,'factory');assert.equal(offers[0].baseMinerals,150);assert.equal(offers[0].baseGas,100);assert.equal(offers[0].minerals,Math.ceil(150*(1-offers[0].discount)));assert.equal(offers[0].gas,Math.ceil(100*(1-offers[0].discount)));
  for(const offer of offers){assert.equal(offer.expeditionRound,'building');assert.ok(canTakeExpeditionOffer(ctx,offer));assert.equal(DEVELOPMENT.find(d=>d.id===offer.value)!.race,'terran');}
- assert.equal(recordExpeditionOffer(ctx.state,offers[0]),true);assert.equal(recordExpeditionOffer(ctx.state,offers[0]),false);assert.equal(canTakeExpeditionOffer(ctx,offers[1]),false);assert.deepEqual(drawExpeditionDevelopment(ctx),[]);assert.equal(ctx.state.draftTaken,false);
+ assert.equal(recordExpeditionOffer(ctx.state,offers[0]),true);assert.equal(recordExpeditionOffer(ctx.state,offers[0]),false);assert.equal(canTakeExpeditionOffer(ctx,offers[0]),false);assert.deepEqual(drawExpeditionDevelopment(ctx),[]);assert.equal(ctx.state.draftTaken,false);
 });
 test('shared research uses stage 6/12 gates and no per-facility laboratory',()=>{
  const ctx=context('terran',5);ctx.state.tech['system.barracks']=1;ctx.state.tech['research.barracks.weapon']=1;ctx.state.facilities.unshift({id:4,kind:'barracks',line:'barracks',techLab:false});
- let actions=expeditionDevelopmentActions(ctx);assert.ok(!actions.some(a=>a.definition.id==='research.barracks.weapon'));assert.ok(actions.some(a=>a.definition.id==='unlock.marauder'));assert.ok(actions.every(a=>a.effect.targetFacilityId===undefined));
+ let actions=expeditionDevelopmentActions(ctx);assert.ok(!actions.some(a=>a.definition.id==='research.barracks.weapon'));assert.ok(actions.some(a=>a.definition.id==='unlock.reaper'));assert.ok(!actions.some(a=>a.definition.id==='unlock.marauder'));ctx.state.tech['unlock.reaper']=1;assert.ok(expeditionDevelopmentActions(ctx).some(a=>a.definition.id==='unlock.marauder'));assert.ok(actions.every(a=>a.effect.targetFacilityId===undefined));
  nextWindow(ctx,6);assert.equal(expeditionDevelopmentActions(ctx).find(a=>a.definition.id==='research.barracks.weapon')!.effect.expectedLevel,1);
  ctx.state.tech['research.barracks.weapon']=2;assert.ok(!expeditionDevelopmentActions(ctx).some(a=>a.definition.id==='research.barracks.weapon'));nextWindow(ctx,12);ctx.state.frozenDevelopmentTarget='research.barracks.weapon';
  const offer=drawExpeditionDevelopment(ctx)[0];assert.equal(offer.value,'research.barracks.weapon');assert.equal(offer.baseMinerals,275);assert.equal(offer.baseGas,150);assert.equal(offer.minerals,Math.ceil(275*(1-offer.discount)));assert.equal(offer.gas,Math.ceil(150*(1-offer.discount)));
  ctx.developmentReady=d=>d.id!=='research.barracks.weapon';assert.equal(canTakeExpeditionOffer(ctx,offer),false);assert.ok(!expeditionDevelopmentActions(ctx).some(a=>a.definition.id==='research.barracks.weapon'));
 });
 test('both rounds share unlimited rising refresh prices and each new window resets the sequence',()=>{
- const ctx=context();for(const [index,round] of (['building','building','random','random','building','random'] as const).entries())assert.equal(consumeExpeditionRefresh(ctx.state,1,round),[50,90,130,170,210,250][index]);
- assert.equal(expeditionRefreshCost(ctx.state,1,'random'),290);
- for(const stage of [2,4,16]){nextWindow(ctx,stage);assert.equal(consumeExpeditionRefresh(ctx.state,stage,'building'),50);assert.equal(consumeExpeditionRefresh(ctx.state,stage,'random'),90);}
+ const ctx=context();for(const [index,round] of (['building','building','random','random','building','random'] as const).entries())assert.equal(consumeExpeditionRefresh(ctx.state,1,round),[0,50,90,130,170,210][index]);
+ assert.equal(expeditionRefreshCost(ctx.state,1,'random'),250);
+ for(const stage of [2,4,16]){nextWindow(ctx,stage);assert.equal(consumeExpeditionRefresh(ctx.state,stage,'building'),0);assert.equal(consumeExpeditionRefresh(ctx.state,stage,'random'),50);}
 });
 test('random cards carry paid quotes and cannot create random ordinary recruits or cross-race targets',()=>{
  for(const race of ['terran','zerg','protoss'] as const)for(let seed=0;seed<30;seed++){
@@ -51,11 +51,11 @@ test('random cards carry paid quotes and cannot create random ordinary recruits 
  }
 });
 test('unadmitted outputs can receive production cards but never immediate battle/cultivation cards',()=>{
- const ctx=context();ctx.state.production.barracks!.outputs=['marine','marauder'];ctx.state.production.barracks!.enabled.marauder=true;
+ const ctx=context();ctx.state.building!.groups[0].outputs=['marine','reaper'];ctx.state.building!.groups[0].enabledFamilies={marine:true,reaper:true};ctx.state.tech['unlock.reaper']=1;
  let productionFound=false;
- for(let n=0;n<150;n++)for(const card of cards(drawExpeditionReinforcements(ctx,true)))if(card.family==='marauder'){assert.equal(card.effect,'production');productionFound=true;}
- assert.equal(productionFound,true);ctx.state.production.barracks!.enabled.marauder=false;
- for(let n=0;n<30;n++)assert.ok(!cards(drawExpeditionReinforcements(ctx,true)).some(e=>e.family==='marauder'));
+ for(let n=0;n<150;n++)for(const card of cards(drawExpeditionReinforcements(ctx,true)))if(card.family==='reaper'){assert.equal(card.effect,'production');productionFound=true;}
+ assert.equal(productionFound,true);ctx.state.building!.groups[0].enabledFamilies!.reaper=false;
+ for(let n=0;n<30;n++)assert.ok(!cards(drawExpeditionReinforcements(ctx,true)).some(e=>e.family==='reaper'));
 });
 test('6/9/12 use ordinary random quality without forcing heroes or blue alternatives',()=>{
  for(const race of ['terran','zerg','protoss'] as const)for(const stage of [6,9,12]){

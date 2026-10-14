@@ -12,6 +12,8 @@ import {buildRouteMatches} from '../../data/build-card-routes';
 import {rollRarity,type Rarity} from '../../data/rewards';
 import type {Reward} from '../types';
 import type {ExpeditionState} from '../expedition-state';
+import {buildingContext,readBuildingContext,resetBuildingWindow,selectedProductionFamilies,syncBuildingWindow} from '../building/expedition';
+import {PROJECTS,consumeRefresh,eligible,evolutionTargets,facilityCount,getOffers,linesFor,refreshCost as buildingRefreshCost,type Offer as BuildingOffer} from '../building/rules';
 
 export type ExpeditionDraftRound='building'|'random';
 export type ExpeditionCardEffect='weapon'|'vitality'|'armor'|'recovery'|'energy'|'production'|'cultivation';
@@ -26,7 +28,7 @@ export type ExpeditionOfferEffect=
  | {kind:'elite';eliteId:string;family:FamilyId;targetRank?:5}
  | {kind:'resource';minerals:number;gas:number;fallback:boolean;fallbackReason?:'guarantee'|'pool-exhausted'};
 /** Extra fields are plain DTOs and can be stored with the existing World.rewards array. */
-export interface ExpeditionReward extends Reward {mapSource?:boolean;expeditionWindow:number;expeditionRound:ExpeditionDraftRound;expeditionEffect:ExpeditionOfferEffect;talentLootReceipt?:string;purchaseReceipt?:{minerals:number;gas:number;freeSource:'R07'|'R09'|null}}
+export interface ExpeditionReward extends Reward {buildingQuoteId?:string;mapSource?:boolean;expeditionWindow:number;expeditionRound:ExpeditionDraftRound;expeditionEffect:ExpeditionOfferEffect;talentLootReceipt?:string;purchaseReceipt?:{minerals:number;gas:number;freeSource:'R07'|'R09'|null}}
 export interface ExpeditionFamilyDraftInfo {
  name?:string;icon?:string;alive:number;canAttack:boolean;canSupport:boolean;usesEnergy:boolean;
  /** Free ordinary rank capacity after all paid deliveries and inheritance reservations. */
@@ -35,6 +37,7 @@ export interface ExpeditionFamilyDraftInfo {
 export interface ExpeditionHeroDraftInfo {id:string;race:Race;name:string;icon:string;rank:number;owned:boolean;eligible:boolean}
 export interface ExpeditionEliteDraftInfo {id:string;race:Race;family:FamilyId;name:string;icon:string;eligible:boolean}
 export interface ExpeditionDraftContext {
+ wallet?:{minerals:number;gas:number};
  purchasePriceFactor?:number;
  state:ExpeditionState;stage:number;random:()=>number;nextOfferId:(id:string)=>string;
  /** Distinct monotonically increasing ID for endless windows; stage remains the quality tier (17). */
@@ -80,20 +83,20 @@ export function expeditionCardKey(effect:ExpeditionCardEffect,family:FamilyId){r
 export function beginExpeditionWindow(state:ExpeditionState,stage:number,windowId=stage,bonusRefresh=0,freePurchases=0){
  assertWindow(stage);if(!Number.isSafeInteger(windowId)||windowId<stage)throw new RangeError('Invalid expedition window ID');if(state.rules!==MVP_RULES)throw new Error('运行规则不匹配');if(state.draftWindow===windowId)return false;
  if(state.draftWindow>windowId||state.draftWindow>0&&!state.draftTaken)throw new Error('The previous reinforcement window is unfinished');
- const chapter=chapterOf(stage);state.freeRefresh={chapter,building:0,random:0};
+ const chapter=chapterOf(stage);state.freeRefresh={chapter,building:1,random:0};state.developmentDirection??=linesFor(state.race)[0];
  state.pendingShopElite=null;state.directionOffers={};state.developmentQuotes={};state.refreshCount=0;state.shopPage=0;state.freePurchasesRemaining=Math.max(0,Math.min(2,freePurchases));state.shopRevision++;
  state.draftWindow=windowId;state.developmentBought=false;state.frozenDevelopmentTarget=state.developmentTarget;
- state.paidRefresh={building:false,random:false};state.bonusRefreshRemaining=Math.max(0,Math.min(3,bonusRefresh));state.draftTaken=false;state.draftClaims=[];state.draftSeenHigh=false;state.draftHistory.push({shown:[],chosen:null});return true;
+ state.paidRefresh={building:false,random:false};state.bonusRefreshRemaining=Math.max(0,Math.min(3,bonusRefresh));state.draftTaken=false;state.draftClaims=[];state.draftSeenHigh=false;state.draftHistory.push({shown:[],chosen:null});resetBuildingWindow(state,stage,windowId);return true;
 }
 export function expeditionRefreshCost(state:ExpeditionState,stage:number,round:ExpeditionDraftRound,windowId=stage,priceReduction=0,discount=0):number|null {
  assertWindow(stage);if(state.rules!==MVP_RULES||state.draftWindow!==windowId||(round==='building'?state.developmentBought:state.draftTaken))return null;
- if(state.bonusRefreshRemaining>0)return 0;
- return Math.max(10,Math.ceil((50+40*state.refreshCount-20*priceReduction)*(1-.1*discount)));
+ const b=readBuildingContext(state,stage,windowId,round==='building'?'building':'shop');if(b)b.talents={...b.talents,reroll_fan:priceReduction,permanent_discount:discount};return b?buildingRefreshCost(b):null;
 }
 /** Call only after World's atomic wallet check; this returns the exact mineral charge. */
 export function consumeExpeditionRefresh(state:ExpeditionState,stage:number,round:ExpeditionDraftRound,windowId=stage,priceReduction=0,discount=0){
  const price=expeditionRefreshCost(state,stage,round,windowId,priceReduction,discount);if(price===null)return null;
- if(price===0)state.bonusRefreshRemaining--;state.refreshCount++;state.shopRevision++;return price;
+ const b=buildingContext(state,stage,windowId,round==='building'?'building':'shop',undefined,{reroll_fan:priceReduction,permanent_discount:discount});if(!b||!consumeRefresh(b,b.revision).ok)return null;
+ if(price>0)state.paidRefresh[round]=true;syncBuildingWindow(state,b);return price;
 }
 function sample<T>(pool:readonly T[],weight:(value:T)=>number,random:()=>number):T|undefined {
  if(!pool.length)return undefined;const weights=pool.map(item=>Math.max(0,weight(item))),sum=weights.reduce((a,b)=>a+b,0);if(sum<=0)return pool[0];let value=random()*sum;for(let i=0;i<pool.length;i++){value-=weights[i];if(value<0)return pool[i];}return pool.at(-1);
@@ -106,37 +109,32 @@ function quote(ctx:ExpeditionDraftContext,c:Candidate,round:ExpeditionDraftRound
  const cost=(base:number)=>base?Math.max(1,Math.ceil(base*(1-discount)*factor)):0;
  return {id:c.id,offerId:ctx.nextOfferId(c.id),sold:false,name:c.name,description:c.description,icon:c.icon,rarity:c.rarity,kind:c.kind,value:c.value,strength:c.strength,minerals:cost(price.minerals),gas:cost(price.gas),baseMinerals:price.minerals,baseGas:price.gas,discount,expeditionWindow:windowOf(ctx),expeditionRound:round,expeditionEffect:c.effect};
 }
-function selectedFamilies(state:ExpeditionState){return new Set(Object.values(state.production).flatMap(line=>line?.outputs.filter(f=>line.enabled[f]!==false)??[]));}
+function selectedFamilies(state:ExpeditionState){return selectedProductionFamilies(state);}
 function ownsDevelopment(state:ExpeditionState,id:string){return (state.tech[id]??0)>0||state.facilities.some(f=>f.kind===id);}
+function developmentState(ctx:ExpeditionDraftContext,mutate=false){return (mutate?buildingContext:readBuildingContext)(ctx.state,ctx.stage,windowOf(ctx),'building',ctx.wallet);}
 function developmentAction(ctx:ExpeditionDraftContext,d:DevelopmentDefinition):ExpeditionOfferEffect&{kind:'development'}|null {
- const s=ctx.state;if(d.race!==s.race||ctx.stage<d.afterStage||d.requires.some(id=>!ownsDevelopment(s,id))||ctx.developmentReady?.(d)===false)return null;
- if(d.kind!=='facility'&&d.line&&!s.facilities.some(f=>f.line===d.line))return null;
- const level=d.kind==='facility'?s.facilities.filter(f=>f.kind===d.id).length:s.tech[d.id]??0;
- if(level>=d.maxLevel||d.maxLevel===3&&(level===1&&ctx.stage<6||level===2&&ctx.stage<12))return null;
- return {kind:'development',definitionId:d.id,expectedLevel:level};
+ const b=developmentState(ctx);if(!b||!eligible(b,d)||ctx.developmentReady?.(d)===false)return null;
+ const target=d.kind==='evolution'?evolutionTargets(b,d.id)[0]:undefined;
+ return {kind:'development',definitionId:d.id,expectedLevel:d.kind==='facility'?facilityCount(b,d.id):b.tech[d.id]??0,...(target?{targetFacilityId:target.ids[0]}:{})};
 }
-export function expeditionDevelopmentActions(ctx:ExpeditionDraftContext){requireCurrent(ctx);return DEVELOPMENT.flatMap(definition=>{const effect=developmentAction(ctx,definition);return effect?[{definition,effect}]:[];});}
+export function expeditionDevelopmentActions(ctx:ExpeditionDraftContext){requireCurrent(ctx);return PROJECTS.flatMap(definition=>{const effect=developmentAction(ctx,definition);return effect?[{definition,effect}]:[];});}
+export function nativeBuildingQuote(ctx:ExpeditionDraftContext,offer:ExpeditionReward):BuildingOffer|null {
+ const b=developmentState(ctx),e=offer.expeditionEffect;if(!b||e.kind!=='development'||!offer.buildingQuoteId)return null;
+ const q=b.offers[b.direction]?.find(q=>q.id===offer.buildingQuoteId&&q.projectId===e.definitionId);
+ return q?{...structuredClone(q),revision:b.revision}:null;
+}
 export function drawExpeditionDevelopment(ctx:ExpeditionDraftContext,reroll=false):ExpeditionReward[] {
- requireCurrent(ctx);const direction=ctx.state.developmentDirection;if(ctx.state.developmentBought||!direction)return [];
- if(!reroll&&ctx.state.directionOffers[direction])return ctx.state.directionOffers[direction]!;
- if(reroll){ctx.state.directionOffers={};ctx.state.developmentQuotes={};}
- const pool=expeditionDevelopmentActions(ctx).filter(a=>developmentInDirection(a.definition.id,direction)),selected=selectedFamilies(ctx.state),related=new Set([...ctx.state.familySlots,...selected]);
- const currentCapabilities=new Set(ctx.state.familySlots.flatMap(f=>ctx.familyInfo(f).alive>0?[...(ctx.familyInfo(f).capabilities??[])]:[]));
- const picked:typeof pool=[];
- for(let slot=0;slot<3&&pool.length;slot++){
-  const pinned=slot===0?pool.find(c=>c.definition.id===ctx.state.frozenDevelopmentTarget):undefined;
-  const chosen=pinned??sample(pool,({definition:d})=>{
-   if(slot===0)return d.families.some(f=>related.has(f))?4:1;
-   if(slot===1){const fills=d.families.some(f=>(ctx.familyInfo(f).capabilities??[]).some(cap=>!currentCapabilities.has(cap)));return fills?4:d.families.some(f=>related.has(f))?2:1;}
-   return d.families.some(f=>!related.has(f))?4:d.kind==='facility'?2:1;
-  },ctx.random)!;picked.push(chosen);pool.splice(pool.indexOf(chosen),1);
- }
- const offers=picked.map(({definition:d,effect})=>{
-  const key=`${d.id}:${effect.expectedLevel}:${effect.targetFacilityId??''}`;if(ctx.state.developmentQuotes[key])return ctx.state.developmentQuotes[key];
-  const raw=developmentPrice(d,effect.expectedLevel),factor=ctx.developmentPriceFactorFor?.(d)??ctx.developmentPriceFactor??1;
-  if(!Number.isFinite(factor)||factor<0)throw new RangeError('Invalid development price multiplier');
-  const action=d.kind==='facility'?`建造${d.name}${effect.expectedLevel?`（第${effect.expectedLevel+1}座）`:''}`:d.kind==='research'?`${d.name}${d.maxLevel>1?` ${effect.expectedLevel+1}级`:''}`:`${d.name}${effect.targetFacilityId?`（设施${effect.targetFacilityId}）`:''}`;
-  return ctx.state.developmentQuotes[key]=quote(ctx,{id:`development.${d.id}${effect.targetFacilityId?'.'+effect.targetFacilityId:''}`,name:action,description:d.kind==='facility'?'增加一座生产设施':d.kind==='research'?'本路线全体普通与精英同步强化':'本局同类设施共享，未来新建也有效',icon:d.line&&['barracks','factory','starport'].includes(d.line)?`building.${d.line}`:'tech.attack',rarity:'white',kind:d.kind==='facility'?'build':effect.targetFacilityId?'upgrade':'research',value:d.id,effect,category:'general',group:'development',immediate:true},'building',raw,factor);
+ requireCurrent(ctx);const direction=ctx.state.developmentDirection,b=developmentState(ctx,true);if(ctx.state.developmentBought||!direction||!b)return [];
+ if(reroll){ctx.state.directionOffers={};ctx.state.developmentQuotes={};b.offers={};b.quotes={};}
+ const quotes=getOffers(b,{random:ctx.random,related:ctx.state.familySlots,capabilities:f=>ctx.familyInfo(f).capabilities??[],ready:ctx.developmentReady,priceFactorFor:ctx.developmentPriceFactorFor??(ctx.developmentPriceFactor!==undefined?()=>ctx.developmentPriceFactor!:undefined)});
+ const offers=quotes.map(q=>{
+  const d=PROJECTS.find(d=>d.id===q.projectId)!;
+  if(ctx.state.developmentQuotes[q.id])return ctx.state.developmentQuotes[q.id];
+  const target=d.kind==='evolution'?b.groups.find(g=>g.id===q.targets[0]):undefined;
+  const effect:ExpeditionOfferEffect={kind:'development',definitionId:d.id,expectedLevel:q.level,...(target?{targetFacilityId:target.ids[0]}:{})};
+  const action=d.kind==='facility'?'建造'+d.name+(q.level&&d.id!=='crystal'?'（第'+(q.level+1)+'座）':''):d.kind==='research'?d.name+' '+(q.level+1)+'级':d.name;
+  const offer:ExpeditionReward={id:'development.'+d.id,offerId:ctx.nextOfferId(d.id),sold:false,name:action,description:d.kind==='facility'?d.batch?'增加两座生产设施':'增加一座生产设施':d.kind==='evolution'?'开放所选孵化场方向':'本局同类设施共享，未来新建也有效',icon:d.kind==='facility'?d.race==='terran'?'building.'+d.id:'unit.'+d.families[0]:d.kind==='evolution'?'unit.'+d.families[0]:d.line&&['barracks','factory','starport'].includes(d.line)?'building.'+d.line:'tech.attack',rarity:'white',kind:d.kind==='facility'?'build':d.kind==='evolution'?'upgrade':'research',value:d.id,minerals:q.cost.minerals,gas:q.cost.gas,baseMinerals:q.baseCost.minerals,baseGas:q.baseCost.gas,discount:q.discount,expeditionWindow:windowOf(ctx),expeditionRound:'building',expeditionEffect:effect,buildingQuoteId:q.id};
+  ctx.state.developmentQuotes[q.id]=offer;return offer;
  });
  ctx.state.directionOffers[direction]=offers;return offers;
 }
@@ -284,7 +282,7 @@ export function finishExpeditionDraft(state:ExpeditionState,chosen:string|null=n
 export function canTakeExpeditionOffer(ctx:ExpeditionDraftContext,offer:ExpeditionReward){
  if(offer.sold||offer.expeditionWindow!==windowOf(ctx)||ctx.state.draftWindow!==windowOf(ctx)||ctx.state.rules!==MVP_RULES)return false;
  if(offer.expeditionRound==='building'){
-  if(ctx.state.developmentBought||offer.expeditionEffect.kind!=='development')return false;const effect=offer.expeditionEffect,d=DEVELOPMENT.find(d=>d.id===effect.definitionId&&d.race===ctx.state.race);if(!d)return false;const current=developmentAction(ctx,d);return !!current&&current.expectedLevel===effect.expectedLevel&&current.targetFacilityId===effect.targetFacilityId;
+  if(ctx.state.developmentBought||offer.expeditionEffect.kind!=='development')return false;const effect=offer.expeditionEffect,d=PROJECTS.find(d=>d.id===effect.definitionId&&d.race===ctx.state.race),b=developmentState(ctx),q=nativeBuildingQuote(ctx,offer);if(!d||!b||!q||q.cost.minerals!==offer.minerals||q.cost.gas!==offer.gas)return false;const current=developmentAction(ctx,d);return !!current&&current.expectedLevel===effect.expectedLevel&&q.level===effect.expectedLevel;
  }
  if(ctx.state.draftTaken||ctx.state.draftClaims.includes(offer.offerId))return false;const effect=offer.expeditionEffect;
  if(effect.kind==='supply')return ctx.supplyLegal?.(effect.family,effect.count,effect.mode)??false;

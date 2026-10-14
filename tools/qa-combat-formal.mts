@@ -6,7 +6,7 @@ import {scenario,prepareTargets} from '../preview/visual-plan-validation-2026100
 import {densityGroups} from '../preview/visual-plan-validation-20261009/catalog';
 const webRoot=process.argv.find(a=>a.startsWith('--web='))?.slice(6)??'dist/web';
 const offline=process.argv.includes('--offline'),failureCase=process.argv.includes('--missing'),out=process.argv[2],html=path.resolve(process.argv.find(a=>a.startsWith('--html='))?.slice(7)??'dist/SC2-Survivors-Combat-Effects-Final-R3-20261012.html');
-assert.ok(out?.startsWith('reports/local/combat-effects-20261012/'));assert.ok(!(offline&&failureCase));await fs.mkdir(out,{recursive:true});await fs.access(out+'/result.json').then(()=>{throw Error('Evidence exists');},e=>{if(e.code!=='ENOENT')throw e;});await fs.copyFile(new URL(import.meta.url),out+'/runner.mts');
+assert.ok(out&&!out.includes('..')&&['reports/local/combat-effects-20261012/','reports/local/refraction-science-20261013/','reports/local/7a-20261013/'].some(root=>out.startsWith(root)));assert.ok(!(offline&&failureCase));await fs.mkdir(out,{recursive:true});await fs.access(out+'/result.json').then(()=>{throw Error('Evidence exists');},e=>{if(e.code!=='ENOENT')throw e;});await fs.copyFile(new URL(import.meta.url),out+'/runner.mts');
 const make=(theme:CampaignTheme,race:'terran'|'zerg'|'protoss')=>{const w=new World({race,seed:41,waves:false,terrain:campaignTerrain({version:3,seed:41,theme})});assert.ok(w.start());for(const plan of Object.values(w.expedition.production))plan.enabled={};w.economicTargets.clear();w.pods=[];w.pickups=[];w.rewardDrops=[];(w as any).eventPlan=[];(w as any).nextEvent=0;w.nextFreePodAt=w.nextEliteGrowthAt=w.nextMercenaryAt=w.nextTankSupportAt=1e9;w.paused=true;return w;};
 const fixtures:Record<string,string>={};async function fixture(name:string,w:World){const file=path.resolve(out,name+'.json');await fs.writeFile(file,writeArchive({profile:w.permanentProfile.exportJSON(),run:w.captureRun()}));fixtures[name]=file;}
 const themes=Object.keys(MAP_THEMES) as CampaignTheme[];for(const [i,theme]of themes.entries())await fixture(theme,make(theme,(['terran','zerg','protoss'] as const)[i%3]));
@@ -39,7 +39,8 @@ async function contextRestore(label:string){
 }
 try{
  if(failureCase){
-  const url=manifest.assets['combat-fx.mesh.MarineAttackLaunch'].url;await page.route('**/'+url,route=>route.fulfill({status:404,body:'Intentional missing required original combat model fixture'}));
+  const missingId=process.argv.find(a=>a.startsWith('--missing-id='))?.slice(13)??'combat-fx.mesh.MarineAttackLaunch';assert.ok(manifest.assets[missingId],'Unknown required-source fixture');
+  const url=manifest.assets[missingId].url;await page.route('**/'+url,route=>route.fulfill({status:404,body:'Intentional missing required original combat model fixture'}));
   await page.goto(entry,{timeout:600000});await page.waitForFunction(()=>(window as any).__SC2_REPORT__?.().phase==='menu',null,{timeout:900000});await select('industrial');await page.waitForFunction(()=>(window as any).__SC2_REPORT__?.().readiness?.phase==='error',null,{timeout:900000});const failed=await read();assert.equal(failed.phase,'menu');assert.equal(failed.time,0);assert.ok(failed.readiness.error);await shot('required-source-missing');report.checks.push({missing:url,state:failed});
   await page.unroute('**/'+url);await page.locator('[data-action=flow-retry]').click();await ready();assert.equal((await read()).phase,'battle');assert.deepEqual((await read()).errors,[]);await shot('required-source-recovered');report.checks.push({retry:true,state:await read(),expectedTransportErrors:report.console});
  }else{

@@ -1,0 +1,337 @@
+{
+  "sources": [
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "f6aeeec415e21adc770a43beccdd1512fc1c65506639f6afec50f5f8faf59dd2",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_rock_mediumgroup_splat_diff_00.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_rock_mediumgroup_splat_diff_00.dds",
+      "bytes": 87536
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "76da69f2b0e92c946444247d315c0289be129e66c91c2aa8af8132e433da389c",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_rock_mediumgroup_splat_norm_00.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/elsecaro_rock_mediumgroup_splat_norm_00.dds",
+      "bytes": 87540
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "a8f3a7fa8ca1d7ab2f37d00b51e1ccf627da20672efa2fb7d973b1ae8c6a508d",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cargotruck_environmentmap.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cargotruck_environmentmap.dds",
+      "bytes": 2872
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "e33421f57af50d869ab2a3f0b27b5d865eebcd2fb85cdb03fa6e86d625b74904",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cargotruck_environmentmask.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cargotruck_environmentmask.dds",
+      "bytes": 699192
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "ea70d9119b30608d37863a77095f5768b303ef019bd9d574c3c8968dc5a00211",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbonminor_crane_gloss.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbonminor_crane_gloss.dds",
+      "bytes": 699192
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "105052eb607b305e9d511ab1c91ae01b71b3657e9faa604fbb1240e604d7f8d5",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_cranepart_splat04.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_cranepart_splat04.dds",
+      "bytes": 22000
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "e9abc619135537d71e38e5a1c2302c90354cd9fe912b8328bba8af5826073f32",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_cranepart_splat06.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_cranepart_splat06.dds",
+      "bytes": 22000
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "17449dcaa59b0d59af063f7221980b944f5bb38bbd9dad7f3c47322df7130e44",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_gloss.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_gloss.dds",
+      "bytes": 699192
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "a00e05173f5c3a3f8201283af53ed36e864d856c69aea5014b16e96f798850f3",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/fireball_1.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/fireball_1.dds",
+      "bytes": 87536
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "c2e96651dad5870c24a4c0ce39f8c72f5e7577fc6838a2edbd0a253738039bd0",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_splat00.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_splat00.dds",
+      "bytes": 22000
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "e96e624acbcfd066d3c0e45fb8e7aaf28bea527c84c0854ba45a729e6a3074b4",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/heatwave1backup.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/heatwave1backup.dds",
+      "bytes": 87540
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "c6061c600ed7f5f811af9a47542f80c96293f6a600b2e6044e83531a1cbfc13c",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/largesmoke1_b.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/largesmoke1_b.dds",
+      "bytes": 43832
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "a6f1a9b987285d5db980545f1e1729233469f52bbc45244a48d11477c7fa41e9",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_broken_splat00_diff.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_broken_splat00_diff.dds",
+      "bytes": 349680
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "7fea687238dcebc2b4f1ea1b228971723ed617e7da6ee74c888b657b543d954a",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_broken_splat00_norm.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_broken_splat00_norm.dds",
+      "bytes": 349684
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "50c3761fe7fd15ec9337798a9d298c593eee27ca8976a7c0d018c3cfa15d7609",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_broken_splat00_spec.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/jarbanminor_miningbot_broken_splat00_spec.dds",
+      "bytes": 174904
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "34bb87b2d31029f968720962367cd874c2bbde46a107940bfe69ba2d1fca2e78",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cliffnatural2_diffuse_00.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cliffnatural2_diffuse_00.dds",
+      "bytes": 1398256
+    },
+    {
+      "build": "B97563",
+      "version": "5.0.16.97563",
+      "verifiedCascBuild": true,
+      "sha256": "1383d4bd882a10622976942535e723dfe797f300408eac9d0e27df801bba3d80",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cliffnatural2_normal_00.dds",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cliffnatural2_normal_00.dds",
+      "bytes": 1398260
+    },
+    {
+      "bytes": 1499,
+      "sha256": "541da4893b4a1cf43e4a13d4ef2d5abd46326cf460f91638858c7958fd2ef706",
+      "build": "B97563",
+      "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/WaterData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/core.sc2mod/base.sc2data/GameData/WaterData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 3460,
+      "sha256": "0f10e4222cf75fbf59a522e864c77a3e1471d7d7bbdc4c2a00b67d3bb5a76f76",
+      "build": "B97563",
+      "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/TerrainData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/core.sc2mod/base.sc2data/GameData/TerrainData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 331,
+      "sha256": "68aecc038692e1d61c497266bc1b3af0b9433cf1b3b93f036ba92dd85fa899c4",
+      "build": "B97563",
+      "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/TerrainTexData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/core.sc2mod/base.sc2data/GameData/TerrainTexData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 7980,
+      "sha256": "92eba54ea766938e8d88e977d82abc9a8b62da31ff087fed7e7725c4675740f5",
+      "build": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/WaterData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2data/GameData/WaterData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 24354,
+      "sha256": "2edf78e0609f0b25d95a3a22e75372575f96a9566ab6e2392146c70dd5dc277a",
+      "build": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/TerrainData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2data/GameData/TerrainData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 98029,
+      "sha256": "cf05ec02ce3ccc96cc418d43ecf085a69820ebd4c8c94424e7251dbde286e0fe",
+      "build": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/TerrainTexData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2data/GameData/TerrainTexData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 4798,
+      "sha256": "61925a11b5ef8e79b684cee1d17637a080418f3f7bfa7d50c259d96351cec5e2",
+      "build": "B97563",
+      "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/WaterData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/swarm.sc2mod/base.sc2data/GameData/WaterData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 44631,
+      "sha256": "7a2988ce869d0286de91ec7daae57bbec47f466a025e6fe0927ff8feb66d528e",
+      "build": "B97563",
+      "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/TerrainData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/swarm.sc2mod/base.sc2data/GameData/TerrainData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 47982,
+      "sha256": "c21887c1d329417722c32f83a8bdaa3cfc8415ac8adbf59078c7d45029f978c9",
+      "build": "B97563",
+      "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/TerrainTexData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/swarm.sc2mod/base.sc2data/GameData/TerrainTexData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 1226,
+      "sha256": "5be16ee30dc1194851052562076fc1a30fe966d21982f5749e42ff98725c6fb6",
+      "build": "B97563",
+      "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/WaterData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/void.sc2mod/base.sc2data/GameData/WaterData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 56276,
+      "sha256": "b14694aa8a3aa64e0166dc8d1fc0c0149b7338b0e0c78d3327439c949bfd8d2b",
+      "build": "B97563",
+      "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/TerrainData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/void.sc2mod/base.sc2data/GameData/TerrainData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 125595,
+      "sha256": "24151fa3e7c20fa30d41ff6a678dbb6f6a209129d749cfc60c273758bd9dd4a1",
+      "build": "B97563",
+      "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/TerrainTexData.xml",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/void.sc2mod/base.sc2data/GameData/TerrainTexData.xml",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 20832,
+      "verifiedCascBuild": true,
+      "version": "5.0.16.97563",
+      "sha256": "74f0854ad7662b56a5dfd16f6840675720120b0af9ad4a1092fd5c32c342a7f1",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Water/Lavas/CharLavaPlane/CharLavaPlane.m3",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Water/Lavas/CharLavaPlane/CharLavaPlane.m3",
+      "build": "B97563"
+    },
+    {
+      "bytes": 15040,
+      "verifiedCascBuild": true,
+      "version": "5.0.16.97563",
+      "sha256": "cdb926538681e39b2e120466242bc226a8e09272b27a0240bdd64c806ba7dc58",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Water/Lavas/CharLavaPlane/CharLavaPlane_Low.m3",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Water/Lavas/CharLavaPlane/CharLavaPlane_Low.m3",
+      "build": "B97563"
+    },
+    {
+      "bytes": 13136,
+      "verifiedCascBuild": true,
+      "version": "5.0.16.97563",
+      "sha256": "25119f8e89863071aadc85e1447dca0932572b672b28d517673ca6115a37f496",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Water/ShoreLines/ShorelineWavesLava/ShorelineWavesLava.m3",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Water/ShoreLines/ShorelineWavesLava/ShorelineWavesLava.m3",
+      "build": "B97563"
+    },
+    {
+      "bytes": 22000,
+      "sha256": "0c83b834ed76e3fac25a7fb17786db81fe900c6b31db59053304df9c64885bc2",
+      "build": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavabase.dds",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavabase.dds",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 1398256,
+      "sha256": "16d7b5b778a2e11775a2a566612cf3b6dd00fecb08262e399d4fb5de8a7707e4",
+      "build": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavatoprocknormal.dds",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavatoprocknormal.dds",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 1398256,
+      "sha256": "b1d55732717b20e8c59db7112c669d012382fde5bd3f175c820c342663e68ae0",
+      "build": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavatoprock.dds",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavatoprock.dds",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 699192,
+      "sha256": "55c612850bbde284e8e7d89be43748f7e8307c9206e2d6e061f1a91adfd9f326",
+      "build": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavatoprockemissive.dds",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavatoprockemissive.dds",
+      "verifiedCascBuild": true
+    },
+    {
+      "bytes": 87536,
+      "sha256": "509a24a15d91a02b3090c94062f81a2fbe804383c533f00a30d1b9986a669f91",
+      "build": "B97563",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavarandom_r1.dds",
+      "version": "5.0.16.97563",
+      "installFile": "assets/private/environment-samples/mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lavarandom_r1.dds",
+      "verifiedCascBuild": true
+    }
+  ]
+}

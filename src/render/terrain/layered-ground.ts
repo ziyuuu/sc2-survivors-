@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {CAMPAIGN_MAP_SIZE,type RadialTerrain} from '../../data/campaign-map';
-import type {TerrainQuery} from '../../data/map-definition';
+import type {TerrainQuery,MapPlacement} from '../../data/map-definition';
 import type {CampaignTheme} from '../../data/campaign-landscape';
 import {MAP_VISUAL_PROFILES} from './map-visual-profile';
 import {loadEnvironmentTexture} from './environment-texture';
@@ -10,15 +10,17 @@ export type {LandscapeResources} from './campaign-ground-legacy';
 import type {LandscapeResources} from './campaign-ground-legacy';
 
 /** A single terrain surface receives the existing sunlight, posed shadows and contact pass. */
-export async function createVisualGround(terrain:TerrainQuery,theme:CampaignTheme,seed:number,resources:LandscapeResources){
+export interface VisualGroundOptions {placements?:readonly MapPlacement[];height?:(x:number,z:number)=>number;softenPads?:boolean}
+export async function createVisualGround(terrain:TerrainQuery,theme:CampaignTheme,seed:number,resources:LandscapeResources,options:VisualGroundOptions={}){
  const {textures,geometries,materials}=resources,p=MAP_VISUAL_PROFILES[theme],size=CAMPAIGN_MAP_SIZE;
  const colors:THREE.Texture[]=[],normals:THREE.Texture[]=[];
  for(const layer of p.layers){colors.push(await loadEnvironmentTexture(layer.source,resources));normals.push(await loadEnvironmentTexture(layer.source+'-normal',resources,true));}
  const fieldTexture=(data:Uint8Array,width:number,height:number)=>{const t=new THREE.DataTexture(data,width,height);t.minFilter=t.magFilter=THREE.LinearFilter;t.needsUpdate=true;textures.push(t);return t;};
  const map=fieldTexture(new Uint8Array([255,255,255,255]),1,1),normalMap=fieldTexture(new Uint8Array([128,128,255,255]),1,1),resolution=512;
- const weights=new Uint8Array(resolution*resolution*4),details=new Uint8Array(weights.length),solids=terrain.definition?.placements.filter(p=>p.type==='landmark')??[];
+ const weights=new Uint8Array(resolution*resolution*4),details=new Uint8Array(weights.length),solids=(options.placements??terrain.definition?.placements??[]).filter(p=>p.type==='landmark');
  for(let y=0;y<resolution;y++)for(let x=0;x<resolution;x++){
   const wx=(x+.5)/resolution*size-size/2,wz=size/2-(y+.5)/resolution*size,at=(y*resolution+x)*4,f=visualGroundField(theme,wx,wz,seed,solids);
+  if(options.softenPads&&(theme==='ice'||theme==='frontier')){const ice=theme==='ice',index=ice?3:2,r=Math.hypot((wx+(ice?16:22))/(ice?8:10),(wz-(ice?15:20))/(ice?6:7)),t=THREE.MathUtils.clamp((r-.35)/1.25,0,1),edge=(1-t*t*(3-2*t))*(.42+f.macro*.35),removed=f.weights[index]*(1-edge);f.weights[index]-=removed;f.weights[0]+=removed;}
   weights.set(f.weights.map(w=>Math.round(w*255)),at);details.set([Math.round(f.paint*255),Math.round((f.variation-.8)*510),Math.round(f.base*255),Math.round(f.macro*255)],at);
  }
  const field=fieldTexture(weights,resolution,resolution),detail=fieldTexture(details,resolution,resolution),d=terrain.definition,rw=d?.walkWidth??1,rh=d?.walkHeight??1;
@@ -48,8 +50,8 @@ export async function createVisualGround(terrain:TerrainQuery,theme:CampaignThem
  };
  material.customProgramCacheKey=()=>`original-ground-v1:${theme}:${JSON.stringify(p.layers)}`;
  const geometry=new THREE.PlaneGeometry(size,size,terrain.definition?size:1,terrain.definition?size:1);geometry.rotateX(-Math.PI/2);const positions=geometry.getAttribute('position'),uv=geometry.getAttribute('uv');
- for(let i=0;i<positions.count;i++){const x=positions.getX(i),z=positions.getZ(i);positions.setY(i,terrain.height({x,z})-.018);uv.setXY(i,(x+size/2)/size,(size/2-z)/size);}geometry.computeVertexNormals();geometry.computeBoundingSphere();geometries.push(geometry);
+ for(let i=0;i<positions.count;i++){const x=positions.getX(i),z=positions.getZ(i);positions.setY(i,(options.height?.(x,z)??terrain.height({x,z}))-.018);uv.setXY(i,(x+size/2)/size,(size/2-z)/size);}geometry.computeVertexNormals();geometry.computeBoundingSphere();geometries.push(geometry);
  const ground=new THREE.Mesh(geometry,material);ground.name=terrain.definition?'campaign-traversable-ground':'endless-traversable-ground';
  return {ground,stage,updateStage,setBases:(active:boolean)=>{bases.value=Number(active);},setLighting:(_active:{shadow:boolean;contact:boolean})=>{},report:()=>({profile:theme,layers:p.layers.map(l=>({...l})),bases:!!bases.value,independentMipmaps:true,sourceAlphaUsed:false})};
 }
-export const createCampaignGround=(terrain:RadialTerrain,resources:LandscapeResources)=>createVisualGround(terrain,terrain.recipe.theme,terrain.recipe.seed,resources);
+export const createCampaignGround=(terrain:RadialTerrain,resources:LandscapeResources,options:VisualGroundOptions={})=>createVisualGround(terrain,terrain.recipe.theme,terrain.recipe.seed,resources,options);

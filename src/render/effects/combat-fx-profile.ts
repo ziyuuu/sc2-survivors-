@@ -4,6 +4,8 @@ import type {Entity,VisualEvent} from '../../simulation/types';
 export interface CombatFxProfile {key:string;family:string;weapon:string|null;kind:string;actors:string[];models:Record<string,string[]>;mounts?:string[];mode?:string;sourceBodyLaunch?:boolean;adaptation?:string;summon?:string}
 export const COMBAT_FX_PROFILES=new Map((routes as CombatFxProfile[]).map(p=>[p.key,p]));
 type Identity=Partial<Pick<Entity,'heroId'|'eliteId'|'nativeMode'|'activeWeapon'|'summonKind'|'rewardSourceKind'|'team'|'flying'|'mode'>>&{unitType?:Entity['unitType']|null;siege?:boolean;sourceTeam?:Entity['team'];targetFlying?:boolean};
+/** B97563 CSkin PurifierHologram replaces ScienceVesselDeath with Hologram_Death_Large. */
+export const sourceHologramDeath=(u:Identity)=>!u.heroId&&u.unitType==='science_vessel'&&['science_vessel.1','science_vessel.2','science_vessel.3'].includes(u.eliteId??'');
 /** An explicit identity/weapon resolver, shared by all effect owners. Heroes keep
  * their approved adapters; carrier children resolve before their mother's family. */
 export function combatFxProfile(u:Identity|undefined):CombatFxProfile|undefined{

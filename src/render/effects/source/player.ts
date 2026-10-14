@@ -8,9 +8,10 @@ import {sourceRibbonQuads,sourceProjectionQuads} from './ribbons';
 import {sourcePhase,sourceLife} from './timeline';
 import type {SourceEffectDefinition,SourceEffectRequest,SourcePhase} from './types';
 import type {UnitMaterialSurface} from '../../materials/unit-material-batch';
+import {DisplacementSurface,DISPLACEMENT_LAYER} from './displacement';
 
 export const SOURCE_EFFECTS=catalog as unknown as Record<string,SourceEffectDefinition>;
-type MeshInstance={root:THREE.Group;mixer:THREE.AnimationMixer;surfaces:UnitMaterialSurface[];actions:Map<string,THREE.AnimationAction>;activeClip?:string;used:boolean;lastUsed:number};
+type MeshInstance={root:THREE.Group;mixer:THREE.AnimationMixer;surfaces:(UnitMaterialSurface|DisplacementSurface)[];actions:Map<string,THREE.AnimationAction>;activeClip?:string;used:boolean;lastUsed:number};
 type Ending={request:SourceEffectRequest;ground:(p:{x:number;z:number})=>number;stopped?:number};
 /** Source meshes, emitters, ribbons and projections have one lifecycle owner.
  * Instances expand on demand; no quality option can discard a required layer. */
@@ -19,43 +20,47 @@ export class SourceEffectPlayer {
  private resources=new Map<string,SourceEffectResource>();private batches=new Map<string,SourceDrawBatch>();private meshPools=new Map<string,MeshInstance[]>();
  private requests=new Set<string>();private clock=0;
  private loops=new Map<string,Ending>();
- private modelCounts=new Map<string,{requests:number;meshes:number;particles:number;ribbons:number;projections:number}>();
- private counts={effects:0,meshes:0,particles:0,ribbonQuads:0,projectionQuads:0,unrenderedDisplacementQuads:0,missing:0};
+ private modelCounts=new Map<string,{requests:number;meshes:number;particles:number;ribbons:number;projections:number;displacementMeshes:number;displacementQuads:number}>();
+ private counts={effects:0,meshes:0,particles:0,ribbonQuads:0,projectionQuads:0,displacementMeshes:0,displacementQuads:0,unrenderedDisplacementQuads:0,missing:0};
  constructor(private scene:THREE.Scene,private camera:THREE.Camera){}
  async load(){if(this.ready)return;if(this.loading)return this.loading;
   const task=(async()=>{for(const definition of Object.values(SOURCE_EFFECTS)){
-   if(this.resources.has(definition.id))continue;const resource=await loadSourceEffect(definition),pending=new Map<string,SourceDrawBatch>();let instance:MeshInstance|undefined;
+   if(this.resources.has(definition.id))continue;const resource=await loadSourceEffect(definition),pending=new Map<string,SourceDrawBatch>();let instance:MeshInstance|undefined,displacement:MeshInstance|undefined;
    try{const references=[...definition.particles,...definition.ribbons,...definition.projections].map(p=>p.material_reference_index);
     for(const index of new Set(references))for(const materialIndex of this.materialsFor(definition,index)){const key=definition.id+':'+materialIndex;if(!pending.has(key))pending.set(key,new SourceDrawBatch(this.scene,resource.materials[materialIndex]));}
+    for(const index of new Set(references)){const ref=definition.materialReferences[index];if(ref.type===2){const key=definition.id+':displacement:'+ref.material_index;pending.set(key,new SourceDrawBatch(this.scene,resource.displacement[ref.material_index]));}}
     if(resource.gltf){instance=this.makeMesh(resource);instance.root.visible=false;}
-   }catch(error){for(const batch of pending.values())batch.dispose();if(instance)this.releaseMesh(instance);throw error;}
-   for(const [key,batch]of pending)this.batches.set(key,batch);if(instance)this.meshPools.set(definition.id,[instance]);this.resources.set(definition.id,resource);
+    if(resource.displacementGltf){displacement=this.makeMesh(resource,true);displacement.root.visible=false;}
+   }catch(error){for(const batch of pending.values())batch.dispose();if(instance)this.releaseMesh(instance);if(displacement)this.releaseMesh(displacement);throw error;}
+   for(const [key,batch]of pending)this.batches.set(key,batch);if(instance)this.meshPools.set(definition.id,[instance]);if(displacement)this.meshPools.set(definition.id+':displacement',[displacement]);this.resources.set(definition.id,resource);
   }this.ready=true;})();this.loading=task;try{await task;}finally{this.loading=undefined;}
  }
  private materialsFor(def:SourceEffectDefinition,index:number):number[]{
   const ref=def.materialReferences[index];if(!ref)throw Error('Missing original effect material reference '+def.id+':'+index);
   if(ref.type===1)return [ref.material_index];
-  // Original background refraction is an explicitly reported unsupported layer.
-  // Never replace it with an opaque or emissive substitute.
+  // Type 2 is submitted to its separate signed screen-offset pass below.
   if(ref.type===2)return [];
   if(ref.type===3){const composite=def.materialProfile.composites[ref.material_index];if(!composite||composite.parts.some(p=>p.material.type!==1))throw Error('Unsupported original emitter composite '+def.id+':'+index);return composite.parts.map(p=>p.material.index);}
   throw Error('Unsupported original emitter material '+def.id+':'+ref.type);
  }
- private makeMesh(resource:SourceEffectResource):MeshInstance{
-  const root=new THREE.Group(),object=clone(resource.gltf!.scene),surfaces:UnitMaterialSurface[]=[];root.name='source-combat-'+resource.definition.id;root.userData.visualRole='effect';root.add(object);root.matrixAutoUpdate=false;
+ private makeMesh(resource:SourceEffectResource,displacement=false):MeshInstance{
+  const gltf=displacement?resource.displacementGltf!:resource.gltf!;
+  const root=new THREE.Group(),object=clone(gltf.scene),surfaces:(UnitMaterialSurface|DisplacementSurface)[]=[];root.name='source-combat-'+resource.definition.id;root.userData.visualRole='effect';root.add(object);root.matrixAutoUpdate=false;
   try{object.traverse(node=>{if(!(node instanceof THREE.Mesh))return;node.userData.visualRole='effect';node.castShadow=node.receiveShadow=false;node.frustumCulled=false;
-   const bind=(material:THREE.Material)=>{const native=resource.materials.find(r=>r.base===material||r.base.name===material.name);if(!native)throw Error('Unknown original combat mesh material '+material.name);const surface=sourceSurface(native,node.geometry,1);surfaces.push(surface);return surface.material;};node.material=Array.isArray(node.material)?node.material.map(bind):bind(node.material);
+   if(displacement){const native=resource.displacement[Number(node.userData.displacementMaterial)];if(!native)throw Error('Unknown original displacement surface '+node.name);const surface=new DisplacementSurface(native);surfaces.push(surface);node.material=surface.material;node.layers.set(DISPLACEMENT_LAYER);node.userData.displacement=true;node.renderOrder=native.source.priority;}
+   else {const bind=(material:THREE.Material)=>{const native=resource.materials.find(r=>r.base===material||r.base.name===material.name);if(!native)throw Error('Unknown original combat mesh material '+material.name);const surface=sourceSurface(native,node.geometry,1);surfaces.push(surface);return surface.material;};node.material=Array.isArray(node.material)?node.material.map(bind):bind(node.material);}
   });}catch(error){for(const s of surfaces){s.material.dispose();s.texture.dispose();}const skeletons=new Set<THREE.Skeleton>();object.traverse(n=>{if(n instanceof THREE.SkinnedMesh)skeletons.add(n.skeleton);});for(const s of skeletons)s.dispose();throw error;}
   this.scene.add(root);
-  const mixer=new THREE.AnimationMixer(object),actions=new Map(resource.gltf!.animations.map(c=>[c.name,mixer.clipAction(c)]));return {root,mixer,surfaces,actions,used:false,lastUsed:0};
+  const mixer=new THREE.AnimationMixer(object),actions=new Map(gltf.animations.map(c=>[c.name,mixer.clipAction(c)]));return {root,mixer,surfaces,actions,used:false,lastUsed:0};
  }
- async prepareMeshes(compile:(root:THREE.Group)=>Promise<unknown>){
+ async prepareMeshes(compile:(root:THREE.Object3D,displacement:boolean)=>Promise<unknown>){
   for(const pool of this.meshPools.values()){
    const root=pool[0].root,visible=root.visible;root.visible=true;
-   try{await compile(root);}finally{root.visible=visible;}
+   try{await compile(root,pool[0].surfaces.some(s=>s instanceof DisplacementSurface));}finally{root.visible=visible;}
   }
+  for(const batch of this.batches.values())if(batch.surface instanceof DisplacementSurface){const {mesh}=batch,visible=mesh.visible,count=mesh.count;mesh.visible=true;mesh.count=1;try{await compile(mesh,true);}finally{mesh.visible=visible;mesh.count=count;}}
  }
- begin(time:number){this.clock=time;this.requests.clear();this.modelCounts.clear();this.counts={effects:0,meshes:0,particles:0,ribbonQuads:0,projectionQuads:0,unrenderedDisplacementQuads:0,missing:0};for(const b of this.batches.values())b.begin();for(const pool of this.meshPools.values())for(const m of pool){m.used=false;m.root.visible=false;}}
+ begin(time:number){this.clock=time;this.requests.clear();this.modelCounts.clear();this.counts={effects:0,meshes:0,particles:0,ribbonQuads:0,projectionQuads:0,displacementMeshes:0,displacementQuads:0,unrenderedDisplacementQuads:0,missing:0};for(const b of this.batches.values())b.begin();for(const pool of this.meshPools.values())for(const m of pool){m.used=false;m.root.visible=false;}}
  add(request:SourceEffectRequest,ground:(p:{x:number;z:number})=>number){
   this.play(request,ground);if(request.loop)this.loops.set(request.key,{request,ground});
  }
@@ -64,20 +69,24 @@ export class SourceEffectPlayer {
   const resource=this.resources.get(request.model);if(!resource){this.counts.missing++;throw Error('Unknown required combat effect '+request.model);}const def=resource.definition;if(request.age<0||!request.loop&&request.age>sourceLife(def))return;
   this.counts.effects++;const phase=sourcePhase(def,request.age,request.loop,request.seed,request.clip);
   const hasMesh=!particlesOnly&&!!resource.gltf&&request.mesh!==false;if(hasMesh)this.mesh(resource,request,phase);
-  const available=(q:{materialReference:number})=>{if(def.materialReferences[q.materialReference]?.type===2){this.counts.unrenderedDisplacementQuads++;return false;}return true;};
-  const particles=sourceParticleQuads(def,request,this.camera,ground).filter(available),ribbons=particlesOnly?[]:sourceRibbonQuads(def,request,this.camera).filter(available),projections=particlesOnly?[]:sourceProjectionQuads(def,request,ground).filter(available);this.counts.particles+=particles.length;this.counts.ribbonQuads+=ribbons.length;this.counts.projectionQuads+=projections.length;
-  const model=this.modelCounts.get(def.id)??{requests:0,meshes:0,particles:0,ribbons:0,projections:0};model.requests++;model.meshes+=Number(hasMesh);model.particles+=particles.length;model.ribbons+=ribbons.length;model.projections+=projections.length;this.modelCounts.set(def.id,model);
+  // Baneling's ordinary death body is owned by the unit renderer (mesh:false),
+  // but its type-2 surface belongs exclusively to this refraction pass.
+  if(!particlesOnly&&resource.displacementGltf)this.mesh(resource,request,phase,true);
+  const particles=sourceParticleQuads(def,request,this.camera,ground),ribbons=particlesOnly?[]:sourceRibbonQuads(def,request,this.camera),projections=particlesOnly?[]:sourceProjectionQuads(def,request,ground);this.counts.particles+=particles.length;this.counts.ribbonQuads+=ribbons.length;this.counts.projectionQuads+=projections.length;
+  const displacementQuads=[...particles,...ribbons,...projections].filter(q=>def.materialReferences[q.materialReference].type===2).length;
+  const model=this.modelCounts.get(def.id)??{requests:0,meshes:0,particles:0,ribbons:0,projections:0,displacementMeshes:0,displacementQuads:0};model.requests++;model.meshes+=Number(hasMesh);model.particles+=particles.length;model.ribbons+=ribbons.length;model.projections+=projections.length;model.displacementMeshes+=!particlesOnly&&resource.displacementGltf?(this.meshPools.get(def.id+':displacement')?.[0].surfaces.length??0):0;model.displacementQuads+=displacementQuads;this.counts.displacementQuads+=displacementQuads;this.modelCounts.set(def.id,model);
   for(const quad of [...particles,...ribbons,...projections])for(const material of this.materialsFor(def,quad.materialReference)){const batch=this.batches.get(def.id+':'+material);if(!batch)throw Error('Unprepared source combat layer '+def.id+':'+material);batch.add(quad);}
+  for(const quad of [...particles,...ribbons,...projections]){const ref=def.materialReferences[quad.materialReference];if(ref.type===2){const batch=this.batches.get(def.id+':displacement:'+ref.material_index);if(!batch)throw Error('Unprepared original displacement '+def.id);batch.add(quad);}}
  }
- private mesh(resource:SourceEffectResource,request:SourceEffectRequest,phase:SourcePhase){
-  const pool=this.meshPools.get(resource.definition.id)!;let instance=pool.find(m=>!m.used);if(!instance){instance=this.makeMesh(resource);pool.push(instance);}instance.used=true;instance.lastUsed=this.clock;instance.root.visible=true;
+ private mesh(resource:SourceEffectResource,request:SourceEffectRequest,phase:SourcePhase,displacement=false){
+  const pool=this.meshPools.get(resource.definition.id+(displacement?':displacement':''))!;let instance=pool.find(m=>!m.used);if(!instance){instance=this.makeMesh(resource,displacement);pool.push(instance);}instance.used=true;instance.lastUsed=this.clock;instance.root.visible=true;
   // Exported GLBs contain the original Z-up conversion; the outer placement
   // cancels that wrapper once before applying the same transform as emitters.
   instance.root.matrix.copy(sourcePlacement(resource.definition,request.placement,request.age)).multiply(new THREE.Matrix4().makeRotationX(Math.PI/2));instance.root.matrixWorldNeedsUpdate=true;
   const action=instance.actions.get(phase.clip.name);if(instance.activeClip!==phase.clip.name){instance.mixer.stopAllAction();action?.reset().setLoop(THREE.LoopOnce,1).play();if(action)action.clampWhenFinished=true;instance.activeClip=phase.clip.name;}if(action){action.enabled=true;action.paused=false;action.time=phase.seconds;instance.mixer.update(0);}
   for(const surface of instance.surfaces){surface.write(0,{clip:phase.clip.name,seconds:phase.seconds});surface.flush();}
   for(const billboard of resource.definition.billboards??[]){const name=resource.definition.bones[billboard.bone]?.name;if(!name)continue;let node:THREE.Object3D|undefined;instance.root.traverse(n=>{if(n.name===name||n.userData.originalName===name)node=n;});if(node?.parent){instance.root.updateMatrixWorld(true);const parent=node.parent.getWorldQuaternion(new THREE.Quaternion()).invert(),rotation=this.camera.getWorldQuaternion(new THREE.Quaternion());node.quaternion.copy(parent.multiply(rotation));}}
-  this.counts.meshes++;
+  if(displacement)this.counts.displacementMeshes+=instance.surfaces.length;else this.counts.meshes++;
  }
  end(){
   for(const [key,ending]of this.loops){

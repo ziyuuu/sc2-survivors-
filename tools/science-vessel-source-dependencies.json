@@ -1,0 +1,452 @@
+[
+  {
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/libertystory.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/campaigns/libertystory.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/libertystory.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/campaigns/libertystory.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/swarm.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/campaigns/swarm.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/swarm.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/campaigns/swarm.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/swarmstory.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/campaigns/swarmstory.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/swarmstory.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/campaigns/swarmstory.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/void.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/campaigns/void.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "bc1aa9fadfed0afb562c3c12e82ce03204dff1d6a6f1b71d13c87bdc455beebb",
+    "bytes": 56570
+  },
+  {
+    "sourcePath": "campaigns/void.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/campaigns/void.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/voidstory.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/campaigns/voidstory.sc2campaign/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "campaigns/voidstory.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/campaigns/voidstory.sc2campaign/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/balancemulti.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/balancemulti.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/balancemulti.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/balancemulti.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/balancemultilanmethodcleanedup.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/balancemultilanmethodcleanedup.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/balancemultilanmethodcleanedup.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/balancemultilanmethodcleanedup.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/balancemultislowwarpprism.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/balancemultislowwarpprism.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/balancemultislowwarpprism.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/balancemultislowwarpprism.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "1e5939449f7d3a05be3016f9ffbca2eeb2b8ce28423fe5b033b8b7537db551d7",
+    "bytes": 279
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "4da83e79ea09cda63d209a32fbc66b7066dc3ad36c40212bfe34096aad184d85",
+    "bytes": 270
+  },
+  {
+    "sourcePath": "mods/glue.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/glue.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "0be79baeba66e91f95a59185f55af60229c31b097116bf58e8e8a543234789bd",
+    "bytes": 64
+  },
+  {
+    "sourcePath": "mods/glue.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/glue.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "0be79baeba66e91f95a59185f55af60229c31b097116bf58e8e8a543234789bd",
+    "bytes": 64
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "6e76afdc21e2aaea02e0c13c2160aa9c2db53affbdda163ee70c49d10d63678a",
+    "bytes": 126587
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "eb7d10a3deee80b5402cad11605ce26b1dbcb947ca089db31356f1073e8822bc",
+    "bytes": 45746
+  },
+  {
+    "sourcePath": "mods/libertymulti.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/libertymulti.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/libertymulti.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/libertymulti.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/novastoryassets.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/novastoryassets.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/starcoop/commanders/arcturusmengsk.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/starcoop/commanders/arcturusmengsk.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "0be79baeba66e91f95a59185f55af60229c31b097116bf58e8e8a543234789bd",
+    "bytes": 64
+  },
+  {
+    "sourcePath": "mods/starcoop/commanders/arcturusmengsk.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/starcoop/commanders/arcturusmengsk.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "0be79baeba66e91f95a59185f55af60229c31b097116bf58e8e8a543234789bd",
+    "bytes": 64
+  },
+  {
+    "sourcePath": "mods/starcoop/commanders/egonstetmann.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/starcoop/commanders/egonstetmann.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "8e349fade761778281c9935810f94bebee3c2e72e54620c10a832fe778912643",
+    "bytes": 233
+  },
+  {
+    "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5440c757941577de024d475e165ebedfe132aef3800bbc69bce07ee2d1de0517",
+    "bytes": 157930
+  },
+  {
+    "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910",
+    "bytes": 53
+  },
+  {
+    "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910",
+    "bytes": 53
+  },
+  {
+    "sourcePath": "mods/swarmmulti.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/swarmmulti.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910",
+    "bytes": 53
+  },
+  {
+    "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910",
+    "bytes": 53
+  },
+  {
+    "sourcePath": "mods/voidmulti.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/voidmulti.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910",
+    "bytes": 53
+  },
+  {
+    "sourcePath": "mods/voidmulti.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/voidmulti.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "273ca11e3479bab13498b17f40c2528237eef76805cb14e9239daacd8d194910",
+    "bytes": 53
+  },
+  {
+    "sourcePath": "mods/warcoop/warclassic.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warclassic.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "213cab0d713f7e153aa5c053f4747995be35727b105b4c92dde5c6a474e50efc",
+    "bytes": 52
+  },
+  {
+    "sourcePath": "mods/warcoop/warclassic.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warclassic.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "213cab0d713f7e153aa5c053f4747995be35727b105b4c92dde5c6a474e50efc",
+    "bytes": 52
+  },
+  {
+    "sourcePath": "mods/warcoop/warclassicsystem.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warclassicsystem.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "213cab0d713f7e153aa5c053f4747995be35727b105b4c92dde5c6a474e50efc",
+    "bytes": 52
+  },
+  {
+    "sourcePath": "mods/warcoop/warclassicsystem.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warclassicsystem.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "213cab0d713f7e153aa5c053f4747995be35727b105b4c92dde5c6a474e50efc",
+    "bytes": 52
+  },
+  {
+    "sourcePath": "mods/warcoop/warcoopcore.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warcoopcore.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "0be79baeba66e91f95a59185f55af60229c31b097116bf58e8e8a543234789bd",
+    "bytes": 64
+  },
+  {
+    "sourcePath": "mods/warcoop/warcoopcore.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warcoopcore.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "0be79baeba66e91f95a59185f55af60229c31b097116bf58e8e8a543234789bd",
+    "bytes": 64
+  },
+  {
+    "sourcePath": "mods/warcoop/warcoopdata.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warcoopdata.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/warcoop/warcoopdata.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warcoopdata.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/warcoop/warcore.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warcore.sc2mod/base.sc2data/GameData/SkinData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  },
+  {
+    "sourcePath": "mods/warcoop/warcore.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "installFile": "assets/private/actor-source/mods/warcoop/warcore.sc2mod/base.sc2data/GameData/SkinPackData.xml",
+    "version": "5.0.16.97563",
+    "build": "B97563",
+    "verifiedCascBuild": true,
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "bytes": 55
+  }
+]

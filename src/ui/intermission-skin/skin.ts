@@ -64,7 +64,7 @@ export function mountIntermissionSkin(root:HTMLElement,getWorld:()=>World,option
    }
    for(const el of query<HTMLElement>('.im-card.im-short')){const badge=el.querySelector('.im-card-status');if(badge&&!badge.textContent?.includes('资源不足'))badge.textContent=(badge.textContent?badge.textContent+' · ':'')+'资源不足';}
    for(const d of query<HTMLElement>('.im-detail-dialog')){
-    const name=d.querySelector('h1')?.textContent,entry=[...views.values()].find(v=>v.card.name===name);if(!entry)continue;
+    const id=d.querySelector<HTMLElement>('[data-detail-card-id]')?.dataset.detailCardId,name=d.querySelector('h1')?.textContent,entry=id?views.get(id):[...views.values()].find(v=>v.card.name===name);if(!entry)continue;
     const artSlot=d.querySelector<HTMLElement>('.im-detail-art');if(artSlot&&!artSlot.dataset.imxArt){artSlot.innerHTML=`<div class="imx-art">${art(entry.card,entry.reward)}</div>`;artSlot.dataset.imxArt='true';}
     const copy=d.querySelector('.im-detail-rule');if(copy)copy.textContent=cardPresentation(w,entry.card,entry.reward).detail;
    }

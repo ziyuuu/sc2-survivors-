@@ -13,5 +13,11 @@ for(const [line,family]of [['factory','hellion'],['starport','medivac']]as const
   const restored=make();restored.restoreRun(w.captureRun());assert.deepEqual(restored.expedition.production[line],w.expedition.production[line]);restored.paused=false;restored.skipReward();updateExpeditionProduction(restored,0);assert.ok(restored.expedition.ledger.some(j=>j.family===family));
  });
  test(line+' failed purchase changes neither unlock nor production',()=>{const w=make();if(line==='starport')w.expedition.tech.factory=1;const r=offer(w,line);w.wallet={minerals:0,gas:0};const before=w.captureRun();assert.equal(w.choose(r.offerId),false);assert.deepEqual(w.captureRun(),before);});
- test(line+' existing choice and unlock survive first construction and expansion',()=>{const w=make();if(line==='starport')w.expedition.tech.factory=1;const other=line==='factory'?'tank':'viking';w.expedition.tech['unlock.'+family]=1;w.expedition.tech['unlock.'+other]=1;w.expedition.production[line]={outputs:[other],enabled:{[other]:false},cursor:0};const plan=structuredClone(w.expedition.production[line]);const r=offer(w,line);assert.ok(w.choose(r.offerId));assert.deepEqual(w.expedition.production[line],plan);assert.equal(w.expedition.tech['unlock.'+family],1);w.skipReward();const second=offer(w,line);assert.ok(w.choose(second.offerId));assert.equal(w.expedition.tech[line],2);assert.equal(w.expedition.tech['unlock.'+family],1);assert.deepEqual(w.expedition.production[line],plan);});
+ test(line+' existing output and unlock survive later construction and expansion',()=>{
+  const w=new World({sandbox:true,terrain:false,obstacles:[],waves:false,seed:9});w.wallet={minerals:10000,gas:10000};if(line==='starport')w.grantFacility('factory');w.grantFacility(line);
+  const other=line==='factory'?'tank':'viking';w.expedition.tech['unlock.'+other]=1;assert.ok(w.setProductionOutputs(line,[other]));assert.ok(w.setProductionEnabled(other,false));const plan=structuredClone(w.expedition.production[line]);w.start();
+  const r=offer(w,line);assert.ok(w.choose(r.offerId));assert.deepEqual(w.expedition.production[line],plan);assert.equal(w.expedition.tech['unlock.'+family],1);assert.equal(w.expedition.tech[line],2);
+  w.skipReward();const second=offer(w,line);assert.ok(w.choose(second.offerId));assert.equal(w.expedition.tech[line],3);assert.equal(w.expedition.tech['unlock.'+family],1);assert.deepEqual(w.expedition.production[line],plan);
+ });
+
 }

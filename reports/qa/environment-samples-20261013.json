@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "userReview": {
+    "date": "2026-10-14",
+    "statement": "我认为没有问题，请你规划下一步吧。",
+    "scope": "User acceptance of the delivered five-map environment sample direction and presentation; not full-map integration or whole-MVP acceptance.",
+    "artifact": "dist/SC2-Survivors-Environment-Samples-20261014.html",
+    "sha256": "628592820b3697fd81696feeac4a73d12b0140327d55b8a9d3287c652214c3a2",
+    "offlineCheck": "reports/local/mvp5-environment-samples-20261013/offline-html/check-r1/result.json",
+    "nextPlan": "docs/project/MVP5_FULL_MAP_PLAN_20261014.md"
+  },
+  "scope": "Five bounded production-renderer environment samples; opt-in, not formal campaign integration or MVP acceptance.",
+  "entry": "http://127.0.0.1:4371/preview/environment-samples-20261013/",
+  "themes": 5,
+  "sites": 25,
+  "seed": 529,
+  "recipeSeedsChecked": [
+    529,
+    1,
+    4294967295
+  ],
+  "nativeStageAreas": 18,
+  "usedOriginalModels": {
+    "count": 40,
+    "allHashesMatch": true,
+    "report": "reports/local/mvp5-environment-samples-20261013/all-used-model-sources.json"
+  },
+  "retrievedOriginalFiles": 37,
+  "convertedTextures": 22,
+  "convertedTextureBytes": 12969240,
+  "originalMissingDDSRecovered": 15,
+  "implemented": [
+    "Source-bound natural cliff diffuse/normal/specular and opaque depth",
+    "Body gloss/environment/mask and original static type-9 terrain projections",
+    "Posed-footprint fitting inside unchanged native blockers, slope contact supports and partial rock burial",
+    "Five themed small layouts: prop clusters, material transitions, boundaries",
+    "Closed ice/lava/mine banks, lowered surfaces outside final walk cells, connected original cliff corner tiles",
+    "Scene-clock lava, soft decorative particle edges, pause/resize/context restore/retry"
+  ],
+  "tests": {
+    "broadRegression": {
+      "pass": 1411,
+      "phase": "Before final bounded shader and UV refinements",
+      "log": "reports/local/mvp5-environment-samples-20261013/regression.log"
+    },
+    "finalAffectedRegression": {
+      "pass": 28,
+      "log": "reports/local/mvp5-environment-samples-20261013/affected-final.log"
+    },
+    "sourceAndPreviewTypecheck": true,
+    "runtime": "reports/local/mvp5-environment-samples-20261013/final-lifecycle-r2/result.json",
+    "runtimeChecks": [
+      "five themes final soft atmosphere",
+      "paused exact canvas",
+      "lava clock changes pixels",
+      "actual context restore exact pixels/time",
+      "repeated map memory plateau",
+      "missing source 404 and native retry",
+      "390px viewport and keyboard"
+    ],
+    "unexpectedRuntimeErrors": 0,
+    "intentional404": 1,
+    "fullFiveMapSamplePass": "reports/local/mvp5-environment-samples-20261013/runtime-r2/result.json",
+    "affectedShorePass": "reports/local/mvp5-environment-samples-20261013/runtime-r3/result.json"
+  },
+  "bindings": [
+    {
+      "file": "preview/environment-samples-20261013/index.html",
+      "bytes": 3067,
+      "sha256": "08ab2c60a1ee2b933602dac00e846eddc5e579ec7fd3cb2274261dc2ecb11737"
+    },
+    {
+      "file": "preview/environment-samples-20261013/sample.js",
+      "bytes": 1929662,
+      "sha256": "a03581fb3ef5004bdfa52bc3ff0496c4cefc1b9a6cc1ad96fecaac86f8fa1c39"
+    },
+    {
+      "file": "preview/environment-samples-20261013/before.js",
+      "bytes": 1897047,
+      "sha256": "a366069084e6b45fd6f3ebb23e67c683a18b1a4b36a07a12f2ccb02d2d7497d5"
+    },
+    {
+      "file": "preview/environment-samples-20261013/assets.json",
+      "bytes": 154352,
+      "sha256": "da53753376693f6a62543238e35810f9035107bb483b679e705ee6d86bcfe814"
+    }
+  ],
+  "build": "reports/local/mvp5-environment-samples-20261013/build.json",
+  "pictures": [
+    {
+      "id": "industrial",
+      "label": "工业区：货车、箱桶与贴地",
+      "source": "reports/local/mvp5-environment-samples-20261013/final-lifecycle-r2/industrial-source-channels.png",
+      "copy": "preview/environment-samples-20261013/screens/industrial.png",
+      "site": 2
+    },
+    {
+      "id": "mar-sara",
+      "label": "玛萨拉：原始岩壁材质与闭合崖体",
+      "source": "reports/local/mvp5-environment-samples-20261013/runtime-r3/mar-sara-P5.png",
+      "copy": "preview/environment-samples-20261013/screens/mar-sara.png",
+      "site": 4
+    },
+    {
+      "id": "char",
+      "label": "查尔：低位熔岩与冷却岸",
+      "source": "reports/local/mvp5-environment-samples-20261013/final-lifecycle-r2/char-P5-final.png",
+      "copy": "preview/environment-samples-20261013/screens/char.png",
+      "site": 4
+    },
+    {
+      "id": "ice",
+      "label": "冰原：有厚度的冰岸与冻水",
+      "source": "reports/local/mvp5-environment-samples-20261013/final-lifecycle-r2/ice-P5-final.png",
+      "copy": "preview/environment-samples-20261013/screens/ice.png",
+      "site": 4
+    },
+    {
+      "id": "frontier",
+      "label": "边疆矿区：机械与原生地面投影",
+      "source": "reports/local/mvp5-environment-samples-20261013/final-lifecycle-r2/frontier-P3-final.png",
+      "copy": "preview/environment-samples-20261013/screens/frontier.png",
+      "site": 2
+    },
+    {
+      "id": "ice-road",
+      "label": "冰原：雪地、旧路和碎石过渡",
+      "source": "reports/local/mvp5-environment-samples-20261013/runtime-r3/ice-P4.png",
+      "copy": "preview/environment-samples-20261013/screens/ice-road.png",
+      "site": 3
+    }
+  ],
+  "historicalFailures": [
+    "First build syntax error and sandbox child-process EPERM retained in task history.",
+    "Runtime r1 had two favicon 403 console errors; repaired with an inline favicon.",
+    "r1 disconnected cliff corners and white ice rim; r2 corner connections still had unequal ground heights; r3 fixed common foundation and caps.",
+    "The two *-old-* captures in runtime-r1/r2/r3 and first final-lifecycle initial query were redirected without query parameters. Their own before=false reports identify them as sample captures, not baseline evidence. Correct verified-baseline-* images are only in final-lifecycle-r2.",
+    "Optional DefaultWater.dds catalog placeholder had no extracted file. Frozen water uses verified original IceWorld2 pixels."
+  ],
+  "limits": [
+    "Boundary sites are beyond the final walk region, not walls at the current fog frontier.",
+    "Viewer uses the actual terrain, map loader, lighting, shadow/contact and HDR render modules with an independent controllable scene clock; no combat playthrough is claimed.",
+    "Original lava layers and UV motion are an adaptation; no full water physics or exact source-engine POM/refraction parity.",
+    "Static scenery source channels repaired here do not constitute every original M3 ambient particle or animation feature.",
+    "25 sites are bounded samples. Full five-map distribution, natural gameplay, physical inputs, human review, final performance and production/B4 remain open.",
+    "No application/HTML release, Current mirror sync, Git push, or publication in this batch. Earlier evidence and other workstreams retained."
+  ],
+  "visualReview": "reports\\local\\mvp5-environment-samples-20261013\\visual-review.json",
+  "reportCheck": "reports\\local\\mvp5-environment-samples-20261013\\report-check.json",
+  "sourceFinalCheck": "reports\\local\\mvp5-environment-samples-20261013\\source-final.log"
+}

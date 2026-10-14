@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';import path from 'node:path';import {createHash} from 'node:crypto';import {build} from 'esbuild';import {loadBuildAssets} from './load-build-assets.mjs';
+const out='preview/environment-full-map-20261014',evidence='reports/local/mvp5-full-map-20261014',baseline=evidence+'/baseline/source',records=await loadBuildAssets();
+await fs.access(baseline+'/src/render/terrain/campaign-map.ts').catch(()=>{throw Error('The pre-layout source snapshot is required to rebuild the comparison. Use the checked-in comparison bundle or restore the recorded local baseline; do not relabel current source as the old build.');});
+await fs.writeFile(out+'/assets.json',JSON.stringify(Object.fromEntries(records.map(r=>[r.id,'/'+r.packedFile.replaceAll('\\','/')]))));
+const inputs=[];
+for(const before of [false,true]){
+ const result=await build({entryPoints:[out+'/main.ts'],outfile:out+'/'+(before?'before':'sample')+'.js',bundle:true,format:'esm',target:'es2022',define:{BEFORE:String(before)},metafile:true,plugins:before?[{name:'verified-pre-layout-source',setup(b){b.onLoad({filter:/[\\/]src[\\/].*\.(ts|json)$/},async args=>{const relative=path.relative(process.cwd(),args.path),saved=path.join(baseline,relative);try{return {contents:await fs.readFile(saved,'utf8'),loader:args.path.endsWith('.json')?'json':'ts',resolveDir:path.dirname(args.path)}}catch(e){if(e.code!=='ENOENT')throw e;return null}})}}]:[]});
+ const bytes=await fs.readFile(out+'/'+(before?'before':'sample')+'.js');inputs.push({before,sha256:createHash('sha256').update(bytes).digest('hex'),inputs:await Promise.all(Object.keys(result.metafile.inputs).map(async p=>({path:p,sha256:createHash('sha256').update(await fs.readFile(before?await fs.access(path.join(baseline,p)).then(()=>path.join(baseline,p)).catch(()=>p):p)).digest('hex')})))});
+}
+await fs.writeFile(evidence+'/viewer-build.json',JSON.stringify({at:new Date().toISOString(),inputs},null,2));console.log('Built full-map viewer and pre-layout comparison.');

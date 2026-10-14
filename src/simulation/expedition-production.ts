@@ -9,16 +9,26 @@ import {familyRace,inheritedRank,type FamilyId} from '../data/races';
 import type {TacticalDirection,TacticalPlan,DeliveryPassenger} from './expedition-state';
 import {CAMPAIGN_SCIENCE_VESSEL_RECIPE} from '../data/campaign-science-vessel';
 import {ELITES} from '../data/elites';
+import {activeGroupOutputs,canProduce,setGroupOutputs} from './building/rules';
+import {productionGroups,worldBuildingContext,syncBuildingViews,syncBuildingWindow} from './building/expedition';
 
 export function availableFamily(w:World,f:FamilyId):f is UnitType {
- const s=w.expedition,productionStage=w.phase==='reward'?w.stage+1:w.stage;return !!s&&f in SC2_UNITS&&familyRace(f)===s.race&&FAMILY_REQUIREMENTS[f].every(id=>(s.tech[id]??0)>0)&&(!HEAVY_FAMILIES.includes(f)||productionStage>=10);
+ const s=w.expedition,productionStage=w.phase==='reward'?w.stage+1:w.stage,b=s?.building;if(b)b.tech=s.tech;
+ return !!b&&f in SC2_UNITS&&familyRace(f)===s.race&&FAMILY_REQUIREMENTS[f].every(id=>(s.tech[id]??0)>0)&&productionGroups(s).some(g=>canProduce(b,g,f,productionStage));
 }
 export function setOutputs(w:World,line:ProductionLineId,outputs:FamilyId[]){
- const s=w.expedition,p=s?.production[line];if(!s||!p||!['menu','reward'].includes(w.phase)||outputs.length>2||new Set(outputs).size!==outputs.length||outputs.some(f=>!PRODUCTION_LINES[line].families.includes(f)||!availableFamily(w,f)))return false;
- p.outputs=[...outputs];for(const f of outputs)p.enabled[f]??=true;p.cursor%=Math.max(1,outputs.length);w.changed();return true;
+ const s=w.expedition,b=worldBuildingContext(w),group=productionGroups(s).find(g=>g.kind!=='hatchery'&&g.kind!=='crystal'&&g.line===line);
+ if(!b||!group||!['menu','reward'].includes(w.phase)||!setGroupOutputs(b,group.id,outputs).ok)return false;
+ for(const f of outputs){group.enabledFamilies??={};group.enabledFamilies[f]??=true;}
+ syncBuildingWindow(s,b);w.changed();return true;
 }
-export function setEnabled(w:World,f:FamilyId,on:boolean){const s=w.expedition,p=s?.production[familyLine(f)];if(!s||!p||!p.outputs.includes(f)||!['menu','reward','battle'].includes(w.phase))return false;p.enabled[f]=on;w.changed();return true;}
-export function assignHatchery(w:World,id:number,line:ProductionLineId){const s=w.expedition,f=s?.facilities.find(f=>f.id===id);if(!s||s.race!=='zerg'||w.phase!=='reward'||!f||!line.startsWith('zerg.')||s.ledger.some(j=>j.state==='training'&&j.facilityIds.includes(id)))return false;f.line=line;w.changed();return true;}
+export function setEnabled(w:World,f:FamilyId,on:boolean){
+ const s=w.expedition,b=worldBuildingContext(w),groups=productionGroups(s).filter(g=>g.outputs.includes(f));if(!b||!groups.length||!['menu','reward','battle'].includes(w.phase))return false;
+ for(const g of groups){g.enabledFamilies??={};g.enabledFamilies[f]=on;if(on)g.enabled=true;else if(!g.outputs.some(f=>g.enabledFamilies?.[f]!==false))g.enabled=false;}
+ b.revision++;syncBuildingWindow(s,b);w.changed();return true;
+}
+/** Evolution is a quoted purchase. The old free line-assignment API is intentionally closed. */
+export function assignHatchery(_w:World,_id:number,_line:ProductionLineId){return false;}
 export function paidReservations(w:World,f:UnitType){const s=w.expedition!;return s.ledger.filter(j=>j.family===f).reduce((n,j)=>n+j.passengers.filter(p=>p.status==='waiting').reduce((n,p)=>n+passengerReservation(p,w),0),0)+(s.credits[f]??[]).reduce((n,c)=>n+c.rank-1,0);}
 export function validTacticalTarget(w:World,f:FamilyId,plan:TacticalPlan){const u=w.entities.get(plan.targetEntityId);return !!u&&u.bornAt===plan.targetGeneration&&u.team==='player'&&u.unitType===f&&u.hp>0&&!u.heroId&&!u.eliteId&&!u.temporary&&u.rank>=5&&(u.tacticalTier??0)<5&&!(u.lastStandUntil&&u.lastStandUntil>w.time);}
 export function tacticalReservations(w:World,f:FamilyId){return w.expedition.ledger.filter(j=>j.family===f).reduce((sum,j)=>sum+j.passengers.filter(p=>p.status==='waiting'&&p.purpose==='tacticalProgress').length,0);}
@@ -45,16 +55,18 @@ export function updateExpeditionProduction(w:World,dt:number,automatic=true){con
   if(j.state==='awaiting'&&w.time>=(j.landingRetryAt??0)){const p=w.trySpawnPod(j.family as UnitType,undefined,j.id,j.passengers.length);if(p){j.podId=p.id;j.state='risk';w.stats.produced+=j.passengers.length;}else j.landingRetryAt=w.time+1;}
  }
  if(!automatic||w.phase!=='battle'||w.requiresPlayerDecision)return;
- for(const [key,p] of Object.entries(s.production)){const line=key as ProductionLineId;if(!p||!p.outputs.length||s.ledger.some(j=>j.line===line&&j.state!=='settled'))continue;
-  const facilities=s.facilities.filter(f=>f.line===line&&!s.ledger.some(j=>j.state==='training'&&j.facilityIds.includes(f.id)));if(!facilities.length)continue;
-  for(let i=0;i<p.outputs.length;i++){const at=(p.cursor+i)%p.outputs.length,f=p.outputs[at];if(!p.enabled[f]||!availableFamily(w,f))continue;
+ const b=s.building;if(!b)return;b.tech=s.tech;
+ for(const p of productionGroups(s)){
+  if(!activeGroupOutputs(p).length||s.ledger.some(j=>j.state!=='settled'&&(j.producerId===p.id||j.facilityIds.some(id=>p.ids.includes(id)))))continue;
+  const facilities=s.facilities.filter(f=>p.ids.includes(f.id)&&!s.ledger.some(j=>j.state==='training'&&j.facilityIds.includes(f.id)));if(!facilities.length)continue;
+  for(let i=0;i<p.outputs.length;i++){const at=(p.cursor+i)%p.outputs.length,f=p.outputs[at],line=familyLine(f);if(p.enabledFamilies?.[f]===false||!canProduce(b,p,f,w.stage)||!availableFamily(w,f))continue;
    const eligible=facilities;if(!eligible.length)continue;
    const waiting=s.ledger.filter(j=>j.family===f).reduce((n,j)=>n+j.passengers.filter(p=>p.status==='waiting').reduce((n,p)=>n+passengerReservation(p,w),0),0),normalCapacity=s.familySlots.includes(f)?w.availableCapacity(f):w.rosterCap-waiting,plan=s.tacticalPlans[f],ticket=normalCapacity<=0&&!!plan?.enabled&&validTacticalTarget(w,f,plan),capacity=ticket?5-plan!.bank-tacticalReservations(w,f):normalCapacity;
    const width=f==='zergling'?2:1,quote=productionQuote(w,f),seatMinerals=quote.minerals*width,seatGas=quote.gas*width,count=Math.max(0,Math.min(5,capacity,eligible.length,seatMinerals?Math.floor((w.wallet.minerals+1e-8)/seatMinerals):5,seatGas?Math.floor((w.wallet.gas+1e-8)/seatGas):5));if(!count)continue;
    const participants=eligible.slice(0,count),id=w.nextJob++;w.wallet.minerals-=seatMinerals*count;w.wallet.gas-=seatGas*count;w.economyTotals.production.minerals+=seatMinerals*count;w.economyTotals.production.gas+=seatGas*count;
    const passengers:DeliveryPassenger[]=[];
    for(let seat=0;seat<count;seat++)for(let half=0;half<(ticket?1:width);half++)passengers.push({paid:{minerals:ticket?seatMinerals:quote.minerals,gas:ticket?seatGas:quote.gas},status:'waiting',entityId:null,purpose:ticket?'tacticalProgress':seat<w.rosterCap-w.familySeatCount(f)?'body':'rankTraining',...(!ticket&&width===2?{pairId:`paid:${id}:${seat}`,pairHalf:half as 0|1}:{}),...(ticket?{targetEntityId:plan!.targetEntityId,targetGeneration:plan!.targetGeneration,tacticalTierAtOrder:w.entities.get(plan!.targetEntityId)?.tacticalTier??0,direction:plan!.direction}:{})});
-   s.ledger.push({id,family:f,line,facilityIds:participants.map(b=>b.id),remaining:quote.seconds,state:'training',podId:null,passengers});p.cursor=(at+1)%p.outputs.length;w.stats.started+=passengers.length;w.changed();break;
+   s.ledger.push({id,producerId:p.id,family:f,line,facilityIds:participants.map(b=>b.id),remaining:quote.seconds,state:'training',podId:null,passengers});p.cursor=(at+1)%p.outputs.length;syncBuildingViews(s,b);w.stats.started+=passengers.length;w.changed();break;
   }
  }
 }
@@ -105,11 +117,11 @@ export function commitReplacement(w:World,id:string,old:FamilyId,revision:number
  retireFamily(w,old,q.r.family);
  releasePaidPassenger(w,q.p,q.r.passengerIndex,q.position);s.completedReceipts.push(id);s.pendingReceipt=null;w.changed();return true;
 }
-export function rejectReceipt(w:World,id:string,revision:number){const s=w.expedition,r=s?.pendingReceipt;if(!s||!r||w.phase!=='battle'||id!==r.id||revision!==w.revision||s.completedReceipts.includes(id))return false;const p=w.pods.find(p=>p.id===r.podId),j=s.ledger.find(j=>j.id===p?.jobId);if(!p||!j||p.status!=='opening'||p.passengers[r.passengerIndex]?.status!=='waiting')return false;for(const c of p.passengers)if(c.status==='waiting')c.status='lost';for(const c of j.passengers)if(c.status==='waiting')c.status='lost';j.state='settled';p.status='destroyed';p.resolvedAt=w.time;const plan=s.production[familyLine(r.family)];if(plan)plan.enabled[r.family]=false;s.completedReceipts.push(id);s.pendingReceipt=null;w.changed();return true;}
+export function rejectReceipt(w:World,id:string,revision:number){const s=w.expedition,r=s?.pendingReceipt;if(!s||!r||w.phase!=='battle'||id!==r.id||revision!==w.revision||s.completedReceipts.includes(id))return false;const p=w.pods.find(p=>p.id===r.podId),j=s.ledger.find(j=>j.id===p?.jobId);if(!p||!j||p.status!=='opening'||p.passengers[r.passengerIndex]?.status!=='waiting')return false;for(const c of p.passengers)if(c.status==='waiting')c.status='lost';for(const c of j.passengers)if(c.status==='waiting')c.status='lost';j.state='settled';p.status='destroyed';p.resolvedAt=w.time;const b=s.building;if(b){const groups=b.groups.filter(g=>j.producerId===g.id||j.facilityIds.some(id=>g.ids.includes(id)));for(const g of groups){g.enabledFamilies??={};g.enabledFamilies[r.family]=false;if(!g.outputs.some(f=>g.enabledFamilies?.[f]!==false))g.enabled=false;}syncBuildingViews(s,b);}s.completedReceipts.push(id);s.pendingReceipt=null;w.changed();return true;}
 
 export function retireFamily(w:World,old:FamilyId,incoming:FamilyId){const s=w.expedition,preview=familyRetirementPreview(w,old);
  for(const r of w.zergHeroes.revivals)r.seats=r.seats.filter(seat=>seat.family!==old);
- for(const plan of Object.values(s.production))if(plan){plan.outputs=plan.outputs.filter(f=>f!==old);plan.enabled[old]=false;plan.cursor%=Math.max(1,plan.outputs.length);}
+ for(const group of productionGroups(s)){group.outputs=group.outputs.filter(f=>f!==old);if(group.enabledFamilies)delete group.enabledFamilies[old];group.cursor%=Math.max(1,group.outputs.length);}syncBuildingViews(s);
  for(const j of s.ledger.filter(j=>j.family===old)){for(const [i,c] of j.passengers.entries())if(c.status==='waiting'){c.status=j.state==='training'||j.state==='awaiting'?'refunded':'lost';const pod=w.pods.find(p=>p.id===j.podId);if(pod?.passengers[i])pod.passengers[i].status='lost';}j.state='settled';}
  for(const u of w.familyBodies(old)){const retired=w.entities.get(u.id);if(retired)retired.hp=0;w.entities.delete(u.id);w.statuses.removeTarget(u.id);}if(old==='zergling'){for(const pair of s.zerglingPairs)delete w.zergElites.frenzy[pair.id];for(const key of Object.keys(w.zergElites.frenzy))if(key.startsWith('body:'))delete w.zergElites.frenzy[key];s.zerglingPairs=[];}w.pendingElites=w.pendingElites.filter(id=>ELITES[id].family!==old);delete s.credits[old];s.credits[incoming]=preview.credits.map(c=>({...c,id:s.nextCredit++}));s.familySlots[s.familySlots.indexOf(old)]=incoming;
  w.wallet.minerals+=preview.refund.minerals;w.wallet.gas+=preview.refund.gas;s.refunds.minerals+=preview.refund.minerals;s.refunds.gas+=preview.refund.gas;

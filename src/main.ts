@@ -1,3 +1,4 @@
+import './ui/presentation/building-panel.css';
 import './ui/presentation/game-shell.css';
 import './render/scene/battle-distress.css';
 import './ui/presentation/world-labels.css';

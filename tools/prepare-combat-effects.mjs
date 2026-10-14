@@ -12,11 +12,13 @@ import {decodeMaterialDds} from './material-dds.mjs';
 import {rgbaToPng} from './dds-png.mjs';
 import {convertMaterialPixels} from './m3-materials.mjs';
 
-const sha=b=>createHash('sha256').update(b).digest('hex'),out='reports/local/combat-effects-20261012';
+const argument=(name,fallback)=>process.argv.find(a=>a.startsWith(name+'='))?.slice(name.length+1)??fallback;
+const sha=b=>createHash('sha256').update(b).digest('hex'),out=argument('--out','reports/local/combat-effects-20261012'),append=process.argv.includes('--append');
 const parser=await import(pathToFileURL(path.resolve('.cache/visual-restoration-reader/m3-loader.js')).href);
 const sourceMap=JSON.parse(await fs.readFile(out+'/source-map.json','utf8'));
-const originals=JSON.parse((await fs.readFile('tools/combat-effects-dependencies.json','utf8')).replace(/^\uFEFF/,''));
+const originals=JSON.parse((await fs.readFile(argument('--dependencies','tools/combat-effects-dependencies.json'),'utf8')).replace(/^\uFEFF/,''));
 const known=new Map(originals.map(r=>[(r.requestedFile??r.installFile).toLowerCase(),r])),sources=new Map(),records=new Map(),profiles={},issues=[],unsupportedLayers=[];
+if(append){const prior=JSON.parse(await fs.readFile('deploy/runtime/combat-effects.json','utf8'));for(const record of prior.records)records.set(record.id,record);Object.assign(profiles,JSON.parse(await fs.readFile('src/render/effects/source/catalog.json','utf8')));}
 const bodyModels=new Set(sourceMap.routes.flatMap(r=>r.models.body??[]));
 const unitRecords=JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8')).manifest;
 const roles={diffuse:'layer_diff',normal:'layer_norm',specular:'layer_spec',emissive:'layer_emis1',emissive2:'layer_emis2',alpha:'layer_alpha1',alpha2:'layer_alpha2',decal:'layer_decal',gloss:'layer_gloss',ao:'layer_ao',environment:'layer_envi',environmentMask:'layer_envi_mask'};
@@ -27,6 +29,7 @@ async function textures(filename,normal=false){const file='assets/private/dds/'+
 const value=v=>typeof v==='number'?v:v?Object.fromEntries(['x','y','z','w','r','g','b','a'].filter(k=>typeof v[k]==='number').map(k=>[k,v[k]])):null;
 const ref=v=>v?{id:v.header.id,interpolation:v.header.interpolation,flags:v.header.flags,default:value(v.default)}:null;
 for(const m of sourceMap.models){
+ if(append&&profiles[m.modelDataId])throw Error('Append cannot replace an existing source definition '+m.modelDataId);
  const filename=path.posix.basename(m.assetPath).toLowerCase(),file='assets/private/m3/'+filename,bytes=await source(file),s=await parser.loadM3FromFile(path.resolve(known.get(file.toLowerCase()).installFile));
  const get=r=>s.getSectionByReference(r)?.content??[],str=r=>String.fromCharCode(...get(r)).replaceAll('\0','');
  const clean=v=>{if(v===null||v===undefined)return null;if(typeof v==='number')return Number.isFinite(v)?v:null;if(typeof v!=='object')return v;if(v.header&&'default'in v)return ref(v);if('entries'in v&&'index'in v)return get(v).map(clean);if(Array.isArray(v))return v.map(clean);return Object.fromEntries(Object.entries(v).filter(([k])=>k!=='desc'&&!k.startsWith('__')).map(([k,x])=>[k,clean(x)]));};

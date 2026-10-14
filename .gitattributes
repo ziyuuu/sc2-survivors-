@@ -8,3 +8,7 @@ preview/ui-20261003/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 preview/ui-20261003/**/*.webp filter=lfs diff=lfs merge=lfs -text
 test/fixtures/confirmed-hero-20261005/** -text
 test/fixtures/sc2-data/** -text
+
+# Byte-bound environment review bundles include generated Three.js code.
+preview/environment-samples-20261013/*.js -text -diff
+preview/environment-full-map-20261014/*.js -text -diff

@@ -264,39 +264,42 @@
 
 ## 新规则：持续生产和发展行动
 
-每条生产线最多配置两个产出，按顺序交替；开关只影响尚未付款的未来批次。每条线仍只允许一批在途。虫族每座孵化设施只归属一个序列，不能重复贡献产能。A16可把每家族身体与预付上限从5升至7，S14可把普通军衔升至7。
+每个生产组最多配置两个产出，按顺序交替；开关只影响尚未付款的未来批次。每个组只允许一批在途。人族／神族同类建筑合组，折跃水晶独立合组；虫族每座孵化场独立，拥有基础输出及已付费的地面／天空方向，可保留两个方向，不能重复贡献产能。A16可把每家族身体与预付上限从5升至7，S14可把普通军衔升至7。
 
 | 生产线ID | 种族 | 名称 | 合法家族 |
 | --- | --- | --- | --- |
-| barracks | 人族 | 兵营 | 陆战队员、劫掠者、死神 |
+| barracks | 人族 | 兵营 | 陆战队员、死神、劫掠者 |
 | factory | 人族 | 重工厂 | 恶火、攻城坦克、雷神 |
-| starport | 人族 | 星港 | 医疗运输机、维京、女妖、科技球 |
+| starport | 人族 | 星港 | 医疗运输机、科技球、维京、女妖 |
 | zerg.basic | 虫族 | 基础虫群 | 跳虫、爆虫、蟑螂、虫后 |
-| zerg.evolution | 虫族 | 地面进化 | 破坏者、刺蛇、潜伏者、雷兽 |
+| zerg.evolution | 虫族 | 地面进化 | 刺蛇、破坏者、雷兽、潜伏者 |
 | zerg.air | 虫族 | 飞行虫群 | 异龙、腐化者 |
 | gateway | 神族 | 传送门 | 狂热者、使徒、追猎者、哨兵、高阶圣堂武士 |
 | robotics | 神族 | 机械台 | 不朽者、巨像 |
 | stargate | 神族 | 星门 | 凤凰、虚空辉光舰、航母 |
 
-共 79 种发展定义。每个第1—17关后窗口至多购买一项，研究／建造即时生效，训练只消耗战斗时间。报价不因钱包不足隐藏。首次选择发展方向，后续记忆方向；购买或跳过后进入随机商店。随机折扣原价／85折／7折／5折的概率为50%／30%／15%／5%，与适用天赋折扣相乘后每资源向上取整。
+共 82 种发展定义。每个第1—17关后窗口至多购买一项，研究／建造即时生效，训练只消耗战斗时间。报价不因钱包不足隐藏。默认首个本族方向，允许切换并记忆方向；候选只属于当前方向，前置建筑仅作提示；购买或跳过后进入随机商店。随机折扣原价／85折／7折／5折的概率为50%／30%／15%／5%，与适用天赋折扣相乘后每资源向上取整。
 
 | ID | 种族 | 行动 | 类型 | 价格矿／气 | 等级／设施上限 | 前置 | 最早已完成关卡 | 关联家族 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| barracks | 人族 | 兵营 | facility | 150／0 | 5 | — | 0 | 陆战队员、劫掠者、死神 |
+| barracks | 人族 | 兵营 | facility | 150／0 | 5 | — | 0 | 陆战队员、死神、劫掠者 |
 | factory | 人族 | 重工厂 | facility | 150／100 | 5 | barracks | 0 | 恶火、攻城坦克、雷神 |
-| starport | 人族 | 星港 | facility | 150／100 | 5 | factory | 0 | 医疗运输机、维京、女妖、科技球 |
-| hatchery | 虫族 | 孵化场 | facility | 150／0 | 5 | — | 0 | 跳虫、爆虫、蟑螂、虫后 |
+| starport | 人族 | 星港 | facility | 150／100 | 5 | factory | 0 | 医疗运输机、科技球、维京、女妖 |
+| hatchery | 虫族 | 孵化场 | facility | 150／0 | 15 | — | 0 | 跳虫、爆虫、蟑螂、虫后 |
 | gateway | 神族 | 传送门 | facility | 150／0 | 5 | — | 0 | 狂热者、使徒、追猎者、哨兵、高阶圣堂武士 |
 | robotics | 神族 | 机械台 | facility | 150／100 | 5 | gateway | 0 | 不朽者、巨像 |
 | stargate | 神族 | 星门 | facility | 150／100 | 5 | gateway | 0 | 凤凰、虚空辉光舰、航母 |
+| crystal | 神族 | 折跃水晶 ×2 | facility | 300／0 | 4 | gateway | 0 | 狂热者、使徒 |
+| evolve-zerg.evolution | 虫族 | 地面进化 | evolution | 150／100 | 1 | — | 0 | 刺蛇 |
+| evolve-zerg.air | 虫族 | 天空进化 | evolution | 100／150 | 1 | — | 0 | 异龙 |
 | unlock.marine | 人族 | 解锁陆战队员 | technology | 50／0 | 1 | — | 0 | 陆战队员 |
-| unlock.marauder | 人族 | 解锁劫掠者 | technology | 100／25 | 1 | — | 0 | 劫掠者 |
 | unlock.reaper | 人族 | 解锁死神 | technology | 50／50 | 1 | — | 0 | 死神 |
+| unlock.marauder | 人族 | 解锁劫掠者 | technology | 100／25 | 1 | — | 0 | 劫掠者 |
 | stim | 人族 | 兴奋剂 | technology | 125／75 | 1 | unlock.marine | 0 | 陆战队员 |
 | shield | 人族 | 战斗盾 | technology | 125／75 | 1 | unlock.marine | 0 | 陆战队员 |
-| system.barracks | 人族 | 兵营攻防系统 | technology | 100／50 | 1 | — | 0 | 陆战队员、劫掠者、死神 |
-| research.barracks.weapon | 人族 | 兵营武器 | research | 125／50 → 200／100 → 275／150 | 3 | system.barracks | 0 | 陆战队员、劫掠者、死神 |
-| research.barracks.defense | 人族 | 兵营防护 | research | 125／50 → 200／100 → 275／150 | 3 | system.barracks | 0 | 陆战队员、劫掠者、死神 |
+| system.barracks | 人族 | 兵营攻防系统 | technology | 100／50 | 1 | — | 0 | 陆战队员、死神、劫掠者 |
+| research.barracks.weapon | 人族 | 兵营武器 | research | 125／50 → 200／100 → 275／150 | 3 | system.barracks | 0 | 陆战队员、死神、劫掠者 |
+| research.barracks.defense | 人族 | 兵营防护 | research | 125／50 → 200／100 → 275／150 | 3 | system.barracks | 0 | 陆战队员、死神、劫掠者 |
 | unlock.hellion | 人族 | 解锁恶火 | technology | 100／0 | 1 | — | 0 | 恶火 |
 | unlock.tank | 人族 | 解锁攻城坦克 | technology | 150／125 | 1 | — | 0 | 攻城坦克 |
 | unlock.thor | 人族 | 解锁雷神 | technology | 300／200 | 1 | — | 0 | 雷神 |
@@ -305,14 +308,14 @@
 | research.factory.weapon | 人族 | 重工厂武器 | research | 125／50 → 200／100 → 275／150 | 3 | system.factory | 0 | 恶火、攻城坦克、雷神 |
 | research.factory.defense | 人族 | 重工厂防护 | research | 125／50 → 200／100 → 275／150 | 3 | system.factory | 0 | 恶火、攻城坦克、雷神 |
 | unlock.medivac | 人族 | 解锁医疗运输机 | technology | 100／100 | 1 | — | 0 | 医疗运输机 |
+| unlock.science_vessel | 人族 | 解锁科技球 | technology | 100／200 | 1 | — | 0 | 科技球 |
 | unlock.viking | 人族 | 解锁维京 | technology | 125／75 | 1 | — | 0 | 维京 |
 | unlock.banshee | 人族 | 解锁女妖 | technology | 150／100 | 1 | — | 0 | 女妖 |
-| unlock.science_vessel | 人族 | 解锁科技球 | technology | 100／200 | 1 | — | 0 | 科技球 |
 | cloak | 人族 | 隐形装置 | technology | 125／75 | 1 | unlock.banshee | 0 | 女妖 |
 | support_efficiency | 人族 | 医修效率 | technology | 125／75 | 1 | unlock.science_vessel | 0 | 科技球 |
-| system.starport | 人族 | 星港攻防系统 | technology | 100／50 | 1 | — | 0 | 医疗运输机、维京、女妖、科技球 |
-| research.starport.weapon | 人族 | 星港武器 | research | 125／50 → 200／100 → 275／150 | 3 | system.starport | 0 | 医疗运输机、维京、女妖、科技球 |
-| research.starport.defense | 人族 | 星港防护 | research | 125／50 → 200／100 → 275／150 | 3 | system.starport | 0 | 医疗运输机、维京、女妖、科技球 |
+| system.starport | 人族 | 星港攻防系统 | technology | 100／50 | 1 | — | 0 | 医疗运输机、科技球、维京、女妖 |
+| research.starport.weapon | 人族 | 星港武器 | research | 125／50 → 200／100 → 275／150 | 3 | system.starport | 0 | 医疗运输机、科技球、维京、女妖 |
+| research.starport.defense | 人族 | 星港防护 | research | 125／50 → 200／100 → 275／150 | 3 | system.starport | 0 | 医疗运输机、科技球、维京、女妖 |
 | unlock.zergling | 虫族 | 解锁跳虫 | technology | 50／0 | 1 | — | 0 | 跳虫 |
 | unlock.baneling | 虫族 | 解锁爆虫 | technology | 50／25 | 1 | — | 0 | 爆虫 |
 | unlock.roach | 虫族 | 解锁蟑螂 | technology | 75／25 | 1 | — | 0 | 蟑螂 |
@@ -323,15 +326,15 @@
 | system.zerg.basic | 虫族 | 基础虫群攻防系统 | technology | 100／50 | 1 | — | 0 | 跳虫、爆虫、蟑螂、虫后 |
 | research.zerg.basic.weapon | 虫族 | 基础虫群武器 | research | 125／50 → 200／100 → 275／150 | 3 | system.zerg.basic | 0 | 跳虫、爆虫、蟑螂、虫后 |
 | research.zerg.basic.defense | 虫族 | 基础虫群防护 | research | 125／50 → 200／100 → 275／150 | 3 | system.zerg.basic | 0 | 跳虫、爆虫、蟑螂、虫后 |
-| unlock.ravager | 虫族 | 解锁破坏者 | technology | 100／100 | 1 | — | 0 | 破坏者 |
 | unlock.hydralisk | 虫族 | 解锁刺蛇 | technology | 100／50 | 1 | — | 0 | 刺蛇 |
-| unlock.lurker | 虫族 | 解锁潜伏者 | technology | 150／150 | 1 | — | 0 | 潜伏者 |
+| unlock.ravager | 虫族 | 解锁破坏者 | technology | 100／100 | 1 | — | 0 | 破坏者 |
 | unlock.ultralisk | 虫族 | 解锁雷兽 | technology | 275／200 | 1 | — | 0 | 雷兽 |
+| unlock.lurker | 虫族 | 解锁潜伏者 | technology | 150／150 | 1 | — | 0 | 潜伏者 |
 | hydra_range | 虫族 | 沟槽脊刺 | technology | 125／75 | 1 | unlock.hydralisk | 0 | 刺蛇 |
 | lurker_deploy | 虫族 | 适应爪 | technology | 125／75 | 1 | unlock.lurker | 0 | 潜伏者 |
-| system.zerg.evolution | 虫族 | 地面进化攻防系统 | technology | 100／50 | 1 | — | 0 | 破坏者、刺蛇、潜伏者、雷兽 |
-| research.zerg.evolution.weapon | 虫族 | 地面进化武器 | research | 125／50 → 200／100 → 275／150 | 3 | system.zerg.evolution | 0 | 破坏者、刺蛇、潜伏者、雷兽 |
-| research.zerg.evolution.defense | 虫族 | 地面进化防护 | research | 125／50 → 200／100 → 275／150 | 3 | system.zerg.evolution | 0 | 破坏者、刺蛇、潜伏者、雷兽 |
+| system.zerg.evolution | 虫族 | 地面进化攻防系统 | technology | 100／50 | 1 | — | 0 | 刺蛇、破坏者、雷兽、潜伏者 |
+| research.zerg.evolution.weapon | 虫族 | 地面进化武器 | research | 125／50 → 200／100 → 275／150 | 3 | system.zerg.evolution | 0 | 刺蛇、破坏者、雷兽、潜伏者 |
+| research.zerg.evolution.defense | 虫族 | 地面进化防护 | research | 125／50 → 200／100 → 275／150 | 3 | system.zerg.evolution | 0 | 刺蛇、破坏者、雷兽、潜伏者 |
 | unlock.mutalisk | 虫族 | 解锁异龙 | technology | 100／100 | 1 | — | 0 | 异龙 |
 | unlock.corruptor | 虫族 | 解锁腐化者 | technology | 150／100 | 1 | — | 0 | 腐化者 |
 | system.zerg.air | 虫族 | 飞行虫群攻防系统 | technology | 100／50 | 1 | — | 0 | 异龙、腐化者 |
@@ -362,9 +365,23 @@
 | research.stargate.weapon | 神族 | 星门武器 | research | 125／50 → 200／100 → 275／150 | 3 | system.stargate | 0 | 凤凰、虚空辉光舰、航母 |
 | research.stargate.defense | 神族 | 星门防护 | research | 125／50 → 200／100 → 275／150 | 3 | system.stargate | 0 | 凤凰、虚空辉光舰、航母 |
 
-三级常规研究还受统一时点限制：二级须完成第6关，三级须完成第12关。单设施实验室选择具体未配实验室的对应设施；同一窗口最多购买一项。雷神、雷兽、航母另须完成第9关。
+三级常规研究还受统一时点限制：二级须完成第6关，三级须完成第12关。兵种解锁、专属科技与攻防系统全局共享，未来同类设施继承，不使用单设施实验室；同一窗口最多购买一项。雷神、雷兽、航母另须完成第9关。
 
-发展与商店共享递增刷新次数n：max(10, ceil((50＋40n−20×R03)×(1−0.1×R12)))矿。R06每窗口1／2／3次免费刷新也推进n；零天赋无免费刷新，购物无限刷新。
+发展与商店共享递增刷新次数n：max(10, ceil((50＋40n−20×R03)×(1−0.1×R12)))矿。三族每建设窗口一次基础免费刷新；R06每窗口1／2／3次额外免费刷新与商店共享，所有免费刷新均不推进n，购物无限刷新。
+
+孵化场150／0，最多15座，含开局一座。地面进化每座150／100，需全局蟑螂或虫后已解锁，包含刺蛇资格；天空每座100／150，需全局至少一座已完成地面，包含飞龙资格，第二方向保留已有方向和输出，不送士兵。折跃水晶300／0一对，只需传送门，最多两对／四座；水晶共享狂热者／使徒双输出且沿用原训练配方，传送门保持原列表。
+
+| 生产方向 | 解锁顺序（同级任选，分别购买） |
+| --- | --- |
+| 兵营 | 陆战队员 → 死神 → 劫掠者 |
+| 重工厂 | 恶火 → 攻城坦克 → 雷神 |
+| 星港 | 医疗运输机 → 科技球 → 维京 → 女妖 |
+| 基础虫群 | 跳虫／爆虫 → 蟑螂／虫后 |
+| 地面进化 | 刺蛇 → 破坏者 → 雷兽／潜伏者 |
+| 飞行虫群 | 异龙 → 腐化者 |
+| 传送门 | 狂热者 → 使徒 → 追猎者／哨兵 → 高阶圣堂武士 |
+| 机械台 | 不朽者 → 巨像 |
+| 星门 | 凤凰 → 虚空辉光舰 → 航母 |
 
 新家族接收且五个家族槽已满时先冻结模拟，再展示替换。继承等级 = 1＋floor((旧等级−1)／2)，逐存活成员产生记录；每家族身体上限由A16决定为5或7。未出舱、已付款与已投放资产按各自支付账本结清，不能将培养记录重复兑现。
 

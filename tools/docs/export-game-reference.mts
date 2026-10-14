@@ -15,7 +15,7 @@ import {CAMPAIGN_MAP_ID,CAMPAIGN_MAP_SIZE,MAP_THEMES} from '../../src/data/campa
 import {RACES,RACE_NAMES,FAMILIES_BY_RACE,ALL_FAMILIES,FAMILY_LIMIT,BODY_LIMIT,ORDINARY_RANK_LIMIT,HERO_LIMIT,MVP_RULES,type FamilyId} from '../../src/data/races';
 import {EXPANSION_SOURCE,SOURCE_UNIT_DETAILS,SOURCE_PRODUCTION_RECIPES,SOURCE_UNIT_MODES,SOURCE_UNIT_WEAPON_IDS,sourceWeaponsForUnit,type VerifiedAddedUnitType} from '../../src/data/expansion-units';
 import {CAMPAIGN_SCIENCE_VESSEL,SCIENCE_VESSEL_SOURCE,CAMPAIGN_SCIENCE_VESSEL_RECIPE,SCIENCE_VESSEL_ADAPTATION} from '../../src/data/campaign-science-vessel';
-import {PRODUCTION_LINES,FAMILY_REQUIREMENTS,HEAVY_FAMILIES,DEVELOPMENT,developmentPrice,familyLine} from '../../src/data/expedition-buildings';
+import {PRODUCTION_LINES,TREE_STEPS,FAMILY_REQUIREMENTS,HEAVY_FAMILIES,DEVELOPMENT,developmentPrice,familyLine} from '../../src/data/expedition-buildings';
 import {CAMPAIGN18_ID,CAMPAIGN18_STAGES,CAMPAIGN18_ENEMIES,CAMPAIGN18_WEIGHTS,CAMPAIGN18_TOTALS,campaign18StageConfig,campaign18EnemyPressure,campaign18ChapterGrowth} from '../../src/data/campaign18';
 import {MVP_TALENTS,TALENT_LINES,TALENT_POINT_CAP,MAIN_TIER_COSTS,MICRO_TIER_COSTS,PREVIOUS_TIER_POINTS} from '../../src/data/mvp-talents';
 import {SOURCE_UPGRADE_PROFILE,SOURCE_WEAPON_UPGRADE_STEPS,SOURCE_RESEARCH_EFFECTS} from '../../src/data/expansion-upgrades';
@@ -81,12 +81,14 @@ text.push('## 普通敌军与追加虫海',
  '追加兵始终使用固定I级基础属性，不叠章节、普通军衔、难度属性或后期兵种升级；正常奖励和击杀天赋。原事件优先，300敌人上限，积压跨关保存，数量不丢弃。');
 
 text.push('## 新规则：持续生产和发展行动',
- '每条生产线最多配置两个产出，按顺序交替；开关只影响尚未付款的未来批次。每条线仍只允许一批在途。虫族每座孵化设施只归属一个序列，不能重复贡献产能。A16可把每家族身体与预付上限从5升至7，S14可把普通军衔升至7。',
+ '每个生产组最多配置两个产出，按顺序交替；开关只影响尚未付款的未来批次。每个组只允许一批在途。人族／神族同类建筑合组，折跃水晶独立合组；虫族每座孵化场独立，拥有基础输出及已付费的地面／天空方向，可保留两个方向，不能重复贡献产能。A16可把每家族身体与预付上限从5升至7，S14可把普通军衔升至7。',
  table(['生产线ID','种族','名称','合法家族'],Object.entries(PRODUCTION_LINES).map(([id,line])=>[id,RACE_NAMES[line.race],line.name,line.families.map(name).join('、')])),
- `共 ${DEVELOPMENT.length} 种发展定义。每个第1—17关后窗口至多购买一项，研究／建造即时生效，训练只消耗战斗时间。报价不因钱包不足隐藏。首次选择发展方向，后续记忆方向；购买或跳过后进入随机商店。随机折扣原价／85折／7折／5折的概率为50%／30%／15%／5%，与适用天赋折扣相乘后每资源向上取整。`,
+ `共 ${DEVELOPMENT.length} 种发展定义。每个第1—17关后窗口至多购买一项，研究／建造即时生效，训练只消耗战斗时间。报价不因钱包不足隐藏。默认首个本族方向，允许切换并记忆方向；候选只属于当前方向，前置建筑仅作提示；购买或跳过后进入随机商店。随机折扣原价／85折／7折／5折的概率为50%／30%／15%／5%，与适用天赋折扣相乘后每资源向上取整。`,
  table(['ID','种族','行动','类型','价格矿／气','等级／设施上限','前置','最早已完成关卡','关联家族'],DEVELOPMENT.map(d=>[d.id,RACE_NAMES[d.race],d.name,d.kind,Array.from({length:d.maxLevel===3?3:1},(_,i)=>resource(developmentPrice(d,i))).join(' → '),d.maxLevel,list(d.requires),d.afterStage,d.families.map(name).join('、')||'—'])),
- '三级常规研究还受统一时点限制：二级须完成第6关，三级须完成第12关。单设施实验室选择具体未配实验室的对应设施；同一窗口最多购买一项。雷神、雷兽、航母另须完成第9关。',
- '发展与商店共享递增刷新次数n：max(10, ceil((50＋40n−20×R03)×(1−0.1×R12)))矿。R06每窗口1／2／3次免费刷新也推进n；零天赋无免费刷新，购物无限刷新。',
+ '三级常规研究还受统一时点限制：二级须完成第6关，三级须完成第12关。兵种解锁、专属科技与攻防系统全局共享，未来同类设施继承，不使用单设施实验室；同一窗口最多购买一项。雷神、雷兽、航母另须完成第9关。',
+ '发展与商店共享递增刷新次数n：max(10, ceil((50＋40n−20×R03)×(1−0.1×R12)))矿。三族每建设窗口一次基础免费刷新；R06每窗口1／2／3次额外免费刷新与商店共享，所有免费刷新均不推进n，购物无限刷新。',
+ '孵化场150／0，最多15座，含开局一座。地面进化每座150／100，需全局蟑螂或虫后已解锁，包含刺蛇资格；天空每座100／150，需全局至少一座已完成地面，包含飞龙资格，第二方向保留已有方向和输出，不送士兵。折跃水晶300／0一对，只需传送门，最多两对／四座；水晶共享狂热者／使徒双输出且沿用原训练配方，传送门保持原列表。',
+ table(['生产方向','解锁顺序（同级任选，分别购买）'],Object.entries(TREE_STEPS).map(([line,steps])=>[PRODUCTION_LINES[line as keyof typeof PRODUCTION_LINES].name,steps.map(group=>group.map(name).join('／')).join(' → ')])),
  '新家族接收且五个家族槽已满时先冻结模拟，再展示替换。继承等级 = 1＋floor((旧等级−1)／2)，逐存活成员产生记录；每家族身体上限由A16决定为5或7。未出舱、已付款与已投放资产按各自支付账本结清，不能将培养记录重复兑现。');
 
 text.push('## 新规则：三件付费商品与Build卡组',

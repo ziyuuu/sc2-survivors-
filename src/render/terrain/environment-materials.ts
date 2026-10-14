@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import type {CampaignTheme} from '../../data/campaign-landscape';
 import {MAP_VISUAL_PROFILES} from './map-visual-profile';
-import {bindSceneTextures} from '../materials/scene-textures';
+import {bindSceneTextures,sceneMaterialTextures} from '../materials/scene-textures';
 import {copySourceDepth} from '../materials/posed-depth';
 import type {LandscapeResources} from './campaign-ground';
 
@@ -18,7 +18,7 @@ export async function prepareEnvironmentMaterials(g:GLTF,theme:CampaignTheme,coa
    if(material instanceof THREE.MeshBasicMaterial){const texture=(await g.parser.getDependency('texture',definition.emissiveTexture.index) as THREE.Texture).clone();texture.colorSpace=THREE.SRGBColorSpace;texture.channel=definition.emissiveTexture.texCoord??0;texture.needsUpdate=true;resources.textures.push(texture);material.map=texture;material.color.fromArray(definition.emissiveFactor??[1,1,1]).multiplyScalar(definition.extensions?.KHR_materials_emissive_strength?.emissiveStrength??1);emissionRepairs++;}
    else if(material instanceof THREE.MeshStandardMaterial){material.color.set(0x000000);emissionRepairs++;}
   }
-  bindSceneTextures(material,[...samplers,coating]);bindSceneTextures(raw,samplers);
+  const extra=sceneMaterialTextures(raw);bindSceneTextures(material,[...samplers,...extra,coating]);bindSceneTextures(raw,[...samplers,...extra]);
   if(!(material instanceof THREE.MeshStandardMaterial)||material.transparent||material.userData.sc2?.role==='effect')continue;
   bindEnvironmentCoating(material,theme,coating);
  }
@@ -29,9 +29,10 @@ export function bindEnvironmentCoating(material:THREE.MeshStandardMaterial,theme
   const p=MAP_VISUAL_PROFILES[theme],tint=p.layers.find(l=>l.source===p.coating)?.tint??[1,1,1],original=material.onBeforeCompile,key=material.customProgramCacheKey.bind(material);
   material.onBeforeCompile=(shader,renderer)=>{
    original.call(material,shader,renderer);shader.uniforms.environmentCoating={value:coating};
+   const coatingMarker=shader.fragmentShader.includes('#include <map_fragment>')?'#include <map_fragment>':'#include <color_fragment>';
    const vary='varying vec3 envWorldPosition;varying vec3 envWorldNormal;varying float envAboveBase;';
    shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\n'+vary).replace('#include <defaultnormal_vertex>','#include <defaultnormal_vertex>\nenvWorldNormal=inverseTransformDirection(transformedNormal,viewMatrix);').replace('#include <project_vertex>',`#include <project_vertex>\nvec4 envPoint=vec4(transformed,1.0);vec4 envBase=vec4(0.0,0.0,0.0,1.0);\n#ifdef USE_INSTANCING\nenvPoint=instanceMatrix*envPoint;envBase=instanceMatrix*envBase;\n#endif\nenvWorldPosition=(modelMatrix*envPoint).xyz;envAboveBase=envWorldPosition.y-(modelMatrix*envBase).y;`);
-   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+vary+'uniform sampler2D environmentCoating;').replace('#include <map_fragment>',`#include <map_fragment>\nvec3 envPixels=texture2D(environmentCoating,envWorldPosition.xz*vec2(.125,-.125)).rgb*vec3(${tint.map(n=>n.toFixed(6)).join(',')});float envGrain=dot(envPixels,vec3(.2126,.7152,.0722));float envUp=smoothstep(${theme==='ice'?'.16,.8':'.32,.9'},normalize(envWorldNormal).y);float envBaseCoverage=exp(-max(0.0,envAboveBase)*3.5);float envCover=${theme==='ice'?'envUp*(.78+envGrain*.22)':'(envUp*.55+envBaseCoverage*.45)*(.55+envGrain*.45)'}*${p.coatingStrength.toFixed(6)};diffuseColor.rgb=mix(diffuseColor.rgb,envPixels,clamp(envCover,0.0,1.0));`).replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=mix(roughnessFactor,.97,clamp(envCover,0.0,1.0));');
+   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+vary+'uniform sampler2D environmentCoating;').replace(coatingMarker,`${coatingMarker}\nvec3 envPixels=texture2D(environmentCoating,envWorldPosition.xz*vec2(.125,-.125)).rgb*vec3(${tint.map(n=>n.toFixed(6)).join(',')});float envGrain=dot(envPixels,vec3(.2126,.7152,.0722));float envUp=smoothstep(${theme==='ice'?'.16,.8':'.32,.9'},normalize(envWorldNormal).y);float envBaseCoverage=exp(-max(0.0,envAboveBase)*3.5);float envCover=${theme==='ice'?'envUp*(.78+envGrain*.22)':'(envUp*.55+envBaseCoverage*.45)*(.55+envGrain*.45)'}*${p.coatingStrength.toFixed(6)};diffuseColor.rgb=mix(diffuseColor.rgb,envPixels,clamp(envCover,0.0,1.0));`).replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=mix(roughnessFactor,.97,clamp(envCover,0.0,1.0));');
   };material.customProgramCacheKey=()=>key()+':environment-coating-v1:'+theme;material.needsUpdate=true;
 }
 

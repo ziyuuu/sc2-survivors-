@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';import {chromium} from '@playwright/test';import {createGameServer} from './coze-web-server.mjs';
+const arg=(key,otherwise)=>process.argv.find(s=>s.startsWith('--'+key+'='))?.slice(key.length+3)??otherwise;
+const out=arg('out'),web=arg('web');if(!out?.startsWith('reports/local/7a-20261013/')||out.includes('..'))throw Error('Isolated output required');await fs.mkdir(out);await fs.copyFile(new URL(import.meta.url),out+'/runner.mjs');
+const server=createGameServer({webRoot:path.resolve(web),assetRoot:path.resolve('deploy/runtime'),backendOptions:{config:{enabled:false}}});await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const report={at:new Date().toISOString(),build:JSON.parse(await fs.readFile(web+'/build.json','utf8')),records:[],errors:[],passed:false};
+let page;
+try{
+ browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});page=await browser.newPage();page.on('pageerror',e=>report.errors.push(e.message));await page.goto('http://127.0.0.1:'+server.address().port);await page.waitForFunction(()=>document.body.dataset.ready==='true');
+ const cases=await page.evaluate(()=>window.animationLab.cases),limit=Number(arg('limit',String(cases.length))),order=arg('order','baseline,prepared,prepared,baseline,baseline,prepared').split(',');report.order=order;report.cases=cases.slice(0,limit);
+ for(const key of report.cases){const row=await page.evaluate(({key,order})=>window.animationLab.run(key,order),{key,order});report.records.push(row);await fs.writeFile(out+'/result.json',JSON.stringify(report,null,2));console.log(JSON.stringify({key,ms:row.rows.map(r=>Number(r.ms.toFixed(2))),exact:true}));}
+ report.longTasks=await page.evaluate(()=>window.animationLab.longTasks);assert.deepEqual(report.errors,[]);report.passed=true;
+}catch(e){report.failure=String(e.stack??e);report.failedRecords=await page?.evaluate(()=>window.animationLab?.results).catch(()=>undefined);process.exitCode=1;}finally{report.finishedAt=new Date().toISOString();await fs.writeFile(out+'/result.json',JSON.stringify(report,null,2));await browser?.close();await new Promise(r=>server.close(r));console.log(JSON.stringify({passed:report.passed,records:report.records.length,failure:report.failure}));}

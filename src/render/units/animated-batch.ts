@@ -1,19 +1,20 @@
+import {preparePoseData,preparePoseDataAsync,posePaletteKey,type PosePreparation,type PosePreparationControl} from './sampled-poses';
 import {unitMaterialTextures} from '../materials/unit-material-loader';
 import {commitInstances,uploadActive} from './instance-updates';
-import {bodyOutline} from './body-outline';
+
 import {compileUnitPose} from './unit-pose-shader';
 import {bindSourceDepth} from '../materials/posed-depth';
 import * as THREE from 'three';
 import {MeshoptSimplifier} from 'meshoptimizer';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
-import {sc2BodyBounds,sc2ModelScale} from '../loaders/sc2-materials';
-import {mapAnimations,weaponAttachmentNames} from '../loaders/animations';
+
+import {mapAnimations} from '../loaders/animations';
 import type {AnimationMode} from '../settings/quality';
 import {createUnitMaterialSurface,type UnitMaterialSurface} from '../materials/unit-material-batch';
 import type {UnitMaterialContext} from '../materials/source-tracks';
 
 export type PoseClip={offset:number;frames:number;duration:number};
-const FPS=24,CAPACITY=1024;
+const CAPACITY=1024;
 const object=new THREE.Object3D();
 
 /** Sample original skeletal clips once, then interpolate bone matrices on the GPU.
@@ -32,48 +33,15 @@ export class AnimatedBatch {
  animationMode:AnimationMode='complete';
  private ownedPoseTextures:THREE.Texture[]=[];
  readonly materialSurfaces:UnitMaterialSurface[]=[];
- constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number){
-  // Nova's exported Bone_Gun is offset from her hand by 0.89 source units.
-  // The A rifle pose requires the weapon root at the hand; texture links are already correct.
-  if(profile==='hero.nova'){const gun=gltf.scene.getObjectByName('Bone_Gun');if(!gun)throw Error('Nova weapon bone missing');gun.position.set(0,0,0);}
-  this.actions=mapAnimations(gltf.animations,profile);
-  const mixer=new THREE.AnimationMixer(gltf.scene),rest=this.actions.idle??gltf.animations[0];
-  if(rest){mixer.clipAction(rest).play();mixer.setTime(0);}gltf.scene.updateMatrixWorld(true);
-  const box=sc2BodyBounds(gltf.scene),center=box.getCenter(new THREE.Vector3());
-  const sourceScale=sc2ModelScale(gltf.scene);this.scale=sourceScale===undefined?height/Math.max(.001,box.max.y-box.min.y):1.4*sourceScale;
-  this.scale*=unitScale;
-  // Match the ordinary family's body before applying the approved elite display multiplier.
-  // This avoids compounding differently sized original skins; death/forms reuse the same normalization.
-  if(referenceBodyHeight!==undefined&&referenceBodyHeight>0)this.scale=referenceBodyHeight/Math.max(.001,box.max.y-box.min.y);
-  this.normalization=normalization?.clone()??new THREE.Matrix4().makeScale(this.scale,this.scale,this.scale).multiply(new THREE.Matrix4().makeTranslation(-center.x,-box.min.y,-center.z));
-  const body=box.clone().applyMatrix4(this.normalization);this.bodyHeight=body.max.y-body.min.y;this.bodyRadius=Math.max(body.max.x-body.min.x,body.max.z-body.min.z)/2;
-  this.bodyOutline=bodyOutline(gltf.scene,this.normalization);
-  const turret=gltf.scene.getObjectByName('Bone_Turret_Base'),turretBones=new Set<THREE.Object3D>();turret?.traverse(n=>turretBones.add(n));turret?.getWorldPosition(this.turretPivot).applyMatrix4(this.normalization);
-  // Only gameplay clips; dance/fidget/portrait sequences remain in the GLB but do not cost GPU memory.
-  const clips=[...new Set(Object.values(this.actions).filter((c):c is THREE.AnimationClip=>!!c))];
-  let total=0;for(const c of clips){const frames=Math.max(2,Math.ceil(c.duration*FPS)+1);this.clips.set(c.name,{offset:total,frames,duration:c.duration});total+=frames;}
-  const mountSides:(string|undefined)[]=[undefined,'Left','Right','Bottom','Center'];gltf.scene.traverse(node=>{const match=/^Ref_Weapon[ _](.+)$/.exec(node.name);if(match&&!mountSides.includes(match[1]))mountSides.push(match[1]);});
-  for(const clip of clips)for(const side of mountSides){const names=weaponAttachmentNames(clip.name,profile,side);const attachment=names.map(name=>gltf.scene.getObjectByName(name)).find(Boolean);if(!attachment)continue;const p=this.clips.get(clip.name)!,points:THREE.Vector3[]=[];mixer.stopAllAction();const action=mixer.clipAction(clip).reset().setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();for(let f=0;f<p.frames;f++){mixer.setTime(f/(p.frames-1)*clip.duration);gltf.scene.updateMatrixWorld(true);points.push(attachment.getWorldPosition(new THREE.Vector3()).applyMatrix4(this.normalization));}this.weaponTracks.set(clip.name+(side?':'+side:''),points);}
-  this.weapon.copy(this.weaponAt('attack',.05));
-  const nodes:THREE.SkinnedMesh[]=[];gltf.scene.traverse(n=>{
-   // The original Nova model stores sword, shotgun and plasma variants in separate skinned meshes.
-   // A-group animations use the canister rifle; the other meshes lack visibility keys in glTF.
-   if(n instanceof THREE.SkinnedMesh&&(profile!=='hero.nova'||['M3_Mesh_6','M3_Mesh_7','M3_Mesh_15'].includes(n.name)))nodes.push(n);
-  });
-  if(!nodes.length)throw Error('Animated GLB has no skinned mesh');
-  // GLTF can duplicate skeleton objects across submeshes; bake each distinct bind palette once.
-  const paletteKey=(s:THREE.Skeleton)=>s.bones.map(b=>b.uuid).join(',')+'|'+s.boneInverses.map(m=>m.elements.join(',')).join(';');
-  const textures=new Map<string,THREE.DataTexture>();
-  for(const n of nodes){const key=paletteKey(n.skeleton);if(textures.has(key))continue;const bones=n.skeleton.bones.length;this.boneCount=Math.max(this.boneCount,bones);
-   const data=new Float32Array(total*bones*16);mixer.stopAllAction();
-   for(const clip of clips){const p=this.clips.get(clip.name)!;mixer.stopAllAction();const a=mixer.clipAction(clip);a.reset().setLoop(THREE.LoopOnce,1);a.clampWhenFinished=true;a.play();
-    for(let f=0;f<p.frames;f++){mixer.setTime(f/(p.frames-1)*clip.duration);gltf.scene.updateMatrixWorld(true);n.skeleton.update();if(!n.skeleton.boneMatrices)throw Error('Missing bone palette');data.set(n.skeleton.boneMatrices,(p.offset+f)*bones*16);}
-   }
-   if(!data.every(v=>Number.isFinite(v)&&Math.abs(v)<=65504))throw Error('Original pose has invalid or unbounded bone transforms');
-   const packed=Uint16Array.from(data,THREE.DataUtils.toHalfFloat);
-   const tex=new THREE.DataTexture(packed,bones*4,total,THREE.RGBAFormat,THREE.HalfFloatType);tex.magFilter=tex.minFilter=THREE.NearestFilter;tex.needsUpdate=true;textures.set(key,tex);this.textureBytes+=packed.byteLength;
-  }
-  mixer.stopAllAction();if(rest){mixer.clipAction(rest).reset().play();mixer.setTime(0);}gltf.scene.updateMatrixWorld(true);
+ static async create(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number,control:PosePreparationControl={}){
+  const data=await preparePoseDataAsync([gltf,height,normalization,unitScale,profile,referenceBodyHeight],control);
+  return new AnimatedBatch(gltf,scene,height,normalization,unitScale,profile,referenceBodyHeight,data);
+ }
+ constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number,prepared?:PosePreparation){
+  const data=prepared??preparePoseData(gltf,height,normalization,unitScale,profile,referenceBodyHeight);
+  this.actions=data.actions;this.scale=data.scale;this.normalization=data.normalization;this.bodyHeight=data.bodyHeight;this.bodyRadius=data.bodyRadius;this.bodyOutline=data.bodyOutline;this.turretPivot.copy(data.turretPivot);this.clips=data.clips;this.weaponTracks=data.weaponTracks;this.weapon.copy(data.weapon);this.boneCount=data.boneCount;
+  const nodes=data.nodes,turretBones=data.turretBones,paletteKey=posePaletteKey,textures=new Map<string,THREE.DataTexture>();
+  for(const [key,palette]of data.palettes){const tex=new THREE.DataTexture(palette.packed,palette.bones*4,data.totalFrames,THREE.RGBAFormat,THREE.HalfFloatType);tex.magFilter=tex.minFilter=THREE.NearestFilter;tex.needsUpdate=true;textures.set(key,tex);this.textureBytes+=palette.packed.byteLength;}
   for(const n of nodes){const geometry=n.geometry.clone(),pose=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitPose',pose);const tier=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY),1).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitTier',tier);this.tierAttributes.push(tier);
    const full=geometry.getIndex();if(full&&geometry.groups.length<=1&&MeshoptSimplifier.supported){const position=geometry.getAttribute('position'),positions=new Float32Array(position.count*3);for(let v=0;v<position.count;v++){positions[v*3]=position.getX(v);positions[v*3+1]=position.getY(v);positions[v*3+2]=position.getZ(v);}
     const [indices]=MeshoptSimplifier.simplify(new Uint32Array(full.array),positions,3,Math.max(3,Math.floor(full.count*.3/3)*3),.035,['RegularizeLight']);const low=new THREE.BufferAttribute(indices,1);this.lodIndices.push({full,low});this.lodRatio=Math.min(this.lodRatio,indices.length/full.count);
@@ -97,7 +65,6 @@ export class AnimatedBatch {
    const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);this.aimAttributes.push(aim);
   }
   this.ownedPoseTextures=[...textures.values()];
-  mixer.stopAllAction();mixer.uncacheRoot(gltf.scene);
  }
  /** Retire optional batches that have never entered a battle. Shared image data
   * remains in the immutable decoder cache; only this batch's GPU wrappers retire. */

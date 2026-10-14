@@ -4,14 +4,15 @@ import {World} from '../src/simulation/world';
 import {BUILD_CARD_ROUTES} from '../src/data/build-card-routes';
 import {DEVELOPMENT,PRODUCTION_LINES,developmentInDirection,type ProductionLineId} from '../src/data/expedition-buildings';
 import {reinforcementOfferBucket,drawExpeditionReinforcements,beginExpeditionWindow,type ExpeditionDraftContext,type ExpeditionReward} from '../src/simulation/progression/expedition-drafts';
+import {grantFacility} from '../src/simulation/building/rules';
 import {newExpedition} from '../src/simulation/expedition-state';
 import {FAMILIES_BY_RACE} from '../src/data/races';
 import {ELITES} from '../src/data/elites';
 import {draftContext} from '../src/simulation/expedition-economy';
 
 const rng=(seed:number)=>()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
-test('every development and recursive prerequisite belongs to at least one race direction',()=>{
- for(const action of DEVELOPMENT){const lines=Object.entries(PRODUCTION_LINES).filter(([id,p])=>p.race===action.race&&developmentInDirection(action.id,id as ProductionLineId));assert.ok(lines.length,action.id);for(const [id] of lines)for(const prerequisite of action.requires)assert.ok(developmentInDirection(prerequisite,id as ProductionLineId),`${id}/${action.id} missing ${prerequisite}`);}
+test('every development belongs to its own direction and prerequisite hints resolve to a same-race project',()=>{
+ for(const action of DEVELOPMENT){const lines=Object.entries(PRODUCTION_LINES).filter(([id,p])=>p.race===action.race&&developmentInDirection(action.id,id as ProductionLineId));assert.ok(lines.length,action.id);for(const [id] of lines)for(const prerequisite of action.requires)assert.ok(DEVELOPMENT.some(d=>d.id===prerequisite&&d.race===action.race),`${id}/${action.id} missing ${prerequisite}`);}
 });
 for(const route of BUILD_CARD_ROUTES)for(const stage of [2,8,14])test(`${route.id} stage ${stage}: fixed seeds yield legal diverse paid cards and current-army bias`,()=>{
  const totals={cards:0,current:0,pages:0};
@@ -28,7 +29,7 @@ test('elite purchase preview and cancellation do not spend money, lock variant o
  assert.ok(w.choose(offer.offerId,variant.id));const copy=new World({terrain:false,waves:false,sandbox:true,obstacles:[]});copy.restoreRun(w.captureRun());const target=copy.eliteCandidates(variant.id)[0];assert.ok(copy.confirmShopElite(target.id));assert.equal(copy.wallet.minerals,wallet.minerals-offer.minerals);assert.equal(copy.wallet.gas,wallet.gas-offer.gas);assert.equal(copy.entities.get(target.id)?.eliteId,variant.id);assert.equal(copy.confirmShopElite(target.id),false);
 });
 test('70/20/10 pools are all reachable and second-slot sampling follows the authored split',()=>{
- const state=newExpedition('terran');state.familySlots=['marine','marauder','reaper','viking','medivac'];beginExpeditionWindow(state,14);state.production.factory!.outputs=['hellion'];state.production.factory!.enabled.hellion=true;let id=0;const random=rng(881);
+ const state=newExpedition('terran');state.familySlots=['marine','marauder','reaper','viking','medivac'];beginExpeditionWindow(state,14);grantFacility(state.building!,'factory')!;let id=0;const random=rng(881);
  const context:ExpeditionDraftContext={state,stage:14,random,nextOfferId:key=>`${key}:${id++}`,heroes:[],familyInfo:f=>({alive:state.familySlots.includes(f)?3:0,canAttack:f!=='medivac',canSupport:f==='medivac',usesEnergy:f==='medivac',cultivationCapacity:3,canProduce:true})};
  const counts={current:0,shared:0,other:0};
  for(let n=0;n<5000;n++){const offers=drawExpeditionReinforcements(context,true),first=offers[0].expeditionEffect,second=offers[1];if(second.rarity!=='white'||first.kind==='resource'||first.kind==='teamCard'||first.kind==='card'&&first.effect==='armor')continue;counts[reinforcementOfferBucket(context,second.expeditionEffect)]++;}

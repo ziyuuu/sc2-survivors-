@@ -1,0 +1,733 @@
+{
+  "passed": true,
+  "app": "dist/Refraction-Science-Final-R3-Application-20261013",
+  "appBuildId": "eb225a062a9e16201bd7e294c1320c99d4b36303a8f25a7d869eba00ddf7a19d",
+  "packageBuildId": "548d792075fc298d0955f0a685b3772c8ed5b3463b43f1f3025201a0f58f6d6a",
+  "html": {
+    "path": "dist/SC2-Survivors-Refraction-Science-Final-R2-20261013.html",
+    "bytes": 689455216,
+    "sha256": "50d9d2c3c631b2cfd706adbea18958b236baabd99639750eb1f7da945109579f"
+  },
+  "zip": {
+    "path": "dist/Refraction-Science-Final-R3-Application-20261013.zip",
+    "bytes": 15014289,
+    "sha256": "31821be002200405a3e7748d80bb6cfbc0916d8ce3df4491f69707e2055159d8",
+    "files": 197,
+    "packageBuildId": "548d792075fc298d0955f0a685b3772c8ed5b3463b43f1f3025201a0f58f6d6a",
+    "verifiedRoundTrip": true,
+    "deployed": false
+  },
+  "protection": {
+    "passed": true,
+    "phase": "before-sync",
+    "counts": {
+      "same": 1385,
+      "authorized-edit": 18,
+      "other-workstream-preserved": 3
+    },
+    "originalSources": 1164,
+    "retainedNamedFiles": 7,
+    "retainedAssets": 1157,
+    "newAssets": 20,
+    "newFiles": 19,
+    "newBytes": 848200,
+    "backendFiles": 152,
+    "dependenciesChanged": false,
+    "finalCompiledInputs": 336,
+    "nativeCompiledInputs": 238,
+    "applicationR3ChangesFromR2": [
+      "README.md"
+    ],
+    "release": {
+      "appBuildId": "eb225a062a9e16201bd7e294c1320c99d4b36303a8f25a7d869eba00ddf7a19d",
+      "runSchema": 26,
+      "rulesId": "mvp-1.0",
+      "mapId": "campaign-five-v3",
+      "assetCount": 1177,
+      "fileCount": 1129,
+      "assetBytes": 809073180,
+      "logicalBytes": 813301324,
+      "sharedBytes": 4228144,
+      "manifest": "asset-manifest.cc35c4025c6da0949c70f68fefe9b421734faae6e0b49a015831a5c297086d6a.json",
+      "release": "cc35c4025c6da0949c70f68fefe9b421734faae6e0b49a015831a5c297086d6a",
+      "source": "reports/local/asset-reachability.json"
+    }
+  },
+  "formal": {
+    "web": {
+      "screens": 14,
+      "exports": 14,
+      "checks": 6,
+      "errors": 0
+    },
+    "offline": {
+      "screens": 14,
+      "exports": 14,
+      "checks": 6,
+      "errors": 0
+    },
+    "missing-refraction": {
+      "screens": 2,
+      "exports": 0,
+      "checks": 2,
+      "errors": 0
+    },
+    "missing-science": {
+      "screens": 2,
+      "exports": 0,
+      "checks": 2,
+      "errors": 0
+    }
+  },
+  "nativePairs": 90,
+  "isolatedPairs": 70,
+  "nativeDisplacementDefinitions": 14,
+  "sourceMappingResolved": true,
+  "screenDisplacementImplemented": true,
+  "clientAmplitudeCalibrated": false,
+  "humanAcceptance": false,
+  "physicalInputAcceptance": false,
+  "stableFpsAcceptance": false,
+  "onlineOperations": false,
+  "visualReview": {
+    "passed": true,
+    "reviewer": "model",
+    "method": "Bounded visual inspection of 12 diagnostic contact sheets, 3 full-size diagnostic views, 6 formal contact sheets, and 2 gallery layouts. Not human acceptance or all-gallery-image review.",
+    "sheetsReviewed": [
+      "review-sheets/native-1.jpg",
+      "review-sheets/native-2.jpg",
+      "review-sheets/native-3.jpg",
+      "review-sheets/native-4.jpg",
+      "review-sheets/isolated-1.jpg",
+      "review-sheets/isolated-2.jpg",
+      "review-sheets/isolated-3.jpg",
+      "review-sheets/isolated-4.jpg",
+      "review-sheets/lifecycle-1.jpg",
+      "review-sheets/lifecycle-2.jpg",
+      "review-sheets/lifecycle-3.jpg",
+      "review-sheets/lifecycle-4.jpg",
+      "review-sheets/formal-web-1.jpg",
+      "review-sheets/formal-web-2.jpg",
+      "review-sheets/formal-offline-1.jpg",
+      "review-sheets/formal-offline-2.jpg",
+      "review-sheets/formal-missing-refraction-1.jpg",
+      "review-sheets/formal-missing-science-1.jpg"
+    ],
+    "fullSizeReviewed": [
+      "native-pairs-r3/science_vessel.1--death-12.png",
+      "gpu-r4/GuardianShield-0.7-on.png",
+      "gpu-r4/occluder-true.png"
+    ],
+    "galleryLayouts": [
+      "gallery-qa-r2/layout-1440.png",
+      "gallery-qa-r2/layout-390.png"
+    ],
+    "uniqueImagesReviewed": 126,
+    "gameImages": 124,
+    "formalImages": 32,
+    "galleryImages": 320,
+    "allGalleryImagesReviewed": false,
+    "files": [
+      {
+        "file": "baseline-pairs-r1/marauder--after-12.png",
+        "sha256": "2051ea4d1394358e0e991ef1a3840304670662d2ca5361da3db85c256ee3512d"
+      },
+      {
+        "file": "native-pairs-r3/marauder--after-12.png",
+        "sha256": "d2125f4e2b199d72891b96a59addd058e90e6790dfb827865284d298cae16f4b"
+      },
+      {
+        "file": "baseline-pairs-r1/siege--after-12.png",
+        "sha256": "9e4f861f958120afa29079e816016269e19946d1d1370023d45d22c660b95ca6"
+      },
+      {
+        "file": "native-pairs-r3/siege--after-12.png",
+        "sha256": "9e4f861f958120afa29079e816016269e19946d1d1370023d45d22c660b95ca6"
+      },
+      {
+        "file": "baseline-pairs-r1/thor-ground--after-12.png",
+        "sha256": "188087cc7f33386397c73f2ff99540228d1702995ad134fe8bb1f86d24436142"
+      },
+      {
+        "file": "native-pairs-r3/thor-ground--after-12.png",
+        "sha256": "188087cc7f33386397c73f2ff99540228d1702995ad134fe8bb1f86d24436142"
+      },
+      {
+        "file": "baseline-pairs-r1/thor-high-impact--after-12.png",
+        "sha256": "d6798d3bea89c310c43a8c2c03df7e92d59cc5b37cb97e4b59994f6514d9d6a2"
+      },
+      {
+        "file": "native-pairs-r3/thor-high-impact--after-12.png",
+        "sha256": "d6798d3bea89c310c43a8c2c03df7e92d59cc5b37cb97e4b59994f6514d9d6a2"
+      },
+      {
+        "file": "baseline-pairs-r1/baneling--after-12.png",
+        "sha256": "92f4d784c26d7dd6b186cd7a016d756b85ca0f871cafede9c7ba5494e88bab3a"
+      },
+      {
+        "file": "native-pairs-r3/baneling--after-12.png",
+        "sha256": "d3fde6aae9dbdf57fce9bafef83ee22a72584053044725d4442cc4ce1a6d51b2"
+      },
+      {
+        "file": "baseline-pairs-r1/bile--after-12.png",
+        "sha256": "9f5a9cec065c045ca38db58f07e8c379cdfa03060438a14e81b81d7c31245f27"
+      },
+      {
+        "file": "native-pairs-r3/bile--after-12.png",
+        "sha256": "f55886fa92cfea784678cfc6e7a8b202bf0ba896f5f69880342f464427be8d6e"
+      },
+      {
+        "file": "baseline-pairs-r1/stalker--after-12.png",
+        "sha256": "68f6b027641c4c45db8b998eaad519fde7546d02d359b17426263ef8a63900b0"
+      },
+      {
+        "file": "native-pairs-r3/stalker--after-12.png",
+        "sha256": "64341c5088cf5c6ceaaae80fae9e91553c88a3427f337e9fb52ea5239572ebcc"
+      },
+      {
+        "file": "baseline-pairs-r1/sentry--after-12.png",
+        "sha256": "e77c014fd40a2584340325487f1fd91595d6964e76f439a850c857ff153d66c2"
+      },
+      {
+        "file": "native-pairs-r3/sentry--after-12.png",
+        "sha256": "f46e45836d5027946fe24921cf9e7b7e7a71aaac64b2ab6eb3fa41406c490003"
+      },
+      {
+        "file": "baseline-pairs-r1/immortal--after-12.png",
+        "sha256": "23b4dc4b8711168b6e8cbf009d71f4a93498f9ca701d2817611087a249b1293a"
+      },
+      {
+        "file": "native-pairs-r3/immortal--after-12.png",
+        "sha256": "8966416e38c9a595b7d1d7458410b705f4596e42e5e34003dddbb62411baf3b4"
+      },
+      {
+        "file": "baseline-pairs-r1/colossus--after-12.png",
+        "sha256": "cf51b0e5e81a6571781f87c568d404db5c305eaac7e66578f4106bb968846de0"
+      },
+      {
+        "file": "native-pairs-r3/colossus--after-12.png",
+        "sha256": "cf51b0e5e81a6571781f87c568d404db5c305eaac7e66578f4106bb968846de0"
+      },
+      {
+        "file": "baseline-pairs-r1/templar--after-12.png",
+        "sha256": "9339b4aabe3fda225a488adc702119e5b9a74b06872756ef3b6f34f5c20d8b41"
+      },
+      {
+        "file": "native-pairs-r3/templar--after-12.png",
+        "sha256": "6923eadba1fdaf4d0b2ff55a95781ee2fc89bffb6c4c5183af41e5bad9bc72ff"
+      },
+      {
+        "file": "baseline-pairs-r1/void-ray--after-12.png",
+        "sha256": "5fb9d50036865ef8810236954ec16fc21bd033e67a246479cf61a1b7b669cdc8"
+      },
+      {
+        "file": "native-pairs-r3/void-ray--after-12.png",
+        "sha256": "e654876add1c6c002401ce3ca7373822f1234707f4ff4240481c83bc245e6e9c"
+      },
+      {
+        "file": "baseline-pairs-r1/science_vessel--death-12.png",
+        "sha256": "579382d911e46e9e0158ef79fbb12b1a48fb1612ad126e28dcc429d96228c135"
+      },
+      {
+        "file": "native-pairs-r3/science_vessel--death-12.png",
+        "sha256": "0697d63bbc08d4bec562430d850508279e59cd54c3c83c64b89bce21aa557fb1"
+      },
+      {
+        "file": "baseline-pairs-r1/science_vessel.1--death-12.png",
+        "sha256": "c3f8f34ddddbde9f37c5699078e84ae6c07a39d87cc3b1e12f5fbfe73a13182e"
+      },
+      {
+        "file": "native-pairs-r3/science_vessel.1--death-12.png",
+        "sha256": "1d4a41bec9f0eb9bd855b0bffa44a866341658efe33e99fc6c446f6bc6b67403"
+      },
+      {
+        "file": "baseline-pairs-r1/science_vessel.2--death-12.png",
+        "sha256": "4456c8b85001eeae0bd4c9a0f954139362d05391b990a391baebab57826c8af7"
+      },
+      {
+        "file": "native-pairs-r3/science_vessel.2--death-12.png",
+        "sha256": "1d4a41bec9f0eb9bd855b0bffa44a866341658efe33e99fc6c446f6bc6b67403"
+      },
+      {
+        "file": "baseline-pairs-r1/science_vessel.3--death-12.png",
+        "sha256": "2878dfd72a29e9f72eb3e6b90c858273fdecb53b074fc302bddc20f6a376d77d"
+      },
+      {
+        "file": "native-pairs-r3/science_vessel.3--death-12.png",
+        "sha256": "1d4a41bec9f0eb9bd855b0bffa44a866341658efe33e99fc6c446f6bc6b67403"
+      },
+      {
+        "file": "gpu-r4/MarauderBaseAttackImpact-0.25-off.png",
+        "sha256": "d83e3a56d8b25ef90ab2675755d80ff0e42d8d54e803b3717442d6051252eb3a"
+      },
+      {
+        "file": "gpu-r4/MarauderBaseAttackImpact-0.25-on.png",
+        "sha256": "c35a94d0de60d054c17fb05ce6d543a81f47629c14bb45c2e06517761cbcf63a"
+      },
+      {
+        "file": "gpu-r4/SiegeTankSiegedAttackImpact-0.7-off.png",
+        "sha256": "20b33b32cbb947fe458abc3377ab4e44e77486fceb041fddab9ea3c213aa62f7"
+      },
+      {
+        "file": "gpu-r4/SiegeTankSiegedAttackImpact-0.7-on.png",
+        "sha256": "38c9463ac3f7069073a48fa7c96f454399206c1244dd1019e63510d35bc3c943"
+      },
+      {
+        "file": "gpu-r4/ThorHandGunAttackLaunch-0.15-off.png",
+        "sha256": "189f45011e1da8e0cfa8931ce0c207eb6ceb93efc032b6929723a96445f17425"
+      },
+      {
+        "file": "gpu-r4/ThorHandGunAttackLaunch-0.15-on.png",
+        "sha256": "278781e62c8cef1def1bd96748b5db5b14f2ab0ea8bd7cc498114a4c1286c894"
+      },
+      {
+        "file": "gpu-r4/ThorAAAttackLaunchLance-0.15-off.png",
+        "sha256": "189f45011e1da8e0cfa8931ce0c207eb6ceb93efc032b6929723a96445f17425"
+      },
+      {
+        "file": "gpu-r4/ThorAAAttackLaunchLance-0.15-on.png",
+        "sha256": "278781e62c8cef1def1bd96748b5db5b14f2ab0ea8bd7cc498114a4c1286c894"
+      },
+      {
+        "file": "gpu-r4/BanelingDeath-0.25-off.png",
+        "sha256": "57dd25149c6eaef51f92a61321442e0275bae65691c5c08300086be0dab0756e"
+      },
+      {
+        "file": "gpu-r4/BanelingDeath-0.25-on.png",
+        "sha256": "1cea4fa01280da756409912514cc603938b2a7aafa0e74d6d3911a4419016c6d"
+      },
+      {
+        "file": "gpu-r4/RavagerCorrosiveBileImpact-0.25-off.png",
+        "sha256": "7605d5713bb009ada4f080bf33d91cfd892c0e2d1cb71d73ad7149ab48d002f4"
+      },
+      {
+        "file": "gpu-r4/RavagerCorrosiveBileImpact-0.25-on.png",
+        "sha256": "805c8bf98774ce3aa465439901f825d897e4df94b8c97a508625897b07d2a73b"
+      },
+      {
+        "file": "gpu-r4/StalkerAttackImpact-0.25-off.png",
+        "sha256": "6a6fc16746505e2cc3d68b3d20757a6d9d47be33c270ad4a554a02920d179bf7"
+      },
+      {
+        "file": "gpu-r4/StalkerAttackImpact-0.25-on.png",
+        "sha256": "6388c895b2faa2a55937962881c7c2d25617222c32a8b8ee67da47592162b51b"
+      },
+      {
+        "file": "gpu-r4/GuardianShield-0.7-off.png",
+        "sha256": "a1602b95ff6f92bb21117eda1afb34166dd52713cd3ae239ef09606ec3a60a6d"
+      },
+      {
+        "file": "gpu-r4/GuardianShield-0.7-on.png",
+        "sha256": "d542ab8f078c3ac18a4a4f080a09efad23e84aa8ebf5364227eea3ce5ee3a400"
+      },
+      {
+        "file": "gpu-r4/ImmortalAttackImpact-0.25-off.png",
+        "sha256": "f0729460eddf1cf80bbc3c3f2beae5519fbdf3c6421bff3475432bb49861f309"
+      },
+      {
+        "file": "gpu-r4/ImmortalAttackImpact-0.25-on.png",
+        "sha256": "51ca7f0a3d5098c40e64a807ea4eca0c569414b6ccc4ca48fb2389f98d1061ad"
+      },
+      {
+        "file": "gpu-r4/ColossusAttackBeamImpact-0.7-off.png",
+        "sha256": "6827e054423f488ec9481bf774dd058385d25866872aeaddc370f8188ea41f67"
+      },
+      {
+        "file": "gpu-r4/ColossusAttackBeamImpact-0.7-on.png",
+        "sha256": "9263311582a395fee3b75bc18ffae2311bb0251e76c9ebe8ef6621eaf5ce1e65"
+      },
+      {
+        "file": "gpu-r4/HighTemplarAttackImpact-0.25-off.png",
+        "sha256": "605ded8a798ffccf6a8a11be5dbc2a95b32d84fcab8abe05af83c18567c49c18"
+      },
+      {
+        "file": "gpu-r4/HighTemplarAttackImpact-0.25-on.png",
+        "sha256": "ecaf17d596a9395e0dd824240790449f91640036b9eb3df038f62e5fdef0818e"
+      },
+      {
+        "file": "gpu-r4/HighTemplarPsiStormModel-0.7-off.png",
+        "sha256": "e4ab557402baeb2dee59b795523f82725f1700f57e3d837106f9c73de2b3cb71"
+      },
+      {
+        "file": "gpu-r4/HighTemplarPsiStormModel-0.7-on.png",
+        "sha256": "1dec6a376c474c0146c68b8da56994d9b32d2142cd6d4aba9182282077ce5c7f"
+      },
+      {
+        "file": "gpu-r4/VoidRayAttackBeam-0.7-off.png",
+        "sha256": "7aa2ba33bf1c69a77245b896dd4dc425af167dd101973ef2106849a3d5fffded"
+      },
+      {
+        "file": "gpu-r4/VoidRayAttackBeam-0.7-on.png",
+        "sha256": "48a58cd96ffffaa7ca2a644211975c440709e9ad5ef2a1231a39dac6184449ef"
+      },
+      {
+        "file": "gpu-r4/ProtossShieldRipple-0.25-off.png",
+        "sha256": "638a7e18e37b1314ac6d010d31b9071cf58c106c2b247d595d153b1090451a20"
+      },
+      {
+        "file": "gpu-r4/ProtossShieldRipple-0.25-on.png",
+        "sha256": "fef8602c0d8c135e35699903b350b5047ed3db5157b51ab7bca34ac7a41ac0db"
+      },
+      {
+        "file": "lifecycle-r1/ready.png",
+        "sha256": "beb1b73a2f1435128e6894e4eac69a5af7314126e953b5e8a0169ac869af84b2"
+      },
+      {
+        "file": "lifecycle-r1/industrial-before.png",
+        "sha256": "e50a0a7c392d7a663fc5c4159dfc7ce51fb6fe9b6b6d48638fcb5c71cef80521"
+      },
+      {
+        "file": "lifecycle-r1/industrial-native.png",
+        "sha256": "e50a0a7c392d7a663fc5c4159dfc7ce51fb6fe9b6b6d48638fcb5c71cef80521"
+      },
+      {
+        "file": "lifecycle-r1/industrial-balanced.png",
+        "sha256": "b757bda363fc24c599e3f038682d649d688bd074c1c2bd40c6b72d2e1f2c2f66"
+      },
+      {
+        "file": "lifecycle-r1/industrial-performance.png",
+        "sha256": "14a31399264b50ff41cd385a14e2c1c3c9f4ea7648f1a114ee788eefeb4e7358"
+      },
+      {
+        "file": "lifecycle-r1/industrial-context-restored.png",
+        "sha256": "e50a0a7c392d7a663fc5c4159dfc7ce51fb6fe9b6b6d48638fcb5c71cef80521"
+      },
+      {
+        "file": "lifecycle-r1/industrial-reloaded.png",
+        "sha256": "ea0c4180357f90619ae896fcef24c9397a5dbbf664af37c2fbc4020c1feb2713"
+      },
+      {
+        "file": "lifecycle-r1/mar-sara-before.png",
+        "sha256": "f1feb7e8cb14b012bbfe7e2f5a20a33f52f41803131d81928f99a425604fe388"
+      },
+      {
+        "file": "lifecycle-r1/mar-sara-native.png",
+        "sha256": "f1feb7e8cb14b012bbfe7e2f5a20a33f52f41803131d81928f99a425604fe388"
+      },
+      {
+        "file": "lifecycle-r1/mar-sara-balanced.png",
+        "sha256": "29ca63baea12ad06c24d1422b370c3244ba40e06cb059e1fddf911964d1a73f3"
+      },
+      {
+        "file": "lifecycle-r1/mar-sara-performance.png",
+        "sha256": "beb6d78c9e86ec0b2e2eafa88a12ccb7947cffa7ce7c248c82f0d90ff8cf8ea2"
+      },
+      {
+        "file": "lifecycle-r1/mar-sara-context-restored.png",
+        "sha256": "f1feb7e8cb14b012bbfe7e2f5a20a33f52f41803131d81928f99a425604fe388"
+      },
+      {
+        "file": "lifecycle-r1/mar-sara-reloaded.png",
+        "sha256": "ae8884b8670ee3c161d04cdcd7d5af7672fbe8b419c1d4ffb6b2a3b52f14a324"
+      },
+      {
+        "file": "lifecycle-r1/char-before.png",
+        "sha256": "9889a435b49ce2df57d4532a3a66bb95465a2cd0c6f42725170864717a69f3d1"
+      },
+      {
+        "file": "lifecycle-r1/char-native.png",
+        "sha256": "9889a435b49ce2df57d4532a3a66bb95465a2cd0c6f42725170864717a69f3d1"
+      },
+      {
+        "file": "lifecycle-r1/char-balanced.png",
+        "sha256": "fbc67071aace3db964271f1bdd5b06f996f73facbbb065843111d494169148c6"
+      },
+      {
+        "file": "lifecycle-r1/char-performance.png",
+        "sha256": "773d31b6e84413a0962eb90ba782fc90f6cb4921b2a19695a98329e26ef6c085"
+      },
+      {
+        "file": "lifecycle-r1/char-context-restored.png",
+        "sha256": "9889a435b49ce2df57d4532a3a66bb95465a2cd0c6f42725170864717a69f3d1"
+      },
+      {
+        "file": "lifecycle-r1/char-reloaded.png",
+        "sha256": "3800683e44206361c9b566f8763bdcf6d3f7796986c23d3475c0a2da62466933"
+      },
+      {
+        "file": "lifecycle-r1/ice-before.png",
+        "sha256": "0accbb9bb82f4cc8af43ae51157595ddb7d22e725e1793a88d7acac03a9a7d03"
+      },
+      {
+        "file": "lifecycle-r1/ice-native.png",
+        "sha256": "0accbb9bb82f4cc8af43ae51157595ddb7d22e725e1793a88d7acac03a9a7d03"
+      },
+      {
+        "file": "lifecycle-r1/ice-balanced.png",
+        "sha256": "fa0aeb1b30208373660631dd6a21af43148555206dab63481392e274b0b8f303"
+      },
+      {
+        "file": "lifecycle-r1/ice-performance.png",
+        "sha256": "965c700f1b96938e539faddd82d7e2b8ef5723b78f2d2291751bcf3f9d502907"
+      },
+      {
+        "file": "lifecycle-r1/ice-context-restored.png",
+        "sha256": "0accbb9bb82f4cc8af43ae51157595ddb7d22e725e1793a88d7acac03a9a7d03"
+      },
+      {
+        "file": "lifecycle-r1/ice-reloaded.png",
+        "sha256": "ecb3c89ae4154e2c8e582ec44a97ff53c73df6b66369630dbad4f234939da3c1"
+      },
+      {
+        "file": "lifecycle-r1/frontier-before.png",
+        "sha256": "0075c4fd33efae8dfc28bb154d1bb2987e6406a9a6b440e579df09d5665563bb"
+      },
+      {
+        "file": "lifecycle-r1/frontier-native.png",
+        "sha256": "0075c4fd33efae8dfc28bb154d1bb2987e6406a9a6b440e579df09d5665563bb"
+      },
+      {
+        "file": "lifecycle-r1/frontier-balanced.png",
+        "sha256": "bdbb84e6f7391ac3e9fcffdc2c9726061a0d410326bcaa24baad15a75917b171"
+      },
+      {
+        "file": "lifecycle-r1/frontier-performance.png",
+        "sha256": "b2f11475e31af8a245b90ad0f900f0127de8cf7447a64f88570099855d6bd9b0"
+      },
+      {
+        "file": "lifecycle-r1/frontier-context-restored.png",
+        "sha256": "0075c4fd33efae8dfc28bb154d1bb2987e6406a9a6b440e579df09d5665563bb"
+      },
+      {
+        "file": "lifecycle-r1/frontier-reloaded.png",
+        "sha256": "b0e2f3817fc6e61f1115a9479f7aad3be1dc85c7d3faabb1b6129a24abb33475"
+      },
+      {
+        "file": "gpu-r4/occluder-true.png",
+        "sha256": "0371d5f74f4c418e903c3cd503018037ad2ff09bf15577356f96662ffc6c6313"
+      },
+      {
+        "file": "final-r2/formal-web-r2/industrial-moved.png",
+        "sha256": "f2b4e6c78bd81fe44368361ebb54230e62d5f65a001605e3a2836f673e4766b8"
+      },
+      {
+        "file": "final-r2/formal-web-r2/industrial-restored.png",
+        "sha256": "051220e82d1cb12d1e71aa7ecb922f5f5a8378628abb92e9bf56023bf85f59dd"
+      },
+      {
+        "file": "final-r2/formal-web-r2/mar-sara-moved.png",
+        "sha256": "da77ac52e09cdaf13279bd5a9f98efb5b9dc486fa740529d469a62d9f9d0b658"
+      },
+      {
+        "file": "final-r2/formal-web-r2/char-moved.png",
+        "sha256": "b1c9cbe4517e2fae2c11b9d5be84cb8afd14d170a01ef04d2982c29e70c5fc3d"
+      },
+      {
+        "file": "final-r2/formal-web-r2/ice-moved.png",
+        "sha256": "2c0b1230513ccd488f86a4eba4c6f18d721516242c46670fc0e3714153ce4c30"
+      },
+      {
+        "file": "final-r2/formal-web-r2/frontier-moved.png",
+        "sha256": "d0355564d380d3fae3adf42575dcd4feca8baa6959a168281d33d25ef7b10085"
+      },
+      {
+        "file": "final-r2/formal-web-r2/endless-entered.png",
+        "sha256": "d02ecc25c3739d0afb7cf9b53e02ac6cc069cc7072d8fe7f10b44e68affde476"
+      },
+      {
+        "file": "final-r2/formal-web-r2/endless-restored.png",
+        "sha256": "23225052f0a388d9afd451f38a2692b7511dc4e9640322d364b096b18bb38e16"
+      },
+      {
+        "file": "final-r2/formal-web-r2/combat-terran.png",
+        "sha256": "eec815e5a00226684b5ceec416282414d043f485291609fda0354d054006a419"
+      },
+      {
+        "file": "final-r2/formal-web-r2/combat-terran-context-restored.png",
+        "sha256": "a958f234bb9021c3e3e1d83b23de7550b012e3d5cc7296f2f438a3d8d33215cb"
+      },
+      {
+        "file": "final-r2/formal-web-r2/combat-zerg.png",
+        "sha256": "d433addce17e23ea2e8753e003caf2119f67531492cfe02f6c90d04cdf348169"
+      },
+      {
+        "file": "final-r2/formal-web-r2/combat-zerg-context-restored.png",
+        "sha256": "010e4e61a9b236b673b7b65762a5aaeff5578d40431401309e521a96602a7125"
+      },
+      {
+        "file": "final-r2/formal-web-r2/combat-protoss.png",
+        "sha256": "9839acc1ff7688fc40cbb82a3fca63b0837b95b1d2d008e26958566062da30e7"
+      },
+      {
+        "file": "final-r2/formal-web-r2/combat-protoss-context-restored.png",
+        "sha256": "231e2296d18c3427e9e20c7deaf96579edb50279403ad0f2e7caef19d58e4226"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/industrial-moved.png",
+        "sha256": "061e8e5709536b696b9761fd32753603c7ec2a0ba691871f68f9c19389ec7ecd"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/industrial-restored.png",
+        "sha256": "d3cf96bf5d4466a088f11f9deb6685940d47e1389f0afcf7cf6de75040ba3683"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/mar-sara-moved.png",
+        "sha256": "05262fbbf8df5cf3d8779e3b1e29aa212ce8b8cdcd560f7a69b6edda87dd5fac"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/char-moved.png",
+        "sha256": "13e54f8dfdc53e2ba0e15ea3dc4de040189733d518f669ab97623efe971f724f"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/ice-moved.png",
+        "sha256": "1b5cba4cda342a9400cdc80d30617ef0b32e2b6601a48649e3e165e19ce4f379"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/frontier-moved.png",
+        "sha256": "209ae890da9a3cef588e62411f1b7eb83f43c5d116314fe75e19374a1214b834"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/endless-entered.png",
+        "sha256": "330dfe50796224fcb99ec0246d63b309a300c750143e0d3f47f5163a6ce230e1"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/endless-restored.png",
+        "sha256": "6d414ef53bdac19e7609769e7e376ed0cc8cf86c2f121c719dade1789653ecea"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/combat-terran.png",
+        "sha256": "576c556adad35cba32671b06e25db7e0c558b303be10b0dbea692c66266c67e9"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/combat-terran-context-restored.png",
+        "sha256": "0ed53fd9c1c1879df1ecaea108a0ab2be1164d1ca49b4bcfb976e95c946fed97"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/combat-zerg.png",
+        "sha256": "3825b6459f2cbbb9e0afe8721b533374b88e784d26aae271efbd0d61015eb5a9"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/combat-zerg-context-restored.png",
+        "sha256": "5d60405358f189e9c14232acce3a463ab54e997cf1de83a2e3470222c143c935"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/combat-protoss.png",
+        "sha256": "5bb04b48602d283a116b1049d82e5490ae8694a6f2ecd0c717a2fd46eab9d87d"
+      },
+      {
+        "file": "final-r2/formal-offline-r2/combat-protoss-context-restored.png",
+        "sha256": "b188ffd93ad235e62e8634f76112e7e4d26730ee1718f5e37c1158092c117832"
+      },
+      {
+        "file": "final-r2/formal-missing-refraction-r2/required-source-missing.png",
+        "sha256": "611a64cd7a09d431e9ea2ad227fd2355af464363edc81f5d5d12287e17b7f042"
+      },
+      {
+        "file": "final-r2/formal-missing-refraction-r2/required-source-recovered.png",
+        "sha256": "52c4fa13592f9306d05de764dae279435e1b8ad9d72d519a56b726175579d890"
+      },
+      {
+        "file": "final-r2/formal-missing-science-r2/required-source-missing.png",
+        "sha256": "c8b279200f1f062de161d0f95565220ea64dc73ce391f18acb1cd0c9879a606c"
+      },
+      {
+        "file": "final-r2/formal-missing-science-r2/required-source-recovered.png",
+        "sha256": "52c4fa13592f9306d05de764dae279435e1b8ad9d72d519a56b726175579d890"
+      },
+      {
+        "file": "gallery-qa-r2/layout-1440.png",
+        "sha256": "0b128d0b69cbb3a8a8abc4ef5e518d0a4683bad8778dc9063bf31910bd3d77ee"
+      },
+      {
+        "file": "gallery-qa-r2/layout-390.png",
+        "sha256": "9410e090d0b20c03b2c3ae158569ee50530d4783d309ddcabc8ac134d3aaad32"
+      }
+    ],
+    "findings": [
+      "Original mesh and particle refraction is visible without opaque or black compositor overlays in the inspected frames.",
+      "Three hologram Science Vessel identities show the source orange grid death effect; ordinary Science Vessel retains its source body death. Source scale 2 was preserved.",
+      "Native pause blur and restored fade are retained in formal screenshots; those blurred screens establish lifecycle/UI behavior, not fine-detail effect parity.",
+      "Existing dark Char, small bodies, child-bar overlap and dense shields remain; dense occlusion optimization was deferred by the user."
+    ],
+    "clientAmplitudeCalibrated": false,
+    "originalClientParity": false,
+    "humanAcceptance": false,
+    "naturalCampaignAcceptance": false,
+    "physicalInputAcceptance": false,
+    "stableFpsAcceptance": false,
+    "buildRange": "Native current pairs use native-r4 final runtime; isolated GPU-r4 and lifecycle-r1 retain their earlier diagnostic build identities. The last compositor prewarm-only change has 90 RGB-exact native comparisons. Formal screens bind the actual final Web/named HTML."
+  },
+  "currentAndMirrorSynchronized": true,
+  "localDelivery": {
+    "passed": true,
+    "at": "2026-10-13T03:58:16.684Z",
+    "appBuildId": "eb225a062a9e16201bd7e294c1320c99d4b36303a8f25a7d869eba00ddf7a19d",
+    "packageBuildId": "548d792075fc298d0955f0a685b3772c8ed5b3463b43f1f3025201a0f58f6d6a",
+    "html": {
+      "path": "dist/SC2-Survivors-Refraction-Science-Final-R2-20261013.html",
+      "bytes": 689455216,
+      "sha256": "50d9d2c3c631b2cfd706adbea18958b236baabd99639750eb1f7da945109579f"
+    },
+    "zip": {
+      "path": "dist/Refraction-Science-Final-R3-Application-20261013.zip",
+      "bytes": 15014289,
+      "sha256": "31821be002200405a3e7748d80bb6cfbc0916d8ce3df4491f69707e2055159d8",
+      "files": 197,
+      "packageBuildId": "548d792075fc298d0955f0a685b3772c8ed5b3463b43f1f3025201a0f58f6d6a",
+      "verifiedRoundTrip": true,
+      "deployed": false
+    },
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "identical": true
+    },
+    "localMirror": {
+      "path": "deploy/coze",
+      "files": 196,
+      "identical": true,
+      "priorPackage": "e7507b201b889b4dd7ddc42a6f28382503ba9667d8258c32fccc3d72d3662257"
+    },
+    "onlineOperations": false,
+    "gitSynchronization": "Not performed in this turn; unrelated existing work remains unstaged."
+  },
+  "afterSyncProtection": {
+    "passed": true,
+    "phase": "after-sync",
+    "counts": {
+      "same": 1383,
+      "authorized-edit": 20,
+      "other-workstream-preserved": 3
+    },
+    "originalSources": 1164,
+    "retainedNamedFiles": 7,
+    "retainedAssets": 1157,
+    "newAssets": 20,
+    "newFiles": 19,
+    "newBytes": 848200,
+    "backendFiles": 152,
+    "dependenciesChanged": false,
+    "finalCompiledInputs": 336,
+    "nativeCompiledInputs": 238,
+    "applicationR3ChangesFromR2": [
+      "README.md"
+    ],
+    "release": {
+      "appBuildId": "eb225a062a9e16201bd7e294c1320c99d4b36303a8f25a7d869eba00ddf7a19d",
+      "runSchema": 26,
+      "rulesId": "mvp-1.0",
+      "mapId": "campaign-five-v3",
+      "assetCount": 1177,
+      "fileCount": 1129,
+      "assetBytes": 809073180,
+      "logicalBytes": 813301324,
+      "sharedBytes": 4228144,
+      "manifest": "asset-manifest.cc35c4025c6da0949c70f68fefe9b421734faae6e0b49a015831a5c297086d6a.json",
+      "release": "cc35c4025c6da0949c70f68fefe9b421734faae6e0b49a015831a5c297086d6a",
+      "source": "reports/local/asset-reachability.json"
+    }
+  },
+  "regressions": {
+    "tests": 1396,
+    "passed": 1396,
+    "failed": 0,
+    "log": "reports/local/refraction-science-20261013/regression-r2.log"
+  },
+  "typecheckPassed": true,
+  "dataDocsPassed": true,
+  "remoteResourcePublication": false,
+  "git": {
+    "performed": false,
+    "observedHead": "6b3ae828ce4e05c358b4e37b1e6929d0dee68784",
+    "stagedFiles": 0
+  }
+}

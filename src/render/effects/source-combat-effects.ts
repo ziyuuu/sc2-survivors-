@@ -4,7 +4,7 @@ import type {Entity,Point,VisualEvent} from '../../simulation/types';
 import {BILE} from '../../data/sc2-units';
 import {SOURCE_ABILITIES} from '../../data/expansion-units';
 import {weaponFlightSpeed,type WeaponFlight} from '../../simulation/combat/weapon-flight';
-import {COMBAT_FX_PROFILES,combatFxProfile,sourceOwnsEvent,sourceOwnsWeapon,type CombatFxProfile} from './combat-fx-profile';
+import {COMBAT_FX_PROFILES,combatFxProfile,sourceOwnsEvent,sourceOwnsWeapon,sourceHologramDeath,type CombatFxProfile} from './combat-fx-profile';
 import {SourceEffectPlayer,SOURCE_EFFECTS} from './source/player';
 import {sourceFieldScale,sourceLife,sourceSeed} from './source/timeline';
 import type {SourceEffectRequest,SourcePlacement} from './source/types';
@@ -25,9 +25,10 @@ const rate=1.4;
 export class SourceCombatEffects {
  readonly player:SourceEffectPlayer;private serial=0;private time=0;private run='';private echoes:Echo[]=[];
  private mounts=new Map<string,P[]>();private launched=new Set<number>();private routes=new Set<string>();private flights=0;private events=0;
+ private hologramDeaths=new Map<number,VisualEvent>();
  constructor(scene:THREE.Scene,camera:THREE.Camera,private fx:BattleEffects){this.player=new SourceEffectPlayer(scene,camera);}
  load(){return this.player.load();}
- reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.player.reset();}
+ reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.player.reset();}
  report(){return {routes:[...this.routes],events:this.events,flights:this.flights,echoes:this.echoes.length,source:this.player.report()};}
  private request(model:string,key:string,age:number,placement:SourcePlacement,ground:(p:Point)=>number,options:Partial<SourceEffectRequest>={}){
   this.player.add({key,model,age:Math.max(0,age*rate),clockRate:rate,seed:sourceSeed(key),placement,...options},ground);
@@ -38,7 +39,8 @@ export class SourceCombatEffects {
  render(w:World,muzzle:Mount,bodyPose:BodyPose,shieldBounds?:ShieldBounds){
   if(!this.player.ready)return;if(w.time<this.time||this.run!==(w.runId??''))this.reset();this.time=w.time;this.run=w.runId??'';this.routes.clear();this.flights=this.events=0;this.player.begin(w.time);const ground=(p:Point)=>w.terrain?.height(p)??0;
   this.fx.sourceEventIds.clear();
-  for(const e of w.visualEvents){const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break';if(sourceOwnsEvent(e)||shieldReceipt)this.fx.sourceEventIds.add(e.serial);if(e.serial<=this.serial)continue;
+  for(const e of w.visualEvents){const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break',hologram=e.kind==='death'&&sourceHologramDeath(e);if(sourceOwnsEvent(e)||shieldReceipt||hologram)this.fx.sourceEventIds.add(e.serial);if(e.serial<=this.serial)continue;
+   if(hologram)this.hologramDeaths.set(e.entityId,structuredClone(e));
    if(shieldReceipt){
     const target=w.body(e.entityId),source=e.hitSourceId===undefined?undefined:w.body(e.hitSourceId),bounds=shieldBounds?.(e)??{center:{x:e.x,y:e.y,z:e.z},radius:Math.max(.7,target?.unitRadius??.7)},profile=COMBAT_FX_PROFILES.get('shield-hit')!;
     this.echoes.push({event:structuredClone(e),profile,mounts:[],life:Math.max(...Object.values(profile.models).flat().map(id=>sourceLife(SOURCE_EFFECTS[id])/rate)),shield:{...bounds,facing:source?Math.atan2(source.x-e.x,source.z-e.z):e.facing,rippleRadius:.7+1.3*Math.max(0,Math.min(1,((e.shieldDamage??5)-5)/40)),directional:!!source}});
@@ -122,6 +124,9 @@ export class SourceCombatEffects {
   for(const u of w.entities.values())if(u.hp>0&&!u.heroId&&u.unitType==='medivac')for(const id of u.healTargets??(u.healTarget?[u.healTarget]:[])){const target=w.entities.get(id);if(!target?.hp)continue;const key='heal:'+u.id+':'+id,age=w.time,event=this.event(w,u,w.time,'skill-heal',target),from=muzzle(event,'Center'),bounds=shieldBounds?.(this.event(w,target)),end=bounds?.center??point(w,target,.6);this.request('MedivacHealBeam',key,age,{...from,facing:Math.atan2(end.x-from.x,end.z-from.z),end},ground,{loop:true,hostedBeam:true});this.request('MedicHealModel',key+':target',age,{...(bounds?.top??end),facing:0},ground,{loop:true,clip:'Birth'});}
   for(const l of w.protossElites.lines)if(l.kind==='thermal'&&l.index>0){const at=l.points[Math.min(l.index-1,l.points.length-1)],event=this.event(w,l.source,w.time,'attack',at),siblings=w.protossElites.lines.filter(a=>a.kind==='thermal'&&a.source.id===l.source.id),from=muzzle(event,siblings.indexOf(l)%2?'Right':'Left'),end=point(w,at,.12),age=Math.max(0,w.time-(l.next-l.index*l.period)),p=COMBAT_FX_PROFILES.get('colossus')!;for(const model of p.models.beam)this.request(model,'elite-thermal:'+l.id+':'+model,age,{...from,facing:event.facing,end},ground,{loop:true,hostedBeam:true});for(const model of p.models.impact??[])this.request(model,'elite-thermal-impact:'+l.id+':'+model,age,{...end,facing:event.facing},ground);}
   const activeAttacks=new Set(w.weaponFlights.map(f=>f.attackId)),activeFlights=new Set(w.weaponFlights.map(f=>f.id));for(const id of this.launched)if(!activeFlights.has(id))this.launched.delete(id);for(const e of this.echoes)if(e.event.attackId)activeAttacks.add(e.event.attackId);for(const key of this.mounts.keys())if(!activeAttacks.has(key))this.mounts.delete(key);
+  // Only real death receipts start this one-shot. Retain its event snapshot if
+  // the unit is reclaimed; completed deaths are never synthesized after reload.
+  for(const [id,e]of this.hologramDeaths){const age=w.time-e.time,model='Hologram_Death_Large';if(age>sourceLife(SOURCE_EFFECTS[model])/rate){this.hologramDeaths.delete(id);continue;}this.routes.add('science-vessel-hologram-death');this.request(model,'hologram-death:'+id+':'+e.serial,age,{x:e.x,y:e.y,z:e.z,facing:e.facing},ground,{clip:'Death'});}
   this.player.end();
  }
  private echo(w:World,echo:Echo,ground:(p:Point)=>number,muzzle:Mount,bodyPose:BodyPose){

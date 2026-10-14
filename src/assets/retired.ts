@@ -1,9 +1,11 @@
 import {CAMPAIGN_ENVIRONMENTS} from '../data/campaign-landscape';
+import {fullEnvironmentModelIds} from '../render/terrain/environment-compositions';
+import type {CampaignTheme} from '../data/campaign-landscape';
 /** Proven unused payloads, not a size budget. Original source files remain intact.
  * The release audit rejects a direct/model dependency on these IDs, so restoring
  * a future effect requires deliberately removing it from this table. */
 const unusedEffect='No current emission/profile or model external dependency; historical catalog-only texture';
-const radialProps=new Set<string>(Object.values(CAMPAIGN_ENVIRONMENTS).flatMap(theme=>[...theme.props]));
+const radialProps=new Set<string>([...Object.values(CAMPAIGN_ENVIRONMENTS).flatMap(theme=>[...theme.props]),...(Object.keys(CAMPAIGN_ENVIRONMENTS) as CampaignTheme[]).flatMap(fullEnvironmentModelIds)]);
 /** Current browser runs only use the saved radial recipe or the independent flat field. */
 export const retiredCampaignAsset=(id:string)=>id==='map.kairos'||id==='map.acropolis'||id.startsWith('map.acropolis.')||['map.terrain.mask0','map.terrain.mask1'].includes(id)||id.startsWith('model.map.')&&!radialProps.has(id);
 export const isRetiredAsset=(id:string)=>Object.hasOwn(RETIRED_ASSETS,id)||retiredCampaignAsset(id);

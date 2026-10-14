@@ -40,6 +40,8 @@ import {availableFamily,setOutputs,setEnabled,assignHatchery,paidReservations,pr
 import type {TacticalDirection} from './expedition-state';
 import type {ProductionLineId} from '../data/expedition-buildings';
 import {DEVELOPMENT} from '../data/expedition-buildings';
+import {beginBuildingPlacement,commitBuildingPlacement,grantProductionFacility,updateBuildingGroupOutputs,updateBuildingGroupEnabled} from './building/expedition';
+import type {FacilityKind,PlacementDraft} from './building/rules';
 import {refreshExpeditionStats,castDetection,castFamilyAbility,setFamilyMode,visibleTo,validAttackTarget,tickDetection,tickNativeMode,tickExpeditionRecovery,healExpedition,unitData,talentModifiers,expeditionDamage,tickAutoAbilities,tickAreaSpells,selectWeapon} from './combat/expedition-combat';
 import {campaign18ChapterGrowth,campaign18EnemyPressure} from '../data/campaign18';
 import {enemySpawnGrowth,type EnemyOrigin} from '../data/enemy-progression';
@@ -107,6 +109,11 @@ export class World extends RunState {
  setProductionOutputs(line:ProductionLineId,families:FamilyId[]){return setOutputs(this,line,families);}
  setProductionEnabled(family:FamilyId,enabled:boolean){return setEnabled(this,family,enabled);}
  assignHatcherySequence(id:number,line:ProductionLineId){return assignHatchery(this,id,line);}
+ beginBuildingPlacement(){return beginBuildingPlacement(this);}
+ applyBuildingPlacement(draft:PlacementDraft){return this.atomicMutation(()=>commitBuildingPlacement(this,draft));}
+ grantFacility(kind:FacilityKind){return this.atomicMutation(()=>grantProductionFacility(this,kind));}
+ setBuildingGroupOutputs(id:string,outputs:FamilyId[]){return this.atomicMutation(()=>updateBuildingGroupOutputs(this,id,outputs));}
+ setBuildingGroupEnabled(id:string,enabled:boolean){return this.atomicMutation(()=>updateBuildingGroupEnabled(this,id,enabled));}
  isFamilyAvailable(family:FamilyId){return availableFamily(this,family);}
  setDevelopmentTarget(id:string|null){if(!['menu','reward'].includes(this.phase)||id!==null&&!DEVELOPMENT.some(d=>d.id===id&&d.race===this.expedition.race))return false;this.expedition.developmentTarget=id;this.changed();return true;}
  castDetection(){return castDetection(this);}
@@ -120,7 +127,7 @@ export class World extends RunState {
  get draftWindowKey(){return this.endlessEntry?.id??String(this.draftWindowId);}
  generateDevelopmentOffers(windowId:string){if(windowId!==this.draftWindowKey||this.phase!=='reward'||this.rewardRound!=='building')return [];this.rewards=developmentOffers(this);return this.rewards;}
  generateReinforcementDraft(windowId:string){if(windowId!==this.draftWindowKey||this.phase!=='reward'||this.rewardRound!=='random')return [];this.rewards=reinforcementOffers(this);return this.rewards;}
- purchaseDevelopmentOffer(windowId:string,id:string,expectedRevision=this.expedition.shopRevision){return windowId===this.draftWindowKey&&expectedRevision===this.expedition.shopRevision&&this.rewardRound==='building'&&this.choose(id);}
+ purchaseDevelopmentOffer(windowId:string,id:string,expectedRevision=this.expedition.shopRevision,targetFacilityId?:number){return windowId===this.draftWindowKey&&expectedRevision===this.expedition.shopRevision&&this.rewardRound==='building'&&this.choose(id,undefined,targetFacilityId);}
  setDevelopmentDirection(line:ProductionLineId,expectedRevision=this.expedition.shopRevision){return this.atomicMutation(()=>changeDevelopmentDirection(this,line,expectedRevision));}
  purchaseShopOffer(windowId:string,id:string,expectedRevision=this.expedition.shopRevision,variantId?:EliteId){return windowId===this.draftWindowKey&&expectedRevision===this.expedition.shopRevision&&this.rewardRound==='random'&&this.choose(id,variantId);}
  skipDevelopment(windowId=this.draftWindowKey,expectedRevision=this.expedition.shopRevision){return windowId===this.draftWindowKey&&expectedRevision===this.expedition.shopRevision&&this.rewardRound==='building'&&this.skipReward();}
@@ -906,7 +913,7 @@ export class World extends RunState {
  }
  rerollCost(){return expeditionRefreshCost(this.expedition,this.draftStage,this.rewardRound,this.draftWindowId,this.talent('reroll_fan'),this.talent('permanent_discount'))??Infinity;}
  reroll(){return this.atomicMutation(()=>refreshOffers(this));}
- choose(id:string,variantId?:EliteId){return this.atomicMutation(()=>{if(this.expedition.pendingShopElite||this.expedition.pendingShopSupply)return false;const offer=this.rewards.find(r=>r.offerId===id),effect=offer&&'expeditionEffect' in offer?(offer as import('./progression/expedition-drafts').ExpeditionReward).expeditionEffect:null;if(effect?.kind==='supply'&&effect.mode==='direct'&&offer&&this.canChooseReward(offer)&&!this.expedition.familySlots.includes(effect.family)&&this.expedition.familySlots.length===5){this.expedition.pendingShopSupply={offerId:id,revision:this.expedition.shopRevision};this.changed();return true;}if(effect?.kind==='elite'&&offer&&this.canChooseReward(offer)){const selected=this.resolveEliteVariant(effect.family,variantId);if(!selected)return false;if(!this.eliteOwned(selected)&&this.familySeatCount(effect.family)>=this.rosterCap){this.expedition.pendingShopElite={offerId:id,variantId:selected,revision:this.expedition.shopRevision};this.changed();return true;}}const building=this.rewardRound==='building',ok=purchaseOffer(this,id,variantId);if(ok&&building)this.finishRewardRound();return ok;});}
+ choose(id:string,variantId?:EliteId,targetFacilityId?:number){return this.atomicMutation(()=>{if(this.expedition.pendingShopElite||this.expedition.pendingShopSupply)return false;const offer=this.rewards.find(r=>r.offerId===id),effect=offer&&'expeditionEffect' in offer?(offer as import('./progression/expedition-drafts').ExpeditionReward).expeditionEffect:null;if(effect?.kind==='supply'&&effect.mode==='direct'&&offer&&this.canChooseReward(offer)&&!this.expedition.familySlots.includes(effect.family)&&this.expedition.familySlots.length===5){this.expedition.pendingShopSupply={offerId:id,revision:this.expedition.shopRevision};this.changed();return true;}if(effect?.kind==='elite'&&offer&&this.canChooseReward(offer)){const selected=this.resolveEliteVariant(effect.family,variantId);if(!selected)return false;if(!this.eliteOwned(selected)&&this.familySeatCount(effect.family)>=this.rosterCap){this.expedition.pendingShopElite={offerId:id,variantId:selected,revision:this.expedition.shopRevision};this.changed();return true;}}const building=this.rewardRound==='building',ok=purchaseOffer(this,id,variantId,targetFacilityId);if(ok&&building)this.finishRewardRound();return ok;});}
  cancelShopSupply(){if(!this.expedition.pendingShopSupply)return false;this.expedition.pendingShopSupply=null;this.changed();return true;}
  confirmShopSupply(old:FamilyId){return this.atomicMutation(()=>{const p=this.expedition.pendingShopSupply;if(!p||p.revision!==this.expedition.shopRevision)return false;const ok=purchaseOffer(this,p.offerId,undefined,undefined,old);if(ok){this.expedition.pendingShopSupply=null;this.changed();}return ok;});}
  cancelShopElite(){if(!this.expedition.pendingShopElite)return false;this.expedition.pendingShopElite=null;this.changed();return true;}
