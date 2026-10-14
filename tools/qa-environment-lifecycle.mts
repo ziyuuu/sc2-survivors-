@@ -14,7 +14,7 @@ import {encodeGraph} from '../src/persistence/graph-codec';
 const out=process.argv[2],option=(key:string)=>process.argv.find(a=>a.startsWith('--'+key+'='))?.slice(key.length+3);
 const web=option('web')??'dist/MVP5-Full-Map-Main-20261014-R3',offline=process.argv.includes('--offline'),html=option('html')??'dist/SC2-Survivors-MVP5-Lifecycle-R1-20261014.html',missing=option('missing');
 const entryOnly=process.argv.includes('--entry-only');
-assert.ok(out?.startsWith('reports/local/mvp5-lifecycle-20261014/')&&!out.includes('..'));assert.ok(!(offline&&missing));
+assert.ok(['reports/local/mvp5-lifecycle-20261014/','reports/local/mvp5-delivery-20261014/'].some(p=>out?.startsWith(p))&&!out.includes('..'));assert.ok(!(offline&&missing));
 await fs.mkdir(out,{recursive:false});await fs.copyFile(new URL(import.meta.url),out+'/runner.mts');await fs.copyFile(web+'/build-inputs.json',out+'/build.json');
 const read=async(p:string)=>JSON.parse(await fs.readFile(p,'utf8')),build=await read(web+'/web-release.json'),manifest=await read(web+'/'+build.manifest);assert.equal(build.diagnostic,false);
 const themes=['industrial','ice','mar-sara','char','frontier'] as CampaignTheme[],fixtures:Record<string,string>={};

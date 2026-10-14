@@ -1,14 +1,16 @@
 {
-  "appBuildId": "0854ed362e7c5d223973e86917b1317b6a5918f43cf41b9237ba0af41b8d0059",
+  "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
   "runSchema": 26,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-five-v3",
-  "assetCount": 1157,
-  "fileCount": 1110,
-  "assetBytes": 808224980,
-  "logicalBytes": 812431540,
-  "sharedBytes": 4206560,
-  "manifest": "asset-manifest.f215909d007c35a7a8a607624e67ae3c8ab4e2fcd2457ec2ec155fc31d5c2f2c.json",
-  "release": "f215909d007c35a7a8a607624e67ae3c8ab4e2fcd2457ec2ec155fc31d5c2f2c",
-  "source": "reports/local/asset-reachability.json"
+  "assetCount": 1217,
+  "fileCount": 1168,
+  "assetBytes": 823440309,
+  "logicalBytes": 827815888,
+  "sharedBytes": 4375579,
+  "manifest": "asset-manifest.b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615.json",
+  "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+  "source": "MVP5 steps 3 and 4 lifecycle and native traversal candidate; new-run building integration retained",
+  "diagnostic": false,
+  "review": true
 }

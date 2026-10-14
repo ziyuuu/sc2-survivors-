@@ -1,0 +1,515 @@
+{
+  "at": "2026-10-14T07:32:54.414Z",
+  "passed": true,
+  "status": "Step 5 local final delivery and central viewing entry completed. User concentrated-viewing feedback and whole-MVP gates remain open.",
+  "step5Delivered": true,
+  "localContentBaselineFrozen": true,
+  "wholeMvp5Accepted": false,
+  "wholeMvpComplete": false,
+  "currentAndApplicationMirrorSynchronized": true,
+  "onlineDeployment": false,
+  "formal": {
+    "web": "dist/MVP5-Final-Web-20261014",
+    "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+    "compiledInputs": 324,
+    "html": {
+      "path": "dist/SC2-Survivors-MVP5-Final-20261014.html",
+      "bytes": 707862310,
+      "sha256": "380022220e6246f25b64575d8c952650e6067fde4268be11470973046dac6ff7"
+    },
+    "byteIdenticalToStep34": true,
+    "sourceWeb": "dist/MVP5-Lifecycle-Web-20261014-R2",
+    "sourceHtml": "dist/SC2-Survivors-MVP5-Lifecycle-R2-20261014.html"
+  },
+  "application": {
+    "version": "0.6.27",
+    "path": "dist/MVP5-Final-Application-20261014",
+    "files": 204,
+    "packageBuildId": "27e935cbc778c90e38e625b247a95dfc0bb128098e0091bb68ef4bb86b01fd6c",
+    "zip": {
+      "path": "dist/MVP5-Final-Application-20261014.zip",
+      "bytes": 15109661,
+      "sha256": "6e2cbf351be16c5ea5d2d6eceda8b5da9bdaf4c0291f97b2e86779628270092d"
+    },
+    "backendUnchanged": 152,
+    "dependenciesChanged": false,
+    "startup": {
+      "cases": 4,
+      "packageBuildId": "27e935cbc778c90e38e625b247a95dfc0bb128098e0091bb68ef4bb86b01fd6c"
+    },
+    "update": {
+      "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+      "packageBuildId": "27e935cbc778c90e38e625b247a95dfc0bb128098e0091bb68ef4bb86b01fd6c",
+      "retained": 1129,
+      "installed": 39,
+      "downloadedMissing": 0,
+      "productionDependencies": 1,
+      "restartRequired": true
+    }
+  },
+  "resources": {
+    "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+    "records": 1217,
+    "files": 1168,
+    "bytes": 823440309,
+    "retainedRecords": 1177,
+    "addedRecords": 40,
+    "addedFiles": 39,
+    "fullZip": {
+      "path": "dist/MVP5-Final-Resources-20261014.zip",
+      "bytes": 710389787,
+      "sha256": "d5027d8d7470dd470642ffa3b7ce1393bb93960a2a0d3528f4fde7e832c399d8"
+    },
+    "deltaZip": {
+      "path": "dist/MVP5-Final-Resources-From-0.6.26-20261014.zip",
+      "bytes": 13181762,
+      "sha256": "176e56cfa0747ae9daf7b3c1eaca0d0c4e90eef532250d253b61f991f8045d11"
+    },
+    "deltaFrom": "cc35c4025c6da0949c70f68fefe9b421734faae6e0b49a015831a5c297086d6a"
+  },
+  "viewer": {
+    "at": "2026-10-14T06:57:42.357Z",
+    "file": "dist/SC2-Survivors-MVP5-Five-Map-Viewer-R2-20261014.html",
+    "bytes": 62022695,
+    "sha256": "ae094fdff507c0eb81a3227822c4396c37c1a216bd2ba788f11546c99d037af8",
+    "sourceBuild": "reports/local/mvp5-delivery-20261014/viewer-build-r2.json",
+    "assets": 157,
+    "method": "Same production environment source, embedded closure, independent viewing clock. Formal game is a separate sibling self-contained HTML.",
+    "preview": "preview/environment-delivery-20261014",
+    "nativeInputs": 50,
+    "localEntry": "http://127.0.0.1:4375",
+    "gameEntry": "http://127.0.0.1:4375/play/",
+    "maps": 5,
+    "pointsPerMap": 8,
+    "clock": "Independent stage-18 inspection only; no World, game save or combat mutation"
+  },
+  "checks": {
+    "viewer-web-r2": {
+      "checks": 9,
+      "screens": 12,
+      "errors": 0
+    },
+    "viewer-offline-r2": {
+      "checks": 9,
+      "screens": 12,
+      "errors": 0
+    },
+    "formal-offline-r1": {
+      "checks": 6,
+      "screens": 6,
+      "errors": 0
+    },
+    "formal-mounted-menu-r2": {
+      "checks": 1,
+      "screens": 1,
+      "errors": 0,
+      "openingDetached": true,
+      "menuButtonActionable": true
+    }
+  },
+  "visualReview": {
+    "passed": true,
+    "at": "2026-10-14T07:31:03.497Z",
+    "method": "Model visual inspection of five contact sheets covering all 24 final viewer captures and six final named-game captures, plus the actual post-opening mounted menu at original size. Light ordinary display review; not human, all-frame, SC2-client matching or performance acceptance.",
+    "images": [
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/industrial-0.png",
+        "sha256": "3a9aa29ff086a04355ab2914750378987895d4d1f6b7aa55a8d1441fde192692",
+        "label": "viewer-web-r2/industrial-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/industrial-4.png",
+        "sha256": "2bb65ef570014742f7b4139535afdaa130abef52a35871f31d3d8d529441664b",
+        "label": "viewer-web-r2/industrial-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/mar-sara-0.png",
+        "sha256": "6b2fb507623b7594ad5d55048eaf6c6dcb3f7266f45aac9b7a0083758b7dcb0b",
+        "label": "viewer-web-r2/mar-sara-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/mar-sara-4.png",
+        "sha256": "c69cc5bed765cafca9972d685262609288c3ffbd093998f7a770dd1ec3ca417d",
+        "label": "viewer-web-r2/mar-sara-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/char-0.png",
+        "sha256": "564a1b273ba94b67721073e83f51fe3d43a686445669c1ac163d0886473d925f",
+        "label": "viewer-web-r2/char-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/char-4.png",
+        "sha256": "3535c8fdd9091715cb6bf3336ad84bc7480e059028dfef5b96ddef12cab55ba8",
+        "label": "viewer-web-r2/char-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/ice-0.png",
+        "sha256": "708f6c20f0fafc0085d5a0983d8feccac444d3924218e61bf8ff2b96f7fda5d8",
+        "label": "viewer-web-r2/ice-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/ice-4.png",
+        "sha256": "b0b0cac915a35c02ffb6126d4d1eb5d60d328f3359ae6c1831384b215350bd6b",
+        "label": "viewer-web-r2/ice-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/frontier-0.png",
+        "sha256": "21289711ad6df8bd4aba46c4f92d5b9c265d72f1e858a80e05b88a2ef377964c",
+        "label": "viewer-web-r2/frontier-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/frontier-4.png",
+        "sha256": "f986dad1dfbba01f0260aeb80adc869f90b81e9af3b4269195d02a8fe32d452e",
+        "label": "viewer-web-r2/frontier-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/responsive-768.png",
+        "sha256": "4c4f0f33cc7e26eb9ba2ec2222456d97640899705b889d0f09462d7dd28ccfbc",
+        "label": "viewer-web-r2/responsive-768"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-web-r2/responsive-390.png",
+        "sha256": "781d60507c411b618282f38bace386f2f57f70e761620e47c8b3abe992caf4cb",
+        "label": "viewer-web-r2/responsive-390"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/industrial-0.png",
+        "sha256": "0f485e4f567e57517357ef0e64b64ec2a980a0028857d990ff63cd004ed9dfcb",
+        "label": "viewer-offline-r2/industrial-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/industrial-4.png",
+        "sha256": "c94b6adbe906233b71dd7a0537ae5f899a540381909d3cca4e62b180b8d1eecd",
+        "label": "viewer-offline-r2/industrial-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/mar-sara-0.png",
+        "sha256": "cf33a5f776131a55343623b0e1ffed8fc2aa93d311ed010c852ff0208f50b634",
+        "label": "viewer-offline-r2/mar-sara-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/mar-sara-4.png",
+        "sha256": "2c73315e478d7f30e368ebf9fcd17f39b597b34cbfafe751a578f73259ced6a9",
+        "label": "viewer-offline-r2/mar-sara-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/char-0.png",
+        "sha256": "97c6a382fbd322f9f6c1a1fa1f0cc883e91f90cb1655059be0a50809c73f3c2e",
+        "label": "viewer-offline-r2/char-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/char-4.png",
+        "sha256": "879ce276a9d5ef65cbb67e0e2958e024aa53b7951e99da8e25c7aa39a4f8fbb0",
+        "label": "viewer-offline-r2/char-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/ice-0.png",
+        "sha256": "644ab2ed766f403a9c593edf2aeecf2007593d89bf3ff9b4ef0000735ad65cad",
+        "label": "viewer-offline-r2/ice-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/ice-4.png",
+        "sha256": "d0240f355ac2a055f0173243cc9b8643e153a904d7f24bb7a902ce793e8b7c79",
+        "label": "viewer-offline-r2/ice-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/frontier-0.png",
+        "sha256": "1f0af91bff7fd3c159c4f2638f31ccd114eb06f35168bb95ee5eaf69171e3172",
+        "label": "viewer-offline-r2/frontier-0"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/frontier-4.png",
+        "sha256": "e41566ae19679ab608355c63cca51766869ba74c52b7b0c69585855e7d94cbda",
+        "label": "viewer-offline-r2/frontier-4"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/responsive-768.png",
+        "sha256": "34e0090b7c7da3ae619ae0b13986c82febaec1d28c790968ac5f54b575aadab5",
+        "label": "viewer-offline-r2/responsive-768"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/viewer-offline-r2/responsive-390.png",
+        "sha256": "7ca205851b8751d845b6a52d8d804e4090bb6603b1f7c286a11001d33becba9b",
+        "label": "viewer-offline-r2/responsive-390"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/formal-offline-r1/industrial-ready.png",
+        "sha256": "5cddb9ec948d3425ed5308db3e9c2f30d0393a33b22e467295a7935ce62ce587",
+        "label": "formal-offline-r1/industrial-ready"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/formal-offline-r1/ice-ready.png",
+        "sha256": "1816e27a66e983c4f25b0da9ce6130de2e77ca5e4a6aac7aab7dc302e3c5bab4",
+        "label": "formal-offline-r1/ice-ready"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/formal-offline-r1/mar-sara-ready.png",
+        "sha256": "d56adf2f6ec7e5b19b56a15a988749ce98a64b038c8064abd0088b67709512f1",
+        "label": "formal-offline-r1/mar-sara-ready"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/formal-offline-r1/char-ready.png",
+        "sha256": "e040aac0ac7c325eb4e9dd0f50de8c33024968bca43fb016cc282a499e5bc326",
+        "label": "formal-offline-r1/char-ready"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/formal-offline-r1/frontier-ready.png",
+        "sha256": "8fa60fe3bf706e766d6a3a130de21c8ed1172ba60f305753d89bc74dc39b3108",
+        "label": "formal-offline-r1/frontier-ready"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/formal-offline-r1/endless-entered.png",
+        "sha256": "4d6a1953645eaae8d8fd70e9ae907a2f495802c712b2a21ec07590ed6b26d247",
+        "label": "formal-offline-r1/endless-entered"
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/formal-mounted-menu-r2/menu.png",
+        "sha256": "8767182c29208e7877c66fffc9140ce8b944ee26de1d1e0ad8db82fbe7ce3584",
+        "label": "formal-mounted-menu-r2/menu"
+      }
+    ],
+    "sheets": [
+      {
+        "file": "reports/local/mvp5-delivery-20261014/visual-review/sheet-01.jpg",
+        "images": [
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/industrial-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/industrial-4.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/mar-sara-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/mar-sara-4.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/char-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/char-4.png"
+        ],
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/visual-review/sheet-02.jpg",
+        "images": [
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/ice-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/ice-4.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/frontier-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/frontier-4.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/responsive-768.png",
+          "reports/local/mvp5-delivery-20261014/viewer-web-r2/responsive-390.png"
+        ],
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/visual-review/sheet-03.jpg",
+        "images": [
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/industrial-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/industrial-4.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/mar-sara-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/mar-sara-4.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/char-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/char-4.png"
+        ],
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/visual-review/sheet-04.jpg",
+        "images": [
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/ice-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/ice-4.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/frontier-0.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/frontier-4.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/responsive-768.png",
+          "reports/local/mvp5-delivery-20261014/viewer-offline-r2/responsive-390.png"
+        ],
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/mvp5-delivery-20261014/visual-review/sheet-05.jpg",
+        "images": [
+          "reports/local/mvp5-delivery-20261014/formal-offline-r1/industrial-ready.png",
+          "reports/local/mvp5-delivery-20261014/formal-offline-r1/ice-ready.png",
+          "reports/local/mvp5-delivery-20261014/formal-offline-r1/mar-sara-ready.png",
+          "reports/local/mvp5-delivery-20261014/formal-offline-r1/char-ready.png",
+          "reports/local/mvp5-delivery-20261014/formal-offline-r1/frontier-ready.png",
+          "reports/local/mvp5-delivery-20261014/formal-offline-r1/endless-entered.png"
+        ],
+        "reviewed": true
+      }
+    ],
+    "originalSizeReviewed": [
+      "reports/local/mvp5-delivery-20261014/formal-mounted-menu-r2/menu.png"
+    ],
+    "findings": [
+      "Five theme materials and ordinary model/shore positions remain consistent with the unchanged approved production renderer.",
+      "R2 viewer header, map controls, point buttons and footer remain visible at checked desktop/tablet/portrait sizes.",
+      "Formal paused-game captures retain native background blur; endless has its existing HUD.",
+      "Mounted menu R2 waits for actual opening overlay removal and an actionable new-game button.",
+      "Previously accepted dark Char/frontier appearance remains; no claim of new lighting or broad readability fixes."
+    ],
+    "retainedEarlierFinding": {
+      "file": "reports/local/mvp5-delivery-20261014/formal-mounted-menu-r1/menu.png",
+      "sheet": "reports/local/mvp5-delivery-20261014/visual-review/sheet-06.jpg",
+      "acceptedAsReadyMenu": false,
+      "reason": "Initial DOM-ready check captured the still-visible opening screen; final R2 explicitly waits for removal."
+    },
+    "humanAcceptance": false
+  },
+  "reusedEvidence": {
+    "file": "reports/qa/environment-lifecycle-20261014.json",
+    "sha256": "d0ea2bf4412a2dbdb433ff85814a727005663f41601e3938c506c52d63f88fcb",
+    "sameFormalBuild": true,
+    "gameBytesUnchanged": true,
+    "regressions": 1412,
+    "lifecycle": true,
+    "naturalFiveMaps": true,
+    "tourPoints": 50
+  },
+  "schemas": {
+    "run": 26,
+    "profile": 6,
+    "mapRecipe": 3
+  },
+  "localChecks": {
+    "typecheck-r1": {
+      "file": "reports/local/mvp5-delivery-20261014/typecheck-r1.log",
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    "docs-check-r1": {
+      "file": "reports/local/mvp5-delivery-20261014/docs-check-r1.log",
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    }
+  },
+  "protection": {
+    "retainedNamedFiles": 28,
+    "workingFiles": 829,
+    "counts": {
+      "authorized-edit": 12,
+      "same": 807,
+      "other-workstream-change-preserved": 10
+    },
+    "changedOtherWork": [
+      {
+        "file": "docs/DOCUMENT_INDEX.md",
+        "before": "a936694dff359dba45f301ad22ad0514af9a7f237aeb42415355038b51d7824f",
+        "after": "37fd356619502350b6f6c7c7da4bf87103063204cf65044abf4621395c52628b",
+        "status": "other-workstream-change-preserved"
+      },
+      {
+        "file": "docs/project/STARSHIP_ELITE_HERO_ALIGNMENT_20261014.md",
+        "before": "628ef524a40aed1d6fef69fa7191b8c2a182f0f2e7977dc6bec780fbbc6690bd",
+        "after": "bbdf712d265b590faaaf4064d8b8e0f0f277a12c0d892a1e4c58dfedbc8f81d9",
+        "status": "other-workstream-change-preserved"
+      },
+      {
+        "file": "docs/project/STARSHIP_EQUIPMENT_REDESIGN_20261013.md",
+        "before": "158b8711aa5251c964529ed08d799601a29d5d2f32336b4941187cff1067ce7c",
+        "after": "e850243b8fff18f2284050699bcaef4334ea6408b28b00ea499231e5a9f97d57",
+        "status": "other-workstream-change-preserved"
+      },
+      {
+        "file": "docs/project/STARSHIP_EQUIPMENT_SETTLEMENT_20261014.md",
+        "before": "5f90f8da456570bb023069d248ffc9719fac41f3efacc09fa27def020dcc4379",
+        "after": "0529bb124255ec648b9f352adfaa19447cb67c1f677f280df5a5b2ce760e5908",
+        "status": "other-workstream-change-preserved"
+      },
+      {
+        "file": "docs/project/STARSHIP_GREEN_DESIGN_20261013.md",
+        "before": "ba214e063c6a078ae7ba4341ed06f0f4b427a80bbad8acf364387c32ef272a28",
+        "after": "f9ae56e096f792d5cab6994099b03d50f24c9becd41ba42474d783d15412869f",
+        "status": "other-workstream-change-preserved"
+      },
+      {
+        "file": "docs/project/STARSHIP_NAMES_DROPS_20261013.md",
+        "before": "a5e171492304539c61d5d04aecf90dcbd12cad34cc33c9fe96d1a07a38319b5e",
+        "after": "a61c6475b81fb8c2e2096669068614c5954a1ff20bb70968dba9bc6d0502d183",
+        "status": "other-workstream-change-preserved"
+      },
+      {
+        "file": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+        "before": "3a5db354439149dbaa525dd84bfd96f6ac9289c7799bd78c4859e998f2c58ecd",
+        "after": "8ddd4c7d78c217a30b080f543260ff40db65698da28959a35fc0df348b596c19",
+        "status": "other-workstream-change-preserved"
+      },
+      {
+        "file": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+        "before": "7623a022b0b21238e2e4b7a3f96328b1aa4044536f4cfdc0dc22e5c3659fc4e0",
+        "after": "5bf387d7a77312e875624635de41aeecaad628a480b815244eebe84a4ee7c490",
+        "status": "other-workstream-change-preserved"
+      },
+      {
+        "file": "docs/project/STARSHIP_SET_DESIGN_20261013.md",
+        "before": "a7f44b1f59fdd5b188a113c2e6fbd3f649baa012c3b2ff5e0b9864130fc0e190",
+        "after": "6a0b283480a0bcc0537ce555e72695950a0a9cadcbe6037e16336ef20c063574",
+        "status": "other-workstream-change-preserved"
+      },
+      {
+        "file": "docs/README.md",
+        "before": "5455ab99d70329f172bfebe6852bdeb79ec561a8750ad3ab4f1a673f8a4b4dde",
+        "after": "a81be9c566a6e419a0963c64117182114823501cde7f8a4d9fe589bbb3e7f22a",
+        "status": "other-workstream-change-preserved"
+      }
+    ],
+    "before": "reports/local/mvp5-delivery-20261014/verification-before-sync.json",
+    "after": "reports/local/mvp5-delivery-20261014/verification-after-sync.json"
+  },
+  "localDelivery": {
+    "passed": true,
+    "at": "2026-10-14T07:32:38.139Z",
+    "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+    "packageBuildId": "27e935cbc778c90e38e625b247a95dfc0bb128098e0091bb68ef4bb86b01fd6c",
+    "html": {
+      "path": "dist/SC2-Survivors-MVP5-Final-20261014.html",
+      "bytes": 707862310,
+      "sha256": "380022220e6246f25b64575d8c952650e6067fde4268be11470973046dac6ff7"
+    },
+    "packages": {
+      "application": {
+        "path": "dist/MVP5-Final-Application-20261014.zip",
+        "bytes": 15109661,
+        "sha256": "6e2cbf351be16c5ea5d2d6eceda8b5da9bdaf4c0291f97b2e86779628270092d"
+      },
+      "resources": {
+        "path": "dist/MVP5-Final-Resources-20261014.zip",
+        "bytes": 710389787,
+        "sha256": "d5027d8d7470dd470642ffa3b7ce1393bb93960a2a0d3528f4fde7e832c399d8"
+      },
+      "increment": {
+        "path": "dist/MVP5-Final-Resources-From-0.6.26-20261014.zip",
+        "bytes": 13181762,
+        "sha256": "176e56cfa0747ae9daf7b3c1eaca0d0c4e90eef532250d253b61f991f8045d11"
+      }
+    },
+    "viewer": {
+      "at": "2026-10-14T06:57:42.357Z",
+      "file": "dist/SC2-Survivors-MVP5-Five-Map-Viewer-R2-20261014.html",
+      "bytes": 62022695,
+      "sha256": "ae094fdff507c0eb81a3227822c4396c37c1a216bd2ba788f11546c99d037af8",
+      "sourceBuild": "reports/local/mvp5-delivery-20261014/viewer-build-r2.json",
+      "assets": 157,
+      "method": "Same production environment source, embedded closure, independent viewing clock. Formal game is a separate sibling self-contained HTML.",
+      "preview": "preview/environment-delivery-20261014",
+      "nativeInputs": 50
+    },
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "380022220e6246f25b64575d8c952650e6067fde4268be11470973046dac6ff7",
+      "identical": true
+    },
+    "localMirror": {
+      "path": "deploy/coze",
+      "files": 204,
+      "identical": true,
+      "priorPackageBuildId": "169163d8f94cd5889e50852909c31b2c32f700d07cd56fa21637d2a8eba77798"
+    },
+    "onlineOperations": false,
+    "gitReceipt": "reports/local/mvp5-delivery-20261014/git-sync.json"
+  },
+  "retainedFailures": [
+    "First freeze script Git child process hit sandbox EPERM; normal read-only Git inventory allowed completion.",
+    "Viewer R1 functionally passed but screenshot inspection found desktop header scrolling out of view; R2 fixes only viewer frame height/download name and asserts scroll position.",
+    "Application startup R1 used the old dist/web resource root and failed ENOENT; explicit --resources deploy/runtime fixes the test fixture. Final unchanged package passes all four actual startup cases in R2.",
+    "Mounted-menu R1 saw ready menu DOM beneath the opening overlay. R2 waits for actual opening removal, non-inert game root and an actionable menu button; R1 image/report remain separate."
+  ],
+  "limits": [
+    "User concentrated viewing feedback remains pending.",
+    "Original client amplitude/frame matching is not an MVP gate per user clarification.",
+    "Full natural campaign, physical input, full-content 60 FPS/quality tiers, production/B4 and whole-MVP acceptance remain open.",
+    "Dark Char/frontier, dense effects and existing camera/tiny-body/child-bar bounds remain as previously recorded.",
+    "Named HTML is self-contained; application ZIP requires matching resources. No new online resource availability is claimed."
+  ],
+  "gitReceipt": "reports/local/mvp5-delivery-20261014/git-sync.json"
+}

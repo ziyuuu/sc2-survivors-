@@ -1,10 +1,10 @@
 {
-  "status": "Source-bound per-weapon combat meshes, emitters, ribbons and impacts; actual native trajectories, saved continuous state, approved elites and heroes retained; original camera, lighting, gameplay, loading flow and save schemas unchanged; local validation only; no live deployment",
-  "appBuildId": "0854ed362e7c5d223973e86917b1317b6a5918f43cf41b9237ba0af41b8d0059",
-  "packageBuildId": "e7507b201b889b4dd7ddc42a6f28382503ba9667d8258c32fccc3d72d3662257",
+  "status": "MVP5 step 5 local final application; exact verified step 3/4 game bytes, complete five-map environment and retained building new-run integration; viewing entry delivered separately; human acceptance and global MVP gates remain open; no live deployment",
+  "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+  "packageBuildId": "27e935cbc778c90e38e625b247a95dfc0bb128098e0091bb68ef4bb86b01fd6c",
   "runSchema": 26,
   "profileVersion": 6,
-  "release": "f215909d007c35a7a8a607624e67ae3c8ab4e2fcd2457ec2ec155fc31d5c2f2c",
+  "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
   "appFiles": [
     {
       "path": ".env.example",
@@ -167,6 +167,41 @@
       "sha256": "6fe0058ab499035e1fd9b3b308cfaa76f08339743bd2a729daec996d7c00bcee"
     },
     {
+      "path": "MVP1_BUILDING_INTEGRATION_20261013.md",
+      "bytes": 7106,
+      "sha256": "706bbf55629938bb03ff23bc085fb883475703f4514e8776dc7bc03c64a5cbb7"
+    },
+    {
+      "path": "MVP5_DELIVERY_20261014.md",
+      "bytes": 6322,
+      "sha256": "2d9ce1fe279f4f7fdd881efbfa293407c325fcf74a745feb180b963d66665f6f"
+    },
+    {
+      "path": "MVP5_FULL_MAP_20261014.md",
+      "bytes": 9150,
+      "sha256": "b732cf079e42a66d4e3f6a02cfecf4a28e11c35c30ef5547c8a9693477f46378"
+    },
+    {
+      "path": "MVP5_FULL_MAP_PLAN_20261014.md",
+      "bytes": 8980,
+      "sha256": "fc0434e9ef7f591f022149fc0eee6fc703b1514bdaa5143d85a7459680f9d483"
+    },
+    {
+      "path": "MVP5_LIFECYCLE_20261014.md",
+      "bytes": 11014,
+      "sha256": "6cc65a5f5342819f60f3629caea018ec61bc52b895675ca2721e2202d314d31c"
+    },
+    {
+      "path": "MVP7A_LOADING_20261013.md",
+      "bytes": 9289,
+      "sha256": "3fd3386c8806dbbccff073ca4e63a3694147d0003330c5903d93cb6b75fc2d15"
+    },
+    {
+      "path": "MVP7A_LOADING_VALIDATION_20261013.md",
+      "bytes": 28931,
+      "sha256": "c49be44ef16c8985933d5b2783a44df4efedde32511e45949e0fe227b7bf0501"
+    },
+    {
       "path": "NATIVE_HUD_INTEGRATION_20261010.md",
       "bytes": 3404,
       "sha256": "f5f4bc355f8c3cd84dd4d434eaa55c4f415f27a04e789db7240371bb092f08c0"
@@ -189,12 +224,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "cb1dc1d84281f313886456b664d7217b57f5f6efae163d1a352cefceb58ff313"
+      "sha256": "59226f1bc863ef5fe82caf522cc4b3ea84d44c05d55dcbd5cb87b0f286ea0fd4"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "d08260bc88f5c879a2e529f258401f7632c1f733095f3e466f863e552d053fb7"
+      "sha256": "1f720808ae3ff941e7830b936dcc25c4496df9f2e423c5e70d198d16fd72b728"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -202,24 +237,29 @@
       "sha256": "de36b7e029c2e4788e4072a32164d6ec7f0aba9a10b373e79d3aa5478c7b84ca"
     },
     {
-      "path": "public/asset-manifest.f215909d007c35a7a8a607624e67ae3c8ab4e2fcd2457ec2ec155fc31d5c2f2c.json",
-      "bytes": 274598,
-      "sha256": "4ad15554c9fcca4a3b57957cf862008200d8b420c656f99e2885681ba0d539cd"
+      "path": "public/asset-manifest.b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615.json",
+      "bytes": 289072,
+      "sha256": "8488fd0475a67b07c54785a2ca15ca697eaf358126891d1f437dd59422c527df"
     },
     {
-      "path": "public/assets/index-Ccr-0T4T.js",
-      "bytes": 23993181,
-      "sha256": "94ba0a0914ec1227afc5d3688f27d9dc8b7c987b71a2acb1339d0e237035afe0"
+      "path": "public/assets/index-CjyyYeaB.css",
+      "bytes": 504082,
+      "sha256": "a58604df280ae616671a26e8624ec73952bf23e5d6f20b03a4ad06245cbdd2d2"
     },
     {
-      "path": "public/assets/index-CnTymvdV.css",
-      "bytes": 489073,
-      "sha256": "a17106618e8f4ac803443116572bdd5035a7d6eea43b69db37ab73259d8acd89"
+      "path": "public/assets/index-VYXiQQOu.js",
+      "bytes": 24166689,
+      "sha256": "76d696c1d31533b1c81d07e1253adf79c6ae65087f13ccafdcf1cfb76a6fc15a"
+    },
+    {
+      "path": "public/build-inputs.json",
+      "bytes": 58168,
+      "sha256": "e07503e258291317b59decaeef0955ba94a7eb5c57ad90713d4700cbcb4c2324"
     },
     {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "6554d2ae871ae7ae4e222d517c72dbe6f20c6c86b3cd40420f22bc801e65f06b"
+      "sha256": "47b5b1cc5d94b96a2382a3220b00baad69f2035afa18a591f8fe105ebbb0b923"
     },
     {
       "path": "public/runtime-config.json",
@@ -228,13 +268,23 @@
     },
     {
       "path": "public/web-release.json",
-      "bytes": 521,
-      "sha256": "8907b947f3b51688b586f3ae09537a61727cd37e04b0e3c047d5951dfdbc050e"
+      "bytes": 623,
+      "sha256": "8e35e7ac1ee3c00867065bcb57c80ba43395f2edc5a86166a9358f056635fef9"
     },
     {
       "path": "README.md",
-      "bytes": 5579,
-      "sha256": "0e1b4f9cfcad0c1dafeb26f6c89d5f284f72507f16974adbc9a017649967fcfb"
+      "bytes": 1717,
+      "sha256": "9517738ba48efff6002b220a9560fd8b9833b435d734a2fa8735af12a03c1975"
+    },
+    {
+      "path": "REFRACTION_SCIENCE_20261013.md",
+      "bytes": 3845,
+      "sha256": "69cac6b9c5b15843882ea2183a1b21d1e45edec5bbc7a606b4c668f3055df652"
+    },
+    {
+      "path": "REFRACTION_SCIENCE_SOURCES_20261013.md",
+      "bytes": 3803,
+      "sha256": "6fbe1d508d14e880ab18474001ab907ec69f0dbdf0213baf19f67b5aff4ecf48"
     },
     {
       "path": "REPAIRS_459_20261009.md",
@@ -243,13 +293,13 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 116556,
-      "sha256": "ff4fcfd573bb61a21ed53caf884f3311796376a5fd1801608aad06cdd27ea393"
+      "bytes": 18634,
+      "sha256": "481006476cbf5ea0239ce7e460af70a1262cee18380513b83b412fe3807c9ae8"
     },
     {
       "path": "resource-groups.json",
-      "bytes": 521204,
-      "sha256": "dcc22b863c20771c3a9301e63aa6a7f3c6feca278a1ccbbc4fbbaccc2c07c8d1"
+      "bytes": 548675,
+      "sha256": "ef2d6a0747a66ea97a14970fe5b20f911019aed98f9be4133a32cb65c802e110"
     },
     {
       "path": "sc2-backend.conf",
@@ -977,8 +1027,8 @@
       "sha256": "eaf848b398aba0f455e7f15179f34131c82acd4d0c9aa2e4cd11ff9cb0a9bf20"
     }
   ],
-  "assets": 1110,
-  "resourceBytes": 808224980,
+  "assets": 1168,
+  "resourceBytes": 823440309,
   "includesDatabase": false,
   "includesAccounts": false,
   "resourcesIncluded": 0,

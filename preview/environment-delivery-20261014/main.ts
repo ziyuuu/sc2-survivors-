@@ -1,0 +1,44 @@
+import * as THREE from 'three';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+import {configurePlatformAssetUrl} from '../../src/assets/manifest';
+import {campaignTerrain,type CampaignTheme} from '../../src/data/campaign-map';
+import {createFullEnvironmentMap} from '../../src/render/terrain/environment-full-map';
+import {makeEnvironmentFullPlan} from '../../src/render/terrain/environment-full-plan';
+import {createCampaignLandscape} from '../../src/data/campaign-landscape';
+import {CAMERA_FOV,CAMERA_DISTANCE,CameraController} from '../../src/render/scene/camera-controller';
+
+import {SceneLighting} from '../../src/render/scene/scene-lighting';
+import {SceneShadows} from '../../src/render/scene/scene-shadows';
+import {SceneContact} from '../../src/render/scene/scene-contact';
+import type {MapView} from '../../src/render/terrain/original-map';
+const $=(id:string)=>document.getElementById(id)!,canvas=document.querySelector('canvas')!,params=new URLSearchParams(location.search),seed=529;
+const urls=await fetch('./assets.json').then(r=>r.json());configurePlatformAssetUrl(id=>urls[id]??null);
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;renderer.outputColorSpace=THREE.SRGBColorSpace;
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x172229);const camera=new THREE.PerspectiveCamera(CAMERA_FOV,1,.1,220),lighting=new SceneLighting(scene),shadows=new SceneShadows(renderer,scene,lighting.key),contact=new SceneContact(renderer,shadows.depth);
+const composer=new EffectComposer(renderer,new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType}));composer.addPass(new RenderPass(scene,camera));composer.addPass(new UnrealBloomPass(new THREE.Vector2(1,1),.32,.5,.8));composer.addPass(new OutputPass());
+const themes=['industrial','mar-sara','char','ice','frontier'];
+let theme=(themes.includes(params.get('theme')??'')?params.get('theme'):'industrial') as CampaignTheme,terrain=campaignTerrain({version:3,seed,theme}),plan=tourPlan(terrain),view:MapView|undefined,site=Math.max(0,Math.min(7,Math.trunc(Number(params.get('site')))||0)),busy=false,paused=false,lost=false,time=0,last=performance.now(),generation=0,zoom=1;
+const controller=new CameraController(camera);renderer.info.autoReset=false;
+const target=new THREE.Vector3(),errors:string[]=[],loads:unknown[]=[];let ready=false;
+const report=()=>({ready,busy,before:false,theme,site,time,paused,lost,generation,stage:terrain.stage,view:view?.report(),camera:{position:camera.position.toArray(),target:target.toArray(),zoom},memory:{...renderer.info.memory},render:{...renderer.info.render},lighting:lighting.report(),shadows:shadows.report(),errors:[...errors],loads:[...loads]});
+function pose(){controller.setZoom(zoom);controller.target.copy(target);controller.resize($('viewport').clientWidth,$('viewport').clientHeight,false,{left:0,right:0,top:0,bottom:0});controller.update({x:target.x,y:target.y,z:target.z},10,true);}
+function resize(){const w=$('viewport').clientWidth,h=$('viewport').clientHeight;renderer.setSize(w,h,false);composer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();pose();}
+new ResizeObserver(resize).observe($('viewport'));
+function selectSite(index:number){site=Math.max(0,Math.min(7,Math.trunc(index)||0));zoom=1;const s=plan.sites[site];target.set(s.x,terrain.height(s),s.z);pose();$('status').textContent=($('theme') as HTMLSelectElement).selectedOptions[0].textContent+' / '+s.label;[...$('sites').children].forEach((b,i)=>b.setAttribute('aria-pressed',String(i===site)));const query=new URLSearchParams({theme,site:String(site)});history.replaceState(null,'','?'+query);}
+async function load(next:CampaignTheme=theme){if(busy)return;busy=true;ready=false;theme=next;const select=$('theme') as HTMLSelectElement;select.value=theme;select.disabled=true;[...$('sites').children].forEach(b=>(b as HTMLButtonElement).disabled=true);generation++;const started=performance.now();$('notice').textContent='正在准备'+select.selectedOptions[0].textContent+'…';view?.dispose?.();view=undefined;try{terrain=campaignTerrain({version:3,seed,theme});terrain.stage=18;plan=tourPlan(terrain);lighting.bind(terrain);view=await createFullEnvironmentMap(scene,terrain);view.setVisible(true);shadows.prepare();contact.prepare(scene);$('sites').replaceChildren(...plan.sites.map((s,i)=>{const b=document.createElement('button');b.textContent=s.label;b.onclick=()=>selectSite(i);return b}));selectSite(site);resize();draw();renderer.getContext().finish();loads.push({theme,generation,ms:performance.now()-started,memory:{...renderer.info.memory}});$('notice').textContent='';ready=true;}catch(e){errors.push(String(e));$('notice').textContent='环境加载失败，可重试或切换地图。';const retry=document.createElement('button');retry.textContent='重试';retry.onclick=()=>load();$('notice').append(retry);console.error(e);}finally{busy=false;select.disabled=false;}}
+function draw(){if(!view||lost)return;renderer.info.reset();shadows.update(camera,terrain);view.update(camera,shadows.view);view.updateEnvironment?.({time,paused,quality:'native',reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches,camera,seed});const size=renderer.getDrawingBufferSize(new THREE.Vector2());contact.render(scene,camera,size.x,size.y);composer.render();}
+function animate(now:number){const dt=Math.min(.05,(now-last)/1000);last=now;if(ready&&!paused&&!lost&&!document.hidden)time+=dt;if(ready&&!document.hidden)draw();requestAnimationFrame(animate)}
+function pause(value=!paused){paused=value;$('pause').textContent=paused?'继续':'暂停';$('pause').setAttribute('aria-pressed',String(paused));}
+$('pause').onclick=()=>pause();$('reset').onclick=()=>selectSite(site);$('zoomIn').onclick=()=>{zoom=Math.min(2.5,zoom*1.15);pose()};$('zoomOut').onclick=()=>{zoom=Math.max(.45,zoom/1.15);pose()};($('theme') as HTMLSelectElement).value=theme;$('theme').onchange=()=>load(($('theme') as HTMLSelectElement).value as CampaignTheme);
+canvas.onwheel=e=>{e.preventDefault();zoom=THREE.MathUtils.clamp(zoom*Math.exp(-e.deltaY*.001),.45,2.5);pose()};let pointer:{id:number;x:number;y:number}|undefined;canvas.onpointerdown=e=>{pointer={id:e.pointerId,x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId)};canvas.onpointermove=e=>{if(!pointer||pointer.id!==e.pointerId)return;target.x-=(e.clientX-pointer.x)*.025/zoom;target.z-=(e.clientY-pointer.y)*.035/zoom;pointer.x=e.clientX;pointer.y=e.clientY;pose()};canvas.onpointerup=canvas.onpointercancel=()=>{pointer=undefined};canvas.onkeydown=e=>{const moves:Record<string,number[]>={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(moves[e.key]){e.preventDefault();target.x+=moves[e.key][0]/zoom;target.z+=moves[e.key][1]/zoom;pose()}else if(e.key==='+'||e.key==='=')$('zoomIn').click();else if(e.key==='-')$('zoomOut').click();else if(e.key===' '){e.preventDefault();pause()}};
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=true;ready=false;$('notice').textContent='图形上下文已丢失，正在恢复…'});canvas.addEventListener('webglcontextrestored',async()=>{lost=false;shadows.restore();contact.restore();await load()});
+(window as any).__ENV_SAMPLE__={report,setStage:(stage:number)=>{terrain.setStage(stage);draw()},load,selectSite,pause,draw,visualParts:(parts:any)=>view?.setVisualParts?.(parts),inspectPixel:(x:number,y:number)=>{const rect=canvas.getBoundingClientRect(),ray=new THREE.Raycaster();ray.setFromCamera(new THREE.Vector2((x-rect.left)/rect.width*2-1,1-(y-rect.top)/rect.height*2),camera);return ray.intersectObjects(scene.children,true).slice(0,8).map(h=>({name:h.object.name,point:h.point.toArray(),material:[(h.object as THREE.Mesh).material].flat().map(m=>m.name)}))},setTime:(value:number)=>{time=value;draw()},lose:()=>{const ext=renderer.getContext().getExtension('WEBGL_lose_context');ext?.loseContext();setTimeout(()=>ext?.restoreContext(),1000)}};
+function tourPlan(t:ReturnType<typeof campaignTerrain>){
+ const full=makeEnvironmentFullPlan(t),{blockers}=createCampaignLandscape(t.recipe.theme,t.recipe.seed);
+ const sites=[{x:0,z:0,label:'出生区'},...[0,4,10].map((i,j)=>({x:blockers[i].x,z:blockers[i].z,label:['早期组合','中段组合','后段组合'][j]})),...full.boundaries.map((b,i)=>{const direction=Math.atan2(b.z,b.x),r=full.protection.finalRadius-2.0;return {x:Math.cos(direction)*r,z:Math.sin(direction)*r,label:['东北边界','西北边界','西南边界','东南边界'][i]}})];
+ return {sites};
+}
+requestAnimationFrame(animate);await load();

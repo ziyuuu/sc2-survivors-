@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "release": "f215909d007c35a7a8a607624e67ae3c8ab4e2fcd2457ec2ec155fc31d5c2f2c",
+  "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
   "groups": [
     "common",
     "terran",
@@ -246,6 +246,19 @@
         "ui.paint.zergling-atlas"
       ],
       "gitPath": "deploy/runtime/assets/05433f3b076e19eecb90d1ee7b72ece24a6cdeec56d739691edfdc50a9cddae0.webp"
+    },
+    {
+      "url": "assets/0574ad2bf275b73b47e2a52871d17897ce42db78047654d13d84f2aea24ed44c.glb",
+      "bytes": 17144,
+      "sha256": "0574ad2bf275b73b47e2a52871d17897ce42db78047654d13d84f2aea24ed44c",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.StalkerAttackImpact"
+      ],
+      "gitPath": "deploy/runtime/assets/0574ad2bf275b73b47e2a52871d17897ce42db78047654d13d84f2aea24ed44c.glb"
     },
     {
       "url": "assets/059f3f55ecca9f33dd9bc71677ee56c879d917a2a9708063102f53b05c4f32ee.png",
@@ -510,6 +523,19 @@
         "model.tank.morph"
       ],
       "gitPath": "deploy/runtime/assets/09ac4392efca0ae2f7cbbf3a6f7e34fb84f9b490ccdbacc741397037e0a97165.glb"
+    },
+    {
+      "url": "assets/09ca4809656a740c825931647d595ab092b7572ea4c2127ee6c0c5e44181974c.png",
+      "bytes": 33887,
+      "sha256": "09ca4809656a740c825931647d595ab092b7572ea4c2127ee6c0c5e44181974c",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.largesmoke1_b"
+      ],
+      "gitPath": "deploy/runtime/assets/09ca4809656a740c825931647d595ab092b7572ea4c2127ee6c0c5e44181974c.png"
     },
     {
       "url": "assets/0aa766c66a08e41e5397a0aa3ede19dd46307e49092d4551ca7c20870edcab8d.webp",
@@ -797,6 +823,19 @@
         "material.team.5f5033f7601ad999cb2f"
       ],
       "gitPath": "deploy/runtime/assets/0e007143ab14f2c68420e24bc3d503e2532df9048b1165aed5ded8e706b94916.png"
+    },
+    {
+      "url": "assets/0e23562258b8ccceea4e94033c6d2bc552b64235ed25863448a2b158313f5a74.gltf",
+      "bytes": 125236,
+      "sha256": "0e23562258b8ccceea4e94033c6d2bc552b64235ed25863448a2b158313f5a74",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.jarbanminor_cranepart_06"
+      ],
+      "gitPath": "deploy/runtime/assets/0e23562258b8ccceea4e94033c6d2bc552b64235ed25863448a2b158313f5a74.gltf"
     },
     {
       "url": "assets/0e6a20895e737852ee8336f79e9f885217241f35b72c83543f0b29a0e226e557.png",
@@ -1271,6 +1310,19 @@
       "gitPath": "deploy/runtime/assets/16e347b83cb2b11a4ffba2fcf7b8d8997f9260ed96cc4f14c9879d4a63467521.webp"
     },
     {
+      "url": "assets/17115017e60f1720ef1b2f6a0226f2687627b6df20045e045ba314c398c7b162.png",
+      "bytes": 67830,
+      "sha256": "17115017e60f1720ef1b2f6a0226f2687627b6df20045e045ba314c398c7b162",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.fireball_1"
+      ],
+      "gitPath": "deploy/runtime/assets/17115017e60f1720ef1b2f6a0226f2687627b6df20045e045ba314c398c7b162.png"
+    },
+    {
       "url": "assets/1714c4c51756c8afed939a3717be247ff22b95a5f8266130581da5433b5f90b0.png",
       "bytes": 54022,
       "sha256": "1714c4c51756c8afed939a3717be247ff22b95a5f8266130581da5433b5f90b0",
@@ -1464,6 +1516,19 @@
         "map.image.9d1e3b8a9f613c0f0d736355a7e5f9fc30febdbc46f0f6ced11d390bb2c89e97"
       ],
       "gitPath": "deploy/runtime/assets/19cb111b4c8997735a46f66d61dd49b8d3f366de99c0846a0549bf2e7503ac9d.webp"
+    },
+    {
+      "url": "assets/19de61d20744ae63fe6202b2167ec6de666d5ca6c9e07801b80ecc5918657675.glb",
+      "bytes": 20940,
+      "sha256": "19de61d20744ae63fe6202b2167ec6de666d5ca6c9e07801b80ecc5918657675",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.ImmortalAttackImpact"
+      ],
+      "gitPath": "deploy/runtime/assets/19de61d20744ae63fe6202b2167ec6de666d5ca6c9e07801b80ecc5918657675.glb"
     },
     {
       "url": "assets/1a53ab19e97485bde79b355e20d74dc598e61069ba479f5875988e926ece1faf.glb",
@@ -2383,6 +2448,19 @@
       "gitPath": "deploy/runtime/assets/27891966ba6da8b3fa3019726251ca9ec84d3be504a318944757de7294965f0d.png"
     },
     {
+      "url": "assets/27b380e5b3b91b8988a0869f53712c3324537d5857f14df0369cb1df655fdaa7.gltf",
+      "bytes": 7968,
+      "sha256": "27b380e5b3b91b8988a0869f53712c3324537d5857f14df0369cb1df655fdaa7",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.rock_01"
+      ],
+      "gitPath": "deploy/runtime/assets/27b380e5b3b91b8988a0869f53712c3324537d5857f14df0369cb1df655fdaa7.gltf"
+    },
+    {
       "url": "assets/27c5e80af25a804df5531ce73c38d2cd0a89d2674a4e9da1bd0af86968908811.glb",
       "bytes": 737632,
       "sha256": "27c5e80af25a804df5531ce73c38d2cd0a89d2674a4e9da1bd0af86968908811",
@@ -2578,6 +2656,19 @@
       "gitPath": "deploy/runtime/assets/29d17a6ac5f7477ad24417b41217c64889cd8743d65fdf46e9b76623e6c9a32a.webp"
     },
     {
+      "url": "assets/2a2f4235ca5a9de5889b4842e776580df47e46cc304508dd344c9fa0d62eb271.gltf",
+      "bytes": 16566,
+      "sha256": "2a2f4235ca5a9de5889b4842e776580df47e46cc304508dd344c9fa0d62eb271",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.marsaratreedead_02"
+      ],
+      "gitPath": "deploy/runtime/assets/2a2f4235ca5a9de5889b4842e776580df47e46cc304508dd344c9fa0d62eb271.gltf"
+    },
+    {
       "url": "assets/2a6d93afc18c02ed55f616cac6cd9277ca77ae77b07d528c73beb48d44556f64.png",
       "bytes": 10888,
       "sha256": "2a6d93afc18c02ed55f616cac6cd9277ca77ae77b07d528c73beb48d44556f64",
@@ -2589,6 +2680,19 @@
         "combat-fx.texture.5f01d29d6940190110eb1bf2.0"
       ],
       "gitPath": "deploy/runtime/assets/2a6d93afc18c02ed55f616cac6cd9277ca77ae77b07d528c73beb48d44556f64.png"
+    },
+    {
+      "url": "assets/2a78f719ebdae621729c73fb80365892b82c89a9aee3eef08f3814314dc58c73.gltf",
+      "bytes": 13167,
+      "sha256": "2a78f719ebdae621729c73fb80365892b82c89a9aee3eef08f3814314dc58c73",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.barrels_01"
+      ],
+      "gitPath": "deploy/runtime/assets/2a78f719ebdae621729c73fb80365892b82c89a9aee3eef08f3814314dc58c73.gltf"
     },
     {
       "url": "assets/2aa0ae5bf21e1f1aaf8b1bce524f71eeeadd89d98905f9ec19b6e02a00f518cd.webp",
@@ -3021,6 +3125,19 @@
       "gitPath": "deploy/runtime/assets/33cd5b5cbd85cff03abde117f074bf2bfb2afb7126d7a85b9f36db1046b79ec5.glb"
     },
     {
+      "url": "assets/33e8c8b3108427db6ae43da09e89e22fbd944271526b3828c372392b17acf3fd.png",
+      "bytes": 92759,
+      "sha256": "33e8c8b3108427db6ae43da09e89e22fbd944271526b3828c372392b17acf3fd",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.texture.efc5b350127f7c5f6ca027a1"
+      ],
+      "gitPath": "deploy/runtime/assets/33e8c8b3108427db6ae43da09e89e22fbd944271526b3828c372392b17acf3fd.png"
+    },
+    {
       "url": "assets/34145354f960b3d69fda3fe5062e863db91715196be8e308ca0eac867a94b3b3.webp",
       "bytes": 221220,
       "sha256": "34145354f960b3d69fda3fe5062e863db91715196be8e308ca0eac867a94b3b3",
@@ -3358,6 +3475,19 @@
         "wireframe.high_templar"
       ],
       "gitPath": "deploy/runtime/assets/3936f94f1572ae3cfc76da86ed9f0c234a793e469cc68a2cf52cb1cfbfd70233.svg"
+    },
+    {
+      "url": "assets/3948849453325257d818c094447eda99836e8b247960deb6ae44130b091329e1.png",
+      "bytes": 1932,
+      "sha256": "3948849453325257d818c094447eda99836e8b247960deb6ae44130b091329e1",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.jarbanminor_cranepart_splat04"
+      ],
+      "gitPath": "deploy/runtime/assets/3948849453325257d818c094447eda99836e8b247960deb6ae44130b091329e1.png"
     },
     {
       "url": "assets/3951824e5debb8613b67712ac2f9fe80e804ddf20138dcb898d7dc53feabbad4.png",
@@ -3712,6 +3842,19 @@
       "gitPath": "deploy/runtime/assets/3e200cb002f81ac80fec5e71eaac466493c53dbc4eea0841eb63cf8bb21a5c0e.webp"
     },
     {
+      "url": "assets/3e6f40529ae83c61b4cf21d5ade88a00e23978b4beb9e4df92af66765facbf43.png",
+      "bytes": 316052,
+      "sha256": "3e6f40529ae83c61b4cf21d5ade88a00e23978b4beb9e4df92af66765facbf43",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.cargotruck_environmentmask"
+      ],
+      "gitPath": "deploy/runtime/assets/3e6f40529ae83c61b4cf21d5ade88a00e23978b4beb9e4df92af66765facbf43.png"
+    },
+    {
       "url": "assets/3edbcad5cddcb15cfbc7989e3c9f71fcc8da1b58fdd11142cfbf407731700823.glb",
       "bytes": 2150304,
       "sha256": "3edbcad5cddcb15cfbc7989e3c9f71fcc8da1b58fdd11142cfbf407731700823",
@@ -3737,6 +3880,19 @@
         "model.roach"
       ],
       "gitPath": "deploy/runtime/assets/3eef81fbec9c2e18897a152de1efe3180b5413d2e8076b07e7bc372d2693d3c8.glb"
+    },
+    {
+      "url": "assets/3f03e606a80a164928ad4abe2adb69a3135e6f1adb9683265677f8fcca0bb52a.glb",
+      "bytes": 89356,
+      "sha256": "3f03e606a80a164928ad4abe2adb69a3135e6f1adb9683265677f8fcca0bb52a",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.GuardianShield"
+      ],
+      "gitPath": "deploy/runtime/assets/3f03e606a80a164928ad4abe2adb69a3135e6f1adb9683265677f8fcca0bb52a.glb"
     },
     {
       "url": "assets/3f3d687bd2c70b10add33bdbd4616deda28f0138f757d358f9f0b78fb38bde6e.png",
@@ -4363,6 +4519,19 @@
         "model.elite.viking.1"
       ],
       "gitPath": "deploy/runtime/assets/49781d904df262c42ff2545af6152c2744e1319742c209282d5d3d8fda9ae7bb.glb"
+    },
+    {
+      "url": "assets/49813d43de51cc19e2b3b1431d8c38f06e35e1b074fd80437bc7b2880f2c5213.glb",
+      "bytes": 16384,
+      "sha256": "49813d43de51cc19e2b3b1431d8c38f06e35e1b074fd80437bc7b2880f2c5213",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.RavagerCorrosiveBileImpact"
+      ],
+      "gitPath": "deploy/runtime/assets/49813d43de51cc19e2b3b1431d8c38f06e35e1b074fd80437bc7b2880f2c5213.glb"
     },
     {
       "url": "assets/49860ef6be766f0d5bd4f7b237455190ec19c70adc720c73006c42059f629302.png",
@@ -5017,6 +5186,19 @@
       "gitPath": "deploy/runtime/assets/55d2f8bcfb909d051fcce2f522580baa035a9b0a5f3c513b644410ee7d7e249c.glb"
     },
     {
+      "url": "assets/55ea2af427d99b3b440f65691e9d57f6176373e1d04490f4ac8ce41d79fd5d98.png",
+      "bytes": 25345,
+      "sha256": "55ea2af427d99b3b440f65691e9d57f6176373e1d04490f4ac8ce41d79fd5d98",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.jarbanminor_miningbot_broken_splat00_norm"
+      ],
+      "gitPath": "deploy/runtime/assets/55ea2af427d99b3b440f65691e9d57f6176373e1d04490f4ac8ce41d79fd5d98.png"
+    },
+    {
       "url": "assets/5672e0ae522f1b249c2dbc58a7ffd33fa03841139bf86abaef3f55c9c3372728.webp",
       "bytes": 240644,
       "sha256": "5672e0ae522f1b249c2dbc58a7ffd33fa03841139bf86abaef3f55c9c3372728",
@@ -5186,6 +5368,7 @@
         "common"
       ],
       "ids": [
+        "environment.sample.heatwave1backup",
         "combat-fx.texture.e96e624acbcfd066d3c0e45f"
       ],
       "gitPath": "deploy/runtime/assets/5897c7d6219fa846c988ade5b44073a9d8398497ff08879e42ec75422753e706.png"
@@ -5280,6 +5463,19 @@
         "model.elite.colossus.1"
       ],
       "gitPath": "deploy/runtime/assets/5966211b707ad8b9a9f8eb40d39e7419ee28110a4b44f76b12c26aa809c756af.glb"
+    },
+    {
+      "url": "assets/5981b5da5824e92dd4c6d8631b313e5733a37d01c83ab0d275f84314b3941720.glb",
+      "bytes": 41932,
+      "sha256": "5981b5da5824e92dd4c6d8631b313e5733a37d01c83ab0d275f84314b3941720",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.Hologram_Death_Large"
+      ],
+      "gitPath": "deploy/runtime/assets/5981b5da5824e92dd4c6d8631b313e5733a37d01c83ab0d275f84314b3941720.glb"
     },
     {
       "url": "assets/59f86606d47530f15eec3301a2650a92a722c5df64db0a22c7b214baf560faf8.webp",
@@ -5868,6 +6064,19 @@
       "gitPath": "deploy/runtime/assets/647bf7da9b3d97f753edd08088054024dbfcd7a2048b3f8bb0bde65e7cf63fe7.webp"
     },
     {
+      "url": "assets/647c5bb1051babd49ce0163f319ac7963dd822137a5cb7afbdb5bfe44749883a.png",
+      "bytes": 86004,
+      "sha256": "647c5bb1051babd49ce0163f319ac7963dd822137a5cb7afbdb5bfe44749883a",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.lavarandom_r1"
+      ],
+      "gitPath": "deploy/runtime/assets/647c5bb1051babd49ce0163f319ac7963dd822137a5cb7afbdb5bfe44749883a.png"
+    },
+    {
       "url": "assets/653abf0cc40470f00415682175ead71e648ff0bcb586c22ebdabd141d195774e.png",
       "bytes": 1018903,
       "sha256": "653abf0cc40470f00415682175ead71e648ff0bcb586c22ebdabd141d195774e",
@@ -6155,6 +6364,19 @@
       "gitPath": "deploy/runtime/assets/69ae2603d577b234692a5be1086a2724c2fd04506e48a12a21246a972698ed72.glb"
     },
     {
+      "url": "assets/69cf5066648fc2160c2c6f437958e902cfe6802c937c768297ffee48f66d497d.glb",
+      "bytes": 48540,
+      "sha256": "69cf5066648fc2160c2c6f437958e902cfe6802c937c768297ffee48f66d497d",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.VoidRayAttackBeam"
+      ],
+      "gitPath": "deploy/runtime/assets/69cf5066648fc2160c2c6f437958e902cfe6802c937c768297ffee48f66d497d.glb"
+    },
+    {
       "url": "assets/6a3fdca5bb9a149d439e538c46c0f723158674287e2bbc9d30c08985d1c64848.glb",
       "bytes": 882580,
       "sha256": "6a3fdca5bb9a149d439e538c46c0f723158674287e2bbc9d30c08985d1c64848",
@@ -6232,6 +6454,19 @@
         "model.carrier"
       ],
       "gitPath": "deploy/runtime/assets/6c650b6e1ded622a285b22fd2cb19985b99326348bc6391883ba38bcfe14a1cc.glb"
+    },
+    {
+      "url": "assets/6c65f92a5c24e90d8b39582da1c9d29448effe1ec402e1167c9f3eb34713ab1f.png",
+      "bytes": 554390,
+      "sha256": "6c65f92a5c24e90d8b39582da1c9d29448effe1ec402e1167c9f3eb34713ab1f",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.jarbanminor_miningbot_gloss"
+      ],
+      "gitPath": "deploy/runtime/assets/6c65f92a5c24e90d8b39582da1c9d29448effe1ec402e1167c9f3eb34713ab1f.png"
     },
     {
       "url": "assets/6c7a7841a1911a39e2d6e5dc205403ba319fe5e98609eb59a622f4957086e04b.glb",
@@ -6925,6 +7160,19 @@
       "gitPath": "deploy/runtime/assets/745c4c4d5909c65e4401a5ee075d77cd918485e5ba8f8af10bf09033f2cf1b2b.webp"
     },
     {
+      "url": "assets/74ad3fa173716f143b6796ceff45cc241aaf623e3bbd8c0362ffbd94abc4f608.png",
+      "bytes": 2696,
+      "sha256": "74ad3fa173716f143b6796ceff45cc241aaf623e3bbd8c0362ffbd94abc4f608",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.elsecaro_rock_mediumgroup_splat_norm_00"
+      ],
+      "gitPath": "deploy/runtime/assets/74ad3fa173716f143b6796ceff45cc241aaf623e3bbd8c0362ffbd94abc4f608.png"
+    },
+    {
       "url": "assets/74e728906c3c0e594e41cedfea71d8ded0d766a9e159a18a828ae17c7479ea14.png",
       "bytes": 810608,
       "sha256": "74e728906c3c0e594e41cedfea71d8ded0d766a9e159a18a828ae17c7479ea14",
@@ -7081,6 +7329,19 @@
       "gitPath": "deploy/runtime/assets/785bcde623e230a4277935b7ba6ca8aae98589b0276da46baf65518228d0843c.png"
     },
     {
+      "url": "assets/788519b9ebf1781daa3e9018e7bf6923a6dc3dee3738ff6d52d18402c24b2ced.gltf",
+      "bytes": 11056,
+      "sha256": "788519b9ebf1781daa3e9018e7bf6923a6dc3dee3738ff6d52d18402c24b2ced",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.brambles_01"
+      ],
+      "gitPath": "deploy/runtime/assets/788519b9ebf1781daa3e9018e7bf6923a6dc3dee3738ff6d52d18402c24b2ced.gltf"
+    },
+    {
       "url": "assets/7885a5af96421c19b0e948052fa6d960bde0cbd7bc64b10f7180c414aeebd461.png",
       "bytes": 8105,
       "sha256": "7885a5af96421c19b0e948052fa6d960bde0cbd7bc64b10f7180c414aeebd461",
@@ -7235,6 +7496,19 @@
         "ui.paint.queen-atlas-v2"
       ],
       "gitPath": "deploy/runtime/assets/7b389b0e9eba936e85e823f639eb1779057cc526fb98f94b300c7482380ae283.webp"
+    },
+    {
+      "url": "assets/7ba9fe97e0e841a03dd3b1684d4cc51c9abed0a72c178ab8e3552813d3d2d288.gltf",
+      "bytes": 10839,
+      "sha256": "7ba9fe97e0e841a03dd3b1684d4cc51c9abed0a72c178ab8e3552813d3d2d288",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.rocklarge_01"
+      ],
+      "gitPath": "deploy/runtime/assets/7ba9fe97e0e841a03dd3b1684d4cc51c9abed0a72c178ab8e3552813d3d2d288.gltf"
     },
     {
       "url": "assets/7baba94d9d6b0705d5a765fc8e2dae0059000b0eaa59cf0b15e9d45e10353614.png",
@@ -7405,6 +7679,19 @@
         "material.layer.9702bdf1ec3eb8274f7e.0"
       ],
       "gitPath": "deploy/runtime/assets/7dcf1709a7b085e1071a14df7f978422132f42f0c2a603b4257d7da4f94b8a1d.png"
+    },
+    {
+      "url": "assets/7df17faa927327b33c44195cc7047ba6c1c6f34d45204cdf1470286ce553de9c.png",
+      "bytes": 2538584,
+      "sha256": "7df17faa927327b33c44195cc7047ba6c1c6f34d45204cdf1470286ce553de9c",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.lavatoprock"
+      ],
+      "gitPath": "deploy/runtime/assets/7df17faa927327b33c44195cc7047ba6c1c6f34d45204cdf1470286ce553de9c.png"
     },
     {
       "url": "assets/7e0823b9e7247c94eec60d2932acaabe157bb95971f241e1ca535107ba49205b.svg",
@@ -7616,6 +7903,19 @@
       "gitPath": "deploy/runtime/assets/815aa1f7b8207461b4ebff531970b234615df9da5dd2b7b73ad4f34bdfc08fe4.png"
     },
     {
+      "url": "assets/81c91d988684e50f6b4ff3f8d0ead89d308b099fbe733fba0a0acc20f3ba5c3c.gltf",
+      "bytes": 142565,
+      "sha256": "81c91d988684e50f6b4ff3f8d0ead89d308b099fbe733fba0a0acc20f3ba5c3c",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.crystalslow_01"
+      ],
+      "gitPath": "deploy/runtime/assets/81c91d988684e50f6b4ff3f8d0ead89d308b099fbe733fba0a0acc20f3ba5c3c.gltf"
+    },
+    {
       "url": "assets/81d7dd3d5217f257108a668345e8384a27d766831497e5061488046440fe1089.glb",
       "bytes": 2399512,
       "sha256": "81d7dd3d5217f257108a668345e8384a27d766831497e5061488046440fe1089",
@@ -7653,6 +7953,19 @@
         "material.team.4d888807c869d02a3838"
       ],
       "gitPath": "deploy/runtime/assets/822ef08a2fcc49d79d1aaad932c665104f1a35b7f36de4fae8cc6ccdac368c5c.png"
+    },
+    {
+      "url": "assets/82b461e1e2d41fd95b30105bfb3a19db6aadb7205755e09f71802d33ab3a6576.png",
+      "bytes": 2596798,
+      "sha256": "82b461e1e2d41fd95b30105bfb3a19db6aadb7205755e09f71802d33ab3a6576",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.cliffnatural2_diffuse_00"
+      ],
+      "gitPath": "deploy/runtime/assets/82b461e1e2d41fd95b30105bfb3a19db6aadb7205755e09f71802d33ab3a6576.png"
     },
     {
       "url": "assets/8335284153cc65672d2a7bfa58e6e82453caec9ee8bfc88509c8eccd1f257218.png",
@@ -7759,6 +8072,19 @@
       "gitPath": "deploy/runtime/assets/84202b7130bf00f3b23a96100e8434e25027b7844a9b4e0f34d698320cc340d2.glb"
     },
     {
+      "url": "assets/8477d0f84304223daecbe5cb25fdd1b9a4d06a10ddc427e806cee6520c095873.png",
+      "bytes": 38248,
+      "sha256": "8477d0f84304223daecbe5cb25fdd1b9a4d06a10ddc427e806cee6520c095873",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.texture.d21208734970a01f06c46dff"
+      ],
+      "gitPath": "deploy/runtime/assets/8477d0f84304223daecbe5cb25fdd1b9a4d06a10ddc427e806cee6520c095873.png"
+    },
+    {
       "url": "assets/848b83e696e577fc813e066c64d28dc5ee5672e1b9122124370b306045f6a9db.glb",
       "bytes": 2391808,
       "sha256": "848b83e696e577fc813e066c64d28dc5ee5672e1b9122124370b306045f6a9db",
@@ -7862,6 +8188,19 @@
         "map.image.85f609f8b74d33ea3e9ccc6ebf4c85f888b9ee2265b695dd76817c5837531447"
       ],
       "gitPath": "deploy/runtime/assets/8697464c48c3c55c799d2f57eb4f1cd7fb5b039123db1faa31759f5e3dc2f9cb.webp"
+    },
+    {
+      "url": "assets/8785c1c4d6077f94afca66fa2fd339e588dac06da71b96e86e3bd3f089037dd6.gltf",
+      "bytes": 94004,
+      "sha256": "8785c1c4d6077f94afca66fa2fd339e588dac06da71b96e86e3bd3f089037dd6",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.compoundsewers_exhaustpipes_02"
+      ],
+      "gitPath": "deploy/runtime/assets/8785c1c4d6077f94afca66fa2fd339e588dac06da71b96e86e3bd3f089037dd6.gltf"
     },
     {
       "url": "assets/87ce571762e3125bddaae707b39f4504eebf7d1154d0464bffed364b2c4a9a39.png",
@@ -8046,6 +8385,19 @@
       "gitPath": "deploy/runtime/assets/89dc40192f256dc6276115d34160256ec46851fe5aa8a4f788b172bb75b978a3.png"
     },
     {
+      "url": "assets/8a46265cb469fb44144e2f0c84d2f4f180decd7e419824ded310e7a0b0c059fb.png",
+      "bytes": 742307,
+      "sha256": "8a46265cb469fb44144e2f0c84d2f4f180decd7e419824ded310e7a0b0c059fb",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.jarbonminor_crane_gloss"
+      ],
+      "gitPath": "deploy/runtime/assets/8a46265cb469fb44144e2f0c84d2f4f180decd7e419824ded310e7a0b0c059fb.png"
+    },
+    {
       "url": "assets/8a5bfd765f9a2ed745e01c21abf63af74ec70b99b30a8c25d7889313fa6b9a49.glb",
       "bytes": 1246664,
       "sha256": "8a5bfd765f9a2ed745e01c21abf63af74ec70b99b30a8c25d7889313fa6b9a49",
@@ -8122,6 +8474,19 @@
         "model.elite.tank.3.death"
       ],
       "gitPath": "deploy/runtime/assets/8b1344fd92e12c5150477e827ab4827c77a175d54b1ba891aa2f81ba771dd315.glb"
+    },
+    {
+      "url": "assets/8b78a786705067bcf9e4f998fb52d602a09a8c90bffcd5445fe79cbbc9021d0e.png",
+      "bytes": 874954,
+      "sha256": "8b78a786705067bcf9e4f998fb52d602a09a8c90bffcd5445fe79cbbc9021d0e",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.lavatoprockemissive"
+      ],
+      "gitPath": "deploy/runtime/assets/8b78a786705067bcf9e4f998fb52d602a09a8c90bffcd5445fe79cbbc9021d0e.png"
     },
     {
       "url": "assets/8be65e65776a140e988c416f442d8eee8728c1d1b885dedbbd8f1d654e5b3857.png",
@@ -8227,6 +8592,19 @@
         "map.image.955587240de8c73ce4d0a6ff07abb1c6261194759f20be7b67e0b747aa455c48"
       ],
       "gitPath": "deploy/runtime/assets/8e183ae072f79bcd435a6ea374a525700df159b7853222fe42cac2764d577bf5.webp"
+    },
+    {
+      "url": "assets/8e6dfac2eb4b114299311cd24c24be81f3e8ab1839dc88da758a49933eb92284.gltf",
+      "bytes": 8191,
+      "sha256": "8e6dfac2eb4b114299311cd24c24be81f3e8ab1839dc88da758a49933eb92284",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.cliffnatural0ex1_bbbc_00"
+      ],
+      "gitPath": "deploy/runtime/assets/8e6dfac2eb4b114299311cd24c24be81f3e8ab1839dc88da758a49933eb92284.gltf"
     },
     {
       "url": "assets/8e8388d1e4d38d0cec3f9ea26a1e94c0b603a22110e198a53c389740b616b7f8.png",
@@ -8541,6 +8919,19 @@
       "gitPath": "deploy/runtime/assets/91ff0264b690a916ef4daf9d780ef3053a7964c3e2e4fd769cd1a28d88e4a170.png"
     },
     {
+      "url": "assets/921667b5a98be4534730fd3184d3de45b188d54cb3210e065aa2675ad16bcabf.png",
+      "bytes": 39259,
+      "sha256": "921667b5a98be4534730fd3184d3de45b188d54cb3210e065aa2675ad16bcabf",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.lavabase"
+      ],
+      "gitPath": "deploy/runtime/assets/921667b5a98be4534730fd3184d3de45b188d54cb3210e065aa2675ad16bcabf.png"
+    },
+    {
       "url": "assets/927bfd673fbc923b3adb39201c4008d381e3f130d31d5ffc16e2e234aa2936c8.svg",
       "bytes": 34308,
       "sha256": "927bfd673fbc923b3adb39201c4008d381e3f130d31d5ffc16e2e234aa2936c8",
@@ -8671,6 +9062,19 @@
         "audio.shot"
       ],
       "gitPath": "deploy/runtime/assets/93ecedf4bcf66313039606e9d057e7603e1dd20d5e46d20b12b485191a83146e.wav"
+    },
+    {
+      "url": "assets/94049cc6f0184dad698497be4654e82af6e7536a084e6d43795f635fd83ee438.glb",
+      "bytes": 20204,
+      "sha256": "94049cc6f0184dad698497be4654e82af6e7536a084e6d43795f635fd83ee438",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.MarauderBaseAttackImpact"
+      ],
+      "gitPath": "deploy/runtime/assets/94049cc6f0184dad698497be4654e82af6e7536a084e6d43795f635fd83ee438.glb"
     },
     {
       "url": "assets/940d70765907ccc7cf4cd2ced6e5670724d023f88e7cdc686a63e1dff6b97ac2.glb",
@@ -9014,6 +9418,19 @@
       "gitPath": "deploy/runtime/assets/984538efe8aedb039d552aa7c851587aa267c6c17699a7326676e81a07f810d0.glb"
     },
     {
+      "url": "assets/98760392771e93596a88ad4114c962120fadae4d2bd2d28c363abfe4e55360c2.png",
+      "bytes": 2608436,
+      "sha256": "98760392771e93596a88ad4114c962120fadae4d2bd2d28c363abfe4e55360c2",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.lavatoprocknormal"
+      ],
+      "gitPath": "deploy/runtime/assets/98760392771e93596a88ad4114c962120fadae4d2bd2d28c363abfe4e55360c2.png"
+    },
+    {
       "url": "assets/989f56743a3cff2e0a9f61795ceabb16f0d828f0f64e9978751130c5fd98962e.webp",
       "bytes": 499160,
       "sha256": "989f56743a3cff2e0a9f61795ceabb16f0d828f0f64e9978751130c5fd98962e",
@@ -9326,6 +9743,19 @@
         "model.hero-upgrade.vikingfightermissile"
       ],
       "gitPath": "deploy/runtime/assets/9cdf59a8d095163e86241f903d0a537445c4c3d2f817d7bfe5ea92a1a6c43401.glb"
+    },
+    {
+      "url": "assets/9cdfdcf05fb582a96d2ed95fc083dace6227122866adb4fed2e87c6bdcf002c9.png",
+      "bytes": 18028,
+      "sha256": "9cdfdcf05fb582a96d2ed95fc083dace6227122866adb4fed2e87c6bdcf002c9",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.elsecaro_rock_mediumgroup_splat_diff_00"
+      ],
+      "gitPath": "deploy/runtime/assets/9cdfdcf05fb582a96d2ed95fc083dace6227122866adb4fed2e87c6bdcf002c9.png"
     },
     {
       "url": "assets/9d1242a3cc1e2a0a9e48fdd60c3251c202493582e0238c69cd0f43b7379e7e51.webp",
@@ -10437,6 +10867,19 @@
       "gitPath": "deploy/runtime/assets/aeecb19cc9c4d272ca5b768c800b67d876240d04654bc237544ab959122f2344.gltf"
     },
     {
+      "url": "assets/af0bdb545436c4b74c55690af3ea0120ab0fd95c4d8c9dd08973273bce598c2b.png",
+      "bytes": 121645,
+      "sha256": "af0bdb545436c4b74c55690af3ea0120ab0fd95c4d8c9dd08973273bce598c2b",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.jarbanminor_miningbot_broken_splat00_diff"
+      ],
+      "gitPath": "deploy/runtime/assets/af0bdb545436c4b74c55690af3ea0120ab0fd95c4d8c9dd08973273bce598c2b.png"
+    },
+    {
       "url": "assets/af0dcefcd26f94844ec2c38ad887b33b4b58f6d770a8564802425da16293f051.png",
       "bytes": 809404,
       "sha256": "af0dcefcd26f94844ec2c38ad887b33b4b58f6d770a8564802425da16293f051",
@@ -11089,6 +11532,19 @@
       "gitPath": "deploy/runtime/assets/b959ee06e244b0880e0ea079565a1d125daccedbb6a4c5cdfb86fe6e7aed57a3.glb"
     },
     {
+      "url": "assets/b9b5685c9c5bb8d5bfba247d6549d8fe3376e8292e1a160723cbc8192cf58a72.gltf",
+      "bytes": 51773,
+      "sha256": "b9b5685c9c5bb8d5bfba247d6549d8fe3376e8292e1a160723cbc8192cf58a72",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.halfstructureplates_01"
+      ],
+      "gitPath": "deploy/runtime/assets/b9b5685c9c5bb8d5bfba247d6549d8fe3376e8292e1a160723cbc8192cf58a72.gltf"
+    },
+    {
       "url": "assets/b9c6e5dbbc28eb37a8d5b65aabed45dd64446faf34c934a0862ed8164422b495.glb",
       "bytes": 2121220,
       "sha256": "b9c6e5dbbc28eb37a8d5b65aabed45dd64446faf34c934a0862ed8164422b495",
@@ -11378,6 +11834,19 @@
       "gitPath": "deploy/runtime/assets/bec6f0ff9165ae1ddc897f04d455fe658eb37c1e157eff9c1c0ae8d4945e4bb2.png"
     },
     {
+      "url": "assets/bedd960cb02fa8cf5e55125b7e179fb1a9d45a1f2bf40ddfaa723cc4d3b4d85d.png",
+      "bytes": 1258,
+      "sha256": "bedd960cb02fa8cf5e55125b7e179fb1a9d45a1f2bf40ddfaa723cc4d3b4d85d",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.cargotruck_environmentmap"
+      ],
+      "gitPath": "deploy/runtime/assets/bedd960cb02fa8cf5e55125b7e179fb1a9d45a1f2bf40ddfaa723cc4d3b4d85d.png"
+    },
+    {
       "url": "assets/bf0cee15019e42950c212cf69831bd5835751b9098dc77a667b2b50bd7f3ebe5.webp",
       "bytes": 762280,
       "sha256": "bf0cee15019e42950c212cf69831bd5835751b9098dc77a667b2b50bd7f3ebe5",
@@ -11597,6 +12066,19 @@
         "map.image.ba201a318bae4bb52c45748ce0f6818f3804a22dfeaf2710e61ede5c621d39d9"
       ],
       "gitPath": "deploy/runtime/assets/c23517e735c6ff042fe4ba50c28e29a68ff2776b62fd9d393695089c17ccc56b.webp"
+    },
+    {
+      "url": "assets/c26505acf53ea420b705cc2bad1c57fb40c6a9d7d0acaa87bf66e4516d6d7696.png",
+      "bytes": 99218,
+      "sha256": "c26505acf53ea420b705cc2bad1c57fb40c6a9d7d0acaa87bf66e4516d6d7696",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.texture.a46c3c6fcea00867e42b2aa6"
+      ],
+      "gitPath": "deploy/runtime/assets/c26505acf53ea420b705cc2bad1c57fb40c6a9d7d0acaa87bf66e4516d6d7696.png"
     },
     {
       "url": "assets/c286b81a3f0d3e11b04144eb234b073b28032b75747e63163d65c9f0952a6a7c.png",
@@ -11859,6 +12341,19 @@
       "gitPath": "deploy/runtime/assets/c5bd6ab9e4e89b380e0daf650674054e9d6012a1ffb74342e8ca9df59a5b3f91.glb"
     },
     {
+      "url": "assets/c5cc9ceadcd70b230abccb98ed6c3811ab207e36e166535f06fd77a85ef8601b.glb",
+      "bytes": 55768,
+      "sha256": "c5cc9ceadcd70b230abccb98ed6c3811ab207e36e166535f06fd77a85ef8601b",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.BanelingDeath"
+      ],
+      "gitPath": "deploy/runtime/assets/c5cc9ceadcd70b230abccb98ed6c3811ab207e36e166535f06fd77a85ef8601b.glb"
+    },
+    {
       "url": "assets/c5f9e096dd6acddf72906abb724b3eb7477b717d0b5c9b38a09923411ea7dd3a.png",
       "bytes": 7437,
       "sha256": "c5f9e096dd6acddf72906abb724b3eb7477b717d0b5c9b38a09923411ea7dd3a",
@@ -11924,6 +12419,19 @@
       "gitPath": "deploy/runtime/assets/c707751ae398269816684c264d0e2b8214b5470a2ccb359b061f66c19218e7bf.png"
     },
     {
+      "url": "assets/c74c86f81147a3ff34c871e7620fafe50055660a87e27ab83afb13dc595cc33c.png",
+      "bytes": 7717,
+      "sha256": "c74c86f81147a3ff34c871e7620fafe50055660a87e27ab83afb13dc595cc33c",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.jarbanminor_miningbot_splat00"
+      ],
+      "gitPath": "deploy/runtime/assets/c74c86f81147a3ff34c871e7620fafe50055660a87e27ab83afb13dc595cc33c.png"
+    },
+    {
       "url": "assets/c7d61a20d610b5376cd801427d70d010c33a9ff00dff6b3b765fcc92459ab0d5.png",
       "bytes": 128009,
       "sha256": "c7d61a20d610b5376cd801427d70d010c33a9ff00dff6b3b765fcc92459ab0d5",
@@ -11935,6 +12443,19 @@
         "combat-fx.texture.e96e624acbcfd066d3c0e45f.normal"
       ],
       "gitPath": "deploy/runtime/assets/c7d61a20d610b5376cd801427d70d010c33a9ff00dff6b3b765fcc92459ab0d5.png"
+    },
+    {
+      "url": "assets/c7f745071e7e6faac3acd835feb3eb026e7f8060544dc2fa155980420d880b65.png",
+      "bytes": 2165994,
+      "sha256": "c7f745071e7e6faac3acd835feb3eb026e7f8060544dc2fa155980420d880b65",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.cliffnatural2_normal_00"
+      ],
+      "gitPath": "deploy/runtime/assets/c7f745071e7e6faac3acd835feb3eb026e7f8060544dc2fa155980420d880b65.png"
     },
     {
       "url": "assets/c81097a7736556dee82bee2404ea9d9bd5263ad533733d913dee9041f99b288b.png",
@@ -11961,6 +12482,19 @@
         "combat-fx.texture.6ff9e38d599834a87274b9dc"
       ],
       "gitPath": "deploy/runtime/assets/c81505d17a2179994969ab6f8c25b323de83373128c83fae0b48010da1bfaac0.png"
+    },
+    {
+      "url": "assets/c8f730cb38b892be7f4d17ed53c672aa47fe8baedf52d021e99c6b6303af1696.glb",
+      "bytes": 17904,
+      "sha256": "c8f730cb38b892be7f4d17ed53c672aa47fe8baedf52d021e99c6b6303af1696",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.ColossusAttackBeamImpact"
+      ],
+      "gitPath": "deploy/runtime/assets/c8f730cb38b892be7f4d17ed53c672aa47fe8baedf52d021e99c6b6303af1696.glb"
     },
     {
       "url": "assets/c98cfa152cad494007858ed90a593422654d8ccbf754d2e2b7c9770304db0d54.webp",
@@ -12052,6 +12586,20 @@
         "model.fort.repair"
       ],
       "gitPath": "deploy/runtime/assets/cae2c445825281defcafe4752cb0183efb8ceaddad1f8abee138abacac175648.glb"
+    },
+    {
+      "url": "assets/cb17aeb69e56370cfeb6ea580e3903425a57d5fef92c62eb23e0f6f9b093eb41.glb",
+      "bytes": 21584,
+      "sha256": "cb17aeb69e56370cfeb6ea580e3903425a57d5fef92c62eb23e0f6f9b093eb41",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.ThorHandGunAttackLaunch",
+        "combat-fx.mesh.refraction.ThorAAAttackLaunchLance"
+      ],
+      "gitPath": "deploy/runtime/assets/cb17aeb69e56370cfeb6ea580e3903425a57d5fef92c62eb23e0f6f9b093eb41.glb"
     },
     {
       "url": "assets/cb636b1b5fa3b205339d75e06d5baa3be899bcde2a4a094b17fdeb683673e03b.png",
@@ -12289,6 +12837,19 @@
       "gitPath": "deploy/runtime/assets/ceddd76636d6e5e8fb4a9e531e2bc61198bfe2f298530a2cd96a98c153521f03.glb"
     },
     {
+      "url": "assets/cef24a5eb55b9b21e3305414cf2d92985b903e4e1264b62027ce7184d277be09.png",
+      "bytes": 78898,
+      "sha256": "cef24a5eb55b9b21e3305414cf2d92985b903e4e1264b62027ce7184d277be09",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.texture.709848fab45112bf3c96bb40"
+      ],
+      "gitPath": "deploy/runtime/assets/cef24a5eb55b9b21e3305414cf2d92985b903e4e1264b62027ce7184d277be09.png"
+    },
+    {
       "url": "assets/cf1794203724c8b923037ece5626e9ebe48551103437b752b59afd1e79dfe788.webp",
       "bytes": 71080,
       "sha256": "cf1794203724c8b923037ece5626e9ebe48551103437b752b59afd1e79dfe788",
@@ -12313,6 +12874,19 @@
         "map.image.6da003d3e5bc23be6e1ee200fb68748287fce8ba1a157fdada7f24cbb8d8d670"
       ],
       "gitPath": "deploy/runtime/assets/cf2aa0e9f460b7e984e30fbdece54bc5fb5da1410a023d192fb8fcbd96930e8d.webp"
+    },
+    {
+      "url": "assets/cf3868210152d6e1a6e133dc3667c8168c389c208aa2b4d4883d5fb2085e7413.png",
+      "bytes": 34690,
+      "sha256": "cf3868210152d6e1a6e133dc3667c8168c389c208aa2b4d4883d5fb2085e7413",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.texture.57e4611aa6b0106a2c732af5"
+      ],
+      "gitPath": "deploy/runtime/assets/cf3868210152d6e1a6e133dc3667c8168c389c208aa2b4d4883d5fb2085e7413.png"
     },
     {
       "url": "assets/cf61deb4d2e34fc8cc8ce8bec7aaa342d731b6b68bf24aeaa4f71483327e6895.png",
@@ -12352,6 +12926,19 @@
         "ui.cover.zeratul"
       ],
       "gitPath": "deploy/runtime/assets/cfd504cf5b096cd4a025f5e8b9ceca92760ce5441d8690d41dd7baef4dafb593.png"
+    },
+    {
+      "url": "assets/cfe1a9aba71749094f851073ae30e5c20884321139cba099b076a841c0b0f04c.gltf",
+      "bytes": 132830,
+      "sha256": "cfe1a9aba71749094f851073ae30e5c20884321139cba099b076a841c0b0f04c",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.purificationdesert_medium_rock_group_00"
+      ],
+      "gitPath": "deploy/runtime/assets/cfe1a9aba71749094f851073ae30e5c20884321139cba099b076a841c0b0f04c.gltf"
     },
     {
       "url": "assets/d03a83a9ee2c8fbd2e5ef39e5e35842a98473d7d85ba0778d90de453cbafebbd.png",
@@ -12404,6 +12991,19 @@
         "combat-fx.texture.a00b10af3c1367c1022147dd"
       ],
       "gitPath": "deploy/runtime/assets/d12a2254109329cd2025edb463c778f2787566258f683e7dc5e5092c4db465fb.png"
+    },
+    {
+      "url": "assets/d1325cf5d01bc8f748533d4ec18e710525231e68dd27b04dfd3daf6d05d262e8.gltf",
+      "bytes": 46053,
+      "sha256": "d1325cf5d01bc8f748533d4ec18e710525231e68dd27b04dfd3daf6d05d262e8",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.crate_02"
+      ],
+      "gitPath": "deploy/runtime/assets/d1325cf5d01bc8f748533d4ec18e710525231e68dd27b04dfd3daf6d05d262e8.gltf"
     },
     {
       "url": "assets/d152e0a8747ca643c76b1f41e3db4630131e5cc12ee1d883bb7d74b00919f48c.png",
@@ -12827,6 +13427,19 @@
       "gitPath": "deploy/runtime/assets/da83a83885a8008b55852d3451d3543e390d003e6f06183f0da42978e946d4af.gltf"
     },
     {
+      "url": "assets/da8ac227b9c1c43559faa60bc3b00ea09d712849505f823cacd311016d60adc6.png",
+      "bytes": 15558,
+      "sha256": "da8ac227b9c1c43559faa60bc3b00ea09d712849505f823cacd311016d60adc6",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.jarbanminor_miningbot_broken_splat00_spec"
+      ],
+      "gitPath": "deploy/runtime/assets/da8ac227b9c1c43559faa60bc3b00ea09d712849505f823cacd311016d60adc6.png"
+    },
+    {
       "url": "assets/daae6ea7ec6812edbf56ad0a9932fff3830172658efd0e88736a693e30d98c56.webp",
       "bytes": 36516,
       "sha256": "daae6ea7ec6812edbf56ad0a9932fff3830172658efd0e88736a693e30d98c56",
@@ -13103,6 +13716,32 @@
       "gitPath": "deploy/runtime/assets/e07cd9de59fe6c9dd54e8e485d150a31dd91c8a5577a8621d27d03f9359ec710.webp"
     },
     {
+      "url": "assets/e081c77fe736eadfe7659836d9f8957ed8ff1839db2696899066021ca29f3f9a.glb",
+      "bytes": 18396,
+      "sha256": "e081c77fe736eadfe7659836d9f8957ed8ff1839db2696899066021ca29f3f9a",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.SiegeTankSiegedAttackImpact"
+      ],
+      "gitPath": "deploy/runtime/assets/e081c77fe736eadfe7659836d9f8957ed8ff1839db2696899066021ca29f3f9a.glb"
+    },
+    {
+      "url": "assets/e0b20ee459a08cc4e1d52f13be389fc5f80237087e4cd424fed4e749d7f8d73c.gltf",
+      "bytes": 267586,
+      "sha256": "e0b20ee459a08cc4e1d52f13be389fc5f80237087e4cd424fed4e749d7f8d73c",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.mineralcart_01"
+      ],
+      "gitPath": "deploy/runtime/assets/e0b20ee459a08cc4e1d52f13be389fc5f80237087e4cd424fed4e749d7f8d73c.gltf"
+    },
+    {
       "url": "assets/e0d18712ef1d961084b93d2e94195b011bf9ee749f427d21ffdfcf356c8db9fd.glb",
       "bytes": 2950560,
       "sha256": "e0d18712ef1d961084b93d2e94195b011bf9ee749f427d21ffdfcf356c8db9fd",
@@ -13365,6 +14004,19 @@
       "gitPath": "deploy/runtime/assets/e5cdfcab0547603e5c179b12dba55edabfe316e74f566406083d09174fe63d98.png"
     },
     {
+      "url": "assets/e625a32c9e922896f2bbd0364ddab36282b95b9bac7898ced92367e7fcd58add.png",
+      "bytes": 3131,
+      "sha256": "e625a32c9e922896f2bbd0364ddab36282b95b9bac7898ced92367e7fcd58add",
+      "mime": "image/png",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "environment.sample.jarbanminor_cranepart_splat06"
+      ],
+      "gitPath": "deploy/runtime/assets/e625a32c9e922896f2bbd0364ddab36282b95b9bac7898ced92367e7fcd58add.png"
+    },
+    {
       "url": "assets/e641ca729acac5e9d31dcec425f6e9fb21fe3a27e357bc7fa6c231f4cb69e705.svg",
       "bytes": 29275,
       "sha256": "e641ca729acac5e9d31dcec425f6e9fb21fe3a27e357bc7fa6c231f4cb69e705",
@@ -13573,6 +14225,19 @@
       "gitPath": "deploy/runtime/assets/ea296ac5398db84fed093dd3f496174c9e08d61770bcb2e0392953e3ede208e2.png"
     },
     {
+      "url": "assets/ea7821ab432b611c126e8c811467774e3216a291dd87903e6117e4edd347b9bd.gltf",
+      "bytes": 381372,
+      "sha256": "ea7821ab432b611c126e8c811467774e3216a291dd87903e6117e4edd347b9bd",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.dom_crate_01"
+      ],
+      "gitPath": "deploy/runtime/assets/ea7821ab432b611c126e8c811467774e3216a291dd87903e6117e4edd347b9bd.gltf"
+    },
+    {
       "url": "assets/eaa626f536fb648b127c89eb08f36773cdb95a321f5435a6f8d78ffefce77887.png",
       "bytes": 653996,
       "sha256": "eaa626f536fb648b127c89eb08f36773cdb95a321f5435a6f8d78ffefce77887",
@@ -13690,6 +14355,19 @@
       "gitPath": "deploy/runtime/assets/ecd83e0b9d630f4eb00f72d8aeff36cb48027b2e49e048d496369d2332d6105e.png"
     },
     {
+      "url": "assets/ed163a23840efc9b8b78052581c58b20d082ac35fe0402495a80d64f0f384436.gltf",
+      "bytes": 15314,
+      "sha256": "ed163a23840efc9b8b78052581c58b20d082ac35fe0402495a80d64f0f384436",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.cliffmade13_bbbc_00"
+      ],
+      "gitPath": "deploy/runtime/assets/ed163a23840efc9b8b78052581c58b20d082ac35fe0402495a80d64f0f384436.gltf"
+    },
+    {
       "url": "assets/ed39d46735076bb2bc1c70449a1b2621dd8a102f1a3719f9a47d9d3ba7ff5150.png",
       "bytes": 267065,
       "sha256": "ed39d46735076bb2bc1c70449a1b2621dd8a102f1a3719f9a47d9d3ba7ff5150",
@@ -13766,6 +14444,19 @@
         "terrain.visual.ice-rock-normal"
       ],
       "gitPath": "deploy/runtime/assets/eeb8466bc6e5c6d410a292d19d6c774fe53c3511c0774d95a844dd1f94d83ab9.png"
+    },
+    {
+      "url": "assets/ef0a715af7d3fcf34b76d7d0b46e6a1a52c1f6ced99a40aa7acf218cf6563d9f.png",
+      "bytes": 647,
+      "sha256": "ef0a715af7d3fcf34b76d7d0b46e6a1a52c1f6ced99a40aa7acf218cf6563d9f",
+      "mime": "image/png",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.texture.ee3e0c73703eb3706703c80e"
+      ],
+      "gitPath": "deploy/runtime/assets/ef0a715af7d3fcf34b76d7d0b46e6a1a52c1f6ced99a40aa7acf218cf6563d9f.png"
     },
     {
       "url": "assets/ef0cd2fd53c89ef97db893b2707fd59f77fcedf118eb70b2999b6c97e778dc04.webp",
@@ -14132,6 +14823,19 @@
       "gitPath": "deploy/runtime/assets/f66f1e8bba5774d106662ccb1c81b6c576d2da3b9c0a4f8fc284328ae90b051c.png"
     },
     {
+      "url": "assets/f6711c554d6720263fe5fcc62f061d907fd8695a845fb208926ac2111228a4e4.gltf",
+      "bytes": 36331,
+      "sha256": "f6711c554d6720263fe5fcc62f061d907fd8695a845fb208926ac2111228a4e4",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.marsaracactus_01"
+      ],
+      "gitPath": "deploy/runtime/assets/f6711c554d6720263fe5fcc62f061d907fd8695a845fb208926ac2111228a4e4.gltf"
+    },
+    {
       "url": "assets/f6b9b2cfef80a4599037a1c601122ed0ebf36c21f11fa35c6de094a946c24068.webp",
       "bytes": 65088,
       "sha256": "f6b9b2cfef80a4599037a1c601122ed0ebf36c21f11fa35c6de094a946c24068",
@@ -14288,6 +14992,19 @@
       "gitPath": "deploy/runtime/assets/fa7367fbcfea80ad5a21d0c9339f1bef93ef1900ff3386b290204ef6fcb8b59c.png"
     },
     {
+      "url": "assets/fafae2f2e1545019a4745e065dee0f6d65026d55e27511b983babfec2c70ce6a.gltf",
+      "bytes": 46109,
+      "sha256": "fafae2f2e1545019a4745e065dee0f6d65026d55e27511b983babfec2c70ce6a",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.crate_01"
+      ],
+      "gitPath": "deploy/runtime/assets/fafae2f2e1545019a4745e065dee0f6d65026d55e27511b983babfec2c70ce6a.gltf"
+    },
+    {
       "url": "assets/fb1a46f6c116baee2a60a7af0015a9fae81cff05c83410332cfae78dea083a3c.png",
       "bytes": 28732,
       "sha256": "fb1a46f6c116baee2a60a7af0015a9fae81cff05c83410332cfae78dea083a3c",
@@ -14418,6 +15135,19 @@
       "gitPath": "deploy/runtime/assets/fd1869574d30c00c83786e058aae7220bbea7b06cea1a3d1489aea2b2deecde3.png"
     },
     {
+      "url": "assets/fd1f9317943c53e03afb030e7fa328cd9d31667d722d9545c85346a494502a21.glb",
+      "bytes": 10168,
+      "sha256": "fd1f9317943c53e03afb030e7fa328cd9d31667d722d9545c85346a494502a21",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.HighTemplarAttackImpact"
+      ],
+      "gitPath": "deploy/runtime/assets/fd1f9317943c53e03afb030e7fa328cd9d31667d722d9545c85346a494502a21.glb"
+    },
+    {
       "url": "assets/fd467be3aeb250b5630ab3c4e5de2432a0e290f0dc57befe41a97c05f142202a.glb",
       "bytes": 1536464,
       "sha256": "fd467be3aeb250b5630ab3c4e5de2432a0e290f0dc57befe41a97c05f142202a",
@@ -14431,6 +15161,19 @@
       "gitPath": "deploy/runtime/assets/fd467be3aeb250b5630ab3c4e5de2432a0e290f0dc57befe41a97c05f142202a.glb"
     },
     {
+      "url": "assets/fddb179faa0f796fa7e1f3a7932b551ed3e5dc90024e9d8ca4b9d687cc973df8.glb",
+      "bytes": 125420,
+      "sha256": "fddb179faa0f796fa7e1f3a7932b551ed3e5dc90024e9d8ca4b9d687cc973df8",
+      "mime": "model/gltf-binary",
+      "groups": [
+        "common"
+      ],
+      "ids": [
+        "combat-fx.mesh.refraction.HighTemplarPsiStormModel"
+      ],
+      "gitPath": "deploy/runtime/assets/fddb179faa0f796fa7e1f3a7932b551ed3e5dc90024e9d8ca4b9d687cc973df8.glb"
+    },
+    {
       "url": "assets/fdea13399e87dd907a6d24846d8889e2b1d6dfe5fc1deacffa7887690727e0c9.webp",
       "bytes": 748822,
       "sha256": "fdea13399e87dd907a6d24846d8889e2b1d6dfe5fc1deacffa7887690727e0c9",
@@ -14442,6 +15185,19 @@
         "ui.paint.immortal-atlas"
       ],
       "gitPath": "deploy/runtime/assets/fdea13399e87dd907a6d24846d8889e2b1d6dfe5fc1deacffa7887690727e0c9.webp"
+    },
+    {
+      "url": "assets/fe52b2da6fedd6f5e50c04a862bc1cf313a2964f982d52fe450528949f8d79d2.gltf",
+      "bytes": 138364,
+      "sha256": "fe52b2da6fedd6f5e50c04a862bc1cf313a2964f982d52fe450528949f8d79d2",
+      "mime": "model/gltf+json",
+      "groups": [
+        "campaign"
+      ],
+      "ids": [
+        "model.map.pipescorner_01"
+      ],
+      "gitPath": "deploy/runtime/assets/fe52b2da6fedd6f5e50c04a862bc1cf313a2964f982d52fe450528949f8d79d2.gltf"
     },
     {
       "url": "assets/fe52cb1236264f41a38c8ac0ab2ec45b4a3382d40d36f02c2b14285953d0b98c.png",

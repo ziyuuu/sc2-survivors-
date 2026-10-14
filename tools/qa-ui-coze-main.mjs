@@ -8,6 +8,7 @@ import {pathToFileURL} from 'node:url';
 import {gzipSync} from 'node:zlib';
 
 const arg=process.argv.indexOf('--app'),app=path.resolve(arg<0?'dist/UI-Coze-Main-Application-20261007':process.argv[arg+1]);
+const resourceArg=process.argv.indexOf('--resources'),resources=path.resolve(resourceArg<0?'dist/web':process.argv[resourceArg+1]);
 const outputArg=process.argv.indexOf('--out'),out=path.resolve(outputArg<0?'reports/local/ui-coze-main-20261007':process.argv[outputArg+1]);await fs.mkdir(out,{recursive:true});
 const root=await fs.mkdtemp(path.resolve('.cache/ui-coze-main-'));
 const release=JSON.parse(await fs.readFile(path.join(app,'public/web-release.json'),'utf8'));
@@ -32,7 +33,7 @@ const port=async()=>{const s=createServer();await new Promise(r=>s.listen(0,'127
 async function launch(home,{readonly=false}={}){
  const p=await port(),origin='http://127.0.0.1:'+p;
  await fs.writeFile(path.join(home,'sc2-backend.conf'),['SC2_BACKEND_ENABLED=1','SC2_LOCAL_DEV=1','SC2_PUBLIC_ORIGIN='+origin,'SC2_PGLITE_DIR=data/pglite','SC2_DELETION_JOURNAL=data/deletions.jsonl','SC2_PRIVACY_OPERATOR=LOCAL QA ONLY','SC2_PRIVACY_CONTACT=LOCAL QA ONLY','SC2_BACKUP_RETENTION_DAYS=30'].join('\n'));
- const child=spawn(process.execPath,['--import',pathToFileURL(preload).href,path.join(home,'start-coze.mjs')],{cwd:home,env:{...process.env,PORT:String(p),ASSET_ROOT:path.resolve('dist/web'),SC2_QA_READONLY_HOME:readonly?home:'',SC2_QA_TEMP:path.join(root,'tmp')},stdio:['ignore','pipe','pipe','ipc']});
+ const child=spawn(process.execPath,['--import',pathToFileURL(preload).href,path.join(home,'start-coze.mjs')],{cwd:home,env:{...process.env,PORT:String(p),ASSET_ROOT:resources,SC2_QA_READONLY_HOME:readonly?home:'',SC2_QA_TEMP:path.join(root,'tmp')},stdio:['ignore','pipe','pipe','ipc']});
  let log='';child.stdout.on('data',b=>{log+=b;});child.stderr.on('data',b=>{log+=b;});let exit;child.once('exit',code=>{exit=code;});
  const started=Date.now();let config;
  while(Date.now()-started<60000){
@@ -79,7 +80,7 @@ try{
  }
  const activeHome=path.join(root,'active-release'),directory='releases/'+application.packageBuildId;
  await fs.mkdir(activeHome,{recursive:true});await fs.cp(app,path.join(activeHome,directory),{recursive:true});await fs.copyFile(path.join(app,'start-coze.mjs'),path.join(activeHome,'start-coze.mjs'));
- await fs.writeFile(path.join(activeHome,'active-release.json'),JSON.stringify({directory,assetRoot:path.resolve('dist/web')}));await fs.mkdir(path.join(activeHome,'data'),{recursive:true});await fs.cp(seed,path.join(activeHome,'data/pglite'),{recursive:true});const active=await launch(activeHome);
+ await fs.writeFile(path.join(activeHome,'active-release.json'),JSON.stringify({directory,assetRoot:resources}));await fs.mkdir(path.join(activeHome,'data'),{recursive:true});await fs.cp(seed,path.join(activeHome,'data/pglite'),{recursive:true});const active=await launch(activeHome);
  try{const health=await checkHttp(active,true);report.cases.push({name:'active-release',health,checks:['Stable launcher loads immutable release UI, vendor and backend with root configuration and pre-existing root data'],startupLog:active.log()});}finally{await active.close();}
  const home=path.join(root,'invalid-database');await fs.cp(app,home,{recursive:true});await fs.mkdir(path.join(home,'data'),{recursive:true});await fs.writeFile(path.join(home,'data/pglite'),'synthetic non-directory');const run=await launch(home);
  try{const health=await checkHttp(run,false);assert.match(run.log(),/backend init failed/);report.cases.push({name:'invalid-database',health,checks:['Database failure is logged; static UI still serves; config disabled; protected API fails closed'],startupLog:run.log()});}finally{await run.close();}
