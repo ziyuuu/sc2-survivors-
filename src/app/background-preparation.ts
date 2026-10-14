@@ -33,4 +33,9 @@ export class BackgroundPreparation{
   await previous;await this.active;
   let released=false;return ()=>{if(released)return;released=true;this.held--;release();};
  }
+ /** Manual file caching stops new optional GPU work, but never blocks required entrances. */
+ async suspendOptional(){
+  this.held++;await this.active;
+  let released=false;return ()=>{if(released)return;released=true;this.held--;};
+ }
 }

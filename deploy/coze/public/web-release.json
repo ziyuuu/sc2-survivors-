@@ -1,5 +1,5 @@
 {
-  "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+  "appBuildId": "286ec11bbdae364d603dadff1ac499cd12590ba29a589260fafa39175a4173fd",
   "runSchema": 26,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-five-v3",
@@ -10,7 +10,5 @@
   "sharedBytes": 4375579,
   "manifest": "asset-manifest.b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615.json",
   "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
-  "source": "MVP5 steps 3 and 4 lifecycle and native traversal candidate; new-run building integration retained",
-  "diagnostic": false,
-  "review": true
+  "source": "reports/local/asset-reachability.json"
 }

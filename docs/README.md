@@ -1,5 +1,7 @@
 # 项目文档导航 · 1.0 MVP / M2
 
+当前设置补丁：应用 0.6.28 已加入画面标签全屏、预下载和横竖屏优化；[实现与验证](project/MOBILE_SETTINGS_VALIDATION_20261014.md)。Safari 加载专项按用户要求排除，真机尚未验证。
+
 > 2026-10-06 当前状态：[五地图补强](project/MAP_VISUAL_POLISH_20261006.md)、[当前规则精简](project/CURRENT_LOGIC_CLEANUP_20261006.md)与[运行数据参考](GAME_DATA_REFERENCE.md)。当前为 campaign-five-v3／战局schema26／永久档案v6，仅接收当前格式；旧迁移、旧地图及下文早期版本说明均为历史记录。五图同尺寸、中心随机开局，地表、脚底与弹道共用真实缓坡高度。Coze未部署，人工视觉、自然性能和实体设备验收仍开放。
 
 

@@ -1,5 +1,7 @@
 # 当前加载与自适应界面交接 · 2026-10-09
 
+最新交付（2026-10-14）：**设置与横竖屏 Final R3／应用 0.6.28**。[离线 HTML](../../dist/SC2-Survivors-Mobile-Settings-Final-R3-20261014.html)、[应用 ZIP](../../dist/Mobile-Settings-Final-R3-Application-20261014.zip)、[验证记录](MOBILE_SETTINGS_VALIDATION_20261014.md)。Current 和本地 deploy/coze 已同步；资源与五图最终版相同，可复用其完整资源包。Safari 专项未执行，真机未验证，未进行线上部署。下列旧版本段落保留为历史交接。
+
 当前交付为 `dist/Entry-Fixes-Coze-Application-20261009.zip`，Git 的 `deploy/coze` 保存同一应用。Web 构建 `8fe4ce100758fcf415621b95f28efb32cbd66dece6819e1e409914755c32bbde`，应用版本 0.6.14。完整离线文件为 `dist/SC2-Survivors-Entry-Fixes-20261009.html`，通用 Current 文件在验证后更新为相同字节。范围见 [加载与自适应界面](ENTRY_FIXES_20261009.md)，实际检查及限制见仓库 `docs/project/ENTRY_FIXES_VALIDATION_20261009.md`。
 
 本轮修复加载步骤反复、取消后的失效预览和慢资源等待提示，批量准备原部队资源并减少无变化的界面刷新。投递建筑保留原血量比例；“返回前线”使用原文和原动作。手机横屏按逻辑 PC 画幅缩放，竖屏同时缩小和重排，卡图、计数、说明、价格、操作与状态都保留。作战部署的续局提示使用正式栏位。离线包只增加 GLB 原字节共享边界，未缩减画质或删减资源。

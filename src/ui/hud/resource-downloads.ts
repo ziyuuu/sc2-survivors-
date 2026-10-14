@@ -1,21 +1,33 @@
-import {glyph} from '../presentation/reference-primitives';
-import {httpStore,httpAssetStatus} from '../../assets/http-store';
-import {ASSETS} from '../../assets/manifest';
-import {racePreloadModels} from '../../app/race-preload';
-import {RESCUE_PRESENTATION} from '../../data/economy';
-import type {Race} from '../../data/races';
+import {button} from '../presentation/reference-primitives';
+import {RACE_NAMES as RACE_LABELS,type Race} from '../../data/races';
+import type {ResourceDownloads} from '../../app/resource-downloads';
+export {raceDownloadIds} from '../../app/resource-downloads';
+const mb=(n:number)=>(n/1048576).toFixed(1)+' MiB';
 
-export function raceDownloadIds(race:Race,ids:string[]){const models=[...racePreloadModels(race).keys()],rescue=RESCUE_PRESENTATION[race];models.push(rescue.workerModel,rescue.carrierModel,...(rescue.carrierBirthModel?[rescue.carrierBirthModel]:[]));
- return ids.filter(id=>!id.startsWith('model.')||/model\.(fort\.|hive|drone|egg|loot\.|projectile\.|support\.)/.test(id)||models.some(key=>id==='model.'+key||id.startsWith('model.'+key+'.'))||['map-data','map-model'].includes(ASSETS.get(id)?.kind??''));}
-let active:HTMLDialogElement|null=null;
-export function openResourceDownloads(race:Race){if(active){active.focus();return;}const d=document.createElement('dialog');active=d;d.id='resource-downloads';d.setAttribute('data-captures-battle-input','');d.className='resource-downloads modal-window panel';d.innerHTML='<header class="modal-heading"><h1>资源下载</h1><button class="icon-button" data-close aria-label="关闭窗口">'+glyph('close')+'</button></header><div class="modal-content"><p>玩过的内容会自动缓存；提前下载可减少下次等待。</p><progress max="1" value="0"></progress><p role="status"></p><div><button data-download="race">下载本族</button><button data-download="all">下载全部</button><button data-cancel hidden>停止下载</button></div><button data-clear>清理资源缓存</button></div><footer class="modal-footer"><button class="game-button primary" data-close><span>返回</span></button></footer>';for(const b of d.querySelectorAll<HTMLButtonElement>('button:not(.icon-button):not(.game-button)')){b.classList.add('game-button');b.innerHTML='<span>'+b.innerHTML+'</span>';}document.body.append(d);d.showModal();const status=d.querySelector('[role=status]')!,bar=d.querySelector('progress')!;let stop=false,running=false;const mb=(n:number)=>(n/1048576).toFixed(1)+' MiB';
- const store=httpStore();status.textContent=store?'缓存自动启用；只补缺失或变化文件。':'资源已随游戏提供，无需预下载。';if(!store)for(const b of d.querySelectorAll<HTMLButtonElement>('[data-download],[data-clear]'))b.disabled=true;
- const close=()=>{stop=true;d.close();d.remove();active=null;};d.addEventListener('cancel',e=>{e.preventDefault();close();});
- d.addEventListener('click',async e=>{const b=(e.target as HTMLElement).closest<HTMLButtonElement>('button');if(!b)return;if(b.hasAttribute('data-close')){close();return;}if(b.hasAttribute('data-cancel')){stop=true;status.textContent='完成正在下载的文件后停止';return;}if(!store||running)return;
-  if(b.hasAttribute('data-clear')){try{await store.cache.clear();status.textContent='资源缓存已清理；存档和天赋保留。';}catch{status.textContent='浏览器未允许清理资源缓存';}return;}
-  if(!b.dataset.download)return;running=true;stop=false;for(const button of d.querySelectorAll<HTMLButtonElement>('[data-download],[data-clear]'))button.disabled=true;(d.querySelector('[data-cancel]') as HTMLElement).hidden=false;
-  try{await store.cache.persist();const ids=Object.keys(store.manifest.assets),chosen=b.dataset.download==='all'?ids:raceDownloadIds(race,ids);const estimate=await navigator.storage?.estimate?.().catch(()=>null);if(estimate?.quota&&estimate.usage!==undefined)status.textContent='可用存储约 '+mb(estimate.quota-estimate.usage);
-   await store.prefetch(chosen,(done,total)=>{bar.max=Math.max(1,total);bar.value=done;status.textContent=`已保存 ${mb(done)} / ${mb(total)}`;},()=>stop);status.textContent=stop?'已停止；已完成文件保留。':'下载完成，下次进入自动复用。';
-  }catch(error){status.textContent=String((error as Error).message)+'；可再次点击下载重试缺项。';}finally{running=false;(d.querySelector('[data-cancel]') as HTMLElement).hidden=true;for(const button of d.querySelectorAll<HTMLButtonElement>('[data-download],[data-clear]'))button.disabled=false;const warning=httpAssetStatus()?.warning;if(warning)status.textContent=warning;}
- });
+export function renderResourceDownloads(){
+ return `<section class="settings-downloads" data-resource-downloads aria-label="资源预下载">
+ <p data-download-status role="status" aria-live="polite"></p>
+ <div class="download-actions">${button('下载本族','download-race','small')}${button('下载全部','download-all','small')}${button('停止下载','download-stop','small','hidden')}</div>
+ <div class="download-progress"><progress aria-label="已保存的资源" max="1" value="0"></progress><p data-download-progress></p></div>
+ <p data-download-storage class="settings-help"></p>
+ <div class="download-sizes"><p data-download-race-size></p><p data-download-all-size></p></div>
+ <p class="settings-help">玩过的内容会自动缓存。提前下载可减少后续等待；本族包含共用的敌人、地图、音效和特效。</p>
+ <p class="settings-help">切换设置标签可继续下载；关闭设置或切到后台后，完成当前文件即停止。缓存可能由浏览器回收，未包含网页本身的离线启动。</p>
+ ${button('清理资源缓存','download-clear','small')}<p class="settings-help">只清理下载资源，保留存档、天赋和设置。</p></section>`;
+}
+/** Update progress in place so keyboard focus and the user's scroll position survive. */
+export function refreshResourceDownloads(root:HTMLElement,downloads:ResourceDownloads,race:Race){
+ const host=root.querySelector<HTMLElement>('[data-resource-downloads]');if(!host)return;
+ const text=(selector:string,value:string)=>{const node=host.querySelector<HTMLElement>(selector);if(node&&node.textContent!==value)node.textContent=value;};
+ const selected=downloads.size('race',race),all=downloads.size('all',race),s=downloads.state;
+ text('[data-action="download-race"] span',downloads.available?`下载本族 · ${mb(selected.bytes)}`:'下载本族');
+ text('[data-action="download-all"] span',downloads.available?`下载全部 · ${mb(all.bytes)}`:'下载全部');
+ text('[data-download-race-size]',downloads.available?`${RACE_LABELS[race]}与共用资源 · ${mb(selected.bytes)} · ${selected.files} 个文件`:'资源已随游戏提供，无需预下载。');
+ text('[data-download-all-size]',downloads.available?`全部资源 · ${mb(all.bytes)} · ${all.files} 个文件`:'');
+ text('[data-download-progress]',s.total?`${s.scope==='all'?'全部资源':s.race?RACE_LABELS[s.race]+'与共用资源':''}：已保存 ${mb(s.done)} / ${mb(s.total)}`:'');
+ text('[data-download-status]',downloads.available?s.message:'');
+ text('[data-download-storage]',s.availableBytes===null?'':`浏览器估计可用存储约 ${mb(s.availableBytes)}；实际可保存容量由浏览器决定。`);
+ const bar=host.querySelector('progress')!;bar.max=Math.max(1,s.total);bar.value=s.done;bar.hidden=!s.total;
+ for(const action of ['download-race','download-all','download-clear'])host.querySelector<HTMLButtonElement>(`[data-action="${action}"]`)!.disabled=!downloads.canStart;
+ const stop=host.querySelector<HTMLButtonElement>('[data-action="download-stop"]')!;stop.hidden=!['running','stopping'].includes(s.phase);stop.disabled=s.phase==='stopping';
 }

@@ -153,3 +153,33 @@ dialog.modal-window:not([open]){display:none}
 #interface #transfer-picker button[aria-pressed=true]{border-color:#bbac75;background:linear-gradient(#53482f,#2a291e);color:#f0dba2}
 #interface #transfer-picker button[data-transfer-confirm]{margin-right:8px;border-color:#bbac75;background:linear-gradient(#53482f,#2a291e);color:#f0dba2}
 @media(max-width:600px){.player-services-dialog .modal-heading{padding:18px}.player-services-dialog .modal-heading h1{font-size:21px}.player-services-dialog .modal-content{padding:16px 18px}}
+
+/* Settings remain at physical touch size even inside the scaled landscape menu. */
+#interface.game-frame #overlay .modal-window.settings-modal{width:min(660px,calc(var(--game-width,100vw) - 2 * max(16px,env(safe-area-inset-left,0px),env(safe-area-inset-right,0px))));max-height:calc(var(--game-height,100dvh) - 2 * max(12px,env(safe-area-inset-top,0px),env(safe-area-inset-bottom,0px)));flex-shrink:0;transform:scale(var(--ui-inverse-scale,1));animation:none;font-size:calc(14px * var(--text-scale,1))}
+#interface.game-frame #overlay .modal-window.settings-modal .modal-heading{padding:14px 18px 10px;flex:none}
+#interface.game-frame #overlay .modal-window.settings-modal .modal-heading h1{font-size:calc(22px * var(--text-scale,1))}
+#interface.game-frame #overlay .modal-window.settings-modal .modal-heading .icon-button{width:44px;height:44px;min-width:44px}
+#interface.game-frame #overlay .modal-window.settings-modal .modal-content{min-height:0;padding:10px 18px;overflow:auto}
+#interface.game-frame #overlay .modal-window.settings-modal:has(.settings-tabs)>.modal-content{display:flex;flex-direction:column;overflow:hidden}
+#interface.game-frame #overlay .modal-window.settings-modal .settings-tabs{flex:none;gap:6px;margin-bottom:8px;padding-bottom:8px}
+#interface.game-frame #overlay .modal-window.settings-modal .settings-tabs button{flex:1 1 auto;min-width:0;min-height:44px;font-size:calc(14px * var(--text-scale,1));padding:6px 2px;white-space:nowrap}
+#interface.game-frame #overlay .modal-window.settings-modal .settings-body{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:4px}
+#interface.game-frame #overlay .modal-window.settings-modal .setting-row{min-height:58px;gap:12px;font-size:calc(14px * var(--text-scale,1))}
+#interface.game-frame #overlay .modal-window.settings-modal .setting-row select{min-width:0;max-width:62%;min-height:44px;font-size:calc(14px * var(--text-scale,1))}
+#interface.game-frame #overlay .modal-window.settings-modal .game-button{min-height:44px;font-size:calc(14px * var(--text-scale,1));white-space:normal}
+#interface.game-frame #overlay .modal-window.settings-modal .modal-footer{padding:10px 18px 14px;flex:none}
+#interface.game-frame #overlay .modal-window.settings-modal p{font-size:inherit;line-height:1.6;margin:10px 0;overflow-wrap:anywhere}
+#interface.game-frame #overlay .modal-window.settings-modal .settings-help{font-size:calc(12px * var(--text-scale,1));color:#adc4d1}
+#interface.game-frame #overlay .modal-window.settings-modal .settings-message:empty{display:none}
+#interface.game-frame #overlay .modal-window.settings-modal .settings-message,#interface.game-frame #overlay .modal-window.settings-modal [data-download-status]{color:#e6cf9d}
+#interface.game-frame #overlay .modal-window.settings-modal .fullscreen-guide{border-bottom:1px solid #688ba63b;padding-bottom:10px}
+#interface.game-frame #overlay .modal-window.settings-modal .fullscreen-guide summary{min-height:44px;cursor:pointer;padding:10px 0;color:#dce9ef}
+#interface.game-frame #overlay .modal-window.settings-modal .download-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#interface.game-frame #overlay .modal-window.settings-modal .download-actions button{flex:1 1 120px}
+#interface.game-frame #overlay .modal-window.settings-modal .download-sizes{border-block:1px solid #688ba63b;margin:12px 0}
+#interface.game-frame #overlay .modal-window.settings-modal progress{display:block;width:100%;height:12px;accent-color:#9cc9b3}
+#interface.game-frame #overlay .modal-window.settings-modal [hidden]{display:none!important}
+#interface.game-frame #overlay .game-footer [data-action=settings]{min-width:calc(44px * var(--ui-inverse-scale,1));min-height:calc(44px * var(--ui-inverse-scale,1))}
+#interface.game-frame #overlay .game-footer [data-action=settings] svg{width:calc(20px * var(--ui-inverse-scale,1));height:calc(20px * var(--ui-inverse-scale,1))}
+#interface.game-frame #overlay[data-layout=landscape] .modal-window.settings-modal .modal-heading{padding-block:6px}
+#interface.game-frame #overlay[data-layout=landscape] .modal-window.settings-modal .modal-footer{padding-block:6px}

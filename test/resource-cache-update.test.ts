@@ -29,3 +29,12 @@ test('normal loading and optional pre-download share an in-flight request',async
  store.cache.get=async h=>disk.get(h)??null;store.cache.put=async(h,b)=>{disk.set(h,b);return true;};
  const playing=store.prepare(['model']);await new Promise(r=>setTimeout(r,1));const prefetch=store.prefetch(['model'],()=>{},()=>false);release();await Promise.all([playing,prefetch]);assert.equal(requests,1);URL.revokeObjectURL(store.urls.model);
 });
+
+test('a failed optional disk write does not prevent a required foreground asset from loading',async()=>{
+ const bytes=new TextEncoder().encode('foreground without disk quota'),sha=digest(bytes);let requests=0,release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});
+ const store=new HttpAssetStore({version:1,release:'quota',assets:{model:{url:`assets/${sha}.glb`,bytes:bytes.length,sha256:sha,mime:'model/gltf-binary'}}},'https://assets.example/',async()=>{requests++;await gate;return new Response(bytes);});
+ store.cache.get=async()=>null;store.cache.put=async()=>false;store.cache.warning='cache quota';
+ const optional=assert.rejects(store.prefetch(['model'],()=>{},()=>false),/cache quota/);
+ for(let i=0;i<200&&requests===0;i++)await new Promise(resolve=>setTimeout(resolve,0));assert.equal(requests,1);
+ const required=store.prepare(['model']);release();await Promise.all([optional,required]);assert.ok(store.urls.model.startsWith('blob:'));assert.equal(requests,2);URL.revokeObjectURL(store.urls.model);
+});

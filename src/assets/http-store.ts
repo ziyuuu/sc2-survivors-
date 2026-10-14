@@ -5,7 +5,7 @@ type Progress=(done:number,total:number,label:string)=>void;
 export class HttpAssetStore {
  readonly urls:Record<string,string>={};
  private shared=new Map<string,Promise<string>>();
- private prefetching=new Map<string,Promise<void>>();
+ private prefetching=new Map<string,Promise<boolean>>();
  readonly cache=new ResourceCache();
  readonly metrics={downloadBytes:0,cachedBytes:0,files:0,cacheHits:0,cacheMisses:0};
  constructor(readonly manifest:HttpAssetManifest,readonly base:string,private request:typeof fetch=(input,init)=>fetch(input,init)){
@@ -16,7 +16,8 @@ export class HttpAssetStore {
   const asset=this.manifest.assets[id];if(!asset)throw Error('发行资源清单缺失：'+id);
   let job=this.shared.get(asset.sha256);
   if(!job){job=(async()=>{
-   await this.prefetching.get(asset.sha256);
+   // Optional disk caching may fail (for example quota); required play can still load.
+   await this.prefetching.get(asset.sha256)?.catch(()=>{});
    const valid=async(bytes:ArrayBuffer)=>bytes.byteLength===asset.bytes&&[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('')===asset.sha256;
    const cached=await this.cache.get(asset.sha256);
    if(cached&&await valid(cached)){this.metrics.cacheHits++;this.metrics.cachedBytes+=cached.byteLength;this.metrics.files++;return URL.createObjectURL(new Blob([cached],{type:asset.mime}));}
@@ -40,10 +41,10 @@ export class HttpAssetStore {
  async prefetch(ids:Iterable<string>,progress:(bytes:number,total:number)=>void,cancelled:()=>boolean){
   const rows=[...new Map([...ids].map(id=>{const a=this.manifest.assets[id];if(!a)throw Error('资源清单缺失：'+id);return [a.sha256,a] as const;})).values()];
   const hashes=rows.map(a=>a.sha256).sort(),taskId=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(hashes.join(':'))))].map(v=>v.toString(16).padStart(2,'0')).join('');
-  const total=rows.reduce((n,a)=>n+a.bytes,0);let cursor=0,done=0;progress(0,total);await this.cache.task(taskId,this.manifest.release,hashes,'running',0);
-  const jobs=Array.from({length:Math.min(3,rows.length)},async()=>{while(!cancelled()&&cursor<rows.length){const a=rows[cursor++];let job=this.prefetching.get(a.sha256);if(!job){const live=this.shared.get(a.sha256);job=(async()=>{if(live)await live;const cached=await this.cache.get(a.sha256);const valid=async(b:ArrayBuffer)=>b.byteLength===a.bytes&&[...new Uint8Array(await crypto.subtle.digest('SHA-256',b))].map(v=>v.toString(16).padStart(2,'0')).join('')===a.sha256;if(cached&&await valid(cached))return;
-    const r=await this.request(new URL(a.url,this.base),{cache:cached?'reload':'default',credentials:'omit'});if(!r.ok)throw Error('下载失败：'+r.status);const b=await r.arrayBuffer();if(!await valid(b))throw Error('资源校验失败');this.metrics.downloadBytes+=b.byteLength;if(!await this.cache.put(a.sha256,b,a.mime,this.manifest.release))throw Error(this.cache.warning!);
-   })();this.prefetching.set(a.sha256,job);}try{await job;done+=a.bytes;progress(done,total);}finally{this.prefetching.delete(a.sha256);}}});
+  const total=rows.reduce((n,a)=>n+a.bytes,0);let cursor=0,done=0,failed=false;progress(0,total);await this.cache.task(taskId,this.manifest.release,hashes,'running',0);
+  const jobs=Array.from({length:Math.min(3,rows.length)},async()=>{while(!failed&&!cancelled()&&cursor<rows.length){const a=rows[cursor++];let job=this.prefetching.get(a.sha256);if(!job){const live=this.shared.get(a.sha256);job=(async()=>{if(live)await live;const cached=await this.cache.get(a.sha256);const valid=async(b:ArrayBuffer)=>b.byteLength===a.bytes&&[...new Uint8Array(await crypto.subtle.digest('SHA-256',b))].map(v=>v.toString(16).padStart(2,'0')).join('')===a.sha256;if(cached&&await valid(cached))return true;if(cancelled())return false;
+    const r=await this.request(new URL(a.url,this.base),{cache:cached?'reload':'default',credentials:'omit'});if(!r.ok)throw Error('下载失败：'+r.status);const b=await r.arrayBuffer();if(!await valid(b))throw Error('资源校验失败');this.metrics.downloadBytes+=b.byteLength;if(!await this.cache.put(a.sha256,b,a.mime,this.manifest.release))throw Error(this.cache.warning??'浏览器未能保存资源缓存');return true;
+   })();this.prefetching.set(a.sha256,job);}try{if(!await job)return;done+=a.bytes;progress(done,total);}catch(error){failed=true;throw error;}finally{this.prefetching.delete(a.sha256);}}});
   const result=await Promise.allSettled(jobs),failure=result.find(r=>r.status==='rejected');await this.cache.task(taskId,this.manifest.release,hashes,failure?'failed':cancelled()?'stopped':'complete',done);if(failure?.status==='rejected')throw failure.reason;
  }
 }

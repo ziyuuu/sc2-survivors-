@@ -89,6 +89,7 @@ export class BattleRenderer {
  private distress=new BattleDistress();private distressLayer=document.createElement('div');
  setCameraShake(enabled:boolean){this.cameraShake=enabled;try{localStorage.setItem('sc2.cameraShake',String(enabled));}catch{}}
  private viewportWidth=1;private viewportHeight=1;
+ private viewportObserver:ResizeObserver;private readonly resizeFromBrowser=()=>this.resize();
  renderer:THREE.WebGLRenderer;scene=new THREE.Scene();camera=new THREE.PerspectiveCamera();private lighting:SceneLighting;private sceneShadows:SceneShadows;private contact:SceneContact;
  batches=new Map<UnitType,UnitBatch>();gpu=new Map<string,AnimatedBatch>();
  private animationStates=new Map<number,{action:string;since:number;modeDuration:number;playback:AttackPlaybackState;poseClock:PoseClockState;sampled?:{at:number;action:keyof ReturnType<typeof mapAnimations>;seconds:number;once:boolean;attackSeconds:number;attackKey:keyof ReturnType<typeof mapAnimations>}}>();
@@ -133,7 +134,7 @@ export class BattleRenderer {
   this.distressLayer.id='battle-distress';this.distressLayer.setAttribute('aria-hidden','true');canvas.parentElement!.append(this.distressLayer);
   this.labelLayer.id='pod-labels';canvas.parentElement!.append(this.labelLayer);this.friendlyLabels=new FriendlyLabels(this.labelLayer);
   this.safeProbe.style.cssText='position:fixed;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)';canvas.parentElement!.append(this.safeProbe);
-  this.resize();window.addEventListener('resize',()=>this.resize());new ResizeObserver(()=>this.resize()).observe(canvas);
+  this.resize();window.addEventListener('resize',this.resizeFromBrowser);this.viewportObserver=new ResizeObserver(this.resizeFromBrowser);this.viewportObserver.observe(canvas);
   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.contextEpoch++;this.screenWarmed.clear();this.validatedPrograms.clear();world.paused=true;world.announce('画面连接中断，正在等待恢复');});
   canvas.addEventListener('webglcontextrestored',()=>{this.sceneShadows.restore();this.contact.restore();world.announce('画面连接已恢复，请准备画面后继续');});
  }
@@ -261,7 +262,16 @@ export class BattleRenderer {
    if(checked%8===0)await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));
   }
  }
- resize(){const w=this.viewportWidth=this.canvas.clientWidth||innerWidth,h=this.viewportHeight=this.canvas.clientHeight||innerHeight,gl=this.renderer.getContext();this.renderer.setPixelRatio(renderPixelRatio(this.quality,window.devicePixelRatio||1,w,h,gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)));this.renderer.setSize(w,h,false);const safe=getComputedStyle(this.safeProbe);this.cameraController.resize(w,h,matchMedia('(pointer:coarse)').matches,{left:parseFloat(safe.paddingLeft)||0,right:parseFloat(safe.paddingRight)||0,top:parseFloat(safe.paddingTop)||0,bottom:parseFloat(safe.paddingBottom)||0});}
+ private resizeSignature='';
+ /** The production viewport coordinator owns commits; standalone previews keep their observer. */
+ manageViewport(){window.removeEventListener('resize',this.resizeFromBrowser);this.viewportObserver.disconnect();}
+ resize(){
+  const w=this.canvas.clientWidth||innerWidth,h=this.canvas.clientHeight||innerHeight,gl=this.renderer.getContext(),ratio=renderPixelRatio(this.quality,window.devicePixelRatio||1,w,h,gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)),safe=getComputedStyle(this.safeProbe),coarse=matchMedia('(pointer:coarse)').matches;
+  const insets={left:parseFloat(safe.paddingLeft)||0,right:parseFloat(safe.paddingRight)||0,top:parseFloat(safe.paddingTop)||0,bottom:parseFloat(safe.paddingBottom)||0},signature=[w,h,ratio,coarse,...Object.values(insets)].join(':');
+  if(signature===this.resizeSignature)return;this.resizeSignature=signature;
+  if(w!==this.viewportWidth||h!==this.viewportHeight||ratio!==this.renderer.getPixelRatio())this.renderer.setDrawingBufferSize(w,h,ratio);
+  this.viewportWidth=w;this.viewportHeight=h;this.cameraController.resize(w,h,coarse,insets);
+ }
  private preparedCommon=new Set<string>();
  private backgroundModels=new Set<string>();
  private backgroundDesired=new Set<string>();

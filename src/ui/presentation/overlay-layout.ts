@@ -9,6 +9,7 @@ export function mountOverlayLayout(overlay:HTMLElement,host:HTMLElement){
  const update=()=>{const layout=overlayLayout(host.clientWidth,host.clientHeight);overlay.dataset.layout=layout.mode;
   overlay.style.width=layout.width+'px';overlay.style.height=layout.height+'px';overlay.style.transform=`scale(${layout.scale})`;
   overlay.style.setProperty('--ui-layout-width',layout.width+'px');overlay.style.setProperty('--ui-layout-height',layout.height+'px');overlay.style.setProperty('--ui-layout-scale',String(layout.scale));
+  overlay.style.setProperty('--ui-inverse-scale',String(1/layout.scale));
  };
  const observer=new ResizeObserver(update);observer.observe(host);update();return ()=>observer.disconnect();
 }

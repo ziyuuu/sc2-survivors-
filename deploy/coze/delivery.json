@@ -1,7 +1,7 @@
 {
-  "status": "MVP5 step 5 local final application; exact verified step 3/4 game bytes, complete five-map environment and retained building new-run integration; viewing entry delivered separately; human acceptance and global MVP gates remain open; no live deployment",
-  "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
-  "packageBuildId": "27e935cbc778c90e38e625b247a95dfc0bb128098e0091bb68ef4bb86b01fd6c",
+  "status": "Settings fullscreen and persistent resource downloads; coalesced orientation viewport commits and input reset; accepted five-map resources and gameplay retained; Safari loading/memory remediation excluded; desktop and emulated mobile validation only; no live deployment",
+  "appBuildId": "286ec11bbdae364d603dadff1ac499cd12590ba29a589260fafa39175a4173fd",
+  "packageBuildId": "cf7f0dabd12c53736832fc12e68f43b9dbf4c4fd7ba935cee0c891a6ac40a411",
   "runSchema": 26,
   "profileVersion": 6,
   "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
@@ -167,14 +167,24 @@
       "sha256": "6fe0058ab499035e1fd9b3b308cfaa76f08339743bd2a729daec996d7c00bcee"
     },
     {
+      "path": "MOBILE_SETTINGS_SAFARI_PLAN_20261014.md",
+      "bytes": 18036,
+      "sha256": "967380b251f6d2f5e47afefd64d8c0ee1d9b3a7857d1360c787f772439b7d870"
+    },
+    {
+      "path": "MOBILE_SETTINGS_VALIDATION_20261014.md",
+      "bytes": 8495,
+      "sha256": "b750c0bfc58e75915b107c7424d617b46cba0f2912b111111631d0c79b36553e"
+    },
+    {
       "path": "MVP1_BUILDING_INTEGRATION_20261013.md",
       "bytes": 7106,
       "sha256": "706bbf55629938bb03ff23bc085fb883475703f4514e8776dc7bc03c64a5cbb7"
     },
     {
       "path": "MVP5_DELIVERY_20261014.md",
-      "bytes": 6322,
-      "sha256": "2d9ce1fe279f4f7fdd881efbfa293407c325fcf74a745feb180b963d66665f6f"
+      "bytes": 6604,
+      "sha256": "12e2dd3e91feaca5e7dfa49920dfc13c175268d9beccd7f91df4e866f6457c9e"
     },
     {
       "path": "MVP5_FULL_MAP_20261014.md",
@@ -183,8 +193,8 @@
     },
     {
       "path": "MVP5_FULL_MAP_PLAN_20261014.md",
-      "bytes": 8980,
-      "sha256": "fc0434e9ef7f591f022149fc0eee6fc703b1514bdaa5143d85a7459680f9d483"
+      "bytes": 9193,
+      "sha256": "bce4b1efcb343297db35de6b9c6286ee4e1184899a04cf0882b5f3c09ecc5824"
     },
     {
       "path": "MVP5_LIFECYCLE_20261014.md",
@@ -224,12 +234,12 @@
     {
       "path": "package-lock.json",
       "bytes": 6136,
-      "sha256": "59226f1bc863ef5fe82caf522cc4b3ea84d44c05d55dcbd5cb87b0f286ea0fd4"
+      "sha256": "d0638b9ad5963b1a5f8104712da6e21991789722599c545ed3e2f1c29c27bdc7"
     },
     {
       "path": "package.json",
       "bytes": 353,
-      "sha256": "1f720808ae3ff941e7830b936dcc25c4496df9f2e423c5e70d198d16fd72b728"
+      "sha256": "f6e381b4f3bc607f591bfb24663dd2bd0e9e1517e9d409493cb73df5f3b90f55"
     },
     {
       "path": "PLAYER-DATA.md",
@@ -242,24 +252,19 @@
       "sha256": "8488fd0475a67b07c54785a2ca15ca697eaf358126891d1f437dd59422c527df"
     },
     {
-      "path": "public/assets/index-CjyyYeaB.css",
-      "bytes": 504082,
-      "sha256": "a58604df280ae616671a26e8624ec73952bf23e5d6f20b03a4ad06245cbdd2d2"
+      "path": "public/assets/index-ANIyMSkh.js",
+      "bytes": 24173685,
+      "sha256": "4bf13efd3b7beb62084b050323b605c41e6d75499bba0145cf51c8ea8a696b62"
     },
     {
-      "path": "public/assets/index-VYXiQQOu.js",
-      "bytes": 24166689,
-      "sha256": "76d696c1d31533b1c81d07e1253adf79c6ae65087f13ccafdcf1cfb76a6fc15a"
-    },
-    {
-      "path": "public/build-inputs.json",
-      "bytes": 58168,
-      "sha256": "e07503e258291317b59decaeef0955ba94a7eb5c57ad90713d4700cbcb4c2324"
+      "path": "public/assets/index-C6n0onAf.css",
+      "bytes": 508108,
+      "sha256": "69712cd07da3cdf29fa75f54e9ff00b108e61f7e11e0b8817ba14704c99bd865"
     },
     {
       "path": "public/index.html",
       "bytes": 955146,
-      "sha256": "47b5b1cc5d94b96a2382a3220b00baad69f2035afa18a591f8fe105ebbb0b923"
+      "sha256": "764caaa641f12e69e17b255ee81526d0d8332dce4232a1c6a824b6f3e5a0a745"
     },
     {
       "path": "public/runtime-config.json",
@@ -268,13 +273,13 @@
     },
     {
       "path": "public/web-release.json",
-      "bytes": 623,
-      "sha256": "8e35e7ac1ee3c00867065bcb57c80ba43395f2edc5a86166a9358f056635fef9"
+      "bytes": 521,
+      "sha256": "e1a867d69ca4df63603858d247eb39d99bcb2f3156f4fe406bb414d2c3e527ff"
     },
     {
       "path": "README.md",
-      "bytes": 1717,
-      "sha256": "9517738ba48efff6002b220a9560fd8b9833b435d734a2fa8735af12a03c1975"
+      "bytes": 1800,
+      "sha256": "9908e05b402bfd7cd7e8e5001547ded2b80cfb0e33d51d531425aba477203a15"
     },
     {
       "path": "REFRACTION_SCIENCE_20261013.md",
@@ -293,8 +298,8 @@
     },
     {
       "path": "resource-delta.json",
-      "bytes": 18634,
-      "sha256": "481006476cbf5ea0239ce7e460af70a1262cee18380513b83b412fe3807c9ae8"
+      "bytes": 330,
+      "sha256": "0796dbad80870170c3eecb464df40f701ecac63bcd212246b1e954a89fb4de72"
     },
     {
       "path": "resource-groups.json",

@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-14",
+  "scope": [
+    "Fullscreen in Graphics settings",
+    "Dedicated resource predownload tab",
+    "Coalesced orientation viewport commits and input reset",
+    "Refresh download controls on return to visible paused settings"
+  ],
+  "excluded": [
+    "Safari entry-loop diagnosis/fix",
+    "Staged entrance-resource loading",
+    "Memory remediation"
+  ],
+  "authorization": "3就不用了。你做好1.2即可。开始吧",
+  "status": "R3 locally implemented and delivered; physical device checks unverified; no live deployment",
+  "at": "2026-10-14T13:32:11.632Z",
+  "passed": true,
+  "afterSync": true,
+  "application": {
+    "path": "dist/Mobile-Settings-Final-R3-Application-20261014",
+    "version": "0.6.28",
+    "appBuildId": "286ec11bbdae364d603dadff1ac499cd12590ba29a589260fafa39175a4173fd",
+    "packageBuildId": "cf7f0dabd12c53736832fc12e68f43b9dbf4c4fd7ba935cee0c891a6ac40a411",
+    "files": 205,
+    "zip": {
+      "path": "dist/Mobile-Settings-Final-R3-Application-20261014.zip",
+      "bytes": 15100886,
+      "sha256": "5d1d46e6800c3eb0dd939f28e0fc6d923a7dc743449a245944f05d0c7be57913",
+      "files": 206,
+      "packageBuildId": "cf7f0dabd12c53736832fc12e68f43b9dbf4c4fd7ba935cee0c891a6ac40a411",
+      "verifiedRoundTrip": true,
+      "deployed": false
+    }
+  },
+  "html": {
+    "path": "dist/SC2-Survivors-Mobile-Settings-Final-R3-20261014.html",
+    "bytes": 705827259,
+    "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+    "decodedRecords": 1217,
+    "logicalBytes": 827815888
+  },
+  "resources": {
+    "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+    "records": 1217,
+    "files": 1168,
+    "bytes": 823440309,
+    "newFiles": 0,
+    "oldManifestExact": true
+  },
+  "sourceInputs": 360,
+  "unchangedBackendFiles": 152,
+  "dependenciesChanged": false,
+  "runs": {
+    "formal-web-r3": {
+      "checks": 11,
+      "screens": 13,
+      "exports": 3,
+      "rotations": 10,
+      "requests": 1253,
+      "errors": 0
+    },
+    "formal-desktop-r2": {
+      "checks": 1,
+      "screens": 2,
+      "exports": 0,
+      "rotations": 0,
+      "requests": 501,
+      "errors": 0
+    },
+    "formal-offline-r2": {
+      "checks": 8,
+      "screens": 8,
+      "exports": 3,
+      "rotations": 9,
+      "requests": 0,
+      "errors": 0
+    }
+  },
+  "regressions": 1419,
+  "retained": [
+    "dist/SC2-Survivors-Current-20261006.html",
+    "dist/SC2-Survivors-MVP5-Final-20261014.html",
+    "dist/MVP5-Final-Application-20261014.zip",
+    "dist/MVP5-Final-Resources-20261014.zip",
+    "dist/SC2-Survivors-Mobile-Settings-Final-20261014.html",
+    "dist/Mobile-Settings-Final-Application-20261014.zip",
+    "dist/Mobile-Settings-Final-R2-Application-20261014.zip"
+  ],
+  "currentSynchronized": true,
+  "mirrorSynchronized": true,
+  "deployed": false,
+  "physicalDeviceAcceptance": false,
+  "safariLoadingFix": false,
+  "evidence": {
+    "root": "reports/local/mobile-settings-20261014",
+    "web": "formal-web-r3/result.json",
+    "desktop": "formal-desktop-r2/result.json",
+    "offline": "formal-offline-r2/result.json",
+    "startup": "application-startup-r3/startup.json",
+    "update": "application-update-r3/handoff-update.json",
+    "visual": "visual-review.json",
+    "binding": "binding-r3.json",
+    "git": "git-sync.json"
+  },
+  "visualReview": {
+    "finalSelectedImages": 7,
+    "earlierReviewedImages": 22,
+    "allFinalStillsReviewed": false,
+    "humanAcceptance": false
+  },
+  "preservedFailures": [
+    "ui-r1 hidden settings locator",
+    "ui-r2 genuine narrow-screen CSS overflow and incomplete API masking fixture",
+    "targeted-r1/r2 obsolete immediate-resize expectations and fixture cleanup/async issues",
+    "regression-r2/build-web-r5/build-application sandbox EPERM",
+    "first application omitted four historical documentation files; retained and superseded by R2",
+    "R2 visibility-resume availability omission found in lifecycle code review; one-line handler correction plus new R3 browser adapter check",
+    "Initial staging attempts hit ignored unchanged vendor paths, already-staged old asset deletion paths, and documentation EOF blank lines; no forced ignored files"
+  ],
+  "limits": [
+    "Windows Chromium and mobile-size/CDP emulation only",
+    "Visibility test adapts document.hidden and dispatches browser events; not actual OS suspension",
+    "125.6–484.6 ms automation-observed rotation includes waiting/loading work; not physical latency or 240 ms guarantee",
+    "R3 entry emitted 76 resource HTTP URL request events; transfer bytes not recorded; no zero-network promise",
+    "No complete offline PWA or persistent-cache guarantee",
+    "Entire MVP, natural/full-content 60 FPS, physical input and production/B4 remain separate gates"
+  ]
+}
