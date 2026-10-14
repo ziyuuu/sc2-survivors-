@@ -37,7 +37,12 @@ export async function createCampaignMap(scene:THREE.Scene,terrain:RadialTerrain,
  root.name=d.source.sha256;root.visible=false;scene.add(root);
  const resources:LandscapeResources={textures:[],geometries:[],materials:[]};
  const {textures,geometries,materials}=resources;
- let disposed=false;const dispose=()=>{disposed=true;root.removeFromParent();for(const g of new Set(geometries))g.dispose();for(const m of new Set(materials))m.dispose();for(const t of new Set(textures))t.dispose();};
+ let disposed=false;const dispose=()=>{
+  disposed=true;root.removeFromParent();
+  // Instance matrices/colors have their own GPU buffers, separate from geometry attributes.
+  root.traverse(node=>{if(node instanceof THREE.InstancedMesh)node.dispose();});
+  for(const g of new Set(geometries))g.dispose();for(const m of new Set(materials))m.dispose();for(const t of new Set(textures))t.dispose();
+ };
  try{
   const profile=MAP_VISUAL_PROFILES[terrain.recipe.theme],features={...profile.features};
   let visual=features.ground?await createCampaignGround(terrain,resources,groundOptions):undefined,legacy=features.ground?undefined:await createLegacyGround(terrain,resources),activeGround=visual??legacy!;

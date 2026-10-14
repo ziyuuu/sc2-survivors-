@@ -1,14 +1,14 @@
 import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';import {pathToFileURL} from 'node:url';
 import {applyUpdate} from './apply-coze-update.mjs';
 const option=name=>{const index=process.argv.indexOf(name);return index>=0?process.argv[index+1]:null;};
-const out=option('--out')??'reports/local/current-logic-20261006',app=path.resolve(option('--app')??'dist/Current-Coze-Application-20261006'),resources=path.resolve('dist/web'),root=await fs.mkdtemp(path.resolve('.cache/current-update-')),assets=path.join(root,'public');
+const out=option('--out')??'reports/local/current-logic-20261006',app=path.resolve(option('--app')??'dist/Current-Coze-Application-20261006'),resources=path.resolve(option('--resources')??'dist/web'),root=await fs.mkdtemp(path.resolve('.cache/current-update-')),assets=path.join(root,'public');
 const release=JSON.parse(await fs.readFile(path.join(app,'public/web-release.json'),'utf8'));
 const target=JSON.parse(await fs.readFile(path.join(app,'public',release.manifest),'utf8'));
 const baseline=JSON.parse(await fs.readFile(option('--baseline')??path.join(app,'public',release.manifest),'utf8'));
 const oldFiles=[...new Map(Object.values(baseline.assets).map(a=>[a.url,a])).values()];
 const targetFiles=[...new Map(Object.values(target.assets).map(a=>[a.url,a])).values()],oldUrls=new Set(oldFiles.map(a=>a.url));
 const reused=targetFiles.filter(a=>oldUrls.has(a.url)).length,added=targetFiles.length-reused;
-for(const row of oldFiles){const target=path.join(assets,row.url);await fs.mkdir(path.dirname(target),{recursive:true});await fs.link(path.resolve('dist/web',row.url),target);}
+for(const row of oldFiles){const target=path.join(assets,row.url);await fs.mkdir(path.dirname(target),{recursive:true});await fs.link(path.resolve(resources,row.url),target);}
 const priorDirectory='releases/'+'d'.repeat(64);await fs.mkdir(path.join(root,priorDirectory),{recursive:true});await fs.writeFile(path.join(root,priorDirectory,'retained.txt'),'old-application');
 await fs.writeFile(path.join(root,'active-release.json'),JSON.stringify({appBuildId:'d'.repeat(64),directory:priorDirectory,assetRoot:assets}));
 await fs.writeFile(path.join(root,'.env'),'PORT=7777\nEXISTING_CONFIG=retain\n');await fs.writeFile(path.join(root,'package.json'),JSON.stringify({name:'existing-coze-project',scripts:{start:'node old.mjs',test:'keep-existing'}}));

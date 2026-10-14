@@ -1,0 +1,1289 @@
+{
+  "at": "2026-10-14T06:05:13.889Z",
+  "passed": true,
+  "status": "Authorized environment plan steps 3 and 4 locally implemented and verified; step 5 delivery and user viewing remain separate.",
+  "wholeMvpComplete": false,
+  "wholeMvp5Complete": false,
+  "step5Delivered": false,
+  "currentOrApplicationMirrorSynchronized": false,
+  "onlineDeployment": false,
+  "productionChange": {
+    "file": "src/render/terrain/campaign-map.ts",
+    "description": "Dispose InstancedMesh-owned GPU instance buffers when a campaign map is released; existing geometry, material and texture disposal retained.",
+    "unchanged": [
+      "map layout and source art",
+      "terrain/collision and stage areas",
+      "combat/economy/building rules",
+      "input and camera",
+      "run26/profile6/maprecipe3",
+      "backend and dependencies"
+    ]
+  },
+  "formal": {
+    "web": "dist/MVP5-Lifecycle-Web-20261014-R2",
+    "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+    "compiledInputs": 324,
+    "builtFiles": [
+      {
+        "file": "asset-manifest.b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615.json",
+        "bytes": 289072,
+        "sha256": "8488fd0475a67b07c54785a2ca15ca697eaf358126891d1f437dd59422c527df"
+      },
+      {
+        "file": "assets/index-CjyyYeaB.css",
+        "bytes": 504082,
+        "sha256": "a58604df280ae616671a26e8624ec73952bf23e5d6f20b03a4ad06245cbdd2d2"
+      },
+      {
+        "file": "assets/index-VYXiQQOu.js",
+        "bytes": 24166689,
+        "sha256": "76d696c1d31533b1c81d07e1253adf79c6ae65087f13ccafdcf1cfb76a6fc15a"
+      },
+      {
+        "file": "index.html",
+        "bytes": 955146,
+        "sha256": "47b5b1cc5d94b96a2382a3220b00baad69f2035afa18a591f8fe105ebbb0b923"
+      },
+      {
+        "file": "runtime-config.json",
+        "bytes": 19,
+        "sha256": "126217dff5079b655a2d3b45211b2fa388ee35a7d413b1f54fbda29a0cb71b90"
+      },
+      {
+        "file": "web-release.json",
+        "bytes": 623,
+        "sha256": "8e35e7ac1ee3c00867065bcb57c80ba43395f2edc5a86166a9358f056635fef9"
+      }
+    ]
+  },
+  "diagnostic": {
+    "web": "reports/local/mvp5-lifecycle-20261014/diagnostic-r2",
+    "appBuildId": "c3a9740ace6e41436407bf16d906d93c9815f0c7828869cdec0eef46a4c730d3",
+    "compiledInputs": 324,
+    "onlyNativeObjectReferencesExposed": true
+  },
+  "binding": {
+    "evidence": {
+      "file": "reports/local/mvp5-lifecycle-20261014/binding-r2.json",
+      "bytes": 4672,
+      "sha256": "2905ce61f2ed22616cf83c8994b788914acf74e72297dd6b6b00d82158b295cb"
+    },
+    "at": "2026-10-14T05:59:14.416Z",
+    "passed": true,
+    "formalAppBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+    "diagnosticAppBuildId": "c3a9740ace6e41436407bf16d906d93c9815f0c7828869cdec0eef46a4c730d3",
+    "compiledInputs": 324,
+    "productionInputsChanged": [
+      "src/render/terrain/campaign-map.ts"
+    ],
+    "formalAndDiagnosticInputsExact": true,
+    "htmlFormalModuleAndCssExact": true,
+    "retainedResourceFiles": 1168,
+    "resourceRelease": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+    "otherWorkingFiles": {
+      "total": 771,
+      "unchanged": 757,
+      "changed": [
+        {
+          "file": "docs/DOCUMENT_INDEX.md",
+          "before": "85ff6eb466e13a7c3f0966ce9351ce79def3d06d61c96bec8c5edf264cf27945",
+          "after": "fc4271a3cc2dc7f1eb54e4d4312cc0701e896be309e571005ef366edded80916",
+          "unchanged": false
+        },
+        {
+          "file": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+          "before": "66fa43ff2b77f22e0ec06209c38de6610c62906ec7966899ef176b4cb048c7e0",
+          "after": "b360b00ec7db9a91d4e275b0c54d390ea6752553823b2ed22717c0e5a923a108",
+          "unchanged": false
+        },
+        {
+          "file": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+          "before": "a03550ee71d17d3bf6b3b94be9387f6c19119ce7fba8ce889af886294f7a9379",
+          "after": "992807c6f220f0d2356c785dcfa6aa1ff70115efc06256774c342a8c48828d0f",
+          "unchanged": false
+        },
+        {
+          "file": "docs/project/STARSHIP_EQUIPMENT_REDESIGN_20261013.md",
+          "before": "447c73bd463c4e37ec9634480c4bb973986039f1bac452d386045ddb315f0201",
+          "after": "f66f8ed2da1fe7b257cd9b76f4f832f557ff32f25d7ef41254b61cd79472bd4b",
+          "unchanged": false
+        },
+        {
+          "file": "docs/project/STARSHIP_EQUIPMENT_SETTLEMENT_20261014.md",
+          "before": "1282afc8225e403c229a8959f0dc502993a3a7682747ce767e868708b8f3841b",
+          "after": "5f90f8da456570bb023069d248ffc9719fac41f3efacc09fa27def020dcc4379",
+          "unchanged": false
+        },
+        {
+          "file": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+          "before": "3236c4940a984c52c2ba411e58d910678346d4a235345ced526514f2015ec459",
+          "after": "49aa469b36804fc7c9208f203058a313583651df655b9d588c841c0ba157fdb6",
+          "unchanged": false
+        },
+        {
+          "file": "docs/project/STARSHIP_SET_DESIGN_20261013.md",
+          "before": "4886574294a1771890993cfacfa351b8738dd2e6a29c79efa06e4c1b69362d43",
+          "after": "72b442ae3336d803b6c0c6a94d61c90b5d3bdc0a28af800369c78b3403bdba8d",
+          "unchanged": false
+        },
+        {
+          "file": "preview/starship-ui-20261014-r5/README.txt",
+          "before": "38f860bcd025616df6e60e1e65bcdce9a57d3301837688a97ebec574d4de16f7",
+          "after": "f4de36fc9f79ef4c825d7d255b2b99158f5c4dc7f30abf0dfc68cad8e77de586",
+          "unchanged": false
+        },
+        {
+          "file": "preview/starship-ui-20261014-r5/app.js",
+          "before": "90b9e138579d5d9fe86bb6e01b7c51820e268b0e2614494e41716ce4e2b45ebe",
+          "after": "e66b85852d380cb3313d123dd8fc7c82efd581bbf3d56fa7ba292d5795bd84a0",
+          "unchanged": false
+        },
+        {
+          "file": "preview/starship-ui-20261014-r5/index.html",
+          "before": "157772dd2da6d3ad31aa8bd1a2e7812538664018c98b136853882ff653bc7f35",
+          "after": "ae6a59606669d6d8fa785378521bb8d9c91c7811835226f7348e10388142c23f",
+          "unchanged": false
+        },
+        {
+          "file": "preview/starship-ui-20261014-r5/package.mjs",
+          "before": "d433463e0e76bac6daf155df7dbe5f30c74d011b406696b15a344be31a1a21ed",
+          "after": "6f4868ec4ef0103cb47bdbbe629e10fe78b482bf7f89d83b611d2c70ece77a3e",
+          "unchanged": false
+        },
+        {
+          "file": "preview/starship-ui-20261014-r5/serve.mjs",
+          "before": "5f07a062eb6642ee1dec2fc82043ebfcb529981dd0cbe1cda4a4885c4e25579b",
+          "after": "f718fcc269f91331dc3cd8e302e93ac335217ae2237d54f12ba79f5918cc671d",
+          "unchanged": false
+        },
+        {
+          "file": "preview/starship-ui-20261014-r5/test-rules.mjs",
+          "before": "27a563b36730c3cf1bf57449705f14c549b860ed77cc7a1177de7885acd08752",
+          "after": "c719b1c6c7fb0ba361aac346e2ed3c972e184b189e7aefe88c36124878900726",
+          "unchanged": false
+        },
+        {
+          "file": "docs/README.md",
+          "before": "73764c736bcfa86d21b3ec105bd5112a4ceb1e43918408f4b1a8c77cad85826a",
+          "after": "ae8c00082be51ab410557093e7f782ac7e2fa02d1509aff028954618375cf23a",
+          "unchanged": false
+        }
+      ]
+    },
+    "scope": "Read-only comparison; changed unrelated files are reported, never overwritten. Baseline, formal, diagnostic and actual HTML stay distinct evidence builds."
+  },
+  "html": {
+    "path": "dist/SC2-Survivors-MVP5-Lifecycle-R2-20261014.html",
+    "bytes": 707862310,
+    "sha256": "380022220e6246f25b64575d8c952650e6067fde4268be11470973046dac6ff7",
+    "formalModuleAndCssExact": true,
+    "actualDecoder": {
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/offline-decoder-r2.json",
+        "bytes": 208606,
+        "sha256": "bfec222f7a40729929494f7fa703f181026990d8dddd38d9bb00d9c2b227e95f"
+      },
+      "records": 1217,
+      "logicalBytes": 827815888,
+      "hashChecked": 1217
+    }
+  },
+  "applicationCandidate": {
+    "path": "dist/MVP5-Lifecycle-R2-Application-20261014",
+    "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+    "packageBuildId": "a99e8dbfb7d0b188842cdfe455d2f9c5f472136645221ba195b7690a7d6cea3d",
+    "version": "0.6.27-rc.1",
+    "appFiles": 194,
+    "purpose": "Isolated external-resource update verification; not step 5 final delivery.",
+    "resources": {
+      "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+      "records": 1217,
+      "files": 1168,
+      "physicalBytes": 823440309,
+      "logicalBytes": 827815888,
+      "oldRetained": 1129,
+      "added": 39,
+      "newBytes": 14367129,
+      "sceneryTextures": 22,
+      "originalModelReferenceClosures": 43
+    },
+    "unchangedBackendFiles": 152,
+    "dependenciesChanged": false,
+    "update": {
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/update-r2/handoff-update.json",
+        "bytes": 1455,
+        "sha256": "253f8a2b903ecd8e2c3984f5ee529ca1452ad4029739fce2b11e779c2064b014"
+      },
+      "passed": true,
+      "reused": 1129,
+      "added": 39,
+      "downloads": 0,
+      "checks": [
+        "1129 verified old files retained, 39 added, zero full-resource redownload, old app/environment retained",
+        "Installed package starts with all 1168 resources verified, backend disabled, protected API fail-closed",
+        "Same package repeat is idempotent and preserves rollback pointer",
+        "Corrupt application rejected without changing active pointer"
+      ]
+    }
+  },
+  "bufferDisposal": {
+    "before": {
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/buffers-before-r1/result.json",
+        "bytes": 5577385,
+        "sha256": "9bed59af72e5443ac0d2b268baf76281d4b745e8b67fd7d0256b1db709d91e0e"
+      },
+      "expectedDefectConfirmed": true,
+      "bundleSha256": "eef0e0ffe9ea62efc41547f3dfd5fa69f2df3461b9e4865a819e0fe414214d56",
+      "growth": [
+        {
+          "theme": "industrial",
+          "buffers": 86,
+          "geometries": 0,
+          "textures": 0
+        },
+        {
+          "theme": "ice",
+          "buffers": 86,
+          "geometries": 0,
+          "textures": 0
+        },
+        {
+          "theme": "mar-sara",
+          "buffers": 86,
+          "geometries": 0,
+          "textures": 0
+        },
+        {
+          "theme": "char",
+          "buffers": 86,
+          "geometries": 0,
+          "textures": 0
+        },
+        {
+          "theme": "frontier",
+          "buffers": 86,
+          "geometries": 0,
+          "textures": 0
+        }
+      ]
+    },
+    "after": {
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/buffers-after-r1/result.json",
+        "bytes": 5577501,
+        "sha256": "51dd9be3b84a193be541186011e0c6b0a37b86275bdbf0dfd6e015f3735bed13"
+      },
+      "bundleSha256": "68d6a2dc10c445c563c0238e6ad8d8456333d3ac84474c86659f521b76b725ee",
+      "growth": [
+        {
+          "theme": "industrial",
+          "buffers": 0,
+          "geometries": 0,
+          "textures": 0
+        },
+        {
+          "theme": "ice",
+          "buffers": 0,
+          "geometries": 0,
+          "textures": 0
+        },
+        {
+          "theme": "mar-sara",
+          "buffers": 0,
+          "geometries": 0,
+          "textures": 0
+        },
+        {
+          "theme": "char",
+          "buffers": 0,
+          "geometries": 0,
+          "textures": 0
+        },
+        {
+          "theme": "frontier",
+          "buffers": 0,
+          "geometries": 0,
+          "textures": 0
+        }
+      ]
+    },
+    "cycles": 3,
+    "themes": 5,
+    "finalScreenshotByteExact": true,
+    "screenshotSha256": "23ae0499da769461deff0135c4bcac3b55039e1dc0228bf92e04fe34617bc72b",
+    "measurement": "WebGL-created minus explicitly deleted buffers, plus Three geometry/texture counts; not VRAM or garbage-collection measurement."
+  },
+  "lifecycle": [
+    {
+      "name": "formal-web-r1",
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/formal-web-r1/result.json",
+        "bytes": 14048004,
+        "sha256": "1bd84ae2c278c351b188fdb39e403ae06451d1e225d41aa52b3f3e1eb8a22767"
+      },
+      "passed": true,
+      "appBuildId": "a69897a3ce015483cf217afba674633e1aeea0653902047ed7b95a43a052a697",
+      "method": "Actual formal Web / named self-contained HTML. Current-build paused native archive fixtures select maps; UI import, in-page map replacement, required readiness, native keyboard, pause, actual WebGL restoration and same-build save reload. Won fixture selects endless. No natural campaign, legacy migration or physical-device claim.",
+      "checks": [
+        {
+          "kind": "pause-state",
+          "theme": "industrial"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "industrial",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "same-build-save-page-reload",
+          "label": "industrial",
+          "nativeStateExact": true,
+          "normalization": []
+        },
+        {
+          "kind": "pause-state",
+          "theme": "ice"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "ice",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "pause-state",
+          "theme": "mar-sara"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "mar-sara",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "pause-state",
+          "theme": "char"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "char",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "pause-state",
+          "theme": "frontier"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "frontier",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "endless",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "same-build-save-page-reload",
+          "label": "endless",
+          "nativeStateExact": true,
+          "normalization": []
+        },
+        {
+          "kind": "independent-endless-flat-map"
+        }
+      ],
+      "screens": 19,
+      "exports": 31,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "httpErrors": 0,
+      "offlineHttpRequests": 0,
+      "entryOnly": false
+    },
+    {
+      "name": "formal-offline-r2",
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/formal-offline-r2/result.json",
+        "bytes": 14037432,
+        "sha256": "5698fb06eb8cd1bc3999c5b52e78eae701d308c8680512ff01b817e181ecd705"
+      },
+      "passed": true,
+      "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+      "method": "Actual formal Web / named self-contained HTML. Current-build paused native archive fixtures select maps; UI import, in-page map replacement, required readiness, native keyboard, pause, actual WebGL restoration and same-build save reload. Won fixture selects endless. No natural campaign, legacy migration or physical-device claim.",
+      "checks": [
+        {
+          "kind": "pause-state",
+          "theme": "industrial"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "industrial",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "same-build-save-page-reload",
+          "label": "industrial",
+          "nativeStateExact": true,
+          "normalization": []
+        },
+        {
+          "kind": "pause-state",
+          "theme": "ice"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "ice",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "pause-state",
+          "theme": "mar-sara"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "mar-sara",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "pause-state",
+          "theme": "char"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "char",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "pause-state",
+          "theme": "frontier"
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "frontier",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "actual-webgl-restore",
+          "label": "endless",
+          "nativeStateExact": true,
+          "normalization": [
+            "notice",
+            "noticeUntil"
+          ]
+        },
+        {
+          "kind": "same-build-save-page-reload",
+          "label": "endless",
+          "nativeStateExact": true,
+          "normalization": []
+        },
+        {
+          "kind": "independent-endless-flat-map"
+        }
+      ],
+      "screens": 19,
+      "exports": 31,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "httpErrors": 0,
+      "offlineHttpRequests": 0,
+      "entryOnly": false
+    },
+    {
+      "name": "formal-web-r2",
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/formal-web-r2/result.json",
+        "bytes": 5457599,
+        "sha256": "bfcc1124f98de82f48714db94d5b64b030e371c0460e527730cab98a5de60084"
+      },
+      "passed": true,
+      "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+      "method": "Actual final formal Web entry checks with paused current-source native archive fixtures, five-map replacement and independent endless entry. No context-restore, natural campaign or physical-device claim in this entry-only run.",
+      "checks": [
+        {
+          "kind": "formal-map-entry",
+          "theme": "industrial"
+        },
+        {
+          "kind": "formal-map-entry",
+          "theme": "ice"
+        },
+        {
+          "kind": "formal-map-entry",
+          "theme": "mar-sara"
+        },
+        {
+          "kind": "formal-map-entry",
+          "theme": "char"
+        },
+        {
+          "kind": "formal-map-entry",
+          "theme": "frontier"
+        },
+        {
+          "kind": "independent-endless-flat-map"
+        }
+      ],
+      "screens": 6,
+      "exports": 0,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "httpErrors": 0,
+      "offlineHttpRequests": 0,
+      "entryOnly": true
+    },
+    {
+      "name": "missing-texture-r2",
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/missing-texture-r2/result.json",
+        "bytes": 1152107,
+        "sha256": "6dc2ade82d790f77c565d8368533b1a580ec8d20ff2c77a2c078e2255d338b92"
+      },
+      "passed": true,
+      "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+      "method": "Actual formal Web / named self-contained HTML. Current-build paused native archive fixtures select maps; UI import, in-page map replacement, required readiness, native keyboard, pause, actual WebGL restoration and same-build save reload. Won fixture selects endless. No natural campaign, legacy migration or physical-device claim.",
+      "checks": [
+        {
+          "kind": "missing-resource-gate",
+          "id": "environment.sample.lavabase"
+        },
+        {
+          "kind": "resource-retry"
+        }
+      ],
+      "screens": 2,
+      "exports": 0,
+      "pageErrors": 0,
+      "consoleErrors": 1,
+      "httpErrors": 1,
+      "offlineHttpRequests": 0,
+      "entryOnly": false
+    },
+    {
+      "name": "missing-model-r2",
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/missing-model-r2/result.json",
+        "bytes": 1455546,
+        "sha256": "8f5d4ed4eac3b5d41472a8085ebb7eb3096aa7f420b38e275ce4cbcbf7c3e346"
+      },
+      "passed": true,
+      "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+      "method": "Actual formal Web / named self-contained HTML. Current-build paused native archive fixtures select maps; UI import, in-page map replacement, required readiness, native keyboard, pause, actual WebGL restoration and same-build save reload. Won fixture selects endless. No natural campaign, legacy migration or physical-device claim.",
+      "checks": [
+        {
+          "kind": "missing-resource-gate",
+          "id": "model.map.cliffnatural0ex1_bbbc_00"
+        },
+        {
+          "kind": "resource-retry"
+        }
+      ],
+      "screens": 2,
+      "exports": 0,
+      "pageErrors": 0,
+      "consoleErrors": 1,
+      "httpErrors": 1,
+      "offlineHttpRequests": 0,
+      "entryOnly": false
+    }
+  ],
+  "cache": {
+    "name": "cache-r3",
+    "evidence": {
+      "file": "reports/local/mvp5-lifecycle-20261014/cache-r3/result.json",
+      "bytes": 568841,
+      "sha256": "9d65b314a03bc0e00be215b853652f4ee2d40cf4778624a085997de1df3a5e3b"
+    },
+    "passed": true,
+    "appBuildId": "c3a9740ace6e41436407bf16d906d93c9815f0c7828869cdec0eef46a4c730d3",
+    "method": "Current-source paused archive fixtures; same-page five-map import/preparation repeats. Not natural campaign evidence.",
+    "checks": [
+      {
+        "kind": "same-page-map-cache-plateau",
+        "cycles": 3,
+        "themes": [
+          "industrial",
+          "ice",
+          "mar-sara",
+          "char",
+          "frontier"
+        ],
+        "comparedCycles": [
+          1,
+          2
+        ]
+      }
+    ],
+    "screens": 1,
+    "exports": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "httpErrors": 0,
+    "offlineHttpRequests": null,
+    "entryOnly": false,
+    "cycles": 3,
+    "loads": 15,
+    "maxCampaignMaps": 2,
+    "maxInitialFlatMaps": 1,
+    "lastTwoCycles": [
+      {
+        "cycle": 1,
+        "theme": "industrial",
+        "memory": {
+          "geometries": 1179,
+          "textures": 3021
+        },
+        "programs": 1141
+      },
+      {
+        "cycle": 1,
+        "theme": "ice",
+        "memory": {
+          "geometries": 1185,
+          "textures": 3013
+        },
+        "programs": 1134
+      },
+      {
+        "cycle": 1,
+        "theme": "mar-sara",
+        "memory": {
+          "geometries": 1187,
+          "textures": 2987
+        },
+        "programs": 1136
+      },
+      {
+        "cycle": 1,
+        "theme": "char",
+        "memory": {
+          "geometries": 1176,
+          "textures": 2973
+        },
+        "programs": 1134
+      },
+      {
+        "cycle": 1,
+        "theme": "frontier",
+        "memory": {
+          "geometries": 1172,
+          "textures": 2997
+        },
+        "programs": 1136
+      },
+      {
+        "cycle": 2,
+        "theme": "industrial",
+        "memory": {
+          "geometries": 1179,
+          "textures": 3021
+        },
+        "programs": 1141
+      },
+      {
+        "cycle": 2,
+        "theme": "ice",
+        "memory": {
+          "geometries": 1185,
+          "textures": 3013
+        },
+        "programs": 1134
+      },
+      {
+        "cycle": 2,
+        "theme": "mar-sara",
+        "memory": {
+          "geometries": 1187,
+          "textures": 2987
+        },
+        "programs": 1136
+      },
+      {
+        "cycle": 2,
+        "theme": "char",
+        "memory": {
+          "geometries": 1176,
+          "textures": 2973
+        },
+        "programs": 1134
+      },
+      {
+        "cycle": 2,
+        "theme": "frontier",
+        "memory": {
+          "geometries": 1172,
+          "textures": 2997
+        },
+        "programs": 1136
+      }
+    ],
+    "failedAssumption": {
+      "name": "cache-r2",
+      "evidence": {
+        "file": "reports/local/mvp5-lifecycle-20261014/cache-r2/result.json",
+        "bytes": 502183,
+        "sha256": "498105d3cc8c78ac8369e496c35a7ec1efc7221b2a4798579b7771517a95d16c"
+      },
+      "passed": false,
+      "appBuildId": "c3a9740ace6e41436407bf16d906d93c9815f0c7828869cdec0eef46a4c730d3",
+      "method": "Current-source paused archive fixtures and native minimap input. Tour starts at stage 18 with ambient/economic events and production isolated to inspect terrain; no teleportation after entry. Cache repeats same-page import/preparation. Not a natural campaign.",
+      "checks": [],
+      "screens": 1,
+      "exports": 0,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "httpErrors": 0,
+      "offlineHttpRequests": null,
+      "entryOnly": false,
+      "failure": "AssertionError [ERR_ASSERTION]: false == true\n    at <anonymous> (D:\\星际\\tools\\qa-environment-play.ts:56:123)"
+    }
+  },
+  "tour": {
+    "name": "tour-r2",
+    "evidence": {
+      "file": "reports/local/mvp5-lifecycle-20261014/tour-r2/result.json",
+      "bytes": 31960933,
+      "sha256": "5d5d7dc291b36c06b0d5de7b3cf655737feb83e712cdd42aa7a51d15652d3bcd"
+    },
+    "passed": true,
+    "appBuildId": "c3a9740ace6e41436407bf16d906d93c9815f0c7828869cdec0eef46a4c730d3",
+    "method": "Current-source paused archive fixtures and native minimap input. Tour starts at stage 18 with waves, economic events and production isolated, and the hive already at zero HP, to inspect terrain. No teleportation or World writes after entry. Not natural campaign/boss evidence.",
+    "checks": [
+      {
+        "kind": "continuous-native-minimap-tour",
+        "theme": "industrial",
+        "points": 10,
+        "teleportsAfterEntry": 0
+      },
+      {
+        "kind": "continuous-native-minimap-tour",
+        "theme": "ice",
+        "points": 10,
+        "teleportsAfterEntry": 0
+      },
+      {
+        "kind": "continuous-native-minimap-tour",
+        "theme": "mar-sara",
+        "points": 10,
+        "teleportsAfterEntry": 0
+      },
+      {
+        "kind": "continuous-native-minimap-tour",
+        "theme": "char",
+        "points": 10,
+        "teleportsAfterEntry": 0
+      },
+      {
+        "kind": "continuous-native-minimap-tour",
+        "theme": "frontier",
+        "points": 10,
+        "teleportsAfterEntry": 0
+      }
+    ],
+    "screens": 55,
+    "exports": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "httpErrors": 0,
+    "offlineHttpRequests": null,
+    "entryOnly": false,
+    "maps": [
+      {
+        "theme": "industrial",
+        "race": "terran",
+        "points": 10,
+        "nativeSeconds": 143.9333333333333,
+        "nativeTicks": 8636,
+        "samples": 301,
+        "illegalGroundObservations": 0,
+        "discardedBacklogSeconds": 0,
+        "shots": 0,
+        "teleportsAfterEntry": 0
+      },
+      {
+        "theme": "ice",
+        "race": "protoss",
+        "points": 10,
+        "nativeSeconds": 143.13333333333333,
+        "nativeTicks": 8588,
+        "samples": 293,
+        "illegalGroundObservations": 0,
+        "discardedBacklogSeconds": 0,
+        "shots": 0,
+        "teleportsAfterEntry": 0
+      },
+      {
+        "theme": "mar-sara",
+        "race": "zerg",
+        "points": 10,
+        "nativeSeconds": 114.66666666666667,
+        "nativeTicks": 6880,
+        "samples": 311,
+        "illegalGroundObservations": 0,
+        "discardedBacklogSeconds": 0,
+        "shots": 0,
+        "teleportsAfterEntry": 0
+      },
+      {
+        "theme": "char",
+        "race": "terran",
+        "points": 10,
+        "nativeSeconds": 126.71666666666667,
+        "nativeTicks": 7603,
+        "samples": 260,
+        "illegalGroundObservations": 0,
+        "discardedBacklogSeconds": 0,
+        "shots": 0,
+        "teleportsAfterEntry": 0
+      },
+      {
+        "theme": "frontier",
+        "race": "zerg",
+        "points": 10,
+        "nativeSeconds": 111.05,
+        "nativeTicks": 6663,
+        "samples": 295,
+        "illegalGroundObservations": 0,
+        "discardedBacklogSeconds": 0,
+        "shots": 0,
+        "teleportsAfterEntry": 0
+      }
+    ],
+    "fixture": "Stage 18, waves/events/production isolated, hive HP zero before archive creation; real pointer movement and following thereafter. No post-entry teleportation. Not native campaign/boss progression."
+  },
+  "natural": {
+    "reports": [
+      {
+        "name": "natural-industrial-r1",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/natural-industrial-r1/result.json",
+          "bytes": 3226034,
+          "sha256": "09e55eb33f58f61152c14b9c41ba486625e75a2fa3aaa810ee705057eda02ff6"
+        },
+        "passed": true,
+        "appBuildId": "c3a9740ace6e41436407bf16d906d93c9815f0c7828869cdec0eef46a4c730d3",
+        "method": "Real new-run menus, fresh empty profile, easy difficulty, map-ticket theme/seed input only. Native default-speed RAF/World loop, visible minimap pointer orders, real combat/economy/production/guards/delivery. Read-only native observation; no forced health, wallet, stage, clock, enemy, carrier or passenger state.",
+        "checks": [
+          {
+            "kind": "native-default-speed-play",
+            "theme": "industrial",
+            "seconds": 100.21666666666667,
+            "continuous": true,
+            "outcome": "battle",
+            "shots": 106,
+            "productionPaid": {
+              "minerals": 250,
+              "gas": 0
+            },
+            "delivered": 4
+          }
+        ],
+        "screens": 4,
+        "exports": 0,
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "httpErrors": 0,
+        "offlineHttpRequests": null,
+        "entryOnly": false
+      },
+      {
+        "name": "natural-rest-r1",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/natural-rest-r1/result.json",
+          "bytes": 11698078,
+          "sha256": "956e787f964bb9aa06cc9f1ca93b3498259043a996a9b75fb9210b2c79667188"
+        },
+        "passed": true,
+        "appBuildId": "c3a9740ace6e41436407bf16d906d93c9815f0c7828869cdec0eef46a4c730d3",
+        "method": "Real new-run menus, fresh empty profile, easy difficulty, map-ticket theme/seed input only. Native default-speed RAF/World loop, visible minimap pointer orders, real combat/economy/production/guards/delivery. Read-only native observation; no forced health, wallet, stage, clock, enemy, carrier or passenger state.",
+        "checks": [
+          {
+            "kind": "native-default-speed-play",
+            "theme": "ice",
+            "seconds": 100.38333333333334,
+            "continuous": true,
+            "outcome": "battle",
+            "shots": 64,
+            "productionPaid": {
+              "minerals": 300,
+              "gas": 0
+            },
+            "delivered": 2
+          },
+          {
+            "kind": "native-default-speed-play",
+            "theme": "mar-sara",
+            "seconds": 100.31666666666668,
+            "continuous": true,
+            "outcome": "battle",
+            "shots": 137,
+            "productionPaid": {
+              "minerals": 200,
+              "gas": 0
+            },
+            "delivered": 6
+          },
+          {
+            "kind": "native-default-speed-play",
+            "theme": "char",
+            "seconds": 100.13333333333334,
+            "continuous": true,
+            "outcome": "battle",
+            "shots": 111,
+            "productionPaid": {
+              "minerals": 250,
+              "gas": 0
+            },
+            "delivered": 4
+          },
+          {
+            "kind": "native-default-speed-play",
+            "theme": "frontier",
+            "seconds": 100.08333333333333,
+            "continuous": true,
+            "outcome": "battle",
+            "shots": 131,
+            "productionPaid": {
+              "minerals": 200,
+              "gas": 0
+            },
+            "delivered": 6
+          }
+        ],
+        "screens": 16,
+        "exports": 0,
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "httpErrors": 0,
+        "offlineHttpRequests": null,
+        "entryOnly": false
+      }
+    ],
+    "maps": [
+      {
+        "theme": "industrial",
+        "race": "terran",
+        "run": "natural-industrial-r1",
+        "seed": 529,
+        "startStage": 1,
+        "endStage": 2,
+        "nativeSeconds": 100.23333333333333,
+        "nativeTicks": 6014,
+        "outcome": "battle",
+        "shots": 106,
+        "productionPaid": {
+          "minerals": 250,
+          "gas": 0
+        },
+        "paidPassengersReleased": 4,
+        "targetsRescued": 5,
+        "targetsKilled": 6,
+        "samples": 296,
+        "allSamplesVisible": true,
+        "allSamplesFocused": true,
+        "discardedBacklogSeconds": 0.06666666666666667,
+        "illegalGroundObservations": 0,
+        "guardedPodObserved": true
+      },
+      {
+        "theme": "ice",
+        "race": "protoss",
+        "run": "natural-rest-r1",
+        "seed": 529,
+        "startStage": 1,
+        "endStage": 2,
+        "nativeSeconds": 100.4,
+        "nativeTicks": 6024,
+        "outcome": "battle",
+        "shots": 64,
+        "productionPaid": {
+          "minerals": 300,
+          "gas": 0
+        },
+        "paidPassengersReleased": 2,
+        "targetsRescued": 5,
+        "targetsKilled": 6,
+        "samples": 283,
+        "allSamplesVisible": true,
+        "allSamplesFocused": true,
+        "discardedBacklogSeconds": 0.18333333333333335,
+        "illegalGroundObservations": 0,
+        "guardedPodObserved": true
+      },
+      {
+        "theme": "mar-sara",
+        "race": "zerg",
+        "run": "natural-rest-r1",
+        "seed": 529,
+        "startStage": 1,
+        "endStage": 2,
+        "nativeSeconds": 100.33333333333334,
+        "nativeTicks": 6020,
+        "outcome": "battle",
+        "shots": 137,
+        "productionPaid": {
+          "minerals": 200,
+          "gas": 0
+        },
+        "paidPassengersReleased": 6,
+        "targetsRescued": 4,
+        "targetsKilled": 6,
+        "samples": 281,
+        "allSamplesVisible": true,
+        "allSamplesFocused": true,
+        "discardedBacklogSeconds": 0.1,
+        "illegalGroundObservations": 0,
+        "guardedPodObserved": true
+      },
+      {
+        "theme": "char",
+        "race": "terran",
+        "run": "natural-rest-r1",
+        "seed": 529,
+        "startStage": 1,
+        "endStage": 2,
+        "nativeSeconds": 100.15,
+        "nativeTicks": 6009,
+        "outcome": "battle",
+        "shots": 111,
+        "productionPaid": {
+          "minerals": 250,
+          "gas": 0
+        },
+        "paidPassengersReleased": 4,
+        "targetsRescued": 4,
+        "targetsKilled": 6,
+        "samples": 290,
+        "allSamplesVisible": true,
+        "allSamplesFocused": true,
+        "discardedBacklogSeconds": 0.1,
+        "illegalGroundObservations": 0,
+        "guardedPodObserved": true
+      },
+      {
+        "theme": "frontier",
+        "race": "zerg",
+        "run": "natural-rest-r1",
+        "seed": 529,
+        "startStage": 1,
+        "endStage": 2,
+        "nativeSeconds": 100.11666666666667,
+        "nativeTicks": 6007,
+        "outcome": "battle",
+        "shots": 131,
+        "productionPaid": {
+          "minerals": 200,
+          "gas": 0
+        },
+        "paidPassengersReleased": 6,
+        "targetsRescued": 5,
+        "targetsKilled": 6,
+        "samples": 278,
+        "allSamplesVisible": true,
+        "allSamplesFocused": true,
+        "discardedBacklogSeconds": 0.08333333333333333,
+        "illegalGroundObservations": 0,
+        "guardedPodObserved": true
+      }
+    ],
+    "method": "Fresh normal new-run menus on easy; map ticket selects each theme and seed 529 (also the World seed via configureCampaign). Native default-speed loop, pointer orders and native reward UI. No forced health, wallet, clock, stage, enemy, carrier or passenger state. Read-only diagnostic observations. No FPS claim."
+  },
+  "visualReview": {
+    "uniqueSelectedImages": 125,
+    "contactSheets": 35,
+    "runs": [
+      {
+        "run": "formal-web-r1",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/formal-web-r1/selection.json",
+          "bytes": 2774,
+          "sha256": "e2436abc4b83f0819462e5835856880b07ebd24b7db0156ef9c41f356cc3a78e"
+        },
+        "sheets": 5,
+        "images": 19
+      },
+      {
+        "run": "formal-offline-r2",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/formal-offline-r2/selection.json",
+          "bytes": 2844,
+          "sha256": "24107150ac8d2d140c1d3c779c41e11a4dabfebb8315960ab4856fcf3f7c28c2"
+        },
+        "sheets": 5,
+        "images": 19
+      },
+      {
+        "run": "formal-web-r2",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/formal-web-r2/selection.json",
+          "bytes": 1133,
+          "sha256": "f8c306a8d9237be034f5397826892ca781e6c1ddd74d9c3224aff03ae49976a4"
+        },
+        "sheets": 2,
+        "images": 6
+      },
+      {
+        "run": "missing-texture-r2",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/missing-texture-r2/selection.json",
+          "bytes": 712,
+          "sha256": "549891b450e19478c679b8ee4ecf90ab1935b411d0914937474749d35a6dc472"
+        },
+        "sheets": 1,
+        "images": 2
+      },
+      {
+        "run": "missing-model-r2",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/missing-model-r2/selection.json",
+          "bytes": 704,
+          "sha256": "c9c3812940c40d671300b6c126499ac25077cfb08ab9d94480ed9c1809acdcb7"
+        },
+        "sheets": 1,
+        "images": 2
+      },
+      {
+        "run": "cache-r2",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/cache-r2/selection.json",
+          "bytes": 528,
+          "sha256": "50430acb9a4529c3de20afc2455f2c8173e516d2770ea5159316318275d3d685"
+        },
+        "sheets": 1,
+        "images": 1
+      },
+      {
+        "run": "cache-r3",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/cache-r3/selection.json",
+          "bytes": 532,
+          "sha256": "9b7cf99298d46817d413a1e5277e8d5bceda99912d90dd7dc19723bd81b071f9"
+        },
+        "sheets": 1,
+        "images": 1
+      },
+      {
+        "run": "tour-r2",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/tour-r2/selection.json",
+          "bytes": 6669,
+          "sha256": "3e20010cfd6d96fad13751bb0515e111d5c90b0b0be5a7c81eeec7d43fba5bf3"
+        },
+        "sheets": 14,
+        "images": 55,
+        "findings": "All 55 selected native-camera tour screenshots viewed in 14 contact sheets, with 11 original-size views recorded separately. No new missing materials, floating props or visibly misplaced boundary geometry found. Char and frontier retain the accepted dark palette; ordinary HUD and view framing can cover outer geometry. Fixed late-stage, enemy-isolated terrain tour; not natural combat, all-frame, human, client-calibration or FPS acceptance."
+      },
+      {
+        "run": "natural-industrial-r1",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/natural-industrial-r1/selection.json",
+          "bytes": 952,
+          "sha256": "080262e5e098e1926f2cc93ff5de54c37db4ac3e1bee0fff5774c883440afe8b"
+        },
+        "sheets": 1,
+        "images": 4,
+        "findings": "All 4 actual new-run screenshots viewed. Initial squad, active transport/guards, delivered paid marines and second-stage shooting are visible with coherent ground/props and native HUD. No obvious new environment attachment/material fault. Selection is not all-frame, human or FPS acceptance."
+      },
+      {
+        "run": "natural-rest-r1",
+        "evidence": {
+          "file": "reports/local/mvp5-lifecycle-20261014/review-sheets/natural-rest-r1/selection.json",
+          "bytes": 2479,
+          "sha256": "329add9d0cacac87e3be4a62821dfd135503aa7df6feb04ece5b55543369d2ae"
+        },
+        "sheets": 4,
+        "images": 16,
+        "findings": "All 16 actual new-run screenshots viewed in four contact sheets; ice, Mar Sara and Char second-stage frames also viewed at original size. Native units, guarded deliveries, automatic attacks and ground/material transitions display coherently. No obvious new environment material, attachment or scale fault found. Char remains dark as previously accepted, and native HUD/frame occlusion limits remain. Not all-frame, physical, human or FPS acceptance."
+      }
+    ],
+    "additionalOriginalSizeViews": {
+      "priorFormalWeb": 2,
+      "tour": 11,
+      "natural": 3
+    },
+    "scope": "Bounded screenshot inspection; original-size views overlap selected images. No all-frame, physical-device, human, actual-client calibration or full-campaign acceptance."
+  },
+  "regression": {
+    "tests": 1412,
+    "failed": 0,
+    "typecheckPassed": true,
+    "dataDocsPassed": true,
+    "evidence": [
+      {
+        "file": "reports/local/mvp5-lifecycle-20261014/regression-r1.log",
+        "bytes": 149416,
+        "sha256": "f59152fbb72a9c087087dfb412bcf93433c0700529628d4f575f75c512792871"
+      },
+      {
+        "file": "reports/local/mvp5-lifecycle-20261014/typecheck-r1.log",
+        "bytes": 60,
+        "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+      },
+      {
+        "file": "reports/local/mvp5-lifecycle-20261014/docs-check-r1.log",
+        "bytes": 149,
+        "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+      }
+    ]
+  },
+  "retainedFailures": [
+    "Pre-fix native WebGL buffer counters grow by 86 per additional five-map cycle; the old build remains labeled with this defect.",
+    "cache-r2 incorrectly asserted two total map views; production retains one initial flat map plus at most two campaign maps. Only the helper assertion changed for cache-r3.",
+    "Initial freeze Git child process and initial application build hit sandbox EPERM; authorized isolated retries succeeded; earlier logs/attempts retained.",
+    "Initial resource-group audit assumed all historical resources were common/campaign. It was corrected to preserve historical race groups and verify only the new delta.",
+    "R1 baseline Web/application/HTML candidates retain their identities; baseline lifecycle evidence is not relabeled as the final R2 build."
+  ],
+  "remaining": [
+    "Step 5 final local delivery and user viewing / MVP5 baseline freeze",
+    "Full natural campaign and integrated-content performance / ordinary-play 60 FPS / 7B",
+    "Physical input, high-refresh, low-memory and human playtesting",
+    "Deferred dense-effect occlusion and retained camera/tiny-body/child-bar/dark-Char limitations",
+    "Production/B4 and whole-MVP acceptance"
+  ],
+  "clientAmplitudeCalibrated": false
+}

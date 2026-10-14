@@ -1,0 +1,16 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+const option=key=>process.argv.find(a=>a.startsWith('--'+key+'='))?.slice(key.length+3);
+const root='reports/local/mvp5-lifecycle-20261014',app=option('app')??'dist/MVP5-Lifecycle-R1-Application-20261014',out=option('out')??root+'/resource-audit-r1.json';
+const read=async file=>JSON.parse(await fs.readFile(file,'utf8')),sha=b=>createHash('sha256').update(b).digest('hex');
+const prior=await read(root+'/baseline/prior-application.json'),delivery=await read(app+'/delivery.json'),release=await read(app+'/public/web-release.json'),manifest=await read(app+'/public/'+release.manifest),groups=await read(app+'/resource-groups.json'),delta=await read(app+'/resource-delta.json'),registry=await read('deploy/runtime/environment-scenery.json');
+for(const row of delivery.appFiles){const b=await fs.readFile(app+'/'+row.path);assert.equal(b.length,row.bytes);assert.equal(sha(b),row.sha256,row.path)}
+const next=new Map(delivery.appFiles.map(r=>[r.path,r])),backend=prior.appFiles.filter(r=>/^(backend\/|vendor\/)|^(start-coze|coze-web-server|fetch-resources|apply-update)\.mjs$|^(sc2-backend\.conf|\.env\.example)$/.test(r.path));for(const row of backend)assert.deepEqual(next.get(row.path),row,row.path);
+for(const name of ['package.json','package-lock.json']){const a=await read('deploy/coze/'+name),b=await read(app+'/'+name);delete a.version;delete b.version;if(a.packages?.[''])delete a.packages[''].version;if(b.packages?.[''])delete b.packages[''].version;assert.deepEqual(a,b,name)}
+const records=Object.entries(manifest.assets),used=new Set(),references=[];
+for(const [id,r] of records){const b=await fs.readFile('deploy/runtime/'+r.url);assert.equal(b.length,r.bytes);assert.equal(sha(b),r.sha256,id);used.add(r.url);if(r.url.endsWith('.gltf')){const json=b.toString(),ids=[...new Set([...json.matchAll(/sc2asset:([^"\\\s]+)/g)].map(m=>m[1]))];for(const dependency of ids)assert.ok(manifest.assets[dependency],id+' -> '+dependency);references.push({id,dependencies:ids})}}
+for(const row of registry.records)assert.equal(manifest.assets[row.id]?.sha256,row.packedSha256,row.id);
+assert.equal(used.size,release.fileCount);assert.equal(records.length,release.assetCount);assert.equal(groups.files.length,used.size);assert.ok(delta.files.every(r=>r.groups.includes('campaign')||r.groups.includes('common')));
+const previousGroups=await read('deploy/coze/resource-groups.json'),groupByUrl=new Map(groups.files.map(r=>[r.url,r]));for(const row of previousGroups.files)assert.deepEqual(groupByUrl.get(row.url)?.groups,row.groups,row.url);
+const result={passed:true,at:new Date().toISOString(),app,appBuildId:delivery.appBuildId,packageBuildId:delivery.packageBuildId,release:release.release,records:records.length,physicalFiles:used.size,physicalBytes:release.assetBytes,logicalBytes:release.logicalBytes,retained:delta.reused,added:delta.files.length,newBytes:delta.newResourceBytes,sceneryTextures:registry.records.length,originalModelReferences:references,unchangedBackendFiles:backend.length,dependenciesChanged:false,online:false,delta};await fs.writeFile(out,JSON.stringify(result,null,2));console.log(JSON.stringify({...result,originalModelReferences:references.length,delta:undefined}));
