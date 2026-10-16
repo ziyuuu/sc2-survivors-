@@ -1,3 +1,4 @@
+import {equipmentReplayPresentation} from '../../../simulation/starship/presentation';
 import * as THREE from 'three';
 import type {BattleRenderer} from '../../../render/scene/battle-renderer';
 import type {World} from '../../../simulation/world';
@@ -7,7 +8,7 @@ import {castLaunchEvent,weaponWorldPoint} from '../../../render/effects/hero-fee
 import {modelPresentationScale} from '../../../data/combat-presentation';
 
 type V={x:number;y:number;z:number};
-type SceneCast={hero:HeroId;source:Entity;cast:HeroCast;at:number;from:V;point:V;end:V;targets:number[]};
+type SceneCast={hero:HeroId;source:Entity;cast:HeroCast;at:number;from:V;point:V;end:V;targets:number[];nextTrail:number};
 type Echo={p:V;from:V;at:number;hero:HeroId;dot:boolean;id?:number};
 type Shape='orb'|'beam'|'ring'|'shard'|'shield';
 const vec=(a:V)=>new THREE.Vector3(a.x,a.y,a.z),lerp=(a:V,b:V,t:number):V=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,z:a.z+(b.z-a.z)*t});
@@ -19,7 +20,7 @@ export const SKILL_VISUAL_TUNING={raynorRaySeconds:1,tychusGrenadeScale:1.6,yama
 /** Confirmed skill renderer. Reads real cast events; never issues damage or game commands. */
 export class SkillEffects {
  private batches=new Map<Shape,{mesh:THREE.InstancedMesh;count:number}>();
- private cast?:SceneCast;private echoes:Echo[]=[];private nextTrail=0;private grenade=new THREE.Group();
+ private cast?:SceneCast;private casts:SceneCast[]=[];private echoes:Echo[]=[];private nextTrail=0;private grenade=new THREE.Group();
  stats={impacts:0,dots:0,repairs:0,active:0,peak:0};
  constructor(private view:BattleRenderer,private world:World){
   const geometries:Record<Shape,THREE.BufferGeometry>={orb:new THREE.IcosahedronGeometry(1,2),beam:new THREE.CylinderGeometry(.5,.5,1,8,1),ring:new THREE.TorusGeometry(1,.025,5,60),shard:new THREE.ConeGeometry(.13,1,4),shield:new THREE.SphereGeometry(1,24,16)};
@@ -31,25 +32,25 @@ export class SkillEffects {
   view.scene.add(this.grenade);
  }
  prepareGrenade(){for(const mesh of this.view.fx.projectiles.batches.get('marauder')??[]){const m=new THREE.Mesh(mesh.geometry,mesh.material);this.grenade.add(m);}this.grenade.visible=false;}
- reset(){this.cast=undefined;this.echoes=[];this.nextTrail=0;this.grenade.visible=false;this.stats={impacts:0,dots:0,repairs:0,active:0,peak:0};for(const b of this.batches.values()){b.count=0;b.mesh.count=0;}}
+ reset(){this.cast=undefined;this.casts=[];this.echoes=[];this.nextTrail=0;this.grenade.visible=false;this.stats={impacts:0,dots:0,repairs:0,active:0,peak:0};for(const b of this.batches.values()){b.count=0;b.mesh.count=0;}}
  begin(hero:HeroId,casts:HeroCast[],source:Entity){
   const cast=casts.find(c=>c.hero===hero);if(!cast)return;
-  const launch=castLaunchEvent(cast,source,cast.beganAt??this.world.time),model=this.view.gpu.get(source.modelKey??source.unitType),weapon=model?.weaponAt('skill',0),from=weaponWorldPoint(launch,weapon??{x:0,y:1,z:.6},modelPresentationScale(source),this.world.terrain?.height(source)??0);
+  const launch=castLaunchEvent(cast,source,equipmentReplayPresentation(cast)?.at??cast.beganAt??this.world.time),model=this.view.gpu.get(source.modelKey??source.unitType),weapon=model?.weaponAt('skill',0),from=weaponWorldPoint(launch,weapon??{x:0,y:1,z:.6},modelPresentationScale(source),this.world.terrain?.height(source)??0);
   const target=this.world.entities.get(cast.target),point={...cast.point,y:target?.flying?6.2:.85};const facing=Math.atan2(cast.point.x-source.x,cast.point.z-source.z),length=HEROES[hero].length;
-  this.cast={hero,cast,source,from,point,at:cast.beganAt??this.world.time,end:{x:source.x+Math.sin(facing)*(length||Math.hypot(cast.point.x-source.x,cast.point.z-source.z)),y:hero==='nova'||hero==='raynor'?from.y:point.y,z:source.z+Math.cos(facing)*(length||Math.hypot(cast.point.x-source.x,cast.point.z-source.z))},targets:cast.frozenTargets?.map(a=>a.id)??[]};this.nextTrail=this.world.time;
+  this.cast={hero,cast,source,from,point,at:equipmentReplayPresentation(cast)?.at??cast.beganAt??this.world.time,end:{x:source.x+Math.sin(facing)*(length||Math.hypot(cast.point.x-source.x,cast.point.z-source.z)),y:hero==='nova'||hero==='raynor'?from.y:point.y,z:source.z+Math.cos(facing)*(length||Math.hypot(cast.point.x-source.x,cast.point.z-source.z))},targets:cast.frozenTargets?.map(a=>a.id)??[],nextTrail:this.world.time};this.casts.push(this.cast);this.nextTrail=this.world.time;
  }
  targetIds(){return this.cast?.targets??[];}
  /** Formal scene attachment only; the frozen first-version shield geometry and drawing remain unchanged. */
- alignShieldBodies(){if(this.cast?.hero!=='swann')return;const b=this.batches.get('shield')!,matrix=new THREE.Matrix4(),position=new THREE.Vector3();for(let i=0;i<b.mesh.count;i++){b.mesh.getMatrixAt(i,matrix);position.setFromMatrixPosition(matrix);const a=this.cast.targets.map(id=>this.world.entities.get(id)).find(a=>a&&Math.abs(a.x-position.x)<.01&&Math.abs(a.z-position.z)<.01);if(a)matrix.elements[13]+=a.flying?5.6:this.world.terrain?.height(a)??0;b.mesh.setMatrixAt(i,matrix);}if(b.mesh.count)b.mesh.instanceMatrix.needsUpdate=true;}
- visualState(){const mesh=this.batches.get('beam')!.mesh,matrix=new THREE.Matrix4(),scale=new THREE.Vector3(),beamWidths:number[]=[];for(let i=0;i<mesh.count;i++){mesh.getMatrixAt(i,matrix);scale.setFromMatrixScale(matrix);beamWidths.push(Number(scale.x.toFixed(4)));}return {castAge:this.cast?this.world.time-this.cast.at:null,beamWidths,grenadeVisible:this.grenade.visible,grenadeScale:this.grenade.scale.x,rings:this.batches.get('ring')!.mesh.count,shields:this.batches.get('shield')!.mesh.count,shapes:[...this.batches.keys()]};}
+ alignShieldBodies(){if(!this.casts.some(c=>c.hero==='swann'))return;const b=this.batches.get('shield')!,matrix=new THREE.Matrix4(),position=new THREE.Vector3();for(let i=0;i<b.mesh.count;i++){b.mesh.getMatrixAt(i,matrix);position.setFromMatrixPosition(matrix);const a=[...this.world.entities.values()].find(a=>a&&Math.abs(a.x-position.x)<.01&&Math.abs(a.z-position.z)<.01);if(a)matrix.elements[13]+=a.flying?5.6:this.world.terrain?.height(a)??0;b.mesh.setMatrixAt(i,matrix);}if(b.mesh.count)b.mesh.instanceMatrix.needsUpdate=true;}
+ visualState(){const mesh=this.batches.get('beam')!.mesh,matrix=new THREE.Matrix4(),scale=new THREE.Vector3(),beamWidths:number[]=[];for(let i=0;i<mesh.count;i++){mesh.getMatrixAt(i,matrix);scale.setFromMatrixScale(matrix);beamWidths.push(Number(scale.x.toFixed(4)));}return {activeCasts:this.casts.map(c=>({id:c.cast.id,hero:c.hero,age:this.world.time-c.at})),castAge:this.cast?this.world.time-this.cast.at:null,beamWidths,grenadeVisible:this.grenade.visible,grenadeScale:this.grenade.scale.x,rings:this.batches.get('ring')!.mesh.count,shields:this.batches.get('shield')!.mesh.count,shapes:[...this.batches.keys()]};}
  private sprite(key:string,p:V,size:number,life:number,color:number,growth=0,ground=false,to?:V,velocity?:V,delay=0){this.view.fx.emit({asset:'fx.hero-skill.'+key,...p,vx:velocity?.x??0,vy:velocity?.y??0,vz:velocity?.z??0,start:this.world.time+delay,life,size,growth,color,ground,angle:this.world.time*.731,to,priority:to?'core':'decoration',neutralize:!key.includes('smoke'),opacity:1});}
  private sparks(p:V,count:number,color:number,force=5,life=.55){count=this.view.fx.heroQuality==='full'?count:Math.max(1,Math.ceil(count*(this.view.fx.heroQuality==='balanced'?.7:.35)));for(let i=0;i<count;i++){const a=i*2.399+this.world.time,r=.5+(i%7)/7;this.sprite('kenney-spark_02',p,.09+(i%3)*.035,life*(.7+r*.4),color,-.1,false,undefined,{x:Math.sin(a)*force*r,y:1+(i%5)*.8,z:Math.cos(a)*force*r});}}
  private blast(p:V,color:number,big=false){this.sprite('flare1',p,big?3.6:1.5,.2,0xfff5d5,big?2:1);this.sprite('fireanim_x4',p,big?6:3.8,big?1.05:.75,color,2);this.sprite('shockwave1_burn1',{...p,y:.08},big?3:1.2,.8,color,big?9:6,true);this.sparks(p,big?38:22,color,big?9:5,.85);for(let i=0;i<(big?10:6);i++){const a=i*2.4;this.sprite('kenney-smoke_04',{x:p.x+Math.sin(a)*.35,y:p.y+.25,z:p.z+Math.cos(a)*.35},.8,1.6,0x79818b,2.3,false,undefined,{x:Math.sin(a)*1.2,y:1.3+i*.08,z:Math.cos(a)*1.2},i*.03);}}
  event(e:VisualEvent,mount:V|null){
   const hero=e.heroId;if(!hero||!['raynor','tychus','nova','swann','tosh','yamato_battlecruiser'].includes(hero))return;
-  const p={...e.end,y:e.endY},from=mount??this.cast?.from??{x:e.x,y:e.y,z:e.z},color=colors[hero];
+  const frame=this.casts.find(c=>c.cast.id===e.castId)??this.cast,p={...e.end,y:e.endY},from=mount??frame?.from??{x:e.x,y:e.y,z:e.z},color=colors[hero];
   if(e.kind==='skill-launch'){
-   if(hero==='raynor'){this.sprite('flare2b',from,2.4,.19,color);this.sprite('emergytrailorange',from,.5,SKILL_VISUAL_TUNING.raynorRaySeconds,color,0,false,{...this.cast?.end??p});this.sparks(from,8,color,2,.4);}
+   if(hero==='raynor'){this.sprite('flare2b',from,2.4,.19,color);this.sprite('emergytrailorange',from,.5,SKILL_VISUAL_TUNING.raynorRaySeconds,color,0,false,{...frame?.end??p});this.sparks(from,8,color,2,.4);}
    if(hero==='tychus')this.sprite('flare1',from,.7,.15,color);
    return;
   }
@@ -68,13 +69,16 @@ export class SkillEffects {
    this.sprite(hero==='nova'?'flare1_blueelec':'flare1',p,hero==='nova'?2.2:1.7,.25,hero==='nova'?0xb9f1ff:0xffefc9);this.sparks(p,hero==='nova'?15:10,color,4,.6);this.sprite('energyplane3',p,.8,.4,color,1);
   }
  }
- private draw(shape:Shape,p:V,s:V,color:number,rotation?:V,intensity=1){const b=this.batches.get(shape)!;if(b.count>=CAP)return;obj.position.set(p.x,p.y,p.z);obj.rotation.set(rotation?.x??0,rotation?.y??0,rotation?.z??0);obj.scale.set(s.x,s.y,s.z);obj.updateMatrix();b.mesh.setMatrixAt(b.count,obj.matrix);b.mesh.setColorAt(b.count++,tint.set(color).multiplyScalar(intensity));}
- private beam(from:V,to:V,width:number,color:number,intensity=1){const b=this.batches.get('beam')!;if(b.count>=CAP)return;const d=vec(to).sub(vec(from)),length=d.length();if(length<.001)return;obj.position.copy(vec(from).add(vec(to)).multiplyScalar(.5));obj.quaternion.setFromUnitVectors(up,d.normalize());obj.scale.set(width,length,width);obj.updateMatrix();b.mesh.setMatrixAt(b.count,obj.matrix);b.mesh.setColorAt(b.count++,tint.set(color).multiplyScalar(intensity));}
+ private batch(shape:Shape){const b=this.batches.get(shape)!;if(b.count>=b.mesh.instanceMatrix.count){const old=b.mesh,mesh=new THREE.InstancedMesh(old.geometry,old.material,old.instanceMatrix.count*2);mesh.instanceMatrix.array.set(old.instanceMatrix.array);mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.setColorAt(0,tint);if(old.instanceColor)mesh.instanceColor!.array.set(old.instanceColor.array);mesh.frustumCulled=false;mesh.renderOrder=old.renderOrder;old.removeFromParent();old.dispose();this.view.scene.add(mesh);b.mesh=mesh;}return b;}
+ private draw(shape:Shape,p:V,s:V,color:number,rotation?:V,intensity=1){const b=this.batch(shape);obj.position.set(p.x,p.y,p.z);obj.rotation.set(rotation?.x??0,rotation?.y??0,rotation?.z??0);obj.scale.set(s.x,s.y,s.z);obj.updateMatrix();b.mesh.setMatrixAt(b.count,obj.matrix);b.mesh.setColorAt(b.count++,tint.set(color).multiplyScalar(intensity));}
+ private beam(from:V,to:V,width:number,color:number,intensity=1){const b=this.batch('beam');const d=vec(to).sub(vec(from)),length=d.length();if(length<.001)return;obj.position.copy(vec(from).add(vec(to)).multiplyScalar(.5));obj.quaternion.setFromUnitVectors(up,d.normalize());obj.scale.set(width,length,width);obj.updateMatrix();b.mesh.setMatrixAt(b.count,obj.matrix);b.mesh.setColorAt(b.count++,tint.set(color).multiplyScalar(intensity));}
  private ring(p:V,r:number,color:number,angle=0,vertical=false,width=1){this.draw('ring',p,{x:r,y:r,z:width},color,{x:vertical?0:Math.PI/2,y:vertical?angle:0,z:vertical?0:angle});}
  private orb(p:V,r:number,color:number,intensity=1){this.draw('orb',p,{x:r,y:r,z:r},color,undefined,intensity);}
  private charge(from:V,age:number,duration:number,color:number,heavy=false){const t=Math.max(0,Math.min(1,age/duration)),r=(heavy?.7:.35)*(.25+t*.75);this.orb(from,r,color,1.4);this.orb(from,r*.55,0xe6fbff,2.8);for(let i=0;i<3;i++)this.ring(from,(heavy?1.8:1.05)*(1-t)+r*1.5,color,this.world.time*(i%2?-3:3)+i,!!(i%2));for(let i=0;i<(heavy?9:5);i++){const a=this.world.time*4+i*Math.PI*2/(heavy?9:5),radius=(heavy?2.2:1.2)*(1-t)+.2;const p={x:from.x+Math.sin(a)*radius,y:from.y+Math.cos(a*1.6)*radius*.6,z:from.z+Math.cos(a)*radius};this.beam(p,from,.025,color);this.orb(p,.055,color,2);}}
  render(){
-  for(const b of this.batches.values())b.count=0;this.grenade.visible=false;const c=this.cast,w=this.world,now=w.time;
+  for(const b of this.batches.values())b.count=0;this.grenade.visible=false;const w=this.world,now=w.time,shielded=new Set<number>();
+  this.casts=this.casts.filter(c=>c.hero==='swann'?c.targets.some(id=>(w.entities.get(id)?.heroCombat?.protectedUntil??0)>now):now-c.at<2);
+  for(const c of this.casts){this.nextTrail=c.nextTrail;
   if(c){const age=now-c.at,color=colors[c.hero],from=c.from;
    if(c.hero==='raynor'&&age>=0&&age<SKILL_VISUAL_TUNING.raynorRaySeconds){const t=Math.min(1,age/.2),p=lerp(from,c.end,t),fade=age<.65?1:Math.max(0,(SKILL_VISUAL_TUNING.raynorRaySeconds-age)/(SKILL_VISUAL_TUNING.raynorRaySeconds-.65));this.beam(from,p,.42*fade,color,1.4);this.beam(from,p,.13*fade,0xfff6d8,3);if(age<.25){this.orb(p,.22,color,2);if(now>=this.nextTrail){this.sprite('firestreak7',p,.35,.25,color,.3);this.nextTrail=now+.025;}}}
    if(c.hero==='nova'&&age<.35)this.charge(from,age,.35,0x77deff);
@@ -85,11 +89,12 @@ export class SkillEffects {
     if(age<1){this.charge(from,age,1,0x93ddff,true);this.beam(from,c.point,.028*SKILL_VISUAL_TUNING.yamatoGuideWidthMultiplier,0x88d5ee);if(now>=this.nextTrail){this.sprite('flare1_blueelec',from,.6+age,.15,0x9fdeff);this.nextTrail=now+.045;}}
     else if(age<1.25){const t=(age-1)/.25,p=lerp(from,c.point,t),tail=lerp(from,c.point,Math.max(0,t-.45));this.beam(tail,p,.85,0xffb75d,1.7);this.beam(tail,p,.22,0xf0faff,3);this.orb(p,.55,0xffc57d,2);this.orb(p,.23,0xf7fdff,3);if(now>=this.nextTrail){this.sprite('firestreak7',p,1.1,.38,0xffbd6e,1.2);this.sprite('emergytrailcyan',tail,.5,.2,0x97e7ff,0,false,p);this.nextTrail=now+.02;}}
    }
-   if(c.hero==='swann'&&age<5){
-    for(const id of c.targets){const a=w.entities.get(id);if(!a||a.hp<=0||(a.heroCombat?.protectedUntil??0)<=now)continue;const size=this.view.gpu.get(a.modelKey??a.unitType)?.bodyHeight??1.2,p={x:a.x,y:size*.55+.15,z:a.z},radius=Math.max(.95,a.unitRadius+1);this.draw('shield',p,{x:radius,y:size*.65+.4,z:radius},0x8ac9a6);this.ring({x:a.x,y:.14,z:a.z},radius,.0?0:0x8ff9be,now*.25);for(let i=0;i<6;i++){const ang=i*Math.PI/3+now*.18;this.draw('shard',{x:a.x+Math.sin(ang)*radius,y:.5+Math.sin(now*2+i)*.06,z:a.z+Math.cos(ang)*radius},{x:1.4,y:.22,z:1.4},0xe3cf83,{x:Math.PI/2,y:ang,z:0});}
+   if(c.hero==='swann'){
+    for(const id of c.targets){const a=w.entities.get(id);if(!a||a.hp<=0||shielded.has(id)||(a.heroCombat?.protectedUntil??0)<=now)continue;shielded.add(id);const size=this.view.gpu.get(a.modelKey??a.unitType)?.bodyHeight??1.2,p={x:a.x,y:size*.55+.15,z:a.z},radius=Math.max(.95,a.unitRadius+1);this.draw('shield',p,{x:radius,y:size*.65+.4,z:radius},0x8ac9a6);this.ring({x:a.x,y:.14,z:a.z},radius,.0?0:0x8ff9be,now*.25);for(let i=0;i<6;i++){const ang=i*Math.PI/3+now*.18;this.draw('shard',{x:a.x+Math.sin(ang)*radius,y:.5+Math.sin(now*2+i)*.06,z:a.z+Math.cos(ang)*radius},{x:1.4,y:.22,z:1.4},0xe3cf83,{x:Math.PI/2,y:ang,z:0});}
     }
    }
   }
+  c.nextTrail=this.nextTrail;}
   this.echoes=this.echoes.filter(e=>now-e.at<(e.hero==='tosh'?1.2:e.hero==='yamato_battlecruiser'?1.25:.65));
   for(const e of this.echoes){const t=now-e.at;if(t<0)continue;const color=colors[e.hero],fade=Math.max(0,1-t/(e.hero==='yamato_battlecruiser'?1.25:.8));
    if(e.hero==='swann'){

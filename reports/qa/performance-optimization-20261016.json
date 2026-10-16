@@ -1,0 +1,1312 @@
+{
+  "schema": 1,
+  "date": "2026-10-16",
+  "status": "bounded-implementation-verified-preview-delivered",
+  "scope": "Bounded three-batch optimization, original signed acceleration repair, optional adaptive drawing resolution, and normal naked first-three-stage adjustment. Not full-content 60 FPS, human/natural campaign or production acceptance.",
+  "preview": {
+    "url": "http://127.0.0.1:4411/performance-20261016/?gear=0",
+    "copy": {
+      "method": "Byte-identical delivery alias of the reviewed R3 preview; manifest retains original compiled entry path.",
+      "files": [
+        {
+          "file": "preview/performance-20261016/index.html",
+          "source": "preview/performance-r3-20261016/index.html",
+          "bytes": 954785,
+          "sha256": "55b6169ed7b14b8a4fc101ce31c09e7b381164ad04d4e8d886788a900cda4345"
+        },
+        {
+          "file": "preview/performance-20261016/main.js",
+          "source": "preview/performance-r3-20261016/main.js",
+          "bytes": 35985069,
+          "sha256": "008b7ff6232fa24d62b7a95247c2dbccbfb5d16b4038153474fdb4a5c2ad782f"
+        },
+        {
+          "file": "preview/performance-20261016/main.css",
+          "source": "preview/performance-r3-20261016/main.css",
+          "bytes": 818644,
+          "sha256": "24b06089fece080ddcf367644795cdd528d41741d3f7bfb597b6b387384b23ee"
+        },
+        {
+          "file": "preview/performance-20261016/main.ts",
+          "source": "preview/performance-r3-20261016/main.ts",
+          "bytes": 8720,
+          "sha256": "63dead0e85dee0ac08e516c70e72d9386a928e720b63b38ca51d9c1af293af34"
+        },
+        {
+          "file": "preview/performance-20261016/build-inputs.json",
+          "source": "preview/performance-r3-20261016/build-inputs.json",
+          "bytes": 72020,
+          "sha256": "a5498117578f37e4076762f689d8cb453645abaa8806f76e85b71067ed49f284"
+        }
+      ]
+    },
+    "http": {
+      "passed": true,
+      "rows": [
+        {
+          "url": "http://127.0.0.1:4411/performance-20261016/?gear=0",
+          "status": 200,
+          "bytes": 954785,
+          "sha256": "55b6169ed7b14b8a4fc101ce31c09e7b381164ad04d4e8d886788a900cda4345"
+        },
+        {
+          "url": "http://127.0.0.1:4411/main.js",
+          "status": 200,
+          "bytes": 35985069,
+          "sha256": "008b7ff6232fa24d62b7a95247c2dbccbfb5d16b4038153474fdb4a5c2ad782f"
+        },
+        {
+          "url": "http://127.0.0.1:4411/main.css",
+          "status": 200,
+          "bytes": 818644,
+          "sha256": "24b06089fece080ddcf367644795cdd528d41741d3f7bfb597b6b387384b23ee"
+        }
+      ]
+    },
+    "isolatedMemoryAccount": true,
+    "fullStarshipUiMounted": false
+  },
+  "build": {
+    "bundle": {
+      "bytes": 35985069,
+      "sha256": "008b7ff6232fa24d62b7a95247c2dbccbfb5d16b4038153474fdb4a5c2ad782f"
+    },
+    "compiledInputs": 421,
+    "snapshot": "reports/local/performance-optimization-20261016/final-source-r3",
+    "inputsComparison": {
+      "common": 418,
+      "equal": 407,
+      "changed": [
+        "src/simulation/starship/controls.ts",
+        "src/simulation/combat/team-auras.ts",
+        "src/simulation/world.ts",
+        "src/render/materials/posed-depth.ts",
+        "src/render/scene/scene-shadows.ts",
+        "src/render/scene/scene-contact.ts",
+        "src/render/settings/quality.ts",
+        "src/render/materials/unit-material-batch.ts",
+        "src/render/effects/source/particles.ts",
+        "src/render/effects/source/player.ts",
+        "src/render/scene/battle-renderer.ts"
+      ],
+      "added": [
+        "src/render/scene/renderable-registry.ts",
+        "src/render/settings/adaptive-quality.ts",
+        "preview/performance-r3-20261016/main.ts"
+      ],
+      "removed": [
+        "preview/performance-before-r2-20261016/main.ts"
+      ],
+      "currentDrift": []
+    }
+  },
+  "checks": {
+    "regressions": {
+      "passed": 1625,
+      "failed": 0,
+      "bodyMaterialSurfaces": 475,
+      "effectMaterialSurfaces": 279,
+      "sourceEffectDefinitions": 84
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "log": "reports/local/performance-optimization-20261016/typecheck-final.log"
+    },
+    "dataDocumentation": {
+      "exitCode": 0,
+      "log": "reports/local/performance-optimization-20261016/docs-check-final.log"
+    }
+  },
+  "green": {
+    "sameLayerCounts": true,
+    "particles": 3787,
+    "maxWorldYBefore": 22.452177138700225,
+    "maxWorldYAfter": 5.017142031971356,
+    "source": "BanelingDeath original signed Z acceleration -20; old renderer subtracted it, new renderer adds it. Original source/resource bytes unchanged.",
+    "reports": [
+      "green-before/report.json",
+      "green-after/report.json"
+    ],
+    "sameRecordedGameplaySummary": true
+  },
+  "fixed": {
+    "before": {
+      "bundle": {
+        "bytes": 35969684,
+        "sha256": "009f812f5c899bdba8380bd1a6ebaf2479934f47a686978bcc7d415ff6e9f1ed"
+      },
+      "passed": true,
+      "errors": [],
+      "frozen": {
+        "fps": 8.10172606285396,
+        "wallMs": 10121.30000000447,
+        "cpuMean": 121.60121951243136,
+        "cpuP95": 134.10000000149012,
+        "gpuMean": 39.45822874999998,
+        "gpuSamples": 80,
+        "disjoint": 0,
+        "drawCalls": [
+          512
+        ],
+        "triangles": [
+          2363405
+        ],
+        "uploadsPerFrame": {
+          "floatTextureBytes": 230528,
+          "floatTextureCalls": 348,
+          "bufferBytes": 1221960,
+          "bufferCalls": 302
+        }
+      },
+      "native": {
+        "fps": 7.375586807665528,
+        "wallMs": 10033.10000000149,
+        "simulatedSeconds": 1.6500000000000057,
+        "ticks": 99,
+        "enemies": 300
+      }
+    },
+    "after": {
+      "bundle": {
+        "bytes": 35985069,
+        "sha256": "008b7ff6232fa24d62b7a95247c2dbccbfb5d16b4038153474fdb4a5c2ad782f"
+      },
+      "passed": true,
+      "errors": [],
+      "frozen": {
+        "fps": 8.830153485925017,
+        "wallMs": 10079.10000000149,
+        "cpuMean": 111.42134831427188,
+        "cpuP95": 157.89999999850988,
+        "gpuMean": 41.876387701149405,
+        "gpuSamples": 87,
+        "disjoint": 0,
+        "drawCalls": [
+          512
+        ],
+        "triangles": [
+          2363405
+        ],
+        "uploadsPerFrame": {
+          "floatTextureBytes": 230528,
+          "floatTextureCalls": 348,
+          "bufferBytes": 1221960,
+          "bufferCalls": 302
+        }
+      },
+      "native": {
+        "fps": 8.08463918554746,
+        "wallMs": 10019,
+        "simulatedSeconds": 1.8666666666666742,
+        "ticks": 112,
+        "enemies": 300
+      }
+    },
+    "earlierBefore": {
+      "bundle": {
+        "bytes": 35969684,
+        "sha256": "009f812f5c899bdba8380bd1a6ebaf2479934f47a686978bcc7d415ff6e9f1ed"
+      },
+      "passed": true,
+      "errors": [],
+      "frozen": {
+        "fps": 6.053388905428203,
+        "wallMs": 10077,
+        "cpuMean": 161.76393442662035,
+        "cpuP95": 197.5,
+        "gpuMean": 56.6718820338983,
+        "gpuSamples": 59,
+        "disjoint": 0,
+        "drawCalls": [
+          512
+        ],
+        "triangles": [
+          2363405
+        ],
+        "uploadsPerFrame": null
+      },
+      "native": {
+        "fps": 4.684260883430974,
+        "wallMs": 10033.60000000149,
+        "simulatedSeconds": 0.7833333333333314,
+        "ticks": 47,
+        "enemies": 300
+      }
+    },
+    "earlierCandidate": {
+      "bundle": {
+        "bytes": 35979432,
+        "sha256": "a05878716729d6563972a41f98bc37d1dc3cd791661ee192d8ef003dde8f047c"
+      },
+      "passed": true,
+      "errors": [],
+      "frozen": {
+        "fps": 8.970218873337846,
+        "wallMs": 10033.20000000298,
+        "cpuMean": 109.4277777776122,
+        "cpuP95": 147.60000000149012,
+        "gpuMean": 37.88538499999999,
+        "gpuSamples": 88,
+        "disjoint": 0,
+        "drawCalls": [
+          512
+        ],
+        "triangles": [
+          2363405
+        ],
+        "uploadsPerFrame": null
+      },
+      "native": {
+        "fps": 7.766526271773286,
+        "wallMs": 10043.09999999404,
+        "simulatedSeconds": 1.8333333333333428,
+        "ticks": 110,
+        "enemies": 300
+      }
+    }
+  },
+  "equivalence": {
+    "time": 145.96666666666667,
+    "tick": 8758,
+    "rng": 2001013235,
+    "recipe": {
+      "version": 3,
+      "seed": 529,
+      "theme": "mar-sara"
+    },
+    "rawFixtureHashes": {
+      "before": "e9a523590a315d0fa01c10ec6381453c66ef5088725f30a267a2ec22f8b455de",
+      "after": "fe207f90e4ab6724b91dac21861739e2287d43b2bb2eb6988a31084f75fe952d"
+    },
+    "rawDifferences": [
+      {
+        "path": "$.expedition.support.stageReceipt",
+        "before": "7af79c06-6318-43d6-af14-68ab0af015f2:18",
+        "after": "7ffe63ec-661b-41d5-a3cb-3cefbeea47c3:18"
+      }
+    ],
+    "normalizedHash": "4ff2ae0ed6dbfc95155fdbb9b42202e940648a77ae09d3b40c838271d583d052",
+    "normalization": "Only the new-run UUID prefix in expedition.support.stageReceipt; :18 is retained. All other recorded World fields, RNG/time/tick and map recipe compare exactly.",
+    "renderCounts": {
+      "effects": 811,
+      "meshes": 295,
+      "particles": 4439,
+      "ribbonQuads": 40,
+      "projectionQuads": 64,
+      "displacementMeshes": 8,
+      "displacementQuads": 0,
+      "unrenderedDisplacementQuads": 0,
+      "missing": 0
+    },
+    "particleCache": {
+      "liveBirths": 4443,
+      "requests": 283,
+      "limit": 8192,
+      "hits": 2256928,
+      "misses": 122932
+    },
+    "materialUploads": {
+      "atFixture": {
+        "bytes": 471247680,
+        "calls": 21893,
+        "full": 2364,
+        "partial": 11183
+      },
+      "afterNative": {
+        "bytes": 488187264,
+        "calls": 24329,
+        "full": 2425,
+        "partial": 12585
+      },
+      "note": "Actual onUpdate uploads; 1,402 partial table updates during the sampled native interval. Frozen total GL uploads did not decrease; no measured whole-frame upload savings claim."
+    },
+    "queuedBirths": 400,
+    "cameraExact": true
+  },
+  "adaptive": {
+    "passed": true,
+    "errors": [],
+    "checks": [
+      "native graphics setting is named 自适应 and persists; GPU-driven dense adjustment preserves simulation",
+      "pause retains resolution and native time without accumulating pressure",
+      "native low-density opening exercises slow recovery separately from dense timings",
+      "returning to fixed clear quality restores the full drawing buffer",
+      "actual WebGL loss and native re-preparation retain time, RNG, entities, flights and queued births",
+      "three native viewport sizes render after restoration"
+    ],
+    "options": [
+      "清晰 · 屏幕分辨率",
+      "自适应",
+      "均衡",
+      "低分辨率"
+    ],
+    "dense": {
+      "scale": 0.75,
+      "gpuMs": 20.489486189396917,
+      "samples": 408,
+      "changes": 3,
+      "minScale": 0.75,
+      "maxScale": 1,
+      "supported": true
+    },
+    "opening": {
+      "scale": 1,
+      "gpuMs": 10.71651293261146,
+      "samples": 721,
+      "changes": 6,
+      "minScale": 0.75,
+      "maxScale": 1,
+      "supported": true
+    },
+    "context": {
+      "scale": 1,
+      "gpuMs": 0,
+      "samples": 0,
+      "changes": 0,
+      "minScale": 0.75,
+      "maxScale": 1,
+      "supported": true
+    },
+    "normalNativeSmoke": {
+      "items": 0,
+      "diagnostic": false,
+      "seconds": 21.016666666666666,
+      "anchorDx": 4.573333333333333,
+      "method": "Actual native normal menu entry with zero equipment and browser keyboard movement; short wall-clock smoke test, not a three-stage human playthrough."
+    },
+    "scope": "Separate 240-step dense fixture. Real GPU timer, native settings, pause, recovery, return to fixed, actual context loss/re-preparation, and three paused viewport sizes. Not a 960-step fixed benchmark.",
+    "cameraExact": true,
+    "contextRestoreQuality": "native",
+    "actualDenseBuffer": [
+      1080,
+      675
+    ],
+    "cssViewport": [
+      1440,
+      900
+    ]
+  },
+  "normal": {
+    "method": "Native World/public controller; zero equipment and talents; real terrain/economy/production; no health lock or injected income.",
+    "before": {
+      "completedThree": 0,
+      "rows": [
+        {
+          "race": "terran",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "lost",
+          "stage": 1,
+          "completed": 0,
+          "time": 17.4,
+          "steps": 1044,
+          "peakEnemies": 4,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 92.31666666666666,
+          "steps": 5539,
+          "peakEnemies": 7,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 98.5,
+          "steps": 5910,
+          "peakEnemies": 16,
+          "issue": null
+        },
+        {
+          "race": "terran",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "lost",
+          "stage": 1,
+          "completed": 0,
+          "time": 15.283333333333333,
+          "steps": 917,
+          "peakEnemies": 4,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "lost",
+          "stage": 1,
+          "completed": 0,
+          "time": 27.183333333333334,
+          "steps": 1631,
+          "peakEnemies": 4,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 105.2,
+          "steps": 6312,
+          "peakEnemies": 12,
+          "issue": null
+        },
+        {
+          "race": "terran",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "lost",
+          "stage": 1,
+          "completed": 0,
+          "time": 25.65,
+          "steps": 1539,
+          "peakEnemies": 5,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 96.95,
+          "steps": 5817,
+          "peakEnemies": 10,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 90.23333333333333,
+          "steps": 5414,
+          "peakEnemies": 8,
+          "issue": null
+        }
+      ]
+    },
+    "r1": {
+      "completedThree": 0,
+      "rows": [
+        {
+          "race": "terran",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 105.76666666666667,
+          "steps": 6346,
+          "peakEnemies": 8,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 119.51666666666667,
+          "steps": 7171,
+          "peakEnemies": 18,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 114.64999999999999,
+          "steps": 6879,
+          "peakEnemies": 17,
+          "issue": null
+        },
+        {
+          "race": "terran",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "lost",
+          "stage": 3,
+          "completed": 2,
+          "time": 170.06666666666666,
+          "steps": 10204,
+          "peakEnemies": 15,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "lost",
+          "stage": 3,
+          "completed": 2,
+          "time": 151.81666666666666,
+          "steps": 9109,
+          "peakEnemies": 11,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 118.85,
+          "steps": 7131,
+          "peakEnemies": 17,
+          "issue": null
+        },
+        {
+          "race": "terran",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "lost",
+          "stage": 3,
+          "completed": 2,
+          "time": 153.86666666666667,
+          "steps": 9232,
+          "peakEnemies": 13,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 99.9,
+          "steps": 5994,
+          "peakEnemies": 7,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "lost",
+          "stage": 2,
+          "completed": 1,
+          "time": 119.38333333333333,
+          "steps": 7163,
+          "peakEnemies": 14,
+          "issue": null
+        }
+      ]
+    },
+    "r2": {
+      "completedThree": 7,
+      "rows": [
+        {
+          "race": "terran",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 12,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "lost",
+          "stage": 3,
+          "completed": 2,
+          "time": 157.56666666666666,
+          "steps": 9454,
+          "peakEnemies": 14,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 14,
+          "issue": null
+        },
+        {
+          "race": "terran",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 10,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 10,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 12,
+          "issue": null
+        },
+        {
+          "race": "terran",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 13,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "lost",
+          "stage": 3,
+          "completed": 2,
+          "time": 178.91666666666666,
+          "steps": 10735,
+          "peakEnemies": 20,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 16,
+          "issue": null
+        }
+      ]
+    },
+    "r3": {
+      "completedThree": 9,
+      "rows": [
+        {
+          "race": "terran",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 12,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 14,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 529,
+          "map": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 14,
+          "issue": null
+        },
+        {
+          "race": "terran",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 10,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 10,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 1793,
+          "map": {
+            "version": 3,
+            "seed": 1793,
+            "theme": "ice"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 10,
+          "issue": null
+        },
+        {
+          "race": "terran",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 13,
+          "issue": null
+        },
+        {
+          "race": "zerg",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 13,
+          "issue": null
+        },
+        {
+          "race": "protoss",
+          "seed": 8111,
+          "map": {
+            "version": 3,
+            "seed": 8111,
+            "theme": "mar-sara"
+          },
+          "phase": "reward",
+          "stage": 3,
+          "completed": 3,
+          "time": 180,
+          "steps": 10800,
+          "peakEnemies": 15,
+          "issue": null
+        }
+      ]
+    },
+    "parameters": {
+      "firstThree": {
+        "health": [
+          0.35,
+          0.55
+        ],
+        "damage": [
+          0.18,
+          0.3
+        ]
+      },
+      "transition": "Stages 4–6 continuously restore both multipliers to 1; old curve exact at stage 6 end and later.",
+      "unchanged": [
+        "active enemy cap 300",
+        "4:4:1 density mix",
+        "wave counts and birth timing",
+        "density companion resources and rewards",
+        "speed/range/armor/attack period",
+        "main-hive health",
+        "easy/hard/hell/endless"
+      ]
+    }
+  },
+  "visual": {
+    "comparison": "Only-acceleration-fixed legacy performance renderer versus final R3, same recorded simulation and fixed camera.",
+    "results": [
+      {
+        "image": "fixed-after-r3/full.png",
+        "changedPixels": 10,
+        "max": 110,
+        "bounds": [
+          1121,
+          22,
+          1267,
+          150
+        ],
+        "hivePixels": 10
+      },
+      {
+        "image": "visual-repeat-r3/full.png",
+        "changedPixels": 0,
+        "max": 0,
+        "bounds": null,
+        "hivePixels": 0
+      },
+      {
+        "image": "visual-repeat-r3/repeat-0.png",
+        "changedPixels": 0,
+        "max": 0,
+        "bounds": null,
+        "hivePixels": 0
+      },
+      {
+        "image": "visual-repeat-r3/repeat-1.png",
+        "changedPixels": 0,
+        "max": 0,
+        "bounds": null,
+        "hivePixels": 0
+      },
+      {
+        "image": "visual-repeat-r3/repeat-2.png",
+        "changedPixels": 0,
+        "max": 0,
+        "bounds": null,
+        "hivePixels": 0
+      }
+    ],
+    "initialTenPixelCause": "Unproven; preserved. Independent rerun with identical final bundle and three additional redraws all match the corrected baseline RGB exactly.",
+    "reviewedScreens": [
+      "green-before/green-isolated.png",
+      "green-after/green-isolated.png",
+      "fixed-after-r3/full.png",
+      "corrected-visual-r3/full.png",
+      "visual-repeat-r3/full.png",
+      "adaptive-r3/adaptive-dense.png",
+      "adaptive-r3/adaptive-opening.png",
+      "adaptive-r3/adaptive-settings.png",
+      "adaptive-r3/context-restored.png",
+      "adaptive-r3/fixed-restored.png",
+      "adaptive-r3/full.png",
+      "adaptive-r3/normal-naked-native.png",
+      "adaptive-r3/viewport-1440.png",
+      "adaptive-r3/viewport-390.png",
+      "adaptive-r3/viewport-960.png"
+    ],
+    "reviewMethod": "Two green originals, dense originals and repeat original; all ten adaptive/lifecycle/native images in a contact sheet, with settings and native naked frame also inspected at original size.",
+    "obviousNewMissingOrBlackOrStretchedEffects": false,
+    "humanAcceptance": false
+  },
+  "platform": {
+    "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+  },
+  "preservedFailures": "reports/local/performance-optimization-20261016/failures-and-corrections.md",
+  "limits": {
+    "fullContent60FPS": false,
+    "naturalFullCampaign": false,
+    "humanFirstThreeStageAcceptance": false,
+    "physicalInputAcceptance": false,
+    "allFiveMapsRevalidated": false,
+    "currentReplaced": false,
+    "namedReleaseReplaced": false,
+    "committed": false,
+    "pushed": false,
+    "published": false,
+    "saveWorkDeferred": true
+  },
+  "evidence": [
+    {
+      "file": "reports/local/performance-optimization-20261016/green-before/report.json",
+      "bytes": 1188526,
+      "sha256": "261ffa43d489f2476fb0e00f936810128c7daf66862e0c2b78c771bf880aa50a"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/green-after/report.json",
+      "bytes": 1188543,
+      "sha256": "b45816cdc6c7adb47c361979b283539b32b25bd5e1ec5fbd2ccea304e640744c"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/fixed-before-r2/report.json",
+      "bytes": 3962618,
+      "sha256": "d54ffe713a953ec3ed5c37f7de14b6e93d4ea0445c48681b4e3a944274a65008"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/fixed-after-r2/report.json",
+      "bytes": 3967281,
+      "sha256": "3a03a23a4465dc270b1a9da3e11d1520f2f0148db364e68ea22f2267013a6a39"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/fixed-before-r3/report.json",
+      "bytes": 3966964,
+      "sha256": "e12215155df89724234fa5102028a326538d262333ae831a6e6c6634b682da73"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/fixed-after-r3/report.json",
+      "bytes": 3968651,
+      "sha256": "4d18275deff76aacc272fed950e545e45c8fa5688d9a06a5c8569e33bea1a214"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/corrected-visual-r3/report.json",
+      "bytes": 3366915,
+      "sha256": "d33843b0e42ab1d6948682480c5e8afa03532a64fd21aff09c5cf899556c4425"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/visual-repeat-r3/report.json",
+      "bytes": 4351896,
+      "sha256": "32eddc6c1893655613e65e6559de4585326a3fb62f6d6fe622e9d93bf8a64d86"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/report.json",
+      "bytes": 5722663,
+      "sha256": "6e3b6896b7d12e80948d441500e3b3d58b48dd86d050655bf03cd951ac107c57"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/visual-r2-comparison.json",
+      "bytes": 404,
+      "sha256": "b714f8a45a32ee49edb291c8435633971238c16bc1c024194b300251200bb4c4"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/visual-r3-comparison.json",
+      "bytes": 749,
+      "sha256": "203c38792e6bea00977311c8c80828330c41a196281104eaeca2fd8b4b85af04"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/regressions-r1.log",
+      "bytes": 175360,
+      "sha256": "8a0224e76d12e74c08f7ca25255ee565591aa24ead9f018744affa3ca8bdc202"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/regressions-r2.log",
+      "bytes": 173804,
+      "sha256": "3a53e3b2a436743a2c1649bd61bc1f9ccfa73d33261a4c61c9f951261c579bef"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/contracts-r3.log",
+      "bytes": 6084,
+      "sha256": "7295c2c0c0fc78c214d0490b07e2786f3ec329fd4af48536305fb84b6c4cd219"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/typecheck-final.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/docs-check-final.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/analysis-failed-optional-upload.log",
+      "bytes": 1670,
+      "sha256": "27db48a573241413ddf9bfd5b5dec40a4c5d17b99b9a7178f64adc0c7bfda7b6"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/failures-and-corrections.md",
+      "bytes": 2391,
+      "sha256": "a3b9e8a214192c3c6a515c52e2c62bf3c44f71eafb75d04abf3c7e847330b200"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/preview-copy.json",
+      "bytes": 1326,
+      "sha256": "a7f8b9f89079f2c5d4ffdf15ed93090c27637afadae4616a90ef25ef0653d097"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/preview-http.json",
+      "bytes": 618,
+      "sha256": "d134e23786a0cc521c61ffcfc4f44112f4673ccc9bb11f03e2884c8425f40864"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/normal-intro-before/summary.json",
+      "bytes": 2762,
+      "sha256": "c9fd92fe9ee28d2cf8d763f90a61fcef1f6be25465ff257e9bfcaac817ba688d"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/baseline-source/src/data/enemy-tuning.ts",
+      "bytes": 5623,
+      "sha256": "ad38960318ade78545340056510b3b977991a20a419c6bc64c3706150ff6fd03"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/normal-intro-r1/summary.json",
+      "bytes": 2811,
+      "sha256": "cf26fe27fa908c4974bfc95419a390308f9244d30e597b85d40ed01c387676f1"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/normal-intro-r1/enemy-tuning.ts",
+      "bytes": 6135,
+      "sha256": "e894f97ede9554ec7432f8b400f7951ebb17ac65870009fa3144ee417174399a"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/normal-intro-r2/summary.json",
+      "bytes": 2755,
+      "sha256": "e5ef04a672363fe7e77dc4c20ce2aa4bade059241d0a873f0bec202e7d73fd4d"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/normal-intro-r2/enemy-tuning.ts",
+      "bytes": 6305,
+      "sha256": "96333b6028a70d2c3b8fafd712a9fa5684d71970500785f28cdcf601138c5fc1"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/normal-intro-r3/summary.json",
+      "bytes": 2730,
+      "sha256": "1d7c1e5dd5e59ae20fb74eb93f88c9025b3f8dfc8bc53560b292059d988f21b7"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/normal-intro-r3/enemy-tuning.ts",
+      "bytes": 6303,
+      "sha256": "7acb648814fce876b80812679ac86b35d596af90503754744e7879d341c30980"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/green-before/green-isolated.png",
+      "bytes": 1227469,
+      "sha256": "c29fa17cdf2b6fd5ea3f2bf53c949f3d7bf0319d206f5151bd50854d9a3cda4e"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/green-after/green-isolated.png",
+      "bytes": 1152005,
+      "sha256": "f71627bc30c5a253461c8742208f2fdbe07dda86d15d3497e19b0852f51196fa"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/fixed-after-r3/full.png",
+      "bytes": 1478561,
+      "sha256": "279742905198d1f56a597cc30d819c3c0d3c198b4b99504aebb6f3c163f63e5e"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/corrected-visual-r3/full.png",
+      "bytes": 1478568,
+      "sha256": "aedab6d6059dcabe6122022f1c85b8f8daa3175847451073e4857d6b55549ba2"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/visual-repeat-r3/full.png",
+      "bytes": 1478568,
+      "sha256": "aedab6d6059dcabe6122022f1c85b8f8daa3175847451073e4857d6b55549ba2"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/adaptive-dense.png",
+      "bytes": 1246174,
+      "sha256": "baafa70ce99e2062a29536056a39230d9fb7b8175d4546c81ae20594f3ae4aa4"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/adaptive-opening.png",
+      "bytes": 1008202,
+      "sha256": "b7af3aef12d36fe83e1f3ac4d76d9eeffac182d911cff9e88740c69252df6f73"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/adaptive-settings.png",
+      "bytes": 135020,
+      "sha256": "a37764ca6d08755fe480ced80c5597d04458751050c23197b63bbda82ab4b243"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/context-restored.png",
+      "bytes": 237452,
+      "sha256": "c200646bccfd608191cb450359e16cf433c15e76870c48dbf9de409894c5ab57"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/fixed-restored.png",
+      "bytes": 1008196,
+      "sha256": "932297b7e7b709137c312123d95426eb7bfd4d45e13817cc56f42239dd1eecb5"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/full.png",
+      "bytes": 1449076,
+      "sha256": "1a0dc10b6ab98aee17f49f7d2ac54323f5170ef22586d999d36d8c6866c74800"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/normal-naked-native.png",
+      "bytes": 1091415,
+      "sha256": "7b71066525567662a6ddff2838a9c1c88f68adfe13c1f8fac7c318ba121dd13b"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/viewport-1440.png",
+      "bytes": 210541,
+      "sha256": "58e54501c2abfd010020d360697cf977853a7b8056b3e19793f161bc02903698"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/viewport-390.png",
+      "bytes": 70183,
+      "sha256": "d428ab0eb2f6a78c9a2fc659d936b702b062b26e3e67f7784733e6c322ed5d6e"
+    },
+    {
+      "file": "reports/local/performance-optimization-20261016/adaptive-r3/viewport-960.png",
+      "bytes": 109420,
+      "sha256": "b639bab868dc66b5666b0acb700b02ddb08280a298da40f771c01c70815729c4"
+    }
+  ]
+}

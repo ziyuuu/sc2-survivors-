@@ -5,3 +5,12 @@
 .pod-world-label .carrier-count{font-size:14px;align-self:center;color:#b7f6c9}
 .pod-world-label .carrier-vital{grid-column:1/-1;height:3px;background:#1d4535;overflow:hidden}
 .pod-world-label .carrier-vital i{display:block;height:100%;margin:0;background:#80e99f}
+/* Equipment names sit in the world layer. The inventory screen remains a separate consumer. */
+.equipment-drop-label{position:absolute;display:flex;align-items:center;gap:4px;left:0;top:0;box-sizing:border-box;max-width:210px;height:22px;padding:2px 7px;border:1px solid color-mix(in srgb,var(--equipment-color) 45%,transparent);border-radius:2px;background:linear-gradient(90deg,#091017eb,#101b24d9);color:var(--equipment-color);font:500 12px/16px system-ui,sans-serif;white-space:nowrap;overflow:hidden;pointer-events:none;text-shadow:0 1px 2px #000;box-shadow:0 2px 7px #0007}
+.equipment-label-name{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.equipment-label-count{flex-shrink:0;margin-left:auto}
+.equipment-drop-label[data-quality="5"]{border-color:#c68c42;background:linear-gradient(90deg,#271b10ed,#141519e6);box-shadow:0 0 10px #e1a34730,0 2px 7px #0007}
+.equipment-drop-label[data-polluted="true"]{border-left:3px solid #e9a0d2}
+.equipment-pickup-toast{position:absolute;left:0;top:0;padding:5px 11px;border:1px solid #a6c2d355;border-radius:3px;background:#0a1728e8;color:#e2eef7;font:500 12px/18px system-ui,sans-serif;white-space:nowrap;pointer-events:none;text-shadow:0 1px 2px #000}
+.equipment-pickup-toast[data-full="true"]{color:#ffd598;border-color:#b77e42;background:#2b1d12ed}
+.equipment-drop-label[hidden],.equipment-pickup-toast[hidden]{display:none}

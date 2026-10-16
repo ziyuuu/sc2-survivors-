@@ -1,4 +1,5 @@
 import type {World} from '../world';
+import {equipmentValue} from '../starship/modules';
 import type {ExpeditionState,Payment} from '../expedition-state';
 import {LINE_SKILLS,PRODUCTION_LINES,type ProductionLineId} from '../../data/expedition-buildings';
 import type {FamilyId} from '../../data/races';
@@ -23,7 +24,7 @@ export function worldBuildingContext(w:World):BuildingState|null {
  const phase=w.phase==='reward'?w.rewardRound==='building'?'building':'shop':w.phase==='menu'?'building':'front';
  const stage=w.phase==='reward'?w.draftStage:Math.max(0,w.stage-1);
  const talents=Object.fromEntries(['permanent_discount','frugal_build','free_house','double_build','instant_tech','window_shop','reroll_fan'].map(id=>[id,w.talent(id)])) as unknown as Talents;
- return buildingContext(s,stage,w.draftWindowId,phase,w.wallet,talents);
+ const b=buildingContext(s,stage,w.draftWindowId,phase,w.wallet,talents);if(b){const cap=equipmentValue(w,'research_cap');if(cap)b.researchLimit=cap;else delete b.researchLimit;}return b;
 }
 /** Presentation never draws offers or changes the native state. */
 export function buildingViewState(w:World):BuildingState|null {

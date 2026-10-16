@@ -1,4 +1,4 @@
-import {campaign18EnemyPressure} from './campaign18';
+import {CAMPAIGN_CHAPTERS} from './campaign-layout';
 import type {Difficulty} from './stages';
 export const SWARM_TYPES=['zergling','roach','baneling'] as const;
 export type SwarmType=typeof SWARM_TYPES[number];
@@ -11,11 +11,11 @@ export function validateSwarm(s:SwarmState){
  for(const b of s.pending){if(!b||!Number.isFinite(b.at)||b.at<last||!Number.isFinite(b.bearing)||!Number.isInteger(b.stage)||b.stage<1||b.stage>18||!Number.isSafeInteger(b.round)||b.round<0||!b.counts||Object.keys(b.counts).length!==3||SWARM_TYPES.some(t=>!Number.isSafeInteger(b.counts[t])||b.counts[t]<0))throw Error('虫海待入场记录无效');last=b.at;pending+=SWARM_TYPES.reduce((n,t)=>n+b.counts[t],0);}
  if(pending!==s.planned-s.spawned)throw Error('虫海数量不一致');
 }
-/** Own deterministic bearings: appending fodder never consumes the ordinary-wave RNG. */
+/** Historical queued-swarm support only. New runs use mixed-waves; never call from stage preparation. */
 export function planSwarm(state:SwarmState,stage:number,difficulty:Difficulty,seed:number,startedAt:number,duration:number,round=0){
  const window=round?'endless:'+round:'stage:'+stage;if(state.window===window)return;state.window=window;
  const amount=round?60:stage<7?0:stage<=9?60:stage<=12?90:stage<=15?120:150;if(!amount)return;
- const pressure=round?(difficulty==='hard'?1.4:difficulty==='hell'?1.8:1):campaign18EnemyPressure(difficulty,stage).total;
+ const pressure=round?(difficulty==='hard'?1.4:difficulty==='hell'?1.8:1):CAMPAIGN_CHAPTERS[difficulty][Math.floor((stage-1)/3)].pressure.total;
  const factor=(difficulty==='easy'?.5/.9:1)*pressure,shares=[.7,.2,.1],times:number[]=[];
  for(let t=5;t<duration;t+=15)times.push(t);
  const totals=shares.map((share,i)=>{const exact=amount*factor*share+state.carry[i],n=Math.floor(exact+1e-8);state.carry[i]=Math.max(0,exact-n);state.planned+=n;return n;});

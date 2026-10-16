@@ -1,4 +1,4 @@
-export type RenderQuality='native'|'balanced'|'performance';
+export type RenderQuality='native'|'adaptive'|'balanced'|'performance';
 export type HeroEffectQuality='full'|'balanced'|'low';
 export type OrdinaryEffectQuality='full'|'balanced'|'low';
 export const ORDINARY_EFFECT_LABELS={full:'普通兵与支援 · 完整',balanced:'普通兵与支援 · 均衡',low:'普通兵与支援 · 精简'};
@@ -9,11 +9,11 @@ export const HERO_EFFECT_LABELS={full:'英雄特效 · 完整',balanced:'英雄�
 export const resolveHeroEffects=(value:string|null,mobile=false):HeroEffectQuality=>value==='full'||value==='balanced'||value==='low'?value:mobile?'balanced':'full';
 export function loadHeroEffects(){try{return resolveHeroEffects(localStorage.getItem('sc2.heroEffects'),matchMedia('(pointer:coarse)').matches);}catch{return 'full' as const;}}
 export function saveHeroEffects(value:HeroEffectQuality){try{localStorage.setItem('sc2.heroEffects',value);}catch{}}
-export const QUALITY_LABELS:Record<RenderQuality,string>={native:'清晰 · 屏幕分辨率',balanced:'均衡',performance:'低分辨率'};
-export function resolveQuality(saved:string|null,mobile=false):RenderQuality{return saved==='native'||saved==='balanced'||saved==='performance'?saved:mobile?'balanced':'native';}
+export const QUALITY_LABELS:Record<RenderQuality,string>={native:'清晰 · 屏幕分辨率',adaptive:'自适应',balanced:'均衡',performance:'低分辨率'};
+export function resolveQuality(saved:string|null,mobile=false):RenderQuality{return saved==='native'||saved==='adaptive'||saved==='balanced'||saved==='performance'?saved:mobile?'balanced':'native';}
 export function renderPixelRatio(quality:RenderQuality,dpr:number,width:number,height:number,maxDimension=Infinity){
  const screen=Number.isFinite(dpr)&&dpr>0?dpr:1;
- const requested=quality==='native'?screen:Math.min(screen,quality==='balanced'?1.5:1);
+ const requested=quality==='native'||quality==='adaptive'?screen:Math.min(screen,quality==='balanced'?1.5:1);
  return Math.min(requested,maxDimension/Math.max(1,width,height));
 }
 export function loadQuality():RenderQuality{let saved:null|string=null;try{saved=localStorage.getItem('sc2.renderQuality');}catch{}return resolveQuality(saved,matchMedia('(pointer:coarse)').matches);}
@@ -30,3 +30,8 @@ export function samplePoseClock(state:PoseClockState,mode:AnimationMode,time:num
  if(mode==='complete'||state.mode!==mode||state.event!==event||state.time===undefined||time<state.time||time-state.time>=1/15-1e-8){state.time=time;state.event=event;state.mode=mode;}
  return state.time!;
 }
+
+export type CombatPreset='full'|'medium'|'custom';
+export const COMBAT_PRESET_LABELS:Record<CombatPreset,string>={full:'全特效',medium:'中特效',custom:'自定义'};
+export function loadCombatDetail():'full'|'medium'{try{return localStorage.getItem('sc2.combatDetail')==='medium'?'medium':'full';}catch{return 'full';}}
+export function saveCombatDetail(value:'full'|'medium'){try{localStorage.setItem('sc2.combatDetail',value);}catch{}}

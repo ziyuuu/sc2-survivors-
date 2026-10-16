@@ -1,3 +1,6 @@
+import {equipmentHealingOutput} from '../starship/native-effects';
+import {equipmentAreaRadius,equipmentAreaFactor,equipmentCluster} from '../starship/weapon-areas';
+import {equipmentRecoveryFactor} from '../starship/runtime';
 import {observeRecovery} from '../observation';
 import {zergTeamBuff} from './zerg-hero-passives';
 import {groundHeroBuff} from './hero-ground-auras';
@@ -28,7 +31,7 @@ export function tickTerranHero(w:World,u:Entity,dt:number){if(!u.heroId||u.hp<=0
  if(u.heroId==='nova'){const s=heroState(u),idle=w.time-Math.max(s.lastFire,u.lastDamagedAt??-100)>=2;if(!idle){s.cloakEpisode=false;u.cloaked=false;}else if(!s.cloakEpisode){s.cloakEpisode=true;s.cloakUntil=w.time+6;s.charge=1;}u.cloaked=idle&&s.cloakUntil>w.time;}
  if(u.heroId==='tychus'&&w.time-heroState(u).lastFire>=2)heroState(u).warmupStart=null;
  if(u.heroId==='swann'){const targets=w.allies().filter(a=>a.id!==u.id&&permanentMechanical(a)&&a.hp<a.maxHp&&w.edgeDistance(u,a)<=8&&w.hasAttackLine(u,a)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id).slice(0,7);u.healTargets=[];
-  for(const a of targets){const suppression=Math.min(.5,Math.max(w.statuses.value(a.id,'bleed',w.time),w.statuses.value(a.id,'corruption',w.time))),gain=Math.min(a.maxHp-a.hp,TERRAN_HERO_REPAIR_PER_SECOND*terranHeroGrowth(u.rank).passive*(1+(talentModifiers(w,u).healingPct??0))*(1-suppression)*dt);if(gain>0){a.hp+=gain;w.stats.healed+=gain;observeRecovery(w,u,a,gain);u.healTargets.push(a.id);}}}
+  for(const a of targets){const suppression=Math.min(.5,Math.max(w.statuses.value(a.id,'bleed',w.time),w.statuses.value(a.id,'corruption',w.time))),gain=Math.min(a.maxHp-a.hp,TERRAN_HERO_REPAIR_PER_SECOND*terranHeroGrowth(u.rank).passive*(1+(talentModifiers(w,u).healingPct??0))*(1-suppression)*dt*equipmentRecoveryFactor(w,a)*equipmentHealingOutput(w,u));if(gain>0){a.hp+=gain;w.stats.healed+=gain;observeRecovery(w,u,a,gain);u.healTargets.push(a.id);}}}
 }
 /** Snapshot one main cycle before launch. Secondary/APM packets never call this. */
 export function beginHeroAttack(w:World,u:Entity,target:Body){if(!u.heroId)return;const s=heroState(u);if(u.heroId==='tychus'&&(s.warmupStart===null||w.time-s.lastFire>=2))s.warmupStart=w.time;
@@ -41,6 +44,6 @@ export function heroExtraHits(w:World,u:Entity,target:Body,packet:number){const 
  if(u.heroId==='raynor'&&s.cycles%3===0&&target.hp>0){w.hit(target,packet,[],1,'terran',0,1,u.id,false,false,0,false);w.visual('weapon-area',u,target);}
  const rule=u.heroId==='tychus'?{every:5,radius:3,fraction:.3,max:Infinity}:u.heroId==='tosh'?{every:4,radius:3.5,fraction:1.2,max:Infinity}:u.heroId==='yamato_battlecruiser'?{every:8,radius:5,fraction:.5,max:4}:null;
  if(!rule||s.cycles%rule.every)return;
- const targets=[...w.entities.values()].filter(a=>a.owner==='zerg'&&a.hp>0&&(u.heroId==='tosh'||a.id!==target.id)&&w.visibleTo(a,'terran')&&distance(a,target)<=rule.radius+a.unitRadius&&w.hasAttackLine(u,a)).sort((a,b)=>distance(a,target)-distance(b,target)||a.id-b.id).slice(0,rule.max);
- for(const a of targets){w.hit(a,packet*rule.fraction,[],1,'terran',.5,0,u.id,false,false,0,false);w.visual('weapon-area',u,a);}
+ const targets=[...w.entities.values()].filter(a=>a.owner==='zerg'&&a.hp>0&&(u.heroId==='tosh'||a.id!==target.id)&&w.visibleTo(a,'terran')&&distance(a,target)<=equipmentAreaRadius(w,u,rule.radius)+a.unitRadius&&w.hasAttackLine(u,a)).sort((a,b)=>distance(a,target)-distance(b,target)||a.id-b.id).slice(0,rule.max);
+ for(const a of targets){w.hit(a,packet*rule.fraction*equipmentAreaFactor(w,u),[],1,'terran',.5,0,u.id,false,false,0,false);w.visual('weapon-area',u,a);}equipmentCluster(w,u,target,rule.radius,packet*rule.fraction,[],1,1,'both',1);
 }

@@ -66,7 +66,7 @@ export class RunState {
  protected nextGuardCounts:Campaign18Counts|null=null;
 protected specialPlan:Campaign18Special[]=[];protected nextSpecial=0;
  protected waves:Campaign18Wave[]=[];protected eventPlan:Campaign18EconomicEvent[]=[];protected nextEvent=0;protected scheduledStage=0;
- protected ambientBacklog:{type:ZergType|Campaign18Enemy;bearing:number;at:number;campaignStage?:number;detector?:boolean}[]=[];
+ protected ambientBacklog:{type:ZergType|Campaign18Enemy;bearing:number;at:number;campaignStage?:number;detector?:boolean;lane?:number;stamp?:import('../data/enemy-tuning').EnemySpawnStamp;resources?:import('../data/enemy-tuning').EnemyResourceScale}[]=[];
  protected spawnCells:Point[]=[];
  protected swarmSpawnCache:{cells:Point[];radius:number;points:Point[]}[]=[];
  notice='守住小队。生产完成后必须救援。';noticeUntil=8;revision=0;

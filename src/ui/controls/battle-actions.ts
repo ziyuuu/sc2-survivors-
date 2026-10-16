@@ -1,6 +1,6 @@
 import type {BattleView} from '../../simulation/combat/battle-view';
 const battleContexts=new WeakMap<World,()=>BattleView|undefined>();
-export function bindBattleView(w:World,get:()=>BattleView|undefined){battleContexts.set(w,get);}
+export function bindBattleView(w:World,get:()=>BattleView|undefined){battleContexts.set(w,get);w.starship.battleView=get;}
 import type {World} from '../../simulation/world';
 import {HEROES,type HeroId} from '../../data/heroes';
 import {SC2_UNITS} from '../../data/sc2-units';

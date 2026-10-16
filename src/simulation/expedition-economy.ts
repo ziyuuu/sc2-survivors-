@@ -1,6 +1,8 @@
+import {equipmentDevelopmentLegal,equipmentDevelopmentCompleted,equipmentPurchasePrice,recordEquipmentPurchase} from './starship/economy';
 import {worldBuildingContext,syncBuildingEffects,syncBuildingWindow} from './building/expedition';
-import {purchase as purchaseBuilding,refresh as refreshBuilding,project} from './building/rules';
+import {purchase as purchaseBuilding,refreshAtCost,project} from './building/rules';
 import {nativeBuildingQuote} from './progression/expedition-drafts';
+import {prepareEquipmentShelf,equipmentRefreshPrice,equipmentValue} from './starship/modules';
 import {canSupply,applySupply} from './progression/supply-cards';
 import {buySupport,supportLegal} from './combat/shop-support';
 import {trainingTargets,validTrainingTargets,applyTrainingTargets} from './progression/training-cards';
@@ -20,17 +22,17 @@ import {drawMapLoot,beginExpeditionWindow,drawExpeditionDevelopment,drawExpediti
 // A family's weapon upgrades remain useful while its body is undeployed or its
 // weapon lives on paid hangar units. Pure healers must still stay out of this pool.
 const familyHasWeapon=(family:FamilyId)=>family==='lurker'||family==='carrier'||SC2_UNITS[family].targetType!=='none';
-export function draftContext(w:World):ExpeditionDraftContext {return {wallet:w.wallet,state:w.expedition!,stage:w.draftStage,windowId:w.draftWindowId,random:w.random,nextOfferId:id=>`${w.draftWindowId}:${w.endless?.round??0}:${w.nextId++}:${id}`,currentOffers:w.rewards,heroSeatsUsed:w.heroes.size,
+export function draftContext(w:World):ExpeditionDraftContext {return {wallet:w.wallet,state:w.expedition!,stage:w.draftStage,windowId:w.draftWindowId,random:w.random,nextOfferId:id=>`${w.draftWindowId}:${w.endless?.round??0}:${w.nextId++}:${id}`,currentOffers:w.rewards,heroSeatsUsed:w.heroes.size,developmentReady:d=>equipmentDevelopmentLegal(w,d),highQualityWeight:w.starship.numbers.get('free-shelf-quality')?equipmentValue(w,'free_refresh_quality'):0,
  supplyLegal:(family,count,mode)=>canSupply(w,family,count,mode),
  supportLegal:kind=>supportLegal(w,kind),
  training:rank=>trainingTargets(w,rank),trainingValid:(rank,targets)=>validTrainingTargets(w,rank,targets),
  purchasePriceFactor:1-.1*w.talent('permanent_discount'),developmentPriceFactorFor:d=>(1-(d.kind==='research'?0:.15*w.talent('frugal_build')))*(1-.1*w.talent('permanent_discount')),
- familyInfo:f=>{const d=f in SC2_UNITS?SC2_UNITS[f as UnitType]:null,source=d?sourceDetails(f as UnitType):null;return {name:d?.zh??'未知单位',icon:'unit.'+f,alive:d?w.familyUnits(f as UnitType).length:0,canAttack:!!d&&familyHasWeapon(f),canSupport:['medivac','science_vessel','queen'].includes(f)||(source?.lifeRegen??0)>0||(source?.shieldRegen??0)>0,usesEnergy:(source?.energy??0)>0,cultivationCapacity:d?Math.min(w.availableCapacity(f as UnitType),w.ordinaryUnits(f as UnitType).reduce((n,u)=>n+w.soldierCap()-u.rank,0)):0,canProduce:w.isFamilyAvailable(f),capabilities:d?[...(d.targetType==='both'||d.targetType==='air'?['antiAir']:[]),...(d.splash.length||f==='lurker'?['area']:[]),...(['medivac','queen','science_vessel'].includes(f)?['support']:[])]:[]};},
+ familyInfo:f=>{const d=f in SC2_UNITS?SC2_UNITS[f as UnitType]:null,source=d?sourceDetails(f as UnitType):null;return {name:d?.zh??'未知单位',icon:'unit.'+f,alive:d?w.familyUnits(f as UnitType).length:0,canAttack:!!d&&familyHasWeapon(f),canSupport:['medivac','science_vessel','queen'].includes(f)||(source?.lifeRegen??0)>0||(source?.shieldRegen??0)>0,usesEnergy:(source?.energy??0)>0,cultivationCapacity:d?Math.min(w.availableCapacity(f as UnitType),w.ordinaryUnits(f as UnitType).reduce((n,u)=>n+w.soldierCap(u.unitType as UnitType)-u.rank,0)):0,canProduce:w.isFamilyAvailable(f),capabilities:d?[...(d.targetType==='both'||d.targetType==='air'?['antiAir']:[]),...(d.splash.length||f==='lurker'?['area']:[]),...(['medivac','queen','science_vessel'].includes(f)?['support']:[])]:[]};},
  heroes:ALL_HERO_IDS.map(id=>({id,race:HEROES[id].race,name:HEROES[id].name,icon:'hero.'+id,rank:w.heroes.get(id)?.rank??0,owned:w.heroes.has(id),eligible:w.canAcquireHero(id)})),
  elites:Object.values(ELITES).filter((elite,index,all)=>all.findIndex(other=>other.family===elite.family)===index).map(e=>{const choice=w.eliteVariants(e.family)[0];return {id:choice?.id??e.id,race:familyRace(e.family),family:e.family,name:SC2_UNITS[e.family as UnitType]?.zh??e.family,icon:choice?.icon??e.icon,eligible:!!choice};})};}
 export function developmentOffers(w:World){if(!w.expedition||w.phase!=='reward'||w.rewardRound!=='building')return [];beginExpeditionWindow(w.expedition,w.draftStage,w.draftWindowId,w.talent('window_shop'),w.talent('free_purchase'));worldBuildingContext(w);return drawExpeditionDevelopment(draftContext(w));}
 export function setDevelopmentDirection(w:World,line:ProductionLineId,revision:number){const s=w.expedition;if(w.phase!=='reward'||w.rewardRound!=='building'||s.developmentBought||s.shopRevision!==revision||PRODUCTION_LINES[line]?.race!==s.race)return false;if(s.developmentDirection===line)return true;s.developmentDirection=line;s.shopRevision++;w.rewards=drawExpeditionDevelopment(draftContext(w));w.changed();return true;}
-export function reinforcementOffers(w:World){if(!w.expedition||w.phase!=='reward'||w.rewardRound!=='random')return [];generateEliteContracts(w);return drawExpeditionReinforcements(draftContext(w));}
+export function reinforcementOffers(w:World){if(!w.expedition||w.phase!=='reward'||w.rewardRound!=='random')return [];generateEliteContracts(w);return prepareEquipmentShelf(w,drawExpeditionReinforcements(draftContext(w)),r=>offerEligible(w,r));}
 export function generateEliteContracts(w:World){const s=w.expedition,window=w.draftWindowId;
  if(!s||s.eliteContractWindow===window)return s?.eliteContracts??[];
  s.eliteContractWindow=window;s.eliteContracts=[];
@@ -58,35 +60,41 @@ function applyDevelopment(w:World,r:ExpeditionReward,targetId?:number){
  if(!b||!q||e.kind!=='development')return null;
  const d=project(e.definitionId);if(!d)return null;
  const target=d.kind==='evolution'?b.groups.find(g=>g.ids.includes(targetId??e.targetFacilityId??-1))?.id:undefined;
- const result=purchaseBuilding(b,q,target,{random:w.random,ready:ctx.developmentReady});
+ const result=purchaseBuilding(b,q,target,{random:w.random,ready:ctx.developmentReady,freeChance:equipmentValue(w,'build_free'),doubleChance:equipmentValue(w,'build_double'),researchChance:equipmentValue(w,'build_research')});
  if(!result.ok)return null;
  syncBuildingEffects(w);return {b,result};
 }
-export function purchaseOffer(w:World,id:string,variantId?:EliteId,targetId?:number,oldFamily?:FamilyId){const s=w.expedition,r=w.rewards.find(r=>r.offerId===id),freePurchase=w.rewardRound==='random'&&s.freePurchasesRemaining>0;if(!s||!r||!offerEligible(w,r)||r.expeditionRound!==w.rewardRound||!freePurchase&&(w.wallet.minerals+1e-8<r.minerals||w.wallet.gas+1e-8<r.gas))return false;
+export function purchaseOffer(w:World,id:string,variantId?:EliteId,targetId?:number,oldFamily?:FamilyId){const s=w.expedition,r=w.rewards.find(r=>r.offerId===id),price=r?equipmentPurchasePrice(w,r):null,firstFree=price?.firstFree??false,freePurchase=!firstFree&&w.rewardRound==='random'&&s.freePurchasesRemaining>0;if(!s||!r||!offerEligible(w,r)||r.expeditionRound!==w.rewardRound||!freePurchase&&(w.wallet.minerals+1e-8<price!.minerals||w.wallet.gas+1e-8<price!.gas))return false;
  const effect=r.expeditionEffect;
  if(effect.kind==='development'){
   const completed=applyDevelopment(w,r,targetId);if(!completed)return false;
   const paid=completed.result.paid??{minerals:0,gas:0};
   r.purchaseReceipt={...paid,freeSource:completed.result.firstFree?'R07':null};
   w.economyTotals.purchases.minerals+=paid.minerals;w.economyTotals.purchases.gas+=paid.gas;
-  recordExpeditionOffer(s,r,1+w.talent('free_purchase'));syncBuildingWindow(s,completed.b);w.changed();return true;
+  recordExpeditionOffer(s,r,1+w.talent('free_purchase'));syncBuildingWindow(s,completed.b);equipmentDevelopmentCompleted(w,effect.definitionId);w.changed();return true;
  }
  if(effect.kind==='hero'&&!w.acquireHero(effect.heroId as HeroId))return false;if(effect.kind==='elite'){const selected=w.resolveEliteVariant(effect.family,variantId);if(!selected||!acquireEliteImmediately(w,selected,targetId))return false;if(effect.targetRank){const u=w.eliteOwned(selected)!;u.rank=effect.targetRank;w.refreshStats(u);}}
- if(effect.kind==='supply'&&!applySupply(w,effect.family,effect.count,effect.mode,{minerals:freePurchase?0:r.minerals,gas:freePurchase?0:r.gas},oldFamily))return false;
+ if(effect.kind==='supply'&&!applySupply(w,effect.family,effect.count,effect.mode,{minerals:firstFree||freePurchase?0:r.minerals,gas:firstFree||freePurchase?0:r.gas},oldFamily))return false;
  if(effect.kind==='support'&&!buySupport(w,effect.support))return false;
  if(effect.kind==='training'&&!applyTrainingTargets(w,effect.rank,effect.targets))return false;
- const firstFree=false;
+ 
  if(effect.kind==='resource'){w.wallet.minerals+=effect.minerals;w.wallet.gas+=effect.gas;w.economyTotals.cards.minerals+=effect.minerals;w.economyTotals.cards.gas+=effect.gas;}
- if(effect.kind==='card'&&effect.effect==='cultivation'){const type=effect.family as UnitType;for(let n=0;n<effect.amount;n++){const unit=w.ordinaryUnits(type).filter(u=>u.rank<w.soldierCap()).sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];if(!unit||w.availableCapacity(type)<=0)throw Error('Validated cultivation recipient missing');unit.rank++;w.refreshStats(unit);}}
+ if(effect.kind==='card'&&effect.effect==='cultivation'){const type=effect.family as UnitType;for(let n=0;n<effect.amount;n++){const unit=w.ordinaryUnits(type).filter(u=>u.rank<w.soldierCap(u.unitType as UnitType)).sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];if(!unit||w.availableCapacity(type)<=0)throw Error('Validated cultivation recipient missing');unit.rank++;w.refreshStats(unit);}}
  const paidMinerals=firstFree||freePurchase?0:r.minerals,paidGas=firstFree||freePurchase?0:r.gas;if(freePurchase)s.freePurchasesRemaining--;
- r.purchaseReceipt={minerals:paidMinerals,gas:paidGas,freeSource:firstFree?'R07':freePurchase?'R09':null};w.wallet.minerals-=paidMinerals;w.wallet.gas-=paidGas;w.economyTotals.purchases.minerals+=paidMinerals;w.economyTotals.purchases.gas+=paidGas;recordExpeditionOffer(s,r,1+w.talent('free_purchase'));for(const u of w.allies())w.refreshStats(u);w.changed();return true;
+ r.purchaseReceipt={minerals:paidMinerals,gas:paidGas,freeSource:firstFree?'R07':freePurchase?'R09':null};w.wallet.minerals-=paidMinerals;w.wallet.gas-=paidGas;w.economyTotals.purchases.minerals+=paidMinerals;w.economyTotals.purchases.gas+=paidGas;recordExpeditionOffer(s,r,1+w.talent('free_purchase'));recordEquipmentPurchase(w,r,{minerals:paidMinerals,gas:paidGas},firstFree,variantId);for(const u of w.allies())w.refreshStats(u);w.changed();return true;
 }
 export function refreshOffers(w:World){
  const s=w.expedition;if(!s||s.pendingShopElite||s.pendingShopSupply||w.phase!=='reward'||w.rewardRound==='building'&&!s.developmentDirection||w.rewardRound==='random'&&s.draftTaken)return false;
- const b=worldBuildingContext(w);if(!b)return false;const result=refreshBuilding(b,b.revision);if(!result.ok)return false;
+ const b=worldBuildingContext(w);if(!b)return false;
+ const native=expeditionRefreshCost(s,w.draftStage,w.rewardRound,w.draftWindowId,w.talent('reroll_fan'),w.talent('permanent_discount'));if(native===null)return false;const price=equipmentRefreshPrice(w,native);if(w.wallet.minerals<price)return false;
+ const gearKey=w.rewardRound==='building'?'development':'shop',gearFree=w.starship.window.id===w.draftWindowId&&w.starship.window[gearKey]>0;
+ // The existing building ledger still owns native quotas. An equipment refresh consumes only its own source.
+ const beforePaid=b.paidRefresh,result=gearFree?{ok:true,paid:{minerals:0,gas:0}}:refreshAtCost(b,b.revision,price);
+ if(!result.ok)return false;if(gearFree){w.starship.window[gearKey]--;b.revision++;b.offers={};b.quotes={};}
+ if(w.rewardRound==='random'&&(result.paid?.minerals??0)>0){const key='paid-refresh:'+w.draftWindowId,n=w.starship.numbers.get(key)??0;if(n<equipmentValue(w,'stable_refresh'))b.paidRefresh=beforePaid;w.starship.numbers.set(key,n+1);w.starship.window.shop+=equipmentValue(w,'refresh_credit');}
  w.economyTotals.rerolls+=result.paid?.minerals??0;if((result.paid?.minerals??0)>0)s.paidRefresh[w.rewardRound]=true;
  syncBuildingWindow(s,b);s.directionOffers={};s.developmentQuotes={};if(w.rewardRound==='random')s.shopPage++;
- w.rewards=w.rewardRound==='building'?drawExpeditionDevelopment(draftContext(w),true):drawExpeditionReinforcements(draftContext(w),true);w.changed();return true;
+ w.starship.numbers.set('free-shelf-quality',(result.paid?.minerals??0)===0?1:0);try{w.rewards=w.rewardRound==='building'?drawExpeditionDevelopment(draftContext(w),true):prepareEquipmentShelf(w,drawExpeditionReinforcements(draftContext(w),true),r=>offerEligible(w,r));}finally{w.starship.numbers.delete('free-shelf-quality');}w.changed();return true;
 }
 
 export function endReinforcement(w:World){if(w.expedition&&!w.expedition.draftTaken)finishExpeditionDraft(w.expedition);}
@@ -101,7 +109,7 @@ export function collectMapReinforcement(w:World,r:Reward){
  }else if(effect.kind==='teamCard'){const key=teamCardKey(effect.group,effect.rarity);w.expedition.cardTotals[key]=(w.expedition.cardTotals[key]??0)+1;
  }else if(effect.kind==='card'){
   if(effect.effect==='cultivation')for(let n=0;n<effect.amount;n++){
-   const u=w.ordinaryUnits(effect.family as UnitType).filter(u=>u.rank<w.soldierCap()).sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];
+   const u=w.ordinaryUnits(effect.family as UnitType).filter(u=>u.rank<w.soldierCap(u.unitType as UnitType)).sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];
    if(!u)throw Error('Validated map cultivation recipient missing');u.rank++;w.refreshStats(u);
   }
   w.expedition.cardTotals[effect.key]=(w.expedition.cardTotals[effect.key]??0)+effect.amount;
@@ -123,7 +131,7 @@ export function claimTalentLoot(w:World,receipt:string,offerId:string,variantId?
  if(effect.kind==='training'&&!applyTrainingTargets(w,effect.rank,effect.targets))return false;
  if(effect.kind==='teamCard'){const key=teamCardKey(effect.group,effect.rarity);s.cardTotals[key]=(s.cardTotals[key]??0)+1;}
  if(effect.kind==='card'){
-  if(effect.effect==='cultivation'){const members=w.ordinaryUnits(effect.family as UnitType).filter(unit=>unit.rank<w.soldierCap()).sort((a,b)=>a.rank-b.rank||a.id-b.id);if(w.availableCapacity(effect.family as UnitType)<effect.amount||!members.length)return false;for(let index=0;index<effect.amount;index++){members.sort((a,b)=>a.rank-b.rank||a.id-b.id);const member=members[0];if(!member||member.rank>=w.soldierCap())return false;member.rank++;w.refreshStats(member);}}
+  if(effect.effect==='cultivation'){const members=w.ordinaryUnits(effect.family as UnitType).filter(unit=>unit.rank<w.soldierCap(unit.unitType as UnitType)).sort((a,b)=>a.rank-b.rank||a.id-b.id);if(w.availableCapacity(effect.family as UnitType)<effect.amount||!members.length)return false;for(let index=0;index<effect.amount;index++){members.sort((a,b)=>a.rank-b.rank||a.id-b.id);const member=members[0];if(!member||member.rank>=w.soldierCap(member.unitType as UnitType))return false;member.rank++;w.refreshStats(member);}}
   s.cardTotals[effect.key]=(s.cardTotals[effect.key]??0)+effect.amount;
  }
  if(effect.kind==='resource'){w.wallet.minerals+=effect.minerals;w.wallet.gas+=effect.gas;w.economyTotals.cards.minerals+=effect.minerals;w.economyTotals.cards.gas+=effect.gas;}

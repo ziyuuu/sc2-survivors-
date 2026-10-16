@@ -1,4 +1,5 @@
 import type {World} from '../world';
+import {nativeEquipmentHeroSources} from '../starship/native-effects';
 import type {Entity,Body} from '../types';
 import {HERO_GROUND_AURAS as A} from '../../data/hero-upgrades';
 import {HERO_TEAM_AURAS} from '../../data/team-auras';
@@ -7,7 +8,7 @@ import {permanentTeamBody,compositeHeroInRange,compositeHeroBuff,compositeHeroDe
 type AuraId=keyof typeof A;
 /** Workers, transports, independent temporary bodies and structures never receive these buffs. */
 export const permanentBattleBody=permanentTeamBody;
-export function inHeroAura(w:World,id:AuraId,b:Body){if(Object.hasOwn(HERO_TEAM_AURAS,id))return compositeHeroInRange(w,id,b);const source=w.heroEntity(id);return !!source&&source.hp>0&&b.hp>0&&Math.hypot(b.x-source.x,b.z-source.z)<=(A[id].radius??Infinity)+b.unitRadius&&w.hasAttackLine(source,b);}
+export function inHeroAura(w:World,id:AuraId,b:Body){if(Object.hasOwn(HERO_TEAM_AURAS,id))return compositeHeroInRange(w,id,b);return nativeEquipmentHeroSources(w,id).some(source=>source.hp>0&&b.hp>0&&Math.hypot(b.x-source.x,b.z-source.z)<=(A[id].radius??Infinity)+b.unitRadius&&w.hasAttackLine(source,b));}
 export function groundHeroBuff(w:World,u:Entity){const h=compositeHeroBuff(w,u),result={damage:h.damage,speed:h.speed,armor:h.armorFlat,health:h.maxHp,shield:h.maxShield,move:h.move,armorPct:h.armorPct,shieldArmorPct:h.shieldArmorPct,shieldArmor:h.shieldArmorFlat};if(!permanentBattleBody(u))return result;
  if(inHeroAura(w,'raynor',u))result.damage+=A.raynor.damage;
  if(u.attributes.includes('Mechanical')&&inHeroAura(w,'swann',u))result.armor+=A.swann.armor;

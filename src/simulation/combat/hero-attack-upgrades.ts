@@ -1,3 +1,5 @@
+import {cloneCombatSource,nativeCombatSource} from '../starship/runtime';
+import {equipmentAreaRadius,equipmentAreaFactor,equipmentAreaHit,equipmentCluster} from '../starship/weapon-areas';
 import type {World} from '../world';
 import type {Entity,Body} from '../types';
 import {HEROES,type HeroId} from '../../data/heroes';
@@ -28,7 +30,7 @@ function launch(w:World,source:Entity,target:Body,kind:PacketKind,salvo:number,p
  const from=parent?parent.to:{x:source.x,y:(source.flying?5.6:w.terrain?.height(source)??0)+1.2,z:source.z},to=point(w,target);
  const speed=kind==='missile'?12:kind==='bounce'?13:source.heroId==='swann'?14:source.heroId==='nova'?22:isProtossHero(source.heroId)?source.heroId==='fenix'?19:24:isZergHero(source.heroId)?source.heroId==='hots_leviathan'?18:source.heroId==='stukov'?22:17:26;
  const duration=kind==='missile'?Math.max(.46,distance(from,to)/speed):Math.max(.14,distance(from,to)/speed);
- const p:AttackPacket={id:w.nextId++,salvo,hero:source.heroId!,rank:source.rank,kind,source,target:target.id,primaryTarget,from:{...from},to,born:w.time,arrival:w.time+duration,damage,hits,rootDamage:parent?.rootDamage??source.weaponDamage*HEROES[source.heroId!].attacks,lane,hop,parent:parent?.id??null,bonuses:bonuses.map(b=>({...b})),shieldBonus,crit,apm,primary,lost:false,...(mountSide?{mountSide}: {})};
+ const p:AttackPacket={id:w.nextId++,salvo,hero:source.heroId!,rank:source.rank,kind,source:kind==='main'?nativeCombatSource(w,source,target):cloneCombatSource(w,source),target:target.id,primaryTarget,from:{...from},to,born:w.time,arrival:w.time+duration,damage,hits,rootDamage:parent?.rootDamage??source.weaponDamage*HEROES[source.heroId!].attacks,lane,hop,parent:parent?.id??null,bonuses:bonuses.map(b=>({...b})),shieldBonus,crit,apm,primary,lost:false,...(mountSide?{mountSide}: {})};
  w.heroAttacks.packets.push(p);emit(w,{kind:'launch',packet:p,at:w.time,p:from});return p;
 }
 function novaLine(w:World,p:AttackPacket,target:Body){
@@ -36,14 +38,14 @@ function novaLine(w:World,p:AttackPacket,target:Body){
  const to={x:from.x+dx/groundLength*range,y:from.y+(p.to.y-from.y)/groundLength*range,z:from.z+dz/groundLength*range},vx=to.x-from.x,vy=to.y-from.y,vz=to.z-from.z,length=Math.hypot(vx,vy,vz),ux=vx/length,uy=vy/length,uz=vz/length;
  const targets=[...w.entities.values()].flatMap(e=>{
   if(!legal(w,p.source,e)||w.edgeDistance(p.source,e)>range)return [];const ep=point(w,e),ex=ep.x-from.x,ey=ep.y-from.y,ez=ep.z-from.z,along=ex*ux+ey*uy+ez*uz;
-  const across=Math.hypot(ex-along*ux,ey-along*uy,ez-along*uz);if(along<0||along>length+e.unitRadius||across>T.nova.lineWidth/2+e.unitRadius)return [];
+  const across=Math.hypot(ex-along*ux,ey-along*uy,ez-along*uz);if(along<0||along>length+e.unitRadius||across>equipmentAreaRadius(w,p.source,T.nova.lineWidth/2)+e.unitRadius)return [];
   return [{id:e.id,arrive:p.born+Math.max(.14,Math.min(length,along)/22),applied:false}];
  }).sort((a,b)=>a.arrive-b.arrive||a.id-b.id);
  w.heroAttacks.lines.push({id:p.id,packet:p,from:{...from},to,born:p.born,end:p.born+Math.max(.14,length/22),targets});
 }
 /** One real main cycle enters here after World has frozen crit, talent bonuses and opening charge. */
 export function launchHeroAttacks(w:World,u:Entity,target:Body,bonuses:AttackPacket['bonuses'],shieldBonus:number,crit:number){
- if(!isRevisedHero(u.heroId)&&!isZergHero(u.heroId)&&!isProtossHero(u.heroId))return false;const source=structuredClone(u),hero=u.heroId!,definition=HEROES[hero],salvo=w.nextId++,apm=(talentModifiers(w,u).apmDuplicate??0)>0;
+ if(!isRevisedHero(u.heroId)&&!isZergHero(u.heroId)&&!isProtossHero(u.heroId))return false;const source=cloneCombatSource(w,u),hero=u.heroId!,definition=HEROES[hero],salvo=w.nextId++,apm=(talentModifiers(w,u).apmDuplicate??0)>0;
  w.heroAttacks.chains.push({salvo,seen:[target.id]});
  const opposite=hero==='yamato_battlecruiser'?[...w.entities.values()].filter(e=>e.flying!==target.flying&&legal(w,u,e)&&w.edgeDistance(u,e)<=u.attackRange).sort((a,b)=>distance(u,a)-distance(u,b)||a.id-b.id)[0]:undefined;
  const main=launch(w,source,target,'main',salvo,target.id,u.weaponDamage,opposite?1:definition.attacks,bonuses,shieldBonus,crit,apm,0,0,null,true,opposite?'Right':undefined);
@@ -61,8 +63,9 @@ function impact(w:World,p:AttackPacket){const target=w.body(p.target);if(p.lost|
  if(p.rank<3)return;
  if(p.hero==='swann'&&(p.kind==='main'||p.kind==='bounce')&&p.hop<T.swann.maxHops){const chain=w.heroAttacks.chains.find(c=>c.salvo===p.salvo);if(chain){const pool=[...w.entities.values()].filter(e=>!chain.seen.includes(e.id)&&legal(w,p.source,e)&&e.flying===target.flying&&distance(target,e)<=T.swann.range+e.unitRadius&&(!w.terrain||w.terrain.lineOfFire(target,e,false,e.flying))).sort((a,b)=>distance(target,a)-distance(target,b)||a.id-b.id);
   for(const e of pool.slice(0,p.rank>=5?T.swann.vBranches:T.swann.iiiBranches)){chain.seen.push(e.id);launch(w,p.source,e,'bounce',p.salvo,p.primaryTarget,p.damage*T.swann.retainedFraction,1,p.bonuses.map(b=>({...b,amount:b.amount*T.swann.retainedFraction})),p.shieldBonus*T.swann.retainedFraction,p.crit,false,0,p.hop+1,p,false);}}}
- if(p.kind==='main'&&p.hero==='tosh'){const radius=p.rank>=5?T.tosh.vRadius:T.tosh.iiiRadius,fraction=p.rank>=5?T.tosh.vFraction:T.tosh.iiiFraction,targets:number[]=[];
-  for(const e of w.entities.values())if(e.id!==target.id&&legal(w,p.source,e)&&e.flying===target.flying&&distance(e,target)<=radius+e.unitRadius&&(!w.terrain||w.terrain.lineOfFire(target,e,false,e.flying))){const splash={...p,bonuses:p.bonuses.map(b=>({...b,amount:b.amount*p.hits*fraction})),shieldBonus:p.shieldBonus*p.hits*fraction};damage(w,splash,e,p.damage*p.hits*fraction);targets.push(e.id);}
+ if(p.kind==='main'&&p.hero==='tosh'){const nativeRadius=p.rank>=5?T.tosh.vRadius:T.tosh.iiiRadius,radius=equipmentAreaRadius(w,p.source,nativeRadius),fraction=p.rank>=5?T.tosh.vFraction:T.tosh.iiiFraction,targets:number[]=[];
+  for(const e of w.entities.values())if(e.id!==target.id&&legal(w,p.source,e)&&e.flying===target.flying&&distance(e,target)<=radius+e.unitRadius&&(!w.terrain||w.terrain.lineOfFire(target,e,false,e.flying))){equipmentAreaHit(w,p.source,e,p.damage*p.hits*fraction,p.bonuses.map(b=>({...b,amount:b.amount*p.hits*fraction})),1,p.shieldBonus*p.hits*fraction,false,p.crit,{enemyFactor:1,apm:false});targets.push(e.id);}
+  equipmentCluster(w,p.source,target,nativeRadius,p.damage*fraction,p.bonuses.map(b=>({...b,amount:b.amount*fraction})),p.hits,p.crit,target.flying?'air':'ground',1);
   emit(w,{kind:'splash',packet:p,at:w.time,p:point(w,target),targets});}
 }
 /** Render-independent 60 Hz arrival and per-target DOT. Caster death does not erase launched packets. */
@@ -70,7 +73,7 @@ export function tickHeroAttacks(w:World){const state=w.heroAttacks;
  for(const p of state.packets){const target=w.body(p.target);if(!target||!legal(w,p.source,target))p.lost=true;else if(!p.lost)p.to=point(w,target);}
  const due=state.packets.filter(p=>p.arrival<=w.time+1e-8);state.packets=state.packets.filter(p=>p.arrival>w.time+1e-8);for(const p of due)impact(w,p);
  for(const line of state.lines)for(const hit of line.targets)if(!hit.applied&&hit.arrive<=w.time+1e-8){hit.applied=true;const target=w.entities.get(hit.id),p=line.packet;if(!target||!legal(w,p.source,target))continue;
-  const f=p.rank>=5?T.nova.vFraction:T.nova.iiiFraction;state.dots.push({id:w.nextId++,source:p.source,target:target.id,rank:p.rank,damage:(p.damage+p.bonuses.reduce((sum,b)=>sum+(target.attributes.includes(b.attribute)?b.amount:0),0))*p.hits*heroMainFactor(p.source,target)*f*p.crit,remaining:p.rank>=5?T.nova.vTicks:T.nova.iiiTicks,next:w.time+T.nova.dotPeriod});emit(w,{kind:'line-dot',packet:p,at:w.time,p:point(w,target),targets:[target.id]});}
+  const f=p.rank>=5?T.nova.vFraction:T.nova.iiiFraction;state.dots.push({id:w.nextId++,source:p.source,target:target.id,rank:p.rank,damage:(p.damage+p.bonuses.reduce((sum,b)=>sum+(target.attributes.includes(b.attribute)?b.amount:0),0))*p.hits*heroMainFactor(p.source,target)*f*p.crit*equipmentAreaFactor(w,p.source),remaining:p.rank>=5?T.nova.vTicks:T.nova.iiiTicks,next:w.time+T.nova.dotPeriod});equipmentCluster(w,p.source,target,T.nova.lineWidth/2,p.damage*f,p.bonuses.map(b=>({...b,amount:b.amount*f})),p.hits,p.crit,'both',1);emit(w,{kind:'line-dot',packet:p,at:w.time,p:point(w,target),targets:[target.id]});}
  state.lines=state.lines.filter(line=>w.time<line.end);
  for(const d of state.dots){const target=w.entities.get(d.target);if(!target||target.hp<=0){d.remaining=0;continue;}if(d.remaining>0&&d.next<=w.time+1e-8){
   // DOT already contains the frozen opening, bonuses and crit; no recursive passive/APM/loot-chain proc.
@@ -86,4 +89,4 @@ export function validateHeroAttacks(s:HeroAttackState){
 }
 
 /** Actual flagship-owned bolt; the child's original identity and mount remain the source. */
-export function launchProtossChildAttack(w:World,child:Entity,mother:Entity,target:Body){const source=structuredClone(child);source.heroId='purifier_flagship';source.rank=mother.rank;const salvo=w.nextId++;w.heroAttacks.chains.push({salvo,seen:[target.id]});return launch(w,source,target,'main',salvo,target.id,child.weaponDamage,1,[],0,1,false,0,0,null,false);}
+export function launchProtossChildAttack(w:World,child:Entity,mother:Entity,target:Body,crit=1){const source=cloneCombatSource(w,child);source.heroId='purifier_flagship';source.rank=mother.rank;const salvo=w.nextId++;w.heroAttacks.chains.push({salvo,seen:[target.id]});return launch(w,source,target,'main',salvo,target.id,child.weaponDamage,1,[],0,crit,false,0,0,null,false);}

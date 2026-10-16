@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {enemyPressure,type Difficulty} from '../src/data/stages';
+import {CAMPAIGN_QUANTITY,CAMPAIGN_WAVES} from '../src/data/enemy-tuning';
 import {
  CAMPAIGN18_STAGES,CAMPAIGN18_DURATIONS,CAMPAIGN18_BUDGETS,CAMPAIGN18_TOTALS,CAMPAIGN18_CHAPTER_REWARDS,
  CAMPAIGN18_ENEMIES,CAMPAIGN18_WEIGHTS,
@@ -30,27 +31,27 @@ test('chapter rewards use 30/30/remainder and retain the approved mineral/gas bu
  assert.equal(total(CAMPAIGN18_STAGES.map(s=>s.reward[1])),2055);
  for(const difficulty of difficulties)assert.deepEqual(campaign18StageConfig(18,difficulty).reward,CAMPAIGN18_STAGES[17].reward,'income multipliers belong to the award transaction');
 });
-test('current difficulty profiles preserve approved endpoints and six distinct chapters',()=>{
+test('R2 quantity replaces legacy chapter totals while independent guard pressure remains unchanged',()=>{
  for(const difficulty of difficulties){
-  assert.deepEqual(campaign18EnemyPressure(difficulty,1),enemyPressure(difficulty,1));
-  assert.deepEqual(campaign18EnemyPressure(difficulty,18),enemyPressure(difficulty,12));
+  assert.deepEqual(campaign18EnemyPressure(difficulty,1),{...enemyPressure(difficulty,1),total:CAMPAIGN_QUANTITY[difficulty][0]});
+  assert.deepEqual(campaign18EnemyPressure(difficulty,18),{...enemyPressure(difficulty,12),total:CAMPAIGN_QUANTITY[difficulty][5]});
   assert.deepEqual(campaign18ChapterGrowth(difficulty,1),{health:1,damage:1,attackSpeed:1});
   assert.deepEqual(campaign18ChapterGrowth(difficulty,18),{health:1+1.1*(difficulty==='easy'?.5:1),damage:1+.45*(difficulty==='easy'?.5:1),attackSpeed:1+.2*(difficulty==='easy'?.5:1)});
   for(let chapter=0;chapter<6;chapter++)assert.deepEqual(campaign18EnemyPressure(difficulty,chapter*3+1),campaign18EnemyPressure(difficulty,chapter*3+3));
  }
  assert.equal(new Set([1,4,7,10,13,16].map(s=>campaign18EnemyPressure('hard',s).total)).size,6);
- assert.ok(Math.abs(campaign18EnemyPressure('hard',4).total-1.26)<1e-9);
+ assert.ok(Math.abs(campaign18EnemyPressure('hard',4).total-1.85)<1e-9);
  assert.ok(Math.abs(campaign18ChapterGrowth('normal',7).health-1.28)<1e-9);
 });
 test('cumulative rounding does not inflate small waves and Hard/Hell pressure does not undercut Normal',()=>{
- let raw=0,normal=0,easy=0;
+ let raw=0,rawNormal=0,normal=0,easy=0;
  for(let stage=1;stage<=18;stage++){
-  raw+=CAMPAIGN18_BUDGETS[stage-1];normal+=campaign18StageConfig(stage,'normal').budget;easy+=campaign18StageConfig(stage,'easy').budget;
-  assert.equal(normal,Math.round(raw*.9));assert.equal(easy,Math.floor(raw*.5));
+  raw+=CAMPAIGN18_BUDGETS[stage-1];rawNormal+=CAMPAIGN18_BUDGETS[stage-1]*CAMPAIGN_QUANTITY.normal[Math.floor((stage-1)/3)];normal+=campaign18StageConfig(stage,'normal').budget;easy+=campaign18StageConfig(stage,'easy').budget;
+  assert.equal(normal,Math.floor(rawNormal*.9+.5+1e-8));assert.equal(easy,Math.floor(raw*.5*1.35+1e-8));
   assert.ok(campaign18StageConfig(stage,'hard').budget>=campaign18StageConfig(stage,'normal').budget);
   assert.ok(campaign18StageConfig(stage,'hell').budget>=campaign18StageConfig(stage,'hard').budget);
  }
- assert.equal(normal,4216);assert.equal(easy,2342);
+ assert.equal(normal,6500);assert.equal(easy,3161);
 });
 test('weighted mixes allocate threat, not hundreds of heavy-unit bodies, and never introduce a forbidden family',()=>{
  for(const s of CAMPAIGN18_STAGES){
@@ -72,7 +73,7 @@ test('special and hive reserves are inside the stage budget, including Hell comb
   assert.ok(p.waves.every(w=>w.at>0&&w.at<s.durationSeconds));
   assert.ok([...p.events,...p.specials].every(e=>e.at>0&&e.at<s.durationSeconds));
   assert.ok(p.waves.every((w,i)=>i===0||w.at>p.waves[i-1].at));
-  assert.equal(p.waves.length,Math.ceil(s.durationSeconds/10));
+  assert.equal(p.waves.length,CAMPAIGN_WAVES[difficulty][Math.floor((stage-1)/3)]);
   const delivered=emptyCampaign18Counts();for(const w of p.waves)for(const type of w.types)delivered[type]++;
   assert.deepEqual(delivered,s.ambient);
  }

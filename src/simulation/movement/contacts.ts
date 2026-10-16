@@ -11,13 +11,13 @@ const fixed=(u:Entity|undefined)=>!u||u.mode==='siege'||u.modeTimer>0;
  */
 export class ContactSolver {
  private actors:Entity[]=[];private pairs:Body[]=[];private remaining=new Map<number,number>();
- resolve(units:Iterable<Entity>,hash:SpatialHash<Body>,obstacles:Obstacle[],half:number,dt:number,large:Body|readonly Body[]|null=null,terrain?:TerrainQuery){
+ resolve(units:Iterable<Entity>,hash:SpatialHash<Body>,obstacles:Obstacle[],half:number,dt:number,large:Body|readonly Body[]|null=null,terrain?:TerrainQuery,ignorePair?:(a:Body,b:Body)=>boolean){
   const {actors,pairs,remaining}=this;actors.length=0;pairs.length=0;remaining.clear();let contacts=0;
   const largeBodies=large===null?[]:Array.isArray(large)?large:[large as Body],largeIds=new Set(largeBodies.map(b=>b.id));
   for(const u of units)if(u.hp>0){actors.push(u);remaining.set(u.id,Math.max(.06,u.moveSpeed*1.5*dt));}
   const move=(u:Entity|undefined,x:number,z:number,amount:number)=>{if(!u||fixed(u))return;const limit=Math.min(amount,remaining.get(u.id)??0);if(limit<=0)return;const px=u.x,pz=u.z;translate(u,{x:x*limit,z:z*limit},u.unitRadius,u.flying,obstacles,half,terrain);remaining.set(u.id,Math.max(0,(remaining.get(u.id)??0)-Math.hypot(u.x-px,u.z-pz)));};
   for(const a of actors){let checked=0;hash.query(a,a.unitRadius+1.5,b=>{if(largeIds.has(b.id))return;if(checked++>=20)return false;
-    if(a.id===b.id||a.flying!==b.flying||b.hp<=0||actor(b)&&a.id>b.id)return;
+    if(ignorePair?.(a,b)||a.id===b.id||a.flying!==b.flying||b.hp<=0||actor(b)&&a.id>b.id)return;
     // A pair farther apart than both complete correction budgets cannot touch in either pass.
     const reach=a.unitRadius+b.unitRadius+(remaining.get(a.id)??0)+(remaining.get(b.id)??0);if((a.x-b.x)**2+(a.z-b.z)**2>reach*reach||!a.flying&&terrain&&!terrain.sameContactLayer(a,b))return;
     pairs.push(a,b);

@@ -10,7 +10,7 @@ import {ELITE_VISUAL_PROFILES} from '../src/data/elite-visual-profiles';
 import {modelPresentationScale} from '../src/data/combat-presentation';
 import {UNIT_MATERIAL_CATALOG} from '../src/render/materials/unit-material-catalog';
 import {legalMaterialGlb} from '../src/render/materials/unit-material-loader';
-import {UnitMaterialSurface} from '../src/render/materials/unit-material-batch';
+import {UnitMaterialSurface,UNIT_MATERIAL_TEAM_ROW} from '../src/render/materials/unit-material-batch';
 import {displayModelKey,displayActiveModelKey,displayDeathModelKey,displayAssetModelKey,displayLoadModelKey,unitMaterialIdentity} from '../src/render/materials/elite-visual';
 import {sc2BodyBounds} from '../src/render/loaders/sc2-materials';
 import {decodeMaterialDds} from '../tools/material-dds.mjs';
@@ -94,7 +94,7 @@ test('shared flagship art keeps a separate display body from calibrated elite ca
 });
 test('shared skins preserve separate team colors and source alpha through slot reordering and pause',()=>{
  const profile=UNIT_MATERIAL_CATALOG['elite.immortal.1'],source=profile.materials[0],surface=new UnitMaterialSurface({profile,source,textures:{}},new THREE.MeshStandardMaterial(),1024),pose={clip:'Stand',seconds:.3};
- const a={runId:'a',entityId:1,time:5,teamColor:[.2,.4,.6]as const,activity:0},b={...a,entityId:2,teamColor:[.6,.3,.1]as const,activity:1},row=(surface.texture.image.height-1)*1024*4;
+ const a={runId:'a',entityId:1,time:5,teamColor:[.2,.4,.6]as const,activity:0},b={...a,entityId:2,teamColor:[.6,.3,.1]as const,activity:1},row=UNIT_MATERIAL_TEAM_ROW*1024*4;
  surface.write(0,pose,a);surface.write(1023,pose,b);assert.equal(surface.data[row],Math.fround(.2));assert.equal(surface.data[row+1023*4+3],1);
  surface.write(0,pose,b);surface.write(1023,pose,a);const saved=surface.data.slice();surface.write(0,pose,b);surface.write(1023,pose,a);assert.deepEqual(surface.data,saved);assert.equal(surface.data[row],Math.fround(.6));assert.equal(surface.data[row+1023*4+3],0);
 });

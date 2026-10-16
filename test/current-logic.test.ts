@@ -10,11 +10,14 @@ import {SaveRepository} from '../src/persistence/save-repository';
 import {RunSession} from '../src/app/run-session';
 import {RUN_SCHEMA} from '../src/simulation/persistence/run-snapshot';
 
-test('72 campaigns and 690 bodies retain the historical rules except the requested knight range and its description',()=>{
+test('690 friendly bodies retain historical rules; 72 campaigns match the approved R2 density baseline',()=>{
  const {commit,...expected}=JSON.parse(fs.readFileSync(new URL('./fixtures/current-rules-20261006.json',import.meta.url),'utf8'));
  assert.equal(commit,'07b3f68e56f02fae1902ba4e563cb67a3e821c05');
- assert.deepEqual(captureCurrentRules({legacyKnight:true}),expected);
- const current=captureCurrentRules();assert.deepEqual(current.campaign,expected.campaign);assert.deepEqual(current.heroes,expected.heroes);assert.deepEqual(current.ordinary,expected.ordinary);
+ const {campaign:historicalCampaign,...historicalFriendly}=expected,{campaign:r2Campaign,...legacyFriendly}=captureCurrentRules({legacyKnight:true});
+ assert.equal(Object.keys(historicalCampaign).length,72);assert.deepEqual(legacyFriendly,historicalFriendly);
+ const approved=JSON.parse(fs.readFileSync(new URL('./fixtures/campaign-r2-20261016.json',import.meta.url),'utf8'));
+ assert.equal(approved.approval,'CAMPAIGN_DENSITY_SMOOTH_GROWTH_R2_20261016');assert.equal(Object.keys(approved.campaign).length,72);assert.deepEqual(r2Campaign,approved.campaign);
+ const current=captureCurrentRules();assert.deepEqual(current.campaign,approved.campaign);assert.deepEqual(current.heroes,expected.heroes);assert.deepEqual(current.ordinary,expected.ordinary);
  assert.deepEqual(Object.keys(current.bodies).filter(key=>current.bodies[key]!==expected.bodies[key]),[1,2,3,4,5].map(rank=>'hellion.2:'+rank));
  assert.deepEqual(Object.keys(current.definitions).filter(key=>current.definitions[key as keyof typeof current.definitions]!==expected.definitions[key]),['elites']);
 });

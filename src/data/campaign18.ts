@@ -1,5 +1,6 @@
 import type {Difficulty,EnemyPressure} from './stages';
 import {CAMPAIGN_LAYOUT,CAMPAIGN_ECONOMY,CAMPAIGN_CHAPTERS} from './campaign-layout';
+import {CAMPAIGN_QUANTITY,CAMPAIGN_WAVES,type EnemySpawnStamp,type EnemyResourceScale} from './enemy-tuning';
 
 /** The approved Survivors campaign, with one authoritative set of current values. */
 export const CAMPAIGN18_ID='three-races-18' as const;
@@ -26,11 +27,11 @@ export const emptyCampaign18Counts=():Campaign18Counts=>Object.fromEntries(CAMPA
 const rowCounts=(row:readonly number[]):Campaign18Counts=>Object.fromEntries(CAMPAIGN18_ENEMIES.map((type,i)=>[type,row[i]??0])) as Campaign18Counts;
 export const campaign18Threat=(counts:Readonly<Campaign18Counts>)=>CAMPAIGN18_ENEMIES.reduce((total,type)=>total+counts[type]*CAMPAIGN18_WEIGHTS[type],0);
 function stageIndex(stage:number){if(!Number.isInteger(stage)||stage<1||stage>18)throw new RangeError('Campaign18 stage must be 1–18');return stage-1;}
-export function campaign18EnemyPressure(difficulty:Difficulty,stage:number):EnemyPressure {return {...CAMPAIGN_CHAPTERS[difficulty][Math.floor(stageIndex(stage)/3)].pressure};}
+export function campaign18EnemyPressure(difficulty:Difficulty,stage:number):EnemyPressure {const chapter=Math.floor(stageIndex(stage)/3);return {...CAMPAIGN_CHAPTERS[difficulty][chapter].pressure,total:CAMPAIGN_QUANTITY[difficulty][chapter]};}
 export function campaign18ChapterGrowth(difficulty:Difficulty,stage:number){return {...CAMPAIGN_CHAPTERS[difficulty][Math.floor(stageIndex(stage)/3)].growth};}
 const countRound=(n:number,difficulty:Difficulty)=>difficulty==='easy'?Math.floor(n+1e-8):Math.floor(n+.5+1e-8);
 /** Round the cumulative campaign budget, not each small family or wave separately. */
-function scaledBudget(stage:number,difficulty:Difficulty){let before=0;for(let s=1;s<stage;s++)before+=CAMPAIGN18_BUDGETS[s-1]*(difficulty==='easy'?.5:.9)*campaign18EnemyPressure(difficulty,s).total;const current=CAMPAIGN18_BUDGETS[stage-1]*(difficulty==='easy'?.5:.9)*campaign18EnemyPressure(difficulty,stage).total;return countRound(before+current,difficulty)-countRound(before,difficulty);}
+function scaledBudget(stage:number,difficulty:Difficulty,baseline=false){const quantity=(s:number)=>baseline?CAMPAIGN_CHAPTERS[difficulty][Math.floor((s-1)/3)].pressure.total:campaign18EnemyPressure(difficulty,s).total;let before=0;for(let s=1;s<stage;s++)before+=CAMPAIGN18_BUDGETS[s-1]*(difficulty==='easy'?.5:.9)*quantity(s);const current=CAMPAIGN18_BUDGETS[stage-1]*(difficulty==='easy'?.5:.9)*quantity(stage);return countRound(before+current,difficulty)-countRound(before,difficulty);}
 
 /** Percentages describe threat share, not body count. Fill only with allowed types. */
 export function allocateCampaign18Threat(budget:number,mix:Readonly<Campaign18Counts>){
@@ -65,13 +66,14 @@ export const CAMPAIGN18_STAGES:readonly Campaign18StageConfig[]=CAMPAIGN18_DURAT
 export function campaign18GuardCounts(stage:number,difficulty:Difficulty,serial=0){
  if(!Number.isSafeInteger(serial)||serial<0)throw new RangeError('Guard serial must be a nonnegative integer');const base=CAMPAIGN18_STAGES[stageIndex(stage)],target=base.guardBudget*(difficulty==='easy'?.5:.9)*campaign18EnemyPressure(difficulty,stage).guards,budget=countRound((serial+1)*target,difficulty)-countRound(serial*target,difficulty);return {budget,...allocateCampaign18Threat(budget,base.mix)};
 }
-export function campaign18StageConfig(stage:number,difficulty:Difficulty):Campaign18StageConfig {
- const base=CAMPAIGN18_STAGES[stageIndex(stage)],budget=scaledBudget(stage,difficulty),reserves=reservesFor(stage,budget,difficulty),waveBudget=budget-reserveTotal(reserves),guards=campaign18GuardCounts(stage,difficulty);
- return {...base,difficulty,budget,waveBudget,mix:{...base.mix},reserves,ambient:allocateCampaign18Threat(waveBudget,base.mix).counts,guardBudget:guards.budget,guards:guards.counts,reward:[...base.reward]};
+export function campaign18StageConfig(stage:number,difficulty:Difficulty,baseline=false):Campaign18StageConfig {
+ const base=CAMPAIGN18_STAGES[stageIndex(stage)],budget=scaledBudget(stage,difficulty,baseline),reserves=reservesFor(stage,budget,difficulty),waveBudget=budget-reserveTotal(reserves),guards=campaign18GuardCounts(stage,difficulty);
+ return {...base,difficulty,budget,waveBudget,waves:baseline?base.waves:CAMPAIGN_WAVES[difficulty][base.chapter-1],mix:{...base.mix},reserves,ambient:allocateCampaign18Threat(waveBudget,base.mix).counts,guardBudget:guards.budget,guards:guards.counts,reward:[...base.reward]};
 }
 
-export interface Campaign18Wave {at:number;types:Campaign18Enemy[];bearing:number}
-export interface Campaign18Special {at:number;type:Campaign18Enemy;tier:'elite'|'boss';role:'captain'|'boss';budget:number;sourceStage?:number}
+export interface MixedWaveMember {type:Campaign18Enemy;offset:number;lane:number;stamp:EnemySpawnStamp;resources:EnemyResourceScale}
+export interface Campaign18Wave {at:number;types:Campaign18Enemy[];bearing:number;members?:MixedWaveMember[]}
+export interface Campaign18Special {at:number;type:Campaign18Enemy;tier:'elite'|'boss';role:'captain'|'boss';budget:number;sourceStage?:number;stamp?:EnemySpawnStamp}
 export interface Campaign18Hive {
  at:number;budget:number;kind:'main'|'expansion';warningAt?:number;warningSeconds?:number;maxNewPerStage?:number;maxAlive?:number;
  phases?:readonly {from:number;until:number;name:string}[];alwaysAttackable?:boolean;requiresSurvival?:boolean;healBetweenPhases?:boolean;

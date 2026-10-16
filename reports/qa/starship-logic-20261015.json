@@ -1,0 +1,1634 @@
+{
+  "schema": 1,
+  "date": "2026-10-15",
+  "scope": "Shared starship equipment rules and production main-game integration; separate UI design. Local implementation and targeted verification, not whole-MVP acceptance.",
+  "status": "implemented-with-current-content-conditions",
+  "entry": {
+    "url": "http://127.0.0.1:4393/",
+    "readme": "preview/starship-logic-20261015/README.md",
+    "productionModules": [
+      "src/app/bootstrap.ts",
+      "src/simulation/world.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/ui/hud.ts"
+    ],
+    "defaultShippingEquipmentEnabled": false,
+    "account": "isolated in-memory fixture; formal UI consumes the same production rules"
+  },
+  "build": {
+    "metadata": {
+      "file": "preview/starship-logic-20261015/build-inputs.json",
+      "bytes": 66597,
+      "sha256": "848043bacc6353a1a8c8a279fcbd72dc0107754b7a64e7df300798f0fd5b0ecb"
+    },
+    "bundle": {
+      "file": "preview/starship-logic-20261015/main.js",
+      "bytes": 28458060,
+      "sha256": "517c0b241fb768ac6e6c16fb8b05677573ced2035a29146a4c1572ddb960fefd"
+    },
+    "exactCurrentInputs": 389
+  },
+  "checks": {
+    "combat": {
+      "count": 168,
+      "passed": 168,
+      "failed": 0,
+      "log": {
+        "file": "reports/local/starship-logic-20261015/equipment-combat-final-r3.log",
+        "bytes": 19179,
+        "sha256": "26801b00bb6bba2619a4c2003d6976ccb4704b3e85d7187e8424ca19c34b3b02"
+      },
+      "files": [
+        "test\\starship-weapon-budget.test.ts",
+        "test\\starship-tiers.test.ts",
+        "test\\starship-support-economy.test.ts",
+        "test\\starship-orange-heroes.test.ts",
+        "test\\starship-native-area.test.ts",
+        "test\\starship-modules.test.ts",
+        "test\\starship-members.test.ts",
+        "test\\starship-growth.test.ts",
+        "test\\starship-forts-conditional.test.ts",
+        "test\\starship-fort-ribbons.test.ts",
+        "test\\starship-equipment.test.ts",
+        "test\\starship-drops.test.ts",
+        "test\\starship-defense-lifecycle.test.ts",
+        "test\\starship-controls.test.ts",
+        "test\\starship-combat.test.ts",
+        "test\\starship-capture-projection.test.ts",
+        "test\\starship-advanced-support.test.ts",
+        "test/expedition-production.test.ts",
+        "test/mvp1-building-integration.test.ts",
+        "test/team-aura-rebalance.test.ts"
+      ],
+      "note": "Simulation did not change after this pass; subsequent edits are equipment-fort rendering and resource extraction."
+    },
+    "finalRibbonAssets": {
+      "count": 2,
+      "passed": 2,
+      "log": {
+        "file": "reports/local/starship-logic-20261015/spine-ribbon-tests-final.log",
+        "bytes": 333,
+        "sha256": "65a40a3c7df5b1ee59d20c76e0e498c281dd52ea99c8d01318ef4a998a304855"
+      }
+    },
+    "typecheck": {
+      "file": "reports/local/starship-logic-20261015/typecheck-fort-material-r1.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    "dataDocs": {
+      "file": "reports/local/starship-logic-20261015/data-docs-final.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    "runtimeAssets": {
+      "file": "reports/local/starship-logic-20261015/asset-registry-check-final.log",
+      "bytes": 175,
+      "sha256": "3a5ad0725e45e40974da21f60ed5219a6fe56b7b957a8051a407e8dcc6b26e1b"
+    },
+    "nativeWeaponMatrix": {
+      "identitiesAndForms": 143,
+      "cases": [
+        "first real cycle",
+        "rank V twelve consecutive cycles",
+        "rank III ground and air targets, four cycles"
+      ],
+      "nonWeaponSupportIdentities": 8,
+      "method": "Real World fire, native flights, areas, hero/elite resolution; not 143 natural battles.",
+      "test": "test/starship-weapon-budget.test.ts"
+    },
+    "heroOrange": {
+      "identities": 18,
+      "normalAndCorrupted": true,
+      "test": "test/starship-orange-heroes.test.ts"
+    },
+    "staticEffectReferences": {
+      "keys": 189,
+      "unreferencedNonStatKeys": [],
+      "report": {
+        "file": "reports/local/starship-logic-20261015/effect-reference-audit.json",
+        "bytes": 40079,
+        "sha256": "88e421d7d9e5b66b8736d41123f0b494f3f0c5cec21520bcb8da25bdd962321f"
+      },
+      "limit": "A reference audit, not an independent dynamic test of every key."
+    }
+  },
+  "browser": {
+    "caseCount": 11,
+    "screenshotCount": 28,
+    "cases": [
+      {
+        "name": "fort-terran",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r8/fort-terran/report.json",
+          "bytes": 81248,
+          "sha256": "2d683ded3715b14caedc81e455f9dfd48a50cfedf66de23afb6b45f083fd198a"
+        },
+        "bundleSha256": "517c0b241fb768ac6e6c16fb8b05677573ced2035a29146a4c1572ddb960fefd",
+        "compiledInputs": 389,
+        "currentExistingInputDifferences": [],
+        "currentAddedInputs": [],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": [],
+        "networkAborts": [
+          {
+            "url": "http://127.0.0.1:4393/assets/animated/model.fort.turret_terran.death.glb",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r8/fort-terran/start.png",
+            "bytes": 1309419,
+            "sha256": "d35bdb6b8f10f7d66ca3c3e8b55269c8c013f9aaff936de3c26e6ec70508902b"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r8/fort-terran/attack.png",
+            "bytes": 1311412,
+            "sha256": "04fc46e0de37f2dc4e06bc36413ae4402127262e8ea630f9690263300eddc0e7"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r8/fort-terran/death.png",
+            "bytes": 1315231,
+            "sha256": "38089cd7ae0a27e64da46f995b60028371dccbeed45794c6246294bbb709d67a"
+          }
+        ],
+        "battleSeconds": 6.35,
+        "fixture": {
+          "enemy": 7,
+          "time": 1,
+          "hp": 2000000,
+          "shots": 0,
+          "forts": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      },
+      {
+        "name": "fort-zerg",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r8/fort-zerg/report.json",
+          "bytes": 83826,
+          "sha256": "06b8e144e9827abb1f06fc12a5ee81db2c3940206b834158c4a9b000c440dae0"
+        },
+        "bundleSha256": "517c0b241fb768ac6e6c16fb8b05677573ced2035a29146a4c1572ddb960fefd",
+        "compiledInputs": 389,
+        "currentExistingInputDifferences": [],
+        "currentAddedInputs": [],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": [],
+        "networkAborts": [
+          {
+            "url": "http://127.0.0.1:4393/assets/optimized/model.hatchery.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4393/assets/optimized/model.hatchery.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4393/assets/animated/model.fort.turret_zerg.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4393/assets/animated/model.fort.turret_zerg.death.glb",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r8/fort-zerg/start.png",
+            "bytes": 1095517,
+            "sha256": "a3d0c621322921635c7b5442ea725f738819e2efffc1845fd9432eac5fbaed06"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r8/fort-zerg/attack.png",
+            "bytes": 1103707,
+            "sha256": "86794d200d36a7d902c27adf98bf0a3723dae576d7344848d0da79361fe88b0a"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r8/fort-zerg/death.png",
+            "bytes": 1101543,
+            "sha256": "d02b54d919a0eaf2d3ced4fae2d2599fdb6804424417467dea66dfb38aeb6d7e"
+          }
+        ],
+        "battleSeconds": 6.2,
+        "fixture": {
+          "enemy": 8,
+          "time": 0.75,
+          "hp": 2000000,
+          "shots": 0,
+          "forts": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      },
+      {
+        "name": "fort-protoss",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r8/fort-protoss/report.json",
+          "bytes": 83119,
+          "sha256": "4da8965702aab6fbfce611480db9950677aab136498a23cfe93abc8426ffd0bf"
+        },
+        "bundleSha256": "517c0b241fb768ac6e6c16fb8b05677573ced2035a29146a4c1572ddb960fefd",
+        "compiledInputs": 389,
+        "currentExistingInputDifferences": [],
+        "currentAddedInputs": [],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": [],
+        "networkAborts": [
+          {
+            "url": "http://127.0.0.1:4393/assets/optimized/model.pylon.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4393/assets/optimized/model.pylon.birth.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4393/assets/optimized/model.baneling.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4393/assets/optimized/model.baneling.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4393/assets/models/hatcheryex1mp.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4393/assets/optimized/model.fort.bunker.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4393/assets/optimized/model.fort.repair.glb",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r8/fort-protoss/start.png",
+            "bytes": 1317646,
+            "sha256": "1772225c2c37f7e88e74a2068e74ad115233f3499ea340d72cc2a2a025360579"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r8/fort-protoss/attack.png",
+            "bytes": 1332249,
+            "sha256": "78df1f38352c4102ae64e68691938b30eeafcb700117e0164d5db0fee20afa89"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r8/fort-protoss/death.png",
+            "bytes": 1327743,
+            "sha256": "d78191e2295e3f5f786fe5dc0d87ec56e7d201ab026e8c69ed3b6978c4b3ff1e"
+          }
+        ],
+        "battleSeconds": 6.433333333333334,
+        "fixture": {
+          "enemy": 7,
+          "time": 0.8666666666666667,
+          "hp": 2000000,
+          "shots": 0,
+          "forts": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      },
+      {
+        "name": "hero-terran-raynor",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r4/hero-terran-raynor/report.json",
+          "bytes": 479771,
+          "sha256": "c1c7dc8c1033cb1e798431509b0302c11de8cfecad24d7f3626c46458845f6a3"
+        },
+        "bundleSha256": "0edbfb2510faec6ed8ccb3cc21045fe7710b3d0610a3b59cb5e019b433671c24",
+        "compiledInputs": 387,
+        "currentExistingInputDifferences": [
+          "src/render/scene/battle-renderer.ts"
+        ],
+        "currentAddedInputs": [
+          "src/render/scene/fort-ribbons.ts",
+          "src/render/scene/fort-materials.ts"
+        ],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": null,
+        "networkAborts": [],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/hero-terran-raynor/start.png",
+            "bytes": 1416919,
+            "sha256": "b9c256bd18086998d0503500d381d8ffd192af3f4122ef49abd21d4a0fa05962"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/hero-terran-raynor/skill.png",
+            "bytes": 1377899,
+            "sha256": "2b8dbb0217122b0751a385b8d8df98b6b0454125fcf35bc8b92886d905011c0d"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/hero-terran-raynor/effect.png",
+            "bytes": 1445063,
+            "sha256": "420bab21c04e1a306d2f7dc11182a20f41d14a9dfa47ee5df705cdb92421964a"
+          }
+        ],
+        "battleSeconds": 6.833333333333333,
+        "fixture": {
+          "source": 2,
+          "hero": "raynor",
+          "rank": 3,
+          "targets": [
+            {
+              "id": 5,
+              "hp": 20000000
+            },
+            {
+              "id": 6,
+              "hp": 20000000
+            },
+            {
+              "id": 7,
+              "hp": 20000000
+            },
+            {
+              "id": 8,
+              "hp": 20000000
+            },
+            {
+              "id": 9,
+              "hp": 20000000
+            },
+            {
+              "id": 10,
+              "hp": 20000000
+            }
+          ],
+          "time": 1.25,
+          "shots": 0,
+          "damage": 0,
+          "cast": true,
+          "pendingCasts": 1
+        }
+      },
+      {
+        "name": "hero-zerg-kerrigan",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r4/hero-zerg-kerrigan/report.json",
+          "bytes": 482681,
+          "sha256": "30be8b09b86ec01d86287db353ee8823e5476d3f643bf20da81fe119da3a5a64"
+        },
+        "bundleSha256": "0edbfb2510faec6ed8ccb3cc21045fe7710b3d0610a3b59cb5e019b433671c24",
+        "compiledInputs": 387,
+        "currentExistingInputDifferences": [
+          "src/render/scene/battle-renderer.ts"
+        ],
+        "currentAddedInputs": [
+          "src/render/scene/fort-ribbons.ts",
+          "src/render/scene/fort-materials.ts"
+        ],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": null,
+        "networkAborts": [],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/hero-zerg-kerrigan/start.png",
+            "bytes": 1376464,
+            "sha256": "3bb9e6a22fc8622ca5ed46f4c46f52fa7330832b84bfe0d88b358bf57e99898b"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/hero-zerg-kerrigan/skill.png",
+            "bytes": 1396802,
+            "sha256": "0c7efb579dd3fc74ac26fac089e09b5808812ccd0ffaf4d5537b15ca09853979"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/hero-zerg-kerrigan/effect.png",
+            "bytes": 1404557,
+            "sha256": "f94b000f7a561106f9c729978a794b2950817402894a315c580cc5702b188e4a"
+          }
+        ],
+        "battleSeconds": 6.45,
+        "fixture": {
+          "source": 3,
+          "hero": "kerrigan",
+          "rank": 3,
+          "targets": [
+            {
+              "id": 6,
+              "hp": 20000000
+            },
+            {
+              "id": 7,
+              "hp": 20000000
+            },
+            {
+              "id": 8,
+              "hp": 20000000
+            },
+            {
+              "id": 9,
+              "hp": 20000000
+            },
+            {
+              "id": 10,
+              "hp": 20000000
+            },
+            {
+              "id": 11,
+              "hp": 20000000
+            }
+          ],
+          "time": 0.9666666666666667,
+          "shots": 0,
+          "damage": 0,
+          "cast": true,
+          "pendingCasts": 1
+        }
+      },
+      {
+        "name": "hero-protoss-alarak",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r4/hero-protoss-alarak/report.json",
+          "bytes": 472491,
+          "sha256": "fa84faac7f600259252189629383043ba65a672e0ef52db5a4af8b9ca8475ab3"
+        },
+        "bundleSha256": "0edbfb2510faec6ed8ccb3cc21045fe7710b3d0610a3b59cb5e019b433671c24",
+        "compiledInputs": 387,
+        "currentExistingInputDifferences": [
+          "src/render/scene/battle-renderer.ts"
+        ],
+        "currentAddedInputs": [
+          "src/render/scene/fort-ribbons.ts",
+          "src/render/scene/fort-materials.ts"
+        ],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": null,
+        "networkAborts": [],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/hero-protoss-alarak/start.png",
+            "bytes": 1365379,
+            "sha256": "139295edc950fcfa9335e10d2a69cdcde568168abf6769aaa45ae1ba2bb02a53"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/hero-protoss-alarak/skill.png",
+            "bytes": 1421060,
+            "sha256": "5d3d6bd15806691b3782c40c5fd24680c4a2e77ac489bac7c03b9bf7dc8e2041"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/hero-protoss-alarak/effect.png",
+            "bytes": 1502957,
+            "sha256": "9acbb9d839e2be73ae38c4f430d2833684a965e0c594b85499d8bcfe9bf8834b"
+          }
+        ],
+        "battleSeconds": 6.8999999999999995,
+        "fixture": {
+          "source": 2,
+          "hero": "alarak",
+          "rank": 3,
+          "targets": [
+            {
+              "id": 5,
+              "hp": 20000000
+            },
+            {
+              "id": 6,
+              "hp": 20000000
+            },
+            {
+              "id": 7,
+              "hp": 20000000
+            },
+            {
+              "id": 8,
+              "hp": 20000000
+            },
+            {
+              "id": 9,
+              "hp": 20000000
+            },
+            {
+              "id": 10,
+              "hp": 20000000
+            }
+          ],
+          "time": 1.1833333333333333,
+          "shots": 0,
+          "damage": 0,
+          "cast": true,
+          "pendingCasts": 1
+        }
+      },
+      {
+        "name": "ark-terran",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r4/ark-terran/report.json",
+          "bytes": 76666,
+          "sha256": "db3c81860cfb5e61415c26345f2006b242b68defe614244a4cf08bd7ba1a3c9a"
+        },
+        "bundleSha256": "0edbfb2510faec6ed8ccb3cc21045fe7710b3d0610a3b59cb5e019b433671c24",
+        "compiledInputs": 387,
+        "currentExistingInputDifferences": [
+          "src/render/scene/battle-renderer.ts"
+        ],
+        "currentAddedInputs": [
+          "src/render/scene/fort-ribbons.ts",
+          "src/render/scene/fort-materials.ts"
+        ],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": null,
+        "networkAborts": [],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/ark-terran/start.png",
+            "bytes": 1348060,
+            "sha256": "d320a0893cf8d979696ebacbe73d3f38c29c5149a8c0cf148c4bfd62a15df51b"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/ark-terran/effect.png",
+            "bytes": 1361409,
+            "sha256": "2fd95ae68efc245b0f5df4a398ffda2b6e2b94610875f5192e60598c1747f75e"
+          }
+        ],
+        "battleSeconds": 6.216666666666667,
+        "fixture": {
+          "source": 2,
+          "rank": 5,
+          "targets": [
+            {
+              "id": 3,
+              "hp": 20000000
+            },
+            {
+              "id": 4,
+              "hp": 20000000
+            },
+            {
+              "id": 5,
+              "hp": 20000000
+            },
+            {
+              "id": 6,
+              "hp": 20000000
+            },
+            {
+              "id": 7,
+              "hp": 20000000
+            },
+            {
+              "id": 8,
+              "hp": 20000000
+            }
+          ],
+          "time": 0.8,
+          "shots": 0,
+          "damage": 0,
+          "cast": null,
+          "pendingCasts": 0
+        }
+      },
+      {
+        "name": "ark-zerg",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r4/ark-zerg/report.json",
+          "bytes": 76690,
+          "sha256": "7e43b321e3fdc8d98b75e46d14e337c03369fad3298c2d3bf0427897415398ad"
+        },
+        "bundleSha256": "0edbfb2510faec6ed8ccb3cc21045fe7710b3d0610a3b59cb5e019b433671c24",
+        "compiledInputs": 387,
+        "currentExistingInputDifferences": [
+          "src/render/scene/battle-renderer.ts"
+        ],
+        "currentAddedInputs": [
+          "src/render/scene/fort-ribbons.ts",
+          "src/render/scene/fort-materials.ts"
+        ],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": null,
+        "networkAborts": [],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/ark-zerg/start.png",
+            "bytes": 1298353,
+            "sha256": "18a2f5cd9477492dd790bbe304251369b9f26259ccff0a0ce485b2dbbb18ecdc"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/ark-zerg/effect.png",
+            "bytes": 1317338,
+            "sha256": "87be0aed8f24003ae8584b92f0557f2c0bbe7438ebc58976de4c0da803a49dbd"
+          }
+        ],
+        "battleSeconds": 6.133333333333333,
+        "fixture": {
+          "source": 3,
+          "rank": 5,
+          "targets": [
+            {
+              "id": 4,
+              "hp": 20000000
+            },
+            {
+              "id": 5,
+              "hp": 20000000
+            },
+            {
+              "id": 6,
+              "hp": 20000000
+            },
+            {
+              "id": 7,
+              "hp": 20000000
+            },
+            {
+              "id": 8,
+              "hp": 20000000
+            },
+            {
+              "id": 9,
+              "hp": 20000000
+            }
+          ],
+          "time": 0.7166666666666667,
+          "shots": 0,
+          "damage": 0,
+          "cast": null,
+          "pendingCasts": 0
+        }
+      },
+      {
+        "name": "ark-protoss",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r4/ark-protoss/report.json",
+          "bytes": 76682,
+          "sha256": "17b6a93912e18be1786a043ec5034b745446600362a6255ae047a1c64b7af64e"
+        },
+        "bundleSha256": "0edbfb2510faec6ed8ccb3cc21045fe7710b3d0610a3b59cb5e019b433671c24",
+        "compiledInputs": 387,
+        "currentExistingInputDifferences": [
+          "src/render/scene/battle-renderer.ts"
+        ],
+        "currentAddedInputs": [
+          "src/render/scene/fort-ribbons.ts",
+          "src/render/scene/fort-materials.ts"
+        ],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": null,
+        "networkAborts": [],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/ark-protoss/start.png",
+            "bytes": 1281217,
+            "sha256": "a2b74e9fb01329a46cc8d1541dcc1ebbcc2df2463977786d1b4ebd0a087b38e3"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/ark-protoss/effect.png",
+            "bytes": 1316455,
+            "sha256": "92c6b50efa6dea8608bcb56615fba4ea8263249e81697c75815433b1b82f5ef2"
+          }
+        ],
+        "battleSeconds": 6.333333333333333,
+        "fixture": {
+          "source": 2,
+          "rank": 5,
+          "targets": [
+            {
+              "id": 7,
+              "hp": 20000000
+            },
+            {
+              "id": 8,
+              "hp": 20000000
+            },
+            {
+              "id": 9,
+              "hp": 20000000
+            },
+            {
+              "id": 10,
+              "hp": 20000000
+            },
+            {
+              "id": 11,
+              "hp": 20000000
+            },
+            {
+              "id": 12,
+              "hp": 20000000
+            }
+          ],
+          "time": 0.8666666666666667,
+          "shots": 0,
+          "damage": 0,
+          "cast": null,
+          "pendingCasts": 0
+        }
+      },
+      {
+        "name": "evolution-terran",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r4/evolution-terran/report.json",
+          "bytes": 77464,
+          "sha256": "24cff1506fb8e91173b6b6c3ad56239c5e1e2cb51111240b740bf94b715c09e2"
+        },
+        "bundleSha256": "0edbfb2510faec6ed8ccb3cc21045fe7710b3d0610a3b59cb5e019b433671c24",
+        "compiledInputs": 387,
+        "currentExistingInputDifferences": [
+          "src/render/scene/battle-renderer.ts"
+        ],
+        "currentAddedInputs": [
+          "src/render/scene/fort-ribbons.ts",
+          "src/render/scene/fort-materials.ts"
+        ],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": null,
+        "networkAborts": [],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/evolution-terran/start.png",
+            "bytes": 1361193,
+            "sha256": "1ba8eaa4348d2b4cb4452c505e30862c99a3d792a8b917168170684545dbf042"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/evolution-terran/effect.png",
+            "bytes": 1381384,
+            "sha256": "e49c3d6de27d78857901a6435dada4949bceb4bea25df787d5293dbb43e50ce2"
+          }
+        ],
+        "battleSeconds": 16.35,
+        "fixture": {
+          "source": 2,
+          "rank": 1,
+          "targets": [
+            {
+              "id": 4,
+              "hp": 20000000
+            },
+            {
+              "id": 5,
+              "hp": 20000000
+            },
+            {
+              "id": 6,
+              "hp": 20000000
+            },
+            {
+              "id": 7,
+              "hp": 20000000
+            },
+            {
+              "id": 8,
+              "hp": 20000000
+            },
+            {
+              "id": 9,
+              "hp": 20000000
+            }
+          ],
+          "time": 0.8,
+          "shots": 0,
+          "damage": 0,
+          "cast": null,
+          "pendingCasts": 0
+        }
+      },
+      {
+        "name": "phantom-terran",
+        "report": {
+          "file": "reports/local/starship-logic-20261015/browser-r4/phantom-terran/report.json",
+          "bytes": 77800,
+          "sha256": "0413fb9e32209886bd6364eee14f0b45df47133b76b66f91d12c1a49d337afc3"
+        },
+        "bundleSha256": "0edbfb2510faec6ed8ccb3cc21045fe7710b3d0610a3b59cb5e019b433671c24",
+        "compiledInputs": 387,
+        "currentExistingInputDifferences": [
+          "src/render/scene/battle-renderer.ts"
+        ],
+        "currentAddedInputs": [
+          "src/render/scene/fort-ribbons.ts",
+          "src/render/scene/fort-materials.ts"
+        ],
+        "passed": true,
+        "pageErrors": [],
+        "consoleErrors": null,
+        "networkAborts": [],
+        "screens": [
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/phantom-terran/start.png",
+            "bytes": 1101878,
+            "sha256": "52206b199fa6dcc3ea30271047a6ac1d51d62643fe8ba81c6752ddce3e017289"
+          },
+          {
+            "file": "reports/local/starship-logic-20261015/browser-r4/phantom-terran/effect.png",
+            "bytes": 1149190,
+            "sha256": "4a3b72689ab839ab62836088d206ebace1452c5b3cc607481a251773f9be606f"
+          }
+        ],
+        "battleSeconds": 16.233333333333334,
+        "fixture": {
+          "source": 1,
+          "rank": 1,
+          "targets": [
+            {
+              "id": 2,
+              "hp": 20000000
+            },
+            {
+              "id": 3,
+              "hp": 20000000
+            },
+            {
+              "id": 4,
+              "hp": 20000000
+            },
+            {
+              "id": 5,
+              "hp": 20000000
+            },
+            {
+              "id": 6,
+              "hp": 20000000
+            },
+            {
+              "id": 7,
+              "hp": 20000000
+            }
+          ],
+          "time": 0.7,
+          "shots": 0,
+          "damage": 0,
+          "cast": null,
+          "pendingCasts": 0
+        }
+      }
+    ],
+    "reuse": "Three fort cases use the current 389-input bundle and current resources. Eight non-fort cases retain their actual 387-input bundle; the sole existing-input difference is the fort renderer, plus its two new helper modules. No simulation input changed. Earlier evidence is not relabeled as a new run.",
+    "method": "Production menus, readiness, World, BattleRenderer and HUD; deterministic enemy fixtures plus active native waves. No physical-input, natural-campaign, full-content FPS or all-frame claim."
+  },
+  "visualReview": {
+    "screens": 28,
+    "contactSheets": 7,
+    "selection": {
+      "file": "reports/local/starship-logic-20261015/visual-review-final/selection.json",
+      "bytes": 15254,
+      "sha256": "73de23a24c74d77d20857a159bc9f7bf2381c9d3913bf4944aa352b15253356b"
+    },
+    "reviewer": "model",
+    "humanAccepted": false,
+    "sourceClientParity": false,
+    "findings": "Connected original SpineCrawler RIB_/SRIB tubes; corrected disabled diffuse layers, original material animation and decal channels. No remaining obvious missing, white-block or disconnected geometry in selected captures."
+  },
+  "resources": {
+    "baseRetained": 899,
+    "baseChanged": 0,
+    "baseMissing": 0,
+    "added": [
+      {
+        "id": "model.fort.turret_terran",
+        "file": "public/assets/animated/model.fort.turret_terran.glb",
+        "bytes": 663232,
+        "sha256": "29dcfa4d0bbb4bf60930487f667fe3baf7a4ec02addc5f747ca1a0381ae628a0",
+        "gitPath": "deploy/runtime/assets/29dcfa4d0bbb4bf60930487f667fe3baf7a4ec02addc5f747ca1a0381ae628a0.glb"
+      },
+      {
+        "id": "model.fort.turret_terran.death",
+        "file": "public/assets/animated/model.fort.turret_terran.death.glb",
+        "bytes": 927548,
+        "sha256": "ac70c0cbef9be0a7705f4415225b19f6ec4f27081c1023379bbf2fe8eccb0ee0",
+        "gitPath": "deploy/runtime/assets/ac70c0cbef9be0a7705f4415225b19f6ec4f27081c1023379bbf2fe8eccb0ee0.glb"
+      },
+      {
+        "id": "model.fort.turret_zerg",
+        "file": "public/assets/animated/model.fort.turret_zerg.glb",
+        "bytes": 11330676,
+        "sha256": "da554ee42e9190b0e774a4e88f6914e938b0bcc9fda7abb8101ab36a14db3cfd",
+        "gitPath": "deploy/runtime/assets/da554ee42e9190b0e774a4e88f6914e938b0bcc9fda7abb8101ab36a14db3cfd.glb"
+      },
+      {
+        "id": "model.fort.turret_zerg.death",
+        "file": "public/assets/animated/model.fort.turret_zerg.death.glb",
+        "bytes": 11330752,
+        "sha256": "f2ce1400ff14aedf0551f38712807f113a1ac11947b1440753cf30b2bb08e4c2",
+        "gitPath": "deploy/runtime/assets/f2ce1400ff14aedf0551f38712807f113a1ac11947b1440753cf30b2bb08e4c2.glb"
+      },
+      {
+        "id": "model.fort.turret_protoss",
+        "file": "public/assets/animated/model.fort.turret_protoss.glb",
+        "bytes": 1904244,
+        "sha256": "c7da47673061ba802e9060836042254ac2ffa4cbe717bbba49b5691f05acf345",
+        "gitPath": "deploy/runtime/assets/c7da47673061ba802e9060836042254ac2ffa4cbe717bbba49b5691f05acf345.glb"
+      },
+      {
+        "id": "model.fort.turret_protoss.death",
+        "file": "public/assets/animated/model.fort.turret_protoss.death.glb",
+        "bytes": 2370396,
+        "sha256": "aa12059238c23755c9e0e02433132ba2d8229f985c9b7c6d3c3e3ec654bdcf23",
+        "gitPath": "deploy/runtime/assets/aa12059238c23755c9e0e02433132ba2d8229f985c9b7c6d3c3e3ec654bdcf23.glb"
+      }
+    ],
+    "sourceRecords": 92,
+    "uniqueSourceFiles": 91,
+    "sources": [
+      {
+        "file": "assets/private/m3/autoturret.m3",
+        "bytes": 91776,
+        "sha256": "8d1f69e2c9c5d10f7e28379d8ed31dc3f3976c2d2cdd5bcf83a91a49e23c411f",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Terran/AutoTurret/AutoTurret.m3"
+      },
+      {
+        "file": "assets/private/m3/autoturretdeathex1.m3",
+        "bytes": 192544,
+        "sha256": "c8f7d749bd798f9da79041a03f2238b6ee3e03c61119a3361dbc16c426784413",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Terran/AutoTurretDeathEx1/AutoTurretDeathEx1.m3"
+      },
+      {
+        "file": "assets/private/m3/spinecrawlerex1.m3",
+        "bytes": 1612544,
+        "sha256": "893f7b50d59d93ec7b59f3f99bfe209f7182fc7356c8d554875fee19aefdd102",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Zerg/SpineCrawlerEx1/SpineCrawlerEx1.m3"
+      },
+      {
+        "file": "assets/private/m3/photoncannonex2.m3",
+        "bytes": 223472,
+        "sha256": "e66b5cfb418ea51f2361a809cae9af5ffb7c5c09c3b9ad19d7bbf2774a9ca3d0",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Protoss/PhotonCannonEx2/PhotonCannonEx2.m3"
+      },
+      {
+        "file": "assets/private/m3/photoncannondeathex2_01.m3",
+        "bytes": 480176,
+        "sha256": "fff01a98384c9dbc7c9a469f11cf253e556b7d5921ff4b588138651d1340625e",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Protoss/PhotonCannonDeathEx2/PhotonCannonDeathEx2_01.m3"
+      },
+      {
+        "file": "assets/private/dds/autoturret_diffuse.dds",
+        "bytes": 349680,
+        "sha256": "507e1e816926c30f0dd0415cb9c2b00be4baf30bc552fc8e5a2ea0cc56810239",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/autoturret_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/decal_terran01_01.dds",
+        "bytes": 87536,
+        "sha256": "a1e80bf82232791f82ffe0746c76be812f47cc296b35d1ad8a8190f863c27c2d",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/decal_terran01_01.dds"
+      },
+      {
+        "file": "assets/private/dds/autoturret_normal.dds",
+        "bytes": 349684,
+        "sha256": "08d0835bf3b6a0409beb0514d920c97ff5820b2fe175ac8a199257e24997982d",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/autoturret_normal.dds"
+      },
+      {
+        "file": "assets/private/dds/pbc_pipesmoke.dds",
+        "bytes": 22000,
+        "sha256": "29ec785d4a4e09a161119dac5ff58f0a73b621e129c92be7cfbd027b77c6938f",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pbc_pipesmoke.dds"
+      },
+      {
+        "file": "assets/private/dds/bulletshell1.dds",
+        "bytes": 5616,
+        "sha256": "b2a38941211194881e79597de1fba0128bdcd5ce69a6cc2203d66b9fa24f0b3d",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bulletshell1.dds"
+      },
+      {
+        "file": "assets/private/dds/largesmoke1b.dds",
+        "bytes": 87536,
+        "sha256": "316fdb130452ce434b06873a04bf35a224fa8b69fceeeab3294f866d6a8a647a",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/largesmoke1b.dds"
+      },
+      {
+        "file": "assets/private/dds/shockwave1_white.dds",
+        "bytes": 11064,
+        "sha256": "97c4a2e6294c72ae87c3a15d01d06bc811d2683aaaf20a90a903222207c6a2ff",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/shockwave1_white.dds"
+      },
+      {
+        "file": "assets/private/dds/largesmoke2.dds",
+        "bytes": 87536,
+        "sha256": "3a8eb22d370494e6f9a34dfe38fe91033ef878c318118710003c58136d7665c7",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/largesmoke2.dds"
+      },
+      {
+        "file": "assets/private/dds/terrandebrissculpted_diffuse.dds",
+        "bytes": 349680,
+        "sha256": "de446581edca1e8346245132db09a3e01d4b363d511e8e1c2468cd7fea0b24f6",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/terrandebrissculpted_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/terrandebrissculpted_specular.dds",
+        "bytes": 174904,
+        "sha256": "2a26d9f1dd79a8750c2acbc0426d5fa29bddb9769ab0e4e72f013db733c519e9",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/terrandebrissculpted_specular.dds"
+      },
+      {
+        "file": "assets/private/dds/terrandebrissculpted_normals.dds",
+        "bytes": 349684,
+        "sha256": "c3eb15a20af108a89a662b7c2af18460111f81817020183751b23b5691bb4009",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/terrandebrissculpted_normals.dds"
+      },
+      {
+        "file": "assets/private/dds/smoke_tendril2.dds",
+        "bytes": 43856,
+        "sha256": "a00b10af3c1367c1022147dd81220afcd6802da890a34bb055640fb1c56350fb",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smoke_tendril2.dds"
+      },
+      {
+        "file": "assets/private/dds/explosiona1_orange.dds",
+        "bytes": 1398256,
+        "sha256": "eb1bc7d1a72c20a96ce13c57ebb6fd3e2492a8f9a565a56f3cb9d89a75f4d374",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/explosiona1_orange.dds"
+      },
+      {
+        "file": "assets/private/dds/disolvenoise.dds",
+        "bytes": 43832,
+        "sha256": "c28d53bbf0a57ca3477e2476b7e9b49bc9fe4b97f03e9328ba897f95e843ae09",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/disolvenoise.dds"
+      },
+      {
+        "file": "assets/private/dds/blastmark4.dds",
+        "bytes": 349680,
+        "sha256": "195d172a1e2177fc4c1cc7f76574943d58b7a8c3ec7bf1f67ba96b86b61b3d4d",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark4.dds"
+      },
+      {
+        "file": "assets/private/dds/radius2.dds",
+        "bytes": 87540,
+        "sha256": "2e4b02ad58f83ac0c3a6eb1878086e52097838c7a232126f3b255aef7dda5f0d",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/radius2.dds"
+      },
+      {
+        "file": "assets/private/dds/radius2_strength.dds",
+        "bytes": 87536,
+        "sha256": "918872452b3da09c657563487a156805cc8d827dbc5a04830645b644700d4328",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/radius2_strength.dds"
+      },
+      {
+        "file": "assets/private/dds/bloodsquirtrandom_r1sculpted.dds",
+        "bytes": 349680,
+        "sha256": "e9b30fb29d7c4fbbd8d83f84639cc13b9a63895323f835a5a6d5e5e48b29a91d",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodsquirtrandom_r1sculpted.dds"
+      },
+      {
+        "file": "assets/private/dds/bloodsquirtrandom_r1sculptednormals.dds",
+        "bytes": 349684,
+        "sha256": "df3a3f265434bf3c6014be120cbdb3613cc601802e649eed63a16dc77da16b04",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodsquirtrandom_r1sculptednormals.dds"
+      },
+      {
+        "file": "assets/private/dds/bloodybuildingguts.dds",
+        "bytes": 349680,
+        "sha256": "6b609c38600854de9e81971bb8bdcb4ffed50593760a7ce3ebaf7ab5637643b9",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodybuildingguts.dds"
+      },
+      {
+        "file": "assets/private/dds/bloodspillinvert.dds",
+        "bytes": 174904,
+        "sha256": "99a96b1961ec5d917f56e33498ca24c66cceccf8f90041d4766cfb4fcdc8ffb7",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodspillinvert.dds"
+      },
+      {
+        "file": "assets/private/dds/bloodybuildingguts_normal.dds",
+        "bytes": 349684,
+        "sha256": "750cd71f17e3093d3af9d92dc75e5592995775a70a1102a6b34e9ee8c2309a53",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodybuildingguts_normal.dds"
+      },
+      {
+        "file": "assets/private/dds/spinecrawler_ribbon_diffuse.dds",
+        "bytes": 43912,
+        "sha256": "ed85d8e05fe5bac68dc1ea6a8a973ddfc8d6a3b3f6308a75a83f083f1498c566",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_ribbon_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/spinecrawler_ribbon_specular.dds",
+        "bytes": 43912,
+        "sha256": "c6c556511bea11ab6629c41eac3dc46c499ac7b9a5228ca75af7e26e902c8ad3",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_ribbon_specular.dds"
+      },
+      {
+        "file": "assets/private/dds/spinecrawler_ribbon_normal.dds",
+        "bytes": 87696,
+        "sha256": "581fa7922a625f4a365ffc25706a9978fd513d8b9276c22cb51adbddf9a38a8a",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_ribbon_normal.dds"
+      },
+      {
+        "file": "assets/private/dds/largesmoke1.dds",
+        "bytes": 87536,
+        "sha256": "f8de4c518da524af13f9700bdc39a4de341c28c06ab3ebdb7241c92fb9ab579a",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/largesmoke1.dds"
+      },
+      {
+        "file": "assets/private/dds/dirtdebris1.dds",
+        "bytes": 22000,
+        "sha256": "c272740394f6987cbcc541a59f5d12da92fa47b0615943e18193204221ee14bb",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/dirtdebris1.dds"
+      },
+      {
+        "file": "assets/private/dds/dust3.dds",
+        "bytes": 5616,
+        "sha256": "cbafd0dc52de1dbcf0adfeb6d42d8a5dea669e80fdb0fe24eef192c12cbd7524",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/dust3.dds"
+      },
+      {
+        "file": "assets/private/dds/spinecrawler_diffuse.dds",
+        "bytes": 1398256,
+        "sha256": "9f267cd92b084474f3de6a2bceb90928f22b1215b0ac0e809467d5a83a386541",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/spinecrawler_specular.dds",
+        "bytes": 1398256,
+        "sha256": "354e28d077d154cbd5a84d5e113696c108b6a62185fb99056fab190bdd07a6f2",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_specular.dds"
+      },
+      {
+        "file": "assets/private/dds/spinecrawler_normal.dds",
+        "bytes": 1398260,
+        "sha256": "b27dfa3723f17c32532fe0c3ef8e12836fc628a6713d2ad4ae6536932e7cc4d1",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_normal.dds"
+      },
+      {
+        "file": "assets/private/dds/bloodterrantile.dds",
+        "bytes": 87536,
+        "sha256": "58442f75de01c260aed5b426ad2f97d5a9e454a37a3c6c684a6f735e449cad6e",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodterrantile.dds"
+      },
+      {
+        "file": "assets/private/dds/gen_splat3_spec.dds",
+        "bytes": 87536,
+        "sha256": "8e0380cdbb314111d0cb3cab7e74d31139f542fc010ee3b82a67059f39e51db4",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat3_spec.dds"
+      },
+      {
+        "file": "assets/private/dds/gen_splat3.dds",
+        "bytes": 87536,
+        "sha256": "44b9b83f3223ec953f6353eb7084f54566f0cd75cee16890dac7bdaeef789c0e",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat3.dds"
+      },
+      {
+        "file": "assets/private/dds/gen_splat4_normal2.dds",
+        "bytes": 87540,
+        "sha256": "c155be21905549082be027689d1c419513a96ff4830f680a070201d061461d18",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat4_normal2.dds"
+      },
+      {
+        "file": "assets/private/dds/zergsculptedcarapacered_diffuse.dds",
+        "bytes": 349680,
+        "sha256": "6a10aac63ede05684ed9772108a5bf4d59b8c15c5764709edb889a333933d543",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsculptedcarapacered_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/zergsculptedcarapace_normals.dds",
+        "bytes": 349684,
+        "sha256": "0eb4db4842d89643e120fa0de69f4b0d001dd8aa7598dba5875d88aa0684ce02",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsculptedcarapace_normals.dds"
+      },
+      {
+        "file": "assets/private/dds/smokelit.dds",
+        "bytes": 22000,
+        "sha256": "7937f866e203c0ea6dcad8c4979977e7b3f64b58cd247719e807f20157e5e9bd",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smokelit.dds"
+      },
+      {
+        "file": "assets/private/dds/blood_trailsculpted_diffuse.dds",
+        "bytes": 87536,
+        "sha256": "714df4a62ee5e5d684d9d642031262ea04d2c1e74b09f2dc1aa8186b37443272",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blood_trailsculpted_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/gootrailsculpted_normals.dds",
+        "bytes": 87540,
+        "sha256": "760f1852ca0220d7c1f867bb2221f6afd9b5c3ce8110fb7a392041e1e774b143",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gootrailsculpted_normals.dds"
+      },
+      {
+        "file": "assets/private/dds/zergsplatbuildingdeath_defuse.dds",
+        "bytes": 1398256,
+        "sha256": "e087edcf6d588fcd71bfe3e9735b6096ae879a6c63a5a555f4040ab140a5fcbf",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsplatbuildingdeath_defuse.dds"
+      },
+      {
+        "file": "assets/private/dds/zergsplatbuildingdeath_spec.dds",
+        "bytes": 699192,
+        "sha256": "02f8c69a2e53f509b58ddba62e9b38fed35ec2aa92387a8701958b171f09044a",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsplatbuildingdeath_spec.dds"
+      },
+      {
+        "file": "assets/private/dds/zergsplatbuildingdeath_normal.dds",
+        "bytes": 1398260,
+        "sha256": "32d63916f97c48ac3a5c0dfef3dba57247656c3abb55b9cd73c156da7b3d3f8b",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsplatbuildingdeath_normal.dds"
+      },
+      {
+        "file": "assets/private/dds/heatwave1.dds",
+        "bytes": 87540,
+        "sha256": "e96e624acbcfd066d3c0e45fb8e7aaf28bea527c84c0854ba45a729e6a3074b4",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/heatwave1.dds"
+      },
+      {
+        "file": "assets/private/dds/heatradius1_strength.dds",
+        "bytes": 87536,
+        "sha256": "c450967bf9e0006bc61da03839c50e616804b93f0f57343e52b2d43dc8eab7d3",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/heatradius1_strength.dds"
+      },
+      {
+        "file": "assets/private/dds/photoncannonbase_diffuse.dds",
+        "bytes": 349680,
+        "sha256": "5ea0b6e1e68400c8b93c36a5ca15032f32167f7aa826aba4e63b93239214518e",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannonbase_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/decal_protoss_0000_01.dds",
+        "bytes": 87536,
+        "sha256": "a66a5f96653870d31360f7a85fee7522d60ccfc1e5163776762c7dfdc35f60dd",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/decal_protoss_0000_01.dds"
+      },
+      {
+        "file": "assets/private/dds/photoncannonbase_specular.dds",
+        "bytes": 349680,
+        "sha256": "1f2a4044b4f6e216d5cc1ca89c70c8ef1151e05dbd033da4e460370c4304d36f",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannonbase_specular.dds"
+      },
+      {
+        "file": "assets/private/dds/photoncannonbase_emissive.dds",
+        "bytes": 349680,
+        "sha256": "6a8c4bc53c277fe404e5e7ee289629bdb51120bc2043849e95454c507dc25f25",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannonbase_emissive.dds"
+      },
+      {
+        "file": "assets/private/dds/photoncannonbase_normal.dds",
+        "bytes": 349684,
+        "sha256": "268ae867e4812360526d0acf9865926d18af0b705f2004e7525f473cba0b9c11",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannonbase_normal.dds"
+      },
+      {
+        "file": "assets/private/dds/grad_rays_blue1.dds",
+        "bytes": 2872,
+        "sha256": "516fc909f956208e6e607e77d4e0f8273b45feff6c73a61fa71c27f5d445037b",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/grad_rays_blue1.dds"
+      },
+      {
+        "file": "assets/private/dds/tronsquare1_aqua.dds",
+        "bytes": 2176,
+        "sha256": "98fbc601e19bcdbf355d2e24dda295648568d3867de817cc54988c37e7c3a392",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tronsquare1_aqua.dds"
+      },
+      {
+        "file": "assets/private/dds/photoncannon_diffuse.dds",
+        "bytes": 349680,
+        "sha256": "1f2fc6f592f5b74b331f5377ba432f489292a9804c719291df06ccd9989fbb6a",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannon_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/photoncannon_specular.dds",
+        "bytes": 174904,
+        "sha256": "d4b5e55c55cbf613d817f8199645d0e7eb74347a5121692357496d842ad8950a",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannon_specular.dds"
+      },
+      {
+        "file": "assets/private/dds/photoncannon_emissive.dds",
+        "bytes": 349680,
+        "sha256": "d36ef673dcc605c17cc0b5a1a6f9d5138d39d17a5e8671ee35122ede5e9ce6eb",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannon_emissive.dds"
+      },
+      {
+        "file": "assets/private/dds/photoncannon_normal.dds",
+        "bytes": 349684,
+        "sha256": "9d515777db30cca7880fa453279af970ac3d5c77f140f941719898c372b63c39",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannon_normal.dds"
+      },
+      {
+        "file": "assets/private/dds/pylonring1.dds",
+        "bytes": 174904,
+        "sha256": "5229d1b883cacf859bcfbfc9cc7348d032b0c7df6381c2b96a30de2cccce8686",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pylonring1.dds"
+      },
+      {
+        "file": "assets/private/dds/lazerbolt1_blue.dds",
+        "bytes": 11080,
+        "sha256": "b85bbb03477d62a6398b76bdd7c0ef5b3962cac92e0a5dcfdaffdecde229aef4",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lazerbolt1_blue.dds"
+      },
+      {
+        "file": "assets/private/dds/protoss_tech1.dds",
+        "bytes": 22000,
+        "sha256": "70a71096c385a89bd40a3412f82db2c9cc58b482540012a9191fb2892550aa4c",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/protoss_tech1.dds"
+      },
+      {
+        "file": "assets/private/dds/genericglow2c.dds",
+        "bytes": 22000,
+        "sha256": "82d81db9d15778b6b1d913038a16a2bd3b3f96b1bcdbce279d015cd04be2b483",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/genericglow2c.dds"
+      },
+      {
+        "file": "assets/private/dds/protoss_target_ring.dds",
+        "bytes": 22000,
+        "sha256": "8f61f432815300a085293953e11928bb9358b7cc5256fa78f97469344cb08bd3",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/protoss_target_ring.dds"
+      },
+      {
+        "file": "assets/private/dds/warpline2_blue.dds",
+        "bytes": 22032,
+        "sha256": "41966053b9c146aa82942d707fa318ce76354008c1b996b1137236a51b71c9e0",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/warpline2_blue.dds"
+      },
+      {
+        "file": "assets/private/dds/flare2b.dds",
+        "bytes": 43832,
+        "sha256": "2cb3274a0cbf0d200e8baf220dfe2b36ea27947c63ba830995630191b1558fde",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/flare2b.dds"
+      },
+      {
+        "file": "assets/private/dds/smoke_wispy9.dds",
+        "bytes": 87536,
+        "sha256": "d83b099dc663654ad118a6fecf47cb8afa3cc01ebfb2077b63b331383b2d349f",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smoke_wispy9.dds"
+      },
+      {
+        "file": "assets/private/dds/lightningzap4_r1.dds",
+        "bytes": 87528,
+        "sha256": "c515f63d03dd667bafc537cdf26b64ce475eaaad2e2916271a1abc32f83301a7",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lightningzap4_r1.dds"
+      },
+      {
+        "file": "assets/private/dds/blueboom1.dds",
+        "bytes": 1398256,
+        "sha256": "f57044e66d28931251ab129b2db095933b1947cfe2cf491ab4db0bd56625917c",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blueboom1.dds"
+      },
+      {
+        "file": "assets/private/dds/glow_haze1grey.dds",
+        "bytes": 11064,
+        "sha256": "a34030b17c2e397b551a870491250d5f0350e20f22c59abebef5f8c6c0563970",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/glow_haze1grey.dds"
+      },
+      {
+        "file": "assets/private/dds/shockwave_blur1_blue.dds",
+        "bytes": 11064,
+        "sha256": "35b392af53987876e2a18ac921126f7920d82d99535d6d94ff4031fa5b0f42c3",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/shockwave_blur1_blue.dds"
+      },
+      {
+        "file": "assets/private/dds/glow_blue3tail.dds",
+        "bytes": 5648,
+        "sha256": "4f8388972e95eb0ee25aefda8a0740daabf124aa4a3970af0ecd0583de8375de",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/glow_blue3tail.dds"
+      },
+      {
+        "file": "assets/private/dds/glow_blue3.dds",
+        "bytes": 22000,
+        "sha256": "5bf2191cbb72f4f1ba07e580864dff53d59bc1bc6429e645c01d8b0fd526dc29",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/glow_blue3.dds"
+      },
+      {
+        "file": "assets/private/dds/protossdebrissculpted_diffuse.dds",
+        "bytes": 349680,
+        "sha256": "d2458b3695953ea94e31266f349d75e5009c2b61841e2fde9d4c75ddfe0bcc1f",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/protossdebrissculpted_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/energyplane3.dds",
+        "bytes": 87536,
+        "sha256": "cdbbe0baa1978dabe23146995f1a98e240b31c964787cea8eeca5b89c5fee81b",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/energyplane3.dds"
+      },
+      {
+        "file": "assets/private/dds/smoke_tendril1.dds",
+        "bytes": 5608,
+        "sha256": "7eeafab0486bd2c3b2b0e16aa7c546d7f65a5d1e2d30a5c02753f2864ed59896",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smoke_tendril1.dds"
+      },
+      {
+        "file": "assets/private/dds/blastmark4blue.dds",
+        "bytes": 174904,
+        "sha256": "c96ab88ec935e21e8fa837168b9baac65dcd5704737a06a90dd712b84538d0c2",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark4blue.dds"
+      },
+      {
+        "file": "assets/private/dds/blastmark12_diffuse.dds",
+        "bytes": 349680,
+        "sha256": "854e97a8251a98f5ba4137a336a44a772c5996c5331ac5442c3e2b29f3c4344d",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark12_diffuse.dds"
+      },
+      {
+        "file": "assets/private/dds/blastmark12_spec.dds",
+        "bytes": 349680,
+        "sha256": "c31b8d1520ca60b2946c700c10198ad24ee1429e0d86572d457fefb5e212b9be",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark12_spec.dds"
+      },
+      {
+        "file": "assets/private/dds/blastmark12_normal.dds",
+        "bytes": 349684,
+        "sha256": "7dc778d85c0a6297e31d4fe87bc61c3df9ce00a0c7ad8eee2fd3d6c01631e57e",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark12_normal.dds"
+      },
+      {
+        "file": "assets/private/dds/flame3blue_r1.dds",
+        "bytes": 65664,
+        "sha256": "e6ee7d109f8a865cad488dbbc813717a28e0d05c09f08f1172a7376e1d4f3f4e",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/flame3blue_r1.dds"
+      },
+      {
+        "file": "assets/private/dds/btn-unit-terran-marauder.dds",
+        "bytes": 5904,
+        "sha256": "8581f9c929230b0a10437995ac3d4e1801ef7cc6a9f92027a3f0ceb56010b50a",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-terran-marauder.dds"
+      },
+      {
+        "file": "assets/private/dds/btn-unit-zerg-hydralisk.dds",
+        "bytes": 5904,
+        "sha256": "b3c98dffe5c480137feec48a90ea24ec6b4c7fca91d425bb7df7c83aa77b7f7f",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-zerg-hydralisk.dds"
+      },
+      {
+        "file": "assets/private/dds/btn-unit-terran-marineraynorhev.dds",
+        "bytes": 5904,
+        "sha256": "f6fee76037ea8ef85b1ef02b1323a17e84489fd2d221847a1569dd17beeae1f5",
+        "version": "5.0.16.97563",
+        "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/btn-unit-terran-marineraynorhev.dds"
+      },
+      {
+        "file": "assets/private/dds/btn-unit-terran-marinetychus.dds",
+        "bytes": 5904,
+        "sha256": "6f077badf980b7a0e5787a5d5b409291a72169b7e953c16da9c839be0749c3b1",
+        "version": "5.0.16.97563",
+        "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/btn-unit-terran-marinetychus.dds"
+      },
+      {
+        "file": "assets/private/dds/btn-unit-terran-nova.dds",
+        "bytes": 5904,
+        "sha256": "661481e64a7052d69abcad43377905d89c27a9a63cfccf6ecaba34df9bb62d7b",
+        "version": "5.0.16.97563",
+        "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/btn-unit-terran-nova.dds"
+      },
+      {
+        "file": "assets/private/dds/btn-ability-terran-penetratorround.dds",
+        "bytes": 5904,
+        "sha256": "78c848aea2e6e5587fbcdc8601ccb31cd171db569024d4e766840bc560a9226e",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-ability-terran-penetratorround.dds"
+      },
+      {
+        "file": "assets/private/dds/btn-ability-terran-punishergrenade-color.dds",
+        "bytes": 5904,
+        "sha256": "77e033b7e939a2ed1ade828bfa93f269557c4c215eb9151b672b0ab99408cc1c",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-ability-terran-punishergrenade-color.dds"
+      },
+      {
+        "file": "assets/private/dds/btn-ability-terran-snipe-color.dds",
+        "bytes": 5904,
+        "sha256": "44c53acad8ba4f9c19e7beb73203c9f316df003a7f139e547f09cedf5620aeea",
+        "version": "5.0.16.97563",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-ability-terran-snipe-color.dds"
+      }
+    ],
+    "existingReleaseLabel": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+    "newApplicationRelease": false,
+    "notes": "Six new fort IDs include five distinct original M3 sources. Cover reuses an existing original semantic map resource. No accepted five-map placement or material was edited."
+  },
+  "conditions": [
+    {
+      "key": "resource_drop",
+      "status": "saturated",
+      "detail": "Native ordinary enemy resource drop is already 100%; +20 percentage points caps at 100%, without a second packet."
+    },
+    {
+      "key": "egg_conversion",
+      "status": "no-current-native-spawn-target",
+      "detail": "Conversion of an authoritative egg-spawn receipt is implemented and tested. Current rescued eggs create workers and no ordinary enemies; the native hook supplies an empty enemy receipt."
+    }
+  ],
+  "boundaries": {
+    "separateEquipmentUI": true,
+    "saveWorkDeferredToFinalMVP": true,
+    "naturalCampaignAccepted": false,
+    "humanAccepted": false,
+    "physicalInputAccepted": false,
+    "fullContent60FpsAccepted": false,
+    "wholeMvpComplete": false,
+    "gitCommitted": false,
+    "pushed": false,
+    "published": false
+  },
+  "history": {
+    "preserved": true,
+    "records": [
+      "reports/local/starship-logic-20261015/full-regressions-r5.log",
+      "reports/local/starship-logic-20261015/native-baseline-repairs-r1.log",
+      "reports/local/starship-logic-20261015/equipment-combat-final-r2.log",
+      "reports/local/starship-logic-20261015/conditional-impact-r3.log",
+      "reports/local/starship-logic-20261015/browser-r1",
+      "reports/local/starship-logic-20261015/browser-r2",
+      "reports/local/starship-logic-20261015/browser-r3",
+      "reports/local/starship-logic-20261015/browser-r4",
+      "reports/local/starship-logic-20261015/browser-r5",
+      "reports/local/starship-logic-20261015/browser-r6",
+      "reports/local/starship-logic-20261015/browser-r7",
+      "reports/local/starship-logic-20261015/fort-native-material-import-r1.log"
+    ],
+    "note": "Retains failed budget/fixture paths, prior full-regression failures and their bounded repairs, sandbox process failures, missing cover resource/texture, reused fixture receipt, disconnected or inward spline faces, PhotonCannon white diffuse surfaces and missing decal channel. Earlier failed builds remain historical."
+  }
+}

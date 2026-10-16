@@ -45,6 +45,8 @@ export function sampleBarrierAlpha(profile:UnitMaterialProfile,materialIndex:num
 export interface UnitMaterialContext {
  entityId:number;runId:string;time:number;deathAt?:number;barrier?:BarrierPhase;
  teamColor?:readonly [number,number,number];activity?:number;
+ /** Per-instance presentation, independent of team colour and authored opacity. */
+ apparition?:{tint:readonly [number,number,number];opacity:number};
 }
 export interface UnitMaterialPose {clip:string;seconds:number;attackClip?:string;attackSeconds?:number}
 

@@ -14,7 +14,7 @@ function enter(w:World){const plan=w.previewEndlessTransition()!;assert.ok(plan)
 test('flat field has 160 square footprint, constant height, eight safe entrances and independent 60-second rounds',()=>{
  const flat=new FlatTerrain();assert.equal(flat.height({x:50,z:-35}),0);assert.ok(flat.canOccupy({x:76,z:0},0));assert.equal(flat.canOccupy({x:76.01,z:0},0),false);
  assert.equal(ENDLESS_ENTRANCES.length,8);for(const point of ENDLESS_ENTRANCES)assert.ok(flat.canOccupy(point,2));
- const config=endlessConfig('normal');assert.equal(config.durationSeconds,60);assert.deepEqual(config.reward,[300,250]);assert.equal(config.width,160);const waves=endlessWaveTemplate(41,1,'normal');assert.equal(waves.length,4);assert.equal(waves[0].at,0);assert.equal(waves.at(-1)?.at,48);
+ const config=endlessConfig('normal');assert.equal(config.durationSeconds,60);assert.deepEqual(config.reward,[300,250]);assert.equal(config.width,160);const waves=endlessWaveTemplate(41,1,'normal');assert.equal(waves.length,4);assert.equal(waves[0].at,0);assert.equal(waves.at(-1)?.at,45);
 });
 test('stale or absent readiness never switches map; committed transition preserves bodies and paid pods',()=>{
  const w=prepared(),before=w.captureRun(),body=w.allies()[0],health=body.hp;const pod=w.spawnPod('marine',{x:8,z:0});const originalWallet={...w.wallet};

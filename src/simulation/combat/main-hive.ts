@@ -1,6 +1,7 @@
 import type {World} from '../world';
 import type {Entity,Point} from '../types';
-import {campaign18EnemyPressure,type MainHiveCast} from '../../data/campaign18';
+import {type MainHiveCast} from '../../data/campaign18';
+import {continuousSpecialProfile} from '../../data/enemy-tuning';
 import {distance,clearLine} from '../movement/steering';
 
 /** Experimental encounter timing: fixed before the run, independent of army strength. */
@@ -25,7 +26,7 @@ export function tickMainHive(w:World,dt:number){
   while(MAIN_HIVE_EVENTS[state.nextEvent]?.at<=w.stageElapsed+1e-8){const index=state.nextEvent++,event=MAIN_HIVE_EVENTS[index],targets=bodies(w).filter(u=>w.visibleTo(u,'zerg')&&clear(hive,u)&&(event.kind!=='bile'||!u.flying)).sort((a,b)=>distance(a,hive)-distance(b,hive)||a.id-b.id),target=targets[0];
    // Empty visibility uses a fixed rotating firing direction, never a hidden squad anchor.
    const angle=target?Math.atan2(target.x-hive.x,target.z-hive.z):index*Math.PI/4,point=target?{x:target.x,z:target.z}:{x:hive.x+Math.sin(angle)*18,z:hive.z+Math.cos(angle)*18},warningAt=w.time;
-   const base=w.difficulty==='easy'?20:35,damage=base*campaign18EnemyPressure(w.difficulty,18).damage;
+   const base=w.difficulty==='easy'?20:35,stamp=hive.enemySpawn??{stage:18,progress:17/18,density:1},damage=base*continuousSpecialProfile(w.difficulty,'ultralisk','boss',stamp,{hp:32000,damage:1,period:1,armor:4}).skillDamage;
    state.casts.push({id:++state.serial,kind:event.kind,origin:{x:hive.x,z:hive.z},point,angle,warningAt,at:warningAt+1.5,radius:event.kind==='bile'?2.2:event.kind==='line'?.9:.25,range:28,damage});
   }
  }else state.casts=[];

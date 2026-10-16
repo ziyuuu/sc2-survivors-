@@ -1,0 +1,329 @@
+[
+  {
+    "id": "model.combat-fx.AutoTurretAttackLaunch",
+    "modelDataId": "AutoTurretAttackLaunch",
+    "name": "autoturretweaponlaunch",
+    "assetPath": "Assets/Effects/Terran/AutoTurretWeaponLaunch/AutoTurretWeaponLaunch.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"LaunchFX\" parent=\"FX\">\n        <Priority value=\"8\" />\n        <Flags index=\"Ignorable\" value=\"1\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"AutoTurretAttackLaunch\" parent=\"LaunchFX\">\n        <Model value=\"Assets\\Effects\\Terran\\AutoTurretWeaponLaunch\\AutoTurretWeaponLaunch.m3\" />\n        <EditorCategories value=\"Race:Terran\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.AutoTurretAttackImpact",
+    "modelDataId": "AutoTurretAttackImpact",
+    "name": "autoturretweaponimpact",
+    "assetPath": "Assets/Effects/Terran/AutoTurretWeaponImpact/AutoTurretWeaponImpact.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"ImpactFX\" parent=\"FX\">\n        <Priority value=\"24\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"AutoTurretAttackImpact\" parent=\"ImpactFX\">\n        <Model value=\"Assets\\Effects\\Terran\\AutoTurretWeaponImpact\\AutoTurretWeaponImpact.m3\" />\n        <EditorCategories value=\"Race:Terran\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.PhotonCannonWeapon",
+    "modelDataId": "PhotonCannonWeapon",
+    "name": "phasecannonmissile",
+    "assetPath": "Assets/Effects/Protoss/PhaseCannonMissile/PhaseCannonMissile.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"MissileFX\" parent=\"FX\">\n        <Priority value=\"16\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"PhotonCannonWeapon\" parent=\"MissileFX\">\n        <Model value=\"Assets\\Effects\\Protoss\\PhaseCannonMissile\\PhaseCannonMissile.m3\" />\n        <EditorCategories value=\"Race:Protoss\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.PhotonCannonAttackImpact",
+    "modelDataId": "PhotonCannonAttackImpact",
+    "name": "phasecannonmissileimpact",
+    "assetPath": "Assets/Effects/Protoss/PhaseCannonMissileImpact/PhaseCannonMissileImpact.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"ImpactFX\" parent=\"FX\">\n        <Priority value=\"24\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"PhotonCannonAttackImpact\" parent=\"ImpactFX\">\n        <Model value=\"Assets\\Effects\\Protoss\\PhaseCannonMissileImpact\\PhaseCannonMissileImpact.m3\" />\n        <EditorCategories value=\"Race:Protoss\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.SpineCrawlerAttackImpactReactionFlesh",
+    "modelDataId": "SpineCrawlerAttackImpactReactionFlesh",
+    "name": "bloodimpactsmear",
+    "assetPath": "Assets/Effects/Zerg/BloodImpactSmear/BloodImpactSmear.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"ImpactFX\" parent=\"FX\">\n        <Priority value=\"24\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"SpineCrawlerAttackImpactReactionFlesh\" parent=\"ImpactFX\">\n        <Model value=\"Assets\\Effects\\Zerg\\BloodImpactSmear\\BloodImpactSmear.m3\" />\n        <EditorCategories value=\"Race:Neutral\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.DropPodLand",
+    "modelDataId": "DropPodLand",
+    "name": "jumplanddust",
+    "assetPath": "Assets/Effects/Other/JumpLandDust/JumpLandDust.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"PersistentSpellFX\" parent=\"FX\">\n        <Priority value=\"24\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"DropPodLand\" parent=\"PersistentSpellFX\">\n        <Model value=\"Assets\\Effects\\Other\\JumpLandDust\\JumpLandDust.m3\" />\n        <EditorCategories value=\"Race:Terran\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.BurrowFXSmall",
+    "modelDataId": "BurrowFXSmall",
+    "name": "burrowfxsmall",
+    "assetPath": "Assets/Effects/Zerg/BurrowFXSmall/BurrowFXSmall.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"OneShotSpellFX\" parent=\"FX\">\n        <EditorCategories value=\"Race:##Race##\" />\n        <Priority value=\"16\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"BurrowFXSmall\" parent=\"OneShotSpellFX\">\n        <Model value=\"Assets\\Effects\\Zerg\\BurrowFXSmall\\BurrowFXSmall.m3\" />\n        <EditorCategories value=\"Race:Zerg\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.BurrowFXLarge",
+    "modelDataId": "BurrowFXLarge",
+    "name": "burrowfxlarge",
+    "assetPath": "Assets/Effects/Zerg/BurrowFXLarge/BurrowFXLarge.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"OneShotSpellFX\" parent=\"FX\">\n        <EditorCategories value=\"Race:##Race##\" />\n        <Priority value=\"16\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"BurrowFXLarge\" parent=\"OneShotSpellFX\">\n        <Model value=\"Assets\\Effects\\Zerg\\BurrowFXLarge\\BurrowFXLarge.m3\" />\n        <EditorCategories value=\"Race:Zerg\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.WarpTrainModel",
+    "modelDataId": "WarpTrainModel",
+    "name": "blinkin",
+    "assetPath": "Assets/Effects/Protoss/BlinkIn/BlinkIn.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"OneShotSpellFX\" parent=\"FX\">\n        <EditorCategories value=\"Race:##Race##\" />\n        <Priority value=\"16\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"WarpTrainModel\" parent=\"OneShotSpellFX\">\n        <Model value=\"Assets\\Effects\\Protoss\\BlinkIn\\BlinkIn.m3\" />\n        <EditorCategories value=\"Race:Protoss\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.BlinkOriginModel",
+    "modelDataId": "BlinkOriginModel",
+    "name": "blinkout",
+    "assetPath": "Assets/Effects/Protoss/BlinkOut/BlinkOut.m3",
+    "scale": [
+      0.69,
+      0.69,
+      0.69
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"OneShotSpellFX\" parent=\"FX\">\n        <EditorCategories value=\"Race:##Race##\" />\n        <Priority value=\"16\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"RaceOneShotSpellFX\" parent=\"OneShotSpellFX\">\n        <Model value=\"Assets\\Effects\\##Race##\\##id##\\##id##.m3\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"StalkerBlinkOutBase\" parent=\"RaceOneShotSpellFX\">\n        \n        <ScaleMax value=\"0.690000,0.690000,0.690000\" />\n        <ScaleMin value=\"0.690000,0.690000,0.690000\" />\n        <SelectionRadius value=\"0.833200\" />\n        <ShadowRadius value=\"0.833200\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"BlinkOriginModel\" parent=\"StalkerBlinkOutBase\">\n        <Model value=\"Assets\\Effects\\Protoss\\BlinkOut\\BlinkOut.m3\" />\n    </CModel>\n    "
+      }
+    ]
+  },
+  {
+    "id": "model.combat-fx.NeuralParasiteModel",
+    "modelDataId": "NeuralParasiteModel",
+    "name": "neuralparasite",
+    "assetPath": "Assets/Effects/Zerg/NeuralParasite/NeuralParasite.m3",
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "definitions": [
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\">\n        <Flags index=\"Download\" value=\"1\" />\n        <Flags index=\"FOW\" value=\"1\" />\n        <Flags index=\"VariationFallback\" value=\"1\" />\n        <Flags index=\"VariationPreload\" value=\"1\" />\n        <Flags index=\"Wait\" value=\"1\" />\n        <Lighting value=\"##id##\" />\n        <Quality value=\"1\" />\n        <ScaleMax value=\"1.000000,1.000000,1.000000\" />\n        <ScaleMin value=\"1.000000,1.000000,1.000000\" />\n        <Radius value=\"0.500000\" />\n        <Priority value=\"32\" />\n        <SelectionRadius value=\"0.500000\" />\n        <ShadowRadius value=\"0.500000\" />\n        <AnimSpeed value=\"1.000000\" />\n        <AnimBlendTime value=\"-1.000000\" />\n        <TechPurchaseCamera value=\"Star2Camera01\" />\n        <UnitGlossaryCamera value=\"Star2Camera01\" />\n        <PlanetPanelCamera value=\"Star2Camera01\" />\n        <TechPurchaseSpeed value=\"0.100000\" />\n        <OccludingOpacity value=\"0.350000\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"FX\">\n        \n        <Flags index=\"Wait\" value=\"0\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel default=\"1\" id=\"PersistentSpellFX\" parent=\"FX\">\n        <Priority value=\"24\" />\n    </CModel>\n    "
+      },
+      {
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "xml": "<CModel id=\"NeuralParasiteModel\" parent=\"PersistentSpellFX\">\n        <Model value=\"Assets\\Effects\\Zerg\\NeuralParasite\\NeuralParasite.m3\" />\n        <EditorCategories value=\"Race:Zerg\" />\n        <Radius value=\"1.000000\" />\n    </CModel>\n    "
+      }
+    ]
+  }
+]

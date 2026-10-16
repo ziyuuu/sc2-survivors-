@@ -1,0 +1,410 @@
+{
+  "date": "2026-10-15",
+  "status": "implemented-and-engineering-verified",
+  "scope": "Equipment drop presentation and actual inventory pickup; independent inventory UI remains separately built",
+  "sequence": [
+    "equipment-pickup-current",
+    "all-four-campaign-difficulties-stats-and-quantities-next",
+    "smooth-exponential-endless-after-campaign",
+    "other-equipment-combat-effects-last"
+  ],
+  "entry": {
+    "interactive": "http://127.0.0.1:4405/",
+    "gallery": "http://127.0.0.1:4405/gallery.html",
+    "account": "isolated in-memory; production boot/World/BattleRenderer/HUD; default formal entry remains opt-in"
+  },
+  "compiledInputs": {
+    "count": 395,
+    "currentMatch": true,
+    "record": "preview/equipment-pickup-20261015/build-inputs.json"
+  },
+  "bundle": {
+    "bytes": 28504570,
+    "sha256": "6336ba0b6cfe87e2d01550e4d98daf0c01ebd95a56655cadb1f94eca3156e7da"
+  },
+  "artifacts": [
+    {
+      "file": "preview/equipment-pickup-20261015/index.html",
+      "bytes": 954847,
+      "sha256": "84bc770d6915df37a926a92ed7c79075205cf4fbc6474fcd119435320f9abcb5"
+    },
+    {
+      "file": "preview/equipment-pickup-20261015/main.js",
+      "bytes": 28504570,
+      "sha256": "6336ba0b6cfe87e2d01550e4d98daf0c01ebd95a56655cadb1f94eca3156e7da"
+    },
+    {
+      "file": "preview/equipment-pickup-20261015/main.css",
+      "bytes": 665382,
+      "sha256": "20c729fcf83c9a3d5a8155d02aa6a0c27d11b1ecb7bd2cce7a49b26d2d94ed54"
+    },
+    {
+      "file": "preview/equipment-pickup-20261015/gallery.html",
+      "bytes": 4723,
+      "sha256": "34c1e6dba85f7036c0eb45b11dcbff54e4d4d6c09283d6fc68ee010cf419fd8e"
+    }
+  ],
+  "sources": [
+    {
+      "file": "src/simulation/starship/loot-presentation.ts",
+      "bytes": 5519,
+      "sha256": "d5240d57645bebe96235c219487a568c9392835a892d33e40514397eb5789c8e"
+    },
+    {
+      "file": "src/simulation/starship/drops.ts",
+      "bytes": 11054,
+      "sha256": "0f39fc152be834280600321d8d743b820549401f5dc257cc02f2eb1b49897ee1"
+    },
+    {
+      "file": "src/simulation/starship/runtime.ts",
+      "bytes": 18167,
+      "sha256": "a2fd9eb88db055ff7c2138f94e12209181103d6300742b48192921a9309167b1"
+    },
+    {
+      "file": "src/render/units/equipment-drops.ts",
+      "bytes": 16704,
+      "sha256": "d378258881d18c61f7ab544c603991c433ad12b5a1b42bb0f128d4751a29b8ca"
+    },
+    {
+      "file": "src/render/units/equipment-loot-style.ts",
+      "bytes": 3540,
+      "sha256": "9e0cb4306cdd2da2d29ae070d98b6eefb8dcef7f29679caab93c883c1fec1f87"
+    },
+    {
+      "file": "src/render/effects/equipment-loot-audio.ts",
+      "bytes": 1974,
+      "sha256": "57452fd87825b6f0c979af8098bf04c141a99096fdd3ee29b40d473b9dfe8028"
+    },
+    {
+      "file": "src/render/effects/audio.ts",
+      "bytes": 8547,
+      "sha256": "b19b976692374acabe91d586861c3350d296387a4106722f38645235aea92bf9"
+    },
+    {
+      "file": "src/render/scene/battle-renderer.ts",
+      "bytes": 106241,
+      "sha256": "e382dd64e8581ef1c3a3c49901ca9ef0a4d9b0dd9fbe0ca9210d965ed36df738"
+    },
+    {
+      "file": "src/ui/presentation/world-labels.css",
+      "bytes": 2188,
+      "sha256": "6d968312a7f3822490d69552411db91dd19ca5fecb5a8d9b646b8faaa70272b0"
+    },
+    {
+      "file": "src/ui/starship/world-host.ts",
+      "bytes": 3893,
+      "sha256": "8a49c96c855bf8ad15cfee9d63892899b00463c5117f6ba37e1b43a7245e7d3d"
+    },
+    {
+      "file": "test/equipment-pickup.test.ts",
+      "bytes": 7790,
+      "sha256": "52bda8a7022a98171f4d1f3a3a8124817610d55cb94c95e53e322ac04ad1f988"
+    },
+    {
+      "file": "preview/equipment-pickup-20261015/main.ts",
+      "bytes": 5254,
+      "sha256": "914659d6114b54955d03142ad32aed9392a382159ce37b3721eab054e67baaf6"
+    },
+    {
+      "file": "tools/build-equipment-pickup-preview.mjs",
+      "bytes": 1681,
+      "sha256": "3ee3e542ce061e9fbf7ffe0a65c055f3dcd13bf9d088b44a14648b808f4fea70"
+    },
+    {
+      "file": "tools/serve-equipment-pickup-preview.mjs",
+      "bytes": 1295,
+      "sha256": "8f4d2c690feaa525cce66005f54f46311a2b4cfade3ccab036ab9c7d46d08f0e"
+    },
+    {
+      "file": "tools/qa-equipment-pickup.mts",
+      "bytes": 11408,
+      "sha256": "bbcdb19a1e5151d065df35909c4e7d03410b5aadaf108ad2878ca11a267bad34"
+    }
+  ],
+  "validation": {
+    "tests": {
+      "passed": 153,
+      "failed": 0,
+      "log": "reports/local/equipment-pickup-20261015/starship-regression-final.log"
+    },
+    "typecheck": "reports/local/equipment-pickup-20261015/typecheck-final.log",
+    "dataGeneration": "reports/local/equipment-pickup-20261015/docs-data.log",
+    "dataCheck": "reports/local/equipment-pickup-20261015/docs-check-final.log",
+    "browser": "reports/local/equipment-pickup-20261015/browser-r5-final/report.json",
+    "checks": [
+      "all five qualities and pollution render from real ground inventory",
+      "native pause freezes pickup matrices, inventory and time with the real frame driver active",
+      "390x844 settled production viewport has visible bounded equipment labels",
+      "96 real drops retain all instances with readable grouped counts, bounded light clusters and growing GPU storage",
+      "pickup pays once before absorption, trail ends on native clock",
+      "full backpack retains drop, warns once, and collects after actual discard",
+      "native enemy death creates actual inventory and visible landing",
+      "actual WEBGL_lose_context and required re-preparation retain time, RNG, inventory and ground positions",
+      "browser keyboard moves the actual squad into pickup range through the native frame driver",
+      "a real contaminated drop retains quality color, pollution mark and synthesized pollution cue"
+    ],
+    "screens": [
+      {
+        "name": "01-land",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\01-land.png",
+        "sha256": "28f2fb2cd30cbdb975923fb1ee0e2473131295841b744524b5b2032c3395df60"
+      },
+      {
+        "name": "02-bounce",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\02-bounce.png",
+        "sha256": "192c6ff89dbde9413819a30ff7bc68aa1915e832008e88b0321dd54083a67680"
+      },
+      {
+        "name": "03-quality",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\03-quality.png",
+        "sha256": "01b1d32f1ba0f388280783793be758122fca41fa413fae275457527f07b6b073"
+      },
+      {
+        "name": "04-narrow",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\04-narrow.png",
+        "sha256": "40a468a82e1c49e7333f3b2fe4e4894bb23277f0daf5335d4e5fb8ee16b43bdb"
+      },
+      {
+        "name": "05-dense",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\05-dense.png",
+        "sha256": "bdaba8c1e6f1728ffa8fff0b41fa9a25b0d39d5bfcc24b101d2a4e4a98415ffd"
+      },
+      {
+        "name": "06-absorb-start",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\06-absorb-start.png",
+        "sha256": "604e463044b8f8ecdae981cbadb4d30d87b2572fee34e0632f04bfef0d61f0a1"
+      },
+      {
+        "name": "07-absorb-trail",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\07-absorb-trail.png",
+        "sha256": "e523471137071e44fb4d4b85a8f32f8c138908ebd30abef2d69c808137730064"
+      },
+      {
+        "name": "08-collected",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\08-collected.png",
+        "sha256": "f1350da8a8671f7b057b1ea742573f2687e9404bc5f5f9733cf9580dc4c03dc1"
+      },
+      {
+        "name": "09-full",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\09-full.png",
+        "sha256": "64353e5eeded4b287dd8943a2eb3a36a282ef05d2f2d52484308f7671df63cc3"
+      },
+      {
+        "name": "10-space-freed",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\10-space-freed.png",
+        "sha256": "f169b4e38ea47411952af1a8dbd7fb03cf9df00264e8dbc6dfb942565c9932dc"
+      },
+      {
+        "name": "11-native-death",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\11-native-death.png",
+        "sha256": "e0ab5d793bfd2f70efa7aced608a3d1c95f75f55fd8e9b75dbb10a2ff07b2f1e"
+      },
+      {
+        "name": "12-context-restored",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\12-context-restored.png",
+        "sha256": "0b9a84fc7aa2ef3a745b1e8cff7ac2b3332969f2ab5d9344606017570880e9b8"
+      },
+      {
+        "name": "13-keyboard-pickup",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\13-keyboard-pickup.png",
+        "sha256": "fbf64aa81a215bc38c4b3fde14b1dc421ada561c5c2b2168f35322c5f5b83809"
+      },
+      {
+        "name": "14-polluted-cue",
+        "file": "D:\\星际\\reports\\local\\equipment-pickup-20261015\\browser-r5-final\\14-polluted-cue.png",
+        "sha256": "bc7af2711ef8f6d0896a4b67e8cf8495531987f4d7fa154dd830c4146c92a46b"
+      }
+    ],
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "dense": {
+      "items": 96,
+      "ground": 96,
+      "visible": 96,
+      "beams": 4,
+      "polluted": 0,
+      "absorbing": 0,
+      "labels": 1,
+      "drawCalls": 6,
+      "capacity": 128,
+      "serial": 102,
+      "toast": null
+    },
+    "audio": {
+      "local.equipment.drop.5": 2,
+      "local.equipment.drop.4": 2,
+      "local.equipment.full": 1,
+      "local.equipment.pickup": 1,
+      "local.equipment.drop.3": 1,
+      "local.equipment.pollution": 1
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "requestFailures": [
+      {
+        "url": "http://127.0.0.1:4405/assets/optimized/model.barracks.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4405/assets/optimized/model.baneling.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4405/assets/optimized/model.loot.large.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4405/assets/optimized/model.hatchery.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4405/assets/models/hatcheryex1mp.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4405/assets/optimized/model.fort.bunker.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4405/assets/optimized/model.fort.bunker.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4405/assets/optimized/model.fort.repair.death.glb",
+        "error": "net::ERR_ABORTED"
+      }
+    ],
+    "contextRestored": true,
+    "keyboard": "browser automation through native input/frame driver; not physical hardware"
+  },
+  "priorCandidates": [
+    {
+      "name": "browser-r1",
+      "report": "reports/local/equipment-pickup-20261015/browser-r1/report.json",
+      "passed": false,
+      "bundle": {
+        "bytes": 28501787,
+        "sha256": "f51856ef95303d8e7d7a399c8cae88fddbabac71642fe971c5af0837cfa62e6b"
+      },
+      "failure": "page.evaluate: Error: 装备不具备此污染资格\n    at put (http://127.0.0.1:4405/main.js:97731:24)\n    at Object.showcase (http://127.0.0.1:4405/main.js:97746:168)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:44)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at <anonymous> (D:\\星际\\tools\\qa-equipment-pickup.ts:14:13)"
+    },
+    {
+      "name": "browser-r2",
+      "report": "reports/local/equipment-pickup-20261015/browser-r2/report.json",
+      "passed": false,
+      "bundle": {
+        "bytes": 28502415,
+        "sha256": "1f35aaca2d0304045faa29cd90adbcff302107bcd066328b7c27fe87790bd02f"
+      },
+      "failure": "page.evaluate: Error: 先通过主菜单进入战场\n    at prepare (http://127.0.0.1:4405/main.js:97743:39)\n    at Object.showcase (http://127.0.0.1:4405/main.js:97749:7)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:44)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at <anonymous> (D:\\星际\\tools\\qa-equipment-pickup.ts:14:13)"
+    },
+    {
+      "name": "browser-r3",
+      "report": "reports/local/equipment-pickup-20261015/browser-r3/report.json",
+      "passed": true,
+      "bundle": {
+        "bytes": 28502653,
+        "sha256": "fbe0fa5712bf286622216295f3cddcaf141d393b4776a765da6ecbb6016e6914"
+      },
+      "failure": null,
+      "limits": "Intermediate view: dense glow too bright; merged count clipped; narrow assertion ran before viewport settled."
+    },
+    {
+      "name": "browser-r4",
+      "report": "reports/local/equipment-pickup-20261015/browser-r4/report.json",
+      "passed": true,
+      "bundle": {
+        "bytes": 28504051,
+        "sha256": "2d13af98f19bb1cdd028094e486a4b1e0dbef309fed7a4abc0abd806fb58b77f"
+      },
+      "failure": null,
+      "limits": "Nine browser checks passed; predates pollution tone and pending-audio map reset."
+    }
+  ],
+  "retainedFailures": [
+    "Initial test fixture used the wrong decision flag and then attempted to write a getter; corrected to the actual interface pause lease.",
+    "Thin obstacle sampling could skip a pickup blocker; the actual pickup path now uses exact segment/rectangle intersection.",
+    "Typecheck failures from private atomicMutation access and a local this-indexed type were fixed; final logs are separate.",
+    "Browser r1 used an invalid non-polluted required-pollution template; r2 waited on a hidden overlay DOM node incorrectly.",
+    "Browser r3 narrow viewport check was premature and dense light/count visuals needed correction; retained as intermediate."
+  ],
+  "limits": [
+    "No difficulty, wave quantity, drop rate, equipment strength, endless or other-equipment combat FX implementation in this batch.",
+    "No new save/recovery implementation; previous MVP closeout deferral remains.",
+    "No full natural campaign, supported physical input, full-content 60 FPS, human acceptance or entire MVP closeout claim.",
+    "No named HTML/application/Current/mirror replacement, commit, push or online publication in this batch.",
+    "Screens and browser profiles reside under the D drive project."
+  ],
+  "visualReview": {
+    "status": "reviewed-by-model",
+    "bundleSha256": "6336ba0b6cfe87e2d01550e4d98daf0c01ebd95a56655cadb1f94eca3156e7da",
+    "screens": 14,
+    "sheets": [
+      {
+        "file": "reports/local/equipment-pickup-20261015/final-review-1.jpg",
+        "sha256": "3372bbf6872578cce54b54b7e2fe1731a82359f80122c0a9f0c71c1853cbef12"
+      },
+      {
+        "file": "reports/local/equipment-pickup-20261015/final-review-2.jpg",
+        "sha256": "6b2e37da19ff7255e19d256bce15bf205ddb1f9761d9172a49577bc77d481998"
+      },
+      {
+        "file": "reports/local/equipment-pickup-20261015/final-review-3.jpg",
+        "sha256": "4be26bf002f1b8c652a6ecf37266456005ae1fbab5fc24796ee4aa58f084cd85"
+      },
+      {
+        "file": "reports/local/equipment-pickup-20261015/final-review-4.jpg",
+        "sha256": "bf18b09a40563165829e248efbace3b8339919b2c4497cafba04ad31458a5b3a"
+      }
+    ],
+    "originalSize": [
+      "03-quality",
+      "04-narrow",
+      "05-dense",
+      "07-absorb-trail",
+      "09-full"
+    ],
+    "findings": [
+      "All five qualities and pollution distinguishable.",
+      "No missing pickup layer or bright white accumulation in the 96-item sample.",
+      "Merged +95 count remains visible; four narrow-screen labels remain bounded.",
+      "Native restore keeps its pause overlay and background blur."
+    ],
+    "limits": [
+      "No human acceptance, all-frame video check, physical input or performance claim.",
+      "Final random campaign sample is Char; its existing darkness and native narrow-screen HUD are preserved."
+    ]
+  },
+  "galleryReview": {
+    "errors": [],
+    "layouts": [
+      {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "file": "reports/local/equipment-pickup-20261015/gallery-1440.png",
+        "sha256": "426643056ff5ece510b9317073a1a2fb202c9d166d4dc6d7560b59be23aaff0f"
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "file": "reports/local/equipment-pickup-20261015/gallery-390.png",
+        "sha256": "8e043ff8b087440c99f9b7b9dba57e43857a682bc91645d7219ce2ad1d660422"
+      }
+    ],
+    "gallerySha256": "34c1e6dba85f7036c0eb45b11dcbff54e4d4d6c09283d6fc68ee010cf419fd8e",
+    "images": 14,
+    "passed": true
+  }
+}

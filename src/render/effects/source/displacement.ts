@@ -29,7 +29,7 @@ export class DisplacementSurface {
    vertexShader:`#include <common>
     #include <skinning_pars_vertex>
     flat varying int fxSlot;varying vec2 fxUV;varying vec2 fxParticleUV;varying vec3 fxNormal;varying vec3 fxView;varying float fxAlpha;
-    ${particles?'attribute vec4 sourceColor;attribute vec4 sourceUv;attribute float sourceSegmentedUv;':''}
+    ${particles?'attribute float sourceMaterialSlot;attribute vec4 sourceColor;attribute vec4 sourceUv;attribute float sourceSegmentedUv;':''}
     void main(){
      #include <beginnormal_vertex>
      #include <skinbase_vertex>
@@ -38,7 +38,7 @@ export class DisplacementSurface {
      #include <begin_vertex>
      #include <skinning_vertex>
      #include <project_vertex>
-     fxSlot=${particles?'gl_InstanceID':'0'};fxUV=${particles?'mix(uv,uv*sourceUv.zw+sourceUv.xy,sourceSegmentedUv)':'uv'};fxParticleUV=${particles?'uv*sourceUv.zw+sourceUv.xy':'uv'};fxAlpha=${particles?'sourceColor.a':'1.0'};fxNormal=transformedNormal;fxView=mvPosition.xyz;
+     fxSlot=${particles?'int(sourceMaterialSlot)':'0'};fxUV=${particles?'mix(uv,uv*sourceUv.zw+sourceUv.xy,sourceSegmentedUv)':'uv'};fxParticleUV=${particles?'uv*sourceUv.zw+sourceUv.xy':'uv'};fxAlpha=${particles?'sourceColor.a':'1.0'};fxNormal=transformedNormal;fxView=mvPosition.xyz;
     }`,
    fragmentShader:`flat varying int fxSlot;varying vec2 fxUV;varying vec2 fxParticleUV;varying vec3 fxNormal;varying vec3 fxView;varying float fxAlpha;uniform sampler2D fxState;uniform sampler2D sceneDepth;uniform vec2 viewport;
     vec4 state(int row){return texelFetch(fxState,ivec2(fxSlot,row),0);}

@@ -1,0 +1,185 @@
+{
+  "at": "2026-10-16T11:27:23.727Z",
+  "status": "Shared equipment presentation and selected optimizations locally verified; requested performance targets NOT achieved",
+  "build": {
+    "bytes": 37117682,
+    "sha256": "2701eacd05725d14b950662c325a7da644e3650bfdfd6cfb3084ff7228dd90b3",
+    "compiledInputs": 426,
+    "snapshot": "reports/local/equipment-fx-performance-20261016/source-final-r1",
+    "sameRuntimeInputsAsFullBenchmark": true,
+    "entryOnlyDifferences": [
+      "preview/equipment-effects-performance-20261016/main.ts"
+    ]
+  },
+  "scope": {
+    "groups": 18,
+    "templates": 210,
+    "effectKeys": 189,
+    "newOriginalModels": 18,
+    "performanceTargets": {
+      "full": {
+        "fps": 30,
+        "p95Ms": 33.5,
+        "p99Ms": 40,
+        "maxOver40Fraction": 0.01
+      },
+      "medium": {
+        "fps": 59,
+        "p95Ms": 16.9,
+        "p99Ms": 20,
+        "maxOver20Fraction": 0.01
+      },
+      "simulationDebtSeconds": 0.1,
+      "passed": false
+    }
+  },
+  "validation": {
+    "tests": 1635,
+    "typecheck": "reports/local/equipment-fx-performance-20261016/typecheck-r7.log",
+    "dataDocs": "reports/local/equipment-fx-performance-20261016/docs-check-r7.log",
+    "fullRegression": "reports/local/equipment-fx-performance-20261016/full-tests-r3.log",
+    "finalQuality": {
+      "report": "reports/local/equipment-fx-performance-20261016/quality-final-r2/report.json",
+      "races": 3,
+      "screenshots": 9,
+      "errors": 0
+    },
+    "finalLifecycle": {
+      "report": "reports/local/equipment-fx-performance-20261016/browser-final-r1/report.json",
+      "checks": [
+        "Actual equipment attack commits phantoms; real carrier children copy; actual due fire cycle and casualty boost render",
+        "Paused native clock, account, RNG and presentation receipts remain identical",
+        "Actual WebGL loss/restore keeps equipment state and reconstructs source channels",
+        "Boost expiry emits actual end feedback and removes persistent marker"
+      ],
+      "screenshots": 5,
+      "errors": 0,
+      "actualWebGLRestore": true
+    },
+    "earlierHeroActiveCoverage": {
+      "heroes": 18,
+      "qualityCombinations": 36,
+      "reports": [
+        "reports/local/equipment-fx-performance-20261016/heroes-r1",
+        "reports/local/equipment-fx-performance-20261016/heroes-r2"
+      ],
+      "limit": "Earlier FX build; not every conditional branch or final optimized build"
+    },
+    "sourceProvenance": "reports/local/equipment-fx-performance-20261016/source-audit-r1/source-map.json",
+    "coverage": "reports/local/equipment-fx-performance-20261016/equipment-coverage.json",
+    "rigidPose": "reports/local/equipment-fx-performance-20261016/rigid-contracts-r2.json",
+    "prototypeContracts": "reports/local/equipment-fx-performance-20261016/prototype-contracts-r4.json"
+  },
+  "performance": {
+    "method": "Single short diagnostic run per candidate, fixed 960 simulation steps with native rendering, then separate frozen and native ten-second measurements. Normalize only random run ID before first colon in stageReceipt. Not final FPS acceptance or natural gameplay. Build SHA binds each candidate.",
+    "full": {
+      "candidate": "perf-combined-full-r2",
+      "build": "bd26872818716a97b8d9cc2a6f414214b50c42acf7df6704326c1c2eae5ad93f",
+      "errors": [],
+      "exactFixtureExceptRunReceipt": true,
+      "sameClock": true,
+      "frozenFPS": 11.305598254574305,
+      "nativeFPS": 9.133689414853606,
+      "nativeP95Ms": 150,
+      "nativeP99Ms": 166.79999999998836,
+      "nativeOver40Fraction": 1,
+      "nativeOver20Fraction": 1,
+      "wallSeconds": 10.07259999999404,
+      "simulationSeconds": 2.6333333333333258,
+      "backlogStart": 0,
+      "backlogEnd": 7.433466666666661,
+      "discardStart": 0,
+      "discardEnd": 0,
+      "cpuMeanMs": 86.85614035095563,
+      "cpuP95Ms": 126.89999999850988,
+      "gpuMeanMs": 36.269708303571406,
+      "gpuSamples": 112,
+      "drawCallsMean": 278,
+      "trianglesMean": 2434016,
+      "uploads": {
+        "floatTextureBytes": 4933920,
+        "floatTextureCalls": 11286,
+        "bufferBytes": 163916040,
+        "bufferCalls": 46854
+      }
+    },
+    "medium": {
+      "candidate": "perf-final-medium-r1",
+      "build": "2701eacd05725d14b950662c325a7da644e3650bfdfd6cfb3084ff7228dd90b3",
+      "errors": [],
+      "exactFixtureExceptRunReceipt": true,
+      "sameClock": true,
+      "frozenFPS": 11.522911720590963,
+      "nativeFPS": 9.174037473944635,
+      "nativeP95Ms": 133.30000000001746,
+      "nativeP99Ms": 166.5,
+      "nativeOver40Fraction": 1,
+      "nativeOver20Fraction": 1,
+      "wallSeconds": 10.02830000000447,
+      "simulationSeconds": 2.6999999999999886,
+      "backlogStart": 0,
+      "backlogEnd": 7.316700000000021,
+      "discardStart": 0,
+      "discardEnd": 0,
+      "cpuMeanMs": 85.14051724167476,
+      "cpuP95Ms": 108.60000000149012,
+      "gpuMeanMs": 34.3622755263158,
+      "gpuSamples": 114,
+      "drawCallsMean": 277,
+      "trianglesMean": 2431819,
+      "uploads": {
+        "floatTextureBytes": 5020480,
+        "floatTextureCalls": 11484,
+        "bufferBytes": 154467920,
+        "bufferCalls": 46980
+      }
+    },
+    "comparison": "reports/local/equipment-fx-performance-20261016/performance-comparison.json",
+    "longAcceptanceMatrix": {
+      "completed": false,
+      "reason": "Worst-case short diagnostic fails FPS, frame-tail and simulation-debt gates by a large margin; no long-run or natural-play acceptance claimed."
+    }
+  },
+  "decisions": {
+    "integrated": [
+      "opaque single-bone original effect instancing with incompatible fallback",
+      "particle material phase palette",
+      "static material samples and unchanged slot reuse",
+      "zero-amplitude variation shortcut",
+      "full/medium/custom settings"
+    ],
+    "notIntegrated": [
+      "equipment query cache: no clear measured gain",
+      "particle matrix pool: no clear measured gain",
+      "particle culling: visible pixel changes",
+      "multipass matrix reuse: weak gain and unresolved localized differences",
+      "GPU bone interpolation cache: slower",
+      "contact depth reuse: no native FPS gain"
+    ]
+  },
+  "preservedFailures": [
+    "full-tests-r1.log",
+    "browser-r1/report.json",
+    "heroes-r1/report.json",
+    "forts-r1/report.json",
+    "prototype-contracts-r1.log",
+    "perf-depth-reuse-r1/report.json",
+    "quality-final-r1/report.json"
+  ],
+  "limits": [
+    "Purple egg conversion has no real enemy generation channel; no invented trigger",
+    "Hero active-cast coverage does not exercise every conditional branch",
+    "Mixed original resource effects and explicit game-rule rings/links; no SC2 engine parity claim",
+    "No natural-play, human, physical-input or 30/60 FPS acceptance",
+    "No formal starship UI mount, save work, Current update, Git push or publication"
+  ],
+  "delivery": {
+    "preview": "preview/equipment-effects-performance-20261016",
+    "currentReplaced": false,
+    "gitCommitted": false,
+    "gitPushed": false,
+    "onlinePublished": false,
+    "formalStarshipUiMounted": false,
+    "saveWorkStarted": false
+  }
+}

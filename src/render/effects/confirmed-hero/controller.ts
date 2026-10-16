@@ -1,3 +1,4 @@
+import {equipmentReplayPresentation} from '../../../simulation/starship/presentation';
 import type {BattleRenderer} from '../../scene/battle-renderer';
 import type {World} from '../../../simulation/world';
 import type {VisualEvent} from '../../../simulation/types';
@@ -9,7 +10,7 @@ import {HeroAuraEffects} from './hero-aura-effects';
 import {prepareEmbeddedAssetIds} from '../../../assets/offline-pack';
 /** One material/gun set per identity prevents Raynor's thermal material leaking into another hero. */
 export class ConfirmedHeroEffects {
- private attacks=new Map<HeroId,AttackEffects>();private skills=new Map<HeroId,SkillEffects>();private casts=new Map<HeroId,number>();private lastEvent=0;private generation='';private lastTime=0;
+ private attacks=new Map<HeroId,AttackEffects>();private skills=new Map<HeroId,SkillEffects>();private casts=new Set<number>();private lastEvent=0;private generation='';private lastTime=0;
  private aura:HeroAuraEffects;ready=false;
  constructor(private view:BattleRenderer,private w:World){this.aura=new HeroAuraEffects(view,w);}
  async prepare(){if(this.ready)return;await prepareEmbeddedAssetIds(['model.hero-upgrade.vikingfightermissile']);
@@ -19,7 +20,8 @@ export class ConfirmedHeroEffects {
  }
  reset(){for(const a of this.attacks.values())a.reset();for(const s of this.skills.values())s.reset();this.casts.clear();this.lastEvent=0;this.lastTime=this.w.time;this.aura.reset();this.generation=this.w.runId??'';}
  render(muzzle:(e:VisualEvent,side?:'Left'|'Right')=>{x:number;y:number;z:number}|null,visible:(p:{x:number;z:number})=>boolean){if(!this.ready)return;const last=this.w.visualEvents.at(-1);if(this.generation!==(this.w.runId??'')||this.w.time<this.lastTime||last&&last.serial<this.lastEvent)this.reset();this.lastTime=this.w.time;
-  for(const cast of this.w.heroCasts){if(!isRevisedHero(cast.hero)||cast.phase==='dot'||this.casts.get(cast.hero)===cast.id)continue;const source=this.w.entities.get(cast.source);if(!source)continue;this.skills.get(cast.hero)?.begin(cast.hero,[cast],source);this.casts.set(cast.hero,cast.id);}
+  for(const cast of this.w.heroCasts){if(!isRevisedHero(cast.hero)||cast.phase==='dot'||this.casts.has(cast.id))continue;const source=this.w.entities.get(cast.source)??this.w.starship.skillSources.get(cast.source)??equipmentReplayPresentation(cast)?.source;if(!source)continue;this.skills.get(cast.hero)?.begin(cast.hero,[cast],source);this.casts.add(cast.id);}
+  const active=new Set(this.w.heroCasts.map(c=>c.id));for(const id of this.casts)if(!active.has(id))this.casts.delete(id);
   for(const e of this.w.visualEvents){if(e.serial<=this.lastEvent)continue;if(isRevisedHero(e.heroId)){if(e.kind==='weapon-area')this.attacks.get(e.heroId!)?.nativeArea(e);if(e.kind.startsWith('skill-'))this.skills.get(e.heroId!)?.event(e,muzzle(e));}this.lastEvent=e.serial;}
   for(const a of this.attacks.values())a.render();for(const s of this.skills.values()){s.render();s.alignShieldBodies();}this.w.heroAttackEvents=this.w.heroAttackEvents.filter(e=>!isRevisedHero(e.packet.hero));this.aura.render(visible);
  }

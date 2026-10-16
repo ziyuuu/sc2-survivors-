@@ -3,9 +3,14 @@ import {MATERIAL_ROLES,preparedUnitMaterial,bindUnitMaterial,type PreparedUnitMa
 import {sampleMaterialTrack,sampleBarrierAlpha,type MaterialRef,type UnitMaterialContext,type UnitMaterialPose} from './source-tracks';
 
 type Shader=Pick<Parameters<THREE.Material['onBeforeCompile']>[0],'uniforms'|'vertexShader'|'fragmentShader'>;
-const PARAM=(i:number)=>i<5?i*2:11+(i-5)*2,COLOR=MATERIAL_ROLES.length*2+1,TEAM=COLOR+MATERIAL_ROLES.length,ROWS=TEAM+1;
+const PARAM=(i:number)=>i<5?i*2:11+(i-5)*2,COLOR=MATERIAL_ROLES.length*2+1,TEAM=COLOR+MATERIAL_ROLES.length,APPARITION=TEAM+1,ROWS=APPARITION+1;
+export const UNIT_MATERIAL_TEAM_ROW=TEAM;
 const linear=(v:number)=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4;
 const DEFAULT_TEAM=[linear(0x52/255),linear(0x82/255),linear(0xb4/255)] as const;
+let uploadEpoch=0;
+export const materialUploadTotals={bytes:0,calls:0,full:0,partial:0};
+/** Existing surfaces must completely repopulate a newly restored GL context. */
+export function restoreMaterialUploads(){uploadEpoch++;}
 // Intern exact generated source, not a lossy hash or an asset identity. Different
 // models can use the same program while retaining their own textures/uniforms.
 const sourcePrograms=new Map<string,number>();
@@ -13,8 +18,15 @@ const shaderHooks=()=>({uniforms:{},vertexShader:'#include <common>\n#include <p
 /** Source curves are indexed by draw slot, populated from stable entity clocks each frame. */
 export class UnitMaterialSurface {
  readonly material:THREE.Material;readonly texture:THREE.DataTexture;readonly data:Float32Array;
+ private slotRows:(readonly number[][]|undefined)[]=[];
  private changed=false;private clipTracks=new Map<string,Map<number,import('./source-tracks').MaterialTrack>>();
  private programKeys=new Map<string,string>();
+ private layers: {layer:import('./source-tracks').MaterialLayer;param:number;color:number;srgb:boolean}[]=[];
+ private composite?:MaterialRef;private immortal=false;
+ private staticClips=new Set<string>();private staticSamples=new Map<string,readonly number[][]>();
+ private samples=new Map<string,readonly number[][]>();private lastSampleKey='';private lastSample?:readonly number[][];
+ private uploadedEpoch=-1;private dirtyMin=new Int32Array(ROWS).fill(0x7fffffff);private dirtyMax=new Int32Array(ROWS).fill(-1);
+ private pendingUpload={bytes:0,calls:1,partial:false};
  constructor(readonly prepared:PreparedUnitMaterial,original:THREE.Material,readonly capacity:number){
   this.material=original.clone();bindUnitMaterial(this.material,prepared);
   const {source}=prepared;this.material.visible=source.geometryVisible!==false;
@@ -30,33 +42,66 @@ export class UnitMaterialSurface {
   this.data=new Float32Array(capacity*ROWS*4);
   this.texture=new THREE.DataTexture(this.data,capacity,ROWS,THREE.RGBAFormat,THREE.FloatType);
   this.texture.minFilter=this.texture.magFilter=THREE.NearestFilter;this.texture.needsUpdate=true;
+  this.pendingUpload.bytes=this.data.byteLength;
+  this.texture.onUpdate=()=>{const p=this.pendingUpload;materialUploadTotals.bytes+=p.bytes;materialUploadTotals.calls+=p.calls;if(p.partial)materialUploadTotals.partial++;else materialUploadTotals.full++;this.uploadedEpoch=uploadEpoch;this.dirtyMin.fill(0x7fffffff);this.dirtyMax.fill(-1);this.changed=false;};
   for(const clip of prepared.profile.clips)this.clipTracks.set(clip.name,new Map(clip.tracks.map(t=>[t.id,t])));
+  this.layers=MATERIAL_ROLES.flatMap((role,i)=>{const layer=source.layers[role];return layer?[{layer,param:PARAM(i),color:COLOR+i,srgb:!['normal','alpha','alpha2','gloss','ao','environmentMask'].includes(role)}]:[];});
+  this.composite=prepared.profile.composites.flatMap(c=>c.parts).find(p=>p.material.type===1&&p.material.index===source.index)?.alpha;
+  this.immortal=prepared.profile.source.toLowerCase().includes('immortal');
+  const refs=new Set<number>();const collect=(v:unknown)=>{if(!v||typeof v!=='object')return;if('id'in v&&'default'in v)refs.add(Number(v.id));for(const child of Object.values(v))collect(child);};collect(source.layers);if(this.composite)refs.add(this.composite.id);
+  if(!this.immortal)for(const clip of prepared.profile.clips)if(!clip.tracks.some(t=>refs.has(t.id)))this.staticClips.add(clip.name);
   this.write(0,{clip:'',seconds:0});
  }
  write(index:number,pose:UnitMaterialPose,context?:UnitMaterialContext){
   if(index>=this.capacity)throw Error('Original material instance capacity exceeded');
+  // A source actor submits many quads at exactly the same authored phase. Cache
+  // only those inputs that affect material rows, never entity/world state.
+  const team=context?.teamColor??DEFAULT_TEAM,barrier=context?.barrier;
+  const staticPose=this.staticClips.has(pose.clip)&&(!pose.attackClip||this.staticClips.has(pose.attackClip));
+  const key=JSON.stringify([pose.clip,staticPose?0:pose.seconds,pose.attackClip,staticPose?0:pose.attackSeconds,barrier?.phase,barrier?.seconds,...team,context?.activity??0,context?.apparition?.tint,context?.apparition?.opacity]);
+  let rows=key===this.lastSampleKey?this.lastSample:(staticPose?this.staticSamples:this.samples).get(key);
+  if(!rows){rows=this.sample(pose,context);const cache=staticPose?this.staticSamples:this.samples;if(cache.size<(staticPose?64:2048))cache.set(key,rows);this.lastSampleKey=key;this.lastSample=rows;}
+  if(this.slotRows[index]===rows)return;this.slotRows[index]=rows;
+  for(const values of rows){const y=values[0],offset=(y*this.capacity+index)*4;let dirty=false;for(let k=1;k<values.length;k++){const v=values[k];if(this.data[offset+k-1]!==v){this.data[offset+k-1]=v;this.changed=dirty=true;}}if(dirty){this.dirtyMin[y]=Math.min(this.dirtyMin[y],index);this.dirtyMax[y]=Math.max(this.dirtyMax[y],index);}}
+ }
+ private sample(pose:UnitMaterialPose,context?:UnitMaterialContext){
   const clips=this.clipTracks.get(pose.clip),attack=pose.attackClip?this.clipTracks.get(pose.attackClip):undefined;
   const read=(ref:MaterialRef)=>{const over=attack?.get(ref.id);return sampleMaterialTrack(over??clips?.get(ref.id),over?pose.attackSeconds??0:pose.seconds,ref);};
-  const row=(y:number,values:readonly number[])=>{const offset=(y*this.capacity+index)*4;values.forEach((value,k)=>{const v=Math.fround(value);if(this.data[offset+k]!==v){this.data[offset+k]=v;this.changed=true;}});};
-  MATERIAL_ROLES.forEach((role,i)=>{const layer=this.prepared.source.layers[role];if(!layer)return;
+  const rows:number[][]=[],row=(y:number,values:readonly number[])=>{rows.push([y,...values.map(Math.fround)]);};
+  for(const {layer,param,color:colorRow,srgb} of this.layers){
    const offset=read(layer.uvOffset),tiling=read(layer.uvTiling),angle=read(layer.uvAngle),color=read(layer.color),brightness=layer.brightness?Number(read(layer.brightness)):1;
-   row(PARAM(i),[Number(read(layer.multiply)??1)*brightness,Number(read(layer.add)??0),typeof angle==='number'?angle:angle?.z??0,layer.flipbook?.frame?Number(read(layer.flipbook.frame)):0]);
-   row(PARAM(i)+1,[typeof offset==='object'?offset?.x??0:0,typeof offset==='object'?offset?.y??0:0,typeof tiling==='object'?tiling?.x??1:1,typeof tiling==='object'?tiling?.y??1:1]);
-   if(color&&typeof color==='object'){const srgb=!['normal','alpha','alpha2','gloss','ao','environmentMask'].includes(role),c=(key:string)=>{const v=(color[key]??255)/255;return srgb?linear(v):v;};row(COLOR+i,[c('r'),c('g'),c('b'),(color.a??255)/255]);}
-  });
-  const {profile,source}=this.prepared,part=profile.composites.flatMap(c=>c.parts).find(p=>p.material.type===1&&p.material.index===source.index);
-  const alpha=profile.source.toLowerCase().includes('immortal')?sampleBarrierAlpha(profile,source.index,context?.barrier):part?Number(read(part.alpha)):1;
+   row(param,[Number(read(layer.multiply)??1)*brightness,Number(read(layer.add)??0),typeof angle==='number'?angle:angle?.z??0,layer.flipbook?.frame?Number(read(layer.flipbook.frame)):0]);
+   row(param+1,[typeof offset==='object'?offset?.x??0:0,typeof offset==='object'?offset?.y??0:0,typeof tiling==='object'?tiling?.x??1:1,typeof tiling==='object'?tiling?.y??1:1]);
+   if(color&&typeof color==='object'){const c=(key:string)=>{const v=(color[key]??255)/255;return srgb?linear(v):v;};row(colorRow,[c('r'),c('g'),c('b'),(color.a??255)/255]);}
+  }
+  const {profile,source}=this.prepared;
+  const alpha=this.immortal?sampleBarrierAlpha(profile,source.index,context?.barrier):this.composite?Number(read(this.composite)):1;
   row(10,[alpha,0,0,0]);row(TEAM,[...(context?.teamColor??DEFAULT_TEAM),context?.activity??0]);
+  row(APPARITION,[...(context?.apparition?.tint??[1,1,1]),context?.apparition?.opacity??1]);
+  return rows;
  }
- flush(){if(this.changed){this.texture.needsUpdate=true;this.changed=false;}}
+ flush(){
+  if(this.changed||this.uploadedEpoch!==uploadEpoch){
+   const ranges:{start:number;count:number}[]=[];let components=0;
+   for(let y=0;y<ROWS;y++)if(this.dirtyMax[y]>=0){const count=(this.dirtyMax[y]-this.dirtyMin[y]+1)*4;ranges.push({start:(y*this.capacity+this.dirtyMin[y])*4,count});components+=count;}
+   // r186 ranges must stay within one RGBA row. Bound command overhead; dense
+   // or fragmented changes use the original single whole-table upload.
+   const partial=this.uploadedEpoch===uploadEpoch&&ranges.length>0&&ranges.length<=8&&components<this.data.length*.25;
+   this.texture.clearUpdateRanges();if(partial)for(const range of ranges)this.texture.addUpdateRange(range.start,range.count);
+   this.pendingUpload={bytes:partial?components*4:this.data.byteLength,calls:partial?ranges.length:1,partial};
+   this.texture.needsUpdate=true;this.changed=false;
+  }
+  this.samples.clear();this.lastSample=undefined;this.lastSampleKey='';
+ }
  compile(shader:Shader,geometry:THREE.BufferGeometry,instanced=true,depthOnly=false){
   const {source,textures,teamTexture}=this.prepared,hasUV1=geometry.hasAttribute('uv1');
   const varying='flat varying int umInstance; varying vec2 umUV0; varying vec2 umUV1; varying vec3 umNormal; varying vec3 umView; varying vec4 umClip;';
   const uvDeclaration=hasUV1?'\n#ifndef USE_UV1\nattribute vec2 uv1;\n#endif\n':'';
   shader.uniforms.umState={value:this.texture};
+  shader.uniforms.umApparitionPass={value:0};
   shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\n'+uvDeclaration+varying)
    .replace('#include <project_vertex>',`#include <project_vertex>\numInstance=${instanced?'gl_InstanceID':'0'};umUV0=uv;umUV1=${hasUV1?'uv1':'uv'};umNormal=normalize(normalMatrix*${instanced?'mat3(instanceMatrix)*mat3(unitTransform)*':' '}normal);umView=-mvPosition.xyz;umClip=gl_Position;`);
-  let helpers=varying+'uniform sampler2D umState;vec4 umData(int row){return texelFetch(umState,ivec2(umInstance,row),0);}\n';
+  let helpers=varying+'uniform float umApparitionPass;uniform sampler2D umState;vec4 umData(int row){return texelFetch(umState,ivec2(umInstance,row),0);}\n';
   const number=(v:number)=>Number(v).toFixed(8),enabled=(role:MaterialRole)=>!!textures[role]||!!(source.layers[role]?.flags&0x400);
   for(const [i,role]of MATERIAL_ROLES.entries()){
    if(depthOnly&&role!=='alpha'&&role!=='alpha2'&&!(role==='diffuse'&&source.blend&&source.layers.diffuse?.channel===1))continue;
@@ -81,7 +126,9 @@ export class UnitMaterialSurface {
   if(teamTexture&&!depthOnly){shader.uniforms.umTeamTexture={value:teamTexture};helpers+='uniform sampler2D umTeamTexture;\n';}
   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+helpers);
   const sample=(role:MaterialRole,fallback:string)=>enabled(role)?`umLayer${MATERIAL_ROLES.indexOf(role)}().rgb`:fallback;
-  let alpha='diffuseColor.a*=umData(10).x;';
+  // Original bodies/depth and transparent apparitions share immutable geometry,
+  // poses and instance data, but each pass owns only its respective slots.
+  let alpha=`vec4 umApparition=umData(${APPARITION});if(umApparitionPass<.5){if(umApparition.a<1.0)discard;}else{if(umApparition.a>=1.0)discard;diffuseColor.a*=umApparition.a;}diffuseColor.a*=umData(10).x;`;
   for(const role of ['alpha','alpha2']as const)if(source.layers[role])alpha+=`diffuseColor.a*=clamp(umLayer${MATERIAL_ROLES.indexOf(role)}().r,0.0,1.0);`;
   if(source.blend&&source.layers.diffuse?.channel===1&&textures.diffuse)alpha+='diffuseColor.a*=umLayer0().a;';
   shader.fragmentShader=shader.fragmentShader.replace('#include <alphamap_fragment>',alpha);
@@ -95,7 +142,7 @@ export class UnitMaterialSurface {
    emission+=mode===0?`umEmission=${j?'umEmission':'umDiffuse'}*${value};`:mode===1?`umEmission=${j?'umEmission':'umDiffuse'}*${value}*2.0;`:mode===3?`umEmission=mix(umEmission,${value},umLayer${j+1}().a);`:mode===4?`umEmission+=${value}*umData(${TEAM}).rgb;`:mode===5?`umDiffuse+=${value}*umData(${TEAM}).rgb;`:`umEmission+=${value};`;
   }
   emission+=`umEmission=max(vec3(0.0),umEmission*${number(source.hdrEmission)})*(1.0+.16*umData(${TEAM}).a);`;
-  const body=diffuse+emission;
+  const body=diffuse+emission+`umDiffuse*=umData(${APPARITION}).rgb;umEmission*=umData(${APPARITION}).rgb;`;
   if(this.material instanceof THREE.MeshBasicMaterial)shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',body+'diffuseColor.rgb=umDiffuse+umEmission;');
   else {
    shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',body+'diffuseColor.rgb*=umDiffuse;');

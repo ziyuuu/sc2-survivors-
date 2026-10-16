@@ -1,3 +1,4 @@
+import {equipmentRecoveryFactor} from '../starship/runtime';
 import {observeRecovery} from '../observation';
 import type {World} from '../world';
 import type {Entity,Point} from '../types';
@@ -11,15 +12,15 @@ function healCandidates(w:World,race:'terran'|'zerg'|'protoss'){
   race==='protoss'?(unit.maxShield??0)>(unit.shield??0):unit.hp<unit.maxHp&&(race==='terran'?unit.attributes.includes('Biological')||unit.attributes.includes('Mechanical'):unit.attributes.includes('Biological'))
  )).sort((a,b)=>{const ratio=(unit:Entity)=>race==='protoss'?(unit.shield??0)/Math.max(1,unit.maxShield??0):unit.hp/unit.maxHp;return ratio(a)-ratio(b)||a.id-b.id;});
 }
-function scheduleRound(w:World,rank:number){const race=w.expedition.race,targets=attackCandidates(w);
+export function scheduleTalentSupportRound(w:World,rank:number){const race=w.expedition.race,targets=attackCandidates(w);
  for(const target of targets.slice(0,rank)){
   const dx=target.x-w.anchor.x,dz=target.z-w.anchor.z,length=Math.max(.001,Math.hypot(dx,dz)),direction={x:dx/length,z:dz/length},point={x:target.x,z:target.z};
   w.talentSupportImpacts.push({id:w.nextId++,race,at:w.time+(race==='zerg'?.75:race==='protoss'?.35:.35),point,direction,packet:0});
   if(race==='protoss')w.talentSupportImpacts.push({id:w.nextId++,race,at:w.time+.45,point,direction,packet:1});
  }
  for(const patient of healCandidates(w,race).slice(0,rank)){
-  const observedHp=patient.hp,observedShield=patient.shield??0;if(race==='protoss')patient.shield=Math.min(patient.maxShield??0,(patient.shield??0)+63);
-  else {const amount=race==='terran'&&!patient.attributes.includes('Biological')?21:63;patient.hp=Math.min(patient.maxHp,patient.hp+amount);}
+  const observedHp=patient.hp,observedShield=patient.shield??0;if(race==='protoss')patient.shield=Math.min(patient.maxShield??0,(patient.shield??0)+63*equipmentRecoveryFactor(w,patient));
+  else {const amount=race==='terran'&&!patient.attributes.includes('Biological')?21:63;patient.hp=Math.min(patient.maxHp,patient.hp+amount*equipmentRecoveryFactor(w,patient));}
   observeRecovery(w,undefined,patient,patient.hp-observedHp,(patient.shield??0)-observedShield);w.visual('hit',patient);w.stats.healed++;
  }
 }
@@ -37,9 +38,11 @@ function resolveImpact(w:World,impact:TalentSupportImpact){const targets=[...w.e
  }
 }
 /** One fixed-step authority for A13; state and delayed impacts live in the run snapshot. */
-export function tickTalentSupport(w:World){const rank=w.talent('tank_support');if(rank<=0)return;
- if(w.time+1e-8>=w.nextTankSupportAt){w.supportUntil=w.time+8;w.nextSupportTick=w.time;w.nextTankSupportAt=w.time+[Infinity,75,50,35][rank];w.announce((w.expedition.race==='terran'?'坦克与医疗艇':w.expedition.race==='zerg'?'胆汁与哺育':'热能与护盾')+'支援 · 8 秒');}
- while(w.nextSupportTick<w.supportUntil-1e-8&&w.time+1e-8>=w.nextSupportTick){scheduleRound(w,rank);w.nextSupportTick+=1;}
+export function tickTalentSupport(w:World){const rank=w.talent('tank_support');if(rank<=0&&!w.talentSupportImpacts.length)return;
+ if(rank>0&&w.time+1e-8>=w.nextTankSupportAt){w.supportUntil=w.time+8;w.nextSupportTick=w.time;w.nextTankSupportAt=w.time+[Infinity,75,50,35][rank];w.announce((w.expedition.race==='terran'?'坦克与医疗艇':w.expedition.race==='zerg'?'胆汁与哺育':'热能与护盾')+'支援 · 8 秒');}
+ while(w.nextSupportTick<w.supportUntil-1e-8&&w.time+1e-8>=w.nextSupportTick){scheduleTalentSupportRound(w,rank);w.nextSupportTick+=1;}
  const due=w.talentSupportImpacts.filter(impact=>impact.at<=w.time+1e-8).sort((a,b)=>a.at-b.at||a.id-b.id);if(!due.length)return;
  w.talentSupportImpacts=w.talentSupportImpacts.filter(impact=>impact.at>w.time+1e-8);for(const impact of due)resolveImpact(w,impact);
 }
+
+export function talentSupportHasTargets(w:World){return attackCandidates(w).length>0||healCandidates(w,w.expedition.race).length>0;}

@@ -6,8 +6,9 @@ import type {CampaignTheme} from '../data/campaign-landscape';
  * a future effect requires deliberately removing it from this table. */
 const unusedEffect='No current emission/profile or model external dependency; historical catalog-only texture';
 const radialProps=new Set<string>([...Object.values(CAMPAIGN_ENVIRONMENTS).flatMap(theme=>[...theme.props]),...(Object.keys(CAMPAIGN_ENVIRONMENTS) as CampaignTheme[]).flatMap(fullEnvironmentModelIds)]);
+const equipmentProps=new Set(['model.map.spaceplatformbarrier_02']);
 /** Current browser runs only use the saved radial recipe or the independent flat field. */
-export const retiredCampaignAsset=(id:string)=>id==='map.kairos'||id==='map.acropolis'||id.startsWith('map.acropolis.')||['map.terrain.mask0','map.terrain.mask1'].includes(id)||id.startsWith('model.map.')&&!radialProps.has(id);
+export const retiredCampaignAsset=(id:string)=>id==='map.kairos'||id==='map.acropolis'||id.startsWith('map.acropolis.')||['map.terrain.mask0','map.terrain.mask1'].includes(id)||id.startsWith('model.map.')&&!radialProps.has(id)&&!equipmentProps.has(id);
 export const isRetiredAsset=(id:string)=>Object.hasOwn(RETIRED_ASSETS,id)||retiredCampaignAsset(id);
 export const RETIRED_ASSETS:Readonly<Record<string,string>>={
  ...Object.fromEntries(Array.from({length:17},(_,i)=>i).filter(i=>![1,2,16].includes(i)).map(i=>['fx.support.nuke.'+i,'Support impact consumes only original cloud, shockwave and glow; unused extracted layers are not emitted'])),

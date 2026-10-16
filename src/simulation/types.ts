@@ -5,9 +5,9 @@ import type {Rarity} from '../data/rewards';
 import type {UnitType,CombatUnitType,TerranType,ZergType} from '../data/sc2-units';
 export interface Point {x:number;z:number}
 export type SquadOrder={kind:'move';point:Point;arrived:boolean;issuedAt:number};
-export interface Body extends Point {id:number;hp:number;maxHp:number;armor:number;unitRadius:number;flying:boolean;attributes:string[];owner:'terran'|'zerg';race?:import('../data/races').Race;team?:import('../data/races').Team;damageReduction?:number}
-export interface ExpansionHive extends Body {stage:number;spawnedAt:number;nextBatchAt:number;batchSerial:number;pending:ZergType[];rewarded:boolean}
-export interface Fortification extends Body {kind:'bunker'|'repair';nextActionAt:number;supportUntil?:number;supportRank?:number}
+export interface Body extends Point {id:number;hp:number;maxHp:number;armor:number;unitRadius:number;flying:boolean;attributes:string[];owner:'terran'|'zerg';race?:import('../data/races').Race;team?:import('../data/races').Team;damageReduction?:number;enemySpawn?:import('../data/enemy-tuning').EnemySpawnStamp}
+export interface ExpansionHive extends Body {stage:number;spawnedAt:number;nextBatchAt:number;batchSerial:number;pending:ZergType[];pendingStamp?:import('../data/enemy-tuning').EnemySpawnStamp;rewarded:boolean}
+export interface Fortification extends Body {kind:'bunker'|'repair'|'turret_terran'|'turret_zerg'|'turret_protoss'|'cover';nextActionAt:number;supportUntil?:number;supportRank?:number;shield?:number;maxShield?:number}
 export interface Entity extends Body {protossEliteCombat?:import('./combat/protoss-elite-runtime').ProtossEliteCombat;teamAuraFactors?:{hp:number;shield:number};carrierEliteCycles?:number;protossLiftedBy?:number;zergEliteCombat?:import('./combat/zerg-elite-runtime').ZergEliteCombat;zergEliteHpAuraFactor?:number;eliteCombat?:import('./combat/terran-elite-runtime').TerranEliteCombat;eliteHpAuraFactor?:number;
  protossCombat?:import('./combat/protoss-hero-passives').ProtossCombatState;
  zergCombat?:import('./combat/zerg-hero-passives').ZergCombatState;
@@ -26,6 +26,7 @@ export interface Entity extends Body {protossEliteCombat?:import('./combat/proto
  nativeMode?:string;desiredNativeMode?:string;nativeModeUntil?:number;abilityReady?:number;cloaked?:boolean;
  activeWeapon?:string;
  enemyOrigin?:'regular'|'swarm'|'special';
+ enemyResources?:import('../data/enemy-tuning').EnemyResourceScale;
  nativeStatScale?:{hp:number;damage:number;period:number;move:number;armor:number};
  detector?:boolean;
  stoppedUntil?:number;attackSlowUntil?:number;attackSlowFactor?:number;
@@ -40,6 +41,7 @@ export interface Entity extends Body {protossEliteCombat?:import('./combat/proto
  shield?:number;maxShield?:number;lastDamagedAt?:number;charmStage?:number;orderlyStage?:number;lastStandStage?:number;lastStandUntil?:number;temporaryUntil?:number;temporary?:boolean;temporaryKind?:'proliferate'|'mercenary'|'fun-brood'|'hero-baneling';freeConscript?:boolean;tacticalTier?:number;tacticalDirection?:'assault'|'guard'|'mobility';recoveryUntil?:number;
 }
 export interface Pod extends Body {injectedBy?:number;injectedSeats?:number;injectedAt?:number;number:number;unitType:UnitType;createdAt:number;landedAt:number;guardianIds:Set<number>;guardTypes:UnitType[];
+ guardSpawn?:import('../data/enemy-tuning').EnemySpawnStamp;
  status:'falling'|'active'|'opening'|'rescued'|'destroyed';resolvedAt:number|null;recruitId:number|null;jobId:number;stage:number;passengers:{status:'waiting'|'released'|'lost';entityId:number|null}[];nextExitAt:number;freeConscript?:boolean}
 export interface EconomicTarget extends Body {kind:'egg'|'drone';createdAt:number;expiresAt:number|null;resolvedAt:number|null;status:'active'|'rescued'|'expired'|'killed';origin:Point;facing:number}
 export interface Effect extends Point {id:number;kind:'shot'|'flame'|'explosion'|'bile'|'heal'|'hero-line'|'scan-warning'|'hero-warning';end:Point;until:number;radius:number;owner:'terran'|'zerg';source:number;damage?:number}

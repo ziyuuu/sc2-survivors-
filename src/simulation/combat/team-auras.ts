@@ -1,3 +1,5 @@
+import {equipmentNativeFactor,nativeEquipmentHeroSources} from '../starship/native-effects';
+import {equipmentRecoveryFactor} from '../starship/runtime';
 import {observeRecovery} from '../observation';
 import type {World} from '../world';
 import type {Body,Entity} from '../types';
@@ -12,33 +14,39 @@ export const emptyTeamStats=():TeamStats=>({damage:0,speed:0,maxHp:0,maxShield:0
 // The approved rule table and output fields are static. Reuse their iteration
 // order, while still evaluating live source/recipient eligibility on every call.
 const heroRules=Object.entries(heroes),teamStatKeys=Object.keys(emptyTeamStats()) as (keyof TeamStats)[];
-export const permanentTeamBody=(u:Entity)=>u.hp>0&&u.owner==='terran'&&!u.temporary&&!u.summonKind&&!u.attributes.includes('Structure')&&!['scv','drone','probe'].includes(u.unitType);
+export function permanentTeamBody(u:Entity){return u.hp>0&&u.owner==='terran'&&!u.temporary&&!u.summonKind&&!u.attributes.includes('Structure')&&!['scv','drone','probe'].includes(u.unitType);}
 export const nativeShieldBody=(u:Entity)=>u.heroId?HEROES[u.heroId].shield>0:((SOURCE_UNIT_DETAILS as unknown as Record<string,{shields:number}|null>)[u.unitType]?.shields??0)>0;
 const biological=(u:Entity)=>u.attributes.includes('Biological');
 const mechanical=(u:Entity)=>u.attributes.includes('Mechanical');
 const boss=(b:Body)=>'enemyTier' in b&&['boss','lord'].includes(String(b.enemyTier));
 export function teamRange(w:World,a:Entity,b:Body,r:number|null){return a.hp>0&&b.hp>0&&(r===null||Math.hypot(a.x-b.x,a.z-b.z)<=r+b.unitRadius&&w.hasAttackLine(a,b));}
-export function compositeHeroInRange(w:World,id:HeroId,b:Body){const r=heroes[id],a=w.heroEntity(id);return !!r&&!!a&&teamRange(w,a,b,r.radius)&&(r.kind==='buff'||b.owner!==a.owner&&!b.attributes.includes('Structure')&&w.visibleTo(b,a.owner));}
+export function compositeHeroInRange(w:World,id:HeroId,b:Body){const r=heroes[id];return !!r&&nativeEquipmentHeroSources(w,id).some(a=>teamRange(w,a,b,r.radius)&&(r.kind==='buff'||b.owner!==a.owner&&!b.attributes.includes('Structure')&&w.visibleTo(b,a.owner)));}
 function heroRecipient(id:string,u:Entity){return ['kerrigan','niadra','hots_leviathan'].includes(id)?biological(u):id==='fenix'?mechanical(u):['artanis','purifier_flagship'].includes(id)?nativeShieldBody(u):true;}
 export function compositeHeroBuff(w:World,u:Entity){const result=emptyTeamStats();if(!permanentTeamBody(u))return result;for(const [id,r]of heroRules){if(r.kind!=='buff'||!heroRecipient(id,u)||!compositeHeroInRange(w,id as HeroId,u))continue;for(const key of teamStatKeys)result[key]+=r.stats[key]??0;}return result;}
 export function compositeHeroDebuff(w:World,b:Body,key:'weaponSuppression'|'attackSlow'|'moveSlow'|'armorReduction'|'defenseReduction'|'vulnerability'|'healingSuppression'){
  if(b.owner!=='zerg'||b.hp<=0||b.attributes.includes('Structure'))return 0;let n=0;for(const[id,r]of heroRules)if(r.kind==='debuff'&&compositeHeroInRange(w,id as HeroId,b)){const value=r.stats[key]??0;n=key==='vulnerability'?n+value:Math.max(n,value);}return n;
 }
 const eliteSource=(u:Entity)=>!!u.eliteId&&!!elites[u.eliteId]&&permanentTeamBody(u)&&!u.heroId;
-// eliteSource includes every allies() qualification. Scan the live map in the
-// same order without first allocating and filling an intermediate ally array.
-export function compositeEliteBuff(w:World,u:Entity){const result={...emptyTeamStats(),family:1};if(!permanentTeamBody(u))return result;const seen=new Set<string>();for(const a of w.entities.values()){
+type EliteCandidates={entities:World['entities'];tick:number;time:number;size:number;sources:Entity[];members:Set<Entity>};
+const eliteCandidates=new WeakMap<World,EliteCandidates>();
+/** Cache membership only. Health, ownership, range, visibility, rank and all
+ * conditional channels are read live, including changes in the same tick. */
+function potentialEliteSources(w:World){let cached=eliteCandidates.get(w);if(!cached||cached.entities!==w.entities||cached.tick!==w.tick||cached.time!==w.time||cached.size!==w.entities.size){const sources=[...w.entities.values()].filter(u=>u.eliteId&&elites[u.eliteId]);cached={entities:w.entities,tick:w.tick,time:w.time,size:w.entities.size,sources,members:new Set(sources)};eliteCandidates.set(w,cached);}return cached.sources;}
+/** Every native promotion/body refresh enters here before evaluating its aura. */
+export function observeTeamAuraSource(w:World,u:Entity){const cached=eliteCandidates.get(w);if(cached&&u.eliteId&&elites[u.eliteId]&&!cached.members.has(u))eliteCandidates.delete(w);}
+export function compositeEliteBuff(w:World,u:Entity){const result={...emptyTeamStats(),family:1};if(!permanentTeamBody(u))return result;const seen=new Set<string>();for(const a of potentialEliteSources(w)){
+ if(w.entities.get(a.id)!==a)continue;
  if(!eliteSource(a)||seen.has(a.eliteId!))continue;const id=a.eliteId!,r=elites[id];if(r.kind==='debuff'||r.kind==='conditional-debuff'||id==='queen.2')continue;
  const eligible=id==='zergling.3'?u.unitType==='zergling'&&!u.heroId:id==='zealot.3'?u.unitType==='zealot'&&!u.heroId:['queen.1','mutalisk.3'].includes(id)?biological(u):id==='sentry.1'||id==='phoenix.3'?nativeShieldBody(u):id==='corruptor.2'||id==='carrier.3'?u.flying:id==='immortal.3'?!u.flying:false;
  if(!eligible||!teamRange(w,a,u,r.radius))continue;
  if(id==='mutalisk.3'||id==='phoenix.3'){if(w.time-Math.max(a.bornAt,a.lastShotAt,a.lastDamagedAt??-100)<2)continue;result.move=Math.max(result.move,r.stats.move??0);seen.add(id);continue;}
  seen.add(id);if(id==='zergling.3'||id==='zealot.3'){result.family=1.2;continue;}
- for(const key of teamStatKeys){const value=r.stats[key]??0;if(['maxHp','maxShield','damageReduction','directWeaponReduction'].includes(key))result[key]=Math.max(result[key],value);else result[key]+=value;}
+ for(const key of teamStatKeys){const value=(r.stats[key]??0)*(key==='regenHpPerSecond'?equipmentNativeFactor(w,a):1);if(['maxHp','maxShield','damageReduction','directWeaponReduction'].includes(key))result[key]=Math.max(result[key],value);else result[key]+=value;}
  }return result;
 }
 export function compositeEliteDebuff(w:World,b:Body,key:'damage'|'speed'|'move'|'armor'|'defense'){
  if(b.owner!=='zerg'||b.hp<=0||b.attributes.includes('Structure'))return 0;const property={damage:'weaponSuppression',speed:'attackSlow',move:'moveSlow',armor:'armorReduction',defense:'defenseReduction'}[key]as keyof Rule['stats'];let n=0;
- for(const a of w.entities.values()){if(!eliteSource(a))continue;const r=elites[a.eliteId!];if(r.kind!=='debuff'||!teamRange(w,a,b,r.radius)||!w.visibleTo(b,a.owner))continue;const k=boss(b)&&['damage','speed','move'].includes(key)?r.bossControlScale??1:1;n=Math.max(n,(r.stats[property]??0)*k);}return n;
+ for(const a of potentialEliteSources(w)){if(w.entities.get(a.id)!==a||!eliteSource(a))continue;const r=elites[a.eliteId!];if(r.kind!=='debuff'||!teamRange(w,a,b,r.radius)||!w.visibleTo(b,a.owner))continue;const k=boss(b)&&['damage','speed','move'].includes(key)?r.bossControlScale??1:1;n=Math.max(n,(r.stats[property]??0)*k);}return n;
 }
 export function compositeVulnerability(w:World,b:Body){let hydra=0;for(const p of w.zergElites.poisons)if(p.kind==='hydra'&&p.target===b.id&&p.until>w.time)hydra=Math.max(hydra,p.layers*.05);const feedback=w.protossElites?.debuffs.reduce((n,d)=>d.target===b.id&&d.until>w.time?Math.max(n,d.vulnerability):n,0)??0;return hydra+feedback;}
 export function teamProtection(w:World,u:Entity,directWeapon:boolean){const body=u.summonOwnerId===undefined?u:w.entities.get(u.summonOwnerId);if(!body||!permanentTeamBody(body))return 0;const h=compositeHeroBuff(w,body),e=compositeEliteBuff(w,body);let reduction=Math.max(h.damageReduction,e.damageReduction,directWeapon?e.directWeaponReduction:0);
@@ -50,7 +58,7 @@ export interface TeamBarrier {id:number;source:number;target:number;kind:'blood'
 export interface TeamPlague {source:number;target:number;maximum:number;next:number;inside:boolean;lastSeen:number}
 export interface TeamAuraRun {blood:TeamBlood[];barriers:TeamBarrier[];entryReady:Record<string,number>;plague:Record<string,TeamPlague>}
 export const newTeamAuraRun=():TeamAuraRun=>({blood:[],barriers:[],entryReady:{},plague:{}});
-export function teamHealingFactor(w:World,u:Entity,active=true){const boost=active&&w.teamAuras.blood.some(b=>b.target===u.id&&b.until>w.time)?.3:0;return (1+boost)*(1-compositeHeroDebuff(w,u,'healingSuppression'));}
+export function teamHealingFactor(w:World,u:Entity,active=true){const boost=active&&w.teamAuras.blood.some(b=>b.target===u.id&&b.until>w.time)?.3:0;return (1+boost)*(1-compositeHeroDebuff(w,u,'healingSuppression'))*equipmentRecoveryFactor(w,u);}
 export function recordTeamTransfusion(w:World,source:Entity,target:Entity,effective:number){if(effective<=0||!permanentTeamBody(target)||!biological(target))return;let b=w.teamAuras.blood.find(b=>b.target===target.id);if(!b){b={source:source.id,target:target.id,until:0,spent:0,spentAt:w.time};w.teamAuras.blood.push(b);}b.source=source.id;b.until=w.time+6;}
 export function teamWeaponLeech(w:World,source:Entity,life:number){if(life<=0||!permanentTeamBody(source))return;const b=w.teamAuras.blood.find(b=>b.target===source.id&&b.until>w.time);if(!b)return;const own=source.eliteId==='zergling.3'?.25:source.eliteId==='mutalisk.3'?.35:0,fraction=Math.max(0,.15-own);if(w.time>=b.spentAt+1){b.spentAt=w.time;b.spent=0;}const gain=Math.min(source.maxHp-source.hp,life*fraction*teamHealingFactor(w,source,false),Math.max(0,source.maxHp*.1-b.spent));if(gain>0){source.hp+=gain;b.spent+=gain;w.stats.healed+=gain;observeRecovery(w,b.source,source,gain);w.visual('support-impact',source);}}
 export function teamEntryBarrier(w:World,source:Entity,charge:number){if(charge<=0||!['mutalisk.3','phoenix.3'].includes(source.eliteId??''))return;const key=String(source.id);if((w.teamAuras.entryReady[key]??0)>w.time)return;w.teamAuras.entryReady[key]=w.time+12;const phase=source.eliteId==='phoenix.3';
@@ -61,7 +69,7 @@ export function absorbTeamBarrier(w:World,u:Entity,amount:number){for(const b of
 export function tickTeamAuras(w:World,dt:number){const s=w.teamAuras;s.blood=s.blood.filter(b=>b.until>w.time&&(w.entities.get(b.target)?.hp??0)>0);s.barriers=s.barriers.filter(b=>b.until>w.time&&b.amount>0&&(w.entities.get(b.target)?.hp??0)>0);
  for(const u of w.allies()){if(!permanentTeamBody(u))continue;const regen=compositeHeroBuff(w,u).regenHpPerSecond+compositeEliteBuff(w,u).regenHpPerSecond;if(regen){const gain=Math.min(u.maxHp-u.hp,u.maxHp*regen*dt*teamHealingFactor(w,u,false));u.hp+=gain;w.stats.healed+=gain;observeRecovery(w,undefined,u,gain);}}
  const source=w.heroEntity('stukov'),inside=new Set<string>();if(source?.hp)for(const b of w.entities.values()){if(!compositeHeroInRange(w,'stukov',b))continue;const key=String(b.id);inside.add(key);let p=s.plague[key];if(!p||!p.inside){p=s.plague[key]={source:source.id,target:b.id,maximum:b.maxHp,next:Math.max(w.time+1,p?.next??0),inside:true,lastSeen:w.time};}p.lastSeen=w.time;
-  if(w.time+1e-8>=p.next){p.next=w.time+1;const factor=boss(b)?.012:b.enemyTier==='elite'?.03:.06;w.hit(b,p.maximum*factor,[],1,'terran',0,0,source.id);w.visual('skill-dot',source,b);}}
+  if(w.time+1e-8>=p.next){p.next=w.time+1;const factor=boss(b)?.012:b.enemyTier==='elite'?.03:.06;w.hit(b,p.maximum*factor*equipmentNativeFactor(w,source),[],1,'terran',0,0,source.id);w.visual('skill-dot',source,b);}}
  for(const[key,p]of Object.entries(s.plague)){if(!inside.has(key))p.inside=false;if((w.entities.get(p.target)?.hp??0)<=0||w.time-p.lastSeen>2)delete s.plague[key];}
  for(const[key,next]of Object.entries(s.entryReady))if(!w.entities.get(Number(key))?.hp&&next<=w.time)delete s.entryReady[key];
 }

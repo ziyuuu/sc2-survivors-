@@ -30,7 +30,7 @@ export function supplyEligibility(w:World,f:FamilyId,count:number,mode:SupplyMod
 }
 export function canSupply(w:World,f:FamilyId,count:number,mode:SupplyMode){return supplyEligibility(w,f,count,mode).legal;}
 export function applySupply(w:World,f:FamilyId,count:number,mode:SupplyMode,paid:{minerals:number;gas:number},old?:FamilyId){
- if(!canSupply(w,f,count,mode))return false;const s=w.expedition,needsReplacement=mode==='direct'&&!s.familySlots.includes(f)&&s.familySlots.length===5;
+ if(!canSupply(w,f,count,mode))return false;const s=w.expedition,needsReplacement=mode==='direct'&&!s.familySlots.includes(f)&&s.familySlots.length>=w.squadCap();
  if(needsReplacement&&(!old||old===f||!s.familySlots.includes(old)))return false;
  const plan=supplyPlan(w,f,count,mode),positions=mode==='direct'&&plan.added?directPositions(w,f,plan.added):[];if(mode==='direct'&&!positions)return false;
  if(needsReplacement)retireFamily(w,old!,f);

@@ -1,3 +1,4 @@
+import {consumeEquipmentReactor} from '../starship/support';
 import {hitFrom} from '../observation';
 import {newUniqueSupport,tickUnique,uniqueLegal,buyUnique,type UniqueSupportState} from './unique-support';
 import {UNIQUE_SUPPORT,type UniqueSupportId} from '../../data/unique-support';
@@ -12,7 +13,7 @@ export function supportLegal(w:World,kind:SupportCard){if(kind in UNIQUE_SUPPORT
 export function buySupport(w:World,kind:SupportCard){if(kind in UNIQUE_SUPPORT)return buyUnique(w,kind as UniqueSupportId);if(!supportLegal(w,kind))return false;const s=w.expedition.support;if(kind==='strategic')s.ammo++;else{s.levels[kind as keyof ShopSupportState['levels']]++;if(kind==='bombardment')s.bombardAt=w.time+[0,20,15,10][s.levels[kind]];}return true;}
 function open(w:World,p:Point){return Number.isFinite(p.x)&&Number.isFinite(p.z)&&(w.terrain?(w.terrain.isOpen?.(p)??w.terrain.canOccupy(p,0)):Math.abs(p.x)<=76&&Math.abs(p.z)<=76);}
 export function previewStrategic(w:World,p:Point){return w.phase==='battle'&&!w.paused&&!w.requiresPlayerDecision&&w.expedition.support.ammo>0&&!w.expedition.support.impacts.some(i=>i.kind==='strategic')&&open(w,p);}
-export function commitStrategic(w:World,p:Point){if(!previewStrategic(w,p))return false;const s=w.expedition.support;s.ammo--;s.impacts.push({id:w.nextId++,kind:'strategic',point:{...p},at:w.time+3});visual(w,'hero-warning',p,8,3);w.changed();return true;}
+export function commitStrategic(w:World,p:Point){if(!previewStrategic(w,p))return false;const s=w.expedition.support;consumeEquipmentReactor(w);s.ammo--;s.impacts.push({id:w.nextId++,kind:'strategic',point:{...p},at:w.time+3});visual(w,'hero-warning',p,8,3);w.changed();return true;}
 export function recordMutation(w:World,u:Entity,target:Body,damage:number){const s=w.expedition.support,rank=s.levels.mutation;if(!rank||u.team!=='player'||u.heroId||u.summonKind||u.unitType!==mutationFamily(w.expedition.race)||target.hp<=0||damage<=0)return;
  const layers=s.burns.filter(b=>b.source===u.id&&b.target===target.id).sort((a,b)=>a.until-b.until||a.id-b.id);if(layers.length>=3)s.burns=s.burns.filter(b=>b.id!==layers[0].id);
  s.burns.push({id:w.nextId++,source:u.id,target:target.id,damage:damage*[0,.3,.45,.6][rank]/3,next:w.time+1,until:w.time+3});

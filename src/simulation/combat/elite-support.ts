@@ -1,3 +1,4 @@
+import {equipmentNativeFactor} from '../starship/native-effects';
 import {revisedElite} from './terran-elite-runtime';
 import type {World} from '../world';
 import type {Entity,Body,Point} from '../types';
@@ -15,7 +16,7 @@ export function tickEliteSupport(w:World){
  for(const u of w.entities.values())if(u.hp>0&&revisedElite(u)&&u.eliteId==='hellion.3'){
   const d=s.deploy[u.id]??(s.deploy[u.id]={next:u.bornAt+12,retry:0,pending:0});
   if(!d.pending&&w.time+1e-8>=d.next){d.pending=2;d.retry=w.time;}
-  if(d.pending&&w.time+1e-8>=d.retry){d.retry=w.time+1;while(d.pending&&s.mines.filter(m=>m.source===u.id).length<8){const p=placement(w,u);if(!p)break;const g=1+.35*(u.rank-1);s.mines.push({id:w.nextId++,point:p,phase:'buried',targetId:null,emergeAt:0,facing:u.facing,source:u.id,rank:u.rank,damage:1200*g,fire:180*g});d.pending--;}
+  if(d.pending&&w.time+1e-8>=d.retry){d.retry=w.time+1;while(d.pending&&s.mines.filter(m=>m.source===u.id).length<8){const p=placement(w,u);if(!p)break;const g=1+.35*(u.rank-1);s.mines.push({id:w.nextId++,point:p,phase:'buried',targetId:null,emergeAt:0,facing:u.facing,source:u.id,rank:u.rank,damage:1200*g*equipmentNativeFactor(w,u),fire:180*g*equipmentNativeFactor(w,u)});d.pending--;}
    if(!d.pending)d.next=w.time+12;
   }
  }

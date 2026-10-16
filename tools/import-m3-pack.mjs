@@ -2,6 +2,8 @@ import {localSourceFile} from './local-source-cache.mjs';
 import {prepareDeathMotion} from './m3-death-motion.mjs';
 /** Local-only M3 -> animated GLB / DDS -> PNG. No image upload or archive download. */
 import {normalizeBoneBindings} from './m3-animation-bindings.mjs';
+import {appendSpineSplineRibbons} from './m3-spline-ribbons.mjs';
+import {fortMaterialProfile} from './m3-fort-materials.mjs';
 import {cascProvenance} from './casc-provenance.mjs';
 import {replacedBySelection} from './asset-selection.mjs';
 import {fetchBinary} from './fetch-binary.mjs';
@@ -87,6 +89,11 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
  // Preserve a truly static Stand pose as a valid clip, without fabricating motion.
  clips=clips.map(c=>c.tracks.length?c:new AnimationClip(c.name,c.duration,bones[0]?[new QuaternionKeyframeTrack(bones[0].name+'.quaternion',[0,c.duration],[...bones[0].quaternion.toArray(),...bones[0].quaternion.toArray()])]:[])).filter(c=>c.tracks.length);
  const renamedBones=normalizeBoneBindings(bones,clips);group.userData.originalBoneNames=Object.fromEntries(Object.entries(renamedBones).map(([original,current])=>[current,original]));
+ if(id==='model.fort.turret_zerg'||id==='model.fort.turret_zerg.death')appendSpineSplineRibbons(group,s,bones,specs,geometryReport);
+ if(id.startsWith('model.fort.turret_')){
+  const profile=fortMaterialProfile(s,provenance.sourceSha256);group.userData.sc2FortMaterials=profile;
+  for(const spec of specs.values()){const native=profile.materials.find(m=>m.index===spec.index);for(const [role,layer]of Object.entries(native?.layers??{}))if(!spec.layers[role])spec.layers[role]={filename:layer.filename,channel:layer.channel,uv:layer.uv,multiplier:layer.multiply?.default??1,add:layer.add?.default??0,flags:layer.flags,color:layer.color?.default};}
+ }
  group.updateMatrixWorld(true);
  const raw=Buffer.from(await new GLTFExporter().parseAsync(group,{binary:true,animations:clips}));const {j,bin}=unpack(raw);const chunks=[bin];let length=bin.length;
  const imageIds=new Map();j.images=[];j.textures=[];j.samplers=[{magFilter:9729,minFilter:9987,wrapS:10497,wrapT:10497}];

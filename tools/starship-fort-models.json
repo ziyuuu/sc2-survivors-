@@ -1,0 +1,8 @@
+[
+  {"id":"model.fort.turret_terran","modelDataId":"AutoTurret","name":"autoturret","assetPath":"Assets/Buildings/Terran/AutoTurret/AutoTurret.m3","definitionLayer":"liberty"},
+  {"id":"model.fort.turret_terran.death","modelDataId":"AutoTurretDeath","name":"autoturretdeathex1","assetPath":"Assets/Units/Terran/AutoTurretDeathEx1/AutoTurretDeathEx1.m3","definitionLayer":"liberty"},
+  {"id":"model.fort.turret_zerg","modelDataId":"SpineCrawler","name":"spinecrawlerex1","assetPath":"Assets/Buildings/Zerg/SpineCrawlerEx1/SpineCrawlerEx1.m3","definitionLayer":"liberty"},
+  {"id":"model.fort.turret_zerg.death","modelDataId":"SpineCrawlerDeath","name":"spinecrawlerex1","assetPath":"Assets/Buildings/Zerg/SpineCrawlerEx1/SpineCrawlerEx1.m3","definitionLayer":"liberty"},
+  {"id":"model.fort.turret_protoss","modelDataId":"PhotonCannon","name":"photoncannonex2","assetPath":"Assets/Buildings/Protoss/PhotonCannonEx2/PhotonCannonEx2.m3","definitionLayer":"liberty"},
+  {"id":"model.fort.turret_protoss.death","modelDataId":"PhotonCannonDeath","name":"photoncannondeathex2_01","assetPath":"Assets/Buildings/Protoss/PhotonCannonDeathEx2/PhotonCannonDeathEx2_01.m3","definitionLayer":"liberty"}
+]

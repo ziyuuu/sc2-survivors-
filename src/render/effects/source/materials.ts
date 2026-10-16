@@ -42,7 +42,7 @@ export async function loadSourceEffect(definition:SourceEffectDefinition):Promis
  return {definition,materials,displacement,gltf,displacementGltf};
 }
 /** Each draw owns source curves; immutable images are shared through independent wrappers. */
-export function sourceSurface(resource:SourceMaterialResource,geometry:THREE.BufferGeometry,capacity:number,particles=false){
+export function sourceSurface(resource:SourceMaterialResource,geometry:THREE.BufferGeometry,capacity:number,particles=false,instances=false){
  // Particle flipbooks (6) and world-Z projection (5) are effect-only coordinate
  // sources. Keep the shared unit material generator and replace these exact UV
  // expressions below; ordinary body surfaces are unaffected.
@@ -51,10 +51,11 @@ export function sourceSurface(resource:SourceMaterialResource,geometry:THREE.Buf
  const surface=new UnitMaterialSurface(prepared,resource.base,capacity),mat=surface.material;
  if(particles){mat.side=THREE.DoubleSide;mat.transparent=true;mat.depthWrite=false;}
  mat.onBeforeCompile=(shader)=>{
-  if(particles)shader.vertexShader=shader.vertexShader.replace('void main() {','void main() {\nmat4 unitTransform=mat4(1.0);');
-  surface.compile(shader,geometry,particles);
+  if(particles||instances)shader.vertexShader=shader.vertexShader.replace('void main() {','void main() {\nmat4 unitTransform=mat4(1.0);');
+  surface.compile(shader,geometry,particles||instances);
+  if(particles)shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute float sourceMaterialSlot;').replace('umInstance=gl_InstanceID;','umInstance=int(sourceMaterialSlot);');
   shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec2 fxParticleUV;varying vec2 fxWorldUV;')
-   .replace('umUV0=uv;',`umUV0=uv;fxParticleUV=${particles?'uv*sourceUv.zw+sourceUv.xy':'uv'};fxWorldUV=(modelMatrix*${particles?'instanceMatrix*':''}vec4(transformed,1.0)).xz*vec2(1.0,-1.0)/1.4;`);
+   .replace('umUV0=uv;',`umUV0=uv;fxParticleUV=${particles?'uv*sourceUv.zw+sourceUv.xy':'uv'};fxWorldUV=(modelMatrix*${particles||instances?'instanceMatrix*':''}vec4(transformed,1.0)).xz*vec2(1.0,-1.0)/1.4;`);
   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec2 fxParticleUV;varying vec2 fxWorldUV;');
   for(const [i,role]of MATERIAL_ROLES.entries()){const uv=original.layers[role]?.uv;if(uv===5||uv===6){const expression=new RegExp('(vec2 umUv'+i+'\\(\\)\\{[^}]*?vec2 uv=)umUV0');shader.fragmentShader=shader.fragmentShader.replace(expression,'$1'+(uv===6?'fxParticleUV':'fxWorldUV'));}}
   if(particles){shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec4 sourceColor;attribute vec4 sourceUv;attribute float sourceSegmentedUv;varying vec4 fxColor;')
@@ -64,6 +65,6 @@ export function sourceSurface(resource:SourceMaterialResource,geometry:THREE.Buf
    if(prepared.source.blend===2)shader.fragmentShader=shader.fragmentShader.replace('gl_FragColor.rgb*=umData(10).x;','gl_FragColor.rgb*=umData(10).x*fxColor.a;');
   }
  };
- mat.customProgramCacheKey=()=>surface.programKey(geometry,particles)+':combat:'+Number(particles)+':'+MATERIAL_ROLES.map(role=>original.layers[role]?.uv??0).join(',');
+ mat.customProgramCacheKey=()=>surface.programKey(geometry,particles||instances)+':palette-rigid:'+Number(instances)+':combat:'+Number(particles)+':'+MATERIAL_ROLES.map(role=>original.layers[role]?.uv??0).join(',');
  return surface;
 }

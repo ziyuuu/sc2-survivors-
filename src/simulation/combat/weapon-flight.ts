@@ -1,3 +1,5 @@
+import {equipmentAreaRadius,equipmentAreaFactor,equipmentAreaBonuses,equipmentCluster} from '../starship/weapon-areas';
+import {cloneCombatSource,equipmentPatternDamage} from '../starship/runtime';
 import {protossEliteFlightImpact} from './protoss-elite-runtime';
 import {isTerranEliteId} from '../../data/terran-elites';
 import {isZergEliteId} from '../../data/zerg-elites';
@@ -29,13 +31,13 @@ export function weaponFlightSpeed(u:Pick<Entity,'unitType'|'heroId'|'nativeMode'
 }
 export function launchWeaponFlight(w:World,u:Entity,target:Body,bonuses:Bonus[],shieldBonus:number,crit:number,hitsOverride?:number,primary=true){
  const speed=weaponFlightSpeed(u);if(!speed)return false;
- const p:WeaponFlight={primary,id:w.nextId++,attackId:`${u.id}:${u.shotSequence}`,source:structuredClone(u),target:target.id,
+ const p:WeaponFlight={primary,id:w.nextId++,attackId:`${u.id}:${u.shotSequence}`,source:cloneCombatSource(w,u),target:target.id,
   from:{x:u.x,z:u.z},point:{x:u.x,z:u.z},lastSeen:{x:target.x,z:target.z},start:w.time,expires:w.time+8,speed,lost:false,
   damage:u.weaponDamage,bonuses:bonuses.map(b=>({...b})),hits:hitsOverride??unitData(u).attacks,shieldBonus,crit,enemyFactor:w.enemyDamageFactor(u),apm:(talentModifiers(w,u).apmDuplicate??0)>0,hop:0,seen:[]};
  if(!u.heroId&&u.unitType==='thor')p.hits=SOURCE_WEAPON_PATTERNS.thorExplosive.shots;
  if(!u.heroId&&u.unitType==='mutalisk'){
   const pattern=SOURCE_WEAPON_PATTERNS.mutalisk,scale=expeditionWeaponScale(w,u);
-  p.bounceDamage=pattern.damage.map((damage,i)=>(damage+expeditionWeaponUpgrade(w,u,`GlaiveWurmU${i+1}`).damage)*scale*(i?1:1));
+  p.bounceDamage=pattern.damage.map((damage,i)=>equipmentPatternDamage(w,u,(damage+expeditionWeaponUpgrade(w,u,`GlaiveWurmU${i+1}`).damage)*scale,damage/pattern.damage[0]));
   p.bounceBonuses=pattern.damage.map((damage,i)=>bonuses.map(b=>({...b,amount:b.amount*damage/pattern.damage[0]*(i?1:1)})));
   p.damage=p.bounceDamage[0]*(target.attributes.includes('Light')?1:1);p.hits=1;
  }
@@ -48,12 +50,12 @@ function resolve(w:World,p:WeaponFlight,target:Body){
  w.visual('projectile-impact',u,target,p.id,undefined,{weaponHop:p.hop});
  if(!u.heroId&&!revisedElite(u)&&u.unitType==='thor'){
   const bands=SOURCE_WEAPON_PATTERNS.thorExplosive.bands;
-  w.hash.query(target,2,b=>{if(b.id===target.id||b.hp<=0||b.owner===u.owner||!b.flying&&(!('unitType' in b)||b.unitType!=='colossus'))return;
-   const band=bands.find(band=>distance(b,target)<=band.radius+b.unitRadius);if(band)w.attackHit(u,b,p.damage*band.fraction,p.bonuses.map(b=>({...b,amount:b.amount*band.fraction})),p.hits,0,false,1,{enemyFactor:p.enemyFactor,apm:false});});
+  w.hash.query(target,equipmentAreaRadius(w,u,2),b=>{if(b.id===target.id||b.hp<=0||b.owner===u.owner||!b.flying&&(!('unitType' in b)||b.unitType!=='colossus'))return;
+   const band=bands.find(band=>distance(b,target)<=equipmentAreaRadius(w,u,band.radius)+b.unitRadius);if(band)w.attackHit(u,b,p.damage*band.fraction*equipmentAreaFactor(w,u),equipmentAreaBonuses(w,u,p.bonuses.map(b=>({...b,amount:b.amount*band.fraction}))),p.hits,0,false,1,{enemyFactor:p.enemyFactor,apm:false});});equipmentCluster(w,u,target,Math.max(...bands.map(b=>b.radius)),p.damage,p.bonuses,p.hits,p.crit,'air',p.enemyFactor);
  }
  const splash=u.heroId==='fenix'?{r:1.1,n:3,f:.35}:u.heroId==='stukov'?{r:.8,n:2,f:.3}:null;
- if(splash){const candidates:Body[]=[];w.hash.query(target,splash.r+3,b=>{if(b.id!==target.id&&b.hp>0&&b.owner!==u.owner&&b.flying===target.flying&&distance(b,target)<=splash.r+b.unitRadius&&w.hasAttackLine(u,b))candidates.push(b);});
-  for(const b of candidates.sort((a,b)=>distance(a,target)-distance(b,target)||a.id-b.id).slice(0,splash.n))w.attackHit(u,b,p.damage*splash.f,p.bonuses.map(b=>({...b,amount:b.amount*splash.f})),1,0,false,1,{enemyFactor:p.enemyFactor,apm:false});
+ if(splash){const nativeRadius=splash.r;splash.r=equipmentAreaRadius(w,u,splash.r);const candidates:Body[]=[];w.hash.query(target,splash.r+3,b=>{if(b.id!==target.id&&b.hp>0&&b.owner!==u.owner&&b.flying===target.flying&&distance(b,target)<=splash.r+b.unitRadius&&w.hasAttackLine(u,b))candidates.push(b);});
+  for(const b of candidates.sort((a,b)=>distance(a,target)-distance(b,target)||a.id-b.id).slice(0,splash.n))w.attackHit(u,b,p.damage*splash.f*equipmentAreaFactor(w,u),equipmentAreaBonuses(w,u,p.bonuses.map(b=>({...b,amount:b.amount*splash.f}))),1,0,false,1,{enemyFactor:p.enemyFactor,apm:false});equipmentCluster(w,u,target,nativeRadius,p.damage*splash.f,p.bonuses.map(b=>({...b,amount:b.amount*splash.f})),1,p.crit,target.flying?'air':'ground',p.enemyFactor);
  }
 }
 /** One authoritative arrival per packet. Loss of visibility is irreversible for this flight. */
@@ -61,7 +63,7 @@ export function tickWeaponFlights(w:World,dt:number){
  const pending:WeaponFlight[]=[];
  for(const p of w.weaponFlights){
   if(w.time>=p.expires)continue;if(w.time<p.start){pending.push(p);continue;}
-  const target=w.body(p.target),live=!!target&&target.hp>0&&!p.lost&&w.visibleTo(target,p.source.owner);
+  const target=w.body(p.target),live=!!target&&target.hp>0&&target.owner!==p.source.owner&&!p.lost&&w.visibleTo(target,p.source.owner);
   if(live)p.lastSeen={x:target.x,z:target.z};else p.lost=true;
   const d=distance(p.point,p.lastSeen),travel=p.speed*dt;
   if(d>travel+1e-8){p.point={x:p.point.x+(p.lastSeen.x-p.point.x)*travel/d,z:p.point.z+(p.lastSeen.z-p.point.z)*travel/d};pending.push(p);continue;}

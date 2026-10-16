@@ -1,3 +1,4 @@
+import {equipmentStatus} from './equipment-status';
 import {SC2_UNITS} from '../data/sc2-units';
 import {ELITES,type EliteId} from '../data/elites';
 import {HEROES,type HeroId} from '../data/heroes';
@@ -10,7 +11,7 @@ export function healthReadout(hp:number,maxHp:number){const current=Math.max(0,h
 export function statusReadout(w:World,u:Entity){const names={bleed:'裂伤',corruption:'腐化',acidArmor:'酸蚀',neural:'神经抑制',bloodlust:'嗜血'} as const;
  const active=w.statuses.list(u.id,w.time),shown=[] as string[];
  for(const kind of ['corruption','bleed','acidArmor','neural','bloodlust'] as const){const group=active.filter(s=>s.kind===kind);if(!group.length)continue;const strongest=group.reduce((a,b)=>b.value>a.value?b:a),seconds=Math.max(0,Math.ceil(strongest.until-w.time));shown.push(`${names[kind]} ${seconds}s`);}
- if(w.zoneSlowed.has(u.id))shown.push('腐蚀区减速');
+ if(w.zoneSlowed.has(u.id))shown.push('腐蚀区减速');shown.push(...equipmentStatus(w,u));
  return {short:shown.slice(0,3).join(' · ')+(shown.length>3?` +${shown.length-3}`:''),detail:shown.join(' · ')};
 }
 /** Read current ownership, not the state when an offer was generated. */

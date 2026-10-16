@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import type {TerrainQuery} from '../../data/map-definition';
 import type {Point} from '../../simulation/types';
 import {PosedDepthRegistry,physicalSurface} from '../materials/posed-depth';
+import {sceneRenderables,hierarchyVisible} from './renderable-registry';
 
 export const SHADOW_RESOLUTION=1024;
 const origin=new THREE.Vector3(),sun=new THREE.Vector3(-15,25,10).normalize(),basis=new THREE.Matrix4().lookAt(sun,origin,new THREE.Vector3(0,1,0));
@@ -19,7 +20,7 @@ export class ShadowViewContext {
   let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity,minZ=Infinity,maxZ=-Infinity;
   for(const p of points){const x=p.dot(right),y=p.dot(up),z=p.dot(sun);minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);minZ=Math.min(minZ,z);maxZ=Math.max(maxZ,z);}
   const padding=5,width=Math.ceil((maxX-minX+padding*2)/2)*2,height=Math.ceil((maxY-minY+padding*2)/2)*2;
-  const texelX=width/SHADOW_RESOLUTION,texelY=height/SHADOW_RESOLUTION,cx=Math.round((minX+maxX)/2/texelX)*texelX,cy=Math.round((minY+maxY)/2/texelY)*texelY;
+  const texelX=width/light.shadow.mapSize.x,texelY=height/light.shadow.mapSize.y,cx=Math.round((minX+maxX)/2/texelX)*texelX,cy=Math.round((minY+maxY)/2/texelY)*texelY;
   const lightZ=maxZ+this.bounds.maxCasterHeight/sun.y+4,near=.5,far=lightZ-minZ+4;
   light.position.copy(right).multiplyScalar(cx).addScaledVector(up,cy).addScaledVector(sun,lightZ);light.target.position.copy(light.position).sub(sun);light.updateMatrixWorld();light.target.updateMatrixWorld();
   Object.assign(light.shadow.camera,{left:-width/2,right:width/2,top:height/2,bottom:-height/2,near,far});light.shadow.camera.updateProjectionMatrix();light.shadow.updateMatrices(light);
@@ -38,8 +39,9 @@ export class SceneShadows {
   if(renderer.capabilities.maxTextureSize<SHADOW_RESOLUTION){this.enabled=false;this.fallback='Required 1024 shadow texture is unsupported';}
   renderer.shadowMap.enabled=this.enabled;renderer.shadowMap.type=THREE.PCFShadowMap;light.castShadow=this.enabled;light.shadow.mapSize.set(SHADOW_RESOLUTION,SHADOW_RESOLUTION);light.shadow.bias=-.00008;light.shadow.normalBias=.035;
  }
+ setResolution(size:512|1024){if(this.light.shadow.mapSize.x===size)return;this.light.shadow.mapSize.set(size,size);this.restore();}
  update(camera:THREE.Camera,terrain:TerrainQuery|undefined){if(this.enabled)this.view.fit(camera,this.light,terrain);}
  prepare(root:THREE.Object3D=this.scene){if(this.enabled)this.depth.configure(root);}
  restore(){this.light.shadow.map?.dispose();this.light.shadow.map=null;this.light.shadow.needsUpdate=true;this.renderer.shadowMap.needsUpdate=true;}
- report(){let meshes=0,surfaces=0,posed=0;this.scene.traverseVisible(node=>{if(!(node instanceof THREE.Mesh)||!node.castShadow||node instanceof THREE.InstancedMesh&&node.count===0)return;meshes++;if(node instanceof THREE.SkinnedMesh||node.geometry.hasAttribute('unitPose'))posed++;surfaces+=(Array.isArray(node.material)?node.material:[node.material]).filter(physicalSurface).length;});return {enabled:this.enabled,method:'PCF',resolution:SHADOW_RESOLUTION,ready:this.enabled&&!!this.light.shadow.map,fallback:this.fallback,casters:meshes,surfaces,posedCasters:posed,view:{...this.view.bounds},revision:this.view.revision,poseDepth:true};}
+ report(){let meshes=0,surfaces=0,posed=0;for(const node of sceneRenderables(this.scene)){if(!(node instanceof THREE.Mesh)||!node.castShadow||node instanceof THREE.InstancedMesh&&node.count===0||!hierarchyVisible(node))continue;meshes++;if(node instanceof THREE.SkinnedMesh||node.geometry.hasAttribute('unitPose'))posed++;surfaces+=(Array.isArray(node.material)?node.material:[node.material]).filter(physicalSurface).length;}return {enabled:this.enabled,method:'PCF',resolution:this.light.shadow.mapSize.x,ready:this.enabled&&!!this.light.shadow.map,fallback:this.fallback,casters:meshes,surfaces,posedCasters:posed,view:{...this.view.bounds},revision:this.view.revision,poseDepth:true};}
 }

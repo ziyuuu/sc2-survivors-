@@ -1,0 +1,71 @@
+{
+  "at": "2026-10-16T12:16:29.104Z",
+  "status": "Local review branch; purple appearance verified; performance acceptance still open",
+  "branch": "feat/equipment-fx-performance",
+  "base": "cb2e2f3e5c6844571fb57a212e5eed9f49e7fa4c",
+  "preview": "preview/equipment-review-20261016",
+  "build": {
+    "bytes": 29672874,
+    "sha256": "af9e5afae507be311b7c3cb040479d9eb02b7270bb2c47f77948f6d00885bf9f"
+  },
+  "compiledInputs": 406,
+  "appearance": {
+    "scope": "Rescue egg opaque instance tint only; original body, animation and rescue/expiry rules",
+    "enemySpawningAdded": false,
+    "minesAndStrategicDropsRecolored": false
+  },
+  "validation": {
+    "typecheck": true,
+    "dataDocs": true,
+    "runtimeAssetCheck": true,
+    "isolatedRegressions": {
+      "passed": 1606,
+      "failed": 0,
+      "log": "reports/local/equipment-branch-20261016/tests-r2.log"
+    },
+    "browser": {
+      "passed": true,
+      "errors": [],
+      "checks": [
+        "Paused egg state and clock unchanged",
+        "Actual WebGL restore",
+        "Native rescue grants worker and no enemies",
+        "Native expiry renders original death pose with purple tint"
+      ],
+      "screens": [
+        "01-purple-egg",
+        "02-restored-egg",
+        "03-worker-rescued",
+        "04-expired-egg"
+      ],
+      "raw": "reports/local/equipment-branch-20261016/browser-r1/report.json",
+      "reviewedScreenshots": 4,
+      "rescue": {
+        "before": 0,
+        "after": 1,
+        "status": "rescued",
+        "enemies": 0
+      }
+    }
+  },
+  "preservedFailures": [
+    "reports/local/equipment-purple-egg-20261016/browser-r2/report.json",
+    "reports/local/equipment-branch-20261016/tests-r1.log"
+  ],
+  "scope": {
+    "requiredEarlierSharedRuntimeIncluded": true,
+    "independentStarshipUiMounted": false,
+    "privateOriginalsNewlyTracked": false,
+    "mainMerged": false,
+    "currentReplaced": false,
+    "pushed": false,
+    "published": false,
+    "additionalOptimizationStarted": false
+  },
+  "limits": [
+    "Previous performance targets remain unmet; no new FPS acceptance",
+    "No enemy hatching/conversion gameplay added",
+    "No natural-play or physical-input acceptance"
+  ],
+  "followup": "After this batch: device details, verifiable SC2 techniques and engine comparison, multiple user-authorized 6.1-sol/astra agents at low/medium reasoning. No official recommendation assumed without verification."
+}

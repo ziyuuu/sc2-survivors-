@@ -1,0 +1,100 @@
+[
+  {
+    "id": "model.combat-fx.HallucinationBirth",
+    "name": "hallucinatebirth",
+    "assetPath": "Assets/Effects/Protoss/HallucinateBirth/HallucinateBirth.m3",
+    "modelDataId": "HallucinationBirth",
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "sourceXml": "assets\\private\\actor-source\\mods\\liberty.sc2mod\\base.sc2data\\GameData\\ModelData.xml",
+    "sourceXmlSha256": "98f1ffd0878b201ade5d814b4454426fef4283eb778736d1d2a146e59a5c7a04",
+    "declaration": "<CModel id=\"HallucinationBirth\" parent=\"OneShotSpellFX\">\n        <Model value=\"Assets\\Effects\\Protoss\\HallucinateBirth\\HallucinateBirth.m3\" />\n        <EditorCategories value=\"Race:Protoss\" />\n    </CModel>\n    "
+  },
+  {
+    "id": "model.combat-fx.HallucinationDeath",
+    "name": "hallucinatedeath",
+    "assetPath": "Assets/Effects/Protoss/HallucinateDeath/HallucinateDeath.m3",
+    "modelDataId": "HallucinationDeath",
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "sourceXml": "assets\\private\\actor-source\\mods\\liberty.sc2mod\\base.sc2data\\GameData\\ModelData.xml",
+    "sourceXmlSha256": "98f1ffd0878b201ade5d814b4454426fef4283eb778736d1d2a146e59a5c7a04",
+    "declaration": "<CModel id=\"HallucinationDeath\" parent=\"OneShotSpellFX\">\n        <Flags index=\"TeenSafe\" value=\"1\" />\n        <Model value=\"Assets\\Effects\\Protoss\\HallucinateDeath\\HallucinateDeath.m3\" />\n        <EditorCategories value=\"Race:Protoss\" />\n    </CModel>\n    "
+  },
+  {
+    "id": "model.combat-fx.HallucinationColossusBirth",
+    "name": "hallucinatecolossusbirth",
+    "assetPath": "Assets/Effects/Protoss/HallucinateColossusBirth/HallucinateColossusBirth.m3",
+    "modelDataId": "HallucinationColossusBirth",
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "sourceXml": "assets\\private\\actor-source\\mods\\liberty.sc2mod\\base.sc2data\\GameData\\ModelData.xml",
+    "sourceXmlSha256": "98f1ffd0878b201ade5d814b4454426fef4283eb778736d1d2a146e59a5c7a04",
+    "declaration": "<CModel id=\"HallucinationColossusBirth\" parent=\"OneShotSpellFX\">\n        <Model value=\"Assets\\Effects\\Protoss\\HallucinateColossusBirth\\HallucinateColossusBirth.m3\" />\n        <EditorCategories value=\"Race:Protoss\" />\n    </CModel>\n    "
+  },
+  {
+    "id": "model.combat-fx.HallucinationColossusDeath",
+    "name": "hallucinatecolossusdeath",
+    "assetPath": "Assets/Effects/Protoss/HallucinateColossusDeath/HallucinateColossusDeath.m3",
+    "modelDataId": "HallucinationColossusDeath",
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "sourceXml": "assets\\private\\actor-source\\mods\\liberty.sc2mod\\base.sc2data\\GameData\\ModelData.xml",
+    "sourceXmlSha256": "98f1ffd0878b201ade5d814b4454426fef4283eb778736d1d2a146e59a5c7a04",
+    "declaration": "<CModel id=\"HallucinationColossusDeath\" parent=\"OneShotSpellFX\">\n        <Flags index=\"TeenSafe\" value=\"1\" />\n        <Model value=\"Assets\\Effects\\Protoss\\HallucinateColossusDeath\\HallucinateColossusDeath.m3\" />\n        <EditorCategories value=\"Race:Protoss\" />\n    </CModel>\n    "
+  },
+  {
+    "id": "model.combat-fx.StimpackStartImpact",
+    "name": "stimpackstartimpact",
+    "assetPath": "Assets/Effects/Terran/StimpackStartImpact/StimpackStartImpact.m3",
+    "modelDataId": "StimpackStartImpact",
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "sourceXml": "assets\\private\\actor-source\\mods\\liberty.sc2mod\\base.sc2data\\GameData\\ModelData.xml",
+    "sourceXmlSha256": "98f1ffd0878b201ade5d814b4454426fef4283eb778736d1d2a146e59a5c7a04",
+    "declaration": "<CModel id=\"StimpackStartImpact\" parent=\"OneShotSpellFX\">\n        <Model value=\"Assets\\Effects\\Terran\\StimpackStartImpact\\StimpackStartImpact.m3\" />\n        <EditorCategories value=\"Race:Terran\" />\n    </CModel>\n    "
+  },
+  {
+    "id": "model.combat-fx.StimpackEndImpact",
+    "name": "stimpackendimpact",
+    "assetPath": "Assets/Effects/Terran/StimpackEndImpact/StimpackEndImpact.m3",
+    "modelDataId": "StimpackEndImpact",
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "sourceXml": "assets\\private\\actor-source\\mods\\liberty.sc2mod\\base.sc2data\\GameData\\ModelData.xml",
+    "sourceXmlSha256": "98f1ffd0878b201ade5d814b4454426fef4283eb778736d1d2a146e59a5c7a04",
+    "declaration": "<CModel id=\"StimpackEndImpact\" parent=\"OneShotSpellFX\">\n        <Model value=\"Assets\\Effects\\Terran\\StimpackEndImpact\\StimpackEndImpact.m3\" />\n        <EditorCategories value=\"Race:Terran\" />\n    </CModel>\n    "
+  },
+  {
+    "id": "model.combat-fx.ImpactModelFlames",
+    "name": "fireimpact",
+    "assetPath": "Assets/Effects/Terran/FireImpact/FireImpact.m3",
+    "modelDataId": "ImpactModelFlames",
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "sourceXml": "assets\\private\\actor-source\\mods\\liberty.sc2mod\\base.sc2data\\GameData\\ModelData.xml",
+    "sourceXmlSha256": "98f1ffd0878b201ade5d814b4454426fef4283eb778736d1d2a146e59a5c7a04",
+    "declaration": "<CModel id=\"ImpactModelFlames\" parent=\"ImpactFX\">\n        <Model value=\"Assets\\Effects\\Terran\\FireImpact\\FireImpact.m3\" />\n        <EditorCategories value=\"Race:Terran\" />\n    </CModel>\n    "
+  }
+]

@@ -31,6 +31,7 @@ export async function openSaveProfile(factory?:IDBFactory){
  return {repository,profile,notice,run,savedAt,archiveProfile,progress};
 }
 export class RunSession {
+ get memoryOnly(){return this.world.starship.enabled;}
  message='';savedAt=0;busy=false;onChange=()=>{};
  private pending:RunSnapshot|null;
  private pendingProgress:ShopProgressSnapshot|undefined;
@@ -48,13 +49,13 @@ export class RunSession {
  /** Read-only UI projection source; no preparation ticket or restoration is issued. */
  get savedSnapshot():Readonly<RunSnapshot>|null{return this.pending;}
  get summary(){const s=this.pending?.state;if(!s)return '';return s.phase==='lost'?'上一局已结束':RACE_NAMES[s.runConfig!.race]+'／'+({easy:'简单',normal:'普通',hard:'困难',hell:'地狱'}[s.difficulty])+' · '+(s.endless?'无尽第 '+s.endless.round+' 轮':'第 '+s.stage+' 关')+' · '+Math.floor(s.time/60)+':'+String(Math.floor(s.time%60)).padStart(2,'0');}
- private observe(){if(this.restoring||this.world.phase==='menu')return;const w=this.world;if(!w.runId)return;
+ private observe(){if(this.memoryOnly||this.restoring||this.world.phase==='menu')return;const w=this.world;if(!w.runId)return;
   shopProgress(w).observe();
   const signature=[w.runId,w.phase,w.stage,w.endless?.round??0,w.paused,w.requiresPlayerDecision,w.stats.started,w.stats.produced,w.stats.rescued,w.stats.failed,w.rerolls,w.rewards.filter(r=>r.sold).map(r=>r.offerId).join(',')].join('|');
   if(w.phase!=='battle'||w.paused||signature!==this.lastSignature||w.time-this.lastTime>=10){this.lastSignature=signature;this.requestSave();}
  }
- requestSave(){if(this.scheduled)return;this.scheduled=true;queueMicrotask(()=>{this.scheduled=false;void this.saveNow().catch(()=>{});});}
- exportJSON(){return writeArchive({profile:this.world.permanentProfile.exportJSON(),run:this.world.phase==='menu'?this.pending:this.world.runId?this.world.captureRun():null,shopProgress:this.world.phase==='menu'?this.pendingProgress:this.world.runId?shopProgress(this.world).snapshot():undefined});}
+ requestSave(){if(this.memoryOnly||this.scheduled)return;this.scheduled=true;queueMicrotask(()=>{this.scheduled=false;if(!this.memoryOnly)void this.saveNow().catch(()=>{});});}
+ exportJSON(){if(this.memoryOnly)throw Error('舰装验证局仅保留内存进度；存档接入留到 MVP 收尾');return writeArchive({profile:this.world.permanentProfile.exportJSON(),run:this.world.phase==='menu'?this.pending:this.world.runId?this.world.captureRun():null,shopProgress:this.world.phase==='menu'?this.pendingProgress:this.world.runId?shopProgress(this.world).snapshot():undefined});}
  async saveNow(){const raw=this.exportJSON(),version=++this.sequence;this.lastTime=this.world.time;this.busy=true;this.onChange();
   const operation=this.queue.catch(()=>{}).then(async()=>{if(!this.repository)throw Error('本地存储不可用，请导出存档文件');await this.repository.commit(raw);});this.queue=operation;
   try{await operation;if(version===this.sequence){this.savedAt=readArchive(raw).savedAt;this.archiveProfile=this.world.permanentProfile.exportJSON();this.message='战局与永久档案已保存。';}}
@@ -63,6 +64,7 @@ export class RunSession {
  }
  /** Read-only candidate validation; no profile or World mutation. */
  inspectSave(raw:string):{kind:'current';bundle:SaveBundle}{
+  if(this.memoryOnly)throw Error('舰装验证入口不读取正式存档');
   const {bundle}=readArchive(raw);
   if(bundle.run)this.world.restoreRun(bundle.run,true);
   return {kind:'current',bundle};
@@ -121,7 +123,7 @@ export class RunSession {
   finally{this.restoring=false;this.onChange();}
  }
  resume(){if(!this.canResume)return false;this.restoring=true;try{this.world.restoreRun(this.pending!);shopProgress(this.world).restore(this.pendingProgress);this.pendingProgress=undefined;this.pending=null;this.lastTime=this.world.time;this.message='已恢复战局；确认后继续行动。';return true;}catch(e){this.message=String((e as Error).message);return false;}finally{this.restoring=false;this.onChange();}}
- keepRun(){if(this.world.runId&&this.world.phase!=='menu'){const bundle=readArchive(this.exportJSON()).bundle;this.pending=bundle.run;this.pendingProgress=bundle.shopProgress;this.requestSave();}this.lastSignature='';}
+ keepRun(){if(this.memoryOnly){this.pending=null;this.pendingProgress=undefined;this.lastSignature='';return;}if(this.world.runId&&this.world.phase!=='menu'){const bundle=readArchive(this.exportJSON()).bundle;this.pending=bundle.run;this.pendingProgress=bundle.shopProgress;this.requestSave();}this.lastSignature='';}
  importJSON(raw:string){
   if(this.world.phase!=='menu')throw Error('请先返回标题再导入存档');
   const candidate=this.inspectSave(raw);
@@ -139,5 +141,5 @@ export class RunSession {
   finally{this.restoring=false;this.onChange();}
   this.requestSave();return 'current' as const;
  }
- report(){return {canResume:this.canResume,savedAt:this.savedAt,busy:this.busy,message:this.message};}
+ report(){return {canResume:this.canResume,savedAt:this.savedAt,busy:this.busy,message:this.message,...(this.memoryOnly?{mode:'memory-only'}:{})};}
 }

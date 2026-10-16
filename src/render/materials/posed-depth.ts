@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {sceneRenderables} from '../scene/renderable-registry';
 
 type Shader=Parameters<THREE.Material['onBeforeCompile']>[0];
 export interface SourceDepthBinding {key:()=>string;compile:(shader:Shader,renderer:THREE.WebGLRenderer)=>void}
@@ -52,6 +53,6 @@ export class PosedDepthRegistry {
   mesh.customDepthMaterial=shadow;mesh.geometry.addEventListener('dispose',()=>shadow.dispose());for(const material of source)material.addEventListener('dispose',()=>shadow.dispose());
   const entry={source,depth,shadow};this.entries.set(mesh,entry);return entry;
  }
- configure(root:THREE.Object3D){root.traverse(node=>{if(!(node instanceof THREE.Mesh))return;const source=materialList(node),physical=source.some(physicalSurface)&&node.userData.visualRole!=='effect';node.castShadow=node.receiveShadow=physical;if(physical){if(node instanceof THREE.SkinnedMesh)node.frustumCulled=false;this.prepare(node);}});}
+ configure(root:THREE.Object3D){for(const node of sceneRenderables(root)){if(!(node instanceof THREE.Mesh))continue;const source=materialList(node),physical=source.some(physicalSurface)&&node.userData.visualRole!=='effect';node.castShadow=node.receiveShadow=physical;if(physical){if(node instanceof THREE.SkinnedMesh)node.frustumCulled=false;this.prepare(node);}}}
  depthFor(mesh:THREE.Mesh){const entry=this.prepare(mesh);return Array.isArray(mesh.material)?entry.depth:entry.depth[0];}
 }

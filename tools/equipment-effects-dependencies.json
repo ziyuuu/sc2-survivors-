@@ -1,0 +1,173 @@
+[
+  {
+    "bytes": 35632,
+    "verifiedCascBuild": true,
+    "id": "model.combat-fx.HallucinationBirth",
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/m3/hallucinatebirth.m3",
+    "requestedFile": "assets/private/m3/hallucinatebirth.m3",
+    "sha256": "d7b2ed7d0e5dec784695787871ce18a95314281e65962ceb8e02fdbcb56c1feb",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Protoss/HallucinateBirth/HallucinateBirth.m3",
+    "build": "B97563"
+  },
+  {
+    "bytes": 19856,
+    "verifiedCascBuild": true,
+    "id": "model.combat-fx.HallucinationDeath",
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/m3/hallucinatedeath.m3",
+    "requestedFile": "assets/private/m3/hallucinatedeath.m3",
+    "sha256": "51e757359c665d62125d1e29ad69aa58582c55c089f7b77724611e7a29ce5427",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Protoss/HallucinateDeath/HallucinateDeath.m3",
+    "build": "B97563"
+  },
+  {
+    "bytes": 36656,
+    "verifiedCascBuild": true,
+    "id": "model.combat-fx.HallucinationColossusBirth",
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/m3/hallucinatecolossusbirth.m3",
+    "requestedFile": "assets/private/m3/hallucinatecolossusbirth.m3",
+    "sha256": "5a882f6993983b3d1ec2c9059ddc9208545d51300518626f52533571af71e257",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Protoss/HallucinateColossusBirth/HallucinateColossusBirth.m3",
+    "build": "B97563"
+  },
+  {
+    "bytes": 21472,
+    "verifiedCascBuild": true,
+    "id": "model.combat-fx.HallucinationColossusDeath",
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/m3/hallucinatecolossusdeath.m3",
+    "requestedFile": "assets/private/m3/hallucinatecolossusdeath.m3",
+    "sha256": "f177ced38b7c13a7656799de68fc3c3ebe48403377c74e2f75d46d0e0a94b4d8",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Protoss/HallucinateColossusDeath/HallucinateColossusDeath.m3",
+    "build": "B97563"
+  },
+  {
+    "bytes": 9600,
+    "verifiedCascBuild": true,
+    "id": "model.combat-fx.StimpackStartImpact",
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/m3/stimpackstartimpact.m3",
+    "requestedFile": "assets/private/m3/stimpackstartimpact.m3",
+    "sha256": "c3420d249c58a585334090d07f507d8c26f59e98af0ddede668ac41fefcbd88d",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/StimpackStartImpact/StimpackStartImpact.m3",
+    "build": "B97563"
+  },
+  {
+    "bytes": 9600,
+    "verifiedCascBuild": true,
+    "id": "model.combat-fx.StimpackEndImpact",
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/m3/stimpackendimpact.m3",
+    "requestedFile": "assets/private/m3/stimpackendimpact.m3",
+    "sha256": "e3dd4f77258af1c83acf65ef35036922d7f998ccad03518b83655056cc0167c2",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/StimpackEndImpact/StimpackEndImpact.m3",
+    "build": "B97563"
+  },
+  {
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/FireImpact/FireImpact.m3",
+    "bytes": 16624,
+    "requestedFile": "assets/private/m3/fireimpact.m3",
+    "id": "model.combat-fx.HellionTankAttackFireAddition",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/m3/fireimpact.m3",
+    "sha256": "30b1b994657ce08abe2ef45eb82b8d5ea9561b1df83e2b0953227b6ef75fda74",
+    "version": "5.0.16.97563"
+  },
+  {
+    "bytes": 11064,
+    "verifiedCascBuild": true,
+    "id": "texture.lightningzap3.dds",
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/dds/lightningzap3.dds",
+    "requestedFile": "assets/private/dds/lightningzap3.dds",
+    "sha256": "4616ceea6535cc94b43adc7de44535ba3fd3454d2e23a7ee4dceecbf38763954",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lightningzap3.dds",
+    "build": "B97563"
+  },
+  {
+    "installFile": "assets/private/dds/largesmoke1.dds",
+    "bytes": 87536,
+    "version": "5.0.16.97563",
+    "id": "texture.largesmoke1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/largesmoke1.dds",
+    "verifiedCascBuild": true,
+    "cachedFile": "assets/private/dds/largesmoke1.dds",
+    "sha256": "f8de4c518da524af13f9700bdc39a4de341c28c06ab3ebdb7241c92fb9ab579a"
+  },
+  {
+    "cachedFile": "assets/private/dds/smokewispy4.dds",
+    "id": "texture.smokewispy4.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "bytes": 22000,
+    "sha256": "78a682e1bf69525883fcb04e8a8bd8f858e9ecba0214d0779cadfe44fb727b5f",
+    "installFile": "assets/private/dds/smokewispy4.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smokewispy4.dds"
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/flare2.dds",
+    "installFile": "assets/private/dds/flare2.dds",
+    "cachedFile": "assets/private/dds/flare2.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.flare2.dds",
+    "sha256": "1f4d1069e16fb7934cd7debab321c13dc894127a5db3ef69bfe3015b8a6c69db",
+    "bytes": 87536
+  },
+  {
+    "sha256": "370280a487e44267319f1aa1d26c6371641f62734abe5a47478c3a473a8af8d7",
+    "id": "texture.plasmaburn_blue_orange1.dds",
+    "cachedFile": "assets/private/dds/plasmaburn_blue_orange1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/plasmaburn_blue_orange1.dds",
+    "verifiedCascBuild": true,
+    "bytes": 1398256,
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/dds/plasmaburn_blue_orange1.dds"
+  },
+  {
+    "bytes": 43832,
+    "verifiedCascBuild": true,
+    "id": "texture.stimboltgreen.dds",
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/dds/stimboltgreen.dds",
+    "requestedFile": "assets/private/dds/stimboltgreen.dds",
+    "sha256": "c8daa46fd9baf1acb2c8f9dae3ce992493bbc0d99c92243e34e52e024d816964",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/stimboltgreen.dds",
+    "build": "B97563"
+  },
+  {
+    "bytes": 87536,
+    "verifiedCascBuild": true,
+    "id": "texture.stimboltorange.dds",
+    "version": "5.0.16.97563",
+    "installFile": "assets/private/dds/stimboltorange.dds",
+    "requestedFile": "assets/private/dds/stimboltorange.dds",
+    "sha256": "8875af0fb07cbfaff00b242e6408585c0742be924f30e6f98b547dbdf2559fbd",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/stimboltorange.dds",
+    "build": "B97563"
+  },
+  {
+    "installFile": "assets/private/dds/flame3_r1.dds",
+    "bytes": 87536,
+    "version": "5.0.16.97563",
+    "id": "texture.flame3_r1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/flame3_r1.dds",
+    "verifiedCascBuild": true,
+    "cachedFile": "assets/private/dds/flame3_r1.dds",
+    "sha256": "da3b41c3b054f4ceb3a34cc1b38530179866044292c7ccdb62f57815b1c40cbf"
+  },
+  {
+    "build": "B97563",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/dust4.dds",
+    "bytes": 5616,
+    "requestedFile": "assets/private/dds/dust4.dds",
+    "id": "texture.dust4.dds",
+    "verifiedCascBuild": true,
+    "installFile": "assets/private/dds/dust4.dds",
+    "sha256": "df7a3100434970eb391dedb42dbbef32119a9fa8d7120dbd37e85a7cd2252348",
+    "version": "5.0.16.97563"
+  }
+]

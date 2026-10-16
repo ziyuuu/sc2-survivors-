@@ -1,9 +1,10 @@
+import {heroGrowth} from './hero-growth';
 import type {HeroId} from './heroes';
 export const PROTOSS_HERO_IDS=['artanis','zeratul','alarak','fenix','vorazun','purifier_flagship'] as const;
 export type ProtossHeroId=typeof PROTOSS_HERO_IDS[number];
 export const isProtossHero=(id:HeroId|undefined):id is ProtossHeroId=>!!id&&(PROTOSS_HERO_IDS as readonly string[]).includes(id);
 /** Explicit runtime values. The approved proposal remains a documentation/QA input only. */
-export function protossHeroGrowth(rank:number){const n=Math.max(0,Math.min(4,rank-1)),period=1-.05*n;return {health:1+.35*n,damage:(1+.35*n)*period,period,armor:.5*n,passive:1+.35*n,skill:[9200,12880,16560,20240,23920][n]};}
+export const protossHeroGrowth=heroGrowth;
 export const PROTOSS_HERO_RULES={
  artanis:{shieldRate:560,range:8,targets:7,damageReduction:.3,cleaveEvery:3,cleaveDegrees:150,seconds:8,immediate:[.2,.3,.4,.5,.6],pulse:[.1,.125,.15,.175,.2]},
  zeratul:{openingCycles:3,openingFactor:3,idle:2,openingCooldown:12,echoEvery:4,echoFraction:.5,echoDelay:.4},

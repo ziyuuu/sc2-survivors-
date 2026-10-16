@@ -1,0 +1,23 @@
+import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';
+const dir='reports/local/equipment-branch-20261016';fs.mkdirSync(dir,{recursive:true});
+const git=(...a)=>execFileSync('git',['-c','core.quotepath=false',...a],{encoding:'utf8',maxBuffer:100*1024*1024});
+if(git('diff','--cached','--name-only').trim())throw Error('Existing staged changes');
+const head=git('rev-parse','HEAD').trim(),status=git('status','--porcelain=v1','--untracked-files=all','-z').split('\0').filter(Boolean).map(s=>({status:s.slice(0,2),file:s.slice(3)})),overrides={};
+function override(file,text){const out=dir+'/overrides/'+file;fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,text);overrides[file]=out;}
+// Earlier opt-in equipment entry; exclude the independent R22 UI mount.
+override('src/app/bootstrap.ts',fs.readFileSync('reports/local/starship-native-ui-20261016-r22/before/src/app/bootstrap.ts','utf8'));
+let hud=git('show',head+':src/ui/hud.ts');const hook="if(el.dataset.setting==='quality')";if(!hud.includes(hook))throw Error('HUD hook missing');hud=hud.replace(hook,"if(el.dataset.setting==='combat-preset')view.setCombatPreset(el.value as Parameters<BattleRenderer['setCombatPreset']>[0]);else "+hook);override('src/ui/hud.ts',hud);
+let settings=fs.readFileSync('src/ui/presentation/settings-screen.ts','utf8'),old=git('show',head+':src/ui/presentation/settings-screen.ts');settings=settings.replace("import {renderDisplaySettings} from './display-settings';","import {textScale} from '../text-scale';");
+const oldControl=old.slice(old.indexOf("select('文字大小'"),old.indexOf("+select('镜头震动'"));if(!oldControl)throw Error('Old display controls missing');settings=settings.replace('renderDisplaySettings()',oldControl);override('src/ui/presentation/settings-screen.ts',settings);
+const ui=new Set(['src/ui/controls/battle-actions.ts','src/ui/unit-identity.ts','src/ui/equipment-status.ts','src/ui/presentation/world-labels.css','src/ui/hud.ts','src/ui/presentation/settings-screen.ts']);
+const files=status.map(r=>r.file).filter(f=>f.startsWith('src/simulation/')||f.startsWith('src/data/')||f.startsWith('src/render/')||f.startsWith('src/assets/')||['src/app/bootstrap.ts','src/app/run-session.ts','src/app/memory-storage.ts'].includes(f)||ui.has(f)||f.startsWith('deploy/runtime/')||f.startsWith('test/')&&!/starship-(field-ui|ui-flow)|intermission-integration/.test(f));
+files.push(...status.map(r=>r.file).filter(f=>f.startsWith('tools/')&&(/equipment|performance|source-particle|source-rigid|source-pose|material-slot|unit-pose|contact-depth|difficulty-r2|document-difficulty|starship-fort|m3-fort|m3-spline/.test(f)||['tools/casc-provenance.mjs','tools/import-m3-pack.mjs','tools/m3-catalog.mjs'].includes(f))),'preview/performance-20261016/main.ts');
+for(const folder of ['preview/equipment-review-20261016'])for(const name of fs.readdirSync(folder))if(!['main.js','main.css'].includes(name)&&fs.statSync(folder+'/'+name).isFile())files.push(folder+'/'+name);
+for(const name of ['EQUIPMENT_EFFECTS_PERFORMANCE_20261016.md','EQUIPMENT_PICKUP_IMPLEMENTATION_20261015.md','STARSHIP_LOGIC_IMPLEMENTATION_20261015.md','PERFORMANCE_OPTIMIZATION_20261016.md','DIFFICULTY_R2_IMPLEMENTATION_20261016.md'])files.push('docs/project/'+name);
+for(const name of ['equipment-effects-performance-20261016.json','equipment-pickup-20261015.json','starship-logic-20261015.json','performance-optimization-20261016.json','difficulty-r2-20261016.json'])if(fs.existsSync('reports/qa/'+name))files.push('reports/qa/'+name);
+files.push('docs/GAME_DATA_REFERENCE.md','tools/docs/export-game-reference.mts','src/ui/starship/world-host.ts','src/ui/starship/host.ts','src/ui/starship/settlement-view.ts');
+files.push('docs/project/EQUIPMENT_REVIEW_BRANCH_20261016.md','reports/qa/equipment-review-branch-20261016.json');
+const assets=new Set();function walk(v){if(!v||typeof v!=='object')return;for(const [k,x]of Object.entries(v)){if(k==='gitPath'&&typeof x==='string')assets.add(x);else walk(x);}}
+for(const name of ['combat-effects','source-assets'])walk(JSON.parse(fs.readFileSync('deploy/runtime/'+name+'.json','utf8')));
+const selected=[...new Set(files)].filter(f=>fs.existsSync(f)&&(!f.startsWith('deploy/runtime/assets/')||assets.has(f))).sort();
+fs.writeFileSync(dir+'/plan.json',JSON.stringify({head,branch:git('branch','--show-current').trim(),files:selected,overrides,excluded:status.filter(r=>!selected.includes(r.file)),note:'Equipment and performance with required prior shared runtime. UI mount and standalone UI stay outside. No new optimization work.'},null,2));console.log(JSON.stringify({head,files:selected.length,overrides:Object.keys(overrides)}));

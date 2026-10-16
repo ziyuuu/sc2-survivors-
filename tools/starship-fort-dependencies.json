@@ -1,0 +1,922 @@
+[
+  {
+    "installFile": "assets/private/m3/autoturret.m3",
+    "bytes": 91776,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "model.fort.turret_terran",
+    "cachedFile": "assets/private/m3/autoturret.m3",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Terran/AutoTurret/AutoTurret.m3",
+    "sha256": "8d1f69e2c9c5d10f7e28379d8ed31dc3f3976c2d2cdd5bcf83a91a49e23c411f"
+  },
+  {
+    "installFile": "assets/private/m3/autoturretdeathex1.m3",
+    "bytes": 192544,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "model.fort.turret_terran.death",
+    "cachedFile": "assets/private/m3/autoturretdeathex1.m3",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Terran/AutoTurretDeathEx1/AutoTurretDeathEx1.m3",
+    "sha256": "c8f7d749bd798f9da79041a03f2238b6ee3e03c61119a3361dbc16c426784413"
+  },
+  {
+    "installFile": "assets/private/m3/spinecrawlerex1.m3",
+    "bytes": 1612544,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "model.fort.turret_zerg",
+    "cachedFile": "assets/private/m3/spinecrawlerex1.m3",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Zerg/SpineCrawlerEx1/SpineCrawlerEx1.m3",
+    "sha256": "893f7b50d59d93ec7b59f3f99bfe209f7182fc7356c8d554875fee19aefdd102"
+  },
+  {
+    "installFile": "assets/private/m3/spinecrawlerex1.m3",
+    "bytes": 1612544,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "model.fort.turret_zerg.death",
+    "cachedFile": "assets/private/m3/spinecrawlerex1.m3",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Zerg/SpineCrawlerEx1/SpineCrawlerEx1.m3",
+    "sha256": "893f7b50d59d93ec7b59f3f99bfe209f7182fc7356c8d554875fee19aefdd102"
+  },
+  {
+    "installFile": "assets/private/m3/photoncannonex2.m3",
+    "bytes": 223472,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "model.fort.turret_protoss",
+    "cachedFile": "assets/private/m3/photoncannonex2.m3",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Protoss/PhotonCannonEx2/PhotonCannonEx2.m3",
+    "sha256": "e66b5cfb418ea51f2361a809cae9af5ffb7c5c09c3b9ad19d7bbf2774a9ca3d0"
+  },
+  {
+    "installFile": "assets/private/m3/photoncannondeathex2_01.m3",
+    "bytes": 480176,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "model.fort.turret_protoss.death",
+    "cachedFile": "assets/private/m3/photoncannondeathex2_01.m3",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Protoss/PhotonCannonDeathEx2/PhotonCannonDeathEx2_01.m3",
+    "sha256": "fff01a98384c9dbc7c9a469f11cf253e556b7d5921ff4b588138651d1340625e"
+  },
+  {
+    "installFile": "assets/private/dds/autoturret_diffuse.dds",
+    "bytes": 349680,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.autoturret_diffuse.dds",
+    "cachedFile": "assets/private/dds/autoturret_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/autoturret_diffuse.dds",
+    "sha256": "507e1e816926c30f0dd0415cb9c2b00be4baf30bc552fc8e5a2ea0cc56810239"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/decal_terran01_01.dds",
+    "installFile": "assets/private/dds/decal_terran01_01.dds",
+    "cachedFile": "assets/private/dds/decal_terran01_01.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.decal_terran01_01.dds",
+    "sha256": "a1e80bf82232791f82ffe0746c76be812f47cc296b35d1ad8a8190f863c27c2d",
+    "bytes": 87536
+  },
+  {
+    "installFile": "assets/private/dds/autoturret_normal.dds",
+    "bytes": 349684,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.autoturret_normal.dds",
+    "cachedFile": "assets/private/dds/autoturret_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/autoturret_normal.dds",
+    "sha256": "08d0835bf3b6a0409beb0514d920c97ff5820b2fe175ac8a199257e24997982d"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pbc_pipesmoke.dds",
+    "installFile": "assets/private/dds/pbc_pipesmoke.dds",
+    "cachedFile": "assets/private/dds/pbc_pipesmoke.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.pbc_pipesmoke.dds",
+    "sha256": "29ec785d4a4e09a161119dac5ff58f0a73b621e129c92be7cfbd027b77c6938f",
+    "bytes": 22000
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bulletshell1.dds",
+    "installFile": "assets/private/dds/bulletshell1.dds",
+    "cachedFile": "assets/private/dds/bulletshell1.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.bulletshell1.dds",
+    "sha256": "b2a38941211194881e79597de1fba0128bdcd5ce69a6cc2203d66b9fa24f0b3d",
+    "bytes": 5616
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/largesmoke1b.dds",
+    "installFile": "assets/private/dds/largesmoke1b.dds",
+    "cachedFile": "assets/private/dds/largesmoke1b.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.largesmoke1b.dds",
+    "sha256": "316fdb130452ce434b06873a04bf35a224fa8b69fceeeab3294f866d6a8a647a",
+    "bytes": 87536
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/shockwave1_white.dds",
+    "installFile": "assets/private/dds/shockwave1_white.dds",
+    "cachedFile": "assets/private/dds/shockwave1_white.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.shockwave1_white.dds",
+    "sha256": "97c4a2e6294c72ae87c3a15d01d06bc811d2683aaaf20a90a903222207c6a2ff",
+    "bytes": 11064
+  },
+  {
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/largesmoke2.dds",
+    "installFile": "assets/private/dds/largesmoke2.dds",
+    "cachedFile": "assets/private/dds/largesmoke2.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.largesmoke2.dds",
+    "sha256": "3a8eb22d370494e6f9a34dfe38fe91033ef878c318118710003c58136d7665c7",
+    "bytes": 87536
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/terrandebrissculpted_diffuse.dds",
+    "installFile": "assets/private/dds/terrandebrissculpted_diffuse.dds",
+    "cachedFile": "assets/private/dds/terrandebrissculpted_diffuse.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.terrandebrissculpted_diffuse.dds",
+    "sha256": "de446581edca1e8346245132db09a3e01d4b363d511e8e1c2468cd7fea0b24f6",
+    "bytes": 349680
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/terrandebrissculpted_specular.dds",
+    "installFile": "assets/private/dds/terrandebrissculpted_specular.dds",
+    "cachedFile": "assets/private/dds/terrandebrissculpted_specular.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.terrandebrissculpted_specular.dds",
+    "sha256": "2a26d9f1dd79a8750c2acbc0426d5fa29bddb9769ab0e4e72f013db733c519e9",
+    "bytes": 174904
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/terrandebrissculpted_normals.dds",
+    "installFile": "assets/private/dds/terrandebrissculpted_normals.dds",
+    "cachedFile": "assets/private/dds/terrandebrissculpted_normals.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.terrandebrissculpted_normals.dds",
+    "sha256": "c3eb15a20af108a89a662b7c2af18460111f81817020183751b23b5691bb4009",
+    "bytes": 349684
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smoke_tendril2.dds",
+    "installFile": "assets/private/dds/smoke_tendril2.dds",
+    "cachedFile": "assets/private/dds/smoke_tendril2.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.smoke_tendril2.dds",
+    "sha256": "a00b10af3c1367c1022147dd81220afcd6802da890a34bb055640fb1c56350fb",
+    "bytes": 43856
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/explosiona1_orange.dds",
+    "installFile": "assets/private/dds/explosiona1_orange.dds",
+    "cachedFile": "assets/private/dds/explosiona1_orange.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.explosiona1_orange.dds",
+    "sha256": "eb1bc7d1a72c20a96ce13c57ebb6fd3e2492a8f9a565a56f3cb9d89a75f4d374",
+    "bytes": 1398256
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/disolvenoise.dds",
+    "installFile": "assets/private/dds/disolvenoise.dds",
+    "cachedFile": "assets/private/dds/disolvenoise.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.disolvenoise.dds",
+    "sha256": "c28d53bbf0a57ca3477e2476b7e9b49bc9fe4b97f03e9328ba897f95e843ae09",
+    "bytes": 43832
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark4.dds",
+    "installFile": "assets/private/dds/blastmark4.dds",
+    "cachedFile": "assets/private/dds/blastmark4.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.blastmark4.dds",
+    "sha256": "195d172a1e2177fc4c1cc7f76574943d58b7a8c3ec7bf1f67ba96b86b61b3d4d",
+    "bytes": 349680
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/radius2.dds",
+    "installFile": "assets/private/dds/radius2.dds",
+    "cachedFile": "assets/private/dds/radius2.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.radius2.dds",
+    "sha256": "2e4b02ad58f83ac0c3a6eb1878086e52097838c7a232126f3b255aef7dda5f0d",
+    "bytes": 87540
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/radius2_strength.dds",
+    "installFile": "assets/private/dds/radius2_strength.dds",
+    "cachedFile": "assets/private/dds/radius2_strength.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.radius2_strength.dds",
+    "sha256": "918872452b3da09c657563487a156805cc8d827dbc5a04830645b644700d4328",
+    "bytes": 87536
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodsquirtrandom_r1sculpted.dds",
+    "installFile": "assets/private/dds/bloodsquirtrandom_r1sculpted.dds",
+    "cachedFile": "assets/private/dds/bloodsquirtrandom_r1sculpted.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.bloodsquirtrandom_r1sculpted.dds",
+    "sha256": "e9b30fb29d7c4fbbd8d83f84639cc13b9a63895323f835a5a6d5e5e48b29a91d",
+    "bytes": 349680
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodsquirtrandom_r1sculptednormals.dds",
+    "installFile": "assets/private/dds/bloodsquirtrandom_r1sculptednormals.dds",
+    "cachedFile": "assets/private/dds/bloodsquirtrandom_r1sculptednormals.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.bloodsquirtrandom_r1sculptednormals.dds",
+    "sha256": "df3a3f265434bf3c6014be120cbdb3613cc601802e649eed63a16dc77da16b04",
+    "bytes": 349684
+  },
+  {
+    "installFile": "assets/private/dds/bloodybuildingguts.dds",
+    "bytes": 349680,
+    "version": "5.0.16.97563",
+    "id": "texture.bloodybuildingguts.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodybuildingguts.dds",
+    "verifiedCascBuild": true,
+    "cachedFile": "assets/private/dds/bloodybuildingguts.dds",
+    "sha256": "6b609c38600854de9e81971bb8bdcb4ffed50593760a7ce3ebaf7ab5637643b9"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodspillinvert.dds",
+    "installFile": "assets/private/dds/bloodspillinvert.dds",
+    "cachedFile": "assets/private/dds/bloodspillinvert.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.bloodspillinvert.dds",
+    "sha256": "99a96b1961ec5d917f56e33498ca24c66cceccf8f90041d4766cfb4fcdc8ffb7",
+    "bytes": 174904
+  },
+  {
+    "installFile": "assets/private/dds/bloodybuildingguts_normal.dds",
+    "bytes": 349684,
+    "version": "5.0.16.97563",
+    "id": "texture.bloodybuildingguts_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodybuildingguts_normal.dds",
+    "verifiedCascBuild": true,
+    "cachedFile": "assets/private/dds/bloodybuildingguts_normal.dds",
+    "sha256": "750cd71f17e3093d3af9d92dc75e5592995775a70a1102a6b34e9ee8c2309a53"
+  },
+  {
+    "installFile": "assets/private/dds/spinecrawler_ribbon_diffuse.dds",
+    "bytes": 43912,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.spinecrawler_ribbon_diffuse.dds",
+    "cachedFile": "assets/private/dds/spinecrawler_ribbon_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_ribbon_diffuse.dds",
+    "sha256": "ed85d8e05fe5bac68dc1ea6a8a973ddfc8d6a3b3f6308a75a83f083f1498c566"
+  },
+  {
+    "installFile": "assets/private/dds/spinecrawler_ribbon_specular.dds",
+    "bytes": 43912,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.spinecrawler_ribbon_specular.dds",
+    "cachedFile": "assets/private/dds/spinecrawler_ribbon_specular.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_ribbon_specular.dds",
+    "sha256": "c6c556511bea11ab6629c41eac3dc46c499ac7b9a5228ca75af7e26e902c8ad3"
+  },
+  {
+    "installFile": "assets/private/dds/spinecrawler_ribbon_normal.dds",
+    "bytes": 87696,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.spinecrawler_ribbon_normal.dds",
+    "cachedFile": "assets/private/dds/spinecrawler_ribbon_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_ribbon_normal.dds",
+    "sha256": "581fa7922a625f4a365ffc25706a9978fd513d8b9276c22cb51adbddf9a38a8a"
+  },
+  {
+    "installFile": "assets/private/dds/largesmoke1.dds",
+    "bytes": 87536,
+    "version": "5.0.16.97563",
+    "id": "texture.largesmoke1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/largesmoke1.dds",
+    "verifiedCascBuild": true,
+    "cachedFile": "assets/private/dds/largesmoke1.dds",
+    "sha256": "f8de4c518da524af13f9700bdc39a4de341c28c06ab3ebdb7241c92fb9ab579a"
+  },
+  {
+    "installFile": "assets/private/dds/dirtdebris1.dds",
+    "bytes": 22000,
+    "version": "5.0.16.97563",
+    "id": "texture.dirtdebris1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/dirtdebris1.dds",
+    "verifiedCascBuild": true,
+    "cachedFile": "assets/private/dds/dirtdebris1.dds",
+    "sha256": "c272740394f6987cbcc541a59f5d12da92fa47b0615943e18193204221ee14bb"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/dust3.dds",
+    "installFile": "assets/private/dds/dust3.dds",
+    "cachedFile": "assets/private/dds/dust3.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.dust3.dds",
+    "sha256": "cbafd0dc52de1dbcf0adfeb6d42d8a5dea669e80fdb0fe24eef192c12cbd7524",
+    "bytes": 5616
+  },
+  {
+    "installFile": "assets/private/dds/spinecrawler_diffuse.dds",
+    "bytes": 1398256,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.spinecrawler_diffuse.dds",
+    "cachedFile": "assets/private/dds/spinecrawler_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_diffuse.dds",
+    "sha256": "9f267cd92b084474f3de6a2bceb90928f22b1215b0ac0e809467d5a83a386541"
+  },
+  {
+    "installFile": "assets/private/dds/spinecrawler_specular.dds",
+    "bytes": 1398256,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.spinecrawler_specular.dds",
+    "cachedFile": "assets/private/dds/spinecrawler_specular.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_specular.dds",
+    "sha256": "354e28d077d154cbd5a84d5e113696c108b6a62185fb99056fab190bdd07a6f2"
+  },
+  {
+    "installFile": "assets/private/dds/spinecrawler_normal.dds",
+    "bytes": 1398260,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.spinecrawler_normal.dds",
+    "cachedFile": "assets/private/dds/spinecrawler_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/spinecrawler_normal.dds",
+    "sha256": "b27dfa3723f17c32532fe0c3ef8e12836fc628a6713d2ad4ae6536932e7cc4d1"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodterrantile.dds",
+    "installFile": "assets/private/dds/bloodterrantile.dds",
+    "cachedFile": "assets/private/dds/bloodterrantile.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.bloodterrantile.dds",
+    "sha256": "58442f75de01c260aed5b426ad2f97d5a9e454a37a3c6c684a6f735e449cad6e",
+    "bytes": 87536
+  },
+  {
+    "installFile": "assets/private/dds/gen_splat3_spec.dds",
+    "bytes": 87536,
+    "version": "5.0.16.97563",
+    "id": "texture.gen_splat3_spec.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat3_spec.dds",
+    "verifiedCascBuild": true,
+    "cachedFile": "assets/private/dds/gen_splat3_spec.dds",
+    "sha256": "8e0380cdbb314111d0cb3cab7e74d31139f542fc010ee3b82a67059f39e51db4"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat3.dds",
+    "installFile": "assets/private/dds/gen_splat3.dds",
+    "cachedFile": "assets/private/dds/gen_splat3.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.gen_splat3.dds",
+    "sha256": "44b9b83f3223ec953f6353eb7084f54566f0cd75cee16890dac7bdaeef789c0e",
+    "bytes": 87536
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat4_normal2.dds",
+    "installFile": "assets/private/dds/gen_splat4_normal2.dds",
+    "cachedFile": "assets/private/dds/gen_splat4_normal2.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.gen_splat4_normal2.dds",
+    "sha256": "c155be21905549082be027689d1c419513a96ff4830f680a070201d061461d18",
+    "bytes": 87540
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsculptedcarapacered_diffuse.dds",
+    "installFile": "assets/private/dds/zergsculptedcarapacered_diffuse.dds",
+    "cachedFile": "assets/private/dds/zergsculptedcarapacered_diffuse.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.zergsculptedcarapacered_diffuse.dds",
+    "sha256": "6a10aac63ede05684ed9772108a5bf4d59b8c15c5764709edb889a333933d543",
+    "bytes": 349680
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsculptedcarapace_normals.dds",
+    "installFile": "assets/private/dds/zergsculptedcarapace_normals.dds",
+    "cachedFile": "assets/private/dds/zergsculptedcarapace_normals.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.zergsculptedcarapace_normals.dds",
+    "sha256": "0eb4db4842d89643e120fa0de69f4b0d001dd8aa7598dba5875d88aa0684ce02",
+    "bytes": 349684
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smokelit.dds",
+    "installFile": "assets/private/dds/smokelit.dds",
+    "cachedFile": "assets/private/dds/smokelit.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.smokelit.dds",
+    "sha256": "7937f866e203c0ea6dcad8c4979977e7b3f64b58cd247719e807f20157e5e9bd",
+    "bytes": 22000
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blood_trailsculpted_diffuse.dds",
+    "installFile": "assets/private/dds/blood_trailsculpted_diffuse.dds",
+    "cachedFile": "assets/private/dds/blood_trailsculpted_diffuse.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.blood_trailsculpted_diffuse.dds",
+    "sha256": "714df4a62ee5e5d684d9d642031262ea04d2c1e74b09f2dc1aa8186b37443272",
+    "bytes": 87536
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gootrailsculpted_normals.dds",
+    "installFile": "assets/private/dds/gootrailsculpted_normals.dds",
+    "cachedFile": "assets/private/dds/gootrailsculpted_normals.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.gootrailsculpted_normals.dds",
+    "sha256": "760f1852ca0220d7c1f867bb2221f6afd9b5c3ce8110fb7a392041e1e774b143",
+    "bytes": 87540
+  },
+  {
+    "installFile": "assets/private/dds/zergsplatbuildingdeath_defuse.dds",
+    "bytes": 1398256,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.zergsplatbuildingdeath_defuse.dds",
+    "cachedFile": "assets/private/dds/zergsplatbuildingdeath_defuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsplatbuildingdeath_defuse.dds",
+    "sha256": "e087edcf6d588fcd71bfe3e9735b6096ae879a6c63a5a555f4040ab140a5fcbf"
+  },
+  {
+    "installFile": "assets/private/dds/zergsplatbuildingdeath_spec.dds",
+    "bytes": 699192,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.zergsplatbuildingdeath_spec.dds",
+    "cachedFile": "assets/private/dds/zergsplatbuildingdeath_spec.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsplatbuildingdeath_spec.dds",
+    "sha256": "02f8c69a2e53f509b58ddba62e9b38fed35ec2aa92387a8701958b171f09044a"
+  },
+  {
+    "installFile": "assets/private/dds/zergsplatbuildingdeath_normal.dds",
+    "bytes": 1398260,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.zergsplatbuildingdeath_normal.dds",
+    "cachedFile": "assets/private/dds/zergsplatbuildingdeath_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergsplatbuildingdeath_normal.dds",
+    "sha256": "32d63916f97c48ac3a5c0dfef3dba57247656c3abb55b9cd73c156da7b3d3f8b"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/heatwave1.dds",
+    "installFile": "assets/private/dds/heatwave1.dds",
+    "cachedFile": "assets/private/dds/heatwave1.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.heatwave1.dds",
+    "sha256": "e96e624acbcfd066d3c0e45fb8e7aaf28bea527c84c0854ba45a729e6a3074b4",
+    "bytes": 87540
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/heatradius1_strength.dds",
+    "installFile": "assets/private/dds/heatradius1_strength.dds",
+    "cachedFile": "assets/private/dds/heatradius1_strength.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.heatradius1_strength.dds",
+    "sha256": "c450967bf9e0006bc61da03839c50e616804b93f0f57343e52b2d43dc8eab7d3",
+    "bytes": 87536
+  },
+  {
+    "installFile": "assets/private/dds/photoncannonbase_diffuse.dds",
+    "bytes": 349680,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.photoncannonbase_diffuse.dds",
+    "cachedFile": "assets/private/dds/photoncannonbase_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannonbase_diffuse.dds",
+    "sha256": "5ea0b6e1e68400c8b93c36a5ca15032f32167f7aa826aba4e63b93239214518e"
+  },
+  {
+    "installFile": "assets/private/dds/decal_protoss_0000_01.dds",
+    "bytes": 87536,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.decal_protoss_0000_01.dds",
+    "cachedFile": "assets/private/dds/decal_protoss_0000_01.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/decal_protoss_0000_01.dds",
+    "sha256": "a66a5f96653870d31360f7a85fee7522d60ccfc1e5163776762c7dfdc35f60dd"
+  },
+  {
+    "installFile": "assets/private/dds/photoncannonbase_specular.dds",
+    "bytes": 349680,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.photoncannonbase_specular.dds",
+    "cachedFile": "assets/private/dds/photoncannonbase_specular.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannonbase_specular.dds",
+    "sha256": "1f2a4044b4f6e216d5cc1ca89c70c8ef1151e05dbd033da4e460370c4304d36f"
+  },
+  {
+    "installFile": "assets/private/dds/photoncannonbase_emissive.dds",
+    "bytes": 349680,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.photoncannonbase_emissive.dds",
+    "cachedFile": "assets/private/dds/photoncannonbase_emissive.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannonbase_emissive.dds",
+    "sha256": "6a8c4bc53c277fe404e5e7ee289629bdb51120bc2043849e95454c507dc25f25"
+  },
+  {
+    "installFile": "assets/private/dds/photoncannonbase_normal.dds",
+    "bytes": 349684,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.photoncannonbase_normal.dds",
+    "cachedFile": "assets/private/dds/photoncannonbase_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannonbase_normal.dds",
+    "sha256": "268ae867e4812360526d0acf9865926d18af0b705f2004e7525f473cba0b9c11"
+  },
+  {
+    "installFile": "assets/private/dds/grad_rays_blue1.dds",
+    "bytes": 2872,
+    "version": "5.0.16.97563",
+    "id": "texture.grad_rays_blue1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/grad_rays_blue1.dds",
+    "verifiedCascBuild": true,
+    "cachedFile": "assets/private/dds/grad_rays_blue1.dds",
+    "sha256": "516fc909f956208e6e607e77d4e0f8273b45feff6c73a61fa71c27f5d445037b"
+  },
+  {
+    "installFile": "assets/private/dds/tronsquare1_aqua.dds",
+    "bytes": 2176,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.tronsquare1_aqua.dds",
+    "cachedFile": "assets/private/dds/tronsquare1_aqua.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tronsquare1_aqua.dds",
+    "sha256": "98fbc601e19bcdbf355d2e24dda295648568d3867de817cc54988c37e7c3a392"
+  },
+  {
+    "installFile": "assets/private/dds/photoncannon_diffuse.dds",
+    "bytes": 349680,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.photoncannon_diffuse.dds",
+    "cachedFile": "assets/private/dds/photoncannon_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannon_diffuse.dds",
+    "sha256": "1f2fc6f592f5b74b331f5377ba432f489292a9804c719291df06ccd9989fbb6a"
+  },
+  {
+    "installFile": "assets/private/dds/photoncannon_specular.dds",
+    "bytes": 174904,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.photoncannon_specular.dds",
+    "cachedFile": "assets/private/dds/photoncannon_specular.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannon_specular.dds",
+    "sha256": "d4b5e55c55cbf613d817f8199645d0e7eb74347a5121692357496d842ad8950a"
+  },
+  {
+    "installFile": "assets/private/dds/photoncannon_emissive.dds",
+    "bytes": 349680,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.photoncannon_emissive.dds",
+    "cachedFile": "assets/private/dds/photoncannon_emissive.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannon_emissive.dds",
+    "sha256": "d36ef673dcc605c17cc0b5a1a6f9d5138d39d17a5e8671ee35122ede5e9ce6eb"
+  },
+  {
+    "installFile": "assets/private/dds/photoncannon_normal.dds",
+    "bytes": 349684,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.photoncannon_normal.dds",
+    "cachedFile": "assets/private/dds/photoncannon_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/photoncannon_normal.dds",
+    "sha256": "9d515777db30cca7880fa453279af970ac3d5c77f140f941719898c372b63c39"
+  },
+  {
+    "installFile": "assets/private/dds/pylonring1.dds",
+    "bytes": 174904,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.pylonring1.dds",
+    "cachedFile": "assets/private/dds/pylonring1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pylonring1.dds",
+    "sha256": "5229d1b883cacf859bcfbfc9cc7348d032b0c7df6381c2b96a30de2cccce8686"
+  },
+  {
+    "installFile": "assets/private/dds/lazerbolt1_blue.dds",
+    "bytes": 11080,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.lazerbolt1_blue.dds",
+    "cachedFile": "assets/private/dds/lazerbolt1_blue.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lazerbolt1_blue.dds",
+    "sha256": "b85bbb03477d62a6398b76bdd7c0ef5b3962cac92e0a5dcfdaffdecde229aef4"
+  },
+  {
+    "installFile": "assets/private/dds/protoss_tech1.dds",
+    "bytes": 22000,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.protoss_tech1.dds",
+    "cachedFile": "assets/private/dds/protoss_tech1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/protoss_tech1.dds",
+    "sha256": "70a71096c385a89bd40a3412f82db2c9cc58b482540012a9191fb2892550aa4c"
+  },
+  {
+    "installFile": "assets/private/dds/genericglow2c.dds",
+    "bytes": 22000,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.genericglow2c.dds",
+    "cachedFile": "assets/private/dds/genericglow2c.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/genericglow2c.dds",
+    "sha256": "82d81db9d15778b6b1d913038a16a2bd3b3f96b1bcdbce279d015cd04be2b483"
+  },
+  {
+    "installFile": "assets/private/dds/protoss_target_ring.dds",
+    "bytes": 22000,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.protoss_target_ring.dds",
+    "cachedFile": "assets/private/dds/protoss_target_ring.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/protoss_target_ring.dds",
+    "sha256": "8f61f432815300a085293953e11928bb9358b7cc5256fa78f97469344cb08bd3"
+  },
+  {
+    "installFile": "assets/private/dds/warpline2_blue.dds",
+    "bytes": 22032,
+    "version": "5.0.16.97563",
+    "id": "texture.warpline2_blue.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/warpline2_blue.dds",
+    "verifiedCascBuild": true,
+    "cachedFile": "assets/private/dds/warpline2_blue.dds",
+    "sha256": "41966053b9c146aa82942d707fa318ce76354008c1b996b1137236a51b71c9e0"
+  },
+  {
+    "installFile": "assets/private/dds/flare2b.dds",
+    "bytes": 43832,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.flare2b.dds",
+    "cachedFile": "assets/private/dds/flare2b.dds",
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/flare2b.dds",
+    "sha256": "2cb3274a0cbf0d200e8baf220dfe2b36ea27947c63ba830995630191b1558fde"
+  },
+  {
+    "installFile": "assets/private/dds/smoke_wispy9.dds",
+    "bytes": 87536,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.smoke_wispy9.dds",
+    "cachedFile": "assets/private/dds/smoke_wispy9.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smoke_wispy9.dds",
+    "sha256": "d83b099dc663654ad118a6fecf47cb8afa3cc01ebfb2077b63b331383b2d349f"
+  },
+  {
+    "installFile": "assets/private/dds/lightningzap4_r1.dds",
+    "bytes": 87528,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.lightningzap4_r1.dds",
+    "cachedFile": "assets/private/dds/lightningzap4_r1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/lightningzap4_r1.dds",
+    "sha256": "c515f63d03dd667bafc537cdf26b64ce475eaaad2e2916271a1abc32f83301a7"
+  },
+  {
+    "installFile": "assets/private/dds/blueboom1.dds",
+    "bytes": 1398256,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.blueboom1.dds",
+    "cachedFile": "assets/private/dds/blueboom1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blueboom1.dds",
+    "sha256": "f57044e66d28931251ab129b2db095933b1947cfe2cf491ab4db0bd56625917c"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/glow_haze1grey.dds",
+    "installFile": "assets/private/dds/glow_haze1grey.dds",
+    "cachedFile": "assets/private/dds/glow_haze1grey.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.glow_haze1grey.dds",
+    "sha256": "a34030b17c2e397b551a870491250d5f0350e20f22c59abebef5f8c6c0563970",
+    "bytes": 11064
+  },
+  {
+    "installFile": "assets/private/dds/shockwave_blur1_blue.dds",
+    "bytes": 11064,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.shockwave_blur1_blue.dds",
+    "cachedFile": "assets/private/dds/shockwave_blur1_blue.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/shockwave_blur1_blue.dds",
+    "sha256": "35b392af53987876e2a18ac921126f7920d82d99535d6d94ff4031fa5b0f42c3"
+  },
+  {
+    "installFile": "assets/private/dds/glow_blue3tail.dds",
+    "bytes": 5648,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.glow_blue3tail.dds",
+    "cachedFile": "assets/private/dds/glow_blue3tail.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/glow_blue3tail.dds",
+    "sha256": "4f8388972e95eb0ee25aefda8a0740daabf124aa4a3970af0ecd0583de8375de"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/glow_blue3.dds",
+    "installFile": "assets/private/dds/glow_blue3.dds",
+    "cachedFile": "assets/private/dds/glow_blue3.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.glow_blue3.dds",
+    "sha256": "5bf2191cbb72f4f1ba07e580864dff53d59bc1bc6429e645c01d8b0fd526dc29",
+    "bytes": 22000
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/protossdebrissculpted_diffuse.dds",
+    "installFile": "assets/private/dds/protossdebrissculpted_diffuse.dds",
+    "cachedFile": "assets/private/dds/protossdebrissculpted_diffuse.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.protossdebrissculpted_diffuse.dds",
+    "sha256": "d2458b3695953ea94e31266f349d75e5009c2b61841e2fde9d4c75ddfe0bcc1f",
+    "bytes": 349680
+  },
+  {
+    "installFile": "assets/private/dds/energyplane3.dds",
+    "bytes": 87536,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.energyplane3.dds",
+    "cachedFile": "assets/private/dds/energyplane3.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/energyplane3.dds",
+    "sha256": "cdbbe0baa1978dabe23146995f1a98e240b31c964787cea8eeca5b89c5fee81b"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smoke_tendril1.dds",
+    "installFile": "assets/private/dds/smoke_tendril1.dds",
+    "cachedFile": "assets/private/dds/smoke_tendril1.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.smoke_tendril1.dds",
+    "sha256": "7eeafab0486bd2c3b2b0e16aa7c546d7f65a5d1e2d30a5c02753f2864ed59896",
+    "bytes": 5608
+  },
+  {
+    "installFile": "assets/private/dds/blastmark4blue.dds",
+    "bytes": 174904,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.blastmark4blue.dds",
+    "cachedFile": "assets/private/dds/blastmark4blue.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark4blue.dds",
+    "sha256": "c96ab88ec935e21e8fa837168b9baac65dcd5704737a06a90dd712b84538d0c2"
+  },
+  {
+    "installFile": "assets/private/dds/blastmark12_diffuse.dds",
+    "bytes": 349680,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.blastmark12_diffuse.dds",
+    "cachedFile": "assets/private/dds/blastmark12_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark12_diffuse.dds",
+    "sha256": "854e97a8251a98f5ba4137a336a44a772c5996c5331ac5442c3e2b29f3c4344d"
+  },
+  {
+    "installFile": "assets/private/dds/blastmark12_spec.dds",
+    "bytes": 349680,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.blastmark12_spec.dds",
+    "cachedFile": "assets/private/dds/blastmark12_spec.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark12_spec.dds",
+    "sha256": "c31b8d1520ca60b2946c700c10198ad24ee1429e0d86572d457fefb5e212b9be"
+  },
+  {
+    "installFile": "assets/private/dds/blastmark12_normal.dds",
+    "bytes": 349684,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.blastmark12_normal.dds",
+    "cachedFile": "assets/private/dds/blastmark12_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark12_normal.dds",
+    "sha256": "7dc778d85c0a6297e31d4fe87bc61c3df9ce00a0c7ad8eee2fd3d6c01631e57e"
+  },
+  {
+    "installFile": "assets/private/dds/flame3blue_r1.dds",
+    "bytes": 65664,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "id": "texture.flame3blue_r1.dds",
+    "cachedFile": "assets/private/dds/flame3blue_r1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/flame3blue_r1.dds",
+    "sha256": "e6ee7d109f8a865cad488dbbc813717a28e0d05c09f08f1172a7376e1d4f3f4e"
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-terran-marauder.dds",
+    "installFile": "assets/private/dds/btn-unit-terran-marauder.dds",
+    "cachedFile": "assets/private/dds/btn-unit-terran-marauder.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.btn-unit-terran-marauder.dds",
+    "sha256": "8581f9c929230b0a10437995ac3d4e1801ef7cc6a9f92027a3f0ceb56010b50a",
+    "bytes": 5904
+  },
+  {
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-unit-zerg-hydralisk.dds",
+    "installFile": "assets/private/dds/btn-unit-zerg-hydralisk.dds",
+    "cachedFile": "assets/private/dds/btn-unit-zerg-hydralisk.dds",
+    "verifiedCascBuild": true,
+    "version": "5.0.16.97563",
+    "id": "texture.btn-unit-zerg-hydralisk.dds",
+    "sha256": "b3c98dffe5c480137feec48a90ea24ec6b4c7fca91d425bb7df7c83aa77b7f7f",
+    "bytes": 5904
+  },
+  {
+    "bytes": 5904,
+    "cachedFile": "assets/private/dds/btn-unit-terran-marineraynorhev.dds",
+    "verifiedCascBuild": true,
+    "id": "texture.btn-unit-terran-marineraynorhev.dds",
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/btn-unit-terran-marineraynorhev.dds",
+    "sha256": "f6fee76037ea8ef85b1ef02b1323a17e84489fd2d221847a1569dd17beeae1f5",
+    "installFile": "assets/private/dds/btn-unit-terran-marineraynorhev.dds",
+    "version": "5.0.16.97563"
+  },
+  {
+    "bytes": 5904,
+    "cachedFile": "assets/private/dds/btn-unit-terran-marinetychus.dds",
+    "verifiedCascBuild": true,
+    "id": "texture.btn-unit-terran-marinetychus.dds",
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/btn-unit-terran-marinetychus.dds",
+    "sha256": "6f077badf980b7a0e5787a5d5b409291a72169b7e953c16da9c839be0749c3b1",
+    "installFile": "assets/private/dds/btn-unit-terran-marinetychus.dds",
+    "version": "5.0.16.97563"
+  },
+  {
+    "bytes": 5904,
+    "cachedFile": "assets/private/dds/btn-unit-terran-nova.dds",
+    "verifiedCascBuild": true,
+    "id": "texture.btn-unit-terran-nova.dds",
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/btn-unit-terran-nova.dds",
+    "sha256": "661481e64a7052d69abcad43377905d89c27a9a63cfccf6ecaba34df9bb62d7b",
+    "installFile": "assets/private/dds/btn-unit-terran-nova.dds",
+    "version": "5.0.16.97563"
+  },
+  {
+    "sha256": "78c848aea2e6e5587fbcdc8601ccb31cd171db569024d4e766840bc560a9226e",
+    "cachedFile": "assets/private/dds/btn-ability-terran-penetratorround.dds",
+    "bytes": 5904,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-ability-terran-penetratorround.dds",
+    "id": "texture.btn-ability-terran-penetratorround.dds",
+    "installFile": "assets/private/dds/btn-ability-terran-penetratorround.dds"
+  },
+  {
+    "sha256": "77e033b7e939a2ed1ade828bfa93f269557c4c215eb9151b672b0ab99408cc1c",
+    "cachedFile": "assets/private/dds/btn-ability-terran-punishergrenade-color.dds",
+    "bytes": 5904,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-ability-terran-punishergrenade-color.dds",
+    "id": "texture.btn-ability-terran-punishergrenade-color.dds",
+    "installFile": "assets/private/dds/btn-ability-terran-punishergrenade-color.dds"
+  },
+  {
+    "sha256": "44c53acad8ba4f9c19e7beb73203c9f316df003a7f139e547f09cedf5620aeea",
+    "cachedFile": "assets/private/dds/btn-ability-terran-snipe-color.dds",
+    "bytes": 5904,
+    "version": "5.0.16.97563",
+    "verifiedCascBuild": true,
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/btn-ability-terran-snipe-color.dds",
+    "id": "texture.btn-ability-terran-snipe-color.dds",
+    "installFile": "assets/private/dds/btn-ability-terran-snipe-color.dds"
+  }
+]

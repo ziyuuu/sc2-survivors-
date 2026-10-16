@@ -1,3 +1,4 @@
+import {EquipmentEffects} from './equipment-effects';
 import * as THREE from 'three';
 import type {World} from '../../simulation/world';
 import type {Entity,Point,VisualEvent} from '../../simulation/types';
@@ -23,12 +24,12 @@ const rate=1.4;
 /** One route owns each core weapon layer. All receipts and trajectories below are
  * read-only native state; this renderer has no World mutation or random calls. */
 export class SourceCombatEffects {
- readonly player:SourceEffectPlayer;private serial=0;private time=0;private run='';private echoes:Echo[]=[];
+ readonly player:SourceEffectPlayer;private equipment:EquipmentEffects;private serial=0;private time=0;private run='';private echoes:Echo[]=[];
  private mounts=new Map<string,P[]>();private launched=new Set<number>();private routes=new Set<string>();private flights=0;private events=0;
  private hologramDeaths=new Map<number,VisualEvent>();
- constructor(scene:THREE.Scene,camera:THREE.Camera,private fx:BattleEffects){this.player=new SourceEffectPlayer(scene,camera);}
+ constructor(scene:THREE.Scene,camera:THREE.Camera,private fx:BattleEffects){this.player=new SourceEffectPlayer(scene,camera);this.equipment=new EquipmentEffects(scene);}
  load(){return this.player.load();}
- reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.player.reset();}
+ reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.player.reset();this.equipment.reset();}
  report(){return {routes:[...this.routes],events:this.events,flights:this.flights,echoes:this.echoes.length,source:this.player.report()};}
  private request(model:string,key:string,age:number,placement:SourcePlacement,ground:(p:Point)=>number,options:Partial<SourceEffectRequest>={}){
   this.player.add({key,model,age:Math.max(0,age*rate),clockRate:rate,seed:sourceSeed(key),placement,...options},ground);
@@ -36,7 +37,7 @@ export class SourceCombatEffects {
  private event(w:World,u:Entity,time=w.time,kind:VisualEvent['kind']='attack',end:Point&{flying?:boolean}=u):VisualEvent{
   const a=point(w,u),b=point(w,end);return {serial:0,time,kind,x:u.x,z:u.z,y:a.y,endY:b.y,end:{x:end.x,z:end.z},entityId:u.id,unitType:u.unitType,modelKey:u.modelKey,heroId:u.heroId,eliteId:u.eliteId,rank:u.rank,race:u.race,nativeMode:u.nativeMode,activeWeapon:u.activeWeapon,sourceTeam:u.team,enemyTier:u.enemyTier,summonKind:u.summonKind,rewardSourceKind:u.rewardSourceKind,visualScale:u.visualScale,shotSequence:u.shotSequence,attackId:`${u.id}:${u.shotSequence}`,projectileSpeed:weaponFlightSpeed(u),flying:u.flying,facing:u.attackFacing??u.facing,siege:u.mode==='siege',targetFlying:end.flying};
  }
- render(w:World,muzzle:Mount,bodyPose:BodyPose,shieldBounds?:ShieldBounds){
+ render(w:World,muzzle:Mount,bodyPose:BodyPose,shieldBounds?:ShieldBounds,equipmentMount?:(event:import('../../simulation/starship/presentation').EquipmentPresentationReceipt)=>P|undefined){
   if(!this.player.ready)return;if(w.time<this.time||this.run!==(w.runId??''))this.reset();this.time=w.time;this.run=w.runId??'';this.routes.clear();this.flights=this.events=0;this.player.begin(w.time);const ground=(p:Point)=>w.terrain?.height(p)??0;
   this.fx.sourceEventIds.clear();
   for(const e of w.visualEvents){const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break',hologram=e.kind==='death'&&sourceHologramDeath(e);if(sourceOwnsEvent(e)||shieldReceipt||hologram)this.fx.sourceEventIds.add(e.serial);if(e.serial<=this.serial)continue;
@@ -127,6 +128,7 @@ export class SourceCombatEffects {
   // Only real death receipts start this one-shot. Retain its event snapshot if
   // the unit is reclaimed; completed deaths are never synthesized after reload.
   for(const [id,e]of this.hologramDeaths){const age=w.time-e.time,model='Hologram_Death_Large';if(age>sourceLife(SOURCE_EFFECTS[model])/rate){this.hologramDeaths.delete(id);continue;}this.routes.add('science-vessel-hologram-death');this.request(model,'hologram-death:'+id+':'+e.serial,age,{x:e.x,y:e.y,z:e.z,facing:e.facing},ground,{clip:'Death'});}
+  this.equipment.render(w,this.player,ground,equipmentMount);
   this.player.end();
  }
  private echo(w:World,echo:Echo,ground:(p:Point)=>number,muzzle:Mount,bodyPose:BodyPose){

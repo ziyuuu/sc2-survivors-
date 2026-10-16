@@ -1,3 +1,5 @@
+import {equipmentManualSucceeded,equipmentControlBoost} from '../starship/controls';
+import {equipmentValue} from '../starship/modules';
 import type {World} from '../world';
 import type {Entity,Point} from '../types';
 import {blocked} from '../movement/steering';
@@ -40,7 +42,7 @@ function previewFor(w:World,origin:Point,direction:Point,target:Point,ids:number
 export function defaultTalentTransferTarget(w:World):Point {const point=w.order?.kind==='move'?w.order.point:w.anchor,dx=point.x-w.anchor.x,dz=point.z-w.anchor.z,d=Math.hypot(dx,dz),scale=d>16?16/d:1;return {x:w.anchor.x+dx*scale,z:w.anchor.z+dz*scale};}
 export function previewTalentTransfer(w:World,target:Point,participantIds?:number[]):TalentTransferPreview {const origin={x:w.anchor.x,z:w.anchor.z},direction=directionOf(w.anchor.facing),ids=participantIds??defaultParticipants(w,origin);return previewFor(w,origin,direction,target,ids,true);}
 export function prepareTalentTransfer(w:World,target:Point,participantIds?:number[]){const preview=previewTalentTransfer(w,target,participantIds);if(!preview.ok)return false;
- const region=currentRegion(w),rank=w.talent('quick_siege'),duration=w.expedition.race==='protoss'&&rank?Math.max(.25,2*(1-.33*rank)):2;
+ const region=currentRegion(w),rank=w.talent('quick_siege'),duration=w.expedition.race==='protoss'?Math.max(.25,2*(1-Math.max(.33*rank,equipmentValue(w,'prepare_reduction'),...w.allies().map(u=>equipmentControlBoost(w,u)?.values[5]??0)))):2;
  w.talentTransferPlan={origin:{x:w.anchor.x,z:w.anchor.z},direction:directionOf(w.anchor.facing),target:{x:target.x,z:target.z},...region,readyAt:w.time+duration,participants:preview.participantIds.map(id=>({id,generation:w.entities.get(id)!.bornAt}))};
  w.changed();return true;
 }
@@ -51,5 +53,5 @@ export function finishTalentTransfer(w:World){const plan=w.talentTransferPlan;if
  const alive=plan.participants.filter(item=>{const unit=w.entities.get(item.id);return !!unit&&unit.hp>0&&unit.bornAt===item.generation;}).map(item=>item.id);
  const preview=previewFor(w,plan.origin,plan.direction,plan.target,alive,false);if(!preview.ok){cancelTalentTransfer(w);return false;}
  for(const item of preview.positions){const unit=w.entities.get(item.id)!;w.visual('squad-transfer',unit,item);unit.x=item.x;unit.z=item.z;unit.prev={x:item.x,z:item.z};unit.velocity={x:0,z:0};}
- w.talentTransferPlan=null;w.airliftReady=w.time+(w.talent('airlift')===1?180:90)*Math.max(.5,1-.1*w.talent('skill_recovery'));w.changed();return true;
+ w.talentTransferPlan=null;w.airliftReady=w.time+(w.talent('airlift')===1?180:90)*Math.max(.5,1-.1*w.talent('skill_recovery')-equipmentValue(w,'manual_cooldown'));equipmentManualSucceeded(w,'transfer');w.changed();return true;
 }

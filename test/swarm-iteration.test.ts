@@ -4,6 +4,7 @@ import {World} from '../src/simulation/world';
 import {rankStats} from '../src/data/ranks';
 import {SC2_UNITS} from '../src/data/sc2-units';
 import {enemySpawnGrowth,ordinaryEnemyRank} from '../src/data/enemy-progression';
+import {continuousLingHp,continuousSpecialProfile} from '../src/data/enemy-tuning';
 import {newSwarmState,planSwarm,SWARM_TYPES} from '../src/data/swarm';
 import {endlessWaveTemplate,endlessEconomicEvents,nextEndlessExpansion} from '../src/data/endless';
 import {setDiagnosticHealthLock,diagnosticHealthLock} from '../src/diagnostics/combat-lock';
@@ -31,18 +32,18 @@ test('ordinary release reserves campaign Boss capacity without deleting queued b
  const pod=w.spawnPod('marine',{x:8,z:0});pod.guardTypes=['zergling'];w.landPod(pod);assert.equal(pod.guardianIds.size,0);
  w.stageElapsed=45;w.tick=2700;w.time=45;w.step();
  assert.equal(w.enemyCount(),300);assert.ok([...w.entities.values()].some(e=>e.enemyTier==='boss'&&e.unitType==='ultralisk'));
- assert.equal(pod.guardianIds.size,0);assert.ok(w.swarm.pending.length>0);
+ assert.equal(pod.guardianIds.size,0);assert.ok((w as any).ambientBacklog.some((e:any)=>e.stamp.density===.3));assert.equal(w.swarm.planned,0);
 });
 for(const difficulty of ['easy','normal','hard','hell'] as const)test(`spawn rank and frozen HP ${difficulty}`,()=>{
  const w=new World({difficulty,waves:false,terrain:false,obstacles:[]});w.start();
  for(const stage of [1,2,3,4,6,7,12,13,18]){w.stage=stage;const u=w.addUnit('zergling','zerg',0,8),g=enemySpawnGrowth(difficulty,stage,'regular');
-  close(u.hp,([18,24,30][stage-1]??35)*g.health);assert.equal(u.rank,ordinaryEnemyRank(stage));u.hp-=2;const before=[u.hp,u.maxHp,u.weaponDamage,u.attackPeriod,u.armor];w.stage=18;w.refreshStats(u);[u.hp,u.maxHp,u.weaponDamage,u.attackPeriod,u.armor].forEach((v,i)=>close(v,before[i]));
+  close(u.hp,(difficulty==='easy'?([18,24,30][stage-1]??35):continuousLingHp((stage-1)/18))*g.health);assert.equal(u.rank,ordinaryEnemyRank(stage));u.hp-=2;const before=[u.hp,u.maxHp,u.weaponDamage,u.attackPeriod,u.armor];w.stage=18;w.refreshStats(u);[u.hp,u.maxHp,u.weaponDamage,u.attackPeriod,u.armor].forEach((v,i)=>close(v,before[i]));
  }
  for(const type of SWARM_TYPES){const u=w.addUnit(type,'zerg',0,8,1,'swarm'),d=SC2_UNITS[type];close(u.hp,d.maxHp);close(u.weaponDamage,d.attackDamage);close(u.attackPeriod,d.attackPeriod);close(u.armor,d.armor);assert.equal(u.rank,1);}
 });
-test('ordinary V has five times direct weapon DPS; easy halves each increment',()=>{
- const g=enemySpawnGrowth('normal',18,'regular',5);close(g.damage*g.attackSpeed,5);close(g.health,4.2);close(g.armor,2);
- const e=enemySpawnGrowth('easy',18,'regular',5);close(e.health,2.6);close(e.armor,1);assert.equal(ordinaryEnemyRank(18,1),3);assert.equal(ordinaryEnemyRank(18,2),3);assert.equal(ordinaryEnemyRank(18,3),4);assert.equal(ordinaryEnemyRank(18,5),5);
+test('R2 endless retains rank III and applies elapsed-time growth instead of rank IV/V jumps',()=>{
+ const g=enemySpawnGrowth('normal',18,'regular',5);close(g.damage*g.attackSpeed,3.2*1.1**4*1.45*1.025**4);close(g.health,3.4*1.22**4);close(g.armor,1);
+ const e=enemySpawnGrowth('easy',18,'regular',5);close(e.health,1.8*1.22**4);close(e.armor,.5);for(const r of [1,2,3,5,12])assert.equal(ordinaryEnemyRank(18,r),3);
 });
 test('reaper adaptation changes player hits only and composes once with ranks',()=>{
  const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();const u=w.addUnit('reaper','terran',0,0,5);close(u.weaponDamage,6*rankStats(5).damage*1.15);assert.equal(SC2_UNITS.reaper.attackDamage,4);close(u.attackRange,5);w.refreshStats(u);close(u.weaponDamage,6*rankStats(5).damage*1.15);
@@ -56,8 +57,8 @@ test('swarm totals, saved remainder, idempotent scheduling and fixed composition
  const count=state.pending.length;planSwarm(state,18,'normal',22,1650,150);assert.equal(state.pending.length,count);
  const e=newSwarmState();for(let round=1;round<=9;round++)planSwarm(e,18,'easy',4,(round-1)*60,60,round);assert.equal(e.planned,300);
 });
-test('sixty-second slices preserve four-minute wave and economy density',()=>{
- const waves=Array.from({length:4},(_,i)=>endlessWaveTemplate(41,i+1,'normal').map(w=>({...w,at:w.at+i*60}))).flat();assert.equal(waves.length,15);assert.equal(waves.at(-1)!.at,224);
+test('sixty-second rounds have four waves each and preserve the four-minute economic schedule',()=>{
+ const waves=Array.from({length:4},(_,i)=>endlessWaveTemplate(41,i+1,'normal').map(w=>({...w,at:w.at+i*60}))).flat();assert.equal(waves.length,16);assert.equal(waves.at(-1)!.at,225);
  const events=Array.from({length:4},(_,i)=>endlessEconomicEvents(41,i+1)).flat();assert.equal(events.length,6);for(let r=1;r<=8;r++)assert.ok(endlessWaveTemplate(41,r,'normal').every(w=>w.at>=0&&w.at<60));
  assert.equal(nextEndlessExpansion(20),60);assert.equal(nextEndlessExpansion(60),100);assert.equal(nextEndlessExpansion(180),260);
 });
@@ -113,7 +114,7 @@ test('capacity-delayed campaign boss survives transition/save and endless specia
  a.nextStage();assert.equal(w.stage,4);const deferred=a.specialPlan.find((e:any)=>e.sourceStage===3&&e.tier==='boss');assert.ok(deferred);assert.equal(deferred.at,0);
  const copy=new World({difficulty:'normal',waves:false,terrain:new FlatTerrain(),obstacles:[]});copy.restoreRun(w.captureRun());assert.deepEqual((copy as any).specialPlan,a.specialPlan);
  [...copy.entities.values()].find(e=>e.owner==='zerg')!.hp=0;
- const spawned=(copy as any).spawnCampaignSpecial(deferred);assert.ok(spawned);close(spawned.maxHp,810);close(spawned.specialDamageMultiplier,1);assert.equal(copy.enemyCount(),300);
+ const spawned=(copy as any).spawnCampaignSpecial(deferred);assert.ok(spawned);assert.deepEqual(spawned.enemySpawn,boss.stamp);const d=SC2_UNITS.zergling,g=continuousSpecialProfile('normal','zergling','boss',boss.stamp,{hp:d.maxHp,damage:d.attackDamage,period:d.attackPeriod,armor:d.armor});close(spawned.maxHp,g.hp);close(spawned.specialDamageMultiplier,g.skillDamage);assert.equal(copy.enemyCount(),300);
 });
 
 test('blocked guard queues count capacity once instead of scanning all enemies per carrier',()=>{

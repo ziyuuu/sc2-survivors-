@@ -45,7 +45,7 @@ export interface ExpeditionDraftContext {
  familyInfo:(family:FamilyId)=>ExpeditionFamilyDraftInfo;
  heroes:readonly ExpeditionHeroDraftInfo[];elites?:readonly ExpeditionEliteDraftInfo[];
  /** Supply this if the candidate list omits maxed or otherwise ineligible owned heroes. */
- heroSeatsUsed?:number;
+ heroSeatsUsed?:number;highQualityWeight?:number;
  /** World supplies its persisted offers so opening the same screen consumes no RNG. */
  currentOffers?:readonly Reward[];
  /** A readiness gate for actual implemented facilities/research, not wallet filtering. */
@@ -140,7 +140,7 @@ export function drawExpeditionDevelopment(ctx:ExpeditionDraftContext,reroll=fals
 }
 
 export function expeditionRarityWeights(stage:number):readonly number[]{assertWindow(stage);return stage<=5?[45,35,16,4,0]:stage<=11?[25,40,27,7,1]:[15,35,35,12,3];}
-function rollTier(ctx:ExpeditionDraftContext,minimum=0){const weights=expeditionRarityWeights(ctx.stage);return sample(RARITIES.filter((_,i)=>i>=minimum),tier=>weights[tierIndex(tier)],ctx.random)??RARITIES[minimum];}
+function rollTier(ctx:ExpeditionDraftContext,minimum=0){const weights=expeditionRarityWeights(ctx.stage);return sample(RARITIES.filter((_,i)=>i>=minimum),tier=>weights[tierIndex(tier)]*(tierIndex(tier)>=3?1+(ctx.highQualityWeight??0):1),ctx.random)??RARITIES[minimum];}
 function familyAllowed(ctx:ExpeditionDraftContext,family:FamilyId){return (FAMILIES_BY_RACE[ctx.state.race] as readonly string[]).includes(family);}
 function effectLegal(ctx:ExpeditionDraftContext,effect:ExpeditionCardEffect,family:FamilyId,amount:number){
  if(!familyAllowed(ctx,family))return false;const info=ctx.familyInfo(family),definition=EXPEDITION_CARD_DEFINITIONS[effect],key=expeditionCardKey(effect,family);
@@ -155,7 +155,7 @@ function cardDescription(effect:ExpeditionCardEffect,amount:number){
  if(effect==='armor')return `本兵种护甲 +${amount}。`;
  const value=Math.round(amount*100);return effect==='production'?`本兵种之后开工的训练耗时降低${value}%；已付批次保持原进度。`:effect==='weapon'?`本兵种武器伤害 +${value}%。`:effect==='vitality'?`本兵种最大生命 +${value}%，保留已损失生命。`:effect==='energy'?`本兵种能量恢复 +${value}%。`:`本兵种合法恢复能力效率 +${value}%，不扩大治疗目标类型。`;
 }
-function legalHeroes(ctx:ExpeditionDraftContext){const owned=ctx.heroSeatsUsed??ctx.heroes.filter(h=>h.race===ctx.state.race&&h.owned).length;return ctx.heroes.filter(h=>h.race===ctx.state.race&&h.eligible&&h.rank<5&&(h.owned||owned<HERO_LIMIT));}
+function legalHeroes(ctx:ExpeditionDraftContext){const owned=ctx.heroSeatsUsed??ctx.heroes.filter(h=>h.race===ctx.state.race&&h.owned).length;return ctx.heroes.filter(h=>h.race===ctx.state.race&&h.eligible&&(h.owned||owned<HERO_LIMIT));}
 function heroCandidate(hero:ExpeditionHeroDraftInfo):Candidate{return {id:`hero.${hero.id}`,name:hero.name,description:hero.owned?'同名英雄培养一级；阵亡状态不会因此复活。':'招募本族英雄，占用一个独立英雄席位。',icon:hero.icon,rarity:'orange',kind:'hero',value:hero.id,effect:{kind:'hero',heroId:hero.id},category:'synergy',group:'hero',immediate:true};}
 function reinforcementPool(ctx:ExpeditionDraftContext,shop=false):Candidate[]{
  const result:Candidate[]=[];
@@ -274,6 +274,12 @@ export function drawBossLoot(ctx:ExpeditionDraftContext,receipt:string,fixedRari
  const rarity=fixedRarity??(ctx.random()<.2?'orange':'purple'),units=reinforcementPool(ctx).filter(c=>c.kind==='elite'||c.kind==='hero'),tier=units.filter(c=>c.rarity===rarity),pool=tier.length?tier:units;
  const c=sample(pool,c=>candidateWeight(ctx,c,pool),ctx.random)??{id:'boss.exhausted',name:'首领补给回收',description:'全部合法单位奖励满额，获得250矿／100气。',icon:'ui.minerals',rarity,kind:'economy' as const,value:'boss-recycle',effect:{kind:'resource' as const,minerals:250,gas:100,fallback:true},category:'general' as const,group:'resource',immediate:true};
  return {...quote(ctx,c,'random'),offerId:receipt,talentLootReceipt:receipt};
+}
+/** Equipment rewards draw from the same currently legal unit-card pool. */
+export function drawEquipmentUnitLoot(ctx:ExpeditionDraftContext,receipt:string):ExpeditionReward|null {
+ const pool=reinforcementPool(ctx).filter(c=>c.kind==='elite'||c.kind==='hero');
+ const c=sample(pool,c=>candidateWeight(ctx,c,pool),ctx.random);if(!c)return null;
+ return {...quote(ctx,c,'random'),offerId:receipt,minerals:0,gas:0,baseMinerals:0,baseGas:0};
 }
 /** Closing without taking a card is permitted; it does not reset the pity counter by itself. */
 export function finishExpeditionDraft(state:ExpeditionState,chosen:string|null=null){

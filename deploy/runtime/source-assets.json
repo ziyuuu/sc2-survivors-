@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "release": "8080b97112f3af93b5d3ddfeadc5f3d7f89c3892c344cfc8c8903a1ca799c9eb",
-  "generatedSha256": "c6b27e9f72dd5cff45d1187107407b16b93bb165d4b7fcf7f68170d585ef26fd",
+  "release": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+  "generatedSha256": "25134809a87c3665690497846b53815b1ea5ece5b3dd8b54b6c21cf2697ecd5b",
   "entries": [
     {
       "runtime": {
@@ -12199,6 +12199,84 @@
       "gitPath": "deploy/runtime/assets/297690b6568cbfcce22b569ff4ebf1e02ae35f91b3d6a21c3b94b5900e1d9dbd.wav",
       "bytes": 88924,
       "sha256": "297690b6568cbfcce22b569ff4ebf1e02ae35f91b3d6a21c3b94b5900e1d9dbd"
+    },
+    {
+      "runtime": {
+        "id": "model.fort.turret_terran",
+        "kind": "model",
+        "status": "available",
+        "url": "assets/animated/model.fort.turret_terran.glb",
+        "required": false
+      },
+      "packedFile": "public/assets/animated/model.fort.turret_terran.glb",
+      "gitPath": "deploy/runtime/assets/29dcfa4d0bbb4bf60930487f667fe3baf7a4ec02addc5f747ca1a0381ae628a0.glb",
+      "bytes": 663232,
+      "sha256": "29dcfa4d0bbb4bf60930487f667fe3baf7a4ec02addc5f747ca1a0381ae628a0"
+    },
+    {
+      "runtime": {
+        "id": "model.fort.turret_terran.death",
+        "kind": "model",
+        "status": "available",
+        "url": "assets/animated/model.fort.turret_terran.death.glb",
+        "required": false
+      },
+      "packedFile": "public/assets/animated/model.fort.turret_terran.death.glb",
+      "gitPath": "deploy/runtime/assets/ac70c0cbef9be0a7705f4415225b19f6ec4f27081c1023379bbf2fe8eccb0ee0.glb",
+      "bytes": 927548,
+      "sha256": "ac70c0cbef9be0a7705f4415225b19f6ec4f27081c1023379bbf2fe8eccb0ee0"
+    },
+    {
+      "runtime": {
+        "id": "model.fort.turret_zerg",
+        "kind": "model",
+        "status": "available",
+        "url": "assets/animated/model.fort.turret_zerg.glb",
+        "required": false
+      },
+      "packedFile": "public/assets/animated/model.fort.turret_zerg.glb",
+      "gitPath": "deploy/runtime/assets/da554ee42e9190b0e774a4e88f6914e938b0bcc9fda7abb8101ab36a14db3cfd.glb",
+      "bytes": 11330676,
+      "sha256": "da554ee42e9190b0e774a4e88f6914e938b0bcc9fda7abb8101ab36a14db3cfd"
+    },
+    {
+      "runtime": {
+        "id": "model.fort.turret_zerg.death",
+        "kind": "model",
+        "status": "available",
+        "url": "assets/animated/model.fort.turret_zerg.death.glb",
+        "required": false
+      },
+      "packedFile": "public/assets/animated/model.fort.turret_zerg.death.glb",
+      "gitPath": "deploy/runtime/assets/f2ce1400ff14aedf0551f38712807f113a1ac11947b1440753cf30b2bb08e4c2.glb",
+      "bytes": 11330752,
+      "sha256": "f2ce1400ff14aedf0551f38712807f113a1ac11947b1440753cf30b2bb08e4c2"
+    },
+    {
+      "runtime": {
+        "id": "model.fort.turret_protoss",
+        "kind": "model",
+        "status": "available",
+        "url": "assets/animated/model.fort.turret_protoss.glb",
+        "required": false
+      },
+      "packedFile": "public/assets/animated/model.fort.turret_protoss.glb",
+      "gitPath": "deploy/runtime/assets/c7da47673061ba802e9060836042254ac2ffa4cbe717bbba49b5691f05acf345.glb",
+      "bytes": 1904244,
+      "sha256": "c7da47673061ba802e9060836042254ac2ffa4cbe717bbba49b5691f05acf345"
+    },
+    {
+      "runtime": {
+        "id": "model.fort.turret_protoss.death",
+        "kind": "model",
+        "status": "available",
+        "url": "assets/animated/model.fort.turret_protoss.death.glb",
+        "required": false
+      },
+      "packedFile": "public/assets/animated/model.fort.turret_protoss.death.glb",
+      "gitPath": "deploy/runtime/assets/aa12059238c23755c9e0e02433132ba2d8229f985c9b7c6d3c3e3ec654bdcf23.glb",
+      "bytes": 2370396,
+      "sha256": "aa12059238c23755c9e0e02433132ba2d8229f985c9b7c6d3c3e3ec654bdcf23"
     }
   ]
 }

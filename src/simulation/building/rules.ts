@@ -21,8 +21,9 @@ export interface BuildingState {
  offers:Partial<Record<ProductionLineId,Offer[]>>; quotes:Record<string,Offer>; receipts:Record<string,Cost>;
  spent:{construction:Cost;refresh:number};
  frozenTarget?:string|null;
+ researchLimit?:number;
 }
-export interface RuleOptions {random?:()=>number;related?:readonly FamilyId[];capabilities?:(family:FamilyId)=>readonly string[];ready?:(project:Project)=>boolean;priceFactorFor?:(project:Project)=>number}
+export interface RuleOptions {random?:()=>number;related?:readonly FamilyId[];capabilities?:(family:FamilyId)=>readonly string[];ready?:(project:Project)=>boolean;priceFactorFor?:(project:Project)=>number;freeChance?:number;doubleChance?:number;researchChance?:number}
 export interface PlacementDraft {revision:number; groups:{id:string; outputs:FamilyId[]; enabled:boolean}[]}
 export type Result = {ok:true; paid?:Cost; added?:number; firstFree?:boolean}|{ok:false; reason:string};
 export {TREE_STEPS} from '../../data/expedition-buildings';
@@ -63,7 +64,7 @@ export function eligible(s:BuildingState,d:Project,target?:string) {
  if(!ownsLine(s,d.line!))return false;
  if(d.unlock==='family')return canUnlock(s,d.families[0]);
  const level=s.tech[d.id]??0;
- return level<d.maxLevel&&!(d.kind==='research'&&(level===1&&s.stage<6||level===2&&s.stage<12));
+ return level<(d.kind==='research'?Math.max(d.maxLevel,s.researchLimit??0):d.maxLevel)&&!(d.kind==='research'&&(level===1&&s.stage<6||level===2&&s.stage<12));
 }
 export function candidates(s:BuildingState,line=s.direction) {return PROJECTS.filter(d=>inDirection(d,line)&&eligible(s,d));}
 export const activeGroupOutputs=(g:ProductionGroup)=>g.enabled?g.outputs.filter(f=>g.enabledFamilies?.[f]!==false):[];
@@ -101,7 +102,7 @@ export function getOffers(s:BuildingState,options:RuleOptions={}):Offer[] {
  while(pool.length&&picked.length<3){const slot=picked.length,pinned=slot===0?pool.find(d=>d.id===s.frozenTarget):undefined,chosen=pinned??sample(s,pool,d=>slot===0?d.families.some(f=>related.has(f))?4:1:slot===1?d.families.some(f=>capabilities(f).some(c=>!current.has(c)))?4:d.families.some(f=>related.has(f))?2:1:d.families.some(f=>!related.has(f))?4:d.kind==='facility'?2:1,options);picked.push(chosen);pool.splice(pool.indexOf(chosen),1);}
  const offers=picked.map(d=>{
   const key=d.id+':'+level(s,d);if(s.quotes[key])return s.quotes[key];
-  const raw=d.kind==='research'?developmentPrice(d as DevelopmentDefinition,level(s,d)):{minerals:d.minerals,gas:d.gas};
+  const raw=d.kind==='research'?(level(s,d)===3?{minerals:developmentPrice(d as DevelopmentDefinition,2).minerals*2,gas:developmentPrice(d as DevelopmentDefinition,2).gas*2}:developmentPrice(d as DevelopmentDefinition,level(s,d))):{minerals:d.minerals,gas:d.gas};
   const discount=sample(s,DISCOUNTS,d=>d.weight,options).off,factor=options.priceFactorFor?.(d)??(1-.1*s.talents.permanent_discount)*(1-(d.kind==='research'?0:.15*s.talents.frugal_build));
   if(!Number.isFinite(factor)||factor<0)throw new RangeError('Invalid development price multiplier');
   const cost=(n:number)=>n?Math.max(1,Math.ceil(n*(1-discount)*factor)):0;
@@ -129,12 +130,13 @@ export function purchase(s:BuildingState,q:Offer,target?:string,options:RuleOpti
  if(!d||!live||live.projectId!==q.projectId||q.revision!==s.revision||q.window!==s.window||s.phase!=='building'||s.bought||s.receipts[q.id]||!inDirection(d,s.direction)||!eligible(s,d,target)||options.ready?.(d)===false||level(s,d)!==live.level)return {ok:false,reason:'项目已变化，请重新选择'};
  if(d.kind==='evolution'&&(!target||!live.targets.includes(target)))return {ok:false,reason:'请选择可进化的孵化场'};
  const cost=live.cost;if(s.wallet.minerals<cost.minerals||s.wallet.gas<cost.gas)return {ok:false,reason:'资源不足'};
- const free=d.kind!=='research'&&s.talents.free_house>0&&random(s,options)<.2*s.talents.free_house;
+ const freeChance=Math.max(.2*s.talents.free_house,options.freeChance??0),doubleChance=Math.max(.3*s.talents.double_build,options.doubleChance??0),researchChance=Math.max(Math.min(.99,.33*s.talents.instant_tech),options.researchChance??0);
+ const free=d.kind!=='research'&&freeChance>0&&random(s,options)<freeChance;
  const paid={minerals:free?0:cost.minerals,gas:free?0:cost.gas};
  s.wallet.minerals-=paid.minerals;s.wallet.gas-=paid.gas;completeProject(s,d,target);let added=d.kind==='facility'?d.batch??1:0;
  if(d.kind==='facility'){
-  const research=()=>{for(let i=0;i<(d.batch??1);i++)if(s.talents.instant_tech>0&&random(s,options)<Math.min(.99,.33*s.talents.instant_tech))instantResearch(s,d.line!);};research();
-  if(s.talents.double_build>0&&eligible(s,d)&&random(s,options)<.3*s.talents.double_build&&s.wallet.minerals>=cost.minerals&&s.wallet.gas>=cost.gas){s.wallet.minerals-=cost.minerals;s.wallet.gas-=cost.gas;paid.minerals+=cost.minerals;paid.gas+=cost.gas;completeProject(s,d);added+=d.batch??1;research();}
+  const research=()=>{for(let i=0;i<(d.batch??1);i++)if(researchChance>0&&random(s,options)<researchChance)instantResearch(s,d.line!);};research();
+  if(doubleChance>0&&eligible(s,d)&&random(s,options)<doubleChance&&s.wallet.minerals>=cost.minerals&&s.wallet.gas>=cost.gas){s.wallet.minerals-=cost.minerals;s.wallet.gas-=cost.gas;paid.minerals+=cost.minerals;paid.gas+=cost.gas;completeProject(s,d);added+=d.batch??1;research();}
  }
  s.receipts[q.id]={...paid};s.spent.construction.minerals+=paid.minerals;s.spent.construction.gas+=paid.gas;s.bought=true;s.revision++;return {ok:true,paid,added,firstFree:free};
 }
@@ -150,10 +152,15 @@ export function consumeRefresh(s:BuildingState,revision:number):Result {
  if(s.phase==='building'&&!s.baseRefreshUsed)s.baseRefreshUsed=true;else if(s.bonusRefresh>0)s.bonusRefresh--;else s.paidRefresh++;
  s.revision++;s.offers={};s.quotes={};return {ok:true,paid:{minerals:cost,gas:0}};
 }
-export function refresh(s:BuildingState,revision:number):Result {
- const cost=refreshCost(s);if(revision!==s.revision||cost===null)return {ok:false,reason:'当前无法刷新'};
+export function refresh(s:BuildingState,revision:number,priceReduction=0):Result {
+ const native=refreshCost(s);if(revision!==s.revision||native===null||!Number.isFinite(priceReduction)||priceReduction<0)return {ok:false,reason:'当前无法刷新'};const cost=Math.max(0,native-priceReduction);
  if(s.wallet.minerals<cost)return {ok:false,reason:'资源不足'};
- const result=consumeRefresh(s,revision);if(result.ok)s.wallet.minerals-=cost;return result;
+ const result=consumeRefresh(s,revision);if(result.ok){s.wallet.minerals-=cost;s.spent.refresh-=native-cost;result.paid={minerals:cost,gas:0};}return result;
+}
+/** Shared payment port after the caller resolves all valid modifiers and free sources. */
+export function refreshAtCost(s:BuildingState,revision:number,cost:number):Result {
+ const native=refreshCost(s);if(revision!==s.revision||native===null||!Number.isFinite(cost)||cost<0)return {ok:false,reason:'当前无法刷新'};
+ if(s.wallet.minerals<cost)return {ok:false,reason:'资源不足'};const result=consumeRefresh(s,revision);if(result.ok){s.wallet.minerals-=cost;s.spent.refresh+=cost-native;result.paid={minerals:cost,gas:0};}return result;
 }
 export function placementDraft(s:BuildingState):PlacementDraft {return {revision:s.revision,groups:s.groups.map(g=>({id:g.id,outputs:[...g.outputs],enabled:g.enabled}))};}
 export function applyPlacement(s:BuildingState,draft:PlacementDraft):Result {

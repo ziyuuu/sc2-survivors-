@@ -1,3 +1,4 @@
+import {heroGrowth} from './hero-growth';
 import type {HeroId} from './heroes';
 /** Explicit P3-B runtime contract; proposal JSON stays documentation/QA only. */
 export const ZERG_HERO_IDS=['kerrigan','zagara','dehaka','stukov','niadra','hots_leviathan'] as const;
@@ -11,7 +12,7 @@ export const ZERG_HERO_PASSIVE_DESCRIPTIONS={
  niadra:'持续治疗最多7名受伤生物友军，寄生宿主死亡触发范围回血。主动登记8秒复生窗口，每秒复生一个编制；I/V有2/4次，双跳虫共用一次。',
  hots_leviathan:'附近永久生物战斗友军生命+25%。每2秒触须攻击最多4个合法目标；主动释放三轮生体等离子风暴。',
 } as const;
-export function zergHeroGrowth(rank:number){const n=Math.max(0,Math.min(4,rank-1)),period=1-.05*n;return {health:1+.35*n,damage:(1+.35*n)*period,period,armor:.5*n,passive:1+.35*n,skill:[9200,12880,16560,20240,23920][n]};}
+export const zergHeroGrowth=heroGrowth;
 export const ZERG_HERO_RULES={
  kerrigan:{barrierFraction:.25,barrierMaxHp:.8,barrierSeconds:8,cleaveEvery:3,cleaveFraction:2,cleaveRadius:3.5},
  zagara:{speed:.4,move:.2,kills:10,spawnCount:2,lifetime:10,limit:6,killRadius:10},

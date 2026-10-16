@@ -1,3 +1,6 @@
+import {equipmentAreaRadius,equipmentAreaFactor,equipmentAreaBonuses,equipmentAreaHit,equipmentCluster} from '../starship/weapon-areas';
+import {equipmentNativeFactor,equipmentHealingOutput} from '../starship/native-effects';
+import {cloneCombatSource,nativeCombatSource} from '../starship/runtime';
 import {observeRecovery} from '../observation';
 import {compositeEliteBuff,teamHealingFactor,recordTeamTransfusion,teamEntryBarrier} from './team-auras';
 import type {World} from '../world';
@@ -57,10 +60,10 @@ export function zergEliteMainFactor(u:Entity,b:Body){if(!revisedZergElite(u))ret
  return f;
 }
 function heal(w:World,b:Entity,n:number){const gain=Math.min(Math.max(0,b.maxHp-b.hp),Math.max(0,n)*teamHealingFactor(w,b,false));b.hp+=gain;w.stats.healed+=gain;observeRecovery(w,b,b,gain);return gain;}
-function area(w:World,u:Entity,p:Point,kind:ZergEliteArea['kind'],radius:number,damage:number,seconds:number){w.zergElites.areas.push({id:w.nextId++,source:structuredClone(u),point:{x:p.x,z:p.z},kind,radius,damage,next:w.time+1,until:w.time+seconds});}
+function area(w:World,u:Entity,p:Point,kind:ZergEliteArea['kind'],radius:number,damage:number,seconds:number){w.zergElites.areas.push({id:w.nextId++,source:cloneCombatSource(w,u),point:{x:p.x,z:p.z},kind,radius,damage,next:w.time+1,until:w.time+seconds});}
 function poison(w:World,u:Entity,b:Body,kind:ZergElitePoison['kind'],seconds:number,layers=1,spread=true){if(b.hp<=0)return;let p=w.zergElites.poisons.find(p=>p.source.id===u.id&&p.target===b.id&&p.kind===kind&&p.until>w.time);
- if(p){p.layers=Math.min(kind==='hydra'?4:1,p.layers+layers);p.until=w.time+seconds;p.source=structuredClone(u);p.spread=p.spread||spread;}
- else w.zergElites.poisons.push({id:w.nextId++,source:structuredClone(u),target:b.id,next:w.time+1,until:w.time+seconds,layers,kind,spread});
+ if(p){p.layers=Math.min(kind==='hydra'?4:1,p.layers+layers);p.until=w.time+seconds;p.source=cloneCombatSource(w,u);p.spread=p.spread||spread;}
+ else w.zergElites.poisons.push({id:w.nextId++,source:cloneCombatSource(w,u),target:b.id,next:w.time+1,until:w.time+seconds,layers,kind,spread});
 }
 /** Actual life loss is the only receipt for leech. Shield loss and prevented damage grant nothing. */
 export function zergEliteAfterHit(w:World,u:Entity,b:Body,primary:boolean,lifeLoss:number){if(!revisedZergElite(u))return;const live=w.entities.get(u.id);if(!live||live.hp<=0||live.eliteId!==u.eliteId)return;const id=u.eliteId;
@@ -83,7 +86,7 @@ export function absorbZergEliteBarrier(w:World,u:Entity,amount:number){if(!revis
 export function zergEliteAfterDamage(w:World,u:Entity,attacker:Entity|undefined,actual:number,forced:boolean,transferred:boolean){if(!revisedZergElite(u)||forced||transferred||attacker?.owner===u.owner||actual<=0)return;const s=zergEliteCombat(u);
  if(u.eliteId==='baneling.3')s.stored=Math.min(u.maxHp*2,s.stored+actual*.5);
  if(u.eliteId==='ultralisk.2'){s.stored=Math.min(u.maxHp*.8,s.stored+actual*.4);if(u.hp>0&&u.hp/u.maxHp<=.3&&w.time>=s.ready){const amount=Math.min(s.stored,u.maxHp*.5);s.stored-=amount;heal(w,u,amount);s.ready=w.time+25;s.boostUntil=w.time+5;w.visual('barrier-start',u);}}
- if(u.eliteId==='roach.3'&&u.hp>0&&attacker&&!attacker.flying&&attacker.attackRange<=1.5&&w.time>=s.ready){s.ready=w.time+.5;for(const b of zergEliteEnemies(w,u,u,2,'ground'))w.hit(b,actual*.6,[],1,u.owner,0,1,u.id);w.visual('weapon-area',u);}
+ if(u.eliteId==='roach.3'&&u.hp>0&&attacker&&!attacker.flying&&attacker.attackRange<=1.5&&w.time>=s.ready){s.ready=w.time+.5;for(const b of zergEliteEnemies(w,u,u,2,'ground'))w.hit(b,actual*.6*equipmentNativeFactor(w,u),[],1,u.owner,0,1,u.id);w.visual('weapon-area',u);}
 }
 /** One accepted cycle, frozen before rank/mode/target changes. Derived packets never earn another cycle. */
 export function fireZergElite(w:World,u:Entity,target:Body,bonuses:Bonus[],shieldBonus:number,crit:number){if(!revisedZergElite(u))return false;if(!zergEliteCanFire(w,u)||(u.recoveryUntil??0)>w.time)return true;
@@ -93,29 +96,29 @@ export function fireZergElite(w:World,u:Entity,target:Body,bonuses:Bonus[],shiel
  let fraction=id==='zergling.2'&&s.cycles%3===0?4:id==='queen.3'?2:1;
  if(id==='roach.2'){if(s.stacks===5){fraction=4;s.stacks=0;}else{s.stacks++;fraction=1+.3*s.stacks;}}
  if(id==='lurker.3'&&s.opening>0){fraction=4;s.opening--;}
- const packet=structuredClone(u);packet.weaponDamage*=fraction;const bonus=bonuses.map(b=>({...b,amount:b.amount*fraction}));
- const shot=(b:Body,f=1,delay=0,primary=true,bounces?:readonly number[],radius=3,offset=0)=>{const from={x:u.x+Math.cos(u.attackFacing)*offset,z:u.z-Math.sin(u.attackFacing)*offset};const p:WeaponFlight={id:w.nextId++,attackId:`${u.id}:${u.shotSequence}`,source:structuredClone(packet),target:b.id,from,point:{...from},lastSeen:{x:b.x,z:b.z},start:w.time+delay,expires:w.time+delay+8,speed:weaponFlightSpeed(u)||56,lost:false,damage:packet.weaponDamage*f,bonuses:bonus.map(b=>({...b,amount:b.amount*f})),shieldBonus:shieldBonus*f*fraction,crit,hits:1,enemyFactor:w.enemyDamageFactor(u),apm:primary&&(talentModifiers(w,u).apmDuplicate??0)>0,hop:0,seen:[],primary};
+ const packet=cloneCombatSource(w,u);packet.weaponDamage*=fraction;const bonus=bonuses.map(b=>({...b,amount:b.amount*fraction}));
+ const shot=(b:Body,f=1,delay=0,primary=true,bounces?:readonly number[],radius=3,offset=0)=>{const from={x:u.x+Math.cos(u.attackFacing)*offset,z:u.z-Math.sin(u.attackFacing)*offset};const p:WeaponFlight={id:w.nextId++,attackId:`${u.id}:${u.shotSequence}`,source:nativeCombatSource(w,packet,b),target:b.id,from,point:{...from},lastSeen:{x:b.x,z:b.z},start:w.time+delay,expires:w.time+delay+8,speed:weaponFlightSpeed(u)||56,lost:false,damage:packet.weaponDamage*f,bonuses:bonus.map(b=>({...b,amount:b.amount*f})),shieldBonus:shieldBonus*f*fraction,crit,hits:1,enemyFactor:w.enemyDamageFactor(u),apm:primary&&(talentModifiers(w,u).apmDuplicate??0)>0,hop:0,seen:[],primary};
   if(bounces){p.bounceDamage=bounces.map(n=>packet.weaponDamage*n);p.bounceBonuses=bounces.map(n=>bonus.map(b=>({...b,amount:b.amount*n})));p.bounceLimit=bounces.length;p.bounceRadius=radius;}w.weaponFlights.push(p);};
  if(u.unitType==='baneling'){
-  const r=2.2*(id==='baneling.1'?1.8:1),f=id==='baneling.1'?3:id==='baneling.2'?2:1.8,extra=id==='baneling.3'?s.stored:0;s.stored=0;
+  const nativeRadius=2.2*(id==='baneling.1'?1.8:1),r=equipmentAreaRadius(w,u,nativeRadius),f=id==='baneling.1'?3:id==='baneling.2'?2:1.8,extra=id==='baneling.3'?s.stored:0;s.stored=0;
   const structure=SOURCE_WEAPON_PATTERNS.baneling,upgrade=expeditionWeaponUpgrade(w,u,'VolatileBurstU2');
   for(const b of zergEliteEnemies(w,u,u,r,'ground')){const building=b.attributes.includes('Structure'),damage=building?(structure.structureDamage+upgrade.damage)*expeditionWeaponScale(w,u)*f+extra:packet.weaponDamage*f+extra;
-   w.attackHit(packet,b,damage,building?[]:bonus.map(a=>({...a,amount:a.amount*f})),1,0,b.id===target.id,1,{enemyFactor:w.enemyDamageFactor(u),apm:false,ordinary:false,armorPen:building?1-structure.structureArmorReduction:0});}
-  if(id==='baneling.2')area(w,u,u,'acid',4,420*eliteFixedGrowth(u.rank),5);
+   equipmentAreaHit(w,packet,b,damage,building?[]:bonus.map(a=>({...a,amount:a.amount*f})),1,0,b.id===target.id,1,{enemyFactor:w.enemyDamageFactor(u),apm:false,ordinary:false,armorPen:building?1-structure.structureArmorReduction:0});}
+  equipmentCluster(w,packet,u,nativeRadius,packet.weaponDamage*f+extra,bonus.map(a=>({...a,amount:a.amount*f})),1,1,'ground');if(id==='baneling.2')area(w,u,u,'acid',4,420*(eliteFixedGrowth(u.rank)*equipmentNativeFactor(w,u)),5);
   if(id==='baneling.3')heal(w,u,u.maxHp*.35);
   u.recoveryUntil=w.time+5;u.velocity={x:0,z:0};u.action='idle';u.windup=0;u.pendingTarget=null;u.attackTarget=null;w.effect('explosion',u,u,r,.55);w.visual('baneling-recover',u);return true;
  }
  if(u.unitType==='lurker'){
-  if(u.nativeMode!=='lurker_burrowed')return true;const giant=id==='lurker.2'&&s.cycles%4===0,length=giant?18:12,width=giant?2.2:unitData(u).splash[0]?.radius??.5,n=id==='lurker.1'?3:1;
+  if(u.nativeMode!=='lurker_burrowed')return true;const giant=id==='lurker.2'&&s.cycles%4===0,length=giant?18:12,width=equipmentAreaRadius(w,u,giant?2.2:unitData(u).splash[0]?.radius??.5),n=id==='lurker.1'?3:1;
   for(let i=0;i<n;i++){const a=u.attackFacing+(n===3?(i-1)*20*Math.PI/180:0),end={x:u.x+Math.sin(a)*length,z:u.z+Math.cos(a)*length};
-   w.zergElites.lines.push({id:w.nextId++,source:structuredClone(packet),from:{x:u.x,z:u.z},point:{x:u.x,z:u.z},facing:a,length,width,progress:0,next:w.time,hits:[],damage:packet.weaponDamage*(giant?5:1),bonuses:bonus.map(v=>({...v,amount:v.amount*(giant?5:1)})),target:target.id,crit,apm:i===Math.floor(n/2)&&(talentModifiers(w,u).apmDuplicate??0)>0,air:false,kind:'spine'});
+   w.zergElites.lines.push({id:w.nextId++,source:cloneCombatSource(w,packet),from:{x:u.x,z:u.z},point:{x:u.x,z:u.z},facing:a,length,width,progress:0,next:w.time,hits:[],damage:packet.weaponDamage*(giant?5:1)*equipmentAreaFactor(w,u),bonuses:equipmentAreaBonuses(w,u,bonus.map(v=>({...v,amount:v.amount*(giant?5:1)}))),target:target.id,crit,apm:i===Math.floor(n/2)&&(talentModifiers(w,u).apmDuplicate??0)>0,air:false,kind:'spine'});
    const fx=w.effect('hero-line',u,end,width,.65);fx.damage=giant?5:fraction;
   }w.visual('weapon-area',u,target);return true;
  }
  if(u.unitType==='ultralisk'){
-  const third=id==='ultralisk.1'&&s.cycles%3===0,r=u.attackRange*(third?1.8:1),arc=third?170:180;
-  for(const b of zergEliteEnemies(w,u,u,r+u.unitRadius,'ground'))if(inWeaponArc(u,u.attackFacing,b,r+u.unitRadius,arc))w.attackHit(packet,b,packet.weaponDamage*(third?3:1),bonus.map(v=>({...v,amount:v.amount*(third?3:1)})),1,0,b.id===target.id,crit);
-  w.visual('weapon-area',u,target);const fx=w.effect('hero-line',u,{x:u.x+Math.sin(u.attackFacing)*r,z:u.z+Math.cos(u.attackFacing)*r},r,.7);fx.damage=third?3:1;return true;
+  const third=id==='ultralisk.1'&&s.cycles%3===0,r=equipmentAreaRadius(w,u,u.attackRange*(third?1.8:1)),arc=third?170:180;
+  for(const b of zergEliteEnemies(w,u,u,r+u.unitRadius,'ground'))if(inWeaponArc(u,u.attackFacing,b,r+u.unitRadius,arc))equipmentAreaHit(w,packet,b,packet.weaponDamage*(third?3:1),bonus.map(v=>({...v,amount:v.amount*(third?3:1)})),1,0,b.id===target.id,crit);
+  equipmentCluster(w,packet,u,u.attackRange*(third?1.8:1),packet.weaponDamage*(third?3:1),bonus.map(v=>({...v,amount:v.amount*(third?3:1)})),1,crit,'ground');w.visual('weapon-area',u,target);const fx=w.effect('hero-line',u,{x:u.x+Math.sin(u.attackFacing)*r,z:u.z+Math.cos(u.attackFacing)*r},r,.7);fx.damage=third?3:1;return true;
  }
  if(id==='hydralisk.1'){
   const plane=target.flying?'air':'ground',pool=zergEliteEnemies(w,u,u,u.attackRange+u.unitRadius,plane).filter(b=>inWeaponArc(u,u.attackFacing,b,u.attackRange+u.unitRadius,35));
@@ -132,24 +135,24 @@ export function zergEliteFlightImpact(w:World,p:WeaponFlight,target:Body){const 
  if(id==='hydralisk.2'){
   const dx=target.x-p.from.x,dz=target.z-p.from.z,d=Math.hypot(dx,dz)||1,a=Math.atan2(dx,dz),primaryAlong=d;
   w.attackHit(u,target,p.damage,p.bonuses,p.hits,p.shieldBonus,true,p.crit,{enemyFactor:p.enemyFactor,apm:p.apm});
-  if(primaryAlong<12)w.zergElites.lines.push({id:w.nextId++,source:structuredClone(u),from:{...p.from},point:{...p.point},facing:a,length:12,width:1.2,progress:primaryAlong,next:w.time+.025,hits:[target.id],damage:p.damage*.8,bonuses:p.bonuses.map(a=>({...a,amount:a.amount*.8})),target:target.id,crit:1,apm:false,air:target.flying,kind:'spear'});
+  if(primaryAlong<12)w.zergElites.lines.push({id:w.nextId++,source:cloneCombatSource(w,u),from:{...p.from},point:{...p.point},facing:a,length:12,width:equipmentAreaRadius(w,u,1.2),progress:primaryAlong,next:w.time+.025,hits:[target.id],damage:p.damage*.8*equipmentAreaFactor(w,u),bonuses:equipmentAreaBonuses(w,u,p.bonuses.map(a=>({...a,amount:a.amount*.8}))),target:target.id,crit:1,apm:false,air:target.flying,kind:'spear'});
   w.visual('projectile-impact',u,target,p.id);w.effect('hero-line',{...u,x:p.from.x,z:p.from.z},{x:p.from.x+Math.sin(a)*12,z:p.from.z+Math.cos(a)*12},.1,.18);return true;
  }
  if(id==='roach.2'&&u.zergEliteCombat!.stacks===0||id==='queen.3'){
-  for(const b of zergEliteEnemies(w,u,target,id==='queen.3'?3:2.5,target.flying?'air':'ground')){w.attackHit(u,b,p.damage,p.bonuses,p.hits,p.shieldBonus,b.id===target.id,b.id===target.id?p.crit:1,{enemyFactor:p.enemyFactor,apm:b.id===target.id&&p.apm});if(id==='queen.3'&&b.hp>0){const k=boss(b)?.5:1;debuff(w,u,b,3,{move:.5*k,speed:.3*k});}}
-  w.visual('projectile-impact',u,target,p.id);w.visual('weapon-area',u,target);return true;
+  for(const b of zergEliteEnemies(w,u,target,equipmentAreaRadius(w,u,id==='queen.3'?3:2.5),target.flying?'air':'ground')){equipmentAreaHit(w,u,b,p.damage,p.bonuses,p.hits,p.shieldBonus,b.id===target.id,b.id===target.id?p.crit:1,{enemyFactor:p.enemyFactor,apm:b.id===target.id&&p.apm});if(id==='queen.3'&&b.hp>0){const k=boss(b)?.5:1;debuff(w,u,b,3,{move:.5*k,speed:.3*k});}}
+  equipmentCluster(w,u,target,id==='queen.3'?3:2.5,p.damage,p.bonuses,p.hits,p.crit,target.flying?'air':'ground',p.enemyFactor);w.visual('projectile-impact',u,target,p.id);w.visual('weapon-area',u,target);return true;
  }return false;
 }
 export function zergEliteModeCompleted(w:World,u:Entity,previous:string){if(!revisedZergElite(u)||u.eliteId!=='lurker.3'||previous==='lurker_burrowed'||u.nativeMode!=='lurker_burrowed')return;const s=zergEliteCombat(u);if(w.time<s.modeReady)return;s.modeReady=w.time+12;s.opening=3;s.barrier=u.maxHp*.4;s.barrierUntil=w.time+5;w.visual('barrier-start',u);}
 export function zergEliteQueenAbility(w:World,u:Entity){if(!revisedZergElite(u)||u.unitType!=='queen')return false;if(u.eliteId!=='queen.2')return false;const s=zergEliteCombat(u),cost=SOURCE_ABILITIES.transfusion.energy*(1-(talentModifiers(w,u,'transfusion').abilityEnergyReductionPct??0));
  if(w.time<s.ready||u.energy<cost||u.nativeModeUntil||(u.stoppedUntil??0)>w.time)return true;
  const targets=w.allies().filter(p=>eligible(p)&&p.attributes.includes('Biological')&&p.hp<p.maxHp&&dist(u,p)<=8+p.unitRadius&&w.hasAttackLine(u,p)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id).slice(0,5);if(!targets.length)return true;
- u.energy-=cost;s.ready=w.time+12;u.abilityReady=s.ready;u.lastSkillAt=w.time;w.zergElites.heals.push({id:w.nextId++,source:structuredClone(u),targets:targets.map(p=>p.id),amount:240*eliteFixedGrowth(u.rank)*(1+(talentModifiers(w,u,'transfusion').healingPct??0)),next:w.time+.25,until:w.time+4});w.visual('skill-heal',u,targets[0]);return true;
+ u.energy-=cost;s.ready=w.time+12;u.abilityReady=s.ready;u.lastSkillAt=w.time;w.zergElites.heals.push({id:w.nextId++,source:cloneCombatSource(w,u),targets:targets.map(p=>p.id),amount:240*(eliteFixedGrowth(u.rank)*equipmentNativeFactor(w,u))*(1+(talentModifiers(w,u,'transfusion').healingPct??0)),next:w.time+.25,until:w.time+4});w.visual('skill-heal',u,targets[0]);return true;
 }
 export function zergEliteBile(w:World,u:Entity,dt:number){if(!revisedZergElite(u)||u.unitType!=='ravager')return false;u.bileCooldown=Math.max(0,u.bileCooldown-dt);if(!w.expedition.tech.bile||u.bileCooldown>0)return true;
  const targets=zergEliteEnemies(w,u,u,BILE.range,'both').sort((a,b)=>dist(u,a)-dist(u,b)||a.id-b.id),target=targets[0];if(!target){u.bileCooldown=.12;return true;}
  const id=u.eliteId,t=talentModifiers(w,u,'bile'),n=id==='ravager.1'?3:1;u.bileCooldown=(id==='ravager.1'?9:12)*(1-(t.abilityCooldownReductionPct??0));u.lastSkillAt=w.time;
- for(let i=0;i<n;i++)w.zergElites.biles.push({id:w.nextId++,source:structuredClone(u),point:{x:target.x,z:target.z},launchAt:w.time+i*.3,impactAt:w.time+i*.3+BILE.delay,damage:1200*eliteFixedGrowth(u.rank)*(id==='ravager.2'?4:1)*(1+(t.abilityDamagePct??0)),radius:BILE.radius*(id==='ravager.2'?1.5:1),launched:false});return true;
+ for(let i=0;i<n;i++)w.zergElites.biles.push({id:w.nextId++,source:cloneCombatSource(w,u),point:{x:target.x,z:target.z},launchAt:w.time+i*.3,impactAt:w.time+i*.3+BILE.delay,damage:1200*(eliteFixedGrowth(u.rank)*equipmentNativeFactor(w,u))*(id==='ravager.2'?4:1)*(1+(t.abilityDamagePct??0)),radius:BILE.radius*(id==='ravager.2'?1.5:1),launched:false});return true;
 }
 /** Burrow and physical charge are bounded state machines. World orders remain intact. */
 export function tickZergElite(w:World,u:Entity,dt:number){if(!revisedZergElite(u))return false;const s=zergEliteCombat(u),id=u.eliteId!;
@@ -168,14 +171,14 @@ export function tickZergElite(w:World,u:Entity,dt:number){if(!revisedZergElite(u
   if(!s.dash&&w.time>=s.ready&&!(u.stoppedUntil!>w.time)){const target=zergEliteEnemies(w,u,u,6+u.unitRadius,'ground').filter(b=>!b.attributes.includes('Structure')&&w.hasAttackLine(u,b)).sort((a,b)=>dist(u,a)-dist(u,b)||a.id-b.id)[0];if(target){const length=Math.min(6,Math.max(0,dist(u,target)-u.unitRadius-target.unitRadius)),d=dist(u,target)||1;s.ready=w.time+12;s.dash={from:{x:u.x,z:u.z},to:{x:u.x+(target.x-u.x)*length/d,z:u.z+(target.z-u.z)*length/d},target:target.id,travel:0,distance:length};u.windup=0;u.pendingTarget=null;}}
   if(s.dash){const dash=s.dash,before={x:u.x,z:u.z},remaining=dist(u,dash.to),travel=Math.min(remaining,Math.max(8,u.moveSpeed*2.5)*dt),d=remaining||1;const next={x:u.x+(dash.to.x-u.x)*travel/d,z:u.z+(dash.to.z-u.z)*travel/d};const blocked=!clearLine(u,next,u.unitRadius,w.obstacles,w.terrain)||[...w.entities.values()].some(b=>b.id!==u.id&&b.hp>0&&!b.flying&&dist(b,next)<u.unitRadius+b.unitRadius-.03);
    if(!blocked)translate(u,{x:next.x-u.x,z:next.z-u.z},u.unitRadius,false,w.obstacles,w.mapHalf,w.terrain);dash.travel+=dist(before,u);u.prev=before;u.velocity={x:(u.x-before.x)/dt,z:(u.z-before.z)/dt};u.action='move';u.attackFacing=u.facing=Math.atan2(dash.to.x-u.x,dash.to.z-u.z);
-   if(blocked||remaining<=travel+1e-8||dist(before,u)<travel*.5){s.dash=null;s.boostUntil=w.time+6;for(const b of zergEliteEnemies(w,u,u,4,'ground'))w.hit(b,2200*eliteFixedGrowth(u.rank),[],1,u.owner,0,0,u.id);w.visual('strategic-impact',u);w.refreshStats(u);}return true;
+   if(blocked||remaining<=travel+1e-8||dist(before,u)<travel*.5){s.dash=null;s.boostUntil=w.time+6;for(const b of zergEliteEnemies(w,u,u,4,'ground'))w.hit(b,2200*(eliteFixedGrowth(u.rank)*equipmentNativeFactor(w,u)),[],1,u.owner,0,0,u.id);w.visual('strategic-impact',u);w.refreshStats(u);}return true;
   }
  }return false;
 }
 /** Death propagation consumes a saved source capsule once. Derived capsules cannot propagate again. */
 export function zergEliteDeath(w:World,b:Entity){const capsules=w.zergElites.poisons.filter(p=>p.target===b.id&&p.until>w.time);w.zergElites.poisons=w.zergElites.poisons.filter(p=>p.target!==b.id);
  for(const p of capsules){if(!p.spread||boss(b))continue;const u=p.source,remaining=Math.max(0,p.until-w.time);if(remaining<=0)continue;
-  if(p.kind==='air'){for(const t of zergEliteEnemies(w,u,b,4.5,'air'))w.hit(t,1800*eliteFixedGrowth(u.rank),[],1,u.owner,0,0,u.id);w.visual('strategic-impact',u,b);}
+  if(p.kind==='air'){for(const t of zergEliteEnemies(w,u,b,4.5,'air'))w.hit(t,1800*(eliteFixedGrowth(u.rank)*equipmentNativeFactor(w,u)),[],1,u.owner,0,0,u.id);w.visual('strategic-impact',u,b);}
   const targets=zergEliteEnemies(w,u,b,p.kind==='air'?4.5:4,p.kind==='air'?'air':b.flying?'air':'ground').filter(t=>!boss(t)).sort((a,b)=>dist(a,p.source)-dist(b,p.source)||a.id-b.id).slice(0,p.kind==='air'?3:4);
   for(const t of targets){poison(w,u,t,p.kind,remaining,1,false);w.visual('support-flight',{...u,x:b.x,z:b.z,flying:b.flying},t,p.id);}
  }
@@ -185,17 +188,17 @@ export function tickZergEliteState(w:World,dt=1/60){const s=w.zergElites;
  s.debuffs=s.debuffs.filter(d=>d.until>w.time&&(w.body(d.target)?.hp??0)>0);for(const [key,f] of Object.entries(s.frenzy))if(f.until<=w.time)delete s.frenzy[key];for(const key of Object.keys(s.gates))if(s.gates[key]<w.time-2)delete s.gates[key];
  for(const b of s.biles){if(w.time>=b.launchAt&&!b.launched){const live=w.entities.get(b.source.id);if(!live||live.hp<=0){b.impactAt=-1;continue;}b.launched=true;w.visual('skill-launch',b.source,b.point,b.id);}if(!b.launched||w.time<b.impactAt||b.impactAt<0)continue;
   for(const t of zergEliteEnemies(w,b.source,b.point,b.radius,'both')){const f=b.source.eliteId==='ravager.2'&&(t.attributes.includes('Armored')||t.attributes.includes('Structure'))?1.5:1;w.hit(t,b.damage*f,[],1,b.source.owner,0,0,b.source.id);if(b.source.eliteId==='ravager.2'&&t.hp>0)debuff(w,b.source,t,5,{armor:.5});}
-  w.visual('bile-impact',b.source,b.point,b.id);if(b.source.eliteId==='ravager.3')area(w,b.source,b.point,'rain',4,380*eliteFixedGrowth(b.source.rank),6);b.impactAt=-1;
+  w.visual('bile-impact',b.source,b.point,b.id);if(b.source.eliteId==='ravager.3')area(w,b.source,b.point,'rain',4,380*(eliteFixedGrowth(b.source.rank)*equipmentNativeFactor(w,b.source)),6);b.impactAt=-1;
  }s.biles=s.biles.filter(b=>b.impactAt>=0);
  for(const a of s.areas){while(a.next<=w.time+1e-8&&a.next<=a.until+1e-8){for(const b of zergEliteEnemies(w,a.source,a.point,a.radius,'ground')){const key=a.kind+':'+a.source.id+':'+b.id;if((s.gates[key]??-1)>w.time-1+1e-8)continue;const damage=Math.max(a.damage,...s.areas.filter(other=>other.kind===a.kind&&other.source.id===a.source.id&&other.until>=w.time&&dist(other.point,b)<=other.radius+b.unitRadius).map(o=>o.damage));s.gates[key]=w.time;w.hit(b,damage,[],1,a.source.owner,0,1,a.source.id);if(a.kind==='rain'&&b.hp>0)debuff(w,a.source,b,1.1,{move:boss(b)?.2:.45});}w.visual('skill-dot',a.source,a.point,a.id);a.next+=1;}}
  s.areas=s.areas.filter(a=>a.until>w.time+1e-8);
  for(const l of s.lines){while(l.next<=w.time+1e-8&&l.progress<l.length){const previous={...l.point};l.progress=Math.min(l.length,l.progress+(l.kind==='spear'?1.4:1));l.point={x:l.from.x+Math.sin(l.facing)*l.progress,z:l.from.z+Math.cos(l.facing)*l.progress};if(!clearLine(previous,l.point,0,w.obstacles,w.terrain)&&!l.air){l.progress=l.length;break;}
   for(const b of zergEliteEnemies(w,l.source,l.point,2.5+l.width/2,l.air?'air':'ground')){if(l.hits.includes(b.id))continue;const along=(b.x-l.from.x)*Math.sin(l.facing)+(b.z-l.from.z)*Math.cos(l.facing),across=Math.abs((b.x-l.from.x)*Math.cos(l.facing)-(b.z-l.from.z)*Math.sin(l.facing));if(along>=0&&along<=l.progress+b.unitRadius&&along>=l.progress-1.4-b.unitRadius&&across<=l.width/2+b.unitRadius){l.hits.push(b.id);w.attackHit(l.source,b,l.damage,l.bonuses,1,0,b.id===l.target,l.crit,{enemyFactor:w.enemyDamageFactor(l.source),apm:b.id===l.target&&l.apm});if(l.source.eliteId==='lurker.2'&&l.source.zergEliteCombat!.cycles%4===0&&b.hp>0)debuff(w,l.source,b,2,{move:boss(b)?.3:.6});w.visual('weapon-area',l.source,b,l.id);}}
-  l.next+=l.kind==='spear'?.025:.04;
+  equipmentCluster(w,l.source,w.body(l.target)??l.point,l.width/(2*equipmentAreaRadius(w,l.source,1)),l.damage/equipmentAreaFactor(w,l.source),l.bonuses.map(b=>({...b,amount:b.amount/equipmentAreaFactor(w,l.source)})),1,l.crit,l.air?'air':'ground');l.next+=l.kind==='spear'?.025:.04;
  }}s.lines=s.lines.filter(l=>l.progress<l.length);
- for(const p of [...s.poisons]){const b=w.body(p.target);if(!b||b.hp<=0)continue;while(p.next<=w.time+1e-8&&p.next<=p.until+1e-8&&b.hp>0){w.hit(b,(p.kind==='hydra'?120:260)*eliteFixedGrowth(p.source.rank)*p.layers,[],1,p.source.owner,0,1,p.source.id);w.visual('skill-dot',p.source,b,p.id);p.next+=1;}}
+ for(const p of [...s.poisons]){const b=w.body(p.target);if(!b||b.hp<=0)continue;while(p.next<=w.time+1e-8&&p.next<=p.until+1e-8&&b.hp>0){w.hit(b,(p.kind==='hydra'?120:260)*(eliteFixedGrowth(p.source.rank)*equipmentNativeFactor(w,p.source))*p.layers,[],1,p.source.owner,0,1,p.source.id);w.visual('skill-dot',p.source,b,p.id);p.next+=1;}}
  s.poisons=s.poisons.filter(p=>p.until>w.time+1e-8&&(w.body(p.target)?.hp??0)>0);
- for(const h of s.heals){const live=w.entities.get(h.source.id);if(!live||live.hp<=0){h.until=-1;continue;}while(h.next<=w.time+1e-8&&h.next<=h.until+1e-8){for(const id of h.targets){const b=w.entities.get(id);if(b&&eligible(b)&&b.attributes.includes('Biological')&&dist(live,b)<=8+b.unitRadius&&w.hasAttackLine(live,b)){const gain=Math.min(b.maxHp-b.hp,h.amount*.25*teamHealingFactor(w,b));b.hp+=gain;w.stats.healed+=gain;observeRecovery(w,live,b,gain);recordTeamTransfusion(w,live,b,gain);if(gain>0)w.visual('skill-heal',live,b,h.id);}}h.next+=.25;}}s.heals=s.heals.filter(h=>h.until>w.time+1e-8);
+ for(const h of s.heals){const live=w.entities.get(h.source.id);if(!live||live.hp<=0){h.until=-1;continue;}while(h.next<=w.time+1e-8&&h.next<=h.until+1e-8){for(const id of h.targets){const b=w.entities.get(id);if(b&&eligible(b)&&b.attributes.includes('Biological')&&dist(live,b)<=8+b.unitRadius&&w.hasAttackLine(live,b)){const gain=Math.min(b.maxHp-b.hp,h.amount*.25*teamHealingFactor(w,b)*equipmentHealingOutput(w,live,false));b.hp+=gain;w.stats.healed+=gain;observeRecovery(w,live,b,gain);recordTeamTransfusion(w,live,b,gain);if(gain>0)w.visual('skill-heal',live,b,h.id);}}h.next+=.25;}}s.heals=s.heals.filter(h=>h.until>w.time+1e-8);
 }
 /** Explicit retirement/expiry is not a combat death and cannot propagate a capsule. */
 export function pruneZergEliteState(w:World){w.zergElites.poisons=w.zergElites.poisons.filter(p=>(w.body(p.target)?.hp??0)>0);w.zergElites.debuffs=w.zergElites.debuffs.filter(d=>(w.body(d.target)?.hp??0)>0);}

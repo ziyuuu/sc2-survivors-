@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {FullScreenQuad} from 'three/addons/postprocessing/Pass.js';
 import {physicalSurface,type PosedDepthRegistry} from '../materials/posed-depth';
+import {sceneRenderables,hierarchyVisible} from './renderable-registry';
 
 export const CONTACT_SAMPLES=12,CONTACT_RADIUS=.48,CONTACT_STRENGTH=.5;
 export function contactKernel(){return Array.from({length:CONTACT_SAMPLES},(_,i)=>{const z=(i+.5)/CONTACT_SAMPLES,a=i*2.399963229728653,r=Math.sqrt(1-z*z),scale=.1+.9*((i+.5)/CONTACT_SAMPLES)**2;return new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,z).multiplyScalar(scale);});}
@@ -34,37 +35,38 @@ const fragmentShader=`varying vec2 vUv;uniform sampler2D sceneDepth;uniform mat4
  vec3 viewNormal(vec2 uv,float d,vec3 p){vec2 e=1./depthSize;float l=depthAt(uv-vec2(e.x,0.)),r=depthAt(uv+vec2(e.x,0.)),b=depthAt(uv-vec2(0.,e.y)),t=depthAt(uv+vec2(0.,e.y));
   vec3 dx=abs(l-d)<abs(r-d)?p-viewAt(uv-vec2(e.x,0.),l):viewAt(uv+vec2(e.x,0.),r)-p;
   vec3 dy=abs(b-d)<abs(t-d)?p-viewAt(uv-vec2(0.,e.y),b):viewAt(uv+vec2(0.,e.y),t)-p;vec3 n=cross(dx,dy);return dot(n,n)>1e-12?normalize(n):vec3(0.,0.,1.);}
- void main(){float depth=depthAt(vUv);if(depth>=.999999){gl_FragColor=vec4(1.,10000.,0.,1.);return;}vec3 p=viewAt(vUv,depth),n=viewNormal(vUv,depth,p);
+ uniform int sampleCount;void main(){float depth=depthAt(vUv);if(depth>=.999999){gl_FragColor=vec4(1.,10000.,0.,1.);return;}vec3 p=viewAt(vUv,depth),n=viewNormal(vUv,depth,p);
   vec3 axis=abs(n.z)<.95?vec3(0.,0.,1.):vec3(0.,1.,0.);vec3 tangent=normalize(cross(axis,n)),bitangent=cross(n,tangent);mat3 orient=mat3(tangent,bitangent,n);float obscured=0.;
-  for(int i=0;i<12;i++){vec3 samplePoint=p+orient*kernel[i]*radius;vec4 clip=projection*vec4(samplePoint,1.);vec2 uv=clip.xy/clip.w*.5+.5;if(any(lessThan(uv,vec2(0.)))||any(greaterThan(uv,vec2(1.))))continue;
+  for(int i=0;i<12;i++){if(i>=sampleCount)break;vec3 samplePoint=p+orient*kernel[i]*radius;vec4 clip=projection*vec4(samplePoint,1.);vec2 uv=clip.xy/clip.w*.5+.5;if(any(lessThan(uv,vec2(0.)))||any(greaterThan(uv,vec2(1.))))continue;
    float realDepth=depthAt(uv);if(realDepth>=.999999)continue;vec3 real=viewAt(uv,realDepth);float delta=real.z-samplePoint.z;float nearby=1.-smoothstep(radius*.3,radius,abs(p.z-real.z));obscured+=step(.018,delta)*nearby;}
-  gl_FragColor=vec4(1.-clamp(obscured/12.,0.,1.)*strength,-p.z,0.,1.);
+  gl_FragColor=vec4(1.-clamp(obscured/float(sampleCount),0.,1.)*strength,-p.z,0.,1.);
  }`;
 
 export class SceneContact {
- enabled=true;private ready=false;private fallback:string|null=null;private bound=new WeakSet<THREE.Material>();
+ samples=12;enabled=true;private ready=false;private fallback:string|null=null;private bound=new WeakSet<THREE.Material>();
  private depthTarget=new THREE.WebGLRenderTarget(1,1,{depthBuffer:true,stencilBuffer:false});
  private target=new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType,minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter,depthBuffer:false,stencilBuffer:false});
  private white=new THREE.DataTexture(new Uint8Array([255,255,0,255]),1,1);
  private uniforms:ContactUniforms={sceneContactMap:{value:this.white},sceneContactSize:{value:new THREE.Vector2(1,1)},sceneContactViewport:{value:new THREE.Vector2(1,1)},sceneContactProjection:{value:new THREE.Vector3(.1,180,0)},sceneContactEnabled:{value:0}};
- private material=new THREE.ShaderMaterial({name:'posed-contact-12',depthTest:false,depthWrite:false,blending:THREE.NoBlending,toneMapped:false,uniforms:{sceneDepth:{value:null},projection:{value:new THREE.Matrix4()},inverseProjection:{value:new THREE.Matrix4()},depthSize:{value:new THREE.Vector2(1,1)},kernel:{value:contactKernel()},radius:{value:CONTACT_RADIUS},strength:{value:CONTACT_STRENGTH}},vertexShader,fragmentShader});
+ private material=new THREE.ShaderMaterial({name:'posed-contact-12',depthTest:false,depthWrite:false,blending:THREE.NoBlending,toneMapped:false,uniforms:{sceneDepth:{value:null},projection:{value:new THREE.Matrix4()},inverseProjection:{value:new THREE.Matrix4()},depthSize:{value:new THREE.Vector2(1,1)},sampleCount:{value:12},kernel:{value:contactKernel()},radius:{value:CONTACT_RADIUS},strength:{value:CONTACT_STRENGTH}},vertexShader,fragmentShader});
  private quad=new FullScreenQuad(this.material);private width=0;private height=0;private occluders=0;
  constructor(private renderer:THREE.WebGLRenderer,private registry:PosedDepthRegistry){this.white.needsUpdate=true;this.depthTarget.depthTexture=new THREE.DepthTexture(1,1,THREE.UnsignedIntType);this.depthTarget.texture.name='posed-contact-depth-colour-unused';this.depthTarget.depthTexture.name='posed-contact-depth';this.target.texture.name='ambient-contact-and-depth';}
- prepare(root:THREE.Object3D){if(!this.enabled)return;root.traverse(node=>{if(!(node instanceof THREE.Mesh))return;for(const material of Array.isArray(node.material)?node.material:[node.material])if(material instanceof THREE.MeshStandardMaterial&&physicalSurface(material)&&!this.bound.has(material)){bindAmbientContact(material,this.uniforms);this.bound.add(material);}});}
+ prepare(root:THREE.Object3D){if(!this.enabled)return;for(const node of sceneRenderables(root)){if(!(node instanceof THREE.Mesh))continue;for(const material of Array.isArray(node.material)?node.material:[node.material])if(material instanceof THREE.MeshStandardMaterial&&physicalSurface(material)&&!this.bound.has(material)){bindAmbientContact(material,this.uniforms);this.bound.add(material);}}}
  render(scene:THREE.Scene,camera:THREE.OrthographicCamera|THREE.PerspectiveCamera,width:number,height:number){
   if(!this.enabled||this.renderer.getContext().isContextLost())return;
   this.prepare(scene);width=Math.max(1,Math.floor(width));height=Math.max(1,Math.floor(height));const halfWidth=Math.max(1,Math.ceil(width/2)),halfHeight=Math.max(1,Math.ceil(height/2));
   if(this.width!==width||this.height!==height){this.width=width;this.height=height;this.depthTarget.setSize(width,height);this.target.setSize(halfWidth,halfHeight);}
   const renderer=this.renderer,previous=renderer.getRenderTarget(),background=scene.background,override=scene.overrideMaterial,autoUpdate=renderer.shadowMap.autoUpdate,needsUpdate=renderer.shadowMap.needsUpdate,clear=renderer.getClearColor(new THREE.Color()),alpha=renderer.getClearAlpha();
   const changed:{node:THREE.Object3D;visible:boolean;material?:THREE.Material|THREE.Material[]}[]=[];this.occluders=0;
-  scene.traverseVisible(node=>{if(node instanceof THREE.Mesh&&node.userData.visualRole!=='effect'&&(Array.isArray(node.material)?node.material:[node.material]).some(physicalSurface)&&(!(node instanceof THREE.InstancedMesh)||node.count>0))this.occluders++;});
+  const objects=sceneRenderables(scene);
+  for(const node of objects)if(node instanceof THREE.Mesh&&node.userData.visualRole!=='effect'&&(Array.isArray(node.material)?node.material:[node.material]).some(physicalSurface)&&(!(node instanceof THREE.InstancedMesh)||node.count>0)&&hierarchyVisible(node))this.occluders++;
   try{
-   scene.traverse(node=>{
+   for(const node of objects){
     if(node instanceof THREE.Mesh){const physical=(Array.isArray(node.material)?node.material:[node.material]).some(physicalSurface)&&node.userData.visualRole!=='effect';changed.push({node,visible:node.visible,material:node.material});if(physical)node.material=this.registry.depthFor(node);else node.visible=false;}
     else if(node instanceof THREE.Line||node instanceof THREE.Points||node instanceof THREE.Sprite){changed.push({node,visible:node.visible});node.visible=false;}
-   });
+   }
    scene.background=null;scene.overrideMaterial=null;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=false;renderer.setClearColor(0xffffff,1);renderer.setRenderTarget(this.depthTarget);renderer.clear();renderer.render(scene,camera);
-   const u=this.material.uniforms;u.sceneDepth.value=this.depthTarget.depthTexture;u.projection.value.copy(camera.projectionMatrix);u.inverseProjection.value.copy(camera.projectionMatrixInverse);u.depthSize.value.set(width,height);
+   const u=this.material.uniforms;u.sampleCount.value=this.samples;u.sceneDepth.value=this.depthTarget.depthTexture;u.projection.value.copy(camera.projectionMatrix);u.inverseProjection.value.copy(camera.projectionMatrixInverse);u.depthSize.value.set(width,height);
    renderer.setRenderTarget(this.target);renderer.clear();this.quad.render(renderer);
    this.uniforms.sceneContactMap.value=this.target.texture;this.uniforms.sceneContactSize.value.set(halfWidth,halfHeight);this.uniforms.sceneContactViewport.value.set(width,height);this.uniforms.sceneContactProjection.value.set(camera.near,camera.far,camera instanceof THREE.PerspectiveCamera?1:0);this.uniforms.sceneContactEnabled.value=1;this.ready=true;
   }catch(error){this.enabled=false;this.ready=false;this.fallback=String(error);this.uniforms.sceneContactEnabled.value=0;}
@@ -74,5 +76,5 @@ export class SceneContact {
   }
  }
  restore(){this.depthTarget.dispose();this.target.dispose();this.uniforms.sceneContactMap.value=this.white;this.uniforms.sceneContactEnabled.value=0;this.ready=false;}
- report(){return {enabled:this.enabled,ready:this.ready,fallback:this.fallback,samples:CONTACT_SAMPLES,radius:CONTACT_RADIUS,strength:CONTACT_STRENGTH,scope:'opaque-indirect-diffuse',depthSize:[this.width,this.height],size:[this.target.width,this.target.height],occluders:this.occluders,sharedPoseDepth:true,emissionUntouched:true};}
+ report(){return {enabled:this.enabled,ready:this.ready,fallback:this.fallback,samples:this.samples,radius:CONTACT_RADIUS,strength:CONTACT_STRENGTH,scope:'opaque-indirect-diffuse',depthSize:[this.width,this.height],size:[this.target.width,this.target.height],occluders:this.occluders,sharedPoseDepth:true,emissionUntouched:true};}
 }

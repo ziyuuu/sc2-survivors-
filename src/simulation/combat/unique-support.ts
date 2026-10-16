@@ -1,5 +1,8 @@
+import {equipmentManualSucceeded} from '../starship/controls';
 import {hitFrom,observeRecovery} from '../observation';
+import {equipmentValue} from '../starship/modules';
 import type {World} from '../world';
+import {isDensityCompanion} from '../../data/enemy-tuning';
 import type {Entity,Body,Point} from '../types';
 import {UNIQUE_SUPPORT,tacticalCard,type UniqueSupportId} from '../../data/unique-support';
 import {validCarrierLanding} from '../movement/carrier-landing';
@@ -43,7 +46,7 @@ export function uniquePrimary(w:World,u:Entity,target:Body,damage:number){if(!fi
 }
 function jump(w:World,p:SupportPacket){if(!p.left)return;const source=w.entities.get(p.source),target=enemy(w).filter(e=>!p.seen!.includes(e.id)&&(!p.groundOnly||!e.flying)&&dist(e,p.point)<=3&&w.visibleTo(e,'terran')&&line(w,p.point,e,p.air)&&(!source||w.targetAllowed(source,e))).sort((a,b)=>dist(a,p.point)-dist(b,p.point)||a.id-b.id)[0];if(!target)return;const from={...p.point},point={x:target.x,z:target.z};state(w).packets.push({...p,id:w.nextId++,from,point,start:w.time,at:w.time+dist(from,point)/20,target:target.id,left:p.left-1,seen:[...p.seen!,target.id]});}
 export function uniqueDeath(w:World,victim:Entity,sourceId?:number){const s=state(w),mark=s.parasites[victim.id];delete s.parasites[victim.id];if(mark&&mark.until>=w.time)area(w,victim,mark.damage,2.5,0,'zerg.parasite');
- if(victim.team!=='enemy'||victim.summonKind||victim.temporary||dist(victim,w.anchor)>12)return;const source=sourceId===undefined?undefined:w.entities.get(sourceId);if(source?.temporary||source?.summonKind)return;
+ if(isDensityCompanion(victim)||victim.team!=='enemy'||victim.summonKind||victim.temporary||dist(victim,w.anchor)>12)return;const source=sourceId===undefined?undefined:w.entities.get(sourceId);if(source?.temporary||source?.summonKind)return;
  if(supportRank(w,'zerg.hatch'))s.kills=Math.min(12,s.kills+1);
  const rank=supportRank(w,'zerg.consume');if(rank&&w.time>=s.consumeReady&&s.orbs.length<2&&w.visibleTo(victim,'terran')){s.orbs.push({id:w.nextId++,point:{x:victim.x,z:victim.z},origin:{x:victim.x,z:victim.z},until:w.time+6,amount:[0,40,60,80][rank],target:null});s.consumeReady=w.time+3;}
 }
@@ -52,9 +55,9 @@ export function absorbReserve(w:World,u:Entity,amount:number){const r=state(w).r
 export function uniqueShieldBreak(w:World,u:Entity){const s=state(w),rank=supportRank(w,'protoss.counter');if(!rank||!usable(u)||w.time<(s.counterReady[u.id]??0))return;s.counterReady[u.id]=w.time+12;area(w,u,[0,120,180,240][rank],3,.25,'protoss.counter');}
 export function uniqueActiveStats(w:World,u:Entity){const s=state(w),on=s.activeUntil>w.time&&u.team==='player';return {speed:on&&w.expedition.race==='terran'?[0,.2,.3,.4][s.activeRank]:0,move:on&&w.expedition.race==='terran'?.15:0,armor:on&&w.expedition.race==='zerg'&&u.attributes.includes('Biological')?[0,2,3,4][s.activeRank]:0};}
 export function previewTactical(w:World,p?:Point){const s=state(w);if(w.phase!=='battle'||w.paused||w.requiresPlayerDecision||!supportRank(w,tacticalCard(w.expedition.race))||w.time<s.ready||s.prism)return false;if(w.expedition.race!=='protoss')return w.allies().some(u=>u.hp>0&&(w.expedition.race!=='zerg'||u.attributes.includes('Biological')));return !!p&&Number.isFinite(p.x)&&Number.isFinite(p.z)&&dist(p,w.anchor)>.01&&(w.terrain?w.terrain.isOpen?.(p)??w.terrain.canOccupy(p,0):Math.abs(p.x)<=76&&Math.abs(p.z)<=76);}
-export function castTactical(w:World,p?:Point){if(!previewTactical(w,p))return false;const s=state(w),race=w.expedition.race,rank=supportRank(w,tacticalCard(race));s.ready=w.time+60*Math.max(.5,1-.10*w.talent('skill_recovery'));s.activeRank=rank;
+export function castTactical(w:World,p?:Point){if(!previewTactical(w,p))return false;const s=state(w),race=w.expedition.race,rank=supportRank(w,tacticalCard(race));s.ready=w.time+60*Math.max(.5,1-.10*w.talent('skill_recovery')-equipmentValue(w,'manual_cooldown'));s.activeRank=rank;
  if(race==='protoss'){const length=dist(p!,w.anchor);s.prism={id:w.nextId++,origin:{x:w.anchor.x,z:w.anchor.z},direction:{x:(p!.x-w.anchor.x)/length,z:(p!.z-w.anchor.z)/length},next:w.time+.7,remaining:10,damage:[0,800,1100,1400][rank]/10};}
- else {s.activeUntil=w.time+8;for(const u of w.entities.values()){if(u.team!=='player'||u.hp<=0)continue;if(race==='zerg'&&u.attributes.includes('Biological')){const observedHp=u.hp;u.hp=Math.min(u.maxHp,u.hp+u.maxHp*[0,.15,.225,.3][rank]);observeRecovery(w,'zerg.evolve',u,u.hp-observedHp);}w.refreshStats(u);event(w,'support-pulse',u);}}w.changed();return true;}
+ else {s.activeUntil=w.time+8;for(const u of w.entities.values()){if(u.team!=='player'||u.hp<=0)continue;if(race==='zerg'&&u.attributes.includes('Biological')){const observedHp=u.hp;u.hp=Math.min(u.maxHp,u.hp+u.maxHp*[0,.15,.225,.3][rank]);observeRecovery(w,'zerg.evolve',u,u.hp-observedHp);}w.refreshStats(u);event(w,'support-pulse',u);}}equipmentManualSucceeded(w,'tactical');w.changed();return true;}
 
 function bunkerPoint(w:World,p:Point){return validCarrierLanding(w,'marine',p,undefined,1.6)&&!w.allies().some(u=>!u.flying&&dist(u,p)<1.6+u.unitRadius)&&!enemy(w).some(u=>!u.flying&&dist(u,p)<1.6+u.unitRadius);}
 export function tickUnique(w:World,dt=1/60){const s=state(w);
