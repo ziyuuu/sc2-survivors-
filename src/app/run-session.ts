@@ -55,7 +55,7 @@ export class RunSession {
   if(w.phase!=='battle'||w.paused||signature!==this.lastSignature||w.time-this.lastTime>=10){this.lastSignature=signature;this.requestSave();}
  }
  requestSave(){if(this.memoryOnly||this.scheduled)return;this.scheduled=true;queueMicrotask(()=>{this.scheduled=false;if(!this.memoryOnly)void this.saveNow().catch(()=>{});});}
- exportJSON(){if(this.memoryOnly)throw Error('舰装验证局仅保留内存进度；存档接入留到 MVP 收尾');return writeArchive({profile:this.world.permanentProfile.exportJSON(),run:this.world.phase==='menu'?this.pending:this.world.runId?this.world.captureRun():null,shopProgress:this.world.phase==='menu'?this.pendingProgress:this.world.runId?shopProgress(this.world).snapshot():undefined});}
+ exportJSON(){if(this.memoryOnly)throw Error('舰装进度仅保留内存；刷新或关闭后重置');return writeArchive({profile:this.world.permanentProfile.exportJSON(),run:this.world.phase==='menu'?this.pending:this.world.runId?this.world.captureRun():null,shopProgress:this.world.phase==='menu'?this.pendingProgress:this.world.runId?shopProgress(this.world).snapshot():undefined});}
  async saveNow(){const raw=this.exportJSON(),version=++this.sequence;this.lastTime=this.world.time;this.busy=true;this.onChange();
   const operation=this.queue.catch(()=>{}).then(async()=>{if(!this.repository)throw Error('本地存储不可用，请导出存档文件');await this.repository.commit(raw);});this.queue=operation;
   try{await operation;if(version===this.sequence){this.savedAt=readArchive(raw).savedAt;this.archiveProfile=this.world.permanentProfile.exportJSON();this.message='战局与永久档案已保存。';}}
@@ -64,7 +64,7 @@ export class RunSession {
  }
  /** Read-only candidate validation; no profile or World mutation. */
  inspectSave(raw:string):{kind:'current';bundle:SaveBundle}{
-  if(this.memoryOnly)throw Error('舰装验证入口不读取正式存档');
+  if(this.memoryOnly)throw Error('舰装入口暂不读取正式存档');
   const {bundle}=readArchive(raw);
   if(bundle.run)this.world.restoreRun(bundle.run,true);
   return {kind:'current',bundle};

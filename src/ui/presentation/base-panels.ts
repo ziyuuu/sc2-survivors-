@@ -7,7 +7,7 @@ import {SC2_UNITS} from '../../data/sc2-units';
 import {EXPEDITION_CARD_DEFINITIONS} from '../../simulation/progression/expedition-drafts';
 import {teamCardEffects} from '../../simulation/progression/team-cards';
 import {RARITIES} from '../../data/rewards';
-import {image,button,money,esc,modal} from './reference-primitives';
+import {image,button,money,esc,modal,glyph} from './reference-primitives';
 import {shopProgress} from './shop-progress';
 import {purchasedEnhancements} from './purchased-enhancements';
 import {familyCardEffect} from './shop-card-copy';
@@ -18,7 +18,7 @@ export function lineTechnology(w:World,line:ProductionLineId){const tech=w.exped
 export const facilities=productionFacilities;
 export function technology(w:World){const state=buildingViewState(w);return state?renderBuildingTechnology(state):'';}
 export function researchOverview(w:World){return technology(w);}
-export function progressStrip(){return `<nav class="feedback-progress-strip" aria-label="整备服务">${button('设施调整','battle-base','small')}${button('强化一览','battle-progress','small')}${button('休整','ui-page','small','data-page="rest"')}</nav>`;}
+export function progressStrip(equipment=false,backpack=false){return `<nav class="feedback-progress-strip" aria-label="整备服务">${button('设施调整','battle-base','small')}${button('强化一览','battle-progress','small')}${button('休整','ui-page','small','data-page="rest"')}${equipment?button(glyph('bag')+' 背包','starship-backpack','small'+(backpack?' active':''),`aria-pressed="${backpack}"`):''}</nav>`;}
 
 export function renderEnhancements(w:World,tab:'summary'|'sources'){
  const journal=shopProgress(w).snapshot(),groups=purchasedEnhancements(journal.entries),team=teamCardEffects(w.expedition),pct=(n:number)=>Number((n*100).toFixed(2))+'%',totals=w.expedition.cardTotals;

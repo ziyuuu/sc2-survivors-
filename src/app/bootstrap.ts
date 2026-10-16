@@ -1,4 +1,5 @@
 import type {EquipmentAccount} from '../simulation/starship/types';
+import {mountGameStarship} from '../ui/starship/native';
 import {PermanentProfile} from '../simulation/progression/permanent-profile';
 import {MemoryStorage} from './memory-storage';
 import {BackgroundPreparation} from './background-preparation';
@@ -36,7 +37,7 @@ import {openingProgress,prepareOpeningMenu} from '../ui/presentation/opening';
 
 const canvas=document.querySelector<HTMLCanvasElement>('#battle')!;
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
-export async function boot(options:{equipmentAccount?:EquipmentAccount;seed?:number}={}){openingProgress(null);await loadEmbeddedAssets();openingProgress(25);let storage:Storage|undefined=options.equipmentAccount?new MemoryStorage():undefined,factory:IDBFactory|undefined;if(!options.equipmentAccount){try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}}const saved=options.equipmentAccount?{repository:null,profile:new PermanentProfile(),notice:'舰装验证 · 进度仅保留在本页内存',run:null,savedAt:0}:await openSaveProfile(factory);openingProgress(50);const world=new World({equipmentAccount:options.equipmentAccount,seed:options.seed,terrain:campaignTerrain(chooseCampaignMap(options.seed??crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,saved);const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls,new HudSettings(storage)),audio=new AudioEffects(),background=new BackgroundPreparation(),readiness=new AssetReadinessCoordinator(world,view,audio,background);bindBattleView(world,()=>captureBattleView(canvas,view.camera));hud.session=session;hud.readiness=readiness;hud.audio=audio;hud.downloads.holdOptional=()=>background.suspendOptional();readiness.onChange=()=>hud.update();
+export async function boot(options:{equipmentAccount?:EquipmentAccount;seed?:number;uiValidation?:boolean;starship?:{resolveImage:(key:string,detail?:boolean)=>string}}={}){openingProgress(null);await loadEmbeddedAssets();openingProgress(25);let storage:Storage|undefined=options.equipmentAccount?new MemoryStorage():undefined,factory:IDBFactory|undefined;if(!options.equipmentAccount){try{storage=localStorage;}catch{}try{factory=globalThis.indexedDB;}catch{}}const saved=options.equipmentAccount?{repository:null,profile:new PermanentProfile(),notice:'本页进度 · 刷新或关闭后重置',run:null,savedAt:0}:await openSaveProfile(factory);openingProgress(50);const world=new World({equipmentAccount:options.equipmentAccount,seed:options.seed,...(options.equipmentAccount&&options.uiValidation?{waves:false,sandbox:true}:{}),terrain:campaignTerrain(chooseCampaignMap(options.seed??crypto.getRandomValues(new Uint32Array(1))[0])),endlessTerrain:new FlatTerrain(),permanentProfile:saved.profile,race:saved.profile.activeRace});const session=new RunSession(world,saved.repository,saved);const controls=new ControlSettings(storage);const view=new BattleRenderer(canvas,world),hud=new HUD(world,view,controls,new HudSettings(storage),!!(options.equipmentAccount&&options.starship)),audio=new AudioEffects(),background=new BackgroundPreparation(),readiness=new AssetReadinessCoordinator(world,view,audio,background);bindBattleView(world,()=>captureBattleView(canvas,view.camera));hud.session=session;hud.readiness=readiness;hud.audio=audio;hud.downloads.holdOptional=()=>background.suspendOptional();readiness.onChange=()=>hud.update();
  view.selectedHealthBodies=()=>new Set([...hud.squadConsole.selectedEntityIds,...(hud.carrierInspector.selectedId===null?[]:[hud.carrierInspector.selectedId])]);
  const input=new Input(world,document.querySelector('#joystick')!,()=>hud.pause(),controls,{canvas,zoom:()=>view.cameraInputZoom,setZoom:value=>view.setCameraZoom(value),adjustZoom:delta=>view.adjustCameraZoom(delta),resetZoom:()=>view.resetCameraZoom(),inspect:(x,y)=>{const id=view.pickCarrier(x,y);if(id!==null){hud.carrierInspector.show(id);return true;}const unit=pickFriendly(x,y,view,world);return unit!==null&&hud.squadConsole.selectEntity(unit);},pick:(x,y,touch)=>view.pick(x,y,touch),pickMove:(x,y)=>view.pickMove(x,y),previewTarget:point=>{view.targetPreview=point;}});hud.inputReset=()=>input.reset();hud.onStart=()=>void audio.start();
  const gamepad=new GamepadInput(world,()=>hud.pause(),()=>input.reset());
@@ -74,7 +75,7 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;seed?:num
    if(advance&&!world.skipReward()){readiness.fail('关间选择状态已变化，请重新准备');hud.update();return;}
    readiness.cancel();
   }else readiness.cancel();hud.update();};
- canvas.addEventListener('webglcontextlost',()=>readiness.fail('WebGL 上下文丢失，请等待恢复后重试或导出存档'));
+ canvas.addEventListener('webglcontextlost',()=>readiness.fail(session.memoryOnly?'WebGL 上下文丢失，请等待恢复后重试':'WebGL 上下文丢失，请等待恢复后重试或导出存档'));
  canvas.addEventListener('webglcontextrestored',()=>{if(readiness.state.kind)void readiness.retry();else if(world.phase==='battle')void readiness.prepare('reinforcement');});
  hud.onRestart=()=>{
   hud.pendingStageAdvance=false;
@@ -83,6 +84,7 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;seed?:num
   world.resetRun();hud.root.querySelector<HTMLButtonElement>('[data-action=save-continue]:not(:disabled),[data-action=start]')?.focus();
  };
 
+ const starship=options.equipmentAccount&&options.starship?mountGameStarship(hud,options.starship.resolveImage):null;if(starship)hud.starship=starship;
  let choiceKey='';
  const selectBackground=()=>{
   const snapshot=hud.menuPage==='load-preview'?hud.loadPreview?.snapshot:world.phase==='menu'&&['title','load'].includes(hud.menuPage)?session.savedSnapshot:null;
@@ -104,5 +106,5 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;seed?:num
  document.addEventListener('visibilitychange',()=>{previous=performance.now();driver.reset();if(document.hidden&&world.phase==='battle'){world.paused=true;world.changed();session.requestSave();}});
  window.addEventListener('pagehide',()=>{observer.leaving();if(world.runId)void session.saveNow().catch(()=>{});});
  hud.update();selectBackground();await prepareOpeningMenu(hud.root,background.opening(performance.now(),()=>new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()))));hud.root.querySelector<HTMLButtonElement>('[data-action="menu-new"]')?.focus();
- return {world,view,hud,session,readiness,driver};
+ return {world,view,hud,session,readiness,driver,starship};
 }

@@ -1,2 +1,3 @@
-export function textScale(){let value=1;try{value=Number(localStorage.getItem('sc2.text-scale')??1);}catch{}return [1,1.25,1.5].includes(value)?value:1;}
-export function setTextScale(value:number){if(![1,1.25,1.5].includes(value))return;document.documentElement.style.setProperty('--text-scale',String(value));try{localStorage.setItem('sc2.text-scale',String(value));}catch{}window.dispatchEvent(new Event('resize'));}
+import {displayPreferences,setDisplayPreferences} from './display-preferences';
+export function textScale(){return displayPreferences().textScale;}
+export function setTextScale(value:number){setDisplayPreferences({textScale:value});}

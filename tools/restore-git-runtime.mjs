@@ -4,6 +4,7 @@ import {loadMaterialTextures} from './material-textures.mjs';
 import {loadEnvironmentTextures} from './environment-textures.mjs';
 import {loadEnvironmentScenery} from './environment-scenery.mjs';
 import {loadCombatEffects} from './combat-effects-assets.mjs';
+import {loadStarshipAssets} from './starship-assets.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
@@ -60,3 +61,4 @@ await loadMaterialTextures({restore:true,check:process.argv.includes('--check')}
 await loadEnvironmentTextures({restore:true,check:process.argv.includes('--check')});
 await loadEnvironmentScenery({restore:true,check:process.argv.includes('--check')});
 await loadCombatEffects({restore:true,check:process.argv.includes('--check')});
+await loadStarshipAssets({restore:true,check:process.argv.includes('--check')});

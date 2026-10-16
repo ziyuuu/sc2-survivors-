@@ -1,0 +1,133 @@
+/* Adapter only: the underlying ship/slot/inventory design is the preserved R12 CSS. */
+.starship-ui{font-size:calc(14px * var(--text-scale));background:radial-gradient(ellipse at 40% 0,#19304290,transparent 68%),#081421;overflow:auto;scrollbar-gutter:stable}
+.starship-ui .ship-shell{max-width:1440px;width:100%;margin:auto;padding:0 24px 24px;height:auto!important;min-height:100dvh}
+.starship-ui .ship-topbar{min-height:76px;padding:8px 0;gap:16px}
+.starship-ui .ship-brand{padding:0!important;border:0!important;background:none!important;box-shadow:none!important;min-height:52px}
+.starship-ui .ship-brand img{width:188px;height:58px;object-fit:contain}
+.starship-ui .ship-navigation{padding:12px 0 18px;margin:0;gap:16px}
+.starship-ui .ship-navigation nav{flex-wrap:wrap;overflow:visible;gap:5px}
+.starship-ui .game-button{font-size:inherit;letter-spacing:0;min-width:0;border-radius:0}
+.starship-ui .game-button:not(.card-open):not(.slot){text-align:center;line-height:1.4}
+.starship-ui .ship-navigation .game-button{padding:9px 13px;min-height:40px}
+.starship-ui .ship-main{min-width:0;flex:1;display:block;padding:0}
+.starship-ui .flagship-view{display:block;height:auto}
+.starship-ui .flagship-view .flagship-grid{align-items:start}
+.starship-ui .ship-column,.starship-ui .inventory-panel{min-width:0;border:1px solid #3e596c;background:linear-gradient(135deg,#142a3bda,#0b1b2bea)}
+.starship-ui .ship-column{overflow:visible!important}
+.starship-ui .flagship-view .inventory-panel{overflow:visible!important}
+.starship-ui .flagship-view .ship-stage{height:265px!important}
+.starship-ui .ship-slots .slot .ship-art{width:34px;height:34px;min-width:0;aspect-ratio:1;padding:0;border:0;box-shadow:none;background:transparent;overflow:visible}
+.starship-ui .ship-slots .slot .ship-art img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 3px #000)}
+.starship-ui .ship-slots .slot .state-chip{display:none}
+.starship-ui .ship-slots .slot .icon svg{width:100%;height:100%}
+.starship-ui .stage-selected{display:flex;align-items:center;justify-content:center;gap:12px;min-height:25px}
+.starship-ui .stage-selected button{font-size:calc(11px * var(--text-scale,1));padding:3px 8px;min-height:25px}
+.starship-ui .item-wrap{position:relative;min-width:0}
+.starship-ui .item-wrap>.item{width:100%;height:100%;min-width:0;display:flex;flex-direction:column;align-items:stretch}
+.starship-ui .flagship-view .item-grid{grid-auto-rows:118px;min-height:0}
+.starship-ui .flagship-view .item-grid .game-button.item{height:118px;min-height:118px;padding:6px}
+.starship-ui .item-grid .item-picture,.starship-ui .flagship-view .item-picture{height:70px;display:block;margin:0;position:relative}
+.starship-ui .item-picture .ship-art{display:block;position:relative;margin:auto;width:100%;height:100%;max-width:140px;aspect-ratio:auto;background:none;border:0;box-shadow:none}
+.starship-ui .item-picture .ship-art img{width:100%;height:100%;object-fit:contain;padding:0}
+.starship-ui .item-picture .state-chip{font-size:calc(10px * var(--text-scale,1));padding:1px 4px;bottom:0;right:0}
+.starship-ui .item-picture .item-badge{font-size:calc(10px * var(--text-scale,1));top:0;right:0;left:auto}
+.starship-ui .item-name{min-height:30px;font-size:.88em!important;line-height:1.25;margin-top:4px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;white-space:normal}
+.starship-ui .item-wrap .select-item{top:0;left:0;z-index:2;min-width:30px;min-height:30px;padding:3px;opacity:.65}
+.starship-ui .item-wrap:hover .select-item,.starship-ui .select-item:focus-within,.starship-ui .item-wrap.selected .select-item{opacity:1}
+.starship-ui .select-item input[type=checkbox]{width:15px;height:15px;min-height:15px}
+.starship-ui .item-wrap.selected>.item{outline:2px solid #d2b680;outline-offset:-2px}
+.starship-ui .inventory-toolbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.starship-ui .search-wrap{flex:1;min-width:90px}.starship-ui .sort-control{max-width:120px}
+.starship-ui .inventory-toolbar input,.starship-ui .inventory-toolbar select{width:100%;min-width:0;min-height:38px;margin:0;font-size:.9em}
+.starship-ui .inventory-toolbar>button{padding:7px 10px;min-height:38px}
+.starship-ui .filter-sheet{padding:10px;border:1px solid #456075;margin:8px 0;max-height:300px!important;overflow:auto}
+.starship-ui .filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.starship-ui .multi-filter{padding:6px;min-width:0;border:1px solid #456075}
+.starship-ui .multi-filter legend{font-size:.9em;padding:0 4px}
+.starship-ui .filter-options{display:flex;gap:5px;flex-wrap:wrap;max-height:140px;overflow:auto}
+.starship-ui .filter-choice{display:flex;align-items:center;gap:4px;position:relative;min-width:0;padding:4px;font-size:.82em;min-height:30px}
+.starship-ui .filter-choice input{width:14px;height:14px;min-height:14px;position:static;opacity:1}
+.starship-ui .active-filters{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.starship-ui .filter-token{font-size:.78em;padding:3px 7px;min-height:26px}
+.starship-ui .inventory-summary{font-size:.9em;display:flex;justify-content:space-between;gap:8px;margin:4px 0 8px}
+.starship-ui .inventory-summary button{font-size:.85em;min-height:30px;padding:4px 8px}
+.starship-ui .equipment-inspector{min-height:0!important;flex:none!important}
+.starship-ui .equipment-inspector .inspector-scroll{max-height:330px!important;min-height:0!important}
+.starship-ui .inspect-names{gap:9px;flex-wrap:wrap}
+.starship-ui .inspect-names>.ship-art{width:66px;height:75px;min-width:66px;max-width:66px;aspect-ratio:auto;margin:0;padding:0;border:0;background:none}
+.starship-ui .inspect-names>.ship-art img{width:100%;height:100%;object-fit:contain}
+.starship-ui .inspect-names>div:not(.inspect-old){flex:1;min-width:90px}
+.starship-ui .inspect-old{width:100%;display:flex;gap:10px;align-items:baseline}
+.starship-ui .inspect-names h3{font-size:1em}.starship-ui .inspect-names p{font-size:.85em;margin:2px 0}
+.starship-ui .inspector-actions{flex-wrap:wrap;justify-content:flex-start;gap:5px;padding:8px}
+.starship-ui .inspector-actions button{padding:6px 9px;min-height:34px;font-size:.84em}
+.starship-ui .affix{font-size:.85em;gap:6px;flex-wrap:wrap}.starship-ui .affix button{font-size:.85em;padding:4px 7px;min-height:30px}
+.starship-ui .flagship-view .stats-panel{display:block!important;padding:10px 0}
+.starship-ui .flagship-view .set-strip{display:block!important;max-height:140px;overflow:auto}
+.starship-ui .source-details{font-size:.83em;margin-top:8px}.starship-ui .source-details p{margin:4px 0}
+.starship-ui .presets{margin-top:7px;padding-top:8px;border-top:1px solid #3e596c80;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.starship-ui .presets>div{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}.starship-ui .presets span{font-size:.8em;width:100%;text-align:center}
+.starship-ui .presets button{padding:5px 8px;min-height:30px;font-size:.8em}
+.starship-ui .warehouse-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.starship-ui .warehouse.inspecting .warehouse-grid{grid-template-columns:minmax(0,1fr) minmax(290px,.44fr)}
+.starship-ui .warehouse .inventory-panel,.starship-ui .forge-layout>.inventory-panel,.starship-ui .atlas-layout{padding:14px}
+.starship-ui .full-inventory .item-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+.starship-ui .warehouse.inspecting .full-inventory .item-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+.starship-ui .forge-layout{display:grid;grid-template-columns:minmax(280px,.5fr) minmax(0,1fr);gap:18px}
+.starship-ui .forge-workbench{min-width:0}.starship-ui .forge-machine{position:static;display:block}
+.starship-ui .forge-layout .item-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+.starship-ui .atlas-layout:has(.equipment-inspector){display:grid;grid-template-columns:minmax(270px,.4fr) minmax(0,1fr);gap:15px}
+.starship-ui .atlas-layout>div{min-width:0}.starship-ui .atlas-layout .item-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+.starship-ui .atlas-layout:has(.equipment-inspector) .item-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.starship-ui .panel-head{padding:0 0 10px;flex-wrap:wrap;gap:8px}.starship-ui .panel-head button{font-size:.83em;padding:5px 8px;min-height:30px}
+.starship-ui .backpack-layout>.inventory-panel{padding:14px}
+.starship-ui .legacy-home{min-height:calc(100dvh - 185px);background-image:linear-gradient(90deg,#07121ddd,transparent 80%),var(--cover);background-size:cover;background-position:center;position:relative;padding:40px 48px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:30px}
+.starship-ui .home-cover{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.starship-ui .legacy-home:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#07121d90,transparent 80%);z-index:1;pointer-events:none}
+.starship-ui .legacy-home>.home-logo,.starship-ui .legacy-home>.home-menu{position:relative;z-index:2}
+.starship-ui .home-logo{width:350px;max-width:80%;height:auto;object-fit:contain}
+.starship-ui .home-menu{display:grid;width:250px;max-width:100%;gap:12px}
+.starship-ui .home-menu button{min-height:48px;font-size:calc(17px * var(--text-scale,1))}
+.starship-ui .settlement-columns{grid-template-columns:repeat(3,minmax(0,1fr))}
+.starship-ui .work-animation{position:fixed;inset:0;z-index:50;display:grid;place-items:center;pointer-events:none;background:radial-gradient(circle,#07111ed9,transparent 65%)}
+.starship-ui .work-stage{position:relative;width:min(380px,90vw);height:340px;display:grid;place-items:center;isolation:isolate;color:#f4d99e}
+.starship-ui .work-rings{position:absolute;inset:30px;display:grid;place-items:center}
+.starship-ui .work-rings i{position:absolute;border:1px solid currentColor;width:70%;height:70%;border-radius:50%;box-shadow:0 0 22px #e9be6240,inset 0 0 20px #e9be6220;animation:ship-work-ring 1.3s ease-in-out both}
+.starship-ui .work-rings i:nth-child(2){width:95%;height:95%;border-style:dashed;animation-delay:.08s}.starship-ui .work-rings i:nth-child(3){width:48%;height:48%;animation-delay:.14s}
+.starship-ui .work-item{width:160px;height:180px;position:relative}.starship-ui .work-item .ship-art{width:100%;height:100%;aspect-ratio:auto;background:none;border:none;box-shadow:none}
+.starship-ui .work-item .ship-art img{object-fit:contain;width:100%;height:100%}
+.starship-ui .work-before,.starship-ui .work-after{position:absolute;inset:0}
+.starship-ui .work-craft .work-after{animation:ship-forge-reveal 1.3s both}
+.starship-ui .work-cleanse{color:#cdb0ff}.starship-ui .work-cleanse .work-before{animation:ship-cleanse-before 1.3s both}
+.starship-ui .work-cleanse .work-after{animation:ship-cleanse-after 1.3s both}
+.starship-ui .work-sweep{position:absolute;inset:30% 20%;border-top:2px solid currentColor;filter:drop-shadow(0 0 8px currentColor);opacity:0}
+.starship-ui .work-cleanse .work-sweep{animation:ship-cleanse-sweep 1.3s both}
+.starship-ui .work-label{position:absolute;bottom:12px;font-size:calc(20px * var(--text-scale,1));letter-spacing:8px;font-weight:400}
+.starship-ui .rolling-glyphs{display:flex;gap:13px}.starship-ui .rolling-glyphs i{font-style:normal;font-size:calc(45px * var(--text-scale,1));border:1px solid #d7ba77;background:#132639;padding:18px 12px;animation:ship-reroll-card 1.3s both}
+.starship-ui .rolling-glyphs i:nth-child(2){animation-delay:.08s}.starship-ui .rolling-glyphs i:nth-child(3){animation-delay:.16s}
+.starship-ui .expanding-slots{display:grid;grid-template-columns:repeat(4,43px);gap:9px;transform:translateY(-20px)}
+.starship-ui .expanding-slots i{height:43px;border:1px solid #d7ba77;background:linear-gradient(#304858,#142435);box-shadow:inset 0 0 0 4px #07131b;animation:ship-expand-slot 1.3s both;animation-delay:calc(var(--i)*35ms)}
+.starship-ui .capacity-before,.starship-ui .capacity-after{position:absolute;bottom:65px;font-size:calc(32px * var(--text-scale,1))}.starship-ui .capacity-before{animation:ship-cleanse-before 1.3s both}.starship-ui .capacity-after{animation:ship-cleanse-after 1.3s both}
+@keyframes ship-work-ring{0%{transform:scale(1.3) rotate(0);opacity:0}25%{opacity:1}70%{transform:scale(.85) rotate(150deg);opacity:1}100%{transform:scale(1.1) rotate(210deg);opacity:0}}
+@keyframes ship-forge-reveal{0%,35%{opacity:0;transform:scale(.25);filter:brightness(6)}65%{opacity:1;transform:scale(1.12);filter:brightness(2)}100%{opacity:1;transform:scale(1);filter:brightness(1)}}
+@keyframes ship-cleanse-before{0%,25%{opacity:1}65%,100%{opacity:0}}
+@keyframes ship-cleanse-after{0%,35%{opacity:0;filter:brightness(3)}75%,100%{opacity:1;filter:brightness(1)}}
+@keyframes ship-cleanse-sweep{0%{opacity:0;transform:translateY(-70px)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translateY(130px)}}
+@keyframes ship-reroll-card{0%{transform:rotateY(0) translateY(40px);opacity:0}25%{opacity:1}75%{transform:rotateY(720deg) translateY(0)}100%{transform:rotateY(720deg);opacity:1}}
+@keyframes ship-expand-slot{0%{opacity:0;transform:scale(.2) rotate(15deg)}65%,100%{opacity:1;transform:scale(1) rotate(0)}}
+.starship-ui[data-motion=false] .work-animation *{animation-duration:.18s!important;animation-delay:0s!important}
+@media(max-width:1100px){.starship-ui .ship-shell{padding-inline:16px}.starship-ui .ship-navigation{flex-wrap:wrap}.starship-ui .full-inventory .item-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.starship-ui .warehouse.inspecting .full-inventory .item-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.starship-ui .forge-layout .item-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.starship-ui .atlas-layout .item-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:850px){.starship-ui .ship-topbar{min-height:60px}.starship-ui .ship-brand img{width:150px;height:48px}.starship-ui .ship-top-status{gap:8px}.starship-ui .phase-badge{display:none}.starship-ui .ship-navigation{gap:10px;padding-block:10px}.starship-ui .ship-navigation .game-button{font-size:.88em;padding:7px 10px;min-height:36px}.starship-ui .race-tabs{margin:0}.starship-ui .flagship-grid{grid-template-columns:minmax(255px,.85fr) minmax(0,1.15fr)}.starship-ui .flagship-view .item-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:112px}.starship-ui .flagship-view .item-grid .game-button.item{height:112px;min-height:112px}.starship-ui .warehouse.inspecting .warehouse-grid{grid-template-columns:minmax(0,1fr)}.starship-ui .warehouse.inspecting .equipment-inspector{grid-row:1;position:static}.starship-ui .forge-layout{grid-template-columns:minmax(230px,.65fr) minmax(0,1fr)}.starship-ui .forge-layout .item-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.starship-ui .atlas-layout:has(.equipment-inspector){grid-template-columns:1fr}.starship-ui .settlement-columns{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.starship-ui .ship-shell{padding-inline:10px}.starship-ui .ship-topbar{flex-wrap:wrap;gap:7px}.starship-ui .ship-brand img{width:142px;height:44px}.starship-ui .ship-top-status{flex:1;justify-content:flex-end;font-size:.88em}.starship-ui .ship-top-status button{padding:6px 8px}.starship-ui .ship-navigation nav{display:flex;flex-wrap:wrap}.starship-ui .ship-navigation .game-button{flex:0 1 auto;font-size:.85em;padding:7px 9px}.starship-ui .flagship-grid{display:flex;flex-direction:column}.starship-ui .flagship-grid>.ship-column,.starship-ui .flagship-grid>.inventory-panel{width:100%;min-width:0}.starship-ui .flagship-view .ship-stage{height:245px!important}.starship-ui .ship-diagram{width:min(100%,320px);bottom:27px}.starship-ui .flagship-view .item-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;grid-auto-rows:105px}.starship-ui .flagship-view .item-grid .game-button.item{height:105px;min-height:105px;padding:3px}.starship-ui .item-grid .item-picture,.starship-ui .flagship-view .item-picture{height:61px}.starship-ui .item-name{font-size:.78em!important;min-height:32px}.starship-ui .full-inventory .item-grid,.starship-ui .warehouse.inspecting .full-inventory .item-grid,.starship-ui .forge-layout .item-grid,.starship-ui .atlas-layout .item-grid,.starship-ui .atlas-layout:has(.equipment-inspector) .item-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.starship-ui .forge-layout{display:block}.starship-ui .forge-layout>.inventory-panel{margin-top:12px}.starship-ui .forge-machine{display:block}.starship-ui .forge-orbit{display:block;width:65px;height:65px;margin:5px auto;font-size:calc(40px * var(--text-scale,1))}.starship-ui .forge-machine label{margin:10px 0}.starship-ui .equipment-inspector .inspector-scroll{max-height:270px!important}.starship-ui .legacy-home{min-height:600px;padding:30px 20px;background-position:60% center}.starship-ui .home-menu{width:220px}.starship-ui .settlement-columns{grid-template-columns:1fr}.starship-ui .section-head{flex-wrap:wrap}.starship-ui .panel-head{font-size:.9em}.starship-ui .filter-grid{grid-template-columns:1fr}.starship-ui .item-wrap .select-item{min-height:32px;min-width:32px}.starship-ui .inspect-stat{grid-template-columns:minmax(0,1fr) 42px minmax(60px,auto);font-size:.87em}.starship-ui .sort-control{max-width:105px}}
+@media(max-width:360px){.starship-ui .flagship-view .item-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.starship-ui .ship-brand img{width:120px}.starship-ui .ship-top-status{font-size:.8em}.starship-ui .ship-top-status button{font-size:calc(12px * var(--text-scale,1))}.starship-ui .ship-column{padding:8px}}
+@media(max-width:600px){.starship-ui[data-text-scale="1.15"] .item-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.starship-ui[data-text-scale="1.15"] .ship-navigation .game-button{font-size:calc(14px * var(--text-scale,1))}.starship-ui[data-text-scale="1.15"] .inspect-stat{grid-template-columns:minmax(0,1fr) 45px minmax(65px,auto)}}
+@media(prefers-reduced-motion:reduce){.starship-ui .work-animation *{animation:none!important}.starship-ui .work-before,.starship-ui .capacity-before{display:none}.starship-ui .work-after,.starship-ui .capacity-after{opacity:1}}
+.starship-ui .field-topbar{display:flex;align-items:center;gap:16px;padding:15px 0;border-bottom:1px solid #3e596c;margin-bottom:18px;position:sticky;top:0;z-index:20;background:#102333}
+.starship-ui .field-topbar h1{font-size:calc(22px * var(--text-scale,.95));font-weight:500;margin:0}
+.starship-ui .field-topbar>span{color:#9bb1bf;font-size:.9em;flex:1}
+.starship-ui .field-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.starship-ui .flagship-view .inventory-toolbar .sort-control select{width:100%;min-width:80px;flex:1}
+.starship-ui[data-field=true] .ship-shell{max-width:1320px}
+.starship-ui[data-field=true] .flagship-grid{align-items:start}
+.starship-ui[data-field=true] .inspector-actions button,.starship-ui[data-field=true] .field-actions button{min-height:40px}
+@media(max-width:600px){.starship-ui .field-topbar{gap:8px;flex-wrap:wrap;margin-bottom:10px}.starship-ui .field-topbar h1{font-size:calc(19px * var(--text-scale,.95))}.starship-ui .field-topbar>span{font-size:.8em}.starship-ui .field-topbar button{padding-inline:10px}.starship-ui[data-field=true] .inspector-actions button,.starship-ui[data-field=true] .field-actions button{min-height:44px}}

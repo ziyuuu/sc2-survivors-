@@ -6,8 +6,9 @@ import type {EquipmentLoadout} from '../../simulation/starship/loadout';
 export interface ManagementState {
  revision:number;locked:Set<string>;favorites:Set<string>;
  presets:Record<Race,(EquipmentLoadout|null)[]>;
+ presetNames:Record<Race,string[]>;
 }
-export const newManagementState=():ManagementState=>({revision:0,locked:new Set(),favorites:new Set(),presets:{terran:[null,null,null],zerg:[null,null,null],protoss:[null,null,null]}});
+export const newManagementState=():ManagementState=>({revision:0,locked:new Set(),favorites:new Set(),presets:{terran:[null,null,null],zerg:[null,null,null],protoss:[null,null,null]},presetNames:{terran:['预设 1','预设 2','预设 3'],zerg:['预设 1','预设 2','预设 3'],protoss:['预设 1','预设 2','预设 3']}});
 export interface SettlementView {run:string;outcome:'success'|'failure';retained:{id:string;name?:string}[];lost:{id:string;name?:string;item?:EquipmentItem}[];salvaged:{id:string;item:EquipmentItem;dust:number}[];dust:number}
 export interface StarshipHost {
  readonly management:ManagementState;

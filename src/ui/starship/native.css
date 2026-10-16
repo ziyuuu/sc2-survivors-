@@ -1,0 +1,53 @@
+.native-starship.starship-ui{position:absolute;inset:0;z-index:300;min-height:0;overflow:auto;overscroll-behavior:contain;pointer-events:auto}
+.native-starship.starship-ui[hidden]{display:none}
+.session-progress-note{font-size:calc(12px * var(--text-scale,1));line-height:1.6;color:#a7b4bd;margin:12px 0}
+.native-starship.starship-ui .ship-shell{min-height:100%;height:auto}
+.native-starship.starship-ui[data-context=intermission]{position:relative;inset:auto;width:100%;height:100%;min-height:0;z-index:auto;background:transparent}
+.native-starship.starship-ui[data-context=intermission] .ship-shell{min-height:0;padding:0 6px 12px;max-width:none}
+.native-starship.starship-ui[data-context=intermission] .ship-main{padding:0;min-height:0}
+#interface #overlay .intermission-screen:has(>.im-backpack-slot){display:flex!important;flex-direction:column;gap:10px;height:100%;min-height:0;overflow:hidden}
+#interface #overlay .im-backpack-slot{flex:1 1 0;min-height:0;width:100%;overflow:hidden}
+#interface #overlay .intermission-screen:has(>.im-backpack-slot)>:not(.im-backpack-slot){flex:none}
+#interface #overlay .feedback-progress-strip [data-action=starship-backpack] svg{width:17px;height:17px;vertical-align:middle;margin-right:4px}
+#interface #overlay .feedback-progress-strip [data-action=starship-backpack][aria-pressed=true]{border-color:#d0b777;color:#f1d99c;background:#30424a}
+#interface #overlay .native-starship .ship-column,#interface #overlay .native-starship .inventory-panel{border:1px solid #3e596c}
+#interface #overlay .native-starship .inventory-meta{min-height:32px;height:auto}
+#interface #overlay .native-starship .inventory-meta .game-button{min-height:26px;height:26px;padding:2px 7px;border:0;background:none;font-size:inherit;box-shadow:none}
+
+/* The game's unit inspector uses the same older class names. Keep equipment
+   comparisons as rows when the existing window is mounted in its overlay. */
+.native-starship .inspect-stats,#interface #overlay .native-starship .inspect-stats{grid-template-columns:minmax(0,1fr);margin:12px 0;gap:3px}
+.native-starship .inspect-stats>.inspect-stat,#interface #overlay .native-starship .inspect-stats>.inspect-stat{padding:4px 0;border:0;border-bottom:1px solid #3e596c50;background:none;border-radius:0;text-align:left}
+.native-starship .inspect-stat>span,.native-starship .inspect-stat>b,#interface #overlay .native-starship .inspect-stat>span,#interface #overlay .native-starship .inspect-stat>b{font-size:inherit;margin:0;line-height:inherit}
+.native-starship .inspect-stat>b,#interface #overlay .native-starship .inspect-stat>b{font-weight:500}
+
+/* All equipment uses one square framing rule. Visible alpha bounds, rather than
+   the source canvas dimensions, determine its scale. Original art is untouched. */
+.starship-ui .item-grid .item-picture,.starship-ui .flagship-view .item-picture{height:70px;display:grid;place-items:center}
+.starship-ui .item-picture .ship-art{width:64px;height:64px;max-width:64px;aspect-ratio:1;margin:0 auto;overflow:hidden}
+.starship-ui .ship-art[data-art-key] img{position:absolute!important;max-width:none!important;max-height:none!important;width:var(--art-width,100%)!important;height:var(--art-height,100%)!important;left:var(--art-left,0);top:var(--art-top,0);object-fit:fill!important;padding:0!important;transform:none!important}
+.starship-ui .ship-slots .slot .ship-art{overflow:hidden}
+.starship-ui .inspect-names>.ship-art{width:66px;height:66px;min-width:66px;max-width:66px;aspect-ratio:1;overflow:hidden}
+.starship-ui .work-item{width:160px;height:160px}
+.starship-ui .retained-row>.ship-art{width:48px;height:48px;min-width:48px;aspect-ratio:1;overflow:hidden}
+@media(max-width:600px){.starship-ui .item-grid .item-picture,.starship-ui .flagship-view .item-picture{height:62px}.starship-ui .item-picture .ship-art{width:58px;height:58px;max-width:58px}}
+
+/* Text tracks grow with the selected font size instead of clipping to the old
+   one-line dimensions. Numbers retain a right edge and names retain a left edge. */
+.starship-ui .flagship-view .inventory-panel .panel-head{height:auto;min-height:36px;align-items:center}
+.starship-ui .panel-head h2,.starship-ui .panel-head>span{margin:0;line-height:1.4}
+.starship-ui .inspect-stat>span:first-child{text-align:left;min-width:0;overflow-wrap:anywhere}
+.starship-ui .inspect-stat>span:not(:first-child),.starship-ui .inspect-stat>b{text-align:right!important;white-space:normal;overflow-wrap:anywhere}
+.starship-ui .presets>.preset-card{min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:4px}
+.starship-ui .presets .preset-name{display:flex;align-items:center;justify-content:center;gap:5px;flex:none;width:100%;max-width:100%;min-height:32px;padding:4px;border:0;background:transparent;box-shadow:none;color:#d2e1e9}
+.starship-ui .presets .preset-name>span{display:block;min-width:0;width:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:inherit;color:inherit}
+.starship-ui .presets .preset-name>i{font-style:normal;flex:none;color:#a6bac5}
+.starship-ui .preset-status{display:block;text-align:center;font-size:.78em;color:#96adbd;line-height:1.4}
+.starship-ui .preset-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+.starship-ui .presets .preset-actions>button{padding:5px 2px;min-height:32px;font-size:calc(12px * var(--text-scale,1));line-height:1.4;text-align:center;white-space:nowrap}
+.starship-ui .preset-name-label{display:grid;gap:8px;margin-top:18px;text-align:left}
+.starship-ui .preset-name-label input{box-sizing:border-box;width:100%;min-width:0;min-height:44px;text-align:left;font:inherit;padding:9px 11px}
+.starship-ui .preset-name-hint,.starship-ui .preset-name-error{font-size:.9em;line-height:1.6;text-align:left;overflow-wrap:anywhere}
+.starship-ui .preset-name-hint{color:#9cb1c0;margin-top:8px}.starship-ui .preset-name-error{color:#f1b5ad}.starship-ui .preset-name-error:empty{display:none}
+.starship-ui .ship-dialog .dialog-title{align-items:center;gap:12px}.starship-ui .ship-dialog h2{margin:0;min-width:0;overflow-wrap:anywhere;line-height:1.4}
+.starship-ui .ship-dialog:has([data-preset-name-form]){width:min(520px,calc(100vw - 24px));max-height:calc(100dvh - 24px)}

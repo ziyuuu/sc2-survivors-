@@ -30613,6 +30613,935 @@
       "sourceSha256": "7e528e7641c4832dc5293bf5147249ed4ed26be35b43f545fa950d41264a6e66",
       "sourceBuild": "5.0.16.97563",
       "animations": []
+    },
+    {
+      "id": "model.fort.turret_terran",
+      "kind": "model",
+      "status": "available",
+      "url": "assets/animated/model.fort.turret_terran.glb",
+      "required": false,
+      "packedFile": "public/assets/animated/model.fort.turret_terran.glb",
+      "bytes": 663232,
+      "packedSha256": "29dcfa4d0bbb4bf60930487f667fe3baf7a4ec02addc5f747ca1a0381ae628a0",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Terran/AutoTurret/AutoTurret.m3",
+      "sourceSha256": "8d1f69e2c9c5d10f7e28379d8ed31dc3f3976c2d2cdd5bcf83a91a49e23c411f",
+      "sourceBuild": "5.0.16.97563",
+      "animations": [
+        "Stand",
+        "Attack",
+        "Birth"
+      ],
+      "materialPipelineVersion": 3,
+      "materials": [
+        {
+          "name": "AutoTurret#0",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "Autoturret_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "decal",
+              "filename": "decal_terran01_01.dds"
+            }
+          ]
+        },
+        {
+          "name": "AutoTurret#0",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "Autoturret_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "decal",
+              "filename": "decal_terran01_01.dds"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "model.fort.turret_terran.death",
+      "kind": "model",
+      "status": "available",
+      "url": "assets/animated/model.fort.turret_terran.death.glb",
+      "required": false,
+      "packedFile": "public/assets/animated/model.fort.turret_terran.death.glb",
+      "bytes": 927548,
+      "packedSha256": "ac70c0cbef9be0a7705f4415225b19f6ec4f27081c1023379bbf2fe8eccb0ee0",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Terran/AutoTurretDeathEx1/AutoTurretDeathEx1.m3",
+      "sourceSha256": "c8f7d749bd798f9da79041a03f2238b6ee3e03c61119a3361dbc16c426784413",
+      "sourceBuild": "5.0.16.97563",
+      "animations": [
+        "Death",
+        "Death 01"
+      ],
+      "materialPipelineVersion": 3,
+      "materials": [
+        {
+          "name": "AutoTurret#5",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "Autoturret_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "DisolveNoise.dds"
+            }
+          ]
+        },
+        {
+          "name": "AutoTurret#5",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "Autoturret_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "DisolveNoise.dds"
+            }
+          ]
+        },
+        {
+          "name": "shrapnel#6",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "Autoturret_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BlastMark4.dds"
+            }
+          ]
+        },
+        {
+          "name": "shrapnel#6",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "Autoturret_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "Autoturret_Diffuse.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BlastMark4.dds"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "model.fort.turret_zerg",
+      "kind": "model",
+      "status": "available",
+      "url": "assets/animated/model.fort.turret_zerg.glb",
+      "required": false,
+      "packedFile": "public/assets/animated/model.fort.turret_zerg.glb",
+      "bytes": 11330676,
+      "packedSha256": "da554ee42e9190b0e774a4e88f6914e938b0bcc9fda7abb8101ab36a14db3cfd",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Zerg/SpineCrawlerEx1/SpineCrawlerEx1.m3",
+      "sourceSha256": "893f7b50d59d93ec7b59f3f99bfe209f7182fc7356c8d554875fee19aefdd102",
+      "sourceBuild": "5.0.16.97563",
+      "animations": [
+        "Stand",
+        "Walk",
+        "Walk A",
+        "Walk B",
+        "Walk C",
+        "Walk D",
+        "Walk E",
+        "Walk F",
+        "Walk G",
+        "Walk H",
+        "Walk I",
+        "Walk J",
+        "Walk K",
+        "Walk L",
+        "Walk M",
+        "Walk N",
+        "Walk O",
+        "Walk P",
+        "Burrow",
+        "Stand Burrow",
+        "Unburrow",
+        "Stand Work Start",
+        "Build A Start",
+        "Build A Stand",
+        "Build B Start",
+        "Build B Stand",
+        "Build C Start",
+        "Build C Stand",
+        "Build D Start",
+        "Stand Work End",
+        "Attack",
+        "Stand Burrow Ready",
+        "Attack End",
+        "Death",
+        "Burrow Superior"
+      ],
+      "materialPipelineVersion": 3,
+      "materials": [
+        {
+          "name": "Standard_7#6",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "spinecrawler_diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "SpineCrawler_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "SpineCrawler_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "SpineCrawler_Specular.dds"
+            }
+          ]
+        },
+        {
+          "name": "Standard_7#6",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "spinecrawler_diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "SpineCrawler_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "SpineCrawler_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "SpineCrawler_Specular.dds"
+            }
+          ]
+        },
+        {
+          "name": "22 - Default22#11",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "ZergSplatBuildingDeath_Defuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "ZergSplatBuildingDeath_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "ZergSplatBuildingDeath_Spec.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "ZergSplatBuildingDeath_Defuse.dds"
+            }
+          ]
+        },
+        {
+          "name": "death mesh#12",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "spinecrawler_diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "SpineCrawler_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "SpineCrawler_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "SpineCrawler_Specular.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        },
+        {
+          "name": "Meat#13",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "BloodyBuildingGuts_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        },
+        {
+          "name": "Shrapnel meat#14",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "BloodyBuildingGuts_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        },
+        {
+          "name": "Meat_Ribbon#1",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "BloodyBuildingGuts_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        },
+        {
+          "name": "Tailwww#2",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "SpineCrawler_Ribbon_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "SpineCrawler_Ribbon_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "SpineCrawler_Ribbon_Specular.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "model.fort.turret_zerg.death",
+      "kind": "model",
+      "status": "available",
+      "url": "assets/animated/model.fort.turret_zerg.death.glb",
+      "required": false,
+      "packedFile": "public/assets/animated/model.fort.turret_zerg.death.glb",
+      "bytes": 11330752,
+      "packedSha256": "f2ce1400ff14aedf0551f38712807f113a1ac11947b1440753cf30b2bb08e4c2",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Zerg/SpineCrawlerEx1/SpineCrawlerEx1.m3",
+      "sourceSha256": "893f7b50d59d93ec7b59f3f99bfe209f7182fc7356c8d554875fee19aefdd102",
+      "sourceBuild": "5.0.16.97563",
+      "animations": [
+        "Stand",
+        "Walk",
+        "Walk A",
+        "Walk B",
+        "Walk C",
+        "Walk D",
+        "Walk E",
+        "Walk F",
+        "Walk G",
+        "Walk H",
+        "Walk I",
+        "Walk J",
+        "Walk K",
+        "Walk L",
+        "Walk M",
+        "Walk N",
+        "Walk O",
+        "Walk P",
+        "Burrow",
+        "Stand Burrow",
+        "Unburrow",
+        "Stand Work Start",
+        "Build A Start",
+        "Build A Stand",
+        "Build B Start",
+        "Build B Stand",
+        "Build C Start",
+        "Build C Stand",
+        "Build D Start",
+        "Stand Work End",
+        "Attack",
+        "Stand Burrow Ready",
+        "Attack End",
+        "Death",
+        "Burrow Superior"
+      ],
+      "materialPipelineVersion": 3,
+      "materials": [
+        {
+          "name": "Standard_7#6",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "spinecrawler_diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "SpineCrawler_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "SpineCrawler_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "SpineCrawler_Specular.dds"
+            }
+          ]
+        },
+        {
+          "name": "Standard_7#6",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "spinecrawler_diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "SpineCrawler_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "SpineCrawler_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "SpineCrawler_Specular.dds"
+            }
+          ]
+        },
+        {
+          "name": "22 - Default22#11",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "ZergSplatBuildingDeath_Defuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "ZergSplatBuildingDeath_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "ZergSplatBuildingDeath_Spec.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "ZergSplatBuildingDeath_Defuse.dds"
+            }
+          ]
+        },
+        {
+          "name": "death mesh#12",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "spinecrawler_diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "SpineCrawler_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "SpineCrawler_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "SpineCrawler_Specular.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        },
+        {
+          "name": "Meat#13",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "BloodyBuildingGuts_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        },
+        {
+          "name": "Shrapnel meat#14",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "BloodyBuildingGuts_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        },
+        {
+          "name": "Meat_Ribbon#1",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "BloodyBuildingGuts_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "BloodyBuildingGuts.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        },
+        {
+          "name": "Tailwww#2",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "SpineCrawler_Ribbon_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "SpineCrawler_Ribbon_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "SpineCrawler_Ribbon_Specular.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BloodSpillInvert.dds"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "model.fort.turret_protoss",
+      "kind": "model",
+      "status": "available",
+      "url": "assets/animated/model.fort.turret_protoss.glb",
+      "required": false,
+      "packedFile": "public/assets/animated/model.fort.turret_protoss.glb",
+      "bytes": 1904244,
+      "packedSha256": "c7da47673061ba802e9060836042254ac2ffa4cbe717bbba49b5691f05acf345",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Protoss/PhotonCannonEx2/PhotonCannonEx2.m3",
+      "sourceSha256": "e66b5cfb418ea51f2361a809cae9af5ffb7c5c09c3b9ad19d7bbf2774a9ca3d0",
+      "sourceBuild": "5.0.16.97563",
+      "animations": [
+        "Stand",
+        "Attack",
+        "Stand Unpowered Start",
+        "Stand Unpowered ",
+        "Stand Unpowered End"
+      ],
+      "materialPipelineVersion": 3,
+      "materials": [
+        {
+          "name": "Material #0#0",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "PhotonCannonBase_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "PhotonCannonBase_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "PhotonCannonBase_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "PhotonCannonBase_Emissive.dds"
+            },
+            {
+              "role": "emissive2",
+              "filename": "Decal_Protoss_0000_01.dds"
+            },
+            {
+              "role": "decal",
+              "filename": "decal_protoss_0000_01.dds"
+            }
+          ]
+        },
+        {
+          "name": "Standard_23#1",
+          "layers": [
+            {
+              "role": "emissive",
+              "filename": "Grad_Rays_Blue1.dds"
+            }
+          ]
+        },
+        {
+          "name": "orig_Gray#3",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "PhotonCannon_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "PhotonCannon_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "PhotonCannon_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "PhotonCannon_Emissive.dds"
+            },
+            {
+              "role": "emissive2",
+              "filename": "PhotonCannon_Emissive.dds"
+            }
+          ]
+        },
+        {
+          "name": "222#4",
+          "layers": [
+            {
+              "role": "emissive",
+              "filename": "PylonRing1.dds"
+            }
+          ]
+        },
+        {
+          "name": "3333#6",
+          "layers": [
+            {
+              "role": "emissive",
+              "filename": "protoss_tech1.dds"
+            }
+          ]
+        },
+        {
+          "name": "233233223#7",
+          "layers": [
+            {
+              "role": "emissive",
+              "filename": "GenericGlow2c.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "Protoss_Target_Ring.dds"
+            }
+          ]
+        },
+        {
+          "name": "Material #2#8",
+          "layers": [
+            {
+              "role": "emissive",
+              "filename": "WarpLine2_blue.dds"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "model.fort.turret_protoss.death",
+      "kind": "model",
+      "status": "available",
+      "url": "assets/animated/model.fort.turret_protoss.death.glb",
+      "required": false,
+      "packedFile": "public/assets/animated/model.fort.turret_protoss.death.glb",
+      "bytes": 2370396,
+      "packedSha256": "aa12059238c23755c9e0e02433132ba2d8229f985c9b7c6d3c3e3ec654bdcf23",
+      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Protoss/PhotonCannonDeathEx2/PhotonCannonDeathEx2_01.m3",
+      "sourceSha256": "fff01a98384c9dbc7c9a469f11cf253e556b7d5921ff4b588138651d1340625e",
+      "sourceBuild": "5.0.16.97563",
+      "animations": [
+        "Death",
+        "Death 01",
+        "Death 02"
+      ],
+      "materialPipelineVersion": 3,
+      "materials": [
+        {
+          "name": "Material #1333#8",
+          "layers": [
+            {
+              "role": "emissive",
+              "filename": "EnergyPlane3.dds"
+            }
+          ]
+        },
+        {
+          "name": "orig_Gray2#11",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "PhotonCannon_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "PhotonCannon_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "PhotonCannon_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "BlastMark4Blue.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BlastMark4.dds"
+            }
+          ]
+        },
+        {
+          "name": "Material #03#12",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "PhotonCannonBase_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "PhotonCannonBase_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "PhotonCannonBase_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "BlastMark4Blue.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BlastMark4.dds"
+            }
+          ]
+        },
+        {
+          "name": "Material #0#14",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "PhotonCannonBase_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "PhotonCannonBase_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "PhotonCannonBase_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "BlastMark4Blue.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BlastMark4.dds"
+            }
+          ]
+        },
+        {
+          "name": "orig_GrayFadeBall#15",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "PhotonCannon_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "PhotonCannon_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "PhotonCannon_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "BlastMark4Blue.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BlastMark4.dds"
+            }
+          ]
+        },
+        {
+          "name": "orig_Gray2#11",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "PhotonCannon_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "PhotonCannon_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "PhotonCannon_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "BlastMark4Blue.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BlastMark4.dds"
+            }
+          ]
+        },
+        {
+          "name": "orig_Gray#17",
+          "layers": [
+            {
+              "role": "diffuse",
+              "filename": "PhotonCannon_Diffuse.dds"
+            },
+            {
+              "role": "normal",
+              "filename": "PhotonCannon_Normal.dds"
+            },
+            {
+              "role": "specular",
+              "filename": "PhotonCannon_Specular.dds"
+            },
+            {
+              "role": "emissive",
+              "filename": "BlastMark4Blue.dds"
+            },
+            {
+              "role": "alpha",
+              "filename": "BlastMark4.dds"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

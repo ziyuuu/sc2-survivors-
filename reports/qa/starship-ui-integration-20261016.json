@@ -1,0 +1,742 @@
+{
+  "version": 2,
+  "at": "2026-10-16T14:49:14.487Z",
+  "scope": "Existing starship UI integrated into ordinary src/main.ts with normal waves and an empty in-page equipment account; minimap framing, text alignment and player-named equipment presets repaired; local review branch only.",
+  "branch": "feat/starship-ui-integration",
+  "equipmentBase": "736c933427e5f03aa3d2376f7efb1506ed4f0b52",
+  "mainBaseline": "cb2e2f3e5c6844571fb57a212e5eed9f49e7fa4c",
+  "passedWithinScope": true,
+  "build": {
+    "directory": "preview/starship-integrated-r8-20261016",
+    "entries": [
+      {
+        "entry": "src/main.ts",
+        "inputs": 429,
+        "outputs": [
+          {
+            "file": "main.js",
+            "bytes": 37306252,
+            "sha256": "8f2d7aea8f2b09b74773b58c9938836a6eb685a14129cdc226fb130509dfa74a"
+          },
+          {
+            "file": "main.css",
+            "bytes": 821671,
+            "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+          },
+          {
+            "file": "index.html",
+            "bytes": 954841,
+            "sha256": "8a071e10e5bcf1743f09e8cbdd9bfdddbf09ebea07abb1f1c35780485f2a0e09"
+          }
+        ]
+      },
+      {
+        "entry": "tools/diagnostics/starship-ui-entry.ts",
+        "inputs": 429,
+        "outputs": [
+          {
+            "file": "diagnostic.js",
+            "bytes": 37307539,
+            "sha256": "1a96c64ac5a5578c5d3c5cc4edf9ba5412d66b13f617369fd3e304da12931e9d"
+          },
+          {
+            "file": "diagnostic.css",
+            "bytes": 821671,
+            "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+          },
+          {
+            "file": "diagnostic.html",
+            "bytes": 954859,
+            "sha256": "45e58c329d4e8933881710b3fb6af6ee93171e63e7054bd012e3b41633325af8"
+          }
+        ]
+      }
+    ],
+    "bindings": "preview/starship-integrated-r8-20261016/build-inputs.json"
+  },
+  "changes": {
+    "minimap": "Preserve native console housing; mask only baked old button interiors, use matching racial square command art, five separate functional controls with responsive placement.",
+    "text": "Adaptive title height, centered buttons, left labels/right values and long preset-name handling; default and 115% type.",
+    "presets": "Three separately named presets per race, up to 24 Unicode characters; button/Enter save, Esc/cancel and focus restoration; overwrite keeps name; no equipment account or World RNG mutation."
+  },
+  "checks": {
+    "tests": {
+      "passed": 1639,
+      "failed": 0,
+      "log": "reports/local/starship-ui-integration-20261016/tests-ui-final.log",
+      "sha256": "bf78338c8066ed6bc72c3037659f9654a4b8a7ce1a06f1abae809b81046cb08a"
+    },
+    "typecheck": {
+      "log": "reports/local/starship-ui-integration-20261016/typecheck-ui-final.log",
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    "inheritedUnchangedResourceChecks": {
+      "build": "R3",
+      "reason": "Subsequent changes only affect interface code and tests; resource bytes, manifests and release closure logic unchanged.",
+      "data": "reports/local/starship-ui-integration-20261016/docs-check-r1.log",
+      "assets": "reports/local/starship-ui-integration-20261016/assets-check-r1.log",
+      "releaseClosure": {
+        "selected": 1874,
+        "starship": 625,
+        "turretModels": 6,
+        "cover": "model.map.spaceplatformbarrier_02",
+        "log": "reports/local/starship-ui-integration-20261016/release-closure-r3.log"
+      }
+    },
+    "art": {
+      "keys": 502,
+      "files": 625,
+      "bytes": 31884055,
+      "catalogSha256": "e3363146449f5aa1da6fa3e056b4d81f564e16035a8581e9c0bff140a347df49",
+      "pixelsChanged": false
+    },
+    "metadataRepair": {
+      "existingRecords": 899,
+      "existingUnchanged": true,
+      "added": 6,
+      "receipt": "reports/local/starship-ui-integration-20261016/metadata-repair.json"
+    },
+    "browser": {
+      "layout": {
+        "report": "reports/local/starship-ui-integration-20261016/layout-r6/report.json",
+        "reportSha256": "35d0f86132941226ac8bc2fd267d82ead1805ddce0141c9dbe3ed0641e540b76",
+        "passed": true,
+        "method": "Real integrated game; explicitly granted inventory and temporary cosmetic/race fixtures only for UI layout. Automated browser input; not physical input, natural campaign or FPS acceptance.",
+        "groups": [
+          "Preset naming, HTML escaping, cancellation/focus, per-race independence, overwrite/apply and window reopening",
+          "Equipment pages, long names and rename dialog exercised at desktop, landscape, portrait and 320-pixel large type",
+          "Five minimap controls have individual hit targets, matching square art, no overlap at five sizes, and functional collapse/backpack/progress/production/settings",
+          "Six existing console skins visually captured with the cropped map and matching racial button art",
+          "Actual intermission and embedded backpack inspected with large type at 320 pixels"
+        ],
+        "screens": [
+          {
+            "name": "01-invalid-preset-name",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/01-invalid-preset-name.png",
+            "sha256": "bfd1351a328c0098925c83cbe4ce4dfbab66b1645862c2a1614e8c9185996545"
+          },
+          {
+            "name": "02-loadout-desktop",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/02-loadout-desktop.png",
+            "sha256": "f9b38c06d86b327d54d532032f835bc692840c6c7d6e0af969e8bafe84b1971f"
+          },
+          {
+            "name": "02-loadout-landscape",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/02-loadout-landscape.png",
+            "sha256": "e40cdd84bfef8695c4092b522edd87d03ea273804f5d32b1cf08ef61e20a0d8b"
+          },
+          {
+            "name": "02-loadout-portrait",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/02-loadout-portrait.png",
+            "sha256": "a95f970b14a7112780520f00026e11334c77ee114f6e689417ab2413aa64487b"
+          },
+          {
+            "name": "02-loadout-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/02-loadout-narrow.png",
+            "sha256": "7b463f430f388bac08223fd82780367a570cf8177ccfbb6ae5fcef83c8c66c22"
+          },
+          {
+            "name": "03-name-dialog-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/03-name-dialog-narrow.png",
+            "sha256": "d325cb75fe1bb3f80d613385b3962f0af6ce6960546fb7c27fe94f1095ad08b9"
+          },
+          {
+            "name": "04-warehouse-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/04-warehouse-narrow.png",
+            "sha256": "a444e019148c19676ab5f9f2c40e0d65185821c768b2bcc7b28b718c1434e730"
+          },
+          {
+            "name": "05-forge-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/05-forge-narrow.png",
+            "sha256": "0efc4c149db5f9c3e4d8d5ced693317be37c69de67659d49fc6b1ecbd9a9c3c1"
+          },
+          {
+            "name": "06-settings-large-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/06-settings-large-narrow.png",
+            "sha256": "79672feac68f96318e2d36ae59b9037cb17008789c122f3555671b1e5cbf7ee4"
+          },
+          {
+            "name": "07-loadout-large-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/07-loadout-large-narrow.png",
+            "sha256": "4264eb9c933dabe06c9529b817370a4a5ce73961d3f1ee427daea38602aa6540"
+          },
+          {
+            "name": "08-name-large-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/08-name-large-narrow.png",
+            "sha256": "01168556bea782b6d1c8efc12cae99f887bf541c591d6cc4ae47633db084f2e3"
+          },
+          {
+            "name": "09-confirm-large",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/09-confirm-large.png",
+            "sha256": "55661d9eba04a245e02cab103b6aace2325178e07e2b0c88e2bc0a0f314e2e29"
+          },
+          {
+            "name": "10-battle-desktop",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/10-battle-desktop.png",
+            "sha256": "89c0decde5a29f1ee7e518aa9ff582244fdffdbc5d2ca3fe89f74a7a038168af"
+          },
+          {
+            "name": "10-battle-compact-pc",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/10-battle-compact-pc.png",
+            "sha256": "f118b998f6bd5f04d05711b18cdb28496dccf7a179b2a7e68b856cb99a15e76b"
+          },
+          {
+            "name": "10-battle-landscape",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/10-battle-landscape.png",
+            "sha256": "6eb3002e716c261cf4fd1c1d9e1f2888b5c0283a2e7835c4d8bc2f8b364dafe1"
+          },
+          {
+            "name": "10-battle-portrait",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/10-battle-portrait.png",
+            "sha256": "1225452a10e251ee300a9d81db5eee7c79087567c55e3abc82f33a11311e9c50"
+          },
+          {
+            "name": "10-battle-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/10-battle-narrow.png",
+            "sha256": "935e57f544685f5f0d8cc4be02450c25d4fc2e1e2f28316201393d298e39e9d5"
+          },
+          {
+            "name": "11-battle-backpack-large-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/11-battle-backpack-large-narrow.png",
+            "sha256": "e1e4106a1a68d8710e3c3ef8c2ab990ee2e39ec16066b4fb4e6d9845d2ee4d93"
+          },
+          {
+            "name": "12-progress-large-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/12-progress-large-narrow.png",
+            "sha256": "f7db7687ee3c7efaa2036dd6e7d4e8e215f655b54bb3500b62d438aa32903922"
+          },
+          {
+            "name": "13-production-large-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/13-production-large-narrow.png",
+            "sha256": "27e7db67a43f6e3230ebf73936fe489092583e03a72574eb4a696be215bcdcb4"
+          },
+          {
+            "name": "14-battle-settings-large-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/14-battle-settings-large-narrow.png",
+            "sha256": "c54e3061e2c5841ae3ecebb7e85bc6fcf1dd93eb387f44899e7e5119c2ce2b8d"
+          },
+          {
+            "name": "15-skin-fixture-terran-1",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/15-skin-fixture-terran-1.png",
+            "sha256": "50e19938cceb8ea2b6c498a2770edea7bfb224a1184e748554154b1f91815113"
+          },
+          {
+            "name": "15-skin-fixture-terran-2",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/15-skin-fixture-terran-2.png",
+            "sha256": "b05f84b140dce68f890d719a4f7e3a222bc132b2813f9552c1080e3ddd1a19e7"
+          },
+          {
+            "name": "15-skin-fixture-protoss-1",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/15-skin-fixture-protoss-1.png",
+            "sha256": "c1c5385ca779d12aa43b6e10f6bdae91c5c4645b7e0fb039263d15ae2e123aac"
+          },
+          {
+            "name": "15-skin-fixture-protoss-2",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/15-skin-fixture-protoss-2.png",
+            "sha256": "0ea279d3cf34c2648809701a0e977b126e513b1298133a90877027da29ad9c97"
+          },
+          {
+            "name": "15-skin-fixture-zerg-1",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/15-skin-fixture-zerg-1.png",
+            "sha256": "dde8ddbfe700230ce18c0f7eba78b8ebef94100abe9b94f89b291aeb00573b6f"
+          },
+          {
+            "name": "15-skin-fixture-zerg-2",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/15-skin-fixture-zerg-2.png",
+            "sha256": "204e2ba73d1299c7a8409cdf60972c208ba24b4dd3409e7b65610f5dd4a80df9"
+          },
+          {
+            "name": "16-intermission-large-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/16-intermission-large-narrow.png",
+            "sha256": "21020a644e5e96004e68e58fd233d6f6f24b098ad21ebf427fe360cf765f87b2"
+          },
+          {
+            "name": "17-intermission-backpack-large-narrow",
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/17-intermission-backpack-large-narrow.png",
+            "sha256": "2ba846e6525e1db6cd958eac1c82b6a4d54c2ec345aa9b635c06ba4695c28eb0"
+          }
+        ],
+        "consoleAndPageErrors": [],
+        "requestCancellations": [
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.barracks.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.baneling.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.baneling.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.loot.mineral.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.loot.large.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.hatchery.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/models/hatcheryex1mp.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.fort.bunker.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.fort.repair.death.glb",
+            "error": "net::ERR_ABORTED"
+          }
+        ]
+      },
+      "production": {
+        "report": "reports/local/starship-ui-integration-20261016/production-ui-r1/report.json",
+        "reportSha256": "2a728ea14f764c9eb5da25f53ab5b123b90b97cdca3802d4c5560df894e3e7bc",
+        "passed": true,
+        "method": "Actual ordinary production entry; no diagnostic hooks, inventory grants, forced stage transitions or game-state mutation. Automated browser input only.",
+        "groups": [
+          "Formal empty account, zero dust, named preset via Enter, exact final JS/CSS and no diagnostic API",
+          "Ordinary game starts; I opens the real battle backpack, freezes time and resumes it on close",
+          "Formal portrait minimap collapse/expand and native backpack button remain operable"
+        ],
+        "screens": [
+          {
+            "name": "01-production-home",
+            "file": "reports/local/starship-ui-integration-20261016/production-ui-r1/01-production-home.png",
+            "sha256": "5146568c6ce7126c407d0d06bca936b7a7d00b8d5f66cf4db39dd6117eab78c3"
+          },
+          {
+            "name": "02-production-named-preset",
+            "file": "reports/local/starship-ui-integration-20261016/production-ui-r1/02-production-named-preset.png",
+            "sha256": "c6e11babda212d36354ba2bef0590432d79f44eab2c7d9d6ce85a8f5cc4e52f6"
+          },
+          {
+            "name": "03-production-native-battle",
+            "file": "reports/local/starship-ui-integration-20261016/production-ui-r1/03-production-native-battle.png",
+            "sha256": "86a2fc86a47d62687c2b687e7902656bdbae98aa09ffc29dc1a41bf6e353e6fb"
+          },
+          {
+            "name": "04-production-backpack",
+            "file": "reports/local/starship-ui-integration-20261016/production-ui-r1/04-production-backpack.png",
+            "sha256": "e2a1e58f37c6ac3cc9b1278fb073213ae2abd299521bad84ff0f2e34c3b684c8"
+          },
+          {
+            "name": "05-production-portrait",
+            "file": "reports/local/starship-ui-integration-20261016/production-ui-r1/05-production-portrait.png",
+            "sha256": "e6f3c16bb844e6db1fd3b7b6fb01a1114a74b8232ce53901d5a8547bd3d417a8"
+          },
+          {
+            "name": "06-production-portrait-backpack",
+            "file": "reports/local/starship-ui-integration-20261016/production-ui-r1/06-production-portrait-backpack.png",
+            "sha256": "c3589d48de7558e5e29a4278e43a722cd5766204488074c1c7ed89cccfc5b6de"
+          }
+        ],
+        "consoleAndPageErrors": [],
+        "requestCancellations": [
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.barracks.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.barracks.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.baneling.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.baneling.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.loot.mineral.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.loot.large.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.hatchery.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/models/hatcheryex1mp.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.fort.repair.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4430/assets/optimized/model.fort.repair.death.glb",
+            "error": "net::ERR_ABORTED"
+          }
+        ]
+      },
+      "totalCompletedGroups": 8,
+      "totalScreens": 35,
+      "layoutSurveys": [
+        {
+          "label": "loadout-desktop",
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "loadout-landscape",
+          "width": 844,
+          "height": 390,
+          "scrollWidth": 844,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "loadout-portrait",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "loadout-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "preset-dialog-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "warehouse-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "forge-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "settings-large-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "loadout-large-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "name-large-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "confirm-large",
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "battle-desktop",
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "battle-compact-pc",
+          "width": 800,
+          "height": 700,
+          "scrollWidth": 800,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "battle-landscape",
+          "width": 844,
+          "height": 390,
+          "scrollWidth": 844,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "battle-portrait",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "battle-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "battle-backpack-large-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "progress-large-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "production-large-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "battle-settings-large-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "intermission-large-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        },
+        {
+          "label": "intermission-backpack-large-narrow",
+          "width": 320,
+          "height": 740,
+          "scrollWidth": 320,
+          "overflow": [],
+          "broken": []
+        }
+      ],
+      "visualReview": {
+        "reviewedScreens": 35,
+        "contacts": [
+          {
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/contact-1.jpg",
+            "sha256": "b8ba9830bf7f06067c261072f38b148cd4829c2dd0087a959360adc89a1555da"
+          },
+          {
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/contact-2.jpg",
+            "sha256": "e36b243741ee55bdc21ce64616c2bb26e6a6cde3d27b8e5bfb57cba47ae51e25"
+          },
+          {
+            "file": "reports/local/starship-ui-integration-20261016/layout-r6/contact-3.jpg",
+            "sha256": "78b6b37fe25d80d108ebe12ae3a04e07e4dde1b66af8b4754b366df08ac81831"
+          },
+          {
+            "file": "reports/local/starship-ui-integration-20261016/production-ui-r1/contact-final.jpg",
+            "sha256": "0421bf74bd296132274d5e9ce4b95b9978def4c30dc902d930d8cf39c1765553"
+          }
+        ],
+        "originalSizeSupplement": [
+          "reports/local/starship-ui-integration-20261016/layout-r6/10-battle-desktop.png",
+          "reports/local/starship-ui-integration-20261016/layout-r6/16-intermission-large-narrow.png"
+        ],
+        "reviewer": "assistant",
+        "humanAcceptance": false
+      }
+    },
+    "isolated": {
+      "directory": "reports/local/starship-ui-integration-20261016/check-final-r2",
+      "receipt": "reports/local/starship-ui-integration-20261016/staged-isolation-final-r2.json",
+      "stagedFiles": 679,
+      "typecheck": "reports/local/starship-ui-integration-20261016/isolated-typecheck-final.log",
+      "buildLog": "reports/local/starship-ui-integration-20261016/isolated-build-final.log",
+      "parityReceipt": "reports/local/starship-ui-integration-20261016/isolated-parity-final.json",
+      "outputs": [
+        {
+          "file": "main.js",
+          "original": "8f2d7aea8f2b09b74773b58c9938836a6eb685a14129cdc226fb130509dfa74a",
+          "isolated": "5abcbe416c7b3d2b6dd76a2b19fedb3b6d7cec270f18c03e9ab89a725ab9f477",
+          "exact": false,
+          "lfEqual": false,
+          "dependencyCommentCount": 22,
+          "onlyDependencyCommentDifferences": true
+        },
+        {
+          "file": "diagnostic.js",
+          "original": "1a96c64ac5a5578c5d3c5cc4edf9ba5412d66b13f617369fd3e304da12931e9d",
+          "isolated": "f4599bea486a1db4ab57125e3b255f55d293998d7691b483ec93b784262f393a",
+          "exact": false,
+          "lfEqual": false,
+          "dependencyCommentCount": 22,
+          "onlyDependencyCommentDifferences": true
+        },
+        {
+          "file": "main.css",
+          "original": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949",
+          "isolated": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949",
+          "exact": true,
+          "lfEqual": true
+        },
+        {
+          "file": "diagnostic.css",
+          "original": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949",
+          "isolated": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949",
+          "exact": true,
+          "lfEqual": true
+        },
+        {
+          "file": "index.html",
+          "original": "8a071e10e5bcf1743f09e8cbdd9bfdddbf09ebea07abb1f1c35780485f2a0e09",
+          "isolated": "eae18a2b0d145665edc08731b83ecbece0a0aa5e2632a8cf486ba01c870876d4",
+          "exact": false,
+          "lfEqual": true
+        },
+        {
+          "file": "diagnostic.html",
+          "original": "45e58c329d4e8933881710b3fb6af6ee93171e63e7054bd012e3b41633325af8",
+          "isolated": "23cdc7825992f40aed73de72aee25060edc8185eecb6645b006c3e68286a6996",
+          "exact": false,
+          "lfEqual": true
+        }
+      ],
+      "sourceAndTestChecked": 682,
+      "sourceAndTestDifferences": [],
+      "laterEdits": "Only scoped report, implementation documentation and AGENTS/navigation records."
+    },
+    "earlierLifecycleAndSettlement": {
+      "build": {
+        "directory": "preview/starship-integrated-r3-20261016",
+        "entries": [
+          {
+            "entry": "src/main.ts",
+            "inputs": 429,
+            "outputs": [
+              {
+                "file": "main.js",
+                "bytes": 37302475,
+                "sha256": "c4a84fb2818925a6679588a77c46cfe0bb1b851a7a23a224a334e19ae54d33f8"
+              },
+              {
+                "file": "main.css",
+                "bytes": 818774,
+                "sha256": "95280eab8cdaa4d6cbdfdb40b9942bad150ed7e353c04c5218835c37fcf3a827"
+              },
+              {
+                "file": "index.html",
+                "bytes": 954841,
+                "sha256": "8a071e10e5bcf1743f09e8cbdd9bfdddbf09ebea07abb1f1c35780485f2a0e09"
+              }
+            ]
+          },
+          {
+            "entry": "tools/diagnostics/starship-ui-entry.ts",
+            "inputs": 429,
+            "outputs": [
+              {
+                "file": "diagnostic.js",
+                "bytes": 37303762,
+                "sha256": "dc02dd328e7fbad770476bc2f5321aa91efe8cc3ccc92ee69d1df37e76cba564"
+              },
+              {
+                "file": "diagnostic.css",
+                "bytes": 818774,
+                "sha256": "95280eab8cdaa4d6cbdfdb40b9942bad150ed7e353c04c5218835c37fcf3a827"
+              },
+              {
+                "file": "diagnostic.html",
+                "bytes": 954859,
+                "sha256": "45e58c329d4e8933881710b3fb6af6ee93171e63e7054bd012e3b41633325af8"
+              }
+            ]
+          }
+        ],
+        "bindings": "preview/starship-integrated-r3-20261016/build-inputs.json"
+      },
+      "preservedReport": "reports/local/starship-ui-integration-20261016/scoped-report-r3.json",
+      "preservedReportSha256": "c490cecbb4e8219c561408a61af674c1929a3a0eeffff54d8fa142a69a040fbc",
+      "mainScriptPassed": false,
+      "completedGroups": 8,
+      "selectedScreens": 22,
+      "use": "Existing pickup, intermission, actual WebGL restore, extraction and defeat evidence for unchanged behavior. Not relabeled as R8 execution."
+    }
+  },
+  "historicalFailures": [
+    "reports/local/starship-ui-integration-20261016/integration-tests-r1.log",
+    "reports/local/starship-ui-integration-20261016/typecheck-r1.log",
+    "reports/local/starship-ui-integration-20261016/tests-r1.log",
+    "reports/local/starship-ui-integration-20261016/browser-r1/report.json",
+    "reports/local/starship-ui-integration-20261016/browser-r2/report.json",
+    "reports/local/starship-ui-integration-20261016/browser-r3/report.json",
+    "reports/local/starship-ui-integration-20261016/browser-r4/report.json",
+    "reports/local/starship-ui-integration-20261016/release-closure-r1.log",
+    "reports/local/starship-ui-integration-20261016/release-closure-r2.log",
+    "reports/local/starship-ui-integration-20261016/layout-r1/report.json",
+    "reports/local/starship-ui-integration-20261016/layout-r2/report.json",
+    "reports/local/starship-ui-integration-20261016/layout-r3/report.json",
+    "reports/local/starship-ui-integration-20261016/layout-r4/report.json",
+    "reports/local/starship-ui-integration-20261016/tests-layout-r1.log",
+    "reports/local/starship-ui-integration-20261016/staged-isolation-final.json"
+  ],
+  "boundaries": {
+    "save": "Deferred to MVP closeout; reload/close resets this in-page account. Legacy save not imported or overwritten.",
+    "productionEntryDebugHooks": false,
+    "diagnosticGrants": "Explicit fixture calls only; no automatic starter inventory or disabled waves.",
+    "naturalCampaignAccepted": false,
+    "physicalInputAccepted": false,
+    "humanAcceptance": false,
+    "fullContent60FPS": false,
+    "mvpComplete": false,
+    "currentReplaced": false,
+    "mainMerged": false,
+    "pushed": false,
+    "onlinePublished": false,
+    "presetNamePersistence": "Current page only, same deferred-save boundary as the account.",
+    "skinCoverage": "Six skins captured using explicit temporary race/cosmetic fixtures; not three natural campaign runs."
+  }
+}

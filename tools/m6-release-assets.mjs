@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {ALL_FAMILIES} from '../src/data/races.ts';
 import {HEROES} from '../src/data/heroes.ts';
 import {ELITES} from '../src/data/elites.ts';
-import {RETIRED_ASSETS} from '../src/assets/retired.ts';
+import {RETIRED_ASSETS,retiredCampaignAsset} from '../src/assets/retired.ts';
 import {CAMPAIGN_MAP_ID,MAP_THEMES} from '../src/data/campaign-map.ts';
 import {fullEnvironmentModelIds} from '../src/render/terrain/environment-compositions.ts';
 import {loadBuildAssets} from './load-build-assets.mjs';
@@ -20,7 +20,7 @@ const requireAsset=(id,reason)=>{
  const list=reasons.get(id)??[];if(!list.includes(reason))list.push(reason);reasons.set(id,list);
 };
 const useIfPresent=(id,reason)=>{if(byId.has(id))requireAsset(id,reason);};
-for(const r of available.filter(r=>r.kind==='ui-art'))requireAsset(r.id,'Approved R11 painted cards and nine covers used by formal UI');
+for(const r of available.filter(r=>r.kind==='ui-art'))requireAsset(r.id,r.id.startsWith('ui.starship.')?'Reviewed starship equipment, ship and interface art':'Approved painted cards, covers and native HUD art');
 for(const r of available.filter(r=>r.kind==='material-texture'))requireAsset(r.id,'Source-bound original unit material channel');
 for(const r of available.filter(r=>r.kind==='combat-effect-texture'||r.kind==='combat-effect-model'))requireAsset(r.id,'Source-bound combat mesh, emitter, ribbon or projection');
 for(const r of available.filter(r=>r.kind==='environment-texture'))requireAsset(r.id,'Approved five-map environment source pixels');
@@ -45,8 +45,10 @@ for(const family of ['lurker','thor'])for(const record of available)
 
 const activeProps=new Set([...Object.values(MAP_THEMES).flatMap(theme=>[...theme.props]),...Object.keys(MAP_THEMES).flatMap(theme=>fullEnvironmentModelIds(theme))]);
 for(const id of activeProps)requireAsset(id,'One of five centered campaign maps');
+for(const race of ['terran','zerg','protoss'])for(const suffix of ['','.death'])requireAsset(`model.fort.turret_${race}${suffix}`,'Actual equipment turret and matching death');
+requireAsset('model.map.spaceplatformbarrier_02','Actual equipment cover model retained by the runtime asset policy');
 for(const id of ['map.terrain.diffuse','map.terrain.normal','terrain.char'])requireAsset(id,'Original terrain pixels for radial campaign / endless flat');
-const retiredMapIds=new Set(available.filter(r=>r.id==='map.kairos'||['map.terrain.mask0','map.terrain.mask1'].includes(r.id)||r.id.startsWith('model.map.')&&!activeProps.has(r.id)).map(r=>r.id));
+const retiredMapIds=new Set(available.filter(r=>r.id==='map.kairos'||['map.terrain.mask0','map.terrain.mask1'].includes(r.id)||r.id.startsWith('model.map.')&&retiredCampaignAsset(r.id)).map(r=>r.id));
 
 // Models imported by GLTFLoader contain their images, while exported map
 // materials may also refer to standalone semantic sc2asset: texture IDs.

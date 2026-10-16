@@ -4,11 +4,13 @@ export class SaveControls {
  constructor(private session:RunSession,private resume:()=>void,private update:()=>void){}
  get canResume(){return this.session.canResume;}
  render(mode:'menu'|'pause'|'settings'|'reward'|'ended',ready=true){
+  if(this.session.memoryOnly)return '<p class="session-progress-note">本页进度 · 刷新或关闭后重置</p>';
   const s=this.session,menu=mode==='menu',stamp=s.savedAt?new Date(s.savedAt).toLocaleString('zh-CN',{hour12:false}):'尚未保存';
   const base=`<div class="save-controls" aria-label="存档"><div class="save-actions">${menu&&s.canResume?`<button class="primary" data-action="save-continue" ${ready?'':'disabled'}>继续战局 · ${escape(s.summary)}</button>`:''}${!menu?`<button data-action="save-now" ${s.busy?'disabled':''}>${s.busy?'保存中…':'保存进度'}</button>`:''}<button data-action="save-export">导出完整存档</button>${menu?'<button data-action="save-import">导入完整存档</button>':''}</div><small>最近保存：${escape(stamp)}</small>${s.message?`<p role="status">${escape(s.message)}</p>`:''}</div>`;return base;
  }
  handle(action:string){
   if(!action.startsWith('save-'))return false;
+  if(this.session.memoryOnly){this.session.message='本页进度 · 刷新或关闭后重置';this.update();return true;}
   if(action==='save-continue')this.resume();
   else if(action==='save-now')void this.session.saveNow().catch(()=>{});
   else if(action==='save-export'){try{const url=URL.createObjectURL(new Blob([this.session.exportJSON()],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='sc2-survivors-save-v2.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){this.session.message=String((e as Error).message);}}

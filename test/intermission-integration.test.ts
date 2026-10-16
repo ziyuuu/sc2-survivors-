@@ -9,6 +9,14 @@ import {renderIntermission,IntermissionNavigation,offerView} from '../src/ui/pre
 import {productionFacilities} from '../src/ui/presentation/facility-controls';
 import {cardPresentation} from '../src/ui/intermission-skin/presentation';
 
+test('leaving the backpack for a native intermission service returns to supplies without an empty backpack route',()=>{
+ const w=setup('marine',1);w.endStage();const nav=new IntermissionNavigation();nav.sync(w);
+ nav.push({page:'backpack'},'[data-action="starship-backpack"]');
+ nav.push({page:'rest'},'[data-page="rest"]');
+ assert.equal(nav.current.page,'rest');nav.back();assert.equal(nav.current.page,'root');
+ const html=renderIntermission(w,'',nav,undefined,true);assert.match(html,/data-action="starship-backpack"/);assert.match(html,/data-action="settings"/);assert.doesNotMatch(html,/im-backpack-slot/);
+});
+
 function setup(f:FamilyId,n=4,rank=1){const race=RACES.find(r=>FAMILIES_BY_RACE[r].includes(f as never))!,w=new World({race,sandbox:true,waves:false,terrain:false,seed:27});w.start();w.entities.clear();w.expedition.zerglingPairs=[];w.expedition.ledger=[];w.expedition.familySlots=[f];const line=familyLine(f);w.expedition.facilities=[{id:1,kind:race==='zerg'?'hatchery':line,line,techLab:false}];w.expedition.tech['research.'+line+'.weapon']=3;w.expedition.tech['research.'+line+'.defense']=3;for(let i=0;i<n;i++)w.addFamilyMember(f,{x:i*3-8,z:-4},rank);return w;}
 for(const race of RACES)for(const f of FAMILIES_BY_RACE[race])for(const mode of ['direct','pod']as const)test(`${f} ${mode}: +3 fills seats then promotes, respecting full-card payment and pair ranks`,()=>{
  for(const n of [4,5]){const w=setup(f,n),paid=supplyPrice(f,3,mode),sum=()=>w.familyUnits(f).reduce((n,u)=>n+u.rank,0),before=sum();assert.ok(supplyEligibility(w,f,3,mode).legal);assert.ok(applySupply(w,f,3,mode,paid));

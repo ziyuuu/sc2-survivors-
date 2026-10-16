@@ -1,3 +1,10 @@
+## 舰装 UI 普通入口接入与布局修正 · 2026-10-16
+
+- 用户要求接入现有 UI，随后要求修正小地图旁贴图／对齐、各处文字溢出，并给装备预设命名。集成分支 `feat/starship-ui-integration` 从装备分支 `736c933` 建立；普通 `src/main.ts` 现使用空装备账户和正常波次，共用真实规则。记录 `docs/project/STARSHIP_UI_INTEGRATION_20261016.md`，范围报告 `reports/qa/starship-ui-integration-20261016.json`，当前预览 `preview/starship-integrated-r8-20261016/`（4430）。
+- 主菜单、战斗背包、关间、撤离／失败结算和仓库接入现有流程；I 键暂停／恢复，战斗换装／分解限制保持。修正小地图旧图案重叠及边框变形，五功能按钮适配五种尺寸；修正标题、按钮和属性文字对齐。三个预设可按种族独立命名（最多 24 字符），覆盖保存保留名称。625 张／502 键原 UI 图片经哈希资源管线接入，图片字节不改。
+- 最终 1,639 回归、类型检查通过；R8 八组浏览器检查、35 张已查看截图、22 次布局检查，页面／控制台错误 0，分别保留 9／10 条资源请求取消。独立暂存目录 682 个源码／测试换行归一后相同，类型检查和构建通过；JS 仅 22 处依赖目录注释前缀不同，CSS 字节相同。R3 拾取、真实 WebGL 恢复及结算证据单列复用，保留其选择器失败和所有旧候选，未改标 R8 通过。最终 JS `8f2d7aea8f2b09b74773b58c9938836a6eb685a14129cdc226fb130509dfa74a`。
+- 账户与预设名仅保留当前页面，刷新／关闭重置，存档仍延期到 MVP 收尾。普通入口无诊断钩子／赠装，受控测试入口单列。main 与装备分支原引用、Current 和旧交付保持；本批只做本地集成分支提交，不推送／在线发布。自然完整战役、物理输入、人类验收、全内容性能及整体 MVP 未由本批关闭。此前 R22 未接入普通入口的状态属于历史。
+
 ## Approved original-source combat effects · 2026-10-12
 
 - User approved the complete original-source-first plan from e832844b66e50decc7364599a6640ebfdae98f88, including named HTML/ZIP, dynamic comparison gallery, Current/local mirror and detailed normal main commit/push/remote verification. Scope/results: docs/project/COMBAT_EFFECTS_20261012.md, COMBAT_EFFECTS_SOURCES_20261012.md and COMBAT_EFFECTS_VALIDATION_20261012.md; versioned reports/qa/combat-effects-20261012.json and combat-effects-sources-20261012.json; raw reports/local/combat-effects-20261012. Final R3 closes locally on 2026-10-13; batch filenames retain 20261012.

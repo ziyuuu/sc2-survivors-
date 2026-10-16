@@ -1,5 +1,7 @@
 # 项目文档导航 · 1.0 MVP / M2
 
+2026-10-16 舰装 UI 已接入普通游戏：[接入、布局修正与预设命名](project/STARSHIP_UI_INTEGRATION_20261016.md)，[最新可操作预览](../preview/starship-integrated-r8-20261016/README.md)。集成分支继承装备分支，支持正常波次和空账户；小地图／文字排版修正，预设可命名。账户与名称仅当前页面保留，存档仍延期；旧 R22 记录为历史。
+
 当前设置补丁：应用 0.6.28 已加入画面标签全屏、预下载和横竖屏优化；[实现与验证](project/MOBILE_SETTINGS_VALIDATION_20261014.md)。Safari 加载专项按用户要求排除，真机尚未验证。
 
 > 2026-10-06 当前状态：[五地图补强](project/MAP_VISUAL_POLISH_20261006.md)、[当前规则精简](project/CURRENT_LOGIC_CLEANUP_20261006.md)与[运行数据参考](GAME_DATA_REFERENCE.md)。当前为 campaign-five-v3／战局schema26／永久档案v6，仅接收当前格式；旧迁移、旧地图及下文早期版本说明均为历史记录。五图同尺寸、中心随机开局，地表、脚底与弹道共用真实缓坡高度。Coze未部署，人工视觉、自然性能和实体设备验收仍开放。
