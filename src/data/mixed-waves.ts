@@ -1,4 +1,4 @@
-import {CAMPAIGN18_ENEMIES,CAMPAIGN18_STAGES,campaign18StageConfig,type Campaign18Wave,type Campaign18Enemy,type MixedWaveMember} from './campaign18';
+import {CAMPAIGN18_ENEMIES,CAMPAIGN18_STAGES,campaign18StageConfig,campaign18Schedule,type Campaign18Wave,type Campaign18Enemy,type MixedWaveMember} from './campaign18';
 import {CAMPAIGN_CHAPTERS} from './campaign-layout';
 import {DROPS} from './economy';
 import {campaignProgress,type EnemyResourceScale} from './enemy-tuning';
@@ -18,7 +18,7 @@ export function baselineCampaignResources(stage:number,difficulty:Difficulty){
  }
  return total;
 }
-export function campaignMainBefore(stage:number,difficulty:Difficulty){let count=0;for(let s=1;s<stage;s++)count+=Object.values(campaign18StageConfig(s,difficulty).ambient).reduce((a,b)=>a+b,0);return count;}
+export function campaignMainBefore(stage:number,difficulty:Difficulty,seed?:number){let count=0;for(let s=1;s<stage;s++){const config=campaign18StageConfig(s,difficulty);count+=seed===undefined?Object.values(config.ambient).reduce((a,b)=>a+b,0):campaign18Schedule(config,seed).waves.reduce((n,w)=>n+w.types.length,0);}return count;}
 /** Exact 4:4:1 cumulative body ratio. Companions share their primary's due time and approach. */
 export function mixWaves(waves:readonly Campaign18Wave[],options:{stage:number;difficulty:Difficulty;seed:number;duration:number;spacing:number;mainBefore:number;budget:EnemyResourceScale;endlessStart?:number}):Campaign18Wave[]{
  const {stage,difficulty,seed,duration,spacing,budget,endlessStart}=options;
@@ -45,4 +45,4 @@ export function mixWaves(waves:readonly Campaign18Wave[],options:{stage:number;d
  for(const wave of result)for(const member of wave.members)member.resources={minerals:weight.minerals?budget.minerals/weight.minerals*member.stamp.density:0,gas:weight.gas?budget.gas/weight.gas*member.stamp.density:0};
  return result;
 }
-export function mixCampaignWaves(waves:readonly Campaign18Wave[],stage:number,difficulty:Difficulty,seed:number){const config=campaign18StageConfig(stage,difficulty);return mixWaves(waves,{stage,difficulty,seed,duration:config.durationSeconds,spacing:config.entranceSpacing,mainBefore:campaignMainBefore(stage,difficulty),budget:baselineCampaignResources(stage,difficulty)});}
+export function mixCampaignWaves(waves:readonly Campaign18Wave[],stage:number,difficulty:Difficulty,seed:number){const config=campaign18StageConfig(stage,difficulty);return mixWaves(waves,{stage,difficulty,seed,duration:config.durationSeconds,spacing:config.entranceSpacing,mainBefore:campaignMainBefore(stage,difficulty,seed),budget:baselineCampaignResources(stage,difficulty)});}

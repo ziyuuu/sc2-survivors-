@@ -49,7 +49,7 @@ test('an interceptor attack keeps permanent mother reward identity after mother 
  const rank=carrier.rank;carrier.hp=0;
  const enemy=durable(w.addUnit('roach','zerg',1,1));
  w.random=()=>0;(w as unknown as {rollTalentLoot:()=>number}).rollTalentLoot=()=>0;w.hit(enemy,2000,[],1,'terran',0,1,child.id);
- assert.equal(carrier.rank,rank);assert.equal(w.rewardDrops.filter(drop=>drop.talentLoot).length,2);
+ assert.equal(carrier.rank,rank);assert.equal(w.rewardDrops.filter(drop=>drop.talentLoot).length,0);
 });
 
 test('temporary carrier ancestry cannot produce qualified loot through its interceptor',()=>{

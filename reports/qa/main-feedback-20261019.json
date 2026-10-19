@@ -1,0 +1,177 @@
+{
+  "date": "2026-10-19",
+  "baseCommit": "3e19ba0fac3e0e8abc23696dbdc0ecdb496bd610",
+  "status": "Local fixes and calibrated easy loot complete; named R2 HTML byte-verified and offline smoke passed",
+  "artifact": {
+    "file": "dist/SC2-Survivors-Main-Fixes-R2-20261019.html",
+    "bytes": 762323909,
+    "sha256": "d18d14d3bb313cd2533aac393a0db22b6a625a6018c086093f74ca6e76700d25"
+  },
+  "issues": [
+    {
+      "issue": "reset notice",
+      "result": "Removed visible notice; persistence remains deferred."
+    },
+    {
+      "issue": "loadout lag",
+      "result": "Skip occluded battlefield render and optional background preparation while equipment UI is open. Short Chrome profiling removes texture-upload/shader hotspots; no full-game FPS claim."
+    },
+    {
+      "issue": "continue button",
+      "result": "Home shows Continue; enabled only for live same-page run. Returning home parks phase without resetting or settling equipment; resume restores phase and pauses battle. New run invalidates continuation."
+    },
+    {
+      "issue": "Boss Reaper reward crash",
+      "result": "Pre-fix reproduced undefined.rank after immediate Lone Hunter absorption; reward now commits exactly once and arrival explicitly reports absorption."
+    },
+    {
+      "issue": "easy equipment yield",
+      "userTarget": "All qualities cumulatively, easy campaign 18 stages plus 6–12 endless rounds, approximately bell-shaped 45–90 items.",
+      "implemented": {
+        "regularEnemyChances": [
+          0.03,
+          0.03,
+          0.025,
+          0.018
+        ],
+        "phases": [
+          "campaign1–6",
+          "campaign7–12",
+          "campaign13–18",
+          "endless"
+        ],
+        "eliteBossBaseChance": "unchanged",
+        "otherDifficulty": "unchanged",
+        "qualityWeights": "unchanged",
+        "densityCompanions": "still excluded"
+      },
+      "evidence": {
+        "nativeRun": "drop-natural-baseline/easy-terran.json",
+        "exactDistribution": "drop-calibration.json",
+        "productionRngReplay": "drop-production-replay.json"
+      },
+      "limits": "Conditional on eligible kills in the recorded full native run and collecting drops; does not force a quota or bypass 64-slot bag, nor prove human pickup rate. 1000 equipment RNG seeds are not 1000 played campaigns."
+    }
+  ],
+  "validation": {
+    "suite": {
+      "total": 1642,
+      "firstPass": 1634,
+      "firstFailures": 8,
+      "recheckedFailuresPassed": 8,
+      "details": "1 obsolete visible-notice expectation updated; 7 sandbox local-network/temp-rename failures passed elevated recheck. All first logs retained."
+    },
+    "targeted": 21,
+    "typecheck": true,
+    "compiledInputs": 429,
+    "embeddedAssets": 1874,
+    "browserR1": {
+      "checks": 5,
+      "screens": 11,
+      "errors": 0,
+      "httpRequests": 0,
+      "visuallyReviewed": 11
+    },
+    "dropTargetedTests": 31,
+    "totalDistinctTests": 1643,
+    "r2SourceDelta": [
+      "src/simulation/starship/drops.ts"
+    ],
+    "browserR2": {
+      "checks": 3,
+      "screens": 5,
+      "errors": 0,
+      "httpRequests": 0,
+      "visuallyReviewed": 5
+    },
+    "finalArtifactDecode": "r2/offline-byte-verification.json"
+  },
+  "files": [
+    {
+      "file": "src/app/bootstrap.ts",
+      "sha256": "471614fd973ea4020dab67612bf3e1e336a7d3c3534e51fdcf61c31797e48ca1"
+    },
+    {
+      "file": "src/app/run-session.ts",
+      "sha256": "8d98a6b659b827369d674ddafb19122a02363c58bf3a1995905d480fb7d4253c"
+    },
+    {
+      "file": "src/simulation/boss-loot.ts",
+      "sha256": "c4023441c48ea20240fce33e2a25d27ad0ce5e184d83b61ca5c35e23a901bc71"
+    },
+    {
+      "file": "src/ui/hud/m3-menu.ts",
+      "sha256": "3a72f41905cc3aa1c0852f7c815d47bf2ff3b6e893f783955401f265d028f15d"
+    },
+    {
+      "file": "src/ui/hud/save-controls.ts",
+      "sha256": "975189f1f2ef3499a70768e979d2654a79ccd67988a88d1d889d7ecde13ba7ca"
+    },
+    {
+      "file": "src/ui/presentation/arrival-cards.ts",
+      "sha256": "30d04d5dacc0815c3b198009fd79abeec5ef7e620b68f839eabaa0400c46e30c"
+    },
+    {
+      "file": "src/ui/starship/native.ts",
+      "sha256": "09272544b04ecee2e1d1a8b551a40437e032eed3e0fcdf2920b40a136dfcd9d0"
+    },
+    {
+      "file": "test/main-feedback-20261019.test.ts",
+      "sha256": "f56a68299e95f999a4fa537b41b02733242a18fb7a9734fba4481762fc10d0ae"
+    },
+    {
+      "file": "test/starship-production-integration.test.ts",
+      "sha256": "ef6cdd3d32188e8571fc59e3d6b2e260b022d11cabc30d940720e0cc3196da02"
+    },
+    {
+      "file": "src/simulation/starship/drops.ts",
+      "sha256": "89beb34f433e64b6fcc8b380502507f8f4c949caaecba196d2a0d6872808dbb6"
+    },
+    {
+      "file": "test/starship-drops.test.ts",
+      "sha256": "98b8727b5dcbeb970429559b517021c872356283506bb3eb204036afb2deae28"
+    }
+  ],
+  "evidenceRoot": "reports\\local\\main-feedback-20261019",
+  "boundaries": [
+    "No Git commit or push in this repair task.",
+    "No persistence, natural full campaign, physical-input or whole-MVP acceptance.",
+    "Original Current HTML restored and hash-verified after packaging default path mistake; recovery ledger retained."
+  ],
+  "lootReplay": [
+    {
+      "round": 6,
+      "samples": 1000,
+      "mean": 59.835,
+      "p05": 49,
+      "median": 60,
+      "p95": 70,
+      "min": 43,
+      "max": 89,
+      "within45to90": 0.996
+    },
+    {
+      "round": 9,
+      "samples": 1000,
+      "mean": 69.199,
+      "p05": 58,
+      "median": 69,
+      "p95": 79,
+      "min": 50,
+      "max": 97,
+      "within45to90": 0.997
+    },
+    {
+      "round": 12,
+      "samples": 1000,
+      "mean": 77.75,
+      "p05": 66,
+      "median": 78,
+      "p95": 89,
+      "min": 57,
+      "max": 107,
+      "within45to90": 0.961
+    }
+  ],
+  "visualReview": "R1 contact sheet reviewed: no obvious missing equipment art or layout errors; active continue and resumed paused battle shown."
+}

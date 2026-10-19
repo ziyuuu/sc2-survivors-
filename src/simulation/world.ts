@@ -47,7 +47,7 @@ import {findCarrierLanding,validCarrierLanding,carrierGuardPosition} from './mov
 import {createPair,joinPair,pairFor,rosterMembers,syncPair,notePairDeath,tickBroods,tickQueenInjection} from './zerg-brood';
 import {nextEndlessExpansion} from '../data/endless';
 import {RESCUE_PRESENTATION} from '../data/economy';
-import {dropBossLoot,collectBossLoot,recoverBossLoot,settlePendingLoot,freezeLootVariant,clearUnitArrivals} from './boss-loot';
+import {dropBossLoot,collectBossLoot,recoverBossLoot,settlePendingLoot,clearUnitArrivals} from './boss-loot';
 import {tickMainHive} from './combat/main-hive';
 import {selectRunData,validateRunData} from './persistence/run-fields';
 import {RUN_RULES,RUN_SCHEMA,type RunSnapshot} from './persistence/run-snapshot';
@@ -73,7 +73,7 @@ import {campaignProgress,clamp01,linear,continuousLingHp,continuousSpecialProfil
 import {mixCampaignWaves} from '../data/mixed-waves';
 import {SWARM_TYPES} from '../data/swarm';
 import {preventDiagnosticDeath,diagnosticAttackDamage} from '../diagnostics/combat-lock';
-import {setDevelopmentDirection as changeDevelopmentDirection,developmentOffers,reinforcementOffers,offerEligible,purchaseOffer,purchaseEliteContract,refreshOffers,endReinforcement,previewRepair,repair,mapReinforcement,collectMapReinforcement,openTalentLoot,claimTalentLoot,type RepairQuote} from './expedition-economy';
+import {setDevelopmentDirection as changeDevelopmentDirection,developmentOffers,reinforcementOffers,offerEligible,purchaseOffer,purchaseEliteContract,refreshOffers,endReinforcement,previewRepair,repair,collectMapReinforcement,openTalentLoot,claimTalentLoot,type RepairQuote} from './expedition-economy';
 import {expeditionRefreshCost} from './progression/expedition-drafts';
 import {beginHeroAttack,heroMainFactor,heroExtraHits,heroAttackSpeed,tickTerranHero,heroIncomingFactor,enemyHeroDamageFactor} from './combat/terran-hero-passives';
 import type {BattleView} from './combat/battle-view';
@@ -94,7 +94,6 @@ import type {StatusKind} from './combat/statuses';
 import {ENEMY_NAMES,type SpecialType,type EnemyTier} from '../data/enemies';
 import {heroStats,heroRevivalCost,HERO_IDS_BY_RACE,type HeroId} from '../data/heroes';
 import {ELITES,eliteStats,type EliteId} from '../data/elites';
-import {MAP_REWARDS} from '../data/rewards';
 import type {TerrainQuery} from '../data/map-definition';
 import {SC2_UNITS,TERRAN,ZERG,SIEGE,HEAL,BILE,HYDRALISK_MELEE,type UnitType,type CombatUnitType,type TerranType,type ZergType} from '../data/sc2-units';
 import {OBSTACLES,TUNING,type Obstacle} from '../data/game';
@@ -402,7 +401,7 @@ export class World extends RunState {
  private spawnCampaignSpecial(event:Campaign18Special){if(this.enemyCount()>=(event.tier==='boss'?TUNING.enemyCap:this.nonBossCapacity()))return undefined;const radius=SC2_UNITS[event.type].unitRadius*TUNING.unitScale*(event.tier==='elite'?1.2:1.7),candidates=this.spawnCells.filter(p=>distance(p,this.anchor)>8&&!blocked(p,radius,this.obstacles)&&(!this.terrain||this.terrain.canOccupy(p,radius))),p=candidates[Math.floor(this.random()*candidates.length)];if(!p)return undefined;
   const sourceStage=event.sourceStage??this.stage,stamp=event.stamp??this.enemyStamp(sourceStage,event.at),u=this.addUnit(event.type,'zerg',p.x,p.z,1,'special',sourceStage,stamp);u.enemyTier=event.tier;u.enemyName=SC2_UNITS[event.type].zh+(event.role==='captain'?' · 精英队长':' · 主要首领');u.visualScale=event.tier==='elite'?1.2:1.7;u.unitRadius=radius;u.specialReady=this.time+2;
   this.configureEnemySpecial(u,event.tier,stamp);
-  if(this.campaign18Runtime&&sourceStage===this.stage){this.campaign18Runtime.spawned.specials+=event.budget;if(this.stage===18&&event.type==='ultralisk')this.campaign18Runtime.finalBossId=u.id;}return u;
+  if(this.campaign18Runtime&&sourceStage===this.stage){this.campaign18Runtime.spawned.specials+=event.budget;if(this.stage===18&&event.tier==='boss'&&event.type==='ultralisk')this.campaign18Runtime.finalBossId=u.id;}return u;
  }
  private updateFortifications(){if(!this.endless||!this.fortifications.size)return;
   for(const fort of this.fortifications.values()){if(this.starship.forts.has(fort.id)||fort.supportUntil!==undefined||fort.hp<=0||fort.nextActionAt>this.time+1e-8)continue;
@@ -651,14 +650,6 @@ export class World extends RunState {
   }
   return true;
  }
- private rollTalentLoot(){const state=this.expedition;state.talentLootRngState=(Math.imul(state.talentLootRngState,1664525)+1013904223)>>>0;return state.talentLootRngState/4294967296;}
- private issueTalentLoot(enemy:Entity){const rank=this.talent('rarity_master');if(!rank||enemy.enemyTier==='boss'||enemy.enemyTier==='lord')return;
-  for(const rarity of ['orange','purple'] as const){const chance=rarity==='orange'?.005*rank:.01*rank;if(this.rollTalentLoot()>=chance)continue;
-   const receipt=`${this.runId}:enemy:${enemy.id}:${rarity}`;if(this.expedition.talentLootReceipts.includes(receipt))continue;this.expedition.talentLootReceipts.push(receipt);
-   const reward:Reward={id:`talent.${rarity}`,offerId:receipt,sold:false,name:rarity==='orange'?'出金大师 · 橙色选择':'出金大师 · 紫色选择',description:'拾取后从同品质合法奖励中免费选一项。',icon:'ui.minerals',rarity,kind:'economy',value:'talent-loot',minerals:0,gas:0,baseMinerals:0,baseGas:0,discount:0};
-   this.rewardDrops.push({id:this.nextId++,x:enemy.x,z:enemy.z,reward,talentLoot:{rarity,receipt}});
-  }
- }
  private issueEliteRescue(target:EconomicTarget){const rank=this.talent('elite_scout');if(!rank)return;const receipt=`${this.runId}:worker:${target.id}`;
   if(this.expedition.eliteRescueCompleted.includes(receipt)||this.expedition.eliteRescueRights.some(right=>right.receipt===receipt))return;
   const candidates=Object.values(ELITES).filter(elite=>this.canAcquireElite(elite.id)&&!this.expedition.eliteRescueRights.some(right=>ELITES[right.eliteId as EliteId]?.family===elite.family));
@@ -718,22 +709,16 @@ export class World extends RunState {
      const drop=(e.guardOrigin||e.guardianPod!==null?DROPS.guard:DROPS.ambient)[e.unitType as ZergType]??[1,0],factor=e.enemyTier==='boss'?20:e.enemyTier==='lord'?24:e.enemyTier==='elite'?3:1,density=e.enemySpawn?.density??1;
      this.drop(e,[drop[0]*factor*(e.enemyResources?.minerals??density),drop[1]*factor*(e.enemyResources?.gas??density)]);
      // Do not enter reward RNG, inventory, card generation, promotion or kill-growth scans for companions.
-     let qualified=false;if(!companion){equipmentEnemyDied(this,e,sourceId);this.tryRewardDrop(e,false,e.enemyTier);qualified=this.qualifiedKill(sourceId);if(qualified)this.issueTalentLoot(e);}
-     if(e.enemyOrigin==='swarm'){this.swarm.kills++;const income=incomeFactor(this.difficulty)*ECONOMY.dropMultiplier;this.swarm.minerals+=drop[0]*income;this.swarm.gas+=drop[1]*income;if(qualified)this.swarm.talentChecks++;}
+     let qualified=false;if(!companion){equipmentEnemyDied(this,e,sourceId);this.tryRewardDrop(e,false,e.enemyTier);qualified=this.qualifiedKill(sourceId);}
+     if(e.enemyOrigin==='swarm'){this.swarm.kills++;const income=incomeFactor(this.difficulty)*ECONOMY.dropMultiplier;this.swarm.minerals+=drop[0]*income;this.swarm.gas+=drop[1]*income*ECONOMY.gasDropMultiplier;if(qualified)this.swarm.talentChecks++;}
     }
   }}
  }
- drop(p:Point,amount:readonly [number,number]){const chance=equipmentResourceDropChance(this,1);if(chance<=0||chance<1&&this.random()>=chance)return;const f=incomeFactor(this.difficulty)*ECONOMY.dropMultiplier;this.pickups.push({id:this.nextId++,...p,minerals:amount[0]*f,gas:amount[1]*f});}
+ drop(p:Point,amount:readonly [number,number]){const chance=equipmentResourceDropChance(this,1);if(chance<=0||chance<1&&this.random()>=chance)return;const f=incomeFactor(this.difficulty)*ECONOMY.dropMultiplier;this.pickups.push({id:this.nextId++,...p,minerals:amount[0]*f,gas:amount[1]*f*ECONOMY.gasDropMultiplier});}
  tryRewardDrop(p:Point,drone=false,tier?:EnemyTier){
   if(tier==='boss'||tier==='lord'){dropBossLoot(this,p as Entity);return;}
   const source=tier==='elite'?'elite':drone?'drone':'regular',counts=this.expedition.mapLootStats[source];counts.attempts++;
-  if(this.random()>=(tier==='elite'?.4:drone?MAP_REWARDS.droneChance:MAP_REWARDS.combatChance)*(1+equipmentValue(this,'card_drop')))return;counts.triggered++;
-  const reward=mapReinforcement(this,tier==='elite');if(!reward){counts.empty++;return;}counts.generated++;
-  const id=this.nextId++,effect=reward.expeditionEffect;
-  if(effect.kind==='elite'||effect.kind==='hero'){
-   const receipt=`${this.runId}:map:${id}`;this.expedition.bossLootReceipts.push(receipt);
-   this.rewardDrops.push({id,...p,reward,bossLootReceipt:receipt,bossLootVariant:freezeLootVariant(this,reward,receipt)});
-  }else this.rewardDrops.push({id,...p,reward});
+  // Ordinary, drone and elite kills no longer roll reinforcement cards. Boss rewards remain above.
  }
  collectRewardDrop(id:number){return this.atomicMutation(()=>{const index=this.rewardDrops.findIndex(p=>p.id===id);if(index<0||this.expedition.pendingTalentLoot)return false;const drop=this.rewardDrops[index],ok=drop.bossLootReceipt?collectBossLoot(this,drop):drop.talentLoot?openTalentLoot(this,drop.talentLoot.receipt,drop.talentLoot.rarity):collectMapReinforcement(this,drop.reward);if(ok){recordEquipmentCardPickup(this,drop.reward,String(drop.id),drop.bossLootVariant);this.rewardDrops.splice(index,1);}this.changed();return ok;});}
  visual(kind:VisualEvent['kind'],body:Body,end:Point=body,castId?:number,launch?:HeroCast['presentationLaunch'],snapshot?:import('./types').VisualSnapshot){const e='unitType' in body?body as Entity:this.entities.get(body.id),sequence=e?.shotSequence,previousHit=kind==='projectile-impact'&&'id'in end?[...this.visualEvents].reverse().find(v=>v.time===this.time&&v.entityId===end.id&&v.hitSourceId===body.id):undefined;this.visualEvents.push({nativeMode:e?.nativeMode,activeWeapon:e?.activeWeapon,summonKind:e?.summonKind,rewardSourceKind:e?.rewardSourceKind,sourceTeam:e?.team,enemyTier:e?.enemyTier,visualScale:e?.visualScale,targetFlying:'flying'in end?!!end.flying:undefined,targetSurface:previousHit?.targetSurface??('shield'in end&&Number(end.shield)>0?'shield':'attributes'in end&&(end.attributes as string[]).includes('Biological')?'flesh':'armor'),...snapshot,serial:++this.visualSerial,time:this.time,kind,castId,targetId:'id' in end?Number(end.id):undefined,targetTier:'enemyTier' in end?String(end.enemyTier):undefined,targetAlive:'hp' in end?Number(end.hp)>0:undefined,rank:e?.rank,heroOpening:e?.heroOpening,projectileSpeed:e?weaponFlightSpeed(e):0,x:launch?.x??body.x,z:launch?.z??body.z,y:(body.flying?5.6:this.terrain?.height(launch??body)??0)+.6,endY:('flying' in end&&end.flying?5.6:this.terrain?.height(end)??0)+.6,unitType:e?.unitType??null,modelKey:e?.modelKey,heroId:e?.heroId,eliteId:e?.eliteId,race:e?.race??(['support-flight','support-pulse','support-impact','strategic-impact'].includes(kind)?this.expedition.race:undefined),shotSequence:sequence,attackId:kind==='attack'&&sequence!==undefined?`${body.id}:${sequence}`:undefined,entityId:body.id,flying:body.flying,end:{x:end.x,z:end.z},facing:launch?.facing??(kind==='attack'||kind==='skill-launch'?e?.attackFacing??0:e?.facing??0),weaponPoseSeconds:launch?.poseSeconds,siege:e?.mode==='siege'});if(this.visualEvents.length>768)this.visualEvents.splice(0,256);}

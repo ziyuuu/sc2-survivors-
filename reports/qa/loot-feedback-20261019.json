@@ -1,0 +1,1905 @@
+{
+  "date": "2026-10-19",
+  "status": "local implementation and scoped validation complete",
+  "baseCommit": "3e19ba0fac3e0e8abc23696dbdc0ecdb496bd610",
+  "changes": {
+    "nonBossCards": "Disabled ordinary, drone, elite and retired rarity-talent card creation; Boss/lord card rewards retained. Equipment and resources retained.",
+    "gasDropMultiplier": 1.5,
+    "randomCampaignElites": {
+      "firstStage": 4,
+      "chancePerStage": {
+        "easy": 0.3,
+        "normal": 0.5,
+        "hard": 0.7,
+        "hell": 0.9
+      },
+      "maximumPerStage": 1,
+      "timeFraction": [
+        0.35,
+        0.75
+      ],
+      "species": [
+        "zergling",
+        "roach",
+        "hydralisk",
+        "ravager"
+      ],
+      "budget": "Transfer ordinary wave threat; no increase in stage budget. Seeded independently of economy. Cumulative 4:4:1 wave count updated."
+    },
+    "eliteBossDifference": {
+      "hpRatioMaximum": 0.3,
+      "weaponDpsRatioMaximum": 0.6,
+      "skillHitDamageCap": "Boss base skill damage times capped same-progress multiplier; native elite skill counts and cooldowns remain.",
+      "armor": "No higher than corresponding Boss",
+      "visualScale": [
+        1.2,
+        1.7
+      ],
+      "scope": "All difficulties, campaign and endless",
+      "actualNativeReport": "reports\\local\\loot-feedback-20261019\\strength.json"
+    },
+    "equipmentLights": "White through orange: colored ground glow and narrow vertical beam. Same-quality lights share one representative per 1.5-unit cell; separate quality colors retained. Instanced batches.",
+    "easyRegularRates": [
+      0.027,
+      0.027,
+      0.023,
+      0.015
+    ]
+  },
+  "validation": {
+    "regression": {
+      "passed": 1648,
+      "failed": 0,
+      "log": "reports\\local\\loot-feedback-20261019\\regression-r2.log"
+    },
+    "typecheck": "reports\\local\\loot-feedback-20261019\\typecheck-r2.log",
+    "browser": {
+      "report": "reports\\local\\loot-feedback-20261019\\browser-r4\\report.json",
+      "checks": 10,
+      "screens": 14,
+      "errors": [],
+      "consoleErrors": [],
+      "networkFailures": [
+        {
+          "url": "http://127.0.0.1:4435/assets/optimized/model.barracks.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4435/assets/optimized/model.baneling.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4435/assets/optimized/model.loot.mineral.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4435/assets/optimized/model.hatchery.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4435/assets/optimized/model.fort.bunker.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4435/assets/optimized/model.fort.repair.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4435/assets/optimized/model.fort.repair.death.glb",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "visualSourcesExactInFinalHtml": {
+        "src/render/units/equipment-drops.ts": true,
+        "src/render/units/equipment-loot-style.ts": true,
+        "src/simulation/starship/loot-presentation.ts": true
+      },
+      "limit": "Diagnostic shared-renderer entry with explicit item fixtures; final production artifact independently opened offline. Earlier diagnostic bundle is not relabeled as final complete runtime."
+    },
+    "finalHtmlSmoke": {
+      "report": "reports\\local\\loot-feedback-20261019\\r2\\browser\\report.json",
+      "checks": [
+        "Offline homepage, three-race empty loadouts and named preset work with embedded art",
+        "Final loot/elite R2 offline main menu and three-race equipment UI smoke",
+        "Zero page/console errors and zero HTTP requests"
+      ],
+      "screens": 5,
+      "errors": [],
+      "httpRequests": []
+    },
+    "visualReview": [
+      "review-1.jpg",
+      "review-2.jpg",
+      "browser-r4/05-dense.png",
+      "browser-r4/04-narrow.png"
+    ],
+    "nativeRun": {
+      "report": "reports\\local\\loot-feedback-20261019\\natural-r4\\easy-terran.json",
+      "completed": 18,
+      "endlessSeconds": 720,
+      "steps": 151200,
+      "peakEnemies": 127,
+      "issue": null,
+      "limit": "Single seed 529 Terran controller run, valid white starter equipment, actual production/economy/terrain, no health lock; not human win-rate or pickup-total acceptance."
+    },
+    "lootDistribution": {
+      "report": "reports\\local\\loot-feedback-20261019\\drop-production-replay-r4.json",
+      "results": [
+        {
+          "round": 6,
+          "samples": 1000,
+          "mean": 61.653,
+          "p05": 52,
+          "median": 62,
+          "p95": 72,
+          "min": 42,
+          "max": 82,
+          "within45to90": 0.996
+        },
+        {
+          "round": 9,
+          "samples": 1000,
+          "mean": 69.525,
+          "p05": 59,
+          "median": 70,
+          "p95": 80,
+          "min": 48,
+          "max": 90,
+          "within45to90": 1
+        },
+        {
+          "round": 12,
+          "samples": 1000,
+          "mean": 79.956,
+          "p05": 69,
+          "median": 80,
+          "p95": 91,
+          "min": 59,
+          "max": 106,
+          "within45to90": 0.942
+        }
+      ],
+      "limit": "1000 independent equipment RNG seeds; replay observed eligible kill contexts through production dropEnemyEquipment, actual templates, pollution and item generation. Fixed native kill trace, not 1000 played campaigns or automatic pickup."
+    },
+    "compiledInputs": [
+      {
+        "file": "src/ui/presentation/building-panel.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/sc2-battle.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/mobile/layout.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/compact.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/reference-r12.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/formal-ui.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/battle-feedback.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/game-shell.css",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/battle-distress.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/world-labels.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/text-scale-reference.generated.css",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/phase.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/races.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/types.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/catalog-tiers.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/catalog-modules.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/catalog.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/ranks.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/hero-growth.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/attributes.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/heroes.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/terran-elites.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/zerg-elites.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/protoss-elites.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/team-auras.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/elites.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/expansion-units.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/campaign-science-vessel.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/sc2-units.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/expedition-buildings.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/terrain-fire.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/terrain.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/game.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/steering.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/tracking-mines.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/inheritance.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/selection.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/presentation.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/weapon-budget.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/loot-presentation.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/fortifications.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/zerg-heroes.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/protoss-heroes.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/native-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/unique-support.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/controls.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/observation.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/team-auras.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/weapon-patterns.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/terran-elite-runtime.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/weapon-flight.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/zerg-elite-runtime.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/weapon-areas.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/protoss-elite-runtime.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/elite-support.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/stages.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/enemies.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/enemy-tuning.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/hero-upgrades.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/zerg-hero-revival.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/terran-heroes.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/battle-view.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/carrier-landing.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/unique-support.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/progression/team-cards.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/runtime.generated.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/expedition-heroes.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/advanced-support.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/zerg-hero-passives.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/terran-hero-passives.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/hero-ground-auras.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/protoss-hero-passives.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/family-actions.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/player-unit-adaptations.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/mvp-talents.generated.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/mvp-talents.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/progression/mvp-talent-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/hero-attack-upgrades.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/carriers.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/expansion-upgrades.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/expedition-combat.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/projections.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/economy.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/building/rules.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/building/expedition.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/economy.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/progression/supply-plan.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/expedition-production.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/progression/supply-cards.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/build-card-routes.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/rewards.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/progression/expedition-drafts.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/talent-support.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/support.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/shop-support.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/progression/training-cards.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/elite-claim.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/expedition-economy.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/boss-loot.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/drops.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/growth.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/combat.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/hero-advancements.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/recall.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/capture.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/runtime.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/defense.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/lifecycle.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/zerg-brood.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/members.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/modules.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/eligibility.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/inventory.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/host.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/settlement-view.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/world-host.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/input-capture.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/controller.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/catalog-data.json",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/presentation.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/effect-text.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/art-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/legacy-icons.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/legacy-layout.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/display-preferences.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/art-metrics.json",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/art-metrics.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/legacy-view.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/view.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/style.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/legacy-r12.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/polish.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/native.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/native.ts",
+        "match": true
+      },
+      {
+        "file": "src/persistence/graph-codec.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/progression/permanent-profile.ts",
+        "match": true
+      },
+      {
+        "file": "src/app/memory-storage.ts",
+        "match": true
+      },
+      {
+        "file": "src/app/background-preparation.ts",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/build/three.core.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/build/three.module.js",
+        "match": true
+      },
+      {
+        "file": "src/render/input/pixel-scale.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/pick-friendly.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/talent-transfer.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/controls/battle-actions.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/input/battle-view.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/map-terrain.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/campaign-landscape.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/campaign-map.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/mobile/viewport.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/controls/settings.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/preferences.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/intermission-art.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/native-hud-art.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/material-textures.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/environment-textures.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/environment-scenery.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/combat-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/ui-art.generated.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/starship-art.generated.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-compositions.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/retired.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/manifest.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/persistent-cache.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/http-store.ts",
+        "match": true
+      },
+      {
+        "file": "src/assets/base85.mjs",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/libs/fflate.module.js",
+        "match": true
+      },
+      {
+        "file": "src/assets/offline-pack.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/flat-terrain.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/conditional.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/card-claims.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/control-anchor.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/loadout.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/direction-route.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/enemy-routes.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/campaign-layout.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/campaign18.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/mixed-waves.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/endless.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/main-hive.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/swarm.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/expedition-state.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/persistence/run-fields.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/persistence/run-snapshot.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/statuses.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/spawn-cells.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/roster.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/control-tuning.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/auto-targeting.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/formation/engagement.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/formation/squad.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/contacts.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/spatial-hash.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/attack-lines.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/run-state.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/enemy-progression.ts",
+        "match": true
+      },
+      {
+        "file": "src/diagnostics/combat-lock.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/expedition-elites.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/progression/talent-rewards.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/hives.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/enemy-specials.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/rules.mjs",
+        "match": true
+      },
+      {
+        "file": "src/simulation/movement/native-traversal.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/combat/combat-presence.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/world.ts",
+        "match": true
+      },
+      {
+        "file": "src/persistence/archive.ts",
+        "match": true
+      },
+      {
+        "file": "src/persistence/save-repository.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/shop-progress.ts",
+        "match": true
+      },
+      {
+        "file": "src/app/run-session.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/save-controls.ts",
+        "match": true
+      },
+      {
+        "file": "src/simulation/fixed-stepper.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/economic-egg.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/settings/quality.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/equipment-apparition.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/materials/shared-textures.ts",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/math/ConvexHull.js",
+        "match": true
+      },
+      {
+        "file": "src/render/units/body-outline.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/instance-updates.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/health-bars.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/mode.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/camera-controller.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/battle-distress.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/scene-lighting.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/renderable-registry.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/materials/posed-depth.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/scene-shadows.ts",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/postprocessing/Pass.js",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/scene-contact.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/materials/source-tracks.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/materials/scene-textures.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source/displacement.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/screen-refraction.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/combat-fx-routes.json",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/combat-fx-profile.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/protoss-hero-materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/protoss-elite-effects.ts",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/utils/BufferGeometryUtils.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/utils/SkeletonUtils.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/loaders/GLTFLoader.js",
+        "match": true
+      },
+      {
+        "file": "src/render/loaders/sc2-materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/zerg-elite-materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/zerg-elite-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/terran-flame-fan.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/terran-elite-materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/terran-elite-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/elite-support-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/protoss-hero-presentation.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/confirmed-hero/hero-aura-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/hero-feedback.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/unit-spectacle.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/elite-visual-profiles.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/combat-presentation.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/protoss-hero-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/confirmed-hero/upgrade-materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/zerg-hero-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/death-clock.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/loaders/semantic-gltf.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/map-visual-profile.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-texture.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/visual-fields.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/layered-ground.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/campaign-ground.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/map-surface.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/campaign-textures.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/campaign-ground-legacy.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-atmosphere.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-bases.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/map-visibility.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/scenery-grounding.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/campaign-map.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-sample-plan.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-full-plan.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-sample-assets.json",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-sample-materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-sample-shores.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/environment-full-map.ts",
+        "match": true
+      },
+      {
+        "file": "src/app/race-preload.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/pylon-birth-materials.json",
+        "match": true
+      },
+      {
+        "file": "src/render/units/pylon-birth-materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/equipment-status.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/unit-identity.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/friendly-labels.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/equipment-loot-style.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/equipment-drops.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/ordinary-presentation.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/ordinary-medical-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/acid-ground-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/nonhero-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/materials/unit-material-catalog.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/materials/unit-material-loader.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/materials/unit-material-batch.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source/materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source/timeline.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source/particles.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source/rigid-batch.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source/catalog.json",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source/draw-batch.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source/ribbons.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source/player.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/equipment-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/source-combat-effects.ts",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/shaders/CopyShader.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/postprocessing/ShaderPass.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/postprocessing/MaskPass.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/postprocessing/EffectComposer.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/postprocessing/RenderPass.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/shaders/LuminosityHighPassShader.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/postprocessing/UnrealBloomPass.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/shaders/OutputShader.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/three/examples/jsm/postprocessing/OutputPass.js",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/confirmed-hero/approved-gun-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/confirmed-hero/attack-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/confirmed-hero/skill-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/confirmed-hero/controller.ts",
+        "match": true
+      },
+      {
+        "file": "node_modules/meshoptimizer/meshopt_encoder.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/meshoptimizer/meshopt_decoder.mjs",
+        "match": true
+      },
+      {
+        "file": "node_modules/meshoptimizer/meshopt_simplifier.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/meshoptimizer/meshopt_clusterizer.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/meshoptimizer/meshopt_tangents.js",
+        "match": true
+      },
+      {
+        "file": "node_modules/meshoptimizer/index.js",
+        "match": true
+      },
+      {
+        "file": "src/simulation/starship/asset-plan.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/loaders/animation-profiles.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/loaders/animations.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/fort-ribbons.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/fort-materials.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/input/battle-picking.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/pod-view.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/char-geometry.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/char-terrain.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/terrain/flat-map.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/resource-drops.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/sampled-poses.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/unit-pose-shader.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/units/animated-batch.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/materials/elite-visual.ts",
+        "match": true
+      },
+      {
+        "file": "src/data/hero-spectacle.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/combat-sculptures.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/hero-basic-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/original-projectiles.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/battle-effects.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/settings/adaptive-quality.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/scene/battle-renderer.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/catalog.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/reference-glyphs.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/brand-logo.generated.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/painted-art.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/reference-primitives.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/skins.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/skins.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/map-frames.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/frames.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/shell.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/run-talents.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/numbers.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/overlay-layout.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/intermission-skin/skin.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/intermission-skin/card-material.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/intermission-skin/refinements.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/intermission-skin/adaptive-layout.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/building-view.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/building-technology.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/building-panel.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/facility-controls.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/purchased-enhancements.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/shop-card-copy.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/base-panels.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/ability-copy.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/expedition-panel.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/reference-engraving.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/reference-card.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/game-copy.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/navigation.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/card-presentation.generated.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/intermission.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/intermission-skin/presentation.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/intermission-skin/skin.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/touch-click.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/carrier-inspector.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/layout.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/glyphs.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/objectives.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/text-scale.ts",
+        "match": true
+      },
+      {
+        "file": "src/app/resource-downloads.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/resource-downloads.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/dom.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/packed-roster.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/unit-inspector.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/live-inspector.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/selection.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/native-hud/battle.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/packed-console.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/detection-hint.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/arrival-cards.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/arrival-cards.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/reference-minimap.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/minimap.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/map-preview.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/m3-menu.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/talent-presentation.generated.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/talent-screens.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/mvp-talent-panel.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/display-settings.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/settings-screen.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/end-screens.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/decision-screens.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/cover-transition.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/cover-preference.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/controls/skills.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/gamepad/state.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/gamepad/controller.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/mobile/canvas-pinch.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/mobile/input.ts",
+        "match": true
+      },
+      {
+        "file": "src/diagnostics/shot-diagnostics.ts",
+        "match": true
+      },
+      {
+        "file": "src/diagnostics/debug.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/equipment-loot-audio.ts",
+        "match": true
+      },
+      {
+        "file": "src/render/effects/audio.ts",
+        "match": true
+      },
+      {
+        "file": "src/app/asset-readiness.ts",
+        "match": true
+      },
+      {
+        "file": "tools/backend/contracts.mjs",
+        "match": true
+      },
+      {
+        "file": "src/services/telemetry-client.ts",
+        "match": true
+      },
+      {
+        "file": "src/services/game-observer.ts",
+        "match": true
+      },
+      {
+        "file": "src/services/load-observer.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/player-services.css",
+        "match": true
+      },
+      {
+        "file": "src/ui/hud/player-services.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/presentation/opening.ts",
+        "match": true
+      },
+      {
+        "file": "src/app/bootstrap.ts",
+        "match": true
+      },
+      {
+        "file": "src/ui/starship/runtime-art.ts",
+        "match": true
+      },
+      {
+        "file": "src/app/start-game.ts",
+        "match": true
+      },
+      {
+        "file": "src/main.ts",
+        "match": true
+      }
+    ],
+    "offlineAssets": "reports\\local\\loot-feedback-20261019\\r2\\offline-byte-verification.json"
+  },
+  "delivery": {
+    "html": {
+      "file": "dist/SC2-Survivors-Loot-Elites-R2-20261019.html",
+      "bytes": 762322440,
+      "sha256": "a5f2ec97b1a85c34d11ffd8f43088caeaedb5bab5d83959f3f0532bb25ea1db8"
+    },
+    "currentPreservedSha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+    "committed": false,
+    "pushed": false,
+    "published": false,
+    "saveWork": "Still deferred; prior same-page continuation retained"
+  },
+  "retainedFailures": [
+    "browser-r1 (sandbox denied)",
+    "browser-r2 (local connection timeout)",
+    "browser-r3 (old dense expectation and excessive overlap)",
+    "regression-r1 (superseded expectations and sandbox failures)",
+    "targeted-r1",
+    "targeted-r3",
+    "first named candidate and all native/replay candidates"
+  ]
+}

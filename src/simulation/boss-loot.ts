@@ -6,7 +6,7 @@ import {HEROES,type HeroId} from '../data/heroes';
 import {draftContext} from './expedition-economy';
 import {drawBossLoot,type ExpeditionReward} from './progression/expedition-drafts';
 
-export type UnitArrival={identity:string;name:string;kind:'elite'|'hero';rank:number;promoted:boolean};
+export type UnitArrival={identity:string;name:string;kind:'elite'|'hero';rank:number;promoted:boolean;absorbedBy?:string};
 /** Presentation only: never included in a save, and never a player decision. */
 const arrivals=new WeakMap<World,UnitArrival[]>();
 export function takeUnitArrivals(w:World){const items=arrivals.get(w)??[];arrivals.delete(w);return items;}
@@ -42,7 +42,8 @@ function settle(w:World,entry:Entry){
   const id=entry.variant;if(!id)return false;
   const promoted=!!w.eliteOwned(id),target=w.eliteCandidates(id).sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];
   if(!acquireEliteImmediately(w,id,target?.id))return false;
-  arrival={identity:id,name:ELITES[id].name,kind:'elite',rank:w.eliteOwned(id)!.rank,promoted};
+  const member=w.eliteOwned(id),hunter=!member&&ELITES[id].family==='reaper'?w.eliteOwned('reaper.3'):undefined;
+  arrival={identity:id,name:ELITES[id].name,kind:'elite',rank:member?.rank??1,promoted,...(hunter?{absorbedBy:ELITES['reaper.3'].name}:{})};
  }else if(e.kind==='resource'){w.wallet.minerals+=e.minerals;w.wallet.gas+=e.gas;w.economyTotals.cards.minerals+=e.minerals;w.economyTotals.cards.gas+=e.gas;w.announce(`补给回收 · ${e.minerals} 矿 / ${e.gas} 气`);}
  else return false;
  entry.reward.sold=true;s.bossLootClaimed.push(entry.receipt);if(arrival)notify(w,arrival);return true;

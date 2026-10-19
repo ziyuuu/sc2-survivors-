@@ -45,7 +45,7 @@ export function mountGameStarship(hud:HUD,resolveImage:(key:string,detail?:boole
   if(hud.settingsOpen||world.phase==='battle'&&(world.paused||world.requiresPlayerDecision))return;
   origin=world.phase;embedded=world.phase==='reward';
   returnSelector=embedded?'[data-action="starship-backpack"]':hud.menuPage==='confirm'&&world.phase==='menu'?'[data-action="menu-edit-starship"]':'[data-action="starship"]';
-  if(world.phase==='menu'&&hud.menuPage!=='title'&&world.expedition.race!==hud.menuRace)world.selectRace(hud.menuRace);
+  if(!hud.session?.canResume&&world.phase==='menu'&&hud.menuPage!=='title'&&world.expedition.race!==hud.menuRace)world.selectRace(hud.menuRace);
   if(embedded&&hud.intermission.current.page!=='backpack'){hud.intermission.push({page:'backpack'},returnSelector);hud.update();}
   ui.open(world.starship.account.run?.ended&&['lost','finished'].includes(world.phase)?'settlement':world.phase==='menu'?'loadout':'backpack');sync();
  }

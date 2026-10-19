@@ -117,12 +117,24 @@ export function campaign18Schedule(s:Campaign18StageConfig,seed:number,specialsE
  for(const wave of waves)for(let i=wave.types.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[wave.types[i],wave.types[j]]=[wave.types[j],wave.types[i]];}
  const events=stageEconomy(s.id-1).map(e=>{const radius=Math.min(2,e.at*.45,(duration-e.at)*.45);return {...e,at:e.at+(economyRng()*2-1)*radius};}).sort((a,b)=>a.at-b.at);
  const specials:Campaign18Special[]=[];let mainHive:Campaign18Hive|null=null,expansionHive:Campaign18Hive|null=null;
+ // A separate seeded stream keeps the economy and ordinary-wave timing independent.
+ const eliteRng=randomSeed((seed+s.id*65537)^0x71e17),eliteTuning={easy:[.30,.03],normal:[.50,.05],hard:[.70,.07],hell:[.90,.09]} as const;
+ const [eliteChance,eliteShare]=eliteTuning[s.difficulty??'normal'];let randomEliteBudget=0;
+ if(s.id>=4&&eliteRng()<eliteChance){
+  const pool=CAMPAIGN18_ENEMIES.filter(type=>s.mix[type]>0&&['zergling','roach','hydralisk','ravager'].includes(type)),type=pool[Math.floor(eliteRng()*pool.length)];
+  let budget=0;const target=Math.max(3,Math.floor(s.waveBudget*eliteShare));
+  // Transfer actual ordinary threat into the elite allocation; never add to the stage budget.
+  const candidates=waves.filter(w=>w.types.length).sort((a,b)=>b.at-a.at);
+  for(const wave of candidates){while(wave.types.length&&budget<target)budget+=CAMPAIGN18_WEIGHTS[wave.types.pop()!];if(budget>=target)break;}
+  if(type&&budget){randomEliteBudget=budget;const at=duration*(.35+eliteRng()*.4);if(specialsEnabled)specials.push({at,type,tier:'elite',role:'captain',budget});}
+ }
+
  if(specialsEnabled){
   if(s.reserves.captain)specials.push({at:duration*.6,type:s.id===3?'zergling':s.id===9?'queen':'hydralisk',tier:'elite',role:'captain',budget:s.reserves.captain});
   if(s.reserves.boss)specials.push({at:s.id===3?30:s.id===6||s.id===12?duration*.625:s.id===9?duration*2/3:s.id===15?72:45,type:s.id===3?'zergling':s.id===6?'roach':s.id===9?'hydralisk':s.id===12?'ravager':s.id===15?'lurker':'ultralisk',tier:'boss',role:'boss',budget:s.reserves.boss});
   if(s.reserves.mainHive)mainHive={kind:'main',at:0,budget:s.reserves.mainHive,phases:[{from:0,until:45,name:'外围驻军'},{from:45,until:100,name:'主巢技能'},{from:100,until:150,name:'机制组合'}],alwaysAttackable:true,requiresSurvival:true,healBetweenPhases:false};
   if(s.reserves.expansionHive){const at=duration*.45;expansionHive={kind:'expansion',at,budget:s.reserves.expansionHive,warningAt:at-5,warningSeconds:5,maxNewPerStage:1,maxAlive:2};}
  }
- const waveCost=waves.reduce((n,w)=>n+w.types.reduce((v,type)=>v+CAMPAIGN18_WEIGHTS[type],0),0),specialCost=specials.reduce((n,e)=>n+e.budget,0),withheld=specialsEnabled?0:reserveTotal(s.reserves);
+ const waveCost=waves.reduce((n,w)=>n+w.types.reduce((v,type)=>v+CAMPAIGN18_WEIGHTS[type],0),0),specialCost=specials.reduce((n,e)=>n+e.budget,0),withheld=specialsEnabled?0:reserveTotal(s.reserves)+randomEliteBudget;
  return {waves,events,specials:specials.sort((a,b)=>a.at-b.at),mainHive,expansionHive,accounting:{budget:s.budget,waves:waveCost,specials:specialCost,mainHive:mainHive?.budget??0,expansionHive:expansionHive?.budget??0,withheld,unspent:s.budget-waveCost-specialCost-(mainHive?.budget??0)-(expansionHive?.budget??0)-withheld}};
 }

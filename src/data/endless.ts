@@ -58,7 +58,7 @@ export function endlessWaveTemplate(seed:number,round:number,difficulty:Difficul
   for(let k=types.length-1;k>0;k--){random=(Math.imul(1664525,random)+1013904223)>>>0;const j=random%(k+1);[types[k],types[j]]=[types[j],types[k]];}
   return {at:i*15,types,bearing:Math.atan2(ENDLESS_ENTRANCES[index].x,ENDLESS_ENTRANCES[index].z)};
  });
- return mixWaves(waves,{stage:18,difficulty,seed,duration:60,spacing:.1,mainBefore:campaignMainBefore(19,difficulty)+precedingMainCount(round,difficulty),budget:baselineEndlessResources(difficulty),endlessStart:(round-1)*60});
+ return mixWaves(waves,{stage:18,difficulty,seed,duration:60,spacing:.1,mainBefore:campaignMainBefore(19,difficulty,seed)+precedingMainCount(round,difficulty),budget:baselineEndlessResources(difficulty),endlessStart:(round-1)*60});
 }
 export function endlessEconomicEvents(seed:number,round:number){
  const cycle=Math.floor((round-1)/4)+1,offset=(round-1)%4*60;

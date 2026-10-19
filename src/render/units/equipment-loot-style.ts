@@ -4,10 +4,10 @@ import {equipmentTemplate} from '../../simulation/starship/catalog';
 export type EquipmentDropShape='offense'|'defense'|'module';
 export const equipmentDropShape=(item:Pick<EquipmentItem,'slot'>):EquipmentDropShape=>item.slot.startsWith('offense')?'offense':item.slot.startsWith('defense')?'defense':'module';
 export const EQUIPMENT_LOOT_STYLE:Record<Quality,{color:number;css:string;beam:number;glow:number;labelDistance:number}>={
- 1:{color:0xd9e1e4,css:'#dce5e9',beam:0,glow:.34,labelDistance:7},
- 2:{color:0x6de690,css:'#91edac',beam:0,glow:.6,labelDistance:10},
- 3:{color:0x549eff,css:'#8cbcff',beam:1.6,glow:.82,labelDistance:15},
- 4:{color:0xbf6dff,css:'#d3a0ff',beam:3.7,glow:1.05,labelDistance:Infinity},
+ 1:{color:0xffffff,css:'#ffffff',beam:2.6,glow:.6,labelDistance:7},
+ 2:{color:0x6de690,css:'#91edac',beam:3.0,glow:.7,labelDistance:10},
+ 3:{color:0x549eff,css:'#8cbcff',beam:3.5,glow:.82,labelDistance:15},
+ 4:{color:0xbf6dff,css:'#d3a0ff',beam:4.4,glow:1.05,labelDistance:Infinity},
  5:{color:0xffa93b,css:'#ffc36c',beam:5.4,glow:1.3,labelDistance:Infinity}
 };
 export function equipmentDropName(item:EquipmentItem){

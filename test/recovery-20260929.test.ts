@@ -39,7 +39,7 @@ test('three elite zergling variants are three shared-rank pairs, not six seats',
 
 test('physical map rewards have no chapter quota and free hero pickups survive load',()=>{
  const w=make();w.random=()=>.96;const a=mapReinforcement(w),b=mapReinforcement(w);assert.equal(a?.rarity,'blue');assert.equal(b?.rarity,'blue');assert.notEqual(a?.offerId,b?.offerId);
- let seq=[0,.999,.999];w.random=()=>seq.shift()??0;w.tryRewardDrop({x:2,z:2});const drop=w.rewardDrops[0];assert.equal(drop.reward.rarity,'orange');assert.equal(drop.reward.minerals,0);
+ w.random=()=>.1;const boss=w.addUnit('zergling','zerg',2,2,1,'boss');boss.enemyTier='boss';w.hit(boss,1e9,[],1,'terran');const drop=w.rewardDrops[0];assert.equal(drop.reward.rarity,'orange');assert.equal(drop.reward.minerals,0);
  const money={...w.wallet};assert.ok(w.collectRewardDrop(drop.id));assert.equal(w.expedition.bossLootOpen,false);
  const copy=make();copy.restoreRun(w.captureRun());assert.equal(copy.expedition.bossLootOpen,false);
  assert.equal(copy.expedition.bossLootQueue.length,0);assert.deepEqual(copy.wallet,money);assert.equal(copy.heroes.size,1);assert.equal(copy.collectRewardDrop(drop.id),false);
@@ -80,12 +80,12 @@ test('detection is ready at ten seconds, with eight-second stationary fields',()
  w.time=10-1/60;assert.equal(w.castDetection(),false);w.time=10;assert.ok(w.castDetection());
 });
 
-test('actual map drop attempts preserve each source chance independently of legal-pool filtering',()=>{
+test('non-Boss map sources never generate reinforcement cards or consume reward RNG',()=>{
  for(const [source,drone,tier,chance] of [['regular',false,undefined,.02],['drone',true,undefined,.08],['elite',false,'elite',.4]] as const){
-  const w=make();for(let i=0;i<20000;i++){w.tryRewardDrop({x:2,z:2},drone,tier);if(i%100===0)w.rewardDrops=[];}
+  const w=make(),rng=w.rngState;for(let i=0;i<20000;i++){w.tryRewardDrop({x:2,z:2},drone,tier);if(i%100===0)w.rewardDrops=[];}
   const c=w.expedition.mapLootStats[source];assert.equal(c.attempts,20000);assert.equal(c.generated+c.empty,c.triggered);
-  assert.ok(Math.abs(c.triggered-20000*chance)<6*Math.sqrt(20000*chance*(1-chance)),source);
-  assert.ok(c.generated>20,'map rewards are not capped at one per chapter');
+  assert.equal(c.triggered,0,source);assert.equal(w.rngState,rng);
+  assert.equal(c.generated,0);assert.equal(w.rewardDrops.length,0);
  }
 });
 

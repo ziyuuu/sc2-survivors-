@@ -42,7 +42,7 @@ function effectTexture(kind:'beam'|'glow'|'spark'){
  const width=32,height=kind==='beam'?128:32,data=new Uint8Array(width*height*4);
  for(let y=0;y<height;y++)for(let x=0;x<width;x++){
   const u=(x+.5)/width,v=(y+.5)/height,d=Math.hypot((u-.5)*2,(v-.5)*2);
-  const a=kind==='beam'?Math.exp(-Math.pow((u-.5)*5.5,2))*Math.pow(1-v,1.35)*Math.min(1,v*24):Math.pow(Math.max(0,1-d),kind==='glow'?2:3);
+  const a=kind==='beam'?Math.exp(-Math.pow((u-.5)*7,2))*Math.pow(1-v,.6)*Math.min(1,v*48):Math.pow(Math.max(0,1-d),kind==='glow'?2:3);
   const n=(y*width+x)*4;data[n]=data[n+1]=data[n+2]=255;data[n+3]=Math.round(a*255);
  }
  const texture=new THREE.DataTexture(data,width,height);texture.magFilter=texture.minFilter=THREE.LinearFilter;texture.needsUpdate=true;return texture;
@@ -90,13 +90,13 @@ export class EquipmentDrops {
   }
   this.counts={ground:this.ground.length,visible:0,beams:0,polluted:0,absorbing:0,labels:0};
   const candidates:LootLabelCandidate[]=[],alive=new Set(this.ground.map(d=>d.item.id)),angle=Math.atan2(camera.position.x-w.anchor.x,camera.position.z-w.anchor.z);
-  // Nearby objects remain separate; their additive light shares one representative per small ground cell.
+  // Keep every quality visible while merging same-quality lights in crowded ground cells.
   const lights=new Map<string,{drop:ReturnType<typeof equipmentGroundDrops>[number];newest:number;polluted:boolean}>();
   for(const [id,label] of this.labels){label.hidden=true;if(!alive.has(id)){label.remove();this.labels.delete(id);}}
   for(const drop of this.ground){
    if(!visible(drop))continue;this.counts.visible++;const item=drop.item,style=EQUIPMENT_LOOT_STYLE[item.quality],age=w.time-drop.at,y=ground(drop),seed=Number(item.id.match(/\d+$/)?.[0]??0)*2.399963;
    const lift=equipmentDropLift(age);this.body(item,drop.x,y+.04+lift,drop.z,seed,1);
-   const key=Math.floor(drop.x/1.5)+':'+Math.floor(drop.z/1.5),cell=lights.get(key);
+   const key=Math.floor(drop.x/1.5)+':'+Math.floor(drop.z/1.5)+':'+item.quality,cell=lights.get(key);
    if(!cell)lights.set(key,{drop,newest:drop.at,polluted:item.pollution!=='none'});
    else{if(item.quality>cell.drop.item.quality)cell.drop=drop;cell.newest=Math.max(cell.newest,drop.at);cell.polluted||=item.pollution!=='none';}
    if(item.pollution!=='none')this.counts.polluted++;
@@ -107,7 +107,7 @@ export class EquipmentDrops {
    const {drop}=cell,item=drop.item,style=EQUIPMENT_LOOT_STYLE[item.quality],age=w.time-cell.newest,y=ground(drop),seed=Number(item.id.match(/\d+$/)?.[0]??0)*2.399963,pulse=1+Math.sin(w.time*2+seed)*.05;
    color.set(style.color).multiplyScalar(style.glow*(age<.38?.7:1));this.glow.add(drop.x,y+.035,drop.z,.8*pulse,1,.8*pulse,0,color);
    if(item.quality>=3){color.set(style.color).multiplyScalar(.6);this.ring.add(drop.x,y+.045,drop.z,.8,1,.8,seed,color);}
-   if(style.beam&&age>=.25){color.set(style.color).multiplyScalar(item.quality===5?1.65:1.2);this.beam.add(drop.x,y+.08,drop.z,.4,style.beam*pulse,1,angle,color);this.beam.add(drop.x,y+.08,drop.z,.085,style.beam*.88,1,angle,color);this.counts.beams++;}
+   if(style.beam&&age>=.25){color.set(style.color).multiplyScalar(item.quality===5?1.65:1.2);this.beam.add(drop.x,y+.08,drop.z,.32,style.beam,1,angle,color);this.beam.add(drop.x,y+.08,drop.z,.055,style.beam,1,angle,color);this.counts.beams++;}
    if(cell.polluted){color.set(0xf2a6dd).multiplyScalar(.9);this.rune.add(drop.x,y+.055,drop.z,1.65,1,1.65,seed,color);}
    const sparkCount=item.quality>=4?4:item.quality===3?2:0;
    for(let n=0;n<sparkCount;n++){const p=((w.time*.38+seed*.1+n/sparkCount)%1+1)%1,a=n*2.4+seed;this.sparks.add(drop.x+Math.cos(a)*(.24+p*.12),y+.15+p*(style.beam*.68),drop.z+Math.sin(a)*(.24+p*.12),.07,.09,.07,0,color.set(style.color).multiplyScalar(Math.sin(p*Math.PI)*1.5));}

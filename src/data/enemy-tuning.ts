@@ -41,7 +41,7 @@ export const continuousMainHiveHp=(difficulty:Difficulty,p:number)=>(difficulty=
 export const ENDLESS_BOSS_HP:Record<SpecialType,number>={queen:18000,lurker:21600,mutalisk:18000,corruptor:20000,ultralisk:28800,zergling:18000,roach:24000,hydralisk:20000,ravager:24000};
 export const ENDLESS_ELITE_HP:Partial<Record<SpecialType,number>>={zergling:1600,roach:4200,hydralisk:2400,ravager:3000};
 /** Independent special-role curves. Ordinary rank/health is never multiplied into these. */
-export function continuousSpecialProfile(difficulty:Difficulty,type:SpecialType,tier:EnemyTier,stamp:EnemySpawnStamp,base:{hp:number;damage:number;period:number;armor:number}){
+export function continuousSpecialProfile(difficulty:Difficulty,type:SpecialType,tier:EnemyTier,stamp:EnemySpawnStamp,base:{hp:number;damage:number;period:number;armor:number}):{hp:number;damage:number;period:number;armor:number;skillDamage:number;level:number;move:number}{
  const p=clamp01(stamp.progress),g=continuousEndlessGrowth(stamp.endlessSeconds),easy=difficulty==='easy',f=difficulty==='normal'||easy?linear:geometric;
  const intro=difficulty==='normal'?normalIntroPressure(p):{health:1,damage:1};
  const hpPressure=(easy?1:f(difficulty==='normal'?1.05:difficulty==='hard'?2:4,difficulty==='normal'?1.3:difficulty==='hard'?5.2:12,p))*intro.health;
@@ -56,7 +56,9 @@ export function continuousSpecialProfile(difficulty:Difficulty,type:SpecialType,
  const hpStart=(type==='zergling'?18:base.hp)*(type==='roach'?5:3),hpEnd=(ENDLESS_ELITE_HP[type]??base.hp*3*2.1*3.4)*(easy?.5:1);
  const damage=linear(1.3,easy?1.225*1.3*2:1.45*1.3*3,p)*damagePressure*g.damage;
  const speed=linear(1.1,easy?1.1*1.1*1.24:1.2*1.1*1.48,p)*speedPressure*g.attackSpeed;
- return {hp:Math.min(1e100,linear(hpStart,hpEnd,p)*hpPressure*g.health),damage:base.damage*damage,period:Math.max(1/60,base.period/speed),armor:base.armor+(type==='roach'?3:1)+linear(0,easy?1:2,p),skillDamage:damage,level:eliteGrowth(difficulty,stamp.stage).level,move:type==='zergling'?1.2:type==='roach'?.9:1};
+ const bossProfile=continuousSpecialProfile(difficulty,type,'boss',stamp,base);
+ // Elites are short encounters, never miniature bosses with higher sustained output.
+ return {hp:Math.min(bossProfile.hp*.3,linear(hpStart,hpEnd,p)*hpPressure*g.health),damage:Math.min(base.damage*damage,bossProfile.damage*.6),period:Math.max(bossProfile.period,base.period/speed),armor:Math.min(data.armor,base.armor+(type==='roach'?3:1)+linear(0,easy?1:2,p)),skillDamage:Math.min(damage,bossProfile.skillDamage*.6),level:eliteGrowth(difficulty,stamp.stage).level,move:type==='zergling'?1.2:type==='roach'?.9:1};
 }
 
 /** Structures use their own role, never ordinary density/rank multipliers. */

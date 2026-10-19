@@ -23,7 +23,7 @@ test('the integrated account has no starter grants and UI never offers unavailab
  const account=newEquipmentAccount(529),world=new World({seed:529,terrain:false,equipmentAccount:account}),session=new RunSession(world,null,{repository:null,profile:world.permanentProfile,run:null,notice:'',savedAt:0});
  assert.equal(account.dust,0);assert.deepEqual(account.items,{});assert.equal(world.autoWaves,true);assert.equal(session.memoryOnly,true);
  const menu=renderMenu({equipmentUI:true,page:'title',race:'terran',difficulty:'normal',preset:0,hero:null,loadPreview:null,error:''},world.permanentProfile,session);
- assert.ok(menu.includes('旗舰配装'));assert.ok(menu.includes('刷新或关闭后重置'));assert.ok(!menu.includes('data-action="menu-load"'));
+ assert.ok(menu.includes('旗舰配装'));assert.ok(!menu.includes('刷新或关闭后重置'));assert.ok(menu.includes('继续游戏'));assert.ok(!menu.includes('data-action="menu-load"'));
  const save=new SaveControls(session,()=>{},()=>{});assert.ok(!save.render('pause').includes('data-action="save-'));
  world.start();assert.ok(!renderPause(world,'').includes('data-action="save-export"'));assert.ok(!renderEndless(world).includes('data-action="save-export"'));
  world.endStage();assert.ok(world.extractEquipment());

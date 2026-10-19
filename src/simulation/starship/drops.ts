@@ -21,9 +21,12 @@ const bases:Record<Difficulty,{rate:number[];qualities:Quality[];weights:number[
  hard:{rate:[.002,.0025,.003,.003],qualities:[1,2,3],weights:[[20,60,20],[10,55,35],[0,50,50],[0,40,60]]},
  hell:{rate:[.0025,.003,.0035,.0035],qualities:[2,3,4],weights:[[50,45,5],[35,55,10],[20,65,15],[10,70,20]]}
 };
+// Calibrated against a complete easy campaign + 6–12 endless rounds.
+// Only regular-enemy trials change; elite/boss bonus layers retain their approved rates.
+export const EASY_REGULAR_EQUIPMENT_RATES=[.027,.027,.023,.015] as const;
 const normalElite=[[80,20],[60,40],[40,60],[30,70]],normalBoss=[[80,15,5],[70,20,10],[60,25,15],[50,30,20]],hardElite=[[60,25,15],[50,25,25],[40,25,35],[30,25,45]],hardBoss=[[60,25,15],[50,30,20],[40,40,20],[30,45,25]],hellElite=[[78,20,2],[71,25,4],[64,30,6],[57,35,8]],hellBoss=[[57,25,15,3],[45,25,25,5],[32,25,35,8],[25,25,40,10]];
 function orange(weight:number){return [row('orangeSet',5,weight*.7),row('orangeModule',5,weight*.3)];}
-export function equipmentDropPolicy(c:EquipmentDropContext){const stage=stages(c),b=bases[c.difficulty],base=ordinary(b.qualities,b.weights[stage]),baseChance=b.rate[stage]*(c.tier==='boss'?40:c.tier==='elite'?20:1);let guaranteed:EquipmentPoolRow[]=[];
+export function equipmentDropPolicy(c:EquipmentDropContext){const stage=stages(c),b=bases[c.difficulty],base=ordinary(b.qualities,b.weights[stage]),baseChance=c.difficulty==='easy'&&c.tier==='regular'?EASY_REGULAR_EQUIPMENT_RATES[stage]:b.rate[stage]*(c.tier==='boss'?40:c.tier==='elite'?20:1);let guaranteed:EquipmentPoolRow[]=[];
  if(c.tier!=='regular'){
   const boss=c.tier==='boss';if(c.difficulty==='easy')guaranteed=[row(boss?'greenSet':'ordinary',2,100)];
   if(c.difficulty==='normal'){const p=(boss?normalBoss:normalElite)[stage];guaranteed=boss?[row('blueSet',3,p[0]),row('special',3,p[1]),row('ordinary',4,p[2])]:[row('greenSet',2,p[0]),row('ordinary',3,p[1])];}

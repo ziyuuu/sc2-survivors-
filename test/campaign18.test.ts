@@ -68,21 +68,21 @@ test('special and hive reserves are inside the stage budget, including Hell comb
  for(const difficulty of difficulties)for(let stage=1;stage<=18;stage++)for(const seed of [1,42,8672]){
   const s=campaign18StageConfig(stage,difficulty),p=campaign18Schedule(s,seed),a=p.accounting;
   assert.equal(a.unspent,0);assert.equal(a.withheld,0);assert.equal(a.waves+a.specials+a.mainHive+a.expansionHive,a.budget);
-  assert.equal(a.waves,campaign18Threat(s.ambient));
-  assert.equal(a.specials,s.reserves.captain+s.reserves.boss);
+  const eliteBudget=p.specials.filter(e=>e.tier==='elite').reduce((n,e)=>n+e.budget,0);assert.equal(a.waves+eliteBudget,campaign18Threat(s.ambient));
+  assert.equal(a.specials,eliteBudget+s.reserves.boss);
   assert.ok(p.waves.every(w=>w.at>0&&w.at<s.durationSeconds));
   assert.ok([...p.events,...p.specials].every(e=>e.at>0&&e.at<s.durationSeconds));
   assert.ok(p.waves.every((w,i)=>i===0||w.at>p.waves[i-1].at));
   assert.equal(p.waves.length,CAMPAIGN_WAVES[difficulty][Math.floor((stage-1)/3)]);
   const delivered=emptyCampaign18Counts();for(const w of p.waves)for(const type of w.types)delivered[type]++;
-  assert.deepEqual(delivered,s.ambient);
+  for(const type of CAMPAIGN18_ENEMIES)assert.ok(delivered[type]<=s.ambient[type]);
  }
 });
 test('bosses occur every third stage and stage eighteen shares its budget with the main hive',()=>{
  const schedules=CAMPAIGN18_STAGES.map(s=>campaign18Schedule(campaign18StageConfig(s.id,'normal'),42));
- assert.deepEqual(schedules.flatMap((p,i)=>p.specials.some(e=>e.role==='captain')?[i+1]:[]),[]);
+ assert.ok(schedules.some(p=>p.specials.some(e=>e.role==='captain')));assert.ok(schedules.slice(0,3).every(p=>p.specials.every(e=>e.role!=='captain')));
  assert.deepEqual(schedules.flatMap((p,i)=>p.specials.some(e=>e.role==='boss')?[i+1]:[]),[3,6,9,12,15,18]);
- const final=schedules[17];assert.equal(final.specials.length,1);assert.ok(final.mainHive);
+ const final=schedules[17];assert.equal(final.specials.filter(e=>e.tier==='boss').length,1);assert.ok(final.mainHive);
  assert.deepEqual(final.mainHive.phases?.map(p=>[p.from,p.until]),[[0,45],[45,100],[100,150]]);
  assert.equal(final.mainHive.alwaysAttackable,true);assert.equal(final.mainHive.requiresSurvival,true);assert.equal(final.mainHive.healBetweenPhases,false);
 });

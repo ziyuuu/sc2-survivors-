@@ -33,6 +33,7 @@ export async function openSaveProfile(factory?:IDBFactory){
 export class RunSession {
  get memoryOnly(){return this.world.starship.enabled;}
  message='';savedAt=0;busy=false;onChange=()=>{};
+ private memoryContinuation:{phase:World['phase'];runId:string}|null=null;
  private pending:RunSnapshot|null;
  private pendingProgress:ShopProgressSnapshot|undefined;
  private archiveProfile:string;private loadTicket:{preview:LoadPreview;bundle:SaveBundle}|null=null;
@@ -45,7 +46,7 @@ export class RunSession {
   world.listeners.add(()=>this.observe());
   world.permanentProfile.listeners.add(()=>{if(!this.restoring)this.requestSave();});
  }
- get canResume(){return !!this.pending&&!['lost','finished'].includes(this.pending.state.phase);}
+ get canResume(){if(this.memoryOnly)return !!this.memoryContinuation&&this.world.runId===this.memoryContinuation.runId&&!this.world.starship.account.run?.ended;return !!this.pending&&!['lost','finished'].includes(this.pending.state.phase);}
  /** Read-only UI projection source; no preparation ticket or restoration is issued. */
  get savedSnapshot():Readonly<RunSnapshot>|null{return this.pending;}
  get summary(){const s=this.pending?.state;if(!s)return '';return s.phase==='lost'?'上一局已结束':RACE_NAMES[s.runConfig!.race]+'／'+({easy:'简单',normal:'普通',hard:'困难',hell:'地狱'}[s.difficulty])+' · '+(s.endless?'无尽第 '+s.endless.round+' 轮':'第 '+s.stage+' 关')+' · '+Math.floor(s.time/60)+':'+String(Math.floor(s.time%60)).padStart(2,'0');}
@@ -88,7 +89,7 @@ export class RunSession {
   try{
    if(ticket.campaignMap&&!this.world.configureCampaign(ticket.campaignMap))throw Error('地图未就绪');
    if(!p.activatePreset(ticket.race,ticket.preset)||!this.world.selectRace(ticket.race)||!this.world.setDifficulty(ticket.difficulty)||!this.world.start(ticket.hero??undefined))throw Error('新局配置提交失败');
-   shopProgress(this.world).restore(undefined);this.pendingProgress=undefined;this.pending=null;this.newTicket=null;this.loadTicket=null;this.lastTime=this.world.time;this.message='新战局已开始。';this.requestSave();return true;
+   shopProgress(this.world).restore(undefined);this.pendingProgress=undefined;this.pending=null;this.memoryContinuation=null;this.newTicket=null;this.loadTicket=null;this.lastTime=this.world.time;this.message='新战局已开始。';this.requestSave();return true;
   }catch(error){p.importJSON(oldProfile);this.world.selectRace(p.activeRace);this.world.resetRun();this.message='新局启动失败，原续局保留：'+String((error as Error).message);return false;}
   finally{this.restoring=false;this.onChange();}
  }
@@ -122,8 +123,8 @@ export class RunSession {
   }catch(e){this.world.permanentProfile.importJSON(oldProfile);this.pending=oldPending;this.archiveProfile=oldArchive;this.pendingProgress=oldProgress;this.message='读档失败，当前战局未改变：'+String((e as Error).message);return false;}
   finally{this.restoring=false;this.onChange();}
  }
- resume(){if(!this.canResume)return false;this.restoring=true;try{this.world.restoreRun(this.pending!);shopProgress(this.world).restore(this.pendingProgress);this.pendingProgress=undefined;this.pending=null;this.lastTime=this.world.time;this.message='已恢复战局；确认后继续行动。';return true;}catch(e){this.message=String((e as Error).message);return false;}finally{this.restoring=false;this.onChange();}}
- keepRun(){if(this.memoryOnly){this.pending=null;this.pendingProgress=undefined;this.lastSignature='';return;}if(this.world.runId&&this.world.phase!=='menu'){const bundle=readArchive(this.exportJSON()).bundle;this.pending=bundle.run;this.pendingProgress=bundle.shopProgress;this.requestSave();}this.lastSignature='';}
+ resume(){if(this.memoryOnly){if(!this.canResume)return false;this.world.phase=this.memoryContinuation!.phase;this.memoryContinuation=null;this.world.input={x:0,z:0};if(this.world.phase==='battle')this.world.paused=true;this.world.changed();return true;}if(!this.canResume)return false;this.restoring=true;try{this.world.restoreRun(this.pending!);shopProgress(this.world).restore(this.pendingProgress);this.pendingProgress=undefined;this.pending=null;this.lastTime=this.world.time;this.message='已恢复战局；确认后继续行动。';return true;}catch(e){this.message=String((e as Error).message);return false;}finally{this.restoring=false;this.onChange();}}
+ keepRun(){if(this.memoryOnly){const w=this.world;if(w.runId&&['battle','reward','won','endless-ready'].includes(w.phase)){this.memoryContinuation={phase:w.phase,runId:w.runId};w.phase='menu';w.input={x:0,z:0};w.changed();}return;}if(this.world.runId&&this.world.phase!=='menu'){const bundle=readArchive(this.exportJSON()).bundle;this.pending=bundle.run;this.pendingProgress=bundle.shopProgress;this.requestSave();}this.lastSignature='';}
  importJSON(raw:string){
   if(this.world.phase!=='menu')throw Error('请先返回标题再导入存档');
   const candidate=this.inspectSave(raw);
