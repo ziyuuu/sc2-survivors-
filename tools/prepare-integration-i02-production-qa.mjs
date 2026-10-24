@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';
+const base='D:/星际/reports/local/integration-i02-20261022';
+let s=await fs.readFile('D:/星际/reports/local/integration-i01-20261022/qa-production-r2.mjs','utf8');
+s=s.replaceAll('qa-production-r2','qa-production-r1').replaceAll('qa-web-r1/profile','qa-shared/profile').replaceAll('4481','4482');
+await fs.writeFile(base+'/qa-production.mjs',s);
+s=await fs.readFile('D:/星际/reports/local/integration-i01-20261022/qa-offline-touch.mjs','utf8');
+s=s.replaceAll('qa-offline-touch-r2','qa-touch-r1').replaceAll('qa-web-r1/profile','qa-shared/profile');
+const start=s.indexOf("await p.locator('[data-lab=menu]').click();await p.locator('[data-lab=case]').selectOption('special:dodge');");
+const end=s.indexOf('assert.equal(requests.length,0);',start);
+if(start<0||end<0)throw Error('Touch script markers missing');s=s.slice(0,start)+s.slice(end);
+await fs.writeFile(base+'/qa-touch.mjs',s);
+console.log('Native production mouse and startup touch scripts ready.');

@@ -85,7 +85,7 @@ export class StarshipController {
    }
    case 'begin':result=outside&&this.host.begin?this.host.begin():failure('当前不能出征');break;
    case 'continue':result=phase==='intermission'&&this.host.continue?this.host.continue():failure('当前不能继续关卡');break;
-   case 'extract':result=phase==='intermission'&&this.host.extract?this.host.extract():failure('只能在关间撤离');break;
+   case 'extract':result=(this.host.canExtract?.()??phase==='intermission')&&this.host.extract?this.host.extract():failure('当前尚未到撤退节点');break;
   }
   this.receipts.set(envelope.id,{signature,result});if(result.ok)this.host.notify();return result;
  }

@@ -1,0 +1,1918 @@
+{
+  "schemaVersion": 1,
+  "id": "performance-r02-20261020",
+  "status": "verified-local",
+  "source": {
+    "frozen": "reports/local/performance-r01-20261020/candidate-r2-web-inputs/",
+    "changed": [
+      "src/render/units/equipment-drops.ts",
+      "src/render/units/equipment-loot-style.ts",
+      "src/simulation/starship/drops.ts",
+      "src/simulation/world.ts"
+    ],
+    "inputs": 554,
+    "productionInputs": 411,
+    "outputs": [
+      {
+        "file": "preview/performance-r02-20261020-candidate-r3/index.html",
+        "bytes": 954785,
+        "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+      },
+      {
+        "file": "preview/performance-r02-20261020-candidate-r3/main.css",
+        "bytes": 821671,
+        "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+      },
+      {
+        "file": "preview/performance-r02-20261020-candidate-r3/main.js",
+        "bytes": 38133709,
+        "sha256": "dbc628522e3e114843cb918154d84a254b6fbb96598ccf2cce9160eeb88ece95"
+      }
+    ],
+    "oldRenderer": {
+      "file": "reports/local/performance-r01-20261020/candidate-r2-web-inputs/src/render/units/equipment-drops.ts",
+      "bytes": 16692,
+      "sha256": "a64d91fb43d250062432e68daffcd215a96249e7c7095c45322d92fce72bc40f"
+    },
+    "excluded": [
+      "src/render/units/economic-egg.ts"
+    ]
+  },
+  "naturalScaleSource": {
+    "file": "reports/qa/performance-b03-20261019.json",
+    "method": "Native World fixed-step replay; easy terran bio seed529, legal quality1 gear assigned before start, real production/economy, no health lock/jump/cash injection. Logic timing only, not browser FPS or human natural-play acceptance.",
+    "peaks": {
+      "enemies": 124,
+      "queue": 39,
+      "mineral": 181,
+      "gas": 75,
+      "pickups": 181,
+      "equipmentGround": 18,
+      "backpack": 64,
+      "ledger": 20,
+      "receipts": 8433
+    },
+    "final": {
+      "time": 2520,
+      "tick": 151200,
+      "stage": 18,
+      "endless": 13,
+      "endlessElapsed": 720,
+      "phase": "battle",
+      "allies": 8,
+      "enemies": 63,
+      "queue": 0,
+      "mineral": 21,
+      "gas": 2,
+      "pickups": 21,
+      "equipmentGround": 18,
+      "backpack": 64,
+      "ledger": 20,
+      "receipts": 8434,
+      "history": 30,
+      "entities": 74,
+      "kills": 4316,
+      "wallet": {
+        "minerals": 24565.486549077967,
+        "gas": 14862.380290464838
+      },
+      "heap": 112004488
+    },
+    "steps": 151200,
+    "rerun": false,
+    "combinedPeakFixture": true
+  },
+  "cpu": {
+    "method": "Serial alternating 12 pairs; setup/restoration excluded, accounts/loot/pickups/wallet/economy/time restored per call; full-step unit history retained. Milliseconds local CPU, not FPS.",
+    "rows": [
+      {
+        "name": "pickup-peak18",
+        "options": {
+          "n": 18
+        },
+        "samples": [
+          [
+            0.1903999999999982,
+            0.17445500000000322,
+            0.18136499999999672,
+            0.17459000000000202,
+            0.17259249999999468,
+            0.17733750000000298,
+            0.16734499999999458,
+            0.19729999999998996,
+            0.23068999999999562,
+            0.19163750000002153,
+            0.22661249999999597,
+            0.2185724999999991
+          ],
+          [
+            0.15320000000000106,
+            0.1523875000000018,
+            0.15065999999999632,
+            0.1497850000000014,
+            0.14812500000000312,
+            0.1395950000000042,
+            0.15108000000001312,
+            0.2120750000000072,
+            0.18083250000000534,
+            0.2008649999999932,
+            0.17284500000000946,
+            0.1597100000000097
+          ]
+        ],
+        "median": [
+          0.18588249999999745,
+          0.15279375000000145
+        ],
+        "percent": 17.800895727137554,
+        "faster": 10
+      },
+      {
+        "name": "pickup-stress96",
+        "options": {
+          "n": 96
+        },
+        "samples": [
+          [
+            1.7181074999999737,
+            2.1919324999999903,
+            1.7142149999999674,
+            1.8457825000000185,
+            1.7643849999999701,
+            1.6949725000000284,
+            1.8116400000000112,
+            1.9456675000000245,
+            1.9801050000000147,
+            1.934685000000013,
+            1.821747500000015,
+            1.8793224999999893
+          ],
+          [
+            1.0841749999999877,
+            1.311772500000012,
+            1.1880525000000375,
+            1.238550000000032,
+            1.1632849999999622,
+            1.1547524999999723,
+            1.1982725000000756,
+            1.2995675000000007,
+            1.2592224999999986,
+            1.202584999999965,
+            1.1168724999999995,
+            1.022302499999978
+          ]
+        ],
+        "median": [
+          1.8337650000000167,
+          1.1931625000000565
+        ],
+        "percent": 34.9337292401128,
+        "faster": 12
+      },
+      {
+        "name": "pickup-full96",
+        "options": {
+          "n": 96,
+          "pack": 64
+        },
+        "samples": [
+          [
+            0.11798999999994067,
+            0.353607500000021,
+            0.3184974999999895,
+            0.19409500000010665,
+            0.24719250000005105,
+            0.29839999999999234,
+            0.2833050000000412,
+            0.30600749999996424,
+            0.41463750000007166,
+            0.27301499999991846,
+            0.23617750000005344,
+            0.2692549999999073
+          ],
+          [
+            0.13861749999998665,
+            0.27636499999996433,
+            0.23807500000007167,
+            0.19171749999986787,
+            0.26837999999991097,
+            0.2348075000000108,
+            0.2636075000000574,
+            0.262522500000091,
+            0.27904499999999643,
+            0.2153700000000299,
+            0.16300499999997556,
+            0.15907500000002983
+          ]
+        ],
+        "median": [
+          0.27815999999997987,
+          0.23644125000004124
+        ],
+        "percent": 14.998112597045454,
+        "faster": 10
+      },
+      {
+        "name": "pickup-far96",
+        "options": {
+          "n": 96,
+          "near": false
+        },
+        "samples": [
+          [
+            0.09479250000006231,
+            0.10269999999991342,
+            0.09978000000005523,
+            0.07252749999995559,
+            0.09429749999994783,
+            0.06554750000013883,
+            0.07377000000019507,
+            0.05121749999998428,
+            0.06450749999971776,
+            0.07179250000008323,
+            0.053589999999894646,
+            0.13308999999990193
+          ],
+          [
+            0.09745750000001863,
+            0.10272250000000441,
+            0.08218500000007226,
+            0.10272750000015093,
+            0.06000999999998839,
+            0.05716749999996864,
+            0.058007499999894206,
+            0.05110499999996136,
+            0.057282499999928405,
+            0.050745000000051735,
+            0.05430249999999433,
+            0.10812250000008135
+          ]
+        ],
+        "median": [
+          0.07314875000007533,
+          0.059008749999941296
+        ],
+        "percent": 19.33047386335306,
+        "faster": 8
+      },
+      {
+        "name": "pickup-long96",
+        "options": {
+          "n": 96,
+          "warehouse": 500
+        },
+        "samples": [
+          [
+            13.698747499999945,
+            14.21270750000017,
+            13.978865000000042,
+            13.824819999999727,
+            14.184677499999816,
+            11.839912500000173,
+            12.103039999999964,
+            13.187864999999965,
+            13.692987499999527,
+            12.6084425,
+            11.265907499999958,
+            9.658422499999688
+          ],
+          [
+            8.686190000000034,
+            8.141994999999952,
+            8.471589999999924,
+            7.589534999999887,
+            8.67979750000013,
+            5.695487500000127,
+            5.731260000000202,
+            8.115702500000134,
+            8.673314999999912,
+            7.611497499999859,
+            4.469392499999958,
+            4.775127500000144
+          ]
+        ],
+        "median": [
+          13.440426249999746,
+          7.863599999999996
+        ],
+        "percent": 41.492926982132396,
+        "faster": 12
+      },
+      {
+        "name": "resource-181",
+        "options": {
+          "n": 0,
+          "resource": 181,
+          "gear": true
+        },
+        "samples": [
+          [
+            0.2777649999998175,
+            0.23061250000000655,
+            0.25869749999992564,
+            0.2407850000000508,
+            0.23823999999967782,
+            0.20011999999978797,
+            0.2292399999999361,
+            0.3212775000001784,
+            0.3543550000000323,
+            0.19472000000023398,
+            0.21244249999963358,
+            0.16757500000012443
+          ],
+          [
+            0.2031699999999546,
+            0.17518500000005588,
+            0.20677999999998065,
+            0.15892499999990833,
+            0.16280749999968974,
+            0.12996999999986655,
+            0.20217500000017025,
+            0.19889500000035695,
+            0.25536000000047354,
+            0.1356675000004543,
+            0.1573574999999437,
+            0.10679499999996551
+          ]
+        ],
+        "median": [
+          0.23442624999984218,
+          0.1689962499998728
+        ],
+        "percent": 27.910696860958794,
+        "faster": 12
+      },
+      {
+        "name": "resource-stress1000",
+        "options": {
+          "n": 0,
+          "resource": 1000,
+          "gear": true
+        },
+        "samples": [
+          [
+            0.8479574999999926,
+            0.7885100000000023,
+            0.7395700000000318,
+            0.6845149999999819,
+            0.6757175000000188,
+            0.6872050000000172,
+            0.6770399999999939,
+            0.7065874999999778,
+            0.7263350000000116,
+            0.6547924999999907,
+            0.6613799999999685,
+            0.6970575000000394
+          ],
+          [
+            0.45456999999999537,
+            0.45704250000000285,
+            0.37401250000000347,
+            0.346102500000012,
+            0.3314999999999941,
+            0.3335424999999759,
+            0.3364974999999902,
+            0.3134174999999971,
+            0.3720949999999846,
+            0.28386250000004337,
+            0.3315324999999859,
+            0.3362950000000183
+          ]
+        ],
+        "median": [
+          0.6921312500000283,
+          0.3363962500000042
+        ],
+        "percent": 51.39704355207333,
+        "faster": 12
+      },
+      {
+        "name": "empty",
+        "options": {
+          "n": 0
+        },
+        "samples": [
+          [
+            0.0010675000001356238,
+            0.0010925000000497676,
+            0.0007799999997587292,
+            0.0008950000000368163,
+            0.001010000000587752,
+            0.0004399999999805004,
+            0.0005099999998492422,
+            0.0006599999998798012,
+            0.0005624999998872227,
+            0.00046249999959400154,
+            0.00044250000009924404,
+            0.0004799999999704596
+          ],
+          [
+            0.0014224999998077692,
+            0.0012824999998883868,
+            0.0013249999999061402,
+            0.001507499999843276,
+            0.0011349999996127734,
+            0.0008000000001629814,
+            0.0023249999998370186,
+            0.0010049999998045678,
+            0.00044250000009924404,
+            0.00041249999985666365,
+            0.0006124999999883585,
+            0.0005375000000640284
+          ]
+        ],
+        "median": [
+          0.0006112499998835119,
+          0.0010699999997086707
+        ],
+        "percent": -75.05112473007516,
+        "faster": 2
+      },
+      {
+        "name": "labels-0",
+        "samples": [
+          [
+            0.0013806000000040513,
+            0.00004920000000129221,
+            0.00006120000000373693,
+            0.000049399999996239785,
+            0.00005199999999604188,
+            0.000052199999998265414,
+            0.000059000000001105945,
+            0.00005240000000048894,
+            0.000057399999997869596,
+            0.00005799999999726424,
+            0.00005600000000413274,
+            0.000059799999995448164
+          ],
+          [
+            0.000059799999995448164,
+            0.00005480000000534346,
+            0.000053800000001501755,
+            0.000050600000002305024,
+            0.000050199999997857956,
+            0.000053399999997054694,
+            0.000054199999998672865,
+            0.00005479999999806751,
+            0.000053800000001501755,
+            0.000058600000003934835,
+            0.00005679999999847496,
+            0.000057000000000698494
+          ]
+        ],
+        "median": [
+          0.00005670000000100117,
+          0.00005449999999837018
+        ],
+        "percent": 3.8800705513088896,
+        "faster": 6
+      },
+      {
+        "name": "labels-18",
+        "samples": [
+          [
+            0.027588400000000547,
+            0.0274403999999995,
+            0.02602360000000044,
+            0.022394000000000233,
+            0.018751799999998185,
+            0.015227399999996123,
+            0.014491800000003423,
+            0.014831599999997707,
+            0.018654799999996613,
+            0.014461200000005192,
+            0.015623599999998987,
+            0.015273000000001048
+          ],
+          [
+            0.01262380000000121,
+            0.012803400000004331,
+            0.012971199999999954,
+            0.010307600000000094,
+            0.00863760000000184,
+            0.007501600000003237,
+            0.006953800000002957,
+            0.007138800000000629,
+            0.008033400000000256,
+            0.008431799999998475,
+            0.007476000000002386,
+            0.008009000000005472
+          ]
+        ],
+        "median": [
+          0.0171391999999978,
+          0.008232599999999365
+        ],
+        "percent": 51.966252800595,
+        "faster": 12
+      },
+      {
+        "name": "labels-96",
+        "samples": [
+          [
+            0.1604050000000061,
+            0.1615763999999981,
+            0.16950619999999617,
+            0.16040639999999984,
+            0.15968999999999506,
+            0.18538759999999457,
+            0.1850362000000023,
+            0.16479200000000854,
+            0.15853800000000046,
+            0.17410039999999571,
+            0.1711061999999947,
+            0.22168360000000392
+          ],
+          [
+            0.05786120000000665,
+            0.05381480000000011,
+            0.057525800000003076,
+            0.05791820000000007,
+            0.06208840000000055,
+            0.06916799999999784,
+            0.057033199999998035,
+            0.0594320000000007,
+            0.05512300000000687,
+            0.057813999999998485,
+            0.06383219999998982,
+            0.07971439999999712
+          ]
+        ],
+        "median": [
+          0.16714910000000235,
+          0.05788970000000336
+        ],
+        "percent": 65.36643033076305,
+        "faster": 12
+      },
+      {
+        "name": "labels-1000",
+        "samples": [
+          [
+            2.7192459999999845,
+            2.9032650000000286,
+            2.14420100000003,
+            2.924519,
+            1.9946669999999722,
+            1.9056619999999385,
+            2.8024109999999927,
+            2.8498540000000503,
+            1.9102079999999841,
+            2.9920999999999913,
+            2.26095899999993,
+            3.0072559999999795
+          ],
+          [
+            0.968810999999987,
+            1.0083469999999943,
+            0.8459240000000137,
+            0.9698459999999614,
+            0.7117480000000068,
+            0.6715239999999904,
+            0.955650999999998,
+            0.9871410000000469,
+            0.9057930000000488,
+            1.0266259999999603,
+            0.6961929999999847,
+            0.7967850000000181
+          ]
+        ],
+        "median": [
+          2.7608284999999886,
+          0.9307220000000234
+        ],
+        "percent": 66.28830802058052,
+        "faster": 12
+      }
+    ],
+    "renderer": [
+      {
+        "name": "peak",
+        "medianMs": [
+          0.25950000002980234,
+          0.20500000000000002
+        ],
+        "percent": 21.001926791346147,
+        "faster": 12,
+        "groundCallsPerFrame": [
+          54,
+          36
+        ],
+        "labelMutationsPerFrame": [
+          72,
+          0
+        ],
+        "counts": {
+          "ground": 18,
+          "visible": 18,
+          "beams": 18,
+          "polluted": 2,
+          "absorbing": 0,
+          "labels": 12,
+          "drawCalls": 11,
+          "capacity": 64,
+          "serial": 18,
+          "toast": null
+        }
+      },
+      {
+        "name": "stress",
+        "medianMs": [
+          1.046499999985099,
+          0.9320000000298023
+        ],
+        "percent": 10.941232676247214,
+        "faster": 8,
+        "groundCallsPerFrame": [
+          288,
+          192
+        ],
+        "labelMutationsPerFrame": [
+          72,
+          0
+        ],
+        "counts": {
+          "ground": 96,
+          "visible": 96,
+          "beams": 96,
+          "polluted": 7,
+          "absorbing": 0,
+          "labels": 12,
+          "drawCalls": 11,
+          "capacity": 256,
+          "serial": 96,
+          "toast": null
+        }
+      },
+      {
+        "name": "full",
+        "medianMs": [
+          0.2844999999552965,
+          0.2104999999701977
+        ],
+        "percent": 26.010544814315097,
+        "faster": 10,
+        "groundCallsPerFrame": [
+          54,
+          36
+        ],
+        "labelMutationsPerFrame": [
+          72,
+          0
+        ],
+        "counts": {
+          "ground": 18,
+          "visible": 18,
+          "beams": 18,
+          "polluted": 2,
+          "absorbing": 0,
+          "labels": 12,
+          "drawCalls": 11,
+          "capacity": 256,
+          "serial": 18,
+          "toast": null
+        }
+      }
+    ],
+    "renderMethod": "Same-page exact prior renderer / actual candidate, shared THREE, 12 alternating pairs, 25 warmups then 100 render calls. Component JS/matrix/DOM submission only; no end-to-end layout/paint/FPS."
+  },
+  "verification": {
+    "equivalenceChecks": 1065,
+    "boundaries": [
+      {
+        "name": "strict mineral collection/attraction boundaries",
+        "exact": true,
+        "observed": {
+          "remaining": [
+            {
+              "id": 4,
+              "x": 1.8666666666666667
+            },
+            {
+              "id": 5,
+              "x": 5.599999999066666
+            },
+            {
+              "id": 6,
+              "x": 6
+            }
+          ],
+          "wallet": {
+            "minerals": 7.5,
+            "gas": 4.5
+          }
+        }
+      },
+      {
+        "name": "equipment radius changes visible on the next fixed step",
+        "exact": true,
+        "observed": {
+          "radiusBefore": 0.25,
+          "radiusAfter": 0,
+          "remaining": 1,
+          "wallet": {
+            "minerals": 9,
+            "gas": 5.3999999999999995
+          }
+        }
+      },
+      {
+        "name": "bounty promotion and hero evolution during a resource burst",
+        "exact": true,
+        "observed": {
+          "bounty": {
+            "source": "advanced.bounty:::::0",
+            "elite": "medivac.2",
+            "hero": "yamato_battlecruiser",
+            "body": 15,
+            "issued": true,
+            "progress": 0,
+            "phase": "hero"
+          },
+          "wallet": {
+            "minerals": 25920,
+            "gas": 64.8
+          },
+          "heroes": [
+            {
+              "id": "yamato_battlecruiser",
+              "rank": 5
+            }
+          ],
+          "radius": 0.25
+        }
+      },
+      {
+        "name": "terrain obstruction toggles without a cached collection decision",
+        "exact": true,
+        "observed": {
+          "wallet": {
+            "minerals": 7.5,
+            "gas": 4.5
+          },
+          "remaining": 0
+        }
+      }
+    ],
+    "resourceStress": {
+      "pass": true,
+      "steps": 180,
+      "checks": 12,
+      "minerals": 1000,
+      "gas": 414,
+      "remaining": 333,
+      "wallet": {
+        "minerals": 10005,
+        "gas": 2484
+      },
+      "rng": 1417726064
+    },
+    "tests": {
+      "total": 1721,
+      "initialPass": 1714,
+      "initialNetworkFailure": 7,
+      "targetedRecheckPass": 16,
+      "typecheck": 0,
+      "docsCheck": 0
+    },
+    "scenes": [
+      {
+        "name": "peak",
+        "pairs": [
+          {
+            "age": 0,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 0,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 10,
+              "capacity": 64,
+              "serial": 18,
+              "toast": null
+            }
+          },
+          {
+            "age": 0.2,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 0,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 10,
+              "capacity": 64,
+              "serial": 18,
+              "toast": null
+            }
+          },
+          {
+            "age": 0.45,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 18,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 11,
+              "capacity": 64,
+              "serial": 18,
+              "toast": null
+            }
+          },
+          {
+            "age": 0.8,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 18,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 11,
+              "capacity": 64,
+              "serial": 18,
+              "toast": null
+            }
+          },
+          {
+            "age": 2,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 18,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 11,
+              "capacity": 64,
+              "serial": 18,
+              "toast": null
+            }
+          }
+        ]
+      },
+      {
+        "name": "stress",
+        "pairs": [
+          {
+            "age": 0,
+            "exact": true,
+            "counts": {
+              "ground": 96,
+              "visible": 96,
+              "beams": 0,
+              "polluted": 7,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 10,
+              "capacity": 256,
+              "serial": 96,
+              "toast": null
+            }
+          },
+          {
+            "age": 0.2,
+            "exact": true,
+            "counts": {
+              "ground": 96,
+              "visible": 96,
+              "beams": 0,
+              "polluted": 7,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 10,
+              "capacity": 256,
+              "serial": 96,
+              "toast": null
+            }
+          },
+          {
+            "age": 0.45,
+            "exact": true,
+            "counts": {
+              "ground": 96,
+              "visible": 96,
+              "beams": 96,
+              "polluted": 7,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 11,
+              "capacity": 256,
+              "serial": 96,
+              "toast": null
+            }
+          },
+          {
+            "age": 0.8,
+            "exact": true,
+            "counts": {
+              "ground": 96,
+              "visible": 96,
+              "beams": 96,
+              "polluted": 7,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 11,
+              "capacity": 256,
+              "serial": 96,
+              "toast": null
+            }
+          },
+          {
+            "age": 2,
+            "exact": true,
+            "counts": {
+              "ground": 96,
+              "visible": 96,
+              "beams": 96,
+              "polluted": 7,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 11,
+              "capacity": 256,
+              "serial": 96,
+              "toast": null
+            }
+          }
+        ]
+      },
+      {
+        "name": "full",
+        "pairs": [
+          {
+            "age": 0,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 0,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 10,
+              "capacity": 256,
+              "serial": 18,
+              "toast": null
+            }
+          },
+          {
+            "age": 0.2,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 0,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 10,
+              "capacity": 256,
+              "serial": 18,
+              "toast": null
+            }
+          },
+          {
+            "age": 0.45,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 18,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 11,
+              "capacity": 256,
+              "serial": 18,
+              "toast": null
+            }
+          },
+          {
+            "age": 0.8,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 18,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 11,
+              "capacity": 256,
+              "serial": 18,
+              "toast": null
+            }
+          },
+          {
+            "age": 2,
+            "exact": true,
+            "counts": {
+              "ground": 18,
+              "visible": 18,
+              "beams": 18,
+              "polluted": 2,
+              "absorbing": 0,
+              "labels": 12,
+              "drawCalls": 11,
+              "capacity": 256,
+              "serial": 18,
+              "toast": null
+            }
+          }
+        ]
+      }
+    ],
+    "transitions": [
+      {
+        "name": "narrow",
+        "exact": true,
+        "counts": {
+          "ground": 18,
+          "visible": 18,
+          "beams": 18,
+          "polluted": 2,
+          "absorbing": 0,
+          "labels": 6,
+          "drawCalls": 11,
+          "capacity": 64,
+          "serial": 18,
+          "toast": null
+        }
+      },
+      {
+        "name": "wide",
+        "exact": true,
+        "counts": {
+          "ground": 18,
+          "visible": 18,
+          "beams": 18,
+          "polluted": 2,
+          "absorbing": 0,
+          "labels": 12,
+          "drawCalls": 11,
+          "capacity": 64,
+          "serial": 18,
+          "toast": null
+        }
+      },
+      {
+        "name": "pause",
+        "exact": true,
+        "counts": {
+          "ground": 18,
+          "visible": 18,
+          "beams": 18,
+          "polluted": 2,
+          "absorbing": 0,
+          "labels": 12,
+          "drawCalls": 11,
+          "capacity": 64,
+          "serial": 18,
+          "toast": null
+        }
+      },
+      {
+        "name": "reward",
+        "exact": true,
+        "counts": {
+          "ground": 0,
+          "visible": 0,
+          "beams": 0,
+          "polluted": 0,
+          "absorbing": 0,
+          "labels": 0,
+          "drawCalls": 0,
+          "capacity": 64,
+          "serial": 18,
+          "toast": null
+        }
+      },
+      {
+        "name": "return",
+        "exact": true,
+        "counts": {
+          "ground": 0,
+          "visible": 0,
+          "beams": 0,
+          "polluted": 0,
+          "absorbing": 0,
+          "labels": 0,
+          "drawCalls": 0,
+          "capacity": 64,
+          "serial": 18,
+          "toast": null
+        }
+      },
+      {
+        "name": "far",
+        "exact": true,
+        "counts": {
+          "ground": 0,
+          "visible": 0,
+          "beams": 0,
+          "polluted": 0,
+          "absorbing": 0,
+          "labels": 0,
+          "drawCalls": 0,
+          "capacity": 64,
+          "serial": 18,
+          "toast": null
+        }
+      },
+      {
+        "name": "near",
+        "exact": true,
+        "counts": {
+          "ground": 0,
+          "visible": 0,
+          "beams": 0,
+          "polluted": 0,
+          "absorbing": 0,
+          "labels": 0,
+          "drawCalls": 0,
+          "capacity": 64,
+          "serial": 18,
+          "toast": null
+        }
+      },
+      {
+        "name": "names",
+        "exact": true,
+        "counts": {
+          "ground": 0,
+          "visible": 0,
+          "beams": 0,
+          "polluted": 0,
+          "absorbing": 0,
+          "labels": 0,
+          "drawCalls": 0,
+          "capacity": 64,
+          "serial": 18,
+          "toast": null
+        }
+      }
+    ],
+    "pickup": {
+      "blocked": {
+        "before": {
+          "fixture": "r02-drops",
+          "at": 99856,
+          "time": 2,
+          "tick": 120,
+          "phase": "battle",
+          "paused": false,
+          "stage": 1,
+          "theme": "char",
+          "endlessElapsed": 0,
+          "allies": 4,
+          "enemies": 0,
+          "entities": 4,
+          "pickups": 181,
+          "mineral": 181,
+          "gas": 75,
+          "backpack": 64,
+          "ground": 18,
+          "warehouse": 0,
+          "capacity": 500,
+          "ledger": 0,
+          "history": 0,
+          "completedReceipts": 0,
+          "runReceipts": 0,
+          "lootEvents": 19,
+          "lootSerial": 19,
+          "wallet": {
+            "minerals": 0,
+            "gas": 0
+          },
+          "heap": 758482166,
+          "dom": 310,
+          "gearOpen": false,
+          "focused": "BODY",
+          "hidden": false,
+          "renderMemory": {
+            "geometries": 978,
+            "textures": 2002
+          },
+          "programs": 822,
+          "contextEpoch": 0,
+          "routes": 0,
+          "telemetry": {
+            "mode": "disabled-production",
+            "active": false,
+            "queue": 0,
+            "dropped": 0
+          }
+        },
+        "first": {
+          "ok": false,
+          "error": "背包已满"
+        },
+        "second": {
+          "ok": false,
+          "error": "背包已满"
+        },
+        "after": {
+          "fixture": "r02-drops",
+          "at": 99860.30000001192,
+          "time": 2,
+          "tick": 120,
+          "phase": "battle",
+          "paused": false,
+          "stage": 1,
+          "theme": "char",
+          "endlessElapsed": 0,
+          "allies": 4,
+          "enemies": 0,
+          "entities": 4,
+          "pickups": 181,
+          "mineral": 181,
+          "gas": 75,
+          "backpack": 64,
+          "ground": 18,
+          "warehouse": 0,
+          "capacity": 500,
+          "ledger": 0,
+          "history": 0,
+          "completedReceipts": 0,
+          "runReceipts": 0,
+          "lootEvents": 20,
+          "lootSerial": 20,
+          "wallet": {
+            "minerals": 0,
+            "gas": 0
+          },
+          "heap": 758482166,
+          "dom": 310,
+          "gearOpen": false,
+          "focused": "BODY",
+          "hidden": false,
+          "renderMemory": {
+            "geometries": 978,
+            "textures": 2002
+          },
+          "programs": 822,
+          "contextEpoch": 0,
+          "routes": 0,
+          "telemetry": {
+            "mode": "disabled-production",
+            "active": false,
+            "queue": 0,
+            "dropped": 0
+          }
+        }
+      },
+      "released": {
+        "ok": true,
+        "value": "ship-item-1"
+      },
+      "got": {
+        "before": {
+          "fixture": "r02-drops",
+          "at": 99863,
+          "time": 2,
+          "tick": 120,
+          "phase": "battle",
+          "paused": false,
+          "stage": 1,
+          "theme": "char",
+          "endlessElapsed": 0,
+          "allies": 4,
+          "enemies": 0,
+          "entities": 4,
+          "pickups": 181,
+          "mineral": 181,
+          "gas": 75,
+          "backpack": 63,
+          "ground": 18,
+          "warehouse": 0,
+          "capacity": 500,
+          "ledger": 0,
+          "history": 0,
+          "completedReceipts": 0,
+          "runReceipts": 0,
+          "lootEvents": 20,
+          "lootSerial": 20,
+          "wallet": {
+            "minerals": 0,
+            "gas": 0
+          },
+          "heap": 758482166,
+          "dom": 310,
+          "gearOpen": false,
+          "focused": "BODY",
+          "hidden": false,
+          "renderMemory": {
+            "geometries": 978,
+            "textures": 2002
+          },
+          "programs": 822,
+          "contextEpoch": 0,
+          "routes": 0,
+          "telemetry": {
+            "mode": "disabled-production",
+            "active": false,
+            "queue": 0,
+            "dropped": 0
+          }
+        },
+        "first": {
+          "ok": true,
+          "value": {
+            "id": "ship-item-65",
+            "template": "attribute.1",
+            "race": "terran",
+            "slot": "offense1",
+            "quality": 1,
+            "allocation": 0,
+            "affixes": [],
+            "binding": {},
+            "pollution": "none",
+            "inherited": []
+          }
+        },
+        "second": {
+          "ok": false,
+          "error": "装备不在当前战场"
+        },
+        "after": {
+          "fixture": "r02-drops",
+          "at": 99865.70000000298,
+          "time": 2,
+          "tick": 120,
+          "phase": "battle",
+          "paused": false,
+          "stage": 1,
+          "theme": "char",
+          "endlessElapsed": 0,
+          "allies": 4,
+          "enemies": 0,
+          "entities": 4,
+          "pickups": 181,
+          "mineral": 181,
+          "gas": 75,
+          "backpack": 64,
+          "ground": 17,
+          "warehouse": 0,
+          "capacity": 500,
+          "ledger": 0,
+          "history": 0,
+          "completedReceipts": 0,
+          "runReceipts": 0,
+          "lootEvents": 21,
+          "lootSerial": 21,
+          "wallet": {
+            "minerals": 0,
+            "gas": 0
+          },
+          "heap": 758482166,
+          "dom": 310,
+          "gearOpen": false,
+          "focused": "BODY",
+          "hidden": false,
+          "renderMemory": {
+            "geometries": 978,
+            "textures": 2002
+          },
+          "programs": 822,
+          "contextEpoch": 0,
+          "routes": 0,
+          "telemetry": {
+            "mode": "disabled-production",
+            "active": false,
+            "queue": 0,
+            "dropped": 0
+          }
+        }
+      },
+      "renderExact": true
+    },
+    "recovery": {
+      "before": {
+        "epoch": 0,
+        "time": 2,
+        "tick": 120,
+        "rng": 529
+      },
+      "after": {
+        "epoch": 1,
+        "time": 2,
+        "tick": 120,
+        "rng": 529
+      },
+      "exactExceptNotice": true
+    },
+    "errors": [],
+    "requestFailures": [
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.barracks.death.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-5"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.baneling.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-5"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.loot.large.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-5"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.hatchery.death.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-5"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.fort.bunker.death.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-5"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.fort.repair.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-5"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.fort.repair.death.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-5"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.baneling.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-6"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.barracks.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-6"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.hatchery.death.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-6"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.fort.bunker.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-6"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-r02-20261020-candidate-r3/assets/optimized/model.fort.bunker.death.glb",
+        "error": "net::ERR_ABORTED",
+        "run": "browser-6"
+      }
+    ]
+  },
+  "pixels": {
+    "run": "browser-final",
+    "passedRun": true,
+    "comparisons": [
+      {
+        "scene": "peak-0.45",
+        "changedPixels": 14,
+        "maxChannel": 139,
+        "bounds": [
+          424,
+          185,
+          973,
+          655
+        ]
+      },
+      {
+        "scene": "peak-2",
+        "changedPixels": 42,
+        "maxChannel": 19,
+        "bounds": [
+          465,
+          35,
+          1023,
+          627
+        ]
+      },
+      {
+        "scene": "stress-0.45",
+        "changedPixels": 25,
+        "maxChannel": 139,
+        "bounds": [
+          275,
+          113,
+          1123,
+          655
+        ]
+      },
+      {
+        "scene": "stress-2",
+        "changedPixels": 18,
+        "maxChannel": 96,
+        "bounds": [
+          284,
+          146,
+          1078,
+          689
+        ]
+      },
+      {
+        "scene": "full-0.45",
+        "changedPixels": 8,
+        "maxChannel": 25,
+        "bounds": [
+          494,
+          175,
+          1018,
+          565
+        ]
+      },
+      {
+        "scene": "full-2",
+        "changedPixels": 3,
+        "maxChannel": 15,
+        "bounds": [
+          444,
+          221,
+          931,
+          523
+        ]
+      },
+      {
+        "scene": "narrow",
+        "changedPixels": 1262,
+        "maxChannel": 141,
+        "bounds": [
+          0,
+          0,
+          389,
+          843
+        ]
+      },
+      {
+        "scene": "wide",
+        "changedPixels": 8503,
+        "maxChannel": 221,
+        "bounds": [
+          0,
+          3,
+          1919,
+          1079
+        ]
+      },
+      {
+        "scene": "pickup-flight",
+        "changedPixels": 33,
+        "maxChannel": 15,
+        "bounds": [
+          252,
+          221,
+          1216,
+          888
+        ]
+      }
+    ],
+    "contactSheets": [
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-1.jpg",
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-2.jpg",
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-3.jpg",
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-4.jpg",
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-5.jpg"
+    ]
+  },
+  "review": {
+    "run": "browser-final",
+    "reviewed": true,
+    "images": 19,
+    "contactSheets": [
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-1.jpg",
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-2.jpg",
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-3.jpg",
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-4.jpg",
+      "reports\\local\\performance-r02-20261020\\browser-final\\contact-5.jpg"
+    ],
+    "summary": "白至橙光柱、三种装备轮廓、污染标记、名字聚合、拾取飞行和恢复后画面无明显新增缺失/黑面/错误尺度。核心画面每对3–42像素不同；窄/宽屏分别1262/8503像素差异保留且原因未完全归因，矩阵、标签与实际镜头对照精确。不是人类最终视觉验收。",
+    "additionalPilotReview": "browser-3/contact-1.jpg（四张先导峰值图）"
+  },
+  "browserSourceReports": [
+    {
+      "file": "reports/local/performance-r02-20261020/browser-5/report.json",
+      "runner": "reports/local/performance-r02-20261020/browser-5/runner.mjs",
+      "scope": "15 core state/camera/instance/label pairs and 72 CPU windows; later viewport assertion failed and is excluded, original pass remains false."
+    },
+    {
+      "file": "reports/local/performance-r02-20261020/browser-6/report.json",
+      "runner": "reports/local/performance-r02-20261020/browser-6/runner.mjs",
+      "scope": "Remaining 8 viewport/lifecycle pairs, full-bag pickup flight and actual WebGL restore; no repeated CPU windows."
+    }
+  ],
+  "scopeValidation": {
+    "coreSuccessfulSubset": true,
+    "lifecyclePass": true,
+    "identicalBundle": true,
+    "oldFailedStatusPreserved": true
+  },
+  "audit": {
+    "SAVE-006": "Remove repeated synchronous candidate lookup, radius calculation, label sorting and redundant DOM writes. Keep valid loot, existing ground cache / light grouping and full scans where necessary. No TTL or yield merging; D03 undecided."
+  },
+  "retainedFailures": "Initial baseline fixture failed before sampling: duration is a readonly getter. Removed assignment. Inspection also corrected absent talentPoints to runConfig.frozenTalents.levels and invalid gathering1/2 slots to the actual single gathering slot. No game change.\r\nFirst 1065 equivalence checks and baseline timings invalid for automatic pickups: inherited make() had starship.enabled=false; semantic talent names were not registry IDs. Preserved as *-invalid-disabled. Corrected enabled flag and actual talent IDs, assert ground counts and actual backpack changes. Label equivalence itself was valid; repeated with corrected suite.\r\nThe first valid CPU pair resource-stress1000 row had 181 positive resource pickups plus 819 empty placeholders. That row is not a valid 1000-resource stress gain; retained in cpu-pair.json. Corrected the fixture to 1000 positive mineral / 414 gas pickups and separately remeasure only that row after browser work. Peak181 and other rows are unaffected.\r\nBrowser-1 could not access local HTTP in sandbox; browser-2 reached actual scene but first strict snapshot found only GPU pool capacity 64 candidate versus 32 baseline. Candidate had been prepared at age2 (beams grown) while baseline was fresh. Both now render the identical initial age2 state before reset to align allocation history; game code unchanged. Original failed report retained.\r\nBrowser-3 passed all five peak-state pairs and completed 24 CPU windows; stress setup then rejected attempted pollution of an ineligible quality3 module. Runtime R3 only changes the diagnostic pollution predicate to legal template classes. Production source unchanged; prior valid peak evidence and failed report retained.\r\nFirst corrected 1000-resource timing overlapped the 180-step correctness check near completion (15:17:57/15:18:00); retained as cpu-pair-resource-stress1000-overlap.json. Serial timing repeated after the correctness process ended.\r\nBrowser-4 completed all 15 core World/mesh/label pairs and 72 CPU windows. Narrow resize comparison then ran baseline before the native resize event (12 labels / 1440px) and candidate after it (6 / 390px). Both screenshots and failure kept. Browser-5 waits two RAFs, calls the actual view.resize(), and records exact camera/projection/viewport in every pair. Production and bundle unchanged.\r\nBrowser-5 again passed 15 core pairs (now camera/viewport exact) and 72 CPU windows, then failed narrow resize. Source ui/mobile/viewport.ts commits only after 80ms stability (up to240ms), so two RAFs are insufficient. Browser-6 runs only remaining lifecycle/viewport checks and waits for actual canvas/view dimensions to match; no more repeat core timing. Formal report combines explicitly scoped successful core and lifecycle evidence, without changing browser-5 failed status.\r\n",
+  "limits": [
+    "Local CPU/component results are not whole-frame FPS, GPU improvements or full-content60FPS.",
+    "B03 separate peaks combined in controlled fixtures; no new natural campaign run.",
+    "No Current replacement, commit/push or publication; save deferral and accepted maps unchanged."
+  ],
+  "artifacts": {
+    "documentation": "docs/project/PERFORMANCE_R02_20261020.md",
+    "preview": "preview/performance-r02-20261020-candidate-r3/",
+    "files": [
+      {
+        "file": "docs/project/PERFORMANCE_R02_20261020.md",
+        "bytes": 8063,
+        "sha256": "8a3ac174c5a3198163214af325b53d313936154ed4a5d2c30177e5769d024133"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/equivalence.json",
+        "bytes": 7760,
+        "sha256": "cfe399cca1f376aed4fa1dbf3e6ee9d1fc32a901453dfb2aaceab0a00aa91b2b"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/boundaries.json",
+        "bytes": 1666,
+        "sha256": "dc84d1a96bbb4a12c82358874be255ce2ed65ea7dcd5baa248240313aac3f868"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/resource-stress-equivalence.json",
+        "bytes": 183,
+        "sha256": "fdace13b2e4b5911398b19cad348e0272e6582fe0fbad5084af4c68a4a1d880f"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/cpu-pair.json",
+        "bytes": 11986,
+        "sha256": "589732c032548dda7588080f9042832629972f336fcd01dd65b528667f039816"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/cpu-pair-resource-stress1000.json",
+        "bytes": 1250,
+        "sha256": "c885b3e14325d2729f42faa7d733b15584d3c1f503006dde026441298f17642a"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/fixture-errors.txt",
+        "bytes": 2809,
+        "sha256": "a1a525ecf5026d73a3e323d899fd569a0d87bc538391e26e2fa9a64a751bf731"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/tests.log",
+        "bytes": 187012,
+        "sha256": "2a12338e1ce6697408094d35e71ee82b4551b01821deadfce815bfcbb3653316"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/network-recheck.log",
+        "bytes": 2204,
+        "sha256": "1454af9aedc85093939611dea00182a87b85433ca68d9d393050d4f240ac03ab"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/typecheck.log",
+        "bytes": 60,
+        "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/docs-check.log",
+        "bytes": 149,
+        "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/visual-review.json",
+        "bytes": 907,
+        "sha256": "eb1fbe04e7e8e4930a9c5b34394b24caa1a2c0d54dc884ddf82738a5fa40f32d"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/browser-final/report.json",
+        "bytes": 2337978,
+        "sha256": "5837ab7f6d5fc5d471ea9c31a20f6663e8de23e959b254bccfbda131a884cba2"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/browser-final/pixels.json",
+        "bytes": 2114,
+        "sha256": "9d35cde642e216473bee6c285246ac1fe26e72e5be0302d7333c49c74c1cc532"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/browser-final/runner.mjs",
+        "bytes": 2217,
+        "sha256": "955c19898d25786fc72e795318ba7471f0d30a01c061a1dcd8a339ecb6502c58"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/browser-5/report.json",
+        "bytes": 1851520,
+        "sha256": "1d73793cc808bc4c95d684547afde87305a19340f3a78a8d015428410f76a196"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/browser-5/runner.mjs",
+        "bytes": 11865,
+        "sha256": "df077095d4f0502eb360e1013c030e34a2d98096e358d8e9804ec365ae3b474f"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/browser-6/report.json",
+        "bytes": 614939,
+        "sha256": "1c1d04cba4d0ac8a8d84786370e95dd33a364c3caf76e5978c2df3250ff5c967"
+      },
+      {
+        "file": "reports/local/performance-r02-20261020/browser-6/runner.mjs",
+        "bytes": 12642,
+        "sha256": "31fb90b2b24fba86aee15bf1e0690dba53601aeef9b59a2000dbb6dcccfac4ad"
+      },
+      {
+        "file": "reports\\local\\performance-r02-20261020\\browser-final\\contact-1.jpg",
+        "bytes": 362518,
+        "sha256": "e76775457eebc4e6dfe72b0eda512eeb03f207ee696a43ecebbc0be17d433b8f"
+      },
+      {
+        "file": "reports\\local\\performance-r02-20261020\\browser-final\\contact-2.jpg",
+        "bytes": 462359,
+        "sha256": "4f9478a9df25e8579887768c90e0c544f8c1937d19ccbfcfc5c66b2f13d376d6"
+      },
+      {
+        "file": "reports\\local\\performance-r02-20261020\\browser-final\\contact-3.jpg",
+        "bytes": 363734,
+        "sha256": "4b639b85d2bdf79d83fc4f846af8b3583f0fdaecfd2f5ea0c155305b31193d9c"
+      },
+      {
+        "file": "reports\\local\\performance-r02-20261020\\browser-final\\contact-4.jpg",
+        "bytes": 231632,
+        "sha256": "8e8d392e3310b031f569160c5aee1708de92acb76cea4e055620513351c69ce2"
+      },
+      {
+        "file": "reports\\local\\performance-r02-20261020\\browser-final\\contact-5.jpg",
+        "bytes": 277263,
+        "sha256": "3438df57d5c811b975f7afec6175c74fba3127e626d6eaacd89a05890f8e491b"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/peak-0.45-baseline.png",
+        "bytes": 1409970,
+        "sha256": "b4bcc18c64ad13ed15f6152e94803419683374b4e340df16548ba56f625eaf4c"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/peak-0.45-candidate.png",
+        "bytes": 1410006,
+        "sha256": "9d176c4dcc7890fdd56216db0c0d205f615fa309c73f85b623be6edf722f3b7c"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/peak-2-baseline.png",
+        "bytes": 1402292,
+        "sha256": "5433f089f5a9a8c7fd8ec0eeb95b8eaf8577b580fe10e55fd137541fcd9237a1"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/peak-2-candidate.png",
+        "bytes": 1402303,
+        "sha256": "ec1fe5d0cfc80f13079dbfd979560741e3c2b9fdd73f7909cb6935beb7bba8dc"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/stress-0.45-baseline.png",
+        "bytes": 1544215,
+        "sha256": "e6e1e55ab5405fd50f872e645e503c7f5ea8240dc1834788da7a84e4ae227b01"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/stress-0.45-candidate.png",
+        "bytes": 1544204,
+        "sha256": "d6cc539af0d0bc0d037855abc195e044e4f48e825589fb64e9feef0e7a8f7ca9"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/stress-2-baseline.png",
+        "bytes": 1514014,
+        "sha256": "bf4e4ddf59e9cbf35a00c4529531af22ce907c89a305e7081b8167351501eace"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/stress-2-candidate.png",
+        "bytes": 1514031,
+        "sha256": "fd37a78cf2b5f1ea67243667efcde23d8b5121825281f1cade5c16f7b290f923"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/full-0.45-baseline.png",
+        "bytes": 1402593,
+        "sha256": "7b8c961a925d5c5ccf667c6b0fc33bd44d479665af0c26dd554cd5c0617db056"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/full-0.45-candidate.png",
+        "bytes": 1402583,
+        "sha256": "23b99fba26a178f799edaff1dcefa735fa88a5968bd0e9b2024cb7ddd8c30ae6"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/full-2-baseline.png",
+        "bytes": 1394225,
+        "sha256": "bf0359facc5c8c5e85f2cfdd28db7f2c126c001525e745354d4e345a2546bece"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-5/full-2-candidate.png",
+        "bytes": 1394226,
+        "sha256": "71b4d84394a0301c40fed9f404538530c8c44d57f6e7df99ccbd536b99d0f486"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-6/narrow-baseline.png",
+        "bytes": 388546,
+        "sha256": "61a7adeae8d6d15746b62c64efe57bcf038aa0df6ebed56ab0b9eb1a500e8bd8"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-6/narrow-candidate.png",
+        "bytes": 388582,
+        "sha256": "0530a66d77bf5e2ad4d3f0c96e1e1a2ac52e00ccec16b736fe40d5435d134f8c"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-6/wide-baseline.png",
+        "bytes": 2023455,
+        "sha256": "e3129745a470e6a390ce258e1078fafd43bc6db39366a8365f7f90c633483478"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-6/wide-candidate.png",
+        "bytes": 2023417,
+        "sha256": "0d07af73047f61eb8764b91f3766dc41a5af69fd1490cb04cc73d7b5b981258c"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-6/pickup-flight-baseline.png",
+        "bytes": 1393654,
+        "sha256": "c056ba531e49bd8e4c27c148ea53ed43f4a94206f2353896f4d2730096f550e1"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-6/pickup-flight-candidate.png",
+        "bytes": 1393656,
+        "sha256": "cc71fabf8a05e38a2e7687ccc674c93fe8af3205a1e7d2a94ad898656a863055"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-r02-20261020\\browser-6/actual-candidate-restored.png",
+        "bytes": 1393650,
+        "sha256": "a83dd93bf2624f267460bd167c8bfee65dfefc694c70ca7d7700b407594e9c4a"
+      },
+      {
+        "file": "preview/performance-r02-20261020-candidate-r3/index.html",
+        "bytes": 954785,
+        "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+      },
+      {
+        "file": "preview/performance-r02-20261020-candidate-r3/main.css",
+        "bytes": 821671,
+        "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+      },
+      {
+        "file": "preview/performance-r02-20261020-candidate-r3/main.js",
+        "bytes": 38133709,
+        "sha256": "dbc628522e3e114843cb918154d84a254b6fbb96598ccf2cce9160eeb88ece95"
+      },
+      {
+        "file": "src/render/units/equipment-drops.ts",
+        "bytes": 17340,
+        "sha256": "101bb776c2b6825a51999d3ee54784b424ea3d550f1df3806c431452e96b977f"
+      },
+      {
+        "file": "src/render/units/equipment-loot-style.ts",
+        "bytes": 3645,
+        "sha256": "a71697c0d32796b7917b27205f3318664e89f44cc51713ad3685d00563834787"
+      },
+      {
+        "file": "src/simulation/starship/drops.ts",
+        "bytes": 12258,
+        "sha256": "cfebebdf24e78335eac4a7f0c6127a852509a0cfdae04e9226b30530d0532aa9"
+      },
+      {
+        "file": "src/simulation/world.ts",
+        "bytes": 154839,
+        "sha256": "5b2e65721c33f86d7aeadce541f0d5fa35778c62b7a62d1a4018de6a66bdf760"
+      },
+      {
+        "file": "tools/performance-r02-cases.mjs",
+        "bytes": 2515,
+        "sha256": "e2d93e3289a3b83e2b5d9e528ff9921e03d823d9f462fa4136cdf122dd87c704"
+      },
+      {
+        "file": "tools/measure-performance-r02.mjs",
+        "bytes": 2746,
+        "sha256": "30c0d1178cecad760145234444de9bdf3f8c537e22bfa555293aaec4a1272651"
+      },
+      {
+        "file": "tools/verify-performance-r02.mjs",
+        "bytes": 4133,
+        "sha256": "84a26e36f134284315e3f1df5629417ab16be9b1d78773c62fefac90cc8f5f38"
+      },
+      {
+        "file": "tools/verify-performance-r02-boundaries.mjs",
+        "bytes": 3163,
+        "sha256": "4191fcc8aab53349b04fa870dbde8812b56414cfefd6c0eae935d45a6f90b9c9"
+      },
+      {
+        "file": "tools/performance-r02-runtime.ts",
+        "bytes": 2154,
+        "sha256": "7581f8efad09b2ed56a1247716bd7e1b5278476f102e6ba84cadb3f5f1178105"
+      },
+      {
+        "file": "tools/build-performance-r02.mjs",
+        "bytes": 4294,
+        "sha256": "8655c7126290b72bed6988293d5306374c1e36bd2f0a067dc477802d20ca0904"
+      }
+    ],
+    "closeoutVerification": "reports/local/performance-r02-20261020/closeout-verification.json"
+  }
+}

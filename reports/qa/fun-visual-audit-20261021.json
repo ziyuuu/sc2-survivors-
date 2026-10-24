@@ -1,0 +1,521 @@
+{
+  "date": "2026-10-21",
+  "branch": "feat/fun-gameplay",
+  "sourceRoot": "C:/Users/zyuu/.codex/worktrees/mission/星际",
+  "status": "audit-complete-findings-open",
+  "productionChanges": 0,
+  "sourcePreservation": {
+    "files": 736,
+    "changed": [],
+    "added": [],
+    "baselineAt": "2026-10-21T04:41:46.775Z"
+  },
+  "scope": {
+    "source": "7 missions, 10 encounters, 4 special stages, 5 pickups, 4 replacement horde types, 7 shop item groups",
+    "browser": "R2: all 7 missions, all 10 encounters, all 4 special stages, 5 pickups, representative ultralisk horde status, 7 shop groups; 1440×900 plus resource/dodge 1280×720, 844×390, 390×844",
+    "quality": "default full, native",
+    "method": "Current source served read-only with final shop R5 frozen assets; diagnostic fixture states. Source inspection and screenshots; one native 3.3 s dodge loop. No performance, full campaign or physical input acceptance."
+  },
+  "findings": [
+    {
+      "id": "FVA-01",
+      "priority": "高",
+      "categories": [
+        3
+      ],
+      "title": "窄屏特殊关面板与原小地图按钮重叠",
+      "finding": "844×390 资源关中，标题位于 y=144–165，工具按钮位于 y=147.25–191.25；标题中心的顶层元素实际为“生产管理”按钮，规则入口也被压住。390×844 亦见重叠。1440×900、1280×720 未见同一遮挡。",
+      "impact": "玩家读不到关卡名称、剩余时间，规则入口与原操作区域冲突。",
+      "repro": "进入资源关，切到 844×390 或 390×844，观察左上角状态面板与小地图工具行。",
+      "recommendation": "将特殊状态纳入原 HUD 的安全区域和自适应布局；先修遮挡，再统一面板皮肤。",
+      "sources": [
+        "src/ui/hud/special-stages.css:1",
+        "src/ui/hud/special-stages.css:8",
+        "src/ui/native-hud/battle.css:40"
+      ],
+      "screens": [
+        "resource-ui-collision",
+        "special-resources-390x844"
+      ]
+    },
+    {
+      "id": "FVA-02",
+      "priority": "高",
+      "categories": [
+        3,
+        4
+      ],
+      "title": "毒爆弹幕横屏中战场与单位过小，文字面板占比过高",
+      "finding": "844×390 下按普通实时循环推进 3.3 秒，4 名陆战队员的模型高度投影约 2.18–2.20 像素。顶部面板保留四份姓名／等级文本和退出按钮，而主要战场只占中部小块。",
+      "impact": "玩家难以依靠单位和弹幕的视觉关系判断位置；这次只确认可读性，不代替真人操控难度测试。",
+      "repro": "进入毒爆弹幕，844×390，默认镜头及完整效果，实时推进至首个预告。",
+      "recommendation": "重新分配有效战场面积，四人信息压成头像／等级标记，校准镜头拟合和预警对比度。",
+      "sources": [
+        "src/render/scene/battle-renderer.ts:563",
+        "src/render/scene/camera-controller.ts:71",
+        "src/ui/hud/special-stages.ts:19",
+        "src/ui/hud/special-stages.css:10"
+      ],
+      "screens": [
+        "dodge-native-844x390",
+        "special-dodge"
+      ]
+    },
+    {
+      "id": "FVA-03",
+      "priority": "中",
+      "categories": [
+        1
+      ],
+      "title": "多处主体视觉仍为无贴图的基础几何拼装",
+      "finding": "传送门为两个 Torus 环；五种拾取物为同一方盒底座、色环及方块／锥体符号；宝箱为盒子加两条金属带；情报终端与求救信号为方盒加纯色屏幕。鞘翅为 ShapeGeometry 薄片、THREE.Line 翼脉和球体外壳。寄生囊为三个球体，特殊蟑螂装饰为八面体与四角星薄片。",
+      "impact": "和已有带纹理、材质及骨骼动作的单位／建筑并排时，精细度和材质语言明显不一致。",
+      "repro": "观察资源关宝箱、普通关传送门／五拾取物、情报任务、飞行蟑螂。",
+      "recommendation": "优先替换承担物体身份的传送门、宝箱、终端、拾取物及鞘翅；范围和安全缺口可保留清晰几何形状，但应有合适材质与动效。",
+      "sources": [
+        "src/render/units/special-visuals.ts:9",
+        "src/render/units/special-visuals.ts:23",
+        "src/render/units/special-visuals.ts:34",
+        "src/render/units/fun-visuals.ts:8",
+        "src/render/units/fun-visuals.ts:50",
+        "src/render/units/encounter-visuals.ts:21",
+        "src/render/scene/battle-renderer.ts:665"
+      ],
+      "screens": [
+        "portal",
+        "pickups-first-three",
+        "pickups-nuke-root",
+        "special-resources",
+        "mission-intel",
+        "encounter-flyingRoaches"
+      ]
+    },
+    {
+      "id": "FVA-04",
+      "priority": "中",
+      "categories": [
+        2,
+        4
+      ],
+      "title": "重复状态文字与过细任务说明占用战斗视线",
+      "finding": "感染者逐人显示“净化 0%”，同时还有遭遇名和右上任务框，实际画面出现文字互相压叠。任务栏把遭遇、扩展遭遇和任务用分隔符串联；情报任务直接显示“0/3 · 0.0/10s · 精英档装备 · 靠近接取 · 待入场9”。舰队还把“受击不打断，离开重置”放入常驻状态。",
+      "impact": "玩家需要读说明和内部队列信息，才能理解当前目标；重复名字挤占单位画面。",
+      "repro": "触发感染人类或情报收集，观察单位头顶和右上角状态。",
+      "recommendation": "单位头顶改为小型状态图标／进度条，目标名只显示一份；常驻任务只保留目标、进度和关键倒计时，将规则和实现细节移出战斗主视线。",
+      "sources": [
+        "src/render/units/fun-visuals.ts:44",
+        "src/render/units/fun-visuals.ts:70",
+        "src/ui/hud/random-mission.ts:8",
+        "src/ui/hud/random-mission.ts:10"
+      ],
+      "screens": [
+        "encounter-infectedTerrans",
+        "mission-intel"
+      ]
+    },
+    {
+      "id": "FVA-05",
+      "priority": "中",
+      "categories": [
+        2,
+        3,
+        4
+      ],
+      "title": "六类商品共用通用科技插画，长规则挤入小滚动区",
+      "finding": "虫后腺体、上帝之眼、友方坑道虫、酒馆、诱饵、骰子在实际商店均落到同一科技终端图。诱饵／酒馆／骰子说明包括“独立额外判定”“上限1/2/1”“按总权重重新归一”等实现口径，1440×900 卡片也需内部滚动阅读。",
+      "impact": "商品无法主要依靠形象识别，购买前的理解负担集中在密集小字上。外层商店布局仍沿用已有框架。",
+      "repro": "查看三组商品货架截图，尤其酒馆、诱饵、骰子并排时。",
+      "recommendation": "为七类商品准备明确不同的图像；卡面采用一句效果和关键数值，完整概率／限制保留在清楚可达的详细规则中。",
+      "sources": [
+        "src/ui/presentation/intermission.ts:63",
+        "src/ui/intermission-skin/presentation.ts:25",
+        "src/simulation/fun-shop/state.ts:23"
+      ],
+      "screens": [
+        "shop-combat",
+        "shop-probability",
+        "shop-pandora"
+      ]
+    },
+    {
+      "id": "FVA-06",
+      "priority": "中",
+      "categories": [
+        4
+      ],
+      "title": "拾取与若干玩法状态主要通过文字告知，专用视听反馈不足",
+      "finding": "医疗、火力、护甲、定身通过真实收集函数分别生效；治疗从 60%→75%，强化和定身时限有记录。收集前后 audio.played 均为空，源码没有这些拾取事件的专用音效分支，也没有对应的单位状态特效；状态主要出现在 notice 和左侧面板。任务／特殊关转换也未见独立提示音路径。“攻击感染者”等按钮在通用界面提示音之前提前返回。",
+      "impact": "数值变化能发生，但玩家缺少清楚的获得、强化、束缚、解禁等反馈。",
+      "repro": "拾取治疗、火力、护甲、定身并观察前后画面；代码对照 AudioEffects.update。",
+      "recommendation": "补获得瞬间的短动效与音效、持续状态图标、定身受影响单位的可见束缚；任务接取／完成和机会损失应有简明区别。",
+      "sources": [
+        "src/simulation/field-events/pickups.ts:17",
+        "src/render/units/special-visuals.ts:23",
+        "src/render/effects/audio.ts:36",
+        "src/ui/hud.ts:135"
+      ],
+      "screens": [
+        "pickup-before",
+        "pickup-after"
+      ]
+    }
+  ],
+  "positives": [
+    "Original animated bodies and buildings remain for most missions/encounters.",
+    "Nydus uses original Birth / Pickup / Stand Work clips and source particles; fleet uses existing Yamato visual pathway. These are source-verified here, not revalidated full animation lifecycles.",
+    "Challenge rules are collapsed by default in battle; this is useful progressive disclosure.",
+    "Shop outer card framework and price/action placement are inherited."
+  ],
+  "limits": [
+    "Audio conclusion combines absent code routes and playback counters; no physical listening or AudioContext-running verification was performed.",
+    "Dodge pixel height measures projected vertical body extent at the captured camera, not total silhouette bounds.",
+    "R1 detached CDP viewport reverted to 758×482 for early shots; actors were not centered. R2 explicitly sets dimensions and camera target; airborne framing still clips some subjects, so no camera clipping defect is claimed from those encounter images.",
+    "R1 missing medivac and worker prerequisites caused two expected spawn rejections; R2 adds these and captures both. R1 five-pickup request reached the production cap of three; R2 captures 3+2.",
+    "Shop detail selector timed out because current skin did not expose the assumed ui-offer target. Failed attempt preserved; no detail-modal result is claimed.",
+    "Local network sandbox initially rejected a CDP read (EACCES); scoped connection succeeded after escalation. No old failure is changed to a pass."
+  ],
+  "captureResults": {
+    "r2Records": 32,
+    "r2Errors": [],
+    "supplementRecords": 8,
+    "supplementErrors": [],
+    "finalScreens": 40
+  },
+  "screenshots": [
+    {
+      "file": "screens/00-menu.png",
+      "sha256": "9754cb3e650a73393c54fd3afee5e9dc9c40c1492747541a32cc4efed6be0fce",
+      "bytes": 1590773
+    },
+    {
+      "file": "screens/01-normal-battle.png",
+      "sha256": "87f04250634c93ee55b583bee327ec704e784733981eec0c6c282e6e1312f73d",
+      "bytes": 1367169
+    },
+    {
+      "file": "screens/encounter-corruptedProtoss.png",
+      "sha256": "b65e5e2712ebcebeb038d9f59166fd65144dc75dcbbb6d1cd82a346864190f9c",
+      "bytes": 435686
+    },
+    {
+      "file": "screens/encounter-cruelQueen.png",
+      "sha256": "a68114a1945cbaeb6633dd63d316f7ea958c08a27afbd37f0bc8bc752886d441",
+      "bytes": 428711
+    },
+    {
+      "file": "screens/encounter-devourer.png",
+      "sha256": "eb2a6ff37519767046dcf11cc35788130de291fff7994e8654e240306d482b23",
+      "bytes": 426782
+    },
+    {
+      "file": "screens/encounter-flyingRoaches.png",
+      "sha256": "0ea9477d090285129b8961ee46d312d69ef1bc82e17cca176ff8503301903f79",
+      "bytes": 415938
+    },
+    {
+      "file": "screens/encounter-gentle.png",
+      "sha256": "2b43a53c66bdc54eb58add580785019dd5d146552b39d0762e22c319f3709a4a",
+      "bytes": 430837
+    },
+    {
+      "file": "screens/encounter-giant.png",
+      "sha256": "d7f1515ac00465a7d1d310c9e9158c603b5b2f3141b0eaee446b0c3c6cea8c67",
+      "bytes": 425600
+    },
+    {
+      "file": "screens/encounter-golden.png",
+      "sha256": "c61fb257c89627f00788f7d2fd0136f38a70f02257d24b0ec037d7bd618281c1",
+      "bytes": 428598
+    },
+    {
+      "file": "screens/encounter-parasites.png",
+      "sha256": "cfdcd6d3f4b085ccf21bdfc2b3a427aa2b34c154d91c059d81b3d8247dc4b62e",
+      "bytes": 434988
+    },
+    {
+      "file": "screens/encounter-whitePack.png",
+      "sha256": "34552ee927d6da34b8552e15424fec517688ed4ddba9258577b1b83351709c70",
+      "bytes": 411017
+    },
+    {
+      "file": "screens/horde-buffs.png",
+      "sha256": "ca858a46670233c9b2297b6c59909770f7c97a6049b19f741b79e9f6463496cd",
+      "bytes": 422860
+    },
+    {
+      "file": "screens/mission-eggs.png",
+      "sha256": "f6c1ded0aec579f1d5c1801904b27bfb1e77fd3debc4e74b71c26fb4bf01f980",
+      "bytes": 443333
+    },
+    {
+      "file": "screens/mission-escort.png",
+      "sha256": "202e11e6b8093466ed668cfc4d12d85e507e97bf4a82f13df198e22b3266a50d",
+      "bytes": 445173
+    },
+    {
+      "file": "screens/mission-fleet.png",
+      "sha256": "4b530a1f8ede86bd970d969b1ecccd601354d6596134a5bf35233371b2f37c51",
+      "bytes": 429755
+    },
+    {
+      "file": "screens/mission-hives.png",
+      "sha256": "5af8da1e0cb45ac9fff8bf73f41bed4271ea3237d9a2dd3d78b138df25e1f12a",
+      "bytes": 434368
+    },
+    {
+      "file": "screens/mission-intel.png",
+      "sha256": "1bc7edaf859b2d3a5863e04c8ed31070f621b1cf5babda5e4aed60887ba7a76f",
+      "bytes": 407600
+    },
+    {
+      "file": "screens/mission-rescue.png",
+      "sha256": "44323e809eb7322aaf0f52e85160387c36b555f6fd2962f59a40ad5d12ae74c1",
+      "bytes": 428991
+    },
+    {
+      "file": "screens/pickups-five.png",
+      "sha256": "ea334a0606eb9e1dfa79f6ded8eec775994488d15b93a86dd85ebd10202a6fe0",
+      "bytes": 425457
+    },
+    {
+      "file": "screens/portal.png",
+      "sha256": "46293b7721fe9e074f7b6b3dfeba02a812f31521e3cb97f25f9cbd5cc4c324cc",
+      "bytes": 411782
+    },
+    {
+      "file": "screens/special-arena.png",
+      "sha256": "a8e51a246f7ea96efbedf89d0f5c1f3404b6e944527702a86ca0b60a630defe0",
+      "bytes": 376411
+    },
+    {
+      "file": "screens/special-crossing.png",
+      "sha256": "cddc62dbd1d07a80491642d379dd09669c54da0cb3aee14cacff7f566380dc61",
+      "bytes": 372178
+    },
+    {
+      "file": "screens/special-dodge-390x844.png",
+      "sha256": "8c52d8840724b499c10345540c0bb9f8087b9f08b195c4200ba1f286b4eb2fb6",
+      "bytes": 326043
+    },
+    {
+      "file": "screens/special-dodge-844x390.png",
+      "sha256": "1d8108e2ec9c5bd3228015f31878136c9dc9c88033bc3c00e6ac9bc3daaaeb40",
+      "bytes": 253854
+    },
+    {
+      "file": "screens/special-dodge.png",
+      "sha256": "9ec79ec7a3499cee84bce86c374b3f188492f0266dc1a8ffed0a8c9a8902846f",
+      "bytes": 360589
+    },
+    {
+      "file": "screens/special-resources.png",
+      "sha256": "e18198f58490b2286b97bf962c6e484024a6c116d496621ef1e5b06865328697",
+      "bytes": 379264
+    },
+    {
+      "file": "screens/ticket-shop.png",
+      "sha256": "74a68b1161a47e8d5efcf5a8809adf696c62d4db145bf3a0737dcc980a9f6337",
+      "bytes": 1070808
+    },
+    {
+      "file": "screens-r2/dodge-native-844x390.png",
+      "sha256": "7892f124112f6364b3ca6f6680573b7485438caefa90856d797e4eb7401e4e97",
+      "bytes": 254110
+    },
+    {
+      "file": "screens-r2/encounter-corruptedProtoss.png",
+      "sha256": "20a40c3ac46722e2e5eb979f77e4276dc681852b2cba01b57933bb5912034a58",
+      "bytes": 1383942
+    },
+    {
+      "file": "screens-r2/encounter-cruelQueen.png",
+      "sha256": "994fe0cc88b507f50f18a3628bae95191f931433bac6be840de4150009502090",
+      "bytes": 1363579
+    },
+    {
+      "file": "screens-r2/encounter-devourer.png",
+      "sha256": "1004467c2ee010ef8bbccedf2f6bac39c8b308d682cb64f4b74effb3e8847cac",
+      "bytes": 1366464
+    },
+    {
+      "file": "screens-r2/encounter-flyingRoaches.png",
+      "sha256": "ea35c799a2d05949069e7af0c6a06e2fb99cf0af58e3ba8a1c867ba307d5ff95",
+      "bytes": 1439509
+    },
+    {
+      "file": "screens-r2/encounter-gentle.png",
+      "sha256": "ee50b60fb618bc2cf404c1e1733414cd2500c40ec5a70777906d0debe5101fc3",
+      "bytes": 1466993
+    },
+    {
+      "file": "screens-r2/encounter-giant.png",
+      "sha256": "08faed3b6788ff4748581894dcea971eef60da06767890b1463f00043ef28d3d",
+      "bytes": 1378533
+    },
+    {
+      "file": "screens-r2/encounter-golden.png",
+      "sha256": "b8edfb8e4ef2d8f5513dd2ccb514c24c85c8cf040fe0946dba8da338df023be6",
+      "bytes": 1372991
+    },
+    {
+      "file": "screens-r2/encounter-infectedTerrans.png",
+      "sha256": "c43069d52716e3ca496aef527c8eefb1557cfdc66ac52e3eb6021fa48df9ebc0",
+      "bytes": 1412597
+    },
+    {
+      "file": "screens-r2/encounter-parasites.png",
+      "sha256": "5613b1aa6e27724d3c88a364587052ef9f8c49e18542fb9f182db07f03c5f26e",
+      "bytes": 1427764
+    },
+    {
+      "file": "screens-r2/encounter-whitePack.png",
+      "sha256": "4ac5714322c87d2275a92823414f8582a04adb56cc6e59c20fa24c73c529aad0",
+      "bytes": 1430732
+    },
+    {
+      "file": "screens-r2/horde-buffs.png",
+      "sha256": "061a0967f9e4b8caf9d1c459c76fa48eb4c0b2c89cffef7bb2a0c75caf931bed",
+      "bytes": 1414841
+    },
+    {
+      "file": "screens-r2/mission-eggs.png",
+      "sha256": "99e8474d4815995fcb41c16c18e6ee8c6677d69b260330bb793a5a3a33fa3117",
+      "bytes": 1508656
+    },
+    {
+      "file": "screens-r2/mission-escort.png",
+      "sha256": "5af8a9b6769af502ae6631574d3cf5f0db542e586fc422b4004cbbcc542e387a",
+      "bytes": 1444350
+    },
+    {
+      "file": "screens-r2/mission-fleet.png",
+      "sha256": "eee6a477e323eb5d36cc1c463596e04d5371627db979ee77426ed639fac2a60e",
+      "bytes": 1454431
+    },
+    {
+      "file": "screens-r2/mission-hives.png",
+      "sha256": "0168e54ef8152a9206af4ba22f4d0caedc640201fa35abbd0e5321cb168ca51d",
+      "bytes": 1439859
+    },
+    {
+      "file": "screens-r2/mission-intel.png",
+      "sha256": "730da78e3fd97d208ebf3add03883b2af8cffb9a2fe9032b39a94f692ed8e152",
+      "bytes": 1334668
+    },
+    {
+      "file": "screens-r2/mission-repair.png",
+      "sha256": "b5cc971b0767dd95cc20700ff981ed3a42d0110e8ca09b6b49d27fdcd247a107",
+      "bytes": 1464950
+    },
+    {
+      "file": "screens-r2/mission-rescue.png",
+      "sha256": "40383ca2e3d64dc6d05367b150b7a5cda977d474a265d02f4cee708158e4cba7",
+      "bytes": 1380956
+    },
+    {
+      "file": "screens-r2/pickup-after.png",
+      "sha256": "4e24b96624121b4e0cdd0e8935f08a020662c70806116cd6f0fb24b9ef6562a2",
+      "bytes": 1426802
+    },
+    {
+      "file": "screens-r2/pickup-before.png",
+      "sha256": "10c34facc7d23f00f06b998a51464875eca0779cdf093ba9c551bdff21681ff7",
+      "bytes": 1430128
+    },
+    {
+      "file": "screens-r2/pickups-first-three.png",
+      "sha256": "f5ea35331980e3c1066463e652cd60edb0e5c2c0bc1b4361bfcdc2b9f453be42",
+      "bytes": 1430464
+    },
+    {
+      "file": "screens-r2/pickups-nuke-root.png",
+      "sha256": "a76f11c3db3a27d8f03e0875cd118929491b04d8ee42ab7af566aee2ecfe771c",
+      "bytes": 1427347
+    },
+    {
+      "file": "screens-r2/portal.png",
+      "sha256": "c02982a6a7f352a9bae5d51053f473f1a7c072226b12109a0edd45b91ff7e0fd",
+      "bytes": 1412684
+    },
+    {
+      "file": "screens-r2/resource-ui-collision.png",
+      "sha256": "837fbb824647c2b52e4c8d2020096f81655cae7dbfee781540b5dfcb9172d880",
+      "bytes": 333532
+    },
+    {
+      "file": "screens-r2/shop-combat.png",
+      "sha256": "d97dd0a3b9024d364beaaffc7b76467a25d46cf500619d18cc74414c5bcfb1c3",
+      "bytes": 1065554
+    },
+    {
+      "file": "screens-r2/shop-pandora.png",
+      "sha256": "14d3f12314e42e20eb0be85287d1e627ded16cddcdca4538327067cd21d28e4d",
+      "bytes": 1330419
+    },
+    {
+      "file": "screens-r2/shop-probability.png",
+      "sha256": "751c29f2e1db171d70f4d57a3af26ab5b22c3d645135347937d9364ffce25c8a",
+      "bytes": 1161133
+    },
+    {
+      "file": "screens-r2/special-arena.png",
+      "sha256": "8a80fd15a07932e4166827e6ffa39e20d5256aca58e296686d91312269d6f50b",
+      "bytes": 1256630
+    },
+    {
+      "file": "screens-r2/special-crossing.png",
+      "sha256": "d8230618c40b5c18ce1655bed43ac55ce8e86c4175238705f81881f3eb26d260",
+      "bytes": 1278074
+    },
+    {
+      "file": "screens-r2/special-dodge-1280x720.png",
+      "sha256": "e0461f78cbf5613133f66acee522b5bb637fe6703bbadeb81fd7081588fa1d64",
+      "bytes": 1009249
+    },
+    {
+      "file": "screens-r2/special-dodge-390x844.png",
+      "sha256": "653f3a7011affd40759256fbd7715daffec67444a9b5156f70a8b1a3b4ed161e",
+      "bytes": 326479
+    },
+    {
+      "file": "screens-r2/special-dodge-844x390.png",
+      "sha256": "f8385b39c8fc596fccdc241930d87c77cc33f41cfbef00f030d0f302efd512d2",
+      "bytes": 253986
+    },
+    {
+      "file": "screens-r2/special-dodge.png",
+      "sha256": "976742e7c36013430f1a4530b0bd4f4276d8287af3e1f970d0b94161f0e80e07",
+      "bytes": 1491734
+    },
+    {
+      "file": "screens-r2/special-resources-1280x720.png",
+      "sha256": "bfce4efddaa033322b6a40dfdbd6f8fc10a87b06bf3b6b4580978e12d69edd49",
+      "bytes": 909841
+    },
+    {
+      "file": "screens-r2/special-resources-390x844.png",
+      "sha256": "7e66a27a4f820ac6c7463808fa31df69be99f7eb235d38c92733c47b77da11c1",
+      "bytes": 350669
+    },
+    {
+      "file": "screens-r2/special-resources-844x390.png",
+      "sha256": "a93627f4e8af708fb3d2948e548516bba8b4fea3847d1b6980d11c8fa3e4882b",
+      "bytes": 330500
+    },
+    {
+      "file": "screens-r2/special-resources.png",
+      "sha256": "2ef7c9aa64edcfaf0ba6e29034d6f8776ddef983fce583f4eb366985077579e0",
+      "bytes": 1272656
+    },
+    {
+      "file": "screens-r2/ticket-shop.png",
+      "sha256": "846a7f78d67e0aa1c63f9ec18baebc54abf10d08d837a57d5c01877a243f64fa",
+      "bytes": 1070927
+    },
+    {
+      "file": "screens-r2/wings-detail.png",
+      "sha256": "37d66229e2e44438399a0659be0c31fcbdd537f6025a10c348853be6bd89b2c0",
+      "bytes": 1402069
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+const base='reports/local/v01-20261024';let code=await fs.readFile(base+'/spike-sentinel.mjs','utf8');
+const before='row.sentinel=await page.evaluate(()=>V01Sentinel.gaps);';assert.equal(code.split(before).length,2);
+code=code.replace(before,`row.textureMemory=await page.evaluate(()=>{
+ const v=A03.app.view,live=new Set(),original=new Set(),models=[];
+ const collect=(root,set)=>root?.traverse(node=>{for(const material of Array.isArray(node.material)?node.material:node.material?[node.material]:[]){for(const value of Object.values(material))if(value?.isTexture)set.add(value);const p=D04.preparedUnitMaterial(material);if(p){for(const texture of Object.values(p.textures))if(texture)set.add(texture);if(p.teamTexture)set.add(p.teamTexture);}}});
+ collect(v.scene,live);for(const anchor of v.stageWarm?.values()??[])collect(anchor.root,live);
+ for(const [key,b]of v.gpu){const set=new Set();collect(b.gltf.scene,set);for(const t of set)original.add(t);for(const t of b.ownedPoseTextures??[])live.add(t);for(const s of b.materialSurfaces??[])live.add(s.texture);models.push({key,originalTextures:set.size,atlasBytes:b.textureBytes,sourceTextures:[...set].map(t=>({uuid:t.uuid,name:t.name,source:t.source.uuid,width:t.image?.width,height:t.image?.height,imageType:t.image?.constructor.name,gpu:!!v.renderer.properties.get(t).__webglTexture}))});}
+ const images=set=>new Set([...set].flatMap(t=>Array.isArray(t.image)?t.image:[t.image]).filter(Boolean)),liveImages=images(live),oldImages=images(original),unused=[...oldImages].filter(i=>!liveImages.has(i)),bytes=items=>items.reduce((n,i)=>n+(i.data?.byteLength??(i.width??0)*(i.height??0)*4),0);
+ return {scope:'Post-measurement logical image-byte estimates; driver physical memory and mip levels excluded. Original-only images are referenced by GLTF materials but absent from rendered mesh/surface/pose textures.',renderer:v.renderer.info.memory,models,live:{textures:live.size,images:liveImages.size,bytes:bytes([...liveImages])},original:{textures:original.size,images:oldImages.size,bytes:bytes([...oldImages])},originalOnly:{images:unused.length,bytes:bytes(unused),types:[...new Set(unused.map(i=>i.constructor.name))]}};
+ });`+before);
+await fs.writeFile(base+'/spike-memory-sentinel.mjs',code,{flag:'wx'});console.log('Prepared post-measurement image retention audit.');

@@ -18,7 +18,7 @@ export function equipmentManualSucceeded(w:World,used:string){
  target.reset();for(const ally of w.allies())if(ally.hp>0)equipmentPresentation(w,'cooldown-reset',ally,undefined,target.id);w.starship.numbers.set('manual-reset-ready',w.time+cooldown);w.changed();
 }
 export function equipmentCommand(w:World,movement:boolean){
- if(!w.starship.enabled)return;w.starship.numbers.set('last-command',w.time);
+ if(!w.starship.enabled||w.specialStages.active?.kind==='dodge')return;w.starship.numbers.set('last-command',w.time);
  const effect=activeEquipmentEffects(w).find(e=>e.key==='dominance');if(!movement||!effect||w.time<(w.starship.numbers.get('dominance-ready')??0))return;
  w.starship.numbers.set('dominance-ready',w.time+effect.values[3]);w.starship.numbers.set('dominance-phase',w.time+effect.values[0]);w.starship.numbers.set('dominance-pending',1);
 }

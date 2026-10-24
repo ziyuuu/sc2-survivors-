@@ -23,10 +23,13 @@ export class RadialTerrain extends MapTerrain {
  /** Ground blockers stop ground weapons as well as feet; airborne weapons remain airborne. */
  override lineOfFire(a:{x:number;z:number},b:{x:number;z:number},airA=false,airB=false,melee=false){return airA||airB?super.lineOfFire(a,b,airA,airB,melee):this.walkLine(a,b,0)&&(melee||super.lineOfFire(a,b,false,false,false));}
 }
-export function campaignTerrain(recipe:CampaignMapRecipe){
+export function campaignDefinition(recipe:CampaignMapRecipe){
  validateMapRecipe(recipe);const key=JSON.stringify(recipe);let definition=cache.get(key);
  if(!definition){definition=makeCampaignDefinition(recipe);if(cache.size>=5)cache.delete(cache.keys().next().value!);cache.set(key,definition);}
- return new RadialTerrain(recipe,definition);
+ return definition;
+}
+export function campaignTerrain(recipe:CampaignMapRecipe){
+ return new RadialTerrain(recipe,campaignDefinition(recipe));
 }
 export const CHAR_CAMPAIGN_TEXTURES=['terrain.char','terrain.rock','terrain.cracked','terrain.char.normal','terrain.rock.normal'] as const;
 export function campaignMapAssets(r:CampaignMapRecipe){return [...MAP_THEMES[r.theme].props,'map.terrain.diffuse','map.terrain.normal',...(r.theme==='char'?CHAR_CAMPAIGN_TEXTURES:[])];}

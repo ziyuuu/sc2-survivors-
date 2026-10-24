@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {firstSourceAttackIds,latestSourceAttacks} from './source/event-index';
 import {sourceOwnsFlight} from './combat-fx-profile';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {assetUrl} from '../../assets/manifest';
@@ -19,10 +20,12 @@ export class TerranEliteEffects {
  private fans:{source:number;origin:{x:number;z:number};radius:number;facing:number;arcDegrees:number}[]=[];
  constructor(scene:THREE.Scene,private fx:BattleEffects,camera:THREE.Camera){this.overlays=new TerranEliteMaterials(scene,camera,fx);scene.add(this.group);this.shells=new THREE.InstancedMesh(new THREE.SphereGeometry(1,12,8),new THREE.MeshStandardMaterial({color:0xcfc2a4,metalness:.85,roughness:.25,emissive:0x66411d,emissiveIntensity:.45}),256);this.shells.count=0;this.shells.frustumCulled=false;this.group.add(this.shells);}
  async load(){this.overlays.prepare();const url=assetUrl('model.hero-upgrade.vikingfightermissile');if(!url)return;const g=await restoreSc2Materials(await new GLTFLoader().loadAsync(url));g.scene.updateMatrixWorld(true);const box=sc2BodyBounds(g.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=.72/Math.max(size.x,size.y,size.z);g.scene.traverse(n=>{if(!(n instanceof THREE.Mesh))return;const geometry=n.geometry.clone();geometry.applyMatrix4(n.matrixWorld);geometry.translate(-center.x,-center.y,-center.z);geometry.scale(scale,scale,scale);const mesh=new THREE.InstancedMesh(geometry,n.material,256);mesh.count=0;mesh.frustumCulled=false;this.group.add(mesh);this.missiles.push(mesh);});}
+ resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.tick=w.tick;}
  reset(){this.overlays.reset();this.mounts.clear();this.launched.clear();this.fans=[];this.serial=0;this.tick=-1;this.shells.count=0;for(const m of this.missiles)m.count=0;}
  report(){return {shells:this.shellCount,missiles:this.missileCount,quality:this.quality,flameFans:this.fans,materials:this.overlays.report()};}
  render(w:World,camera:THREE.Camera,visible:(p:{x:number;z:number})=>boolean,muzzle:(e:VisualEvent,side?:'Left'|'Right')=>{x:number;y:number;z:number}){this.overlays.begin(w.time);this.fans=[];this.shellCount=0;this.missileCount=0;const density=this.quality==='full'?1:this.quality==='balanced'?.55:.25;
-  for(const p of w.weaponFlights){const u=p.source;if(sourceOwnsFlight(u)||!revisedElite(u)||w.time<p.start||!visible(p.point))continue;const target=w.body(p.target),r=Math.max(.01,Math.hypot(p.lastSeen.x-p.from.x,p.lastSeen.z-p.from.z)),t=Math.min(1,Math.hypot(p.point.x-p.from.x,p.point.z-p.from.z)/r),fromY=u.flying?AIR_HEIGHT+.4:.8,toY=target?.flying?AIR_HEIGHT+.4:.6,y=fromY+(toY-fromY)*t+(u.unitType==='tank'?Math.sin(t*Math.PI)*1.6:0),angle=Math.atan2(p.lastSeen.x-p.point.x,p.lastSeen.z-p.point.z);let mount=this.mounts.get(p.id);if(!mount){const e=w.visualEvents.find(e=>e.attackId===p.attackId);mount=e?muzzle(e,u.unitType==='reaper'&&p.id%2===0?'Left':'Right'):{x:p.from.x,y:fromY,z:p.from.z};this.mounts.set(p.id,mount);}const blend=Math.max(0,1-Math.hypot(p.point.x-p.from.x,p.point.z-p.from.z)/2),head={x:p.point.x+(mount.x-p.from.x)*blend,y:y+(w.terrain?.height(p.point)??0)+(mount.y-fromY)*blend,z:p.point.z+(mount.z-p.from.z)*blend},dir={x:Math.sin(angle),y:(toY-fromY)/r,z:Math.cos(angle)},tail={x:head.x-dir.x*.55,y:head.y-dir.y*.55,z:head.z-dir.z*.55};this.obj.position.set(head.x,head.y,head.z);
+  let attackEvents:ReturnType<typeof firstSourceAttackIds>|undefined;
+  for(const p of w.weaponFlights){const u=p.source;if(sourceOwnsFlight(u)||!revisedElite(u)||w.time<p.start||!visible(p.point))continue;const target=w.body(p.target),r=Math.max(.01,Math.hypot(p.lastSeen.x-p.from.x,p.lastSeen.z-p.from.z)),t=Math.min(1,Math.hypot(p.point.x-p.from.x,p.point.z-p.from.z)/r),fromY=u.flying?AIR_HEIGHT+.4:.8,toY=target?.flying?AIR_HEIGHT+.4:.6,y=fromY+(toY-fromY)*t+(u.unitType==='tank'?Math.sin(t*Math.PI)*1.6:0),angle=Math.atan2(p.lastSeen.x-p.point.x,p.lastSeen.z-p.point.z);let mount=this.mounts.get(p.id);if(!mount){const e=(attackEvents??=firstSourceAttackIds(w.visualEvents)).get(p.attackId);mount=e?muzzle(e,u.unitType==='reaper'&&p.id%2===0?'Left':'Right'):{x:p.from.x,y:fromY,z:p.from.z};this.mounts.set(p.id,mount);}const blend=Math.max(0,1-Math.hypot(p.point.x-p.from.x,p.point.z-p.from.z)/2),head={x:p.point.x+(mount.x-p.from.x)*blend,y:y+(w.terrain?.height(p.point)??0)+(mount.y-fromY)*blend,z:p.point.z+(mount.z-p.from.z)*blend},dir={x:Math.sin(angle),y:(toY-fromY)/r,z:Math.cos(angle)},tail={x:head.x-dir.x*.55,y:head.y-dir.y*.55,z:head.z-dir.z*.55};this.obj.position.set(head.x,head.y,head.z);
    if(!this.launched.has(p.id)){this.launched.add(p.id);/* SourceCombatEffects owns the muzzle. */}
    const missile=u.unitType==='viking'&&u.nativeMode!=='viking_assault'||u.unitType==='thor'&&target?.flying;
    this.overlays.ribbon(missile?'fireTrail':u.eliteId==='marine.2'?'trace':'warmTrail',tail,head,missile?.18:.055,u.eliteId==='marine.2'?0x6aaeff:0xffbd76,.85,Math.floor(w.time*24)%16);
@@ -50,6 +53,7 @@ export class TerranEliteEffects {
     this.overlays.sprite('smoke',point(q,.35+age*.3),.9+(i%3)*.25,fire?0xa69b86:0x8ac38a,.28,0,i*.6);
    }
   };
+  let attacks:ReturnType<typeof latestSourceAttacks>|undefined;
   for(const f of w.effects){const u=w.entities.get(f.source);if(!u||!revisedElite(u)||f.until<=w.time||!visible(f.end)&&!visible(u))continue;
    if(f.kind==='flame'&&u.eliteId!=='hellion.2')continue;
    if(f.kind==='explosion'&&u.unitType==='tank')continue;
@@ -64,11 +68,11 @@ export class TerranEliteEffects {
       this.overlays.sprite('fire',p,.32+radius*.035,0xffc074,.48*fade,Math.floor((w.time*30+i*3)%16),i*.7,false);
       if(i%9===0)this.overlays.sprite('smoke',{...p,y:p.y+.3},.65,0x8b7764,.12*fade,0,i*.6);
      }
-     const e=[...w.visualEvents].reverse().find(e=>e.entityId===u.id&&e.kind==='attack'),mount=e?muzzle(e):origin;
+     const e=(attacks??=latestSourceAttacks(w.visualEvents)).get(u.id),mount=e?muzzle(e):origin;
      this.overlays.sprite('glow',mount,.45,0x9ebeff,.55*fade);this.overlays.sprite('fire',mount,.6,0xffd5a0,.85*fade,Math.floor(w.time*30)%16);continue;
     }
     const length=Math.hypot(f.end.x-u.x,f.end.z-u.z),angle=Math.atan2(f.end.x-u.x,f.end.z-u.z),strands=3;
-    const e=[...w.visualEvents].reverse().find(e=>e.entityId===u.id&&e.kind==='attack');const from=e?muzzle(e):undefined;
+    const e=(attacks??=latestSourceAttacks(w.visualEvents)).get(u.id);const from=e?muzzle(e):undefined;
     const base=from??point({x:u.x+Math.sin(angle)*.7,z:u.z+Math.cos(angle)*.7},.6);
     for(let j=0;j<strands;j++){const a=angle+(j-1)*.015,segments=Math.ceil(length/1.2);
      for(let i=0;i<segments;i++){const t=(i+.5)/segments,r=t*length,dr=length/segments*.8,head=point({x:base.x+Math.sin(a)*(r+dr),z:base.z+Math.cos(a)*(r+dr)},.6+.08*Math.sin(w.time*18+i+j)),tail={x:base.x+Math.sin(a)*Math.max(0,r-dr),y:head.y,z:base.z+Math.cos(a)*Math.max(0,r-dr)};

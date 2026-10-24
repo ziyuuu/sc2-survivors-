@@ -1,0 +1,18 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+const base='reports/local/v01-20261024';
+const board=JSON.parse(await fs.readFile('docs/project/performance-board.json','utf8'));
+const qa=JSON.parse(await fs.readFile('reports/qa/v01-20261024.json','utf8'));
+assert.equal(board.revision,167);assert.equal(qa.boardRevision,167);
+const disposition={id:'V01-SPIKE-001',date:'2026-10-24',status:'deferred-unresolved',userRequest:'接下来是？如果修复不了，暂时记下？',decision:'暂缓410/502.7ms偶发尖峰专项追查，保留为未解决的已知问题；根因尚未确认，不记作已修复或性能通过。',evidence:['stage-window-result.json','spike-progress-r1.json','spike-kernel-r4-result.json','spike-thread-gc-r1/thread-gc-analysis.json','spike-pressure-r1/captured-gap-details.json'],candidate:'图片复用继续保留为隔离候选，未正式采用。',resumeWhen:['后续常规验证或实际试玩得到可重复的同类停顿及最小复现。','获得能区分调度、驱动、内存或游戏路径的新证据。','用户明确重新安排该专项。'],captureScope:'本次暂缓不启动或安排额外管理员追踪、后台监控或无界重复测试。',acceptance:'已知问题仍保留至最终验收；不因暂缓自动关闭V01、性能或MVP。',next:{task:'V01',focus:'密集战斗持续低帧与模拟积压',priorReport:qa.performance.dense.report,priorScope:qa.performance.dense.scope,priorObservation:'旧受控16友军/300敌人样本约16.7–17.3FPS，30秒模拟用52–55秒并积压22–25秒；不是当前版本重新测量或自然战役结论。',steps:['先复核当前正式版本在相同受控负载下是否仍存在持续低帧和积压，复用已验证夹具并与旧样本分列。','若仍存在，分清逻辑、渲染与GPU等待的实际耗时，再处理已确认热点并做同条件对比。','保持画质、玩法、UI、5秒剩余准备预算及提前出发，不用降画质或丢弃模拟掩盖性能问题。'],laterOrder:['V02自然战役与无尽、V03恢复输入与实际体验验收','T01最终动态效果与静态/UI独立HTML','V04同版交付','V05正式环境验收','V06八包及MVP最终确认'],startedThisTurn:false},changes:'本轮仅更新问题处置与工作顺序，未改游戏源码、运行新测试、构建、提交、推送或发布。'};
+await fs.writeFile(base+'/spike-deferral.json',JSON.stringify(disposition,null,2)+'\n',{flag:'wx'});
+const task=board.tasks.find(t=>t.id==='V01');assert.equal(task.status,'进行中');
+const summary='按用户要求将410/502.7ms偶发尖峰专项暂缓并记为未解决；原始证据和未采用的图片复用候选保留，不再重复追加追踪。V01下一重点为当前版密集战斗持续低帧/积压：先复核旧16友军/300敌人受控负载，再定位确认的逻辑/渲染热点。V01及性能验收仍开放，随后V02/V03→T01→V04。';
+task.result=summary;task.updated='2026-10-24';task.deferredIssues??=[];assert.ok(!task.deferredIssues.some(i=>i.id===disposition.id));task.deferredIssues.push({id:disposition.id,status:'未解决，专项暂缓',title:'410/502.7ms偶发共同停顿',record:'../../'+base+'/spike-deferral.json',resolved:false});task.evidence.push('../../'+base+'/spike-deferral.json');
+board.revision=168;board.updated='2026-10-24';board.next='V01';board.updates.push({date:'2026-10-24',tasks:['V01'],change:summary,evidence:['../../'+base+'/spike-deferral.json']});
+await fs.writeFile('docs/project/performance-board.json',JSON.stringify(board,null,2)+'\n');execFileSync(process.execPath,['tools/render-performance-board.mjs']);
+qa.status='v01-open-specific-spikes-deferred';qa.boardRevision=168;qa.specificSpikes.disposition=disposition;assert.equal(qa.overallAcceptance.V01,false);assert.equal(qa.overallAcceptance.performance,false);assert.equal(qa.overallAcceptance.MVP,false);await fs.writeFile('reports/qa/v01-20261024.json',JSON.stringify(qa,null,2)+'\n');
+let doc=await fs.readFile('docs/project/V01_20261024.md','utf8');doc=doc.replace(/^当前状态：.*$/m,'当前状态：410/502.7ms偶发尖峰专项按用户要求暂缓，保留未解决记录与候选。V01下一重点为密集战斗低帧/积压的当前版本复核；整体性能验收仍开放（看板168）。');
+doc+='\n### 偶发尖峰暂缓与后续顺序（看板168）\n\n'+summary+'\n\n已知问题编号：`V01-SPIKE-001`。目前根因未确认，暂缓不等于修复或验收通过。后续常规验证/实际试玩若获得稳定复现或新的因果证据，再重新安排专项；本轮没有新增管理员追踪或监控。图片复用继续保留候选，不因排查暂停自动采用。\n\n下一步先复核当前版密集战斗表现。此前16友军/300敌人是人工维持生存的受控压力样本，约16.7–17.3FPS、30秒模拟耗时52–55秒，并有22–25秒积压；它不是自然战役，也不是当前版重新测量。确认当前问题后再按实际逻辑/渲染成本优化，保持UI、完整画质、玩法、5秒预算和提前出发。本轮仅记录处置与顺序，未开始下一批测试或实现。\n\n处置记录：`'+base+'/spike-deferral.json`。\n';await fs.writeFile('docs/project/V01_20261024.md',doc);
+console.log(JSON.stringify({revision:168,issue:disposition.id,status:disposition.status,next:board.next,taskStatus:task.status,nextFocus:disposition.next.focus,nextWorkStarted:false},null,2));

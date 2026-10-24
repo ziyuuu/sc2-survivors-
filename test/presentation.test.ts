@@ -11,9 +11,11 @@ test('actual damage and one death notify presentation without consuming gameplay
  w.hit(u,100);w.hit(u,100);assert.equal(w.visualEvents.filter(e=>e.kind==='death').length,1);assert.equal(w.nextId,next);
  assert.ok(w.visualEvents.every(e=>e.entityId===u.id&&e.time===w.time));
 });
-test('presentation history is bounded and has no random side effects',()=>{
+test('presentation history keeps a current burst, reclaims expired records and has no random side effects',()=>{
  const a=new World(),b=new World(),u=a.addUnit('marine','terran',0,0);b.addUnit('marine','terran',0,0);
- for(let i=0;i<2000;i++)a.visual('hit',u);assert.ok(a.visualEvents.length<=768);assert.equal(a.nextId,b.nextId);assert.equal(a.random(),b.random());
+ for(let i=0;i<2000;i++)a.visual('hit',u);assert.equal(a.visualEvents.length,2000);
+ a.time=1;for(let i=0;i<8;i++)a.visual('hit',u);assert.ok(a.visualEvents.length<=768);assert.equal(a.visualEvents.filter(e=>e.time===1).length,8);
+ assert.equal(a.nextId,b.nextId);assert.equal(a.random(),b.random());
 });
 test('baneling suicide emits one death as well as the damaging attack',()=>{
  const w=new World(),b=w.addUnit('baneling','zerg',0,0),m=w.addUnit('marine','terran',0,.5);w.hash.rebuild([b,m]);w.fire(b,m);

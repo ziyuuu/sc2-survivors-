@@ -1,0 +1,271 @@
+{
+  "batch": "R9",
+  "started": "2026-10-14",
+  "localVerificationCompleted": "2026-10-15",
+  "userDirection": "先从白绿开始",
+  "planSnapshot": "manifest.json",
+  "planHash": "b9dd6d2970343e86aafb2f8cd570274f7e11df2b226f153a92f05018afa51080",
+  "planTotalProposed": 372,
+  "userAcceptedReuse": 12,
+  "generatedAwaitingUserReview": 18,
+  "remainingUngeneratedProposed": 342,
+  "executedOriginalBatch": "2A 其余白绿共用件",
+  "deferredOriginalPilot": "1A/1B/1C 共27张套装试产",
+  "remainingBatchAuthorization": "not inferred from this batch",
+  "sourceSha256": "861037b873b7d22750a68e891e8f6ad5fa8c3084bdbaf027f74fa0f907ff174b",
+  "tasks": [
+    {
+      "artKey": "terran/attribute/weapon_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-terran-weapon-production-basic.png",
+        "bytes": 2090541,
+        "sha256": "a2543a8d7fa3f46958221605e899cd0eee13f4ec3011ff6c1fcb80b8c4545e90"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-terran-weapon-production-basic.webp",
+        "bytes": 10958,
+        "sha256": "ccdd3058687be1402431e5a814496831ae1adece9f53c6f3d8fd71800b1cb186"
+      }
+    },
+    {
+      "artKey": "zerg/attribute/weapon_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-zerg-weapon-production-basic.png",
+        "bytes": 1933802,
+        "sha256": "384f6f1e7ee99fe26c46bda045e38227bf74beb4939b27a7d9c4b47681b0ca40"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-zerg-weapon-production-basic.webp",
+        "bytes": 11454,
+        "sha256": "97b96b5f3ebe884dfb15ac5382360be8d36f286a7320004e8c376ba3f18782fe"
+      }
+    },
+    {
+      "artKey": "protoss/attribute/weapon_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-protoss-weapon-production-basic.png",
+        "bytes": 1873495,
+        "sha256": "ff3823ffa50f4ab6bf0d2137afde6caf5a52ee05e382c384b1c53723a595213a"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-protoss-weapon-production-basic.webp",
+        "bytes": 11608,
+        "sha256": "8dcad8cf35e9ff0ab7905beeb5bb2152f177a6e6d4c680a9b17e87427a3ea113"
+      }
+    },
+    {
+      "artKey": "terran/attribute/ammo_research/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-terran-ammo-research-basic.png",
+        "bytes": 1924267,
+        "sha256": "971995c1a3eab1c762fd6f9faa0a9646376ade3890259ae69a7371fad5da4e2e"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-terran-ammo-research-basic.webp",
+        "bytes": 9134,
+        "sha256": "864c1fcfeb3d1f4d1c03635babcc4584d3e26219dbe5534591acfe6daeba7dc9"
+      }
+    },
+    {
+      "artKey": "zerg/attribute/ammo_research/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-zerg-ammo-research-basic.png",
+        "bytes": 1962281,
+        "sha256": "6534b2246b5f65d83e5488f688fe066b2c71af8a639d038f207c52a5f219f762"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-zerg-ammo-research-basic.webp",
+        "bytes": 11998,
+        "sha256": "7c75789140b1588de4afb55795238e332edf00acc11512d5f8c092cdda65ef3f"
+      }
+    },
+    {
+      "artKey": "protoss/attribute/ammo_research/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-protoss-ammo-research-basic.png",
+        "bytes": 1933294,
+        "sha256": "abcb2cd7f186287d34e0e301464c6c9a65f26c8319c504dc89edac970e9b90ba"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-protoss-ammo-research-basic.webp",
+        "bytes": 12658,
+        "sha256": "3e44f8567eb8b2a4147089535b998cd0324599f94729794d73890f8849e9dcea"
+      }
+    },
+    {
+      "artKey": "terran/attribute/ammo_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-terran-ammo-production-basic.png",
+        "bytes": 2241684,
+        "sha256": "6f6a6b9116f404b0d1fc250a2e06ef6322aa9c7822b63d102bec6c5a23c3018e"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-terran-ammo-production-basic.webp",
+        "bytes": 13062,
+        "sha256": "a5823635877326f855bd14276871d4679a8342a07f4bada4a418a52d924d63ea"
+      }
+    },
+    {
+      "artKey": "zerg/attribute/ammo_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-zerg-ammo-production-basic.png",
+        "bytes": 2008146,
+        "sha256": "fd3ec0537db0c50cae2240b6d7be57c8c65e56d6e20ccf89925fcccb17206bb4"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-zerg-ammo-production-basic.webp",
+        "bytes": 12744,
+        "sha256": "548f6024b0b7a1968115454a13c2c413a0aec063693f7096a37cbdfbfc464b8b"
+      }
+    },
+    {
+      "artKey": "protoss/attribute/ammo_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-protoss-ammo-production-basic.png",
+        "bytes": 1933319,
+        "sha256": "c8362e7de368087d6c4b3e74cdb8810966a0d4e5d90b984586886e6e3ef45f6e"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-protoss-ammo-production-basic.webp",
+        "bytes": 12364,
+        "sha256": "52f3aeec0f08f76ca5258d6acd83f7ea1f3014f0cd11a223f4df342eef40b67c"
+      }
+    },
+    {
+      "artKey": "terran/attribute/armor_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-terran-armor-production-basic.png",
+        "bytes": 2180760,
+        "sha256": "a04332a385abb100cf6c2b46b95e33d730652bce3ef7c0cb88b4eb58e9d30763"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-terran-armor-production-basic.webp",
+        "bytes": 11934,
+        "sha256": "a3def559917c166ecd814eb2f9a4f8fdcb3e148d3b97779c43f154ddf3f01327"
+      }
+    },
+    {
+      "artKey": "zerg/attribute/armor_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-zerg-armor-production-basic.png",
+        "bytes": 2015765,
+        "sha256": "0284151c5a7fbe57d44b91e26d045d34a36a3c412edf1bc7da0098d57a29e5b4"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-zerg-armor-production-basic.webp",
+        "bytes": 12480,
+        "sha256": "0e918e7f94bc98160cb0754b5335b6e46e0ac60adb9ae722bb0d15d55f66f71e"
+      }
+    },
+    {
+      "artKey": "protoss/attribute/armor_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-protoss-armor-production-basic.png",
+        "bytes": 1861348,
+        "sha256": "b3436e8b8b156667bf3016ca1814c66e12f9e9331fcaa7a48a9544f9e0985926"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-protoss-armor-production-basic.webp",
+        "bytes": 11068,
+        "sha256": "0c3725ba554e5ccee4b9dd0764f2e6fb4c4ad539f99007706c728540be2e83b5"
+      }
+    },
+    {
+      "artKey": "terran/attribute/power_research/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-terran-power-research-basic.png",
+        "bytes": 2059443,
+        "sha256": "8ec4a84952a9f101c841837337fbc8886d4075035324e9673d5080e6168b9af9"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-terran-power-research-basic.webp",
+        "bytes": 12238,
+        "sha256": "8c2a78be1eaa7c881d9c5e07fe33151cb594b55cf549863ffeeefaa317d2e7ef"
+      }
+    },
+    {
+      "artKey": "zerg/attribute/power_research/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-zerg-power-research-basic.png",
+        "bytes": 1977183,
+        "sha256": "769f79e3e3b833800176604ffb9b5177ede673a0b8c9a641a37ab9b00bc30301"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-zerg-power-research-basic.webp",
+        "bytes": 12024,
+        "sha256": "b3432c0135c19f9e019ad7fe2e677dc41c2d0b387faa71857379b22d9b30a9c1"
+      }
+    },
+    {
+      "artKey": "protoss/attribute/power_research/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-protoss-power-research-basic.png",
+        "bytes": 1851772,
+        "sha256": "b29066e8c375baadb4be7759f2125d66e7b54545c95f7a89b63bf89c02082ce3"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-protoss-power-research-basic.webp",
+        "bytes": 10038,
+        "sha256": "17d98772aab800da47796fccb2ef3fb365be381776cebcffe77494d8cf6fb7e9"
+      }
+    },
+    {
+      "artKey": "terran/attribute/power_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-terran-power-production-basic.png",
+        "bytes": 2122861,
+        "sha256": "3ca500abd4a47eeec07af4123146329c079b3992ac73d9a7ee1a128f50a84879"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-terran-power-production-basic.webp",
+        "bytes": 12072,
+        "sha256": "e0369d75e6ff02682249da8ecdc6d81fde04a770847924d480fec810dac356ab"
+      }
+    },
+    {
+      "artKey": "zerg/attribute/power_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-zerg-power-production-basic.png",
+        "bytes": 1930945,
+        "sha256": "2e701dda30c05e0ec14ecedaff596cba0cd54870b06b186972753217002dbccc"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-zerg-power-production-basic.webp",
+        "bytes": 11096,
+        "sha256": "802240cc416e76540571ca42106c2b7a510aaa461489ef2f46313ad860bf05d9"
+      }
+    },
+    {
+      "artKey": "protoss/attribute/power_production/basic",
+      "status": "generated_awaiting_user_review",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/art-source/wg-protoss-power-production-basic.png",
+        "bytes": 1957403,
+        "sha256": "0104a895c0eb71045114758d9eb30e1d05f2aad12eebc529332bca64fbc74650"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261014-r9/assets/sample-wg-protoss-power-production-basic.webp",
+        "bytes": 12996,
+        "sha256": "a34e9167201942914592b7a60a315c1c5397054dbc550c26584b8081eeba43ef"
+      }
+    }
+  ],
+  "evidence": "../../../reports/local/starship-ui-20261014-r9/delivery.json"
+}

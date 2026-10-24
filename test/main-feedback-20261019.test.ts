@@ -15,8 +15,8 @@ test('Boss Reaper absorbed by Lone Hunter settles once and simulation continues'
  const arrivals=takeUnitArrivals(w);assert.equal(arrivals.length,1);assert.ok(arrivals[0].absorbedBy);const time=w.time;w.step();assert.ok(w.time>time);
  }
 });
-test('in-page continuation preserves live combat, equipment, pending decisions and reward phases without serialization',()=>{
- for(const phase of ['battle','reward','won','endless-ready'] as const){const w=make(),session=new RunSession(w,null,{run:null,savedAt:0,notice:''});w.phase=phase;w.time=31;w.wallet.minerals=123;const entities=w.entities,ship=w.starship,expedition=w.expedition,run=w.runId;
+test('isolated in-page continuation preserves live combat, equipment, pending decisions and reward phases without serialization',()=>{
+ for(const phase of ['battle','reward','won','endless-ready'] as const){const w=make(),session=new RunSession(w,null,{run:null,savedAt:0,notice:'',memoryOnly:true});w.phase=phase;w.time=31;w.wallet.minerals=123;const entities=w.entities,ship=w.starship,expedition=w.expedition,run=w.runId;
  w.captureRun=()=>{throw Error('must not serialize');};session.keepRun();assert.equal(w.phase,'menu');assert.ok(session.canResume);w.step();assert.equal(w.time,31);assert.equal(ship.account.run!.ended,false);
  assert.ok(session.resume());assert.equal(w.phase,phase);assert.equal(w.runId,run);assert.equal(w.entities,entities);assert.equal(w.starship,ship);assert.equal(w.expedition,expedition);assert.equal(w.wallet.minerals,123);assert.equal(session.canResume,false);if(phase==='battle')assert.equal(w.paused,true);
  session.keepRun();w.resetRun();assert.equal(session.canResume,false);

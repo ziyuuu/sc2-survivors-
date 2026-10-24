@@ -1,0 +1,20 @@
+import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {build} from 'esbuild';
+const variant=process.argv[2]??'candidate-r1',root='reports/local/performance-d03-20261021',web='preview/performance-d03-20261021-'+variant,previous='preview/performance-d02-low-20261021-candidate-r3',frozen=root+'/baseline-inputs';
+const changes=['src/simulation/world.ts','src/simulation/starship/types.ts','src/simulation/starship/loot-presentation.ts','src/simulation/stage-loot.ts'];
+const hash=b=>createHash('sha256').update(b).digest('hex'),original=JSON.parse(await fs.readFile(previous+'/build-inputs.json'));
+await fs.mkdir(web,{recursive:false});for(const name of ['main.ts','surface.ts','main.css','index.html','current.json','runtime-config.json'])await fs.copyFile(previous+'/'+name,web+'/'+name);
+await fs.appendFile(web+'/main.ts',"\nimport * as D03 from '../../tools/performance-d03-runtime';globalThis.D03=D03;\n");
+const loaded=new Map(),overrides=[];
+function plugin(baseline=false){return {name:'accepted-d02-and-explicit-stage-loot-policy',setup(b){b.onLoad({filter:/\.(ts|mts|css|json|m?js)$/},async a=>{
+ const file=path.relative(process.cwd(),a.path).replaceAll('\\','/');let bytes=await fs.readFile(a.path);
+ if(file.startsWith('src/')&&(baseline||!changes.includes(file))){const old=await fs.readFile(frozen+'/'+file);if(!bytes.equals(old))overrides.push(file);bytes=old;}
+ loaded.set(file,bytes);const ext=path.extname(file);return {contents:bytes,loader:ext==='.mjs'?'js':ext==='.mts'?'ts':ext.slice(1),resolveDir:path.dirname(a.path)};
+ });}};}
+const result=await build({entryPoints:[web+'/main.ts'],bundle:true,platform:'browser',format:'iife',target:'es2022',outfile:web+'/main.js',metafile:true,define:{'import.meta.env.DEV':'true','import.meta.env.PROD':'false'},plugins:[plugin()]});
+const inputs=[];for(const [file,bytes] of loaded){const source=file.startsWith('src/')&&changes.includes(file)?root+'/'+variant+'-inputs/'+file:file.startsWith('src/')?frozen+'/'+file:file;inputs.push({file,bytes:bytes.length,sha256:hash(bytes),source});if(changes.includes(file)){await fs.mkdir(path.dirname(source),{recursive:true});await fs.writeFile(source,bytes);}}
+const outputs=[];for(const name of ['main.js','main.css','index.html','current.json','runtime-config.json']){const bytes=await fs.readFile(web+'/'+name);outputs.push({file:web+'/'+name,bytes:bytes.length,sha256:hash(bytes)});}
+const production=inputs.filter(f=>f.file.startsWith('src/'));assert.equal(production.length,418);for(const f of production)if(!changes.includes(f.file))assert.equal(f.sha256,original.inputs.find(o=>o.file===f.file)?.sha256,f.file);
+await fs.writeFile(web+'/build-inputs.json',JSON.stringify({variant,scope:'Accepted D02 three-tier build with four explicit production files for stage-based ground loot retention. Other workflow economic-egg input remains frozen. Shared original asset paths; no copied asset tree.',baseline:previous,changes,inputs,outputs,overrides,metafile:result.metafile},null,2)+'\n');
+const nodeBuilds=[];
+for(const baseline of [true,false]){loaded.clear();const outfile=root+'/'+variant+'-'+(baseline?'baseline':'candidate')+'.cjs';await build({entryPoints:['tools/performance-d03-runtime.ts'],bundle:true,platform:'node',format:'cjs',target:'node22',outfile,metafile:true,plugins:[plugin(baseline)]});const bytes=await fs.readFile(outfile);nodeBuilds.push({file:outfile,bytes:bytes.length,sha256:hash(bytes),inputs:[...loaded].map(([file,bytes])=>({file,sha256:hash(bytes)}))});}
+await fs.writeFile(root+'/'+variant+'-node-builds.json',JSON.stringify(nodeBuilds,null,2)+'\n');console.log(JSON.stringify({variant,production:production.length,changes,main:outputs[0],nodeBuilds:nodeBuilds.map(({inputs,...rest})=>rest)}));

@@ -1,4 +1,6 @@
 import {equipmentNativeWeaponBudget} from './weapon-budget';
+import {teamCardEffects} from '../progression/team-cards';
+import {uniqueActiveStats} from '../combat/unique-support';
 import {newEquipmentLootRuntime,type EquipmentLootRuntime} from './loot-presentation';
 import {tickEquipmentFortifications,type EquipmentFortRecord} from './fortifications';
 import {newEquipmentHeroRuntime,equipmentDevourSpeed,equipmentDevourWeapon,equipmentBanelingFactor,type EquipmentHeroRuntime} from './hero-advancements';
@@ -17,7 +19,7 @@ import type {World} from '../world';
 import type {Body,Entity} from '../types';
 import type {Race} from '../../data/races';
 import {equippedItems,newEquipmentAccount,equip,unequip,beginEquipmentRun,equipmentRandom} from './inventory';
-import {emptyTotals,totalAttributes,identityFactors} from './attributes';
+import {emptyTotals,totalAttributes,identityFactors,rankEquipmentBonus} from './attributes';
 import {equipmentTemplate} from './catalog';
 import type {ActiveEquipmentEffect} from './selection';
 import {activeEquipmentEffects,equipmentValue,initializeEquipmentMembers,tickEquipmentModules,equipmentEngagementTarget,type EquipmentMemberSource,type PendingEquipmentMember} from './modules';
@@ -37,30 +39,35 @@ export interface StarshipRuntime {
  hero:EquipmentHeroRuntime;
  battleView?:()=>import('../combat/battle-view').BattleView|undefined;advancedBodies:Map<number,AdvancedEquipmentBody>;nativeHeroes:Map<number,EquipmentNativeHero>;skillSources:Map<number,Entity>;yamatoSequences:EquipmentYamatoSequence[];
  captured:Map<number,CapturedEquipmentBody>;packetOwners:WeakMap<object,{owner:Body['owner'];source:number}>;life:EquipmentLifeRuntime;projections:Map<number,EquipmentProjection>;barriers:Map<number,EquipmentBarrier[]>;combat:EquipmentCombatRuntime;combatSources:Map<number,Entity>;bounty?:EquipmentBounty;
- cards:{id:string;reward:ExpeditionReward;variant?:EliteId;origin:'purchase'|'drop'}[];account:EquipmentAccount;enabled:boolean;derivedEnemies:Set<number>;revision:number;race:Race;totals:EquipmentTotals;
+ cards:{id:string;reward:ExpeditionReward;variant?:EliteId;origin:'purchase'|'drop'}[];account:EquipmentAccount;enabled:boolean;derivedEnemies:Set<number>;revision:number;race:Race;totals:EquipmentTotals;highQualityTotals:EquipmentTotals;
  native:WeakMap<Entity,NativeStats>;nativeTargets:WeakMap<Entity,number>;attacks:WeakMap<object,AttackBudget>;attackSources:WeakMap<object,Entity>;active:AttackBudget|null;
  cycles:Map<string,number>;numbers:Map<string,number>;strikes:EquipmentSupportStrike[];burnZones:EquipmentBurnZone[];supportSequences:EquipmentSupportSequence[];
  effectsRevision:number;effectsRace:Race;effects:ActiveEquipmentEffect[];
  members:Map<number,EquipmentMemberSource>;boundMembers:Map<string,number>;pendingMembers:PendingEquipmentMember[];window:{id:number;shop:number;development:number};
 }
-export function newStarshipRuntime(account?:EquipmentAccount,enabled=account!==undefined):StarshipRuntime{return {loot:newEquipmentLootRuntime(),forts:new Map(),hero:newEquipmentHeroRuntime(),advancedBodies:new Map(),nativeHeroes:new Map(),skillSources:new Map(),yamatoSequences:[],captured:new Map(),packetOwners:new WeakMap(),life:newEquipmentLife(),projections:new Map(),barriers:new Map(),combat:newEquipmentCombat(),combatSources:new Map(),cards:[],account:account??newEquipmentAccount(),enabled,derivedEnemies:new Set(),revision:-1,race:'terran',totals:emptyTotals(),native:new WeakMap(),nativeTargets:new WeakMap(),attacks:new WeakMap(),attackSources:new WeakMap(),active:null,cycles:new Map(),numbers:new Map(),strikes:[],burnZones:[],supportSequences:[],effectsRevision:-1,effectsRace:'terran',effects:[],members:new Map(),boundMembers:new Map(),pendingMembers:[],window:{id:0,shop:0,development:0}};}
-export function equipmentTotals(w:World){const s=w.starship,race=w.expedition.race;if(s.revision!==s.account.revision||s.race!==race){s.race=race;s.revision=s.account.revision;s.totals=totalAttributes(equippedItems(s.account,s.race));}return s.totals;}
-export function equipmentRecipient(w:World,u:Entity){return u.owner==='terran'&&u.team==='player'&&!u.attributes.includes('Structure')&&!['scv','drone','probe'].includes(u.unitType);}
+export function newStarshipRuntime(account?:EquipmentAccount,enabled=account!==undefined):StarshipRuntime{return {loot:newEquipmentLootRuntime(),forts:new Map(),hero:newEquipmentHeroRuntime(),advancedBodies:new Map(),nativeHeroes:new Map(),skillSources:new Map(),yamatoSequences:[],captured:new Map(),packetOwners:new WeakMap(),life:newEquipmentLife(),projections:new Map(),barriers:new Map(),combat:newEquipmentCombat(),combatSources:new Map(),cards:[],account:account??newEquipmentAccount(),enabled,derivedEnemies:new Set(),revision:-1,race:'terran',totals:emptyTotals(),highQualityTotals:emptyTotals(),native:new WeakMap(),nativeTargets:new WeakMap(),attacks:new WeakMap(),attackSources:new WeakMap(),active:null,cycles:new Map(),numbers:new Map(),strikes:[],burnZones:[],supportSequences:[],effectsRevision:-1,effectsRace:'terran',effects:[],members:new Map(),boundMembers:new Map(),pendingMembers:[],window:{id:0,shop:0,development:0}};}
+export function equipmentTotals(w:World){const s=w.starship,race=w.expedition.race;if(s.revision!==s.account.revision||s.race!==race){s.race=race;s.revision=s.account.revision;const items=equippedItems(s.account,s.race);s.totals=totalAttributes(items);s.highQualityTotals=totalAttributes(items.filter(item=>item.quality>=4));}return s.totals;}
+export function equipmentRecipient(w:World,u:Entity){return !u.mission?.holdout&&!u.mission?.fleet&&u.owner==='terran'&&u.team==='player'&&!u.attributes.includes('Structure')&&!['scv','drone','probe'].includes(u.unitType);}
 const isChild=(u:Entity)=>u.summonKind==='interceptor';
 function parent(w:World,u:Entity){return isChild(u)?w.entities.get(u.summonOwnerId!):u;}
 function budgetShare(w:World,u:Entity){const owner=parent(w,u);return owner&&isChild(u)?1/Math.max(1,[...w.entities.values()].filter(child=>isChild(child)&&child.summonOwnerId===owner.id&&child.hp>0).length):1;}
 const nonempty=(totals:ReturnType<typeof equipmentUnitTotals>)=>Object.entries(totals).some(([key,value])=>['lifeFactor','exclusiveHealth','exclusiveShield','burstFactor'].includes(key)?value!==1:!!value);
 export function equipmentUnitTotals(w:World,u:Entity){const owner=parent(w,u)??u,t={...equipmentTotals(w),shieldPercent:0,armorPercent:0,native:0,lifeFactor:1,exclusiveHealth:1,exclusiveShield:1,burstFactor:(w.starship.numbers.get('drop-speed:'+u.id)??0)>w.time?2:1},ordinary=!owner.heroId&&!owner.eliteId&&owner.enemyTier!=='elite';
+ const high=w.starship.highQualityTotals,rankBonus=rankEquipmentBonus(owner);let highDps=high.dps,highHp=high.hp;
  for(const effect of activeEquipmentEffects(w)){const [scope,key]=effect.key.split('.'),bound=equipmentBoundBody(w,effect,owner);
   if(scope==='stat'||scope==='bound'&&bound||scope==='elite'&&(!!owner.eliteId||owner.enemyTier==='elite')||scope==='ordinary'&&ordinary&&permanentEquipmentBody(w,owner)||scope==='direction'&&ordinary&&permanentEquipmentBody(w,owner)&&directionMatches(effect.binding,owner.unitType)){
    if(scope==='bound'&&effect.quality===5&&(key==='health'||key==='shield')){if(key==='health')t.exclusiveHealth*=1+effect.values[0];else t.exclusiveShield*=1+effect.values[0];}
    else {if(key in t)t[key as keyof typeof t]+=effect.values[0];if(key==='shield')t.shieldPercent+=effect.values[0];}
   }
-  if(effect.key==='white_dps')t.dps+=equipmentTotals(w).dps*effect.values[0];if(effect.key==='white_hp')t.hp+=equipmentTotals(w).hp*effect.values[0];if(effect.key==='white_armor')t.armor+=equipmentTotals(w).armor*effect.values[0];if(effect.key==='armor_percent')t.armorPercent+=effect.values[0];
+  if(effect.key==='white_dps'){t.dps+=equipmentTotals(w).dps*effect.values[0];highDps+=high.dps*effect.values[0];}if(effect.key==='white_hp'){t.hp+=equipmentTotals(w).hp*effect.values[0];highHp+=high.hp*effect.values[0];}if(effect.key==='white_armor')t.armor+=equipmentTotals(w).armor*effect.values[0];if(effect.key==='armor_percent')t.armorPercent+=effect.values[0];
   if(effect.key==='adventurer'||effect.key==='adventurer_replace')t.lifeFactor=Math.min(t.lifeFactor,1-effect.values[0]);
   if(effect.key==='bound.native_tier'&&bound)t.native+=effect.values[(effect.pieces??0)>=6?1:0];
  }
- const boost=equipmentControlBoost(w,u);if(boost){t.move+=boost.values[4];t.dodge+=boost.values[6];t.crit+=boost.values[7];t.critDamage+=boost.values[8];t.trueDps+=boost.values[9];}const growth=w.starship.numbers.get('devour-growth')??0;t.attack+=growth;t.health+=growth;return t;
+ t.dps+=highDps*rankBonus;t.trueDps+=high.trueDps*rankBonus;t.hp+=highHp*rankBonus;
+ const boost=equipmentControlBoost(w,u);if(boost){t.move+=boost.values[4];t.dodge+=boost.values[6];t.crit+=boost.values[7];t.critDamage+=boost.values[8];t.trueDps+=boost.values[9];}const growth=w.starship.numbers.get('devour-growth')??0;t.attack+=growth;t.health+=growth;
+ // Native pools already contain team cards. Extend only their additive gear pools here;
+ // projections freeze these totals, and fixed true DPS keeps its separate budget.
+ if(equipmentRecipient(w,u)){const team=teamCardEffects(w.expedition);t.dps*=1+team.damage+uniqueActiveStats(w,u).damage;t.hp*=1+team.health;}return t;
 }
 /** Remove only this layer before rebuilding native stats. Wounds remain fractions during the rebuild. */
 export function detachEquipmentStats(w:World,u:Entity){const previous=w.starship?.native.get(u);if(!previous)return;const hpRatio=u.maxHp>0?u.hp/u.maxHp:0,shieldRatio=(u.maxShield??0)>0?(u.shield??0)/u.maxShield!:0;
@@ -116,10 +123,10 @@ export function equipmentDodge(w:World,u:Entity){return equipmentRecipient(w,u)?
 export function equipmentRecoveryFactor(w:World,u:Entity){return equipmentRecipient(w,u)?1+equipmentUnitTotals(w,u).defense/1000:1;}
 
 export function tickStarship(w:World){const a=w.starship.account;if(!w.starship.enabled||!a.run||a.run.ended||w.phase!=='battle'||w.paused||w.requiresPlayerDecision)return;
- tickEquipmentLife(w);tickEquipmentProjections(w);tickEquipmentControls(w);tickEquipmentDefense(w);tickEquipmentRecall(w);tickEquipmentModules(w);tickEquipmentEconomy(w);tickEquipmentGrowth(w);tickEquipmentCombat(w);collectNearbyEquipment(w);
+ tickEquipmentLife(w);tickEquipmentProjections(w);tickEquipmentControls(w);tickEquipmentDefense(w);tickEquipmentRecall(w);if(!w.specialStages.active){tickEquipmentModules(w);tickEquipmentEconomy(w);}tickEquipmentGrowth(w);tickEquipmentCombat(w);collectNearbyEquipment(w);
  for(const effect of activeEquipmentEffects(w)){const key=effect.source+':'+effect.key,ready=w.starship.cycles.get(key);
   if(ready===undefined||w.time+1e-8<ready)continue;
-  if(effect.key==='periodic_resources'){equipmentPeriodicResources(w,effect.source,effect.values[1],effect.values[2]);w.starship.cycles.set(key,ready+effect.values[0]);const source=w.allies()[0];if(source)w.effect('heal',source,source,.4,.4);}
+  if(effect.key==='periodic_resources'&&!w.specialStages.active){equipmentPeriodicResources(w,effect.source,effect.values[1],effect.values[2]);w.starship.cycles.set(key,ready+effect.values[0]);const source=w.allies()[0];if(source)w.effect('heal',source,source,.4,.4);}
  }
  tickEquipmentSupport(w);tickAdvancedEquipmentSupport(w);const last=w.starship.numbers.get('fort-last-time')??w.time;tickEquipmentFortifications(w,Math.max(0,w.time-last));w.starship.numbers.set('fort-last-time',w.time);
 }

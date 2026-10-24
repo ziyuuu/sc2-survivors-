@@ -1,0 +1,44 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+const root='reports/local/g03-farm-minor-20261023',plan=JSON.parse(fs.readFileSync(root+'/plan.json','utf8'));
+const sha=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex'),round=n=>Math.round(n*1e6)/1e6;
+const attributeSlots=['offense1','offense2','offense3','offense4','defense1','defense2','defense3','defense4'];
+const quality=(a,race)=>attributeSlots.reduce((out,s)=>{const q=a.items[a.equipped[race][s]].quality;out[q]=(out[q]??0)+1;return out;},{});
+const counts=rows=>rows.reduce((out,k)=>(out[k]=(out[k]??0)+1,out),{});
+function summarize(file){
+ const d=JSON.parse(fs.readFileSync(file,'utf8'));assert(!d.issue,file);assert(['entered-endless','lost','wall-censored','step-censored'].includes(d.stop));
+ assert.equal(d.runtimeBinding.sourceManifestSha256,sha(d.runtimeBinding.sourceManifest));
+ for(const [p,h] of Object.entries(d.runtimeBinding.tools))assert.equal(sha(p),h,p);
+ for(const residual of Object.values(d.economyAudit.reconciliation))assert.equal(residual,0,file);
+ const events=d.policyDetails.events,repairs=events.filter(e=>e.kind==='repair'&&e.data.ok),shops=events.filter(e=>e.kind==='shop-purchase'&&e.data.ok),training=shops.filter(e=>e.data.offer.expeditionEffect.kind==='training');
+ const changes=training.flatMap(e=>e.data.after.units.flatMap(u=>{const old=e.data.before.units.find(v=>v.id===u.id);return old&&u.rank>old.rank?[{id:u.id,type:u.type,before:old.rank,after:u.rank}]:[];}));
+ const deliveryRows=d.final.ledger.flatMap(j=>j.passengers.map((p,index)=>({job:j.id,index,family:j.family,...p})));
+ const deliveryEvents=d.deliveryEvents.filter(e=>e.kind==='passenger-status'&&e.source==='ledger');
+ const lossReasons=deliveryRows.filter(p=>p.status==='lost').map(p=>{const log=deliveryEvents.findLast(e=>e.job===p.job&&e.index===p.index&&e.status==='lost');assert(log,'Missing loss cause '+file+'/'+p.job+'/'+p.index);return log.cause;});
+ const pressure=d.pressure??[],perStage=[...new Set(pressure.map(s=>s.stage))].map(stage=>{const a=pressure.filter(p=>p.stage===stage);return {stage,samples:a.length,minUnits:Math.min(...a.map(p=>p.units)),minHpFraction:Math.min(...a.map(p=>p.hpFraction)),fractionBelowHalf:round(a.filter(p=>p.hpFraction<.5).length/a.length)};});
+ return {id:d.id,race:d.race,difficulty:d.difficulty,tier:d.tier,seed:d.seed,map:d.map,stop:d.stop,stage:d.stage,notice:d.final.notice,time:d.time,steps:d.steps,wallSeconds:d.wallSeconds,
+  deathEvents:d.deathRows.length,heroDeathEvents:d.deathRows.filter(e=>e.hero).length,repairCount:repairs.length,repairMinerals:repairs.reduce((n,e)=>n+e.data.quote.minerals,0),repairGas:repairs.reduce((n,e)=>n+e.data.quote.gas,0),paidHeroRevivals:events.filter(e=>e.kind==='hero-revive'&&e.data.ok).length,
+  acceptedPodLurkerDeployOrders:events.filter(e=>e.kind==='pod-lurker-deploy').length,
+  development:events.filter(e=>e.kind==='development-purchase'&&e.data.ok).length,shopPurchases:shops.length,trainingCards:training.length,actualUnitRankIncreases:changes.length,unitRankChanges:changes,shopKinds:counts(shops.map(e=>e.data.offer.expeditionEffect.kind)),
+  wallet:{minerals:round(d.final.wallet.minerals),gas:round(d.final.wallet.gas)},nativeEconomy:d.final.economy,productionGroups:d.final.groups,finalAllies:d.final.allies,heroes:d.final.heroes,
+  openingQuality:quality(d.opening,d.race),finalQuality:quality(d.finalAccount,d.race),changedSlots:attributeSlots.filter(s=>d.opening.equipped[d.race][s]!==d.finalAccount.equipped[d.race][s]),
+  deliveries:counts(deliveryRows.map(p=>p.purpose+'/'+p.status)),deliveryLossReasons:counts(lossReasons),deliveryLostPaid:{minerals:deliveryRows.filter(p=>p.status==='lost').reduce((n,p)=>n+p.paid.minerals,0),gas:deliveryRows.filter(p=>p.status==='lost').reduce((n,p)=>n+p.paid.gas,0)},
+  deliveryLossReasonsByPurpose:counts(deliveryRows.filter(p=>p.status==='lost').map((p,i)=>p.purpose+'/'+lossReasons[i])),
+  specialStages:d.specials.map(s=>({kind:s.kind,stage:s.stage,participants:s.participants})),outsidePlacements:d.specials.reduce((n,s)=>n+s.outside.length,0),pressureByStage:perStage,stageEnds:d.stages.filter(s=>s.phase==='reward').map(s=>({stage:s.stage,stageElapsed:s.stageElapsed,units:s.allies.length,wallet:s.wallet})),
+  sourceManifest:d.runtimeBinding.sourceManifest,sourceManifestSha256:d.runtimeBinding.sourceManifestSha256,toolBindings:d.runtimeBinding.tools,reconciliation:d.economyAudit.reconciliation,file,sha256:sha(file)};
+}
+const rows=[],missing=[],originalRows=[],correctedRows=[];
+for(const c of plan.cases){const id=[c.version,c.policy,c.race,c.difficulty,c.tier,c.seed].join('-'),file=root+'/routes/'+id+'.json';if(fs.existsSync(file)&&!fs.existsSync(file+'.lock'))originalRows.push(summarize(file));const chosen=root+(c.race==='zerg'?'/mode-routes/':'/routes/')+id+'.json';if(!fs.existsSync(chosen)||fs.existsSync(chosen+'.lock'))missing.push(id);else{const row=summarize(chosen);rows.push(row);if(c.race==='zerg')correctedRows.push(row);}}
+const groups=[];for(const difficulty of ['hard','hell'])for(const tier of ['farm','minor']){const a=rows.filter(r=>r.difficulty===difficulty&&r.tier===tier);groups.push({difficulty,tier,total:a.length,entered:a.filter(r=>r.stop==='entered-endless').length,lost:a.filter(r=>r.stop==='lost').length,censored:a.filter(r=>r.stop.endsWith('censored')).length,deaths:a.map(r=>r.deathEvents),repairs:a.map(r=>r.repairMinerals),upgradeChanges:a.map(r=>r.changedSlots.length)});}
+const diagnosticFiles=['after-spending-protoss-easy-graduation-529','after-audited-protoss-easy-graduation-529'].map(id=>root+'/diagnostic/'+id+'.json');
+const old=JSON.parse(fs.readFileSync(diagnosticFiles[0],'utf8')),prior=JSON.parse(fs.readFileSync('reports/local/g03-growth-consumption-20261023/repaired-routes/after-spending-protoss-easy-graduation-529.json','utf8'));
+for(const key of ['steps','stop','stage','final','finalAccount'])assert.deepEqual(old[key],prior[key],key);
+const oldTools={};for(const [f,h] of Object.entries(old.runtimeBinding.tools)){const frozen=root+'/diagnostic/tools/'+f;assert.equal(sha(frozen),h);oldTools[f]={file:frozen,sha256:h};}
+const oldEvents=old.deliveryEvents.filter(e=>e.kind==='passenger-status'&&e.source==='ledger'&&e.status==='lost');assert.equal(oldEvents.length,33);assert(oldEvents.every(e=>e.cause==='pod-hp-depleted'));
+const audited=summarize(diagnosticFiles[1]);
+const report={date:'2026-10-23',complete:rows.length===24,planned:24,count:rows.length,missing,counts:{total:rows.length,entered:rows.filter(r=>r.stop==='entered-endless').length,lost:rows.filter(r=>r.stop==='lost').length,censored:rows.filter(r=>r.stop.endsWith('censored')).length},groups,rows,diagnostic:{scope:'Two separate diagnostic runs, not counted in the 24. Same initial account and game source; revised policy changes later RNG through different actions.',originalReproduction:{file:diagnosticFiles[0],sha256:sha(diagnosticFiles[0]),matchesPrior:['steps','stop','stage','final','finalAccount'],sourceFile:'reports/local/g03-growth-consumption-20261023/repaired-routes/after-spending-protoss-easy-graduation-529.json',sourceSha256:sha('reports/local/g03-growth-consumption-20261023/repaired-routes/after-spending-protoss-easy-graduation-529.json'),tools:oldTools,losses:33,lossCause:'pod-hp-depleted',deathEvents:old.deathRows.length,openingQuality:quality(old.opening,old.race),finalQuality:quality(old.finalAccount,old.race)},audited},limits:'Current source unchanged. Program paths, prepared initial gear, finite seeds. Farm completion versus minor push-over must be evaluated separately; no automatic all-passed conclusion from completion alone. Sampled pressure does not capture every-frame minimum or human difficulty.'};
+const tally=a=>({total:a.length,entered:a.filter(r=>r.stop==='entered-endless').length,lost:a.filter(r=>r.stop==='lost').length,censored:a.filter(r=>r.stop.endsWith('censored')).length});
+report.complete=rows.length===24&&originalRows.length===24&&correctedRows.length===8;
+report.executionCounts={original:tally(originalRows),corrected:tally(correctedRows),formal:tally([...originalRows,...correctedRows]),selected:tally(rows)};
+report.originalRows=originalRows;report.correctedRows=correctedRows;
+report.modeComparison=correctedRows.map(r=>{const old=originalRows.find(o=>o.id===r.id);return {id:r.id,before:{stop:old.stop,stage:old.stage,deaths:old.deathEvents,repairMinerals:old.repairMinerals,deliveries:old.deliveries,file:old.file,sha256:old.sha256},after:{stop:r.stop,stage:r.stage,deaths:r.deathEvents,repairMinerals:r.repairMinerals,deliveries:r.deliveries,file:r.file,sha256:r.sha256}};});
+fs.writeFileSync(root+'/summary-live.json',JSON.stringify(report,null,2));console.log(JSON.stringify({count:rows.length,executionCounts:report.executionCounts,groups,missing:missing.length}));

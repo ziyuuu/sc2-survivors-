@@ -1,0 +1,9 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+const base='reports/local/v01-20261024',plan=JSON.parse(await fs.readFile(base+'/dense-current-comparison-plan.json'));
+plan.candidate='dense-particle-candidate-r3/manifest.json';plan.order=plan.order.map(r=>({...r,run:r.run.replace('dense-current-compare-','dense-r3-compare-'),variant:r.variant==='dense-current-a'?'dense-current-a':'dense-particle-b3',visual:false}));
+plan.visualScope='Independent controlled same-page A/B fixed-camera 120/240/600 checks are in dense-dual-r3-compare. These fresh-profile runs measure one 1800-tick segment without profiling and retain pause screenshots.';plan.priorResults=['dense-current-comparison-result.json (R2 negative, not adopted)','dense-dual-r3-compare/report.json (R3 separate same-page controlled comparison)'];
+await fs.writeFile(base+'/dense-r3-comparison-plan.json',JSON.stringify(plan,null,2),{flag:'wx'});
+await fs.writeFile('tools/run-v01-dense-r3-comparison.mjs',(await fs.readFile('tools/run-v01-dense-comparison.mjs','utf8')).replaceAll('dense-current-comparison-','dense-r3-comparison-'),{flag:'wx'});
+let summary=(await fs.readFile('tools/summarize-v01-dense-comparison.mjs','utf8')).replaceAll('dense-current-comparison-','dense-r3-comparison-');
+const start=summary.indexOf('const visual=[];for('),end=summary.indexOf('\nconst result=',start);assert.ok(start>0&&end>start);summary=summary.slice(0,start)+"const visual=JSON.parse(await fs.readFile(base+'/dense-dual-r3-result.json')).visual;"+summary.slice(end);
+summary=summary.replace('correctnessPass:true','correctnessPass:visual.every(v=>v.stateExact&&v.buffersExact&&v.pngEqual)');await fs.writeFile('tools/summarize-v01-dense-r3-comparison.mjs',summary,{flag:'wx'});console.log('Prepared fresh-profile A1/B1/B2/A2/A3/B3 confirmation plan for R3.');

@@ -1,0 +1,1890 @@
+{
+  "task": "D04 original startup batch completion supplement",
+  "date": "2026-10-21",
+  "status": "locally_complete",
+  "pass": true,
+  "noAdditionalHitchesAccepted": false,
+  "implementation": {
+    "productionFiles": [
+      "src/app/background-preparation.ts",
+      "src/app/bootstrap.ts",
+      "src/render/materials/unit-material-batch.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/render/scene/fort-materials.ts",
+      "src/render/units/animated-batch.ts"
+    ],
+    "scope": "Selected-race original startup roster and actual equipment possibilities, fixed enemies, native/death forms, four endless building templates and flat endless map. Paced model and GPU preparation, chosen Boss reward priority, exact depth-program sharing. Not all game content.",
+    "softCpuBudgetMs": {
+      "normal": 3,
+      "slowFrame": 1.5
+    },
+    "synchronousCallsPreemptible": false,
+    "depthSharing": {
+      "materials": 475,
+      "layouts": 3800,
+      "oldColourDependentKeys": 2384,
+      "exactDepthKeys": 88,
+      "scope": "Generated GLSL fixture keys; not measured runtime GPU program counts."
+    }
+  },
+  "verification": {
+    "regression": {
+      "passed": 1803,
+      "failed": 0,
+      "newTests": 10,
+      "log": "reports/local/performance-d04-complete-20261021/regression-r7.log"
+    },
+    "targeted": {
+      "passed": 18,
+      "log": "reports/local/performance-d04-complete-20261021/targeted-r7.log"
+    },
+    "typecheck": "reports/local/performance-d04-complete-20261021/typecheck-r7.log",
+    "dataCheck": "reports/local/performance-d04-complete-20261021/docs-check-r7.log",
+    "functional": {
+      "checks": 25,
+      "screens": 16,
+      "errors": 0,
+      "report": "reports/local/performance-d04-complete-20261021/functional-r7/report.json"
+    },
+    "source": "reports/local/performance-d04-complete-20261021/verification.json",
+    "assets": "reports/local/performance-d04-complete-20261021/asset-protection-verification.json",
+    "visual": "reports/local/performance-d04-complete-20261021/functional-r7/visual-comparison.json",
+    "allScreens": [
+      {
+        "run": "formal-r5-terran",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r5-terran/cycle0-ready.png",
+        "sha256": "81a5ecfaeeac3d4122c643a5c647884227cfaad055fb788a8b05dc37bb7b214b"
+      },
+      {
+        "run": "formal-r5-terran",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r5-terran/cycle0-stage1-end.png",
+        "sha256": "fc980de4d17ab8be1225e5f76111d29add7b7cf0e6fa70b166dcb773289788ca"
+      },
+      {
+        "run": "formal-r5-terran",
+        "name": "cycle0-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r5-terran/cycle0-stage2-end.png",
+        "sha256": "f96c6e4e395ccededfd0a3d153cf93bad135b9e2ea8a967d14724791b93c5620"
+      },
+      {
+        "run": "formal-r5-terran",
+        "name": "cycle0-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r5-terran/cycle0-stage3-end.png",
+        "sha256": "1c967713ce4214da5475e7060e2551e11c2bd88b9523afd65b850705470d953d"
+      },
+      {
+        "run": "formal-r5-terran",
+        "name": "cycle0-stage4-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r5-terran/cycle0-stage4-end.png",
+        "sha256": "c3313c88ece13c707ae5613e6847d24a75c050da4d39fc3b8e3d73fdc14bb1c5"
+      },
+      {
+        "run": "formal-r5-terran",
+        "name": "cycle0-stage5-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r5-terran/cycle0-stage5-end.png",
+        "sha256": "80d690ed4e4a31086641b030d1b1a6cb0e95c3c4a83589a9b906e8100aad1335"
+      },
+      {
+        "run": "formal-r5-terran",
+        "name": "cycle0-stage6-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r5-terran/cycle0-stage6-end.png",
+        "sha256": "46d7eccfe1615f5dbfb0b4fa2bc92f89bc470147742d3acf233ebbdc934b1a8b"
+      },
+      {
+        "run": "formal-r7-offline",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-offline/cycle0-ready.png",
+        "sha256": "ddbd19e5ac4c85f1617e4f19ea7f3f55c058e27f2eb3f61f668d992d0d749bd1"
+      },
+      {
+        "run": "formal-r7-offline",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-offline/cycle0-stage1-end.png",
+        "sha256": "1b2e5b31cba7e0354af5b1d580b30a1acbc20e58712346ef02ab9bdcc8cfb088"
+      },
+      {
+        "run": "formal-r7-offline",
+        "name": "cycle0-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-offline/cycle0-stage2-end.png",
+        "sha256": "6f39e2c154d63f7411b98f899547cd2beed898212311ed57001bf50cceec461f"
+      },
+      {
+        "run": "formal-r7-offline",
+        "name": "cycle0-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-offline/cycle0-stage3-end.png",
+        "sha256": "3e56145bb21b587015eedc5a70d9ed214c9c6f3bea99e79962e79bad28660330"
+      },
+      {
+        "run": "formal-r7-protoss",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss/cycle0-ready.png",
+        "sha256": "87edfdcbb0eed94a017805b32459f2ecf1fa93be2b8490f37cc544964e2ed6c0"
+      },
+      {
+        "run": "formal-r7-protoss",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss/cycle0-stage1-end.png",
+        "sha256": "117f6b369dd8a413b5c72f319e0451576cecabea6f3cd4a25083a8ff0ea36a80"
+      },
+      {
+        "run": "formal-r7-protoss",
+        "name": "cycle0-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss/cycle0-stage2-end.png",
+        "sha256": "c75ddb4440d7e4e215a1f35daae5d6c1811d266f79f78de488ec3339d4e401b2"
+      },
+      {
+        "run": "formal-r7-protoss",
+        "name": "cycle0-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss/cycle0-stage3-end.png",
+        "sha256": "6184f62a4e263d889ef9ee62e7cfb121c8ad50b3fb3b1eafcae4efadfb91d9f0"
+      },
+      {
+        "run": "formal-r7-protoss",
+        "name": "failure",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss/failure.png",
+        "sha256": "6184f62a4e263d889ef9ee62e7cfb121c8ad50b3fb3b1eafcae4efadfb91d9f0"
+      },
+      {
+        "run": "formal-r7-protoss-blue",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss-blue/cycle0-ready.png",
+        "sha256": "50ffc4125d9dbb63149b756fc49b7bfd9ee48d8d64e7ee336760f80231448360"
+      },
+      {
+        "run": "formal-r7-protoss-blue",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss-blue/cycle0-stage1-end.png",
+        "sha256": "9ff2493f260f7fc3bd950fc4e8e6daae0d7775be0e2be3de135ae077d155ebee"
+      },
+      {
+        "run": "formal-r7-protoss-blue",
+        "name": "cycle0-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss-blue/cycle0-stage2-end.png",
+        "sha256": "81460eb32bf7975ebabdffefe4b3f76d3f2f8b074f7dbbd1c5dd75386dd62fb0"
+      },
+      {
+        "run": "formal-r7-protoss-blue",
+        "name": "cycle0-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss-blue/cycle0-stage3-end.png",
+        "sha256": "1daaa0f32091c6ec47c64ff87a3b6f9cafc1a12ddf07503c70db2e147536ff36"
+      },
+      {
+        "run": "formal-r7-terran",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-terran/cycle0-ready.png",
+        "sha256": "6ac7b5f2885852e8ac5d4ea9d5d6749082f0ca07d9f9189ae2171cecf4dff361"
+      },
+      {
+        "run": "formal-r7-terran",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-terran/cycle0-stage1-end.png",
+        "sha256": "78b15b9df15b8f90b99972810d49b853935401b1fdddc57995723c57ec4c94ba"
+      },
+      {
+        "run": "formal-r7-terran",
+        "name": "cycle0-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-terran/cycle0-stage2-end.png",
+        "sha256": "88c53ddeb7c8c9cfb524de5117e7a7cc4ef2c39cb48167809a34edf1ab7a68e9"
+      },
+      {
+        "run": "formal-r7-terran",
+        "name": "cycle0-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-terran/cycle0-stage3-end.png",
+        "sha256": "d032f1f6bbcc1bb6c01b4db6dacb6280b7ba82aa2df6c8e8c180341d1dfeaa8a"
+      },
+      {
+        "run": "formal-r7-terran",
+        "name": "cycle1-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-terran/cycle1-ready.png",
+        "sha256": "e47f62f96de11970b76aa95417e97d41516f104af24fb5aea949026605ec6659"
+      },
+      {
+        "run": "formal-r7-terran",
+        "name": "cycle1-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-terran/cycle1-stage1-end.png",
+        "sha256": "fb4a0821b193cc0955bb2afbfe2366e5a54a875592f30a4e2ebc96f253d17a31"
+      },
+      {
+        "run": "formal-r7-terran",
+        "name": "cycle1-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-terran/cycle1-stage2-end.png",
+        "sha256": "b446aa05d77a7cbc10cbd2ac3f7f7e8a8fd29160517f417f01b270a0cf1a6124"
+      },
+      {
+        "run": "formal-r7-terran",
+        "name": "cycle1-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-terran/cycle1-stage3-end.png",
+        "sha256": "79ec46926b903d474de921e833f1a54701aa44b196cd580977cd029572c1233f"
+      },
+      {
+        "run": "formal-r7-zerg",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg/cycle0-ready.png",
+        "sha256": "9de1d3c8902eb1729a2e3c5888aced592b7e91a4c8be1ce62f76e52faee8ef4b"
+      },
+      {
+        "run": "formal-r7-zerg",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg/cycle0-stage1-end.png",
+        "sha256": "ab895f4bb685c04657b7f478da3a4762bf6f2d29ec88eea15f3ca7ce5a156f3e"
+      },
+      {
+        "run": "formal-r7-zerg",
+        "name": "cycle0-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg/cycle0-stage2-end.png",
+        "sha256": "3d952af81cc41060496fe673bfb5875c7a48ba6a8e70ac1de5570ab6efbde12b"
+      },
+      {
+        "run": "formal-r7-zerg",
+        "name": "cycle0-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg/cycle0-stage3-end.png",
+        "sha256": "2376f6ea8988df137b553d271f3b049afbc6e3ebfcd6b554a73381ba14b57bf6"
+      },
+      {
+        "run": "formal-r7-zerg",
+        "name": "failure",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg/failure.png",
+        "sha256": "2376f6ea8988df137b553d271f3b049afbc6e3ebfcd6b554a73381ba14b57bf6"
+      },
+      {
+        "run": "formal-r7-zerg-blue",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg-blue/cycle0-ready.png",
+        "sha256": "9db17d4a0d0c7441f0eb67d4c54f6088e17fd21a6e17d4613d9c493143a093d3"
+      },
+      {
+        "run": "formal-r7-zerg-blue",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg-blue/cycle0-stage1-end.png",
+        "sha256": "96a90002870f6a22aef9c1820988760b25e9543fc43211e43394819cd54a9bea"
+      },
+      {
+        "run": "formal-r7-zerg-blue",
+        "name": "cycle0-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg-blue/cycle0-stage2-end.png",
+        "sha256": "cc151ecbe3f41e27cecc0511563fe2cd5a08d420cec5daa761d75b258071ea3d"
+      },
+      {
+        "run": "formal-r7-zerg-blue",
+        "name": "cycle0-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg-blue/cycle0-stage3-end.png",
+        "sha256": "b1768ca3f3ab0104ec76d6125ddebd33a2363f92f65fb84375ee7fc19cd1194f"
+      },
+      {
+        "run": "functional-r4",
+        "name": "difficulty-icons-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/difficulty-icons-ready.png",
+        "sha256": "d3e78dd91d92ae5d4780e7d96cf1a8c5f8931ee93eed7edd9ac6ed51a32eaa85",
+        "temporarilyUnpausedForVisibleHud": false
+      },
+      {
+        "run": "functional-r4",
+        "name": "complete-batch",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/complete-batch.png",
+        "sha256": "2e56c28f80848d528673dfd98f0c1011f61ba0d7c116a0be08bfe7806bc325f0",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "full-stage-1",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/full-stage-1.png",
+        "sha256": "b4e71a66694de6cc06b49ec3d8b4f770f0ed75f39dc77567bd7f7c7f21e6fe98",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "medium-stage-1",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/medium-stage-1.png",
+        "sha256": "47e8b79e82f0772b0113d2989df14dbe9c6ed7325b17f97bc07f59e0fd4812bf",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "low-stage-1",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/low-stage-1.png",
+        "sha256": "bab5d47a0a72dea71683ca74c55111a92b676256c6f91c671d45e67cd9d24e3b",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "context-before",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/context-before.png",
+        "sha256": "bee984a966015cbb76030f5a68f4fcc4f3ba0bd2092dc96f9bc036faaf142cae",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "context-restored",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/context-restored.png",
+        "sha256": "bee984a966015cbb76030f5a68f4fcc4f3ba0bd2092dc96f9bc036faaf142cae",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "viewport-1440",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/viewport-1440.png",
+        "sha256": "a0f9e25d6fe141c8da506ec6823ac64d751304f0f265c7e5df71742aa421034d",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "viewport-980",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/viewport-980.png",
+        "sha256": "84615bb6634c55e783ba4241c2e91a97a358a7717d26690afb87b4dcf400a610",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "viewport-390",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/viewport-390.png",
+        "sha256": "6c7868cbcf6e46f071373fe1703b8d5b413b41ebf9dbe37890b81a52c3947c95",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "campaign-exit",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/campaign-exit.png",
+        "sha256": "de0a93d98a51134df927399364359f494bcccb1230c670d3c40b0d5782055f91",
+        "temporarilyUnpausedForVisibleHud": false
+      },
+      {
+        "run": "functional-r4",
+        "name": "endless-round-1",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/endless-round-1.png",
+        "sha256": "32d3aa7570903fe8d482f50881f48c47c295613727d4d39435456c452183b629",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "endless-round-2",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/endless-round-2.png",
+        "sha256": "a3b7227e983f0d9e5e268a9860dc32782fcca5ccbb6f886cc3aac62adcabdfd4",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "chosen-reward-terran",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/chosen-reward-terran.png",
+        "sha256": "85dd9361e2b8557d6fb5965d64ed554a29512367d02c5df2f5b861195540fff4",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "chosen-reward-zerg",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/chosen-reward-zerg.png",
+        "sha256": "60a0209c18d969d2921c8745e0e7d138a75b93eba7b3dcb52c9c1ba7c39c9115",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r4",
+        "name": "chosen-reward-protoss",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4/chosen-reward-protoss.png",
+        "sha256": "beeea774a4cc148a3009ec6fd1ea18f5512ed0f723cab27bafa668536d658387",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "difficulty-icons-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/difficulty-icons-ready.png",
+        "sha256": "d3e78dd91d92ae5d4780e7d96cf1a8c5f8931ee93eed7edd9ac6ed51a32eaa85",
+        "temporarilyUnpausedForVisibleHud": false
+      },
+      {
+        "run": "functional-r7",
+        "name": "complete-batch",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/complete-batch.png",
+        "sha256": "2e56c28f80848d528673dfd98f0c1011f61ba0d7c116a0be08bfe7806bc325f0",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "full-stage-1",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/full-stage-1.png",
+        "sha256": "b4e71a66694de6cc06b49ec3d8b4f770f0ed75f39dc77567bd7f7c7f21e6fe98",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "medium-stage-1",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/medium-stage-1.png",
+        "sha256": "47e8b79e82f0772b0113d2989df14dbe9c6ed7325b17f97bc07f59e0fd4812bf",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "low-stage-1",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/low-stage-1.png",
+        "sha256": "bab5d47a0a72dea71683ca74c55111a92b676256c6f91c671d45e67cd9d24e3b",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "context-before",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/context-before.png",
+        "sha256": "bee984a966015cbb76030f5a68f4fcc4f3ba0bd2092dc96f9bc036faaf142cae",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "context-restored",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/context-restored.png",
+        "sha256": "bee984a966015cbb76030f5a68f4fcc4f3ba0bd2092dc96f9bc036faaf142cae",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "viewport-1440",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/viewport-1440.png",
+        "sha256": "a0f9e25d6fe141c8da506ec6823ac64d751304f0f265c7e5df71742aa421034d",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "viewport-980",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/viewport-980.png",
+        "sha256": "84615bb6634c55e783ba4241c2e91a97a358a7717d26690afb87b4dcf400a610",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "viewport-390",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/viewport-390.png",
+        "sha256": "828f981d4192fbfdf19591bde787eea00aa144fe966f82d9d1929ec665478b77",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "campaign-exit",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/campaign-exit.png",
+        "sha256": "de0a93d98a51134df927399364359f494bcccb1230c670d3c40b0d5782055f91",
+        "temporarilyUnpausedForVisibleHud": false
+      },
+      {
+        "run": "functional-r7",
+        "name": "endless-round-1",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/endless-round-1.png",
+        "sha256": "32d3aa7570903fe8d482f50881f48c47c295613727d4d39435456c452183b629",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "endless-round-2",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/endless-round-2.png",
+        "sha256": "a3b7227e983f0d9e5e268a9860dc32782fcca5ccbb6f886cc3aac62adcabdfd4",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "chosen-reward-terran",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/chosen-reward-terran.png",
+        "sha256": "4b6b11e00f940c3b8fb0cc3057c02d04685bc60206836941edb7dc0b9e20af27",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "chosen-reward-zerg",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/chosen-reward-zerg.png",
+        "sha256": "a49130928bfcdff51072900666636ac46ffc55338a72616875852be8aa3ea6e5",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "functional-r7",
+        "name": "chosen-reward-protoss",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7/chosen-reward-protoss.png",
+        "sha256": "57c17c4ff9d5a0e03c7688c4c6af79680c9a1dad78d2b2b3206033ae008a1ce5",
+        "temporarilyUnpausedForVisibleHud": true
+      },
+      {
+        "run": "pilot-r2",
+        "name": "failure",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2/failure.png",
+        "sha256": "09b94e8cf315d1d6718e6909965aed2b8185a6fef657c172bb01ca1cc68fbadd"
+      },
+      {
+        "run": "pilot-r2-retry",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2-retry/cycle0-ready.png",
+        "sha256": "e47f62f96de11970b76aa95417e97d41516f104af24fb5aea949026605ec6659"
+      },
+      {
+        "run": "pilot-r2-retry",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2-retry/cycle0-stage1-end.png",
+        "sha256": "ab87b93af21afa779fbd9e4d02d82015da4461f04368aa15835604320d0e13a5"
+      },
+      {
+        "run": "pilot-r2-retry",
+        "name": "cycle0-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2-retry/cycle0-stage2-end.png",
+        "sha256": "86063f70aa7b7920e79d22d183aced3d3dd571a0f6b2de6026a5643992e12355"
+      },
+      {
+        "run": "pilot-r2-retry",
+        "name": "cycle0-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2-retry/cycle0-stage3-end.png",
+        "sha256": "9bcad75a6b4294518c7b807d223183bfb354c41fcf4a63b8dcb6127c26628e6e"
+      },
+      {
+        "run": "pilot-r2-retry",
+        "name": "cycle0-stage4-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2-retry/cycle0-stage4-end.png",
+        "sha256": "36d812a1db61de951b52a64d177918eac7d4f5b21e8c9da4f882ae27d11ec208"
+      },
+      {
+        "run": "pilot-r2-retry",
+        "name": "cycle0-stage5-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2-retry/cycle0-stage5-end.png",
+        "sha256": "d45812c2cfb6c08376c93a41035c850b085ef0e8f6bd7c0ffc4b0bb3e972beae"
+      },
+      {
+        "run": "pilot-r2-retry",
+        "name": "cycle0-stage6-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2-retry/cycle0-stage6-end.png",
+        "sha256": "139b50eb0e528cb3b16062485e29f5eb25313777a0aea9a95b9b26fa6d3e03ac"
+      },
+      {
+        "run": "profile-r3",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\profile-r3/cycle0-ready.png",
+        "sha256": "2cd030f47de8be4b49726af13389c22028b7bc9c433b7a64ded18dc7c96e9ec0"
+      },
+      {
+        "run": "profile-r3",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\profile-r3/cycle0-stage1-end.png",
+        "sha256": "1773f22bc7d7ece7573eb216f177a38fdee4895e6f1caaaaa2af8b5d230a2e40"
+      },
+      {
+        "run": "profile-r3",
+        "name": "cycle0-stage2-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\profile-r3/cycle0-stage2-end.png",
+        "sha256": "7e52541b32d3061ef28a4566dd9107476259806b1b7f702f85f626614ca2dd7d"
+      },
+      {
+        "run": "profile-r3",
+        "name": "cycle0-stage3-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\profile-r3/cycle0-stage3-end.png",
+        "sha256": "179bc18c86ad2806728f68153fd015d4557b7456fd785120b29cf4841fd75793"
+      },
+      {
+        "run": "profile-r3",
+        "name": "failure",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\profile-r3/failure.png",
+        "sha256": "9ef889f220e7e3bc96abf3252d8945b37e4a8e3e30a1e759afb3a7e68fa42b85"
+      },
+      {
+        "run": "trace-r5-idle",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\trace-r5-idle/cycle0-ready.png",
+        "sha256": "3c2124bab3d8b845070e43e06b2cbaf5467ff49c73ba3263f1fe244b1cc4a7dc"
+      },
+      {
+        "run": "trace-r5-idle",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\trace-r5-idle/cycle0-stage1-end.png",
+        "sha256": "9e4b3aa1b99bc8d0f2608819382051625366ae9897d3f7fa2ca0033c77884850"
+      },
+      {
+        "run": "trace-r6-idle",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\trace-r6-idle/cycle0-ready.png",
+        "sha256": "d799400a01b446165631cf6c261884c74dae1e0fdb09e9e80dcef916e87c3cd1"
+      },
+      {
+        "run": "trace-r6-idle",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\trace-r6-idle/cycle0-stage1-end.png",
+        "sha256": "d717e3cba314d49ef01dc5972afc0ba51e1c0e3993bf3e7f29821fd5f72f02dc"
+      },
+      {
+        "run": "trace-r7-idle",
+        "name": "cycle0-ready",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\trace-r7-idle/cycle0-ready.png",
+        "sha256": "74cd09a34799620429ec9a5a6ab91a794ee875f586d7905f1178de8e93d81810"
+      },
+      {
+        "run": "trace-r7-idle",
+        "name": "cycle0-stage1-end",
+        "file": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\trace-r7-idle/cycle0-stage1-end.png",
+        "sha256": "08fa0f68166eae645ea3043506334f02c9926b85270fd8d64ce6dede856f2315"
+      }
+    ],
+    "visualReview": "reports/local/performance-d04-complete-20261021/visual-review.json"
+  },
+  "measurements": {
+    "accepted": [
+      {
+        "run": "formal-r7-terran",
+        "race": "terran",
+        "gear": 0,
+        "offline": false,
+        "errors": [],
+        "failedRequests": [],
+        "httpRequests": [],
+        "cycles": [
+          {
+            "cycle": 0,
+            "cache": "fresh-profile-cold",
+            "homeReadyMs": 15046,
+            "startupReadyMs": 39875,
+            "deadline": {
+              "stage": 3,
+              "maximum": 6,
+              "passed": true
+            },
+            "summary": {
+              "n": 8197,
+              "mean": 21.937830913746023,
+              "p50": 16.900000005960464,
+              "p99": 162.30000001192093,
+              "max": 512.4000000059605,
+              "over100": 151,
+              "over250": 7
+            },
+            "stages": [
+              {
+                "stage": 1,
+                "complete": {
+                  "total": 53,
+                  "ready": 29,
+                  "missing": [
+                    "elite.hellion.2",
+                    "elite.hellion.3",
+                    "elite.tank.1",
+                    "elite.tank.2",
+                    "elite.tank.3",
+                    "elite.medivac.1",
+                    "elite.medivac.2",
+                    "elite.medivac.3",
+                    "elite.reaper.1",
+                    "elite.thor.1",
+                    "elite.viking.1",
+                    "elite.banshee.1",
+                    "elite.science_vessel.1",
+                    "hero.raynor",
+                    "hero.tychus",
+                    "hero.nova",
+                    "hero.swann",
+                    "hero.tosh",
+                    "hero.yamato_battlecruiser",
+                    "fort.bunker",
+                    "fort.bunker.death",
+                    "fort.repair",
+                    "fort.repair.death",
+                    "map.endless"
+                  ],
+                  "complete": false
+                },
+                "models": 66,
+                "interval": {
+                  "n": 2636,
+                  "mean": 22.751365705612308,
+                  "p50": 16.900000005960464,
+                  "p99": 170.90000000596046,
+                  "max": 512.4000000059605,
+                  "over100": 69,
+                  "over250": 3
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 2,
+                "complete": {
+                  "total": 53,
+                  "ready": 43,
+                  "missing": [
+                    "hero.tychus",
+                    "hero.nova",
+                    "hero.swann",
+                    "hero.tosh",
+                    "hero.yamato_battlecruiser",
+                    "fort.bunker",
+                    "fort.bunker.death",
+                    "fort.repair",
+                    "fort.repair.death",
+                    "map.endless"
+                  ],
+                  "complete": false
+                },
+                "models": 98,
+                "interval": {
+                  "n": 2334,
+                  "mean": 25.682990574119124,
+                  "p50": 19.799999982118607,
+                  "p99": 175,
+                  "max": 327.5,
+                  "over100": 67,
+                  "over250": 4
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 3,
+                "complete": {
+                  "total": 53,
+                  "ready": 53,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 104,
+                "interval": {
+                  "n": 3227,
+                  "mean": 18.56451812828884,
+                  "p50": 16.700000017881393,
+                  "p99": 44.39999997615814,
+                  "max": 187.09999999403954,
+                  "over100": 15,
+                  "over250": 0
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": 0
+              }
+            ],
+            "intermissions": [
+              {
+                "afterStage": 1,
+                "ms": 3665
+              },
+              {
+                "afterStage": 2,
+                "ms": 4216
+              }
+            ]
+          },
+          {
+            "cycle": 1,
+            "cache": "persistent-warm",
+            "homeReadyMs": 15122,
+            "startupReadyMs": 33702,
+            "deadline": {
+              "stage": 3,
+              "maximum": 6,
+              "passed": true
+            },
+            "summary": {
+              "n": 9244,
+              "mean": 19.456339247079832,
+              "p50": 16.69999998807907,
+              "p99": 132.40000000596046,
+              "max": 592.2000000178814,
+              "over100": 157,
+              "over250": 3
+            },
+            "stages": [
+              {
+                "stage": 1,
+                "complete": {
+                  "total": 53,
+                  "ready": 34,
+                  "missing": [
+                    "elite.medivac.1",
+                    "elite.medivac.2",
+                    "elite.medivac.3",
+                    "elite.reaper.1",
+                    "elite.thor.1",
+                    "elite.viking.1",
+                    "elite.banshee.1",
+                    "elite.science_vessel.1",
+                    "hero.raynor",
+                    "hero.tychus",
+                    "hero.nova",
+                    "hero.swann",
+                    "hero.tosh",
+                    "hero.yamato_battlecruiser",
+                    "fort.bunker",
+                    "fort.bunker.death",
+                    "fort.repair",
+                    "fort.repair.death",
+                    "map.endless"
+                  ],
+                  "complete": false
+                },
+                "models": 82,
+                "interval": {
+                  "n": 2691,
+                  "mean": 22.290152359722008,
+                  "p50": 16.69999998807907,
+                  "p99": 145.19999998807907,
+                  "max": 592.2000000178814,
+                  "over100": 103,
+                  "over250": 3
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 2,
+                "complete": {
+                  "total": 53,
+                  "ready": 53,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 104,
+                "interval": {
+                  "n": 3070,
+                  "mean": 19.524071661230018,
+                  "p50": 16.69999998807907,
+                  "p99": 130.89999997615814,
+                  "max": 239.2999999821186,
+                  "over100": 53,
+                  "over250": 0
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 3,
+                "complete": {
+                  "total": 53,
+                  "ready": 53,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 104,
+                "interval": {
+                  "n": 3483,
+                  "mean": 17.20720643124257,
+                  "p50": 16.69999998807907,
+                  "p99": 26.900000005960464,
+                  "max": 149.7999999821186,
+                  "over100": 1,
+                  "over250": 0
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": 0
+              }
+            ],
+            "intermissions": [
+              {
+                "afterStage": 1,
+                "ms": 2356
+              },
+              {
+                "afterStage": 2,
+                "ms": 332
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "run": "formal-r7-protoss-blue",
+        "race": "protoss",
+        "gear": 3,
+        "offline": false,
+        "errors": [],
+        "failedRequests": [],
+        "httpRequests": [],
+        "cycles": [
+          {
+            "cycle": 0,
+            "cache": "fresh-profile-cold",
+            "homeReadyMs": 16110,
+            "startupReadyMs": 51697,
+            "deadline": {
+              "stage": 3,
+              "maximum": 6,
+              "passed": true
+            },
+            "summary": {
+              "n": 8161,
+              "mean": 22.047261365027335,
+              "p50": 16.900000005960464,
+              "p99": 149.80000001192093,
+              "max": 546.3000000119209,
+              "over100": 162,
+              "over250": 13
+            },
+            "stages": [
+              {
+                "stage": 1,
+                "complete": {
+                  "total": 42,
+                  "ready": 26,
+                  "missing": [
+                    "elite.colossus.1",
+                    "elite.high_templar.1",
+                    "elite.phoenix.1",
+                    "elite.void_ray.1",
+                    "hero.purifier_flagship",
+                    "hero.artanis",
+                    "hero.zeratul",
+                    "hero.alarak",
+                    "hero.fenix",
+                    "hero.vorazun",
+                    "elite.carrier.1",
+                    "fort.bunker",
+                    "fort.bunker.death",
+                    "fort.repair",
+                    "fort.repair.death",
+                    "map.endless"
+                  ],
+                  "complete": false
+                },
+                "models": 59,
+                "interval": {
+                  "n": 2498,
+                  "mean": 24.037670136106502,
+                  "p50": 16.900000005960464,
+                  "p99": 184.2000000178814,
+                  "max": 546.3000000119209,
+                  "over100": 77,
+                  "over250": 7
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0.1,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 2,
+                "complete": {
+                  "total": 42,
+                  "ready": 42,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 78,
+                "interval": {
+                  "n": 2710,
+                  "mean": 22.112140221404413,
+                  "p50": 16.700000017881393,
+                  "p99": 149.19999998807907,
+                  "max": 405.09999999403954,
+                  "over100": 79,
+                  "over250": 6
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 3,
+                "complete": {
+                  "total": 42,
+                  "ready": 42,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 78,
+                "interval": {
+                  "n": 2953,
+                  "mean": 20.303995936331894,
+                  "p50": 17.900000005960464,
+                  "p99": 43.69999998807907,
+                  "max": 159.90000000596046,
+                  "over100": 6,
+                  "over250": 0
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": 0
+              }
+            ],
+            "intermissions": [
+              {
+                "afterStage": 1,
+                "ms": 1037
+              },
+              {
+                "afterStage": 2,
+                "ms": 349
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "run": "formal-r7-zerg-blue",
+        "race": "zerg",
+        "gear": 3,
+        "offline": false,
+        "errors": [],
+        "failedRequests": [],
+        "httpRequests": [],
+        "cycles": [
+          {
+            "cycle": 0,
+            "cache": "fresh-profile-cold",
+            "homeReadyMs": 15039,
+            "startupReadyMs": 31516,
+            "deadline": {
+              "stage": 3,
+              "maximum": 6,
+              "passed": true
+            },
+            "summary": {
+              "n": 9843,
+              "mean": 18.269572284873103,
+              "p50": 16.69999998807907,
+              "p99": 58.19999998807907,
+              "max": 416.5,
+              "over100": 87,
+              "over250": 4
+            },
+            "stages": [
+              {
+                "stage": 1,
+                "complete": {
+                  "total": 31,
+                  "ready": 31,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 54,
+                "interval": {
+                  "n": 2742,
+                  "mean": 21.8644784828614,
+                  "p50": 16.69999998807907,
+                  "p99": 150,
+                  "max": 416.5,
+                  "over100": 85,
+                  "over250": 4
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 2,
+                "complete": {
+                  "total": 31,
+                  "ready": 31,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 54,
+                "interval": {
+                  "n": 3562,
+                  "mean": 16.82142055025434,
+                  "p50": 16.69999998807907,
+                  "p99": 21.900000005960464,
+                  "max": 98.69999998807907,
+                  "over100": 0,
+                  "over250": 0
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 3,
+                "complete": {
+                  "total": 31,
+                  "ready": 31,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 54,
+                "interval": {
+                  "n": 3539,
+                  "mean": 16.941819723083935,
+                  "p50": 16.69999998807907,
+                  "p99": 23.099999994039536,
+                  "max": 139.40000000596046,
+                  "over100": 2,
+                  "over250": 0
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": 0
+              }
+            ],
+            "intermissions": [
+              {
+                "afterStage": 1,
+                "ms": 462
+              },
+              {
+                "afterStage": 2,
+                "ms": 364
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "run": "formal-r7-offline",
+        "race": "terran",
+        "gear": 0,
+        "offline": true,
+        "errors": [],
+        "failedRequests": [],
+        "httpRequests": [],
+        "cycles": [
+          {
+            "cycle": 0,
+            "cache": "fresh-profile-cold",
+            "homeReadyMs": 15054,
+            "startupReadyMs": 38484,
+            "deadline": {
+              "stage": 3,
+              "maximum": 6,
+              "passed": true
+            },
+            "summary": {
+              "n": 8957,
+              "mean": 20.083811544045762,
+              "p50": 16.69999998807907,
+              "p99": 136.80000001192093,
+              "max": 638.8999999761581,
+              "over100": 165,
+              "over250": 4
+            },
+            "stages": [
+              {
+                "stage": 1,
+                "complete": {
+                  "total": 53,
+                  "ready": 33,
+                  "missing": [
+                    "elite.tank.3",
+                    "elite.medivac.1",
+                    "elite.medivac.2",
+                    "elite.medivac.3",
+                    "elite.reaper.1",
+                    "elite.thor.1",
+                    "elite.viking.1",
+                    "elite.banshee.1",
+                    "elite.science_vessel.1",
+                    "hero.raynor",
+                    "hero.tychus",
+                    "hero.nova",
+                    "hero.swann",
+                    "hero.tosh",
+                    "hero.yamato_battlecruiser",
+                    "fort.bunker",
+                    "fort.bunker.death",
+                    "fort.repair",
+                    "fort.repair.death",
+                    "map.endless"
+                  ],
+                  "complete": false
+                },
+                "models": 78,
+                "interval": {
+                  "n": 2666,
+                  "mean": 22.517441860465116,
+                  "p50": 16.69999998807907,
+                  "p99": 146.80000001192093,
+                  "max": 391.09999999403954,
+                  "over100": 93,
+                  "over250": 3
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0.08333333333333333,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 2,
+                "complete": {
+                  "total": 53,
+                  "ready": 53,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 104,
+                "interval": {
+                  "n": 2850,
+                  "mean": 21.02821052631788,
+                  "p50": 16.69999998807907,
+                  "p99": 139.30000001192093,
+                  "max": 638.8999999761581,
+                  "over100": 70,
+                  "over250": 1
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": null
+              },
+              {
+                "stage": 3,
+                "complete": {
+                  "total": 53,
+                  "ready": 53,
+                  "missing": [],
+                  "complete": true
+                },
+                "models": 104,
+                "interval": {
+                  "n": 3441,
+                  "mean": 17.416099970942145,
+                  "p50": 16.69999998807907,
+                  "p99": 33.400000005960464,
+                  "max": 173.90000000596046,
+                  "over100": 2,
+                  "over250": 0
+                },
+                "pending": 0,
+                "skipped": 0,
+                "discarded": 0,
+                "battleDiscarded": 0,
+                "bossReadySeconds": 0
+              }
+            ],
+            "intermissions": [
+              {
+                "afterStage": 1,
+                "ms": 542
+              },
+              {
+                "afterStage": 2,
+                "ms": 373
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "fullWorkloadComparison": {
+      "baseline": "formal-r5-terran cold first three stages",
+      "candidate": "formal-r7-terran cold first three stages",
+      "before": {
+        "n": 7621,
+        "mean": 23.605274898308874,
+        "p50": 16.80000001192093,
+        "p99": 169.5,
+        "max": 576.8000000119209,
+        "over100": 174,
+        "over250": 65
+      },
+      "after": {
+        "n": 8197,
+        "mean": 21.937830913746023,
+        "p50": 16.900000005960464,
+        "p99": 162.30000001192093,
+        "max": 512.4000000059605,
+        "over100": 151,
+        "over250": 7
+      },
+      "over250Reduction": 0.8923076923076922,
+      "scope": "One serial native full-workload pair on this machine, full/native/complete quality; no repeated-trial confidence or full-content FPS conclusion. R5 already completed the full roster and is not the earlier file-only D04 R23."
+    }
+  },
+  "preservedRuns": [
+    {
+      "run": "formal-r5-terran",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\formal-r5-terran\\\\profile\",\"closed\":true,\"files\":2854,\"bytes\":1064386137,\"time\":\"2026-10-21T10:14:02.7681234Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy terran Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 6, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "formal-r7-offline",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\formal-r7-offline\\\\profile\",\"closed\":true,\"files\":545,\"bytes\":29240915,\"time\":\"2026-10-21T11:18:49.6172308Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy terran Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 6, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints. Offline HTML mode with exact unchanged full embedded pack; HTTP request count must be zero."
+    },
+    {
+      "run": "formal-r7-protoss",
+      "pass": false,
+      "failure": "AssertionError [ERR_ASSERTION]: {\"time\":168.7,\"tick\":10122,\"phase\":\"lost\",\"stage\":3,\"paused\":false,\"decision\":false,\"enemies\":10,\"allies\":0,\"kills\":44,\"backlog\":0,\"discarded\":0.016666666666666666,\"assetsPending\":0,\"models\":78,\"bossPlanned\":[\"elite.zealot.1\"],\"bossReady\":true,\"bossConsumed\":false}\n\n'lost' !== 'reward'\n\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-performance-d04-complete-loading.mjs:44:347",
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\formal-r7-protoss\\\\profile\",\"closed\":true,\"files\":2916,\"bytes\":881697289,\"time\":\"2026-10-21T11:01:17.1840678Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy protoss Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 6, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "formal-r7-protoss-blue",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\formal-r7-protoss-blue\\\\profile\",\"closed\":true,\"files\":2906,\"bytes\":881510657,\"time\":\"2026-10-21T11:14:15.3715855Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy protoss Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 6, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "formal-r7-terran",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\formal-r7-terran\\\\profile\",\"closed\":true,\"files\":2914,\"bytes\":1061789851,\"time\":\"2026-10-21T10:49:02.7283174Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy terran Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 6, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "formal-r7-zerg",
+      "pass": false,
+      "failure": "AssertionError [ERR_ASSERTION]: {\"time\":156.13333333333333,\"tick\":9368,\"phase\":\"lost\",\"stage\":3,\"paused\":false,\"decision\":false,\"enemies\":9,\"allies\":0,\"kills\":44,\"backlog\":0,\"discarded\":0,\"assetsPending\":0,\"models\":54,\"bossPlanned\":[\"elite.zergling.1\"],\"bossReady\":true,\"bossConsumed\":false}\n\n'lost' !== 'reward'\n\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-performance-d04-complete-loading.mjs:44:347",
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\formal-r7-zerg\\\\profile\",\"closed\":true,\"files\":2727,\"bytes\":897021862,\"time\":\"2026-10-21T10:56:27.7190535Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy zerg Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 6, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "formal-r7-zerg-blue",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\formal-r7-zerg-blue\\\\profile\",\"closed\":true,\"files\":2724,\"bytes\":896974347,\"time\":\"2026-10-21T11:09:24.8727676Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy zerg Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 6, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "functional-r4",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\functional-r4\\\\profile\",\"closed\":true,\"files\":2163,\"bytes\":1033990345,\"time\":\"2026-10-21T09:49:16.0357137Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native menu and intermission controls with constructed normal-health stage-boundary fixtures, no health lock or one-hit. Five ground qualities, resources, high/medium/low rendering, three viewport sizes, actual WebGL loss/recovery, and committed campaign/endless transition. No natural campaign, balance, performance or save-format claim. Complete original terran startup batch prepared through production detached jobs under a frozen World, every native form retained, actual context restore and static-template rewarm checked. This functional check does not assert a stage deadline or performance."
+    },
+    {
+      "run": "functional-r7",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\functional-r7\\\\profile\",\"closed\":true,\"files\":2185,\"bytes\":1026958727,\"time\":\"2026-10-21T10:37:37.2179340Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native menu and intermission controls with constructed normal-health stage-boundary fixtures, no health lock or one-hit. Five ground qualities, resources, high/medium/low rendering, three viewport sizes, actual WebGL loss/recovery, and committed campaign/endless transition. No natural campaign, balance, performance or save-format claim. Complete original terran startup batch prepared through production detached jobs under a frozen World, every native form retained, actual context restore and static-template rewarm checked. This functional check does not assert a stage deadline or performance."
+    },
+    {
+      "run": "pilot-r2",
+      "pass": false,
+      "failure": "page.goto: net::ERR_NETWORK_ACCESS_DENIED at http://127.0.0.1:3278/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:3278/\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at D:\\星际\\tools\\qa-performance-d04-complete-loading.mjs:23:64",
+      "errors": 1,
+      "cleanup": {
+        "code": 1,
+        "stdout": "",
+        "stderr": "Get-CimInstance : Access to a CIM resource was not available to the client.\r\nAt D:\\星际\\tools\\cleanup-d04-complete-profile.ps1:8 char:13\r\n+ $active = @(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe'\" ...\r\n+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : NotSpecified: (:) [Get-CimInstance], CimException\r\n    + FullyQualifiedErrorId : Microsoft.Management.Infrastructure.CimException,Microsoft.Management.Infrastructure.Cim \r\n   Cmdlets.GetCimInstanceCommand\r\n \r\n"
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy terran Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Complete 60-second stages 1–3, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "pilot-r2-retry",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\pilot-r2-retry\\\\profile\",\"closed\":true,\"files\":2177,\"bytes\":872141468,\"time\":\"2026-10-21T09:28:35.2742835Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy terran Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Complete 60-second stages 1–3, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "profile-r3",
+      "pass": false,
+      "failure": "AssertionError [ERR_ASSERTION]: Complete original startup batch is not ready by the requested stage deadline\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-performance-d04-complete-loading.mjs:47:217",
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\profile-r3\\\\profile\",\"closed\":true,\"files\":2788,\"bytes\":814526638,\"time\":\"2026-10-21T09:34:41.0137412Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy terran Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Complete 60-second stages 1–3, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "trace-r5-idle",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\trace-r5-idle\\\\profile\",\"closed\":true,\"files\":2794,\"bytes\":801132861,\"time\":\"2026-10-21T10:17:08.3349676Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy terran Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 1, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "trace-r6-idle",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\trace-r6-idle\\\\profile\",\"closed\":true,\"files\":2747,\"bytes\":759865640,\"time\":\"2026-10-21T10:23:46.1590650Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy terran Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 1, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    },
+    {
+      "run": "trace-r7-idle",
+      "pass": true,
+      "failure": null,
+      "errors": 0,
+      "cleanup": {
+        "code": 0,
+        "stdout": "{\"target\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\trace-r7-idle\\\\profile\",\"closed\":true,\"files\":2804,\"bytes\":843420489,\"time\":\"2026-10-21T10:30:17.8742355Z\",\"removed\":true}\r\n",
+        "stderr": ""
+      },
+      "scope": "Native RAF and FixedStepper, normal 1x easy terran Char seed529, no health lock/one-hit/spawn/currency/clock overrides. Public campaign-controller movement/production and intermission choices; not human or physical-input acceptance. Fresh test profile cold, then same-origin page reload for persistent-cache warm cycle when requested. Native stage durations through stage 1, intermission resource gates separately timed. Full/native/complete visuals. Single visible page, serial measurement. Paired runs pin only the native World.start UUID so receipt-hashed Boss variants match; combat and draft RNG remain original. Zero resource-pending frames required throughout every battle, not only at sampled endpoints."
+    }
+  ],
+  "cleanup": {
+    "profiles": [
+      {
+        "file": "reports/local/performance-d04-complete-20261021/formal-r5-terran/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r5-terran\\profile",
+        "closed": true,
+        "files": 2854,
+        "bytes": 1064386137,
+        "time": "2026-10-21T10:14:02.7681234Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/formal-r7-offline/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-offline\\profile",
+        "closed": true,
+        "files": 545,
+        "bytes": 29240915,
+        "time": "2026-10-21T11:18:49.6172308Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/formal-r7-protoss/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss\\profile",
+        "closed": true,
+        "files": 2916,
+        "bytes": 881697289,
+        "time": "2026-10-21T11:01:17.1840678Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/formal-r7-protoss-blue/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-protoss-blue\\profile",
+        "closed": true,
+        "files": 2906,
+        "bytes": 881510657,
+        "time": "2026-10-21T11:14:15.3715855Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/formal-r7-terran/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-terran\\profile",
+        "closed": true,
+        "files": 2914,
+        "bytes": 1061789851,
+        "time": "2026-10-21T10:49:02.7283174Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/formal-r7-zerg/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg\\profile",
+        "closed": true,
+        "files": 2727,
+        "bytes": 897021862,
+        "time": "2026-10-21T10:56:27.7190535Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/formal-r7-zerg-blue/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\formal-r7-zerg-blue\\profile",
+        "closed": true,
+        "files": 2724,
+        "bytes": 896974347,
+        "time": "2026-10-21T11:09:24.8727676Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/functional-r4/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r4\\profile",
+        "closed": true,
+        "files": 2163,
+        "bytes": 1033990345,
+        "time": "2026-10-21T09:49:16.0357137Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/functional-r7/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\functional-r7\\profile",
+        "closed": true,
+        "files": 2185,
+        "bytes": 1026958727,
+        "time": "2026-10-21T10:37:37.2179340Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/pilot-r2/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2\\profile",
+        "closed": true,
+        "files": 154,
+        "bytes": 8806449,
+        "time": "2026-10-21T09:20:09.6964419Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/pilot-r2-retry/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\pilot-r2-retry\\profile",
+        "closed": true,
+        "files": 2177,
+        "bytes": 872141468,
+        "time": "2026-10-21T09:28:35.2742835Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/profile-r3/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\profile-r3\\profile",
+        "closed": true,
+        "files": 2788,
+        "bytes": 814526638,
+        "time": "2026-10-21T09:34:41.0137412Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/trace-r5-idle/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\trace-r5-idle\\profile",
+        "closed": true,
+        "files": 2794,
+        "bytes": 801132861,
+        "time": "2026-10-21T10:17:08.3349676Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/trace-r6-idle/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\trace-r6-idle\\profile",
+        "closed": true,
+        "files": 2747,
+        "bytes": 759865640,
+        "time": "2026-10-21T10:23:46.1590650Z",
+        "removed": true
+      },
+      {
+        "file": "reports/local/performance-d04-complete-20261021/trace-r7-idle/profile-cleanup.json",
+        "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\trace-r7-idle\\profile",
+        "closed": true,
+        "files": 2804,
+        "bytes": 843420489,
+        "time": "2026-10-21T10:30:17.8742355Z",
+        "removed": true
+      }
+    ],
+    "profileLogicalBytes": 11873463675,
+    "databaseCleanups": [
+      {
+        "target": "D:\\星际\\.cache\\p5-tests\\93b3c46f-a6ed-4925-8a69-1d2f3d3c91cc",
+        "created": "2026-10-21T09:51:16.5879470Z",
+        "files": 1035,
+        "bytes": 40681877,
+        "regression": "regression-r5.log",
+        "regressionPassed": 1801,
+        "removed": true
+      },
+      {
+        "target": "D:\\星际\\.cache\\p5-tests\\29ef6b7d-3ef4-4569-b0da-d6ce929f7ff7",
+        "created": "2026-10-21T10:32:12.1609823Z",
+        "files": 1035,
+        "bytes": 40681877,
+        "regression": "regression-r7.log",
+        "regressionPassed": 1803,
+        "removed": true
+      }
+    ],
+    "offline": {
+      "target": "D:\\星际\\reports\\local\\performance-d04-complete-20261021\\offline-r7\\performance-d04.html",
+      "bytes": 769596022,
+      "sha256": "a40747cad138d998a1648fdac40208aea22bf9444ecf9d0c7bf364052eed7282",
+      "reconstructionVerified": true,
+      "verification": "{\"mode\":\"verify\",\"file\":\"D:\\\\星际\\\\reports\\\\local\\\\performance-d04-complete-20261021\\\\offline-r7\\\\performance-d04.html\",\"sha256\":\"a40747cad138d998a1648fdac40208aea22bf9444ecf9d0c7bf364052eed7282\",\"pass\":true}",
+      "removed": true,
+      "time": "2026-10-21T11:21:15.5467907Z",
+      "retained": [
+        "reports/local/performance-d04-complete-20261021/offline-r7/prefix.gz",
+        "reports/local/performance-d04-complete-20261021/offline-r7/suffix.gz",
+        "dist/SC2-Survivors-Loot-Elites-R2-20261019.html"
+      ]
+    },
+    "scope": "Only task-owned closed test caches removed; logical bytes not a measured disk free-space delta. Earlier cleanup totals are not counted again."
+  },
+  "offline": {
+    "binding": "reports/local/performance-d04-complete-20261021/offline-r7/build-inputs.json",
+    "html": {
+      "file": "reports/local/performance-d04-complete-20261021/offline-r7/performance-d04.html",
+      "bytes": 769596022,
+      "sha256": "a40747cad138d998a1648fdac40208aea22bf9444ecf9d0c7bf364052eed7282"
+    },
+    "source": {
+      "file": "dist/SC2-Survivors-Loot-Elites-R2-20261019.html",
+      "sha256": "a5f2ec97b1a85c34d11ffd8f43088caeaedb5bab5d83959f3f0532bb25ea1db8",
+      "payloadStart": 1600158,
+      "payloadEndExclusive": 731990880,
+      "payloadBytes": 730390722,
+      "payloadSha256": "74b82627e0918f0848433f5f86a7b3c649dfb5dc6bd81166baca5282c7e6bb26"
+    },
+    "reconstruction": {
+      "prefix": "reports/local/performance-d04-complete-20261021/offline-r7/prefix.gz",
+      "suffix": "reports/local/performance-d04-complete-20261021/offline-r7/suffix.gz",
+      "restore": "node tools/restore-performance-d04-complete-offline.mjs restore r7"
+    },
+    "archived": true
+  },
+  "build": {
+    "main": {
+      "file": "preview/performance-d04-complete-20261021/main.js",
+      "bytes": 37428775,
+      "sha256": "dd7a8eab181c2c1fcc49476169a3d1c933bcb2861d6cb526de7406a685d1e26d"
+    },
+    "productionInputs": 421,
+    "unchangedFrozenInputs": 415,
+    "existingFiles": 727,
+    "unchanged": 720,
+    "added": [
+      "test/battle-preload-complete.test.ts",
+      "test/material-depth-program-cache.test.ts"
+    ]
+  },
+  "openFindings": [
+    "Long frames remain, including first-stage cold 512.4ms and warm 592.2ms peaks; no-added-hitch acceptance remains open in V01.",
+    "Naked Zerg died in stage three at 156.1333s and Protoss at 168.7s after both completed their batches in stage two. Protoss loss tail discarded 1/60 second. Separate blue-equipment completions do not replace these failures.",
+    "Asynchronous UI capture differences and the existing narrow viewport label edge issue remain explicit.",
+    "No universal third-stage deadline, physical input, human playability, long-run memory, full-campaign or all-content 60FPS acceptance."
+  ],
+  "board": {
+    "revision": 106,
+    "completed": 46,
+    "total": 52,
+    "remaining": 6,
+    "next": "V01",
+    "deferred": [
+      "D05",
+      "D06"
+    ]
+  },
+  "noCurrentReplacement": true,
+  "noCommitPushOrPublication": true,
+  "evidence": [
+    {
+      "file": "docs/project/PERFORMANCE_D04_COMPLETE_20261021.md",
+      "bytes": 8411,
+      "sha256": "1d92fecf59227377e0adddc86e16311f79a96d49585c86e13cc15d10cd885c02"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/board-after.json",
+      "bytes": 352824,
+      "sha256": "8ecf015f6ba3be6df7bacf1068a2ee1d88fed2720f2bedb49b1b85e771037eb8"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/verification.json",
+      "bytes": 10990,
+      "sha256": "b9217615ea102b7750a925a6677208267214760d6281fcd08b2c88be08147a0b"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/asset-protection-verification.json",
+      "bytes": 42352,
+      "sha256": "c2eb55267f7d5efe5ea8af7cbf75127573d5facee435badd8c38b1d458d18170"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/measurements.json",
+      "bytes": 91399,
+      "sha256": "637ee19470e5fb16cd99384c1c1d50d0fdd0fce82a319cfedfc41822949d08a8"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/visual-review.json",
+      "bytes": 40776,
+      "sha256": "d48d2065eaf327151d674b90959625ed91eee2bf6554a4226cb9b612ccf11fdc"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/functional-r7/visual-comparison.json",
+      "bytes": 11943,
+      "sha256": "05b3fa41c2560ecb85b14bad5eebfd5db3cdf508cab295bbcd7784f2fea84eb8"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/regression-r7.log",
+      "bytes": 192069,
+      "sha256": "31d822f5e3e316a7978d7ea0e603d8cf9eafafbe418912eb1cab6944748633f6"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/targeted-r7.log",
+      "bytes": 2090,
+      "sha256": "b07247047e8946c56a9be44a187feaec1685f7473a8abf7c589d4495bba67f20"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/typecheck-r7.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/docs-check-r7.log",
+      "bytes": 38,
+      "sha256": "cc9fcdd31826b7f084b1bd03a6acd12e63e7664e0b4e81b898a4837126b6bdb5"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/offline-r7/build-inputs.json",
+      "bytes": 555415,
+      "sha256": "a0dbdd3fe926a1bc355f82c87ea66d10d3c447b82067ba6c311b599df7f36beb"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/offline-r7/cleanup.json",
+      "bytes": 808,
+      "sha256": "6b9b4a5f79167e12b7f2418cc2c7ea1982151c7bed64db24c8111f0aa5803d3e"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/formal-r5-terran/report.json",
+      "bytes": 23269954,
+      "sha256": "8cc6d57a5c945d3b0e2e47a5d41cc0dc3810d582a7856fbf7a84682109298cf2"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/formal-r7-offline/report.json",
+      "bytes": 10012593,
+      "sha256": "964fdf7b57eed247dec46b251a71a75df9457b7091fedeee6058b7f742deaaf1"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/formal-r7-protoss/report.json",
+      "bytes": 8598629,
+      "sha256": "1adb55194eed3763ad9ffff8498547592783bc20ddf04085723905ae4a1e5cf9"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/formal-r7-protoss-blue/report.json",
+      "bytes": 8645232,
+      "sha256": "a4da8e39277d9601568a31a337e01fe9e168824aeb3405bbd94c1ff434991154"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/formal-r7-terran/report.json",
+      "bytes": 17585409,
+      "sha256": "c8feb2d3df192bd6a99c3e20b8d0d73937b13c39b950950bfd3a73b32dc660d0"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/formal-r7-zerg/report.json",
+      "bytes": 8703836,
+      "sha256": "5fb88bc3264d31192135bd1e71e7e60bf5a39b7eb982e2ecb47962bd1930bcb0"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/formal-r7-zerg-blue/report.json",
+      "bytes": 10309420,
+      "sha256": "0a0b6c2aaa079fe8f29d32da9f0f0e33911b931c80128b21b5c04d1c25a44902"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/functional-r4/report.json",
+      "bytes": 631520,
+      "sha256": "39b1157aa7198f787c5ba38b2e81374877e419c127777f055e74a0585993d16f"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/functional-r7/report.json",
+      "bytes": 628892,
+      "sha256": "7a39e3ca837415f6fc6b61c2aa0ce0d0c34f21c6ad680885a52487cbbbb506bc"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/pilot-r2/report.json",
+      "bytes": 556612,
+      "sha256": "ed5691ca2440ad6a4bd2c416b0368d68e0651850cf1983562912afe2f543e0f6"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/pilot-r2-retry/report.json",
+      "bytes": 18023071,
+      "sha256": "efd980db849bca248246d2f19288db92d5dec67b266dba9fdac9d8a9be5f68d1"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/profile-r3/report.json",
+      "bytes": 5769895,
+      "sha256": "bafccadefb35cd3381c12047a7bf0afce099b2eac1860115c57970ba52121ded"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/trace-r5-idle/report.json",
+      "bytes": 3551424,
+      "sha256": "1f48fe20ff63de7e6d545d627c37463405dbf84872fd44ad09168f3da784e73b"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/trace-r6-idle/report.json",
+      "bytes": 3625697,
+      "sha256": "e774a2df58f79cb1ebd2dfa7536cfd8dffc3b9ccfe043551bf1bcdea9fd91e00"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/trace-r7-idle/report.json",
+      "bytes": 3658257,
+      "sha256": "e049b8d90ff0b6e44a02fd690db6a3c17b59f6d15f1ed5a192392c96264290d9"
+    },
+    {
+      "file": "docs/project/performance-board.json",
+      "bytes": 352824,
+      "sha256": "8ecf015f6ba3be6df7bacf1068a2ee1d88fed2720f2bedb49b1b85e771037eb8"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_BOARD.html",
+      "bytes": 314933,
+      "sha256": "ffc749d8d2713259fb39f6e763fcd7f42b5e1b96941ae29ed21bc575b8839d9a"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_TODO.md",
+      "bytes": 209581,
+      "sha256": "591584cd057c1860814d53d7e22439274b4db274a7dcb7df72c20781b0853381"
+    },
+    {
+      "file": "AGENTS.md",
+      "bytes": 294347,
+      "sha256": "3f9eeab86932d8ed20eab02a8fcc77cc90a6912d6ccb6e353afdb64b57c2f030"
+    },
+    {
+      "file": "reports/local/performance-d04-complete-20261021/protection-attempts.json",
+      "bytes": 1169,
+      "sha256": "8f65df99908ca905945653860c9260b8f1fa3381cee47c03bb0cabe8b856c90a"
+    }
+  ],
+  "preservedFailures": [
+    "R1 build type error and repeated R5 build EEXIST guard; no successful result is claimed for those commands.",
+    "Pilot R2 local-network sandbox rejection; subsequent approved browser runs succeeded.",
+    "R2/R3 concurrent-browser low-memory runs did not meet the full-batch deadline and are excluded from performance comparisons, including the old R2 runner PASS flag that lacked a complete-batch assertion.",
+    "R6 delayed shader poll gave less work with similar peak delay; reverted completely.",
+    "Naked Zerg and Protoss third-stage losses retained separately from blue-equipment passes.",
+    "Three protection-verifier scope failures retained; approved live source/test and generated board changes explicitly excluded, all remaining bindings reread and verified."
+  ]
+}

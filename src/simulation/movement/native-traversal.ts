@@ -16,26 +16,35 @@ const footprint=[[0,0],[1,0],[-1,0],[0,1],[0,-1],[.707,.707],[-.707,.707],[.707,
 const at=(a:Point,b:Point,t:number):Point=>({x:a.x+(b.x-a.x)*t,z:a.z+(b.z-a.z)*t});
 function gridCell(d:MapDefinition,p:Point){const x=Math.floor((p.x+d.origin[0])/d.cellSize),y=Math.floor((d.origin[1]-p.z)/d.cellSize);return x>=0&&y>=0&&x<d.walkWidth&&y<d.walkHeight?y*d.walkWidth+x:-1;}
 function cliffLevel(d:MapDefinition,p:Point){const x=Math.round(p.x+d.origin[0]),y=Math.round(d.origin[1]-p.z);return x>=0&&y>=0&&x<d.width&&y<d.height?d.levels[y*d.width+x]:undefined;}
-function placementBlocks(d:MapDefinition,p:Point,r:number,placement:MapPlacement){
+function placementShape(placement:MapPlacement){
  const footprint=(placement as MapPlacement&{footprint?:string}).footprint?.match(/(\d+)x(\d+)/);let sx=placement.blockerSize??(footprint?Number(footprint[1]):placement.unit?/Mineral/.test(placement.type)?2:/Geyser/.test(placement.type)?3:4:0),sz=placement.blockerSize??(footprint?Number(footprint[2]):placement.unit?/Mineral/.test(placement.type)?1:/Geyser/.test(placement.type)?3:4:0);if(!sx||!sz)return false;
- sx*=placement.scale[0]??1;sz*=placement.scale[1]??1;const x=p.x+d.origin[0]-placement.position[0],y=d.origin[1]-p.z-placement.position[1],c=Math.cos(placement.rotation),s=Math.sin(placement.rotation);return Math.abs(c*x+s*y)<sx/2+r&&Math.abs(-s*x+c*y)<sz/2+r;
+ sx*=placement.scale[0]??1;sz*=placement.scale[1]??1;return {placement,sx,sz,c:Math.cos(placement.rotation),s:Math.sin(placement.rotation)};
 }
-function endpointClear(w:World,u:Entity,p:Point){
+type PlacementShape=Exclude<ReturnType<typeof placementShape>,false>;
+interface CrossingQuery {height?:number;bodies?:Body[];transits?:Entity[];placements?:PlacementShape[];}
+function placementBlocks(d:MapDefinition,p:Point,r:number,shape:PlacementShape){
+ const {placement,sx,sz,c,s}=shape,x=p.x+d.origin[0]-placement.position[0],y=d.origin[1]-p.z-placement.position[1];return Math.abs(c*x+s*y)<sx/2+r&&Math.abs(-s*x+c*y)<sz/2+r;
+}
+function endpointClear(w:World,u:Entity,p:Point,query:CrossingQuery={}){
  if(Math.abs(p.x)+u.unitRadius>=w.mapHalf||Math.abs(p.z)+u.unitRadius>=w.mapHalf||blocked(p,u.unitRadius,w.obstacles)||!w.terrain?.canOccupy(p,u.unitRadius))return false;
- const bodies:Body[]=[...w.entities.values(),...w.pods.filter(p=>['active','opening','falling'].includes(p.status)),...w.expansionHives.values(),...w.fortifications.values(),...(w.hive?[w.hive]:[])];
- return !bodies.some(b=>b.id!==u.id&&b.hp>0&&!b.flying&&distance(p,b)<b.unitRadius+u.unitRadius+.1)&&![...w.entities.values()].some(b=>b.id!==u.id&&b.hp>0&&b.cliffTransit&&distance(p,b.cliffTransit.to)<b.unitRadius+u.unitRadius+.1);
+ const bodies=query.bodies??=[...w.entities.values(),...w.pods.filter(p=>['active','opening','falling'].includes(p.status)),...w.expansionHives.values(),...w.fortifications.values(),...(w.hive?[w.hive]:[])];
+ return !bodies.some(b=>b.id!==u.id&&b.hp>0&&!b.flying&&distance(p,b)<b.unitRadius+u.unitRadius+.1)&&!(query.transits??=[...w.entities.values()]).some(b=>b.id!==u.id&&b.hp>0&&b.cliffTransit&&distance(p,b.cliffTransit.to)<b.unitRadius+u.unitRadius+.1);
 }
 /** Reject walls/chasms, even when their far endpoint happens to be walkable. */
 export function legalCliffCrossing(w:World,u:Entity,to:Point){
+ return crossingAllowed(w,u,to,{});
+}
+// One synchronous search only: moving/dead bodies and edited placements are reread next call.
+function crossingAllowed(w:World,u:Entity,to:Point,query:CrossingQuery){
  if(!w.expedition||u.flying||u.heroId||u.summonKind||u.unitType!=='reaper'&&u.unitType!=='colossus'||!w.terrain)return false;
- const profile=CLIFF_TRAVERSAL[u.unitType],terrain=w.terrain,d=terrain.definition,len=distance(u,to),a=terrain.height(u),b=terrain.height(to);
- if(len<.1||len>profile.maximumDistance||Math.abs(a-b)<profile.minimumHeight||Math.abs(a-b)>profile.maximumHeight||!endpointClear(w,u,to)||!terrain.canOccupy(u,u.unitRadius)||clearLine(u,to,u.unitRadius,w.obstacles,terrain))return false;
+ const profile=CLIFF_TRAVERSAL[u.unitType],terrain=w.terrain,d=terrain.definition,len=distance(u,to),a=query.height??=terrain.height(u),b=terrain.height(to);
+ if(len<.1||len>profile.maximumDistance||Math.abs(a-b)<profile.minimumHeight||Math.abs(a-b)>profile.maximumHeight||!endpointClear(w,u,to,query)||!terrain.canOccupy(u,u.unitRadius)||clearLine(u,to,u.unitRadius,w.obstacles,terrain))return false;
  if(!d&&!(terrain instanceof CharTerrain))return false;
  const fromLevel=d?cliffLevel(d,u):Math.round(a/3),toLevel=d?cliffLevel(d,to):Math.round(b/3);if(fromLevel===undefined||toLevel===undefined||Math.abs(fromLevel-toLevel)!==1)return false;
  const low=Math.min(a,b),high=Math.max(a,b),minLevel=Math.min(fromLevel,toLevel),maxLevel=Math.max(fromLevel,toLevel),n=Math.ceil(len/CLIFF_TRAVERSAL.sampleStep);let previous=a,steep=false;
  for(let i=0;i<=n;i++){
   const p=at(u,to,i/n),height=terrain.height(p);if(height<low-.15||height>high+.15||(b>a?height<previous-.15:height>previous+.15)||blocked(p,u.unitRadius,w.obstacles))return false;previous=height;
-  if(d&&d.placements.some(placement=>placementBlocks(d,p,u.unitRadius,placement)))return false;
+  if(d&&(query.placements??=d.placements.map(placementShape).filter((p):p is PlacementShape=>p!==false)).some(placement=>placementBlocks(d,p,u.unitRadius,placement)))return false;
   for(const [dx,dz] of footprint){const q={x:p.x+dx*u.unitRadius,z:p.z+dz*u.unitRadius};
    if(d){const cell=gridCell(d,q),level=cliffLevel(d,q);if(cell<0||level===undefined||level<minLevel||level>maxLevel)return false;
     const open=d.walk[cell]?d.opening[cell]:d.reveal[cell];if(!open||open>w.terrainStage)return false;
@@ -51,8 +60,8 @@ export function legalCliffCrossing(w:World,u:Entity,to:Point){
 /** Find a nearby legal opposite plateau in the intended direction, never a new global route. */
 export function cliffLanding(w:World,u:Entity,rawGoal:Point):Point|null {
  if(u.unitType!=='reaper'&&u.unitType!=='colossus'||!w.terrain||w.time<(u.cliffReadyAt??0))return null;
- const distanceToGoal=distance(u,rawGoal);if(distanceToGoal<.1)return null;const profile=CLIFF_TRAVERSAL[u.unitType],heading=Math.atan2(rawGoal.x-u.x,rawGoal.z-u.z);
- for(const offset of [0,.15,-.15,.3,-.3])for(let length=Math.min(profile.maximumDistance,distanceToGoal);length>=Math.max(1,u.unitRadius*2+.3);length-=.25){const p={x:u.x+Math.sin(heading+offset)*length,z:u.z+Math.cos(heading+offset)*length};if(distance(p,rawGoal)>=distanceToGoal-.2)continue;if(legalCliffCrossing(w,u,p))return p;}
+ const distanceToGoal=distance(u,rawGoal);if(distanceToGoal<.1)return null;const profile=CLIFF_TRAVERSAL[u.unitType],heading=Math.atan2(rawGoal.x-u.x,rawGoal.z-u.z),query:CrossingQuery={};
+ for(const offset of [0,.15,-.15,.3,-.3])for(let length=Math.min(profile.maximumDistance,distanceToGoal);length>=Math.max(1,u.unitRadius*2+.3);length-=.25){const p={x:u.x+Math.sin(heading+offset)*length,z:u.z+Math.cos(heading+offset)*length};if(distance(p,rawGoal)>=distanceToGoal-.2)continue;if(crossingAllowed(w,u,p,query))return p;}
  return null;
 }
 /** During the brief animation simulation stays on the valid takeoff cell, then commits a rechecked landing. */

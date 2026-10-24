@@ -1,3 +1,7 @@
+import {validateFunShop} from '../fun-shop/state';
+import {validateEventPacing,HORDE_RULES} from '../field-events/state';
+import {validateEncounterState} from '../encounters/state';
+import {validateMissionState} from '../missions/state';
 import {validateProtossEliteRun,validateProtossEliteCombat,revisedProtossElite} from '../combat/protoss-elite-runtime';
 import {validateTeamAuraRun} from '../combat/team-auras';
 import {aggregateMvpTalentEffects} from '../progression/mvp-talent-effects';
@@ -19,6 +23,8 @@ import {HEROES} from '../../data/heroes';
 import {validBattleView} from '../combat/battle-view';
 /** Explicit schema: adding RunState state requires choosing persistence or rebuild. */
 export const RUN_FIELDS=[
+ 'funShop','specialStages','fieldEvents',
+ 'encounters','missions',
  'protossElites','teamAuras','zergElites','terranElites','eliteSupport',
  // Saved inside entities.heroCombat / heroCasts: cycle, warmup, cloak episode/charge, protection expiry, cast rank/targets/view.
  // Saved in expedition.support.mines: phase, stable target, emergence timer, point/facing. Routes/poses rebuild.
@@ -39,7 +45,14 @@ export function selectRunData(state:RunState):RunData {return state.snapshotData
 export function validateRunData(data:RunData,defaults:object){
  if(!data||typeof data!=='object'||Object.keys(data).length!==RUN_FIELDS.length)throw Error('续局字段不完整');
  if(!data.expedition||typeof data.expedition!=='object')throw Error('三族状态缺失');
- validateExpedition(data.expedition);
+ if(!data.specialStages||data.specialStages.active||!(data.specialStages.used instanceof Set))throw Error('特殊关运行状态无效');
+ const f=data.fieldEvents;
+ validateEventPacing(f?.pacing);
+ if(data.specialStages.used.size>3||[...data.specialStages.used].some((stage,_,all)=>!Number.isInteger(stage)||stage<4||stage>18||all.some(other=>other!==stage&&Math.abs(other-stage)<3))||data.specialStages.lastEnteredKind!==null&&!['resources','arena','crossing','dodge'].includes(data.specialStages.lastEnteredKind))throw Error('特殊关次数或间隔无效');
+ for(const h of [f.horde,f.lastHorde])if(h&&(!HORDE_RULES[h.kind]||!Number.isInteger(h.spawned)||h.spawned<0||h.spawned>HORDE_RULES[h.kind].total))throw Error('替代虫群累计数量无效');
+ if(!(f?.rootGenerations instanceof Map)||!(f.rootPositions instanceof Map)||[...f.rootGenerations].some(([id,t])=>!Number.isSafeInteger(id)||!Number.isFinite(t))||[...f.rootPositions].some(([id,p])=>!Number.isSafeInteger(id)||![p.x,p.z].every(Number.isFinite)))throw Error('定身身份记录无效');
+ if(!f||!(f.roots instanceof Map)||!Array.isArray(f.pickups)||f.pickups.length>3||![f.stage,f.nextPickup,f.nextHorde,f.attackUntil,f.armorUntil].every(Number.isFinite)||f.pickups.some(p=>!['medical','firepower','armor','nuke','root'].includes(p.kind)||![p.id,p.x,p.z,p.born].every(Number.isFinite))||[...f.roots].some(([id,t])=>!Number.isSafeInteger(id)||!Number.isFinite(t))||[f.horde,f.lastHorde].some(h=>h&&(!['zerglings','roachHydra','mutalisks','ultralisks'].includes(h.kind)||![h.started,h.until,h.next,h.spawned,h.replaced].every(Number.isFinite)||Math.abs(h.until-h.started-20)>1e-6)))throw Error('地图拾取物或虫群状态无效');
+ validateFunShop(data.funShop);validateEncounterState(data.encounters,data.entities);validateExpedition(data.expedition);validateMissionState(data.missions);
  validateProtossEliteRun(data.protossElites,data.time,data.entities,data.nextId);validateTeamAuraRun(data.teamAuras,data.time,data.entities);validateZergEliteRun(data.zergElites);validateTerranEliteRun(data.terranElites);validateEliteSupport(data.eliteSupport);validateSwarm(data.swarm);validateWeaponFlights(data.weaponFlights);validateHeroAttacks(data.heroAttacks);validateZergHeroRun(data.zergHeroes);validateProtossHeroRun(data.protossHeroes);
  const template=defaults as Record<string,unknown>;
  for(const key of RUN_FIELDS){if(!Object.hasOwn(data,key))throw Error('续局字段缺失：'+key);const a=template[key],b=data[key];
@@ -100,7 +113,7 @@ export function validateRunData(data:RunData,defaults:object){
  const healSources=new Set<number>();for(const h of data.zergElites.heals){if(healSources.has(h.source.id)||Math.abs(h.until-h.source.lastSkillAt!-4)>1e-6)throw Error('输血窗口重放或时钟无效');healSources.add(h.source.id);}
  const zergAbility=(u:import('../types').Entity,ability:string)=>aggregateMvpTalentEffects(frozen.levels,data.expedition.race,{team:u.team,race:u.race,kind:'elite',familyId:u.unitType,attributes:u.attributes,mode:u.nativeMode,freeConscript:u.freeConscript,tacticalTier:u.tacticalTier,tacticalDirection:u.tacticalDirection,ability,manualAbility:false});
  for(const b of data.zergElites.biles){const expected=1200*eliteFixedGrowth(b.source.rank)*(b.source.eliteId==='ravager.2'?4:1)*(1+(zergAbility(b.source,'bile').abilityDamagePct??0));if(b.launchAt>data.time+.601||b.impactAt>data.time+3.101||Math.abs(b.damage-expected)>1e-6)throw Error('胆汁延迟或冻结载荷无效');}
- for(const h of data.zergElites.heals){const expected=240*eliteFixedGrowth(h.source.rank)*(1+(zergAbility(h.source,'transfusion').healingPct??0));if(h.until>data.time+4.001||h.next>data.time+1.001||Math.abs(h.amount-expected)>1e-6||h.targets.some(id=>{const t=data.entities.get(id);return t&&(!t.attributes.includes('Biological')||t.owner!==h.source.owner||t.temporary||t.summonKind||t.attributes.includes('Structure'));}))throw Error('输血窗口或冻结载荷无效');}
+ for(const h of data.zergElites.heals){const expected=240*eliteFixedGrowth(h.source.rank)*(1+(zergAbility(h.source,'transfusion').healingPct??0));if(h.until>data.time+4.001||h.next>data.time+1.001||Math.abs(h.amount-expected)>1e-6||h.targets.some(id=>{const t=data.entities.get(id);return t&&(!t.attributes.includes('Biological')||t.owner!==h.source.owner||t.temporary&&!t.mission?.holdout||t.summonKind||t.attributes.includes('Structure'));}))throw Error('输血窗口或冻结载荷无效');}
  const newIds=[...data.terranElites.areas.map(a=>a.id),...data.weaponFlights.map(p=>p.id),...data.eliteSupport.mines.map(m=>m.id),...data.eliteSupport.fires.map(f=>f.id),...data.terranElites.absorptions.flatMap(r=>[r.id,r.hunter])];
  if(newIds.some(id=>id>=data.nextId))throw Error('精英实体序号冲突');
  const absorbed=new Map<number,number>();for(const r of data.terranElites.absorptions){if(data.entities.get(r.id)?.hp)throw Error('已吸收单位仍在场');const hunter=data.entities.get(r.hunter);if(hunter&&(hunter.eliteId!=='reaper.3'||!revisedElite(hunter)))throw Error('吸收者归属无效');absorbed.set(r.hunter,(absorbed.get(r.hunter)??0)+r.contribution);const job=data.expedition.ledger.find(j=>j.id===r.job);if(job&&r.passenger!==null){const p=job.passengers[r.passenger];if(!p||p.entityId!==r.id||p.status!=='released'||p.paid.minerals!==r.paid.minerals||p.paid.gas!==r.paid.gas)throw Error('吸收支付收据不一致');}}

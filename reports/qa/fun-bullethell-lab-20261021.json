@@ -1,0 +1,4570 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-10-21T15:57:00.115Z",
+  "task": "毒爆复杂弹幕与独立趣味试玩包",
+  "status": "local-complete",
+  "sourceRoot": "C:/Users/zyuu/.codex/worktrees/mission/星际",
+  "branch": "feat/fun-gameplay",
+  "delivery": {
+    "preview": "D:/星际/preview/fun-lab-20261021-r1",
+    "game": "D:/星际/preview/fun-bullethell-game-20261021-r1",
+    "offline": "D:/星际/preview/fun-lab-20261021-r1/星际幸存者-趣味试玩.html",
+    "offlineBytes": 790265144,
+    "offlineSha256": "a5f1b4397d15144e44a48863afe96b9504c936bdedc09f1104bb9403e7c35dc8",
+    "labBuild": "a797c9520e2711ad405118b272aabfb88d354bb3cdf5870f525bdbfee440dc94",
+    "gameBuild": "70bed20089444e19eab62b1d2a63fefa265b60cc0db60624c4917220ea65d2be",
+    "reviewImages": 20
+  },
+  "source": {
+    "baseline": 748,
+    "unchanged": 741,
+    "changedExisting": [
+      {
+        "file": "src/diagnostics/combat-lock.ts",
+        "changed": true,
+        "before": "d75d74f869ec388d87ad36656534fb7638ee36ba3a47a7e62f79b268d065df48",
+        "after": "1a35b452c234074971fd77a16226b5434ee3a73408ab5a4e30386a46ae59245f"
+      },
+      {
+        "file": "src/render/scene/battle-renderer.ts",
+        "changed": true,
+        "before": "3a055d3795efa226d01ba92dafbe18f8ea8c5f1ec90f3508480bca8a4efa4cea",
+        "after": "7b2071c606486de9b16b74c906a07c12ea2e5be2f11e894a8bb8d14231894126"
+      },
+      {
+        "file": "src/render/units/special-visuals.ts",
+        "changed": true,
+        "before": "19952fb91860e0a9844b54dbdbdad43c3636db3e7105e18de4cda6da5319d2e5",
+        "after": "9a0f1c657a8d26d2e401397edbe73209dc471dffeb9e30c66bd883f9cd1cd0db"
+      },
+      {
+        "file": "src/simulation/special-stages/dodge.ts",
+        "changed": true,
+        "before": "69d5c5e4621f5393144f62bd129f10ba09eaa1aabd2bad814a4c3ec51fb9907b",
+        "after": "e917d3a386745afb7727b2354329e565926296687cd8ac4346f03b9e63640583"
+      },
+      {
+        "file": "src/simulation/special-stages/state.ts",
+        "changed": true,
+        "before": "fd2c3cd8374764b79671b042fda39fdfc990abfbc176b543f72ea2a058682dfa",
+        "after": "09fae45c1ce1441c109c4dec681c0929a7a3a512208c9f98933a559a6c3041a5"
+      },
+      {
+        "file": "test/field-stage-runtime.test.ts",
+        "changed": true,
+        "before": "65224c69fbdb8b67fc0c0d2d49aaa89dc44e214c5fe983b20046ccfade8fdb0b",
+        "after": "a1e5cd19bf1c6324e5aca7e4c357582b1253627cd9d802b704c727e34944942f"
+      },
+      {
+        "file": "test/fun-visual-batch2.test.ts",
+        "changed": true,
+        "before": "e4f36ca039b69083a266244b9e092bc66d7e070c7952b528d2cd160b0f66914e",
+        "after": "7f0526ca723f58e341a1f6533084d1167173b022aa00be597160e87257d5c676"
+      }
+    ],
+    "newFiles": [
+      {
+        "file": "src/diagnostics/fun-lab-cases.ts",
+        "before": null,
+        "after": "e57c8964498fed7bd943ff40fd1df4a9d0ae123698fc9c4543aef1b7f9dc798a",
+        "bytes": 8631
+      },
+      {
+        "file": "src/diagnostics/fun-lab-entry.ts",
+        "before": null,
+        "after": "88b90482cac4992f4677d706b6583e2238c64e5d8b002bde85fb05271cde74f6",
+        "bytes": 9160
+      },
+      {
+        "file": "src/diagnostics/fun-lab.css",
+        "before": null,
+        "after": "0264c36b1439744fd489efc76b8478ba23d7bb395fa7219438987ef544efb01a",
+        "bytes": 3293
+      },
+      {
+        "file": "src/simulation/special-stages/dodge-patterns.ts",
+        "before": null,
+        "after": "2eecd7621cdf56c9f5ec17b5160e54aa9f010efd7b16fa6f8f26cfec3a9fa100",
+        "bytes": 3327
+      },
+      {
+        "file": "test/dodge-bullethell.test.ts",
+        "before": null,
+        "after": "b745a12301f9055882206ddb99b965418a95406dcf3f06b5617bb49f192fbf3d",
+        "bytes": 3148
+      },
+      {
+        "file": "test/fun-lab.test.ts",
+        "before": null,
+        "after": "b2947423a666fe3239bc4e5d79ccff5f4f4ec9a9ad2afe9327eef6f4cf567090",
+        "bytes": 3537
+      },
+      {
+        "file": "fun-lab.html",
+        "before": null,
+        "after": "09f7de81d8d6773a9296b65a10f01b3fd55bb644c8df52f3cc6e0516af471fd6",
+        "bytes": 518
+      }
+    ],
+    "files": [
+      {
+        "file": "src/diagnostics/combat-lock.ts",
+        "before": "d75d74f869ec388d87ad36656534fb7638ee36ba3a47a7e62f79b268d065df48",
+        "after": "1a35b452c234074971fd77a16226b5434ee3a73408ab5a4e30386a46ae59245f",
+        "bytes": 2089
+      },
+      {
+        "file": "src/diagnostics/fun-lab-cases.ts",
+        "before": null,
+        "after": "e57c8964498fed7bd943ff40fd1df4a9d0ae123698fc9c4543aef1b7f9dc798a",
+        "bytes": 8631
+      },
+      {
+        "file": "src/diagnostics/fun-lab-entry.ts",
+        "before": null,
+        "after": "88b90482cac4992f4677d706b6583e2238c64e5d8b002bde85fb05271cde74f6",
+        "bytes": 9160
+      },
+      {
+        "file": "src/diagnostics/fun-lab.css",
+        "before": null,
+        "after": "0264c36b1439744fd489efc76b8478ba23d7bb395fa7219438987ef544efb01a",
+        "bytes": 3293
+      },
+      {
+        "file": "src/render/scene/battle-renderer.ts",
+        "before": "3a055d3795efa226d01ba92dafbe18f8ea8c5f1ec90f3508480bca8a4efa4cea",
+        "after": "7b2071c606486de9b16b74c906a07c12ea2e5be2f11e894a8bb8d14231894126",
+        "bytes": 120898
+      },
+      {
+        "file": "src/render/units/special-visuals.ts",
+        "before": "19952fb91860e0a9844b54dbdbdad43c3636db3e7105e18de4cda6da5319d2e5",
+        "after": "9a0f1c657a8d26d2e401397edbe73209dc471dffeb9e30c66bd883f9cd1cd0db",
+        "bytes": 4658
+      },
+      {
+        "file": "src/simulation/special-stages/dodge-patterns.ts",
+        "before": null,
+        "after": "2eecd7621cdf56c9f5ec17b5160e54aa9f010efd7b16fa6f8f26cfec3a9fa100",
+        "bytes": 3327
+      },
+      {
+        "file": "src/simulation/special-stages/dodge.ts",
+        "before": "69d5c5e4621f5393144f62bd129f10ba09eaa1aabd2bad814a4c3ec51fb9907b",
+        "after": "e917d3a386745afb7727b2354329e565926296687cd8ac4346f03b9e63640583",
+        "bytes": 3985
+      },
+      {
+        "file": "src/simulation/special-stages/state.ts",
+        "before": "fd2c3cd8374764b79671b042fda39fdfc990abfbc176b543f72ea2a058682dfa",
+        "after": "09fae45c1ce1441c109c4dec681c0929a7a3a512208c9f98933a559a6c3041a5",
+        "bytes": 2505
+      },
+      {
+        "file": "test/dodge-bullethell.test.ts",
+        "before": null,
+        "after": "b745a12301f9055882206ddb99b965418a95406dcf3f06b5617bb49f192fbf3d",
+        "bytes": 3148
+      },
+      {
+        "file": "test/field-stage-runtime.test.ts",
+        "before": "65224c69fbdb8b67fc0c0d2d49aaa89dc44e214c5fe983b20046ccfade8fdb0b",
+        "after": "a1e5cd19bf1c6324e5aca7e4c357582b1253627cd9d802b704c727e34944942f",
+        "bytes": 7588
+      },
+      {
+        "file": "test/fun-lab.test.ts",
+        "before": null,
+        "after": "b2947423a666fe3239bc4e5d79ccff5f4f4ec9a9ad2afe9327eef6f4cf567090",
+        "bytes": 3537
+      },
+      {
+        "file": "test/fun-visual-batch2.test.ts",
+        "before": "e4f36ca039b69083a266244b9e092bc66d7e070c7952b528d2cd160b0f66914e",
+        "after": "7f0526ca723f58e341a1f6533084d1167173b022aa00be597160e87257d5c676",
+        "bytes": 6427
+      },
+      {
+        "file": "fun-lab.html",
+        "before": null,
+        "after": "09f7de81d8d6773a9296b65a10f01b3fd55bb644c8df52f3cc6e0516af471fd6",
+        "bytes": 518
+      }
+    ],
+    "inputs": {
+      "lab": {
+        "count": 448,
+        "appBuildId": "a797c9520e2711ad405118b272aabfb88d354bb3cdf5870f525bdbfee440dc94",
+        "artifacts": [
+          {
+            "file": "assets/fun-lab-H4R1SNpZ.js",
+            "bytes": 33012303,
+            "sha256": "208e9a1615bef6ab37e21117178b74357b72862a6765dd4f0327e4e5cba2e27f"
+          },
+          {
+            "file": "assets/fun-lab-D8Qdds3Q.css",
+            "bytes": 642310,
+            "sha256": "4eee1cb869916cb3761d9bd221358c45a7e6599b6251cbe0961e85bc330db917"
+          },
+          {
+            "file": "fun-lab.html",
+            "bytes": 954939,
+            "sha256": "aecbc6e107913027c9ca64c9f1172987505c53d90fca9bbe1b700a8356c67cdb"
+          }
+        ]
+      },
+      "game": {
+        "count": 447,
+        "appBuildId": "70bed20089444e19eab62b1d2a63fefa265b60cc0db60624c4917220ea65d2be",
+        "artifacts": [
+          {
+            "file": "assets/index-CAL1Dgwu.js",
+            "bytes": 33000878,
+            "sha256": "89160d0444481608fabcb267fc5061a2d622222e406cbe66a2efba9ea32b7597"
+          },
+          {
+            "file": "assets/index-Cbj0TSOk.css",
+            "bytes": 639064,
+            "sha256": "02dbfb9db1f74e44f205f7d3bcbfc0d7b01d0e31de6a8d6525a0fbe445fe2e95"
+          },
+          {
+            "file": "index.html",
+            "bytes": 954932,
+            "sha256": "a4c6b292d94377ff11c7bb55afaebd946f11833b8717790c3e62278b345dc3d7"
+          }
+        ]
+      }
+    }
+  },
+  "validation": {
+    "regression": {
+      "tests": 1891,
+      "pass": 1891,
+      "fail": 0,
+      "log": "regression-final-r2.log"
+    },
+    "typecheck": "passed; latest UI source checked again in typecheck-release.log",
+    "dataDocs": "passed",
+    "browserEntries": {
+      "build": "web-lab-r2",
+      "entries": 38,
+      "purchases": 7,
+      "errors": []
+    },
+    "browserFlows": {
+      "build": "web-lab-r3",
+      "records": [
+        {
+          "name": "native-keyboard",
+          "before": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 25,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                9.999999997637191
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 0.4166666666666667,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          },
+          "after": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 101,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.12864957267978,
+                0,
+                9.999999999999993
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 1.6833333333333333,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "dodge-layout-1440",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 194,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407374999999929,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 3.2333333333333334,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "picker-layout-1440",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 207,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 3.4499999999999997,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "dodge-layout-1280",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 275,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -14.958487718172107,
+                "right": 14.958487718172107,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 4.583333333333333,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "picker-layout-1280",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 289,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -14.958487718172107,
+                "right": 14.958487718172107,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 4.816666666666666,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "dodge-layout-844",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 348,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -17.31282051282051,
+                "right": 17.31282051282051,
+                "top": 6.719999999999999,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 5.8,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "picker-layout-844",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 361,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -17.31282051282051,
+                "right": 17.31282051282051,
+                "top": 6.719999999999999,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 6.016666666666667,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "dodge-layout-390",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 415,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "portrait",
+              "orientation": "portrait",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 52.46839640710484,
+              "verticalSpanAtTarget": 25.96923076923077,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -5.28,
+                "right": 6.720000000000001,
+                "top": 11.426461538461538,
+                "bottom": -14.542769230769233
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 6.916666666666667,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "picker-layout-390",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 428,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "portrait",
+              "orientation": "portrait",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 52.46839640710484,
+              "verticalSpanAtTarget": 25.96923076923077,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -5.28,
+                "right": 6.720000000000001,
+                "top": 11.426461538461538,
+                "bottom": -14.542769230769233
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 7.133333333333333,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "dodge-time-8",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 542,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 9.033333333333333,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "dodge-time-18",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 5,
+            "clock": 1144,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 19.066666666666666,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "dodge-time-28",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 11,
+            "clock": 1748,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 29.133333333333333,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "dodge-time-38",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 17,
+            "clock": 2329,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 38.81666666666666,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "dodge-time-48",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 24,
+            "clock": 2927,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 48.78333333333333,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "dodge-time-57",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 28,
+            "clock": 3471,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.407375,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 57.85,
+            "anchor": {
+              "x": 4.407375,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "dodge-invincible-complete",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": true,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 30,
+            "clock": 3600,
+            "phase": "battle",
+            "result": "success",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 0,
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "dodge-real-five-hit-failure",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": true,
+            "invincible": {
+              "enabled": false,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 5,
+            "clock": 819,
+            "phase": "battle",
+            "result": "failed",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 0,
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "actual-webgl-recovery",
+          "same": true,
+          "epoch": 1,
+          "prior": 0,
+          "readiness": {
+            "kind": null,
+            "phase": "idle",
+            "done": 0,
+            "total": 0,
+            "label": "",
+            "error": null,
+            "progress": 0
+          }
+        },
+        {
+          "name": "actual-webgl-restored",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 220,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 3.6666666666666665,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "roster-thor",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 191,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 3.183333333333333,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "roster-queen",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 184,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                9.999999999999993
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 3.0666666666666664,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "roster-zealot",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 182,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                9.999999999999945
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 3.033333333333333,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "resource-complete",
+          "report": {
+            "choice": "special:resources",
+            "busy": false,
+            "started": true,
+            "completed": true,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 1800,
+            "phase": "battle",
+            "result": "timeout",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 0,
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "arena-cycle",
+          "report": {
+            "choice": "special:arena",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 51,
+              "damage": 601.923750000001
+            },
+            "hits": 335,
+            "clock": 3464,
+            "phase": "battle",
+            "special": "arena",
+            "specialPhase": "loot",
+            "result": "success",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 57.733333333333334,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "arena-return",
+          "report": {
+            "choice": "special:arena",
+            "busy": false,
+            "started": true,
+            "completed": true,
+            "invincible": {
+              "enabled": true,
+              "prevented": 51,
+              "damage": 601.923750000001
+            },
+            "hits": 335,
+            "clock": 3464,
+            "phase": "battle",
+            "result": "success",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 0,
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "crossing-cycle",
+          "report": {
+            "choice": "special:crossing",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 51,
+              "damage": 647.923750000001
+            },
+            "hits": 92,
+            "clock": 1570,
+            "phase": "battle",
+            "special": "crossing",
+            "specialPhase": "loot",
+            "result": "success",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                -52.5
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 26.166666666666668,
+            "anchor": {
+              "x": 0,
+              "z": -52.5,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          }
+        },
+        {
+          "name": "crossing-return",
+          "report": {
+            "choice": "special:crossing",
+            "busy": false,
+            "started": true,
+            "completed": true,
+            "invincible": {
+              "enabled": true,
+              "prevented": 51,
+              "damage": 647.923750000001
+            },
+            "hits": 92,
+            "clock": 1570,
+            "phase": "battle",
+            "result": "success",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 0,
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "paused": true
+          }
+        },
+        {
+          "name": "invincible-hit-feedback",
+          "report": {
+            "choice": "horde:ultralisks",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 1210,
+              "damage": 3626.583750000012
+            },
+            "hits": 1115,
+            "phase": "battle",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 15.166666666666666,
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "paused": false
+          }
+        }
+      ],
+      "errors": [],
+      "retainedHarnessFailure": [
+        {
+          "fatal": "locator.isVisible: Error: strict mode violation: locator('[data-action=special-return]') resolved to 2 elements:\n    1) <button aria-label=\"关闭\" class=\"icon-button\" data-action=\"special-return\">…</button> aka getByRole('button', { name: '关闭' })\n    2) <button data-action=\"special-return\" class=\"game-button secondary\">…</button> aka getByRole('button', { name: '返回原战场' })\n\nCall log:\n\u001b[2m    - checking visibility of locator('[data-action=special-return]')\u001b[22m\n\n    at D:\\星际\\reports\\local\\fun-bullethell-20261021\\qa-final-flows-r3.mjs:22:396",
+          "report": {
+            "choice": "special:arena",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 51,
+              "damage": 601.923750000001
+            },
+            "hits": 335,
+            "clock": 3464,
+            "phase": "battle",
+            "special": "arena",
+            "specialPhase": "loot",
+            "result": "success",
+            "camera": {
+              "projection": "perspective",
+              "mode": "pc",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 34,
+              "verticalSpanAtTarget": 16.82829868294362,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -13.462638946354895,
+                "right": 13.462638946354895,
+                "top": 7.572734407324629,
+                "bottom": -9.25556427561899
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 57.733333333333334,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "paused": false
+          },
+          "text": "20006\n10000\nⅣ\n挑战\n竞技场 · 挑战成功\n\n战利品整理\n\n竞技场敌人已全部消灭。领取战利品后返回前线。\n\n背包 7 / 64 · 待领取装备 0 件\n\n装备已领取\n\n挑战成功 · 整理战利品后返回\n\n领取战利品\n整理背包\n返回原战场\nSPACE\nG\nⅢ\nⅢ\nⅢ\n拾取 +7 件 · 背包 7/64\n切换内容\n重试\n暂停\n无敌\n竞技场 · 57.7s · 命中 335"
+        }
+      ]
+    },
+    "offline": {
+      "build": "offline-final-r3.html",
+      "records": [
+        {
+          "name": "ordinary-production-menu",
+          "report": {
+            "text": "LOADING\n90%\n\nLOADING BATTLEFIELD\n\n50\n0\nⅠ\n01:00\n通讯在线\nTerran\n战役 · 18 关\n继续游戏\n新游戏\n旗舰配装\n人族\n虫族\n神族\n非官方同人 · StarCraft II 素材属于 Blizzard Entertainment\n本地战局"
+          }
+        },
+        {
+          "name": "offline-picker-390",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": false,
+            "completed": false,
+            "invincible": {
+              "enabled": false,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "phase": "menu",
+            "camera": {
+              "projection": "perspective",
+              "mode": "portrait",
+              "orientation": "portrait",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 52.46839640710484,
+              "verticalSpanAtTarget": 25.96923076923077,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "bounds": {
+                "left": -5.28,
+                "right": 6.720000000000001,
+                "top": 11.426461538461538,
+                "bottom": -14.542769230769233
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null
+            },
+            "time": 0,
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "device": "mobile",
+            "paused": true
+          }
+        },
+        {
+          "name": "offline-native-touch",
+          "stick": {
+            "x": 15.59375,
+            "y": 719.2083740234375,
+            "width": 109.19792175292969,
+            "height": 109.1978759765625
+          },
+          "before": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 10,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "portrait",
+              "orientation": "portrait",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 52.46839640710484,
+              "verticalSpanAtTarget": 25.96923076923077,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -5.28,
+                "right": 6.720000000000001,
+                "top": 11.426461538461538,
+                "bottom": -14.542769230769233
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 0.16666666666666666,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": false
+          },
+          "after": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 96,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "portrait",
+              "orientation": "portrait",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 52.46839640710484,
+              "verticalSpanAtTarget": 25.96923076923077,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.301327547939579,
+                0,
+                9.99999699476658
+              ],
+              "bounds": {
+                "left": -5.28,
+                "right": 6.720000000000001,
+                "top": 11.426461538461538,
+                "bottom": -14.542769230769233
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 1.6,
+            "anchor": {
+              "x": 4.588499999998885,
+              "z": 9.99999679412614,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": false
+          }
+        },
+        {
+          "name": "offline-dodge-touch",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 117,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "portrait",
+              "orientation": "portrait",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 52.46839640710484,
+              "verticalSpanAtTarget": 25.96923076923077,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.579828143355723,
+                0,
+                9.999996800184956
+              ],
+              "bounds": {
+                "left": -5.28,
+                "right": 6.720000000000001,
+                "top": 11.426461538461538,
+                "bottom": -14.542769230769233
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 1.95,
+            "anchor": {
+              "x": 4.588499999998885,
+              "z": 9.99999679412614,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": false
+          }
+        },
+        {
+          "name": "offline-picker-844",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 156,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.58849950941638,
+                0,
+                9.999996794126483
+              ],
+              "bounds": {
+                "left": -17.31282051282051,
+                "right": 17.31282051282051,
+                "top": 6.719999999999999,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 2.6,
+            "anchor": {
+              "x": 4.588499999998885,
+              "z": 9.99999679412614,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": true
+          }
+        },
+        {
+          "name": "offline-picker-390",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 197,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "portrait",
+              "orientation": "portrait",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 52.46839640710484,
+              "verticalSpanAtTarget": 25.96923076923077,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.5884999999985085,
+                0,
+                9.999996794126142
+              ],
+              "bounds": {
+                "left": -5.28,
+                "right": 6.720000000000001,
+                "top": 11.426461538461538,
+                "bottom": -14.542769230769233
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 3.283333333333333,
+            "anchor": {
+              "x": 4.588499999998885,
+              "z": 9.99999679412614,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": true
+          }
+        },
+        {
+          "name": "offline-picker-1280",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 240,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.588499999998885,
+                0,
+                9.99999679412614
+              ],
+              "bounds": {
+                "left": -14.222222222222221,
+                "right": 14.222222222222221,
+                "top": 6.72,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 4,
+            "anchor": {
+              "x": 4.588499999998885,
+              "z": 9.99999679412614,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": true
+          }
+        },
+        {
+          "name": "offline-picker-1440",
+          "report": {
+            "choice": "special:dodge",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 281,
+            "phase": "battle",
+            "special": "dodge",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                4.588499999998885,
+                0,
+                9.99999679412614
+              ],
+              "bounds": {
+                "left": -12.8,
+                "right": 12.8,
+                "top": 6.72,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 4.683333333333334,
+            "anchor": {
+              "x": 4.588499999998885,
+              "z": 9.99999679412614,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": true
+          }
+        },
+        {
+          "name": "offline-practice-clock",
+          "report": {
+            "choice": "mission:repair",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "phase": "battle",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                16,
+                0,
+                2
+              ],
+              "bounds": {
+                "left": -12.8,
+                "right": 12.8,
+                "top": 6.72,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 2.85,
+            "anchor": {
+              "x": 16,
+              "z": 2,
+              "facing": 1.5707963267948966
+            },
+            "device": "mobile",
+            "paused": false
+          }
+        },
+        {
+          "name": "offline-resources",
+          "report": {
+            "choice": "special:resources",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 0
+            },
+            "hits": 0,
+            "clock": 136,
+            "phase": "battle",
+            "special": "resources",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -12.8,
+                "right": 12.8,
+                "top": 6.72,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 2.2666666666666666,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": false
+          }
+        },
+        {
+          "name": "offline-arena",
+          "report": {
+            "choice": "special:arena",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 2.724999999999999
+            },
+            "hits": 0,
+            "clock": 134,
+            "phase": "battle",
+            "special": "arena",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                10
+              ],
+              "bounds": {
+                "left": -12.8,
+                "right": 12.8,
+                "top": 6.72,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 2.2333333333333334,
+            "anchor": {
+              "x": 0,
+              "z": 10,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": false
+          }
+        },
+        {
+          "name": "offline-crossing",
+          "report": {
+            "choice": "special:crossing",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 10.512499999999998
+            },
+            "hits": 0,
+            "clock": 127,
+            "phase": "battle",
+            "special": "crossing",
+            "specialPhase": "active",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                47.25
+              ],
+              "bounds": {
+                "left": -12.8,
+                "right": 12.8,
+                "top": 6.72,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 2.1166666666666667,
+            "anchor": {
+              "x": 0,
+              "z": 47.25,
+              "facing": 3.141592653589793
+            },
+            "device": "mobile",
+            "paused": false
+          }
+        },
+        {
+          "name": "offline-native-shop",
+          "report": {
+            "choice": "shop:dice",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 0,
+              "damage": 10.512499999999998
+            },
+            "hits": 0,
+            "phase": "reward",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "bounds": {
+                "left": -12.8,
+                "right": 12.8,
+                "top": 6.72,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 0,
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "device": "mobile",
+            "paused": false
+          }
+        },
+        {
+          "name": "offline-invincible-feedback",
+          "report": {
+            "choice": "horde:ultralisks",
+            "busy": false,
+            "started": true,
+            "completed": false,
+            "invincible": {
+              "enabled": true,
+              "prevented": 1140,
+              "damage": 2968.282500000006
+            },
+            "hits": 1120,
+            "phase": "battle",
+            "camera": {
+              "projection": "perspective",
+              "mode": "landscape",
+              "orientation": "landscape",
+              "cameraMode": "fixed",
+              "pitchDegrees": 50,
+              "requestedPitchDegrees": 50,
+              "tiltFromVerticalDegrees": 40,
+              "autoTarget": {
+                "zoom": 1,
+                "pitch": 50
+              },
+              "fieldOfViewDegrees": 27.8,
+              "distance": 32.32650015603616,
+              "verticalSpanAtTarget": 16,
+              "zoom": 1,
+              "effectiveZoom": 1,
+              "preferences": {
+                "landscape": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                },
+                "portrait": {
+                  "zoom": 1,
+                  "pitch": 50,
+                  "mode": "fixed"
+                }
+              },
+              "safe": {
+                "left": 0,
+                "right": 0,
+                "top": 0,
+                "bottom": 0
+              },
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "bounds": {
+                "left": -12.8,
+                "right": 12.8,
+                "top": 6.72,
+                "bottom": -9.280000000000001
+              },
+              "cameraZoom": 1,
+              "targetPreview": null
+            },
+            "readiness": {
+              "kind": null,
+              "phase": "idle",
+              "done": 0,
+              "total": 0,
+              "label": "",
+              "error": null,
+              "progress": 0
+            },
+            "time": 15.066666666666666,
+            "anchor": {
+              "x": 0,
+              "z": 0,
+              "facing": 1.5707963267948966
+            },
+            "device": "mobile",
+            "paused": false
+          }
+        }
+      ],
+      "httpRequests": [],
+      "errors": [],
+      "touch": "Emulated CDP touch enabled before HUD construction; not a physical device."
+    },
+    "productionMenu": {
+      "pass": true,
+      "errors": [],
+      "text": "50\n0\nⅠ\n01:00\n新游戏\n选择阵营\n1\n种族\n2\n难度\n3\n出发\n人族\nTerran\n远程\n机械\n阵地\n×1\n兵营\n50\n0\n虫族\nZerg\n虫群\n恢复\n进化\n×2\n孵化场 / 血池\n50\n0\n神族\nProtoss\n护盾\n精锐\n灵能\n×1\n传送门\n0\n0\n人族 · 待命\n继续"
+    },
+    "assets": {
+      "webAssets": 1909,
+      "webResourceFiles": 1852,
+      "offlineAssets": 1909,
+      "offlineChunks": 2975,
+      "independentShaReadback": true
+    },
+    "screenshots": 79
+  },
+  "screenshots": [
+    {
+      "file": "screens-all-final/00-picker.png",
+      "bytes": 91941,
+      "sha256": "d6a5b38bfbe271b28a26fb868b9d12173513fa974e1e3dc5b2d988fd3126ea85",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/01-special-resources.png",
+      "bytes": 1303756,
+      "sha256": "483fdb136ab9fd1cb2b771b204073cccd4dbb7fc0a2cbe280ccf6ffd380f8c2b",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/02-special-arena.png",
+      "bytes": 1355253,
+      "sha256": "37082949dc772e32fb24154a62a91837e3381e3dee550d174c0001f2061f0905",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/03-special-crossing.png",
+      "bytes": 1311874,
+      "sha256": "fbf2f9a398180b50ef58a3ed9b91dd6da509f9edf0d92a13fd80eec39f294589",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/04-special-dodge.png",
+      "bytes": 1428760,
+      "sha256": "a39c14c51e48105c398183b7de4d790ece8e9a0fb1a305d177d438e328b16d22",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/05-mission-escort.png",
+      "bytes": 1328481,
+      "sha256": "9a938aa94155d2d6e4e10804aba7ae6da15c2ff013a214a0c7799e35c012dba9",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/06-mission-repair.png",
+      "bytes": 1329271,
+      "sha256": "99fd42797b1118ebf24c16cf3feae50c5bcf3525dfe8d5443839cc5162f14a72",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/07-mission-intel.png",
+      "bytes": 1356410,
+      "sha256": "2e5ad80d82087cbd98cba46114dd44cd00ae06a3c6d867de71218ebb43c93a78",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/08-mission-rescue.png",
+      "bytes": 1318145,
+      "sha256": "4a1dfc371b4ba5abb85a3e0214bd7a69e8411619be2329f86d0d798c111da842",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/09-mission-hives.png",
+      "bytes": 1357195,
+      "sha256": "2caa1fa01cc5b319a93062327599385a04e12c5a25608d11ab13e799689a01d3",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/10-mission-eggs.png",
+      "bytes": 1412734,
+      "sha256": "db1c3095427c504a056b95a893dd09db2c010b957b061fae5d7409fcfc0bedb2",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/11-mission-fleet.png",
+      "bytes": 1362623,
+      "sha256": "c21ea687349671d460105da751c09fd45a8e1bfd70cf56436529cebfbd1a81a6",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/12-encounter-golden.png",
+      "bytes": 1311169,
+      "sha256": "62a828bcd1ab296a41f10db0cb7d671645fdade0be7f9103e7a05d5190fb10fb",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/13-encounter-giant.png",
+      "bytes": 1316598,
+      "sha256": "e68f6eaa5acbf56ce54a0688568d8ff37ea31396e1358365a8daeba0d77bb9b1",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/14-encounter-gentle.png",
+      "bytes": 1305489,
+      "sha256": "6decfb5f8a3775c28b1212739bdffc4a2142c9ffbe12916b53039fddd0e44a23",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/15-fun-whitePack.png",
+      "bytes": 1318643,
+      "sha256": "790c65d70b2b788cf046015d6b6e1c0f37503de5a2a5ec0a1eff11adf1171f2a",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/16-fun-devourer.png",
+      "bytes": 1308190,
+      "sha256": "50d43888fadd02fea7894db0cb87acd4b89741a7a5a4b3547f49e8abcedda196",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/17-fun-flyingRoaches.png",
+      "bytes": 1344704,
+      "sha256": "b3f4902acaf5323023cdf1fd399bfda1f801bae537e4f2c22b93c48986e8196a",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/18-fun-cruelQueen.png",
+      "bytes": 1425381,
+      "sha256": "6dc9d01f324971ae7ca7d1d15472317d5930e80895de108893a26d858000c263",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/19-fun-infectedTerrans.png",
+      "bytes": 1329181,
+      "sha256": "26fa5492b2eac831d4ee4aa286f29cbf758913848fe07d4e8b6e63dee55b046f",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/20-fun-corruptedProtoss.png",
+      "bytes": 1356437,
+      "sha256": "cea6f1d15d3397403a797cafa18d82c40bfdc6216a35a9740873ddf06ec71f23",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/21-fun-parasites.png",
+      "bytes": 1325233,
+      "sha256": "9fc25e7a67cf107f8a84d49fe6a4ef43b10e32098ceeb9be098ec6ffb0f46841",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/22-pickup-medical.png",
+      "bytes": 1334103,
+      "sha256": "e9f1883a457c67c7f02b7ed0e986ae217d565724ac3594434ae75afc6dd25153",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/23-pickup-firepower.png",
+      "bytes": 1362577,
+      "sha256": "c339f2051c3b4856ee8d482f6f6cdd10cb55d3d81bd1c2ca3c79ee66d57fa934",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/24-pickup-armor.png",
+      "bytes": 1358004,
+      "sha256": "256a7c5418dcc337c57c5a671b5d85da60edc0a5cf2f39cc24254bc512537a9e",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/25-pickup-nuke.png",
+      "bytes": 1311242,
+      "sha256": "3f2f2773d2bad39366ed451d11fadf3b949a778cf7b834e32daef6729afb900c",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/26-pickup-root.png",
+      "bytes": 1357840,
+      "sha256": "efaee465cdecf88019a2f18d0e11013ff2d549b3ddaad14937e810301819f16e",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/27-horde-zerglings.png",
+      "bytes": 1328840,
+      "sha256": "cb4834a3dee92fc2766c3b5b654d44664ab3cbf19959957492566b2ce02e7f8f",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/28-horde-roachHydra.png",
+      "bytes": 1363220,
+      "sha256": "013bef2a04b95db83d4dbe99c81fb9688f54718f8c4f6ad7d16a68c8eb9e2289",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/29-horde-mutalisks.png",
+      "bytes": 1381339,
+      "sha256": "2293fdde7a49cdf095bb797086bbdc0fcc504627be26cbc511ae4b99151c1d4d",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/30-horde-ultralisks.png",
+      "bytes": 1433358,
+      "sha256": "311ec5ade0bbbf233113ed4ac870b1f4fe2e3c028550ab3e6f82024f816e57e9",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/31-shop-gland.png",
+      "bytes": 1438372,
+      "sha256": "c5727d69eb13718ae8af257d3a1d496e9ef06118fcd4288c044f4a76f8b7b6cb",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/32-shop-eye.png",
+      "bytes": 1325673,
+      "sha256": "0557f373dc1b40675204ea77380dcc5b957b1fe3930db7a41518189de82af5d8",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/33-shop-nydus.png",
+      "bytes": 1381681,
+      "sha256": "ebe2be55708295ffc1f5268a34c4cb7d03ca2181405578df0b80a26fb081002c",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/34-shop-tavern.png",
+      "bytes": 1305191,
+      "sha256": "eb648b6d995225f183075b0f57dc9125aeba62139687c82d19f93f374803b20b",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/35-shop-bait.png",
+      "bytes": 1305334,
+      "sha256": "301d35792e180fa04a29d7ed3c061cf54e430cb3176291530ebd686c3c243d9f",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/36-shop-dice.png",
+      "bytes": 1358820,
+      "sha256": "ca76f0e1aeb0f5d1c9359e8b48b90b16c8d5df0e86fe9f3ac28177abe59d845a",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/37-shop-pandora.png",
+      "bytes": 1373636,
+      "sha256": "29c57eb4fac92dec9d525b4096d0f409230b65a8a4624e421f5cf59fe99783bb",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-all-final/38-wings-elytra.png",
+      "bytes": 1295073,
+      "sha256": "d839de8ff18067420409065f13119b3e66cfd251dfea279b940f625dcdd51608",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/actual-webgl-restored.png",
+      "bytes": 177238,
+      "sha256": "1445327ed2bbbd4a826d352730915872852d0c8aadf972cf578964095e3d2574",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/arena-cycle.png",
+      "bytes": 213349,
+      "sha256": "37303a0c1b40705bf3fd5ed74c7294600e5f7b229dd547f9fd0e3a325f0d190e",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-invincible-complete.png",
+      "bytes": 161484,
+      "sha256": "c69d5ed2f725f2bcc2477d50c8e1d6b15d55501d62e84f3554ad2f7790fdaf10",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-layout-1280.png",
+      "bytes": 1044008,
+      "sha256": "d828fec8030848b8c0ea8b1eca026cb0f6bed01f8259cfd0d901002d2c5d5166",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-layout-1440.png",
+      "bytes": 1423832,
+      "sha256": "e97bc4e1cd87a3cc91889e74c6f5215aba80a03d389c04501d6d78325681dd64",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-layout-390.png",
+      "bytes": 366813,
+      "sha256": "9d7c3f50127a0e621af11ed4564f75e407847d71a288c4c55c8a90411cb0580e",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-layout-844.png",
+      "bytes": 379209,
+      "sha256": "e86d35970c01ea04dc05ff1c02395c30e4065f0570d1950622907482b6781d3e",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-real-five-hit-failure.png",
+      "bytes": 759546,
+      "sha256": "b062e1c0f249799b46c7aa2a429496621177353a5e1d14a134346fdfcae33a98",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-time-18.png",
+      "bytes": 1504446,
+      "sha256": "a39030a2526ba5f88967ee7f172e9871bd1ed9d87278bcfd390b6c6bcce36016",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-time-28.png",
+      "bytes": 1500942,
+      "sha256": "afb512b648b5a56fae3400e01ed3eb941f00f5f85f250b3c32b02158fa889264",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-time-38.png",
+      "bytes": 1540940,
+      "sha256": "5d0d208682f77f81091faa677ae3c46e48aa7f46e548e6b256394eb75bc21e44",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-time-48.png",
+      "bytes": 1541142,
+      "sha256": "e0eaa80a26b2facaeb733eaccd043d2137ede1a104b2583a6937a39504f52126",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-time-57.png",
+      "bytes": 1532313,
+      "sha256": "e46d8bcd0c30b75f98bff6c02dafb2215bafcd63e0bc1820a5f573796cb15666",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/dodge-time-8.png",
+      "bytes": 1464084,
+      "sha256": "69c32e199455c01e4688e4c8cc7d71103c72e5a959fd2bdcc82580d19d0cdc13",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/picker-layout-1280.png",
+      "bytes": 566577,
+      "sha256": "64e985f151987e0ffa9519509a5e7ec4814912c00ee448edf736caa1f8156463",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/picker-layout-1440.png",
+      "bytes": 792293,
+      "sha256": "23ad0fb16a75bea8894b0cb84d1e4226f902d69691c629a955287d841fcd2d0f",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/picker-layout-390.png",
+      "bytes": 184382,
+      "sha256": "279331fd54288a7097128dabee739a98c8b73e283d2aa6b17f5ba7efb4ecb34a",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/picker-layout-844.png",
+      "bytes": 202043,
+      "sha256": "fe971a87d57f576df355ae7c1e680dadea79e628a23c66a60ed7ba206097918a",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/resource-complete.png",
+      "bytes": 802641,
+      "sha256": "fa8829a738f2e529230aa70e15bded4de18541dd19b1d38d5019bbfc9ebdcf94",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/roster-queen.png",
+      "bytes": 1438451,
+      "sha256": "773a15ec64d94096784c5876512996bed8be7d672000fbf36a64562dbaea9b0f",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/roster-thor.png",
+      "bytes": 1462973,
+      "sha256": "babc1ef8a78536ad283967e143f6ca676f6beb55a6353168d4548223e19391d0",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r3/roster-zealot.png",
+      "bytes": 1433032,
+      "sha256": "71610aa44eb5e2396e818cd40d645a3691c306a932f5e90b0a8b469662e001af",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r4/arena-return.png",
+      "bytes": 259312,
+      "sha256": "2e6b93527278080f4cc604eab0f78c8f723b3b43e76c3c07c49f292db129d44d",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r4/crossing-cycle.png",
+      "bytes": 220808,
+      "sha256": "72ef77511b5d1edbe3d082ec0223cc016adafe4b348a4fa551020c1912b3daec",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r4/crossing-return.png",
+      "bytes": 803203,
+      "sha256": "d442b99b49826edb22a1266c08b8445518e354443523f437933b461ce90c6009",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-flows-r4/invincible-hit-feedback.png",
+      "bytes": 1851886,
+      "sha256": "78932f72216e4ab2e1cee2fdca25de0a502d0368acdede3affbbcb1069033040",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-arena.png",
+      "bytes": 1330510,
+      "sha256": "b85ff3ebfbbacf8bb56126ee1836c44d89b4c8bf0878d0c3c6a4815c344d5a34",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-crossing.png",
+      "bytes": 1332834,
+      "sha256": "126c7f803ecf1174feec62c2e54900ae3e056af8415d8445d958a972da677f10",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-dodge-touch.png",
+      "bytes": 364851,
+      "sha256": "1c22eaab3633997c957ade0869cb46c49c8249647171827a51792902fe2a884b",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-invincible-feedback.png",
+      "bytes": 1844367,
+      "sha256": "f5dfb0296becb0473d91e5f07f0641e1fdd261af5e0665050f649b1682dd091e",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-native-shop.png",
+      "bytes": 1371241,
+      "sha256": "8f7ca2756bd938a0e42cfcb7f7386f33b8122520f0e9f87bf438f3d53dd9b522",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-picker-1280.png",
+      "bytes": 567025,
+      "sha256": "5efa8a36c3f0713bc20a77427a81711fed6531e03fada26972dd8ba4402038ec",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-picker-1440.png",
+      "bytes": 783417,
+      "sha256": "4edcbd15cc8e792e8631a635008806e41d36534d689118b01d034bbcbb656915",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-picker-390.png",
+      "bytes": 182126,
+      "sha256": "a9ce4af4a025cb58e3eabaabe657e185973abde044a25b083e5da59d3c1f46f8",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-picker-844.png",
+      "bytes": 177589,
+      "sha256": "dbd440b8b32c90c85e31c226dcf577eddeaf8ab22e15cb76a9401b14aa4d0c0f",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-practice-clock.png",
+      "bytes": 1358034,
+      "sha256": "8eb882807fe89f4bbc4d41501d9938d54e38f5e9e78c0f2e946a4e81a013a8df",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/offline-resources.png",
+      "bytes": 1340676,
+      "sha256": "1e77608613639836ac9e8f368855da6e85bd30ec6ae860f1e53633ad8a469cbb",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/ordinary-production-menu-ready.png",
+      "bytes": 1533514,
+      "sha256": "f74e67ebfbbd5ddbac4636ec9966d93d650c2da76b6e89dc4c2eb1c62cb3c191",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/ordinary-production-menu.png",
+      "bytes": 1524078,
+      "sha256": "cb48bd33d7e55dad1974220a92bb40efe77f53135b325e05f788bc5409779ce1",
+      "visuallyReviewed": true
+    },
+    {
+      "file": "screens-offline-release/ordinary-production-race.png",
+      "bytes": 1385035,
+      "sha256": "dcab3d9720133769157c2315c6c1b20182a8b6f3c09ba34dd9b0d72985b3529e",
+      "visuallyReviewed": true
+    }
+  ],
+  "evidence": [
+    {
+      "file": "baseline.json",
+      "bytes": 126390,
+      "sha256": "6b38f83d922f9582832c2e5df347ffb9b696533ca3ce83854a614a89b7c1add8"
+    },
+    {
+      "file": "installed.json",
+      "bytes": 3171,
+      "sha256": "8dac963f59a7260376b8a79bdc6e99bd3ed808217cf527630c4eb7d902b671b2"
+    },
+    {
+      "file": "source-and-web-release.json",
+      "bytes": 863412,
+      "sha256": "648d50951b458c021815d2735cfa96932bbf33ee0062e7486600396129dc09ce"
+    },
+    {
+      "file": "web-lab-r4-build.json",
+      "bytes": 467612,
+      "sha256": "ebbf0c98eed871f0ee9f68f29a320cf72cdecd32ed2755a7d85e982828040976"
+    },
+    {
+      "file": "web-game-r4-build.json",
+      "bytes": 467409,
+      "sha256": "18fecade61f97d4eadacebeec014190baedc40b135abcceddb9ede5fa1943d14"
+    },
+    {
+      "file": "offline-final-r3-build.json",
+      "bytes": 81999,
+      "sha256": "6b000441cde92fd756c66fada1e4b3fab551047a47797acd6d8c68fa3173e67d"
+    },
+    {
+      "file": "offline-verification-r3.json",
+      "bytes": 327785,
+      "sha256": "7b912d597d47e6efbc33f0fade5e88e77d0adea9a52f1192ac8f3332320215ff"
+    },
+    {
+      "file": "regression-final-r2.log",
+      "bytes": 200642,
+      "sha256": "ee1d5e14f39ea18753bb5f5b18297fd7d9990dfd1d5d295864470a9b283bc709"
+    },
+    {
+      "file": "typecheck-release.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs-final-r2.log",
+      "bytes": 38,
+      "sha256": "cc9fcdd31826b7f084b1bd03a6acd12e63e7664e0b4e81b898a4837126b6bdb5"
+    },
+    {
+      "file": "qa-all-cases-final.json",
+      "bytes": 76801,
+      "sha256": "258ed6ffb122044951fe36df8bab173def98588fe3a092b01a90b3cdc2ce426c"
+    },
+    {
+      "file": "qa-flows-r3.json",
+      "bytes": 53146,
+      "sha256": "785e446b9cc6a987c2939f8969f2b04c4d4de94605dcf78aa6d329d1067feafc"
+    },
+    {
+      "file": "qa-flows-r4.json",
+      "bytes": 8228,
+      "sha256": "b27be4e5b97ff7e956b93b0a2e5919a7d07364b9739e2251384cdd78e2007d70"
+    },
+    {
+      "file": "qa-offline-release-r2.json",
+      "bytes": 29632,
+      "sha256": "033e7adc3e5243cd095d1ac6a2bb03af3b4423a0dfbaf6844e091532365e7d3c"
+    },
+    {
+      "file": "qa-menu-final.json",
+      "bytes": 342,
+      "sha256": "7301558d111842e54d671240f670c6f93ac0b8fda2bc94db7a3dc4075a36fa3a"
+    },
+    {
+      "file": "lock-build-isolation.json",
+      "bytes": 295,
+      "sha256": "d02b25e477fbee21cb9bde397d865516ff358b31c1ab65070989417ecf78945b"
+    },
+    {
+      "file": "offline-deltas/manifest.json",
+      "bytes": 1226,
+      "sha256": "13523e4ca3a794c2e511bdeebff4fbfd333978afad2bdbf466cf53a0e0553694"
+    },
+    {
+      "file": "cleanup-owned-qa.json",
+      "bytes": 447,
+      "sha256": "bbbf9d50fd004b854ca2da268469047d24639180343e8fc40e2751923bc4df75"
+    },
+    {
+      "file": "served-delivery.json",
+      "bytes": 556,
+      "sha256": "cd19bff7acb1e04ac1e9b0528ac1acdf5f7ba6f19a6e11f8e29af9503fbef521"
+    },
+    {
+      "file": "delivery.json",
+      "bytes": 510,
+      "sha256": "3e8f96c07afc95e6f76a1cb0ab83b78432e84f5f722c8fcbcc3f3e2e39c85db6"
+    }
+  ],
+  "limitations": [
+    "受控入口与固定配置，不是自然可获得性验收",
+    "无敌完整周期不等于正常难度胜率；三阵容无敌关闭路线是可复现程序输入",
+    "未做自然全战役、人类难度／设备试玩、全内容60FPS或长期压力",
+    "第三批商品辨识图与第四批视听反馈仍待实施",
+    "本包不是T01全量动作／卡牌／技能／特效检测器",
+    "本次不关闭main性能板I01–I03、G01–G03、U05、V01–V06或MVP"
+  ],
+  "failuresPreserved": [
+    "initial over-300 prototype and unsuccessful route probes",
+    "regression-r1.log: 3 legacy three-pattern route failures",
+    "build cwd / sandbox navigation and CDP failures",
+    "initial missing repair worker fixture",
+    "invincibility floor flash and shield counter gap, subsequently fixed",
+    "practice timer clamp / Infinity display / landscape picker scroll, subsequently fixed",
+    "touch emulation after desktop HUD initialization; corrected before final offline boot",
+    "duplicate special-return locator; resumed real claim/return in qa-flows-r4.json",
+    "ordinary menu wrong selector and early opening screenshot; real clickable menu verified in qa-menu-final.json"
+  ],
+  "boundaries": {
+    "mainMerged": false,
+    "mainSourceEdited": false,
+    "performanceBoardEdited": false,
+    "currentReplaced": false,
+    "committed": false,
+    "pushed": false,
+    "published": false,
+    "saveEnabled": false
+  },
+  "finishedAt": "2026-10-21T16:24:24.908Z",
+  "closeout": {
+    "cleanup-owned-qa.json": {
+      "at": "2026-10-21T16:10:43.2084332Z",
+      "profile": "D:\\星际\\reports\\local\\fun-bullethell-20261021\\qa-profile",
+      "logicalBytesRemoved": 1627358781,
+      "verifiedClosedProcessIds": [
+        26464,
+        15636,
+        14708,
+        22692,
+        24092,
+        484,
+        22104,
+        6028
+      ],
+      "profileRemoved": true,
+      "scope": "Only the owned, closed browser profile for this task. Logs, screenshots, inputs and latest outputs retained."
+    },
+    "served-delivery.json": {
+      "pass": true,
+      "rows": [
+        {
+          "kind": "lab",
+          "url": "http://127.0.0.1:4474/",
+          "htmlSha256": "a72b8b6b2b6630c5894a1f54c3c420d310e8303f8c13a83bf633dc7ec45f776f",
+          "jsSha256": "208e9a1615bef6ab37e21117178b74357b72862a6765dd4f0327e4e5cba2e27f"
+        },
+        {
+          "kind": "game",
+          "url": "http://127.0.0.1:4474/game/",
+          "htmlSha256": "dbcb5c588f593950a44f96ded2c86c7cf16a9766002a8947276aa499d840c867",
+          "jsSha256": "89160d0444481608fabcb267fc5061a2d622222e406cbe66a2efba9ea32b7597"
+        }
+      ],
+      "galleryStatus": 200
+    },
+    "delivery.json": {
+      "preview": "D:/星际/preview/fun-lab-20261021-r1",
+      "game": "D:/星际/preview/fun-bullethell-game-20261021-r1",
+      "offline": "D:/星际/preview/fun-lab-20261021-r1/星际幸存者-趣味试玩.html",
+      "offlineBytes": 790265144,
+      "offlineSha256": "a5f1b4397d15144e44a48863afe96b9504c936bdedc09f1104bb9403e7c35dc8",
+      "labBuild": "a797c9520e2711ad405118b272aabfb88d354bb3cdf5870f525bdbfee440dc94",
+      "gameBuild": "70bed20089444e19eab62b1d2a63fefa265b60cc0db60624c4917220ea65d2be",
+      "reviewImages": 20
+    }
+  }
+}

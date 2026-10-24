@@ -1,0 +1,44 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+import {readArchive} from '../src/persistence/archive.ts';
+import {browserRun} from './v01-browser-helper.mjs';
+const mode=process.argv[2]??'web',run='final-'+mode+'-'+(process.argv[3]??'r2'),variant=process.argv[4]??'dense-final-r1',env=await browserRun(run,'Shader source identity and native retry diagnostic; GL calls are observed without flushing or changing completion. Not uninstrumented timing acceptance. Import actual V01 third-stage checkpoint, save/export/reload/continue, native advance, pause/title and recovery. Offline file mode records all HTTP requests. No performance or natural full-campaign claim.',{variant,profile:path.resolve('reports/local/v01-20261024/'+run+'-profile')});
+const {page,root,base,report,shot,save,setPhase}=env,url=mode==='offline'?pathToFileURL(path.resolve('reports/local/v01-20261024/offline-game-stage-window-final-r1.html')).href:base;
+await fs.copyFile(import.meta.filename,root+'/runner.mjs');await fs.copyFile('tools/v01-browser-helper.mjs',root+'/helper.mjs');report.http=[];page.on('request',r=>{if(/^https?:/.test(r.url()))report.http.push(r.url());});
+const click=s=>page.locator(s+':visible').first().click(),state=()=>page.evaluate(()=>__SC2_REPORT__());
+const waitSave=()=>page.waitForFunction(()=>{const s=__SC2_REPORT__().save;return !s.busy&&s.message.includes('已保存');},null,{timeout:30000});
+async function menu(){console.log(JSON.stringify({event:'navigation-start',at:Date.now()}));await page.goto(url,{waitUntil:'domcontentloaded',timeout:180000});console.log(JSON.stringify({event:'dom-ready',at:Date.now()}));await page.waitForFunction(()=>typeof __SC2_REPORT__==='function'&&!document.getElementById('scs-opening-visual'),null,{timeout:240000});console.log(JSON.stringify({event:'menu-ready',at:Date.now()}));}
+async function exportArchive(name){await click('[data-action=settings]');await click('[data-action=settings-tab][data-tab=saves]');const download=page.waitForEvent('download');await click('[data-action=save-export]');await(await download).saveAs(root+'/'+name+'.json');const parsed=readArchive(await fs.readFile(root+'/'+name+'.json','utf8'));await click('[data-action=settings-back]');return {phase:parsed.bundle.run?.state.phase,stage:parsed.bundle.run?.state.stage,time:parsed.bundle.run?.state.time,runId:parsed.bundle.run?.state.runId,accountRun:parsed.bundle.equipment?.run?.id};}
+
+await env.context.addInitScript(()=>{
+ const programs=new Map(),shaders=new Map(),sources=[],indices=new Map();let serial=0;
+ const proto=WebGL2RenderingContext.prototype,source=proto.shaderSource,attach=proto.attachShader,link=proto.linkProgram,get=proto.getProgramParameter;
+ proto.shaderSource=function(shader,text){let id=indices.get(text);if(id===undefined){id=sources.length;indices.set(text,id);sources.push(text);}shaders.set(shader,id);return source.call(this,shader,text);};
+ proto.attachShader=function(program,shader){let row=programs.get(program);if(!row){row={id:++serial,sources:[],linked:0,polls:0,last:null};programs.set(program,row);}row.sources.push(shaders.get(shader));return attach.call(this,program,shader);};
+ proto.linkProgram=function(program){const row=programs.get(program);if(row)row.linked=performance.now();return link.call(this,program);};
+ proto.getProgramParameter=function(program,key){const value=get.call(this,program,key);if(key===0x91b1){const row=programs.get(program);if(row){row.polls++;row.last=value;row.lastAt=performance.now();}}return value;};
+ globalThis.ShaderProbe={status(){return {at:performance.now(),programs:[...programs.values()].map(x=>({...x}))};},snapshot(){return {at:performance.now(),lost:document.querySelector('canvas#battle')?.getContext('webgl2')?.isContextLost(),programs:[...programs.values()].map(x=>({...x})),sources};}};
+});
+async function measuredRestoreWait(){
+ await page.waitForFunction(()=>['ready','error'].includes(__SC2_REPORT__().readiness.phase)||(__SC2_REPORT__().readiness.phase==='gpu'&&__SC2_REPORT__().readiness.total===1&&ShaderProbe.status().programs.some(p=>p.last===false&&performance.now()-p.linked>2000)),null,{timeout:240000});
+ const catalog=await page.evaluate(()=>({state:__SC2_REPORT__().readiness,probe:ShaderProbe.snapshot()}));await fs.writeFile(root+'/shader-source-catalog.json',JSON.stringify(catalog));
+ const hashes=catalog.probe.sources.map(text=>createHash('sha256').update(text).digest('hex'));
+ report.shaderCatalog={state:catalog.state,at:catalog.probe.at,lost:catalog.probe.lost,sourceCount:hashes.length,programs:catalog.probe.programs.map(p=>({...p,sourceHashes:p.sources.map(id=>hashes[id])})),file:root+'/shader-source-catalog.json'};await save();
+ await page.waitForFunction(()=>['ready','error'].includes(__SC2_REPORT__().readiness.phase),null,{timeout:240000});
+ report.restoreFirstAttempt=await page.evaluate(()=>({state:__SC2_REPORT__().readiness,probe:ShaderProbe.status()}));await save();
+ if(report.restoreFirstAttempt.state.phase==='error'){
+  await shot('restore-first-failure');await click('[data-action=flow-retry]');await page.waitForFunction(()=>['ready','error'].includes(__SC2_REPORT__().readiness.phase),null,{timeout:300000});report.restoreRetry=await page.evaluate(()=>({state:__SC2_REPORT__().readiness,probe:ShaderProbe.status()}));await save();
+ }
+ assert.equal((await state()).readiness.phase,'ready');
+}
+
+try{
+ await menu();assert.equal(await page.evaluate(()=>typeof globalThis.A03),'undefined');assert.match(await page.locator('.game-footer').innerText(),/非官方同人 · StarCraft II 素材属于 Blizzard Entertainment/);await shot('home');
+ setPhase('import-actual-stage3');await click('[data-action=settings]');await click('[data-action=settings-tab][data-tab=saves]');await page.locator('input[aria-label="导入战局文件"]').setInputFiles('reports/local/v01-20261024/stage-window-b1/cycle0-stage3-archive.json');await page.waitForFunction(()=>['ready','error'].includes(__SC2_REPORT__().readiness.phase),null,{timeout:300000});assert.equal((await state()).readiness.phase,'ready');await click('[data-action=flow-continue]');await page.waitForFunction(()=>__SC2_REPORT__().phase==='reward');await waitSave();assert.equal(await page.locator('.save-error-modal:visible').count(),0);await shot('stage3-restored');const imported=await exportArchive('restored-stage3');assert.equal(imported.phase,'reward');assert.equal(imported.time,180);assert.equal(imported.runId,imported.accountRun);report.checks.push({name:'actual-third-stage-import-save-export',...imported});await save();
+ setPhase('reload-continue');await menu();await click('[data-action=save-continue]');await measuredRestoreWait();await click('[data-action=flow-continue]');await page.waitForFunction(()=>__SC2_REPORT__().phase==='reward');await waitSave();await shot('reload-continue');report.checks.push({name:'reload-continue-stage3',state:await state()});
+ setPhase('advance-stage4');await click('[data-action=skip]');await page.getByRole('heading',{name:'战备补给',exact:true}).waitFor();await waitSave();await click('[data-action=skip]');await page.waitForFunction(()=>__SC2_REPORT__().phase==='battle',null,{timeout:240000});await page.keyboard.press('Escape');await page.locator('.pause-modal:visible').waitFor();assert.deepEqual((await page.locator('.pause-actions button').allTextContents()).map(s=>s.trim()),['继续','整备部队','设置','返回标题']);await waitSave();const advanced=await exportArchive('advanced-stage4');assert.equal(advanced.phase,'reward');assert.equal(advanced.stage,3);assert.equal(advanced.time,180);assert.equal(advanced.runId,imported.runId);assert.equal((await state()).stage,4);await shot('stage4-paused');report.checks.push({name:'native-advance-retains-successful-intermission-checkpoint',...advanced});
+ setPhase('title-resume');await click('[data-action=restart]');await click('[data-action=save-continue]');await page.waitForFunction(()=>__SC2_REPORT__().phase==='battle');await page.locator('.pause-modal:visible').waitFor();assert.equal((await state()).stage,4);assert.equal(await page.locator('.save-error-modal:visible').count(),0);await shot('stage4-resumed');report.checks.push({name:'native-title-continue-live-paused-stage4',state:await state()});
+ assert.equal(report.errors.length,0,JSON.stringify(report.errors));if(mode==='offline')assert.equal(report.http.length,0);report.pass=true;
+}catch(e){report.failure=String(e.stack??e);report.failureState=await state().catch(()=>null);report.contextState=await page.evaluate(()=>{const g=document.querySelector('canvas#battle')?.getContext('webgl2');return {available:!!g,lost:g?.isContextLost()};}).catch(()=>null);await shot('failure').catch(()=>{});process.exitCode=1;}finally{await env.close();}

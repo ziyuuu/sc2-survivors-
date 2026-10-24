@@ -21,9 +21,9 @@ export interface EquipmentItem {
  /** Cleansing changes availability, never the rolled contents or drop-only provenance. */
  pollution:'none'|'uncleansed'|'cleansed';inherited:string[];
 }
-/** Recipe identity, retained after the item is consumed or lost. Runtime only until save integration. */
+/** Recipe identity, retained after the item is consumed or lost. */
 export type AcquiredEquipment=Pick<EquipmentItem,'template'|'race'|'slot'|'binding'>;
-export type ItemLocation={kind:'warehouse'|'equipped'}|{kind:'backpack'|'ground';run:string;x?:number;z?:number};
+export type ItemLocation={kind:'warehouse'|'equipped'}|{kind:'backpack'|'ground';run:string;x?:number;z?:number;/** Campaign stage or 18 + endless round; present only while on the ground. */droppedStage?:number};
 export interface EquipmentRun {
  id:string;race:Race;locked:Set<string>;receipts:Set<string>;started:boolean;ended:boolean;
 }
@@ -34,6 +34,7 @@ export interface EquipmentAccount {
  equipped:Record<Race,Partial<Record<EquipmentSlot,string>>>;
  pity:Record<Quality,number>;receipts:Record<string,string[]>;run:EquipmentRun|null;
  modification?:{id:string;revision:number;items:string[];kind:'affix'|'elite';index?:number;choices:({key:Affix;score:number}|EquipmentBinding)[]};
+ settlement?:{run:string;outcome:'success'|'failure';retained:string[];lost:EquipmentItem[];salvaged:EquipmentItem[];dust:number};
 }
 export interface EquipmentTotals {
  dps:number;attackSpeed:number;armor:number;hp:number;attack:number;trueDps:number;

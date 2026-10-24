@@ -1,0 +1,216 @@
+{
+  "at": "2026-10-16T04:04:48.207Z",
+  "scope": "Move display controls to application settings, three shared text sizes; retain real World adapter and R19 equipment rules.",
+  "build": {
+    "file": "D:\\星际\\preview\\starship-ui-settings-20261016-r20\\Starship-UI-Flow-R20-20261016.html",
+    "bytes": 50566437,
+    "sha256": "64acff406053834aab6b8dbdbc183af56d13b819d74999d2848f28dcc798c79f",
+    "existingArt": 441,
+    "heroArt": 54,
+    "reusedShips": 3,
+    "reusedCovers": 3,
+    "reusedBrand": 1,
+    "images": 502,
+    "templates": 210,
+    "rows": 14811
+  },
+  "copies": [
+    {
+      "file": "preview/starship-ui-settings-20261016-r20/Starship-UI-Flow-R20-20261016.html",
+      "sha256": "64acff406053834aab6b8dbdbc183af56d13b819d74999d2848f28dcc798c79f",
+      "bytes": 50566437
+    },
+    {
+      "file": "preview/starship-ui-settings-20261016-r20/index.html",
+      "sha256": "64acff406053834aab6b8dbdbc183af56d13b819d74999d2848f28dcc798c79f",
+      "bytes": 50566437
+    },
+    {
+      "file": "dist/Starship-UI-Flow-R20-20261016.html",
+      "sha256": "64acff406053834aab6b8dbdbc183af56d13b819d74999d2848f28dcc798c79f",
+      "bytes": 50566437
+    }
+  ],
+  "compiledInputs": 166,
+  "extraSources": [
+    {
+      "file": "src/ui/hud.ts",
+      "sha256": "1fb3a795b05dd50a1974aa6562a4646da99e06111f9bc14c1cccda719bf904bd"
+    },
+    {
+      "file": "src/ui/text-scale.ts",
+      "sha256": "30106d90b6bd65fbbb71f5c208806971aa5bcc0294ed2b5443f551b54a9ae909"
+    },
+    {
+      "file": "src/ui/presentation/settings-screen.ts",
+      "sha256": "2e1173e925b35eb1dbf2943111092e6e9531dc31089d4edc44145afed0d1046e"
+    },
+    {
+      "file": "src/ui/presentation/display-settings.ts",
+      "sha256": "c4c3772b82a2a7a7c33bcad394663e3e674f8bcf602afb25b423574aa3d24e4f"
+    },
+    {
+      "file": "src/ui/display-preferences.ts",
+      "sha256": "7f67e153097ea1ff3d5962301583048466739507f8cb54adaf0f42f6ee3aa25f"
+    },
+    {
+      "file": "tools/prepare-starship-ui-reuse.mjs",
+      "sha256": "bce08aca9366a102e5a5f44a5ca1fc056c4596b8ea6e251acd0d6a47b0c43d43"
+    }
+  ],
+  "nativeSettingsInputs": 39,
+  "resources": {
+    "keys": 502,
+    "files": 625,
+    "existingEquipment": 441,
+    "heroPoses": 54,
+    "unchanged": true
+  },
+  "historical": [
+    {
+      "file": "preview/starship-ui-polish-20261016-r19/Starship-UI-Flow-R19-20261016.html",
+      "sha256": "a2b928d894cc679e68587c4f34b4b0d51a233dfc1a3ed327c8abdb33d3697a4c"
+    },
+    {
+      "file": "preview/starship-ui-polish-20261016-r19/index.html",
+      "sha256": "a2b928d894cc679e68587c4f34b4b0d51a233dfc1a3ed327c8abdb33d3697a4c"
+    },
+    {
+      "file": "dist/Starship-UI-Flow-R19-20261016.html",
+      "sha256": "a2b928d894cc679e68587c4f34b4b0d51a233dfc1a3ed327c8abdb33d3697a4c"
+    },
+    {
+      "file": "preview/starship-ui-flow-20261015-r18/Starship-UI-Flow-R18-20261015.html",
+      "sha256": "2fa9cb5159db4c068238538dc9af4a73b05460e0bd2813626b4d9997bebfe112"
+    },
+    {
+      "file": "preview/starship-ui-flow-20261015-r18/index.html",
+      "sha256": "2fa9cb5159db4c068238538dc9af4a73b05460e0bd2813626b4d9997bebfe112"
+    },
+    {
+      "file": "dist/Starship-UI-Flow-R18-20261015.html",
+      "sha256": "2fa9cb5159db4c068238538dc9af4a73b05460e0bd2813626b4d9997bebfe112"
+    }
+  ],
+  "typography": {
+    "small": 0.85,
+    "standard": 0.95,
+    "large": 1.15,
+    "default": "standard",
+    "actualMeasurements": [
+      {
+        "scale": 0.95,
+        "fonts": {
+          ".ship-navigation nav button": 14.25,
+          ".item-name": 12.54,
+          ".panel-head h2": 19,
+          ".stat-four .value": 19
+        }
+      },
+      {
+        "scale": 0.85,
+        "fonts": {
+          ".ship-navigation nav button": 12.75,
+          ".item-name": 11.22,
+          ".panel-head h2": 17,
+          ".stat-four .value": 17
+        }
+      },
+      {
+        "scale": 0.95,
+        "fonts": {
+          ".ship-navigation nav button": 14.25,
+          ".item-name": 12.54,
+          ".panel-head h2": 19,
+          ".stat-four .value": 19
+        }
+      },
+      {
+        "scale": 1.15,
+        "fonts": {
+          ".ship-navigation nav button": 17.25,
+          ".item-name": 15.18,
+          ".panel-head h2": 23,
+          ".stat-four .value": 23
+        }
+      }
+    ]
+  },
+  "validation": {
+    "typecheck": "reports/local/starship-display-settings-20261016/typecheck-r1.log",
+    "existingInterfaceTests": {
+      "passed": 23,
+      "log": "reports/local/starship-display-settings-20261016/targeted-r2.log"
+    },
+    "browser": {
+      "report": "reports/local/starship-display-settings-20261016/browser-1792123100961/report.json",
+      "checks": 10,
+      "screens": 9,
+      "baselineScreens": 1,
+      "currentScreens": 8,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "externalRequests": 0
+    },
+    "nativeSettings": {
+      "controlledView": true,
+      "fullMainGame": false
+    },
+    "visual": {
+      "reviewer": "model",
+      "reviewedImages": [
+        "D:\\星际\\reports\\local\\starship-display-settings-20261016\\browser-1792123100961\\baseline-r19-standard.png",
+        "D:\\星际\\reports\\local\\starship-display-settings-20261016\\browser-1792123100961\\standard-desktop.png",
+        "D:\\星际\\reports\\local\\starship-display-settings-20261016\\browser-1792123100961\\settings-desktop.png",
+        "D:\\星际\\reports\\local\\starship-display-settings-20261016\\browser-1792123100961\\small-desktop.png",
+        "D:\\星际\\reports\\local\\starship-display-settings-20261016\\browser-1792123100961\\large-desktop.png",
+        "D:\\星际\\reports\\local\\starship-display-settings-20261016\\browser-1792123100961\\narrow-0.85.png",
+        "D:\\星际\\reports\\local\\starship-display-settings-20261016\\browser-1792123100961\\narrow-0.95.png",
+        "D:\\星际\\reports\\local\\starship-display-settings-20261016\\browser-1792123100961\\narrow-1.15.png",
+        "D:\\星际\\reports\\local\\starship-display-settings-20261016\\browser-1792123100961\\settings-narrow.png"
+      ],
+      "scaledLongScreens": [
+        "narrow-1.15.png",
+        "settings-narrow.png"
+      ],
+      "humanAcceptance": false
+    },
+    "httpBytesMatch": true,
+    "verifiedLinks": 7
+  },
+  "integration": {
+    "sharedProductionRules": true,
+    "realWorldAdapterValidated": true,
+    "formalStarshipUiMounted": false,
+    "applicationCallbacksStillRequired": [
+      "resolveImage",
+      "inputReset",
+      "begin",
+      "continue"
+    ],
+    "saveWorkDeferred": true,
+    "currentReplaced": false,
+    "committed": false,
+    "pushed": false,
+    "published": false
+  },
+  "failures": [
+    {
+      "kind": "delivery verifier directory selection",
+      "evidence": "reports/local/starship-display-settings-20261016/verifier-r1-failure.json",
+      "recovery": "Filter directories explicitly, then verify the recorded browser report."
+    },
+    {
+      "kind": "sandbox child process EPERM",
+      "logs": [
+        "reports/local/starship-display-settings-20261016/build-r1.log",
+        "reports/local/starship-display-settings-20261016/targeted-r1.log"
+      ],
+      "recovery": "Local subprocesses allowed; build-r2 and targeted-r2 passed."
+    }
+  ],
+  "limits": [
+    "No full main-game startup, natural play, physical-device or FPS acceptance in this batch.",
+    "R19 full-suite results remain historical; this batch ran 23 existing interface tests and 10 focused browser checks."
+  ]
+}

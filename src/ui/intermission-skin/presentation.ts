@@ -59,15 +59,15 @@ export function cardPresentation(w:World,c:CardView,r?:ExpeditionReward){
   current='×'+(w.expedition.cardTotals[teamCardKey(e.group,e.rarity)]??0);
   simple=strength+(e.group==='firepower'?'全军伤害与攻击速度':'全军生命、护盾与护甲');
  }else if(e?.kind==='card'){
-  simple=e.effect==='production'?strength.replace('提高','缩短')+'后续训练耗时':e.effect==='cultivation'?'培养军衔最低的普通士兵':strength+({weapon:'武器伤害',vitality:'最大生命',armor:'护甲',recovery:'治疗与修复效率',energy:'能量恢复'} as Record<string,string>)[e.effect];
+  simple=e.effect==='production'?strength.replace('提高','缩短')+'后续训练耗时':e.effect==='cultivation'?'培养军衔最低的普通士兵':strength+({weapon:'武器伤害',vitality:'最大生命',armor:'护甲',recovery:'恢复效率',energy:'能量恢复'} as Record<string,string>)[e.effect];
  }else if(e?.kind==='support'){
-  simple=({mines:'布设地雷，拦截靠近的敌军',bombardment:'呼叫范围轰击',mutation:'强化攻击的附加效果',strategic:'发动大范围战略打击','terran.ricochet':'实弹跳向额外目标','terran.bunker':'部署临时地堡提供掩护','terran.missiles':'周期性发射集束导弹','terran.overdrive':'主动提高射速与移动速度','zerg.hatch':'利用附近战果孵化临时跳虫','zerg.consume':'吞噬尸骸精华恢复生命','zerg.parasite':'植入毒囊，宿主倒下时酸爆','zerg.evolve':'主动恢复生命并强化甲壳','protoss.reserve':'将溢出的护盾恢复储存备用','protoss.counter':'破盾时反击并减速敌军','protoss.echo':'普攻追加相位伤害','protoss.prism':'主动展开定向持续扫射'})[e.support];
+  simple=({mines:'布设地雷，拦截靠近的敌军',bombardment:'呼叫范围轰击',mutation:'强化攻击的附加效果',strategic:'发动大范围战略打击','terran.ricochet':'实弹跳向额外目标','terran.bunker':'部署临时地堡提供掩护','terran.missiles':'周期性发射集束导弹','terran.overdrive':'主动提高武器伤害、射速与移动速度','zerg.hatch':'利用附近战果孵化临时跳虫','zerg.consume':'吞噬尸骸精华恢复生命','zerg.parasite':'植入毒囊，宿主倒下时酸爆','zerg.evolve':'主动恢复生命并强化甲壳','protoss.reserve':'将溢出的护盾恢复储存备用','protoss.counter':'破盾时反击并减速敌军','protoss.echo':'普攻追加相位伤害','protoss.prism':'主动展开定向持续扫射'})[e.support];
  }else if(e?.kind==='resource'){
   simple='回收补给，补充作战资源';
  }else if(e?.kind==='hero'||c.identity&&c.identity in HEROES){const id=(e?.kind==='hero'?e.heroId:c.identity)as HeroId,owned=w.heroes.get(id);current=owned?level(owned.rank):'';gain=c.kicker==='英雄复活'?'':owned?(owned.rank<5?'↗':''):'NEW';simple=c.kicker==='英雄复活'?c.stat:owned?'提升英雄军衔':'招募英雄加入战斗';}
  else if(e?.kind==='elite'||c.identity&&c.identity in ELITES){const id=(e?.kind==='elite'?e.eliteId:c.identity)as EliteId,owned=w.eliteOwned(id);current=owned?level(owned.rank):'';gain=owned?(owned.rank<5?'↗':''):'NEW';simple=owned?'提升精锐军衔':'挑选精锐与专属战法';}
  if(!e&&!c.identity?.includes('.')&&c.art==='supply'){gain='+'+c.count;simple=c.kicker.includes('空投')?'空投增援，抵达后接收':'增援立即加入小队';}
- if(!e&&(catalogueEffect||source.startsWith('team.'))){const kind=catalogueEffect??source.split('.')[1];simple=kind==='production'?'缩短后续训练耗时':kind==='cultivation'?'培养军衔最低的普通士兵':strength+({weapon:'武器伤害',vitality:'最大生命',armor:'护甲',recovery:'治疗与修复效率',energy:'能量恢复',firepower:'全军伤害与攻击速度',defense:'全军生命、护盾与护甲'}as Record<string,string>)[kind];}
+ if(!e&&(catalogueEffect||source.startsWith('team.'))){const kind=catalogueEffect??source.split('.')[1];simple=kind==='production'?'缩短后续训练耗时':kind==='cultivation'?'培养军衔最低的普通士兵':strength+({weapon:'武器伤害',vitality:'最大生命',armor:'护甲',recovery:'恢复效率',energy:'能量恢复',firepower:'全军伤害与攻击速度',defense:'全军生命、护盾与护甲'}as Record<string,string>)[kind];}
  if(!e&&source.startsWith('economy.'))simple='回收补给，补充作战资源';
  if(!e&&source.startsWith('training.')){gain='↗';simple='提升普通士兵军衔';}
  if(!e&&equipment(c)){simple=equipment(c)!.kind===0?'提高对应生产线的武器伤害':'提高对应生产线的防护能力';}

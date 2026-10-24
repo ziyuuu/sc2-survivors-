@@ -1,0 +1,2926 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-19",
+  "task": "B03",
+  "scope": "Representative baseline, no game optimization",
+  "formalNames": [
+    "drops-1",
+    "drops-live-1",
+    "ui-1",
+    "ui-2",
+    "followups-1",
+    "supplement-3",
+    "visibility-2",
+    "history-1",
+    "input-1",
+    "browser-natural-2",
+    "browser-natural-3",
+    "loading-web-3",
+    "loading-web-4",
+    "loading-offline-3",
+    "loading-offline-4",
+    "loading-failure-2",
+    "loading-failure-3"
+  ],
+  "count": {
+    "runs": 17,
+    "windows": 68,
+    "actions": 153,
+    "checkpoints": 123,
+    "screens": 145
+  },
+  "summarySha256": "e5cc91ed4f70b4010aa5f275b675b0be1d363118c9631fb9fddac689ba9ba735",
+  "issues": [
+    {
+      "task": "S03",
+      "kind": "tracking-mine-dynamic-corner-stall",
+      "reproductions": 3,
+      "evidence": [
+        "supplement-3",
+        "tracking-mine-findings-r2.json"
+      ],
+      "fixed": false
+    },
+    {
+      "task": "U02",
+      "kind": "warehouse-render-reentrancy",
+      "reproductions": 12,
+      "evidence": [
+        "ui-1",
+        "ui-2"
+      ],
+      "fixed": false
+    },
+    {
+      "task": "U02",
+      "kind": "active-expedition-new-game-copy-conflict",
+      "evidence": [
+        "loading-web-3",
+        "loading-web-4",
+        "loading-offline-3",
+        "loading-offline-4"
+      ],
+      "fixed": false
+    }
+  ],
+  "summary": "reports/local/performance-b03-20261019/summary.json",
+  "verification": "reports/local/performance-b03-20261019/verification.json",
+  "natural": {
+    "method": "Native World fixed-step replay; easy terran bio seed529, legal quality1 gear assigned before start, real production/economy, no health lock/jump/cash injection. Logic timing only, not browser FPS or human natural-play acceptance.",
+    "peaks": {
+      "enemies": 124,
+      "queue": 39,
+      "mineral": 181,
+      "gas": 75,
+      "pickups": 181,
+      "equipmentGround": 18,
+      "backpack": 64,
+      "ledger": 20,
+      "receipts": 8433
+    },
+    "final": {
+      "time": 2520,
+      "tick": 151200,
+      "stage": 18,
+      "endless": 13,
+      "endlessElapsed": 720,
+      "phase": "battle",
+      "allies": 8,
+      "enemies": 63,
+      "queue": 0,
+      "mineral": 21,
+      "gas": 2,
+      "pickups": 21,
+      "equipmentGround": 18,
+      "backpack": 64,
+      "ledger": 20,
+      "receipts": 8434,
+      "history": 30,
+      "entities": 74,
+      "kills": 4316,
+      "wallet": {
+        "minerals": 24565.486549077967,
+        "gas": 14862.380290464838
+      },
+      "heap": 112004488
+    },
+    "steps": 151200
+  },
+  "runs": [
+    {
+      "run": "browser-natural-1",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [],
+      "failure": "page.evaluate: Error: 仍有资源未完成准备\n    at BattleRenderer.waitForPendingAssets (http://127.0.0.1:4436/main.js:105627:41)\n    at async Object.naturalTo (http://127.0.0.1:4436/main.js:80209:11)\n    at async eval (eval at evaluate (:311:30), <anonymous>:1:68)\n    at async <anonymous>:337:30\n    at call (D:\\星际\\tools\\qa-performance-b03.ts:16:48)\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03.ts:59:146)",
+      "windows": 0,
+      "actions": 0,
+      "points": 5,
+      "screens": 5
+    },
+    {
+      "run": "browser-natural-2",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 12,
+      "actions": 0,
+      "points": 9,
+      "screens": 9
+    },
+    {
+      "run": "browser-natural-3",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 8,
+      "actions": 0,
+      "points": 9,
+      "screens": 7
+    },
+    {
+      "run": "drops-1",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 12,
+      "actions": 0,
+      "points": 11,
+      "screens": 7
+    },
+    {
+      "run": "drops-live-1",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 12,
+      "actions": 0,
+      "points": 26,
+      "screens": 10
+    },
+    {
+      "run": "followups-1",
+      "formal": true,
+      "flowComplete": false,
+      "errors": [],
+      "failure": "Error: [{\"mode\":\"terrain-native\",\"error\":\"page.evaluate: Error: 仍有资源未完成准备\\n    at Object.prepare (http://127.0.0.1:4436/main.js:29308:52)\\n    at async Object.reset (http://127.0.0.1:4436/main.js:80099:7)\\n    at async Object.dynamic [as terrainDynamic] (http://127.0.0.1:4436/main.js:79886:7)\\n    at async eval (eval at evaluate (:311:30), <anonymous>:1:68)\\n    at async <anonymous>:337:30\\n    at call (D:\\\\星际\\\\tools\\\\qa-performance-b03.ts:16:48)\\n    at <anonymous> (D:\\\\星际\\\\tools\\\\qa-performance-b03.ts:80:137)\"},{\"mode\":\"pickup-near\",\"error\":\"page.evaluate: Error: 仍有资源未完成准备\\n    at Object.prepare (http://127.0.0.1:4436/main.js:29308:52)\\n    at async reset (http://127.0.0.1:4436/main.js:80099:7)\\n    at async Object.drops (http://127.0.0.1:4436/main.js:80111:7)\\n    at async eval (eval at evaluate (:311:30), <anonymous>:1:68)\\n    at async <anonymous>:337:30\\n    at call (D:\\\\星际\\\\tools\\\\qa-performance-b03.ts:16:48)\\n    at <anonymous> (D:\\\\星际\\\\tools\\\\qa-performance-b03.ts:40:48)\"},{\"mode\":\"lifecycle\",\"error\":\"AssertionError [ERR_ASSERTION]: {\\\"kind\\\":null,\\\"phase\\\":\\\"idle\\\",\\\"done\\\":0,\\\"total\\\":0,\\\"label\\\":\\\"\\\",\\\"error\\\":null,\\\"progress\\\":0}\\n\\n'idle' !== 'ready'\\n\\n    at ready (D:\\\\星际\\\\tools\\\\qa-performance-b03.ts:22:303)\\n    at async <anonymous> (D:\\\\星际\\\\tools\\\\qa-performance-b03.ts:71:355)\"}]\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03.ts:90:39)",
+      "windows": 3,
+      "actions": 45,
+      "points": 24,
+      "screens": 30
+    },
+    {
+      "run": "history-1",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 9,
+      "actions": 0,
+      "points": 5,
+      "screens": 5
+    },
+    {
+      "run": "input-1",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 9,
+      "actions": 0,
+      "points": 5,
+      "screens": 5
+    },
+    {
+      "run": "intermission-1",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [],
+      "failure": "locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-action=ui-page][data-page=production]:visible')\u001b[22m\n\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03.ts:39:120)\n    at action (D:\\星际\\tools\\qa-performance-b03.ts:20:152)\n    at async <anonymous> (D:\\星际\\tools\\qa-performance-b03.ts:39:4)",
+      "windows": 0,
+      "actions": 4,
+      "points": 4,
+      "screens": 5
+    },
+    {
+      "run": "lifecycle-1",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [],
+      "failure": "locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#native-starship [data-act=close]').last()\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-act=\"close\" class=\"game-button primary\">返回战场</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    88 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at closeGear (D:\\星际\\tools\\qa-performance-b03.ts:24:78)\n    at action (D:\\星际\\tools\\qa-performance-b03.ts:21:152)\n    at async <anonymous> (D:\\星际\\tools\\qa-performance-b03.ts:56:202)",
+      "windows": 1,
+      "actions": 7,
+      "points": 4,
+      "screens": 6
+    },
+    {
+      "run": "loading-failure-1",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [
+        {
+          "phase": "cold-home",
+          "message": "Failed to read the 'localStorage' property from 'Window': Access is denied for this document.",
+          "stack": "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at <anonymous>:2:606\n    at <anonymous>:3:7"
+        }
+      ],
+      "failure": "page.goto: net::ERR_CONNECTION_TIMED_OUT at http://127.0.0.1:4437/performance-b03-20261019/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4437/performance-b03-20261019/\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03-loading.ts:29:47)\n    at stage (D:\\星际\\tools\\qa-performance-b03-loading.ts:22:105)\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03-loading.ts:29:8)",
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 1
+    },
+    {
+      "run": "loading-failure-2",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [
+        {
+          "phase": "required-resource-failure",
+          "message": "Failed to load resource: net::ERR_FAILED"
+        }
+      ],
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 3
+    },
+    {
+      "run": "loading-failure-3",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [
+        {
+          "phase": "required-resource-failure",
+          "message": "Failed to load resource: net::ERR_FAILED"
+        }
+      ],
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 3
+    },
+    {
+      "run": "loading-offline-1",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [],
+      "failure": "locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-action=menu-start]:visible')\u001b[22m\n\u001b[2m    - locator resolved to <button disabled data-autofocus=\"\" data-action=\"menu-start\" class=\"game-button primary launch\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    105 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is not enabled\u001b[22m\n\u001b[2m      - retrying click action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\n    at prepare (D:\\星际\\tools\\qa-performance-b03-loading.ts:24:166)\n    at async stage (D:\\星际\\tools\\qa-performance-b03-loading.ts:22:99)\n    at async <anonymous> (D:\\星际\\tools\\qa-performance-b03-loading.ts:35:149)",
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 3
+    },
+    {
+      "run": "loading-offline-2",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [],
+      "failure": "locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-action=menu-start]:visible')\u001b[22m\n\u001b[2m    - locator resolved to <button disabled data-autofocus=\"\" data-action=\"menu-start\" class=\"game-button primary launch\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    105 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is not enabled\u001b[22m\n\u001b[2m      - retrying click action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\n    at prepare (D:\\星际\\tools\\qa-performance-b03-loading.ts:24:166)\n    at async stage (D:\\星际\\tools\\qa-performance-b03-loading.ts:22:99)\n    at async <anonymous> (D:\\星际\\tools\\qa-performance-b03-loading.ts:35:149)",
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 3
+    },
+    {
+      "run": "loading-offline-3",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 6
+    },
+    {
+      "run": "loading-offline-4",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 6
+    },
+    {
+      "run": "loading-web-1",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [
+        {
+          "phase": "cold-home",
+          "message": "Failed to read the 'localStorage' property from 'Window': Access is denied for this document.",
+          "stack": "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at <anonymous>:2:606\n    at <anonymous>:3:7"
+        }
+      ],
+      "failure": "page.goto: net::ERR_CONNECTION_TIMED_OUT at http://127.0.0.1:4437/performance-b03-20261019/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4437/performance-b03-20261019/\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03-loading.ts:29:47)\n    at stage (D:\\星际\\tools\\qa-performance-b03-loading.ts:22:105)\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03-loading.ts:29:8)",
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 1
+    },
+    {
+      "run": "loading-web-2",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [
+        {
+          "phase": "cold-home",
+          "message": "Failed to read the 'localStorage' property from 'Window': Access is denied for this document.",
+          "stack": "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at <anonymous>:2:606\n    at <anonymous>:3:7"
+        }
+      ],
+      "failure": "page.goto: net::ERR_CONNECTION_TIMED_OUT at http://127.0.0.1:4437/performance-b03-20261019/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4437/performance-b03-20261019/\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03-loading.ts:29:47)\n    at stage (D:\\星际\\tools\\qa-performance-b03-loading.ts:22:105)\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03-loading.ts:29:8)",
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 1
+    },
+    {
+      "run": "loading-web-3",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 7
+    },
+    {
+      "run": "loading-web-4",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 7
+    },
+    {
+      "run": "natural-1",
+      "formal": false,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 4,
+      "screens": 0
+    },
+    {
+      "run": "natural-2",
+      "formal": false,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 4,
+      "screens": 0
+    },
+    {
+      "run": "smoke-1",
+      "formal": false,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 3,
+      "actions": 0,
+      "points": 3,
+      "screens": 4
+    },
+    {
+      "run": "supplement-1",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [
+        "真实 SC 建筑及动作未准备：turret_terran"
+      ],
+      "failure": "page.evaluate: Error: 真实 SC 建筑及动作未准备：turret_terran\n    at BattleRenderer.makeFortView (http://127.0.0.1:4436/main.js:106144:37)\n    at BattleRenderer.render (http://127.0.0.1:4436/main.js:106522:21)\n    at v3.render (http://127.0.0.1:4436/main.js:29244:35)\n    at Object.prepare (http://127.0.0.1:4436/main.js:29310:10)\n    at async Object.dynamic [as terrainDynamic] (http://127.0.0.1:4436/main.js:79901:7)\n    at async eval (eval at evaluate (:311:30), <anonymous>:1:68)\n    at async <anonymous>:337:30\n    at call (D:\\星际\\tools\\qa-performance-b03.ts:16:48)\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03.ts:95:137)",
+      "windows": 0,
+      "actions": 0,
+      "points": 5,
+      "screens": 5
+    },
+    {
+      "run": "supplement-2",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [
+        "真实 SC 建筑及动作未准备：turret_terran"
+      ],
+      "failure": "Error: [{\"mode\":\"dynamic\",\"error\":\"page.evaluate: Error: 真实 SC 建筑及动作未准备：turret_terran\\n    at BattleRenderer.makeFortView (http://127.0.0.1:4436/main.js:106144:37)\\n    at BattleRenderer.render (http://127.0.0.1:4436/main.js:106522:21)\\n    at v3.render (http://127.0.0.1:4436/main.js:29244:35)\\n    at Object.prepare (http://127.0.0.1:4436/main.js:29310:10)\\n    at async Object.dynamic [as terrainDynamic] (http://127.0.0.1:4436/main.js:79901:7)\\n    at async eval (eval at evaluate (:311:30), <anonymous>:1:68)\\n    at async <anonymous>:337:30\\n    at call (D:\\\\星际\\\\tools\\\\qa-performance-b03.ts:18:48)\\n    at <anonymous> (D:\\\\星际\\\\tools\\\\qa-performance-b03.ts:97:137)\"},{\"mode\":\"pickup-near\",\"error\":\"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\\n\\n63 !== 64\\n\\n    at <anonymous> (D:\\\\星际\\\\tools\\\\qa-performance-b03.ts:43:501)\"}]\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03.ts:107:39)",
+      "windows": 1,
+      "actions": 0,
+      "points": 14,
+      "screens": 14
+    },
+    {
+      "run": "supplement-3",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 3,
+      "actions": 0,
+      "points": 25,
+      "screens": 25
+    },
+    {
+      "run": "terrain-1",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [],
+      "failure": "page.evaluate: Error: 仍有资源未完成准备\n    at Object.prepare (http://127.0.0.1:4436/main.js:29308:52)\n    at async Object.reset (http://127.0.0.1:4436/main.js:80099:7)\n    at async Object.routes [as terrainRoutes] (http://127.0.0.1:4436/main.js:79855:7)\n    at async eval (eval at evaluate (:311:30), <anonymous>:1:68)\n    at async <anonymous>:337:30\n    at call (D:\\星际\\tools\\qa-performance-b03.ts:16:48)\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03.ts:64:134)",
+      "windows": 0,
+      "actions": 0,
+      "points": 5,
+      "screens": 5
+    },
+    {
+      "run": "ui-1",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?"
+      ],
+      "windows": 0,
+      "actions": 54,
+      "points": 2,
+      "screens": 5
+    },
+    {
+      "run": "ui-2",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?",
+        "Failed to set the 'innerHTML' property on 'Element': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?"
+      ],
+      "windows": 0,
+      "actions": 54,
+      "points": 2,
+      "screens": 5
+    },
+    {
+      "run": "visibility-1",
+      "formal": false,
+      "flowComplete": false,
+      "errors": [],
+      "failure": "page.waitForFunction: Timeout 60000ms exceeded.\n    at <anonymous> (D:\\星际\\tools\\qa-performance-b03.ts:91:218)",
+      "windows": 0,
+      "actions": 0,
+      "points": 4,
+      "screens": 4
+    },
+    {
+      "run": "visibility-2",
+      "formal": true,
+      "flowComplete": true,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 5,
+      "screens": 5
+    },
+    {
+      "run": "visibility-probe",
+      "formal": false,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 0
+    },
+    {
+      "run": "visibility-probe-2",
+      "formal": false,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 0
+    },
+    {
+      "run": "visibility-probe-3",
+      "formal": false,
+      "errors": [],
+      "windows": 0,
+      "actions": 0,
+      "points": 0,
+      "screens": 0
+    }
+  ],
+  "evidence": [
+    {
+      "file": "preview/performance-b03-20261019/build-inputs.json",
+      "bytes": 75236,
+      "sha256": "a786ab8d843231d6459e2e5ef4124bd7defed0a495b7021643459d9846b9c2b5"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/tracking-mine-findings-r2.json",
+      "bytes": 2844,
+      "sha256": "e55252ca5f72a23fee419be479c77b21595091c14a8d9800c1a7975cef546852"
+    },
+    {
+      "file": "tools/analyze-performance-b03-mine.mts",
+      "bytes": 2755,
+      "sha256": "beff5252eeb86c729c0940e902a07dd12fa73b6457c61de0e993e1818da1be37"
+    },
+    {
+      "file": "preview/performance-b03-20261019/index.html",
+      "bytes": 954789,
+      "sha256": "0edd47ab2b36ecc22d1706de8b8c4863647b43209b2f1d7e7182297e6b5caa93"
+    },
+    {
+      "file": "preview/performance-b03-20261019/main.js",
+      "bytes": 37376324,
+      "sha256": "5ffb353f1a9ed459a42f9ec2975ef861d9493afc2d5a6169169efd3f4cfdc487"
+    },
+    {
+      "file": "preview/performance-b03-20261019/main.css",
+      "bytes": 821671,
+      "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/offline/build-inputs.json",
+      "bytes": 80575,
+      "sha256": "db75bef703e71fa63a53eec90fe3cb358bb22de1c02d0198857a3ae7b1b131e0"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/offline/performance-b03.html",
+      "bytes": 769543466,
+      "sha256": "7d02f7d19b4e6912375cd6134f6845f07489fe3cd75169fd2b7b9181e10d8b25"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/browser-natural-1/report.json",
+      "bytes": 2366991,
+      "sha256": "06b43e214ed5cb131794e4af0bebb493bd95de7f8fda90e64e3e1f18dd3ed4d2"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/browser-natural-1/runner.mts",
+      "bytes": 23688,
+      "sha256": "f628060c1cfafc3a478130379aa07ecb2b29b74916ff6af8c914981ae67a5c0b"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "594f8359af158153fe4cc661fcf525e06460adbc3c6e0aa2189dacbdefc1a289"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-1\\native-controller-begin.state.json",
+      "bytes": 15035,
+      "sha256": "6ff464f0fa8c13974fd4984858af127986918991599d9b10fdd613fb724b8e26"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-1\\natural-case-failure.state.json",
+      "bytes": 23700,
+      "sha256": "0bcf0b35663de2da6f1348eff52a029606bcd521f21198b440c723c601146088"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-1\\failure.state.json",
+      "bytes": 23700,
+      "sha256": "0bcf0b35663de2da6f1348eff52a029606bcd521f21198b440c723c601146088"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-1/home.png",
+      "bytes": 1598161,
+      "sha256": "b4aecad04fb113f4acf0fff31b36390594dc16efc406c1824ff1ea0fac77313e"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-1/native-controller-begin.png",
+      "bytes": 166904,
+      "sha256": "145eeb4955cd187fa3090e267b3c8786030e00002ffbfbe04bf7e99171a5c0d9"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-1/natural-case-failure.png",
+      "bytes": 182050,
+      "sha256": "18cce159a43a3ee604bc98f0cc67d2958b53495470a361680480bbcd05958e4e"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-1/failure.png",
+      "bytes": 181915,
+      "sha256": "a6c4f648fac2868402c112769e2e69ee2ecffc5a71b958bbfdc56bf80603d740"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/browser-natural-1/requested-assets.json",
+      "bytes": 175526,
+      "sha256": "0a22639912febc6a2e0a11420f0f3371f904a5bac62bfcb1bbb1aef728cd2209"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/browser-natural-2/report.json",
+      "bytes": 12731044,
+      "sha256": "702b20cc455a4bb552b7d99e37bebde795e58c1e96d39b90a1991e76e02d4a42"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/browser-natural-2/runner.mts",
+      "bytes": 27314,
+      "sha256": "e24af4b44884a1a53848f3f599c40955dcc7fffe4f2a0a743c2d03ae4389d51d"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-2\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-2\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "bdda621e7b637e87dcad1dda94f80aeca420ffcfee6c37a790307e2c4debe181"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-2\\native-controller-begin.state.json",
+      "bytes": 15035,
+      "sha256": "5aed54c4b5ac0c823237b7a9835b957cb5f27caf6746fb3f251d7e0f8c70739b"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-2\\campaign-18-begin.state.json",
+      "bytes": 626515,
+      "sha256": "0bc0511f936540591bc5d7f5b40628747ec081eae52bf297dc21d80344d6878a"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-2\\campaign-18-after.state.json",
+      "bytes": 679677,
+      "sha256": "f3d983ddbb90e26022de8b772b3a3f947b2044073f42755285c056b733e33002"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-2\\endless-6-begin.state.json",
+      "bytes": 418277,
+      "sha256": "adf49abe08791f3ebe7f315186c87a10f5e1587878d7ecaa34bab290abf2de73"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-2\\endless-6-after.state.json",
+      "bytes": 418277,
+      "sha256": "adf49abe08791f3ebe7f315186c87a10f5e1587878d7ecaa34bab290abf2de73"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-2\\endless-12-begin.state.json",
+      "bytes": 436531,
+      "sha256": "032d8a2b7a614f0e54bc406056ae8f5515e7f1ac860be000954c993be4e4f682"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-2\\endless-12-after.state.json",
+      "bytes": 436531,
+      "sha256": "032d8a2b7a614f0e54bc406056ae8f5515e7f1ac860be000954c993be4e4f682"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-2/home.png",
+      "bytes": 1598688,
+      "sha256": "71f8152fd36664278c65ad329e45e23bbc029d5cfc3ef02f78afa8c767e8309e"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-2/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-2/native-controller-begin.png",
+      "bytes": 166904,
+      "sha256": "145eeb4955cd187fa3090e267b3c8786030e00002ffbfbe04bf7e99171a5c0d9"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-2/campaign-18-begin.png",
+      "bytes": 1350328,
+      "sha256": "0803e39e5ecb5d801e858eb95da243cc441473e0deda70d4481c0250074eeaa5"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-2/campaign-18-after.png",
+      "bytes": 1325262,
+      "sha256": "58d73619609321079156158ec02d07c8c335dc61b0000797047942f096a9536f"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-2/endless-6-begin.png",
+      "bytes": 1410655,
+      "sha256": "ac3a578ea9c9b188651ebea5cd62b2a2dea5fc894fcddbf5806e5068a159e0f4"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-2/endless-6-after.png",
+      "bytes": 1363326,
+      "sha256": "85a1528682c875c4550a319f4d6ae3797c91930af429a7cce5833933b3313ba4"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-2/endless-12-begin.png",
+      "bytes": 1353699,
+      "sha256": "b3a7c9fed0f03cf82a006c7599590637c932101483ce63e956e4837cf9154a06"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-2/endless-12-after.png",
+      "bytes": 1063506,
+      "sha256": "adf4b90c9a2f91ab8dfd11302bd0db8c94d3fd00350cac7b3b14ba8404116d5e"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/browser-natural-2/requested-assets.json",
+      "bytes": 188257,
+      "sha256": "a8560a2a5f769b915178aab417400d019a44a94e2c61e063a8e85767880ee3af"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/browser-natural-3/report.json",
+      "bytes": 8970964,
+      "sha256": "682455fe4437fc65a23b61c6f81f51a460d3d2c3de4c79b49e3fc8e11a9479d1"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/browser-natural-3/runner.mts",
+      "bytes": 29925,
+      "sha256": "f508c5e5b25a0419ddc7309793fb3f0c5c923fe8f42e3e1d98697fc5081d72ae"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-3\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-3\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "4c65a0104be1f1b41542085b50702ac2db2fbbadb85aa689238a904370012bb9"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-3\\native-controller-begin.state.json",
+      "bytes": 15035,
+      "sha256": "d674157c1e0d774220a5e7e4576402abcc7c867f07feb9b3d9d73e37f8b54ed2"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-3\\endless-6-boundary.state.json",
+      "bytes": 382417,
+      "sha256": "f911efbf96c495713683eeb7b3f665056aa965cec156c05eff91772a943a516a"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-3\\endless-6-begin.state.json",
+      "bytes": 426876,
+      "sha256": "e437e377c94d3c7ba87e46cf1ee7f05a2dc813b362cc6b8773ff67318c772a13"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-3\\endless-6-after.state.json",
+      "bytes": 432881,
+      "sha256": "e6d552f4fa50b61082e1a650b99f851dd34f3bc154bd32c9afa72fb1b997ad58"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-3\\endless-12-boundary.state.json",
+      "bytes": 578659,
+      "sha256": "ecf96df00290d91db37f4ce6823e2a237b012dea6ad1641bf46f724d9b98475d"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-3\\endless-12-begin.state.json",
+      "bytes": 626550,
+      "sha256": "4bd6d9ac2017aed07ca766a94234fd984a3928af3d7a5fd39e9e407f3b683d92"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\browser-natural-3\\endless-12-after.state.json",
+      "bytes": 712050,
+      "sha256": "751b76c4ef42040e889e03175b2325973968460c68cac84263fa4eed26aef25c"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-3/home.png",
+      "bytes": 1598278,
+      "sha256": "cb153d2786d35125582b7c18e7625bac38fc73214a00ff025da332a4f27fcdab"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-3/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-3/native-controller-begin.png",
+      "bytes": 1305464,
+      "sha256": "619d20abd9df772101668587c3ebdf140fe9957818c9df6156d8770062e7141c"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-3/endless-6-begin.png",
+      "bytes": 1442911,
+      "sha256": "26bbb4dfb17bb754430033a57563d42a5f77b51356ad47bd24851b0524d1e936"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-3/endless-6-after.png",
+      "bytes": 1338388,
+      "sha256": "4ada83d33ef1705f2a366330c920fa17e4b2638ad8564b05b402add5147613f9"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-3/endless-12-begin.png",
+      "bytes": 1353498,
+      "sha256": "01bd77c967ed5ac41c97e9a0e60a8c620ad89be19c9d08194682fdd5d443faa8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\browser-natural-3/endless-12-after.png",
+      "bytes": 1480295,
+      "sha256": "dc06bb15cbd876af29261add05ee39f67b572d95073e02667fee9640b9ca2996"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/browser-natural-3/requested-assets.json",
+      "bytes": 188298,
+      "sha256": "802a6a25252dce6a850c9a4daa515715955d4c6df5dbfd7421ec6e5dc6336e57"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/drops-1/report.json",
+      "bytes": 13942316,
+      "sha256": "bdcd465223654e0add088249b0bdae6bec82d9563cac231ef4efc419abfa54a9"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/drops-1/runner.mts",
+      "bytes": 15191,
+      "sha256": "c8d14c374be20f0aae5d54ee7d0775c2496ab5a496e672d0adb96d7085aa68e7"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "46a65a5a63d99532a1046196c955d6bfe4832f3f95f22213ef061c78de97bd30"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\mineral-begin.state.json",
+      "bytes": 25667,
+      "sha256": "edfa1e33c7c4d8f07e79e52a6b2f9b0083d5b4c6fc9391be7c5803c793c6a487"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\mineral-after-frozen.state.json",
+      "bytes": 25667,
+      "sha256": "edfa1e33c7c4d8f07e79e52a6b2f9b0083d5b4c6fc9391be7c5803c793c6a487"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\gas-begin.state.json",
+      "bytes": 17607,
+      "sha256": "692011def156a6dbe547c582c1b339217cb8dfc3dfcc180556a7da067284bf6c"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\gas-after-frozen.state.json",
+      "bytes": 17607,
+      "sha256": "692011def156a6dbe547c582c1b339217cb8dfc3dfcc180556a7da067284bf6c"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\equipment-begin.state.json",
+      "bytes": 49306,
+      "sha256": "ff41c125dc2e01b6c02b2cd181225bc0ade80ff0ac554b7065733f6a5aca5199"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\equipment-after-frozen.state.json",
+      "bytes": 49306,
+      "sha256": "ff41c125dc2e01b6c02b2cd181225bc0ade80ff0ac554b7065733f6a5aca5199"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\mixed-begin.state.json",
+      "bytes": 76387,
+      "sha256": "f9553d56898d5d76a0e6326787fb7f7700dad9c38f9a4ab9a1b28a93e256ed26"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\mixed-after-frozen.state.json",
+      "bytes": 76387,
+      "sha256": "f9553d56898d5d76a0e6326787fb7f7700dad9c38f9a4ab9a1b28a93e256ed26"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-1\\pickup-retry.state.json",
+      "bytes": 76117,
+      "sha256": "8242a378e136dafe255b5e1db7bdf7150023a911529f02528cd60cb5c09f376f"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-1/home.png",
+      "bytes": 1599321,
+      "sha256": "3aa46f424a987f13ae1bfb02cf8a979d1338bd79f5a354f712454388266f8599"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-1/mineral-begin.png",
+      "bytes": 1280610,
+      "sha256": "a1b86d6ee4339cd2befdcdc0ff04198976398f5a6b20981ae274fe10a2c2e33f"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-1/gas-begin.png",
+      "bytes": 1302328,
+      "sha256": "403f135192555a49b0fbbf34a747aa9fabf036d7dd030b505900c48b3f50ecdf"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-1/equipment-begin.png",
+      "bytes": 1359929,
+      "sha256": "09bc3dc295744d68614f01439e6342fd6b8d9f73de69096d16ab4ebbef2a65c0"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-1/mixed-begin.png",
+      "bytes": 1404577,
+      "sha256": "70551a390b756270414fa6b364e7f4a70a076673f2d5ae23e0df7fcf6a7f76e3"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-1/pickup-retry.png",
+      "bytes": 1404428,
+      "sha256": "4dda424599cf5607ca33b1473ba4e02185dfa17c161f0cea0efb1478f6196127"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/drops-1/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "772bada8e78e627fb03b3db6a19d5460673a296175cf0d1b5722cf994154e174"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/drops-live-1/report.json",
+      "bytes": 23515280,
+      "sha256": "660c472b328b063a1f7606c485c7a0f73867bb34bee2b89c5a70080f9ca4af56"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/drops-live-1/runner.mts",
+      "bytes": 21348,
+      "sha256": "5f535c33967da257b13979ac8246ac2dd8840c1a3850e4169fe421ee756e774f"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "a376563e657e27dcfc8d48d7e074acaf5c57e54c99f0b51c0d991a7be72266c9"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mineral-live-begin-1.state.json",
+      "bytes": 25667,
+      "sha256": "fe8d66e6b811c27b6a455c8782ccbd1c383f1c51034b999c3b7dc4b73584b8c8"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mineral-live-end-1.state.json",
+      "bytes": 26270,
+      "sha256": "d35d9888859a4d41a611ece64ae0abed3dd40237a4b2f549f5343d595007f4ca"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mineral-live-begin-2.state.json",
+      "bytes": 25667,
+      "sha256": "d0402d63a9271c8fb21fae28497426778eb07bcf24daf08098bcc7f172c33fea"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mineral-live-end-2.state.json",
+      "bytes": 26274,
+      "sha256": "1e26c680f35e34109c1696bdd065dbdbeee9462ad0424fd1f3cf632da56f0ea6"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mineral-live-begin-3.state.json",
+      "bytes": 25667,
+      "sha256": "25a25f26e0ff6c854063c1c2d8554c5783c12a4a6c59b4a11e7ebfb390564a84"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mineral-live-end-3.state.json",
+      "bytes": 26274,
+      "sha256": "93514e41a3e2d2fcace9a20efdd3fea00a3f107fc7df50db76b6872bb56273ee"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\gas-live-begin-1.state.json",
+      "bytes": 17607,
+      "sha256": "7620e0c923d125d244e37b979dd8c386a59dbfb5ebd38a0f85a4220bcbe43e15"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\gas-live-end-1.state.json",
+      "bytes": 18215,
+      "sha256": "3ca034ef921e6f3cbe17b0d140f5678e9388bdf0f2b6f01317d85fd28e54016b"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\gas-live-begin-2.state.json",
+      "bytes": 17607,
+      "sha256": "c77d76753a54de10c8935102c374a28b0b83b4df24779f4719de6d0c77cac334"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\gas-live-end-2.state.json",
+      "bytes": 18211,
+      "sha256": "70a9a424ee0c64900ed6184dc0d7e5b29f828593fb6d96c7f1b8691d895e9ef7"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\gas-live-begin-3.state.json",
+      "bytes": 17607,
+      "sha256": "fe1e22de536bfc8533951383fc6e42422725a1a64f78c946cda3dc7a1861d783"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\gas-live-end-3.state.json",
+      "bytes": 18215,
+      "sha256": "daa1f42f01fe31a653bdc49c27daf922aee5333d8e13aed6e2bc19c56152041a"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\equipment-live-begin-1.state.json",
+      "bytes": 49306,
+      "sha256": "41c4dcbeb5734b1d135ad3063e8836a8c62c10914283f4c55a58f8c9cc282289"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\equipment-live-end-1.state.json",
+      "bytes": 50386,
+      "sha256": "fe33e1e6ffe37cf42a2feb6e07c959b1aa17191248550750407941250524b79d"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\equipment-live-begin-2.state.json",
+      "bytes": 49408,
+      "sha256": "d5f20c2b4fbadf0f7c1fc0fee201ccddf788db7443e0e3ff73a5dd7272d681a2"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\equipment-live-end-2.state.json",
+      "bytes": 50488,
+      "sha256": "f52650fa9d7afeb42dd6924a58928edbfef9cc13410a9e4ff2e2951cf6a43637"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\equipment-live-begin-3.state.json",
+      "bytes": 49411,
+      "sha256": "3a8d0f64a2801a521cf32cb3c90498332d062eca88db9ff7a665731b630a6cf1"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\equipment-live-end-3.state.json",
+      "bytes": 50507,
+      "sha256": "06b48f0ed968769b0656831e35f6001806955f7718c7948d65692226c57f07fa"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mixed-live-begin-1.state.json",
+      "bytes": 76390,
+      "sha256": "3592731db91fa2e94bb579c0d567706f98a08b72bacbde47516315a9d35a4bb6"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mixed-live-end-1.state.json",
+      "bytes": 76981,
+      "sha256": "9cc22dd281b2c30b03a3bbeda197cc2efc153dbfe66ef7c416a6fed2b242730e"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mixed-live-begin-2.state.json",
+      "bytes": 76390,
+      "sha256": "45b37cbd1890f5ab02a488c5371cd0ce39c59f9d523cab2e5500c97f1a15c31f"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mixed-live-end-2.state.json",
+      "bytes": 76998,
+      "sha256": "30f2c2867ef97c5b4e90d46230ef091d054ea4a968021bfd3fe872eef84eb17b"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mixed-live-begin-3.state.json",
+      "bytes": 76390,
+      "sha256": "5689435ffb6ef1cca5b990c8978d5d84a215062627574a593a4afb6fb45ee9cf"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\drops-live-1\\mixed-live-end-3.state.json",
+      "bytes": 76981,
+      "sha256": "6fe9f5df95a91b1eea494b24af7f1c94f97c0c49aa379a1e4baf056b47773cbd"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/home.png",
+      "bytes": 1592754,
+      "sha256": "fac651af566fa91a1f35672526ce2d282665a2e6e0f69b33e61cde72f76d84ad"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/mineral-live-begin-1.png",
+      "bytes": 1280610,
+      "sha256": "a1b86d6ee4339cd2befdcdc0ff04198976398f5a6b20981ae274fe10a2c2e33f"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/mineral-live-end-1.png",
+      "bytes": 1279414,
+      "sha256": "7b9fe0c4a1e3d813af6231fba22e63b27cd0962e610abcc915b359f5774ca2cb"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/gas-live-begin-1.png",
+      "bytes": 1302323,
+      "sha256": "b2830d56a83e405a5b2f9ff6ff5619df6f69b220a982ee43c25b6e7159689152"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/gas-live-end-1.png",
+      "bytes": 1294846,
+      "sha256": "e868d77389ef1114ccbcff6aeccdea1c052020ddff1cd82bfd5b35070bfc6fc5"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/equipment-live-begin-1.png",
+      "bytes": 1359937,
+      "sha256": "a8b79d7d5ad96228e26facaf78da7f7767ae4ffa4465ea15ca90a65900cbeb27"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/equipment-live-end-1.png",
+      "bytes": 1456981,
+      "sha256": "e20727b26715fac492a0873b1803c2ca3774e7e431a2b666494fa491542ba469"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/mixed-live-begin-1.png",
+      "bytes": 1410445,
+      "sha256": "143a473b7135e391b070823cbd69267c81562eb4727286777e448ffd9fffd843"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\drops-live-1/mixed-live-end-1.png",
+      "bytes": 1493904,
+      "sha256": "55d1609b72a3c5202a20fddae36f8e6d2d264a5738bc09d0a7cce433719c67c9"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/drops-live-1/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "772bada8e78e627fb03b3db6a19d5460673a296175cf0d1b5722cf994154e174"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/followups-1/report.json",
+      "bytes": 15834910,
+      "sha256": "dd5caa9042b9269e92b2564c6653b3ecf7fd5088decae7c73d4fd053b2a43003"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/followups-1/runner.mts",
+      "bytes": 23688,
+      "sha256": "f628060c1cfafc3a478130379aa07ecb2b29b74916ff6af8c914981ae67a5c0b"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "d89b3e39b76e3ae0c0678dea6200fa17ad3f84c49968068e462f69f9ae183034"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\intermission-begin-1.state.json",
+      "bytes": 81861,
+      "sha256": "a909f20ebd1d1b922ca1c485eabd075212752cf530333512a30df752b74ef696"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\intermission-end-1.state.json",
+      "bytes": 81613,
+      "sha256": "7a896f24b9f706b73401e7cf66672de9f94361b38456fc647fa0490f21372bbb"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\intermission-begin-2.state.json",
+      "bytes": 81969,
+      "sha256": "cbbe61ac21365e8ce6ff12940aefaad81948ca950a14ceb0d1b0a245783d6023"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\intermission-end-2.state.json",
+      "bytes": 81721,
+      "sha256": "807534b3f480987ec69c2053c6029d81f13a0c81cc554997041daf30ece49113"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\intermission-begin-3.state.json",
+      "bytes": 81969,
+      "sha256": "48b164c748fb2bf117b15058ab0e16baad169d201a619f41830bd3e5b8aeb7e7"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\intermission-end-3.state.json",
+      "bytes": 81721,
+      "sha256": "9ab7a514b0aac996663a7f3d83685d1492e0a859c76b8c26315ccc150295cb0e"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\native-terrain-char.state.json",
+      "bytes": 15485,
+      "sha256": "8a3c84f0acae70b698686f46158479ba39b3d8cc11ae9eb6349a6e6e4e9ed31e"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\native-terrain-industrial.state.json",
+      "bytes": 15446,
+      "sha256": "95c6c76946567350d382102c66becb3bcfaa7290de9f8357fd7273c678cce1d0"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\native-terrain-mar-sara.state.json",
+      "bytes": 15401,
+      "sha256": "8b98c5be86b88d8c110b73ca229c971b4036c398a5dbdddd132124bbe24290a9"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\native-terrain-ice.state.json",
+      "bytes": 15386,
+      "sha256": "7c0e3f56d8b54758dd9f5a53defd4c9a8d56c4f8b76dd5a783e9759fafc2a621"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\native-terrain-frontier.state.json",
+      "bytes": 15497,
+      "sha256": "9e42a365a7b8661909f75369bd33087eb54d22e971a1051a8522da715a52bf6c"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\native-mine-false-1.state.json",
+      "bytes": 15885,
+      "sha256": "34315e1558ae6f9ebee1d7002bc4724d97976baf026633fc5fe6b4390895e86e"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\terrain-native-case-failure.state.json",
+      "bytes": 13017,
+      "sha256": "b94851131926d3a3c03202ef70ff6066631473f177114bcf769dabc5b9113e9e"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\pickup-near-case-failure.state.json",
+      "bytes": 11906,
+      "sha256": "702c3ae4ef474b2c2c35e2d8ae3f6b618fc48cf8aa123c4eaa24659e8b237873"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\continued-1.state.json",
+      "bytes": 11905,
+      "sha256": "c0e7933f6603c583388d36941559ba3e14e57138834ec86a81e451abebf5c3ef"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\continued-2.state.json",
+      "bytes": 11905,
+      "sha256": "c0e7933f6603c583388d36941559ba3e14e57138834ec86a81e451abebf5c3ef"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\continued-3.state.json",
+      "bytes": 11905,
+      "sha256": "c0e7933f6603c583388d36941559ba3e14e57138834ec86a81e451abebf5c3ef"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\viewport-1024.state.json",
+      "bytes": 12990,
+      "sha256": "6f3185d30e08fc0598d48ae7ae2ff0b8815ae5ca18a5bd39d1941d1bd6312934"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\viewport-844.state.json",
+      "bytes": 12990,
+      "sha256": "6f3185d30e08fc0598d48ae7ae2ff0b8815ae5ca18a5bd39d1941d1bd6312934"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\viewport-1440.state.json",
+      "bytes": 12990,
+      "sha256": "6f3185d30e08fc0598d48ae7ae2ff0b8815ae5ca18a5bd39d1941d1bd6312934"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\lifecycle-case-failure.state.json",
+      "bytes": 13009,
+      "sha256": "dc847017e368816d41b3c59f96c18d236827e358062d3f5f30dfe03ce7af9ac6"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\followups-1\\failure.state.json",
+      "bytes": 13009,
+      "sha256": "dc847017e368816d41b3c59f96c18d236827e358062d3f5f30dfe03ce7af9ac6"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/home.png",
+      "bytes": 1597493,
+      "sha256": "14c0fd77af85310b42c9023a490c8cd2ef420eb2572933a1d49472eee5de2be0"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/intermission-begin-1.png",
+      "bytes": 1343851,
+      "sha256": "7c7d3af581cc2f95615bf99cbd77e6331e88204766078a8a61aa37496c39dc28"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/intermission-inventory-1.png",
+      "bytes": 1093806,
+      "sha256": "8adbae0224fa6b3102d85194f6a0c072e80082d4818443013875b7d05dbc0c38"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/intermission-production-1.png",
+      "bytes": 156260,
+      "sha256": "7992cefcb8ebd6a71b8f3fd205b0c71af6b9ef3bc5c3a75d7850e5d9ef434984"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/intermission-begin-2.png",
+      "bytes": 1343881,
+      "sha256": "145957fc86b957f87b0f77905b42eced129d3c19dad6ebcdc453c8fc4ad972b1"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/intermission-inventory-2.png",
+      "bytes": 1093868,
+      "sha256": "65bc20ab7ddb11fb28f47e88cbd694d94433eca107b20239a53fad1b777bbf05"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/intermission-production-2.png",
+      "bytes": 199679,
+      "sha256": "9149a62afe83738f84d9c9ab49d73a363aeab667f56b447f5c29f8dc887df062"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/intermission-begin-3.png",
+      "bytes": 1336751,
+      "sha256": "460da40b5705d293f21e5520f9e3399cb2905ff6ae2a8029e0b53561a6af9929"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/intermission-inventory-3.png",
+      "bytes": 1094769,
+      "sha256": "755f7e005139493432970a92cad150613028dcbd9d903bbdbf33a27741a387ce"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/intermission-production-3.png",
+      "bytes": 156390,
+      "sha256": "a933ead45d1283aceff44cb77801752641c93bb2a0b1f3bdd445ebb6ae03cbec"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/native-terrain-char.png",
+      "bytes": 1303512,
+      "sha256": "7ed3ff79734b4517c447bbdaaf82d7f86f4b18527d569869bfedb4e58a141e95"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/native-terrain-industrial.png",
+      "bytes": 1255621,
+      "sha256": "71de0b07b809ac391da417d8546a0e0dd576c640e24a1135da4930de0f146a42"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/native-terrain-mar-sara.png",
+      "bytes": 1136735,
+      "sha256": "9ad7bc1d5d1caf900ab46b6ceee53da655270a01fb6fc1cf9b8042a3a72014ec"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/native-terrain-ice.png",
+      "bytes": 1378476,
+      "sha256": "8fab7ffd577ce6fc80aa0c01fab9782b58934e2f9c6fa936073f3b7a31ffeae3"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/native-terrain-frontier.png",
+      "bytes": 1303851,
+      "sha256": "9122ae504e59a26f28116f0fd70e623b47d8e3a22c6276ddcf3060627f27492f"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/native-mine-false-1.png",
+      "bytes": 197668,
+      "sha256": "8d012a9ad0453ed2982d4cb43d8a3e84e48c7ffabd1f46f4f5ded058d395680b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/terrain-native-case-failure.png",
+      "bytes": 1068397,
+      "sha256": "6bb6904b940bd490052b31299ad0af45e8fa2ad8a9f9a45e362f9ba57f8dcb20"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/pickup-near-case-failure.png",
+      "bytes": 1068156,
+      "sha256": "e771415bce51c9cc3ccd0e99d070d220309b36e919f03a56c3336656b0536275"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/backpack-1.png",
+      "bytes": 407577,
+      "sha256": "e2a1e58f37c6ac3cc9b1278fb073213ae2abd299521bad84ff0f2e34c3b684c8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/continued-1.png",
+      "bytes": 222800,
+      "sha256": "339d98463230d60208f584d23229fe1585d84c99c4edeaaa7584f91a45b49c5b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/backpack-2.png",
+      "bytes": 407577,
+      "sha256": "e2a1e58f37c6ac3cc9b1278fb073213ae2abd299521bad84ff0f2e34c3b684c8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/continued-2.png",
+      "bytes": 222800,
+      "sha256": "339d98463230d60208f584d23229fe1585d84c99c4edeaaa7584f91a45b49c5b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/backpack-3.png",
+      "bytes": 407577,
+      "sha256": "e2a1e58f37c6ac3cc9b1278fb073213ae2abd299521bad84ff0f2e34c3b684c8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/continued-3.png",
+      "bytes": 222800,
+      "sha256": "339d98463230d60208f584d23229fe1585d84c99c4edeaaa7584f91a45b49c5b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/viewport-1024.png",
+      "bytes": 800036,
+      "sha256": "683c5af011085cee21ddce1523e7d91e6c642ee3d4e6a76e3f89ff7c8dd5744e"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/viewport-844.png",
+      "bytes": 319827,
+      "sha256": "475c28da1f32dc1c5ba3316e84edb048af70121f88422097dc490a44dec902c6"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/viewport-1440.png",
+      "bytes": 1228618,
+      "sha256": "657490611c98f6f3ede8498519eba2d077e3255c210b4a9a4c6fbfa5f53695f7"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/lifecycle-case-failure.png",
+      "bytes": 223189,
+      "sha256": "c0ed453cf7bbdef67821d5bf5cfcae487182b4ed9f798d922ab6db0b2fb60e87"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\followups-1/failure.png",
+      "bytes": 223189,
+      "sha256": "c0ed453cf7bbdef67821d5bf5cfcae487182b4ed9f798d922ab6db0b2fb60e87"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/followups-1/requested-assets.json",
+      "bytes": 208537,
+      "sha256": "8ba9d9f38a4994994796617806a226294ccaac2de34dc0087366730a91f52d4c"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/history-1/report.json",
+      "bytes": 11103236,
+      "sha256": "f9bb6eb30c2b1cf5d21d8c0360a5b8eb232fae3237e3a9647a7eb070d7bb0fb0"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/history-1/runner.mts",
+      "bytes": 20765,
+      "sha256": "b4500918db1e445c12c3da06f05795ee763826ee2e392962aa385956f51447ac"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\history-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\history-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "a0320909b66f30a5f12f857fe96f94b4aef49539c3344c9b55c35a7bcbda3694"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\history-1\\history-0.state.json",
+      "bytes": 11906,
+      "sha256": "068026c71c638c1ff4b2890ef3ffe57b0cee6d45def5724da685fbbc7ba678b5"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\history-1\\history-1000.state.json",
+      "bytes": 255683,
+      "sha256": "a6ad69c07dc77c1fc252a0858cd268acdfd89706b8166357cdd9f0988e9408ab"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\history-1\\history-10000.state.json",
+      "bytes": 2469683,
+      "sha256": "503eee7b9509d9be1b5d7a5f5c3327df9b9c9bef144248ae4e8cfa57fa653b5b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\history-1/home.png",
+      "bytes": 1602026,
+      "sha256": "18e165e3277a7a1ad677116c47de07aa7fdca385b7bf66a7d748dafe9e49358e"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\history-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\history-1/history-0.png",
+      "bytes": 1229636,
+      "sha256": "a1587f77ce04f7f485bcbdaf6ca6864a734631ff54ede3e1992f8b56558aa235"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\history-1/history-1000.png",
+      "bytes": 1229636,
+      "sha256": "a1587f77ce04f7f485bcbdaf6ca6864a734631ff54ede3e1992f8b56558aa235"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\history-1/history-10000.png",
+      "bytes": 1229636,
+      "sha256": "a1587f77ce04f7f485bcbdaf6ca6864a734631ff54ede3e1992f8b56558aa235"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/history-1/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "772bada8e78e627fb03b3db6a19d5460673a296175cf0d1b5722cf994154e174"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/input-1/report.json",
+      "bytes": 9949337,
+      "sha256": "3b77882de1b5157181c87ffe96a1131e084b8f236d2d6a2e3dbb58a5c41180c7"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/input-1/runner.mts",
+      "bytes": 21348,
+      "sha256": "5f535c33967da257b13979ac8246ac2dd8840c1a3850e4169fe421ee756e774f"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\input-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\input-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "c23e3a0747510c804c4ba50a800645eaac8823b8c42580f2bff4feb017853bdd"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\input-1\\keyboard-move-1.state.json",
+      "bytes": 13025,
+      "sha256": "2c47bee205a095a509b62e29f155160caf9beeda192f0e53112bdb4f6b256de5"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\input-1\\keyboard-move-2.state.json",
+      "bytes": 12871,
+      "sha256": "135c0cfd001a41de4db7d345aba1b91fcd27cd4f43132f226718f5e7a5faeff0"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\input-1\\keyboard-move-3.state.json",
+      "bytes": 12994,
+      "sha256": "fb4335f3be93a647dbc88d2e3c10cb1c124e2c7d95bd1400ef8905ef62a647e3"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\input-1/home.png",
+      "bytes": 1601266,
+      "sha256": "c58627c0c67bc480ce81527021678a377d2dcab9a8932be544ffaf7270e74613"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\input-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\input-1/keyboard-move-1.png",
+      "bytes": 1231049,
+      "sha256": "02a42dcca4841a8af3d35eaf9a2cd1d2bf79931cb52cffdfa023584813bf61e5"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\input-1/keyboard-move-2.png",
+      "bytes": 1230755,
+      "sha256": "d04bd89f30e2972d9727a2b06b040588ad56cd1e6a195e83009855cd2d5ebbbc"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\input-1/keyboard-move-3.png",
+      "bytes": 1230645,
+      "sha256": "16a92cbee8a074bfbc35e78dcaf6a1795d13934874d60d6a05a5f4de39cbc30f"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/input-1/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "772bada8e78e627fb03b3db6a19d5460673a296175cf0d1b5722cf994154e174"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/intermission-1/report.json",
+      "bytes": 1909552,
+      "sha256": "84ffd5daf2f1559db3a119f2b46f3b99af69f7cd7f1bd376bc4f7a8781e6495b"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/intermission-1/runner.mts",
+      "bytes": 17377,
+      "sha256": "bedbbe291d6a14babf2a2a0fd2936e26ba27d4f98a52e2ab2250ee2de8b45102"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\intermission-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\intermission-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "2871144f251ca6910c7cf625295330d9ce7f7374fd875d795ab744a2cb63117a"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\intermission-1\\intermission-begin-1.state.json",
+      "bytes": 81861,
+      "sha256": "db55712917398bc1ec70b6d3a8469651509f00c5c7b2be41d93b291dd71da0bc"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\intermission-1\\failure.state.json",
+      "bytes": 81580,
+      "sha256": "285ddfd4cb84fc0386b44cb34c53009d6862d011912affdeb85a95e0d4179021"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\intermission-1/home.png",
+      "bytes": 1599680,
+      "sha256": "070ea9cbbb732260ac1cdb936c4128b4964564d0da5f0643d02ce8532a5d94b0"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\intermission-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\intermission-1/intermission-begin-1.png",
+      "bytes": 1343948,
+      "sha256": "31b984804abf536111332e180d3bfa6175131acb1dd57ff15329b2bab13b73b5"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\intermission-1/intermission-inventory-1.png",
+      "bytes": 1094818,
+      "sha256": "280f6fc77778897a3227ac08f1195656a4115841037064f091b082bde0141643"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\intermission-1/failure.png",
+      "bytes": 1269974,
+      "sha256": "2986403c785ff629fecb7a458981448f6ece86e799c4b8a287530a88fb7f6a84"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/intermission-1/requested-assets.json",
+      "bytes": 173323,
+      "sha256": "68710cc88bf0ef1eb72420cf9b85ccec790cea75673f3084aa6a9fb0bf04678a"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/lifecycle-1/report.json",
+      "bytes": 2848605,
+      "sha256": "a5201689e13735f358493675c5bf06d490bae32da37703ea2fbefca9842775be"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/lifecycle-1/runner.mts",
+      "bytes": 17858,
+      "sha256": "561939a3f637035a6144be7edb78193328742d22bb9dc7284f337817655411ab"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\lifecycle-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\lifecycle-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "7a3c2071e971c2057d3c072b8c9fab0711195ee2ca59597877d98ce116222ab7"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\lifecycle-1\\continued-1.state.json",
+      "bytes": 11905,
+      "sha256": "2937f66cce0f32b0d09ea4fe4e825b04493d72ed7f882c19b9354860f1859984"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\lifecycle-1\\failure.state.json",
+      "bytes": 11905,
+      "sha256": "2937f66cce0f32b0d09ea4fe4e825b04493d72ed7f882c19b9354860f1859984"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\lifecycle-1/home.png",
+      "bytes": 1597166,
+      "sha256": "5560c591bc6a25f361acd3c4a5a954879f1953234ee7026c702addf5d0e5c959"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\lifecycle-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\lifecycle-1/backpack-1.png",
+      "bytes": 407577,
+      "sha256": "e2a1e58f37c6ac3cc9b1278fb073213ae2abd299521bad84ff0f2e34c3b684c8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\lifecycle-1/continued-1.png",
+      "bytes": 222752,
+      "sha256": "b5faa33c03ddc0416751671fae1a97bff4163b4abc6a4439e6953ec35a58dcfd"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\lifecycle-1/backpack-2.png",
+      "bytes": 222759,
+      "sha256": "11f1ade76968ce4bd739eaf08401deaf4ac7bdf58d56b6d17dcc7d9e080aa100"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\lifecycle-1/failure.png",
+      "bytes": 222759,
+      "sha256": "11f1ade76968ce4bd739eaf08401deaf4ac7bdf58d56b6d17dcc7d9e080aa100"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/lifecycle-1/requested-assets.json",
+      "bytes": 171016,
+      "sha256": "41903f9dfdf947dbee153c73133f708939c12e96618bb11f057daae24558186a"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-failure-1/report.json",
+      "bytes": 81850,
+      "sha256": "56f7b65ae761eda29127d4dc87b35da897b12abc7a205f42361ee5c70d9356a9"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-failure-1/runner.mts",
+      "bytes": 8180,
+      "sha256": "655de3529655856888a91a538ef4fa5018e43e8f8f0f7317a267e0ef7eb67ec2"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-failure-1/failure.png",
+      "bytes": 24655,
+      "sha256": "815c2c0da17729edd142c58fdf30d0624e472b7d7bad1a2cfc4d38b811ce51ae"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-failure-1/requested-assets.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-failure-2/report.json",
+      "bytes": 2575476,
+      "sha256": "336d84de66b9de801bac5a3c5fdd7f149e9893b2cf2ec359323617a7836d420e"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-failure-2/runner.mts",
+      "bytes": 9442,
+      "sha256": "bdd05a8c791d4800bda0f14a8d5c14e01bb6cea2256ee9138db778d5decaf4f9"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-failure-2/cold-home.png",
+      "bytes": 1600905,
+      "sha256": "278f0e1ebdbc28414cb329c40b806547371dc5f1c437ffe3125025272ec27354"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-failure-2/resource-failure.png",
+      "bytes": 1067612,
+      "sha256": "2922cb821f3fc1c23fe6b94cc8ef4fd9c39de522684a2d43b7a1a5170bbb4688"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-failure-2/retry-battle.png",
+      "bytes": 1218143,
+      "sha256": "baca69ca45d3abd3b135939162ee21197fe2898cabf3f5de3c95c6266764e0e6"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-failure-2/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "9d0642d179fc72f462c8307dd9129dd8d31f5c40b477732ea677a3cdd4efc915"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-failure-3/report.json",
+      "bytes": 2587687,
+      "sha256": "9dc9795f9220a9c5318a2a4dd763b66ba87a64b157bc75e35d2221208aa16bfe"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-failure-3/runner.mts",
+      "bytes": 9608,
+      "sha256": "e00c2d461c9163dee43bc299b78fce8ad4468eba023d15c6564b2ea8f281df50"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-failure-3/cold-home.png",
+      "bytes": 1598232,
+      "sha256": "fc22fca50eb5a41938d18ed6fec39b0bb385c8e7df1a03d05e5b6d55e822b7d2"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-failure-3/resource-failure.png",
+      "bytes": 1067416,
+      "sha256": "9a63ed13ee6265ca5f420d063522d339d2d9912ceb7bce665b127f1a51f7be86"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-failure-3/retry-battle.png",
+      "bytes": 1218143,
+      "sha256": "baca69ca45d3abd3b135939162ee21197fe2898cabf3f5de3c95c6266764e0e6"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-failure-3/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "c1243daeb0a092688bf425a097b286dcffd5cb228f039c98b679007bcac71b91"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-1/report.json",
+      "bytes": 2102780,
+      "sha256": "ea0fd591b8b91a44cf6525b2b9b9da0310d8da38cbc0c3803ddb6a1ce2d2f537"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-1/runner.mts",
+      "bytes": 8180,
+      "sha256": "655de3529655856888a91a538ef4fa5018e43e8f8f0f7317a267e0ef7eb67ec2"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-1/cold-home.png",
+      "bytes": 1591241,
+      "sha256": "da54003d878f25950a778c4355f44bb7850d59610510b92ca99434e322200810"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-1/first-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-1/failure.png",
+      "bytes": 663320,
+      "sha256": "0210c5ea825b20a60e9a8adc77b24e98626d3a9f55a8d9503515764f914c7a46"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-1/requested-assets.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-2/report.json",
+      "bytes": 2122593,
+      "sha256": "61d40e98830aa182fb5503e04af296f3bc801afe67abebb34285af368d13128a"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-2/runner.mts",
+      "bytes": 8180,
+      "sha256": "655de3529655856888a91a538ef4fa5018e43e8f8f0f7317a267e0ef7eb67ec2"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-2/cold-home.png",
+      "bytes": 1591824,
+      "sha256": "6849615f37265639576313f06b87ae871d40e70b36f08b56f7d82a486db28904"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-2/first-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-2/failure.png",
+      "bytes": 663320,
+      "sha256": "0210c5ea825b20a60e9a8adc77b24e98626d3a9f55a8d9503515764f914c7a46"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-2/requested-assets.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-3/report.json",
+      "bytes": 6681580,
+      "sha256": "1d3af0cb45d42becfcc4e1d12c37f7dae21570107fac10841ae5db2a55b17471"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-3/runner.mts",
+      "bytes": 9608,
+      "sha256": "e00c2d461c9163dee43bc299b78fce8ad4468eba023d15c6564b2ea8f281df50"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-3/cold-home.png",
+      "bytes": 1594144,
+      "sha256": "3667edb1bf5eb6ed422b6c59603cfeefc2cb82023c19350b82778d67150e44a7"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-3/first-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-3/active-run-new-attempt.png",
+      "bytes": 663799,
+      "sha256": "e13c3d4b488acf97c8f361e941785ab2eb85cfdd70b78eaea31184654b24643b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-3/same-page-continue.png",
+      "bytes": 223123,
+      "sha256": "179ba6667363f9914112f94885b6071b90c9fa322cde0af4263d145b87db3e76"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-3/same-page-battle.png",
+      "bytes": 1218143,
+      "sha256": "baca69ca45d3abd3b135939162ee21197fe2898cabf3f5de3c95c6266764e0e6"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-3/warm-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-3/requested-assets.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-4/report.json",
+      "bytes": 6722928,
+      "sha256": "6e45d354988e9709165e88fd3131a8aaac2dfe7d42b8a1bce66f67f094140a78"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-4/runner.mts",
+      "bytes": 9608,
+      "sha256": "e00c2d461c9163dee43bc299b78fce8ad4468eba023d15c6564b2ea8f281df50"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-4/cold-home.png",
+      "bytes": 1591663,
+      "sha256": "f8b1dde205098df985950021fe91f97271bb531673c9145483962cd0b6638491"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-4/first-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-4/active-run-new-attempt.png",
+      "bytes": 663774,
+      "sha256": "179da9a04a45fe785dcb093946aa0be5451e9ea7a136903bbb18c48a52d085a4"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-4/same-page-continue.png",
+      "bytes": 223123,
+      "sha256": "179ba6667363f9914112f94885b6071b90c9fa322cde0af4263d145b87db3e76"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-4/same-page-battle.png",
+      "bytes": 1218143,
+      "sha256": "baca69ca45d3abd3b135939162ee21197fe2898cabf3f5de3c95c6266764e0e6"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-offline-4/warm-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-offline-4/requested-assets.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-1/report.json",
+      "bytes": 81834,
+      "sha256": "064bfc1f22df9f6044776f99baa8cc1cf6e36d54012c314cf053005a7c6442f7"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-1/runner.mts",
+      "bytes": 8180,
+      "sha256": "655de3529655856888a91a538ef4fa5018e43e8f8f0f7317a267e0ef7eb67ec2"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-1/failure.png",
+      "bytes": 24655,
+      "sha256": "815c2c0da17729edd142c58fdf30d0624e472b7d7bad1a2cfc4d38b811ce51ae"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-1/requested-assets.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-2/report.json",
+      "bytes": 81834,
+      "sha256": "4fb9115f5223c3c065a32f1b3f3c5691a52830e5296fec4c32cc2ea007690ddb"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-2/runner.mts",
+      "bytes": 8180,
+      "sha256": "655de3529655856888a91a538ef4fa5018e43e8f8f0f7317a267e0ef7eb67ec2"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-2/failure.png",
+      "bytes": 24655,
+      "sha256": "815c2c0da17729edd142c58fdf30d0624e472b7d7bad1a2cfc4d38b811ce51ae"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-2/requested-assets.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-3/report.json",
+      "bytes": 11729040,
+      "sha256": "b4aac2f478e44eea019d441d03d985fc412dde9eb8059f8f31863afbf3e9feb8"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-3/runner.mts",
+      "bytes": 9608,
+      "sha256": "e00c2d461c9163dee43bc299b78fce8ad4468eba023d15c6564b2ea8f281df50"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-3/cold-home.png",
+      "bytes": 1599179,
+      "sha256": "67b5f1ae34ea747fb9a5e19d90b1be5ca970800982f5fe09c4550b56699976af"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-3/first-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-3/active-run-new-attempt.png",
+      "bytes": 664095,
+      "sha256": "6639ef33f94fcd3a2468d07ec3d1ded441f4f8ad5e0c50f07ca510dfba56f977"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-3/same-page-continue.png",
+      "bytes": 223123,
+      "sha256": "179ba6667363f9914112f94885b6071b90c9fa322cde0af4263d145b87db3e76"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-3/same-page-battle.png",
+      "bytes": 1218143,
+      "sha256": "baca69ca45d3abd3b135939162ee21197fe2898cabf3f5de3c95c6266764e0e6"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-3/changed-map.png",
+      "bytes": 1366895,
+      "sha256": "57dd742585226832ca4821a25f87252ee600defacf44f635d9df0815f4cf4fb0"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-3/warm-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-3/requested-assets.json",
+      "bytes": 178688,
+      "sha256": "b896323333e1c5f2ef20eb8d6ee639e6c4f941ab35034148e7cfd2bc4a7d4bd9"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-4/report.json",
+      "bytes": 11709370,
+      "sha256": "360a2daf16b8e73743e246a98c6ec1fe775452dff9b758bf2beb428371a09ce7"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-4/runner.mts",
+      "bytes": 9608,
+      "sha256": "e00c2d461c9163dee43bc299b78fce8ad4468eba023d15c6564b2ea8f281df50"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-4/cold-home.png",
+      "bytes": 1598255,
+      "sha256": "e7fda9d5b51e812e88df33cb970866b6340428fc2f817c9c6e7776e8d0454adf"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-4/first-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-4/active-run-new-attempt.png",
+      "bytes": 664095,
+      "sha256": "6639ef33f94fcd3a2468d07ec3d1ded441f4f8ad5e0c50f07ca510dfba56f977"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-4/same-page-continue.png",
+      "bytes": 223123,
+      "sha256": "179ba6667363f9914112f94885b6071b90c9fa322cde0af4263d145b87db3e76"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-4/same-page-battle.png",
+      "bytes": 1218143,
+      "sha256": "baca69ca45d3abd3b135939162ee21197fe2898cabf3f5de3c95c6266764e0e6"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-4/changed-map.png",
+      "bytes": 1366895,
+      "sha256": "57dd742585226832ca4821a25f87252ee600defacf44f635d9df0815f4cf4fb0"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\loading-web-4/warm-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/loading-web-4/requested-assets.json",
+      "bytes": 178688,
+      "sha256": "c8d7640c1aed03635784d91627051d22ad9b739a4c9b450ce61739a5f8a40f75"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/natural-1/report.json",
+      "bytes": 714564,
+      "sha256": "a5556dfafc77cbf0d3e72b84aa9b222cffed4f51ad3b990f9fa176cea0b96787"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\natural-1\\campaign-18-ended.state.json",
+      "bytes": 532629,
+      "sha256": "edca4cc70a910dc553c2bdd7d5199f6ec4d0f53e5afa02e4ea68c5fe1404e474"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\natural-1\\endless-6.state.json",
+      "bytes": 434606,
+      "sha256": "a134ad116c10118ed64b8d357f19a2f0d8d1dbd9f33396dc5f365d9161a3037e"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\natural-1\\endless-12.state.json",
+      "bytes": 473920,
+      "sha256": "87780d27a10eeba10a716856c4c0643dde7ac1ce11e973b8b5e3b5c054e390e6"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\natural-1\\final.state.json",
+      "bytes": 473920,
+      "sha256": "87780d27a10eeba10a716856c4c0643dde7ac1ce11e973b8b5e3b5c054e390e6"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/natural-2/report.json",
+      "bytes": 679342,
+      "sha256": "698f4b454eb93b347089154f17d058ed638b32240f376e94cd258105f1e15d57"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\natural-2\\campaign-18-ended.state.json",
+      "bytes": 510699,
+      "sha256": "9a8b14bd8969fbfb5017aa090ca802c6dd40a85ecc34e70bbaa4b32aa44c5ecd"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\natural-2\\endless-6.state.json",
+      "bytes": 377405,
+      "sha256": "1394bd74fef1e9d221d056c9249a74b2b8b62457a92d4ce5a48449df3b728d8d"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\natural-2\\endless-12.state.json",
+      "bytes": 535540,
+      "sha256": "7f089987cd5040a36dd6543e9f4a6b5783ddc1b6d82c4fb27c3244df3ef752b1"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\natural-2\\final.state.json",
+      "bytes": 535540,
+      "sha256": "7f089987cd5040a36dd6543e9f4a6b5783ddc1b6d82c4fb27c3244df3ef752b1"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/smoke-1/report.json",
+      "bytes": 1583385,
+      "sha256": "ce97bf2e4c7d070dda2a1c0d7515bfe16ab157ed3bd8b72f3313e0ddb3b5974d"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/smoke-1/runner.mts",
+      "bytes": 13152,
+      "sha256": "3a36c0cbc8a9da801928278a9d0e275b8a84277690a461a06a75b7c88277d30c"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\smoke-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\smoke-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "e2aad6f7090f16742690aa02f6ed02a236e13e53ab4d3826b82823e498188dab"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\smoke-1\\mixed-full.state.json",
+      "bytes": 76282,
+      "sha256": "89bbf8e82c1563e496a3ff6da353e7b67a8644cd2b05fabb0610405135283a12"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\smoke-1/home.png",
+      "bytes": 1598019,
+      "sha256": "f6069386a621e1062f5843d86409578d82ddac9802dd70214949ddc4f09e7efb"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\smoke-1/native-first-battle.png",
+      "bytes": 1218148,
+      "sha256": "d67ce208e6d5f1b8b5189e7f701995f55e94a188f9dbdc771f2000f85277c264"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\smoke-1/mixed-full.png",
+      "bytes": 1410445,
+      "sha256": "143a473b7135e391b070823cbd69267c81562eb4727286777e448ffd9fffd843"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\smoke-1/warehouse-1000.png",
+      "bytes": 533114,
+      "sha256": "096536585ba1d07999edfd2398b3f55eee98c997e5f4a81c87224b6cc58043a4"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/smoke-1/requested-assets.json",
+      "bytes": 171675,
+      "sha256": "e76b9e41fe22311faee89ec6fad8ff4486f2628ca22bf0130b0828367ad7d00c"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/supplement-1/report.json",
+      "bytes": 2183927,
+      "sha256": "1c4bce79dc63ffa0fe5986901ebcf485e0eb6752b7bac32b2c0400b94370e535"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/supplement-1/runner.mts",
+      "bytes": 27314,
+      "sha256": "e24af4b44884a1a53848f3f599c40955dcc7fffe4f2a0a743c2d03ae4389d51d"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "ec1d7b3221aa8ee5ef4d41ab66b0ab438eca25ba434180bfb1c7bc0aa5e270eb"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-1\\native-mine-false-1.state.json",
+      "bytes": 15885,
+      "sha256": "74bc1ffeaa8fecde3a600c56ba3273f4408a012cdac1feb6e5c863d4fab86d6d"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-1\\dynamic-case-failure.state.json",
+      "bytes": 14562,
+      "sha256": "06f3165a2a0c982e4e394573a7f1db54c3c4cb9a86cca43e4ceb29404f5e90cb"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-1\\failure.state.json",
+      "bytes": 14562,
+      "sha256": "06f3165a2a0c982e4e394573a7f1db54c3c4cb9a86cca43e4ceb29404f5e90cb"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-1/home.png",
+      "bytes": 1598676,
+      "sha256": "d2c562c6586a69f6ed6c266a75f960bab53d319d933c2756ef859103b3521639"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-1/native-mine-false-1.png",
+      "bytes": 1274707,
+      "sha256": "766bc9862e57b8af88c51264ba96c1bf6b5fbd7ec28f9395bad6257503f15766"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-1/dynamic-case-failure.png",
+      "bytes": 1232198,
+      "sha256": "04e829e6c3f01353aaed90341ff3b5299f29c143943296af72435926ffbe2589"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-1/failure.png",
+      "bytes": 1232198,
+      "sha256": "04e829e6c3f01353aaed90341ff3b5299f29c143943296af72435926ffbe2589"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/supplement-1/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "772bada8e78e627fb03b3db6a19d5460673a296175cf0d1b5722cf994154e174"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/supplement-2/report.json",
+      "bytes": 6931136,
+      "sha256": "00e547fa4450f60983a5c398e1d055c9af4734d316c7ac552723a55b3cd2f431"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/supplement-2/runner.mts",
+      "bytes": 29925,
+      "sha256": "f508c5e5b25a0419ddc7309793fb3f0c5c923fe8f42e3e1d98697fc5081d72ae"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "81a488f9cb6a406700ada4eae2e1fd36ec49843dd9ee207fe5ac30aaec95c4cf"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\native-mine-false-1.state.json",
+      "bytes": 16011,
+      "sha256": "993d2127802d3f242c03680dedc392d68ec7e0960971e3728e0c29e356dc0042"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\dynamic-case-failure.state.json",
+      "bytes": 14562,
+      "sha256": "f6552b4202ceb2503887fd9eb55d04455db79e2c8b70ad582bc96a3f93cd0e11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\near-full-begin-1.state.json",
+      "bytes": 76282,
+      "sha256": "0c15a044fe1540ce5390e40405581c17acdc9c140aaae8e88c8daf934c2fb0f6"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\near-full-end-1.state.json",
+      "bytes": 76282,
+      "sha256": "0c15a044fe1540ce5390e40405581c17acdc9c140aaae8e88c8daf934c2fb0f6"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\pickup-near-case-failure.state.json",
+      "bytes": 76022,
+      "sha256": "e89b779460c23b20c3fad7f2d8bd541cbda89a5096c183ca6655bf6261756de4"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\recovery-before-1.state.json",
+      "bytes": 11906,
+      "sha256": "7fce1a1b46bed54b4ca0e4cec2f9624c26e37ce435348c874958c906117f64fc"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\recovery-after-1.state.json",
+      "bytes": 11908,
+      "sha256": "03799551700047cac10eb4256be12a31c9bedc0f3bf8bbe010b7c58bc4aa9011"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\recovery-resumed-1.state.json",
+      "bytes": 11909,
+      "sha256": "2d44a1315528cf5342aa01e06d5c1f29bd74d3d91443e23e384a538d35bfaf0c"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\recovery-before-2.state.json",
+      "bytes": 11909,
+      "sha256": "2d44a1315528cf5342aa01e06d5c1f29bd74d3d91443e23e384a538d35bfaf0c"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\recovery-after-2.state.json",
+      "bytes": 11908,
+      "sha256": "03799551700047cac10eb4256be12a31c9bedc0f3bf8bbe010b7c58bc4aa9011"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\recovery-resumed-2.state.json",
+      "bytes": 11909,
+      "sha256": "2d44a1315528cf5342aa01e06d5c1f29bd74d3d91443e23e384a538d35bfaf0c"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-2\\failure.state.json",
+      "bytes": 11909,
+      "sha256": "2d44a1315528cf5342aa01e06d5c1f29bd74d3d91443e23e384a538d35bfaf0c"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/home.png",
+      "bytes": 1599362,
+      "sha256": "86bbde371360669f63997e3a5098d95941561f8ad929f94bc34a6e8aa3546bdf"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/native-mine-false-1.png",
+      "bytes": 1273385,
+      "sha256": "9ac05f142c93ff27a9e4e06e107c7c9997f955eda1a010d9c88205783b458290"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/dynamic-case-failure.png",
+      "bytes": 1269052,
+      "sha256": "3c1cc196ee04e8ddf4e8022458c963b6e3207e134f6b69fc4424202b4cb1669e"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/near-full-begin-1.png",
+      "bytes": 1410445,
+      "sha256": "143a473b7135e391b070823cbd69267c81562eb4727286777e448ffd9fffd843"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/near-full-end-1.png",
+      "bytes": 1410445,
+      "sha256": "143a473b7135e391b070823cbd69267c81562eb4727286777e448ffd9fffd843"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/pickup-near-case-failure.png",
+      "bytes": 1410445,
+      "sha256": "143a473b7135e391b070823cbd69267c81562eb4727286777e448ffd9fffd843"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/recovery-before-1.png",
+      "bytes": 1226742,
+      "sha256": "1bba7101727097c4aec2cc6349490003c44c7afd77318a5044524618bb0548f8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/recovery-after-1.png",
+      "bytes": 224836,
+      "sha256": "075f1f975b6573e80d9d1d5cbc38cc4c27b5311ff3d78a4f22cf5a79c6135f09"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/recovery-resumed-1.png",
+      "bytes": 1226742,
+      "sha256": "1bba7101727097c4aec2cc6349490003c44c7afd77318a5044524618bb0548f8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/recovery-before-2.png",
+      "bytes": 1226742,
+      "sha256": "1bba7101727097c4aec2cc6349490003c44c7afd77318a5044524618bb0548f8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/recovery-after-2.png",
+      "bytes": 224330,
+      "sha256": "9b2c5863341c1ad6771b2fb23c2a2d68f84cc32c4d6d55f2ccc0fb1aaefcb890"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/recovery-resumed-2.png",
+      "bytes": 1226742,
+      "sha256": "1bba7101727097c4aec2cc6349490003c44c7afd77318a5044524618bb0548f8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-2/failure.png",
+      "bytes": 1226742,
+      "sha256": "1bba7101727097c4aec2cc6349490003c44c7afd77318a5044524618bb0548f8"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/supplement-2/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "772bada8e78e627fb03b3db6a19d5460673a296175cf0d1b5722cf994154e174"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/supplement-3/report.json",
+      "bytes": 14652531,
+      "sha256": "5e93b3cc5328420f5c975dd67bee4c28c161d46a9d47d91a41f32299b2629eb2"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/supplement-3/runner.mts",
+      "bytes": 32498,
+      "sha256": "4060354881af5b2eaf43797fb57c9823961a7b7ca01072c3af3b79124eb4e5b0"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "b7b9d84525c0eab6d7a9de5d73870a739fc271c4b03997413fde4466513f3a00"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\native-mine-false-1.state.json",
+      "bytes": 15917,
+      "sha256": "9e387db09fe95c4b6009e77c7d22eb10a006ce4a3fb1d2f5919e65332797a055"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\native-mine-true-1.state.json",
+      "bytes": 15898,
+      "sha256": "793b7b43072853647379acc8bd34e919feb6a7db686765e1895a753ad1c929bb"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\native-mine-false-2.state.json",
+      "bytes": 15917,
+      "sha256": "f84d00d06a47324cd47d56b68eb9f48bd188fdf7cb6551007e6241d9a90173ee"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\native-mine-true-2.state.json",
+      "bytes": 15898,
+      "sha256": "ece6df1d4b08869b5651873492663f225fbdd6dec29370c35b1e40fdcb99c27e"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\native-mine-false-3.state.json",
+      "bytes": 15917,
+      "sha256": "059ec9d9359946b30e602492cfcd17c7e4af26db969bd9efeaee3903dd9f7723"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\native-mine-true-3.state.json",
+      "bytes": 15898,
+      "sha256": "023bfcea9118cf344d148db62e70a8b44660607e7b9b6c13c9dbcd1bb0ba96ba"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\near-full-begin-1.state.json",
+      "bytes": 76282,
+      "sha256": "4ed58609e237db1b6a2f156d019f9e6b6e0e849572170c77d3cd3f7f7f355953"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\near-full-end-1.state.json",
+      "bytes": 76873,
+      "sha256": "4cb22de7fe6001258f799a2b250031c26bd6f9ce2158d5c983dbc66bb6d8d8f3"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\near-retry-collected-1.state.json",
+      "bytes": 76603,
+      "sha256": "fc64c731a61e6d750922d22fa5643903df4a326f9c426ffc4cad143fc8ca955d"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\near-full-begin-2.state.json",
+      "bytes": 76390,
+      "sha256": "08be163195f490439367e7cccfc5963eae17ca6e9d5c5c68a1aec5159884e043"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\near-full-end-2.state.json",
+      "bytes": 76998,
+      "sha256": "83cbc664b3bce8b5cf72177c0fba58fea89ed2d1c073dc31b649f4b204a2c106"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\near-retry-collected-2.state.json",
+      "bytes": 76713,
+      "sha256": "b7010b4666e161f079a4a8465413fc1374be6dea7b522d9d17b05a944f865b92"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\near-full-begin-3.state.json",
+      "bytes": 76390,
+      "sha256": "6a3ea9ae850deab1ced9d80c24c9c2d9352789311cb6b1ebde5f981fd0d45a25"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\near-full-end-3.state.json",
+      "bytes": 76995,
+      "sha256": "2ebc6cd35b9088985852da0fac19ea047168929c5d429d4d4b0b8854bacc7b03"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\near-retry-collected-3.state.json",
+      "bytes": 76726,
+      "sha256": "cfbf331fb317f987ef9b96238231d2f5fa0a0f7a7f4c88c6c22e47dad534d5bb"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\recovery-before-1.state.json",
+      "bytes": 11906,
+      "sha256": "f0386ff75610b8fe7c5291c5628fa80e4ffc5192b579ceaef4a5aae05e3274ec"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\recovery-after-1.state.json",
+      "bytes": 11908,
+      "sha256": "00689996c3bc2323f4e314c9232c40da0e9e0b6cdf21d3ff5bd714bc4f19caa1"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\recovery-resumed-1.state.json",
+      "bytes": 11909,
+      "sha256": "205e66d09e84d661e2742a5a71a6bb4f398f486db494bc943c3adee71ef00e37"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\recovery-live-1.state.json",
+      "bytes": 13056,
+      "sha256": "5080cc5e23e44bef47f46cfc229ab45fd3f9e363dc04f34043bc5ddaa90c9c60"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\recovery-before-2.state.json",
+      "bytes": 13056,
+      "sha256": "5080cc5e23e44bef47f46cfc229ab45fd3f9e363dc04f34043bc5ddaa90c9c60"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\recovery-after-2.state.json",
+      "bytes": 13057,
+      "sha256": "b26df0c6801501dc9c1318c3fa32a4d6e7f272bea6e452444338bdbfac8be8d0"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\recovery-resumed-2.state.json",
+      "bytes": 13058,
+      "sha256": "4950ea23b473a713e8d5e496031a81ba2b2c364016a706dfd2632d7f8b9e1fa5"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\supplement-3\\recovery-live-2.state.json",
+      "bytes": 12989,
+      "sha256": "ec336817024a9f960948b3817a7c51e53ef04d477f485dbcc9c53ef133ae31af"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/home.png",
+      "bytes": 1600912,
+      "sha256": "19bca53a125c668ecd07e5201fa2852798107799d1419b08d304747e5bf96ed8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/native-mine-false-1.png",
+      "bytes": 1273569,
+      "sha256": "c13e7e6b3fd0f1d58261bb6262213d7dd6a333213324cb9ffa17682ecc846e19"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/native-mine-true-1.png",
+      "bytes": 1283717,
+      "sha256": "b496cf0c0235a33578f73af328bc0086c38628c647d490181becb43a94ebea91"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/native-mine-false-2.png",
+      "bytes": 1273569,
+      "sha256": "c13e7e6b3fd0f1d58261bb6262213d7dd6a333213324cb9ffa17682ecc846e19"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/native-mine-true-2.png",
+      "bytes": 1283717,
+      "sha256": "b496cf0c0235a33578f73af328bc0086c38628c647d490181becb43a94ebea91"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/native-mine-false-3.png",
+      "bytes": 1273569,
+      "sha256": "c13e7e6b3fd0f1d58261bb6262213d7dd6a333213324cb9ffa17682ecc846e19"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/native-mine-true-3.png",
+      "bytes": 1283717,
+      "sha256": "b496cf0c0235a33578f73af328bc0086c38628c647d490181becb43a94ebea91"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/near-full-begin-1.png",
+      "bytes": 1410445,
+      "sha256": "143a473b7135e391b070823cbd69267c81562eb4727286777e448ffd9fffd843"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/near-full-end-1.png",
+      "bytes": 1493894,
+      "sha256": "0fbe3f306d994a18a6682153db2b7d0d574e4ed2af6ececa270fc80de5562520"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/near-retry-collected-1.png",
+      "bytes": 1493066,
+      "sha256": "7c9bf4c0012fce6136b6d8168560365e72e72e047ec0f56632a3c7d1109ea691"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/near-full-begin-2.png",
+      "bytes": 1404577,
+      "sha256": "70551a390b756270414fa6b364e7f4a70a076673f2d5ae23e0df7fcf6a7f76e3"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/near-full-end-2.png",
+      "bytes": 1488462,
+      "sha256": "854e8c7067ba0b6df62b37d10a7672f125882689cc2e56bf6d5aa55f0e2ef7b6"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/near-retry-collected-2.png",
+      "bytes": 1487573,
+      "sha256": "363f0223b79ce9216fabecd0385c937c93add443bf97203d9c72e5254c71c0d1"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/near-full-begin-3.png",
+      "bytes": 1410445,
+      "sha256": "143a473b7135e391b070823cbd69267c81562eb4727286777e448ffd9fffd843"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/near-full-end-3.png",
+      "bytes": 1494112,
+      "sha256": "4186289c67f2a8cb3a5bbd2090619a1436689131de9cc39dd5ce7317e410dc76"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/near-retry-collected-3.png",
+      "bytes": 1493269,
+      "sha256": "2c18babd942c3f6be6630389bd769bc2fded052bc22805e4387e6ba1f5ba0d03"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/recovery-before-1.png",
+      "bytes": 1229636,
+      "sha256": "a1587f77ce04f7f485bcbdaf6ca6864a734631ff54ede3e1992f8b56558aa235"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/recovery-after-1.png",
+      "bytes": 222630,
+      "sha256": "953212e58a91782e1b60eb2569f94436e1283846c58db1ffbc225272358f34b1"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/recovery-resumed-1.png",
+      "bytes": 1226742,
+      "sha256": "1bba7101727097c4aec2cc6349490003c44c7afd77318a5044524618bb0548f8"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/recovery-live-1.png",
+      "bytes": 1228320,
+      "sha256": "c1a91815f3fe15281c977ddd8307d13f633bd2bf2a0048b6a662bbc4e864a309"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/recovery-before-2.png",
+      "bytes": 1228320,
+      "sha256": "c1a91815f3fe15281c977ddd8307d13f633bd2bf2a0048b6a662bbc4e864a309"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/recovery-after-2.png",
+      "bytes": 222712,
+      "sha256": "b34ca2f937f7b7d23361735c04bc19c07ff5a8203158aa4dcbaad6559d28e8e7"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/recovery-resumed-2.png",
+      "bytes": 1228320,
+      "sha256": "c1a91815f3fe15281c977ddd8307d13f633bd2bf2a0048b6a662bbc4e864a309"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\supplement-3/recovery-live-2.png",
+      "bytes": 1228370,
+      "sha256": "446739c2ae400ad7b7f572c3a14ff8543fb766209dcf3e155e849152a877b401"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/supplement-3/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "772bada8e78e627fb03b3db6a19d5460673a296175cf0d1b5722cf994154e174"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/terrain-1/report.json",
+      "bytes": 2381650,
+      "sha256": "56e8720f2108b0ddf6c187527a308e156587e1d123edc8999a7dcc6a3a4b6fcd"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/terrain-1/runner.mts",
+      "bytes": 17630,
+      "sha256": "596c5f32f82eded625df8bfa3b3527b18079aacb3c68afa027516faaa40b497f"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\terrain-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\terrain-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "7d6d428ba933c944fc79f4a981ddfaedde81e9a693fd0ab9a47c0242b496a74d"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\terrain-1\\terrain-char.state.json",
+      "bytes": 13017,
+      "sha256": "4ab733f8159b6f32505ef64130ba976d5c9ea5e9f5710819b21a648aec8d938e"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\terrain-1\\terrain-industrial.state.json",
+      "bytes": 13035,
+      "sha256": "220da251c4b7dd6d438f90d85417296f14ced1406e7ca0fdc731cbf47f594366"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\terrain-1\\failure.state.json",
+      "bytes": 13029,
+      "sha256": "a28069404bfa5643faafcf908584a5c96422602adad715c9aa4b6c52fd04e3de"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\terrain-1/home.png",
+      "bytes": 1598096,
+      "sha256": "a4960d39dfee0fd1bfff626b91d7208784e5dabb899f2b552386e6c80e44a72d"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\terrain-1/native-first-battle.png",
+      "bytes": 1211789,
+      "sha256": "50617d4ccc1e35d1c2ffba84dc7f3e1ea5b8c44216721ed69fe25246e02f43fe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\terrain-1/terrain-char.png",
+      "bytes": 1268971,
+      "sha256": "944c010fcc478ffa49d3ba25feeb85c49a7240da40fd02ed216528909756fb40"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\terrain-1/terrain-industrial.png",
+      "bytes": 186016,
+      "sha256": "f8e6405792754b8e16bc68465d5e7a4b8c7bde49cf16d8fd58a28aa5a064ba19"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\terrain-1/failure.png",
+      "bytes": 1067445,
+      "sha256": "a602876283cea69d50335cf84e9e4f7a75b6eb705f6b50af32ba02f12946c683"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/terrain-1/requested-assets.json",
+      "bytes": 190395,
+      "sha256": "408c3a399ef13b256d5c60f768927f85abcadf9938ea0f32891337c0bd5c76c2"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/ui-1/report.json",
+      "bytes": 998304,
+      "sha256": "dd7d64256ea377461499a5256882cc15f55b10d52625c787e8f9406f7afc4201"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/ui-1/runner.mts",
+      "bytes": 14946,
+      "sha256": "466d4d19fe677602f2d997eab92ad667b7691d4e7235cd9df083fd2fdec77e88"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\ui-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\ui-1\\warehouse-complete.state.json",
+      "bytes": 318123,
+      "sha256": "801585c9d66d69d819fccb25c5e1bd86d2ed4be7efa550a9c6965c70d4f9f474"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-1/home.png",
+      "bytes": 1599321,
+      "sha256": "3aa46f424a987f13ae1bfb02cf8a979d1338bd79f5a354f712454388266f8599"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-1/warehouse-inspect-1.png",
+      "bytes": 373588,
+      "sha256": "e1250b4daac7743d05b99fd88cf8220fdc769d8f89b91b389908415a87414c9b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-1/warehouse-inspect-2.png",
+      "bytes": 377628,
+      "sha256": "51971b43c02f9daea6feaeeaf52e81dfa8a3c8135737b8fd5d43811c922fe1ca"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-1/warehouse-inspect-3.png",
+      "bytes": 377786,
+      "sha256": "ab9263d7802cbb2e75ca31db62eaba4e791f3748154e43c714a348ff8f551939"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-1/warehouse-complete.png",
+      "bytes": 1557540,
+      "sha256": "78827269f01ec4995c15fe86ed8b6591afd35f33f9c26b40eda174977b334bf7"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/ui-1/requested-assets.json",
+      "bytes": 112673,
+      "sha256": "ed5ccd08faed75491ea52cb88e4df198975d4c3f0495f705a3b7aaba0b85cc81"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/ui-2/report.json",
+      "bytes": 1041316,
+      "sha256": "8f36fc4fc437959c9de961ff3d80a2001dd7b4edd94f8d1cd2d966704d72ac9f"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/ui-2/runner.mts",
+      "bytes": 17377,
+      "sha256": "bedbbe291d6a14babf2a2a0fd2936e26ba27d4f98a52e2ab2250ee2de8b45102"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\ui-2\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\ui-2\\warehouse-complete.state.json",
+      "bytes": 318123,
+      "sha256": "801585c9d66d69d819fccb25c5e1bd86d2ed4be7efa550a9c6965c70d4f9f474"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-2/home.png",
+      "bytes": 1597534,
+      "sha256": "fca65ee0380c53e92d34265f77ab1ff993daa130f7d0e076b38f3c4cd8d7ebc7"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-2/warehouse-inspect-1.png",
+      "bytes": 372275,
+      "sha256": "cb379d34029d71a2b9a14812a54491d55ae412e173f688ce7410dbadd00a9189"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-2/warehouse-inspect-2.png",
+      "bytes": 377628,
+      "sha256": "51971b43c02f9daea6feaeeaf52e81dfa8a3c8135737b8fd5d43811c922fe1ca"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-2/warehouse-inspect-3.png",
+      "bytes": 377786,
+      "sha256": "ab9263d7802cbb2e75ca31db62eaba4e791f3748154e43c714a348ff8f551939"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\ui-2/warehouse-complete.png",
+      "bytes": 1557505,
+      "sha256": "4bb7faa58ff59d45257b26c519c3beb8270fa3ab876c41466edb7e66f7bb3dc7"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/ui-2/requested-assets.json",
+      "bytes": 115775,
+      "sha256": "5a734352f6ea4dddf6552e68f4ad4e924c44c37b84f33d967573dc3da067ea6e"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/visibility-1/report.json",
+      "bytes": 1835531,
+      "sha256": "db1ef9931ac987f3b698b5d3e525ce300ea67d789c1cb77d398421d9b6597d14"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/visibility-1/runner.mts",
+      "bytes": 28290,
+      "sha256": "a1a459f6387b2dc04bfd9d714748fdb72c6f63094d5b90b462f33f746489802f"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\visibility-1\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\visibility-1\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "aa299ced2414a4d8ae12c39e00a0b67385b1f727b84bbb159532772c3c17ad4b"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\visibility-1\\visibility-case-failure.state.json",
+      "bytes": 13000,
+      "sha256": "8c285bd097e520c3fb74a636f0e61c842bfd0eaa21311d0e8ed323afecd5be78"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\visibility-1\\failure.state.json",
+      "bytes": 13000,
+      "sha256": "8c285bd097e520c3fb74a636f0e61c842bfd0eaa21311d0e8ed323afecd5be78"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\visibility-1/home.png",
+      "bytes": 1551364,
+      "sha256": "2436824d5e177b65727c3e6f52416c21331e1522397feac5e23e1c6eff0bb739"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\visibility-1/native-first-battle.png",
+      "bytes": 1214242,
+      "sha256": "0a17487cdf22158e54e0f151d68ef408b30da31008bf9b0467355ddc6305480b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\visibility-1/visibility-case-failure.png",
+      "bytes": 1241262,
+      "sha256": "ead7aa5ebc5f1b7ae507afb0d6383809e9149f1afb06660d7b0f5be8b9dabbfe"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\visibility-1/failure.png",
+      "bytes": 1241262,
+      "sha256": "ead7aa5ebc5f1b7ae507afb0d6383809e9149f1afb06660d7b0f5be8b9dabbfe"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/visibility-1/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "772bada8e78e627fb03b3db6a19d5460673a296175cf0d1b5722cf994154e174"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/visibility-2/report.json",
+      "bytes": 7030624,
+      "sha256": "ca5dde7d2e1038f7d270cf1869e424fe3a26197e6b566588b36e7dd685390df4"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/visibility-2/runner.mts",
+      "bytes": 32498,
+      "sha256": "4060354881af5b2eaf43797fb57c9823961a7b7ca01072c3af3b79124eb4e5b0"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\visibility-2\\home.state.json",
+      "bytes": 11020,
+      "sha256": "748f1a343a4756810259061f35ad58d4d3bbd2c815d000bd438bd08ec6f06f11"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\visibility-2\\native-first-battle.state.json",
+      "bytes": 11817,
+      "sha256": "0c0857aab120939114076a2654e90a773d457298f7f54529aac149283d9c2c20"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\visibility-2\\visible-return-1.state.json",
+      "bytes": 13126,
+      "sha256": "6d099968db27b06505fac26a98f83c291aa9c9ff10fcaae61c548c40538b5f0f"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\visibility-2\\visible-return-2.state.json",
+      "bytes": 13027,
+      "sha256": "af61203a4c2def725ce6ac31b500464345fae9a78f2ec658a2b9727ee1148d48"
+    },
+    {
+      "file": "reports\\local\\performance-b03-20261019\\visibility-2\\visible-return-3.state.json",
+      "bytes": 12974,
+      "sha256": "57b6558859645b2080f5bea536867c50fe0c244d7e259c04cd6aef8752b9f24b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\visibility-2/home.png",
+      "bytes": 1551265,
+      "sha256": "dbc25d01e3a4038008aa211795464d3b9381cdd039a7429c8cd0d1e84d629be1"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\visibility-2/native-first-battle.png",
+      "bytes": 1214242,
+      "sha256": "0a17487cdf22158e54e0f151d68ef408b30da31008bf9b0467355ddc6305480b"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\visibility-2/visible-return-1.png",
+      "bytes": 193471,
+      "sha256": "fab25625712e91f9e6226d7448e7c35a179e349d5e41676f114b30d8c3d1ee42"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\visibility-2/visible-return-2.png",
+      "bytes": 193470,
+      "sha256": "f5674e8ffc08732f79ae07d045c07be24de383ea04f35ddfac53cc9e9fb68f14"
+    },
+    {
+      "file": "D:\\星际\\reports\\local\\performance-b03-20261019\\visibility-2/visible-return-3.png",
+      "bytes": 193491,
+      "sha256": "0b09d49e540f4aba1aaf4e91b78b10874d7a0bc92a6bb775f82ff605224fc4b5"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/visibility-2/requested-assets.json",
+      "bytes": 170376,
+      "sha256": "772bada8e78e627fb03b3db6a19d5460673a296175cf0d1b5722cf994154e174"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/visibility-probe/report.json",
+      "bytes": 1008,
+      "sha256": "98ea5a3013ddadbeea918c9ae03d75819bf3662b62a7ec1bdcb14dbd2d1acf08"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/visibility-probe-2/report.json",
+      "bytes": 1011,
+      "sha256": "f85eb1b0eb8274acbfebc423e1d17f7f39fd356a4b16f748be8ca921f7b4e5ea"
+    },
+    {
+      "file": "reports/local/performance-b03-20261019/visibility-probe-3/report.json",
+      "bytes": 1106,
+      "sha256": "87dd007e88a98d6a81c8f292d7d0702ccc3359eb15ce4ad9eed907e9674cda9a"
+    }
+  ],
+  "limits": [
+    "Instrumented timings",
+    "Synthetic stress separate from natural rules",
+    "Browser automation not physical/human input",
+    "Recorded UI errors retained",
+    "No full-content 60 FPS or whole MVP acceptance"
+  ]
+}

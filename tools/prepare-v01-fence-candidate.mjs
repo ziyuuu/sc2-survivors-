@@ -1,0 +1,9 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const base='reports/local/v01-20261024',before='await wait();this.renderer.initTexture(texture);',after='await wait();if(!this.renderer.properties.get(texture).__webglInit)await this.waitForGpu();this.renderer.initTexture(texture);';
+const production=await fs.readFile('src/render/scene/battle-renderer.ts','utf8');assert.equal(production.split(before).length,2);
+await fs.writeFile(base+'/fence-candidate-patch.json',JSON.stringify({status:'diagnostic-only',file:'src/render/scene/battle-renderer.ts',before,after,hypothesis:'Long synchronous texSubImage2D calls may include earlier live-render GPU work. Wait asynchronously for preceding GPU commands before a new texture upload. No texture/visual/input/rules changes; reject if no reliable benefit or preparation deadline regresses.'},null,2));
+let code=await fs.readFile(base+'/build-web.mjs','utf8');
+code=code.replace("transform(code,id){",`transform(code,id){if(id.replaceAll('\\\\','/').endsWith('/src/render/scene/battle-renderer.ts')){if(code.split(${JSON.stringify(before)}).length!==2)throw Error('Fence candidate transform mismatch');return code.replace(${JSON.stringify(before)},${JSON.stringify(after)});}`);
+code=code.replace('main V01 observation build; only src/main.ts transformed for seeded start and globals; production bytes recorded unchanged','main V01 diagnostic fence candidate; src/main.ts observation plus explicit battle-renderer transform in fence-candidate-patch.json; production source remains unchanged');
+code=code.replace('const evidence={root,out,branch:',"const evidence={root,out,transformation:JSON.parse(await fs.readFile(base+'/fence-candidate-patch.json')),branch:");await fs.writeFile(base+'/build-fence-candidate.mjs',code);console.log('Prepared one isolated fence candidate; no production source edit.');

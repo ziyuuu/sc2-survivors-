@@ -11,6 +11,10 @@ export function effectText(effect:EquipmentEffect):string {
   return `${target}${statNames[stat as keyof typeof statNames]??(stat==='shield'?'护盾':stat)} +${statValue(stat,v[0])}`;
  }
  switch(key){
+  case 'opening_count':return `出征开局基础兵力总数为 ${v[0]} 名（不是额外增加 ${v[0]} 名）；需出征前激活`;
+  case 'equipment_drop_chance':return `装备基础随机掉率相对 +${pct(v[0])}；不增加保底数量或品质权重`;
+  case 'turn_factor':return `移动瞄准转向速度 ×${v[0]}`;
+  case 'moving_chance':return `合法移动开火机会 ${pct(v[0])}`;
   case 'periodic_resources':return `每 ${v[0]} 秒获得 ${v[1]} 矿石、${v[2]} 瓦斯`;
   case 'stage_resources':return `每关获得 ${v[0]} 矿石、${v[1]} 瓦斯`;
   case 'purchase_discount':return `商品减价 ${v[0]} 矿石、${v[1]} 瓦斯`;

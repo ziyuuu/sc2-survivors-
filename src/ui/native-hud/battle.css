@@ -1,3 +1,4 @@
+#interface.native-hud{--native-map-unit:1cqw}
 /* Approved R6 console composition, bound to the live HUD. All coordinates are
    relative to the game surface; the untouched renderer fills the playfield. */
 body.native-hud.has-battle-console #battle{inset:0;width:100%;height:100%}
@@ -37,12 +38,12 @@ body.native-hud.has-battle-console #battle{inset:0;width:100%;height:100%}
 #interface.native-hud[data-hud-mode] #console-commands .packed-command[aria-disabled=true]{filter:saturate(.2);opacity:.65}
 #interface.native-hud[data-hud-mode] #native-command-pages{position:absolute;left:10%;right:10%;top:15%;height:20px;display:flex;justify-content:flex-end;align-items:center;gap:4px;pointer-events:auto;font:10px var(--data);z-index:6}
 #interface.native-hud[data-hud-mode] #native-command-pages button{width:24px;min-height:22px;padding:0;background:#0b160c;border:1px solid #68795f;color:#e9dcc1}
-#interface.native-hud[data-hud-mode] #minimap{position:absolute;inset:auto auto env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);width:20.87%;height:21.27cqw;padding:0;border:0;box-shadow:none;background:none;aspect-ratio:auto;pointer-events:none;z-index:35}
+#interface.native-hud[data-hud-mode] #minimap{position:absolute;inset:auto auto env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);width:calc(20.87 * var(--native-map-unit));height:calc(21.27 * var(--native-map-unit));padding:0;border:0;box-shadow:none;background:none;aspect-ratio:auto;pointer-events:none;z-index:35}
 #interface.native-hud[data-hud-mode] #minimap .minimap-chassis,#interface.native-hud[data-hud-mode] #minimap footer{display:none}
-#interface.native-hud[data-hud-mode][data-hud-mode=pc] .native-map-frame>.native-frame{top:auto;bottom:0;width:100%;height:31.855cqw}
+#interface.native-hud[data-hud-mode] .native-map-frame>.native-frame{top:auto;bottom:0;width:100%;height:calc(31.855 * var(--native-map-unit))}
 #interface.native-hud[data-hud-mode] #minimap-canvas{position:absolute;left:6.76%;top:25.12%;width:74.88%;height:71.1%;pointer-events:auto;aspect-ratio:1;background:#03090b}
 #interface.native-hud[data-hud-mode] #minimap header{inset:25% 4% auto auto;pointer-events:auto;z-index:6}
-#interface.native-hud[data-hud-mode] #minimap.map-collapsed{width:20.87%;height:21.27cqw;padding:0}
+#interface.native-hud[data-hud-mode] #minimap.map-collapsed{width:calc(20.87 * var(--native-map-unit));height:calc(21.27 * var(--native-map-unit));padding:0}
 #interface.native-hud[data-hud-mode] #minimap.map-collapsed #minimap-canvas,#interface.native-hud[data-hud-mode] #minimap.map-collapsed .native-map-frame{visibility:hidden}
 #interface.native-hud[data-hud-mode] .native-map-utilities{position:absolute;inset:25.12% 1.8% 3.78% 84.8%;display:flex;flex-direction:column;justify-content:space-between;gap:.15cqw;z-index:7;pointer-events:none}
 #interface.native-hud[data-hud-mode] .native-map-utilities>button,#interface.native-hud[data-hud-mode] #minimap .native-map-utilities>#map-toggle{position:relative;inset:auto;display:grid;place-items:center;flex:none;width:100%;height:auto;aspect-ratio:1;min-width:0;min-height:0;padding:0;border:0;border-radius:0;background:#07130e var(--native-command-art) center/100% 100% no-repeat;box-shadow:none;color:#e3eadb;line-height:1;font-size:22px;pointer-events:auto}
@@ -76,12 +77,8 @@ body.native-hud.has-battle-console #battle{inset:0;width:100%;height:100%}
 #interface.native-hud[data-hud-mode][data-hud-mode=landscape] #battle-console.army-collapsed .army-row{transform:translateY(calc(100% - 1.6cqw))}
 #interface.native-hud[data-hud-mode][data-hud-mode=landscape] #battle-console #army-pages{top:-1.25cqw;right:1.2cqw;height:2.8cqw}
 #interface.native-hud[data-hud-mode][data-hud-mode=landscape] #native-selection{width:26cqw;height:7.84cqw}
-#interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) #minimap{inset:env(safe-area-inset-top,0px) auto auto env(safe-area-inset-left,0px);width:16.5%;height:16.5cqw;aspect-ratio:1}
-#interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) #minimap-canvas{left:8%;top:8%;width:84%;height:84%}
-#interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) #minimap header{top:1%;right:1%;width:20px;height:20px}
 #interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) #console-commands kbd{display:none}
 #interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) #joystick{position:absolute;inset:auto auto max(2cqw,env(safe-area-inset-bottom)) max(2cqw,env(safe-area-inset-left));width:14cqw;height:14cqw;z-index:35}
-#interface.native-hud[data-hud-mode][data-hud-mode=portrait] #minimap{width:25%;height:25cqw}
 #interface.native-hud[data-hud-mode][data-hud-mode=portrait] #battle-console .army-row,#interface.native-hud[data-hud-mode][data-hud-mode=portrait] #battle-console.army-collapsed .army-row{left:auto;right:env(safe-area-inset-right,0px);top:max(19%,35cqw);bottom:max(46cqw,env(safe-area-inset-bottom));width:13cqw;height:auto;transform:none}
 #interface.native-hud[data-hud-mode][data-hud-mode=portrait] #army-hud{inset:8.5cqw 1.4cqw 14.5cqw}
 #interface.native-hud[data-hud-mode][data-hud-mode=portrait] #battle-console #roster{gap:.75cqw}
@@ -106,9 +103,15 @@ body.native-hud.has-battle-console #battle{inset:0;width:100%;height:100%}
 #interface.native-hud .native-empty-command{border:1px solid #66867540;background:#030704;pointer-events:none}
 #interface.native-hud[data-hud-mode] #battle-console.packed-console:has(#unit-inspector:not([hidden])){z-index:160}
 
-/* Five live controls share a row on small screens; none covers the map. */
-#interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) .native-map-utilities{inset:calc(100% + 4px) auto auto 0;display:grid;grid-template-columns:repeat(5,44px);gap:4px;width:max-content;height:44px}
-#interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) .native-map-utilities>button{position:relative;inset:auto;width:44px;height:44px}
-#interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) .native-utility-label{right:auto;left:0;top:calc(100% + 4px);transform:none}
 #interface.native-hud[data-hud-mode][data-hud-mode=portrait] #mission{top:calc(25cqw + 56px)}
 #interface.native-hud[data-hud-mode][data-hud-mode=portrait] #notice{top:calc(25cqw + 86px)}
+
+/* Keep the mobile console housing inside the viewport, including its edge trim. */
+#interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) #battle-console .command-row{right:max(4px,env(safe-area-inset-right));bottom:max(4px,env(safe-area-inset-bottom))}
+#interface.native-hud[data-hud-mode][data-hud-mode=portrait] #battle-console .army-row{right:max(4px,env(safe-area-inset-right))}
+/* The minimap moves as one PC component; the existing army/command layouts remain. */
+#interface.native-hud[data-hud-mode=landscape]{--native-map-unit:.79061cqw}
+#interface.native-hud[data-hud-mode=portrait]{--native-map-unit:1.82080cqw}
+#interface.native-hud[data-hud-mode]:not([data-hud-mode=pc]) #minimap{top:max(4px,env(safe-area-inset-top));left:max(4px,env(safe-area-inset-left));bottom:auto}
+#interface.native-hud[data-hud-mode][data-hud-mode=portrait] #mission{top:calc(39cqw + 12px)}
+#interface.native-hud[data-hud-mode][data-hud-mode=portrait] #notice{top:calc(39cqw + 42px)}

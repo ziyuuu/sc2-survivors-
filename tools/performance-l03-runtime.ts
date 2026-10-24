@@ -1,0 +1,13 @@
+import {MapPreview} from '../src/ui/presentation/map-preview';
+import {campaignTerrain} from '../src/data/campaign-map';
+import {EmbeddedAssetStore,embeddedAssetStatus} from '../src/assets/offline-pack';
+import {RunSession} from '../src/app/run-session';
+import {sharedMaterialTextures} from '../src/render/materials/shared-textures';
+const state:any={app:null,previewCalls:[],stores:[],campaignTerrain,MapPreview,embeddedAssetStatus,sharedMaterialTextures,recipe:{version:3,seed:529,theme:'char'}};
+(window as any).L03=state;
+const newRun=RunSession.prototype.prepareNewRun;
+RunSession.prototype.prepareNewRun=function(...args){const preview=newRun.apply(this,args);preview.campaignMap={...state.recipe};return preview;};
+const capture=MapPreview.prototype.capture;
+MapPreview.prototype.capture=function(...args){const start=performance.now();try{return capture.apply(this,args);}finally{if(state.previewCalls.length<10000)state.previewCalls.push({at:start,ms:performance.now()-start,signature:(this as any).signature});}};
+const prepare=EmbeddedAssetStore.prototype.prepare;
+EmbeddedAssetStore.prototype.prepare=function(...args){if(!state.stores.includes(this))state.stores.push(this);return prepare.apply(this,args);};

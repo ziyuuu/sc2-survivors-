@@ -15,7 +15,7 @@ export interface EquipmentLifeRuntime {roster:Map<number,Entity>;version:number;
 export function newEquipmentLife():EquipmentLifeRuntime{return {roster:new Map(),version:0,pending:new Map(),rewindUsed:false};}
 export function equipmentCanRevive(w:World,u:Entity){return permanentEquipmentBody(w,u)&&!w.starship.members.get(u.id)?.cannotRevive;}
 function nativeWaiting(w:World,u:Entity){if(w.zergHeroes.revivals.some(r=>r.until>w.time&&r.charges>0&&r.seats.some(s=>!s.claimed&&s.members.some(v=>v.id===u.id&&v.bornAt===u.bornAt))))return true;
- const pair=u.pairId?w.expedition.zerglingPairs.find(p=>p.id===u.pairId):undefined;return !!pair&&pair.regrowAt!==null&&pair.members.some(id=>id!==u.id&&(w.entities.get(id)?.hp??0)>0);
+ const pair=u.pairId?w.expedition.zerglingPairs.find(p=>p.id===u.pairId):undefined;return !!pair&&pair.regrowAt!==null&&pair.members.some(id=>id!==u.id&&((w.entities.get(id)??w.specialStages.active?.evacuated.get(id))?.hp??0)>0);
 }
 export function registerEquipmentRoster(w:World){if(!w.starship.enabled)return;const life=w.starship.life;for(const u of w.entities.values()){if(!permanentEquipmentBody(w,u)||u.hp<=0)continue;if(!life.roster.has(u.id)){
    // A delivered replacement of an unrecoverable ordinary seat changes its roster identity.
@@ -41,7 +41,7 @@ function restore(w:World,snapshot:Entity,point:Point,hp:number,shield:number,rew
  equipmentPresentation(w,rewind?'rewind':'recall-to',u);observeAmount(w,u,'revivals',1);w.visual('hero-revive',u);w.hash.invalidatePlanes();return u;
 }
 export function tickEquipmentLife(w:World){if(!w.starship.enabled)return;for(const [id,r] of w.starship.life.pending){const live=w.entities.get(id);if(live&&live.hp>0){w.starship.life.pending.delete(id);continue;}
-  if(r.source==='native'){if(r.body.pairId){const pair=w.expedition.zerglingPairs.find(p=>p.id===r.body.pairId);if(pair&&pair.members.filter(id=>(w.entities.get(id)?.hp??0)>0).length===2){w.starship.life.pending.delete(id);w.starship.life.roster.delete(id);continue;}}if(nativeWaiting(w,r.body))continue;r.source=r.backup?'survivor':'failed';}
+  if(r.source==='native'){if(r.body.pairId){const pair=w.expedition.zerglingPairs.find(p=>p.id===r.body.pairId);if(pair&&pair.members.filter(id=>((w.entities.get(id)??w.specialStages.active?.evacuated.get(id))?.hp??0)>0).length===2){w.starship.life.pending.delete(id);w.starship.life.roster.delete(id);continue;}}if(nativeWaiting(w,r.body))continue;r.source=r.backup?'survivor':'failed';}
   if(r.source==='phase'){const survivors=r.projections.map(id=>w.entities.get(id)).filter((u):u is Entity=>!!u&&u.hp>0);if(!r.phaseWon&&survivors.length&&w.time+1e-8>=r.until){r.phaseWon={x:survivors[0].x,z:survivors[0].z};for(const projection of r.projections)retireEquipmentProjection(w,projection);}if(r.phaseWon){const points=landing(w,[r.body],[r.phaseWon]);if(!points)continue;restore(w,r.body,points[0],1,1);w.starship.life.pending.delete(id);continue;}if(!survivors.length)r.source=r.backup?'survivor':'failed';else continue;}
   if(r.source==='survivor'&&r.backup&&w.time+1e-8>=r.death+r.backup.values[1]){const points=landing(w,[r.body],[r.body]);if(!points)continue;const u=restore(w,r.body,points[0],r.backup.values[2],0);if(r.backup.values[4])giveEquipmentBarrier(w,u,'survivor',u.maxHp*r.backup.values[4],r.backup.values[5]);w.starship.life.pending.delete(id);continue;}
   if(r.source==='failed')w.starship.life.pending.delete(id);

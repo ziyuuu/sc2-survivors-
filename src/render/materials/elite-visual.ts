@@ -30,6 +30,17 @@ export function displayActiveModelKey(unit:DisplayUnit){
 export function displayDeathModelKey(unit:DisplayUnit){return unit.unitType==='tank'&&!unit.heroId?displayModelKey(unit):displayActiveModelKey(unit);}
 /** Observe existing state only. Never call the gameplay accessors which initialize combat records. */
 export function unitMaterialIdentity(unit:Entity,time:number){
+ if(unit.fun?.kind==='whitePack'&&unit.fun.role==='actor'&&unit.fun.mode==='passive')return {teamColor:linearColor(0xffffff),activity:.2,apparition:{tint:[2.6,2.6,2.6] as const,opacity:1}};
+ if(unit.fun?.kind==='infectedTerrans'){
+  const f=unit.fun,friend=f.mode==='friend',charging=f.mode==='swelling'||f.mode==='charging',healing=Math.min(1,f.healed/Math.max(1,unit.maxHp*.3));
+  return {teamColor:linearColor(friend?0x63b8ec:charging?0xe55736:0xb09459),activity:charging?.5:.15,apparition:{tint:(friend?[.78,1.3,1.55]:charging?[1.7,.65,.45]:[1.08-healing*.3,.78+healing*.5,.72+healing*.65]) as [number,number,number],opacity:1}};
+ }
+ const encounter=unit.encounter;
+ if(encounter&&encounter.role!=='attacker'){
+  const kind=encounter.kind,color=kind==='golden'?0xffd260:kind==='giant'?0xb558f7:0xc5ffe9;
+  const tint:readonly [number,number,number]=kind==='golden'?[3.3,2.4,.65]:kind==='giant'?[1.4,.55,2.3]:[2.2,5,12];
+  return {teamColor:linearColor(color),activity:.4,apparition:{tint,opacity:1}};
+ }
  const profile=eliteVisualProfile(unit),t=unit.eliteCombat,z=unit.zergEliteCombat,p=unit.protossEliteCombat;let activity=0;
  if(profile&&unit.team==='player'&&unit.hp>0)switch(profile.activity){
   case 'warmup':activity=t?.started!=null&&t.lastFire>=time-2&&t.coolUntil<=time?Math.min(1,(time-t.started)/5):0;break;

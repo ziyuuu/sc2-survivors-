@@ -1,0 +1,3 @@
+import fs from 'node:fs/promises';
+const b=JSON.parse(await fs.readFile('reports/local/v01-20261024/web-game-r2-build.json')),m=JSON.parse(await fs.readFile(b.out+'/'+b.manifest));
+for(const id of ['model.marine','model.marine.death','model.elite.marine.1','model.hero.raynor']){const a=m.assets[id];if(!a)continue;const bytes=await fs.readFile(b.resources.find(r=>r.sha256===a.sha256).source),size=bytes.readUInt32LE(12),j=JSON.parse(bytes.subarray(20,20+size));console.log(JSON.stringify({id,images:j.images?.slice(0,2),views:j.images?.slice(0,2).map(x=>j.bufferViews?.[x.bufferView]),textures:j.textures?.slice(0,2)}));}

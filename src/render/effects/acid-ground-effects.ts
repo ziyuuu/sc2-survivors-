@@ -55,8 +55,9 @@ export class AcidGroundEffects {
    }
    patch.root.visible=visible(zone.point);patch.fade=Math.min(1,Math.max(0,(acidZoneExpiry(zone)-world.time)/.18));
   }
-  for(const [key,patch]of this.patches)if(!active.has(key)){patch.root.removeFromParent();patch.geometry.dispose();this.patches.delete(key);}
+  for(const [key,patch]of this.patches)if(!active.has(key)){this.release(patch);this.patches.delete(key);}
  }
- reset(){for(const patch of this.patches.values()){patch.root.removeFromParent();patch.geometry.dispose();}this.patches.clear();}
+ private release(patch:Patch){patch.root.removeFromParent();patch.root.traverse(node=>{if(node instanceof THREE.InstancedMesh)node.dispose();});patch.geometry.dispose();}
+ reset(){for(const patch of this.patches.values())this.release(patch);this.patches.clear();}
  report(){return {textures:['fx.bile.4','fx.acid.0'],zones:[...this.patches].map(([key,p])=>({key,point:p.point,radius:p.radius,visible:p.root.visible,fade:p.fade,terrainConforming:true})),auxiliaryOutlines:0};}
 }

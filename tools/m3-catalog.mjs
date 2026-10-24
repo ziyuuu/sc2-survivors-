@@ -11,6 +11,8 @@ export const M3_FORT_MODELS=JSON.parse(fs.readFileSync(new URL('./m3-fort-models
 export const STARSHIP_FORT_MODELS=JSON.parse(fs.readFileSync(new URL('./starship-fort-models.json',import.meta.url),'utf8'));
 export const F05_RESCUE_MODELS=JSON.parse(fs.readFileSync(new URL('./f05-rescue-models.json',import.meta.url),'utf8').replace(/^\uFEFF/,''));
 export const M3_MODELS=[
+ ...JSON.parse(fs.readFileSync(new URL('./fun-models.json',import.meta.url),'utf8')).map(a=>[a.id,a.name]),
+ ...JSON.parse(fs.readFileSync(new URL('./mission-models.json',import.meta.url),'utf8')).map(a=>[a.id,a.name]),
  ['model.support.mine','spidermine'],
  ['model.pylon.birth','pylonwarpin'],
  ['model.pylon.death','pylonex2death'],['model.barracks.death','barracksdeathex1'],['model.hatchery.death','hatcherydeathex1'],

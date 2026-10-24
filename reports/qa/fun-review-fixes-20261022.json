@@ -1,0 +1,268 @@
+{
+  "at": "2026-10-22T03:38:02.744Z",
+  "status": "local-complete",
+  "implementationRoot": "C:/Users/zyuu/.codex/worktrees/mission/星际",
+  "branch": "feat/fun-gameplay",
+  "scope": [
+    {
+      "id": "01",
+      "requirement": "Touhou-like readable dense patterns, small team hitbox, original mouse and normal camera",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "02",
+      "requirement": "Crossing only: reduce body blocking",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "03",
+      "requirement": "Escort: actual source shield effect",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "04",
+      "requirement": "Intel: smaller book; restore agreed collection/spawn rules",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "05",
+      "requirement": "Rescue: original game beacon; purple HP and overhead marker",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "06",
+      "requirement": "Egg nightmare: lower enemy pressure",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "07",
+      "requirement": "Eight towers: dispersed symmetric layout",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "08",
+      "requirement": "Golden worker: attack starts fleeing, finite runs and rests",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "09",
+      "requirement": "White pack: auto-attack triggers; faster patrol, no close spawn",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "10",
+      "requirement": "Huge devourer erupts beneath squad and directly swallows one third; no dodge window; 30s rescue",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "11",
+      "requirement": "Flying roach: correct airborne projectile origin/target",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "12",
+      "requirement": "Queen: stronger against enemy Zerg",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "13",
+      "requirement": "Infected: complete native explosion and explicit demonstration of both outcomes",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "14",
+      "requirement": "Parasite: host bursts, offspring emerge at host location",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "15",
+      "requirement": "Friendly Nydus: larger readable model",
+      "status": "locally-implemented-and-verified"
+    },
+    {
+      "id": "16",
+      "requirement": "Special encounter spawn separation except deliberate devourer ambush",
+      "status": "locally-implemented-and-verified"
+    }
+  ],
+  "tests": {
+    "full": 1914,
+    "pass": 1914,
+    "newBoundaryCases": 23,
+    "typecheck": "passed",
+    "dataReference": "passed",
+    "fullLog": "D:\\星际\\reports\\local\\fun-review-fixes-20261022/full-regression-final.log"
+  },
+  "visuals": {
+    "r2Scenarios": 15,
+    "r2Records": 52,
+    "r2Screens": 37,
+    "finalDesktopRecords": 21,
+    "finalTouchRecords": 8,
+    "reviewedScreens": 56,
+    "changedAfterR2": [
+      "src/simulation/movement/contacts.ts",
+      "src/simulation/special-stages/crossing.ts",
+      "src/simulation/world.ts"
+    ],
+    "webgl": {
+      "name": "actual-webgl-state",
+      "same": true,
+      "epoch": 1,
+      "prior": 0,
+      "readiness": {
+        "kind": null,
+        "phase": "idle",
+        "done": 0,
+        "total": 0,
+        "label": "",
+        "error": null,
+        "progress": 0
+      }
+    },
+    "crossingSeconds": 26.416666666666668,
+    "fiveHitFailureSeconds": 16,
+    "errors": 0,
+    "offlineHttpRequests": 0,
+    "expectedLateTouchFixtureFailure": 1
+  },
+  "source": {
+    "frozen": 755,
+    "unchanged": 726,
+    "changedExisting": [
+      "src/diagnostics/fun-lab-cases.ts",
+      "src/render/effects/fun-source-effects.ts",
+      "src/render/effects/source/particles.ts",
+      "src/render/effects/source/types.ts",
+      "src/render/effects/source-combat-effects.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/render/units/fun-presentation.ts",
+      "src/render/units/health-bars.ts",
+      "src/render/units/special-visuals.ts",
+      "src/simulation/encounters/expanded-state.ts",
+      "src/simulation/encounters/expanded.ts",
+      "src/simulation/encounters/relations.ts",
+      "src/simulation/encounters/runtime.ts",
+      "src/simulation/fun-shop/runtime.ts",
+      "src/simulation/missions/config.ts",
+      "src/simulation/missions/eggs.ts",
+      "src/simulation/missions/encounters.ts",
+      "src/simulation/missions/fleet.ts",
+      "src/simulation/movement/contacts.ts",
+      "src/simulation/special-stages/crossing.ts",
+      "src/simulation/special-stages/dodge-patterns.ts",
+      "src/simulation/special-stages/dodge.ts",
+      "src/simulation/special-stages/state.ts",
+      "src/simulation/world.ts",
+      "src/ui/hud/field-interactions.ts",
+      "test/expanded-encounters.test.ts",
+      "test/field-stage-runtime.test.ts",
+      "test/fun-lab.test.ts",
+      "test/fun-visual-batch2.test.ts"
+    ],
+    "newFiles": [
+      "test/fun-review-fixes.test.ts"
+    ],
+    "productionFiles": 25,
+    "testFiles": 5,
+    "labInputs": 448,
+    "gameInputs": 447,
+    "offlineInputs": 476
+  },
+  "delivery": {
+    "preview": "D:/星际/preview/fun-lab-20261022-r4",
+    "offline": "D:/星际/preview/fun-lab-20261022-r4/星际幸存者-趣味试玩.html",
+    "offlineBytes": 790270412,
+    "offlineSha256": "4e99505b5f187753028025a19c1c7d9df061b4ca1733efe3fc0abddfa89ef721",
+    "webBuild": "b5f60d45f6916e6af02318de8be1883df21c7d9aa2d5ca9cdda465a1a400271a",
+    "url": "http://127.0.0.1:4476/"
+  },
+  "assets": {
+    "assets": 1909,
+    "chunks": 2975,
+    "webIndependentFiles": 1852,
+    "verifiedAllOffline": true
+  },
+  "artifacts": {
+    "lab": [
+      {
+        "file": "assets/fun-lab-Cf3gIJ7W.js",
+        "bytes": 33017392,
+        "sha256": "5daa166d3870ca90431af635ef2d11e2198a20ce5d368dd09c8351dbbd191d1d"
+      },
+      {
+        "file": "assets/fun-lab-D8Qdds3Q.css",
+        "bytes": 642310,
+        "sha256": "4eee1cb869916cb3761d9bd221358c45a7e6599b6251cbe0961e85bc330db917"
+      },
+      {
+        "file": "fun-lab.html",
+        "bytes": 954939,
+        "sha256": "791bb944e43c734f805ddf355a89faec61cf8d6f0cde149c926a0f5947282e41"
+      }
+    ],
+    "game": [
+      {
+        "file": "assets/index-CBaZm-QG.js",
+        "bytes": 33005731,
+        "sha256": "ef24e824e33d01ce37d1d8733bd7caaee88e1045397d91f884f41b39403f3c42"
+      },
+      {
+        "file": "assets/index-Cbj0TSOk.css",
+        "bytes": 639064,
+        "sha256": "02dbfb9db1f74e44f205f7d3bcbfc0d7b01d0e31de6a8d6525a0fbe445fe2e95"
+      },
+      {
+        "file": "index.html",
+        "bytes": 954932,
+        "sha256": "4d0a2c505a35f34e661c403b964b44d057eba523cb48ed7220ae2ec0d8ca9e6f"
+      }
+    ],
+    "offline": {
+      "bytes": 790270412,
+      "sha256": "4e99505b5f187753028025a19c1c7d9df061b4ca1733efe3fc0abddfa89ef721",
+      "jsSha256": "f574624d77344a411e1e6e57f42cd135a05197d874f8636ea37520f8aa9678b1"
+    }
+  },
+  "cleanup": {
+    "at": "2026-10-22T03:37:53.9056065Z",
+    "profile": "D:\\星际\\reports\\local\\fun-review-fixes-20261022\\qa-profile",
+    "logicalBytesRemoved": 2084752817,
+    "verifiedClosedProcessIds": [
+      22572,
+      10020,
+      2688,
+      9588,
+      5400,
+      25692,
+      27240,
+      15792,
+      17324
+    ],
+    "profileRemoved": true,
+    "scope": "Only the owned, closed browser profile for this task. Logs, screenshots, inputs and latest outputs retained."
+  },
+  "archived": {
+    "preview": "D:\\星际\\preview\\fun-lab-20261022-r3",
+    "removedAlias": "D:\\星际\\preview\\fun-lab-20261022-r3\\星际幸存者-趣味试玩.html",
+    "sha256": "35f987981fb27b0add1b15f62be4089ee7d42566b563ec51bb7ce6c8b02fe0f9",
+    "logicalArchivedBytes": 790269900,
+    "archiveBytes": 8233575,
+    "donor": "D:\\星际\\reports\\local\\fun-review-fixes-20261022/offline-final-r3.html"
+  },
+  "limitations": [
+    "Controlled entry scenes and actual browser rendering/input; not natural campaign reachability.",
+    "Default diagnostic health lock remains enabled unless explicitly disabled; no-human-difficulty claim.",
+    "Touch is CDP emulation, not physical-device acceptance.",
+    "No global balance/60FPS/T01/MVP acceptance.",
+    "Visual batches 3 and 4 remain open; no main merge, Current replacement, commit, push or publish."
+  ],
+  "failuresRetained": [
+    "R1 barrage readability rejected; R2 adopted continuous smaller patterns.",
+    "First full suite: three old predictor routes failed; predictors updated to the actual shared hit point and swept motion, still without invincibility.",
+    "R2 real mouse crossing exit stalled; final R3 fixes all unit contact layers and continuing exit march, with three additional regressions.",
+    "First offline verifier used a Windows module path without file:// and failed before execution; corrected verifier passed.",
+    "Sandbox hard-link/preview permissions and pilot selector/route issues remain in logs.",
+    "Late touch emulation could not change the already-constructed desktop HUD; a new offline startup with coarse input enabled passed."
+  ]
+}

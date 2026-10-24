@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+const base='reports/local/v01-20261024';let code=await fs.readFile(base+'/background-trace.mjs','utf8');
+const replace=(a,b)=>{assert.equal(code.split(a).length,2,a);code=code.replace(a,b);};
+replace("await traceCdp.send('Profiler.setSamplingInterval',{interval:1000});", `await traceCdp.send('Profiler.setSamplingInterval',{interval:1000});report.availableTraceCategories=(await traceCdp.send('Tracing.getCategories')).categories;report.selectedTraceCategories=report.availableTraceCategories.filter(c=>/^(gpu|gpu\\.angle|disabled-by-default-gpu\\.service|disabled-by-default-gpu\\.debug|devtools\\.timeline|blink\\.user_timing)$/.test(c));`);
+code=code.replaceAll("'toplevel,devtools.timeline,blink.user_timing,cc,gpu,viz,renderer.scheduler'", "report.selectedTraceCategories.join(',')");
+replace("await page.locator('[data-action=flow-continue]:visible').click();", "report.traceOrigin=await page.evaluate(()=>{performance.mark('V01_BACKGROUND_TRACE_ORIGIN');return performance.now();});await page.locator('[data-action=flow-continue]:visible').click();");
+replace("await page.waitForFunction(()=>A03.app.world.phase!=='battle'||A03.app.world.requiresPlayerDecision,null,{timeout:360000});", "await page.waitForFunction(()=>A03.app.world.time>=25||A03.app.world.phase!=='battle',null,{timeout:360000});");
+replace("assert.equal(result.counts.phase,'reward',JSON.stringify(result.counts));", "assert.equal(result.counts.phase,'battle',JSON.stringify(result.counts));");
+replace('report.entryMode=entryMode;', `report.scope='Diagnostic first 25 seconds only, CPU and detailed available GPU/ANGLE categories. Native phased workload and native campaign controller, no gameplay/quality/production change. Not a full-stage or performance acceptance; exported archive is the existing entry checkpoint, not a completed-stage save.';report.entryMode=entryMode;`);
+await fs.writeFile(base+'/background-angle-trace.mjs',code,{flag:'wx'});console.log('Prepared isolated 25-second detailed GPU attribution');

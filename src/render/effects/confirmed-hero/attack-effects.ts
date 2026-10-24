@@ -1,3 +1,4 @@
+import {fleetGunWorld} from '../mission-feedback';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import type {BattleRenderer} from '../../../render/scene/battle-renderer';
@@ -29,14 +30,14 @@ export class AttackEffects {
  private rocketCount=0;private missileCount=0;private electricCount=0;private fireLayerCount=0;
  private missileDimensions={length:0,width:0,meshes:0};
  stats={flights:0,red:0,yellow:0,lightningSegments:0,missiles:0,bounces:0,fireworks:0,fireworkSparks:0,impacts:0,dotFlashes:0,peakFlights:0};
- constructor(private view:BattleRenderer,private w:World,private simulation:AttackFrame){this.guns=new ApprovedGunEffects(view.scene,view.fx);this.materials=new UpgradeMaterials(view.scene,view.camera,view.fx);}
+ constructor(private view:BattleRenderer,private w:World,private simulation:AttackFrame){this.guns=new ApprovedGunEffects((view.effectScene??view.scene),view.fx);this.materials=new UpgradeMaterials((view.effectScene??view.scene),view.camera,view.fx);}
  async prepare(){
   this.materials.prepare();
-  for(const source of this.view.fx.projectiles.batches.get('marauder')??[]){const mesh=new THREE.InstancedMesh(source.geometry,source.material,256);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);this.view.scene.add(mesh);this.rockets.push(mesh);}
+  for(const source of this.view.fx.projectiles.batches.get('marauder')??[]){const mesh=new THREE.InstancedMesh(source.geometry,source.material,256);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);(this.view.effectScene??this.view.scene).add(mesh);this.rockets.push(mesh);}
   const url=assetUrl(missileId);if(!url)throw Error('Missing original Viking missile body');const g=await restoreSc2Materials(await new GLTFLoader().loadAsync(url));g.scene.updateMatrixWorld(true);
   const box=sc2BodyBounds(g.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),axis=size.z>=Math.max(size.x,size.y)?new THREE.Vector3(0,0,1):size.y>=size.x?new THREE.Vector3(0,1,0):new THREE.Vector3(1,0,0),rotation=new THREE.Quaternion().setFromUnitVectors(axis,forward),scale=.9/Math.max(size.x,size.y,size.z);
   g.scene.traverse(n=>{if(!(n instanceof THREE.Mesh)||n.userData.sc2Role!=='body')return;const geometry=n.geometry.clone(),positions=geometry.getAttribute('position'),p=new THREE.Vector3();for(let i=0;i<positions.count;i++){n.getVertexPosition(i,p).applyMatrix4(n.matrixWorld).sub(center).applyQuaternion(rotation).multiplyScalar(scale);positions.setXYZ(i,p.x,p.y,p.z);}geometry.deleteAttribute('skinIndex');geometry.deleteAttribute('skinWeight');geometry.computeVertexNormals();geometry.computeBoundingBox();
-   const mesh=new THREE.InstancedMesh(geometry,n.material,256);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);this.view.scene.add(mesh);this.missiles.push(mesh);
+   const mesh=new THREE.InstancedMesh(geometry,n.material,256);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);(this.view.effectScene??this.view.scene).add(mesh);this.missiles.push(mesh);
   });
   if(!this.missiles.length)throw Error('Original missile has no verified physical body');const body=new THREE.Box3();for(const m of this.missiles)body.union(m.geometry.boundingBox!);const dimensions=body.getSize(new THREE.Vector3());this.missileDimensions={length:dimensions.z,width:Math.max(dimensions.x,dimensions.y),meshes:this.missiles.length};
  }
@@ -91,7 +92,7 @@ export class AttackEffects {
   this.events();this.materials.begin();this.rocketCount=this.missileCount=this.electricCount=this.fireLayerCount=0;this.stats.red=this.stats.yellow=this.stats.missiles=this.stats.bounces=0;
   const now=this.w.time,mainGuns=this.simulation.packets.filter(p=>p.kind==='main'&&!(p.hero==='nova'&&p.rank>=3));
   const makeFlight=(p:AttackPacket,to:Point3=p.to,end=p.arrival,side='')=>({rank:p.rank,attackId:'demo:'+p.id+(side?':'+side:''),source:{heroId:p.hero,flying:p.source.flying,unitType:'marauder' as const},from:{x:p.from.x,z:p.from.z},point:{x:p.from.x,z:p.from.z},lastSeen:{x:to.x,z:to.z},target:p.target,lost:false,start:p.born,end,mount:this.mount(p,side)});
-  this.guns.useBurningCore(mainGuns.some(p=>p.hero==='raynor'&&p.rank>=3)?this.materials.burningCore(now):null);this.guns.useFlights([...mainGuns.flatMap(p=>p.mountSide?[makeFlight(p,p.to,p.arrival,p.mountSide)]:p.hero==='yamato_battlecruiser'?['Right','Left'].map(side=>makeFlight(p,p.to,p.arrival,side)):[makeFlight(p)]),...this.simulation.lines.map(line=>makeFlight(line.packet,line.to,line.end))]);this.guns.render(this.w,()=>true,new Map());
+  this.guns.useBurningCore(mainGuns.some(p=>p.hero==='raynor'&&p.rank>=3)?this.materials.burningCore(now):null);this.guns.useFlights([...mainGuns.flatMap(p=>p.mountSide?[makeFlight(p,p.to,p.arrival,p.mountSide)]:p.hero==='yamato_battlecruiser'?['Right','Left'].map(side=>makeFlight(p,p.to,p.arrival,side)):[makeFlight(p)]),...this.simulation.lines.map(line=>makeFlight(line.packet,line.to,line.end))]);this.guns.render(fleetGunWorld(this.w),()=>true,new Map());
   for(const [key,segment] of this.guns.segments){
    if(segment.hero==='nova'&&segment.rank>=3)this.electric(segment.tip,segment.tail,segment.rank,Number(key.slice(5)));
    if(segment.red){this.stats.red++;const d=v(segment.tip).sub(v(segment.tail)).normalize(),hotTail=v(segment.tip).addScaledVector(d,-.65),fireTail=v(segment.tail).addScaledVector(d,-.32),pulse=.9+.1*Math.sin(now*71);

@@ -159,12 +159,16 @@ export class UnitMaterialSurface {
   // Add ignores texture alpha, but source composite opacity still gates the whole surface.
   if(source.blend===2)shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>','#include <opaque_fragment>\ngl_FragColor.rgb*=umData(10).x;');
  }
- programKey(geometry:THREE.BufferGeometry,instanced=true){
-  const layout=`${instanced}:${geometry.hasAttribute('uv1')}`;let key=this.programKeys.get(layout);if(key)return key;
-  const color=shaderHooks(),depth=shaderHooks();this.compile(color,geometry,instanced);this.compile(depth,geometry,instanced,true);
-  const source=JSON.stringify([this.material.type,color.vertexShader,color.fragmentShader,depth.vertexShader,depth.fragmentShader]);
+ programKey(geometry:THREE.BufferGeometry,instanced=true,depthOnly=false){
+  const layout=`${depthOnly}:${instanced}:${geometry.hasAttribute('uv1')}`;let key=this.programKeys.get(layout);if(key)return key;
+  const depth=shaderHooks();this.compile(depth,geometry,instanced,true);
+  // Colour-only differences (emission, normal/specular layers, team colour)
+  // must not force identical contact/shadow programs to compile again. Intern
+  // the exact generated depth source, retaining each surface's own uniforms.
+  let source:string;if(depthOnly)source=JSON.stringify([depth.vertexShader,depth.fragmentShader]);
+  else{const color=shaderHooks();this.compile(color,geometry,instanced);source=JSON.stringify([this.material.type,color.vertexShader,color.fragmentShader,depth.vertexShader,depth.fragmentShader]);}
   let id=sourcePrograms.get(source);if(id===undefined){id=sourcePrograms.size;sourcePrograms.set(source,id);}
-  key='m3-instance-material-v3:'+id;this.programKeys.set(layout,key);return key;
+  key=(depthOnly?'m3-instance-depth-v1:':'m3-instance-material-v3:')+id;this.programKeys.set(layout,key);return key;
  }
 }
 export function createUnitMaterialSurface(original:THREE.Material,capacity:number){const prepared=preparedUnitMaterial(original);return prepared?new UnitMaterialSurface(prepared,original,capacity):undefined;}

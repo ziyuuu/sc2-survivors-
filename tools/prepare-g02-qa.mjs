@@ -1,0 +1,6 @@
+import fs from 'node:fs/promises';import {build} from '../node_modules/esbuild/lib/main.js';
+const old='D:/星际/reports/local/g01-20261022',base='D:/星际/reports/local/g02-20261022';
+for(const name of ['build-web.mjs','assemble-offline.mjs','verify-offline.mts','serve.mjs','qa-production.mjs']){
+ let s=await fs.readFile(old+'/'+name,'utf8');s=s.replaceAll('G01','G02').replaceAll('g01-20261022','g02-20261022').replaceAll('4485','4486').replaceAll('G02 card equipment integration','G01 approved hero gates and G02 mutation repair');await fs.writeFile(base+'/'+name,s);
+}
+const helper=await build({stdin:{contents:"import * as inventory from './src/simulation/starship/inventory';import * as runtime from './src/simulation/starship/runtime';import * as support from './src/simulation/combat/shop-support';import * as gates from './src/simulation/progression/hero-availability';import * as economy from './src/simulation/expedition-economy';import * as bosses from './src/data/enemies';import * as observation from './src/simulation/observation';window.G02QA={inventory,runtime,support,gates,economy,bosses,observation};",resolveDir:'D:/星际',loader:'ts'},bundle:true,format:'iife',outfile:base+'/qa-helper.js',metafile:true});await fs.writeFile(base+'/qa-helper-inputs.json',JSON.stringify(helper.metafile.inputs,null,2));

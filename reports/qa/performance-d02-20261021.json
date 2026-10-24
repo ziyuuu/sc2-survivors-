@@ -1,0 +1,855 @@
+{
+  "date": "2026-10-21",
+  "task": "D02",
+  "status": "assessment-complete-awaiting-policy",
+  "decisionComplete": false,
+  "productionChanges": [],
+  "device": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+    "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "viewport": [
+      1440,
+      900
+    ],
+    "dpr": 1
+  },
+  "main": [
+    {
+      "url": "http://127.0.0.1:9521/main.js",
+      "bytes": 37361126,
+      "sha256": "926c497cc954f378f95f2febb0bd5e6e0fc736e348c7df4c304798aefb047731"
+    }
+  ],
+  "recommendations": {
+    "status": "awaiting-user-policy",
+    "default": "Keep existing saved settings and device-specific defaults; unsaved desktop native/full/complete.",
+    "options": "Keep existing medium, adaptive 75–100%, custom quality and optional 15 Hz pose mode; do not add duplicate settings.",
+    "newTradeoffs": "No newly forced 15 Hz animation, offscreen mixer stop, source-effect stop or removal of offscreen shadow casters.",
+    "performanceGoal": "Ordinary-play 60 FPS remains unaccepted; this review only measures paused GPU draw intervals."
+  },
+  "measurement": {
+    "sceneCount": 3,
+    "pairs": 18,
+    "windows": 36,
+    "measuredFrames": 864,
+    "warmupFrames": 360,
+    "scenes": [
+      {
+        "time": 3.9,
+        "counts": {
+          "time": 3.9,
+          "tick": 234,
+          "phase": "battle",
+          "stage": 1,
+          "paused": true,
+          "enemies": 1,
+          "allies": 1,
+          "queue": 0,
+          "kills": 1,
+          "entities": 3,
+          "shots": 1,
+          "shotTrigger": {
+            "time": 3.9,
+            "previousShots": 0,
+            "shots": 1,
+            "fired": true
+          },
+          "flights": 0,
+          "visualEvents": 3,
+          "health": [
+            {
+              "id": 1,
+              "hp": 51.74999999999999,
+              "maxHp": 51.74999999999999
+            }
+          ],
+          "assetsPending": 0,
+          "backlog": 0,
+          "discarded": 0
+        },
+        "stateSha256": "df9eebd17aff45fb35bdae18e4ef0a1cc64e6f6f242f1ba47dee4a201f903f49",
+        "pairs": [
+          {
+            "round": 0,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 5.65533,
+            "mediumGpuMs": 4.94496,
+            "fullRenderCpuMs": 17.75,
+            "mediumRenderCpuMs": 17.350000008940697
+          },
+          {
+            "round": 1,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 5.96202,
+            "mediumGpuMs": 5.017785,
+            "fullRenderCpuMs": 19.049999997019768,
+            "mediumRenderCpuMs": 17.649999991059303
+          },
+          {
+            "round": 2,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 5.8677399999999995,
+            "mediumGpuMs": 5.0619,
+            "fullRenderCpuMs": 18.649999991059303,
+            "mediumRenderCpuMs": 18.69999998807907
+          },
+          {
+            "round": 3,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.09215,
+            "mediumGpuMs": 5.439159999999999,
+            "fullRenderCpuMs": 20.149999991059303,
+            "mediumRenderCpuMs": 22.099999994039536
+          },
+          {
+            "round": 4,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 5.707224999999999,
+            "mediumGpuMs": 5.05414,
+            "fullRenderCpuMs": 17.24999998509884,
+            "mediumRenderCpuMs": 17.650000005960464
+          },
+          {
+            "round": 5,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 5.804945,
+            "mediumGpuMs": 5.07031,
+            "fullRenderCpuMs": 18.350000008940697,
+            "mediumRenderCpuMs": 17.5
+          }
+        ],
+        "fullGpuMs": {
+          "median": 5.8363425,
+          "min": 5.65533,
+          "max": 6.09215,
+          "n": 6
+        },
+        "mediumGpuMs": {
+          "median": 5.05802,
+          "min": 4.94496,
+          "max": 5.439159999999999,
+          "n": 6
+        },
+        "gpuReductionPercent": 13.33579206497905,
+        "mediumFasterPairs": 6,
+        "fullRenderCpuMs": {
+          "median": 18.5,
+          "min": 17.24999998509884,
+          "max": 20.149999991059303,
+          "n": 6
+        },
+        "mediumRenderCpuMs": {
+          "median": 17.649999998509884,
+          "min": 17.350000008940697,
+          "max": 22.099999994039536,
+          "n": 6
+        }
+      },
+      {
+        "time": 21.15,
+        "counts": {
+          "time": 21.15,
+          "tick": 1269,
+          "phase": "battle",
+          "stage": 1,
+          "paused": true,
+          "enemies": 1,
+          "allies": 1,
+          "queue": 0,
+          "kills": 4,
+          "entities": 2,
+          "shots": 20,
+          "shotTrigger": {
+            "time": 21.15,
+            "previousShots": 19,
+            "shots": 20,
+            "fired": true
+          },
+          "flights": 0,
+          "visualEvents": 57,
+          "health": [
+            {
+              "id": 1,
+              "hp": 33.74999999999999,
+              "maxHp": 51.74999999999999
+            }
+          ],
+          "assetsPending": 0,
+          "backlog": 0,
+          "discarded": 0.016666666666666666
+        },
+        "stateSha256": "976a6924985369aadc14ec81123bec721baf82191523eaec0cf26e1978546ea8",
+        "pairs": [
+          {
+            "round": 0,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.26644,
+            "mediumGpuMs": 6.040775,
+            "fullRenderCpuMs": 20.099999994039536,
+            "mediumRenderCpuMs": 21.799999982118607
+          },
+          {
+            "round": 1,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 7.07675,
+            "mediumGpuMs": 5.938219999999999,
+            "fullRenderCpuMs": 24.30000001192093,
+            "mediumRenderCpuMs": 22
+          },
+          {
+            "round": 2,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.78543,
+            "mediumGpuMs": 5.917375,
+            "fullRenderCpuMs": 22,
+            "mediumRenderCpuMs": 21.399999991059303
+          },
+          {
+            "round": 3,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.32211,
+            "mediumGpuMs": 5.710355,
+            "fullRenderCpuMs": 19.799999997019768,
+            "mediumRenderCpuMs": 20.099999994039536
+          },
+          {
+            "round": 4,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.50708,
+            "mediumGpuMs": 6.124185000000001,
+            "fullRenderCpuMs": 21.599999994039536,
+            "mediumRenderCpuMs": 24.549999997019768
+          },
+          {
+            "round": 5,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.172510000000001,
+            "mediumGpuMs": 5.75533,
+            "fullRenderCpuMs": 19.349999994039536,
+            "mediumRenderCpuMs": 18.599999994039536
+          }
+        ],
+        "fullGpuMs": {
+          "median": 6.414595,
+          "min": 6.172510000000001,
+          "max": 7.07675,
+          "n": 6
+        },
+        "mediumGpuMs": {
+          "median": 5.9277975,
+          "min": 5.710355,
+          "max": 6.124185000000001,
+          "n": 6
+        },
+        "gpuReductionPercent": 7.58890467753616,
+        "mediumFasterPairs": 6,
+        "fullRenderCpuMs": {
+          "median": 20.849999994039536,
+          "min": 19.349999994039536,
+          "max": 24.30000001192093,
+          "n": 6
+        },
+        "mediumRenderCpuMs": {
+          "median": 21.599999986588955,
+          "min": 18.599999994039536,
+          "max": 24.549999997019768,
+          "n": 6
+        }
+      },
+      {
+        "time": 33.81666666666666,
+        "counts": {
+          "time": 33.81666666666666,
+          "tick": 2029,
+          "phase": "battle",
+          "stage": 1,
+          "paused": true,
+          "enemies": 3,
+          "allies": 2,
+          "queue": 0,
+          "kills": 7,
+          "entities": 5,
+          "shots": 36,
+          "shotTrigger": {
+            "time": 33.81666666666666,
+            "previousShots": 35,
+            "shots": 36,
+            "fired": true
+          },
+          "flights": 0,
+          "visualEvents": 131,
+          "health": [
+            {
+              "id": 1,
+              "hp": 33.74999999999999,
+              "maxHp": 51.74999999999999
+            },
+            {
+              "id": 79,
+              "hp": 51.74999999999999,
+              "maxHp": 51.74999999999999
+            }
+          ],
+          "assetsPending": 0,
+          "backlog": 0,
+          "discarded": 0.016666666666666666
+        },
+        "stateSha256": "d3e036ed46776c2e60de66efe1b78513a5c9219662adbea11db0b42aa3756b8f",
+        "pairs": [
+          {
+            "round": 0,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.108485,
+            "mediumGpuMs": 5.743755,
+            "fullRenderCpuMs": 17.549999997019768,
+            "mediumRenderCpuMs": 19.100000008940697
+          },
+          {
+            "round": 1,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.15006,
+            "mediumGpuMs": 5.56395,
+            "fullRenderCpuMs": 17.400000005960464,
+            "mediumRenderCpuMs": 17.700000017881393
+          },
+          {
+            "round": 2,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.471135,
+            "mediumGpuMs": 6.159649999999999,
+            "fullRenderCpuMs": 22.399999991059303,
+            "mediumRenderCpuMs": 23
+          },
+          {
+            "round": 3,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.216715,
+            "mediumGpuMs": 5.9750250000000005,
+            "fullRenderCpuMs": 17.299999982118607,
+            "mediumRenderCpuMs": 21
+          },
+          {
+            "round": 4,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.191545,
+            "mediumGpuMs": 5.961555,
+            "fullRenderCpuMs": 17.30000001192093,
+            "mediumRenderCpuMs": 20.399999976158142
+          },
+          {
+            "round": 5,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.4021,
+            "mediumGpuMs": 5.6727,
+            "fullRenderCpuMs": 19.649999991059303,
+            "mediumRenderCpuMs": 19.450000002980232
+          }
+        ],
+        "fullGpuMs": {
+          "median": 6.204129999999999,
+          "min": 6.108485,
+          "max": 6.471135,
+          "n": 6
+        },
+        "mediumGpuMs": {
+          "median": 5.852655,
+          "min": 5.56395,
+          "max": 6.159649999999999,
+          "n": 6
+        },
+        "gpuReductionPercent": 5.665177873448798,
+        "mediumFasterPairs": 6,
+        "fullRenderCpuMs": {
+          "median": 17.475000001490116,
+          "min": 17.299999982118607,
+          "max": 22.399999991059303,
+          "n": 6
+        },
+        "mediumRenderCpuMs": {
+          "median": 19.924999989569187,
+          "min": 17.700000017881393,
+          "max": 23,
+          "n": 6
+        }
+      }
+    ],
+    "sourceEvidence": [
+      {
+        "time": 3.9,
+        "presets": [
+          {
+            "preset": "full",
+            "source": {
+              "decorationFraction": 1,
+              "ready": true,
+              "models": 102,
+              "requiredModels": 102,
+              "effects": 3,
+              "meshes": 1,
+              "particles": 0,
+              "ribbonQuads": 0,
+              "projectionQuads": 0,
+              "displacementMeshes": 0,
+              "displacementQuads": 0,
+              "unrenderedDisplacementQuads": 0,
+              "missing": 0,
+              "endingChannels": 0,
+              "meshInstances": 41
+            }
+          },
+          {
+            "preset": "medium",
+            "source": {
+              "decorationFraction": 0.55,
+              "ready": true,
+              "models": 102,
+              "requiredModels": 102,
+              "effects": 3,
+              "meshes": 1,
+              "particles": 0,
+              "ribbonQuads": 0,
+              "projectionQuads": 0,
+              "displacementMeshes": 0,
+              "displacementQuads": 0,
+              "unrenderedDisplacementQuads": 0,
+              "missing": 0,
+              "endingChannels": 0,
+              "meshInstances": 41
+            }
+          }
+        ]
+      },
+      {
+        "time": 21.15,
+        "presets": [
+          {
+            "preset": "full",
+            "source": {
+              "decorationFraction": 1,
+              "ready": true,
+              "models": 102,
+              "requiredModels": 102,
+              "effects": 6,
+              "meshes": 2,
+              "particles": 11,
+              "ribbonQuads": 0,
+              "projectionQuads": 0,
+              "displacementMeshes": 0,
+              "displacementQuads": 0,
+              "unrenderedDisplacementQuads": 0,
+              "missing": 0,
+              "endingChannels": 0,
+              "meshInstances": 42
+            }
+          },
+          {
+            "preset": "medium",
+            "source": {
+              "decorationFraction": 0.55,
+              "ready": true,
+              "models": 102,
+              "requiredModels": 102,
+              "effects": 6,
+              "meshes": 2,
+              "particles": 7,
+              "ribbonQuads": 0,
+              "projectionQuads": 0,
+              "displacementMeshes": 0,
+              "displacementQuads": 0,
+              "unrenderedDisplacementQuads": 0,
+              "missing": 0,
+              "endingChannels": 0,
+              "meshInstances": 42
+            }
+          }
+        ]
+      },
+      {
+        "time": 33.81666666666666,
+        "presets": [
+          {
+            "preset": "full",
+            "source": {
+              "decorationFraction": 1,
+              "ready": true,
+              "models": 102,
+              "requiredModels": 102,
+              "effects": 3,
+              "meshes": 1,
+              "particles": 5,
+              "ribbonQuads": 0,
+              "projectionQuads": 0,
+              "displacementMeshes": 0,
+              "displacementQuads": 0,
+              "unrenderedDisplacementQuads": 0,
+              "missing": 0,
+              "endingChannels": 0,
+              "meshInstances": 41
+            }
+          },
+          {
+            "preset": "medium",
+            "source": {
+              "decorationFraction": 0.55,
+              "ready": true,
+              "models": 102,
+              "requiredModels": 102,
+              "effects": 3,
+              "meshes": 1,
+              "particles": 5,
+              "ribbonQuads": 0,
+              "projectionQuads": 0,
+              "displacementMeshes": 0,
+              "displacementQuads": 0,
+              "unrenderedDisplacementQuads": 0,
+              "missing": 0,
+              "endingChannels": 0,
+              "meshInstances": 41
+            }
+          }
+        ]
+      }
+    ],
+    "naturalWindows": [
+      {
+        "label": "ordinary-live-3",
+        "wallMs": 4066,
+        "simulationTime": 3.9,
+        "frames": 196,
+        "peaks": {
+          "enemies": 2,
+          "queue": 0,
+          "entities": 3
+        },
+        "end": {
+          "time": 3.9,
+          "tick": 234,
+          "phase": "battle",
+          "stage": 1,
+          "paused": true,
+          "enemies": 1,
+          "allies": 1,
+          "queue": 0,
+          "kills": 1,
+          "entities": 3,
+          "shots": 1,
+          "shotTrigger": {
+            "time": 3.9,
+            "previousShots": 0,
+            "shots": 1,
+            "fired": true
+          },
+          "flights": 0,
+          "visualEvents": 3,
+          "health": [
+            {
+              "id": 1,
+              "hp": 51.74999999999999,
+              "maxHp": 51.74999999999999
+            }
+          ],
+          "assetsPending": 0,
+          "backlog": 0,
+          "discarded": 0
+        },
+        "renderIntervalMs": {
+          "median": 19,
+          "min": 16.30000001192093,
+          "max": 59.69999998807907,
+          "n": 195
+        },
+        "scope": "Full-preset native loop with diagnostic counters; stops deliberately for same-state draw comparisons. Not paired live FPS or a complete natural campaign."
+      },
+      {
+        "label": "ordinary-live-20",
+        "wallMs": 17432,
+        "simulationTime": 21.15,
+        "frames": 751,
+        "peaks": {
+          "enemies": 2,
+          "queue": 0,
+          "entities": 3
+        },
+        "end": {
+          "time": 21.15,
+          "tick": 1269,
+          "phase": "battle",
+          "stage": 1,
+          "paused": true,
+          "enemies": 1,
+          "allies": 1,
+          "queue": 0,
+          "kills": 4,
+          "entities": 2,
+          "shots": 20,
+          "shotTrigger": {
+            "time": 21.15,
+            "previousShots": 19,
+            "shots": 20,
+            "fired": true
+          },
+          "flights": 0,
+          "visualEvents": 57,
+          "health": [
+            {
+              "id": 1,
+              "hp": 33.74999999999999,
+              "maxHp": 51.74999999999999
+            }
+          ],
+          "assetsPending": 0,
+          "backlog": 0,
+          "discarded": 0.016666666666666666
+        },
+        "renderIntervalMs": {
+          "median": 22.299999982118607,
+          "min": 17.599999994039536,
+          "max": 58.19999998807907,
+          "n": 750
+        },
+        "scope": "Full-preset native loop with diagnostic counters; stops deliberately for same-state draw comparisons. Not paired live FPS or a complete natural campaign."
+      },
+      {
+        "label": "ordinary-live-32",
+        "wallMs": 12794,
+        "simulationTime": 33.81666666666666,
+        "frames": 555,
+        "peaks": {
+          "enemies": 3,
+          "queue": 0,
+          "entities": 5
+        },
+        "end": {
+          "time": 33.81666666666666,
+          "tick": 2029,
+          "phase": "battle",
+          "stage": 1,
+          "paused": true,
+          "enemies": 3,
+          "allies": 2,
+          "queue": 0,
+          "kills": 7,
+          "entities": 5,
+          "shots": 36,
+          "shotTrigger": {
+            "time": 33.81666666666666,
+            "previousShots": 35,
+            "shots": 36,
+            "fired": true
+          },
+          "flights": 0,
+          "visualEvents": 131,
+          "health": [
+            {
+              "id": 1,
+              "hp": 33.74999999999999,
+              "maxHp": 51.74999999999999
+            },
+            {
+              "id": 79,
+              "hp": 51.74999999999999,
+              "maxHp": 51.74999999999999
+            }
+          ],
+          "assetsPending": 0,
+          "backlog": 0,
+          "discarded": 0.016666666666666666
+        },
+        "renderIntervalMs": {
+          "median": 22,
+          "min": 17.799999982118607,
+          "max": 47.20000001788139,
+          "n": 554
+        },
+        "scope": "Full-preset native loop with diagnostic counters; stops deliberately for same-state draw comparisons. Not paired live FPS or a complete natural campaign."
+      }
+    ]
+  },
+  "validation": {
+    "existingFilesUnchanged": 713,
+    "productionComparison": {
+      "total": 414,
+      "exact": 289,
+      "newlineOnly": 124,
+      "excludedOtherWorkflow": [
+        {
+          "file": "src/render/units/economic-egg.ts",
+          "exact": false,
+          "sameLF": false
+        }
+      ]
+    },
+    "allWindowWorldAndCameraExact": true,
+    "restoredFullPixelsExact": true,
+    "pageConsoleErrors": 0,
+    "failedRequests": 0,
+    "fullGameTestSuiteRerun": false,
+    "images": 22,
+    "formalImages": 12,
+    "contactSheets": 5
+  },
+  "failures": [
+    {
+      "run": "ordinary-1",
+      "pass": false,
+      "failure": "page.goto: net::ERR_NETWORK_ACCESS_DENIED at http://127.0.0.1:11032/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:11032/\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at D:\\星际\\tools\\qa-performance-d02.mjs:37:13",
+      "errors": 1,
+      "scenes": 0,
+      "screens": 1,
+      "scope": "Sandbox blocked local HTTP; no valid gameplay sample."
+    },
+    {
+      "run": "ordinary-2",
+      "pass": false,
+      "failure": "AssertionError [ERR_ASSERTION]: Ordinary run ended before intended sample\n\n'reward' !== 'battle'\n\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-performance-d02.mjs:80:10",
+      "errors": 0,
+      "scenes": 2,
+      "screens": 9,
+      "scope": "20/40 seconds were empty lulls; 60 seconds normally reached reward. Two lull measurements retained separately, not combat samples and not a production failure."
+    }
+  ],
+  "limits": [
+    "First-stage easy terran automatic combat only, no injected combat state.",
+    "24 frames per window, 6 alternating pairs, 3 naturally reached firing instants; paused drawing CPU cache applies.",
+    "GPU elapsed total submission interval, not pure GPU busy time or active end-to-end FPS.",
+    "No default quality, animation cadence, culling, simulation or economy changed.",
+    "No proof of all-content/ordinary-play 60 FPS; no new full game test suite."
+  ],
+  "evidenceFiles": [
+    {
+      "path": "reports/local/performance-d02-20261021/inputs-before.json",
+      "bytes": 120451,
+      "sha256": "9e2ce72a98980cfa5b39ce5c7e2615aba63b937c84e638f04281214f0d8efa50"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/summary.json",
+      "bytes": 537337,
+      "sha256": "d4d8ab3c87c1072dd085ad1de7600bee3cdee1abf8cfcf6979c061f7a88b2ce5"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/visual-review.json",
+      "bytes": 7337,
+      "sha256": "1d2b5fbdf2ee4750b19aea3df0657de4349bc231adc5f93033df4c2a0339206f"
+    },
+    {
+      "path": "tools/qa-performance-d02.mjs",
+      "bytes": 14036,
+      "sha256": "42f35cb51b452fad7aa2de13e710024ad2ab54787dfa2f7b3bd3fbaf31f4fc7d"
+    },
+    {
+      "path": "tools/summarize-performance-d02.mjs",
+      "bytes": 5355,
+      "sha256": "9f4462fb70529a8d1a094ded522dfc4f7f6b0970a606fd55516ec8de682bf77a"
+    },
+    {
+      "path": "tools/review-performance-d02.py",
+      "bytes": 2224,
+      "sha256": "a6cc7f92f1bb1fff036d8fd7b94563eb62b190bbf7da812258f8895895f97983"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/ordinary-1/report.json",
+      "bytes": 495185,
+      "sha256": "a84e779ce4650d34095565f6828557c3ec28a46546997942d8cd63aa6fce8733"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/ordinary-1/runner.mjs",
+      "bytes": 13048,
+      "sha256": "90b8f51e5ee049823e5c18d70bd3c7deecb555faa754b6a9ec00424b933da051"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/ordinary-2/report.json",
+      "bytes": 1655236,
+      "sha256": "c22542df125084f70a895229f0aac7112bf8193d53e01f1a31d6a2326f46cfdd"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/ordinary-2/runner.mjs",
+      "bytes": 13048,
+      "sha256": "90b8f51e5ee049823e5c18d70bd3c7deecb555faa754b6a9ec00424b933da051"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/ordinary-active-1/report.json",
+      "bytes": 5551789,
+      "sha256": "f203a613a29c21a5cddaadb98e373ee9deaf8cc89dcbf8af66f1731868e94f9e"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/ordinary-active-1/runner.mjs",
+      "bytes": 14036,
+      "sha256": "42f35cb51b452fad7aa2de13e710024ad2ab54787dfa2f7b3bd3fbaf31f4fc7d"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/ordinary-active-1/t3.state.json",
+      "bytes": 19791,
+      "sha256": "df9eebd17aff45fb35bdae18e4ef0a1cc64e6f6f242f1ba47dee4a201f903f49"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/ordinary-active-1/t20.state.json",
+      "bytes": 40953,
+      "sha256": "976a6924985369aadc14ec81123bec721baf82191523eaec0cf26e1978546ea8"
+    },
+    {
+      "path": "reports/local/performance-d02-20261021/ordinary-active-1/t32.state.json",
+      "bytes": 83512,
+      "sha256": "d3e036ed46776c2e60de66efe1b78513a5c9219662adbea11db0b42aa3756b8f"
+    }
+  ],
+  "priorEvidence": [
+    "docs/project/PERFORMANCE_R01_20261020.md",
+    "docs/project/PERFORMANCE_R03_20261020.md",
+    "docs/project/PERFORMANCE_A02_20261020.md",
+    "docs/project/EQUIPMENT_EFFECTS_PERFORMANCE_20261016.md"
+  ]
+}

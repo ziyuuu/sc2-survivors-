@@ -1,6 +1,6 @@
 import type {World} from '../../simulation/world';
 import {HEROES,type HeroId} from '../../data/heroes';
-import {COMMAND_ACTIONS,battleActionState,activateBattleAction,type BattleActionId} from './battle-actions';
+import {COMMAND_ACTIONS,battleActionState,battleActionReader,activateBattleAction,type BattleActionId} from './battle-actions';
 export const EXPEDITION_SKILLS=[
  {id:'dash',name:'推进',arrow:'↑'}, {id:'unit-operations',name:'单位操作',arrow:'↗'},
  {id:'detection',name:'主动侦测',arrow:'↘'}, {id:'hero-slot-0',name:'英雄 1',arrow:'↓'},
@@ -12,8 +12,8 @@ export interface SkillItem {id:SkillId;name:string;arrow:string}
 export function heroForSlot(w:Pick<World,'heroes'>,slot:number):HeroId|undefined{return slot>=0&&slot<3?[...w.heroes.keys()][slot]:undefined;}
 export function activateHeroSlot(w:World,slot:number){const id=heroForSlot(w,slot);return id?activateBattleAction(w,`hero-slot-${slot}` as BattleActionId):false;}
 export function skillsFor(w:World):readonly SkillItem[]{return EXPEDITION_SKILLS.map(item=>{if(!item.id.startsWith('hero-slot-'))return item;const hero=heroForSlot(w,Number(item.id.slice(-1)));return {...item,name:hero?`${HEROES[hero].name} · ${HEROES[hero].skill}`:item.name};});}
-export function skillPages(w:World):readonly (readonly SkillItem[])[]{
- const extras=COMMAND_ACTIONS.filter(a=>!EXPEDITION_SKILLS.some(s=>s.id===a.id)&&battleActionState(w,a.id).visible).map(a=>({id:a.id,name:battleActionState(w,a.id).name,arrow:''}));
+export function skillPages(w:World,read=battleActionReader(w)):readonly (readonly SkillItem[])[]{
+ const extras=COMMAND_ACTIONS.filter(a=>!EXPEDITION_SKILLS.some(s=>s.id===a.id)&&read(a.id).visible).map(a=>({id:a.id,name:read(a.id).name,arrow:''}));
  const pages:SkillItem[][]=[Array.from(skillsFor(w))];for(let i=0;i<extras.length;i+=6)pages.push(extras.slice(i,i+6).map((s,j)=>({...s,arrow:EXPEDITION_SKILLS[j].arrow})));return pages;
 }
 export function skillUnlocked(w:World,id:SkillId){return battleActionState(w,id).enabled;}

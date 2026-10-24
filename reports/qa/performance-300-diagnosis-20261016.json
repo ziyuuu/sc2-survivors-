@@ -1,0 +1,751 @@
+{
+  "at": "2026-10-16T04:42:56.659Z",
+  "status": "diagnosis-and-proposal-complete",
+  "optimizationImplemented": false,
+  "balanceImplemented": false,
+  "fullContent60FpsAccepted": false,
+  "naturalCampaignAccepted": false,
+  "productionAccepted": false,
+  "requestedScope": "Find the 300-enemy 15 FPS bottleneck, propose optimizations preserving density and effects, normal naked balance goal limited to first three stages.",
+  "bundle": {
+    "file": "preview/difficulty-r2-20261016/main.js",
+    "sha256": "38490eb6747319fb830c3c0c67a40c91272c41187f265323b60650a0fecdbe06"
+  },
+  "device": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+    "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "visible": true,
+    "focus": true,
+    "dpr": 1,
+    "viewport": [
+      1440,
+      900
+    ],
+    "timerQuery": true
+  },
+  "method": {
+    "native": "Unmodified delivered bundle, normal native opening followed by existing hell18 dense fixture and friendly health lock.",
+    "sameStateComparisons": "Within each frozen browser run only. Map/tick/event states differ between r2 and r3.",
+    "timings": "CPU inclusive synchronous spans, separate V8 sampled profiles, asynchronous disjoint-checked GPU elapsed queries. GPU elapsed includes possible command-submission gaps. No CPU+GPU addition.",
+    "rawNativeBoundary": "The first RAF interval can include fixture preparation before sample start; omitted from r3 quantiles, retained in raw data. Report actual time/tick progress separately; do not infer an exact backlog increase from wall minus simulation.",
+    "overhead": "Raw native r3 reproduces 14.37 FPS before diagnostic wrappers. Frozen inactive/active/inactive instrumentation results are within ordinary short-run variation; no precise zero-overhead claim.",
+    "inputState": "Independent headless Chrome, visible/focused samples, default throttling. Existing user apps were not closed; no globally isolated machine or power-state guarantee."
+  },
+  "snapshots": {
+    "char": {
+      "map": "查尔焦土",
+      "mapIdentity": "campaign-five-v3:char:768166434:f033be7",
+      "camera": {
+        "mode": "fixed",
+        "zoom": 0.9,
+        "pitch": 50
+      },
+      "sourceEffects": {
+        "effects": 248,
+        "particles": 2911,
+        "meshes": 61,
+        "refractionMeshes": 15
+      },
+      "frozenFingerprint": "4b9b35f048abec079bd9ef06cc9b2d6cad194d5bade990a866831df2650458cc"
+    },
+    "industrial": {
+      "map": "工业遗址",
+      "mapIdentity": "campaign-five-v3:industrial:4242854076:2845f34",
+      "camera": {
+        "mode": "fixed",
+        "zoom": 0.9,
+        "pitch": 50
+      },
+      "sourceEffects": {
+        "effects": 197,
+        "particles": 1558,
+        "meshes": 51,
+        "refractionMeshes": 4
+      },
+      "frozenFingerprint": "a965c90bec56864006ddcf1bec669f544f78a94622158efa2cc4acac571c7506"
+    }
+  },
+  "nativeBaseline": {
+    "fps": 15.116706944743473,
+    "wallMs": 10055.09999999404,
+    "simulatedSeconds": 3.933333333333337,
+    "cpu": [
+      {
+        "name": "view.render",
+        "calls": 152,
+        "msPerFrame": 43.55394736873476,
+        "msPerCall": 43.55394736873476,
+        "total": 6620.200000047684,
+        "max": 225.69999999552965
+      },
+      {
+        "name": "simulation.advance",
+        "calls": 152,
+        "msPerFrame": 19.074999999990197,
+        "msPerCall": 19.074999999990197,
+        "total": 2899.39999999851,
+        "max": 41.19999999552965
+      },
+      {
+        "name": "simulation.step",
+        "calls": 236,
+        "msPerFrame": 19.045394736930337,
+        "msPerCall": 12.26652542378564,
+        "total": 2894.900000013411,
+        "max": 41.19999999552965
+      },
+      {
+        "name": "view.sourceCombatEffects",
+        "calls": 152,
+        "msPerFrame": 16.2835526317358,
+        "msPerCall": 16.2835526317358,
+        "total": 2475.100000023842,
+        "max": 45.29999999701977
+      },
+      {
+        "name": "view.renderScene",
+        "calls": 152,
+        "msPerFrame": 15.048026316112987,
+        "msPerCall": 15.048026316112987,
+        "total": 2287.300000049174,
+        "max": 190.60000000149012
+      },
+      {
+        "name": "draw.pass0.RenderPass",
+        "calls": 152,
+        "msPerFrame": 9.756578947515472,
+        "msPerCall": 9.756578947515472,
+        "total": 1483.0000000223517,
+        "max": 184.5
+      },
+      {
+        "name": "simulation.contacts.resolve",
+        "calls": 236,
+        "msPerFrame": 2.732236842771894,
+        "msPerCall": 1.7597457631412199,
+        "total": 415.3000001013279,
+        "max": 4.600000001490116
+      },
+      {
+        "name": "draw.contact",
+        "calls": 152,
+        "msPerFrame": 2.6223684211114517,
+        "msPerCall": 2.6223684211114517,
+        "total": 398.6000000089407,
+        "max": 6.899999998509884
+      },
+      {
+        "name": "hud.update",
+        "calls": 39,
+        "msPerFrame": 1.6309210526217754,
+        "msPerCall": 6.356410256372048,
+        "total": 247.89999999850988,
+        "max": 11.700000002980232
+      },
+      {
+        "name": "view.fx",
+        "calls": 152,
+        "msPerFrame": 1.3598684210232215,
+        "msPerCall": 1.3598684210232215,
+        "total": 206.69999999552965,
+        "max": 5.299999997019768
+      },
+      {
+        "name": "view.shadowPrepare",
+        "calls": 152,
+        "msPerFrame": 1.2921052631971084,
+        "msPerCall": 1.2921052631971084,
+        "total": 196.40000000596046,
+        "max": 3
+      },
+      {
+        "name": "draw.pass1.ScreenRefraction",
+        "calls": 152,
+        "msPerFrame": 1.0473684209742045,
+        "msPerCall": 1.0473684209742045,
+        "total": 159.19999998807907,
+        "max": 41.399999998509884
+      },
+      {
+        "name": "view.nonHeroEffects",
+        "calls": 152,
+        "msPerFrame": 0.3059210526315789,
+        "msPerCall": 0.3059210526315789,
+        "total": 46.5,
+        "max": 1.2999999970197678
+      },
+      {
+        "name": "draw.pass2._UnrealBloomPass",
+        "calls": 152,
+        "msPerFrame": 0.25723684226211746,
+        "msPerCall": 0.25723684226211746,
+        "total": 39.10000002384186,
+        "max": 0.7999999970197678
+      },
+      {
+        "name": "simulation.hash.rebuild",
+        "calls": 236,
+        "msPerFrame": 0.22039473644996943,
+        "msPerCall": 0.14194915228981084,
+        "total": 33.499999940395355,
+        "max": 0.6000000014901161
+      },
+      {
+        "name": "assets.roster",
+        "calls": 152,
+        "msPerFrame": 0.20131578967955552,
+        "msPerCall": 0.20131578967955552,
+        "total": 30.60000003129244,
+        "max": 0.6000000014901161
+      },
+      {
+        "name": "view.confirmedHeroes",
+        "calls": 152,
+        "msPerFrame": 0.1960526315103236,
+        "msPerCall": 0.1960526315103236,
+        "total": 29.799999989569187,
+        "max": 0.9000000059604645
+      },
+      {
+        "name": "view.equipmentDrops",
+        "calls": 152,
+        "msPerFrame": 0.14144736812695077,
+        "msPerCall": 0.14144736812695077,
+        "total": 21.499999955296516,
+        "max": 3.899999998509884
+      },
+      {
+        "name": "view.cameraController",
+        "calls": 152,
+        "msPerFrame": 0.07039473681269508,
+        "msPerCall": 0.07039473681269508,
+        "total": 10.699999995529652,
+        "max": 0.29999999701976776
+      },
+      {
+        "name": "view.protossEliteEffects",
+        "calls": 152,
+        "msPerFrame": 0.04934210511610696,
+        "msPerCall": 0.04934210511610696,
+        "total": 7.499999977648258,
+        "max": 0.20000000298023224
+      },
+      {
+        "name": "view.zergHeroes",
+        "calls": 152,
+        "msPerFrame": 0.04802631586790085,
+        "msPerCall": 0.04802631586790085,
+        "total": 7.300000011920929,
+        "max": 0.6000000014901161
+      },
+      {
+        "name": "view.zergEliteEffects",
+        "calls": 152,
+        "msPerFrame": 0.047368421170272325,
+        "msPerCall": 0.047368421170272325,
+        "total": 7.200000017881393,
+        "max": 0.20000000298023224
+      },
+      {
+        "name": "view.mapView",
+        "calls": 152,
+        "msPerFrame": 0.04539473678328489,
+        "msPerCall": 0.04539473678328489,
+        "total": 6.899999991059303,
+        "max": 0.20000000298023224
+      },
+      {
+        "name": "hud.afterRender",
+        "calls": 152,
+        "msPerFrame": 0.042763157845719865,
+        "msPerCall": 0.042763157845719865,
+        "total": 6.499999992549419,
+        "max": 0.20000000298023224
+      },
+      {
+        "name": "draw.pass3.OutputPass",
+        "calls": 152,
+        "msPerFrame": 0.03289473684210526,
+        "msPerCall": 0.03289473684210526,
+        "total": 5,
+        "max": 0.20000000298023224
+      },
+      {
+        "name": "view.protossHeroes",
+        "calls": 152,
+        "msPerFrame": 0.030921052798236672,
+        "msPerCall": 0.030921052798236672,
+        "total": 4.700000025331974,
+        "max": 0.19999999552965164
+      },
+      {
+        "name": "view.terranEliteEffects",
+        "calls": 152,
+        "msPerFrame": 0.02960526325592869,
+        "msPerCall": 0.02960526325592869,
+        "total": 4.500000014901161,
+        "max": 0.19999999552965164
+      },
+      {
+        "name": "view.friendlyLabels",
+        "calls": 152,
+        "msPerFrame": 0.0184210525139382,
+        "msPerCall": 0.0184210525139382,
+        "total": 2.7999999821186066,
+        "max": 0.10000000149011612
+      },
+      {
+        "name": "view.eliteSupportEffects",
+        "calls": 152,
+        "msPerFrame": 0.008552631608357555,
+        "msPerCall": 0.008552631608357555,
+        "total": 1.3000000044703484,
+        "max": 0.10000000149011612
+      },
+      {
+        "name": "view.healthBars",
+        "calls": 152,
+        "msPerFrame": 0.0032894736351935486,
+        "msPerCall": 0.0032894736351935486,
+        "total": 0.4999999925494194,
+        "max": 0.10000000149011612
+      }
+    ],
+    "drawCalls": {
+      "n": 152,
+      "mean": 118.4342105263158,
+      "p50": 125,
+      "p95": 162,
+      "max": 192
+    },
+    "triangles": {
+      "n": 152,
+      "mean": 1301479.5723684211,
+      "p50": 1301346,
+      "p95": 1310986,
+      "max": 1317268
+    },
+    "uploadBytes": {
+      "n": 152,
+      "mean": 2670837.3157894737,
+      "p50": 1346880,
+      "p95": 2162128,
+      "max": 67058608
+    }
+  },
+  "nativeUninstrumented": {
+    "fps": 14.37068380503986,
+    "wallMs": 10020.39999999851,
+    "simulatedSeconds": 4.055240615386026,
+    "interval": {
+      "n": 143,
+      "mean": 69.46433566433562,
+      "p50": 66.40000000000873,
+      "p95": 133.40000000000873,
+      "max": 250
+    }
+  },
+  "gpu": {
+    "char": {
+      "total": {
+        "n": 41,
+        "mean": 31.837744634146347,
+        "p50": 31.64853,
+        "p95": 37.74846,
+        "max": 40.4639
+      },
+      "passes": {
+        "draw.contact": {
+          "n": 41,
+          "mean": 3.5239741463414638,
+          "p50": 3.60443,
+          "p95": 4.21408,
+          "max": 4.4231
+        },
+        "draw.pass0.RenderPass": {
+          "n": 41,
+          "mean": 24.351364634146336,
+          "p50": 24.08846,
+          "p95": 29.37928,
+          "max": 32.55051
+        },
+        "draw.pass1.ScreenRefraction": {
+          "n": 41,
+          "mean": 1.7017970731707317,
+          "p50": 1.25568,
+          "p95": 4.56764,
+          "max": 5.56448
+        },
+        "draw.pass2._UnrealBloomPass": {
+          "n": 41,
+          "mean": 1.4980409756097564,
+          "p50": 1.45276,
+          "p95": 1.92332,
+          "max": 2.06936
+        },
+        "draw.pass3.OutputPass": {
+          "n": 41,
+          "mean": 0.7625678048780484,
+          "p50": 0.73376,
+          "p95": 0.96748,
+          "max": 0.99728
+        }
+      }
+    },
+    "industrial": {
+      "total": {
+        "n": 90,
+        "mean": 25.51937844444444,
+        "p50": 25.049800000000005,
+        "p95": 28.622460000000004,
+        "max": 36.430490000000006
+      },
+      "passes": {
+        "draw.contact": {
+          "n": 90,
+          "mean": 3.377668333333333,
+          "p50": 3.46581,
+          "p95": 3.81778,
+          "max": 4.0805
+        },
+        "draw.pass0.RenderPass": {
+          "n": 90,
+          "mean": 19.051540222222222,
+          "p50": 18.7714,
+          "p95": 21.32476,
+          "max": 30.32154
+        },
+        "draw.pass1.ScreenRefraction": {
+          "n": 90,
+          "mean": 1.0401610000000001,
+          "p50": 0.8798,
+          "p95": 1.35564,
+          "max": 10.39941
+        },
+        "draw.pass2._UnrealBloomPass": {
+          "n": 90,
+          "mean": 1.3660555555555556,
+          "p50": 1.33816,
+          "p95": 1.59176,
+          "max": 1.70636
+        },
+        "draw.pass3.OutputPass": {
+          "n": 90,
+          "mean": 0.6839533333333333,
+          "p50": 0.66104,
+          "p95": 0.81872,
+          "max": 1.00848
+        }
+      }
+    }
+  },
+  "materialWrites": {
+    "stateExact": true,
+    "calls": 1662,
+    "exactPhases": 118,
+    "batches": [
+      {
+        "key": "BanelingDeath:7",
+        "calls": 210,
+        "exactPhases": 3,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "BloodTargetImpact:1",
+        "calls": 180,
+        "exactPhases": 18,
+        "hasLayers": true,
+        "layerCount": 11
+      },
+      {
+        "key": "HydraliskAttackImpact:1",
+        "calls": 128,
+        "exactPhases": 8,
+        "hasLayers": true,
+        "layerCount": 11
+      },
+      {
+        "key": "RavagerWeaponMissile:2",
+        "calls": 122,
+        "exactPhases": 6,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "BanelingDeath:3",
+        "calls": 106,
+        "exactPhases": 2,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "HydraliskAttackImpact:0",
+        "calls": 106,
+        "exactPhases": 8,
+        "hasLayers": true,
+        "layerCount": 11
+      },
+      {
+        "key": "BanelingDeath:2",
+        "calls": 87,
+        "exactPhases": 2,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "AcidSalivaWeapon:2",
+        "calls": 83,
+        "exactPhases": 7,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "BloodTargetImpact:0",
+        "calls": 83,
+        "exactPhases": 12,
+        "hasLayers": true,
+        "layerCount": 11
+      },
+      {
+        "key": "BanelingDeath:9",
+        "calls": 64,
+        "exactPhases": 4,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "RavagerWeaponImpact:1",
+        "calls": 61,
+        "exactPhases": 7,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "RavagerCorrosiveBileMissile:1",
+        "calls": 60,
+        "exactPhases": 1,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "RoachMissileImpact:0",
+        "calls": 56,
+        "exactPhases": 2,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "AcidSalivaWeapon:1",
+        "calls": 54,
+        "exactPhases": 8,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "AcidSalivaWeapon:0",
+        "calls": 43,
+        "exactPhases": 7,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "RavagerCorrosiveBileMissile:3",
+        "calls": 40,
+        "exactPhases": 1,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "MutaliskAttackSegment1Impact:1",
+        "calls": 32,
+        "exactPhases": 2,
+        "hasLayers": true,
+        "layerCount": 11
+      },
+      {
+        "key": "RoachMissileImpact:1",
+        "calls": 30,
+        "exactPhases": 2,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "RavagerWeaponImpact:0",
+        "calls": 30,
+        "exactPhases": 2,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "MutaliskAttackSegment1Impact:0",
+        "calls": 30,
+        "exactPhases": 4,
+        "hasLayers": true,
+        "layerCount": 11
+      },
+      {
+        "key": "BanelingDeath:1",
+        "calls": 25,
+        "exactPhases": 2,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "BanelingDeath:8",
+        "calls": 8,
+        "exactPhases": 1,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "GlaiveWurmWeapon:1",
+        "calls": 7,
+        "exactPhases": 2,
+        "hasLayers": true,
+        "layerCount": 11
+      },
+      {
+        "key": "BanelingDeath:4",
+        "calls": 5,
+        "exactPhases": 1,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "MarineAttackLaunch:1",
+        "calls": 3,
+        "exactPhases": 1,
+        "hasLayers": true,
+        "layerCount": 11
+      },
+      {
+        "key": "BanelingDeath:5",
+        "calls": 3,
+        "exactPhases": 1,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "MarineAttackImpact:0",
+        "calls": 2,
+        "exactPhases": 1,
+        "hasLayers": true,
+        "layerCount": 11
+      },
+      {
+        "key": "RavagerWeaponImpact:2",
+        "calls": 2,
+        "exactPhases": 2,
+        "hasLayers": true,
+        "layerCount": 12
+      },
+      {
+        "key": "LurkerAttackSpikeEx2:1",
+        "calls": 2,
+        "exactPhases": 1,
+        "hasLayers": true,
+        "layerCount": 12
+      }
+    ]
+  },
+  "checks": {
+    "successfulBrowserRuns": 2,
+    "cpuProfiles": 3,
+    "reviewedScreenshots": 2,
+    "pageAndConsoleErrors": 0,
+    "frozenFingerprintsMatch": true,
+    "materialCountingStateMatch": true,
+    "gpuDisjoint": 0,
+    "scope": "Diagnostic integrity only; not optimization, natural-play, full-content or production acceptance."
+  },
+  "sourceBinding": {
+    "compiledInputs": 400,
+    "currentInputMatches": 397,
+    "currentDifferences": [
+      {
+        "file": "src/simulation/starship/types.ts",
+        "expected": "e9ee4e7e5eed2c437571bc4ddfe865c4341aada99d384ca576e73c5044209982",
+        "sha256": "2f0523eb8424e77ae1181c763f4cf470e20a10bd971c0d718551b7a732559181",
+        "same": false
+      },
+      {
+        "file": "src/simulation/starship/inventory.ts",
+        "expected": "aec1816714e7f80e28f93f527906c5130ecaf4a1f7d11dee6ad2feb27a36f3c1",
+        "sha256": "63b19576b425d7af12159fb203ff217f8fd87f0162d3cf583c18ed0a22673135",
+        "same": false
+      },
+      {
+        "file": "src/simulation/starship/drops.ts",
+        "expected": "3d4a2269e5dbd9e61238eca10ce360266e06fc69b2aeb7d0dd70ab9acdc53b44",
+        "sha256": "ca814549085c66e60037dc90c1699dd760ea95e8de69c0d9bf1069f48c742f63",
+        "same": false
+      }
+    ],
+    "note": "The actual profiled bundle is unchanged; differing worktree files are independent starship work, not included in these runs. Relevant hotspot source files still match the bundle input manifest."
+  },
+  "preservedFailures": "reports/local/performance-300-20261016/failures.json",
+  "proposal": "docs/project/PERFORMANCE_300_DIAGNOSIS_PROPOSAL_20261016.md",
+  "files": [
+    {
+      "file": "reports/local/performance-300-20261016/browser-r1/report.json",
+      "bytes": 73739,
+      "sha256": "53fcef12f13067f8b5d5ff5188aa413f53dc1e2f19db30643ff0f2eb92c1a076"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r2/report.json",
+      "bytes": 1654577,
+      "sha256": "6731a449fb700e7445e4648113ffa35853b845f2177e69407cb06248056ef943"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r2/analysis.json",
+      "bytes": 799302,
+      "sha256": "6753fa8511723ccb674fe159e13632780970a2fa2f1a6505fd32eb97cbd4481b"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r2/runner.mts",
+      "bytes": 11584,
+      "sha256": "268ee6515bc4f1ad5cd07a36d0f2a53b1a1b28f0586c6bb6afc099c5430082a4"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r2/native-cpu-profile.cpuprofile",
+      "bytes": 278766,
+      "sha256": "91da15948d515e0bcc05afa61d03bb47207b4278ba790fff9c95da1489ab47b5"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r2/frozen-full-gpu.cpuprofile",
+      "bytes": 195853,
+      "sha256": "fa5d61cdc1f42d77f8550682a6e7ebf507581fc5bb025ea9406c451e91a7c414"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r2/native-simulation-only.cpuprofile",
+      "bytes": 138550,
+      "sha256": "0cb719b6414e79300780ba6f85050bd096c5cd71ff446c29b88a490156f0b9b8"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r2/native-300.png",
+      "bytes": 1521913,
+      "sha256": "1851bc3380ce4b9e813cc4d8e5010d292bc49c5764340cc6069a1eb2b0cad154"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r3/report.json",
+      "bytes": 954743,
+      "sha256": "e8d2f52ac970df88b60cb6cc8bf468099c09fe68bbeb0345a50e6958aece6546"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r3/analysis.json",
+      "bytes": 128602,
+      "sha256": "0df2507d3a877e982f877976c3c107e6d2e14644ae35146f338544bc873069c8"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r3/runner.mts",
+      "bytes": 14659,
+      "sha256": "f5d67d1860ea527b92284fe5250815631641cc4d0bee3b9e8dc9b68b159e5b90"
+    },
+    {
+      "file": "reports/local/performance-300-20261016/browser-r3/native-300.png",
+      "bytes": 1566464,
+      "sha256": "a9996a6fd87018534edd0b21692d0d0923e7906c729bddb3f8c8243fb67dbb2f"
+    }
+  ]
+}

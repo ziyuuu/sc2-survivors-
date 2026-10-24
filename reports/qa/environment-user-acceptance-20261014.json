@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-14",
+  "kind": "user-acceptance",
+  "scope": "MVP5 current five-map environment content and visual review",
+  "accepted": true,
+  "confirmation": {
+    "source": "Direct user message after the final local delivery",
+    "quote": "五图看过了，我认为没有问题。请记录这次确认，并按之前的 MVP 顺序规划下一步。",
+    "maps": ["industrial", "mar-sara", "char", "ice", "frontier"],
+    "currentEnvironmentBaselineFrozen": true,
+    "doesNotAssertEveryFrameOrEveryViewerPointWasReviewed": true
+  },
+  "delivery": {
+    "applicationVersion": "0.6.27",
+    "appBuildId": "d5537607fe61bce5e5487fc723360d63debc61a46d15cd57bed2f81692455253",
+    "resourceRelease": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+    "html": {
+      "path": "dist/SC2-Survivors-MVP5-Final-20261014.html",
+      "bytes": 707862310,
+      "sha256": "380022220e6246f25b64575d8c952650e6067fde4268be11470973046dac6ff7"
+    },
+    "commit": "3f2f52f4201fb47d72381cfaf1dcaf06431abb5d",
+    "existingCi": {
+      "url": "https://github.com/ziyuuu/sc2-survivors-/actions/runs/38530111079",
+      "conclusion": "success",
+      "regressionsPassed": 1412,
+      "regressionsFailed": 0,
+      "receipt": "reports/local/mvp5-delivery-20261014/git-sync.json"
+    }
+  },
+  "priorEvidence": [
+    "reports/qa/environment-delivery-20261014.json",
+    "reports/qa/environment-lifecycle-20261014.json",
+    "reports/qa/mvp1-building-main-20261013.json"
+  ],
+  "supersedesOnlyPendingUserReviewStatus": true,
+  "historicalReportsPreserved": true,
+  "newRuntimeTestsPerformedForThisRecord": false,
+  "nextSequence": ["1", "3", "2", "6", "7B", "8"],
+  "nextAction": "Bounded handover of the already integrated MVP1 new-run building rules, then MVP3 shared production rules and actual equipment-effect integration",
+  "saveWorkDeferredToMvpCloseout": true,
+  "planningDocument": "docs/project/MVP5_ACCEPTANCE_NEXT_20261014.md",
+  "notAcceptedByThisConfirmation": [
+    "Whole MVP completion",
+    "Full natural three-race campaign and complete gameplay acceptance",
+    "New equipment or fun-content functionality",
+    "Supported physical-input acceptance",
+    "Full-content 60 FPS and final quality tiers",
+    "Final save/recovery and session-loss acceptance",
+    "Production deployment and B4"
+  ]
+}

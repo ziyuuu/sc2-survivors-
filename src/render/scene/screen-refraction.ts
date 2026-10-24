@@ -12,6 +12,7 @@ export class ScreenRefraction extends Pass {
   fragmentShader:'varying vec2 vUv;uniform sampler2D color;uniform sampler2D field;uniform sampler2D depth;void main(){ivec2 pixel=ivec2(gl_FragCoord.xy);vec2 shift=texelFetch(field,pixel,0).xy;vec2 at=clamp(vUv+shift,vec2(0.0),vec2(1.0));bool unchanged=dot(shift,shift)==0.0||texture2D(depth,at).r+0.000001<texelFetch(depth,pixel,0).r;gl_FragColor=unchanged?texelFetch(color,pixel,0):texture2D(color,at);}'});
  private quad=new FullScreenQuad(this.material);private active=0;
  constructor(private scene:THREE.Scene,private camera:THREE.Camera){super();this.needsSwap=false;}
+ setEnabled(enabled:boolean){this.enabled=enabled;this.active=0;this.needsSwap=false;}
  override setSize(width:number,height:number){this.field.setSize(width,height);}
  /** Exercise the compositor even when the entrance has no live effect. The
   * required lighting gate repeats this after context loss before publishing ready. */
@@ -34,6 +35,7 @@ export class ScreenRefraction extends Pass {
   }finally{target.dispose();}
  }
  override render(renderer:THREE.WebGLRenderer,write:THREE.WebGLRenderTarget,read:THREE.WebGLRenderTarget){
+  if(!this.enabled){this.active=0;this.needsSwap=false;return;}
   this.active=0;this.scene.traverseVisible(n=>{if(n instanceof THREE.Mesh&&n.userData.displacement&&(!(n instanceof THREE.InstancedMesh)||n.count>0))this.active++;});
   this.needsSwap=this.active>0;if(!this.active)return;
   if(!read.depthTexture)throw Error('Original refraction requires current scene depth');
@@ -44,6 +46,6 @@ export class ScreenRefraction extends Pass {
    this.material.uniforms.color.value=read.texture;this.material.uniforms.depth.value=read.depthTexture;renderer.setRenderTarget(this.renderToScreen?null:write);this.quad.render(renderer);
   }finally{this.camera.layers.mask=mask;this.scene.background=background;renderer.autoClear=autoClear;renderer.setClearColor(color,alpha);renderer.setRenderTarget(target);}
  }
- report(){return {activeSurfaces:this.active,width:this.field.width,height:this.field.height,format:'signed-half-float',strengthUnits:'render-pixels',clientAmplitudeCalibrated:false};}
+ report(){return {enabled:this.enabled,activeSurfaces:this.active,width:this.field.width,height:this.field.height,format:'signed-half-float',strengthUnits:'render-pixels',clientAmplitudeCalibrated:false};}
  override dispose(){this.field.dispose();this.material.dispose();this.quad.dispose();}
 }

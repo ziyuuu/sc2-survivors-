@@ -33,6 +33,7 @@ export class NonHeroEffects {
   this.flameFans=new THREE.InstancedMesh(createFlameFanGeometry(SOURCE_WEAPON_PATTERNS.hellbat.arcDegrees),material,128);this.flameFans.count=0;this.flameFans.frustumCulled=false;this.flameFans.setColorAt(0,new THREE.Color(1,1,1));this.scene.add(this.flameFans);this.acidGround.prepare();this.ready=true;
  }
  setQuality(q:OrdinaryEffectQuality){this.quality=q;saveOrdinaryEffects(q);}
+ resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;}
  reset(){this.serial=this.time=0;this.echoes=[];this.acidGround.reset();if(this.ready){this.psionic.reset();this.organic.reset();this.terran.reset();this.medical.reset();for(const m of [...this.missiles,...this.needles,...(this.flameFans?[this.flameFans]:[])])commitInstances(m,0);}}
  report(){return {ready:this.ready,quality:this.quality,decorationDensity:ORDINARY_DETAIL[this.quality],...this.counts,missiles:this.missileCount,needles:this.needleCount,flameExtents:this.flameExtents,acidGround:this.acidGround.report(),medical:this.medical.report(),psionic:this.psionic.report(),organic:this.organic.report(),terran:this.terran.report()};}
  private body(kind:'missile'|'needle',p:P,angle:number,scale=1,tilt=0){const n=kind==='missile'?this.missileCount++:this.needleCount++,list=kind==='missile'?this.missiles:this.needles;if(n>=512)return;object.position.set(p.x,p.y,p.z);object.rotation.set(tilt,angle,0);object.scale.setScalar(scale);object.updateMatrix();for(const m of list)m.setMatrixAt(n,object.matrix);}

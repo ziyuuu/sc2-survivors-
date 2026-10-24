@@ -1,6 +1,8 @@
 import type {World} from '../world';
 import type {Entity,Point} from '../types';
-import {blocked,clearLine,distance,steerGoal,translate} from '../movement/steering';
+import {blocked,distance,translate} from '../movement/steering';
+import {mineClearLine,mineRouteGoal} from '../movement/mine-routing';
+import type {Obstacle} from '../../data/game';
 
 export const TRACKING_MINE={discovery:4,emergeSeconds:.25,speed:6,trigger:1.2,damage:120,blast:2,radius:.3} as const;
 /** Saved gameplay state. Routes and render poses are derived, never serialized. */
@@ -8,15 +10,15 @@ export interface SupportMine {id:number;point:Point;phase:'buried'|'emerging'|'c
 export function newSupportMine(id:number,point:Point):SupportMine{return {id,point:{...point},phase:'buried',targetId:null,emergeAt:0,facing:0};}
 /** Returns true exactly once: the caller removes the mine before applying damage. */
 export function advanceTrackingMine(w:World,mine:SupportMine,enemies:Entity[],c:{discovery:number;emergeSeconds:number;speed:number;trigger:number;radius:number}=TRACKING_MINE):boolean{
- const obstacles=mineObstacles(w);
- const contact=(target:Entity)=>distance(mine.point,target)<=c.trigger&&clearLine(mine.point,target,c.radius,obstacles,w.terrain);
+ const obstacles=trackingMineObstacles(w);
+ const contact=(target:Entity)=>distance(mine.point,target)<=c.trigger&&mineClearLine(mine.point,target,c.radius,obstacles,w.terrain);
  const nextStep=(target:Entity):Point|null=>{
   // Prefer extra corner clearance, but retain legal narrow routes at the actual footprint.
   for(const radius of [c.radius+.1,c.radius]){
-   const goal=steerGoal(mine.point,target,radius,obstacles,w.terrain,w.mapHalf),d=distance(mine.point,goal);
+   const goal=mineRouteGoal(mine.point,target,radius,obstacles,w.terrain,w.mapHalf),d=distance(mine.point,goal);
    if(d<=1e-8)continue;
    const step=Math.min(c.speed/60,d),p={x:mine.point.x+(goal.x-mine.point.x)*step/d,z:mine.point.z+(goal.z-mine.point.z)*step/d};
-   if(Math.abs(p.x)+c.radius<w.mapHalf&&Math.abs(p.z)+c.radius<w.mapHalf&&!blocked(p,c.radius,obstacles)&&clearLine(mine.point,p,c.radius,obstacles,w.terrain)&&(!w.terrain||w.terrain.canStep(mine.point,p,c.radius)))return p;
+   if(Math.abs(p.x)+c.radius<w.mapHalf&&Math.abs(p.z)+c.radius<w.mapHalf&&!blocked(p,c.radius,obstacles)&&mineClearLine(mine.point,p,c.radius,obstacles,w.terrain)&&(!w.terrain||w.terrain.canStep(mine.point,p,c.radius)))return p;
   }
   return null;
  };
@@ -35,8 +37,19 @@ export function advanceTrackingMine(w:World,mine:SupportMine,enemies:Entity[],c:
 }
 export function validSupportMine(m:SupportMine){return !!m&&Number.isSafeInteger(m.id)&&m.id>0&&!!m.point&&Number.isFinite(m.point.x)&&Number.isFinite(m.point.z)&&['buried','emerging','chasing'].includes(m.phase)&&(m.targetId===null||Number.isSafeInteger(m.targetId)&&m.targetId>0)&&Number.isFinite(m.emergeAt)&&m.emergeAt>=0&&Number.isFinite(m.facing);}
 
-function mineObstacles(w:World){
- const bodies=[...w.fortifications.values(),...w.expansionHives.values(),...(w.hive?[w.hive]:[]),...w.pods.filter(p=>['falling','active','opening'].includes(p.status)),...[...w.economicTargets.values()].filter(b=>b.status==='active')].filter(b=>b.hp>0&&!b.flying);
- return bodies.length?[...w.obstacles,...bodies.map(b=>({x:b.x,z:b.z,w:b.unitRadius*2,h:b.unitRadius*2}))]:w.obstacles;
+const obstacleSnapshots=new WeakMap<World,Obstacle[]>();
+/** Geometry snapshots retain identity until any blocking footprint changes. */
+export function trackingMineObstacles(w:World){
+ const old=obstacleSnapshots.get(w),geometry:Obstacle[]=[];
+ const append=(x:number,z:number,width:number,height:number)=>{const prior=old?.[geometry.length];geometry.push(prior&&prior.x===x&&prior.z===z&&prior.w===width&&prior.h===height?prior:{x,z,w:width,h:height});};
+ for(const o of w.obstacles)append(o.x,o.z,o.w,o.h);
+ const body=(b:{x:number;z:number;hp:number;flying:boolean;unitRadius:number})=>{if(b.hp>0&&!b.flying)append(b.x,b.z,b.unitRadius*2,b.unitRadius*2);};
+ for(const b of w.fortifications.values())body(b);
+ for(const b of w.expansionHives.values())body(b);
+ if(w.hive)body(w.hive);
+ for(const b of w.pods)if(['falling','active','opening'].includes(b.status))body(b);
+ for(const b of w.economicTargets.values())if(b.status==='active')body(b);
+ if(old&&old.length===geometry.length&&geometry.every((o,i)=>o===old[i]))return old;
+ obstacleSnapshots.set(w,geometry);return geometry;
 }
-export function minePlacementLegal(w:World,p:Point,r:number=TRACKING_MINE.radius){return Math.abs(p.x)+r<w.mapHalf&&Math.abs(p.z)+r<w.mapHalf&&!blocked(p,r,mineObstacles(w))&&(!w.terrain||w.terrain.canOccupy(p,r));}
+export function minePlacementLegal(w:World,p:Point,r:number=TRACKING_MINE.radius){return Math.abs(p.x)+r<w.mapHalf&&Math.abs(p.z)+r<w.mapHalf&&!blocked(p,r,trackingMineObstacles(w))&&(!w.terrain||w.terrain.canOccupy(p,r));}

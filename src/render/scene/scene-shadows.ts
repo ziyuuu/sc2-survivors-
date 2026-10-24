@@ -40,8 +40,9 @@ export class SceneShadows {
   renderer.shadowMap.enabled=this.enabled;renderer.shadowMap.type=THREE.PCFShadowMap;light.castShadow=this.enabled;light.shadow.mapSize.set(SHADOW_RESOLUTION,SHADOW_RESOLUTION);light.shadow.bias=-.00008;light.shadow.normalBias=.035;
  }
  setResolution(size:512|1024){if(this.light.shadow.mapSize.x===size)return;this.light.shadow.mapSize.set(size,size);this.restore();}
+ setEnabled(enabled:boolean){const next=enabled&&!this.fallback;if(this.enabled===next)return;this.enabled=next;this.restore();}
  update(camera:THREE.Camera,terrain:TerrainQuery|undefined){if(this.enabled)this.view.fit(camera,this.light,terrain);}
  prepare(root:THREE.Object3D=this.scene){if(this.enabled)this.depth.configure(root);}
- restore(){this.light.shadow.map?.dispose();this.light.shadow.map=null;this.light.shadow.needsUpdate=true;this.renderer.shadowMap.needsUpdate=true;}
+ restore(){this.renderer.shadowMap.enabled=this.enabled;this.light.castShadow=this.enabled;this.light.shadow.map?.dispose();this.light.shadow.map=null;this.light.shadow.needsUpdate=true;this.renderer.shadowMap.needsUpdate=true;}
  report(){let meshes=0,surfaces=0,posed=0;for(const node of sceneRenderables(this.scene)){if(!(node instanceof THREE.Mesh)||!node.castShadow||node instanceof THREE.InstancedMesh&&node.count===0||!hierarchyVisible(node))continue;meshes++;if(node instanceof THREE.SkinnedMesh||node.geometry.hasAttribute('unitPose'))posed++;surfaces+=(Array.isArray(node.material)?node.material:[node.material]).filter(physicalSurface).length;}return {enabled:this.enabled,method:'PCF',resolution:this.light.shadow.mapSize.x,ready:this.enabled&&!!this.light.shadow.map,fallback:this.fallback,casters:meshes,surfaces,posedCasters:posed,view:{...this.view.bounds},revision:this.view.revision,poseDepth:true};}
 }

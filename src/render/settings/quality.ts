@@ -31,7 +31,8 @@ export function samplePoseClock(state:PoseClockState,mode:AnimationMode,time:num
  return state.time!;
 }
 
-export type CombatPreset='full'|'medium'|'custom';
-export const COMBAT_PRESET_LABELS:Record<CombatPreset,string>={full:'全特效',medium:'中特效',custom:'自定义'};
-export function loadCombatDetail():'full'|'medium'{try{return localStorage.getItem('sc2.combatDetail')==='medium'?'medium':'full';}catch{return 'full';}}
-export function saveCombatDetail(value:'full'|'medium'){try{localStorage.setItem('sc2.combatDetail',value);}catch{}}
+export type CombatPreset='low'|'medium'|'full'|'custom';
+export const COMBAT_PRESET_LABELS:Record<CombatPreset,string>={low:'低 · 仅危险提示',medium:'中 · 精简特效',full:'高 · 完整特效（默认）',custom:'自定义'};
+export function hasCombatPreferences(storage:Pick<Storage,'getItem'>){return ['sc2.combatDetail','sc2.renderQuality','sc2.animationMode','sc2.ordinaryEffects','sc2.heroEffects'].some(key=>storage.getItem(key)!==null);}
+export function loadCombatDetail():'full'|'medium'|'low'{try{const value=localStorage.getItem('sc2.combatDetail');return value==='low'||value==='medium'?value:'full';}catch{return 'full';}}
+export function saveCombatDetail(value:'full'|'medium'|'low'){try{localStorage.setItem('sc2.combatDetail',value);}catch{}}

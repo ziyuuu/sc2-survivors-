@@ -10,6 +10,7 @@ import type {Entity,Body} from '../types';
 import {PROTOSS_HERO_RULES as R,isProtossHero,protossHeroGrowth} from '../../data/protoss-heroes';
 import {permanentBattleBody,inHeroAura} from './hero-ground-auras';
 import {talentModifiers} from './expedition-combat';
+import {firstSupportTargets} from './support-targets';
 export interface ProtossCombatState {cycles:number;power:number;eliteHits:number;opening:number;openingNext:number;openingStrike:boolean;lastFire:number;overdriveUntil:number;overdriveNext:number;veilUntil:number;veilNext:number;veilEpisode:boolean}
 export interface ShieldWindow {id:number;source:number;rank:number;until:number;next:number;targets:{id:number;maxShield:number}[]}
 export interface VoidEcho {id:number;source:Entity;target:number;damage:number;at:number}
@@ -22,7 +23,7 @@ const legal=(w:World,u:Entity,b:Body)=>b.hp>0&&b.owner!==u.owner&&w.visibleTo(b,
 export function protossShieldArmor(w:World,u:Entity){return compositeHeroBuff(w,u).shieldArmorFlat;}
 export function protossStats(w:World,u:Entity){const s=protossState(u);return {health:1,damage:u.heroId==='alarak'?1+s.power*R.alarak.powerDamage:1,armor:u.heroId==='alarak'?s.power*R.alarak.powerArmor:0,speed:u.heroId==='fenix'&&s.overdriveUntil>w.time?2:1};}
 function gainShield(w:World,source:Entity,a:Entity,amount:number,castId?:number){const gain=Math.min(Math.max(0,(a.maxShield??0)-(a.shield??0)),amount*equipmentRecoveryFactor(w,a)*equipmentHealingOutput(w,source));if(gain<=0)return 0;a.shield=(a.shield??0)+gain;w.stats.healed+=gain;observeRecovery(w,source,a,0,gain);w.visual('skill-heal',source,a,castId);return gain;}
-function shieldPatients(w:World,u:Entity,range:number,includeFull=false){return w.allies().filter(a=>nativeBody(a)&&(includeFull||(a.shield??0)<a.maxShield!)&&w.edgeDistance(u,a)<=range&&w.hasAttackLine(u,a)).sort((a,b)=>(a.shield??0)/a.maxShield!-(b.shield??0)/b.maxShield!||a.id-b.id).slice(0,7);}
+function shieldPatients(w:World,u:Entity,range:number,includeFull=false){return firstSupportTargets(w.entities.values(),a=>nativeBody(a)&&(includeFull||(a.shield??0)<a.maxShield!)&&w.edgeDistance(u,a)<=range&&w.hasAttackLine(u,a),(a,b)=>(a.shield??0)/a.maxShield!-(b.shield??0)/b.maxShield!||a.id-b.id,7);}
 export function registerShieldReconstruction(w:World,u:Entity,id:number,rank:number,targets:Entity[]){const n=Math.max(0,Math.min(4,rank-1)),receipt:ShieldWindow={id,source:u.id,rank,until:w.time+8,next:w.time+1,targets:targets.map(a=>({id:a.id,maxShield:a.maxShield!}))};w.protossHeroes.shields=w.protossHeroes.shields.filter(r=>r.source!==u.id);w.protossHeroes.shields.push(receipt);equipmentShieldWindow(w,u,id,receipt.until,targets);for(const a of targets)gainShield(w,u,a,a.maxShield!*R.artanis.immediate[n]*heroExtraAmount(rank),id);w.visual('barrier-start',u,u,id);}
 export function protossIncomingFactor(w:World,u:Entity,directWeapon=false){return 1-teamProtection(w,u,directWeapon);}
 export function protossBeforeAttack(w:World,u:Entity){const s=u.protossCombat;if(s?.veilUntil){equipmentVeilEnded(w,u);s.veilUntil=0;u.cloaked=!!u.heroId&&['zeratul','vorazun'].includes(u.heroId);}if(!isProtossHero(u.heroId))return;const p=protossState(u),idle=w.time-p.lastFire;p.cycles++;p.lastFire=w.time;p.openingStrike=false;

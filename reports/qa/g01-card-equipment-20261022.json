@@ -1,0 +1,280 @@
+{
+  "date": "2026-10-22",
+  "status": "card-fixes-complete-hero-decision-pending",
+  "g01Complete": false,
+  "boardRevision": 117,
+  "heroRulesChanged": false,
+  "authorization": "User started G01 after assigning fourth feedback item 8; hero gate/numbers explicitly require a decision.",
+  "cardCounts": {
+    "regular": 563,
+    "tickets": 4,
+    "newPerCardNativeMeasurements": 310,
+    "developmentNodes": 157
+  },
+  "regression": {
+    "new": 19,
+    "total": 2190,
+    "passed": 2190,
+    "typecheck": true,
+    "dataDocs": true
+  },
+  "browser": {
+    "cards": {
+      "records": 9,
+      "screens": 7,
+      "errors": []
+    },
+    "production": {
+      "records": 8,
+      "screens": 4,
+      "errors": [],
+      "offlineHttp": []
+    },
+    "reviewedFinalImages": 11,
+    "nuclearActual": {
+      "before": 10000,
+      "after": 6400,
+      "damage": 3600
+    }
+  },
+  "heroEvidence": {
+    "outputRuns": 42,
+    "bossRuns": 84,
+    "correctBossTypes": [
+      "zergling",
+      "ravager"
+    ],
+    "controlledNotNatural": true,
+    "proposedNotImplemented": "Ordinary new heroes unlock at stage-12 Boss, preserve high-equipment opening/evolution and 999-kill Queen, original 20% Boss chance and hero numbers."
+  },
+  "verification": {
+    "pass": true,
+    "beforeSourceTests": 816,
+    "unchanged": 811,
+    "changed": [
+      "src/simulation/combat/shop-support.ts",
+      "src/simulation/combat/unique-support.ts",
+      "src/simulation/expedition-state.ts",
+      "src/simulation/starship/runtime.ts",
+      "src/ui/presentation/shop-card-copy.ts"
+    ],
+    "added": [
+      "src/simulation/starship/card-effects.ts",
+      "test/g01-card-equipment.test.ts"
+    ],
+    "finalSourceTests": 818,
+    "cameraAndInputAndRenderUnchanged": 135,
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "delivery": [
+      {
+        "mode": "game",
+        "web": "D:\\星际\\reports\\local\\g01-20261022/web-game-r1",
+        "webInputs": 499,
+        "offlineInputs": 504,
+        "assets": 1909,
+        "resources": 1852,
+        "chunks": 2975,
+        "webJs": "49317739feb3f3bebd16d7173d12a6cbb51ca3805e21fc5226ffecd5b173f8c3",
+        "offlineHtml": "c91ae958321a7c133a829b36e6f7aa2e431402097632344bed00366ca9f0c7ac",
+        "allInputsOutputsExact": true
+      },
+      {
+        "mode": "lab",
+        "web": "D:\\星际\\reports\\local\\g01-20261022/web-lab-r1",
+        "webInputs": 500,
+        "offlineInputs": 505,
+        "assets": 1909,
+        "resources": 1852,
+        "chunks": 2975,
+        "webJs": "fb4243dd006c33fb7085a05a67f44c9a39538718fcce3d49658274d61debb5a7",
+        "offlineHtml": "7340bc006e4a25af64d86763a34cc2bedf05774d85d3ba0fb5fbc344d94cb0a7",
+        "allInputsOutputsExact": true
+      }
+    ]
+  },
+  "bound": [
+    {
+      "file": "docs/project/G01_CARD_EQUIPMENT_20261022.md",
+      "sha256": "139983831f69ad5ac25473c5b395763f73bcc95c05b3bd544140c3db94366a55",
+      "bytes": 7822
+    },
+    {
+      "file": "docs/project/G01_CARD_EQUIPMENT_HERO_REVIEW_20261022.md",
+      "sha256": "6f5a410566efa1fa77387abc9277c3997bf1ee1c1c4f39928f264856a7179d89",
+      "bytes": 6146
+    },
+    {
+      "file": "test/g01-card-equipment.test.ts",
+      "sha256": "bd0131141e2c1b9c3ac2cd9668fa4035001335bbad279cdc402316e82de17b67",
+      "bytes": 9830
+    },
+    {
+      "file": "tools/audit-g01-baseline.mts",
+      "sha256": "c43f261379fd76d56735c776de8b28a5cafc9621f8efdf63089803cfa64a501d",
+      "bytes": 5815
+    },
+    {
+      "file": "tools/audit-g01-hero-battles.mts",
+      "sha256": "760239e0717d7c9220855168b3439465c74f325db890578173f61ffd6cfb47a2",
+      "bytes": 2750
+    },
+    {
+      "file": "tools/audit-g01-card-coverage.mts",
+      "sha256": "07954718cf873ad28b0d7a0427d9269e5096a5dba40f644cf95a63bddbf9701a",
+      "bytes": 4003
+    },
+    {
+      "file": "tools/audit-g01-current-channels.mts",
+      "sha256": "726f2367ae94a670bf0353ec0d2d4eb18deaa8077fe5360b03613bc03f9dada7",
+      "bytes": 5851
+    },
+    {
+      "file": "reports/local/g01-20261022/before.json",
+      "sha256": "41e53cab94b81d27325c615f552aa1c0c3d945a452108feba8d7983c6809a86f",
+      "bytes": 139107
+    },
+    {
+      "file": "reports/local/g01-20261022/baseline-channels.json",
+      "sha256": "31ebccd6d959262b7e73708705bf25620ac9baea19a638a9fdf564d32158f808",
+      "bytes": 20575
+    },
+    {
+      "file": "reports/local/g01-20261022/current-channels.json",
+      "sha256": "f20c8f0dbc011d7e27cb64ca49c42fd5151387e326f5396bf0dee86a75d1ff9a",
+      "bytes": 20585
+    },
+    {
+      "file": "reports/local/g01-20261022/card-coverage.json",
+      "sha256": "f51bf79ed45f15e70c4afe7bc09b041afaa2f111d73366ba1c4b35c9dbfb6b8d",
+      "bytes": 635336
+    },
+    {
+      "file": "reports/local/g01-20261022/card-rule-ledger.json",
+      "sha256": "05d61579cf08aaa40a8c0c9b224e9b2d1b605529f063b399bdddf9904bf77862",
+      "bytes": 479830
+    },
+    {
+      "file": "reports/local/g01-20261022/baseline-hero-strength.json",
+      "sha256": "2a895bda04198148e90af780c1e1e06bbd2f6345996b311e91c6bfcd4ae9c9ea",
+      "bytes": 36423
+    },
+    {
+      "file": "reports/local/g01-20261022/baseline-hero-battles-r2.json",
+      "sha256": "fe382c00844a85bd9afc20f991d69d97da5ee39ea254f255a027c79add84fedc",
+      "bytes": 90105
+    },
+    {
+      "file": "reports/local/g01-20261022/baseline-hero-battles-pilot-wrong-stage3-type.json",
+      "sha256": "02cbcfd1cd08510330aa79a37daa5efb9f250c75837f6714b29a6220e8381053",
+      "bytes": 85630
+    },
+    {
+      "file": "reports/local/g01-20261022/full-regression-r1.log",
+      "sha256": "5229dcf6fdfcda86df5f2853758d736267d994e84ca0a00e98f8a46eb992bca3",
+      "bytes": 231892
+    },
+    {
+      "file": "reports/local/g01-20261022/typecheck-final.log",
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb",
+      "bytes": 60
+    },
+    {
+      "file": "reports/local/g01-20261022/docs-check-final.log",
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420",
+      "bytes": 149
+    },
+    {
+      "file": "reports/local/g01-20261022/qa-cards-r3/result.json",
+      "sha256": "cf8e6e59b4acc009885202e8885a36642747ba015a8da625e9e4ff6405c2fdf9",
+      "bytes": 13689
+    },
+    {
+      "file": "reports/local/g01-20261022/qa-production-r1/result.json",
+      "sha256": "5ab7dbe03e00aebd8bf2f05afaecf351a7fbc3372f35f8ce084f89bf5189978c",
+      "bytes": 1959562
+    },
+    {
+      "file": "reports/local/g01-20261022/visual-review/reviewed.json",
+      "sha256": "1c1089eea50a036fa0823ede61fbe34d81740b316265ffef81fefbd06a95bd6c",
+      "bytes": 729
+    },
+    {
+      "file": "reports/local/g01-20261022/verification.json",
+      "sha256": "008181a997b1071b022f75a669c7f0c2cc96169eec17df47c7e4e9f3e0948851",
+      "bytes": 1520
+    },
+    {
+      "file": "reports/local/g01-20261022/final-source.json",
+      "sha256": "b5c5f249b77f0de62c8dbaa6e94b96ebb077b576fc5a3eba2102571f4544942f",
+      "bytes": 138220
+    },
+    {
+      "file": "reports/local/g01-20261022/cleanup.json",
+      "sha256": "d378586db894ea47931076b7997d17cea4280645defc04e6973269ac1e5c2c5b",
+      "bytes": 387
+    },
+    {
+      "file": "reports/local/g01-20261022/verify-post-cleanup.log",
+      "sha256": "a1d3b89418da94e69b9cf79b0d65dd35c1bdec31785261976c555947ea5e5059",
+      "bytes": 1245
+    },
+    {
+      "file": "docs/project/performance-board.json",
+      "sha256": "33ca3adc37efa4701ea512484e32338610325a474ec863de04dfdc7e560b7f19",
+      "bytes": 407153
+    },
+    {
+      "file": "docs/project/FUN_FEEDBACK_R4_PLAN_20261022.md",
+      "sha256": "6584b6d43f04e1e60fe5f28bd032301270bd1bf497ad8862b126b5e7faec8670",
+      "bytes": 8164
+    },
+    {
+      "file": "AGENTS.md",
+      "sha256": "ad32480ede0edcea9dcbe6ea7b21f3521c4b3f2c4a86fe7a8d0b0f53d092349c",
+      "bytes": 310574
+    }
+  ],
+  "limitations": [
+    "No natural full campaign or final balance conclusion",
+    "No human/physical device/FPS acceptance",
+    "Current unchanged; no commit, push or publish",
+    "T01 and G02/G03/D05/final V-series remain open"
+  ],
+  "cleanup": {
+    "pass": true,
+    "profile": "D:\\星际\\reports\\local\\g01-20261022\\qa-shared\\profile",
+    "browserClosed": true,
+    "profileFiles": 2011,
+    "profileLogicalBytes": 468646307,
+    "protectedFiles": 832,
+    "protectedExact": true,
+    "scope": "Only this closed G01 QA browser profile. All source, frozen inputs, screenshots, raw reports, final builds and Current retained."
+  },
+  "preservedFailures": [
+    "Invalid first mine fixture, corrected to production constructor",
+    "Initial current-run warehouse grant attempt rejected; retry grants legal backpack item",
+    "Attempt to use captureRun rejected by MVP save postponement; detached memory validation used",
+    "First stage-3 fixture used ravager; full 84 corrected Boss runs preserved separately",
+    "Browser R1 delayed HP assertion included natural regeneration; R3 observes actual hit before/after",
+    "Browser R2 used removed button selector; R3 uses current card flip",
+    "Initial sandbox CIM access unavailable; approved native PowerShell verified closed browser and removed only owned cache"
+  ],
+  "closeout": {
+    "pass": true,
+    "rulesHaveExistingSources": true,
+    "baselineToCurrentSupportExact": true,
+    "postCleanupSourceAndBuildExact": true,
+    "heroDecisionPending": true,
+    "boardCounts": {
+      "待办": 9,
+      "进行中": 2,
+      "待验证": 0,
+      "待讨论": 0,
+      "已完成": 49,
+      "暂缓": 2
+    }
+  }
+}

@@ -1,0 +1,390 @@
+{
+  "at": "2026-10-16T04:54:45.491Z",
+  "scope": "R21 compact battlefield/intermission loadout, complete homepage/battlefield/intermission demonstration flows, acquired-only crafting including random outputs; retain existing art and real equipment rules.",
+  "build": {
+    "file": "D:\\星际\\preview\\starship-field-ui-20261016-r21\\Starship-UI-Flow-R21-20261016.html",
+    "bytes": 50576554,
+    "sha256": "e3e7c305c8061f7eb85dd5c937b6b67b8b7ea1c697fca50822ac5aa2af25a960",
+    "existingArt": 441,
+    "heroArt": 54,
+    "reusedShips": 3,
+    "reusedCovers": 3,
+    "reusedBrand": 1,
+    "images": 502,
+    "templates": 210,
+    "rows": 14811
+  },
+  "copies": [
+    {
+      "file": "preview/starship-field-ui-20261016-r21/Starship-UI-Flow-R21-20261016.html",
+      "bytes": 50576554,
+      "sha256": "e3e7c305c8061f7eb85dd5c937b6b67b8b7ea1c697fca50822ac5aa2af25a960"
+    },
+    {
+      "file": "preview/starship-field-ui-20261016-r21/index.html",
+      "bytes": 50576554,
+      "sha256": "e3e7c305c8061f7eb85dd5c937b6b67b8b7ea1c697fca50822ac5aa2af25a960"
+    },
+    {
+      "file": "dist/Starship-UI-Flow-R21-20261016.html",
+      "bytes": 50576554,
+      "sha256": "e3e7c305c8061f7eb85dd5c937b6b67b8b7ea1c697fca50822ac5aa2af25a960"
+    }
+  ],
+  "compiledInputs": {
+    "count": 166,
+    "manifest": "reports/local/starship-field-ui-20261016-r21/source-input-hashes.json",
+    "currentFilesMatch": true
+  },
+  "evidence": [
+    {
+      "file": "reports/local/starship-field-ui-20261016-r21/full-tests-r2.log",
+      "bytes": 172606,
+      "sha256": "fe33047be256ea064e84b20028b0c3d0676334fafd6dca001cb0099c2ddc5d10"
+    },
+    {
+      "file": "reports/local/starship-field-ui-20261016-r21/targeted-r3.log",
+      "bytes": 6599,
+      "sha256": "131f4a67248ae3380778453f926334e0e2ba4b8f3c5e6cc8767031d3283cd7a8"
+    },
+    {
+      "file": "reports/local/starship-field-ui-20261016-r21/typecheck-r3.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "file": "reports/local/starship-field-ui-20261016-r21/docs-check-r1.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "file": "reports/local/starship-field-ui-20261016-r21/browser-r6.log",
+      "bytes": 1166,
+      "sha256": "8be21a9d205359eb330bb41202af272e5b356d14cf8c5b9f198fa86fb3212b1b"
+    },
+    {
+      "file": "reports/local/starship-field-ui-20261016-r21/browser-1792126058462/report.json",
+      "bytes": 8370,
+      "sha256": "d06c9ae0eff6833ca88fb244bb8ffb3ff9cd916cb64fdb851ef7d9c7c9922689"
+    },
+    {
+      "file": "tools/qa-starship-field-ui.mjs",
+      "bytes": 17265,
+      "sha256": "3554f419c2d79fcf05e629b3fe3fe9899f357d65a630018d17204723930ee4ea"
+    },
+    {
+      "file": "test/starship-field-ui.test.ts",
+      "bytes": 6944,
+      "sha256": "3b0ee5bdc6f68c821934717347ef5196b12c2670ae0f6b6a4df9ab863d0c1cb2"
+    },
+    {
+      "file": "test/starship-tiers.test.ts",
+      "bytes": 8134,
+      "sha256": "c5baa702875e9209c846df4805da1959e400349374f3f90db06db417c7196a52"
+    },
+    {
+      "file": "test/starship-ui-flow.test.ts",
+      "bytes": 19004,
+      "sha256": "b01f14a54178ae21f26d81b5e946ed4b0500dcdc7e4f6f9840525ac67e83e4ac"
+    }
+  ],
+  "resources": {
+    "keys": 502,
+    "files": 625,
+    "existingEquipment": 441,
+    "heroPoses": 54,
+    "unchangedFromR20": true
+  },
+  "historical": [
+    {
+      "file": "preview/starship-ui-settings-20261016-r20/Starship-UI-Flow-R20-20261016.html",
+      "sha256": "64acff406053834aab6b8dbdbc183af56d13b819d74999d2848f28dcc798c79f"
+    },
+    {
+      "file": "preview/starship-ui-settings-20261016-r20/index.html",
+      "sha256": "64acff406053834aab6b8dbdbc183af56d13b819d74999d2848f28dcc798c79f"
+    },
+    {
+      "file": "dist/Starship-UI-Flow-R20-20261016.html",
+      "sha256": "64acff406053834aab6b8dbdbc183af56d13b819d74999d2848f28dcc798c79f"
+    },
+    {
+      "file": "preview/starship-ui-polish-20261016-r19/Starship-UI-Flow-R19-20261016.html",
+      "sha256": "a2b928d894cc679e68587c4f34b4b0d51a233dfc1a3ed327c8abdb33d3697a4c"
+    },
+    {
+      "file": "preview/starship-ui-polish-20261016-r19/index.html",
+      "sha256": "a2b928d894cc679e68587c4f34b4b0d51a233dfc1a3ed327c8abdb33d3697a4c"
+    },
+    {
+      "file": "dist/Starship-UI-Flow-R19-20261016.html",
+      "sha256": "a2b928d894cc679e68587c4f34b4b0d51a233dfc1a3ed327c8abdb33d3697a4c"
+    },
+    {
+      "file": "preview/starship-ui-flow-20261015-r18/Starship-UI-Flow-R18-20261015.html",
+      "sha256": "2fa9cb5159db4c068238538dc9af4a73b05460e0bd2813626b4d9997bebfe112"
+    },
+    {
+      "file": "preview/starship-ui-flow-20261015-r18/index.html",
+      "sha256": "2fa9cb5159db4c068238538dc9af4a73b05460e0bd2813626b4d9997bebfe112"
+    },
+    {
+      "file": "dist/Starship-UI-Flow-R18-20261015.html",
+      "sha256": "2fa9cb5159db4c068238538dc9af4a73b05460e0bd2813626b4d9997bebfe112"
+    }
+  ],
+  "validation": {
+    "fullSuite": {
+      "passed": 1615,
+      "failed": 0,
+      "log": "reports/local/starship-field-ui-20261016-r21/full-tests-r2.log",
+      "note": "Final TypeScript implementation; the subsequent final build changes only CSS for sticky field return and narrow sort width."
+    },
+    "targeted": {
+      "passed": 58,
+      "log": "reports/local/starship-field-ui-20261016-r21/targeted-r3.log"
+    },
+    "typecheck": "reports/local/starship-field-ui-20261016-r21/typecheck-r3.log",
+    "dataDocs": "reports/local/starship-field-ui-20261016-r21/docs-check-r1.log",
+    "browser": {
+      "report": "reports/local/starship-field-ui-20261016-r21/browser-1792126058462/report.json",
+      "checks": 12,
+      "screens": 24,
+      "layouts": 27,
+      "layoutDimensions": {
+        "races": 3,
+        "viewports": 3,
+        "textScales": 3
+      },
+      "checksPerformed": [
+        "homepage exposes three complete entrances; loadout returns to its opener",
+        "world battlefield pickup, paused bag, drop, repeat pickup and destruction",
+        "world intermission opens compact bag, swaps real equipment, dismantles and returns",
+        "world forge shows only acquired choices and random crafting cannot discover new identity",
+        "memory battlefield pickup, paused bag, drop, repeat pickup and destruction",
+        "memory intermission opens compact bag, swaps real equipment, dismantles and returns",
+        "memory forge shows only acquired choices and random crafting cannot discover new identity",
+        "full bag preserves ground loot; locked and favorite items survive destruction",
+        "intermission extraction returns actual settlement to homepage",
+        "field layouts follow current art at three viewport sizes, races and text scales",
+        "independent pause leases, remount cleanup, keyboard return and global settings",
+        "named file opens offline; touch entrance and return work at 320px"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "externalRequests": 0,
+      "worldAndMemoryHosts": true
+    },
+    "visual": {
+      "reviewer": "model",
+      "allFinal24ImagesIndividuallyReviewed": true,
+      "images": [
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\home.png",
+          "bytes": 1358644,
+          "sha256": "5ddcc30c8646876846e0a746457ccd83fb4c15d983219ad02e8f40e826ceedb8"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\outside-loadout.png",
+          "bytes": 631480,
+          "sha256": "f04c2ba614cf791391dffbe77747d0dbb9473351346c35b1c78705dc06d8d3e5"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\world-battle.png",
+          "bytes": 469270,
+          "sha256": "87a90ab50b40e5c624ea54c46d5d10c154994c0d5d50c639b5605e29de7722a8"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\world-battle-bag.png",
+          "bytes": 439220,
+          "sha256": "3df29b05ea9cbce4d3bfd82a144829cc9c2be6f417a1a4fb93bea1982e873508"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\world-intermission.png",
+          "bytes": 460308,
+          "sha256": "768255ab177d43647634c02626bc9ae1c9905a360a76050c296862504e079e07"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\world-intermission-bag.png",
+          "bytes": 416647,
+          "sha256": "4611a4fc986337c66afced03c2892b37db0c3b9be5628d054c73d3998a2dd016"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\world-known-craft.png",
+          "bytes": 518047,
+          "sha256": "dc65c983526d7c8def844180b8fb2439b2b2f8868597c6a4d4347b5fceb57c1a"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\memory-battle.png",
+          "bytes": 469775,
+          "sha256": "d9b55551092c0a1c887f2ca14ba9e8aa578f752853c6df1f42042785f5f5cc26"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\memory-battle-bag.png",
+          "bytes": 430696,
+          "sha256": "dc7acb842b7e08dd8b80c492972f133ff890fce5796fc680a446d85ff8eba1b3"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\memory-intermission.png",
+          "bytes": 460866,
+          "sha256": "9d90725e0bef466d40733dcc0b938e7debaef0cea6241560cc305b36d927ead2"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\memory-intermission-bag.png",
+          "bytes": 416427,
+          "sha256": "adbac919bdea3542895146903ee6b24e8164181dea93be8eb8c7e2ce1322742f"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\memory-known-craft.png",
+          "bytes": 518292,
+          "sha256": "f39163374321782a69b2d6d5d007192ea2eeb47d1ef784dfb8499a207e9071ca"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\full-bag-protected.png",
+          "bytes": 529975,
+          "sha256": "2efb916eea44b9f0e343d81417d07baf2e88933632988f52ddab148a461f18d8"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\settlement.png",
+          "bytes": 315329,
+          "sha256": "fd2508007f51644174cb1f173e6772120f95b5661115cf50f4c85d37addc7182"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\terran-field-1440.png",
+          "bytes": 448919,
+          "sha256": "4824243b9fd0d5f680c1c61db6676ef3fccae9d1752e3df41411a6d584a94fdf"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\zerg-field-1440.png",
+          "bytes": 454319,
+          "sha256": "8b372edbb7b9683eb675475488b545dbe15b11bec47aa4a685a47a6d20f2ea23"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\protoss-field-1440.png",
+          "bytes": 448067,
+          "sha256": "dd030ae6a2ff2c79954209baf12db4d7dfc3c57e11d69009639cd575293e3b58"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\terran-field-320.png",
+          "bytes": 165276,
+          "sha256": "9d09ff3545cf2c49d10ff442f4ee0e350f0248ac1d320876d82acc0c5f7b34b5"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\terran-field-320-bag.png",
+          "bytes": 110219,
+          "sha256": "74254793660c91529026a607edf9b02edfa4c313088a9cee5ec6c3b93f3cc7be"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\zerg-field-320.png",
+          "bytes": 164863,
+          "sha256": "8cd3a47f6700f6d7997ae035a32be0e6ade2b3ec2d516dc2d69656e21d725cfa"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\zerg-field-320-bag.png",
+          "bytes": 112229,
+          "sha256": "862ec61ad9cb2a612c874d4731956e2c8f7e5377c307587a83f1fb65a3e01918"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\protoss-field-320.png",
+          "bytes": 166985,
+          "sha256": "3ee8a40070f45e9fec7c5e1c7675b7ce1e2a2012209f932190bec10578765456"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\protoss-field-320-bag.png",
+          "bytes": 113137,
+          "sha256": "7200a5dddc39b2a498d42e4bfab084f0196806179ac20b74527a5199707fe96e"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\starship-field-ui-20261016-r21\\browser-1792126058462\\offline-touch-intermission.png",
+          "bytes": 111906,
+          "sha256": "6c983e657eebe517458c508e6344828902c50e32ca32428cc181e20258644c6f"
+        }
+      ],
+      "humanAcceptance": false
+    },
+    "httpBytesMatch": true,
+    "verifiedLinks": 7
+  },
+  "rules": {
+    "fieldBagOnly": true,
+    "battle": {
+      "pause": true,
+      "view": true,
+      "drop": true,
+      "destroy": true,
+      "equip": false,
+      "dismantle": false
+    },
+    "intermission": {
+      "view": true,
+      "equip": "eligible current-run attribute and special equipment only",
+      "dismantle": true,
+      "destroy": true
+    },
+    "atlasRemoved": true,
+    "acquiredRecipeIdentity": [
+      "template including quality",
+      "race",
+      "slot",
+      "binding"
+    ],
+    "randomCraftAcquiredOnly": true,
+    "dustPricesUnchanged": true,
+    "dropPreservesInstanceAndEmitsNativeEvent": true
+  },
+  "integration": {
+    "sharedProductionRules": true,
+    "realWorldAdapterValidated": true,
+    "formalStarshipUiMounted": false,
+    "applicationCallbacksStillRequired": [
+      "resolveImage",
+      "inputReset",
+      "begin",
+      "continue"
+    ],
+    "saveWorkDeferred": true,
+    "currentReplaced": false,
+    "committed": false,
+    "pushed": false,
+    "published": false
+  },
+  "failures": [
+    {
+      "kind": "sandbox child process EPERM",
+      "logs": [
+        "reports/local/starship-field-ui-20261016-r21/build-r1.log",
+        "reports/local/starship-field-ui-20261016-r21/targeted-r1.log",
+        "reports/local/starship-field-ui-20261016-r21/browser-r1.log"
+      ],
+      "recovery": "Permitted local subprocess retries succeeded; original logs retained."
+    },
+    {
+      "kind": "crafting test fixture used setTemplate rather than template for prerequisite grant",
+      "evidence": "reports/local/starship-field-ui-20261016-r21/targeted-r2.log",
+      "recovery": "Corrected the fixture; targeted-r3 passed all 58."
+    },
+    {
+      "kind": "demonstration shield fixture specified an illegal slot",
+      "evidence": "reports/local/starship-field-ui-20261016-r21/browser-1792125405018/report.json",
+      "recovery": "Choose the catalog legal slot; subsequent real World and memory flows passed."
+    },
+    {
+      "kind": "QA text-scale select value .85 did not match 0.85",
+      "evidence": "reports/local/starship-field-ui-20261016-r21/browser-1792125525151/report.json",
+      "recovery": "Corrected the automation string; retained the failed report."
+    },
+    {
+      "kind": "visual review found field overlay in document flow and narrow sort text shrinkage",
+      "recovery": "Fixed the demo overlay, sticky return bar and minimum sort width; final 24 screenshots reviewed and final layout assertions passed."
+    },
+    {
+      "kind": "documentation counted the layout matrix as 81 rather than 27",
+      "recovery": "Corrected documentation to match the actual 3 races × 3 viewports × 3 text scales; no additional coverage claimed."
+    }
+  ],
+  "limits": [
+    "The demo battlefield is a 2D clickable scene; World uses waves:false and terrain:false. Pickup moves its demonstration anchor before calling the production pickup interface.",
+    "No full main-game mounting, natural gameplay, physical-device, full 3D pickup rendering or FPS acceptance in this batch.",
+    "Acquired-recipe history is runtime account state; persistence and migration remain deferred to MVP closeout."
+  ]
+}

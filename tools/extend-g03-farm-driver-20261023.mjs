@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+let s=fs.readFileSync('tools/measure-g03-farm-minor-20261023.mts','utf8');
+const replace=(a,b)=>{assert(s.includes(a),a);s=s.replace(a,b);};
+replace("import {consumptionController} from './lib/g03-consumption-controller-r2.mts';", "import {consumptionController} from './lib/g03-consumption-controller-r2.mts';\nimport {consumptionController as auditedController} from './lib/g03-consumption-controller-r3.mts';\nimport {farmMinorGear} from './lib/g03-farm-minor-cases.mts';");
+replace("'tools/lib/g03-delivery-observer.mts'", "'tools/lib/g03-delivery-observer.mts','tools/lib/g03-consumption-controller-r3.mts','tools/lib/g03-farm-minor-cases.mts'");
+replace('{a,spec}=gearFor(r,c)',"{a,spec}=['farm','minor'].includes(c.tier)?farmMinorGear(r,c):gearFor(r,c)");
+replace("c.policy==='legacy'?economyController(w,r,c.race,{preserveSets:true}):consumptionController(w,r,c.race)", "c.policy==='legacy'?economyController(w,r,c.race,{preserveSets:true}):c.policy==='audited'?auditedController(w,r,c.race):consumptionController(w,r,c.race)");
+replace("if(urgent){p.base.think();baseCalls++;}","if(c.policy==='audited'&&p.protectDelivery()){normalCalls++;}else if(urgent){p.base.think();baseCalls++;}");
+replace("w.step();steps++;maxEnemies", "const battleStage=stageKey(w),normalBattle=!w.specialStages.active;w.step();steps++;if(normalBattle&&steps%60===0){const us=w.allies().filter((u:any)=>!u.temporary&&!u.summonKind),hp=us.reduce((n:number,u:any)=>n+u.hp,0),maxHp=us.reduce((n:number,u:any)=>n+u.maxHp,0);pressure.push({stage:battleStage,time:round(w.time),units:us.length,hpFraction:round(maxHp?hp/maxHp:0),enemies:w.enemyCount(),wallet:{...w.wallet}});}maxEnemies");
+replace('const stages:any[]=[],specials:', 'const pressure:any[]=[],stages:any[]=[],specials:');
+replace('maxEnemies,deliveryEvents:', 'maxEnemies,pressure,deliveryEvents:');
+replace("time:round(w.time),wallet:{...w.wallet},economy:","time:round(w.time),stageElapsed:round(w.stageElapsed),wallet:{...w.wallet},economy:");
+fs.writeFileSync('tools/measure-g03-farm-minor-20261023.mts',s);
+let p=fs.readFileSync('tools/probe-g03-consumption-repair-20261023.mts','utf8');
+p=p.replace("import {growthRuntime,OUT}","import {growthRuntime}").replace("from './lib/g03-consumption-controller-r2.mts'", "from './lib/g03-consumption-controller-r3.mts'");
+p="const OUT='D:/星际/reports/local/g03-farm-minor-20261023';\n"+p;
+fs.writeFileSync('tools/probe-g03-consumption-r3-20261023.mts',p);

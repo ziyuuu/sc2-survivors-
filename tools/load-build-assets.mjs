@@ -1,3 +1,5 @@
+import {loadFunPropAssets} from './fun-prop-assets.mjs';
+import {loadMissionAssets} from './mission-assets.mjs';
 import {loadIntermissionAssets} from './intermission-assets.mjs';
 import {loadNativeHudAssets} from './native-hud-assets.mjs';
 import {loadMaterialTextures} from './material-textures.mjs';
@@ -34,7 +36,7 @@ export async function loadBuildAssets(){
    if(!matches||r.sourceSha256!==r.packedSha256)throw Error('UI resource changed: '+file);
   }
  }
- const records=[...metadata.records,...ui.records,...await loadIntermissionAssets(),...await loadNativeHudAssets(),...await loadMaterialTextures(),...await loadEnvironmentTextures(),...await loadEnvironmentScenery(),...await loadCombatEffects(),...await loadStarshipAssets()];
+ const records=[...await loadFunPropAssets(),...await loadMissionAssets(),...metadata.records,...ui.records,...await loadIntermissionAssets(),...await loadNativeHudAssets(),...await loadMaterialTextures(),...await loadEnvironmentTextures(),...await loadEnvironmentScenery(),...await loadCombatEffects(),...await loadStarshipAssets()];
  if(new Set(records.map(r=>r.id)).size!==records.length)throw Error('Duplicate combined build asset ID');
  return records;
 }

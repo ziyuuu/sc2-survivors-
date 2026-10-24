@@ -1,0 +1,28 @@
+import fs from 'node:fs/promises';
+const read=async p=>JSON.parse(await fs.readFile(p,'utf8')),p='docs/project/performance-board.json',b=await read(p),root='reports/local/performance-b03-20261019';
+if(b.revision!==8||b.tasks.find(t=>t.id==='B03').status!=='进行中')throw Error('Inspect changed board before closing B03');
+const qa=await read('reports/qa/performance-b03-20261019.json'),verify=await read(root+'/verification.json'),semantic=await read(root+'/semantic-verification.json'),visual=await read(root+'/visual-review/reviewed.json');
+if(!verify.allChecks||!semantic.allChecks||!visual.allSelectedViewed)throw Error('Unfinished B03 evidence checks');
+const audit=JSON.stringify(b.auditRows),task=id=>b.tasks.find(t=>t.id===id),evidence=['PERFORMANCE_B03_INTERACTION_LONGRUN_20261019.md','../../reports/qa/performance-b03-20261019.json','../../reports/local/performance-b03-20261019/semantic-verification.json'];
+b.revision=9;b.next='F05';b.updated='2026-10-19';
+b.baseline.measurements='B01–B03代表基线已完成；未实施本轮优化。B02保留虫族第三关控制器失败；B03保留仓库搜索/清空、新局提示冲突、追踪雷地堡角落停滞及全部测试夹具失败。下一项F05修复投影回收；U02搜索异常列优先。普通60FPS和整体MVP验收仍开放。';
+Object.assign(task('B03'),{status:'已完成',updated:b.updated,evidence,result:`SC05–SC11代表基线已录：${qa.count.runs}组选定记录、${qa.count.windows}个计时窗口、${qa.count.actions}次操作；${visual.selectedScreens}张代表截图已查看。五图30条真实移动路线、掉落/满包、仓库与关间、18关及无尽6/12轮、独立历史长度、Web/离线/重试、真实后台与WebGL恢复均有构建绑定和重复证据。仓库两轮各6次异常、新局提示冲突、追踪雷地堡角落三次停滞保留；不是功能无错误或性能达标。`});
+const update=(id,result)=>{task(id).result=result;task(id).updated=b.updated;task(id).evidence=[...new Set([...task(id).evidence,evidence[0]])];};
+update('U02','B03两轮仓库操作各54次，三轮搜索/清空每轮各触发一次innerHTML重入异常；input重建聚焦输入触发change再次render，堆栈与复现已绑定。同时确认活动出征时新游戏覆盖提示与禁用开始按钮冲突，需明确新局入口行为。保持优先，未修复。');
+task('U01').problem='Boss奖励失败通知与HUD技能资格、阵容、商店历史及布局重复处理待核；装备满包自动拾取已有反馈去重，应与Boss奖励路径分别处理。';
+update('U01','B03装备满包的近距离原生重试及腾出一格已重复验证；装备拾取的fullNotified/lootSerial已有去重，不能据旧概括宣称每tick均发送满包通知。Boss奖励失败是另一条路径，仍待核。HUD每约30秒300次更新的成本已记录；未实施优化。');
+update('U03','B03中性合成手柄3个30秒样本，每次poll约0.026–0.038ms；自动键盘3轮及多视口已录。范围仅为此设备/场景，不是物理手柄验收；未实施优化。');
+update('U04','B03分别记录统计关闭和明确启用的3×30秒样本；本地模拟传输三次排空，丢弃0。启用样本更高FPS不能解释为收益；未独立计时音频循环，音频子项实施前补测。');
+update('S05','B03固定当前战场比较0/1000/10000条历史，9个当前场景哈希一致；1000次dt=0生产微探针均不改状态，耗时与长局真实历史分开。自然规则路线账本峰值20，不将一万条压力量当常见实况；未实施优化。');
+task('S03').problem+=' B03三次复现地堡角落停滞，合法绕行存在；需同时修复近角可通行判断与动态障碍路线，而不只复用缓存。';
+update('S03','B03五图各两条实际移动命令各重复三次，共30条均到达且无非法步进；追踪雷与诊断建筑生成/摧毁重复记录：地堡角落三次6秒停滞，未穿墙；独立逐步检查有合法绕行路径，无地堡及摧毁后新雷均命中。0.3半径抽样漏角、0.4半径地形回退未包含动态障碍，列S03修复。旧手动routeGoal步进及缺装备前置的炮台夹具失败保留，不将其当原生移动失败。未实施优化。');
+update('L02','B03已将Web与离线HTML的冷浏览器缓存、热重载、同页继续、诊断结算后的新局、换图及资源失败重试分别重复并绑定。时间包含诊断代码及本机I/O；新profile不等于操作系统磁盘冷缓存。旧HTML源码不同，已拒绝作为当前代码，离线文件仅复用经哈希验证的原资源块。未实施优化。');
+const states={SC05:'已录五图30条真实移动及追踪雷/动态建筑重复检查；地堡角落三次停滞归S03，旧夹具失败保留',SC06:'已录自然掉落峰值、矿/气/96装备冻结与实时、64满包近距重试',SC07:'已录两轮各54次仓库操作及3轮关间；搜索/清空异常归U02',SC08:'已录共享规则18关及无尽完成6/12轮边界，0/1000/10000历史独立对照；非连续墙钟/人类通关',SC09:'已录Web/离线各冷/热/同页、Web换图及失败重试；各两轮独立profile',SC10:'已录暂停3轮、同页继续、真实hidden3轮、三视口及WebGL恢复2次；旧等待夹具错误保留',SC11:'已录键盘3轮、中性合成手柄3窗、统计开/关各3窗及模拟排空；物理输入/音频CPU细分未验收'};
+for(const scene of b.scenes)if(states[scene.id])scene.status=states[scene.id];
+b.updates.push({date:b.updated,tasks:['B03','U01','U02','U03','U04','S03','S05','L02'],change:`B03进行中→已完成：${qa.count.windows}窗口、${qa.count.actions}操作，${semantic.checks.length}项覆盖检查，${visual.selectedScreens}张代表截图查看。保留仓库搜索重入、追踪雷动态地堡停滞及全部夹具失败，未修改游戏/测优化收益。下一项F05，U02搜索列优先。`,evidence});
+if(audit!==JSON.stringify(b.auditRows)||b.auditRows.length!==169||b.tasks.length!==49)throw Error('Task/audit index changed');
+await fs.writeFile(p,JSON.stringify(b,null,2)+'\n');
+const entry=`## B03 交互、加载与长局代表基线完成 · 2026-10-19\n\n- 用户授权“请根据看板继续推进”。已完成SC05–SC11代表测量，说明 \`docs/project/PERFORMANCE_B03_INTERACTION_LONGRUN_20261019.md\`，证据 \`reports/qa/performance-b03-20261019.json\`。看板修订9，B03已完成，下一项F05；本轮未改游戏、Current或提交推送。\n- 固定main \`be9e2982944314194c6dcc9dcc535bc321749eb4\`，436编译输入；Web JS \`5ffb353f1a9ed459a42f9ec2975ef861d9493afc2d5a6169169efd3f4cfdc487\`，独立诊断离线HTML \`7d02f7d19b4e6912375cd6134f6845f07489fe3cd75169fd2b7b9181e10d8b25\`。排除其他工作流economic-egg改动。${qa.count.windows}窗口/${qa.count.actions}操作，${visual.selectedScreens}代表截图已查看；全部旧样本/失败保留。\n- 仓库两轮各6次搜索/清空DOM重入异常，以及活动出征时新局覆盖提示与禁用按钮冲突列U02；流程完成不等于无错误。五图30条真实路线均到达；诊断地堡角落追踪雷三次停滞列S03，合法绕行路径已证实，无穿墙且移除障碍后命中。Node简单白装实际规则18关+无尽12轮共2520秒/151200步，峰值181矿堆/75气堆/18地面装备/64背包/20账本；浏览器长局另录冻结/实时。UUID参与Boss回执随机，长局不宣称跨局完全同态；合成96装备/万条历史单列。\n- Web/离线/失败重试各两轮，暂停/真实后台与实际WebGL恢复单列。存档仍延期，自动输入不是物理/人类验收，准备阶段固定步推进不是连续实时通关，未降低60FPS目标或关闭整体MVP。\n\n`;
+const agents=await fs.readFile('AGENTS.md','utf8');if(!agents.includes('## B03 交互、加载与长局代表基线完成'))await fs.writeFile('AGENTS.md',entry+agents);
+for(const file of ['docs/project/README.md','README.md']){let text=await fs.readFile(file,'utf8');const link=file==='README.md'?'docs/project/PERFORMANCE_B03_INTERACTION_LONGRUN_20261019.md':'PERFORMANCE_B03_INTERACTION_LONGRUN_20261019.md';if(!text.includes('PERFORMANCE_B03_INTERACTION_LONGRUN_20261019.md')){const at=text.indexOf('\n');text=text.slice(0,at+1)+`\n- [B03交互、加载与长局代表基线（2026-10-19）](${link})：记录测量与已知失败；下一项F05。\n`+text.slice(at+1);await fs.writeFile(file,text);}}
+console.log(JSON.stringify({revision:b.revision,next:b.next,tasks:b.tasks.length,audit:b.auditRows.length}));

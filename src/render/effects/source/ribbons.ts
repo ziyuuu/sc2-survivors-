@@ -12,12 +12,14 @@ function ribbonColor(p:SourceEmitter,phase:SourcePhase,t:number,age:number,seed:
 /** The M3 ribbon's spline, section count, width/colour curves and cylinder sides
  * remain source data. Motion trails sample the saved launch/current trajectory. */
 export function sourceRibbonQuads(def:SourceEffectDefinition,request:SourceEffectRequest,camera:THREE.Camera):SourceParticleQuad[]{
- const result:SourceParticleQuad[]=[],phase=sourcePhase(def,request.age,request.loop,request.seed,request.clip),bones=boneMatrices(def,phase),placement=sourcePlacement(def,request.placement,request.age);
+ const result:SourceParticleQuad[]=[];if(!def.ribbons.length)return result;
+ const phase=sourcePhase(def,request.age,request.loop,request.seed,request.clip),placement=sourcePlacement(def,request.placement,request.age);let bones:THREE.Matrix4[]|undefined;
  for(const [index,p]of def.ribbons.entries()){
   // Beam actors supply the live spline endpoints. Their original M3 splines
   // have active=0 with no visibility track; that flag gates free trail emission.
   const hosted=request.hostedBeam&&request.placement.end&&(p.spline as unknown[]|undefined)?.length;
   if(!hosted&&number(p,'active',phase)<=0)continue;
+  bones??=boneMatrices(def,phase);
   const transform=placement.clone().multiply(bones[p.bone]??new THREE.Matrix4()),start=new THREE.Vector3().setFromMatrixPosition(transform),scale=vector(p,'scale',phase,{x:1,y:1,z:1}),spline=(p.spline??[]) as SourceEmitter[],divisions=Math.max(1,number(p,'divisions',phase,8)),type=number(p,'ribbon_type',phase),sections=type===2?Math.max(3,number(p,'sides',phase,4)):type===3?Math.max(2,number(p,'sides',phase,3)):1;
   const nativeScale=new THREE.Vector3().setFromMatrixScale(transform),widthScale=(nativeScale.x+nativeScale.z)*.5,life=Math.max(.001,number(p,'lifespan',phase,1)),trailAge=Math.min(request.age,life),limit=number(p,'length',phase)+variation(p,'length',phase,request.age,request.seed),points:THREE.Vector3[]=[];
   const end=spline.length?xyz(vector(spline[0],'emission_offset',phase)).applyMatrix4(bones[spline[0].bone]??new THREE.Matrix4()).applyMatrix4(placement):undefined;
@@ -46,10 +48,12 @@ export function sourceRibbonQuads(def:SourceEffectDefinition,request:SourceEffec
 /** Original orthographic splats use their own extents and attack/hold/decay,
  * projected onto the unchanged terrain height rather than an auxiliary marker. */
 export function sourceProjectionQuads(def:SourceEffectDefinition,request:SourceEffectRequest,ground:(p:{x:number;z:number})=>number):SourceParticleQuad[]{
- const phase=sourcePhase(def,request.age,request.loop,request.seed,request.clip),bones=boneMatrices(def,phase),placement=sourcePlacement(def,request.placement,request.age),result:SourceParticleQuad[]=[];
+ const result:SourceParticleQuad[]=[];if(!def.projections.length)return result;
+ const phase=sourcePhase(def,request.age,request.loop,request.seed,request.clip),placement=sourcePlacement(def,request.placement,request.age);let bones:THREE.Matrix4[]|undefined;
  for(const [index,p]of def.projections.entries()){
   if(number(p,'active',phase)<=0)continue;
   const attack=number(p,'lifetime_attack',phase),hold=number(p,'lifetime_hold',phase),decay=number(p,'lifetime_decay',phase),age=request.age;if(age>=attack+hold+decay)continue;
+  bones??=boneMatrices(def,phase);
   const alpha=age<attack?THREE.MathUtils.lerp(number(p,'alpha_init',phase),number(p,'alpha_mid',phase),age/Math.max(.001,attack)):age<attack+hold?number(p,'alpha_mid',phase):THREE.MathUtils.lerp(number(p,'alpha_mid',phase),number(p,'alpha_end',phase),(age-attack-hold)/Math.max(.001,decay));
   const parent=placement.clone().multiply(bones[p.bone]??new THREE.Matrix4()),offset=xyz(vector(p,'offset',phase)),x0=number(p,'box_offset_x_left',phase),x1=number(p,'box_offset_x_right',phase),y0=number(p,'box_offset_y_front',phase),y1=number(p,'box_offset_y_back',phase),divisions=4;
   for(let row=0;row<divisions;row++)for(let col=0;col<divisions;col++){

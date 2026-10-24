@@ -1,0 +1,471 @@
+{
+  "schema": 1,
+  "date": "2026-10-22",
+  "pass": true,
+  "scope": "User-approved fourth feedback fixes on current main: interaction/equipment/corrupt first, then event and horde pacing. Local engineering verification, no release or natural campaign/balance acceptance.",
+  "plan": "docs/project/FUN_FEEDBACK_R4_PLAN_20261022.md",
+  "source": {
+    "pass": true,
+    "beforeSourceTests": 808,
+    "existingUnchanged": 776,
+    "changed": [
+      {
+        "file": "src/diagnostics/fun-lab-cases.ts",
+        "bytes": 9526,
+        "sha256": "d4ee82fbf0a1262fef72c8df4131d562c2e901634568f816ff6d8f8b1becd058",
+        "after": "21d7c3b6b6f5adeb44b1d34df1856126de3cac5909141cd14389ea90692f2538"
+      },
+      {
+        "file": "src/render/scene/battle-renderer.ts",
+        "bytes": 142905,
+        "sha256": "4fde2f3e8a267e4b1aef8f20aacbb7753abf7488fad2bb12e2687cb5ce1007c4",
+        "after": "fd3c13ea73914b525b906b4cecd1386d815517611195a52e9b6e4b1547cd6880"
+      },
+      {
+        "file": "src/simulation/encounters/expanded-state.ts",
+        "bytes": 4232,
+        "sha256": "b3768fb6924ee24338144d3a220c1ed77be3d680bfe588dc319475c7ac715e58",
+        "after": "ec795d93ffe8c19652f99abc9408de095ed9e8f192d3e3ac4e80f3c6c14844a0"
+      },
+      {
+        "file": "src/simulation/encounters/expanded.ts",
+        "bytes": 29973,
+        "sha256": "753647640fa7d1a4621b1f11430f51b5b33fae7e42723520c66f9d348ed1230e",
+        "after": "f29f0e01f86c6268438beb076fd6dd0e6aa0351dbff7adc85b6bb9222d8a234d"
+      },
+      {
+        "file": "src/simulation/encounters/runtime.ts",
+        "bytes": 17600,
+        "sha256": "4916aca5caa0e67f350e3d770aaee813b8d1582f70cea90fcb475a4fa4f8eab0",
+        "after": "d1af4f7833ddc0225a2e17a16951ff332586073f1c4eb7f1b33b9d964e35c448"
+      },
+      {
+        "file": "src/simulation/expedition-economy.ts",
+        "bytes": 18523,
+        "sha256": "f416924d3034f538a57062f9f5925a0bdb401456a007fe5ed000a5fd69460d37",
+        "after": "38f343f9cb1c253dd1aaa21d458117edf8bdacb0ede13b37493434da16d0932c"
+      },
+      {
+        "file": "src/simulation/field-events/hordes.ts",
+        "bytes": 2823,
+        "sha256": "d445095670adf1ee28dcf940d6a3a76f0de41a97283d76cb35efeaaa92c9e637",
+        "after": "6209921f647ddf32aea06bc11bb914844e2d06c1dda3ea3dd980fcd2a8aa081a"
+      },
+      {
+        "file": "src/simulation/field-events/state.ts",
+        "bytes": 1397,
+        "sha256": "3c1b6fddac26af3466ab4d740bdc9d09ce599b9575c3b6682156edb3ce58a9f3",
+        "after": "50aa58dbc166442848542d4f7d73e71b888f50d413d3423dfe603da7b4ee31f8"
+      },
+      {
+        "file": "src/simulation/fun-shop/bait.ts",
+        "bytes": 2783,
+        "sha256": "03ad3a2c8c677c6869280ceea3e0aa5f33cbd015e806a3d63b606ec9627d0125",
+        "after": "ff182fba8e0b1e042794ace4baa9eca51bd5834aaf2103f31d90f89eb248f4cd"
+      },
+      {
+        "file": "src/simulation/fun-shop/state.ts",
+        "bytes": 7072,
+        "sha256": "9af2f2f9b8d4db0c6e1d604e5c82af651a0c46006b5d08a4ef92aed49ec27b2d",
+        "after": "53f02b6059aa4c11c3de3d525a4f3b3d3cec565c563065253e12d5fc6224fc7f"
+      },
+      {
+        "file": "src/simulation/missions/runtime.ts",
+        "bytes": 14621,
+        "sha256": "93dbcece87996e37585350f65c42766a31b6d6b240e481e1a4dc5f070cd4a27e",
+        "after": "846d3f955c933dfffc5986711c531a4b18262ef1653da406dff1419e2ff328f9"
+      },
+      {
+        "file": "src/simulation/movement/enemy-routes.ts",
+        "bytes": 2249,
+        "sha256": "06e6d531ca9f8a5a26aee468821944685ef316457d471aef86069026fea2000e",
+        "after": "14793ef32af8e3cf95cb617fdcd5ea9d9d0e5b180592d5b8677d31a1cd712755"
+      },
+      {
+        "file": "src/simulation/persistence/run-fields.ts",
+        "bytes": 22404,
+        "sha256": "f9dffccdc9082cb214a009b110b7fdbe87d3c55c562f1b2149f457790d019a8c",
+        "after": "4b8c4738a87321ede0983eb51b6117171d73f23681eb5ae155a317f1bde615b0"
+      },
+      {
+        "file": "src/simulation/progression/expedition-drafts.ts",
+        "bytes": 37210,
+        "sha256": "7a6acfa394155166ce78d3371b024ddc4041c6db8c34dd780545f3ae1e1d8857",
+        "after": "8e90e1df1c0d60c03837ef43550385b7cf69dd8549d4a7d378a3f9a99ec368c2"
+      },
+      {
+        "file": "src/simulation/special-stages/runtime.ts",
+        "bytes": 9127,
+        "sha256": "01286f12a64377b78933763edb8cb6d14bb3838dbe2e8841583d201ef70d372e",
+        "after": "f0ddee954693fac462ddd77faa9c30458c493d9c1252c799195363f58bbd73f6"
+      },
+      {
+        "file": "src/simulation/special-stages/state.ts",
+        "bytes": 2863,
+        "sha256": "132a7bbddfd611a58139ae798c9ebdcf78d230f1cf408564ae675ad75b2f3ff0",
+        "after": "244c029c4a43a49d88cbcd0d4ee85ec09b7df0725d0002df04c57713305844ed"
+      },
+      {
+        "file": "src/simulation/world.ts",
+        "bytes": 169016,
+        "sha256": "3eef0dfcacb2d393f1f6ac2eef8277d6834cf31bb7e8fb7f02a93a3f87c8f03f",
+        "after": "3f492995777b23e4c1fe0100e5b640914952e1684e13e8e4b5c432db232cead1"
+      },
+      {
+        "file": "src/ui/hud/field-interactions.ts",
+        "bytes": 2706,
+        "sha256": "2a46479293cda3428990d41a2628a1540bba2908d4793cbcf3b757a64cc80fd7",
+        "after": "9275bc386d2e073a3ebc148e18f9453fd8e01296f703fb50ccd1cacbed96fc8f"
+      },
+      {
+        "file": "src/ui/hud/special-stages.ts",
+        "bytes": 2343,
+        "sha256": "4439101a044ac5d530fefc8b53820c80777ec839d0768e0c76cde52090af2fb5",
+        "after": "4c3c9d776dfd24b35c6977a84d7fdf5558f480402eb7a4c1391ffb2d373df86e"
+      },
+      {
+        "file": "src/ui/hud.ts",
+        "bytes": 56294,
+        "sha256": "9974f75ace1eecda7afdf2aef85ea3a64e6688b37c27999b9f14190a0561d1d7",
+        "after": "cef6d9a0dbfed7ed17a4d10f673c9ca069ccabf0dae1d4a7ce9a82a512f8399d"
+      },
+      {
+        "file": "src/ui/presentation/intermission.ts",
+        "bytes": 35701,
+        "sha256": "58897d14496b11e3f60d2b5daf5da1b866c6e4f1f72239f8773703ebdce1e2ba",
+        "after": "77e86704c1b9b85bea263e7e264f7743dbb894f8566353bb237c7b64b942cc79"
+      },
+      {
+        "file": "src/ui/starship/effect-text.ts",
+        "bytes": 19568,
+        "sha256": "1e2504531ec5e5309e47645b18132b2f21d004abba7259405fef9e353a20b3f6",
+        "after": "aa5dc0e43ad9e003f4d9fe7de24cbaf2d8a905ee3668ec3c499a55c3fcf7b2e2"
+      },
+      {
+        "file": "src/ui/starship/legacy-view.ts",
+        "bytes": 49676,
+        "sha256": "0df99327dd0ba512376c2cba6641d9b0a81fd607d934066ea6acbd23958eb0b9",
+        "after": "410d1734d9a88009f79061b398d82f3bb40a08c0e50da7a50846d1c27fa6edb2"
+      },
+      {
+        "file": "src/ui/starship/native.css",
+        "bytes": 6237,
+        "sha256": "8a8d215731ca0438e5c7ce2884f86c9263365dad6fb26ec608ad805bba7d0c6e",
+        "after": "3e8996a94853cc1a0c9140722ec8f813b931321bab2b836643d3d52e2fcc6c57"
+      },
+      {
+        "file": "test/campaign18-world.test.ts",
+        "bytes": 8827,
+        "sha256": "37880b19d8fbc1dd597c1179987f8f93a4eedd8207659f6966cb710990ae10a1",
+        "after": "5dd7acd4d46b95a718e5cf06ae5fecd9c449725e622666f8e8199d1016236e5b"
+      },
+      {
+        "file": "test/expanded-encounters.test.ts",
+        "bytes": 24427,
+        "sha256": "bbf0dda5b96acd04b5098f67934fa85af900c79112c8fbc58cf09f28db760036",
+        "after": "4595eb10513f9cb90eff1cd3a0a8d83d288db1c42ce20f911e8edc69dac92493"
+      },
+      {
+        "file": "test/field-events.test.ts",
+        "bytes": 3870,
+        "sha256": "a36afab1d148ea1967c4701b0cb857229c1ff6def99ef9e83c13a9ace378eed1",
+        "after": "1d730fe11cfc465b6ed0ef202a8e617f47c821fba32b5b4bf4d0e9ac09b04916"
+      },
+      {
+        "file": "test/field-stage-runtime.test.ts",
+        "bytes": 7945,
+        "sha256": "612c62e2d61f746de4886e7975d7f487764ecc2b192a76e941a90fa47eea7b76",
+        "after": "0b0bc0f029625a8e821ee6d95bbb8c90b8b4d75efd7fe94c40b52572e0248b05"
+      },
+      {
+        "file": "test/fun-lab.test.ts",
+        "bytes": 3537,
+        "sha256": "1ab14bef3703965d793af3a5ff6f56052d05c4d4720e7a01062a019ff9854b06",
+        "after": "7f03977412432898a1096b10d2d061dd75550e7e8e8652dc7c210cc47f75c6f2"
+      },
+      {
+        "file": "test/fun-shop-boundaries.test.ts",
+        "bytes": 10523,
+        "sha256": "b1f643c063567173ea1cb94ba944ba360527a876e91d5da3a971a7bbd6505879",
+        "after": "f4621205d202e00648759c9f66aa5320bc0301b59a061072341185fb9dd4199c"
+      },
+      {
+        "file": "test/fun-shop.test.ts",
+        "bytes": 11838,
+        "sha256": "9054339748372c459c7231e271b5675dacdd45969e7ad318aa9bf0c6cd3e5c4a",
+        "after": "0cb8ad00db25134f1e049d52422aabf7b5583744b43bf4bd1795a84b4cea7129"
+      },
+      {
+        "file": "test/fun-visual-batch2.test.ts",
+        "bytes": 6514,
+        "sha256": "6659b30d4b5c85dd030f5f1037c82ed25894715e905727defbeef25407d7888e",
+        "after": "40ec066336a0c84a39a1de366b2642a91d691fc8efd9f624abd9a694783e61a4"
+      }
+    ],
+    "added": [
+      "src/simulation/encounters/corrupted-protoss.ts",
+      "src/simulation/field-events/event-window.ts",
+      "src/simulation/field-events/pacing.ts",
+      "src/simulation/special-stages/tickets.ts",
+      "src/ui/starship/equipment-description.ts",
+      "test/fun-feedback-r4-corrupt.test.ts",
+      "test/fun-feedback-r4-interactions.test.ts",
+      "test/fun-feedback-r4-pacing.test.ts"
+    ],
+    "finalSourceTests": 816,
+    "cameraInput": {
+      "unchanged": [
+        {
+          "file": "src/render/input/battle-picking.ts",
+          "bytes": 4112,
+          "sha256": "16ad72805890609fc5f035f3139b5930e0ce3132ab525d8afb63575b9679d143"
+        },
+        {
+          "file": "src/render/input/battle-view.ts",
+          "bytes": 2028,
+          "sha256": "fd1f218d9455f1ba42b46c2f0cf93616b443c747a15fed1975b8f9b06841d93e"
+        },
+        {
+          "file": "src/render/input/pixel-scale.ts",
+          "bytes": 519,
+          "sha256": "9fe40d201a38c327858a68b8f7ab42b082415350885e5b542c99fabcff43a06e"
+        },
+        {
+          "file": "src/render/scene/camera-controller.ts",
+          "bytes": 12301,
+          "sha256": "b4564eb90e15ef143822ba3ee21f54133572172c8372f945cb56a70097a1f4f6"
+        },
+        {
+          "file": "src/ui/controls/battle-actions.ts",
+          "bytes": 10802,
+          "sha256": "c78e9752697bac6b224e1bd03e7a148e458f9f59eb628caa9535a0d75abdab10"
+        },
+        {
+          "file": "src/ui/controls/settings.ts",
+          "bytes": 1432,
+          "sha256": "9359cea49b824dad23ea6a7a0303a4782b57554d8c98189403823c835a50900e"
+        },
+        {
+          "file": "src/ui/controls/skills.ts",
+          "bytes": 2491,
+          "sha256": "728654cdb778988066f60a6354da32ed85f8b937944f89f417734d7aa98eda82"
+        },
+        {
+          "file": "src/ui/mobile/input.ts",
+          "bytes": 12197,
+          "sha256": "31e9c688c31a4704d04f9d929f025e0a7c97473d4215da9b3e0bc9c50b8fbd94"
+        },
+        {
+          "file": "src/ui/presentation/input-capture.ts",
+          "bytes": 991,
+          "sha256": "b2c318bd10ce7071b8c89b474d741ff72b8e4cbe67536c25b0f642d4db0cef4e"
+        },
+        {
+          "file": "test/camera-calibration.test.ts",
+          "bytes": 10862,
+          "sha256": "c7315375fce13dc5ccb5dda4733ddc6994c1595d4b0e9b2859cce5b3de9f4100"
+        },
+        {
+          "file": "test/camera-control.test.ts",
+          "bytes": 6341,
+          "sha256": "3e4f8abc69288555493bc2402448fb4b4ebfbf65c603d943b1708630a7a9e93b"
+        },
+        {
+          "file": "test/cinematic-camera.test.ts",
+          "bytes": 2599,
+          "sha256": "c31aff42b976e6975a466a4bc5097fbfb7cc5a10945e45e62439d792c2d62b4b"
+        }
+      ],
+      "rendererChange": "Only adds corruptSiteBodies to existing mission-model draw loop plus import; remainder byte-exact"
+    },
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "delivery": [
+      {
+        "mode": "game",
+        "web": "D:\\星际\\reports\\local\\feedback-r4-20261022/web-game-r2",
+        "webInputs": 498,
+        "offlineInputs": 503,
+        "assets": 1909,
+        "resources": 1852,
+        "chunks": 2975,
+        "webJs": "4f644361ad7e31a78a175950d6f8eebbafbbf43d66286cc32ddfccdb299a12f0",
+        "offlineHtml": "17a2c80a029e7291d401bb955d5d0dff711f92f0fa2f476040469f88004d73ac",
+        "allInputsAndOutputsExact": true
+      },
+      {
+        "mode": "lab",
+        "web": "D:\\星际\\reports\\local\\feedback-r4-20261022/web-lab-r2",
+        "webInputs": 499,
+        "offlineInputs": 504,
+        "assets": 1909,
+        "resources": 1852,
+        "chunks": 2975,
+        "webJs": "fd7491164ac740f9771ad4e4725d44a281b1d34daa7124fc16adee69fd32899d",
+        "offlineHtml": "d407cf611e7484225e07c61bf1c2bbd916b6b661ff1a63d70ffcede09cf3e6d4",
+        "allInputsAndOutputsExact": true
+      }
+    ]
+  },
+  "tests": {
+    "complete": 2171,
+    "passed": 2171,
+    "failed": 0,
+    "new": 32,
+    "log": "reports/local/feedback-r4-20261022/full-regression-final-r2.log",
+    "typecheck": "reports/local/feedback-r4-20261022/typecheck-final-r2.log",
+    "dataCheck": "reports/local/feedback-r4-20261022/docs-check-final-r2.log"
+  },
+  "browser": [
+    {
+      "name": "qa-interactions-r9",
+      "path": "reports/local/feedback-r4-20261022/qa-interactions-r9/result.json",
+      "records": 23,
+      "screens": 19,
+      "pass": true
+    },
+    {
+      "name": "qa-battle-r4",
+      "path": "reports/local/feedback-r4-20261022/qa-battle-r4/result.json",
+      "records": 25,
+      "screens": 11,
+      "pass": true
+    },
+    {
+      "name": "qa-hordes-r3",
+      "path": "reports/local/feedback-r4-20261022/qa-hordes-r3/result.json",
+      "records": 4,
+      "screens": 8,
+      "pass": true
+    },
+    {
+      "name": "qa-production-r2",
+      "path": "reports/local/feedback-r4-20261022/qa-production-r2/result.json",
+      "records": 8,
+      "screens": 4,
+      "pass": true
+    },
+    {
+      "name": "qa-touch-r2",
+      "path": "reports/local/feedback-r4-20261022/qa-touch-r2/result.json",
+      "records": 8,
+      "screens": 6,
+      "pass": true
+    }
+  ],
+  "screensReviewed": 48,
+  "hordes": [
+    {
+      "kind": "zerglings",
+      "stage": 12,
+      "unlockStage": 4,
+      "total": 150,
+      "limit": 150,
+      "pulse": 15,
+      "seconds": 20,
+      "peak": 30
+    },
+    {
+      "kind": "roachHydra",
+      "stage": 12,
+      "unlockStage": 6,
+      "total": 110,
+      "limit": 110,
+      "pulse": 11,
+      "seconds": 20,
+      "peak": 32
+    },
+    {
+      "kind": "mutalisks",
+      "stage": 12,
+      "unlockStage": 8,
+      "total": 70,
+      "limit": 70,
+      "pulse": 7,
+      "seconds": 20,
+      "peak": 21
+    },
+    {
+      "kind": "ultralisks",
+      "stage": 12,
+      "unlockStage": 10,
+      "total": 30,
+      "limit": 30,
+      "pulse": 3,
+      "seconds": 20,
+      "peak": 8
+    }
+  ],
+  "recovery": {
+    "evidence": "reports/local/feedback-r4-20261022/qa-battle-r4/recovery-state.json",
+    "exactExcept": [
+      "paused",
+      "notice",
+      "noticeUntil"
+    ],
+    "reason": "Existing context-recovery lifecycle pauses battle and changes recovery notice; all other full snapshot fields exact."
+  },
+  "priorFailures": {
+    "interactions": "R1 network sandbox, R2 local server reachability; R3/R4 invalid fixture equipment IDs; R5 incorrect backpack selector; R6 real tooltip reopened after full detail (fixed in final R2); R7 immediate native claim wrongly expected modal; R8 native flip selector mismatch; R9 passed.",
+    "battle": "R1 sampled before simulation readiness; R2/R3 whole snapshot assertion included expected pause and recovery notice; R4 exact gameplay state and native portal route passed.",
+    "hordes": "R2 expected unlocking stage instead of existing practice stage 12; final R3 uses real stage 12 and records each unlocking threshold separately.",
+    "regression": "First 2170 run: 2161 pass/9 fail (7 local network permission, 2 obsolete accepted-rule assertions); final 2171 complete pass includes the added post-20-second practice isolation case."
+  },
+  "archive": {
+    "plan": "reports/local/feedback-r4-20261022/archive-r1-plan.json",
+    "originalBytes": 1580685309,
+    "compressedBytes": 16478256,
+    "method": "Exact gzip prefix/suffix plus final R2 shared asset section. Restore with python tools/archive-feedback-r4.py restore <path>. Full files may be removed only after separate path validation."
+  },
+  "remaining": [
+    "Fourth-feedback item 8 moved to G01: hero sources/earliest stage, early strength and stage-12 Boss candidate evaluation plus implementation of the agreed decision; still incomplete. G03 retains overall economy/four-difficulty balance after G01/G02.",
+    "U05 remaining full-flow guidance",
+    "Third/fourth visual batches, T01, D05/D06, V01–V06 and MVP closure"
+  ],
+  "unchanged": {
+    "current": true,
+    "camera": true,
+    "mouseAndTouchInput": true,
+    "performancePathsOutsideApprovedChanges": true,
+    "committed": false,
+    "pushed": false,
+    "published": false
+  },
+  "cleanup": {
+    "profileFiles": 2596,
+    "scope": "Only owned closed R4 QA browser profile and two obsolete R1 offline files with SHA-exact reconstruction. Sources, logs, screenshots, final R2 builds and Current retained.",
+    "profile": "D:\\星际\\reports\\local\\feedback-r4-20261022\\qa-shared\\profile",
+    "browserClosed": true,
+    "protectedExact": true,
+    "archivedBuilds": [
+      {
+        "path": "D:\\星际\\reports\\local\\feedback-r4-20261022\\offline-game-r1.html",
+        "bytes": 790333946,
+        "sha256": "f1855c26cd10359cfb59e967ab15c734975aecc7e078f7461ebb3c3f6b49c3d4",
+        "restore": "python tools/archive-feedback-r4.py restore reports/local/feedback-r4-20261022/offline-game-r1.html"
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\feedback-r4-20261022\\offline-lab-r1.html",
+        "bytes": 790351363,
+        "sha256": "70cefdbba3d9ff0f177e39da047caeb96b471c47f776ed556471098394b0cd9d",
+        "restore": "python tools/archive-feedback-r4.py restore reports/local/feedback-r4-20261022/offline-lab-r1.html"
+      }
+    ],
+    "pass": true,
+    "protectedFiles": 870,
+    "archiveCompressedBytes": 16478256,
+    "profileLogicalBytes": 768768378,
+    "evidence": "reports/local/feedback-r4-20261022/cleanup.json",
+    "archivePostCleanupVerified": true
+  },
+  "followUpPlanning": {
+    "boardRevision": 115,
+    "feedbackItem": 8,
+    "owner": "G01",
+    "followUp": "G03 overall balance",
+    "status": "planned, not implemented",
+    "scope": "Scheduling only; hero gate and strength not yet decided or modified; prior QA evidence unchanged."
+  }
+}

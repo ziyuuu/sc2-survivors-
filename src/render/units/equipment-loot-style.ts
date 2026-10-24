@@ -44,6 +44,10 @@ export function layoutEquipmentLabels(candidates:LootLabelCandidate[],width:numb
   if(!added)unplaced.push(c);
  }
  // Attach a suppressed local name to the closest visible label without inventing a new item.
- for(const c of unplaced){const near=[...placed].sort((a,b)=>Math.hypot(a.x-c.x,a.y-c.y)-Math.hypot(b.x-c.x,b.y-c.y))[0];if(near&&Math.hypot(near.x-c.x,near.y-c.y)<140)near.extra++;}
+ for(const c of unplaced){
+  let near:typeof placed[number]|undefined,best=Infinity;
+  for(const p of placed){const distance=Math.hypot(p.x-c.x,p.y-c.y);if(distance<best){best=distance;near=p;}}
+  if(near&&best<140)near.extra++;
+ }
  return placed;
 }

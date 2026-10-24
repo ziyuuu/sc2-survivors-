@@ -15,6 +15,8 @@ export interface Talents {permanent_discount:number; frugal_build:number; free_h
 export interface Project extends Omit<DevelopmentDefinition,'kind'> {kind:DevelopmentDefinition['kind']|'evolution'; batch?:number; direction?:Direction}
 export interface Offer {id:string; projectId:string; window:number; revision:number; level:number; cost:Cost; baseCost:Cost; discount:number; targets:string[]}
 export interface BuildingState {
+ missionTechnology?:string;
+ missionReserved?:Partial<Record<FacilityKind,number>>;
  race:Race; stage:number; revision:number; window:number; phase:'building'|'shop'|'front'; direction:ProductionLineId;
  wallet:Cost; tech:Record<string,number>; groups:ProductionGroup[]; nextFacility:number; bought:boolean;
  baseRefreshUsed:boolean; bonusRefresh:number; paidRefresh:number; talents:Talents; randomState:number;
@@ -57,10 +59,10 @@ export function evolutionTargets(s:BuildingState,id:string) {
  return s.groups.filter(g=>g.kind==='hatchery'&&!g.directions.includes(d.direction!));
 }
 export function eligible(s:BuildingState,d:Project,target?:string) {
- if(d.race!==s.race||s.stage<d.afterStage)return false;
+ if(d.id===s.missionTechnology||d.race!==s.race||s.stage<d.afterStage)return false;
  if(d.kind==='evolution')return evolutionTargets(s,d.id).some(g=>!target||g.id===target);
  if(d.requires.some(id=>!(s.tech[id]>0)&&!facilityCount(s,id)))return false;
- if(d.kind==='facility')return facilityCount(s,d.id)+(d.batch??1)<=d.maxLevel;
+ if(d.kind==='facility')return facilityCount(s,d.id)+(s.missionReserved?.[d.id as FacilityKind]??0)+(d.batch??1)<=d.maxLevel;
  if(!ownsLine(s,d.line!))return false;
  if(d.unlock==='family')return canUnlock(s,d.families[0]);
  const level=s.tech[d.id]??0;
@@ -71,7 +73,7 @@ export const activeGroupOutputs=(g:ProductionGroup)=>g.enabled?g.outputs.filter(
 
 /** Sole facility initializer: paid construction and future event/equipment grants share this path. */
 export function grantFacility(s:BuildingState,kind:FacilityKind):ProductionGroup|null {
- const d=project(kind);if(!d||d.kind!=='facility'||d.race!==s.race||facilityCount(s,kind)+(d.batch??1)>d.maxLevel)return null;
+ const d=project(kind);if(!d||d.kind!=='facility'||d.race!==s.race||facilityCount(s,kind)+(s.missionReserved?.[kind]??0)+(d.batch??1)>d.maxLevel)return null;
  const ids=Array.from({length:d.batch??1},()=>s.nextFacility++),id=kind==='hatchery'?'h'+ids[0]:kind==='crystal'?'crystal-pair':kind;
  let g=s.groups.find(g=>g.id===id);const created=!g;
  if(g)g.ids.push(...ids);

@@ -1,7 +1,7 @@
 import type * as THREE from 'three';
 
 export type UnitShader=Parameters<THREE.Material['onBeforeCompile']>[0];
-export interface UnitPoseUniforms {atlas:THREE.DataTexture;bind:THREE.Matrix4;asset:THREE.Matrix4;pivot:THREE.Vector3;accent:THREE.Vector2}
+export interface UnitPoseUniforms {simple?:boolean;atlas:THREE.DataTexture;bind:THREE.Matrix4;asset:THREE.Matrix4;pivot:THREE.Vector3;accent:THREE.Vector2}
 /** One original-pose program for colour, directional shadows and contact depth. */
 export function compileUnitPose(shader:UnitShader,pose:UnitPoseUniforms){
  shader.uniforms.turretPivot={value:pose.pivot};shader.uniforms.unitBoneAtlas={value:pose.atlas};shader.uniforms.unitBind={value:pose.bind};shader.uniforms.unitAsset={value:pose.asset};shader.uniforms.unitAccentRange={value:pose.accent};
@@ -23,4 +23,5 @@ export function compileUnitPose(shader:UnitShader,pose:UnitPoseUniforms){
   .replace(/void main\(\)\s*\{/, 'void main() {\nmat4 unitTransform=unitSkin();')
   .replace('#include <beginnormal_vertex>','#include <beginnormal_vertex>\nobjectNormal=mat3(unitTransform)*objectNormal;objectNormal=mix(objectNormal,aimTurret(objectNormal),unitTurret);')
   .replace('#include <begin_vertex>','vec3 transformed=(unitTransform*vec4(position,1.0)).xyz; transformed=mix(transformed,aimTurret(transformed-turretPivot)+turretPivot,unitTurret); unitHit=unitPose.w; specialTier=unitTier; localAccent=smoothstep(unitAccentRange.x,unitAccentRange.y,position.y);');
+ if(pose.simple)shader.vertexShader=shader.vertexShader.replace('attribute vec2 unitAim; attribute float unitTurret;','const vec2 unitAim=vec2(0.0,1.0); const float unitTurret=0.0;').replace('attribute vec4 unitBlend; attribute float unitUpper;','const vec4 unitBlend=vec4(0.0); const float unitUpper=0.0;');
 }

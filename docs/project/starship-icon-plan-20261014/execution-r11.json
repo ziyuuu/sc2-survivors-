@@ -1,0 +1,387 @@
+{
+  "schemaVersion": 1,
+  "batch": "R11",
+  "date": "2026-10-15",
+  "userMessage": "请先做白色和绿色吧。",
+  "scope": "Remaining 18 white/green module keys from R10; existing white/green artwork reused unchanged",
+  "planSnapshot": "manifest.json",
+  "planTotalProposed": 372,
+  "thisBatchReady": 18,
+  "thisBatchNewArt": 18,
+  "white": 12,
+  "green": 6,
+  "generationCalls": 21,
+  "generationConnectionFailures": 3,
+  "retrySuccesses": 3,
+  "combinedReady": 366,
+  "remainingUngeneratedProposed": 6,
+  "whiteGreenCatalogRecords": 258,
+  "whiteGreenArt": 114,
+  "priorUserAccepted": 12,
+  "newArtUserAccepted": false,
+  "remaining": [
+    {
+      "artKey": "protoss/set/hero/ammo",
+      "race": "protoss",
+      "theme": "普通英雄",
+      "category": "set",
+      "qualities": [
+        "purple"
+      ]
+    },
+    {
+      "artKey": "protoss/set/hero/stabilizer",
+      "race": "protoss",
+      "theme": "普通英雄",
+      "category": "set",
+      "qualities": [
+        "purple"
+      ]
+    },
+    {
+      "artKey": "terran/set/hero/ammo",
+      "race": "terran",
+      "theme": "普通英雄",
+      "category": "set",
+      "qualities": [
+        "purple"
+      ]
+    },
+    {
+      "artKey": "terran/set/hero/stabilizer",
+      "race": "terran",
+      "theme": "普通英雄",
+      "category": "set",
+      "qualities": [
+        "purple"
+      ]
+    },
+    {
+      "artKey": "zerg/set/hero/ammo",
+      "race": "zerg",
+      "theme": "普通英雄",
+      "category": "set",
+      "qualities": [
+        "purple"
+      ]
+    },
+    {
+      "artKey": "zerg/set/hero/stabilizer",
+      "race": "zerg",
+      "theme": "普通英雄",
+      "category": "set",
+      "qualities": [
+        "purple"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "artKey": "terran/module/m01",
+      "race": "terran",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-terran--module--m01.png",
+        "bytes": 2341132,
+        "sha256": "d2bf0ece7305e2bc8ba43412c5c42c44e7022cf23da2f11622039295df647a73"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-terran--module--m01.webp",
+        "bytes": 15234,
+        "sha256": "c2617a2a22fcf10533fe071c0dd7e3418880431f21dc7d8da15b8d0d4c870a1f"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-2eb49231-61b4-4ee7-a9ca-ca5517a77690.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "zerg/module/m01",
+      "race": "zerg",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-zerg--module--m01.png",
+        "bytes": 2057527,
+        "sha256": "45a10045b19f65d0fa49c5e79c13ce3b8c82301dd4d0601aecbce9318acf2314"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-zerg--module--m01.webp",
+        "bytes": 12346,
+        "sha256": "f5ffd4ac3cbef47d824d5192942b8360ca4c79b06c61ecdad0419e0e7652fca0"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-10d44d61-e5ad-4ef3-9dcc-bf09c8c84923.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "protoss/module/m01",
+      "race": "protoss",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-protoss--module--m01.png",
+        "bytes": 1931423,
+        "sha256": "defbe485b087a2ae0e88289388c71c911376d0c820628c0c68c28626c296b325"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-protoss--module--m01.webp",
+        "bytes": 12278,
+        "sha256": "3d116f57278da3e7f38a884b1c62c55bada0e25a78cd026f0a8252c89c14b712"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-3a7c4d04-611d-45e2-91eb-36d1edd57c79.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "terran/module/m02",
+      "race": "terran",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-terran--module--m02.png",
+        "bytes": 1913984,
+        "sha256": "2b7381d9a51fc606d33a394ec795cf65281e4dac3e75992279f6d95856ceac55"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-terran--module--m02.webp",
+        "bytes": 8516,
+        "sha256": "31c0aa8fa9f1cf8cbfc73d6cc321924915e89956a4306fc15519042697b03161"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-3d812e76-85b0-485d-832c-61857159be9e.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "zerg/module/m02",
+      "race": "zerg",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-zerg--module--m02.png",
+        "bytes": 1974098,
+        "sha256": "b225216ca7e8a53c6b04ff5417a6c3ac1e2f262798e48b3987fe8103c8a2adf9"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-zerg--module--m02.webp",
+        "bytes": 11402,
+        "sha256": "d4d3b1295e73e7fae59b6fb5206c10d00875efcc599621599a02d3f07bade5dc"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-01006e6e-0d10-420e-b7fb-317042aec8b5.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "protoss/module/m02",
+      "race": "protoss",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-protoss--module--m02.png",
+        "bytes": 1805114,
+        "sha256": "249b5d63f1be637e3283fb420af550b27923be00ff8d5b98695cd447950ba46d"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-protoss--module--m02.webp",
+        "bytes": 9180,
+        "sha256": "0681a0b6a0f742bdb7997c4ae1a93dd64bd7e5629a70b69998dc2cd8d9066336"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-74e2244b-6f4e-4382-a91d-a5a134e5bc88.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "terran/module/m03",
+      "race": "terran",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-terran--module--m03.png",
+        "bytes": 2141047,
+        "sha256": "b70101e35f5c1fc080e9cbf2bfc8c1fca2ba5e179c58b4cf14aeab0e23c4f6e4"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-terran--module--m03.webp",
+        "bytes": 12342,
+        "sha256": "e9d1a5d9d0a472bfd387546191c98c273375cf3f13eef33a905d724a6c8f7022"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-fa55039c-5e9c-4ed4-9c6e-3488b0b11f5c.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "zerg/module/m03",
+      "race": "zerg",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-zerg--module--m03.png",
+        "bytes": 1962092,
+        "sha256": "39524b60a2373fc50038dbe1a0003544a08c67ff000fb78733e5fcfeba2c172c"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-zerg--module--m03.webp",
+        "bytes": 11306,
+        "sha256": "f1030abe4b75d20f21e7cdd4a29157b493a6923567c6b608898a73c297fcc422"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-ace8fb8e-b5ce-4f8b-9965-ffc13a1217bc.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "protoss/module/m03",
+      "race": "protoss",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-protoss--module--m03.png",
+        "bytes": 1870502,
+        "sha256": "66b44ac7fcc27ba397a3a6c26a61b8b2925fe0ba82b9f7e8859b230350720892"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-protoss--module--m03.webp",
+        "bytes": 10088,
+        "sha256": "75f9fa35b8ed1404609714db8451419f2fffe0878872a3c063ab44764f232433"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-328175dd-a73b-4d7a-814e-d102fd37bbec.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "terran/module/m04",
+      "race": "terran",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-terran--module--m04.png",
+        "bytes": 2055405,
+        "sha256": "47675f89e19e2b03d49a09dd0f91839323a132c2327fd168971b9c6d4b0ff4f7"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-terran--module--m04.webp",
+        "bytes": 10504,
+        "sha256": "e14a2c7c888fff9722a60c2e94146ee78fa02650df985540585fb4a18a27ba48"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-f0e7a81c-7701-4c11-a36c-0aad34738029.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "zerg/module/m04",
+      "race": "zerg",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-zerg--module--m04.png",
+        "bytes": 1932646,
+        "sha256": "dc6984380cce44a7ffebd26dc3bcc1c2da4ac25fbc114f55c88073190011c5a6"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-zerg--module--m04.webp",
+        "bytes": 11328,
+        "sha256": "61932a677b13b13419a16ee992fc6ef32766fe9a8abb865afd7c98547b337a63"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-b92ed6a7-21df-48bf-a110-61f1d5ab9a59.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "protoss/module/m04",
+      "race": "protoss",
+      "quality": "white",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-protoss--module--m04.png",
+        "bytes": 1890920,
+        "sha256": "3a0760c14fd6ffce1f52e9a8d3beab23f5aabb7cbd51eaaf179be92001a51b59"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-protoss--module--m04.webp",
+        "bytes": 11282,
+        "sha256": "6c22816de9a36d80ae3c8086a8868352f09ebac7affe595461586140d2aeab21"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-d7fad254-d98a-49a2-a288-5de58f87dcfe.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "terran/module/m20",
+      "race": "terran",
+      "quality": "green",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-terran--module--m20.png",
+        "bytes": 2252482,
+        "sha256": "7b25e57dc4db3f79ab7bb05f2daa66bdbcd0c6e91868a6d0cec54e748329be8c"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-terran--module--m20.webp",
+        "bytes": 13688,
+        "sha256": "871b0f3994af0ae075c625955e416961e8830dea7ab8de36b40e9309698fe74d"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-76df9ad9-d992-420f-9ad7-ebd1363e8d47.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "zerg/module/m20",
+      "race": "zerg",
+      "quality": "green",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-zerg--module--m20.png",
+        "bytes": 2212099,
+        "sha256": "d98f050662deab61641d380fcd28fa41fe446fd8228b7b148b37abb8bc920f8e"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-zerg--module--m20.webp",
+        "bytes": 15416,
+        "sha256": "76e89913cb7f96ca0f2703ac2842f2482a5c06fc41853bed8d9aa46440697076"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-84f99161-90d7-4172-b677-81c39f4c01dc.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "protoss/module/m20",
+      "race": "protoss",
+      "quality": "green",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-protoss--module--m20.png",
+        "bytes": 1919809,
+        "sha256": "6e7e6c7b2ea8dca1933a4ef5b46a9bf8d04b6d652391bc656bfc7996c8fd8067"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-protoss--module--m20.webp",
+        "bytes": 11632,
+        "sha256": "28e9ac298cce51d838fac3c3f1762c2b3260e36865dc0cabb51879f4df3034a5"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-ce62666f-442e-43d0-9bf5-b90b7c09d6e8.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "terran/module/m22",
+      "race": "terran",
+      "quality": "green",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-terran--module--m22.png",
+        "bytes": 2227586,
+        "sha256": "b75148664a9883a1b9bdd27e8410f214c1e13813bbd8fb18467294fcaf4f7a0c"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-terran--module--m22.webp",
+        "bytes": 12776,
+        "sha256": "18aac71d6fd9b9c630bbb0ecc8160e57f5d29eb0d1f2bb119f2c2ba92dfa583d"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-e812bb01-3223-4477-abd6-5821a2208a52.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "zerg/module/m22",
+      "race": "zerg",
+      "quality": "green",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-zerg--module--m22.png",
+        "bytes": 2025453,
+        "sha256": "aa340d85d79a220c00a7cc9c5a50bed06fc7abdabdc8413b6b2e86ab5cc5f82a"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-zerg--module--m22.webp",
+        "bytes": 13120,
+        "sha256": "9a677bb39d8d217053a931dc5543000ba46ad59481fed1dff85c0517bf26d598"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-eba6dced-243f-428b-b9a1-f7868ea74f52.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "protoss/module/m22",
+      "race": "protoss",
+      "quality": "green",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/art-source/low-protoss--module--m22.png",
+        "bytes": 1956193,
+        "sha256": "d7a067e8e3e800e8b334ffc4addddb4462b85cbf7b4907e21fd0cd77a33014f2"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r11/assets/sample-low-protoss--module--m22.webp",
+        "bytes": 12748,
+        "sha256": "7bfa9c809abae3a87e8e5d5741f9505b227e9fa70ba7a4d38716da2d8f19bef5"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-168458cd-3da1-402a-843a-68c10f8b9263.png",
+      "status": "generated_awaiting_user_review"
+    }
+  ],
+  "evidence": "../../../reports/local/starship-ui-20261015-r11/delivery.json"
+}

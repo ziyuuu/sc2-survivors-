@@ -1,3 +1,5 @@
+import {SourceEventIndex} from './source/event-index';
+import {renderFunSource} from './fun-source-effects';
 import {EquipmentEffects} from './equipment-effects';
 import * as THREE from 'three';
 import type {World} from '../../simulation/world';
@@ -29,6 +31,7 @@ export class SourceCombatEffects {
  private hologramDeaths=new Map<number,VisualEvent>();
  constructor(scene:THREE.Scene,camera:THREE.Camera,private fx:BattleEffects){this.player=new SourceEffectPlayer(scene,camera);this.equipment=new EquipmentEffects(scene);}
  load(){return this.player.load();}
+ resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;this.run=w.runId??'';}
  reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.player.reset();this.equipment.reset();}
  report(){return {routes:[...this.routes],events:this.events,flights:this.flights,echoes:this.echoes.length,source:this.player.report()};}
  private request(model:string,key:string,age:number,placement:SourcePlacement,ground:(p:Point)=>number,options:Partial<SourceEffectRequest>={}){
@@ -37,9 +40,9 @@ export class SourceCombatEffects {
  private event(w:World,u:Entity,time=w.time,kind:VisualEvent['kind']='attack',end:Point&{flying?:boolean}=u):VisualEvent{
   const a=point(w,u),b=point(w,end);return {serial:0,time,kind,x:u.x,z:u.z,y:a.y,endY:b.y,end:{x:end.x,z:end.z},entityId:u.id,unitType:u.unitType,modelKey:u.modelKey,heroId:u.heroId,eliteId:u.eliteId,rank:u.rank,race:u.race,nativeMode:u.nativeMode,activeWeapon:u.activeWeapon,sourceTeam:u.team,enemyTier:u.enemyTier,summonKind:u.summonKind,rewardSourceKind:u.rewardSourceKind,visualScale:u.visualScale,shotSequence:u.shotSequence,attackId:`${u.id}:${u.shotSequence}`,projectileSpeed:weaponFlightSpeed(u),flying:u.flying,facing:u.attackFacing??u.facing,siege:u.mode==='siege',targetFlying:end.flying};
  }
- render(w:World,muzzle:Mount,bodyPose:BodyPose,shieldBounds?:ShieldBounds,equipmentMount?:(event:import('../../simulation/starship/presentation').EquipmentPresentationReceipt)=>P|undefined){
+ render(w:World,muzzle:Mount,bodyPose:BodyPose,shieldBounds?:ShieldBounds,equipmentMount?:(event:import('../../simulation/starship/presentation').EquipmentPresentationReceipt)=>P|undefined,funMatrix?:(u:Entity)=>number[]|undefined){
   if(!this.player.ready)return;if(w.time<this.time||this.run!==(w.runId??''))this.reset();this.time=w.time;this.run=w.runId??'';this.routes.clear();this.flights=this.events=0;this.player.begin(w.time);const ground=(p:Point)=>w.terrain?.height(p)??0;
-  this.fx.sourceEventIds.clear();
+  this.fx.sourceEventIds.clear();let eventIndex:SourceEventIndex|undefined;const indexedEvents=()=>eventIndex??=new SourceEventIndex(w.visualEvents);
   for(const e of w.visualEvents){const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break',hologram=e.kind==='death'&&sourceHologramDeath(e);if(sourceOwnsEvent(e)||shieldReceipt||hologram)this.fx.sourceEventIds.add(e.serial);if(e.serial<=this.serial)continue;
    if(hologram)this.hologramDeaths.set(e.entityId,structuredClone(e));
    if(shieldReceipt){
@@ -55,8 +58,8 @@ export class SourceCombatEffects {
    if(['hit','shield-hit','shield-break'].includes(e.kind)&&e.hitSourceId!==undefined){
     // HP and shield receipts for the same strike select a single surface. The
     // authoritative missile receipt owns delayed impacts, including after death.
-    const source=w.entities.get(e.hitSourceId),attack=[...w.visualEvents].reverse().find(a=>a.kind==='attack'&&a.entityId===e.hitSourceId&&a.time<=e.time),p=combatFxProfile(attack??source);
-    const duplicate=w.visualEvents.some(a=>a.serial<e.serial&&a.time===e.time&&a.entityId===e.entityId&&a.hitSourceId===e.hitSourceId&&['hit','shield-hit','shield-break'].includes(a.kind));
+    const source=w.entities.get(e.hitSourceId),attack=indexedEvents().attack(e.hitSourceId,e.time),p=combatFxProfile(attack??source);
+    const duplicate=indexedEvents().duplicate(e);
     if(p&&e.weaponHit)this.fx.sourceEventIds.add(e.serial);
     const stormSource=source?.unitType==='high_templar'&&!source.heroId&&source.eliteId!=='high_templar.2'||w.expedition.spells.some(s=>s.kind==='storm'&&s.source===e.hitSourceId)||w.protossElites.fields.some(f=>f.kind==='storm'&&f.source.id===e.hitSourceId);
     if(!duplicate&&!e.weaponHit&&stormSource){
@@ -67,7 +70,7 @@ export class SourceCombatEffects {
     if(!duplicate&&e.weaponHit&&source&&source.attackRange>1&&target&&w.expedition.spells.some(s=>s.kind==='guardian'&&s.owner===target.owner&&s.until>w.time&&Math.hypot(s.x-target.x,s.z-target.z)<=s.radius+target.unitRadius)){
      const guardian=COMBAT_FX_PROFILES.get('guardian')!;this.echoes.push({event:{...e,kind:'projectile-impact',end:{x:e.x,z:e.z},endY:e.y},profile:guardian,mounts:[],life:Math.max(...guardian.models.impact.map(id=>sourceLife(SOURCE_EFFECTS[id])/rate)),impactOnly:true});
     }
-    const missileReceipt=w.visualEvents.some(a=>a.kind==='projectile-impact'&&a.time===e.time&&a.entityId===e.hitSourceId&&a.targetId===e.entityId);
+    const missileReceipt=indexedEvents().missile(e);
     const channelImpact=p?.key==='colossus'||p?.key==='void-ray';
     if(!duplicate&&p&&source&&!attack?.projectileSpeed&&!missileReceipt&&!channelImpact&&e.weaponHit&&w.time-e.time<1){
      const receipt={...(attack??this.event(w,source)),time:e.time,serial:e.serial,kind:'projectile-impact' as const,end:{x:e.x,z:e.z},endY:e.y,targetSurface:e.targetSurface,targetFlying:e.flying,targetId:e.entityId};
@@ -86,7 +89,7 @@ export class SourceCombatEffects {
    if(w.time-flight.start<life)this.echoes.push({event:e,profile:p,mounts,life,key:'flight-launch:'+flight.id,flightLaunch:true});
   }
   this.serial=w.visualEvents.at(-1)?.serial??this.serial;this.echoes=this.echoes.filter(e=>w.time-e.event.time<e.life);
-  for(const echo of this.echoes)this.echo(w,echo,ground,muzzle,bodyPose);
+  for(const echo of this.echoes)this.echo(w,echo,ground,muzzle,bodyPose,indexedEvents);
   // Continuous beams are reconstructed from saved native firing state. Transient
   // event history is deliberately absent after reload and cannot own a channel.
   for(const u of w.entities.values()){
@@ -129,9 +132,10 @@ export class SourceCombatEffects {
   // the unit is reclaimed; completed deaths are never synthesized after reload.
   for(const [id,e]of this.hologramDeaths){const age=w.time-e.time,model='Hologram_Death_Large';if(age>sourceLife(SOURCE_EFFECTS[model])/rate){this.hologramDeaths.delete(id);continue;}this.routes.add('science-vessel-hologram-death');this.request(model,'hologram-death:'+id+':'+e.serial,age,{x:e.x,y:e.y,z:e.z,facing:e.facing},ground,{clip:'Death'});}
   this.equipment.render(w,this.player,ground,equipmentMount);
+  renderFunSource(w,this.player,ground,funMatrix);
   this.player.end();
  }
- private echo(w:World,echo:Echo,ground:(p:Point)=>number,muzzle:Mount,bodyPose:BodyPose){
+ private echo(w:World,echo:Echo,ground:(p:Point)=>number,muzzle:Mount,bodyPose:BodyPose,indexedEvents:()=>SourceEventIndex){
   const {event:e,profile:p}=echo,age=w.time-e.time,key=echo.key??'event:'+e.serial;this.routes.add(p.key);this.events++;
   const end={...e.end,y:e.endY},facing=e.facing;
   if(echo.shield){
@@ -156,7 +160,7 @@ export class SourceCombatEffects {
   }
   if(e.kind==='baneling-recover')return; // The attack already owns this same detonation.
   let models:string[]=[];
-  if(e.kind==='death'&&p.key==='baneling'){if(w.visualEvents.some(a=>a.entityId===e.entityId&&a.kind==='attack'&&Math.abs(a.time-e.time)<.04))return;models=p.models.impact;}
+  if(e.kind==='death'&&p.key==='baneling'){if(indexedEvents().nearbyAttack(e.entityId,e.time))return;models=p.models.impact;}
   else if(e.kind==='bile-impact')models=COMBAT_FX_PROFILES.get('ravager-bile')!.models.impact;
   else if(e.kind==='skill-heal')models=COMBAT_FX_PROFILES.get('queen-heal')!.models.impact;
   else if(e.kind==='weapon-area'&&p.key==='lurker')models=p.models.impact??[];
@@ -174,7 +178,10 @@ export class SourceCombatEffects {
   let mounts=this.mounts.get(f.attackId);if(!mounts){const event=this.event(w,{...u,x:f.from.x,z:f.from.z},f.start,'attack',{...f.lastSeen,flying:target?.flying});mounts=combatMuzzleSides(p,u.shotSequence).map(side=>muzzle(event,side));this.mounts.set(f.attackId,mounts);}
   for(const [side,mount]of (f.hop?[from]:mounts).entries()){
    const blend=f.hop?0:Math.max(0,1-travel/2),head={x:f.point.x+(mount.x-f.from.x)*blend,y:from.y+(to.y-from.y)*t+(mount.y-from.y)*blend,z:f.point.z+(mount.z-f.from.z)*blend},scale=u.eliteId==='roach.2'&&u.zergEliteCombat?.stacks===0?1.9:u.eliteId==='corruptor.1'?1+.6*Math.min(1,((u.zergEliteCombat?.lastFire??0)-(u.zergEliteCombat?.lockAt??0))/4):1;
-   for(const model of p.models.flight)this.request(model,'flight:'+f.id+':'+f.hop+':'+side+':'+model,age,{...head,facing:angle,from:f.hop?from:mount,age:age*rate,scale},ground,{loop:true});
+   const airborneRoach=u.unitType==='roach'&&u.flying,endpoint=point(w,{...f.lastSeen,flying:!!target?.flying});
+   if(airborneRoach)head.y=mount.y+(endpoint.y-mount.y)*t;
+   const direction=airborneRoach?{x:f.lastSeen.x-mount.x,y:endpoint.y-mount.y,z:f.lastSeen.z-mount.z}:undefined;
+   for(const model of p.models.flight)this.request(model,'flight:'+f.id+':'+f.hop+':'+side+':'+model,age,{...head,facing:angle,from:f.hop?from:mount,age:age*rate,scale,direction},ground,{loop:true});
   }
  }
 }

@@ -32,7 +32,7 @@ export class HeroAuraEffects {
      #include <tonemapping_fragment>
      #include <colorspace_fragment>
     }`});
-  this.mesh=new THREE.InstancedMesh(geometry,material,18);this.mesh.count=0;this.mesh.frustumCulled=false;this.mesh.renderOrder=1;this.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);this.mesh.setColorAt(0,tint);this.view.scene.add(this.mesh);
+  this.mesh=new THREE.InstancedMesh(geometry,material,18);this.mesh.count=0;this.mesh.frustumCulled=false;this.mesh.renderOrder=1;this.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);this.mesh.setColorAt(0,tint);(this.view.effectScene??this.view.scene).add(this.mesh);
  }
  reset(){this.count=0;if(this.mesh)this.mesh.count=0;}
  render(visible:(p:{x:number;z:number})=>boolean){if(!this.mesh||!this.data)return;this.count=0;const now=this.world.time;(this.mesh.material as THREE.ShaderMaterial).uniforms.time.value=now;

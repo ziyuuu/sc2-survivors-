@@ -1,0 +1,1317 @@
+{
+  "schemaVersion": 1,
+  "taskIds": [
+    "S03",
+    "L01",
+    "F03"
+  ],
+  "started": "2026-10-19",
+  "completed": "2026-10-20",
+  "status": "completed-in-scope",
+  "authorization": "User explicitly authorized the proposed S03/L01/F03 batch with 开始吧.",
+  "baseline": {
+    "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
+    "priorLocalChanges": [
+      "F05",
+      "U02"
+    ],
+    "excluded": [
+      "src/render/units/economic-egg.ts"
+    ]
+  },
+  "sourcePolicy": {
+    "pass": true,
+    "changedInputs": [
+      "src/render/effects/confirmed-hero/skill-effects.ts",
+      "src/simulation/movement/mine-routing.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/data/campaign-map.ts",
+      "src/simulation/combat/tracking-mines.ts"
+    ],
+    "nativeAndComponentSourceEqual": [
+      "src/simulation/combat/tracking-mines.ts",
+      "src/simulation/movement/mine-routing.ts",
+      "src/data/campaign-map.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/render/effects/confirmed-hero/skill-effects.ts"
+    ],
+    "nativeInputs": 439,
+    "componentInputs": 299,
+    "baselineInputs": 298,
+    "excludedUnrelatedChanges": [
+      "src/render/units/economic-egg.ts"
+    ]
+  },
+  "results": {
+    "S03": "查尔seed529地堡角落旧版3/3停滞360步，修复3/3于44步合法触发；稳定障碍30次热查询的地形通行检查60→11/次。原生World单次120原始伤害调用，护甲/回血继续生效。",
+    "L01": "五图各201次有效热就绪检查的高度读取5,145,600→0；缺失/恢复判定与独立关卡状态保持，真实五图切换及WebGL恢复通过。",
+    "F03": "空技能批次每帧10次、97,280字节上传→0；扩容后空场175,104字节→0。10组前后画面逐像素一致，恢复前后画面一致；有内容批次仍正常上传。"
+  },
+  "verification": {
+    "pass": true,
+    "checks": [
+      {
+        "name": "component page and console errors zero",
+        "pass": true
+      },
+      {
+        "name": "old Char corner fails in three repeats",
+        "pass": true
+      },
+      {
+        "name": "fixed Char corner hits legally in 44 ticks in three repeats",
+        "pass": true
+      },
+      {
+        "name": "stable obstacle query reuse",
+        "pass": true
+      },
+      {
+        "name": "all five map identities retain ready, missing and restored results",
+        "pass": true
+      },
+      {
+        "name": "hot map checks avoid all height scans",
+        "pass": true
+      },
+      {
+        "name": "all ten baseline and candidate effect pixels exact",
+        "pass": true
+      },
+      {
+        "name": "restored charge matches pre-loss charge pixels",
+        "pass": true
+      },
+      {
+        "name": "empty uploads zero, including after prior live and expanded batches",
+        "pass": true
+      },
+      {
+        "name": "baseline empty uploads reproduced",
+        "pass": true
+      },
+      {
+        "name": "first live, shield, growth and reappearance render content",
+        "pass": true
+      },
+      {
+        "name": "only five intended source files differ; component and native inputs match",
+        "pass": true
+      },
+      {
+        "name": "1662 complete regression tests passed",
+        "pass": true
+      },
+      {
+        "name": "native run completed",
+        "pass": true
+      },
+      {
+        "name": "five-map run uses the exact final native bundle",
+        "pass": true
+      },
+      {
+        "name": "native five map readiness",
+        "pass": true
+      },
+      {
+        "name": "native World mine delivers original 120 damage",
+        "pass": true
+      },
+      {
+        "name": "native actual WebGL restore",
+        "pass": true
+      },
+      {
+        "name": "native page and console errors zero",
+        "pass": true
+      },
+      {
+        "name": "native output hash preview/performance-s03-l01-f03-20261019-native/index.html",
+        "pass": true
+      },
+      {
+        "name": "native output hash preview/performance-s03-l01-f03-20261019-native/main.js",
+        "pass": true
+      },
+      {
+        "name": "native output hash preview/performance-s03-l01-f03-20261019-native/main.css",
+        "pass": true
+      }
+    ],
+    "source": {
+      "pass": true,
+      "changedInputs": [
+        "src/render/effects/confirmed-hero/skill-effects.ts",
+        "src/simulation/movement/mine-routing.ts",
+        "src/render/scene/battle-renderer.ts",
+        "src/data/campaign-map.ts",
+        "src/simulation/combat/tracking-mines.ts"
+      ],
+      "nativeAndComponentSourceEqual": [
+        "src/simulation/combat/tracking-mines.ts",
+        "src/simulation/movement/mine-routing.ts",
+        "src/data/campaign-map.ts",
+        "src/render/scene/battle-renderer.ts",
+        "src/render/effects/confirmed-hero/skill-effects.ts"
+      ],
+      "nativeInputs": 439,
+      "componentInputs": 299,
+      "baselineInputs": 298,
+      "excludedUnrelatedChanges": [
+        "src/render/units/economic-egg.ts"
+      ]
+    },
+    "componentRun": "components-r3",
+    "nativeRun": "native-r4",
+    "mapRun": "native-r3",
+    "requestCancellations": [
+      {
+        "url": "http://127.0.0.1:4436/performance-s03-l01-f03-20261019-native/assets/optimized/model.baneling.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-s03-l01-f03-20261019-native/assets/optimized/model.loot.large.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-s03-l01-f03-20261019-native/assets/optimized/model.hatchery.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-s03-l01-f03-20261019-native/assets/models/hatcheryex1mp.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-s03-l01-f03-20261019-native/assets/optimized/model.fort.repair.death.glb",
+        "error": "net::ERR_ABORTED"
+      }
+    ],
+    "limits": [
+      "component counters and pixels, not overall FPS acceptance",
+      "diagnostic map reset and fixed World stepping, not natural campaign completion",
+      "baseline height counts include instrumentation; timing is not uninstrumented performance"
+    ]
+  },
+  "components": {
+    "report": "reports/local/performance-s03-l01-f03-20261019/components-r3/report.json",
+    "sourceInputs": 299,
+    "baselineInputs": 298,
+    "output": [
+      {
+        "file": "preview/performance-s03-l01-f03-20261019-r3/index.html",
+        "bytes": 211,
+        "sha256": "a693a21cda8f5cbea5bcaf6be683fe177688ec21230857a08de7d933afa6f2a4"
+      },
+      {
+        "file": "preview/performance-s03-l01-f03-20261019-r3/main.js",
+        "bytes": 28490681,
+        "sha256": "0afffe3d7fc52d497cdb3e7cd6dffd63afedbc8692e067e59b226f7d0c3ad800"
+      },
+      {
+        "file": "preview/performance-s03-l01-f03-20261019-r3/main.css",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "cache": {
+      "baseline": [
+        {
+          "calls": 60,
+          "ms": 3.899999998509884,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 2.2000000029802322,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.8999999985098839,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 1.2999999970197678,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 1.8999999985098839,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 1.4000000059604645,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 1,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 1.0999999940395355,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 2.9000000059604645,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.6999999955296516,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.6000000014901161,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.5,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.20000000298023224,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.6999999955296516,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.7000000029802322,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.8999999985098839,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.5,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.6000000014901161,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.8000000044703484,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 1,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.6999999955296516,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.8000000044703484,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.8999999985098839,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 1,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.7999999970197678,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.9000000059604645,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.7999999970197678,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.7000000029802322,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.5,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.5999999940395355,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        },
+        {
+          "calls": 60,
+          "ms": 0.6000000014901161,
+          "point": {
+            "x": -0.025096215878372623,
+            "z": -0.09679968981658009
+          }
+        }
+      ],
+      "candidate": [
+        {
+          "calls": 80,
+          "ms": 6.100000001490116,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.7000000029802322,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.3999999985098839,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.29999999701976776,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.3999999985098839,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.30000000447034836,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.29999999701976776,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.30000000447034836,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.29999999701976776,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.20000000298023224,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.19999999552965164,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.20000000298023224,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.19999999552965164,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.30000000447034836,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.19999999552965164,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.4000000059604645,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.09999999403953552,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.6000000014901161,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.3999999985098839,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.30000000447034836,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.3999999985098839,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.10000000149011612,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.19999999552965164,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.20000000298023224,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.10000000149011612,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.09999999403953552,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0.20000000298023224,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        },
+        {
+          "calls": 11,
+          "ms": 0,
+          "point": {
+            "x": -0.0019604074934445595,
+            "z": -0.09998078216567245
+          }
+        }
+      ]
+    },
+    "maps": {
+      "baseline": [
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "char"
+          },
+          "results": true,
+          "reads": 5145600,
+          "ms": 148.70000000298023,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        },
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "mar-sara"
+          },
+          "results": true,
+          "reads": 5145600,
+          "ms": 158.30000000447035,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        },
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "ice"
+          },
+          "results": true,
+          "reads": 5145600,
+          "ms": 159.20000000298023,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        },
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "results": true,
+          "reads": 5145600,
+          "ms": 153.29999999701977,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        },
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "industrial"
+          },
+          "results": true,
+          "reads": 5145600,
+          "ms": 134.10000000149012,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        }
+      ],
+      "candidate": [
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "char"
+          },
+          "results": true,
+          "reads": 0,
+          "ms": 0.30000000447034836,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        },
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "mar-sara"
+          },
+          "results": true,
+          "reads": 0,
+          "ms": 0.10000000149011612,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        },
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "ice"
+          },
+          "results": true,
+          "reads": 0,
+          "ms": 0.10000000149011612,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        },
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "frontier"
+          },
+          "results": true,
+          "reads": 0,
+          "ms": 0,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        },
+        {
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "industrial"
+          },
+          "results": true,
+          "reads": 0,
+          "ms": 0,
+          "invalidated": false,
+          "restored": true,
+          "isolated": true
+        }
+      ]
+    },
+    "effects": {
+      "baseline": [
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-0-empty.png",
+          "pixelHash": "338bd2258ed8d930e7332632c1a7351be6434fab20db9b9750f4a096f51f3b35",
+          "mode": "empty",
+          "active": 0,
+          "uploads": 10,
+          "bytes": 97280,
+          "sustainedUploads": 1200
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-1-charge.png",
+          "pixelHash": "52a2753984b2e545a7f41980da300eb00b7ec52413c97e13b832370c975255b8",
+          "mode": "charge",
+          "active": 15,
+          "uploads": 10,
+          "bytes": 97280
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-2-empty.png",
+          "pixelHash": "338bd2258ed8d930e7332632c1a7351be6434fab20db9b9750f4a096f51f3b35",
+          "mode": "empty",
+          "active": 0,
+          "uploads": 10,
+          "bytes": 97280,
+          "sustainedUploads": 1200
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-3-ray.png",
+          "pixelHash": "a880a266e1c8eb6325201f84f88e4ca59ed5ab909f1de6fdfd0c72e928c2a28e",
+          "mode": "ray",
+          "active": 3,
+          "uploads": 10,
+          "bytes": 97280
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-4-empty.png",
+          "pixelHash": "338bd2258ed8d930e7332632c1a7351be6434fab20db9b9750f4a096f51f3b35",
+          "mode": "empty",
+          "active": 0,
+          "uploads": 10,
+          "bytes": 97280,
+          "sustainedUploads": 1200
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-5-shield.png",
+          "pixelHash": "cde255a6e6d847448a25d478e0635044b7f9c2bba530b5e575901a34753a974f",
+          "mode": "shield",
+          "active": 8,
+          "uploads": 10,
+          "bytes": 97280
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-6-growth.png",
+          "pixelHash": "c20680bf6441191c04434f5311f1bd7af5079b2ad655fd02c85d973b1d741021",
+          "mode": "growth",
+          "active": 900,
+          "uploads": 10,
+          "bytes": 175104
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-7-empty.png",
+          "pixelHash": "338bd2258ed8d930e7332632c1a7351be6434fab20db9b9750f4a096f51f3b35",
+          "mode": "empty",
+          "active": 0,
+          "uploads": 10,
+          "bytes": 175104,
+          "sustainedUploads": 1200
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-8-charge.png",
+          "pixelHash": "52a2753984b2e545a7f41980da300eb00b7ec52413c97e13b832370c975255b8",
+          "mode": "charge",
+          "active": 15,
+          "uploads": 10,
+          "bytes": 175104
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/baseline-9-restore.png",
+          "pixelHash": "52a2753984b2e545a7f41980da300eb00b7ec52413c97e13b832370c975255b8",
+          "mode": "charge",
+          "active": 15,
+          "uploads": 29,
+          "bytes": 228128
+        }
+      ],
+      "candidate": [
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-0-empty.png",
+          "pixelHash": "338bd2258ed8d930e7332632c1a7351be6434fab20db9b9750f4a096f51f3b35",
+          "mode": "empty",
+          "active": 0,
+          "uploads": 0,
+          "bytes": 0,
+          "sustainedUploads": 0
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-1-charge.png",
+          "pixelHash": "52a2753984b2e545a7f41980da300eb00b7ec52413c97e13b832370c975255b8",
+          "mode": "charge",
+          "active": 15,
+          "uploads": 6,
+          "bytes": 58368
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-2-empty.png",
+          "pixelHash": "338bd2258ed8d930e7332632c1a7351be6434fab20db9b9750f4a096f51f3b35",
+          "mode": "empty",
+          "active": 0,
+          "uploads": 0,
+          "bytes": 0,
+          "sustainedUploads": 0
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-3-ray.png",
+          "pixelHash": "a880a266e1c8eb6325201f84f88e4ca59ed5ab909f1de6fdfd0c72e928c2a28e",
+          "mode": "ray",
+          "active": 3,
+          "uploads": 4,
+          "bytes": 38912
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-4-empty.png",
+          "pixelHash": "338bd2258ed8d930e7332632c1a7351be6434fab20db9b9750f4a096f51f3b35",
+          "mode": "empty",
+          "active": 0,
+          "uploads": 0,
+          "bytes": 0,
+          "sustainedUploads": 0
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-5-shield.png",
+          "pixelHash": "cde255a6e6d847448a25d478e0635044b7f9c2bba530b5e575901a34753a974f",
+          "mode": "shield",
+          "active": 8,
+          "uploads": 6,
+          "bytes": 58368
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-6-growth.png",
+          "pixelHash": "c20680bf6441191c04434f5311f1bd7af5079b2ad655fd02c85d973b1d741021",
+          "mode": "growth",
+          "active": 900,
+          "uploads": 4,
+          "bytes": 116736
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-7-empty.png",
+          "pixelHash": "338bd2258ed8d930e7332632c1a7351be6434fab20db9b9750f4a096f51f3b35",
+          "mode": "empty",
+          "active": 0,
+          "uploads": 0,
+          "bytes": 0,
+          "sustainedUploads": 0
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-8-charge.png",
+          "pixelHash": "52a2753984b2e545a7f41980da300eb00b7ec52413c97e13b832370c975255b8",
+          "mode": "charge",
+          "active": 15,
+          "uploads": 6,
+          "bytes": 136192
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\components-r3/web-9-restore.png",
+          "pixelHash": "52a2753984b2e545a7f41980da300eb00b7ec52413c97e13b832370c975255b8",
+          "mode": "charge",
+          "active": 15,
+          "uploads": 29,
+          "bytes": 228128
+        }
+      ]
+    }
+  },
+  "native": {
+    "report": "reports/local/performance-s03-l01-f03-20261019/native-r4/report.json",
+    "mapReport": "reports/local/performance-s03-l01-f03-20261019/native-r3/report.json",
+    "mapRunFinalStatus": "failed-later-at-overstrict-hp-assertion; five map readiness checks passed and are reused only for that scope",
+    "checks": [
+      {
+        "name": "ordinary-menu-entry",
+        "pass": true
+      },
+      {
+        "name": "native-world-mine",
+        "legal": true,
+        "removed": true,
+        "hp": 381.0063793333333,
+        "hits": [
+          {
+            "damage": 120,
+            "hpBefore": 500
+          }
+        ],
+        "armor": 1,
+        "time": 0.75,
+        "records": [
+          {
+            "tick": 2,
+            "point": {
+              "x": 0,
+              "z": 0
+            },
+            "hp": 500
+          },
+          {
+            "tick": 7,
+            "point": {
+              "x": 0,
+              "z": 0
+            },
+            "hp": 500
+          },
+          {
+            "tick": 12,
+            "point": {
+              "x": 0,
+              "z": 0
+            },
+            "hp": 500
+          },
+          {
+            "tick": 17,
+            "point": {
+              "x": 0.039391929857916806,
+              "z": -0.09191450300180579
+            },
+            "hp": 500
+          },
+          {
+            "tick": 22,
+            "point": {
+              "x": 0.2774964553525897,
+              "z": -0.44223603367690634
+            },
+            "hp": 500
+          },
+          {
+            "tick": 27,
+            "point": {
+              "x": 0.7649787321155375,
+              "z": -0.5534162020614384
+            },
+            "hp": 500
+          },
+          {
+            "tick": 32,
+            "point": {
+              "x": 1.2524610088784849,
+              "z": -0.6645963704459704
+            },
+            "hp": 500
+          },
+          {
+            "tick": 37,
+            "point": {
+              "x": 1.739943285641432,
+              "z": -0.7757765388305025
+            },
+            "hp": 500
+          },
+          {
+            "tick": 42,
+            "point": {
+              "x": 2.2274255624043793,
+              "z": -0.8869567072150343
+            },
+            "hp": 500
+          }
+        ]
+      },
+      {
+        "name": "actual-WebGL-restore",
+        "before": {
+          "ready": true,
+          "epoch": 0,
+          "time": 0.75,
+          "tick": 45,
+          "rng": 529,
+          "phase": "battle",
+          "paused": false
+        },
+        "after": {
+          "ready": true,
+          "epoch": 1,
+          "time": 0.75,
+          "tick": 45,
+          "rng": 529,
+          "phase": "battle",
+          "paused": true
+        }
+      }
+    ],
+    "mapChecks": [
+      {
+        "name": "prepared-map-char",
+        "ready": true,
+        "epoch": 0,
+        "time": 0,
+        "tick": 0,
+        "rng": 529,
+        "phase": "battle",
+        "paused": false
+      },
+      {
+        "name": "prepared-map-mar-sara",
+        "ready": true,
+        "epoch": 0,
+        "time": 0,
+        "tick": 0,
+        "rng": 529,
+        "phase": "battle",
+        "paused": false
+      },
+      {
+        "name": "prepared-map-ice",
+        "ready": true,
+        "epoch": 0,
+        "time": 0,
+        "tick": 0,
+        "rng": 529,
+        "phase": "battle",
+        "paused": false
+      },
+      {
+        "name": "prepared-map-frontier",
+        "ready": true,
+        "epoch": 0,
+        "time": 0,
+        "tick": 0,
+        "rng": 529,
+        "phase": "battle",
+        "paused": false
+      },
+      {
+        "name": "prepared-map-industrial",
+        "ready": true,
+        "epoch": 0,
+        "time": 0,
+        "tick": 0,
+        "rng": 529,
+        "phase": "battle",
+        "paused": false
+      }
+    ],
+    "sourceInputs": 439,
+    "output": [
+      {
+        "file": "preview/performance-s03-l01-f03-20261019-native/index.html",
+        "bytes": 954785,
+        "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+      },
+      {
+        "file": "preview/performance-s03-l01-f03-20261019-native/main.js",
+        "bytes": 37390415,
+        "sha256": "7eb107161f08c564fb4e893726ff0a351c39f9c10141b21b5a561207d12d648e"
+      },
+      {
+        "file": "preview/performance-s03-l01-f03-20261019-native/main.css",
+        "bytes": 821671,
+        "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+      }
+    ],
+    "requestCancellations": {
+      "mapRun": 6,
+      "recoveryRun": 5
+    },
+    "errors": []
+  },
+  "regression": {
+    "tests": 1662,
+    "pass": 1662,
+    "fail": 0,
+    "log": "reports/local/performance-s03-l01-f03-20261019/full-tests-authorized.txt",
+    "typecheck": "reports/local/performance-s03-l01-f03-20261019/typecheck-final.txt",
+    "dataDocs": "reports/local/performance-s03-l01-f03-20261019/data-docs.txt",
+    "addedTests": 7
+  },
+  "visualReview": {
+    "componentContact": "reports/local/performance-s03-l01-f03-20261019/components-r3/contact.png",
+    "componentCandidateFrames": 10,
+    "baselineCandidateExactPairs": 10,
+    "mainMapContact": "reports/local/performance-s03-l01-f03-20261019/native-r3/contact.png",
+    "mainMapFrames": 6,
+    "recoveryFrames": [
+      {
+        "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\native-r4/home.png",
+        "sha256": "3c9c5688847b23ac011d8f4a375e4a1a207ddd930c106046f33f992b33e49be2"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\native-r4/mine-hit.png",
+        "sha256": "163aee7176259f78ba57e6e5b0f398ef3e8149f02e5d6219ed3fbf4c72f682ef"
+      },
+      {
+        "file": "D:\\星际\\reports\\local\\performance-s03-l01-f03-20261019\\native-r4/restored.png",
+        "sha256": "4b505ac2311ad9e2a501f336b649e3e14fe29e96d2f784741415c395c552fd78"
+      }
+    ],
+    "notes": "Contact sheets and selected final main-game recovery frames reviewed; this is a scoped visual check, not human acceptance or a repeated five-map content audit."
+  },
+  "retainedFailures": {
+    "initialFullRegression": {
+      "file": "full-tests.txt",
+      "tests": 1659,
+      "passed": 1652,
+      "failed": 7,
+      "cause": "Local service connections denied by sandbox (EACCES); full authorized rerun includes 3 further tests and passes 1662."
+    },
+    "nativeR1": {
+      "file": "native-r1/report.json",
+      "result": "Failed: map readiness inspected before asynchronous map switching completed; no game source changes made for this fixture issue."
+    },
+    "nativeR2": {
+      "file": "native-r2/report.json",
+      "result": "Failed: waitForPendingAssets awaits the unit variant queue, then throws if asynchronous map loading is pending; fixture changed to await actual mapSwitching/assetsPending completion."
+    },
+    "componentR1R2": {
+      "files": [
+        "components-r1/report.json",
+        "components-r2/report.json"
+      ],
+      "result": "All baseline/candidate effect pairs exact. Restore cleared renderer-level background in both fixtures; R3 stores the same background on the Scene so pre-loss/post-restore pixels can also be compared."
+    },
+    "evidenceUtilities": [
+      "Initial contact sheet open used a mixed path without normalizing its filename; corrected and regenerated.",
+      "A contact sheet view ran before the asynchronous file command finished; retried after completion.",
+      "Original R1 component source reconstruction first used LF bytes; verified CRLF reconstruction against recorded source SHA, then rebuilt both original bundles with exact expected SHA."
+    ],
+    "retention": {
+      "r1Bundles": "builds-r1/",
+      "r2Bundles": "builds-r2/",
+      "r3Previews": [
+        "../../../preview/performance-s03-l01-f03-20261019-baseline-r3",
+        "../../../preview/performance-s03-l01-f03-20261019-r3"
+      ]
+    },
+    "nativeR3": {
+      "file": "native-r3/report.json",
+      "result": "Five actual map readiness checks passed. Later final-HP=380 assertion failed because normal armor=1 and regeneration remain active (HP 381.0063793333333). R4 checks one original hit of 120 instead; no production damage changes."
+    }
+  },
+  "boundaries": {
+    "ordinaryContent60FPS": false,
+    "naturalCampaign": false,
+    "physicalInput": false,
+    "humanAcceptance": false,
+    "MVPComplete": false,
+    "currentReplaced": false,
+    "commit": false,
+    "push": false,
+    "published": false,
+    "unchanged": [
+      "300 enemy cap",
+      "4:4:1 mix",
+      "damage/economy and target selection rules",
+      "five-map assets",
+      "quality settings",
+      "save deferral"
+    ]
+  },
+  "next": "F01"
+}

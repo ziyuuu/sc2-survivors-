@@ -1,0 +1,224 @@
+{
+  "date": "2026-10-23",
+  "status": "G03按用户批准的MVP范围完成",
+  "authorization": "先确认满级、不可叠加和无效卡不再刷出，问题修复验证后收尾G03；种族平衡留到1.1，不再追加自动游玩测试，后续从代码数值模型及明确假设下的模拟分析。",
+  "method": "源码核对、受控状态的原生候选/购买/效果断言与回归；没有新自动游玩控制器、战役路线或平衡胜率试验。",
+  "coverage": [
+    {
+      "area": "30兵种家族",
+      "checks": "恢复/能量/生产效果有效上限与最后增量、满席满阶补员、完成培养、重新出现有效成长空间；无原生恢复/能量效果时拒绝无效卡。"
+    },
+    {
+      "area": "三族全军卡",
+      "checks": "火力/防御各五品质，每品质上限、最后一次实际购买及过期卡不扣款。"
+    },
+    {
+      "area": "18英雄",
+      "checks": "原生招募并逐次培养至V级后从候选移除；三族装备提高上限至IX级时按有效上限判断，三席满员仍允许已有英雄培养而不引入第四人。"
+    },
+    {
+      "area": "90精英身份、30家族商品",
+      "checks": "原生同名培养至V级及cannotGrow身份；同家族全部变体满阶后紫色和橙色直接V级商品均退出。"
+    },
+    {
+      "area": "三族支援卡",
+      "checks": "可升阶的通用/专属支援逐级购买至上限后退出；核弹弹药再次购买实际增加库存，保留这种有效重复消费。"
+    },
+    {
+      "area": "7类趣味商品",
+      "checks": "一次性商品和分级商品逐次实际购买、满级退出、旧等级/已售卡/重复领取拒绝；六类付费商品在折扣/免费装备效果下实际购买及精确扣款。"
+    },
+    {
+      "area": "发展与同页状态变化",
+      "checks": "三族设施、解锁、研究、每巢方向完成后不再合法；装备研究上限由III提高至IV时保留最后一级；同页另一张卡完成培养后旧卡失效且不扣费。"
+    },
+    {
+      "area": "实际抽选与免费资格",
+      "checks": "固定品质抽样检查原生货架，已满卡和无效果卡不再进入；免费奖励资格共享相关上限/目标检查。受控状态验证，不是自动战役。"
+    }
+  ],
+  "defect": {
+    "id": "G03-FUN-SHOP-PRICE-004",
+    "status": "已修复",
+    "trigger": "装备purchase_discount或free_product修改六类付费趣味商品的持久货架价格。",
+    "before": "旧合法性检查将折扣/免费后的成交价与未折扣原生报价比较，导致商品显示但不可购买。",
+    "after": "用baseMinerals/baseGas核对原生报价/升级身份，实际支付仍使用货架最终价；原等级、已售、窗口和重复购买保护保持。",
+    "productionFiles": [
+      {
+        "path": "src/simulation/progression/expedition-drafts.ts",
+        "before": "a4864d7b6b9623770d98fcf139bd4c5c0fde8b37f974cae408ae9347d4a24f42",
+        "after": "daa96f5279b854bfa1c96ff92ac02d8d1bb1d770230a50ecd360cd856238b272"
+      }
+    ],
+    "red": {
+      "tests": 171,
+      "pass": 159,
+      "fail": 12,
+      "file": "reports/local/g03-card-filter-20261023/eligibility-before.tap",
+      "note": "首版171项；12项为六商品×两种装备改价。后补31项边界覆盖，最终202项。"
+    },
+    "balance": "未修改任何商品定义价格、概率、卡牌上限、英雄数值或种族数值。"
+  },
+  "validation": {
+    "targeted": {
+      "tests": 202,
+      "pass": 202,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "fullFirst": {
+      "tests": 2513,
+      "pass": 2506,
+      "fail": 7,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "permissionsRerun": {
+      "tests": 16,
+      "pass": 16,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "uniqueRegression": 2513,
+    "note": "首轮7个失败计数包含2个顶层用例、P5的4个子用例及其失败父用例；原因是临时文件rename EPERM和本机HTTP fetch权限。原日志保留，同版3文件16项在允许权限下全过；不把重复用例累计成新测试。",
+    "typecheck": "npm run typecheck通过",
+    "data": "npm run docs:check通过",
+    "newSourceTests": 202,
+    "autonomousPlayRuns": 0,
+    "browserBuildHumanGpuFps": "本批没有新构建、浏览器、GPU、FPS、真机或人类验收。"
+  },
+  "integrity": {
+    "baselineFiles": 831,
+    "existingSourceTests": 829,
+    "existingSourceTestsUnchanged": 828,
+    "changed": [
+      {
+        "path": "src/simulation/progression/expedition-drafts.ts",
+        "before": "a4864d7b6b9623770d98fcf139bd4c5c0fde8b37f974cae408ae9347d4a24f42",
+        "after": "daa96f5279b854bfa1c96ff92ac02d8d1bb1d770230a50ecd360cd856238b272"
+      }
+    ],
+    "added": [
+      {
+        "path": "test/g03-card-eligibility.test.ts",
+        "sha256": "be038b4c01e8a76f8771baec4cbc12fc6b767bc7fa4db329ae50f57fbe189ebc"
+      }
+    ],
+    "otherFrozenFilesUnchanged": true,
+    "cameraInputUiUnchanged": true,
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+      "unchanged": true
+    },
+    "sources": [
+      {
+        "path": "src/simulation/progression/expedition-drafts.ts",
+        "sha256": "daa96f5279b854bfa1c96ff92ac02d8d1bb1d770230a50ecd360cd856238b272"
+      },
+      {
+        "path": "src/simulation/expedition-economy.ts",
+        "sha256": "08e6c5379b9085877df9de91cef157abd43957d038e881812f960c8d70a62a73"
+      },
+      {
+        "path": "src/simulation/starship/modules.ts",
+        "sha256": "054f0a38334471dcb0f4f0e58538e381a02cfed6592db26eedd6731f44968a4c"
+      },
+      {
+        "path": "src/simulation/progression/team-cards.ts",
+        "sha256": "b7c4dc1b4c3a2fd4ebe4d30272f0e113af7479e40119a483165f272b2089d05e"
+      },
+      {
+        "path": "src/simulation/progression/training-cards.ts",
+        "sha256": "58969041906127acca9576745c39fcb73cef45c45e8e7ba54f0edc233a9ed2dd"
+      },
+      {
+        "path": "src/simulation/progression/supply-cards.ts",
+        "sha256": "5ede35eb19f5f916266333d8aeeb73313c9bfa8277484105c5c96081b13aa442"
+      },
+      {
+        "path": "src/simulation/combat/shop-support.ts",
+        "sha256": "dff186f9836aeac90657bbe0744d449140f1be93f6a2f1111e9aff1bf2c94c2c"
+      },
+      {
+        "path": "src/simulation/fun-shop/state.ts",
+        "sha256": "ecc5ce4dd98351bff5fe684d333aa9c84edc056da6ee31da53eecc697b07aa1b"
+      },
+      {
+        "path": "src/simulation/building/rules.ts",
+        "sha256": "0a1740ffe030ada3d4b624e645a2ff9bcb7c4df1f213a9d65f9dc69f86973560"
+      }
+    ]
+  },
+  "cleanup": {
+    "items": [
+      {
+        "path": "D:\\星际\\.cache\\p5-tests\\3eb7d4d6-a7e4-4a85-b14d-d0ef95f8e3aa",
+        "bytes": 40681877,
+        "createdUtc": "2026-10-23T11:14:13.6928476Z",
+        "reason": "Closed P5 regression fixture from this batch"
+      },
+      {
+        "path": "D:\\星际\\.cache\\p5-tests\\b4b11819-9e0e-42e8-a173-6523a83ebe6b",
+        "bytes": 40632725,
+        "createdUtc": "2026-10-23T11:12:07.5151332Z",
+        "reason": "Closed P5 regression fixture from this batch"
+      }
+    ],
+    "totalBytes": 81314602,
+    "note": "只删除本批两个已关闭P5数据库测试缓存；保留全部失败/重跑日志及已有交付。首个清理尝试因UTC/本地日期比较保护退出，未删除；改用显式UTC解析后核对创建时间和绝对路径再执行。"
+  },
+  "scope": {
+    "g03": "内容分档/入口、英雄门槛、横穿/巨兽修复、高品质成长、消费机制及本次卡池检查已完成；保留此前失败及测试控制局限。",
+    "raceBalance": "三族人口、生产、补员、专属卡牌/特性与精细数值留到1.1；优先代码数值模型及明确假设模拟，不再追加自动游玩证明平衡。",
+    "limitations": "不宣称四档目标、全部配装或种族人类胜率已全面达标；T01、U05、D05及最终V系列/MVP仍开放。",
+    "next": "U05只读范围核对，具体新增方案未单独批准，待讨论。"
+  },
+  "evidence": [
+    {
+      "path": "reports/local/g03-card-filter-20261023/baseline.json",
+      "sha256": "b68b3ccf8d216beb6baf2949430e7b9f5267106234b874bfcc4448c3e34a69b6"
+    },
+    {
+      "path": "reports/local/g03-card-filter-20261023/eligibility-before.tap",
+      "sha256": "63104884fc9761d871c64be6f695a39d18ff960e29bbe3ca0ba26818b906adb5"
+    },
+    {
+      "path": "reports/local/g03-card-filter-20261023/eligibility-after.tap",
+      "sha256": "30c0ab240bd2922859bb9e8c740196ee6458ad378bb81f9a820ee529129e9bf1"
+    },
+    {
+      "path": "reports/local/g03-card-filter-20261023/regression.tap",
+      "sha256": "ea41e6c9702db3f7ff9909bb17efa3bab86c4720ea03f3cefb9bf6a068590fa3"
+    },
+    {
+      "path": "reports/local/g03-card-filter-20261023/regression-permissions-rerun.tap",
+      "sha256": "f88bfcdb1dc1cee0229b60cf87344d282a64d6b2699061ab838db0a0a6fd442d"
+    },
+    {
+      "path": "reports/local/g03-card-filter-20261023/typecheck.txt",
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "reports/local/g03-card-filter-20261023/data-check.txt",
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "path": "reports/local/g03-card-filter-20261023/cache-cleanup.json",
+      "sha256": "7a75977aebc59f60cb77b2ba4575a859540358a4f8b55d3ecdd7607ebbfcb19d"
+    },
+    {
+      "path": "test/g03-card-eligibility.test.ts",
+      "sha256": "be038b4c01e8a76f8771baec4cbc12fc6b767bc7fa4db329ae50f57fbe189ebc"
+    },
+    {
+      "path": "reports/qa/u05-scope-review-20261023.json",
+      "sha256": "e12b72b990fef9b83a831fe92e8f173dc171065e907ea4116acc4c78d0f2cae7"
+    }
+  ]
+}

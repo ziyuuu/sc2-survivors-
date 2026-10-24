@@ -13,7 +13,7 @@ export const WAREHOUSE_CAPACITIES=[500,700,900,1000] as const;
 export const WAREHOUSE_PRICES=[1000,2000,4000] as const;
 export const CRAFT_PRICES:Record<Quality,number>={1:10,2:40,3:100,4:400,5:1600};
 export const DISMANTLE_VALUES:Record<Quality,number>={1:5,2:10,3:20,4:100,5:400};
-/** Runtime ownership only. Storage and migration deliberately remain with final MVP integration. */
+/** One authoritative account; persistence stores it atomically with the run checkpoint. */
 export function newEquipmentAccount(seed=529):EquipmentAccount{return {revision:0,serial:0,rng:seed>>>0||1,dust:0,warehouseLevel:0,items:{},locations:{},acquired:{},equipped:{terran:{},zerg:{},protoss:{}},pity:{1:0,2:0,3:0,4:0,5:0},receipts:{},run:null};}
 export function equipmentRecipeKey(item:Pick<EquipmentItem,'template'|'race'|'slot'|'binding'>){return [item.template,item.race,item.slot,item.binding.hero??'',item.binding.elite??'',item.binding.direction??'',item.binding.family??''].join('|');}
 function rememberEquipment(a:EquipmentAccount,item:EquipmentItem){a.acquired[equipmentRecipeKey(item)]={template:item.template,race:item.race,slot:item.slot,binding:{...item.binding}};}
@@ -29,6 +29,12 @@ export function createEquipmentItem(a:EquipmentAccount,input:{template:string;ra
  const random=()=>equipmentRandom(a),binding=input.binding??randomBinding(t,input.race,random),rolled=rollAffixes(t.quality,input.slot,t.affixCount,!!input.polluted,a.pity[t.quality],random);
  a.pity[t.quality]=rolled.misses;const allocation=(!isOffensiveSlot(input.slot)?t.defenseAllocation:undefined)??t.allocation??(isAttributeSlot(input.slot)?Math.floor(random()*5) as WhiteAllocation:2);
  return success({id:'ship-item-'+(++a.serial),template:t.id,race:input.race,slot:input.slot,quality:t.quality,allocation,affixes:rolled.affixes,binding:{...binding},pollution:input.polluted?'uncleansed':'none',inherited:rollInheritance(t,!!input.polluted,random)});
+}
+/** Deliver an already rolled task plan without consuming RNG or exposing it early. */
+export function grantPlannedEquipment(a:EquipmentAccount,item:EquipmentItem,receipt:string,location:ItemLocation):EquipmentResult<EquipmentItem>{
+ const prior=a.receipts[receipt];if(prior)return a.items[prior[0]]?success(a.items[prior[0]]):failure('该来源已经结算');
+ if(!receipt||!validateItem(item)||a.items[item.id]||location.kind!=='ground'||!a.run||a.run.ended||location.run!==a.run.id)return failure('任务装备计划无效');
+ a.items[item.id]=structuredClone(item);a.locations[item.id]={...location};a.receipts[receipt]=[item.id];a.revision++;return success(a.items[item.id]);
 }
 /** Trusted reward/crafting port. The same receipt cannot mint a second item. */
 export function grantEquipment(a:EquipmentAccount,input:Parameters<typeof createEquipmentItem>[1],receipt:string,location:ItemLocation):EquipmentResult<EquipmentItem>{
@@ -73,16 +79,16 @@ export function dropEquipment(a:EquipmentAccount,id:string,point:{x:number;z:num
  if(!Number.isFinite(point.x)||!Number.isFinite(point.z))return failure('地面位置无效');
  a.locations[id]={kind:'ground',run:run.id,...point};a.revision++;return success(a.items[id]);
 }
-/** Actual run-end settlement is idempotent. Browser closure detection is deferred with save work. */
+/** Only explicit retreat or actual defeat settles. Closing the program restores a checkpoint. */
 export function settleEquipment(a:EquipmentAccount,outcome:'success'|'failure'){
  const run=a.run;if(!run)return success([] as string[]);const key='settlement:'+run.id,prior=a.receipts[key];if(prior)return success([...prior]);
- const retained:string[]=[],salvaged:string[]=[];let occupied=itemsAt(a,'warehouse').length;
+ const retained:string[]=[],salvaged:string[]=[],lostItems:EquipmentItem[]=[],salvagedItems:EquipmentItem[]=[];let occupied=itemsAt(a,'warehouse').length,dust=0;
  for(const item of Object.values(a.items)){const location=a.locations[item.id];if((location.kind!=='backpack'&&location.kind!=='ground')||location.run!==run.id)continue;
-  if(location.kind==='ground'||outcome==='failure'&&(item.pollution==='uncleansed'||equipmentRandom(a)<.5)){delete a.items[item.id];delete a.locations[item.id];continue;}
-  if(occupied>=WAREHOUSE_CAPACITIES[a.warehouseLevel]){a.dust+=DISMANTLE_VALUES[item.quality];salvaged.push(item.id);delete a.items[item.id];delete a.locations[item.id];continue;}
+  if(location.kind==='ground'||outcome==='failure'&&(item.pollution==='uncleansed'||equipmentRandom(a)<.5)){lostItems.push(structuredClone(item));delete a.items[item.id];delete a.locations[item.id];continue;}
+  if(occupied>=WAREHOUSE_CAPACITIES[a.warehouseLevel]){a.dust+=DISMANTLE_VALUES[item.quality];dust+=DISMANTLE_VALUES[item.quality];salvaged.push(item.id);salvagedItems.push(structuredClone(item));delete a.items[item.id];delete a.locations[item.id];continue;}
   a.locations[item.id]={kind:'warehouse'};occupied++;retained.push(item.id);
  }
- a.receipts[key]=retained;a.receipts['settlement-salvage:'+run.id]=salvaged;run.ended=true;run.locked.clear();a.revision++;return success(retained);
+ a.receipts[key]=retained;a.receipts['settlement-salvage:'+run.id]=salvaged;a.settlement={run:run.id,outcome,retained:[...retained],lost:lostItems,salvaged:salvagedItems,dust};run.ended=true;run.locked.clear();a.revision++;return success(retained);
 }
 function economyItem(a:EquipmentAccount,id:string,revision:number){if(revision!==a.revision)return failure('库存或价格已变化');if(a.run&&!a.run.ended)return failure('只能在局外操作');const item=a.items[id],location=a.locations[id];if(!item||!location||location.kind!=='warehouse')return failure('装备不在仓库');return success(item);}
 export function discardEquipment(a:EquipmentAccount,id:string,revision=a.revision){

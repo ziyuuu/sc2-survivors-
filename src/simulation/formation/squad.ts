@@ -7,11 +7,10 @@ const order=['marine','marauder','hellion','tank','medivac'];
  * Open ground uses ranks three abreast; a terrain-constrained search folds those ranks
  * into distinct reachable slots instead of sending every blocked slot to the anchor. */
 export class SquadFormation {
- private goals=new Map<number,Point>();private until=-1;private anchor={x:Infinity,z:Infinity,facing:0};private roster='';
+ private goals=new Map<number,Point>();private until=-1;private anchor={x:Infinity,z:Infinity,facing:0};private roster:number[]=[];
  plan(units:Entity[],anchor:Point&{facing:number},now:number,half:number,obstacles:Obstacle[],terrain?:TerrainQuery){
-  const roster=units.map(u=>u.id).join(',');
-  if(now<this.until&&roster===this.roster&&distance(anchor,this.anchor)<.65&&Math.abs(angleDelta(this.anchor.facing,anchor.facing))<.15)return;
-  this.roster=roster;this.until=now+FORMATION.refreshSeconds;this.anchor={...anchor};this.goals.clear();
+  if(now<this.until&&units.length===this.roster.length&&units.every((u,i)=>u.id===this.roster[i])&&distance(anchor,this.anchor)<.65&&Math.abs(angleDelta(this.anchor.facing,anchor.facing))<.15)return;
+  this.roster=units.map(u=>u.id);this.until=now+FORMATION.refreshSeconds;this.anchor={...anchor};this.goals.clear();
   const sin=Math.sin(anchor.facing),cos=Math.cos(anchor.facing),placed:{p:Point;r:number;air:boolean}[]=[];
   const point=(back:number,lane:number)=>({x:anchor.x-sin*back+cos*lane,z:anchor.z-cos*back-sin*lane});
   const legal=(p:Point,u:Entity)=>Math.abs(p.x)+u.unitRadius<half&&Math.abs(p.z)+u.unitRadius<half&&(u.flying||!blocked(p,u.unitRadius,obstacles)&&(!terrain||terrain.canOccupy(p,u.unitRadius)));

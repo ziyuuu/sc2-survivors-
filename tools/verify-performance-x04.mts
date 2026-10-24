@@ -1,0 +1,17 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import * as THREE from 'three';
+import {SourceCombatEffects as Old} from '../reports/local/performance-x04-20261020/baseline-echo.mjs';
+import {SourceCombatEffects as Current} from '../src/render/effects/source-combat-effects';
+import {World} from '../src/simulation/world';import {COMBAT_FX_PROFILES} from '../src/render/effects/combat-fx-profile';
+import {SourceEventIndex} from '../src/render/effects/source/event-index';import {SOURCE_EFFECTS} from '../src/render/effects/source/player';import {sourceLife} from '../src/render/effects/source/timeline';
+const w=new World({race:'terran',seed:529,sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();w.entities.clear();w.visualEvents=[];
+const camera=new THREE.PerspectiveCamera(),old=new Old(new THREE.Scene(),camera,{sourceEventIds:new Set()} as any),current=new Current(new THREE.Scene(),camera,{sourceEventIds:new Set()} as any),requests:{old:any[];current:any[]}={old:[],current:[]};let oldSubmitted=0,newSubmitted=0;
+(old.player as any).add=(r:any)=>{oldSubmitted++;if(r.age>=0&&(r.loop||r.age<=sourceLife(SOURCE_EFFECTS[r.model])))requests.old.push(r);};
+(current.player as any).add=(r:any)=>{newSubmitted++;if(r.age>=0&&(r.loop||r.age<=sourceLife(SOURCE_EFFECTS[r.model])))requests.current.push(r);};
+const ground=()=>0,mount=(e:any)=>({x:e.x,y:e.y,z:e.z}),bodyPose=(_e:any,_m:any,age:number)=>({matrix:new THREE.Matrix4().toArray(),clip:'Stand',seconds:age*.7}),index=()=>new SourceEventIndex(w.visualEvents);
+let cases=0,activeRequests=0;
+for(const profile of COMBAT_FX_PROFILES.values())for(const kind of ['attack','death','weapon-area','baneling-recover','bile-impact','skill-heal','projectile-impact'])for(const targetSurface of ['flesh','shield','armor'])for(const age of [0,.01,.2,.8,1.5,4,15]){
+ const e={serial:1,time:0,kind,entityId:100,unitType:'marine',x:1,y:2,z:3,end:{x:4,z:6},endY:1,facing:.4,targetSurface,castId:1},echo={event:e,profile,mounts:[{x:1,y:2,z:3}],life:100};w.time=age;requests.old=[];requests.current=[];
+ (old as any).echo(w,echo,ground,mount,bodyPose,index);(current as any).echo(w,echo,ground,mount,bodyPose,index);assert.deepEqual(requests.current,requests.old,profile.key+'/'+kind+'/'+targetSurface+'/'+age);activeRequests+=requests.current.length;cases++;
+}
+for(const directional of [false,true])for(const age of [0,.05,.3,1,3,10]){w.time=age;requests.old=[];requests.current=[];const echo={event:{serial:1,time:0,kind:'shield-hit',entityId:100,x:1,y:2,z:3,end:{x:1,z:3},endY:2},profile:COMBAT_FX_PROFILES.get('shield-hit')!,mounts:[],life:100,shield:{center:{x:1,y:2,z:3},radius:2,facing:.4,rippleRadius:1,directional}};(old as any).echo(w,echo,ground,mount,bodyPose,index);(current as any).echo(w,echo,ground,mount,bodyPose,index);assert.deepEqual(requests.current,requests.old);activeRequests+=requests.current.length;cases++;}
+const report={pass:true,cases,activeRequests,oldSubmitted,newSubmitted,skipped:oldSubmitted-newSubmitted,method:'All profile/event/surface/age combinations plus directional/full shields; compare every active request including placement, age, clip and seed against the frozen baseline. Expired old requests filtered by the unchanged player cutoff.'};await fs.writeFile('reports/local/performance-x04-20261020/echo-equivalence.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));

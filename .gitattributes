@@ -1,5 +1,7 @@
 assets/private/** filter=lfs diff=lfs merge=lfs -text
 deploy/runtime/assets/** filter=lfs diff=lfs merge=lfs -text
+deploy/runtime/fun-props/** filter=lfs diff=lfs merge=lfs -text
+deploy/runtime/mission-assets/** filter=lfs diff=lfs merge=lfs -text
 deploy/coze/** -text
 preview/ui-20261003/** -text
 preview/opening-20261007/** -text

@@ -1,0 +1,19 @@
+import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';
+export async function measureNativeCpu(page,call,root,build){
+const base='reports/local/performance-x03-20261020',report={method:'Same-page actual production requests, camera and terrain; twelve alternating eight-frame rounds. No material/upload/GPU timing.',build,cpuBuilds:JSON.parse(await fs.readFile(base+'/native-request-cpu-builds.json')),cases:[],errors:[]},save=()=>fs.writeFile(root+'/native-cpu.json',JSON.stringify(report,null,2));
+ for(const name of ['old-cpu','new-cpu','old-count','new-count'])await page.addScriptTag({path:path.resolve(base,name+'.js')});
+ for(const name of ['ranged-300','carrier-equipment']){
+  await call('fixtures.setup',[name]);await call('fast',[{ticks:name==='ranged-300'?360:1200,renderEvery:12}]);const before=await call('snapshot');
+  const data=await page.evaluate(()=>{
+   const a=window.__B02__,player=a.view.sourceCombatEffects.player,requests=[],play=player.play;player.play=function(r,ground,particlesOnly=false){const def=window.__X_NEW_CPU__.SOURCE_EFFECTS[r.model];if(r.age>=0&&(r.loop||r.age<=window.__X_NEW_CPU__.sourceLife(def)))requests.push({request:structuredClone(r),ground,particlesOnly});return play.call(this,r,ground,particlesOnly);};try{a.view.render(0,1);}finally{player.play=play;}
+   const frame=(api,cache,exact=false)=>{const counts={particles:0,ribbons:0,projections:0},values=[];cache.begin(a.world.time);for(const {request:r,ground,particlesOnly}of requests){const def=api.SOURCE_EFFECTS[r.model],groups={particles:api.sourceParticleQuads(def,r,a.view.camera,ground,cache),ribbons:particlesOnly?[]:api.sourceRibbonQuads(def,r,a.view.camera),projections:particlesOnly?[]:api.sourceProjectionQuads(def,r,ground)};for(const [key,list]of Object.entries(groups)){counts[key]+=list.length;if(exact)for(const q of list)values.push([key,q.materialReference,q.emitter,q.born,q.matrix.elements,q.color,q.uv,!!q.segmentedUv,q.phase.clip.name,q.phase.seconds]);}}cache.end();return {counts,values};};
+   const old=window.__X_OLD_CPU__,current=window.__X_NEW_CPU__,caches={old:new old.SourceParticleCache(),new:new current.SourceParticleCache()},x=frame(old,caches.old,true),y=frame(current,caches.new,true);if(JSON.stringify(x)!==JSON.stringify(y))throw Error('Native request numerical difference');
+   for(let n=0;n<16;n++){frame(old,caches.old);frame(current,caches.new);}const rounds=[];
+   for(let round=0;round<12;round++){const row={round};for(const mode of round%2?['new','old']:['old','new']){const start=performance.now();for(let n=0;n<8;n++)frame(mode==='old'?old:current,caches[mode]);row[mode]=(performance.now()-start)/8;}rounds.push(row);}
+   window.__X_COUNTS__={old:{calls:0,computed:0,phases:0},new:{calls:0,computed:0,phases:0}};const counted={old:window.__X_OLD_COUNT__,new:window.__X_NEW_COUNT__},operations=[];
+   for(const phase of ['first','repeat']){window.__X_COUNTS__={old:{calls:0,computed:0,phases:0},new:{calls:0,computed:0,phases:0}};for(const mode of ['old','new'])frame(counted[mode],new counted[mode].SourceParticleCache());operations.push({phase,...structuredClone(window.__X_COUNTS__)});}
+   return {requests:requests.map(({request,particlesOnly})=>({request,particlesOnly})),counts:x.counts,numericalExact:true,rounds,operations,time:a.world.time,tick:a.world.tick};
+  });
+  data.name=name;data.stateExact=before===await call('snapshot');assert.ok(data.stateExact);report.cases.push(data);await save();console.log(JSON.stringify({name,requests:data.requests.length,counts:data.counts,operations:data.operations,rounds:data.rounds}));
+ }
+report.pass=true;await save();return {file:root+'/native-cpu.json',pass:true,cases:report.cases.map(c=>({name:c.name,counts:c.counts,numericalExact:c.numericalExact,stateExact:c.stateExact,rounds:c.rounds,operations:c.operations}))};}

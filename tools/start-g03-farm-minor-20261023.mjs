@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+const root='reports/local/g03-farm-minor-20261023';
+const sha=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const walk=p=>fs.readdirSync(p,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(p+'/'+e.name):[p+'/'+e.name]);
+assert(!fs.existsSync(root+'/before.json'));
+fs.mkdirSync(root+'/before',{recursive:true});
+const baseline='reports/local/g03-growth-consumption-20261023/after';
+const files=[...walk('src'),...walk('test')].map(file=>({file,sha256:sha(file)}));
+for(const r of files.filter(r=>r.file.startsWith('src/')))assert.equal(sha(baseline+'/'+r.file),r.sha256,r.file);
+for(const f of ['AGENTS.md','docs/project/performance-board.json','package.json','tsconfig.json'])fs.copyFileSync(f,root+'/before/'+path.basename(f));
+const current='dist/SC2-Survivors-Current-20261006.html';
+fs.writeFileSync(root+'/before.json',JSON.stringify({date:'2026-10-23',files,baseline,current:{file:current,sha256:sha(current)},authorization:'Audit consumption/reinforcement controller, then 24 three-race hard/hell farm/minor routes, two seeds. Keep current game values. Discuss after measurements. Opening gear prepared legally; native purchases, production, battle and transition. No global balance changes.'},null,2));
+for(const d of ['diagnostic','routes','logs','runtime-tools'])fs.mkdirSync(root+'/'+d,{recursive:true});
+console.log(JSON.stringify({root,sourceTest:files.length,reusedSource:files.filter(r=>r.file.startsWith('src/')).length,current:sha(current)}));

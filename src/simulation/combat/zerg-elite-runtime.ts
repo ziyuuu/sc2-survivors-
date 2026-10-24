@@ -1,3 +1,5 @@
+import {missionSupportAllowed} from '../missions/combat';
+import {missionDamage} from '../missions/combat';
 import {equipmentAreaRadius,equipmentAreaFactor,equipmentAreaBonuses,equipmentAreaHit,equipmentCluster} from '../starship/weapon-areas';
 import {equipmentNativeFactor,equipmentHealingOutput} from '../starship/native-effects';
 import {cloneCombatSource,nativeCombatSource} from '../starship/runtime';
@@ -34,11 +36,11 @@ export interface ZergEliteRun {
  gates:Record<string,number>;
 }
 export const newZergEliteRun=():ZergEliteRun=>({frenzy:{},poisons:[],areas:[],biles:[],heals:[],lines:[],debuffs:[],gates:{}});
-export const revisedZergElite=(u:Entity)=>u.team==='player'&&!u.heroId&&isZergEliteId(u.eliteId);
+export const revisedZergElite=(u:Entity)=>(u.team==='player'||u.arenaElite===true)&&!u.heroId&&isZergEliteId(u.eliteId);
 export const zergEliteCombat=(u:Entity):ZergEliteCombat=>u.zergEliteCombat??(u.zergEliteCombat={cycles:0,lastFire:-1,target:null,stacks:0,stackUntil:0,lockAt:0,stored:0,ready:0,regenUntil:0,burrowPhase:0,burrowAt:0,burrowUntil:0,burrowReady:0,previousCloak:false,opening:0,modeReady:0,barrier:0,barrierUntil:0,charge:0,episode:false,boostUntil:0,redirectAt:-1,redirectSpent:0,dash:null});
 const dist=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 const boss=(b:Body)=>'enemyTier' in b&&(b.enemyTier==='boss'||b.enemyTier==='lord');
-const eligible=(u:Entity)=>u.hp>0&&u.team==='player'&&!u.temporary&&!u.summonKind&&!u.attributes.includes('Structure');
+const eligible=(u:Entity)=>u.hp>0&&u.team==='player'&&(!u.temporary||u.mission?.holdout)&&!u.summonKind&&!u.attributes.includes('Structure');
 export function zergEliteEnemies(w:World,u:Entity,p:Point,r:number,plane:'ground'|'air'|'both'='both'):Body[]{
  return [...w.entities.values(),...w.expansionHives.values(),...(w.hive?[w.hive]:[])].filter(b=>b.hp>0&&b.owner!==u.owner&&(plane==='both'||b.flying===(plane==='air'))&&dist(p,b)<=r+b.unitRadius&&w.visibleTo(b,u.owner)&&(!w.terrain||w.terrain.lineOfFire(p,b,u.flying,b.flying))&&(u.flying||b.flying||clearLine(p,b,0,w.obstacles)));
 }
@@ -122,7 +124,7 @@ export function fireZergElite(w:World,u:Entity,target:Body,bonuses:Bonus[],shiel
  }
  if(id==='hydralisk.1'){
   const plane=target.flying?'air':'ground',pool=zergEliteEnemies(w,u,u,u.attackRange+u.unitRadius,plane).filter(b=>inWeaponArc(u,u.attackFacing,b,u.attackRange+u.unitRadius,35));
-  for(let i=0;i<5;i++){const a=u.attackFacing+(i-2)*35/4*Math.PI/180;const b=i===2?target:pool.sort((x,y)=>Math.abs(Math.atan2(Math.sin(Math.atan2(x.x-u.x,x.z-u.z)-a),Math.cos(Math.atan2(x.x-u.x,x.z-u.z)-a)))-Math.abs(Math.atan2(Math.sin(Math.atan2(y.x-u.x,y.z-u.z)-a),Math.cos(Math.atan2(y.x-u.x,y.z-u.z)-a)))||x.id-y.id)[0]??target;shot(b,.7,Math.abs(i-2)*.012,i===2,undefined,3,(i-2)*.18);}return true;
+  for(let i=0;i<5;i++){const a=u.attackFacing+(i-2)*35/4*Math.PI/180;let b=target,best:Body|undefined,angle=Infinity;if(i!==2)for(const candidate of pool){const next=Math.abs(Math.atan2(Math.sin(Math.atan2(candidate.x-u.x,candidate.z-u.z)-a),Math.cos(Math.atan2(candidate.x-u.x,candidate.z-u.z)-a)));if(!best||next<angle||next===angle&&candidate.id<best.id){best=candidate;angle=next;}}b=best??target;shot(b,.7,Math.abs(i-2)*.012,i===2,undefined,3,(i-2)*.18);}return true;
  }
  if(id==='mutalisk.1'){shot(target,1,0,true,[1,.8,.65,.5,.4,.3],5);return true;}
  if(id==='mutalisk.2'){for(let i=0;i<3;i++)shot(target,1,i*.08,i===0,[1,.35,.15],3,(i-1)*.25);return true;}
@@ -146,7 +148,7 @@ export function zergEliteFlightImpact(w:World,p:WeaponFlight,target:Body){const 
 export function zergEliteModeCompleted(w:World,u:Entity,previous:string){if(!revisedZergElite(u)||u.eliteId!=='lurker.3'||previous==='lurker_burrowed'||u.nativeMode!=='lurker_burrowed')return;const s=zergEliteCombat(u);if(w.time<s.modeReady)return;s.modeReady=w.time+12;s.opening=3;s.barrier=u.maxHp*.4;s.barrierUntil=w.time+5;w.visual('barrier-start',u);}
 export function zergEliteQueenAbility(w:World,u:Entity){if(!revisedZergElite(u)||u.unitType!=='queen')return false;if(u.eliteId!=='queen.2')return false;const s=zergEliteCombat(u),cost=SOURCE_ABILITIES.transfusion.energy*(1-(talentModifiers(w,u,'transfusion').abilityEnergyReductionPct??0));
  if(w.time<s.ready||u.energy<cost||u.nativeModeUntil||(u.stoppedUntil??0)>w.time)return true;
- const targets=w.allies().filter(p=>eligible(p)&&p.attributes.includes('Biological')&&p.hp<p.maxHp&&dist(u,p)<=8+p.unitRadius&&w.hasAttackLine(u,p)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id).slice(0,5);if(!targets.length)return true;
+ const targets=w.allies().filter(p=>eligible(p)&&missionSupportAllowed(u,p)&&p.attributes.includes('Biological')&&p.hp<p.maxHp&&dist(u,p)<=8+p.unitRadius&&w.hasAttackLine(u,p)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id).slice(0,5);if(!targets.length)return true;
  u.energy-=cost;s.ready=w.time+12;u.abilityReady=s.ready;u.lastSkillAt=w.time;w.zergElites.heals.push({id:w.nextId++,source:cloneCombatSource(w,u),targets:targets.map(p=>p.id),amount:240*(eliteFixedGrowth(u.rank)*equipmentNativeFactor(w,u))*(1+(talentModifiers(w,u,'transfusion').healingPct??0)),next:w.time+.25,until:w.time+4});w.visual('skill-heal',u,targets[0]);return true;
 }
 export function zergEliteBile(w:World,u:Entity,dt:number){if(!revisedZergElite(u)||u.unitType!=='ravager')return false;u.bileCooldown=Math.max(0,u.bileCooldown-dt);if(!w.expedition.tech.bile||u.bileCooldown>0)return true;
@@ -186,19 +188,19 @@ export function zergEliteDeath(w:World,b:Entity){const capsules=w.zergElites.poi
 export function tickZergEliteState(w:World,dt=1/60){const s=w.zergElites;
 
  s.debuffs=s.debuffs.filter(d=>d.until>w.time&&(w.body(d.target)?.hp??0)>0);for(const [key,f] of Object.entries(s.frenzy))if(f.until<=w.time)delete s.frenzy[key];for(const key of Object.keys(s.gates))if(s.gates[key]<w.time-2)delete s.gates[key];
- for(const b of s.biles){if(w.time>=b.launchAt&&!b.launched){const live=w.entities.get(b.source.id);if(!live||live.hp<=0){b.impactAt=-1;continue;}b.launched=true;w.visual('skill-launch',b.source,b.point,b.id);}if(!b.launched||w.time<b.impactAt||b.impactAt<0)continue;
-  for(const t of zergEliteEnemies(w,b.source,b.point,b.radius,'both')){const f=b.source.eliteId==='ravager.2'&&(t.attributes.includes('Armored')||t.attributes.includes('Structure'))?1.5:1;w.hit(t,b.damage*f,[],1,b.source.owner,0,0,b.source.id);if(b.source.eliteId==='ravager.2'&&t.hp>0)debuff(w,b.source,t,5,{armor:.5});}
+ for(const b of s.biles){if(w.time>=b.launchAt&&!b.launched){const live=w.entities.get(b.source.id);if(!live||live.hp<=0||live.owner==='terran'&&w.missions.fleet.ceasefire){b.impactAt=-1;continue;}b.launched=true;w.visual('skill-launch',b.source,b.point,b.id);}if(!b.launched||w.time<b.impactAt||b.impactAt<0)continue;
+  for(const t of zergEliteEnemies(w,b.source,b.point,b.radius,'both')){const f=b.source.eliteId==='ravager.2'&&(t.attributes.includes('Armored')||t.attributes.includes('Structure'))?1.5:1;missionDamage(w,b.source,t,b.damage*f,[],1,b.source.owner,0,0,b.source.id);if(b.source.eliteId==='ravager.2'&&t.hp>0)debuff(w,b.source,t,5,{armor:.5});}
   w.visual('bile-impact',b.source,b.point,b.id);if(b.source.eliteId==='ravager.3')area(w,b.source,b.point,'rain',4,380*(eliteFixedGrowth(b.source.rank)*equipmentNativeFactor(w,b.source)),6);b.impactAt=-1;
  }s.biles=s.biles.filter(b=>b.impactAt>=0);
- for(const a of s.areas){while(a.next<=w.time+1e-8&&a.next<=a.until+1e-8){for(const b of zergEliteEnemies(w,a.source,a.point,a.radius,'ground')){const key=a.kind+':'+a.source.id+':'+b.id;if((s.gates[key]??-1)>w.time-1+1e-8)continue;const damage=Math.max(a.damage,...s.areas.filter(other=>other.kind===a.kind&&other.source.id===a.source.id&&other.until>=w.time&&dist(other.point,b)<=other.radius+b.unitRadius).map(o=>o.damage));s.gates[key]=w.time;w.hit(b,damage,[],1,a.source.owner,0,1,a.source.id);if(a.kind==='rain'&&b.hp>0)debuff(w,a.source,b,1.1,{move:boss(b)?.2:.45});}w.visual('skill-dot',a.source,a.point,a.id);a.next+=1;}}
+ for(const a of s.areas){while(a.next<=w.time+1e-8&&a.next<=a.until+1e-8){for(const b of zergEliteEnemies(w,a.source,a.point,a.radius,'ground')){const key=a.kind+':'+a.source.id+':'+b.id;if((s.gates[key]??-1)>w.time-1+1e-8)continue;let damage=a.damage;for(const other of s.areas)if(other.kind===a.kind&&other.source.id===a.source.id&&other.until>=w.time&&dist(other.point,b)<=other.radius+b.unitRadius)damage=Math.max(damage,other.damage);s.gates[key]=w.time;missionDamage(w,a.source,b,damage,[],1,a.source.owner,0,1,a.source.id);if(a.kind==='rain'&&b.hp>0)debuff(w,a.source,b,1.1,{move:boss(b)?.2:.45});}w.visual('skill-dot',a.source,a.point,a.id);a.next+=1;}}
  s.areas=s.areas.filter(a=>a.until>w.time+1e-8);
  for(const l of s.lines){while(l.next<=w.time+1e-8&&l.progress<l.length){const previous={...l.point};l.progress=Math.min(l.length,l.progress+(l.kind==='spear'?1.4:1));l.point={x:l.from.x+Math.sin(l.facing)*l.progress,z:l.from.z+Math.cos(l.facing)*l.progress};if(!clearLine(previous,l.point,0,w.obstacles,w.terrain)&&!l.air){l.progress=l.length;break;}
   for(const b of zergEliteEnemies(w,l.source,l.point,2.5+l.width/2,l.air?'air':'ground')){if(l.hits.includes(b.id))continue;const along=(b.x-l.from.x)*Math.sin(l.facing)+(b.z-l.from.z)*Math.cos(l.facing),across=Math.abs((b.x-l.from.x)*Math.cos(l.facing)-(b.z-l.from.z)*Math.sin(l.facing));if(along>=0&&along<=l.progress+b.unitRadius&&along>=l.progress-1.4-b.unitRadius&&across<=l.width/2+b.unitRadius){l.hits.push(b.id);w.attackHit(l.source,b,l.damage,l.bonuses,1,0,b.id===l.target,l.crit,{enemyFactor:w.enemyDamageFactor(l.source),apm:b.id===l.target&&l.apm});if(l.source.eliteId==='lurker.2'&&l.source.zergEliteCombat!.cycles%4===0&&b.hp>0)debuff(w,l.source,b,2,{move:boss(b)?.3:.6});w.visual('weapon-area',l.source,b,l.id);}}
   equipmentCluster(w,l.source,w.body(l.target)??l.point,l.width/(2*equipmentAreaRadius(w,l.source,1)),l.damage/equipmentAreaFactor(w,l.source),l.bonuses.map(b=>({...b,amount:b.amount/equipmentAreaFactor(w,l.source)})),1,l.crit,l.air?'air':'ground');l.next+=l.kind==='spear'?.025:.04;
  }}s.lines=s.lines.filter(l=>l.progress<l.length);
- for(const p of [...s.poisons]){const b=w.body(p.target);if(!b||b.hp<=0)continue;while(p.next<=w.time+1e-8&&p.next<=p.until+1e-8&&b.hp>0){w.hit(b,(p.kind==='hydra'?120:260)*(eliteFixedGrowth(p.source.rank)*equipmentNativeFactor(w,p.source))*p.layers,[],1,p.source.owner,0,1,p.source.id);w.visual('skill-dot',p.source,b,p.id);p.next+=1;}}
+ for(const p of [...s.poisons]){const b=w.body(p.target);if(!b||b.hp<=0)continue;while(p.next<=w.time+1e-8&&p.next<=p.until+1e-8&&b.hp>0){missionDamage(w,p.source,b,(p.kind==='hydra'?120:260)*(eliteFixedGrowth(p.source.rank)*equipmentNativeFactor(w,p.source))*p.layers,[],1,p.source.owner,0,1,p.source.id);w.visual('skill-dot',p.source,b,p.id);p.next+=1;}}
  s.poisons=s.poisons.filter(p=>p.until>w.time+1e-8&&(w.body(p.target)?.hp??0)>0);
- for(const h of s.heals){const live=w.entities.get(h.source.id);if(!live||live.hp<=0){h.until=-1;continue;}while(h.next<=w.time+1e-8&&h.next<=h.until+1e-8){for(const id of h.targets){const b=w.entities.get(id);if(b&&eligible(b)&&b.attributes.includes('Biological')&&dist(live,b)<=8+b.unitRadius&&w.hasAttackLine(live,b)){const gain=Math.min(b.maxHp-b.hp,h.amount*.25*teamHealingFactor(w,b)*equipmentHealingOutput(w,live,false));b.hp+=gain;w.stats.healed+=gain;observeRecovery(w,live,b,gain);recordTeamTransfusion(w,live,b,gain);if(gain>0)w.visual('skill-heal',live,b,h.id);}}h.next+=.25;}}s.heals=s.heals.filter(h=>h.until>w.time+1e-8);
+ for(const h of s.heals){const live=w.entities.get(h.source.id);if(!live||live.hp<=0){h.until=-1;continue;}while(h.next<=w.time+1e-8&&h.next<=h.until+1e-8){for(const id of h.targets){const b=w.entities.get(id);if(b&&eligible(b)&&missionSupportAllowed(live,b)&&b.attributes.includes('Biological')&&dist(live,b)<=8+b.unitRadius&&w.hasAttackLine(live,b)){const gain=Math.min(b.maxHp-b.hp,h.amount*.25*teamHealingFactor(w,b)*equipmentHealingOutput(w,live,false));b.hp+=gain;w.stats.healed+=gain;observeRecovery(w,live,b,gain);recordTeamTransfusion(w,live,b,gain);if(gain>0)w.visual('skill-heal',live,b,h.id);}}h.next+=.25;}}s.heals=s.heals.filter(h=>h.until>w.time+1e-8);
 }
 /** Explicit retirement/expiry is not a combat death and cannot propagate a capsule. */
 export function pruneZergEliteState(w:World){w.zergElites.poisons=w.zergElites.poisons.filter(p=>(w.body(p.target)?.hp??0)>0);w.zergElites.debuffs=w.zergElites.debuffs.filter(d=>(w.body(d.target)?.hp??0)>0);}

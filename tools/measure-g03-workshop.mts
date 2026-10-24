@@ -1,0 +1,17 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+import {BASE,runtime,round} from './lib/g03-economy-runtime.mts';
+const r=await runtime(),rows:any[]=[],dir=BASE+'/main-r2';
+function account(p:any){const a=structuredClone(p.finalAccount);if(a.run){a.run.locked=new Set();a.run.receipts=new Set();}return a;}
+function attempt(p:any,kind:string,fn:(a:any)=>any){const a=account(p),before=a.dust,result=fn(a);return {kind,beforeDust:before,afterDust:a.dust,paid:round(before-a.dust),result};}
+for(const name of fs.readdirSync(dir).filter(f=>f.startsWith('current-')&&f.endsWith('.json'))){
+ const file=dir+'/'+name,raw=fs.readFileSync(file),beforeHash=createHash('sha256').update(raw).digest('hex'),p=JSON.parse(raw.toString());if(!p.finalAccount.run?.ended){rows.push({id:p.summary.id,skipped:'Run not settled; no forced settlement for workshop measurements'});continue;}
+ const initial=new Set(Object.keys(p.initialItems)),a=account(p),newWarehouse=Object.values(a.items).filter((i:any)=>!initial.has(i.id)&&a.locations[i.id]?.kind==='warehouse') as any[],tests:any[]=[];
+ for(const quality of [1,2,3,4,5])tests.push(attempt(p,'random-quality-'+quality,a=>r.craftEquipment(a,{quality,race:p.summary.race,receipt:'measure:'+quality})));
+ const knownSet=Object.values(a.acquired).find((i:any)=>r.equipmentTemplate(i.template)?.kind==='set') as any;
+ if(knownSet){tests.push(attempt(p,'known-set-series',a=>r.craftEquipment(a,{quality:r.equipmentTemplate(knownSet.template).quality,race:p.summary.race,setTemplate:knownSet.template,receipt:'measure:set'})));tests.push(attempt(p,'known-set-and-slot',a=>r.craftEquipment(a,{quality:r.equipmentTemplate(knownSet.template).quality,race:p.summary.race,setTemplate:knownSet.template,slot:knownSet.slot,binding:knownSet.binding,receipt:'measure:set-slot'})));}
+ const polluted=newWarehouse.find(i=>i.pollution==='uncleansed');if(polluted)tests.push(attempt(p,'cleanse-new-polluted',a=>r.cleanseEquipment(a,polluted.id)));
+ const reroll=newWarehouse.find(i=>i.pollution!=='uncleansed'&&i.affixes.length);if(reroll)tests.push(attempt(p,'reroll-one-new-affix',a=>r.beginAffixReroll(a,reroll.id,0)));
+ const eligible=newWarehouse.filter(i=>i.pollution!=='uncleansed');if(eligible.length)tests.push(attempt(p,'optional-dismantle-all-new-eligible-warehouse',a=>r.dismantleEquipment(a,eligible.map(i=>i.id))));
+ assert.equal(createHash('sha256').update(fs.readFileSync(file)).digest('hex'),beforeHash);rows.push({id:p.summary.id,phase:p.summary.phase,initialDust:a.dust,newWarehouse:newWarehouse.length,eligibleNewWarehouse:eligible.length,pollutedNewWarehouse:newWarehouse.filter(i=>i.pollution==='uncleansed').length,knownSet:knownSet??null,tests});
+}
+const report={method:'Independent cloned-account probes after actual run settlement. No preparation dust, unlock or source-item injection. Native craft/cleanse/reroll/dismantle functions use the real final dust, acquired recipes and warehouse contents. Each attempt starts from the same final account; successes are alternatives, not cumulative purchases. Initial fixture gear also unlocks its own recipes and is explicitly retained in the source record. Source JSON hashes unchanged.',rows};fs.writeFileSync(BASE+'/workshop.json',JSON.stringify(report,null,2));console.log(JSON.stringify({rows:rows.length,settled:rows.filter(x=>!x.skipped).length,attempts:rows.reduce((n,x)=>n+(x.tests?.length??0),0)}));

@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-21",
+  "kind": "planning-only",
+  "revision": 107,
+  "tasks": 55,
+  "completed": 46,
+  "remaining": 9,
+  "next": "G01",
+  "addedTasks": [
+    "G01",
+    "G02",
+    "T01"
+  ],
+  "checks": {
+    "generatorValidation": "passed (IDs, states, phases, dependencies, cycle detection, evidence paths)",
+    "exactEmbeddedBoard": "passed",
+    "markdownNewTasksAndClarifications": "passed",
+    "old52StatusesUnchanged": true,
+    "oldCompletedTasksUnchanged": true,
+    "oldAudit169RowsUnchanged": true,
+    "oldHistoryPreserved": true,
+    "sourceAndTestFilesUnchanged": 729
+  },
+  "beforeSnapshot": "reports/local/kanban-integration-20261021/before.json",
+  "outputs": [
+    {
+      "file": "AGENTS.md",
+      "sha256": "5e8c78720f83edcc39e2a4e97d4569fdc14746357e4fb0c4173ada0d3d13afb6"
+    },
+    {
+      "file": "docs/project/performance-board.json",
+      "sha256": "feedde202024db0819190ed393898f04b7e84b280e390c7d61474df9bdc58b16"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_BOARD.html",
+      "sha256": "9ac5bbdaa9edf011bd6909452b4c7d7173669c249f0b07f29323773a3e144a20"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_TODO.md",
+      "sha256": "bb1418035e431cbc3a3a2023d16918388dc443c40b68263adf81f85542948c8a"
+    },
+    {
+      "file": "docs/project/MVP_COMPLETION_CONTRACT_20261013.md",
+      "sha256": "9ab0156e3927378e782b25406083950aeedad1f1cb1ac5053037edb949e33c6b"
+    }
+  ],
+  "limits": [
+    "No gameplay implementation or new game regression/performance run",
+    "No branch merge, Current replacement, commit, push or publish",
+    "Independent test HTML planned, not built; T01 coverage not yet executed"
+  ]
+}

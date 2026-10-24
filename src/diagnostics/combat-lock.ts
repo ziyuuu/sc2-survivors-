@@ -10,12 +10,16 @@ export function diagnosticAttackDamage(world:object,target:Body,damage:number,so
 }
 /** No global production entry point, and never part of a player's saved run. */
 export function setDiagnosticHealthLock(world:object,enabled:boolean){
- if(import.meta.env?.PROD)return false;
+ if(import.meta.env?.PROD&&import.meta.env?.VITE_FUN_LAB!=='1')return false;
  const state=locks.get(world)??{enabled:false,prevented:0,damage:0};state.enabled=enabled;locks.set(world,state);return true;
 }
 export function diagnosticHealthLock(world:object){return {...(locks.get(world)??{enabled:false,prevented:0,damage:0})};}
 export function preventDiagnosticDeath(world:object,target:Body,before:number,damage:number){
- if(import.meta.env?.PROD)return;
+ if(import.meta.env?.PROD&&import.meta.env?.VITE_FUN_LAB!=='1')return;
  const lock=locks.get(world);if(!lock?.enabled||target.team!=='player'||!('unitType' in target)||!('rank' in target)||target.attributes.includes('Structure')||before<=0)return;
- lock.damage+=Math.max(0,damage);if(target.hp<1){target.hp=1;lock.prevented++;}
+ lock.damage+=Math.max(0,damage);if(target.hp<1){target.hp=1;lock.prevented++;
+  // The normal hit path cannot see a health delta once the safety floor is
+  // reached. Preserve its damage feedback while this diagnostic lock is on.
+  if(before<=1&&damage>0)(world as {visual?:(kind:'hit',target:Body,end:Body,owner?:undefined,source?:undefined,extra?:{weaponHit:boolean})=>void}).visual?.('hit',target,target,undefined,undefined,{weaponHit:false});
+ }
 }

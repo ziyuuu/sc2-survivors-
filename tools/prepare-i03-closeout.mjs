@@ -1,0 +1,15 @@
+import fs from 'node:fs/promises';
+let v=await fs.readFile('tools/verify-integration-i02.mjs','utf8');
+v=v.replaceAll('integration-i02-20261022','integration-i03-20261022').replaceAll('-r2','-r1');
+v=v.replace("new Set(['src/simulation/special-stages/bridge.ts','src/simulation/special-stages/crossing.ts'])","new Set(['src/simulation/combat/expedition-combat.ts','src/simulation/progression/supply-cards.ts','src/simulation/starship/catalog-modules.ts','src/simulation/starship/drops.ts','src/ui/starship/effect-text.ts','test/intermission-integration.test.ts'])");
+v=v.replace('assert.equal(changed.length,2)','assert.equal(changed.length,6)');
+v=v.replace("['src/simulation/special-stages/combat-state.ts','test/integration-i02-transactions.test.ts','test/integration-i02.test.ts']","['test/integration-i03.test.ts','test/integration-i03-effects.test.ts','test/integration-i03-dead-ends.test.ts','test/integration-i03-entry.test.ts']");
+v=v.replaceAll('changed:[]',"changed:['src/ui/starship/effect-text.ts']");
+await fs.writeFile('tools/verify-integration-i03.mjs',v);
+let p=await fs.readFile('tools/package-integration-i02.mjs','utf8');
+p=p.replaceAll('integration-i02-20261022','integration-i03-20261022').replaceAll('I02','I03').replaceAll('i02','i03').replace("['r1','r2']","['r1']").replaceAll('-r2','-r1').replace('integration-i01-20261022/web-game-r1','integration-i01-20261022/web-game-r2').replaceAll('4482','4483').replaceAll('VERSION=r2','VERSION=r1');
+p=p.replace('仅修复特殊关状态与结算边界','修复继承瞄准／移动射击、装备基础掉率及虫族补给资格，完成当前内容可达性／生效／流程核验');
+p=p.replace('I03、第三／四批视觉','第三／四批视觉');
+await fs.writeFile('tools/package-integration-i03.mjs',p);
+let review=await fs.readFile('tools/review-integration-i02-images.py','utf8');review=review.replaceAll('integration-i02-20261022','integration-i03-20261022').replace("['qa-web-r5','qa-offline-r1','qa-production-r1','qa-touch-r1']","['qa-production-r1','qa-touch-r1','qa-effects-r3']");
+await fs.writeFile('tools/review-integration-i03-images.py',review);

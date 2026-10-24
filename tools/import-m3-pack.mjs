@@ -90,7 +90,7 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
  clips=clips.map(c=>c.tracks.length?c:new AnimationClip(c.name,c.duration,bones[0]?[new QuaternionKeyframeTrack(bones[0].name+'.quaternion',[0,c.duration],[...bones[0].quaternion.toArray(),...bones[0].quaternion.toArray()])]:[])).filter(c=>c.tracks.length);
  const renamedBones=normalizeBoneBindings(bones,clips);group.userData.originalBoneNames=Object.fromEntries(Object.entries(renamedBones).map(([original,current])=>[current,original]));
  if(id==='model.fort.turret_zerg'||id==='model.fort.turret_zerg.death')appendSpineSplineRibbons(group,s,bones,specs,geometryReport);
- if(id.startsWith('model.fort.turret_')){
+ if(id.startsWith('model.fun-')||id.startsWith('model.fort.turret_')||JSON.parse(await fs.readFile('tools/mission-models.json','utf8')).some(m=>m.id===id)){
   const profile=fortMaterialProfile(s,provenance.sourceSha256);group.userData.sc2FortMaterials=profile;
   for(const spec of specs.values()){const native=profile.materials.find(m=>m.index===spec.index);for(const [role,layer]of Object.entries(native?.layers??{}))if(!spec.layers[role])spec.layers[role]={filename:layer.filename,channel:layer.channel,uv:layer.uv,multiplier:layer.multiply?.default??1,add:layer.add?.default??0,flags:layer.flags,color:layer.color?.default};}
  }
@@ -107,7 +107,7 @@ for(const [id,name] of M3_MODELS.filter(([id])=>matches(id))){try{
   if(spec.flags&16){extension('KHR_materials_unlit');mat.extensions??={};mat.extensions.KHR_materials_unlit={};}mat.doubleSided=!!(spec.flags&8);mat.pbrMetallicRoughness??={};mat.pbrMetallicRoughness.metallicFactor=0;
   for(const [role,layer] of Object.entries(spec.layers)){
    if(!layer.filename)continue;
-   if(!spec.availableUvs.includes(layer.uv)){report.unsupported.push({role,reason:'Unavailable UV source',...layer});continue;}
+   if(!spec.availableUvs.includes(layer.uv)&&!(group.userData.sc2FortMaterials&&[3,8,15].includes(layer.uv))){report.unsupported.push({role,reason:'Unavailable UV source',...layer});continue;}
    const index=await embed(layer,role==='normal',role==='diffuse'&&!id.startsWith('model.map.')&&spec.blend===0&&layer.channel===1),info={index,texCoord:layer.uv};report.layers.push({role,...layer,source:provider+'textures/'+layer.filename.toLowerCase()});
    if(role==='diffuse')mat.pbrMetallicRoughness.baseColorTexture=info;
    else if(role==='normal')mat.normalTexture={...info,scale:1};

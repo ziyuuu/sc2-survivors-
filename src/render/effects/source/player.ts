@@ -10,17 +10,19 @@ import {sourcePhase,sourceLife} from './timeline';
 import type {SourceEffectDefinition,SourceEffectRequest,SourcePhase} from './types';
 import type {UnitMaterialSurface} from '../../materials/unit-material-batch';
 import {DisplacementSurface,DISPLACEMENT_LAYER} from './displacement';
+import {sourceDecorationMask} from './detail';
 
 export const SOURCE_EFFECTS=catalog as unknown as Record<string,SourceEffectDefinition>;
 type MeshInstance={root:THREE.Group;mixer:THREE.AnimationMixer;surfaces:(UnitMaterialSurface|DisplacementSurface)[];actions:Map<string,THREE.AnimationAction>;activeClip?:string;used:boolean;lastUsed:number};
 type Ending={request:SourceEffectRequest;ground:(p:{x:number;z:number})=>number;seenAt:number;stopped?:number};
 export function sourceEndingTimes(request:SourceEffectRequest,seenAt:number,stopped:number,now:number){const rate=request.clockRate??1;return {age:Math.max(0,now-stopped)*rate,stopAge:request.age+(request.stopTime===undefined?0:Math.max(0,stopped-seenAt)*rate)};}
 /** Source meshes, emitters, ribbons and projections have one lifecycle owner.
- * Instances expand on demand; no quality option can discard a required layer. */
-const decorativeModels=new Set(['BanelingDeath','LurkerAttackSpikeEx2','RavagerCorrosiveBileImpact','MarineAttackImpact','HydraliskAttackImpact','RoachAttackImpact']);
-export class SourceEffectPlayer {decorationFraction=1;
+ * Instances expand on demand. The optional medium preset reduces explicitly
+ * classified decoration and refraction; colour/identity layers retain ownership. */
+export class SourceEffectPlayer {decorationFraction=1;displacementEnabled=true;
  ready=false;private loading?:Promise<void>;
  private resources=new Map<string,SourceEffectResource>();private batches=new Map<string,SourceDrawBatch>();private meshPools=new Map<string,MeshInstance[]>();
+ private meshCursors=new Map<string,number>();
  private materialReferences=new WeakMap<SourceEffectDefinition,Map<number,number[]>>();
  private rigid=new Map<string,RigidSourceBatch>();
  private particleCache=new SourceParticleCache();
@@ -60,6 +62,10 @@ export class SourceEffectPlayer {decorationFraction=1;
   this.scene.add(root);
   const mixer=new THREE.AnimationMixer(object),actions=new Map(gltf.animations.map(c=>[c.name,mixer.clipAction(c)]));return {root,mixer,surfaces,actions,used:false,lastUsed:0};
  }
+ preparationEntries(){
+  return [...[...this.meshPools].map(([key,pool])=>({key:key+':mesh',root:pool[0].root as THREE.Object3D,displacement:pool[0].surfaces.some(s=>s instanceof DisplacementSurface)})),
+   ...[...this.batches].map(([key,batch])=>({key:key+':particles',root:batch.mesh as THREE.Object3D,displacement:batch.surface instanceof DisplacementSurface}))];
+ }
  async prepareMeshes(compile:(root:THREE.Object3D,displacement:boolean)=>Promise<unknown>){
   for(const rigid of this.rigid.values())await rigid.prepare(compile);
   for(const pool of this.meshPools.values()){
@@ -68,7 +74,7 @@ export class SourceEffectPlayer {decorationFraction=1;
   }
   for(const batch of this.batches.values())if(batch.surface instanceof DisplacementSurface){const {mesh}=batch,visible=mesh.visible,count=mesh.count;mesh.visible=true;mesh.count=1;try{await compile(mesh,true);}finally{mesh.visible=visible;mesh.count=count;}}
  }
- begin(time:number){for(const rigid of this.rigid.values())rigid.begin();this.particleCache.begin(time);this.clock=time;this.requests.clear();this.modelCounts.clear();this.counts={effects:0,meshes:0,particles:0,ribbonQuads:0,projectionQuads:0,displacementMeshes:0,displacementQuads:0,unrenderedDisplacementQuads:0,missing:0};for(const b of this.batches.values())b.begin();for(const pool of this.meshPools.values())for(const m of pool){m.used=false;m.root.visible=false;}}
+ begin(time:number){this.meshCursors.clear();for(const rigid of this.rigid.values())rigid.begin();this.particleCache.begin(time);this.clock=time;this.requests.clear();this.modelCounts.clear();this.counts={effects:0,meshes:0,particles:0,ribbonQuads:0,projectionQuads:0,displacementMeshes:0,displacementQuads:0,unrenderedDisplacementQuads:0,missing:0};for(const b of this.batches.values())b.begin();for(const pool of this.meshPools.values())for(const m of pool){m.used=false;m.root.visible=false;}}
  add(request:SourceEffectRequest,ground:(p:{x:number;z:number})=>number){
   this.play(request,ground);if(request.loop)this.loops.set(request.key,{request,ground,seenAt:this.clock});
  }
@@ -79,17 +85,18 @@ export class SourceEffectPlayer {decorationFraction=1;
   const hasMesh=!particlesOnly&&!!resource.gltf&&request.mesh!==false;if(hasMesh){const rigid=this.rigid.get(def.id);if(rigid){rigid.add(request,phase);this.counts.meshes++;}else this.mesh(resource,request,phase);}
   // Baneling's ordinary death body is owned by the unit renderer (mesh:false),
   // but its type-2 surface belongs exclusively to this refraction pass.
-  if(!particlesOnly&&resource.displacementGltf)this.mesh(resource,request,phase,true);
-  const particles=sourceParticleQuads(def,request,this.camera,ground,this.particleCache,decorativeModels.has(def.id)?this.decorationFraction:1),ribbons=particlesOnly?[]:sourceRibbonQuads(def,request,this.camera),projections=particlesOnly?[]:sourceProjectionQuads(def,request,ground);this.counts.particles+=particles.length;this.counts.ribbonQuads+=ribbons.length;this.counts.projectionQuads+=projections.length;
+  if(this.displacementEnabled&&!particlesOnly&&resource.displacementGltf)this.mesh(resource,request,phase,true);
+  const decoration=this.decorationFraction<1?sourceDecorationMask(def):undefined;
+  const particles=sourceParticleQuads(def,request,this.camera,ground,this.particleCache,decoration?.size?this.decorationFraction:1,decoration),ribbons=particlesOnly?[]:sourceRibbonQuads(def,request,this.camera),projections=particlesOnly?[]:sourceProjectionQuads(def,request,ground);this.counts.particles+=particles.length;this.counts.ribbonQuads+=ribbons.length;this.counts.projectionQuads+=projections.length;
   let displacementQuads=0;
   for(const quads of [particles,ribbons,projections])for(const quad of quads){const ref=def.materialReferences[quad.materialReference];
-   if(ref.type===2){const batch=this.batches.get(def.id+':displacement:'+ref.material_index);if(!batch)throw Error('Unprepared original displacement '+def.id);batch.add(quad);displacementQuads++;}
+   if(ref.type===2){if(!this.displacementEnabled)continue;const batch=this.batches.get(def.id+':displacement:'+ref.material_index);if(!batch)throw Error('Unprepared original displacement '+def.id);batch.add(quad);displacementQuads++;}
    else for(const material of this.materialsFor(def,quad.materialReference)){const batch=this.batches.get(def.id+':'+material);if(!batch)throw Error('Unprepared source combat layer '+def.id+':'+material);batch.add(quad);}
   }
-  const model=this.modelCounts.get(def.id)??{requests:0,meshes:0,particles:0,ribbons:0,projections:0,displacementMeshes:0,displacementQuads:0};model.requests++;model.meshes+=Number(hasMesh);model.particles+=particles.length;model.ribbons+=ribbons.length;model.projections+=projections.length;model.displacementMeshes+=!particlesOnly&&resource.displacementGltf?(this.meshPools.get(def.id+':displacement')?.[0].surfaces.length??0):0;model.displacementQuads+=displacementQuads;this.counts.displacementQuads+=displacementQuads;this.modelCounts.set(def.id,model);
+  const model=this.modelCounts.get(def.id)??{requests:0,meshes:0,particles:0,ribbons:0,projections:0,displacementMeshes:0,displacementQuads:0};model.requests++;model.meshes+=Number(hasMesh);model.particles+=particles.length;model.ribbons+=ribbons.length;model.projections+=projections.length;model.displacementMeshes+=this.displacementEnabled&&!particlesOnly&&resource.displacementGltf?(this.meshPools.get(def.id+':displacement')?.[0].surfaces.length??0):0;model.displacementQuads+=displacementQuads;this.counts.displacementQuads+=displacementQuads;this.modelCounts.set(def.id,model);
  }
  private mesh(resource:SourceEffectResource,request:SourceEffectRequest,phase:SourcePhase,displacement=false){
-  const pool=this.meshPools.get(resource.definition.id+(displacement?':displacement':''))!;let instance=pool.find(m=>!m.used);if(!instance){instance=this.makeMesh(resource,displacement);pool.push(instance);}instance.used=true;instance.lastUsed=this.clock;instance.root.visible=true;
+  const key=resource.definition.id+(displacement?':displacement':''),pool=this.meshPools.get(key)!,cursor=this.meshCursors.get(key)??0;let instance=pool[cursor];this.meshCursors.set(key,cursor+1);if(!instance){instance=this.makeMesh(resource,displacement);pool.push(instance);}instance.used=true;instance.lastUsed=this.clock;instance.root.visible=true;
   // Exported GLBs contain the original Z-up conversion; the outer placement
   // cancels that wrapper once before applying the same transform as emitters.
   instance.root.matrix.copy(sourcePlacement(resource.definition,request.placement,request.age)).multiply(new THREE.Matrix4().makeRotationX(Math.PI/2));instance.root.matrixWorldNeedsUpdate=true;
@@ -106,11 +113,11 @@ export class SourceEffectPlayer {decorationFraction=1;
    // particles, and play the authored Death clip once at the last real placement.
    this.play({...request,key:'ending-particles:'+key,age:stopAge+age,stopAt:stopAge,mesh:false},ground,true);
    const death=sourcePhase(def,sourceLife(def),false,request.seed).clip;
-   if(/^death(?:\s|$)/i.test(death.name))this.play({...request,key:'ending-death:'+key,age,loop:false,clip:death.name},ground);
+   if(/^death(?:\s|$)/i.test(death.name))this.play({...request,key:'ending-death:'+key,age,loop:false,hostedBeam:false,clip:death.name},ground);
   }
   for(const rigid of this.rigid.values())rigid.end();this.particleCache.end();for(const b of this.batches.values())b.end();for(const [key,pool]of this.meshPools){const retained=pool.filter((m,i)=>{if(i===0||m.used||this.clock-m.lastUsed<2)return true;this.releaseMesh(m);return false;});this.meshPools.set(key,retained);}
  }
  private releaseMesh(m:MeshInstance){m.mixer.stopAllAction();m.mixer.uncacheRoot(m.mixer.getRoot());m.root.removeFromParent();const skeletons=new Set<THREE.Skeleton>();m.root.traverse(n=>{if(n instanceof THREE.SkinnedMesh)skeletons.add(n.skeleton);});for(const s of skeletons)s.dispose();for(const s of m.surfaces){s.material.dispose();s.texture.dispose();}}
  reset(){this.particleCache.reset();this.loops.clear();this.begin(0);for(const [key,pool]of this.meshPools){for(const m of pool.slice(1))this.releaseMesh(m);this.meshPools.set(key,pool.slice(0,1));}this.end();}
- report(){return {decorationFraction:this.decorationFraction,rigid:[...this.rigid.values()].map(r=>r.report()),particleCache:this.particleCache.report(),ready:this.ready,models:this.resources.size,requiredModels:Object.keys(SOURCE_EFFECTS).length,...this.counts,activeRequests:[...this.requests],modelDraws:[...this.modelCounts].map(([model,counts])=>({model,...counts})),endingChannels:[...this.loops.values()].filter(e=>e.stopped!==undefined).length,meshInstances:[...this.meshPools.values()].reduce((n,p)=>n+p.length,0),batches:[...this.batches].map(([key,b])=>({key,...b.report()}))};}
+ report(){return {decorationFraction:this.decorationFraction,displacementEnabled:this.displacementEnabled,rigid:[...this.rigid.values()].map(r=>r.report()),particleCache:this.particleCache.report(),ready:this.ready,models:this.resources.size,requiredModels:Object.keys(SOURCE_EFFECTS).length,...this.counts,activeRequests:[...this.requests],modelDraws:[...this.modelCounts].map(([model,counts])=>({model,...counts})),endingChannels:[...this.loops.values()].filter(e=>e.stopped!==undefined).length,meshInstances:[...this.meshPools.values()].reduce((n,p)=>n+p.length,0),batches:[...this.batches].map(([key,b])=>({key,...b.report()}))};}
 }

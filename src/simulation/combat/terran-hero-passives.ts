@@ -8,6 +8,7 @@ import type {World} from '../world';
 import type {Body,Entity} from '../types';
 import {terranHeroGrowth,TERRAN_HERO_REPAIR_PER_SECOND} from '../../data/terran-heroes';
 import {talentModifiers} from './expedition-combat';
+import {firstSupportTargets,healthOrder} from './support-targets';
 const distance=(a:Body,b:Body)=>Math.hypot(a.x-b.x,a.z-b.z);
 export interface HeroCombatState {cycles:number;target:number|null;warmupStart:number|null;lastFire:number;cloakUntil:number;cloakEpisode:boolean;charge:number;protectedUntil:number}
 export const newHeroCombatState=():HeroCombatState=>({cycles:0,target:null,warmupStart:null,lastFire:-100,cloakUntil:0,cloakEpisode:false,charge:0,protectedUntil:0});
@@ -30,7 +31,7 @@ export function heroIncomingFactor(w:World,target:Entity,attacker?:Entity){const
 export function tickTerranHero(w:World,u:Entity,dt:number){if(!u.heroId||u.hp<=0)return;
  if(u.heroId==='nova'){const s=heroState(u),idle=w.time-Math.max(s.lastFire,u.lastDamagedAt??-100)>=2;if(!idle){s.cloakEpisode=false;u.cloaked=false;}else if(!s.cloakEpisode){s.cloakEpisode=true;s.cloakUntil=w.time+6;s.charge=1;}u.cloaked=idle&&s.cloakUntil>w.time;}
  if(u.heroId==='tychus'&&w.time-heroState(u).lastFire>=2)heroState(u).warmupStart=null;
- if(u.heroId==='swann'){const targets=w.allies().filter(a=>a.id!==u.id&&permanentMechanical(a)&&a.hp<a.maxHp&&w.edgeDistance(u,a)<=8&&w.hasAttackLine(u,a)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id).slice(0,7);u.healTargets=[];
+ if(u.heroId==='swann'){const targets=firstSupportTargets(w.entities.values(),a=>a.id!==u.id&&permanentMechanical(a)&&a.hp<a.maxHp&&w.edgeDistance(u,a)<=8&&w.hasAttackLine(u,a),healthOrder,7);u.healTargets=[];
   for(const a of targets){const suppression=Math.min(.5,Math.max(w.statuses.value(a.id,'bleed',w.time),w.statuses.value(a.id,'corruption',w.time))),gain=Math.min(a.maxHp-a.hp,TERRAN_HERO_REPAIR_PER_SECOND*terranHeroGrowth(u.rank).passive*(1+(talentModifiers(w,u).healingPct??0))*(1-suppression)*dt*equipmentRecoveryFactor(w,a)*equipmentHealingOutput(w,u));if(gain>0){a.hp+=gain;w.stats.healed+=gain;observeRecovery(w,u,a,gain);u.healTargets.push(a.id);}}}
 }
 /** Snapshot one main cycle before launch. Secondary/APM packets never call this. */

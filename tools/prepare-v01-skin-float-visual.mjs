@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+let code=await fs.readFile('tools/qa-v01-skin-visual.mjs','utf8');const replace=(a,b)=>{assert.equal(code.split(a).length,2,a);code=code.replace(a,b);};
+replace("'skin-visual-r1'","'skin-float-visual-r1'");
+replace('This is rendering equivalence, not human/UI review or performance measurement.', 'RGBA32F unquantized linear-colour comparison; previews apply a fixed exposure and sRGB transform for inspection only. This is rendering equivalence, not human/UI review or performance measurement.');
+replace('target.texture.type=1009;', 'target.texture.type=1015;');
+replace('THREE.UnsignedByteType; original full geometry/material/poses.', 'THREE.FloatType; original full geometry/material/poses; float readback avoids byte quantization.');
+replace('const bytes=new Uint8Array(384*384*4);', 'const bytes=new Float32Array(384*384*4);');
+replace('if(pixels[0][i]!==pixels[1][i])', "if(!Number.isFinite(pixels[0][i])||!Number.isFinite(pixels[1][i]))throw Error('Non-finite render channel');if(pixels[0][i]!==pixels[1][i])");
+replace('for(let y=0;y<384;y++)image.data.set(pixels[1].subarray(y*384*4,(y+1)*384*4),(383-y)*384*4);', `for(let y=0;y<384;y++)for(let x=0;x<384;x++)for(let c=0;c<4;c++){const linear=pixels[1][(y*384+x)*4+c],value=c===3?linear:Math.max(0,linear*3),encoded=c===3?value:value<=.0031308?value*12.92:1.055*Math.pow(value,1/2.4)-.055;image.data[((383-y)*384+x)*4+c]=Math.round(Math.min(1,Math.max(0,encoded))*255);}`);
+await fs.writeFile('tools/qa-v01-skin-visual-float.mjs',code,{flag:'wx'});console.log('Prepared float render equality and explicit inspection preview transform');

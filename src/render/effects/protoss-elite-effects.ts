@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {firstSourceAttackIds} from './source/event-index';
 import {sourceOwnsFlight,sourceOwnsEvent} from './combat-fx-profile';
 import type {World} from '../../simulation/world';
 import type {Entity,VisualEvent} from '../../simulation/types';
@@ -13,14 +14,16 @@ export class ProtossEliteEffects {
  private counts={flights:0,blades:0,beams:0,fields:0,shields:0,lifts:0,echoes:0};
  constructor(scene:THREE.Scene,fx:BattleEffects,camera:THREE.Camera){this.material=new ProtossHeroMaterials(scene,camera,fx);}
  async load(){if(this.ready)return;this.material.prepare();this.ready=true;}
+ resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;}
  reset(){this.echoes=[];this.serial=0;this.time=0;if(this.ready)this.material.reset();}
  report(){return {ready:this.ready,quality:this.quality,...this.counts,materials:this.material.report()};}
  render(w:World,visible:(p:{x:number;z:number})=>boolean,muzzle:(e:VisualEvent)=>P){if(!this.ready)return;if(w.time<this.time){this.echoes=[];this.serial=0;}this.time=w.time;this.material.begin(w.time);this.counts={flights:0,blades:0,beams:0,fields:0,shields:0,lifts:0,echoes:0};const density=this.quality==='full'?1:this.quality==='balanced'?.65:.35;
   const p=(b:{x:number;z:number;flying?:boolean},height=.8):P=>({x:b.x,z:b.z,y:(b.flying?5.6:w.terrain?.height(b)??0)+height});
   const glow=(b:P,size:number,color=0x80dafa,opacity=.8)=>this.material.sprite('glow',b,size,color,opacity,Math.floor(w.time*24)%16);
   const beam=(a:P,b:P,width:number,color:number,fade=1)=>{this.material.ribbon('beam',a,b,width*1.7,color,.24*fade,0,true,.85);this.material.ribbon('beam',a,b,width,color,.8*fade,0,true,1.05);};
+  let attackEvents:ReturnType<typeof firstSourceAttackIds>|undefined;
   for(const f of w.weaponFlights){const u=f.source,mother=u.summonOwnerId===undefined?undefined:w.entities.get(u.summonOwnerId);if(sourceOwnsFlight(u)||!isProtossEliteId(u.eliteId)&&!isProtossEliteId(mother?.eliteId)||w.time<f.start||!visible(f.point))continue;const target=w.body(f.target),distance=Math.max(.01,Math.hypot(f.lastSeen.x-f.from.x,f.lastSeen.z-f.from.z)),travel=Math.hypot(f.point.x-f.from.x,f.point.z-f.from.z),t=Math.min(1,travel/distance),from=p({...f.from,flying:u.flying}),to=p({...f.point,flying:target?.flying}),head={...to,y:from.y+(to.y-from.y)*t},a=Math.atan2(f.lastSeen.x-f.from.x,f.lastSeen.z-f.from.z),heavy=u.unitType==='immortal'||mother?.eliteId==='carrier.2',size=heavy?.7:u.unitType==='adept'?.53:.35,color=u.eliteId==='adept.3'||u.eliteId==='stalker.3'?0xbb9aff:0x84d9ff;
-   const event=w.visualEvents.find(e=>e.attackId===f.attackId);if(event){const mount=muzzle(event),blend=Math.max(0,1-travel/1.4);head.x+=(mount.x-f.from.x)*blend;head.z+=(mount.z-f.from.z)*blend;head.y+=(mount.y-from.y)*blend;}
+   const event=(attackEvents??=firstSourceAttackIds(w.visualEvents)).get(f.attackId);if(event){const mount=muzzle(event),blend=Math.max(0,1-travel/1.4);head.x+=(mount.x-f.from.x)*blend;head.z+=(mount.z-f.from.z)*blend;head.y+=(mount.y-from.y)*blend;}
    const tail={x:head.x-Math.sin(a)*(heavy?1.2:.72),y:head.y,z:head.z-Math.cos(a)*(heavy?1.2:.72)};beam(tail,head,size*.58,color);glow(head,size*1.4,color,.9);this.material.sprite('plasma',head,size,color,.5,Math.floor(w.time*18)%16,a,true,.9);if(heavy){const rear=mix(tail,head,.15);glow(rear,size*.65,0xecddaf,.75);}this.counts.flights++;
   }
   for(const e of w.visualEvents){if(sourceOwnsEvent(e)&&!(e.kind==='attack'&&e.eliteId==='zealot.1'&&(e.shotSequence??0)%3===0)||e.serial<=this.serial||e.heroId||!isProtossEliteId(e.eliteId)||w.time-e.time>.3)continue;if(['attack','weapon-area','projectile-impact','strategic-impact','storm-start','support-impact','barrier-start'].includes(e.kind))this.echoes.push({e:structuredClone(e),life:e.kind==='attack'?(e.unitType==='zealot'?.55:.32):e.kind==='strategic-impact'?.85:.5});}this.serial=w.visualEvents.at(-1)?.serial??this.serial;this.echoes=this.echoes.filter(x=>w.time-x.e.time<x.life).slice(-256);

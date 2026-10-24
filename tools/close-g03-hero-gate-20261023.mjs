@@ -1,0 +1,30 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,''));
+const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const root='reports/local/g03-hero-gate-20261023';
+const before=read('reports/local/hero-matrix-20261023/source-before.json');
+const changed=Object.keys(before).filter(p=>sha(p)!==before[p]);
+if(JSON.stringify(changed.sort())!==JSON.stringify(['src/simulation/boss-loot.ts','src/simulation/progression/hero-availability.ts','test/g01-hero-unlock.test.ts'].sort()))throw Error('Unexpected source delta: '+changed);
+const current='dist/SC2-Survivors-Current-20261006.html';
+if(sha(current)!=='c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d')throw Error('Current changed');
+const routes=fs.readdirSync(root).filter(n=>/-(hard|hell)\.json$/.test(n)).map(n=>{
+ const d=read(`${root}/${n}`);return {file:`${root}/${n}`,sha256:sha(`${root}/${n}`),id:d.id,stop:d.stop,stage:d.stage,wallSeconds:d.wallSeconds,heroes:d.heroes,finalGear:d.finalGear,issue:d.issue};
+});
+if(routes.length!==6||routes.some(r=>r.issue))throw Error('Incomplete routes');
+const decision='用户确认：简单12、普通9、困难和地狱3关战役Boss死亡起开放普通新英雄，当前Boss这次奖励即有资格；英雄数值与20%概率保持。合理操作与培养下，困难蓝装为主加少量绿装、地狱紫装为主应能顺利进入无尽；当前难度装备毕业应能平推18关进入无尽，无尽自身继续成长。';
+const limits='六条程序路线仅为初测：3战败、3墙钟截断，未完成进入无尽；单种子、无模块配装、控制策略未经合格玩家行为验证，途中自动换装且部分升为紫装。截断受并行回归/路线CPU竞争影响，不代表性能或战败。失败不证明合理玩家不能通过，品质颜色也不等于毕业配装；不能据此宣布目标达成或直接调难度。';
+const report={date:'2026-10-23',decision,productionChanged:changed.filter(p=>p.startsWith('src/')),tests:{focused:46,newFirstBossTests:8,fullUnique:2272,initialPass:2265,initialNetworkPermissionFailures:7,sameSourceRerunPass:16,typecheck:'pass',dataCheck:'pass',logs:['focused.log','regression.log','network-rerun.log','p5-rerun.log','typecheck.log','data-check.log'].map(n=>`${root}/${n}`)},integrity:{baselineFiles:Object.keys(before).length,unchanged:Object.keys(before).length-changed.length,changed,newTest:'test/g03-first-boss-hero.test.ts',current:{file:current,sha256:sha(current)}},routes,limitations:[limits,'未新建构建、浏览器或GPU验收、真机、人类试玩、FPS验收；未替换Current、提交、推送或发布。'],remaining:['先修复G03-CROSSING-ENTRY-001横穿32人入场越界，重测原阻断路线。','定义各族各难度毕业配装（词条、模块、兵种方向与培养），验证合理策略、多种子、英雄未抽到与已抽到两种路径，校准困难/地狱装备门槛及18关到无尽衔接。','简单弹幕的人类操作负担及容错取舍。','诱饵有效价值、减少内容后的整局经济成长和最终平衡收口。']};
+fs.writeFileSync('reports/qa/g03-hero-gate-20261023.json',JSON.stringify(report,null,2)+'\n');
+const table=routes.map(r=>`| ${r.id} | ${r.stop==='lost'?'程序路线战败':'墙钟截断'} | ${r.stage} |`).join('\n');
+fs.writeFileSync('docs/project/G03_HERO_GATE_20261023.md',`# G03 英雄门槛与装备毕业目标 · 2026-10-23\n\n${decision}\n\n## 实现与验证\n\n仅改两处生产逻辑：英雄门槛由12/9/6/6改为12/9/3/3；第3关预规划奖励按该Boss死亡后应有的英雄资格建立候选池，沿用原receipt RNG，不提前打开实际领取资格。实际Boss死亡后解锁并使用冻结奖励。英雄定义、20%概率、既有装备赠送/进化和999击杀虫后规则保持。\n\n46专项通过，其中新增8项覆盖三族×困难/地狱的第3关英雄与非英雄种子、预热模型计划、击杀前存储恢复、原生Boss死亡及领取防重；简单/普通跨种子继续排除第3关新英雄。2272唯一回归覆盖：首轮2265通过，7项网络权限失败在同版16项重跑中补齐。类型与数据检查通过。\n\n825既有src/test中822保持，2生产+1既有测试修改，新增1测试。Current逐SHA保持。未做新构建、浏览器/GPU、人类/真机或FPS验收，未提交/推送/发布。\n\n## 初测及边界\n\n困难初始6蓝2绿、地狱8紫，均8件属性装、score140/allocation2、无模块，地图种子529；原生经济/移动/生产/英雄施法及掉落换装，详细配装和途中变化见原始JSON。\n\n| 路线 | 停止原因 | 战役关卡 |\n|---|---|---|\n${table}\n\n${limits}\n\n## G03剩余\n\n${report.remaining.map(x=>'- '+x).join('\n')}\n\n英雄削弱不再是待决定项。T01、U05、D05及最终V/MVP属其他收尾项，不因本次门槛完成而关闭。看板128仍62项：51完成、8待办、1待讨论、2暂缓，下一项G03。\n\n证据：[汇总](../../reports/qa/g03-hero-gate-20261023.json)，原始日志/路线在reports/local/g03-hero-gate-20261023/。旧失败与截断保留。\n`);
+const p='docs/project/performance-board.json', b=read(p);
+if(b.revision!==127)throw Error('Board already modified');
+b.revision=128;b.updated='2026-10-23';
+const evidence=['G03_HERO_GATE_20261023.md','../../reports/qa/g03-hero-gate-20261023.json'];
+for(const t of b.tasks.filter(t=>['G01','G03'].includes(t.id))){t.updated='2026-10-23';t.evidence.push(...evidence);t.result+=' 2026-10-23后续决定覆盖此前门槛与待讨论表述：'+decision+' 已完成门槛修改和当次Boss奖励修复，2272唯一回归、类型和数据检查通过；英雄不削弱。';if(t.id==='G03'){t.steps[1]='承接已实施12/9/3/3英雄门槛及当次Boss奖励，保持英雄数值和20%概率，按用户毕业装备目标复核整局。';t.acceptance.push('合理操作与培养下，困难蓝装为主加少量绿装、地狱紫装为主可顺利进入无尽；各难度毕业配装可平推18关，毕业标准须包含词条/模块/兵种方向，三族多种子及非依赖抽到英雄的路径有证据。');t.steps.push(...report.remaining.slice(1));t.result+=' '+limits+' G03仍待讨论，下一步先修横穿入场。';}}
+b.updates.push({date:'2026-10-23',tasks:['G01','G03'],change:decision+' 门槛及当次Boss奖励已完成，2272唯一回归通过。装备目标尚未验证，6条初测3战败3截断，仅记录控制器表现；G03仍待讨论。',evidence});
+fs.writeFileSync(p,JSON.stringify(b,null,2)+'\n');
+const agents='AGENTS.md',old=fs.readFileSync(agents,'utf8');
+fs.writeFileSync(agents,`## G03英雄门槛完成、毕业装备目标确认 · 2026-10-23\n\n- ${decision}\n- 2生产文件修改，首Boss预规划按死亡后资格抽选且不提前解锁；46专项、2272唯一回归（2265首过＋7权限失败在16项重跑补齐）、类型/数据通过。825既有src/test中822保持，新增1测试，Current逐SHA保持；没有新构建或浏览器/GPU/真机/FPS验收，未提交/推送/发布。\n- ${limits}\n- 看板128仍62项51完成、8待办/1待讨论/2暂缓。G03先修横穿32人入场，再补毕业配装/合理策略/多种子验证、简单弹幕与诱饵价值及经济收口。英雄削弱不再待决定；T01/U05/D05及最终V/MVP开放。记录docs/project/G03_HERO_GATE_20261023.md、reports/qa/g03-hero-gate-20261023.json。\n\n${old}`);
+console.log(JSON.stringify({changed,unchanged:report.integrity.unchanged,routes:routes.length,revision:b.revision}));

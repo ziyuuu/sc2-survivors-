@@ -1,0 +1,226 @@
+{
+  "date": "2026-10-23",
+  "status": "U05按用户收窄范围完成",
+  "authorization": "只修正骰子与恢复卡两项文案，不新增引导、不改现有界面布局和操作；允许检查其他说明，原则是游戏语言、简略与详细分层。T01在优化完成后、V04前，增加静态/UI单独HTML。",
+  "changes": [
+    {
+      "item": "骰子",
+      "summary": "更容易刷出紫色和橙色商品。",
+      "detail": "移除旧天赋与商店品质保底表述；保留五档骰子、三关段的实际概率和升级补差；说明其他装备免费刷新效果与品质售罄改选。",
+      "paths": [
+        "src/simulation/fun-shop/state.ts"
+      ],
+      "sample": {
+        "id": "terran:fun-shop.dice.1",
+        "source": "catalogue",
+        "current": "",
+        "gain": "",
+        "simple": "更容易刷出紫色和橙色商品。",
+        "detail": "只影响之后出现的新商品和刷新结果。\n未计入其他装备加成时，各关段刷出紫色和橙色商品的概率为：第1—5关：紫4.9%、橙0.2%；第6—11关：紫7.9%、橙1.2%；第12—19关：紫12.8%、橙3.2%。装备的免费刷新加成可进一步提高紫橙商品的出现机会；抽中的品质无可售商品时改选其他品质。\n按白→绿→蓝→紫→橙逐级升级，只付总价差额。 特殊关中暂停，返回后恢复。",
+        "equipment": null
+      }
+    },
+    {
+      "item": "恢复卡",
+      "summary": "恢复效率 +X% / 提高恢复效率",
+      "detail": "提高本兵种已有的生命与护盾自动恢复，以及治疗、修复效果；不会获得新的恢复能力，可治疗的目标类型不变。商店、图鉴简述/详情及累计加成使用一致用语。",
+      "paths": [
+        "src/ui/presentation/shop-card-copy.ts",
+        "src/ui/intermission-skin/presentation.ts",
+        "src/ui/presentation/intermission.ts"
+      ],
+      "sample": {
+        "id": "protoss:card.recovery.stalker.white",
+        "source": "catalogue",
+        "current": "",
+        "gain": "",
+        "simple": "提高恢复效率",
+        "detail": "恢复效率 +4%。提高本兵种已有的生命与护盾自动恢复，以及治疗、修复效果。不会获得新的恢复能力，可治疗的目标类型不变。累计上限 40%；需要符合条件的本兵种。",
+        "equipment": null
+      }
+    }
+  ],
+  "otherCopyReview": {
+    "method": "只读检查既有说明源码与呈现字段；不是全部游戏文案逐条验收、浏览器视觉验收或新增引导设计。",
+    "principles": [
+      "使用玩家能理解的游戏语言：兵种、伤害、护盾、治疗、编制、目标、冷却等；避免把实现术语直接展示给玩家。",
+      "简略说明先说用途和核心收益，详细说明补数值、条件、目标、持续时间、上限和限制；使用已有简述/详情入口。"
+    ],
+    "kept": [
+      "任务提示目前为任务名加一个行动目标；例如护送农民、摧毁虫巢、靠近情报书。",
+      "设置已有选项名和补充说明，场景按钮采用攻击守军/虫后/感染者等动作词。",
+      "卡牌已有简述/详情字段及入口，本轮仅同步两项被批准的说明。"
+    ],
+    "suggestions": [
+      {
+        "file": "src/simulation/fun-shop/state.ts",
+        "line": 42,
+        "existing": "自然主事件、高压互斥",
+        "suggestion": "可改为“每关随机事件”“激烈战斗期间暂不出现”，保留详细概率和间隔；本轮不改。"
+      },
+      {
+        "file": "src/ui/presentation/shop-card-copy.ts",
+        "line": 34,
+        "existing": "临时建筑沿独立支援属性，不使用士兵身份白字适配",
+        "suggestion": "可直接说明地堡受到哪些舰装加成、不受哪些士兵加成；需逐项对照后再定稿，本轮不改。"
+      },
+      {
+        "file": "src/ui/starship/effect-text.ts",
+        "line": 30,
+        "existing": "合法目标、原生武器/原生能力",
+        "suggestion": "按具体效果改成“可攻击的敌人”“该单位自身的武器/能力”等游戏用语；本轮不改。"
+      }
+    ],
+    "legacy": "天赋页面与天赋免单的历史字符串不因关键词命中就认定为当前正式入口；未恢复天赋，也未将其算作需要重新设计的活动引导。",
+    "sources": [
+      {
+        "path": "src/simulation/fun-shop/state.ts",
+        "sha256": "f19caee93abb6c5b95bbbfd42a7aa87954d732458c911ae9ae53077503954c1c"
+      },
+      {
+        "path": "src/ui/presentation/shop-card-copy.ts",
+        "sha256": "65cb704fa56a336c992cdf4e5561ca47f6048a3906c763c3bf5e3c83c35278a9"
+      },
+      {
+        "path": "src/ui/presentation/intermission.ts",
+        "sha256": "98b5a176c34304ddde6c4aaab9292e0ac90129aab7a074cc686919608a428b3e"
+      },
+      {
+        "path": "src/ui/intermission-skin/presentation.ts",
+        "sha256": "8b70f33d975619189eb8c36e2c4e63d1d81db88831a11b3d4c57620a4fe6f825"
+      },
+      {
+        "path": "src/ui/presentation/game-copy.ts",
+        "sha256": "93759fb8365964d99ea6ef12a7388b8ff2d2b8ddc259beead44b0045ba511480"
+      },
+      {
+        "path": "src/ui/presentation/ability-copy.ts",
+        "sha256": "c285d03b7ea0923a5346038323656af71ebc9501e244f8f48712cf3bc04f9aa0"
+      },
+      {
+        "path": "src/ui/starship/effect-text.ts",
+        "sha256": "aa5dc0e43ad9e003f4d9fe7de24cbaf2d8a905ee3668ec3c499a55c3fcf7b2e2"
+      },
+      {
+        "path": "src/ui/presentation/settings-screen.ts",
+        "sha256": "69e9d09a39b7832a4131612af1f3c410e388af4d46ca56cb491d4e40105ee157"
+      },
+      {
+        "path": "src/ui/presentation/decision-screens.ts",
+        "sha256": "dd37252701ceacd17e39c973cb4ae05da5bc909f6dae4f87e88d4b97d4263eda"
+      },
+      {
+        "path": "src/ui/hud/field-interactions.ts",
+        "sha256": "9275bc386d2e073a3ebc148e18f9453fd8e01296f703fb50ccd1cacbed96fc8f"
+      },
+      {
+        "path": "src/ui/hud/random-mission.ts",
+        "sha256": "53e179ea70ca56a631f108ab021bcd91f69e3f27ab222ade44836262787b8fa2"
+      }
+    ]
+  },
+  "validation": {
+    "relatedTests": {
+      "tests": 163,
+      "pass": 163,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "testFiles": 7,
+    "updatedExistingTest": "test/fun-visual-batch2.test.ts的五档骰子旧文案预期，仍按实际权重校验百分比。",
+    "newTests": 0,
+    "typecheck": "通过",
+    "dataCheck": "通过",
+    "presentationInspection": {
+      "catalogueTotal": 1434,
+      "affectedCatalogue": 130,
+      "offerViewExamples": 5,
+      "note": "仅核对受影响文案，非1434项全部效果验收；5个受控报价视图样本没有执行购买或游玩。"
+    },
+    "fullRegression": "本轮未重复全量回归；上一批2513结果保留为历史，不计新测试。",
+    "browserBuildGpuFpsHuman": "本轮没有新构建、浏览器、GPU、FPS、真机或人类视觉验收；最终观看按用户要求留至T01。"
+  },
+  "integrity": {
+    "frozen": 832,
+    "existingSourceTests": 830,
+    "changed": [
+      {
+        "path": "src/simulation/fun-shop/state.ts",
+        "before": "ecc5ce4dd98351bff5fe684d333aa9c84edc056da6ee31da53eecc697b07aa1b",
+        "after": "f19caee93abb6c5b95bbbfd42a7aa87954d732458c911ae9ae53077503954c1c"
+      },
+      {
+        "path": "src/ui/intermission-skin/presentation.ts",
+        "before": "323627361b37461abdbe5b07dd6bd4bea5e592c996123d6df0cdb58e53502c7c",
+        "after": "8b70f33d975619189eb8c36e2c4e63d1d81db88831a11b3d4c57620a4fe6f825"
+      },
+      {
+        "path": "src/ui/presentation/intermission.ts",
+        "before": "3b537a6926877ffd74302381e630384b4eee6153382cddb846fa95d439087cf1",
+        "after": "98b5a176c34304ddde6c4aaab9292e0ac90129aab7a074cc686919608a428b3e"
+      },
+      {
+        "path": "src/ui/presentation/shop-card-copy.ts",
+        "before": "5b41fd6c2c8be2587cf13ca09e9289ab64e50268feb926e210c2747d97b656b9",
+        "after": "65cb704fa56a336c992cdf4e5561ca47f6048a3906c763c3bf5e3c83c35278a9"
+      },
+      {
+        "path": "test/fun-visual-batch2.test.ts",
+        "before": "d53344847e027164500a87571962f39a23dbeb52c375659d0082514b4a3ab2c8",
+        "after": "1879cdcfb1dcbcc44adbe2de25985f2bce1971c15450b3a1a75858801ef4cedb"
+      }
+    ],
+    "unchanged": 827,
+    "gameplayPricesProbabilitiesUnchanged": true,
+    "layoutMarkupStylesControlsCameraUnchanged": true,
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+      "unchanged": true
+    },
+    "newBinaryCopies": 0
+  },
+  "executionOrder": {
+    "sequence": [
+      "D05",
+      "V01",
+      "V02/V03",
+      "T01",
+      "V04",
+      "V05",
+      "V06"
+    ],
+    "meaning": "先完成既定MVP存档收尾、剩余优化与必要验证，再制作/核看T01最终动态效果及静态/UI界面独立HTML，最后进入V04交付。",
+    "dependencies": "解除V01依赖T01及V03先用T01的旧安排；T01依赖V01/V02/V03/D05，V04显式依赖T01。",
+    "T01Deliverables": [
+      "全量动作、卡牌、技能、特效、玩法与已有音效的动态检测HTML。",
+      "单独的静态/UI界面HTML：当前正式标题/种族/舰装、仓库/工坊、关间卡牌/详情、基地、设置/暂停、奖励/结算等实际存在页面及相关空/满/禁用/不足/已购状态，能独立打开和切换。"
+    ],
+    "T01Timing": "本轮只修订范围与顺序，不提前制作检测包、静态预览或集中验收；最终效果以优化完成后的同版输入为准。",
+    "D06": "后台/微信/构建链额外性能优化维持另批延期，不因本次排序自动扩展。"
+  },
+  "delivery": "仅本地主线文案与看板，未提交、推送、发布或替换Current。",
+  "evidence": [
+    {
+      "path": "reports/local/u05-copy-20261023/baseline.json",
+      "sha256": "124c099435b4698c535be1f8a776d4e8ccf0875c9437c194bcc78d147c06391b"
+    },
+    {
+      "path": "reports/local/u05-copy-20261023/rendered-copy.json",
+      "sha256": "1ba4b63cb4426c7fe1b803c5614c17a3cf538fb1c9844164dd711ce215e76f44"
+    },
+    {
+      "path": "reports/local/u05-copy-20261023/related.tap",
+      "sha256": "390e2ef94c951f6f32e90fa7ac50661f1293eb72e3744f0e0c65cfcee30720c6"
+    },
+    {
+      "path": "reports/local/u05-copy-20261023/typecheck.txt",
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "reports/local/u05-copy-20261023/data-check.txt",
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    }
+  ]
+}

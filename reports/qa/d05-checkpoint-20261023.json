@@ -1,0 +1,247 @@
+{
+  "task": "D05",
+  "date": "2026-10-23",
+  "status": "completed",
+  "scope": "用户批准每次关间保存和统一检查点恢复；当前关允许重打，关闭/刷新/崩溃不判失败。保留实际战败损失规则。",
+  "policy": {
+    "retreatCampaignStages": [
+      3,
+      6,
+      9,
+      12,
+      15,
+      18
+    ],
+    "endlessRetreat": true,
+    "saveEveryIntermission": true,
+    "initialCheckpoint": true,
+    "crashRecovery": "latest successfully committed checkpoint",
+    "accountAndRunAtomic": true
+  },
+  "implementation": [
+    "完整舰装运行状态、弱映射中身体与延迟结算引用、账户物品和位置、仓库、配方、钱包、订单/奖励/终局回执、预设/锁定/收藏统一归档",
+    "IndexedDB同一事务写主档和双备份；比较读取版本防止另一页面覆盖新档",
+    "写入失败保留旧档并阻止出发，当前页保留状态，提供重试和导出；损坏备份恢复有提示，全损坏停止覆盖",
+    "独立试玩保持隔离；当前格式严格校验，不补历代开发档兼容"
+  ],
+  "tests": {
+    "uniqueRegression": 2534,
+    "newCheckpointTests": 21,
+    "regressionLog": "reports/local/d05-checkpoint-20261023/regression-r2.log",
+    "afterFinalUIChanges": {
+      "relatedPassed": 49,
+      "log": "reports/local/d05-checkpoint-20261023/targeted-r9.log",
+      "typecheck": "reports/local/d05-checkpoint-20261023/typecheck-r4.log"
+    },
+    "dataCheck": "reports/local/d05-checkpoint-20261023/data-r2.log",
+    "regressionNote": "2534全量通过后仅保存状态插入位置/重绘回调和按钮样式调整；最终49相关检查及类型检查通过。各轮重跑不重复累计。",
+    "web": {
+      "report": "reports/local/d05-checkpoint-20261023/qa-web-r3/result.json",
+      "records": 12,
+      "build": "web-game-r2",
+      "errors": 0
+    },
+    "finalMenu": {
+      "report": "reports/local/d05-checkpoint-20261023/qa-menu-final-r6/result.json",
+      "records": 8,
+      "build": "web-game-r4",
+      "errors": 0
+    },
+    "offline": {
+      "report": "reports/local/d05-checkpoint-20261023/qa-offline-r2/result.json",
+      "records": 8,
+      "build": "offline-game-r4",
+      "errors": 0,
+      "httpRequests": 0
+    },
+    "storage": {
+      "report": "reports/local/d05-checkpoint-20261023/qa-storage-r2/result.json",
+      "records": 5
+    },
+    "historyCost": {
+      "pass": true,
+      "scope": "Single controlled Chrome/IndexedDB observations, no frame-rate or device guarantee; includes validation and complete archive, no history pruning",
+      "rows": [
+        {
+          "inventory": 24,
+          "receipts": 224,
+          "bytes": 35378,
+          "parseMs": 10.900000002235174,
+          "commitMs": 13.5,
+          "loadMs": 4.099999997764826
+        },
+        {
+          "inventory": 500,
+          "receipts": 5500,
+          "bytes": 797004,
+          "parseMs": 52.80000000074506,
+          "commitMs": 98.5,
+          "loadMs": 47.899999998509884
+        },
+        {
+          "inventory": 1000,
+          "receipts": 51000,
+          "bytes": 5120918,
+          "parseMs": 286.1000000014901,
+          "commitMs": 655.1999999992549,
+          "loadMs": 237.89999999850988
+        }
+      ]
+    }
+  },
+  "source": {
+    "baselineFiles": 830,
+    "unchanged": 801,
+    "changed": [
+      "src/app/bootstrap.ts",
+      "src/app/run-session.ts",
+      "src/app/start-game.ts",
+      "src/persistence/archive.ts",
+      "src/persistence/save-repository.ts",
+      "src/simulation/persistence/run-snapshot.ts",
+      "src/simulation/starship/inventory.ts",
+      "src/simulation/starship/types.ts",
+      "src/simulation/world.ts",
+      "src/ui/hud/m3-menu.ts",
+      "src/ui/hud/save-controls.ts",
+      "src/ui/presentation/end-screens.ts",
+      "src/ui/presentation/formal-ui.css",
+      "src/ui/presentation/intermission.ts",
+      "src/ui/starship/controller.ts",
+      "src/ui/starship/host.ts",
+      "src/ui/starship/legacy-view.ts",
+      "src/ui/starship/native.ts",
+      "src/ui/starship/settlement-view.ts",
+      "src/ui/starship/world-host.ts",
+      "test/encounters.test.ts",
+      "test/g01-card-equipment.test.ts",
+      "test/integration-i02-transactions.test.ts",
+      "test/integration-i03-entry.test.ts",
+      "test/main-feedback-20261019.test.ts",
+      "test/starship-drops.test.ts",
+      "test/starship-main-integration.test.ts",
+      "test/starship-production-integration.test.ts",
+      "test/starship-ui-flow.test.ts"
+    ],
+    "added": [
+      "src/simulation/persistence/starship-snapshot.ts",
+      "test/d05-checkpoint.test.ts"
+    ],
+    "protectedRenderInput": 139,
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+      "unchanged": true
+    }
+  },
+  "builds": [
+    {
+      "out": "D:\\星际\\reports\\local\\d05-checkpoint-20261023/web-game-r4",
+      "inputs": 503,
+      "assetCount": 1909,
+      "appBuildId": "74f1fd4915ab79de8b4cda21d4e5751db09101e0de7c87ba92f5f5399f1719b3",
+      "htmlSha256": "3978ceb403aed64819f224d3c1f00ebb4b4f9da8447add8adf545dcb4e13223b"
+    },
+    {
+      "out": "D:\\星际\\reports\\local\\d05-checkpoint-20261023/offline-game-r4.html",
+      "inputs": 508,
+      "assetCount": 1909,
+      "chunks": 2975,
+      "htmlBytes": 790359862,
+      "htmlSha256": "69464c4c0b332b966fb370097b3a795eac9c688e5e5048102e60b5cd6bf8a6ea"
+    }
+  ],
+  "touchEvidence": {
+    "report": "reports/local/d05-checkpoint-20261023/qa-offline-r1/result.json",
+    "acceptedRecords": [
+      "native-touch-input",
+      "offline-touch-390"
+    ],
+    "note": "首轮触屏已通过，随后同页切换鼠标断言失败；保留整轮失败，不计作整轮通过。第二轮独立鼠标启动验证。"
+  },
+  "offlineVerification": "reports/local/d05-checkpoint-20261023/offline-game-verification-r4.json",
+  "earlierOfflineArchive": "reports/local/d05-checkpoint-20261023/offline-r2-archive.json",
+  "visualFollowup": {
+    "task": "T01",
+    "observation": "最终离线仓库截图中，旗舰装备槽图标有跨入属性区的显示现象，留T01静态/UI集中核对；未归因于本批存档改动，不能将本轮保存验证视为完整界面验收。",
+    "screenshot": "reports/local/d05-checkpoint-20261023/qa-offline-r2/screens/offline-warehouse-after-restart.png"
+  },
+  "limitations": [
+    "受控合法存档导入和原生界面操作；不等同自然整局胜率、人类试玩、真机或FPS验收。",
+    "实际关闭完整浏览器和实际renderer crash已验证；没有伪称可靠识别退出原因，也未执行操作系统断电测试。",
+    "Web按来源/浏览器保存，file://持久化受浏览器文件来源规则约束；换浏览器、换来源或移动离线文件时使用导出/导入备份，不承诺存储跨来源自动共享。",
+    "原失败、旧断言、资源准备未完成、测试后台页面尺寸未更新和重跑记录保留，不隐藏失败。",
+    "T01/V01–V06/MVP仍开放；T01继续在优化与V01/V02/V03完成后、V04前提供动态及独立静态/UI HTML。"
+  ],
+  "cleanup": {
+    "scope": "Only closed isolated D05 browser profiles; scripts, results, screenshots, original failures and fixtures retained",
+    "rows": [
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-menu-final-r2\\profile",
+        "bytes": 266216391
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-menu-final-r3\\profile",
+        "bytes": 352645976
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-menu-final-r4\\profile",
+        "bytes": 352111898
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-menu-final-r5\\profile",
+        "bytes": 352881933
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-menu-final-r6\\profile",
+        "bytes": 353033763
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-offline-r1\\profile",
+        "bytes": 40120283
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-storage-cost-r1\\profile",
+        "bytes": 12139080
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-storage-r1\\profile",
+        "bytes": 5261111
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-storage-r2\\profile",
+        "bytes": 5305146
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-web-r1\\profile",
+        "bytes": 668951248
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-web-r2\\profile",
+        "bytes": 670423455
+      },
+      {
+        "removed": true,
+        "path": "D:\\星际\\reports\\local\\d05-checkpoint-20261023\\qa-web-r3\\profile",
+        "bytes": 655756923
+      }
+    ]
+  },
+  "delivery": {
+    "currentReplaced": false,
+    "committed": false,
+    "pushed": false,
+    "published": false
+  }
+}

@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+const base='reports/local/v01-20261024';let code=await fs.readFile(base+'/spike-trace.mjs','utf8');
+const replace=(a,b)=>{assert.equal(code.split(a).length,2,a);code=code.replace(a,b);};
+replace("report.availableTraceCategories.filter(c=>['toplevel','devtools.timeline','blink.user_timing','cc','gpu','gpu.angle','viz','renderer.scheduler','v8','disabled-by-default-v8.gc','disabled-by-default-gpu.service','disabled-by-default-gpu.debug','disabled-by-default-devtools.timeline.frame'].includes(c))","['toplevel','devtools.timeline','blink.user_timing','loading','gpu','gpu.angle','viz','renderer.scheduler','v8','disabled-by-default-v8.gc']");
+const start="if(stage===1){await traceCdp.send('Profiler.start');await traceCdp.send('Tracing.start',{categories:report.selectedTraceCategories.join(','),transferMode:'ReturnAsStream'});tracing=true;report.traceOrigin=await page.evaluate(()=>{performance.mark('V01_SPIKE_TRACE_ORIGIN');return performance.now();});}";
+replace(start,'');replace("assert.equal(state.phase,'battle');","assert.equal(state.phase,'battle');"+start);
+replace('window.D04Work={events:[],active:false,label:null};',`window.D04Work={events:[],active:false,label:null};
+   let bodyId=0;for(const [object,key]of [[Response.prototype,'arrayBuffer'],[Response.prototype,'blob'],[Blob.prototype,'arrayBuffer']]){const native=object[key];object[key]=function(...args){const at=performance.now(),id=++bodyId,work=D04Work.label,url=this.url??null,bytes=this.size??null,result=native.apply(this,args);return result.then(value=>{if(D04Work.active){const event={key:'body.'+object.constructor.name+'.'+key,id,at,ms:performance.now()-at,work,url,bytes:bytes??value.byteLength??value.size};D04Work.events.push(event);performance.mark('V01_BODY_END:'+id);}return value;});};}`);
+replace("return native.apply(this,args);};}}if(globalThis.__SC2_DEBUG__)","return native.apply(this,args);};}}if(globalThis.__SC2_DEBUG__)");
+await fs.writeFile(base+'/spike-trace-r2.mjs',code,{flag:'wx'});console.log('Prepared explicit trace categories, after-gate trace start, and body-read spans.');

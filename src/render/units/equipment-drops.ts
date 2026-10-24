@@ -78,10 +78,10 @@ export class EquipmentDrops {
   const size=width+':'+height;if(time-this.layoutAt<.2&&size===this.layoutSize)return this.occluded;this.layoutAt=time;this.layoutSize=size;
   const base=this.labelLayer.getBoundingClientRect();this.occluded=[...document.querySelectorAll<HTMLElement>('#topbar,#minimap,.native-map-utilities,.native-army-frame,.native-command-frame,#native-selection,#joystick,#unit-inspector,.fixed-hud,[data-equipment-preview-controls]')].filter(el=>{const s=getComputedStyle(el);return s.display!=='none'&&s.visibility!=='hidden';}).map(el=>el.getBoundingClientRect()).filter(r=>r.width>1&&r.height>1).map(r=>({left:r.left-base.left,top:r.top-base.top,right:r.right-base.left,bottom:r.bottom-base.top}));return this.occluded;
  }
- render(w:World,camera:THREE.Camera,width:number,height:number,ground:(p:Point)=>number,visible:(p:Point)=>boolean){
+ render(w:World,camera:THREE.Camera,width:number,height:number,ground:(p:Point)=>number,visible:(p:Point)=>boolean,effects=true){
   if(this.state!==w.starship.loot||this.terrain!==w.terrain){this.reset();this.state=w.starship.loot;this.terrain=w.terrain;}
   const enabled=w.starship.enabled&&!!w.starship.account.run&&!w.starship.account.run.ended&&w.phase==='battle';this.root.visible=enabled;
-  if(!enabled){for(const el of this.labels.values())el.hidden=true;this.toast.hidden=true;this.toastAt=-Infinity;this.flights=[];this.serial=this.state.serial;for(const b of this.batches){b.count=0;b.end();}this.counts={ground:0,visible:0,beams:0,polluted:0,absorbing:0,labels:0};return;}
+  if(!enabled){for(const el of this.labels.values())if(!el.hidden)el.hidden=true;if(!this.toast.hidden)this.toast.hidden=true;this.toastAt=-Infinity;this.flights=[];this.serial=this.state.serial;for(const b of this.batches){b.count=0;b.end();}this.counts={ground:0,visible:0,beams:0,polluted:0,absorbing:0,labels:0};return;}
   for(const b of this.batches)b.count=0;
   if(this.cachedRevision!==w.starship.account.revision){this.ground=equipmentGroundDrops(w);this.cachedRevision=w.starship.account.revision;}
   for(const event of this.state.events){if(event.serial<=this.serial)continue;this.serial=event.serial;if(event.terrain!==w.terrain||event.run!==w.starship.account.run!.id||w.time-event.at>1)continue;
@@ -91,20 +91,20 @@ export class EquipmentDrops {
   this.counts={ground:this.ground.length,visible:0,beams:0,polluted:0,absorbing:0,labels:0};
   const candidates:LootLabelCandidate[]=[],alive=new Set(this.ground.map(d=>d.item.id)),angle=Math.atan2(camera.position.x-w.anchor.x,camera.position.z-w.anchor.z);
   // Keep every quality visible while merging same-quality lights in crowded ground cells.
-  const lights=new Map<string,{drop:ReturnType<typeof equipmentGroundDrops>[number];newest:number;polluted:boolean}>();
-  for(const [id,label] of this.labels){label.hidden=true;if(!alive.has(id)){label.remove();this.labels.delete(id);}}
+  const lights=new Map<string,{drop:ReturnType<typeof equipmentGroundDrops>[number];y:number;seed:number;newest:number;polluted:boolean}>();
+  for(const [id,label] of this.labels)if(!alive.has(id)){label.remove();this.labels.delete(id);}
   for(const drop of this.ground){
    if(!visible(drop))continue;this.counts.visible++;const item=drop.item,style=EQUIPMENT_LOOT_STYLE[item.quality],age=w.time-drop.at,y=ground(drop),seed=Number(item.id.match(/\d+$/)?.[0]??0)*2.399963;
    const lift=equipmentDropLift(age);this.body(item,drop.x,y+.04+lift,drop.z,seed,1);
    const key=Math.floor(drop.x/1.5)+':'+Math.floor(drop.z/1.5)+':'+item.quality,cell=lights.get(key);
-   if(!cell)lights.set(key,{drop,newest:drop.at,polluted:item.pollution!=='none'});
-   else{if(item.quality>cell.drop.item.quality)cell.drop=drop;cell.newest=Math.max(cell.newest,drop.at);cell.polluted||=item.pollution!=='none';}
+   if(!cell)lights.set(key,{drop,y,seed,newest:drop.at,polluted:item.pollution!=='none'});
+   else{if(item.quality>cell.drop.item.quality){cell.drop=drop;cell.y=y;cell.seed=seed;}cell.newest=Math.max(cell.newest,drop.at);cell.polluted||=item.pollution!=='none';}
    if(item.pollution!=='none')this.counts.polluted++;
    const distance=Math.hypot(drop.x-w.anchor.x,drop.z-w.anchor.z);
    if(distance<=style.labelDistance){const screen=this.screen({x:drop.x,y:y+.4,z:drop.z},camera,width,height);if(screen.visible){const name=this.resolveName(item),estimated=Math.min(210,Math.max(145,[...name].length*12+65));candidates.push({id:item.id,x:screen.x,y:screen.y,width:estimated,quality:item.quality,distance,name});}}
   }
-  for(const cell of lights.values()){
-   const {drop}=cell,item=drop.item,style=EQUIPMENT_LOOT_STYLE[item.quality],age=w.time-cell.newest,y=ground(drop),seed=Number(item.id.match(/\d+$/)?.[0]??0)*2.399963,pulse=1+Math.sin(w.time*2+seed)*.05;
+  for(const cell of effects?lights.values():[]){
+   const {drop,y,seed}=cell,item=drop.item,style=EQUIPMENT_LOOT_STYLE[item.quality],age=w.time-cell.newest,pulse=1+Math.sin(w.time*2+seed)*.05;
    color.set(style.color).multiplyScalar(style.glow*(age<.38?.7:1));this.glow.add(drop.x,y+.035,drop.z,.8*pulse,1,.8*pulse,0,color);
    if(item.quality>=3){color.set(style.color).multiplyScalar(.6);this.ring.add(drop.x,y+.045,drop.z,.8,1,.8,seed,color);}
    if(style.beam&&age>=.25){color.set(style.color).multiplyScalar(item.quality===5?1.65:1.2);this.beam.add(drop.x,y+.08,drop.z,.32,style.beam,1,angle,color);this.beam.add(drop.x,y+.08,drop.z,.055,style.beam,1,angle,color);this.counts.beams++;}
@@ -113,14 +113,20 @@ export class EquipmentDrops {
    for(let n=0;n<sparkCount;n++){const p=((w.time*.38+seed*.1+n/sparkCount)%1+1)%1,a=n*2.4+seed;this.sparks.add(drop.x+Math.cos(a)*(.24+p*.12),y+.15+p*(style.beam*.68),drop.z+Math.sin(a)*(.24+p*.12),.07,.09,.07,0,color.set(style.color).multiplyScalar(Math.sin(p*Math.PI)*1.5));}
    if(age>=0&&age<.65){const p=age/.65;this.ring.add(drop.x,y+.06,drop.z,.2+p*1.25,1,.2+p*1.25,0,color.set(style.color).multiplyScalar((1-p)*1.6));}
   }
+  const shown=new Set<string>();
   for(const label of layoutEquipmentLabels(candidates,width,height,this.exclusions(w.time,width,height))){
    let el=this.labels.get(label.id);if(!el){el=document.createElement('div');el.className='equipment-drop-label';const name=document.createElement('span'),count=document.createElement('span');name.className='equipment-label-name';count.className='equipment-label-count';el.append(name,count);this.labels.set(label.id,el);this.labelLayer.append(el);}
    const item=w.starship.account.items[label.id],shape=equipmentDropShape(item),text=(shape==='offense'?'▰ ':shape==='defense'?'⬡ ':'▣ ')+label.name,count=label.extra?' +'+label.extra+' 件':'';
-   if(el.children[0].textContent!==text)el.children[0].textContent=text;if(el.children[1].textContent!==count)el.children[1].textContent=count;el.title=text+count;el.style.setProperty('--equipment-color',EQUIPMENT_LOOT_STYLE[label.quality].css);el.dataset.quality=String(label.quality);el.dataset.item=label.id;el.dataset.polluted=String(item.pollution!=='none');el.style.transform=`translate(${Math.round(label.left)}px,${Math.round(label.top)}px)`;el.style.width=label.width+'px';el.hidden=false;this.counts.labels++;
+   if(el.children[0].textContent!==text)el.children[0].textContent=text;if(el.children[1].textContent!==count)el.children[1].textContent=count;
+   const title=text+count,css=EQUIPMENT_LOOT_STYLE[label.quality].css,quality=String(label.quality),polluted=String(item.pollution!=='none'),transform=`translate(${Math.round(label.left)}px,${Math.round(label.top)}px)`,labelWidth=label.width+'px';
+   if(el.title!==title)el.title=title;if(el.style.getPropertyValue('--equipment-color')!==css)el.style.setProperty('--equipment-color',css);
+   if(el.dataset.quality!==quality)el.dataset.quality=quality;if(el.dataset.item!==label.id)el.dataset.item=label.id;if(el.dataset.polluted!==polluted)el.dataset.polluted=polluted;
+   if(el.style.transform!==transform)el.style.transform=transform;if(el.style.width!==labelWidth)el.style.width=labelWidth;if(el.hidden)el.hidden=false;shown.add(label.id);this.counts.labels++;
   }
+  for(const [id,el]of this.labels)if(!shown.has(id)&&!el.hidden)el.hidden=true;
   this.flights=this.flights.filter(e=>w.time-e.at<EQUIPMENT_ABSORB_SECONDS);
   for(const e of this.flights){if(!e.item)continue;const from={x:e.x,y:ground(e)+.22,z:e.z},to={x:w.anchor.x,y:ground(w.anchor)+.9,z:w.anchor.z},age=w.time-e.at,p=equipmentAbsorb(from,to,age);this.body(e.item,p.x,p.y,p.z,age*5,p.scale);this.counts.absorbing++;
-   for(let n=0;n<6;n++){const a=age-n*.025;if(a<0)continue;const q=equipmentAbsorb(from,to,a),s=(1-n/7)*.15;color.set(EQUIPMENT_LOOT_STYLE[e.item.quality].color).multiplyScalar((1-n/7)*1.8);this.sparks.add(q.x,q.y,q.z,s,s,s,0,color);}
+   for(let n=0;effects&&n<6;n++){const a=age-n*.025;if(a<0)continue;const q=equipmentAbsorb(from,to,a),s=(1-n/7)*.15;color.set(EQUIPMENT_LOOT_STYLE[e.item.quality].color).multiplyScalar((1-n/7)*1.8);this.sparks.add(q.x,q.y,q.z,s,s,s,0,color);}
   }
   const toastAge=w.time-this.toastAt;this.toast.hidden=toastAge>2.8||toastAge<0;
   if(!this.toast.hidden){const pack=equipmentBackpackState(w),text=this.full?'背包已满 · 装备留在地面':`拾取 +${this.picked} 件 · 背包 ${pack.count}/${pack.capacity}`;if(this.toast.textContent!==text)this.toast.textContent=text;this.toast.dataset.full=String(this.full);this.toast.style.opacity=String(Math.min(1,(2.8-toastAge)/.35));const p=this.screen({x:w.anchor.x,y:ground(w.anchor),z:w.anchor.z},camera,width,height);this.toast.style.transform=`translate(${Math.max(140,Math.min(width-140,p.x))}px,${Math.max(80,Math.min(height-135,p.y+55))}px) translateX(-50%)`;}

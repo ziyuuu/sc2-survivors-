@@ -1,0 +1,151 @@
+{
+  "task": "G03 difficulty-gated fun content planning",
+  "date": "2026-10-22",
+  "status": "planned-not-implemented",
+  "authorization": "用户要求趣味玩法按简单/普通/困难地狱分批接入，任务/特殊敌人分批，兽群困难起，简单只有资源和弹幕特殊关，道具都可接，并纳入G03。",
+  "boardRevision": 122,
+  "next": "G03",
+  "counts": {
+    "待办": 9,
+    "进行中": 0,
+    "待验证": 0,
+    "待讨论": 0,
+    "已完成": 51,
+    "暂缓": 2
+  },
+  "allStatusesUnchanged": true,
+  "otherTaskRecordsUnchanged": true,
+  "productionModified": false,
+  "newGameplayValidation": false,
+  "current": {
+    "path": "dist/SC2-Survivors-Current-20261006.html",
+    "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+  },
+  "sourceTests": {
+    "files": 823,
+    "allMatchG02Final": true
+  },
+  "confirmed": {
+    "difficultyTiers": [
+      "easy",
+      "normal",
+      "hard-and-hell"
+    ],
+    "fullCatalogDifficulties": [
+      "hard",
+      "hell"
+    ],
+    "standaloneHordeDifficulties": [
+      "hard",
+      "hell"
+    ],
+    "easySpecialStages": [
+      "resources",
+      "dodge"
+    ],
+    "allPickupsAndFunShopItemsEligible": true,
+    "taskAndEncounterLists": "staged; exact per-tier allocation not yet decided"
+  },
+  "proposalsNotDecisions": {
+    "normalSpecialStages": "resources+dodge+crossing; arena starts on hard",
+    "easyBarrage": "evaluate speed/density/path width without silently changing existing duration/participants/lives"
+  },
+  "evidence": [
+    "docs/project/G03_DIFFICULTY_CONTENT_PLAN_20261022.md"
+  ],
+  "baseline": {
+    "revision": 121,
+    "source": "reports/local/g02-balance-20261022/final-source.json",
+    "g03": {
+      "status": "待办",
+      "phase": "整合",
+      "priority": "优先",
+      "auditIds": [],
+      "updated": "2026-10-22",
+      "owner": "Codex",
+      "historical": false,
+      "id": "G03",
+      "title": "校准整局经济、难度与装备成长节奏",
+      "depends": [
+        "G02",
+        "I02",
+        "I03"
+      ],
+      "scenes": [
+        "SC01",
+        "SC04",
+        "SC06",
+        "SC07",
+        "SC08",
+        "SC12",
+        "SC15"
+      ],
+      "problem": "G01/G02解决卡牌生效与选择收益，仍不足以评价十八关整体成长、四难度、装备掉落、商店／工坊成本、特殊奖励、撤离损失和无尽节奏。",
+      "steps": [
+        "按用户授权提前执行频次子项：每关60/70/80%一次主事件抽取、任务/遭遇/虫群45/35/20权重与合法窗口、喘息互斥、特殊关3次及间隔、酒馆权重与诱饵额外机会衔接；虫群分级累计上限与20秒替代完整验证。",
+        "承接G01已经落实的简单12／普通9／困难及地狱6关Boss普通英雄门槛与既定例外，在三族／四难度／装备阶段及整局经济中复核；第四轮第8项已由G01完成，不重复挂账。",
+        "在统一候选明确有限代表矩阵：三族早中后段、四难度各自目标、无／中／高成型装备及无尽；明确样本与玩家水平，不穷举所有组合，也不预先保证所有裸装高难可通关。",
+        "记录矿气／材料收入与支出、购买与生产机会、掉落／品质、工坊成本、目标配装成长时间、清怪／Boss耗时、队伍损失和撤离／战败收益；把关间卡牌收益与G02关联。",
+        "检查没有可发展选择的经济死路、免费刷新／免费收益的重复刷取、奖励滚雪球、概率封顶无效词条及高装备阶段选择退化；尊重已确认的免费奖励和原收益身份。",
+        "验证任务、独立虫潮、特殊敌人及装备被动自然叠加时的节奏和危险预警；区分数值难度、操作问题和性能欠账，不能删敌人或丢队列凑平衡。",
+        "提出有数据支持的既有价格、概率、成长和难度调整，按用户决定执行并复测；最终自然十八关／无尽覆盖交V02，测试控制器失败不冒充人类平衡结论。"
+      ],
+      "acceptance": [
+        "有完整收支与成长节奏报告，四难度目标、三族差异和装备阶段的实际表现清楚。",
+        "显著经济死路、可重复刷取漏洞和明显失衡有修复验证或明确接受决定；不自行改300／4∶4∶1或已定玩法身份。",
+        "冻结一版可解释的数值候选，列明样本限制及V02需要继续验证的路线。"
+      ],
+      "evidence": [
+        "MVP_COMPLETION_CONTRACT_20261013.md",
+        "FUN_GAMEPLAY_REVIEW_20261020.md",
+        "PERFORMANCE_D01_DECISION_20261021.md",
+        "FUN_FEEDBACK_R4_PLAN_20261022.md",
+        "FUN_FEEDBACK_R4_20261022.md",
+        "../../reports/qa/fun-feedback-r4-20261022.json",
+        "G01_HERO_G02_REVIEW_20261022.md",
+        "../../reports/qa/g01-hero-g02-20261022.json",
+        "G02_BALANCE_20261022.md",
+        "../../reports/qa/g02-balance-20261022.json"
+      ],
+      "result": "已完成提前批准的虫群150/110/70/30、4/6/8/10解锁和整体自然事件频次、共享安全窗口／喘息／互斥、酒馆／诱饵及特殊关3次/S+3，既有证据保持。第四轮第8项已由G01完成，普通英雄门槛为简单12／普通9／困难及地狱6关Boss死亡，原概率／例外／英雄数值保持。G02已完成用户批准的独立支援成长、核弹基础6000、功能卡降价、超载增伤和首次3秒；整局复核须采用该候选，并关注橙装普通Boss可被战略打击击杀、低难度成型阵容在落弹前清场及核弹一次性机会成本；本项完整三族／四难度收支、七组商品、装备获取速度与十八关／无尽整体平衡仍待办。"
+    }
+  },
+  "bound": [
+    {
+      "file": "docs/project/G03_DIFFICULTY_CONTENT_PLAN_20261022.md",
+      "sha256": "ee8ad3806929cd2ddf7b97551b0cd342efec31306db2d83d0fa6a04d310f56ce",
+      "bytes": 7000
+    },
+    {
+      "file": "docs/project/performance-board.json",
+      "sha256": "a507f3ecc862060027c33db556b887850c6ead397ddfe9793a162ac58562de58",
+      "bytes": 414948
+    },
+    {
+      "file": "docs/project/PERFORMANCE_TODO.md",
+      "sha256": "0768317dbe9ada545c5491e65fb7bc52245677ead4b728d581ea30215f57a59f",
+      "bytes": 268821
+    },
+    {
+      "file": "docs/project/PERFORMANCE_BOARD.html",
+      "sha256": "052461e4f744ee05f79a0354022c48a683f355b31fa464f580bf580c670774ae",
+      "bytes": 371324
+    },
+    {
+      "file": "AGENTS.md",
+      "sha256": "8229e8661690a12fe1710f4e2f9402b5f9381db8517ddd54d5733182fd790dfe",
+      "bytes": 314463
+    },
+    {
+      "file": "tools/record-g03-difficulty-plan.mjs",
+      "sha256": "0ffa98ce34d326324cffeade25774193a0c8fd1abe5ba613a7b19f2a0ecdf49a",
+      "bytes": 7775
+    }
+  ],
+  "finalCheck": {
+    "pass": true,
+    "all823SourceTestsStillExact": true,
+    "linksExist": true,
+    "generatedBoardRevision": 122
+  }
+}

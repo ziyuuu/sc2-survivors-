@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-23",
+  "status": "待讨论",
+  "scope": "只读整理具体说明缺口与拟改文案，未修改UI或新增引导；不是完整流程/截图/用户理解性验收。",
+  "authorization": {
+    "origin": "用户2026-10-21要求MVP收尾前必要工作全部入kanban；U05是代理据此补入的检查项。",
+    "individualApproval": "未找到用户对U05整项具体方案的单独批准；2026-10-23用户询问“U05是我确认过得么？”，因此先呈交具体范围。",
+    "alreadyApproved": "第四轮门票卡、五品质、套装激活、简述/详情/悬停及接近自动传送有明确反馈与既有完成证据，不重复开发。"
+  },
+  "proposals": [
+    {
+      "id": "U05-COPY-DICE",
+      "file": "src/simulation/fun-shop/state.ts",
+      "line": 50,
+      "existing": "骰子详情仍称天赋提高紫橙机会、保底排除低品质。",
+      "evidence": "正式新局天赋已移除；付费商店drawExpeditionReinforcements调用pickReinforcement时minimum=0，未实施该描述的最低品质保底。额外高品质权重来自装备免费刷新效果。",
+      "proposed": "保留现有分关段概率，去掉天赋和最低品质保底的说法；说明这些是未叠加其他装备效果时的概率，抽中品质没有合法商品会改选其他品质。"
+    },
+    {
+      "id": "U05-COPY-RECOVERY",
+      "file": "src/ui/presentation/shop-card-copy.ts",
+      "line": 13,
+      "existing": "恢复卡简述只写“治疗与修复效率”。",
+      "evidence": "原生资格及既有expedition-recovery-cards.test.ts覆盖生命再生、护盾再生与治疗；如追猎者卡主要增加回盾，当前文字未表达。",
+      "proposed": "将简述改为“恢复效率 +X%”，详情列明适用的原有生命/护盾再生及治疗、修复能力，并说明不赋予原本没有的恢复能力。具体文案按各兵种原生能力生成。"
+    }
+  ],
+  "boundaries": [
+    "保持当前镜头、原鼠标/触屏操作、12px任务文字与既有布局。",
+    "不新增整套教程、常驻面板，或恢复已否定的特殊关中途退出与遭遇追踪文字。",
+    "其余U05条目仍是候选检查范围；不把入板等同于用户已批准每项设计。"
+  ],
+  "sources": [
+    {
+      "path": "src/simulation/fun-shop/state.ts",
+      "sha256": "ecc5ce4dd98351bff5fe684d333aa9c84edc056da6ee31da53eecc697b07aa1b"
+    },
+    {
+      "path": "src/ui/presentation/shop-card-copy.ts",
+      "sha256": "5b41fd6c2c8be2587cf13ca09e9289ab64e50268feb926e210c2747d97b656b9"
+    },
+    {
+      "path": "src/simulation/progression/expedition-drafts.ts",
+      "sha256": "daa96f5279b854bfa1c96ff92ac02d8d1bb1d770230a50ecd360cd856238b272"
+    },
+    {
+      "path": "src/simulation/expedition-economy.ts",
+      "sha256": "08e6c5379b9085877df9de91cef157abd43957d038e881812f960c8d70a62a73"
+    },
+    {
+      "path": "test/expedition-recovery-cards.test.ts",
+      "sha256": "c29e56f7d808f46a2b3390523763ee293b630e0c867481e31bb2d593456eface"
+    }
+  ]
+}

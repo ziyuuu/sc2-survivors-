@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+const source='tools/measure-g03-growth-repair-20261023.mts';
+let s=fs.readFileSync(source,'utf8');
+s=s.replace("import {growthRuntime,OUT,ROOT}","import {growthRuntime,ROOT}");
+s=s.replace("const input=process.argv[2]", "import {observeDeliveries} from './lib/g03-delivery-observer.mts';\nconst OUT=ROOT+'/reports/local/g03-farm-minor-20261023';\nconst input=process.argv[2]");
+s=s.replace("OUT+'/repair-plan.json'","OUT+'/plan.json'").replace("??'repaired-routes'","??'diagnostic'");
+s=s.replace("'tools/measure-g03-growth-repair-20261023.mts'","'tools/measure-g03-farm-minor-20261023.mts','tools/lib/g03-delivery-observer.mts'");
+s=s.replace("c.version==='before'?OUT+'/before.json':OUT+'/after.json'","ROOT+'/reports/local/g03-growth-consumption-20261023/after.json'");
+s=s.replace("sha(c.version==='before'?OUT+'/before.json':OUT+'/after.json')","sha(ROOT+'/reports/local/g03-growth-consumption-20261023/after.json')");
+s=s.replace("p.initialize();startMeasuredCase(w,c.seed);p.configure();","const deliveryObserver=observeDeliveries(w);\np.initialize();startMeasuredCase(w,c.seed);p.configure();");
+s=s.replace('maxEnemies,runtimeBinding,limits:', 'maxEnemies,deliveryEvents:deliveryObserver.events,runtimeBinding,limits:');
+fs.writeFileSync('tools/measure-g03-farm-minor-20261023.mts',s);

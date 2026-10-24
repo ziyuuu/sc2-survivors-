@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+const root='reports/local/performance-s08-20261020',read=async p=>JSON.parse(await fs.readFile(p,'utf8')),hash=b=>createHash('sha256').update(b).digest('hex');
+const revision=process.env.SC2_BATCH_REVISION??'-r2';
+const baseline=await read('preview/performance-s08-20261020-baseline'+revision+'/build-inputs.json'),candidate=await read('preview/performance-s08-20261020-candidate'+revision+'/build-inputs.json'),nodeOld=await read(root+'/baseline-logic/build-inputs.json'),nodeNew=await read(root+'/candidate-r2-logic/build-inputs.json');
+const changed=candidate.inputs.filter(x=>x.file.startsWith('src/')&&baseline.inputs.find(y=>y.file===x.file)?.sha256!==x.sha256);
+assert.deepEqual(changed.map(x=>x.file).sort(),candidate.changes.slice().sort());assert.equal(changed.length,9);
+for(const x of changed){assert.equal(hash(await fs.readFile(x.file)),x.sha256);assert.equal(nodeNew.inputs.find(y=>y.file===x.file).sha256,x.sha256);const before=baseline.inputs.find(y=>y.file===x.file);if(before)assert.equal(nodeOld.inputs.find(y=>y.file===x.file).sha256,before.sha256);else assert.equal(x.file,'src/simulation/combat/support-targets.ts');}
+for(const build of [baseline,candidate,nodeOld,nodeNew])for(const x of build.outputs)assert.equal(hash(await fs.readFile(x.file)),x.sha256);
+for(const x of candidate.inputs.filter(x=>x.file.startsWith('src/')&&!candidate.changes.includes(x.file)))assert.equal(hash(await fs.readFile(candidate.previous+'/'+x.file)),x.sha256);
+const audio='src/render/effects/audio.ts';assert.equal(candidate.inputs.find(x=>x.file===audio).sha256,baseline.inputs.find(x=>x.file===audio).sha256);
+await fs.writeFile(root+'/source-proof.json',JSON.stringify({pass:true,changed,baseline,candidate,nodeOld,nodeNew,audioUnchanged:true,excludedWorkspaceChange:'src/render/units/economic-egg.ts',boundary:'S04 final frozen sources plus eight modified simulation files and one local-query helper. Audio experiment remains diagnostic-only, no production audio change.'},null,2));console.log(JSON.stringify({pass:true,changed:changed.map(x=>x.file),webInputs:candidate.inputs.length,nodeInputs:nodeNew.inputs.length}));

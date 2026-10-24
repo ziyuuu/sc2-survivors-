@@ -1,0 +1,6 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+async function edit(file,pairs){let s=await fs.readFile(file,'utf8');for(const [from,to]of pairs){assert.ok(s.includes(from),file+': '+from);s=s.replace(from,to);}await fs.writeFile(file,s);}
+await edit('src/simulation/expedition-economy.ts',[["return {funShop:w.funShop.levels,wallet:w.wallet", "return {difficulty:w.difficulty,funShop:w.funShop.levels,wallet:w.wallet"]]);
+await edit('src/ui/presentation/intermission.ts',[["{funShopCatalogue,funShopSummary}","{funShopCatalogue,funShopSummary,funShopDescription}"],["stat:funShopSummary(e.item,e.level)","stat:funShopSummary(e.item,e.level,w.difficulty)"],["detail:gameText(r.description)+(e.expected?", "detail:gameText(funShopDescription(e.item,e.level,w.difficulty))+(e.expected?"]]);
+await edit('src/ui/hud/m3-menu.ts',[["import {ordinaryHeroUnlockStage}","import {funDifficultyDescription} from '../../simulation/progression/fun-availability';\nimport {ordinaryHeroUnlockStage}"],["难度在本局内保持不变。完成关卡", "难度在本局内保持不变。${funDifficultyDescription(difficulty)}所有难度均可获得全部拾取道具和趣味商品，仍保留原使用条件。完成关卡"]]);
+await edit('src/diagnostics/fun-lab-entry.ts',[["除毒爆外，配备5级强化编队", "全内容试玩采用困难规则，与正式简单／普通的内容池不同。除毒爆外，配备5级强化编队"]]);

@@ -19,6 +19,8 @@ const requireAsset=(id,reason)=>{
  if(!byId.has(id))throw Error(`M6 release asset missing: ${id} (${reason})`);
  const list=reasons.get(id)??[];if(!list.includes(reason))list.push(reason);reasons.set(id,list);
 };
+requireAsset('model.fun-props','SC2-derived and authored props for missions, special stages and pickups');
+for(const r of JSON.parse(await fs.readFile('deploy/runtime/mission-assets.json','utf8')).records)requireAsset(r.id,'Random mission original model');
 const useIfPresent=(id,reason)=>{if(byId.has(id))requireAsset(id,reason);};
 for(const r of available.filter(r=>r.kind==='ui-art'))requireAsset(r.id,r.id.startsWith('ui.starship.')?'Reviewed starship equipment, ship and interface art':'Approved painted cards, covers and native HUD art');
 for(const r of available.filter(r=>r.kind==='material-texture'))requireAsset(r.id,'Source-bound original unit material channel');
@@ -110,3 +112,4 @@ const report={rulesId:'mvp-1.0',mapId:CAMPAIGN_MAP_ID,selectedIds:rows.map(row=>
 await fs.mkdir('reports/local',{recursive:true});
 await fs.writeFile('reports/local/asset-reachability.json',JSON.stringify(report,null,2));
 console.log(`M6 release closure: ${selected.length} assets, ${candidates.length} conservative candidates, ${excluded.length} legacy Acropolis and ${provenUnused.size} proven unused excluded; ${identicalContentGroups.length} identical-content groups share payloads.`);
+

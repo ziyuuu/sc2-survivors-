@@ -13,6 +13,7 @@ export interface RunConfig {
  seed:number;mapId:'campaign-kairos-v1'|'campaign-five-v3';campaignMap?:CampaignMapRecipe;mapHash:string;frozenTalents:FrozenTalentAllocation;
 }
 export interface RunSnapshot {
+ starship?:import('./starship-snapshot').StarshipSnapshot;
  schema:typeof RUN_SCHEMA;rules:typeof RUN_RULES;config:RunConfig;map:string;seed:number;autoWaves:boolean;sandbox:boolean;
  state:RunData;statuses:{serial:number;entries:CombatStatus[]};specials:EnemySpecialsSnapshot;
 }

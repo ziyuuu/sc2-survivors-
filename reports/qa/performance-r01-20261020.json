@@ -1,0 +1,3589 @@
+{
+  "schemaVersion": 1,
+  "id": "performance-r01-20261020",
+  "status": "verified-local",
+  "scope": "R01 actual GPU diagnostics and exact-zero-weight terrain texture sampling; five-map material boundaries and actual context restore. No quality/simulation/content reduction.",
+  "source": {
+    "baselineHead": "be9e2982944314194c6dcc9dcc535bc321749eb4",
+    "frozenSource": "reports/local/performance-s07-20261020/candidate-r4-web-inputs",
+    "changed": [
+      {
+        "file": "src/render/terrain/layered-ground.ts",
+        "bytes": 8752,
+        "sha256": "00eafc8430f3baf28cdb70fe52ee9f0cad81adf6cbf90f7244f406d915ef2e4f"
+      }
+    ],
+    "inputs": 447,
+    "productionInputs": 411,
+    "candidateOutputs": [
+      {
+        "file": "preview/performance-r01-20261020-candidate-r2/index.html",
+        "bytes": 954785,
+        "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+      },
+      {
+        "file": "preview/performance-r01-20261020-candidate-r2/main.css",
+        "bytes": 821671,
+        "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+      },
+      {
+        "file": "preview/performance-r01-20261020-candidate-r2/main.js",
+        "bytes": 37818281,
+        "sha256": "a4c85a6132834c1e4c2205a25be76317e8e07cdf5a94bca544ef5bd7c224d221"
+      }
+    ],
+    "excluded": "src/render/units/economic-egg.ts"
+  },
+  "tests": {
+    "count": 1721,
+    "passed": 1721,
+    "failed": 0,
+    "started": "2026-10-20T14:41:24.4276198+08:00",
+    "finished": "2026-10-20T14:44:27.9265955+08:00",
+    "tests": 0,
+    "typecheck": 0,
+    "docsCheck": 0,
+    "gpuTimingCompleteBeforeTests": true
+  },
+  "gpu": {
+    "device": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "vendor": "Google Inc. (AMD)",
+      "viewport": [
+        1440,
+        900
+      ],
+      "drawingBuffer": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "timerQuery": true,
+      "quality": [
+        [
+          "sc2.renderQuality",
+          "native"
+        ],
+        [
+          "sc2.ordinaryEffects",
+          "full"
+        ],
+        [
+          "sc2.heroEffects",
+          "full"
+        ],
+        [
+          "sc2.animationMode",
+          "complete"
+        ]
+      ]
+    },
+    "method": "Real EXT_disjoint_timer_query_webgl2. Same-page exact production fragment swap, six alternating rounds; 20 measured frames, 8 warmup per variant/stage; 168 windows. All frames retained. Total interval may include CPU submission gaps; stages overlap and were measured separately. CPU/GPU cannot be added.",
+    "comparison": [
+      {
+        "key": "quiet-industrial",
+        "stage": "ground",
+        "baseline": 3.82797,
+        "candidate": 3.1726,
+        "reductionPercent": 17.120562595840617,
+        "fasterPairs": 6,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            3.8597599999999996,
+            3.8002200000000004,
+            3.8132,
+            3.84274,
+            3.79182,
+            4.314299999999999
+          ],
+          "candidate": [
+            3.1583799999999997,
+            3.33124,
+            3.18682,
+            3.0891599999999997,
+            3.06128,
+            3.1929399999999997
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            3.5908800000000003,
+            6.159179999999999
+          ],
+          "candidate": [
+            2.8427200000000004,
+            4.047549999999999
+          ]
+        }
+      },
+      {
+        "key": "quiet-industrial",
+        "stage": "total",
+        "baseline": 7.015789999999999,
+        "candidate": 6.3191175,
+        "reductionPercent": 9.930064896469236,
+        "fasterPairs": 6,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            7.170215,
+            6.975675,
+            7.055904999999999,
+            6.70584,
+            6.768319999999999,
+            7.0732099999999996
+          ],
+          "candidate": [
+            5.96738,
+            5.99884,
+            6.3299199999999995,
+            6.597405,
+            6.583629999999999,
+            6.308315
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            6.32484,
+            8.54488
+          ],
+          "candidate": [
+            5.36108,
+            13.36556
+          ]
+        }
+      },
+      {
+        "key": "quiet-mar-sara",
+        "stage": "ground",
+        "baseline": 4.39978,
+        "candidate": 4.17655,
+        "reductionPercent": 5.0736627740477935,
+        "fasterPairs": 5,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            4.3324,
+            4.66428,
+            4.2554,
+            4.7474799999999995,
+            4.46716,
+            4.233499999999999
+          ],
+          "candidate": [
+            4.1182799999999995,
+            4.13668,
+            4.2095,
+            4.33616,
+            4.143599999999999,
+            4.242165
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            4.0176,
+            7.75444
+          ],
+          "candidate": [
+            3.9033199999999995,
+            5.37496
+          ]
+        }
+      },
+      {
+        "key": "quiet-mar-sara",
+        "stage": "total",
+        "baseline": 7.3493625,
+        "candidate": 7.272745,
+        "reductionPercent": 1.0425053873720391,
+        "fasterPairs": 3,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            7.942355,
+            7.498525,
+            7.200200000000001,
+            7.11558,
+            7.11726,
+            27.147995
+          ],
+          "candidate": [
+            8.037665,
+            6.955905,
+            7.022169999999999,
+            7.3870249999999995,
+            7.158465,
+            7.741949999999999
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            5.9754,
+            29.56676
+          ],
+          "candidate": [
+            6.01992,
+            28.7093
+          ]
+        }
+      },
+      {
+        "key": "quiet-char",
+        "stage": "ground",
+        "baseline": 4.4991924999999995,
+        "candidate": 2.55873,
+        "reductionPercent": 43.12912817133295,
+        "fasterPairs": 6,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            11.686665000000001,
+            5.894545,
+            2.8719200000000003,
+            3.10384,
+            2.901645,
+            8.119095
+          ],
+          "candidate": [
+            9.435405,
+            5.662990000000001,
+            2.2081399999999998,
+            2.55138,
+            2.49276,
+            2.5660800000000004
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            2.5273999999999996,
+            12.32391
+          ],
+          "candidate": [
+            1.9793200000000002,
+            11.15635
+          ]
+        }
+      },
+      {
+        "key": "quiet-char",
+        "stage": "total",
+        "baseline": 12.7712125,
+        "candidate": 13.3270725,
+        "reductionPercent": -4.352445000817262,
+        "fasterPairs": 4,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            19.36972,
+            24.95589,
+            6.034375000000001,
+            6.04748,
+            6.1727050000000006,
+            20.8618
+          ],
+          "candidate": [
+            24.534625,
+            21.02232,
+            5.6317,
+            5.631824999999999,
+            5.527935,
+            23.7511
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            4.98112,
+            25.15741
+          ],
+          "candidate": [
+            4.62384,
+            24.87247
+          ]
+        }
+      },
+      {
+        "key": "quiet-ice",
+        "stage": "ground",
+        "baseline": 5.53884,
+        "candidate": 3.63042,
+        "reductionPercent": 34.45522889269233,
+        "fasterPairs": 6,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            5.61862,
+            5.21792,
+            5.45906,
+            5.78598,
+            5.649280000000001,
+            5.209479999999999
+          ],
+          "candidate": [
+            3.80462,
+            3.61746,
+            3.57116,
+            3.6433799999999996,
+            3.52508,
+            3.923185
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            4.994159999999999,
+            7.99336
+          ],
+          "candidate": [
+            3.2748,
+            5.60376
+          ]
+        }
+      },
+      {
+        "key": "quiet-ice",
+        "stage": "total",
+        "baseline": 8.325105,
+        "candidate": 6.5730925,
+        "reductionPercent": 21.044929763648636,
+        "fasterPairs": 6,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            8.22184,
+            8.88696,
+            8.256985,
+            8.393225000000001,
+            8.839495,
+            8.20644
+          ],
+          "candidate": [
+            7.24743,
+            6.51158,
+            6.634605,
+            6.413015,
+            6.381460000000001,
+            6.655844999999999
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            7.23912,
+            12.29164
+          ],
+          "candidate": [
+            5.5298,
+            13.35386
+          ]
+        }
+      },
+      {
+        "key": "quiet-frontier",
+        "stage": "ground",
+        "baseline": 4.39218,
+        "candidate": 3.5575899999999994,
+        "reductionPercent": 19.001725794480194,
+        "fasterPairs": 4,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            3.9734999999999996,
+            3.9913799999999995,
+            4.07122,
+            4.713139999999999,
+            4.904400000000001,
+            8.34014
+          ],
+          "candidate": [
+            3.2837599999999996,
+            3.3027999999999995,
+            3.3335199999999996,
+            5.347175,
+            3.7816599999999996,
+            12.141660000000002
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            3.8423599999999993,
+            14.88357
+          ],
+          "candidate": [
+            3.10648,
+            14.585140000000003
+          ]
+        }
+      },
+      {
+        "key": "quiet-frontier",
+        "stage": "total",
+        "baseline": 7.2233925,
+        "candidate": 6.7776625,
+        "reductionPercent": 6.170646271817571,
+        "fasterPairs": 5,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            7.023619999999999,
+            7.362245,
+            7.0845400000000005,
+            7.0135000000000005,
+            8.129625,
+            27.904995
+          ],
+          "candidate": [
+            6.08795,
+            6.34999,
+            6.902985,
+            6.652340000000001,
+            24.50591,
+            18.62827
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            6.14784,
+            29.00358
+          ],
+          "candidate": [
+            5.4734,
+            26.11334
+          ]
+        }
+      },
+      {
+        "key": "ranged-300-char",
+        "stage": "ground",
+        "baseline": 2.12959,
+        "candidate": 1.62457,
+        "reductionPercent": 23.71442390319263,
+        "fasterPairs": 6,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            2.4253599999999995,
+            2.38866,
+            2.1567,
+            2.10248,
+            2.0389399999999998,
+            2.1009200000000003
+          ],
+          "candidate": [
+            1.6530999999999998,
+            1.6300000000000001,
+            1.77102,
+            1.5991799999999998,
+            1.61914,
+            1.6109399999999998
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            1.995,
+            3.08924
+          ],
+          "candidate": [
+            1.53808,
+            2.48208
+          ]
+        }
+      },
+      {
+        "key": "ranged-300-char",
+        "stage": "total",
+        "baseline": 22.86561,
+        "candidate": 22.103432499999997,
+        "reductionPercent": 3.3332917862239575,
+        "fasterPairs": 6,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            22.364765,
+            25.7297,
+            26.422984999999997,
+            21.0863,
+            23.366455000000002,
+            21.393285
+          ],
+          "candidate": [
+            22.152385,
+            23.777794999999998,
+            22.30077,
+            21.033245,
+            22.054479999999998,
+            20.70908
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            20.27836,
+            36.48498
+          ],
+          "candidate": [
+            18.87892,
+            34.22817
+          ]
+        }
+      },
+      {
+        "key": "psionic-char",
+        "stage": "ground",
+        "baseline": 2.62054,
+        "candidate": 2.05617,
+        "reductionPercent": 21.53640089447214,
+        "fasterPairs": 5,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            2.9481599999999997,
+            2.44798,
+            2.71232,
+            2.6330600000000004,
+            2.54548,
+            2.60802
+          ],
+          "candidate": [
+            2.0408199999999996,
+            2.0174,
+            2.08218,
+            2.0715199999999996,
+            1.99208,
+            10.09491
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            2.40704,
+            5.766630000000001
+          ],
+          "candidate": [
+            1.87464,
+            11.91721
+          ]
+        }
+      },
+      {
+        "key": "psionic-char",
+        "stage": "total",
+        "baseline": 9.932792500000001,
+        "candidate": 9.398010000000001,
+        "reductionPercent": 5.384009582400928,
+        "fasterPairs": 6,
+        "rounds": 6,
+        "roundMedians": {
+          "baseline": [
+            10.018575,
+            10.197735,
+            13.470215,
+            9.739275,
+            9.61802,
+            9.847010000000001
+          ],
+          "candidate": [
+            9.448260000000001,
+            9.347760000000001,
+            10.216995,
+            9.22056,
+            9.13024,
+            9.7247
+          ]
+        },
+        "allFrameRange": {
+          "baseline": [
+            9.16756,
+            42.52131
+          ],
+          "candidate": [
+            8.64564,
+            17.26711
+          ]
+        }
+      }
+    ],
+    "stageSummary": [
+      {
+        "source": "baseline-pilot-1",
+        "name": "quiet",
+        "medians": {
+          "total": {
+            "gpu": 7.098245,
+            "cpu": 27.600000008940697,
+            "min": 5.91488,
+            "max": 9.67204,
+            "queries": 16,
+            "frames": 16
+          },
+          "contact": {
+            "gpu": 1.383475,
+            "cpu": 24.399999998509884,
+            "min": 0.98533,
+            "max": 1.67097,
+            "queries": 16,
+            "frames": 16
+          },
+          "contact-depth": {
+            "gpu": 0.7104699999999999,
+            "cpu": 25.450000002980232,
+            "min": 0.38576,
+            "max": 0.80416,
+            "queries": 16,
+            "frames": 16
+          },
+          "contact-ao": {
+            "gpu": 0.572485,
+            "cpu": 23.950000002980232,
+            "min": 0.41368,
+            "max": 1.08245,
+            "queries": 16,
+            "frames": 16
+          },
+          "shadow": {
+            "gpu": 0.07998,
+            "cpu": 26.549999997019768,
+            "min": 0.0674,
+            "max": 0.11928,
+            "queries": 16,
+            "frames": 16
+          },
+          "beauty": {
+            "gpu": 3.3415999999999997,
+            "cpu": 24.5,
+            "min": 3.02476,
+            "max": 3.75777,
+            "queries": 16,
+            "frames": 16
+          },
+          "ground": {
+            "gpu": 2.8047,
+            "cpu": 23.149999991059303,
+            "min": 2.54448,
+            "max": 3.2857200000000004,
+            "queries": 64,
+            "frames": 16
+          },
+          "refraction": {
+            "gpu": 0.00146,
+            "cpu": 26.100000008940697,
+            "min": 0.00112,
+            "max": 0.00396,
+            "queries": 16,
+            "frames": 16
+          },
+          "bloom": {
+            "gpu": 1.96347,
+            "cpu": 28.19999999552965,
+            "min": 1.11768,
+            "max": 5.68558,
+            "queries": 16,
+            "frames": 16
+          },
+          "output": {
+            "gpu": 0.98594,
+            "cpu": 37.599999994039536,
+            "min": 0.78076,
+            "max": 1.56601,
+            "queries": 16,
+            "frames": 16
+          }
+        },
+        "state": {
+          "at": 111400.5,
+          "caseName": "normal-new-run",
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "char"
+          },
+          "race": "terran",
+          "difficulty": "normal",
+          "stage": 1,
+          "stageElapsed": 0,
+          "time": 0,
+          "tick": 0,
+          "rng": 529,
+          "backlog": 0,
+          "discarded": 0,
+          "phase": "battle",
+          "paused": false,
+          "decision": false,
+          "assetsPending": 0,
+          "readiness": null,
+          "enemies": 0,
+          "allies": 0,
+          "visible": true,
+          "focus": true,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 1,
+            "shots": 0,
+            "healed": 0,
+            "damage": 0,
+            "workersRescued": 0,
+            "workersLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "wallet": {
+            "minerals": 0,
+            "gas": 0
+          },
+          "items": 0,
+          "lock": {
+            "enabled": false,
+            "prevented": 0,
+            "damage": 0
+          }
+        }
+      },
+      {
+        "source": "baseline-pilot-1",
+        "name": "ranged-300",
+        "medians": {
+          "total": {
+            "gpu": 37.71284,
+            "cpu": 90.90000000596046,
+            "min": 23.4345,
+            "max": 112.79639,
+            "queries": 16,
+            "frames": 16
+          },
+          "contact": {
+            "gpu": 4.061775,
+            "cpu": 76.35000000149012,
+            "min": 3.0614,
+            "max": 4.92601,
+            "queries": 16,
+            "frames": 16
+          },
+          "contact-depth": {
+            "gpu": 3.35144,
+            "cpu": 83.95000000298023,
+            "min": 2.6464,
+            "max": 4.43484,
+            "queries": 16,
+            "frames": 16
+          },
+          "contact-ao": {
+            "gpu": 0.63622,
+            "cpu": 90.75,
+            "min": 0.47312,
+            "max": 3.54839,
+            "queries": 16,
+            "frames": 16
+          },
+          "shadow": {
+            "gpu": 7.231565,
+            "cpu": 93.05000000447035,
+            "min": 2.1198,
+            "max": 19.82478,
+            "queries": 16,
+            "frames": 16
+          },
+          "beauty": {
+            "gpu": 17.905279999999998,
+            "cpu": 83.79999999701977,
+            "min": 15.55576,
+            "max": 76.31805,
+            "queries": 16,
+            "frames": 16
+          },
+          "ground": {
+            "gpu": 2.09004,
+            "cpu": 61.19999999552965,
+            "min": 2.0077599999999998,
+            "max": 2.4038,
+            "queries": 64,
+            "frames": 16
+          },
+          "refraction": {
+            "gpu": 0.74716,
+            "cpu": 65.05000000447035,
+            "min": 0.71428,
+            "max": 2.16828,
+            "queries": 16,
+            "frames": 16
+          },
+          "bloom": {
+            "gpu": 1.4606400000000002,
+            "cpu": 82.75,
+            "min": 1.32048,
+            "max": 1.81844,
+            "queries": 16,
+            "frames": 16
+          },
+          "output": {
+            "gpu": 0.71664,
+            "cpu": 64.55000000447035,
+            "min": 0.62564,
+            "max": 0.80544,
+            "queries": 16,
+            "frames": 16
+          }
+        },
+        "state": {
+          "at": 125506.09999999404,
+          "caseName": "ranged-300",
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "char"
+          },
+          "race": "terran",
+          "difficulty": "hell",
+          "stage": 15,
+          "stageElapsed": 1.9999999999999978,
+          "time": 2,
+          "tick": 120,
+          "rng": 529,
+          "backlog": 0,
+          "discarded": 0,
+          "phase": "battle",
+          "paused": false,
+          "decision": false,
+          "assetsPending": 0,
+          "readiness": null,
+          "enemies": 300,
+          "allies": 12,
+          "visible": true,
+          "focus": true,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 1,
+            "shots": 585,
+            "healed": 55.25519999999981,
+            "damage": 9579.89725320704,
+            "workersRescued": 0,
+            "workersLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "wallet": {
+            "minerals": 0.9999999999999989,
+            "gas": 0.20000000000000032
+          },
+          "items": 8,
+          "lock": {
+            "enabled": true,
+            "prevented": 419,
+            "damage": 7658.767380999984
+          }
+        }
+      },
+      {
+        "source": "baseline-pilot-1",
+        "name": "psionic",
+        "medians": {
+          "total": {
+            "gpu": 10.24542,
+            "cpu": 46.75,
+            "min": 9.75125,
+            "max": 11.67416,
+            "queries": 16,
+            "frames": 16
+          },
+          "contact": {
+            "gpu": 1.58865,
+            "cpu": 43.899999998509884,
+            "min": 1.27049,
+            "max": 1.95509,
+            "queries": 16,
+            "frames": 16
+          },
+          "contact-depth": {
+            "gpu": 0.93206,
+            "cpu": 44.600000001490116,
+            "min": 0.72839,
+            "max": 1.25458,
+            "queries": 16,
+            "frames": 16
+          },
+          "contact-ao": {
+            "gpu": 0.44232,
+            "cpu": 47.70000000298023,
+            "min": 0.42196,
+            "max": 0.46268,
+            "queries": 16,
+            "frames": 16
+          },
+          "shadow": {
+            "gpu": 0.25395999999999996,
+            "cpu": 46.80000000447035,
+            "min": 0.2414,
+            "max": 0.33696,
+            "queries": 16,
+            "frames": 16
+          },
+          "beauty": {
+            "gpu": 5.7351399999999995,
+            "cpu": 45,
+            "min": 5.12492,
+            "max": 14.64859,
+            "queries": 16,
+            "frames": 16
+          },
+          "ground": {
+            "gpu": 2.89784,
+            "cpu": 46.649999998509884,
+            "min": 2.63368,
+            "max": 4.0832,
+            "queries": 64,
+            "frames": 16
+          },
+          "refraction": {
+            "gpu": 1.0698599999999998,
+            "cpu": 47.349999994039536,
+            "min": 0.95584,
+            "max": 1.74188,
+            "queries": 16,
+            "frames": 16
+          },
+          "bloom": {
+            "gpu": 1.4764599999999999,
+            "cpu": 52.350000001490116,
+            "min": 1.32188,
+            "max": 1.80544,
+            "queries": 16,
+            "frames": 16
+          },
+          "output": {
+            "gpu": 0.70398,
+            "cpu": 46.45000000298023,
+            "min": 0.66444,
+            "max": 0.80588,
+            "queries": 16,
+            "frames": 16
+          }
+        },
+        "state": {
+          "at": 187610.09999999404,
+          "caseName": "psionic",
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "char"
+          },
+          "race": "protoss",
+          "difficulty": "hell",
+          "stage": 15,
+          "stageElapsed": 1.9999999999999978,
+          "time": 2,
+          "tick": 120,
+          "rng": 529,
+          "backlog": 0,
+          "discarded": 0,
+          "phase": "battle",
+          "paused": false,
+          "decision": false,
+          "assetsPending": 0,
+          "readiness": null,
+          "enemies": 16,
+          "allies": 5,
+          "visible": true,
+          "focus": true,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 45,
+            "healed": 0,
+            "damage": 1091.8999999990917,
+            "workersRescued": 0,
+            "workersLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "wallet": {
+            "minerals": 0.9999999999999989,
+            "gas": 0.20000000000000032
+          },
+          "items": 0,
+          "lock": {
+            "enabled": true,
+            "prevented": 436,
+            "damage": 8236.267380999983
+          }
+        }
+      },
+      {
+        "source": "stages-r1",
+        "name": "melee-300",
+        "medians": {
+          "total": {
+            "gpu": 18.84435,
+            "cpu": 64.14999999850988,
+            "min": 16.04752,
+            "max": 78.64263,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact": {
+            "gpu": 2.62742,
+            "cpu": 55.100000001490116,
+            "min": 2.493,
+            "max": 3.34613,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact-depth": {
+            "gpu": 2.338565,
+            "cpu": 78.5,
+            "min": 1.81672,
+            "max": 6.03528,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact-ao": {
+            "gpu": 0.47958,
+            "cpu": 68.05000000447035,
+            "min": 0.40304,
+            "max": 3.34773,
+            "queries": 20,
+            "frames": 20
+          },
+          "shadow": {
+            "gpu": 1.7867199999999999,
+            "cpu": 60.75,
+            "min": 1.42608,
+            "max": 2.274,
+            "queries": 20,
+            "frames": 20
+          },
+          "beauty": {
+            "gpu": 11.16206,
+            "cpu": 63.25000000745058,
+            "min": 10.27052,
+            "max": 16.26908,
+            "queries": 20,
+            "frames": 20
+          },
+          "ground": {
+            "gpu": 2.68626,
+            "cpu": 65.60000000149012,
+            "min": 2.3141599999999998,
+            "max": 3.7071199999999997,
+            "queries": 80,
+            "frames": 20
+          },
+          "refraction": {
+            "gpu": 0.85194,
+            "cpu": 66.75,
+            "min": 0.74024,
+            "max": 1.14456,
+            "queries": 20,
+            "frames": 20
+          },
+          "bloom": {
+            "gpu": 1.32582,
+            "cpu": 63.44999999552965,
+            "min": 1.28168,
+            "max": 1.45212,
+            "queries": 20,
+            "frames": 20
+          },
+          "output": {
+            "gpu": 0.67642,
+            "cpu": 60.30000000447035,
+            "min": 0.6362,
+            "max": 1.01436,
+            "queries": 20,
+            "frames": 20
+          }
+        },
+        "state": {
+          "at": 851172.599999994,
+          "caseName": "melee-300",
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "char"
+          },
+          "race": "terran",
+          "difficulty": "hell",
+          "stage": 15,
+          "stageElapsed": 1.9999999999999978,
+          "time": 2,
+          "tick": 120,
+          "rng": 529,
+          "backlog": 0,
+          "discarded": 0,
+          "phase": "battle",
+          "paused": false,
+          "decision": false,
+          "assetsPending": 0,
+          "readiness": null,
+          "enemies": 300,
+          "allies": 12,
+          "visible": true,
+          "focus": true,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 1,
+            "shots": 325,
+            "healed": 42.697199999999874,
+            "damage": 5952.441199891056,
+            "workersRescued": 0,
+            "workersLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "wallet": {
+            "minerals": 0.9999999999999989,
+            "gas": 0.20000000000000032
+          },
+          "items": 8,
+          "lock": {
+            "enabled": true,
+            "prevented": 931,
+            "damage": 20545.78735491589
+          }
+        }
+      },
+      {
+        "source": "stages-r1",
+        "name": "medical",
+        "medians": {
+          "total": {
+            "gpu": 8.45738,
+            "cpu": 32.149999998509884,
+            "min": 7.5896,
+            "max": 10.57179,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact": {
+            "gpu": 1.4776150000000001,
+            "cpu": 33.30000000447035,
+            "min": 1.12628,
+            "max": 1.79416,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact-depth": {
+            "gpu": 0.91018,
+            "cpu": 32.80000000447035,
+            "min": 0.38608,
+            "max": 1.26934,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact-ao": {
+            "gpu": 0.373,
+            "cpu": 29.850000008940697,
+            "min": 0.36952,
+            "max": 0.40016,
+            "queries": 20,
+            "frames": 20
+          },
+          "shadow": {
+            "gpu": 0.23426,
+            "cpu": 27.600000001490116,
+            "min": 0.22884,
+            "max": 0.25848,
+            "queries": 20,
+            "frames": 20
+          },
+          "beauty": {
+            "gpu": 4.97584,
+            "cpu": 27.649999998509884,
+            "min": 4.52532,
+            "max": 7.1295,
+            "queries": 20,
+            "frames": 20
+          },
+          "ground": {
+            "gpu": 2.5759999999999996,
+            "cpu": 28.650000005960464,
+            "min": 2.34088,
+            "max": 6.2075200000000015,
+            "queries": 80,
+            "frames": 20
+          },
+          "refraction": {
+            "gpu": 0.00676,
+            "cpu": 25.600000001490116,
+            "min": 0.00628,
+            "max": 0.01484,
+            "queries": 20,
+            "frames": 20
+          },
+          "bloom": {
+            "gpu": 1.30106,
+            "cpu": 26.700000002980232,
+            "min": 1.17308,
+            "max": 1.91636,
+            "queries": 20,
+            "frames": 20
+          },
+          "output": {
+            "gpu": 0.67652,
+            "cpu": 27.100000001490116,
+            "min": 0.61912,
+            "max": 0.87256,
+            "queries": 20,
+            "frames": 20
+          }
+        },
+        "state": {
+          "at": 876044.8999999911,
+          "caseName": "medical",
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "char"
+          },
+          "race": "terran",
+          "difficulty": "hell",
+          "stage": 15,
+          "stageElapsed": 1.9999999999999978,
+          "time": 2,
+          "tick": 120,
+          "rng": 529,
+          "backlog": 0,
+          "discarded": 0,
+          "phase": "battle",
+          "paused": false,
+          "decision": false,
+          "assetsPending": 0,
+          "readiness": null,
+          "enemies": 0,
+          "allies": 15,
+          "visible": true,
+          "focus": true,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 1,
+            "shots": 0,
+            "healed": 165.69499999999928,
+            "damage": 0,
+            "workersRescued": 0,
+            "workersLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "wallet": {
+            "minerals": 0.9999999999999989,
+            "gas": 0.20000000000000032
+          },
+          "items": 0,
+          "lock": {
+            "enabled": true,
+            "prevented": 931,
+            "damage": 20545.78735491589
+          }
+        }
+      },
+      {
+        "source": "stages-r1",
+        "name": "carrier-equipment",
+        "medians": {
+          "total": {
+            "gpu": 10.96987,
+            "cpu": 36.49999999254942,
+            "min": 9.6414,
+            "max": 12.15789,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact": {
+            "gpu": 1.332555,
+            "cpu": 33.599999994039536,
+            "min": 0.85812,
+            "max": 1.81096,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact-depth": {
+            "gpu": 1.077645,
+            "cpu": 36.45000000298023,
+            "min": 0.52348,
+            "max": 1.39701,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact-ao": {
+            "gpu": 0.3831,
+            "cpu": 40.70000000298023,
+            "min": 0.37472,
+            "max": 0.42936,
+            "queries": 20,
+            "frames": 20
+          },
+          "shadow": {
+            "gpu": 0.38795999999999997,
+            "cpu": 41.850000001490116,
+            "min": 0.31996,
+            "max": 2.35191,
+            "queries": 20,
+            "frames": 20
+          },
+          "beauty": {
+            "gpu": 30.84864,
+            "cpu": 70.39999999850988,
+            "min": 14.19748,
+            "max": 31.4348,
+            "queries": 20,
+            "frames": 20
+          },
+          "ground": {
+            "gpu": 9.191609999999999,
+            "cpu": 67.70000000298023,
+            "min": 4.22956,
+            "max": 11.99531,
+            "queries": 80,
+            "frames": 20
+          },
+          "refraction": {
+            "gpu": 0.010335,
+            "cpu": 70.40000000596046,
+            "min": 0.00576,
+            "max": 0.01235,
+            "queries": 20,
+            "frames": 20
+          },
+          "bloom": {
+            "gpu": 4.074165000000001,
+            "cpu": 49.94999999552965,
+            "min": 2.20496,
+            "max": 7.43465,
+            "queries": 20,
+            "frames": 20
+          },
+          "output": {
+            "gpu": 0.985805,
+            "cpu": 43.149999998509884,
+            "min": 0.76276,
+            "max": 1.47742,
+            "queries": 20,
+            "frames": 20
+          }
+        },
+        "state": {
+          "at": 896515.6999999881,
+          "caseName": "carrier-equipment",
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "char"
+          },
+          "race": "protoss",
+          "difficulty": "hell",
+          "stage": 15,
+          "stageElapsed": 1.9999999999999978,
+          "time": 2,
+          "tick": 120,
+          "rng": 1100667827,
+          "backlog": 0,
+          "discarded": 0,
+          "phase": "battle",
+          "paused": false,
+          "decision": false,
+          "assetsPending": 0,
+          "readiness": null,
+          "enemies": 18,
+          "allies": 7,
+          "visible": true,
+          "focus": true,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 0,
+            "shots": 74,
+            "healed": 22.55999199999994,
+            "damage": 3189.9248535145175,
+            "workersRescued": 0,
+            "workersLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "wallet": {
+            "minerals": 0.9999999999999989,
+            "gas": 0.20000000000000032
+          },
+          "items": 30,
+          "lock": {
+            "enabled": true,
+            "prevented": 936,
+            "damage": 22247.038863713973
+          }
+        }
+      },
+      {
+        "source": "stages-r1",
+        "name": "main-hive",
+        "medians": {
+          "total": {
+            "gpu": 7.06934,
+            "cpu": 24.5,
+            "min": 6.48433,
+            "max": 8.87938,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact": {
+            "gpu": 1.221535,
+            "cpu": 25.900000005960464,
+            "min": 0.6702,
+            "max": 1.52147,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact-depth": {
+            "gpu": 0.996775,
+            "cpu": 38.25,
+            "min": 0.64984,
+            "max": 1.9772,
+            "queries": 20,
+            "frames": 20
+          },
+          "contact-ao": {
+            "gpu": 0.39672,
+            "cpu": 29.549999997019768,
+            "min": 0.37356,
+            "max": 0.63864,
+            "queries": 20,
+            "frames": 20
+          },
+          "shadow": {
+            "gpu": 0.14848,
+            "cpu": 31.149999991059303,
+            "min": 0.13236,
+            "max": 0.20528,
+            "queries": 20,
+            "frames": 20
+          },
+          "beauty": {
+            "gpu": 4.14026,
+            "cpu": 30.25,
+            "min": 3.42368,
+            "max": 5.10665,
+            "queries": 20,
+            "frames": 20
+          },
+          "ground": {
+            "gpu": 2.6298399999999997,
+            "cpu": 22.600000008940697,
+            "min": 2.47672,
+            "max": 3.72793,
+            "queries": 20,
+            "frames": 20
+          },
+          "refraction": {
+            "gpu": 0.0086,
+            "cpu": 28.74999999254942,
+            "min": 0.00224,
+            "max": 0.01056,
+            "queries": 20,
+            "frames": 20
+          },
+          "bloom": {
+            "gpu": 1.62192,
+            "cpu": 22.69999999552965,
+            "min": 1.50712,
+            "max": 1.94784,
+            "queries": 20,
+            "frames": 20
+          },
+          "output": {
+            "gpu": 0.72922,
+            "cpu": 24.94999999552965,
+            "min": 0.6532,
+            "max": 1.0666,
+            "queries": 20,
+            "frames": 20
+          }
+        },
+        "state": {
+          "at": 917261,
+          "caseName": "main-hive",
+          "recipe": {
+            "version": 3,
+            "seed": 529,
+            "theme": "char"
+          },
+          "race": "terran",
+          "difficulty": "hell",
+          "stage": 18,
+          "stageElapsed": 49.99999999999966,
+          "time": 50,
+          "tick": 3000,
+          "rng": 529,
+          "backlog": 0,
+          "discarded": 0,
+          "phase": "battle",
+          "paused": false,
+          "decision": false,
+          "assetsPending": 0,
+          "readiness": null,
+          "enemies": 0,
+          "allies": 8,
+          "visible": true,
+          "focus": true,
+          "stats": {
+            "kills": 0,
+            "rescued": 0,
+            "failed": 0,
+            "produced": 0,
+            "started": 1,
+            "shots": 102,
+            "healed": 0,
+            "damage": 5279.339842806925,
+            "workersRescued": 0,
+            "workersLost": 0,
+            "dronesKilled": 0,
+            "ambientSpawned": 0
+          },
+          "wallet": {
+            "minerals": 2.999999999999992,
+            "gas": 0.6000000000000003
+          },
+          "items": 8,
+          "lock": {
+            "enabled": true,
+            "prevented": 936,
+            "damage": 23350.369652858124
+          }
+        }
+      },
+      {
+        "source": "candidate-r2-final-1",
+        "name": "melee-300",
+        "medians": {
+          "opaque": {
+            "gpu": 8.803220000000001,
+            "cpu": 53.75,
+            "min": 7.599079999999998,
+            "max": 11.658560000000001,
+            "queries": 320,
+            "frames": 20
+          },
+          "transparent": {
+            "gpu": 1.672035000000002,
+            "cpu": 66.45000000298023,
+            "min": 0.8722799999999996,
+            "max": 12.08349000000005,
+            "queries": 8820,
+            "frames": 20
+          }
+        }
+      },
+      {
+        "source": "candidate-r2-final-1",
+        "name": "ranged-300",
+        "medians": {
+          "opaque": {
+            "gpu": 12.331159999999999,
+            "cpu": 69.44999999552965,
+            "min": 11.704239999999999,
+            "max": 18.141480000000005,
+            "queries": 420,
+            "frames": 20
+          },
+          "transparent": {
+            "gpu": 1.280435000000002,
+            "cpu": 70.60000000149012,
+            "min": 1.0075200000000002,
+            "max": 2.737839999999997,
+            "queries": 8920,
+            "frames": 20
+          }
+        }
+      },
+      {
+        "source": "candidate-r2-final-1",
+        "name": "medical",
+        "medians": {
+          "opaque": {
+            "gpu": 3.5834799999999998,
+            "cpu": 26.399999998509884,
+            "min": 3.273839999999999,
+            "max": 4.708920000000002,
+            "queries": 440,
+            "frames": 20
+          },
+          "transparent": {
+            "gpu": 0.6520199999999998,
+            "cpu": 28.299999997019768,
+            "min": 0.61384,
+            "max": 1.7339200000000083,
+            "queries": 8520,
+            "frames": 20
+          }
+        }
+      },
+      {
+        "source": "candidate-r2-final-1",
+        "name": "carrier-equipment",
+        "medians": {
+          "opaque": {
+            "gpu": 4.3689599999999995,
+            "cpu": 39.25000000745058,
+            "min": 3.9507599999999994,
+            "max": 5.60824,
+            "queries": 480,
+            "frames": 20
+          },
+          "transparent": {
+            "gpu": 1.9607600000000034,
+            "cpu": 34.94999999552965,
+            "min": 1.7701600000000022,
+            "max": 4.5255800000000175,
+            "queries": 9380,
+            "frames": 20
+          }
+        }
+      },
+      {
+        "source": "candidate-r2-final-1",
+        "name": "main-hive",
+        "medians": {
+          "opaque": {
+            "gpu": 2.610499999999999,
+            "cpu": 25.099999994039536,
+            "min": 2.00972,
+            "max": 5.149289999999999,
+            "queries": 300,
+            "frames": 20
+          },
+          "transparent": {
+            "gpu": 0.6100000000000033,
+            "cpu": 29.700000002980232,
+            "min": 0.3323599999999998,
+            "max": 1.3142000000000102,
+            "queries": 8820,
+            "frames": 20
+          }
+        }
+      },
+      {
+        "source": "candidate-r2-final-1",
+        "name": "psionic",
+        "medians": {
+          "opaque": {
+            "gpu": 9.003485000000001,
+            "cpu": 58.75,
+            "min": 4.9477600000000015,
+            "max": 16.32579,
+            "queries": 400,
+            "frames": 20
+          },
+          "transparent": {
+            "gpu": 2.1116999999999946,
+            "cpu": 40.5,
+            "min": 1.416520000000002,
+            "max": 2.8715599999999917,
+            "queries": 10120,
+            "frames": 20
+          }
+        }
+      }
+    ],
+    "resolution": [
+      {
+        "name": "quiet",
+        "ratios": [
+          {
+            "ratio": 1,
+            "actual": {
+              "quality": "native",
+              "adaptive": {
+                "scale": 1,
+                "gpuMs": 0,
+                "samples": 0,
+                "changes": 0,
+                "minScale": 0.75,
+                "maxScale": 1,
+                "supported": null
+              },
+              "devicePixelRatio": 1,
+              "renderPixelRatio": 1,
+              "width": 1440,
+              "height": 900,
+              "cssWidth": 1440,
+              "cssHeight": 900,
+              "antialias": true
+            },
+            "stages": {
+              "total": 5.871079999999999,
+              "ground": 2.69984,
+              "contact": 1.193,
+              "beauty": 3.35482,
+              "bloom": 1.00118,
+              "output": 0.72806
+            }
+          },
+          {
+            "ratio": 0.75,
+            "actual": {
+              "quality": "native",
+              "adaptive": {
+                "scale": 1,
+                "gpuMs": 0,
+                "samples": 0,
+                "changes": 0,
+                "minScale": 0.75,
+                "maxScale": 1,
+                "supported": null
+              },
+              "devicePixelRatio": 1,
+              "renderPixelRatio": 0.75,
+              "width": 1080,
+              "height": 675,
+              "cssWidth": 1440,
+              "cssHeight": 900,
+              "antialias": true
+            },
+            "stages": {
+              "total": 4.729635,
+              "ground": 2.4748,
+              "contact": 0.844225,
+              "beauty": 2.68376,
+              "bloom": 0.62076,
+              "output": 0.4465
+            }
+          },
+          {
+            "ratio": 0.5,
+            "actual": {
+              "quality": "native",
+              "adaptive": {
+                "scale": 1,
+                "gpuMs": 0,
+                "samples": 0,
+                "changes": 0,
+                "minScale": 0.75,
+                "maxScale": 1,
+                "supported": null
+              },
+              "devicePixelRatio": 1,
+              "renderPixelRatio": 0.5,
+              "width": 720,
+              "height": 450,
+              "cssWidth": 1440,
+              "cssHeight": 900,
+              "antialias": true
+            },
+            "stages": {
+              "total": 3.02286,
+              "ground": 4.545395000000001,
+              "contact": 1.68026,
+              "beauty": 5.63731,
+              "bloom": 0.39938,
+              "output": 0.26276
+            }
+          },
+          {
+            "ratio": 1,
+            "actual": {
+              "quality": "native",
+              "adaptive": {
+                "scale": 1,
+                "gpuMs": 0,
+                "samples": 0,
+                "changes": 0,
+                "minScale": 0.75,
+                "maxScale": 1,
+                "supported": null
+              },
+              "devicePixelRatio": 1,
+              "renderPixelRatio": 1,
+              "width": 1440,
+              "height": 900,
+              "cssWidth": 1440,
+              "cssHeight": 900,
+              "antialias": true
+            },
+            "stages": {
+              "total": 6.85291,
+              "ground": 2.90836,
+              "contact": 1.208065,
+              "beauty": 3.44394,
+              "bloom": 0.9299,
+              "output": 0.73994
+            }
+          }
+        ]
+      },
+      {
+        "name": "ranged-300",
+        "ratios": [
+          {
+            "ratio": 1,
+            "actual": {
+              "quality": "native",
+              "adaptive": {
+                "scale": 1,
+                "gpuMs": 0,
+                "samples": 0,
+                "changes": 0,
+                "minScale": 0.75,
+                "maxScale": 1,
+                "supported": null
+              },
+              "devicePixelRatio": 1,
+              "renderPixelRatio": 1,
+              "width": 1440,
+              "height": 900,
+              "cssWidth": 1440,
+              "cssHeight": 900,
+              "antialias": true
+            },
+            "stages": {
+              "total": 23.54352,
+              "ground": 2.1225199999999997,
+              "contact": 3.729005,
+              "beauty": 15.77354,
+              "bloom": 1.3305799999999999,
+              "output": 0.67742
+            }
+          },
+          {
+            "ratio": 0.75,
+            "actual": {
+              "quality": "native",
+              "adaptive": {
+                "scale": 1,
+                "gpuMs": 0,
+                "samples": 0,
+                "changes": 0,
+                "minScale": 0.75,
+                "maxScale": 1,
+                "supported": null
+              },
+              "devicePixelRatio": 1,
+              "renderPixelRatio": 0.75,
+              "width": 1080,
+              "height": 675,
+              "cssWidth": 1440,
+              "cssHeight": 900,
+              "antialias": true
+            },
+            "stages": {
+              "total": 23.26379,
+              "ground": 1.78836,
+              "contact": 3.26531,
+              "beauty": 14.00978,
+              "bloom": 0.78252,
+              "output": 0.44044
+            }
+          },
+          {
+            "ratio": 0.5,
+            "actual": {
+              "quality": "native",
+              "adaptive": {
+                "scale": 1,
+                "gpuMs": 0,
+                "samples": 0,
+                "changes": 0,
+                "minScale": 0.75,
+                "maxScale": 1,
+                "supported": null
+              },
+              "devicePixelRatio": 1,
+              "renderPixelRatio": 0.5,
+              "width": 720,
+              "height": 450,
+              "cssWidth": 1440,
+              "cssHeight": 900,
+              "antialias": true
+            },
+            "stages": {
+              "total": 16.316200000000002,
+              "ground": 0.9631399999999999,
+              "contact": 3.0112,
+              "beauty": 14.98356,
+              "bloom": 0.46502,
+              "output": 0.19641999999999998
+            }
+          },
+          {
+            "ratio": 1,
+            "actual": {
+              "quality": "native",
+              "adaptive": {
+                "scale": 1,
+                "gpuMs": 0,
+                "samples": 0,
+                "changes": 0,
+                "minScale": 0.75,
+                "maxScale": 1,
+                "supported": null
+              },
+              "devicePixelRatio": 1,
+              "renderPixelRatio": 1,
+              "width": 1440,
+              "height": 900,
+              "cssWidth": 1440,
+              "cssHeight": 900,
+              "antialias": true
+            },
+            "stages": {
+              "total": 23.041965,
+              "ground": 2.10094,
+              "contact": 3.44818,
+              "beauty": 15.6676,
+              "bloom": 1.36694,
+              "output": 0.7432799999999999
+            }
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Temporal GPU outliers retained; Char empty-scene total median regressed 4.35%.",
+      "Per-draw transparent sums have query overhead and do not measure fragment overdraw ratio.",
+      "Frozen rendering is not natural whole-game FPS or full-content60FPS."
+    ]
+  },
+  "equivalence": [
+    {
+      "key": "quiet-industrial",
+      "windows": 24,
+      "stateExact": true,
+      "sourceDrawsExactExceptCumulativeCacheHits": true,
+      "meshDrawSubmissionsExact": true,
+      "meshDrawSubmissions": 530,
+      "cacheHits": [
+        4442439,
+        4442439
+      ],
+      "actualCandidateStateExact": true,
+      "unusedAutoTargets": {
+        "before": {
+          "zoom": 0.9,
+          "pitch": 50
+        },
+        "after": {
+          "zoom": 1.8,
+          "pitch": 40
+        }
+      },
+      "actualCandidateFixedCameraActiveRequestsAndDrawCountsExact": true
+    },
+    {
+      "key": "quiet-mar-sara",
+      "windows": 24,
+      "stateExact": true,
+      "sourceDrawsExactExceptCumulativeCacheHits": true,
+      "meshDrawSubmissionsExact": true,
+      "meshDrawSubmissions": 508,
+      "cacheHits": [
+        4442439,
+        4442439
+      ],
+      "actualCandidateStateExact": true,
+      "unusedAutoTargets": {
+        "before": {
+          "zoom": 0.9,
+          "pitch": 50
+        },
+        "after": {
+          "zoom": 0.9,
+          "pitch": 50
+        }
+      },
+      "actualCandidateFixedCameraActiveRequestsAndDrawCountsExact": true
+    },
+    {
+      "key": "quiet-char",
+      "windows": 24,
+      "stateExact": true,
+      "sourceDrawsExactExceptCumulativeCacheHits": true,
+      "meshDrawSubmissionsExact": true,
+      "meshDrawSubmissions": 485,
+      "cacheHits": [
+        4442439,
+        4442439
+      ],
+      "actualCandidateStateExact": true,
+      "unusedAutoTargets": {
+        "before": {
+          "zoom": 0.9,
+          "pitch": 50
+        },
+        "after": {
+          "zoom": 0.9,
+          "pitch": 50
+        }
+      },
+      "actualCandidateFixedCameraActiveRequestsAndDrawCountsExact": true
+    },
+    {
+      "key": "quiet-ice",
+      "windows": 24,
+      "stateExact": true,
+      "sourceDrawsExactExceptCumulativeCacheHits": true,
+      "meshDrawSubmissionsExact": true,
+      "meshDrawSubmissions": 508,
+      "cacheHits": [
+        4442439,
+        4442439
+      ],
+      "actualCandidateStateExact": true,
+      "unusedAutoTargets": {
+        "before": {
+          "zoom": 0.9,
+          "pitch": 50
+        },
+        "after": {
+          "zoom": 0.9,
+          "pitch": 50
+        }
+      },
+      "actualCandidateFixedCameraActiveRequestsAndDrawCountsExact": true
+    },
+    {
+      "key": "quiet-frontier",
+      "windows": 24,
+      "stateExact": true,
+      "sourceDrawsExactExceptCumulativeCacheHits": true,
+      "meshDrawSubmissionsExact": true,
+      "meshDrawSubmissions": 498,
+      "cacheHits": [
+        4442439,
+        4442439
+      ],
+      "actualCandidateStateExact": true,
+      "unusedAutoTargets": {
+        "before": {
+          "zoom": 0.9,
+          "pitch": 50
+        },
+        "after": {
+          "zoom": 0.9,
+          "pitch": 50
+        }
+      },
+      "actualCandidateFixedCameraActiveRequestsAndDrawCountsExact": true
+    },
+    {
+      "key": "ranged-300-char",
+      "windows": 24,
+      "stateExact": true,
+      "sourceDrawsExactExceptCumulativeCacheHits": true,
+      "meshDrawSubmissionsExact": true,
+      "meshDrawSubmissions": 561,
+      "cacheHits": [
+        4707321,
+        10890197
+      ],
+      "actualCandidateStateExact": true,
+      "unusedAutoTargets": {
+        "before": {
+          "zoom": 0.9,
+          "pitch": 50
+        },
+        "after": {
+          "zoom": 0.9,
+          "pitch": 50
+        }
+      },
+      "actualCandidateFixedCameraActiveRequestsAndDrawCountsExact": true
+    },
+    {
+      "key": "psionic-char",
+      "windows": 24,
+      "stateExact": true,
+      "sourceDrawsExactExceptCumulativeCacheHits": true,
+      "meshDrawSubmissionsExact": true,
+      "meshDrawSubmissions": 587,
+      "cacheHits": [
+        11029797,
+        12580725
+      ],
+      "actualCandidateStateExact": true,
+      "unusedAutoTargets": {
+        "before": {
+          "zoom": 0.9,
+          "pitch": 50
+        },
+        "after": {
+          "zoom": 0.9,
+          "pitch": 50
+        }
+      },
+      "actualCandidateFixedCameraActiveRequestsAndDrawCountsExact": true
+    }
+  ],
+  "pixels": {
+    "samePage": [
+      {
+        "key": "quiet-industrial",
+        "changedPixels": 7,
+        "maxChannel": 1,
+        "bounds": [
+          273,
+          26,
+          1317,
+          193
+        ]
+      },
+      {
+        "key": "quiet-mar-sara",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "key": "quiet-char",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "key": "quiet-ice",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "key": "quiet-frontier",
+        "changedPixels": 1,
+        "maxChannel": 1,
+        "bounds": [
+          1363,
+          193,
+          1363,
+          193
+        ]
+      },
+      {
+        "key": "ranged-300-char",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "key": "psionic-char",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      }
+    ],
+    "boundaries": [
+      {
+        "key": "industrial-0.6",
+        "changedPixels": 20,
+        "maxChannel": 1,
+        "bounds": [
+          154,
+          7,
+          1392,
+          626
+        ]
+      },
+      {
+        "key": "industrial-1.8",
+        "changedPixels": 4,
+        "maxChannel": 1,
+        "bounds": [
+          800,
+          227,
+          1004,
+          364
+        ]
+      },
+      {
+        "key": "mar-sara-0.6",
+        "changedPixels": 3,
+        "maxChannel": 1,
+        "bounds": [
+          1184,
+          671,
+          1184,
+          677
+        ]
+      },
+      {
+        "key": "mar-sara-1.8",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "key": "char-0.6",
+        "changedPixels": 3,
+        "maxChannel": 1,
+        "bounds": [
+          1184,
+          671,
+          1184,
+          677
+        ]
+      },
+      {
+        "key": "char-1.8",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "key": "ice-0.6",
+        "changedPixels": 3,
+        "maxChannel": 1,
+        "bounds": [
+          1184,
+          671,
+          1184,
+          677
+        ]
+      },
+      {
+        "key": "ice-1.8",
+        "changedPixels": 1,
+        "maxChannel": 1,
+        "bounds": [
+          1077,
+          174,
+          1077,
+          174
+        ]
+      },
+      {
+        "key": "frontier-0.6",
+        "changedPixels": 9,
+        "maxChannel": 1,
+        "bounds": [
+          441,
+          131,
+          1184,
+          677
+        ]
+      },
+      {
+        "key": "frontier-1.8",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      }
+    ],
+    "actualCandidateAndRestore": [
+      {
+        "label": "actual-candidate-vs-injected-quiet-industrial",
+        "before": "reports\\local\\performance-r01-20261020\\paired-r2\\quiet-industrial-candidate.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-industrial.png",
+        "changedPixels": 377,
+        "maxChannel": 43,
+        "bounds": [
+          425,
+          8,
+          1216,
+          719
+        ]
+      },
+      {
+        "label": "actual-candidate-vs-injected-quiet-mar-sara",
+        "before": "reports\\local\\performance-r01-20261020\\paired-r2\\quiet-mar-sara-candidate.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-mar-sara.png",
+        "changedPixels": 375,
+        "maxChannel": 38,
+        "bounds": [
+          425,
+          8,
+          1216,
+          719
+        ]
+      },
+      {
+        "label": "actual-candidate-vs-injected-quiet-char",
+        "before": "reports\\local\\performance-r01-20261020\\paired-r2\\quiet-char-candidate.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-char.png",
+        "changedPixels": 371,
+        "maxChannel": 44,
+        "bounds": [
+          425,
+          8,
+          1216,
+          719
+        ]
+      },
+      {
+        "label": "actual-candidate-vs-injected-quiet-ice",
+        "before": "reports\\local\\performance-r01-20261020\\paired-r2\\quiet-ice-candidate.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-ice.png",
+        "changedPixels": 380,
+        "maxChannel": 36,
+        "bounds": [
+          425,
+          8,
+          1216,
+          719
+        ]
+      },
+      {
+        "label": "actual-candidate-vs-injected-quiet-frontier",
+        "before": "reports\\local\\performance-r01-20261020\\paired-r2\\quiet-frontier-candidate.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-frontier.png",
+        "changedPixels": 373,
+        "maxChannel": 43,
+        "bounds": [
+          425,
+          8,
+          1216,
+          719
+        ]
+      },
+      {
+        "label": "actual-candidate-vs-injected-ranged-300-char",
+        "before": "reports\\local\\performance-r01-20261020\\paired-r2\\ranged-300-char-candidate.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\ranged-300.png",
+        "changedPixels": 36820,
+        "maxChannel": 191,
+        "bounds": [
+          4,
+          0,
+          1438,
+          713
+        ]
+      },
+      {
+        "label": "actual-candidate-vs-injected-psionic-char",
+        "before": "reports\\local\\performance-r01-20261020\\paired-r2\\psionic-char-candidate.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\psionic.png",
+        "changedPixels": 2443,
+        "maxChannel": 187,
+        "bounds": [
+          523,
+          4,
+          808,
+          366
+        ]
+      },
+      {
+        "label": "actual-context-recovery",
+        "before": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\before-recovery.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\after-recovery.png",
+        "changedPixels": 663,
+        "maxChannel": 2,
+        "bounds": [
+          349,
+          4,
+          1216,
+          739
+        ]
+      },
+      {
+        "label": "map-restored-industrial",
+        "before": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-industrial.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\restored-industrial.png",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "label": "map-restored-mar-sara",
+        "before": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-mar-sara.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\restored-mar-sara.png",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "label": "map-restored-char",
+        "before": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-char.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\restored-char.png",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "label": "map-restored-ice",
+        "before": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-ice.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\restored-ice.png",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      },
+      {
+        "label": "map-restored-frontier",
+        "before": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\quiet-frontier.png",
+        "after": "reports\\local\\performance-r01-20261020\\candidate-r2-final-1\\restored-frontier.png",
+        "changedPixels": 0,
+        "maxChannel": 0,
+        "bounds": null
+      }
+    ],
+    "crossSessionLimit": "Cross-session full World, active fixed camera, active effect requests/draw counts equal. Inactive auto camera target and renderer pool history differ; pixel differences not fully attributed. Do not relabel them as exact A/B."
+  },
+  "browser": {
+    "scenarios": 11,
+    "actualShaders": [
+      {
+        "theme": "industrial",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "industrial",
+          "layers": [
+            {
+              "source": "dark-rock",
+              "meters": 7.8,
+              "roughness": 0.95,
+              "normal": 0.54,
+              "tint": [
+                0.96,
+                1,
+                1.02
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "panels",
+              "meters": 6,
+              "roughness": 0.7,
+              "normal": 0.62,
+              "tint": [
+                0.91,
+                0.98,
+                1
+              ],
+              "metalness": 0.18,
+              "macro": 0
+            },
+            {
+              "source": "cracked",
+              "meters": 4.8,
+              "roughness": 0.97,
+              "normal": 0.35,
+              "tint": [
+                0.75,
+                0.85,
+                0.95
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      },
+      {
+        "theme": "mar-sara",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "mar-sara",
+          "layers": [
+            {
+              "source": "sand",
+              "meters": 9,
+              "roughness": 0.94,
+              "normal": 0.55,
+              "tint": [
+                0.36,
+                0.24,
+                0.13
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "cracked",
+              "meters": 8,
+              "roughness": 0.96,
+              "normal": 0.68,
+              "tint": [
+                0.95,
+                0.8,
+                0.66
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "rock",
+              "meters": 10,
+              "roughness": 0.91,
+              "normal": 0.72,
+              "tint": [
+                0.96,
+                0.92,
+                0.89
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      },
+      {
+        "theme": "char",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "char",
+          "layers": [
+            {
+              "source": "char-soil",
+              "meters": 10,
+              "roughness": 0.96,
+              "normal": 0.68,
+              "tint": [
+                1.55,
+                1.55,
+                1.6
+              ],
+              "metalness": 0,
+              "macro": 0.3
+            },
+            {
+              "source": "char-rock",
+              "meters": 12,
+              "roughness": 0.89,
+              "normal": 0.75,
+              "tint": [
+                1.2,
+                1.22,
+                1.25
+              ],
+              "metalness": 0,
+              "macro": 0.58
+            },
+            {
+              "source": "char-cracked",
+              "meters": 9,
+              "roughness": 0.94,
+              "normal": 0.72,
+              "tint": [
+                1.55,
+                1.55,
+                1.6
+              ],
+              "metalness": 0,
+              "macro": 0.35
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      },
+      {
+        "theme": "ice",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "ice",
+          "layers": [
+            {
+              "source": "snow",
+              "meters": 9,
+              "roughness": 0.95,
+              "normal": 0.44,
+              "tint": [
+                0.98,
+                1,
+                1
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "ice",
+              "meters": 10,
+              "roughness": 0.38,
+              "normal": 0.6,
+              "tint": [
+                0.94,
+                0.98,
+                1
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "ice-rock",
+              "meters": 9,
+              "roughness": 0.89,
+              "normal": 0.7,
+              "tint": [
+                0.96,
+                0.98,
+                1
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "plates",
+              "meters": 6,
+              "roughness": 0.71,
+              "normal": 0.48,
+              "tint": [
+                0.9,
+                0.96,
+                1
+              ],
+              "metalness": 0.12,
+              "macro": 0
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      },
+      {
+        "theme": "frontier",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "frontier",
+          "layers": [
+            {
+              "source": "dark-rock",
+              "meters": 9,
+              "roughness": 0.94,
+              "normal": 0.61,
+              "tint": [
+                1.05,
+                1,
+                0.91
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "cracked",
+              "meters": 8,
+              "roughness": 0.94,
+              "normal": 0.53,
+              "tint": [
+                0.94,
+                0.91,
+                0.86
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "plates",
+              "meters": 6,
+              "roughness": 0.73,
+              "normal": 0.58,
+              "tint": [
+                0.86,
+                0.9,
+                0.9
+              ],
+              "metalness": 0.16,
+              "macro": 0
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      }
+    ],
+    "recovery": {
+      "before": {
+        "time": 2,
+        "tick": 120,
+        "rng": 529,
+        "epoch": 0
+      },
+      "after": {
+        "time": 2,
+        "tick": 120,
+        "rng": 529,
+        "epoch": 1
+      },
+      "notice": {
+        "before": [
+          "守住小队。生产完成后必须救援。",
+          8
+        ],
+        "after": [
+          "画面连接已恢复，请准备画面后继续",
+          9
+        ]
+      },
+      "exactExceptNotice": true,
+      "shader": {
+        "theme": "char",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "char",
+          "layers": [
+            {
+              "source": "char-soil",
+              "meters": 10,
+              "roughness": 0.96,
+              "normal": 0.68,
+              "tint": [
+                1.55,
+                1.55,
+                1.6
+              ],
+              "metalness": 0,
+              "macro": 0.3
+            },
+            {
+              "source": "char-rock",
+              "meters": 12,
+              "roughness": 0.89,
+              "normal": 0.75,
+              "tint": [
+                1.2,
+                1.22,
+                1.25
+              ],
+              "metalness": 0,
+              "macro": 0.58
+            },
+            {
+              "source": "char-cracked",
+              "meters": 9,
+              "roughness": 0.94,
+              "normal": 0.72,
+              "tint": [
+                1.55,
+                1.55,
+                1.6
+              ],
+              "metalness": 0,
+              "macro": 0.35
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      }
+    },
+    "afterRestoreMaps": [
+      {
+        "theme": "industrial",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "industrial",
+          "layers": [
+            {
+              "source": "dark-rock",
+              "meters": 7.8,
+              "roughness": 0.95,
+              "normal": 0.54,
+              "tint": [
+                0.96,
+                1,
+                1.02
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "panels",
+              "meters": 6,
+              "roughness": 0.7,
+              "normal": 0.62,
+              "tint": [
+                0.91,
+                0.98,
+                1
+              ],
+              "metalness": 0.18,
+              "macro": 0
+            },
+            {
+              "source": "cracked",
+              "meters": 4.8,
+              "roughness": 0.97,
+              "normal": 0.35,
+              "tint": [
+                0.75,
+                0.85,
+                0.95
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      },
+      {
+        "theme": "mar-sara",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "mar-sara",
+          "layers": [
+            {
+              "source": "sand",
+              "meters": 9,
+              "roughness": 0.94,
+              "normal": 0.55,
+              "tint": [
+                0.36,
+                0.24,
+                0.13
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "cracked",
+              "meters": 8,
+              "roughness": 0.96,
+              "normal": 0.68,
+              "tint": [
+                0.95,
+                0.8,
+                0.66
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "rock",
+              "meters": 10,
+              "roughness": 0.91,
+              "normal": 0.72,
+              "tint": [
+                0.96,
+                0.92,
+                0.89
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      },
+      {
+        "theme": "char",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "char",
+          "layers": [
+            {
+              "source": "char-soil",
+              "meters": 10,
+              "roughness": 0.96,
+              "normal": 0.68,
+              "tint": [
+                1.55,
+                1.55,
+                1.6
+              ],
+              "metalness": 0,
+              "macro": 0.3
+            },
+            {
+              "source": "char-rock",
+              "meters": 12,
+              "roughness": 0.89,
+              "normal": 0.75,
+              "tint": [
+                1.2,
+                1.22,
+                1.25
+              ],
+              "metalness": 0,
+              "macro": 0.58
+            },
+            {
+              "source": "char-cracked",
+              "meters": 9,
+              "roughness": 0.94,
+              "normal": 0.72,
+              "tint": [
+                1.55,
+                1.55,
+                1.6
+              ],
+              "metalness": 0,
+              "macro": 0.35
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      },
+      {
+        "theme": "ice",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "ice",
+          "layers": [
+            {
+              "source": "snow",
+              "meters": 9,
+              "roughness": 0.95,
+              "normal": 0.44,
+              "tint": [
+                0.98,
+                1,
+                1
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "ice",
+              "meters": 10,
+              "roughness": 0.38,
+              "normal": 0.6,
+              "tint": [
+                0.94,
+                0.98,
+                1
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "ice-rock",
+              "meters": 9,
+              "roughness": 0.89,
+              "normal": 0.7,
+              "tint": [
+                0.96,
+                0.98,
+                1
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "plates",
+              "meters": 6,
+              "roughness": 0.71,
+              "normal": 0.48,
+              "tint": [
+                0.9,
+                0.96,
+                1
+              ],
+              "metalness": 0.12,
+              "macro": 0
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      },
+      {
+        "theme": "frontier",
+        "actualCompiledMatches": 1,
+        "pairInjectionPresent": false,
+        "ground": {
+          "profile": "frontier",
+          "layers": [
+            {
+              "source": "dark-rock",
+              "meters": 9,
+              "roughness": 0.94,
+              "normal": 0.61,
+              "tint": [
+                1.05,
+                1,
+                0.91
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "cracked",
+              "meters": 8,
+              "roughness": 0.94,
+              "normal": 0.53,
+              "tint": [
+                0.94,
+                0.91,
+                0.86
+              ],
+              "metalness": 0,
+              "macro": 0.22
+            },
+            {
+              "source": "plates",
+              "meters": 6,
+              "roughness": 0.73,
+              "normal": 0.58,
+              "tint": [
+                0.86,
+                0.9,
+                0.9
+              ],
+              "metalness": 0.16,
+              "macro": 0
+            }
+          ],
+          "bases": true,
+          "independentMipmaps": true,
+          "sourceAlphaUsed": false
+        },
+        "resolution": {
+          "quality": "native",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      }
+    ],
+    "errors": {
+      "baseline": [],
+      "paired": [],
+      "stages": [],
+      "boundary": [],
+      "final": []
+    },
+    "requestFailures": {
+      "baseline": [
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-baseline/assets/optimized/model.barracks.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-baseline/assets/optimized/model.baneling.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-baseline/assets/optimized/model.loot.mineral.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-baseline/assets/optimized/model.loot.large.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-baseline/assets/optimized/model.fort.bunker.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-baseline/assets/optimized/model.fort.repair.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-baseline/assets/optimized/model.pylon.birth.glb",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "final": [
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-candidate-r2/assets/optimized/model.baneling.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-candidate-r2/assets/optimized/model.loot.mineral.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-candidate-r2/assets/optimized/model.loot.large.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-candidate-r2/assets/optimized/model.fort.bunker.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-r01-20261020-candidate-r2/assets/optimized/model.pylon.death.glb",
+          "error": "net::ERR_ABORTED"
+        }
+      ]
+    }
+  },
+  "review": {
+    "imagesReviewed": 57,
+    "contactSheets": 23,
+    "files": [
+      "reports/local/performance-r01-20261020/paired-r2/contact-psionic-char.jpg",
+      "reports/local/performance-r01-20261020/paired-r2/contact-quiet-char.jpg",
+      "reports/local/performance-r01-20261020/paired-r2/contact-quiet-frontier.jpg",
+      "reports/local/performance-r01-20261020/paired-r2/contact-quiet-ice.jpg",
+      "reports/local/performance-r01-20261020/paired-r2/contact-quiet-industrial.jpg",
+      "reports/local/performance-r01-20261020/paired-r2/contact-quiet-mar-sara.jpg",
+      "reports/local/performance-r01-20261020/paired-r2/contact-ranged-300-char.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-char-0.6.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-char-1.8.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-frontier-0.6.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-frontier-1.8.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-ice-0.6.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-ice-1.8.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-industrial-0.6.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-industrial-1.8.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-mar-sara-0.6.jpg",
+      "reports/local/performance-r01-20261020/boundaries-r1/contact-mar-sara-1.8.jpg",
+      "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-1.jpg",
+      "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-2.jpg",
+      "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-3.jpg",
+      "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-4.jpg",
+      "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-5.jpg",
+      "reports/local/performance-r01-20261020/pilot-contact.jpg"
+    ],
+    "result": "No new missing ground textures, visible seams, black faces, gross attachment/scale errors; not human acceptance."
+  },
+  "decisions": {
+    "R09": "Adopt exact-zero texture sampling only, explicit gradients before varying branch.",
+    "R10": "Keep joint camera/shadow visibility; no unvalidated offscreen removals.",
+    "R11": "Existing colorWrite=false and empty refraction bypass are controls; bloom/output retained; quality choices D02.",
+    "FX011": "Keep source lifecycles/long beams and re-entry; earlier CPU changes separate.",
+    "R15": "Getters/fleet lookups/legacy caps remain; source batches grow. Detailed legacy layer stress continues A01; no hidden cap changes."
+  },
+  "retainedFailures": [
+    {
+      "file": "reports/local/performance-r01-20261020/paired-r1/invalidation.json",
+      "reason": "Initial cross-map diagnostic omitted prepare; first ground query zero. Replaced by new valid run, original preserved."
+    },
+    {
+      "file": "reports/local/performance-r01-20261020/collection-failure-r1.json",
+      "reason": "Analysis compared inactive autoTarget in fixed camera; active projection/state equal."
+    },
+    "Initial Python GBK read failure corrected to UTF-8; browser evidence unchanged.",
+    "GPU outliers, same-page tiny differences, restore tiny differences and cross-session large differences preserved."
+  ],
+  "artifacts": {
+    "documentation": "docs/project/PERFORMANCE_R01_20261020.md",
+    "preview": "preview/performance-r01-20261020-candidate-r2/",
+    "files": [
+      {
+        "file": "reports/local/performance-r01-20261020/baseline-pilot-1/report.json",
+        "bytes": 25264856,
+        "sha256": "2ac8df7b99b258d7f4fa1cd1beec28a7896db23c666c2a563bde59ff335e4efb"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/paired-r2/report.json",
+        "bytes": 126731424,
+        "sha256": "44e696e7a19ecd0dc0938c00b209ca31ed430df67797d6240fb50775100a972d"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/stages-r1/report.json",
+        "bytes": 81105492,
+        "sha256": "1868484eecc3b6c920a96808c5f1357dcb4d143e2d3743bec7b40e19480cc6a9"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/report.json",
+        "bytes": 13589389,
+        "sha256": "aeeebe937e4124163b03dba520f243ca4fd9583f0712becba8e0db93fdfad955"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/candidate-r2-final-1/report.json",
+        "bytes": 26966994,
+        "sha256": "e5c04741c90ef3d473fe669bfc138dcd6de3d951da1614d78b7a61259dbe4c43"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/summary-r2.json",
+        "bytes": 12374,
+        "sha256": "0ac9f39b27b0349b1e8860b9d4b205cdb55e919702c93bfa319a6fab5d1f20a3"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundary-pixels-r1.json",
+        "bytes": 1416,
+        "sha256": "88621263553170bbb5ca7eb7ad2f49bdf78e304af7f440c916bd14873492ce43"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/shader-fragments-r1.json",
+        "bytes": 76751,
+        "sha256": "42f1819dbfe59675c26c099fd1d083887f02c5dbcb70c93ac33db412a7ce0fdc"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/paired-r1/invalidation.json",
+        "bytes": 748,
+        "sha256": "2c3d3e16d3d54be89e6eda6ebd3e09f3dedeafb1e7dde9b07d5e8bafe868985f"
+      },
+      {
+        "file": "preview/performance-r01-20261020-candidate-r2/build-inputs.json",
+        "bytes": 76957,
+        "sha256": "ae4926921dac9f85b9e827d30d5e04a39bf3479b57f6871e6412b9d7a553d84c"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/verified-summary.json",
+        "bytes": 238374,
+        "sha256": "942a88cd14efc1c14188fb075fa4ebd3728e323ec72886441cdfde896bdcec7b"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/final-pixels.json",
+        "bytes": 5442,
+        "sha256": "40041ec7daef30e0cf49184091aedb994069288ac5b9d3947d3f85094ef82a72"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/check-exits.json",
+        "bytes": 161,
+        "sha256": "83297e5fcb79fbd71c5f2504208f81fcd25dfad1724619e4e496ac929325411f"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/tests.log",
+        "bytes": 183691,
+        "sha256": "86b564c4be178313a5db2d08b81f5fdb0fe13abdd4a2b175b67cb2eb0a86d46a"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/typecheck.log",
+        "bytes": 60,
+        "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/docs-check.log",
+        "bytes": 149,
+        "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/collection-failure-r1.json",
+        "bytes": 503,
+        "sha256": "971f6c5e8723caea511900f2df5dfc79517fda3b75cc24261cd4d107c5ac2f62"
+      },
+      {
+        "file": "docs/project/PERFORMANCE_R01_20261020.md",
+        "bytes": 12747,
+        "sha256": "95848853d07b806e53386fb9626587f90a3f9b404dc6edb2eb5bd86b67e3885f"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/paired-r2/contact-psionic-char.jpg",
+        "bytes": 177495,
+        "sha256": "4d80effe78dd8bd787e8355f3e1f92ffefdb6d2cc04b32f41f858703dfedecf6"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/paired-r2/contact-quiet-char.jpg",
+        "bytes": 127598,
+        "sha256": "3589e6e730698810b4f49252dc31a9619ba9af1d8379110a56182f4e658c7ced"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/paired-r2/contact-quiet-frontier.jpg",
+        "bytes": 149152,
+        "sha256": "bf69a2cb0d3a17e087056e2873c38d5ccc3f6f37dc15d9df532a9a789d198ccd"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/paired-r2/contact-quiet-ice.jpg",
+        "bytes": 141519,
+        "sha256": "2f15cd7c49005ae59d3d9a378b729fe9cc170e5c7e29358aa67d98eb24f09a3a"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/paired-r2/contact-quiet-industrial.jpg",
+        "bytes": 139451,
+        "sha256": "ad6ff5d2e2839f69cc7c09a78f4d9f467fb76af2fe9c2e5ba0aeabe93ca9df50"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/paired-r2/contact-quiet-mar-sara.jpg",
+        "bytes": 117943,
+        "sha256": "b1dbc29bce4908adf1034307f26972e9839ec381955838bd846164d1f0fe82d3"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/paired-r2/contact-ranged-300-char.jpg",
+        "bytes": 225868,
+        "sha256": "2f541e1f1ff8cad3a2bb47f6591b12f7d0cfd24dd24f28d1a66a7161621999fb"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-char-0.6.jpg",
+        "bytes": 124827,
+        "sha256": "1da606dc556783bbbd4a037ae57a6073a4b8089bb210e7c19727eb5a9a0fb273"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-char-1.8.jpg",
+        "bytes": 116516,
+        "sha256": "c36767da88d52983c435932b39757aa46ff899e3e4c7875e9bb9d93bc21fcae2"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-frontier-0.6.jpg",
+        "bytes": 128383,
+        "sha256": "2e6c33febb3748e1b390606f889e00867900e9d0d4bf1ec109735c36c57f6454"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-frontier-1.8.jpg",
+        "bytes": 115669,
+        "sha256": "9dfdf53d7d93eae5389305b88902ffe2598c2618658daddc0bbc0416fa58dd6e"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-ice-0.6.jpg",
+        "bytes": 137372,
+        "sha256": "be636c395c3c85afbecc582bd4666010ca0985c0ca171e5e6ff463cf774931f0"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-ice-1.8.jpg",
+        "bytes": 137328,
+        "sha256": "9c285ab9ce80069fa8d1ae75965240bea7f0bbca2e662c0ecf22ebbcdef897ce"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-industrial-0.6.jpg",
+        "bytes": 135035,
+        "sha256": "3a664db7d929167922a5c3c163cf309310aadd0a7e40217f024d41613d6307d7"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-industrial-1.8.jpg",
+        "bytes": 126400,
+        "sha256": "af931531cb8821421112b059e4c3fdf2ba9e490b119a85acfab89258e1ae9228"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-mar-sara-0.6.jpg",
+        "bytes": 113116,
+        "sha256": "e91b8c3a0764a3d58f1cf143cba901b53350f4067a01be87f66517315980a78d"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/boundaries-r1/contact-mar-sara-1.8.jpg",
+        "bytes": 111409,
+        "sha256": "2aed39d243462d0d27ac02abf2b732aabc2e977e9cad21f8fe35d9508371e053"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-1.jpg",
+        "bytes": 259105,
+        "sha256": "b0d31bf34d59b53ee3b3637117db1843ff2446b553ecbda32d3624792962dbff"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-2.jpg",
+        "bytes": 348068,
+        "sha256": "2117fa2c11dadda195c631a0b2a4eaa20f2f6f2ae2fc97668320ca9e47c024e8"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-3.jpg",
+        "bytes": 335530,
+        "sha256": "c64698f9a579ee4cc944c6e0391d5fdf42a36e828d96c6a53bc27cb3857f4cea"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-4.jpg",
+        "bytes": 277563,
+        "sha256": "65d7e40144e71b6e36a8773c442b5202803882d924dd8580121df886bdf3c8bf"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/candidate-r2-final-1/contact-5.jpg",
+        "bytes": 144917,
+        "sha256": "5e68a002b9720df24056c31467855c53b02c8f680dd7bb2dceeafab28ad8d06e"
+      },
+      {
+        "file": "reports/local/performance-r01-20261020/pilot-contact.jpg",
+        "bytes": 399494,
+        "sha256": "57e192ac318963a4e097de5d48e957cf8e8ed0cd4fbd0fb748c768d57419d6ff"
+      }
+    ]
+  },
+  "limits": [
+    "No Current replacement, Git commit/push or publication.",
+    "300 cap, 4:4:1, full effects, simulation/economy, five-map freeze and save deferral unchanged.",
+    "Natural campaign, physical input, human playtest, full-content60FPS and whole MVP not closed."
+  ]
+}

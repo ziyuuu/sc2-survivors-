@@ -1,11 +1,13 @@
 import type {World} from '../world';
 import type {Body,Entity,Point} from '../types';
 import {blocked,distance} from './steering';
+import {corruptRouteGoal} from '../encounters/corrupted-protoss';
 
 export interface EnemyRoute {map:string;points:Point[];index:number;lastVisible:Point|null;checkAt:number;lastPosition:Point;stalled:number}
 const centers=new WeakMap<World,{cells:Point[];center:Point}>();
 /** Fixed patrol destinations come from public terrain, never the hidden squad anchor. */
 export function enemyRouteGoal(w:World,u:Entity,target?:Body):Point {
+ const local=corruptRouteGoal(w,u,target);if(local)return local;
  let r=u.enemyRoute;
  if(!r||r.map!==w.battlefield.mapId){
   const cells=w.spawnLocations;let cached=centers.get(w);

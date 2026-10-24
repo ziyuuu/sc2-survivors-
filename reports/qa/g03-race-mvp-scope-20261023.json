@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-23",
+  "scope": "用户讨论与现有源码、既有原始证据只读核对；不新增自动游玩、平衡模拟、游戏改动或验收。",
+  "decisions": {
+    "raceBalance": "将三族人口预算、生产与补员效率、种族专属趣味卡牌及特性所涉及的精细平衡列入MVP后的1.1迭代方向；具体特性与数值未定，不在本轮实施。",
+    "mvpBoundary": "MVP保留已确认机制故障、成长途径阻断和明显不可玩问题的处理，以及既定自然游玩和用户体验验收；已有失败样本保留，不要求再用无界脚本把每族每档每种子调至同一结果。",
+    "automaticPlay": "用户明确不再盲目追加游玩脚本来证明平衡。现有固定控制策略叠加随机种子、事件和英雄抽选，仅能描述相应策略与样本；不能代表合理玩家行为或证明种族平衡。",
+    "invalidCards": "已升级至有效上限、不可继续叠加、或购买后无实际效果的卡应在候选生成时排除；若实际出现，按机制缺陷处理，不归入可延期的精细平衡。",
+    "lateGrowth": "英雄/精英招募、同名升阶等是现有后期成长途径；此前仅列检查方向，未证实后期没有成长，不作为要求新增系统或调数值的理由。"
+  },
+  "codeReview": {
+    "hatcheries": {
+      "maximum": 15,
+      "otherMainFacilityMaximumEach": 5,
+      "meaning": "虫族孵化巢各自生产；人族/星灵三条主要产线各最多5座，不把15与其他种族总计5座误比。"
+    },
+    "population": {
+      "baseFamilies": 5,
+      "baseSeatsPerFamily": 5,
+      "zerglingBodiesPerSeat": 2,
+      "otherOrdinaryFamiliesBodiesPerSeat": 1,
+      "modifiers": "装备可以改变兵种/成员/等级容量；生产建筑数量不直接增加编制上限。",
+      "assessment": "相同席位预算可能无法充分表达不同种族的数量优势，属于设计假设，现有样本未完成因果验证。"
+    },
+    "production": {
+      "parallelUnitsAt15EligibleHatcheries": 15,
+      "equivalentBaseCostForThreeRankV": 15,
+      "explanation": "在各巢有对应生产资格、空闲、资金与培养容量足够时，一轮可并行开工15份基础产出；从I级新兵到V级累计需5份基础产出，因此15份可折算3个V级单位的生产投入。当前交付逻辑优先补空席，再给最低等级普通成员逐次升阶，且有运输/落点/交付约束，不保证一轮直接出现3个V级身体。装备招募等级等可改变该基础换算。",
+      "correction": "不能仅讨论人口上限而忽略15巢的补员与培养吞吐，也不能凭只用5巢的固定路线评价该生产体系上限。"
+    },
+    "shop": {
+      "selection": "先抽品质，再从该品质合法候选抽商品；满额卡、英雄/精英资格和功能上限通过各自合法性检查过滤。此处为源码检查，没有新增全目录运行验收。",
+      "heroes": "橙色；同名可继续升阶直至有效上限。基础英雄席位3、等级上限5，装备可提高英雄等级上限。",
+      "elites": "紫色招募/培养，商店另有橙色直接V级商品；受兵种入编、变体与有效成长资格限制。",
+      "depletion": "同品质候选减少会改变其内部竞争，但普通卡售罄不会自动把所有低品质抽签换成英雄/精英；低品质资源商品仍存在。不能把这一规则说成没有后期成长，也不据此擅自修改概率。",
+      "boss": "Boss的20%橙色分支与付费商店分开，不能套作每次商店刷英雄的固定20%概率。"
+    }
+  },
+  "existingRoute": {
+    "id": "after-audited-zerg-hard-minor-529",
+    "path": "reports/local/g03-farm-minor-20261023/mode-routes/after-audited-zerg-hard-minor-529.json",
+    "sha256": "093ad3aaf78faaf39c5457da8553be3de8846c66b5e208c4fd10045f563270a8",
+    "finalHatcheries": 5,
+    "groundEvolvedHatcheries": 1,
+    "interpretation": "该固定策略终局5巢、仅1巢地面进化，不是15巢合理配置的产能极限验证；保留原通败和死亡事件，不把脚本局限直接判作游戏缺陷。"
+  },
+  "sources": [
+    {
+      "path": "src/data/expedition-buildings.ts",
+      "sha256": "89ca563b6b62e1a1cb9b229c9d61266590de3a25bf92a029c77018a39429b2c5"
+    },
+    {
+      "path": "src/data/roster.ts",
+      "sha256": "5061253aef0033992a5c7d1e1e22ccf5bd06fd2ad5c311cb599203eb004baf9a"
+    },
+    {
+      "path": "src/simulation/world.ts",
+      "sha256": "768e20ab165d17f6a38abdd9c7d1dd72722d899c1b33b6711fe4ce30e2da7b49"
+    },
+    {
+      "path": "src/simulation/zerg-brood.ts",
+      "sha256": "922ba56cba0213b8968b7440bafbd408b9489722eb174acb2904681821ffa94c"
+    },
+    {
+      "path": "src/simulation/building/rules.ts",
+      "sha256": "0a1740ffe030ada3d4b624e645a2ff9bcb7c4df1f213a9d65f9dc69f86973560"
+    },
+    {
+      "path": "src/simulation/expedition-production.ts",
+      "sha256": "f17f7f2e894b774345937e44164acbb3aaaa64a0e059c3786965ac96a715a532"
+    },
+    {
+      "path": "src/simulation/progression/expedition-drafts.ts",
+      "sha256": "a4864d7b6b9623770d98fcf139bd4c5c0fde8b37f974cae408ae9347d4a24f42"
+    },
+    {
+      "path": "src/simulation/progression/team-cards.ts",
+      "sha256": "b7c4dc1b4c3a2fd4ebe4d30272f0e113af7479e40119a483165f272b2089d05e"
+    },
+    {
+      "path": "src/simulation/combat/expedition-heroes.ts",
+      "sha256": "074d4579ca3b0a247985f9142bbe0215e90621b19a1ad856ab25ad11844febc2"
+    },
+    {
+      "path": "src/simulation/combat/expedition-elites.ts",
+      "sha256": "eb31675d5108a39bd1d79ddafdb910e5709f2e7ba1b0f7812249bdb41671acb3"
+    },
+    {
+      "path": "src/simulation/expedition-economy.ts",
+      "sha256": "08e6c5379b9085877df9de91cef157abd43957d038e881812f960c8d70a62a73"
+    },
+    {
+      "path": "src/simulation/starship/eligibility.ts",
+      "sha256": "c2d491b84955037889b8d5d38c980de42669fa0da6dc6554a98a108f3da4956f"
+    },
+    {
+      "path": "src/simulation/fun-shop/state.ts",
+      "sha256": "ecc5ce4dd98351bff5fe684d333aa9c84edc056da6ee31da53eecc697b07aa1b"
+    }
+  ],
+  "gameChanged": false,
+  "newSimulationRuns": 0,
+  "newGameTests": 0,
+  "boardRevisionBefore": 139,
+  "boardRevisionAfter": 140
+}

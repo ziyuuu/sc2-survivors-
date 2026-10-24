@@ -13,3 +13,7 @@ test('a retired optional map is prepared again when its saved-run choice returns
  const lane=new BackgroundPreparation(()=>0,()=>true),select=()=>lane.select(view.backgroundJobs('terran',null,recipe).filter((j:any)=>j.key.includes(':map:'))),flush=()=>new Promise<void>(r=>setTimeout(r,0));
  select();lane.tick();await flush();assert.equal(loads,1);mapViews.clear();select();lane.tick();await flush();assert.equal(loads,2);
 });
+test('stage presentation uses current and next-stage families plus known hitch hotspots, leaving unrelated effects out',()=>{
+ const view=Object.assign(Object.create(BattleRenderer.prototype),{world:{stage:1,endless:null,expedition:{race:'terran'}},contextEpoch:0,stageWarmEpoch:0,stageWarm:new Map(),currentModels:()=>new Map([['marine','marine']]),funProps:{ready:false},sourceCombatEffects:{player:{preparationEntries:()=>['BanelingDeath:2:particles','MarineAttackLaunch:mesh','BloodTargetImpact:0:particles','CarrierAttackLaunch:mesh','FunNydus:0:particles'].map(key=>({key,root:{},displacement:false}))}}});
+ const jobs=view.stagePreparationJobs(async()=>{});assert.deepEqual(jobs.map((j:any)=>j.key),['stage-presentation:0:BanelingDeath:2:particles','stage-presentation:0:MarineAttackLaunch:mesh','stage-presentation:0:BloodTargetImpact:0:particles']);
+});

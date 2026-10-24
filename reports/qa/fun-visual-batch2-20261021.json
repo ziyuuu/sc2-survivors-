@@ -1,0 +1,727 @@
+{
+  "date": "2026-10-21",
+  "status": "local-complete",
+  "branch": "feat/fun-gameplay",
+  "root": "C:/Users/zyuu/.codex/worktrees/mission/星际",
+  "scope": {
+    "camera": "Both camera source files and original camera tests exactly restored to pre-batch baseline.",
+    "console": "Original portrait right roster and landscape bottom UI restored; 32 same-state rectangles/styles exact.",
+    "tracker": "Only actual missions: name and one objective, both 12px matching top resources. No encounter or special-stage tracker title/description.",
+    "batch3": "Product images pending",
+    "batch4": "Audiovisual feedback pending"
+  },
+  "source": {
+    "baseline": 746,
+    "unchanged": 722,
+    "changed": 24,
+    "added": 2,
+    "production": 20,
+    "tests": 6,
+    "buildInputs": 446,
+    "changes": [
+      {
+        "file": "src/render/materials/elite-visual.ts",
+        "bytes": 4648,
+        "sha256": "bc60c41586fc29059fe3d5b809eddc5a35f9135e1cb287a777c403a946b1e6ee",
+        "after": "2b604c1dc704dfac9f5d3941c561574ad83393d5090b7728068f3d9b4679dde8",
+        "afterBytes": 5095,
+        "same": false
+      },
+      {
+        "file": "src/render/units/encounter-visuals.ts",
+        "bytes": 5139,
+        "sha256": "d49edd572b27142d22356292c262dcbc41d2270de20836dad25a2a7f86596f73",
+        "after": "6453ae168da5dd6131718e3884263c41744f635999c36556f6b46064d71f1965",
+        "afterBytes": 4424,
+        "same": false
+      },
+      {
+        "file": "src/render/units/fun-visuals.ts",
+        "bytes": 6488,
+        "sha256": "acfe78f353c2d92576203b3cc4539b7419968464f763048025953cc117e975e2",
+        "after": "ac37bece1bf1b8ebb2aa8159262a3ffdbef75445738f7c02f11e8eb38c613871",
+        "afterBytes": 5446,
+        "same": false
+      },
+      {
+        "file": "src/render/units/special-visuals.ts",
+        "bytes": 5068,
+        "sha256": "e711b8909c8b7f8316166f731113d7a5b38b7914ce455fe6440cf6678dcaacfa",
+        "after": "19952fb91860e0a9844b54dbdbdad43c3636db3e7105e18de4cda6da5319d2e5",
+        "afterBytes": 4805,
+        "same": false
+      },
+      {
+        "file": "src/simulation/fun-shop/state.ts",
+        "bytes": 5636,
+        "sha256": "6f3b132209b94490786d1efcadafe15ac4d472d03534c2c7bc1a35e55108878d",
+        "after": "9af2f2f9b8d4db0c6e1d604e5c82af651a0c46006b5d08a4ef92aed49ec27b2d",
+        "afterBytes": 7072,
+        "same": false
+      },
+      {
+        "file": "src/simulation/special-stages/dodge.ts",
+        "bytes": 3598,
+        "sha256": "7697a7da9dbf94576d85c764b2c08f1f093f1f8b1188e827992e9adb21ee8a8a",
+        "after": "69d5c5e4621f5393144f62bd129f10ba09eaa1aabd2bad814a4c3ec51fb9907b",
+        "afterBytes": 3572,
+        "same": false
+      },
+      {
+        "file": "src/simulation/special-stages/runtime.ts",
+        "bytes": 9026,
+        "sha256": "cd4f81d895ca3cb71f02eb02e982c4c7d00e69ebce879da50b735d920a157864",
+        "after": "82fa18624316a4725ad5960b8acc1a167ab118cfd0bc653c9bdd6321c06dcc63",
+        "afterBytes": 9065,
+        "same": false
+      },
+      {
+        "file": "src/simulation/special-stages/state.ts",
+        "bytes": 2386,
+        "sha256": "02699926d0d726556a2f2cd889d6338b2a0d75b953fb8d4df79d6cb6e14d019d",
+        "after": "fd2c3cd8374764b79671b042fda39fdfc990abfbc176b543f72ea2a058682dfa",
+        "afterBytes": 2341,
+        "same": false
+      },
+      {
+        "file": "src/ui/hud/packed-console.ts",
+        "bytes": 19651,
+        "sha256": "d00ba030affec499180ae83cca4789c25e10cdec7d33facb0a2af7b870c8816f",
+        "after": "590ce34225705d8d397fcc4067c9f096ec32fcbdd1da6798640f5f389332654c",
+        "afterBytes": 19664,
+        "same": false
+      },
+      {
+        "file": "src/ui/hud/random-mission.ts",
+        "bytes": 2772,
+        "sha256": "170d1d738a99000094760311b5b534082b1383f806c34ec02ec4ef1cf31055be",
+        "after": "53e179ea70ca56a631f108ab021bcd91f69e3f27ab222ade44836262787b8fa2",
+        "afterBytes": 1243,
+        "same": false
+      },
+      {
+        "file": "src/ui/hud/special-stages.css",
+        "bytes": 2861,
+        "sha256": "3760d3b70c7ef14d087f301b65afcd0300352f5a67bc65527b8fe92b439641a2",
+        "after": "7c0a087f9c172021c4a52a241e4563d573c552d295245aa81f0465589bb3fecf",
+        "afterBytes": 1854,
+        "same": false
+      },
+      {
+        "file": "src/ui/hud/special-stages.ts",
+        "bytes": 4987,
+        "sha256": "4293eee6db0cb14067f0d1eb0b91ca9f6d46e89f6cbe63fa62ec2ad49f5df93f",
+        "after": "4439101a044ac5d530fefc8b53820c80777ec839d0768e0c76cde52090af2fb5",
+        "afterBytes": 2343,
+        "same": false
+      },
+      {
+        "file": "src/ui/hud.ts",
+        "bytes": 56167,
+        "sha256": "887437b6026e79327e4386115570e7f4d3c1ea6843cfc6e6971406aeabc3e0ac",
+        "after": "c31735a7b85ff13acf0ca33a6d09d71506b8c65bf531a57a716b8e7966c7a296",
+        "afterBytes": 56173,
+        "same": false
+      },
+      {
+        "file": "src/ui/intermission-skin/adaptive-layout.css",
+        "bytes": 11612,
+        "sha256": "e514eb4289f8aa5878b0f94671782768fc26c9c9ea86fdaf6800c0c146453992",
+        "after": "d2e483afa413cbd1d44942d59e58a13272bdae9a817b0bd58384dd1940601881",
+        "afterBytes": 12177,
+        "same": false
+      },
+      {
+        "file": "src/ui/native-hud/battle.css",
+        "bytes": 20845,
+        "sha256": "09fa5326292a8da2cf73febcfce1c4eded4341ca5ddcd445644f468120c13dd2",
+        "after": "bfeee50344fd567407ec7e622e504776e4623ed362fca6d46197e1cb859820e2",
+        "afterBytes": 20371,
+        "same": false
+      },
+      {
+        "file": "src/ui/native-hud/shell.ts",
+        "bytes": 2127,
+        "sha256": "de5faa4e12b9650d7f092d592d3f0e402bdd11e33acbab49875c2946eb4d1985",
+        "after": "3e38b35a2b2332c3624df26d34585f10aefda0811b8e3269f0d8545eb6dabf0e",
+        "afterBytes": 2127,
+        "same": false
+      },
+      {
+        "file": "src/ui/presentation/formal-ui.css",
+        "bytes": 25678,
+        "sha256": "8a80285c622ac9b97269b61e71d2072ab2c012bd17993a9ce23f34409152ba0c",
+        "after": "1bc8f2c505fce293ebe4190939eacd0eb35c87c5b5232677c470c6c6927409ba",
+        "afterBytes": 26128,
+        "same": false
+      },
+      {
+        "file": "src/ui/presentation/intermission.ts",
+        "bytes": 35639,
+        "sha256": "b254780d87677b2b11dd222755acd2f0a25b90e1744cfe0af7592262ae1b808b",
+        "after": "58897d14496b11e3f60d2b5daf5da1b866c6e4f1f72239f8773703ebdce1e2ba",
+        "afterBytes": 35701,
+        "same": false
+      },
+      {
+        "file": "src/ui/presentation/reference-primitives.ts",
+        "bytes": 3337,
+        "sha256": "115e122316f7409af0f8965898fb4cddd3470a894edc0f2aa773dc2949ab0c7c",
+        "after": "4c0c1ca4703cec2331846ea26fe68144296aeb7ffd54c080e9d2e7c30aa5ecc6",
+        "afterBytes": 3357,
+        "same": false
+      },
+      {
+        "file": "test/field-stage-runtime.test.ts",
+        "bytes": 6099,
+        "sha256": "21d8df35280d9befd3c79ae6426ce8cc2fa848b8f599b6d60978530540c8471d",
+        "after": "65224c69fbdb8b67fc0c0d2d49aaa89dc44e214c5fe983b20046ccfade8fdb0b",
+        "afterBytes": 6164,
+        "same": false
+      },
+      {
+        "file": "test/fun-shop.test.ts",
+        "bytes": 11807,
+        "sha256": "62ebdc6370cd602b75a32d5a3b6468e589e51ae12fffa564a00da40c8da52b48",
+        "after": "9054339748372c459c7231e271b5675dacdd45969e7ad318aa9bf0c6cd3e5c4a",
+        "afterBytes": 11838,
+        "same": false
+      },
+      {
+        "file": "test/missions.test.ts",
+        "bytes": 24932,
+        "sha256": "e13e360ab092a8723a7b7c287a45bfa1f19f3721a08af84cc31933b01646835e",
+        "after": "b5c7ed73f6be297facbfdf030e9e05f4f4f19717b3ad335f8c2381b104a05a18",
+        "afterBytes": 25074,
+        "same": false
+      },
+      {
+        "file": "test/special-stage-boundaries.test.ts",
+        "bytes": 6390,
+        "sha256": "7fcc1fa959ac4e07ff5f9a9a7852176c1b4ee03396b187170b77a237a67fa170",
+        "after": "ded6ec720f7f5404866bc63bd18ac2b88cd985d1411a491c720256aaa11c91ba",
+        "afterBytes": 6445,
+        "same": false
+      },
+      {
+        "file": "test/special-stages.test.ts",
+        "bytes": 12509,
+        "sha256": "0da1082a3fb37cee8ca87ebfc812e98fb7907cb04a96269c765eed49e77cd7f5",
+        "after": "a11cb9d741644d30540d1548043333bebb38c68f72e4f776776e7bb3effb5ebc",
+        "afterBytes": 12588,
+        "same": false
+      }
+    ],
+    "extras": [
+      {
+        "file": "src/ui/hud/field-interactions.ts",
+        "bytes": 2785,
+        "sha256": "d9f94f5c292722b5dc911f32829ce35833e661298fa5844e9f2624bd4a659ee6"
+      },
+      {
+        "file": "test/fun-visual-batch2.test.ts",
+        "bytes": 6428,
+        "sha256": "e4f36ca039b69083a266244b9e092bc66d7e070c7952b528d2cd160b0f66914e"
+      }
+    ]
+  },
+  "validation": {
+    "regression": {
+      "pass": 1879,
+      "fail": 0,
+      "log": "D:\\星际\\reports\\local\\fun-visual-batch2-20261021/regression-final-r2.log"
+    },
+    "typecheck": "D:\\星际\\reports\\local\\fun-visual-batch2-20261021/typecheck-final-r2.log",
+    "dataDocumentation": "D:\\星际\\reports\\local\\fun-visual-batch2-20261021/docs-check-final.log",
+    "field": {
+      "records": 23,
+      "errors": [],
+      "requests": []
+    },
+    "special": {
+      "records": 21,
+      "errors": [],
+      "recovery": {
+        "name": "actual-WebGL-recovery",
+        "same": true,
+        "epoch": 1,
+        "beforeEpoch": 0,
+        "readiness": {
+          "kind": null,
+          "phase": "idle",
+          "done": 0,
+          "total": 0,
+          "label": "",
+          "error": null,
+          "progress": 0
+        }
+      },
+      "completion": {
+        "name": "dodge-completion",
+        "kind": "dodge",
+        "result": "success",
+        "ranks": [
+          {
+            "id": 76,
+            "before": 1,
+            "after": 3
+          },
+          {
+            "id": 1,
+            "before": 1,
+            "after": 3
+          },
+          {
+            "id": 3,
+            "before": 1,
+            "after": 3
+          },
+          {
+            "id": 4,
+            "before": 1,
+            "after": 3
+          }
+        ]
+      }
+    },
+    "shop": {
+      "records": 44,
+      "purchases": 13,
+      "errors": [],
+      "binding": "Shop source/CSS unchanged since this browser run; later corrections affect only tracker text and restored camera files."
+    },
+    "consoleGeometry": [
+      {
+        "width": 1440,
+        "height": 900,
+        "exact": true
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "exact": true
+      },
+      {
+        "width": 844,
+        "height": 390,
+        "exact": true
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "exact": true
+      }
+    ],
+    "production": {
+      "pass": true,
+      "debug": false,
+      "build": "72115e424cbf41cf4b06bf1d09dbee11fe380e65790565c2a8947cfb046937c7",
+      "text": "50\n0\nⅠ\n01:00\n新游戏\n选择阵营\n1\n种族\n2\n难度\n3\n出发\n人族\nTerran\n远程\n机械\n阵地\n×1\n兵营\n50\n0\n虫族\nZerg\n虫群\n恢复\n进化\n×2\n孵化场 / 血池\n50\n0\n神族\nProtoss\n护盾\n精锐\n灵能\n×1\n传送门\n0\n0\n人族 · 待命\n继续",
+      "errors": [],
+      "responses": []
+    },
+    "images": [
+      {
+        "file": "screens-field-final/hud-1280x720.png",
+        "bytes": 928128,
+        "sha256": "5adf4c5ab9acdf72b4dc58156169964c8bb9e538adc25c1ffedd9eb5942a64b5"
+      },
+      {
+        "file": "screens-field-final/hud-1440x900.png",
+        "bytes": 1305838,
+        "sha256": "6bcdec75a66e273de0a8e9006cca48a9421597f3aaa5564ac0da239de7cf378a"
+      },
+      {
+        "file": "screens-field-final/hud-390x844.png",
+        "bytes": 363810,
+        "sha256": "c3bd3af9cc70f7b15db7e935675dbc2dd1f1dfbc5cee785d916d53c3ce4b4dd1"
+      },
+      {
+        "file": "screens-field-final/hud-844x390.png",
+        "bytes": 355736,
+        "sha256": "c9d0ff093f38ccd163788f66eeb9d2ff4c3c391bbcb45e883536613e9499ff1b"
+      },
+      {
+        "file": "screens-field-final/infected-attack-request.png",
+        "bytes": 1367343,
+        "sha256": "b64766fd63df1b3c8963a79c00330c4594a558166a25d2faa2ac14b73020e36a"
+      },
+      {
+        "file": "screens-field-final/infected-healing-and-friends.png",
+        "bytes": 1370884,
+        "sha256": "29989447cf882c3aedeef9533811bc71a67e7d5a93ae83b8addbff4368854f4d"
+      },
+      {
+        "file": "screens-field-final/infected-neutral.png",
+        "bytes": 1351217,
+        "sha256": "50bc17c229aec7edbfbd50a8954331d7c21b58c769dd410d9b895b58d3e04ae8"
+      },
+      {
+        "file": "screens-field-final/keyboard-pause.png",
+        "bytes": 197096,
+        "sha256": "fade0543f16fb8944a2612cbc4e8efcdc129e2e723609e7a4435b2d2710a99f5"
+      },
+      {
+        "file": "screens-field-final/portal-context-action.png",
+        "bytes": 1329154,
+        "sha256": "fb0a8ad76e7fbb0b5a2952e58a0ac06cfbed428e7e6773b8b99da53eb14c4ad2"
+      },
+      {
+        "file": "screens-field-final/resources-active.png",
+        "bytes": 1313067,
+        "sha256": "adc43cb80860a0e3ac54e86238d7c49a28e762553cd92df631d02f34277066d0"
+      },
+      {
+        "file": "screens-field-final/resources-timeout-return.png",
+        "bytes": 1333313,
+        "sha256": "147a41eb4535b0b4331ed300962c63120419aa600d29d1ee22ad286aef81ddfe"
+      },
+      {
+        "file": "screens-field-final/selected-unit.png",
+        "bytes": 1312288,
+        "sha256": "960e83d9bed73ae82f9847cebeae2f17baddfb67717f9783fae34e3a696e4e3e"
+      },
+      {
+        "file": "screens-field-final/task-intel-1440x900.png",
+        "bytes": 1333461,
+        "sha256": "2e8f8ff2dac71eed46a71f92e1f74804490de33ed1a727c6ba573360b3c82161"
+      },
+      {
+        "file": "screens-field-final/task-intel-390x844.png",
+        "bytes": 368626,
+        "sha256": "96637db0656bbfa57b6cce6cca080af431200d455d4683c8cee5a12fc456517c"
+      },
+      {
+        "file": "screens-field-final/task-intel-844x390.png",
+        "bytes": 360928,
+        "sha256": "e777e5fe8b80cfa216b79ff5d992db4bfd9fc953132ad2e091445f9f3c869a86"
+      },
+      {
+        "file": "screens-special-final/arena-active.png",
+        "bytes": 1299139,
+        "sha256": "afe0fdaa738bc2f4bc5a981403e2170cac6e8e501a8a20cdd0833528f572cabc"
+      },
+      {
+        "file": "screens-special-final/arena-loot.png",
+        "bytes": 208615,
+        "sha256": "cfda929be8c55b170aa5fd545fe847305109a34d8d210e9ee7b6a491adfd1b2e"
+      },
+      {
+        "file": "screens-special-final/crossing-full-backpack.png",
+        "bytes": 193778,
+        "sha256": "f423db40fc546602a85f2984f2942100e571a21fb2d3c67c8b2f587c935d6f4a"
+      },
+      {
+        "file": "screens-special-final/crossing-inventory.png",
+        "bytes": 507654,
+        "sha256": "95753ebba6d40db146164e7f0fd773736b41a7f88ffc35499cbb6e3842fea5b1"
+      },
+      {
+        "file": "screens-special-final/crossing-loot.png",
+        "bytes": 194253,
+        "sha256": "74423db6e7d531bea43bc4a2961552f1f217ae8d24583cb0413552bc9d629baa"
+      },
+      {
+        "file": "screens-special-final/crossing-near-exit.png",
+        "bytes": 192015,
+        "sha256": "26c90de2a0ef051181ad061b9056f759bf893b6fe9a73258f5eafd75e85fb017"
+      },
+      {
+        "file": "screens-special-final/crossing-space-created.png",
+        "bytes": 504216,
+        "sha256": "a6db22e4510bc82c4955b78245c2e4d48a3cb8033b017a49b42dfbe9a4871336"
+      },
+      {
+        "file": "screens-special-final/crossing-start.png",
+        "bytes": 1321283,
+        "sha256": "31714d1b0cc6a7217e2d17e186c58d93d3f88b06cd0d2ad5faf92bb7cb32936a"
+      },
+      {
+        "file": "screens-special-final/dodge-1280x720.png",
+        "bytes": 1045198,
+        "sha256": "003554a7f17c1b3321c25e1a6389443b51d65f8b79b855da808fc41f56d151dd"
+      },
+      {
+        "file": "screens-special-final/dodge-390x844.png",
+        "bytes": 359742,
+        "sha256": "11c14a8e7dce1feb7a2266ce4835bbf4e55d29d1ef1457f1d47e1f1869b98eec"
+      },
+      {
+        "file": "screens-special-final/dodge-844x390.png",
+        "bytes": 352954,
+        "sha256": "8922d118e1519f43d0973571631056eb8bc4fbe4cb467ab2e8300f0a93a50697"
+      },
+      {
+        "file": "screens-special-final/dodge-context-restored.png",
+        "bytes": 158363,
+        "sha256": "cfc1deb4cfba40b38f487203be73a2efc2d3b0bdd3f3cac6f75100b097a48289"
+      },
+      {
+        "file": "screens-special-final/dodge-diagonal.png",
+        "bytes": 1515587,
+        "sha256": "6aaba0d5ede8664866d654c454e7bba66508dfb8584b72affe7035c12c55405a"
+      },
+      {
+        "file": "screens-special-final/dodge-fan.png",
+        "bytes": 1517062,
+        "sha256": "beabd852472c07feed62d6f67e1e35246caba9be5849d95bd1d704f3c956056a"
+      },
+      {
+        "file": "screens-special-final/dodge-natural-return.png",
+        "bytes": 1334718,
+        "sha256": "36aa4e194b668f021f0be046c5e7f60a0481479e697c1f626cba3bd3ed34bfbf"
+      },
+      {
+        "file": "screens-special-final/dodge-top-cue-desktop.png",
+        "bytes": 1510791,
+        "sha256": "a954c3e42bbbe58f2e34505b785cd04c4e052696667dad052871ea8873fc1628"
+      },
+      {
+        "file": "screens-special-final/dodge-touch-390x844.png",
+        "bytes": 359742,
+        "sha256": "11c14a8e7dce1feb7a2266ce4835bbf4e55d29d1ef1457f1d47e1f1869b98eec"
+      },
+      {
+        "file": "screens-shop-r1/all-purchased.png",
+        "bytes": 1231154,
+        "sha256": "4f319c988ef404b2daeefc6752b7a380b0053a80863380459f8bedcf275cc5da"
+      },
+      {
+        "file": "screens-shop-r1/chance-brief-1280.png",
+        "bytes": 1013871,
+        "sha256": "5989c226c351abdaa48f592df39a6e15117ee3acb5650009b539de94ff2a8435"
+      },
+      {
+        "file": "screens-shop-r1/chance-brief-1440.png",
+        "bytes": 1376737,
+        "sha256": "5c1b59b9ccfd289bfc0fadfc35feb4d31fa5e90c06e896c3e51633dae201e4cf"
+      },
+      {
+        "file": "screens-shop-r1/chance-brief-390.png",
+        "bytes": 297000,
+        "sha256": "68a4484f0f841665e684d4c386e556b20b8e1e80b3b9fa1bd2e42ede896885ff"
+      },
+      {
+        "file": "screens-shop-r1/chance-brief-844.png",
+        "bytes": 409486,
+        "sha256": "1263ea6607b35bbaa7bb854cf6cd1546e01d9b28b09d6f98bfd3e802be03b7ff"
+      },
+      {
+        "file": "screens-shop-r1/chance-detail.png",
+        "bytes": 1201558,
+        "sha256": "56197edeac2b9870c49fc392d53f220e7601d1f585f5b12c77eafc7c98489d8f"
+      },
+      {
+        "file": "screens-shop-r1/chance.png",
+        "bytes": 1359839,
+        "sha256": "0ee176a957da468871470d9ebbb875c2083cff0639634d582dae5a332db72f2f"
+      },
+      {
+        "file": "screens-shop-r1/combat-brief-1280.png",
+        "bytes": 1025145,
+        "sha256": "9ebf8a7d1e72fe3f279ca8874307f09f903d8a4aabbc4de3ccf849fbf7dab57d"
+      },
+      {
+        "file": "screens-shop-r1/combat-brief-1440.png",
+        "bytes": 1353130,
+        "sha256": "17ec6271bf860d44624073f68d144ca506b41d19d5e094ce7823c7848f93a387"
+      },
+      {
+        "file": "screens-shop-r1/combat-brief-390.png",
+        "bytes": 295456,
+        "sha256": "eb18698a4658f546642275599f04a2d3f4e829eddc54563365ba70749e7e8a10"
+      },
+      {
+        "file": "screens-shop-r1/combat-brief-844.png",
+        "bytes": 409799,
+        "sha256": "8600e6cea2b94ddbbeb588e509f9c09637cccbf29f45502c8da106da075f4004"
+      },
+      {
+        "file": "screens-shop-r1/combat-detail.png",
+        "bytes": 1160579,
+        "sha256": "7458578fd1474c968cbbad1a17fd0608168b19da7f989e03ab6bbdc2689b173d"
+      },
+      {
+        "file": "screens-shop-r1/combat.png",
+        "bytes": 1353793,
+        "sha256": "1c5bf6d1852090d61b7d583f3d3e01a7e32617ab6ffb87506bcc965f9a134c9b"
+      },
+      {
+        "file": "screens-shop-r1/dice-3-detail.png",
+        "bytes": 1266777,
+        "sha256": "c588afd620d9e1a325b65654617d04b492c628005d7d8dcd740fcd81f1d6c1a2"
+      },
+      {
+        "file": "screens-shop-r1/dice-3.png",
+        "bytes": 1323595,
+        "sha256": "c2eadba04e22e0eeaea22a6ec98bc9791b83349f3c420002f43166c7086fd2f9"
+      },
+      {
+        "file": "screens-shop-r1/dice-4-detail.png",
+        "bytes": 1265174,
+        "sha256": "e4d1b651e214ad2d59714bda12fcaf0d0ee94d02edfbb68a2c0b8aa2ac01ff5a"
+      },
+      {
+        "file": "screens-shop-r1/dice-4.png",
+        "bytes": 1322852,
+        "sha256": "569b44832320170747a21e4378a61b2a488edf4fb5088194d456062187421d6f"
+      },
+      {
+        "file": "screens-shop-r1/dice-5-detail.png",
+        "bytes": 1262074,
+        "sha256": "188dbbce25caabc9d53d2be5c0a57c0a63b8f77f75cf6c33173161900205d2cd"
+      },
+      {
+        "file": "screens-shop-r1/dice-5.png",
+        "bytes": 1321713,
+        "sha256": "8d8456279e74f9bee23b0dc8108ba21f88a74f5fed8c8588aa51477d5edd7763"
+      },
+      {
+        "file": "screens-shop-r1/pandora-brief-1280.png",
+        "bytes": 987138,
+        "sha256": "b335bbf4c45bd2a2ee63fc79b041c0f1b0a743dcbe8368421fabf67ebc7a790e"
+      },
+      {
+        "file": "screens-shop-r1/pandora-brief-1440.png",
+        "bytes": 1312667,
+        "sha256": "7c290e29c5aa59fa6355c0afb0433622370ef7440980b2790a7882ccb0e3cafb"
+      },
+      {
+        "file": "screens-shop-r1/pandora-brief-390.png",
+        "bytes": 305365,
+        "sha256": "d92cb7d5f4b5c49e02aca6970387d87c4434cab82f3248ca0746ba97d79f158f"
+      },
+      {
+        "file": "screens-shop-r1/pandora-brief-844.png",
+        "bytes": 382783,
+        "sha256": "2971249201738c82f4f88f5e879a2ce3f8fe160e79e32507d77d7f7489d51a1a"
+      },
+      {
+        "file": "screens-shop-r1/pandora-detail.png",
+        "bytes": 1263276,
+        "sha256": "7708c302aa29a346ca2bd448a7a989a34da2b49b6dbeed5838204797ae2febdd"
+      },
+      {
+        "file": "screens-shop-r1/pandora.png",
+        "bytes": 1315717,
+        "sha256": "f7caa892a4be36beb63ff02a167fbe33f66506a1b4e84564fe8c916fe95f54a6"
+      },
+      {
+        "file": "screens-shop-r1/upgrade-brief-1280.png",
+        "bytes": 1026650,
+        "sha256": "4fd60190a3de05344ab06456e636f4cf20e4b526ed7903560453e260312a7398"
+      },
+      {
+        "file": "screens-shop-r1/upgrade-brief-1440.png",
+        "bytes": 1375007,
+        "sha256": "832d83db736411ea1282af2decf93b2960cb117b68ff6a8d8891533668158aed"
+      },
+      {
+        "file": "screens-shop-r1/upgrade-brief-390.png",
+        "bytes": 300395,
+        "sha256": "f29cf62ce6e288340729cbbc83749d4c6a0e7f3ac2747de5dd450456fcf549b2"
+      },
+      {
+        "file": "screens-shop-r1/upgrade-brief-844.png",
+        "bytes": 412963,
+        "sha256": "365bf044e420db8aa54b08773c160d80fb72d91b000af51f61f4642b533f47af"
+      },
+      {
+        "file": "screens-shop-r1/upgrade-detail.png",
+        "bytes": 1225444,
+        "sha256": "16ada6c01fc00c9eaeb3183f039609ae734614c9be84a16ecde9fc20c43a9cd8"
+      },
+      {
+        "file": "screens-shop-r1/upgrade.png",
+        "bytes": 1373546,
+        "sha256": "751f905e099362a227b320983ca52c9ed561e47444da093342ca51560ab9dd68"
+      },
+      {
+        "file": "screens-restored-final/restored-1280x720.png",
+        "bytes": 953362,
+        "sha256": "a221c8623aaae765a19177ad5569d7c0407cff4eda59f9a2a7f84718c4485b5d"
+      },
+      {
+        "file": "screens-restored-final/restored-1440x900.png",
+        "bytes": 1334705,
+        "sha256": "c911cf3318696fd4a02ecd75f4f73a4b131e8511d00cbe13f246732cf8c144b5"
+      },
+      {
+        "file": "screens-restored-final/restored-390x844.png",
+        "bytes": 372120,
+        "sha256": "0c5fbadfa3464144cbeb659d4515168fda620982575700004104a5c15c6f8f1d"
+      },
+      {
+        "file": "screens-restored-final/restored-844x390.png",
+        "bytes": 361138,
+        "sha256": "393ad7bf06feff11b246c04cfc8bc287dc61b7a193bc5ee6799e76fa11d68ff5"
+      },
+      {
+        "file": "screens-production-final/menu.png",
+        "bytes": 1541445,
+        "sha256": "90d0d3e664dd493598d42e5665a50052e07916316a485105e7545e92519af455"
+      },
+      {
+        "file": "screens-production-final/race-choice.png",
+        "bytes": 1422448,
+        "sha256": "692eb74c4b92ae1179fc4f346d6c41b0efeaf288b3ad6ad076a8e45ac146206b"
+      }
+    ],
+    "reviewGalleryCount": 34
+  },
+  "build": {
+    "appBuildId": "72115e424cbf41cf4b06bf1d09dbee11fe380e65790565c2a8947cfb046937c7",
+    "js": {
+      "file": "assets/index-DRNN6X7P.js",
+      "bytes": 32999982,
+      "sha256": "b36b6c5f6cf01ff086f30b52ed1498c9effc1a4d856c56dd9a8e0a638f4555ec"
+    },
+    "css": {
+      "file": "assets/index-Cbj0TSOk.css",
+      "bytes": 639064,
+      "sha256": "02dbfb9db1f74e44f205f7d3bcbfc0d7b01d0e31de6a8d6525a0fbe445fe2e95"
+    },
+    "assets": 1909,
+    "uniqueResources": 1852,
+    "inputs": 446,
+    "offline": {
+      "bytes": 790248138,
+      "sha256": "d93af04a49a60d0c3b35b500471da1d0d96c27ea2d290c64ce73679342ce15b3",
+      "assets": 1909,
+      "chunks": 2975,
+      "allIndependentReadbackVerified": true
+    }
+  },
+  "preview": {
+    "path": "D:/星际/preview/fun-visual-batch2-20261021-r1",
+    "url": "http://127.0.0.1:4471/",
+    "gallery": "http://127.0.0.1:4471/review/index.html"
+  },
+  "limitations": [
+    "Controlled fixtures and ordinary render loop; not a natural campaign, balance, human playability, physical touchscreen/gamepad or full-content FPS acceptance.",
+    "Dynamic coarse-pointer emulation did not reinitialize the already desktop-initialized joystick. No touch-device claim.",
+    "Crossing near-exit screenshot was already in loot phase; actual keyboard movement, state completion and full-bag flow were independently checked.",
+    "Context-restored screenshot shows the intentional paused menu; exact simulation state and subsequent return verified.",
+    "Rejected console relocation, encounter/special tracker copy and all camera modifications remain archived but are not final.",
+    "Initial fixture/import/input-mode/server permission failures and offline receipt path error remain recorded.",
+    "No main merge, commit, push, Current replacement or public deployment; main performance board unchanged."
+  ],
+  "evidenceRoot": "D:\\星际\\reports\\local\\fun-visual-batch2-20261021",
+  "cleanup": {
+    "path": "D:\\sc2-qa-fun-batch2-20261021",
+    "evidencePreserved": true,
+    "bytes": 1097362985,
+    "removed": true
+  },
+  "auxiliaryGallery": {
+    "initial": {
+      "images": 34,
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "url": "http://127.0.0.1:4471/review/index.html"
+    },
+    "subsequent": "Empty data favicon set. Browser repeat could not connect because the dedicated QA browser had closed; no repeat browser-pass claim.",
+    "httpReadbackVerified": 34
+  }
+}

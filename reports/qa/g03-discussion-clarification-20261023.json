@@ -1,0 +1,1276 @@
+{
+  "date": "2026-10-23",
+  "scope": "Read and reclassify existing raw routes and current verified mechanism; no new simulation, game edits, builds or gameplay acceptance.",
+  "decisions": {
+    "simpleBullethell": "用户决定暂不调整，现有规则保持；未新增人类体验验收。",
+    "bait": "用户决定不改变当前定位；不继续要求重新定位，未改价格或触发规则。",
+    "gearAcquisitionTime": "用户决定暂不讨论配装需要刷多久，理由是已有合成；本项退出当前讨论。",
+    "lateRunSpending": "指同一局后段与无尽使用矿气进行发展、培养、补兵、修理、英雄/精英及功能购买是否仍有实际作用。是检查方向，尚未证明存在必须调整的问题。"
+  },
+  "farm": [
+    {
+      "id": "after-audited-terran-hard-farm-529",
+      "race": "terran",
+      "difficulty": "hard",
+      "seed": 529,
+      "map": {
+        "version": 3,
+        "seed": 529,
+        "theme": "frontier"
+      },
+      "openingQuality": {
+        "3": 6,
+        "4": 2
+      },
+      "finalQuality": {
+        "3": 5,
+        "4": 3
+      },
+      "stop": "entered-endless",
+      "stage": 18,
+      "notice": "无尽战场 · 守住小队",
+      "finalStageElapsed": 0,
+      "finalUnits": 27,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 27
+        },
+        {
+          "stage": "campaign:16",
+          "units": 27
+        },
+        {
+          "stage": "campaign:17",
+          "units": 27
+        },
+        {
+          "stage": "campaign:18",
+          "units": 27
+        }
+      ],
+      "deathsByUnit": {},
+      "deathEvents": 0,
+      "heroes": [
+        {
+          "id": "yamato_battlecruiser",
+          "rank": 1
+        },
+        {
+          "id": "tychus",
+          "rank": 4
+        }
+      ],
+      "trainingCards": 2,
+      "actualUnitRankIncreases": 4,
+      "finalWallet": {
+        "minerals": 1228.262973,
+        "gas": 1380.807076
+      },
+      "repairMinerals": 278,
+      "repairGas": 152,
+      "bodyDelivered": 24,
+      "bodyLost": 1,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 1,
+        "rankTraining/pod-hp-depleted": 11
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-terran-hard-farm-530",
+      "race": "terran",
+      "difficulty": "hard",
+      "seed": 530,
+      "map": {
+        "version": 3,
+        "seed": 530,
+        "theme": "industrial"
+      },
+      "openingQuality": {
+        "3": 6,
+        "4": 2
+      },
+      "finalQuality": {
+        "3": 4,
+        "4": 4
+      },
+      "stop": "entered-endless",
+      "stage": 18,
+      "notice": "无尽战场 · 守住小队",
+      "finalStageElapsed": 0,
+      "finalUnits": 29,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 29
+        },
+        {
+          "stage": "campaign:16",
+          "units": 29
+        },
+        {
+          "stage": "campaign:17",
+          "units": 29
+        },
+        {
+          "stage": "campaign:18",
+          "units": 29
+        }
+      ],
+      "deathsByUnit": {},
+      "deathEvents": 0,
+      "heroes": [
+        {
+          "id": "nova",
+          "rank": 2
+        }
+      ],
+      "trainingCards": 4,
+      "actualUnitRankIncreases": 8,
+      "finalWallet": {
+        "minerals": 469.924715,
+        "gas": 158.762344
+      },
+      "repairMinerals": 795,
+      "repairGas": 428,
+      "bodyDelivered": 26,
+      "bodyLost": 0,
+      "deliveryLossReasons": {
+        "rankTraining/pod-hp-depleted": 14
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-terran-hell-farm-529",
+      "race": "terran",
+      "difficulty": "hell",
+      "seed": 529,
+      "map": {
+        "version": 3,
+        "seed": 529,
+        "theme": "frontier"
+      },
+      "openingQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "finalQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "stop": "lost",
+      "stage": 18,
+      "notice": "未能在期限内摧毁虫巢、击杀雷兽首领并保住小队",
+      "finalStageElapsed": 150,
+      "finalUnits": 2,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 22
+        },
+        {
+          "stage": "campaign:16",
+          "units": 21
+        },
+        {
+          "stage": "campaign:17",
+          "units": 12
+        }
+      ],
+      "deathsByUnit": {
+        "marauder": 6,
+        "marine": 5,
+        "viking": 5,
+        "reaper": 1,
+        "medivac": 4
+      },
+      "deathEvents": 21,
+      "heroes": [
+        {
+          "id": "yamato_battlecruiser",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 2,
+      "actualUnitRankIncreases": 4,
+      "finalWallet": {
+        "minerals": 2263.939252,
+        "gas": 55.094792
+      },
+      "repairMinerals": 1967,
+      "repairGas": 948,
+      "bodyDelivered": 39,
+      "bodyLost": 45,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 45,
+        "rankTraining/pod-hp-depleted": 26
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-terran-hell-farm-530",
+      "race": "terran",
+      "difficulty": "hell",
+      "seed": 530,
+      "map": {
+        "version": 3,
+        "seed": 530,
+        "theme": "industrial"
+      },
+      "openingQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "finalQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "stop": "entered-endless",
+      "stage": 18,
+      "notice": "无尽战场 · 守住小队",
+      "finalStageElapsed": 0,
+      "finalUnits": 27,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 27
+        },
+        {
+          "stage": "campaign:16",
+          "units": 27
+        },
+        {
+          "stage": "campaign:17",
+          "units": 26
+        },
+        {
+          "stage": "campaign:18",
+          "units": 27
+        }
+      ],
+      "deathsByUnit": {
+        "reaper": 1
+      },
+      "deathEvents": 1,
+      "heroes": [
+        {
+          "id": "nova",
+          "rank": 3
+        },
+        {
+          "id": "swann",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 4,
+      "actualUnitRankIncreases": 8,
+      "finalWallet": {
+        "minerals": 857.395719,
+        "gas": 88.225366
+      },
+      "repairMinerals": 358,
+      "repairGas": 329,
+      "bodyDelivered": 24,
+      "bodyLost": 1,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 1,
+        "rankTraining/pod-hp-depleted": 32
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-zerg-hard-farm-529",
+      "race": "zerg",
+      "difficulty": "hard",
+      "seed": 529,
+      "map": {
+        "version": 3,
+        "seed": 529,
+        "theme": "frontier"
+      },
+      "openingQuality": {
+        "3": 6,
+        "4": 2
+      },
+      "finalQuality": {
+        "3": 5,
+        "4": 3
+      },
+      "stop": "entered-endless",
+      "stage": 18,
+      "notice": "无尽战场 · 守住小队",
+      "finalStageElapsed": 0,
+      "finalUnits": 22,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 26
+        },
+        {
+          "stage": "campaign:16",
+          "units": 23
+        },
+        {
+          "stage": "campaign:17",
+          "units": 22
+        },
+        {
+          "stage": "campaign:18",
+          "units": 22
+        }
+      ],
+      "deathsByUnit": {
+        "queen": 5,
+        "roach": 4,
+        "lurker": 11,
+        "hydralisk": 2,
+        "ravager": 4
+      },
+      "deathEvents": 26,
+      "heroes": [
+        {
+          "id": "hots_leviathan",
+          "rank": 1
+        },
+        {
+          "id": "niadra",
+          "rank": 4
+        }
+      ],
+      "trainingCards": 2,
+      "actualUnitRankIncreases": 4,
+      "finalWallet": {
+        "minerals": 294.034107,
+        "gas": 654.432712
+      },
+      "repairMinerals": 273,
+      "repairGas": 45,
+      "bodyDelivered": 59,
+      "bodyLost": 20,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 20,
+        "rankTraining/pod-hp-depleted": 14
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-zerg-hard-farm-530",
+      "race": "zerg",
+      "difficulty": "hard",
+      "seed": 530,
+      "map": {
+        "version": 3,
+        "seed": 530,
+        "theme": "industrial"
+      },
+      "openingQuality": {
+        "3": 6,
+        "4": 2
+      },
+      "finalQuality": {
+        "3": 6,
+        "4": 2
+      },
+      "stop": "entered-endless",
+      "stage": 18,
+      "notice": "无尽战场 · 守住小队",
+      "finalStageElapsed": 0,
+      "finalUnits": 27,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 24
+        },
+        {
+          "stage": "campaign:16",
+          "units": 25
+        },
+        {
+          "stage": "campaign:17",
+          "units": 27
+        },
+        {
+          "stage": "campaign:18",
+          "units": 27
+        }
+      ],
+      "deathsByUnit": {
+        "lurker": 5
+      },
+      "deathEvents": 5,
+      "heroes": [
+        {
+          "id": "dehaka",
+          "rank": 3
+        },
+        {
+          "id": "stukov",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 3,
+      "actualUnitRankIncreases": 6,
+      "finalWallet": {
+        "minerals": 474.643746,
+        "gas": 234.779448
+      },
+      "repairMinerals": 627,
+      "repairGas": 374,
+      "bodyDelivered": 42,
+      "bodyLost": 2,
+      "deliveryLossReasons": {
+        "rankTraining/pod-hp-depleted": 14,
+        "body/pod-hp-depleted": 2
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-zerg-hell-farm-529",
+      "race": "zerg",
+      "difficulty": "hell",
+      "seed": 529,
+      "map": {
+        "version": 3,
+        "seed": 529,
+        "theme": "frontier"
+      },
+      "openingQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "finalQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "stop": "lost",
+      "stage": 17,
+      "notice": "战斗单位全部阵亡 · 小队失联",
+      "finalStageElapsed": 125.983333,
+      "finalUnits": 0,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 26
+        },
+        {
+          "stage": "campaign:16",
+          "units": 14
+        }
+      ],
+      "deathsByUnit": {
+        "lurker": 7,
+        "queen": 5,
+        "ravager": 6,
+        "hydralisk": 5,
+        "roach": 5,
+        "hots_leviathan": 1
+      },
+      "deathEvents": 29,
+      "heroes": [
+        {
+          "id": "hots_leviathan",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 0,
+      "actualUnitRankIncreases": 0,
+      "finalWallet": {
+        "minerals": 1167.693198,
+        "gas": 4016.640518
+      },
+      "repairMinerals": 254,
+      "repairGas": 172,
+      "bodyDelivered": 34,
+      "bodyLost": 46,
+      "deliveryLossReasons": {
+        "rankTraining/pod-hp-depleted": 26,
+        "body/pod-hp-depleted": 34,
+        "body/explicit-rejection": 12
+      },
+      "remainingExpansionHives": [
+        {
+          "id": 101254,
+          "hp": 20704.98664545439,
+          "x": -7.75,
+          "z": 35.75
+        }
+      ]
+    },
+    {
+      "id": "after-audited-zerg-hell-farm-530",
+      "race": "zerg",
+      "difficulty": "hell",
+      "seed": 530,
+      "map": {
+        "version": 3,
+        "seed": 530,
+        "theme": "industrial"
+      },
+      "openingQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "finalQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "stop": "entered-endless",
+      "stage": 18,
+      "notice": "无尽战场 · 守住小队",
+      "finalStageElapsed": 0,
+      "finalUnits": 27,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 27
+        },
+        {
+          "stage": "campaign:16",
+          "units": 27
+        },
+        {
+          "stage": "campaign:17",
+          "units": 27
+        },
+        {
+          "stage": "campaign:18",
+          "units": 27
+        }
+      ],
+      "deathsByUnit": {},
+      "deathEvents": 0,
+      "heroes": [
+        {
+          "id": "dehaka",
+          "rank": 1
+        },
+        {
+          "id": "kerrigan",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 3,
+      "actualUnitRankIncreases": 6,
+      "finalWallet": {
+        "minerals": 457.144208,
+        "gas": 1065.907863
+      },
+      "repairMinerals": 333,
+      "repairGas": 277,
+      "bodyDelivered": 31,
+      "bodyLost": 26,
+      "deliveryLossReasons": {
+        "rankTraining/pod-hp-depleted": 34,
+        "body/explicit-rejection": 12,
+        "body/pod-hp-depleted": 14
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-protoss-hard-farm-529",
+      "race": "protoss",
+      "difficulty": "hard",
+      "seed": 529,
+      "map": {
+        "version": 3,
+        "seed": 529,
+        "theme": "frontier"
+      },
+      "openingQuality": {
+        "3": 6,
+        "4": 2
+      },
+      "finalQuality": {
+        "3": 4,
+        "4": 4
+      },
+      "stop": "entered-endless",
+      "stage": 18,
+      "notice": "无尽战场 · 守住小队",
+      "finalStageElapsed": 0,
+      "finalUnits": 25,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 27
+        },
+        {
+          "stage": "campaign:16",
+          "units": 27
+        },
+        {
+          "stage": "campaign:17",
+          "units": 25
+        },
+        {
+          "stage": "campaign:18",
+          "units": 25
+        }
+      ],
+      "deathsByUnit": {
+        "sentry": 1,
+        "stalker": 1
+      },
+      "deathEvents": 2,
+      "heroes": [
+        {
+          "id": "purifier_flagship",
+          "rank": 1
+        },
+        {
+          "id": "alarak",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 4,
+      "actualUnitRankIncreases": 8,
+      "finalWallet": {
+        "minerals": 164.332932,
+        "gas": 691.619466
+      },
+      "repairMinerals": 795,
+      "repairGas": 346,
+      "bodyDelivered": 25,
+      "bodyLost": 6,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 6,
+        "rankTraining/pod-hp-depleted": 15
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-protoss-hard-farm-530",
+      "race": "protoss",
+      "difficulty": "hard",
+      "seed": 530,
+      "map": {
+        "version": 3,
+        "seed": 530,
+        "theme": "industrial"
+      },
+      "openingQuality": {
+        "3": 6,
+        "4": 2
+      },
+      "finalQuality": {
+        "3": 5,
+        "4": 3
+      },
+      "stop": "lost",
+      "stage": 18,
+      "notice": "战斗单位全部阵亡 · 小队失联",
+      "finalStageElapsed": 142.566667,
+      "finalUnits": 0,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 18
+        },
+        {
+          "stage": "campaign:16",
+          "units": 8
+        },
+        {
+          "stage": "campaign:17",
+          "units": 3
+        }
+      ],
+      "deathsByUnit": {
+        "immortal": 9,
+        "colossus": 4,
+        "sentry": 4,
+        "zealot": 10,
+        "stalker": 7
+      },
+      "deathEvents": 34,
+      "heroes": [
+        {
+          "id": "alarak",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 1,
+      "actualUnitRankIncreases": 2,
+      "finalWallet": {
+        "minerals": 738.010214,
+        "gas": 616.683195
+      },
+      "repairMinerals": 2574,
+      "repairGas": 807,
+      "bodyDelivered": 33,
+      "bodyLost": 26,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 26,
+        "rankTraining/pod-hp-depleted": 12
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-protoss-hell-farm-529",
+      "race": "protoss",
+      "difficulty": "hell",
+      "seed": 529,
+      "map": {
+        "version": 3,
+        "seed": 529,
+        "theme": "frontier"
+      },
+      "openingQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "finalQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "stop": "lost",
+      "stage": 18,
+      "notice": "扩张虫巢尚未清除 · 战线失守",
+      "finalStageElapsed": 150,
+      "finalUnits": 2,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 24
+        },
+        {
+          "stage": "campaign:16",
+          "units": 18
+        },
+        {
+          "stage": "campaign:17",
+          "units": 9
+        }
+      ],
+      "deathsByUnit": {
+        "zealot": 8,
+        "immortal": 5,
+        "colossus": 3,
+        "sentry": 5,
+        "stalker": 6
+      },
+      "deathEvents": 27,
+      "heroes": [
+        {
+          "id": "purifier_flagship",
+          "rank": 1
+        },
+        {
+          "id": "artanis",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 2,
+      "actualUnitRankIncreases": 4,
+      "finalWallet": {
+        "minerals": 258.982806,
+        "gas": 1547.713722
+      },
+      "repairMinerals": 1416,
+      "repairGas": 598,
+      "bodyDelivered": 29,
+      "bodyLost": 41,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 41,
+        "rankTraining/pod-hp-depleted": 43
+      },
+      "remainingExpansionHives": [
+        {
+          "id": 168130,
+          "hp": 23124.35047503633,
+          "x": 22.25,
+          "z": 3.75
+        }
+      ]
+    },
+    {
+      "id": "after-audited-protoss-hell-farm-530",
+      "race": "protoss",
+      "difficulty": "hell",
+      "seed": 530,
+      "map": {
+        "version": 3,
+        "seed": 530,
+        "theme": "industrial"
+      },
+      "openingQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "finalQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "stop": "entered-endless",
+      "stage": 18,
+      "notice": "无尽战场 · 守住小队",
+      "finalStageElapsed": 0,
+      "finalUnits": 11,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 20
+        },
+        {
+          "stage": "campaign:16",
+          "units": 10
+        },
+        {
+          "stage": "campaign:17",
+          "units": 9
+        },
+        {
+          "stage": "campaign:18",
+          "units": 11
+        }
+      ],
+      "deathsByUnit": {
+        "zealot": 8,
+        "immortal": 3,
+        "sentry": 2,
+        "colossus": 2,
+        "stalker": 4
+      },
+      "deathEvents": 19,
+      "heroes": [
+        {
+          "id": "alarak",
+          "rank": 1
+        },
+        {
+          "id": "zeratul",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 1,
+      "actualUnitRankIncreases": 2,
+      "finalWallet": {
+        "minerals": 596.900338,
+        "gas": 51.136737
+      },
+      "repairMinerals": 1456,
+      "repairGas": 699,
+      "bodyDelivered": 31,
+      "bodyLost": 75,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 75,
+        "rankTraining/pod-hp-depleted": 16
+      },
+      "remainingExpansionHives": []
+    }
+  ],
+  "failedFarm": [
+    {
+      "id": "after-audited-terran-hell-farm-529",
+      "race": "terran",
+      "difficulty": "hell",
+      "seed": 529,
+      "map": {
+        "version": 3,
+        "seed": 529,
+        "theme": "frontier"
+      },
+      "openingQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "finalQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "stop": "lost",
+      "stage": 18,
+      "notice": "未能在期限内摧毁虫巢、击杀雷兽首领并保住小队",
+      "finalStageElapsed": 150,
+      "finalUnits": 2,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 22
+        },
+        {
+          "stage": "campaign:16",
+          "units": 21
+        },
+        {
+          "stage": "campaign:17",
+          "units": 12
+        }
+      ],
+      "deathsByUnit": {
+        "marauder": 6,
+        "marine": 5,
+        "viking": 5,
+        "reaper": 1,
+        "medivac": 4
+      },
+      "deathEvents": 21,
+      "heroes": [
+        {
+          "id": "yamato_battlecruiser",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 2,
+      "actualUnitRankIncreases": 4,
+      "finalWallet": {
+        "minerals": 2263.939252,
+        "gas": 55.094792
+      },
+      "repairMinerals": 1967,
+      "repairGas": 948,
+      "bodyDelivered": 39,
+      "bodyLost": 45,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 45,
+        "rankTraining/pod-hp-depleted": 26
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-zerg-hell-farm-529",
+      "race": "zerg",
+      "difficulty": "hell",
+      "seed": 529,
+      "map": {
+        "version": 3,
+        "seed": 529,
+        "theme": "frontier"
+      },
+      "openingQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "finalQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "stop": "lost",
+      "stage": 17,
+      "notice": "战斗单位全部阵亡 · 小队失联",
+      "finalStageElapsed": 125.983333,
+      "finalUnits": 0,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 26
+        },
+        {
+          "stage": "campaign:16",
+          "units": 14
+        }
+      ],
+      "deathsByUnit": {
+        "lurker": 7,
+        "queen": 5,
+        "ravager": 6,
+        "hydralisk": 5,
+        "roach": 5,
+        "hots_leviathan": 1
+      },
+      "deathEvents": 29,
+      "heroes": [
+        {
+          "id": "hots_leviathan",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 0,
+      "actualUnitRankIncreases": 0,
+      "finalWallet": {
+        "minerals": 1167.693198,
+        "gas": 4016.640518
+      },
+      "repairMinerals": 254,
+      "repairGas": 172,
+      "bodyDelivered": 34,
+      "bodyLost": 46,
+      "deliveryLossReasons": {
+        "rankTraining/pod-hp-depleted": 26,
+        "body/pod-hp-depleted": 34,
+        "body/explicit-rejection": 12
+      },
+      "remainingExpansionHives": [
+        {
+          "id": 101254,
+          "hp": 20704.98664545439,
+          "x": -7.75,
+          "z": 35.75
+        }
+      ]
+    },
+    {
+      "id": "after-audited-protoss-hard-farm-530",
+      "race": "protoss",
+      "difficulty": "hard",
+      "seed": 530,
+      "map": {
+        "version": 3,
+        "seed": 530,
+        "theme": "industrial"
+      },
+      "openingQuality": {
+        "3": 6,
+        "4": 2
+      },
+      "finalQuality": {
+        "3": 5,
+        "4": 3
+      },
+      "stop": "lost",
+      "stage": 18,
+      "notice": "战斗单位全部阵亡 · 小队失联",
+      "finalStageElapsed": 142.566667,
+      "finalUnits": 0,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 18
+        },
+        {
+          "stage": "campaign:16",
+          "units": 8
+        },
+        {
+          "stage": "campaign:17",
+          "units": 3
+        }
+      ],
+      "deathsByUnit": {
+        "immortal": 9,
+        "colossus": 4,
+        "sentry": 4,
+        "zealot": 10,
+        "stalker": 7
+      },
+      "deathEvents": 34,
+      "heroes": [
+        {
+          "id": "alarak",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 1,
+      "actualUnitRankIncreases": 2,
+      "finalWallet": {
+        "minerals": 738.010214,
+        "gas": 616.683195
+      },
+      "repairMinerals": 2574,
+      "repairGas": 807,
+      "bodyDelivered": 33,
+      "bodyLost": 26,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 26,
+        "rankTraining/pod-hp-depleted": 12
+      },
+      "remainingExpansionHives": []
+    },
+    {
+      "id": "after-audited-protoss-hell-farm-529",
+      "race": "protoss",
+      "difficulty": "hell",
+      "seed": 529,
+      "map": {
+        "version": 3,
+        "seed": 529,
+        "theme": "frontier"
+      },
+      "openingQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "finalQuality": {
+        "4": 6,
+        "5": 2
+      },
+      "stop": "lost",
+      "stage": 18,
+      "notice": "扩张虫巢尚未清除 · 战线失守",
+      "finalStageElapsed": 150,
+      "finalUnits": 2,
+      "lateStageEnds": [
+        {
+          "stage": "campaign:15",
+          "units": 24
+        },
+        {
+          "stage": "campaign:16",
+          "units": 18
+        },
+        {
+          "stage": "campaign:17",
+          "units": 9
+        }
+      ],
+      "deathsByUnit": {
+        "zealot": 8,
+        "immortal": 5,
+        "colossus": 3,
+        "sentry": 5,
+        "stalker": 6
+      },
+      "deathEvents": 27,
+      "heroes": [
+        {
+          "id": "purifier_flagship",
+          "rank": 1
+        },
+        {
+          "id": "artanis",
+          "rank": 1
+        }
+      ],
+      "trainingCards": 2,
+      "actualUnitRankIncreases": 4,
+      "finalWallet": {
+        "minerals": 258.982806,
+        "gas": 1547.713722
+      },
+      "repairMinerals": 1416,
+      "repairGas": 598,
+      "bodyDelivered": 29,
+      "bodyLost": 41,
+      "deliveryLossReasons": {
+        "body/pod-hp-depleted": 41,
+        "rankTraining/pod-hp-depleted": 43
+      },
+      "remainingExpansionHives": [
+        {
+          "id": 168130,
+          "hp": 23124.35047503633,
+          "x": 22.25,
+          "z": 3.75
+        }
+      ]
+    }
+  ],
+  "zergMinor": {
+    "id": "after-audited-zerg-hard-minor-529",
+    "deathEvents": 48,
+    "uniqueDeadBodyIds": 48,
+    "deathsByUnit": {
+      "ravager": 9,
+      "hydralisk": 9,
+      "lurker": 7,
+      "queen": 14,
+      "zergling": 3,
+      "roach": 6
+    },
+    "zerglingDeathEvents": 3,
+    "otherUnitDeathEvents": 45,
+    "heroes": [
+      {
+        "id": "hots_leviathan",
+        "rank": 1,
+        "entityId": 559,
+        "skillReady": 1802.05,
+        "revivePaid": false,
+        "awaitingSpawn": false
+      }
+    ],
+    "lateStageEnds": [
+      {
+        "stage": "campaign:16",
+        "units": [
+          {
+            "id": 559,
+            "type": "hots_leviathan",
+            "hero": "hots_leviathan"
+          }
+        ]
+      },
+      {
+        "stage": "campaign:17",
+        "units": [
+          {
+            "id": 559,
+            "type": "hots_leviathan",
+            "hero": "hots_leviathan"
+          }
+        ]
+      },
+      {
+        "stage": "campaign:18",
+        "units": [
+          {
+            "id": 559,
+            "type": "hots_leviathan",
+            "hero": "hots_leviathan"
+          },
+          {
+            "id": 99072,
+            "type": "hydralisk",
+            "hero": null
+          }
+        ]
+      }
+    ],
+    "conclusion": "48次仅3次跳虫、其余45次为其他兵种；第16/17关末只剩利维坦。不能主要归因跳虫双生复生，也不能将48次身体死亡直接等同48个永久损失编制。原始记录未完整保存每次死亡时的pairId/双生复生链，故不虚构完整编制永久损失数。"
+  },
+  "zerglingMechanism": {
+    "file": "src/simulation/zerg-brood.ts",
+    "sha256": "922ba56cba0213b8968b7440bafbd408b9489722eb174acb2904681821ffa94c",
+    "behavior": "同一双生编制另一只仍活时可延时补回死亡身体；两只均死且无其他预留机制时，普通双生不自行补回。身体死亡事件与永久编制损失应分开。"
+  },
+  "assessment": "四条farm失败的直接终止条件为两条全灭、两条第18关限时目标未完成（终局均余2单位）。后期减员、交付损失与英雄/培养差异是可观察线索，尚未进行单因子因果重放，不足以让用户决定全局加数值或统一削难度。困难farm6蓝2紫、地狱farm6紫2橙为固定合法候选，允许局内成长；每族每档只有两个种子。",
+  "sources": [
+    {
+      "path": "reports/local/g03-farm-minor-20261023/routes/after-audited-terran-hard-farm-529.json",
+      "sha256": "8eced1d2ead6eaf88b479a36bf4f2366f9715630f006003073579989281057ca"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/routes/after-audited-terran-hard-farm-530.json",
+      "sha256": "01cafd24f3f8e3bb67571b71960a20e5cfcb6f06de8135ea930da8aa92fc35a7"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/routes/after-audited-terran-hell-farm-529.json",
+      "sha256": "646dbfd464bc538be73b51254af92005d3130b52503a6b98ff6cac001df0f043"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/routes/after-audited-terran-hell-farm-530.json",
+      "sha256": "582da2fcb3d6f9d3c0b35672df66e3b7499ddefa822a5bed9c0097847ba0902d"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/mode-routes/after-audited-zerg-hard-farm-529.json",
+      "sha256": "54ff88dbdba16a2f23fb959f0231350ea65c71f48276d23ac754c9f08f4d1927"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/mode-routes/after-audited-zerg-hard-farm-530.json",
+      "sha256": "9d1f634463c6f7116552c1591f1f0d9fc49dfecef7cf4d6e4af8210ebe8c4549"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/mode-routes/after-audited-zerg-hell-farm-529.json",
+      "sha256": "4826d4044e53d12b79d5e6049d1d88bcb9b018f06ccdf3399390072a953bd2cc"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/mode-routes/after-audited-zerg-hell-farm-530.json",
+      "sha256": "1f1ce7b6f5dace75e4111cb98ff3d075d8f2dcc75d0f54c9cba585e1a8a5d004"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/routes/after-audited-protoss-hard-farm-529.json",
+      "sha256": "d6c16adccadff1cf38ec85fb48b60ff67c70b2b534569fcfb1d45db848c480b9"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/routes/after-audited-protoss-hard-farm-530.json",
+      "sha256": "3c3d4bf72629f6a50477ba364779d0b642e3c457860f32e4c1d6b622cae32af2"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/routes/after-audited-protoss-hell-farm-529.json",
+      "sha256": "dc008d94596bbb0f0fb1c27a837b66e15807cb1d3f2a99d9190779f998570a4c"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/routes/after-audited-protoss-hell-farm-530.json",
+      "sha256": "e1501027af7e86a598dab9fe87571658e121e223187703a4c56f43b4973bdb5c"
+    },
+    {
+      "path": "reports/local/g03-farm-minor-20261023/mode-routes/after-audited-zerg-hard-minor-529.json",
+      "sha256": "093ad3aaf78faaf39c5457da8553be3de8846c66b5e208c4fd10045f563270a8"
+    }
+  ],
+  "boardRevisionBefore": 138,
+  "boardRevisionAfter": 139,
+  "gameChanged": false,
+  "newRuns": 0
+}

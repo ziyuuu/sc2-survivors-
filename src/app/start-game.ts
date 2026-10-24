@@ -6,5 +6,5 @@ import {starshipImage} from '../ui/starship/runtime-art';
 /** Normal campaign entry: empty account, ordinary waves and production rules. */
 export function startGame(seed=crypto.getRandomValues(new Uint32Array(1))[0]){
  applyDisplayPreferences();
- return boot({seed,equipmentAccount:newEquipmentAccount(seed),starship:{resolveImage:starshipImage}});
+ return boot({seed,equipmentAccount:newEquipmentAccount(seed),persistentEquipment:true,starship:{resolveImage:starshipImage}});
 }

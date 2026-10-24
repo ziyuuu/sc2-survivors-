@@ -4,7 +4,9 @@ import {heroGrowth} from '../../data/hero-growth';
 import {OFFENSIVE_AFFIXES,DEFENSIVE_AFFIXES,isAttributeSlot,isOffensiveSlot,type EquipmentItem,type EquipmentTotals,type Quality,type WhiteAllocation,type Affix} from './types';
 
 /** STARSHIP_EQUIPMENT_REDESIGN_20261013, confirmed 2026-10-15. Percentages are fractions. */
-export const WHITE_BASE:Record<Quality,readonly [number,number,number,number]>={1:[2,.01,.25,15],2:[5,.025,.75,40],3:[12,.06,2,100],4:[30,.15,5,250],5:[75,.36,12,650]};
+export const WHITE_BASE:Record<Quality,readonly [number,number,number,number]>={1:[2,.01,.25,15],2:[5,.025,.75,40],3:[12,.06,2,100],4:[31.5,.15,5.25,262.5],5:[81,.36,12.96,702]};
+/** G03 2026-10-23: +10% from the original orange base, not another +10% on normal orange. */
+const POLLUTED_ORANGE_WHITE_BASE= [82.5,.36,13.2,715] as const;
 export const WHITE_ALLOCATION=[[1.4,.6],[1.16,.84],[1,1],[.84,1.16],[.6,1.4]] as const;
 /** STARSHIP_GREEN_DESIGN_20261013: quality maxima, not obsolete individual uniform rolls. */
 export const AFFIX_MAX:Record<Affix,readonly [number,number,number,number]>={
@@ -13,13 +15,13 @@ export const AFFIX_MAX:Record<Affix,readonly [number,number,number,number]>={
 };
 export const emptyTotals=():EquipmentTotals=>({dps:0,attackSpeed:0,armor:0,hp:0,attack:0,trueDps:0,range:0,crit:0,critDamage:0,defense:0,dodge:0,move:0,health:0,reduction:0});
 const rounded=(n:number)=>Math.round(n*100)/100;
-export function whiteValues(quality:Quality,slot:EquipmentItem['slot'],allocation:WhiteAllocation){
+export function whiteValues(quality:Quality,slot:EquipmentItem['slot'],allocation:WhiteAllocation,pollution:EquipmentItem['pollution']='none'){
  const out=emptyTotals();if(!isAttributeSlot(slot))return out;
- const [dps,speed,armor,hp]=WHITE_BASE[quality],[a,b]=WHITE_ALLOCATION[allocation];
+ const [dps,speed,armor,hp]=quality===5&&pollution!=='none'?POLLUTED_ORANGE_WHITE_BASE:WHITE_BASE[quality],[a,b]=WHITE_ALLOCATION[allocation];
  if(isOffensiveSlot(slot)){out.dps=rounded(dps*a);out.attackSpeed=rounded(speed*100*b)/100;}
  else {out.armor=rounded(armor*a);out.hp=rounded(hp*b);}return out;
 }
-export function itemValues(item:EquipmentItem){const out=whiteValues(item.quality,item.slot,item.allocation);
+export function itemValues(item:EquipmentItem){const out=whiteValues(item.quality,item.slot,item.allocation,item.pollution);
  for(const affix of item.affixes)out[affix.key]+=AFFIX_MAX[affix.key][item.quality-2]*affix.score/200;return out;
 }
 export function totalAttributes(items:readonly EquipmentItem[]){const out=emptyTotals();for(const item of items){const values=itemValues(item);for(const key of Object.keys(out) as (keyof EquipmentTotals)[])out[key]+=values[key];}return out;}
@@ -33,6 +35,10 @@ export function identityFactors(u:Pick<Entity,'rank'|'heroId'|'eliteId'>&Partial
  if(u.heroId){const growth=heroGrowth(r);return {dps:20*growth.damage/growth.period,hp:12*growth.health,armor:1.5};}
  if(u.eliteId||u.enemyTier==='elite')return {dps:4*(1+.35*(r-1)),hp:3*(1+.3*(r-1)),armor:1.25};
  const growth=rankStats(r);return {dps:growth.damage*growth.attackSpeed,hp:growth.health,armor:1};
+}
+/** Extra growth of purple/orange additive gear pools only; native identity growth stays intact. */
+export function rankEquipmentBonus(u:Pick<Entity,'rank'|'heroId'|'eliteId'>&Partial<Pick<Entity,'enemyTier'>>){
+ return u.heroId||u.eliteId||u.enemyTier==='elite'?Math.max(0,Math.trunc(u.rank)-1)*.05:0;
 }
 
 /** Count completions before choosing each coordinate: every permitted ordered score tuple is equiprobable. */

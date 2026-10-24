@@ -9,13 +9,14 @@ import type {World} from '../simulation/world';
 import type {BattleRenderer} from '../render/scene/battle-renderer';
 import type {Race} from '../data/races';
 import type {HeroId} from '../data/heroes';
+import type {PresetSlot} from '../simulation/progression/permanent-profile';
 import type {AudioEffects} from '../render/effects/audio';
 import {ASSETS} from '../assets/manifest';
 import {prepareEmbeddedAssetIds} from '../assets/offline-pack';
 
 export type ReadinessKind='new'|'load'|'endless'|'reinforcement';
 export type ReadinessState={kind:ReadinessKind|null;phase:'idle'|'read'|'models'|'audio'|'gpu'|'validate'|'ready'|'error';done:number;total:number;label:string;error:string|null;progress?:number};
-export type ReadinessRequest={snapshot?:RunSnapshot;race?:Race;hero?:HeroId|null;campaignMap?:CampaignMapRecipe};
+export type ReadinessRequest={snapshot?:RunSnapshot;race?:Race;hero?:HeroId|null;preset?:PresetSlot;campaignMap?:CampaignMapRecipe;stageAdvance?:boolean};
 
 /** A single entrance gate for every operation that can reveal new battle assets. */
 export class AssetReadinessCoordinator {
@@ -23,7 +24,7 @@ export class AssetReadinessCoordinator {
  private preparedKey='';private beganAt=0;
  private revealTimer:ReturnType<typeof setTimeout>|null=null;
  get showLoading(){return this.state.kind!==null&&(this.state.phase==='ready'||this.state.phase==='error'||performance.now()-this.beganAt>=120);}
- private generation=0;private last:{kind:ReadinessKind;request:ReadinessRequest}|null=null;private reader:FileReader|null=null;
+ private generation=0;private last:{kind:ReadinessKind;request:ReadinessRequest}|null=null;private reader:FileReader|null=null;private entrance:AbortController|null=null;
  onChange=()=>{};onReady:(kind:ReadinessKind,token:string)=>void=()=>{};
  constructor(private world:World,private view:BattleRenderer,private audio?:AudioEffects,private background?:BackgroundPreparation){}
  get blocking(){return this.state.kind!==null&&this.state.phase!=='ready'&&this.state.phase!=='error';}
@@ -39,23 +40,25 @@ export class AssetReadinessCoordinator {
   // A lone slow resource may not issue another progress callback after the grace period.
   this.revealTimer=setTimeout(()=>{this.revealTimer=null;if(generation===this.generation&&this.blocking)this.onChange();},125);
  }
- cancel(){this.generation++;this.reader?.abort();this.reader=null;this.update({kind:null,phase:'idle',done:0,total:0,label:'',error:null,progress:0});}
+ cancel(){this.generation++;this.entrance?.abort();this.reader?.abort();this.reader=null;this.update({kind:null,phase:'idle',done:0,total:0,label:'',error:null,progress:0});}
  async readImportFile(file:File):Promise<string|null>{
   if(file.size>32*1024*1024)throw Error('存档文件过大');
   this.beganAt=performance.now();const generation=++this.generation;this.update({kind:'load',phase:'read',done:0,total:file.size,label:'读取存档文件',error:null,progress:0});this.revealPending(generation);
   const value=await new Promise<string>((resolve,reject)=>{const reader=this.reader=new FileReader();reader.onprogress=event=>{if(generation===this.generation)this.update({done:event.loaded,total:event.lengthComputable?event.total:file.size,label:'读取存档文件'});};reader.onload=()=>resolve(String(reader.result??''));reader.onerror=()=>reject(reader.error??Error('存档读取失败'));reader.onabort=()=>reject(Error('存档读取已取消'));reader.readAsText(file);});
   this.reader=null;if(generation!==this.generation)return null;this.update({phase:'validate',done:0,total:0,label:'校验存档内容'});return value;
  }
- fail(error:string){this.generation++;if(this.state.kind)this.update({phase:'error',error,label:'资源准备失败'});}
+ fail(error:string){this.generation++;this.entrance?.abort();if(this.state.kind)this.update({phase:'error',error,label:'资源准备失败'});}
  retry(){return this.last?this.prepare(this.last.kind,this.last.request):Promise.resolve(false);}
  async prepare(kind:ReadinessKind,request:ReadinessRequest={}){
+  this.entrance?.abort();const entrance=this.entrance=new AbortController();
   this.beganAt=performance.now();const generation=++this.generation;this.last={kind,request};this.update({kind,phase:'read',done:0,total:0,label:'准备战局',error:null,progress:0});this.revealPending(generation);
   // Independent jobs report into ordered portions of one entrance, never reset its bar.
   const report=(phase:ReadinessState['phase'],start:number,span:number)=>(done:number,total:number,label:string)=>{if(generation===this.generation)this.update({phase,done,total,label,progress:Math.max(this.state.progress??0,start+(total>0?Math.max(0,Math.min(1,done/total))*span:0))});};
-  const release=this.background?await this.background.enter():undefined;
-  const errorsBefore=[...(this.view.modelErrors??[])];
+  let release:(()=>void)|undefined,ownsView=false,errorsBefore:string[]=[];
   try{
+   release=this.background?await this.background.enter(entrance.signal):undefined;
    if(generation!==this.generation)return false;
+   ownsView=true;errorsBefore=[...(this.view.modelErrors??[])];
    this.view.entryPreparation=true;
    this.view.preparationControl={cancelled:()=>generation!==this.generation};
    const desiredMap=request.snapshot?.config.campaignMap??request.campaignMap;
@@ -74,7 +77,7 @@ export class AssetReadinessCoordinator {
    const models=report('models',.35,.37);models(0,1,'准备部队');
    if(kind==='load'&&request.snapshot)await this.view.prepareSnapshotAssets(request.snapshot,models);
    else if(kind==='endless')await this.view.prepareEndlessAssets(models);
-   else if(kind==='new'&&request.race)await this.view.prepareNewRunAssets(request.race,request.hero??null,models);
+   else if(kind==='new'&&request.race)await this.view.prepareNewRunAssets(request.race,request.hero??null,models,request.preset);
    else if(kind==='reinforcement')await this.view.prepareCurrentAssets(models);
    await this.view.waitForPendingAssets();
    if(generation!==this.generation)return false;
@@ -91,12 +94,17 @@ export class AssetReadinessCoordinator {
    if(warmed)await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
    if(generation!==this.generation)return false;
    this.preparedKey=prepareKey;
+   if(this.background&&(request.stageAdvance||kind==='endless')){
+    const jobs=this.view.stagePreparationJobs(cancelled=>this.background!.checkpoint(cancelled,true,true));
+    await this.background.prepareStage(jobs,Math.max(0,5000-(performance.now()-this.beganAt)),entrance.signal);
+    if(generation!==this.generation)return false;
+   }
    report('validate',.98,0)(0,1,'校验战局与地图');
    if(kind==='endless'&&!this.world.previewEndlessTransition())throw Error('无尽战场落点或状态校验失败');
    if(kind==='load'&&request.snapshot)this.world.restoreRun(request.snapshot,true);
    if(this.view.modelErrors.length)throw Error(this.view.modelErrors.at(-1));
-   this.update({phase:'ready',done:1,total:1,progress:1,label:(kind==='reinforcement'?'资源就绪':'就绪 · 请确认继续')+(httpAssetStatus()?.warning?' · 本次缓存空间不足，下次可能需补下载':'')});const token=this.readyToken;if(generation===this.generation&&token)this.onReady(kind,token);return true;
-  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}finally{if(generation!==this.generation)this.view.modelErrors=errorsBefore;this.view.preparationControl=undefined;this.view.entryPreparation=false;release?.();}
+   this.update({phase:'ready',done:1,total:1,progress:1,label:(kind==='reinforcement'?'资源就绪':'就绪 · 请确认继续')+(httpAssetStatus()?.warning?' · 本次资源未能全部缓存，下次可能需补下载':'')});const token=this.readyToken;if(generation===this.generation&&token)this.onReady(kind,token);return true;
+  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}finally{if(ownsView){if(generation!==this.generation)this.view.modelErrors=errorsBefore;this.view.preparationControl=undefined;this.view.entryPreparation=false;}release?.();}
  }
 }
 

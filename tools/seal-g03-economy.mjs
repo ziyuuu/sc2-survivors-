@@ -1,0 +1,17 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+const root='reports/local/g03-economy-20261023';
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+async function hash(p){const h=createHash('sha256');for await(const b of fs.createReadStream(p))h.update(b);return h.digest('hex');}
+const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(x=>x.isDirectory()?walk(d+'/'+x.name):[d+'/'+x.name]);
+const v=read(root+'/verification.json'),board=read('docs/project/performance-board.json'),qa=read('reports/qa/g03-economy-20261023.json');assert.equal(v.pass,true);assert.equal(board.revision,126);assert.equal(board.tasks.find(t=>t.id==='G03').status,'待讨论');assert.equal(qa.productionModified,false);assert.equal(qa.knownIssues[0].status,'confirmed-unfixed');
+for(const row of v.gameSource.files)assert.equal(await hash(row.file),row.sha256,row.file);
+const files=['tools/lib/g03-economy-runtime.mts','tools/lib/g03-economy-runtime-origin.mts','tools/lib/g03-economy-runtime-crossing.mts','tools/measure-g03-campaign.mts','tools/measure-g03-bait.mts','tools/measure-g03-bait-origin.mts','tools/measure-g03-dodge.mts','tools/measure-g03-economy-sensitivity.mts','tools/measure-g03-workshop.mts','tools/measure-g03-crossing-replay.mts','tools/probe-g03-crossing-entry.mts','tools/qa-campaign-controller.ts','tools/summarize-g03-economy.mjs','tools/verify-g03-economy.mjs','tools/report-g03-economy.mjs','tools/plot-g03-economy.py','tools/start-g03-economy.mjs','tools/close-g03-economy.mjs','tools/seal-g03-economy.mjs'];
+const frozen=root+'/frozen-tools/final-analysis';fs.mkdirSync(frozen,{recursive:true});
+for(const file of files){const target=frozen+'/'+file;fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(file,target);}
+const outputs=['AGENTS.md','docs/project/G03_ECONOMY_MEASUREMENT_20261023.md','docs/project/G03_ECONOMY_MEASUREMENT_PLAN_20261023.md','docs/project/performance-board.json','docs/project/PERFORMANCE_BOARD.html','docs/project/PERFORMANCE_TODO.md','reports/qa/g03-economy-20261023.json'];
+const doc=outputs[1];for(const match of fs.readFileSync(doc,'utf8').matchAll(/\]\(([^)]+)\)/g)){const ref=match[1];if(!ref.startsWith('#')&&!/^https?:/.test(ref))assert.ok(fs.existsSync(path.resolve(path.dirname(doc),ref.split('#')[0])),ref);}
+const rows=[];for(const file of [...new Set([...walk(root).filter(p=>!p.endsWith('/final-files.json')),...files,...outputs])].sort())rows.push({file,bytes:fs.statSync(file).size,sha256:await hash(file)});
+const result={sealedAt:new Date().toISOString(),task:'G03 bounded economy measurements',measurementVerified:true,gameplayAllPassed:false,knownOpenIssue:'G03-CROSSING-ENTRY-001',gameSourceUnchanged:825,sourceManifest:root+'/verification.json',baseline:root+'/before.json',finalToolCopies:frozen,visualReview:{files:['routes.png','easy-blue-wallet.png','bait-admissions.png'].map(n=>root+'/figures/'+n),reviewed:3,kind:'Static analysis plots, not new gameplay screenshots'},newBuilds:0,newBrowserProfiles:0,rows};
+fs.writeFileSync(root+'/final-files.json',JSON.stringify(result,null,2)+'\n');
+const checked=JSON.parse(fs.readFileSync(root+'/final-files.json','utf8'));for(const row of checked.rows)assert.equal(await hash(row.file),row.sha256,row.file);
+console.log(JSON.stringify({sealed:true,files:rows.length,bytes:rows.reduce((n,x)=>n+x.bytes,0),sourceUnchanged:825,openIssue:result.knownOpenIssue,manifest:root+'/final-files.json'}));

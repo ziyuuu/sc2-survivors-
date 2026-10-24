@@ -25,7 +25,7 @@ export interface StarshipHost {
  acquireWindow():()=>void;
  resolveImage(key:string,detail?:boolean):string;
  selectRace?(race:Race):EquipmentResult<unknown>;
- begin?():EquipmentResult<unknown>;continue?():EquipmentResult<unknown>;extract?():EquipmentResult<unknown>;
+ canExtract?():boolean;begin?():EquipmentResult<unknown>;continue?():EquipmentResult<unknown>;extract?():EquipmentResult<unknown>;
  settlement?():SettlementView|undefined;
  dispose?():void;
 }

@@ -1,0 +1,41 @@
+{
+  "task": "U06",
+  "status": "reverted",
+  "date": "2026-10-23",
+  "reason": "用户要求回退刚刚这一轮 UI 修改；首页/暂停扩改超出用户预期。",
+  "restoredFiles": [
+    "src/ui/hud/m3-menu.ts",
+    "src/ui/hud/player-services.ts",
+    "src/ui/hud/save-controls.ts",
+    "src/ui/hud.ts",
+    "src/ui/presentation/decision-screens.ts",
+    "src/ui/presentation/end-screens.ts",
+    "src/ui/presentation/intermission.ts",
+    "src/ui/presentation/reference-primitives.ts",
+    "src/ui/presentation/settings-screen.ts",
+    "src/ui/starship/legacy-view.ts",
+    "src/ui/starship/native.ts",
+    "src/app/bootstrap.ts",
+    "src/ui/presentation/reference-card.ts",
+    "test/starship-production-integration.test.ts"
+  ],
+  "removedAddedFiles": [
+    "src/ui/presentation/minimal-ui.css"
+  ],
+  "baselineFiles": 832,
+  "allBaselineHashesMatch": true,
+  "currentUnchanged": true,
+  "previousD05Preserved": true,
+  "testsRun": false,
+  "buildsRun": false,
+  "obsoletePreviews": [
+    "web-game-r1",
+    "web-game-r2",
+    "web-game-r3",
+    "web-game-r4",
+    "web-game-r5",
+    "offline-game-r4.html",
+    "offline-game-r5.html"
+  ],
+  "nextAction": "停止实施，具体页面与改动范围重新确认。"
+}

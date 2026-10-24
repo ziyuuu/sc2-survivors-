@@ -4,12 +4,14 @@ import type {Obstacle} from '../../data/game';
 import {distance,blocked} from '../movement/steering';
 /** Weapon-based contact rings; movement follows normal traversal, never a raycast shortcut. */
 export class EngagementSlots {
- private cache=new Map<number,{until:number;target:Point;ids:string;goals:Map<number,Point>;blocked:Set<number>}>();
+ private cache=new Map<number,{until:number;target:Point;peers:{id:number;range:number;flying:boolean}[];goals:Map<number,Point>;blocked:Set<number>}>();
  unavailable(unitId:number,targetId:number,time:number){const e=this.cache.get(targetId);return !!e&&e.until>time&&e.blocked.has(unitId);}
  goal(u:Entity,target:Body,allies:Entity[],anchor:Point,time:number,half:number,obstacles:Obstacle[],terrain?:TerrainQuery):Point {
-  const peers=allies.filter(a=>a.hp>0&&a.weaponDamage>0&&a.mode!=='siege'&&a.nativeMode!=='lurker_burrowed'&&a.modeTimer<=0&&(a.id===u.id||a.attackTarget===target.id));
-  const ids=peers.map(a=>`${a.id}:${a.attackRange}:${a.flying}`).join(',');let entry=this.cache.get(target.id);
-  if(!entry||entry.until<=time||entry.ids!==ids||distance(entry.target,target)>Math.min(.3,Math.max(.015,u.attackRange*.15))){
+  const eligible=(a:Entity)=>a.hp>0&&a.weaponDamage>0&&a.mode!=='siege'&&a.nativeMode!=='lurker_burrowed'&&a.modeTimer<=0&&(a.id===u.id||a.attackTarget===target.id);
+  let entry=this.cache.get(target.id),same=!!entry;
+  if(entry){let index=0;for(const a of allies)if(eligible(a)){const old=entry.peers[index++];if(!old||old.id!==a.id||old.range!==a.attackRange||old.flying!==a.flying){same=false;break;}}if(index!==entry.peers.length)same=false;}
+  if(!entry||entry.until<=time||!same||distance(entry.target,target)>Math.min(.3,Math.max(.015,u.attackRange*.15))){
+   const peers=allies.filter(eligible);
    const goals=new Map<number,Point>(),unavailable=new Set<number>(),placed:{p:Point;r:number;flying:boolean}[]=[];
    const firing=(a:Entity)=>distance(a,target)<=a.attackRange+a.unitRadius+target.unitRadius&&(!terrain||terrain.lineOfFire(a,target,a.flying,target.flying,a.attackRange<1.5));
    for(const a of peers)if(firing(a)){goals.set(a.id,{x:a.x,z:a.z});placed.push({p:{x:a.x,z:a.z},r:a.unitRadius,flying:a.flying});}
@@ -24,7 +26,7 @@ export class EngagementSlots {
     // Blocked contact rings never send bodies into the target center.
     if(!goal){unavailable.add(a.id);goal={x:a.x,z:a.z};}goals.set(a.id,goal);placed.push({p:goal,r:a.unitRadius,flying:a.flying});
    }
-   entry={until:time+.4,target:{x:target.x,z:target.z},ids,goals,blocked:unavailable};this.cache.set(target.id,entry);
+   entry={until:time+.4,target:{x:target.x,z:target.z},peers:peers.map(a=>({id:a.id,range:a.attackRange,flying:a.flying})),goals,blocked:unavailable};this.cache.set(target.id,entry);
    if(this.cache.size>64)for(const [id,c] of this.cache)if(c.until<time)this.cache.delete(id);
   }
   return entry.goals.get(u.id)??u;

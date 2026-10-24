@@ -7,7 +7,7 @@ import {loadEnvironmentTexture} from './environment-texture';
 import {bindSceneTextures} from '../materials/scene-textures';
 import type {LandscapeResources} from './campaign-ground';
 
-export interface EnvironmentFrame {readonly time:number;readonly paused:boolean;readonly quality:RenderQuality;readonly reducedMotion:boolean;readonly camera:THREE.Camera;readonly seed:number}
+export interface EnvironmentFrame {readonly effectsEnabled?:boolean;readonly time:number;readonly paused:boolean;readonly quality:RenderQuality;readonly reducedMotion:boolean;readonly camera:THREE.Camera;readonly seed:number}
 export const MAX_ENVIRONMENT_PARTICLES=60;
 const fract=(x:number)=>x-Math.floor(x);
 function hash(seed:number,index:number){let n=Math.imul(seed^index,0x45d9f3b);n=Math.imul(n^(n>>>16),0x45d9f3b);return ((n^(n>>>16))>>>0)/4294967296;}
@@ -29,7 +29,7 @@ export async function createEnvironmentAtmosphere(root:THREE.Group,terrain:()=>T
  const clear=()=>{mesh.count=0;mesh.visible=false;};
  const update=(frame:EnvironmentFrame)=>{
   sampleTime=frame.time;paused=frame.paused;
-  if(!visible||!enabled||frame.quality==='performance'||frame.reducedMotion){clear();return;}
+  if(frame.effectsEnabled===false||!visible||!enabled||frame.quality==='performance'||frame.reducedMotion){clear();return;}
   const field=terrain();projection.multiplyMatrices(frame.camera.projectionMatrix,frame.camera.matrixWorldInverse);frustum.setFromProjectionMatrix(projection);let shown=0;
   for(let i=0;i<count;i++){
    const particle=environmentParticle(seed^Math.imul(frame.seed,0x9e3779b1),i,frame.time),emitter=emitters[i%emitters.length],spread=theme==='ice'?11:theme==='industrial'?emitter.r*.55:emitter.r*1.8;

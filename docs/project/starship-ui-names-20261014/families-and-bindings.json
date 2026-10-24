@@ -1,0 +1,4224 @@
+{
+  "families": [
+    {
+      "id": "set.green.001",
+      "lineage": "green",
+      "key": "训练有素",
+      "names": {
+        "terran": "陆战训练",
+        "zerg": "群体记忆",
+        "protoss": "圣堂初训"
+      },
+      "qualities": [
+        "green"
+      ],
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "never",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.green.002",
+      "lineage": "green",
+      "key": "团队协作",
+      "names": {
+        "terran": "协同班组",
+        "zerg": "共生群体",
+        "protoss": "同心战阵"
+      },
+      "qualities": [
+        "green"
+      ],
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "never",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.green.003",
+      "lineage": "green",
+      "key": "狗哨",
+      "names": {
+        "terran": "猎虫哨令",
+        "zerg": "跳虫呼唤",
+        "protoss": "异虫哨印"
+      },
+      "qualities": [
+        "green"
+      ],
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "never",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.green.004",
+      "lineage": "green",
+      "key": "有陷阱",
+      "names": {
+        "terran": "雷区布防",
+        "zerg": "孢雷伏阵",
+        "protoss": "光雷阵线"
+      },
+      "qualities": [
+        "green"
+      ],
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "never",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.green.005",
+      "lineage": "green",
+      "key": "最佳选择",
+      "names": {
+        "terran": "战术择机",
+        "zerg": "巢群预感",
+        "protoss": "灵能预见"
+      },
+      "qualities": [
+        "green"
+      ],
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "never",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.green.006",
+      "lineage": "green",
+      "key": "特殊来电",
+      "names": {
+        "terran": "异军来电",
+        "zerg": "异巢回声",
+        "protoss": "异族讯号"
+      },
+      "qualities": [
+        "green"
+      ],
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "never",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.007",
+      "lineage": "independent_blue",
+      "key": "训练有素进阶",
+      "names": {
+        "terran": "陆战精训",
+        "zerg": "战斗记忆",
+        "protoss": "圣堂试炼"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.008",
+      "lineage": "independent_blue",
+      "key": "团队协作进阶",
+      "names": {
+        "terran": "加强班组",
+        "zerg": "协同虫群",
+        "protoss": "三人战阵"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.009",
+      "lineage": "independent_blue",
+      "key": "我是谁",
+      "names": {
+        "terran": "我是谁·异军密令",
+        "zerg": "我是谁·异巢呼唤",
+        "protoss": "我是谁·异族回响"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.010",
+      "lineage": "independent_blue",
+      "key": "蟑螂拍",
+      "names": {
+        "terran": "蟑螂拍·虫群号令",
+        "zerg": "蟑螂拍·双生呼唤",
+        "protoss": "蟑螂拍·异虫引导"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.011",
+      "lineage": "independent_blue",
+      "key": "有地堡",
+      "names": {
+        "terran": "有地堡·空投工事",
+        "zerg": "有地堡·巢群工事",
+        "protoss": "有地堡·折跃工事"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.012",
+      "lineage": "independent_blue",
+      "key": "最佳选择进阶",
+      "names": {
+        "terran": "战术推演",
+        "zerg": "主巢预判",
+        "protoss": "星灵先知"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.013",
+      "lineage": "independent_blue",
+      "key": "猎蜂人",
+      "names": {
+        "terran": "猎蜂人·清剿队",
+        "zerg": "猎蜂人·猎食群",
+        "protoss": "猎蜂人·清除者"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.014",
+      "lineage": "independent_blue",
+      "key": "赏金猎人",
+      "names": {
+        "terran": "赏金猎人·佣兵契",
+        "zerg": "赏金猎人·猎获印",
+        "protoss": "赏金猎人·征召令"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.015",
+      "lineage": "independent_blue",
+      "key": "火炮过载",
+      "names": {
+        "terran": "火炮过载·超压军械",
+        "zerg": "火炮过载·爆裂腺体",
+        "protoss": "火炮过载·过载晶核"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.016",
+      "lineage": "independent_blue",
+      "key": "坚守阵地",
+      "names": {
+        "terran": "坚守阵地·防线守卫",
+        "zerg": "坚守阵地·守巢群",
+        "protoss": "坚守阵地·阵地卫队"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.independent_blue.017",
+      "lineage": "independent_blue",
+      "key": "训犬大师",
+      "names": {
+        "terran": "训犬大师·猎群教官",
+        "zerg": "训犬大师·猎群主宰",
+        "protoss": "训犬大师·猎群引导者"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.independent_blue.018",
+      "lineage": "independent_blue",
+      "key": "幻影部队",
+      "names": {
+        "terran": "幻影部队·全息战术",
+        "zerg": "幻影部队·拟态虫群",
+        "protoss": "幻影部队·镜像军团"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.independent_blue.019",
+      "lineage": "independent_blue",
+      "key": "呼叫舰队",
+      "names": {
+        "terran": "呼叫舰队·星港应答",
+        "zerg": "呼叫舰队·飞巢应答",
+        "protoss": "呼叫舰队·星门应答"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.independent_blue.020",
+      "lineage": "independent_blue",
+      "key": "灼烧土地",
+      "names": {
+        "terran": "灼烧土地·焦土命令",
+        "zerg": "灼烧土地·灼热菌毯",
+        "protoss": "灼烧土地·净化战场"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.independent_blue.021",
+      "lineage": "independent_blue",
+      "key": "部队",
+      "names": {
+        "terran": "战地扩编",
+        "zerg": "巢群扩编",
+        "protoss": "军团扩编"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": "direction",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.independent_blue.022",
+      "lineage": "independent_blue",
+      "key": "军衔",
+      "names": {
+        "terran": "老兵战团",
+        "zerg": "老练虫群",
+        "protoss": "百战圣堂"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": "direction",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.independent_blue.023",
+      "lineage": "independent_blue",
+      "key": "精英",
+      "names": {
+        "terran": "王牌编制",
+        "zerg": "精英进化",
+        "protoss": "精锐议会"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": "elite",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.independent_blue.024",
+      "lineage": "independent_blue",
+      "key": "英雄",
+      "names": {
+        "terran": "英雄旗帜",
+        "zerg": "主宰意志",
+        "protoss": "英雄誓约"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": "hero",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.independent_blue.025",
+      "lineage": "independent_blue",
+      "key": "生存者",
+      "names": {
+        "terran": "战场幸存者",
+        "zerg": "不屈虫群",
+        "protoss": "永存守卫"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.independent_blue.026",
+      "lineage": "independent_blue",
+      "key": "破阵",
+      "names": {
+        "terran": "突击军械",
+        "zerg": "利刃进化",
+        "protoss": "锋刃武装"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.independent_blue.027",
+      "lineage": "independent_blue",
+      "key": "铁卫",
+      "names": {
+        "terran": "铁卫装甲",
+        "zerg": "厚甲守卫",
+        "protoss": "铁卫壁垒"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.independent_blue.028",
+      "lineage": "independent_blue",
+      "key": "轻装",
+      "names": {
+        "terran": "轻装机动",
+        "zerg": "迅捷虫群",
+        "protoss": "轻装先锋"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.independent_blue.029",
+      "lineage": "independent_blue",
+      "key": "精准",
+      "names": {
+        "terran": "精准火控",
+        "zerg": "猎杀感知",
+        "protoss": "精准共鸣"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.independent_blue.030",
+      "lineage": "independent_blue",
+      "key": "坚壁",
+      "names": {
+        "terran": "坚壁防线",
+        "zerg": "坚壁甲群",
+        "protoss": "坚壁圣盾"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.independent_blue.031",
+      "lineage": "independent_blue",
+      "key": "持续作战",
+      "names": {
+        "terran": "持久战备",
+        "zerg": "持久适应",
+        "protoss": "持久阵列"
+      },
+      "qualities": [
+        "blue"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.032",
+      "lineage": "purple_series",
+      "key": "训练有素",
+      "names": {
+        "terran": "王牌精训",
+        "zerg": "王牌战斗记忆",
+        "protoss": "王牌圣堂试炼"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.033",
+      "lineage": "purple_series",
+      "key": "团队协作",
+      "names": {
+        "terran": "齐射班组",
+        "zerg": "齐射虫群",
+        "protoss": "齐射战阵"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.034",
+      "lineage": "purple_series",
+      "key": "我是谁",
+      "names": {
+        "terran": "异族双雄密令",
+        "zerg": "异族双雄呼唤",
+        "protoss": "异族双雄回响"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.035",
+      "lineage": "purple_series",
+      "key": "蟑螂拍",
+      "names": {
+        "terran": "破坏者号令",
+        "zerg": "破坏者双生",
+        "protoss": "破坏者引导"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.036",
+      "lineage": "purple_series",
+      "key": "有地堡",
+      "names": {
+        "terran": "战地防御阵地",
+        "zerg": "巢群防御阵地",
+        "protoss": "折跃防御阵地"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.037",
+      "lineage": "purple_series",
+      "key": "最佳选择",
+      "names": {
+        "terran": "双重战术推演",
+        "zerg": "双重主巢预判",
+        "protoss": "双重先知决策"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.038",
+      "lineage": "purple_series",
+      "key": "猎蜂人",
+      "names": {
+        "terran": "集体清剿队",
+        "zerg": "集体猎食群",
+        "protoss": "集体清除者"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.039",
+      "lineage": "purple_series",
+      "key": "赏金猎人",
+      "names": {
+        "terran": "英雄佣兵契",
+        "zerg": "英雄猎获印",
+        "protoss": "英雄征召令"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.040",
+      "lineage": "purple_series",
+      "key": "火炮过载",
+      "names": {
+        "terran": "殉爆超压军械",
+        "zerg": "殉爆爆裂腺体",
+        "protoss": "殉爆过载晶核"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.041",
+      "lineage": "purple_series",
+      "key": "坚守阵地",
+      "names": {
+        "terran": "火力防线守卫",
+        "zerg": "火力守巢群",
+        "protoss": "火力阵地卫队"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.042",
+      "lineage": "purple_series",
+      "key": "宝可梦捕获",
+      "names": {
+        "terran": "宝可梦捕获终端",
+        "zerg": "宝可梦捕获共生群",
+        "protoss": "宝可梦捕获晶阵"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.043",
+      "lineage": "purple_series",
+      "key": "幻影部队",
+      "names": {
+        "terran": "双重全息战术",
+        "zerg": "双重拟态虫群",
+        "protoss": "双重镜像军团"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.044",
+      "lineage": "purple_series",
+      "key": "呼叫舰队",
+      "names": {
+        "terran": "护航星港应答",
+        "zerg": "护航飞巢应答",
+        "protoss": "护航星门应答"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.045",
+      "lineage": "purple_series",
+      "key": "灼烧土地",
+      "names": {
+        "terran": "行走焦土命令",
+        "zerg": "行走灼热菌毯",
+        "protoss": "行走净化战场"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.046",
+      "lineage": "purple_series",
+      "key": "破阵",
+      "names": {
+        "terran": "追击军械",
+        "zerg": "追击利刃",
+        "protoss": "追击锋刃"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.047",
+      "lineage": "purple_series",
+      "key": "铁卫",
+      "names": {
+        "terran": "反击重装",
+        "zerg": "反击厚甲",
+        "protoss": "反击壁垒"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.048",
+      "lineage": "purple_series",
+      "key": "轻装",
+      "names": {
+        "terran": "高速突击",
+        "zerg": "高速虫群",
+        "protoss": "高速先锋"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.purple_series.049",
+      "lineage": "purple_series",
+      "key": "部队",
+      "names": {
+        "terran": "战略扩编军团",
+        "zerg": "战略扩编虫群",
+        "protoss": "战略扩编圣堂"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": "direction",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.050",
+      "lineage": "purple_series",
+      "key": "士兵",
+      "names": {
+        "terran": "老兵教导团",
+        "zerg": "老兵传承群",
+        "protoss": "老兵教导圣堂"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": "direction",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.051",
+      "lineage": "purple_series",
+      "key": "精英",
+      "names": {
+        "terran": "王牌作战编制",
+        "zerg": "王牌精英进化",
+        "protoss": "王牌精锐议会"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": "elite",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.052",
+      "lineage": "purple_series",
+      "key": "普通英雄",
+      "names": {
+        "terran": "英雄远征旗帜",
+        "zerg": "英雄主巢意志",
+        "protoss": "英雄远征誓约"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": "hero",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.053",
+      "lineage": "purple_series",
+      "key": "生存者",
+      "names": {
+        "terran": "不灭战场幸存者",
+        "zerg": "不灭虫群",
+        "protoss": "不灭永存守卫"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.054",
+      "lineage": "purple_series",
+      "key": "精准",
+      "names": {
+        "terran": "致命精准火控",
+        "zerg": "致命猎杀感知",
+        "protoss": "致命精准共鸣"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.055",
+      "lineage": "purple_series",
+      "key": "坚壁",
+      "names": {
+        "terran": "震荡坚壁防线",
+        "zerg": "震荡坚壁甲群",
+        "protoss": "震荡坚壁圣盾"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.056",
+      "lineage": "purple_series",
+      "key": "持续作战",
+      "names": {
+        "terran": "永续战备",
+        "zerg": "永续适应",
+        "protoss": "永续阵列"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.057",
+      "lineage": "purple_series",
+      "key": "强化者破军",
+      "names": {
+        "terran": "破军军械强化",
+        "zerg": "破军武器进化",
+        "protoss": "破军武装强化"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.058",
+      "lineage": "purple_series",
+      "key": "强化者壁垒",
+      "names": {
+        "terran": "壁垒装甲强化",
+        "zerg": "壁垒甲壳进化",
+        "protoss": "壁垒构架强化"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_series.059",
+      "lineage": "purple_series",
+      "key": "强化者疾行",
+      "names": {
+        "terran": "疾行推进强化",
+        "zerg": "疾行代谢进化",
+        "protoss": "疾行相位强化"
+      },
+      "qualities": [
+        "blue",
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.purple_corrupted_hero.060",
+      "lineage": "purple_corrupted_hero",
+      "key": "污染英雄",
+      "names": {
+        "terran": "裂誓战旗",
+        "zerg": "裂巢意志",
+        "protoss": "裂光誓约"
+      },
+      "qualities": [
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "bound": "hero",
+      "pollution": "required",
+      "intrinsic": true,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.special_purple.061",
+      "lineage": "special_purple",
+      "key": "冒险者",
+      "names": {
+        "terran": "边疆探险",
+        "zerg": "荒野觅踪",
+        "protoss": "星海寻迹"
+      },
+      "qualities": [
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "bound": null,
+      "pollution": "never",
+      "intrinsic": false,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.special_purple.062",
+      "lineage": "special_purple",
+      "key": "净化天空",
+      "names": {
+        "terran": "天穹封锁",
+        "zerg": "天穹肃清",
+        "protoss": "天穹净化"
+      },
+      "qualities": [
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "bound": null,
+      "pollution": "required",
+      "intrinsic": true,
+      "maxPieces": 2
+    },
+    {
+      "id": "set.special_purple.063",
+      "lineage": "special_purple",
+      "key": "失落的神族",
+      "names": {
+        "terran": "失落星灵遗契",
+        "zerg": "失落星灵共鸣",
+        "protoss": "失落圣堂遗誓"
+      },
+      "qualities": [
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "bound": null,
+      "pollution": "required",
+      "intrinsic": true,
+      "maxPieces": 4
+    },
+    {
+      "id": "set.special_purple.064",
+      "lineage": "special_purple",
+      "key": "让火焰净化一切",
+      "names": {
+        "terran": "焚尽战线",
+        "zerg": "焚尽菌潮",
+        "protoss": "焚尽星火"
+      },
+      "qualities": [
+        "purple"
+      ],
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "bound": null,
+      "pollution": "required",
+      "intrinsic": true,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.orange_series.065",
+      "lineage": "orange_series",
+      "key": "普通英雄",
+      "names": {
+        "terran": "自由王旗",
+        "zerg": "主巢王权",
+        "protoss": "圣堂星誓"
+      },
+      "qualities": [
+        "purple",
+        "orange"
+      ],
+      "source": "docs/project/STARSHIP_ORANGE_SETS_20261014.md",
+      "bound": "hero",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.orange_series.066",
+      "lineage": "orange_series",
+      "key": "生存者",
+      "names": {
+        "terran": "不灭远征",
+        "zerg": "不灭主巢",
+        "protoss": "不灭星卫"
+      },
+      "qualities": [
+        "purple",
+        "orange"
+      ],
+      "source": "docs/project/STARSHIP_ORANGE_SETS_20261014.md",
+      "bound": null,
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.orange_series.067",
+      "lineage": "orange_series",
+      "key": "士兵",
+      "names": {
+        "terran": "百战教导军",
+        "zerg": "百战传承群",
+        "protoss": "百战教导圣堂"
+      },
+      "qualities": [
+        "purple",
+        "orange"
+      ],
+      "source": "docs/project/STARSHIP_ORANGE_SETS_20261014.md",
+      "bound": "direction",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.orange_series.068",
+      "lineage": "orange_series",
+      "key": "部队",
+      "names": {
+        "terran": "无疆远征军",
+        "zerg": "无疆繁育群",
+        "protoss": "无疆远征圣堂"
+      },
+      "qualities": [
+        "purple",
+        "orange"
+      ],
+      "source": "docs/project/STARSHIP_ORANGE_SETS_20261014.md",
+      "bound": "direction",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.orange_series.069",
+      "lineage": "orange_series",
+      "key": "精英",
+      "names": {
+        "terran": "传奇王牌编制",
+        "zerg": "传奇进化王座",
+        "protoss": "传奇精锐圣座"
+      },
+      "qualities": [
+        "purple",
+        "orange"
+      ],
+      "source": "docs/project/STARSHIP_ORANGE_SETS_20261014.md",
+      "bound": "elite",
+      "pollution": "optional",
+      "intrinsic": false,
+      "maxPieces": 6
+    },
+    {
+      "id": "set.orange_corrupted_hero.070",
+      "lineage": "orange_corrupted_hero",
+      "key": "污染英雄",
+      "names": {
+        "terran": "破誓王旗",
+        "zerg": "裂巢王权",
+        "protoss": "蚀光星誓"
+      },
+      "qualities": [
+        "purple",
+        "orange"
+      ],
+      "source": "docs/project/STARSHIP_ORANGE_SETS_20261014.md",
+      "bound": "hero",
+      "pollution": "required",
+      "intrinsic": true,
+      "maxPieces": 6
+    }
+  ],
+  "heroes": [
+    {
+      "id": "raynor",
+      "name": "雷诺",
+      "race": "terran",
+      "direction": "兵营",
+      "kind": "hero"
+    },
+    {
+      "id": "tychus",
+      "name": "泰凯斯",
+      "race": "terran",
+      "direction": "兵营",
+      "kind": "hero"
+    },
+    {
+      "id": "nova",
+      "name": "诺娃",
+      "race": "terran",
+      "direction": "兵营",
+      "kind": "hero"
+    },
+    {
+      "id": "swann",
+      "name": "斯旺",
+      "race": "terran",
+      "direction": "重工",
+      "kind": "hero"
+    },
+    {
+      "id": "tosh",
+      "name": "托什",
+      "race": "terran",
+      "direction": "兵营",
+      "kind": "hero"
+    },
+    {
+      "id": "yamato_battlecruiser",
+      "name": "大和战列巡洋舰",
+      "race": "terran",
+      "direction": "星港",
+      "kind": "hero"
+    },
+    {
+      "id": "kerrigan",
+      "name": "凯瑞甘",
+      "race": "zerg",
+      "direction": "基础虫群",
+      "kind": "hero"
+    },
+    {
+      "id": "zagara",
+      "name": "扎加拉",
+      "race": "zerg",
+      "direction": "基础虫群",
+      "kind": "hero"
+    },
+    {
+      "id": "dehaka",
+      "name": "德哈卡",
+      "race": "zerg",
+      "direction": "地面进化",
+      "kind": "hero"
+    },
+    {
+      "id": "stukov",
+      "name": "斯托科夫",
+      "race": "zerg",
+      "direction": "地面进化",
+      "kind": "hero"
+    },
+    {
+      "id": "niadra",
+      "name": "妮雅德拉",
+      "race": "zerg",
+      "direction": "基础虫群",
+      "kind": "hero"
+    },
+    {
+      "id": "hots_leviathan",
+      "name": "利维坦",
+      "race": "zerg",
+      "direction": "飞行虫群",
+      "kind": "hero"
+    },
+    {
+      "id": "artanis",
+      "name": "阿塔尼斯",
+      "race": "protoss",
+      "direction": "传送门",
+      "kind": "hero"
+    },
+    {
+      "id": "zeratul",
+      "name": "泽拉图",
+      "race": "protoss",
+      "direction": "传送门",
+      "kind": "hero"
+    },
+    {
+      "id": "alarak",
+      "name": "阿拉纳克",
+      "race": "protoss",
+      "direction": "传送门",
+      "kind": "hero"
+    },
+    {
+      "id": "fenix",
+      "name": "菲尼克斯",
+      "race": "protoss",
+      "direction": "机械台",
+      "kind": "hero"
+    },
+    {
+      "id": "vorazun",
+      "name": "沃拉尊",
+      "race": "protoss",
+      "direction": "传送门",
+      "kind": "hero"
+    },
+    {
+      "id": "purifier_flagship",
+      "name": "净化者旗舰",
+      "race": "protoss",
+      "direction": "星门",
+      "kind": "hero"
+    }
+  ],
+  "elites": [
+    {
+      "id": "marine.1",
+      "name": "金属风暴",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "marine.2",
+      "name": "精英杀手",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "marine.3",
+      "name": "战场指挥官",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "reaper.1",
+      "name": "午夜死神",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "reaper.2",
+      "name": "大枪管",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "reaper.3",
+      "name": "孤星猎手",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "hellion.1",
+      "name": "长炎",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "hellion.2",
+      "name": "地狱骑士",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "hellion.3",
+      "name": "布雷车",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "marauder.1",
+      "name": "震撼弹专家",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "marauder.2",
+      "name": "破甲精英",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "marauder.3",
+      "name": "拒绝者",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "tank.1",
+      "name": "豹石",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "tank.2",
+      "name": "虎式",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "tank.3",
+      "name": "毁灭者",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "thor.1",
+      "name": "雷霆支点",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "thor.2",
+      "name": "天罚炮台",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "thor.3",
+      "name": "末日过载",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "viking.1",
+      "name": "苍穹猎鹰",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "viking.2",
+      "name": "钢铁落锤",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "viking.3",
+      "name": "双相王牌",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "banshee.1",
+      "name": "报丧女妖",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "banshee.2",
+      "name": "瘟疫女妖",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "banshee.3",
+      "name": "振奋女妖",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "medivac.1",
+      "name": "战场女武神",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "medivac.2",
+      "name": "精英救护",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "medivac.3",
+      "name": "微光护盾",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "science_vessel.1",
+      "name": "铁幕研究员",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "science_vessel.2",
+      "name": "辐照工程师",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "science_vessel.3",
+      "name": "磁脉冲主宰",
+      "race": "terran",
+      "kind": "elite"
+    },
+    {
+      "id": "zergling.1",
+      "name": "裂爪狂潮",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "zergling.2",
+      "name": "噬甲獠牙",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "zergling.3",
+      "name": "共生血巢",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "baneling.1",
+      "name": "灾厄酸核",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "baneling.2",
+      "name": "腐土播种者",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "baneling.3",
+      "name": "甲壳反应堆",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "roach.1",
+      "name": "深壳堡垒",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "roach.2",
+      "name": "穿甲酸喉",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "roach.3",
+      "name": "反噬菌甲",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "ravager.1",
+      "name": "连囊炮手",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "ravager.2",
+      "name": "破城酸星",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "ravager.3",
+      "name": "腐蚀雨幕",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "hydralisk.1",
+      "name": "千针风暴",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "hydralisk.2",
+      "name": "裂甲长棘",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "hydralisk.3",
+      "name": "毒囊猎手",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "queen.1",
+      "name": "母巢女王",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "queen.2",
+      "name": "输血主母",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "queen.3",
+      "name": "毒巢守卫",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "lurker.1",
+      "name": "三脊穿心",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "lurker.2",
+      "name": "地裂巨刺",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "lurker.3",
+      "name": "潜巢伏击者",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "mutalisk.1",
+      "name": "六翼回旋",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "mutalisk.2",
+      "name": "绞杀翼群",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "mutalisk.3",
+      "name": "血羽迁徙",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "corruptor.1",
+      "name": "蚀空锁喉",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "corruptor.2",
+      "name": "空巢铁卫",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "corruptor.3",
+      "name": "腐空瘟囊",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "ultralisk.1",
+      "name": "暴君镰刃",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "ultralisk.2",
+      "name": "不灭甲兽",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "ultralisk.3",
+      "name": "原始踏碎者",
+      "race": "zerg",
+      "kind": "elite"
+    },
+    {
+      "id": "zealot.1",
+      "name": "誓刃狂徒",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "zealot.2",
+      "name": "光盾卫士",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "zealot.3",
+      "name": "裂阵先锋",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "adept.1",
+      "name": "双相战刃",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "adept.2",
+      "name": "晨星巡猎",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "adept.3",
+      "name": "裂光共振",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "stalker.1",
+      "name": "虚空连射",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "stalker.2",
+      "name": "裂隙刺客",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "stalker.3",
+      "name": "晶棘破甲",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "sentry.1",
+      "name": "光穹织者",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "sentry.2",
+      "name": "静滞监察者",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "sentry.3",
+      "name": "折射惩戒",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "immortal.1",
+      "name": "破城判官",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "immortal.2",
+      "name": "永恒壁垒",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "immortal.3",
+      "name": "引力裁决",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "colossus.1",
+      "name": "焚天双束",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "colossus.2",
+      "name": "地平线切割",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "colossus.3",
+      "name": "震慑行者",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "high_templar.1",
+      "name": "风暴执政",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "high_templar.2",
+      "name": "反馈先知",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "high_templar.3",
+      "name": "静电织网",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "phoenix.1",
+      "name": "离子六翼",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "phoenix.2",
+      "name": "引力狩猎者",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "phoenix.3",
+      "name": "相位突击翼",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "void_ray.1",
+      "name": "棱光处刑舰",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "void_ray.2",
+      "name": "裂光分束舰",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "void_ray.3",
+      "name": "能量虹吸舰",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "carrier.1",
+      "name": "蜂群指挥舰",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "carrier.2",
+      "name": "重矛母舰",
+      "race": "protoss",
+      "kind": "elite"
+    },
+    {
+      "id": "carrier.3",
+      "name": "圣盾巡航舰",
+      "race": "protoss",
+      "kind": "elite"
+    }
+  ],
+  "modules": [
+    {
+      "id": "module.white.001",
+      "kind": "module",
+      "quality": "white",
+      "key": "随行劳工",
+      "slot": "collection",
+      "names": {
+        "terran": "SCV勤务终端",
+        "zerg": "工蜂孵化瘤",
+        "protoss": "探机激活晶核"
+      },
+      "source": "docs/project/STARSHIP_WHITE_ITEMS_20261013.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "随行劳工"
+    },
+    {
+      "id": "module.white.002",
+      "kind": "module",
+      "quality": "white",
+      "key": "定时补给",
+      "slot": "operation",
+      "names": {
+        "terran": "轨道补给信标",
+        "zerg": "养分储运囊",
+        "protoss": "折跃补给晶标"
+      },
+      "source": "docs/project/STARSHIP_WHITE_ITEMS_20261013.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "定时补给"
+    },
+    {
+      "id": "module.white.003",
+      "kind": "module",
+      "quality": "white",
+      "key": "队伍整齐",
+      "slot": "control",
+      "names": {
+        "terran": "编队协调芯片",
+        "zerg": "群行突触结",
+        "protoss": "队列协调晶体"
+      },
+      "source": "docs/project/STARSHIP_WHITE_ITEMS_20261013.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "队伍整齐"
+    },
+    {
+      "id": "module.white.004",
+      "kind": "module",
+      "quality": "white",
+      "key": "轻型轰击",
+      "slot": "support",
+      "names": {
+        "terran": "轻型轰击信标",
+        "zerg": "酸孢喷射囊",
+        "protoss": "轨道光束晶标"
+      },
+      "source": "docs/project/STARSHIP_WHITE_ITEMS_20261013.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "轻型轰击"
+    },
+    {
+      "id": "module.green.005",
+      "kind": "module",
+      "quality": "green",
+      "key": "农民协作",
+      "slot": "collection",
+      "names": {
+        "terran": "SCV协作终端",
+        "zerg": "工蜂共生瘤",
+        "protoss": "探机协同晶核"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "农民协作"
+    },
+    {
+      "id": "module.green.006",
+      "kind": "module",
+      "quality": "green",
+      "key": "战地拾取",
+      "slot": "collection",
+      "names": {
+        "terran": "战地回收扫描仪",
+        "zerg": "资源嗅探腺",
+        "protoss": "资源牵引棱镜"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "战地拾取"
+    },
+    {
+      "id": "module.green.007",
+      "kind": "module",
+      "quality": "green",
+      "key": "稳定补给",
+      "slot": "operation",
+      "names": {
+        "terran": "轨道补给调度器",
+        "zerg": "养分输送囊",
+        "protoss": "折跃补给枢纽"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "稳定补给"
+    },
+    {
+      "id": "module.green.008",
+      "kind": "module",
+      "quality": "green",
+      "key": "商店机会",
+      "slot": "operation",
+      "names": {
+        "terran": "军需采购终端",
+        "zerg": "主巢供给神经节",
+        "protoss": "星港贸易晶标"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "商店机会"
+    },
+    {
+      "id": "module.green.009",
+      "kind": "module",
+      "quality": "green",
+      "key": "编队与技能",
+      "slot": "control",
+      "names": {
+        "terran": "战术协调处理器",
+        "zerg": "群行协调神经节",
+        "protoss": "战术协调晶核"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "编队与技能"
+    },
+    {
+      "id": "module.green.010",
+      "kind": "module",
+      "quality": "green",
+      "key": "移动射击",
+      "slot": "control",
+      "names": {
+        "terran": "运动瞄准处理器",
+        "zerg": "运动瞄准神经节",
+        "protoss": "动态瞄准棱镜"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "移动射击"
+    },
+    {
+      "id": "module.green.011",
+      "kind": "module",
+      "quality": "green",
+      "key": "范围压制",
+      "slot": "support",
+      "names": {
+        "terran": "压制轰击信标",
+        "zerg": "粘滞酸孢囊",
+        "protoss": "震荡光束晶标"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "范围压制"
+    },
+    {
+      "id": "module.green.012",
+      "kind": "module",
+      "quality": "green",
+      "key": "临时援兵",
+      "slot": "support",
+      "names": {
+        "terran": "应急空投信标",
+        "zerg": "战斗孵化囊",
+        "protoss": "援军折跃晶标"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "临时援兵"
+    },
+    {
+      "id": "module.green.013",
+      "kind": "module",
+      "quality": "green",
+      "key": "救援增员",
+      "slot": "collection",
+      "names": {
+        "terran": "双席救援信标",
+        "zerg": "双生救援囊",
+        "protoss": "双重回收晶标"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "救援增员"
+    },
+    {
+      "id": "module.green.014",
+      "kind": "module",
+      "quality": "green",
+      "key": "暴击拾取",
+      "slot": "collection",
+      "names": {
+        "terran": "超载采矿钻头",
+        "zerg": "丰产代谢腺",
+        "protoss": "双收谐振晶核"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "暴击拾取"
+    },
+    {
+      "id": "module.green.015",
+      "kind": "module",
+      "quality": "green",
+      "key": "采购减价",
+      "slot": "operation",
+      "names": {
+        "terran": "军需折扣凭证",
+        "zerg": "主巢配给印记",
+        "protoss": "星港采购晶契"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "采购减价"
+    },
+    {
+      "id": "module.green.016",
+      "kind": "module",
+      "quality": "green",
+      "key": "刷新减价",
+      "slot": "operation",
+      "names": {
+        "terran": "情报检索终端",
+        "zerg": "主巢检索突触",
+        "protoss": "预知检索晶片"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "刷新减价"
+    },
+    {
+      "id": "module.green.017",
+      "kind": "module",
+      "quality": "green",
+      "key": "分裂攻击",
+      "slot": "control",
+      "names": {
+        "terran": "分裂弹头模组",
+        "zerg": "分叉骨针腺",
+        "protoss": "双重打击棱镜"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "分裂攻击"
+    },
+    {
+      "id": "module.green.018",
+      "kind": "module",
+      "quality": "green",
+      "key": "长刀",
+      "slot": "control",
+      "names": {
+        "terran": "延展作战刃",
+        "zerg": "延伸骨镰",
+        "protoss": "长柄灵能刃"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "长刀"
+    },
+    {
+      "id": "module.green.019",
+      "kind": "module",
+      "quality": "green",
+      "key": "虫卵救援",
+      "slot": "support",
+      "names": {
+        "terran": "异常生命扫描仪",
+        "zerg": "异卵唤醒腺",
+        "protoss": "异卵解救晶标"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "虫卵救援"
+    },
+    {
+      "id": "module.green.020",
+      "kind": "module",
+      "quality": "green",
+      "key": "金币蛋",
+      "slot": "support",
+      "names": {
+        "terran": "轨道弹仓",
+        "zerg": "爆裂孢囊",
+        "protoss": "光子弹匣"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "金币蛋"
+    },
+    {
+      "id": "module.green.021",
+      "kind": "module",
+      "quality": "green",
+      "key": "望远镜",
+      "slot": "control",
+      "names": {
+        "terran": "战术望远镜",
+        "zerg": "远视复眼",
+        "protoss": "远望棱镜"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "望远镜"
+    },
+    {
+      "id": "module.green.022",
+      "kind": "module",
+      "quality": "green",
+      "key": "美味风蛇",
+      "slot": "support",
+      "names": {
+        "terran": "诱饵罐",
+        "zerg": "营养囊",
+        "protoss": "诱导匣"
+      },
+      "source": "docs/project/STARSHIP_GREEN_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "美味风蛇"
+    },
+    {
+      "id": "module.blue.023",
+      "kind": "module",
+      "quality": "blue",
+      "key": "农民协作",
+      "slot": "collection",
+      "names": {
+        "terran": "SCV自动勤务主机",
+        "zerg": "工蜂增殖母瘤",
+        "protoss": "探机自动构筑矩阵"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "农民协作"
+    },
+    {
+      "id": "module.blue.024",
+      "kind": "module",
+      "quality": "blue",
+      "key": "战地拾取",
+      "slot": "collection",
+      "names": {
+        "terran": "战利品回收扫描仪",
+        "zerg": "战利品嗅探母腺",
+        "protoss": "战利品牵引阵列"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "战地拾取"
+    },
+    {
+      "id": "module.blue.025",
+      "kind": "module",
+      "quality": "blue",
+      "key": "救援增员",
+      "slot": "collection",
+      "names": {
+        "terran": "双席应急救援信标",
+        "zerg": "双生应急救援囊",
+        "protoss": "双重应急回收晶标"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "救援增员"
+    },
+    {
+      "id": "module.blue.026",
+      "kind": "module",
+      "quality": "blue",
+      "key": "暴击拾取",
+      "slot": "collection",
+      "names": {
+        "terran": "幸运回收钻头",
+        "zerg": "幸运拾取感应腺",
+        "protoss": "幸运回收谐振核"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "暴击拾取"
+    },
+    {
+      "id": "module.blue.027",
+      "kind": "module",
+      "quality": "blue",
+      "key": "稳定补给",
+      "slot": "operation",
+      "names": {
+        "terran": "战地补给调度核心",
+        "zerg": "战地供养母囊",
+        "protoss": "战地补给矩阵"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "稳定补给"
+    },
+    {
+      "id": "module.blue.028",
+      "kind": "module",
+      "quality": "blue",
+      "key": "商店机会",
+      "slot": "operation",
+      "names": {
+        "terran": "高级军需采购主机",
+        "zerg": "主巢优选供给节",
+        "protoss": "高级星港贸易晶契"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "商店机会"
+    },
+    {
+      "id": "module.blue.029",
+      "kind": "module",
+      "quality": "blue",
+      "key": "采购减价",
+      "slot": "operation",
+      "names": {
+        "terran": "精英军需折扣凭证",
+        "zerg": "精英配给印记",
+        "protoss": "精英采购晶契"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "采购减价"
+    },
+    {
+      "id": "module.blue.030",
+      "kind": "module",
+      "quality": "blue",
+      "key": "刷新减价",
+      "slot": "operation",
+      "names": {
+        "terran": "稳价情报检索仪",
+        "zerg": "稳价检索神经节",
+        "protoss": "稳价预知检索晶片"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "刷新减价"
+    },
+    {
+      "id": "module.blue.031",
+      "kind": "module",
+      "quality": "blue",
+      "key": "编队与技能",
+      "slot": "control",
+      "names": {
+        "terran": "战术协调主机",
+        "zerg": "群行协调中枢",
+        "protoss": "战术协调矩阵"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "编队与技能"
+    },
+    {
+      "id": "module.blue.032",
+      "kind": "module",
+      "quality": "blue",
+      "key": "移动射击",
+      "slot": "control",
+      "names": {
+        "terran": "运动火控处理器",
+        "zerg": "运动瞄准中枢",
+        "protoss": "动态瞄准矩阵"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "移动射击"
+    },
+    {
+      "id": "module.blue.033",
+      "kind": "module",
+      "quality": "blue",
+      "key": "分裂攻击",
+      "slot": "control",
+      "names": {
+        "terran": "分裂跳弹模组",
+        "zerg": "分叉弹射骨针腺",
+        "protoss": "分裂折射棱镜"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "分裂攻击"
+    },
+    {
+      "id": "module.blue.034",
+      "kind": "module",
+      "quality": "blue",
+      "key": "长刀",
+      "slot": "control",
+      "names": {
+        "terran": "顺劈作战长刃",
+        "zerg": "顺劈延伸骨镰",
+        "protoss": "顺劈灵能长刃"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "长刀"
+    },
+    {
+      "id": "module.blue.035",
+      "kind": "module",
+      "quality": "blue",
+      "key": "望远镜",
+      "slot": "control",
+      "names": {
+        "terran": "测距战术望远镜",
+        "zerg": "测距远视复眼",
+        "protoss": "测距远望棱镜"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "望远镜"
+    },
+    {
+      "id": "module.blue.036",
+      "kind": "module",
+      "quality": "blue",
+      "key": "范围压制",
+      "slot": "support",
+      "names": {
+        "terran": "重型压制轰击信标",
+        "zerg": "高浓度粘滞酸孢囊",
+        "protoss": "重型震荡光束晶标"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "范围压制"
+    },
+    {
+      "id": "module.blue.037",
+      "kind": "module",
+      "quality": "blue",
+      "key": "临时援兵",
+      "slot": "support",
+      "names": {
+        "terran": "快速空投信标",
+        "zerg": "快速战斗孵化囊",
+        "protoss": "快速援军折跃晶标"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "临时援兵"
+    },
+    {
+      "id": "module.blue.038",
+      "kind": "module",
+      "quality": "blue",
+      "key": "虫卵救援",
+      "slot": "support",
+      "names": {
+        "terran": "深层生命扫描仪",
+        "zerg": "深层异卵唤醒腺",
+        "protoss": "深层异卵解救晶标"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "虫卵救援"
+    },
+    {
+      "id": "module.blue.039",
+      "kind": "module",
+      "quality": "blue",
+      "key": "燃烧弹",
+      "slot": "support",
+      "names": {
+        "terran": "轨道喷焰仓",
+        "zerg": "灼热孢囊",
+        "protoss": "净化晶匣"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "燃烧弹"
+    },
+    {
+      "id": "module.blue.040",
+      "kind": "module",
+      "quality": "blue",
+      "key": "训象人",
+      "slot": "support",
+      "names": {
+        "terran": "驯兽信标",
+        "zerg": "巨兽呼唤腺",
+        "protoss": "巨兽引导晶"
+      },
+      "source": "docs/project/STARSHIP_BLUE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "训象人"
+    },
+    {
+      "id": "module.blue.041",
+      "kind": "module",
+      "quality": "blue",
+      "key": "借贷发展",
+      "slot": "collection",
+      "names": {
+        "terran": "军需透支契",
+        "zerg": "主巢预支印",
+        "protoss": "星港授信晶契"
+      },
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "借贷发展"
+    },
+    {
+      "id": "module.blue.042",
+      "kind": "module",
+      "quality": "blue",
+      "key": "无理用户",
+      "slot": "operation",
+      "names": {
+        "terran": "军需申诉终端",
+        "zerg": "强索供给节",
+        "protoss": "星港特许晶契"
+      },
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "无理用户"
+    },
+    {
+      "id": "module.blue.043",
+      "kind": "module",
+      "quality": "blue",
+      "key": "肾上腺素",
+      "slot": "control",
+      "names": {
+        "terran": "应激注射器",
+        "zerg": "狂暴激素腺",
+        "protoss": "战斗共鸣晶"
+      },
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "肾上腺素"
+    },
+    {
+      "id": "module.blue.044",
+      "kind": "module",
+      "quality": "blue",
+      "key": "空投士兵",
+      "slot": "support",
+      "names": {
+        "terran": "突击逃生舱",
+        "zerg": "突击孵化囊",
+        "protoss": "突击折跃舱"
+      },
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "空投士兵"
+    },
+    {
+      "id": "module.blue.045",
+      "kind": "module",
+      "quality": "blue",
+      "key": "建造承包",
+      "slot": "operation",
+      "names": {
+        "terran": "联建工程承包终端",
+        "zerg": "共筑繁育承包节",
+        "protoss": "联建工程晶契"
+      },
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "建造承包"
+    },
+    {
+      "id": "module.blue.046",
+      "kind": "module",
+      "quality": "blue",
+      "key": "精英学院",
+      "slot": "operation",
+      "names": {
+        "terran": "战地精英培训中枢",
+        "zerg": "战地精英孵育中枢",
+        "protoss": "战地圣堂训练矩阵"
+      },
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "精英学院"
+    },
+    {
+      "id": "module.blue.047",
+      "kind": "module",
+      "quality": "blue",
+      "key": "快速部署",
+      "slot": "control",
+      "names": {
+        "terran": "快速形态部署器",
+        "zerg": "快速埋出神经节",
+        "protoss": "快速召回准备晶核"
+      },
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "快速部署"
+    },
+    {
+      "id": "module.purple.048",
+      "kind": "module",
+      "quality": "purple",
+      "key": "农民协作",
+      "slot": "collection",
+      "names": {
+        "terran": "自动扩建总控机",
+        "zerg": "主巢繁育建造瘤",
+        "protoss": "探机扩建总矩阵"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "农民协作"
+    },
+    {
+      "id": "module.purple.049",
+      "kind": "module",
+      "quality": "purple",
+      "key": "战地拾取",
+      "slot": "collection",
+      "names": {
+        "terran": "战利品复刻扫描仪",
+        "zerg": "战利品复生母腺",
+        "protoss": "战利品映射阵列"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "战地拾取"
+    },
+    {
+      "id": "module.purple.050",
+      "kind": "module",
+      "quality": "purple",
+      "key": "救援增员",
+      "slot": "collection",
+      "names": {
+        "terran": "武装救援总信标",
+        "zerg": "武装救援母囊",
+        "protoss": "武装回收晶标"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "救援增员"
+    },
+    {
+      "id": "module.purple.051",
+      "kind": "module",
+      "quality": "purple",
+      "key": "暴击拾取",
+      "slot": "collection",
+      "names": {
+        "terran": "丰收连锁回收钻",
+        "zerg": "丰收共生感应腺",
+        "protoss": "丰收连锁谐振核"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "暴击拾取"
+    },
+    {
+      "id": "module.purple.052",
+      "kind": "module",
+      "quality": "purple",
+      "key": "借贷发展",
+      "slot": "collection",
+      "names": {
+        "terran": "战略军需透支契",
+        "zerg": "主巢战争预支印",
+        "protoss": "星港战略授信契"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "借贷发展"
+    },
+    {
+      "id": "module.purple.053",
+      "kind": "module",
+      "quality": "purple",
+      "key": "稳定补给",
+      "slot": "operation",
+      "names": {
+        "terran": "战略补给复投核心",
+        "zerg": "战争供养复殖囊",
+        "protoss": "战略补给增殖矩阵"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "稳定补给"
+    },
+    {
+      "id": "module.purple.054",
+      "kind": "module",
+      "quality": "purple",
+      "key": "商店机会",
+      "slot": "operation",
+      "names": {
+        "terran": "双玺采购契",
+        "zerg": "双生供给节",
+        "protoss": "双辉贸易晶契"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "商店机会"
+    },
+    {
+      "id": "module.purple.055",
+      "kind": "module",
+      "quality": "purple",
+      "key": "采购减价",
+      "slot": "operation",
+      "names": {
+        "terran": "王牌军需印",
+        "zerg": "优猎配给印",
+        "protoss": "星港特许晶契"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "采购减价"
+    },
+    {
+      "id": "module.purple.056",
+      "kind": "module",
+      "quality": "purple",
+      "key": "刷新减价",
+      "slot": "operation",
+      "names": {
+        "terran": "深网检索仪",
+        "zerg": "先觉神经节",
+        "protoss": "先知检索晶"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "刷新减价"
+    },
+    {
+      "id": "module.purple.057",
+      "kind": "module",
+      "quality": "purple",
+      "key": "无理用户",
+      "slot": "operation",
+      "names": {
+        "terran": "军需特许令",
+        "zerg": "强索供给节",
+        "protoss": "首席特许晶契"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "无理用户"
+    },
+    {
+      "id": "module.purple.058",
+      "kind": "module",
+      "quality": "purple",
+      "key": "建造承包",
+      "slot": "operation",
+      "names": {
+        "terran": "科技联建承包终端",
+        "zerg": "科技共筑繁育节",
+        "protoss": "科技联建工程晶契"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "建造承包"
+    },
+    {
+      "id": "module.purple.059",
+      "kind": "module",
+      "quality": "purple",
+      "key": "精英学院",
+      "slot": "operation",
+      "names": {
+        "terran": "王牌精英培养中枢",
+        "zerg": "王牌精英孵育中枢",
+        "protoss": "王牌圣堂培养矩阵"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "精英学院"
+    },
+    {
+      "id": "module.purple.060",
+      "kind": "module",
+      "quality": "purple",
+      "key": "编队与技能",
+      "slot": "control",
+      "names": {
+        "terran": "连锁战术协调中枢",
+        "zerg": "连锁群行协调中枢",
+        "protoss": "连锁战术协调矩阵"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "编队与技能"
+    },
+    {
+      "id": "module.purple.061",
+      "kind": "module",
+      "quality": "purple",
+      "key": "移动射击",
+      "slot": "control",
+      "names": {
+        "terran": "扫射火控中枢",
+        "zerg": "扫射瞄准神经核",
+        "protoss": "扫射动态瞄准矩阵"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "移动射击"
+    },
+    {
+      "id": "module.purple.062",
+      "kind": "module",
+      "quality": "purple",
+      "key": "分裂攻击",
+      "slot": "control",
+      "names": {
+        "terran": "连锁跳弹总成",
+        "zerg": "连锁弹射骨针腺",
+        "protoss": "连锁折射棱镜"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "分裂攻击"
+    },
+    {
+      "id": "module.purple.063",
+      "kind": "module",
+      "quality": "purple",
+      "key": "长刀",
+      "slot": "control",
+      "names": {
+        "terran": "旋风作战长刃",
+        "zerg": "旋风延伸骨镰",
+        "protoss": "旋风灵能长刃"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "长刀"
+    },
+    {
+      "id": "module.purple.064",
+      "kind": "module",
+      "quality": "purple",
+      "key": "望远镜",
+      "slot": "control",
+      "names": {
+        "terran": "贯穿战术望远镜",
+        "zerg": "贯穿远视复眼",
+        "protoss": "贯穿远望棱镜"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "望远镜"
+    },
+    {
+      "id": "module.purple.065",
+      "kind": "module",
+      "quality": "purple",
+      "key": "肾上腺素",
+      "slot": "control",
+      "names": {
+        "terran": "濒死狂暴注射器",
+        "zerg": "濒死狂暴激素腺",
+        "protoss": "濒死狂暴共鸣晶"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "肾上腺素"
+    },
+    {
+      "id": "module.purple.066",
+      "kind": "module",
+      "quality": "purple",
+      "key": "范围压制",
+      "slot": "support",
+      "names": {
+        "terran": "雷霆轰击标",
+        "zerg": "暴雨酸孢囊",
+        "protoss": "天罚光束晶标"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "范围压制"
+    },
+    {
+      "id": "module.purple.067",
+      "kind": "module",
+      "quality": "purple",
+      "key": "临时援兵",
+      "slot": "support",
+      "names": {
+        "terran": "精锐空投信标",
+        "zerg": "精锐战斗孵化囊",
+        "protoss": "精锐援军折跃晶标"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "临时援兵"
+    },
+    {
+      "id": "module.purple.068",
+      "kind": "module",
+      "quality": "purple",
+      "key": "虫卵救援",
+      "slot": "support",
+      "names": {
+        "terran": "策反生命扫描仪",
+        "zerg": "策反异卵唤醒腺",
+        "protoss": "策反异卵解救晶标"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "虫卵救援"
+    },
+    {
+      "id": "module.purple.069",
+      "kind": "module",
+      "quality": "purple",
+      "key": "燃烧弹",
+      "slot": "support",
+      "names": {
+        "terran": "纵列喷焰轨道仓",
+        "zerg": "纵列灼热孢囊",
+        "protoss": "纵列净化晶匣"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "燃烧弹"
+    },
+    {
+      "id": "module.purple.070",
+      "kind": "module",
+      "quality": "purple",
+      "key": "训象人",
+      "slot": "support",
+      "names": {
+        "terran": "巨兽驯王印",
+        "zerg": "巨兽呼唤母腺",
+        "protoss": "御兽引导晶"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "训象人"
+    },
+    {
+      "id": "module.purple.071",
+      "kind": "module",
+      "quality": "purple",
+      "key": "空投士兵",
+      "slot": "support",
+      "names": {
+        "terran": "空降突击逃生舱",
+        "zerg": "空降突击孵化囊",
+        "protoss": "空降突击折跃舱"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "空投士兵"
+    },
+    {
+      "id": "module.purple.072",
+      "kind": "module",
+      "quality": "purple",
+      "key": "联合支援",
+      "slot": "support",
+      "names": {
+        "terran": "铁翼救援印",
+        "zerg": "胆汁哺育母囊",
+        "protoss": "圣卫援护晶标"
+      },
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "联合支援"
+    },
+    {
+      "id": "module.blue.073",
+      "kind": "module",
+      "quality": "blue",
+      "key": "核能反应堆",
+      "slot": "support",
+      "names": {
+        "terran": "战术装填炉",
+        "zerg": "裂变孢能囊",
+        "protoss": "星核装填矩阵"
+      },
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "核能反应堆"
+    },
+    {
+      "id": "module.blue.074",
+      "kind": "module",
+      "quality": "blue",
+      "key": "虫群",
+      "slot": "support",
+      "names": {
+        "terran": "兽潮空投信标",
+        "zerg": "兽潮呼唤腺",
+        "protoss": "兽潮引导晶标"
+      },
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "虫群"
+    },
+    {
+      "id": "module.blue.075",
+      "kind": "module",
+      "quality": "blue",
+      "key": "康斯坦威",
+      "slot": "control",
+      "names": {
+        "terran": "神经超频接口",
+        "zerg": "暴走突触腺",
+        "protoss": "超限灵能枢纽"
+      },
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "pollution": "optional",
+      "pending": true,
+      "alias": "康斯坦威"
+    },
+    {
+      "id": "module.purple.076",
+      "kind": "module",
+      "quality": "purple",
+      "key": "核能反应堆",
+      "slot": "support",
+      "names": {
+        "terran": "战略装填炉",
+        "zerg": "主巢裂变母囊",
+        "protoss": "恒星装填矩阵"
+      },
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "核能反应堆"
+    },
+    {
+      "id": "module.purple.077",
+      "kind": "module",
+      "quality": "purple",
+      "key": "虫灾",
+      "slot": "support",
+      "names": {
+        "terran": "巨兽空降信标",
+        "zerg": "巨兽灾变母腺",
+        "protoss": "巨兽裂空晶标"
+      },
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "pollution": "required",
+      "pending": false,
+      "alias": "虫灾"
+    },
+    {
+      "id": "module.purple.078",
+      "kind": "module",
+      "quality": "purple",
+      "key": "康斯坦威强化班",
+      "slot": "control",
+      "names": {
+        "terran": "极限神经主机",
+        "zerg": "暴君突触母腺",
+        "protoss": "超限圣堂矩阵"
+      },
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "pollution": "required",
+      "pending": false,
+      "alias": "康斯坦威强化班"
+    },
+    {
+      "id": "module.purple.079",
+      "kind": "module",
+      "quality": "purple",
+      "key": "时光回溯",
+      "slot": "control",
+      "names": {
+        "terran": "战线重构仪",
+        "zerg": "生命回溯结",
+        "protoss": "时序回溯晶核"
+      },
+      "source": "docs/project/STARSHIP_SPECIAL_ADDITIONS_20261014.md",
+      "pollution": "required",
+      "pending": false,
+      "alias": "时光回溯"
+    },
+    {
+      "id": "module.orange.080",
+      "kind": "module",
+      "quality": "orange",
+      "key": "星际悬赏令",
+      "slot": "collection",
+      "names": {
+        "terran": "猎王密令",
+        "zerg": "血猎王印",
+        "protoss": "裁决圣契"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "星际悬赏令"
+    },
+    {
+      "id": "module.orange.081",
+      "kind": "module",
+      "quality": "orange",
+      "key": "战争掠夺协议",
+      "slot": "collection",
+      "names": {
+        "terran": "征服者宝匣",
+        "zerg": "饕餮母囊",
+        "protoss": "征服圣契"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "战争掠夺协议"
+    },
+    {
+      "id": "module.orange.082",
+      "kind": "module",
+      "quality": "orange",
+      "key": "军备总动员",
+      "slot": "operation",
+      "names": {
+        "terran": "远征统帅印",
+        "zerg": "战争母巢核",
+        "protoss": "万军圣印"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "军备总动员"
+    },
+    {
+      "id": "module.orange.083",
+      "kind": "module",
+      "quality": "orange",
+      "key": "科技奇点",
+      "slot": "operation",
+      "names": {
+        "terran": "奇点演算核",
+        "zerg": "超限进化脑",
+        "protoss": "启示圣核"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "科技奇点"
+    },
+    {
+      "id": "module.orange.084",
+      "kind": "module",
+      "quality": "orange",
+      "key": "弱点接管",
+      "slot": "control",
+      "names": {
+        "terran": "死线解析镜",
+        "zerg": "死兆感知腺",
+        "protoss": "破命棱镜"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "弱点接管"
+    },
+    {
+      "id": "module.orange.085",
+      "kind": "module",
+      "quality": "orange",
+      "key": "战场主导权",
+      "slot": "control",
+      "names": {
+        "terran": "统御王座",
+        "zerg": "主宰神经王座",
+        "protoss": "群星圣座"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "战场主导权"
+    },
+    {
+      "id": "module.orange.086",
+      "kind": "module",
+      "quality": "orange",
+      "key": "大和扫射信标",
+      "slot": "support",
+      "names": {
+        "terran": "歼星火控印",
+        "zerg": "天灾巨炮腺",
+        "protoss": "陨星圣标"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "大和扫射信标"
+    },
+    {
+      "id": "module.orange.087",
+      "kind": "module",
+      "quality": "orange",
+      "key": "巨兽突入信标",
+      "slot": "support",
+      "names": {
+        "terran": "巨兽降临印",
+        "zerg": "洪荒呼唤核",
+        "protoss": "巨兽降世圣标"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "optional",
+      "pending": false,
+      "alias": "巨兽突入信标"
+    },
+    {
+      "id": "module.orange.088",
+      "kind": "module",
+      "quality": "orange",
+      "key": "吞星之口",
+      "slot": "collection",
+      "names": {
+        "terran": "黑域回收引擎",
+        "zerg": "吞星巨噬腔",
+        "protoss": "黑域摄取圣核"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "required",
+      "pending": false,
+      "alias": "吞星之口"
+    },
+    {
+      "id": "module.orange.089",
+      "kind": "module",
+      "quality": "orange",
+      "key": "无限编制",
+      "slot": "operation",
+      "names": {
+        "terran": "无界军需主机",
+        "zerg": "无界繁育母巢",
+        "protoss": "无界折跃矩阵"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "required",
+      "pending": false,
+      "alias": "无限编制"
+    },
+    {
+      "id": "module.orange.090",
+      "kind": "module",
+      "quality": "orange",
+      "key": "相位继生",
+      "slot": "control",
+      "names": {
+        "terran": "双生回返装置",
+        "zerg": "双生复原母节",
+        "protoss": "双生归返圣核"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "required",
+      "pending": false,
+      "alias": "相位继生"
+    },
+    {
+      "id": "module.orange.091",
+      "kind": "module",
+      "quality": "orange",
+      "key": "终焉方舟",
+      "slot": "support",
+      "names": {
+        "terran": "霸权巨舰信标",
+        "zerg": "噬空巨巢呼唤核",
+        "protoss": "天穹航母圣标"
+      },
+      "source": "docs/project/STARSHIP_ORANGE_USER_REVISION_R3_20261014.md",
+      "pollution": "required",
+      "pending": false,
+      "alias": "终焉方舟"
+    },
+    {
+      "id": "special.blue.01",
+      "kind": "attribute_special",
+      "quality": "blue",
+      "key": "末日火炮",
+      "names": {
+        "terran": "终焉炮膛",
+        "zerg": "毁灭孢腺",
+        "protoss": "终焉聚焦核"
+      },
+      "slots": [
+        "weapon_research",
+        "weapon_production",
+        "ammo_research",
+        "ammo_production"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md"
+    },
+    {
+      "id": "special.blue.02",
+      "kind": "attribute_special",
+      "quality": "blue",
+      "key": "不稳定膛线",
+      "names": {
+        "terran": "裂隙枪管",
+        "zerg": "畸变骨针",
+        "protoss": "失谐棱镜"
+      },
+      "slots": [
+        "weapon_research",
+        "weapon_production",
+        "ammo_research",
+        "ammo_production"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md"
+    },
+    {
+      "id": "special.blue.03",
+      "kind": "attribute_special",
+      "quality": "blue",
+      "key": "护盾反应装置",
+      "names": {
+        "terran": "应急发生器",
+        "zerg": "护障腺",
+        "protoss": "修复晶核"
+      },
+      "slots": [
+        "armor_research",
+        "armor_production"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md"
+    },
+    {
+      "id": "special.blue.04",
+      "kind": "attribute_special",
+      "quality": "blue",
+      "key": "战场调控装置",
+      "names": {
+        "terran": "集结信标",
+        "zerg": "集结神经节",
+        "protoss": "集结晶标"
+      },
+      "slots": [
+        "power_research",
+        "power_production"
+      ],
+      "source": "docs/project/STARSHIP_BLUE_EXPANSION_20261014.md"
+    },
+    {
+      "id": "special.blue.05",
+      "kind": "attribute_special",
+      "quality": "blue",
+      "key": "克制武器",
+      "names": {
+        "terran": "克制火控弹芯",
+        "zerg": "克制猎杀骨针",
+        "protoss": "克制相位晶核"
+      },
+      "slots": [
+        "weapon_research",
+        "weapon_production",
+        "ammo_research",
+        "ammo_production"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md"
+    },
+    {
+      "id": "special.purple.06",
+      "kind": "attribute_special",
+      "quality": "purple",
+      "key": "末日火炮",
+      "names": {
+        "terran": "集束终焉炮膛",
+        "zerg": "集束毁灭孢腺",
+        "protoss": "集束终焉聚焦核"
+      },
+      "slots": [
+        "weapon_research",
+        "weapon_production",
+        "ammo_research",
+        "ammo_production"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md"
+    },
+    {
+      "id": "special.purple.07",
+      "kind": "attribute_special",
+      "quality": "purple",
+      "key": "不稳定膛线",
+      "names": {
+        "terran": "连锁处决枪管",
+        "zerg": "连锁处决骨针",
+        "protoss": "连锁处决棱镜"
+      },
+      "slots": [
+        "weapon_research",
+        "weapon_production",
+        "ammo_research",
+        "ammo_production"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md"
+    },
+    {
+      "id": "special.purple.08",
+      "kind": "attribute_special",
+      "quality": "purple",
+      "key": "护盾反应装置",
+      "names": {
+        "terran": "战斗重启发生器",
+        "zerg": "战斗重启护障腺",
+        "protoss": "战斗重启修复晶核"
+      },
+      "slots": [
+        "armor_research",
+        "armor_production"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md"
+    },
+    {
+      "id": "special.purple.09",
+      "kind": "attribute_special",
+      "quality": "purple",
+      "key": "战场调控装置",
+      "names": {
+        "terran": "后卫接应信标",
+        "zerg": "后卫接应神经节",
+        "protoss": "后卫接应晶标"
+      },
+      "slots": [
+        "power_research",
+        "power_production"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md"
+    },
+    {
+      "id": "special.purple.10",
+      "kind": "attribute_special",
+      "quality": "purple",
+      "key": "双重打击",
+      "names": {
+        "terran": "双重击发总成",
+        "zerg": "双重猎杀骨针",
+        "protoss": "双重齐射棱镜"
+      },
+      "slots": [
+        "weapon_research",
+        "weapon_production",
+        "ammo_research",
+        "ammo_production"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md"
+    },
+    {
+      "id": "special.purple.11",
+      "kind": "attribute_special",
+      "quality": "purple",
+      "key": "克制武器",
+      "names": {
+        "terran": "极效克制火控弹芯",
+        "zerg": "极效克制猎杀骨针",
+        "protoss": "极效克制相位晶核"
+      },
+      "slots": [
+        "weapon_research",
+        "weapon_production",
+        "ammo_research",
+        "ammo_production"
+      ],
+      "source": "docs/project/STARSHIP_PURPLE_ITEMS_20261014.md"
+    }
+  ],
+  "heroThemes": {
+    "raynor": [
+      "自由战旗",
+      "自由远征",
+      "自由星火",
+      "破誓星火"
+    ],
+    "tychus": [
+      "铁汉枪火",
+      "铁汉狂潮",
+      "钢铁怒吼",
+      "暴烈怒吼"
+    ],
+    "nova": [
+      "幽影准星",
+      "幽影追猎",
+      "幽影裁决",
+      "暗蚀裁决"
+    ],
+    "swann": [
+      "工匠战备",
+      "工匠壁垒",
+      "熔炉守望",
+      "裂炉守望"
+    ],
+    "tosh": [
+      "幽魂密令",
+      "幽魂夜幕",
+      "幽魂禁域",
+      "噬魂禁域"
+    ],
+    "yamato_battlecruiser": [
+      "巨舰战旗",
+      "巨舰远征",
+      "天穹霸权",
+      "陨星霸权"
+    ],
+    "kerrigan": [
+      "刀锋意志",
+      "刀锋进化",
+      "刀锋王权",
+      "蚀心王权"
+    ],
+    "zagara": [
+      "虫潮意志",
+      "虫潮扩张",
+      "虫潮统御",
+      "裂巢统御"
+    ],
+    "dehaka": [
+      "原始猎意",
+      "原始蜕变",
+      "原始吞噬",
+      "无餍吞噬"
+    ],
+    "stukov": [
+      "感染战旗",
+      "感染蔓延",
+      "感染君临",
+      "腐蚀君临"
+    ],
+    "niadra": [
+      "寄生意志",
+      "寄生繁衍",
+      "寄生永续",
+      "黯巢永续"
+    ],
+    "hots_leviathan": [
+      "巨巢战旗",
+      "巨巢远征",
+      "巨巢天灾",
+      "噬空天灾"
+    ],
+    "artanis": [
+      "圣堂誓约",
+      "圣堂远征",
+      "圣堂曙光",
+      "黯星曙光"
+    ],
+    "zeratul": [
+      "虚空誓约",
+      "虚空追猎",
+      "虚空断界",
+      "裂隙断界"
+    ],
+    "alarak": [
+      "升格誓约",
+      "升格征服",
+      "升格王权",
+      "血誓王权"
+    ],
+    "fenix": [
+      "不屈誓约",
+      "不屈再临",
+      "不屈荣光",
+      "裂光荣光"
+    ],
+    "vorazun": [
+      "暗影誓约",
+      "暗影帷幕",
+      "暗影永夜",
+      "蚀月永夜"
+    ],
+    "purifier_flagship": [
+      "净化誓约",
+      "净化远征",
+      "净化天穹",
+      "湮光天穹"
+    ]
+  },
+  "namingRevision": "R3：短物件专名恢复套装、实际品质及英雄特色；紫装精锐器件，橙装传奇遗物；不拼接完整机制或套装名。",
+  "itemNamingVocabulary": {
+    "slotOrder": [
+      "weapon_research",
+      "weapon_production",
+      "ammo_research",
+      "ammo_production",
+      "armor_research",
+      "armor_production",
+      "power_research",
+      "power_production"
+    ],
+    "tierOrder": [
+      "green",
+      "independent_blue",
+      "purple_series_blue",
+      "purple",
+      "orange_series_purple",
+      "orange"
+    ],
+    "objects": {
+      "terran": [
+        [
+          "瞄具",
+          "枪机",
+          "弹芯",
+          "供弹匣",
+          "护甲",
+          "承力架",
+          "聚变芯",
+          "稳压器"
+        ],
+        [
+          "准镜",
+          "军械匣",
+          "穿甲芯",
+          "弹链仓",
+          "复合甲",
+          "外骨架",
+          "反应芯",
+          "调压阀"
+        ],
+        [
+          "测距镜",
+          "锻造匣",
+          "脉冲芯",
+          "装填仓",
+          "陶钢甲",
+          "承重架",
+          "裂变芯",
+          "平衡仪"
+        ],
+        [
+          "锁定镜",
+          "铸兵炉",
+          "等离子芯",
+          "弹幕机",
+          "新钢重甲",
+          "泰坦骨架",
+          "聚变熔炉",
+          "稳场中枢"
+        ],
+        [
+          "追猎镜",
+          "战备熔炉",
+          "裂甲弹芯",
+          "火力总成",
+          "要塞重甲",
+          "巨神骨架",
+          "恒星炉",
+          "稳场核心"
+        ],
+        [
+          "裁决之眼",
+          "兵工圣匣",
+          "歼星弹芯",
+          "无尽弹巢",
+          "不朽战铠",
+          "擎天骨架",
+          "恒星之心",
+          "永动中枢"
+        ]
+      ],
+      "zerg": [
+        [
+          "突触",
+          "骨刃",
+          "酸腺",
+          "孢囊",
+          "甲壳",
+          "骨板",
+          "代谢节",
+          "再生膜"
+        ],
+        [
+          "猎眼",
+          "刃骨",
+          "毒腺",
+          "针囊",
+          "鳞甲",
+          "棘骨",
+          "脉腺",
+          "愈合囊"
+        ],
+        [
+          "感知节",
+          "镰骨",
+          "蚀腺",
+          "孵囊",
+          "盾壳",
+          "脊骨",
+          "血核",
+          "共生膜"
+        ],
+        [
+          "先觉复眼",
+          "暴君骨镰",
+          "深蚀母腺",
+          "暴殖母囊",
+          "原始重甲",
+          "巨兽脊骨",
+          "裂变血核",
+          "不灭髓腺"
+        ],
+        [
+          "噬魂复眼",
+          "王兽骨镰",
+          "溶核母腺",
+          "万针母囊",
+          "君王重甲",
+          "洪荒脊骨",
+          "沸血母核",
+          "复生髓腺"
+        ],
+        [
+          "万巢之瞳",
+          "弑神骨镰",
+          "噬星毒核",
+          "无尽孵巢",
+          "永劫王甲",
+          "太古龙骨",
+          "始源之心",
+          "不死髓核"
+        ]
+      ],
+      "protoss": [
+        [
+          "晶片",
+          "锻炉",
+          "共振核",
+          "蓄能环",
+          "护盾片",
+          "晶骨",
+          "能量核",
+          "稳定环"
+        ],
+        [
+          "明镜",
+          "光刃匣",
+          "聚焦晶",
+          "光子匣",
+          "灵盾",
+          "晶架",
+          "灵能核",
+          "相位环"
+        ],
+        [
+          "观测晶",
+          "织刃炉",
+          "谐振晶",
+          "聚光匣",
+          "护障晶",
+          "承光架",
+          "辉光核",
+          "稳相仪"
+        ],
+        [
+          "先知棱镜",
+          "圣堂锻炉",
+          "裂空晶核",
+          "永续光匣",
+          "星卫圣盾",
+          "泰坦构架",
+          "太阳熔核",
+          "相位圣环"
+        ],
+        [
+          "天启棱镜",
+          "圣辉锻炉",
+          "裂界晶核",
+          "星芒光匣",
+          "星誓圣盾",
+          "苍穹构架",
+          "星冕熔核",
+          "时序圣环"
+        ],
+        [
+          "寰宇之瞳",
+          "创世熔炉",
+          "断界圣晶",
+          "无尽星匣",
+          "永恒圣盾",
+          "苍穹圣骨",
+          "创生之心",
+          "永劫星环"
+        ]
+      ]
+    },
+    "familyMotifs": {
+      "训练有素": {
+        "terran": "战鹰",
+        "zerg": "群忆",
+        "protoss": "初誓"
+      },
+      "训练有素进阶": {
+        "terran": "尖兵",
+        "zerg": "锐爪",
+        "protoss": "砺光"
+      },
+      "团队协作": {
+        "terran": "联阵",
+        "zerg": "同巢",
+        "protoss": "协律"
+      },
+      "团队协作进阶": {
+        "terran": "合锋",
+        "zerg": "连巢",
+        "protoss": "合鸣"
+      },
+      "有陷阱": {
+        "terran": "猎网",
+        "zerg": "伏刺",
+        "protoss": "缚光"
+      },
+      "狗哨": {
+        "terran": "追踪",
+        "zerg": "寻血",
+        "protoss": "引路"
+      },
+      "最佳选择": {
+        "terran": "先机",
+        "zerg": "预感",
+        "protoss": "先见"
+      },
+      "最佳选择进阶": {
+        "terran": "谋略",
+        "zerg": "灵嗅",
+        "protoss": "明识"
+      },
+      "特殊来电": {
+        "terran": "密讯",
+        "zerg": "遥唤",
+        "protoss": "星语"
+      },
+      "我是谁": {
+        "terran": "异客",
+        "zerg": "异生",
+        "protoss": "异旅"
+      },
+      "蟑螂拍": {
+        "terran": "破坏",
+        "zerg": "腐牙",
+        "protoss": "蚀光"
+      },
+      "有地堡": {
+        "terran": "堡垒",
+        "zerg": "巢卫",
+        "protoss": "守望"
+      },
+      "猎蜂人": {
+        "terran": "猎蜂",
+        "zerg": "噬翼",
+        "protoss": "逐翼"
+      },
+      "赏金猎人": {
+        "terran": "猎首",
+        "zerg": "血猎",
+        "protoss": "裁赏"
+      },
+      "火炮过载": {
+        "terran": "殉火",
+        "zerg": "爆蚀",
+        "protoss": "烬耀"
+      },
+      "坚守阵地": {
+        "terran": "铁线",
+        "zerg": "守巢",
+        "protoss": "镇域"
+      },
+      "训犬大师": {
+        "terran": "驯兽",
+        "zerg": "群牙",
+        "protoss": "御兽"
+      },
+      "宝可梦捕获": {
+        "terran": "缚兽",
+        "zerg": "共生",
+        "protoss": "驭灵"
+      },
+      "幻影部队": {
+        "terran": "幽影",
+        "zerg": "拟态",
+        "protoss": "幻光"
+      },
+      "呼叫舰队": {
+        "terran": "天航",
+        "zerg": "飞巢",
+        "protoss": "星航"
+      },
+      "灼烧土地": {
+        "terran": "焦土",
+        "zerg": "灼髓",
+        "protoss": "焚星"
+      },
+      "部队": {
+        "terran": "远征",
+        "zerg": "繁巢",
+        "protoss": "星征"
+      },
+      "军衔": {
+        "terran": "勋章",
+        "zerg": "传承",
+        "protoss": "誓约"
+      },
+      "士兵": {
+        "terran": "百战",
+        "zerg": "古血",
+        "protoss": "承誓"
+      },
+      "精英": {
+        "terran": "王牌",
+        "zerg": "冠群",
+        "protoss": "尊荣"
+      },
+      "生存者": {
+        "terran": "余烬",
+        "zerg": "顽生",
+        "protoss": "长明"
+      },
+      "破阵": {
+        "terran": "破锋",
+        "zerg": "裂爪",
+        "protoss": "破晓"
+      },
+      "铁卫": {
+        "terran": "铁幕",
+        "zerg": "坚壳",
+        "protoss": "镇光"
+      },
+      "轻装": {
+        "terran": "疾风",
+        "zerg": "迅影",
+        "protoss": "流光"
+      },
+      "精准": {
+        "terran": "鹰隼",
+        "zerg": "锐目",
+        "protoss": "洞明"
+      },
+      "坚壁": {
+        "terran": "坚城",
+        "zerg": "岩壳",
+        "protoss": "磐星"
+      },
+      "持续作战": {
+        "terran": "长征",
+        "zerg": "长生",
+        "protoss": "长耀"
+      },
+      "强化者破军": {
+        "terran": "裂军",
+        "zerg": "噬军",
+        "protoss": "陨军"
+      },
+      "强化者壁垒": {
+        "terran": "绝壁",
+        "zerg": "山脊",
+        "protoss": "天壁"
+      },
+      "强化者疾行": {
+        "terran": "迅雷",
+        "zerg": "疾掠",
+        "protoss": "瞬光"
+      },
+      "冒险者": {
+        "terran": "边疆",
+        "zerg": "荒野",
+        "protoss": "寻星"
+      },
+      "净化天空": {
+        "terran": "封天",
+        "zerg": "噬空",
+        "protoss": "净空"
+      },
+      "失落的神族": {
+        "terran": "遗星",
+        "zerg": "异鸣",
+        "protoss": "遗誓"
+      },
+      "让火焰净化一切": {
+        "terran": "焚尽",
+        "zerg": "烬潮",
+        "protoss": "焚世"
+      }
+    },
+    "heroMotifs": {
+      "raynor": [
+        "游骑",
+        "星火",
+        "裂誓"
+      ],
+      "tychus": [
+        "铁汉",
+        "怒吼",
+        "暴虐"
+      ],
+      "nova": [
+        "幽灵",
+        "裁决",
+        "暗蚀"
+      ],
+      "swann": [
+        "精工",
+        "熔炉",
+        "裂炉"
+      ],
+      "tosh": [
+        "幽魂",
+        "禁域",
+        "噬魂"
+      ],
+      "yamato_battlecruiser": [
+        "巨舰",
+        "天穹",
+        "陨星"
+      ],
+      "kerrigan": [
+        "刀锋",
+        "女皇",
+        "蚀心"
+      ],
+      "zagara": [
+        "虫潮",
+        "统御",
+        "裂巢"
+      ],
+      "dehaka": [
+        "原始",
+        "吞天",
+        "无餍"
+      ],
+      "stukov": [
+        "感染",
+        "君临",
+        "腐王"
+      ],
+      "niadra": [
+        "寄生",
+        "万嗣",
+        "黯巢"
+      ],
+      "hots_leviathan": [
+        "巨巢",
+        "天灾",
+        "噬空"
+      ],
+      "artanis": [
+        "圣堂",
+        "曙光",
+        "黯星"
+      ],
+      "zeratul": [
+        "虚空",
+        "断界",
+        "裂隙"
+      ],
+      "alarak": [
+        "升格",
+        "王权",
+        "血誓"
+      ],
+      "fenix": [
+        "不屈",
+        "荣光",
+        "裂光"
+      ],
+      "vorazun": [
+        "暗影",
+        "永夜",
+        "蚀月"
+      ],
+      "purifier_flagship": [
+        "净世",
+        "天穹",
+        "湮光"
+      ]
+    }
+  }
+}

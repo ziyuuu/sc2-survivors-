@@ -1,0 +1,22 @@
+import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {build} from 'esbuild';
+const base='reports/local/v01-20261024',dir=base+'/dense-particle-candidate-r3',sha=b=>createHash('sha256').update(b).digest('hex');await fs.mkdir(dir,{recursive:false});
+const files=['src/render/effects/source/particles.ts','src/render/effects/source/timeline.ts'],changes=new Map(),rows=[];
+for(const file of files){const before=await fs.readFile(file,'utf8');let code=await fs.readFile(base+'/dense-particle-candidate-r2/'+path.basename(file),'utf8');const replace=(a,b)=>{assert.equal(code.split(a).length,2,a);code=code.replace(a,b);};
+ if(file.endsWith('/particles.ts')){
+  const start='type BirthEntry=',end='export function sourcePlacement';code=code.slice(0,code.indexOf(start))+before.slice(before.indexOf(start),before.indexOf(end))+code.slice(code.indexOf(end));
+  replace('sourcePhases,sourceSample','sourcePhases,sourceSample,particleLifetimeBound');
+  replace('phaseNow=sourcePhase(def,request.age,request.loop,request.seed,request.clip,phases),nowPlacement=sourcePlacement(def,request.placement,request.age);let nowBones:THREE.Matrix4[]|undefined;', 'phaseNow=sourcePhase(def,request.age,request.loop,request.seed,request.clip,phases);let nowPlacement:THREE.Matrix4|undefined,nowBones:THREE.Matrix4[]|undefined;');
+  replace('activeBirths(def,emitter,request.age,!!request.loop,request.seed,request.clip,phases)', 'activeBirths(def,emitter,request.age,!!request.loop,request.seed,request.clip,phases,decorationFraction>=1||decorationEmitters&&!decorationEmitters.has(index%1000)?particleLifetimeBound(def,emitter):Infinity)');
+  replace('parentLocal=nowPlacement.clone().multiply','parentLocal=(nowPlacement??=sourcePlacement(def,request.placement,request.age)).clone().multiply');
+ }else{
+  const lifetime=await fs.readFile(base+'/dense-lifetime-candidate/timeline.ts','utf8'),start=lifetime.indexOf('// This upper bound'),end=lifetime.indexOf('export function activeBirths(');assert.ok(start>0&&end>start);code=code.replace('export function activeBirths(',lifetime.slice(start,end)+'export function activeBirths(');
+  replace('phases=sourcePhases(def,age,loop,seed,preferred)):{born:number;ordinal:number;phase:SourcePhase}[]{', 'phases=sourcePhases(def,age,loop,seed,preferred),particleBound=Infinity):{born:number;ordinal:number;phase:SourcePhase}[]{');
+  replace('const maxLife=Math.max(.01,sourceLife(def)),active:', 'const maxLife=Math.max(.01,Math.min(sourceLife(def),particleBound)),active:');
+ }
+ const candidate=dir+'/'+path.basename(file);await fs.writeFile(candidate,code,{flag:'wx'});changes.set(file,code);rows.push({file,candidate,beforeSha256:sha(before),afterSha256:sha(code)});
+}
+await fs.writeFile(dir+'/manifest.json',JSON.stringify({scope:'Conservative particle lifetime search plus lazy placement, immutable sampled lifespans/shared phases and identical world-space parent reuse. Original string-key birth cache retained: the numeric bucket candidate had more end-sweep cost. Isolated candidate, no changes to particle admission, times, randomness, quality, gameplay or UI.',files:rows},null,2),{flag:'wx'});
+for(const variant of ['baseline','candidate'])await build({stdin:{contents:"export {sourceParticleQuads,SourceParticleCache} from './src/render/effects/source/particles';export {SOURCE_EFFECTS} from './src/render/effects/source/player';",resolveDir:process.cwd(),loader:'ts'},outfile:dir+'/'+variant+'.mjs',bundle:true,platform:'node',format:'esm',packages:'external',plugins:variant==='candidate'?[{name:'dense-particles-r3',setup(b){b.onLoad({filter:/source[\\/](particles|timeline)\.ts$/},args=>({contents:changes.get(path.relative(process.cwd(),args.path).replaceAll('\\','/')),loader:'ts',resolveDir:path.dirname(args.path)}));}}]:[]});
+await fs.writeFile('tools/verify-v01-dense-particle-r3.mjs',(await fs.readFile('tools/verify-v01-dense-lifetime-candidate.mjs','utf8')).replaceAll('dense-lifetime-candidate','dense-particle-candidate-r3'),{flag:'wx'});
+await fs.writeFile('tools/qa-v01-dense-particle-r3-replay.mjs',(await fs.readFile('tools/qa-v01-dense-lifetime-replay.mjs','utf8')).replaceAll('dense-lifetime-candidate/','dense-particle-candidate-r3/').replaceAll('dense-lifetime-browser-replay','dense-particle-r3-browser-replay'),{flag:'wx'});
+console.log(JSON.stringify(rows));

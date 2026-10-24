@@ -1,0 +1,1595 @@
+{
+  "date": "2026-10-21",
+  "task": "D02",
+  "status": "implemented-and-verified",
+  "decisionComplete": true,
+  "policy": {
+    "approvedByUser": true,
+    "default": "Existing desktop native/full/complete and device-specific default rules retained.",
+    "medium": "Explicit secondary particle masks at 0.30, existing low ordinary/hero/terran-elite decoration, simple unit ground shadows, real-time PCF and contact disabled, decorative displacement disabled, bloom strength .18/radius .25/input width and height .25.",
+    "preserved": "Native output resolution, complete animation, source lifecycle, primary projectiles/beam ribbons/projections and combat state; full option retained. No new offscreen stopping/culling.",
+    "saved": "Exact old medium/native/complete/balanced+balanced upgrades to low+low; independently customized settings retain their values.",
+    "scope": "Performance benefit measured for the combined optional preset, not individual-cut causal attribution or all-content 60FPS acceptance."
+  },
+  "productionChanges": [
+    "src/render/effects/source/detail.ts",
+    "src/render/effects/source/particles.ts",
+    "src/render/effects/source/player.ts",
+    "src/render/scene/scene-shadows.ts",
+    "src/render/scene/scene-contact.ts",
+    "src/render/scene/screen-refraction.ts",
+    "src/render/scene/battle-renderer.ts",
+    "src/ui/presentation/settings-screen.ts"
+  ],
+  "existingFiles": {
+    "total": 713,
+    "changed": 7,
+    "unchanged": 706,
+    "existingTestsChanged": 0,
+    "added": [
+      "src/render/effects/source/detail.ts",
+      "test/medium-combat-preset.test.ts"
+    ]
+  },
+  "productionInputs": 415,
+  "main": {
+    "url": "http://127.0.0.1:10832/main.js",
+    "bytes": 37366538,
+    "sha256": "32cbd69ccbfd7053afa1250f05afa097fdfb151204c0513dbba5f7350ea3d889"
+  },
+  "measurement": {
+    "gpu": [
+      {
+        "seconds": 3,
+        "time": 3.9,
+        "enemies": 1,
+        "pairs": [
+          {
+            "round": 0,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 5.808339999999999,
+            "mediumGpuMs": 3.70384,
+            "fullCpuMs": 19.149999991059303,
+            "mediumCpuMs": 14.250000014901161
+          },
+          {
+            "round": 1,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.0513650000000005,
+            "mediumGpuMs": 3.7451749999999997,
+            "fullCpuMs": 19.5,
+            "mediumCpuMs": 13.849999994039536
+          },
+          {
+            "round": 2,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.0652,
+            "mediumGpuMs": 3.73114,
+            "fullCpuMs": 19.05000001192093,
+            "mediumCpuMs": 17.049999997019768
+          },
+          {
+            "round": 3,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 5.8935200000000005,
+            "mediumGpuMs": 3.77055,
+            "fullCpuMs": 19.200000017881393,
+            "mediumCpuMs": 15.650000020861626
+          },
+          {
+            "round": 4,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 5.91844,
+            "mediumGpuMs": 3.6249849999999997,
+            "fullCpuMs": 19.450000002980232,
+            "mediumCpuMs": 13.150000005960464
+          },
+          {
+            "round": 5,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 5.973115,
+            "mediumGpuMs": 3.67003,
+            "fullCpuMs": 19.599999994039536,
+            "mediumCpuMs": 13
+          }
+        ],
+        "fullGpuMs": 5.9457775,
+        "mediumGpuMs": 3.7174899999999997,
+        "gpuReductionPercent": 37.476806019061435,
+        "mediumFaster": 6,
+        "fullCpuMs": 19.325000010430813,
+        "mediumCpuMs": 14.050000004470348,
+        "restoredStateExact": true
+      },
+      {
+        "seconds": 20,
+        "time": 21.15,
+        "enemies": 1,
+        "pairs": [
+          {
+            "round": 0,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.717180000000001,
+            "mediumGpuMs": 3.999695,
+            "fullCpuMs": 22.200000002980232,
+            "mediumCpuMs": 14.5
+          },
+          {
+            "round": 1,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.452535,
+            "mediumGpuMs": 3.870735,
+            "fullCpuMs": 20.200000002980232,
+            "mediumCpuMs": 15.200000002980232
+          },
+          {
+            "round": 2,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.498984999999999,
+            "mediumGpuMs": 3.9768800000000004,
+            "fullCpuMs": 20,
+            "mediumCpuMs": 16.30000001192093
+          },
+          {
+            "round": 3,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.624395,
+            "mediumGpuMs": 3.983775,
+            "fullCpuMs": 21.399999991059303,
+            "mediumCpuMs": 15.649999991059303
+          },
+          {
+            "round": 4,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.4308,
+            "mediumGpuMs": 3.9149599999999998,
+            "fullCpuMs": 20.149999991059303,
+            "mediumCpuMs": 14.899999991059303
+          },
+          {
+            "round": 5,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.5350850000000005,
+            "mediumGpuMs": 3.885865,
+            "fullCpuMs": 20.049999997019768,
+            "mediumCpuMs": 14.250000014901161
+          }
+        ],
+        "fullGpuMs": 6.517035,
+        "mediumGpuMs": 3.94592,
+        "gpuReductionPercent": 39.45222021977786,
+        "mediumFaster": 6,
+        "fullCpuMs": 20.174999997019768,
+        "mediumCpuMs": 15.049999997019768,
+        "restoredStateExact": true
+      },
+      {
+        "seconds": 32,
+        "time": 33.81666666666666,
+        "enemies": 3,
+        "pairs": [
+          {
+            "round": 0,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 6.419790000000001,
+            "mediumGpuMs": 3.7295949999999998,
+            "fullCpuMs": 20.399999991059303,
+            "mediumCpuMs": 12.349999994039536
+          },
+          {
+            "round": 1,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 5.8560300000000005,
+            "mediumGpuMs": 3.57619,
+            "fullCpuMs": 19,
+            "mediumCpuMs": 12.900000005960464
+          },
+          {
+            "round": 2,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 5.915265,
+            "mediumGpuMs": 3.577495,
+            "fullCpuMs": 18.849999994039536,
+            "mediumCpuMs": 12.299999982118607
+          },
+          {
+            "round": 3,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 5.770244999999999,
+            "mediumGpuMs": 3.621635,
+            "fullCpuMs": 19.950000002980232,
+            "mediumCpuMs": 12.650000005960464
+          },
+          {
+            "round": 4,
+            "order": [
+              "full",
+              "medium"
+            ],
+            "fullGpuMs": 5.7748,
+            "mediumGpuMs": 3.836575,
+            "fullCpuMs": 21.049999997019768,
+            "mediumCpuMs": 15.199999988079071
+          },
+          {
+            "round": 5,
+            "order": [
+              "medium",
+              "full"
+            ],
+            "fullGpuMs": 6.208515,
+            "mediumGpuMs": 3.5746599999999997,
+            "fullCpuMs": 22.100000008940697,
+            "mediumCpuMs": 12.649999991059303
+          }
+        ],
+        "fullGpuMs": 5.8856475,
+        "mediumGpuMs": 3.599565,
+        "gpuReductionPercent": 38.84164826384862,
+        "mediumFaster": 6,
+        "fullCpuMs": 20.174999997019768,
+        "mediumCpuMs": 12.649999998509884,
+        "restoredStateExact": true
+      }
+    ],
+    "liveGroups": [
+      {
+        "preset": "full",
+        "medianFrameIntervalMs": 21.100000008940697,
+        "meanFrameIntervalMs": 21.844186647668888,
+        "p95FrameIntervalMs": 27.25,
+        "medianFrameCpuMs": 20.649999991059303,
+        "medianRenderCpuMs": 19.49999998509884,
+        "steadyFrames": 9373
+      },
+      {
+        "preset": "medium",
+        "medianFrameIntervalMs": 18.099999994039536,
+        "meanFrameIntervalMs": 19.30476218857473,
+        "p95FrameIntervalMs": 23.200000002980232,
+        "medianFrameCpuMs": 17.649999991059303,
+        "medianRenderCpuMs": 16.649999991059303,
+        "steadyFrames": 10720
+      }
+    ],
+    "livePairs": [
+      {
+        "pair": 0,
+        "order": [
+          "full",
+          "medium"
+        ],
+        "stateExactAfterRunIdReceiptNormalization": true,
+        "checkpoints": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000,
+          3300
+        ],
+        "full": {
+          "pair": 0,
+          "preset": "full",
+          "wallMs": 55503,
+          "allFrames": 2473,
+          "steadyFrames": 2330,
+          "intervalMs": {
+            "n": 2330,
+            "median": 21.400000005960464,
+            "mean": 22.316351931327915,
+            "p95": 28.5,
+            "min": 17.099999994039536,
+            "max": 69.7999999821186
+          },
+          "frameCpuMs": {
+            "n": 2330,
+            "median": 20.900000005960464,
+            "mean": 21.75424892659351,
+            "p95": 27.599999994039536,
+            "min": 16.799999982118607,
+            "max": 67.59999999403954
+          },
+          "renderCpuMs": {
+            "n": 2330,
+            "median": 19.69999998807907,
+            "mean": 20.36626609410339,
+            "p95": 25.399999976158142,
+            "min": 16,
+            "max": 47.20000001788139
+          },
+          "over16_667": 1,
+          "over33_333": 0.013304721030042918,
+          "peakBacklog": 0.016633333333322776,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medium": {
+          "pair": 0,
+          "preset": "medium",
+          "wallMs": 55432,
+          "allFrames": 2758,
+          "steadyFrames": 2582,
+          "intervalMs": {
+            "n": 2582,
+            "median": 18.299999982118607,
+            "mean": 20.143958171966645,
+            "p95": 24.200000017881393,
+            "min": 13.5,
+            "max": 782.1999999880791
+          },
+          "frameCpuMs": {
+            "n": 2582,
+            "median": 17.799999982118607,
+            "mean": 19.331099922346755,
+            "p95": 23.19999998807907,
+            "min": 13,
+            "max": 781.3999999761581
+          },
+          "renderCpuMs": {
+            "n": 2582,
+            "median": 16.69999998807907,
+            "mean": 18.03508907818545,
+            "p95": 21.200000017881393,
+            "min": 10.300000011920929,
+            "max": 780.5999999940395
+          },
+          "over16_667": 0.8404337722695585,
+          "over33_333": 0.008907823392718823,
+          "peakBacklog": 0.650033333333345,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medianIntervalReductionPercent": 14.48598141578704,
+        "meanIntervalReductionPercent": 9.734538001758445
+      },
+      {
+        "pair": 1,
+        "order": [
+          "medium",
+          "full"
+        ],
+        "stateExactAfterRunIdReceiptNormalization": true,
+        "checkpoints": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000,
+          3300
+        ],
+        "full": {
+          "pair": 1,
+          "preset": "full",
+          "wallMs": 55379,
+          "allFrames": 2581,
+          "steadyFrames": 2434,
+          "intervalMs": {
+            "n": 2434,
+            "median": 20.799999982118607,
+            "mean": 21.37202136400986,
+            "p95": 26,
+            "min": 16.599999994039536,
+            "max": 55
+          },
+          "frameCpuMs": {
+            "n": 2434,
+            "median": 20.30000001192093,
+            "mean": 20.81376335274615,
+            "p95": 25.299999982118607,
+            "min": 16.19999998807907,
+            "max": 53.69999998807907
+          },
+          "renderCpuMs": {
+            "n": 2434,
+            "median": 19.19999998807907,
+            "mean": 19.676910435935465,
+            "p95": 23.69999998807907,
+            "min": 15.600000023841858,
+            "max": 52.599999994039536
+          },
+          "over16_667": 0.9995891536565324,
+          "over33_333": 0.0049301561216105174,
+          "peakBacklog": 0.016633333333323164,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medium": {
+          "pair": 1,
+          "preset": "medium",
+          "wallMs": 55475,
+          "allFrames": 3029,
+          "steadyFrames": 2849,
+          "intervalMs": {
+            "n": 2849,
+            "median": 17.599999994039536,
+            "mean": 18.252018252018253,
+            "p95": 22.19999998807907,
+            "min": 13.699999988079071,
+            "max": 70.5
+          },
+          "frameCpuMs": {
+            "n": 2849,
+            "median": 17.19999998807907,
+            "mean": 17.665040364900193,
+            "p95": 21.299999982118607,
+            "min": 13.100000023841858,
+            "max": 69.19999998807907
+          },
+          "renderCpuMs": {
+            "n": 2849,
+            "median": 16.200000017881393,
+            "mean": 16.48968058907178,
+            "p95": 19.599999994039536,
+            "min": 12.099999994039536,
+            "max": 35.099999994039536
+          },
+          "over16_667": 0.7665847665847666,
+          "over33_333": 0.002808002808002808,
+          "peakBacklog": 0.016633333333380563,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medianIntervalReductionPercent": 15.384615340529109,
+        "meanIntervalReductionPercent": 14.598540113971822
+      },
+      {
+        "pair": 2,
+        "order": [
+          "full",
+          "medium"
+        ],
+        "stateExactAfterRunIdReceiptNormalization": true,
+        "checkpoints": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000,
+          3300
+        ],
+        "full": {
+          "pair": 2,
+          "preset": "full",
+          "wallMs": 55476,
+          "allFrames": 2595,
+          "steadyFrames": 2439,
+          "intervalMs": {
+            "n": 2439,
+            "median": 20.80000001192093,
+            "mean": 21.33091430914065,
+            "p95": 25.599999994039536,
+            "min": 16.5,
+            "max": 63.19999998807907
+          },
+          "frameCpuMs": {
+            "n": 2439,
+            "median": 20.399999976158142,
+            "mean": 20.782533825458,
+            "p95": 24.600000023841858,
+            "min": 16,
+            "max": 61.400000005960464
+          },
+          "renderCpuMs": {
+            "n": 2439,
+            "median": 19.299999982118607,
+            "mean": 19.689585895531486,
+            "p95": 22.80000001192093,
+            "min": 15.900000005960464,
+            "max": 60.5
+          },
+          "over16_667": 0.999589995899959,
+          "over33_333": 0.003280032800328003,
+          "peakBacklog": 0.016633333333323033,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medium": {
+          "pair": 2,
+          "preset": "medium",
+          "wallMs": 55451,
+          "allFrames": 2988,
+          "steadyFrames": 2817,
+          "intervalMs": {
+            "n": 2817,
+            "median": 17.900000005960464,
+            "mean": 18.465566205182817,
+            "p95": 22,
+            "min": 14.099999994039536,
+            "max": 54.19999998807907
+          },
+          "frameCpuMs": {
+            "n": 2817,
+            "median": 17.5,
+            "mean": 17.914660986905663,
+            "p95": 21.099999994039536,
+            "min": 13.699999988079071,
+            "max": 52.79999998211861
+          },
+          "renderCpuMs": {
+            "n": 2817,
+            "median": 16.599999994039536,
+            "mean": 16.812495562373893,
+            "p95": 19.5,
+            "min": 12.399999976158142,
+            "max": 52.20000001788139
+          },
+          "over16_667": 0.8629747958821441,
+          "over33_333": 0.001774937877174299,
+          "peakBacklog": 0.016633333333322457,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0.016666666666666666,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medianIntervalReductionPercent": 13.942307712973134,
+        "meanIntervalReductionPercent": 13.43284241093211
+      },
+      {
+        "pair": 3,
+        "order": [
+          "medium",
+          "full"
+        ],
+        "stateExactAfterRunIdReceiptNormalization": true,
+        "checkpoints": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000,
+          3300
+        ],
+        "full": {
+          "pair": 3,
+          "preset": "full",
+          "wallMs": 55347,
+          "allFrames": 2309,
+          "steadyFrames": 2170,
+          "intervalMs": {
+            "n": 2170,
+            "median": 23.25,
+            "mean": 23.96921658986999,
+            "p95": 30.200000017881393,
+            "min": 17,
+            "max": 71.7999999821186
+          },
+          "frameCpuMs": {
+            "n": 2170,
+            "median": 22.69999998807907,
+            "mean": 23.358156682214428,
+            "p95": 29.19999998807907,
+            "min": 16.69999998807907,
+            "max": 70.39999997615814
+          },
+          "renderCpuMs": {
+            "n": 2170,
+            "median": 21.299999982118607,
+            "mean": 21.94691244252541,
+            "p95": 26.80000001192093,
+            "min": 15.699999988079071,
+            "max": 68.69999998807907
+          },
+          "over16_667": 1,
+          "over33_333": 0.012903225806451613,
+          "peakBacklog": 0.016633333333323123,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0.016666666666666666,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medium": {
+          "pair": 3,
+          "preset": "medium",
+          "wallMs": 55480,
+          "allFrames": 2647,
+          "steadyFrames": 2472,
+          "intervalMs": {
+            "n": 2472,
+            "median": 19.099999994039536,
+            "mean": 21.04696601942712,
+            "p95": 25.099999994039536,
+            "min": 13,
+            "max": 933.5
+          },
+          "frameCpuMs": {
+            "n": 2472,
+            "median": 18.600000008940697,
+            "mean": 20.191059870579096,
+            "p95": 23.69999998807907,
+            "min": 12.5,
+            "max": 932.5999999940395
+          },
+          "renderCpuMs": {
+            "n": 2472,
+            "median": 17.299999982118607,
+            "mean": 18.670954692903845,
+            "p95": 21.30000001192093,
+            "min": 10.400000005960464,
+            "max": 931.1999999880791
+          },
+          "over16_667": 0.9538834951456311,
+          "over33_333": 0.00889967637540453,
+          "peakBacklog": 0.799966666666655,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0.016666666666666666,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medianIntervalReductionPercent": 17.849462391227807,
+        "meanIntervalReductionPercent": 12.191681607474349
+      }
+    ],
+    "totalNativeRuns": 8,
+    "totalSimulatedSeconds": 440,
+    "normalization": "Whole serialized runId, notice and noticeUntil are omitted by the native-frame probe; stageReceipt retains identical stage suffix and only its run identity is normalized for independent new runs. No other gameplay fields normalized.",
+    "partialRunScope": "R3 is still marked failed: its sixth complete measurement was saved before an overly strict zero-tail-discard assertion after intentional pause failed. All six completed windows are retained and individually validated; R4 supplies only pair3. No R3 status rewritten."
+  },
+  "validation": {
+    "regression": {
+      "total": 1753,
+      "firstPass": 1746,
+      "firstEnvironmentFailures": 7,
+      "retriedFiles": [
+        "test/coze-fetch.test.mjs",
+        "test/coze-web.test.mjs",
+        "test/p5-backend.test.mjs"
+      ],
+      "retryTests": 16,
+      "retryPass": 16,
+      "typecheck": true,
+      "dataCheck": true,
+      "newContractTests": 6,
+      "fullParticleReference": {
+        "pass": true,
+        "cases": 1224,
+        "quads": 26361,
+        "models": 102,
+        "scope": "Full-preset particle outputs including native phase, emitter, birth, matrix, colour and UV compared exactly against the archived pre-D02 module. Other dependencies are unchanged; all models, six ages and looping/nonlooping requests. Not a GPU pixel or performance comparison."
+      }
+    },
+    "functional": {
+      "report": "reports/local/performance-d02-medium-20261021/functional-r1/report.json",
+      "responsiveReport": "reports/local/performance-d02-medium-20261021/settings-r3/report.json",
+      "partialRunScope": "Original functional runner remains failed on a final ambiguous Close/Return selector, after all hero and context checks completed; responsive checks completed separately.",
+      "heroes": 18,
+      "groups": 6,
+      "sameStateSamples": 18,
+      "contexts": [
+        {
+          "preset": "medium",
+          "before": 0,
+          "after": 1,
+          "stateExact": true
+        },
+        {
+          "preset": "full",
+          "before": 1,
+          "after": 2,
+          "stateExact": true
+        }
+      ],
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 900
+        },
+        {
+          "width": 980,
+          "height": 700
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "settings": [
+        {
+          "kind": "old-medium-migration",
+          "settings": {
+            "preset": "medium",
+            "detail": "medium",
+            "quality": "native",
+            "ordinary": "low",
+            "hero": "low",
+            "animation": "complete",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "medium",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}"
+            }
+          }
+        },
+        {
+          "kind": "saved-medium-reload",
+          "settings": {
+            "preset": "medium",
+            "detail": "medium",
+            "quality": "native",
+            "ordinary": "low",
+            "hero": "low",
+            "animation": "complete",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "medium",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}"
+            }
+          }
+        },
+        {
+          "kind": "custom-reload",
+          "settings": {
+            "preset": "custom",
+            "detail": "medium",
+            "quality": "adaptive",
+            "ordinary": "low",
+            "hero": "balanced",
+            "animation": "energy-saving",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "energy-saving",
+              "sc2.renderQuality": "adaptive",
+              "sc2.combatDetail": "medium",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "balanced",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}"
+            }
+          }
+        },
+        {
+          "kind": "fresh-default",
+          "settings": {
+            "preset": "full",
+            "detail": "full",
+            "quality": "native",
+            "ordinary": "full",
+            "hero": "full",
+            "animation": "complete",
+            "coarse": false,
+            "saved": {
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}"
+            }
+          }
+        }
+      ]
+    },
+    "visual": {
+      "status": "reviewed",
+      "initialImages": 23,
+      "initialContacts": [
+        "review-1.png",
+        "review-2.png",
+        "review-3.png",
+        "review-4.png"
+      ],
+      "method": "All 50 screenshots inspected: 23 initial screenshots through four contact sheets, 18 hero screenshots through six contact sheets, nine remaining context/settings/failure screenshots through two contact sheets, plus the 390px settings screenshot at full size. Three original combat full-restored and six hero full-restored RGB pairs are exact.",
+      "pixelPairs": [
+        {
+          "sample": 3,
+          "other": "medium",
+          "changedPixels": 15575,
+          "maxChannelDelta": 54
+        },
+        {
+          "sample": 3,
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannelDelta": 0
+        },
+        {
+          "sample": 20,
+          "other": "medium",
+          "changedPixels": 66109,
+          "maxChannelDelta": 83
+        },
+        {
+          "sample": 20,
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannelDelta": 0
+        },
+        {
+          "sample": 32,
+          "other": "medium",
+          "changedPixels": 69607,
+          "maxChannelDelta": 83
+        },
+        {
+          "sample": 32,
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannelDelta": 0
+        }
+      ],
+      "historicalComparison": {
+        "scope": "Historical independent browser comparison; no synchronized GPU history.",
+        "checks": [
+          {
+            "t": 3,
+            "stateDifferencePaths": [
+              "/account/run/id",
+              "/run/expedition/support/stageReceipt",
+              "/run/runId"
+            ],
+            "rgbDifferentPixels": 499,
+            "maxRgbChannelDelta": 26
+          },
+          {
+            "t": 20,
+            "stateDifferencePaths": [
+              "/account/run/id",
+              "/run/expedition/support/stageReceipt",
+              "/run/runId"
+            ],
+            "rgbDifferentPixels": 0,
+            "maxRgbChannelDelta": 0
+          },
+          {
+            "t": 32,
+            "stateDifferencePaths": [
+              "/account/run/id",
+              "/run/expedition/support/stageReceipt",
+              "/run/runId"
+            ],
+            "rgbDifferentPixels": 4936,
+            "maxRgbChannelDelta": 40
+          }
+        ]
+      },
+      "findings": [
+        "Normal menu, ready and pause UI remain intact; baseline Char is dark in both presets.",
+        "New medium retains visible units, shot/health/resource cues and uses smaller diffuse ground shadows; background real-time shadow and contact detail are reduced.",
+        "All three same-page full-restored raw RGB comparisons are exact.",
+        "Sandbox failure remains a network-error screenshot; repeated-run failure shows a correctly disabled new-game launch with unfinished account.",
+        "The paused end-of-run screenshots are evidence of UI/state only, not active combat visual coverage.",
+        "Historical independent-browser full captures differ in two samples, with identical serialized state after run identity normalization and identical cameras; uncontrolled renderer history remains a limit, not retroactively marked strict pixel equivalence.",
+        "All 18 hero full/medium/restored screenshots inspected. Primary attacks and silhouettes remain visible; full/medium bloom and shadow differences are intentional, sometimes broad across the frame.",
+        "Actual medium and full context recovery screenshots retain the same scene and visible primary beam/units.",
+        "Settings panels at 1440x900, 980x700 and 390x844 fit the viewport; body remains scrollable and the Return button is visible.",
+        "settings-r2 inspected bounds before resize layout settled and remains failed; its failure screenshot already shows the updated layout. settings-r3 waits for current viewport bounds and passes all three actual panel selections. Recorded pre-wait renderer dimensions are not a canvas-resize acceptance check."
+      ],
+      "images": 50,
+      "restoredFullPairs": 9,
+      "heroPixelPairs": [
+        {
+          "group": 0,
+          "other": "medium",
+          "changedPixels": 1294635,
+          "maxChannelDelta": 125
+        },
+        {
+          "group": 0,
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannelDelta": 0
+        },
+        {
+          "group": 1,
+          "other": "medium",
+          "changedPixels": 1229358,
+          "maxChannelDelta": 136
+        },
+        {
+          "group": 1,
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannelDelta": 0
+        },
+        {
+          "group": 2,
+          "other": "medium",
+          "changedPixels": 166993,
+          "maxChannelDelta": 97
+        },
+        {
+          "group": 2,
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannelDelta": 0
+        },
+        {
+          "group": 3,
+          "other": "medium",
+          "changedPixels": 126403,
+          "maxChannelDelta": 105
+        },
+        {
+          "group": 3,
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannelDelta": 0
+        },
+        {
+          "group": 4,
+          "other": "medium",
+          "changedPixels": 159489,
+          "maxChannelDelta": 110
+        },
+        {
+          "group": 4,
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannelDelta": 0
+        },
+        {
+          "group": 5,
+          "other": "medium",
+          "changedPixels": 346520,
+          "maxChannelDelta": 112
+        },
+        {
+          "group": 5,
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannelDelta": 0
+        }
+      ],
+      "finalContacts": [
+        "review-final-1.png",
+        "review-final-2.png"
+      ],
+      "heroContacts": [
+        "functional-r1/hero-contact-0.png",
+        "functional-r1/hero-contact-1.png",
+        "functional-r1/hero-contact-2.png",
+        "functional-r1/hero-contact-3.png",
+        "functional-r1/hero-contact-4.png",
+        "functional-r1/hero-contact-5.png"
+      ],
+      "screenIndex": "all-screen-index.json"
+    },
+    "pageConsoleErrors": 0
+  },
+  "failures": [
+    {
+      "run": "live-r1",
+      "pass": false,
+      "failure": "page.goto: net::ERR_NETWORK_ACCESS_DENIED at http://127.0.0.1:12430/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:12430/\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at D:\\星际\\tools\\qa-performance-d02-live.mjs:35:13",
+      "completedRuns": 0,
+      "errors": [
+        {
+          "phase": "boot",
+          "message": "Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
+        }
+      ],
+      "screens": [
+        {
+          "name": "failure",
+          "file": "D:\\星际\\reports\\local\\performance-d02-medium-20261021\\live-r1/failure.png",
+          "sha256": "09b94e8cf315d1d6718e6909965aed2b8185a6fef657c172bb01ca1cc68fbadd"
+        }
+      ]
+    },
+    {
+      "run": "live-r2",
+      "pass": false,
+      "failure": "locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-action=menu-start]:visible')\u001b[22m\n\u001b[2m    - locator resolved to <button disabled data-autofocus=\"\" data-action=\"menu-start\" class=\"game-button primary launch\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    98 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\n    at D:\\星际\\tools\\qa-performance-d02-live.mjs:53:285",
+      "completedRuns": 1,
+      "errors": [],
+      "screens": [
+        {
+          "name": "pair0-full-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-medium-20261021\\live-r2/pair0-full-end.png",
+          "sha256": "8e49e4e5001228aff75111b531b218c7ee8ef91be3cd6916cce51ee9e9756d6e"
+        },
+        {
+          "name": "failure",
+          "file": "D:\\星际\\reports\\local\\performance-d02-medium-20261021\\live-r2/failure.png",
+          "sha256": "e40468959d9e9794214e1b24544d4bd70743a5e36dc8f166536fda256e184034"
+        }
+      ]
+    },
+    {
+      "run": "live-r3",
+      "pass": false,
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 0.016666666666666666\n- 0\n\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-performance-d02-live.mjs:63:219",
+      "completedRuns": 6,
+      "errors": [],
+      "screens": [
+        {
+          "name": "pair0-full-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-medium-20261021\\live-r3/pair0-full-end.png",
+          "sha256": "419c151c09edad8703bda1c33b25d32333174bc2815871f96ec9f56ab01c4887"
+        },
+        {
+          "name": "pair0-medium-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-medium-20261021\\live-r3/pair0-medium-end.png",
+          "sha256": "88c4d385e39d4bba83e37b103023f8770fb02838fccfc8647a05f27515658934"
+        },
+        {
+          "name": "pair1-medium-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-medium-20261021\\live-r3/pair1-medium-end.png",
+          "sha256": "f626dfbde5feebc0bcbf535d8c535cdb23137c2e674e737c1b3a9f44b1ad04ef"
+        },
+        {
+          "name": "pair1-full-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-medium-20261021\\live-r3/pair1-full-end.png",
+          "sha256": "20ffd1aa9d9c43d5bfa818c242a5d828168d34c2992624836e128464c757a3b3"
+        },
+        {
+          "name": "pair2-full-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-medium-20261021\\live-r3/pair2-full-end.png",
+          "sha256": "367c89feaf04848a812ac50b3abae15df2a5c2d903ab9c87150e99278acae58e"
+        },
+        {
+          "name": "failure",
+          "file": "D:\\星际\\reports\\local\\performance-d02-medium-20261021\\live-r3/failure.png",
+          "sha256": "43fca5e85f1c7eb2bf0f068bd75aafd907ad7242812c2f79acc5443494e391b1"
+        }
+      ]
+    },
+    {
+      "kind": "functional-selector",
+      "path": "reports/local/performance-d02-medium-20261021/functional-r1/report.json",
+      "detail": "All 18 hero casts, 18 same-state samples and both actual context recoveries completed. The first responsive settings screenshot and medium/full selection also completed, then an ambiguous settings-back locator matched Close and Return; original report remains failed. settings-r3 independently completes three responsive panels using the exact Return button."
+    },
+    {
+      "kind": "settings-resize-timing",
+      "path": "reports/local/performance-d02-medium-20261021/settings-r2/report.json",
+      "detail": "1440px setting selection passed; the 980px panel bounds were sampled before the resize layout settled. Original report remains failed. settings-r3 waits for the actual current-viewport bounds and passes three panel selections; this is settings UI coverage, not canvas-resize verification."
+    },
+    {
+      "kind": "regression-sandbox",
+      "path": "reports/local/performance-d02-medium-20261021/regression-r1.log",
+      "detail": "Seven failure counts including the parent suite: loopback EACCES and temporary asset rename EPERM. Three existing files rerun outside that restriction passed 16/16. No test changed to suppress the failures."
+    },
+    {
+      "kind": "historical-full-cross-browser-pixels",
+      "path": "reports/local/performance-d02-medium-20261021/visual-candidate-r1/historical-full-comparison.json",
+      "detail": "Two independent-browser full captures differ despite identical cameras and run state apart from run identity. Renderer history was not synchronized; cause not established. Same-page full restoration and independent particle-module comparison are separate passing checks."
+    }
+  ],
+  "limits": [
+    "One machine/headless Chrome155/1440x900 DPR1; easy terran stage one automatic combat with native production and waves, stationary player, no health lock.",
+    "No later campaign, mobile physical device, movement-camera or all-content 60FPS acceptance.",
+    "GPU interval and CPU wall time overlap and cannot be added.",
+    "Initial 3 seconds retained, separately excluded from steady summary; same-page warmed assets, whole first 55 simulated seconds complete in each run.",
+    "Paused GPU scenes and active frame tests answer different questions."
+  ],
+  "evidenceFiles": [
+    {
+      "path": "reports/local/performance-d02-medium-20261021/summary.json",
+      "bytes": 33269,
+      "sha256": "3d07f07938a14b5322354dd2e16f1ff4c35f1967a22a6d62a3c5dd4210b7f7e9"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/visual-review.json",
+      "bytes": 5783,
+      "sha256": "57c261bb56a378fb965d7a18618a98eb14ceae0f551be7d03c5a1650dfbbf7e9"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/inputs-before.json",
+      "bytes": 120452,
+      "sha256": "f357c59c3cba0e203b73f3adb533c027207ae776aa6da28cf018bc17c90c6f23"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/particle-reference.json",
+      "bytes": 360,
+      "sha256": "d915055cdc2fe51fc57f9e77ce8bc68eb7b2a413fe6f2f6b5e233ddb80c557fd"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/all-screen-index.json",
+      "bytes": 14434,
+      "sha256": "d2d7704d81b1d9005b7b7fd877bd89ad0c42eb23185e0b1785799b6309a81c64"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/functional-r1/hero-pixel-pairs.json",
+      "bytes": 1324,
+      "sha256": "487992e9411f0c743081bb0385837aaf764bea19c3139e306517ee44cfaf8aff"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/visual-candidate-r1/historical-full-comparison.json",
+      "bytes": 824,
+      "sha256": "fe91f2f908dfefa1ea49923d7b5f1427896a172825245bae1e93d7e09db3aa50"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/regression-r1.log",
+      "bytes": 190630,
+      "sha256": "7d3aebde872742c22f642fd983db3d304b1c0793db94af1e22973bfd873d09c7"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/regression-network-r2.log",
+      "bytes": 2206,
+      "sha256": "a4296448ef2aadb009c7f6f9f7a61be25cad4218eb7dafe0b05532eff4c031ae"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/typecheck-final.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/docs-check-final.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "path": "preview/performance-d02-medium-20261021-candidate-r1/build-inputs.json",
+      "bytes": 468626,
+      "sha256": "03d183ef164bbd4963716a9d1b63c61636a176d00f9b9d4c740186d89c995f02"
+    },
+    {
+      "path": "src/render/effects/source/detail.ts",
+      "bytes": 3657,
+      "sha256": "581ee7e7523aa743c2fbc4aae99baa08bd9d0a622ef12f55e27516ee3bd0e0fa"
+    },
+    {
+      "path": "src/render/effects/source/particles.ts",
+      "bytes": 20017,
+      "sha256": "aec97137239d5e5507078d0d9e33f4f831a7fe7bbcf7a9f91835c8b701b68906"
+    },
+    {
+      "path": "src/render/effects/source/player.ts",
+      "bytes": 16048,
+      "sha256": "aa30d54ec12b6c75df7f5389b5127133c43cb794196810690635f3a6f8ce83d6"
+    },
+    {
+      "path": "src/render/scene/scene-shadows.ts",
+      "bytes": 5613,
+      "sha256": "8a42c70fe2899e5415c3f339f516bcf3d26a342df9cf8a53e1508a3ddd988421"
+    },
+    {
+      "path": "src/render/scene/scene-contact.ts",
+      "bytes": 10799,
+      "sha256": "b7d9aad516a484447c6d826bd542643dcf69603cdcbdfec67fac10313f92ab30"
+    },
+    {
+      "path": "src/render/scene/screen-refraction.ts",
+      "bytes": 5417,
+      "sha256": "257889b7fec79e9f032cf8e71677f0b1a2da63efeaef889baecfc7eeea3a7a35"
+    },
+    {
+      "path": "src/render/scene/battle-renderer.ts",
+      "bytes": 113888,
+      "sha256": "9f22f54f430a560ce18301ca1e3f651e5e99119cd7a5177c7005d2432ec4dcb9"
+    },
+    {
+      "path": "src/ui/presentation/settings-screen.ts",
+      "bytes": 7468,
+      "sha256": "34fda3da4e4588d17f2d14bcb821e0a27f50fa39fb3ade708e3e54d6fcf3e950"
+    },
+    {
+      "path": "test/medium-combat-preset.test.ts",
+      "bytes": 7029,
+      "sha256": "dac5cc597725c1f3b9c500a0900fdd6ee90c3a5c17c4238cd01bfa3bf6dace8a"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/visual-candidate-r1/report.json",
+      "bytes": 5571119,
+      "sha256": "e60686fbd63afc8498b2432dc3937df8a0c1eb76d0b48874758cd1c3868a92c8"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/visual-candidate-r1/runner.mjs",
+      "bytes": 14672,
+      "sha256": "94277dbbed19307856f62dac0e379ab7f459bcc9c70c1d672601e4f17010da2c"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/live-r1/report.json",
+      "bytes": 499656,
+      "sha256": "dbd4db42e0bb71cfc5560d921f5b1482c4d678ab87356c4478b597ceaaee3cab"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/live-r1/runner.mjs",
+      "bytes": 10486,
+      "sha256": "ae0d02b6aebc91b14d45805cc9a7591b6f50ab6b1ca9a092a754301097735150"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/live-r2/report.json",
+      "bytes": 1634472,
+      "sha256": "18366718abc8f797da35ad379b03338a547eb1ac8b7527070403e4a02fa91bfb"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/live-r2/runner.mjs",
+      "bytes": 10486,
+      "sha256": "ae0d02b6aebc91b14d45805cc9a7591b6f50ab6b1ca9a092a754301097735150"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/live-r3/report.json",
+      "bytes": 7797266,
+      "sha256": "8fd669951a6065d056f2a4d97159941f6c42260cf69bf6edc93302b52a83da37"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/live-r3/runner.mjs",
+      "bytes": 11074,
+      "sha256": "b52cf720a560bdad722bf2182596396c142b067bf1786b31eca4acd290a28e12"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/live-r4/report.json",
+      "bytes": 2738819,
+      "sha256": "1266ae5c4097210a96e21264a853db41fd59ee59d2da122b4e859936e78cee32"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/live-r4/runner.mjs",
+      "bytes": 11197,
+      "sha256": "c3f075b18c3e58e5724f6cbb00e5f46fc77fe6651f52a1c0f39f5b9df2e40343"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/functional-r1/report.json",
+      "bytes": 5916822,
+      "sha256": "212eb5308739a260e67ed3a40872fa74d4cdb969a65162f7b947085235939755"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/functional-r1/runner.mjs",
+      "bytes": 11922,
+      "sha256": "a1ee70b0912d55d1812fdd1429efea0472402bb8f8f2bbb967b86426d137de64"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/settings-r2/report.json",
+      "bytes": 501840,
+      "sha256": "9e476ee2745f69e5b79f450c8c00a3e11e39ace3dfef161e428e7f03f3294c6d"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/settings-r2/runner.mjs",
+      "bytes": 2755,
+      "sha256": "6aa3e9ebc070f2ea87ad25edbcaec4ed9b5c8b512b6dbe9791c233199494cb4b"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/settings-r3/report.json",
+      "bytes": 502629,
+      "sha256": "0add0a2cf2e77ce4b677468f0ee3c21110f716033df9edbcd58fb6bb995f44c0"
+    },
+    {
+      "path": "reports/local/performance-d02-medium-20261021/settings-r3/runner.mjs",
+      "bytes": 2994,
+      "sha256": "e4318ee4e2886f72066fe2c47ebc823d950d3b42dc5507e5b62986e56483e88c"
+    },
+    {
+      "path": "tools/build-performance-d02-medium.mjs",
+      "bytes": 3217,
+      "sha256": "c76ff6d0b576060766c11b23dd70e15fbcd2a01f0770075e1d3907a139ce4202"
+    },
+    {
+      "path": "tools/qa-performance-d02-medium.mjs",
+      "bytes": 14672,
+      "sha256": "94277dbbed19307856f62dac0e379ab7f459bcc9c70c1d672601e4f17010da2c"
+    },
+    {
+      "path": "tools/qa-performance-d02-live.mjs",
+      "bytes": 11197,
+      "sha256": "c3f075b18c3e58e5724f6cbb00e5f46fc77fe6651f52a1c0f39f5b9df2e40343"
+    },
+    {
+      "path": "tools/qa-performance-d02-functional.mjs",
+      "bytes": 11922,
+      "sha256": "a1ee70b0912d55d1812fdd1429efea0472402bb8f8f2bbb967b86426d137de64"
+    },
+    {
+      "path": "tools/qa-performance-d02-settings.mjs",
+      "bytes": 2994,
+      "sha256": "e4318ee4e2886f72066fe2c47ebc823d950d3b42dc5507e5b62986e56483e88c"
+    },
+    {
+      "path": "tools/d02-browser-helper.mjs",
+      "bytes": 4077,
+      "sha256": "aa5abf2feca20958d4100f44ceaffa56c42539d0869eb80594171f2db7db6012"
+    },
+    {
+      "path": "tools/check-performance-d02-particles.mjs",
+      "bytes": 2566,
+      "sha256": "1955f1720895c82d7ab7e11697b4f85732fc2f9a6eebfd9b8e127402d9b1c426"
+    },
+    {
+      "path": "tools/summarize-performance-d02-medium.mjs",
+      "bytes": 7137,
+      "sha256": "258efc05e055fc70f3e4aec82669cf3265f87bf0e4c10a4b3565ca1921d517f7"
+    },
+    {
+      "path": "tools/serve-performance-d02-medium.mjs",
+      "bytes": 1278,
+      "sha256": "d740b5e581f12476ceafe1fca09d90748492c738545e099a8084dc72dc021e43"
+    }
+  ]
+}

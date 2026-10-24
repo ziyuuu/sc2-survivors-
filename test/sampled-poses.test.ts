@@ -39,3 +39,16 @@ test('preparation uses scheduler.yield when available and a task fallback when a
   Object.defineProperty(globalThis,'scheduler',{configurable:true,value:undefined});let timer=false;setTimeout(()=>{timer=true;},0);await yieldPreparation();assert.equal(timer,true);
  }finally{if(descriptor)Object.defineProperty(globalThis,'scheduler',descriptor);else delete(globalThis as any).scheduler;}
 });
+
+test('sliced and immediate fun actors keep their reduced pose inputs and separate shader programs',async()=>{
+ const normal=new AnimatedBatch(source().gltf,new THREE.Scene(),1);
+ const sync=new AnimatedBatch(source().gltf,new THREE.Scene(),1,undefined,1,'fun-nydus');
+ const asyncBatch=await AnimatedBatch.create(source().gltf,new THREE.Scene(),1,undefined,1,'fun-nydus',undefined,{sliceMs:0,yield:async()=>{}});
+ const material=(batch:AnimatedBatch)=>{const m=batch.meshes[0].material;return Array.isArray(m)?m[0]:m;};
+ const compile=(batch:AnimatedBatch)=>{const shader={uniforms:{},vertexShader:'#include <common>\nvoid main() {\n#include <beginnormal_vertex>\n#include <begin_vertex>\n}',fragmentShader:'#include <common>\n#include <emissivemap_fragment>'};material(batch).onBeforeCompile(shader as any,{} as any);return shader;};
+ const plain=compile(normal),fun=compile(sync),sliced=compile(asyncBatch);
+ assert.match(plain.vertexShader,/attribute vec2 unitAim/);assert.match(fun.vertexShader,/const vec2 unitAim/);assert.match(fun.vertexShader,/const vec4 unitBlend/);
+ assert.equal(fun.vertexShader,sliced.vertexShader);assert.notEqual(material(normal).customProgramCacheKey(),material(sync).customProgramCacheKey());assert.equal(material(sync).customProgramCacheKey(),material(asyncBatch).customProgramCacheKey());
+ assert.deepEqual(sync.clips,asyncBatch.clips);assert.deepEqual(sync.weaponTracks,asyncBatch.weaponTracks);
+ for(const batch of [normal,sync,asyncBatch])batch.dispose();
+});

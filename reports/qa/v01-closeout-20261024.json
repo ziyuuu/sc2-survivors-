@@ -1,0 +1,555 @@
+{
+  "date": "2026-10-24",
+  "status": "v01-bounded-closeout-main-push-prepared",
+  "boardRevision": 173,
+  "decision": "按用户决定结束V01集中优化：保留后台Float32骨骼索引、每关5秒剩余预算按需准备/就绪即出发、粒子相位与生命周期复用及两项保存修复；现有档位和默认高档保持。同版2567回归及状态/视觉/存档/恢复证据保留。密集60FPS未达、偶发尖峰及着色器超时仍作为已知限制开放；不继续本机极限矩阵。下一项V02，最终V/T01/MVP未完成。",
+  "productionChangedThisTurn": false,
+  "retained": [
+    "background-float32-skin-indices",
+    "five-second-remaining-stage-preparation-budget",
+    "exact-particle-phase-and-lifetime-reuse",
+    "existing-manual-quality-presets",
+    "checkpoint-order-and-loot-save-fixes"
+  ],
+  "notAdopted": [
+    "shared-image-source-candidate",
+    "whole-first-batch-before-entry",
+    "particle-numeric-precision-candidate",
+    "contact-candidate",
+    "gl-flush-probe",
+    "auto-quality-switch",
+    "model-replacement",
+    "cpp-migration"
+  ],
+  "preservation": {
+    "sourceTestFiles": 840,
+    "manifestSha256": "4bb6eed39f2af3cb8342336a1bc68cbace8a6e11a14ea10248d2620b62460542",
+    "currentUnchanged": true
+  },
+  "previousValidation": {
+    "uniqueRegressionTests": 2567,
+    "regressionPass": true,
+    "typecheck": {
+      "pass": true,
+      "log": "reports/local/v01-20261024/dense-final-types-r1.log"
+    },
+    "data": {
+      "pass": true,
+      "log": "reports/local/v01-20261024/dense-final-data-r1.log"
+    },
+    "source": "reports/local/v01-20261024/dense-final-regression.json",
+    "newTestsThisTurn": 0
+  },
+  "denseComparison": {
+    "samePage": {
+      "record": "reports/local/v01-20261024/dense-dual-r3-result.json",
+      "groups": [
+        {
+          "variant": "baseline",
+          "n": 3,
+          "wallMs": {
+            "mean": 56713.133333333455,
+            "min": 56263.40000000037,
+            "max": 57483.200000000186
+          },
+          "meanFrameMs": {
+            "mean": 62.054668766681345,
+            "min": 61.61236323851122,
+            "max": 62.80120350109389
+          },
+          "fps": {
+            "mean": 16.115995723880886,
+            "min": 15.923261725112987,
+            "max": 16.230508739436623
+          },
+          "renderMs": {
+            "mean": 40.713554511851406,
+            "min": 40.31005464480691,
+            "max": 41.10382513663136
+          },
+          "cpuMs": {
+            "mean": 61.26319603149631,
+            "min": 60.816939890698166,
+            "max": 62.004371584695384
+          },
+          "debtSeconds": {
+            "mean": 26.6944777777781,
+            "min": 26.233966666666994,
+            "max": 27.466533333333626
+          }
+        },
+        {
+          "variant": "candidate",
+          "n": 3,
+          "wallMs": {
+            "mean": 51883.83333333364,
+            "min": 50703.90000000037,
+            "max": 52754.90000000037
+          },
+          "meanFrameMs": {
+            "mean": 55.76875613068791,
+            "min": 55.21581243184236,
+            "max": 56.22614727854896
+          },
+          "fps": {
+            "mean": 17.932196852973817,
+            "min": 17.785319613771822,
+            "max": 18.110754074919868
+          },
+          "renderMs": {
+            "mean": 34.46483135820851,
+            "min": 34.2478213507534,
+            "max": 34.64475374731656
+          },
+          "cpuMs": {
+            "mean": 54.99426796968268,
+            "min": 54.44825708062017,
+            "max": 55.45831556502245
+          },
+          "debtSeconds": {
+            "mean": 21.866666666666735,
+            "min": 20.699733333333306,
+            "max": 22.733233333333498
+          }
+        }
+      ],
+      "changes": {
+        "wallPercent": -8.515311562165738,
+        "framePercent": -10.129636916809215,
+        "fpsPercent": 11.269555789231568,
+        "renderPercent": -15.348016719650314,
+        "debtSeconds": -4.827811111111366
+      }
+    },
+    "freshProfiles": {
+      "record": "reports/local/v01-20261024/dense-r3-comparison-result.json",
+      "groups": [
+        {
+          "group": "baseline",
+          "n": 3,
+          "wallMs": {
+            "min": 58008.799999999814,
+            "mean": 64405.09999999994,
+            "max": 74313
+          },
+          "meanFrameMs": {
+            "min": 64.19174107142837,
+            "mean": 70.72145871796064,
+            "max": 81.20947136563898
+          },
+          "fps": {
+            "min": 12.31383462031888,
+            "mean": 14.290160735856103,
+            "max": 15.578328042033716
+          },
+          "cpuMs": {
+            "min": 63.14035674471952,
+            "mean": 69.6548950333963,
+            "max": 80.09570957095914
+          },
+          "renderMs": {
+            "min": 42.80390189520064,
+            "mean": 48.63095048069746,
+            "max": 58.05016501649817
+          },
+          "peakDebtSeconds": {
+            "min": 27.549733333333656,
+            "mean": 33.894222222222716,
+            "max": 43.74976666666737
+          },
+          "worstFrame": {
+            "min": 144,
+            "mean": 172.09999999962747,
+            "max": 206.59999999962747
+          },
+          "over100": {
+            "min": 7,
+            "mean": 14,
+            "max": 23
+          }
+        },
+        {
+          "group": "candidate",
+          "n": 3,
+          "wallMs": {
+            "min": 55357.300000000745,
+            "mean": 57936.50000000031,
+            "max": 60922.200000000186
+          },
+          "meanFrameMs": {
+            "min": 60.66541436464109,
+            "mean": 63.62790059237215,
+            "max": 67.63773796192609
+          },
+          "fps": {
+            "min": 14.784645822468358,
+            "mean": 15.749302817851861,
+            "max": 16.483856748909826
+          },
+          "cpuMs": {
+            "min": 59.63300220750038,
+            "mean": 62.589899251020675,
+            "max": 66.59586129749977
+          },
+          "renderMs": {
+            "min": 38.998344370851676,
+            "mean": 41.83245935186916,
+            "max": 46.67762863534134
+          },
+          "peakDebtSeconds": {
+            "min": 24.916466666667095,
+            "mean": 27.433133333333704,
+            "max": 30.41646666666709
+          },
+          "worstFrame": {
+            "min": 159.20000000018626,
+            "mean": 167.06666666672876,
+            "max": 178.29999999981374
+          },
+          "over100": {
+            "min": 5,
+            "mean": 7.333333333333333,
+            "max": 12
+          }
+        }
+      ],
+      "changes": {
+        "wallMsPercent": -10.043614558473834,
+        "frameMsPercent": -10.030276883679424,
+        "fpsPercent": 10.210816441935155,
+        "debtSeconds": -6.461088888889012
+      },
+      "protocolDeviation": {
+        "recordedAt": "2026-10-24T09:42:57.379Z",
+        "run": "dense-r3-compare-a2",
+        "reason": "An assistant file search recursively scanned generated report/bundle directories, exceeded the initial 10-second command wait, and overlapped the measured second baseline segment. The owned search was interrupted. Exact search start was not separately timestamped. Exclusion was chosen before inspecting this run performance metrics.",
+        "originalRetained": true,
+        "replacement": "dense-r3-compare-a2-r2",
+        "replacementConditions": "Identical frozen baseline build, runner, fixture and settings; fresh profile; run after the original six serial runs. No other build/test/recursive scan/cleanup during measurement.",
+        "decisionBasis": "Operational interference, never measured score or outlier size.",
+        "sourceUnchanged": true
+      },
+      "actualExecutionOrder": [
+        "dense-r3-compare-a1",
+        "dense-r3-compare-b1",
+        "dense-r3-compare-b2",
+        "dense-r3-compare-a2",
+        "dense-r3-compare-a3",
+        "dense-r3-compare-b3",
+        "dense-r3-compare-a2-r2"
+      ]
+    },
+    "notPooled": true,
+    "scope": "Controlled high-survival 16 allies/300 enemies; full native visuals; 1800 native ticks per 30 simulated seconds. No live battle skipping, pending asset gates or discarded simulation; pause-boundary debt cleanup is reported separately."
+  },
+  "qualityComparison": {
+    "groups": [
+      {
+        "preset": "full",
+        "label": "高",
+        "n": 3,
+        "fps": {
+          "n": 3,
+          "mean": 15.220515284682863,
+          "min": 14.892126734522774,
+          "max": 15.482047839027073
+        },
+        "meanFrameMs": {
+          "n": 3,
+          "mean": 65.71799487003223,
+          "min": 64.59093851132566,
+          "max": 67.14957627118565
+        },
+        "wallSeconds": {
+          "n": 3,
+          "mean": 61.410766666666916,
+          "min": 59.966200000001116,
+          "max": 63.48019999999926
+        },
+        "peakBacklogSeconds": {
+          "n": 3,
+          "mean": 31.394344444444908,
+          "min": 29.94963333333377,
+          "max": 33.483133333333754
+        },
+        "frameCpuMs": {
+          "n": 3,
+          "mean": 64.8958993057912,
+          "min": 63.77295258619766,
+          "max": 66.30634920633935
+        },
+        "renderCpuMs": {
+          "n": 3,
+          "mean": 44.42041264861704,
+          "min": 43.57640086209145,
+          "max": 45.70539682536884
+        },
+        "p95FrameMs": {
+          "n": 3,
+          "mean": 79.7000000004967,
+          "min": 74.90000000037253,
+          "max": 87.90000000037253
+        },
+        "runs": [
+          0,
+          5,
+          7
+        ]
+      },
+      {
+        "preset": "medium",
+        "label": "中",
+        "n": 3,
+        "fps": {
+          "n": 3,
+          "mean": 17.02300621903731,
+          "min": 16.456289241113392,
+          "max": 17.397058112865516
+        },
+        "meanFrameMs": {
+          "n": 3,
+          "mean": 58.778211533655934,
+          "min": 57.48098290598211,
+          "max": 60.76704081632577
+        },
+        "wallSeconds": {
+          "n": 3,
+          "mean": 56.37506666666642,
+          "min": 53.8805,
+          "max": 59.624300000000744
+        },
+        "peakBacklogSeconds": {
+          "n": 3,
+          "mean": 26.37207777777819,
+          "min": 23.883133333333536,
+          "max": 29.616566666667467
+        },
+        "frameCpuMs": {
+          "n": 3,
+          "mean": 57.998270221598055,
+          "min": 56.71291355387354,
+          "max": 60.00101936796147
+        },
+        "renderCpuMs": {
+          "n": 3,
+          "mean": 37.53225399137523,
+          "min": 36.579188900722414,
+          "max": 39.261773700357836
+        },
+        "p95FrameMs": {
+          "n": 3,
+          "mean": 71.23333333370586,
+          "min": 67.69999999925494,
+          "max": 77.20000000111759
+        },
+        "runs": [
+          1,
+          3,
+          8
+        ]
+      },
+      {
+        "preset": "low",
+        "label": "低",
+        "n": 3,
+        "fps": {
+          "n": 3,
+          "mean": 46.075082551275464,
+          "min": 44.92491931204184,
+          "max": 47.01330205796085
+        },
+        "meanFrameMs": {
+          "n": 3,
+          "mean": 21.711420882000038,
+          "min": 21.270575692963224,
+          "max": 22.259361069836277
+        },
+        "wallSeconds": {
+          "n": 3,
+          "mean": 29.993366666666542,
+          "min": 29.972199999999255,
+          "max": 30.007099999999628
+        },
+        "peakBacklogSeconds": {
+          "n": 3,
+          "mean": 0.07222222222218382,
+          "min": 0.06663333333332226,
+          "max": 0.08323333333324037
+        },
+        "frameCpuMs": {
+          "n": 3,
+          "mean": 21.04910114379771,
+          "min": 20.581392045455605,
+          "max": 21.650853749078372
+        },
+        "renderCpuMs": {
+          "n": 3,
+          "mean": 7.357970264616622,
+          "min": 7.219896065327045,
+          "max": 7.457636887596797
+        },
+        "p95FrameMs": {
+          "n": 3,
+          "mean": 31.899999999751646,
+          "min": 31.59999999962747,
+          "max": 32.09999999962747
+        },
+        "runs": [
+          2,
+          4,
+          6
+        ]
+      }
+    ],
+    "validRuns": 9,
+    "correctness": {
+      "sameInitialFinalAndFiveIntermediateStates": true,
+      "population": [
+        16,
+        300
+      ],
+      "simulationTicksPerRun": 1800,
+      "liveAssetWaitSkippedRenderDiscard": 0,
+      "errors": 0,
+      "visuals": [
+        {
+          "tick": 120,
+          "stateExact": true,
+          "samples": [
+            {
+              "tick": 120,
+              "file": "D:\\星际\\reports\\local\\v01-20261024/dense-quality-r2/full-battle-tick-120.png",
+              "pngSha256": "888ea7ec39463b7fa115986c0276dee1bd84219af13f3ad05e3d14732fd94f62",
+              "stateSha256": "6145fc7103273c5499e0a8100b718702aa1590cebcd70c2937a357363a05cd04",
+              "preset": "full"
+            },
+            {
+              "tick": 120,
+              "file": "D:\\星际\\reports\\local\\v01-20261024/dense-quality-r2/medium-battle-tick-120.png",
+              "pngSha256": "b435a52e52e8095ea0ce0f422067ec29a07b6e8d2f071d776b6e00c84593c562",
+              "stateSha256": "6145fc7103273c5499e0a8100b718702aa1590cebcd70c2937a357363a05cd04",
+              "preset": "medium"
+            },
+            {
+              "tick": 120,
+              "file": "D:\\星际\\reports\\local\\v01-20261024/dense-quality-r2/low-battle-tick-120.png",
+              "pngSha256": "ef88656ba2ffbbc8b0ad7e017140c79864e21f55f1ad62098fc3abd956b33a55",
+              "stateSha256": "6145fc7103273c5499e0a8100b718702aa1590cebcd70c2937a357363a05cd04",
+              "preset": "low"
+            }
+          ]
+        },
+        {
+          "tick": 240,
+          "stateExact": true,
+          "samples": [
+            {
+              "tick": 240,
+              "file": "D:\\星际\\reports\\local\\v01-20261024/dense-quality-r2/full-battle-tick-240.png",
+              "pngSha256": "a50ecb0225b7fcbea34fd45f7360b7bde5931594e1b83f40847e8676c9729a2b",
+              "stateSha256": "121c2bbd436f7347aa00d8f376b4aab810f05127e5657f142e43f6740499f3e4",
+              "preset": "full"
+            },
+            {
+              "tick": 240,
+              "file": "D:\\星际\\reports\\local\\v01-20261024/dense-quality-r2/medium-battle-tick-240.png",
+              "pngSha256": "7cff2ac3b783d861e3a2d075af36d51224d5f1e3f39a7c4e74c2d90df4444ae5",
+              "stateSha256": "121c2bbd436f7347aa00d8f376b4aab810f05127e5657f142e43f6740499f3e4",
+              "preset": "medium"
+            },
+            {
+              "tick": 240,
+              "file": "D:\\星际\\reports\\local\\v01-20261024/dense-quality-r2/low-battle-tick-240.png",
+              "pngSha256": "38b879207bec3a41ce44ba066235331b593f8eb51f367b09158dde8d85c16abc",
+              "stateSha256": "121c2bbd436f7347aa00d8f376b4aab810f05127e5657f142e43f6740499f3e4",
+              "preset": "low"
+            }
+          ]
+        },
+        {
+          "tick": 600,
+          "stateExact": true,
+          "samples": [
+            {
+              "tick": 600,
+              "file": "D:\\星际\\reports\\local\\v01-20261024/dense-quality-r2/full-battle-tick-600.png",
+              "pngSha256": "bd914fc5d373f05e6ee10c78977ec5bae900a1043379bfc34cf5ab3eaf0babc4",
+              "stateSha256": "da9534fc332a74e2acf9d8e97c0f0bee6619172c392252a9c7b3afdd894e2d76",
+              "preset": "full"
+            },
+            {
+              "tick": 600,
+              "file": "D:\\星际\\reports\\local\\v01-20261024/dense-quality-r2/medium-battle-tick-600.png",
+              "pngSha256": "ebe6e47872f4af0a21fa6c6959614aa43e27c818a32410decbfaa25ccd219fee",
+              "stateSha256": "da9534fc332a74e2acf9d8e97c0f0bee6619172c392252a9c7b3afdd894e2d76",
+              "preset": "medium"
+            },
+            {
+              "tick": 600,
+              "file": "D:\\星际\\reports\\local\\v01-20261024/dense-quality-r2/low-battle-tick-600.png",
+              "pngSha256": "cb2e37811d8c9698de2754307fc8244bbbcb16c5b41b4940badf08c1fa0c6e5f",
+              "stateSha256": "da9534fc332a74e2acf9d8e97c0f0bee6619172c392252a9c7b3afdd894e2d76",
+              "preset": "low"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "knownLimitations": [
+    "V01-SPIKE-001",
+    "V01-SHADER-001",
+    "V01-DENSE-001"
+  ],
+  "gpuComparison": {
+    "benchmark": "3DMark Wild Life Extreme",
+    "ryzen5800u": {
+      "score": 2438,
+      "sample": "One public ONE XPLAYER run, not this laptop or population median",
+      "url": "https://www.3dmark.com/wl/225973"
+    },
+    "pocoF6": {
+      "score": 2985,
+      "sample": "UL submitted-result median",
+      "url": "https://benchmarks.ul.com/hardware/phone/Xiaomi%2BPoco%2BF6%2Breview"
+    },
+    "galaxyA55": {
+      "score": 1001,
+      "sample": "UL submitted-result median",
+      "url": "https://benchmarks.ul.com/hardware/phone/Samsung%2BGalaxy%2BA55%2Breview"
+    }
+  },
+  "delivery": {
+    "branch": "main",
+    "commit": null,
+    "pushed": false,
+    "currentReplaced": false,
+    "onlineDeployed": false,
+    "scope": "Approved accumulated source/tests/build and verification tools/runtime LFS/documents; excludes private source-pack changes, raw local evidence and generated preview bundles."
+  },
+  "submissionVerification": {
+    "pass": true,
+    "sourceTestWorktreeEqualsIndex": true,
+    "build": {
+      "compiledInputs": 482,
+      "missingInputs": [],
+      "generated": [
+        "src/assets/runtime.generated.ts"
+      ],
+      "written": false
+    },
+    "resources": {
+      "records": 2197,
+      "indexedRuntimePaths": 2112,
+      "newLfsObjects": 35,
+      "newLfsBytes": 41176751,
+      "unreferencedNewLfs": []
+    },
+    "credentialPatternFindings": [],
+    "raw": "reports/local/v01-closeout-20261024/index-verification-r3.log",
+    "priorAttemptsRetained": true,
+    "whitespaceCheck": "Existing blank EOF/trailing whitespace retained; verified source untouched",
+    "ciRuntimeLfsIncludesUpdated": true,
+    "staleIndexLock": "Removed audited zero-byte Oct21 lock with no active Git process; earlier failure retained"
+  }
+}

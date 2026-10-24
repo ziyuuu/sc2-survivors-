@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {firstSourceAttackIds} from './source/event-index';
 import {sourceOwnsFlight} from './combat-fx-profile';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {assetUrl} from '../../assets/manifest';
@@ -28,6 +29,7 @@ export class ZergEliteEffects {
   const thornGeometry=new THREE.BufferGeometry();thornGeometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));thornGeometry.setAttribute('uv',new THREE.Float32BufferAttribute(uvs,2));thornGeometry.setIndex(indices);thornGeometry.computeVertexNormals();const boneMaterial=(Array.isArray(this.bones[0].mesh.material)?this.bones[0].mesh.material[0]:this.bones[0].mesh.material) as THREE.MeshStandardMaterial;
   const thornMaterial=new THREE.MeshStandardMaterial({map:boneMaterial.map,normalMap:boneMaterial.normalMap,color:0xb8ad8b,roughness:.8,metalness:0});const thorns=new THREE.InstancedMesh(thornGeometry,thornMaterial,512);thorns.count=0;thorns.frustumCulled=false;thorns.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(thorns);this.thorns.push({mesh:thorns,count:0});this.ready=true;
  }
+ resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;}
  reset(){this.echoes=[];this.serial=0;this.time=0;this.material.reset();for(const b of [...this.sacs,...this.bones,...this.thorns])commitInstances(b.mesh,b.count=0);}
  report(){return {ready:this.ready,quality:this.quality,...this.counts,materials:this.material.report(),originalAcidSacMeshes:this.sacs.length,originalBoneMeshes:this.bones.length,authoredThornSurface:'original Hydralisk bone texture',echoes:this.echoes.length};}
  private body(batch:Batch[],p:P,scale:P,facing=0,pitch=0,roll=0){for(const b of batch){if(b.count>=b.mesh.instanceMatrix.count)continue;obj.position.set(p.x,p.y,p.z);obj.rotation.set(pitch,facing,roll);obj.scale.set(scale.x,scale.y,scale.z);obj.updateMatrix();b.mesh.setMatrixAt(b.count++,obj.matrix);}}
@@ -35,8 +37,9 @@ export class ZergEliteEffects {
   if(w.time<this.time){this.echoes=[];this.serial=0;}this.time=w.time;const density=this.quality==='full'?1:this.quality==='balanced'?.65:.35;
   const point=(p:{x:number;z:number;flying?:boolean},height=.6):P=>({x:p.x,y:(p.flying?5.6:w.terrain?.height(p)??0)+height,z:p.z});
   const sprite=(key:Parameters<ZergEliteMaterials['sprite']>[0],p:P,size:number,color:number,opacity=.7,ground=false,phase=0)=>this.material.sprite(key,p,size,color,opacity,Math.floor((w.time*23+phase)%16),ground,w.time*.12+phase);
+  let attackEvents:ReturnType<typeof firstSourceAttackIds>|undefined;
   for(const p of w.weaponFlights){const u=p.source;if(sourceOwnsFlight(u)||!revisedZergElite(u)||w.time<p.start||!visible(p.point))continue;const target=w.body(p.target),r=Math.max(.01,Math.hypot(p.lastSeen.x-p.from.x,p.lastSeen.z-p.from.z)),t=Math.min(1,Math.hypot(p.point.x-p.from.x,p.point.z-p.from.z)/r),from=point({...p.from,flying:u.flying},.8),to=point({...p.point,flying:target?.flying},.65),angle=Math.atan2(p.lastSeen.x-p.point.x,p.lastSeen.z-p.point.z),head={...to,y:from.y+(to.y-from.y)*t};
-   const launch=w.visualEvents.find(e=>e.attackId===p.attackId),mount=p.hop===0&&launch?muzzle(launch):from,blend=Math.max(0,1-Math.hypot(p.point.x-p.from.x,p.point.z-p.from.z)/1.2);head.x+=(mount.x-p.from.x)*blend;head.z+=(mount.z-p.from.z)*blend;head.y+=(mount.y-from.y)*blend;
+   const launch=(attackEvents??=firstSourceAttackIds(w.visualEvents)).get(p.attackId),mount=p.hop===0&&launch?muzzle(launch):from,blend=Math.max(0,1-Math.hypot(p.point.x-p.from.x,p.point.z-p.from.z)/1.2);head.x+=(mount.x-p.from.x)*blend;head.z+=(mount.z-p.from.z)*blend;head.y+=(mount.y-from.y)*blend;
    const tail={x:head.x-Math.sin(angle)*.5,y:head.y,z:head.z-Math.cos(angle)*.5};const acidColor=u.eliteId==='corruptor.1'?0xc8e27b:u.eliteId==='roach.2'?0xe3be67:0x9ddd72;
    if(u.unitType==='mutalisk'){
     // Three textured original bone splinters form the spinning living glaive; not a flat geometric triangle.

@@ -1,0 +1,4869 @@
+{
+  "schemaVersion": 1,
+  "id": "performance-s09-20261020",
+  "status": "verified-local",
+  "scope": "Player ground baneling melee approach behavior fix; not a performance gain or global movement rewrite.",
+  "source": {
+    "pass": true,
+    "changed": [
+      {
+        "file": "src/simulation/movement/melee-approach.ts",
+        "bytes": 5541,
+        "sha256": "3a6bb4264c73d649f41c346d4d4a6bf48faf7950c24c8247c9e24db0a8743a92"
+      },
+      {
+        "file": "src/simulation/world.ts",
+        "bytes": 154693,
+        "sha256": "b9fbb16b58ad69640d7fdc3a9092a03ca1bf3814ed7cb294117a3be4b5c72847"
+      }
+    ],
+    "excludedWorkspaceChange": "src/render/units/economic-egg.ts",
+    "boundary": "S06 final frozen inputs; two S09 simulation inputs differ. Only player ground baneling approach behavior changes. Original damage, radius, cooldown, enemies, other families, collision solver and terrain unchanged.",
+    "builds": [
+      {
+        "kind": "baseline",
+        "inputs": 445,
+        "outputs": [
+          {
+            "file": "preview/performance-s09-20261020-baseline-r4/index.html",
+            "bytes": 954785,
+            "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+          },
+          {
+            "file": "preview/performance-s09-20261020-baseline-r4/main.css",
+            "bytes": 821671,
+            "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+          },
+          {
+            "file": "preview/performance-s09-20261020-baseline-r4/main.js",
+            "bytes": 37803154,
+            "sha256": "ea1c16f7aec0e3d12ccda4c522b572df13104df47aa2e24b78214b617f094492"
+          }
+        ],
+        "previous": "reports/local/performance-s06-20261020/candidate-web-inputs"
+      },
+      {
+        "kind": "candidate",
+        "inputs": 446,
+        "outputs": [
+          {
+            "file": "preview/performance-s09-20261020-candidate-r4/index.html",
+            "bytes": 954785,
+            "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+          },
+          {
+            "file": "preview/performance-s09-20261020-candidate-r4/main.css",
+            "bytes": 821671,
+            "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+          },
+          {
+            "file": "preview/performance-s09-20261020-candidate-r4/main.js",
+            "bytes": 37809361,
+            "sha256": "208ddf15b2674485bbaf466c870aab84ad1807c24ceb4a0b11de508d582856ef"
+          }
+        ],
+        "previous": "reports/local/performance-s06-20261020/candidate-web-inputs"
+      },
+      {
+        "kind": "nodeOld",
+        "inputs": 170,
+        "outputs": [
+          {
+            "file": "reports/local/performance-s09-20261020/baseline-logic/main.mjs",
+            "bytes": 1854743,
+            "sha256": "fefa0df216d372404d73448c8b4786402044423961c00fdef959de4af8b09dcc"
+          }
+        ],
+        "previous": "reports/local/performance-s06-20261020/candidate-web-inputs"
+      },
+      {
+        "kind": "nodeNew",
+        "inputs": 171,
+        "outputs": [
+          {
+            "file": "reports/local/performance-s09-20261020/candidate-r4-logic/main.mjs",
+            "bytes": 1860643,
+            "sha256": "fa10dee1f696bb0f5cf5485d2a9948b415dd12f57c90105bd3e518a19f68b2b8"
+          }
+        ],
+        "previous": "reports/local/performance-s06-20261020/candidate-web-inputs"
+      }
+    ]
+  },
+  "tests": {
+    "pass": 1716,
+    "fail": 0,
+    "newBehaviorTests": 8,
+    "typecheck": true,
+    "dataDocs": true,
+    "fullSingleRun": true
+  },
+  "behavior": {
+    "pass": true,
+    "method": "Actual production World.step, 900 ticks per case. No direct fire, windup/recovery reset or source range/damage/speed edit. Target high HP/stopped attack is diagnostic. Mixed-live allies retain autonomous movement/attack.",
+    "rows": [
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "contact",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 0.15,
+            "tick": 9,
+            "x": -0.006665789616719406,
+            "z": -0.050108135239770424,
+            "hp": 34.5,
+            "recoveryUntil": 5.15,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 5.166666666666667,
+            "tick": 310,
+            "x": -0.0133316513263184,
+            "z": -0.05021173115159348,
+            "hp": 34.5,
+            "recoveryUntil": 10.166666666666668,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 10.183333333333334,
+            "tick": 611,
+            "x": -0.019997588428977687,
+            "z": -0.050310356644417326,
+            "hp": 34.5,
+            "recoveryUntil": 15.183333333333334,
+            "targetHp": 999951.6467379947
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 0.15,
+            "tick": 9,
+            "x": -0.006665789616719406,
+            "z": -0.050108135239770424,
+            "hp": 34.5,
+            "recoveryUntil": 5.15,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 5.166666666666667,
+            "tick": 310,
+            "x": -0.0133316513263184,
+            "z": -0.05021173115159348,
+            "hp": 34.5,
+            "recoveryUntil": 10.166666666666668,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 10.183333333333334,
+            "tick": 611,
+            "x": -0.019997588428977687,
+            "z": -0.050310356644417326,
+            "hp": 34.5,
+            "recoveryUntil": 15.183333333333334,
+            "targetHp": 999951.6467379947
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.050000000000000044,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "approach",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15194903672440702,
+            "z": 5.0829407263359885,
+            "hp": 34.5,
+            "recoveryUntil": 6.45,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 6.466666666666667,
+            "tick": 388,
+            "x": -0.15291970752263712,
+            "z": 5.0763451033444955,
+            "hp": 34.5,
+            "recoveryUntil": 11.466666666666667,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 11.483333333333333,
+            "tick": 689,
+            "x": -0.15389037832086722,
+            "z": 5.0697494803530025,
+            "hp": 34.5,
+            "recoveryUntil": 16.483333333333334,
+            "targetHp": 999951.6467379947
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15194903672440702,
+            "z": 5.0829407263359885,
+            "hp": 34.5,
+            "recoveryUntil": 6.45,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 6.466666666666667,
+            "tick": 388,
+            "x": -0.15291970752263712,
+            "z": 5.0763451033444955,
+            "hp": 34.5,
+            "recoveryUntil": 11.466666666666667,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 11.483333333333333,
+            "tick": 689,
+            "x": -0.15389037832086722,
+            "z": 5.0697494803530025,
+            "hp": 34.5,
+            "recoveryUntil": 16.483333333333334,
+            "targetHp": 999951.6467379947
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333351,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "mixed",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 34.5,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 34.5,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 34.5,
+            "recoveryUntil": 17.15,
+            "targetHp": 999951.6467379947
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "mixed-live",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 34.5,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999368.9144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 34.5,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 997817.4346646552
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 34.5,
+            "recoveryUntil": 17.15,
+            "targetHp": 996406.7548439809
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "air-only",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.07958224257542212,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "chase",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.4,
+            "tick": 84,
+            "x": -0.3240355003562302,
+            "z": 4.865550774525345,
+            "hp": 34.5,
+            "recoveryUntil": 6.4,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 6.416666666666667,
+            "tick": 385,
+            "x": -0.324819201917683,
+            "z": 4.85893033222086,
+            "hp": 34.5,
+            "recoveryUntil": 11.416666666666668,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 11.45,
+            "tick": 687,
+            "x": -0.32467694610548953,
+            "z": 4.858911934397022,
+            "hp": 34.5,
+            "recoveryUntil": 16.45,
+            "targetHp": 999951.6531173281
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.4,
+            "tick": 84,
+            "x": -0.3240355003562302,
+            "z": 4.865550774525345,
+            "hp": 34.5,
+            "recoveryUntil": 6.4,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 6.416666666666667,
+            "tick": 385,
+            "x": -0.324819201917683,
+            "z": 4.85893033222086,
+            "hp": 34.5,
+            "recoveryUntil": 11.416666666666668,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 11.45,
+            "tick": 687,
+            "x": -0.32467694610548953,
+            "z": 4.858911934397022,
+            "hp": 34.5,
+            "recoveryUntil": 16.45,
+            "targetHp": 999951.6531173281
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333357,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "redirect",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.75,
+            "tick": 165,
+            "x": 3.1237948641219035,
+            "z": 5.695397942916851,
+            "hp": 34.5,
+            "recoveryUntil": 7.75,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 7.766666666666667,
+            "tick": 466,
+            "x": 3.119948067616685,
+            "z": 5.689953073672151,
+            "hp": 34.5,
+            "recoveryUntil": 12.766666666666666,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 12.783333333333333,
+            "tick": 767,
+            "x": 3.1161012711114666,
+            "z": 5.684508204427451,
+            "hp": 34.5,
+            "recoveryUntil": 17.78333333333333,
+            "targetHp": 999951.6467379947
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333358,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "remove-blockers",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 2.0166666666666666,
+            "tick": 121,
+            "x": -0.17634787109734942,
+            "z": 5.079060512475647,
+            "hp": 34.5,
+            "recoveryUntil": 7.016666666666667,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 7.033333333333333,
+            "tick": 422,
+            "x": -0.17728822490124377,
+            "z": 5.072460498902331,
+            "hp": 34.5,
+            "recoveryUntil": 12.033333333333333,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 12.05,
+            "tick": 723,
+            "x": -0.1782285787051381,
+            "z": 5.065860485329016,
+            "hp": 34.5,
+            "recoveryUntil": 17.05,
+            "targetHp": 999951.6467379947
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 2.033333333333333,
+            "tick": 122,
+            "x": -0.5177991875081974,
+            "z": 5.209110565881485,
+            "hp": 34.5,
+            "recoveryUntil": 7.033333333333333,
+            "targetHp": 999982.6063793333
+          },
+          {
+            "time": 7.05,
+            "tick": 423,
+            "x": -0.518287020218846,
+            "z": 5.202461771728342,
+            "hp": 34.5,
+            "recoveryUntil": 12.05,
+            "targetHp": 999967.126558664
+          },
+          {
+            "time": 12.083333333333334,
+            "tick": 725,
+            "x": -0.5151462449381471,
+            "z": 5.201403264496661,
+            "hp": 34.5,
+            "recoveryUntil": 17.083333333333336,
+            "targetHp": 999951.6531173281
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333348,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "wall",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.09282266825112202,
+        "clearanceBefore": -0.017932168849544294,
+        "clearanceAfter": -0.017932168849544294
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "scenario": "move-order",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333353,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "contact",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 0.15,
+            "tick": 9,
+            "x": -0.006665789616719406,
+            "z": -0.050108135239770424,
+            "hp": 260.82,
+            "recoveryUntil": 5.15,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 5.166666666666667,
+            "tick": 310,
+            "x": -0.0133316513263184,
+            "z": -0.05021173115159348,
+            "hp": 260.82,
+            "recoveryUntil": 10.166666666666668,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 10.183333333333334,
+            "tick": 611,
+            "x": -0.019997588428977687,
+            "z": -0.050310356644417326,
+            "hp": 260.82,
+            "recoveryUntil": 15.183333333333334,
+            "targetHp": 999178.8467379948
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 0.15,
+            "tick": 9,
+            "x": -0.006665789616719406,
+            "z": -0.050108135239770424,
+            "hp": 260.82,
+            "recoveryUntil": 5.15,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 5.166666666666667,
+            "tick": 310,
+            "x": -0.0133316513263184,
+            "z": -0.05021173115159348,
+            "hp": 260.82,
+            "recoveryUntil": 10.166666666666668,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 10.183333333333334,
+            "tick": 611,
+            "x": -0.019997588428977687,
+            "z": -0.050310356644417326,
+            "hp": 260.82,
+            "recoveryUntil": 15.183333333333334,
+            "targetHp": 999178.8467379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.050000000000000044,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "approach",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15194903672440702,
+            "z": 5.0829407263359885,
+            "hp": 260.82,
+            "recoveryUntil": 6.45,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 6.466666666666667,
+            "tick": 388,
+            "x": -0.15291970752263712,
+            "z": 5.0763451033444955,
+            "hp": 260.82,
+            "recoveryUntil": 11.466666666666667,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 11.483333333333333,
+            "tick": 689,
+            "x": -0.15389037832086722,
+            "z": 5.0697494803530025,
+            "hp": 260.82,
+            "recoveryUntil": 16.483333333333334,
+            "targetHp": 999178.8467379948
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15194903672440702,
+            "z": 5.0829407263359885,
+            "hp": 260.82,
+            "recoveryUntil": 6.45,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 6.466666666666667,
+            "tick": 388,
+            "x": -0.15291970752263712,
+            "z": 5.0763451033444955,
+            "hp": 260.82,
+            "recoveryUntil": 11.466666666666667,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 11.483333333333333,
+            "tick": 689,
+            "x": -0.15389037832086722,
+            "z": 5.0697494803530025,
+            "hp": 260.82,
+            "recoveryUntil": 16.483333333333334,
+            "targetHp": 999178.8467379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333351,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "mixed",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 260.82,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 260.82,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 260.82,
+            "recoveryUntil": 17.15,
+            "targetHp": 999178.8467379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "mixed-live",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 260.82,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999111.3144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 260.82,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 997302.2346646553
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 260.82,
+            "recoveryUntil": 17.15,
+            "targetHp": 995633.954843981
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "air-only",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.07958224257542212,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "chase",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.4,
+            "tick": 84,
+            "x": -0.3240355003562302,
+            "z": 4.865550774525345,
+            "hp": 260.82,
+            "recoveryUntil": 6.4,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 6.416666666666667,
+            "tick": 385,
+            "x": -0.324819201917683,
+            "z": 4.85893033222086,
+            "hp": 260.82,
+            "recoveryUntil": 11.416666666666668,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 11.45,
+            "tick": 687,
+            "x": -0.32467694610548953,
+            "z": 4.858911934397022,
+            "hp": 260.82,
+            "recoveryUntil": 16.45,
+            "targetHp": 999178.8531173281
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.4,
+            "tick": 84,
+            "x": -0.3240355003562302,
+            "z": 4.865550774525345,
+            "hp": 260.82,
+            "recoveryUntil": 6.4,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 6.416666666666667,
+            "tick": 385,
+            "x": -0.324819201917683,
+            "z": 4.85893033222086,
+            "hp": 260.82,
+            "recoveryUntil": 11.416666666666668,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 11.45,
+            "tick": 687,
+            "x": -0.32467694610548953,
+            "z": 4.858911934397022,
+            "hp": 260.82,
+            "recoveryUntil": 16.45,
+            "targetHp": 999178.8531173281
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333357,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "redirect",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.75,
+            "tick": 165,
+            "x": 3.1237948641219035,
+            "z": 5.695397942916851,
+            "hp": 260.82,
+            "recoveryUntil": 7.75,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 7.766666666666667,
+            "tick": 466,
+            "x": 3.119948067616685,
+            "z": 5.689953073672151,
+            "hp": 260.82,
+            "recoveryUntil": 12.766666666666666,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 12.783333333333333,
+            "tick": 767,
+            "x": 3.1161012711114666,
+            "z": 5.684508204427451,
+            "hp": 260.82,
+            "recoveryUntil": 17.78333333333333,
+            "targetHp": 999178.8467379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333358,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "remove-blockers",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 2.0166666666666666,
+            "tick": 121,
+            "x": -0.17634787109734942,
+            "z": 5.079060512475647,
+            "hp": 260.82,
+            "recoveryUntil": 7.016666666666667,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 7.033333333333333,
+            "tick": 422,
+            "x": -0.17728822490124377,
+            "z": 5.072460498902331,
+            "hp": 260.82,
+            "recoveryUntil": 12.033333333333333,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 12.05,
+            "tick": 723,
+            "x": -0.1782285787051381,
+            "z": 5.065860485329016,
+            "hp": 260.82,
+            "recoveryUntil": 17.05,
+            "targetHp": 999178.8467379948
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 2.033333333333333,
+            "tick": 122,
+            "x": -0.5177991875081974,
+            "z": 5.209110565881485,
+            "hp": 260.82,
+            "recoveryUntil": 7.033333333333333,
+            "targetHp": 999725.0063793333
+          },
+          {
+            "time": 7.05,
+            "tick": 423,
+            "x": -0.518287020218846,
+            "z": 5.202461771728342,
+            "hp": 260.82,
+            "recoveryUntil": 12.05,
+            "targetHp": 999451.9265586641
+          },
+          {
+            "time": 12.083333333333334,
+            "tick": 725,
+            "x": -0.5151462449381471,
+            "z": 5.201403264496661,
+            "hp": 260.82,
+            "recoveryUntil": 17.083333333333336,
+            "targetHp": 999178.8531173281
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333348,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "wall",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.09282266825112202,
+        "clearanceBefore": -0.017932168849544294,
+        "clearanceAfter": -0.017932168849544294
+      },
+      {
+        "options": {
+          "id": "baneling.1",
+          "scenario": "move-order",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 92,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333353,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "contact",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 0.15,
+            "tick": 9,
+            "x": -0.006665789616719406,
+            "z": -0.050108135239770424,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 5.15,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 5.166666666666667,
+            "tick": 310,
+            "x": -0.0133316513263184,
+            "z": -0.05021173115159348,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 10.166666666666668,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 10.183333333333334,
+            "tick": 611,
+            "x": -0.019997588428977687,
+            "z": -0.050310356644417326,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 15.183333333333334,
+            "targetHp": 995185.8467379948
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 0.15,
+            "tick": 9,
+            "x": -0.006665789616719406,
+            "z": -0.050108135239770424,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 5.15,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 5.166666666666667,
+            "tick": 310,
+            "x": -0.0133316513263184,
+            "z": -0.05021173115159348,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 10.166666666666668,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 10.183333333333334,
+            "tick": 611,
+            "x": -0.019997588428977687,
+            "z": -0.050310356644417326,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 15.183333333333334,
+            "targetHp": 995185.8467379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.050000000000000044,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "approach",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15194903672440702,
+            "z": 5.0829407263359885,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 6.45,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 6.466666666666667,
+            "tick": 388,
+            "x": -0.15291970752263712,
+            "z": 5.0763451033444955,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 11.466666666666667,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 11.483333333333333,
+            "tick": 689,
+            "x": -0.15389037832086722,
+            "z": 5.0697494803530025,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 16.483333333333334,
+            "targetHp": 995185.8467379948
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15194903672440702,
+            "z": 5.0829407263359885,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 6.45,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 6.466666666666667,
+            "tick": 388,
+            "x": -0.15291970752263712,
+            "z": 5.0763451033444955,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 11.466666666666667,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 11.483333333333333,
+            "tick": 689,
+            "x": -0.15389037832086722,
+            "z": 5.0697494803530025,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 16.483333333333334,
+            "targetHp": 995185.8467379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333351,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "mixed",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.15,
+            "targetHp": 995185.8467379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "mixed-live",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999180.3144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 995340.2346646553
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.15,
+            "targetHp": 991640.954843981
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "air-only",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.07958224257542212,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "chase",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.4,
+            "tick": 84,
+            "x": -0.3240355003562302,
+            "z": 4.865550774525345,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 6.4,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 6.416666666666667,
+            "tick": 385,
+            "x": -0.324819201917683,
+            "z": 4.85893033222086,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 11.416666666666668,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 11.45,
+            "tick": 687,
+            "x": -0.32467694610548953,
+            "z": 4.858911934397022,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 16.45,
+            "targetHp": 995185.8531173281
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.4,
+            "tick": 84,
+            "x": -0.3240355003562302,
+            "z": 4.865550774525345,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 6.4,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 6.416666666666667,
+            "tick": 385,
+            "x": -0.324819201917683,
+            "z": 4.85893033222086,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 11.416666666666668,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 11.45,
+            "tick": 687,
+            "x": -0.32467694610548953,
+            "z": 4.858911934397022,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 16.45,
+            "targetHp": 995185.8531173281
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333357,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "redirect",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.75,
+            "tick": 165,
+            "x": 3.1237948641219035,
+            "z": 5.695397942916851,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.75,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 7.766666666666667,
+            "tick": 466,
+            "x": 3.119948067616685,
+            "z": 5.689953073672151,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.766666666666666,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 12.783333333333333,
+            "tick": 767,
+            "x": 3.1161012711114666,
+            "z": 5.684508204427451,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.78333333333333,
+            "targetHp": 995185.8467379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333358,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "remove-blockers",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 2.0166666666666666,
+            "tick": 121,
+            "x": -0.17634787109734942,
+            "z": 5.079060512475647,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.016666666666667,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 7.033333333333333,
+            "tick": 422,
+            "x": -0.17728822490124377,
+            "z": 5.072460498902331,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.033333333333333,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 12.05,
+            "tick": 723,
+            "x": -0.1782285787051381,
+            "z": 5.065860485329016,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.05,
+            "targetHp": 995185.8467379948
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 2.033333333333333,
+            "tick": 122,
+            "x": -0.5177991875081974,
+            "z": 5.209110565881485,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.033333333333333,
+            "targetHp": 999794.0063793333
+          },
+          {
+            "time": 7.05,
+            "tick": 423,
+            "x": -0.518287020218846,
+            "z": 5.202461771728342,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.05,
+            "targetHp": 997489.9265586641
+          },
+          {
+            "time": 12.083333333333334,
+            "tick": 725,
+            "x": -0.5151462449381471,
+            "z": 5.201403264496661,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.083333333333336,
+            "targetHp": 995185.8531173281
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333348,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "wall",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.09282266825112202,
+        "clearanceBefore": -0.017932168849544294,
+        "clearanceAfter": -0.017932168849544294
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "scenario": "move-order",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333353,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "contact",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 0.15,
+            "tick": 9,
+            "x": -0.006665789616719406,
+            "z": -0.050108135239770424,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 5.15,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 5.166666666666667,
+            "tick": 310,
+            "x": -0.0133316513263184,
+            "z": -0.05021173115159348,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 10.166666666666668,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 10.183333333333334,
+            "tick": 611,
+            "x": -0.019997588428977687,
+            "z": -0.050310356644417326,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 15.183333333333334,
+            "targetHp": 999541.0967379948
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 0.15,
+            "tick": 9,
+            "x": -0.006665789616719406,
+            "z": -0.050108135239770424,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 5.15,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 5.166666666666667,
+            "tick": 310,
+            "x": -0.0133316513263184,
+            "z": -0.05021173115159348,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 10.166666666666668,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 10.183333333333334,
+            "tick": 611,
+            "x": -0.019997588428977687,
+            "z": -0.050310356644417326,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 15.183333333333334,
+            "targetHp": 999541.0967379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.050000000000000044,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "approach",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15194903672440702,
+            "z": 5.0829407263359885,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 6.45,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 6.466666666666667,
+            "tick": 388,
+            "x": -0.15291970752263712,
+            "z": 5.0763451033444955,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 11.466666666666667,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 11.483333333333333,
+            "tick": 689,
+            "x": -0.15389037832086722,
+            "z": 5.0697494803530025,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 16.483333333333334,
+            "targetHp": 999541.0967379948
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15194903672440702,
+            "z": 5.0829407263359885,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 6.45,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 6.466666666666667,
+            "tick": 388,
+            "x": -0.15291970752263712,
+            "z": 5.0763451033444955,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 11.466666666666667,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 11.483333333333333,
+            "tick": 689,
+            "x": -0.15389037832086722,
+            "z": 5.0697494803530025,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 16.483333333333334,
+            "targetHp": 999541.0967379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333351,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "mixed",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 17.15,
+            "targetHp": 999541.0967379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "mixed-live",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999232.0644853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 997543.7346646553
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 17.15,
+            "targetHp": 995996.204843981
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "air-only",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.07958224257542212,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "chase",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.4,
+            "tick": 84,
+            "x": -0.3240355003562302,
+            "z": 4.865550774525345,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 6.4,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 6.416666666666667,
+            "tick": 385,
+            "x": -0.324819201917683,
+            "z": 4.85893033222086,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 11.416666666666668,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 11.45,
+            "tick": 687,
+            "x": -0.32467694610548953,
+            "z": 4.858911934397022,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 16.45,
+            "targetHp": 999541.1031173281
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.4,
+            "tick": 84,
+            "x": -0.3240355003562302,
+            "z": 4.865550774525345,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 6.4,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 6.416666666666667,
+            "tick": 385,
+            "x": -0.324819201917683,
+            "z": 4.85893033222086,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 11.416666666666668,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 11.45,
+            "tick": 687,
+            "x": -0.32467694610548953,
+            "z": 4.858911934397022,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 16.45,
+            "targetHp": 999541.1031173281
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333357,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "redirect",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.75,
+            "tick": 165,
+            "x": 3.1237948641219035,
+            "z": 5.695397942916851,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 7.75,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 7.766666666666667,
+            "tick": 466,
+            "x": 3.119948067616685,
+            "z": 5.689953073672151,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 12.766666666666666,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 12.783333333333333,
+            "tick": 767,
+            "x": 3.1161012711114666,
+            "z": 5.684508204427451,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 17.78333333333333,
+            "targetHp": 999541.0967379948
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333358,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "remove-blockers",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 2.0166666666666666,
+            "tick": 121,
+            "x": -0.17634787109734942,
+            "z": 5.079060512475647,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 7.016666666666667,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 7.033333333333333,
+            "tick": 422,
+            "x": -0.17728822490124377,
+            "z": 5.072460498902331,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 12.033333333333333,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 12.05,
+            "tick": 723,
+            "x": -0.1782285787051381,
+            "z": 5.065860485329016,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 17.05,
+            "targetHp": 999541.0967379948
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 2.033333333333333,
+            "tick": 122,
+            "x": -0.5177991875081974,
+            "z": 5.209110565881485,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 7.033333333333333,
+            "targetHp": 999845.7563793333
+          },
+          {
+            "time": 7.05,
+            "tick": 423,
+            "x": -0.518287020218846,
+            "z": 5.202461771728342,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 12.05,
+            "targetHp": 999693.4265586641
+          },
+          {
+            "time": 12.083333333333334,
+            "tick": 725,
+            "x": -0.5151462449381471,
+            "z": 5.201403264496661,
+            "hp": 434.70000000000005,
+            "recoveryUntil": 17.083333333333336,
+            "targetHp": 999541.1031173281
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333348,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "wall",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.09282266825112202,
+        "clearanceBefore": -0.017932168849544294,
+        "clearanceAfter": -0.017932168849544294
+      },
+      {
+        "options": {
+          "id": "baneling.3",
+          "scenario": "move-order",
+          "n": 12
+        },
+        "initialStatsBefore": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 86.25,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333353,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "scenario": "mixed-live",
+          "n": 4,
+          "angle": 0,
+          "seed": 1777
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.0833333333333335,
+            "tick": 125,
+            "x": -0.481650631556533,
+            "z": 5.219317831246806,
+            "hp": 34.5,
+            "recoveryUntil": 7.083333333333334,
+            "targetHp": 999778.4889679983
+          },
+          {
+            "time": 7.1,
+            "tick": 426,
+            "x": -0.4821832834532661,
+            "z": 5.2126724775014175,
+            "hp": 34.5,
+            "recoveryUntil": 12.1,
+            "targetHp": 999251.0091473272
+          },
+          {
+            "time": 12.116666666666667,
+            "tick": 727,
+            "x": -0.48271593534999924,
+            "z": 5.206027123756029,
+            "hp": 34.5,
+            "recoveryUntil": 17.116666666666667,
+            "targetHp": 998774.7293266562
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333351,
+        "clearanceBefore": -2.220446049250313e-16,
+        "clearanceAfter": 0.200155143078113
+      },
+      {
+        "options": {
+          "scenario": "mixed-live",
+          "n": 4,
+          "angle": 1.4,
+          "seed": 1777
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.2,
+            "tick": 132,
+            "x": 5.174897314846766,
+            "z": 0.4361999468403386,
+            "hp": 34.5,
+            "recoveryUntil": 7.2,
+            "targetHp": 999778.5655199982
+          },
+          {
+            "time": 7.216666666666667,
+            "tick": 433,
+            "x": 5.1682477679015255,
+            "z": 0.43572248493872956,
+            "hp": 34.5,
+            "recoveryUntil": 12.216666666666667,
+            "targetHp": 999251.085699327
+          },
+          {
+            "time": 12.233333333333333,
+            "tick": 734,
+            "x": 5.161598220956285,
+            "z": 0.43524502303712054,
+            "hp": 34.5,
+            "recoveryUntil": 17.233333333333334,
+            "targetHp": 998723.6058786559
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.0872083333333335,
+        "clearanceBefore": -0.00006000369152991958,
+        "clearanceAfter": 0.2551857039247729
+      },
+      {
+        "options": {
+          "scenario": "mixed-live",
+          "n": 4,
+          "angle": 3.1,
+          "seed": 1777
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 1.8499999999999999,
+            "tick": 111,
+            "x": -0.2540046899739316,
+            "z": -5.200753459952625,
+            "hp": 34.5,
+            "recoveryUntil": 6.85,
+            "targetHp": 999816.7996573319
+          },
+          {
+            "time": 6.866666666666666,
+            "tick": 412,
+            "x": -0.2548264540389646,
+            "z": -5.194137634360466,
+            "hp": 34.5,
+            "recoveryUntil": 11.866666666666667,
+            "targetHp": 999302.1198366608
+          },
+          {
+            "time": 11.883333333333333,
+            "tick": 713,
+            "x": -0.25564821810399757,
+            "z": -5.187521808768307,
+            "hp": 34.5,
+            "recoveryUntil": 16.883333333333333,
+            "targetHp": 998774.6400159897
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333368,
+        "clearanceBefore": -2.220446049250313e-16,
+        "clearanceAfter": 0.21704341744428368
+      },
+      {
+        "options": {
+          "scenario": "mixed-live",
+          "n": 8,
+          "angle": 0,
+          "seed": 1777
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.05,
+            "tick": 123,
+            "x": -0.5584766243559347,
+            "z": 5.263967658663557,
+            "hp": 34.5,
+            "recoveryUntil": 7.05,
+            "targetHp": 999573.6825886642
+          },
+          {
+            "time": 7.066666666666666,
+            "tick": 424,
+            "x": -0.5589082466154491,
+            "z": 5.257314979002733,
+            "hp": 34.5,
+            "recoveryUntil": 12.066666666666666,
+            "targetHp": 998547.0027679913
+          },
+          {
+            "time": 12.083333333333334,
+            "tick": 725,
+            "x": -0.5593398688749636,
+            "z": 5.25066229934191,
+            "hp": 34.5,
+            "recoveryUntil": 17.083333333333336,
+            "targetHp": 997597.1229473186
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333348,
+        "clearanceBefore": -0.00007549950227492275,
+        "clearanceAfter": 0.0863292894872042
+      },
+      {
+        "options": {
+          "scenario": "mixed-live",
+          "n": 8,
+          "angle": 1.4,
+          "seed": 1777
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.216666666666667,
+            "tick": 133,
+            "x": 5.230362353968701,
+            "z": 0.40437958021852427,
+            "hp": 34.5,
+            "recoveryUntil": 7.216666666666667,
+            "targetHp": 999573.7782786641
+          },
+          {
+            "time": 7.233333333333333,
+            "tick": 434,
+            "x": 5.223710144044342,
+            "z": 0.4039407777952065,
+            "hp": 34.5,
+            "recoveryUntil": 12.233333333333334,
+            "targetHp": 998534.2984579911
+          },
+          {
+            "time": 12.25,
+            "tick": 735,
+            "x": 5.217057934119984,
+            "z": 0.4035019753718887,
+            "hp": 34.5,
+            "recoveryUntil": 17.25,
+            "targetHp": 997494.8186373181
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.0872083333333335,
+        "clearanceBefore": -2.220446049250313e-16,
+        "clearanceAfter": 0.17449940540086728
+      },
+      {
+        "options": {
+          "scenario": "mixed-live",
+          "n": 8,
+          "angle": 3.1,
+          "seed": 1777
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 1.9333333333333333,
+            "tick": 116,
+            "x": -0.284416270326241,
+            "z": -5.223587585134679,
+            "hp": 34.5,
+            "recoveryUntil": 6.933333333333334,
+            "targetHp": 999573.637933331
+          },
+          {
+            "time": 6.95,
+            "tick": 417,
+            "x": -0.2851965171744084,
+            "z": -5.216966734788962,
+            "hp": 34.5,
+            "recoveryUntil": 11.95,
+            "targetHp": 998636.5581126583
+          },
+          {
+            "time": 11.966666666666667,
+            "tick": 718,
+            "x": -0.2859767640225758,
+            "z": -5.210345884443246,
+            "hp": 34.5,
+            "recoveryUntil": 16.96666666666667,
+            "targetHp": 997597.0782919853
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333347,
+        "clearanceBefore": -0.00006942317126956699,
+        "clearanceAfter": 0.09344937133735254
+      },
+      {
+        "options": {
+          "scenario": "mixed-live",
+          "n": 24,
+          "angle": 0,
+          "seed": 1777
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.75,
+            "tick": 165,
+            "x": -1.0585243798848816,
+            "z": 6.195510532901668,
+            "hp": 34.5,
+            "recoveryUntil": 7.75,
+            "targetHp": 998434.7887966597
+          },
+          {
+            "time": 7.766666666666667,
+            "tick": 466,
+            "x": -1.0583538558556065,
+            "z": 6.188846047475179,
+            "hp": 34.5,
+            "recoveryUntil": 12.766666666666666,
+            "targetHp": 995347.3089759792
+          },
+          {
+            "time": 12.783333333333333,
+            "tick": 767,
+            "x": -1.0581833318263314,
+            "z": 6.18218156204869,
+            "hp": 34.5,
+            "recoveryUntil": 17.78333333333333,
+            "targetHp": 992259.8291552988
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.0872083333333335,
+        "clearanceBefore": -0.14198545524070005,
+        "clearanceAfter": -0.03562852993692156
+      },
+      {
+        "options": {
+          "scenario": "mixed-live",
+          "n": 24,
+          "angle": 1.4,
+          "seed": 1777
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.7,
+            "tick": 162,
+            "x": 6.331715770344017,
+            "z": 0.20132555128089474,
+            "hp": 34.5,
+            "recoveryUntil": 7.7,
+            "targetHp": 998421.9824173263
+          },
+          {
+            "time": 7.716666666666667,
+            "tick": 463,
+            "x": 6.325051685589672,
+            "z": 0.2011400281520056,
+            "hp": 34.5,
+            "recoveryUntil": 12.716666666666667,
+            "targetHp": 995308.9025966458
+          },
+          {
+            "time": 12.733333333333333,
+            "tick": 764,
+            "x": 6.318387600835328,
+            "z": 0.20095450502311646,
+            "hp": 34.5,
+            "recoveryUntil": 17.733333333333334,
+            "targetHp": 992221.4227759653
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333343,
+        "clearanceBefore": -2.220446049250313e-16,
+        "clearanceAfter": 0.1393172779522177
+      },
+      {
+        "options": {
+          "scenario": "mixed-live",
+          "n": 24,
+          "angle": 3.1,
+          "seed": 1777
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.8,
+            "tick": 168,
+            "x": -0.5933905018422775,
+            "z": -6.366847248074611,
+            "hp": 34.5,
+            "recoveryUntil": 7.8,
+            "targetHp": 998396.4143139928
+          },
+          {
+            "time": 7.816666666666666,
+            "tick": 469,
+            "x": -0.5937111781749809,
+            "z": -6.360188298372587,
+            "hp": 34.5,
+            "recoveryUntil": 12.816666666666666,
+            "targetHp": 995308.9344933124
+          },
+          {
+            "time": 12.833333333333334,
+            "tick": 770,
+            "x": -0.5940318545076843,
+            "z": -6.353529348670563,
+            "hp": 34.5,
+            "recoveryUntil": 17.833333333333336,
+            "targetHp": 992221.4546726319
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333357,
+        "clearanceBefore": -0.03251827335902735,
+        "clearanceAfter": -0.035967032355700534
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "theme": "industrial",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 34.5,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999368.9144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 34.5,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 997817.4346646552
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 34.5,
+            "recoveryUntil": 17.15,
+            "targetHp": 996406.7548439809
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "theme": "industrial",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999180.3144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 995340.2346646553
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.15,
+            "targetHp": 991640.954843981
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "theme": "mar-sara",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 34.5,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999368.9144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 34.5,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 997817.4346646552
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 34.5,
+            "recoveryUntil": 17.15,
+            "targetHp": 996406.7548439809
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "theme": "mar-sara",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999180.3144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 995340.2346646553
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.15,
+            "targetHp": 991640.954843981
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "theme": "char",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 34.5,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999368.9144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 34.5,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 997817.4346646552
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 34.5,
+            "recoveryUntil": 17.15,
+            "targetHp": 996406.7548439809
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "theme": "char",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999180.3144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 995340.2346646553
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.15,
+            "targetHp": 991640.954843981
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "theme": "ice",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 34.5,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999368.9144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 34.5,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 997817.4346646552
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 34.5,
+            "recoveryUntil": 17.15,
+            "targetHp": 996406.7548439809
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "theme": "ice",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999180.3144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 995340.2346646553
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.15,
+            "targetHp": 991640.954843981
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling",
+          "theme": "frontier",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 34.5,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999368.9144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 34.5,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 997817.4346646552
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 34.5,
+            "recoveryUntil": 17.15,
+            "targetHp": 996406.7548439809
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "baneling.2",
+          "theme": "frontier",
+          "scenario": "mixed-live"
+        },
+        "initialStatsBefore": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 103.49999999999999,
+          "range": 0.25,
+          "period": 0.3233695652173913,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 7.116666666666667,
+            "targetHp": 999180.3144853301
+          },
+          {
+            "time": 7.133333333333333,
+            "tick": 428,
+            "x": -0.6259689591412372,
+            "z": 5.338940419677969,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 12.133333333333333,
+            "targetHp": 995340.2346646553
+          },
+          {
+            "time": 12.15,
+            "tick": 729,
+            "x": -0.6263106883620599,
+            "z": 5.332282517186637,
+            "hp": 246.32999999999996,
+            "recoveryUntil": 17.15,
+            "targetHp": 991640.954843981
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "temporary",
+          "scenario": "approach"
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15097836592617692,
+            "z": 5.0895363493274814,
+            "hp": 0,
+            "targetHp": 999982.6063793333
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.45,
+            "tick": 87,
+            "x": -0.15097836592617692,
+            "z": 5.0895363493274814,
+            "hp": 0,
+            "targetHp": 999982.6063793333
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333351,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "temporary",
+          "scenario": "mixed"
+        },
+        "initialStatsBefore": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 18.4,
+          "range": 0.25,
+          "period": 0.5173913043478261,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [],
+        "afterShots": [
+          {
+            "time": 2.1166666666666667,
+            "tick": 127,
+            "x": -0.6256272299204144,
+            "z": 5.345598322169301,
+            "hp": 0,
+            "targetHp": 999982.6063793333
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.08720833333333364,
+        "clearanceBefore": -0.0021362819469178396,
+        "clearanceAfter": -0.0021362819469178396
+      },
+      {
+        "options": {
+          "id": "enemy",
+          "scenario": "approach"
+        },
+        "initialStatsBefore": {
+          "damage": 3.024,
+          "range": 0.25,
+          "period": 0.5833333333333333,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 3.024,
+          "range": 0.25,
+          "period": 0.5833333333333333,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 1.2666666666666666,
+            "tick": 76,
+            "x": 0,
+            "z": 5.217500000000002,
+            "hp": 0,
+            "targetHp": 45.13499999999999
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 1.2666666666666666,
+            "tick": 76,
+            "x": 0,
+            "z": 5.217500000000002,
+            "hp": 0,
+            "targetHp": 45.13499999999999
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.07583333333333364,
+        "clearanceBefore": null,
+        "clearanceAfter": null
+      },
+      {
+        "options": {
+          "id": "enemy",
+          "scenario": "mixed"
+        },
+        "initialStatsBefore": {
+          "damage": 3.024,
+          "range": 0.25,
+          "period": 0.5833333333333333,
+          "radius": 0.30000000000000004
+        },
+        "initialStatsAfter": {
+          "damage": 3.024,
+          "range": 0.25,
+          "period": 0.5833333333333333,
+          "radius": 0.30000000000000004
+        },
+        "beforeShots": [
+          {
+            "time": 0.2,
+            "tick": 12,
+            "x": -0.0024759378423606917,
+            "z": 0.00618984460590173,
+            "hp": 0,
+            "targetHp": 51.74999999999999
+          }
+        ],
+        "afterShots": [
+          {
+            "time": 0.2,
+            "tick": 12,
+            "x": -0.0024759378423606917,
+            "z": 0.00618984460590173,
+            "hp": 0,
+            "targetHp": 51.74999999999999
+          }
+        ],
+        "terrainInvalid": 0,
+        "maxTravel": 0.006666666666666667,
+        "clearanceBefore": 0.060516686169608036,
+        "clearanceAfter": 0.060516686169608036
+      }
+    ],
+    "controls": [
+      {
+        "id": "zergling",
+        "exact": true
+      },
+      {
+        "id": "zealot",
+        "exact": true
+      },
+      {
+        "id": "hydralisk",
+        "exact": true
+      },
+      {
+        "id": "roach",
+        "exact": true
+      }
+    ]
+  },
+  "boundaries": {
+    "pass": true,
+    "rows": [
+      {
+        "mode": "baseline",
+        "scenario": "native-zagara-hatch",
+        "targets": true,
+        "children": [
+          {
+            "id": 17,
+            "shots": 1,
+            "bornAt": 0.016666666666666666,
+            "until": 10.016666666666667,
+            "hp": 0,
+            "ended": 2.2666666666666666
+          },
+          {
+            "id": 18,
+            "shots": 0,
+            "bornAt": 0.016666666666666666,
+            "until": 10.016666666666667,
+            "hp": 0,
+            "ended": 10.033333333333333
+          }
+        ]
+      },
+      {
+        "mode": "baseline",
+        "scenario": "native-zagara-hatch",
+        "targets": false,
+        "children": [
+          {
+            "id": 4,
+            "shots": 0,
+            "bornAt": 0.016666666666666666,
+            "until": 10.016666666666667,
+            "hp": 0,
+            "ended": 10.033333333333333
+          },
+          {
+            "id": 5,
+            "shots": 0,
+            "bornAt": 0.016666666666666666,
+            "until": 10.016666666666667,
+            "hp": 0,
+            "ended": 10.033333333333333
+          }
+        ]
+      },
+      {
+        "mode": "candidate",
+        "scenario": "native-zagara-hatch",
+        "targets": true,
+        "children": [
+          {
+            "id": 17,
+            "shots": 1,
+            "bornAt": 0.016666666666666666,
+            "until": 10.016666666666667,
+            "hp": 0,
+            "ended": 1.8833333333333333
+          },
+          {
+            "id": 18,
+            "shots": 1,
+            "bornAt": 0.016666666666666666,
+            "until": 10.016666666666667,
+            "hp": 0,
+            "ended": 2.7333333333333334
+          }
+        ]
+      },
+      {
+        "mode": "candidate",
+        "scenario": "native-zagara-hatch",
+        "targets": false,
+        "children": [
+          {
+            "id": 4,
+            "shots": 0,
+            "bornAt": 0.016666666666666666,
+            "until": 10.016666666666667,
+            "hp": 0,
+            "ended": 10.033333333333333
+          },
+          {
+            "id": 5,
+            "shots": 0,
+            "bornAt": 0.016666666666666666,
+            "until": 10.016666666666667,
+            "hp": 0,
+            "ended": 10.033333333333333
+          }
+        ]
+      },
+      {
+        "mode": "candidate",
+        "scenario": "new-blocker",
+        "shots": 3
+      },
+      {
+        "mode": "candidate",
+        "scenario": "blockers-fly",
+        "shots": 3
+      },
+      {
+        "mode": "candidate",
+        "scenario": "blockers-die",
+        "shots": 3
+      }
+    ]
+  },
+  "cost": {
+    "pass": true,
+    "method": "Current source planner only, 12 rounds, cold forces route expiry; hot 300 repeated calls. Diagnostic 301 enemies exercise filtering; not normal 300 cap or full World.step/FPS. No claim of performance improvement; new routing has a CPU cost.",
+    "rows": [
+      {
+        "allies": 0,
+        "enemies": 301,
+        "cold": [
+          0.4782999999999902,
+          0.010300000000142973,
+          0.006799999999884676,
+          0.006700000000137152,
+          0.007100000000036744,
+          0.004899999999906868,
+          0.005000000000109139,
+          0.004599999999982174,
+          0.005000000000109139,
+          0.004999999999881766,
+          0.004899999999906868,
+          0.004900000000134241
+        ],
+        "hot": [
+          0.007054333333333034,
+          0.005232000000000123,
+          0.009890333333332819,
+          0.0055809999999996765,
+          0.0048586666666665225,
+          0.004440666666666857,
+          0.004470000000000406,
+          0.004476000000000416,
+          0.005235666666666626,
+          0.005019000000000536,
+          0.00544433333333321,
+          0.004964666666666441
+        ],
+        "coldMedianMs": 0.005000000000109139,
+        "coldMaxMs": 0.4782999999999902,
+        "hotMedianMs": 0.005232000000000123,
+        "returned": {
+          "x": 0,
+          "z": 5.17
+        }
+      },
+      {
+        "allies": 12,
+        "enemies": 301,
+        "cold": [
+          1.2033000000001266,
+          0.3081999999999425,
+          0.2762000000000171,
+          0.26089999999999236,
+          0.23569999999995161,
+          0.2075999999999567,
+          0.447400000000016,
+          0.33849999999983993,
+          0.09289999999987231,
+          0.08749999999986358,
+          0.09849999999983083,
+          0.08839999999986503
+        ],
+        "hot": [
+          0.007113333333333382,
+          0.00562466666666675,
+          0.008291333333333265,
+          0.005776333333333241,
+          0.005797333333333275,
+          0.0060649999999994484,
+          0.0073649999999997814,
+          0.00498799999999998,
+          0.004887333333333572,
+          0.00709166666666609,
+          0.005079333333333125,
+          0.004291999999999613
+        ],
+        "coldMedianMs": 0.26089999999999236,
+        "coldMaxMs": 1.2033000000001266,
+        "hotMedianMs": 0.005797333333333275,
+        "returned": {
+          "x": -1.4124999999999996,
+          "z": -0.41249999999999964
+        }
+      },
+      {
+        "allies": 24,
+        "enemies": 301,
+        "cold": [
+          0.23909999999978027,
+          0.19250000000010914,
+          0.30700000000001637,
+          0.17450000000008004,
+          0.1715999999998985,
+          0.24679999999989377,
+          0.1711999999999989,
+          0.8541000000000167,
+          0.18309999999996762,
+          0.17390000000000327,
+          0.17020000000002256,
+          0.1673000000000684
+        ],
+        "hot": [
+          0.0075376666666663065,
+          0.005338333333333291,
+          0.00523399999999962,
+          0.004817666666666203,
+          0.004822666666667222,
+          0.004994666666666489,
+          0.0047466666666665935,
+          0.00578299999999975,
+          0.004982333333333221,
+          0.004829333333332973,
+          0.005077666666666877,
+          0.004717999999999544
+        ],
+        "coldMedianMs": 0.18309999999996762,
+        "coldMaxMs": 0.8541000000000167,
+        "hotMedianMs": 0.004994666666666489,
+        "returned": {
+          "x": -1.4124999999999996,
+          "z": -0.41249999999999964
+        }
+      }
+    ]
+  },
+  "browser": {
+    "pass": true,
+    "initial": [
+      {
+        "name": "mixed-initial",
+        "exact": true,
+        "sha256": "ca33ed3f14dfb7c78aa87cbea94d7d2be342a0d49effd4bedc0b3fe300fbb6cf"
+      },
+      {
+        "name": "dense-initial",
+        "exact": true,
+        "sha256": "654527037e8f836a0194e73f200ed64f4809093c9e2c398bd9d9765ae900b535"
+      },
+      {
+        "name": "elite-initial",
+        "exact": true,
+        "sha256": "3bc367ed551cef8462a0a645932b74c6233f297309b4fb91dfc6f654285699b1"
+      },
+      {
+        "name": "temporary-initial",
+        "exact": true,
+        "sha256": "cc3dbb9aff8873c04923ff69c1aa3a4e662792731b4231dbe9ae3ebfe17d295d"
+      }
+    ],
+    "scenarios": [
+      {
+        "name": "mixed",
+        "before": {
+          "tick": 900,
+          "time": 15,
+          "enemies": 1,
+          "shots": [],
+          "source": {
+            "id": 8,
+            "x": -0.018900808598396726,
+            "z": 0.09994975307366129,
+            "hp": 34.5,
+            "shots": 0,
+            "range": 0.25,
+            "edge": 5.200080521215047,
+            "target": 9
+          }
+        },
+        "after": {
+          "tick": 900,
+          "time": 15,
+          "enemies": 1,
+          "shots": [
+            {
+              "tick": 130,
+              "time": 2.1666666666666665,
+              "x": 0.615487224719029,
+              "z": 5.27329415700098,
+              "recoveryUntil": 7.166666666666666,
+              "hp": 34.5
+            },
+            {
+              "tick": 432,
+              "time": 7.2,
+              "x": 0.6105222905703799,
+              "z": 5.271747102854501,
+              "recoveryUntil": 12.2,
+              "hp": 34.5
+            },
+            {
+              "tick": 734,
+              "time": 12.233333333333333,
+              "x": 0.6055881388915263,
+              "z": 5.270221193132953,
+              "recoveryUntil": 17.233333333333334,
+              "hp": 34.5
+            }
+          ],
+          "source": {
+            "id": 8,
+            "x": 0.6055881388915263,
+            "z": 5.270221193132953,
+            "hp": 34.5,
+            "shots": 3,
+            "range": 0.25,
+            "recoveryUntil": 17.233333333333334,
+            "edge": 0.2483217285913013,
+            "target": null
+          }
+        },
+        "approach": {
+          "tick": 120,
+          "time": 2,
+          "enemies": 1,
+          "shots": [],
+          "source": {
+            "id": 8,
+            "x": 1.0160258259210062,
+            "z": 4.811227668106204,
+            "hp": 34.5,
+            "shots": 0,
+            "range": 0.25,
+            "edge": 0.8638056580069905,
+            "target": 9
+          }
+        }
+      },
+      {
+        "name": "dense",
+        "before": {
+          "tick": 900,
+          "time": 15,
+          "enemies": 1,
+          "shots": [],
+          "source": {
+            "id": 8,
+            "x": -0.21276532680382024,
+            "z": 0.3693957449404279,
+            "hp": 34.5,
+            "shots": 0,
+            "range": 0.25,
+            "edge": 5.122867927847721,
+            "target": 9
+          }
+        },
+        "after": {
+          "tick": 900,
+          "time": 15,
+          "enemies": 1,
+          "shots": [
+            {
+              "tick": 163,
+              "time": 2.716666666666667,
+              "x": -1.0799835570171215,
+              "z": 6.382887842048017,
+              "recoveryUntil": 7.716666666666667,
+              "hp": 34.5
+            },
+            {
+              "tick": 464,
+              "time": 7.733333333333333,
+              "x": -1.0790056469437153,
+              "z": 6.376293288512502,
+              "recoveryUntil": 12.733333333333334,
+              "hp": 34.5
+            },
+            {
+              "tick": 765,
+              "time": 12.75,
+              "x": -1.078027736870309,
+              "z": 6.369698734976987,
+              "recoveryUntil": 17.75,
+              "hp": 34.5
+            }
+          ],
+          "source": {
+            "id": 8,
+            "x": -1.078027736870309,
+            "z": 6.369698734976987,
+            "hp": 34.5,
+            "shots": 3,
+            "range": 0.25,
+            "recoveryUntil": 17.75,
+            "edge": 0.23834280622353676,
+            "target": null
+          }
+        },
+        "approach": {
+          "tick": 120,
+          "time": 2,
+          "enemies": 1,
+          "shots": [],
+          "source": {
+            "id": 8,
+            "x": -2.7854888839765586,
+            "z": 4.4238150075289955,
+            "hp": 34.5,
+            "shots": 0,
+            "range": 0.25,
+            "edge": 2.468148728243745,
+            "target": 9
+          }
+        }
+      },
+      {
+        "name": "elite",
+        "before": {
+          "tick": 900,
+          "time": 15,
+          "enemies": 1,
+          "shots": [],
+          "source": {
+            "id": 8,
+            "x": -0.018900808598396726,
+            "z": 0.09994975307366129,
+            "hp": 246.32999999999996,
+            "shots": 0,
+            "range": 0.25,
+            "edge": 5.200080521215047,
+            "target": 9
+          }
+        },
+        "after": {
+          "tick": 900,
+          "time": 15,
+          "enemies": 1,
+          "shots": [
+            {
+              "tick": 130,
+              "time": 2.1666666666666665,
+              "x": 0.615487224719029,
+              "z": 5.27329415700098,
+              "recoveryUntil": 7.166666666666666,
+              "hp": 246.32999999999996
+            },
+            {
+              "tick": 432,
+              "time": 7.2,
+              "x": 0.6105222905703799,
+              "z": 5.271747102854501,
+              "recoveryUntil": 12.2,
+              "hp": 246.32999999999996
+            },
+            {
+              "tick": 734,
+              "time": 12.233333333333333,
+              "x": 0.6055881388915263,
+              "z": 5.270221193132953,
+              "recoveryUntil": 17.233333333333334,
+              "hp": 246.32999999999996
+            }
+          ],
+          "source": {
+            "id": 8,
+            "x": 0.6055881388915263,
+            "z": 5.270221193132953,
+            "hp": 246.32999999999996,
+            "shots": 3,
+            "range": 0.25,
+            "recoveryUntil": 17.233333333333334,
+            "edge": 0.2483217285913013,
+            "target": null
+          }
+        },
+        "approach": {
+          "tick": 120,
+          "time": 2,
+          "enemies": 1,
+          "shots": [],
+          "source": {
+            "id": 8,
+            "x": 1.0160258259210062,
+            "z": 4.811227668106204,
+            "hp": 246.32999999999996,
+            "shots": 0,
+            "range": 0.25,
+            "edge": 0.8638056580069905,
+            "target": 9
+          }
+        }
+      },
+      {
+        "name": "temporary",
+        "before": {
+          "tick": 900,
+          "time": 15,
+          "enemies": 1,
+          "shots": [],
+          "source": {
+            "id": 8,
+            "x": -0.018900808598396726,
+            "z": 0.09994975307366129,
+            "hp": 34.5,
+            "shots": 0,
+            "range": 0.25,
+            "edge": 5.200080521215047,
+            "target": 9
+          }
+        },
+        "after": {
+          "tick": 900,
+          "time": 15,
+          "enemies": 1,
+          "shots": [
+            {
+              "tick": 130,
+              "time": 2.1666666666666665,
+              "x": 0.6161486228119065,
+              "z": 5.279927933979986,
+              "hp": 0
+            }
+          ],
+          "source": {
+            "id": 8,
+            "x": 0.6161486228119065,
+            "z": 5.279927933979986,
+            "hp": 0,
+            "shots": 1,
+            "range": 0.25,
+            "edge": 0.2477040179588461,
+            "target": 9
+          }
+        },
+        "approach": {
+          "tick": 120,
+          "time": 2,
+          "enemies": 1,
+          "shots": [],
+          "source": {
+            "id": 8,
+            "x": 1.0160258259210062,
+            "z": 4.811227668106204,
+            "hp": 34.5,
+            "shots": 0,
+            "range": 0.25,
+            "edge": 0.8638056580069905,
+            "target": 9
+          }
+        }
+      }
+    ],
+    "runs": [
+      {
+        "mode": "baseline",
+        "pass": true,
+        "errors": [],
+        "requests": [
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-baseline-r4/assets/optimized/model.barracks.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-baseline-r4/assets/optimized/model.baneling.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-baseline-r4/assets/optimized/model.hatchery.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-baseline-r4/assets/optimized/model.fort.bunker.glb",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "build": [
+          {
+            "file": "preview/performance-s09-20261020-baseline-r4/index.html",
+            "bytes": 954785,
+            "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+          },
+          {
+            "file": "preview/performance-s09-20261020-baseline-r4/main.css",
+            "bytes": 821671,
+            "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+          },
+          {
+            "file": "preview/performance-s09-20261020-baseline-r4/main.js",
+            "bytes": 37803154,
+            "sha256": "ea1c16f7aec0e3d12ccda4c522b572df13104df47aa2e24b78214b617f094492"
+          }
+        ],
+        "device": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "vendor": "Google Inc. (AMD)",
+          "viewport": [
+            1440,
+            900
+          ],
+          "drawingBuffer": [
+            1440,
+            900
+          ],
+          "dpr": 1,
+          "timerQuery": true,
+          "quality": [
+            [
+              "sc2.renderQuality",
+              "native"
+            ],
+            [
+              "sc2.ordinaryEffects",
+              "full"
+            ],
+            [
+              "sc2.heroEffects",
+              "full"
+            ],
+            [
+              "sc2.animationMode",
+              "complete"
+            ]
+          ]
+        }
+      },
+      {
+        "mode": "candidate",
+        "pass": true,
+        "errors": [],
+        "requests": [
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.barracks.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.barracks.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.baneling.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.loot.mineral.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.loot.large.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.hatchery.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/models/hatcheryex1mp.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.fort.bunker.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.fort.repair.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.fort.repair.death.glb",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.hatchery.glb",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "build": [
+          {
+            "file": "preview/performance-s09-20261020-candidate-r4/index.html",
+            "bytes": 954785,
+            "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+          },
+          {
+            "file": "preview/performance-s09-20261020-candidate-r4/main.css",
+            "bytes": 821671,
+            "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+          },
+          {
+            "file": "preview/performance-s09-20261020-candidate-r4/main.js",
+            "bytes": 37809361,
+            "sha256": "208ddf15b2674485bbaf466c870aab84ad1807c24ceb4a0b11de508d582856ef"
+          }
+        ],
+        "device": {
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "vendor": "Google Inc. (AMD)",
+          "viewport": [
+            1440,
+            900
+          ],
+          "drawingBuffer": [
+            1440,
+            900
+          ],
+          "dpr": 1,
+          "timerQuery": true,
+          "quality": [
+            [
+              "sc2.renderQuality",
+              "native"
+            ],
+            [
+              "sc2.ordinaryEffects",
+              "full"
+            ],
+            [
+              "sc2.heroEffects",
+              "full"
+            ],
+            [
+              "sc2.animationMode",
+              "complete"
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "pixels": {
+    "pairs": [
+      {
+        "name": "mixed-initial",
+        "changedPixels": 0,
+        "battleRows30to620": 0,
+        "maxChannelDifference": 0,
+        "bounds": null
+      },
+      {
+        "name": "mixed-approach",
+        "changedPixels": 3022,
+        "battleRows30to620": 2858,
+        "maxChannelDifference": 173,
+        "bounds": [
+          130,
+          373,
+          814,
+          790
+        ]
+      },
+      {
+        "name": "mixed-end",
+        "changedPixels": 4252,
+        "battleRows30to620": 2335,
+        "maxChannelDifference": 217,
+        "bounds": [
+          130,
+          373,
+          1184,
+          791
+        ]
+      },
+      {
+        "name": "dense-initial",
+        "changedPixels": 0,
+        "battleRows30to620": 0,
+        "maxChannelDifference": 0,
+        "bounds": null
+      },
+      {
+        "name": "dense-approach",
+        "changedPixels": 7461,
+        "battleRows30to620": 7375,
+        "maxChannelDifference": 214,
+        "bounds": [
+          125,
+          342,
+          867,
+          789
+        ]
+      },
+      {
+        "name": "dense-end",
+        "changedPixels": 9942,
+        "battleRows30to620": 5298,
+        "maxChannelDifference": 216,
+        "bounds": [
+          128,
+          342,
+          865,
+          792
+        ]
+      },
+      {
+        "name": "elite-initial",
+        "changedPixels": 3,
+        "battleRows30to620": 0,
+        "maxChannelDifference": 1,
+        "bounds": [
+          1184,
+          676,
+          1184,
+          707
+        ]
+      },
+      {
+        "name": "elite-approach",
+        "changedPixels": 4773,
+        "battleRows30to620": 4373,
+        "maxChannelDifference": 246,
+        "bounds": [
+          130,
+          360,
+          1184,
+          790
+        ]
+      },
+      {
+        "name": "elite-end",
+        "changedPixels": 9557,
+        "battleRows30to620": 5347,
+        "maxChannelDifference": 246,
+        "bounds": [
+          130,
+          361,
+          1184,
+          791
+        ]
+      },
+      {
+        "name": "temporary-initial",
+        "changedPixels": 0,
+        "battleRows30to620": 0,
+        "maxChannelDifference": 0,
+        "bounds": null
+      },
+      {
+        "name": "temporary-approach",
+        "changedPixels": 3022,
+        "battleRows30to620": 2858,
+        "maxChannelDifference": 173,
+        "bounds": [
+          130,
+          373,
+          814,
+          790
+        ]
+      },
+      {
+        "name": "temporary-end",
+        "changedPixels": 2544,
+        "battleRows30to620": 919,
+        "maxChannelDifference": 159,
+        "bounds": [
+          130,
+          373,
+          744,
+          778
+        ]
+      }
+    ],
+    "contacts": [
+      "reports\\local\\performance-s09-20261020\\contact-1.jpg",
+      "reports\\local\\performance-s09-20261020\\contact-2.jpg",
+      "reports\\local\\performance-s09-20261020\\contact-3.jpg",
+      "reports\\local\\performance-s09-20261020\\contact-4.jpg"
+    ]
+  },
+  "visualReview": {
+    "contacts": [
+      {
+        "file": "reports\\local\\performance-s09-20261020\\contact-1.jpg",
+        "sha256": "7e42a244cf3dbb58ccfb4e56e4253a3a2cef92acb7503115b795df5050086700",
+        "reviewed": true
+      },
+      {
+        "file": "reports\\local\\performance-s09-20261020\\contact-2.jpg",
+        "sha256": "783f3bd632d9124913ccc84851e3a0ca9c884148d302f5132ae75833dfdb8850",
+        "reviewed": true
+      },
+      {
+        "file": "reports\\local\\performance-s09-20261020\\contact-3.jpg",
+        "sha256": "f029561c911a54ec23be27a102f1dbda2206ebf345bba9af414f0becf6fa288f",
+        "reviewed": true
+      },
+      {
+        "file": "reports\\local\\performance-s09-20261020\\contact-4.jpg",
+        "sha256": "21465e298611677919b386be5e8e6c4503926d48817ee338694737ff5bc8cc4b",
+        "reviewed": true
+      }
+    ],
+    "totalScreens": 24,
+    "findings": "Visible side approach in mixed/dense scenes; ordinary/elite remain near target after attacks, temporary source disappears. No obvious missing mesh or attachment error. Fixed checkpoints do not capture explosion instant; no full-animation acceptance claimed.",
+    "initialDifference": "Three initial pairs RGB exact. Elite initial: 3 pixels, max one channel level, x1184 y676..707 in bottom UI border; battle region exact. Not further attributed; originals retained."
+  },
+  "browsers": [
+    {
+      "file": "reports/local/performance-s09-20261020/baseline-1/report.json",
+      "sha256": "c9286ca93241e8e15491b34c48eb7c219387aa778ad061e736b9b39553a105dd",
+      "pass": true,
+      "device": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (AMD)",
+        "viewport": [
+          1440,
+          900
+        ],
+        "drawingBuffer": [
+          1440,
+          900
+        ],
+        "dpr": 1,
+        "timerQuery": true,
+        "quality": [
+          [
+            "sc2.renderQuality",
+            "native"
+          ],
+          [
+            "sc2.ordinaryEffects",
+            "full"
+          ],
+          [
+            "sc2.heroEffects",
+            "full"
+          ],
+          [
+            "sc2.animationMode",
+            "complete"
+          ]
+        ]
+      },
+      "errors": [],
+      "requests": [
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-baseline-r4/assets/optimized/model.barracks.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-baseline-r4/assets/optimized/model.baneling.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-baseline-r4/assets/optimized/model.hatchery.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-baseline-r4/assets/optimized/model.fort.bunker.glb",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "checkpoints": [
+        {
+          "name": "mixed-initial",
+          "stateFile": "mixed-initial.state.json",
+          "sha256": "ca33ed3f14dfb7c78aa87cbea94d7d2be342a0d49effd4bedc0b3fe300fbb6cf"
+        },
+        {
+          "name": "mixed-approach",
+          "stateFile": "mixed-approach.state.json",
+          "sha256": "90cba66d2a294c6e1c45f3c96a8ad7d05785e1e23a0e9e377d2c6718bd4bfe00"
+        },
+        {
+          "name": "mixed-end",
+          "stateFile": "mixed-end.state.json",
+          "sha256": "eda8c2abd41300480495a211868626152075e51c459e3c045a8e5119aadb7531"
+        },
+        {
+          "name": "dense-initial",
+          "stateFile": "dense-initial.state.json",
+          "sha256": "654527037e8f836a0194e73f200ed64f4809093c9e2c398bd9d9765ae900b535"
+        },
+        {
+          "name": "dense-approach",
+          "stateFile": "dense-approach.state.json",
+          "sha256": "2b58908fa675ddf92eb364814d90185ab6c4fd6d98cad49203eaae3de7e70b20"
+        },
+        {
+          "name": "dense-end",
+          "stateFile": "dense-end.state.json",
+          "sha256": "afd5cc18ad2538e98558280a99abd1f94f2a125d331d8bc2d54b9b357f3cf358"
+        },
+        {
+          "name": "elite-initial",
+          "stateFile": "elite-initial.state.json",
+          "sha256": "3bc367ed551cef8462a0a645932b74c6233f297309b4fb91dfc6f654285699b1"
+        },
+        {
+          "name": "elite-approach",
+          "stateFile": "elite-approach.state.json",
+          "sha256": "91573b1c5e79df17465941f28307206c2c55967657da1044eea3b9a8df7e6ee4"
+        },
+        {
+          "name": "elite-end",
+          "stateFile": "elite-end.state.json",
+          "sha256": "f821fc3c4f18240063c2495dbe7742b970f62690394f340df3d768069add689d"
+        },
+        {
+          "name": "temporary-initial",
+          "stateFile": "temporary-initial.state.json",
+          "sha256": "cc3dbb9aff8873c04923ff69c1aa3a4e662792731b4231dbe9ae3ebfe17d295d"
+        },
+        {
+          "name": "temporary-approach",
+          "stateFile": "temporary-approach.state.json",
+          "sha256": "3f2c7aae25f1901754cf69ca644b2148f9238f35cfe5000588665b73558c403d"
+        },
+        {
+          "name": "temporary-end",
+          "stateFile": "temporary-end.state.json",
+          "sha256": "c902d3c5a61cc9bd3920436b4cb6654503e6eeae12e73da638f37b40b6fcf07b"
+        }
+      ],
+      "screens": [
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/mixed-initial.png",
+          "sha256": "7bac3b68ac4b916aef78279871bd32730413064eeab8a7a87c64cd28b8c2ddd4"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/mixed-approach.png",
+          "sha256": "bf342fec35beef8167f7f89b204c0dc1a64563c33b8d0455527f7453316cf319"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/mixed-end.png",
+          "sha256": "8000455aeb10ba68ccc22c24c5ef026304bb6afb79e51fef253439d442210d47"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/dense-initial.png",
+          "sha256": "e616359ffae26bf821825fac8768fd299157a20df94643f7f95929793693b0bc"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/dense-approach.png",
+          "sha256": "6fdfcae3b606f36b04a09cce3f6d1d25673b98604a4bfa3c9955e06f3b0d93de"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/dense-end.png",
+          "sha256": "43cb08ec2a358cdf10417887da7ed65c37898ee5c3a737e81f6596cc3e471c20"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/elite-initial.png",
+          "sha256": "c4cc9c0131c4c452123604f59f67db0ab178144c6177a4d973a452130139061e"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/elite-approach.png",
+          "sha256": "d10d12c7fea6d2fd7fe1e5e377f27a74f58bcdf152dc1c3b44c13be4e4e9af76"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/elite-end.png",
+          "sha256": "31e68a73590fe32415773c7d140ae56a65d48ba5c1a46a27ee5848862303c875"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/temporary-initial.png",
+          "sha256": "85774ddc87a367f500a13e97718fc4a76125e3f46a850c6aa16db8d42c9c681b"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/temporary-approach.png",
+          "sha256": "3ce42e3b5ad2ac5f0f8b2b31fb45f04562575fee50bea1c872985da8c3fff4fc"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\baseline-1/temporary-end.png",
+          "sha256": "add79f54b2f0a25c94ca45cbf085679b017c458a541fb3843ed43d772760e81a"
+        }
+      ],
+      "captureMethod": "Copy the already-rendered fixed scene while temporarily suspending duplicate WebGL submissions; restore renderer before further steps or all timing windows."
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/candidate-1/report.json",
+      "sha256": "d9d9ac59899a5fbc7ec1a909bf82176b4740af89c8f0edcb86db5800b0fe386b",
+      "pass": true,
+      "device": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (AMD)",
+        "viewport": [
+          1440,
+          900
+        ],
+        "drawingBuffer": [
+          1440,
+          900
+        ],
+        "dpr": 1,
+        "timerQuery": true,
+        "quality": [
+          [
+            "sc2.renderQuality",
+            "native"
+          ],
+          [
+            "sc2.ordinaryEffects",
+            "full"
+          ],
+          [
+            "sc2.heroEffects",
+            "full"
+          ],
+          [
+            "sc2.animationMode",
+            "complete"
+          ]
+        ]
+      },
+      "errors": [],
+      "requests": [
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.barracks.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.barracks.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.baneling.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.loot.mineral.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.loot.large.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.hatchery.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/models/hatcheryex1mp.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.fort.bunker.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.fort.repair.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.fort.repair.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-s09-20261020-candidate-r4/assets/optimized/model.hatchery.glb",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "checkpoints": [
+        {
+          "name": "mixed-initial",
+          "stateFile": "mixed-initial.state.json",
+          "sha256": "ca33ed3f14dfb7c78aa87cbea94d7d2be342a0d49effd4bedc0b3fe300fbb6cf"
+        },
+        {
+          "name": "mixed-approach",
+          "stateFile": "mixed-approach.state.json",
+          "sha256": "f66852696dcdf0447463032b9f7ac56485d53c297f67a6a369640587c607d613"
+        },
+        {
+          "name": "mixed-end",
+          "stateFile": "mixed-end.state.json",
+          "sha256": "ce8b53c2ca9484fc2b7c863c8cec89c7670cb4d8ac74578ad6a536ad4489ba86"
+        },
+        {
+          "name": "dense-initial",
+          "stateFile": "dense-initial.state.json",
+          "sha256": "654527037e8f836a0194e73f200ed64f4809093c9e2c398bd9d9765ae900b535"
+        },
+        {
+          "name": "dense-approach",
+          "stateFile": "dense-approach.state.json",
+          "sha256": "566b2b4038fb67a9b17078561552ab81c378a0b8d270fb8e6b0b9114f6c5ae19"
+        },
+        {
+          "name": "dense-end",
+          "stateFile": "dense-end.state.json",
+          "sha256": "d066bbd57dc168d6d39c7850c5fe6b9d24a919af42311616fc9eeb83af70c189"
+        },
+        {
+          "name": "elite-initial",
+          "stateFile": "elite-initial.state.json",
+          "sha256": "3bc367ed551cef8462a0a645932b74c6233f297309b4fb91dfc6f654285699b1"
+        },
+        {
+          "name": "elite-approach",
+          "stateFile": "elite-approach.state.json",
+          "sha256": "9f7cf5380d811ea923b5b66db38157953a04b74c4c6bbe82e0e952c856ad0c9d"
+        },
+        {
+          "name": "elite-end",
+          "stateFile": "elite-end.state.json",
+          "sha256": "769cb84ec589eccba78d6b77503c7255e430c9e9be7a183e4ae1d1152795b7d9"
+        },
+        {
+          "name": "temporary-initial",
+          "stateFile": "temporary-initial.state.json",
+          "sha256": "cc3dbb9aff8873c04923ff69c1aa3a4e662792731b4231dbe9ae3ebfe17d295d"
+        },
+        {
+          "name": "temporary-approach",
+          "stateFile": "temporary-approach.state.json",
+          "sha256": "9b94e07708e47f6cd79e7b2d93d31ff69a930c5d26543550f4c3edde10a9b364"
+        },
+        {
+          "name": "temporary-end",
+          "stateFile": "temporary-end.state.json",
+          "sha256": "15bdad2df3357d10df69cc0115b63e3e754693579fe190729b4d1421c6718035"
+        }
+      ],
+      "screens": [
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/mixed-initial.png",
+          "sha256": "7bac3b68ac4b916aef78279871bd32730413064eeab8a7a87c64cd28b8c2ddd4"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/mixed-approach.png",
+          "sha256": "46f06c85c6c44f79b2f8bf0e7ecc95a8244e62f285788956aa5a4981bcbc573f"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/mixed-end.png",
+          "sha256": "ae89a8c3007c69912aadfc53741c52ac31c05fbef23f972023293c5fe678e261"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/dense-initial.png",
+          "sha256": "e616359ffae26bf821825fac8768fd299157a20df94643f7f95929793693b0bc"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/dense-approach.png",
+          "sha256": "af3aaeb5e273ba7e6d17db284e5a146b482d94e478a4a3ad29875a6f024576f9"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/dense-end.png",
+          "sha256": "7b86b3e2eb52fffe0ad8c30dc00f9b6b7cbb1651addf7c3575809420f64ebbbc"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/elite-initial.png",
+          "sha256": "f4b97c3bd3ede1189af38de24d607baa343281db430c9517b0fbdbf74f56912c"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/elite-approach.png",
+          "sha256": "fc211544efadf5dc3f9975d1c6aad730499d69fbec3e3b2c8080a1dbb67e76a1"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/elite-end.png",
+          "sha256": "721b248d6d0313aad913bc6f8d4cabfaecfed59b01c277a8ca80d5c12284f185"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/temporary-initial.png",
+          "sha256": "85774ddc87a367f500a13e97718fc4a76125e3f46a850c6aa16db8d42c9c681b"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/temporary-approach.png",
+          "sha256": "85d62e5861128b5145229b1735980362bfd7519a680f9adc69b96fa6cbcd1a63"
+        },
+        {
+          "file": "D:\\星际\\reports\\local\\performance-s09-20261020\\candidate-1/temporary-end.png",
+          "sha256": "e70aff8933b4fec85f5649108dd7ce062cd5efcc09df05a006db74813d4017ea"
+        }
+      ],
+      "captureMethod": "Copy the already-rendered fixed scene while temporarily suspending duplicate WebGL submissions; restore renderer before further steps or all timing windows."
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "reports/local/performance-s09-20261020/source-proof.json",
+      "bytes": 225329,
+      "sha256": "ced36a850f21c52c2c9e804d48100dcefeb1df69f2888e514bcde20cb817317d"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/behavior-r4.json",
+      "bytes": 626329,
+      "sha256": "8a71cab12c4a3223d62e0a889f892b4e92db3787da41d273331b858cc6e28423"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/boundaries-r1.json",
+      "bytes": 2434,
+      "sha256": "bd937306673f6676dc5d80a2383b9e2b3ee222b1f2046eef8230aa089dc7cc24"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/route-cpu.json",
+      "bytes": 3349,
+      "sha256": "b88cd884683154fd7cb1666f5c405b3ea611e5e9283e6e544cbf5dbf05112312"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/summary.json",
+      "bytes": 13442,
+      "sha256": "66679a9a9f743f6ce3f7c2f1d75e952d212a416f56b66841c7ac18a6c99d2e23"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/pixels.json",
+      "bytes": 2849,
+      "sha256": "86d3c635ad3d0605824355fe02bfb551255ec46a7f87e72d93407b8ec88e2989"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/full-tests.txt",
+      "bytes": 182975,
+      "sha256": "3800f38428514bb4d3070c4c4a612b7d4a9b9de445b1b3b8f019ea11f79da80a"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/targeted-tests.txt",
+      "bytes": 912,
+      "sha256": "34a05fc1adcf18421da3b4a1efd2da1786d398cc4a4febe41cc7e2caf0ac02fc"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/typecheck.txt",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/docs-check.txt",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "file": "reports/local/performance-s09-20261020/behavior-r2.json",
+      "bytes": 463494,
+      "sha256": "b7e60c7752170ebb7b5f07a9cdbf211f35235bec5de3a6dd6b68215b15521050"
+    }
+  ],
+  "retainedFailures": [
+    {
+      "file": "reports/local/performance-s09-20261020/behavior-r2.json",
+      "status": "failed-retained",
+      "reason": "24-ally formation contact slot remained enclosed; later candidates search alternative legal contact positions at unchanged range."
+    }
+  ],
+  "limits": [
+    "Bounded 2048-node local search; no arbitrary-maze reachability guarantee.",
+    "Route cached at most 0.4 simulated seconds; next segment checks current bodies each call.",
+    "Measured planner cost is new CPU work, not improvement or full-frame FPS.",
+    "Existing collision solver has small contact penetration; dense angle3.1 minimum clearance -0.03252 to -0.03597 is retained, not called a precision improvement.",
+    "High HP stopped diagnostic target, controlled World steps, no natural campaign or physical/human play acceptance.",
+    "Generic temporary fixture lifetime30 is distinct from actual Zagara lifetime10 boundary checks.",
+    "No Current replacement, Git commit/push, online publishing or full MVP/60FPS acceptance."
+  ]
+}

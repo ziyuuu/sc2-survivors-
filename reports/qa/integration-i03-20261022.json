@@ -1,0 +1,679 @@
+{
+  "pass": true,
+  "task": "I03",
+  "date": "2026-10-22",
+  "scope": "Current formal equipment entry only. Positive-probability native sources and legal gates are witnessed separately from controlled trigger/effect regressions.",
+  "authorization": {
+    "task": "检查全部内容的正常可达性、实际生效和流程死路，保持现在main的镜头和操作不变",
+    "equipmentDropDecision": "+15%（原2.7%→3.105%），仅可选基础层；不改保底数量或品质权重",
+    "legacyCorrection": "用户问为什么还有天赋；正式入口为旗舰配装，旧165定义从活动清单排除，未恢复或增加天赋功能。"
+  },
+  "changes": [
+    {
+      "id": "I03-01",
+      "file": "src/simulation/combat/expedition-combat.ts",
+      "problem": "Equipment inheritance M03 turn_factor had no live consumer.",
+      "result": "Natural inherited equipment now changes native aiming speed to ×2.5."
+    },
+    {
+      "id": "I03-02",
+      "file": "src/simulation/combat/expedition-combat.ts",
+      "problem": "Equipment inheritance M04 moving_chance had no live consumer.",
+      "result": "Natural inherited equipment now grants its declared legal moving-shot chance."
+    },
+    {
+      "id": "I03-03",
+      "file": "src/simulation/starship/catalog-modules.ts",
+      "problem": "The old card_drop equipment clause had no valid current non-Boss card source.",
+      "result": "By explicit user decision, blue/purple pickup and C06 inheritance use +15% relative optional base equipment drop chance: 2.7% → 3.105%; guaranteed counts and quality weights unchanged."
+    },
+    {
+      "id": "I03-04",
+      "file": "src/simulation/progression/supply-cards.ts",
+      "problem": "Flattened facility projections hid basic/air supply eligibility after a Zerg hatchery evolved both ground and air.",
+      "result": "Supply eligibility reads the native building direction ownership; all 128 current lawful supply combinations are reachable."
+    }
+  ],
+  "coverage": {
+    "equipmentTemplates": 210,
+    "equipmentRaceTemplates": 630,
+    "bindings": 117,
+    "inheritance": 59,
+    "effects": 191,
+    "cards": 563,
+    "directCardEffectMeasurements": 310,
+    "developmentNodes": 157,
+    "productionFamilies": 30,
+    "heroes": 18,
+    "elites": 90,
+    "automaticEventCategories": 34,
+    "mapAdmissions": 40
+  },
+  "ledger": "reports/local/integration-i03-20261022/coverage-ledger.json",
+  "humanLedger": "docs/project/INTEGRATION_I03_COVERAGE_20261022.md",
+  "verification": {
+    "pass": true,
+    "beforeSourceTests": 804,
+    "existingUnchanged": 798,
+    "changed": [
+      {
+        "path": "src/simulation/combat/expedition-combat.ts",
+        "bytes": 33475,
+        "sha256": "236517e2104177e54838408b37f24dca094ea02f800e99ff706dedc69c369c3c",
+        "after": "35feff7fcc928776bfc3d659b1ad5de23797e30b935b1417da8b27c51cedfb65"
+      },
+      {
+        "path": "src/simulation/progression/supply-cards.ts",
+        "bytes": 4688,
+        "sha256": "56a58db5cfdb94a7e9b8b9f71c8bd35ed73107f50fe4b674e8864ef79b1b2171",
+        "after": "5ede35eb19f5f916266333d8aeeb73313c9bfa8277484105c5c96081b13aa442"
+      },
+      {
+        "path": "src/simulation/starship/catalog-modules.ts",
+        "bytes": 7084,
+        "sha256": "0bdd4a88144ee2a8c39726e33c9388f750dbaed76219c75b96817e9c50156d5c",
+        "after": "9ab9b2e8d247488d8a7250a383764254b13b567b4c34d56ddb5a14d4c794b7f6"
+      },
+      {
+        "path": "src/simulation/starship/drops.ts",
+        "bytes": 16919,
+        "sha256": "e58a738a07b2c27fed9473b5a3c37724da5bce4f9bf08c06545bf3ea709fa159",
+        "after": "ff177d0a0ac1d8979cd0840b78f74313fa0cd6058444891ff7ff84a899e2a7db"
+      },
+      {
+        "path": "src/ui/starship/effect-text.ts",
+        "bytes": 19306,
+        "sha256": "5fb14c7fd21a335506d3cf2e1052371426447248532dbbab6275549a9d1cf52a",
+        "after": "1e2504531ec5e5309e47645b18132b2f21d004abba7259405fef9e353a20b3f6"
+      },
+      {
+        "path": "test/intermission-integration.test.ts",
+        "bytes": 5488,
+        "sha256": "452c9946cfce80c380c0d51f37f2827266ff1c1e675e9af0604262782ed28167",
+        "after": "837345a0fc8644043509af451e1647dbe8b8a01b438993c962d694a0dd3c0236"
+      }
+    ],
+    "added": [
+      "test/integration-i03-dead-ends.test.ts",
+      "test/integration-i03-effects.test.ts",
+      "test/integration-i03-entry.test.ts",
+      "test/integration-i03.test.ts"
+    ],
+    "finalSourceTests": 808,
+    "cameraInputUiAndRender": {
+      "unchanged": [
+        "src/app/asset-readiness.ts",
+        "src/app/background-preparation.ts",
+        "src/app/battle-preload-plan.ts",
+        "src/app/bootstrap.ts",
+        "src/app/memory-storage.ts",
+        "src/app/race-preload.ts",
+        "src/app/resource-downloads.ts",
+        "src/app/run-session.ts",
+        "src/app/start-game.ts",
+        "src/render/effects/acid-ground-effects.ts",
+        "src/render/effects/audio.ts",
+        "src/render/effects/battle-effects.ts",
+        "src/render/effects/combat-fx-profile.ts",
+        "src/render/effects/combat-sculptures.ts",
+        "src/render/effects/confirmed-hero/approved-gun-effects.ts",
+        "src/render/effects/confirmed-hero/attack-effects.ts",
+        "src/render/effects/confirmed-hero/controller.ts",
+        "src/render/effects/confirmed-hero/hero-aura-effects.ts",
+        "src/render/effects/confirmed-hero/skill-effects.ts",
+        "src/render/effects/confirmed-hero/upgrade-materials.ts",
+        "src/render/effects/elite-support-effects.ts",
+        "src/render/effects/equipment-effects.ts",
+        "src/render/effects/equipment-loot-audio.ts",
+        "src/render/effects/fun-source-effects.ts",
+        "src/render/effects/hero-basic-effects.ts",
+        "src/render/effects/hero-feedback.ts",
+        "src/render/effects/low-danger-effects.ts",
+        "src/render/effects/low-danger-state.ts",
+        "src/render/effects/mission-feedback.ts",
+        "src/render/effects/nonhero-effects.ts",
+        "src/render/effects/ordinary-medical-effects.ts",
+        "src/render/effects/ordinary-presentation.ts",
+        "src/render/effects/original-projectiles.ts",
+        "src/render/effects/protoss-elite-effects.ts",
+        "src/render/effects/protoss-hero-effects.ts",
+        "src/render/effects/protoss-hero-materials.ts",
+        "src/render/effects/protoss-hero-presentation.ts",
+        "src/render/effects/source-combat-effects.ts",
+        "src/render/effects/source/catalog.json",
+        "src/render/effects/source/detail.ts",
+        "src/render/effects/source/displacement.ts",
+        "src/render/effects/source/draw-batch.ts",
+        "src/render/effects/source/event-index.ts",
+        "src/render/effects/source/materials.ts",
+        "src/render/effects/source/particles.ts",
+        "src/render/effects/source/player.ts",
+        "src/render/effects/source/ribbons.ts",
+        "src/render/effects/source/rigid-batch.ts",
+        "src/render/effects/source/timeline.ts",
+        "src/render/effects/source/types.ts",
+        "src/render/effects/terran-elite-effects.ts",
+        "src/render/effects/terran-elite-materials.ts",
+        "src/render/effects/terran-flame-fan.ts",
+        "src/render/effects/zerg-elite-effects.ts",
+        "src/render/effects/zerg-elite-materials.ts",
+        "src/render/effects/zerg-hero-effects.ts",
+        "src/render/input/battle-picking.ts",
+        "src/render/input/battle-view.ts",
+        "src/render/input/pixel-scale.ts",
+        "src/render/loaders/animation-profiles.ts",
+        "src/render/loaders/animations.ts",
+        "src/render/loaders/sc2-materials.ts",
+        "src/render/loaders/semantic-gltf.ts",
+        "src/render/materials/elite-visual.ts",
+        "src/render/materials/posed-depth.ts",
+        "src/render/materials/scene-textures.ts",
+        "src/render/materials/shared-textures.ts",
+        "src/render/materials/source-tracks.ts",
+        "src/render/materials/unit-material-batch.ts",
+        "src/render/materials/unit-material-catalog.ts",
+        "src/render/materials/unit-material-loader.ts",
+        "src/render/materials/unit-material-profiles.ts",
+        "src/render/scene/battle-distress.css",
+        "src/render/scene/battle-distress.ts",
+        "src/render/scene/battle-renderer.ts",
+        "src/render/scene/building-view-lifecycle.ts",
+        "src/render/scene/camera-controller.ts",
+        "src/render/scene/fort-materials.ts",
+        "src/render/scene/fort-ribbons.ts",
+        "src/render/scene/renderable-registry.ts",
+        "src/render/scene/scene-contact.ts",
+        "src/render/scene/scene-lighting.ts",
+        "src/render/scene/scene-shadows.ts",
+        "src/render/scene/screen-refraction.ts",
+        "src/render/settings/adaptive-quality.ts",
+        "src/render/settings/quality.ts",
+        "src/render/terrain/campaign-ground-legacy.ts",
+        "src/render/terrain/campaign-ground.ts",
+        "src/render/terrain/campaign-map.ts",
+        "src/render/terrain/campaign-textures.ts",
+        "src/render/terrain/char-geometry.ts",
+        "src/render/terrain/char-terrain.ts",
+        "src/render/terrain/crossing-rocks.ts",
+        "src/render/terrain/environment-atmosphere.ts",
+        "src/render/terrain/environment-bases.ts",
+        "src/render/terrain/environment-compositions.ts",
+        "src/render/terrain/environment-full-map.ts",
+        "src/render/terrain/environment-full-plan.ts",
+        "src/render/terrain/environment-materials.ts",
+        "src/render/terrain/environment-sample-assets.json",
+        "src/render/terrain/environment-sample-materials.ts",
+        "src/render/terrain/environment-sample-plan.ts",
+        "src/render/terrain/environment-sample-shores.ts",
+        "src/render/terrain/environment-sample.ts",
+        "src/render/terrain/environment-texture.ts",
+        "src/render/terrain/flat-map.ts",
+        "src/render/terrain/layered-ground.ts",
+        "src/render/terrain/map-surface.ts",
+        "src/render/terrain/map-visibility.ts",
+        "src/render/terrain/map-visual-profile.ts",
+        "src/render/terrain/original-map.ts",
+        "src/render/terrain/scenery-grounding.ts",
+        "src/render/terrain/visual-fields.ts",
+        "src/render/units/animated-batch.ts",
+        "src/render/units/arcane-portal.ts",
+        "src/render/units/body-outline.ts",
+        "src/render/units/crossing-fog.ts",
+        "src/render/units/death-clock.ts",
+        "src/render/units/economic-egg.ts",
+        "src/render/units/emp-pulse.ts",
+        "src/render/units/encounter-visuals.ts",
+        "src/render/units/equipment-apparition.ts",
+        "src/render/units/equipment-drops.ts",
+        "src/render/units/equipment-loot-style.ts",
+        "src/render/units/friendly-labels.ts",
+        "src/render/units/fun-presentation.ts",
+        "src/render/units/fun-prop-assets.ts",
+        "src/render/units/fun-visuals.ts",
+        "src/render/units/health-bars.ts",
+        "src/render/units/instance-updates.ts",
+        "src/render/units/pod-view.ts",
+        "src/render/units/pylon-birth-materials.json",
+        "src/render/units/pylon-birth-materials.ts",
+        "src/render/units/resource-drops.ts",
+        "src/render/units/sampled-poses.ts",
+        "src/render/units/special-visuals.ts",
+        "src/render/units/unit-pose-shader.ts",
+        "src/ui/controls/battle-actions.ts",
+        "src/ui/controls/settings.ts",
+        "src/ui/controls/skills.ts",
+        "src/ui/display-preferences.ts",
+        "src/ui/equipment-status.ts",
+        "src/ui/gamepad/controller.ts",
+        "src/ui/gamepad/state.ts",
+        "src/ui/hero-map-ui.css",
+        "src/ui/hud.ts",
+        "src/ui/hud/battle-commands.ts",
+        "src/ui/hud/carrier-inspector.ts",
+        "src/ui/hud/command-layout.ts",
+        "src/ui/hud/compact.css",
+        "src/ui/hud/detection-hint.ts",
+        "src/ui/hud/expedition-panel.ts",
+        "src/ui/hud/field-interactions.ts",
+        "src/ui/hud/glyphs.ts",
+        "src/ui/hud/layout.ts",
+        "src/ui/hud/m3-menu.ts",
+        "src/ui/hud/minimap-threats.ts",
+        "src/ui/hud/minimap.ts",
+        "src/ui/hud/mvp-talent-panel.css",
+        "src/ui/hud/mvp-talent-panel.ts",
+        "src/ui/hud/objectives.ts",
+        "src/ui/hud/packed-console.ts",
+        "src/ui/hud/packed-roster.ts",
+        "src/ui/hud/player-services.css",
+        "src/ui/hud/player-services.ts",
+        "src/ui/hud/preferences.ts",
+        "src/ui/hud/random-mission.ts",
+        "src/ui/hud/refresh-batch.ts",
+        "src/ui/hud/resource-downloads.ts",
+        "src/ui/hud/save-controls.ts",
+        "src/ui/hud/special-stages.css",
+        "src/ui/hud/special-stages.ts",
+        "src/ui/hud/squad-console.css",
+        "src/ui/hud/squad-console.ts",
+        "src/ui/intermission-skin/adaptive-layout.css",
+        "src/ui/intermission-skin/card-material.css",
+        "src/ui/intermission-skin/presentation.ts",
+        "src/ui/intermission-skin/refinements.css",
+        "src/ui/intermission-skin/skin.css",
+        "src/ui/intermission-skin/skin.ts",
+        "src/ui/mobile/canvas-pinch.ts",
+        "src/ui/mobile/input.ts",
+        "src/ui/mobile/layout.css",
+        "src/ui/mobile/viewport.ts",
+        "src/ui/model-viewer.mjs",
+        "src/ui/native-hud/battle.css",
+        "src/ui/native-hud/catalog.ts",
+        "src/ui/native-hud/dom.ts",
+        "src/ui/native-hud/frames.ts",
+        "src/ui/native-hud/map-frames.ts",
+        "src/ui/native-hud/mode.ts",
+        "src/ui/native-hud/numbers.ts",
+        "src/ui/native-hud/pick-friendly.ts",
+        "src/ui/native-hud/run-talents.ts",
+        "src/ui/native-hud/selection.ts",
+        "src/ui/native-hud/shell.ts",
+        "src/ui/native-hud/skins.css",
+        "src/ui/native-hud/skins.ts",
+        "src/ui/presentation/ability-copy.ts",
+        "src/ui/presentation/arrival-cards.css",
+        "src/ui/presentation/arrival-cards.ts",
+        "src/ui/presentation/base-panels.ts",
+        "src/ui/presentation/battle-feedback.css",
+        "src/ui/presentation/brand-logo.generated.ts",
+        "src/ui/presentation/building-panel.css",
+        "src/ui/presentation/building-panel.ts",
+        "src/ui/presentation/building-technology.ts",
+        "src/ui/presentation/building-view.ts",
+        "src/ui/presentation/card-presentation.generated.ts",
+        "src/ui/presentation/cover-preference.ts",
+        "src/ui/presentation/cover-transition.ts",
+        "src/ui/presentation/decision-screens.ts",
+        "src/ui/presentation/deferred-icons.ts",
+        "src/ui/presentation/display-settings.ts",
+        "src/ui/presentation/end-screens.ts",
+        "src/ui/presentation/facility-controls.ts",
+        "src/ui/presentation/formal-ui.css",
+        "src/ui/presentation/game-copy.ts",
+        "src/ui/presentation/game-shell.css",
+        "src/ui/presentation/input-capture.ts",
+        "src/ui/presentation/intermission.ts",
+        "src/ui/presentation/live-inspector.ts",
+        "src/ui/presentation/map-preview.ts",
+        "src/ui/presentation/navigation.ts",
+        "src/ui/presentation/opening-runtime.js",
+        "src/ui/presentation/opening.generated.html",
+        "src/ui/presentation/opening.ts",
+        "src/ui/presentation/overlay-layout.ts",
+        "src/ui/presentation/painted-art.ts",
+        "src/ui/presentation/purchased-enhancements.ts",
+        "src/ui/presentation/recent-cache.ts",
+        "src/ui/presentation/reference-card.ts",
+        "src/ui/presentation/reference-engraving.ts",
+        "src/ui/presentation/reference-glyphs.ts",
+        "src/ui/presentation/reference-minimap.ts",
+        "src/ui/presentation/reference-primitives.ts",
+        "src/ui/presentation/reference-r12.css",
+        "src/ui/presentation/settings-screen.ts",
+        "src/ui/presentation/shop-card-copy.ts",
+        "src/ui/presentation/shop-progress.ts",
+        "src/ui/presentation/talent-presentation.generated.ts",
+        "src/ui/presentation/talent-screens.ts",
+        "src/ui/presentation/text-scale-reference.generated.css",
+        "src/ui/presentation/touch-click.ts",
+        "src/ui/presentation/unit-inspector.ts",
+        "src/ui/presentation/world-labels.css",
+        "src/ui/sc2-battle.css",
+        "src/ui/sc2-theme.css",
+        "src/ui/starship/art-effects.ts",
+        "src/ui/starship/art-metrics.json",
+        "src/ui/starship/art-metrics.ts",
+        "src/ui/starship/catalog-data.json",
+        "src/ui/starship/controller.ts",
+        "src/ui/starship/host.ts",
+        "src/ui/starship/legacy-icons.ts",
+        "src/ui/starship/legacy-layout.ts",
+        "src/ui/starship/legacy-r12.css",
+        "src/ui/starship/legacy-view.ts",
+        "src/ui/starship/memory-host.ts",
+        "src/ui/starship/native.css",
+        "src/ui/starship/native.ts",
+        "src/ui/starship/polish.css",
+        "src/ui/starship/presentation.ts",
+        "src/ui/starship/runtime-art.ts",
+        "src/ui/starship/settlement-view.ts",
+        "src/ui/starship/style.css",
+        "src/ui/starship/view.ts",
+        "src/ui/starship/world-host.ts",
+        "src/ui/text-scale.ts",
+        "src/ui/unit-identity.ts"
+      ],
+      "changed": [
+        "src/ui/starship/effect-text.ts"
+      ]
+    },
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "delivery": [
+      {
+        "mode": "game",
+        "web": "D:\\星际\\reports\\local\\integration-i03-20261022/web-game-r1",
+        "webInputs": 493,
+        "offlineInputs": 498,
+        "assets": 1909,
+        "resources": 1852,
+        "chunks": 2975,
+        "webJs": "dc4607989ec50125aa44d8c08cbf2d7d4a5e53b067dbb11eb976d4a528838953",
+        "offlineHtml": "64d999c9f2943fe7b15698b9bd3405168d4eb6f4f1153f02765bc292b8b5bd82",
+        "allInputsAndOutputsExact": true
+      },
+      {
+        "mode": "lab",
+        "web": "D:\\星际\\reports\\local\\integration-i03-20261022/web-lab-r1",
+        "webInputs": 494,
+        "offlineInputs": 499,
+        "assets": 1909,
+        "resources": 1852,
+        "chunks": 2975,
+        "webJs": "d0c4386dec8f4a9b875a91b26f592586826eedd017d897c432cadd13565753b6",
+        "offlineHtml": "727cfae347b0c8c4bf52b106492d94b1c638b2c64b4069697164f2379bcb1fc0",
+        "allInputsAndOutputsExact": true
+      }
+    ]
+  },
+  "regressions": {
+    "uniqueCovered": 2139,
+    "newTests": 37,
+    "full": {
+      "total": 2108,
+      "firstPass": 2101,
+      "localNetworkPermissionFailures": 7,
+      "log": "reports/local/integration-i03-20261022/regression-r2.log"
+    },
+    "permissionRerun": {
+      "total": 16,
+      "passed": 16,
+      "includesAllSevenFailures": true,
+      "log": "reports/local/integration-i03-20261022/regression-localhost-r1.log"
+    },
+    "additional": [
+      {
+        "tests": 26,
+        "log": "reports/local/integration-i03-20261022/effects-r4.log"
+      },
+      {
+        "tests": 4,
+        "log": "reports/local/integration-i03-20261022/dead-ends-r2.log"
+      },
+      {
+        "tests": 1,
+        "log": "reports/local/integration-i03-20261022/entry-r1.log"
+      }
+    ],
+    "note": "Final production source unchanged after the full 2108 run. The subsequent 31 new tests passed separately; 2139 is unique combined coverage, not a single 2139-pass log.",
+    "typecheck": "reports/local/integration-i03-20261022/typecheck-r3.log",
+    "dataExport": "reports/local/integration-i03-20261022/docs-data-r1.log",
+    "docsCheck": "reports/local/integration-i03-20261022/docs-check-r2.log"
+  },
+  "browser": {
+    "production": {
+      "path": "reports/local/integration-i03-20261022/qa-production-r1/result.json",
+      "records": 8,
+      "finalScreens": 4,
+      "mouse": "native left/right commands in Web and file://",
+      "noLabDebugInFormal": true
+    },
+    "touch": {
+      "path": "reports/local/integration-i03-20261022/qa-touch-r1/result.json",
+      "records": 8,
+      "finalScreens": 6,
+      "sizes": [
+        [
+          390,
+          844
+        ],
+        [
+          844,
+          390
+        ],
+        [
+          1280,
+          720
+        ],
+        [
+          1440,
+          900
+        ]
+      ],
+      "method": "CDP touch enabled before file:// page startup; actual joystick movement; not a physical device",
+      "offlineHttpRequests": 0
+    },
+    "effects": {
+      "path": "reports/local/integration-i03-20261022/qa-effects-r3/result.json",
+      "records": 11,
+      "finalScreens": 5,
+      "actualWebglRecovery": true,
+      "recoveryStateExact": true,
+      "scope": "Seeded items inspected via native equipment UI; local helper calls final production modules in controlled fixtures. Helper is absent from production build inputs."
+    },
+    "errors": 0,
+    "viewedFinalScreens": 15,
+    "viewedOldFailureScreens": 2,
+    "contactSheets": "reports/local/integration-i03-20261022/visual-review/index.json",
+    "limits": [
+      "No pixel-equivalence comparison was asserted for I03.",
+      "Context recovery here is the controlled equipment/shop scene; full final V-series remains open."
+    ]
+  },
+  "packaging": {
+    "pass": true,
+    "dest": "preview/integration-i03-20261022",
+    "mode": "references-to-verified-builds",
+    "links": [
+      {
+        "mode": "game",
+        "label": "正式普通游戏",
+        "path": "../../reports/local/integration-i03-20261022/offline-game-r1.html"
+      },
+      {
+        "mode": "lab",
+        "label": "39入口独立试玩",
+        "path": "../../reports/local/integration-i03-20261022/offline-lab-r1.html"
+      }
+    ],
+    "delivery": [
+      {
+        "mode": "game",
+        "web": "D:\\星际\\reports\\local\\integration-i03-20261022/web-game-r1",
+        "webInputs": 493,
+        "offlineInputs": 498,
+        "assets": 1909,
+        "resources": 1852,
+        "chunks": 2975,
+        "webJs": "dc4607989ec50125aa44d8c08cbf2d7d4a5e53b067dbb11eb976d4a528838953",
+        "offlineHtml": "64d999c9f2943fe7b15698b9bd3405168d4eb6f4f1153f02765bc292b8b5bd82",
+        "allInputsAndOutputsExact": true
+      },
+      {
+        "mode": "lab",
+        "web": "D:\\星际\\reports\\local\\integration-i03-20261022/web-lab-r1",
+        "webInputs": 494,
+        "offlineInputs": 499,
+        "assets": 1909,
+        "resources": 1852,
+        "chunks": 2975,
+        "webJs": "d0c4386dec8f4a9b875a91b26f592586826eedd017d897c432cadd13565753b6",
+        "offlineHtml": "727cfae347b0c8c4bf52b106492d94b1c638b2c64b4069697164f2379bcb1fc0",
+        "allInputsAndOutputsExact": true
+      }
+    ],
+    "additionalLargeBinaryCopies": 0,
+    "hardlinkDeduplication": {
+      "completed": false,
+      "reason": "Sandbox EPERM; elevated automatic review timed out. Reference-only delivery avoids additional artifact copies; existing build inputs retained."
+    }
+  },
+  "cleanup": {
+    "protectedFiles": 828,
+    "scope": "Only the finished I03 QA browser profile. Screenshots, logs, frozen input, output and Current retained.",
+    "pass": true,
+    "protectedExact": true,
+    "removed": "D:\\星际\\reports\\local\\integration-i03-20261022\\qa-shared\\profile",
+    "logicalBytes": 682603009,
+    "files": 2837,
+    "browserClosed": true
+  },
+  "bindings": [
+    {
+      "file": "reports/local/integration-i03-20261022/catalog-structural.json",
+      "bytes": 3924290,
+      "sha256": "c5529dd8dae856c866626cc39e39b383b6a4c028666025264efb6617f8507f49"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/development-paths.json",
+      "bytes": 1331231,
+      "sha256": "584540152130fb36680a73d8e0803ee537507a90cbdfe37ac5eb4230fa113564"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/equipment-seeds.json",
+      "bytes": 426534,
+      "sha256": "4aaafaa2650240c27511267a67215853e2a50efe71d93336a16d5172ae55a7a5"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/cards-paths-expanded.json",
+      "bytes": 962021,
+      "sha256": "fc19f711c6c6cd56516443a9f1504c1bc409d0a1eb062fc2eebdcb6ba6bf3b5e"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/card-effects.json",
+      "bytes": 280055,
+      "sha256": "ac423752e709a7a59543ada9ce7d915746b94550121def85cede44ef7ccceda1"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/event-sources.json",
+      "bytes": 31329,
+      "sha256": "f203316440f2b5c988c38b247af7b74b37c6c74c2f88f19944685954ff3eb90f"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/map-paths.json",
+      "bytes": 48550,
+      "sha256": "fd565361021f09427ca5d5ab1559edca41384dbcd8f596a073ced4b81d768ef5"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/coverage-ledger.json",
+      "bytes": 4274555,
+      "sha256": "89c62a3123c919829d75302ee6cd8aded40850e0d399a5b8bed5b66b72c97f6f"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/verification.json",
+      "bytes": 15092,
+      "sha256": "d781fd49237ee262907c93703ec6bd48feaa2655d830b7f11106fa41e32425fe"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/packaging.json",
+      "bytes": 1599,
+      "sha256": "28824d2002d720bf76cbb93d3f43c31d72c557fdf4fdb85d7181734ab24cda32"
+    },
+    {
+      "file": "reports/local/integration-i03-20261022/cleanup.json",
+      "bytes": 360,
+      "sha256": "d8f412c80f471d37febbaf38c57e563ee2ef2a534ce3a77dd5ef80541d892c2d"
+    }
+  ],
+  "failuresPreserved": [
+    {
+      "kind": "actual gameplay defects",
+      "files": [
+        "inheritance-before.log",
+        "supply-before.log"
+      ],
+      "resolution": "fixed final five production files"
+    },
+    {
+      "kind": "old supply test fixtures",
+      "files": [
+        "regression-r1.log"
+      ],
+      "resolution": "36 fixtures now initialize native building ownership, original assertions retained"
+    },
+    {
+      "kind": "local network permissions",
+      "files": [
+        "regression-r2.log",
+        "qa-production-sandbox-failure.json",
+        "qa-production-server-failure.json"
+      ],
+      "resolution": "7 tests passed in prior permitted localhost rerun; final Web/offline production passed"
+    },
+    {
+      "kind": "audit fixture/seed assumptions",
+      "files": [
+        "cards-expanded-run-r1.log",
+        "events-run-r3.log",
+        "card-effects-r1.log",
+        "effects-r1.log",
+        "map-paths-r1.log"
+      ],
+      "resolution": "Real landing guards, initial job drain, worker rescue, safe horde windows, fixed seed dispersion and legal test conditions; retained logs are not counted as game defects"
+    },
+    {
+      "kind": "browser fixture and selectors",
+      "files": [
+        "qa-effects-initial-failure.json",
+        "qa-effects-text-assumption-failure.json",
+        "qa-effects-close-selector-failure.json"
+      ],
+      "resolution": "Outside-only cleansing fixture, literal ×2.5 description and native Escape close; final offline r3 passed"
+    },
+    {
+      "kind": "packaging and cleanup environment",
+      "files": [
+        "packaging-r1.log",
+        "cleanup-r1.log",
+        "cleanup-r2.log"
+      ],
+      "resolution": "Hardlink EPERM and elevated automatic-review timeout; reference-only delivery adds no large duplicate. Cleanup used verified exited owned sessions when sandbox CIM inventory was unavailable."
+    }
+  ],
+  "limitations": [
+    "Seeded native pools use controlled money, stage windows and landing-guard elimination. This proves legal paths and nonzero source weights, not human full-campaign appearance frequency or difficulty.",
+    "Effect-family regressions and 310 measured card effects prove simulation behavior; this is not all-action visual/audio playback, which remains T01.",
+    "Five real terrain themes passed object-footprint admission; this is not a human navigation/combat playthrough of all maps.",
+    "G01/G02 equipment-card scaling and value, G03 economy/difficulty, U05 guidance, visual batches 3/4, D05 storage and final V-series acceptance remain open."
+  ],
+  "unchanged": {
+    "mainCameraAndInput": true,
+    "performanceD01ThroughD04": true,
+    "assets": true,
+    "current": true,
+    "gitCommitPushPublish": false
+  },
+  "next": "G01"
+}

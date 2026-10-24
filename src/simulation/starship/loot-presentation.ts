@@ -63,6 +63,7 @@ function emit(w:World,kind:EquipmentLootEvent['kind'],point:Point,item?:Equipmen
 export function registerEquipmentDrop(w:World,item:EquipmentItem){
  const a=w.starship.account,loc=a.locations[item.id],run=a.run;
  if(!w.starship.enabled||!run||run.ended||loc?.kind!=='ground'||loc.run!==run.id||w.starship.loot.ground.has(item.id))return false;
+ if(loc.droppedStage===undefined){loc.droppedStage=w.draftWindowId;a.revision++;}
  const point=equipmentLandingPoint(w,{x:loc.x??w.anchor.x,z:loc.z??w.anchor.z});
  if(point.x!==loc.x||point.z!==loc.z){loc.x=point.x;loc.z=point.z;a.revision++;}
  w.starship.loot.ground.set(item.id,{...point,at:w.time,terrain:w.terrain});emit(w,'drop',point,item);return true;

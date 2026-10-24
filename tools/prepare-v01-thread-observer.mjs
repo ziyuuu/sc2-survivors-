@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+let code=await fs.readFile('tools/v01-watch-process-memory.ps1','utf8');
+const change=(before,after)=>{assert.equal(code.split(before).length,2,before);code=code.replace(before,after);};
+change("$taskHandles=@{}", "Add-Type -Path (Join-Path $PSScriptRoot 'v01-thread-observer.cs')\n$taskThreadObserver=[V01ThreadObserver]::new([int[]]$ProcessIds.Split(','))\n$taskHandles=@{}");
+change("  $taskSystem=[V01Memory+SystemMemory]::new();", "  $taskThreadSnapshot=$taskThreadObserver.Read()\n  $taskSystem=[V01Memory+SystemMemory]::new();");
+change("counters=$taskPdh;processes=$taskRows", "counters=$taskPdh;processes=$taskRows;threads=$taskThreadSnapshot;threadColumns=@('pid','tid','state','waitReasonWhenWaiting','priority','basePriority','cpuCyclesOrMinusOne')");
+change('ConvertTo-Json -Depth 5 -Compress', 'ConvertTo-Json -Depth 7 -Compress');
+change('Start-Sleep -Milliseconds 250', 'Start-Sleep -Milliseconds 100');
+change('}finally{$taskWriter.Dispose();', '}finally{$taskThreadObserver.Dispose();$taskWriter.Dispose();');
+await fs.writeFile('tools/v01-watch-process-threads.ps1',code,{flag:'wx'});
+console.log('Prepared 100ms selected-process thread-state observer; not running.');

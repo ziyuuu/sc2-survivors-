@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "tasks": [
+    "F01",
+    "F04",
+    "F02"
+  ],
+  "status": "completed-within-scope",
+  "authorization": "User approved the F01/F04/F02 combined proposal with 开始吧.",
+  "baseline": "be9e2982944314194c6dcc9dcc535bc321749eb4 plus accepted local F05/U02/S03/L01/F03",
+  "scope": [
+    "ended hosted beams",
+    "interrupted ordinary healing target cleanup",
+    "recent visual-event retention",
+    "elite mine batch ordering",
+    "acid instance disposal",
+    "owned building skeleton disposal"
+  ],
+  "verification": {
+    "pass": true,
+    "inputsChecked": 879,
+    "baselineInputs": 439,
+    "candidateInputs": 440,
+    "changes": [
+      "src/render/effects/source/player.ts",
+      "src/simulation/world.ts",
+      "src/render/effects/acid-ground-effects.ts",
+      "src/render/scene/building-view-lifecycle.ts",
+      "src/render/scene/battle-renderer.ts"
+    ],
+    "unrelatedExcluded": [
+      "src/render/units/economic-egg.ts"
+    ],
+    "activeBeam": {
+      "model": "MedivacHealBeam",
+      "requests": 1,
+      "meshes": 0,
+      "particles": 2,
+      "ribbons": 20,
+      "projections": 0,
+      "displacementMeshes": 0,
+      "displacementQuads": 0
+    },
+    "ending": {
+      "before": {
+        "model": "MedivacHealBeam",
+        "requests": 2,
+        "meshes": 0,
+        "particles": 1,
+        "ribbons": 20,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      "after": {
+        "model": "MedivacHealBeam",
+        "requests": 2,
+        "meshes": 0,
+        "particles": 1,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      }
+    },
+    "acidResidualBuffers": {
+      "before": 48,
+      "after": 0,
+      "cycles": 12
+    },
+    "buildingResidualTextures": {
+      "before": 42,
+      "after": 0,
+      "cycles": 12
+    },
+    "hiveResidualTextures": {
+      "after": 0,
+      "cycles": 3
+    },
+    "ownedBoneTexturesReleased": 72,
+    "burst": {
+      "generated": 900,
+      "retained": 900,
+      "hits": 300,
+      "corpses": 300,
+      "renderReadOnly": true
+    },
+    "contextRestore": {
+      "name": "actual-context-restore",
+      "before": {
+        "time": 88.80000000000001,
+        "tick": 0,
+        "rng": 529,
+        "epoch": 0
+      },
+      "after": {
+        "time": 88.80000000000001,
+        "tick": 0,
+        "rng": 529,
+        "epoch": 1
+      }
+    },
+    "errors": [],
+    "requestCancellations": [
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.barracks.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.hatchery.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/models/hatcheryex1mp.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.fort.bunker.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.fort.bunker.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.fort.repair.death.glb",
+        "error": "net::ERR_ABORTED"
+      }
+    ],
+    "baselineBuild": [
+      {
+        "file": "preview/performance-f01-f04-f02-20261020-baseline/index.html",
+        "bytes": 954785,
+        "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+      },
+      {
+        "file": "preview/performance-f01-f04-f02-20261020-baseline/main.css",
+        "bytes": 821671,
+        "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+      },
+      {
+        "file": "preview/performance-f01-f04-f02-20261020-baseline/main.js",
+        "bytes": 37390417,
+        "sha256": "239090426b9bb35a9f52b4395be132f1638f9acbb01e32f313c112449a6470e2"
+      }
+    ],
+    "candidateBuild": [
+      {
+        "file": "preview/performance-f01-f04-f02-20261020-candidate-r3/index.html",
+        "bytes": 954785,
+        "sha256": "5aca0c59eebf5a3f4c903ddcdcdfa07600d9e90f9030d452a061a6bc201d8f1e"
+      },
+      {
+        "file": "preview/performance-f01-f04-f02-20261020-candidate-r3/main.css",
+        "bytes": 821671,
+        "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+      },
+      {
+        "file": "preview/performance-f01-f04-f02-20261020-candidate-r3/main.js",
+        "bytes": 37391121,
+        "sha256": "9412d31b142750e70bc389a8833f4aed164041921ceedaaf45b11f25ac1e4e29"
+      }
+    ]
+  },
+  "visual": {
+    "date": "2026-10-20",
+    "reviewed": true,
+    "reviewer": "Codex visual inspection",
+    "humanAcceptance": false,
+    "screensReviewed": 18,
+    "contactSheet": "reports/local/performance-f01-f04-f02-20261020/contact-sheet.jpg",
+    "groups": {
+      "baseline-r2": 5,
+      "candidate-r3": 8,
+      "recovery-r1": 5
+    },
+    "originalSizeViews": [
+      "baseline-r2/live-heal.png",
+      "baseline-r2/acid-building.png",
+      "candidate-r3/building-death.png",
+      "candidate-r3/restored.png",
+      "recovery-r1/before.png",
+      "recovery-r1/after-continue.png"
+    ],
+    "findings": [
+      "Live healing retains its native beam and patient particles; final baseline/candidate RGB comparison is exact.",
+      "Stopped and full-health-ended healing has no connecting ribbon; patient particle tail remains visible.",
+      "The final elite-mine image shows the native model and red point at the center, absent in the old image.",
+      "Dense native shield/death burst renders; this is a synthetic arrangement, not natural combat readability acceptance.",
+      "Building live/death frames and ground-conforming acid show no obvious missing or corrupt surfaces in these views.",
+      "Main final context-restoration screenshot is covered by the game's pause menu; it alone is not accepted as a clear restored-view check.",
+      "Same-build recovery supplement visibly resumes to a clear battle scene with acid and bunker present. Raw canvas before/after differs by 103494 RGB pixels; exact restoration pixel parity is not claimed. No obvious missing/black/corrupt acid or building is visible.",
+      "Supplement's final DOM-count assertion failed because the hidden pause markup remains. The preceding epoch/time/tick/RNG, acid state, fort count, draw-call and paused=false assertions completed; this is inferred from the emitted failure location and archived runner control flow, not a newly executed query. The original failed report remains unchanged."
+    ],
+    "recoverySupplementAcceptedWithinScope": true,
+    "recoveryRawRunPassed": false,
+    "recoveryFailureLocation": "archived recovery-r1/runner.mjs line 16 column 293: assert.equal(await page.locator('.pause-actions').count(),0)",
+    "limits": [
+      "Controlled visual spot check only",
+      "Not all frames or all original effects",
+      "No natural campaign, physical-input or human acceptance",
+      "No blanket pixel-equality claim"
+    ]
+  },
+  "tests": {
+    "passed": 1668,
+    "failed": 0,
+    "added": 6,
+    "log": "reports/local/performance-f01-f04-f02-20261020/full-tests-final.log",
+    "typecheck": "reports/local/performance-f01-f04-f02-20261020/typecheck-r3.log",
+    "dataDocs": "reports/local/performance-f01-f04-f02-20261020/docs-check.log"
+  },
+  "evidence": {
+    "baseline": "reports/local/performance-f01-f04-f02-20261020/baseline-r2/report.json",
+    "final": "reports/local/performance-f01-f04-f02-20261020/candidate-r3/report.json",
+    "scopedChecks": "reports/local/performance-f01-f04-f02-20261020/verification.json",
+    "pixels": "reports/local/performance-f01-f04-f02-20261020/pixel-comparisons.json",
+    "sourceArchives": [
+      "reports/local/performance-f01-f04-f02-20261020/baseline-inputs",
+      "reports/local/performance-f01-f04-f02-20261020/candidate-r3-inputs"
+    ]
+  },
+  "failuresPreserved": [
+    {
+      "path": "reports/local/performance-f01-f04-f02-20261020/baseline-r1/report.json",
+      "reason": "Sandbox denied localhost browser access."
+    },
+    {
+      "path": "reports/local/performance-f01-f04-f02-20261020/before-tests.log",
+      "reason": "Three intended old-code repro failures: lingering Death ribbon, stale stopped healer target, burst trimming."
+    },
+    {
+      "path": "reports/local/performance-f01-f04-f02-20261020/full-tests.log",
+      "reason": "Seven localhost permission failures plus obsolete unconditional 768-event cap assertion."
+    },
+    {
+      "path": "reports/local/performance-f01-f04-f02-20261020/candidate-r1/report.json",
+      "reason": "Five rendering checks completed, then fixture called deferred legacy save API. Replaced with existing read-only diagnostic snapshot."
+    },
+    {
+      "path": "reports/local/performance-f01-f04-f02-20261020/hero-scope-before.log",
+      "reason": "Intermediate cleanup incorrectly removed fresh hero passive targets; final guard only clears ordinary medical paths."
+    }
+  ],
+  "retainedIntermediate": {
+    "builds": [
+      "preview/performance-f01-f04-f02-20261020-candidate/",
+      "preview/performance-f01-f04-f02-20261020-candidate-r2/"
+    ],
+    "browser": "reports/local/performance-f01-f04-f02-20261020/candidate-r2/report.json",
+    "note": "Intermediate non-hero rendering/resource/context checks remain correctly attributed; final candidate-r3 was independently rerun."
+  },
+  "limitations": [
+    "Controlled native-render fixtures, not a natural full campaign or physical-input acceptance.",
+    "No overall FPS gain or 60 FPS completion claim.",
+    "Recent events have a 0.5 simulation-second grace window, not an unlimited render acknowledgement queue. Native frame processing is limited to eight fixed steps.",
+    "Current source hive live templates contain no skeleton textures; existing hive death disposal was already correct and remains covered.",
+    "No Current replacement, commit, push, online publish, save integration or MVP closeout."
+  ],
+  "next": "X01",
+  "preview": "preview/performance-f01-f04-f02-20261020-candidate-r3/",
+  "recoverySupplement": {
+    "path": "reports/local/performance-f01-f04-f02-20261020/recovery-r1/report.json",
+    "rawPass": false,
+    "errors": [],
+    "requests": [
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.barracks.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.barracks.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.baneling.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.baneling.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.hatchery.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f01-f04-f02-20261020-candidate-r3/assets/optimized/model.fort.repair.glb",
+        "error": "net::ERR_ABORTED"
+      }
+    ],
+    "failedAssertion": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n",
+    "note": "Main final run restored the context and preserved state but screenshot was covered by the native pause menu. Same-build supplement captured raw canvas and clear native Continue result; epoch/time/tick/RNG, acid report, one fort, positive draw calls and paused=false assertions precede the final failed hidden-DOM count assertion at runner line 16 column 293. Only these completed steps and inspected screenshots are reused. Original failed report is retained, never relabeled pass. Runner visibility assertion was corrected for future runs; it was not rerun."
+  },
+  "auditBoundaries": {
+    "FX015": "F02 closes disposal only. First acid geometry creation/peak allocation belongs to pending X04.",
+    "R06": "Owned skeleton disposal is fixed. Offscreen mixer CPU work is unchanged and remains for A01 classification; not declared optimized."
+  }
+}

@@ -19,13 +19,13 @@ test('every equipment presentation resolves through the common pack/platform ass
  try{configurePlatformAssetUrl(id=>'verified/'+id);assert.equal(starshipImage(key,true),'verified/'+STARSHIP_ART_IDS[key].detail);assert.equal(starshipImage(key),'verified/'+STARSHIP_ART_IDS[key].src);}finally{configurePlatformAssetUrl(null);}
 });
 
-test('the integrated account has no starter grants and UI never offers unavailable archive operations',()=>{
+test('the integrated account has no starter grants and exposes durable equipment archives',()=>{
  const account=newEquipmentAccount(529),world=new World({seed:529,terrain:false,equipmentAccount:account}),session=new RunSession(world,null,{repository:null,profile:world.permanentProfile,run:null,notice:'',savedAt:0});
- assert.equal(account.dust,0);assert.deepEqual(account.items,{});assert.equal(world.autoWaves,true);assert.equal(session.memoryOnly,true);
+ assert.equal(account.dust,0);assert.deepEqual(account.items,{});assert.equal(world.autoWaves,true);assert.equal(session.memoryOnly,false);
  const menu=renderMenu({equipmentUI:true,page:'title',race:'terran',difficulty:'normal',preset:0,hero:null,loadPreview:null,error:''},world.permanentProfile,session);
  assert.ok(menu.includes('旗舰配装'));assert.ok(!menu.includes('刷新或关闭后重置'));assert.ok(menu.includes('继续游戏'));assert.ok(!menu.includes('data-action="menu-load"'));
- const save=new SaveControls(session,()=>{},()=>{});assert.ok(!save.render('pause').includes('data-action="save-'));
+ const save=new SaveControls(session,()=>{},()=>{});assert.ok(!save.render('pause').includes('data-action="save-'));assert.ok(save.render('settings').includes('data-action="save-export"'));assert.ok(save.render('settings').includes('data-action="menu-load-local"'));
  world.start();assert.ok(!renderPause(world,'').includes('data-action="save-export"'));assert.ok(!renderEndless(world).includes('data-action="save-export"'));
- world.endStage();assert.ok(world.extractEquipment());
+ world.stage=3;world.endStage();assert.ok(world.extractEquipment());
  const ended=renderVictory(world,save.render('ended'),false,true);assert.ok(ended.includes('战利品结算'));assert.ok(!ended.includes('data-action="save-'));
 });

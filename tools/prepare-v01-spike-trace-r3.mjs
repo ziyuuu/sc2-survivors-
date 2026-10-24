@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+const base='reports/local/v01-20261024';let code=await fs.readFile(base+'/spike-trace-r2.mjs','utf8');
+const replace=(a,b)=>{assert.equal(code.split(a).length,2,a);code=code.replace(a,b);};
+replace("await traceCdp.send('Profiler.setSamplingInterval',{interval:1000})","await traceCdp.send('Profiler.setSamplingInterval',{interval:10000})");
+replace("['toplevel','devtools.timeline','blink.user_timing','loading','gpu','gpu.angle','viz','renderer.scheduler','v8','disabled-by-default-v8.gc']","['toplevel','devtools.timeline','blink.user_timing','loading','gpu','gpu.angle','renderer.scheduler','v8']");
+const start="if(stage===1){await traceCdp.send('Profiler.start');await traceCdp.send('Tracing.start',{categories:report.selectedTraceCategories.join(','),transferMode:'ReturnAsStream'});tracing=true;report.traceOrigin=await page.evaluate(()=>{performance.mark('V01_SPIKE_TRACE_ORIGIN');return performance.now();});}";
+replace(start,'');replace("await page.locator('[data-action=flow-continue]:visible').click();",start.replace('if(stage===1)','if(cycle===0)')+"await page.locator('[data-action=flow-continue]:visible').click();");
+replace("report.progress.push({work:phase", "const heap=await traceCdp.send('Runtime.getHeapUsage');report.progress.push({heap,work:phase");
+replace("background:window.__SC2_REPORT__?.().background}","background:window.__SC2_REPORT__?.().background,memory:window.A03?.app?.view.renderer.info.memory,jsMemory:performance.memory?{used:performance.memory.usedJSHeapSize,total:performance.memory.totalJSHeapSize,limit:performance.memory.jsHeapSizeLimit}:null}");
+replace("Diagnostic CPU and Chromium/GPU/scheduler trace around the second stage", "Diagnostic 10ms CPU sampling and Chromium/GPU/scheduler trace started before first battle, with resource-body spans and 20-second heap/backing-store sampling");
+await fs.writeFile(base+'/spike-trace-r3.mjs',code,{flag:'wx'});console.log('Prepared pre-battle light trace and memory samples.');

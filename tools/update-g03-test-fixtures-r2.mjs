@@ -1,0 +1,5 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+for(const file of ['field-stage-runtime','fun-feedback-r4-corrupt','fun-review-fixes','fun-shop-boundaries','integration-i02-transactions']){
+ const p='test/'+file+'.test.ts';let s=await fs.readFile(p,'utf8');assert.ok(s.includes('new World({'));s=s.replaceAll('new World({','new World({difficulty:\'hard\',');await fs.writeFile(p,s);
+}
+const p='test/special-stage-boundaries.test.ts';let s=await fs.readFile(p,'utf8');s=s.replace("difficulty:Difficulty='normal'","difficulty:Difficulty='hard'").replace('three arena chapters use legal targets and real equipment without invalid combat state','arena tier guard or three legal chapters with real equipment').replace("const w=fixture(race,difficulty,stage),a=begin(w,'arena')", "const w=fixture(race,difficulty,stage);if(difficulty==='easy'||difficulty==='normal'){assert.equal(beginSpecialStage(w,'arena','fixture'),false);assert.equal(w.specialStages.used.size,0);continue;}const a=begin(w,'arena')");await fs.writeFile(p,s);

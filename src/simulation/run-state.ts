@@ -1,3 +1,8 @@
+import {newFunShop} from './fun-shop/state';
+import {newSpecialStages} from './special-stages/state';
+import {newFieldEvents} from './field-events/state';
+import {newEncounterState} from './encounters/state';
+import {newMissionState} from './missions/state';
 import {newProtossEliteRun} from './combat/protoss-elite-runtime';
 import {newTeamAuraRun} from './combat/team-auras';
 import {newTerranEliteRun} from './combat/terran-elite-runtime';
@@ -31,6 +36,11 @@ import type {TalentTransferPlan} from './combat/talent-transfer';
 /** Run-owned mutable state only. No listeners, terrain assets, closures or World references.
  * One fresh state resets a run without reloading the renderer or immutable asset pack. */
 export class RunState {
+ funShop=newFunShop();
+ specialStages=newSpecialStages();
+ fieldEvents=newFieldEvents();
+ encounters=newEncounterState();
+ missions=newMissionState();
  expedition:import('./expedition-state').ExpeditionState=newExpedition('terran');
  runConfig:RunConfig|null=null;
  campaign18Runtime:Campaign18Runtime|null=null;
@@ -94,11 +104,16 @@ protected specialPlan:Campaign18Special[]=[];protected nextSpecial=0;
 
  protected rngState=0;
  protected attackLines=new AttackLineCache();
- statuses=new CombatStatuses();corrosionZones:{source:number;points:Point[];damage:number;until:number;nextTick:number}[]=[];zoneSlowed=new Set<number>();
+ statuses=new CombatStatuses();corrosionZones:{source:number;owner?:Body['owner'];points:Point[];damage:number;until:number;nextTick:number}[]=[];zoneSlowed=new Set<number>();
  auraArmor=new Map<number,number>();auraDamage=new Map<number,number>();auraAttackSpeed=new Map<number,number>();protected nextAuraUpdate=0;
 
  /** Typed DTO only; protected gameplay fields stay encapsulated on the live state. */
  snapshotData(){return {
+ funShop:this.funShop,
+ specialStages:this.specialStages,
+ fieldEvents:this.fieldEvents,
+ encounters:this.encounters,
+ missions:this.missions,
   expedition:this.expedition,runConfig:this.runConfig,campaign18Runtime:this.campaign18Runtime,swarm:this.swarm,podSerial:this.podSerial, time:this.time, tick:this.tick, stage:this.stage, stageElapsed:this.stageElapsed,
   stageStartedAt:this.stageStartedAt, phase:this.phase, paused:this.paused, battlefield:this.battlefield,endlessEntry:this.endlessEntry,endlessTransitionReceipt:this.endlessTransitionReceipt,endlessRoundReceipts:this.endlessRoundReceipts,runId:this.runId,
   endlessAwardedMinutes:this.endlessAwardedMinutes, endless:this.endless, entities:this.entities, pods:this.pods,

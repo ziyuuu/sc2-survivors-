@@ -1,0 +1,10 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import path from 'node:path';import {createHash} from 'node:crypto';
+const root='reports/local/g03-farm-minor-20261023',sha=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex'),plan=JSON.parse(fs.readFileSync(root+'/plan.json','utf8'));
+assert(!fs.existsSync(root+'/mode-plan.json'));
+for(const f of ['consumption-probes-r4-first.json','strategy-probes-r4.json']){const d=JSON.parse(fs.readFileSync(root+'/'+f,'utf8'));assert(d.rows.every(r=>r.pass));}
+const redgreen=JSON.parse(fs.readFileSync(root+'/lurker-mode-red-green.json','utf8'));assert.equal(redgreen.rows.length,4);assert.equal(redgreen.rows[0].canFire,false);assert.equal(redgreen.rows[1].canFire,true);assert(redgreen.rows.slice(2).every(r=>r.unchanged));
+const files=[...Object.keys(plan.tools).map(f=>f.replace('g03-consumption-controller-r3.mts','g03-consumption-controller-r4.mts').replace('measure-g03-farm-minor','measure-g03-farm-mode').replace('probe-g03-consumption-r3','probe-g03-consumption-r4').replace('probe-g03-strategy-','probe-g03-strategy-r4-')),'tools/probe-g03-lurker-mode-20261023.mts','tools/lib/g03-consumption-controller-r3.mts'];
+const cases=plan.cases.filter(c=>c.race==='zerg');assert.equal(cases.length,8);
+for(const f of files){const dest=root+'/mode-runtime-tools/'+f;fs.mkdirSync(path.dirname(dest),{recursive:true});assert(!fs.existsSync(dest));fs.copyFileSync(f,dest);}
+for(const d of ['mode-routes','mode-logs'])fs.mkdirSync(root+'/'+d,{recursive:true});
+fs.writeFileSync(root+'/mode-plan.json',JSON.stringify({...plan,cases,tools:Object.fromEntries(files.map(f=>[f,sha(f)])),scope:{...plan.scope,primary:'Eight zerg replays replace the first eight zerg runs in the final 24-case cohort. Original 24 runs remain immutable; 32 total formal executions.',correction:'Only r4 protectDelivery hold branch for zerg restores native lurker burrow when nearby visible ground enemies exist. No game changes. All other r3 behavior preserved.'}},null,2));console.log(JSON.stringify({frozen:8,tools:files.length}));

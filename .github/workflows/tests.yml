@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Fetch runtime assets and original provenance test sources
-        run: git lfs pull --include="deploy/runtime/assets/**,assets/private/m3/**,assets/private/dds/**" --exclude=""
+        run: git lfs pull --include="deploy/runtime/assets/**,deploy/runtime/fun-props/**,deploy/runtime/mission-assets/**,assets/private/m3/**,assets/private/dds/**" --exclude=""
       - uses: actions/setup-node@v4
         with:
           node-version: '24'

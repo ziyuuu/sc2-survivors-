@@ -1,0 +1,1 @@
+import fs from 'node:fs';const p='src/ui/hud/m3-menu.ts';let s=fs.readFileSync(p,'utf8').replace("equipmentCheck?.ok?'部署就绪'", "equipmentCheck?.ok?''").replace("allocation?'部署就绪'", "allocation?''");fs.writeFileSync(p,s);

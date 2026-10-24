@@ -31,7 +31,7 @@ test('real enemy death grants a guaranteed item once, excludes derived bodies, a
 test('Boss quality modifier changes only highest actual quality and preserves same-tier category proportions',()=>{
  const a=newEquipmentAccount(5),w=new World({sandbox:true,waves:false,terrain:false,obstacles:[],equipmentAccount:a}),r=grantEquipment(a,{template:'module.double_pickup.4',race:'terran',slot:'gathering'},'g',{kind:'warehouse'});assert.ok(r.ok);w.equipItem(r.value.id,r.value.slot);w.start();const p=equipmentDropPolicy({difficulty:'hell',stage:18,endlessRound:13,tier:'boss'}),out=qualityWeightedPool(w,p.additional,true);close(out[0].weight,60);close(out[1].weight,28*1.1);close(out[2].weight,12*1.1);assert.deepEqual(qualityWeightedPool(w,p.additional,false),p.additional);close(p.additionalChance,.3);close(p.pollutionChance,.15);
 });
-test('equipment opt-in never writes enhanced stats into the deferred old save format; existing empty-account game remains unchanged',()=>{
+test('equipment snapshots include their runtime; existing empty-account game remains unchanged',()=>{
  const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();assert.doesNotThrow(()=>w.captureRun());w.resetRun();assert.equal(w.starship.enabled,false);
- const equipped=new World({sandbox:true,waves:false,terrain:false,obstacles:[],equipmentAccount:newEquipmentAccount()});equipped.start();assert.throws(()=>equipped.captureRun(),/MVP收尾/);equipped.resetRun();assert.equal(equipped.starship.enabled,true);
+ const equipped=new World({sandbox:true,waves:false,terrain:false,obstacles:[],equipmentAccount:newEquipmentAccount()});equipped.start();assert.ok(equipped.captureRun().starship);equipped.resetRun();assert.equal(equipped.starship.enabled,true);
 });

@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-23",
+  "pass": true,
+  "scope": "Completed synthetic test databases and transpiler cache; exact SHA-256-named immutable binary assets in generated builds. All output paths retained.",
+  "drives": [
+    {
+      "drive": "C",
+      "freeBefore": 12128006144,
+      "freeAfter": 12272275456,
+      "observedFreeIncrease": 144269312
+    },
+    {
+      "drive": "D",
+      "freeBefore": 17776103424,
+      "freeAfter": 34132811776,
+      "observedFreeIncrease": 16356708352
+    }
+  ],
+  "cacheTargets": [
+    {
+      "path": "D:\\星际\\.cache\\p5-tests",
+      "category": "synthetic-test-database",
+      "plannedBytes": 894558926,
+      "status": "removed",
+      "beforeBytes": 894558926.0,
+      "beforeFiles": 22770,
+      "afterBytes": 0,
+      "afterFiles": 0,
+      "error": null
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\cache\\p5-tests",
+      "category": "synthetic-test-database",
+      "plannedBytes": 1626667325,
+      "status": "removed",
+      "beforeBytes": 1626667325.0,
+      "beforeFiles": 41400,
+      "afterBytes": 0,
+      "afterFiles": 0,
+      "error": null
+    },
+    {
+      "path": "C:\\Users\\zyuu\\AppData\\Local\\Temp\\tsx-zyuu",
+      "category": "transpiler-cache",
+      "plannedBytes": 160936307,
+      "status": "removed",
+      "beforeBytes": 160936307.0,
+      "beforeFiles": 1735,
+      "afterBytes": 0,
+      "afterFiles": 0,
+      "error": null
+    }
+  ],
+  "cacheLogicalBytesRemoved": 2682162558.0,
+  "deduplication": {
+    "groups": 1781,
+    "paths": 41294,
+    "distinctDuplicateBytesRemoved": 14682947127,
+    "method": "NTFS hard links; no source, HTML, JS or JSON sharing introduced."
+  },
+  "verification": {
+    "completed": 1792751998.2647233,
+    "pass": true,
+    "issues": [],
+    "assetGroups": 1781,
+    "assetPathsChecked": 41294,
+    "protectedFiles": 3736,
+    "protectedSourceTestFiles": 829,
+    "method": "SHA-256 for every canonical asset, file identity and size for every replaced path; independent SHA-256 of all protected source/test/config/Current/QA/docs/deploy files."
+  },
+  "boardRevision": 138,
+  "gameChanges": false,
+  "newGameplayAcceptance": false,
+  "discussion": [
+    {
+      "topic": "farm通关稳定性",
+      "evidence": "困难5/6、地狱3/6进入无尽；地狱529三族均败、530均通。",
+      "decision": "先隔离目标执行/行军钻地、增援交付和成长抽选，再决定是否调整后段压力；现有结果不能直接归因地图或种族。"
+    },
+    {
+      "topic": "困难小毕业后期余量",
+      "evidence": "6/6进入无尽，但虫族529死亡48次、第16/17关末各余1单位；星灵529后两关死亡10次。",
+      "decision": "针对已测候选的后期掉队补因果验证，再讨论成长或压力调整；不能以通关认定平推。"
+    },
+    {
+      "topic": "简单毒爆弹幕容错",
+      "evidence": "已有程序躲弹路线通过，尚无人类操作容错验收。",
+      "decision": "讨论弹速、密度、通路和受击容错的优先方向。"
+    },
+    {
+      "topic": "诱饵定位与价格",
+      "evidence": "存在零触发情况；诱饵不生成独立虫群，现有单关收益不等于整局价值。",
+      "decision": "确定它是额外随机机会还是更稳定的奖励机会，再决定触发规则/说明/价格是否需要调整。"
+    },
+    {
+      "topic": "G03成长经济收口",
+      "evidence": "当前预配装通关证据不能证明自然获得目标配装耗时和后期消费选择充分。",
+      "decision": "补自然成长时间、后期选择与无尽衔接的剩余证据，再冻结候选。"
+    }
+  ],
+  "notes": [
+    "Free-space snapshots include concurrent system writes; logical bytes and observed free-space change are separate.",
+    "Current, 829 source/test files, original screenshots/raw reports/frozen inputs and saved games retained. No running application was stopped.",
+    "Initial read-only inventory overlapped cache deletion and stopped on a missing synthetic fixture; rerun explicitly excluded p5-tests and preserved the original protected-byte manifest.",
+    "No source changes, build, performance/gameplay acceptance, commit, push or publication."
+  ],
+  "evidence": [
+    "reports/local/disk-cleanup-20261023/cleanup-result.json",
+    "reports/local/disk-cleanup-20261023/link-plan.json",
+    "reports/local/disk-cleanup-20261023/hardlinks-pilot.json",
+    "reports/local/disk-cleanup-20261023/hardlinks-execute.json",
+    "reports/local/disk-cleanup-20261023/verification.json"
+  ]
+}

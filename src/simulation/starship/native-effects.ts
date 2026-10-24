@@ -4,7 +4,7 @@ import type {HeroId} from '../../data/heroes';
 import {equipmentUnitTotals} from './runtime';
 import {projectionFor,projectionOutput} from './projections';
 /** Only native amounts explicitly named by the identity contract use this factor. */
-export function equipmentNativeFactor(w:World,u:Entity){if(!w.starship.enabled||u.owner!=='terran')return 1;return 1+(projectionFor(w,u)?.totals.native??equipmentUnitTotals(w,u).native);}
+export function equipmentNativeFactor(w:World,u:Entity){if(u.mission?.holdout||u.mission?.fleet||!w.starship.enabled||u.owner!=='terran')return 1;return 1+(projectionFor(w,u)?.totals.native??equipmentUnitTotals(w,u).native);}
 /** Restorative projection output is independent of the patient's received-healing modifier. */
 export function equipmentHealingOutput(w:World,u:Entity,native=true){return projectionOutput(w,u.id)*(native?equipmentNativeFactor(w,u):1);}
 export function heroExtraAmount(rank:number){return 1+.2*Math.max(0,rank-5);}

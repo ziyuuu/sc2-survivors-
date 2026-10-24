@@ -7,6 +7,7 @@ import {unitData} from '../combat/expedition-combat';
 import {activeEquipmentEffects} from './modules';
 import {permanentEquipmentBody} from './eligibility';
 import {equipmentRandom} from './inventory';
+import {pruneEquipmentProjections} from './projection-cleanup';
 
 export interface EquipmentProjection {
  effects:import('./selection').ActiveEquipmentEffect[];kind:'phantom'|'phase'|'recall';origin:number;until:number;output:number;
@@ -38,5 +39,9 @@ export function equipmentPhantomAttack(w:World,u:Entity){if(u.summonKind==='inte
  const alive=[...w.starship.projections].filter(([id,p])=>p.kind==='phantom'&&!w.entities.get(id)?.summonKind&&(w.entities.get(id)?.hp??0)>0).length,count=e.values[5];if(alive+count>e.values[1]||equipmentRandom(w.starship.account)>=e.values[0])return;
  if(createEquipmentProjections(w,u,count,'phantom',e.values[3],e.values[2],e.values[2]).length===count)w.starship.numbers.set('phantom-ready',w.time+e.values[4]);
 }
-export function retireEquipmentProjection(w:World,id:number){const u=w.entities.get(id);if(u){if(u.hp>0)equipmentPresentation(w,'projection-end',u,undefined,projectionFor(w,u)?.kind);u.hp=0;u.deadAt=w.time;u.action='dead';u.pendingTarget=null;u.attackTarget=null;for(const child of w.entities.values())if(child.summonOwnerId===id&&projectionFor(w,child)){if(child.hp>0)equipmentPresentation(w,'projection-end',child,undefined,projectionFor(w,child)?.kind);child.hp=0;child.deadAt=w.time;child.action='dead';}}}
-export function tickEquipmentProjections(w:World){for(const [id,p] of w.starship.projections){const u=w.entities.get(id);if(!u)continue;if(p.kind!=='phase'&&w.time>=p.until)retireEquipmentProjection(w,id);}}
+export function retireEquipmentProjection(w:World,id:number){
+ const retire=(u:Entity)=>{if(u.hp>0)equipmentPresentation(w,'projection-end',u,undefined,projectionFor(w,u)?.kind);u.hp=0;u.deadAt??=w.time;u.action='dead';u.pendingTarget=null;u.attackTarget=null;};
+ const u=w.entities.get(id);if(u)retire(u);
+ for(const child of w.entities.values())if(child.summonOwnerId===id&&projectionFor(w,child))retire(child);
+}
+export function tickEquipmentProjections(w:World){for(const [id,p] of w.starship.projections){const u=w.entities.get(id);if(!u)continue;if(u.hp>0&&p.kind!=='phase'&&w.time>=p.until)retireEquipmentProjection(w,id);}pruneEquipmentProjections(w);}

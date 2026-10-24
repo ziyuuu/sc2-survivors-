@@ -8,7 +8,7 @@ export async function loadCombatEffects({restore=false,check=false}={}){
  if(hash((await fs.readFile('src/assets/combat-effects.ts','utf8')).replace(/\r\n/g,'\n'))!==catalog.generatedSha256)throw Error('Combat effect registry checksum differs');
  if(hash((await fs.readFile('src/render/effects/source/catalog.json','utf8')).replace(/\r\n/g,'\n'))!==catalog.catalogSha256)throw Error('Combat effect source catalog checksum differs');
  for(const r of catalog.records){
-  if(!/^combat-fx\.(texture|mesh)\.[\w.-]+$/.test(r.id)||r.gitPath!==`deploy/runtime/assets/${r.packedSha256}.${r.kind==='combat-effect-model'?'glb':'png'}`||r.packedFile!==`public/${r.url}`||r.url!==`assets/combat-effects/${r.id}.${r.kind==='combat-effect-model'?'glb':'png'}`)throw Error('Invalid combat effect asset path');
+  if(!/^combat-fx\.(texture|mesh)\.[\w.-]+$/.test(r.id)||r.gitPath!==`deploy/runtime/assets/${r.packedSha256}.${r.kind==='combat-effect-model'?'glb':'png'}`||r.packedFile!==`public/${r.url}`||![`assets/combat-effects/${r.id}.${r.kind==='combat-effect-model'?'glb':'png'}`,`assets/fun-fx/${r.id}.${r.kind==='combat-effect-model'?'glb':'png'}`].includes(r.url))throw Error('Invalid combat effect asset path');
   const bytes=await fs.readFile(r.gitPath);if(bytes.length!==r.bytes||hash(bytes)!==r.packedSha256)throw Error('Combat effect resource changed: '+r.id);
   const current=await fs.readFile(r.packedFile).catch(e=>{if(e.code!=='ENOENT')throw e;return null;});
   if(current&&hash(current)!==r.packedSha256)throw Error('Preserving changed combat effect resource: '+r.id);

@@ -13,7 +13,7 @@ function placement(w:World,u:Entity){for(const r of [1.6,2.4,3.2])for(let i=0;i<
 function victims(w:World,p:Point){const bodies:Body[]=[...w.entities.values(),...w.expansionHives.values(),...(w.hive?[w.hive]:[])];return bodies.filter(b=>b.hp>0&&b.owner==='zerg'&&!b.flying&&dist(p,b)<=4.2+b.unitRadius&&w.visibleTo(b,'terran')&&(!w.terrain||w.terrain.lineOfFire(p,b,false,false)));}
 export function tickEliteSupport(w:World){
  const s=w.eliteSupport;if(![...w.entities.values()].some(u=>revisedElite(u)&&u.eliteId==='hellion.3')&&!s.mines.length&&!s.fires.length&&!s.barriers.length)return;if(w.phase!=='battle'||w.paused||w.requiresPlayerDecision)return;
- for(const u of w.entities.values())if(u.hp>0&&revisedElite(u)&&u.eliteId==='hellion.3'){
+ for(const u of w.entities.values())if(!w.missions.fleet.ceasefire&&u.hp>0&&revisedElite(u)&&u.eliteId==='hellion.3'){
   const d=s.deploy[u.id]??(s.deploy[u.id]={next:u.bornAt+12,retry:0,pending:0});
   if(!d.pending&&w.time+1e-8>=d.next){d.pending=2;d.retry=w.time;}
   if(d.pending&&w.time+1e-8>=d.retry){d.retry=w.time+1;while(d.pending&&s.mines.filter(m=>m.source===u.id).length<8){const p=placement(w,u);if(!p)break;const g=1+.35*(u.rank-1);s.mines.push({id:w.nextId++,point:p,phase:'buried',targetId:null,emergeAt:0,facing:u.facing,source:u.id,rank:u.rank,damage:1200*g*equipmentNativeFactor(w,u),fire:180*g*equipmentNativeFactor(w,u)});d.pending--;}
@@ -21,7 +21,7 @@ export function tickEliteSupport(w:World){
   }
  }
  for(const id of Object.keys(s.deploy))if(!w.entities.get(+id)?.hp||w.entities.get(+id)?.eliteId!=='hellion.3')delete s.deploy[+id];
- const targets=[...w.entities.values()].filter(e=>e.hp>0&&e.owner==='zerg'&&w.visibleTo(e,'terran'));
+ const targets=s.mines.length?[...w.entities.values()].filter(e=>e.hp>0&&e.owner==='zerg'&&w.visibleTo(e,'terran')):[];
  for(const m of [...s.mines])if(advanceTrackingMine(w,m,targets,largeMineRules)){
   s.mines=s.mines.filter(n=>n.id!==m.id);for(const b of victims(w,m.point))w.hit(b,m.damage,[],1,'terran',0,0,m.source,false,false,0,true);
   s.fires.push({id:m.id,source:m.source,point:{...m.point},damage:m.fire,next:w.time+1,until:w.time+2});const emitter=w.entities.get(m.source)??{...m.point,id:m.source,hp:1,maxHp:1,armor:0,unitRadius:0,flying:false,attributes:[],owner:'terran' as const,unitType:'hellion' as const,eliteId:'hellion.3' as const,rank:m.rank,race:'terran' as const};w.visual('support-impact',emitter,m.point);

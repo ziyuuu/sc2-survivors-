@@ -1,3 +1,4 @@
+import {fleetPresentationCasts} from './mission-feedback';
 import {isProtossEliteId} from '../../data/protoss-elites';
 import {isTerranEliteId} from '../../data/terran-elites';
 import {isZergEliteId} from '../../data/zerg-elites';
@@ -196,7 +197,7 @@ export class CombatSculptures {
   }
   for(const p of w.weaponFlights)this.flight(w,p,visible,muzzle);
   const attacks=new Set(w.weaponFlights.map(p=>p.attackId));for(const id of this.mounts.keys())if(!attacks.has(id.replace(':left','')))this.mounts.delete(id);
-  for(const cast of w.heroCasts){if(cast.phase==='dot'||cast.phase==='channel'||(cast.pulseIndex??0)>0)continue;const source=w.entities.get(cast.source),profile=HERO_SPECTACLE[cast.hero],hero=HEROES[cast.hero],flight=HERO_SKILL_FLIGHT[cast.hero]??0,tier=this.heroDetail==='low'?0:heroVisualTier(cast.rank??source?.rank),launch=castLaunchEvent(cast,source,w.time),mount=muzzle(launch)??{x:launch.x,y:source?.flying?AIR_HEIGHT+1:(w.terrain?.height(launch)??0)+1,z:launch.z};
+  for(const cast of [...w.heroCasts,...fleetPresentationCasts(w)]){if(cast.phase==='dot'||cast.phase==='channel'||(cast.pulseIndex??0)>0)continue;const source=w.entities.get(cast.source),profile=HERO_SPECTACLE[cast.hero],hero=HEROES[cast.hero],flight=HERO_SKILL_FLIGHT[cast.hero]??0,tier=this.heroDetail==='low'?0:heroVisualTier(cast.rank??source?.rank),launch=castLaunchEvent(cast,source,w.time),mount=muzzle(launch)??{x:launch.x,y:source?.flying?AIR_HEIGHT+1:(w.terrain?.height(launch)??0)+1,z:launch.z};
    const begins=cast.at-flight;
    if(w.time<begins){const windup=hero.delay-flight,charge=windup>0?1-(begins-w.time)/windup:1;if(charge<=0||!visible(mount))continue;
     if(cast.hero==='yamato_battlecruiser'){const target=w.body(cast.target),to={x:cast.point.x,y:target?.flying?AIR_HEIGHT+.6:(w.terrain?.height(cast.point)??0)+.7,z:cast.point.z};this.beam(mount,to,.035+charge*.035,0xbbefff);this.draw('orb',mount,{x:.2+charge*.3,y:.2+charge*.3,z:.2+charge*.3},{x:0,y:0,z:0},0xe5faff);}

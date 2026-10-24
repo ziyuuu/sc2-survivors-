@@ -154,6 +154,13 @@ dialog.modal-window:not([open]){display:none}
 #interface #transfer-picker button[data-transfer-confirm]{margin-right:8px;border-color:#bbac75;background:linear-gradient(#53482f,#2a291e);color:#f0dba2}
 @media(max-width:600px){.player-services-dialog .modal-heading{padding:18px}.player-services-dialog .modal-heading h1{font-size:21px}.player-services-dialog .modal-content{padding:16px 18px}}
 
+/* U06: preserve existing pause geometry and sizes while using the common blue frame. */
+#interface .pause-actions .game-button{font-family:inherit;font-weight:600}
+#interface .pause-actions .pause-return{font-size:12px;min-height:40px;padding:6px 12px}
+@container game (max-width:600px){#interface .pause-actions .pause-return{font-size:11px}}
+@container game (max-height:560px) and (min-width:601px){#interface .pause-actions .pause-return{min-height:29px;font-size:10px}}
+.settings-body .save-actions{display:flex;flex-wrap:wrap;gap:10px}
+
 /* Settings remain at physical touch size even inside the scaled landscape menu. */
 #interface.game-frame #overlay .modal-window.settings-modal{width:min(660px,calc(var(--game-width,100vw) - 2 * max(16px,env(safe-area-inset-left,0px),env(safe-area-inset-right,0px))));max-height:calc(var(--game-height,100dvh) - 2 * max(12px,env(safe-area-inset-top,0px),env(safe-area-inset-bottom,0px)));flex-shrink:0;transform:scale(var(--ui-inverse-scale,1));animation:none;font-size:calc(14px * var(--text-scale,1))}
 #interface.game-frame #overlay .modal-window.settings-modal .modal-heading{padding:14px 18px 10px;flex:none}
@@ -183,3 +190,17 @@ dialog.modal-window:not([open]){display:none}
 #interface.game-frame #overlay .game-footer [data-action=settings] svg{width:calc(20px * var(--ui-inverse-scale,1));height:calc(20px * var(--ui-inverse-scale,1))}
 #interface.game-frame #overlay[data-layout=landscape] .modal-window.settings-modal .modal-heading{padding-block:6px}
 #interface.game-frame #overlay[data-layout=landscape] .modal-window.settings-modal .modal-footer{padding-block:6px}
+
+/* Random mission progress remains visible above the normal battle console. */
+
+/* Task identity and one objective, without a panel or progress readout. */
+#interface #random-mission{position:absolute;right:max(16px,env(safe-area-inset-right));top:max(104px,7cqw);width:320px;max-width:calc(100% - 32px);padding:0;border:0;background:none;box-shadow:none;color:#ffe06a;font-size:12px;line-height:1.5;text-shadow:0 1px 3px #000,0 0 5px #000;overflow:visible;overflow-wrap:anywhere;pointer-events:none}
+#interface #random-mission:empty{display:none}
+#random-mission .battle-task{margin:0 0 13px;padding:0;border:0;background:none;box-shadow:none}
+#random-mission .battle-task strong{display:block;font-size:12px;font-weight:600;color:inherit}
+#random-mission .battle-task p{margin:3px 0 0;padding:0;color:inherit;font-size:inherit}
+#interface.native-hud[data-hud-mode=landscape] #random-mission{top:76px;right:10px;width:30cqw;font-size:12px}
+#interface.native-hud[data-hud-mode=landscape] #random-mission strong{font-size:12px}
+#interface.native-hud[data-hud-mode=portrait] #random-mission{top:max(110px,41cqw);right:calc(13cqw + 12px);width:54cqw;font-size:12px}
+.checkpoint-status{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin:6px 0;color:var(--muted,#aebfd0);font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.checkpoint-status button{min-height:30px}

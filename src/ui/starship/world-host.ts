@@ -33,7 +33,7 @@ export function createWorldStarshipHost(world:World,options:WorldHostOptions):St
   selectRace(race){if(world.starship.account.run&&!world.starship.account.run.ended)return failure('出征中不能更换种族');if(world.phase!=='menu')world.resetRun();return result(world.selectRace(race),'当前不能更换种族');},
   begin(){const valid=canBeginEquipmentRun(world.starship.account,world.expedition.race);if(!valid.ok)return valid;if(world.phase!=='menu')world.resetRun();if(options.begin)return result(options.begin(),'正在准备出征');world.start();return result(world.phase==='battle','出征条件尚未满足');},
   continue(){if(options.continue)return result(options.continue(),'请先完成当前关间选择');if(world.phase==='reward'){for(let n=0;n<4&&world.phase==='reward';n++)if(!world.skipReward())return failure('请先完成当前关间选择');return result(String(world.phase)==='battle','请先完成当前关间选择');}if(world.phase==='won')return result(world.beginEndlessPreparation(),'无法开始无尽准备');return failure('请从游戏入口确认下一战场资源');},
-  extract:()=>result(world.extractEquipment(),'只能在关间撤离'),settlement:()=>settlement,
+  canExtract:()=>world.canExtractEquipment,extract:()=>result(world.extractEquipment(),'战役完成3/6/9/12/15/18关后或无尽可撤退'),settlement:()=>settlement,
   dispose(){if(disposed)return;disposed=true;for(const release of [...leases])release();for(const fn of subscriptions)world.listeners.delete(fn);subscriptions.clear();world.listeners.delete(observe);}
  };return host;
 }

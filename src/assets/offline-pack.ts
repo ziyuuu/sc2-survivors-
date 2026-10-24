@@ -1,8 +1,18 @@
 import {loadHttpAssets,prepareHttpAssetIds,httpAssetStatus} from './http-store';
+import {initialMenuAssetIds} from './menu-assets';
 import {decode85} from './base85.mjs';
 import {gunzipSync} from 'three/addons/libs/fflate.module.js';
 export type AssetPack={version:number;container?:'chunks-v1';chunks:{encoding:'raw'|'gzip';bytes:number;storedBytes?:number;data:string}[];assets:Record<string,{mime:string;bytes:number;sha256:string;parts:number[]}>};
 type Progress=(done:number,total:number,label:string)=>void;
+async function verifyAssetBlob(id:string,blob:Blob,expected:string){
+ if(!/^[a-f0-9]{64}$/.test(expected))throw Error('资源内容校验字段无效: '+id);
+ const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))].map(v=>v.toString(16).padStart(2,'0')).join('');
+ if(hash!==expected)throw Error('资源内容校验失败: '+id);
+}
+const yieldPreparation=()=>{
+ const scheduler=(globalThis as typeof globalThis&{scheduler?:{yield?:()=>Promise<void>}}).scheduler;
+ return typeof scheduler?.yield==='function'?scheduler.yield():new Promise<void>(resolve=>setTimeout(resolve,0));
+};
 
 /** A single HTML can exceed V8's individual string limit. Parse bounded original chunks separately. */
 export function restoreEmbeddedContainerChunks(pack:AssetPack,parts:Iterable<{index:number;payload:string}>){
@@ -15,6 +25,20 @@ export function restoreEmbeddedContainerChunks(pack:AssetPack,parts:Iterable<{in
   pack.chunks[index]=chunk;seen.add(index);
  }
  if(seen.size!==pack.chunks.length)throw Error('资源容器分片缺失');
+}
+/** Parse the existing scripts one at a time so the progress indicator can paint. */
+export async function restoreEmbeddedContainerChunksAsync(pack:AssetPack,parts:Iterable<{index:number;payload:string}>,progress:Progress=()=>{}){
+ if(pack.version!==2||pack.container!=='chunks-v1')throw Error('无效的分段资源容器');
+ const seen=new Set<number>();let lastYield=performance.now();
+ for(const {index,payload}of parts){
+  if(!Number.isInteger(index)||index<0||index>=pack.chunks.length||seen.has(index))throw Error('资源容器分片编号无效');
+  const expected=pack.chunks[index],chunk=JSON.parse(payload) as AssetPack['chunks'][number];
+  if(!chunk||typeof chunk.data!=='string'||chunk.encoding!==expected.encoding||chunk.bytes!==expected.bytes||chunk.storedBytes!==expected.storedBytes)throw Error('资源容器分片元数据不匹配');
+  pack.chunks[index]=chunk;seen.add(index);
+  if(performance.now()-lastYield>=8){progress(seen.size,pack.chunks.length,'读取内置资源');await yieldPreparation();lastYield=performance.now();}
+ }
+ if(seen.size!==pack.chunks.length)throw Error('资源容器分片缺失');
+ progress(seen.size,pack.chunks.length,'读取内置资源');
 }
 
 /** Decode only the assets needed by the next screen or battle transition. */
@@ -65,6 +89,7 @@ export class EmbeddedAssetStore {
    for(const id of needed){const asset=this.pack.assets[id];
     const parts=asset.parts.map(index=>{const chunk=chunks.get(index);if(!chunk)throw Error('资源分片缺失: '+id);return chunk;});
     const blob=new Blob(parts,{type:asset.mime});if(blob.size!==asset.bytes)throw Error('资源大小不匹配: '+id);
+    await verifyAssetBlob(id,blob,asset.sha256);
     created[id]=URL.createObjectURL(blob);progress(++done,indices.length+needed.length,id);
     if(performance.now()-lastYield>16){await new Promise<void>(resolve=>setTimeout(resolve,0));lastYield=performance.now();}
    }
@@ -95,7 +120,7 @@ export async function restoreAssetPack(pack:AssetPack,progress:(fraction:number)
   }
   for(const [id,a] of Object.entries(pack.assets)){
    const parts=a.parts.map(i=>{if(!chunks[i])throw Error('资源分片缺失: '+id);return chunks[i];}),blob=new Blob(parts,{type:a.mime});
-   if(blob.size!==a.bytes)throw Error('资源大小不匹配: '+id);urls[id]=URL.createObjectURL(blob);
+   if(blob.size!==a.bytes)throw Error('资源大小不匹配: '+id);await verifyAssetBlob(id,blob,a.sha256);urls[id]=URL.createObjectURL(blob);
   }
   progress(1);return urls;
  }catch(error){for(const url of Object.values(urls))URL.revokeObjectURL(url);throw error;}
@@ -108,10 +133,15 @@ export async function loadEmbeddedAssets(){
  await new Promise<void>(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
  const pack=JSON.parse(element.textContent!) as AssetPack;element.remove();
  if(pack.container==='chunks-v1'){
-  function* parts(){for(const node of document.querySelectorAll<HTMLScriptElement>('script[data-sc2-resource-chunk]')){const index=Number(node.dataset.sc2ResourceChunk),payload=node.textContent!;node.remove();yield {index,payload};}}
-  restoreEmbeddedContainerChunks(pack,parts());
+  function* parts(){
+   // Drop each removed DOM node before yielding; a retained NodeList would keep
+   // every original script text alive alongside the parsed strings until the end.
+   const nodes:(HTMLScriptElement|null)[]=Array.from(document.querySelectorAll<HTMLScriptElement>('script[data-sc2-resource-chunk]'));
+   for(let i=0;i<nodes.length;i++){const node=nodes[i]!,index=Number(node.dataset.sc2ResourceChunk),payload=node.textContent!;nodes[i]=null;node.remove();yield {index,payload};}
+  }
+  await restoreEmbeddedContainerChunksAsync(pack,parts(),(done,total)=>{root.querySelector('progress')!.value=total?done/total:0;root.querySelector('p')!.textContent=`正在读取内置资源 · ${done}/${total}`;});
  }
  embeddedStore=new EmbeddedAssetStore(pack);window.__SC2_EMBEDDED__=embeddedStore.urls;window.__SC2_PACK_ACTIVE__=true;
- const menuIds=[...Object.keys(pack.assets).filter(id=>id.startsWith('unit.')||id.startsWith('hero.')||id.startsWith('building.')||id.startsWith('tech.')||id.startsWith('ui.')||id.startsWith('skill.'))];
+ const menuIds=initialMenuAssetIds(Object.keys(pack.assets));
  await embeddedStore.prepare(menuIds,(done,total,label)=>{root.querySelector('progress')!.value=total?done/total:0;root.querySelector('p')!.textContent=`正在准备菜单资源 · ${label} · ${done}/${total}`;});
 }

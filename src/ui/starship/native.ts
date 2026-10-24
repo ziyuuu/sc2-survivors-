@@ -11,11 +11,11 @@ export function mountGameStarship(hud:HUD,resolveImage:(key:string,detail?:boole
  const world=hud.world,container=hud.root.parentElement!,root=document.createElement('section'),abort=new AbortController();
  root.id='native-starship';root.className='native-starship';root.hidden=true;container.append(root);
  let origin=world.phase,embedded=false,disposed=false,closing=false,returnSelector='[data-action="starship"]';
- const host=createWorldStarshipHost(world,{resolveImage,inputReset:()=>hud.inputReset(),
+ const host=createWorldStarshipHost(world,{resolveImage,management:hud.session?.management,inputReset:()=>hud.inputReset(),
   begin:()=>{hud.menuPage='race';hud.update();return true;},
   continue:()=>{const button=hud.root.querySelector<HTMLButtonElement>('#overlay [data-action="skip"]');if(!button||button.disabled)return false;button.click();return true;},
  });
- const ui=mountStarshipUI(root,host,{initialPage:'loadout',startOpen:false,embedded:()=>embedded,
+ const ui=mountStarshipUI(root,host,{initialPage:'loadout',startOpen:false,embedded:()=>embedded,onRender:()=>sync(),
   focusBoundary:()=>embedded?root.closest<HTMLElement>('.formal-intermission')??root:root,
   onClose(){
    hud.root.inert=false;
@@ -28,7 +28,7 @@ export function mountGameStarship(hud:HUD,resolveImage:(key:string,detail?:boole
  function sync(){
   if(disposed)return;
   if(!ui.isOpen){hud.root.inert=false;if(root.parentElement!==container)container.append(root);return;}
-  if(world.phase!==origin||hud.readiness?.state.kind||embedded&&hud.intermission.current.page!=='backpack'){close();return;}
+  if(hud.saveUI?.failed||world.phase!==origin||hud.readiness?.state.kind||embedded&&hud.intermission.current.page!=='backpack'){close();return;}
   root.dataset.context=embedded?'intermission':world.phase==='menu'?'menu':'battle';
   if(embedded){
    hud.root.inert=false;root.setAttribute('role','region');root.removeAttribute('aria-modal');
@@ -38,11 +38,12 @@ export function mountGameStarship(hud:HUD,resolveImage:(key:string,detail?:boole
    root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');
   }
   root.setAttribute('aria-label',world.starship.account.run?.ended&&['lost','finished'].includes(world.phase)?'战利品结算':world.phase==='menu'?'旗舰配装':'背包');
+
  }
  function open(){
   if(disposed||hud.readiness?.state.kind||!['menu','battle','reward','won','lost','finished'].includes(world.phase))return;
   if(ui.isOpen){close();return;}
-  if(hud.settingsOpen||world.phase==='battle'&&(world.paused||world.requiresPlayerDecision))return;
+  if(hud.settingsOpen||world.phase==='battle'&&(world.paused||world.requiresPlayerDecision)&&world.specialStages.active?.phase!=='loot')return;
   origin=world.phase;embedded=world.phase==='reward';
   returnSelector=embedded?'[data-action="starship-backpack"]':hud.menuPage==='confirm'&&world.phase==='menu'?'[data-action="menu-edit-starship"]':'[data-action="starship"]';
   if(!hud.session?.canResume&&world.phase==='menu'&&hud.menuPage!=='title'&&world.expedition.race!==hud.menuRace)world.selectRace(hud.menuRace);

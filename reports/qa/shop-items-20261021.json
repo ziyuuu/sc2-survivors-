@@ -1,0 +1,802 @@
+{
+  "date": "2026-10-21",
+  "authorization": "剩下的数值和细节按你的建议补齐，开始实现这七个商品吧。同样放在趣味分支。",
+  "source": "C:/Users/zyuu/.codex/worktrees/mission/星际",
+  "branch": "feat/fun-gameplay",
+  "preview": {
+    "url": "http://127.0.0.1:4466/",
+    "directory": "D:/星际/preview/shop-items-20261021-r5/",
+    "build": "D:\\星际\\reports\\local\\shop-items-implementation-20261021\\web-r5"
+  },
+  "implemented": [
+    "gland",
+    "eye",
+    "nydus",
+    "tavern",
+    "bait",
+    "dice",
+    "pandora"
+  ],
+  "changes": [
+    {
+      "path": "src/render/effects/fun-source-effects.ts",
+      "sha256": "75b2e84653520c3793df02b28743fb933af6fe5f305c7af3a16b49a938717c43",
+      "before": "d49d6eefc332d3d3d21680a3e92655471e6c4cacd08103a84b46d1e135b361dd",
+      "bytes": 1568
+    },
+    {
+      "path": "src/render/units/fun-presentation.ts",
+      "sha256": "01dd37b5a00e648c7763eb5388a2a8b4030ce4270478e91b15fce9f9aa2259b0",
+      "before": "a0c7dc0b587bd8502657243d1e55b709f4316b263d356864a40933c50950af74",
+      "bytes": 2973
+    },
+    {
+      "path": "src/simulation/combat/expedition-combat.ts",
+      "sha256": "b998af844508f27c611b0afa9242c8295dd11731375dae4db80afc930f6adac6",
+      "before": "7d07103c31f60c1e74d4d4e3977483cffc7b24107a333e1496813bd31c4a6eda",
+      "bytes": 33349
+    },
+    {
+      "path": "src/simulation/encounters/expanded-state.ts",
+      "sha256": "e84efe9d3250329fb3ec901bbc4f72ea793f8e1f705dedb35a934dc3c445d1c6",
+      "before": "63d8b8a4287d8a4fd57758dfa6710b931d1916a2bde1537487eb9943cb10e1da",
+      "bytes": 4148
+    },
+    {
+      "path": "src/simulation/encounters/expanded.ts",
+      "sha256": "93d5f801c84d0c19ca512e15b2e2b799b453b3c51b5658033e0a90d83d50c48a",
+      "before": "065544faf69d303b303b454a70e412a1ebe693e0e753a18fe16642b40737b015",
+      "bytes": 28604
+    },
+    {
+      "path": "src/simulation/encounters/runtime.ts",
+      "sha256": "3cd6138f983379603baaff379bf1cf43a236cddecca5df399dd08b1e6d99b3cf",
+      "before": "20ca2526bfeae2b2357464e8a0f82ce9fa70309ce7678713314c252d69315d58",
+      "bytes": 17077
+    },
+    {
+      "path": "src/simulation/encounters/state.ts",
+      "sha256": "d98de8583a88f5cdef0c1ab4676f5d3b9a7078f3826fe1b7eb067c979f1ed2b0",
+      "before": "affca7fea8441294028ed9c2f83ffeaee48388b9978a892c10a8366370c81799",
+      "bytes": 3482
+    },
+    {
+      "path": "src/simulation/expedition-economy.ts",
+      "sha256": "f416924d3034f538a57062f9f5925a0bdb401456a007fe5ed000a5fd69460d37",
+      "before": "ebbe63ab7027277cd1b85771b47f984e0436d3613a1837ba4101d82a861509a2",
+      "bytes": 18523
+    },
+    {
+      "path": "src/simulation/field-events/hordes.ts",
+      "sha256": "d445095670adf1ee28dcf940d6a3a76f0de41a97283d76cb35efeaaa92c9e637",
+      "before": "ba4085b383072a90feb99bbe95f27689866461206007fc0a2cb51d954dd7d0ab",
+      "bytes": 2823
+    },
+    {
+      "path": "src/simulation/fun-shop/bait.ts",
+      "sha256": "03ad3a2c8c677c6869280ceea3e0aa5f33cbd015e806a3d63b606ec9627d0125",
+      "before": null,
+      "bytes": 2783
+    },
+    {
+      "path": "src/simulation/fun-shop/runtime.ts",
+      "sha256": "c33c627d4ef32100de504e63c84c99e851409149b407672dcadcfae5a94a09f2",
+      "before": null,
+      "bytes": 4625
+    },
+    {
+      "path": "src/simulation/fun-shop/state.ts",
+      "sha256": "6f3b132209b94490786d1efcadafe15ac4d472d03534c2c7bc1a35e55108878d",
+      "before": null,
+      "bytes": 5636
+    },
+    {
+      "path": "src/simulation/missions/eggs.ts",
+      "sha256": "f07dd611c0d4b2d7cfec581d946324d14b072ff69bbffe34a6e809c5e973a296",
+      "before": "e04f3c8776ff7493b54a253241e77bffac54e3a55416f30fdc12f73e41192f4a",
+      "bytes": 4518
+    },
+    {
+      "path": "src/simulation/missions/runtime.ts",
+      "sha256": "dfb4ba728181957552a26bb618be3cf469d1b5af0efde80b137c24237c0301e3",
+      "before": "aaa351eb612a963f1d552fab599b5d72157d4f9597b451fee6bb4c6930447afe",
+      "bytes": 14236
+    },
+    {
+      "path": "src/simulation/missions/state.ts",
+      "sha256": "b65d4376f17a293b22d9ae136be1147279273bd044203eb8f6e7ef112af2237b",
+      "before": "8c511eac218d7d843d473c690032dacab7211179a45f27cb87e5d81957685dad",
+      "bytes": 5058
+    },
+    {
+      "path": "src/simulation/persistence/run-fields.ts",
+      "sha256": "f9dffccdc9082cb214a009b110b7fdbe87d3c55c562f1b2149f457790d019a8c",
+      "before": "bbd6753cac8fd608a3f6786811da95f0b101f01d19b6dd3c74b70a0cf03fab0e",
+      "bytes": 22404
+    },
+    {
+      "path": "src/simulation/progression/expedition-drafts.ts",
+      "sha256": "cf89bc31eb50344e7dfe753c8f1aaa41ae4cba2336bf8f685f9bb52fec46d043",
+      "before": "a8b951878f11b61accb1595b683b487522bc884a04a47f38a4f43df14772d98d",
+      "bytes": 37332
+    },
+    {
+      "path": "src/simulation/run-state.ts",
+      "sha256": "7f1c2d050109bba5a3bd3fdbb627ab1466b1c3750da194c69d2ab667fcc296a4",
+      "before": "662668b32e42478bb2c061053d722f57c5a7363957af7c28ce2608648f2a3240",
+      "bytes": 10895
+    },
+    {
+      "path": "src/simulation/types.ts",
+      "sha256": "bde77fef725ae1eaf8d498ba8d93b8b22cdb48375fc280edda54d769f1077918",
+      "before": "99cfe0ad593e34de710e928434b7db5fffc4d451d8e611a079e353b22215f354",
+      "bytes": 9069
+    },
+    {
+      "path": "src/simulation/world.ts",
+      "sha256": "197c3f307432475f4f9762cd1ffeeaf5e268551f8535bd39036153e27123989c",
+      "before": "a8af6dcf71451ad826f0cd3b3d4cb0d0767219555ba5bcb2fe4350a3080d27ee",
+      "bytes": 166218
+    },
+    {
+      "path": "src/ui/presentation/intermission.ts",
+      "sha256": "b254780d87677b2b11dd222755acd2f0a25b90e1744cfe0af7592262ae1b808b",
+      "before": "51ca048ba0933227fe316836933b162e7577a3b223b79e0b682088888ea7b339",
+      "bytes": 35639
+    },
+    {
+      "path": "test/fun-shop-boundaries.test.ts",
+      "sha256": "b1f643c063567173ea1cb94ba944ba360527a876e91d5da3a971a7bbd6505879",
+      "before": null,
+      "bytes": 10523
+    },
+    {
+      "path": "test/fun-shop.test.ts",
+      "sha256": "62ebdc6370cd602b75a32d5a3b6468e589e51ae12fffa564a00da40c8da52b48",
+      "before": null,
+      "bytes": 11807
+    },
+    {
+      "path": "test/starship-support-economy.test.ts",
+      "sha256": "ae893876c6ed548f4b4a19a796abed8d099d0ded715d6e92b58287da945bf08a",
+      "before": "f2289dd5148fb2bcef9e9d1a8f374a30490de75fa2cecaa14b200c577b1bd254",
+      "bytes": 7679
+    }
+  ],
+  "baseline": {
+    "files": 735,
+    "src": 467,
+    "test": 264,
+    "oldSrcTestUnchanged": 712,
+    "configsUnchanged": 4
+  },
+  "build": {
+    "appBuildId": "f6418c4229ea1eafd879d1a6485158cc8665f2ba487fa6a9dc994e1d16b45a9f",
+    "artifacts": [
+      {
+        "file": "assets/index-Dad0U9XK.js",
+        "bytes": 33000512,
+        "sha256": "343d2037e889ed7e9f832d6a9ead9a7c1d7ef4c9572ea6b23b730a77ec39da39"
+      },
+      {
+        "file": "assets/index-D1QJ1fB7.css",
+        "bytes": 639973,
+        "sha256": "f7d1e790d51224cf0849a6706d53d43984f9bc86b8ca9b9dedbd95157d67af6a"
+      },
+      {
+        "file": "index.html",
+        "bytes": 954932,
+        "sha256": "ce6767de91c85e3e8093240de342dc996f373ea660047ddaf1028871ad56e1fb"
+      }
+    ],
+    "htmlSha256": "f5035e361804eae83cd4bfb16d76ef82941bc1cb7d9640a0fea7b3cb1a8faf4e",
+    "manifest": "asset-manifest.b150ab8dac811714.json",
+    "manifestSha256": "b150ab8dac81171445c099a0e0dd6f65f1fa5a8a7526c316485a1b5f17a510c7",
+    "inputsVerified": 441,
+    "resourcesVerified": 1851,
+    "raw": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/web-r5-build.json"
+  },
+  "verification": {
+    "fullRegression": {
+      "tests": 1860,
+      "pass": 1860,
+      "fail": 0,
+      "log": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/regression-source-r7.log"
+    },
+    "newGoodsTests": 46,
+    "typecheck": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/typecheck-r8.log",
+    "docsCheck": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/docs-check-final.log",
+    "browserR2": {
+      "screenshots": 23,
+      "records": 44,
+      "errors": [],
+      "requestFailures": [],
+      "webglStateExact": true,
+      "sourceBinding": "R1 visual source; before final edge fixes"
+    },
+    "browserR4": {
+      "records": [
+        {
+          "gland": {
+            "before": {
+              "x": 7,
+              "z": 0,
+              "hp": 389.79938271604937
+            },
+            "after": {
+              "x": 8.380426876056024,
+              "z": 0.113743358503088,
+              "hp": 376.59802523456017,
+              "banelingHp": 0,
+              "distance": 1.3875003454788086
+            }
+          }
+        },
+        {
+          "nydusCenter": {
+            "expected": 8,
+            "actual": 8,
+            "targets": 2
+          }
+        },
+        {
+          "bait": {
+            "original": true,
+            "native": "golden",
+            "busy": {
+              "stage": 9,
+              "next": 40,
+              "pending": {
+                "encounter": true,
+                "elite": true,
+                "horde": true
+              },
+              "counts": {
+                "encounter": 0,
+                "elite": 0,
+                "horde": 0
+              },
+              "ready": {
+                "encounter": 0,
+                "elite": 0,
+                "horde": 0
+              }
+            }
+          }
+        }
+      ],
+      "errors": []
+    },
+    "browserR5": {
+      "model": {
+        "id": 90,
+        "type": "baneling",
+        "hp": 34.5,
+        "at": {
+          "x": 7,
+          "z": 4
+        },
+        "temporaryKind": "shop-gland",
+        "living": 5
+      },
+      "bait": {
+        "native": true,
+        "missionAutoEnabled": false,
+        "pending": {
+          "encounter": true,
+          "elite": true,
+          "horde": true
+        },
+        "counts": {
+          "encounter": 0,
+          "elite": 0,
+          "horde": 0
+        },
+        "before": 9,
+        "after": 9,
+        "nativeTried": true
+      },
+      "errors": []
+    },
+    "ordinaryBuilt": {
+      "build": "f6418c4229ea1eafd879d1a6485158cc8665f2ba487fa6a9dc994e1d16b45a9f",
+      "hasDebug": false,
+      "pausedTime": 0.6,
+      "frozenTime": 0.6,
+      "errors": [],
+      "httpErrors": [],
+      "requests": []
+    },
+    "screenshots": 35
+  },
+  "boundaries": {
+    "mainGameplayEdited": false,
+    "merged": false,
+    "committed": false,
+    "pushed": false,
+    "currentReplaced": false,
+    "published": false,
+    "performanceBoardChanged": false,
+    "naturalCampaignAcceptance": false,
+    "humanBalanceAcceptance": false,
+    "fullContent60Fps": false,
+    "saveDeferralMaintained": true
+  },
+  "qaProfile": {
+    "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-profile",
+    "count": 1,
+    "cleanupReceipt": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/cleanup.json"
+  },
+  "files": [
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/baseline.json",
+      "bytes": 108676,
+      "sha256": "5be092e7e0e6366ec54407b71c2120cc7015eaa1256bfdb2091d58b6193d3890"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/boundaries-r1.log",
+      "bytes": 2109,
+      "sha256": "d21a1816868c8db74cb7c614ba4fd14696cc50c20fa11932fd78fb7ea0ab539d"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-boot-r1.log",
+      "bytes": 1520,
+      "sha256": "8a91c54a9a4b05182244f307f3d07ea9892d824cfb278df645143e9c5e303f00"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2.log",
+      "bytes": 4028,
+      "sha256": "a28e3b4a1dfa99376549e4aa48f1a326ea99fb5c1c67719414f6e0ce1cf914b0"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r3-supplement.log",
+      "bytes": 727,
+      "sha256": "c252335b649221ab31c0cf13b35f340578105a3b380dfec1a5695d3733a17398"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r4-supplement.log",
+      "bytes": 597,
+      "sha256": "2a0b59b4ee0b991888d053839c68c26a8c9955a136efd65ffcaafcc1a3dfb4f3"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r5-supplement.log",
+      "bytes": 310,
+      "sha256": "e58d8556ba6ab53cc7d8c0342a06accaaa30ea569317fcc0ea93f902f496e005"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/build-r1.log",
+      "bytes": 1467,
+      "sha256": "cf0dc11c48ffd80697b417b8a0c3caced4a7d33864d66e12de7a1c2d8a51b492"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/build-r2.log",
+      "bytes": 1836,
+      "sha256": "40382a2746baff36027a76c7b2f686248a5094ee42df4ba45d062960866abd2c"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/build-r3.log",
+      "bytes": 1502,
+      "sha256": "147e9cfa557e2ecbaf8f3037cade5f7e3e4905790f60852e925dcff1e2ef288e"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/build-r4.log",
+      "bytes": 1502,
+      "sha256": "a28b1c30a3563b7945b58815515bba71a546ad0d383f2e8c11947056b2463079"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/build-r5.log",
+      "bytes": 1871,
+      "sha256": "e4a8d5ea7a1805d6f839f44b226c6e62b7145a46f3ee4f228656fee9f57bf256"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/built-r5.log",
+      "bytes": 2113,
+      "sha256": "37bc753e09801bf05d299300ef9d01bd97a5ae632de13ef35f1299972cf1606b"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/docs-check-final.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/docs-check-r1.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/fun-shop-r1.log",
+      "bytes": 3732,
+      "sha256": "b024c4bc8d54a8b2fc0167a65e34e5e287c3bf60095c8a8d894b48eaa856e818"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/fun-shop-r2.log",
+      "bytes": 1941,
+      "sha256": "aaa75f9829f2c2c174dde686e65f68717c52f6b56c9ab35d33918ed7a864836d"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/fun-shop-r3.log",
+      "bytes": 1938,
+      "sha256": "dfb29dd1ca757d32a8c201589fa14d882ebeee287e7f8896a4eebe28d86976df"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/installed-r1.json",
+      "bytes": 5819,
+      "sha256": "7cb6038e89955cd543cb0809251185b7b55caab74d264eee74ec6afcc9bfa45c"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/installed-r2.json",
+      "bytes": 5819,
+      "sha256": "2c03bfca93e0e5dc481e7003dc0ce99123f000bcbaf05bdbd6d6855e5620fa73"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/installed-r3.json",
+      "bytes": 5819,
+      "sha256": "e1ec304a99f4cdab05b1240bf77b20c514d0e92138c421ef89fde3afe20e61c2"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/installed-r4.json",
+      "bytes": 6069,
+      "sha256": "024ce28f898d657c095243089f83ef9c11bbccab1bcad6b07585b6281472936d"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/installed-r5.json",
+      "bytes": 6070,
+      "sha256": "e90b15de982653370d57cfd342a64824329f0fdbb5e92a321e4549204ddfa56f"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/late-boundaries-r1.log",
+      "bytes": 2400,
+      "sha256": "4579d663a413140831717cee513e6579e477cef86495685060a7c1c9955b63ca"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/nydus-center-r1.log",
+      "bytes": 1040,
+      "sha256": "a3c1089528dcb8d4b7a88e1d0afcc9b78a521a6e64e8cfa8e472d194539135cc"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/pandora-paths-r1.log",
+      "bytes": 1151,
+      "sha256": "2f51e3b81c8197016d29e1416c04c7bd4396431524f56bdfac307373ac9b8f00"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/regression-r1.log",
+      "bytes": 223618,
+      "sha256": "6b68785db759816a972a8fd251e544b9e0f835929810dafe43e1babe6f7d6cf0"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/regression-r2.log",
+      "bytes": 203142,
+      "sha256": "ae2c5c1e1bb3fe1f903750a52c0ff0f844c1063689b59cfad93bbd89b428418b"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/regression-source-r3.log",
+      "bytes": 197354,
+      "sha256": "a40e664f6bbc98720f5b4617a6fbb652b273b4758d31e2fdf3aabcb5fcbc4c4f"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/regression-source-r4.log",
+      "bytes": 197286,
+      "sha256": "4dd1ed1b772ec4fd8bdc68aac287dc9ba626f1ad1f0268b3af43af0858094fcc"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/regression-source-r5.log",
+      "bytes": 197410,
+      "sha256": "ab181a75e7a38bfa95cd46da9b44e832b801d6c1aa900bdda60a401e993f86a0"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/regression-source-r6.log",
+      "bytes": 197754,
+      "sha256": "c0c6b9b4766dd85b3178ce4d4b18669adeb8c4fa7ecb682955ed0626226d1edd"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/regression-source-r7.log",
+      "bytes": 197981,
+      "sha256": "e1d5c32ebb66173054bc88a776486d01b5a4201c43de059f96c24291ba0fe4e4"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/targeted-r4.log",
+      "bytes": 3062,
+      "sha256": "70432768211052837f5eb6d5ef3405885dfa8ae86391d6be5eaa63a43902a815"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/targeted-r5.log",
+      "bytes": 6687,
+      "sha256": "86cfefd9bfeec124c32e124f25389ad315b99cfb13a2e20482dd7e50d72c0920"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/targeted-r6.log",
+      "bytes": 4021,
+      "sha256": "0f19f7d714db7445ac38e81d4d62752faf570bea7e8c547782a220c64959dc22"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/targeted-r7.log",
+      "bytes": 4121,
+      "sha256": "82ea44d3b9c11b4e8a9a5cb6b2140ddbef72a0028135c2768d0485e9d79c9256"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/targeted-r8.log",
+      "bytes": 4247,
+      "sha256": "4dc4cbdd7fc8a3415c62bad70fc2b5635d518a22ba3fe3099fd4d7bc4c2fc082"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/targeted-r9.log",
+      "bytes": 4439,
+      "sha256": "b7d540ae1226d09fea3106f7bdabf08ac26a97e8c3d6849d621831b03cdd489b"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/typecheck-r1.log",
+      "bytes": 750,
+      "sha256": "c2f044a00a03e5bc04cc2f2bc6a2717ec5d0d7f98ff4555502d6534c7c85ea49"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/typecheck-r2.log",
+      "bytes": 639,
+      "sha256": "680df46e6d22e54b26cb4e4eacfa93fdc76075deadff4ff2360007c8264fbfb6"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/typecheck-r3.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/typecheck-r4.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/typecheck-r5.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/typecheck-r6.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/typecheck-r7.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/typecheck-r8.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/web-r1-build.json",
+      "bytes": 466181,
+      "sha256": "28406efa61f7d6241736368f7016ec4cfe9dd5b25e9514b7483c446d00e90315"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/web-r2-build.json",
+      "bytes": 466181,
+      "sha256": "939ef6a8380f5342c17c7a8218f14db8da61915d06c82c9b9a858ac042ec9a9f"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/web-r3-build.json",
+      "bytes": 466186,
+      "sha256": "d3baa81b5ccd5b98b770200bc12f63cec6a8aaaf410c4457acabdc345412609b"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/web-r4-build.json",
+      "bytes": 466186,
+      "sha256": "d3e4540c8dc7c1d42188058e6925f90799b0c003c4a26007b3be9166787c2af1"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/web-r5-build.json",
+      "bytes": 466186,
+      "sha256": "e792af99e2c6afcfb70e203cc6ed8f5317884d4fb9dc5ee2d837f405c9d05b59"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r1/battle.png",
+      "bytes": 1343896,
+      "sha256": "c557e37f828294a29d7bd4207d331e9ba378f94ed265946f3b2d47c2a7deea42"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r1/boot.json",
+      "bytes": 404539,
+      "sha256": "8474bec4719e22451f229aaa47f7a1ccb7264db8cb2303fd190f31c8f4910230"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r1/menu.png",
+      "bytes": 1561009,
+      "sha256": "6deac8ba178ba2b420135cba6e83f88516dde94ab8b302825149177bed1922c2"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/dice-upgrade-3.png",
+      "bytes": 1327837,
+      "sha256": "d7f9d18f3ed0d08385503712812feb0e6146aed0bab793e2b61abe82208f5cb3"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/dice-upgrade-4.png",
+      "bytes": 1330744,
+      "sha256": "a189689c445264ec623da83b43cf9f039726f6a420c5c6ef72abe0fdd911b1a1"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/dice-upgrade-5.png",
+      "bytes": 1332255,
+      "sha256": "233e8e98fd600a529a643083c2db508a2abbcda3717b79f6f6fd875a14675965"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/eye-cloaked-target-near.png",
+      "bytes": 1388033,
+      "sha256": "03e8ae04ebe46fc69efc8e43504cb5392276a97039cead9d5a145d5d35cfd1e1"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/gland-ten-mortal-banelings.png",
+      "bytes": 1446523,
+      "sha256": "7e8d8d15af2941028125d8fba09781641e96a95cce07870b6afdae5cd1f5404d"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/inventory-pause.png",
+      "bytes": 407577,
+      "sha256": "e2a1e58f37c6ac3cc9b1278fb073213ae2abd299521bad84ff0f2e34c3b684c8"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/nydus-emerging.png",
+      "bytes": 1474018,
+      "sha256": "36742031c5b99032989fedd0283dbf66226e5e1b9439fd321947e0a806ab0fb7"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/nydus-first-native-kill.png",
+      "bytes": 1441031,
+      "sha256": "d7900696a038fbcdf6c86e5c10489b561329d55abfaac39897a1d5145b366d0e"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/nydus-restored.png",
+      "bytes": 283586,
+      "sha256": "a2da344f00eac33de13e73b5f159219d0bab7ae1ef84a56ffabfa47822ed5370"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/nydus-retired-rewards.png",
+      "bytes": 1432931,
+      "sha256": "a172d8845634ec3d942e0c4ad3570f6364661ba6b428f7ff21b5eea51a31b6b4"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/nydus-retreating.png",
+      "bytes": 1444587,
+      "sha256": "7405b3a5fe94e520a1f699a0eefea60e6eca679267e9ed2045f1c64230d30ee2"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/nydus-swallow-pull.png",
+      "bytes": 1440857,
+      "sha256": "d90376cb216009084fa3bf800acd82a2f37ac2555677f16fbc467c455d69243b"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/pandora-opened.png",
+      "bytes": 1295965,
+      "sha256": "edb8e3cb49b3218085bf49959aa2b68401647c32b953fbc3793952f6635dcbdf"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/pandora-opt-in.png",
+      "bytes": 1328233,
+      "sha256": "7951b1e10a2a54b371d2b8ae84e7709c50bf62eddcc054f3923ea0798e5f50c6"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/progress.json",
+      "bytes": 11185437,
+      "sha256": "21a0a968de29af9f491c63163efce35be5c4fa80b9d60411772aaf7077888b05"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/result.json",
+      "bytes": 11185437,
+      "sha256": "21a0a968de29af9f491c63163efce35be5c4fa80b9d60411772aaf7077888b05"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/shop-combat-items.png",
+      "bytes": 1074772,
+      "sha256": "778a4959dc7556f7c91a6da818592949109cd293e4d619d54dc7e30485fea1cb"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/shop-combat-purchased.png",
+      "bytes": 1267983,
+      "sha256": "b75229cae9b4969987d27aa570da1e19d25a9e4d1ad8ca0bd0b0e4f8a35d9b0d"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/shop-layout-1280x720.png",
+      "bytes": 954002,
+      "sha256": "29e8488a1a945044fdf4349773b855621df62d897447be3aaed0210df30d0370"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/shop-layout-1440x900.png",
+      "bytes": 1223755,
+      "sha256": "9c20c6da093cdd9cabd05c0995ab8caf7af8728e98746547f750e666a7fae735"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/shop-layout-390x844.png",
+      "bytes": 303567,
+      "sha256": "0fa4a378be97a7757d491199fcc1e2db2dd02285258eb76213d4ce167877d03c"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/shop-layout-844x390.png",
+      "bytes": 431631,
+      "sha256": "10e328a21e15991ba26b61bf1b0a9dc4d3d039304791c66e0cc9a7d2620ccbec"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/shop-probability-items.png",
+      "bytes": 1168999,
+      "sha256": "4ecee4c3277d67b4283b12870c9a259335902db9741e7c0b302b51b00ea34f8e"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/shop-probability-purchased.png",
+      "bytes": 1270372,
+      "sha256": "9ac817e9e7027c5314b57251db0f1794bbaa3d426f81b5c13344fc544d4adfed"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r2/shop-upgrade-differences.png",
+      "bytes": 1219983,
+      "sha256": "d8433de5aa8209f92af3834416b903e23aa68527b1ccf1e422abd061e87aadc4"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r3-supplement/failure.json",
+      "bytes": 1230,
+      "sha256": "4c1298db2117cbef062579e0cb97802e7933d8ce91a94cba58b7249b3a3cb91f"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r3-supplement/failure.png",
+      "bytes": 423309,
+      "sha256": "817532eec5ccb497a67984982d4b61d11b7ebfa0ee1a0d3e39de7accbafc0443"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r3-supplement/gland-after-real-approach-explosion.png",
+      "bytes": 425125,
+      "sha256": "661aa8e0da0d93d590c4f5da78867cc6ea1adf93d466affcd15e984ce64a6867"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r3-supplement/gland-clean-native-model.png",
+      "bytes": 433688,
+      "sha256": "6ae471e72c3aafa3f0935dc6ef02cf21295d3355271260cab08497a08f8e921b"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r4-supplement/bait-pending-alongside-native-encounter.png",
+      "bytes": 1397140,
+      "sha256": "b0f50e4593c6b49b5aec247d9c21a0079427e07a051cf3ddcfec4b8ca2ff0001"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r4-supplement/gland-after-real-approach-explosion.png",
+      "bytes": 1394650,
+      "sha256": "e074e242b4d0416b9a594bab6595b884b86956f75eb339c7ab73bf217362dfc4"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r4-supplement/gland-clean-native-model.png",
+      "bytes": 1392089,
+      "sha256": "04a4ff1f0789817cfa52883e9e8b24fb15ceaa5aa0a387b6e71f8623e430e7ed"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r4-supplement/result.json",
+      "bytes": 988,
+      "sha256": "f50b05b9c23bd286a9866a4cf21118b84f83ef1f78d49ada29d0f5c258988dac"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r5-supplement/gland-clear-of-loot.png",
+      "bytes": 1387100,
+      "sha256": "ca0c18b895101717b2f51725df724dbe9517bdfe7939a0c51e046ea6fb25c2df"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/browser-r5-supplement/result.json",
+      "bytes": 484,
+      "sha256": "b16a52928f7ed657171060ac636d83e400696dc0da748aa85e414157bde83521"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/built-r5/battle-paused.png",
+      "bytes": 215392,
+      "sha256": "5be6ab51870e75a9dc22248f789ed3797c9194d6cac5f4c5c1e48ac77953d326"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/built-r5/inventory.png",
+      "bytes": 407577,
+      "sha256": "e2a1e58f37c6ac3cc9b1278fb073213ae2abd299521bad84ff0f2e34c3b684c8"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/built-r5/menu.png",
+      "bytes": 1597998,
+      "sha256": "87009f3a0912f0ca331cbb2de7e3484e2111c3dcdeb975dd86f8519b82f4fdd8"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\shop-items-implementation-20261021/built-r5/result.json",
+      "bytes": 396314,
+      "sha256": "f2cbf0a4221fa5760e426ed1ba5d1ce4e1f96cacf7d035b5d4cbdf0409d5c4e1"
+    }
+  ]
+}

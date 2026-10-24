@@ -37,8 +37,8 @@ test('three elite zergling variants are three shared-rank pairs, not six seats',
  assert.ok(w.acquireElite('zergling.3'));assert.ok(w.familyBodies('zergling').filter(u=>u.eliteId==='zergling.3').every(u=>u.rank===2));
 });
 
-test('physical map rewards have no chapter quota and free hero pickups survive load',()=>{
- const w=make();w.random=()=>.96;const a=mapReinforcement(w),b=mapReinforcement(w);assert.equal(a?.rarity,'blue');assert.equal(b?.rarity,'blue');assert.notEqual(a?.offerId,b?.offerId);
+test('physical map rewards have no chapter quota and unlocked free hero pickups survive load',()=>{
+ const w=make();w.expedition.heroRewardsUnlocked=true;w.random=()=>.96;const a=mapReinforcement(w),b=mapReinforcement(w);assert.equal(a?.rarity,'blue');assert.equal(b?.rarity,'blue');assert.notEqual(a?.offerId,b?.offerId);
  w.random=()=>.1;const boss=w.addUnit('zergling','zerg',2,2,1,'boss');boss.enemyTier='boss';w.hit(boss,1e9,[],1,'terran');const drop=w.rewardDrops[0];assert.equal(drop.reward.rarity,'orange');assert.equal(drop.reward.minerals,0);
  const money={...w.wallet};assert.ok(w.collectRewardDrop(drop.id));assert.equal(w.expedition.bossLootOpen,false);
  const copy=make();copy.restoreRun(w.captureRun());assert.equal(copy.expedition.bossLootOpen,false);

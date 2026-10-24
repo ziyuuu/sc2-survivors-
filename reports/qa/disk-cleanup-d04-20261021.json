@@ -1,0 +1,314 @@
+{
+  "date": "2026-10-21",
+  "scope": "Second cleanup after D04; user also clarified original startup batch must be ready by stage 3, not all game content. No production changes.",
+  "pass": true,
+  "drives": [
+    {
+      "drive": "C",
+      "freeBefore": 11207020544,
+      "freeAfter": 11442167808,
+      "freeIncrease": 235147264
+    },
+    {
+      "drive": "D",
+      "freeBefore": 16073830400,
+      "freeAfter": 34571649024,
+      "freeIncrease": 18497818624
+    }
+  ],
+  "cacheDirectoriesRemoved": 13,
+  "cacheCategories": {
+    "qa-browser-profile": 10,
+    "synthetic-test-database": 1,
+    "test-compile-cache": 1,
+    "downloaded-header-cache": 1
+  },
+  "cacheLogicalBytes": 2066986393,
+  "oldBuildsRemoved": 45,
+  "oldBuildCategories": {
+    "shared-payload": 22,
+    "gzip-build": 23
+  },
+  "oldBuildLogicalBytes": 17250753829,
+  "reconstructionBytes": 364253169,
+  "retainedSharedPayloadDonors": [
+    {
+      "path": "dist/SC2-Survivors-Combat-Effects-Final-20261012.html",
+      "bytes": 688752262,
+      "sha256": "ad9b52ead8349a2c48aba21eccb8f8f149e1e558cb9147a8ac8d25d2b6338dc4",
+      "start": 1451857,
+      "end": 666803526,
+      "payloadSha256": "85592d842d133f0642f727acbec86c643d9b6f244013dee961ad0411a3be4199"
+    },
+    {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "bytes": 705827259,
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+      "start": 1470976,
+      "end": 683707598,
+      "payloadSha256": "8de34be103564affc109555733a705102173d4a969f06be01c985ce608a9cebc"
+    },
+    {
+      "path": "dist/SC2-Survivors-Loot-Elites-R2-20261019.html",
+      "bytes": 762322440,
+      "sha256": "a5f2ec97b1a85c34d11ffd8f43088caeaedb5bab5d83959f3f0532bb25ea1db8",
+      "start": 1600158,
+      "end": 731990880,
+      "payloadSha256": "74b82627e0918f0848433f5f86a7b3c649dfb5dc6bd81166baca5282c7e6bb26"
+    },
+    {
+      "path": "dist/SC2-Survivors-MVP5-Final-20261014.html",
+      "bytes": 707862310,
+      "sha256": "380022220e6246f25b64575d8c952650e6067fde4268be11470973046dac6ff7",
+      "start": 1458953,
+      "end": 640753445,
+      "payloadSha256": "c938003b369b9ac2a699227f1d9e7453ad44416330132b89db702d075f709a45"
+    },
+    {
+      "path": "dist/SC2-Survivors-MVP5-Lifecycle-R1-20261014.html",
+      "bytes": 707862264,
+      "sha256": "f6159a277ffd3b7b36d3d8aa521519a0f859cdf3607d9411a64d6d58818a1b02",
+      "start": 1458953,
+      "end": 640753399,
+      "payloadSha256": "e6623309911ed38a086bec0ae00cdce4632b772b94994c8aec3d160cb3e8686e"
+    },
+    {
+      "path": "dist/SC2-Survivors-MVP7A-Final-R1-20261013.html",
+      "bytes": 689456990,
+      "sha256": "d05fa961d382c53acb145426b5f4801026469e481920e25b7661f6840d93835f",
+      "start": 1451857,
+      "end": 667418663,
+      "payloadSha256": "96701b949583cb3e5ffac7e509df548ad5c5797e3c87c97500394ef7520aeca0"
+    }
+  ],
+  "verification": {
+    "pass": true,
+    "protectedFiles": 5105,
+    "assetSources": 1817,
+    "d04EvidenceRetained": 130,
+    "d04EvidenceArchivedReconstructable": 0,
+    "archivedBuilds": 45,
+    "compressedArchiveFiles": 52,
+    "uniqueFilesHashed": 7025,
+    "errors": [],
+    "verificationMethod": "Every reconstructed stream was SHA-256 and length matched before deletion. After deletion, all donor files and decompressed wrapper/code blobs are checked again, so the same exact reconstruction remains available without writing large temporary copies."
+  },
+  "loadingScope": [
+    {
+      "run": "final-baseline-web-r1",
+      "cycle": 0,
+      "startupMs": 115316,
+      "readyModelCount": 104,
+      "stage3ModelCount": 104,
+      "stage3Assets": {
+        "prepared": 1618,
+        "total": 1874,
+        "release": "1edd425cd177d77bce8ab851302e465fe298ed9131356985e4e97b8ef707d893",
+        "downloadBytes": 515449025,
+        "cachedBytes": 0,
+        "files": 1566,
+        "cacheHits": 0,
+        "cacheMisses": 1566,
+        "warning": null
+      },
+      "background": {
+        "pending": 208,
+        "completed": 219,
+        "failed": [],
+        "held": 0,
+        "busy": false
+      },
+      "bossReady": false
+    },
+    {
+      "run": "final-baseline-web-r1",
+      "cycle": 1,
+      "startupMs": 111727,
+      "readyModelCount": 104,
+      "stage3ModelCount": 104,
+      "stage3Assets": {
+        "prepared": 1618,
+        "total": 1874,
+        "release": "1edd425cd177d77bce8ab851302e465fe298ed9131356985e4e97b8ef707d893",
+        "downloadBytes": 0,
+        "cachedBytes": 515449025,
+        "files": 1566,
+        "cacheHits": 1566,
+        "cacheMisses": 0,
+        "warning": null
+      },
+      "background": {
+        "pending": 330,
+        "completed": 97,
+        "failed": [],
+        "held": 0,
+        "busy": false
+      },
+      "bossReady": false
+    },
+    {
+      "run": "final-candidate-web-r24",
+      "cycle": 0,
+      "startupMs": 55494,
+      "readyModelCount": 38,
+      "stage3ModelCount": 40,
+      "stage3Assets": {
+        "prepared": 1561,
+        "total": 1874,
+        "release": "1edd425cd177d77bce8ab851302e465fe298ed9131356985e4e97b8ef707d893",
+        "downloadBytes": 505372836,
+        "cachedBytes": 0,
+        "files": 1512,
+        "cacheHits": 0,
+        "cacheMisses": 1512,
+        "warning": null
+      },
+      "background": {
+        "pending": 222,
+        "completed": 329,
+        "failed": [],
+        "held": 0,
+        "busy": false
+      },
+      "bossReady": true
+    },
+    {
+      "run": "final-candidate-web-r24",
+      "cycle": 1,
+      "startupMs": 38035,
+      "readyModelCount": 38,
+      "stage3ModelCount": 40,
+      "stage3Assets": {
+        "prepared": 1561,
+        "total": 1874,
+        "release": "1edd425cd177d77bce8ab851302e465fe298ed9131356985e4e97b8ef707d893",
+        "downloadBytes": 0,
+        "cachedBytes": 505372836,
+        "files": 1512,
+        "cacheHits": 1512,
+        "cacheMisses": 0,
+        "warning": null
+      },
+      "background": {
+        "pending": 34,
+        "completed": 517,
+        "failed": [],
+        "held": 0,
+        "busy": false
+      },
+      "bossReady": true
+    },
+    {
+      "run": "final-candidate-offline-r24",
+      "cycle": 0,
+      "startupMs": 55151,
+      "readyModelCount": 38,
+      "stage3ModelCount": 40,
+      "stage3Assets": null,
+      "background": {
+        "pending": 176,
+        "completed": 375,
+        "failed": [],
+        "held": 0,
+        "busy": false
+      },
+      "bossReady": true
+    }
+  ],
+  "originalStartupBatchReadyByStage3": false,
+  "newGameplayTests": false,
+  "boardUnchanged": true,
+  "noCurrentReplacementCommitPushOrPublication": true,
+  "evidence": [
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/drives-before.json",
+      "bytes": 167,
+      "sha256": "546923c2daae89aad3208bc395c1e8258ce39c15927bb0e4b193251b1df23d7c"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/drives-after.json",
+      "bytes": 167,
+      "sha256": "5370db30df9f207dbb7ae49db87c736f6fc58b3990bd6784d96cb9b60788dd37"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/cache-plan.json",
+      "bytes": 2155,
+      "sha256": "ec882ba8c88bb9fb033b927379a5cc1dd37842de831092355aefbd30479e06af"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/caches-dry-run.json",
+      "bytes": 3533,
+      "sha256": "91575facd4817280ccf75b09fe9ceece8042c16cc6e8c9a453fc17ef5df7b4e0"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/caches-execute.json",
+      "bytes": 3506,
+      "sha256": "9124433b5343a43d1f649a4c537bf3b7e3e2599912e7b2e314ba7cb4d94384af"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/build-plan.json",
+      "bytes": 43472,
+      "sha256": "2ff214dd5c8cd898b974254c24d4ef7e7149c01e436c74cd9b74f06986f0f7d9"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/builds-dry-run.json",
+      "bytes": 10557,
+      "sha256": "7156b56c29ad04ddf96c302eede2cd9bf8e2a50f312be98f36062dd03c1b667b"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/builds-execute.json",
+      "bytes": 10466,
+      "sha256": "8391208c8a4edc83d44fafac54abc1a2167aa95a429cd30204e156ebcc97b64c"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/protected-before.json",
+      "bytes": 1102388,
+      "sha256": "acc83e6d2343e5fb130eef8130bd6eab689ef8cc1c600fa36af55cde1f27daec"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/verification.json",
+      "bytes": 535,
+      "sha256": "08e0ffe53fbf78ffc8d6181d52ec206f0a0d189764d3072f0677cae5d0da44fe"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/loading-scope-check.json",
+      "bytes": 2861,
+      "sha256": "b2fd5abf387a057281eb5415f682712c99500419f208cd734cfede05d80fde25"
+    },
+    {
+      "file": "tools/archive-old-builds-20261021.py",
+      "bytes": 7361,
+      "sha256": "d9a343bc1f131e847c39711f783977b45484767624d89ff9dd8cf077d1157391"
+    },
+    {
+      "file": "tools/cleanup-d04-artifacts-20261021.ps1",
+      "bytes": 5251,
+      "sha256": "91c3970d233a8258b927b982e70ebb603f4bd672ea4307ecc4cdfca38bab4629"
+    },
+    {
+      "file": "tools/verify-cleanup-d04-20261021.py",
+      "bytes": 3176,
+      "sha256": "a47cac2032cd0d31dfc2c191062ddee151b7df5cf255d00370070b167efe0acf"
+    },
+    {
+      "file": "tools/finalize-cleanup-d04-20261021.py",
+      "bytes": 9658,
+      "sha256": "6b692e7ba0ea76b2c3b952db2feff507f2833bfcfc2beea9bde6503e85968951"
+    },
+    {
+      "file": "docs/project/DISK_CLEANUP_D04_20261021.md",
+      "bytes": 4714,
+      "sha256": "a38f423e6e6132076ea296be55cbd664fe85fc7fb532c1e75cd47b5feac81f6b"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/archive-progress.log",
+      "bytes": 5772,
+      "sha256": "7eb3af24f6489a14f47ed9a3597e17c54abfbb12b9905ba189292ad5b6641e70"
+    },
+    {
+      "file": "reports/local/disk-cleanup-d04-20261021/verification-progress.log",
+      "bytes": 587,
+      "sha256": "3adafee626fcaf09671f67124c8266353f5fa4c0fdede1365e6c29df014bef4b"
+    }
+  ]
+}

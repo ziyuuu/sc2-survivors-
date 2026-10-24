@@ -11,6 +11,7 @@ export function racePreloadModels(race:Race){
  for(const hero of Object.values(HEROES))if(hero.race===race)models.set(hero.model,hero.baseFamily);
  if(race==='terran'){models.set('hellion.hellbat','hellion');models.set('viking.assault','viking');}
  if(race==='protoss')models.set('interceptor','marine');
+ models.set('fun-nydus','roach');models.set('fun-infested-marine','marine');models.set('fun-infested-marine.timeout','marine');models.set('fun-cocoon','queen');models.set('zealot','zealot');models.set('stalker','stalker');
  return models;
 }
 

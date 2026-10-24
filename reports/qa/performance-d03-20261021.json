@@ -1,0 +1,1133 @@
+{
+  "task": "D03",
+  "date": "2026-10-21",
+  "status": "completed-local",
+  "pass": true,
+  "policy": {
+    "groundResources": "Clear on committed next-stage entry; earned wallet unchanged",
+    "groundEquipmentStages": {
+      "white": 2,
+      "green": 3,
+      "blue": 4,
+      "purple": 5,
+      "orange": 6
+    },
+    "includesDropStage": true,
+    "endlessRoundCountsOne": true,
+    "ownedEquipmentExcluded": true,
+    "pauseRewardPreparationDoNotAge": true,
+    "noSalvageOrCurrencyConversion": true,
+    "collectedThenRedropped": "New lifetime from latest drop stage",
+    "businessHistory": "Unchanged; no archive or receipt deletion"
+  },
+  "implementation": {
+    "productionFiles": [
+      "src/simulation/world.ts",
+      "src/simulation/starship/types.ts",
+      "src/simulation/starship/loot-presentation.ts",
+      "src/simulation/stage-loot.ts"
+    ],
+    "existingFiles": 718,
+    "unchangedExisting": 715,
+    "existingTestsChanged": 0,
+    "finalProduction": 418,
+    "unchangedFrozenProduction": 414,
+    "excludedOtherWork": "src/render/units/economic-egg.ts"
+  },
+  "verification": {
+    "newTests": 15,
+    "regression": {
+      "total": 1773,
+      "firstPassed": 1766,
+      "firstEnvironmentFailures": 7,
+      "retestedFiles": 3,
+      "retestPassed": 16
+    },
+    "typecheck": true,
+    "gameDataDocs": true,
+    "pairedState": {
+      "fixtures": 54,
+      "comparisons": 378,
+      "scope": "Paired frozen baseline/candidate World transitions. Only approved deletion of uncollected resources and expired ground items is projected onto the baseline. Ground-age metadata and account cache revision are excluded explicitly; all other serialized simulation, status, special-system, account and loot-runtime data must match. Constructed transitions, not natural campaign or performance measurement.",
+      "identityNormalization": "Run UUID and its embedded support-receipt identity normalized; source in paired-state-r2-runner.mjs"
+    },
+    "browser": {
+      "functionalRecords": 49,
+      "clearVisualRecords": 47,
+      "pageConsoleErrors": 0,
+      "failedRequests": 0,
+      "screenshots": 40,
+      "contactSheets": 8,
+      "directOriginals": 5,
+      "realWebGLRecovery": {
+        "beforeEpoch": 0,
+        "afterEpoch": 1,
+        "beforeState": "4cec9e436e83b2a8568edd965c455be4ab9db811e122f9a9cf24d6e1e94a5f5b",
+        "afterState": "4cec9e436e83b2a8568edd965c455be4ab9db811e122f9a9cf24d6e1e94a5f5b",
+        "firstAttempt": true
+      }
+    },
+    "performanceMeasured": false,
+    "naturalCampaign": false
+  },
+  "scope": {
+    "pass": true,
+    "existingSourceAndTestFiles": 718,
+    "changedExisting": [
+      "src/simulation/starship/loot-presentation.ts",
+      "src/simulation/starship/types.ts",
+      "src/simulation/world.ts"
+    ],
+    "unchangedExisting": 715,
+    "existingTestsChanged": 0,
+    "added": [
+      "src/simulation/stage-loot.ts",
+      "test/stage-loot-retention.test.ts"
+    ],
+    "frozenBaselineProduction": 417,
+    "finalProduction": 418,
+    "unchangedFrozenProduction": 414,
+    "overrideKinds": [
+      {
+        "file": "src/render/scene/battle-distress.css",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/persistence/run-fields.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/opening.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/races.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/elites.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/sc2-battle.css",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/campaign18.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/expedition-state.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/progression/mvp-talent-effects.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/terran-elites.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/heroes.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/expedition-buildings.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/ranks.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/enemy-tuning.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/terrain.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/campaign-layout.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/movement/steering.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/assets/retired.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/combat/terrain-fire.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/game.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/advanced-support.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/hero-advancements.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/sc2-units.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/stages.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/enemies.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/assets/ui-art.generated.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/members.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/starship/native.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/progression/permanent-profile.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/hud/player-services.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/fixed-stepper.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/controls/settings.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/hud/save-controls.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/effects/audio.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/diagnostics/debug.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/capture.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/defense.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/lifecycle.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/controls.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/app/run-session.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/fortifications.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/endless.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/combat/family-actions.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/movement/enemy-routes.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/boss-loot.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/movement/spawn-cells.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/combat/main-hive.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/persistence/run-snapshot.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/run-state.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/roster.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/combat/auto-targeting.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/economy.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/control-tuning.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/mixed-waves.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/combat/expedition-elites.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/hives.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/progression/talent-rewards.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/rules.mjs",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/player-unit-adaptations.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/support.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/starship/recall.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/campaign-landscape.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/persistence/graph-codec.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/input-capture.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/scene/camera-controller.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/movement/map-terrain.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/gamepad/state.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/starship/view.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/persistence/save-repository.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/starship/style.css",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/persistence/archive.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/navigation.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/hud/carrier-inspector.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/arrival-cards.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/hud/detection-hint.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/hud/minimap.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/decision-screens.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/end-screens.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/combat/attack-lines.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/progression/supply-cards.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/simulation/movement/spatial-hash.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/rewards.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/painted-art.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/unit-identity.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/shop-card-copy.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/ability-copy.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/presentation/arrival-cards.css",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/native-hud/battle.css",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/starship/legacy-icons.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/units/economic-egg.ts",
+        "kind": "content"
+      },
+      {
+        "file": "src/render/units/health-bars.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/units/body-outline.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/scene/battle-distress.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/effects/elite-support-effects.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/units/instance-updates.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/units/friendly-labels.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/data/combat-presentation.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/loaders/sc2-materials.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/loaders/animations.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/input/battle-picking.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/units/resource-drops.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/terrain/char-terrain.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/units/animated-batch.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/effects/battle-effects.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/intermission-skin/refinements.css",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/ui/intermission-skin/skin.css",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/terrain/char-geometry.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/terrain/campaign-ground.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/effects/hero-basic-effects.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/effects/original-projectiles.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/effects/terran-elite-materials.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/terrain/campaign-map.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/effects/ordinary-medical-effects.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/effects/confirmed-hero/approved-gun-effects.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/terrain/campaign-ground-legacy.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/terrain/environment-materials.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/terrain/map-visibility.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/terrain/campaign-textures.ts",
+        "kind": "line-endings-only"
+      },
+      {
+        "file": "src/render/terrain/map-surface.ts",
+        "kind": "line-endings-only"
+      }
+    ],
+    "main": {
+      "file": "preview/performance-d03-20261021-candidate-r1/main.js",
+      "bytes": 37382286,
+      "sha256": "cd9e22e61e4983680789b9cc9975c7bb62d0a3e7e219a1016ec6713f8a33a011"
+    }
+  },
+  "build": {
+    "directory": "preview/performance-d03-20261021-candidate-r1",
+    "main": {
+      "file": "preview/performance-d03-20261021-candidate-r1/main.js",
+      "bytes": 37382286,
+      "sha256": "cd9e22e61e4983680789b9cc9975c7bb62d0a3e7e219a1016ec6713f8a33a011"
+    },
+    "preview": "http://127.0.0.1:4467/"
+  },
+  "board": {
+    "revision": 102,
+    "total": 52,
+    "complete": 45,
+    "remaining": 7,
+    "next": "D04",
+    "nextStarted": false,
+    "auditRows": 169
+  },
+  "limitations": [
+    "No measured FPS/CPU/memory improvement, long-run natural campaign, physical input or human playability acceptance.",
+    "390px purple label outside the narrow visible area; no mobile layout redesign.",
+    "Functional pause-overlay screenshots retained; separate visible-playfield supplement.",
+    "Business histories and surviving-loot scan costs remain; SAVE-005/006/008 partial, V02/D05 follow-up.",
+    "Save integration and V01–V04/MVP acceptance remain open.",
+    "No Current replacement, commit, push, publication or special-gameplay branch merge."
+  ],
+  "failures": {
+    "retained": [
+      {
+        "file": "reports/local/performance-d03-20261021/paired-state-candidate-r1.json",
+        "reason": "First diagnostic fixture used terran Raynor for other races; failure after 21 paired records, repaired only in later runner."
+      },
+      {
+        "file": "reports/local/performance-d03-20261021/regression-r1.log",
+        "reason": "Seven loopback EACCES tests; three files rerun with local networking, 16/16 passed."
+      },
+      {
+        "file": "reports/local/performance-d03-20261021/functional-r1/report.json",
+        "reason": "Pause-overlay screenshots retained; clear-playfield visual supplement recorded separately."
+      }
+    ],
+    "toolSetup": [
+      {
+        "action": "initial preview HTTP verification in sandbox",
+        "error": "connect EACCES 127.0.0.1:4467"
+      },
+      {
+        "action": "initial CIM query in sandbox",
+        "error": "Unable to access CIM resource from client"
+      },
+      {
+        "action": "first allowed-network preview HTTP verification",
+        "error": "connect ECONNREFUSED 127.0.0.1:4467; initial sandbox-started background server did not remain available"
+      },
+      {
+        "action": "restart preview server outside sandbox and verify all five output files",
+        "result": "passed; see preview-verified.json"
+      }
+    ],
+    "buildWarnings": [
+      "Node-only esbuild CommonJS diagnostic bundle reports import.meta unavailable; browser ES module build is separate."
+    ]
+  },
+  "cleanup": {
+    "onlyClosedOwnQaProfile": true,
+    "logicalBytes": 553685588
+  },
+  "evidence": [
+    {
+      "file": "docs/project/PERFORMANCE_D03_20261021.md",
+      "bytes": 6565,
+      "sha256": "6d39aa6ebd5113fd72f1494e1e60b04978d5ff068ef3d86c8196f51b8947fd75"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/board-before.json",
+      "bytes": 346105,
+      "sha256": "3878842988638025d0a083c1c709cbde4bf5e1d1f333a7dd494e9f1c6aa3b625"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/board-after.json",
+      "bytes": 348165,
+      "sha256": "870c4537f2d1e28fd652642f82da3e18fb437f0ed5f9c03844e051526f1c3604"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/inputs-before.json",
+      "bytes": 121303,
+      "sha256": "822342183e386291293e4a75a79d50074deec1d69fd6d5e5ac87fb494ba42057"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/scope-final.json",
+      "bytes": 12201,
+      "sha256": "7341a0a6c4e445db8223109751d591a8978d55f19856d72b37d137f4f3e512ca"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/candidate-r1-node-builds.json",
+      "bytes": 47646,
+      "sha256": "1079a902ce467d3e62b18d4bc73a982e2edad7c3475ae9e7fb0a393bc3c8eb97"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/paired-state-candidate-r1.json",
+      "bytes": 7508,
+      "sha256": "5c3df787bc388d40e8c0bb218fb6bc23c9618a3cc1a5837503341c70a5c005b1"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/paired-state-candidate-r1-r2.json",
+      "bytes": 118273,
+      "sha256": "64b3361b0703fef7051a9ee5a67d57fdc5eab311cc1620760ae02ca68653f6db"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/paired-state-r2-runner.mjs",
+      "bytes": 4284,
+      "sha256": "000e752626166335bd4722f8f2ba3dd2c5963c90807bcd6972e37186ef9ad10c"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/targeted-r1.log",
+      "bytes": 1612,
+      "sha256": "5cca88860ddd342037f5e3ff7ce0dc36a0db270ca1f1af5bef152b50f8e8f4a1"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/regression-r1.log",
+      "bytes": 192790,
+      "sha256": "432078fa00b893a54612dc6812b90402fe78236f82d1d440694c959cf2fa5c0e"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/network-regression-r2.log",
+      "bytes": 2206,
+      "sha256": "8ec6b3abcfd7676e0dfbb9e77ea80fb5c82698cd04ba940b322bd925ff24c588"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/typecheck-r1.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/typecheck-r2.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/docs-check-r1.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/preview-verified.json",
+      "bytes": 812,
+      "sha256": "2a9e93d8a396e55365a98ce7d0bba53db8cc5cb28108260b4331381c281b9839"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/preview-server.json",
+      "bytes": 133,
+      "sha256": "dccaa88d4f09a327109b0bc64a1693b0e0fd76fd453f9e1791e9ae7c81f166d4"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/preview-server-r2.json",
+      "bytes": 133,
+      "sha256": "25a477534a1b05493ae4d05dcb4784d134661bd1ccadfd0bdbf75c16382e90c4"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/profile-cleanup.json",
+      "bytes": 388,
+      "sha256": "835169a887a54060a01e7c6481673325ff9f9f6e035a78ed31eb3881e76ab24a"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/preserved-failures.json",
+      "bytes": 1428,
+      "sha256": "da2b47fbca053b69e77c4c8491713163d1fafc00b2bede285cd8ef6d9d058990"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review.json",
+      "bytes": 17553,
+      "sha256": "7e621b3d45bf154ea3f4e9fa2671368b3f0fe320c6ca7e8587c73e0219e294af"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review/analysis.json",
+      "bytes": 15055,
+      "sha256": "7263ee83d1eb5aa2088f509b7277866d422362a439abbb119e8989ddcdff8624"
+    },
+    {
+      "file": "preview/performance-d03-20261021-candidate-r1/build-inputs.json",
+      "bytes": 519671,
+      "sha256": "863e3107a50392c8b6763b88be498a942a03b408e2bd1242f0c7d2d3088a079d"
+    },
+    {
+      "file": "test/stage-loot-retention.test.ts",
+      "bytes": 11914,
+      "sha256": "b45503ef7c86939175ee67d5ba21f8bd09fa24583767829ef20687282b46aecd"
+    },
+    {
+      "file": "src/simulation/world.ts",
+      "bytes": 154958,
+      "sha256": "d1f0ea0726baef44cc17caee7fdf56e2362827f6360dc615ae0965d24f897ba8"
+    },
+    {
+      "file": "src/simulation/starship/types.ts",
+      "bytes": 3210,
+      "sha256": "41e6aec55fb644d4e3c6ad58d51edcf29b1a665d0dfcd772a0b29596a82a5b3a"
+    },
+    {
+      "file": "src/simulation/starship/loot-presentation.ts",
+      "bytes": 5601,
+      "sha256": "5f74a78975039a8ee66de5bb62b828d8e3a48f68f449b7fb98d91aaeb2a5fd74"
+    },
+    {
+      "file": "src/simulation/stage-loot.ts",
+      "bytes": 1540,
+      "sha256": "5cf9b7602b7af8858fe056652bcf4618aca948cd18b504c8c38b2cc3c75186f5"
+    },
+    {
+      "file": "preview/performance-d03-20261021-candidate-r1/main.js",
+      "bytes": 37382286,
+      "sha256": "cd9e22e61e4983680789b9cc9975c7bb62d0a3e7e219a1016ec6713f8a33a011"
+    },
+    {
+      "file": "preview/performance-d03-20261021-candidate-r1/main.css",
+      "bytes": 821671,
+      "sha256": "32eb54b65653bc153c6f2f7c182903d2c607b705ce39e6ea123c2d3c3a37c74e"
+    },
+    {
+      "file": "preview/performance-d03-20261021-candidate-r1/index.html",
+      "bytes": 954896,
+      "sha256": "6a7b1d0ae99c27667c47a7d672c9e34c09e682ded683c8807373b88b146275cd"
+    },
+    {
+      "file": "preview/performance-d03-20261021-candidate-r1/current.json",
+      "bytes": 445863,
+      "sha256": "b13ceea5c7809bd3bbbb24e92b125236849c3c74e75df7f5b071ceb6a78b81be"
+    },
+    {
+      "file": "preview/performance-d03-20261021-candidate-r1/runtime-config.json",
+      "bytes": 21,
+      "sha256": "98acd2bb54192622283389a194858c399a57fb3f4d529ebb582f9956f3eebe81"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review/functional-r1-1.jpg",
+      "bytes": 159967,
+      "sha256": "9035e99be637f5749565c0bd14de995e4c29dcbb181398e396ec59467d3fe871"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review/functional-r1-2.jpg",
+      "bytes": 163818,
+      "sha256": "5263a0d1a40e00fe9b25a075daf2bf51cd6c6d54a08b5e5284324480d8c9fbd5"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review/functional-r1-3.jpg",
+      "bytes": 153001,
+      "sha256": "01ebeecd2291bcb9308e1b86821fe481f8e16f4c835d118735ea5b9ca484b6be"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review/functional-r1-4.jpg",
+      "bytes": 81250,
+      "sha256": "357a0693b085d4b4c3d6c546b38e34cb6b53c23cd2a0f40bd727b119d9a4e5dc"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review/visual-r1-1.jpg",
+      "bytes": 345050,
+      "sha256": "244a254fa337382868fcd5d4e3656cd38384eae8c38bdedd72ac8886061d2bba"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review/visual-r1-2.jpg",
+      "bytes": 340325,
+      "sha256": "f0d740c5d48bba215837bb0af88e0ffc887ab3f45fe9361ed23424bb980601bf"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review/visual-r1-3.jpg",
+      "bytes": 270828,
+      "sha256": "e4210e8a5a74f743731d970fa26febdae96322ec996e1b686cfa7132c2ac6968"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-review/visual-r1-4.jpg",
+      "bytes": 62957,
+      "sha256": "2db07dcee4ae56b4724999c08bb6df24b5c0239c23e3f766e29ab5a1c1810bfa"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/full-stage-1.png",
+      "bytes": 383769,
+      "sha256": "e73d983a30e6cf31533ab5d127759cf421a27664e865069c4e20b6e0b740732c"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/full-stage-2.png",
+      "bytes": 237559,
+      "sha256": "edcd40338be522855f3ca4bdae651204d75bc35c7bf941bb19309e81eb4f5dd6"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/full-stage-3.png",
+      "bytes": 234287,
+      "sha256": "7405304726756ca32de869bc9afc9f38a211b8ddfa72febd4615f614545da6a2"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/full-stage-4.png",
+      "bytes": 232918,
+      "sha256": "2a8dfaffe81c5c59c757e88343955c8b41f886c9d17a032afd29391a2ef0436a"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/full-stage-5.png",
+      "bytes": 233113,
+      "sha256": "7668230e01a5e3881c4bda825d160b4483e9b91ec3f402dd77a176a2954f1582"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/full-stage-6.png",
+      "bytes": 231440,
+      "sha256": "77fc46e6f9e9944918eef55a164c760933f74686250fea1e04dbed75829612f9"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/full-stage-7.png",
+      "bytes": 227203,
+      "sha256": "98bc0805eb097eb5dbb4eb795e7988eeea9b2a1f6d8f67ac41f21c1b8877faa7"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/medium-stage-1.png",
+      "bytes": 353968,
+      "sha256": "bbde2abfeb2f0f644cc320d32ddb6f21aaca737501a633eb679e5a383763d452"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/medium-stage-3.png",
+      "bytes": 233343,
+      "sha256": "c8e66e120a32c74c1f0288c42fcfd0d56dab700af6d7fc6d0ee53f824e421a77"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/low-stage-1.png",
+      "bytes": 335908,
+      "sha256": "33133db2ca83d67a0a974b35c8a01db202ed32cd5de830ca045e693e7b456253"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/low-stage-3.png",
+      "bytes": 229015,
+      "sha256": "33fad19a594204cef6758500a01f030eba6ef0acfe2d0760f71b48b30df59a4b"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/backpack-full.png",
+      "bytes": 313723,
+      "sha256": "53ed03cfb61220852a68b7b605a45df6ff5b3d30071b3bd52bd7dffb39db55d6"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/backpack-space-picked.png",
+      "bytes": 312043,
+      "sha256": "a8861d9f8e7d61e654057d4b79c9a686c5a2832b1c0fdc429154355344f180e5"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/context-before.png",
+      "bytes": 235235,
+      "sha256": "a06a0d9572a5656f52f7c1742aa52d88ae65217238335c7727d0a2f37dfc84af"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/context-restored.png",
+      "bytes": 237068,
+      "sha256": "e9178fa1f770efba43e79f4ff548c3b0f1ca839cde7e31b69cfddba0497d2dd0"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/viewport-1440.png",
+      "bytes": 234287,
+      "sha256": "7405304726756ca32de869bc9afc9f38a211b8ddfa72febd4615f614545da6a2"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/viewport-980.png",
+      "bytes": 139955,
+      "sha256": "1933bacd52cdef36eda7bb6efccc236ca30af5f6399ec00d94dd9de375a1417f"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/viewport-390.png",
+      "bytes": 80056,
+      "sha256": "5dc30969be02ec714c3580ca03508b719f3160b50d7463764b1a52424a9cbcf8"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/campaign-exit.png",
+      "bytes": 44607,
+      "sha256": "de0a93d98a51134df927399364359f494bcccb1230c670d3c40b0d5782055f91"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/endless-round-1.png",
+      "bytes": 362948,
+      "sha256": "25ab2d8c3005fb098ecec64cd2a33974dc92a65ab0a65ceb081fefd49c48a8f0"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/functional-r1/endless-round-2.png",
+      "bytes": 241700,
+      "sha256": "c631a6af047fce2ebf3ee5e511b9f2e79496784f6a273ee42e93bad586654f8c"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/full-stage-1.png",
+      "bytes": 1261394,
+      "sha256": "b4e71a66694de6cc06b49ec3d8b4f770f0ed75f39dc77567bd7f7c7f21e6fe98"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/full-stage-2.png",
+      "bytes": 1272685,
+      "sha256": "bee984a966015cbb76030f5a68f4fcc4f3ba0bd2092dc96f9bc036faaf142cae"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/full-stage-3.png",
+      "bytes": 1274235,
+      "sha256": "a0f9e25d6fe141c8da506ec6823ac64d751304f0f265c7e5df71742aa421034d"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/full-stage-4.png",
+      "bytes": 1270129,
+      "sha256": "1a70ff3e42ab36bb527861e2dda1eb05e3b2776bed218e9a850a891a060a4d8f"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/full-stage-5.png",
+      "bytes": 1266586,
+      "sha256": "d0fe2656309a6a41a5eac2bc9c9ee5c544ee4b35e582e6cbd8d27f5480865f87"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/full-stage-6.png",
+      "bytes": 1250369,
+      "sha256": "4f48ba16454a310f0ab64ba088f5f6db1ca7a7ab85dddbb1888693cebf841a8c"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/full-stage-7.png",
+      "bytes": 1238912,
+      "sha256": "eef828a7331fd7f5d3131385e8b433bf5913aade03ee8227fb90440afbf2d693"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/medium-stage-1.png",
+      "bytes": 1261038,
+      "sha256": "47e8b79e82f0772b0113d2989df14dbe9c6ed7325b17f97bc07f59e0fd4812bf"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/medium-stage-3.png",
+      "bytes": 1273985,
+      "sha256": "4c22741e6f51b93cc62b3b2003fbf9db7c0a706be28bbec118f20b81652b0c84"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/low-stage-1.png",
+      "bytes": 1233723,
+      "sha256": "eae7c00a13dc53b6311ff28f7b1edd2025e2cdf75e2da26ae54f3f7528d27c2d"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/low-stage-3.png",
+      "bytes": 1245149,
+      "sha256": "88d34dce64ebff078a4e71d589402a4673d46d713193796c58062726a9a5152c"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/backpack-full.png",
+      "bytes": 1230101,
+      "sha256": "4bda38bd87d4b7e6167db113cdb415395d5989ac81f98a82fe67a269b097a322"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/backpack-space-picked.png",
+      "bytes": 1237845,
+      "sha256": "a9ed4e2e5cadb0715783b1916071ad0f11c63401d984c56936fd36bf01bf7ed1"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/viewport-1440.png",
+      "bytes": 1274235,
+      "sha256": "a0f9e25d6fe141c8da506ec6823ac64d751304f0f265c7e5df71742aa421034d"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/viewport-980.png",
+      "bytes": 724608,
+      "sha256": "84615bb6634c55e783ba4241c2e91a97a358a7717d26690afb87b4dcf400a610"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/viewport-390.png",
+      "bytes": 349965,
+      "sha256": "2d47fa2b507abfb5e7132c0ef84cd8c929c536f3c87fb54a17caa4d446eb7f97"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/campaign-exit.png",
+      "bytes": 44607,
+      "sha256": "de0a93d98a51134df927399364359f494bcccb1230c670d3c40b0d5782055f91"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/endless-round-1.png",
+      "bytes": 1310879,
+      "sha256": "83d955d3c6c7c9c2aa8016fee082b3b866f06e746d0b95e2c35f6b0d7fcb2ab0"
+    },
+    {
+      "file": "D:/星际/reports/local/performance-d03-20261021/visual-r1/endless-round-2.png",
+      "bytes": 1310136,
+      "sha256": "bb3e3864fe7c505c2a8b463de8dc5a3868535c42d315cd75cd65e4dc2401b85f"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/functional-r1/report.json",
+      "bytes": 697858,
+      "sha256": "e94224a582f58712cc4b24276c3212eb6901eb507ea71150bd8afe4709e18c0f"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/functional-r1/runner.mjs",
+      "bytes": 12409,
+      "sha256": "b06769f36a2b2dc7ca8eb44d503b793abd2fbfaf4a4f6b54e5ae5190b15102bf"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/functional-r1/helper.mjs",
+      "bytes": 4062,
+      "sha256": "fc4eca3108b5ca9d38fb2ecb0b9408793c24213218d128583723905915243d55"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-r1/report.json",
+      "bytes": 683597,
+      "sha256": "16fdfe7a0471fbefb1780898548f45833a0556a252f1340b9d7e480d125e5699"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-r1/runner.mjs",
+      "bytes": 13016,
+      "sha256": "e70ca1699d781c98db4268e9b979c6e4794f79553d9cb72ee5c0e3c9af283d07"
+    },
+    {
+      "file": "reports/local/performance-d03-20261021/visual-r1/helper.mjs",
+      "bytes": 4644,
+      "sha256": "68d8d29b95ba02af525801e113ed261ec6ad5bd04e7746fea29ec4f3066c0274"
+    },
+    {
+      "file": "tools/start-performance-d03.mjs",
+      "bytes": 2166,
+      "sha256": "c8be65a55d14f26fac65b7fd66548ec0b4d76b38bc8cd3308c45abbdb6c6860a"
+    },
+    {
+      "file": "tools/build-performance-d03.mjs",
+      "bytes": 3834,
+      "sha256": "92a3b5fb0187b5f8f48763b4b470b63aaacb86ebf532832737a55c712635c2d2"
+    },
+    {
+      "file": "tools/performance-d03-runtime.ts",
+      "bytes": 619,
+      "sha256": "012db748d9a1cf643eb4ac7703bbdaf9acbad5f1d94f43a5425b6f989158e63d"
+    },
+    {
+      "file": "tools/prove-performance-d03.mjs",
+      "bytes": 4284,
+      "sha256": "000e752626166335bd4722f8f2ba3dd2c5963c90807bcd6972e37186ef9ad10c"
+    },
+    {
+      "file": "tools/check-performance-d03-scope.mjs",
+      "bytes": 2401,
+      "sha256": "ba54f342c97a6420560bffdf32e9bb63ed2dca84e0a7268eb9d4c7431004c1a3"
+    },
+    {
+      "file": "tools/qa-performance-d03.mjs",
+      "bytes": 13016,
+      "sha256": "e70ca1699d781c98db4268e9b979c6e4794f79553d9cb72ee5c0e3c9af283d07"
+    },
+    {
+      "file": "tools/d03-browser-helper.mjs",
+      "bytes": 4644,
+      "sha256": "68d8d29b95ba02af525801e113ed261ec6ad5bd04e7746fea29ec4f3066c0274"
+    },
+    {
+      "file": "tools/review-performance-d03.py",
+      "bytes": 2045,
+      "sha256": "32d6dab3b0a8690d09b3eb7ae2a74af56a9f2d306ba63cc41df6caab9fb7f80a"
+    },
+    {
+      "file": "tools/record-performance-d03-visual-review.mjs",
+      "bytes": 2564,
+      "sha256": "4522e26161756fcb946ec692e855a2347ff11fb8a4013caf706228521527af5e"
+    },
+    {
+      "file": "tools/serve-performance-d03.mjs",
+      "bytes": 1533,
+      "sha256": "9b3ebc70097fdec8a90f1cc448498e91cec4fc67902f6318c7ff87253acb7325"
+    },
+    {
+      "file": "tools/finalize-performance-d03.mjs",
+      "bytes": 19128,
+      "sha256": "59ca6ddd50d297c48f5a60a07e67a699c31f6c730c6c0964da4d8f4da586c17a"
+    }
+  ]
+}

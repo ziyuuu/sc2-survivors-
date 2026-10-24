@@ -11,21 +11,21 @@ const enhancement=(r:ExpeditionReward)=>['card','teamCard','support','training']
 const validEffect=(r:ExpeditionReward)=>{const e=r.expeditionEffect;if(!e)return false;if(e.kind==='card')return e.effect in EXPEDITION_CARD_DEFINITIONS&&e.family in SC2_UNITS&&e.key===e.effect+'.'+e.family&&Number.isFinite(e.amount)&&e.amount>0;if(e.kind==='teamCard')return ['firepower','defense'].includes(e.group)&&['white','green','blue','purple','orange'].includes(e.rarity);if(e.kind==='support')return typeof e.support==='string';if(e.kind==='training')return Number.isInteger(e.rank)&&e.rank>=2&&e.rank<=5;return false;};
 /** Purchase presentation is kept outside World and all gameplay snapshots. */
 export class ShopProgress {
- private runId='';private complete=true;private entries:ExpeditionReward[]=[];
+ private runId='';private complete=true;private entries:ExpeditionReward[]=[];private seen=new Set<string>();
  constructor(private world:World){}
  observe(){
   const w=this.world;if(!w.runId)return;
-  if(this.runId!==w.runId){this.runId=w.runId;this.entries=[];this.complete=w.expedition.draftWindow===0&&Object.values(w.expedition.cardTotals).every(v=>v===0);}
+  if(this.runId!==w.runId){this.runId=w.runId;this.entries=[];this.seen.clear();this.complete=w.expedition.draftWindow===0&&Object.values(w.expedition.cardTotals).every(v=>v===0);}
   for(const offer of w.rewards){const r=offer as ExpeditionReward;
-   if(r.sold&&r.purchaseReceipt&&!r.mapSource&&!r.talentLootReceipt&&enhancement(r)&&!this.entries.some(e=>e.offerId===r.offerId))this.entries.push(structuredClone(r));
+   if(r.sold&&r.purchaseReceipt&&!r.mapSource&&!r.talentLootReceipt&&enhancement(r)&&!this.seen.has(r.offerId)){this.entries.push(structuredClone(r));this.seen.add(r.offerId);}
   }
  }
  snapshot():ShopProgressSnapshot{this.observe();return {version:1,runId:this.runId,complete:this.complete,entries:structuredClone(this.entries)};}
  restore(raw:unknown){
-  const w=this.world,p=raw as ShopProgressSnapshot|undefined;this.runId=w.runId??'';this.entries=[];this.complete=w.expedition.draftWindow===0&&Object.values(w.expedition.cardTotals).every(v=>v===0);
+  const w=this.world,p=raw as ShopProgressSnapshot|undefined;this.runId=w.runId??'';this.entries=[];this.seen.clear();this.complete=w.expedition.draftWindow===0&&Object.values(w.expedition.cardTotals).every(v=>v===0);
   if(p?.version===1&&p.runId===this.runId&&typeof p.complete==='boolean'&&Array.isArray(p.entries)&&p.entries.length<=10000){
    const valid=p.entries.every(r=>r&&typeof r.offerId==='string'&&typeof r.name==='string'&&typeof r.description==='string'&&typeof r.icon==='string'&&['white','green','blue','purple','orange'].includes(r.rarity)&&r.sold&&r.purchaseReceipt&&Number.isFinite(r.purchaseReceipt.minerals)&&Number.isFinite(r.purchaseReceipt.gas)&&validEffect(r));
-   if(valid&&new Set(p.entries.map(r=>r.offerId)).size===p.entries.length){this.entries=structuredClone(p.entries);this.complete=p.complete;}
+   if(valid&&new Set(p.entries.map(r=>r.offerId)).size===p.entries.length){this.entries=structuredClone(p.entries);this.seen=new Set(this.entries.map(r=>r.offerId));this.complete=p.complete;}
   }
   this.observe();
  }

@@ -12,6 +12,7 @@ import {talentModifiers} from './expedition-combat';
 import {FAMILIES_BY_RACE} from '../../data/races';
 import {ELITES} from '../../data/elites';
 import {registerZergRevival,tickZergRevival,zergRevivalDeath,type RevivalWindow} from './zerg-hero-revival';
+import {firstSupportTargets,healthOrder} from './support-targets';
 export interface ZergCombatState {essence:number;kills:number;biologicalUntil:number;mechanicalUntil:number;flyingUntil:number;barrier:number;barrierUntil:number;reserve:number;reserveMax:number;reserveUntil:number;tentacleAt:number}
 export const newZergCombat=():ZergCombatState=>({essence:0,kills:0,biologicalUntil:0,mechanicalUntil:0,flyingUntil:0,barrier:0,barrierUntil:0,reserve:0,reserveMax:0,reserveUntil:0,tentacleAt:0});
 export const zergState=(u:Entity)=>u.zergCombat??=newZergCombat();
@@ -26,7 +27,7 @@ export function zergTeamBuff(w:World,u:Entity){const a={damage:0,health:0,armor:
 export function dehakaStats(u:Entity){const e=u.heroId==='dehaka'?zergState(u).essence:0,f=e/(e+R.dehaka.essenceK);return {damage:1+R.dehaka.damage*f,health:1+R.dehaka.health*f,armor:R.dehaka.armor*f};}
 export const dehakaPenetration=(u:Entity)=>u.heroId==='dehaka'&&(u.zergCombat?.mechanicalUntil??0)>(u.heroCombat?.lastFire??0)?R.dehaka.armorIgnore:0;
 export function zergHeal(w:World,source:Entity,target:Entity,amount:number,active=false){if(target.hp<=0)return 0;const suppress=Math.min(.5,Math.max(w.statuses.value(target.id,'bleed',w.time),w.statuses.value(target.id,'corruption',w.time))),gain=Math.max(0,Math.min(target.maxHp-target.hp,amount*(1-suppress)*teamHealingFactor(w,target,source.heroId==='niadra'||source.heroId==='stukov')*equipmentHealingOutput(w,source,source.heroId!=='dehaka')));if(gain>0){target.hp+=gain;w.stats.healed+=gain;observeRecovery(w,source,target,gain);if(active)w.visual('skill-heal',source,target);}return gain;}
-function patients(w:World,p:Point,radius:number,max=7,exclude?:number){return w.allies().filter(u=>u.id!==exclude&&permanentBiological(u)&&u.hp<u.maxHp&&dist(p,u)<=radius+u.unitRadius&&(!w.terrain||w.terrain.lineOfFire(p,u,false,u.flying))).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp||a.id-b.id).slice(0,max);}
+function patients(w:World,p:Point,radius:number,max=7,exclude?:number){return firstSupportTargets(w.entities.values(),u=>u.id!==exclude&&permanentBiological(u)&&u.hp<u.maxHp&&dist(p,u)<=radius+u.unitRadius&&(!w.terrain||w.terrain.lineOfFire(p,u,false,u.flying)),healthOrder,max);}
 export function tickZergHero(w:World,u:Entity,dt:number){if(!isZergHero(u.heroId)||u.hp<=0)return;const s=zergState(u),g=zergHeroGrowth(equipmentNativeRank(w,u));
  if(s.barrierUntil<=w.time)s.barrier=0;if(s.reserveUntil<=w.time)s.reserve=0;
  if(u.heroId==='dehaka'&&s.biologicalUntil>w.time)zergHeal(w,u,u,u.maxHp*R.dehaka.regen*dt);
@@ -57,7 +58,7 @@ export function zergHeroDeath(w:World,e:Entity,sourceId?:number){if(e.owner==='t
 }
 export function tickZergHeroState(w:World){w.zergHeroes.infections=w.zergHeroes.infections.filter(x=>x.until>w.time);w.zergHeroes.parasites=w.zergHeroes.parasites.filter(x=>x.until>w.time);
  const pools=w.zergHeroes.pools.filter(x=>x.until+1e-8>=w.time),due=pools.filter(x=>x.next<=w.time+1e-8);for(const p of due)p.next+=1;
- for(const a of w.allies().filter(permanentBiological)){const choices=due.filter(p=>dist(a,p.point)<=R.stukov.poolRadius+a.unitRadius&&(!w.terrain||w.terrain.lineOfFire(p.point,a,false,a.flying))).sort((a,b)=>b.rank-a.rank||a.id-b.id);const p=choices[0],source=p&&w.entities.get(p.source);if(source&&source.hp>0)zergHeal(w,source,a,R.stukov.heal*zergHeroGrowth(p.rank).passive,true);}
+ if(due.length)for(const a of w.allies().filter(permanentBiological)){const choices=due.filter(p=>dist(a,p.point)<=R.stukov.poolRadius+a.unitRadius&&(!w.terrain||w.terrain.lineOfFire(p.point,a,false,a.flying))).sort((a,b)=>b.rank-a.rank||a.id-b.id);const p=choices[0],source=p&&w.entities.get(p.source);if(source&&source.hp>0)zergHeal(w,source,a,R.stukov.heal*zergHeroGrowth(p.rank).passive,true);}
  w.zergHeroes.pools=pools.filter(x=>x.until>w.time+1e-8);tickZergRevival(w);
 }
 export {registerZergRevival};

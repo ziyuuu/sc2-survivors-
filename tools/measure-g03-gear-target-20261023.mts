@@ -1,0 +1,22 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+import {runtime,startMeasuredCase,economyController,stageKey,round} from './lib/g03-economy-runtime.mts';
+const dir='reports/local/g03-hero-gate-20261023',race=process.argv[2]??'terran',seed=529,r=await runtime();
+for(const difficulty of ['hard','hell']){
+ const id=race+'-'+difficulty,file=dir+'/'+id+'.json';if(fs.existsSync(file))continue;
+ const a=r.newEquipmentAccount(seed);for(const slot of ['offense1','offense2','offense3','offense4','defense1','defense2','defense3','defense4']){const q=difficulty==='hell'?4:['offense4','defense4'].includes(slot)?2:3,g=r.grantEquipment(a,{template:'attribute.'+q,race,slot},'target:'+slot,{kind:'warehouse'});assert.ok(g.ok);g.value.allocation=2;const keys=slot.startsWith('offense')?['attack','trueDps','range','crit','critDamage']:['defense','health','reduction','dodge','move'];g.value.affixes=g.value.affixes.map((_:unknown,i:number)=>({key:keys[i],score:140}));assert.ok(r.validateItem(g.value));assert.ok(r.equip(a,race,g.value.id,slot).ok);}
+ const opening=structuredClone(a.items),map=r.chooseCampaignMap(seed),w=new r.World({race,difficulty,seed,waves:true,terrain:r.campaignTerrain(map),endlessTerrain:new r.FlatTerrain(),equipmentAccount:a});w.configureCampaign(map);const policy=economyController(w,r,race),snapshots:any[]=[],bossDrops:any[]=[],seen=new Set<number>();
+ const equipped=()=>Object.entries(a.equipped[race]).map(([slot,id]:any)=>({slot,id,quality:a.items[id]?.quality,template:a.items[id]?.template}));
+ const sample=(why:string)=>snapshots.push({why,stage:stageKey(w),phase:w.phase,time:round(w.time),wallet:{...w.wallet},allies:w.allies().length,heroes:[...w.heroes.values()].map((h:any)=>({id:h.id,rank:h.rank})),gear:equipped(),special:w.specialStages.active?.kind??null});
+ policy.initialize();startMeasuredCase(w,seed);policy.configure();sample('start');let stop='step-limit',steps=0,loops=0,nextThink=0,lastStage=stageKey(w),started=Date.now(),lastPrint=started,issue:null|string=null;
+ try{while(steps<220000){if(Date.now()-started>300000){stop='wall-clock-censored';break;}if(++loops>441000)throw Error('zero time loop');policy.decisions();
+  for(const d of w.rewardDrops)if(d.bossLootReceipt&&!seen.has(d.id)){seen.add(d.id);bossDrops.push({stage:w.stage,time:w.time,receipt:d.bossLootReceipt,effect:structuredClone(d.reward.expeditionEffect)});}
+  if(w.phase==='lost'){stop='lost';break;}if(w.endless){stop='entered-endless';break;}if(w.phase==='won'){sample('campaign-won');assert.ok(w.chooseCampaignExit('endless'));continue;}
+  if(w.phase==='endless-ready'){const p=w.previewEndlessTransition();assert.ok(p);const token=`${p.requestId}:${p.expectedRevision}:${p.mapHash}`;assert.ok(w.registerEndlessReadyToken(token));assert.ok(w.commitEndlessTransition(p.requestId,p.expectedRevision,token));continue;}
+  if(w.phase==='reward'){sample('reward');policy.intermission();nextThink=-1;continue;}assert.equal(w.phase,'battle');
+  if(stageKey(w)!==lastStage){lastStage=stageKey(w);sample('stage-start');nextThink=-1;}
+  if(w.time>=nextThink-1e-8){policy.think();nextThink=w.time+.25;}w.step();steps++;
+  if(Date.now()-lastPrint>20000){lastPrint=Date.now();console.log(JSON.stringify({id,steps,stage:stageKey(w),time:round(w.time),special:w.specialStages.active?.kind??null}));}
+ }}catch(e){stop='error';issue=String(e instanceof Error?e.stack:e);}
+ sample('final');const outside=w.specialStages.active?.kind==='crossing'?w.allies().filter((u:any)=>Math.abs(u.x)>54||Math.abs(u.z)>54).map((u:any)=>({id:u.id,x:u.x,z:u.z})):[];
+ const result={id,race,difficulty,seed,map,opening,stop,issue,steps,wallSeconds:(Date.now()-started)/1000,stage:w.stage,time:w.time,endless:!!w.endless,heroes:[...w.heroes.values()],finalGear:equipped(),crossingOutside:outside,bossDrops,snapshots,policyEvents:[...policy.base.events,...policy.events],firstBossPlan:w.expedition.firstBossLoot,limitations:'Single seed/native map and economy-controller route; starting six blue/two green or eight purple attribute slots score140, no modules. Later native looting/equipping retained and recorded. 300s wall bound and220000step bound; readiness is headless only. Not human success probability or guaranteed entry. No forced heroes, money, kills, HP locks or stage skips.'};fs.writeFileSync(file,JSON.stringify(result,null,2));console.log(JSON.stringify({id,stop,stage:w.stage,heroes:result.heroes.map((h:any)=>h.id),outside:outside.length,issue}));
+}

@@ -1,0 +1,6 @@
+import fs from 'node:fs/promises';
+let code=await fs.readFile('tools/cleanup-v01-dense-first.ps1','utf8');const start=code.indexOf('$specs = @('),end=code.indexOf('\n$targets = @()',start);if(start<0||end<0)throw Error('Missing cleanup anchors');
+const specs=['dense-r3-compare-a1','dense-r3-compare-b1','dense-r3-compare-b2','dense-r3-compare-a2','dense-r3-compare-a3','dense-r3-compare-b3','dense-r3-compare-a2-r2','final-web-dense-r1','final-web-dense-r2','final-offline-dense-r1'].map(run=>({run,profile:run+'-profile'}));
+for(const run of ['final-web-dense-baseline-r1','final-web-dense-shader-r1','final-web-dense-shaders-old-r1','final-web-dense-shaders-new-r1'])specs.push({run,profile:run+'-profile'});
+specs.push({run:'dense-native-final-r1',profile:'dense-native-final-r1/profile'},{run:'dense-lifecycle-final-r1',profile:'dense-lifecycle-final-r1/profile'});
+code=code.slice(0,start)+'$specs = @(\n'+specs.map(s=>"  @{ run='"+s.run+"'; profile='"+s.profile+"' }").join(',\n')+'\n)'+code.slice(end);code=code.replaceAll('dense-first-profile-cleanup.json','dense-final-profile-cleanup.json');await fs.writeFile('tools/cleanup-v01-dense-final.ps1',code,{flag:'wx'});console.log('Prepared explicit closed-profile cleanup; no deletion performed.');

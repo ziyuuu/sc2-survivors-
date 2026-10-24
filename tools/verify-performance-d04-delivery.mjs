@@ -1,0 +1,14 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+const root='reports/local/performance-d04-20261021',qaFile='reports/qa/performance-d04-20261021.json',read=async p=>JSON.parse(await fs.readFile(p,'utf8')),hash=b=>createHash('sha256').update(b).digest('hex');
+const qa=await read(qaFile),build=await read(qa.build.manifest),board=await read('docs/project/performance-board.json'),functional=await read(root+'/functional-r23/report.json');
+for(const f of qa.evidence)assert.equal(hash(await fs.readFile(f.file)),f.sha256,f.file);
+for(const f of build.inputs)assert.equal(hash(await fs.readFile(f.source)),f.sha256,f.source);
+for(const f of build.outputs)assert.equal(hash(await fs.readFile(f.file)),f.sha256,f.file);
+assert.equal(board.revision,104);assert.equal(board.tasks.length,52);assert.equal(board.tasks.filter(t=>t.status==='已完成').length,46);assert.equal(board.tasks.find(t=>t.id==='D04').status,'已完成');assert.equal(board.tasks.find(t=>t.id==='V01').status,'待办');assert.equal(board.next,'V01');assert.equal(qa.noAdditionalHitchesAccepted,false);
+for(const name of ['final-baseline-web-r1','final-candidate-web-r24','final-baseline-offline-r1','final-candidate-offline-r24']){const r=await read(root+'/'+name+'/report.json');assert.equal(r.browser,functional.browser);assert.equal(r.pass,true);assert.equal(r.errors.length,0);for(const served of r.served)assert.equal(served.sha256,r.build.outputs.find(f=>f.file.endsWith('/main.js')).sha256);}
+const tail=await read(root+'/baseline-tail-discard.json');assert.equal(tail.discardedDelta,.05);assert.equal(tail.battleFramesWithDiscard,0);qa.verification.baselineWarmThirdStageRewardTail=tail;
+qa.verification.peakMemoryMeasured=false;
+qa.openFindings.push('Final Web warm stage 2 maximum frame interval 135.3→249.4ms, same two steady >100ms frames; cause not isolated.','Cold first intermission factory/starport classification icons show placeholders, later screens restore them; placeholder duration not measured.');
+for(const p of [root+'/baseline-tail-discard.json',root+'/board-render.log','tools/record-performance-d04-review.mjs','tools/verify-performance-d04-delivery.mjs','docs/project/PERFORMANCE_BOARD.html','docs/project/PERFORMANCE_TODO.md']){const b=await fs.readFile(p);qa.evidence.push({file:p,bytes:b.length,sha256:hash(b)});}
+await fs.writeFile(qaFile,JSON.stringify(qa,null,2)+'\n');
+const result={pass:true,sourceInputsVerified:build.inputs.length,productionInputsVerified:421,evidenceFilesVerified:qa.evidence.length,board:{revision:104,completed:46,remaining:6,next:'V01'},main:qa.build.main.sha256,allFormalBrowserVersions:functional.browser,noAdditionalHitchesAccepted:false};await fs.writeFile(root+'/delivery-verification.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));

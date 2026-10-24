@@ -1,0 +1,841 @@
+{
+  "date": "2026-10-22",
+  "status": "g01-complete-g02-new-balance-decision-pending",
+  "g01Complete": true,
+  "g02Complete": false,
+  "boardRevision": 119,
+  "boardCounts": {
+    "待办": 9,
+    "进行中": 0,
+    "待验证": 0,
+    "待讨论": 1,
+    "已完成": 50,
+    "暂缓": 2
+  },
+  "authorization": "User approved easy12, normal9, hard6 and hell6 Boss ordinary-hero gates, unchanged probabilities and established exceptions, and combined execution with G02. New balance formulas/prices remain proposals.",
+  "heroRules": {
+    "gates": {
+      "easy": 12,
+      "normal": 9,
+      "hard": 6,
+      "hell": 6
+    },
+    "trigger": "Defeat this or a later qualifying campaign Boss; current Boss loot can use unlocked eligibility",
+    "probabilityChanged": false,
+    "exceptions": [
+      "equipped opening grants",
+      "equipment bounty evolution",
+      "999-kill Queen",
+      "owned hero training",
+      "endless open"
+    ],
+    "heroStatsChanged": false
+  },
+  "mutationFix": {
+    "refresh": "Preserve next damage time when refreshing oldest of three layers",
+    "zeroCasesBefore": 24,
+    "zeroCasesAfter": 0,
+    "newTests": 4,
+    "preFixFailures": 3
+  },
+  "counts": {
+    "offense": 424,
+    "offenseScenarios": 48,
+    "offenseSkips": 8,
+    "channels": 1256,
+    "channelIds": 314,
+    "specialists": 36,
+    "battles": 183,
+    "heroes": 168,
+    "stacking": 162
+  },
+  "regression": {
+    "uniqueTests": 2213,
+    "firstPass": 2206,
+    "permissionFailures": 7,
+    "retryFiles": [
+      "test/coze-fetch.test.mjs",
+      "test/coze-web.test.mjs",
+      "test/p5-backend.test.mjs"
+    ],
+    "retryTests": 16,
+    "retryPass": 16,
+    "newHeroTests": 19,
+    "newMutationTests": 4,
+    "typecheck": true,
+    "dataDocs": true
+  },
+  "browser": {
+    "qa-production-r1": {
+      "file": "reports/local/g02-20261022/qa-production-r1/result.json",
+      "records": 32,
+      "errors": [],
+      "screens": [
+        "reports/local/g02-20261022/qa-production-r1/screens/offline-terran-battle.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/offline-terran-settings-return.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-easy-1440.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-easy-390.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-easy-844.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-hard-1440.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-hard-390.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-hard-844.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-hell-1440.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-hell-390.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-hell-844.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-normal-1440.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-normal-390.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/rule-normal-844.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/web-terran-battle.png",
+        "reports/local/g02-20261022/qa-production-r1/screens/web-terran-settings-return.png"
+      ]
+    },
+    "qa-ui-still-r1": {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/result.json",
+      "records": 12,
+      "errors": [],
+      "screens": [
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/easy-1440.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/easy-390.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/easy-844.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/hard-1440.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/hard-390.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/hard-844.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/hell-1440.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/hell-390.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/hell-844.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/normal-1440.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/normal-390.png",
+        "reports/local/g02-20261022/qa-ui-still-r1/screens/normal-844.png"
+      ]
+    },
+    "qa-runtime-r1": {
+      "file": "reports/local/g02-20261022/qa-runtime-r1/result.json",
+      "records": 6,
+      "errors": [],
+      "screens": [
+        "reports/local/g02-20261022/qa-runtime-r1/screens/actual-webgl-restored.png",
+        "reports/local/g02-20261022/qa-runtime-r1/screens/hero-native-pickup.png",
+        "reports/local/g02-20261022/qa-runtime-r1/screens/sustained-mutation.png"
+      ]
+    },
+    "qa-runtime-r2": {
+      "file": "reports/local/g02-20261022/qa-runtime-r2/result.json",
+      "records": 7,
+      "errors": [],
+      "screens": [
+        "reports/local/g02-20261022/qa-runtime-r2/screens/actual-webgl-restored-playing.png",
+        "reports/local/g02-20261022/qa-runtime-r2/screens/actual-webgl-restored.png",
+        "reports/local/g02-20261022/qa-runtime-r2/screens/hero-native-pickup.png",
+        "reports/local/g02-20261022/qa-runtime-r2/screens/sustained-mutation.png"
+      ]
+    }
+  },
+  "finalBrowserRecords": 51,
+  "offlineHttpRequests": [],
+  "visual": {
+    "pass": true,
+    "allReviewed": 35,
+    "finalReviewImages": 19,
+    "finalImages": [
+      "reports/local/g02-20261022/qa-production-r1/screens/offline-terran-battle.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/offline-terran-settings-return.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/web-terran-battle.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/web-terran-settings-return.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/easy-1440.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/easy-390.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/easy-844.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/hard-1440.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/hard-390.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/hard-844.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/hell-1440.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/hell-390.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/hell-844.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/normal-1440.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/normal-390.png",
+      "reports/local/g02-20261022/qa-ui-still-r1/screens/normal-844.png",
+      "reports/local/g02-20261022/qa-runtime-r2/screens/actual-webgl-restored-playing.png",
+      "reports/local/g02-20261022/qa-runtime-r2/screens/hero-native-pickup.png",
+      "reports/local/g02-20261022/qa-runtime-r2/screens/sustained-mutation.png"
+    ],
+    "archivedImages": [
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-easy-1440.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-easy-390.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-easy-844.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-hard-1440.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-hard-390.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-hard-844.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-hell-1440.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-hell-390.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-hell-844.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-normal-1440.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-normal-390.png",
+      "reports/local/g02-20261022/qa-production-r1/screens/rule-normal-844.png",
+      "reports/local/g02-20261022/qa-runtime-r1/screens/actual-webgl-restored.png",
+      "reports/local/g02-20261022/qa-runtime-r1/screens/hero-native-pickup.png",
+      "reports/local/g02-20261022/qa-runtime-r1/screens/sustained-mutation.png",
+      "reports/local/g02-20261022/qa-runtime-r2/screens/actual-webgl-restored.png"
+    ],
+    "notes": [
+      "12 initial difficulty images were captured during the fade animation; 12 stationary replacements were reviewed at 1440x900, 390x844 and 844x390.",
+      "Runtime R1 images remain historical. Runtime R2 paused WebGL-restored image is diagnostic; resumed gameplay has a separate final image.",
+      "The hero reward card is visible in the pickup image; it is the native acquisition feedback.",
+      "UI still script queried an obsolete .modal-panel selector and returned null bounds after its timeout. Geometry bounds are not claimed; actual .detail-modal visibility and full screenshots were verified.",
+      "Screenshots verify UI and rendering; actual damage, unlock and recovery assertions come from native state records."
+    ]
+  },
+  "verification": {
+    "pass": true,
+    "beforeSourceTests": 818,
+    "unchanged": 807,
+    "changed": [
+      "src/simulation/boss-loot.ts",
+      "src/simulation/combat/shop-support.ts",
+      "src/simulation/encounters/expanded.ts",
+      "src/simulation/expedition-economy.ts",
+      "src/simulation/expedition-state.ts",
+      "src/simulation/missions/rewards.ts",
+      "src/ui/hud/m3-menu.ts",
+      "test/feedback-boss-loot.test.ts",
+      "test/integration-i03-effects.test.ts",
+      "test/missions.test.ts",
+      "test/recovery-20260929.test.ts"
+    ],
+    "added": [
+      "src/simulation/progression/hero-availability.ts",
+      "test/g01-hero-unlock.test.ts",
+      "test/g02-mutation-cadence.test.ts"
+    ],
+    "finalSourceTests": 821,
+    "cameraInputRenderExact": 135,
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "probabilityPriceFileExact": true,
+    "delivery": [
+      {
+        "mode": "game",
+        "web": "D:\\星际\\reports\\local\\g02-20261022/web-game-r1",
+        "inputs": 500,
+        "assets": 1909,
+        "resources": 1852,
+        "webJs": "ff5146aded16d10c102d1c54315f88aa51d5de61ce09cf1763190f6878df260b",
+        "allExact": true
+      },
+      {
+        "mode": "lab",
+        "web": "D:\\星际\\reports\\local\\g02-20261022/web-lab-r1",
+        "inputs": 501,
+        "assets": 1909,
+        "resources": 1852,
+        "webJs": "6d51dd60587eef1355fd214251fb175ea4d1664fc2c6ce83720067963d216633",
+        "allExact": true
+      }
+    ],
+    "offline": {
+      "path": "D:\\星际\\reports\\local\\g02-20261022/offline-game-r1.html",
+      "htmlSha256": "0224a19fc12311074da2ba3ef40267928d8e64149da7dca1298873ad3571f0d2",
+      "jsSha256": "0e5c772d341f4f29737882aaadafcc43c20bc2ab87ed42d736453a5f2505e36b",
+      "inputs": 505,
+      "assets": 1909,
+      "chunks": 2975,
+      "allExact": true
+    }
+  },
+  "proposal": {
+    "status": "PROPOSAL ONLY: no price, probability, new damage multiplier, first-cycle or overdrive adjustment has been applied to production",
+    "fixedSupport": {
+      "formula": "base × (1 + global attack) × (1 + min(3, global ordinary white DPS / 100))",
+      "excluded": [
+        "true DPS",
+        "hero/elite identity factors",
+        "extra crit or attack-speed multiplication"
+      ],
+      "loadoutExamples": [
+        {
+          "quality": 0,
+          "dps": 0,
+          "attack": 0,
+          "currentNuke": 3000,
+          "proposedNuke": 3000
+        },
+        {
+          "quality": 3,
+          "dps": 48,
+          "attack": 0.2,
+          "currentNuke": 3600,
+          "proposedNuke": 5328
+        },
+        {
+          "quality": 4,
+          "dps": 120,
+          "attack": 0.48,
+          "currentNuke": 4440,
+          "proposedNuke": 9768
+        },
+        {
+          "quality": 5,
+          "dps": 300,
+          "attack": 1.12,
+          "currentNuke": 6360,
+          "proposedNuke": 25440
+        }
+      ]
+    },
+    "familyUtilityPrices": {
+      "white": [
+        25,
+        0
+      ],
+      "green": [
+        50,
+        0
+      ],
+      "blue": [
+        90,
+        20
+      ],
+      "purple": [
+        150,
+        50
+      ],
+      "orange": [
+        225,
+        90
+      ]
+    },
+    "overdrive": {
+      "newWeaponDamagePercent": [
+        0.3,
+        0.45,
+        0.6
+      ],
+      "duration": 8,
+      "existingAttackSpeedPercent": [
+        0.2,
+        0.3,
+        0.4
+      ],
+      "movePercent": 0.15,
+      "cooldown": 60,
+      "cost": [
+        325,
+        140
+      ],
+      "rule": "same additive weapon-damage group as team firepower; includes ordinary white-DPS additions but does not amplify fixed true DPS"
+    },
+    "firstCycle": {
+      "bombardment": 3,
+      "missiles": 3,
+      "repeatBombardment": [
+        20,
+        15,
+        10
+      ],
+      "repeatMissiles": 24,
+      "upgradeResets": false
+    },
+    "limits": "Arithmetic examples only, not simulated candidate balance. Implementation and full candidate comparisons follow the user decision."
+  },
+  "preservedFailures": [
+    "Before snapshot initially included the new policy file; corrected source set verified byte-exact to preceding G01 final, original snapshot retained.",
+    "Initial hero fixtures expected a reserved Boss hero in an Intel pool; corrected to exclude the actual promised hero.",
+    "Initial shared Queen filtering blocked the established exception; corrected with an explicit Queen source.",
+    "Four prior hero test scenarios lacked the now-required unlocked context; migrated fixtures to preserve their original contracts.",
+    "Initial illegal orange attribute equipment and too many same-family bodies/missing family slots were replaced with legal native gear and lawful witnessed building slots.",
+    "Initial nonexistent shooting API, stage18 reward window and disabled production fixtures failed or skipped; final specialists and channel runs replace them.",
+    "Earlier battle/offense targets inherited purchase-dependent IDs; final runs use a common nextId after purchases.",
+    "Full test sandbox network/temporary-file permission failures retained; exact affected files passed in same-source retry.",
+    "Mutation before-fix zero-DOT cases and failing regression retained.",
+    "Initial browser rule screenshots captured fade animation; stationary images supplement them.",
+    "UI still geometry lookup returned null for obsolete selector; screenshot evidence retained without bounds claims.",
+    "QA helper import.meta bundle warnings preserved; production entry remains separate.",
+    "Sandbox CIM process query was unavailable; approved native process read confirmed the owned browser closed before deleting only this batch profile."
+  ],
+  "limits": [
+    "Controlled fixtures, native purchase/death/pickup and bounded combat; not natural probability or full campaign acquisition evidence.",
+    "No human/physical-device, final balance, long-save or FPS claim.",
+    "G02 four numeric proposals have not been implemented or simulated as a candidate.",
+    "G03 whole-run economy and seven goods, U05 remainder, T01, D05/D06 and final V/MVP remain open."
+  ],
+  "delivery": "preview/g02-20261022/index.html",
+  "currentReplaced": false,
+  "committed": false,
+  "pushed": false,
+  "published": false,
+  "bound": [
+    {
+      "file": "AGENTS.md",
+      "bytes": 311963,
+      "sha256": "ac666faf66c202541cd29b984fe3be13a3cdc919f251213514dce2e786621915"
+    },
+    {
+      "file": "docs/project/performance-board.json",
+      "bytes": 409360,
+      "sha256": "19d33ae50abda401fb1f6680ae6cf735a81ff0e77f1cc7e977b417b775a34bd2"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_BOARD.html",
+      "bytes": 365715,
+      "sha256": "4ddda106debf16206b5f26618fb75348283020ab10829ef2a3dc3a91cccb007f"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_TODO.md",
+      "bytes": 263269,
+      "sha256": "cd873fab356df48381e744c17117a48f74a41c511466e1c8c8ae65189690e7eb"
+    },
+    {
+      "file": "docs/project/G01_HERO_G02_REVIEW_20261022.md",
+      "bytes": 12704,
+      "sha256": "825816447fbd192d9aa1cb0497ca260cdbace578008e8a9bfafee406ba88459e"
+    },
+    {
+      "file": "docs/project/G01_CARD_EQUIPMENT_HERO_REVIEW_20261022.md",
+      "bytes": 7060,
+      "sha256": "8496ccb59b90907f657bcc7fd0e131cbe6d0cb072639c3c65c5fcaff630f30bc"
+    },
+    {
+      "file": "docs/project/FUN_FEEDBACK_R4_PLAN_20261022.md",
+      "bytes": 8155,
+      "sha256": "9067988f0e661d9a587670fc41b621ca5949a51146c80b20db488d1cc19ba58c"
+    },
+    {
+      "file": "docs/project/FUN_FEEDBACK_R4_20261022.md",
+      "bytes": 7968,
+      "sha256": "a8535953bd13b8d47249da3408f26c71cb6dd499465463ea19505acc8f14d89e"
+    },
+    {
+      "file": "preview/g02-20261022/index.html",
+      "bytes": 1439,
+      "sha256": "5e5b81eba27b646085289af301ff2864cb84536363696a774331606d4d4a26e8"
+    },
+    {
+      "file": "reports/local/g02-20261022/before.json",
+      "bytes": 139730,
+      "sha256": "c2ef3a9c160dc47aa338086a9a532514b1e4040b512a4ab6d54368c33a16c9b6"
+    },
+    {
+      "file": "reports/local/g02-20261022/before-pilot-included-policy.json",
+      "bytes": 139724,
+      "sha256": "cd8817643b2295670f5afa235de92114c6c2b548ada1e9fae72124fff97118af"
+    },
+    {
+      "file": "reports/local/g02-20261022/final-source.json",
+      "bytes": 138732,
+      "sha256": "2b8d4c836abd4bc5783cc29a3b7115acdc669148410abc2ee1552d98e3812edc"
+    },
+    {
+      "file": "reports/local/g02-20261022/verification.json",
+      "bytes": 1841,
+      "sha256": "e8ce16b9ffa0460d3c8152a6dd4130fa5f57b37dc9f3b44f6529f7df2d60d229"
+    },
+    {
+      "file": "reports/local/g02-20261022/verify-post-cleanup.log",
+      "bytes": 1526,
+      "sha256": "0f66cd26e200316a0367194df438399700c826b9802cf310f42888a8cbb1e85b"
+    },
+    {
+      "file": "reports/local/g02-20261022/cleanup.json",
+      "bytes": 447,
+      "sha256": "6991a1daeeecb3951470d373e5035de20f382cae8143e021f180fc8bc1153feb"
+    },
+    {
+      "file": "reports/local/g02-20261022/analysis.json",
+      "bytes": 408125,
+      "sha256": "ed8101e2cc17d800e2e66a6abc8a5f21da35ac2ee4db8bb9de8ef56c89d72b79"
+    },
+    {
+      "file": "reports/local/g02-20261022/offense-r3.json",
+      "bytes": 678617,
+      "sha256": "b0f3604afadf45e8994ca5bbad74510abc1b43bfcd73e967e9c28fdac3f3dd0e"
+    },
+    {
+      "file": "reports/local/g02-20261022/offense-r4.json",
+      "bytes": 679719,
+      "sha256": "dd9a0e6f8dc2d37c3ab4ad2e88f94e02c6b06c41528bee4999dc8b3bd80802a0"
+    },
+    {
+      "file": "reports/local/g02-20261022/offense-r5.json",
+      "bytes": 679754,
+      "sha256": "470e8397f1ce918b14a39f7131849dd829b02f8c67f46c7b6e72575dcfa272b5"
+    },
+    {
+      "file": "reports/local/g02-20261022/channels-r4.json",
+      "bytes": 3074601,
+      "sha256": "eefc5c4875101637024f1d5c5dcc61a5b8195df5ef72b7ea5dd74e03cffa2ba7"
+    },
+    {
+      "file": "reports/local/g02-20261022/specialists-r3.json",
+      "bytes": 57065,
+      "sha256": "66b7b7e52afdfd2796c1d46c4888f94616113dd8603d5b2d924e1f5f3ddb05d9"
+    },
+    {
+      "file": "reports/local/g02-20261022/battles-r2.json",
+      "bytes": 1075060,
+      "sha256": "5f8a27178d280a00a096bc8f1f1c6130acbbbed4585dc6822185803be49ef0ba"
+    },
+    {
+      "file": "reports/local/g02-20261022/hero-gates-r2.json",
+      "bytes": 179260,
+      "sha256": "636fe665bbff6e938c6ab14456ae83b60135dffde31b003f4f20fdfe9d9e369c"
+    },
+    {
+      "file": "reports/local/g02-20261022/stacking-r1.json",
+      "bytes": 418907,
+      "sha256": "40286d49cd13d1f5bc7752a3eea382f1dea1d7f6705fcbae09efc45cef1162d9"
+    },
+    {
+      "file": "reports/local/g02-20261022/full-regression-r2.log",
+      "bytes": 237936,
+      "sha256": "1e46cb8deb16a4efbcd37c27d8d36cfe95c60c499e04cc200e314fee8a534d1b"
+    },
+    {
+      "file": "reports/local/g02-20261022/network-retry-r2.log",
+      "bytes": 2206,
+      "sha256": "4fb6ef1a756bf06a416aa5dca51b2eb33dd434ff572826e8564c908ecc2f1784"
+    },
+    {
+      "file": "reports/local/g02-20261022/typecheck-r3.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "file": "reports/local/g02-20261022/docs-check-r3.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "file": "reports/local/g02-20261022/mutation-before.log",
+      "bytes": 3002,
+      "sha256": "70ae20fd6e1490d4f5d3de0032242bca1145a0fa1a2cf2c2d9cda735f3fd0cd3"
+    },
+    {
+      "file": "reports/local/g02-20261022/mutation-after-r1.log",
+      "bytes": 4774,
+      "sha256": "2ace15a04c7aac78db5cf0bad1771924ae7dd0006a39e90735bdc68becde726b"
+    },
+    {
+      "file": "reports/local/g02-20261022/web-game-r1-build.json",
+      "bytes": 751205,
+      "sha256": "f3c4c43ec5486c3558f2db1491cecf2e3efd7bf8fcbc4ec5f5a10a45ae2beaf4"
+    },
+    {
+      "file": "reports/local/g02-20261022/web-lab-r1-build.json",
+      "bytes": 751409,
+      "sha256": "e2547a2b599f59412721a73bc20c4fcb4dd4a49a932341c015487234096c4cc7"
+    },
+    {
+      "file": "reports/local/g02-20261022/offline-game-r1-build.json",
+      "bytes": 86723,
+      "sha256": "6219a42034e58c923927c40b214c83a60e58eede6ad289f2e970f4ade1574e54"
+    },
+    {
+      "file": "reports/local/g02-20261022/offline-game-verification-r1.json",
+      "bytes": 327769,
+      "sha256": "598da160d3b9b4bb0970d2d46016e2262df8008e74219f9235864f76c5997dad"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-helper-inputs.json",
+      "bytes": 130170,
+      "sha256": "e6b3559711dfb22e4fccbb958b2f0c4f25ab52a68e8a0876ead104a56d96d156"
+    },
+    {
+      "file": "reports/local/g02-20261022/visual-review.json",
+      "bytes": 3563,
+      "sha256": "a1ea06c5283263d142a3c4849d38def11710a6b3cf55225fe74581af68597964"
+    },
+    {
+      "file": "reports/local/g02-20261022/visual-review/index.html",
+      "bytes": 6103,
+      "sha256": "58a416938ceade54825f66ba22cd36548476da51578dfbe7377bbc67bcd8a047"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/result.json",
+      "bytes": 2538543,
+      "sha256": "78b1336dacf87c64b20f460df4dab0cddac7f4ea3ff8a5185818303b0673d9a6"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/result.json",
+      "bytes": 5229,
+      "sha256": "7474e8fffe352a594c9cf5376b79dfbcaf75d7a28a0cf34b97cd377f7d3081aa"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-runtime-r1/result.json",
+      "bytes": 11024,
+      "sha256": "e7ecca99185330535369a35d89b830db39d21022e80db285e47d584dbf6bebf2"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-runtime-r2/result.json",
+      "bytes": 12847,
+      "sha256": "d6241dc72d4da8cf1651a899e076a35f959a3b96e217abad5f1bb3d97ab66cc1"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/offline-terran-battle.png",
+      "bytes": 1234295,
+      "sha256": "ee5cca69f772ea7459412eab7dbbab3e70954c002780dd6848e6ac1b59b8bbc8"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/offline-terran-settings-return.png",
+      "bytes": 1240286,
+      "sha256": "ab9ab84bb9ac2fb0f74b3159fa38d3304d92622d99e1268518b3efa108889f37"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/web-terran-battle.png",
+      "bytes": 1268399,
+      "sha256": "9c65cce2ba025bf78d68e0ee69545027b26f076796bdfd919ec1f0c33ff6f0f6"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/web-terran-settings-return.png",
+      "bytes": 1271823,
+      "sha256": "7c77db06f1c55a264d199c658176bdb66224ad15f25d41a7d8ce39fa04d5480b"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/easy-1440.png",
+      "bytes": 282274,
+      "sha256": "594df7156ad6b7a86f88e651a8feaf5396e92eb9d9b20a9618bc868f1addbb1d"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/easy-390.png",
+      "bytes": 67911,
+      "sha256": "e67d08fa69d452deec0e878689326803ea8e82b8f016dde350cd9429a22d8343"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/easy-844.png",
+      "bytes": 94144,
+      "sha256": "4962440bbd471e4eb229fdbda6c81b8da7ed4e3481ee08a90d17ea94c187f70b"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/hard-1440.png",
+      "bytes": 281921,
+      "sha256": "1cb66006d6e641ba8fb1be6467aa8c67f43bcc54530ced5d260d8665ef38cb66"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/hard-390.png",
+      "bytes": 67888,
+      "sha256": "a077284c82df7d1b6109c7eab1a2ee710c966ac683538ba332954c957380c0c4"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/hard-844.png",
+      "bytes": 93891,
+      "sha256": "62412220872613faee9e60c57befca26ba02b024a62c2ba2a4d242b5b0793780"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/hell-1440.png",
+      "bytes": 281589,
+      "sha256": "a89c8e838aaa33c2fba3100ce4234578e6d4f30bf5b580a70f0923d525ce6214"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/hell-390.png",
+      "bytes": 68017,
+      "sha256": "95ff9ab675a8324f78157a40b17364e5d0be291fc92e20c80e83e71747eb57c1"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/hell-844.png",
+      "bytes": 93859,
+      "sha256": "a2edcfeec8f7f4d600c3b33ba24239965925bcceb442417dbb69575d2ed8405c"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/normal-1440.png",
+      "bytes": 281644,
+      "sha256": "4cf9ea365b55564e669b5407e0143340113af76da0a28af260eaf927f5bc2dd0"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/normal-390.png",
+      "bytes": 67908,
+      "sha256": "c9e5f4a667fc1c940e22ac9c738e8f43da1209e4f0056fa77e330e180f8e5b45"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-ui-still-r1/screens/normal-844.png",
+      "bytes": 93780,
+      "sha256": "7b432304557c378827d9eccb90a4787378c6e50f4fb4739f819f91d0a595a02e"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-runtime-r2/screens/actual-webgl-restored-playing.png",
+      "bytes": 1360439,
+      "sha256": "9fab8501648acf7fe09930af31900e84750b19afa4be30a0264f8751d7b4c17e"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-runtime-r2/screens/hero-native-pickup.png",
+      "bytes": 1418750,
+      "sha256": "ac404f788a49d37ac0213442d401da5d14764fef8d83b78b7aeadbd29725e32c"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-runtime-r2/screens/sustained-mutation.png",
+      "bytes": 1270363,
+      "sha256": "073845f3598817b9a99aefc0c7db1fe42909ce450ca0a0b87d22ea768f929b3c"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-easy-1440.png",
+      "bytes": 399840,
+      "sha256": "86b1d73891358b934a3dc976deb99d2c5ac90471dae9d3475cbf16d9630da447"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-easy-390.png",
+      "bytes": 99190,
+      "sha256": "4cf1250994d4aef57abbfc81e654f568354c771f230b878783579a7bff5542da"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-easy-844.png",
+      "bytes": 146291,
+      "sha256": "49e23c43070e2b8a4606b63b4e916cb865f9d5aa978f7d8502c2aad9f2da5a2b"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-hard-1440.png",
+      "bytes": 398003,
+      "sha256": "74aeb0de583dc42454c0e5a292c1ed31c8c5e05d60720331ae2bc98357f0b75d"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-hard-390.png",
+      "bytes": 94829,
+      "sha256": "13689e14881742b8b71ee9a48796b7f4fae0a7fb89b57972edd7a2fd6536124c"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-hard-844.png",
+      "bytes": 146536,
+      "sha256": "e7dbc9c642015119abf6e5690d35baf95e0a5bc863f8313185170e939051ec6e"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-hell-1440.png",
+      "bytes": 396437,
+      "sha256": "c5971ce424ec426d6bef9bd3be963493f6562656da63b769cff7e0ef6c456991"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-hell-390.png",
+      "bytes": 92579,
+      "sha256": "37e83e0dbe3781295b5b72102eb6eefaf9456ac202f5b7cd64deadc48314dd34"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-hell-844.png",
+      "bytes": 145717,
+      "sha256": "18c427518fd048a6da960c83f8e1e44be290a3e061e4323cf6c4edbe64be007f"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-normal-1440.png",
+      "bytes": 397998,
+      "sha256": "ae097404e45061da662a23ea3870add64a0b00f9cad2a2b863cb3ff0bd8b3edc"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-normal-390.png",
+      "bytes": 95946,
+      "sha256": "923368d3d0fb8e7a7b4bc33c8bf54fd88f3c80e4ddca0e3b000836ee71764410"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-production-r1/screens/rule-normal-844.png",
+      "bytes": 146346,
+      "sha256": "63073a8e9b008f0f5d30fa5bb0823e2db11925882162453e30d8fa5cf35409f3"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-runtime-r1/screens/actual-webgl-restored.png",
+      "bytes": 289832,
+      "sha256": "5d638d3becf9afb1c3ec1c3f34ed2708f4a0d7f1c8fdce0d6b67ed4d80ce654d"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-runtime-r1/screens/hero-native-pickup.png",
+      "bytes": 1325154,
+      "sha256": "1dfb2486b0e03f043d7fbff41f6cbafed1a4e73e9104817a9767d4db6a4a0501"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-runtime-r1/screens/sustained-mutation.png",
+      "bytes": 1271191,
+      "sha256": "4c8f3c4e94bc2ed42a84f852e27830ebf45fd09c08a5cdc893c86510bd0ee7d5"
+    },
+    {
+      "file": "reports/local/g02-20261022/qa-runtime-r2/screens/actual-webgl-restored.png",
+      "bytes": 337416,
+      "sha256": "ace444fa055a7a36fb5915d9404b73039d710a4a239ffc12ea56092c2030ed90"
+    },
+    {
+      "file": "tools/lib/g02-fixtures.mts",
+      "bytes": 4966,
+      "sha256": "87bc8380b9f861617f8277f95ea3fd39b3d7ba6ce91b1aa186910e8c3df79006"
+    },
+    {
+      "file": "tools/audit-g02-offense.mts",
+      "bytes": 3601,
+      "sha256": "5f345b4cf47f9fcc4ce43c94b62abcd8d99c4bde26107bb8cf9804a5bc2871b4"
+    },
+    {
+      "file": "tools/audit-g02-battles.mts",
+      "bytes": 3469,
+      "sha256": "2d39aa8320aadb928494b2c6ce03e259cac9e55c70aed30453be754de11d65aa"
+    },
+    {
+      "file": "tools/audit-g02-hero-gates.mts",
+      "bytes": 3133,
+      "sha256": "e72c534f58209e9daa9ac1b6705c13bd7c9d89efff8845b172a82867608bc2ac"
+    },
+    {
+      "file": "tools/audit-g02-channels.mts",
+      "bytes": 2389,
+      "sha256": "4c5338ad3241629dd75fd973cfe5fc96582da3e3cd5fba6629a35487628830e7"
+    },
+    {
+      "file": "tools/audit-g02-specialists.mts",
+      "bytes": 4759,
+      "sha256": "0ec5bcddb85c50c58242863fd5a0feaa516bce9e3c91553d95ca82c56b1628cf"
+    },
+    {
+      "file": "tools/audit-g02-stacking.mts",
+      "bytes": 1477,
+      "sha256": "9e5e2ef7b8cd665df269f7404a67e9dc36849652982db29f7146be805240651b"
+    },
+    {
+      "file": "tools/summarize-g02.mjs",
+      "bytes": 3939,
+      "sha256": "3fdb29ab48900e266f6bca32b1ed5fc85efa5af941af7c7fa01790ecc0396561"
+    },
+    {
+      "file": "tools/prepare-g02-qa.mjs",
+      "bytes": 1330,
+      "sha256": "cab190919e1f74a9963c707a8b1dd45345c4238511b8cfd1b75067688bc5774b"
+    },
+    {
+      "file": "tools/verify-g02.mjs",
+      "bytes": 4212,
+      "sha256": "38d34af979d1faba3eb23eb096f3bae784dcb9aa01b5352a0676005b4f16bd02"
+    },
+    {
+      "file": "tools/record-g02-review.mjs",
+      "bytes": 19044,
+      "sha256": "5ac67a3b5585908351b84fcc7df14b987c927b2e1565eeb28eb1c6bebd26cd9a"
+    },
+    {
+      "file": "tools/cleanup-g02-qa.ps1",
+      "bytes": 3014,
+      "sha256": "ca94f2933263b3130a5941822353314f4f97f45d02c45fea514f278e077032bd"
+    },
+    {
+      "file": "tools/closeout-g02-review.mjs",
+      "bytes": 5016,
+      "sha256": "ea3843c3d9f225b66bef56d623b1b6c10fb9560db9fde49523f713e49f93eefd"
+    }
+  ],
+  "cleanup": {
+    "pass": true,
+    "profile": "D:\\星际\\reports\\local\\g02-20261022\\qa-shared\\profile",
+    "browserClosed": true,
+    "profileFiles": 2043,
+    "profileLogicalBytes": 502438111,
+    "protectedFiles": 937,
+    "protectedExact": true,
+    "scope": "Only this closed G02 QA browser profile. All source, frozen inputs, screenshots, raw reports, final builds and Current retained. Logical bytes are not a measured physical disk-space delta."
+  },
+  "closeout": {
+    "pass": true,
+    "allFinalSourcesStillExact": true,
+    "buildBindingsRecheckedAfterCleanup": true,
+    "localLinks": 49,
+    "allLocalLinksExist": true,
+    "rawAndFinalEvidenceBound": 89,
+    "g01Complete": true,
+    "g02DecisionPending": true,
+    "boardCounts": {
+      "待办": 9,
+      "进行中": 0,
+      "待验证": 0,
+      "待讨论": 1,
+      "已完成": 50,
+      "暂缓": 2
+    }
+  }
+}

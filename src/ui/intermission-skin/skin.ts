@@ -44,12 +44,14 @@ export function mountIntermissionSkin(root:HTMLElement,getWorld:()=>World,option
   root.classList.toggle('imx',active);root.dataset.imxRace=w.expedition.race;
   if(active){
    root.style.setProperty('--imx-background',`url('${asset('background-'+w.expedition.race)}')`);
-   const views=readViews(w);
+   // Most refreshes concern settings, production, or already decorated cards.
+   // Build the full lookup only when a new card/detail actually consumes it.
+   let views:ReturnType<typeof readViews>|undefined;const getViews=()=>views??=readViews(w);
    for(const el of query<HTMLElement>('.im-card')){
-    const id=el.dataset.cardId!,v=views.get(id),was=knownSold.get(id),sold=el.classList.contains('im-sold');
+    const id=el.dataset.cardId!,was=knownSold.get(id),sold=el.classList.contains('im-sold');
     if(!el.dataset.imxCard){
      const face=el.querySelector<HTMLElement>('.im-card-face');if(!face)continue;
-     const c=v?.card,p=c?cardPresentation(w,c,v?.reward):null;
+     const v=getViews().get(id),c=v?.card,p=c?cardPresentation(w,c,v?.reward):null;
      const name=(c?.name??face.querySelector('h2')?.textContent??'').replace(v?.reward?.expeditionEffect.kind==='supply'?/\s*×\d+(?:对)?$/:/$^/,''),simple=p?.simple??face.querySelector('.im-effect')?.textContent??'',detail=p?.detail??simple;
      const body=document.createElement('div');body.className='imx-card-body';
      body.innerHTML=`<div class="imx-art">${c?art(c,v?.reward):face.querySelector('.im-card-art')?.outerHTML??''}<div class="imx-badges"><b>${esc(p?.current??'')}</b><strong>${esc(p?.gain??'')}</strong></div></div><h2 class="imx-name">${esc(name)}</h2><p class="imx-kind">${esc(c?.kicker??el.querySelector('.im-card-meta>span')?.textContent??'')}</p><button class="imx-copy" type="button" data-imx-flip="${esc(id)}" aria-label="${esc(name)}：${flipped.has(id)?'切回简略':'查看详情'}" aria-expanded="${flipped.has(id)}"><span>${esc(flipped.has(id)?detail:simple)}</span><i aria-hidden="true">${glyph('refresh')}</i></button>`;
@@ -64,7 +66,7 @@ export function mountIntermissionSkin(root:HTMLElement,getWorld:()=>World,option
    }
    for(const el of query<HTMLElement>('.im-card.im-short')){const badge=el.querySelector('.im-card-status');if(badge&&!badge.textContent?.includes('资源不足'))badge.textContent=(badge.textContent?badge.textContent+' · ':'')+'资源不足';}
    for(const d of query<HTMLElement>('.im-detail-dialog')){
-    const id=d.querySelector<HTMLElement>('[data-detail-card-id]')?.dataset.detailCardId,name=d.querySelector('h1')?.textContent,entry=id?views.get(id):[...views.values()].find(v=>v.card.name===name);if(!entry)continue;
+    const id=d.querySelector<HTMLElement>('[data-detail-card-id]')?.dataset.detailCardId,name=d.querySelector('h1')?.textContent,entry=id?getViews().get(id):[...getViews().values()].find(v=>v.card.name===name);if(!entry)continue;
     const artSlot=d.querySelector<HTMLElement>('.im-detail-art');if(artSlot&&!artSlot.dataset.imxArt){artSlot.innerHTML=`<div class="imx-art">${art(entry.card,entry.reward)}</div>`;artSlot.dataset.imxArt='true';}
     const copy=d.querySelector('.im-detail-rule');if(copy)copy.textContent=cardPresentation(w,entry.card,entry.reward).detail;
    }

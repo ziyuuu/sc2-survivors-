@@ -1,0 +1,93 @@
+import hashlib, json
+from pathlib import Path
+
+base = Path('reports/local/disk-cleanup-20261021')
+root = base/'artifact-pass'
+load = lambda p: json.loads(p.read_text(encoding='utf-8-sig'))
+verify = load(root/'verification.json')
+assert verify['passed'] and verify['protectedFiles'] == 812
+pilot, run = load(root/'hardlinks-pilot.json'), load(root/'hardlinks-execute.json')
+assert not pilot['errors'] and not run['errors']
+plan, audit = load(root/'link-plan.json'), load(root/'duplicate-assets-audit.json')
+assert pilot['completedPaths'] + run['completedPaths'] == plan['targets']
+drives = {d['Name']: d for d in load(root/'drives-after.json')}
+qa = load(root/'cache-phase-summary.json')
+qa['cachePhaseDrives'] = [dict(d) for d in qa['drives']]
+phase_before = {d['Name']: d for d in pilot['before']}
+for d in qa['drives']:
+    d['freeAfter'] = drives[d['drive']]['Free']
+    d['freeIncrease'] = d['freeAfter']-d['freeBefore']
+qa['artifactDeduplication'] = {
+    'groups': len(plan['groups']), 'pathsReplaced': plan['targets'],
+    'pathsVerified': verify['pathsChecked'],
+    'logicalDuplicateBytes': audit['logicalRedundancy'],
+    'distinctFileDuplicateBytesBefore': audit['distinctFileRedundancy'],
+    'externalLinksOnOtherCopies': plan['externalLinksOnOtherCopies'],
+    'driveDFreeBefore': phase_before['D']['Free'], 'driveDFreeAfter': drives['D']['Free'],
+    'observedFreeIncrease': drives['D']['Free']-phase_before['D']['Free'],
+    'verification': verify,
+    'method': 'NTFS hard links only for exact SHA-256-named generated binary assets. Atomic replacement with backup and before/after hash checks. All paths/content retained; shared metadata may change. No shared mutable source/JS/HTML/JSON.',
+    'scope': ['reports/local/mission-20261019', 'reports/local/special-stages-implementation-20261020', 'reports/local/fun-gameplay-implementation-20261020', 'dist/web/assets', 'dist/Mobile-Settings-Final-Web-20261014/assets', 'dist/Mobile-Settings-Final-R3-Web-20261014/assets'],
+    'retainedLimitations': ['No historical disk snapshot establishing C22/D96 was available.', 'Referenced frozen offline builds and raw evidence remain.', 'No new gameplay/performance acceptance.', 'Sandbox pilot access denial is preserved separately; elevated pilot and execution passed.']
+}
+
+def binding(p):
+    raw = p.read_bytes()
+    return {'path': p.as_posix(), 'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()}
+
+files = [root/name for name in ['cache-phase-summary.json','cache-phase-report.md','files-before.json','duplicate-assets-audit.json','link-plan.json','hardlinks-dry-run.json','hardlinks-pilot-sandbox-denied.json','hardlinks-pilot.json','hardlinks-pilot.jsonl','hardlinks-execute.json','hardlinks-execute.jsonl','verification.json','drives-after.json']]
+files += [Path('tools')/name for name in ['audit-duplicate-build-assets-20261021.py','plan-duplicate-build-assets-20261021.py','deduplicate-build-assets-20261021.ps1','verify-duplicate-build-assets-20261021.py','finalize-artifact-cleanup-20261021.py']]
+qa['evidenceFiles'] += [binding(p) for p in files]
+Path('reports/qa/disk-cleanup-20261021.json').write_text(json.dumps(qa,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+gb = lambda n: f'{n/2**30:.2f}'
+c, d = qa['drives']
+extra = qa['artifactDeduplication']['observedFreeIncrease']
+total = c['freeIncrease']+d['freeIncrease']
+table = '\n'.join(f"| {r['drive']}盘 | {gb(r['freeBefore'])}GiB | {gb(r['freeAfter'])}GiB | {gb(r['freeIncrease'])}GiB |" for r in qa['drives'])
+report = f'''# C/D盘缓存、重复构建素材清理与中特效采用确认
+
+2026-10-21。用户确认“保留默认全特效，采用新中档选项”，并要求清理C盘、D盘无用缓存与磁盘占用。新中特效继续采用D02已验证的实现；本次没有改动游戏代码或默认档位。
+
+已清理223个闲置缓存目录，并将16,373份重复构建素材路径改为共享已有的相同文件内容。后续素材去重阶段D盘实际可用空间增加{gb(extra)}GiB；从首次清理前到本次末次快照，两盘合计增加{gb(total)}GiB。重复素材现在即可处理，无需等性能看板全部完成。用户提到此前C盘22G、D盘96G的记忆值，未作为可核验的历史磁盘快照，也未声称已恢复到该值。
+
+| 磁盘 | 首次清理前可用 | 本次完成后可用 | 可用空间增加 |
+| --- | ---: | ---: | ---: |
+{table}
+
+可用空间为清理前后实际磁盘快照；同期系统写入与本次新增清单会造成差异。删除文件逻辑长度、重复路径逻辑长度、不同文件实体现有长度、磁盘可用空间变化分别记录，不能相加或混用。仅按文件长度相加的项目目录大小也不代表实际磁盘占用。
+
+第一阶段删除已结束QA的164个专用浏览器数据目录、项目`.cache/p5-tests`合成测试数据库、C盘Gradle依赖缓存、两个旧运行时下载临时目录、旧测试工具临时缓存，以及确认未运行应用的HTTP/代码/图形缓存。所有目标先规范化绝对路径，校验边界、重解析点和运行进程，再用PowerShell原生LiteralPath删除；没有遍历删除整个盘符或用户目录。
+
+更正：首轮进程筛选使用不区分大小写的包含匹配`tgp`，误匹配到了`ChatGPT.exe`；实际匹配到的是Codex进程，没有发现WeGame进程。该错误只造成6个缓存目录多保留，并未关闭或删除其他程序。随后改为限定进程名开头的WeGame/TGP/qbcore匹配，再次校验后清理6个目录（约199.48MiB）。首轮错误结论、补清过程和第一阶段最终结果分别保留于原始记录与本阶段归档。
+
+第二阶段实际逐份读取28,796条素材路径，1,787组SHA-256均与64位哈希文件名一致。重复路径逻辑长度约{gb(audit['logicalRedundancy'])}GiB，但其中已有部分硬链接；不同文件实体的重复长度约{gb(audit['distinctFileRedundancy'])}GiB。对其余16,373条路径采用同盘硬链接共享存储。原构建流程已有相同的内容寻址/硬链接做法，本次仅覆盖生成目录内的哈希命名模型、图片等二进制素材，不处理可变名称的源码、JS、HTML或JSON。所有原路径与字节保留；文件实体与部分时间等共享元数据会变化，后续不得原地修改哈希命名内容。
+
+执行前校验全部目标及其祖先目录边界、普通文件属性、重解析点和大小。每个目标重新校验SHA，先建立相邻临时硬链接，再以带备份的原子替换切换路径，读回SHA通过后才移除原副本备份。沙箱首组因访问权限拒绝、完成0条的结果保留；获得工具执行授权后首组4条及其余16,369条全部成功，未停止应用。去重后的28,796条路径均核对文件实体/长度与对应SHA，临时/备份残留0；此前登记的136,811条输出文件路径缺失0。
+
+仍保留冻结离线构建及其脚本引用、源码、测试、Current、全部预览、截图、测量JSON和日志。例如A03/B03/L02/L03仍读取的Loot-Elites-R2离线包不能仅按日期删除。个人文档、下载、聊天记录、登录状态、浏览器IndexedDB/Local Storage/Service Worker及离线数据、实际游戏存档和运行时均未纳入清理。当前重复素材处理不需要删除这些内容；剩余旧产物须按引用与验收需求判断，不能一概视为缓存。
+
+历史QA浏览器profile与合成测试数据库已在第一阶段删除，不能再直接重开这些旧运行目录；A03等历史“缓存完整”结论仍指当时验证结果。对应截图、测量和失败记录保持原样，需要复跑时重新创建测试目录。
+
+两阶段结束后再次逐文件SHA-256核对812个保护项：当前src/test、新中特效D02验收绑定及50张截图，全部一致。未重跑会重新产生缓存的游戏回归，也不产生新性能结论。看板仍44/52完成，D03未开始；未替换Current、提交、推送或发布。
+
+[清理证据](../../reports/qa/disk-cleanup-20261021.json) · [缓存清单](../../reports/local/disk-cleanup-20261021/plan.json) · [素材去重清单](../../reports/local/disk-cleanup-20261021/artifact-pass/link-plan.json) · [去重复核](../../reports/local/disk-cleanup-20261021/artifact-pass/verification.json) · [D02实现](PERFORMANCE_D02_MEDIUM_20261021.md)
+'''
+Path('docs/project/DISK_CLEANUP_20261021.md').write_text(report,encoding='utf-8')
+agents=Path('AGENTS.md'); text=agents.read_text(encoding='utf-8')
+start=text.index('## D02采用确认与磁盘清理完成')
+end=text.index('## D02 增强中特效完成',start)
+section=f'''## D02采用确认与磁盘清理完成 · 2026-10-21
+
+- 用户确认“保留默认全特效，采用新中档选项”；新中特效实现继续采用，未改默认或生产代码。看板仍44/52，D03未开始。
+- 清理223个闲置缓存目录，另将16,373条重复构建素材路径合并为共享相同内容；额外释放约{gb(extra)}GiB。C盘可用11.10→{gb(c['freeAfter'])}GiB；D盘可用1.85→{gb(d['freeAfter'])}GiB。记录docs/project/DISK_CLEANUP_20261021.md，证据reports/qa/disk-cleanup-20261021.json。
+- 首轮6个WeGame缓存因tgp误匹配ChatGPT.exe而跳过，已修正补清；未发现WeGame进程。已结束QA的164个浏览器profile及合成数据库已删除，历史缓存完整结论指当时证据；原始截图/日志/测量/冻结输入仍保留。
+- 素材1,787组28,796条路径校验通过；去重只处理哈希命名二进制产物，路径与字节均保留，文件实体/部分元数据共享，后续不应原地改写哈希内容。原登记136,811输出路径缺失0；当前src/test与D02证据/50图共812保护项SHA保持。
+- 个人数据、离线数据、运行时、Current与全部预览保留，未停止应用。未证明历史C22/D96空间值；无新游戏回归或性能实验，未提交/推送/发布，其他MVP与存档边界保持。
+
+'''
+agents.write_text(text[:start]+section+text[end:],encoding='utf-8')
+for p in [Path('docs/project/README.md'),Path('docs/DOCUMENT_INDEX.md')]:
+    text=p.read_text(encoding='utf-8')
+    text=text.replace('清理223个闲置缓存目录；默认全特效保持，新中档继续采用。',f'清理223个闲置缓存目录，重复素材共享存储再释放约{gb(extra)}GiB；默认全特效保持，新中档继续采用。',1)
+    p.write_text(text,encoding='utf-8')
+print(json.dumps({'status':'complete','extraGiB':gb(extra),'totalGiB':gb(total),'CfreeGiB':gb(c['freeAfter']),'DfreeGiB':gb(d['freeAfter']),'evidenceFiles':len(qa['evidenceFiles'])},ensure_ascii=False))

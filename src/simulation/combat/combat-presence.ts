@@ -10,7 +10,7 @@ const armed=(weapon:{attackDamage:number;targetType:string}|null|undefined)=>!!w
  * renewable energy, weapon cooldowns and a carrier's hangar remain combat paths.
  * Detached summons and pure healers do not keep a defeated squad alive. */
 export function hasCombatPotential(w:Pick<World,'expedition'>,u:Entity){
- if(u.owner!=='terran'||u.hp<=0||u.summonKind)return false;
+ if(u.heldBy||u.fun?.faction==='neutral'||u.owner!=='terran'||u.hp<=0||u.summonKind||u.mission?.holdout||u.mission?.fleet||u.mission?.supportStage!==undefined)return false;
  if(!w.expedition)return SC2_UNITS[u.unitType].attackDamage>0||!!u.heroId;
  if(u.heroId)return HEROES[u.heroId].damage>0||u.heroId==='purifier_flagship'&&armed(SOURCE_INTERCEPTOR.weapon)&&SOURCE_ABILITIES.carrierHangar.maxCount>0;
  if(u.unitType==='medivac'||u.unitType==='science_vessel')return false;

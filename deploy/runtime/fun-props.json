@@ -1,0 +1,234 @@
+{
+  "version": 1,
+  "generatedSha256": "74fa023fc0281dd2a91f697f72ecc5cc446501603edd2a37eac3e029dae9d423",
+  "provenance": {
+    "author": "SC2 native geometry/UV/textures adapted in Blender 4.5.13; military manual and EMP pulse rebuilt for this project",
+    "nativeBuild": "B97563",
+    "nativeModels": {
+      "chest-common": "Crate_01",
+      "chest-rare": "DOM_Crate_00",
+      "pickup-medical": "Pickup_Medic_RechargeEX3",
+      "pickup-firepower": "PickupPlasmaRounds",
+      "pickup-armor": "Marine / Shield vertex group",
+      "pickup-nuke": "NukeFalling / body",
+      "elytra": "Mutalisk / Wing and Flap vertex groups"
+    },
+    "authoredModels": {
+      "intel-book": "Military field manual, generated material atlas",
+      "pickup-root": "Blue-white Ghost EMP energy reference; soft volumetric pulse, not a native grenade mesh"
+    },
+    "source": "assets/generated/fun-props/author-fun-props.py",
+    "blend": "assets/generated/fun-props/fun-props.blend",
+    "blendSha256": "9a36c97b0f1d466f12106abaa17651c79e5ae350e902f30691e608ddf72e92e9",
+    "texture": "Imagegen 2026-10-21, military manual surfaces only",
+    "nativeSources": [
+      {
+        "sha256": "f94641131eee559b59bd4134ac750962b6f4d679fe6aab4339db3822c5abfa3b",
+        "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/wireframe-general-pickupchronoriftdevice.dds",
+        "bytes": 19728
+      },
+      {
+        "sha256": "be87a0d774978bf9247e9aa5cbd0a3aa51f70818c592d7dc16b6cf3756c14ba6",
+        "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/wireframe-general-pickupmedicrecharge.dds",
+        "bytes": 19728
+      },
+      {
+        "sha256": "e578324ef8342da28e1bff42381da58b410d025d82d3e1766032a230cb7a941d",
+        "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/wireframe-general-pickupplasmarounds.dds",
+        "bytes": 19728
+      },
+      {
+        "sha256": "2fd89b4fdfbfab135bc15ccc8f2cce3ddd1e0fe557789bc3236d11c446186e9a",
+        "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/wireframe-general-pickupgrenades.dds",
+        "bytes": 19728
+      },
+      {
+        "sha256": "9c1e6fe8deb204f643ef9f444b3372b5acd8416037d0561febd544d39f229570",
+        "sourcePath": "campaigns/liberty.sc2campaign/base.sc2assets/Assets/Textures/wireframe-general-pickuprestorationcharge.dds",
+        "bytes": 19728
+      },
+      {
+        "sha256": "339ae97eacb42815eb0c968691f6f82e0b13156fdbd85a02bf64ac7d474126c8",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pickup_medic_rechargeex3_diff.dds",
+        "bytes": 699192
+      },
+      {
+        "sha256": "82f9451ac739cf359461fa9ebd055617709b30856609a3f5ec4abeec7f8d92d4",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pickup_medic_rechargeex3_spec.dds",
+        "bytes": 699192
+      },
+      {
+        "sha256": "489c3c60dee9ea46a59a29026c61fbbdbb758b87a27db6a908c75664945d9971",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pickup01_diff.dds",
+        "bytes": 174904
+      },
+      {
+        "sha256": "8b48ad21593c71501c1821359d0a575b5e8e674002b6e4b85c63459014f2622c",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pickup01_emmisive.dds",
+        "bytes": 699192
+      },
+      {
+        "sha256": "7b9be745eb208f6dc76a7526e6766034cbb4e9a6b94f3fdccbf2a14437a678bf",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pickup01_gloss.dds",
+        "bytes": 174904
+      },
+      {
+        "sha256": "713610ef31877fd786bd14628f8d7b229d07cd39427d818866a32d57126c3ef1",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/pickup01_normal.dds",
+        "bytes": 349684
+      },
+      {
+        "sha256": "f4abe394694a3bea04b615b65e1e8ddc287e17aa23e8077e8611f2a39ca263de",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/wireframe-terran-pickupplasmarounds.dds",
+        "bytes": 78528
+      },
+      {
+        "sha256": "978a8f5d2471e6f57b5df7408dfa275dda66e310b9890d8add541569a76fda5e",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/wireframe-terran-pickuprestorationchargeex3.dds",
+        "bytes": 78528
+      },
+      {
+        "sha256": "ddfac742eca4aa3d2e491a329b7d938ee3dd96039885740339ced804f47fde64",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Doodads/Pickup_Medic_RechargeEX3/Pickup_Medic_RechargeEX3.m3",
+        "bytes": 80688
+      },
+      {
+        "sha256": "be36291898f60a06f319360e42646a8b8046ecbdf2319727c89ff518b1c6e4d6",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Doodads/PickupChronoRiftDevice/PickupChronoRiftDevice.m3",
+        "bytes": 133360
+      },
+      {
+        "sha256": "6a36f698449c7ee5f559121f4e6c1558fe74dc2822dc8055ebed23c061002e2b",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Doodads/PickupMedicRecharge/PickupMedicRecharge.m3",
+        "bytes": 142416
+      },
+      {
+        "sha256": "b41e681bdfccb2b45bbcad335473d531a5f5fbf223a616c1d7b323c697b6a087",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Doodads/PickupPlasmaRounds/PickupPlasmaRounds.m3",
+        "bytes": 121840
+      },
+      {
+        "sha256": "38ee6ef0e342d01e8cc025599b6f3e85469de97f46c8a6b98f15bbacad9a09cd",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Doodads/PickupDocument/PickupDocument.m3",
+        "bytes": 118400
+      },
+      {
+        "sha256": "b1d0b003059c07b7c80dad55766d267da56e7c11c56ccaae585ce3c992747655",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Doodads/PickupGrenades/PickupGrenades.m3",
+        "bytes": 130112
+      },
+      {
+        "sha256": "928936316aae6ce79e75be5101191b151c86d7e661072d34d7a311cfc3ca30f8",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Doodads/PickupRestorationCharge/PickupRestorationCharge.m3",
+        "bytes": 138784
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/storm_tesla_particleorange.dds",
+        "bytes": 11088,
+        "sha256": "25165433d650126545adab926cb13bc64e697605bfa410089cff35217bf881cb"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tesla_particle01_green.dds",
+        "bytes": 11088,
+        "sha256": "0ab6f75ec610c1740ba7adc2049dbf839cee5fa0f06cbaece9e9f6b8609e1187"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tesla_particleorange.dds",
+        "bytes": 11088,
+        "sha256": "25165433d650126545adab926cb13bc64e697605bfa410089cff35217bf881cb"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tesla_particleorangelong.dds",
+        "bytes": 43920,
+        "sha256": "437bce2b5de4f83e198e75ff1cd1c4455673e4b211956a17b66d9482873ccea7"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/tesla_particlered.dds",
+        "bytes": 11088,
+        "sha256": "36d93cf50cfb1708bfc73dfef59b95236518193c978ea7d635dbebbca072045e"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/castanarpowerups_emissive.dds",
+        "bytes": 1398256,
+        "sha256": "d06c48361dc393182c6df4ba8422a9f83e7a3691e696f140d0c4a7d730926cf6"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/castanarpowerups_emissive2.dds",
+        "bytes": 1398256,
+        "sha256": "1c792491fd884f60a961d7269f810a9fb8b35d5bc2a374de372dad564a935b02"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/castanarpowerups_diffuse.dds",
+        "bytes": 1398256,
+        "sha256": "ca8c98be99ca2937d63800e5fb44c91254c6edb90910f62f5f417de0cba0d8e2"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/castanarpowerups_normal.dds",
+        "bytes": 1398260,
+        "sha256": "205970fa06e7525253e896dac2d4bb2b709f5f5ffd2d3411e824db263b22be87"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/castanarpowerups_spec.dds",
+        "bytes": 1398256,
+        "sha256": "ed3e20472b5aca5827ebc557de2b44a2c6fc0c47a477ac30403b255ac0dcfd39"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/NukeFalling/NukeFalling.m3",
+        "bytes": 51440,
+        "sha256": "89a9fdabbbde13208a9a96a9956dc49ee9ef5e186ac3406ce8d91f2fa1c439d1"
+      },
+      {
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Effects/Terran/NukeRising/NukeRising.m3",
+        "bytes": 85264,
+        "sha256": "c4751443ccc659230da8bc5e633aa732673e82850e708af4bdb136be72bf8f9b"
+      },
+      {
+        "sha256": "efc3a237acb15f645ce9853f0a9d76e1f62e312836a47a4062669dd1a4d255cb",
+        "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nuke_missile.dds",
+        "bytes": 43856
+      }
+    ],
+    "localSources": [
+      {
+        "id": "crate",
+        "file": "public/assets/map/model.map.crate_01.gltf",
+        "sha256": "fafae2f2e1545019a4745e065dee0f6d65026d55e27511b983babfec2c70ce6a"
+      },
+      {
+        "id": "dom-crate",
+        "file": "public/assets/map/model.map.dom_crate_00.gltf",
+        "sha256": "da83a83885a8008b55852d3451d3543e390d003e6f06183f0da42978e946d4af"
+      },
+      {
+        "id": "mutalisk",
+        "file": "public/assets/optimized/model.mutalisk.glb",
+        "sha256": "3659c6b8284d9f7a038eb0dc4cc01546aebcbfee760a04edf0a6bb44db70d709"
+      },
+      {
+        "id": "marine",
+        "file": "public/assets/optimized/model.marine.glb",
+        "sha256": "171f79ec8641ac197caf800ce8f3b03e59e30040ca5c10b4cce3355e08ab2b69"
+      }
+    ],
+    "references": [
+      "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "https://www.wowhead.com/spell=49360/portal-theramore",
+      "https://dist.sc2arcade.com/star-assets/buttons-png/btn-ability-terran-emp-color.png"
+    ]
+  },
+  "records": [
+    {
+      "id": "model.fun-props",
+      "kind": "model",
+      "status": "available",
+      "url": "assets/fun/99d7ef001e7da3a343ed1b67bab2d8e4856948b4c614cfd95c0eb31a97faf663.glb",
+      "required": false,
+      "gitPath": "deploy/runtime/fun-props/99d7ef001e7da3a343ed1b67bab2d8e4856948b4c614cfd95c0eb31a97faf663.glb",
+      "packedFile": "public/assets/fun/99d7ef001e7da3a343ed1b67bab2d8e4856948b4c614cfd95c0eb31a97faf663.glb",
+      "packedSha256": "99d7ef001e7da3a343ed1b67bab2d8e4856948b4c614cfd95c0eb31a97faf663",
+      "sourceSha256": "99d7ef001e7da3a343ed1b67bab2d8e4856948b4c614cfd95c0eb31a97faf663",
+      "sourceFile": "deploy/runtime/fun-props/99d7ef001e7da3a343ed1b67bab2d8e4856948b4c614cfd95c0eb31a97faf663.glb",
+      "bytes": 1905384
+    }
+  ]
+}

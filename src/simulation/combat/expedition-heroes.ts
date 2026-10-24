@@ -1,3 +1,4 @@
+import {identityReserved,reservedHeroSeats} from '../missions/rewards';
 import {equipmentSwannTargets,equipmentSwannProtection,captureEquipmentHeroCasts,equipmentHeroHit,equipmentHeroPreImpact,completeEquipmentHeroCast,tickEquipmentHeroes} from '../starship/hero-advancements';
 import {equipmentNativeFactor,equipmentHealingOutput,heroExtraAmount} from '../starship/native-effects';
 import {equipmentOutputFactor} from '../starship/advanced-support';
@@ -35,8 +36,8 @@ type ControlledEntity=Entity&{cloaked?:boolean;stoppedUntil?:number;attackSlowUn
 export const heroModelReady=(id:HeroId)=>RUNTIME_ASSETS.some(asset=>asset.id===`model.${HEROES[id].model}`&&asset.status==='available');
 export function heroAtSlot(w:Pick<World,'heroes'>,slot:number):HeroId|undefined{return Number.isInteger(slot)&&slot>=0&&slot<3?[...w.heroes.keys()][slot]:undefined;}
 export function canAcquireExpeditionHero(w:World,id:HeroId,available=heroModelReady):boolean{
- if(!w.expedition||!Object.hasOwn(HEROES,id)||HEROES[id].race!==w.expedition.race)return false;
- const owned=w.heroes.get(id);return owned?owned.rank<Math.max(5,equipmentValue(w,'hero_cap')):w.heroes.size+equipmentReservedHeroSeats(w)<3&&available(id);
+ if(identityReserved(w,'hero',id)||!w.expedition||!Object.hasOwn(HEROES,id)||HEROES[id].race!==w.expedition.race)return false;
+ const owned=w.heroes.get(id);return owned?owned.rank<Math.max(5,equipmentValue(w,'hero_cap')):w.heroes.size+equipmentReservedHeroSeats(w)+reservedHeroSeats(w)<3&&available(id);
 }
 export function refreshExpeditionHero(w:World,u:Entity,fill=false):boolean{
  if(!w.expedition||!u.heroId)return false;
@@ -49,7 +50,7 @@ export function refreshExpeditionHero(w:World,u:Entity,fill=false):boolean{
  u.shieldArmor=((talents.shieldArmorFlat??0)+team.armor)*(1+ground.shieldArmorPct)+protossShieldArmor(w,u)+za.shieldArmor;u.shieldRegen=data.shield>0?(shieldSource?.shieldRegen??2)*FASTER:0;u.shieldDelay=data.shield>0?(shieldSource?.shieldDelay??10)/FASTER:0;
  u.maxShield=data.shield*(1+team.health+aura.shield)*growth.health*(1+(talents.maxShieldPct??0))+(data.race==='protoss'?u.maxHp*(talents.shieldFromHpPct??0):0);u.maxShield*=za.shield;u.shield=fill?u.maxShield:Math.max(0,Math.min(u.maxShield,u.maxShield-lostShield));
  u.maxTalentShield=data.race!=='protoss'&&u.attributes.includes('Biological')?u.maxHp*(talents.shieldFromHpPct??0):0;u.talentShield=fill?u.maxTalentShield:Math.max(0,Math.min(u.maxTalentShield,u.maxTalentShield-lostTalentShield));
- u.armor=((data.armor+growth.armor)*(1+(talents.armorPct??0))+team.armor+aura.armor);u.armor+=adapt.armor+uniqueActiveStats(w,u).armor+ea.armor;u.armor=u.armor*(1+ground.armorPct)+ground.armor+za.armor;u.moveSpeed=data.speed*(1+(talents.moveSpeedPct??0)+uniqueActiveStats(w,u).move+aura.move)*ea.move*za.move;u.weaponDamage=data.damage*(1+team.damage+aura.damage)*growth.damage*adapt.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/(1+team.speed+uniqueActiveStats(w,u).speed+aura.speed)/growth.attackSpeed/(1+(talents.attackSpeedPct??0))/(isProtossHero(u.heroId)?protossStats(w,u).speed:1)/za.speed;u.attackRange=(data.range+(u.heroId==='dehaka'&&(u.zergCombat?.flyingUntil??0)>w.time?1:0))*(1+(talents.rangePct??0));
+ u.armor=((data.armor+growth.armor)*(1+(talents.armorPct??0))+team.armor+aura.armor);u.armor+=adapt.armor+uniqueActiveStats(w,u).armor+ea.armor;u.armor=u.armor*(1+ground.armorPct)+ground.armor+za.armor;u.moveSpeed=data.speed*(1+(talents.moveSpeedPct??0)+uniqueActiveStats(w,u).move+aura.move)*ea.move*za.move;u.weaponDamage=data.damage*(1+team.damage+uniqueActiveStats(w,u).damage+aura.damage)*growth.damage*adapt.damage*(1+(talents.weaponDamagePct??0));u.attackPeriod=data.period/(1+team.speed+uniqueActiveStats(w,u).speed+aura.speed)/growth.attackSpeed/(1+(talents.attackSpeedPct??0))/(isProtossHero(u.heroId)?protossStats(w,u).speed:1)/za.speed;u.attackRange=(data.range+(u.heroId==='dehaka'&&(u.zergCombat?.flyingUntil??0)>w.time?1:0))*(1+(talents.rangePct??0));
  preserveTeamWounds(u,oldPools,{hp:(1+team.health+aura.health)/(1+team.health)*Math.max(ea.hp,za.hp),shield:(1+team.health+aura.shield)/(1+team.health)*za.shield},fill);
  u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;
  if(isZergHero(u.heroId))zergState(u);
@@ -112,17 +113,19 @@ function castTarget(w:World,id:HeroId,source=w.heroEntity(id)):Body|undefined{if
  }
  return chosen;
 }
-export function canCastExpeditionHero(w:World,id:HeroId,battleView?:BattleView):boolean{
+function readyHeroTarget(w:World,id:HeroId,battleView?:BattleView):Body|undefined{
  const record=w.heroes.get(id),source=w.heroEntity(id);
- return !!w.expedition&&w.phase==='battle'&&!w.paused&&!w.requiresPlayerDecision&&!!record&&!!source&&source.hp>0&&((source as ControlledEntity).stoppedUntil??0)<=w.time&&w.time+1e-8>=record.skillReady&&!w.heroCasts.some(cast=>cast.source===source.id&&(cast as ExtendedCast).phase!=='dot')&&(id==='tosh'?validBattleView(battleView)&&toshTargets(w,source!,battleView).length>0:!!castTarget(w,id));
+ if(w.missions.fleet.ceasefire||!w.expedition||w.phase!=='battle'||w.paused||w.requiresPlayerDecision||!record||!source||source.hp<=0||((source as ControlledEntity).stoppedUntil??0)>w.time||w.time+1e-8<record.skillReady||w.heroCasts.some(cast=>cast.source===source.id&&(cast as ExtendedCast).phase!=='dot'))return;
+ return id==='tosh'?(validBattleView(battleView)?toshTargets(w,source,battleView)[0]:undefined):castTarget(w,id,source);
 }
+export function canCastExpeditionHero(w:World,id:HeroId,battleView?:BattleView):boolean{return !!readyHeroTarget(w,id,battleView);}
 function toshTargets(w:World,source:Entity,view:BattleView){return [...w.entities.values(),...(w.hive?[w.hive]:[]),...w.expansionHives.values()].filter(b=>b.owner==='zerg'&&b.hp>0&&visible(w,b)&&pointInBattleView(view,b)&&w.hasAttackLine(source,b)).sort((a,b)=>a.id-b.id);}
 export function castExpeditionHero(w:World,id:HeroId,battleView?:BattleView):boolean{
- if(!canCastExpeditionHero(w,id,battleView))return false;
- const result=castHeroSource(w,w.heroEntity(id)!,w.heroes.get(id)!,battleView);if(result)equipmentManualSucceeded(w,'hero:'+id);return result;
+ const target=readyHeroTarget(w,id,battleView);if(!target)return false;
+ const result=castHeroSource(w,w.heroEntity(id)!,w.heroes.get(id)!,battleView,target);if(result)equipmentManualSucceeded(w,'hero:'+id);return result;
 }
 /** Independent support/projection identities use the exact native cast without occupying a permanent hero slot. */
-export function castEquipmentHero(w:World,source:Entity,record:HeroRecord,target?:Body){
+export function castEquipmentHero(w:World,source:Entity,record:HeroRecord,target?:Body){if(w.missions.fleet.ceasefire)return false;
  if(w.phase!=='battle'||w.paused||w.requiresPlayerDecision||source.hp<=0||(source.stoppedUntil??0)>w.time||w.time+1e-8<record.skillReady||w.heroCasts.some(c=>c.source===source.id&&c.phase!=='dot'))return false;
  const view=w.starship.battleView?.();if(record.id==='tosh'&&!validBattleView(view))return false;
  return castHeroSource(w,source,record,view,target);

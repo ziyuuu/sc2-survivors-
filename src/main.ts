@@ -3,6 +3,7 @@ import './ui/presentation/game-shell.css';
 import './render/scene/battle-distress.css';
 import './ui/presentation/world-labels.css';
 import './ui/presentation/text-scale-reference.generated.css';
+import './ui/hud/special-stages.css';
 import {startGame} from './app/start-game';
 import {finishOpening} from './ui/presentation/opening';
 startGame().catch(error=>{

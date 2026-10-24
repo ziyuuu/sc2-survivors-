@@ -35,6 +35,7 @@ export function paintMinimapTerrain(d:MapDefinition,terrain:Pick<TerrainQuery,'h
  }
 }
 export class Minimap {
+ private fogMask=document.createElement('canvas');private fogKey='';
  readonly element:HTMLElement;readonly canvas:HTMLCanvasElement;private ctx:CanvasRenderingContext2D;private backdrop=document.createElement('canvas');private stage=0;private mapTerrain?:TerrainQuery;private frame:MapFrame={left:-10,top:-10,size:20};private height=0;private observer:ResizeObserver;
  private cancelTap=()=>{};
  resetInput(){this.cancelTap();}
@@ -71,8 +72,12 @@ export class Minimap {
   for(const e of w.economicTargets.values())if(e.status==='active'){if(e.kind==='egg')this.rescue(project(e),'S',unit);else dot(e,'#eda679',1.7);}
   for(const p of w.pods)if(['falling','active','opening'].includes(p.status))this.rescue(project(p),(({marine:'M',marauder:'R',hellion:'H',tank:'T',medivac:'+'} as Record<string,string>)[p.unitType]??SC2_UNITS[p.unitType].zh.slice(0,1))+'×'+p.passengers.filter(c=>c.status==='waiting').length,unit,p.hp/p.maxHp);
   if(w.hive&&w.hive.hp>0){const p=project(w.hive);c.strokeStyle='#fa746b';c.lineWidth=2*unit;c.strokeRect(p.x-4*unit,p.y-4*unit,8*unit,8*unit);}
+  for(const body of w.missions.bodies.values())if(!body.resolved&&body.hp>0)this.rescue(project(body),body.role==='worker'?'护':body.role==='tower'?String((w.missions.active?.bodyIds.indexOf(body.id)??0)+1):body.role==='egg'?'卵':'!',unit);
+  const encounter=w.encounters.active;if(encounter){const u=w.entities.get(encounter.subject!);this.rescue(project(u??encounter.point),encounter.kind==='golden'?'◆':encounter.kind==='giant'?'晶':'救',unit);}
   for(const hive of w.expansionHives.values()){const p=project(hive);c.strokeStyle='#ff614f';c.lineWidth=2*unit;c.strokeRect(p.x-3*unit,p.y-3*unit,6*unit,6*unit);}
   for(const fort of w.fortifications.values()){const p=project(fort);c.fillStyle=fort.kind==='bunker'?'#6ec4ff':'#73ebcf';c.fillRect(p.x-2.5*unit,p.y-2.5*unit,5*unit,5*unit);}
+  const fog=w.specialStages.active?.kind==='crossing'?w.specialStages.active.crossingFog:null;
+  if(fog){const key=[w.specialStages.active!.id,fog.revision,s,this.frame.left,this.frame.top,this.frame.size].join(':');if(key!==this.fogKey){this.fogKey=key;this.fogMask.width=this.fogMask.height=s;const mask=this.fogMask.getContext('2d')!;mask.fillStyle='#080e13';for(let z=0;z<108;z++)for(let x=0;x<40;x++)if(!fog.cells.has(z*40+x)){const p=project({x:x-20,z:z-54}),q=project({x:x-19,z:z-53});mask.fillRect(p.x,p.y,q.x-p.x+.3,q.y-p.y+.3);}}c.drawImage(this.fogMask,0,0);}
   this.canvas.dataset.threatCount='0';
   this.height=w.terrain?.height(w.anchor)??0;c.strokeStyle='#d0e2e080';c.lineWidth=unit;c.beginPath();for(const [i,[x,y]]of [[-1,1],[1,1],[1,-1],[-1,-1]].entries()){const near=new Vector3(x,y,-1).unproject(this.view.camera),far=new Vector3(x,y,1).unproject(this.view.camera),v=far.sub(near),t=(this.height-near.y)/v.y,q=project({x:near.x+v.x*t,z:near.z+v.z*t});if(i)c.lineTo(q.x,q.y);else c.moveTo(q.x,q.y);}c.closePath();c.stroke();
   const a=project(w.anchor);c.fillStyle='#9aefff';c.beginPath();c.moveTo(a.x,a.y-4*unit);c.lineTo(a.x+3*unit,a.y+3*unit);c.lineTo(a.x-3*unit,a.y+3*unit);c.closePath();c.fill();

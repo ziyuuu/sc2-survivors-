@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "batch": "R12",
+  "date": "2026-10-15",
+  "userMessage": "那就这样吧。开始吧",
+  "approvedScope": "Six remaining purple hero-set ammo/stabilizer base images; two components per race",
+  "planSnapshot": "manifest.json",
+  "planHash": "b9dd6d2970343e86aafb2f8cd570274f7e11df2b226f153a92f05018afa51080",
+  "planTotalProposed": 372,
+  "thisBatchReady": 6,
+  "thisBatchNewArt": 6,
+  "generationCalls": 6,
+  "failedCalls": 0,
+  "combinedReady": 372,
+  "remainingUngeneratedProposed": 0,
+  "remaining": [],
+  "priorExplicitlyAcceptedArt": 12,
+  "newArtUserAccepted": false,
+  "heroArt": {
+    "bluePerRace": 3,
+    "purplePerRace": 5,
+    "total": 15
+  },
+  "gallery": {
+    "art": 372,
+    "records": 12711,
+    "newArtRecords": 324,
+    "newlyVisiblePurpleRecords": 3744,
+    "byQuality": {
+      "white": 36,
+      "green": 222,
+      "blue": 6504,
+      "purple": 5949
+    },
+    "hero": [
+      {
+        "race": "terran",
+        "blue": 3,
+        "purple": 5
+      },
+      {
+        "race": "zerg",
+        "blue": 3,
+        "purple": 5
+      },
+      {
+        "race": "protoss",
+        "blue": 3,
+        "purple": 5
+      }
+    ]
+  },
+  "artwork": [
+    {
+      "artKey": "terran/set/hero/ammo",
+      "race": "terran",
+      "variant": "ammo",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/art-source/hp-terran--set--hero--ammo.png",
+        "bytes": 2202377,
+        "sha256": "56e7e37da7eee805d61a2814e557ffdb204e6c136aec7d2c94791eaf2e107f2a"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/assets/sample-hp-terran--set--hero--ammo.webp",
+        "bytes": 15792,
+        "sha256": "f7329f2d45bbdbdb6539267b5bb900c7f987129ec66da6a9924b9e7976331432"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-4a61ce8f-f3a0-4f7f-a1cf-1cc1a24d50de.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "zerg/set/hero/ammo",
+      "race": "zerg",
+      "variant": "ammo",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/art-source/hp-zerg--set--hero--ammo.png",
+        "bytes": 2175671,
+        "sha256": "e0ac4b3d5922faf1e975e9be6da419d3ef7a2fa53df90e3ecef2995ca7d1ae37"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/assets/sample-hp-zerg--set--hero--ammo.webp",
+        "bytes": 14796,
+        "sha256": "768c37856420ebd516a05944ad07eafda42bb49e2d44aa121c25d28b267ddd83"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-70a0085f-3516-49f1-a50b-6c8bf180a20c.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "protoss/set/hero/ammo",
+      "race": "protoss",
+      "variant": "ammo",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/art-source/hp-protoss--set--hero--ammo.png",
+        "bytes": 1927952,
+        "sha256": "8221850f04f811e048526221d7b96582aba093fa77f153910a4bbc11bf9beb28"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/assets/sample-hp-protoss--set--hero--ammo.webp",
+        "bytes": 13172,
+        "sha256": "17f36f7784ad00d22e378a7235fda8e72806408248cecfc401edc97f140bf319"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-2c064136-7d1c-47dc-b890-213679d39066.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "terran/set/hero/stabilizer",
+      "race": "terran",
+      "variant": "stabilizer",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/art-source/hp-terran--set--hero--stabilizer.png",
+        "bytes": 2108282,
+        "sha256": "86cf99a656504904abc689a9915c2a6ae78a985ebac0103f7efadd9be4bf6f83"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/assets/sample-hp-terran--set--hero--stabilizer.webp",
+        "bytes": 14860,
+        "sha256": "0a5d99efa932784cae85cbb22a8037c0616b8dad4f4582911f75c8de20e9e801"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-f10ea5c5-575c-4950-ac7e-ac64eeffc20c.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "zerg/set/hero/stabilizer",
+      "race": "zerg",
+      "variant": "stabilizer",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/art-source/hp-zerg--set--hero--stabilizer.png",
+        "bytes": 2097103,
+        "sha256": "9c93c697b7f99c17f727dba31ebabd9f4d374baa7b794807ae4f0477de0377e0"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/assets/sample-hp-zerg--set--hero--stabilizer.webp",
+        "bytes": 13268,
+        "sha256": "2234ad9a602215fc933ff68bbbd832c7b1278a82d605fcb482efda31b32af525"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-e2727acb-ff43-45d5-84b2-07ce35e0c8af.png",
+      "status": "generated_awaiting_user_review"
+    },
+    {
+      "artKey": "protoss/set/hero/stabilizer",
+      "race": "protoss",
+      "variant": "stabilizer",
+      "original": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/art-source/hp-protoss--set--hero--stabilizer.png",
+        "bytes": 1878722,
+        "sha256": "26b91299a55ee00c06dc7d3303ad546d285836f05ecae539b4e1bd85891091f7"
+      },
+      "runtime": {
+        "path": "D:/星际/preview/starship-ui-20261015-r12/assets/sample-hp-protoss--set--hero--stabilizer.webp",
+        "bytes": 11684,
+        "sha256": "cac717ef3021930dddbe924b1ac50d824e85c803d1ad24c3b4784eb883009b0b"
+      },
+      "archiveOriginalPath": "D:/星际/assets/generated/codex-images/01a0ff75-6cfc-7be0-b2f6-92489157b232/exec-7eb4dba5-7a50-40dc-8ca9-a275c9a17eb1.png",
+      "status": "generated_awaiting_user_review"
+    }
+  ],
+  "evidence": "../../../reports/local/starship-ui-20261015-r12/delivery.json"
+}

@@ -1,3 +1,4 @@
+import {funRelation} from '../encounters/relations';
 import {equipmentAreaRadius,equipmentAreaFactor,equipmentAreaBonuses,equipmentCluster} from '../starship/weapon-areas';
 import {cloneCombatSource,equipmentPatternDamage} from '../starship/runtime';
 import {protossEliteFlightImpact} from './protoss-elite-runtime';
@@ -19,7 +20,7 @@ export interface WeaponFlight {
  bounceDamage?:number[];bounceBonuses?:Bonus[][];bounceLimit?:number;bounceRadius?:number;
 }
 export function weaponFlightSpeed(u:Pick<Entity,'unitType'|'heroId'|'nativeMode'|'activeWeapon'|'summonKind'> & Partial<Pick<Entity,'eliteId'|'team'>>):number {
- if(u.summonKind)return 0;
+ if(u.summonKind)return 0;if(u.unitType==='yamato_battlecruiser')return 56;
  if(u.heroId)return u.heroId==='yamato_battlecruiser'?56:['tosh','zagara','stukov','niadra','fenix','hots_leviathan'].includes(u.heroId)?26.25:0;
  if(u.team==='player'&&isTerranEliteId(u.eliteId)){if(u.unitType==='tank')return 32;if(['marine','reaper'].includes(u.unitType)||u.unitType==='thor'&&u.activeWeapon!=='JavelinMissileLaunchers'&&u.activeWeapon!=='ThorHighImpactPayload')return 52;if(u.unitType==='viking'&&u.nativeMode==='viking_assault')return 39.2;}
  if(u.unitType==='thor')return u.activeWeapon==='JavelinMissileLaunchers'?28:0;
@@ -63,16 +64,16 @@ export function tickWeaponFlights(w:World,dt:number){
  const pending:WeaponFlight[]=[];
  for(const p of w.weaponFlights){
   if(w.time>=p.expires)continue;if(w.time<p.start){pending.push(p);continue;}
-  const target=w.body(p.target),live=!!target&&target.hp>0&&target.owner!==p.source.owner&&!p.lost&&w.visibleTo(target,p.source.owner);
+  const target=w.body(p.target),live=!!target&&target.hp>0&&!target.heldBy&&(funRelation(w,p.source,target)??target.owner!==p.source.owner)&&!p.lost&&w.visibleTo(target,p.source.owner);
   if(live)p.lastSeen={x:target.x,z:target.z};else p.lost=true;
   const d=distance(p.point,p.lastSeen),travel=p.speed*dt;
   if(d>travel+1e-8){p.point={x:p.point.x+(p.lastSeen.x-p.point.x)*travel/d,z:p.point.z+(p.lastSeen.z-p.point.z)*travel/d};pending.push(p);continue;}
   p.point={...p.lastSeen};
   if(!live||!target||w.terrain&&!w.terrain.lineOfFire(p.from,target,p.source.flying,target.flying))continue;
-  resolve(w,p,target);
+  const previous=w.missions.packetSource;w.missions.packetSource=p.source;try{resolve(w,p,target);}finally{w.missions.packetSource=previous;}
   if(p.bounceDamage&&p.hop+1<(p.bounceLimit??SOURCE_WEAPON_PATTERNS.mutalisk.maxTargets)){
    p.seen.push(target.id);const candidates:Body[]=[];
-   const radius=p.bounceRadius??SOURCE_WEAPON_PATTERNS.mutalisk.bounceRadius;w.hash.query(target,radius+3,b=>{if(b.hp>0&&b.owner!==p.source.owner&&!p.seen.includes(b.id)&&w.visibleTo(b,p.source.owner)&&distance(b,target)<=radius+b.unitRadius&&(!w.terrain||w.terrain.lineOfFire(target,b,p.source.flying,b.flying)))candidates.push(b);});
+   const radius=p.bounceRadius??SOURCE_WEAPON_PATTERNS.mutalisk.bounceRadius;w.hash.query(target,radius+3,b=>{if(b.hp>0&&!b.heldBy&&(funRelation(w,p.source,b)??b.owner!==p.source.owner)&&!p.seen.includes(b.id)&&w.visibleTo(b,p.source.owner)&&distance(b,target)<=radius+b.unitRadius&&(!w.terrain||w.terrain.lineOfFire(target,b,p.source.flying,b.flying)))candidates.push(b);});
    const next=candidates.sort((a,b)=>distance(a,target)-distance(b,target)||a.id-b.id)[0];
    if(next){p.hop++;p.target=next.id;p.from={...p.point};p.start=w.time;p.lastSeen={x:next.x,z:next.z};p.damage=p.bounceDamage[p.hop];p.bonuses=p.bounceBonuses![p.hop];pending.push(p);}
   }

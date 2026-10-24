@@ -1,5 +1,6 @@
 node_modules/
 assets/private/
+/assets/generated/codex-images/
 reports/local/
 reports/*.log
 /error.log

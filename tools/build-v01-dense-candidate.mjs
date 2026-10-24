@@ -1,0 +1,9 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+const base='reports/local/v01-20261024',manifestFile=process.argv[2],version=process.env.V01_VERSION;assert.ok(version&&manifestFile);
+const manifest=JSON.parse(await fs.readFile(manifestFile)),sha=b=>createHash('sha256').update(b).digest('hex');for(const f of manifest.files){assert.equal(sha(await fs.readFile(f.file)),f.beforeSha256);assert.equal(sha(await fs.readFile(f.candidate)),f.afterSha256);}
+let builder=await fs.readFile(base+'/build-dense-current.mjs','utf8');
+builder="import {SourceMapGenerator} from 'source-map-js';\n"+builder;
+builder=builder.replace('const result=await build',`const candidateManifest=JSON.parse(await fs.readFile(root+'/${manifestFile}'));const candidateFiles=new Map(await Promise.all(candidateManifest.files.map(async f=>[root+'/'+f.file,{source:root+'/'+f.candidate,code:await fs.readFile(root+'/'+f.candidate,'utf8')}])));\nconst result=await build`);
+builder=builder.replace("plugins:[{name:'v01-observation-surface'", "plugins:[{name:'v01-dense-candidate',enforce:'pre',transform(code,id){const value=candidateFiles.get(id.replaceAll('\\\\','/'));if(!value)return;const map=new SourceMapGenerator({file:id});value.code.split('\\n').forEach((_,i)=>map.addMapping({generated:{line:i+1,column:0},original:{line:i+1,column:0},source:value.source}));map.setSourceContent(value.source,value.code);return {code:value.code,map:map.toJSON()};}},{name:'v01-observation-surface'");
+builder=builder.replace('const evidence={root,out,','const evidence={root,out,candidateManifest,');builder=builder.replace('no production source edits, not ordinary production FPS','isolated transforms explicitly listed in candidateManifest with matching source maps, no production source edits, not ordinary production FPS');
+const file=base+'/build-'+version+'.mjs';await fs.writeFile(file,builder,{flag:'wx'});await import('../'+file);

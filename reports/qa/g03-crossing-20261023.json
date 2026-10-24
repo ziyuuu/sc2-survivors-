@@ -1,0 +1,265 @@
+{
+  "pairedPrefix": {
+    "samples": 289,
+    "exact": true,
+    "oldFile": "reports/local/g03-economy-20261023/crossing-policy-r1/current-terran-hard-5-529.json",
+    "newFile": "reports/local/g03-economy-20261023/entry-paired-r2-20261023/paired-terran-hard-5-529.json"
+  },
+  "additionalIssue": "G03-CROSSING-EXIT-002: mobile destination formation left survivors behind exit; explicit exit order now advances remaining participants across the line only inside crossing.",
+  "retainedFailure": "reports/local/g03-crossing-20261023/exit-before.log",
+  "retainedPairedEntryOnly": "reports/local/g03-economy-20261023/entry-paired-20261023/paired-terran-hard-5-529.json",
+  "date": "2026-10-23",
+  "issue": "G03-CROSSING-ENTRY-001",
+  "status": "entry-and-mobile-exit-fixed-and-verified",
+  "change": "Translate crossing entry formation forward by maximum rear extent overflow including body radius and .05 safety gap; preserve relative formation, legal small-team positions, anchor, camera/input, rosters, rewards and return.",
+  "tests": {
+    "focused": 60,
+    "focusedVersion": "entry-only r1",
+    "fullRegressionVersion": "entry and mobile exit r2",
+    "fullRegression": 2288,
+    "typecheck": "pass",
+    "dataCheck": "pass",
+    "newTests": 16,
+    "coverage": "Three races,16/30/32/48/64 participants: legal entry,600 native movement steps,every surviving participant evacuated,dead accounted,frozen original position/time return.",
+    "pilot": "First 15 tests:10pass/5false expectations that all zerg survived guards; all entries legal and loot reached. Corrected casualty accounting without further production edits; original log retained."
+  },
+  "source": {
+    "before": 826,
+    "unchanged": 823,
+    "changed": [
+      "src/simulation/special-stages/bridge.ts",
+      "src/simulation/special-stages/crossing.ts",
+      "src/simulation/world.ts"
+    ],
+    "newTest": "test/g03-crossing-entry.test.ts",
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    }
+  },
+  "probe": "reports/local/g03-crossing-20261023/entry-probe.json",
+  "rows": [
+    {
+      "file": "reports/local/g03-economy-20261023/entry-fixed-20261023/current-terran-hard-5-529.json",
+      "sha256": "ada457f4aad2feb34e8047d9ebb8604399153c718c29f0dd23fae6cf4128f0a0",
+      "summary": {
+        "race": "terran",
+        "difficulty": "hard",
+        "quality": 5,
+        "seed": 529,
+        "version": "current",
+        "id": "current-terran-hard-5-529",
+        "map": {
+          "version": 3,
+          "seed": 529,
+          "theme": "frontier"
+        },
+        "sessionIdentity": "2a3f917d-b91b-41b1-a22d-c69e66a7f630",
+        "steps": 137181,
+        "stop": "endless-six-minutes",
+        "issue": null,
+        "phase": "finished",
+        "stage": 18,
+        "completed": 18,
+        "time": 2160,
+        "endlessSeconds": 360,
+        "endlessReached": true,
+        "settled": true,
+        "peakEnemies": 299,
+        "peakQueue": 175,
+        "wallMs": 707656,
+        "wallet": {
+          "minerals": 7793.863674092107,
+          "gas": 2800.1341051402433
+        },
+        "dust": 1265,
+        "allies": 41,
+        "kills": 13982,
+        "itemsGenerated": 139,
+        "itemsCollected": 136,
+        "reconciliation": {
+          "minerals": 0,
+          "gas": 0,
+          "dust": 0
+        },
+        "objectives": {
+          "mainHive": null,
+          "finalBossKilled": null,
+          "expansionHives": [],
+          "mission": null
+        },
+        "funShop": {
+          "gland": 0,
+          "eye": 1,
+          "nydus": 0,
+          "tavern": 1,
+          "bait": 2,
+          "dice": 3,
+          "pandora": 0
+        },
+        "permanent": 24
+      },
+      "crossings": []
+    },
+    {
+      "file": "reports/local/g03-economy-20261023/entry-fixed-20261023/current-zerg-normal-5-529.json",
+      "sha256": "61333d8161859004f32a94fbe272248108689eed20d135aaa19b6f68b6885ff9",
+      "summary": {
+        "race": "zerg",
+        "difficulty": "normal",
+        "quality": 5,
+        "seed": 529,
+        "version": "current",
+        "id": "current-zerg-normal-5-529",
+        "map": {
+          "version": 3,
+          "seed": 529,
+          "theme": "frontier"
+        },
+        "sessionIdentity": "2a3f917d-b91b-41b1-a22d-c69e66a7f630",
+        "steps": 136960,
+        "stop": "endless-six-minutes",
+        "issue": null,
+        "phase": "finished",
+        "stage": 18,
+        "completed": 18,
+        "time": 2160,
+        "endlessSeconds": 360,
+        "endlessReached": true,
+        "settled": true,
+        "peakEnemies": 206,
+        "peakQueue": 96,
+        "wallMs": 598006,
+        "wallet": {
+          "minerals": 818.9992041700966,
+          "gas": 2631.149065407148
+        },
+        "dust": 185,
+        "allies": 40,
+        "kills": 9829,
+        "itemsGenerated": 89,
+        "itemsCollected": 74,
+        "reconciliation": {
+          "minerals": 0,
+          "gas": 0,
+          "dust": 0
+        },
+        "objectives": {
+          "mainHive": null,
+          "finalBossKilled": null,
+          "expansionHives": [],
+          "mission": null
+        },
+        "funShop": {
+          "gland": 0,
+          "eye": 0,
+          "nydus": 0,
+          "tavern": 3,
+          "bait": 3,
+          "dice": 1,
+          "pandora": 0
+        },
+        "permanent": 12
+      },
+      "crossings": [
+        {
+          "id": "2a3f917d-b91b-41b1-a22d-c69e66a7f630:special:3",
+          "first": 1677.883333,
+          "last": 1707.883333,
+          "firstRoster": 32,
+          "lastRoster": 11,
+          "stage": "campaign:18"
+        }
+      ]
+    },
+    {
+      "file": "reports/local/g03-economy-20261023/entry-paired-r2-20261023/paired-terran-hard-5-529.json",
+      "sha256": "ccfa4a65981d6f753f21241118d26d60f8fbe24b2e299de2ae11f8732c8d3e68",
+      "summary": {
+        "race": "terran",
+        "difficulty": "hard",
+        "quality": 5,
+        "seed": 529,
+        "version": "paired",
+        "id": "paired-terran-hard-5-529",
+        "map": {
+          "version": 3,
+          "seed": 529,
+          "theme": "frontier"
+        },
+        "sessionIdentity": "2a3f917d-b91b-41b1-a22d-c69e66a7f630",
+        "steps": 132158,
+        "stop": "endless-six-minutes",
+        "issue": null,
+        "phase": "finished",
+        "stage": 18,
+        "completed": 18,
+        "time": 2160,
+        "endlessSeconds": 360,
+        "endlessReached": true,
+        "settled": true,
+        "peakEnemies": 299,
+        "peakQueue": 175,
+        "wallMs": 635255,
+        "wallet": {
+          "minerals": 3303.862962264011,
+          "gas": 903.5525854071795
+        },
+        "dust": 960,
+        "allies": 42,
+        "kills": 14112,
+        "itemsGenerated": 128,
+        "itemsCollected": 124,
+        "reconciliation": {
+          "minerals": 0,
+          "gas": 0,
+          "dust": 0
+        },
+        "objectives": {
+          "mainHive": null,
+          "finalBossKilled": null,
+          "expansionHives": [],
+          "mission": null
+        },
+        "funShop": {
+          "gland": 0,
+          "eye": 1,
+          "nydus": 0,
+          "tavern": 2,
+          "bait": 3,
+          "dice": 1,
+          "pandora": 0
+        },
+        "permanent": 24
+      },
+      "crossings": [
+        {
+          "id": "2a3f917d-b91b-41b1-a22d-c69e66a7f630:special:2",
+          "first": 1230,
+          "last": 1260,
+          "firstRoster": 36,
+          "lastRoster": 20,
+          "stage": "campaign:15"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Current-gate terran replay had no crossing after RNG path changed; paired terran replay uses isolated old hero rules plus both entry and mobile exit fixes. Zerg normal gate unchanged.",
+    "Native automated simulation, not human/physical-input/GPU/FPS acceptance.",
+    "No new build, Current replacement, commit, push or publication.",
+    "Game balance numbers and probabilities unchanged."
+  ],
+  "logs": [
+    "reports/local/g03-crossing-20261023/entry-tests.log",
+    "reports/local/g03-crossing-20261023/focused.log",
+    "reports/local/g03-crossing-20261023/regression-r2.log",
+    "reports/local/g03-crossing-20261023/typecheck-r2.log",
+    "reports/local/g03-crossing-20261023/data-check-r2.log",
+    "reports/local/g03-crossing-20261023/replay-terran.log",
+    "reports/local/g03-crossing-20261023/replay-zerg.log",
+    "reports/local/g03-crossing-20261023/paired-terran-r2.log",
+    "reports/local/g03-crossing-20261023/exit-before.log",
+    "reports/local/g03-crossing-20261023/exit-after.log"
+  ]
+}

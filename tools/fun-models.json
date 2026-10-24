@@ -1,0 +1,26 @@
+[
+  {
+    "id": "model.fun-nydus",
+    "name": "nyduscanal"
+  },
+  {
+    "id": "model.fun-nydus.death",
+    "name": "nyduscanaldeath_00"
+  },
+  {
+    "id": "model.fun-infested-marine",
+    "name": "infestedmarine"
+  },
+  {
+    "id": "model.fun-infested-marine.death",
+    "name": "infestedmarinedeath_00"
+  },
+  {
+    "id": "model.fun-infested-marine.timeout",
+    "name": "infestedmarinetimeoutdeath"
+  },
+  {
+    "id": "model.fun-cocoon",
+    "name": "cocoon"
+  }
+]

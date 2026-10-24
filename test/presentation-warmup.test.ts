@@ -7,9 +7,20 @@ test('shader compilation uses gameplay HDR and releases the target before asynch
  const prior={},hdr={},scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera();let current=prior,resolve!:()=>void;
  const pending=new Promise<void>(r=>resolve=r),view:any={heroComposer:{readBuffer:hdr},renderer:{getRenderTarget:()=>current,setRenderTarget:(v:any)=>current=v,compileAsync(){assert.equal(current,hdr);return pending;}}};
  const result=(BattleRenderer.prototype as any).compilePresentation.call(view,scene,camera);
- assert.equal(result,pending);assert.equal(current,prior);resolve();await result;
+ // The entrance now wraps compilation with a deadline; the fulfilled value and
+ // immediate render-target restoration remain the contract.
+ assert.equal(current,prior);let complete=false;result.then(()=>complete=true);await Promise.resolve();assert.equal(complete,false);resolve();assert.equal(await result,undefined);
  view.renderer.compileAsync=()=>{throw Error('compile failure');};
  assert.throws(()=>(BattleRenderer.prototype as any).compilePresentation.call(view,scene,camera),/compile failure/);assert.equal(current,prior);
+});
+
+test('shader deadline rejects a stalled compile without retaining the HDR target or accepting its late completion',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
+ const prior={},hdr={},scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera();let current=prior,finish!:(value:unknown)=>void,completed=0;
+ const view:any={heroComposer:{readBuffer:hdr},renderer:{getRenderTarget:()=>current,setRenderTarget:(v:any)=>current=v,compileAsync:()=>new Promise(resolve=>finish=resolve)}};
+ const result=(BattleRenderer.prototype as any).compilePresentation.call(view,scene,camera);result.then(()=>completed++,()=>{});
+ assert.equal(current,prior);const failure=assert.rejects(result,/着色器编译等待超时/);t.mock.timers.tick(60000);await failure;
+ finish(scene);await Promise.resolve();assert.equal(completed,0);assert.equal(current,prior);
 });
 
 function fixture(fail=false,lost=false){

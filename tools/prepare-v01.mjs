@@ -1,0 +1,28 @@
+import fs from 'node:fs/promises';
+const base='reports/local/v01-20261024';
+let build=await fs.readFile('reports/local/u06-confirmed-20261023/build-web.mjs','utf8');
+build=build.replace("version=process.env.U06_VERSION??'r1'","version=process.env.V01_VERSION??'r1'");
+build=build.replace("plugins:[{name:",`plugins:[{name:'v01-observation-surface',enforce:'pre',transform(code,id){if(id.replaceAll('\\\\','/').endsWith('/src/main.ts'))return code.replace('startGame().catch(', 'startGame(529).then(app=>{globalThis.A03.app=app;const native=app.session.prepareNewRun.bind(app.session);app.session.prepareNewRun=(...args)=>{const p=native(...args);p.campaignMap={version:3,seed:529,theme:new URL(location.href).searchParams.get("theme")??"char"};return p;};return app;}).catch(')+'\\nimport * as D04 from "../tools/performance-d04-runtime";import {httpStore,httpAssetStatus,HttpAssetStore} from "./assets/http-store";import {ResourceCache} from "./assets/persistent-cache";import {selectRunData} from "./simulation/persistence/run-fields";globalThis.D04=D04;globalThis.A03={httpStore,httpAssetStatus,HttpAssetStore,ResourceCache,selectRunData};';}},{name:`);
+build=build.replace('main (local U06 consistent minimal UI)','main V01 observation build; only src/main.ts transformed for seeded start and globals; production bytes recorded unchanged');
+await fs.writeFile(base+'/build-web.mjs',build);
+let runner=await fs.readFile('tools/qa-performance-d04-complete-loading.mjs','utf8');
+runner=runner.replace("root=path.resolve('reports/local/performance-d04-complete-20261021',run),web=path.resolve(variant==='baseline'?'preview/performance-d04-20261021-candidate-r23':'preview/performance-d04-complete-20261021')","root=path.resolve('reports/local/v01-20261024',run),web=path.resolve('reports/local/v01-20261024/web-game-'+variant)");
+const from=runner.indexOf("const build=JSON.parse("),to=runner.indexOf('const report=',from);
+runner=runner.slice(0,from)+`const build=JSON.parse(await fs.readFile(web+'-build.json')),assets=Object.fromEntries(build.resources.map(r=>[r.sha256,{...r,mime:r.url.endsWith('.glb')?'model/gltf-binary':r.url.endsWith('.png')?'image/png':'application/octet-stream'}]));for(const f of build.artifacts)if(f.file!=='index.html')assert.equal(hash(await fs.readFile(web+'/'+f.file)),f.sha256);assert.equal(hash(await fs.readFile(web+'/index.html')),build.htmlSha256);\n`+runner.slice(to);
+runner=runner.replace("if(!['index.html','main.js','main.css','current.json','runtime-config.json'].includes(name))", "if(!['index.html','runtime-config.json',build.manifest,...build.artifacts.map(r=>r.file)].includes(name))");
+runner=runner.replace("new URL(r.url()).pathname==='/main.js'", "new URL(r.url()).pathname.endsWith('.js')");
+runner=runner.replace("build.outputs.find(f=>f.file.endsWith('/main.js')).sha256", "build.artifacts.find(f=>f.file.endsWith('.js')).sha256");
+runner=runner.replace("a.hud.onCommitFlow=()=>{const kind=a.readiness.state.kind;commit();", "a.hud.onCommitFlow=async()=>{const kind=a.readiness.state.kind;await commit();");
+runner=runner.replace('let active=false,previous=0', 'let startedStage=0,active=false,previous=0');
+runner=runner.replace('w.step=function(...args){if(active', 'w.step=function(...args){if(w.phase===\'battle\'&&w.stage!==startedStage){startedStage=w.stage;begin();}if(active');
+const commitStart=runner.indexOf('   const commit=a.hud.onCommitFlow;'),commitEnd=runner.indexOf('   window.D04Run=',commitStart);
+if(commitStart<0||commitEnd<0)throw Error('Commit hook not found');runner=runner.slice(0,commitStart)+runner.slice(commitEnd);
+const debugStart=runner.indexOf('__SC2_DEBUG__.healthLock(false);'),debugEnd=runner.indexOf('   w.starship.account=',debugStart);
+if(debugStart<0||debugEnd<0)throw Error('Debug block not found');
+runner=runner.slice(0,debugStart)+"if(globalThis.__SC2_DEBUG__)throw Error('Unexpected debug overrides in production-mode build');\n"+runner.slice(debugEnd);
+runner=runner.replace("server=http.createServer(async(req,res)=>{try{", "server=http.createServer(async(req,res)=>{try{if(req.url==='/favicon.ico'){res.writeHead(204);res.end();return;}if(req.url==='/api/config'){res.writeHead(200,{'Content-Type':'application/json'});res.end(JSON.stringify({enabled:false,version:'2026-10-06.1',operator:'',contact:'',backupDays:null,retention:{events:90,runs:180,visitors:365,daily:730,feedback:180,audit:90}}));return;}");
+runner=runner.replace("report.browser=context.browser()?.version();", "report.browser=context.browser()?.version();const bc=await context.browser().newBrowserCDPSession();report.browserDetails=await bc.send('Browser.getVersion');report.system=await bc.send('SystemInfo.getInfo');");
+runner=runner.replace("const cleanup=spawnSync('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File','tools/cleanup-d04-complete-profile.ps1','-Run',run],{encoding:'utf8'});report.cleanup={code:cleanup.status,stdout:cleanup.stdout,stderr:cleanup.stderr};", "report.profileClosed=true;");
+// Every generated runner is saved with its exact runtime evidence before execution.
+await fs.writeFile(base+'/loading.mjs',runner);
+console.log(JSON.stringify({build:base+'/build-web.mjs',runner:base+'/loading.mjs'}));

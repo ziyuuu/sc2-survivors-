@@ -1,0 +1,491 @@
+{
+  "date": "2026-10-23",
+  "decision": "用户确认：简单12、普通9、困难和地狱3关战役Boss死亡起开放普通新英雄，当前Boss这次奖励即有资格；英雄数值与20%概率保持。合理操作与培养下，困难蓝装为主加少量绿装、地狱紫装为主应能顺利进入无尽；当前难度装备毕业应能平推18关进入无尽，无尽自身继续成长。",
+  "productionChanged": [
+    "src/simulation/boss-loot.ts",
+    "src/simulation/progression/hero-availability.ts"
+  ],
+  "tests": {
+    "focused": 46,
+    "newFirstBossTests": 8,
+    "fullUnique": 2272,
+    "initialPass": 2265,
+    "initialNetworkPermissionFailures": 7,
+    "sameSourceRerunPass": 16,
+    "typecheck": "pass",
+    "dataCheck": "pass",
+    "logs": [
+      "reports/local/g03-hero-gate-20261023/focused.log",
+      "reports/local/g03-hero-gate-20261023/regression.log",
+      "reports/local/g03-hero-gate-20261023/network-rerun.log",
+      "reports/local/g03-hero-gate-20261023/p5-rerun.log",
+      "reports/local/g03-hero-gate-20261023/typecheck.log",
+      "reports/local/g03-hero-gate-20261023/data-check.log"
+    ]
+  },
+  "integrity": {
+    "baselineFiles": 825,
+    "unchanged": 822,
+    "changed": [
+      "src/simulation/boss-loot.ts",
+      "src/simulation/progression/hero-availability.ts",
+      "test/g01-hero-unlock.test.ts"
+    ],
+    "newTest": "test/g03-first-boss-hero.test.ts",
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    }
+  },
+  "routes": [
+    {
+      "file": "reports/local/g03-hero-gate-20261023/protoss-hard.json",
+      "sha256": "cca2c92b181ca6ada48657d332199acbf3539d44093f34c41d7f7c9b29a69228",
+      "id": "protoss-hard",
+      "stop": "lost",
+      "stage": 3,
+      "wallSeconds": 2.657,
+      "heroes": [],
+      "finalGear": [
+        {
+          "slot": "offense1",
+          "id": "ship-item-1",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "offense2",
+          "id": "ship-item-2",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "offense3",
+          "id": "ship-item-3",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "offense4",
+          "id": "ship-item-4",
+          "quality": 2,
+          "template": "attribute.2"
+        },
+        {
+          "slot": "defense1",
+          "id": "ship-item-5",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "defense2",
+          "id": "ship-item-6",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "defense3",
+          "id": "ship-item-7",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "defense4",
+          "id": "ship-item-8",
+          "quality": 2,
+          "template": "attribute.2"
+        }
+      ],
+      "issue": null
+    },
+    {
+      "file": "reports/local/g03-hero-gate-20261023/protoss-hell.json",
+      "sha256": "4c1484535ff1c7293957877e9f5b8a69d367b90b850876732285ab192b50ca50",
+      "id": "protoss-hell",
+      "stop": "wall-clock-censored",
+      "stage": 13,
+      "wallSeconds": 300.002,
+      "heroes": [
+        {
+          "id": "purifier_flagship",
+          "rank": 1,
+          "entityId": 1519,
+          "skillReady": 1064.75,
+          "revivePaid": false,
+          "awaitingSpawn": false
+        },
+        {
+          "id": "alarak",
+          "rank": 1,
+          "entityId": 14924,
+          "skillReady": 1057.25,
+          "revivePaid": false,
+          "awaitingSpawn": false
+        }
+      ],
+      "finalGear": [
+        {
+          "slot": "offense1",
+          "id": "ship-item-1",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "offense2",
+          "id": "ship-item-2",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "offense3",
+          "id": "ship-item-3",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "offense4",
+          "id": "ship-item-4",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense1",
+          "id": "ship-item-10",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense2",
+          "id": "ship-item-6",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense3",
+          "id": "ship-item-11",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense4",
+          "id": "ship-item-8",
+          "quality": 4,
+          "template": "attribute.4"
+        }
+      ],
+      "issue": null
+    },
+    {
+      "file": "reports/local/g03-hero-gate-20261023/terran-hard.json",
+      "sha256": "3129c15ad5d7c3e8fa42e790664573a1c9b0dcff4ba9bf7e6f3456df3facfd37",
+      "id": "terran-hard",
+      "stop": "wall-clock-censored",
+      "stage": 17,
+      "wallSeconds": 300.004,
+      "heroes": [
+        {
+          "id": "yamato_battlecruiser",
+          "rank": 2,
+          "entityId": 573,
+          "skillReady": 1601,
+          "revivePaid": false,
+          "awaitingSpawn": false
+        },
+        {
+          "id": "raynor",
+          "rank": 3,
+          "entityId": 5290,
+          "skillReady": 1583.75,
+          "revivePaid": false,
+          "awaitingSpawn": false
+        }
+      ],
+      "finalGear": [
+        {
+          "slot": "offense1",
+          "id": "ship-item-9",
+          "quality": 4,
+          "template": "special.double.4"
+        },
+        {
+          "slot": "offense2",
+          "id": "ship-item-2",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "offense3",
+          "id": "ship-item-3",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "offense4",
+          "id": "ship-item-78",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "defense1",
+          "id": "ship-item-54",
+          "quality": 4,
+          "template": "special.shield.4"
+        },
+        {
+          "slot": "defense2",
+          "id": "ship-item-6",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "defense3",
+          "id": "ship-item-47",
+          "quality": 4,
+          "template": "special.recall.4"
+        },
+        {
+          "slot": "defense4",
+          "id": "ship-item-52",
+          "quality": 3,
+          "template": "special.recall.3"
+        }
+      ],
+      "issue": null
+    },
+    {
+      "file": "reports/local/g03-hero-gate-20261023/terran-hell.json",
+      "sha256": "9788f5bb64139e097efb7d199ab14651caaedc267234b624c6075fe949d15c3d",
+      "id": "terran-hell",
+      "stop": "lost",
+      "stage": 15,
+      "wallSeconds": 112.239,
+      "heroes": [
+        {
+          "id": "yamato_battlecruiser",
+          "rank": 2,
+          "entityId": 647,
+          "skillReady": 1291,
+          "revivePaid": false,
+          "awaitingSpawn": false
+        },
+        {
+          "id": "tychus",
+          "rank": 3,
+          "entityId": 5641,
+          "skillReady": 1292.75,
+          "revivePaid": false,
+          "awaitingSpawn": false
+        }
+      ],
+      "finalGear": [
+        {
+          "slot": "offense1",
+          "id": "ship-item-1",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "offense2",
+          "id": "ship-item-31",
+          "quality": 4,
+          "template": "special.counter.4"
+        },
+        {
+          "slot": "offense3",
+          "id": "ship-item-3",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "offense4",
+          "id": "ship-item-4",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense1",
+          "id": "ship-item-5",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense2",
+          "id": "ship-item-6",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense3",
+          "id": "ship-item-7",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense4",
+          "id": "ship-item-8",
+          "quality": 4,
+          "template": "attribute.4"
+        }
+      ],
+      "issue": null
+    },
+    {
+      "file": "reports/local/g03-hero-gate-20261023/zerg-hard.json",
+      "sha256": "c6cfe80cd6b3cd78a81975d54dacb5dc15c6f1fdfa9f0069d5f3d0e2f81850d1",
+      "id": "zerg-hard",
+      "stop": "wall-clock-censored",
+      "stage": 12,
+      "wallSeconds": 300.008,
+      "heroes": [
+        {
+          "id": "hots_leviathan",
+          "rank": 1,
+          "entityId": 1184,
+          "skillReady": 996.5,
+          "revivePaid": false,
+          "awaitingSpawn": false
+        },
+        {
+          "id": "dehaka",
+          "rank": 2,
+          "entityId": 7846,
+          "skillReady": 998.5,
+          "revivePaid": false,
+          "awaitingSpawn": false
+        }
+      ],
+      "finalGear": [
+        {
+          "slot": "offense1",
+          "id": "ship-item-1",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "offense2",
+          "id": "ship-item-2",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "offense3",
+          "id": "ship-item-3",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "offense4",
+          "id": "ship-item-24",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "defense1",
+          "id": "ship-item-5",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "defense2",
+          "id": "ship-item-6",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "defense3",
+          "id": "ship-item-26",
+          "quality": 3,
+          "template": "attribute.3"
+        },
+        {
+          "slot": "defense4",
+          "id": "ship-item-15",
+          "quality": 4,
+          "template": "special.recall.4"
+        }
+      ],
+      "issue": null
+    },
+    {
+      "file": "reports/local/g03-hero-gate-20261023/zerg-hell.json",
+      "sha256": "aea6a6a521527f30a0e0f4fb334cb208caf696f661fa6ad016a6f332d25d0c1d",
+      "id": "zerg-hell",
+      "stop": "lost",
+      "stage": 12,
+      "wallSeconds": 88.201,
+      "heroes": [
+        {
+          "id": "hots_leviathan",
+          "rank": 1,
+          "entityId": 1194,
+          "skillReady": 938.5,
+          "revivePaid": false,
+          "awaitingSpawn": false
+        }
+      ],
+      "finalGear": [
+        {
+          "slot": "offense1",
+          "id": "ship-item-1",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "offense2",
+          "id": "ship-item-2",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "offense3",
+          "id": "ship-item-3",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "offense4",
+          "id": "ship-item-4",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense1",
+          "id": "ship-item-5",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense2",
+          "id": "ship-item-6",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense3",
+          "id": "ship-item-7",
+          "quality": 4,
+          "template": "attribute.4"
+        },
+        {
+          "slot": "defense4",
+          "id": "ship-item-8",
+          "quality": 4,
+          "template": "attribute.4"
+        }
+      ],
+      "issue": null
+    }
+  ],
+  "limitations": [
+    "六条程序路线仅为初测：3战败、3墙钟截断，未完成进入无尽；单种子、无模块配装、控制策略未经合格玩家行为验证，途中自动换装且部分升为紫装。截断受并行回归/路线CPU竞争影响，不代表性能或战败。失败不证明合理玩家不能通过，品质颜色也不等于毕业配装；不能据此宣布目标达成或直接调难度。",
+    "未新建构建、浏览器或GPU验收、真机、人类试玩、FPS验收；未替换Current、提交、推送或发布。"
+  ],
+  "remaining": [
+    "先修复G03-CROSSING-ENTRY-001横穿32人入场越界，重测原阻断路线。",
+    "定义各族各难度毕业配装（词条、模块、兵种方向与培养），验证合理策略、多种子、英雄未抽到与已抽到两种路径，校准困难/地狱装备门槛及18关到无尽衔接。",
+    "简单弹幕的人类操作负担及容错取舍。",
+    "诱饵有效价值、减少内容后的整局经济成长和最终平衡收口。"
+  ],
+  "gearTierClarification": "用户进一步澄清：困难蓝装加少量绿装是正常入场装备，不是毕业装。正常入场装备配合合理操作、培养和局内成长，应能顺利进入无尽；当前难度毕业装备则应能平推战役进入无尽。两个层级分别验收，困难毕业装的品质、词条和模块标准尚未确定，不把蓝绿装或全蓝装擅自定义为毕业装。地狱紫装为主的入场目标沿用，毕业标准也需另定。",
+  "boardRevision": 129
+}

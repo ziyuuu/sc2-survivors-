@@ -6,7 +6,7 @@ export class SpatialHash<T extends Body> {
  key(x:number,z:number){return (x+1024)*2048+z+1024;}
  private clear(map:Map<number,T[]>){for(const bucket of map.values()){bucket.length=0;this.pool.push(bucket);}map.clear();}
  private insert(map:Map<number,T[]>,key:number,b:T){let bucket=map.get(key);if(!bucket){bucket=this.pool.pop()??[];map.set(key,bucket);}bucket.push(b);}
- rebuild(bodies:Iterable<T>){this.clear(this.cells);this.clear(this.ownerCells.terran);this.clear(this.ownerCells.zerg);this.clear(this.planeCells.ground);this.clear(this.planeCells.air);this.planeDirty=false;this.visits=0;for(const b of bodies){if(b.hp<=0)continue;const k=this.key(Math.floor(b.x/this.cellSize),Math.floor(b.z/this.cellSize));this.insert(this.cells,k,b);this.insert(this.ownerCells[b.owner],k,b);this.insert(this.planeCells[b.flying?'air':'ground'],k,b);}}
+ rebuild(bodies:Iterable<T>){this.clear(this.cells);this.clear(this.ownerCells.terran);this.clear(this.ownerCells.zerg);this.clear(this.planeCells.ground);this.clear(this.planeCells.air);this.planeDirty=false;this.visits=0;for(const b of bodies){if(b.hp<=0||b.heldBy)continue;const k=this.key(Math.floor(b.x/this.cellSize),Math.floor(b.z/this.cellSize));this.insert(this.cells,k,b);this.insert(this.ownerCells[b.owner],k,b);this.insert(this.planeCells[b.flying?'air':'ground'],k,b);}}
  /** Mode changes can switch planes between rebuilds; read current flags until next rebuild. */
  invalidatePlanes(){this.planeDirty=true;}
  query(p:Point,r:number,visit:(b:T)=>void|boolean,owner?:'terran'|'zerg'){
@@ -21,7 +21,7 @@ export class SpatialHash<T extends Body> {
   const minX=Math.floor((p.x-r)/this.cellSize),maxX=Math.floor((p.x+r)/this.cellSize),minZ=Math.floor((p.z-r)/this.cellSize),maxZ=Math.floor((p.z+r)/this.cellSize);
   for(let x=minX;x<=maxX;x++)for(let z=minZ;z<=maxZ;z++){
    const bucket=cells.get(this.key(x,z));if(!bucket)continue;
-   for(let i=0;i<bucket.length;i++){const b=bucket[i];this.visits++;const dx=b.x-p.x,dz=b.z-p.z;if(dx*dx+dz*dz<=r2&&visit(b)===false)return;}
+   for(let i=0;i<bucket.length;i++){const b=bucket[i];if(b.heldBy)continue;this.visits++;const dx=b.x-p.x,dz=b.z-p.z;if(dx*dx+dz*dz<=r2&&visit(b)===false)return;}
   }
  }
 }

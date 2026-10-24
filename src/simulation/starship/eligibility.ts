@@ -1,3 +1,4 @@
+import {identityReserved} from '../missions/rewards';
 import {HEROES,type HeroId} from '../../data/heroes';
 import {ELITES} from '../../data/elites';
 import {familyRace,ALL_FAMILIES,type FamilyId,type Race} from '../../data/races';
@@ -23,7 +24,7 @@ export function randomBinding(t:EquipmentTemplate,race:Race,random:()=>number):E
 }
 export function directionMatches(b:EquipmentBinding|undefined,family:string){const direction=b&&bindingDirection(b);return !!direction&&PRODUCTION_LINES[direction].families.includes(family as FamilyId);}
 export function permanentEquipmentBody(w:World,u:Entity){return u.owner==='terran'&&u.team==='player'&&!u.temporary&&!u.summonKind&&!u.attributes.includes('Structure')&&!['scv','probe','drone'].includes(u.unitType);}
-export function equipmentCanGrow(w:World,u:Entity){return permanentEquipmentBody(w,u)&&!w.starship.members.get(u.id)?.cannotGrow;}
+export function equipmentCanGrow(w:World,u:Entity){return permanentEquipmentBody(w,u)&&!w.starship.members.get(u.id)?.cannotGrow&&!(u.heroId&&identityReserved(w,'hero',u.heroId)||u.eliteId&&identityReserved(w,'elite',u.eliteId));}
 export function equipmentCapacity(w:World,kind:'members'|'rank'|'squads',native:number,family?:string){let value=native;
  for(const effect of activeEquipmentEffects(w)){if(effect.key==='capacity_'+kind&&(kind==='squads'||family&&directionMatches(effect.binding,family))||effect.key==='capacity_'+kind+'_all')value+=effect.values[0];
   if(effect.key==='capacity_baseline'){const index=kind==='squads'?0:kind==='members'?1:2;value+=Math.max(0,effect.values[index]-native);}

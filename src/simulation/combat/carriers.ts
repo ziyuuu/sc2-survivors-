@@ -1,3 +1,4 @@
+import {inheritMissionSource} from '../missions/combat';
 import {equipmentCarrierSpeed} from '../starship/hero-advancements';
 import {equipmentNativeRank,equipmentOutputFactor} from '../starship/advanced-support';
 import {refreshEquipmentProjection,projectionFor} from '../starship/projections';
@@ -27,7 +28,10 @@ const HANGAR=SOURCE_ABILITIES.carrierHangar,BASE=SOURCE_INTERCEPTOR;
 export const INTERCEPTOR_STEERING={orbitRadius:1.4,leash:14,orbitSpeed:1.1} as const;
 export const isInterceptor=(u:Entity)=>u.summonKind==='interceptor';
 const isCarrier=(u:Entity)=>(u.unitType==='carrier'&&!u.heroId||u.heroId==='purifier_flagship')&&!u.summonKind;
-export function ownedInterceptors(w:World,carrierId:number){return [...w.entities.values()].filter(u=>isInterceptor(u)&&u.summonOwnerId===carrierId&&u.hp>0);}
+export function ownedInterceptors(w:World,carrierId:number){const children:Entity[]=[];for(const u of w.entities.values())if(isInterceptor(u)&&u.summonOwnerId===carrierId&&u.hp>0)children.push(u);return children;}
+/** Local to one subsystem call. No cached ownership survives damage, capture, restore or an add-unit transaction. */
+function carrierRoster(w:World){const carriers:Entity[]=[],children=new Map<number,Entity[]>();for(const u of w.entities.values()){if(isCarrier(u)&&u.hp>0){carriers.push(u);if(!children.has(u.id))children.set(u.id,[]);}if(isInterceptor(u)&&u.hp>0&&u.summonOwnerId!==undefined){let owned=children.get(u.summonOwnerId);if(!owned)children.set(u.summonOwnerId,owned=[]);owned.push(u);}}return {carriers,children};}
+function reserveInterceptor(w:World,u:Entity,carrierId:number){const live=w.entities.get(u.id);if(!live||!isInterceptor(live)||live.summonOwnerId!==carrierId||live.hp<=0)return false;let preceding=0;for(const child of w.entities.values())if(isInterceptor(child)&&child.summonOwnerId===carrierId&&child.hp>0&&child.id<u.id&&++preceding>=4)return true;return false;}
 export function interceptorUnitData():UnitData {
  return {name:'Interceptor',zh:'截击机',maxHp:BASE.maxHp,armor:BASE.armor,movementSpeed:BASE.movementSpeed,attackDamage:BASE.weapon.attackDamage,attacks:BASE.weapon.attacks,attackPeriod:BASE.weapon.attackPeriod,attackRange:BASE.weapon.attackRange,targetType:BASE.weapon.targetType,splash:[],bonusDamage:[],attributes:[...BASE.attributes],productionTime:HANGAR.replacementSeconds,mineralCost:HANGAR.mineralCost,gasCost:0,unitRadius:BASE.unitRadius,flying:true,damagePoint:BASE.weapon.damagePoint};
 }
@@ -35,20 +39,21 @@ export function interceptorUnitData():UnitData {
 export function refreshInterceptorStats(w:World,u:Entity,fill=false){if(refreshEquipmentProjection(w,u,fill))return true;
  if(!isInterceptor(u))return false;const oldRatio={hp:u.maxHp?u.hp/u.maxHp:0,shield:u.maxShield?(u.shield??0)/u.maxShield:0};detachEquipmentStats(w,u);const carrier=u.summonOwnerId===undefined?undefined:w.entities.get(u.summonOwnerId);if(!carrier||!isCarrier(carrier))return false;
  const oldPools={hp:u.hp,maxHp:u.maxHp,shield:u.shield??0,maxShield:u.maxShield??0,factor:u.teamAuraFactors},za=compositeEliteBuff(w,carrier),modern=revisedProtossElite(carrier);const ea=eliteFriendlyAura(w,carrier),lostHp=Math.max(0,u.maxHp-u.hp)/(u.eliteHpAuraFactor??1),lostShield=Math.max(0,(u.maxShield??0)-(u.shield??0));
- const friendly=carrier.team==='player',hero=carrier.heroId==='purifier_flagship',state=w.expedition,tech=friendly&&!hero?state?.tech??{}:{},growth=w.growth({...carrier,rank:equipmentNativeRank(w,carrier)}),talents=friendly&&state&&w.runConfig?aggregateMvpTalentEffects(w.runConfig.frozenTalents.levels,w.runConfig.race,hero?{team:'player',race:carrier.race,kind:'hero',attributes:carrier.attributes}:{team:'player',race:carrier.race,kind:'summon',ownerFamilyId:'carrier',summonType:'interceptor'}):{},team=friendly?teamCardEffects(state):{damage:0,speed:0,health:0,armor:0},aura=groundHeroBuff(w,carrier),card=team.damage+aura.damage;
+ const friendly=carrier.team==='player',hero=carrier.heroId==='purifier_flagship',state=w.expedition,tech=friendly&&!hero?state?.tech??{}:{},growth=w.growth({...carrier,rank:equipmentNativeRank(w,carrier)}),talents=friendly&&state&&w.runConfig?aggregateMvpTalentEffects(w.runConfig.frozenTalents.levels,w.runConfig.race,hero?{team:'player',race:carrier.race,kind:'hero',attributes:carrier.attributes}:{team:'player',race:carrier.race,kind:'summon',ownerFamilyId:'carrier',summonType:'interceptor'}):{},team=friendly?teamCardEffects(state):{damage:0,speed:0,health:0,armor:0},aura=groundHeroBuff(w,carrier),card=team.damage+uniqueActiveStats(w,u).damage+aura.damage;
  u.race='protoss';u.team=carrier.owner==='terran'?'player':'enemy';u.owner=carrier.owner;u.rank=1;u.attributes=[...BASE.attributes];if(!u.flying)w.hash.invalidatePlanes();u.flying=true;u.unitRadius=BASE.unitRadius*TUNING.unitScale;u.maxHp=BASE.maxHp*(1+team.health+aura.health)*(friendly?PLAYER_COMBAT_FACTOR:1)*Math.max(ea.hp,1+za.maxHp)*(modern&&carrier.eliteId==='carrier.3'?2.5:1);u.hp=fill?u.maxHp:Math.max(0,u.maxHp-lostHp*ea.hp);u.eliteHpAuraFactor=ea.hp;u.armor=(BASE.armor+(tech['research.stargate.defense']??0)+team.armor)*(friendly?PLAYER_COMBAT_FACTOR:1);
  u.armor=(u.armor+ea.armor)*(1+aura.armorPct)+aura.armor+za.armorFlat;
  u.maxShield=BASE.maxShields*(1+team.health+aura.shield)*(friendly?PLAYER_COMBAT_FACTOR:1)*(1+za.maxShield);u.shield=fill?u.maxShield:Math.max(0,u.maxShield-lostShield);u.shieldArmor=(BASE.shieldArmor+(tech['research.stargate.defense']??0)+team.armor)*(friendly?PLAYER_COMBAT_FACTOR:1);u.shieldArmor=u.shieldArmor*(1+aura.shieldArmorPct)+protossShieldArmor(w,carrier)+za.shieldArmorFlat;u.shieldRegen=BASE.shieldRegenPerSecond;u.shieldDelay=BASE.shieldRegenDelay;
  u.moveSpeed=BASE.movementSpeed*(friendly?PLAYER_COMBAT_FACTOR:1)*(1+uniqueActiveStats(w,u).move+aura.move)*ea.move*(1+za.move);u.attackRange=BASE.weapon.attackRange;u.weaponDamage=(BASE.weapon.attackDamage+(tech['research.stargate.weapon']??0))*growth.damage*(1+card)*(1+(talents.weaponDamagePct??0))*(modern?(carrier.eliteId==='carrier.2'?2.5:carrier.eliteId==='carrier.3'?1.5:1):1)*(hero?P.purifier_flagship.childDamage/BASE.weapon.attackDamage:1)*(friendly&&!hero?PLAYER_COMBAT_FACTOR:1);u.attackPeriod=BASE.weapon.attackPeriod/(1+team.speed+uniqueActiveStats(w,u).speed+aura.speed)/growth.attackSpeed/(1+(talents.attackSpeedPct??0))/(hero?BASE.weapon.attackPeriod/P.purifier_flagship.childPeriod:1)/(friendly&&!hero?PLAYER_COMBAT_FACTOR:1)/(hero?equipmentCarrierSpeed(w,carrier):1);u.attackPeriod/=(1+za.speed)*(modern&&carrier.eliteId==='carrier.1'&&(carrier.protossEliteCombat?.overdriveUntil??0)>w.time?2:1);
  preserveTeamWounds(u,oldPools,{hp:(1+team.health+aura.health)/(1+team.health)*Math.max(ea.hp,1+za.maxHp),shield:(1+team.health+aura.shield)/(1+team.health)*(1+za.maxShield)},fill);
- u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;applyEquipmentStats(w,u,fill);if(equipmentOutputFactor(w,u.id)!==1){u.hp=fill?u.maxHp:u.maxHp*oldRatio.hp;u.shield=fill?u.maxShield:(u.maxShield??0)*oldRatio.shield;}if(u.pendingTarget===null)u.shotInterval=u.attackPeriod;return true;
+ u.maxEnergy=0;u.energy=0;u.energyRegen=0;u.healRate=0;if(carrier.arenaHero){u.weaponDamage=carrier.weaponDamage/Math.max(1,P.purifier_flagship.children)/BASE.weapon.attacks;u.attackPeriod=1;}
+ applyEquipmentStats(w,u,fill);if(equipmentOutputFactor(w,u.id)!==1){u.hp=fill?u.maxHp:u.maxHp*oldRatio.hp;u.shield=fill?u.maxShield:(u.maxShield??0)*oldRatio.shield;}if(u.pendingTarget===null)u.shotInterval=u.attackPeriod;return true;
 }
 function spawnInterceptor(w:World,carrier:Entity){const hangar=carrier.carrierHangar!,serial=hangar.serial++,angle=serial*2.399963,p={x:carrier.x+Math.sin(angle)*.7,z:carrier.z+Math.cos(angle)*.7};
  // Reuse the entity DTO, not the carrier's gameplay data. The explicit summon tag routes its logic.
- const u:Entity={...carrier,id:w.nextId++,...p,prev:{...p},unitType:'carrier',summonKind:'interceptor',summonOwnerId:carrier.id,carrierHangar:undefined,temporary:true,temporaryUntil:undefined,protossEliteCombat:undefined,eliteCombat:undefined,zergEliteCombat:undefined,teamAuraFactors:undefined,carrierEliteCycles:0,protossCombat:undefined,heroCombat:undefined,zergCombat:undefined,heroId:undefined,eliteId:undefined,enemyTier:undefined,enemyLevel:undefined,enemyName:undefined,lordTrait:undefined,modelKey:'interceptor',visualScale:.2,
+ const u:Entity={...carrier,arenaHero:undefined,arenaElite:undefined,arenaParent:carrier.arenaHero?carrier.id:undefined,id:w.nextId++,...p,prev:{...p},unitType:'carrier',summonKind:'interceptor',summonOwnerId:carrier.id,carrierHangar:undefined,temporary:true,temporaryUntil:undefined,protossEliteCombat:undefined,eliteCombat:undefined,zergEliteCombat:undefined,teamAuraFactors:undefined,carrierEliteCycles:0,protossCombat:undefined,heroCombat:undefined,zergCombat:undefined,heroId:undefined,eliteId:undefined,enemyTier:undefined,enemyLevel:undefined,enemyName:undefined,lordTrait:undefined,modelKey:'interceptor',visualScale:.2,
   rank:1,slot:2000+serial,attackTarget:null,pendingTarget:null,action:'spawn',facing:angle,attackFacing:angle,velocity:{x:0,z:0},windup:0,attackLock:0,weaponCooldown:0,nextShotAt:w.time,lastShotAt:-100,shotSequence:0,aimStartedAt:null,repositionUntil:0,mode:'tank',desiredMode:'tank',modeTimer:0,nativeMode:undefined,desiredNativeMode:undefined,nativeModeUntil:undefined,
   guardianPod:null,guardOrigin:false,freeConscript:false,stimUntil:0,deadAt:null,bornAt:w.time,thinkAt:0,distanceWalked:0,lastDamagedAt:undefined,healTarget:null,healTargets:[],abilityReady:undefined,specialReady:Infinity,cloaked:false,barrier:undefined,barrierReady:undefined,stoppedUntil:undefined,slowUntil:undefined,slowFactor:undefined,attackSlowUntil:undefined,attackSlowFactor:undefined,moveSlowUntil:undefined,moveSlowFactor:undefined,tacticalTier:undefined,tacticalDirection:undefined,lastStandUntil:undefined,lastStandStage:undefined};
- w.entities.set(u.id,u);refreshInterceptorStats(w,u,true);return u;
+ inheritMissionSource(w,u,carrier);w.entities.set(u.id,u);refreshInterceptorStats(w,u,true);return u;
 }
 function retire(w:World,u:Entity){if(u.hp<=0)return;u.hp=0;u.shield=0;u.deadAt=w.time;u.action='dead';u.velocity={x:0,z:0};u.pendingTarget=null;u.attackTarget=null;w.statuses.removeTarget(u.id);w.visual('death',u);}
 /** Mother loss discards incomplete paid work and retires summons without loot or rank rewards. */
@@ -59,26 +64,29 @@ export function cleanupCarrierSummons(w:World){
 /** Safe after load or an add-unit transaction; the persisted marker prevents free refills. */
 export function initializeCarrierSubsystem(w:World){
  if(!w.expedition)return;cleanupCarrierSummons(w);
- for(const carrier of [...w.entities.values()])if(isCarrier(carrier)&&carrier.hp>0){
+ initializeRoster(w,carrierRoster(w));
+}
+function initializeRoster(w:World,roster:ReturnType<typeof carrierRoster>){
+ for(const carrier of roster.carriers){
   carrier.carrierHangar??={initialized:false,serial:0,job:null};const hangar=carrier.carrierHangar;if(hangar.initialized)continue;
   // Existing owned entities win during migration; rehydration must never duplicate them.
-  const existing=new Set(ownedInterceptors(w,carrier.id).map(u=>u.id));hangar.initialized=true;for(let i=ownedInterceptors(w,carrier.id).length;i<(carrier.heroId==='purifier_flagship'?P.purifier_flagship.children:revisedProtossElite(carrier)&&carrier.eliteId==='carrier.1'?8:HANGAR.initialCount);i++)spawnInterceptor(w,carrier);for(const child of ownedInterceptors(w,carrier.id))refreshInterceptorStats(w,child,!existing.has(child.id));
+  const children=roster.children.get(carrier.id)!,existing=new Set(children.map(u=>u.id));hangar.initialized=true;for(let i=children.length;i<(carrier.heroId==='purifier_flagship'?P.purifier_flagship.children:revisedProtossElite(carrier)&&carrier.eliteId==='carrier.1'?8:HANGAR.initialCount);i++)children.push(spawnInterceptor(w,carrier));for(const child of children)refreshInterceptorStats(w,child,!existing.has(child.id));
  }
 }
 /** One paid construction slot per mother; intermission, pause and receipt decisions freeze it. */
 export function tickCarrierSubsystem(w:World,dt:number){
  if(!w.expedition)return;cleanupCarrierSummons(w);if(w.phase!=='battle'||w.paused||w.requiresPlayerDecision)return;
- if(!Number.isFinite(dt)||dt<0)throw new RangeError('Carrier simulation delta must be nonnegative');initializeCarrierSubsystem(w);
- for(const carrier of [...w.entities.values()])if(isCarrier(carrier)&&carrier.hp>0){
-  let seconds=dt;const hangar=carrier.carrierHangar!;
+ if(!Number.isFinite(dt)||dt<0)throw new RangeError('Carrier simulation delta must be nonnegative');const roster=carrierRoster(w);initializeRoster(w,roster);
+ for(const carrier of roster.carriers){
+  let seconds=dt;const hangar=carrier.carrierHangar!,children=roster.children.get(carrier.id)!;
   // The campaign has no enemy economy. Enemy carriers get only their included initial complement.
-  if(carrier.owner==='terran'&&!projectionFor(w,carrier))while(ownedInterceptors(w,carrier.id).length<(carrier.heroId==='purifier_flagship'?P.purifier_flagship.children:revisedProtossElite(carrier)&&carrier.eliteId==='carrier.2'?4:HANGAR.maxCount)){
+  if(carrier.owner==='terran'&&!carrier.mission?.holdout&&!w.missions.fleet.ceasefire&&!projectionFor(w,carrier))while(children.length<(carrier.heroId==='purifier_flagship'?P.purifier_flagship.children:revisedProtossElite(carrier)&&carrier.eliteId==='carrier.2'?4:HANGAR.maxCount)){
    if(!hangar.job){if(w.wallet.minerals<HANGAR.mineralCost)break;w.wallet.minerals-=HANGAR.mineralCost;w.economyTotals.production.minerals+=HANGAR.mineralCost;hangar.job={remaining:HANGAR.replacementSeconds,paid:HANGAR.mineralCost};}
    if(seconds+1e-8<hangar.job.remaining){hangar.job.remaining-=seconds;break;}
-   seconds=Math.max(0,seconds-hangar.job.remaining);hangar.job=null;spawnInterceptor(w,carrier);
+   seconds=Math.max(0,seconds-hangar.job.remaining);hangar.job=null;children.push(spawnInterceptor(w,carrier));
   }
   const target=carrier.attackTarget===null?undefined:w.body(carrier.attackTarget);if(!target||!canEngage(w,carrier,target))carrier.attackTarget=w.findTarget(carrier,carrier.attackRange)?.id??null;
-  for(const u of ownedInterceptors(w,carrier.id))refreshInterceptorStats(w,u);
+  for(const u of children)refreshInterceptorStats(w,u);
  }
 }
 function canEngage(w:World,carrier:Entity,target:Body){return target.hp>0&&target.owner!==carrier.owner&&w.edgeDistance(carrier,target)<=carrier.attackRange+.5&&w.targetAllowed(carrier,target)&&w.hasAttackLine(carrier,target);}
@@ -86,9 +94,9 @@ function canStrike(w:World,u:Entity,target:Body){return target.hp>0&&target.owne
 /** Uses real targetable child HP. Parent loss or a dead/illegal target cancels an unfinished shot. */
 export function fireInterceptor(w:World,u:Entity,target:Body){return w.starship.attacks.has(u)?fireInterceptorNative(w,u,target):withEquipmentWeapon(w,u,target,()=>fireInterceptorNative(w,u,target),BASE.weapon.attacks);}
 function fireInterceptorNative(w:World,u:Entity,target:Body){if(!isInterceptor(u)||u.hp<=0||!canStrike(w,u,target))return false;const mother=u.summonOwnerId===undefined?undefined:w.entities.get(u.summonOwnerId);if(!mother||mother.hp<=0)return false;
- if(revisedProtossElite(mother)&&mother.eliteId==='carrier.2'&&ownedInterceptors(w,mother.id).sort((a,b)=>a.id-b.id).findIndex(c=>c.id===u.id)>=4)return false;
+ if(revisedProtossElite(mother)&&mother.eliteId==='carrier.2'&&reserveInterceptor(w,u,mother.id))return false;
  u.rewardOwnerId=mother.id;u.rewardOwnerGeneration=mother.bornAt;u.rewardSourceKind=mother.temporary?'temporary':mother.heroId?'hero':mother.eliteId?'elite':'ordinary';
- u.attackFacing=Math.atan2(target.x-u.x,target.z-u.z);u.facing=u.attackFacing;u.lastShotAt=w.time;u.shotSequence=(u.shotSequence??0)+1;w.stats.shots++;w.visual('attack',u,target);const gear=equipmentCrit(w,u),crit=equipmentCritResult(w,u,gear.chance,1.75+gear.damage);if(mother.heroId==='purifier_flagship'){launchProtossChildAttack(w,u,mother,target,crit);return true;}if(fireProtossEliteChild(w,u,mother,target,crit))return true;w.hit(target,u.weaponDamage*crit,[],BASE.weapon.attacks,u.owner,.5,0,u.id,false,false,0,true);applyEquipmentTrueHit(w,u,target,BASE.weapon.attacks,crit);
+ u.attackFacing=Math.atan2(target.x-u.x,target.z-u.z);u.facing=u.attackFacing;u.lastShotAt=w.time;u.shotSequence=(u.shotSequence??0)+1;w.stats.shots++;w.visual('attack',u,target);const gear=equipmentCrit(w,u),crit=equipmentCritResult(w,u,gear.chance,1.75+gear.damage);if(mother.arenaHero){w.hit(target,u.weaponDamage,[],BASE.weapon.attacks,u.owner,.5,0,u.id,false,false,0,true);return true;}if(mother.heroId==='purifier_flagship'){launchProtossChildAttack(w,u,mother,target,crit);return true;}if(fireProtossEliteChild(w,u,mother,target,crit))return true;w.hit(target,u.weaponDamage*crit,[],BASE.weapon.attacks,u.owner,.5,0,u.id,false,false,0,true);applyEquipmentTrueHit(w,u,target,BASE.weapon.attacks,crit);
  if(target.hp>0&&mother.team==='player'&&!mother.temporary&&w.talent('apm_master'))w.hit(target,u.weaponDamage*BASE.weapon.attacks*1.15,[],1,u.owner,.5,0,u.id,false,false,0,true);
  w.effect('shot',u,target,.07,.14);return true;
 }
@@ -98,7 +106,7 @@ export function tickInterceptor(w:World,u:Entity,dt:number){
  if(!isInterceptor(u))return false;if(u.hp<=0)return true;const carrier=u.summonOwnerId===undefined?undefined:w.entities.get(u.summonOwnerId);if(!carrier||carrier.hp<=0){retire(w,u);return true;}
  refreshInterceptorStats(w,u);const observedShield=u.shield??0;if(w.time-(u.lastDamagedAt??-Infinity)>=(u.shieldDelay??0))u.shield=Math.min(u.maxShield??0,(u.shield??0)+(u.shieldRegen??0)*dt*equipmentRecoveryFactor(w,u));observeRecovery(w,'natural_regeneration',u,0,(u.shield??0)-observedShield);u.weaponCooldown=Math.max(0,u.nextShotAt-w.time);
  if(u.pendingTarget!==null){u.windup=Math.max(0,u.windup-dt);u.prev={x:u.x,z:u.z};u.velocity={x:0,z:0};u.action='attack';if(u.windup<=1e-8){const target=w.body(u.pendingTarget);if(target)fireInterceptor(w,u,target);u.pendingTarget=null;}return true;}
- const reserve=revisedProtossElite(carrier)&&carrier.eliteId==='carrier.2'&&ownedInterceptors(w,carrier.id).sort((a,b)=>a.id-b.id).findIndex(b=>b.id===u.id)>=4;
+ const reserve=revisedProtossElite(carrier)&&carrier.eliteId==='carrier.2'&&reserveInterceptor(w,u,carrier.id);
  const target=carrier.attackTarget===null?undefined:w.body(carrier.attackTarget),active=!reserve&&target&&canEngage(w,carrier,target)&&distance(u,carrier)<=INTERCEPTOR_STEERING.leash;
  if(active){u.attackTarget=target.id;if(canStrike(w,u,target)){if(w.time+1e-8>=u.nextShotAt){u.pendingTarget=target.id;u.windup=BASE.weapon.damagePoint;u.shotInterval=u.attackPeriod;u.nextShotAt=w.time+u.attackPeriod;u.action='attack';u.velocity={x:0,z:0};u.prev={x:u.x,z:u.z};}else {u.action='idle';u.velocity={x:0,z:0};u.prev={x:u.x,z:u.z};}return true;}
   const dx=u.x-target.x,dz=u.z-target.z,d=Math.hypot(dx,dz)||1,standOff=u.attackRange*.75+u.unitRadius+target.unitRadius;fly(w,u,{x:target.x+dx/d*standOff,z:target.z+dz/d*standOff},dt);

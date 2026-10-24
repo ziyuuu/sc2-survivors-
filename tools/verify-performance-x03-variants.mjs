@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import * as THREE from 'three';
+import * as old from '../reports/local/performance-x03-20261020/baseline-numeric.mjs';
+const current=await import('../reports/local/performance-x03-20261020/'+(process.argv[2]??'candidate-r3')+'-numeric.mjs');
+const camera=new THREE.PerspectiveCamera();camera.position.set(2,15,20);camera.lookAt(0,0,0);camera.updateMatrixWorld(true);
+const report={cases:0,quads:0,waves:6,types:10,spaces:2,withLocalForces:0,pass:false};
+for(let wave=1;wave<=6;wave++)for(let type=1;type<=10;type++)for(const worldSpace of [0,1]){
+ const a=structuredClone(old.SOURCE_EFFECTS.MarineAttackLaunch),p=a.particles[0];a.particles=[p];p.copy_indices=[];p.particle_type=type;p.flags=0x20002|0x10000;p.additional_flags=worldSpace?8:0;p.world_space=worldSpace;p.emit_count={id:90000001,default:4,interpolation:0,flags:0};p.emit_rate={id:90000002,default:0,interpolation:0,flags:0};p.lifespan={id:90000003,default:2,interpolation:0,flags:0};p.lifespan_randomize=0;p.size={x:1,y:2,z:1};p.size_randomize=0;p.color_init={r:255,g:230,b:210,a:255};p.color_mid={r:120,g:240,b:180,a:220};p.color_end={r:30,g:100,b:240,a:200};p.color_randomize=0;p.alpha_randomize=0;p.gravity=-2;p.mass=1.2;p.mass2=1.7;p.mass_randomize=1;p.drag=.2;p.noise_amplitude=.1;p.noise_frequency=2;p.bounce=.4;p.phase_shift=.3;p.size_smoothing=wave%5;p.color_smoothing=wave%5;p.rotation_smoothing=wave%5;p.size_hold=.1;p.color_hold=.2;p.alpha_hold=.15;
+ for(const key of ['speed','size','rotation','alpha']){p[key+'_var_amplitude']=.1;p[key+'_var_shape']=wave;p[key+'_var_frequency']=1.7;}
+ p.local_forces=type===7?1:0;a.forces=type===7?[{bone:0,material_reference_index:0,channels:1,width:30,strength:.2}]:[];
+ const b=structuredClone(a),cacheA=new old.SourceParticleCache(3),cacheB=new current.SourceParticleCache(3);
+ for(const age of [.07,.31,.9,.31]){const request={key:'variant',model:a.id,age,seed:529,loop:true,placement:{x:1,y:2,z:3,facing:.7,scale:1.2,from:{x:-3,y:1,z:4},age}},ground=pos=>Math.sin(pos.x*.2)*.1+Math.cos(pos.z*.3)*.1;cacheA.begin(age);cacheB.begin(age);const before=old.sourceParticleQuads(a,request,camera,ground,cacheA),after=current.sourceParticleQuads(b,request,camera,ground,cacheB);assert.deepEqual(after,before,JSON.stringify({wave,type,worldSpace,age}));assert.ok(after.length>0);cacheA.end();cacheB.end();report.cases++;report.quads+=after.length;if(a.forces.length)report.withLocalForces++;}
+}
+report.pass=true;await fs.writeFile('reports/local/performance-x03-20261020/numerical-variants.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));

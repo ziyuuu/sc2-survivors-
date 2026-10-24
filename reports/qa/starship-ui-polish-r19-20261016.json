@@ -1,0 +1,81 @@
+{
+  "batch": "starship-ui-polish-r19-20261016",
+  "date": "2026-10-16",
+  "status": "local-independent-ui-verified",
+  "build": {
+    "file": "D:\\星际\\preview\\starship-ui-polish-20261016-r19\\Starship-UI-Flow-R19-20261016.html",
+    "bytes": 50556543,
+    "sha256": "a2b928d894cc679e68587c4f34b4b0d51a233dfc1a3ed327c8abdb33d3697a4c",
+    "existingArt": 441,
+    "heroArt": 54,
+    "reusedShips": 3,
+    "reusedCovers": 3,
+    "reusedBrand": 1,
+    "images": 502,
+    "templates": 210,
+    "rows": 14811
+  },
+  "changes": [
+    "Reuse R12 left ship / twelve slots / inline inspector / right inventory and original brand, covers and ships",
+    "Retain production R18 controller, host adapters, final equipment rules and 54 selected hero poses",
+    "Keep item selection and operations on the current page; all pages have back navigation",
+    "Craft, cleanse, reroll and expansion animations follow successful actual commands",
+    "Remove pending inventory and directly salvage retained overflow using existing quality prices"
+  ],
+  "verification": {
+    "unit": {
+      "pass": 1607,
+      "fail": 0,
+      "log": "reports/local/starship-ui-polish-20261016-r19/full-tests-r1.log"
+    },
+    "targeted": {
+      "pass": 23,
+      "fail": 0,
+      "log": "reports/local/starship-ui-polish-20261016-r19/targeted-tests-r3.log"
+    },
+    "typecheck": "reports/local/starship-ui-polish-20261016-r19/typecheck-final.log",
+    "dataDocs": "reports/local/starship-ui-polish-20261016-r19/data-docs.log",
+    "styleImport": "reports/local/starship-ui-polish-20261016-r19/style-import.json",
+    "browser": {
+      "checks": 21,
+      "screens": 50,
+      "errors": [],
+      "consoleErrors": [],
+      "external": [],
+      "decoded": {
+        "count": 625,
+        "heroes": 54
+      },
+      "report": "reports/local/starship-ui-polish-20261016-r19/browser-1792121360646/report.json"
+    },
+    "extra": {
+      "checks": 7,
+      "screens": 11,
+      "errors": [],
+      "report": "reports/local/starship-ui-polish-20261016-r19/extra-1792121198120/report.json",
+      "animationSampling": "Actual successful commands; completion timer held and CSS animation sampled at 800 ms for four midpoint images. Separate normal-timing browser run checks the unmodified duration."
+    },
+    "visualReview": {
+      "screens": 61,
+      "contactSheets": 11,
+      "mode": "contact-sheet review and selected original-size covers / animation images; not all-frame or human acceptance"
+    },
+    "sourceInputs": 164,
+    "resources": {
+      "keys": 502,
+      "checkedFiles": 625,
+      "manifest": "preview/starship-ui-polish-20261016-r19/resources.json"
+    }
+  },
+  "limits": {
+    "ordinaryMainGameMount": false,
+    "savePersistence": false,
+    "naturalCampaignAcceptance": false,
+    "fullContent60FPS": false,
+    "humanAcceptance": false,
+    "productionRelease": false,
+    "gitCommitPush": false,
+    "currentReplaced": false
+  },
+  "historicalEvidencePreserved": true
+}

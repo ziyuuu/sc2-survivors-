@@ -1,0 +1,610 @@
+{
+  "task": "I02",
+  "date": "2026-10-22",
+  "pass": true,
+  "status": "本地完成，main工作区未提交",
+  "authorization": "明白了，开始I02吧，检查跨系统结算、特殊关冻结返回和防重领，保持现在main的镜头和操作不变。",
+  "scope": {
+    "cameraAndInputUnchanged": true,
+    "currentReplaced": false,
+    "committed": false,
+    "pushed": false,
+    "published": false,
+    "persistenceDeferred": "D05",
+    "nextNotStarted": "I03"
+  },
+  "implementation": {
+    "existingSourcesAndTests": 801,
+    "existingUnchanged": 799,
+    "existingProductionChanged": 2,
+    "newProduction": 1,
+    "newTestFiles": 2,
+    "finalSourcesAndTests": 804,
+    "changes": [
+      {
+        "path": "src/simulation/special-stages/bridge.ts",
+        "bytes": 12957,
+        "sha256": "b648e2ad9108a3fdeb01450af8f81dd64e02c1982c3e5df8e8cd5be3ebb824b7",
+        "after": "bc4335ac68c8c1df92990828457f72428eb1a61aca550e47d849bc9fca8c6d5b"
+      },
+      {
+        "path": "src/simulation/special-stages/crossing.ts",
+        "bytes": 5413,
+        "sha256": "d6058f0ad2f6a72f406cfb10bc90de6b859464f64fe7e0074560617babfd59e3",
+        "after": "b8e5a0bcb047db48903d39e3b5d1a5c0a06651a20e3877e55fe32dd945774373"
+      }
+    ],
+    "added": [
+      "src/simulation/special-stages/combat-state.ts",
+      "test/integration-i02-transactions.test.ts",
+      "test/integration-i02.test.ts"
+    ],
+    "unchangedUiRenderStartupFiles": 271
+  },
+  "regression": {
+    "final": 2102,
+    "passed": 2102,
+    "failed": 0,
+    "newScenarios": 25,
+    "frozenBefore": {
+      "tests": 12,
+      "failed": 9,
+      "passed": 3
+    },
+    "initialLocalNetworkFailures": 7,
+    "networkFileRerun": 16,
+    "typecheck": true,
+    "dataCheck": true,
+    "scenarios": [
+      {
+        "name": "I02 entering a special battlefield does not refresh a cooling manual dash",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 special-field manual cooldowns carry their remaining time back exactly once",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 a special-field tactical cast cannot be refreshed by returning to the original field",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 a phase recovery begun in a special field retains its living projections after return",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 carrier children killed in a special field cannot silently return alive",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 nested elite cooldowns and firing age retain their actual remaining time",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 original field support packets remain frozen and never replay inside the challenge",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 existing normal-field phase recovery and its actors remain frozen through another battlefield",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 native registered recovery produced in a special field completes once after return",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 a crossing carrier evacuates its current complement and returns each child once",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 dodge never spends or advances the parked squad command cooldowns",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 a failed challenge cannot settle a run while the original field still owns a lawful recovery",
+        "file": "test/integration-i02.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 paid training and a launched passenger retain identity, payment and remaining work through a challenge",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 full backpack recovery uses the real equipment controller and never duplicates any of the three crossing rewards",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 full warehouse salvages once on actual extraction after special-field return",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 original Boss cards stay frozen, while arena claims return once through the normal receipt path",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 task reward plans, old ground identities and drop lifetime survive return without minting again",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 repair task reservation and elapsed work stay frozen then grant one facility",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 original temporary friends and their expiry are frozen rather than copied or extended",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 once-only special payout remains atomic under synchronous UI notification replay",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 failed purchase retries and stale quotes cannot repeat a charge, a free use or Pandora payout",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 a paid hero revival blocked on landing freezes through the challenge and deploys only once afterwards",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 stale equipment commands remain rejected after a failed full-backpack pickup and legal retry",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 challenge wipe settles once and cannot restore the run through a stale claim or success callback",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      },
+      {
+        "name": "I02 opening a bag, pausing or waiting in loot cannot move either field clock or advance production",
+        "file": "test/integration-i02-transactions.test.ts",
+        "pass": true
+      }
+    ]
+  },
+  "browser": {
+    "qa-web-r5": {
+      "records": 19,
+      "errors": 0,
+      "httpRequests": null,
+      "path": "reports/local/integration-i02-20261022/qa-web-r5/result.json",
+      "httpScope": "not-collected-for-web"
+    },
+    "qa-offline-r1": {
+      "records": 19,
+      "errors": 0,
+      "httpRequests": 0,
+      "path": "reports/local/integration-i02-20261022/qa-offline-r1/result.json",
+      "httpScope": "offline-only"
+    },
+    "qa-production-r1": {
+      "records": 8,
+      "errors": 0,
+      "httpRequests": 0,
+      "path": "reports/local/integration-i02-20261022/qa-production-r1/result.json",
+      "httpScope": "offline-only"
+    },
+    "qa-touch-r1": {
+      "records": 8,
+      "errors": 0,
+      "httpRequests": 0,
+      "path": "reports/local/integration-i02-20261022/qa-touch-r1/result.json",
+      "httpScope": "offline-only"
+    },
+    "method": "Controlled fixtures with native DOM, World steps, actual damage and real WebGL context loss/recovery. Resources and dodge full clocks; arena kills and crossing exit positions controlled.",
+    "screens": [
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/arena-loot.png",
+        "sha256": "536c41866c8f1bb5de094ed2a23add0e9d91e7b0351f4b74ed36407b5e0aa543",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/arena-returned.png",
+        "sha256": "a019645a7d12439374f308944cfcbcecb09c5e771956e27176163ec7967af5c5",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/challenge-defeat.png",
+        "sha256": "3f5713ff7b16016ba5ddabc8ca04cb78718ec1df4b3fe93644be9f416e6d97b0",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/crossing-returned.png",
+        "sha256": "f4ac00c2c1c416b6a16dc25889c9accaac9d79f13497d35e1d290e52ff7ac559",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/dodge-active.png",
+        "sha256": "6472e910c2d7761b93195096450520108b97cba9764b4f2d8599e2c05b055d8c",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/dodge-returned.png",
+        "sha256": "21ac46c8ddc6059e6f368eb01a34aa1509f5fe10c2afc70c8372aaa3374927c9",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/full-bag-blocked.png",
+        "sha256": "8534c83557552158bba856597764c759e0698800cdcc63bf9ce495b7b6b1be6a",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/full-bag-space.png",
+        "sha256": "d00efdd27f27e6829263c97653b60fcca50e9482044b8d59f791c290a731007f",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/loot-context-restored.png",
+        "sha256": "a2486ab62b68cbeac4a5b0bd319416a96f97c2dce77f73ff0234a306ca781c68",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/original-repair-portal.png",
+        "sha256": "c8c7336ed01a051ccbb03b36da159765b6e9bb769e43ddb3cebe76630f4b35ee",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/pandora-once.png",
+        "sha256": "d5d0302a992b991d6f5ea6af7e0003f4dfd769dc3eabf7cf634372b52a00ec89",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/resources-entered.png",
+        "sha256": "1fc91f9ec3cc9c9365f43d7f9226e700b3cce0c463142fed7f893e02106fa2ad",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/resources-returned.png",
+        "sha256": "c3d7404483d7c7fef10d138e9d1ead9ec9239c5e697b9c1c44ed3624e5e7381c",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-web-r5/screens/retry-new-run.png",
+        "sha256": "9263ccdf6861452cb8e1254baadb1c32b2580bc7845976c9855db352c2698af5",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/arena-loot.png",
+        "sha256": "536c41866c8f1bb5de094ed2a23add0e9d91e7b0351f4b74ed36407b5e0aa543",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/arena-returned.png",
+        "sha256": "357454a8a13ec4bc379bb954728fc52e92d5994fce3b01d66c2f5ae0ff8467ee",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/challenge-defeat.png",
+        "sha256": "3f5713ff7b16016ba5ddabc8ca04cb78718ec1df4b3fe93644be9f416e6d97b0",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/crossing-returned.png",
+        "sha256": "f4ac00c2c1c416b6a16dc25889c9accaac9d79f13497d35e1d290e52ff7ac559",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/dodge-active.png",
+        "sha256": "6472e910c2d7761b93195096450520108b97cba9764b4f2d8599e2c05b055d8c",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/dodge-returned.png",
+        "sha256": "21ac46c8ddc6059e6f368eb01a34aa1509f5fe10c2afc70c8372aaa3374927c9",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/full-bag-blocked.png",
+        "sha256": "8534c83557552158bba856597764c759e0698800cdcc63bf9ce495b7b6b1be6a",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/full-bag-space.png",
+        "sha256": "d00efdd27f27e6829263c97653b60fcca50e9482044b8d59f791c290a731007f",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/loot-context-restored.png",
+        "sha256": "0ae08e700616175265a4a6f3b75e7c4dc9ae39bee530e9f04b16996d89672707",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/original-repair-portal.png",
+        "sha256": "bacf24c3e94a8448d91e2f3d6c5b5386354674158fb2c66213d16f9658a2e3a3",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/pandora-once.png",
+        "sha256": "513d3dae8b18ae096bd3430f9e0ec830bb0f83fd670e14c895e442231362723b",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/resources-entered.png",
+        "sha256": "1fc91f9ec3cc9c9365f43d7f9226e700b3cce0c463142fed7f893e02106fa2ad",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/resources-returned.png",
+        "sha256": "e5696c2ba90263ce47b3710071ff6c1e77023af602fc5d80c66fef2cd5ab6af4",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-offline-r1/screens/retry-new-run.png",
+        "sha256": "fabfffdc9bf2771468979427a4849c8bb6e51d2c40f1fc6dc76735b62fe81a80",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-production-r1/screens/offline-terran-battle.png",
+        "sha256": "7acedb515120d3464b030424b8cc080d5a982535fcb31f0b529d2276846c6302",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-production-r1/screens/offline-terran-settings-return.png",
+        "sha256": "d7004bdf471993810dd458c973e506c681565c5c33f35b884ead23e10a8b5954",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-production-r1/screens/web-terran-battle.png",
+        "sha256": "ef22b5aacc9fd4d94cd0dc3c9210172b07e39c20b1eb3b350d39ab9b069306b2",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-production-r1/screens/web-terran-settings-return.png",
+        "sha256": "1da8ddd77fb002c41e9f44149bca31f86d315af6b89df074bd686f2cfdd38ae0",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-touch-r1/screens/offline-picker-1280.png",
+        "sha256": "e08a8d841f297dad7b84c2e521bd6e5d517776951d5a8f1d6193c2c10314768b",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-touch-r1/screens/offline-picker-1440.png",
+        "sha256": "baafec8b0ce8a31e83c96849e5034ee08681248fee3370b54110e426ffcfae02",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-touch-r1/screens/offline-picker-390.png",
+        "sha256": "39f4bf4085dddb23352715d56e898bfe2b1622fe03fba335a30707819fb4dce7",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-touch-r1/screens/offline-picker-844.png",
+        "sha256": "d298b069281afa186e6a977467a2dbd97f902b370275fb79cff3ba68e94d55ef",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-touch-r1/screens/offline-portrait-touch.png",
+        "sha256": "eb7d54a48ba82cb5042fcc4b933242337ac51ff194abfe0f1a614283a74b5687",
+        "reviewed": true
+      },
+      {
+        "file": "reports/local/integration-i02-20261022/qa-touch-r1/screens/offline-touch-picker.png",
+        "sha256": "008ab0e4aabf510199193fa2e51833f5d067731115dbb03fbfa0d109bac94c3a",
+        "reviewed": true
+      }
+    ],
+    "reviewedCount": 38,
+    "physicalDevice": false,
+    "naturalCampaign": false
+  },
+  "delivery": [
+    {
+      "mode": "game",
+      "web": "D:\\星际\\reports\\local\\integration-i02-20261022/web-game-r2",
+      "webInputs": 493,
+      "offlineInputs": 498,
+      "assets": 1909,
+      "resources": 1852,
+      "chunks": 2975,
+      "webJs": "e794f7114e8d2a18a9c26d4d24a83baf930c02424bfc26cb7de4e24d19dae3c1",
+      "offlineHtml": "dc9425d0dedbea37bf540c5a78f2120a0ce984eb5a4744db28d8ea41186ecbe1",
+      "allInputsAndOutputsExact": true
+    },
+    {
+      "mode": "lab",
+      "web": "D:\\星际\\reports\\local\\integration-i02-20261022/web-lab-r2",
+      "webInputs": 494,
+      "offlineInputs": 499,
+      "assets": 1909,
+      "resources": 1852,
+      "chunks": 2975,
+      "webJs": "db25bc466cc535c0cbbfb28060d88e1786da741ff0502e909c2b226cabe1d999",
+      "offlineHtml": "43184f69b11dc1e08e57bd3a2989ed1fdb5e8adb23e47f8c689332b3d671d0dd",
+      "allInputsAndOutputsExact": true
+    }
+  ],
+  "preview": "preview/integration-i02-20261022/",
+  "cleanup": {
+    "browserClosed": true,
+    "logicalBytes": 598081074,
+    "files": 2204,
+    "pass": true,
+    "protectedFiles": 48,
+    "removed": "D:\\星际\\reports\\local\\integration-i02-20261022\\qa-shared\\profile",
+    "protectedExact": true,
+    "scope": "Only the finished I02 QA browser profile. Screenshots, logs, frozen input, output and Current retained.",
+    "resourceSharing": {
+      "files": 7408,
+      "logicalDuplicateBytes": 3678470152,
+      "manifest": "reports/local/integration-i02-20261022/packaging.json"
+    }
+  },
+  "retainedFailures": [
+    "Invalid initial test fixture skill/equipment/death paths and timing assumptions; original logs retained.",
+    "Initial 7 local network permission failures; rerun16 and final2102 all pass.",
+    "First browser local-server connection timeout.",
+    "Browser R2/R3 count assertion and R4 detached assertion conflicted with existing hidden HUD nodes; final R5 checks visibility.",
+    "PowerShell command replacement quoting failed; old script ran again. Fixed via a standalone script without changing game code.",
+    "Initial cache cleanup used Windows PowerShell without UTF-8 BOM; Chinese path read failed before deletion. BOM fix succeeded."
+  ],
+  "limits": [
+    "Finite I02 transaction/lifecycle intersections, not I03 full natural reachability or T01 full action/effect coverage.",
+    "No cross-close save/multi-page write acceptance; D05 deferred.",
+    "No natural full campaign/endless, physical device, human balance or whole-game60FPS acceptance.",
+    "Existing dodge HUD hide rule unchanged; no new UI decision.",
+    "Visual batches3/4 and remaining MVP items remain open."
+  ],
+  "board": {
+    "revision": 111,
+    "total": 62,
+    "complete": 48,
+    "remaining": 14,
+    "pending": 12,
+    "deferred": 2,
+    "next": "I03"
+  },
+  "evidence": [
+    {
+      "file": "reports/local/integration-i02-20261022/before.json",
+      "sha256": "1ca210c3bd16739eb8456ee6991a0503b731aa93cece6f700d21caed7285ca63",
+      "bytes": 187515
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/final-source.json",
+      "sha256": "538fdecd66e1da9b93f036410aeb2b72494bbbeb709f724cde3ca29ba2cd0af1",
+      "bytes": 135804
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/verification.json",
+      "sha256": "bdea58e00e0b7592145d69b108820f41d3b3a0156bc22248851b8ee5a182a2d9",
+      "bytes": 14039
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/packaging.json",
+      "sha256": "65bd6e9b2925e0057867ca790a27e8086de63fa571c13c795a6aee43c7a26873",
+      "bytes": 2652242
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/cleanup.json",
+      "sha256": "9745a0c417c43de637a8ea9f15d8e8f0c10e2e60c0bfc78d48a7049af0ddd83b",
+      "bytes": 384
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/frozen-before-final-probes.log",
+      "sha256": "a0ed0d805c62d51799dded7a6ace846a79098c7ecd42f271241ec48e9f336ea3",
+      "bytes": 9951
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/targeted-r4.log",
+      "sha256": "1f551a39d683c69460693c913bc48257a7de1de8b21a4c9a2f729e760bffc7e0",
+      "bytes": 2809
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/regression-r1.log",
+      "sha256": "26edb97d6eff0862536821dff44680709e0e11983dd52a82aea9f3188db07ae9",
+      "bytes": 226077
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/regression-network-rerun.log",
+      "sha256": "73b8e8f465c09e3d7776ce6bcafa61f9a377b3116c13ab84b0811f1cfcc30817",
+      "bytes": 2207
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/regression-r2.log",
+      "sha256": "e55bfe28d2e335eb3e5059e409e0a67c1685742c3e90464476a23b94b8f962eb",
+      "bytes": 222627
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/typecheck-r2.log",
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb",
+      "bytes": 60
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/docs-check-r2.log",
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420",
+      "bytes": 149
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/qa-web-r5/result.json",
+      "sha256": "7b14e61a5153335218a510b79bbb0791232d51cad65ac1b4461e51024f69ec09",
+      "bytes": 28568
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/qa-offline-r1/result.json",
+      "sha256": "1a67db68bdb8163497b3af3fcb4121cc78639319c5eb022efe3ccc96a379230b",
+      "bytes": 28574
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/qa-production-r1/result.json",
+      "sha256": "d824668419c282a37279f2c4b5c84ccf0fc2ec61055ebc867ecc2ea82b52a393",
+      "bytes": 2420289
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/qa-touch-r1/result.json",
+      "sha256": "0b901041fb0126e39e7590cf933d9d209c363a3bb5f51fdf8a42e6a247f28430",
+      "bytes": 16515
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/qa-web-r1/result.json",
+      "sha256": "438360c1e7f933311bc16bc61ccbcb424d5a736a16477ba2c0f7b9b1b3545329",
+      "bytes": 511
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/qa-web-r2/result.json",
+      "sha256": "b3a05baf1c795c602d88176364520ed1fd705b6704ac03f37317628f636c6f96",
+      "bytes": 7175
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/qa-web-r3/result.json",
+      "sha256": "98ee5a7c4d8fe3d8234e114d9b47b072b655f354e66793fca645c8a2cd74bdd5",
+      "bytes": 7175
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/qa-web-r4/result.json",
+      "sha256": "4403c69efb1fbd000e21966994abaa421607c20618242c8da8041161c37f0ad3",
+      "bytes": 7412
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/web-game-r2-build.json",
+      "sha256": "db13fd37e372c6f09d6df76dd341cf225bc1eb5823e161d50b24bcea1b477ac4",
+      "bytes": 475681
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/offline-game-r2-build.json",
+      "sha256": "20337666d701b4a9fda31552cc0c1a81ffca4eda42fc3ccc25cd0d895d463857",
+      "bytes": 85499
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/offline-game-verification-r2.json",
+      "sha256": "07333770ddafe8978dbee311f69d06872c8cd73c19453381de98e6b8bde0c7fe",
+      "bytes": 327781
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/web-lab-r2-build.json",
+      "sha256": "8a5b95c7bc4bc6f6cb24e88e1a8f873986dd58ff04d3de51374d1417dc82ee92",
+      "bytes": 475884
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/offline-lab-r2-build.json",
+      "sha256": "c6e93590fa005de98e4b6e73d02b984a81301639b6951894eae00adbe7e56af5",
+      "bytes": 85694
+    },
+    {
+      "file": "reports/local/integration-i02-20261022/offline-lab-verification-r2.json",
+      "sha256": "8d6cc4de6ee337c7eb9e8bcce74cd24229eb1ee75cdb8a2dd8e61983b1a26593",
+      "bytes": 327780
+    }
+  ]
+}

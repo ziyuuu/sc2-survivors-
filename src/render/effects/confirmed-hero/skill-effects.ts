@@ -27,9 +27,9 @@ export class SkillEffects {
   for(const [key,geometry] of Object.entries(geometries)){
    const material=key==='shield'?new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,vertexShader:'varying vec3 n;varying vec3 eye;varying vec2 vUv;varying vec3 c;void main(){vUv=uv;c=instanceColor;vec4 p=modelViewMatrix*instanceMatrix*vec4(position,1.);n=normalize(normalMatrix*mat3(instanceMatrix)*normal);eye=normalize(-p.xyz);gl_Position=projectionMatrix*p;}',fragmentShader:'varying vec3 n;varying vec3 eye;varying vec2 vUv;varying vec3 c;void main(){float rim=pow(1.-abs(dot(normalize(n),normalize(eye))),3.);float line=pow(abs(sin(vUv.x*94.25)),60.)*.14+pow(abs(sin(vUv.y*50.26)),60.)*.1;gl_FragColor=vec4(c,(.025+rim*.25+line)*.7);}'})
     :new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:key==='beam'?.88:.8,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending});
-   const mesh=new THREE.InstancedMesh(geometry,material,CAP);mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.setColorAt(0,tint);mesh.count=0;mesh.frustumCulled=false;mesh.renderOrder=3;view.scene.add(mesh);this.batches.set(key as Shape,{mesh,count:0});
+   const mesh=new THREE.InstancedMesh(geometry,material,CAP);mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.setColorAt(0,tint);mesh.count=0;mesh.frustumCulled=false;mesh.renderOrder=3;(view.effectScene??view.scene).add(mesh);this.batches.set(key as Shape,{mesh,count:0});
   }
-  view.scene.add(this.grenade);
+  (view.effectScene??view.scene).add(this.grenade);
  }
  prepareGrenade(){for(const mesh of this.view.fx.projectiles.batches.get('marauder')??[]){const m=new THREE.Mesh(mesh.geometry,mesh.material);this.grenade.add(m);}this.grenade.visible=false;}
  reset(){this.cast=undefined;this.casts=[];this.echoes=[];this.nextTrail=0;this.grenade.visible=false;this.stats={impacts:0,dots:0,repairs:0,active:0,peak:0};for(const b of this.batches.values()){b.count=0;b.mesh.count=0;}}
@@ -69,7 +69,7 @@ export class SkillEffects {
    this.sprite(hero==='nova'?'flare1_blueelec':'flare1',p,hero==='nova'?2.2:1.7,.25,hero==='nova'?0xb9f1ff:0xffefc9);this.sparks(p,hero==='nova'?15:10,color,4,.6);this.sprite('energyplane3',p,.8,.4,color,1);
   }
  }
- private batch(shape:Shape){const b=this.batches.get(shape)!;if(b.count>=b.mesh.instanceMatrix.count){const old=b.mesh,mesh=new THREE.InstancedMesh(old.geometry,old.material,old.instanceMatrix.count*2);mesh.instanceMatrix.array.set(old.instanceMatrix.array);mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.setColorAt(0,tint);if(old.instanceColor)mesh.instanceColor!.array.set(old.instanceColor.array);mesh.frustumCulled=false;mesh.renderOrder=old.renderOrder;old.removeFromParent();old.dispose();this.view.scene.add(mesh);b.mesh=mesh;}return b;}
+ private batch(shape:Shape){const b=this.batches.get(shape)!;if(b.count>=b.mesh.instanceMatrix.count){const old=b.mesh,mesh=new THREE.InstancedMesh(old.geometry,old.material,old.instanceMatrix.count*2);mesh.instanceMatrix.array.set(old.instanceMatrix.array);mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.setColorAt(0,tint);if(old.instanceColor)mesh.instanceColor!.array.set(old.instanceColor.array);mesh.frustumCulled=false;mesh.renderOrder=old.renderOrder;old.removeFromParent();old.dispose();(this.view.effectScene??this.view.scene).add(mesh);b.mesh=mesh;}return b;}
  private draw(shape:Shape,p:V,s:V,color:number,rotation?:V,intensity=1){const b=this.batch(shape);obj.position.set(p.x,p.y,p.z);obj.rotation.set(rotation?.x??0,rotation?.y??0,rotation?.z??0);obj.scale.set(s.x,s.y,s.z);obj.updateMatrix();b.mesh.setMatrixAt(b.count,obj.matrix);b.mesh.setColorAt(b.count++,tint.set(color).multiplyScalar(intensity));}
  private beam(from:V,to:V,width:number,color:number,intensity=1){const b=this.batch('beam');const d=vec(to).sub(vec(from)),length=d.length();if(length<.001)return;obj.position.copy(vec(from).add(vec(to)).multiplyScalar(.5));obj.quaternion.setFromUnitVectors(up,d.normalize());obj.scale.set(width,length,width);obj.updateMatrix();b.mesh.setMatrixAt(b.count,obj.matrix);b.mesh.setColorAt(b.count++,tint.set(color).multiplyScalar(intensity));}
  private ring(p:V,r:number,color:number,angle=0,vertical=false,width=1){this.draw('ring',p,{x:r,y:r,z:width},color,{x:vertical?0:Math.PI/2,y:vertical?angle:0,z:vertical?0:angle});}
@@ -106,6 +106,6 @@ export class SkillEffects {
    }else if(e.hero==='tychus'&&!e.dot){this.ring({...e.p,y:.11},.25+t*6,color,0,false,fade);for(let i=0;i<8;i++){const a=i*2.4;this.draw('shard',{x:e.p.x+Math.sin(a)*t*4,y:e.p.y+2*t-t*t*4,z:e.p.z+Math.cos(a)*t*4},{x:fade,y:fade*.3,z:fade},0xebaf74,{x:a+t*5,y:a,z:a});}}
    else if(e.hero==='nova'||e.hero==='raynor')this.ring({...e.p,y:.15},.2+t*2.8,color,0,false,fade);
   }
-  let total=0;for(const b of this.batches.values()){b.mesh.count=b.count;b.mesh.instanceMatrix.needsUpdate=true;if(b.mesh.instanceColor)b.mesh.instanceColor.needsUpdate=true;total+=b.count;}this.stats.active=total;this.stats.peak=Math.max(this.stats.peak,total);
+  let total=0;for(const b of this.batches.values()){b.mesh.count=b.count;if(b.count>0){b.mesh.instanceMatrix.needsUpdate=true;if(b.mesh.instanceColor)b.mesh.instanceColor.needsUpdate=true;}total+=b.count;}this.stats.active=total;this.stats.peak=Math.max(this.stats.peak,total);
  }
 }

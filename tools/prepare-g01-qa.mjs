@@ -1,0 +1,8 @@
+import fs from 'node:fs/promises';
+import {build} from '../node_modules/esbuild/lib/main.js';
+const old='D:/星际/reports/local/feedback-r4-20261022',base='D:/星际/reports/local/g01-20261022';
+for(const name of ['build-web.mjs','assemble-offline.mjs','verify-offline.mts','serve.mjs','qa-production.mjs']){
+ let s=await fs.readFile(old+'/'+name,'utf8');s=s.replaceAll('R4','G01').replaceAll('feedback-r4-20261022','g01-20261022').replaceAll('4484','4485').replaceAll('fourth-feedback interaction and pacing fixes','G01 card equipment integration').replaceAll('Fourth-feedback','G01').replaceAll("??'r2'","??'r1'").replaceAll('offline-game-r2','offline-game-r1').replaceAll('qa-production-r2','qa-production-r1');await fs.writeFile(base+'/'+name,s);
+}
+const helper=await build({stdin:{contents:"import * as inventory from './src/simulation/starship/inventory';import * as attributes from './src/simulation/starship/attributes';import * as runtime from './src/simulation/starship/runtime';import * as cards from './src/simulation/starship/card-effects';import * as support from './src/simulation/combat/shop-support';import * as unique from './src/simulation/combat/unique-support';import * as economy from './src/simulation/expedition-economy';import * as presentation from './src/ui/presentation/intermission';window.G01QA={inventory,attributes,runtime,cards,support,unique,economy,presentation};",resolveDir:'D:/星际',loader:'ts'},bundle:true,format:'iife',outfile:base+'/qa-helper.js',metafile:true});await fs.writeFile(base+'/qa-helper-inputs.json',JSON.stringify(helper.metafile.inputs,null,2));
+console.log('G01 builders and production helper prepared');

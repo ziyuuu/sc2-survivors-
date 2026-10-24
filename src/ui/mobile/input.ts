@@ -1,3 +1,4 @@
+import {callFleet} from '../../simulation/missions/fleet';
 import {CanvasPinch} from './canvas-pinch';
 import {wheelZoomDelta} from '../../render/scene/camera-controller';
 import {battleInputCapture} from '../presentation/input-capture';
@@ -18,12 +19,12 @@ export class Input {
   const pinch=new CanvasPinch(()=>battle.zoom?.()??1,value=>battle.setZoom?.(value));
   this.cancelGesture=()=>{pinch.cancel();};
   window.addEventListener('orientationchange',()=>{pinch.cancel();this.cancelTap();});
-  let target:Point|null=null,targetKind:'stalker'|'strategic'|'tactical'|null=null;const transferPanel=document.createElement('aside');transferPanel.id='transfer-picker';transferPanel.className='console';transferPanel.hidden=true;document.querySelector('#interface')?.append(transferPanel);
+  let target:Point|null=null,targetKind:'stalker'|'strategic'|'tactical'|'fleet'|null=null;const transferPanel=document.createElement('aside');transferPanel.id='transfer-picker';transferPanel.className='console';transferPanel.hidden=true;document.querySelector('#interface')?.append(transferPanel);
   const preview=()=>{battle.previewTarget?.(target);if(targetKind==='stalker'&&target){const result=familyAbilityState(world,'stalker',target);const status=transferPanel.querySelector('[role=status]');if(status)status.textContent=result.reason||'落点可用';const button=transferPanel.querySelector<HTMLButtonElement>('[data-transfer-confirm]');if(button)button.disabled=!result.enabled;}};
-  this.cancelTarget=()=>{target=null;targetKind=null;transferPanel.hidden=true;delete document.body.dataset.targetFamily;canvas.style.cursor='';preview();};
-  const confirmTarget=()=>{if(!target||!canAct())return;if(targetKind==='tactical'){if(world.castTactical(target)){this.cancelTarget();world.announce('棱镜扫射');}return;}if(targetKind==='strategic'){if(world.commitStrategicStrike(target)){this.cancelTarget();world.announce('战略打击已确认');}else world.announce('无法在此处发动打击');return;}if(world.castFamilyAbility('stalker',target)){this.cancelTarget();world.announce('闪烁已施放');}};
+  this.cancelTarget=()=>{const hadTarget=target!==null||targetKind!==null;target=null;targetKind=null;if(!transferPanel.hidden)transferPanel.hidden=true;if(document.body.dataset.targetFamily!==undefined)delete document.body.dataset.targetFamily;if(canvas.style.cursor)canvas.style.cursor='';if(hadTarget)preview();};
+  const confirmTarget=()=>{if(!target||!canAct())return;if(targetKind==='fleet'){if(callFleet(world,target)){this.cancelTarget();world.announce('舰队部署已确认');}else world.announce('请在可见空域选择可用落点');return;}if(targetKind==='tactical'){if(world.castTactical(target)){this.cancelTarget();world.announce('棱镜扫射');}return;}if(targetKind==='strategic'){if(world.commitStrategicStrike(target)){this.cancelTarget();world.announce('战略打击已确认');}else world.announce('无法在此处发动打击');return;}if(world.castFamilyAbility('stalker',target)){this.cancelTarget();world.announce('闪烁已施放');}};
   transferPanel.addEventListener('click',e=>{const button=(e.target as HTMLElement).closest<HTMLButtonElement>('button');if(!button)return;if(button.hasAttribute('data-transfer-cancel'))this.cancelTarget();else if(button.hasAttribute('data-transfer-confirm'))confirmTarget();});
-  document.addEventListener('sc2-target-family',e=>{const kind=(e as CustomEvent).detail;if((kind!=='stalker'&&kind!=='strategic'&&kind!=='tactical')||!canAct())return;this.cancelTarget();this.cancelTap();this.keys.clear();this.release();world.resetDirectionalInput();world.cancelOrder();targetKind=kind;target={x:world.anchor.x,z:world.anchor.z};document.body.dataset.targetFamily=kind;canvas.style.cursor='crosshair';if(kind==='tactical'){transferPanel.innerHTML='<strong>棱镜扫射</strong><p>选择扫射方向</p><button data-transfer-confirm>确认扫射</button><button data-transfer-cancel>取消</button>';transferPanel.hidden=false;}else if(kind==='strategic'){transferPanel.innerHTML='<strong>战略打击</strong><p>选择区域，或在当前位置确认。</p><button data-transfer-confirm>确认打击</button><button data-transfer-cancel>取消</button>';transferPanel.hidden=false;}else{transferPanel.innerHTML='<strong>追猎者闪烁</strong><p role="status"></p><button data-transfer-confirm>确认闪烁</button><button data-transfer-cancel>取消</button>';transferPanel.hidden=false;}transferPanel.tabIndex=-1;transferPanel.focus();preview();world.announce(kind==='tactical'?'选择扫射方向 · 点击或A确认 · Esc／B取消':kind==='strategic'?'选择打击区域 · 点击或A确认 · Esc／B取消':'选择闪烁落点 · 点击确认／手柄左摇杆＋A · Esc／B取消');});
+  document.addEventListener('sc2-target-family',e=>{const kind=(e as CustomEvent).detail;if((kind!=='stalker'&&kind!=='strategic'&&kind!=='tactical'&&kind!=='fleet')||!canAct())return;this.cancelTarget();this.cancelTap();this.keys.clear();this.release();world.resetDirectionalInput();world.cancelOrder();targetKind=kind;target={x:world.anchor.x,z:world.anchor.z};document.body.dataset.targetFamily=kind;canvas.style.cursor='crosshair';if(kind==='fleet'){transferPanel.innerHTML='<strong>呼叫舰队</strong><p>选择部署位置 · 三舰跟随协战 60 秒</p><button data-transfer-confirm>确认部署</button><button data-transfer-cancel>取消</button>';transferPanel.hidden=false;}else if(kind==='tactical'){transferPanel.innerHTML='<strong>棱镜扫射</strong><p>选择扫射方向</p><button data-transfer-confirm>确认扫射</button><button data-transfer-cancel>取消</button>';transferPanel.hidden=false;}else if(kind==='strategic'){transferPanel.innerHTML='<strong>战略打击</strong><p>选择区域，或在当前位置确认。</p><button data-transfer-confirm>确认打击</button><button data-transfer-cancel>取消</button>';transferPanel.hidden=false;}else{transferPanel.innerHTML='<strong>追猎者闪烁</strong><p role="status"></p><button data-transfer-confirm>确认闪烁</button><button data-transfer-cancel>取消</button>';transferPanel.hidden=false;}transferPanel.tabIndex=-1;transferPanel.focus();preview();world.announce(kind==='fleet'?'选择舰队落点 · 点击确认 · Esc 取消':kind==='tactical'?'选择扫射方向 · 点击或A确认 · Esc／B取消':kind==='strategic'?'选择打击区域 · 点击或A确认 · Esc／B取消':'选择闪烁落点 · 点击确认／手柄左摇杆＋A · Esc／B取消');});
   document.addEventListener('sc2-target-cancel',()=>this.cancelTarget());
   document.addEventListener('sc2-target-confirm',confirmTarget);
   document.addEventListener('sc2-target-nudge',e=>{if(!target||!canAct())return;const d=(e as CustomEvent<Point>).detail;if(Number.isFinite(d?.x)&&Number.isFinite(d?.z)){target={x:target.x+d.x,z:target.z+d.z};preview();}});
@@ -46,8 +47,8 @@ export class Input {
    this.keys.add(code);
   });
   window.addEventListener('keyup',e=>this.keys.delete(e.code));
-  const command=(e:PointerEvent)=>{
-   if(canAct()&&!target&&e.button===0&&battle.inspect?.(e.clientX,e.clientY))return;
+  const command=(e:PointerEvent,inspected=false)=>{
+   if(!inspected&&canAct()&&!target&&e.button===0&&battle.inspect?.(e.clientX,e.clientY))return;
    if(!canAct()||(!target&&!settings.pointerMoves(e.pointerType))||this.pointer!==null)return;
    const hit=!target&&battle.pickMove?battle.pickMove(e.clientX,e.clientY):battle.pick(e.clientX,e.clientY,e.pointerType!=='mouse');if(hit){if(target){target=hit.point;preview();confirmTarget();}else world.issueMove(hit.point);}
   };
@@ -58,7 +59,7 @@ export class Input {
    if(e.pointerType==='touch'){e.preventDefault();canvas.setPointerCapture(e.pointerId);if(pinch.down(e.pointerId,e.clientX,e.clientY)){tap=null;return;}}
    if(!target&&e.pointerType==='mouse'&&e.button===0&&battle.inspect?.(e.clientX,e.clientY)){e.preventDefault();return;}
    if(!target&&!settings.pointerMoves(e.pointerType)&&e.pointerType==='mouse')return;
-   if(e.pointerType==='mouse'){if(e.button===2||e.button===0){e.preventDefault();command(e);}return;}
+   if(e.pointerType==='mouse'){if(e.button===2||e.button===0){e.preventDefault();command(e,!target&&e.button===0);}return;}
    if(tap){tap.cancelled=true;return;}if(!e.isPrimary||e.button!==0||this.pointer!==null)return;
    e.preventDefault();tap={id:e.pointerId,x:e.clientX,y:e.clientY,at:performance.now(),cancelled:false};canvas.setPointerCapture(e.pointerId);
   });
@@ -74,7 +75,7 @@ export class Input {
   for(const event of ['pointerup','pointercancel','lostpointercapture'])joystick.addEventListener(event,e=>{if((e as PointerEvent).pointerId===this.pointer)this.release();});
  }
  updateStick(e:PointerEvent){const r=this.joystick.getBoundingClientRect(),radius=r.width*.32;let x=(e.clientX-r.left-r.width/2)/radius,z=(e.clientY-r.top-r.height/2)/radius;const m=Math.hypot(x,z);if(m>1){x/=m;z/=m;}this.stick={x,z};this.joystick.style.setProperty('--stick-x',`${x*radius}px`);this.joystick.style.setProperty('--stick-y',`${z*radius}px`);}
- release(){this.world.resetDirectionalInput();const id=this.pointer;this.pointer=null;if(id!==null&&this.joystick.hasPointerCapture(id))this.joystick.releasePointerCapture(id);this.stick={x:0,z:0};this.joystick.style.setProperty('--stick-x','0px');this.joystick.style.setProperty('--stick-y','0px');}
+ release(){this.world.resetDirectionalInput();const id=this.pointer;this.pointer=null;if(id!==null&&this.joystick.hasPointerCapture(id))this.joystick.releasePointerCapture(id);this.stick={x:0,z:0};for(const key of ['--stick-x','--stick-y'])if(this.joystick.style.getPropertyValue(key)!=='0px')this.joystick.style.setProperty(key,'0px');}
  poll(){
   if(battleInputCapture()||this.world.phase!=='battle'||this.world.paused||this.world.requiresPlayerDecision){this.reset();return;}
   if(document.body.dataset.targetFamily){this.world.resetDirectionalInput();return;}

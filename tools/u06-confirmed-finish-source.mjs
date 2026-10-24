@@ -1,0 +1,13 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+let s=fs.readFileSync('src/ui/hud.ts','utf8');
+s=s.replace('renderSettings,renderArchives,type SettingsTab','renderSettings,type SettingsTab').replace(/ private archivesOpen=false;\r?\n/,'').replaceAll('this.archivesOpen=false;','').replaceAll('||this.archivesOpen','').replace('this.archivesOpen,','');
+s=s.replace(/else if\(action==='pause-saves'\)\{[^}]*\}else if\(action==='archives-back'\)/,'');
+s=s.replace("if(this.archivesOpen){this.update();return;}",'');
+s=s.replace(/  else if\(this.archivesOpen\)[^\r\n]+\r?\n/,'');
+const prior="  else if(this.saveUI?.failed&&!this.settingsOpen){this.starship?.close();overlay.hidden=false;this.put('overlay',this.saveUI.failureDialog());}";assert.ok(s.includes(prior));s=s.replace(prior,'');
+s=s.replace("  if(this.readiness?.showLoading)this.put", "  if(this.saveUI?.failed&&!this.settingsOpen&&(!this.readiness?.showLoading||this.readiness.state.phase==='error')){this.starship?.close();overlay.hidden=false;this.put('overlay',this.saveUI.failureDialog());}\n  else if(this.readiness?.showLoading)this.put");
+s=s.replace("if(this.saveUI?.failed)this.settingsTab='saves';", "if(this.saveUI?.failed){this.settingsTab='saves';this.readiness?.cancel();}");
+fs.writeFileSync('src/ui/hud.ts',s);
+s=fs.readFileSync('src/ui/presentation/settings-screen.ts','utf8').replace(/\r?\n\/\*\* Archive actions[^]*$/,'\n');fs.writeFileSync('src/ui/presentation/settings-screen.ts',s);
+s=fs.readFileSync('src/ui/hud/m3-menu.ts','utf8').replace('<details><summary>查看原因</summary><p>${esc(state.error??\'\')}</p></details>','');fs.writeFileSync('src/ui/hud/m3-menu.ts',s);
+console.log('Removed obsolete archive route and kept save failures actionable during loading.');

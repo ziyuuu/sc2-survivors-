@@ -1,3 +1,9 @@
+> 2026-10-23 G03：[高品质装备成长边界](project/G03_GROWTH_CONSUMPTION_20261023.md)。`attributes.ts`按品质与污染来源返回基础白字；`equipmentTotals`随账户revision/种族重建全量与高品质两份派生汇总。`equipmentUnitTotals`只为英雄/精英的紫橙DPS、真实DPS、HP贡献增加每级5%系数，白字套装倍率与团队卡各走原通道一次；子机读取母体身份后分摊，投影沿用创建时冻结汇总。独立固定支援继续读全局普通DPS，不能借用英雄的额外等级系数。新增缓存属于可重建运行态，不改变延期中的存档合同；相机、输入和渲染路径保持。
+
+> 2026-10-22 I03：[当前内容核验](project/INTEGRATION_I03_20261022.md)与[逐项清单](project/INTEGRATION_I03_COVERAGE_20261022.md)。正式入口为旗舰配装，旧天赋不属于现行玩法；本批没有恢复天赋。装备继承瞄准／移动射击已接线，拾取模块及继承按用户决定改为基础随机装备掉率相对+15%（2.7%→3.105%，不改保底和品质），虫族多方向补给使用原生建筑资格。main镜头／输入／性能成果保持；G01等后续仍开放。
+
+> 2026-10-15 装备拾取接入：[实现与接口](project/EQUIPMENT_PICKUP_IMPLEMENTATION_20261015.md)。`World.starship` 持有真实装备账户与短期收据；掉落和独立 UI 共用可达距离、满包及领取入口。`EquipmentDrops` 与音效独立读取事件，以原生时间播放，不发奖、不改 RNG。三种组件网格和品质效果按实例绘制，密集处只合并光层及标签；正式 UI 页面继续独立制作。存档接入仍延期至 MVP 收尾。
+
 > 神族正式接入：[P3-C 合同](project/NEXT_ITERATION_P3C_PROTOSS_HEROES_20261005.md)，[实测记录](project/NEXT_ITERATION_P3C_VALIDATION_20261005.md)。`protoss-heroes.ts`显式数值；`protoss-hero-passives.ts`管理原生盾窗口、实际净伤回响、权势/开场/超载/帷幕；唯一伤害来自60Hz World/真实在途包。schema19保存纯DTO和原子所属/付费挂舱，profile v5不变。`ProtossHeroEffects`只读共享状态，原动作与纹理细刃/核心/护盾/停滞层同用于演示及生产；只有菲尼克斯自身材质HDR校准至.85，资源字节未改。互斥三族光环适配显示十八英雄、文字0，实际子机经母体继承一次；普通航母初始4/上限8及补造账本保留。其他精英/R7与OPEN验收不扩大。
 
 > 2026-10-06 当前状态：[五地图补强](project/MAP_VISUAL_POLISH_20261006.md)、[当前规则精简](project/CURRENT_LOGIC_CLEANUP_20261006.md)与[运行数据参考](GAME_DATA_REFERENCE.md)。当前为 campaign-five-v3／战局schema26／永久档案v6，仅接收当前格式；旧迁移、旧地图及下文早期版本说明均为历史记录。五图同尺寸、中心随机开局，地表、脚底与弹道共用真实缓坡高度。Coze未部署，人工视觉、自然性能和实体设备验收仍开放。

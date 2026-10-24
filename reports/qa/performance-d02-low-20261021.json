@@ -1,0 +1,3667 @@
+{
+  "date": "2026-10-21",
+  "task": "D02",
+  "status": "implemented-and-verified",
+  "policy": {
+    "approvedByUser": true,
+    "presets": [
+      "low",
+      "medium",
+      "full"
+    ],
+    "labels": [
+      "低 · 仅危险提示",
+      "中 · 精简特效",
+      "高 · 完整特效（默认）"
+    ],
+    "freshDefault": "High/native/complete for fresh desktop and coarse-pointer profiles. Any existing graphics preference preserves the existing customized resolution/effects/animation rules.",
+    "low": "Disable combat/decorative effect adapters, projectiles/beams/muzzle flashes/hit/explosion/trails, birth/death extras, environment particles, pickup decorations, barrier and hit overlays, bloom, refraction, real-time PCF and contact shadows. Keep physical unit/pickup models, model materials, complete actions, simple ground shadows, health bars and interaction UI.",
+    "danger": "One static frame of original fx.acid.0 texture projected on terrain, clipped to native harmful footprints. No added visible sphere, ring, box, outline or solid-fill geometry marker. Plane mesh is only a texture carrier. Nominal footprints do not replace native body-radius or line-of-sight collision rules.",
+    "medium": "Previously approved medium policy retained; no new medium-vs-high GPU measurement in this supplement.",
+    "high": "Complete effects remain available. Same-state high/low/high restoration verified.",
+    "simulation": "Damage, trajectories, movement, AI, fixed-step schedule, RNG, production, 300 and 4:4:1 remain unchanged. One read-only native packet-ownership query added for correct danger classification after caster capture or removal.",
+    "saved": "Low persists across reload; exact old medium combination upgrades as before; existing custom settings preserved."
+  },
+  "productionChanges": [
+    "src/simulation/combat/enemy-specials.ts",
+    "src/ui/hud.ts",
+    "src/ui/presentation/settings-screen.ts",
+    "src/render/units/pod-view.ts",
+    "src/render/units/equipment-drops.ts",
+    "src/render/scene/battle-renderer.ts",
+    "src/render/effects/zerg-hero-effects.ts",
+    "src/render/effects/zerg-elite-effects.ts",
+    "src/render/effects/terran-elite-effects.ts",
+    "src/render/effects/source-combat-effects.ts",
+    "src/render/settings/quality.ts",
+    "src/render/terrain/environment-atmosphere.ts",
+    "src/render/effects/nonhero-effects.ts",
+    "src/render/effects/protoss-hero-effects.ts",
+    "src/render/effects/protoss-elite-effects.ts",
+    "src/render/terrain/environment-sample-shores.ts",
+    "src/render/effects/confirmed-hero/skill-effects.ts",
+    "src/render/effects/confirmed-hero/hero-aura-effects.ts",
+    "src/render/effects/confirmed-hero/controller.ts",
+    "src/render/effects/confirmed-hero/attack-effects.ts",
+    "src/render/effects/low-danger-state.ts",
+    "src/render/effects/low-danger-effects.ts"
+  ],
+  "scope": {
+    "existingSourceAndTestFiles": 715,
+    "changedExisting": [
+      "src/ui/hud.ts",
+      "src/ui/presentation/settings-screen.ts",
+      "src/render/units/pod-view.ts",
+      "src/render/units/equipment-drops.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/render/effects/zerg-hero-effects.ts",
+      "src/render/effects/zerg-elite-effects.ts",
+      "src/render/effects/terran-elite-effects.ts",
+      "src/render/effects/source-combat-effects.ts",
+      "src/render/settings/quality.ts",
+      "src/render/terrain/environment-atmosphere.ts",
+      "src/render/effects/nonhero-effects.ts",
+      "src/render/effects/protoss-hero-effects.ts",
+      "src/render/effects/protoss-elite-effects.ts",
+      "src/simulation/combat/enemy-specials.ts",
+      "src/render/terrain/environment-sample-shores.ts",
+      "src/render/effects/confirmed-hero/skill-effects.ts",
+      "src/render/effects/confirmed-hero/hero-aura-effects.ts",
+      "src/render/effects/confirmed-hero/controller.ts",
+      "src/render/effects/confirmed-hero/attack-effects.ts"
+    ],
+    "unchangedExisting": 695,
+    "existingTestsChanged": 0,
+    "added": [
+      "src/render/effects/low-danger-state.ts",
+      "src/render/effects/low-danger-effects.ts",
+      "test/low-combat-preset.test.ts"
+    ],
+    "frozenBaselineProduction": 415,
+    "finalProduction": 417,
+    "unchangedFrozenProduction": 395,
+    "overrides": [
+      "src/render/scene/battle-distress.css",
+      "src/simulation/persistence/run-fields.ts",
+      "src/ui/presentation/opening.ts",
+      "src/ui/sc2-battle.css",
+      "src/data/races.ts",
+      "src/simulation/expedition-state.ts",
+      "src/simulation/progression/mvp-talent-effects.ts",
+      "src/data/heroes.ts",
+      "src/data/elites.ts",
+      "src/data/terran-elites.ts",
+      "src/assets/retired.ts",
+      "src/data/ranks.ts",
+      "src/assets/ui-art.generated.ts",
+      "src/data/sc2-units.ts",
+      "src/simulation/movement/steering.ts",
+      "src/data/expedition-buildings.ts",
+      "src/simulation/progression/permanent-profile.ts",
+      "src/ui/starship/native.ts",
+      "src/ui/controls/settings.ts",
+      "src/data/game.ts",
+      "src/diagnostics/debug.ts",
+      "src/simulation/fixed-stepper.ts",
+      "src/ui/hud/player-services.ts",
+      "src/render/effects/audio.ts",
+      "src/ui/hud/save-controls.ts",
+      "src/app/run-session.ts",
+      "src/simulation/starship/advanced-support.ts",
+      "src/data/campaign-layout.ts",
+      "src/data/enemy-tuning.ts",
+      "src/data/campaign-landscape.ts",
+      "src/simulation/movement/map-terrain.ts",
+      "src/simulation/starship/hero-advancements.ts",
+      "src/simulation/combat/family-actions.ts",
+      "src/ui/presentation/input-capture.ts",
+      "src/render/scene/camera-controller.ts",
+      "src/data/terrain.ts",
+      "src/simulation/combat/terrain-fire.ts",
+      "src/data/enemies.ts",
+      "src/data/stages.ts",
+      "src/data/economy.ts",
+      "src/simulation/starship/support.ts",
+      "src/persistence/graph-codec.ts",
+      "src/ui/gamepad/state.ts",
+      "src/simulation/starship/lifecycle.ts",
+      "src/simulation/starship/members.ts",
+      "src/ui/starship/view.ts",
+      "src/ui/starship/style.css",
+      "src/simulation/starship/controls.ts",
+      "src/persistence/save-repository.ts",
+      "src/persistence/archive.ts",
+      "src/ui/presentation/painted-art.ts",
+      "src/simulation/progression/supply-cards.ts",
+      "src/simulation/starship/defense.ts",
+      "src/data/rewards.ts",
+      "src/simulation/run-state.ts",
+      "src/simulation/persistence/run-snapshot.ts",
+      "src/simulation/starship/recall.ts",
+      "src/simulation/starship/capture.ts",
+      "src/simulation/starship/fortifications.ts",
+      "src/simulation/boss-loot.ts",
+      "src/ui/hud/detection-hint.ts",
+      "src/ui/hud/minimap.ts",
+      "src/ui/presentation/decision-screens.ts",
+      "src/ui/presentation/arrival-cards.ts",
+      "src/ui/presentation/navigation.ts",
+      "src/ui/presentation/end-screens.ts",
+      "src/ui/hud/carrier-inspector.ts",
+      "src/data/campaign18.ts",
+      "src/simulation/movement/spatial-hash.ts",
+      "src/simulation/combat/attack-lines.ts",
+      "src/simulation/movement/enemy-routes.ts",
+      "src/data/endless.ts",
+      "src/simulation/movement/spawn-cells.ts",
+      "src/data/control-tuning.ts",
+      "src/simulation/combat/auto-targeting.ts",
+      "src/data/mixed-waves.ts",
+      "src/simulation/progression/talent-rewards.ts",
+      "src/data/roster.ts",
+      "src/simulation/combat/expedition-elites.ts",
+      "src/data/hives.ts",
+      "src/simulation/rules.mjs",
+      "src/data/player-unit-adaptations.ts",
+      "src/simulation/combat/main-hive.ts",
+      "src/ui/starship/legacy-icons.ts",
+      "src/ui/intermission-skin/refinements.css",
+      "src/ui/unit-identity.ts",
+      "src/ui/intermission-skin/skin.css",
+      "src/ui/presentation/shop-card-copy.ts",
+      "src/ui/presentation/ability-copy.ts",
+      "src/ui/presentation/arrival-cards.css",
+      "src/ui/native-hud/battle.css",
+      "src/render/units/economic-egg.ts",
+      "src/render/scene/battle-distress.ts",
+      "src/render/units/body-outline.ts",
+      "src/render/units/health-bars.ts",
+      "src/render/units/friendly-labels.ts",
+      "src/render/units/instance-updates.ts",
+      "src/render/effects/elite-support-effects.ts",
+      "src/data/combat-presentation.ts",
+      "src/render/loaders/animations.ts",
+      "src/render/terrain/char-terrain.ts",
+      "src/render/loaders/sc2-materials.ts",
+      "src/render/units/resource-drops.ts",
+      "src/render/input/battle-picking.ts",
+      "src/render/units/animated-batch.ts",
+      "src/render/effects/battle-effects.ts",
+      "src/render/terrain/campaign-map.ts",
+      "src/render/terrain/campaign-ground.ts",
+      "src/render/terrain/char-geometry.ts",
+      "src/render/effects/confirmed-hero/approved-gun-effects.ts",
+      "src/render/effects/ordinary-medical-effects.ts",
+      "src/render/effects/terran-elite-materials.ts",
+      "src/render/effects/original-projectiles.ts",
+      "src/render/effects/hero-basic-effects.ts",
+      "src/render/terrain/environment-materials.ts",
+      "src/render/terrain/campaign-ground-legacy.ts",
+      "src/render/terrain/map-visibility.ts",
+      "src/render/terrain/campaign-textures.ts",
+      "src/render/terrain/map-surface.ts"
+    ],
+    "main": {
+      "file": "preview/performance-d02-low-20261021-candidate-r3/main.js",
+      "bytes": 37379712,
+      "sha256": "8ac9570ce699396add632dc19765067c5a3cbd09b51048798e4e491e00bea19f"
+    }
+  },
+  "main": {
+    "file": "preview/performance-d02-low-20261021-candidate-r3/main.js",
+    "bytes": 37379712,
+    "sha256": "8ac9570ce699396add632dc19765067c5a3cbd09b51048798e4e491e00bea19f"
+  },
+  "measurement": {
+    "groups": [
+      {
+        "preset": "full",
+        "medianFrameIntervalMs": 18.099999994039536,
+        "meanFrameIntervalMs": 18.739927927932225,
+        "p95FrameIntervalMs": 23.099999994039536,
+        "medianFrameCpuMs": 17.69999998807907,
+        "medianRenderCpuMs": 16.799999982118607,
+        "steadyFrames": 8179
+      },
+      {
+        "preset": "low",
+        "medianFrameIntervalMs": 16.69999998807907,
+        "meanFrameIntervalMs": 17.088465330262267,
+        "p95FrameIntervalMs": 18.30000001192093,
+        "medianFrameCpuMs": 12,
+        "medianRenderCpuMs": 11.099999994039536,
+        "steadyFrames": 9102
+      }
+    ],
+    "pairs": [
+      {
+        "pair": 0,
+        "order": [
+          "full",
+          "low"
+        ],
+        "stateExactAfterRunIdentityNormalization": true,
+        "checkpoints": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000,
+          3300
+        ],
+        "full": {
+          "pair": 0,
+          "preset": "full",
+          "wallMs": 55443,
+          "allFrames": 2779,
+          "steadyFrames": 2613,
+          "intervalMs": {
+            "n": 2613,
+            "median": 18.600000023841858,
+            "mean": 19.910294680441652,
+            "p95": 25.799999982118607,
+            "min": 14.799999982118607,
+            "max": 484.5
+          },
+          "frameCpuMs": {
+            "n": 2613,
+            "median": 18.19999998807907,
+            "mean": 19.126827401935575,
+            "p95": 24.700000017881393,
+            "min": 14.699999988079071,
+            "max": 74.7000000178814
+          },
+          "renderCpuMs": {
+            "n": 2613,
+            "median": 17.099999994039536,
+            "mean": 17.945503253271603,
+            "p95": 22.700000017881393,
+            "min": 13.599999994039536,
+            "max": 63.39999997615814
+          },
+          "over16_667": 0.8748564867967853,
+          "over33_333": 0.01990049751243781,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "low": {
+          "pair": 0,
+          "preset": "low",
+          "wallMs": 55390,
+          "allFrames": 3162,
+          "steadyFrames": 2981,
+          "intervalMs": {
+            "n": 2981,
+            "median": 16.69999998807907,
+            "mean": 17.44931231130693,
+            "p95": 17,
+            "min": 11,
+            "max": 675.3000000119209
+          },
+          "frameCpuMs": {
+            "n": 2981,
+            "median": 11.899999976158142,
+            "mean": 12.914290506251504,
+            "p95": 14.800000011920929,
+            "min": 7.9000000059604645,
+            "max": 674.8000000119209
+          },
+          "renderCpuMs": {
+            "n": 2981,
+            "median": 11,
+            "mean": 11.706306608700585,
+            "p95": 13.300000011920929,
+            "min": 7.299999982118607,
+            "max": 673.7000000178814
+          },
+          "over16_667": 0.5451190875545119,
+          "over33_333": 0.0036900369003690036,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medianIntervalReductionPercent": 10.215053942620045,
+        "meanIntervalReductionPercent": 12.360351308874414
+      },
+      {
+        "pair": 1,
+        "order": [
+          "low",
+          "full"
+        ],
+        "stateExactAfterRunIdentityNormalization": true,
+        "checkpoints": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000,
+          3300
+        ],
+        "full": {
+          "pair": 1,
+          "preset": "full",
+          "wallMs": 55340,
+          "allFrames": 2952,
+          "steadyFrames": 2775,
+          "intervalMs": {
+            "n": 2775,
+            "median": 18.099999994039536,
+            "mean": 18.739927927932225,
+            "p95": 23.099999994039536,
+            "min": 14.900000005960464,
+            "max": 55.10000002384186
+          },
+          "frameCpuMs": {
+            "n": 2775,
+            "median": 17.69999998807907,
+            "mean": 18.231639639429144,
+            "p95": 22.399999976158142,
+            "min": 14.199999988079071,
+            "max": 54
+          },
+          "renderCpuMs": {
+            "n": 2775,
+            "median": 16.799999982118607,
+            "mean": 17.28663063039651,
+            "p95": 20.80000001192093,
+            "min": 13.799999982118607,
+            "max": 48.80000001192093
+          },
+          "over16_667": 0.8227027027027027,
+          "over33_333": 0.0025225225225225223,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "low": {
+          "pair": 1,
+          "preset": "low",
+          "wallMs": 55434,
+          "allFrames": 3258,
+          "steadyFrames": 3078,
+          "intervalMs": {
+            "n": 3078,
+            "median": 16.69999998807907,
+            "mean": 16.899577647825197,
+            "p95": 18.30000001192093,
+            "min": 11,
+            "max": 50.80000001192093
+          },
+          "frameCpuMs": {
+            "n": 3078,
+            "median": 12.200000017881393,
+            "mean": 12.942300195659888,
+            "p95": 17.19999998807907,
+            "min": 9,
+            "max": 48.80000001192093
+          },
+          "renderCpuMs": {
+            "n": 3078,
+            "median": 11.300000011920929,
+            "mean": 11.74506172854417,
+            "p95": 15.700000017881393,
+            "min": 7.800000011920929,
+            "max": 38.30000001192093
+          },
+          "over16_667": 0.5740740740740741,
+          "over33_333": 0.0035737491877842753,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medianIntervalReductionPercent": 7.734806665312126,
+        "meanIntervalReductionPercent": 9.820476829923933
+      },
+      {
+        "pair": 2,
+        "order": [
+          "full",
+          "low"
+        ],
+        "stateExactAfterRunIdentityNormalization": true,
+        "checkpoints": [
+          600,
+          1200,
+          1800,
+          2400,
+          3000,
+          3300
+        ],
+        "full": {
+          "pair": 2,
+          "preset": "full",
+          "wallMs": 55418,
+          "allFrames": 2953,
+          "steadyFrames": 2791,
+          "intervalMs": {
+            "n": 2791,
+            "median": 17.900000005960464,
+            "mean": 18.63647438194409,
+            "p95": 23.099999994039536,
+            "min": 14.799999982118607,
+            "max": 56.80000001192093
+          },
+          "frameCpuMs": {
+            "n": 2791,
+            "median": 17.5,
+            "mean": 18.13514869258379,
+            "p95": 22.299999982118607,
+            "min": 14.299999982118607,
+            "max": 55.30000001192093
+          },
+          "renderCpuMs": {
+            "n": 2791,
+            "median": 16.600000023841858,
+            "mean": 17.209709781796988,
+            "p95": 21,
+            "min": 14,
+            "max": 54.69999998807907
+          },
+          "over16_667": 0.805087782156933,
+          "over33_333": 0.0035829451809387316,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "low": {
+          "pair": 2,
+          "preset": "low",
+          "wallMs": 55338,
+          "allFrames": 3225,
+          "steadyFrames": 3043,
+          "intervalMs": {
+            "n": 3043,
+            "median": 16.69999998807907,
+            "mean": 17.088465330262267,
+            "p95": 20.30000001192093,
+            "min": 10.699999988079071,
+            "max": 100.69999998807907
+          },
+          "frameCpuMs": {
+            "n": 3043,
+            "median": 12,
+            "mean": 13.000065724325932,
+            "p95": 19.100000023841858,
+            "min": 9.400000005960464,
+            "max": 63.099999994039536
+          },
+          "renderCpuMs": {
+            "n": 3043,
+            "median": 11.099999994039536,
+            "mean": 11.814360827765809,
+            "p95": 17.5,
+            "min": 7.200000017881393,
+            "max": 62.400000005960464
+          },
+          "over16_667": 0.5681892868879396,
+          "over33_333": 0.0026289845547157412,
+          "counts": {
+            "time": 55,
+            "tick": 3300,
+            "phase": "battle",
+            "paused": true,
+            "enemies": 0,
+            "entities": 3,
+            "allies": [
+              {
+                "id": 1,
+                "hp": 33.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 47
+              },
+              {
+                "id": 79,
+                "hp": 46.74999999999999,
+                "maxHp": 51.74999999999999,
+                "shots": 13
+              },
+              {
+                "id": 124,
+                "hp": 51.74999999999999,
+                "maxHp": 51.74999999999999
+              }
+            ],
+            "kills": 11,
+            "backlog": 0,
+            "discarded": 0,
+            "assetsPending": 0
+          },
+          "peaks": {
+            "enemies": 3,
+            "entities": 5
+          }
+        },
+        "medianIntervalReductionPercent": 6.703910712188878,
+        "meanIntervalReductionPercent": 8.306340673435578
+      }
+    ],
+    "totalNativeRuns": 6,
+    "totalSimulatedSeconds": 330,
+    "nativeInput": {
+      "scope": "Separate from the six already-finished timing windows; actual keyboard resume, D movement, release and Escape pause.",
+      "before": {
+        "anchor": {
+          "x": 0,
+          "z": 0,
+          "facing": 1.5707963267948966
+        },
+        "tick": 3300,
+        "preset": "low"
+      },
+      "after": {
+        "anchor": {
+          "x": 2.7999999999999985,
+          "z": 0,
+          "facing": 1.5707963267948966
+        },
+        "tick": 3330,
+        "preset": "low",
+        "input": {
+          "x": 0,
+          "z": 0
+        }
+      }
+    },
+    "normalization": "runId, notice and noticeUntil omitted; only the UUID part of the stage-one support receipt normalized for independent new runs. All other serialized run/status/special fields compared exactly."
+  },
+  "validation": {
+    "functional": {
+      "heroes": 18,
+      "sameStateSamples": 18,
+      "heroFixedPairs": [
+        {
+          "race": "terran",
+          "ids": [
+            "raynor",
+            "tychus",
+            "nova"
+          ],
+          "ticks": 180,
+          "stateSha256": "b243abef7acb2d8a5486ebaf7b2a57b7ebda45781adff462390fe889ee980363"
+        },
+        {
+          "race": "terran",
+          "ids": [
+            "swann",
+            "tosh",
+            "yamato_battlecruiser"
+          ],
+          "ticks": 180,
+          "stateSha256": "616a9d5983e8e2ecf4747d190dd9bc45af60abebc6b7610a7ad492ee5a17c4f6"
+        },
+        {
+          "race": "zerg",
+          "ids": [
+            "kerrigan",
+            "zagara",
+            "dehaka"
+          ],
+          "ticks": 180,
+          "stateSha256": "4b1ec9dc6820572c25824d4367d5ced2ef6dfa2bbdc92693fd528389ec2e90c4"
+        },
+        {
+          "race": "zerg",
+          "ids": [
+            "stukov",
+            "niadra",
+            "hots_leviathan"
+          ],
+          "ticks": 180,
+          "stateSha256": "6a50349b1d9617196f62b70413547c4b8fcd9c41b0cf4d8dc0318ae448578890"
+        },
+        {
+          "race": "protoss",
+          "ids": [
+            "artanis",
+            "zeratul",
+            "alarak"
+          ],
+          "ticks": 180,
+          "stateSha256": "a2bca4c406037f53686560f50e20b67b0220bf9439e0788d9abe99d59af9ecf9"
+        },
+        {
+          "race": "protoss",
+          "ids": [
+            "fenix",
+            "vorazun",
+            "purifier_flagship"
+          ],
+          "ticks": 180,
+          "stateSha256": "3a5146439c08555e5884190d604253039c6d15294157bd69f409c4ec45fb9dc4"
+        }
+      ],
+      "contexts": [
+        {
+          "preset": "low",
+          "epochBefore": 0,
+          "epochAfter": 1,
+          "stateExact": true
+        },
+        {
+          "preset": "medium",
+          "epochBefore": 1,
+          "epochAfter": 2,
+          "stateExact": true
+        },
+        {
+          "preset": "full",
+          "epochBefore": 2,
+          "epochAfter": 3,
+          "stateExact": true
+        }
+      ],
+      "maps": [
+        "industrial",
+        "mar-sara",
+        "char",
+        "ice",
+        "frontier"
+      ],
+      "danger": [
+        {
+          "kind": "danger",
+          "kinds": [
+            "charge",
+            "spikes"
+          ],
+          "patches": [
+            {
+              "key": "enemy:900",
+              "point": {
+                "x": -5,
+                "z": -3
+              },
+              "kind": "lane",
+              "radius": 0.55,
+              "length": 10,
+              "angle": 0,
+              "caps": true
+            },
+            {
+              "key": "enemy:901:0",
+              "point": {
+                "x": 5,
+                "z": -3
+              },
+              "kind": "lane",
+              "radius": 0.6,
+              "length": 8,
+              "angle": -0.2,
+              "caps": false
+            },
+            {
+              "key": "enemy:901:1",
+              "point": {
+                "x": 5,
+                "z": -3
+              },
+              "kind": "lane",
+              "radius": 0.6,
+              "length": 8,
+              "angle": 0,
+              "caps": false
+            },
+            {
+              "key": "enemy:901:2",
+              "point": {
+                "x": 5,
+                "z": -3
+              },
+              "kind": "lane",
+              "radius": 0.6,
+              "length": 8,
+              "angle": 0.2,
+              "caps": false
+            }
+          ]
+        },
+        {
+          "kind": "danger",
+          "kinds": [
+            "cone",
+            "fan"
+          ],
+          "patches": [
+            {
+              "key": "enemy:900",
+              "point": {
+                "x": -5,
+                "z": -3
+              },
+              "kind": "cone",
+              "radius": 8,
+              "length": 8,
+              "angle": 0
+            },
+            {
+              "key": "enemy:901:0",
+              "point": {
+                "x": 5,
+                "z": -3
+              },
+              "kind": "lane",
+              "radius": 0.2,
+              "length": 8,
+              "angle": -0.2,
+              "caps": true
+            },
+            {
+              "key": "enemy:901:1",
+              "point": {
+                "x": 5,
+                "z": -3
+              },
+              "kind": "lane",
+              "radius": 0.2,
+              "length": 8,
+              "angle": 0,
+              "caps": true
+            },
+            {
+              "key": "enemy:901:2",
+              "point": {
+                "x": 5,
+                "z": -3
+              },
+              "kind": "lane",
+              "radius": 0.2,
+              "length": 8,
+              "angle": 0.2,
+              "caps": true
+            }
+          ]
+        },
+        {
+          "kind": "danger",
+          "kinds": [
+            "bile",
+            "acid"
+          ],
+          "patches": [
+            {
+              "key": "enemy:900:0",
+              "point": {
+                "x": -5,
+                "z": 2
+              },
+              "kind": "area",
+              "radius": 1,
+              "length": 0,
+              "angle": 0
+            },
+            {
+              "key": "enemy:900:1",
+              "point": {
+                "x": -7,
+                "z": 4
+              },
+              "kind": "area",
+              "radius": 1,
+              "length": 0,
+              "angle": 0
+            },
+            {
+              "key": "enemy:900:2",
+              "point": {
+                "x": -3,
+                "z": 4
+              },
+              "kind": "area",
+              "radius": 1,
+              "length": 0,
+              "angle": 0
+            },
+            {
+              "key": "enemy:901",
+              "point": {
+                "x": 5,
+                "z": 2
+              },
+              "kind": "area",
+              "radius": 3,
+              "length": 0,
+              "angle": 0
+            }
+          ]
+        },
+        {
+          "kind": "danger-expired",
+          "patches": []
+        }
+      ],
+      "pageConsoleErrors": 0
+    },
+    "settings": {
+      "desktop": [
+        {
+          "kind": "initial",
+          "scenario": "desktop",
+          "state": {
+            "preset": "full",
+            "detail": "full",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "full",
+            "hero": "full",
+            "coarse": false,
+            "saved": {
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 1440,
+            "height": 900
+          },
+          "preset": "low",
+          "state": {
+            "preset": "low",
+            "detail": "low",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "low",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 1440,
+            "height": 900
+          },
+          "preset": "medium",
+          "state": {
+            "preset": "medium",
+            "detail": "medium",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "medium",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 1440,
+            "height": 900
+          },
+          "preset": "full",
+          "state": {
+            "preset": "full",
+            "detail": "full",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "full",
+            "hero": "full",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "full",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "full",
+              "sc2.heroEffects": "full"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 980,
+            "height": 700
+          },
+          "preset": "low",
+          "state": {
+            "preset": "low",
+            "detail": "low",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "low",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 980,
+            "height": 700
+          },
+          "preset": "medium",
+          "state": {
+            "preset": "medium",
+            "detail": "medium",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "medium",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 980,
+            "height": 700
+          },
+          "preset": "full",
+          "state": {
+            "preset": "full",
+            "detail": "full",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "full",
+            "hero": "full",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "full",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "full",
+              "sc2.heroEffects": "full"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 390,
+            "height": 844
+          },
+          "preset": "low",
+          "state": {
+            "preset": "low",
+            "detail": "low",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "low",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 390,
+            "height": 844
+          },
+          "preset": "medium",
+          "state": {
+            "preset": "medium",
+            "detail": "medium",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "medium",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 390,
+            "height": 844
+          },
+          "preset": "full",
+          "state": {
+            "preset": "full",
+            "detail": "full",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "full",
+            "hero": "full",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "full",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "full",
+              "sc2.heroEffects": "full"
+            }
+          }
+        },
+        {
+          "kind": "saved-low-reload",
+          "state": {
+            "preset": "low",
+            "detail": "low",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "low",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "legacy-medium",
+          "state": {
+            "preset": "medium",
+            "detail": "medium",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "medium",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "custom",
+          "state": {
+            "preset": "custom",
+            "detail": "medium",
+            "quality": "adaptive",
+            "animation": "energy-saving",
+            "ordinary": "balanced",
+            "hero": "balanced",
+            "coarse": false,
+            "saved": {
+              "sc2.animationMode": "energy-saving",
+              "sc2.renderQuality": "adaptive",
+              "sc2.combatDetail": "medium",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "balanced",
+              "sc2.heroEffects": "balanced"
+            }
+          }
+        }
+      ],
+      "coarse": [
+        {
+          "kind": "initial",
+          "scenario": "coarse",
+          "state": {
+            "preset": "full",
+            "detail": "full",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "full",
+            "hero": "full",
+            "coarse": true,
+            "saved": {
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 1440,
+            "height": 900
+          },
+          "preset": "low",
+          "state": {
+            "preset": "low",
+            "detail": "low",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": true,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "low",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 1440,
+            "height": 900
+          },
+          "preset": "medium",
+          "state": {
+            "preset": "medium",
+            "detail": "medium",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": true,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "medium",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        },
+        {
+          "kind": "select",
+          "size": {
+            "width": 1440,
+            "height": 900
+          },
+          "preset": "full",
+          "state": {
+            "preset": "full",
+            "detail": "full",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "full",
+            "hero": "full",
+            "coarse": true,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "full",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "full",
+              "sc2.heroEffects": "full"
+            }
+          }
+        },
+        {
+          "kind": "saved-low-reload",
+          "state": {
+            "preset": "low",
+            "detail": "low",
+            "quality": "native",
+            "animation": "complete",
+            "ordinary": "low",
+            "hero": "low",
+            "coarse": true,
+            "saved": {
+              "sc2.animationMode": "complete",
+              "sc2.renderQuality": "native",
+              "sc2.combatDetail": "low",
+              "sc2.audio-mix": "{\"master\":1,\"battle\":1,\"interface\":0}",
+              "sc2.ordinaryEffects": "low",
+              "sc2.heroEffects": "low"
+            }
+          }
+        }
+      ]
+    },
+    "regression": {
+      "total": 1758,
+      "pass": 1758,
+      "failed": 0,
+      "newTests": 5,
+      "existingTestsChanged": 0,
+      "typecheck": true,
+      "dataCheck": true,
+      "earlierFailuresRetained": [
+        "regression-r1.log",
+        "targeted-tests.log",
+        "targeted-tests-r2.log",
+        "network-regression-r2.log",
+        "targeted-fixture-r3.log",
+        "low-tests-r4.log"
+      ]
+    },
+    "visual": {
+      "status": "reviewed",
+      "images": 85,
+      "pictures": [
+        {
+          "run": "boot-baseline-r1",
+          "name": "ready",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\boot-baseline-r1/ready.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "boot-candidate-r1",
+          "name": "ready",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\boot-candidate-r1/ready.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r1",
+          "name": "failure",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r1/failure.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r2",
+          "name": "failure",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r2/failure.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r3",
+          "name": "failure",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r3/failure.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r4",
+          "name": "failure",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r4/failure.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "startup-error-0",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/startup-error-0.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-0-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-0-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-0-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-0-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-0-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-0-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-1-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-1-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-1-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-1-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-1-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-1-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-2-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-2-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-2-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-2-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-2-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-2-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-3-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-3-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-3-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-3-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-3-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-3-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-4-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-4-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-4-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-4-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-4-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-4-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-5-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-5-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-5-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-5-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "heroes-5-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-5-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "name": "failure",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/failure.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-0-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-0-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-0-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-0-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-0-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-0-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-1-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-1-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-1-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-1-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-1-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-1-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-2-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-2-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-2-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-2-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-2-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-2-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-3-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-3-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-3-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-3-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-3-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-3-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-4-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-4-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-4-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-4-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-4-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-4-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-5-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-5-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-5-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-5-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "heroes-5-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-5-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "danger-charge-spikes",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/danger-charge-spikes.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "danger-cone-fan",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/danger-cone-fan.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "danger-bile-acid",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/danger-bile-acid.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "context-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/context-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "context-medium",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/context-medium.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "context-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/context-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-industrial-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-industrial-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-industrial-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-industrial-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-industrial-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-industrial-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-mar-sara-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-mar-sara-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-mar-sara-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-mar-sara-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-mar-sara-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-mar-sara-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-char-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-char-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-char-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-char-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-char-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-char-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-ice-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-ice-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-ice-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-ice-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-ice-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-ice-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-frontier-full",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-frontier-full.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-frontier-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-frontier-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "map-frontier-full-restored",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-frontier-full-restored.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "settings-1440",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/settings-1440.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "settings-980",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/settings-980.png",
+          "size": [
+            980,
+            700
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "name": "settings-390",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/settings-390.png",
+          "size": [
+            390,
+            844
+          ]
+        },
+        {
+          "run": "live-r1",
+          "name": "pair0-full-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair0-full-end.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "live-r1",
+          "name": "pair0-low-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair0-low-end.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "live-r1",
+          "name": "pair1-low-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair1-low-end.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "live-r1",
+          "name": "pair1-full-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair1-full-end.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "live-r1",
+          "name": "pair2-full-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair2-full-end.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "live-r1",
+          "name": "pair2-low-end",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair2-low-end.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "live-r1",
+          "name": "low-native-keyboard",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/low-native-keyboard.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "settings-coarse-r1",
+          "name": "settings-1440",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-coarse-r1/settings-1440.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "settings-coarse-r1",
+          "name": "saved-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-coarse-r1/saved-low.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "settings-desktop-r1",
+          "name": "settings-1440",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/settings-1440.png",
+          "size": [
+            1440,
+            900
+          ]
+        },
+        {
+          "run": "settings-desktop-r1",
+          "name": "settings-980",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/settings-980.png",
+          "size": [
+            980,
+            700
+          ]
+        },
+        {
+          "run": "settings-desktop-r1",
+          "name": "settings-390",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/settings-390.png",
+          "size": [
+            390,
+            844
+          ]
+        },
+        {
+          "run": "settings-desktop-r1",
+          "name": "saved-low",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/saved-low.png",
+          "size": [
+            390,
+            844
+          ]
+        },
+        {
+          "run": "settings-desktop-r1",
+          "name": "legacy-medium",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/legacy-medium.png",
+          "size": [
+            390,
+            844
+          ]
+        },
+        {
+          "run": "settings-desktop-r1",
+          "name": "custom",
+          "file": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/custom.png",
+          "size": [
+            390,
+            844
+          ]
+        },
+        {
+          "run": "danger-drawing-r1",
+          "name": "danger",
+          "file": "reports\\local\\performance-d02-low-20261021\\danger-drawing-r1\\danger.png",
+          "size": [
+            1100,
+            900
+          ],
+          "supplemental": true
+        },
+        {
+          "run": "functional-r6",
+          "name": "context-low-shader-timeout",
+          "file": "reports\\local\\performance-d02-low-20261021\\functional-r6\\context-low-shader-timeout.png",
+          "size": [
+            1440,
+            900
+          ],
+          "supplemental": true
+        }
+      ],
+      "contacts": [
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\boot-baseline-r1-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\boot-candidate-r1-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r1-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r2-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r3-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r4-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r5-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r5-2.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r5-3.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r5-4.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-2.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-3.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-4.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-5.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-6.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-7.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\live-r1-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\live-r1-2.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\settings-coarse-r1-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\settings-desktop-r1-1.jpg",
+        "reports\\local\\performance-d02-low-20261021\\visual-review\\supplemental-1.jpg"
+      ],
+      "pixelPairs": [
+        {
+          "run": "functional-r5",
+          "scene": "heroes-0",
+          "other": "low",
+          "changedPixels": 1293622,
+          "maxChannel": 255,
+          "bounds": [
+            0,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-0",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-1",
+          "other": "low",
+          "changedPixels": 1236116,
+          "maxChannel": 255,
+          "bounds": [
+            0,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-1",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-2",
+          "other": "low",
+          "changedPixels": 254956,
+          "maxChannel": 238,
+          "bounds": [
+            0,
+            0,
+            1438,
+            899
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-2",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-3",
+          "other": "low",
+          "changedPixels": 185021,
+          "maxChannel": 237,
+          "bounds": [
+            9,
+            0,
+            1438,
+            872
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-3",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-4",
+          "other": "low",
+          "changedPixels": 280806,
+          "maxChannel": 217,
+          "bounds": [
+            0,
+            0,
+            1438,
+            899
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-4",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-5",
+          "other": "low",
+          "changedPixels": 446831,
+          "maxChannel": 231,
+          "bounds": [
+            9,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r5",
+          "scene": "heroes-5",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-0",
+          "other": "low",
+          "changedPixels": 1293622,
+          "maxChannel": 255,
+          "bounds": [
+            0,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-0",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-1",
+          "other": "low",
+          "changedPixels": 1236116,
+          "maxChannel": 255,
+          "bounds": [
+            0,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-1",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-2",
+          "other": "low",
+          "changedPixels": 254956,
+          "maxChannel": 238,
+          "bounds": [
+            0,
+            0,
+            1438,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-2",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-3",
+          "other": "low",
+          "changedPixels": 185021,
+          "maxChannel": 237,
+          "bounds": [
+            9,
+            0,
+            1438,
+            872
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-3",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-4",
+          "other": "low",
+          "changedPixels": 280806,
+          "maxChannel": 217,
+          "bounds": [
+            0,
+            0,
+            1438,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-4",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-5",
+          "other": "low",
+          "changedPixels": 446831,
+          "maxChannel": 231,
+          "bounds": [
+            9,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "heroes-5",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "context",
+          "other": "low",
+          "changedPixels": 164035,
+          "maxChannel": 209,
+          "bounds": [
+            9,
+            0,
+            1438,
+            872
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-industrial",
+          "other": "low",
+          "changedPixels": 1168057,
+          "maxChannel": 252,
+          "bounds": [
+            0,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-industrial",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-mar-sara",
+          "other": "low",
+          "changedPixels": 1122050,
+          "maxChannel": 252,
+          "bounds": [
+            0,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-mar-sara",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-char",
+          "other": "low",
+          "changedPixels": 1187828,
+          "maxChannel": 253,
+          "bounds": [
+            0,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-char",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-ice",
+          "other": "low",
+          "changedPixels": 987977,
+          "maxChannel": 253,
+          "bounds": [
+            0,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-ice",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-frontier",
+          "other": "low",
+          "changedPixels": 1178078,
+          "maxChannel": 252,
+          "bounds": [
+            0,
+            0,
+            1439,
+            899
+          ]
+        },
+        {
+          "run": "functional-r6",
+          "scene": "map-frontier",
+          "other": "full-restored",
+          "changedPixels": 0,
+          "maxChannel": 0,
+          "bounds": null
+        }
+      ],
+      "reviewedAt": "2026-10-21",
+      "analysisSha256": "a147d04b54a64e54cb0c1bf74e5aa92ac3c18011187e50565b5ff0a6be82e927",
+      "restoredFullPairs": 17,
+      "finalRestoredFullPairs": 11,
+      "restoredAllExact": true,
+      "notes": [
+        "All 85 source pictures were inspected through the generated contact sheets and targeted original-resolution images.",
+        "The six R6 hero and five map high/low/high restoration pairs are RGB exact; the earlier six R5 pairs are separately retained and also exact.",
+        "Low/full differences are intentional and visible. Native models, complete poses, health bars and actual interceptor bodies remain; warning texture footprints are visible across all five maps.",
+        "The actual warning captures and standalone 10-patch material image show static original texture marks, without added visible geometric volumes, circles, boxes, outlines or solid fills.",
+        "Screens for the old network failure, loading shader failures, R5 state-identity assertion and supplemental low-context shader failure are retained and reviewed.",
+        "Three responsive settings sizes, reload, custom/legacy values, coarse-pointer settings and seven normal-run/end-input images were reviewed. End-run pause pictures are not used as combat-frame visual comparisons."
+      ]
+    },
+    "recoveryAssistance": {
+      "scope": "Supplemental native Retry button during the main runner context-low recovery wait. The original shader timeout is retained; no deadline or game code changed.",
+      "at": "2026-10-21T03:50:30.964Z",
+      "before": {
+        "ready": {
+          "kind": "reinforcement",
+          "phase": "error",
+          "done": 0,
+          "total": 1,
+          "label": "资源准备失败",
+          "error": "着色器编译等待超时，请重试",
+          "progress": 0.76
+        },
+        "epoch": 1,
+        "time": 3,
+        "tick": 180,
+        "pending": 0
+      },
+      "clicked": true,
+      "afterClick": {
+        "kind": "reinforcement",
+        "phase": "gpu",
+        "done": 32,
+        "total": 889,
+        "label": "准备实战模型 marine.death",
+        "error": null,
+        "progress": 0.8061192350956131
+      }
+    }
+  },
+  "failures": [
+    {
+      "run": "functional-r1",
+      "path": "reports/local/performance-d02-low-20261021/functional-r1/report.json",
+      "pass": false,
+      "failure": "page.goto: net::ERR_NETWORK_ACCESS_DENIED at http://127.0.0.1:5554/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5554/\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at menu (D:\\星际\\tools\\qa-performance-d02-low-functional.mjs:7:33)\n    at D:\\星际\\tools\\qa-performance-d02-low-functional.mjs:10:41",
+      "completedChecks": 0,
+      "pageConsoleErrors": [
+        {
+          "phase": "old-medium-migration",
+          "message": "Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
+        }
+      ]
+    },
+    {
+      "run": "functional-r2",
+      "path": "reports/local/performance-d02-low-20261021/functional-r2/report.json",
+      "pass": false,
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'error' !== 'ready'\n\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-performance-d02-low-functional.mjs:16:141",
+      "completedChecks": 4,
+      "pageConsoleErrors": []
+    },
+    {
+      "run": "functional-r3",
+      "path": "reports/local/performance-d02-low-20261021/functional-r3/report.json",
+      "pass": false,
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'error' !== 'ready'\n\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-performance-d02-low-functional.mjs:16:141",
+      "completedChecks": 4,
+      "pageConsoleErrors": []
+    },
+    {
+      "run": "functional-r4",
+      "path": "reports/local/performance-d02-low-20261021/functional-r4/report.json",
+      "pass": false,
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'error' !== 'ready'\n\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-performance-d02-low-functional.mjs:18:141",
+      "completedChecks": 0,
+      "pageConsoleErrors": []
+    },
+    {
+      "run": "functional-r5",
+      "path": "reports/local/performance-d02-low-20261021/functional-r5/report.json",
+      "pass": false,
+      "failure": "AssertionError [ERR_ASSERTION]: native state under low: raynor,tychus,nova\n+ actual - expected\n\n+ '{\"run\":{\"expedition\":{\"building\":{\"race\":\"terran\",\"stage\":0,\"revision\":0,\"window\":0,\"phase\":\"front\",\"direction\":\"barracks\",\"wallet\":{\"minerals\":0,\"gas\":0},\"tech\":{\"barracks\":1,\"unlock.marine\":1},\"groups\":[{\"id\":\"barracks\",\"kind\":\"barracks\",\"ids\":[1],\"line\":\"barracks\",\"directions\":[],\"outputs\":[\"marine\"],\"enabled\":false,\"cursor\":0}],\"nextFacility\":2,\"bought\":false,\"baseRefreshUsed\":false,\"bonusRefresh\":0,\"paidRefresh\":0,\"talents\":{\"permanent_discount\":0,\"frugal_build\":0,\"free_house\":0,\"double_build\":0,\"instant_tech\":0,\"window_shop\":0,\"reroll_fan\":0},\"randomState\":529,\"offers\":{},\"quotes\":{},\"receipts\":{},\"spent\":{\"construction\":{\"minerals\":0,\"gas\":0},\"refresh\":0}},\"support\":{\"unique\":{\"levels\":{},\"ready\":0,\"activeUntil\":0,\"activeRank\":0,\"cycles\":{\"5\":2},\"echoCounts\":{},\"counterReady\":{},\"reserves\":{},\"parasites\":{},\"kills\":0,\"consumeReady\":0,\"missilesReady\":0,\"bunkerReady\":0,\"retryAt\":0,\"landing\":null,\"packets\":[],\"orbs\":[],\"prism\":null},\"levels\":{\"mines\":0,\"bombardment\":0,\"mutation\":0},\"ammo\":0,\"stageReceipt\":\"f04bf1b5-229f-41ae-a738-85f62185eee0:1\",\"minePending\":0,\"mineRetryAt\":0.016666666666666666,\"mines\":[],\"bombardAt\":0,\"impacts\":[],\"burns\":[]},\"zerglingPairs\":[],\"weaponAreas\":[],\"spells\":[],\"rules\":\"mvp-1.0\",\"race\":\"terran\",\"familySlots\":[\"marine\"],\"tech\":{\"barracks\":1,\"unlock.marine\":1},\"facilities\":[{\"id\":1,\"kind\":\"barracks\",\"line\":\"barracks\",\"techLab\":false}],\"nextFacility\":2,\"production\":{\"barracks\":{\"outputs\":[\"marine\"],\"enabled\":{\"marine\":true},\"cursor\":0},\"factory\":{\"outputs\":[],\"enabled\":{},\"cursor\":0},\"starport\":{\"outputs\":[],\"enabled\":{},\"cursor\":0}},\"ledger\":[{\"id\":1,\"producerId\":\"barracks\",\"family\":\"marine\",\"line\":\"barracks\",\"facilityIds\":[1],\"remaining\":14.857142857142906,\"state\":\"training\",\"podId\":null,\"passengers\":[{\"paid\":{\"minerals\":50,\"gas\":0},\"status\":\"waiting\",\"entityId\":null,\"purpose\":\"body\"}]}],\"credits\":{},\"nextCredit\":1,\"tacticalPlans\":{},\"pendingReceipt\":null,\"completedReceipts\":[],\"refunds\":{\"minerals\":0,\"gas\":0},\"developmentTarget\":null,\"frozenDevelopmentTarget\":null,\"developmentBought\":false,\"pendingShopSupply\":null,\"pendingShopElite\":null,\"developmentDirection\":null,\"directionOffers\":{},\"developmentQuotes\":{},\"shopRevision\":0,\"shopPage\":0,\"refreshCount\":0,\"freePurchasesRemaining\":0,\"freeRefresh\":{\"chapter\":1,\"building\":0,\"random\":0},\"bonusRefreshRemaining\":0,\"paidRefresh\":{\"building\":false,\"random\":false},\"draftWindow\":0,\"draftTaken\":false,\"draftClaims\":[],\"draftSeenHigh\":false,\"lowWindows\":0,\"draftHistory\":[],\"eliteContractWindow\":0,\"eliteContracts\":[],\"bossLootReceipts\":[],\"bossLootClaimed\":[],\"bossLootOpen\":false,\"bossLootQueue\":[],\"talentLootReceipts\":[],\"pendingTalentLoot\":null,\"talentLootRngState\":2654436264,\"eliteRescueRights\":[],\"eliteRescueCompleted\":[],\"temporaryOrdinaryCursor\":0,\"temporaryEliteCursor\":0,\"cardTotals\":{},\"resourceCards\":0,\"pendingFreeDeliveries\":[],\"mapLootStats\":{\"regular\":{\"attempts\":24,\"triggered\":0,\"generated\":0,\"empty\":0},\"drone\":{\"attempts\":0,\"triggered\":0,\"generated\":0,\"empty\":0},\"elite\":{\"attempts\":0,\"triggered\":0,\"generated\":0,\"empty\":0}},\"detectionReady\":0,\"detectionFields\":[],\"enemyScanReady\":{},\"familyModes\":{},\"talentPreset\":0},\"runConfig\":{\"rulesId\":\"mvp-1.0\",\"race\":\"terran\",\"difficulty\":\"easy\",\"campaignId\":\"campaign-18\",\"seed\":529,\"mapId\":\"campaign-five-v3\",\"mapHash\":\"campaign-five-v3:char:529:af493103\",\"frozenTalents\":{\"effectsVersion\":\"shared-tech-20260929\",\"ruleset\":\"mvp-1.0\",\"race\":\"terran\",\"presetId\":\"terran:0\",\"levels\":{},\"allocated\":0,\"investment\":0},\"campaignMap\":{\"version\":3,\"seed\":529,\"theme\":\"char\"}},\"campaign18Runtime\":{\"finalBossId\":null,\"finalBossKilled\":false,\"mainCombat\":{\"nextEvent\":0,\"serial\":0,\"casts\":[],\"missiles\":[]},\"stage\":1,\"difficulty\":\"easy\",\"guardSerial\":0,\"expansionId\":null,\"expansionSpawned\":false,\"mainPhase\":0,\"nextMainSkillAt\":4,\"accounting\":{\"budget\":4,\"waves\":4,\"specials\":0,\"mainHive\":0,\"expansionHive\":0,\"withheld\":0,\"unspent\":0},\"mainStructureBudget\":0,\"expansionStructureBudget\":0,\"hiveBatches\":[],\"spawned\":{\"waves\":0,\"specials\":0,\"mainHive\":0,\"expansionHive\":0},\"withheld\":0},\"swarm\":{\"window\":\"\",\"carry\":[0,0,0],\"pending\":[],\"planned\":0,\"spawned\":0,\"kills\":0,\"minerals\":0,\"gas\":0,\"talentChecks\":0,\"firstSpawnAt\":null,\"lastSpawnAt\":null},\"podSerial\":0,\"time\":3,\"tick\":180,\"stage\":1,\"stageElapsed\":2.9999999999999942,\"stageStartedAt\":0,\"phase\":\"battle\",\"paused\":true,\"battlefield\":{\"mode\":\"campaign\",\"mapId\":\"campaign-five-v3\",\"mapHash\":\"campaign-five-v3:char:529:af493103\"},\"endlessEntry\":null,\"endlessTransitionReceipt\":null,\"endlessRoundReceipts\":[],\"endlessAwardedMinutes\":0,\"endless\":null,\"entities\":{\"map\":[[2,{\"id\":2,\"unitType\":\"marine\",\"owner\":\"terran\",\"race\":\"terran\",\"team\":\"player\",\"x\":-1.311395245702804,\"z\":4.526871176467259e-14,\"prev\":{\"x\":-1.3111131847506556,\"z\":3.978546680334949e-14},\"hp\":17784,\"maxHp\":29640,\"armor\":15,\"moveSpeed\":4.8,\"attackRange\":7.5,\"weaponDamage\":1140.48,\"weaponCooldown\":0,\"attackPeriod\":0.12307692307692308,\"attackFacing\":0.8976399038576389,\"attackTarget\":null,\"facing\":1.5707963267949823,\"velocity\":{\"x\":3.707217863762029,\"z\":-3.174708674245424e-13},\"unitRadius\":0.36000000000000004,\"rank\":5,\"attributes\":[\"Biological\",\"Heroic\"],\"flying\":false,\"slot\":100,\"trailIndex\":0,\"action\":\"move\",\"mode\":\"tank\",\"desiredMode\":\"tank\",\"modeTimer\":0,\"windup\":0,\"attackLock\":0,\"pendingTarget\":null,\"lastShotAt\":1.0166666666666666,\"nextShotAt\":1.1397435897435897,\"shotInterval\":0.12307692307692308,\"repositionUntil\":0,\"aimStartedAt\":null,\"energy\":0,\"maxEnergy\":0,\"energyRegen\":0,\"healRate\":0,\"healTarget\":null,\"bileCooldown\":3,\"guardianPod\":null,\"stimUntil\":0,\"deadAt\":null,\"bornAt\":0,\"thinkAt\":3.1866666666666665,\"distanceWalked\":5.387733100525889,\"eliteHpAuraFactor\":1,\"zergEliteHpAuraFactor\":1,\"maxShield\":0,\"shield\":0,\"shieldArmor\":0,\"shieldRegen\":0,\"shieldDelay\":0,\"maxTalentShield\":0,\"talentShield\":0,\"teamAuraFactors\":{\"hp\":1.3,\"shield\":1.3},\"heroId\":\"raynor\",\"modelKey\":\"hero.raynor\",\"heroCombat\":{\"cycles\":1,\"target\":14,\"warmupStart\":null,\"lastFire\":1.0166666666666666,\"cloakUntil\":0,\"cloakEpisode\":false,\"charge\":0,\"protectedUntil\":0},\"cloaked\":false,\"lastSkillAt\":0,\"shotSequence\":6}],[3,{\"id\":3,\"unitType\":\"marine\",\"owner\":\"terran\",\"race\":\"terran\",\"team\":\"player\",\"x\":-0.8603781891638941,\"z\":-1.0305009920497579,\"prev\":{\"x\":-0.8603781891638941,\"z\":-1.0305009920497579},\"hp\":15837.5,\"maxHp\":26400,\"armor\":14,\"moveSpeed\":3.6,\"attackRange\":6.5,\"weaponDamage\":777.6,\"weaponCooldown\":0,\"attackPeriod\":0.08,\"attackFacing\":0.4280397522458592,\"attackTarget\":null,\"facing\":-2.6234440205622422,\"velocity\":{\"x\":0,\"z\":0},\"unitRadius\":0.36000000000000004,\"rank\":5,\"attributes\":[\"Biological\",\"Heroic\"],\"flying\":false,\"slot\":101,\"trailIndex\":0,\"action\":\"idle\",\"mode\":\"tank\",\"desiredMode\":\"tank\",\"modeTimer\":0,\"windup\":0,\"attackLock\":0,\"pendingTarget\":null,\"lastShotAt\":1.0833333333333333,\"nextShotAt\":1.1394736842105262,\"shotInterval\":0.053631284916201116,\"repositionUntil\":0,\"aimStartedAt\":null,\"energy\":0,\"maxEnergy\":0,\"energyRegen\":0,\"healRate\":0,\"healTarget\":null,\"bileCooldown\":3,\"guardianPod\":null,\"stimUntil\":0,\"deadAt\":null,\"bornAt\":0,\"thinkAt\":3.001666666666667,\"distanceWalked\":1.4111174121442809,\"eliteHpAuraFactor\":1,\"zergEliteHpAuraFactor\":1,\"maxShield\":0,\"shield\":0,\"shieldArmor\":0,\"shieldRegen\":0,\"shieldDelay\":0,\"maxTalentShield\":0,\"talentShield\":0,\"teamAuraFactors\":{\"hp\":1,\"shield\":1},\"heroId\":\"tychus\",\"modelKey\":\"hero.tychus\",\"heroCombat\":{\"cycles\":8,\"target\":27,\"warmupStart\":0.18333333333333332,\"lastFire\":1.0833333333333333,\"cloakUntil\":0,\"cloakEpisode\":false,\"charge\":0,\"protectedUntil\":0},\"cloaked\":false,\"lastSkillAt\":0,\"shotSequence\":8,\"lastDamagedAt\":0.8}],[4,{\"id\":4,\"unitType\":\"marine\",\"owner\":\"terran\",\"race\":\"terran\",\"team\":\"player\",\"x\":-0.591395245702804,\"z\":-7.971451034539288e-14,\"prev\":{\"x\":-0.5911131847506557,\"z\":-7.010933165603302e-14},\"hp\":15840,\"maxHp\":26400,\"armor\":8,\"moveSpeed\":4.8,\"attackRange\":10,\"weaponDamage\":2851.2,\"weaponCooldown\":0,\"attackPeriod\":0.4,\"attackFacing\":0.08399078037885808,\"attackTarget\":null,\"facing\":-1.570796326794878,\"velocity\":{\"x\":-3.741065178019829,\"z\":7.015484374233629e-14},\"unitRadius\":0.36000000000000004,\"rank\":5,\"attributes\":[\"Biological\",\"Heroic\"],\"flying\":false,\"slot\":102,\"trailIndex\":0,\"action\":\"move\",\"mode\":\"tank\",\"desiredMode\":\"tank\",\"modeTimer\":0,\"windup\":0,\"attackLock\":0,\"pendingTarget\":null,\"lastShotAt\":0.9666666666666667,\"nextShotAt\":1.3666666666666667,\"shotInterval\":0.4,\"repositionUntil\":0,\"aimStartedAt\":null,\"energy\":0,\"maxEnergy\":0,\"energyRegen\":0,\"healRate\":0,\"healTarget\":null,\"bileCooldown\":3,\"guardianPod\":null,\"stimUntil\":0,\"deadAt\":null,\"bornAt\":0,\"thinkAt\":3.173333333333333,\"distanceWalked\":7.278521277116679,\"eliteHpAuraFactor\":1,\"zergEliteHpAuraFactor\":1,\"maxShield\":3840,\"shield\":3824,\"shieldArmor\":0,\"shieldRegen\":0,\"shieldDelay\":0,\"maxTalentShield\":0,\"talentShield\":0,\"teamAuraFactors\":{\"hp\":1,\"shield\":1},\"heroId\":\"nova\",\"modelKey\":\"hero.nova\",\"heroCombat\":{\"cycles\":2,\"target\":29,\"warmupStart\":null,\"lastFire\":0.9666666666666667,\"cloakUntil\":0,\"cloakEpisode\":false,\"charge\":0,\"protectedUntil\":0},\"cloaked\":false,\"lastSkillAt\":0,\"shotSequence\":2,\"heroOpening\":false,\"lastDamagedAt\":1.1833333333333333}],[5,{\"id\":5,\"unitType\":\"marine\",\"owner\":\"terran\",\"race\":\"terran\",\"team\":\"player\",\"x\":-0.8425464366197356,\"z\":1.0443305464827441,\"prev\":{\"x\":-0.8425464366197356,\"z\":1.0443305464827441},\"hp\":33.637499999999996,\"maxHp\":67.27499999999999,\"armor\":3.4499999999999997,\"moveSpeed\":4.3469999999999995,\"attackRange\":5,\"weaponDamage\":11.384999999999998,\"weaponCooldown\":0,\"attackPeriod\":0.4112756808408983,\"attackFacing\":-0.07656491020347261,\"attackTarget\":null,\"facing\":-0.8011682693317715,\"velocity\":{\"x\":0,\"z\":0},\"unitRadius\":0.30000000000000004,\"rank\":1,\"attributes\":[\"Light\",\"Biological\"],\"flying\":false,\"slot\":0,\"trailIndex\":0,\"action\":\"idle\",\"mode\":\"tank\",\"desiredMode\":\"tank\",\"modeTimer\":0,\"windup\":0,\"attackLock\":0,\"pendingTarget\":null,\"lastShotAt\":0.8166666666666667,\"nextShotAt\":1.227942347507565,\"shotInterval\":0.4112756808408983,\"repositionUntil\":0,\"aimStartedAt\":null,\"energy\":0,\"ma'... 20406 more characters\n- '{\"run\":{\"expedition\":{\"building\":{\"race\":\"terran\",\"stage\":0,\"revision\":0,\"window\":0,\"phase\":\"front\",\"direction\":\"barracks\",\"wallet\":{\"minerals\":0,\"gas\":0},\"tech\":{\"barracks\":1,\"unlock.marine\":1},\"groups\":[{\"id\":\"barracks\",\"kind\":\"barracks\",\"ids\":[1],\"line\":\"barracks\",\"directions\":[],\"outputs\":[\"marine\"],\"enabled\":false,\"cursor\":0}],\"nextFacility\":2,\"bought\":false,\"baseRefreshUsed\":false,\"bonusRefresh\":0,\"paidRefresh\":0,\"talents\":{\"permanent_discount\":0,\"frugal_build\":0,\"free_house\":0,\"double_build\":0,\"instant_tech\":0,\"window_shop\":0,\"reroll_fan\":0},\"randomState\":529,\"offers\":{},\"quotes\":{},\"receipts\":{},\"spent\":{\"construction\":{\"minerals\":0,\"gas\":0},\"refresh\":0}},\"support\":{\"unique\":{\"levels\":{},\"ready\":0,\"activeUntil\":0,\"activeRank\":0,\"cycles\":{\"5\":2},\"echoCounts\":{},\"counterReady\":{},\"reserves\":{},\"parasites\":{},\"kills\":0,\"consumeReady\":0,\"missilesReady\":0,\"bunkerReady\":0,\"retryAt\":0,\"landing\":null,\"packets\":[],\"orbs\":[],\"prism\":null},\"levels\":{\"mines\":0,\"bombardment\":0,\"mutation\":0},\"ammo\":0,\"stageReceipt\":\"ddcb1138-8275-40d8-a59e-2a189acde2b9:1\",\"minePending\":0,\"mineRetryAt\":0.016666666666666666,\"mines\":[],\"bombardAt\":0,\"impacts\":[],\"burns\":[]},\"zerglingPairs\":[],\"weaponAreas\":[],\"spells\":[],\"rules\":\"mvp-1.0\",\"race\":\"terran\",\"familySlots\":[\"marine\"],\"tech\":{\"barracks\":1,\"unlock.marine\":1},\"facilities\":[{\"id\":1,\"kind\":\"barracks\",\"line\":\"barracks\",\"techLab\":false}],\"nextFacility\":2,\"production\":{\"barracks\":{\"outputs\":[\"marine\"],\"enabled\":{\"marine\":true},\"cursor\":0},\"factory\":{\"outputs\":[],\"enabled\":{},\"cursor\":0},\"starport\":{\"outputs\":[],\"enabled\":{},\"cursor\":0}},\"ledger\":[{\"id\":1,\"producerId\":\"barracks\",\"family\":\"marine\",\"line\":\"barracks\",\"facilityIds\":[1],\"remaining\":14.857142857142906,\"state\":\"training\",\"podId\":null,\"passengers\":[{\"paid\":{\"minerals\":50,\"gas\":0},\"status\":\"waiting\",\"entityId\":null,\"purpose\":\"body\"}]}],\"credits\":{},\"nextCredit\":1,\"tacticalPlans\":{},\"pendingReceipt\":null,\"completedReceipts\":[],\"refunds\":{\"minerals\":0,\"gas\":0},\"developmentTarget\":null,\"frozenDevelopmentTarget\":null,\"developmentBought\":false,\"pendingShopSupply\":null,\"pendingShopElite\":null,\"developmentDirection\":null,\"directionOffers\":{},\"developmentQuotes\":{},\"shopRevision\":0,\"shopPage\":0,\"refreshCount\":0,\"freePurchasesRemaining\":0,\"freeRefresh\":{\"chapter\":1,\"building\":0,\"random\":0},\"bonusRefreshRemaining\":0,\"paidRefresh\":{\"building\":false,\"random\":false},\"draftWindow\":0,\"draftTaken\":false,\"draftClaims\":[],\"draftSeenHigh\":false,\"lowWindows\":0,\"draftHistory\":[],\"eliteContractWindow\":0,\"eliteContracts\":[],\"bossLootReceipts\":[],\"bossLootClaimed\":[],\"bossLootOpen\":false,\"bossLootQueue\":[],\"talentLootReceipts\":[],\"pendingTalentLoot\":null,\"talentLootRngState\":2654436264,\"eliteRescueRights\":[],\"eliteRescueCompleted\":[],\"temporaryOrdinaryCursor\":0,\"temporaryEliteCursor\":0,\"cardTotals\":{},\"resourceCards\":0,\"pendingFreeDeliveries\":[],\"mapLootStats\":{\"regular\":{\"attempts\":24,\"triggered\":0,\"generated\":0,\"empty\":0},\"drone\":{\"attempts\":0,\"triggered\":0,\"generated\":0,\"empty\":0},\"elite\":{\"attempts\":0,\"triggered\":0,\"generated\":0,\"empty\":0}},\"detectionReady\":0,\"detectionFields\":[],\"enemyScanReady\":{},\"familyModes\":{},\"talentPreset\":0},\"runConfig\":{\"rulesId\":\"mvp-1.0\",\"race\":\"terran\",\"difficulty\":\"easy\",\"campaignId\":\"campaign-18\",\"seed\":529,\"mapId\":\"campaign-five-v3\",\"mapHash\":\"campaign-five-v3:char:529:af493103\",\"frozenTalents\":{\"effectsVersion\":\"shared-tech-20260929\",\"ruleset\":\"mvp-1.0\",\"race\":\"terran\",\"presetId\":\"terran:0\",\"levels\":{},\"allocated\":0,\"investment\":0},\"campaignMap\":{\"version\":3,\"seed\":529,\"theme\":\"char\"}},\"campaign18Runtime\":{\"finalBossId\":null,\"finalBossKilled\":false,\"mainCombat\":{\"nextEvent\":0,\"serial\":0,\"casts\":[],\"missiles\":[]},\"stage\":1,\"difficulty\":\"easy\",\"guardSerial\":0,\"expansionId\":null,\"expansionSpawned\":false,\"mainPhase\":0,\"nextMainSkillAt\":4,\"accounting\":{\"budget\":4,\"waves\":4,\"specials\":0,\"mainHive\":0,\"expansionHive\":0,\"withheld\":0,\"unspent\":0},\"mainStructureBudget\":0,\"expansionStructureBudget\":0,\"hiveBatches\":[],\"spawned\":{\"waves\":0,\"specials\":0,\"mainHive\":0,\"expansionHive\":0},\"withheld\":0},\"swarm\":{\"window\":\"\",\"carry\":[0,0,0],\"pending\":[],\"planned\":0,\"spawned\":0,\"kills\":0,\"minerals\":0,\"gas\":0,\"talentChecks\":0,\"firstSpawnAt\":null,\"lastSpawnAt\":null},\"podSerial\":0,\"time\":3,\"tick\":180,\"stage\":1,\"stageElapsed\":2.9999999999999942,\"stageStartedAt\":0,\"phase\":\"battle\",\"paused\":true,\"battlefield\":{\"mode\":\"campaign\",\"mapId\":\"campaign-five-v3\",\"mapHash\":\"campaign-five-v3:char:529:af493103\"},\"endlessEntry\":null,\"endlessTransitionReceipt\":null,\"endlessRoundReceipts\":[],\"endlessAwardedMinutes\":0,\"endless\":null,\"entities\":{\"map\":[[2,{\"id\":2,\"unitType\":\"marine\",\"owner\":\"terran\",\"race\":\"terran\",\"team\":\"player\",\"x\":-1.311395245702804,\"z\":4.526871176467259e-14,\"prev\":{\"x\":-1.3111131847506556,\"z\":3.978546680334949e-14},\"hp\":17784,\"maxHp\":29640,\"armor\":15,\"moveSpeed\":4.8,\"attackRange\":7.5,\"weaponDamage\":1140.48,\"weaponCooldown\":0,\"attackPeriod\":0.12307692307692308,\"attackFacing\":0.8976399038576389,\"attackTarget\":null,\"facing\":1.5707963267949823,\"velocity\":{\"x\":3.707217863762029,\"z\":-3.174708674245424e-13},\"unitRadius\":0.36000000000000004,\"rank\":5,\"attributes\":[\"Biological\",\"Heroic\"],\"flying\":false,\"slot\":100,\"trailIndex\":0,\"action\":\"move\",\"mode\":\"tank\",\"desiredMode\":\"tank\",\"modeTimer\":0,\"windup\":0,\"attackLock\":0,\"pendingTarget\":null,\"lastShotAt\":1.0166666666666666,\"nextShotAt\":1.1397435897435897,\"shotInterval\":0.12307692307692308,\"repositionUntil\":0,\"aimStartedAt\":null,\"energy\":0,\"maxEnergy\":0,\"energyRegen\":0,\"healRate\":0,\"healTarget\":null,\"bileCooldown\":3,\"guardianPod\":null,\"stimUntil\":0,\"deadAt\":null,\"bornAt\":0,\"thinkAt\":3.1866666666666665,\"distanceWalked\":5.387733100525889,\"eliteHpAuraFactor\":1,\"zergEliteHpAuraFactor\":1,\"maxShield\":0,\"shield\":0,\"shieldArmor\":0,\"shieldRegen\":0,\"shieldDelay\":0,\"maxTalentShield\":0,\"talentShield\":0,\"teamAuraFactors\":{\"hp\":1.3,\"shield\":1.3},\"heroId\":\"raynor\",\"modelKey\":\"hero.raynor\",\"heroCombat\":{\"cycles\":1,\"target\":14,\"warmupStart\":null,\"lastFire\":1.0166666666666666,\"cloakUntil\":0,\"cloakEpisode\":false,\"charge\":0,\"protectedUntil\":0},\"cloaked\":false,\"lastSkillAt\":0,\"shotSequence\":6}],[3,{\"id\":3,\"unitType\":\"marine\",\"owner\":\"terran\",\"race\":\"terran\",\"team\":\"player\",\"x\":-0.8603781891638941,\"z\":-1.0305009920497579,\"prev\":{\"x\":-0.8603781891638941,\"z\":-1.0305009920497579},\"hp\":15837.5,\"maxHp\":26400,\"armor\":14,\"moveSpeed\":3.6,\"attackRange\":6.5,\"weaponDamage\":777.6,\"weaponCooldown\":0,\"attackPeriod\":0.08,\"attackFacing\":0.4280397522458592,\"attackTarget\":null,\"facing\":-2.6234440205622422,\"velocity\":{\"x\":0,\"z\":0},\"unitRadius\":0.36000000000000004,\"rank\":5,\"attributes\":[\"Biological\",\"Heroic\"],\"flying\":false,\"slot\":101,\"trailIndex\":0,\"action\":\"idle\",\"mode\":\"tank\",\"desiredMode\":\"tank\",\"modeTimer\":0,\"windup\":0,\"attackLock\":0,\"pendingTarget\":null,\"lastShotAt\":1.0833333333333333,\"nextShotAt\":1.1394736842105262,\"shotInterval\":0.053631284916201116,\"repositionUntil\":0,\"aimStartedAt\":null,\"energy\":0,\"maxEnergy\":0,\"energyRegen\":0,\"healRate\":0,\"healTarget\":null,\"bileCooldown\":3,\"guardianPod\":null,\"stimUntil\":0,\"deadAt\":null,\"bornAt\":0,\"thinkAt\":3.001666666666667,\"distanceWalked\":1.4111174121442809,\"eliteHpAuraFactor\":1,\"zergEliteHpAuraFactor\":1,\"maxShield\":0,\"shield\":0,\"shieldArmor\":0,\"shieldRegen\":0,\"shieldDelay\":0,\"maxTalentShield\":0,\"talentShield\":0,\"teamAuraFactors\":{\"hp\":1,\"shield\":1},\"heroId\":\"tychus\",\"modelKey\":\"hero.tychus\",\"heroCombat\":{\"cycles\":8,\"target\":27,\"warmupStart\":0.18333333333333332,\"lastFire\":1.0833333333333333,\"cloakUntil\":0,\"cloakEpisode\":false,\"charge\":0,\"protectedUntil\":0},\"cloaked\":false,\"lastSkillAt\":0,\"shotSequence\":8,\"lastDamagedAt\":0.8}],[4,{\"id\":4,\"unitType\":\"marine\",\"owner\":\"terran\",\"race\":\"terran\",\"team\":\"player\",\"x\":-0.591395245702804,\"z\":-7.971451034539288e-14,\"prev\":{\"x\":-0.5911131847506557,\"z\":-7.010933165603302e-14},\"hp\":15840,\"maxHp\":26400,\"armor\":8,\"moveSpeed\":4.8,\"attackRange\":10,\"weaponDamage\":2851.2,\"weaponCooldown\":0,\"attackPeriod\":0.4,\"attackFacing\":0.08399078037885808,\"attackTarget\":null,\"facing\":-1.570796326794878,\"velocity\":{\"x\":-3.741065178019829,\"z\":7.015484374233629e-14},\"unitRadius\":0.36000000000000004,\"rank\":5,\"attributes\":[\"Biological\",\"Heroic\"],\"flying\":false,\"slot\":102,\"trailIndex\":0,\"action\":\"move\",\"mode\":\"tank\",\"desiredMode\":\"tank\",\"modeTimer\":0,\"windup\":0,\"attackLock\":0,\"pendingTarget\":null,\"lastShotAt\":0.9666666666666667,\"nextShotAt\":1.3666666666666667,\"shotInterval\":0.4,\"repositionUntil\":0,\"aimStartedAt\":null,\"energy\":0,\"maxEnergy\":0,\"energyRegen\":0,\"healRate\":0,\"healTarget\":null,\"bileCooldown\":3,\"guardianPod\":null,\"stimUntil\":0,\"deadAt\":null,\"bornAt\":0,\"thinkAt\":3.173333333333333,\"distanceWalked\":7.278521277116679,\"eliteHpAuraFactor\":1,\"zergEliteHpAuraFactor\":1,\"maxShield\":3840,\"shield\":3824,\"shieldArmor\":0,\"shieldRegen\":0,\"shieldDelay\":0,\"maxTalentShield\":0,\"talentShield\":0,\"teamAuraFactors\":{\"hp\":1,\"shield\":1},\"heroId\":\"nova\",\"modelKey\":\"hero.nova\",\"heroCombat\":{\"cycles\":2,\"target\":29,\"warmupStart\":null,\"lastFire\":0.9666666666666667,\"cloakUntil\":0,\"cloakEpisode\":false,\"charge\":0,\"protectedUntil\":0},\"cloaked\":false,\"lastSkillAt\":0,\"shotSequence\":2,\"heroOpening\":false,\"lastDamagedAt\":1.1833333333333333}],[5,{\"id\":5,\"unitType\":\"marine\",\"owner\":\"terran\",\"race\":\"terran\",\"team\":\"player\",\"x\":-0.8425464366197356,\"z\":1.0443305464827441,\"prev\":{\"x\":-0.8425464366197356,\"z\":1.0443305464827441},\"hp\":33.637499999999996,\"maxHp\":67.27499999999999,\"armor\":3.4499999999999997,\"moveSpeed\":4.3469999999999995,\"attackRange\":5,\"weaponDamage\":11.384999999999998,\"weaponCooldown\":0,\"attackPeriod\":0.4112756808408983,\"attackFacing\":-0.07656491020347261,\"attackTarget\":null,\"facing\":-0.8011682693317715,\"velocity\":{\"x\":0,\"z\":0},\"unitRadius\":0.30000000000000004,\"rank\":1,\"attributes\":[\"Light\",\"Biological\"],\"flying\":false,\"slot\":0,\"trailIndex\":0,\"action\":\"idle\",\"mode\":\"tank\",\"desiredMode\":\"tank\",\"modeTimer\":0,\"windup\":0,\"attackLock\":0,\"pendingTarget\":null,\"lastShotAt\":0.8166666666666667,\"nextShotAt\":1.227942347507565,\"shotInterval\":0.4112756808408983,\"repositionUntil\":0,\"aimStartedAt\":null,\"energy\":0,\"ma'... 20406 more characters\n\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-performance-d02-low-functional.mjs:54:159",
+      "completedChecks": 6,
+      "pageConsoleErrors": [],
+      "startupAttempts": [
+        {
+          "attempt": 0,
+          "state": {
+            "kind": "new",
+            "phase": "error",
+            "done": 4,
+            "total": 5,
+            "label": "资源准备失败",
+            "error": "着色器编译等待超时，请重试",
+            "progress": 0.72
+          }
+        },
+        {
+          "attempt": 1,
+          "state": {
+            "kind": "new",
+            "phase": "ready",
+            "done": 1,
+            "total": 1,
+            "label": "就绪 · 请确认继续",
+            "error": null,
+            "progress": 1
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Single machine, hardware WebGL in headless Chrome, 1440x900 DPR1. Easy terran first-stage stationary automatic combat with native production and waves, no health lock or one-hit.",
+    "Six whole 55-second runs; first three seconds retained in raw data and excluded only from steady statistics. No claim for later stages, all difficulties, physical mobile or all-content 60FPS.",
+    "Low changes presentation only. Warning pixels show nominal native footprints; entity radii and line-of-sight remain native collision rules.",
+    "Startup shader timeouts are retained separately. A successful retry or later first-attempt load does not establish their root cause.",
+    "Functional R6 context-low recovery needed a supplemental native Retry after a shader timeout; medium/high recoveries and later first-attempt startup are recorded separately, not used to erase the timeout.",
+    "Earlier failed R5 assertion output is truncated and its first mismatch is the independent run UUID in stageReceipt. It is not a proof of full equality; R6 saves complete raw paired states and compares every other serialized field.",
+    "No Current replacement, commit, push, online deployment or merge of the independent special-gameplay branch. V01–V04 and overall MVP remain open."
+  ],
+  "evidenceFiles": [
+    {
+      "path": "reports/local/performance-d02-low-20261021/summary.json",
+      "bytes": 101111,
+      "sha256": "ba8403f8fba72d6dd40b8e71386099f1147aff327ccba37f3e7d9563462f2def"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/scope-final.json",
+      "bytes": 6301,
+      "sha256": "0cf55b26c563349ee2ffdb131a8b9adb9000a03d852411f462f2c0b41730a421"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/visual-review.json",
+      "bytes": 30236,
+      "sha256": "df4337db7eb114089c0233a6e7d60a2e7fff0895fbacf1caa213499c9deed821"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/visual-review/analysis.json",
+      "bytes": 30151,
+      "sha256": "a147d04b54a64e54cb0c1bf74e5aa92ac3c18011187e50565b5ff0a6be82e927"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/inputs-before.json",
+      "bytes": 124367,
+      "sha256": "a44c8095a27076263df3c49a29299ebce938160708e15e07a1fea3967f4c7236"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/regression-final.log",
+      "bytes": 187447,
+      "sha256": "0365d2dfca08d93ec0813f3c58a56b8ad4a3d6586c2ab7e1f1ffc2bcd9480b41"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/typecheck-complete.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/docs-check-complete.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/context-retry.json",
+      "bytes": 751,
+      "sha256": "dce10002334d8db5a2df1766bb7a8b6f101dfc4b0be5de629a79598f00d73e8a"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/context-retry-runner.mjs",
+      "bytes": 1300,
+      "sha256": "e5aa7783980a4093f037dd1521af90511c3184b5c95f5c40bd906da12002cea6"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6-context-low-inspect.json",
+      "bytes": 12538,
+      "sha256": "3323c0676964640100123506900a667282964b0b96334c23773ceae42b12590c"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6-context-full-inspect.json",
+      "bytes": 12970,
+      "sha256": "5dbc5d9f511844ad8f52c919e3530b1c1b620c8443e82b428e8ad90b6090559f"
+    },
+    {
+      "path": "preview/performance-d02-low-20261021-candidate-r3/build-inputs.json",
+      "bytes": 522339,
+      "sha256": "8f31ccc87ab9398d123da17465e66f82184a760c1fea0b7e79025410038b2d4f"
+    },
+    {
+      "path": "src/simulation/combat/enemy-specials.ts",
+      "bytes": 12689,
+      "sha256": "d56922c3ff031fa7fae411776ce5f8d19385cf0ae34b67fd2f86db05de8b51ad"
+    },
+    {
+      "path": "src/ui/hud.ts",
+      "bytes": 54659,
+      "sha256": "c3091c1e32bf19639b7225112c3e087dde959dc86186bd2f90fc075a280a9efd"
+    },
+    {
+      "path": "src/ui/presentation/settings-screen.ts",
+      "bytes": 7605,
+      "sha256": "69e9d09a39b7832a4131612af1f3c410e388af4d46ca56cb491d4e40105ee157"
+    },
+    {
+      "path": "src/render/units/pod-view.ts",
+      "bytes": 8651,
+      "sha256": "77185abaa3ad1eb937c6b86b22dcd6f1984b26d70b97c9a4eb5a0320a664c44e"
+    },
+    {
+      "path": "src/render/units/equipment-drops.ts",
+      "bytes": 17373,
+      "sha256": "0ce225ee582c284b77e77fe62d30621f3f425a832bd37da5456a8bace264c53a"
+    },
+    {
+      "path": "src/render/scene/battle-renderer.ts",
+      "bytes": 116388,
+      "sha256": "889e5c8c1aeaa433d6f8a7055b7eea126d0b8b44a1042e42e6b5e3bf207779db"
+    },
+    {
+      "path": "src/render/effects/zerg-hero-effects.ts",
+      "bytes": 22389,
+      "sha256": "dfdee54a6e2bac45b6bd31bab6e2c04e728b8a51b8d87bc4aa2ac1ac55a68bf8"
+    },
+    {
+      "path": "src/render/effects/zerg-elite-effects.ts",
+      "bytes": 15677,
+      "sha256": "fe8cd292c3153a348a1298de32d1ba09d2b0149957a98c05ecc6b978356087bd"
+    },
+    {
+      "path": "src/render/effects/terran-elite-effects.ts",
+      "bytes": 12970,
+      "sha256": "ff0b15927e11a9f4a3082e29b1b123f6985c9f275910ff92c639e89f99d08551"
+    },
+    {
+      "path": "src/render/effects/source-combat-effects.ts",
+      "bytes": 22740,
+      "sha256": "618dd7268b02bc321503883344df614fb156320c8467e6cd16f4e2bd10416586"
+    },
+    {
+      "path": "src/render/settings/quality.ts",
+      "bytes": 4277,
+      "sha256": "89c2aa7c03e43428bb7a34b4c0441cc02b154edb6b1f550fbcf6c92832fe2d3e"
+    },
+    {
+      "path": "src/render/terrain/environment-atmosphere.ts",
+      "bytes": 5577,
+      "sha256": "466f22fabdc2c7da2c824dc25e01257e501db595b49bff92dbe2a7cb5d93ba96"
+    },
+    {
+      "path": "src/render/effects/nonhero-effects.ts",
+      "bytes": 22396,
+      "sha256": "97e9e89eeed33ea4a43b2d4adba59d842110e2f4b9fb51640d98ba7e5c9a4c58"
+    },
+    {
+      "path": "src/render/effects/protoss-hero-effects.ts",
+      "bytes": 21524,
+      "sha256": "a1ebe55e0e17a68548f85b1b516c7314cbd21749968ae384d6302b30676399d0"
+    },
+    {
+      "path": "src/render/effects/protoss-elite-effects.ts",
+      "bytes": 9840,
+      "sha256": "52b5a8de0d7543478216c6d3b3dd081c0d370cf063dce120e7539e8ebf907d91"
+    },
+    {
+      "path": "src/render/terrain/environment-sample-shores.ts",
+      "bytes": 8698,
+      "sha256": "354f4ba0db0a18bff272a18bcd14e999bd59451603f077f1121459d2e7c6612f"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/skill-effects.ts",
+      "bytes": 17330,
+      "sha256": "0e098dd8bdf7a3671ed059e5e57f943d0473d3b255699299e246495d379c9226"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/hero-aura-effects.ts",
+      "bytes": 5937,
+      "sha256": "a5edcb56f35887ed417fcd58285a186b6e3f6aa3d7d8ff6f6c655ec5cb0881f5"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/controller.ts",
+      "bytes": 4066,
+      "sha256": "2bfff228e253b4ca6456d2b6925dabb525d17b47a3535cfa4f3da7c97a9f6b89"
+    },
+    {
+      "path": "src/render/effects/confirmed-hero/attack-effects.ts",
+      "bytes": 18481,
+      "sha256": "8ec22ddac151f57d48a914c05c306bcef2a2dd57fde110e2eec94a570221fce8"
+    },
+    {
+      "path": "src/render/effects/low-danger-state.ts",
+      "bytes": 3014,
+      "sha256": "a069cf30332a4fcb6b860255afca161548b96ac5bccb754aa1bf4af9d469b5c3"
+    },
+    {
+      "path": "src/render/effects/low-danger-effects.ts",
+      "bytes": 4905,
+      "sha256": "0093756a98bc34a7c8a266d166a9d1306780cb3718da4dee1650845d25586cc0"
+    },
+    {
+      "path": "test/low-combat-preset.test.ts",
+      "bytes": 5842,
+      "sha256": "5a1ccdba8cd697176a08313f37829c7a6ccbf214c238c6787e3c5535f9848b3d"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r1/report.json",
+      "bytes": 554316,
+      "sha256": "7b2265b39ace6652c745791231afdcd0487fc4ed3d7bd0d0771a5012120034ae"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r1/runner.mjs",
+      "bytes": 12638,
+      "sha256": "fc35b59333af735b86afa3102b8e1c9a278e402a606c9a36bab40ad0117e1068"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r2/report.json",
+      "bytes": 558900,
+      "sha256": "f6945053a075da43a6db608bc63729ac0a4ec233f93e89c586e6074a4e59898b"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r2/runner.mjs",
+      "bytes": 12638,
+      "sha256": "fc35b59333af735b86afa3102b8e1c9a278e402a606c9a36bab40ad0117e1068"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r3/report.json",
+      "bytes": 562171,
+      "sha256": "b68ffcf7736b5cdd6e2580cef8fcc857ef4d689e27b18818ed1027b3a001185f"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r3/runner.mjs",
+      "bytes": 14059,
+      "sha256": "09c435f1b59585bdb187c9b4a85297eb594c781d44b99a0a7d070e3432692343"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r4/report.json",
+      "bytes": 556501,
+      "sha256": "d553157610db1413c49804cebc32d8b99aa7f142132e4fa593b720e2538a6c2c"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r4/runner.mjs",
+      "bytes": 17051,
+      "sha256": "0c95fc81f502b4a0c53144bb5b3d4c44fb0ad2ecf1be0794b44960842d475a8a"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r5/report.json",
+      "bytes": 8067385,
+      "sha256": "b87d6cf41e281b3e7971f695fddad0fc158ae69685399e135a2ef516cef1aa5a"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r5/runner.mjs",
+      "bytes": 18180,
+      "sha256": "095eb7fd9dfd32f5ddd17bad40a77bfec0e9758c45e37cd5c51e09e6ad9972b8"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/report.json",
+      "bytes": 11436751,
+      "sha256": "034e48918536da6a44d9b0935ee337726d136eb96d0638a4a007a0c0d8454865"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/runner.mjs",
+      "bytes": 18516,
+      "sha256": "becb0a5f63535e1a9d4b6fecd11677fddb654799ac082af57850e8cf30954f4e"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/boot-baseline-r1/report.json",
+      "bytes": 515521,
+      "sha256": "c03e6c97a8e4c4d4838f5f52cfd4cdd83d205e02a5b70a89650800009de9fce7"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/boot-baseline-r1/runner.mjs",
+      "bytes": 2343,
+      "sha256": "575d2bdbfdc7105b1d8e9750b9967cb311de578d529921198392c54ed01be1de"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/boot-candidate-r1/report.json",
+      "bytes": 569839,
+      "sha256": "172810415153d89f4a1a9d97d37fc225ce21ee1acf27969b5b55546d66097a4f"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/boot-candidate-r1/runner.mjs",
+      "bytes": 2343,
+      "sha256": "575d2bdbfdc7105b1d8e9750b9967cb311de578d529921198392c54ed01be1de"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/settings-desktop-r1/report.json",
+      "bytes": 563354,
+      "sha256": "1cb2f69455e6c279ffc3038e40103e65648c4976585c65b1f6ca10ad6fc14038"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/settings-desktop-r1/runner.mjs",
+      "bytes": 4770,
+      "sha256": "b600ab6efada3e2c664a3fad3c9767ab9988e76711c20f48e88201d71ad008a4"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/settings-coarse-r1/report.json",
+      "bytes": 556836,
+      "sha256": "6c0824b6b06fb9765778f9c749e791f9cbad4861a1af749fb4f9755bdb185d0c"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/settings-coarse-r1/runner.mjs",
+      "bytes": 4770,
+      "sha256": "b600ab6efada3e2c664a3fad3c9767ab9988e76711c20f48e88201d71ad008a4"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/live-r1/report.json",
+      "bytes": 8570644,
+      "sha256": "7e16d2b7b9afee91f64ec0995c7993cb1f09556f9fe12f03946795e35712302b"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/live-r1/runner.mjs",
+      "bytes": 12842,
+      "sha256": "2d9b61dbe8d98265f2485a7396971c99fe00bc3451ffef4d01639983db7aed67"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/danger-drawing-r1/report.json",
+      "bytes": 2447,
+      "sha256": "e9b1fd78e6ffa0554a97f8982a5095702eba14a4397f87d8d0cbd7952710d8d5"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/fixed-pair-0.json",
+      "bytes": 69669,
+      "sha256": "a6a27898c61ae5e6f097398691caeb6056c67541be6122ce415835c49d13c6f7"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/fixed-pair-1.json",
+      "bytes": 55671,
+      "sha256": "cd379dcb7ef4d0ee46f05fbfca38b689ab3161ea682cd4910145bf90340faaea"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/fixed-pair-2.json",
+      "bytes": 140357,
+      "sha256": "c3b39d1fa8062f7ab02d244056f246360b91b964372c5601853408ff989c2686"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/fixed-pair-3.json",
+      "bytes": 85397,
+      "sha256": "9b039f327b3de75f0f42d2ccaca84d7aa2609d966e25d39a2a16a0531256d872"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/fixed-pair-4.json",
+      "bytes": 122224,
+      "sha256": "c753393709b6e00903851f03c784b46fdba42c7b22ad8b3f4b5f46d983656bd7"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/functional-r6/fixed-pair-5.json",
+      "bytes": 186651,
+      "sha256": "7090add9ea512866c5a7627ec94dda545ea321c6ff5fd35e9027873162b16645"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/regression-r1.log",
+      "bytes": 192854,
+      "sha256": "09a35117c81dad72ec20a71123d0a9e02835c7d79f46665a9ff18a938cc4ef5a"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/targeted-tests.log",
+      "bytes": 4070,
+      "sha256": "3b892c578b6b3be47983b0efd7d2aac960e0f5be4d76db96256719480d61f2c0"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/targeted-tests-r2.log",
+      "bytes": 1273,
+      "sha256": "e5eca4a8e601e9c6a09a1df1864001151ef9055ad5b56ed22fff14cedc882166"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/network-regression-r2.log",
+      "bytes": 2210,
+      "sha256": "cef8827fa81df6d0c58784fa243a45ac82edd87f6f94a738f46185ba8b47af2a"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/targeted-fixture-r3.log",
+      "bytes": 1686,
+      "sha256": "f07d05bb7c154511886cd3160ed9dab4824a4b1db76515d5214119cc1e2b6cdb"
+    },
+    {
+      "path": "reports/local/performance-d02-low-20261021/low-tests-r4.log",
+      "bytes": 662,
+      "sha256": "f233acc881f927af561e07078c3235d242fa8bb7f0b027571c9f899485209ef7"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\boot-baseline-r1/ready.png",
+      "bytes": 1062106,
+      "sha256": "5257f85acba9f8557a393a9ca6cad17d862097de8a4839c7f44061cb2c90f8a5"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\boot-candidate-r1/ready.png",
+      "bytes": 1062055,
+      "sha256": "33db74246ae12a5f487c8e4f625c901421c66d70146910919321273cfe1111f5"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r1/failure.png",
+      "bytes": 27093,
+      "sha256": "09b94e8cf315d1d6718e6909965aed2b8185a6fef657c172bb01ca1cc68fbadd"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r2/failure.png",
+      "bytes": 1068645,
+      "sha256": "d5cd9e7eb91ec005d6f95d4557ed0b4ad33bcd10e513cc851ed19a7c5f454fbd"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r3/failure.png",
+      "bytes": 1067786,
+      "sha256": "e77943a4bff25bac3bac832494e287e5d204dbe8aae1309547ca3c5443456b1d"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r4/failure.png",
+      "bytes": 1068555,
+      "sha256": "b0363bf2bc0715f44ff21947c07a23bf312afdcbc524119e667d744d5c51da93"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/startup-error-0.png",
+      "bytes": 1068195,
+      "sha256": "b352ed4f55e0f4946b0a13c5429014823be7f8e2b75c966d16e27db4e012b2a4"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-0-full.png",
+      "bytes": 2031447,
+      "sha256": "ce8b10c1c5f1fdf64027ce916eae837559757fe45e468fafb15fd360da9a1574"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-0-low.png",
+      "bytes": 2259460,
+      "sha256": "eb4950285aa4361da680b2279a76ee18a2516144c359c1264a8f63f649440ebc"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-0-full-restored.png",
+      "bytes": 2031447,
+      "sha256": "ce8b10c1c5f1fdf64027ce916eae837559757fe45e468fafb15fd360da9a1574"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-1-full.png",
+      "bytes": 2254956,
+      "sha256": "318a1b0c5e6c46017e18d559f311bd7d964335e90897374d15dffbff38e59d40"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-1-low.png",
+      "bytes": 2294025,
+      "sha256": "9c8e26860d267bb28dc4eee634f5265599100a122c0bdb7133e386b9a9a0e3e7"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-1-full-restored.png",
+      "bytes": 2254956,
+      "sha256": "318a1b0c5e6c46017e18d559f311bd7d964335e90897374d15dffbff38e59d40"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-2-full.png",
+      "bytes": 2286398,
+      "sha256": "74079c6ac513b9b4e427fd378c391fbb43b253f54a53ce1822ca627ab7cc3700"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-2-low.png",
+      "bytes": 2270464,
+      "sha256": "001c5e6e78e19090005b84f4e1d218702ff36d271bf247d4a67d4e2577ee7505"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-2-full-restored.png",
+      "bytes": 2286398,
+      "sha256": "74079c6ac513b9b4e427fd378c391fbb43b253f54a53ce1822ca627ab7cc3700"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-3-full.png",
+      "bytes": 2320020,
+      "sha256": "305ac1d4c98b848510748799c33e810c8abf8554f425e8478a4f990f0280a3ef"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-3-low.png",
+      "bytes": 2291226,
+      "sha256": "0c9dd8e6cb8bafc39507e2fe1906d587f8ce38a349dc8043ea7d89bcc0649bbe"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-3-full-restored.png",
+      "bytes": 2320020,
+      "sha256": "305ac1d4c98b848510748799c33e810c8abf8554f425e8478a4f990f0280a3ef"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-4-full.png",
+      "bytes": 2259262,
+      "sha256": "9d85743d8b65cbc12e2e34f5442132fe363a25e149a4d3c54caaedff6f04ee46"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-4-low.png",
+      "bytes": 2236647,
+      "sha256": "a1539893257419ab217178d2adf20655f2c4ea72a2f71e959264919dbffb8572"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-4-full-restored.png",
+      "bytes": 2259262,
+      "sha256": "9d85743d8b65cbc12e2e34f5442132fe363a25e149a4d3c54caaedff6f04ee46"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-5-full.png",
+      "bytes": 2367644,
+      "sha256": "273e052895aee59348fff54c79edc23e649cc7930a033cd2796c4bcee7586603"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-5-low.png",
+      "bytes": 2296282,
+      "sha256": "4bf7f656bd397ffc50ef7477c7490cd0037ac7bc1fbf80c41ca02e257f73b625"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/heroes-5-full-restored.png",
+      "bytes": 2367644,
+      "sha256": "273e052895aee59348fff54c79edc23e649cc7930a033cd2796c4bcee7586603"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r5/failure.png",
+      "bytes": 229885,
+      "sha256": "84457ed5160e378abc2c6efeabb5be7f1826cbc5045066a7923b5fbc41cff404"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-0-full.png",
+      "bytes": 2031447,
+      "sha256": "ce8b10c1c5f1fdf64027ce916eae837559757fe45e468fafb15fd360da9a1574"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-0-low.png",
+      "bytes": 2259460,
+      "sha256": "eb4950285aa4361da680b2279a76ee18a2516144c359c1264a8f63f649440ebc"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-0-full-restored.png",
+      "bytes": 2031447,
+      "sha256": "ce8b10c1c5f1fdf64027ce916eae837559757fe45e468fafb15fd360da9a1574"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-1-full.png",
+      "bytes": 2254956,
+      "sha256": "318a1b0c5e6c46017e18d559f311bd7d964335e90897374d15dffbff38e59d40"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-1-low.png",
+      "bytes": 2294025,
+      "sha256": "9c8e26860d267bb28dc4eee634f5265599100a122c0bdb7133e386b9a9a0e3e7"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-1-full-restored.png",
+      "bytes": 2254956,
+      "sha256": "318a1b0c5e6c46017e18d559f311bd7d964335e90897374d15dffbff38e59d40"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-2-full.png",
+      "bytes": 2286398,
+      "sha256": "74079c6ac513b9b4e427fd378c391fbb43b253f54a53ce1822ca627ab7cc3700"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-2-low.png",
+      "bytes": 2270464,
+      "sha256": "001c5e6e78e19090005b84f4e1d218702ff36d271bf247d4a67d4e2577ee7505"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-2-full-restored.png",
+      "bytes": 2286398,
+      "sha256": "74079c6ac513b9b4e427fd378c391fbb43b253f54a53ce1822ca627ab7cc3700"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-3-full.png",
+      "bytes": 2320020,
+      "sha256": "305ac1d4c98b848510748799c33e810c8abf8554f425e8478a4f990f0280a3ef"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-3-low.png",
+      "bytes": 2291226,
+      "sha256": "0c9dd8e6cb8bafc39507e2fe1906d587f8ce38a349dc8043ea7d89bcc0649bbe"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-3-full-restored.png",
+      "bytes": 2320020,
+      "sha256": "305ac1d4c98b848510748799c33e810c8abf8554f425e8478a4f990f0280a3ef"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-4-full.png",
+      "bytes": 2259262,
+      "sha256": "9d85743d8b65cbc12e2e34f5442132fe363a25e149a4d3c54caaedff6f04ee46"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-4-low.png",
+      "bytes": 2236647,
+      "sha256": "a1539893257419ab217178d2adf20655f2c4ea72a2f71e959264919dbffb8572"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-4-full-restored.png",
+      "bytes": 2259262,
+      "sha256": "9d85743d8b65cbc12e2e34f5442132fe363a25e149a4d3c54caaedff6f04ee46"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-5-full.png",
+      "bytes": 2367644,
+      "sha256": "273e052895aee59348fff54c79edc23e649cc7930a033cd2796c4bcee7586603"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-5-low.png",
+      "bytes": 2296282,
+      "sha256": "4bf7f656bd397ffc50ef7477c7490cd0037ac7bc1fbf80c41ca02e257f73b625"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/heroes-5-full-restored.png",
+      "bytes": 2367644,
+      "sha256": "273e052895aee59348fff54c79edc23e649cc7930a033cd2796c4bcee7586603"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/danger-charge-spikes.png",
+      "bytes": 2325170,
+      "sha256": "6762b5a6eba71f7445a6c0dd402d46ee8cf784edeab79ab896249447b27f3fed"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/danger-cone-fan.png",
+      "bytes": 2316267,
+      "sha256": "3d2eb2f67c9097aa447cde9edc1f69f4a63aab9fe7d7515897519c792b592949"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/danger-bile-acid.png",
+      "bytes": 2340775,
+      "sha256": "39cf155b0a6e64b384f8a920cc67053bdf7316134f08233f4f0337485d06f710"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/context-low.png",
+      "bytes": 2308748,
+      "sha256": "dacc7f459709576e6ce937ec243db264c305e73df2e70e1025a415dfc3cfd914"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/context-medium.png",
+      "bytes": 2320118,
+      "sha256": "393f0c91f12348ac2e17b75db28dfd4e07f2ce251f275daf249774433d703f01"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/context-full.png",
+      "bytes": 2306563,
+      "sha256": "00e0af5a921001484c65456a4b73b5842be4161a1a1ec85982ea148a54f38e52"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-industrial-full.png",
+      "bytes": 2385485,
+      "sha256": "7171797142bfc8b8e96cdf171136ac3c0dda6a1f3b66a64b7ae5db701e3a202a"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-industrial-low.png",
+      "bytes": 2427941,
+      "sha256": "5a81e16f77b35eb4e9cdee4f2b7c34c6f4595284dfb42bbe63addee8a13e9dc8"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-industrial-full-restored.png",
+      "bytes": 2385485,
+      "sha256": "7171797142bfc8b8e96cdf171136ac3c0dda6a1f3b66a64b7ae5db701e3a202a"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-mar-sara-full.png",
+      "bytes": 2092227,
+      "sha256": "f9a901a44fcd6084fccc05696a6292b5f81662b8d83f50b2f76a37d9ca46c83c"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-mar-sara-low.png",
+      "bytes": 2120285,
+      "sha256": "42a47347ae394ea489d7a92c59a1dcf74e84ab748ef3746dc34e8537e830245a"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-mar-sara-full-restored.png",
+      "bytes": 2092227,
+      "sha256": "f9a901a44fcd6084fccc05696a6292b5f81662b8d83f50b2f76a37d9ca46c83c"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-char-full.png",
+      "bytes": 2241440,
+      "sha256": "4fd1e3726291c8500e461e9ff0763e4fad0f768422446a65abe8eb0e5648d6ca"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-char-low.png",
+      "bytes": 2291926,
+      "sha256": "86446c78e02895b448825f2640065296628dccdfbeae221aaead5065d9e3b442"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-char-full-restored.png",
+      "bytes": 2241440,
+      "sha256": "4fd1e3726291c8500e461e9ff0763e4fad0f768422446a65abe8eb0e5648d6ca"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-ice-full.png",
+      "bytes": 2535281,
+      "sha256": "c247f1fc58d89cd50bcc4addbc854b27a6d48802ff1b211e86f15222b197ee3a"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-ice-low.png",
+      "bytes": 2562001,
+      "sha256": "d87c0b9ad78abbcc202621d7b113817f295a70005d0ac7ddde6e01ae582ec83f"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-ice-full-restored.png",
+      "bytes": 2535281,
+      "sha256": "c247f1fc58d89cd50bcc4addbc854b27a6d48802ff1b211e86f15222b197ee3a"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-frontier-full.png",
+      "bytes": 2406692,
+      "sha256": "a30757a6bf2fc93a4ae9f5dc36c5fce7ab1896089025b46d8f89fa7054df6a94"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-frontier-low.png",
+      "bytes": 2455050,
+      "sha256": "3690acd782f409e483264352ff17a0d5b3a84b4d1b91a0be4d1769794695f8f5"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/map-frontier-full-restored.png",
+      "bytes": 2406692,
+      "sha256": "a30757a6bf2fc93a4ae9f5dc36c5fce7ab1896089025b46d8f89fa7054df6a94"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/settings-1440.png",
+      "bytes": 134009,
+      "sha256": "b2acb1e4732953ec22b91a66644f4c1d22e2d888c6143626673b7f41aade5923"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/settings-980.png",
+      "bytes": 70629,
+      "sha256": "806f1bf087696b122333afcd0e5f92439de731512e89a09eecd612e31ca431d5"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\functional-r6/settings-390.png",
+      "bytes": 46214,
+      "sha256": "b581458b50b74fdd031a926a312b874db62905334d9e79645059c5b5d2607e6d"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair0-full-end.png",
+      "bytes": 236517,
+      "sha256": "367c89feaf04848a812ac50b3abae15df2a5c2d903ab9c87150e99278acae58e"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair0-low-end.png",
+      "bytes": 235322,
+      "sha256": "9fb546ad3e92d3f494a7b3657866fb4e635764a878bf9e57f781f0fbe9e07883"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair1-low-end.png",
+      "bytes": 235326,
+      "sha256": "dedb62de1853941dddbdd067ff58ec96075c12195f683720cc623b68da75fff0"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair1-full-end.png",
+      "bytes": 236511,
+      "sha256": "e731448bfa2f0b8a82dcfacec1835828c0c93c73e96bbcec6219984a6dad0f74"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair2-full-end.png",
+      "bytes": 236517,
+      "sha256": "367c89feaf04848a812ac50b3abae15df2a5c2d903ab9c87150e99278acae58e"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/pair2-low-end.png",
+      "bytes": 235326,
+      "sha256": "dedb62de1853941dddbdd067ff58ec96075c12195f683720cc623b68da75fff0"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\live-r1/low-native-keyboard.png",
+      "bytes": 255679,
+      "sha256": "3bd56938a82330d86813cad860255655d2c51ad2ba1b9e98ea6a745e4b6fdc1f"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-coarse-r1/settings-1440.png",
+      "bytes": 357453,
+      "sha256": "43664335f4ff5c6788d227b9f2a9be448742996325f90d661a4d1475e9bfeb1e"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-coarse-r1/saved-low.png",
+      "bytes": 346466,
+      "sha256": "589d76f680762f3bd6d7abd5a4ab25f5b0e93d1ed85a51e092c136acf6481424"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/settings-1440.png",
+      "bytes": 314251,
+      "sha256": "528fdc70ade549bba5d672fe92965e8ebc1c9246b25bb47adf3db3c60bd97a80"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/settings-980.png",
+      "bytes": 170208,
+      "sha256": "4a2817f3b2d961bde75fad6f384f096c2267702d7dd640c1f22c98f2ef61ff9a"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/settings-390.png",
+      "bytes": 78050,
+      "sha256": "a0ed50d5fe4b225497ed62ad0631b8d6d124f3c1a07ba3b4b14aa0f27d3188e7"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/saved-low.png",
+      "bytes": 73777,
+      "sha256": "047c879b5b50551196bbcb616536618201170ee75b859e2b3f1c5b8ef7baad47"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/legacy-medium.png",
+      "bytes": 76526,
+      "sha256": "f7e1fb5d0f26df216314b65802bb6af5281b5ec3aa1d232014604abdf3d68097"
+    },
+    {
+      "path": "D:\\星际\\reports\\local\\performance-d02-low-20261021\\settings-desktop-r1/custom.png",
+      "bytes": 71689,
+      "sha256": "e440989764e39c6c4ffb4111687f38e0a52195f3744d288709d96038b5c37400"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\danger-drawing-r1\\danger.png",
+      "bytes": 129083,
+      "sha256": "36e60d3dce0ed65a115609f9ed0fb9a48079468306fcb9e17dfcde8761d4f568"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\functional-r6\\context-low-shader-timeout.png",
+      "bytes": 1186315,
+      "sha256": "5b71d322ae16a2f506b0dc2870dfce2d24f89fbda2b136fd3d5e464f4c63480a"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\boot-baseline-r1-1.jpg",
+      "bytes": 40013,
+      "sha256": "cb9a0a21c0808de7c63317203b624eed43a6045c8ac365475718bf21d0fbe7aa"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\boot-candidate-r1-1.jpg",
+      "bytes": 40117,
+      "sha256": "2649b6c0e7f8fd94a0d8b74745ee3ecceb8cbafbe87d722f28fbb34946eec1f1"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r1-1.jpg",
+      "bytes": 15473,
+      "sha256": "5b60fa257cedd25f8164c7dee086933e578090c5f9a485fcb9b06aa5218c9380"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r2-1.jpg",
+      "bytes": 40612,
+      "sha256": "b2651a3195de017492147658479fa5962ef144985b3a5c3dadd0186d43ebd7de"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r3-1.jpg",
+      "bytes": 40607,
+      "sha256": "a1db73412bf5bab7ad7fa4d68180c29ebdae09a24a8e65a62e4b1eca4469ab5c"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r4-1.jpg",
+      "bytes": 40545,
+      "sha256": "01719b4bffd165ca34325e4af0f593f5c42c2f4a0f3088795b3efc5b7db4a3a7"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r5-1.jpg",
+      "bytes": 261013,
+      "sha256": "4f72dc7cb4f7386119520492f5c68915e020a5843275d9aae0659182fdf6c3d9"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r5-2.jpg",
+      "bytes": 291771,
+      "sha256": "d20e111fe2a6b745683646bd6858a4e6619755eeb0550c975a0c4c5f5265d4d8"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r5-3.jpg",
+      "bytes": 288009,
+      "sha256": "5b1f82623a2d75c3cc45e303c8eae83b060d9592ad2d18181b68fb3817fd313c"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r5-4.jpg",
+      "bytes": 76683,
+      "sha256": "ff9839eeb827cd429c111adc6c0136b5d6c1e2f2a4810241a57ec9b5eb3ca534"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-1.jpg",
+      "bytes": 272122,
+      "sha256": "0bb168b163560a91c153b25c71640c15d4b634295e610e755b4f07da2ea191e1"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-2.jpg",
+      "bytes": 293363,
+      "sha256": "487adbf0f83e510c3644a88d886a8cd07568e154f28bf1c6ff1b0a7e994896b7"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-3.jpg",
+      "bytes": 290369,
+      "sha256": "0c2896c3ba817baaa633d59cdedd413828a7875948dc283f78e65c91bf698b45"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-4.jpg",
+      "bytes": 305223,
+      "sha256": "2cc2fe80eb39df5000d19020b23c64413f4051e79d536c481ca917ee3e509f31"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-5.jpg",
+      "bytes": 300032,
+      "sha256": "ba2fe079aa9741a93a538b292097564b01bbd9fffe13a44df45f6dc107e823fe"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-6.jpg",
+      "bytes": 308064,
+      "sha256": "91691372827edbfd6b7f90e0a049d5cce5f78e932903475dc6a681b91357ef28"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\functional-r6-7.jpg",
+      "bytes": 243346,
+      "sha256": "8acdea04adf330921cf85ea924ccfee74a3cce839b495e12a403e372d484063b"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\live-r1-1.jpg",
+      "bytes": 135039,
+      "sha256": "3be72ddb9db5fb6f616d02a1063a40be2ef06bbea428dbf36d970175cdd21c0b"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\live-r1-2.jpg",
+      "bytes": 27355,
+      "sha256": "f38e9541e90e796f4f904c2fd8388d7c1f38aa3fa0349ba7fe993b851697eed3"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\settings-coarse-r1-1.jpg",
+      "bytes": 67398,
+      "sha256": "463eee43eb9bc48b6636f889d93bee2aca5eff9df4c5dfe03a137720bc2b4310"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\settings-desktop-r1-1.jpg",
+      "bytes": 153344,
+      "sha256": "33b8224b93ee50d25cf7221fb32c72880df3af99a6e12a1fd3f6bb263ef6b770"
+    },
+    {
+      "path": "reports\\local\\performance-d02-low-20261021\\visual-review\\supplemental-1.jpg",
+      "bytes": 58584,
+      "sha256": "87caf4eed45c37dbf13d1bae908104ca90116383ac39ea33fb2ce8f14b074f25"
+    },
+    {
+      "path": "tools/build-performance-d02-low.mjs",
+      "bytes": 3888,
+      "sha256": "0493d58603a6ec26825f1df257bc20df08e87359c3acc50213ffe2717ce7fdbe"
+    },
+    {
+      "path": "tools/d02-low-browser-helper.mjs",
+      "bytes": 4124,
+      "sha256": "234e7e54c9b298bf500c5c393a0385c9336ce1e39f4c3436c2a9d61e7e70fda0"
+    },
+    {
+      "path": "tools/qa-performance-d02-low-functional.mjs",
+      "bytes": 18516,
+      "sha256": "becb0a5f63535e1a9d4b6fecd11677fddb654799ac082af57850e8cf30954f4e"
+    },
+    {
+      "path": "tools/qa-performance-d02-low-live.mjs",
+      "bytes": 12842,
+      "sha256": "2d9b61dbe8d98265f2485a7396971c99fe00bc3451ffef4d01639983db7aed67"
+    },
+    {
+      "path": "tools/qa-performance-d02-low-settings.mjs",
+      "bytes": 4770,
+      "sha256": "b600ab6efada3e2c664a3fad3c9767ab9988e76711c20f48e88201d71ad008a4"
+    },
+    {
+      "path": "tools/qa-d02-low-danger-drawing.mjs",
+      "bytes": 3752,
+      "sha256": "823e0f33970164afbc394807a862404a4a0e68a0f07af7d2a85c8d9125aafcf3"
+    },
+    {
+      "path": "tools/check-d02-low-scope.mjs",
+      "bytes": 1832,
+      "sha256": "391f855c459f4c06897d651af466f747ef45fcc278fa033edcd04f9e34420ef1"
+    },
+    {
+      "path": "tools/review-performance-d02-low.py",
+      "bytes": 2917,
+      "sha256": "73c25cc3390c544316efbeec7e8ae7a7eaa479089d5bce400ffbbf9fc1297ebb"
+    },
+    {
+      "path": "tools/summarize-performance-d02-low.mjs",
+      "bytes": 5709,
+      "sha256": "6603e61c917bdc17038692419bf39ee09c9aaefe980e164355a1bdd567693d47"
+    },
+    {
+      "path": "tools/serve-performance-d02-low.mjs",
+      "bytes": 1286,
+      "sha256": "2815d3e41bb190a773652ef29a4271a00c58a610150556623eb9de28208869e8"
+    }
+  ]
+}

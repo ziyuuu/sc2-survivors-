@@ -1,0 +1,712 @@
+[
+  {
+    "bytes": 384752,
+    "id": "model.infestedmarine",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/InfestedMarine/InfestedMarine.m3",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\m3\\infestedmarine.m3",
+    "sha256": "6ebc3692807ea1d7b00a48cce4f5d771ae2df7138e4a9360e8dd997fddc094b5",
+    "installFile": "assets/private/m3/infestedmarine.m3"
+  },
+  {
+    "bytes": 275008,
+    "id": "model.infestedmarinetimeoutdeath",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/InfestedMarineTimeOutDeath/InfestedMarineTimeOutDeath.m3",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\m3\\infestedmarinetimeoutdeath.m3",
+    "sha256": "aef227ce5d8ad0b84e401edc00641b1112bffcf8681c722071a22981cf491cf6",
+    "installFile": "assets/private/m3/infestedmarinetimeoutdeath.m3"
+  },
+  {
+    "bytes": 26368,
+    "id": "model.cocoon",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/Cocoon/Cocoon.m3",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\m3\\cocoon.m3",
+    "sha256": "f771095868b92beb512d6f41f5dd2d2f26df40a9fa362c41c5a22d8f226cd65d",
+    "installFile": "assets/private/m3/cocoon.m3"
+  },
+  {
+    "bytes": 17152,
+    "id": "model.cocoondeath",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/CocoonDeath/CocoonDeath.m3",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\m3\\cocoondeath.m3",
+    "sha256": "a317fed62451b6909b9cb2448d24e47f00a23147478cd7811d67865fb0d9008a",
+    "installFile": "assets/private/m3/cocoondeath.m3"
+  },
+  {
+    "bytes": 606432,
+    "id": "model.nydusdragon",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/NydusDragon/NydusDragon.m3",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\m3\\nydusdragon.m3",
+    "sha256": "5c87e4a3031bbbd8cc4ba92a2a56273e8cc88137a6f7fc4f1b638850ca6cf206",
+    "installFile": "assets/private/m3/nydusdragon.m3"
+  },
+  {
+    "bytes": 222400,
+    "id": "model.nydusworm",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/NydusWorm/NydusWorm.m3",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\m3\\nydusworm.m3",
+    "sha256": "92452e6b7bc13bdae1efdbd3f39b24bd58b1cdd2b3c159af44f0fc485166fd42",
+    "installFile": "assets/private/m3/nydusworm.m3"
+  },
+  {
+    "bytes": 653008,
+    "id": "model.nyduscanal",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Zerg/NydusCanal/NydusCanal.m3",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\m3\\nyduscanal.m3",
+    "sha256": "acbf7f931c11976583b41aa7cfc423169ff2f1172efb52bf4be66977b4854255",
+    "installFile": "assets/private/m3/nyduscanal.m3"
+  },
+  {
+    "bytes": 349680,
+    "id": "texture.infestedmarine_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/infestedmarine_diffuse.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\infestedmarine_diffuse.dds",
+    "sha256": "d7315f6e37dfc318d606151b8099aad1b5568cfb5bf34875b3f8f695c4b5c01e",
+    "installFile": "assets/private/dds/infestedmarine_diffuse.dds"
+  },
+  {
+    "bytes": 174904,
+    "id": "texture.infestedmarine_specular.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/infestedmarine_specular.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\infestedmarine_specular.dds",
+    "sha256": "a5cfde05a458b8b566bcad9a8e0f1ce22e89284682e98df032acaddf8455dcd6",
+    "installFile": "assets/private/dds/infestedmarine_specular.dds"
+  },
+  {
+    "bytes": 349680,
+    "id": "texture.infestedmarine_emissive.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/infestedmarine_emissive.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\infestedmarine_emissive.dds",
+    "sha256": "5b3a7e677f901bfffd6a010bbd705e4cb92e885a5df4ddd3f98e9181602278d6",
+    "installFile": "assets/private/dds/infestedmarine_emissive.dds"
+  },
+  {
+    "bytes": 349680,
+    "id": "texture.infestedmarine_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/infestedmarine_normal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\infestedmarine_normal.dds",
+    "sha256": "e939669ff267a68c1d4857870534b3227968dbdf42e2ec3df80c9e2710b1d4a8",
+    "installFile": "assets/private/dds/infestedmarine_normal.dds"
+  },
+  {
+    "bytes": 22000,
+    "id": "texture.smokelit.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smokelit.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\smokelit.dds",
+    "sha256": "7937f866e203c0ea6dcad8c4979977e7b3f64b58cd247719e807f20157e5e9bd",
+    "installFile": "assets/private/dds/smokelit.dds"
+  },
+  {
+    "bytes": 174904,
+    "id": "texture.bloodspillinvert.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodspillinvert.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\bloodspillinvert.dds",
+    "sha256": "99a96b1961ec5d917f56e33498ca24c66cceccf8f90041d4766cfb4fcdc8ffb7",
+    "installFile": "assets/private/dds/bloodspillinvert.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.bloodterrantile.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodterrantile.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\bloodterrantile.dds",
+    "sha256": "58442f75de01c260aed5b426ad2f97d5a9e454a37a3c6c684a6f735e449cad6e",
+    "installFile": "assets/private/dds/bloodterrantile.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.gootails_r1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gootails_r1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\gootails_r1.dds",
+    "sha256": "c77df8c15b9eb7a337d731d55b7157627d9ccddfb74aa794a69f44993c3f6b5d",
+    "installFile": "assets/private/dds/gootails_r1.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.bloodsquirtrandom_r1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodsquirtrandom_r1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\bloodsquirtrandom_r1.dds",
+    "sha256": "1616954983a1e6706ba8d82ab8e3247822f5ab5ff6756386508d04b72c203ffd",
+    "installFile": "assets/private/dds/bloodsquirtrandom_r1.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.gen_splat4_spec.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat4_spec.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\gen_splat4_spec.dds",
+    "sha256": "77fa2632f504e2cfefea601223da4b983a21167a05875f2270632e5e19ca9147",
+    "installFile": "assets/private/dds/gen_splat4_spec.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.gen_splat4_normal1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat4_normal1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\gen_splat4_normal1.dds",
+    "sha256": "f8e91533973bd862fac23920db94ee2ababf88f6d6480d87ade1e527578ed909",
+    "installFile": "assets/private/dds/gen_splat4_normal1.dds"
+  },
+  {
+    "bytes": 87540,
+    "id": "texture.gen_splat4_normal2.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat4_normal2.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\gen_splat4_normal2.dds",
+    "sha256": "c155be21905549082be027689d1c419513a96ff4830f680a070201d061461d18",
+    "installFile": "assets/private/dds/gen_splat4_normal2.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.bloodsquirtrandom_r2.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodsquirtrandom_r2.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\bloodsquirtrandom_r2.dds",
+    "sha256": "56d2d6881808eb92e063e61fe651936454c176ea99f4f2dc820ea4a7e2e3aa99",
+    "installFile": "assets/private/dds/bloodsquirtrandom_r2.dds"
+  },
+  {
+    "bytes": 87540,
+    "id": "texture.bloodsquirtrandom_r2_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodsquirtrandom_r2_normal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\bloodsquirtrandom_r2_normal.dds",
+    "sha256": "34c9dd9428c01ac4d764fcc0100faa1356f336e7d0d1aa1fcf30fd12500ad35d",
+    "installFile": "assets/private/dds/bloodsquirtrandom_r2_normal.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.zerg_guts1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zerg_guts1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\zerg_guts1.dds",
+    "sha256": "7197bfa32cf18f6ed6f409550960fc6b5efd9aa6ebeceb83d630d3804d92b5a5",
+    "installFile": "assets/private/dds/zerg_guts1.dds"
+  },
+  {
+    "bytes": 11064,
+    "id": "texture.fireball_10.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/fireball_10.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\fireball_10.dds",
+    "sha256": "22c52f4a5efd2d1aebc66480ecc08d353a799093e29a8904c1d496a59ffeb25c",
+    "installFile": "assets/private/dds/fireball_10.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.egg.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/egg.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\egg.dds",
+    "sha256": "605127edd33bf5865a1a1c1cdc5e0d5be874e12a99b604e315be29851a0c2ba6",
+    "installFile": "assets/private/dds/egg.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.bloodterrantilegreen.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodterrantilegreen.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\bloodterrantilegreen.dds",
+    "sha256": "d09808a2ef53ba3751f9a5b5d1fcda0282ce9e72a39aad73d5fc2e4e3c731c1f",
+    "installFile": "assets/private/dds/bloodterrantilegreen.dds"
+  },
+  {
+    "bytes": 22000,
+    "id": "texture.waterspray1.dds",
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/waterspray1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\waterspray1.dds",
+    "sha256": "f6ac68d6df190165823f7fc79862f705c4ade26169725b7fb0333589a1d085ef",
+    "installFile": "assets/private/dds/waterspray1.dds"
+  },
+  {
+    "bytes": 43832,
+    "id": "texture.zergegggenericdeath_diff.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergegggenericdeath_diff.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\zergegggenericdeath_diff.dds",
+    "sha256": "d03d7fced2d250a26dfd69eee85e4cdd17f075c4edf96c41aa12ca3fb731b3e6",
+    "installFile": "assets/private/dds/zergegggenericdeath_diff.dds"
+  },
+  {
+    "bytes": 43832,
+    "id": "texture.zergegggenericdeath_spec.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergegggenericdeath_spec.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\zergegggenericdeath_spec.dds",
+    "sha256": "80d021e42eca592258c15cec38621b4db33bf8c5fdf118ed44bdecfbf2088aff",
+    "installFile": "assets/private/dds/zergegggenericdeath_spec.dds"
+  },
+  {
+    "bytes": 43832,
+    "id": "texture.zergegggenericdeath_emissive.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergegggenericdeath_emissive.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\zergegggenericdeath_emissive.dds",
+    "sha256": "efc1ee1b234d1db5a6e1274e80d6828c6689f817fee7e1c7deb1a9f0382bd97f",
+    "installFile": "assets/private/dds/zergegggenericdeath_emissive.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.metal_debris2.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/metal_debris2.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\metal_debris2.dds",
+    "sha256": "96832f33cdd022d0fcdf735743de2bd21f1a12231e8d61838e1cef02dc6b0715",
+    "installFile": "assets/private/dds/metal_debris2.dds"
+  },
+  {
+    "bytes": 87540,
+    "id": "texture.zergegggenericdeath_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergegggenericdeath_normal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\zergegggenericdeath_normal.dds",
+    "sha256": "f60a35f17c29b411d57f7b50d8ff253cdbf86eeb0a565fbe53431a3af6f9cbbb",
+    "installFile": "assets/private/dds/zergegggenericdeath_normal.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.largesmoke2.dds",
+    "sourcePath": "mods/core.sc2mod/base.sc2assets/Assets/Textures/largesmoke2.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\largesmoke2.dds",
+    "sha256": "3a8eb22d370494e6f9a34dfe38fe91033ef878c318118710003c58136d7665c7",
+    "installFile": "assets/private/dds/largesmoke2.dds"
+  },
+  {
+    "bytes": 22000,
+    "id": "texture.dirtdebris1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/dirtdebris1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\dirtdebris1.dds",
+    "sha256": "c272740394f6987cbcc541a59f5d12da92fa47b0615943e18193204221ee14bb",
+    "installFile": "assets/private/dds/dirtdebris1.dds"
+  },
+  {
+    "bytes": 22000,
+    "id": "texture.dirtchunk1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/dirtchunk1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\dirtchunk1.dds",
+    "sha256": "7eb76138af4b2b1792bf06520d0701895f7c184f34233764bf95636be59c1ade",
+    "installFile": "assets/private/dds/dirtchunk1.dds"
+  },
+  {
+    "bytes": 349680,
+    "id": "texture.newsmoke01.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/newsmoke01.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\newsmoke01.dds",
+    "sha256": "a9c1e2d6c99d7dbb2d51d7ed042c601f1eff1d8ff4f3abbb1b0d59508416ce50",
+    "installFile": "assets/private/dds/newsmoke01.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.rocks1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/rocks1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\rocks1.dds",
+    "sha256": "d37b71fced5ab1dfe651f74386e4ba01b395f3a946bcc5472d0f09cec353d68f",
+    "installFile": "assets/private/dds/rocks1.dds"
+  },
+  {
+    "bytes": 5616,
+    "id": "texture.dust3.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/dust3.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\dust3.dds",
+    "sha256": "cbafd0dc52de1dbcf0adfeb6d42d8a5dea669e80fdb0fe24eef192c12cbd7524",
+    "installFile": "assets/private/dds/dust3.dds"
+  },
+  {
+    "bytes": 1398256,
+    "id": "texture.nydusdragon_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nydusdragon_diffuse.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nydusdragon_diffuse.dds",
+    "sha256": "8eae21cba58715ec693a5e925a92d86abc07ea724425f2b5232be098ca6a33ad",
+    "installFile": "assets/private/dds/nydusdragon_diffuse.dds"
+  },
+  {
+    "bytes": 699192,
+    "id": "texture.nyduscanal_specular.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal_specular.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal_specular.dds",
+    "sha256": "22bfea77f7ab9aa29ffe83d4a42217252f9f84c33fc8182ce7ffc3f601b5f3c8",
+    "installFile": "assets/private/dds/nyduscanal_specular.dds"
+  },
+  {
+    "bytes": 699192,
+    "id": "texture.nydusdragon_emissive.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nydusdragon_emissive.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nydusdragon_emissive.dds",
+    "sha256": "506c92876a0af43cf3841453be7bb770052282e7333eae3ed78a295ca2400507",
+    "installFile": "assets/private/dds/nydusdragon_emissive.dds"
+  },
+  {
+    "bytes": 1398260,
+    "id": "texture.nydusdragon_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nydusdragon_normal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nydusdragon_normal.dds",
+    "sha256": "f6c3782b97d5c2fff345e1ca190f92520076ac7e17e524ad4d9a92a220024d58",
+    "installFile": "assets/private/dds/nydusdragon_normal.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.goosquirtrandom_r1_yellow.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/goosquirtrandom_r1_yellow.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\goosquirtrandom_r1_yellow.dds",
+    "sha256": "979d633ebfb1925b477c3b9de8e28bdffe47b1c1038eb883c7a1b9e447bc5c9b",
+    "installFile": "assets/private/dds/goosquirtrandom_r1_yellow.dds"
+  },
+  {
+    "bytes": 43832,
+    "id": "texture.goosquirtrandom_r1_yellowspec.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/goosquirtrandom_r1_yellowspec.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\goosquirtrandom_r1_yellowspec.dds",
+    "sha256": "ce77cfa382cdc9ebe1bd2faf1949af5ba8bb5aa14d5a80f29f1abdfaab043904",
+    "installFile": "assets/private/dds/goosquirtrandom_r1_yellowspec.dds"
+  },
+  {
+    "bytes": 87540,
+    "id": "texture.goosquirtrandom_r1_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/goosquirtrandom_r1_normal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\goosquirtrandom_r1_normal.dds",
+    "sha256": "724b942497f8a82525b3064f8f27be8448d2dcabe66805b5c5844600fe87012a",
+    "installFile": "assets/private/dds/goosquirtrandom_r1_normal.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.nyduscanal-slime.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal-slime.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal-slime.dds",
+    "sha256": "2a201780ff7664a0b57301f1412643d1608f9a4aa1b2787eb9f65854443b89cf",
+    "installFile": "assets/private/dds/nyduscanal-slime.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.cracks1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cracks1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\cracks1.dds",
+    "sha256": "f261cc7cf5693f187b2b0cc24a368b4a0a1f491d1e84dc5bc22d74875554666f",
+    "installFile": "assets/private/dds/cracks1.dds"
+  },
+  {
+    "bytes": 349680,
+    "id": "texture.smoke_fire.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/smoke_fire.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\smoke_fire.dds",
+    "sha256": "34fa04e264a696ea83a1b94edd671dd9997d3affb8ae55712b6a3723d73fd4be",
+    "installFile": "assets/private/dds/smoke_fire.dds"
+  },
+  {
+    "bytes": 87536,
+    "id": "texture.cracks2.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/cracks2.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\cracks2.dds",
+    "sha256": "ab4f5571b3ef78cda5d3a3e94dd4e76b543259e12327cce93909452110c4fcdf",
+    "installFile": "assets/private/dds/cracks2.dds"
+  },
+  {
+    "bytes": 1398256,
+    "id": "texture.nyduscanal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal.dds",
+    "sha256": "963e847f5a59e77e0001387b3b49443109d49743ce5c96e3a634898f75d5a650",
+    "installFile": "assets/private/dds/nyduscanal.dds"
+  },
+  {
+    "bytes": 699192,
+    "id": "texture.nyduscanal-specular.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal-specular.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal-specular.dds",
+    "sha256": "1a0809bf0a4345156400a44cfe7d794eb668911a5d1c33391592ac85eebe84e1",
+    "installFile": "assets/private/dds/nyduscanal-specular.dds"
+  },
+  {
+    "bytes": 699192,
+    "id": "texture.nyduscanal-emissive.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal-emissive.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal-emissive.dds",
+    "sha256": "11cfa12386b637efc84a8d6d5a711a806c3077fb3142b2e7ab5142d310ff06fd",
+    "installFile": "assets/private/dds/nyduscanal-emissive.dds"
+  },
+  {
+    "bytes": 1398260,
+    "id": "texture.nyduscanal-normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal-normal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal-normal.dds",
+    "sha256": "a21a2b79e7b5c155e98b8149bcb21ff87c6b1ceeabaccddfbe53cecca864de69",
+    "installFile": "assets/private/dds/nyduscanal-normal.dds"
+  },
+  {
+    "bytes": 21992,
+    "id": "texture.testtail1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/testtail1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\testtail1.dds",
+    "sha256": "fbddf6dbe369d04365dac0988bdf39bb70cacc80ab3314138b2bccd252868c69",
+    "installFile": "assets/private/dds/testtail1.dds"
+  },
+  {
+    "bytes": 43856,
+    "id": "texture.testtail1_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/testtail1_normal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\testtail1_normal.dds",
+    "sha256": "125dcddacc5c99d6848c65a66fbc0cfa4e359a8e7d2a631f7b5dcb9989d85288",
+    "installFile": "assets/private/dds/testtail1_normal.dds"
+  },
+  {
+    "bytes": 1398256,
+    "id": "texture.zergpod1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergpod1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\zergpod1.dds",
+    "sha256": "85f6570a88515d7c71f23f91256efceebe6862304ca5d4e83f2a5558203b3b61",
+    "installFile": "assets/private/dds/zergpod1.dds"
+  },
+  {
+    "bytes": 1398260,
+    "id": "texture.zergpodnormal1.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/zergpodnormal1.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\zergpodnormal1.dds",
+    "sha256": "49627ff56874aa006d2785e6a7169eac1056e8c9f3a26f40758a71ec698549d8",
+    "installFile": "assets/private/dds/zergpodnormal1.dds"
+  },
+  {
+    "bytes": 1398256,
+    "id": "texture.nyduscanal_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal_diffuse.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal_diffuse.dds",
+    "sha256": "632e2f0b8dbe009b4a0bfa270a23dd4ecf058a0925656d4d8f9e5c80eb024429",
+    "installFile": "assets/private/dds/nyduscanal_diffuse.dds"
+  },
+  {
+    "bytes": 1398256,
+    "id": "texture.nyduscanal_emissive.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal_emissive.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal_emissive.dds",
+    "sha256": "164f511d48f2e4aaf667241c31015a3cb6c093ee9c2797fcff4ab61a2e32378f",
+    "installFile": "assets/private/dds/nyduscanal_emissive.dds"
+  },
+  {
+    "bytes": 1398260,
+    "id": "texture.nyduscanal_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal_normal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal_normal.dds",
+    "sha256": "860e23d52fee469a5ee8dab3b3325da7355a4006b19e4fff9c0365fd41ada11c",
+    "installFile": "assets/private/dds/nyduscanal_normal.dds"
+  },
+  {
+    "bytes": 11080,
+    "id": "texture.nydusworm_tentacle_diffuse.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nydusworm_tentacle_diffuse.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nydusworm_tentacle_diffuse.dds",
+    "sha256": "a725f6d3736f782861be58641be58c1abd9600075b63e0f262df0d8251925e95",
+    "installFile": "assets/private/dds/nydusworm_tentacle_diffuse.dds"
+  },
+  {
+    "bytes": 22036,
+    "id": "texture.nydusworm_tentacle_normal.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nydusworm_tentacle_normal.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nydusworm_tentacle_normal.dds",
+    "sha256": "927917e06a314cf35d0f3cb75209ae863851a1f67306332d8b5131ec13f23b80",
+    "installFile": "assets/private/dds/nydusworm_tentacle_normal.dds"
+  },
+  {
+    "bytes": 699192,
+    "id": "texture.nyduscanal-specular2.dds",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/nyduscanal-specular2.dds",
+    "version": "5.0.16.97563",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\nyduscanal-specular2.dds",
+    "sha256": "b787454dac045785867a5579fd675989d30007d3a75c8ab241a5a5379e5cddc7",
+    "installFile": "assets/private/dds/nyduscanal-specular2.dds"
+  },
+  {
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\m3\\infestedmarinedeath_00.m3",
+    "sha256": "47b371c8adf4f3e5aade56751830b74b01f75a5eaa9e3e6a2c0436ad52cc759b",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/InfestedMarineDeath/InfestedMarineDeath_00.m3",
+    "id": "model.infestedmarinedeath_00",
+    "version": "5.0.16.97563",
+    "bytes": 188928,
+    "installFile": "assets/private/m3/infestedmarinedeath_00.m3"
+  },
+  {
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\m3\\nyduscanaldeath_00.m3",
+    "sha256": "a9f7adc256a378d2746ace050c546ad949dddcae803173f1574eca003b497756",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Buildings/Zerg/NydusCanalDeath/NydusCanalDeath_00.m3",
+    "id": "model.nyduscanaldeath_00",
+    "version": "5.0.16.97563",
+    "bytes": 367056,
+    "installFile": "assets/private/m3/nyduscanaldeath_00.m3"
+  },
+  {
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\blastmark4.dds",
+    "sha256": "195d172a1e2177fc4c1cc7f76574943d58b7a8c3ec7bf1f67ba96b86b61b3d4d",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/blastmark4.dds",
+    "id": "texture.blastmark4.dds",
+    "version": "5.0.16.97563",
+    "bytes": 349680,
+    "installFile": "assets/private/dds/blastmark4.dds"
+  },
+  {
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\bloodsquirt_a2.dds",
+    "sha256": "66be23f498a9add9448958dd8a161a55e8eb7f08febbd4ef00618afb04e1f709",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodsquirt_a2.dds",
+    "id": "texture.bloodsquirt_a2.dds",
+    "version": "5.0.16.97563",
+    "bytes": 22000,
+    "installFile": "assets/private/dds/bloodsquirt_a2.dds"
+  },
+  {
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\gen_splat2.dds",
+    "sha256": "017629bcc78d17b862e66e29d5e0462ab9e383d0f78d6345a21668e7c7aafa9a",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat2.dds",
+    "id": "texture.gen_splat2.dds",
+    "version": "5.0.16.97563",
+    "bytes": 87536,
+    "installFile": "assets/private/dds/gen_splat2.dds"
+  },
+  {
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\bloodterrantilenormal.dds",
+    "sha256": "a48fa9d462cf8dd3073790226857c45fef4717a4d4534c27b7973baab8b6a3d9",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/bloodterrantilenormal.dds",
+    "id": "texture.bloodterrantilenormal.dds",
+    "version": "5.0.16.97563",
+    "bytes": 87540,
+    "installFile": "assets/private/dds/bloodterrantilenormal.dds"
+  },
+  {
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\animbloodsplat1_purple.dds",
+    "sha256": "5ec057230e564a8368afb4319f40d64fff57c39a7799b9dfec576d8412785dab",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/animbloodsplat1_purple.dds",
+    "id": "texture.animbloodsplat1_purple.dds",
+    "version": "5.0.16.97563",
+    "bytes": 87536,
+    "installFile": "assets/private/dds/animbloodsplat1_purple.dds"
+  },
+  {
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\gen_splat3_spec.dds",
+    "sha256": "8e0380cdbb314111d0cb3cab7e74d31139f542fc010ee3b82a67059f39e51db4",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat3_spec.dds",
+    "id": "texture.gen_splat3_spec.dds",
+    "version": "5.0.16.97563",
+    "bytes": 87536,
+    "installFile": "assets/private/dds/gen_splat3_spec.dds"
+  },
+  {
+    "file": "D:\\星际\\reports\\local\\mission-20261019\\runtime\\private\\dds\\gen_splat3.dds",
+    "sha256": "44b9b83f3223ec953f6353eb7084f54566f0cd75cee16890dac7bdaeef789c0e",
+    "buildConfig": "5bc8dcc1fade3a320c12936586b7c0ed",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Textures/gen_splat3.dds",
+    "id": "texture.gen_splat3.dds",
+    "version": "5.0.16.97563",
+    "bytes": 87536,
+    "installFile": "assets/private/dds/gen_splat3.dds"
+  }
+]

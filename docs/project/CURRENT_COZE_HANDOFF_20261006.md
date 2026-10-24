@@ -1,6 +1,48 @@
-# 当前加载与自适应界面交接 · 2026-10-09
+# 当前应用交接入口 · 2026-10-13
 
 最新交付（2026-10-14）：**设置与横竖屏 Final R3／应用 0.6.28**。[离线 HTML](../../dist/SC2-Survivors-Mobile-Settings-Final-R3-20261014.html)、[应用 ZIP](../../dist/Mobile-Settings-Final-R3-Application-20261014.zip)、[验证记录](MOBILE_SETTINGS_VALIDATION_20261014.md)。Current 和本地 deploy/coze 已同步；资源与五图最终版相同，可复用其完整资源包。Safari 专项未执行，真机未验证，未进行线上部署。下列旧版本段落保留为历史交接。
+
+当前本地交付为 **MVP 7A Final R1／应用 0.6.26**：[完整离线 HTML](../../dist/SC2-Survivors-MVP7A-Final-R1-20261013.html)、[应用 ZIP](../../dist/MVP7A-Final-R1-Application-20261013.zip)、`dist/web/`。Current 与具名 HTML 字节一致，`deploy/coze/` 已逐文件同步 198 个应用清单文件。
+
+Web 构建 `ea42c5704c2964f581afb7ca2e6245de4554a2623bf3a3e62a59fccf2816c0aa`，应用身份 `169163d8f94cd5889e50852909c31b2c32f700d07cd56fa21637d2a8eba77798`。资源版本仍为 `cc35c4025c6da0949c70f68fefe9b421734faae6e0b49a015831a5c297086d6a`，1177 条记录／1129 文件／809073180 字节；资源、依赖、backend/vendor/config 和 schema26／档案v6／地图配方v3 均未增加或改变。
+
+仅采用合并动画采样与可让出执行的 CPU 准备。三对立即开始实测，Web 配对中位少等 9.209 秒／8.55%，实际离线版少等 3.078 秒／约 3.14%；首十秒没有可重复的明显帧时退步。1,400 项回归、40 对原生状态、24 对 RGB 精确画面、五图两轮与正式 Web／离线恢复检查通过。74 个测量记录、候选拒绝理由、独立 CPU／GPU／进程内存归因见 [7A 实施说明](MVP7A_LOADING_20261013.md) 与 [验证记录](MVP7A_LOADING_VALIDATION_20261013.md)。菜单仍有数秒阻塞，缓存异常原因未确定；完整内容 60 FPS、人工／实体输入、生产／B4 仍开放。
+
+四种本地 v10 启动与更新检查通过；1129 个资源文件全部复用，资源新增／重下载为 0，配置、旧应用和回滚指针保留，幂等及篡改拒绝通过。首次镜像同步复制 package-lock.json 遇到 UNKNOWN 错误，旧清单文件和 Current 当时仍完整；保留失败后，正常权限续传已核对的临时文件并逐项校验成功。真实同步记录为 `reports/local/7a-20261013/delivery.json`，完整机器结果为 `reports/qa/7a-20261013.json`。没有 Git 提交／推送或线上 Coze、数据库、后台操作。
+
+**以下为较早交接记录，保留当时的构建、结果与限制，不替代上面的 0.6.26 入口。**
+
+---
+
+## 2026-10-13 较早的 Refraction / Science Vessel 交接记录（历史）
+
+当前本地交付为 **Refraction / Science Vessel／应用 0.6.25**：[完整离线 HTML](../../dist/SC2-Survivors-Refraction-Science-Final-R2-20261013.html)、[应用 ZIP](../../dist/Refraction-Science-Final-R3-Application-20261013.zip)、`dist/web/`。Current 与具名 HTML 相同，`deploy/coze/` 已同步 196 个应用清单文件。应用 R3 只修正包内 README 入口，游戏字节仍为最终 R2。
+
+Web 构建 `eb225a062a9e16201bd7e294c1320c99d4b36303a8f25a7d869eba00ddf7a19d`，应用身份 `548d792075fc298d0955f0a685b3772c8ed5b3463b43f1f3025201a0f58f6d6a`；资源版本 `cc35c4025c6da0949c70f68fefe9b421734faae6e0b49a015831a5c297086d6a`，1177 条记录／1129 文件／809073180 字节。schema26／档案v6／地图配方v3 不变。
+
+范围与实际结果见 [本轮说明](REFRACTION_SCIENCE_20261013.md)、[来源记录](REFRACTION_SCIENCE_SOURCES_20261013.md)、[验证与交付](REFRACTION_SCIENCE_VALIDATION_20261013.md)。14 个可绘制折射定义已接入，三档全息科学球的死亡来源链已解决；密集遮挡按用户要求后移。用户后续明确不要求 1:1 复刻，客户端精确强度／逐阶段对照不再是验收门槛；以来源、代码、真实运行与正常游玩中的明显异常检查为准。自然性能、用户试玩／实体输入、生产／B4 等既定要求仍保留。
+
+本轮仅更新本地交付，未提交／推送 Git 或执行线上 Coze、数据库、后台及新资源远端发布。完整 HTML 自带资源；应用 ZIP 使用外置资源，生产使用需配套本轮资源版本。同步事实记录在 `reports/local/refraction-science-20261013/delivery.json`，不是远端发布证明。
+
+**以下全部为较早交接记录。** 其中“当前”、旧构建号、资源数与包名均按各段原日期理解，不替代上面的 0.6.25 入口。
+
+---
+
+## 2026-10-13 较早的 Combat Effects R3 交接记录（历史）
+
+当前本地交付为 **Combat Effects Final R3／应用 0.6.24**，批次文件名保留 `20261012`。使用 [R3 应用 ZIP](../../dist/Combat-Effects-Final-R3-Application-20261012.zip)、[命名离线 HTML](../../dist/SC2-Survivors-Combat-Effects-Final-R3-20261012.html) 和 `dist/web/`；`deploy/coze/` 是已同步的应用镜像，Current 离线入口与 R3 相同。准确清单见 [delivery.json](../../dist/Combat-Effects-Final-R3-Application-20261012/delivery.json) 和 [web-release.json](../../dist/web/web-release.json)。
+
+Web 构建 `0854ed362e7c5d223973e86917b1317b6a5918f43cf41b9237ba0af41b8d0059`，应用身份 `e7507b201b889b4dd7ddc42a6f28382503ba9667d8258c32fccc3d72d3662257`；资源版本 `f215909d007c35a7a8a607624e67ae3c8ab4e2fcd2457ec2ec155fc31d5c2f2c`，1157 条记录／1110 个文件／808224980 字节。继续保持战局 schema 26、档案 v6 和地图配方 v3。
+
+当前实际检查、失败保留、原版缺层及来源限制见 [战斗特效验证](COMBAT_EFFECTS_VALIDATION_20261012.md)。本地 Current／镜像同步与 Git／CI 结果分开记录在 `reports/local/combat-effects-20261012/delivery.json`、`git-sync.json`。本次文档整理没有重建、更新镜像、执行 Git 同步或进行线上部署。
+
+部署仍沿用既有 Coze v10、完整清单校验、资源复用、锁定依赖、配置保留与回滚流程；后台真实生产条件按 [P5 交接](P5_BACKEND_HANDOFF_20261006.md)。生产／B4、自然性能、人工与实体设备等未因本地交付关闭。后续范围见 [MVP 收尾计划](MVP_COMPLETION_CONTRACT_20261013.md)。
+
+**以下为旧交接原文。** 其中“当前”指各自记录日期；旧包名、资源数和构建号不替代上面的 R3 入口，历史路径也不保证在已批准的本地清理后仍存在。
+
+---
+
+# 当前加载与自适应界面交接 · 2026-10-09
 
 当前交付为 `dist/Entry-Fixes-Coze-Application-20261009.zip`，Git 的 `deploy/coze` 保存同一应用。Web 构建 `8fe4ce100758fcf415621b95f28efb32cbd66dece6819e1e409914755c32bbde`，应用版本 0.6.14。完整离线文件为 `dist/SC2-Survivors-Entry-Fixes-20261009.html`，通用 Current 文件在验证后更新为相同字节。范围见 [加载与自适应界面](ENTRY_FIXES_20261009.md)，实际检查及限制见仓库 `docs/project/ENTRY_FIXES_VALIDATION_20261009.md`。
 
@@ -29,3 +71,4 @@
 范围见 [本轮实施记录](UI_FIDELITY_ROUND_20261006.md)，实际结果见 [本轮验证](UI_FIDELITY_ROUND_VALIDATION_20261006.md) 和 `reports/local/ui-fidelity-round-20261006/delivery.json`。P6-V01、自然／高密度性能、完整M6/M7、人工视觉、物理设备、高刷新率、长期使用、低内存设备和三个科学船来源缺口继续OPEN。诊断存档、固定视图、浏览器尺寸和虚拟输入不是自然战役或实体设备验收。
 
 本轮范围与检查见 [开屏／封面／扇形更新](OPENING_COVER_FLAME_20261007.md)。原UI-Coze-Main应用包与旧完整HTML保留，历史验证记录不改写。
+

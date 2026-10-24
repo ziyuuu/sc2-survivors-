@@ -1,0 +1,15 @@
+import fs from 'node:fs/promises';
+const root='D:/星际',base=root+'/reports/local/integration-i02-20261022',old=root+'/reports/local/integration-i01-20261022';
+let source=await fs.readFile(old+'/build-web.mjs','utf8');
+source=source.replaceAll('I01_VERSION','I02_VERSION').replaceAll('local I01 integration','local I02 settlement fixes');
+await fs.writeFile(base+'/build-web.mjs',source);
+source=await fs.readFile(old+'/serve-r2.mjs','utf8');
+source=source.replaceAll('I01_VERSION','I02_VERSION').replaceAll("??'r2'","??'r1'").replaceAll('4481','4482').replaceAll('I01 integrated preview','I02 integration preview');
+await fs.writeFile(base+'/serve.mjs',source);
+source=await fs.readFile(old+'/assemble-offline-r2.mjs','utf8');
+source=source.replaceAll('I01_OFFLINE_MODE','I02_OFFLINE_MODE').replaceAll('-r2','-r1').replace("donor=base+'/../fun-visual-batch2-20261021/offline-final.html'","donor='"+old+"/offline-lab-r2.html'");
+await fs.writeFile(base+'/assemble-offline.mjs',source);
+source=await fs.readFile(old+'/verify-offline-r2.mts','utf8');
+source=source.replaceAll('integration-i01-20261022','integration-i02-20261022').replaceAll('I01_OFFLINE_MODE','I02_OFFLINE_MODE').replaceAll('-r2','-r1');
+await fs.writeFile(base+'/verify-offline.mts',source);
+console.log('I02 isolated Web/offline builders prepared; resources reuse identical existing files.');

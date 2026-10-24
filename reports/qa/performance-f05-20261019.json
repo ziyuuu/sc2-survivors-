@@ -1,0 +1,560 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-19",
+  "task": "F05",
+  "status": "completed",
+  "scope": "Projection retirement, body/registry cleanup, preserved deferred damage and transient death presentation. No whole-game FPS or MVP acceptance.",
+  "authorization": "User: 请开始吧, following the explicit F05 proposal.",
+  "baselineCommit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
+  "implementation": [
+    {
+      "file": "src/simulation/starship/projections.ts",
+      "sha256": "a81265dfae5405a73b73a1f3bc9edddb09dbbf77023e61840fa4905348257d7a"
+    },
+    {
+      "file": "src/simulation/starship/projection-cleanup.ts",
+      "sha256": "0101ee9677b7dd21904fceb1cc1e506751c85fa2c88582ef7621ed36ac100493"
+    },
+    {
+      "file": "src/simulation/world.ts",
+      "sha256": "48bc7e3fcaa01ccc678b6c34a6e2ff994b38ca70ae6316058a077b655c2b3a7c"
+    },
+    {
+      "file": "src/simulation/types.ts",
+      "sha256": "5e3bf64babac67c008663c861c2cd3035dfb6c78ab2a907bb64513197792c2c3"
+    },
+    {
+      "file": "src/render/effects/equipment-effects.ts",
+      "sha256": "a1052e2cc4aa1a0b3c23e5c59337c9646938671d93da2177561b924e422c96ec"
+    },
+    {
+      "file": "test/starship-projection-cleanup.test.ts",
+      "sha256": "3e890a65193cda1cef569c2b3373b9dc1c7ac770848af5d408362e294630103e"
+    }
+  ],
+  "build": {
+    "inputs": 438,
+    "verifiedCurrentGameInputs": 404,
+    "excludedUnrelatedWorktreeFile": "src/render/units/economic-egg.ts",
+    "outputs": [
+      {
+        "file": "preview/performance-f05-20261019/index.html",
+        "bytes": 954789,
+        "sha256": "0edd47ab2b36ecc22d1706de8b8c4863647b43209b2f1d7e7182297e6b5caa93"
+      },
+      {
+        "file": "preview/performance-f05-20261019/main.js",
+        "bytes": 37380618,
+        "sha256": "2c3ec22930424dab340ac1bb188f6672ed7270b0493f5f57e5de766d2c0afc7c"
+      },
+      {
+        "file": "preview/performance-f05-20261019/main.css",
+        "bytes": 821671,
+        "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+      }
+    ]
+  },
+  "regression": {
+    "targeted": 7,
+    "baselineTargetedFailures": 7,
+    "relatedEarlier": 192,
+    "finalTotal": 1655,
+    "finalPass": 1655,
+    "finalFail": 0,
+    "typecheck": true,
+    "logs": [
+      "reports/local/performance-f05-20261019/regression-baseline-corrected-fixture.log",
+      "reports/local/performance-f05-20261019/regression-after-r2.log",
+      "reports/local/performance-f05-20261019/related-r1.log",
+      "reports/local/performance-f05-20261019/full-regression-r2.log",
+      "reports/local/performance-f05-20261019/typecheck-final.log"
+    ]
+  },
+  "browser": {
+    "method": "Serial headless Chrome, 1440x900 DPR1, Char recipe3 seed529, full effects. Synthetic short-lived copies through real production functions; actual World steps, damage, renderer and WEBGL_lose_context.",
+    "baseline": {
+      "run": "baseline-1",
+      "pass": true,
+      "checks": 12,
+      "checkpoints": 7,
+      "screens": 7,
+      "errors": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019-baseline/assets/optimized/model.barracks.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019-baseline/assets/optimized/model.baneling.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019-baseline/assets/optimized/model.loot.large.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019-baseline/assets/optimized/model.hatchery.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019-baseline/assets/optimized/model.fort.bunker.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019-baseline/assets/optimized/model.fort.repair.glb",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "report": "reports/local/performance-f05-20261019/baseline-1/report.json",
+      "build": [
+        {
+          "file": "preview/performance-f05-20261019-baseline/index.html",
+          "bytes": 954789,
+          "sha256": "0edd47ab2b36ecc22d1706de8b8c4863647b43209b2f1d7e7182297e6b5caa93"
+        },
+        {
+          "file": "preview/performance-f05-20261019-baseline/main.js",
+          "bytes": 37377906,
+          "sha256": "a43c977761c244a6e4228d6cf343ad79bcc9f64e2d3ba54ee01d13f8b3577a11"
+        },
+        {
+          "file": "preview/performance-f05-20261019-baseline/main.css",
+          "bytes": 821671,
+          "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+        }
+      ]
+    },
+    "fixed": {
+      "run": "fixed-3",
+      "pass": true,
+      "checks": 12,
+      "checkpoints": 7,
+      "screens": 7,
+      "errors": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.barracks.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.barracks.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.hatchery.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/models/hatcheryex1mp.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.fort.bunker.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.fort.bunker.death.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.fort.repair.glb",
+          "error": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.fort.repair.death.glb",
+          "error": "net::ERR_ABORTED"
+        }
+      ],
+      "report": "reports/local/performance-f05-20261019/fixed-3/report.json",
+      "build": [
+        {
+          "file": "preview/performance-f05-20261019/index.html",
+          "bytes": 954789,
+          "sha256": "0edd47ab2b36ecc22d1706de8b8c4863647b43209b2f1d7e7182297e6b5caa93"
+        },
+        {
+          "file": "preview/performance-f05-20261019/main.js",
+          "bytes": 37380618,
+          "sha256": "2c3ec22930424dab340ac1bb188f6672ed7270b0493f5f57e5de766d2c0afc7c"
+        },
+        {
+          "file": "preview/performance-f05-20261019/main.css",
+          "bytes": 821671,
+          "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+        }
+      ]
+    },
+    "pairedVerification": [
+      {
+        "label": "alive",
+        "gameplayAndEffectsExact": true,
+        "removedProjectionIds": [],
+        "deathClockCorrections": [],
+        "worldAccountExactAfterOnlyDeclaredNormalization": true,
+        "before": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 0,
+          "movement": 0
+        },
+        "after": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 0,
+          "movement": 0
+        }
+      },
+      {
+        "label": "expiry",
+        "gameplayAndEffectsExact": true,
+        "removedProjectionIds": [],
+        "deathClockCorrections": [
+          {
+            "id": 6,
+            "before": 0.6,
+            "after": 0.5
+          },
+          {
+            "id": 7,
+            "before": 0.6,
+            "after": 0.5
+          }
+        ],
+        "worldAccountExactAfterOnlyDeclaredNormalization": true,
+        "before": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 6,
+          "movement": 6
+        },
+        "after": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 6,
+          "movement": 6
+        }
+      },
+      {
+        "label": "reaped",
+        "gameplayAndEffectsExact": true,
+        "removedProjectionIds": [
+          6,
+          7
+        ],
+        "deathClockCorrections": [],
+        "worldAccountExactAfterOnlyDeclaredNormalization": true,
+        "before": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 6,
+          "movement": 6
+        },
+        "after": {
+          "entities": 4,
+          "projections": 0,
+          "members": 0,
+          "sources": 4,
+          "movement": 4
+        }
+      },
+      {
+        "label": "repeated",
+        "gameplayAndEffectsExact": true,
+        "removedProjectionIds": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25
+        ],
+        "deathClockCorrections": [],
+        "worldAccountExactAfterOnlyDeclaredNormalization": true,
+        "before": {
+          "entities": 24,
+          "projections": 20,
+          "members": 20,
+          "sources": 24,
+          "movement": 24
+        },
+        "after": {
+          "entities": 4,
+          "projections": 0,
+          "members": 0,
+          "sources": 4,
+          "movement": 4
+        }
+      },
+      {
+        "label": "early-death",
+        "gameplayAndEffectsExact": true,
+        "removedProjectionIds": [],
+        "deathClockCorrections": [],
+        "worldAccountExactAfterOnlyDeclaredNormalization": true,
+        "before": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 6,
+          "movement": 6
+        },
+        "after": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 6,
+          "movement": 6
+        }
+      },
+      {
+        "label": "restored-death",
+        "gameplayAndEffectsExact": true,
+        "removedProjectionIds": [],
+        "deathClockCorrections": [],
+        "worldAccountExactAfterOnlyDeclaredNormalization": true,
+        "before": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 6,
+          "movement": 6
+        },
+        "after": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 6,
+          "movement": 6
+        }
+      },
+      {
+        "label": "early-reaped",
+        "gameplayAndEffectsExact": true,
+        "removedProjectionIds": [
+          6,
+          7
+        ],
+        "deathClockCorrections": [],
+        "worldAccountExactAfterOnlyDeclaredNormalization": true,
+        "before": {
+          "entities": 6,
+          "projections": 2,
+          "members": 2,
+          "sources": 6,
+          "movement": 6
+        },
+        "after": {
+          "entities": 4,
+          "projections": 0,
+          "members": 0,
+          "sources": 4,
+          "movement": 4
+        }
+      }
+    ],
+    "pixels": {
+      "method": "Full-image RGB comparison; visual review also performed. Differences in dead body age/removal are expected; not claiming full pixel identity.",
+      "pairs": [
+        {
+          "label": "alive",
+          "changedRGBPixels": 0,
+          "pixels": 1296000
+        },
+        {
+          "label": "expiry",
+          "changedRGBPixels": 5191,
+          "pixels": 1296000
+        },
+        {
+          "label": "reaped",
+          "changedRGBPixels": 62,
+          "pixels": 1296000
+        },
+        {
+          "label": "repeated",
+          "changedRGBPixels": 3855,
+          "pixels": 1296000
+        },
+        {
+          "label": "early-death",
+          "changedRGBPixels": 0,
+          "pixels": 1296000
+        },
+        {
+          "label": "restored-death",
+          "changedRGBPixels": 1061,
+          "pixels": 1296000
+        },
+        {
+          "label": "early-reaped",
+          "changedRGBPixels": 0,
+          "pixels": 1296000
+        }
+      ]
+    }
+  },
+  "recoveryAfterReap": {
+    "run": "recovery-after-reap-1",
+    "pass": true,
+    "checks": 2,
+    "checkpoints": 4,
+    "screens": 4,
+    "errors": [],
+    "requestFailures": [
+      {
+        "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.baneling.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.baneling.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.loot.mineral.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.loot.large.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.hatchery.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/models/hatcheryex1mp.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.fort.bunker.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.fort.bunker.death.glb",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "url": "http://127.0.0.1:4436/performance-f05-20261019/assets/optimized/model.fort.repair.death.glb",
+        "error": "net::ERR_ABORTED"
+      }
+    ],
+    "report": "reports/local/performance-f05-20261019/recovery-after-reap-1/report.json",
+    "build": [
+      {
+        "file": "preview/performance-f05-20261019/index.html",
+        "bytes": 954789,
+        "sha256": "0edd47ab2b36ecc22d1706de8b8c4863647b43209b2f1d7e7182297e6b5caa93"
+      },
+      {
+        "file": "preview/performance-f05-20261019/main.js",
+        "bytes": 37380618,
+        "sha256": "2c3ec22930424dab340ac1bb188f6672ed7270b0493f5f57e5de766d2c0afc7c"
+      },
+      {
+        "file": "preview/performance-f05-20261019/main.css",
+        "bytes": 821671,
+        "sha256": "933acd9d0cf03eb12024b8ac615027441c29dec053f5ce657ecd956b17c66949"
+      }
+    ],
+    "time": 1.7666666666666666,
+    "projectionEntities": 0,
+    "projectionRegistry": 0,
+    "effectRequests": [
+      {
+        "model": "HallucinationDeath",
+        "key": "equipment-death:4",
+        "age": 1.6666666666666665,
+        "placement": {
+          "x": -2.119617462997472,
+          "y": 0.6,
+          "z": -1.0509940589165445,
+          "facing": 0,
+          "scale": 1
+        }
+      },
+      {
+        "model": "HallucinationDeath",
+        "key": "equipment-death:6",
+        "age": 1.6666666666666665,
+        "placement": {
+          "x": -2.9957234889095408,
+          "y": 0.6,
+          "z": -2.447110276552173,
+          "facing": 0,
+          "scale": 1
+        }
+      }
+    ],
+    "stateAndEffectsExact": true,
+    "pixels": {
+      "wholeImageChangedRGBPixels": 5820,
+      "centralBattleRegion": [
+        400,
+        180,
+        1000,
+        600
+      ],
+      "centralBattleChangedRGBPixels": 0,
+      "purpose": "Actual restore after body and registry reaped; full UI pixel identity is not claimed."
+    }
+  },
+  "visualReview": {
+    "reviewedFinalImages": 18,
+    "reviewedEarlierImages": 3,
+    "missingOrBlackEffects": false,
+    "obviousAttachmentOrScaleError": false,
+    "wholeImagePixelIdentity": false,
+    "note": "Birth/early-death/early-reaped paired images RGB exact. Corrected dead-body ageing/removal and recovery UI differences are retained. After-reap recovery has 0 changed RGB pixels within central battlefield [400,180,1000,600], 5820 in the complete image; minimap/UI outside that region are not asserted identical."
+  },
+  "retainedFailures": [
+    {
+      "path": "reports/local/performance-f05-20261019/regression-before.log",
+      "reason": "Original failure reproduction also exposed invalid interceptor fixture; corrected using real carrier subsystem before baseline rerun."
+    },
+    {
+      "path": "reports/local/performance-f05-20261019/full-regression.log",
+      "reason": "1653 tests, 7 local network/temp permission failures; retained, final rerun separate."
+    },
+    {
+      "path": "reports/local/performance-f05-20261019/fixed-1/report.json",
+      "reason": "Sandbox local network access denied."
+    },
+    {
+      "path": "reports/local/performance-f05-20261019/fixed-2/report.json",
+      "reason": "First repeated checkpoint only 1.483 seconds after death, earlier than existing >1.5-second cleanup; final runner waits beyond threshold. Earlier R1 bundle retained with matching recorded hash."
+    }
+  ],
+  "boundaries": {
+    "fpsGainMeasured": false,
+    "naturalCampaign": false,
+    "physicalInput": false,
+    "humanAcceptance": false,
+    "wholeMvp": false,
+    "saveWorkDeferred": true,
+    "currentReplaced": false,
+    "committed": false,
+    "pushed": false,
+    "published": false,
+    "otherWorkPreserved": true
+  },
+  "next": "U02 — warehouse search/clear reentrant render defect and bounded large-warehouse interaction work; not started."
+}

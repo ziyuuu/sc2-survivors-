@@ -1,0 +1,56 @@
+{
+  "status": "measurement-complete-discussion-pending",
+  "productionChanged": false,
+  "mainRows": 2808,
+  "baseline": {
+    "defeat": 124,
+    "clear": 92
+  },
+  "solo": {
+    "clear": 1136,
+    "timeout": 104,
+    "defeat": 56
+  },
+  "squad": {
+    "clear": 1226,
+    "timeout": 29,
+    "defeat": 41
+  },
+  "pairs": {
+    "count": 1296,
+    "nonClearToClear": 674,
+    "clearToNonClear": 0,
+    "bothClear": 552,
+    "medianSecondsSavedBothClear": 1.2416666666666671
+  },
+  "movementReplay": {
+    "rows": 133,
+    "outcomes": "19／2／112"
+  },
+  "integrity": {
+    "pass": true,
+    "uniqueRows": 2808,
+    "completeCells": 72,
+    "rowsPerCell": 39,
+    "ordinaryIdentityPairsExact": true,
+    "ordinaryBaseBeforeHeroExact": true,
+    "nativeAcquisitionAttributesExact": true,
+    "heroesRankOne": true,
+    "sourceUnchanged": 825,
+    "currentUnchanged": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    }
+  },
+  "report": "docs/project/HERO_MATRIX_20261023.md",
+  "rawRoot": "reports/local/hero-matrix-20261023",
+  "limitations": [
+    "single seed",
+    "fixed four-body ordinary squads",
+    "maximum-affix blue equipment",
+    "controlled placement, not natural full campaign",
+    "hives and supplemental events excluded",
+    "native stage transition held for clearance",
+    "not human, browser, FPS or full-regression validation"
+  ]
+}

@@ -1,3 +1,5 @@
+import {loadFunPropAssets} from './fun-prop-assets.mjs';
+import {loadMissionAssets} from './mission-assets.mjs';
 import {loadIntermissionAssets} from './intermission-assets.mjs';
 import {loadNativeHudAssets} from './native-hud-assets.mjs';
 import {loadMaterialTextures} from './material-textures.mjs';
@@ -62,3 +64,6 @@ await loadEnvironmentTextures({restore:true,check:process.argv.includes('--check
 await loadEnvironmentScenery({restore:true,check:process.argv.includes('--check')});
 await loadCombatEffects({restore:true,check:process.argv.includes('--check')});
 await loadStarshipAssets({restore:true,check:process.argv.includes('--check')});
+
+await loadFunPropAssets({restore:true,check:process.argv.includes('--check')});
+await loadMissionAssets({restore:true,check:process.argv.includes('--check')});

@@ -1,0 +1,7 @@
+import fs from 'node:fs';
+let s=fs.readFileSync('tools/build-performance-s08.mjs','utf8');s=s.replaceAll('performance-s08-20261020','performance-s05-20261020').replaceAll('s08-entry','s05-entry').replaceAll("previous='reports/local/performance-s04-20261020/candidate-r2-web-inputs'","previous='reports/local/performance-s08-20261020/candidate-r3-web-inputs'");
+s=s.replace(/const changes=.*?;/,"const changes=['src/simulation/production-queries.ts','src/simulation/expedition-production.ts','src/simulation/zerg-brood.ts','src/simulation/progression/expedition-drafts.ts','src/simulation/world.ts','src/ui/hud.ts','src/ui/hud/expedition-panel.ts'];");
+s=s.replace(/const modules=.*?;/,"const modules=['world','persistence/run-fields','observation','expedition-production','zerg-brood','progression/expedition-drafts','progression/supply-cards','starship/inventory','building/expedition','building/rules'];");
+s=s.replace("export {AudioEffects} from './src/render/effects/audio.ts';","export {renderProductionWindow,renderFamilyReceipt} from './src/ui/hud/expedition-panel.ts';");
+s=s.replaceAll("'preview/performance-s04-20261020-candidate-r2/","'preview/performance-s08-20261020-candidate-r3/").replace(".replaceAll('installPerformanceS04','installPerformanceS08').replace('performance-s04-runtime','performance-s08-runtime')",".replaceAll('installPerformanceS08','installPerformanceS05').replace('performance-s08-runtime','performance-s05-runtime')");
+fs.writeFileSync('tools/build-performance-s05.mjs',s);

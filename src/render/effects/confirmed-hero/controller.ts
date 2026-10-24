@@ -18,6 +18,7 @@ export class ConfirmedHeroEffects {
    const attack=new AttackEffects(this.view,this.w,frame);await attack.prepare();this.attacks.set(hero,attack);const skill=new SkillEffects(this.view,this.w);skill.prepareGrenade();this.skills.set(hero,skill);
   }this.aura.prepare();this.ready=true;this.view.fx.confirmedHeroes=true;
  }
+ resumeAt(w:World){this.lastEvent=w.visualEvents.at(-1)?.serial??0;this.lastTime=w.time;this.generation=w.runId??'';}
  reset(){for(const a of this.attacks.values())a.reset();for(const s of this.skills.values())s.reset();this.casts.clear();this.lastEvent=0;this.lastTime=this.w.time;this.aura.reset();this.generation=this.w.runId??'';}
  render(muzzle:(e:VisualEvent,side?:'Left'|'Right')=>{x:number;y:number;z:number}|null,visible:(p:{x:number;z:number})=>boolean){if(!this.ready)return;const last=this.w.visualEvents.at(-1);if(this.generation!==(this.w.runId??'')||this.w.time<this.lastTime||last&&last.serial<this.lastEvent)this.reset();this.lastTime=this.w.time;
   for(const cast of this.w.heroCasts){if(!isRevisedHero(cast.hero)||cast.phase==='dot'||this.casts.has(cast.id))continue;const source=this.w.entities.get(cast.source)??this.w.starship.skillSources.get(cast.source)??equipmentReplayPresentation(cast)?.source;if(!source)continue;this.skills.get(cast.hero)?.begin(cast.hero,[cast],source);this.casts.add(cast.id);}

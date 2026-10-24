@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+const dir='reports/local/d05-checkpoint-20261023';fs.mkdirSync(dir,{recursive:true});
+const walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(d,e.name)):[path.join(d,e.name)]);
+const files=[...walk('src'),...walk('test')];
+fs.writeFileSync(dir+'/baseline.json',JSON.stringify({created:new Date().toISOString(),files:files.map(file=>({file:file.replaceAll('\\','/'),sha256:crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')}))},null,2));
+const file='docs/project/performance-board.json',b=JSON.parse(fs.readFileSync(file,'utf8')),t=b.tasks.find(t=>t.id==='D05');
+b.revision++;t.status='进行中';t.title='舰装持久化与关间检查点恢复';t.owner='Codex';t.result='用户已批准统一关间检查点恢复，允许重打当前关；关闭、刷新、崩溃不判失联。正在接入账户、装备与回执持久化，战役3/6/9/12/15/18关及无尽撤退、每次关间自动保存，并验证写入失败、损坏和重复领奖。';t.steps[0]='落实战役完成3/6/9/12/15/18关与无尽主动撤退，每次关间保存。';t.steps[1]='落实用户已批准的关间检查点恢复，关闭和崩溃不结算失败，当前关允许重打。';b.updates.push({date:'2026-10-23',tasks:['D05'],change:t.result,evidence:[]});fs.writeFileSync(file,JSON.stringify(b,null,2)+'\n');
+console.log({revision:b.revision,files:files.length});

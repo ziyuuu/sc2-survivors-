@@ -18,5 +18,5 @@ export interface SourceEffectDefinition {
 export interface SourceDisplacementMaterial {name:string;strength:MaterialRef;flags:number;priority:number;layers:{normal:MaterialLayer|null;strength:MaterialLayer|null}}
 export type SourceClip=MaterialClip&{flags?:number};
 export interface SourcePhase {clip:SourceClip;seconds:number;offset:number;cycle:number}
-export interface SourcePlacement {x:number;y:number;z:number;facing:number;scale?:number;matrix?:number[];end?:{x:number;y:number;z:number};from?:{x:number;y:number;z:number};age?:number}
+export interface SourcePlacement {x:number;y:number;z:number;facing:number;scale?:number;matrix?:number[];end?:{x:number;y:number;z:number};from?:{x:number;y:number;z:number};direction?:{x:number;y:number;z:number};age?:number}
 export interface SourceEffectRequest {key:string;model:string;age:number;seed:number;placement:SourcePlacement;loop?:boolean;clip?:string;stopAt?:number;stopTime?:number;mesh?:boolean;hostedBeam?:boolean;clockRate?:number}

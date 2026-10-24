@@ -1,0 +1,31 @@
+{
+  "routes": [
+    {
+      "models": {
+        "body": [
+          "FunNydus"
+        ]
+      }
+    }
+  ],
+  "models": [
+    {
+      "modelDataId": "FunCocoonDeath",
+      "assetPath": "Assets/Units/Zerg/CocoonDeath/CocoonDeath.m3",
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "modelDataId": "FunNydus",
+      "assetPath": "Assets/Buildings/Zerg/NydusCanal/NydusCanal.m3",
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ]
+}

@@ -36,15 +36,22 @@ export class AnimatedBatch {
  animationMode:AnimationMode='complete';
  private ownedPoseTextures:THREE.Texture[]=[];
  readonly materialSurfaces:UnitMaterialSurface[]=[];
+ private simplePose=false;
  static async create(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number,control:PosePreparationControl={}){
   const data=await preparePoseDataAsync([gltf,height,normalization,unitScale,profile,referenceBodyHeight],control);
-  return new AnimatedBatch(gltf,scene,height,normalization,unitScale,profile,referenceBodyHeight,data);
+  const batch=new AnimatedBatch(gltf,scene,height,normalization,unitScale,profile,referenceBodyHeight,data,true);
+  try{for(const _ of batch.buildMeshes(data,scene)){if(control.cancelled?.())throw Error('模型准备已取消');if(control.yield)await control.yield();}if(control.cancelled?.())throw Error('模型准备已取消');return batch;}
+  catch(error){batch.dispose();throw error;}
  }
- constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number,prepared?:PosePreparation){
+ constructor(gltf:GLTF,scene:THREE.Scene,height:number,normalization?:THREE.Matrix4,unitScale=1,profile?:string,referenceBodyHeight?:number,prepared?:PosePreparation,deferred=false){
+  this.simplePose=profile?.startsWith('fun-')??false;
   const data=prepared??preparePoseData(gltf,height,normalization,unitScale,profile,referenceBodyHeight);
   this.actions=data.actions;this.scale=data.scale;this.normalization=data.normalization;this.bodyHeight=data.bodyHeight;this.bodyRadius=data.bodyRadius;this.bodyOutline=data.bodyOutline;this.turretPivot.copy(data.turretPivot);this.clips=data.clips;this.weaponTracks=data.weaponTracks;this.weapon.copy(data.weapon);this.boneCount=data.boneCount;
+  if(!deferred)for(const _ of this.buildMeshes(data,scene)){}
+ }
+ private *buildMeshes(data:PosePreparation,scene:THREE.Scene){
   const nodes=data.nodes,turretBones=data.turretBones,paletteKey=posePaletteKey,textures=new Map<string,THREE.DataTexture>();
-  for(const [key,palette]of data.palettes){const tex=new THREE.DataTexture(palette.packed,palette.bones*4,data.totalFrames,THREE.RGBAFormat,THREE.HalfFloatType);tex.magFilter=tex.minFilter=THREE.NearestFilter;tex.needsUpdate=true;textures.set(key,tex);this.textureBytes+=palette.packed.byteLength;}
+  for(const [key,palette]of data.palettes){const tex=new THREE.DataTexture(palette.packed,palette.bones*4,data.totalFrames,THREE.RGBAFormat,THREE.HalfFloatType);tex.magFilter=tex.minFilter=THREE.NearestFilter;tex.needsUpdate=true;textures.set(key,tex);this.ownedPoseTextures.push(tex);this.textureBytes+=palette.packed.byteLength;}
   for(const n of nodes){const geometry=n.geometry.clone(),pose=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitPose',pose);const tier=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY),1).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitTier',tier);this.tierAttributes.push(tier);
    const apparition=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*4).fill(1),4).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitApparition',apparition);this.apparitionAttributes.push(apparition);
    const full=geometry.getIndex();if(full&&geometry.groups.length<=1&&MeshoptSimplifier.supported){const position=geometry.getAttribute('position'),positions=new Float32Array(position.count*3);for(let v=0;v<position.count;v++){positions[v*3]=position.getX(v);positions[v*3+1]=position.getY(v);positions[v*3+2]=position.getZ(v);}
@@ -58,15 +65,15 @@ export class AnimatedBatch {
    const aim=new THREE.InstancedBufferAttribute(new Float32Array(CAPACITY*2),2).setUsage(THREE.DynamicDrawUsage);geometry.setAttribute('unitAim',aim);
    const assetMatrix=this.normalization.clone().multiply(n.matrixWorld).multiply(n.bindMatrixInverse),bind=n.bindMatrix.clone();
    geometry.computeBoundingBox();const accentTop=geometry.boundingBox?.max.y??0,accentBottom=geometry.boundingBox?.min.y??0,accentStart=accentTop-Math.max(.001,accentTop-accentBottom)*.18;
-   const poseUniforms={atlas:textures.get(paletteKey(n.skeleton))!,bind,asset:assetMatrix,pivot:this.turretPivot,accent:new THREE.Vector2(accentStart,accentTop)};
+   const poseUniforms={simple:this.simplePose,atlas:textures.get(paletteKey(n.skeleton))!,bind,asset:assetMatrix,pivot:this.turretPivot,accent:new THREE.Vector2(accentStart,accentTop)};
    const materials=(Array.isArray(n.material)?n.material:[n.material]).map(m=>{const surface=createUnitMaterialSurface(m,CAPACITY),mat=surface?.material??m.clone();if(surface)this.materialSurfaces.push(surface);
     mat.onBeforeCompile=(shader,renderer)=>{if(!surface)m.onBeforeCompile(shader,renderer);
      compileUnitPose(shader,poseUniforms);
      shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float unitHit; varying float specialTier; varying float localAccent;').replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\nfloat hitRim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),3.0); totalEmissiveRadiance += (diffuseColor.rgb*.32+vec3(.18,.07,.025))*unitHit*(.12+.88*hitRim); if(specialTier<-.5){float dissolve=clamp(-specialTier-1.0,0.0,1.0);float grain=fract(sin(dot(vViewPosition.xy,vec2(12.9898,78.233)))*43758.5453);if(grain<dissolve)discard;totalEmissiveRadiance+=vec3(.15,.5,.68)*sin(dissolve*3.14159)*.8;} if(specialTier>0.5&&specialTier<4.5){float rim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),2.0);vec3 glow=specialTier>2.5?vec3(1.0,.58,.12):specialTier>1.5?vec3(1.0,.32,.03):vec3(.54,.1,.85);totalEmissiveRadiance += glow*(specialTier>2.5?.2+rim*2.1:.12+rim*1.5);} if(specialTier>14.5){float phase=fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453);if(phase<.7)discard;totalEmissiveRadiance+=vec3(.12,.35,.6)*.45;} if(specialTier>13.5){float heroRim=pow(1.0-abs(dot(normalize(normal),normalize(vViewPosition))),7.0);totalEmissiveRadiance+=vec3(1.0,.49,.10)*heroRim*.72;}');
      surface?.compile(shader,geometry);if(!surface)compileFallbackApparition(shader);
-    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v11:'+(surface?.programKey(geometry)??m.customProgramCacheKey());
-    bindSourceDepth(mat,{key:()=>mat.customProgramCacheKey(),compile:(shader,renderer)=>{if(!surface)m.onBeforeCompile(shader,renderer);compileUnitPose(shader,poseUniforms);surface?.compile(shader,geometry,true,true);if(!surface)compileFallbackApparition(shader);shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float specialTier;').replace('#include <alphatest_fragment>','#include <alphatest_fragment>\nif(specialTier<-.5||specialTier>14.5)discard;');}});return mat;});
-   const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);this.aimAttributes.push(aim);
+    };mat.customProgramCacheKey=()=> 'sc2-original-gpu-bones-v11:'+(this.simplePose?'fun-simple:':'')+(surface?.programKey(geometry)??m.customProgramCacheKey());
+    bindSourceDepth(mat,{key:()=>surface?'sc2-original-gpu-bones-depth-v11:'+(this.simplePose?'fun-simple:':'')+surface.programKey(geometry,true,true):mat.customProgramCacheKey(),compile:(shader,renderer)=>{if(!surface)m.onBeforeCompile(shader,renderer);compileUnitPose(shader,poseUniforms);surface?.compile(shader,geometry,true,true);if(!surface)compileFallbackApparition(shader);shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float specialTier;').replace('#include <alphatest_fragment>','#include <alphatest_fragment>\nif(specialTier<-.5||specialTier>14.5)discard;');}});return mat;});
+   const mesh=new THREE.InstancedMesh(geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.count=0;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);this.meshes.push(mesh);this.attributes.push(pose);this.blendAttributes.push(blend);this.aimAttributes.push(aim);yield;
   }
   this.ownedPoseTextures=[...textures.values()];
  }
@@ -104,7 +111,7 @@ export class AnimatedBatch {
   object.position.set(x,y,z);object.rotation.set(0,facing,0);object.scale.setScalar(shrink);object.updateMatrix();
   this.meshes.forEach((m,i)=>{m.setMatrixAt(this.count,object.matrix);this.tierAttributes[i].setX(this.count,tier);this.aimAttributes[i].setXY(this.count,Math.sin(turretYaw),Math.cos(turretYaw));this.attributes[i].setXYZW(this.count,p.offset+a,p.offset+b,interpolate?frame-a:0,hit);this.blendAttributes[i].setXYZW(this.count,(attack?.offset??0)+sa,(attack?.offset??0)+sb,interpolate?shot-sa:0,weight);});this.count++;
  }
- end(){this.meshes.forEach((m,i)=>{commitInstances(m,this.count);uploadActive(this.attributes[i],this.count);uploadActive(this.blendAttributes[i],this.count);uploadActive(this.aimAttributes[i],this.count);uploadActive(this.tierAttributes[i],this.count);uploadActive(this.apparitionAttributes[i],this.count);});for(const mesh of this.apparitionMeshes)mesh.count=this.apparitionCount?this.count:0;for(const surface of this.materialSurfaces)surface.flush();}
+ end(){this.meshes.forEach((m,i)=>{commitInstances(m,this.count);uploadActive(this.attributes[i],this.count);uploadActive(this.blendAttributes[i],this.count);uploadActive(this.aimAttributes[i],this.count);uploadActive(this.tierAttributes[i],this.count);uploadActive(this.apparitionAttributes[i],this.count);});for(const mesh of this.apparitionMeshes){mesh.count=this.apparitionCount?this.count:0;mesh.visible=mesh.count>0;}for(const surface of this.materialSurfaces)surface.flush();}
 }
 
 /** Converted fallback materials need the same instance isolation as source surfaces. */

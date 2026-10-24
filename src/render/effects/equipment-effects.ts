@@ -48,7 +48,7 @@ export function equipmentEffectRequests(w:World,ground:(p:Point)=>number,mount?:
    for(const id of profile?.models.beam??[])add(id,key+':route:'+id,age,from,0,1,true,{hostedBeam:true,placement:{...from,facing,end:to}});
   }
  }
- for(const e of w.visualEvents)if(e.kind==='death'&&w.starship.projections.has(e.entityId))add(e.unitType==='colossus'?'HallucinationColossusDeath':'HallucinationDeath','equipment-death:'+e.serial,w.time-e.time,e);
+ for(const e of w.visualEvents)if(e.kind==='death'&&e.equipmentProjection)add(e.unitType==='colossus'?'HallucinationColossusDeath':'HallucinationDeath','equipment-death:'+e.serial,w.time-e.time,e);
  for(const zone of w.starship.burnZones){if(zone.until<w.time)continue;
   // Fire points stay within the actual circle; the separate edge is authoritative.
   // Stable placement hash does not consume the equipment or combat random stream.

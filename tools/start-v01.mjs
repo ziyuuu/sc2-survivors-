@@ -1,0 +1,23 @@
+import fs from 'node:fs/promises';
+import {createReadStream} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+const base='reports/local/v01-20261024',file='docs/project/performance-board.json';
+await fs.mkdir(base,{recursive:true});
+const before=await fs.readFile(file,'utf8'),board=JSON.parse(before),task=board.tasks.find(t=>t.id==='V01');
+assert.equal(board.revision,151);assert.equal(task.status,'待办');
+await fs.writeFile(base+'/board-before.json',before);
+const hashFile=async file=>{const h=createHash('sha256');for await(const b of createReadStream(file))h.update(b);return h.digest('hex');};
+const names=execFileSync('rg',['--files','--no-ignore','src','test'],{encoding:'utf8'}).trim().split(/\r?\n/).map(f=>f.replaceAll('\\','/')).sort();
+const files=[];for(const file of names)files.push({file,bytes:(await fs.stat(file)).size,sha256:await hashFile(file)});
+const prior=JSON.parse(await fs.readFile('reports/local/u06-confirmed-20261023/baseline.json','utf8'));
+const current=[{file:'dist/SC2-Survivors-Current-20261006.html',sha256:await hashFile('dist/SC2-Survivors-Current-20261006.html')}];assert.equal(current[0].sha256,prior.current,'Current');
+const builds=[];for(const name of ['web-game-r2-build.json','offline-game-r2-build.json']){const file='reports/local/u06-confirmed-20261023/'+name;builds.push({file,sha256:await hashFile(file)});}
+const config=[];for(const file of ['package.json','package-lock.json','tsconfig.json'])config.push({file,sha256:await hashFile(file)});
+await fs.writeFile(base+'/baseline.json',JSON.stringify({date:'2026-10-24',head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),files,current,config,builds},null,2));
+await fs.writeFile(base+'/plan.json',JSON.stringify({task:'V01',scope:'当前统一内容的正确性、性能及生命周期回归；不新增自动游玩平衡矩阵，不扩大UI，T01随后集中查看。',sourceBuild:builds,lockedBeforeMeasurement:{browser:'本机Chrome，逐轮记录完整版本与GPU；版本变化不合并比较',viewport:[1440,900],dpr:1,quality:'native/full/complete默认；其他已批准档位单列',ordinaryTarget:'普通游玩60 FPS保持。按16.6667ms目标报告平均及P50/P95/P99、超过33.33/50/100/250ms的实际帧。100ms以上卡顿未关闭时不得写无卡顿或整体性能通过。',loading:'冷与暖分列；前三关整批准备及实际Boss奖励前置就绪；战斗资源等待与跳绘必须0。加载时间记录真实最差值，不把工具超时当体验目标。',simulation:'不丢弃战斗积压；比较时锁定World/RNG/经济/事件，模拟欠账和结束未排空量明确分列。',repeat:'稳定片段每组至少3次、每次30秒；冷加载独立。重型回归与浏览器测量串行。',cache:'持久化与临时缓存分列；允许浏览器回收，要求活动Blob保持和仅补下载实际缺失hash，逐SHA验证。',lifecycle:'取消/重试/旧回调、缺失缓存、隐藏/失焦/返回、真实WebGL恢复、重复开局/换图、增长采样；不伪称长期无泄漏或人类/真机验收。'},sequence:['最终全量已有测试、类型和数据','复用U06成品验证边界与装载，必要诊断构建绑定全部生产输入','普通三族与剩余长帧，代表密集战斗及重复增长；定位后才改代码','有改动则红绿/受影响回归及同工作量前后对照，无收益候选回退','汇总保留补丁、原失败与开放项，更新看板'],notAuthorized:['UI新增或修改','新玩法/数值/概率/默认画质或等待体验取舍','发布、替换Current、提交推送'],historicalEvidence:['reports/qa/performance-a03-20261021.json','reports/qa/performance-d04-complete-20261021.json','reports/qa/d05-checkpoint-20261023.json','reports/qa/u06-confirmed-20261023.json']},null,2));
+task.status='进行中';task.updated='2026-10-24';task.result='用户授权开始V01；固定U06完成后的统一源码和成品，串行执行最终正确性及性能/生命周期回归。60FPS目标及长帧、加载等待、欠账口径先冻结；不追加平衡自动游玩，不扩大UI。旧失败保留，未测项不提前关闭。';
+board.revision=152;board.updated='2026-10-24';board.next='V01';board.updates.push({date:'2026-10-24',tasks:['V01'],change:task.result,evidence:['../../reports/local/v01-20261024/baseline.json','../../reports/local/v01-20261024/plan.json']});
+await fs.writeFile(file,JSON.stringify(board,null,2)+'\n');execFileSync(process.execPath,['tools/render-performance-board.mjs']);
+console.log(JSON.stringify({files:files.length,current:current.length,revision:board.revision}));

@@ -2,8 +2,8 @@ import type {Race} from './races';
 export const UNIQUE_SUPPORT={
  'terran.ricochet':{race:'terran',rarity:'green',name:'跳弹弹链',description:'步兵实弹跳向额外目标 · 25/35/45%触发'},
  'terran.bunker':{race:'terran',rarity:'blue',name:'空降地堡',description:'部署30秒临时地堡 · 耐久与双枪火力随层数提升'},
- 'terran.missiles':{race:'terran',rarity:'purple',name:'导弹齐射',description:'每24秒发射4/6/8枚集束导弹'},
- 'terran.overdrive':{race:'terran',rarity:'orange',name:'火力超载',description:'主动 · 8秒攻速+20/30/40%，移速+15%'},
+ 'terran.missiles':{race:'terran',rarity:'purple',name:'导弹齐射',description:'首次购入3秒后就绪，此后每24秒发射4/6/8枚集束导弹'},
+ 'terran.overdrive':{race:'terran',rarity:'orange',name:'火力超载',description:'主动 · 8秒武器伤害+30/45/60%，攻速+20/30/40%，移速+15%'},
  'zerg.hatch':{race:'zerg',rarity:'green',name:'尸骸孵育',description:'附近12次击杀孵化2/3/4只临时跳虫'},
  'zerg.consume':{race:'zerg',rarity:'blue',name:'吞噬回收',description:'附近尸骸产生恢复40/60/80生命的精华'},
  'zerg.parasite':{race:'zerg',rarity:'purple',name:'寄生毒囊',description:'普攻植入毒囊 · 宿主死亡酸爆80/120/160'},

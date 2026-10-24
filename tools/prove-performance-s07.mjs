@@ -1,0 +1,9 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+const root='reports/local/performance-s07-20261020',read=async p=>JSON.parse(await fs.readFile(p)),hash=b=>createHash('sha256').update(b).digest('hex');
+const baseline=await read('preview/performance-s07-20261020-baseline-r4/build-inputs.json'),candidate=await read('preview/performance-s07-20261020-candidate-r4/build-inputs.json'),nodeOld=await read(root+'/baseline-r3-logic/build-inputs.json'),nodeNew=await read(root+'/candidate-r4-logic/build-inputs.json');
+const changed=candidate.inputs.filter(x=>x.file.startsWith('src/')&&baseline.inputs.find(y=>y.file===x.file)?.sha256!==x.sha256);assert.deepEqual(changed.map(x=>x.file).sort(),candidate.changes.slice().sort());assert.equal(changed.length,5);
+for(const x of changed){assert.equal(hash(await fs.readFile(x.file)),x.sha256);assert.equal(nodeNew.inputs.find(y=>y.file===x.file).sha256,x.sha256);}
+for(const build of [baseline,candidate,nodeOld,nodeNew])for(const x of build.outputs)assert.equal(hash(await fs.readFile(x.file)),x.sha256);
+for(const build of [baseline,candidate])for(const x of build.inputs.filter(x=>x.file.startsWith('src/')&&(build===baseline||!candidate.changes.includes(x.file))))assert.equal(hash(await fs.readFile(build.previous+'/'+x.file)),x.sha256);
+await fs.writeFile(root+'/source-proof.json',JSON.stringify({pass:true,changed,baseline,candidate,nodeOld,nodeNew,excludedWorkspaceChange:'src/render/units/economic-egg.ts',boundary:'S09 final frozen inputs. Five movement/formation/elite simulation files differ; world, collision solver, steering, spatial hash, melee approach, damage formulas, ranges, map source, and rules unchanged.'},null,2));
+console.log(JSON.stringify({pass:true,changed:changed.map(x=>x.file),webInputs:candidate.inputs.length,nodeInputs:nodeNew.inputs.length}));

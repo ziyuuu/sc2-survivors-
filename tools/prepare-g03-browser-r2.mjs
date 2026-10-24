@@ -1,0 +1,2 @@
+import fs from 'node:fs/promises';
+const base='reports/local/g03-content-20261022',file=base+'/qa-content.mjs';const old=await fs.readFile(file,'utf8');await fs.writeFile(base+'/qa-content-r1.mjs',old);let s=old.replaceAll('qa-content-r1','qa-content-r2').replace('w.terrain=new G03QA.FlatTerrain();','w.terrain=window.g03FlatTerrain;').replace('window.g03NativeStep=__FUN_LAB__.world.step;','window.g03NativeStep=__FUN_LAB__.world.step;window.g03FlatTerrain=__FUN_LAB__.world.terrain;');await fs.writeFile(file,s);

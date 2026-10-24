@@ -1,0 +1,347 @@
+{
+  "date": "2026-10-21",
+  "status": "complete",
+  "userDecision": "保留默认全特效，采用新中档选项",
+  "removedDirectories": 223,
+  "skippedDirectories": 0,
+  "drives": [
+    {
+      "drive": "C",
+      "freeBefore": 11916746752,
+      "freeAfter": 15755210752,
+      "freeIncrease": 3838464000,
+      "deletedLogicalBytes": 3814186709.0
+    },
+    {
+      "drive": "D",
+      "freeBefore": 1989419008,
+      "freeAfter": 31728103424,
+      "freeIncrease": 29738684416,
+      "deletedLogicalBytes": 20822351280.0
+    }
+  ],
+  "categories": {
+    "qa-browser-profile": {
+      "directories": 164,
+      "files": 98056,
+      "logicalBytes": 18707729260.0
+    },
+    "test-database": {
+      "directories": 1,
+      "files": 53820,
+      "logicalBytes": 2114622020.0
+    },
+    "dependency-cache": {
+      "directories": 1,
+      "files": 12883,
+      "logicalBytes": 977926693.0
+    },
+    "stale-install-download": {
+      "directories": 2,
+      "files": 2,
+      "logicalBytes": 450358044.0
+    },
+    "temporary-tool-cache": {
+      "directories": 3,
+      "files": 1844,
+      "logicalBytes": 181367863.0
+    },
+    "inactive-app-web-cache": {
+      "directories": 52,
+      "files": 23690,
+      "logicalBytes": 2204534109.0
+    }
+  },
+  "protected": {
+    "files": 812,
+    "hashMismatches": [],
+    "scope": "Current src/test files, accepted D02 evidence bindings and all 50 D02 screenshots. No new performance or gameplay test."
+  },
+  "evidenceFiles": [
+    {
+      "path": "reports/local/disk-cleanup-20261021/plan.json",
+      "bytes": 75567,
+      "sha256": "26d1e7e7f6e8d19c93ef286b4bd14ea680740d0b826fdcbd70ceff84b0bef1dc"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/validated-plan.json",
+      "bytes": 80772,
+      "sha256": "13737f91cafe32c2ba8a812fc8890c986349f6194aab8fe8ff8b8180bd5728db"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/cleanup-result.json",
+      "bytes": 78018,
+      "sha256": "de0289723dc485fa295c0dca5442808e0b3c2d9ff9b7a06543d6d9d4de22d1ce"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/protected-before.json",
+      "bytes": 122249,
+      "sha256": "2df0faf4daa9ff40d446bcb2a8a4dff901066f29e0ee186d11827f01abaaa0cc"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/protected-after.json",
+      "bytes": 182,
+      "sha256": "0aa3dbff06a5a9bd3ad39e194137962525ae126fc3a342daa6308d5e07bf0108"
+    },
+    {
+      "path": "tools/cleanup-disk-20261021.ps1",
+      "bytes": 4730,
+      "sha256": "14f363f7b404671d4e986331977895bd7c9fa01724d835dcf3d726dd9b3807cc"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/plan-wegame-r2.json",
+      "bytes": 2848,
+      "sha256": "d4ec5da2e569ab34f1ee5fe4d713d868e51f8a34a5ceef4f85031d3b832eae08"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/cleanup-wegame-r2.ps1",
+      "bytes": 4809,
+      "sha256": "7c8f98b12368f437e8d5c982aef76d5938f27aabf2735e551d28f163db897135"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/cleanup-wegame-r2.json",
+      "bytes": 2825,
+      "sha256": "9e55546d4bdc325e660546d55fc68d932e2ae63d61d32408289f19e9306a0311"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/wegame-matching-correction.json",
+      "bytes": 387,
+      "sha256": "7e09560c2ca08ae4d65722033ed80b6f2a83ab75d61dec87888d524e73f80866"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/cleanup-summary-r1.json",
+      "bytes": 5969,
+      "sha256": "0f04c1e720cb2b73e2aa17039212ecb18fe51ce21f338785b5b3559fe13c47c2"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/cache-phase-summary.json",
+      "bytes": 7453,
+      "sha256": "e6b9387f986ab507d66eeccb6c7dfe7d650457603a949ac20041835698570930"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/cache-phase-report.md",
+      "bytes": 2772,
+      "sha256": "d5b66492037be5172011fc6722e4e8f7f4b5cd1888de20c76348b8ac06e50df9"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/files-before.json",
+      "bytes": 36545904,
+      "sha256": "ad5ef54e7fa1526c4c05bfd0f3a12457cfa9bb77ee94c8b605dbd78be7f94af6"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/duplicate-assets-audit.json",
+      "bytes": 13206006,
+      "sha256": "a0c4f20d753c8411b410994734dc2d768fd87b115f47b7844dc3cc373fc4244e"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/link-plan.json",
+      "bytes": 3237721,
+      "sha256": "93399970d2f237a7e7494cdb22f72d82cc350a886d3cf8c9161a80f2e6c39f51"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/hardlinks-dry-run.json",
+      "bytes": 752,
+      "sha256": "75f2e4e24d7fcacc949b6423631509e2e0b801cba79b5db33ccd099a634bf457"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/hardlinks-pilot-sandbox-denied.json",
+      "bytes": 851,
+      "sha256": "9d1683090cf9a7e078aede29c40a87767061c8e645d1c0a9fb5be26440f6b72a"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/hardlinks-pilot.json",
+      "bytes": 747,
+      "sha256": "975d6d7c41f91c7d543865c6934e1fdd12f9fe43bfa6dbcb882a27f7136fac80"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/hardlinks-pilot.jsonl",
+      "bytes": 1956,
+      "sha256": "4d806c0cc54637feaa8a015af382117e50a746ae254f59c105a049d4121c05fe"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/hardlinks-execute.json",
+      "bytes": 751,
+      "sha256": "89e008a6a37fd01b1febb0b8c42d6e0859cae26321e40eb2dfede4fca9b6c0aa"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/hardlinks-execute.jsonl",
+      "bytes": 7738727,
+      "sha256": "f705a675ff42b528608b3804bbf173f40d24ef8442ebc8026dca35e7cae58662"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/verification.json",
+      "bytes": 572,
+      "sha256": "3b4970ca06b0d71ab5735ccc523fef8ebfcd5c2fdead52b647f8217c5a207678"
+    },
+    {
+      "path": "reports/local/disk-cleanup-20261021/artifact-pass/drives-after.json",
+      "bytes": 167,
+      "sha256": "e3b1bddb34a68a3e748e7bdb9681368aa477b7533769487afadf693e0b2f87dc"
+    },
+    {
+      "path": "tools/audit-duplicate-build-assets-20261021.py",
+      "bytes": 2230,
+      "sha256": "437fb4fec061a5140d607c3a6f76e05d59cd741d2c01ee651dcc6db51fc1ca26"
+    },
+    {
+      "path": "tools/plan-duplicate-build-assets-20261021.py",
+      "bytes": 2019,
+      "sha256": "dca37e848f041b64e849d5ffc7cdc318b89c8a73db12047d14718566da228aa6"
+    },
+    {
+      "path": "tools/deduplicate-build-assets-20261021.ps1",
+      "bytes": 5619,
+      "sha256": "edcbe360379672496872254c4b26baaddf653693f74155e7db17ec2f61bfdc55"
+    },
+    {
+      "path": "tools/verify-duplicate-build-assets-20261021.py",
+      "bytes": 2572,
+      "sha256": "f992151a22539e77de6211aa4d62ae4976125aa7ec0754145c65ed29d6580fd1"
+    },
+    {
+      "path": "tools/finalize-artifact-cleanup-20261021.py",
+      "bytes": 10597,
+      "sha256": "f30c520b59d91adf8e3559582937dfd93c67e0d48a02fafa4c32bf1ca52d9b8b"
+    }
+  ],
+  "notes": [
+    "Free-space snapshots include small concurrent operating-system writes; logical file lengths are recorded separately.",
+    "Old QA browser profiles and synthetic test databases were removed. Original screenshots, JSON measurements, logs, frozen inputs, game builds and historical pass/fail outcomes remain.",
+    "Personal browser IndexedDB, Local Storage, Service Worker/offline data, login data, history and user documents were excluded.",
+    "No running application was terminated. No production code, Current, save policy or performance task status changed."
+  ],
+  "initialFalseSkips": [
+    {
+      "path": "C:\\Users\\zyuu\\AppData\\Roaming\\Tencent\\WeGame\\qbcore109\\cache\\qbcore_cache_browser.exe_130005\\Cache",
+      "category": "inactive-app-web-cache",
+      "plannedBytes": 200767221,
+      "status": "skipped-or-partial",
+      "beforeBytes": 200767221.0,
+      "beforeFiles": 311,
+      "afterBytes": 200767221.0,
+      "afterFiles": 311,
+      "error": "Related application still running; cache preserved"
+    },
+    {
+      "path": "C:\\Users\\zyuu\\AppData\\Roaming\\Tencent\\WeGame\\qbcore109\\cache\\qbcore_cache_browser.exe_130004\\Cache",
+      "category": "inactive-app-web-cache",
+      "plannedBytes": 5320681,
+      "status": "skipped-or-partial",
+      "beforeBytes": 5320681.0,
+      "beforeFiles": 14,
+      "afterBytes": 5320681.0,
+      "afterFiles": 14,
+      "error": "Related application still running; cache preserved"
+    },
+    {
+      "path": "C:\\Users\\zyuu\\AppData\\Roaming\\Tencent\\WeGame\\qbcore109\\cache\\qbcore_cache_browser.exe_130005\\Code Cache",
+      "category": "inactive-app-web-cache",
+      "plannedBytes": 1864450,
+      "status": "skipped-or-partial",
+      "beforeBytes": 1864450.0,
+      "beforeFiles": 101,
+      "afterBytes": 1864450.0,
+      "afterFiles": 101,
+      "error": "Related application still running; cache preserved"
+    },
+    {
+      "path": "C:\\Users\\zyuu\\AppData\\Roaming\\Tencent\\WeGame\\qbcore109\\cache\\qbcore_cache_browser.exe_130004\\GPUCache",
+      "category": "inactive-app-web-cache",
+      "plannedBytes": 557424,
+      "status": "skipped-or-partial",
+      "beforeBytes": 557424.0,
+      "beforeFiles": 5,
+      "afterBytes": 557424.0,
+      "afterFiles": 5,
+      "error": "Related application still running; cache preserved"
+    },
+    {
+      "path": "C:\\Users\\zyuu\\AppData\\Roaming\\Tencent\\WeGame\\qbcore109\\cache\\qbcore_cache_browser.exe_130005\\GPUCache",
+      "category": "inactive-app-web-cache",
+      "plannedBytes": 557424,
+      "status": "skipped-or-partial",
+      "beforeBytes": 557424.0,
+      "beforeFiles": 5,
+      "afterBytes": 557424.0,
+      "afterFiles": 5,
+      "error": "Related application still running; cache preserved"
+    },
+    {
+      "path": "C:\\Users\\zyuu\\AppData\\Roaming\\Tencent\\WeGame\\qbcore109\\cache\\qbcore_cache_browser.exe_130004\\Code Cache",
+      "category": "inactive-app-web-cache",
+      "plannedBytes": 99136,
+      "status": "skipped-or-partial",
+      "beforeBytes": 99136.0,
+      "beforeFiles": 8,
+      "afterBytes": 99136.0,
+      "afterFiles": 8,
+      "error": "Related application still running; cache preserved"
+    }
+  ],
+  "correction": {
+    "cause": "Unanchored case-insensitive tgp substring matched ChatGPT.exe. No WeGame process was found in the matching results.",
+    "effect": "Only six cache directories were conservatively skipped. No application was stopped.",
+    "fixedRegex": "(?i)^(?:WeGame[^\\\\]*|TGP[^\\\\]*|qbcore[^\\\\]*)\\.exe$",
+    "retry": "reports/local/disk-cleanup-20261021/cleanup-wegame-r2.json",
+    "removedDirectories": 6,
+    "logicalBytes": 209166336.0
+  },
+  "cachePhaseDrives": [
+    {
+      "drive": "C",
+      "freeBefore": 11916746752,
+      "freeAfter": 15764312064,
+      "freeIncrease": 3847565312,
+      "deletedLogicalBytes": 3814186709.0
+    },
+    {
+      "drive": "D",
+      "freeBefore": 1989419008,
+      "freeAfter": 22994923520,
+      "freeIncrease": 21005504512,
+      "deletedLogicalBytes": 20822351280.0
+    }
+  ],
+  "artifactDeduplication": {
+    "groups": 1787,
+    "pathsReplaced": 16373,
+    "pathsVerified": 28796,
+    "logicalDuplicateBytes": 14282613500,
+    "distinctFileDuplicateBytesBefore": 8830874479,
+    "externalLinksOnOtherCopies": [],
+    "driveDFreeBefore": 22907752448,
+    "driveDFreeAfter": 31728103424,
+    "observedFreeIncrease": 8820350976,
+    "verification": {
+      "started": 1792549371.3137856,
+      "groups": 1787,
+      "pathsChecked": 28796,
+      "hashMismatch": [],
+      "identityMismatch": [],
+      "missing": [],
+      "protectedFiles": 812,
+      "protectedMismatch": [],
+      "temporaryFiles": [],
+      "inventoriedPaths": 136811,
+      "missingInventoriedPaths": [],
+      "finished": 1792549425.954034,
+      "passed": true,
+      "method": "SHA-256 canonical bytes plus device/inode/size equality for every asset path; SHA-256 all 812 prior protected files; prior output path existence. Shared file metadata (including modification time) can differ."
+    },
+    "method": "NTFS hard links only for exact SHA-256-named generated binary assets. Atomic replacement with backup and before/after hash checks. All paths/content retained; shared metadata may change. No shared mutable source/JS/HTML/JSON.",
+    "scope": [
+      "reports/local/mission-20261019",
+      "reports/local/special-stages-implementation-20261020",
+      "reports/local/fun-gameplay-implementation-20261020",
+      "dist/web/assets",
+      "dist/Mobile-Settings-Final-Web-20261014/assets",
+      "dist/Mobile-Settings-Final-R3-Web-20261014/assets"
+    ],
+    "retainedLimitations": [
+      "No historical disk snapshot establishing C22/D96 was available.",
+      "Referenced frozen offline builds and raw evidence remain.",
+      "No new gameplay/performance acceptance.",
+      "Sandbox pilot access denial is preserved separately; elevated pilot and execution passed."
+    ]
+  }
+}

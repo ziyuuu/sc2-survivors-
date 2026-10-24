@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-23",
+  "scope": "D05设计讨论与只读核对；未实施存档或撤离改动。",
+  "userDefined": {
+    "campaignRetreat": "完成第3/6/9/12/15/18关后可以主动撤退。",
+    "endlessRetreat": "无尽可以主动撤退；具体按钮时机本轮未额外限定。",
+    "checkpoint": "每次进入关间都自动保存当前战场存档，不仅是可撤退的六个关间。"
+  },
+  "currentCode": {
+    "retreat": "World.extractEquipment当前在reward/won/endless-ready均可执行，尚未按3关一档限制。",
+    "persistence": "舰装RunSession.memoryOnly仍为true，requestSave跳过、exportJSON拒绝；bootstrap的pagehide保存调用不能替代正式持久化实现。"
+  },
+  "limitations": {
+    "exitCause": "刷新、进程崩溃、系统终止等不能依赖页面关闭事件可靠区分；移动端甚至不保证触发pagehide/unload。",
+    "pendingMarker": "提前写未结束出征标记，可在重开后发现上次未正常结束并统一结算，但不能据此判断主动退出还是意外中断。",
+    "correction": "撤回把退出原因识别或短时间重连作为能可靠保证的前提。"
+  },
+  "proposalNotApproved": {
+    "policy": "不猜退出原因，重新打开统一恢复最近一次成功写入的关间检查点；不额外限制短时间重连。",
+    "write": "进入关间保存完整一致的战场/账户/背包/奖励领取状态，关间已确认操作和结算保持同步；成功写入后才进入下一关，失败保留上一份完整记录并明确报告。",
+    "settlement": "正常撤离与明确战败应提交对应终局状态，重复打开不重新抽遗失或领奖。",
+    "tradeoff": "未保存的当前关进度会回退；主动刷新也可能重打当前关，纯本地方案不承诺彻底杜绝存档回退。",
+    "scopeChange": "这会改变旧关闭/失联即结束出征的规则，尚未当作用户批准或实施。"
+  },
+  "sources": [
+    {
+      "path": "src/simulation/world.ts",
+      "sha256": "768e20ab165d17f6a38abdd9c7d1dd72722d899c1b33b6711fe4ce30e2da7b49"
+    },
+    {
+      "path": "src/app/run-session.ts",
+      "sha256": "8d98a6b659b827369d674ddafb19122a02363c58bf3a1995905d480fb7d4253c"
+    },
+    {
+      "path": "src/app/bootstrap.ts",
+      "sha256": "3a8cad945f3ec8e2650672292e799a7593624be8e4e5f2487c8a42071bc4687f"
+    },
+    {
+      "path": "src/simulation/starship/inventory.ts",
+      "sha256": "a61b112e0389f153716e3b0ec975bcabf55070162f07328b23d5a6f861bb4f81"
+    }
+  ],
+  "references": [
+    {
+      "title": "MDN pagehide event",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/pagehide_event",
+      "reason": "移动端pagehide不保证触发。"
+    },
+    {
+      "title": "Chrome Page Lifecycle API",
+      "url": "https://developer.chrome.com/docs/web-platform/page-lifecycle-api",
+      "reason": "隐藏通常是最后可靠可观察状态，进程终止/丢弃不能依赖退出回调。"
+    }
+  ]
+}

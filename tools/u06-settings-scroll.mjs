@@ -1,0 +1,1 @@
+import fs from 'node:fs';const p='src/ui/presentation/settings-screen.ts';let s=fs.readFileSync(p,'utf8').replace('${body}</div><div data-player-services-host','${body}<div data-player-services-host').replace('Blizzard Entertainment</p>`','Blizzard Entertainment</p></div>`');fs.writeFileSync(p,s);

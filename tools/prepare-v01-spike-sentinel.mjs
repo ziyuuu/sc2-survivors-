@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';
+const base='reports/local/v01-20261024';let code=await fs.readFile(base+'/stage-comparison.mjs','utf8');
+const replace=(a,b)=>{assert.equal(code.split(a).length,2,a);code=code.replace(a,b);};
+replace('const frame={at:performance.now(),render:false};','const frame={at:performance.now(),rafTime:time,render:false};');
+replace('window.D04Work={events:[],active:false,label:null};',`window.D04Work={events:[],active:false,label:null};
+   const ring=(size,channels)=>({data:new Float64Array(size*channels),index:0,count:0,size,channels,add(...values){this.data.set(values,(this.index++%this.size)*this.channels);this.count++;},read(){const n=Math.min(this.count,this.size),start=this.index-n,rows=[];for(let i=0;i<n;i++){const at=((start+i)%this.size)*this.channels;rows.push(Array.from(this.data.subarray(at,at+this.channels)));}return rows;}});
+   const main=ring(512,1),workerEvents=ring(512,2),gaps=[],worker=new Worker(URL.createObjectURL(new Blob(['setInterval(()=>postMessage(performance.timeOrigin+performance.now()),16)'],{type:'text/javascript'})));worker.onmessage=({data})=>workerEvents.add(data-performance.timeOrigin,performance.now());setInterval(()=>main.add(performance.now()),16);window.V01Sentinel={main,workerEvents,gaps};`);
+replace('previous=frame.at;};',`if(previous&&frame.at-previous>250)V01Sentinel.gaps.push({stage:w.stage,time:w.time,at:frame.at,interval:frame.at-previous,main:V01Sentinel.main.read(),worker:V01Sentinel.workerEvents.read()});previous=frame.at;};`);
+replace("row.longTasks=await page.evaluate(()=>D04Frames.longTasks);", "row.sentinel=await page.evaluate(()=>V01Sentinel.gaps);row.longTasks=await page.evaluate(()=>D04Frames.longTasks);");
+replace('report.entryMode=entryMode;',"report.scope+=' Diagnostic only: main-thread 16ms timer and independent worker heartbeat captured around >250ms frames; no browser tracing or CPU profiler.';report.entryMode=entryMode;");
+await fs.writeFile(base+'/spike-sentinel.mjs',code,{flag:'wx'});console.log('Prepared lightweight main/worker/RAF stall sentinel.');

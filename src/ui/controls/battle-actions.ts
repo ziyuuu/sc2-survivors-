@@ -9,6 +9,7 @@ import {familyModeState,familyAbilityState,type ModeFamily} from '../../simulati
 import {eligibleTransferParticipant} from '../../simulation/combat/talent-transfer';
 
 export const COMMAND_ACTIONS=[
+ {id:'fleet-call',name:'呼叫舰队',code:'KeyK',key:'K',icon:'hero.yamato_battlecruiser'},
  {id:'unit-operations',name:'单位操作',code:'KeyO',key:'O',glyph:'units'},
  {id:'detection',name:'主动侦测',code:'KeyG',key:'G',glyph:'scan'},
  {id:'siege',name:'坦克',code:'KeyT',key:'T',icon:'tech.siege',family:'tank'},
@@ -39,6 +40,11 @@ export function actionForButton(w:World,action:string):BattleActionId|undefined{
 }
 export const actionModeFamily=(id:BattleActionId):ModeFamily|undefined=>id==='siege'?'tank':id.endsWith('-mode')?id.slice(0,-5) as ModeFamily:undefined;
 
+/** A fresh reader for one synchronous presentation pass; never retain across actions. */
+export function battleActionReader(w:World){
+ const states=new Map<BattleActionId,BattleActionState>();
+ return (id:BattleActionId)=>{let state=states.get(id);if(!state){state=battleActionState(w,id);states.set(id,state);}return state;};
+}
 /** Presentation data only; all successful execution goes through World again. */
 export function battleActionState(w:World,id:BattleActionId,allowPanelPause=false):BattleActionState{
  const state:BattleActionState={id,name:COMMAND_ACTIONS.find(a=>a.id===id)?.name??'英雄技能',visible:true,enabled:true,phase:'ready',reason:'',remaining:0};
@@ -57,6 +63,7 @@ export function battleActionState(w:World,id:BattleActionId,allowPanelPause=fals
   const hero=heroForBattleSlot(w,Number(id.slice(-1))),data=hero&&HEROES[hero],entity=hero&&w.heroEntity(hero);
   state.visible=!!hero;state.enabled=!!hero&&w.canCastHero(hero,hero==='tosh'?battleContexts.get(w)?.():undefined);state.name=data?`${data.name} · ${data.skill}`:'未招募英雄';state.remaining=hero?Math.max(0,(w.heroes.get(hero)?.skillReady??0)-w.time):0;
   state.reason=!hero?'未招募英雄':!entity||entity.hp<=0?'英雄未在场':state.remaining>1e-8?'英雄技能冷却中':!state.enabled?'没有合法施放目标':'';state.phase=state.remaining>1e-8?'cooling':state.enabled?'ready':'locked';
+ }else if(id==='fleet-call'){const f=w.missions.fleet;state.visible=f.unlocked;state.remaining=f.cooldown/60;state.enabled=f.unlocked&&!f.cooldown&&!f.pending&&!f.ceasefire;state.reason=f.pending?'舰队正在入场':f.cooldown?'舰队冷却中':f.ceasefire?'通讯激活期间停火':'';state.phase=f.pending?'working':f.cooldown?'cooling':state.enabled?'ready':'locked';
  }else if(id==='dash'||id==='detection'){
   state.remaining=Math.max(0,(id==='dash'?w.dashReady:w.expedition.detectionReady)-w.time);state.enabled=state.remaining<=1e-8;state.reason=state.enabled?'':state.name+'冷却中';state.phase=state.enabled?'ready':'cooling';
  }else if(id==='stim'){
@@ -73,6 +80,7 @@ export function battleActionState(w:World,id:BattleActionId,allowPanelPause=fals
  }else if(id==='strategic'){
   const support=w.expedition.support,pending=support.impacts.find(i=>i.kind==='strategic');state.count=support.ammo;state.visible=support.ammo>0||!!pending;state.name=w.expedition.race==='terran'?'核弹':w.expedition.race==='zerg'?'生体巨爆':'净化打击';state.enabled=support.ammo>0&&!pending;state.reason=pending?'战略打击正在进行':support.ammo<=0?'没有战略打击次数':'';state.phase=pending?'working':state.enabled?'ready':'locked';
  }
+ if(w.specialStages.active?.kind==='dodge'){state.enabled=false;state.reason='毒爆弹幕仅允许移动';return state;}
  if(w.phase!=='battle'||w.requiresPlayerDecision||w.paused&&!allowPanelPause){state.enabled=false;state.reason=w.requiresPlayerDecision?'请先完成当前决策':w.paused?'战斗已暂停':'当前不在战斗中';}
  return state;
 }
@@ -90,6 +98,7 @@ export function activateBattleAction(w:World,id:BattleActionId):boolean{
  else if(id==='detection')used=w.castDetection();
  else if(id==='stim')used=w.stim();
  else if(id==='airlift')used=w.airlift();
+ else if(id==='fleet-call')used=target('fleet');
  else if(id==='strategic')used=target('strategic');
  else if(id==='tactical')used=w.expedition.race==='protoss'?target('tactical'):w.castTactical();
  else if(id==='unit-operations'){if(typeof document!=='undefined'){document.dispatchEvent(new Event('sc2-open-unit-operations'));used=true;}}

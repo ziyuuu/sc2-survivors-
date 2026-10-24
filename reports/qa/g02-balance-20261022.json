@@ -1,0 +1,953 @@
+{
+  "task": "G02 approved balance and strengthened nuclear support",
+  "status": "completed-local",
+  "date": "2026-10-22",
+  "authorization": "基本可以按你的，但是核弹伤害现在很低",
+  "source": {
+    "pass": true,
+    "beforeSourceTests": 821,
+    "unchanged": 807,
+    "changed": [
+      "src/data/unique-support.ts",
+      "src/simulation/combat/carriers.ts",
+      "src/simulation/combat/expedition-combat.ts",
+      "src/simulation/combat/expedition-heroes.ts",
+      "src/simulation/combat/shop-support.ts",
+      "src/simulation/combat/unique-support.ts",
+      "src/simulation/progression/expedition-drafts.ts",
+      "src/simulation/starship/card-effects.ts",
+      "src/simulation/starship/runtime.ts",
+      "src/ui/intermission-skin/presentation.ts",
+      "src/ui/presentation/intermission.ts",
+      "src/ui/presentation/shop-card-copy.ts",
+      "test/g01-card-equipment.test.ts",
+      "test/shared-tech-cards-20260929.test.ts"
+    ],
+    "added": [
+      "src/data/shop-support.ts",
+      "test/g02-balance.test.ts"
+    ],
+    "finalSourceTests": 823,
+    "cameraInputRenderExact": 135,
+    "current": {
+      "path": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "probabilityAndEligibilityOutsidePriceFunctionExact": true,
+    "delivery": [
+      {
+        "mode": "game",
+        "web": "D:\\星际\\reports\\local\\g02-balance-20261022/web-game-r1",
+        "inputs": 501,
+        "assets": 1909,
+        "resources": 1852,
+        "webJs": "593b92d729ed05cded999de28085261697da59872acafa9daa2a44615aa23c64",
+        "allExact": true
+      },
+      {
+        "mode": "lab",
+        "web": "D:\\星际\\reports\\local\\g02-balance-20261022/web-lab-r1",
+        "inputs": 502,
+        "assets": 1909,
+        "resources": 1852,
+        "webJs": "088a448fe1b4e3682acc08c5893583f15974f3c177d60723fcc3b604fc4ff0f7",
+        "allExact": true
+      }
+    ],
+    "offline": {
+      "path": "D:\\星际\\reports\\local\\g02-balance-20261022/offline-game-r1.html",
+      "htmlSha256": "0b027c768b34c0f0d9072c68518a153823527e228453842158c9722a09566c50",
+      "jsSha256": "9df68d7ba00f541602dd1d721128f0e972f21bcb1a22f2aa286802348d209e31",
+      "inputs": 506,
+      "assets": 1909,
+      "chunks": 2975,
+      "allExact": true
+    }
+  },
+  "policy": {
+    "strategicBase": 6000,
+    "fixedSupportFormula": "base*(1+globalAttack)*(1+min(3,max(0,globalOrdinaryDps)/100))",
+    "utilityPrices": [
+      [
+        25,
+        0
+      ],
+      [
+        50,
+        0
+      ],
+      [
+        90,
+        20
+      ],
+      [
+        150,
+        50
+      ],
+      [
+        225,
+        90
+      ]
+    ],
+    "overdriveDamage": [
+      0.3,
+      0.45,
+      0.6
+    ],
+    "firstReadySeconds": 3
+  },
+  "comparison": {
+    "file": "reports/local/g02-balance-20261022/analysis.json",
+    "counts": {
+      "offense": 424,
+      "channels": 1256,
+      "specialists": 36,
+      "battles": 183,
+      "stacking": 162
+    },
+    "nuclearCandidates": 1152,
+    "nuclearFinal": 288,
+    "priceChangeRows": 1200,
+    "uniqueCards": 300,
+    "baselineAndTeamExact": true,
+    "allChannelEffectsExact": true,
+    "bossClearBefore": 130,
+    "bossClearAfter": 130,
+    "moreDeaths": 0
+  },
+  "tests": {
+    "unique": 2234,
+    "firstPass": 2226,
+    "firstFailures": 8,
+    "permissionFailures": 7,
+    "oldNuclearExpectationFailure": 1,
+    "retryTests": 29,
+    "retryFailures": 0,
+    "new": 21,
+    "fullLog": "reports/local/g02-balance-20261022/full-regression-r1.log",
+    "retryLog": "reports/local/g02-balance-20261022/regression-retry-r1.log",
+    "typecheck": "reports/local/g02-balance-20261022/typecheck-r2.log",
+    "data": "reports/local/g02-balance-20261022/docs-check-r1.log"
+  },
+  "browser": {
+    "qa-cards-r1": {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/result.json",
+      "records": 12,
+      "errors": 0
+    },
+    "qa-production-r1": {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/result.json",
+      "records": 32,
+      "errors": 0
+    },
+    "qa-prices-r2": {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2/result.json",
+      "records": 13,
+      "errors": 0
+    }
+  },
+  "visual": {
+    "pass": true,
+    "reviewed": 35,
+    "finalImages": [
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/actual-webgl-resumed.png",
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/detail-390x844.png",
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/detail-844x390.png",
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/first-cycle-active.png",
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/native-strike-impact.png",
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/native-strike-warning.png",
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/shop-card.png",
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/shop-detail-equipped-10656.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/offline-terran-battle.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/offline-terran-settings-return.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-easy-1440.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-easy-390.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-easy-844.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hard-1440.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hard-390.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hard-844.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hell-1440.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hell-390.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hell-844.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-normal-1440.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-normal-390.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-normal-844.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/web-terran-battle.png",
+      "reports/local/g02-balance-20261022/qa-production-r1/screens/web-terran-settings-return.png",
+      "reports/local/g02-balance-20261022/qa-prices-r2/screens/overdrive-detail-1440.png",
+      "reports/local/g02-balance-20261022/qa-prices-r2/screens/overdrive-detail-390.png",
+      "reports/local/g02-balance-20261022/qa-prices-r2/screens/overdrive-detail-844.png",
+      "reports/local/g02-balance-20261022/qa-prices-r2/screens/prices-simple-1440.png",
+      "reports/local/g02-balance-20261022/qa-prices-r2/screens/prices-simple-390.png",
+      "reports/local/g02-balance-20261022/qa-prices-r2/screens/prices-simple-844.png"
+    ],
+    "archivedImages": [
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/actual-webgl-recovered.png",
+      "reports/local/g02-balance-20261022/qa-cards-r1/screens/failure.png",
+      "reports/local/g02-balance-20261022/qa-prices-r1/screens/failure.png",
+      "reports/local/g02-balance-20261022/qa-prices-r1/screens/prices-simple-1440.png",
+      "reports/local/g02-balance-20261022/qa-prices-r2/screens/purchased-cards.png"
+    ],
+    "notes": [
+      "All 35 original images were viewed through contact sheets; final gallery contains 30.",
+      "Network failure, paused graphics recovery, stale-price fixture and native purchase flash-transition images remain diagnostic history.",
+      "Normal formal web and file:// inputs use actual mouse clicks. Isolated lab layout includes its independent toolbar. No physical touch-screen or human playthrough claim."
+    ]
+  },
+  "archive": {
+    "pass": true,
+    "target": "D:/星际/reports/local/g02-balance-20261022/offline-lab-r1.html",
+    "donor": "D:/星际/reports/local/integration-i01-20261022/offline-lab-r2.html",
+    "difference": "D:/星际/reports/local/g02-balance-20261022/offline-lab-r1-difference.json.gz",
+    "originalSha256": "989a69979941d52d5975b3f4ddeb5dacf7e06d1b3bdbbdc6e5c80cb248116d2a",
+    "originalBytes": 790356742,
+    "differenceBytes": 8284649,
+    "sharedPackBytes": 756610911,
+    "recomposedHashExact": true,
+    "reason": "Unintended lab-mode default build retained as exact reconstructible difference; only the final formal game HTML remains expanded.",
+    "restore": "Read gzipped JSON, write prefix; stream donor from <script id=\"sc2-resource-pack\" through just before the following plain <script>; write suffix. Verify originalSha256 before use.",
+    "expandedPresent": false,
+    "restoreCommand": "node tools/restore-g02-balance-lab.mjs"
+  },
+  "failuresRetained": [
+    "Old G01 expectations and one hero aura test calculation",
+    "Prototype stage18 intermission setup refusal",
+    "Full regression network/service permissions and obsolete nuclear assertion",
+    "Analysis script initially referenced non-final legacy filenames",
+    "Browser sandbox network denial and inaccessible sandbox server timeout",
+    "Price UI fixture reused historical descriptions and discounts; final rerun uses current native generated offers",
+    "Unintended default lab offline build archived with exact shared payload reconstruction",
+    "Cleanup guard stopped before deletion for a mistyped report path, then an open redirected log; final guarded cleanup completed."
+  ],
+  "board": {
+    "revision": 121,
+    "next": "G03",
+    "counts": {
+      "待办": 9,
+      "进行中": 0,
+      "待验证": 0,
+      "待讨论": 0,
+      "已完成": 51,
+      "暂缓": 2
+    }
+  },
+  "boundaries": [
+    "Controlled fixtures and programmatic browser input, not natural full campaign or physical human/device acceptance",
+    "No final balance, all-content FPS, persistence or MVP completion claim",
+    "No Current replacement, commit, push or publication"
+  ],
+  "bound": [
+    {
+      "file": "AGENTS.md",
+      "bytes": 313421,
+      "sha256": "8941ff5d014c12940b8be21fcf44b71a8bb1326f298f478a8a128097c7b4fe43"
+    },
+    {
+      "file": "docs/project/performance-board.json",
+      "bytes": 411118,
+      "sha256": "fe07495a02a47c860523ebb56353446aab1b131fba15c0707201ec06a3bd286d"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_BOARD.html",
+      "bytes": 367401,
+      "sha256": "3bc09a21b3f8ec4327678fe4f114e8a62ae45e44bf73b2f315387acc8c0408ad"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_TODO.md",
+      "bytes": 265002,
+      "sha256": "0a13b2cd623efdfda8cd2f4b2bf9a18248ab360946bf392f6d7dbef0cc451a9e"
+    },
+    {
+      "file": "docs/project/G02_BALANCE_20261022.md",
+      "bytes": 8222,
+      "sha256": "fbb777b35c3d24f128f808e893fc62da51ee9cae6e64f1e4e898cc91dbcb6e91"
+    },
+    {
+      "file": "docs/project/G01_HERO_G02_REVIEW_20261022.md",
+      "bytes": 13192,
+      "sha256": "73735f61c2eb855766e7d4cc015f8cf2bae721b770c1c914854b242d7e4895ee"
+    },
+    {
+      "file": "preview/g02-balance-20261022/index.html",
+      "bytes": 1412,
+      "sha256": "a89a7ef736c7a724329b14d2cd24d853b4124392f184fc00edede471aa38f269"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/actual-webgl-resumed.png",
+      "bytes": 1344056,
+      "sha256": "5c88c3c4d8d1953a6e387e27bb5cab94bd8b62938a14b3cce914ccea90a1a4ac"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/detail-390x844.png",
+      "bytes": 297986,
+      "sha256": "2635b8240b96ae8901214531d86156b5c7751705c320aec9c4413f8cfed63e7f"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/detail-844x390.png",
+      "bytes": 361035,
+      "sha256": "b90203ea31b5d2ba38254eb37120e0cba1335d6fb861f6ee91f9f079f8eb2307"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/first-cycle-active.png",
+      "bytes": 1347890,
+      "sha256": "803032e71b0865eb310abf9356c581d9cf03acb439fe8a6156da0bce28d3faa1"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/native-strike-impact.png",
+      "bytes": 1352277,
+      "sha256": "714f7d8fcd5a806d78a3a151ab5f1414a720a13890ba34f1c27bc10fa86e9fb2"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/native-strike-warning.png",
+      "bytes": 1346288,
+      "sha256": "a9e95f2d45798ed6bc11db1eb4140014982d587f98cffd1abc3750148b44b0d7"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/shop-card.png",
+      "bytes": 1315012,
+      "sha256": "722ca72a64bcc1dfe834fd6bc21254fb3630c321acf2252f143e081f2966bb41"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/shop-detail-equipped-10656.png",
+      "bytes": 1254454,
+      "sha256": "17c1d1f08a44194faa14ad9ebf8686c183e0f8df31bd9e17462a44fd967851f6"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/offline-terran-battle.png",
+      "bytes": 1346016,
+      "sha256": "d87a821e643d62c19899dc771ae76b38f7e77d5daa47872460bd2c38d12f2805"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/offline-terran-settings-return.png",
+      "bytes": 1344736,
+      "sha256": "ff7b041f0d0c49b7223ce16dfbabef97fa49967e6b47a5e61bc8b38f848ca44f"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-easy-1440.png",
+      "bytes": 282274,
+      "sha256": "594df7156ad6b7a86f88e651a8feaf5396e92eb9d9b20a9618bc868f1addbb1d"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-easy-390.png",
+      "bytes": 67911,
+      "sha256": "e67d08fa69d452deec0e878689326803ea8e82b8f016dde350cd9429a22d8343"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-easy-844.png",
+      "bytes": 94144,
+      "sha256": "4962440bbd471e4eb229fdbda6c81b8da7ed4e3481ee08a90d17ea94c187f70b"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hard-1440.png",
+      "bytes": 281921,
+      "sha256": "1cb66006d6e641ba8fb1be6467aa8c67f43bcc54530ced5d260d8665ef38cb66"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hard-390.png",
+      "bytes": 67888,
+      "sha256": "a077284c82df7d1b6109c7eab1a2ee710c966ac683538ba332954c957380c0c4"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hard-844.png",
+      "bytes": 93891,
+      "sha256": "62412220872613faee9e60c57befca26ba02b024a62c2ba2a4d242b5b0793780"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hell-1440.png",
+      "bytes": 281589,
+      "sha256": "a89c8e838aaa33c2fba3100ce4234578e6d4f30bf5b580a70f0923d525ce6214"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hell-390.png",
+      "bytes": 68017,
+      "sha256": "95ff9ab675a8324f78157a40b17364e5d0be291fc92e20c80e83e71747eb57c1"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-hell-844.png",
+      "bytes": 93821,
+      "sha256": "ca7d5f9d8d355d8733c23c7b2a6f9c665dd7510077dc992d60a89ea8d3a1a247"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-normal-1440.png",
+      "bytes": 281644,
+      "sha256": "4cf9ea365b55564e669b5407e0143340113af76da0a28af260eaf927f5bc2dd0"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-normal-390.png",
+      "bytes": 67908,
+      "sha256": "c9e5f4a667fc1c940e22ac9c738e8f43da1209e4f0056fa77e330e180f8e5b45"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/rule-normal-844.png",
+      "bytes": 93780,
+      "sha256": "7b432304557c378827d9eccb90a4787378c6e50f4fb4739f819f91d0a595a02e"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/web-terran-battle.png",
+      "bytes": 1241957,
+      "sha256": "d545b36be8c3c489f04cca7a381e8b53c9b80bdd1fc70bc3345017df13b73241"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/screens/web-terran-settings-return.png",
+      "bytes": 1246320,
+      "sha256": "c063643e07ae82652eb02b7a6c547ccd5c0255f35e1ebecde80f18a212ee33d4"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2/screens/overdrive-detail-1440.png",
+      "bytes": 1225183,
+      "sha256": "76a402009a6a55e665ea5082af6251aa8699e304f2a075705c17db83b6fd3fde"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2/screens/overdrive-detail-390.png",
+      "bytes": 299460,
+      "sha256": "1c0955e60d3baba5de5ab316c3fa3a86a296162e05f47f9c17fb802222a6d573"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2/screens/overdrive-detail-844.png",
+      "bytes": 355761,
+      "sha256": "542ef8a397e3ad34a3a8948f67e6f8ae200ca1d7a96d5eeb4b299d6b74737b89"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2/screens/prices-simple-1440.png",
+      "bytes": 1390988,
+      "sha256": "847f97f504ad874ace09fa2a481be5fee3839b2b74714497befe3a9be13c5b07"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2/screens/prices-simple-390.png",
+      "bytes": 295230,
+      "sha256": "b3a9087e3aa36d92ae503d9c7301f1a950599098b16ae3520de9d76b41d4a54a"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2/screens/prices-simple-844.png",
+      "bytes": 399825,
+      "sha256": "7544a23773df60e3217b642dc63c824e442167d41d6c199940e9f2096ba93e6e"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/actual-webgl-recovered.png",
+      "bytes": 242906,
+      "sha256": "1c2a8caaca9e012768e77fc964c108598ad8a1cf5e08a5aa6268c9976d799947"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/screens/failure.png",
+      "bytes": 24655,
+      "sha256": "815c2c0da17729edd142c58fdf30d0624e472b7d7bad1a2cfc4d38b811ce51ae"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r1/screens/failure.png",
+      "bytes": 1239103,
+      "sha256": "412bd170f3e4d4a96424825889ccd37151bb5ef656df1db0b78128d09bfe75df"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r1/screens/prices-simple-1440.png",
+      "bytes": 1359058,
+      "sha256": "55837d94388ff18106b7b2f6621eab287aad58432869aa22ccf6885b83645e42"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2/screens/purchased-cards.png",
+      "bytes": 1267070,
+      "sha256": "10c81894638b8705abbc5ef3d7780d4918a918c6516cf5fdd8357e144110ea2d"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/analysis-r2.log",
+      "bytes": 5243,
+      "sha256": "e69280ef577410514e86a7eab2750de96bc1dce9106aee975910003e9a07d36e"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/analysis.json",
+      "bytes": 1256685,
+      "sha256": "f682b1781187e1d5b2be39bd5032f8835cf58a241c5287053fe1ee63108013c8"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/analysis.log",
+      "bytes": 661,
+      "sha256": "73c2820b87ec002c25692aef9fa8208b070cb4493bca795c844b463afc8b267c"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/archive-lab.log",
+      "bytes": 91,
+      "sha256": "3274483addec257680c019dafd57214ebacfab3b0be47c99be35cddf01d16988"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/assemble-offline.mjs",
+      "bytes": 3877,
+      "sha256": "9e053aad445ad7461ad74a96e1af62bc4ec2833629781c923e8a2317d4444e2b"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/battles-r1.json",
+      "bytes": 1074435,
+      "sha256": "f206bda9d5c4faff3dda7e9c9f82119249a4beb1629f445ffff0f7a29cc668a2"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/battles-r1.log",
+      "bytes": 1929,
+      "sha256": "0805d3b6d9278bf1796af9d163fb9e4c4a48e0404b1430f946a612ace39848fa"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/before.json",
+      "bytes": 139952,
+      "sha256": "c2d58a8915e587109eb5496463a11becee5bb6edf66f9751e48292e3c67767c5"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/build-offline-game-r1.log",
+      "bytes": 127,
+      "sha256": "bd83ad2cb9b8f452e3776756a4a3ff01d4245f582cfcf6336093c4111a7ee17e"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/build-offline-r1.log",
+      "bytes": 126,
+      "sha256": "480f4591cf933314c15641ebc949843523263d8d8963a9d2f361883629b70b6f"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/build-web-game-r1.log",
+      "bytes": 1434,
+      "sha256": "5817b62e2f341c950f8952695a75ed315c08a542a5a2fbc76cd60a2e30b0d09d"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/build-web-lab-r1.log",
+      "bytes": 1442,
+      "sha256": "a275579f0b190c436eab58e26c66830aca22ee184390bd1034166e5e91adb4a6"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/build-web.mjs",
+      "bytes": 4097,
+      "sha256": "76f325591aee1b7bbee0be84b42e523e5f9a28b8c8b50a6c4e7849ec7019160d"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/channels-r1.json",
+      "bytes": 3073401,
+      "sha256": "e6ffd517fb04f0584c5278d4ab91342713ad5bf0fa526839189e5fda2c924453"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/channels-r1.log",
+      "bytes": 25,
+      "sha256": "7567d3e0ebab51279554b9b4a3787401684fc417152594e059060b83f652f4c1"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/cleanup-r2.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/cleanup.json",
+      "bytes": 455,
+      "sha256": "d77ae8031a7c94f51642bc5a0e0aa1068adfd5fd99926485b7ef639c5cfffe6f"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/docs-check-r1.log",
+      "bytes": 149,
+      "sha256": "059d6e0099c72a7e07a41b52e728fc74dc045ae789f6f20a31812a97aca04420"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/final-source.json",
+      "bytes": 139049,
+      "sha256": "e09ea811af1c8cc9a9c6d4a554d4b5ddaa33844ff9b8cab0bed46938b112c9f0"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/full-regression-r1.log",
+      "bytes": 241188,
+      "sha256": "b169643a2e5c06741f3bcccb4e422ed50447215eabaf0f74351312f123d25cca"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/links.json",
+      "bytes": 14642,
+      "sha256": "b15e19f34d19d9ffd847477c05ded90a7da4b247c5da2782d1b5127c4095b222"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/nuclear-candidates-r2.log",
+      "bytes": 3074,
+      "sha256": "151c0b542b700c4a8516dd6998c805e44fb746fed65cb5e318f802d5a3f3d7ab"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/nuclear-candidates.json",
+      "bytes": 3203286,
+      "sha256": "bf67316f489dfef8385a237b6fd7cc115132b4011b555922a82a3715615b6bda"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/nuclear-candidates.log",
+      "bytes": 946,
+      "sha256": "3aecfdfe120c091389d97d576e06fe820c0ece442a443385d4b622347a52e421"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/nuclear-final.json",
+      "bytes": 800046,
+      "sha256": "6bc57b452a2f1cb6e73590b29e085f8ed8c8c1dc8e5522125ee55df6238aed95"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/nuclear-final.log",
+      "bytes": 786,
+      "sha256": "8dd2b8db74ab8c9cfc5b43b3517b0fc6e50205dbd1adfd01cd87d645f5ef9817"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/offense-r1.json",
+      "bytes": 680003,
+      "sha256": "4a50c7cfea04cef72509c4081247709e8df5db05e6722b42662cb1285979d806"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/offense-r1.log",
+      "bytes": 4658,
+      "sha256": "6b499c9d5d4ffca4d2215d353e3afa5716d47edb6788602b168d4df08d80ffde"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/offline-game-r1-build.json",
+      "bytes": 86889,
+      "sha256": "fdd3d4f76b083f4e3fd6d903b4a96972ef5ba1022740f5c046a4500172069e08"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/offline-game-verification-r1.json",
+      "bytes": 327777,
+      "sha256": "22e77c3c48e9fdfe56d5791f19ff58c21b62cbe688282b5d1d3a897a8cbc5924"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/offline-lab-archive.json",
+      "bytes": 924,
+      "sha256": "3f3b3dd30242094dd8b514a6e335d0163e2f9aac9cd63857fb6944ba3380d99f"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/offline-lab-r1-build.json",
+      "bytes": 87085,
+      "sha256": "4738a66fb94be5211237de5fc3d1635bf062157ebbc42cd389ea87d85f8dae4d"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/offline-lab-r1-difference.json.gz",
+      "bytes": 8284649,
+      "sha256": "e24080c4f79d53924880d46d319a1602e293637c19245b4ffa42d423c9456049"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/offline-lab-verification-r1.json",
+      "bytes": 327776,
+      "sha256": "dcf7474d234f77cb0832015d7b6b9b55aadb6ac501ef55f8e5e1a4172b8d38b8"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-network-failure.json",
+      "bytes": 345,
+      "sha256": "ea0c19edd9bc809ea8d7f3429e566b2fe39f0a00121505f2abfa46119c248fee"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1-browser.log",
+      "bytes": 35,
+      "sha256": "59fad61fe5c9d0c7c04e90e0c14b7c0ef990476d62de7f2d24d9c91a8e6f6010"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1-escalated.log",
+      "bytes": 286,
+      "sha256": "eab860a6b358cf09d2ce03b88b5e2724f7030e8f46ff390469f1379f3bb8ab36"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1.log",
+      "bytes": 287,
+      "sha256": "2112d4354bb7b75820ee3fc342963706a7073d96204e3c3321901860af07a2a0"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards.mjs",
+      "bytes": 9215,
+      "sha256": "8e6b4d9bcd8d17cf271f123566c0a107c9cf4d0c81ced7014618ed2517167bc6"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-helper-inputs.json",
+      "bytes": 132701,
+      "sha256": "856fec7b30801e9936402ca00c8b9ccdb08522cd016b7a1d9f202ccaf880ba86"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r1-script.mjs",
+      "bytes": 4497,
+      "sha256": "b2ca519888b835f6698147e629efd35cd7cc616ce5dad6de4cc45d2d221fd246"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r1.log",
+      "bytes": 300,
+      "sha256": "aef8ee375966b2c9ae67c377a854accf8a35c8e5a98e5e146389bd4d6464300b"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2.log",
+      "bytes": 21,
+      "sha256": "853730de086be69e2cd60ce82a3b6b02f3ce9088b38af91decd8eea379abe4e8"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices.mjs",
+      "bytes": 4776,
+      "sha256": "fabc5d7eee635abd33a190f43152d9154aa029afdb15bb9d0ecd73741f7544e0"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1.log",
+      "bytes": 43,
+      "sha256": "2345b3396ab9b828b8f1dec4f3e95061d5212c26cc05d30ff5b5cd06f4f732e6"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production.mjs",
+      "bytes": 4147,
+      "sha256": "d9cac7ad0d408410338941258be2bbfedc8cf32555565aa0bc7cb12754ea8d42"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/regression-retry-r1.log",
+      "bytes": 3429,
+      "sha256": "7c563524000521032eda6c67ea667191dcf4af877a18e32d835b93ccdeab1b28"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/review.py",
+      "bytes": 1107,
+      "sha256": "3e713c249428b5dcadf66760bb0cf0b7f6539e6a7a14e4eb47178ab723b9ee91"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/serve.mjs",
+      "bytes": 1415,
+      "sha256": "a8114d101592ec37f79370f68b2c3a6e7272a2af1986258287828ab5e4ed1197"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/specialists-r1.json",
+      "bytes": 57224,
+      "sha256": "5c62984a0a8ab39dd9119505f1b094a4aa876f120487703b7c68559d1c7802b1"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/specialists-r1.log",
+      "bytes": 13,
+      "sha256": "5eb54421714c0f80081a99cae6e5dfdf492f0c8b2a9696410c2e4eb84eb276f8"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/stacking-r1.json",
+      "bytes": 418907,
+      "sha256": "40286d49cd13d1f5bc7752a3eea382f1dea1d7f6705fcbae09efc45cef1162d9"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/stacking-r1.log",
+      "bytes": 14,
+      "sha256": "b0b9bfdcf7e289a897bb94b5f9f950e50d343cf6812ec1c15da2cee15913b6b2"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/targeted-r1.log",
+      "bytes": 15877,
+      "sha256": "0c41f8c602fff41bd9e505aa799c32c8462eba0b645a37d8a566e4a644c95170"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/targeted-r2.log",
+      "bytes": 6368,
+      "sha256": "0b9a9ed9530f2a269f916a14e099d948d11b8eafac56c9ea8a308de8230e227e"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/targeted-r3.log",
+      "bytes": 5560,
+      "sha256": "f6e8496998fe06c113cd2acbf14305b6e0eeff7f486903aea5f6e5c930377c71"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/typecheck-r1.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/typecheck-r2.log",
+      "bytes": 60,
+      "sha256": "985ac3f20709aae2f618f4ece3c507108043322fa6aaf8ff924d20dd54f520bb"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/verification-r1.log",
+      "bytes": 1699,
+      "sha256": "b48aa5bdedfd85398b2ce6bc994c18c7c50153054e301c0947dcf25992e3cd7e"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/verification.json",
+      "bytes": 2023,
+      "sha256": "b69ca97d3b655670c96f7c60700c77dab8af559aac8a8f56f294048f88f313c5"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/verify-offline-game-r1.log",
+      "bytes": 357,
+      "sha256": "97def1bbdd116c79edf458b3babe4126640ac8868177501246939c9a14710c62"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/verify-offline-r1.log",
+      "bytes": 357,
+      "sha256": "97def1bbdd116c79edf458b3babe4126640ac8868177501246939c9a14710c62"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/verify-offline.mts",
+      "bytes": 2435,
+      "sha256": "e5dab7838b0316043cfdfde381c8073d5420e4d4a9fe040cae99cd1b780167fb"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/verify-post-cleanup.log",
+      "bytes": 1699,
+      "sha256": "b48aa5bdedfd85398b2ce6bc994c18c7c50153054e301c0947dcf25992e3cd7e"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/visual-review.json",
+      "bytes": 3531,
+      "sha256": "3b60d4d61c83eb0e18203aa2e0d107cc7f14f2fcdc36ee458618068c32a14085"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/web-game-r1-build.json",
+      "bytes": 751376,
+      "sha256": "317f2fb55cfbb1811df69eabd5b838552647ae3ca992eda8667fbf978a70215b"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/web-lab-r1-build.json",
+      "bytes": 751580,
+      "sha256": "c084720cb5169db193b194d546d6fa5eaa3cd5d084c4aaa90a175113e77f43d4"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/recovery-state.json",
+      "bytes": 92718,
+      "sha256": "fa3ecfae8a33816b85b1cfa6993cc6aa0c8a0ae3f16b43d3eb431ffb436dd8d3"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-cards-r1/result.json",
+      "bytes": 18318,
+      "sha256": "8abb4f2b20ab8f5087b022aca04cb5b125b2c09cf766b60f2fa27ed51f3e77e7"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-production-r1/result.json",
+      "bytes": 4065869,
+      "sha256": "60a58552b24dbda99ade1b65aa43b0e5fcd12bb37b5196440c5375a2fb6d7c9b"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r1/result.json",
+      "bytes": 2168,
+      "sha256": "9f5fa75b0a4ffc76d35b324f4b46a4e9bcec4a4d74fc460b0aae2dcb15a507a9"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/qa-prices-r2/result.json",
+      "bytes": 16896,
+      "sha256": "29739e4982fbfe29e1ea5102cf34e392276fcd68161acf4bcd776e799ac1a271"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/visual-review/index.html",
+      "bytes": 9923,
+      "sha256": "70ad8e00ad36ba96552e1196633e474d08afeeab93fbe10fb12cadf16f793c65"
+    },
+    {
+      "file": "reports/local/g02-balance-20261022/visual-review/index.json",
+      "bytes": 5354,
+      "sha256": "e334b5c9789df681a42b396dade9f597606692e5e3e6b8b264bbfe2c1225e8ef"
+    },
+    {
+      "file": "tools/analyze-g02-balance.mjs",
+      "bytes": 2983,
+      "sha256": "ed07d4806be0fee03b8722f68c392bb8bf993624b8e171f3b663585305c5a1a4"
+    },
+    {
+      "file": "tools/archive-g02-balance-lab.mjs",
+      "bytes": 2701,
+      "sha256": "06d63836736293379e8588949b2d454d1f54906cfb3bdcf26d74e79ded709743"
+    },
+    {
+      "file": "tools/audit-g02-balance-battles.mts",
+      "bytes": 3485,
+      "sha256": "6a9a189769798f0d7323117f1965798874fc05e3568647fa31969c640d2a03ea"
+    },
+    {
+      "file": "tools/audit-g02-balance-channels.mts",
+      "bytes": 2405,
+      "sha256": "fcc148e0c7208f231cfb919226b15be53ffdc1c721f4a2fecfe147cae4c38e47"
+    },
+    {
+      "file": "tools/audit-g02-balance-offense.mts",
+      "bytes": 3617,
+      "sha256": "4a3f13b809be5a14b8992aad3dc155c5ca5ad560e547bcedc5cfd6f5b6fa207b"
+    },
+    {
+      "file": "tools/audit-g02-balance-specialists.mts",
+      "bytes": 4775,
+      "sha256": "8690d4cdbdefb39746d6418ebb495e86301fe58dbcb7b3209adc075174b34e8e"
+    },
+    {
+      "file": "tools/audit-g02-balance-stacking.mts",
+      "bytes": 1493,
+      "sha256": "449b84b8590ec8e14629b9c936547f73e5c472fde05217e6b5f7b13d629b4808"
+    },
+    {
+      "file": "tools/cleanup-g02-balance-qa.ps1",
+      "bytes": 2972,
+      "sha256": "1ddacc3d06103e34079c7b0df0d6eafea834ad5f22bcb6f0f971bdee11fb0d37"
+    },
+    {
+      "file": "tools/closeout-g02-balance.mjs",
+      "bytes": 5000,
+      "sha256": "e85185fe65521d4ebe28e21fc833f910a147c52435d59c0f19ed735976b97f31"
+    },
+    {
+      "file": "tools/prepare-g02-balance-audits.mjs",
+      "bytes": 723,
+      "sha256": "0545dfdb82d655e9650a7906ef8f322b474e7604bfad40c438121a4d92360b62"
+    },
+    {
+      "file": "tools/prepare-g02-balance-browser.mjs",
+      "bytes": 2793,
+      "sha256": "5acca61bd9004fa7b560bd0e06d82ad9d5ca0dba590afdad71256e42ad83a01e"
+    },
+    {
+      "file": "tools/prepare-g02-balance-cleanup.mjs",
+      "bytes": 689,
+      "sha256": "be6cb591964a1ec91cb587ebdcc757cdb761abeaa2df3b691cf4b1e1cb15be93"
+    },
+    {
+      "file": "tools/prepare-g02-balance-prices.mjs",
+      "bytes": 3007,
+      "sha256": "1dc3d62d9833c6e33460c0df640ed5926f5632ffa4b6af32f315504329d2b259"
+    },
+    {
+      "file": "tools/prepare-g02-balance-qa.mjs",
+      "bytes": 2140,
+      "sha256": "6a6897b2b43bc8b46d09c2e60d491c86534b243a3056484ead0c863623b5827d"
+    },
+    {
+      "file": "tools/prepare-g02-balance-verifier.mjs",
+      "bytes": 1873,
+      "sha256": "4bcb2d3d223e99a2666c0844cfc0377eb040c23cd3ccf0cf7c8368c530de647a"
+    },
+    {
+      "file": "tools/record-g02-balance.mjs",
+      "bytes": 11712,
+      "sha256": "969b43f341b0bf77ae8bcb3aa79b391d28dfa2f07937ad465553088b8f153e5f"
+    },
+    {
+      "file": "tools/restore-g02-balance-lab.mjs",
+      "bytes": 1278,
+      "sha256": "ea3463a043ac8b98eefac57083f71a628a9d324d85f594020c5517f9c2e2c1af"
+    },
+    {
+      "file": "tools/start-g02-balance.mjs",
+      "bytes": 2558,
+      "sha256": "d56c280e302442dbbd4564ec637b09d6e990c366a64fe277fb72a8cc6f33b0a9"
+    },
+    {
+      "file": "tools/verify-g02-balance.mjs",
+      "bytes": 4536,
+      "sha256": "1655dd9d96388ad41bb4fc432fabe23cde7459f1066c92130595e9b574bdd603"
+    },
+    {
+      "file": "tools/lib/g02-balance-fixtures.mts",
+      "bytes": 2316,
+      "sha256": "680e2fccf9d638ca28b72e6dc6c0fcb9c29e08766ad749ff17ee709ab25e35db"
+    },
+    {
+      "file": "tools/audit-g02-nuclear-candidates.mts",
+      "bytes": 3523,
+      "sha256": "5369dc92de39e41c7765b83806fe7c50f0824b229cb72db1cfe9a76ce67e6efd"
+    },
+    {
+      "file": "tools/audit-g02-nuclear-final.mts",
+      "bytes": 3418,
+      "sha256": "92c8812aa7977a05fc3578a8d3afd1334cfe2ec2d7c6de13058a46d624d5259b"
+    }
+  ],
+  "cleanup": {
+    "pass": true,
+    "profile": "D:\\星际\\reports\\local\\g02-balance-20261022\\qa-shared\\profile",
+    "browserClosed": true,
+    "profileFiles": 1995,
+    "profileLogicalBytes": 422085890,
+    "protectedFiles": 925,
+    "protectedExact": true,
+    "scope": "Only this closed G02 QA browser profile. All source, frozen inputs, screenshots, raw reports, final builds and Current retained. Logical bytes are not a measured physical disk-space delta."
+  },
+  "closeout": {
+    "pass": true,
+    "all823FinalSourcesExact": true,
+    "buildInputsAndResourcesRecheckedAfterCleanup": true,
+    "allLocalLinksExist": true,
+    "localLinks": 73,
+    "rawAndFinalEvidenceBound": 138,
+    "g02Complete": true,
+    "next": "G03",
+    "finalImages": 30,
+    "allImagesViewed": 35
+  }
+}

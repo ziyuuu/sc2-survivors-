@@ -1,0 +1,34 @@
+[
+  {
+    "id": "model.command_center",
+    "name": "commandcenterex1"
+  },
+  {
+    "id": "model.factory",
+    "name": "factoryex1"
+  },
+  {
+    "id": "model.starport",
+    "name": "starportex1"
+  },
+  {
+    "id": "model.nexus",
+    "name": "nexusex1"
+  },
+  {
+    "id": "model.gateway",
+    "name": "gatewayex1"
+  },
+  {
+    "id": "model.robotics",
+    "name": "roboticsfacilityex1"
+  },
+  {
+    "id": "model.stargate",
+    "name": "stargateex1"
+  },
+  {
+    "id": "model.mission.tower",
+    "name": "sensortower"
+  }
+]

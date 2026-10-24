@@ -1,8 +1,8 @@
 import {modal,button} from '../presentation/reference-primitives';
 import {battleInputCapture} from '../presentation/input-capture';
 import {World} from '../../simulation/world';
-import {battleActionState} from '../controls/battle-actions';
-import {skillPages,activateSkill,skillUnlocked,stickSkill,type SkillId} from '../controls/skills';
+import {battleActionReader} from '../controls/battle-actions';
+import {skillPages,activateSkill,stickSkill,type SkillId} from '../controls/skills';
 import {PadState,STANDARD,validMapping,type PadMapping,type PadSnapshot} from './state';
 export class GamepadInput {
  active=false;private skillPage=0;private index:number|null=null;private states=new Map<number,PadState>();private armed=new Set<number>();private mappings:Record<string,PadMapping>={};private browsingArmy=false;private selectedSkill:SkillId|null=null;private skillPanel=document.createElement('aside');private lastPanel='';private panelAt=0;private missingSkillAxes=false;private calibrating=false;private lastTargetAt=0;
@@ -15,7 +15,7 @@ export class GamepadInput {
   document.addEventListener('click',e=>{if((e.target as HTMLElement).closest('[data-action="controller"]'))this.openCalibration();});
   this.dialog.addEventListener('click',e=>{if((e.target as HTMLElement).closest('button'))this.closeCalibration();});
  }
- reset(){this.browsingArmy=false;this.skillPage=0;this.world.resetDirectionalInput();this.closeCalibration();this.active=false;this.index=null;this.selectedSkill=null;this.states.clear();this.armed.clear();this.hideSkills();document.body.classList.remove('gamepad-active');}
+ reset(){this.browsingArmy=false;this.skillPage=0;this.world.resetDirectionalInput();this.closeCalibration();this.active=false;this.index=null;this.selectedSkill=null;this.states.clear();this.armed.clear();this.hideSkills();if(document.body.classList.contains('gamepad-active'))document.body.classList.remove('gamepad-active');}
  direct(preserveOrder=!!battleInputCapture()){this.browsingArmy=false;if(!this.active)return;this.armed.clear();this.states.clear();this.active=false;this.hideSkills();this.world.resetDirectionalInput();if(!preserveOrder&&!document.body.dataset.targetFamily)this.world.cancelOrder();document.body.classList.remove('gamepad-active');}
  private suspend(){if(!this.active)return;this.world.resetDirectionalInput();this.armed.clear();this.states.clear();this.active=false;this.index=null;this.hideSkills();document.body.classList.remove('gamepad-active');if(this.world.phase==='battle'){this.world.paused=true;this.world.changed();}}
  private select(p:PadSnapshot,preserveOrder=false){this.active=true;this.index=p.index;if(!document.body.dataset.targetFamily&&!battleInputCapture()){if(!preserveOrder)this.world.cancelOrder();this.onActive();}else this.world.resetDirectionalInput();document.body.classList.add('gamepad-active');}
@@ -32,24 +32,29 @@ export class GamepadInput {
    if(!document.body.dataset.targetFamily&&(this.browsingArmy||input.menu&&Math.hypot(input.move.x,input.move.z)<.1)){this.browsingArmy=true;w.input={x:0,z:0};this.hideSkills();if(input.edges.has('back')&&document.querySelector('#unit-inspector.inspect-open')){document.querySelector<HTMLButtonElement>('[data-inspect-close]')?.click();}else if(input.edges.has('back')||Math.hypot(input.move.x,input.move.z)>.2){this.browsingArmy=false;(document.activeElement as HTMLElement)?.blur();}else this.menu(input.menu,input.edges.has('confirm')||input.edges.has('stim'),false,document.body.classList.contains('native-hud')?'#interface':'#battle-console');continue;}
    if(document.body.dataset.targetFamily){const dt=Math.min(.05,Math.max(0,(now-this.lastTargetAt)/1000));this.lastTargetAt=now;w.input={x:0,z:0};this.hideSkills();if(input.edges.has('back'))document.dispatchEvent(new Event('sc2-target-cancel'));else if(input.edges.has('confirm')||input.edges.has('stim'))document.dispatchEvent(new Event('sc2-target-confirm'));else if(input.move.x||input.move.z)document.dispatchEvent(new CustomEvent('sc2-target-nudge',{detail:{x:input.move.x*dt*8,z:input.move.z*dt*8}}));continue;}this.lastTargetAt=now;
    this.missingSkillAxes=p.mapping!=="standard"&&(mapping.skillX===undefined||mapping.skillY===undefined);w.input=input.move;
-   const pages=skillPages(w);this.skillPage=Math.min(this.skillPage,pages.length-1);
+   let read=battleActionReader(w),pages=skillPages(w,read);this.skillPage=Math.min(this.skillPage,pages.length-1);
    if(input.edges.has('previous')||input.edges.has('next')){this.skillPage=(this.skillPage+(input.edges.has('next')?1:pages.length-1))%pages.length;this.selectedSkill=null;}
    const skills=pages[this.skillPage];if(!skills.some(s=>s.id===this.selectedSkill))this.selectedSkill=null;
    this.selectedSkill=stickSkill(input.skill.x,input.skill.z,this.selectedSkill,skills);
-   if(this.selectedSkill&&(input.edges.has('confirm')||input.edges.has('stim'))&&skillUnlocked(w,this.selectedSkill))activateSkill(w,this.selectedSkill);
+   if(this.selectedSkill&&(input.edges.has('confirm')||input.edges.has('stim'))&&read(this.selectedSkill).enabled){activateSkill(w,this.selectedSkill);read=battleActionReader(w);pages=skillPages(w,read);}
    if(input.edges.has('back'))this.selectedSkill=null;
-   if(now>=this.panelAt){this.panelAt=now+100;this.drawSkills();}
+   if(now>=this.panelAt){this.panelAt=now+100;this.drawSkills(pages,read);}
   }
  }
- private hideSkills(){this.skillPanel.hidden=true;for(const el of document.querySelectorAll('.pad-selected'))el.classList.remove('pad-selected');}
- private drawSkills(){
-  const w=this.world,id=this.selectedSkill,skills=skillPages(w)[this.skillPage]??skillPages(w)[0],selected=skills.find(s=>s.id===id),selectedState=selected&&battleActionState(w,selected.id);
-  const html=`<span>${this.missingSkillAxes?'设置 → 手柄校准 · 补充右摇杆':'右摇杆选择 · A / X 施放 · LT / RT 翻页'}</span><span>${this.skillPage+1}/${skillPages(w).length}</span><div class="pad-options">${skills.map(s=>`<span class="pad-option ${id===s.id?'selected':''} ${skillUnlocked(w,s.id)?'':'locked'}" data-skill="${s.id}"><b>${s.arrow}</b>${s.name}</span>`).join('')}</div><strong>${selected?selected.name+(selectedState?.reason?' · '+selectedState.reason:''):'左摇杆移动 · 自动索敌'}</strong>`;
+ private hideSkills(){if(!this.skillPanel.hidden)this.skillPanel.hidden=true;for(const el of document.querySelectorAll('.pad-selected'))el.classList.remove('pad-selected');}
+ private drawSkills(pages:ReturnType<typeof skillPages>,read:ReturnType<typeof battleActionReader>){
+  const id=this.selectedSkill,skills=pages[this.skillPage]??pages[0],selected=skills.find(s=>s.id===id),selectedState=selected&&read(selected.id);
+  const html=`<span>${this.missingSkillAxes?'设置 → 手柄校准 · 补充右摇杆':'右摇杆选择 · A / X 施放 · LT / RT 翻页'}</span><span>${this.skillPage+1}/${pages.length}</span><div class="pad-options">${skills.map(s=>`<span class="pad-option ${id===s.id?'selected':''} ${read(s.id).enabled?'':'locked'}" data-skill="${s.id}"><b>${s.arrow}</b>${s.name}</span>`).join('')}</div><strong>${selected?selected.name+(selectedState?.reason?' · '+selectedState.reason:''):'左摇杆移动 · 自动索敌'}</strong>`;
   if(html!==this.lastPanel){this.skillPanel.innerHTML=html;this.lastPanel=html;}this.skillPanel.hidden=false;
   if(id)document.dispatchEvent(new CustomEvent('sc2-hud-skill-focus',{detail:id}));
   for(const el of document.querySelectorAll<HTMLElement>('#skills button,#hero-skills button,#console-commands [data-command]')){const selected=el.dataset.command===id||el.dataset.action===id||!!id?.startsWith('hero-slot-')&&el.dataset.heroSlot===id.slice(-1),was=el.classList.contains('pad-selected');el.classList.toggle('pad-selected',selected);if(selected&&!was)el.scrollIntoView({block:'nearest',inline:'nearest'});}
  }
- private menu(direction:string,confirm:boolean,back:boolean,selector='#overlay'){let root=document.querySelector<HTMLElement>('dialog[open]')??document.querySelector<HTMLElement>(selector);if(!root||root.hidden)return;root=[...root.querySelectorAll<HTMLElement>('.modal-window')].filter(e=>e.getClientRects().length).at(-1)??root;const controls=[...root.querySelectorAll<HTMLElement>('button:not(:disabled),select:not(:disabled),input:not(:disabled),textarea:not(:disabled),summary')].filter(e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden'&&!e.closest('[inert]'));if(!controls.length)return;let i=controls.indexOf(document.activeElement as HTMLElement),el=controls[Math.max(0,i)];
+ private menu(direction:string,confirm:boolean,back:boolean,selector='#overlay'){let root=document.querySelector<HTMLElement>('dialog[open]')??document.querySelector<HTMLElement>(selector);if(!root||root.hidden)return;root=[...root.querySelectorAll<HTMLElement>('.modal-window')].filter(e=>e.getClientRects().length).at(-1)??root;
+  const controlSelector='button:not(:disabled),select:not(:disabled),input:not(:disabled),textarea:not(:disabled),summary',focused=document.activeElement;
+  // Validate the current focus every poll, including CSS visibility and modal
+  // changes. Only actual navigation or invalid focus needs the complete list.
+  if(!direction&&!confirm&&!back&&focused instanceof HTMLElement&&root.contains(focused)&&focused.matches(controlSelector)&&!focused.closest('[inert]')&&focused.getClientRects().length&&getComputedStyle(focused).visibility!=='hidden')return;
+  const controls=[...root.querySelectorAll<HTMLElement>(controlSelector)].filter(e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden'&&!e.closest('[inert]'));if(!controls.length)return;let i=controls.indexOf(document.activeElement as HTMLElement),el=controls[Math.max(0,i)];
   if(back){const close=root.querySelector<HTMLButtonElement>('[data-close],[data-action="battle-panel-close"],[data-action="ui-back"],[data-action="shop-supply-cancel"],[data-action="shop-elite-cancel"],[data-action="boss-loot-variant-back"],[data-action="boss-loot-close"],[data-action="flow-cancel"],[data-action="menu-back"],[data-action="endless-back"],[data-action="settings-back"],[data-action="talents-back"]');if(close){close.click();return;}(root.querySelector<HTMLButtonElement>('[data-action="skip"],[data-action="pause"]')??el).focus();return;}
   if(direction){if(el instanceof HTMLInputElement&&el.type==='range'&&['left','right'].includes(direction)){const steps=el.dataset.setting==='camera-pitch'?1:5;if(direction==='right')el.stepUp(steps);else el.stepDown(steps);el.dispatchEvent(new Event('input',{bubbles:true}));return;}if(el instanceof HTMLSelectElement&&['left','right'].includes(direction)){el.selectedIndex=(el.selectedIndex+(direction==='right'?1:el.options.length-1))%el.options.length;el.dispatchEvent(new Event('change',{bubbles:true}));return;}i=(Math.max(0,i)+(['right','down'].includes(direction)?1:controls.length-1))%controls.length;el=controls[i];el.focus();el.scrollIntoView({block:'nearest'});}else if(i<0)el.focus();
   if(confirm){if(el instanceof HTMLSelectElement){el.selectedIndex=(el.selectedIndex+1)%el.options.length;el.dispatchEvent(new Event('change',{bubbles:true}));}else el.click();}
@@ -66,6 +71,6 @@ export class GamepadInput {
   }else {const button=p.buttons.findIndex(b=>b.value>.55);if(button<0)return;const key=(['confirm','back','stim','pause'] as const)[c.step-5];c.mapping[key]={button};}
   c.step++;c.waiting=true;if(c.step>8){this.mappings[p.id]=c.mapping;try{localStorage.setItem('sc2.gamepads.v1',JSON.stringify(this.mappings));}catch{}this.closeCalibration();this.select(p);this.armed.delete(p.index);this.world.announce('手柄校准完成');}else this.drawCalibration();
  }
- private closeCalibration(){this.dialog.hidden=true;this.calibrating=false;this.calibration=null;this.armed.clear();this.states.clear();}
+ private closeCalibration(){if(!this.dialog.hidden)this.dialog.hidden=true;this.calibrating=false;this.calibration=null;this.armed.clear();this.states.clear();}
  report(){return {active:this.active,skillPage:this.skillPage,skillPages:skillPages(this.world).length,selectedSkill:this.selectedSkill,needsRightStickCalibration:this.missingSkillAxes,index:this.index,calibrating:this.calibrating,connected:[...(navigator.getGamepads?.()??[])].filter(Boolean).map(p=>({id:p!.id,mapping:p!.mapping,axes:p!.axes.length,buttons:p!.buttons.length}))};}
 }

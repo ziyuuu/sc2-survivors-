@@ -1,0 +1,1 @@
+import fs from 'node:fs';const p='src/ui/presentation/reference-primitives.ts';let s=fs.readFileSync(p,'utf8').replace("${label?'with-label':''}","${label?'with-label game-button':''}");fs.writeFileSync(p,s);

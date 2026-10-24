@@ -1,0 +1,9 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import {createHash}from'node:crypto';
+const root='reports/local/performance-d02-low-20261021',hash=b=>createHash('sha256').update(b).digest('hex'),read=async p=>JSON.parse(await fs.readFile(p,'utf8'));
+const before=await read(root+'/inputs-before.json'),build=await read('preview/performance-d02-low-20261021-candidate-r3/build-inputs.json'),baseline=await read(build.baseline+'/build-inputs.json'),changed=[];
+for(const f of before.files)if(hash(await fs.readFile(f.file))!==f.sha256)changed.push(f.file);
+const added=build.changes.filter(f=>!before.files.some(x=>x.file===f));assert.deepEqual(changed.slice().sort(),build.changes.filter(f=>!added.includes(f)).slice().sort());assert.ok(changed.every(f=>f.startsWith('src/')));
+for(const f of build.inputs.filter(f=>f.file.startsWith('src/'))){assert.equal(hash(await fs.readFile(f.source)),f.sha256);if(!build.changes.includes(f.file))assert.equal(f.sha256,baseline.inputs.find(x=>x.file===f.file)?.sha256);else assert.equal(hash(await fs.readFile(f.file)),f.sha256);}
+for(const f of build.outputs)assert.equal(hash(await fs.readFile(f.file)),f.sha256);
+const result={existingSourceAndTestFiles:before.files.length,changedExisting:changed,unchangedExisting:before.files.length-changed.length,existingTestsChanged:0,added:[...added,'test/low-combat-preset.test.ts'],frozenBaselineProduction:baseline.inputs.filter(x=>x.file.startsWith('src/')).length,finalProduction:build.inputs.filter(x=>x.file.startsWith('src/')).length,unchangedFrozenProduction:build.inputs.filter(x=>x.file.startsWith('src/')&&!build.changes.includes(x.file)).length,overrides:build.overrides,main:build.outputs[0]};
+await fs.writeFile(root+'/scope-final.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));

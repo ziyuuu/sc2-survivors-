@@ -8,13 +8,19 @@ export const CARRIER_RADIUS=1.25;
 const active=(p:Pod)=>['falling','active','opening'].includes(p.status)&&p.hp>0;
 /** Full circumferential clearance prevents a carrier from sealing a narrow passage. */
 export function validCarrierLanding(w:World,type:UnitType,p:Point,ignoreId?:number,radius=CARRIER_RADIUS):boolean {
- const body=Math.max(.9,SC2_UNITS[type].flying?0:SC2_UNITS[type].unitRadius*TUNING.unitScale,...w.allies().filter(u=>!u.flying).map(u=>u.unitRadius));
+ return landingClear(w,p,ignoreId,radius,landingContext(w,type));
+}
+function landingContext(w:World,type:UnitType){
+ return {body:Math.max(.9,SC2_UNITS[type].flying?0:SC2_UNITS[type].unitRadius*TUNING.unitScale,...w.allies().filter(u=>!u.flying).map(u=>u.unitRadius)),
+  pods:w.pods.filter(active),forts:[...w.fortifications.values()].filter(f=>f.hp>0),structures:[w.hive,...w.expansionHives.values(),...w.economicTargets.values()].filter(b=>b&&b.hp>0&&b.attributes.includes('Structure'))};
+}
+function landingClear(w:World,p:Point,ignoreId:number|undefined,radius:number,context:ReturnType<typeof landingContext>):boolean {
+ const {body,pods,forts,structures}=context;
  const clearance=radius+body*2+.15;
  if(Math.abs(p.x)+clearance>=w.mapHalf||Math.abs(p.z)+clearance>=w.mapHalf||blocked(p,clearance,w.obstacles)||w.terrain&&!w.terrain.canOccupy(p,clearance))return false;
- if(w.pods.some(q=>q.id!==ignoreId&&active(q)&&distance(p,q)<clearance+q.unitRadius)||[...w.fortifications.values()].some(f=>f.hp>0&&distance(p,f)<clearance+f.unitRadius))return false;
+ if(pods.some(q=>q.id!==ignoreId&&distance(p,q)<clearance+q.unitRadius)||forts.some(f=>distance(p,f)<clearance+f.unitRadius))return false;
  const landing=w.expedition.support.unique.landing;if(landing&&landing.id!==ignoreId&&distance(p,landing.point)<clearance+1.6)return false;
- const structures=[w.hive,...w.expansionHives.values(),...w.economicTargets.values()];
- if(structures.some(b=>b&&b.hp>0&&b.attributes.includes('Structure')&&distance(p,b)<clearance+b.unitRadius))return false;
+ if(structures.some(b=>b&&distance(p,b)<clearance+b.unitRadius))return false;
  const terrain=w.terrain;
  if(!terrain)return true;
  let prev:Point|undefined;
@@ -28,12 +34,14 @@ export function validCarrierLanding(w:World,type:UnitType,p:Point,ignoreId?:numb
  return distance(w.anchor,p)<body||distance(w.anchor,next)>.01;
 }
 export function findCarrierLanding(w:World,type:UnitType,preferred?:Point,ignoreId?:number):Point|null {
- if(preferred&&validCarrierLanding(w,type,preferred,ignoreId))return {...preferred};
+ // A search is synchronous and read-only. Rebuild on every call, including landing retries.
+ const context=landingContext(w,type);
+ if(preferred&&landingClear(w,preferred,ignoreId,CARRIER_RADIUS,context))return {...preferred};
  const min=w.endless?4:w.stage<=3?7:14,max=w.endless?11:w.stage<=3?13:32;
  const cells=w.spawnLocations.filter(p=>{const d=distance(p,w.anchor);return d>=min&&d<=max;}),n=cells.length;
  // Retry seconds advance the scan, including when no new entity IDs are allocated.
  const start=((Math.imul(w.nextId,2654435761)>>>0)+Math.floor(w.time)*192)%Math.max(1,n);
- for(let i=0;i<Math.min(n,192);i++){const p=cells[(start+i)%n];if(validCarrierLanding(w,type,p,ignoreId))return {...p};}
+ for(let i=0;i<Math.min(n,192);i++){const p=cells[(start+i)%n];if(landingClear(w,p,ignoreId,CARRIER_RADIUS,context))return {...p};}
  return null;
 }
 export function carrierGuardPosition(w:World,p:Pod,type:UnitType,index:number):Point|null {

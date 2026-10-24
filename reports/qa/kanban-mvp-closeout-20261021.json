@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-21",
+  "kind": "planning-only",
+  "revision": 108,
+  "title": "星际幸存者MVP收尾与性能看板",
+  "total": 62,
+  "completed": 46,
+  "remaining": 16,
+  "pending": 14,
+  "deferred": 2,
+  "next": "I01",
+  "added": [
+    "I01",
+    "I02",
+    "I03",
+    "G03",
+    "U05",
+    "V05",
+    "V06"
+  ],
+  "expandedExisting": [
+    "G01",
+    "T01",
+    "V01",
+    "V02",
+    "V03",
+    "V04",
+    "D05",
+    "D06"
+  ],
+  "checks": {
+    "generatorValidation": "passed IDs, statuses, phases, references and dependency cycles",
+    "exactEmbeddedBoard": true,
+    "markdownTaskEntries": true,
+    "old55TaskStatusesUnchanged": true,
+    "old46CompletedTasksUnchanged": true,
+    "old169AuditRowsUnchanged": true,
+    "oldHistoryPreserved": true,
+    "allPendingTasksLeadToFinalMvpClosure": true,
+    "saveRequiredBeforeFinalRegressionAndDelivery": true,
+    "extraBackendPerformanceStillDeferred": true,
+    "sourceAndTestFilesUnchanged": 729
+  },
+  "scopeEvidence": {
+    "currentMainStartsEquipment": true,
+    "currentEquipmentPersistence": "memoryOnly remains; deferred D05",
+    "funBranch": "read-only thread snapshot: poison barrage/normal view/independent preview work in progress, no message or mutation",
+    "historicalStatus": "2026-10-16 status treated as historical; no obsolete equipment-entry task added"
+  },
+  "beforeSnapshot": "reports/local/kanban-mvp-closeout-20261021/before.json",
+  "outputs": [
+    {
+      "file": "AGENTS.md",
+      "sha256": "5e9cbab26cea7518e9728816f75a67f29f1d3b5af520a2e7fe4e9d2277f4a2d7"
+    },
+    {
+      "file": "docs/project/performance-board.json",
+      "sha256": "c0bf48a765dee7bf5e28b61d8ae6fed7bdf8dddc3bc42be6cca227c00dd34c45"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_BOARD.html",
+      "sha256": "2696a04d803113add22c9550d95bab61ebe97fdf26ea3fdeebe58e2746e6f14b"
+    },
+    {
+      "file": "docs/project/PERFORMANCE_TODO.md",
+      "sha256": "34ed3c9b3bc67a8c5e2fd242e00f06d5586181d59e4332ad037fa0e6ddf0677f"
+    },
+    {
+      "file": "docs/project/MVP_COMPLETION_CONTRACT_20261013.md",
+      "sha256": "c4915d22fe0c66d463f672cbf02384f3049a31309177a5d9a1bc8cc571a7ce84"
+    }
+  ],
+  "limits": [
+    "Risks are planned checks, not newly reproduced bugs",
+    "No new gameplay regression, performance measurement or visual acceptance",
+    "No branch merge, game changes, persistence implementation or independent HTML generation",
+    "No Current replacement, commit, push, deployment or real backend action"
+  ]
+}

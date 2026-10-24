@@ -43,8 +43,8 @@ export function sourcePhases(def:SourceEffectDefinition,age:number,loop=false,se
  if(!loop&&death&&death!==content&&death!==birth)result.push({clip:death,seconds:Math.max(0,Math.min(death.duration,age-offset)),offset,cycle:0});
  return result;
 }
-export function sourcePhase(def:SourceEffectDefinition,age:number,loop=false,seed=0,preferred?:string):SourcePhase {
- const phases=sourcePhases(def,age,loop,seed,preferred),phase=phases.filter(p=>p.offset<=age).at(-1)??phases[0];
+export function sourcePhase(def:SourceEffectDefinition,age:number,loop=false,seed=0,preferred?:string,phases=sourcePhases(def,age,loop,seed,preferred)):SourcePhase {
+ const phase=phases.filter(p=>p.offset<=age).at(-1)??phases[0];
  if(!phase)throw Error('No original effect animation: '+def.id);return phase;
 }
 const lives=new WeakMap<SourceEffectDefinition,number>();
@@ -70,8 +70,26 @@ export function emissionSchedule(p:SourceEmitter,clip:SourceClip):readonly Birth
  for(const b of bursts){if(b.time<0){previous=b.value;continue;}if(b.time>duration)break;const n=Math.max(0,Math.round(b.value));if(n>0&&(b.time===0||n!==previous))for(let i=0;i<n;i++)result.push({time:b.time,ordinal:next++});previous=n;}
  result.sort((a,b)=>a.time-b.time||a.ordinal-b.ordinal);byClip.set(clip,result);return result;
 }
-export function activeBirths(def:SourceEffectDefinition,p:SourceEmitter,age:number,loop:boolean,seed:number,preferred?:string):{born:number;ordinal:number;phase:SourcePhase}[]{
- const maxLife=Math.max(.01,sourceLife(def)),phases=sourcePhases(def,age,loop,seed,preferred),active:{born:number;ordinal:number;phase:SourcePhase}[]=[];
+// This upper bound only removes births already dead under every authored
+// numeric lifespan. Unknown values retain the original wider search window.
+const particleLifeBounds=new WeakMap<SourceEffectDefinition,WeakMap<SourceEmitter,number>>();
+export function particleLifetimeBound(def:SourceEffectDefinition,p:SourceEmitter){
+ let emitters=particleLifeBounds.get(def);if(!emitters){emitters=new WeakMap();particleLifeBounds.set(def,emitters);}const hit=emitters.get(p);if(hit!==undefined)return hit;
+ let bound=0,known=true;
+ for(const key of ['lifespan','lifespan_random']){
+  const value=p[key];if(value===undefined||value===null)continue;
+  if(typeof value==='number'){if(!Number.isFinite(value))known=false;else bound=Math.max(bound,Math.abs(value));continue;}
+  if(typeof value!=='object'||Array.isArray(value)||!('id'in value)||!('default'in value)){known=false;continue;}
+  const ref=value as unknown as MaterialRef;if(ref.interpolation!==0&&ref.interpolation!==1){known=false;continue;}
+  const values=[ref.default,...def.materialProfile.clips.flatMap(c=>c.tracks.filter(t=>t.id===ref.id).flatMap(t=>t.values))];
+  for(const v of values){if(typeof v!=='number'||!Number.isFinite(v))known=false;else bound=Math.max(bound,Math.abs(v));}
+ }
+ // Keep rounding slack for linear interpolation and the randomized endpoint mix.
+ // Extreme numbers or nonstandard clip durations fall back to the old algorithm.
+ const result=known&&bound<Number.MAX_VALUE/4&&def.materialProfile.clips.every(c=>c.duration>=.001)?bound+Math.max(1e-9,bound*Number.EPSILON*32):Infinity;emitters.set(p,result);return result;
+}
+export function activeBirths(def:SourceEffectDefinition,p:SourceEmitter,age:number,loop:boolean,seed:number,preferred?:string,phases=sourcePhases(def,age,loop,seed,preferred),particleBound=Infinity):{born:number;ordinal:number;phase:SourcePhase}[]{
+ const maxLife=Math.max(.01,Math.min(sourceLife(def),particleBound)),active:{born:number;ordinal:number;phase:SourcePhase}[]=[];
  for(const phase of phases){const previousCycles=loop&&phase.cycle>0?Math.min(phase.cycle,Math.ceil(maxLife/Math.max(.001,phase.clip.duration))):0;
   for(let cycle=phase.cycle-previousCycles;cycle<=phase.cycle;cycle++){const offset=phase.offset-(phase.cycle-cycle)*phase.clip.duration;
    for(const birth of emissionSchedule(p,phase.clip)){const born=offset+birth.time;if(born>age+1e-8||age-born>maxLife)continue;active.push({born,ordinal:birth.ordinal+cycle*104729,phase:{clip:phase.clip,seconds:birth.time,offset,cycle}});}
@@ -85,12 +103,18 @@ export function lifeCurve(a:number,b:number,c:number,t:number,mid=.5,smoothing=0
  let f=t<left?t/Math.max(.000001,left):t<=right?1:(t-right)/Math.max(.000001,1-right);if(smoothing===1)f=f*f*(3-2*f);if(smoothing===2||smoothing===4)f=f*f*f*(f*(f*6-15)+10);
  return t<=right?a+(b-a)*f:b+(c-b)*f;
 }
-const poseCache=new WeakMap<SourceEffectDefinition,Map<string,Matrix4[]>>();
+type PoseCache={entries:Map<string,Matrix4[]>;hits:number;misses:number;evictions:number};
+const poseCache=new WeakMap<SourceEffectDefinition,PoseCache>();
+const clipIds=new WeakMap<SourceClip,number>();let nextClipId=0;
+/** Exact authored times and clip identity; the limit bounds reuse, never animation. */
+export function sourcePoseCacheReport(def:SourceEffectDefinition){const c=poseCache.get(def);return {entries:c?.entries.size??0,hits:c?.hits??0,misses:c?.misses??0,evictions:c?.evictions??0,limit:512,matrixElements:(c?.entries.size??0)*def.bones.length*16};}
 export function boneMatrices(def:SourceEffectDefinition,phase:SourcePhase):Matrix4[]{
- let cache=poseCache.get(def);if(!cache){cache=new Map();poseCache.set(def,cache);}const key=phase.clip.name+':'+phase.seconds,hit=cache.get(key);if(hit)return hit;
+ let state=poseCache.get(def);if(!state){state={entries:new Map(),hits:0,misses:0,evictions:0};poseCache.set(def,state);}const cache=state.entries;
+ let clipId=clipIds.get(phase.clip);if(clipId===undefined){clipId=nextClipId++;clipIds.set(phase.clip,clipId);}const key=clipId+':'+phase.seconds,hit=cache.get(key);
+ if(hit){state.hits++;cache.delete(key);cache.set(key,hit);return hit;}state.misses++;
  const matrices:Matrix4[]=[],pending=new Set<number>();
  const calculate=(i:number):Matrix4=>{if(matrices[i])return matrices[i];if(pending.has(i))throw Error('Cyclic original effect skeleton');pending.add(i);const b=def.bones[i],r=b.rest;
   const read=(key:'location'|'rotation'|'scale')=>{const ref=b[key],track=trackMap(phase.clip).get(ref.id);if(!track&&r){const v=key==='location'?r.position:key==='rotation'?r.rotation:r.scale;return {x:v[0],y:v[1],z:v[2],w:v[3]};}return sourceSample(phase.clip,phase.seconds,ref) as Record<string,number>;};
   const p=read('location'),q=read('rotation'),s=read('scale'),m=new Matrix4().compose(new Vector3(p.x,p.y,p.z),new Quaternion(q.x,q.y,q.z,q.w).normalize(),new Vector3(s.x,s.y,s.z));if(b.parent>=0)m.premultiply(calculate(b.parent));pending.delete(i);return matrices[i]=m;};
- def.bones.forEach((_,i)=>calculate(i));if(cache.size>=512)cache.clear();cache.set(key,matrices);return matrices;
+ def.bones.forEach((_,i)=>calculate(i));if(cache.size>=512){cache.delete(cache.keys().next().value!);state.evictions++;}cache.set(key,matrices);return matrices;
 }

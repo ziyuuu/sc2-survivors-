@@ -14,7 +14,7 @@ const distance=(a:Point,b:Point)=>Math.hypot(a.x-b.x,a.z-b.z);
 const eligible=(u:Entity)=>permanentBiological(u)&&!u.heroId;
 export function canRegisterZergRevivalSeat(w:World,source:Entity,u:Entity){if(!eligible(u)||!w.expedition.familySlots.includes(u.unitType as UnitType)||w.edgeDistance(source,u)>R.niadra.revivalRange||!w.hasAttackLine(source,u))return false;if(!u.pairId)return true;const p=w.expedition.zerglingPairs.find(p=>p.id===u.pairId),bodies=p?pairBodies(w,p):[];return bodies.length===2&&bodies.every(a=>w.edgeDistance(source,a)<=R.niadra.revivalRange&&w.hasAttackLine(source,a));}
 const active=(w:World,r:RevivalWindow)=>r.until>w.time&&r.charges>0;
-const wholeSeatDead=(w:World,s:RevivalSeat)=>s.members.every(u=>(w.entities.get(u.id)?.hp??0)<=0)&&(!s.pairId||![...w.entities.values()].some(u=>u.pairId===s.pairId&&u.hp>0));
+const wholeSeatDead=(w:World,s:RevivalSeat)=>s.members.every(u=>((w.entities.get(u.id)??w.specialStages.active?.evacuated.get(u.id))?.hp??0)<=0)&&(!s.pairId||![...w.entities.values()].some(u=>u.pairId===s.pairId&&u.hp>0));
 const waiting=(w:World,r:RevivalWindow,s:RevivalSeat)=>active(w,r)&&!s.claimed&&s.deadAt!==null&&w.expedition.familySlots.includes(s.family)&&wholeSeatDead(w,s);
 export function zergRevivalSeats(w:World,family:UnitType){return new Set(w.zergHeroes.revivals.flatMap(r=>r.seats.filter(s=>s.family===family&&waiting(w,r,s)).map(s=>s.key))).size;}
 export function reservedZergElite(w:World,id:EliteId){return w.zergHeroes.revivals.some(r=>r.seats.some(s=>waiting(w,r,s)&&s.members.some(u=>u.eliteId===id)));}
