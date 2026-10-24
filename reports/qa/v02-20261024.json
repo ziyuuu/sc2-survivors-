@@ -1,0 +1,898 @@
+{
+  "task": "V02",
+  "date": "2026-10-24",
+  "status": "有限验证完成；功能流程通过，性能目标未通过",
+  "boardRevision": 175,
+  "scope": "用户要求复用已有证据，仅做必要代表路线；本批一个固定出征，未扩展种族/难度/种子或极限矩阵。",
+  "sourceCommit": "59224f537cdb3988d4dff6d30d4a11aa031cf8ce",
+  "build": "aa7b59bb88c4a44915fe6591217ebd22c066930c4c49bd359c12bf829624424c",
+  "route": {
+    "race": "terran",
+    "difficulty": "normal",
+    "seed": 529,
+    "runId": "02730020-433a-4121-adaa-3997ce1c979b",
+    "openingGear": "Prepared legal G03 graduation blue eight body parts plus four modules; not naturally acquired from zero",
+    "clock": "Native browser RAF / FixedStepper 1x; no direct step loop",
+    "input": "Automatic policy emits legal public actions; actual native UI for loading, departure, special reward return, retreat, warehouse/workshop and re-departure; not human or physical-input acceptance",
+    "outcome": "finished",
+    "campaignOutcome": "won",
+    "completedStages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "endlessRoundCompleted": {
+      "phase": "battle",
+      "stage": 18,
+      "time": 2040.3833333333332,
+      "tick": 122423,
+      "elapsed": 0.3833333333333333,
+      "duration": 60,
+      "endless": {
+        "round": 5,
+        "elapsed": 240.3833333333332
+      },
+      "paused": false,
+      "decision": false,
+      "special": null,
+      "allies": 27,
+      "enemies": 24,
+      "kills": 9063,
+      "backlog": 0.00006666666657360182,
+      "discarded": 0.18333333333333335,
+      "pending": 0,
+      "ready": {
+        "kind": null,
+        "phase": "idle",
+        "done": 0,
+        "total": 0,
+        "label": "",
+        "error": null,
+        "progress": 0
+      },
+      "saveFailed": false,
+      "runId": "02730020-433a-4121-adaa-3997ce1c979b",
+      "seed": 529,
+      "gameSpeed": 1,
+      "error": null
+    },
+    "selectedEndlessCheckpoints": [
+      {
+        "round": 1,
+        "time": 1860,
+        "file": "reports/local/v02-20261024/representative-r5/checkpoint-18-1.json"
+      },
+      {
+        "round": 2,
+        "time": 1920,
+        "file": "reports/local/v02-20261024/representative-r5/checkpoint-18-2.json"
+      },
+      {
+        "round": 3,
+        "time": 1980,
+        "file": "reports/local/v02-20261024/representative-r5/checkpoint-18-3.json"
+      },
+      {
+        "round": 4,
+        "time": 2040,
+        "file": "reports/local/v02-20261024/representative-r5/checkpoint-18-4.json"
+      }
+    ],
+    "sameRunResumed": true,
+    "uninterruptedRun": false,
+    "wallSeconds": 2962.824,
+    "excluded": "Two pre-game startup failures, harness interruption at stage7 and failed controller initialization replay are preserved separately; natural outcomes were not rerolled"
+  },
+  "performance": {
+    "overall": {
+      "frameIntervals": 75499,
+      "meanMs": 28.26762738579311,
+      "meanFPS": 35.3761561362092,
+      "p95Ms": 50.19999999925494,
+      "maxMs": 451.30000000074506,
+      "over50": 3853,
+      "over100": 42,
+      "over250": 2,
+      "meanRenderCpuMs": 19.504738828198715,
+      "maxBacklogSeconds": 1.4163999999999133,
+      "activeSegmentDiscardedDelta": 0,
+      "skippedFrames": 0
+    },
+    "bySegment": [
+      {
+        "key": "1",
+        "frameIntervals": 2916,
+        "meanMs": 20.549965706446933,
+        "meanFPS": 48.66188169288672,
+        "p95Ms": 34.70000000111759,
+        "maxMs": 90,
+        "over50": 27,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 13.545251971210954,
+        "maxBacklogSeconds": 0.08333333333333334,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "2",
+        "frameIntervals": 2579,
+        "meanMs": 23.24769290422601,
+        "meanFPS": 43.015021065519065,
+        "p95Ms": 37.5,
+        "maxMs": 246,
+        "over50": 33,
+        "over100": 5,
+        "over250": 0,
+        "meanRenderCpuMs": 16.522596899233037,
+        "maxBacklogSeconds": 0.14993333333334102,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "3",
+        "frameIntervals": 3247,
+        "meanMs": 18.46692331382861,
+        "meanFPS": 54.1508719674581,
+        "p95Ms": 27.200000001117587,
+        "maxMs": 99.5,
+        "over50": 8,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 14.079187192126026,
+        "maxBacklogSeconds": 0.01670000000001177,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "special:1",
+        "frameIntervals": 1788,
+        "meanMs": 16.777404921700224,
+        "meanFPS": 59.60397359823988,
+        "p95Ms": 23.299999998882413,
+        "maxMs": 40,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 11.524818334284943,
+        "maxBacklogSeconds": 0.01663333333332197,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "4",
+        "frameIntervals": 3892,
+        "meanMs": 19.258633093525084,
+        "meanFPS": 51.92476512448895,
+        "p95Ms": 27.699999999254942,
+        "maxMs": 82.5,
+        "over50": 4,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 14.561032622655475,
+        "maxBacklogSeconds": 0.01663333333332392,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "5",
+        "frameIntervals": 3279,
+        "meanMs": 22.867398597133047,
+        "meanFPS": 43.730378676539665,
+        "p95Ms": 34.40000000037253,
+        "maxMs": 89.30000000074506,
+        "over50": 7,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 17.492256097583578,
+        "maxBacklogSeconds": 0.033399999999965665,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "6",
+        "frameIntervals": 3161,
+        "meanMs": 23.71246440999672,
+        "meanFPS": 42.17191358560012,
+        "p95Ms": 33.80000000074506,
+        "maxMs": 79.70000000111759,
+        "over50": 4,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 18.048766603396473,
+        "maxBacklogSeconds": 0.04990000000002581,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "special:2",
+        "frameIntervals": 1458,
+        "meanMs": 23.36447187928695,
+        "meanFPS": 42.800025832662584,
+        "p95Ms": 41.79999999888241,
+        "maxMs": 103.09999999962747,
+        "over50": 21,
+        "over100": 2,
+        "over250": 0,
+        "meanRenderCpuMs": 16.35366689512344,
+        "maxBacklogSeconds": 0.10006666666666134,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "7",
+        "frameIntervals": 3249,
+        "meanMs": 27.689689135118154,
+        "meanFPS": 36.11452606492879,
+        "p95Ms": 44.5,
+        "maxMs": 137.7000000011176,
+        "over50": 53,
+        "over100": 1,
+        "over250": 0,
+        "meanRenderCpuMs": 20.04843076922802,
+        "maxBacklogSeconds": 0.10003333333334566,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "8",
+        "frameIntervals": 3350,
+        "meanMs": 26.853194029850524,
+        "meanFPS": 37.23951790942935,
+        "p95Ms": 45.5,
+        "maxMs": 282.40000000037253,
+        "over50": 89,
+        "over100": 2,
+        "over250": 1,
+        "meanRenderCpuMs": 18.64303193075882,
+        "maxBacklogSeconds": 0.26650000000000307,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "9",
+        "frameIntervals": 3535,
+        "meanMs": 25.447383309759548,
+        "meanFPS": 39.29677121719942,
+        "p95Ms": 39.40000000037253,
+        "maxMs": 90.90000000037253,
+        "over50": 21,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 17.58048642533452,
+        "maxBacklogSeconds": 0.03336666666662112,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "10",
+        "frameIntervals": 3684,
+        "meanMs": 28.487052117264046,
+        "meanFPS": 35.10366730413529,
+        "p95Ms": 52.79999999888241,
+        "maxMs": 123.80000000074506,
+        "over50": 239,
+        "over100": 3,
+        "over250": 0,
+        "meanRenderCpuMs": 18.885264586162435,
+        "maxBacklogSeconds": 0.2833333333333367,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "special:3",
+        "frameIntervals": 1578,
+        "meanMs": 18.99619771863118,
+        "meanFPS": 52.64211369095276,
+        "p95Ms": 28.90000000037253,
+        "maxMs": 48.59999999962747,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 14.322989233665078,
+        "maxBacklogSeconds": 0.016633333333379983,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "11",
+        "frameIntervals": 3786,
+        "meanMs": 27.731352350766077,
+        "meanFPS": 36.06026808037636,
+        "p95Ms": 43.600000001490116,
+        "maxMs": 113.90000000037253,
+        "over50": 83,
+        "over100": 1,
+        "over250": 0,
+        "meanRenderCpuMs": 19.485080538696778,
+        "maxBacklogSeconds": 0.06656666666669149,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "12",
+        "frameIntervals": 3658,
+        "meanMs": 28.69855112083075,
+        "meanFPS": 34.84496467398848,
+        "p95Ms": 46.40000000037253,
+        "maxMs": 137.30000000074506,
+        "over50": 105,
+        "over100": 1,
+        "over250": 0,
+        "meanRenderCpuMs": 20.350860890975397,
+        "maxBacklogSeconds": 0.08319999999995514,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "13",
+        "frameIntervals": 4116,
+        "meanMs": 29.147667638483693,
+        "meanFPS": 34.30806239466307,
+        "p95Ms": 46.20000000111759,
+        "maxMs": 116.10000000149012,
+        "over50": 120,
+        "over100": 2,
+        "over250": 0,
+        "meanRenderCpuMs": 20.261501093025196,
+        "maxBacklogSeconds": 0.1667333333333596,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "14",
+        "frameIntervals": 4050,
+        "meanMs": 29.617901234567903,
+        "meanFPS": 33.763364665179964,
+        "p95Ms": 45.40000000037253,
+        "maxMs": 94.30000000074506,
+        "over50": 90,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 20.29029869165164,
+        "maxBacklogSeconds": 0.08333333333333781,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "15",
+        "frameIntervals": 3944,
+        "meanMs": 30.41729208924968,
+        "meanFPS": 32.87603633702251,
+        "p95Ms": 45.5,
+        "maxMs": 157.39999999850988,
+        "over50": 77,
+        "over100": 4,
+        "over250": 0,
+        "meanRenderCpuMs": 20.893814955648928,
+        "maxBacklogSeconds": 0.0996666666667885,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "16",
+        "frameIntervals": 4433,
+        "meanMs": 33.82395668847315,
+        "meanFPS": 29.564843912563,
+        "p95Ms": 53.100000001490116,
+        "maxMs": 156,
+        "over50": 373,
+        "over100": 4,
+        "over250": 0,
+        "meanRenderCpuMs": 21.798195760014913,
+        "maxBacklogSeconds": 0.6330333333332913,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "17",
+        "frameIntervals": 3654,
+        "meanMs": 41.068089764640675,
+        "meanFPS": 24.34980554807769,
+        "p95Ms": 59.20000000298023,
+        "maxMs": 119.30000000074506,
+        "over50": 659,
+        "over100": 5,
+        "over250": 0,
+        "meanRenderCpuMs": 26.39384404927105,
+        "maxBacklogSeconds": 1.0662999999998273,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "18",
+        "frameIntervals": 3609,
+        "meanMs": 41.542948185092825,
+        "meanFPS": 24.07147406930637,
+        "p95Ms": 61.80000000074506,
+        "maxMs": 141.10000000149012,
+        "over50": 873,
+        "over100": 5,
+        "over250": 0,
+        "meanRenderCpuMs": 26.379445983304375,
+        "maxBacklogSeconds": 1.4163999999999133,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "E1",
+        "frameIntervals": 1630,
+        "meanMs": 36.434110429448765,
+        "meanFPS": 27.44680707757106,
+        "p95Ms": 56.400000002235174,
+        "maxMs": 451.30000000074506,
+        "over50": 215,
+        "over100": 3,
+        "over250": 1,
+        "meanRenderCpuMs": 24.92403433476943,
+        "maxBacklogSeconds": 0.7833000000000453,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "E2",
+        "frameIntervals": 1584,
+        "meanMs": 37.867739898989896,
+        "meanFPS": 26.407702246488558,
+        "p95Ms": 59.600000001490116,
+        "maxMs": 182.40000000223517,
+        "over50": 248,
+        "over100": 2,
+        "over250": 0,
+        "meanRenderCpuMs": 26.149148265009142,
+        "maxBacklogSeconds": 0.4500000000000008,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "E3",
+        "frameIntervals": 1802,
+        "meanMs": 33.27325194228552,
+        "meanFPS": 30.054170891819073,
+        "p95Ms": 55.899999998509884,
+        "maxMs": 142.69999999925494,
+        "over50": 181,
+        "over100": 1,
+        "over250": 0,
+        "meanRenderCpuMs": 23.11741541871513,
+        "maxBacklogSeconds": 0.1498333333333375,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "E4",
+        "frameIntervals": 1486,
+        "meanMs": 40.35625841184287,
+        "meanFPS": 24.779304111764283,
+        "p95Ms": 65.39999999850988,
+        "maxMs": 140.80000000074506,
+        "over50": 309,
+        "over100": 1,
+        "over250": 0,
+        "meanRenderCpuMs": 25.684599865468442,
+        "maxBacklogSeconds": 1.1331333333333837,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      },
+      {
+        "key": "E5",
+        "frameIntervals": 31,
+        "meanMs": 48.02580645163694,
+        "meanFPS": 20.822138635131978,
+        "p95Ms": 57.399999998509884,
+        "maxMs": 61.80000000074506,
+        "over50": 14,
+        "over100": 0,
+        "over250": 0,
+        "meanRenderCpuMs": 31.200000000186265,
+        "maxBacklogSeconds": 0.016633333333147208,
+        "activeSegmentDiscardedDelta": 0,
+        "skippedFrames": 0
+      }
+    ],
+    "limits": "Intervals measured at native renderer calls while battle is active and not paused/decision/loading. Loading/suspended gaps are excluded; pendingFrames was not instrumented continuously and is not used as evidence of zero resource gates. Boundary driver resets are separate from active-segment discarded deltas. One run, not a paired optimization comparison or 60 FPS acceptance. Original interrupted stage7 and failed initialization replay excluded from the selected performance summary."
+  },
+  "openIssues": [
+    {
+      "id": "V02-NATIVE-PERF-001",
+      "resolved": false,
+      "status": "未解决，普通代表路线未达60FPS",
+      "scope": "当前完整画质、原生1x自动浏览器人族普通529路线，非新增极限压力场景",
+      "observed": {
+        "meanIntervalMs": 28.26762738579311,
+        "approximateRenderFPS": 35.3761561362092,
+        "stage17FPS": 24.34980554807769,
+        "stage18FPS": 24.07147406930637,
+        "maxIntervalMs": 451.30000000074506,
+        "over100": 42,
+        "maxSimulationBacklogSeconds": 1.4163999999999133
+      },
+      "limits": "渲染调用间隔折算，非显示器逐帧或人类体验验收。不能用全程平均掩盖后期约24FPS；451ms尖峰未直接归因，不等同于旧410/502.7ms根因已找到。未降低画质或启动新优化/追踪。",
+      "evidence": "../../reports/local/v02-20261024/route-result.json"
+    }
+  ],
+  "checks": [
+    {
+      "name": "native-special-claim-and-return",
+      "kind": "crossing",
+      "id": "02730020-433a-4121-adaa-3997ce1c979b:special:2"
+    },
+    {
+      "name": "actual-native-settlement",
+      "outcome": "success",
+      "retained": 48,
+      "lost": 6,
+      "dust": 125
+    },
+    {
+      "name": "one-earned-warehouse-item-dismantled",
+      "id": "ship-item-57"
+    },
+    {
+      "name": "native-workshop-craft-from-earned-dust",
+      "before": 145,
+      "after": {
+        "items": [
+          {
+            "id": "ship-item-125",
+            "template": "module.logistics.1",
+            "race": "terran",
+            "slot": "logistics",
+            "quality": 1,
+            "allocation": 2,
+            "affixes": [],
+            "binding": {},
+            "pollution": "none",
+            "inherited": []
+          }
+        ],
+        "dust": 135
+      }
+    },
+    {
+      "name": "reload-account-management-and-terminal-receipt-exact"
+    },
+    {
+      "name": "next-legal-expedition-started",
+      "archive": {
+        "name": "next-expedition-checkpoint",
+        "phase": "battle",
+        "stage": 1,
+        "time": 0,
+        "endless": null,
+        "runId": "4ad89831-1a52-4364-89e1-5ad3e0a9acda",
+        "accountRun": "4ad89831-1a52-4364-89e1-5ad3e0a9acda",
+        "ended": false,
+        "settlement": {
+          "run": "02730020-433a-4121-adaa-3997ce1c979b",
+          "outcome": "success",
+          "retained": [
+            "ship-item-13",
+            "ship-item-14",
+            "ship-item-15",
+            "ship-item-21",
+            "ship-item-22",
+            "ship-item-28",
+            "ship-item-29",
+            "ship-item-30",
+            "ship-item-26",
+            "ship-item-38",
+            "ship-item-40",
+            "ship-item-43",
+            "ship-item-45",
+            "ship-item-46",
+            "ship-item-49",
+            "ship-item-52",
+            "ship-item-47",
+            "ship-item-51",
+            "ship-item-50",
+            "ship-item-48",
+            "ship-item-55",
+            "ship-item-56",
+            "ship-item-57",
+            "ship-item-74",
+            "ship-item-75",
+            "ship-item-76",
+            "ship-item-77",
+            "ship-item-78",
+            "ship-item-79",
+            "ship-item-82",
+            "ship-item-84",
+            "ship-item-85",
+            "ship-item-86",
+            "ship-item-87",
+            "ship-item-94",
+            "ship-item-106",
+            "ship-item-107",
+            "ship-item-108",
+            "ship-item-109",
+            "ship-item-110",
+            "ship-item-111",
+            "ship-item-112",
+            "ship-item-113",
+            "ship-item-114",
+            "ship-item-115",
+            "ship-item-116",
+            "ship-item-117",
+            "ship-item-119"
+          ],
+          "lost": [
+            {
+              "id": "ship-item-118",
+              "template": "set.training.2",
+              "race": "terran",
+              "slot": "offense1",
+              "quality": 2,
+              "allocation": 2,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            },
+            {
+              "id": "ship-item-120",
+              "template": "module.formation.2",
+              "race": "terran",
+              "slot": "control",
+              "quality": 2,
+              "allocation": 2,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            },
+            {
+              "id": "ship-item-121",
+              "template": "attribute.1",
+              "race": "terran",
+              "slot": "defense1",
+              "quality": 1,
+              "allocation": 2,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            },
+            {
+              "id": "ship-item-122",
+              "template": "attribute.3",
+              "race": "terran",
+              "slot": "offense1",
+              "quality": 3,
+              "allocation": 2,
+              "affixes": [
+                {
+                  "key": "critDamage",
+                  "score": 200
+                },
+                {
+                  "key": "trueDps",
+                  "score": 200
+                },
+                {
+                  "key": "crit",
+                  "score": 200
+                }
+              ],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            },
+            {
+              "id": "ship-item-123",
+              "template": "set.training.2",
+              "race": "terran",
+              "slot": "defense3",
+              "quality": 2,
+              "allocation": 2,
+              "affixes": [],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            },
+            {
+              "id": "ship-item-124",
+              "template": "attribute.3",
+              "race": "terran",
+              "slot": "defense1",
+              "quality": 3,
+              "allocation": 4,
+              "affixes": [
+                {
+                  "key": "reduction",
+                  "score": 182
+                },
+                {
+                  "key": "move",
+                  "score": 173
+                },
+                {
+                  "key": "health",
+                  "score": 188
+                }
+              ],
+              "binding": {},
+              "pollution": "none",
+              "inherited": []
+            }
+          ],
+          "salvaged": [],
+          "dust": 0
+        }
+      }
+    }
+  ],
+  "archives": {
+    "count": 29,
+    "validatedWith": "readArchive + native config and account/run association",
+    "source": "reports/local/v02-20261024/route-result.json"
+  },
+  "reuse": {
+    "report": "reports/local/v02-20261024/reuse-audit.json",
+    "routes": 25,
+    "threeRaceHistorical": {
+      "selected": 24,
+      "enteredEndless": 20,
+      "lost": 4,
+      "replayedNow": 0
+    },
+    "sourceRows": 511,
+    "unchanged": 475,
+    "dataUnchanged": true,
+    "limitation": "Reuse verified raw route outcomes and growth/loss mechanisms with unchanged combat/numeric sources. The fun-shop legality fix can change purchase sequences, and persistence/retreat rules changed; old outcomes are not guarantees of identical current outcomes. Current single browser campaign closes actual saves, transitions and growth loop. No new balance/pressure cohort."
+  },
+  "harness": {
+    "report": "reports/local/v02-20261024/harness-corrections.json",
+    "attempts": 5,
+    "newCampaigns": 1,
+    "nativeResumeAttempts": 2,
+    "uninterrupted": false,
+    "applicationErrors": 0,
+    "finalControllerErrors": 0,
+    "failuresPreserved": true
+  },
+  "growth": {
+    "specialVisits": [
+      "第4关资源",
+      "第7关横穿虫群",
+      "第11关资源"
+    ],
+    "deaths": 3,
+    "maximumSampledAllies": 28,
+    "maximumSampledEnemies": 125,
+    "settlement": {
+      "retained": 48,
+      "lostGroundDrops": 6,
+      "salvaged": 0,
+      "dustBeforeManagement": 125,
+      "dustAfterDismantle": 145,
+      "dustAfterCraft": 135
+    },
+    "note": "六件遗失均在撤退前实际检查点中属于地面未拾取装备，不是成功撤退随机丢失背包装备。样本最大值不是逐步最大值。"
+  },
+  "visual": {
+    "reviewed": [
+      {
+        "file": "reports/local/v02-20261024/representative-r3/checkpoint-1-0.png",
+        "sha256": "5537e2150fb6687c375b863e51c94ef682964bd53adb65db87899e0b378e4b9b"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r3/failure.png",
+        "sha256": "db584437e22534c973ad7c6034ac9ec1a7e3cc2c4a01e9c595f9e6602428f4c8"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r5/special-2-returned.png",
+        "sha256": "c6507747c8cf558b95946ad9e7efd2625dba95f32258eb54fd7fc7fa3a9e2313"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r5/checkpoint-12-0.png",
+        "sha256": "741e5c2cba62374fbe65d9474d2b3653a00fb58d9978a8096622a8ddeaef5801"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r5/campaign-victory.png",
+        "sha256": "44e10a0e6651f5c3e77fd4babb5ad464dbe9f61806f7a23cabe68b4fcde9064f"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r5/endless-ready.png",
+        "sha256": "b1aac2fc87696c6745ef4f74f18bc0372aa8f6b8ecf8b178de17b4563556b8e1"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r5/endless-round-complete.png",
+        "sha256": "ae67da80f973060629cc2e76be213313b0e91cc4a7db2d8e4901c13f39c8c8b3"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r5/actual-settlement.png",
+        "sha256": "002be0a0e3f60a5aeb61a34fd7646b577603208e1267b092299f58f6b7d2f594"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r5/earned-warehouse.png",
+        "sha256": "cab468a4a2137a90b9566a527a6914a5dbfcb2f6d0191e029753cfb5c3ec95be"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r5/workshop-crafted.png",
+        "sha256": "f75f112dadf6bc7b6c6517e6a422128f0e582fb818cdd2eb91276931e1c2d9de"
+      },
+      {
+        "file": "reports/local/v02-20261024/representative-r5/next-expedition-battle.png",
+        "sha256": "427625650956bea63699a98a066801c4cc15aa5c170c13dd244a3d21d0d2d989"
+      }
+    ],
+    "assessment": "实际主战场、特殊返回、通关、无尽、结算、仓库、工坊合成和再次出征截图已查看；入口动画截图不冒充静态UI验收。详细静态/UI和组合效果审查仍留T01/V03。"
+  },
+  "source": {
+    "files": 840,
+    "unchanged": 840,
+    "current": "dist/SC2-Survivors-Current-20261006.html",
+    "currentSha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+    "gameProductionChanged": false
+  },
+  "newGameRegressionTests": 0,
+  "reusedRegression": "V01同版2567回归及D05/V01恢复证据；本批无游戏源码变更，不重复计数。",
+  "cleanup": {
+    "at": "2026-10-24T21:13:17.2049584+08:00",
+    "root": "D:\\星际\\reports\\local\\v02-20261024",
+    "verifiedResult": "route-result.json",
+    "paths": [
+      {
+        "path": "D:\\星际\\reports\\local\\v02-20261024\\representative-r1-profile",
+        "runs": [
+          "representative-r1"
+        ],
+        "files": 154,
+        "bytes": 8544084,
+        "closed": true
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\v02-20261024\\representative-r2-profile",
+        "runs": [
+          "representative-r2"
+        ],
+        "files": 1713,
+        "bytes": 247814502,
+        "closed": true
+      },
+      {
+        "path": "D:\\星际\\reports\\local\\v02-20261024\\representative-r3-profile",
+        "runs": [
+          "representative-r3",
+          "representative-r4",
+          "representative-r5"
+        ],
+        "files": 2070,
+        "bytes": 632581037,
+        "closed": true
+      }
+    ],
+    "preserved": "All raw reports, screenshots, logs, archives, source and controller artifacts; only these owned closed test browser profiles are removed.",
+    "completed": true
+  },
+  "delivery": {
+    "commit": false,
+    "push": false,
+    "publish": false,
+    "currentReplaced": false
+  },
+  "limits": [
+    "Historical three-race hard/hell evidence is reused, not new browser runs.",
+    "Representative native gameplay with automatic inputs is not human win rate or physical-device acceptance.",
+    "Performance figures do not certify 60 FPS; V01 known limitations remain.",
+    "Only the bounded endless cycle is new; long-duration endless endurance is not claimed.",
+    "Gameplay source, UI, quality, camera/input settings and Current remain unchanged."
+  ],
+  "result": "reports/local/v02-20261024/route-result.json"
+}
