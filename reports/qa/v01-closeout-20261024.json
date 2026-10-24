@@ -1,6 +1,6 @@
 {
   "date": "2026-10-24",
-  "status": "v01-bounded-closeout-main-push-prepared",
+  "status": "v01-bounded-closeout-source-pushed-to-main",
   "boardRevision": 173,
   "decision": "按用户决定结束V01集中优化：保留后台Float32骨骼索引、每关5秒剩余预算按需准备/就绪即出发、粒子相位与生命周期复用及两项保存修复；现有档位和默认高档保持。同版2567回归及状态/视觉/存档/恢复证据保留。密集60FPS未达、偶发尖峰及着色器超时仍作为已知限制开放；不继续本机极限矩阵。下一项V02，最终V/T01/MVP未完成。",
   "productionChangedThisTurn": false,
@@ -521,11 +521,29 @@
   },
   "delivery": {
     "branch": "main",
-    "commit": null,
-    "pushed": false,
+    "commit": "b08fbcf3d6990912125f3a7529fdbfcb44b2b2de",
+    "pushed": true,
     "currentReplaced": false,
     "onlineDeployed": false,
-    "scope": "Approved accumulated source/tests/build and verification tools/runtime LFS/documents; excludes private source-pack changes, raw local evidence and generated preview bundles."
+    "scope": "Approved accumulated source/tests/build and verification tools/runtime LFS/documents; excludes private source-pack changes, raw local evidence and generated preview bundles.",
+    "verifiedRemoteCommit": "b08fbcf3d6990912125f3a7529fdbfcb44b2b2de",
+    "remote": "https://github.com/ziyuuu/sc2-survivors-.git",
+    "verifiedAt": "2026-10-24T11:59:05.789Z",
+    "newLfsObjects": 35,
+    "newLfsBytes": 41176751,
+    "committedFiles": 1516,
+    "sourceCommit": true,
+    "receiptNote": "This metadata is committed after the verified source push; the later record commit changes no game code.",
+    "approvalReview": {
+      "initialPushRejected": true,
+      "reason": "Remote ownership and payload authorization not yet established",
+      "resolved": true,
+      "evidence": "Connected GitHub user ziyuuu ID30162380 equals repository owner; admin/push permissions verified. User authorized main push and runtime LFS scope."
+    },
+    "networkAttempt": {
+      "first": "35 LFS objects uploaded; Git transport HTTP408; remote remained old commit",
+      "second": "Normal push succeeded; remote SHA independently verified"
+    }
   },
   "submissionVerification": {
     "pass": true,
