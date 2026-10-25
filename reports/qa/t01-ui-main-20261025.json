@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-25",
+  "status": "verified-ui-update",
+  "authorization": "可以。就按这个更新。我的意思是，包括之前UI改动都更新到main并提交git。",
+  "changes": [
+    "装备详情、悬浮说明、效果汇总及换装预览显示具体英雄、精英和生产方向；单体专属与全队精英作用范围分开。",
+    "合并此前已确认UI：装备槽绝对定位；菜单隐藏战斗条；关间等级改为N级；五档品质底色与选中状态；套装按件数和品质分组、激活标记及独立规则/换装预览。"
+  ],
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r16\\T01-综合检测.html",
+    "bytes": 814661695,
+    "sha256": "4160b291e92d091e371a2118f5b6511d0ad4f478f6246d592f2b362ec171c14e",
+    "assets": 1909,
+    "chunks": 2975
+  },
+  "verification": {
+    "tests": 60,
+    "uniqueConcreteIdentityTemplateCombinations": 540,
+    "typecheck": true,
+    "toolTypecheck": true,
+    "isolatedMainPlusSelectedUi": {
+      "tests": 60,
+      "typecheck": true,
+      "base": "5d0727a",
+      "note": "从main提取src/test及必要工具依赖，仅覆盖本次6份UI文件和针对测试；使用当前生成的runtime资源索引作为必要输入。重复运行不增加唯一测试数。"
+    },
+    "nativeChecks": 33,
+    "offlineChecks": 33,
+    "races": 3,
+    "viewportModes": 3,
+    "http": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "baselineFiles": 846,
+    "unchangedSinceR15": 842,
+    "changedSinceR15": [
+      "src/ui/starship/effect-text.ts",
+      "src/ui/starship/equipment-description.ts",
+      "src/ui/starship/legacy-view.ts",
+      "test/equipment-set-description.test.ts"
+    ],
+    "buildInputs": 531,
+    "embeddedResourcePayloadUnchanged": true,
+    "prototypePages": 26,
+    "prototypeStates": 365,
+    "reusedUnrelatedTemplates": 187,
+    "prototypeBusinessLogic": false
+  },
+  "reusedEvidence": [
+    "reports/qa/t01-equipment-ui-20261025.json",
+    "reports/qa/t01-set-layout-20261025.json"
+  ],
+  "git": {
+    "branch": "main",
+    "productionFiles": [
+      "src/ui/intermission-skin/presentation.ts",
+      "src/ui/native-hud/battle.css",
+      "src/ui/starship/effect-text.ts",
+      "src/ui/starship/equipment-description.ts",
+      "src/ui/starship/legacy-view.ts",
+      "src/ui/starship/native.css"
+    ],
+    "testFiles": [
+      "test/equipment-set-description.test.ts"
+    ],
+    "documentationFiles": [
+      "docs/project/T01_UI_MAIN_20261025.md",
+      "reports/qa/t01-ui-main-20261025.json"
+    ],
+    "scope": "Only approved UI source, regression tests and this focused record. Other pending render/combat changes, private assets, generated previews and historical artifact deletions are excluded.",
+    "remotePushRequested": false
+  },
+  "resolvedAttempts": [
+    "隔离main类型检查初次缺少tools/backend及opening-vite-plugin依赖，补齐HEAD原文件后通过。",
+    "首轮离线加载时浏览器进程退出，未形成有效检查；同一HTML串行重试结果单独计入33项。"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "只保留当前综合HTML和必要输入；本批缓存、截图、隔离main测试副本及上一版HTML完成后删除。",
+    "removedFiles": 4418,
+    "removedLogicalBytes": 1590804230,
+    "retainedCurrentHtmlVerified": true
+  },
+  "currentReplaced": false,
+  "publish": false,
+  "reproduce": [
+    "node --import tsx --test test/equipment-set-description.test.ts test/starship-ui-flow.test.ts test/fun-feedback-r4-interactions.test.ts test/g03-rank-equipment-growth.test.ts",
+    "npm run typecheck",
+    "node tools/export-t01-prototypes.mjs --refresh-equipment",
+    "node tools/qa-t01-set-controls.mjs native --identities",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/qa-t01-set-controls.mjs offline reports/local/t01-20261024/offline-rN/build.json --identities"
+  ],
+  "limits": [
+    "本次只处理UI，未更改套装数值、战斗、购买、存档或掉落机制。",
+    "T01动态与最终画面验收仍开放，不提前启动V04或通过最终V/MVP。"
+  ]
+}

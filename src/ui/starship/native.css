@@ -51,12 +51,13 @@
 .starship-ui .preset-name-hint{color:#9cb1c0;margin-top:8px}.starship-ui .preset-name-error{color:#f1b5ad}.starship-ui .preset-name-error:empty{display:none}
 .starship-ui .ship-dialog .dialog-title{align-items:center;gap:12px}.starship-ui .ship-dialog h2{margin:0;min-width:0;overflow-wrap:anywhere;line-height:1.4}
 .starship-ui .ship-dialog:has([data-preset-name-form]){width:min(520px,calc(100vw - 24px));max-height:calc(100dvh - 24px)}
-.starship-ui .rarity-1,.equipment-tooltip.rarity-1{--equipment-tint:#d2dce5;--equipment-fill:#303a45}
-.starship-ui .rarity-2,.equipment-tooltip.rarity-2{--equipment-tint:#88e5a0;--equipment-fill:#173d2c}
-.starship-ui .rarity-3,.equipment-tooltip.rarity-3{--equipment-tint:#8fc8ff;--equipment-fill:#193952}
-.starship-ui .rarity-4,.equipment-tooltip.rarity-4{--equipment-tint:#d5a6ff;--equipment-fill:#3e2851}
-.starship-ui .rarity-5,.equipment-tooltip.rarity-5{--equipment-tint:#ffc07b;--equipment-fill:#51341e}
+.starship-ui .rarity-1,.equipment-tooltip.rarity-1{--equipment-tint:#d2dce5;--equipment-fill:#28313b}
+.starship-ui .rarity-2,.equipment-tooltip.rarity-2{--equipment-tint:#88e5a0;--equipment-fill:#123324}
+.starship-ui .rarity-3,.equipment-tooltip.rarity-3{--equipment-tint:#8fc8ff;--equipment-fill:#142f45}
+.starship-ui .rarity-4,.equipment-tooltip.rarity-4{--equipment-tint:#d5a6ff;--equipment-fill:#342143}
+.starship-ui .rarity-5,.equipment-tooltip.rarity-5{--equipment-tint:#ffc07b;--equipment-fill:#452b18}
 .starship-ui .item-grid .game-button.item,.starship-ui .ship-slots .slot.occupied{position:relative;background:var(--equipment-fill);border-color:var(--equipment-tint)}
+.starship-ui[data-race] .ship-slots .game-button.slot.occupied{position:absolute;background:var(--equipment-fill)!important}
 .starship-ui .item-grid .game-button.item:is(:hover,.selected),.starship-ui .ship-slots .slot.occupied:is(:hover,.selected){background:var(--equipment-fill);border-color:var(--equipment-tint);box-shadow:inset 0 0 0 1px var(--equipment-tint)}
 .starship-ui .item-grid .game-button.item.selected,.starship-ui .item-wrap.selected>.item{outline:2px solid #fff;outline-offset:2px}
 .starship-ui .equipment-quality{position:absolute;right:5px;top:5px;z-index:1;background:#09101ee8;color:var(--equipment-tint);border:1px solid var(--equipment-tint);border-radius:3px;padding:1px 4px;font-size:10px;line-height:1.4;pointer-events:none}
@@ -66,3 +67,13 @@
 .starship-ui .inspect-effects .inactive-effect{color:#c6ceda}.starship-ui .inspect-effects small{color:#aebccc}.starship-ui .equipment-preview{padding-top:8px;border-top:1px solid #ffffff25}
 .equipment-tooltip{position:fixed;z-index:100000;box-sizing:border-box;width:300px;max-width:calc(100vw - 16px);padding:12px 14px;border:1px solid var(--equipment-tint);border-radius:6px;background:#101a29f7;color:#edf4ff;box-shadow:0 6px 24px #0009;pointer-events:none;font:12px/1.7 system-ui,sans-serif}
 .equipment-tooltip strong{color:var(--equipment-tint)}.equipment-tooltip p{margin:7px 0}.equipment-tooltip small{color:#c6d2e1}
+.starship-ui .equipment-set,.starship-ui details.equipment-preview{font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+.starship-ui .equipment-set{border-top:1px solid #ffffff30;padding-top:12px}
+.starship-ui .set-heading,.starship-ui .set-tier-heading,.starship-ui .set-step-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.starship-ui .set-heading h4{margin:0;color:#a4e5a2;font-size:14px}.starship-ui .set-heading>span{color:#d6e5d7}
+.starship-ui .set-item-status,.starship-ui .set-quality-gate{margin:5px 0 10px;color:#b5c4d1}
+.starship-ui .set-tier-heading{margin-top:10px;color:#e3eaf0}.starship-ui .set-tier-heading>span{font-size:11px;color:#b5c4d1}
+.starship-ui .set-bonus-step{padding:9px 0;border-bottom:1px solid #ffffff12}.starship-ui .set-bonus-step ul{list-style:none;margin:4px 0 0;padding:0 0 0 8px;border-left:1px solid currentColor}.starship-ui .set-bonus-step li+li{margin-top:4px}
+.starship-ui .equipment-set .active-effect{color:#a4e5a2}.starship-ui .equipment-set .inactive-effect{color:#b5c4d1}.starship-ui .set-step-heading>span{font-size:11px}
+.starship-ui .set-other-tiers,.starship-ui .set-rules,.starship-ui .set-inherited{margin-top:8px}.starship-ui .equipment-set summary,.starship-ui details.equipment-preview summary{cursor:pointer;padding:9px 0;color:#c8d6e2}
+.starship-ui .set-rules p,.starship-ui details.equipment-preview p{margin:4px 0 8px;color:#b5c4d1}

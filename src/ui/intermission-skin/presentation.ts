@@ -40,7 +40,7 @@ export function objectIndex(c:CardView){
 export function cardPresentation(w:World,c:CardView,r?:ExpeditionReward){
  const source=c.id.slice(c.id.indexOf(':')+1);
  const catalogueEffect=!r&&source.startsWith('card.')?source.split('.')[1]:undefined;
- const e=r?.expeditionEffect,level=(n:number)=>'level'+n;
+ const e=r?.expeditionEffect,level=(n:number)=>n+'级';
  let current='',gain='',simple=c.stat,detail=c.detail;
  const strength=({white:'提高',green:'小幅提高',blue:'中幅提高',purple:'大幅提高',orange:'极大幅度提高'})[c.rarity];
  if(e?.kind==='supply'){

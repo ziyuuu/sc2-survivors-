@@ -1,11 +1,27 @@
 import type {EquipmentEffect} from '../../simulation/starship/catalog';
-import {statNames,statValue} from './presentation';
+import type {EquipmentBinding} from '../../simulation/starship/types';
+import {bindingDirection} from '../../simulation/starship/eligibility';
+import {PRODUCTION_LINES} from '../../data/expedition-buildings';
+import {bindingName,statNames,statValue} from './presentation';
 const labels:Record<string,string>={opening_workers:'开局随行劳工',periodic_resources:'定时矿气补给',catch_up:'落后成员追赶',bombardment:'定时范围轰击',worker_efficiency:'劳工效率',pickup_yield:'拾取收益',pickup_radius:'拾取范围',worker_rescue:'救援增员',pickup_double:'双倍拾取概率',stage_resources:'每关矿气补给',shop_refresh:'关间额外刷新',free_product:'免费商品概率',purchase_discount:'商品矿气减价',refresh_discount:'刷新费用减免',manual_cooldown:'主动技能冷却缩减',moving_fire:'移动射击',split:'分裂攻击',melee_range:'近战距离增加',weapon_range:'射程增加',reinforcement:'周期临时援军',egg_reinforcement:'虫卵救援',opening_hydralisk:'开局刺蛇援军',opening_rank:'开局士兵等级',opening_count:'开局成员数量',opening_zerglings:'开局跳虫援军',periodic_trap:'周期陷阱',development_refresh:'发展选项刷新',opening_elite:'开局精英',rescue_rank:'救援升阶概率',foreign_elites:'异族精英援军',opening_roaches:'开局蟑螂援军',stage_bunker:'每关地堡',drone_hunter:'击杀劳工收益',bounty:'赏金合同',overload:'火炮过载',hold:'驻守火力',opening_pack:'开局猎群',pack_rank:'猎群等级',pack_kill:'猎群进化',phantom:'全息幻影',opening_fleet:'开局舰队',fleet_elite:'舰队精英',burn_area:'区域灼烧',recruit_discount:'招募折扣',capacity_members:'绑定方向成员上限',direction_reinforcement:'绑定方向援军',rank_discount:'升阶折扣',capacity_rank:'绑定方向等级上限',kill_training:'击杀训练',opening_elite_bound:'绑定精英开局等级',opening_elite_rank:'开局精英等级',opening_hero_proxy:'英雄先遣队',opening_hero:'绑定英雄开局等级',replace_hero_proxy:'先遣队替换',rescue:'阵亡救援',share_damage:'伤害分担',armor_percent:'护甲加成',training_evolution:'训练进化',volley:'集体齐射',foreign_elites_second:'第二批异族精英',ravager_evolution:'破坏者进化',fortification:'防御工事',development_double:'双重发展',drone_mentor:'劳工导师',bounty_hero:'英雄赏金',overload_chain:'殉爆连锁',hold_volley:'驻守齐射',capture:'敌军捕获',fleet_reinforcement:'舰队增援',burn_trail:'移动火路',opening_direction:'绑定方向开局兵力',recruit_rank:'绑定方向招募等级',opening_direction_elites:'绑定方向精英',insurance:'阵亡保险',crit_pursuit:'暴击追击',iron_counter:'重甲反击',light_assault:'高速突击',precision_crit:'精准暴击',wall_counter:'坚壁反伤',sustain_heal:'周期恢复',white_dps:'白字秒伤加成',white_hp:'白字生命加成',white_armor:'白字护甲加成',hero_orange:'英雄专属进阶',hero_growth:'英雄击杀成长',capacity_members_all:'所有方向成员上限',capacity_rank_all:'所有方向等级上限',capacity_squads:'编队上限',adventurer:'冒险者掉落与生命代价',adventurer_replace:'高阶冒险者替代',stage_yamato:'每关大和支援',lost_templar:'失落圣堂援军',lost_adept:'失落使徒援军',true_burn:'真实灼烧',burn_execute:'灼烧处决',periodic_worker:'周期劳工',worker_building:'劳工建筑',card_drop:'卡牌掉落',card_copy:'卡牌复制',rescue_double:'双倍救援',rescue_elite:'精英救援',equipment_drop:'装备掉落',boss_quality:'首领装备品质权重',harvest:'连锁丰收',loan:'资源借贷',stage_reward_percent:'关卡奖励加成',resource_drop:'资源掉落',supply_interest:'补给利息',free_refresh_quality:'免费刷新品质',purchase_copy:'采购复制',purchase_identity_discount:'指定身份采购折扣',purchase_rank:'采购等级',stable_refresh:'稳定刷新价格',refresh_credit:'刷新返还',refresh_multiplier:'刷新价格倍率',first_purchase_free:'首次采购免费',build_free:'免费建造',build_double:'双重建造',build_research:'建设研究',paid_elite:'付费精英招募',elite_training:'精英训练',manual_reset:'主动技能重置',moving_extra:'移动额外攻击',bounce:'弹射',cleave:'顺劈',distance_damage:'距离增伤',pierce:'穿透',adrenaline:'肾上腺素',last_stand:'濒死反击',prepare_reduction:'形态准备缩减',reinforcement_elite:'精英援军',egg_conversion:'虫卵策反',incendiary:'燃烧弹',opening_ultralisk:'开局雷兽',ultralisk_elite:'精英雷兽',drop_pod:'空降突击',drop_elite:'精英空降',reactor:'反应堆援军',joint_support:'联合作战支援',swarm:'虫群支援',konstant:'康斯坦威强化',plague:'虫灾',rewind:'时光回溯',bounty_order:'星际悬赏令',plunder:'战争掠夺',capacity_baseline:'编制基础上限',recruit_rank_all:'全方向招募等级',research_cap:'科技等级上限',hero_cap:'英雄等级上限',weakness:'弱点接管',dominance:'战场主导',yamato_support:'大和扫射',behemoth:'巨兽突入',devour:'吞星成长',phase:'相位继生',ark:'终焉方舟',weapon_area:'武器范围伤害',cluster:'集束连锁',execute:'概率处决',execute_chain:'处决连锁',out_of_combat_shield:'脱战护盾',shield_rebuild:'护盾重构',auto_recall:'战场调控',recall_phantom:'调控幻影',weapon_bonus:'克制武器强化',double_attack:'双重打击'};
 const pct=(n:number)=>Number((n*100).toFixed(2))+'%';
-export function effectText(effect:EquipmentEffect):string {
+/** Concrete item identities travel with active effects and replacement previews. */
+export function effectText(effect:EquipmentEffect&{binding?:EquipmentBinding}):string {
+ const {binding:b,key,values:v}=effect,text=genericEffectText(effect);if(!b)return text;
+ const identity=b.hero||b.elite?bindingName(b):undefined,direction=bindingDirection(b),rank=(n:number)=>(['','Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ','Ⅷ','Ⅸ'][n]??n)+'级';
+ if(identity){
+  if(key==='opening_hero'||key==='opening_elite_bound')return `开局获得${rank(v[0])}${identity}`;
+  if(key==='opening_elite_rank')return `开局${identity}至少达到${rank(v[0])}`;
+  if(key==='bound.health')return `${identity}最大生命 +${pct(v[0])}`;
+  if(key==='bound.shield')return `${identity}最大护盾 +${pct(v[0])}`;
+  if(key==='hero_orange')return `${identity}专属进阶${v[0]===2?'（污染英雄系列，净化后保留）':''}`;
+ }
+ return text.replaceAll('绑定英雄',b.hero?identity!:'绑定英雄').replaceAll('绑定精英',b.elite?identity!:'绑定精英').replaceAll('绑定身份',identity??'绑定身份').replaceAll('绑定方向',direction?PRODUCTION_LINES[direction].name+'方向':'绑定方向');
+}
+function genericEffectText(effect:EquipmentEffect):string {
  const {key,values:v}=effect,[scope,stat]=key.split('.');
  if(['stat','bound','direction','elite','ordinary'].includes(scope)){
-  const target=({stat:'全军',bound:'绑定身份',direction:'绑定方向普通士兵',elite:'精英',ordinary:'普通士兵'} as Record<string,string>)[scope];
+  const target=({stat:'全军',bound:'绑定身份',direction:'绑定方向普通士兵',elite:'全队精英',ordinary:'普通士兵'} as Record<string,string>)[scope];
   if(stat==='native')return `${target}原生能力 +${pct(v[0])}`;
   if(stat==='native_tier')return `${target}原生能力：四件 +${pct(v[0])}，六件 +${pct(v[1])}`;
   return `${target}${statNames[stat as keyof typeof statNames]??(stat==='shield'?'护盾':stat)} +${statValue(stat,v[0])}`;
@@ -38,7 +54,7 @@ export function effectText(effect:EquipmentEffect):string {
   case 'foreign_elites':case 'foreign_elites_second':return `${labels[key]}：一名 ${v[0]} 级异族精英，不可升级或复活`;
   case 'opening_pack':return `开局获得 ${v[0]} 只 ${v[1]} 级跳虫，猎群上限 ${v[2]}`;
   case 'pack_kill':return `击杀敌方跳虫时 ${pct(v[0])} 概率招来 ${v[2]} 级跳虫，猎群上限 ${v[1]}`;
-  case 'bounty':return `每拾取 ${v[0]} 矿石，招来或提升绑定精英一级，最高 ${v[1]} 级`;
+  case 'bounty':return `每拾取 ${v[0]} 矿石，招来或提升赏金精英一级，最高 ${v[1]} 级`;
   case 'bounty_hero':return `赏金精英满级后转为英雄，之后每 ${v[0]} 矿石升一级，最高 ${v[1]} 级`;
   case 'overload':return `${pct(v[0])} 概率触发半径 ${v[1]}、${pct(v[2])} 伤害的过载；损失自身 ${pct(v[3])} 生命（保留 1 点），冷却 ${v[4]} 秒`;
   case 'overload_chain':return `过载击杀最多引发 ${v[0]} 次殉爆，继承 ${pct(v[1])} 过载伤害`;
