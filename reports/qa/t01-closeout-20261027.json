@@ -1,0 +1,623 @@
+{
+  "date": "2026-10-27",
+  "task": "T01",
+  "status": "engineering-verified-awaiting-local-integration",
+  "summary": "本次接入德哈卡实际行走脚步、跳虫/虫后群体移动声和兵营增援下降推进声，新增7个原声音库、12份原始音频，449个既有音库及153份模拟源码保持。此前批准的T01动作、特效、虫后腐蚀、声音、比例、死亡颜色、生命周期与检测工具累计修复一并纳入本地main收尾。2704唯一回归经环境复测全部通过，类型、资料一致性、正常构建及入口通过；r33离线22项音频/英雄场景、9项新移动声、19组对白轮换及30项累计反馈场景通过，12组各三轮、三尺寸、1921音频解码、实际信号、控制及导出通过，HTTP/页面错误0。",
+  "authorization": "用户通过原聊天协调请求：接入已确认适用声音，将这几轮累计修复提交并合并main；不部署发布、不启动下一阶段、不擅自公开私有原始素材。",
+  "scopeDocument": "docs/project/T01_CLOSEOUT_20261027.md",
+  "audio": {
+    "simulationPreserved": 153,
+    "oldBanksPreserved": 449,
+    "addedBanks": [
+      "coop:Dehaka_FootStep",
+      "melee:zZerg_moveHerdSmall_loop",
+      "melee:zZerg_moveHerdMedium_loop",
+      "melee:zZerg_moveHerdLarge_loop",
+      "melee:zZerg_moveQueenHerdMedium_loop",
+      "melee:zZerg_moveQueenHerdLarge_loop",
+      "melee:Barracks_Movement"
+    ],
+    "allBuildRecords": 4133,
+    "audioRecords": 1911,
+    "sourceModelsVerified": 105,
+    "currentPreserved": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "newOriginalFiles": 12
+  },
+  "validation": {
+    "uniqueTests": {
+      "total": 2704,
+      "passed": 2704,
+      "unresolvedFailures": 0,
+      "initial": {
+        "passed": 2697,
+        "failed": 7
+      },
+      "environmentRecovery": "7项初次失败均属于localhost网络权限；2项Coze测试与14项P5后端组在宿主环境复测通过，按2704唯一用例计数，不叠加重复用例。"
+    },
+    "productionTypecheck": true,
+    "browserToolTypecheck": true,
+    "documentationDataCheck": true,
+    "webBuild": true,
+    "offlineAudio": {
+      "cases": 22,
+      "confirmedMovement": [
+        {
+          "family": "zergling",
+          "count": 9,
+          "layers": 0,
+          "groups": [],
+          "peak": 0,
+          "stopped": true
+        },
+        {
+          "family": "zergling",
+          "count": 10,
+          "layers": 1,
+          "groups": [
+            {
+              "key": "herd:Herd_ZergSmallUnits:5:0",
+              "bank": "melee:zZerg_moveHerdSmall_loop",
+              "playing": true
+            }
+          ],
+          "peak": 0.00817372277379036,
+          "stopped": true
+        },
+        {
+          "family": "zergling",
+          "count": 25,
+          "layers": 2,
+          "groups": [
+            {
+              "key": "herd:Herd_ZergSmallUnits:5:0",
+              "bank": "melee:zZerg_moveHerdSmall_loop",
+              "playing": true
+            },
+            {
+              "key": "herd:Herd_ZergSmallUnits:5:1",
+              "bank": "melee:zZerg_moveHerdMedium_loop",
+              "playing": true
+            }
+          ],
+          "peak": 0.018777986988425255,
+          "stopped": true
+        },
+        {
+          "family": "zergling",
+          "count": 100,
+          "layers": 3,
+          "groups": [
+            {
+              "key": "herd:Herd_ZergSmallUnits:5:0",
+              "bank": "melee:zZerg_moveHerdSmall_loop",
+              "playing": true
+            },
+            {
+              "key": "herd:Herd_ZergSmallUnits:5:1",
+              "bank": "melee:zZerg_moveHerdMedium_loop",
+              "playing": true
+            },
+            {
+              "key": "herd:Herd_ZergSmallUnits:5:2",
+              "bank": "melee:zZerg_moveHerdLarge_loop",
+              "playing": true
+            }
+          ],
+          "peak": 0.06372210383415222,
+          "stopped": true
+        },
+        {
+          "family": "queen",
+          "count": 6,
+          "layers": 0,
+          "groups": [],
+          "peak": 0,
+          "stopped": true
+        },
+        {
+          "family": "queen",
+          "count": 7,
+          "layers": 1,
+          "groups": [
+            {
+              "key": "herd:Herd_ZergQueens:4:0",
+              "bank": "melee:zZerg_moveQueenHerdMedium_loop",
+              "playing": true
+            }
+          ],
+          "peak": 0.023715822026133537,
+          "stopped": true
+        },
+        {
+          "family": "queen",
+          "count": 18,
+          "layers": 2,
+          "groups": [
+            {
+              "key": "herd:Herd_ZergQueens:4:0",
+              "bank": "melee:zZerg_moveQueenHerdMedium_loop",
+              "playing": true
+            },
+            {
+              "key": "herd:Herd_ZergQueens:4:1",
+              "bank": "melee:zZerg_moveQueenHerdLarge_loop",
+              "playing": true
+            }
+          ],
+          "peak": 0.0580410473048687,
+          "stopped": true
+        },
+        {
+          "kind": "dehaka-actual-walk",
+          "peak": 0.05584442988038063
+        },
+        {
+          "kind": "barracks-descent",
+          "peak": 0.1280849575996399,
+          "landedSilent": true
+        }
+      ],
+      "voiceRotations": [
+        {
+          "id": "actor:hero.raynor:1:idle",
+          "heard": [
+            "liberty:Raynor_Yes",
+            "liberty:Raynor_Pissed",
+            "liberty:Raynor_What"
+          ],
+          "peak": 0.2017183005809784
+        },
+        {
+          "id": "actor:hero.tychus:1:idle",
+          "heard": [
+            "liberty:Tychus_Yes",
+            "liberty:Tychus_Pissed",
+            "liberty:Tychus_What"
+          ],
+          "peak": 0.2673594057559967
+        },
+        {
+          "id": "actor:hero.nova:1:idle",
+          "heard": [
+            "liberty:Nova_Yes",
+            "liberty:Nova_Pissed",
+            "liberty:Nova_What"
+          ],
+          "peak": 0.17896512150764465
+        },
+        {
+          "id": "actor:hero.swann:1:idle",
+          "heard": [
+            "liberty:Swann_Yes",
+            "liberty:Swann_Pissed",
+            "liberty:Swann_What"
+          ],
+          "peak": 0.212340846657753
+        },
+        {
+          "id": "actor:hero.tosh:1:idle",
+          "heard": [
+            "liberty:Tosh_Yes",
+            "liberty:Tosh_Pissed",
+            "liberty:Tosh_What"
+          ],
+          "peak": 0.17472568154335022
+        },
+        {
+          "id": "actor:hero.kerrigan:1:idle",
+          "heard": [
+            "liberty:Kerrigan_Yes",
+            "liberty:Kerrigan_Pissed",
+            "liberty:Kerrigan_What"
+          ],
+          "peak": 0.15376482903957367
+        },
+        {
+          "id": "actor:hero.zagara:1:idle",
+          "heard": [
+            "coop:ZagaraHero_Pissed",
+            "coop:ZagaraHero_Ready",
+            "coop:ZagaraHero_Yes"
+          ],
+          "peak": 0.14821188151836395
+        },
+        {
+          "id": "actor:hero.dehaka:1:idle",
+          "heard": [
+            "swarm:Dehaka_Pissed",
+            "swarm:Dehaka_What",
+            "swarm:Dehaka_Yes"
+          ],
+          "peak": 0.19302970170974731
+        },
+        {
+          "id": "actor:hero.stukov:1:idle",
+          "heard": [
+            "swarm:Stukov_Yes",
+            "swarm:Stukov_Pissed",
+            "swarm:Stukov_What"
+          ],
+          "peak": 0.13036291301250458
+        },
+        {
+          "id": "actor:hero.niadra:1:idle",
+          "heard": [
+            "swarm:Niadra_Yes",
+            "swarm:Niadra_Pissed",
+            "swarm:Niadra_What"
+          ],
+          "peak": 0.20621460676193237
+        },
+        {
+          "id": "actor:hero.artanis:1:idle",
+          "heard": [
+            "void:ArtanisVoid_Yes",
+            "void:ArtanisVoid_Pissed",
+            "void:ArtanisVoid_What"
+          ],
+          "peak": 0.10175834596157074
+        },
+        {
+          "id": "actor:hero.zeratul:1:idle",
+          "heard": [
+            "liberty:Zeratul_Yes",
+            "liberty:Zeratul_Pissed",
+            "liberty:Zeratul_What"
+          ],
+          "peak": 0.13418830931186676
+        },
+        {
+          "id": "actor:hero.alarak:1:idle",
+          "heard": [
+            "void:Alarak_Yes",
+            "void:Alarak_Pissed",
+            "void:Alarak_What"
+          ],
+          "peak": 0.12971875071525574
+        },
+        {
+          "id": "actor:hero.fenix:1:idle",
+          "heard": [
+            "coop:FenixDragoon_Pissed",
+            "coop:FenixDragoon_What",
+            "coop:FenixDragoon_Yes"
+          ],
+          "peak": 0.2066430002450943
+        },
+        {
+          "id": "actor:hero.vorazun:1:idle",
+          "heard": [
+            "void:Vorazun_Yes",
+            "void:Vorazun_Pissed",
+            "void:Vorazun_What"
+          ],
+          "peak": 0.0966421589255333
+        },
+        {
+          "id": "actor:hero.yamato_battlecruiser:1:idle",
+          "heard": [
+            "liberty:Battlecruiser_Yes",
+            "liberty:Battlecruiser_Pissed",
+            "liberty:Battlecruiser_What"
+          ],
+          "peak": 0.3174857199192047
+        },
+        {
+          "id": "actor:hero.hots_leviathan:1:idle",
+          "heard": [
+            "swarm:Leviathan_Yes",
+            "swarm:Leviathan_What"
+          ],
+          "peak": 0.20929086208343506
+        },
+        {
+          "id": "actor:hero.purifier_flagship:1:idle",
+          "heard": [
+            "melee:Carrier_Yes",
+            "melee:Carrier_Pissed",
+            "melee:Carrier_What"
+          ],
+          "peak": 0.17252567410469055
+        },
+        {
+          "id": "actor:marine:1:idle",
+          "heard": [
+            "melee:Marine_Yes",
+            "melee:Marine_Pissed",
+            "melee:Marine_What"
+          ],
+          "peak": 0.16935618221759796
+        }
+      ],
+      "defaultLoops": 3,
+      "decoded": 1921,
+      "checks": [
+        "actual-audio-signal",
+        "play-pause-frame-reset",
+        "all-scenes-pause-clears-voices",
+        "three-default-loops-without-voice-accumulation",
+        "actual-export",
+        "all-eighteen-hero-dialogue-signals",
+        "all-dialogue-categories-survive-short-loops",
+        "source-herd-thresholds-and-real-signals",
+        "dehaka-walk-real-signal",
+        "barracks-descent-real-signal-and-landing-stop"
+      ],
+      "errors": 0,
+      "httpRequests": 0
+    },
+    "offlineCumulative": {
+      "cases": [
+        {
+          "id": "actor:zealot:1:attack",
+          "kind": "dread"
+        },
+        {
+          "id": "actor:elite.zealot.1:1:attack",
+          "kind": "dread"
+        },
+        {
+          "id": "actor:elite.zealot.2:1:attack",
+          "kind": "dread"
+        },
+        {
+          "id": "actor:elite.zealot.3:1:attack",
+          "kind": "dread"
+        },
+        {
+          "id": "actor:zealot:1:idle",
+          "kind": "dread"
+        },
+        {
+          "id": "actor:zealot:1:move",
+          "kind": "dread"
+        },
+        {
+          "id": "presentation:fleet",
+          "kind": "fleet"
+        },
+        {
+          "id": "presentation:fleet-expiry",
+          "kind": "fleet-expiry"
+        },
+        {
+          "id": "presentation:fun-brood",
+          "kind": "expiry"
+        },
+        {
+          "id": "presentation:hero-baneling",
+          "kind": "expiry"
+        },
+        {
+          "id": "presentation:equipment-projection-birth",
+          "kind": "phantom"
+        },
+        {
+          "id": "presentation:equipment-projection-end",
+          "kind": "phantom"
+        },
+        {
+          "id": "equipment:set.blue.phantom.3:terran:4:unbound:effect:phantom:death",
+          "kind": "phantom"
+        },
+        {
+          "id": "equipment:set.blue.phantom.3:zerg:4:unbound",
+          "kind": "phantom"
+        },
+        {
+          "id": "equipment:set.blue.phantom.3:protoss:4:unbound",
+          "kind": "phantom"
+        },
+        {
+          "id": "presentation:equipment-recall-from",
+          "kind": "auto_recall"
+        },
+        {
+          "id": "equipment:special.recall.3:zerg:1:unbound",
+          "kind": "auto_recall"
+        },
+        {
+          "id": "equipment:special.recall.3:protoss:1:unbound",
+          "kind": "auto_recall"
+        },
+        {
+          "id": "equipment:special.recall.4:terran:1:unbound:effect:recall_phantom:expiry",
+          "kind": "recall_phantom"
+        },
+        {
+          "id": "equipment:module.phase.5:terran:1:unbound:effect:phase:expiry",
+          "kind": "phase"
+        },
+        {
+          "id": "equipment:module.phase.5:terran:1:unbound:effect:phase:death",
+          "kind": "phase"
+        },
+        {
+          "id": "presentation:equipment-expiry",
+          "kind": "reinforcement"
+        },
+        {
+          "id": "inheritance:module.suppression.4:terran:S06:effect:drop_pod:expiry",
+          "kind": "drop_pod"
+        },
+        {
+          "id": "equipment:module.swarm.3:terran:1:unbound:effect:swarm:expiry",
+          "kind": "swarm"
+        },
+        {
+          "id": "equipment:module.konstant.3:terran:1:unbound:effect:konstant:expiry",
+          "kind": "konstant"
+        },
+        {
+          "id": "equipment:set.traps.2:terran:2:unbound",
+          "kind": "periodic_trap"
+        },
+        {
+          "id": "presentation:equipment-fort-deploy",
+          "kind": "fortification"
+        },
+        {
+          "id": "equipment:set.special.sky.4:terran:2:unbound",
+          "kind": "stage_yamato"
+        },
+        {
+          "id": "equipment:set.blue.army.3:terran:6:starport",
+          "kind": "direction_reinforcement"
+        },
+        {
+          "id": "equipment:set.orange.hero.5:zerg:6:niadra:effect:hero_orange:cycle",
+          "kind": "hero_orange"
+        }
+      ],
+      "threeCycleGroups": 12,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 900
+        },
+        {
+          "width": 844,
+          "height": 390
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "checks": [
+        "loop-on-by-default",
+        "full-native-lifecycle-three-consecutive-default-loops",
+        "pause-clears-all-voices",
+        "generic-effects-never-draw-Stalker-mesh",
+        "Zealot-live-single-dread-layer",
+        "fleet-full-three-ships-and-native-expiry",
+        "four-identities-identical-instance-scale-under-fixed-camera",
+        "pause-at-end-blocks-auto-restart",
+        "frame-step",
+        "half-speed",
+        "actual-audio-signal",
+        "actual-export",
+        "UI-isolation-and-loop-preference-survives-mode-change"
+      ],
+      "errors": 0,
+      "httpRequests": 0
+    },
+    "normalGame": {
+      "checks": [
+        "ordinary-new-game-via-public-ui",
+        "normal-entry-original-dialogue-output",
+        "normal-entry-original-attack-output",
+        "ordinary-pause-clears-combat-audio"
+      ],
+      "decoded": 1921,
+      "errors": 0,
+      "httpErrors": 0
+    },
+    "build": {
+      "inputs": 548,
+      "assets": 3845,
+      "resourceFiles": 3748,
+      "hashesVerified": true
+    },
+    "index": {
+      "verified": true,
+      "buildInputs": 548,
+      "resourceFiles": 1892,
+      "resourceBytes": 498139917,
+      "runtimeReferences": 4003,
+      "privateOriginalsStaged": 0
+    },
+    "visualReview": "有限复看德哈卡、兵营下降、跳虫群体声音夹具、狂热者攻击及召回幻影画面；不代替用户全目录动态验收或逐句听感。",
+    "recoveries": [
+      "旧模拟声音替身没有音源字段：音高更新限定到明确提供rate的群体通道，完整回归通过。",
+      "首次音频准备比较包括工具专用source注释，改为运行数据比较后原路由保持。",
+      "浏览器启动与本机网络在沙箱下受限，宿主实测通过。",
+      "索引检查误要求提交npm依赖文件，改为核验已提交锁文件、安装版本及实测文件SHA。",
+      "Git Bash post-checkout资源不足，已直接执行同一Git LFS钩子逻辑完成。",
+      "GitHub连接器末次查询连接失败，只读git ls-remote成功核实远端。"
+    ],
+    "formattingWarnings": "git diff --cached --check仅报告8处既有新增文件末尾空行；保持实测构建输入，不为了格式重写或冒充重新验证。"
+  },
+  "catalogue": {
+    "objects": 401,
+    "units": 165,
+    "static": 365
+  },
+  "delivery": {
+    "mode": "combined",
+    "file": "reports\\local\\t01-20261024\\offline-r33\\T01-综合检测.html",
+    "bytes": 1361785428,
+    "sha256": "7a4e7f35ed4f1cbf724a539149b100d1811d4e11ff0a052b419fdc3711459236",
+    "jsSha256": "858873d9a26eba98c1c756586614b95b84844dcc0b6d31602af3543f7f107388",
+    "cssSha256": "a47be4f2e856094776bc3c9326df189fa824a05e908dc9b7c8d0aff4392aff2f",
+    "payloadSha256": "8fdab0d53182d6b49269cba687720ffaca02243888f7e271c819de5f544c092e",
+    "payloadBytes": 1302061339,
+    "assets": 3845,
+    "chunks": 4953
+  },
+  "formalBuild": {
+    "appBuildId": "6339964b37d6fc9e293020dddc51e79947e3c86b945a79d4837b8d947fa6ebf6",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3845,
+    "fileCount": 3748,
+    "assetBytes": 1416397101,
+    "logicalBytes": 1439004292,
+    "sharedBytes": 22607191,
+    "manifest": "asset-manifest.885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa.json",
+    "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "preservation": {
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "currentReplaced": false,
+    "simulationFilesUnchangedThisTurn": 153,
+    "priorBanksUnchanged": 449,
+    "unrelatedBranchesPreserved": true
+  },
+  "git": {
+    "base": "f8e3a32ebb8741401f1d1e4fbf100d5ffe48c92d",
+    "branch": "codex/t01-closeout-20261027",
+    "localMainIntegration": "pending",
+    "remoteMain": "5d0727a14ec18656b408be457263adb1b17b21fc",
+    "remoteCheckedVia": "git ls-remote origin refs/heads/main",
+    "pushed": false,
+    "published": false,
+    "privateOriginalsUploaded": false
+  },
+  "limits": [
+    "Marine群体行军与普通坦克移动声仍未取得可靠战斗绑定；不使用剧情模型、指令回应或变形声冒充。",
+    "群体音效使用原版节点/权重/门槛/分层和速度范围，空间聚类是浏览器适配，不声称SC2引擎算法完全一致。",
+    "当前源码/离线构建回归已完成；人工逐句试听、全量视觉体验、T01最终验收与最终V/MVP仍开放；V04未启动。",
+    "没有远端推送、部署或真实生产服务验证。"
+  ],
+  "reproduce": [
+    "node tools/start-t01-closeout.mjs",
+    "node tools/prepare-t01-closeout-audio.mjs",
+    "python tools/prepare-combat-audio.py",
+    "node --import tsx --test --test-concurrency=4 test/*.test.mjs test/*.test.ts",
+    "npm run typecheck",
+    "node node_modules/typescript/bin/tsc -p tools/tsconfig-t01-closeout.json",
+    "npm run docs:check",
+    "npm run build:web",
+    "node tools/stage-t01-effect-assets.mjs",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/verify-t01-motion-audio.mjs --confirmed --offline=<最新综合HTML>",
+    "node tools/verify-t01-feedback-repairs.mjs --offline=<最新综合HTML>",
+    "node tools/verify-t01-audio-native.mjs",
+    "node tools/audit-t01-closeout.mjs"
+  ],
+  "retention": {
+    "cleanupPending": true,
+    "rule": "保留当前r33与必要输入、正常构建、源码及原始资源；清理本批缓存/截图/详细日志及r32。"
+  },
+  "boardRevision": 216
+}

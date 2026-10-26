@@ -15,7 +15,7 @@ export class ConfirmedHeroEffects {
  constructor(private view:BattleRenderer,private w:World){this.aura=new HeroAuraEffects(view,w);}
  async prepare(){if(this.ready)return;await prepareEmbeddedAssetIds(['model.hero-upgrade.vikingfightermissile']);
   for(const hero of TERRAN_HERO_IDS){const frame:AttackFrame={get packets(){return world.heroAttacks.packets.filter(p=>p.hero===hero&&!p.lost);},get dots(){return world.heroAttacks.dots.filter(d=>d.source.heroId===hero);},get lines(){return world.heroAttacks.lines.filter(l=>l.packet.hero===hero);},takeEvents:()=>world.heroAttackEvents.filter(e=>e.packet.hero===hero)},world=this.w;
-   const attack=new AttackEffects(this.view,this.w,frame);await attack.prepare();this.attacks.set(hero,attack);const skill=new SkillEffects(this.view,this.w);skill.prepareGrenade();this.skills.set(hero,skill);
+   const attack=new AttackEffects(this.view,this.w,frame,hero);await attack.prepare();this.attacks.set(hero,attack);const skill=new SkillEffects(this.view,this.w);skill.prepareGrenade();this.skills.set(hero,skill);
   }this.aura.prepare();this.ready=true;this.view.fx.confirmedHeroes=true;
  }
  resumeAt(w:World){this.lastEvent=w.visualEvents.at(-1)?.serial??0;this.lastTime=w.time;this.generation=w.runId??'';}

@@ -15,7 +15,7 @@ export function supportLegal(w:World,kind:SupportCard){if(kind in UNIQUE_SUPPORT
 export function buySupport(w:World,kind:SupportCard){if(kind in UNIQUE_SUPPORT)return buyUnique(w,kind as UniqueSupportId);if(!supportLegal(w,kind))return false;const s=w.expedition.support;if(kind==='strategic')s.ammo++;else{s.levels[kind as keyof ShopSupportState['levels']]++;if(kind==='bombardment'&&s.levels.bombardment===1)s.bombardAt=w.time+SUPPORT_FIRST_READY_SECONDS;}return true;}
 function open(w:World,p:Point){return Number.isFinite(p.x)&&Number.isFinite(p.z)&&(w.terrain?(w.terrain.isOpen?.(p)??w.terrain.canOccupy(p,0)):Math.abs(p.x)<=76&&Math.abs(p.z)<=76);}
 export function previewStrategic(w:World,p:Point){return w.phase==='battle'&&!w.paused&&!w.requiresPlayerDecision&&w.expedition.support.ammo>0&&!w.expedition.support.impacts.some(i=>i.kind==='strategic')&&open(w,p);}
-export function commitStrategic(w:World,p:Point){if(!previewStrategic(w,p))return false;const s=w.expedition.support;consumeEquipmentReactor(w);s.ammo--;s.impacts.push({id:w.nextId++,kind:'strategic',point:{...p},at:w.time+3,damage:equipmentCardDamage(w,STRATEGIC_BASE_DAMAGE)});visual(w,'hero-warning',p,8,3);w.changed();return true;}
+export function commitStrategic(w:World,p:Point){if(!previewStrategic(w,p))return false;const s=w.expedition.support,point={x:p.x,z:p.z};consumeEquipmentReactor(w);s.ammo--;s.impacts.push({id:w.nextId++,kind:'strategic',point,at:w.time+3,damage:equipmentCardDamage(w,STRATEGIC_BASE_DAMAGE)});visual(w,'hero-warning',point,8,3);w.changed();return true;}
 export function recordMutation(w:World,u:Entity,target:Body,damage:number){const s=w.expedition.support,rank=s.levels.mutation;if(!rank||u.team!=='player'||u.heroId||u.summonKind||u.unitType!==mutationFamily(w.expedition.race)||target.hp<=0||damage<=0)return;
  const layers=s.burns.filter(b=>b.source===u.id&&b.target===target.id).sort((a,b)=>a.until-b.until||a.id-b.id),tickDamage=damage*[0,.3,.45,.6][rank]/3;
  // Refresh a full stack without postponing its pending tick at high attack speed.
@@ -23,7 +23,7 @@ export function recordMutation(w:World,u:Entity,target:Body,damage:number){const
  s.burns.push({id:w.nextId++,source:u.id,target:target.id,damage:tickDamage,next:w.time+1,until:w.time+3});
 }
 function victims(w:World):Body[]{return [...w.entities.values(),...w.expansionHives.values(),...(w.hive?[w.hive]:[])].filter(b=>b.owner==='zerg'&&b.hp>0);}
-function areaHit(w:World,p:Point,damage:number,radius:number,observedSource:string){for(const b of victims(w))if(Math.hypot(p.x-b.x,p.z-b.z)<=radius+b.unitRadius)hitFrom(w,observedSource,b,damage,[],1,'terran',0);supportImpact(w,p,radius>3?'strategic':'support');}
+function areaHit(w:World,p:Point,damage:number,radius:number,observedSource:string){for(const b of victims(w))if(Math.hypot(p.x-b.x,p.z-b.z)<=radius+b.unitRadius)hitFrom(w,observedSource,b,damage,[],1,'terran',0);supportImpact(w,p,radius>3?'strategic':'support',observedSource.endsWith('.mines')&&w.expedition.race==='terran'?'mine':w.expedition.race==='terran'?'bombardTerran':w.expedition.race==='zerg'?'bombardZerg':'bombardProtoss');}
 /** Saved simulation timers; no wall-clock scheduling and no damage in rendering. */
 export function tickShopSupport(w:World){if(w.phase!=='battle'||w.paused||w.requiresPlayerDecision)return;tickUnique(w);const s=w.expedition.support,key=`${w.runId}:${w.endless?'endless:'+w.endless.round:w.stage}`;
  if(s.stageReceipt!==key){s.stageReceipt=key;s.mines=[];s.minePending=[0,6,9,12][s.levels.mines];s.mineRetryAt=w.time;}
@@ -39,6 +39,6 @@ export function tickShopSupport(w:World){if(w.phase!=='battle'||w.paused||w.requ
 
 function visual(w:World,kind:'hero-warning'|'explosion',point:Point,radius:number,seconds:number){w.effects.push({id:w.nextId++,kind,...point,end:{...point},radius,until:w.time+seconds,owner:'terran',source:0});}
 
-function supportImpact(w:World,p:Point,kind:'strategic'|'support'){
- w.visual(kind==='strategic'?'strategic-impact':'support-impact',{...p,id:0,owner:'terran',hp:0,maxHp:0,armor:0,unitRadius:0,flying:false,attributes:[]});
+function supportImpact(w:World,p:Point,kind:'strategic'|'support',supportSound:string){
+ w.visual(kind==='strategic'?'strategic-impact':'support-impact',{x:p.x,z:p.z,id:0,owner:'terran',hp:0,maxHp:0,armor:0,unitRadius:0,flying:false,attributes:[]},p,undefined,undefined,{supportSound});
 }

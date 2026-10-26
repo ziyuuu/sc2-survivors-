@@ -1,0 +1,588 @@
+{
+  "date": "2026-10-26",
+  "task": "T01",
+  "status": "implemented-engineering-verified-awaiting-user-visual-review",
+  "summary": "移动/变形原声与单位对白轮播已同步正式源码、正常构建和综合HTML。接入760份新增原版音频，覆盖15种有原生移动音的身份、10个变形方向及48种对白身份；优先中文、逐句轮播且不重叠。修复移动射击展示中坦克被禁止开火；121个远程身份/形态核验中119个实际移动开火，两种精英坦克保留用户确认的部署限制。30项相关测试、类型及最终离线31场景通过，1526音频解码和实际信号、暂停/逐帧/导出及三轮默认循环通过，HTTP/页面错误0。T01仍待用户画面与试听。",
+  "authorization": {
+    "initial": "2026-10-26 用户反馈变形/移动无声，明确脚步履带引擎；随后要求加入单位对话轮播，澄清移动射击是装备、应适用于所有远程单位。补接音频并修正实际展示；保留原生攻击范围/目标/部署限制，若需改变机制先明确差异。",
+    "clarification": "用户确认：保留部署限制，所有可移动且有武器的形态都能边走边打。加入单位对话轮播。"
+  },
+  "changes": [
+    {
+      "area": "变形声音",
+      "result": "坦克、维京、雷神、火车/火蝠、潜伏者双向切换接原版SoundData。分段事件按ModelData时间及实际变形进度播放；取消/死亡丢弃未来段，暂停恢复只播放未来段，读档不重播旧事件。"
+    },
+    {
+      "area": "移动声音",
+      "result": "实际速度非零才播放原版Movement音，形态切换使用对应音色；停止、死亡、暂停及场景切换结束通道。限制近处最多8个移动通道。未定义移动声音的原版身份保持静音，不借用其他单位音效。"
+    },
+    {
+      "area": "单位对白",
+      "result": "48种原版身份使用What/Yes对白，普通与精英沿用对应单位、英雄分流；优先中文原声，无英文回退。友军活体轮换发声，每组样本播完一轮再重复；全局单对白，按语句长度留间隔，暂停清理。"
+    },
+    {
+      "area": "移动射击",
+      "result": "正式装备修正对所有非建筑友军已经生效。故障来自展示夹具仅解除主角开火锁，坦克等陪同单位仍为Infinity；现解除所有参与者的展示锁，仍由真实原生战斗选目标、射击和结算。未修改装备概率、射程、目标类型、部署限制或伤害。"
+    }
+  ],
+  "validation": {
+    "tests": {
+      "passed": 30,
+      "failed": 0,
+      "files": [
+        "test/motion-audio.test.ts",
+        "test/combat-audio.test.ts",
+        "test/hero-audio-feedback.test.ts",
+        "test/equipment-effects.test.ts"
+      ]
+    },
+    "productionTypecheck": true,
+    "toolTypecheck": true,
+    "movingFire": {
+      "actorsAndForms": 121,
+      "movingShotsVerified": 119,
+      "deploymentRestricted": [
+        "elite.tank.2",
+        "elite.tank.3"
+      ],
+      "carrierVerification": "从entities统计母舰所属真实子机射击，并要求母舰移动；不把母舰自身零弹数误判为漏攻击。",
+      "forms": [
+        "hellbat",
+        "viking_assault",
+        "thor_high_impact"
+      ],
+      "demonstrations": [
+        {
+          "race": "terran",
+          "shots": [
+            {
+              "type": "marine",
+              "shots": 3,
+              "movingShots": 3
+            },
+            {
+              "type": "tank",
+              "shots": 5,
+              "movingShots": 5
+            }
+          ]
+        },
+        {
+          "race": "zerg",
+          "shots": [
+            {
+              "type": "zergling",
+              "shots": 1,
+              "movingShots": 1
+            },
+            {
+              "type": "zergling",
+              "shots": 0,
+              "movingShots": 0
+            },
+            {
+              "type": "roach",
+              "shots": 1,
+              "movingShots": 1
+            },
+            {
+              "type": "roach",
+              "shots": 2,
+              "movingShots": 2
+            }
+          ]
+        },
+        {
+          "race": "protoss",
+          "shots": [
+            {
+              "type": "zealot",
+              "shots": 0,
+              "movingShots": 0
+            },
+            {
+              "type": "stalker",
+              "shots": 2,
+              "movingShots": 2
+            },
+            {
+              "type": "stalker",
+              "shots": 2,
+              "movingShots": 2
+            }
+          ]
+        }
+      ]
+    },
+    "audio": {
+      "originals": 1516,
+      "oldAudioAssets": 756,
+      "addedAudioAssets": 760,
+      "previousAudioUnchanged": true,
+      "gameplayFilesUnchanged": 153,
+      "movementIdentities": [
+        "reaper",
+        "hellion",
+        "hellbat",
+        "thor",
+        "viking",
+        "banshee",
+        "medivac",
+        "science_vessel",
+        "baneling",
+        "ultralisk",
+        "phoenix",
+        "void_ray",
+        "carrier",
+        "hero:fenix",
+        "hero:yamato_battlecruiser"
+      ],
+      "dialogueIdentities": [
+        "marine",
+        "marauder",
+        "reaper",
+        "hellion",
+        "hellbat",
+        "tank",
+        "thor",
+        "viking",
+        "viking-assault",
+        "banshee",
+        "medivac",
+        "science_vessel",
+        "zergling",
+        "baneling",
+        "roach",
+        "ravager",
+        "hydralisk",
+        "queen",
+        "lurker",
+        "mutalisk",
+        "corruptor",
+        "ultralisk",
+        "zealot",
+        "adept",
+        "stalker",
+        "sentry",
+        "immortal",
+        "colossus",
+        "high_templar",
+        "phoenix",
+        "void_ray",
+        "carrier",
+        "hero:raynor",
+        "hero:tychus",
+        "hero:nova",
+        "hero:swann",
+        "hero:tosh",
+        "hero:kerrigan",
+        "hero:zagara",
+        "hero:dehaka",
+        "hero:stukov",
+        "hero:niadra",
+        "hero:artanis",
+        "hero:zeratul",
+        "hero:alarak",
+        "hero:fenix",
+        "hero:vorazun",
+        "hero:yamato_battlecruiser"
+      ],
+      "silentIdentities": [
+        {
+          "key": "marine",
+          "sourceActor": "Marine",
+          "movementToken": "Marine_Movement"
+        },
+        {
+          "key": "marauder",
+          "sourceActor": "Marauder",
+          "movementToken": "Marauder_Movement"
+        },
+        {
+          "key": "tank",
+          "sourceActor": "SiegeTank",
+          "movementToken": "SiegeTank_Movement"
+        },
+        {
+          "key": "viking-assault",
+          "sourceActor": "VikingAssault",
+          "movementToken": "VikingAssault_Movement"
+        },
+        {
+          "key": "zergling",
+          "sourceActor": "Zergling",
+          "movementToken": "Zergling_Movement"
+        },
+        {
+          "key": "roach",
+          "sourceActor": "Roach",
+          "movementToken": "Roach_Movement"
+        },
+        {
+          "key": "ravager",
+          "sourceActor": "Ravager",
+          "movementToken": "Ravager_Movement"
+        },
+        {
+          "key": "hydralisk",
+          "sourceActor": "Hydralisk",
+          "movementToken": "Hydralisk_Movement"
+        },
+        {
+          "key": "queen",
+          "sourceActor": "Queen",
+          "movementToken": "zQueen_moveLoop"
+        },
+        {
+          "key": "lurker",
+          "sourceActor": "LurkerMP",
+          "movementToken": "Lurker_Movement"
+        },
+        {
+          "key": "mutalisk",
+          "sourceActor": "Mutalisk",
+          "movementToken": "Mutalisk_Movement"
+        },
+        {
+          "key": "corruptor",
+          "sourceActor": "Corruptor",
+          "movementToken": "Corruptor_Movement"
+        },
+        {
+          "key": "zealot",
+          "sourceActor": "Zealot",
+          "movementToken": "Zealot_Movement"
+        },
+        {
+          "key": "adept",
+          "sourceActor": "Adept",
+          "movementToken": "Adept_Movement"
+        },
+        {
+          "key": "stalker",
+          "sourceActor": "Stalker",
+          "movementToken": "Stalker_Movement"
+        },
+        {
+          "key": "sentry",
+          "sourceActor": "Sentry",
+          "movementToken": "Sentry_Movement"
+        },
+        {
+          "key": "immortal",
+          "sourceActor": "Immortal",
+          "movementToken": "Immortal_Movement"
+        },
+        {
+          "key": "colossus",
+          "sourceActor": "Colossus",
+          "movementToken": "Colossus_Movement"
+        },
+        {
+          "key": "high_templar",
+          "sourceActor": "HighTemplar",
+          "movementToken": "HighTemplar_Movement"
+        },
+        {
+          "key": "interceptor",
+          "sourceActor": "Interceptor",
+          "movementToken": "InterceptorWeaponBirth"
+        },
+        {
+          "key": "hero:raynor",
+          "sourceActor": "Raynor",
+          "movementToken": "Raynor_Movement"
+        },
+        {
+          "key": "hero:tychus",
+          "sourceActor": "TychusChaingun",
+          "movementToken": "Tychus_Movement"
+        },
+        {
+          "key": "hero:nova",
+          "sourceActor": "Nova",
+          "movementToken": "Nova_Movement"
+        },
+        {
+          "key": "hero:swann",
+          "sourceActor": "Dutch",
+          "movementToken": "Swann_Movement"
+        },
+        {
+          "key": "hero:tosh",
+          "sourceActor": "Tosh",
+          "movementToken": "Tosh_Movement"
+        },
+        {
+          "key": "hero:kerrigan",
+          "sourceActor": "QueenOfBlades",
+          "movementToken": "Kerrigan_Movement"
+        },
+        {
+          "key": "hero:zagara",
+          "sourceActor": "ZaGara",
+          "movementToken": "ZaGara_Movement"
+        },
+        {
+          "key": "hero:dehaka",
+          "sourceActor": "Dehaka",
+          "movementToken": "Dehaka_Movement"
+        },
+        {
+          "key": "hero:stukov",
+          "sourceActor": "InfestedStukov",
+          "movementToken": "InfestedStukov_Movement"
+        },
+        {
+          "key": "hero:niadra",
+          "sourceActor": "HugeSwarmQueen",
+          "movementToken": "HugeSwarmQueen_Movement"
+        },
+        {
+          "key": "hero:artanis",
+          "sourceActor": "ArtanisVoid",
+          "movementToken": "ArtanisVoid_Movement"
+        },
+        {
+          "key": "hero:zeratul",
+          "sourceActor": "Zeratul",
+          "movementToken": "Zeratul_Movement"
+        },
+        {
+          "key": "hero:alarak",
+          "sourceActor": "AlarakChampion",
+          "movementToken": "AlarakChampion_Movement"
+        },
+        {
+          "key": "hero:vorazun",
+          "sourceActor": "VorazunChampion",
+          "movementToken": "VorazunChampion_Movement"
+        },
+        {
+          "key": "hero:hots_leviathan",
+          "sourceActor": "Leviathan",
+          "movementToken": "Leviathan_Movement"
+        },
+        {
+          "key": "hero:purifier_flagship",
+          "sourceActor": "Purifier",
+          "movementToken": "Purifier_Movement"
+        }
+      ],
+      "transformDirections": 10,
+      "transformTiming": {
+        "tank:siege": [
+          0
+        ],
+        "tank:tank": [
+          0
+        ],
+        "viking:viking_assault": [
+          0
+        ],
+        "viking:viking": [
+          0
+        ],
+        "thor:thor_high_impact": [
+          0.16666666666666666,
+          0.3
+        ],
+        "thor:thor": [
+          0.5,
+          0.725
+        ],
+        "hellion:hellbat": [
+          0.0025,
+          0.125,
+          0.2125,
+          0.5,
+          0.685
+        ],
+        "hellion:hellion": [
+          0.0025,
+          0.11,
+          0.25,
+          0.5,
+          0.665
+        ],
+        "lurker:lurker_burrowed": [
+          0
+        ],
+        "lurker:lurker": [
+          0
+        ]
+      },
+      "sourceBytes": 305360254,
+      "locale": {
+        "zhcn": 601,
+        "enus": 0,
+        "unlocalized": 915
+      },
+      "decoded": 1526,
+      "actualWaveformPeak": 0.05361898988485336,
+      "source": "锁定B97563的ActorData/SoundData/ModelData与原始文件，PCM16采样逐值核对。"
+    },
+    "web": {
+      "cases": 31,
+      "errors": 0,
+      "httpErrors": 0
+    },
+    "offline": {
+      "cases": 31,
+      "caseIds": [
+        "actor:tank:1:mode:siege",
+        "actor:tank:1:mode:tank",
+        "actor:viking:1:mode:viking_assault",
+        "actor:viking:1:mode:viking",
+        "actor:thor:1:mode:thor_high_impact",
+        "actor:thor:1:mode:thor",
+        "actor:hellion:1:mode:hellbat",
+        "actor:hellion:1:mode:hellion",
+        "actor:lurker:1:mode:lurker_burrowed",
+        "actor:lurker:1:mode:lurker",
+        "actor:hellion:1:move",
+        "actor:thor:1:move",
+        "actor:viking:1:move",
+        "actor:banshee:1:move",
+        "actor:medivac:1:move",
+        "actor:science_vessel:1:move",
+        "actor:baneling:1:move",
+        "actor:ultralisk:1:move",
+        "actor:phoenix:1:move",
+        "actor:void_ray:1:move",
+        "actor:carrier:1:move",
+        "actor:hellion:1:form:hellbat:move",
+        "actor:marine:1:idle",
+        "actor:tank:1:idle",
+        "actor:hero.raynor:1:idle",
+        "actor:hero.kerrigan:1:idle",
+        "actor:hero.zagara:1:idle",
+        "actor:hero.fenix:1:idle",
+        "equipment:module.moving_fire.3:terran:1:unbound",
+        "equipment:module.moving_fire.3:zerg:1:unbound",
+        "equipment:module.moving_fire.3:protoss:1:unbound"
+      ],
+      "checks": [
+        "actual-audio-signal",
+        "play-pause-frame-reset",
+        "all-scenes-pause-clears-voices",
+        "three-default-loops-without-voice-accumulation",
+        "actual-export"
+      ],
+      "loops": 3,
+      "errors": 0,
+      "httpRequests": 0
+    },
+    "normalGame": {
+      "appBuildId": "a934a2b36316e93b2c0258a21fd71d2a50854c8b85b5c4e33a08ac5c77d04487",
+      "checks": [
+        "ordinary-new-game-via-public-ui",
+        "normal-entry-original-dialogue-output",
+        "normal-entry-original-attack-output",
+        "ordinary-pause-clears-combat-audio"
+      ],
+      "decoded": 1526,
+      "errors": 0,
+      "httpErrors": 0
+    },
+    "build": {
+      "inputs": 547,
+      "assets": 3450,
+      "resources": 3356,
+      "hashesVerified": true
+    },
+    "visualReview": "仅复看代表性的变形、移动射击画面；不代替用户全量画面与听感验收。"
+  },
+  "fixtureCorrections": [
+    "全范围统计最初遗漏航母子机，因为World.allies排除summonKind；改为entities中按summonOwnerId统计真实射击。",
+    "火车喷火目标置于实际行进前方，保留原生前向武器约束。",
+    "浏览器逐帧夹具不再每帧反复暂停；另修复暂停吞掉未来变形段，并用真实暂停/恢复测试验证。",
+    "Node审计脚本不属于浏览器工具类型检查入口；浏览器入口及正式生产类型检查分别通过。"
+  ],
+  "catalogue": {
+    "objects": 401,
+    "units": 165,
+    "static": 365
+  },
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r30\\T01-综合检测.html",
+    "bytes": 1164461545,
+    "sha256": "f034ccf765500e2522b8c2756ce20bb16aa056e9deffecbccba169d6483a16d2",
+    "assets": 3450
+  },
+  "formalBuild": {
+    "appBuildId": "a934a2b36316e93b2c0258a21fd71d2a50854c8b85b5c4e33a08ac5c77d04487",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3450,
+    "fileCount": 3356,
+    "assetBytes": 1242749003,
+    "logicalBytes": 1264591006,
+    "sharedBytes": 21842003,
+    "manifest": "asset-manifest.a5d59c529131e235f20d9b6a7f4e1cf8cab1403824fae6e12d6e296bebb8d848.json",
+    "release": "a5d59c529131e235f20d9b6a7f4e1cf8cab1403824fae6e12d6e296bebb8d848",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "preservation": {
+    "baselineFiles": 921,
+    "unchangedFiles": 913,
+    "changed": [
+      "src/assets/combat-audio.ts",
+      "src/data/combat-audio.json",
+      "src/render/effects/audio-source-data.ts",
+      "src/render/effects/combat-audio-router.ts",
+      "src/render/effects/native-sound-player.ts",
+      "test/combat-audio.test.ts",
+      "tools/t01/equipment-preview-runtime.ts",
+      "tools/t01/inspect-motion-fire.ts"
+    ],
+    "production": [
+      "src/assets/combat-audio.ts",
+      "src/data/combat-audio.json",
+      "src/render/effects/audio-source-data.ts",
+      "src/render/effects/combat-audio-router.ts",
+      "src/render/effects/native-sound-player.ts"
+    ],
+    "added": [
+      "src/render/effects/motion-audio.ts",
+      "test/motion-audio.test.ts",
+      "tools/t01/motion-audio-plan.mjs"
+    ],
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "currentReplaced": false,
+    "gameplayChanged": false
+  },
+  "limits": [
+    "未定义独立Movement声音的36种原始身份保持原版静音；其中包括普通坦克、陆战队员等，不声称已补出不存在的履带或脚步原声。",
+    "15种移动与48种对白身份包含特殊形态及英雄，多个精英共用对应基础身份；不是所有文件都经人类逐句试听。",
+    "保持架起/钻地及无武器形态限制；绿色和蓝色装备原有概率、转向数值不变。",
+    "T01画面与试听仍待用户，最终V/MVP、V04及既有性能/设备限制保持。"
+  ],
+  "reproduce": [
+    "node tools/prepare-t01-audio-plan.mjs",
+    "pwsh -NoProfile -File tools/fetch-t01-audio.ps1 -Requests .cache/t01-audio/requests.json",
+    "python tools/prepare-combat-audio.py",
+    "node --import tsx --test test/motion-audio.test.ts test/combat-audio.test.ts test/hero-audio-feedback.test.ts test/equipment-effects.test.ts",
+    "node --import tsx tools/t01/inspect-motion-fire.ts --after",
+    "npm run build:web",
+    "node tools/stage-t01-effect-assets.mjs",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/verify-t01-motion-audio.mjs --offline=<最新综合HTML>",
+    "node tools/verify-t01-audio-native.mjs"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "仅保留当前综合HTML、必要输入、简要结论与复现代码；本批截图/日志/浏览器缓存及旧HTML清理。",
+    "removedFiles": 36498,
+    "removedLogicalBytes": 14646364751
+  },
+  "boardRevision": 214,
+  "commit": false,
+  "push": false,
+  "publish": false
+}

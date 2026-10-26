@@ -12,6 +12,9 @@ export function displayLoadModelKey(key:string,type:string){return type==='purif
 /** Bodies, weapon attachments, corpses and diagnostic inspection share this resolver. */
 export function displayModelKey(unit:{eliteId?:EliteId;heroId?:string;modelKey?:string;unitType:string}){
  if(unit.modelKey==='interceptor')return unit.modelKey;
+ // Equipment can deliver the native air-hero unit type without hero ownership.
+ // Its art still belongs to the same original model; no gameplay identity is added.
+ if(!unit.modelKey&&unit.unitType==='yamato_battlecruiser')return 'hero.yamato_battlecruiser';
  if(unit.heroId==='purifier_flagship')return 'hero.purifier_flagship';
  if(unit.heroId)return unit.modelKey??unit.unitType;
  const profile=eliteVisualProfile(unit);

@@ -3,7 +3,7 @@ import type {GLTF,GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {assetUrl} from '../../assets/manifest';
 import {prepareEmbeddedAssetIds} from '../../assets/offline-pack';
 import {restoreSc2Materials} from '../loaders/sc2-materials';
-import {UNIT_MATERIAL_CATALOG} from './unit-material-catalog';
+import {presentationMaterialProfile} from './death-material-identity';
 import type {SourceMaterial,UnitMaterialProfile} from './source-tracks';
 import {sharedMaterialTextures} from './shared-textures';
 
@@ -16,7 +16,7 @@ export const preparedUnitMaterial=(material:THREE.Material)=>prepared.get(materi
 export const bindUnitMaterial=(material:THREE.Material,description:PreparedUnitMaterial)=>prepared.set(material,description);
 /** Let the existing quality and preload paths reach every custom shader sampler. */
 export const unitMaterialTextures=(material:THREE.Material)=>{const p=prepared.get(material);return p?[...Object.values(p.textures),...(p.teamTexture?[p.teamTexture]:[])]:[];};
-export function unitMaterialDependencies(key:string){const p=UNIT_MATERIAL_CATALOG[key];return p?[...new Set(p.materials.flatMap(m=>[...(m.teamTexture?[m.teamTexture]:[]),...Object.values(m.layers).flatMap(l=>l.texture?[l.texture]:l.cubeTextures??[])]))]:[];}
+export function unitMaterialDependencies(key:string){const p=presentationMaterialProfile(key);return p?[...new Set(p.materials.flatMap(m=>[...(m.teamTexture?[m.teamTexture]:[]),...Object.values(m.layers).flatMap(l=>l.texture?[l.texture]:l.cubeTextures??[])]))]:[];}
 
 /** Remove an invalid extension pair only in the verified in-memory GLB. Source bytes stay intact. */
 export function legalMaterialGlb(bytes:ArrayBuffer){
@@ -29,7 +29,7 @@ export function legalMaterialGlb(bytes:ArrayBuffer){
 
 /** Bind every shipped source surface by both model hash and original material index/name. */
 export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:string):Promise<GLTF>{
- const profile=UNIT_MATERIAL_CATALOG[key];
+ const profile=presentationMaterialProfile(key);
  if(!profile)return restoreSc2Materials(await loader.loadAsync(url));
  const response=await fetch(url);if(!response.ok)throw Error('Original material model could not load: '+key);
  const bytes=await response.arrayBuffer(),digest=await crypto.subtle.digest('SHA-256',bytes);

@@ -1,0 +1,157 @@
+{
+  "date": "2026-10-25",
+  "status": "implemented-engineering-verified-awaiting-user-visual-review",
+  "authorization": "用户明确要求：好的先处理核弹、两种射线。",
+  "scope": [
+    "人族核弹爆炸后原版效果",
+    "巨像普通与三精英交叉扫射",
+    "虚空辉光舰普通与三精英连续射线"
+  ],
+  "changes": [
+    "战略落点和冲击回执只保留坐标，避免检测目标身份污染。人族核弹由一个原版 GhostNukeExplode 播放器独占，包含原始网格、粒子、投影和折射；网格在13秒源Death结束后释放，已发射粒子按原寿命收尾。",
+    "巨像使用原版Weapon02/03挂点；Birth结束后按有效LibertyMulti SiteMover的4/8.1/40速度和加减速完成两条反向连续扫射。显示周期不再依赖短暂伤害点数组，原伤害不变。",
+    "虚空射线按单位、目标和连续射击段维持通道/时钟；普通Attack 02、蓄力精英实际满蓄力后Attack 06，取消旧额外倍率放大；结束采用原版0.125秒销毁计时，不再叠加每跳旧Death。",
+    "仅检测工具扩大核弹取景、隐藏其战斗HUD；单HTML打包支持追加已校验原版资源。"
+  ],
+  "originalNuke": {
+    "source": "assets/private/m3/nuke.m3",
+    "sha256": "a63b239db0bdbd3a13a1ab0218406c0a64ebd3ef1bb657b164ee883ae88658ec",
+    "clip": "Death",
+    "sourceSeconds": 13,
+    "mesh": "combat-fx.mesh.GhostNukeExplode",
+    "refraction": "combat-fx.mesh.refraction.GhostNukeExplode",
+    "standardMeshes": 9,
+    "refractionMeshes": 3,
+    "emitters": 7
+  },
+  "validation": {
+    "tests": {
+      "unique": 96,
+      "passed": 96
+    },
+    "typecheck": true,
+    "offline": {
+      "sameFinalHtml": true,
+      "scenes": [
+        {
+          "id": "actor:colossus:1:attack",
+          "samples": 9
+        },
+        {
+          "id": "actor:elite.colossus.1:1:attack",
+          "samples": 8
+        },
+        {
+          "id": "actor:elite.colossus.2:1:attack",
+          "samples": 8
+        },
+        {
+          "id": "actor:elite.colossus.3:1:attack",
+          "samples": 8
+        },
+        {
+          "id": "actor:void_ray:1:attack",
+          "samples": 6
+        },
+        {
+          "id": "actor:elite.void_ray.1:1:attack",
+          "samples": 6
+        },
+        {
+          "id": "actor:elite.void_ray.2:1:attack",
+          "samples": 6
+        },
+        {
+          "id": "actor:elite.void_ray.3:1:attack",
+          "samples": 6
+        },
+        {
+          "id": "native-card:terran:support.terran.strategic:effect",
+          "samples": 11
+        }
+      ],
+      "sampleCount": 68,
+      "checks": [
+        "nuke-no-frozen-ending-mesh",
+        "autoplay",
+        "pause-and-frame-step",
+        "speed-and-loop",
+        "actual-action-review-export",
+        "ui-prototype-isolation"
+      ],
+      "httpRequests": 0,
+      "pageAndConsoleErrors": 0
+    },
+    "mechanics": {
+      "equalBeforeAfterSamples": 66,
+      "fields": "血量、护盾、位置、攻击数值/次数/时刻、冷却、精英状态、待结算战略冲击及战斗统计",
+      "nukeDelayRadiusDamageVerified": true
+    },
+    "visualReview": "定点观察普通/三精英射线代表帧、普通巨像交叉过程、核弹爆炸/烟云/消散与末段；不代替用户最终画面验收。"
+  },
+  "preservation": {
+    "baselineSourceAndTests": 847,
+    "unchanged": 840,
+    "changed": [
+      "src/assets/combat-effects.ts",
+      "src/render/effects/source/catalog.json",
+      "src/render/effects/source/player.ts",
+      "src/render/effects/source/types.ts",
+      "src/render/effects/source-combat-effects.ts",
+      "src/simulation/combat/shop-support.ts",
+      "test/source-ending-mesh.test.ts"
+    ],
+    "added": [
+      "src/render/effects/source/weapon-channels.ts",
+      "test/nuke-beam-lifecycle.test.ts"
+    ],
+    "buildInputs": 532,
+    "verifiedResourceFiles": 1869,
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+      "unchanged": true
+    }
+  },
+  "delivery": {
+    "mode": "combined",
+    "file": "reports\\local\\t01-20261024\\offline-r19\\T01-综合检测.html",
+    "bytes": 818099425,
+    "sha256": "f061f68db4a651ef706c7e8006587edc291d2712d67764fe33aeabfe14ac5860",
+    "jsSha256": "ef9b20a76acdc5cb0ebeb18f6e5d31035b8a9384cff66bc43b90fd48e2cb68e4",
+    "cssSha256": "875935f223408882c1f8e8695dba9381373f8df11602972d4532c0092324f968",
+    "payloadSha256": "23722be1be26ea1f9ef2c365c33e197745cfcc23ad08f313d0dd8886ddeea737",
+    "payloadBytes": 759802166,
+    "assets": 1929,
+    "chunks": 2997
+  },
+  "attempts": [
+    "首轮两项新测试的夹具使用了错误种族/低血量目标，纠正后通过；新增末段测试的GPU替身未累计绘制数，补齐替身行为后通过。",
+    "首个离线控制脚本默认暂停加载后等待自动播放，导致检查超时；改为明确自动播放入口。随后导出检查因传给Chrome的Windows目录混用斜线而失败，规范路径后仅重跑同版控制、实际导出及UI隔离通过；9场景/66状态对照按最终HTML已完成结果复用。",
+    "首轮画面发现核弹取景裁切和精英射线原版强化剪辑叠加旧倍率，已分别调整检测镜头及取消重复放大；最终HTML重新核验。"
+  ],
+  "pending": [
+    "全量单位与18英雄音效、兴奋剂、截击机比例及无动态目录清理尚未实施。",
+    "T01用户画面检查、后续V04及最终V/MVP保持开放。"
+  ],
+  "reproduce": [
+    "node tools/prepare-t01-nuke.mjs",
+    "node tools/stage-t01-effect-assets.mjs",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/verify-t01-nuke-beams.mjs --baseline （比较用构建修改前采样）",
+    "node tools/verify-t01-nuke-beams.mjs --offline=<当前HTML> --all",
+    "node --import tsx --test test/nuke-beam-lifecycle.test.ts test/source-combat-effects.test.ts test/source-ending-mesh.test.ts test/expedition-weapon-patterns.test.ts test/p4-protoss-elites.test.ts test/starship-support-economy.test.ts",
+    "npm run typecheck"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "只留简要结论与复现代码；保留当前r19综合HTML和必要输入，清理本批截图、缓存、被替代r16/r17/r18。",
+    "removedFiles": 10421,
+    "removedLogicalBytes": 5126197938
+  },
+  "currentReplaced": false,
+  "commit": false,
+  "push": false,
+  "publish": false
+}

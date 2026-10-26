@@ -1,0 +1,25 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {spawn} from 'node:child_process';
+import {EQUIPMENT_TEMPLATES} from '../src/simulation/starship/catalog';
+import {HEROES} from '../src/data/heroes';
+import {ELITES} from '../src/data/elites';
+const root=process.argv[2]??'reports/local/t01-20261024/mechanics-20261025';await fs.mkdir(root,{recursive:true});
+const selection=JSON.parse(await fs.readFile('tools/t01/mechanic-test-selection.json','utf8'));
+const files=new Set<string>(selection.files);
+for(const file of ['expedition-combat','expedition-weapon-patterns','expedition-upgrade-combat','expedition-weapon-cards','expedition-recovery-cards','statuses-v22','feedback-bosses','source-combat-effects','enemy-special-visuals','auto-spell-scheduling','starship-defense-lifecycle','starship-orange-heroes','starship-native-area','starship-projection-cleanup','starship-capture-projection','team-aura-rebalance','p4-terran-elites','p4-zerg-elites','p4-protoss-elites','fun-shop-boundaries','fun-feedback-r4-interactions','fun-third-feedback','integration-i03-effects','g03-card-eligibility'])files.add('test/'+file+'.test.ts');
+for(const file of ['test/queen-corrosion.test.ts','test/t01-enemy-status-contracts.test.ts'])files.add(file);
+const currentEffects=[...new Set(Object.values(EQUIPMENT_TEMPLATES).flatMap(t=>[...t.effects,...Object.values(t.tiers??{}).flatMap(v=>v.flatMap(r=>r.effects))].map(e=>e.key)))].sort();
+const mappedKeys=new Set<string>(selection.effectKeys);
+const sourceHashes=[];for(const dir of ['src','test']){async function walk(folder:string){for(const item of await fs.readdir(folder,{withFileTypes:true})){const p=folder+'/'+item.name;if(item.isDirectory())await walk(p);else if(/\.(ts|mjs|css|json)$/.test(p)){const b=await fs.readFile(p);sourceHashes.push({file:p,sha256:createHash('sha256').update(b).digest('hex')});}}}await walk(dir);}
+const selected=[...files].sort();for(const file of selected)await fs.access(file);
+const plan={scope:'Nonvisual mechanic regression: real damage/recovery/status/targeting/resource/transaction assertions. No visual acceptance or natural balance run.',current:{equipment:Object.keys(EQUIPMENT_TEMPLATES).length,effectKeys:currentEffects.length,heroes:Object.keys(HEROES).length,elites:Object.keys(ELITES).length},missingEffectMappings:currentEffects.filter(k=>!mappedKeys.has(k)),files:selected,sources:sourceHashes};
+await fs.writeFile(root+'/regression-plan.json',JSON.stringify(plan,null,2));console.log(JSON.stringify({files:selected.length,current:plan.current,missingEffectMappings:plan.missingEffectMappings}));
+if(process.argv.includes('--plan-only'))process.exit(0);
+const output=await fs.open(root+'/regression-r1.tap','wx'),errors=await fs.open(root+'/regression-r1.stderr','wx');
+const child=spawn(process.execPath,['--import','tsx','--test','--test-concurrency=2',...selected],{stdio:['ignore','pipe','pipe'],windowsHide:true});
+child.stdout.pipe(output.createWriteStream());child.stderr.pipe(errors.createWriteStream());
+const code=await new Promise<number|null>((resolve,reject)=>{child.once('exit',resolve);child.once('error',reject);});
+await new Promise(r=>setTimeout(r,200));
+await fs.writeFile(root+'/regression-r1-result.json',JSON.stringify({exitCode:code,plan:root+'/regression-plan.json',tap:root+'/regression-r1.tap',stderr:root+'/regression-r1.stderr'},null,2));console.log(JSON.stringify({exitCode:code}));process.exitCode=code??1;

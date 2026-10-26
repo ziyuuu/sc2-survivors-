@@ -1,0 +1,23 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const base='reports/local/t01-20261024',read=async p=>JSON.parse(await fs.readFile(p,'utf8'));
+const baseline=await read(base+'/baseline.json'),changed=[];
+for(const f of baseline.files)if(createHash('sha256').update(await fs.readFile(f.file)).digest('hex')!==f.sha256)changed.push(f.file);
+assert.deepEqual(changed,['src/ui/starship/native.css']);assert.equal(createHash('sha256').update(await fs.readFile(baseline.currentFile)).digest('hex'),baseline.currentSha256);
+const cat=await read(base+'/catalogue-current.json'),s6=await read(base+'/static-r6-r2/report.json'),s7=await read(base+'/static-r7/report.json'),s7v=await read(base+'/static-r7-review/visual-review.json'),ui=await read(base+'/ui-interactions-r2/report.json'),card=await read(base+'/card-cycles-r2/report.json');
+assert.equal(s7.rows.length,33);assert.equal(s7v.rows.length,33);assert.ok(ui.rows.every(r=>r.status==='captured'));assert.equal(ui.errors.length,0);
+const result={date:new Date().toISOString(),baselineFiles:baseline.files.length,unchanged:baseline.files.length-changed.length,changed,currentUnchanged:true,
+ catalogue:{dynamic:cat.dynamic.length,static:cat.static.length,source:base+'/catalogue-current.json'},
+ static:{r6:{rows:s6.rows.length,captured:s6.rows.filter(r=>r.status==='captured').length,failed:s6.rows.filter(r=>r.status==='failed').length},r7:{captured:33,errors:0,reviewed:33},evidence:[base+'/static-r6-r2/report.json',base+'/static-r7/report.json',base+'/static-r7-review/visual-review.json'],findings:['旧检测夹具使用已停用控制台入口，改为当前原生右键详情入口后33项已捕获；旧失败保留。','原生能力默认展开，能力页与详情旧截图同态；工具已改用真实summary点击分别准备折叠和展开，待补拍。','连续切换种族时背景残留前一场景模型和增援标记；工具补原生view.resetRun，待原生复测，旧图不作干净场景通过。','预设空名称错误提示在下一夹具残留；工具改为等待原生反馈自然结束再重置，待补拍。'],scope:'首屏逐图检查与交互分别记录，尚无整体UI通过结论。'},
+ interactions:{evidence:base+'/ui-interactions-r2/report.json',cases:6,viewports:18,nativeTransactions:ui.rows.flatMap(r=>r.viewports).filter(v=>v.transaction).length,errors:0,scope:'桌面与横屏鼠标/键盘、竖屏模拟触屏。仅此六例，不外推所有界面，不是真机验收。',retainedFailure:base+'/ui-interactions-r1/report.json',toolCorrections:['仅定位当前顶层弹窗/详情面板中的控件，避免点击被模态层阻挡的背景控件','清理旧滚动标记并按祖先裁切后的实际可见区域输入']},
+ cards:{evidence:base+'/card-cycles-r2/report.json',rows:card.rows.length,captured:card.rows.filter(r=>r.status.endsWith('captured')).length,failed:card.rows.filter(r=>r.status==='failed').length,assetAudit:base+'/card-cycles-r2/asset-readiness-audit.json',rerun:base+'/card-cycles-r3/report.json',scope:'三种地堡和首次坑道虫周期补测正在运行，未将采集状态等同逐项视觉通过。'},
+ cleanup:[base+'/profile-cleanup-20261025-r3.json',base+'/profile-cleanup-20261025-r4.json'],
+ pendingUI:['菜单战斗条隐藏提议仍待明确确认','level0/level1改中文等级提议仍待明确确认'],remaining:['完成全部条目的实际周期播放与逐项检查','补齐静态状态与滚动/悬停/焦点/触屏检查','构建并验证两份完整离线HTML'],coverageComplete:false,offlineDelivered:false,commit:false,push:false,publish:false};
+await fs.writeFile(base+'/progress-20261025-r4.json',JSON.stringify(result,null,2));
+const board=await read('docs/project/performance-board.json');assert.equal(board.revision,182);const task=board.tasks.find(t=>t.id==='T01');board.revision=183;board.updated='2026-10-25';board.next='T01';task.updated=board.updated;task.status='进行中';task.result='目录现10481动态/329静态。详情33项三尺寸捕获及逐图检查完成，发现检测场景模型残留和折叠态重复，工具修正待补拍；旧记录保留。六项交互×三尺寸和12次隔离原生事务检查通过。89条卡牌周期86捕获/3失败，地堡和坑道虫补测中。全量周期、静态交互和双离线HTML仍未完成。';task.evidence.push('../../'+base+'/progress-20261025-r4.json');board.updates.push({date:board.updated,tasks:['T01'],change:task.result,evidence:['../../'+base+'/progress-20261025-r4.json']});await fs.writeFile('docs/project/performance-board.json',JSON.stringify(board,null,2)+'\n');execFileSync(process.execPath,['tools/render-performance-board.mjs']);
+const qa=await read('reports/qa/t01-20261024.json');Object.assign(qa,{progress:base+'/progress-20261025-r4.json',productionChanged:changed,coverageComplete:false,offlineDelivered:false,boardRevision:183});await fs.writeFile('reports/qa/t01-20261024.json',JSON.stringify(qa,null,2)+'\n');
+await fs.appendFile('docs/project/T01_20261024.md','\n\n## 2026-10-25 后续核对（看板183）\n\n'+task.result+'\n\n840份基线中839份保持，唯一生产修改仍为用户批准的装备槽CSS，Current保持。菜单战斗条及英文等级文案未修改。详情截图背景问题尚需补拍验证，未将截图捕获或状态断言当作全部视觉通过。详见 `'+base+'/progress-20261025-r4.json`。\n');
+const agents=await fs.readFile('AGENTS.md','utf8');await fs.writeFile('AGENTS.md','## T01 状态与交互检查继续 · 2026-10-25\n\n- '+task.result+'\n- 840基线中839保持，唯一生产修改为已确认装备槽CSS；Current保持。菜单战斗条与英文等级提议仍待用户答复，未擅自采用；未提交/推送/发布。看板183，T01及最终V/MVP保持开放。进展 `'+base+'/progress-20261025-r4.json`。\n\n'+agents);
+console.log(JSON.stringify({board:183,changed,interactions:result.interactions.nativeTransactions,complete:false}));

@@ -1,0 +1,3131 @@
+{
+  "date": "2026-10-25",
+  "task": "T01",
+  "status": "inspection-complete-repair-proposal-only",
+  "authorization": "先做检查和修复方案；用户补充核弹问题是炸了以后画面不对。",
+  "fixesApplied": false,
+  "productionChangesThisBatch": [],
+  "findings": [
+    {
+      "id": "T01-FX-01",
+      "priority": "P1",
+      "topic": "全量单位攻击与死亡音效",
+      "status": "confirmed",
+      "finding": "13个可用音频中仅10个原版资源。用户点名的6种单位均在AudioContext running、实际开火2至3次时没有任何播放记录；陆战队员控制组正常。死亡只有marine映射，marine死亡1次播放、marauder为0。",
+      "plan": "以全部适用对象和武器分支为范围，用户点名仅为例子。按单位、实际武器/形态、召唤物建立原版发射/命中/死亡映射，覆盖普通、精英和敌军；检查声音优先级与并发上限，保证死亡和技能不被普攻挤掉。保持现有音量设置。",
+      "files": [
+        "tools/sc2-audio-catalog.mjs",
+        "src/render/effects/audio.ts"
+      ]
+    },
+    {
+      "id": "T01-FX-02",
+      "priority": "P1",
+      "topic": "诺娃及18英雄音效",
+      "status": "confirmed-routing",
+      "finding": "所有英雄都没有独立音频资源映射。诺娃普攻与狙击实测都播放sc2.marine.attack。18英雄逐项接线审核见heroes；恢复/控制技能也会落入枪声等不匹配路径。",
+      "plan": "英雄身份优先于基础兵种；按已确认武器和技能区分启动、持续、命中和结束。诺娃依据原版NovaAttack/NovaSnipeAttack音频链并按用户biu要求选音。技能不再用普通枪声统一兜底；18英雄逐项试听，死亡也按英雄身份或适配的原版材质分类。",
+      "files": [
+        "src/render/effects/audio.ts",
+        "src/data/heroes.ts",
+        "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/ActorData.xml"
+      ]
+    },
+    {
+      "id": "T01-FX-03",
+      "priority": "P2",
+      "topic": "兴奋剂",
+      "status": "confirmed",
+      "finding": "stimUntil真实生效，但渲染代码无对应路径，原版StimpackStartImpact和StimpackEndImpact资源已在本地。",
+      "plan": "按原版头顶挂点接启动与结束特效及对应音效；死亡时不补播正常结束效果。仅观察真实状态，不改变扣血、攻速、移速或持续时间。",
+      "files": [
+        "src/render/effects/source-combat-effects.ts",
+        "src/render/effects/source/catalog.json",
+        "assets/private/m3/stimpackstartimpact.m3",
+        "assets/private/m3/stimpackendimpact.m3"
+      ]
+    },
+    {
+      "id": "T01-FX-04",
+      "priority": "P1",
+      "topic": "巨像交叉扫射",
+      "status": "confirmed",
+      "finding": "原版要求Weapon02/03和SiteMover连续移动；当前使用Left/Right挂点（实际坐标不同），跟随11个离散伤害点。首轮射线约0.217秒出现、0.367秒进入结束，播放年龄仅0.21，未完成0.333秒Birth，画面很快只剩两个燃烧落点。",
+      "plan": "改为原版02/03炮口的两条连续反向扫射，保留交叉过程、原版启动/持续/收尾；视觉生命周期与伤害点数组的删除分开。普通和三种精英一起核对，伤害点、数值与周期不改。",
+      "files": [
+        "src/render/effects/source-combat-effects.ts",
+        "src/render/loaders/animations.ts",
+        "src/render/effects/source/player.ts"
+      ]
+    },
+    {
+      "id": "T01-FX-05",
+      "priority": "P1",
+      "topic": "虚空辉光舰射线忽粗忽细",
+      "status": "confirmed",
+      "finding": "通道key包含shotSequence，伤害每跳一次就换通道、重置动画并让旧通道结束；不同key还随机选择不同Attack剪辑。实测前4跳依次选Attack 06 / Attack / Attack 02 / Attack 05，1.4秒有1条当前和3条旧射线网格同时绘制。",
+      "plan": "同一目标连续射击共享一个通道和时钟，按真实普通/强化状态指定原版剪辑；停止、换目标或死亡只结束一次。精英强化用真实状态驱动，不随机换粗细。",
+      "files": [
+        "src/render/effects/source-combat-effects.ts",
+        "src/render/effects/source/timeline.ts",
+        "src/render/effects/source/player.ts"
+      ]
+    },
+    {
+      "id": "T01-FX-06",
+      "priority": "P2",
+      "topic": "航母与截击机比例及取景",
+      "status": "partly-confirmed",
+      "finding": "母舰GLB使用原版0.8缩放，未发现额外放大。截击机GLB已使用原版0.85，却再乘visualScale 0.2，显示宽度由母舰约15.6%降到约3.12%。检测页镜头还裁切母舰上部；不能把镜头问题当作母舰模型应缩小的证据。",
+      "plan": "取消截击机额外0.2显示缩放，按原版相对比例核对；镜头按完整模型水平/垂直范围和子机轨迹取景。先保留母舰原比例，普通/精英/旗舰共用子机及旗舰技能编队分别验证。",
+      "files": [
+        "src/simulation/combat/carriers.ts",
+        "src/data/combat-presentation.ts",
+        "tools/t01/runtime.ts"
+      ]
+    },
+    {
+      "id": "T01-FX-07",
+      "priority": "P1",
+      "topic": "核弹爆炸后的画面",
+      "status": "confirmed-two-causes",
+      "finding": "检测夹具将完整敌军Entity作为落点传入，point保留了roach/race=zerg；人族核弹爆炸事件因此变成虫族，显示绿色组织/酸液。仅将诊断落点改为{x,z}后事件恢复terran，但仍由通用fire/smokeLit接管约1.15秒，并没有播放完整Nuke.m3；旧fx.support.nuke分支被普通效果路由提前拦截。",
+      "plan": "首先把检测落点限制为纯坐标，核对施放方与命中方身份；人族战略爆炸使用本地原版GhostNukeExplode/Nuke.m3完整爆炸、烟云和消散，并明确单一路由，避免通用火团替代或叠放。保持实际伤害、范围和3秒落地时刻。",
+      "files": [
+        "tools/t01/card-effect-fixture.ts",
+        "src/simulation/combat/shop-support.ts",
+        "src/render/effects/nonhero-effects.ts",
+        "src/render/effects/battle-effects.ts",
+        "src/render/effects/source-combat-effects.ts",
+        "assets/private/m3/nuke.m3"
+      ]
+    },
+    {
+      "id": "T01-FX-08",
+      "priority": "P2",
+      "topic": "无动态表现的目录条目",
+      "status": "confirmed-catalogue",
+      "finding": "当前列表1130对象中仅165是单位，其余包括629卡牌、210装备、82发展项目等。卡面、全军数值加成、训练周转、直接资源收入、解锁/研究等被无条件纳入动态目录。",
+      "plan": "按可观察动态表现建立明确目录条件：纯卡面/数值/经济/研究/解锁只留UI或说明；保留实际召唤、弹体、光束、治疗、护盾、持续区域、地雷和死亡等动态过程。英雄/兵种购买与已有单位动作去重。应有但漏接的兴奋剂等仍列为缺陷，不能靠删条目掩盖。最终删除数量在逐项分类后给出。",
+      "files": [
+        "tools/t01/gallery.ts",
+        "tools/t01/catalogue.ts",
+        "tools/t01/card-effect-fixture.ts",
+        "tools/t01/equipment-fixture.ts"
+      ]
+    }
+  ],
+  "heroes": [
+    {
+      "id": "raynor",
+      "name": "雷诺",
+      "family": "marine",
+      "skill": "穿透射击",
+      "attack": "sc2.marine.attack",
+      "skillLaunch": "sc2.marine.attack",
+      "death": "sc2.marine.death",
+      "proposal": "重型步枪 / 穿透射击",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "tychus",
+      "name": "泰凯斯",
+      "family": "marine",
+      "skill": "手雷",
+      "attack": "sc2.marine.attack",
+      "skillLaunch": "sc2.marine.attack",
+      "death": "sc2.marine.death",
+      "proposal": "旋转机枪 / 手雷投掷与爆炸",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "nova",
+      "name": "诺娃",
+      "family": "marine",
+      "skill": "狙击",
+      "attack": "sc2.marine.attack",
+      "skillLaunch": "sc2.marine.attack",
+      "death": "sc2.marine.death",
+      "proposal": "短促能量枪声（用户要求 biu） / 独立狙击发射与命中",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "swann",
+      "name": "斯旺",
+      "family": "marauder",
+      "skill": "紧急抢修",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "工程武器 / 抢修启动、持续与结束",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "tosh",
+      "name": "托什",
+      "family": "marine",
+      "skill": "精神冲击",
+      "attack": "sc2.marine.attack",
+      "skillLaunch": "sc2.marine.attack",
+      "death": "sc2.marine.death",
+      "proposal": "灵能武器 / 精神冲击",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "kerrigan",
+      "name": "凯瑞甘",
+      "family": "zergling",
+      "skill": "灵能冲击",
+      "attack": "sc2.zergling.attack",
+      "skillLaunch": "sc2.zergling.attack",
+      "death": null,
+      "proposal": "利爪 / 灵能冲击",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "zagara",
+      "name": "扎加拉",
+      "family": "queen",
+      "skill": "爆虫弹幕",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "虫族远程攻击 / 爆虫弹幕发射与爆破",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "dehaka",
+      "name": "德哈卡",
+      "family": "ultralisk",
+      "skill": "原始吞噬",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "重型近战 / 吞噬与恢复",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "stukov",
+      "name": "斯托科夫",
+      "family": "hydralisk",
+      "skill": "腐蚀弹",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "感染针刺 / 腐蚀弹",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "niadra",
+      "name": "妮雅德拉",
+      "family": "queen",
+      "skill": "殖群复生",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "治疗与寄生 / 殖群复生",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "artanis",
+      "name": "阿塔尼斯",
+      "family": "zealot",
+      "skill": "护盾复苏",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "灵能双刃 / 护盾复苏",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "zeratul",
+      "name": "泽拉图",
+      "family": "zealot",
+      "skill": "虚空斩",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "暗影刃 / 虚空斩",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "alarak",
+      "name": "阿拉纳克",
+      "family": "zealot",
+      "skill": "毁灭波",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "灵能刃 / 毁灭波",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "fenix",
+      "name": "菲尼克斯",
+      "family": "immortal",
+      "skill": "太阳炮",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "能量炮 / 太阳炮",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "vorazun",
+      "name": "沃拉尊",
+      "family": "zealot",
+      "skill": "时间停滞",
+      "attack": null,
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "暗影刃 / 时间停滞",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "yamato_battlecruiser",
+      "name": "大和战列巡洋舰",
+      "family": "yamato_battlecruiser",
+      "skill": "大和聚变炮",
+      "attack": null,
+      "skillLaunch": "blast",
+      "death": null,
+      "proposal": "舰炮 / 大和炮蓄力、发射与爆炸",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "hots_leviathan",
+      "name": "利维坦",
+      "family": "hots_leviathan",
+      "skill": "生体等离子风暴",
+      "attack": null,
+      "skillLaunch": "blast",
+      "death": null,
+      "proposal": "生体武器 / 生体等离子风暴",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    },
+    {
+      "id": "purifier_flagship",
+      "name": "净化者旗舰",
+      "family": "purifier_flagship",
+      "skill": "聚变核爆",
+      "attack": "mother:no-weapon",
+      "skillLaunch": "shot",
+      "death": null,
+      "proposal": "真实截击机武器，母舰无普通武器 / 聚变核爆",
+      "scope": "源码与资源接线审核；尚未逐英雄人工试听原版候选音频。"
+    }
+  ],
+  "evidence": {
+    "realtimeAudio": [
+      {
+        "id": "actor:marine:1:attack",
+        "shots": 3,
+        "state": "running",
+        "played": {
+          "sc2.marine.attack": 3
+        }
+      },
+      {
+        "id": "actor:marauder:1:attack",
+        "shots": 2,
+        "state": "running",
+        "played": {}
+      },
+      {
+        "id": "actor:reaper:1:attack",
+        "shots": 3,
+        "state": "running",
+        "played": {}
+      },
+      {
+        "id": "actor:thor:1:attack",
+        "shots": 2,
+        "state": "running",
+        "played": {}
+      },
+      {
+        "id": "actor:viking:1:attack",
+        "shots": 2,
+        "state": "running",
+        "played": {}
+      },
+      {
+        "id": "actor:banshee:1:attack",
+        "shots": 2,
+        "state": "running",
+        "played": {}
+      },
+      {
+        "id": "actor:hydralisk:1:attack",
+        "shots": 3,
+        "state": "running",
+        "played": {}
+      },
+      {
+        "id": "actor:hero.nova:1:attack",
+        "shots": 3,
+        "state": "running",
+        "played": {
+          "sc2.marine.attack": 3
+        }
+      }
+    ],
+    "scenes": 20,
+    "screenshotsReviewed": [
+      "colossus-attack-0.4.png",
+      "colossus-attack-0.6.png",
+      "void_ray-attack-0.4.png",
+      "void_ray-attack-0.8.png",
+      "carrier-attack-1.5.png",
+      "nuclear-15-2.png",
+      "nuclear-15-3.png",
+      "supp-nuclear-false-3.4.png",
+      "supp-nuclear-true-3.4.png",
+      "supp-nuclear-true-3.9.png",
+      "supp-colossus-0.3.png"
+    ],
+    "httpErrors": [],
+    "pageErrors": [],
+    "buildInputs": 531,
+    "inputDrift": [],
+    "originalAudioDecoded": 10,
+    "audioDecodeErrors": [],
+    "sourceNodes": [
+      {
+        "id": "Marine_Stimpack",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 13647
+      },
+      {
+        "id": "Marauder_Stimpack",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 13650
+      },
+      {
+        "id": "StimpackStartImpact",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 13653
+      },
+      {
+        "id": "StimpackEndImpact",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 13660
+      },
+      {
+        "id": "GhostAttack",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 14585
+      },
+      {
+        "id": "GhostNukeExplode",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 14953
+      },
+      {
+        "id": "Carrier",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 16858
+      },
+      {
+        "id": "ColossusAttackLaunchSite",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 16949
+      },
+      {
+        "id": "ColossusAttackImpactSite",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 16953
+      },
+      {
+        "id": "ColossusAttackBeam",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 16965
+      },
+      {
+        "id": "ColossusAttackLaunchSiteReverse",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 16986
+      },
+      {
+        "id": "ColossusAttackBeamReverse",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 17002
+      },
+      {
+        "id": "Interceptor",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 17827
+      },
+      {
+        "id": "VoidRayAttackBeam",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 18903
+      },
+      {
+        "id": "CarrierBase",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "line": 3868
+      },
+      {
+        "id": "InterceptorBase",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "line": 3896
+      },
+      {
+        "id": "StimpackStartImpact",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "line": 22947
+      },
+      {
+        "id": "StimpackEndImpact",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "line": 22951
+      },
+      {
+        "id": "GhostNukeExplode",
+        "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml",
+        "line": 23847
+      },
+      {
+        "id": "NovaAttack",
+        "file": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/ActorData.xml",
+        "line": 7939
+      },
+      {
+        "id": "NovaSnipeAttack",
+        "file": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/ActorData.xml",
+        "line": 8033
+      },
+      {
+        "id": "VoidRaySwarmAttackBeam",
+        "file": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 543
+      },
+      {
+        "id": "VoidRaySwarmAttack",
+        "file": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 560
+      },
+      {
+        "id": "VoidRaySwarmEnhancedAttack",
+        "file": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/ActorData.xml",
+        "line": 613
+      }
+    ],
+    "carrier": [
+      {
+        "key": "carrier",
+        "height": 1.718597785949707,
+        "radius": 2.1867673797607416,
+        "scale": 0.8959999999999999,
+        "normalization": [
+          0.8959999999999999,
+          0,
+          0,
+          0,
+          0,
+          0.8959999999999999,
+          0,
+          0,
+          0,
+          0,
+          0.8959999999999999,
+          0,
+          -0.002035346984863281,
+          0.8222918777465821,
+          -0.0021559906005859373,
+          1
+        ]
+      },
+      {
+        "key": "interceptor",
+        "height": 0.1908944525718689,
+        "radius": 0.34114588880538943,
+        "scale": 0.952,
+        "normalization": [
+          0.952,
+          0,
+          0,
+          0,
+          0,
+          0.952,
+          0,
+          0,
+          0,
+          0,
+          0.952,
+          0,
+          -0.0005823030471801757,
+          0.09799628454446793,
+          0.04623261064291,
+          1
+        ]
+      }
+    ],
+    "objects": 1130,
+    "unitObjects": 165,
+    "groups": {
+      "普通单位": 30,
+      "英雄": 18,
+      "精英": 90,
+      "卡牌": 629,
+      "敌军首领": 27,
+      "特殊关卡": 4,
+      "随机任务": 7,
+      "特殊遭遇": 11,
+      "地图拾取物": 6,
+      "替代虫群": 4,
+      "商店商品": 7,
+      "装备": 210,
+      "发展卡牌": 82,
+      "地图": 5
+    },
+    "beamClips": [
+      {
+        "key": "channel:2:1:VoidRayAttackBeam",
+        "clip": "Attack 06"
+      },
+      {
+        "key": "channel:2:2:VoidRayAttackBeam",
+        "clip": "Attack"
+      },
+      {
+        "key": "channel:2:3:VoidRayAttackBeam",
+        "clip": "Attack 02"
+      },
+      {
+        "key": "channel:2:4:VoidRayAttackBeam",
+        "clip": "Attack 05"
+      }
+    ],
+    "sourceModelScales": [
+      {
+        "id": "model.carrier",
+        "url": "assets/optimized/model.carrier.glb",
+        "sourceScale": [
+          0.8
+        ]
+      },
+      {
+        "id": "model.interceptor",
+        "url": "assets/optimized/model.interceptor.glb",
+        "sourceScale": [
+          0.85
+        ]
+      }
+    ]
+  },
+  "executionOrder": [
+    "核弹落点/路由、虚空射线通道、巨像扫射",
+    "普通单位/死亡和18英雄音效，兴奋剂原版表现",
+    "截击机比例、模型取景、清理无动态目录",
+    "有限回归与单个综合离线HTML更新，交用户看画面"
+  ],
+  "acceptance": [
+    "音效与真实发射、命中、死亡、技能阶段对应；连续播放和结束不重复、不漏播重要音效。",
+    "巨像左右炮口交叉扫射完整；虚空辉光舰稳定射线不随伤害跳数重启。",
+    "核弹在正确落点播放人族原版完整爆炸与消散，不串用敌方种族。",
+    "截击机恢复原版相对比例，母舰和子机轨迹不被检测镜头裁切。",
+    "纯数值条目不出现在动态效果目录；缺失特效仍作为待修项目。",
+    "回归对照伤害、范围、攻速、冷却、持续时间、装备和存档保持；单HTML离线播放/记录导出正常。"
+  ],
+  "reproduce": [
+    "node --import tsx tools/audit-t01-feedback-source.mts",
+    "node tools/inspect-t01-feedback.mjs",
+    "node tools/inspect-t01-feedback.mjs --supplemental",
+    "node --import tsx tools/audit-t01-feedback-source.mts --audio-scope"
+  ],
+  "attempts": [
+    "首轮隔离Chrome未能启动，CDP端口不存在；未产生有效场景结果。按环境权限允许后同脚本完成17项定点检查及3项补查。"
+  ],
+  "limits": [
+    "场景数是缺陷复现，不是效果通过数；未恢复代理全目录观看。",
+    "全英雄音色适配通过源码接线审核发现缺口，尚未试听新增候选音频。",
+    "未修改生产游戏、现有检测交付或Current；未提交、推送或发布；T01与最终V/MVP仍开放。"
+  ],
+  "retention": {
+    "rule": "只留简要结论与复现代码；本批临时截图、原始报告和Chrome缓存检查结束后删除。",
+    "cleanupPending": false,
+    "cleanup": {
+      "files": 5515,
+      "deleted": "D:\\星际\\.cache\\t01-feedback-inspection",
+      "bytes": 1634650337
+    }
+  },
+  "audioFullScope": {
+    "clarification": "用户列举的是部分例子。攻击音效核验与修复覆盖全量适用对象及其实际武器形态。",
+    "scope": [
+      "全部普通单位",
+      "全部精英",
+      "全部英雄",
+      "全部敌军/首领/领主",
+      "召唤物与子机",
+      "实际参与攻击的建筑、特殊遭遇与支援对象",
+      "对地/对空、近程/远程及变形后武器"
+    ],
+    "catalogueAudit": {
+      "unitObjects": 165,
+      "attackingObjects": 157,
+      "noAttackObjects": 8,
+      "allBranchesWithoutAudioMapping": 115,
+      "partiallyMissingObjects": 0,
+      "originalAttackFamilies": [
+        "marine",
+        "hellion",
+        "tank",
+        "zergling",
+        "roach",
+        "ravager"
+      ],
+      "objects": [
+        {
+          "id": "actor:marine",
+          "name": "陆战队员",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:marauder",
+          "name": "劫掠者",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:reaper",
+          "name": "死神",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hellion",
+          "name": "恶火",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.hellion.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "火蝠 · 对地攻击",
+              "sound": "sc2.hellion.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:tank",
+          "name": "攻城坦克",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.tank.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "架炮 · 对地攻击",
+              "sound": "sc2.tank.siege",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:thor",
+          "name": "雷神",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "高冲击 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "高冲击 · 对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:viking",
+          "name": "维京",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "突击机甲 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:banshee",
+          "name": "女妖",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:medivac",
+          "name": "医疗运输机",
+          "group": "普通单位",
+          "branches": []
+        },
+        {
+          "id": "actor:science_vessel",
+          "name": "科技球",
+          "group": "普通单位",
+          "branches": []
+        },
+        {
+          "id": "actor:zergling",
+          "name": "跳虫",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.zergling.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:baneling",
+          "name": "爆虫",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "blast",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:roach",
+          "name": "蟑螂",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.roach.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:ravager",
+          "name": "破坏者",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.ravager.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hydralisk",
+          "name": "刺蛇",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:queen",
+          "name": "虫后",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "远距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:lurker",
+          "name": "潜伏者",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "埋地 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:mutalisk",
+          "name": "异龙",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:corruptor",
+          "name": "腐化者",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:ultralisk",
+          "name": "雷兽",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:zealot",
+          "name": "狂热者",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:adept",
+          "name": "使徒",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:stalker",
+          "name": "追猎者",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:sentry",
+          "name": "哨兵",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:immortal",
+          "name": "不朽者",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:colossus",
+          "name": "巨像",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:high_templar",
+          "name": "高阶圣堂武士",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:phoenix",
+          "name": "凤凰",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:void_ray",
+          "name": "虚空辉光舰",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:carrier",
+          "name": "航母",
+          "group": "普通单位",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.raynor",
+          "name": "雷诺",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.tychus",
+          "name": "泰凯斯",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.nova",
+          "name": "诺娃",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.swann",
+          "name": "斯旺",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.tosh",
+          "name": "托什",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.kerrigan",
+          "name": "凯瑞甘",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.zergling.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.zagara",
+          "name": "扎加拉",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.dehaka",
+          "name": "德哈卡",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.stukov",
+          "name": "斯托科夫",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.niadra",
+          "name": "妮雅德拉",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.artanis",
+          "name": "阿塔尼斯",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.zeratul",
+          "name": "泽拉图",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.alarak",
+          "name": "阿拉纳克",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.fenix",
+          "name": "菲尼克斯",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.vorazun",
+          "name": "沃拉尊",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.yamato_battlecruiser",
+          "name": "大和战列巡洋舰",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.hots_leviathan",
+          "name": "利维坦",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:hero.purifier_flagship",
+          "name": "净化者旗舰",
+          "group": "英雄",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.marine.1",
+          "name": "金属风暴",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.marine.2",
+          "name": "精英杀手",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.marine.3",
+          "name": "战场指挥官",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": "sc2.marine.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.marauder.1",
+          "name": "震撼弹专家",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.marauder.2",
+          "name": "破甲精英",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.marauder.3",
+          "name": "拒绝者",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.hellion.1",
+          "name": "长炎",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.hellion.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "火蝠 · 对地攻击",
+              "sound": "sc2.hellion.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.hellion.2",
+          "name": "地狱骑士",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.hellion.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "火蝠 · 对地攻击",
+              "sound": "sc2.hellion.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.hellion.3",
+          "name": "布雷车",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.hellion.attack",
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "火蝠 · 对地攻击",
+              "sound": "sc2.hellion.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.tank.1",
+          "name": "豹石",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.tank.siege",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.tank.2",
+          "name": "虎式",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "架炮 · 对地攻击",
+              "sound": "sc2.tank.siege",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.tank.3",
+          "name": "毁灭者",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "架炮 · 对地攻击",
+              "sound": "sc2.tank.siege",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.medivac.1",
+          "name": "战场女武神",
+          "group": "精英",
+          "branches": []
+        },
+        {
+          "id": "actor:elite.medivac.2",
+          "name": "精英救护",
+          "group": "精英",
+          "branches": []
+        },
+        {
+          "id": "actor:elite.medivac.3",
+          "name": "微光护盾",
+          "group": "精英",
+          "branches": []
+        },
+        {
+          "id": "actor:elite.reaper.1",
+          "name": "午夜死神",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.thor.1",
+          "name": "雷霆支点",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "高冲击 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "高冲击 · 对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.viking.1",
+          "name": "苍穹猎鹰",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "突击机甲 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.banshee.1",
+          "name": "报丧女妖",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.science_vessel.1",
+          "name": "铁幕研究员",
+          "group": "精英",
+          "branches": []
+        },
+        {
+          "id": "actor:elite.zergling.1",
+          "name": "裂爪狂潮",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.zergling.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.baneling.1",
+          "name": "灾厄酸核",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "blast",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.roach.1",
+          "name": "深壳堡垒",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.roach.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.ravager.1",
+          "name": "连囊炮手",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.ravager.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.hydralisk.1",
+          "name": "千针风暴",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.lurker.1",
+          "name": "三脊穿心",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "埋地 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.queen.1",
+          "name": "母巢女王",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "远距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.mutalisk.1",
+          "name": "六翼回旋",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.corruptor.1",
+          "name": "蚀空锁喉",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.ultralisk.1",
+          "name": "暴君镰刃",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.zealot.1",
+          "name": "誓刃狂徒",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.adept.1",
+          "name": "双相战刃",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.stalker.1",
+          "name": "虚空连射",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.sentry.1",
+          "name": "光穹织者",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.immortal.1",
+          "name": "破城判官",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.colossus.1",
+          "name": "焚天双束",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.high_templar.1",
+          "name": "风暴执政",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.phoenix.1",
+          "name": "离子六翼",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.void_ray.1",
+          "name": "棱光处刑舰",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.carrier.1",
+          "name": "蜂群指挥舰",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.viking.2",
+          "name": "钢铁落锤",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "突击机甲 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.viking.3",
+          "name": "双相王牌",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "突击机甲 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.ravager.2",
+          "name": "破城酸星",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.ravager.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.ravager.3",
+          "name": "腐蚀雨幕",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.ravager.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.high_templar.2",
+          "name": "反馈先知",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.high_templar.3",
+          "name": "静电织网",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.reaper.2",
+          "name": "大枪管",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.reaper.3",
+          "name": "孤星猎手",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.thor.2",
+          "name": "天罚炮台",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "高冲击 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "高冲击 · 对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.thor.3",
+          "name": "末日过载",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "高冲击 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "高冲击 · 对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.banshee.2",
+          "name": "瘟疫女妖",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.banshee.3",
+          "name": "振奋女妖",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.science_vessel.2",
+          "name": "辐照工程师",
+          "group": "精英",
+          "branches": []
+        },
+        {
+          "id": "actor:elite.science_vessel.3",
+          "name": "磁脉冲主宰",
+          "group": "精英",
+          "branches": []
+        },
+        {
+          "id": "actor:elite.zergling.2",
+          "name": "噬甲獠牙",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.zergling.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.zergling.3",
+          "name": "共生血巢",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.zergling.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.baneling.2",
+          "name": "腐土播种者",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "blast",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.baneling.3",
+          "name": "甲壳反应堆",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "blast",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.roach.2",
+          "name": "穿甲酸喉",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.roach.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.roach.3",
+          "name": "反噬菌甲",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.roach.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.hydralisk.2",
+          "name": "裂甲长棘",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.hydralisk.3",
+          "name": "毒囊猎手",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.lurker.2",
+          "name": "地裂巨刺",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "埋地 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.lurker.3",
+          "name": "潜巢伏击者",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "埋地 · 对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.queen.2",
+          "name": "输血主母",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "远距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.queen.3",
+          "name": "毒巢守卫",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "远距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.mutalisk.2",
+          "name": "绞杀翼群",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.mutalisk.3",
+          "name": "血羽迁徙",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.corruptor.2",
+          "name": "空巢铁卫",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.corruptor.3",
+          "name": "腐空瘟囊",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.ultralisk.2",
+          "name": "不灭甲兽",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.ultralisk.3",
+          "name": "原始踏碎者",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.zealot.2",
+          "name": "光盾卫士",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.zealot.3",
+          "name": "裂阵先锋",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.adept.2",
+          "name": "晨星巡猎",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.adept.3",
+          "name": "裂光共振",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.stalker.2",
+          "name": "裂隙刺客",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.stalker.3",
+          "name": "晶棘破甲",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.sentry.2",
+          "name": "静滞监察者",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.sentry.3",
+          "name": "折射惩戒",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.immortal.2",
+          "name": "永恒壁垒",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.immortal.3",
+          "name": "引力裁决",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.colossus.2",
+          "name": "地平线切割",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.colossus.3",
+          "name": "震慑行者",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.phoenix.2",
+          "name": "引力狩猎者",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.phoenix.3",
+          "name": "相位突击翼",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.void_ray.2",
+          "name": "裂光分束舰",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.void_ray.3",
+          "name": "能量虹吸舰",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.carrier.2",
+          "name": "重矛母舰",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            }
+          ]
+        },
+        {
+          "id": "actor:elite.carrier.3",
+          "name": "圣盾巡航舰",
+          "group": "精英",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "实际截击机事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:elite:queen",
+          "name": "巨型虫后",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "远距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:elite:lurker",
+          "name": "巨型潜伏者",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:elite:mutalisk",
+          "name": "巨型飞龙",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:elite:corruptor",
+          "name": "巨型腐化者",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:elite:ultralisk",
+          "name": "巨型雷兽",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:elite:zergling",
+          "name": "猎杀跳虫",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.zergling.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:elite:roach",
+          "name": "重甲蟑螂",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.roach.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:elite:hydralisk",
+          "name": "尖刺刺蛇",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:elite:ravager",
+          "name": "腐蚀破坏者",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.ravager.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:boss:queen",
+          "name": "巨型虫后",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "远距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:boss:lurker",
+          "name": "巨型潜伏者",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:boss:mutalisk",
+          "name": "巨型飞龙",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:boss:corruptor",
+          "name": "巨型腐化者",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:boss:ultralisk",
+          "name": "巨型雷兽",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:boss:zergling",
+          "name": "巨型跳虫",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.zergling.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:boss:roach",
+          "name": "巨型蟑螂",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.roach.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:boss:hydralisk",
+          "name": "巨型刺蛇",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:boss:ravager",
+          "name": "巨型破坏者",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.ravager.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:lord:queen",
+          "name": "巨型虫后",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "远距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:lord:lurker",
+          "name": "巨型潜伏者",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:lord:mutalisk",
+          "name": "巨型飞龙",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:lord:corruptor",
+          "name": "巨型腐化者",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:lord:ultralisk",
+          "name": "巨型雷兽",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:lord:zergling",
+          "name": "巨型跳虫",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.zergling.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:lord:roach",
+          "name": "巨型蟑螂",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.roach.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:lord:hydralisk",
+          "name": "巨型刺蛇",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对地攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            },
+            {
+              "action": "近距对空攻击",
+              "sound": null,
+              "scope": "单位攻击事件"
+            }
+          ]
+        },
+        {
+          "id": "enemy:lord:ravager",
+          "name": "巨型破坏者",
+          "group": "敌军首领",
+          "branches": [
+            {
+              "action": "对地攻击",
+              "sound": "sc2.ravager.attack",
+              "scope": "单位攻击事件"
+            }
+          ]
+        }
+      ]
+    },
+    "limits": [
+      "这是当前目录的全量源码/资源路由审核，不是逐项试听或现场播放通过。",
+      "165个单位目录是起点；目录外召唤、建筑、特殊遭遇与支援发声路径也属于实施核验范围，不能据本统计宣称全游戏已核对完。",
+      "已有声音也须核对身份、实际武器与技能适配，不能只用是否非空判定通过。"
+    ],
+    "acceptance": "每个适用对象/武器分支具备可追溯原版资源、正确发射/命中时机和实际播放结果；无武器对象明确不适用，不凭空补攻击声。"
+  },
+  "boardRevision": 205,
+  "followUp": {
+    "date": "2026-10-25",
+    "implementedFindingIds": [
+      "T01-FX-04",
+      "T01-FX-05",
+      "T01-FX-07"
+    ],
+    "report": "reports/qa/t01-nuke-beams-20261025.json",
+    "remainingPlansUnchanged": true
+  },
+  "audioFollowUp": {
+    "date": "2026-10-26",
+    "implementedFindingIds": [
+      "T01-FX-01",
+      "T01-FX-02",
+      "T01-FX-03"
+    ],
+    "report": "reports/qa/t01-audio-stim-20261025.json",
+    "remainingPlansUnchanged": true
+  },
+  "framingCatalogueFollowUp": {
+    "date": "2026-10-26",
+    "implementedFindingIds": [
+      "T01-FX-06",
+      "T01-FX-08"
+    ],
+    "report": "reports/qa/t01-framing-catalogue-20261026.json"
+  }
+}

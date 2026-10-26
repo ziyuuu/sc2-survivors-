@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+const b=JSON.parse(await fs.readFile('docs/project/performance-board.json','utf8'));
+if(b.revision!==179)throw Error('revision');
+b.tasks.find(t=>t.id==='V03').status='已完成';
+await fs.writeFile('docs/project/performance-board.json',JSON.stringify(b,null,2)+'\n');
+execFileSync(process.execPath,['tools/render-performance-board.mjs']);
+const source=await fs.readFile('tools/start-t01-20261024.mjs','utf8');
+const tail=source.slice(source.indexOf('const qa=await read')).replace('frozen:baseline.files.length','frozen:840');
+const prelude="import fs from 'node:fs/promises';const base='reports/local/t01-20261024',read=async p=>JSON.parse(await fs.readFile(p,'utf8'));\n";
+await fs.writeFile('reports/local/t01-20261024/finish-start.mjs',prelude+tail);
+await import('../reports/local/t01-20261024/finish-start.mjs');
+await fs.writeFile('reports/local/t01-20261024/start-correction.json',JSON.stringify({initial:'Board renderer rejected invalid status 完成 before later records. JSON was revision179.',second:'Inline repair command failed PowerShell parsing before executing.',correction:'Changed only status to allowed 已完成, rendered same revision179 and finished missing records; no extra revision or game changes.'},null,2));

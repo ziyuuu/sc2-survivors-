@@ -1,0 +1,20 @@
+import fs from 'node:fs/promises';
+import {World} from '../../src/simulation/world';
+import {newEquipmentAccount} from '../../src/simulation/starship/inventory';
+import {EQUIPMENT_TEMPLATES} from '../../src/simulation/starship/catalog';
+import {prepareEquipmentFixture,equipmentFixtureSnapshot,type EquipmentFixture} from './equipment-fixture';
+import {galleryDisposition} from './gallery-scope';
+import {buildGallery} from './gallery';
+import {DYNAMIC_CASES,type Case} from './catalogue';
+import {modelPresentationScale} from '../../src/data/combat-presentation';
+import {callFleet,tickFleetCall} from '../../src/simulation/missions/fleet';
+import entries from './equipment.generated.json';
+const all=entries as Case[],visible=all.filter(c=>galleryDisposition(c).kind==='dynamic'),sets=all.filter(c=>EQUIPMENT_TEMPLATES[c.actor!].kind==='set'),shownSets=sets.filter(c=>galleryDisposition(c).kind==='dynamic'),gallery=buildGallery(DYNAMIC_CASES);
+const report:any={coverage:{equipmentTemplates:Object.keys(EQUIPMENT_TEMPLATES).length,equipmentConfigurations:all.length,setTemplates:new Set(sets.map(c=>c.actor)).size,setConfigurations:sets.length,dynamicSetTemplates:new Set(shownSets.map(c=>c.actor)).size,dynamicSetConfigurations:shownSets.length,referenceSetTemplates:[...new Set(sets.filter(c=>galleryDisposition(c).kind!=='dynamic').map(c=>c.actor))].filter(t=>!shownSets.some(c=>c.actor===t)),effectKeys:new Set(all.flatMap(c=>(c.data as any).effects.map((e:any)=>e.key))).size,setEffectKeys:new Set(sets.flatMap(c=>(c.data as any).effects.map((e:any)=>e.key))).size,allEquipmentDurations:[...new Set(all.map(c=>c.seconds))],visibleEquipmentObjects:new Set(visible.map(c=>c.actor)).size,objects:gallery.length},tavern:DYNAMIC_CASES.filter(c=>c.runner==='card-effect'&&(c.data as any)?.effect?.item==='tavern').map(c=>({id:c.id,name:c.name,seconds:c.seconds,disposition:galleryDisposition(c)})),samples:[]};
+for(const id of ['equipment:set.traps.2:terran:2:unbound','equipment:module.reinforcement.3:terran:1:unbound','equipment:set.advanced.phantom.4:terran:4:unbound','equipment:set.advanced.survivor.4:terran:6:unbound','equipment:special.recall.4:terran:1:unbound','equipment:set.special.sky.4:terran:2:unbound']){
+ const c=all.find(c=>c.id===id)!;if(!c)throw Error(id);const w=new World({seed:529,sandbox:true,waves:false,terrain:false,obstacles:[],equipmentAccount:newEquipmentAccount(529)}),f=prepareEquipmentFixture(w,c.data as EquipmentFixture);const before=equipmentFixtureSnapshot(w);for(let n=0;n<1200;n++)w.step();const after=equipmentFixtureSnapshot(w);
+ report.samples.push({id,name:c.name,actor:w.entities.get(f.actorId)?.unitType,elapsed:w.time,effects:after.effects.map(e=>({key:e.key,values:e.values})),cycles:after.cycles,receipts:after.receipts.map(e=>e.kind),projections:after.projections.length,mines:w.expedition.support.mines.length,beforeUnits:before.bodies.length,afterUnits:after.bodies.length,ships:[...w.entities.values()].filter(u=>u.unitType==='yamato_battlecruiser').map(u=>({type:u.unitType,model:u.modelKey,hero:u.heroId,scale:u.visualScale??1,finalScale:modelPresentationScale(u),member:w.starship.members.get(u.id)}))});
+ console.log(JSON.stringify({sample:id,elapsed:w.time,receipts:after.receipts.length}));
+}
+const w=new World({seed:529,sandbox:true,waves:false,terrain:false,obstacles:[]});w.entities.clear();w.phase='battle';w.anchor={x:0,z:0,facing:0};w.paused=false;w.missions.fleet.unlocked=true;if(!callFleet(w,{x:0,z:0}))throw Error('fleet');w.tick++;tickFleetCall(w);const ship=[...w.entities.values()].find(u=>u.mission?.fleet)!;report.fleetScale={mission:{model:ship.modelKey,visualScale:ship.visualScale,renderScale:modelPresentationScale(ship)},sameModelAtOne:modelPresentationScale({...ship,visualScale:1}),ratio:.5};
+await fs.mkdir('.cache/t01-review-plan',{recursive:true});await fs.writeFile('.cache/t01-review-plan/native.json',JSON.stringify(report,null,2));console.log(JSON.stringify({coverage:report.coverage,fleetScale:report.fleetScale,tavern:report.tavern}));

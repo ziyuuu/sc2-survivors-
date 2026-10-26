@@ -1,0 +1,32 @@
+[
+  {
+    "id": "model.factory.death",
+    "modelDataId": "FactoryDeath",
+    "assetPath": "Assets/Buildings/Terran/FactoryDeathEx1/FactoryDeathEx1.m3",
+    "name": "factorydeathex1"
+  },
+  {
+    "id": "model.starport.death",
+    "modelDataId": "StarportDeath",
+    "assetPath": "Assets/Buildings/Terran/StarportDeathEx1/StarportDeathEx1.m3",
+    "name": "starportdeathex1"
+  },
+  {
+    "id": "model.gateway.death",
+    "modelDataId": "GatewayDeath",
+    "assetPath": "Assets/Buildings/Protoss/GatewayDeathEx1/GatewayDeathEx1.m3",
+    "name": "gatewaydeathex1"
+  },
+  {
+    "id": "model.robotics.death",
+    "modelDataId": "RoboticsFacilityDeath",
+    "assetPath": "Assets/Buildings/Protoss/RoboticsFacilityDeathEx1/RoboticsFacilityDeathEx1.m3",
+    "name": "roboticsfacilitydeathex1"
+  },
+  {
+    "id": "model.stargate.death",
+    "modelDataId": "StargateDeath",
+    "assetPath": "Assets/Buildings/Protoss/StargateDeathEx1/StargateDeathEx1.m3",
+    "name": "stargatedeathex1"
+  }
+]

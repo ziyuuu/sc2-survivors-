@@ -469,10 +469,10 @@
   {
     "id": "model.elite.baneling.1.death",
     "modelDataId": "Baneling_Webby_Collection_Death",
-    "assetPath": "Assets/Units/Zerg/Baneling_CollectionSkin_WebbyDeath/Baneling_CollectionSkin_WebbyDeath.m3",
-    "name": "baneling_collectionskin_webbydeath",
+    "assetPath": "Assets/Units/Zerg/Baneling_CollectionSkin_WebbyDeath_MP/Baneling_CollectionSkin_WebbyDeath_MP.m3",
+    "name": "baneling_collectionskin_webbydeath_mp",
     "sourceScale": null,
-    "definitionLayer": "starcoop",
+    "definitionLayer": "liberty-multiplayer-pair",
     "modelInheritance": [
       "UnitDeath",
       "BanelingDeathBase",
@@ -480,7 +480,8 @@
       "Baneling_Webby_Collection_Death"
     ],
     "requiredAnimations": [],
-    "bodyModelDataId": "Baneling_Webby_Collection"
+    "bodyModelDataId": "Baneling_Webby_Collection",
+    "pathEvidence": "Pinned liberty ModelData Baneling_CollectionSkin_Webby and its Death both select the MP skin; the former global coop override selected the non-MP death."
   },
   {
     "id": "model.elite.roach.1.death",

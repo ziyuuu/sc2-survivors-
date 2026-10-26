@@ -55,10 +55,10 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;persisten
  // Reserve up to 12 ms for fixed-step catch-up; debt is retained and frame work remains bounded.
  const driver=new FixedStepper(TUNING.step,()=>{world.step();return world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind;},()=>performance.now(),12);
  window.__SC2_REPORT__=()=>({...view.report(),phase:world.phase,stage:world.stage,expedition:world.expedition?{rules:world.expedition.rules,race:world.expedition.race,families:[...world.expedition.familySlots],talentPreset:world.expedition.talentPreset,frozenTalents:world.runConfig?.frozenTalents??null}:null,wallet:{...world.wallet},endless:world.endless?{round:world.endless.round,elapsed:world.endlessElapsed,elites:world.endless.elites,bosses:world.endless.bosses}:null,time:world.time,stats:{...world.stats},assetsReady:view.initialAssetsLoaded,embeddedAssets:embeddedAssetStatus(),readiness:readiness.state,background:background.report(),simulationBacklogSeconds:driver.accumulator,discardedSimulationBacklogSeconds:driver.discardedBacklogSeconds,audio:audio.report(),gamepad:gamepad.report(),controls:controls.report(),save:session.report()});
- let audioField:string|null=null;world.listeners.add(()=>{const field=world.specialStages.active?.id??null;if(field!==audioField){audioField=field;audio.reset();}audio.update(world);});
+ let audioField:string|null=null;world.listeners.add(()=>{const field=world.specialStages.active?.id??null;if(field!==audioField){audioField=field;audio.resumeAt(world);}audio.update(world);});
  let previous=performance.now(),wasSimulating=false;
  view.manageViewport();bindGameViewport(()=>{view.resize();hud.update();},()=>{input.reset();hud.minimap.resetInput();gamepad.reset();previous=performance.now();wasSimulating=false;});
- const resetPresentation=()=>{input.reset();gamepad.reset();audio.reset();view.resetRun();driver.reset();wasSimulating=false;previous=performance.now();if(debug)debug.speed=1;};
+ const resetPresentation=()=>{input.reset();gamepad.reset();audio.resumeAt(world);view.resetRun();driver.reset();wasSimulating=false;previous=performance.now();if(debug)debug.speed=1;};
  hud.saveUI=new SaveControls(session,()=>{if(session.checkpointMode&&!session.hasLiveContinuation&&session.canResume){hud.loadPreview=session.prepareLoad();hud.onPrepareLoad();return;}if(session.resume()){resetPresentation();void audio.start();}hud.update();},()=>hud.update());session.onChange=()=>hud.update();
  let preparedNew:NewRunPreview|null=null;
  hud.onCancelFlow=()=>{preparedNew=null;hud.pendingStageAdvance=false;session.cancelPreparedNewRun();session.cancelPreparedLoad();};
@@ -103,7 +103,7 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;persisten
  for(const event of ['pointerdown','keydown','wheel'])document.addEventListener(event,()=>background.input(),{capture:true,passive:true});
  const frame=(now:number)=>{const elapsed=(now-previous)/1000;previous=now;
   if(!document.hidden){if(!readiness.state.kind&&world.phase==='battle')view.prepareRosterAssets();if(view.assetsPending||readiness.state.kind||playerServices.blocking){input.reset();gamepad.reset();}else{input.poll();gamepad.poll(now);}let alpha=1;const simulating=world.phase==='battle'&&!world.paused&&!world.requiresPlayerDecision&&!view.assetsPending&&!readiness.state.kind&&!playerServices.blocking;if(simulating&&wasSimulating)alpha=hud.advanceSimulation(()=>driver.advance(elapsed*(debug?.speed??1)));else driver.reset();wasSimulating=simulating;
-   if(!starship?.isOpen)view.render(elapsed,alpha);
+   audio.update(world);if(!starship?.isOpen)view.render(elapsed,alpha);
    if(!view.assetsPending&&!view.modelErrors.length&&!readiness.state.kind&&!document.hidden)markSpecialReady(world);
    hud.afterRender();
    if(!starship?.isOpen&&!readiness.state.kind){selectBackground();background.frame(elapsed*1000);if(world.phase==='menu'||world.phase==='reward'||simulating)background.tick();}

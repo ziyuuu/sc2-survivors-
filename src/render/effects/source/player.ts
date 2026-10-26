@@ -78,22 +78,22 @@ export class SourceEffectPlayer {decorationFraction=1;displacementEnabled=true;
  add(request:SourceEffectRequest,ground:(p:{x:number;z:number})=>number){
   this.play(request,ground);if(request.loop)this.loops.set(request.key,{request,ground,seenAt:this.clock});
  }
- private play(request:SourceEffectRequest,ground:(p:{x:number;z:number})=>number,particlesOnly=false){
+ private play(request:SourceEffectRequest,ground:(p:{x:number;z:number})=>number,particlesOnly=false,meshEndAge=Infinity){
   if(!this.ready)throw Error('Original combat effects are not ready');if(this.requests.has(request.key))throw Error('Duplicate core combat layer '+request.key);this.requests.add(request.key);
   const resource=this.resources.get(request.model);if(!resource){this.counts.missing++;throw Error('Unknown required combat effect '+request.model);}const def=resource.definition;if(request.age<0||!request.loop&&request.age>sourceLife(def))return;
   this.counts.effects++;const phase=sourcePhase(def,request.age,request.loop,request.seed,request.clip);
-  const hasMesh=!particlesOnly&&!!resource.gltf&&request.mesh!==false;if(hasMesh){const rigid=this.rigid.get(def.id);if(rigid){rigid.add(request,phase);this.counts.meshes++;}else this.mesh(resource,request,phase);}
+  const meshActive=!particlesOnly&&request.age<=Math.min(meshEndAge,request.meshUntil??Infinity),hasMesh=meshActive&&!!resource.gltf&&request.mesh!==false;if(hasMesh){const rigid=this.rigid.get(def.id);if(rigid){rigid.add(request,phase);this.counts.meshes++;}else this.mesh(resource,request,phase);}
   // Baneling's ordinary death body is owned by the unit renderer (mesh:false),
   // but its type-2 surface belongs exclusively to this refraction pass.
-  if(this.displacementEnabled&&!particlesOnly&&resource.displacementGltf)this.mesh(resource,request,phase,true);
+  if(this.displacementEnabled&&meshActive&&resource.displacementGltf)this.mesh(resource,request,phase,true);
   const decoration=this.decorationFraction<1?sourceDecorationMask(def):undefined;
-  const particles=sourceParticleQuads(def,request,this.camera,ground,this.particleCache,decoration?.size?this.decorationFraction:1,decoration),ribbons=particlesOnly?[]:sourceRibbonQuads(def,request,this.camera),projections=particlesOnly?[]:sourceProjectionQuads(def,request,ground);this.counts.particles+=particles.length;this.counts.ribbonQuads+=ribbons.length;this.counts.projectionQuads+=projections.length;
+  const particles=request.particles===false?[]:sourceParticleQuads(def,request,this.camera,ground,this.particleCache,decoration?.size?this.decorationFraction:1,decoration),ribbons=particlesOnly?[]:sourceRibbonQuads(def,request,this.camera),projections=particlesOnly||request.projections===false?[]:sourceProjectionQuads(def,request,ground);this.counts.particles+=particles.length;this.counts.ribbonQuads+=ribbons.length;this.counts.projectionQuads+=projections.length;
   let displacementQuads=0;
   for(const quads of [particles,ribbons,projections])for(const quad of quads){const ref=def.materialReferences[quad.materialReference];
    if(ref.type===2){if(!this.displacementEnabled)continue;const batch=this.batches.get(def.id+':displacement:'+ref.material_index);if(!batch)throw Error('Unprepared original displacement '+def.id);batch.add(quad);displacementQuads++;}
    else for(const material of this.materialsFor(def,quad.materialReference)){const batch=this.batches.get(def.id+':'+material);if(!batch)throw Error('Unprepared source combat layer '+def.id+':'+material);batch.add(quad);}
   }
-  const model=this.modelCounts.get(def.id)??{requests:0,meshes:0,particles:0,ribbons:0,projections:0,displacementMeshes:0,displacementQuads:0};model.requests++;model.meshes+=Number(hasMesh);model.particles+=particles.length;model.ribbons+=ribbons.length;model.projections+=projections.length;model.displacementMeshes+=this.displacementEnabled&&!particlesOnly&&resource.displacementGltf?(this.meshPools.get(def.id+':displacement')?.[0].surfaces.length??0):0;model.displacementQuads+=displacementQuads;this.counts.displacementQuads+=displacementQuads;this.modelCounts.set(def.id,model);
+  const model=this.modelCounts.get(def.id)??{requests:0,meshes:0,particles:0,ribbons:0,projections:0,displacementMeshes:0,displacementQuads:0};model.requests++;model.meshes+=Number(hasMesh);model.particles+=particles.length;model.ribbons+=ribbons.length;model.projections+=projections.length;model.displacementMeshes+=this.displacementEnabled&&meshActive&&resource.displacementGltf?(this.meshPools.get(def.id+':displacement')?.[0].surfaces.length??0):0;model.displacementQuads+=displacementQuads;this.counts.displacementQuads+=displacementQuads;this.modelCounts.set(def.id,model);
  }
  private mesh(resource:SourceEffectResource,request:SourceEffectRequest,phase:SourcePhase,displacement=false){
   const key=resource.definition.id+(displacement?':displacement':''),pool=this.meshPools.get(key)!,cursor=this.meshCursors.get(key)??0;let instance=pool[cursor];this.meshCursors.set(key,cursor+1);if(!instance){instance=this.makeMesh(resource,displacement);pool.push(instance);}instance.used=true;instance.lastUsed=this.clock;instance.root.visible=true;
@@ -108,12 +108,17 @@ export class SourceEffectPlayer {decorationFraction=1;displacementEnabled=true;
  end(){
   for(const [key,ending]of this.loops){
    if(this.requests.has(key))continue;ending.stopped??=Math.min(this.clock,ending.request.stopTime??this.clock);const {request,ground}=ending,def=this.resources.get(request.model)!.definition,{age,stopAge}=sourceEndingTimes(request,ending.seenAt,ending.stopped,this.clock);
+   if(request.stopAfter!==undefined){
+    if(this.clock-ending.stopped>request.stopAfter){this.loops.delete(key);continue;}
+    this.play({...request,key:'ending-timer:'+key,age:stopAge+age},ground);continue;
+   }
    if(age>sourceLife(def)){this.loops.delete(key);continue;}
    // Stop new births at the native channel end, retain already emitted source
    // particles, and play the authored Death clip once at the last real placement.
    this.play({...request,key:'ending-particles:'+key,age:stopAge+age,stopAt:stopAge,mesh:false},ground,true);
    const death=sourcePhase(def,sourceLife(def),false,request.seed).clip;
-   if(/^death(?:\s|$)/i.test(death.name))this.play({...request,key:'ending-death:'+key,age,loop:false,hostedBeam:false,clip:death.name},ground);
+   // Geometry ends with Death; emitted particles keep their own native lifetime.
+   if(/^death(?:\s|$)/i.test(death.name))this.play({...request,key:'ending-death:'+key,age,loop:false,hostedBeam:false,clip:death.name},ground,false,death.duration);
   }
   for(const rigid of this.rigid.values())rigid.end();this.particleCache.end();for(const b of this.batches.values())b.end();for(const [key,pool]of this.meshPools){const retained=pool.filter((m,i)=>{if(i===0||m.used||this.clock-m.lastUsed<2)return true;this.releaseMesh(m);return false;});this.meshPools.set(key,retained);}
  }

@@ -1,0 +1,1062 @@
+{
+  "date": "2026-10-26",
+  "task": "T01",
+  "status": "implemented-engineering-verified-awaiting-user-review",
+  "summary": "复核并纠正上一轮移动音效与英雄语音遗漏：利维坦改接HotSLeviathan原声，净化者旗舰按实际净化者航母接音，菲尼克斯改接龙骑士语音与移动启动声；补齐扎加拉及龙骑士菲尼克斯的原模型脚步事件。18英雄均有原版语音（利维坦为生物叫声），50身份支持选中/回应/闲聊轮播，短场景重置保留轮播顺序。新增406份原始音频；35项相关测试、类型、最终离线21场景及19组对白轮换通过，18英雄均测得实际声音信号，1909音频解码、循环/暂停/逐帧/导出通过，HTTP/页面错误0。普通坦克及陆战队员未找到可靠战斗移动绑定，撤回“原版没有相关声音”的过强结论。",
+  "authorization": "用户质疑找不到移动声音，并再次要求包括英雄语音；复核原版完整事件及音频来源，补齐遗漏。",
+  "corrections": [
+    {
+      "prior": "只检查Actor Movement字段即把36身份归为原版静音",
+      "now": "同时核对实际模型ModelData、主体及附加M3动画、原音频目录；补上遗漏的模型事件，未定位的项目标为未找到可靠绑定。"
+    },
+    {
+      "prior": "hots_leviathan使用liberty:Leviathan",
+      "now": "swarm:HotSLeviathan，包含原版What/Yes生物叫声。"
+    },
+    {
+      "prior": "purifier_flagship使用liberty:Purifier",
+      "now": "实际模型是净化者航母，沿用Carrier语音与移动引擎，非另一个Purifier母舰。"
+    },
+    {
+      "prior": "菲尼克斯使用FenixChampion",
+      "now": "当前模型为合作任务龙骑士，使用FenixDragoon语音、Dragoon_MoveStart及Fenix_Dragoon_Footsteps；启动音只在开始移动时播放。"
+    },
+    {
+      "prior": "每次短场景重置清空对白类别序号",
+      "now": "跨重置保留轮换序号，单组样本轮换和全局对白互斥保持，增加原版Pissed闲聊，Sequential台词按原始顺序播放。"
+    }
+  ],
+  "audio": {
+    "originals": 1899,
+    "pinnedOriginals": 1922,
+    "newOriginalFiles": 406,
+    "decoded": 1909,
+    "sharedBanksUnchanged": 394,
+    "combatRoutesUnchanged": true,
+    "simulationFilesUnchanged": 153,
+    "locale": {
+      "zhcn": 924,
+      "enus": 0,
+      "unlocalized": 975
+    },
+    "heroes": [
+      {
+        "hero": "hero:raynor",
+        "actor": "Raynor",
+        "banks": [
+          "liberty:Raynor_What",
+          "liberty:Raynor_Yes",
+          "liberty:Raynor_Pissed"
+        ],
+        "samples": 20,
+        "sourcePaths": [
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_What00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_What01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_What02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_What03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_What04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Yes05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Yes06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Attack04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed07.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed08.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed09.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed10.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Raynor/Raynor_Pissed11.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:tychus",
+        "actor": "TychusChaingun",
+        "banks": [
+          "liberty:Tychus_What",
+          "liberty:Tychus_Yes",
+          "liberty:Tychus_Pissed"
+        ],
+        "samples": 21,
+        "sourcePaths": [
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_What00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_What01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_What02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_What03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_What04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Yes00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Yes01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Yes02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Yes03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Yes04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Yes05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed07.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed08.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tychus/Tychus_Pissed09.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:nova",
+        "actor": "Nova",
+        "banks": [
+          "liberty:Nova_What",
+          "liberty:Nova_Yes",
+          "liberty:Nova_Pissed"
+        ],
+        "samples": 24,
+        "sourcePaths": [
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_What00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_What01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_What02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_What03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_What04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Yes00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Yes01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Yes02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Yes03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Yes04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Yes05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Yes06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Yes07.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Yes08.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed07.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed08.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Nova/Nova_Pissed09.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:swann",
+        "actor": "Dutch",
+        "banks": [
+          "liberty:Swann_What",
+          "liberty:Swann_Yes",
+          "liberty:Swann_Pissed"
+        ],
+        "samples": 13,
+        "sourcePaths": [
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_What00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_What01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_What02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_What03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_Yes00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_Yes01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_Yes02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_Yes03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_Pissed00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_Pissed01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_Pissed02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_Pissed03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Swann/Swann_Pissed04.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:tosh",
+        "actor": "Tosh",
+        "banks": [
+          "liberty:Tosh_What",
+          "liberty:Tosh_Yes",
+          "liberty:Tosh_Pissed"
+        ],
+        "samples": 21,
+        "sourcePaths": [
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_What00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_What01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_What02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_What03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_What04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_What05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_What06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Yes00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Yes01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Yes02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Yes03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Yes04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Yes05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Pissed00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Pissed01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Pissed02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Pissed03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Pissed04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Pissed05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Pissed06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/TerranVO/CampaignUnits/Tosh/Tosh_Pissed07.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:kerrigan",
+        "actor": "QueenOfBlades",
+        "banks": [
+          "liberty:Kerrigan_What",
+          "liberty:Kerrigan_Yes",
+          "liberty:Kerrigan_Pissed"
+        ],
+        "samples": 18,
+        "sourcePaths": [
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_What00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_What01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_What02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_What03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Yes00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Yes01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Yes02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Yes03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Yes04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Pissed00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Pissed01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Pissed02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Pissed03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Pissed04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Pissed05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Pissed06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Pissed07.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ZergVO/CampaignUnits/Kerrigan/Kerrigan_Pissed08.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:zagara",
+        "actor": "ZaGara",
+        "banks": [
+          "coop:ZagaraHero_Ready",
+          "coop:ZagaraHero_Yes",
+          "coop:ZagaraHero_Pissed"
+        ],
+        "samples": 16,
+        "sourcePaths": [
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Ready00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Ready01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Yes00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Yes01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Yes02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Yes03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Yes04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Yes05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Yes06.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Pissed00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Pissed01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Pissed02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Pissed03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Pissed04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Pissed05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Zerg/ZagaraHero_Pissed06.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:dehaka",
+        "actor": "Dehaka",
+        "banks": [
+          "swarm:Dehaka_What",
+          "swarm:Dehaka_Yes",
+          "swarm:Dehaka_Pissed"
+        ],
+        "samples": 19,
+        "sourcePaths": [
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_004.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_005.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_006.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_037.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_032.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_011.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_033.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_010.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_017.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_025.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_024.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_034.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_013.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_026.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_027.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_012.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_018.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_029.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroDehaka_PrimalZergAdvisor_028.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:stukov",
+        "actor": "InfestedStukov",
+        "banks": [
+          "swarm:Stukov_What",
+          "swarm:Stukov_Yes",
+          "swarm:Stukov_Pissed"
+        ],
+        "samples": 20,
+        "sourcePaths": [
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_012.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_013.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_001.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_026.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_040.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_011.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_023.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_025.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_027.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_036.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_037.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_032.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_035.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_030.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_038.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_022.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_003.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_008.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_041.ogg",
+          "campaigns/swarm.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroStukov_Stukov_015.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:niadra",
+        "actor": "HugeSwarmQueen",
+        "banks": [
+          "swarm:Niadra_What",
+          "swarm:Niadra_Yes",
+          "swarm:Niadra_Pissed"
+        ],
+        "samples": 19,
+        "sourcePaths": [
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_003.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_004.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_005.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_055.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_006.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_011.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_012.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_013.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_014.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_015.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_059.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_056.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_054.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_045.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_046.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_047.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_048.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_049.ogg",
+          "campaigns/swarmstory.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/zUnit_HeroQueen_zExpedtion03Queen_051.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:artanis",
+        "actor": "ArtanisVoid",
+        "banks": [
+          "void:ArtanisVoid_What",
+          "void:ArtanisVoid_Yes",
+          "void:ArtanisVoid_Pissed"
+        ],
+        "samples": 20,
+        "sourcePaths": [
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_What00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_What01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_What02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_What03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_What04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_What05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_What06.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Yes00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Yes01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Yes02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Yes03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Yes04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Yes05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Pissed00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Pissed01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Pissed02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Pissed03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Pissed04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Pissed05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/ArtanisVoid_Pissed06.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:zeratul",
+        "actor": "Zeratul",
+        "banks": [
+          "liberty:Zeratul_What",
+          "liberty:Zeratul_Yes",
+          "liberty:Zeratul_Pissed"
+        ],
+        "samples": 23,
+        "sourcePaths": [
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_What00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_What01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_What02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_What03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_What04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes07.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes08.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Yes.10.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Pissed00.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Pissed01.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Pissed02.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Pissed03.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Pissed04.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Pissed05.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Pissed06.ogg",
+          "campaigns/liberty.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/ProtossVO/CampaignUnits/Zeratul/Zeratul_Pissed07.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:alarak",
+        "actor": "AlarakChampion",
+        "banks": [
+          "void:Alarak_What",
+          "void:Alarak_Yes",
+          "void:Alarak_Pissed"
+        ],
+        "samples": 21,
+        "sourcePaths": [
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_What00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_What01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_What02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_What03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_What04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_What05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_What06.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Yes00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Yes01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Yes02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Yes03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Yes04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Yes05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Pissed00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Pissed01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Pissed02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Pissed03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Pissed04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Pissed05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Pissed06.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Alarak_Pissed07.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:fenix",
+        "actor": "FenixDragoon",
+        "banks": [
+          "coop:FenixDragoon_What",
+          "coop:FenixDragoon_Yes",
+          "coop:FenixDragoon_Pissed"
+        ],
+        "samples": 23,
+        "sourcePaths": [
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_What00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_What01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_What02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_What03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_What04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_What05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_What06.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_What07.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Yes00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Yes01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Yes02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Yes03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Yes04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Yes05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Yes06.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Yes07.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Pissed00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Pissed01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Pissed02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Pissed03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Pissed04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Pissed05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/FenixDragoon_Pissed06.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:vorazun",
+        "actor": "VorazunChampion",
+        "banks": [
+          "void:Vorazun_What",
+          "void:Vorazun_Yes",
+          "void:Vorazun_Pissed"
+        ],
+        "samples": 20,
+        "sourcePaths": [
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_What00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_What01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_What02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_What03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_What04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_What05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_What06.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Yes00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Yes01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Yes02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Yes03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Yes04.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Yes05.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Pissed_08.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Pissed_09.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Pissed00.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Pissed01.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Pissed02.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Pissed03.ogg",
+          "campaigns/void.sc2campaign/zhcn.sc2assets/LocalizedData/Sounds/VO/Protoss/Vorazun_Pissed04.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:yamato_battlecruiser",
+        "actor": "Battlecruiser",
+        "banks": [
+          "liberty:Battlecruiser_What",
+          "liberty:Battlecruiser_Yes",
+          "liberty:Battlecruiser_Pissed"
+        ],
+        "samples": 34,
+        "sourcePaths": [
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_What00.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_What01.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_What02.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_What03.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_What04.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_What05.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes00.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes01.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes02.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes03.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes04.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes05.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes06.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes07.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes08.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes09.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes10.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes11.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Yes12.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed00.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed01.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed02.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed03.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed04.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed05.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed06.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed07.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed08.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed09.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed10.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed11.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed12.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed13.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/TerranUnitVO/Battlecruiser/Battlecruiser_Pissed14.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      },
+      {
+        "hero": "hero:hots_leviathan",
+        "actor": "HotSLeviathan",
+        "banks": [
+          "swarm:Leviathan_What",
+          "swarm:Leviathan_Yes"
+        ],
+        "samples": 17,
+        "sourcePaths": [
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_What_01.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_What_02.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_What_03.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_What_04.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_What_05.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_What_06.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_What_07.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_What_08.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_Yes_01.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_Yes_02.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_Yes_03.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_Yes_04.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_Yes_05.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_Yes_06.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_Yes_07.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_Yes_08.ogg",
+          "campaigns/swarm.sc2campaign/base.sc2assets/Assets/Sounds/Leviathan_Yes_09.ogg"
+        ],
+        "kind": "original-creature-vocalizations"
+      },
+      {
+        "hero": "hero:purifier_flagship",
+        "actor": "Carrier",
+        "banks": [
+          "melee:Carrier_What",
+          "melee:Carrier_Yes",
+          "melee:Carrier_Pissed"
+        ],
+        "samples": 21,
+        "sourcePaths": [
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_What00.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_What01.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_What02.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_What03.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_What04.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_What05.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Yes00.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Yes01.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Yes02.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Yes03.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Yes04.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Yes05.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Yes06.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Yes07.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Pissed00.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Pissed01.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Pissed02.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Pissed03.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Pissed04.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Pissed05.ogg",
+          "mods/liberty.sc2mod/zhcn.sc2assets/LocalizedData/Sounds/ProtossUnitVO/Carrier/Carrier_Pissed06.ogg"
+        ],
+        "kind": "original-unit-dialogue"
+      }
+    ],
+    "dialogueIdentities": 50,
+    "movementLoops": 15,
+    "movementStarts": {
+      "hero:fenix": "coop:Dragoon_MoveStart"
+    },
+    "walkEvents": {
+      "hero:zagara": {
+        "duration": 1,
+        "model": "ZagaraVoidCoop",
+        "events": [
+          {
+            "time": 0.45,
+            "bank": "coop:Zagara_footstep"
+          },
+          {
+            "time": 0.47,
+            "bank": "coop:Zagara_footstep2"
+          },
+          {
+            "time": 0.95,
+            "bank": "coop:Zagara_footstep"
+          },
+          {
+            "time": 0.97,
+            "bank": "coop:Zagara_footstep2"
+          }
+        ]
+      },
+      "hero:fenix": {
+        "duration": 1,
+        "model": "FenixDragoon",
+        "events": [
+          {
+            "time": 0.226,
+            "bank": "coop:Fenix_Dragoon_Footsteps"
+          },
+          {
+            "time": 0.794,
+            "bank": "coop:Fenix_Dragoon_Footsteps"
+          }
+        ]
+      }
+    },
+    "sourceRecheck": {
+      "identities": 51,
+      "cascCandidatePaths": 1362,
+      "marineAndTank": [
+        {
+          "key": "marine",
+          "sourceModel": "marine",
+          "sourceChain": [
+            {
+              "id": "Unit",
+              "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml"
+            },
+            {
+              "id": "MarineBase",
+              "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml"
+            },
+            {
+              "id": "Marine",
+              "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml"
+            }
+          ],
+          "walkClips": [
+            {
+              "name": "Walk",
+              "duration": 0.667
+            },
+            {
+              "name": "Walk Slow",
+              "duration": 1
+            }
+          ],
+          "walkSounds": [],
+          "embeddedSounds": []
+        },
+        {
+          "key": "tank",
+          "sourceModel": "tankex1",
+          "sourceChain": [
+            {
+              "id": "Unit",
+              "file": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/ModelData.xml"
+            },
+            {
+              "id": "SiegeTankBase",
+              "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml"
+            },
+            {
+              "id": "SiegeTank",
+              "file": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/ModelData.xml"
+            }
+          ],
+          "walkClips": [
+            {
+              "name": "Walk",
+              "duration": 1
+            },
+            {
+              "name": "Walk Start",
+              "duration": 1.166
+            }
+          ],
+          "walkSounds": [],
+          "embeddedSounds": []
+        }
+      ],
+      "requiredAnimationFiles": [
+        "assets/private/m3/marine_swarmanims.m3a",
+        "assets/private/m3/tank_swarmanims.m3a"
+      ],
+      "requiredAnimationWalkSoundEvents": 0,
+      "conclusion": "未在已核对的战斗Actor、ModelData、主体/附加动画与锁定CASC候选中找到普通坦克履带及陆战队员战斗脚步绑定；存在过场步行素材，不等同于原单位移动绑定，不再宣称原版不存在相关声音。"
+    }
+  },
+  "validation": {
+    "tests": {
+      "passed": 35,
+      "failed": 0
+    },
+    "productionTypecheck": true,
+    "toolTypecheck": true,
+    "web": {
+      "cases": 21,
+      "voiceRotations": 19,
+      "errors": 0,
+      "httpErrors": 0
+    },
+    "offline": {
+      "cases": 21,
+      "checks": [
+        "actual-audio-signal",
+        "play-pause-frame-reset",
+        "all-scenes-pause-clears-voices",
+        "three-default-loops-without-voice-accumulation",
+        "actual-export",
+        "all-eighteen-hero-dialogue-signals",
+        "all-dialogue-categories-survive-short-loops"
+      ],
+      "voiceRotations": [
+        {
+          "id": "actor:hero.raynor:1:idle",
+          "heard": [
+            "liberty:Raynor_Yes",
+            "liberty:Raynor_Pissed",
+            "liberty:Raynor_What"
+          ],
+          "peak": 0.15423938632011414
+        },
+        {
+          "id": "actor:hero.tychus:1:idle",
+          "heard": [
+            "liberty:Tychus_Yes",
+            "liberty:Tychus_Pissed",
+            "liberty:Tychus_What"
+          ],
+          "peak": 0.2034633308649063
+        },
+        {
+          "id": "actor:hero.nova:1:idle",
+          "heard": [
+            "liberty:Nova_Yes",
+            "liberty:Nova_Pissed",
+            "liberty:Nova_What"
+          ],
+          "peak": 0.18453487753868103
+        },
+        {
+          "id": "actor:hero.swann:1:idle",
+          "heard": [
+            "liberty:Swann_Yes",
+            "liberty:Swann_Pissed",
+            "liberty:Swann_What"
+          ],
+          "peak": 0.19661390781402588
+        },
+        {
+          "id": "actor:hero.tosh:1:idle",
+          "heard": [
+            "liberty:Tosh_Yes",
+            "liberty:Tosh_Pissed",
+            "liberty:Tosh_What"
+          ],
+          "peak": 0.16921450197696686
+        },
+        {
+          "id": "actor:hero.kerrigan:1:idle",
+          "heard": [
+            "liberty:Kerrigan_Yes",
+            "liberty:Kerrigan_Pissed",
+            "liberty:Kerrigan_What"
+          ],
+          "peak": 0.13876871764659882
+        },
+        {
+          "id": "actor:hero.zagara:1:idle",
+          "heard": [
+            "coop:ZagaraHero_Pissed",
+            "coop:ZagaraHero_Ready",
+            "coop:ZagaraHero_Yes"
+          ],
+          "peak": 0.17050325870513916
+        },
+        {
+          "id": "actor:hero.dehaka:1:idle",
+          "heard": [
+            "swarm:Dehaka_Yes",
+            "swarm:Dehaka_Pissed",
+            "swarm:Dehaka_What"
+          ],
+          "peak": 0.18849679827690125
+        },
+        {
+          "id": "actor:hero.stukov:1:idle",
+          "heard": [
+            "swarm:Stukov_Yes",
+            "swarm:Stukov_Pissed",
+            "swarm:Stukov_What"
+          ],
+          "peak": 0.15723858773708344
+        },
+        {
+          "id": "actor:hero.niadra:1:idle",
+          "heard": [
+            "swarm:Niadra_Yes",
+            "swarm:Niadra_Pissed",
+            "swarm:Niadra_What"
+          ],
+          "peak": 0.20361053943634033
+        },
+        {
+          "id": "actor:hero.artanis:1:idle",
+          "heard": [
+            "void:ArtanisVoid_Yes",
+            "void:ArtanisVoid_Pissed",
+            "void:ArtanisVoid_What"
+          ],
+          "peak": 0.11729525029659271
+        },
+        {
+          "id": "actor:hero.zeratul:1:idle",
+          "heard": [
+            "liberty:Zeratul_Yes",
+            "liberty:Zeratul_Pissed",
+            "liberty:Zeratul_What"
+          ],
+          "peak": 0.15119215846061707
+        },
+        {
+          "id": "actor:hero.alarak:1:idle",
+          "heard": [
+            "void:Alarak_Yes",
+            "void:Alarak_Pissed",
+            "void:Alarak_What"
+          ],
+          "peak": 0.092325359582901
+        },
+        {
+          "id": "actor:hero.fenix:1:idle",
+          "heard": [
+            "coop:FenixDragoon_Pissed",
+            "coop:FenixDragoon_What",
+            "coop:FenixDragoon_Yes"
+          ],
+          "peak": 0.20311550796031952
+        },
+        {
+          "id": "actor:hero.vorazun:1:idle",
+          "heard": [
+            "void:Vorazun_Yes",
+            "void:Vorazun_Pissed",
+            "void:Vorazun_What"
+          ],
+          "peak": 0.10994888097047806
+        },
+        {
+          "id": "actor:hero.yamato_battlecruiser:1:idle",
+          "heard": [
+            "liberty:Battlecruiser_Yes",
+            "liberty:Battlecruiser_Pissed",
+            "liberty:Battlecruiser_What"
+          ],
+          "peak": 0.34807294607162476
+        },
+        {
+          "id": "actor:hero.hots_leviathan:1:idle",
+          "heard": [
+            "swarm:Leviathan_Yes",
+            "swarm:Leviathan_What"
+          ],
+          "peak": 0.19876942038536072
+        },
+        {
+          "id": "actor:hero.purifier_flagship:1:idle",
+          "heard": [
+            "melee:Carrier_Yes",
+            "melee:Carrier_Pissed",
+            "melee:Carrier_What"
+          ],
+          "peak": 0.1632184088230133
+        },
+        {
+          "id": "actor:marine:1:idle",
+          "heard": [
+            "melee:Marine_Yes",
+            "melee:Marine_Pissed",
+            "melee:Marine_What"
+          ],
+          "peak": 0.1906871795654297
+        }
+      ],
+      "loops": 3,
+      "errors": 0,
+      "httpRequests": 0
+    },
+    "normalGame": {
+      "appBuildId": "addfd761b217cac075bba0ed90c690fbace616fcc11c28e382347dcadb4d2258",
+      "checks": [
+        "ordinary-new-game-via-public-ui",
+        "normal-entry-original-dialogue-output",
+        "normal-entry-original-attack-output",
+        "ordinary-pause-clears-combat-audio"
+      ],
+      "decoded": 1909,
+      "errors": 0,
+      "httpErrors": 0
+    },
+    "build": {
+      "inputs": 547,
+      "assets": 3833,
+      "resources": 3736,
+      "hashesVerified": true
+    },
+    "visualReview": "复看代表性的英雄待机画面及模型身份，听感仍由用户确认，不冒充逐句人类试听。"
+  },
+  "catalogue": {
+    "objects": 401,
+    "units": 165,
+    "static": 365
+  },
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r32\\T01-综合检测.html",
+    "bytes": 1358951104,
+    "sha256": "c8317ab9fd707021aadc893b652d146bfe651ec3569e8eeebf3ff5ff8852596d",
+    "assets": 3833
+  },
+  "formalBuild": {
+    "appBuildId": "addfd761b217cac075bba0ed90c690fbace616fcc11c28e382347dcadb4d2258",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3833,
+    "fileCount": 3736,
+    "assetBytes": 1414041253,
+    "logicalBytes": 1436648444,
+    "sharedBytes": 22607191,
+    "manifest": "asset-manifest.c2f2eb45ebc00c2ed17e27ab8abe8c96025b56faef0f71afec6dc2cca73d0fa2.json",
+    "release": "c2f2eb45ebc00c2ed17e27ab8abe8c96025b56faef0f71afec6dc2cca73d0fa2",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "preservation": {
+    "baselineFiles": 924,
+    "changed": [
+      "src/assets/combat-audio.ts",
+      "src/data/combat-audio.json",
+      "src/render/effects/audio-source-data.ts",
+      "src/render/effects/motion-audio.ts",
+      "test/motion-audio.test.ts",
+      "tools/t01/motion-audio-plan.mjs"
+    ],
+    "production": [
+      "src/assets/combat-audio.ts",
+      "src/data/combat-audio.json",
+      "src/render/effects/audio-source-data.ts",
+      "src/render/effects/motion-audio.ts"
+    ],
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "currentReplaced": false,
+    "gameplayChanged": false
+  },
+  "limits": [
+    "普通坦克及陆战队员：主体和附加动画没有找到Walk声音事件，Actor Movement引用没有对应银行；1362条CASC候选中可见过场步行等素材，但未定位到其战斗移动绑定。结论限于本次已核对资料，不宣称原版不存在任何相关声音。",
+    "18英雄均有对应原声，其中利维坦是生物叫声；普通与英雄舰船遵循实际舰船身份，并非虚构人物对白。",
+    "源文件中文区域及采样一致性已核对；实际音量平衡与逐句听感仍待用户确认。",
+    "T01、最终V/MVP及V04保持原验收边界。"
+  ],
+  "reproduce": [
+    "node tools/start-t01-sound-recheck.mjs",
+    "pwsh -NoProfile -File tools/discover-t01-movement-audio.ps1",
+    "node tools/audit-t01-walk-sources.mjs",
+    "node tools/prepare-t01-audio-plan.mjs",
+    "pwsh -NoProfile -File tools/fetch-t01-audio.ps1 -Requests .cache/t01-audio/requests.json",
+    "python tools/prepare-combat-audio.py",
+    "node --import tsx --test test/motion-audio.test.ts test/combat-audio.test.ts test/hero-audio-feedback.test.ts test/equipment-effects.test.ts",
+    "npm run build:web",
+    "node tools/stage-t01-effect-assets.mjs",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/verify-t01-motion-audio.mjs --recheck --offline=<最新综合HTML>",
+    "node tools/verify-t01-audio-native.mjs"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "保留当前综合HTML、必要输入、简要结论与复现代码；清理本批截图/日志/浏览器缓存及旧HTML。",
+    "removedFiles": 25970,
+    "removedLogicalBytes": 15224264897
+  },
+  "boardRevision": 215,
+  "commit": false,
+  "push": false,
+  "publish": false
+}

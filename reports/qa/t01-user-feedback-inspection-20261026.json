@@ -1,0 +1,262 @@
+{
+  "date": "2026-10-26",
+  "task": "T01",
+  "status": "inspection-complete-repairs-not-applied",
+  "request": "临时巢虫/召回起点/到期退场变成神族、舰队数量、幻象只闪、狂热者攻击黑贴图；先检查。",
+  "summary": "用户四项反馈已检查并复现：临时巢虫夹具误用陆战队员；召回/到期共用闪烁模型带追猎者本体；舰队夹具截断为1艘而原生为3艘；幻象夹具只发特效未建副本；狂热者黑条隔离到发辫圆柱飘带。仅检查，未修复生产或综合HTML，T01保持开放。",
+  "findings": [
+    {
+      "id": "T01-FEEDBACK-01",
+      "title": "临时巢虫、召回起点、到期退场冒出追猎者",
+      "confirmed": true,
+      "scope": "检测夹具错误 + 正式共用特效选型错误",
+      "evidence": [
+        "离线三项均实际绘制1个BlinkOriginModel网格；原生实体身份没有变成神族。",
+        "BlinkOriginModel使用blinkout.m3，材质明确引用stalker_diffuse.dds，模型包含追猎者本体，并非通用传送粒子。",
+        "临时巢虫夹具创建marine，仅标记temporaryKind=fun-brood；原生孵化支援创建zergling，race=zerg，退场应走BurrowFXSmall。",
+        "正式equipmentEffectRequests对recall-from和expiry无种族区分地选择BlinkOriginModel，因此正式游戏共享同一错误效果。",
+        "舰装召回/到期专项只发反馈收据；不实际移动或删除示范对象。"
+      ],
+      "sources": [
+        "tools/t01/presentation-repair-fixture.ts",
+        "src/render/effects/equipment-effects.ts",
+        "src/render/effects/source-combat-effects.ts",
+        "src/render/effects/source/catalog.json",
+        "src/simulation/combat/unique-support.ts"
+      ],
+      "proposed": "检测场景使用真实巢虫类型及召回/退场事务；正式通用效果避免携带固定追猎者本体，保留原单位身份和原机制。"
+    },
+    {
+      "id": "T01-FEEDBACK-02",
+      "title": "呼叫舰队专项只显示一艘",
+      "confirmed": true,
+      "scope": "检测夹具错误；本次未发现原生召唤数量错误",
+      "expected": 3,
+      "observed": 1,
+      "evidence": [
+        "原生调用依次在0.0167、0.7667、1.5167秒产生第1、2、3艘，最终pending为空。",
+        "专项夹具调用一次tickFleetCall后主动清空pending，取消后两艘。"
+      ],
+      "sources": [
+        "tools/t01/presentation-repair-fixture.ts",
+        "src/simulation/missions/fleet.ts"
+      ],
+      "proposed": "专项保留原生三艘分批入场、持续攻击与到期流程，镜头覆盖全编队；不改变正式数量。"
+    },
+    {
+      "id": "T01-FEEDBACK-03",
+      "title": "幻象生成只有闪光，没有副本",
+      "confirmed": true,
+      "scope": "检测夹具不完整；本次原生创建调用成功",
+      "evidence": [
+        "专项只有一个marine实体，所有采样中projections均为空，单独播放HallucinationBirth。",
+        "原生createEquipmentProjections以2个为诊断参数可创建2个同模型副本，寿命8秒、幻象色与0.7透明度已记录。副本数量和寿命正式取决于装备参数。"
+      ],
+      "sources": [
+        "tools/t01/presentation-repair-fixture.ts",
+        "src/simulation/starship/projections.ts",
+        "src/render/units/equipment-apparition.ts"
+      ],
+      "proposed": "专项调用真实幻象生成流程，展示原体、副本、持续阶段及结束，保留生成闪光；不修改装备机制。"
+    },
+    {
+      "id": "T01-FEEDBACK-04",
+      "title": "狂热者攻击时黑色长条",
+      "confirmed": true,
+      "scope": "正式共用渲染问题",
+      "evidence": [
+        "r27普通狂热者一级攻击约0.8秒起出现向上的黑色长条。",
+        "图层隔离锁定Zealot:4，Standard_14 / zealotdreads_diffuse2.dds，贴图已加载，90个quad。",
+        "该层对应原模型Star2Ribbon01头部发辫，ribbon_type=2（三面圆柱）、30段，并非灵能刀刃。它随Zealot身体攻击效果一起重建。",
+        "仅在浏览器隐藏该层后黑条消失，恢复后重现；隔离不改游戏源码和交付文件。"
+      ],
+      "sources": [
+        "src/render/effects/source-combat-effects.ts",
+        "src/render/effects/source/ribbons.ts",
+        "src/render/effects/source/materials.ts",
+        "src/render/effects/source/catalog.json"
+      ],
+      "proposed": "修正身体发辫与武器特效的接线及圆柱飘带几何/材质适配；不可把已加载的贴图简单当作缺失资源，也不通过删除原版发辫宣称恢复完成。",
+      "remaining": "具体几何、重力方向、光照/材质参数的修复方案需在实施时做原版对照；本轮只确认问题及归属。"
+    }
+  ],
+  "validation": {
+    "offline": {
+      "cases": 6,
+      "samples": 40,
+      "errors": 0,
+      "httpRequests": 0,
+      "caseIds": [
+        "presentation:fun-brood",
+        "presentation:equipment-recall-from",
+        "presentation:equipment-expiry",
+        "presentation:equipment-projection-birth",
+        "presentation:fleet",
+        "actor:zealot:1:attack"
+      ]
+    },
+    "isolation": {
+      "batch": "Zealot:4",
+      "material": "Standard_14",
+      "diffuse": "zealotdreads_diffuse2.dds",
+      "texturePresent": true,
+      "quads": 90,
+      "firstColor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "hidden": true,
+      "visualComparison": "隐藏黑条消失、恢复黑条重现，已逐图确认"
+    },
+    "native": {
+      "called": true,
+      "fleet": [
+        {
+          "time": 0.016666666666666666,
+          "ships": 1,
+          "pending": {
+            "id": "null:fleetCall:1",
+            "point": {
+              "x": 0,
+              "z": 0
+            },
+            "count": 1,
+            "next": 46
+          }
+        },
+        {
+          "time": 0.7666666666666667,
+          "ships": 2,
+          "pending": {
+            "id": "null:fleetCall:1",
+            "point": {
+              "x": 0,
+              "z": 0
+            },
+            "count": 2,
+            "next": 91
+          }
+        },
+        {
+          "time": 1.5166666666666666,
+          "ships": 3,
+          "pending": null
+        }
+      ],
+      "finalFleet": 3,
+      "projection": {
+        "count": 2,
+        "units": [
+          {
+            "id": 3,
+            "type": "marine",
+            "temporaryUntil": 8,
+            "appearance": {
+              "tint": [
+                0.4235294117647059,
+                0.4235294117647059,
+                1
+              ],
+              "opacity": 0.7
+            }
+          },
+          {
+            "id": 4,
+            "type": "marine",
+            "temporaryUntil": 8,
+            "appearance": {
+              "tint": [
+                0.4235294117647059,
+                0.4235294117647059,
+                1
+              ],
+              "opacity": 0.7
+            }
+          }
+        ],
+        "events": [
+          "projection-birth",
+          "projection-birth"
+        ]
+      },
+      "genericEquipment": [
+        {
+          "key": "equipment:1:recall-from",
+          "model": "BlinkOriginModel"
+        },
+        {
+          "key": "equipment:2:expiry",
+          "model": "BlinkOriginModel"
+        }
+      ],
+      "nativeBroodExpiry": [
+        {
+          "sourceTeam": "player",
+          "targetFlying": false,
+          "targetSurface": "flesh",
+          "serial": 1,
+          "time": 1,
+          "kind": "unit-expired",
+          "targetId": 2,
+          "targetAlive": true,
+          "rank": 1,
+          "projectileSpeed": 0,
+          "x": 0,
+          "z": 0,
+          "y": 0.6,
+          "endY": 0.6,
+          "unitType": "zergling",
+          "race": "zerg",
+          "entityId": 2,
+          "flying": false,
+          "end": {
+            "x": 0,
+            "z": 0
+          },
+          "facing": 1.5707963267948966,
+          "siege": false
+        }
+      ],
+      "scope": "Read-only native-module diagnostic; no production source or delivery edits."
+    },
+    "verifiedUnchangedBuildInputs": 543,
+    "productionEdits": 0,
+    "htmlEdits": 0
+  },
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r27\\T01-综合检测.html",
+    "bytes": 982174893,
+    "sha256": "3890b26052d04649feab0fdaa85fce5431a5eb49a7a2639e9e2551e7ec68b13e",
+    "assets": 2690
+  },
+  "current": {
+    "file": "dist/SC2-Survivors-Current-20261006.html",
+    "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+  },
+  "limits": [
+    "原生数量与幻象使用受控诊断调用，不代表重新全量验收所有装备触发条件。",
+    "本轮未实施修复，也未把问题场景记为通过。",
+    "之前103测试/37场景成功只覆盖当时断言；缺少对对象身份、完整编队、幻象实体和发辫画面的语义检查。"
+  ],
+  "reproduce": [
+    "node --import tsx tools/t01/inspect-user-feedback.ts",
+    "node tools/inspect-t01-user-feedback.mjs --offline=reports/local/t01-20261024/offline-r27/T01-综合检测.html",
+    "node tools/inspect-t01-user-feedback.mjs --isolate"
+  ],
+  "correctedInspectionSetup": [
+    "首次沙箱Chrome未给调试端口；授权本机浏览器后运行成功。",
+    "前两次黑条隐藏被持续渲染恢复，未视为有效隔离；最终仅在浏览器临时覆盖该批次end并还原，验证hidden=true及画面对照。"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "保留简要结论与复现工具；临时截图/浏览器缓存/详细日志在检查结束后删除。",
+    "removedFiles": 9161,
+    "removedLogicalBytes": 1819558808
+  },
+  "boardRevision": 211,
+  "commit": false,
+  "push": false,
+  "publish": false
+}

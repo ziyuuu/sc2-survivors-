@@ -1,0 +1,192 @@
+{
+  "date": "2026-10-26",
+  "task": "T01",
+  "status": "implemented-engineering-verified-awaiting-user-visual-review",
+  "authorization": "继续处理剩下的比例、取景和目录问题，完成后更新到同一个综合HTML里给我检查。",
+  "changes": [
+    "普通/精英/旗舰共用截击机取消原版GLB后额外0.2缩放；旧存档的0.2仅在显示层兼容为1，不改保存的战斗状态。航母原版比例和旗舰技能编队专用比例保持。",
+    "检测镜头使用实际模型水平/垂直包围范围、飞行高度、目标、子机环绕与旗舰技能编队范围适配透视和屏幕比例；动作内保留已覆盖范围，避免缩放呼吸。正式游戏镜头未改。",
+    "动态列表按可观察过程筛选，纯卡面、数值、经济、研究和重复购买移至可搜索目录说明；保留伤害爆炸、成长反馈、实际增援、治疗、护盾及持续过程。165个单位对象及全部既有动作/视觉等级分支保持。"
+  ],
+  "catalogue": {
+    "before": 1130,
+    "after": 372,
+    "removedFromDynamic": 758,
+    "units": 165,
+    "groups": {
+      "普通单位": 30,
+      "英雄": 18,
+      "精英": 90,
+      "卡牌": 51,
+      "敌军首领": 27,
+      "特殊关卡": 4,
+      "随机任务": 7,
+      "特殊遭遇": 11,
+      "地图拾取物": 6,
+      "替代虫群": 4,
+      "装备": 113,
+      "装备继承": 11
+    },
+    "classification": {
+      "actor:dynamic": 5455,
+      "card:reference": 791,
+      "card-effect:dynamic": 93,
+      "card-effect:reference": 372,
+      "card-effect:duplicate": 326,
+      "enemy:dynamic": 2880,
+      "fun:dynamic": 32,
+      "fun:duplicate": 7,
+      "equipment:reference": 2661,
+      "equipment:dynamic": 1140,
+      "development:reference": 157,
+      "map:reference": 5
+    },
+    "referenceNames": 902,
+    "rawInspectionCases": 13919,
+    "uiStates": 365,
+    "source": "tools/t01/gallery-scope.ts",
+    "unknownEffectPolicy": "未分类装备效果保留检查；不能用未实现或未触发作为移出动态目录的理由。"
+  },
+  "validation": {
+    "tests": {
+      "unique": 116,
+      "passed": 116,
+      "existing": 111,
+      "added": 5,
+      "files": [
+        "test/t01-gallery-framing.test.ts",
+        "test/carriers.test.ts",
+        "test/protoss-effects-correction.test.ts",
+        "test/protoss-heroes-integration.test.ts",
+        "test/p4-protoss-elites.test.ts"
+      ]
+    },
+    "productionTypecheck": true,
+    "toolTypecheck": true,
+    "offline": {
+      "sameFinalHtml": true,
+      "scenes": [
+        "actor:carrier:1:attack",
+        "actor:elite.carrier.1:1:attack",
+        "actor:elite.carrier.2:1:attack",
+        "actor:elite.carrier.3:1:attack",
+        "actor:hero.purifier_flagship:1:attack",
+        "actor:hero.purifier_flagship:1:skill",
+        "actor:hero.purifier_flagship:3:skill",
+        "actor:hero.purifier_flagship:5:skill",
+        "actor:carrier:1:idle",
+        "actor:carrier:1:move",
+        "actor:carrier:1:death",
+        "actor:marine:1:stim",
+        "actor:colossus:1:attack",
+        "actor:void_ray:1:attack"
+      ],
+      "samples": 84,
+      "mechanicsCompared": 48,
+      "controls": [
+        "900-frame-actor:carrier:1:attack",
+        "900-frame-actor:hero.purifier_flagship:5:skill",
+        "900-frame-actor:marine:1:idle",
+        "390-frame-actor:carrier:1:attack",
+        "390-frame-actor:hero.purifier_flagship:5:skill",
+        "390-frame-actor:marine:1:idle",
+        "searchable-reference-catalogue",
+        "pause-and-step",
+        "loop",
+        "export",
+        "ui-isolation"
+      ],
+      "httpRequests": 0,
+      "pageAndConsoleErrors": 0,
+      "renderScale": "实际GPU提交的截击机缩放为1；普通/三种精英/旗舰普攻及旗舰1/3/5级技能检查。",
+      "screenSizes": [
+        "1440×900",
+        "900×650",
+        "390×844"
+      ],
+      "visualReview": "定点检查机身、子机与技能编队完整取景；普通移动/死亡、巨像和虚空射线控制已看。不代替用户最终画面与听感验收。"
+    }
+  },
+  "preservation": {
+    "baselineFiles": 901,
+    "unchanged": 895,
+    "changed": [
+      "src/data/combat-presentation.ts",
+      "src/simulation/combat/carriers.ts",
+      "tools/t01/gallery-entry.ts",
+      "tools/t01/gallery.css",
+      "tools/t01/gallery.ts",
+      "tools/t01/runtime.ts"
+    ],
+    "added": [
+      "tools/t01/gallery-framing.ts",
+      "tools/t01/gallery-scope.ts",
+      "test/t01-gallery-framing.test.ts"
+    ],
+    "buildInputs": 540,
+    "resources": 2556,
+    "embeddedPayloadIdenticalToR22": true,
+    "mechanics": "48份旧版/新版战斗状态相同，未改碰撞、伤害、攻击节奏、子机数量/费用/寿命或技能机制。",
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+      "unchanged": true
+    }
+  },
+  "delivery": {
+    "mode": "combined",
+    "file": "reports\\local\\t01-20261024\\offline-r25\\T01-综合检测.html",
+    "bytes": 946273607,
+    "sha256": "6d9626518a73521e7f79eaa35537ba21f170d63f88102ce3303f193b4f281b3a",
+    "jsSha256": "044111767d3716514bf3178d7ddcc87bb07bd001f803e6f31da64f5bc12bd7f7",
+    "cssSha256": "08dec54c280bc68359cfeba0d1e5c0b94bce14b14df87dda6278102a0f6cdea4",
+    "payloadSha256": "5299276ed91cacbfe6f8868f2d093aa6f7faa94781c82be0d9722f53d1defd12",
+    "payloadBytes": 887307444,
+    "assets": 2649,
+    "chunks": 3692
+  },
+  "normalBuild": {
+    "directory": "dist/web",
+    "appBuildId": "dc223dca956a0f6017f88bdd94fccf7ea39a2da6930615366d081c307a70b9c0",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 2649,
+    "fileCount": 2556,
+    "assetBytes": 1042359723,
+    "logicalBytes": 1063832332,
+    "sharedBytes": 21472609,
+    "manifest": "asset-manifest.227a49219bad77922c29ec2fedacdc0d308aaed41acb997e96dac4876ab2e81a.json",
+    "release": "227a49219bad77922c29ec2fedacdc0d308aaed41acb997e96dac4876ab2e81a",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "attempts": [
+    "专用Chrome在沙箱内未启动，使用授权本地测试执行后成功；未使用个人浏览器配置。",
+    "新增恢复测试最初误断言void返回值，修正后通过；比较器统一JSON字段表达后48份状态相同。",
+    "目录复核将具有爆炸/增援/成长反馈的数值类名称保留为动态；修复说明只保留兵种名导致按效果名搜索失败。"
+  ],
+  "pending": [
+    "用户检查最终综合HTML的画面与听感；T01及最终V/MVP仍开放。"
+  ],
+  "reproduce": [
+    "node --import tsx --test test/t01-gallery-framing.test.ts test/carriers.test.ts test/protoss-effects-correction.test.ts test/protoss-heroes-integration.test.ts test/p4-protoss-elites.test.ts",
+    "npm run typecheck",
+    "node_modules/.bin/tsc --ignoreConfig --noEmit --target ES2022 --module ESNext --moduleResolution Bundler --strict --allowJs --skipLibCheck --lib ES2022,DOM,DOM.Iterable --types vite/client tools/t01/gallery-entry.ts",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/verify-t01-framing.mjs --baseline --offline=<待修版HTML>",
+    "node tools/verify-t01-framing.mjs --offline=<当前综合HTML>",
+    "node tools/build-web.mjs"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "保留当前综合HTML及必要输入、简要结论与复现代码；删除本批截图/浏览器配置/下载/详细状态与被替代HTML。",
+    "removedFiles": 5433,
+    "removedLogicalBytes": 3955741703
+  },
+  "boardRevision": 208,
+  "currentReplaced": false,
+  "commit": false,
+  "push": false,
+  "publish": false
+}

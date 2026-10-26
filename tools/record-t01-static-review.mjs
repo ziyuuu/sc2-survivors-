@@ -1,0 +1,6 @@
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const directory=process.argv[4]??'static-review';if(!/^static(?:-r\d+(?:-r\d+)?)?-review$/.test(directory))throw Error('Invalid review directory');const base='reports/local/t01-20261024/'+directory,index=JSON.parse(await fs.readFile(base+'/index.json','utf8')),numbers=process.argv[2].split(',').map(Number),note=process.argv[3];if(!note)throw Error('Specific observation required');
+let report;try{report=JSON.parse(await fs.readFile(base+'/visual-review.json','utf8'));}catch{report={scope:'Model visual inspection of each three-viewport contact image; raw viewport screenshots remain authoritative for details. Interaction and inner-scroll coverage separate.',rows:[]};}
+for(const n of numbers){const row=index[n-1];if(!row)throw Error('Invalid review number');const image=await fs.readFile(base+'/'+row.file),entry={id:row.id,file:row.file,sha256:createHash('sha256').update(image).digest('hex'),result:'reviewed',observation:note,at:new Date().toISOString()};const old=report.rows.findIndex(r=>r.id===row.id);if(old<0)report.rows.push(entry);else report.rows[old]=entry;}
+report.reviewed=report.rows.length;report.total=index.length;await fs.writeFile(base+'/visual-review.json',JSON.stringify(report,null,2));console.log(JSON.stringify({reviewed:report.reviewed,total:report.total}));

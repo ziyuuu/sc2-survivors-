@@ -22,6 +22,8 @@ existing_ids = {m['id'] for m in models}
 # These names were checked against the pinned B97563 CASC listing. Some inherited
 # CModel VariationCount values incorrectly imply a _00 filename for single bodies.
 verified_paths = {
+    # CSkin/CModel multiplayer pair; starcoop globally overrides this death ID.
+    'model.elite.baneling.1': 'Assets/Units/Zerg/Baneling_CollectionSkin_WebbyDeath_MP/Baneling_CollectionSkin_WebbyDeath_MP.m3',
     'model.elite.reaper.1': 'Assets/Units/Terran/Reaper_CovertOps_Collection_Death/Reaper_CovertOps_Collection_Death.m3',
     'model.elite.lurker.1': 'Assets/Units/Zerg/Lurker_CollectionSkin_Webby_Death/Lurker_CollectionSkin_Webby_Death_00.m3',
     'model.elite.mutalisk.1': 'Assets/Units/Zerg/Mutalisk_CollectionSkin_Webby_Death/Mutalisk_CollectionSkin_Webby_Death.m3',

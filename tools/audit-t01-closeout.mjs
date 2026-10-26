@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import {loadBuildAssets} from './load-build-assets.mjs';
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,'')),sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const base=read('.cache/t01-closeout/baseline.json'),prior=read('.cache/t01-closeout/previous-audio.json'),current=read('src/data/combat-audio.json');
+const simulation=Object.entries(base.files).filter(([p])=>p.startsWith('src/simulation/'));for(const[p,h]of simulation)assert.equal(sha(p),h,p);
+for(const field of ['weapons','deaths','skills','special','motion','motionStart','dialogue','transforms','transformTiming'])assert.deepEqual(current[field],prior[field],field);
+for(const [key,bank]of Object.entries(prior.banks))assert.deepEqual(current.banks[key],bank,key);
+for(const [key,walk]of Object.entries(prior.walkEvents))assert.deepEqual(current.walkEvents[key],walk,key);
+assert.equal(current.motion.marine,null);assert.equal(current.motion.tank,null);assert.deepEqual(Object.keys(current.herdBindings),['zergling','queen']);
+const records=await loadBuildAssets(),audio=read('deploy/runtime/combat-audio.json');
+const sources=Object.values(read('src/render/effects/source/catalog.json'));for(const r of sources)assert.equal(sha(r.source),r.sourceSha256,r.source);
+const original=read('reports/qa/t01-sound-recheck-20261026.json').preservation.current;assert.equal(sha(original.file),original.sha256,'Current retained');
+const report={simulationPreserved:simulation.length,oldBanksPreserved:Object.keys(prior.banks).length,addedBanks:Object.keys(current.banks).filter(k=>!prior.banks[k]),allBuildRecords:records.length,audioRecords:audio.records.length,sourceModelsVerified:sources.length,currentPreserved:original};
+fs.writeFileSync('.cache/t01-closeout/data-audit.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));

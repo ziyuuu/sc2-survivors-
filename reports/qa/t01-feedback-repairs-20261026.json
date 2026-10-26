@@ -1,0 +1,1381 @@
+{
+  "date": "2026-10-26",
+  "task": "T01",
+  "status": "implemented-engineering-verified-awaiting-user-visual-review",
+  "authorization": "2026-10-26 用户“开始吧”，实施 T01_FEEDBACK_REPAIR_PLAN_20261026.md 八项修复；机制不变，正常构建与单个综合HTML交付，Current保持。",
+  "summary": "八项反馈修复已同步正式源码、正常构建与综合HTML。默认循环及装备真实触发/生命周期入口补齐，酒馆改为规则说明；三艘协战舰完整入场、恢复模型比例并兼容旧存档；召回/退场移除误带的追猎者本体，幻象显示真实副本，狂热者发辫按原模型修正。111项相关测试、3801配置参数核对、3312去重效果场景、48份机制对照和最终离线30场景通过；12组场景各连续三轮、766音频解码及实际信号、三尺寸、控制和导出通过，HTTP/页面错误0。T01仍待用户画面与试听。",
+  "fixes": [
+    {
+      "id": 1,
+      "result": "动态默认循环，200ms调度重建完整场景；暂停与逐帧保持暂停，切换静态后保留循环选择。触发条件自动准备，长期等待只在检测夹具中前置。"
+    },
+    {
+      "id": 2,
+      "result": "酒馆三族三档移入可搜索规则说明，保留原生1.3/1.7/2.2任务抽选权重；任务本身仍有独立动态入口。"
+    },
+    {
+      "id": 3,
+      "result": "191效果键逐项分类，3801配置实际参数重建核对；3947效果/生命周期用例按种族、绑定、阶段及完整生效参数去重为3312场景，全部真实触发与结果检查通过。数值/经济规则及混合套装中的非动态效果提供可搜索参数说明。"
+    },
+    {
+      "id": 4,
+      "result": "协战舰visualScale从0.5恢复1；旧档仅修正显示，不重写已保存尺度。同镜头正式英雄/新协战舰/旧协战舰/装备赠舰四者实际实例尺度一致，赠舰按实际单位类型解析原版英雄模型。"
+    },
+    {
+      "id": 5,
+      "result": "通用BlinkOriginModel保留原粒子但禁用固定追猎者网格；巢虫使用真实虫族单位，三族召回发生实际位置变化，到期走真实原生退场。"
+    },
+    {
+      "id": 6,
+      "result": "移除检测夹具清空pending的错误，保留3舰原生分批入场、攻击及到期退场；取景包含全部友军和投影范围。"
+    },
+    {
+      "id": 7,
+      "result": "幻象/相位/召回幻象专项接原生装备与真实实体，显示同模型副本、攻击、原生幻象颜色、到期和死亡，结束后实际实体与投影登记清零。"
+    },
+    {
+      "id": 8,
+      "result": "修正原M3有符号重力、圆柱朝向和环向UV，按弧长截断并重采样避免末端堆叠；身体发辫由活体单独持有，武器请求排除重复发辫，保留原刀光。普通/三精英及待机/移动路径检查通过。"
+    }
+  ],
+  "validation": {
+    "tests": {
+      "passed": 111,
+      "failed": 0,
+      "files": [
+        "test/t01-feedback-rendering.test.ts",
+        "test/t01-gallery-framing.test.ts",
+        "test/source-combat-effects.test.ts",
+        "test/source-particle-acceleration.test.ts",
+        "test/missions.test.ts",
+        "test/starship-projection-cleanup.test.ts",
+        "test/hero-audio-feedback.test.ts",
+        "test/starship-orange-heroes.test.ts",
+        "test/equipment-effects.test.ts"
+      ]
+    },
+    "productionTypecheck": true,
+    "toolTypecheck": true,
+    "equipment": {
+      "configurations": 3801,
+      "effectKeys": 191,
+      "dynamicKeys": 95,
+      "referenceKeys": 96,
+      "previewCases": 3947,
+      "preDeduplicationEntries": 4019,
+      "uniqueParameterScenarios": 3312,
+      "triggered": 3312,
+      "verified": 3312,
+      "failed": 0,
+      "deduplication": "种族、绑定身份、焦点效果、阶段及全套生效参数完全一致才合并；可由审计工具重建全部映射。",
+      "classification": {
+        "opening_workers": {
+          "dynamic": false,
+          "configurations": 48,
+          "verifiedScenarios": 0
+        },
+        "periodic_resources": {
+          "dynamic": false,
+          "configurations": 60,
+          "verifiedScenarios": 0
+        },
+        "catch_up": {
+          "dynamic": false,
+          "configurations": 69,
+          "verifiedScenarios": 0
+        },
+        "bombardment": {
+          "dynamic": true,
+          "configurations": 60,
+          "verifiedScenarios": 57
+        },
+        "worker_efficiency": {
+          "dynamic": false,
+          "configurations": 45,
+          "verifiedScenarios": 0
+        },
+        "pickup_yield": {
+          "dynamic": false,
+          "configurations": 57,
+          "verifiedScenarios": 0
+        },
+        "pickup_radius": {
+          "dynamic": false,
+          "configurations": 45,
+          "verifiedScenarios": 0
+        },
+        "worker_rescue": {
+          "dynamic": true,
+          "configurations": 48,
+          "verifiedScenarios": 48
+        },
+        "pickup_double": {
+          "dynamic": false,
+          "configurations": 54,
+          "verifiedScenarios": 0
+        },
+        "stage_resources": {
+          "dynamic": false,
+          "configurations": 3,
+          "verifiedScenarios": 0
+        },
+        "shop_refresh": {
+          "dynamic": false,
+          "configurations": 69,
+          "verifiedScenarios": 0
+        },
+        "free_product": {
+          "dynamic": false,
+          "configurations": 72,
+          "verifiedScenarios": 0
+        },
+        "purchase_discount": {
+          "dynamic": false,
+          "configurations": 69,
+          "verifiedScenarios": 0
+        },
+        "refresh_discount": {
+          "dynamic": false,
+          "configurations": 60,
+          "verifiedScenarios": 0
+        },
+        "manual_cooldown": {
+          "dynamic": false,
+          "configurations": 60,
+          "verifiedScenarios": 0
+        },
+        "moving_fire": {
+          "dynamic": true,
+          "configurations": 39,
+          "verifiedScenarios": 39
+        },
+        "split": {
+          "dynamic": true,
+          "configurations": 60,
+          "verifiedScenarios": 60
+        },
+        "melee_range": {
+          "dynamic": false,
+          "configurations": 60,
+          "verifiedScenarios": 0
+        },
+        "weapon_range": {
+          "dynamic": false,
+          "configurations": 72,
+          "verifiedScenarios": 0
+        },
+        "reinforcement": {
+          "dynamic": true,
+          "configurations": 63,
+          "verifiedScenarios": 171
+        },
+        "egg_reinforcement": {
+          "dynamic": true,
+          "configurations": 51,
+          "verifiedScenarios": 153
+        },
+        "opening_hydralisk": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "opening_rank": {
+          "dynamic": false,
+          "configurations": 18,
+          "verifiedScenarios": 0
+        },
+        "opening_count": {
+          "dynamic": true,
+          "configurations": 18,
+          "verifiedScenarios": 9
+        },
+        "opening_zerglings": {
+          "dynamic": true,
+          "configurations": 30,
+          "verifiedScenarios": 12
+        },
+        "periodic_trap": {
+          "dynamic": true,
+          "configurations": 48,
+          "verifiedScenarios": 18
+        },
+        "development_refresh": {
+          "dynamic": false,
+          "configurations": 72,
+          "verifiedScenarios": 0
+        },
+        "opening_elite": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "rescue_rank": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 6
+        },
+        "foreign_elites": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 6
+        },
+        "opening_roaches": {
+          "dynamic": true,
+          "configurations": 42,
+          "verifiedScenarios": 15
+        },
+        "stage_bunker": {
+          "dynamic": true,
+          "configurations": 42,
+          "verifiedScenarios": 15
+        },
+        "drone_hunter": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 6
+        },
+        "bounty": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 6
+        },
+        "overload": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 6
+        },
+        "hold": {
+          "dynamic": false,
+          "configurations": 15,
+          "verifiedScenarios": 0
+        },
+        "opening_pack": {
+          "dynamic": true,
+          "configurations": 18,
+          "verifiedScenarios": 9
+        },
+        "pack_rank": {
+          "dynamic": false,
+          "configurations": 9,
+          "verifiedScenarios": 0
+        },
+        "pack_kill": {
+          "dynamic": true,
+          "configurations": 6,
+          "verifiedScenarios": 3
+        },
+        "stat.attackSpeed": {
+          "dynamic": false,
+          "configurations": 51,
+          "verifiedScenarios": 0
+        },
+        "phantom": {
+          "dynamic": true,
+          "configurations": 9,
+          "verifiedScenarios": 18
+        },
+        "opening_fleet": {
+          "dynamic": true,
+          "configurations": 18,
+          "verifiedScenarios": 9
+        },
+        "fleet_elite": {
+          "dynamic": false,
+          "configurations": 9,
+          "verifiedScenarios": 0
+        },
+        "burn_area": {
+          "dynamic": true,
+          "configurations": 9,
+          "verifiedScenarios": 6
+        },
+        "direction.health": {
+          "dynamic": false,
+          "configurations": 297,
+          "verifiedScenarios": 0
+        },
+        "recruit_discount": {
+          "dynamic": false,
+          "configurations": 18,
+          "verifiedScenarios": 0
+        },
+        "capacity_members": {
+          "dynamic": false,
+          "configurations": 207,
+          "verifiedScenarios": 0
+        },
+        "direction_reinforcement": {
+          "dynamic": true,
+          "configurations": 45,
+          "verifiedScenarios": 36
+        },
+        "direction.attack": {
+          "dynamic": false,
+          "configurations": 315,
+          "verifiedScenarios": 0
+        },
+        "rank_discount": {
+          "dynamic": false,
+          "configurations": 18,
+          "verifiedScenarios": 0
+        },
+        "capacity_rank": {
+          "dynamic": false,
+          "configurations": 225,
+          "verifiedScenarios": 0
+        },
+        "kill_training": {
+          "dynamic": true,
+          "configurations": 45,
+          "verifiedScenarios": 36
+        },
+        "bound.health": {
+          "dynamic": false,
+          "configurations": 486,
+          "verifiedScenarios": 0
+        },
+        "bound.attack": {
+          "dynamic": false,
+          "configurations": 180,
+          "verifiedScenarios": 0
+        },
+        "opening_elite_bound": {
+          "dynamic": true,
+          "configurations": 1080,
+          "verifiedScenarios": 810
+        },
+        "elite.health": {
+          "dynamic": false,
+          "configurations": 540,
+          "verifiedScenarios": 0
+        },
+        "elite.attack": {
+          "dynamic": false,
+          "configurations": 540,
+          "verifiedScenarios": 0
+        },
+        "opening_elite_rank": {
+          "dynamic": false,
+          "configurations": 810,
+          "verifiedScenarios": 0
+        },
+        "opening_hero_proxy": {
+          "dynamic": true,
+          "configurations": 36,
+          "verifiedScenarios": 18
+        },
+        "opening_hero": {
+          "dynamic": true,
+          "configurations": 144,
+          "verifiedScenarios": 108
+        },
+        "replace_hero_proxy": {
+          "dynamic": false,
+          "configurations": 18,
+          "verifiedScenarios": 0
+        },
+        "ordinary.health": {
+          "dynamic": false,
+          "configurations": 39,
+          "verifiedScenarios": 0
+        },
+        "ordinary.reduction": {
+          "dynamic": false,
+          "configurations": 12,
+          "verifiedScenarios": 0
+        },
+        "rescue": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 12
+        },
+        "stat.attack": {
+          "dynamic": false,
+          "configurations": 60,
+          "verifiedScenarios": 0
+        },
+        "stat.crit": {
+          "dynamic": false,
+          "configurations": 27,
+          "verifiedScenarios": 0
+        },
+        "share_damage": {
+          "dynamic": true,
+          "configurations": 18,
+          "verifiedScenarios": 9
+        },
+        "armor_percent": {
+          "dynamic": false,
+          "configurations": 9,
+          "verifiedScenarios": 0
+        },
+        "stat.move": {
+          "dynamic": false,
+          "configurations": 36,
+          "verifiedScenarios": 0
+        },
+        "stat.range": {
+          "dynamic": false,
+          "configurations": 27,
+          "verifiedScenarios": 0
+        },
+        "stat.critDamage": {
+          "dynamic": false,
+          "configurations": 21,
+          "verifiedScenarios": 0
+        },
+        "stat.health": {
+          "dynamic": false,
+          "configurations": 36,
+          "verifiedScenarios": 0
+        },
+        "stat.defense": {
+          "dynamic": false,
+          "configurations": 18,
+          "verifiedScenarios": 0
+        },
+        "stat.reduction": {
+          "dynamic": false,
+          "configurations": 15,
+          "verifiedScenarios": 0
+        },
+        "training_evolution": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "volley": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "foreign_elites_second": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "ravager_evolution": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "fortification": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "development_double": {
+          "dynamic": false,
+          "configurations": 3,
+          "verifiedScenarios": 0
+        },
+        "drone_mentor": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "bounty_hero": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "overload_chain": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "hold_volley": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "capture": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "fleet_reinforcement": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 9
+        },
+        "burn_trail": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "opening_direction": {
+          "dynamic": true,
+          "configurations": 72,
+          "verifiedScenarios": 54
+        },
+        "recruit_rank": {
+          "dynamic": false,
+          "configurations": 90,
+          "verifiedScenarios": 0
+        },
+        "bound.native": {
+          "dynamic": false,
+          "configurations": 396,
+          "verifiedScenarios": 0
+        },
+        "opening_direction_elites": {
+          "dynamic": true,
+          "configurations": 252,
+          "verifiedScenarios": 162
+        },
+        "insurance": {
+          "dynamic": true,
+          "configurations": 18,
+          "verifiedScenarios": 12
+        },
+        "crit_pursuit": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "iron_counter": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "light_assault": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "precision_crit": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "wall_counter": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "sustain_heal": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "white_dps": {
+          "dynamic": false,
+          "configurations": 18,
+          "verifiedScenarios": 0
+        },
+        "white_hp": {
+          "dynamic": false,
+          "configurations": 18,
+          "verifiedScenarios": 0
+        },
+        "white_armor": {
+          "dynamic": false,
+          "configurations": 12,
+          "verifiedScenarios": 0
+        },
+        "stat.dodge": {
+          "dynamic": false,
+          "configurations": 12,
+          "verifiedScenarios": 0
+        },
+        "direction.attackSpeed": {
+          "dynamic": false,
+          "configurations": 54,
+          "verifiedScenarios": 0
+        },
+        "bound.shield": {
+          "dynamic": false,
+          "configurations": 216,
+          "verifiedScenarios": 0
+        },
+        "hero_orange": {
+          "dynamic": true,
+          "configurations": 36,
+          "verifiedScenarios": 36
+        },
+        "hero_growth": {
+          "dynamic": true,
+          "configurations": 36,
+          "verifiedScenarios": 36
+        },
+        "capacity_members_all": {
+          "dynamic": false,
+          "configurations": 6,
+          "verifiedScenarios": 0
+        },
+        "capacity_rank_all": {
+          "dynamic": false,
+          "configurations": 6,
+          "verifiedScenarios": 0
+        },
+        "capacity_squads": {
+          "dynamic": false,
+          "configurations": 27,
+          "verifiedScenarios": 0
+        },
+        "bound.native_tier": {
+          "dynamic": false,
+          "configurations": 180,
+          "verifiedScenarios": 0
+        },
+        "bound.attackSpeed": {
+          "dynamic": false,
+          "configurations": 90,
+          "verifiedScenarios": 0
+        },
+        "adventurer": {
+          "dynamic": false,
+          "configurations": 6,
+          "verifiedScenarios": 0
+        },
+        "adventurer_replace": {
+          "dynamic": false,
+          "configurations": 3,
+          "verifiedScenarios": 0
+        },
+        "stage_yamato": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "lost_templar": {
+          "dynamic": true,
+          "configurations": 6,
+          "verifiedScenarios": 6
+        },
+        "lost_adept": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "true_burn": {
+          "dynamic": true,
+          "configurations": 6,
+          "verifiedScenarios": 6
+        },
+        "burn_execute": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "periodic_worker": {
+          "dynamic": false,
+          "configurations": 42,
+          "verifiedScenarios": 0
+        },
+        "worker_building": {
+          "dynamic": false,
+          "configurations": 27,
+          "verifiedScenarios": 0
+        },
+        "equipment_drop_chance": {
+          "dynamic": false,
+          "configurations": 42,
+          "verifiedScenarios": 0
+        },
+        "rescue_double": {
+          "dynamic": true,
+          "configurations": 45,
+          "verifiedScenarios": 45
+        },
+        "boss_quality": {
+          "dynamic": false,
+          "configurations": 48,
+          "verifiedScenarios": 0
+        },
+        "loan": {
+          "dynamic": false,
+          "configurations": 48,
+          "verifiedScenarios": 0
+        },
+        "card_copy": {
+          "dynamic": false,
+          "configurations": 33,
+          "verifiedScenarios": 0
+        },
+        "rescue_elite": {
+          "dynamic": true,
+          "configurations": 30,
+          "verifiedScenarios": 30
+        },
+        "equipment_drop": {
+          "dynamic": false,
+          "configurations": 3,
+          "verifiedScenarios": 0
+        },
+        "harvest": {
+          "dynamic": false,
+          "configurations": 36,
+          "verifiedScenarios": 0
+        },
+        "stage_reward_percent": {
+          "dynamic": false,
+          "configurations": 54,
+          "verifiedScenarios": 0
+        },
+        "resource_drop": {
+          "dynamic": false,
+          "configurations": 54,
+          "verifiedScenarios": 0
+        },
+        "supply_interest": {
+          "dynamic": false,
+          "configurations": 33,
+          "verifiedScenarios": 0
+        },
+        "free_refresh_quality": {
+          "dynamic": false,
+          "configurations": 54,
+          "verifiedScenarios": 0
+        },
+        "purchase_identity_discount": {
+          "dynamic": false,
+          "configurations": 66,
+          "verifiedScenarios": 0
+        },
+        "stable_refresh": {
+          "dynamic": false,
+          "configurations": 57,
+          "verifiedScenarios": 0
+        },
+        "refresh_multiplier": {
+          "dynamic": false,
+          "configurations": 57,
+          "verifiedScenarios": 0
+        },
+        "build_free": {
+          "dynamic": false,
+          "configurations": 57,
+          "verifiedScenarios": 0
+        },
+        "build_double": {
+          "dynamic": false,
+          "configurations": 57,
+          "verifiedScenarios": 0
+        },
+        "paid_elite": {
+          "dynamic": true,
+          "configurations": 60,
+          "verifiedScenarios": 60
+        },
+        "purchase_copy": {
+          "dynamic": false,
+          "configurations": 39,
+          "verifiedScenarios": 0
+        },
+        "purchase_rank": {
+          "dynamic": false,
+          "configurations": 39,
+          "verifiedScenarios": 0
+        },
+        "refresh_credit": {
+          "dynamic": false,
+          "configurations": 42,
+          "verifiedScenarios": 0
+        },
+        "first_purchase_free": {
+          "dynamic": false,
+          "configurations": 36,
+          "verifiedScenarios": 0
+        },
+        "build_research": {
+          "dynamic": false,
+          "configurations": 36,
+          "verifiedScenarios": 0
+        },
+        "elite_training": {
+          "dynamic": true,
+          "configurations": 39,
+          "verifiedScenarios": 39
+        },
+        "manual_reset": {
+          "dynamic": true,
+          "configurations": 39,
+          "verifiedScenarios": 39
+        },
+        "turn_factor": {
+          "dynamic": false,
+          "configurations": 21,
+          "verifiedScenarios": 0
+        },
+        "moving_chance": {
+          "dynamic": false,
+          "configurations": 21,
+          "verifiedScenarios": 0
+        },
+        "bounce": {
+          "dynamic": true,
+          "configurations": 57,
+          "verifiedScenarios": 57
+        },
+        "cleave": {
+          "dynamic": true,
+          "configurations": 63,
+          "verifiedScenarios": 63
+        },
+        "distance_damage": {
+          "dynamic": false,
+          "configurations": 57,
+          "verifiedScenarios": 0
+        },
+        "adrenaline": {
+          "dynamic": true,
+          "configurations": 60,
+          "verifiedScenarios": 60
+        },
+        "prepare_reduction": {
+          "dynamic": false,
+          "configurations": 33,
+          "verifiedScenarios": 0
+        },
+        "moving_extra": {
+          "dynamic": true,
+          "configurations": 33,
+          "verifiedScenarios": 33
+        },
+        "pierce": {
+          "dynamic": true,
+          "configurations": 33,
+          "verifiedScenarios": 33
+        },
+        "last_stand": {
+          "dynamic": true,
+          "configurations": 36,
+          "verifiedScenarios": 36
+        },
+        "incendiary": {
+          "dynamic": true,
+          "configurations": 48,
+          "verifiedScenarios": 48
+        },
+        "opening_ultralisk": {
+          "dynamic": true,
+          "configurations": 48,
+          "verifiedScenarios": 48
+        },
+        "drop_pod": {
+          "dynamic": true,
+          "configurations": 48,
+          "verifiedScenarios": 144
+        },
+        "reactor": {
+          "dynamic": false,
+          "configurations": 60,
+          "verifiedScenarios": 0
+        },
+        "reinforcement_elite": {
+          "dynamic": true,
+          "configurations": 21,
+          "verifiedScenarios": 63
+        },
+        "egg_conversion": {
+          "dynamic": false,
+          "configurations": 21,
+          "verifiedScenarios": 0
+        },
+        "ultralisk_elite": {
+          "dynamic": true,
+          "configurations": 21,
+          "verifiedScenarios": 21
+        },
+        "drop_elite": {
+          "dynamic": true,
+          "configurations": 21,
+          "verifiedScenarios": 63
+        },
+        "joint_support": {
+          "dynamic": true,
+          "configurations": 30,
+          "verifiedScenarios": 30
+        },
+        "swarm": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 9
+        },
+        "konstant": {
+          "dynamic": true,
+          "configurations": 42,
+          "verifiedScenarios": 78
+        },
+        "plague": {
+          "dynamic": true,
+          "configurations": 24,
+          "verifiedScenarios": 63
+        },
+        "rewind": {
+          "dynamic": true,
+          "configurations": 39,
+          "verifiedScenarios": 36
+        },
+        "bounty_order": {
+          "dynamic": false,
+          "configurations": 15,
+          "verifiedScenarios": 0
+        },
+        "plunder": {
+          "dynamic": false,
+          "configurations": 15,
+          "verifiedScenarios": 0
+        },
+        "capacity_baseline": {
+          "dynamic": false,
+          "configurations": 18,
+          "verifiedScenarios": 0
+        },
+        "recruit_rank_all": {
+          "dynamic": false,
+          "configurations": 15,
+          "verifiedScenarios": 0
+        },
+        "research_cap": {
+          "dynamic": false,
+          "configurations": 15,
+          "verifiedScenarios": 0
+        },
+        "hero_cap": {
+          "dynamic": false,
+          "configurations": 15,
+          "verifiedScenarios": 0
+        },
+        "weakness": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 12
+        },
+        "dominance": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 12
+        },
+        "yamato_support": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 12
+        },
+        "behemoth": {
+          "dynamic": true,
+          "configurations": 15,
+          "verifiedScenarios": 36
+        },
+        "devour": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "phase": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 9
+        },
+        "ark": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "weapon_area": {
+          "dynamic": false,
+          "configurations": 6,
+          "verifiedScenarios": 0
+        },
+        "cluster": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "execute": {
+          "dynamic": true,
+          "configurations": 6,
+          "verifiedScenarios": 6
+        },
+        "execute_chain": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "out_of_combat_shield": {
+          "dynamic": true,
+          "configurations": 6,
+          "verifiedScenarios": 6
+        },
+        "shield_rebuild": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        },
+        "auto_recall": {
+          "dynamic": true,
+          "configurations": 6,
+          "verifiedScenarios": 6
+        },
+        "recall_phantom": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 9
+        },
+        "weapon_bonus": {
+          "dynamic": false,
+          "configurations": 6,
+          "verifiedScenarios": 0
+        },
+        "double_attack": {
+          "dynamic": true,
+          "configurations": 3,
+          "verifiedScenarios": 3
+        }
+      },
+      "initialFixtureFailures": 65
+    },
+    "mechanics": {
+      "snapshots": 48,
+      "equal": true,
+      "scope": "固定种子原生战斗状态对比，排除明确的显示字段；伤害/冷却/掉落/装备机制不改。"
+    },
+    "build": {
+      "inputs": 546,
+      "assets": 2690,
+      "hashesVerified": true,
+      "rawSources": [
+        {
+          "manifest": "tools/t01-death-skin-dependencies.json",
+          "verified": 28
+        },
+        {
+          "manifest": "tools/t01-mission-death-dependencies.json",
+          "verified": 84
+        },
+        {
+          "manifest": "tools/t01-audio-dependencies.json",
+          "verified": 756
+        }
+      ]
+    },
+    "web": {
+      "cases": 30,
+      "scope": "首次浏览器预检；最终HTML另作同版离线复核",
+      "errors": 0,
+      "httpErrors": 0
+    },
+    "offline": {
+      "cases": 30,
+      "caseIds": [
+        "actor:zealot:1:attack",
+        "actor:elite.zealot.1:1:attack",
+        "actor:elite.zealot.2:1:attack",
+        "actor:elite.zealot.3:1:attack",
+        "actor:zealot:1:idle",
+        "actor:zealot:1:move",
+        "presentation:fleet",
+        "presentation:fleet-expiry",
+        "presentation:fun-brood",
+        "presentation:hero-baneling",
+        "presentation:equipment-projection-birth",
+        "presentation:equipment-projection-end",
+        "equipment:set.blue.phantom.3:terran:4:unbound:effect:phantom:death",
+        "equipment:set.blue.phantom.3:zerg:4:unbound",
+        "equipment:set.blue.phantom.3:protoss:4:unbound",
+        "presentation:equipment-recall-from",
+        "equipment:special.recall.3:zerg:1:unbound",
+        "equipment:special.recall.3:protoss:1:unbound",
+        "equipment:special.recall.4:terran:1:unbound:effect:recall_phantom:expiry",
+        "equipment:module.phase.5:terran:1:unbound:effect:phase:expiry",
+        "equipment:module.phase.5:terran:1:unbound:effect:phase:death",
+        "presentation:equipment-expiry",
+        "inheritance:module.suppression.4:terran:S06:effect:drop_pod:expiry",
+        "equipment:module.swarm.3:terran:1:unbound:effect:swarm:expiry",
+        "equipment:module.konstant.3:terran:1:unbound:effect:konstant:expiry",
+        "equipment:set.traps.2:terran:2:unbound",
+        "presentation:equipment-fort-deploy",
+        "equipment:set.special.sky.4:terran:2:unbound",
+        "equipment:set.blue.army.3:terran:6:starport",
+        "equipment:set.orange.hero.5:zerg:6:niadra:effect:hero_orange:cycle"
+      ],
+      "checks": [
+        "loop-on-by-default",
+        "full-native-lifecycle-three-consecutive-default-loops",
+        "pause-clears-all-voices",
+        "generic-effects-never-draw-Stalker-mesh",
+        "Zealot-live-single-dread-layer",
+        "fleet-full-three-ships-and-native-expiry",
+        "four-identities-identical-instance-scale-under-fixed-camera",
+        "pause-at-end-blocks-auto-restart",
+        "frame-step",
+        "half-speed",
+        "actual-audio-signal",
+        "actual-export",
+        "UI-isolation-and-loop-preference-survives-mode-change"
+      ],
+      "loops": [
+        {
+          "id": "presentation:fleet-expiry",
+          "cycles": 3
+        },
+        {
+          "id": "presentation:fun-brood",
+          "cycles": 3
+        },
+        {
+          "id": "presentation:hero-baneling",
+          "cycles": 3
+        },
+        {
+          "id": "presentation:equipment-projection-end",
+          "cycles": 3
+        },
+        {
+          "id": "equipment:set.blue.phantom.3:terran:4:unbound:effect:phantom:death",
+          "cycles": 3
+        },
+        {
+          "id": "equipment:special.recall.4:terran:1:unbound:effect:recall_phantom:expiry",
+          "cycles": 3
+        },
+        {
+          "id": "equipment:module.phase.5:terran:1:unbound:effect:phase:expiry",
+          "cycles": 3
+        },
+        {
+          "id": "equipment:module.phase.5:terran:1:unbound:effect:phase:death",
+          "cycles": 3
+        },
+        {
+          "id": "presentation:equipment-expiry",
+          "cycles": 3
+        },
+        {
+          "id": "inheritance:module.suppression.4:terran:S06:effect:drop_pod:expiry",
+          "cycles": 3
+        },
+        {
+          "id": "equipment:module.swarm.3:terran:1:unbound:effect:swarm:expiry",
+          "cycles": 3
+        },
+        {
+          "id": "equipment:module.konstant.3:terran:1:unbound:effect:konstant:expiry",
+          "cycles": 3
+        }
+      ],
+      "layouts": [
+        {
+          "width": 1440,
+          "height": 900
+        },
+        {
+          "width": 844,
+          "height": 390
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "errors": 0,
+      "httpRequests": 0
+    },
+    "scaleReference": {
+      "rows": [
+        {
+          "label": "正式英雄",
+          "id": 5,
+          "x": -10.5,
+          "model": "hero.yamato_battlecruiser"
+        },
+        {
+          "label": "新协战舰",
+          "id": 6,
+          "x": -3.5,
+          "model": "hero.yamato_battlecruiser"
+        },
+        {
+          "label": "旧存档协战舰",
+          "id": 7,
+          "x": 3.5,
+          "model": "hero.yamato_battlecruiser"
+        },
+        {
+          "label": "装备赠舰",
+          "id": 8,
+          "x": 10.5,
+          "model": "hero.yamato_battlecruiser"
+        }
+      ],
+      "camera": [
+        0,
+        35,
+        27
+      ],
+      "instances": [
+        {
+          "x": -10.5,
+          "scale": 0.7100329995155334
+        },
+        {
+          "x": -3.5,
+          "scale": 0.7100329995155334
+        },
+        {
+          "x": 3.5,
+          "scale": 0.7100329995155334
+        },
+        {
+          "x": 10.5,
+          "scale": 0.7100329995155334
+        }
+      ]
+    },
+    "audio": {
+      "decoded": 766,
+      "actualWaveformPeak": 0.2584322392940521
+    },
+    "normalGame": {
+      "appBuildId": "a2a71f1b2527ff61db975534fe704b63fbe1f50b31721d8aa71c061dc9f3e6a6",
+      "checks": [
+        "ordinary-new-game-via-public-ui",
+        "normal-entry-original-attack-output",
+        "ordinary-pause-clears-combat-audio"
+      ],
+      "errors": 0,
+      "httpErrors": 0
+    },
+    "visualReview": {
+      "scope": "有限关键帧复看及旧r27与新版本相同动作/时刻比较，不是全目录人类视觉验收。",
+      "observed": [
+        "狂热者攻击原竖起黑条与修复后发辫对照",
+        "普通/精英共用发辫",
+        "完整三舰及固定镜头四种身份比例",
+        "真实幻象和召回",
+        "三尺寸检测页按钮与画面"
+      ]
+    }
+  },
+  "fixtureCorrections": {
+    "browser": [
+      "四舰比例比较初次遗漏world.changed，暂停缓存沿用旧实体；修正缓存失效通知后四实例尺度一致。",
+      "竖屏备注按钮初次裁切，检测工具页脚增加高度后全部按钮在视口内。",
+      "重复套装组初次重复列入口；合并为3947条唯一ID，并标明同时生效组数，3312语义场景映射保持。"
+    ],
+    "initialFailures": 65,
+    "finalFailures": 0,
+    "groups": [
+      "陷阱目标先离开触发区再进入，避免生成与消耗发生在同一采样间隔。",
+      "种族/方向增援先建立原生生产资格；手动冷却场景获取本种族的实际英雄。",
+      "种子选择满足击杀补兵和多重攻击概率链，不覆盖正式随机判定。",
+      "致命伤害使用不受普通武器闪避干扰的原生技能入口；伤害共享使用实际HP损失。",
+      "临时军团结束场景阻止无关周期继续生成；康斯坦丁正常结束保留独立原生收尾。"
+    ]
+  },
+  "finalMapping": {
+    "previewCases": 3947,
+    "uniqueIds": 3947,
+    "uniqueParameterScenarios": 3312,
+    "allMappedToVerifiedNativeScenario": true,
+    "repeatedGroupsDescribed": true,
+    "allDynamicCases": 15351
+  },
+  "catalogue": {
+    "objects": 401,
+    "units": 165,
+    "dynamic": 15351,
+    "static": 365,
+    "equipmentActions": 389
+  },
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r29\\T01-综合检测.html",
+    "bytes": 982200828,
+    "sha256": "f29c3aadc7cf3cc99875e712b32fcc7d4f61db32ca13c30520245e0824a72a4f",
+    "assets": 2690
+  },
+  "formalBuild": {
+    "appBuildId": "a2a71f1b2527ff61db975534fe704b63fbe1f50b31721d8aa71c061dc9f3e6a6",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 2690,
+    "fileCount": 2597,
+    "assetBytes": 1074529387,
+    "logicalBytes": 1096001996,
+    "sharedBytes": 21472609,
+    "manifest": "asset-manifest.740ff602e856d6b43e8916f0b1371e304bf55250eced91687d6a082591725542.json",
+    "release": "740ff602e856d6b43e8916f0b1371e304bf55250eced91687d6a082591725542",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "preservation": {
+    "baselineFiles": 913,
+    "unchangedFiles": 896,
+    "changed": [
+      "src/data/combat-presentation.ts",
+      "src/render/effects/equipment-effects.ts",
+      "src/render/effects/source/player.ts",
+      "src/render/effects/source/ribbons.ts",
+      "src/render/effects/source/types.ts",
+      "src/render/effects/source-combat-effects.ts",
+      "src/render/materials/elite-visual.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/simulation/missions/fleet.ts",
+      "test/missions.test.ts",
+      "tools/t01/catalogue.ts",
+      "tools/t01/gallery-entry.ts",
+      "tools/t01/gallery-scope.ts",
+      "tools/t01/gallery.css",
+      "tools/t01/gallery.ts",
+      "tools/t01/presentation-repair-fixture.ts",
+      "tools/t01/runtime.ts"
+    ],
+    "production": [
+      "src/data/combat-presentation.ts",
+      "src/render/effects/equipment-effects.ts",
+      "src/render/effects/source/player.ts",
+      "src/render/effects/source/ribbons.ts",
+      "src/render/effects/source/types.ts",
+      "src/render/effects/source-combat-effects.ts",
+      "src/render/materials/elite-visual.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/simulation/missions/fleet.ts"
+    ],
+    "added": [
+      "test/t01-feedback-rendering.test.ts",
+      "tools/t01/equipment-preview-spec.ts",
+      "tools/t01/equipment-effect-names.generated.json",
+      "tools/t01/probe-equipment-previews.ts",
+      "tools/t01/verify-equipment-preview-mapping.ts",
+      "tools/t01/equipment-preview-runtime.ts",
+      "tools/t01/audit-equipment-previews.ts"
+    ],
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "currentReplaced": false,
+    "gameplayChanged": false
+  },
+  "limits": [
+    "用户画面与试听验收仍开放；30场景不是全目录逐项视觉验收。",
+    "egg_conversion原生调用传入空子单位列表，当前无法产生独立转化画面；目录明确说明现状，本批不改变机制或伪造实体。",
+    "replace_hero_proxy生效时旧opening_hero_proxy被覆盖，目录说明实际英雄身份，不重复伪造旧投影。",
+    "纯数值/经济规则显示实际参数与条件，未编造独立战斗特效。",
+    "原V01/V02/V03性能、物理设备及最终个人试玩限制保持；V04未启动。"
+  ],
+  "reproduce": [
+    "node --import tsx --test test/t01-feedback-rendering.test.ts test/t01-gallery-framing.test.ts test/source-combat-effects.test.ts test/source-particle-acceleration.test.ts test/missions.test.ts test/starship-projection-cleanup.test.ts test/hero-audio-feedback.test.ts test/starship-orange-heroes.test.ts test/equipment-effects.test.ts",
+    "npm run typecheck",
+    "npx tsc --ignoreConfig --noEmit --strict --skipLibCheck --module ESNext --moduleResolution Bundler --target ES2022 --allowJs --types vite/client tools/t01/gallery-entry.ts",
+    "node --import tsx tools/t01/audit-equipment-previews.ts",
+    "node tools/run-t01-presentation-edge-audit.mjs",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/verify-t01-feedback-repairs.mjs --offline=<最新综合HTML>",
+    "npm run build:web",
+    "node tools/verify-t01-audio-native.mjs"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "只保留当前综合HTML、必需输入、简要结论与复现代码；删除本批截图、日志、浏览器配置及被替代HTML。",
+    "removedFiles": 20891,
+    "removedLogicalBytes": 9642678939
+  },
+  "boardRevision": 213,
+  "commit": false,
+  "push": false,
+  "publish": false
+}

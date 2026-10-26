@@ -96,11 +96,11 @@ test('ordinary fleet scale survives attack snapshots and visual hero adaptation'
  const {fleetGunWorld}=await import('../src/render/effects/mission-feedback');
  const w=world();w.missions.fleet.unlocked=true;assert.ok(callFleet(w,{x:10,z:10}));w.tick++;tickFleetCall(w);
  const ship=w.entities.get([...w.missions.fleet.ships.keys()][0])!;
- assert.equal(ship.heroId,undefined);assert.equal(ship.maxHp,1100);assert.equal(ship.visualScale,.5);
+ assert.equal(ship.heroId,undefined);assert.equal(ship.maxHp,1100);assert.equal(ship.visualScale,1);
  const hero={...ship,visualScale:1,heroId:'yamato_battlecruiser' as const};
- assert.equal(modelPresentationScale(ship),modelPresentationScale(hero)/2);
+ assert.equal(modelPresentationScale(ship),modelPresentationScale(hero));
  w.visual('attack',ship);const event=w.visualEvents.at(-1)!;
- assert.equal(event.visualScale,.5);assert.equal(modelPresentationScale({...event,unitType:ship.unitType}),modelPresentationScale(ship));
+ assert.equal(event.visualScale,1);assert.equal(modelPresentationScale({...event,unitType:ship.unitType}),modelPresentationScale(ship));
  const enemy=w.addUnit('roach','zerg',ship.x+2,ship.z);w.weaponFlights.push({source:structuredClone(ship)} as any);
  const adapted=fleetGunWorld(w).weaponFlights.at(-1)!.source;
  assert.equal(adapted.heroId,'yamato_battlecruiser');assert.equal(modelPresentationScale(adapted),modelPresentationScale(ship));assert.equal(ship.heroId,undefined);

@@ -14,7 +14,7 @@ test('every original type-2 mesh has a separately bound immutable GLB and every 
   if(!def.displacementGlb)continue;definitions++;const row=registry.records.find((r:any)=>r.id===def.displacementGlb!.id);assert.ok(row);const bytes=fs.readFileSync(row.gitPath);assert.equal(createHash('sha256').update(bytes).digest('hex'),def.displacementGlb.sha256);
   const json=JSON.parse(bytes.toString('utf8',20,20+bytes.readUInt32LE(12)));for(const n of json.nodes)if(n.mesh!==undefined){meshes++;assert.ok(def.displacementMaterials[n.extras.displacementMaterial]);assert.equal(json.materials[json.meshes[n.mesh].primitives[0].material].name,'source-displacement-'+n.extras.displacementMaterial);}
   assert.ok(json.animations.length>0);assert.ok(dependencies.includes(def.displacementGlb.id));
- }assert.equal(definitions,13);assert.equal(meshes,14);
+ }assert.equal(definitions,14);assert.equal(meshes,17);assert.ok(SOURCE_EFFECTS.GhostNukeExplode.displacementGlb);
 });
 
 test('displacement strength and independent normal/mask UV curves follow original clip time without cross-instance leakage',()=>{

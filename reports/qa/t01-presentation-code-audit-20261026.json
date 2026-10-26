@@ -1,0 +1,721 @@
+{
+  "date": "2026-10-26",
+  "task": "T01",
+  "status": "code-audit-complete-production-fixes-not-started",
+  "request": "先从代码层面做一次全面检查和梳理，看看有没有漏掉什么特效、声音、死亡；核验死亡模型颜色不一致。",
+  "summary": "完成T01全范围代码接线与死亡颜色梳理：2649资源存在，258模型SHA与依赖、2233音频路由、40项相关测试及生产类型通过。确认67死亡模型124材质队伍色中断、任务死亡模型缺口、协战舰漏声/错时及六重弹体、特殊遭遇身份和生命周期/装备反馈缺口；7组皮肤贴图候选待原版语义核对。仅审计，未修复游戏，T01仍开放。",
+  "scope": {
+    "catalogue": {
+      "cases": 13919,
+      "runners": {
+        "actor": 5455,
+        "card": 791,
+        "card-effect": 791,
+        "enemy": 2880,
+        "fun": 39,
+        "equipment": 3801,
+        "development": 157,
+        "map": 5
+      },
+      "gallery": 372,
+      "units": 165
+    },
+    "assets": 2649,
+    "models": 227,
+    "materialProfiles": 204,
+    "materialSurfaces": 475,
+    "deathProfiles": 87,
+    "audio": {
+      "banks": 246,
+      "weapons": 69,
+      "heroes": 18,
+      "deathRoutes": 58,
+      "bankMissing": [],
+      "sampleMissing": []
+    },
+    "fx": {
+      "profiles": 43,
+      "sourceEffects": 105,
+      "fxMissing": []
+    },
+    "coverage": "按单位/形态/英雄/精英/敌军/支援/建筑/任务/遭遇/装备/召唤及开始-持续-结束-死亡-到期检查接线；13919仅目录梳理，不是13919逐画面或逐试听通过。"
+  },
+  "findings": [
+    {
+      "id": "T01-CODE-01",
+      "priority": 1,
+      "status": "confirmed-code-discontinuity-rendered-extent-pending",
+      "title": "死亡队伍色通道中断",
+      "detail": "87份独立死亡材质配置中，67份模型、124个材质面与存活模型使用相同原始漫反射DDS；存活材质有队伍色遮罩，死亡材质没有。原DDS仍包含遮罩像素。尸体虽收到teamColor，shader没有teamTexture就不会替换该区域，造成颜色不连续。67是代码风险模型数量，不是逐模型画面验收失败数量。",
+      "cause": "生成器仅为blend===0且diffuse.channel===1生成遮罩；这些死亡材质的channel为0，运行时没有按存活身份补映射。不能把所有死亡alpha或血肉面一律当队伍色。",
+      "models": [
+        "marine.death",
+        "tank.death",
+        "zergling.death",
+        "roach.death",
+        "baneling.death",
+        "medivac.death",
+        "elite.marine.1.death",
+        "elite.marine.3.death",
+        "elite.marauder.1.death",
+        "elite.marauder.2.death",
+        "elite.marauder.3.death",
+        "elite.hellion.1.death",
+        "elite.hellion.2.death",
+        "elite.hellion.3.death",
+        "elite.tank.1.death",
+        "elite.tank.2.death",
+        "elite.tank.3.death",
+        "elite.medivac.1.death",
+        "elite.medivac.2.death",
+        "elite.medivac.3.death",
+        "marauder.death",
+        "hydralisk.death",
+        "hero.hots_leviathan.death",
+        "reaper.death",
+        "thor.death",
+        "viking.death",
+        "banshee.death",
+        "lurker.death",
+        "mutalisk.death",
+        "ultralisk.death",
+        "zealot.death",
+        "adept.death",
+        "stalker.death",
+        "sentry.death",
+        "immortal.death",
+        "colossus.death",
+        "high_templar.death",
+        "void_ray.death",
+        "hellion.hellbat.death",
+        "viking.assault.death",
+        "hero.zeratul.death",
+        "hero.fenix.death",
+        "elite.thor.1.death",
+        "elite.viking.1.death",
+        "elite.banshee.1.death",
+        "elite.zergling.1.death",
+        "elite.roach.1.death",
+        "elite.ravager.1.death",
+        "elite.hydralisk.1.death",
+        "elite.corruptor.1.death",
+        "elite.adept.1.death",
+        "elite.stalker.1.death",
+        "elite.immortal.1.death",
+        "elite.high_templar.1.death",
+        "elite.phoenix.1.death",
+        "elite.void_ray.1.death",
+        "elite.viking.1.assault.death",
+        "hero.yamato_battlecruiser.death",
+        "elite.reaper.1.death",
+        "elite.lurker.1.death",
+        "elite.ultralisk.1.death",
+        "science_vessel.death",
+        "hero.zagara.death",
+        "hero.niadra.death",
+        "scv.death",
+        "drone.death",
+        "probe.death"
+      ],
+      "surfaces": 124,
+      "example": [
+        {
+          "key": "elite.marine.1.death",
+          "name": "marine2",
+          "masked": 32635,
+          "total": 524288,
+          "channel": 0,
+          "blend": 0
+        },
+        {
+          "key": "elite.marine.1.death",
+          "name": "marine2fade1",
+          "masked": 32635,
+          "total": 524288,
+          "channel": 0,
+          "blend": 0
+        }
+      ],
+      "sources": [
+        "tools/material-batch2-source.mjs:51",
+        "src/render/materials/unit-material-loader.ts:73",
+        "src/render/materials/unit-material-batch.ts:137",
+        "src/render/scene/battle-renderer.ts:810",
+        "src/render/scene/battle-renderer.ts:872"
+      ],
+      "fix": "按原版身体材质语义建立活体/尸体共享颜色映射，保留血肉、焦痕、能量、透明与消散专用通道；使用相同光照、同一身份逐项对照。"
+    },
+    {
+      "id": "T01-CODE-02",
+      "priority": 2,
+      "status": "source-skin-review-required",
+      "title": "死亡皮肤贴图不连续候选",
+      "models": [
+        "elite.marine.2.death",
+        "elite.baneling.1.death",
+        "elite.queen.1.death",
+        "elite.high_templar.1.death",
+        "elite.reaper.1.death",
+        "elite.mutalisk.1.death",
+        "elite.colossus.1.death"
+      ],
+      "detail": "以上7个精英模型键的身体或碎片使用了与存活版本不同的皮肤纹理；例如精英虫后/飞龙部分碎片回用普通皮肤。文件差异已确认，但尚未逐条核对原版Actor/CSkin纹理替换语义，不能将原版故意的焦黑、血肉和灰化判为错误。共享同一模型键的其他精英也应跟随修复覆盖。",
+      "examples": [
+        {
+          "key": "elite.marine.2.death",
+          "name": "warpig",
+          "diffuse": "marine_merc_collection_diff.dds",
+          "liveDiffuse": [
+            "marinexpreward_diffuse_blood.dds"
+          ]
+        },
+        {
+          "key": "elite.baneling.1.death",
+          "name": "Body",
+          "diffuse": "baneling_collectionskin_webby_diff.dds",
+          "liveDiffuse": [
+            "baneling_collectionskin_webby_mp_diff.dds"
+          ]
+        },
+        {
+          "key": "elite.queen.1.death",
+          "name": "death2",
+          "diffuse": "queen_diffuse.dds",
+          "liveDiffuse": [
+            "queen_collectionskin_webby_diffuse.dds"
+          ]
+        },
+        {
+          "key": "elite.queen.1.death",
+          "name": "death3",
+          "diffuse": "queen_diffuse.dds",
+          "liveDiffuse": [
+            "queen_collectionskin_webby_diffuse.dds"
+          ]
+        },
+        {
+          "key": "elite.high_templar.1.death",
+          "name": "Gray",
+          "diffuse": "templar_diffuse.dds",
+          "liveDiffuse": [
+            "hightemplar_purifier_collection_diff.dds"
+          ]
+        },
+        {
+          "key": "elite.reaper.1.death",
+          "name": "orig_New Reaper",
+          "diffuse": "reaper_covertops_collection_diff.dds",
+          "liveDiffuse": [
+            "blackops_reaperadd_diffuse.dds",
+            "blackopsreaper_a_diff.dds"
+          ]
+        },
+        {
+          "key": "elite.reaper.1.death",
+          "name": "orig_New Reaper3",
+          "diffuse": "reaper_covertops_collection_diff.dds",
+          "liveDiffuse": [
+            "blackops_reaperadd_diffuse.dds",
+            "blackopsreaper_a_diff.dds"
+          ]
+        },
+        {
+          "key": "elite.mutalisk.1.death",
+          "name": "Body",
+          "diffuse": "mutaliskex1b_diff.dds",
+          "liveDiffuse": [
+            "mutalisk_collectionskin_webby_diff.dds"
+          ]
+        },
+        {
+          "key": "elite.colossus.1.death",
+          "name": "12 - Default2222",
+          "diffuse": "colossus_purifier_collection_diff.dds",
+          "liveDiffuse": [
+            "colossus_purifier_collection2_diff.dds"
+          ]
+        },
+        {
+          "key": "elite.colossus.1.death",
+          "name": "12 - Default",
+          "diffuse": "colossus_purifier_collection_diff.dds",
+          "liveDiffuse": [
+            "colossus_purifier_collection2_diff.dds"
+          ]
+        }
+      ],
+      "sources": [
+        "src/render/materials/unit-material-catalog.ts",
+        "tools/combat-death-models.json",
+        "assets/private/actor-source"
+      ],
+      "fix": "先核对本地原版皮肤替换关系和UV兼容，再决定换死亡模型还是覆盖指定纹理槽；不直接全图染色。"
+    },
+    {
+      "id": "T01-CODE-03",
+      "priority": 1,
+      "status": "confirmed-native-receipts-and-consumer-branches",
+      "title": "任务工人和任务建筑漏死亡模型",
+      "detail": "三族护送工人、任务虫巢和修复建筑死亡均产生unitType:null事件；普通尸体池要求unitType，任务专用死亡分支仅处理egg。存活显示遇hp<=0直接移除，因此这5种定点探针未进入死亡模型播放，只剩通用反馈。死亡声音正常，不能报告为漏声。",
+      "probes": [
+        {
+          "role": "worker",
+          "model": "scv",
+          "hp": 0,
+          "audio": [
+            "melee:SCV_Death"
+          ],
+          "unitCorpse": false,
+          "missionEgg": false
+        },
+        {
+          "role": "worker",
+          "model": "drone",
+          "hp": 0,
+          "audio": [
+            "melee:Drone_Death"
+          ],
+          "unitCorpse": false,
+          "missionEgg": false
+        },
+        {
+          "role": "worker",
+          "model": "probe",
+          "hp": 0,
+          "audio": [
+            "melee:Probe_Explode"
+          ],
+          "unitCorpse": false,
+          "missionEgg": false
+        },
+        {
+          "role": "hive",
+          "model": "hatchery",
+          "hp": 0,
+          "audio": [
+            "void:ZergInfestedBuildingExplosion"
+          ],
+          "unitCorpse": false,
+          "missionEgg": false
+        },
+        {
+          "role": "repair",
+          "model": "factory",
+          "hp": 0,
+          "audio": [
+            "swarm:Terran_BuildingExplosion_medium"
+          ],
+          "unitCorpse": false,
+          "missionEgg": false
+        },
+        {
+          "role": "egg",
+          "model": "egg",
+          "hp": 0,
+          "audio": [
+            "melee:Egg_Explode"
+          ],
+          "unitCorpse": false,
+          "missionEgg": true
+        }
+      ],
+      "sources": [
+        "src/simulation/missions/runtime.ts:145",
+        "src/simulation/world.ts:758",
+        "src/simulation/world.ts:794",
+        "src/render/scene/battle-renderer.ts:810",
+        "src/render/scene/battle-renderer.ts:876",
+        "src/render/scene/battle-renderer.ts:886"
+      ],
+      "fix": "死亡事件冻结实际model/朝向/比例/材质身份，统一任务死亡播放并保留到动画结束；不依赖任务清理后的存活对象。"
+    },
+    {
+      "id": "T01-CODE-04",
+      "priority": 1,
+      "status": "confirmed-native-reproduction",
+      "title": "协战舰普攻漏声、大和炮命中声提前",
+      "detail": "原生呼叫舰队生成的舰船没有heroId，视觉事件临时映射为大和战列舰英雄；音频将英雄事件跳过，而普通弹体source仍无法找到武器音频。大和炮的skill-line被当命中，且castId缺失，真正命中被相同去重键吞掉。",
+      "proof": {
+        "called": true,
+        "weaponSoundKey": "yamato_battlecruiser",
+        "profile": false,
+        "flights": 1,
+        "heroPackets": 0,
+        "attack": [],
+        "impact": [],
+        "skillCharge": [
+          "melee:Battlecruiser_YamatoAttackImpact"
+        ],
+        "skillLaunch": [
+          "melee:Battlecruiser_YamatoAttackLaunch"
+        ],
+        "skillImpact": []
+      },
+      "sources": [
+        "src/simulation/missions/fleet.ts:39",
+        "src/simulation/world.ts:794",
+        "src/render/effects/combat-audio-router.ts:43",
+        "src/render/effects/combat-audio-router.ts:68",
+        "src/render/effects/mission-feedback.ts"
+      ],
+      "fix": "为协战舰补独立只读身份适配；蓄力、发射、命中按实际舰船和施法序号区分。"
+    },
+    {
+      "id": "T01-CODE-05",
+      "priority": 2,
+      "status": "confirmed-render-submission-probe-no-raster-claim",
+      "title": "协战舰同一弹体重复绘制六次",
+      "detail": "6个人族英雄各持有一个AttackEffects，均向自己的ApprovedGunEffects传入完整fleetGunWorld。一个原生双炮弹体在6个控制器中各提交2个炮芯、6个精灵请求，合计12个炮芯、36个请求。可能加重亮度与消耗；本轮验证的是提交次数，未量化实际像素亮度。",
+      "proof": [
+        {
+          "owner": "raynor",
+          "cores": 2,
+          "segments": 2,
+          "emitted": 6
+        },
+        {
+          "owner": "tychus",
+          "cores": 2,
+          "segments": 2,
+          "emitted": 6
+        },
+        {
+          "owner": "nova",
+          "cores": 2,
+          "segments": 2,
+          "emitted": 6
+        },
+        {
+          "owner": "swann",
+          "cores": 2,
+          "segments": 2,
+          "emitted": 6
+        },
+        {
+          "owner": "tosh",
+          "cores": 2,
+          "segments": 2,
+          "emitted": 6
+        },
+        {
+          "owner": "yamato_battlecruiser",
+          "cores": 2,
+          "segments": 2,
+          "emitted": 6
+        }
+      ],
+      "sources": [
+        "src/render/effects/confirmed-hero/controller.ts:18",
+        "src/render/effects/confirmed-hero/attack-effects.ts:95",
+        "src/render/effects/confirmed-hero/approved-gun-effects.ts:83"
+      ],
+      "fix": "协战舰弹体交给单一渲染所有者，保持原有双炮数量和实际伤害。"
+    },
+    {
+      "id": "T01-CODE-06",
+      "priority": 2,
+      "status": "confirmed-identity-routing",
+      "title": "特殊遭遇沿用占位兵种死亡声音",
+      "detail": "fun-nydus使用蟑螂逻辑身体，当前死亡路由为Roach_Explode；感染人类及其自爆模型仍为普通陆战队员死亡声；fun-cocoon仍为虫后死亡声。音频没有按这些特殊外观/遭遇身份分流，感染自爆的BanelingDeath粒子突发也没有独立声音路由。",
+      "proof": [
+        {
+          "model": "fun-nydus",
+          "cues": [
+            "melee:Roach_Explode"
+          ]
+        },
+        {
+          "model": "fun-infested-marine",
+          "cues": [
+            "melee:Marine_DeathFXBloodSpray",
+            "melee:Marine_Death"
+          ]
+        },
+        {
+          "model": "fun-infested-marine.timeout",
+          "cues": [
+            "melee:Marine_DeathFXBloodSpray",
+            "melee:Marine_Death"
+          ]
+        },
+        {
+          "model": "fun-cocoon",
+          "cues": [
+            "melee:Queen_Explode"
+          ]
+        }
+      ],
+      "sources": [
+        "src/simulation/encounters/expanded.ts:93",
+        "src/simulation/encounters/expanded.ts:105",
+        "src/simulation/encounters/expanded.ts:228",
+        "src/render/effects/fun-source-effects.ts",
+        "src/render/effects/combat-audio-router.ts:20"
+      ],
+      "fix": "沿本地原版Actor/SoundData建立特殊遭遇音频身份与一次性突发事件，不能只凭基础unitType。"
+    },
+    {
+      "id": "T01-CODE-07",
+      "priority": 2,
+      "status": "confirmed-model-action-fallback",
+      "title": "残酷虫后结茧期间死亡会回退待机姿态",
+      "detail": "fun-cocoon既无独立.death模型也无Death剪辑；残酷虫后在该形态死亡时仍保留modelKey，普通尸体播放器要求dead后回退idle。已有FunCocoonDeath仅接在孵化/寄生突发，未接此死亡分支。",
+      "sources": [
+        "src/simulation/encounters/expanded.ts:178",
+        "src/simulation/encounters/expanded.ts:175",
+        "src/render/units/animated-batch.ts:102",
+        "src/render/scene/battle-renderer.ts:872",
+        "src/render/effects/fun-source-effects.ts"
+      ],
+      "fix": "为结茧死亡明确接原版破茧死亡表现，避免待机尸体；不触发孵化奖励或新单位。"
+    },
+    {
+      "id": "T01-CODE-08",
+      "priority": 2,
+      "status": "confirmed-missing-lifecycle-feedback-design-choice-required",
+      "title": "部分出生、销毁、到期路径缺少声音或退场反馈",
+      "detail": "pod-land/pod-open/pod-destroy/egg-expired没有音频消费者；其中增援仓销毁和虫卵到期已有视觉反馈。孵化支援临时跳虫和扎加拉临时爆虫到期直接删实体，无死亡/退场事件、无声音。到期并非被击杀，补反馈不能改变死亡结算或使爆虫额外爆炸。",
+      "events": [
+        {
+          "kind": "pod-land",
+          "cues": []
+        },
+        {
+          "kind": "pod-open",
+          "cues": []
+        },
+        {
+          "kind": "pod-destroy",
+          "cues": []
+        },
+        {
+          "kind": "egg-expired",
+          "cues": []
+        }
+      ],
+      "expiry": [
+        {
+          "kind": "fun-brood",
+          "methodAvailable": true,
+          "exists": false,
+          "hp": 0,
+          "at": 1,
+          "cues": [],
+          "channels": [],
+          "events": []
+        },
+        {
+          "kind": "hero-baneling",
+          "methodAvailable": true,
+          "exists": false,
+          "hp": 0,
+          "at": 1,
+          "cues": [],
+          "channels": [],
+          "events": []
+        }
+      ],
+      "sources": [
+        "src/simulation/world.ts:645",
+        "src/simulation/world.ts:906",
+        "src/simulation/world.ts:994",
+        "src/render/effects/combat-audio-router.ts"
+      ],
+      "fix": "按三族实际增援模型补生命周期音频；把自然到期设为独立退场表现，或明确设计为静默消失。"
+    },
+    {
+      "id": "T01-CODE-09",
+      "priority": 2,
+      "status": "confirmed-independent-receipt-audio-gaps",
+      "title": "装备表现事件声音覆盖不足",
+      "detail": "19种装备表现事件中，音频直接消费的只有boost-start；fort-shot的声音另由真实Effect负责，fort-end被摧毁声音另由World负责，不能误判。幻象出现/消失、召回两端、回溯、控制、进化、增援、到期、阵地部署、装备治疗共11类已有原版特效但没有独立音频消费。生长、冷却刷新、强化结束未机械地列为必须响声。",
+      "events": [
+        {
+          "kind": "projection-birth",
+          "fx": [
+            "HallucinationBirth"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "projection-end",
+          "fx": [
+            "HallucinationDeath"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "recall-from",
+          "fx": [
+            "BlinkOriginModel"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "recall-to",
+          "fx": [
+            "WarpTrainModel"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "rewind",
+          "fx": [
+            "WarpTrainModel"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "capture",
+          "fx": [
+            "NeuralParasiteModel"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "evolve",
+          "fx": [
+            "WarpTrainModel"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "reinforcement",
+          "fx": [
+            "DropPodLand"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "expiry",
+          "fx": [
+            "BlinkOriginModel"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "fort-deploy",
+          "fx": [
+            "DropPodLand"
+          ],
+          "cues": []
+        },
+        {
+          "kind": "heal",
+          "fx": [
+            "MedicHealModel"
+          ],
+          "cues": []
+        }
+      ],
+      "projectionNative": {
+        "created": true,
+        "birth": [],
+        "end": []
+      },
+      "sources": [
+        "src/simulation/starship/presentation.ts:4",
+        "src/render/effects/equipment-effects.ts:15",
+        "src/render/effects/combat-audio-router.ts:118"
+      ],
+      "fix": "按实际已提交事件补原版音频并去重、限并发；治疗持续声与一次性治疗分开，恢复存档不重播旧事件。"
+    }
+  ],
+  "validation": {
+    "dependencies": {
+      "hashChecked": 258,
+      "hashMismatches": [],
+      "dependencyMissing": []
+    },
+    "assetMissing": [],
+    "nativeAudio": {
+      "cases": 2233,
+      "failures": 0,
+      "scope": "既有actor/enemy/support矩阵；不涵盖本次发现的所有目录外路径"
+    },
+    "edgeProbes": 43,
+    "edgeProbeScope": "含原生事务与隔离事件/表现收据，不是43个完整浏览器场景",
+    "tests": {
+      "passed": 40,
+      "failed": 0,
+      "files": [
+        "test/combat-audio.test.ts",
+        "test/source-combat-effects.test.ts",
+        "test/material-batch2.test.ts",
+        "test/death-clock.test.ts"
+      ]
+    },
+    "productionTypecheck": true,
+    "toolExecution": "两份审计入口经esbuild构建并成功运行；单独tsc工具检查因仓库未安装@types/node未完成，不作为通过项。"
+  },
+  "limits": [
+    "代码扫描不能代替最终画面与试听；死亡颜色67是接线不连续范围，未逐模型判定像素可见程度。",
+    "死亡贴图差异还包括合法的血肉/焦痕/灰化；7组候选须核对原版皮肤替换，不批量盲替。",
+    "普通死亡使用原版网格动作加通用血雾/爆炸，不能称每种单位的原版死亡粒子全套均已复刻。",
+    "低档按既有性能策略简化部分死亡/装饰效果，不计为新缺陷；坦克复用基础死亡与科学球全息死亡有明确专用路径。"
+  ],
+  "repairOrder": [
+    "死亡材质身份连续性与7组皮肤核对",
+    "任务死亡、结茧死亡与特殊遭遇身份",
+    "协战舰声音时序与唯一弹体所有者",
+    "增援/退场/装备表现声音；为已确认静默设计保留例外"
+  ],
+  "preservation": {
+    "sourceAndTestFiles": 857,
+    "changed": [],
+    "delivery": {
+      "mode": "combined",
+      "file": "reports\\local\\t01-20261024\\offline-r25\\T01-综合检测.html",
+      "bytes": 946273607,
+      "sha256": "6d9626518a73521e7f79eaa35537ba21f170d63f88102ce3303f193b4f281b3a",
+      "jsSha256": "044111767d3716514bf3178d7ddcc87bb07bd001f803e6f31da64f5bc12bd7f7",
+      "cssSha256": "08dec54c280bc68359cfeba0d1e5c0b94bce14b14df87dda6278102a0f6cdea4",
+      "payloadSha256": "5299276ed91cacbfe6f8868f2d093aa6f7faa94781c82be0d9722f53d1defd12",
+      "payloadBytes": 887307444,
+      "assets": 2649,
+      "chunks": 3692
+    },
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+      "unchanged": true
+    },
+    "productionEdited": false,
+    "htmlRebuilt": false,
+    "currentReplaced": false
+  },
+  "reproduce": [
+    "node tools/run-t01-presentation-code-audit.mjs",
+    "node tools/run-t01-presentation-edge-audit.mjs",
+    "node tools/run-t01-audio-audit.mjs --all",
+    "node --import tsx --test test/combat-audio.test.ts test/source-combat-effects.test.ts test/material-batch2.test.ts test/death-clock.test.ts",
+    "npm run typecheck"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "只留简要结论、发现清单和复现代码；本批详细输出及临时构建清理。",
+    "cleanedFiles": 11,
+    "cleanedBytes": 66953954
+  },
+  "boardRevision": 209,
+  "commit": false,
+  "push": false,
+  "publish": false,
+  "repairFollowUp": {
+    "date": "2026-10-26",
+    "report": "reports/qa/t01-presentation-repairs-20261026.json",
+    "findingIds": [
+      "T01-CODE-01",
+      "T01-CODE-02",
+      "T01-CODE-03",
+      "T01-CODE-04",
+      "T01-CODE-05",
+      "T01-CODE-06",
+      "T01-CODE-07",
+      "T01-CODE-08",
+      "T01-CODE-09"
+    ],
+    "sourceSkinDecision": "1处原版配对替换，6组原版差异保留",
+    "userVisualReview": "pending"
+  }
+}

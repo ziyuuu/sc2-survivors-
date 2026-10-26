@@ -1,0 +1,500 @@
+{
+  "date": "2026-10-26",
+  "task": "T01",
+  "status": "implemented-engineering-verified-awaiting-user-visual-review",
+  "authorization": "按这次审计结果把问题都修复，7组死亡皮肤先核对原版再处理。修复同步到正式游戏和综合检测HTML，机制保持不变，完成必要验证后交给我看画面和试听。",
+  "summary": "完成本次审计9项修复并同步正式源码/构建与综合HTML。7组死亡皮肤核对原版后仅替换爆虫MP配对；67模型124处队伍色修复，任务死亡、舰队重复弹体/音频、遭遇与生命周期反馈补齐。103项测试、生产/工具类型、2233原生音频路由、48份机制状态对照及最终离线37场景通过；766原版音频解码、实际信号、播放/循环/逐帧/导出与正常游戏入口通过，HTTP/页面错误0。T01仍待用户画面和试听。",
+  "fixes": [
+    {
+      "id": "T01-CODE-01",
+      "result": "67死亡模型124个材质面按相同原DDS绑定活体队伍色遮罩；保留死亡透明/消散轨道、血肉与焦痕。事件冻结身份，实体清理后颜色与比例仍正确。",
+      "models": 67,
+      "surfaces": 124,
+      "remainingMatchingDiffuseWithoutMask": 0
+    },
+    {
+      "id": "T01-CODE-02",
+      "result": "先读原版CSkin/CModel与M3材质。爆虫替换为匹配活体的MP死亡模型；另外6组是原版配对，保留原始碎片、焦黑和皮肤差异。",
+      "replaced": 1,
+      "originalPairsRetained": 6
+    },
+    {
+      "id": "T01-CODE-03",
+      "result": "接入三族工人、任务虫巢及全部维修建筑死亡播放，冻结模型/朝向/可见性，完整剪辑后释放。新增5份原版死亡模型；机械任务死亡不再套用血雾，星灵维修建筑按实际身份发声。",
+      "workers": [
+        "scv",
+        "drone",
+        "probe"
+      ],
+      "buildings": [
+        "barracks",
+        "factory",
+        "starport",
+        "hatchery",
+        "gateway",
+        "robotics",
+        "stargate"
+      ]
+    },
+    {
+      "id": "T01-CODE-04",
+      "result": "协战舰主炮使用原版大和战列舰武器音频；蓄力、发射、命中按实际阶段分别去重，不再提前播命中或吞掉真正命中。"
+    },
+    {
+      "id": "T01-CODE-05",
+      "result": "协战舰弹体仅由大和控制器绘制；双炮保持2个炮芯/6个精灵请求，另外5个英雄控制器不重复提交。原生探针及实际浏览器提交均核对。"
+    },
+    {
+      "id": "T01-CODE-06",
+      "result": "坑道虫、感染陆战队员（含自爆外观）和孵化茧按真实身份分配死亡声音；感染爆炸独立发声一次，暂停/恢复不重播旧突发。"
+    },
+    {
+      "id": "T01-CODE-07",
+      "result": "结茧中死亡使用原版FunCocoonDeath，不回退普通尸体待机；事件离开短队列后仍播完并释放。"
+    },
+    {
+      "id": "T01-CODE-08",
+      "result": "三族增援仓落地/开仓/摧毁、虫卵到期补声；临时巢虫/英雄爆虫到期补原版退场及声音，不走击杀/掉落结算，也不使爆虫额外爆炸。"
+    },
+    {
+      "id": "T01-CODE-09",
+      "result": "11类已提交舰装表现接原版音频：幻象起止、召回两端、回溯、捕获、进化、增援、到期、建筑部署、治疗。其他已有声音所有者保持，生长/冷却刷新/强化结束不任意补声。"
+    }
+  ],
+  "sourceSkinDecisions": [
+    {
+      "key": "elite.marine.2",
+      "skin": "MarineXPR",
+      "live": "marinexpreward.m3",
+      "death": "marine_merc_collection_death.m3",
+      "decision": "retain-original-authored-death-materials",
+      "reason": "CSkin replaces the live/death CModel pair. The shipped pair and its per-surface texture references match the original M3; no texture replacement is declared in this skin chain. Retain native fragments, burnt surfaces and body variants; repair team masks separately.",
+      "originals": [
+        {
+          "file": "assets/private/m3/marinexpreward.m3",
+          "sha256": "43bdf3ace77c312d6ae75c369d6543aaef4c7f5de857c04e650135f1e8278dd6",
+          "materialsVerified": 1
+        },
+        {
+          "file": "assets/private/m3/marine_merc_collection_death.m3",
+          "sha256": "14a1a8b3c3ab299c027dbd79249bf05129c54eb45303a6926ee7c5f73016203f",
+          "materialsVerified": 1
+        }
+      ],
+      "previousDeath": "marine_merc_collection_death.m3"
+    },
+    {
+      "key": "elite.baneling.1",
+      "skin": "BanelingWebby",
+      "live": "baneling_collectionskin_webby_mp.m3",
+      "death": "baneling_collectionskin_webbydeath_mp.m3",
+      "decision": "replace-with-source-MP-death-pair",
+      "reason": "liberty CModel pairs the MP live body with MP death; remove the unrelated coop definition override.",
+      "originals": [
+        {
+          "file": "assets/private/m3/baneling_collectionskin_webby_mp.m3",
+          "sha256": "a15b3e681cbb7bad1b5d28e643a8aa4ed1bb48ae40cae28993adc2ef0c897ef8",
+          "materialsVerified": 2
+        },
+        {
+          "file": "assets/private/m3/baneling_collectionskin_webbydeath_mp.m3",
+          "sha256": "c75d11ad4fd2a51f2fef6c9fd379cbb9bbc6ea4509a98cd842628406df3faf0b",
+          "materialsVerified": 1
+        }
+      ],
+      "previousDeath": "baneling_collectionskin_webbydeath_mp.m3"
+    },
+    {
+      "key": "elite.queen.1",
+      "skin": "QueenWebby",
+      "live": "queen_collectionskin_webby.m3",
+      "death": "queen_collectionskin_webby_death.m3",
+      "decision": "retain-original-authored-death-materials",
+      "reason": "CSkin replaces the live/death CModel pair. The shipped pair and its per-surface texture references match the original M3; no texture replacement is declared in this skin chain. Retain native fragments, burnt surfaces and body variants; repair team masks separately.",
+      "originals": [
+        {
+          "file": "assets/private/m3/queen_collectionskin_webby.m3",
+          "sha256": "7bbd8f0ff92382cfa94db3e82d1a6cc98953d105baf4f1213715c07974b87825",
+          "materialsVerified": 1
+        },
+        {
+          "file": "assets/private/m3/queen_collectionskin_webby_death.m3",
+          "sha256": "8e96146fba86f68350fe0f5a60fc20ae7f1ac1a94fa13ce2dd7ad96eef4d9f5b",
+          "materialsVerified": 4
+        }
+      ],
+      "previousDeath": "queen_collectionskin_webby_death.m3"
+    },
+    {
+      "key": "elite.high_templar.1",
+      "skin": "HighTemplarPurifier",
+      "live": "hightemplar_purifier_collection.m3",
+      "death": "hightemplar_purifier_collection_death.m3",
+      "decision": "retain-original-authored-death-materials",
+      "reason": "CSkin replaces the live/death CModel pair. The shipped pair and its per-surface texture references match the original M3; no texture replacement is declared in this skin chain. Retain native fragments, burnt surfaces and body variants; repair team masks separately.",
+      "originals": [
+        {
+          "file": "assets/private/m3/hightemplar_purifier_collection.m3",
+          "sha256": "d4ad7b4cae762290282bc92dd82b1c5365c3b69e98ad3ed80251fcd40cde5e3d",
+          "materialsVerified": 1
+        },
+        {
+          "file": "assets/private/m3/hightemplar_purifier_collection_death.m3",
+          "sha256": "c1efd3d725b8e36538f2a6cb1861f5f244358d9bfbc9e5ddfbe765e447cf394c",
+          "materialsVerified": 4
+        }
+      ],
+      "previousDeath": "hightemplar_purifier_collection_death.m3"
+    },
+    {
+      "key": "elite.reaper.1",
+      "skin": "ReaperCovertOps",
+      "live": "reaper_covertops_collection.m3",
+      "death": "reaper_covertops_collection_death.m3",
+      "decision": "retain-original-authored-death-materials",
+      "reason": "CSkin replaces the live/death CModel pair. The shipped pair and its per-surface texture references match the original M3; no texture replacement is declared in this skin chain. Retain native fragments, burnt surfaces and body variants; repair team masks separately.",
+      "originals": [
+        {
+          "file": "assets/private/m3/reaper_covertops_collection.m3",
+          "sha256": "3847cc4034653dabaa770cea5b94434b2a792315345ad0d6918bf996ae629ac3",
+          "materialsVerified": 2
+        },
+        {
+          "file": "assets/private/m3/reaper_covertops_collection_death.m3",
+          "sha256": "9fb11b31efb12edeff0360b7906562acac0db8895e054721b15a4dc7edbf33e1",
+          "materialsVerified": 3
+        }
+      ],
+      "previousDeath": "reaper_covertops_collection_death.m3"
+    },
+    {
+      "key": "elite.mutalisk.1",
+      "skin": "MutaliskWebby",
+      "live": "mutalisk_collectionskin_webby.m3",
+      "death": "mutalisk_collectionskin_webby_death.m3",
+      "decision": "retain-original-authored-death-materials",
+      "reason": "CSkin replaces the live/death CModel pair. The shipped pair and its per-surface texture references match the original M3; no texture replacement is declared in this skin chain. Retain native fragments, burnt surfaces and body variants; repair team masks separately.",
+      "originals": [
+        {
+          "file": "assets/private/m3/mutalisk_collectionskin_webby.m3",
+          "sha256": "20109aad12c17fe913cfe6b0bce6348d0286fa65a70bccbce89b2c5197e7a9bd",
+          "materialsVerified": 1
+        },
+        {
+          "file": "assets/private/m3/mutalisk_collectionskin_webby_death.m3",
+          "sha256": "f7c6100d1ee67ed36c5cd8745c2006fb463833dcdee5ed80f69c587b4dc97030",
+          "materialsVerified": 3
+        }
+      ],
+      "previousDeath": "mutalisk_collectionskin_webby_death.m3"
+    },
+    {
+      "key": "elite.colossus.1",
+      "skin": "ColossusPurifier",
+      "live": "colossus_purifier_collection.m3",
+      "death": "colossus_purifier_collection_death.m3",
+      "decision": "retain-original-authored-death-materials",
+      "reason": "CSkin replaces the live/death CModel pair. The shipped pair and its per-surface texture references match the original M3; no texture replacement is declared in this skin chain. Retain native fragments, burnt surfaces and body variants; repair team masks separately.",
+      "originals": [
+        {
+          "file": "assets/private/m3/colossus_purifier_collection.m3",
+          "sha256": "a40b05a50eedc96685e6997712fd12d2fb5713625654955c923f76507f4dc40f",
+          "materialsVerified": 1
+        },
+        {
+          "file": "assets/private/m3/colossus_purifier_collection_death.m3",
+          "sha256": "da41589f0c764e8e8c5ef5bc600f739b3658a2791d72dc2bded00107398e4397",
+          "materialsVerified": 3
+        }
+      ],
+      "previousDeath": "colossus_purifier_collection_death.m3"
+    }
+  ],
+  "sourceVerification": {
+    "pinnedBuild": "5.0.16.97563 / B97563",
+    "rawSources": [
+      {
+        "manifest": "tools/t01-death-skin-dependencies.json",
+        "verified": 28
+      },
+      {
+        "manifest": "tools/t01-mission-death-dependencies.json",
+        "verified": 84
+      },
+      {
+        "manifest": "tools/t01-audio-dependencies.json",
+        "verified": 756
+      }
+    ],
+    "sevenSkinCModelAndCSkinChains": true,
+    "perMaterialOriginalM3Layers": true,
+    "textureOverridePolicy": "仅按精确同源漫反射材质复用队伍色遮罩；不全图染色或重绘原版血肉/焦痕。"
+  },
+  "validation": {
+    "tests": {
+      "passed": 103,
+      "failed": 0,
+      "files": [
+        "test/combat-audio.test.ts",
+        "test/death-material-identity.test.ts",
+        "test/death-clock.test.ts",
+        "test/equipment-effects.test.ts",
+        "test/hero-audio-feedback.test.ts",
+        "test/source-combat-effects.test.ts",
+        "test/t01-presentation-repairs.test.ts",
+        "test/missions.test.ts",
+        "test/starship-projection-cleanup.test.ts",
+        "test/mission-materials.test.ts"
+      ]
+    },
+    "productionTypecheck": true,
+    "toolTypecheck": true,
+    "nativeAudio": {
+      "cases": 2233,
+      "failures": 0
+    },
+    "mechanics": {
+      "snapshots": 48,
+      "equal": true,
+      "scope": "HP/护盾/攻击/冷却/实体身份/位置、伤害统计、nextId、武器与任务舰队状态；视听收据是本批有意变更。"
+    },
+    "assets": {
+      "count": 2690,
+      "verifiedRuntimeRecords": 2978,
+      "materialAndEffectHashes": 258,
+      "missing": 0,
+      "hashMismatch": 0
+    },
+    "audio": {
+      "newSourceFiles": 36,
+      "combatFiles": 756,
+      "totalDecoded": 766,
+      "banks": 269,
+      "actualWaveformPeak": 0.16670146584510803
+    },
+    "web": {
+      "cases": 37,
+      "errors": 0,
+      "httpErrors": 0
+    },
+    "offline": {
+      "cases": 37,
+      "caseIds": [
+        "presentation:mission-scv",
+        "presentation:mission-drone",
+        "presentation:mission-probe",
+        "presentation:mission-hatchery",
+        "presentation:mission-barracks",
+        "presentation:mission-factory",
+        "presentation:mission-starport",
+        "presentation:mission-gateway",
+        "presentation:mission-robotics",
+        "presentation:mission-stargate",
+        "presentation:fun-nydus",
+        "presentation:fun-infested-marine",
+        "presentation:fun-cocoon",
+        "presentation:fun-brood",
+        "presentation:hero-baneling",
+        "presentation:fleet",
+        "presentation:equipment-projection-birth",
+        "presentation:equipment-projection-end",
+        "presentation:equipment-recall-from",
+        "presentation:equipment-recall-to",
+        "presentation:equipment-rewind",
+        "presentation:equipment-capture",
+        "presentation:equipment-evolve",
+        "presentation:equipment-reinforcement",
+        "presentation:equipment-expiry",
+        "presentation:equipment-fort-deploy",
+        "presentation:equipment-heal",
+        "actor:elite.marine.2:1:death",
+        "actor:elite.baneling.1:1:death",
+        "actor:elite.queen.1:1:death",
+        "actor:elite.high_templar.1:1:death",
+        "actor:elite.reaper.1:1:death",
+        "actor:elite.mutalisk.1:1:death",
+        "actor:elite.colossus.1:1:death",
+        "actor:marine:1:arrival",
+        "actor:zergling:1:arrival",
+        "actor:zealot:1:arrival"
+      ],
+      "checks": [
+        "all-new-and-10-existing-original-assets-decoded",
+        "repair-cycles-and-source-death-models",
+        "special-lifecycle-native-sounds",
+        "actual-new-audio-waveform",
+        "pause-clears-all-voices",
+        "autoplay-pause-frame-step",
+        "speed-loop",
+        "actual-action-review-export",
+        "ui-prototype-isolation"
+      ],
+      "errors": 0,
+      "httpRequests": 0
+    },
+    "normalGame": {
+      "appBuildId": "94ee6caf65d83f1c0e51a5f16389e407fc711c1b007a904679f0d8dc69d7dd74",
+      "checks": [
+        "ordinary-new-game-via-public-ui",
+        "normal-entry-original-attack-output",
+        "ordinary-pause-clears-combat-audio"
+      ],
+      "errors": 0,
+      "httpErrors": 0
+    },
+    "fleetDraw": {
+      "native": [
+        {
+          "owner": "raynor",
+          "cores": 0,
+          "segments": 0,
+          "emitted": 0
+        },
+        {
+          "owner": "tychus",
+          "cores": 0,
+          "segments": 0,
+          "emitted": 0
+        },
+        {
+          "owner": "nova",
+          "cores": 0,
+          "segments": 0,
+          "emitted": 0
+        },
+        {
+          "owner": "swann",
+          "cores": 0,
+          "segments": 0,
+          "emitted": 0
+        },
+        {
+          "owner": "tosh",
+          "cores": 0,
+          "segments": 0,
+          "emitted": 0
+        },
+        {
+          "owner": "yamato_battlecruiser",
+          "cores": 2,
+          "segments": 2,
+          "emitted": 6
+        }
+      ],
+      "browserOwner": "yamato_battlecruiser",
+      "browserCores": 2,
+      "otherOwners": 0
+    },
+    "visualReview": {
+      "scope": "有限的修复场景关键帧人工复看与完整时钟/回收检查；不替代用户全量画面和试听。",
+      "observed": [
+        "工人及任务建筑死亡原模型",
+        "七组源死亡皮肤关键帧",
+        "孵化茧死亡与退场",
+        "舰队炮击",
+        "幻象/治疗等舰装反馈",
+        "检测镜头容纳工厂、传送门骨骼光柱、爆虫爆炸及舰队爆炸范围"
+      ]
+    },
+    "correctedDuringVerification": [
+      "原版MP死亡导入的packedFile元数据路径不一致",
+      "旧舰队探针未指定渲染所有者的默认接口兼容",
+      "沙箱Chrome未提供调试端口，授权隐藏浏览器复核",
+      "舰队夹具使用前一个场景视野，改为固定合法检测视野",
+      "新建筑死亡和爆虫/舰队效果的检测取景不足，按原模型/骨骼边界和效果范围修正"
+    ]
+  },
+  "catalogue": {
+    "objects": 389,
+    "units": 165,
+    "dynamic": 13946,
+    "static": 365,
+    "addedPresentationCases": 27,
+    "addedObjects": 17,
+    "unchangedUnitObjects": 165,
+    "unchangedUiStates": 365
+  },
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r27\\T01-综合检测.html",
+    "bytes": 982174893,
+    "sha256": "3890b26052d04649feab0fdaa85fce5431a5eb49a7a2639e9e2551e7ec68b13e",
+    "assets": 2690
+  },
+  "formalBuild": {
+    "appBuildId": "94ee6caf65d83f1c0e51a5f16389e407fc711c1b007a904679f0d8dc69d7dd74",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 2690,
+    "fileCount": 2597,
+    "assetBytes": 1074529387,
+    "logicalBytes": 1096001996,
+    "sharedBytes": 21472609,
+    "manifest": "asset-manifest.740ff602e856d6b43e8916f0b1371e304bf55250eced91687d6a082591725542.json",
+    "release": "740ff602e856d6b43e8916f0b1371e304bf55250eced91687d6a082591725542",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "preservation": {
+    "baselineFiles": 857,
+    "unchangedFiles": 843,
+    "changed": [
+      "src/assets/combat-audio.ts",
+      "src/assets/mission-assets.ts",
+      "src/data/combat-audio.json",
+      "src/render/effects/battle-effects.ts",
+      "src/render/effects/combat-audio-router.ts",
+      "src/render/effects/confirmed-hero/attack-effects.ts",
+      "src/render/effects/confirmed-hero/controller.ts",
+      "src/render/effects/mission-feedback.ts",
+      "src/render/effects/source-combat-effects.ts",
+      "src/render/materials/unit-material-catalog.ts",
+      "src/render/materials/unit-material-loader.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/simulation/types.ts",
+      "src/simulation/world.ts"
+    ],
+    "added": [
+      "src/render/materials/death-material-identity.ts",
+      "src/render/materials/death-presentation.ts",
+      "test/death-material-identity.test.ts",
+      "test/t01-presentation-repairs.test.ts"
+    ],
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "currentReplaced": false,
+    "gameplayChanged": false
+  },
+  "limits": [
+    "用户画面与试听验收仍开放；37场景不是13946条完整视觉验收。",
+    "普通死亡继续沿用既有原版网格与通用反馈组合；本批未宣称所有单位原版粒子均完整复刻。",
+    "舰装专项入口提交已生效表现收据，经济、概率和伤害机制另由原生测试核验。",
+    "原有低档简化策略及V01/V02/V03性能/物理设备/个人试玩限制保持，V04未启动。"
+  ],
+  "reproduce": [
+    "node --import tsx tools/inspect-t01-death-skins.mjs",
+    "node --import tsx --test test/t01-presentation-repairs.test.ts test/death-material-identity.test.ts test/missions.test.ts",
+    "node tools/run-t01-audio-audit.mjs --all",
+    "node tools/run-t01-presentation-code-audit.mjs",
+    "node --import tsx tools/t01/audit-presentation-edges.ts",
+    "npm run typecheck",
+    "npx tsc --ignoreConfig --noEmit --strict --skipLibCheck --module ESNext --moduleResolution Bundler --target ES2022 --allowJs --types vite/client tools/t01/gallery-entry.ts",
+    "node --import tsx tools/stage-t01-presentation-assets.mjs",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/verify-t01-presentation-repairs.mjs --offline=<最新综合HTML>",
+    "npm run build:web",
+    "node tools/verify-t01-audio-native.mjs"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "只保留当前综合HTML、必需输入、简要结论与复现代码；删除本批截图、日志、浏览器配置、转换缓存及被替代HTML。",
+    "removedFiles": 12416,
+    "removedLogicalBytes": 6483256305
+  },
+  "boardRevision": 210,
+  "commit": false,
+  "push": false,
+  "publish": false
+}

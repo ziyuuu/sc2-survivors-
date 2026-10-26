@@ -1,0 +1,8 @@
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const base='reports/local/t01-20261024',file='src/ui/starship/native.css';
+const record={date:new Date().toISOString(),issue:'T01-UI-001',authorization:'确认，只修复装备槽定位',approvedChange:'Restore absolute positioning for occupied flagship slots only. Preserve typography, button dimensions, ship art and property layout.',cause:'native.css shared inventory/occupied-slot rule sets position:relative, overriding original absolute slot placement.',implementation:{file,sha256:createHash('sha256').update(await fs.readFile(file)).digest('hex'),css:'.starship-ui .ship-slots .slot.occupied{position:absolute}'},proposal:'reports/local/t01-20261024/slot-proposal-r1/report.json',proposalResult:'Three viewport cases each had six slots outside the ship diagram before and zero after.',status:'implemented; production bundle verification underway',productionChanges:[file]};
+await fs.writeFile(base+'/slot-fix-authorization.json',JSON.stringify(record,null,2));
+const qa=JSON.parse(await fs.readFile('reports/qa/t01-20261024.json','utf8'));qa.productionChanged=true;qa.approvedUiFix=record;await fs.writeFile('reports/qa/t01-20261024.json',JSON.stringify(qa,null,2)+'\n');
+await fs.writeFile('AGENTS.md','## T01装备槽定位修复获批 · 2026-10-24\n\n- 用户明确确认只修复装备槽定位。原生隔离页面三尺寸各6个已装备图标越界；根因是native.css共用规则把槽位改成relative。仅增加已装备槽位position:absolute，其他布局/字体/按钮/舰船图保持。三族三尺寸正式源码复验进行中。\n- T01动态/静态入口仍在实现，已有初步目录和首批工程检查，不代表全目录、完整周期或离线交付通过。看板179保持，未提交/推送/发布或替换Current。授权与候选对照reports/local/t01-20261024/slot-fix-authorization.json。\n\n'+await fs.readFile('AGENTS.md','utf8'));
+console.log(JSON.stringify({issue:record.issue,file,status:record.status}));

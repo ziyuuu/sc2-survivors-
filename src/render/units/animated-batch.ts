@@ -8,7 +8,7 @@ import * as THREE from 'three';
 import {MeshoptSimplifier} from 'meshoptimizer';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 
-import {mapAnimations} from '../loaders/animations';
+import {mapAnimations,sourceAnimationName} from '../loaders/animations';
 import type {AnimationMode} from '../settings/quality';
 import {createUnitMaterialSurface,type UnitMaterialSurface} from '../materials/unit-material-batch';
 import type {UnitMaterialContext} from '../materials/source-tracks';
@@ -96,6 +96,7 @@ export class AnimatedBatch {
   for(const texture of textures)texture.dispose();
  }
  weaponAt(action:keyof ReturnType<typeof mapAnimations>,seconds:number,side?:string){const clip=this.actions[action],points=clip?this.weaponTracks.get(clip.name+(side?':'+side:''))??this.weaponTracks.get(clip.name):undefined;if(!clip||!points?.length)return this.weapon.clone();const f=Math.max(0,Math.min(points.length-1,seconds/clip.duration*(points.length-1))),i=Math.floor(f);return points[i].clone().lerp(points[Math.min(i+1,points.length-1)],f-i);}
+ overheadAt(action:keyof ReturnType<typeof mapAnimations>,seconds:number){const clip=this.actions[action]??this.actions.idle,points=clip?this.weaponTracks.get(clip.name+':Overhead'):undefined;if(!clip||!points?.length)return undefined;const f=Math.max(0,Math.min(points.length-1,seconds/clip.duration*(points.length-1))),i=Math.floor(f);return points[i].clone().lerp(points[Math.min(i+1,points.length-1)],f-i);}
  setLod(low:boolean){if(this.lowDetail===low)return;this.lowDetail=low;this.meshes.forEach((mesh,i)=>{const indices=this.lodIndices[i];if(indices){mesh.geometry.setIndex(low?indices.low:indices.full);if(mesh.geometry.groups.length===1)mesh.geometry.groups[0].count=mesh.geometry.getIndex()!.count;}});}
  begin(){this.count=0;this.apparitionCount=0;}
  pose(action:keyof ReturnType<typeof mapAnimations>){const clip=this.actions[action]??this.actions.idle;return clip?this.clips.get(clip.name):this.clips.values().next().value;}
@@ -107,7 +108,7 @@ export class AnimatedBatch {
   const t=once?Math.min(p.duration,Math.max(0,seconds)):((seconds%p.duration)+p.duration)%p.duration;
   const frame=t/p.duration*(p.frames-1),a=Math.floor(frame),b=Math.min(p.frames-1,a+1);
   const attack=this.pose(attackKey),shot=attack&&attackSeconds>=0?Math.min(attack.frames-1,attackSeconds/attack.duration*(attack.frames-1)):0,sa=Math.floor(shot),sb=Math.min((attack?.frames??1)-1,sa+1),weight=attackSeconds>=0?(attackKey==='attackLeft'||attackKey==='attackRight'?Math.min(1,Math.max(0,((attack?.duration??0)-attackSeconds)/.12)):Math.max(0,1-attackSeconds/.55)):0;
-  if(this.materialSurfaces.length){const pose={clip:(this.actions[action]??this.actions.idle)?.name??'',seconds:t,attackClip:weight>.001?this.actions[attackKey]?.name:undefined,attackSeconds:Math.max(0,Math.min(attack?.duration??0,attackSeconds))};for(const surface of this.materialSurfaces)surface.write(this.count,pose,materialContext);}
+  if(this.materialSurfaces.length){const pose={clip:sourceAnimationName(this.actions[action]??this.actions.idle),seconds:t,attackClip:weight>.001?sourceAnimationName(this.actions[attackKey]):undefined,attackSeconds:Math.max(0,Math.min(attack?.duration??0,attackSeconds))};for(const surface of this.materialSurfaces)surface.write(this.count,pose,materialContext);}
   object.position.set(x,y,z);object.rotation.set(0,facing,0);object.scale.setScalar(shrink);object.updateMatrix();
   this.meshes.forEach((m,i)=>{m.setMatrixAt(this.count,object.matrix);this.tierAttributes[i].setX(this.count,tier);this.aimAttributes[i].setXY(this.count,Math.sin(turretYaw),Math.cos(turretYaw));this.attributes[i].setXYZW(this.count,p.offset+a,p.offset+b,interpolate?frame-a:0,hit);this.blendAttributes[i].setXYZW(this.count,(attack?.offset??0)+sa,(attack?.offset??0)+sb,interpolate?shot-sa:0,weight);});this.count++;
  }

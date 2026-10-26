@@ -1,0 +1,86 @@
+[
+  {
+    "sha256": "738c9f4a6ddf917b48b99eb844b78d544be4bbfff9277e0cc63470f468c758c2",
+    "installFile": "assets/private/actor-source/campaigns/liberty.sc2campaign/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "campaigns/liberty.sc2campaign/base.sc2data/GameData/SoundData.xml",
+    "bytes": 573953,
+    "build": "B97563"
+  },
+  {
+    "sha256": "6e744bec403b36ee3809aed244a621d596e9d5c97070b163331ee795a67f19d9",
+    "installFile": "assets/private/actor-source/campaigns/swarm.sc2campaign/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "campaigns/swarm.sc2campaign/base.sc2data/GameData/SoundData.xml",
+    "bytes": 687773,
+    "build": "B97563"
+  },
+  {
+    "sha256": "eea0fbc03be42ee9c90dfec22e251626a337d4655f9f5805149ffcd44c88c50d",
+    "installFile": "assets/private/actor-source/campaigns/void.sc2campaign/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "campaigns/void.sc2campaign/base.sc2data/GameData/SoundData.xml",
+    "bytes": 1025445,
+    "build": "B97563"
+  },
+  {
+    "sha256": "e90310e00a7398d00a5b033fb6c6002f30915ceea4cb37b300b17ede49bf5179",
+    "installFile": "assets/private/actor-source/mods/core.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "mods/core.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "bytes": 24091,
+    "build": "B97563"
+  },
+  {
+    "sha256": "1e8ef54bbb4e71cda7f945dccc9eaf3b0b1d577507537f674e99f6f661f5f833",
+    "installFile": "assets/private/actor-source/mods/liberty.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "mods/liberty.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "bytes": 3192525,
+    "build": "B97563"
+  },
+  {
+    "sha256": "f0831560a2e0d929eac9fe1427b4b7d6fb6944c189ca7213f1cb498c228e8407",
+    "installFile": "assets/private/actor-source/mods/libertymulti.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "mods/libertymulti.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "bytes": 66,
+    "build": "B97563"
+  },
+  {
+    "sha256": "04fbec2d40667e2e0ded248c9383ec0539528b41a5eb67b64ed5958eddbd1ae7",
+    "installFile": "assets/private/actor-source/mods/novastoryassets.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "mods/novastoryassets.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "bytes": 771642,
+    "build": "B97563"
+  },
+  {
+    "sha256": "1d58316cf645b31596505d6a8b88b1e4c8dd675f3037b4a1d29682e9a46203a9",
+    "installFile": "assets/private/actor-source/mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "mods/starcoop/starcoop.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "bytes": 3249143,
+    "build": "B97563"
+  },
+  {
+    "sha256": "0678ff3a3498d1cc5dc5ed3f36b7ab7e6f6197e01a7394745fd11de0395117e4",
+    "installFile": "assets/private/actor-source/mods/swarm.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "mods/swarm.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "bytes": 348611,
+    "build": "B97563"
+  },
+  {
+    "sha256": "5e8e4d282e75d9e23a037e93c426d89e722778345c61c2bb3f88e65bfe7a6bbb",
+    "installFile": "assets/private/actor-source/mods/swarmmulti.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "mods/swarmmulti.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "bytes": 55,
+    "build": "B97563"
+  },
+  {
+    "sha256": "4cb3f698040c2cde1912e36b4473e75f2cb4b377e950395b28a5bec8f7514bd0",
+    "installFile": "assets/private/actor-source/mods/void.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "mods/void.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "bytes": 694767,
+    "build": "B97563"
+  },
+  {
+    "sha256": "87d3f136f456c6bfc4a47df67d77065ebe136b3709c2de9afb82497c1e6f84cc",
+    "installFile": "assets/private/actor-source/mods/voidmulti.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "sourcePath": "mods/voidmulti.sc2mod/base.sc2data/GameData/SoundData.xml",
+    "bytes": 174633,
+    "build": "B97563"
+  }
+]

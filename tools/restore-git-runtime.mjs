@@ -1,3 +1,4 @@
+import {loadCombatAudio} from './combat-audio-assets.mjs';
 import {loadFunPropAssets} from './fun-prop-assets.mjs';
 import {loadMissionAssets} from './mission-assets.mjs';
 import {loadIntermissionAssets} from './intermission-assets.mjs';
@@ -67,3 +68,5 @@ await loadStarshipAssets({restore:true,check:process.argv.includes('--check')});
 
 await loadFunPropAssets({restore:true,check:process.argv.includes('--check')});
 await loadMissionAssets({restore:true,check:process.argv.includes('--check')});
+
+await loadCombatAudio({restore:true,check:process.argv.includes('--check')});

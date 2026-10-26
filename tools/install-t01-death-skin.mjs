@@ -1,0 +1,18 @@
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+const definition=JSON.parse(await fs.readFile('tools/t01-death-skin-models.json','utf8'))[0],id=definition.id;
+const definitions=JSON.parse(await fs.readFile('tools/combat-death-models.json','utf8')),index=definitions.findIndex(r=>r.id===id);assert.ok(index>=0);
+definitions[index]={...definitions[index],...definition,pathEvidence:'Pinned liberty ModelData Baneling_CollectionSkin_Webby and its Death both select the MP skin; the former global coop override selected the non-MP death.'};
+await fs.writeFile('tools/combat-death-models.json',JSON.stringify(definitions,null,2)+'\n');
+execFileSync(process.execPath,['tools/import-m3-pack.mjs',id],{stdio:'inherit',windowsHide:true});
+const row=JSON.parse(await fs.readFile('assets/private/m3-pack.json','utf8')).manifest.find(r=>r.id===id);assert.ok(row);
+const bytes=await fs.readFile(row.packedFile),sha=createHash('sha256').update(bytes).digest('hex'),gitPath='deploy/runtime/assets/'+sha+'.glb';assert.equal(sha,row.sha256);await fs.writeFile(gitPath,bytes);
+const source=JSON.parse(await fs.readFile('deploy/runtime/source-assets.json','utf8')),build=JSON.parse(await fs.readFile('deploy/runtime/build-assets.json','utf8'));
+const entry=source.entries.find(r=>r.runtime.id===id),metadata=build.records.find(r=>r.id===id);assert.ok(entry&&metadata);
+await fs.writeFile(entry.packedFile,bytes);
+Object.assign(entry,{gitPath,bytes:bytes.length,sha256:sha});Object.assign(metadata,{...row,packedFile:entry.packedFile,status:'available',url:entry.runtime.url,required:entry.runtime.required,bytes:bytes.length,packedSha256:sha});
+await fs.writeFile('deploy/runtime/source-assets.json',JSON.stringify(source,null,2)+'\n');await fs.writeFile('deploy/runtime/build-assets.json',JSON.stringify(build,null,2)+'\n');
+execFileSync(process.execPath,['--import','tsx','tools/material-batch2-source.mjs','--keys='+id.slice(6),'--out=.cache/t01-audit-repairs/skin-materials'],{stdio:'inherit',windowsHide:true});
+console.log(JSON.stringify({id,sha256:sha,bytes:bytes.length}));

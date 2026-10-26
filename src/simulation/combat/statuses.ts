@@ -1,5 +1,5 @@
 export type StatusKind='bleed'|'corruption'|'acidArmor'|'neural'|'bloodlust';
-export interface CombatStatus {id:number;target:number;source:number;kind:StatusKind;value:number;startsAt:number;until:number}
+export interface CombatStatus {id:number;target:number;source:number;kind:StatusKind;value:number;startsAt:number;until:number;periodic?:{damage:number;owner:'terran'|'zerg';nextTick:number;interval:1}}
 
 /** Simulation-time statuses. Refreshing one source does not stack it with itself. */
 export class CombatStatuses {
@@ -7,7 +7,7 @@ export class CombatStatuses {
  private expiry:{id:number;target:number;until:number;key:string}[]=[];
  private serial=0;
  snapshot(){return {serial:this.serial,entries:[...this.byTarget.values()].flatMap(entries=>[...entries.values()])};}
- restore(snapshot:{serial:number;entries:CombatStatus[]}){if(!snapshot||!Number.isSafeInteger(snapshot.serial)||!Array.isArray(snapshot.entries))throw Error('状态存档无效');this.byTarget.clear();this.expiry=[];this.serial=snapshot.serial;for(const status of snapshot.entries){if(!['bleed','corruption','acidArmor','neural','bloodlust'].includes(status.kind)||!Number.isFinite(status.until)||!Number.isFinite(status.value))throw Error('状态存档无效');let entries=this.byTarget.get(status.target);if(!entries)this.byTarget.set(status.target,entries=new Map());const key=this.key(status.kind,status.source);entries.set(key,status);this.push({id:status.id,target:status.target,until:status.until,key});}}
+ restore(snapshot:{serial:number;entries:CombatStatus[]}){if(!snapshot||!Number.isSafeInteger(snapshot.serial)||!Array.isArray(snapshot.entries))throw Error('状态存档无效');this.byTarget.clear();this.expiry=[];this.serial=snapshot.serial;for(const status of snapshot.entries){if(!['bleed','corruption','acidArmor','neural','bloodlust'].includes(status.kind)||!Number.isFinite(status.until)||!Number.isFinite(status.value))throw Error('状态存档无效');const p=status.periodic;if(p&&(status.kind!=='corruption'||![p.damage,p.nextTick,status.startsAt].every(Number.isFinite)||p.damage<0||p.interval!==1||!['terran','zerg'].includes(p.owner)||p.nextTick<status.startsAt+1-1e-8||p.nextTick>status.until+1+1e-8))throw Error('持续腐蚀存档无效');let entries=this.byTarget.get(status.target);if(!entries)this.byTarget.set(status.target,entries=new Map());const key=this.key(status.kind,status.source);entries.set(key,status);this.push({id:status.id,target:status.target,until:status.until,key});}}
  get count(){let n=0;for(const entries of this.byTarget.values())n+=entries.size;return n;}
  private key(kind:StatusKind,source:number){return kind+':'+source;}
  apply(target:number,source:number,kind:StatusKind,value:number,seconds:number,now:number){
@@ -18,7 +18,10 @@ export class CombatStatuses {
  value(target:number,kind:StatusKind,now:number){let strongest=0;for(const status of this.byTarget.get(target)?.values()??[])if(status.kind===kind&&status.until>now)strongest=Math.max(strongest,status.value);return strongest;}
  list(target:number,now:number){return [...(this.byTarget.get(target)?.values()??[])].filter(s=>s.until>now);}
  removeTarget(target:number){this.byTarget.delete(target);}
- tick(now:number){while(this.expiry.length&&this.expiry[0].until<=now){const top=this.pop()!,entries=this.byTarget.get(top.target);if(!entries)continue;const status=entries.get(top.key);if(status?.id===top.id&&status.until<=now)entries.delete(top.key);if(!entries.size)this.byTarget.delete(top.target);}}
+ tick(now:number,damage?:(status:CombatStatus,amount:number,owner:'terran'|'zerg')=>void){
+  if(damage)for(const entries of this.byTarget.values())for(const status of entries.values()){const p=status.periodic;if(p)while(p.nextTick<=Math.min(now,status.until)+1e-8){p.nextTick+=p.interval;damage(status,p.damage,p.owner);}}
+  while(this.expiry.length&&this.expiry[0].until<=now){const top=this.pop()!,entries=this.byTarget.get(top.target);if(!entries)continue;const status=entries.get(top.key);if(status?.id===top.id&&status.until<=now)entries.delete(top.key);if(!entries.size)this.byTarget.delete(top.target);}
+ }
  private push(item:{id:number;target:number;until:number;key:string}){const a=this.expiry;let i=a.length;a.push(item);while(i>0){const p=(i-1)>>1;if(a[p].until<=item.until)break;a[i]=a[p];i=p;}a[i]=item;}
  private pop(){const a=this.expiry;if(!a.length)return;const first=a[0],last=a.pop()!;if(a.length){let i=0;while(true){let child=i*2+1;if(child>=a.length)break;if(child+1<a.length&&a[child+1].until<a[child].until)child++;if(a[child].until>=last.until)break;a[i]=a[child];i=child;}a[i]=last;}return first;}
 }

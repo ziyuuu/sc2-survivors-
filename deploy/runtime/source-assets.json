@@ -7631,9 +7631,9 @@
         "required": false
       },
       "packedFile": "public/assets/optimized/model.elite.baneling.1.death.glb",
-      "gitPath": "deploy/runtime/assets/1806b63fe3b0f8b76b9beb8bb09a65019acd11b1ea15f887f5867c9c4c4d51ee.glb",
-      "bytes": 2761036,
-      "sha256": "1806b63fe3b0f8b76b9beb8bb09a65019acd11b1ea15f887f5867c9c4c4d51ee"
+      "gitPath": "deploy/runtime/assets/f471254689c376dfeffe9a9ee2055b018c189cceb53e35375dc5b4133c875466.glb",
+      "bytes": 4129012,
+      "sha256": "f471254689c376dfeffe9a9ee2055b018c189cceb53e35375dc5b4133c875466"
     },
     {
       "runtime": {

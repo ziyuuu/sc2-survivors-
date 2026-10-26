@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const base='reports/local/t01-20261024';
+const source=JSON.parse(await fs.readFile(base+'/actions-r21-selection.json','utf8'));
+const review=JSON.parse(await fs.readFile(base+'/actions-r21-r2/visual-review.json','utf8'));
+const selected=new Set(review.rows.filter(r=>r.issues.includes('T01-FIXTURE-FRAMING')).map(r=>r.id));
+const requests=source.filter(r=>selected.has(r.id)).map(r=>({...r,framing:{...r.framing,followInspection:true},scope:r.scope+' Inspection camera follows actor/target bounds; simulation, positions and native actions remain unchanged.'}));
+assert.equal(requests.length,selected.size);
+await fs.writeFile(base+'/actions-r22-selection.json',JSON.stringify(requests,null,2),{flag:'wx'});
+await fs.writeFile(base+'/actions-r22-probe-selection.json',JSON.stringify(requests.filter(r=>['enemy:boss:lurker:mode:lurker_burrowed','enemy:lord:ravager:aura'].includes(r.id)),null,2),{flag:'wx'});
+console.log(JSON.stringify({count:requests.length}));

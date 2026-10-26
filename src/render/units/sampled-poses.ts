@@ -42,6 +42,7 @@ function* samples(gltf:GLTF,height:number,normalization?:THREE.Matrix4,unitScale
   for(const clip of selected){
    const layout=clips.get(clip.name)!,mounts:{key:string;attachment:THREE.Object3D;points:THREE.Vector3[]}[]=[];
    for(const side of mountSides){const attachment=weaponAttachmentNames(clip.name,profile,side).map(name=>gltf.scene.getObjectByName(name)).find(Boolean);if(attachment)mounts.push({key:clip.name+(side?':'+side:''),attachment,points:[]});}
+   const overhead=gltf.scene.getObjectByName('Ref_Overhead');if(overhead)mounts.push({key:clip.name+':Overhead',attachment:overhead,points:[]});
    mixer.stopAllAction();const action=mixer.clipAction(clip).reset().setLoop(THREE.LoopOnce,1);action.clampWhenFinished=true;action.play();
    for(let frame=0;frame<layout.frames;frame++){
     mixer.setTime(frame/(layout.frames-1)*clip.duration);gltf.scene.updateMatrixWorld(true);

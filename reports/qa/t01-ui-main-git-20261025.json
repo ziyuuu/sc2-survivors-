@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-25",
+  "branch": "main",
+  "commit": "f8e3a32ebb8741401f1d1e4fbf100d5ffe48c92d",
+  "files": [
+    "docs/project/T01_UI_MAIN_20261025.md",
+    "reports/qa/t01-ui-main-20261025.json",
+    "src/ui/intermission-skin/presentation.ts",
+    "src/ui/native-hud/battle.css",
+    "src/ui/starship/effect-text.ts",
+    "src/ui/starship/equipment-description.ts",
+    "src/ui/starship/legacy-view.ts",
+    "src/ui/starship/native.css",
+    "test/equipment-set-description.test.ts"
+  ],
+  "verified": true,
+  "pushed": false,
+  "currentReplaced": false,
+  "published": false,
+  "validation": "reports/qa/t01-ui-main-20261025.json"
+}

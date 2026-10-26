@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-25",
+  "status": "completed-approved-ui-changes",
+  "authorization": "用户批准1、2：舰装展示五种品质；已装备槽应有品质底色，整体再深一点。用户表示其他UI没有问题；旧功能若不在游戏中则不继续处理。",
+  "changes": [
+    "三族旗舰配装和仓库同时展示白、绿、蓝、紫、橙装备；增加30个对应品质详情状态，点击按品质导航。",
+    "正式native.css只调深五个品质底色并恢复已装备槽底色；保留定位、布局、图标、空槽和其余样式。"
+  ],
+  "userFeedback": {
+    "otherUi": "没有别的问题了",
+    "legacyPrototypePages": "不恢复旧天赋或精英特约功能；本轮只执行第1、2项",
+    "dynamicReview": "本次反馈未确认全部动态画面"
+  },
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r14\\T01-综合检测.html",
+    "bytes": 814532207,
+    "sha256": "0836f6ccd031e2f396dcc64ec0789c7e7d7efb48eacaf0a3f54e85ec812001f7",
+    "assets": 1909,
+    "chunks": 2975
+  },
+  "verification": {
+    "nativeChecks": 42,
+    "offlineChecks": 43,
+    "qualities": 5,
+    "races": 3,
+    "viewportModes": 3,
+    "detailStates": 30,
+    "http": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "typecheck": true,
+    "toolTypecheck": true,
+    "sourceAndTestFiles": 846,
+    "unchanged": 845,
+    "changed": [
+      "src/ui/starship/native.css"
+    ],
+    "exactApprovedCssScope": true,
+    "buildInputs": 531,
+    "embeddedResourcePayloadUnchanged": true,
+    "prototypeStates": 362,
+    "prototypeBusinessLogic": false,
+    "visualReview": "离线配装三族三尺寸、仓库及五档详情实际画面已检查；未扩展全目录视觉验收。"
+  },
+  "resolvedAttempts": [
+    "隔离Chrome在受限环境未启动，使用获准的本机测试运行后恢复。",
+    "导出等待屏外懒加载图片，已在导出工具内显式解码并恢复原加载属性；生产加载逻辑未改。"
+  ],
+  "retention": {
+    "policy": "只保留当前综合HTML、必要输入、简要结论和复现工具。",
+    "cleanupPending": false,
+    "removedFiles": 3617,
+    "removedLogicalBytes": 2432216085,
+    "retainedCurrentHtmlVerified": true
+  },
+  "currentReplaced": false,
+  "commit": false,
+  "push": false,
+  "publish": false,
+  "limits": [
+    "T01动态画面与最终V/MVP不提前通过；未启动后续阶段。"
+  ],
+  "reproduce": [
+    "node tools/export-t01-prototypes.mjs --refresh-starship",
+    "node tools/qa-t01-equipment-ui.mjs native",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/qa-t01-equipment-ui.mjs offline reports/local/t01-20261024/offline-rN/build.json"
+  ]
+}

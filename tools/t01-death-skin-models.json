@@ -1,0 +1,11 @@
+[
+  {
+    "id": "model.elite.baneling.1.death",
+    "modelDataId": "Baneling_Webby_Collection_Death",
+    "assetPath": "Assets/Units/Zerg/Baneling_CollectionSkin_WebbyDeath_MP/Baneling_CollectionSkin_WebbyDeath_MP.m3",
+    "name": "baneling_collectionskin_webbydeath_mp",
+    "sourceScale": null,
+    "definitionLayer": "liberty-multiplayer-pair",
+    "requiredAnimations": []
+  }
+]

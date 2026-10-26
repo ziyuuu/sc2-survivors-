@@ -1,5 +1,6 @@
 import type {World} from '../../simulation/world';
 import type {HeroCast,Entity} from '../../simulation/types';
+import type {HeroId} from '../../data/heroes';
 /** View-only casts: never inserted into hero ownership or combat scheduling. */
 export function fleetPresentationCasts(w:World):HeroCast[]{
  const result:HeroCast[]=[];
@@ -10,4 +11,11 @@ export function fleetPresentationCasts(w:World):HeroCast[]{
 }
 
 /** Adapt only the visual flight view; approved geometry and combat identities stay intact. */
-export function fleetGunWorld(w:World):World {if(!w.weaponFlights.some(p=>p.source.mission?.fleet))return w;return Object.assign(Object.create(w),{weaponFlights:w.weaponFlights.map(p=>p.source.mission?.fleet?{...p,source:{...p.source,heroId:'yamato_battlecruiser' as const}}:p)});}
+export function fleetGunWorld(w:World,owner:HeroId='yamato_battlecruiser'):World {
+ const weaponFlights=w.weaponFlights.flatMap(p=>{
+  const hero=p.source.mission?.fleet?'yamato_battlecruiser':p.source.heroId;
+  if(hero!==owner)return [];
+  return [p.source.mission?.fleet?{...p,source:{...p.source,heroId:'yamato_battlecruiser' as const}}:p];
+ });
+ return Object.assign(Object.create(w),{weaponFlights});
+}

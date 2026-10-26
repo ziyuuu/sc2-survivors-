@@ -1,3 +1,4 @@
+import {enemyMissileHeight} from './enemy-special-source';
 import {fleetPresentationCasts} from './mission-feedback';
 import {isProtossEliteId} from '../../data/protoss-elites';
 import {isTerranEliteId} from '../../data/terran-elites';
@@ -138,7 +139,7 @@ export class CombatSculptures {
   for(const b of this.batches.values())b.count=0;
   // Boss projectiles remain shaped bodies on their actual simulation positions.
   for(const m of [...(w.campaign18Runtime?.mainCombat?.missiles??[]),...w.enemySpecials.missiles]){
-   if(!visible(m))continue;const y=(w.terrain?.height(m)??0)+.7;
+   if(!visible(m))continue;const y=enemyMissileHeight(m,p=>w.terrain?.height(p)??0);
    this.draw('spore',{x:m.x,y,z:m.z},{x:.21,y:.25,z:.42},{x:.2,y:m.angle,z:w.time*4},0xa2b648);
    this.draw('crystal',{x:m.x,y:y+.02,z:m.z},{x:.1,y:.13,z:.27},{x:0,y:m.angle,z:0},0xe2efa3);
    for(let i=1;i<=3;i++)this.draw('spore',{x:m.x-Math.sin(m.angle)*i*.18,y:y-.035*i,z:m.z-Math.cos(m.angle)*i*.18},{x:.1/i,y:.1/i,z:.13/i},{x:0,y:m.angle,z:w.time},0x6f893d);

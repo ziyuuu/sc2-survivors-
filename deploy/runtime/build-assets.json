@@ -21288,11 +21288,11 @@
       "url": "assets/optimized/model.elite.baneling.1.death.glb",
       "required": false,
       "packedFile": "public/assets/optimized/model.elite.baneling.1.death.glb",
-      "bytes": 2761036,
-      "packedSha256": "1806b63fe3b0f8b76b9beb8bb09a65019acd11b1ea15f887f5867c9c4c4d51ee",
-      "source": "https://level3.blizzard.com/tpr/sc2/config/5b/c8/5bc8dcc1fade3a320c12936586b7c0ed",
+      "bytes": 4129012,
+      "packedSha256": "f471254689c376dfeffe9a9ee2055b018c189cceb53e35375dc5b4133c875466",
+      "source": "https://dist.sc2arcade.com/star-assets/models/baneling_collectionskin_webbydeath_mp.m3",
       "sourcePath": "mods/liberty.sc2mod/base.sc2assets/Assets/Units/Zerg/Baneling_CollectionSkin_WebbyDeath/Baneling_CollectionSkin_WebbyDeath.m3",
-      "sourceSha256": "9c347778820fc2a699a581fafb934b0c140425dd64460fb59703705ec775b280",
+      "sourceSha256": "c75d11ad4fd2a51f2fef6c9fd379cbb9bbc6ea4509a98cd842628406df3faf0b",
       "sourceBuild": "5.0.16.97563",
       "optimization": "exact-pixel-webp-v1",
       "animations": [
@@ -21302,55 +21302,1504 @@
       "materials": [
         {
           "name": "Body#0",
+          "index": 0,
+          "role": "body",
+          "type": 1,
+          "blend": 0,
           "layers": [
             {
               "role": "diffuse",
-              "filename": "Baneling_CollectionSkin_Webby_Diff.dds"
+              "filename": "Baneling_CollectionSkin_Webby_Diff.dds",
+              "channel": 0,
+              "uv": 0,
+              "multiplier": 1,
+              "add": 0,
+              "flags": 236,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/baneling_collectionskin_webby_diff.dds"
             },
             {
               "role": "normal",
-              "filename": "Baneling_CollectionSkin_Webby_Norm.dds"
+              "filename": "Baneling_CollectionSkin_Webby_Norm.dds",
+              "channel": 0,
+              "uv": 0,
+              "multiplier": 1,
+              "add": 0,
+              "flags": 236,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/baneling_collectionskin_webby_norm.dds"
             },
             {
               "role": "specular",
-              "filename": "Baneling_CollectionSkin_Webby_Spec.dds"
+              "filename": "Baneling_CollectionSkin_Webby_Spec.dds",
+              "channel": 0,
+              "uv": 0,
+              "multiplier": 1,
+              "add": 0,
+              "flags": 236,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/baneling_collectionskin_webby_spec.dds"
             },
             {
               "role": "emissive",
-              "filename": "Baneling_CollectionSkin_Webby_Emiss.dds"
+              "filename": "Baneling_CollectionSkin_Webby_Emiss2.dds",
+              "channel": 0,
+              "uv": 0,
+              "multiplier": 0.699999988079071,
+              "add": 0,
+              "flags": 204,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/baneling_collectionskin_webby_emiss2.dds"
             },
             {
               "role": "alpha",
-              "filename": "DisolveNoise.dds"
+              "filename": "DisolveNoise.dds",
+              "channel": 5,
+              "uv": 0,
+              "multiplier": 1,
+              "add": 0,
+              "flags": 236,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/disolvenoise.dds"
             }
-          ]
+          ],
+          "unsupported": []
         },
         {
           "name": "Body#0",
+          "index": 0,
+          "role": "body",
+          "type": 1,
+          "blend": 0,
           "layers": [
             {
               "role": "diffuse",
-              "filename": "Baneling_CollectionSkin_Webby_Diff.dds"
+              "filename": "Baneling_CollectionSkin_Webby_Diff.dds",
+              "channel": 0,
+              "uv": 0,
+              "multiplier": 1,
+              "add": 0,
+              "flags": 236,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/baneling_collectionskin_webby_diff.dds"
             },
             {
               "role": "normal",
-              "filename": "Baneling_CollectionSkin_Webby_Norm.dds"
+              "filename": "Baneling_CollectionSkin_Webby_Norm.dds",
+              "channel": 0,
+              "uv": 0,
+              "multiplier": 1,
+              "add": 0,
+              "flags": 236,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/baneling_collectionskin_webby_norm.dds"
             },
             {
               "role": "specular",
-              "filename": "Baneling_CollectionSkin_Webby_Spec.dds"
+              "filename": "Baneling_CollectionSkin_Webby_Spec.dds",
+              "channel": 0,
+              "uv": 0,
+              "multiplier": 1,
+              "add": 0,
+              "flags": 236,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/baneling_collectionskin_webby_spec.dds"
             },
             {
               "role": "emissive",
-              "filename": "Baneling_CollectionSkin_Webby_Emiss.dds"
+              "filename": "Baneling_CollectionSkin_Webby_Emiss2.dds",
+              "channel": 0,
+              "uv": 0,
+              "multiplier": 0.699999988079071,
+              "add": 0,
+              "flags": 204,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/baneling_collectionskin_webby_emiss2.dds"
             },
             {
               "role": "alpha",
-              "filename": "DisolveNoise.dds"
+              "filename": "DisolveNoise.dds",
+              "channel": 5,
+              "uv": 0,
+              "multiplier": 1,
+              "add": 0,
+              "flags": 236,
+              "color": {
+                "desc": {
+                  "history": {
+                    "name": "COL",
+                    "primitive": false,
+                    "versionToSize": {},
+                    "fieldRecords": [
+                      {
+                        "field": {
+                          "name": "b",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "g",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "r",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      },
+                      {
+                        "field": {
+                          "name": "a",
+                          "size": 1,
+                          "type": "uint8",
+                          "defaultValue": 0,
+                          "expectedValue": null,
+                          "structInfo": {
+                            "size": 1,
+                            "getter": "getUint8",
+                            "setter": "setUint8"
+                          }
+                        },
+                        "sinceVersion": 0,
+                        "tillVersion": 0
+                      }
+                    ],
+                    "versionToDescription": {}
+                  },
+                  "version": 0,
+                  "fields": {
+                    "b": {
+                      "name": "b",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "g": {
+                      "name": "g",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "r": {
+                      "name": "r",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    },
+                    "a": {
+                      "name": "a",
+                      "size": 1,
+                      "type": "uint8",
+                      "defaultValue": 0,
+                      "expectedValue": null,
+                      "structInfo": {
+                        "size": 1,
+                        "getter": "getUint8",
+                        "setter": "setUint8"
+                      }
+                    }
+                  },
+                  "size": 4
+                },
+                "b": 0,
+                "g": 0,
+                "r": 0,
+                "a": 0
+              },
+              "animated": false,
+              "source": "https://dist.sc2arcade.com/star-assets/textures/disolvenoise.dds"
             }
-          ]
+          ],
+          "unsupported": []
         }
-      ]
+      ],
+      "geometry": [
+        {
+          "mesh": "M3_Mesh_13",
+          "type": 1,
+          "material": "Body",
+          "index": 0,
+          "role": "body",
+          "status": "converted",
+          "blend": 0
+        },
+        {
+          "mesh": "M3_Mesh_14",
+          "type": 2,
+          "role": "auxiliary",
+          "status": "excluded",
+          "reason": "Displacement surface: never render as opaque geometry"
+        },
+        {
+          "mesh": "M3_Mesh_15",
+          "type": 1,
+          "material": "Body",
+          "index": 0,
+          "role": "body",
+          "status": "converted",
+          "blend": 0
+        }
+      ],
+      "clipSources": [
+        {
+          "name": "Death",
+          "source": "https://dist.sc2arcade.com/star-assets/models/baneling_collectionskin_webbydeath_mp.m3",
+          "duration": 2.333,
+          "tracks": 49
+        }
+      ],
+      "deathMotion": {
+        "kind": "original-skeletal-only",
+        "bodies": 0,
+        "adaptedBones": []
+      },
+      "additionalAnimations": [],
+      "verification": {
+        "bytes": true,
+        "bindings": true,
+        "humanVisual": false
+      },
+      "sha256": "f471254689c376dfeffe9a9ee2055b018c189cceb53e35375dc5b4133c875466",
+      "bones": 29,
+      "originalParticles": 8
     },
     {
       "id": "model.elite.roach.1.death",

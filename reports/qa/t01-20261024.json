@@ -1,0 +1,243 @@
+{
+  "task": "T01",
+  "status": "mechanics-checked-user-visual-review-pending",
+  "boardRevision": 198,
+  "plan": "reports/local/t01-20261024/plan.json",
+  "baseline": "reports/local/t01-20261024/baseline.json",
+  "productionChanged": [
+    "src/render/effects/combat-sculptures.ts",
+    "src/render/effects/nonhero-effects.ts",
+    "src/render/effects/source/player.ts",
+    "src/render/effects/source-combat-effects.ts",
+    "src/render/loaders/animations.ts",
+    "src/render/scene/battle-renderer.ts",
+    "src/render/units/animated-batch.ts",
+    "src/simulation/combat/enemy-specials.ts",
+    "src/simulation/types.ts",
+    "src/ui/intermission-skin/presentation.ts",
+    "src/ui/native-hud/battle.css",
+    "src/ui/starship/native.css"
+  ],
+  "coverageComplete": false,
+  "offlineDelivered": true,
+  "approvedUiFix": {
+    "date": "2026-10-24T15:39:18.697Z",
+    "issue": "T01-UI-001",
+    "authorization": "确认，只修复装备槽定位",
+    "approvedChange": "Restore absolute positioning for occupied flagship slots only. Preserve typography, button dimensions, ship art and property layout.",
+    "cause": "native.css shared inventory/occupied-slot rule sets position:relative, overriding original absolute slot placement.",
+    "implementation": {
+      "file": "src/ui/starship/native.css",
+      "sha256": "6d3c63f6f59ee8e41cf39096ea3fbed3ba261be999cbc34f0916e7a7a37d763f",
+      "css": ".starship-ui .ship-slots .slot.occupied{position:absolute}"
+    },
+    "proposal": "reports/local/t01-20261024/slot-proposal-r1/report.json",
+    "proposalResult": "Three viewport cases each had six slots outside the ship diagram before and zero after.",
+    "status": "verified",
+    "productionChanges": [
+      "src/ui/starship/native.css"
+    ],
+    "verification": {
+      "report": "reports/local/t01-20261024/slot-fix-r1/report.json",
+      "races": 3,
+      "viewports": 3,
+      "cases": 9,
+      "occupiedEach": 8,
+      "totalSlotsEach": 12,
+      "outside": 0,
+      "errors": 0,
+      "visualReview": [
+        "terran-1440x900.png",
+        "zerg-844x390.png",
+        "protoss-390x844.png"
+      ],
+      "scope": "One approved positioning rule only. Remaining T01 coverage open."
+    }
+  },
+  "progress": "reports/local/t01-20261024/mechanics-20261025/result-r2.json",
+  "offlineControlsPassed": true,
+  "staticReviewed": 332,
+  "productionAdded": [
+    {
+      "file": "src/render/effects/enemy-special-source.ts",
+      "sha256": "aff88532cbe5c099f6b81e6c4cad1dc3ef13ad865e25ee99c6c16c5337e56778"
+    }
+  ],
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r7\\T01-综合检测.html",
+    "bytes": 795439943,
+    "sha256": "2a2d2ae32f0847d6a0891a96f19850719de8cd644d9b9c90d8b4b1829df28577",
+    "build": "reports/local/t01-20261024/offline-r7/build.json",
+    "dynamic": 13919,
+    "static": 332,
+    "assets": 1909,
+    "chunks": 2975,
+    "offlineChecks": 10,
+    "errors": 0,
+    "http": 0,
+    "qa": "reports/local/t01-20261024/offline-qa-r11/report.json"
+  },
+  "mechanics": {
+    "date": "2026-10-25T08:01:07.601Z",
+    "status": "mechanics-checked-user-visual-review-pending",
+    "supersedes": "reports/local/t01-20261024/mechanics-20261025/result.json",
+    "authorization": {
+      "date": "2026-10-25T07:40:51.009Z",
+      "user": [
+        "让他们都一开始就有腐蚀收益把",
+        "包括boss也是",
+        "最好是腐蚀还带一点dot伤害"
+      ],
+      "scope": "Enemy queen elite, boss and lord: corruption from level 1, preserve healing and primary weapon, add small periodic damage.",
+      "implementation": {
+        "healingSuppressionByLevel": [
+          0.2,
+          0.2,
+          0.3,
+          0.35,
+          0.4
+        ],
+        "duration": 4,
+        "dotInterval": 1,
+        "dotTicks": 4,
+        "dotFractionOfCasterWeaponDamage": 0.1,
+        "directImpactDamage": 0,
+        "bossHealCooldown": 8,
+        "bileCooldown": 10
+      },
+      "uiChanges": [],
+      "currentReplaced": false
+    },
+    "currentCatalogue": {
+      "equipment": 210,
+      "effectKeys": 189,
+      "heroes": 18,
+      "elites": 90
+    },
+    "equipmentEffectKeys": 189,
+    "coverage": "reports/local/t01-20261024/mechanics-20261025/effect-coverage.json",
+    "regression": {
+      "files": 125,
+      "tests": 1748,
+      "pass": 1748,
+      "fail": 0,
+      "report": "reports/local/t01-20261024/mechanics-20261025/queen-approved/regression-r2/regression-r1.tap"
+    },
+    "friendlyAttacks": {
+      "pass": 1040,
+      "fail": 0,
+      "report": "reports/local/t01-20261024/mechanics-20261025/queen-approved/attack-damage-r2.json"
+    },
+    "enemyBranches": {
+      "pass": 2753,
+      "fail": 0,
+      "listed": 2880,
+      "notApplicable": 127,
+      "report": "reports/local/t01-20261024/enemy-branches-audit-r6-queen.json"
+    },
+    "queenResolution": {
+      "originalFailure": "reports/local/t01-20261024/enemy-branches-audit-r5-after.json",
+      "originalFailedBranches": 10,
+      "resolution": "User approved healing suppression from level 1 for elite, boss and lord queens, with a small four-tick DOT. All previous ten cases now pass under the newly approved rule; this does not rewrite the original result.",
+      "healingSuppression": [
+        0.2,
+        0.2,
+        0.3,
+        0.35,
+        0.4
+      ],
+      "durationSeconds": 4,
+      "dot": "Four one-second native hit settlements at 10% of the caster weapon damage, retaining the existing enemy damage factor. Zero separate impact damage. Existing difficulty scaling on status strength remains.",
+      "healing": "Boss/lord eight-second heal remains independent of ten-second bile.",
+      "identity": "Committed casts and periodic status retain source/owner; source removal, target death, overlap, independent sources, expiry and save/restore were tested.",
+      "newTests": 26,
+      "testFile": "test/queen-corrosion.test.ts",
+      "extraEnemyCases": 120
+    },
+    "additionalStatusTests": {
+      "count": 16,
+      "testFile": "test/t01-enemy-status-contracts.test.ts",
+      "scope": "Native slowing, healing suppression, damage increase from reduced armor and actual expiry."
+    },
+    "delivery": {
+      "file": "reports\\local\\t01-20261024\\offline-r7\\T01-综合检测.html",
+      "bytes": 795439943,
+      "sha256": "2a2d2ae32f0847d6a0891a96f19850719de8cd644d9b9c90d8b4b1829df28577",
+      "build": "reports/local/t01-20261024/offline-r7/build.json",
+      "dynamic": 13919,
+      "static": 332,
+      "assets": 1909,
+      "chunks": 2975,
+      "offlineChecks": 10,
+      "errors": 0,
+      "http": 0,
+      "qa": "reports/local/t01-20261024/offline-qa-r11/report.json"
+    },
+    "cleanup": "reports/local/disk-cleanup-20261025/summary.json",
+    "sourceChangesThisBatch": [
+      {
+        "file": "src/simulation/combat/enemy-specials.ts",
+        "before": "b48964bb5a3e4082a1dbc63d11c4d639f2309245548f83b6ef8dc670ca1e0c32",
+        "after": "52586ab8ceeaf650a0938e892f3629449e2b2a5ddfea80cfe5c7006ee72bef21"
+      },
+      {
+        "file": "src/simulation/combat/statuses.ts",
+        "before": "b7697bcfc8afe4c58dcef3d29c73350e65bfe4c10ddbf6d0361c07ebafbc27fd",
+        "after": "f5f42b7aeb87b31c61287ab2863c970b0fc76f4b622c9ef699334016325883be"
+      },
+      {
+        "file": "src/simulation/types.ts",
+        "before": "f07b26316b5de5fe82b554a6f67ce9d42d4824b4f0205f75dfd970d0265d992c",
+        "after": "1697ab8942d40e675621287bc11d2631563c7513548bcd80a01c1ccc46f15a43"
+      },
+      {
+        "file": "src/simulation/world.ts",
+        "before": "abac186d516c45934ff1acaf143ad8145bb83f0eb5a9e64ae7d9a73ae98157e4",
+        "after": "44b49e121dceca51d4b66557d947a95cc5cf0c3658b53ffbf3890db87e698234"
+      }
+    ],
+    "newTests": [
+      "test/t01-enemy-status-contracts.test.ts",
+      "test/queen-corrosion.test.ts"
+    ],
+    "verified": {
+      "finalRegressionInputs": 798,
+      "enemyInputs": 6,
+      "attackInputs": 6,
+      "htmlInputs": 530,
+      "htmlSha256": "2a2d2ae32f0847d6a0891a96f19850719de8cd644d9b9c90d8b4b1829df28577",
+      "currentUnchanged": true
+    },
+    "retainedFailures": [
+      {
+        "file": "reports/local/t01-20261024/mechanics-20261025/queen-approved/contracts-r1.log",
+        "reason": "Eleven test assertions used an incorrect 0.5 damage floor or attempted to advance an intentionally paused restored World. Corrected test expectations/setup; the later 73 focused cases passed without a production patch for these assertions."
+      },
+      {
+        "file": "reports/local/t01-20261024/offline-qa-r10/report.json",
+        "reason": "The test assumed the diagnostic damage counter reset between catalogue entries. Corrected to compare per-entry deltas; same offline artifact passed ten final checks."
+      },
+      {
+        "file": "reports/local/disk-cleanup-20261025/finalize.log",
+        "reason": "Cleanup summary attempted to add null for empty directories. Inventory verified those directories had zero bytes; corrected summary retained the original failure."
+      }
+    ],
+    "limits": [
+      "No full visual acceptance; the user inspects the combined HTML.",
+      "Mechanic families and listed native branches were checked; not every possible equipment/card/skill combination.",
+      "Counts from overlapping focused and older regressions are not added to the final 1748 unique tests.",
+      "No claim of performance, natural-play balance or final MVP acceptance."
+    ],
+    "t01Complete": false,
+    "commit": false,
+    "push": false,
+    "publish": false
+  },
+  "cleanup": "reports/qa/retention-cleanup-20261025.json",
+  "retention": {
+    "policy": "docs/project/ARTIFACT_RETENTION.md",
+    "cleanup": "reports/qa/retention-cleanup-20261025.json",
+    "historicalRawOutputs": "deleted-by-user-approval",
+    "currentOnly": true
+  }
+}

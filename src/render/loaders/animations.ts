@@ -1,4 +1,4 @@
-import type {AnimationClip} from 'three';
+import {AnimationClip} from 'three';
 import type {Entity} from '../../simulation/types';
 import {SC2_UNITS} from '../../data/sc2-units';
 import {animationProfile} from './animation-profiles';
@@ -19,11 +19,27 @@ export function mapAnimations(clips:AnimationClip[],profile?:string){
  // When a source body has no Spell sequence, use its original Attack action for
  // the cast windup. Ships with no Attack action keep their original Stand pose.
  mapped.skill??=mapped.attack??mapped.idle;
- return {...mapped,...extra};
+ // Morph Stand contains the deployed dorsal-cannon pose, not locomotion or
+ // weapon preparation. Layer its constant Cannon* bindings over the original
+ // body clips so walking, aiming and firing do not retract the high-impact mode.
+ let highImpactMove:AnimationClip|undefined,highImpactReady:AnimationClip|undefined,highImpactGroundAttack:AnimationClip|undefined;
+ if((profile==='thor'||profile?.startsWith('elite.thor.'))&&mapped.highImpactIdle){
+  const cannons=mapped.highImpactIdle.tracks.filter(track=>/^Cannon/.test(track.name));
+  if(cannons.length){
+   const bindings=new Set(cannons.map(track=>track.name));
+   const deployed=(clip:AnimationClip|undefined)=>clip?new AnimationClip(clip.name+' + Morph Stand',clip.duration,[...clip.tracks.filter(track=>!bindings.has(track.name)),...cannons]):undefined;
+   highImpactMove=deployed(mapped.move);highImpactReady=deployed(mapped.ready);
+   highImpactGroundAttack=deployed(mapped.attack);mapped.highImpactAttack=deployed(mapped.highImpactAttack);
+  }
+ }
+ return {...mapped,...extra,highImpactMove,highImpactReady,highImpactGroundAttack};
 }
 
+/** Composed skeletal poses keep their body's original material timeline. */
+export const sourceAnimationName=(clip?:AnimationClip)=>clip?.name.replace(/ \+ Morph Stand$/,'')??'';
+
 export type AttackPlaybackState={channelSince?:number;lastShotAt?:number;shotSequence?:number;suppressedThroughShot?:number};
-type ShootingUnit=Pick<Entity,'unitType'|'action'|'hp'|'lastShotAt'|'shotSequence'|'shotInterval'|'windup'|'modeTimer'> & Partial<Pick<Entity,'heroId'|'summonKind'|'nativeModeUntil'|'recoveryUntil'|'nativeMode'|'lastSkillAt'>>;
+type ShootingUnit=Pick<Entity,'unitType'|'action'|'hp'|'lastShotAt'|'shotSequence'|'shotInterval'|'windup'|'modeTimer'> & Partial<Pick<Entity,'heroId'|'summonKind'|'nativeModeUntil'|'recoveryUntil'|'nativeMode'|'lastSkillAt'|'activeWeapon'>>;
 export type AttackPresentation={action:keyof ReturnType<typeof mapAnimations>;seconds:number;once:boolean;overlay:boolean};
 /** Presentation only. Shot timestamps survive an idle/move overwrite and save/load.
  * No events are emitted here, and no simulation field is changed. */
@@ -32,12 +48,14 @@ export function selectAttackPresentation(unit:ShootingUnit,time:number,actions:R
  if(priority){delete state.channelSince;state.lastShotAt=unit.lastShotAt;state.shotSequence=unit.shotSequence;state.suppressedThroughShot=unit.shotSequence??0;return null;}
  if(unit.unitType==='carrier'&&!unit.heroId&&!unit.summonKind)return null;
  const overlay=!unit.heroId&&(unit.unitType==='marine'||unit.unitType==='marauder');
- const action=attackAction(unit.unitType,unit.shotSequence),clip=actions[action];
+ const deployedThor=unit.unitType==='thor'&&!unit.heroId&&unit.nativeMode==='thor_high_impact';
+ const modeAttack=unit.activeWeapon==='LanceMissileLaunchers'?'highImpactAttack':'highImpactGroundAttack';
+ const action=deployedThor&&actions[modeAttack]?modeAttack:attackAction(unit.unitType,unit.shotSequence),clip=actions[action];
  if(!clip||clip===actions.idle)return null;
  const rate=1.4,marker=Math.min(clip.duration,SC2_UNITS[unit.unitType].damagePoint*rate);
  const age=time-unit.lastShotAt;
  const gap=Math.max(.16,unit.shotInterval*1.5),channel=(unit.unitType==='void_ray'||unit.unitType==='colossus')&&!unit.heroId&&!!actions.attackChannel;
- if(unit.windup>0&&unit.action==='attack'&&!(channel&&(unit.shotSequence??0)>0&&age<=gap))return {action:actions.ready?'ready':action,seconds:Math.max(0,marker-unit.windup*rate),once:true,overlay};
+ if(unit.windup>0&&unit.action==='attack'&&!(channel&&(unit.shotSequence??0)>0&&age<=gap))return {action:deployedThor&&actions.highImpactReady?'highImpactReady':actions.ready?'ready':action,seconds:Math.max(0,marker-unit.windup*rate),once:true,overlay};
  if(!(unit.shotSequence??0)||age<0||(unit.shotSequence??0)<=(state.suppressedThroughShot??-1))return null;
  // Skills and burrowing invalidate earlier recovery without replaying it afterward.
  if((unit.lastSkillAt??-Infinity)>unit.lastShotAt)return null;

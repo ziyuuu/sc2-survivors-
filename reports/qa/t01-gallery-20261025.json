@@ -1,0 +1,237 @@
+{
+  "date": "2026-10-25",
+  "status": "delivered-awaiting-user-visual-review",
+  "authorization": "用户批准按对象浏览方案，要求先定位出生/待机静止，合并重复等级，交付单个综合离线HTML。静态UI澄清为不接完整业务逻辑的界面原型。",
+  "scope": [
+    "实际复现并归因出生/待机静止",
+    "按对象、动作及有意义视觉分支组织目录，保留内部机制覆盖",
+    "单击准备并播放，重播从完整起点开始，暂停/继续/循环/速度",
+    "静态页面使用展示数据与原型导航，不调用战斗、购买、存档流程",
+    "有限操作/布局/动画与离线验证；用户负责最终画面检查"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "只保留当前综合HTML和必要输入；本批缓存、截图、隔离main测试副本及上一版HTML完成后删除。",
+    "removedFiles": 4418,
+    "removedLogicalBytes": 1590804230,
+    "retainedCurrentHtmlVerified": true
+  },
+  "gameUiChanged": true,
+  "commit": false,
+  "push": false,
+  "publish": false,
+  "rootCause": {
+    "loadedPaused": true,
+    "ordinaryMarineAndZerglingHaveNoBirthClip": true,
+    "zealotBirthSeconds": 1.333,
+    "fixtureFormationMovementOverrodeBirthAndIdle": true,
+    "idleClipsActuallyAnimate": {
+      "marine": {
+        "seconds": 2.666,
+        "changingTracks": 18
+      },
+      "zergling": {
+        "seconds": 2.999,
+        "changingTracks": 29
+      },
+      "zealot": {
+        "seconds": 3.333,
+        "changingTracks": 16
+      }
+    },
+    "oldWideFramingMadeSmallIdleMotionHardToSee": true,
+    "scope": "Five native browser probes plus source clip catalogue; no claim of whole-catalogue visual acceptance."
+  },
+  "changes": [
+    "按对象合并等级，单位下方提供动作、技能与形态；英雄III/V与敌军酸蚀地面等视觉分支保留。",
+    "资源就绪自动播放，真实增援入场与原始出生动画分开，待机持续循环；修正取景与前台恢复。",
+    "26个UI原型页面、362个展示状态，只用展示数据和本地导航；原型内无游戏脚本、Canvas、购买或存档流程。",
+    "暂停、继续、重播、逐帧、循环、速度及按动作/状态记录导出。",
+    "按用户反馈补齐舰装五档品质及详情，已装备槽恢复品质底色，五档底色略加深。"
+  ],
+  "catalogue": {
+    "rawDynamic": 13919,
+    "objects": 1130,
+    "units": 165,
+    "prototypePages": 26,
+    "prototypeStates": 365,
+    "missing": 0
+  },
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r16\\T01-综合检测.html",
+    "bytes": 814661695,
+    "sha256": "4160b291e92d091e371a2118f5b6511d0ad4f478f6246d592f2b362ec171c14e",
+    "assets": 1909,
+    "chunks": 2975
+  },
+  "verification": {
+    "tests": 60,
+    "uniqueConcreteIdentityTemplateCombinations": 540,
+    "typecheck": true,
+    "toolTypecheck": true,
+    "isolatedMainPlusSelectedUi": {
+      "tests": 60,
+      "typecheck": true,
+      "base": "5d0727a",
+      "note": "从main提取src/test及必要工具依赖，仅覆盖本次6份UI文件和针对测试；使用当前生成的runtime资源索引作为必要输入。重复运行不增加唯一测试数。"
+    },
+    "nativeChecks": 33,
+    "offlineChecks": 33,
+    "races": 3,
+    "viewportModes": 3,
+    "http": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "baselineFiles": 846,
+    "unchangedSinceR15": 842,
+    "changedSinceR15": [
+      "src/ui/starship/effect-text.ts",
+      "src/ui/starship/equipment-description.ts",
+      "src/ui/starship/legacy-view.ts",
+      "test/equipment-set-description.test.ts"
+    ],
+    "buildInputs": 531,
+    "embeddedResourcePayloadUnchanged": true,
+    "prototypePages": 26,
+    "prototypeStates": 365,
+    "reusedUnrelatedTemplates": 187,
+    "prototypeBusinessLogic": false
+  },
+  "resolvedAttempts": [
+    "Build-time prototype extraction initially duplicated large blobs and exhausted Node memory; resource IDs/deduplication fixed it.",
+    "The first prototype test injected Playwright code into the script-disabled frame; parent-DOM inspection removed the test-only console warning.",
+    "The first offline autoplay wait ran before the native window was foreground; focus ordering corrected and visible preview resumes without overriding manual pause.",
+    "The hero event assertion read a render-consumed event queue; verification now observes actual native projectile packets during the cycle.",
+    "A device-selector collision with native HUD and a real prototype back-stack pop bug were corrected.",
+    "The first actual download failed with a mixed Windows path; native path.join corrected the test download destination."
+  ],
+  "limitations": [
+    "用户负责最终画面检查；本轮为工具操作、有限原生分支与离线验证。",
+    "不宣告T01、最终V或MVP完成；未启动后续验收。"
+  ],
+  "gameCodeChanged": true,
+  "currentReplaced": false,
+  "reproduce": [
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/qa-t01-gallery-offline.mjs rN reports/local/t01-20261024/offline-rN/build.json"
+  ],
+  "previousVerification": {
+    "delivery": {
+      "file": "reports\\local\\t01-20261024\\offline-r12\\T01-综合检测.html",
+      "bytes": 813132698,
+      "sha256": "b7297e5d473d9982333d8c4431f5bcbd7c608ce12328a0ee0feb7939db903e9d",
+      "assets": 1909,
+      "chunks": 2975
+    },
+    "verification": {
+      "typecheck": true,
+      "webChecks": [
+        "single-unit-row-autoplay-idle",
+        "native-carrier-arrival",
+        "source-birth-full-duration",
+        "native-attack",
+        "prototype-native-buttons-navigation",
+        "prototype-no-business-logic",
+        "prototype-viewport",
+        "prototype-to-dynamic"
+      ],
+      "offlineChecks": [
+        "offline-autoplay",
+        "pause-resume-frame-speed",
+        "complete-cycle-loop",
+        "hero-visual-ranks-native-side-rounds",
+        "native-arrival-zergling",
+        "native-arrival-zealot",
+        "native-transform",
+        "enemy-native-skill",
+        "enemy-original-birth",
+        "prototype-responsive-slots",
+        "prototype-navigation-back-isolation",
+        "actual-review-export",
+        "fresh-refresh-memory-only"
+      ],
+      "http": 0,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "exportBytes": 373,
+      "sourceAndTestHashesUnchanged": 846,
+      "buildInputHashes": 531,
+      "currentResourceHashes": 1852,
+      "structureChecks": [
+        "unique-object-identities",
+        "raw-case-coverage-with-explicit-birth-applicability",
+        "ordinary-rank-merging",
+        "hero-III-V-visual-branches",
+        "enemy-III-acid-ground-branch",
+        "prototype-catalogue-coverage",
+        "prototype-no-script-canvas-transient-assets",
+        "production-source-and-tests-unchanged"
+      ]
+    }
+  },
+  "latestEquipmentUi": "reports/qa/t01-equipment-ui-20261025.json",
+  "userFeedback": {
+    "otherUi": "没有别的问题了",
+    "legacyPrototypePages": "不恢复旧天赋或精英特约功能；本轮只执行第1、2项",
+    "dynamicReview": "本次反馈未确认全部动态画面"
+  },
+  "latestSetLayout": "reports/qa/t01-set-layout-20261025.json",
+  "previousEquipmentVerification": {
+    "nativeChecks": 42,
+    "offlineChecks": 43,
+    "qualities": 5,
+    "races": 3,
+    "viewportModes": 3,
+    "detailStates": 30,
+    "http": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "typecheck": true,
+    "toolTypecheck": true,
+    "sourceAndTestFiles": 846,
+    "unchanged": 845,
+    "changed": [
+      "src/ui/starship/native.css"
+    ],
+    "exactApprovedCssScope": true,
+    "buildInputs": 531,
+    "embeddedResourcePayloadUnchanged": true,
+    "prototypeStates": 362,
+    "prototypeBusinessLogic": false,
+    "visualReview": "离线配装三族三尺寸、仓库及五档详情实际画面已检查；未扩展全目录视觉验收。",
+    "scope": "当前r14仅新增舰装针对检查；旧动态检查为r12历史结果，不重计。"
+  },
+  "latestUiMain": "reports/qa/t01-ui-main-20261025.json",
+  "previousSetVerification": {
+    "tests": 32,
+    "newSemanticTests": 5,
+    "typecheck": true,
+    "nativeChecks": 24,
+    "offlineChecks": 24,
+    "templateLayoutChecks": 9,
+    "races": 3,
+    "viewportModes": 3,
+    "http": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "baselineSourceAndTestFiles": 845,
+    "unchanged": 842,
+    "changed": [
+      "src/ui/starship/equipment-description.ts",
+      "src/ui/starship/legacy-view.ts",
+      "src/ui/starship/native.css"
+    ],
+    "addedTests": [
+      "test/equipment-set-description.test.ts"
+    ],
+    "buildInputs": 531,
+    "resourceFiles": 1852,
+    "embeddedResourcePayloadUnchanged": true,
+    "prototypeStates": 362,
+    "reusedUnrelatedTemplates": 187,
+    "unrelatedTemplatesUnchanged": true,
+    "prototypeBusinessLogic": false,
+    "scope": "r15局部套装描述检查；旧动态检查为历史结果，不重计。"
+  }
+}

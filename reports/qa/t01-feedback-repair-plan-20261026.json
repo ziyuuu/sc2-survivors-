@@ -1,0 +1,519 @@
+{
+  "date": "2026-10-26",
+  "task": "T01",
+  "status": "inspection-and-plan-complete-not-implemented",
+  "summary": "补查确认默认循环关闭、酒馆无独立特效、套装固定20秒与条件不全导致漏展示、协战大和额外0.5缩放。已合并前四项形成8项修复方案，仅检查与计划，未实施游戏/检测HTML修复，T01保持开放。",
+  "plan": "docs/project/T01_FEEDBACK_REPAIR_PLAN_20261026.md",
+  "priorInspection": "reports/qa/t01-user-feedback-inspection-20261026.json",
+  "consolidatedIssueGroups": 8,
+  "findings": [
+    {
+      "id": "T01-FEEDBACK-05",
+      "title": "持续触发与可观察周期",
+      "confirmed": true,
+      "sources": [
+        "tools/t01/gallery-entry.ts",
+        "tools/t01/runtime.ts"
+      ],
+      "evidence": [
+        "循环默认未选中，模式切换清空循环选中状态。",
+        "浏览器4条目均默认loop=false；陷阱20秒结束后不播放，手动勾选循环可重新进入播放。",
+        "自动技能首次之后被夹具禁用；重播不能解决条件始终不成立或固定时长不足。"
+      ],
+      "plan": "默认完整周期循环、自动构造适用触发条件、按实际阶段设观察时长，保留暂停/慢放/逐帧。"
+    },
+    {
+      "id": "T01-FEEDBACK-06",
+      "title": "酒馆错误归入动态效果",
+      "confirmed": true,
+      "sources": [
+        "tools/t01/card-effect-fixture.ts",
+        "tools/t01/gallery-scope.ts"
+      ],
+      "evidence": [
+        "三族三档9个条目被标记dynamic，场景55秒。",
+        "酒馆提高后续任务抽选权重，没有自身独立技能效果；夹具展示自然任务会造成误认。"
+      ],
+      "plan": "移入可搜索规则说明，真正任务另列动态入口。"
+    },
+    {
+      "id": "T01-FEEDBACK-07",
+      "title": "套装触发与生命周期覆盖不足",
+      "confirmed": true,
+      "sources": [
+        "tools/t01/equipment-fixture.ts",
+        "tools/t01/equipment.generated.json",
+        "tools/t01/generate-equipment.ts",
+        "tools/t01/gallery.ts",
+        "tools/t01/runtime.ts"
+      ],
+      "evidence": [
+        "固定20秒：陷阱周期30秒、蓝色援兵周期60秒，受控原生场景中均未出现对应结果。",
+        "救援没有致命受击、召回没有离队条件；仅存在高级手动条件下拉，默认未逐效果自动演示。",
+        "真实幻影4件可产生副本，但20秒终止前没有展示30秒寿命到期；专项仅闪光是另一条不完整夹具。",
+        "品质/件数配置数不能充当每项效果完整展示证明；49个仅说明套装模板需逐效果分类，不能全部算漏特效。",
+        "浏览器套装预览有战斗HUD遮占；在检测容器内隔离并调整取景。"
+      ],
+      "plan": "逐效果映射触发、原生事务、实体/数值结果、持续/结束/取消，按真实差异提供入口，纯数值说明明确。"
+    },
+    {
+      "id": "T01-FEEDBACK-08",
+      "title": "任务大和协战舰额外缩放",
+      "confirmed": true,
+      "sources": [
+        "src/simulation/missions/fleet.ts",
+        "src/data/combat-presentation.ts",
+        "src/simulation/starship/members.ts",
+        "src/simulation/starship/advanced-support.ts"
+      ],
+      "evidence": [
+        "任务协战舰使用hero.yamato_battlecruiser模型并设置visualScale=0.5；最终0.3550165，同模型正常0.710033。",
+        "任务规范要求三艘与60秒持续，未找到额外半尺寸要求；保留既有大和全局尺寸上限。",
+        "浏览器舰队/英雄镜头不同，不用两图像素尺寸推断倍率。",
+        "净化天空赠舰原生对象未显式modelKey，最终模型/尺度留实施阶段核验；不据此断言同一种缩放错误。"
+      ],
+      "plan": "拟移除任务协战额外0.5、沿用同模型尺度、核对旧存档；用固定镜头比例参照及完整编队验证，核对其他装备大和路径。"
+    }
+  ],
+  "coverage": {
+    "equipmentTemplates": 210,
+    "equipmentConfigurations": 3801,
+    "setTemplates": 104,
+    "setConfigurations": 2601,
+    "dynamicSetTemplates": 55,
+    "dynamicSetConfigurations": 336,
+    "referenceSetTemplates": [
+      "set.training.2",
+      "set.team.2",
+      "set.dogs.2",
+      "set.choice.2",
+      "set.call.2",
+      "set.blue.training.3",
+      "set.blue.identity.3",
+      "set.blue.roaches.3",
+      "set.blue.choice.3",
+      "set.blue.hold.3",
+      "set.blue.fleet.3",
+      "set.blue.elite.3",
+      "set.blue.hero.3",
+      "set.blue.breakthrough.3",
+      "set.blue.light.3",
+      "set.blue.precision.3",
+      "set.blue.wall.3",
+      "set.blue.sustain.3",
+      "set.advanced.training.3",
+      "set.advanced.identity.3",
+      "set.advanced.identity.4",
+      "set.advanced.roaches.3",
+      "set.advanced.choice.3",
+      "set.advanced.choice.4",
+      "set.advanced.hold.3",
+      "set.advanced.fleet.3",
+      "set.advanced.elite.3",
+      "set.advanced.elite.4",
+      "set.advanced.hero.3",
+      "set.advanced.hero.4",
+      "set.advanced.breakthrough.3",
+      "set.advanced.light.3",
+      "set.advanced.light.4",
+      "set.advanced.precision.3",
+      "set.advanced.precision.4",
+      "set.advanced.wall.3",
+      "set.advanced.sustain.3",
+      "set.advanced.enhancer_attack.3",
+      "set.advanced.enhancer_attack.4",
+      "set.advanced.enhancer_defense.3",
+      "set.advanced.enhancer_defense.4",
+      "set.advanced.enhancer_speed.3",
+      "set.advanced.enhancer_speed.4",
+      "set.advanced.corrupted_hero.4",
+      "set.orange.hero.4",
+      "set.orange.corrupted_hero.4",
+      "set.orange.elite.4",
+      "set.orange.elite.5",
+      "set.special.adventurer.4"
+    ],
+    "effectKeys": 191,
+    "setEffectKeys": 96,
+    "allEquipmentDurations": [
+      20
+    ],
+    "visibleEquipmentObjects": 124,
+    "objects": 389
+  },
+  "native": {
+    "samples": [
+      {
+        "id": "equipment:set.traps.2:terran:2:unbound",
+        "name": "有陷阱 · terran · 2件",
+        "actor": "marine",
+        "elapsed": 20,
+        "effects": [
+          {
+            "key": "periodic_trap",
+            "values": [
+              30
+            ]
+          }
+        ],
+        "cycles": [
+          [
+            "traps:::::0:periodic_trap",
+            30
+          ]
+        ],
+        "receipts": [],
+        "projections": 0,
+        "mines": 0,
+        "beforeUnits": 5,
+        "afterUnits": 5,
+        "ships": []
+      },
+      {
+        "id": "equipment:module.reinforcement.3:terran:1:unbound",
+        "name": "临时援兵 · terran · 1件",
+        "actor": "marine",
+        "elapsed": 20,
+        "effects": [
+          {
+            "key": "reinforcement",
+            "values": [
+              60,
+              3,
+              60,
+              0.08
+            ]
+          }
+        ],
+        "cycles": [
+          [
+            "module.reinforcement.3:reinforcement",
+            60
+          ]
+        ],
+        "receipts": [],
+        "projections": 0,
+        "mines": 0,
+        "beforeUnits": 5,
+        "afterUnits": 5,
+        "ships": []
+      },
+      {
+        "id": "equipment:set.advanced.phantom.4:terran:4:unbound",
+        "name": "幻影部队 · terran · 4件",
+        "actor": "marine",
+        "elapsed": 20,
+        "effects": [
+          {
+            "key": "stat.attackSpeed",
+            "values": [
+              0.1
+            ]
+          },
+          {
+            "key": "phantom",
+            "values": [
+              0.05,
+              10,
+              0.5,
+              30,
+              5,
+              2
+            ]
+          }
+        ],
+        "cycles": [],
+        "receipts": [
+          "projection-birth",
+          "projection-birth"
+        ],
+        "projections": 4,
+        "mines": 0,
+        "beforeUnits": 5,
+        "afterUnits": 9,
+        "ships": []
+      },
+      {
+        "id": "equipment:set.advanced.survivor.4:terran:6:unbound",
+        "name": "生存者 · terran · 6件",
+        "actor": "marine",
+        "elapsed": 20,
+        "effects": [
+          {
+            "key": "ordinary.health",
+            "values": [
+              0.15
+            ]
+          },
+          {
+            "key": "insurance",
+            "values": [
+              2,
+              1,
+              0.7,
+              0,
+              0
+            ]
+          },
+          {
+            "key": "rescue",
+            "values": [
+              2,
+              8,
+              0.5,
+              1,
+              0.3,
+              3
+            ]
+          }
+        ],
+        "cycles": [],
+        "receipts": [],
+        "projections": 0,
+        "mines": 0,
+        "beforeUnits": 5,
+        "afterUnits": 5,
+        "ships": []
+      },
+      {
+        "id": "equipment:special.recall.4:terran:1:unbound",
+        "name": "战场调控装置 · terran · 1件",
+        "actor": "marine",
+        "elapsed": 20,
+        "effects": [
+          {
+            "key": "auto_recall",
+            "values": [
+              16,
+              2,
+              4,
+              30
+            ]
+          },
+          {
+            "key": "recall_phantom",
+            "values": [
+              8,
+              0.5
+            ]
+          }
+        ],
+        "cycles": [],
+        "receipts": [],
+        "projections": 0,
+        "mines": 0,
+        "beforeUnits": 5,
+        "afterUnits": 5,
+        "ships": []
+      },
+      {
+        "id": "equipment:set.special.sky.4:terran:2:unbound",
+        "name": "净化天空 · terran · 2件",
+        "actor": "marine",
+        "elapsed": 20,
+        "effects": [
+          {
+            "key": "stage_yamato",
+            "values": [
+              1,
+              1
+            ]
+          }
+        ],
+        "cycles": [],
+        "receipts": [
+          "reinforcement"
+        ],
+        "projections": 0,
+        "mines": 0,
+        "beforeUnits": 6,
+        "afterUnits": 6,
+        "ships": [
+          {
+            "type": "yamato_battlecruiser",
+            "scale": 1,
+            "finalScale": 1,
+            "member": {
+              "source": "special.sky:::::0",
+              "items": [
+                "ship-item-1",
+                "ship-item-2"
+              ],
+              "independent": true,
+              "origin": "stage_yamato"
+            }
+          }
+        ]
+      }
+    ],
+    "fleetScale": {
+      "mission": {
+        "model": "hero.yamato_battlecruiser",
+        "visualScale": 0.5,
+        "renderScale": 0.35501649999999996
+      },
+      "sameModelAtOne": 0.7100329999999999,
+      "ratio": 0.5
+    },
+    "tavern": [
+      {
+        "id": "native-card:terran:fun-shop.tavern.1:effect",
+        "name": "酒馆 · 1级 · 生效场景",
+        "seconds": 55,
+        "disposition": {
+          "kind": "dynamic",
+          "reason": "保留实际动态过程；不据此宣告特效已通过。"
+        }
+      },
+      {
+        "id": "native-card:terran:fun-shop.tavern.2:effect",
+        "name": "酒馆 · 2级 · 生效场景",
+        "seconds": 55,
+        "disposition": {
+          "kind": "dynamic",
+          "reason": "保留实际动态过程；不据此宣告特效已通过。"
+        }
+      },
+      {
+        "id": "native-card:terran:fun-shop.tavern.3:effect",
+        "name": "酒馆 · 3级 · 生效场景",
+        "seconds": 55,
+        "disposition": {
+          "kind": "dynamic",
+          "reason": "保留实际动态过程；不据此宣告特效已通过。"
+        }
+      },
+      {
+        "id": "native-card:zerg:fun-shop.tavern.1:effect",
+        "name": "酒馆 · 1级 · 生效场景",
+        "seconds": 55,
+        "disposition": {
+          "kind": "dynamic",
+          "reason": "保留实际动态过程；不据此宣告特效已通过。"
+        }
+      },
+      {
+        "id": "native-card:zerg:fun-shop.tavern.2:effect",
+        "name": "酒馆 · 2级 · 生效场景",
+        "seconds": 55,
+        "disposition": {
+          "kind": "dynamic",
+          "reason": "保留实际动态过程；不据此宣告特效已通过。"
+        }
+      },
+      {
+        "id": "native-card:zerg:fun-shop.tavern.3:effect",
+        "name": "酒馆 · 3级 · 生效场景",
+        "seconds": 55,
+        "disposition": {
+          "kind": "dynamic",
+          "reason": "保留实际动态过程；不据此宣告特效已通过。"
+        }
+      },
+      {
+        "id": "native-card:protoss:fun-shop.tavern.1:effect",
+        "name": "酒馆 · 1级 · 生效场景",
+        "seconds": 55,
+        "disposition": {
+          "kind": "dynamic",
+          "reason": "保留实际动态过程；不据此宣告特效已通过。"
+        }
+      },
+      {
+        "id": "native-card:protoss:fun-shop.tavern.2:effect",
+        "name": "酒馆 · 2级 · 生效场景",
+        "seconds": 55,
+        "disposition": {
+          "kind": "dynamic",
+          "reason": "保留实际动态过程；不据此宣告特效已通过。"
+        }
+      },
+      {
+        "id": "native-card:protoss:fun-shop.tavern.3:effect",
+        "name": "酒馆 · 3级 · 生效场景",
+        "seconds": 55,
+        "disposition": {
+          "kind": "dynamic",
+          "reason": "保留实际动态过程；不据此宣告特效已通过。"
+        }
+      }
+    ]
+  },
+  "validation": {
+    "browser": {
+      "cases": 4,
+      "samples": 6,
+      "caseIds": [
+        "equipment:set.traps.2:terran:2:unbound",
+        "equipment:set.advanced.phantom.4:terran:4:unbound",
+        "presentation:fleet",
+        "actor:hero.yamato_battlecruiser:1:idle"
+      ],
+      "defaultLoop": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "defaultEnded": {
+        "elapsed": 20,
+        "playing": false
+      },
+      "manualLoopWorks": true,
+      "pageErrors": 0,
+      "httpErrors": 0,
+      "offlineTestThisRound": false,
+      "visualReview": "已查看陷阱20秒、真实幻影20秒、任务舰队2秒和大和英雄2秒；用于确认现象，不记修复通过。"
+    },
+    "verifiedUnchangedBuildInputs": 543,
+    "productionEdits": 0,
+    "htmlEdits": 0,
+    "newGameTests": false
+  },
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r27\\T01-综合检测.html",
+    "bytes": 982174893,
+    "sha256": "3890b26052d04649feab0fdaa85fce5431a5eb49a7a2639e9e2551e7ec68b13e",
+    "assets": 2690
+  },
+  "current": {
+    "file": "dist/SC2-Survivors-Current-20261006.html",
+    "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+  },
+  "scope": {
+    "formalChangesProposed": [
+      "通用召回/退场效果",
+      "狂热者发辫渲染",
+      "协战舰显示比例"
+    ],
+    "fixtureChangesProposed": [
+      "真实巢虫/召回/退场事务",
+      "三舰完整入场",
+      "真实幻象副本与寿命",
+      "默认完整周期循环",
+      "套装逐效果触发与目录",
+      "酒馆改规则说明",
+      "检测取景及HUD隔离"
+    ],
+    "mechanics": "伤害/冷却/数量/寿命/概率/掉落/装备规则保持；检测场景可预置临近触发条件。"
+  },
+  "limits": [
+    "本轮只形成方案，不代表任何修复已实施。",
+    "6个原生与4个浏览器条目是定点复现，非套装全量触发验收。",
+    "发辫具体几何/材质参数根因与装备赠舰模型路径仍需在实施阶段继续核对。"
+  ],
+  "reproduce": [
+    "node --import tsx tools/t01/inspect-review-plan.ts",
+    "node tools/inspect-t01-review-plan.mjs"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "removedFiles": 4320,
+    "removedBytes": 1036766845,
+    "kept": "方案、简要结论、复现代码、当前r27及必要输入；无本轮截图/视频/缓存长期保留"
+  },
+  "boardRevision": 212,
+  "commit": false,
+  "push": false,
+  "publish": false
+}

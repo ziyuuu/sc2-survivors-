@@ -97,5 +97,40 @@ export const MISSION_ASSETS = [
     "status": "available",
     "url": "assets/fun/model.fun-cocoon.glb",
     "required": false
+  },
+  {
+    "id": "model.factory.death",
+    "kind": "model",
+    "status": "available",
+    "url": "assets/animated/model.factory.death.glb",
+    "required": false
+  },
+  {
+    "id": "model.starport.death",
+    "kind": "model",
+    "status": "available",
+    "url": "assets/animated/model.starport.death.glb",
+    "required": false
+  },
+  {
+    "id": "model.gateway.death",
+    "kind": "model",
+    "status": "available",
+    "url": "assets/animated/model.gateway.death.glb",
+    "required": false
+  },
+  {
+    "id": "model.robotics.death",
+    "kind": "model",
+    "status": "available",
+    "url": "assets/animated/model.robotics.death.glb",
+    "required": false
+  },
+  {
+    "id": "model.stargate.death",
+    "kind": "model",
+    "status": "available",
+    "url": "assets/animated/model.stargate.death.glb",
+    "required": false
   }
 ];

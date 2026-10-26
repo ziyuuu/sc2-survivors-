@@ -1,4 +1,7 @@
 import {SourceEventIndex} from './source/event-index';
+import {StimPresentation,type StimCue} from './stim-presentation';
+import {SourceWeaponChannels} from './source/weapon-channels';
+import {EnemySpecialSource} from './enemy-special-source';
 import {renderFunSource} from './fun-source-effects';
 import {EquipmentEffects} from './equipment-effects';
 import * as THREE from 'three';
@@ -15,7 +18,7 @@ import type {BattleEffects} from './battle-effects';
 
 type P={x:number;y:number;z:number};
 type Mount=(event:VisualEvent,side?:string)=>P;
-type BodyPose=(event:VisualEvent,model:string,age:number)=>{matrix:number[];clip:string;seconds:number}|undefined;
+type BodyPose=(event:VisualEvent,model:string,age:number,liveBody?:boolean)=>{matrix:number[];clip:string;seconds:number}|undefined;
 type ShieldBounds=(event:VisualEvent)=>{center:P;radius:number;top?:P}|undefined;
 type Echo={event:VisualEvent;profile:CombatFxProfile;mounts:P[];life:number;impactOnly?:boolean;key?:string;flightLaunch?:boolean;shield?:{center:P;radius:number;facing:number;rippleRadius:number;directional:boolean}};
 const mix=(a:P,b:P,t:number):P=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,z:a.z+(b.z-a.z)*t});
@@ -29,10 +32,14 @@ export class SourceCombatEffects {
  readonly player:SourceEffectPlayer;private equipment:EquipmentEffects;private serial=0;private time=0;private run='';private echoes:Echo[]=[];
  private mounts=new Map<string,P[]>();private launched=new Set<number>();private routes=new Set<string>();private flights=0;private events=0;
  private hologramDeaths=new Map<number,VisualEvent>();
+ private lifecycle=new Map<number,VisualEvent>();
+ private weaponChannels=new SourceWeaponChannels();private nukes=new Map<number,VisualEvent>();
+ private enemySpecials=new EnemySpecialSource();
+ private stim=new StimPresentation();private stimCues=new Map<string,StimCue>();
  constructor(scene:THREE.Scene,camera:THREE.Camera,private fx:BattleEffects){this.player=new SourceEffectPlayer(scene,camera);this.equipment=new EquipmentEffects(scene);}
  load(){return this.player.load();}
- resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;this.run=w.runId??'';}
- reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.player.reset();this.equipment.reset();}
+ resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;this.run=w.runId??'';this.enemySpecials.resumeAt(w);this.weaponChannels.resumeAt(w);this.stim.resumeAt(w);this.stimCues.clear();}
+ reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.lifecycle.clear();this.nukes.clear();this.weaponChannels.reset();this.player.reset();this.equipment.reset();this.enemySpecials.reset();this.stim.reset();this.stimCues.clear();}
  report(){return {routes:[...this.routes],events:this.events,flights:this.flights,echoes:this.echoes.length,source:this.player.report()};}
  private request(model:string,key:string,age:number,placement:SourcePlacement,ground:(p:Point)=>number,options:Partial<SourceEffectRequest>={}){
   this.player.add({key,model,age:Math.max(0,age*rate),clockRate:rate,seed:sourceSeed(key),placement,...options},ground);
@@ -40,16 +47,25 @@ export class SourceCombatEffects {
  private event(w:World,u:Entity,time=w.time,kind:VisualEvent['kind']='attack',end:Point&{flying?:boolean}=u):VisualEvent{
   const a=point(w,u),b=point(w,end);return {serial:0,time,kind,x:u.x,z:u.z,y:a.y,endY:b.y,end:{x:end.x,z:end.z},entityId:u.id,unitType:u.unitType,modelKey:u.modelKey,heroId:u.heroId,eliteId:u.eliteId,rank:u.rank,race:u.race,nativeMode:u.nativeMode,activeWeapon:u.activeWeapon,sourceTeam:u.team,enemyTier:u.enemyTier,summonKind:u.summonKind,rewardSourceKind:u.rewardSourceKind,visualScale:u.visualScale,shotSequence:u.shotSequence,attackId:`${u.id}:${u.shotSequence}`,projectileSpeed:weaponFlightSpeed(u),flying:u.flying,facing:u.attackFacing??u.facing,siege:u.mode==='siege',targetFlying:end.flying};
  }
- render(w:World,muzzle:Mount,bodyPose:BodyPose,shieldBounds?:ShieldBounds,equipmentMount?:(event:import('../../simulation/starship/presentation').EquipmentPresentationReceipt)=>P|undefined,funMatrix?:(u:Entity)=>number[]|undefined){
+ render(w:World,muzzle:Mount,bodyPose:BodyPose,shieldBounds?:ShieldBounds,equipmentMount?:(event:import('../../simulation/starship/presentation').EquipmentPresentationReceipt)=>P|undefined,funMatrix?:(u:Entity)=>number[]|undefined,overhead?:(u:Entity)=>P|undefined){
   if(!this.player.ready)return;if(w.time<this.time||this.run!==(w.runId??''))this.reset();this.time=w.time;this.run=w.runId??'';this.routes.clear();this.flights=this.events=0;this.player.begin(w.time);const ground=(p:Point)=>w.terrain?.height(p)??0;
   this.fx.sourceEventIds.clear();let eventIndex:SourceEventIndex|undefined;const indexedEvents=()=>eventIndex??=new SourceEventIndex(w.visualEvents);
-  for(const e of w.visualEvents){const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break',hologram=e.kind==='death'&&sourceHologramDeath(e);if(sourceOwnsEvent(e)||shieldReceipt||hologram)this.fx.sourceEventIds.add(e.serial);if(e.serial<=this.serial)continue;
+  for(const cue of this.stim.update(w))this.stimCues.set(`stim:${cue.unit.id}:${cue.kind}:${cue.at}`,cue);
+  for(const [key,cue]of this.stimCues){const u=w.entities.get(cue.unit.id),model=cue.kind==='start'?'StimpackStartImpact':'StimpackEndImpact',age=w.time-cue.at;
+   if(!u?.hp||age>sourceLife(SOURCE_EFFECTS[model])/rate){this.stimCues.delete(key);continue;}
+   this.routes.add('stim-'+cue.kind);const p=overhead?.(u)??shieldBounds?.(this.event(w,u))?.top??point(w,u,1.8);this.request(model,key,age,{...p,facing:u.facing},ground);
+  }
+  for(const e of w.visualEvents){const shieldReceipt=e.kind==='shield-hit'||e.kind==='shield-break',hologram=e.kind==='death'&&sourceHologramDeath(e),nuke=e.kind==='strategic-impact'&&e.entityId===0&&e.race==='terran'&&!e.heroId&&!e.eliteId;
+   const lifecycle=e.kind==='unit-expired'||e.kind==='death'&&e.modelKey==='fun-cocoon';
+   if(sourceOwnsEvent(e)||shieldReceipt||hologram||nuke||lifecycle)this.fx.sourceEventIds.add(e.serial);if(e.serial<=this.serial)continue;
+   if(lifecycle)this.lifecycle.set(e.serial,structuredClone(e));
+   if(nuke)this.nukes.set(e.serial,structuredClone(e));
    if(hologram)this.hologramDeaths.set(e.entityId,structuredClone(e));
    if(shieldReceipt){
     const target=w.body(e.entityId),source=e.hitSourceId===undefined?undefined:w.body(e.hitSourceId),bounds=shieldBounds?.(e)??{center:{x:e.x,y:e.y,z:e.z},radius:Math.max(.7,target?.unitRadius??.7)},profile=COMBAT_FX_PROFILES.get('shield-hit')!;
     this.echoes.push({event:structuredClone(e),profile,mounts:[],life:Math.max(...Object.values(profile.models).flat().map(id=>sourceLife(SOURCE_EFFECTS[id])/rate)),shield:{...bounds,facing:source?Math.atan2(source.x-e.x,source.z-e.z):e.facing,rippleRadius:.7+1.3*Math.max(0,Math.min(1,((e.shieldDamage??5)-5)/40)),directional:!!source}});
    }
-   const profile=combatFxProfile(e);if(profile&&sourceOwnsEvent(e)){
+   const profile=e.kind==='skill-heal'&&e.unitType==='queen'?COMBAT_FX_PROFILES.get('queen-heal'):combatFxProfile(e);if(profile&&sourceOwnsEvent(e)){
     const mount=combatMuzzleSides(profile,e.shotSequence).map(side=>({...muzzle(e,side)}));if(e.attackId)this.mounts.set(e.attackId,mount);
     const life=Math.max(.8,...Object.values(profile.models).flatMap(ids=>ids.map(id=>sourceLife(SOURCE_EFFECTS[id])/rate)));
     const deferredLaunch=e.kind==='attack'&&((e.projectileSpeed??0)>0||w.weaponFlights.some(f=>f.attackId===e.attackId));
@@ -90,21 +106,24 @@ export class SourceCombatEffects {
   }
   this.serial=w.visualEvents.at(-1)?.serial??this.serial;this.echoes=this.echoes.filter(e=>w.time-e.event.time<e.life);
   for(const echo of this.echoes)this.echo(w,echo,ground,muzzle,bodyPose,indexedEvents);
+  // Zealot's opaque Star2Ribbon01 is its hair, not a weapon trail. One live
+  // body owns it across idle/walk/attack, independently of overlapping shots.
+  for(const u of w.entities.values())if(u.hp>0&&combatFxProfile(u)?.models.body?.includes('Zealot')){
+   const pose=bodyPose(this.event(w,u),'Zealot',0,true);if(!pose)continue;
+   const key='body-ribbon:'+u.id;
+   this.player.add({model:'Zealot',key,seed:sourceSeed(key),age:pose.seconds,clip:pose.clip,placement:{x:u.x,y:ground(u),z:u.z,facing:u.facing,matrix:pose.matrix},mesh:false,particles:false,projections:false,ribbonIndices:[1],ribbonAge:Math.max(0,w.time-u.bornAt)},ground);
+  }
   // Continuous beams are reconstructed from saved native firing state. Transient
   // event history is deliberately absent after reload and cannot own a channel.
   for(const u of w.entities.values()){
    const p=combatFxProfile(u),age=w.time-u.lastShotAt,target=u.attackTarget===null?undefined:w.body(u.attackTarget);
-   if(u.hp<=0||p?.kind!=='beam'||!target?.hp||(u.shotSequence??0)<=0||age<0||age>(p.key==='interceptor'?.24:Math.max(.24,u.shotInterval+1/60)))continue;
+   if(u.hp<=0||p?.kind!=='beam'||p.key==='void-ray'||!target?.hp||(u.shotSequence??0)<=0||age<0||age>(p.key==='interceptor'?.24:Math.max(.24,u.shotInterval+1/60)))continue;
    const e=this.event(w,u,u.lastShotAt,'attack',target),from=muzzle(e),end=point(w,target),strength=u.eliteId==='void_ray.1'?1+Math.min(1,Math.max(0,(u.protossEliteCombat?.lastFire??0)-(u.protossEliteCombat?.lockAt??0))/2):1;
    this.routes.add(p.key);
    for(const model of [...p.models.beam??[],...(p.key==='void-ray'?p.models.impact??[]:[])])this.request(model,'channel:'+u.id+':'+u.shotSequence+':'+model,age,{...from,facing:e.facing,end,scale:strength},ground,{loop:true,hostedBeam:true});
   }
-  for(const a of w.expedition.weaponAreas){
-   const u=w.entities.get(a.source);if(u?.unitType!=='colossus'||u.heroId||a.nextIndex<=0)continue;
-   const at=a.points[Math.min(a.nextIndex-1,a.points.length-1)],e=this.event(w,u,u.lastShotAt,'attack',at),siblings=w.expedition.weaponAreas.filter(b=>b.source===u.id),from=muzzle(e,siblings.indexOf(a)%2?'Right':'Left'),end=point(w,at,.12),age=Math.max(0,w.time-(a.next-a.nextIndex*a.period)),p=COMBAT_FX_PROFILES.get('colossus')!;
-   if(u.hp>0)for(const model of p.models.beam)this.request(model,'thermal:'+a.id+':'+model,age,{...from,facing:e.facing,end},ground,{loop:true,hostedBeam:true});
-   for(const model of p.models.impact??[])this.request(model,'thermal-impact:'+a.id+':'+model,age,{...end,facing:e.facing},ground,{loop:true});
-  }
+  this.weaponChannels.render(w,(model,key,age,placement,options)=>this.request(model,key,age,placement,ground,options),(u,time,end)=>this.event(w,u,time,'attack',end),muzzle);
+  for(const [serial,e]of this.nukes){const age=w.time-e.time,model='GhostNukeExplode',definition=SOURCE_EFFECTS[model];if(age>sourceLife(definition)/rate){this.nukes.delete(serial);continue;}this.routes.add('strategic-nuke');this.request(model,'nuke:'+serial,age,{x:e.x,y:ground(e),z:e.z,facing:0},ground,{clip:'Death',meshUntil:definition.materialProfile.clips.find(c=>c.name==='Death')!.duration});}
   for(const f of w.weaponFlights)if(sourceOwnsWeapon(f.source)&&w.time>=f.start)this.flight(w,f,muzzle,ground);
   for(const f of w.effects){const u=w.entities.get(f.source);if(u?.heroId||f.until<=w.time)continue;
    if(f.kind==='bile'&&(!u||u.unitType==='ravager')){const age=BILE.delay-(f.until-w.time),t=Math.max(0,Math.min(1,age/BILE.delay)),from=point(w,f,1.3),end=point(w,f.end,.15),head=mix(from,end,t);head.y+=Math.sin(t*Math.PI)*7;this.request('RavagerCorrosiveBileMissile','bile:'+f.id,age,{...head,facing:Math.atan2(end.x-from.x,end.z-from.z),from,age:age*rate},ground,{loop:true});}
@@ -126,13 +145,19 @@ export class SourceCombatEffects {
   }
   for(const f of w.protossElites.fields){if(f.until<=w.time||!['storm','guardian'].includes(f.kind))continue;const profile=COMBAT_FX_PROFILES.get(f.kind)!,duration=f.kind==='storm'?SOURCE_ABILITIES.psiStorm.searchPeriods*SOURCE_ABILITIES.psiStorm.damagePeriod:SOURCE_ABILITIES.guardianShield.duration,age=duration-(f.until-w.time),scale=sourceFieldScale(SOURCE_EFFECTS[profile.models.field[0]],f.radius);for(const model of profile.models.field??[])this.request(model,'elite-field:'+f.id+':'+model,age,{...point(w,f.point,0),facing:0,scale},ground,{loop:true});}
   for(const u of w.entities.values())if(u.hp>0&&!u.heroId&&u.unitType==='medivac')for(const id of u.healTargets??(u.healTarget?[u.healTarget]:[])){const target=w.entities.get(id);if(!target?.hp)continue;const key='heal:'+u.id+':'+id,age=w.time,event=this.event(w,u,w.time,'skill-heal',target),from=muzzle(event,'Center'),bounds=shieldBounds?.(this.event(w,target)),end=bounds?.center??point(w,target,.6);this.request('MedivacHealBeam',key,age,{...from,facing:Math.atan2(end.x-from.x,end.z-from.z),end},ground,{loop:true,hostedBeam:true});this.request('MedicHealModel',key+':target',age,{...(bounds?.top??end),facing:0},ground,{loop:true,clip:'Birth'});}
-  for(const l of w.protossElites.lines)if(l.kind==='thermal'&&l.index>0){const at=l.points[Math.min(l.index-1,l.points.length-1)],event=this.event(w,l.source,w.time,'attack',at),siblings=w.protossElites.lines.filter(a=>a.kind==='thermal'&&a.source.id===l.source.id),from=muzzle(event,siblings.indexOf(l)%2?'Right':'Left'),end=point(w,at,.12),age=Math.max(0,w.time-(l.next-l.index*l.period)),p=COMBAT_FX_PROFILES.get('colossus')!;for(const model of p.models.beam)this.request(model,'elite-thermal:'+l.id+':'+model,age,{...from,facing:event.facing,end},ground,{loop:true,hostedBeam:true});for(const model of p.models.impact??[])this.request(model,'elite-thermal-impact:'+l.id+':'+model,age,{...end,facing:event.facing},ground);}
   const activeAttacks=new Set(w.weaponFlights.map(f=>f.attackId)),activeFlights=new Set(w.weaponFlights.map(f=>f.id));for(const id of this.launched)if(!activeFlights.has(id))this.launched.delete(id);for(const e of this.echoes)if(e.event.attackId)activeAttacks.add(e.event.attackId);for(const key of this.mounts.keys())if(!activeAttacks.has(key))this.mounts.delete(key);
   // Only real death receipts start this one-shot. Retain its event snapshot if
   // the unit is reclaimed; completed deaths are never synthesized after reload.
   for(const [id,e]of this.hologramDeaths){const age=w.time-e.time,model='Hologram_Death_Large';if(age>sourceLife(SOURCE_EFFECTS[model])/rate){this.hologramDeaths.delete(id);continue;}this.routes.add('science-vessel-hologram-death');this.request(model,'hologram-death:'+id+':'+e.serial,age,{x:e.x,y:e.y,z:e.z,facing:e.facing},ground,{clip:'Death'});}
   this.equipment.render(w,this.player,ground,equipmentMount);
   renderFunSource(w,this.player,ground,funMatrix);
+  for(const [serial,e]of this.lifecycle){
+   const model=e.kind==='death'?'FunCocoonDeath':e.race==='zerg'?'BurrowFXSmall':'BlinkOriginModel',age=w.time-e.time;
+   if(age>sourceLife(SOURCE_EFFECTS[model])){this.lifecycle.delete(serial);continue;}
+   this.routes.add(e.kind==='death'?'cocoon-death':'natural-expiry');
+   this.player.add({key:'lifecycle:'+serial,model,mesh:model==='BlinkOriginModel'?false:undefined,clip:e.kind==='death'?'Death':e.race==='zerg'?'Burrow':undefined,age,clockRate:1,seed:sourceSeed(String(serial)),placement:{x:e.x,y:e.flying?5.6:ground(e),z:e.z,facing:e.facing,scale:e.kind==='death'?(e.visualScale??1)*.65:1}},ground);
+  }
+  this.enemySpecials.render(w,this.player,ground,this.fx.sourceEventIds);
   this.player.end();
  }
  private echo(w:World,echo:Echo,ground:(p:Point)=>number,muzzle:Mount,bodyPose:BodyPose,indexedEvents:()=>SourceEventIndex){
@@ -147,7 +172,7 @@ export class SourceCombatEffects {
   }
   if(e.kind==='attack'){
    for(const [side,from]of echo.mounts.entries())for(const model of p.models.launch??[])this.request(model,key+':launch:'+side+':'+model,age,{...from,facing,end},ground);
-   for(const model of p.models.body??[]){const pose=bodyPose(e,model,age);if(pose)this.request(model,key+':body:'+model,0,{x:e.x,y:e.y,z:e.z,facing,matrix:pose.matrix},ground,{clip:pose.clip,age:pose.seconds,mesh:false});}
+   for(const model of p.models.body??[]){const pose=bodyPose(e,model,age);if(pose)this.request(model,key+':body:'+model,0,{x:e.x,y:e.y,z:e.z,facing,matrix:pose.matrix},ground,{clip:pose.clip,age:pose.seconds,mesh:false,...(model==='Zealot'?{ribbonIndices:[0,2,3]}:{})});}
    // Lurker/Colossus extents are driven by their actual progressive receipts.
    if(p.kind==='detonation')for(const model of p.models.impact??[])this.request(model,key+':detonation:'+model,age,{...point(w,e,0),facing},ground,{mesh:false});
    return;
@@ -155,8 +180,7 @@ export class SourceCombatEffects {
   if(e.kind==='weapon-area'&&p.key==='colossus'){
    // One live actor per sweep owns its moving endpoint. Damage-step receipts must
    // not create overlapping copies of the same beam and impact on every tick.
-   if(age>.085||w.expedition.weaponAreas.some(a=>a.id===e.castId)||this.echoes.some(a=>a.event.kind===e.kind&&a.event.castId===e.castId&&a.event.serial>e.serial))return;
-   for(const model of p.models.impact??[])this.request(model,key+':sweep-end:'+model,age,{...end,facing},ground);return;
+   return;
   }
   if(e.kind==='baneling-recover')return; // The attack already owns this same detonation.
   let models:string[]=[];

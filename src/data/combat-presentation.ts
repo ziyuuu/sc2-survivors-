@@ -5,10 +5,15 @@ import {UNIT_SPECTACLE} from './unit-spectacle';
 import {ELITE_VISUAL_PROFILES} from './elite-visual-profiles';
 
 /** M4 presentation only. These scales never enter collision, range or damage. */
-export function modelPresentationScale(unit:Pick<Entity,'visualScale'|'modelKey'|'heroId'|'eliteId'|'flying'|'unitType'>){
- const base=unit.visualScale??1;
+export function modelPresentationScale(unit:Pick<Entity,'visualScale'|'modelKey'|'heroId'|'eliteId'|'flying'|'unitType'>&{mission?:{fleet?:boolean};missionFleet?:boolean}){
+ // Original interceptor GLBs already contain their source 0.85 model scale.
+ // Old saves carry the former extra 0.2 multiplier; correct only that legacy
+ // presentation value without changing the persisted body or combat radius.
+ const legacyInterceptor=unit.modelKey==='interceptor'&&unit.visualScale===.2;
+ const legacyFleet=unit.modelKey==='hero.yamato_battlecruiser'&&unit.visualScale===.5&&(unit.mission?.fleet||unit.missionFleet);
+ const base=legacyInterceptor||legacyFleet?1:unit.visualScale??1;
  // Fixed caps from 24 Hz samples of every mapped original clip; never resize per frame.
- if(unit.modelKey==='hero.yamato_battlecruiser')return base*1.15*.61742;
+ if(unit.modelKey==='hero.yamato_battlecruiser'||!unit.modelKey&&unit.unitType==='yamato_battlecruiser')return base*1.15*.61742;
  if(unit.modelKey==='hero.hots_leviathan')return base*1.15*.54065;
  if(unit.heroId==='purifier_flagship')return base*1.15;
  if(unit.modelKey==='elite.carrier.1'&&!unit.eliteId&&!unit.heroId)return base*1.15;

@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-25",
+  "status": "completed-limited-set-description-update",
+  "authorization": "UI基本没问题了。按这一版进行更新。【局部有限更新，只更新改动部分】但是你这个套装效果描述排布是不是有问题。请参考魔兽、暗黑",
+  "changes": [
+    "保留已确认五档品质展示及底色，仅更新舰装套装描述区域。",
+    "套装名称与已装备件数在上；当前档位按实际2/4/6件门槛分组，合并同一门槛下多条效果。",
+    "已激活与未激活同时用颜色和文字区分；其他品质、套装规则、换装预览独立展开。",
+    "效果汇总按套装或功能装备来源分组。修复相同效果出现在2件和6件时，6件门槛未满足却显示激活的说明错误。"
+  ],
+  "references": [
+    {
+      "title": "World of Warcraft class set bonuses",
+      "url": "https://worldofwarcraft.blizzard.com/en-us/news/24244458"
+    },
+    {
+      "title": "Diablo III Tal Rasha set item",
+      "url": "https://eu.diablo3.blizzard.com/en-us/item/tal-rashas-grasp-P2_Unique_Gloves_02"
+    }
+  ],
+  "delivery": {
+    "file": "reports\\local\\t01-20261024\\offline-r15\\T01-综合检测.html",
+    "bytes": 814532012,
+    "sha256": "91100de8d08a6ab16b110d41ee10a78efba37ef94423aba492977eb54e6896ed",
+    "assets": 1909,
+    "chunks": 2975
+  },
+  "verification": {
+    "tests": 32,
+    "newSemanticTests": 5,
+    "typecheck": true,
+    "nativeChecks": 24,
+    "offlineChecks": 24,
+    "templateLayoutChecks": 9,
+    "races": 3,
+    "viewportModes": 3,
+    "http": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "baselineSourceAndTestFiles": 845,
+    "unchanged": 842,
+    "changed": [
+      "src/ui/starship/equipment-description.ts",
+      "src/ui/starship/legacy-view.ts",
+      "src/ui/starship/native.css"
+    ],
+    "addedTests": [
+      "test/equipment-set-description.test.ts"
+    ],
+    "buildInputs": 531,
+    "resourceFiles": 1852,
+    "embeddedResourcePayloadUnchanged": true,
+    "prototypeStates": 362,
+    "reusedUnrelatedTemplates": 187,
+    "unrelatedTemplatesUnchanged": true,
+    "prototypeBusinessLogic": false
+  },
+  "resolvedAttempts": [
+    "首轮原生截图未等待尺寸同步，排版取景滞后一帧；加入等待和实际视口边界断言后24项补测通过。",
+    "首次静态截图自动滚动等待稳定超时，改为明确滚动描述区域后9项通过。",
+    "native.css首次写入临时失败，重试成功。"
+  ],
+  "retention": {
+    "cleanupPending": false,
+    "rule": "只保留当前综合HTML与必要输入、简要结论及复现代码；删除本批截图、缓存和被替代HTML。",
+    "removedFiles": 5647,
+    "removedLogicalBytes": 1805301401,
+    "retainedCurrentHtmlVerified": true
+  },
+  "currentReplaced": false,
+  "commit": false,
+  "push": false,
+  "publish": false,
+  "limits": [
+    "本次为用户批准的局部UI更新；未改变套装数值、品质门槛、购买、存档或战斗结算。",
+    "T01动态与最终画面仍待用户检查；不提前启动V04或通过最终V/MVP。"
+  ],
+  "reproduce": [
+    "node --import tsx --test test/equipment-set-description.test.ts test/fun-feedback-r4-interactions.test.ts test/g03-rank-equipment-growth.test.ts",
+    "npm run typecheck",
+    "node tools/export-t01-prototypes.mjs --refresh-equipment",
+    "node tools/qa-t01-set-controls.mjs native",
+    "node tools/build-t01.mjs",
+    "node tools/build-t01-offline.mjs offline-rN",
+    "node tools/qa-t01-set-controls.mjs offline reports/local/t01-20261024/offline-rN/build.json"
+  ]
+}
