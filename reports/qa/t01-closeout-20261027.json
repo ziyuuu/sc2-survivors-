@@ -1,7 +1,7 @@
 {
   "date": "2026-10-27",
   "task": "T01",
-  "status": "engineering-verified-awaiting-local-integration",
+  "status": "locally-integrated-engineering-verified-awaiting-user-review",
   "summary": "本次接入德哈卡实际行走脚步、跳虫/虫后群体移动声和兵营增援下降推进声，新增7个原声音库、12份原始音频，449个既有音库及153份模拟源码保持。此前批准的T01动作、特效、虫后腐蚀、声音、比例、死亡颜色、生命周期与检测工具累计修复一并纳入本地main收尾。2704唯一回归经环境复测全部通过，类型、资料一致性、正常构建及入口通过；r33离线22项音频/英雄场景、9项新移动声、19组对白轮换及30项累计反馈场景通过，12组各三轮、三尺寸、1921音频解码、实际信号、控制及导出通过，HTTP/页面错误0。",
   "authorization": "用户通过原聊天协调请求：接入已确认适用声音，将这几轮累计修复提交并合并main；不部署发布、不启动下一阶段、不擅自公开私有原始素材。",
   "scopeDocument": "docs/project/T01_CLOSEOUT_20261027.md",
@@ -528,7 +528,8 @@
       "resourceFiles": 1892,
       "resourceBytes": 498139917,
       "runtimeReferences": 4003,
-      "privateOriginalsStaged": 0
+      "privateOriginalsStaged": 0,
+      "stagedFiles": 2258
     },
     "visualReview": "有限复看德哈卡、兵营下降、跳虫群体声音夹具、狂热者攻击及召回幻影画面；不代替用户全目录动态验收或逐句听感。",
     "recoveries": [
@@ -539,7 +540,13 @@
       "Git Bash post-checkout资源不足，已直接执行同一Git LFS钩子逻辑完成。",
       "GitHub连接器末次查询连接失败，只读git ls-remote成功核实远端。"
     ],
-    "formattingWarnings": "git diff --cached --check仅报告8处既有新增文件末尾空行；保持实测构建输入，不为了格式重写或冒充重新验证。"
+    "formattingWarnings": "git diff --cached --check仅报告8处既有新增文件末尾空行；保持实测构建输入，不为了格式重写或冒充重新验证。",
+    "postIntegration": {
+      "implementationClean": true,
+      "buildInputsPreserved": 548,
+      "simulationFilesPreserved": 153,
+      "currentPreserved": true
+    }
   },
   "catalogue": {
     "objects": 401,
@@ -585,12 +592,16 @@
   "git": {
     "base": "f8e3a32ebb8741401f1d1e4fbf100d5ffe48c92d",
     "branch": "codex/t01-closeout-20261027",
-    "localMainIntegration": "pending",
+    "localMainIntegration": "verified-fast-forward",
     "remoteMain": "5d0727a14ec18656b408be457263adb1b17b21fc",
     "remoteCheckedVia": "git ls-remote origin refs/heads/main",
     "pushed": false,
     "published": false,
-    "privateOriginalsUploaded": false
+    "privateOriginalsUploaded": false,
+    "implementationCommit": "c4811a033d6eee5a64e1022153d9b763c5305c92",
+    "mainAtIntegration": "c4811a033d6eee5a64e1022153d9b763c5305c92",
+    "integrationMethod": "Verified ancestor plus compare-and-swap main update; switch to identical tree; original post-checkout Git LFS action run directly after Git Bash launch failure.",
+    "finalDocumentationCommit": "A subsequent main commit records this integration and cleanup; implementation remains the commit above. See git log for the final documentation commit."
   },
   "limits": [
     "Marine群体行军与普通坦克移动声仍未取得可靠战斗绑定；不使用剧情模型、指令回应或变形声冒充。",
@@ -616,8 +627,10 @@
     "node tools/audit-t01-closeout.mjs"
   ],
   "retention": {
-    "cleanupPending": true,
-    "rule": "保留当前r33与必要输入、正常构建、源码及原始资源；清理本批缓存/截图/详细日志及r32。"
+    "cleanupPending": false,
+    "rule": "保留当前r33与必要输入、正常构建、源码及原始资源；清理本批缓存/截图/详细日志及r32。",
+    "removedFiles": 10009,
+    "removedLogicalBytes": 6199929086
   },
   "boardRevision": 216
 }

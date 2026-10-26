@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+const git=(...args)=>execFileSync('git',args,{encoding:'utf8'}).trim();
+assert.equal(git('branch','--show-current'),'main');const source=git('rev-parse','codex/t01-closeout-20261027');assert.equal(git('rev-parse','main'),source);git('merge-base','--is-ancestor','f8e3a32ebb8741401f1d1e4fbf100d5ffe48c92d',source);
+const file='reports/qa/t01-closeout-20261027.json',r=JSON.parse(fs.readFileSync(file,'utf8'));
+r.status='locally-integrated-engineering-verified-awaiting-user-review';r.git.localMainIntegration='verified-fast-forward';r.git.implementationCommit=source;r.git.mainAtIntegration=git('rev-parse','main');r.git.integrationMethod='Verified ancestor plus compare-and-swap main update; switch to identical tree; original post-checkout Git LFS action run directly after Git Bash launch failure.';r.git.finalDocumentationCommit='A subsequent main commit records this integration and cleanup; implementation remains the commit above. See git log for the final documentation commit.';
+r.validation.index.stagedFiles=JSON.parse(fs.readFileSync('.cache/t01-closeout/index-verification.json')).stagedFiles;r.validation.postIntegration={implementationClean:true,buildInputsPreserved:548,simulationFilesPreserved:153,currentPreserved:true};
+fs.writeFileSync(file,JSON.stringify(r,null,2)+'\n');
+const doc='docs/project/T01_CLOSEOUT_20261027.md';fs.writeFileSync(doc,fs.readFileSync(doc,'utf8').replace('本地main提交后核验；','本地main已快进纳入累计修复提交 `'+source+'`，548项实测构建输入保持；'));
+const agents='AGENTS.md';fs.writeFileSync(agents,fs.readFileSync(agents,'utf8').replace('本地Git收尾状态以报告为准；','累计修复已提交并快进本地main（实现提交 `'+source.slice(0,7)+'`，后续仅收尾记录）；'));
+console.log(JSON.stringify({mainAtIntegration:source,report:file,cleanupReady:true}));
