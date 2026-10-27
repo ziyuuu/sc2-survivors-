@@ -1,0 +1,23 @@
+import {chromium} from '@playwright/test';
+import fs from 'node:fs/promises';
+const results=[],browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--no-proxy-server','--disable-background-timer-throttling','--disable-renderer-backgrounding']});
+try{for(const [label,port] of [['original',18780],['optimized',18781]]){
+ const ctx=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:1});
+ await ctx.addInitScript(()=>{globalThis.__name=v=>v;const get=crypto.getRandomValues.bind(crypto);crypto.getRandomValues=a=>{if(a instanceof Uint32Array&&a.length===1){a[0]=529;return a}return get(a)};for(const [k,v]of Object.entries({'sc2.renderQuality':'native','sc2.ordinaryEffects':'full','sc2.heroEffects':'full','sc2.animationMode':'complete','sc2.combatDetail':'full'}))localStorage.setItem(k,v)});
+ const page=await ctx.newPage(),errors=[],httpErrors=[];page.setDefaultTimeout(120000);page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('/api/config'))httpErrors.push([r.status(),r.url()])});
+ await page.goto(`http://127.0.0.1:${port}`,{waitUntil:'domcontentloaded',timeout:120000});
+ await page.waitForFunction(()=>typeof globalThis.__SC2_REPORT__==='function'&&globalThis.__SC2_REPORT__().phase==='menu'&&!document.getElementById('scs-opening-visual'),null,{timeout:300000});console.log(label,'menu');
+ const click=async a=>page.locator(`[data-action="${a}"]:visible`).first().click();await click('menu-new');
+ await page.locator('[data-action="menu-race"][data-race="terran"]:visible').first().click();await click('menu-race-next');
+ await page.locator('[data-action="menu-difficulty"][data-difficulty="normal"]:visible').first().click();await click('menu-difficulty-next');await click('menu-start');
+ await page.waitForFunction(()=>['ready','error'].includes(globalThis.__SC2_REPORT__().readiness.phase),null,{timeout:300000});if(await page.evaluate(()=>globalThis.__SC2_REPORT__().readiness.phase)!=='ready')throw Error(label+' readiness error');await click('flow-continue');
+ await page.waitForFunction(()=>globalThis.__SC2_REPORT__().phase==='battle'&&globalThis.__SC2_REPORT__().time>=5,null,{timeout:180000});
+ const result=await page.evaluate(()=>new Promise(resolve=>{
+  const start=performance.now(),first=globalThis.__SC2_REPORT__();let previous=null,lastProbe=0,frames=[],probes=[],active=true;
+  const pick=r=>({phase:r.phase,stage:r.stage,time:r.time,entities:r.entities,backlog:r.simulationBacklogSeconds,discarded:r.discardedSimulationBacklogSeconds,pending:r.assetsPending,drawCalls:r.drawCalls,combatPreset:r.combatPreset,combatDetail:r.combatDetail,animationMode:r.animationMode,resolution:r.resolution});
+  const timer=setInterval(()=>{try{const r=globalThis.__SC2_REPORT__();probes.push(pick(r));active=r.phase==='battle'&&!r.readiness.kind;if(performance.now()-start>=50000||r.phase!=='battle'){clearInterval(timer);resolve({first:pick(first),last:pick(r),frames,probes,wallMs:performance.now()-start})}}catch(e){clearInterval(timer);resolve({error:String(e),frames,probes})}},500);
+  function frame(t){if(previous!==null&&active)frames.push(t-previous);previous=t;if(performance.now()-start<52000)requestAnimationFrame(frame)}requestAnimationFrame(frame);
+ }));
+ if(result.error)throw Error(result.error);const a=result.frames.filter(x=>Number.isFinite(x)&&x>0).sort((x,y)=>x-y),mean=a.reduce((x,y)=>x+y,0)/a.length,stat=p=>a[Math.floor((a.length-1)*p)];const summary={frames:a.length,meanFrameMs:mean,approxFps:1000/mean,p50FrameMs:stat(.5),p95FrameMs:stat(.95),p99FrameMs:stat(.99),maxFrameMs:a.at(-1),over100:a.filter(x=>x>100).length,peakBacklog:Math.max(...result.probes.map(x=>x.backlog)),discardedDelta:result.last.discarded-result.first.discarded,pendingProbes:result.probes.filter(x=>x.pending>0).length,maxEntities:Math.max(...result.probes.map(x=>x.entities)),wallSeconds:result.wallMs/1000,first:result.first,last:result.last};
+ await page.screenshot({path:`reports/local/sites-stage-${label}.png`});results.push({label,summary,errors,httpErrors});console.log(label,JSON.stringify(summary));await ctx.close();
+}await fs.writeFile('reports/qa/v04-sites-stage-fps-20261027.json',JSON.stringify({scope:'Native browser RAF/FixedStepper 1x, original V04 vs optimized Sites snapshot, Terran normal seed 529, no manual input or artificial load, full effects, 1440x900, 5 seconds warmup then up to 50 seconds real wall-clock; fresh isolated contexts; local web asset servers. One run each. Not the prior V02 full campaign or the 16+300 dense diagnostic.',results},null,2));}finally{await browser.close()}

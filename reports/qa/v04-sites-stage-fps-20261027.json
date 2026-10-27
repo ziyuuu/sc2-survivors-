@@ -1,0 +1,173 @@
+{
+  "scope": "Native browser RAF/FixedStepper 1x, original V04 vs optimized Sites snapshot, Terran normal seed 529, no manual input or artificial load, full effects, 1440x900, 5 seconds warmup then up to 50 seconds real wall-clock; fresh isolated contexts; local web asset servers. One run each. Not the prior V02 full campaign or the 16+300 dense diagnostic.",
+  "results": [
+    {
+      "label": "original",
+      "summary": {
+        "frames": 2691,
+        "meanFrameMs": 18.58041620215533,
+        "approxFps": 53.820107640215284,
+        "p50FrameMs": 16.69999999999709,
+        "p95FrameMs": 33.30000000000291,
+        "p99FrameMs": 49.89999999999418,
+        "maxFrameMs": 116.70000000001164,
+        "over100": 1,
+        "peakBacklog": 0.016633333333336695,
+        "discardedDelta": 0,
+        "pendingProbes": 0,
+        "maxEntities": 6,
+        "wallSeconds": 50.011,
+        "first": {
+          "phase": "battle",
+          "stage": 1,
+          "time": 5.033333333333333,
+          "entities": 5,
+          "backlog": 0.01646666666666979,
+          "discarded": 0,
+          "pending": 0,
+          "drawCalls": 1,
+          "combatPreset": "full",
+          "combatDetail": "full",
+          "animationMode": "complete",
+          "resolution": {
+            "quality": "native",
+            "adaptive": {
+              "scale": 1,
+              "gpuMs": 0,
+              "samples": 0,
+              "changes": 0,
+              "minScale": 0.75,
+              "maxScale": 1,
+              "supported": null
+            },
+            "devicePixelRatio": 1,
+            "renderPixelRatio": 1,
+            "width": 1440,
+            "height": 900,
+            "cssWidth": 1440,
+            "cssHeight": 900,
+            "antialias": true
+          }
+        },
+        "last": {
+          "phase": "battle",
+          "stage": 1,
+          "time": 55.05,
+          "entities": 4,
+          "backlog": 0.01639999999999554,
+          "discarded": 0,
+          "pending": 0,
+          "drawCalls": 1,
+          "combatPreset": "full",
+          "combatDetail": "full",
+          "animationMode": "complete",
+          "resolution": {
+            "quality": "native",
+            "adaptive": {
+              "scale": 1,
+              "gpuMs": 0,
+              "samples": 0,
+              "changes": 0,
+              "minScale": 0.75,
+              "maxScale": 1,
+              "supported": null
+            },
+            "devicePixelRatio": 1,
+            "renderPixelRatio": 1,
+            "width": 1440,
+            "height": 900,
+            "cssWidth": 1440,
+            "cssHeight": 900,
+            "antialias": true
+          }
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "label": "optimized",
+      "summary": {
+        "frames": 2753,
+        "meanFrameMs": 18.167962223029427,
+        "approxFps": 55.04194624163273,
+        "p50FrameMs": 16.69999999999709,
+        "p95FrameMs": 33.29999999998836,
+        "p99FrameMs": 49.89999999999418,
+        "maxFrameMs": 150,
+        "over100": 1,
+        "peakBacklog": 0.016633333333336515,
+        "discardedDelta": 0,
+        "pendingProbes": 0,
+        "maxEntities": 6,
+        "wallSeconds": 50.04110000000894,
+        "first": {
+          "phase": "battle",
+          "stage": 1,
+          "time": 5.016666666666667,
+          "entities": 5,
+          "backlog": 0.016533333333344998,
+          "discarded": 0,
+          "pending": 0,
+          "drawCalls": 1,
+          "combatPreset": "full",
+          "combatDetail": "full",
+          "animationMode": "complete",
+          "resolution": {
+            "quality": "native",
+            "adaptive": {
+              "scale": 1,
+              "gpuMs": 0,
+              "samples": 0,
+              "changes": 0,
+              "minScale": 0.75,
+              "maxScale": 1,
+              "supported": null
+            },
+            "devicePixelRatio": 1,
+            "renderPixelRatio": 1,
+            "width": 1440,
+            "height": 900,
+            "cssWidth": 1440,
+            "cssHeight": 900,
+            "antialias": true
+          }
+        },
+        "last": {
+          "phase": "battle",
+          "stage": 1,
+          "time": 55.05,
+          "entities": 4,
+          "backlog": 0.016400000000009903,
+          "discarded": 0,
+          "pending": 0,
+          "drawCalls": 1,
+          "combatPreset": "full",
+          "combatDetail": "full",
+          "animationMode": "complete",
+          "resolution": {
+            "quality": "native",
+            "adaptive": {
+              "scale": 1,
+              "gpuMs": 0,
+              "samples": 0,
+              "changes": 0,
+              "minScale": 0.75,
+              "maxScale": 1,
+              "supported": null
+            },
+            "devicePixelRatio": 1,
+            "renderPixelRatio": 1,
+            "width": 1440,
+            "height": 900,
+            "cssWidth": 1440,
+            "cssHeight": 900,
+            "antialias": true
+          }
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    }
+  ]
+}
