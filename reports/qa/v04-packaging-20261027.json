@@ -1,0 +1,337 @@
+{
+  "date": "2026-10-27",
+  "task": "V04",
+  "status": "local-packaging-and-validation-complete-no-deployment",
+  "authorization": "那就开始V04，完成打包和验证，先不要部署发布。",
+  "sourceCommit": "192dbcdba857e4afe00553174a84b85b15540335",
+  "sourceCommitScope": "Game source from main; uncommitted packaging helper changes are bound by packageBuildId and delivery.json file hashes.",
+  "applicationVersion": "0.6.29-rc.1",
+  "appBuildId": "6339964b37d6fc9e293020dddc51e79947e3c86b945a79d4837b8d947fa6ebf6",
+  "packageBuildId": "4cd158ec49846e96bc97dcc3460d8216e1d6e8454f912dd5b21ea2487e74817c",
+  "resourceRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+  "artifacts": [
+    {
+      "path": "dist/V04-20261027/Application.zip",
+      "bytes": 16997919,
+      "sha256": "3423ebc471219bd335fcb0380bac4863afeff0ab46df0135ab590ad1c17f5801",
+      "files": 167,
+      "packageBuildId": "4cd158ec49846e96bc97dcc3460d8216e1d6e8454f912dd5b21ea2487e74817c",
+      "verifiedRoundTrip": true,
+      "deployed": false
+    },
+    {
+      "path": "dist/V04-20261027/Resources.zip",
+      "bytes": 1219007837,
+      "sha256": "b192d77b53a708cd95d08ec66af352060a3deaa5ad4756f3f986e01c4ef365e9",
+      "files": 3748,
+      "roundTripVerified": true
+    },
+    {
+      "path": "dist/V04-20261027/Resources-Update.zip",
+      "bytes": 511441283,
+      "sha256": "05782cb93fa43451e257119ff47f8ffcc0cc05289d052ac63ad6cc098442d8f1",
+      "files": 2581,
+      "roundTripVerified": true
+    },
+    {
+      "path": "dist/V04-20261027/Web.zip",
+      "bytes": 1227896875,
+      "sha256": "506665f66909367052a68fc8cd329758b91bbb163e093c9f48230f7682d460b1",
+      "files": 3754,
+      "roundTripVerified": true
+    },
+    {
+      "path": "dist/SC2-Survivors-V04-20261027.html",
+      "bytes": 1323191455,
+      "sha256": "4bf01f02d495e01e40ba0b069cee345c062166aa5cc7fbc7498b05125e37e4be",
+      "decodedAssets": 3845
+    }
+  ],
+  "validation": {
+    "freshWebBuildAndProductionTypes": true,
+    "priorUnchangedGameRegression": {
+      "report": "reports/qa/t01-closeout-20261027.json",
+      "uniquePassed": 2704,
+      "rerun": false
+    },
+    "packagingTests": {
+      "passed": 2,
+      "command": "node --test test/coze-fetch.test.mjs test/coze-web.test.mjs"
+    },
+    "resourceClosure": {
+      "logicalAssets": 3845,
+      "uniqueFiles": 3748,
+      "offlineDecoded": 3845,
+      "allZipsRoundTripVerified": true
+    },
+    "startup": {
+      "method": "Actual packaged v10 launcher and real vendored PGlite, temporary loopback configuration and synthetic database only. Read-only cloud state is injected at the deployment-root write probe; /tmp is remapped into the owned fixture. This is local startup/restore evidence, not live Coze or durable multi-instance acceptance.",
+      "cases": [
+        {
+          "name": "writable",
+          "checks": [
+            "Packaged launcher serves unchanged new UI and real enabled vendor backend without an app node_modules directory; hidden admin assets respond; old paths fail",
+            "Actual seed data restored; no default administrator; feedback writes and deletes use the independent journal; database closes and reopens"
+          ],
+          "health": {
+            "ok": true,
+            "appBuildId": "6339964b37d6fc9e293020dddc51e79947e3c86b945a79d4837b8d947fa6ebf6",
+            "assetReleaseId": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+            "runSchema": 26,
+            "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+            "resources": "local"
+          }
+        },
+        {
+          "name": "readonly-bundle",
+          "checks": [
+            "Packaged launcher serves unchanged new UI and real enabled vendor backend without an app node_modules directory; hidden admin assets respond; old paths fail",
+            "Actual seed data restored; no default administrator; feedback writes and deletes use the independent journal; database closes and reopens",
+            "Second startup reuses writable data and journal, does not extract the old bundle again"
+          ],
+          "health": {
+            "ok": true,
+            "appBuildId": "6339964b37d6fc9e293020dddc51e79947e3c86b945a79d4837b8d947fa6ebf6",
+            "assetReleaseId": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+            "runSchema": 26,
+            "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+            "resources": "local"
+          }
+        },
+        {
+          "name": "active-release",
+          "checks": [
+            "Stable launcher loads immutable release UI, vendor and backend with root configuration and pre-existing root data"
+          ],
+          "health": {
+            "ok": true,
+            "appBuildId": "6339964b37d6fc9e293020dddc51e79947e3c86b945a79d4837b8d947fa6ebf6",
+            "assetReleaseId": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+            "runSchema": 26,
+            "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+            "resources": "local"
+          }
+        },
+        {
+          "name": "invalid-database",
+          "checks": [
+            "Database failure is logged; static UI still serves; config disabled; protected API fails closed"
+          ],
+          "health": {
+            "ok": true,
+            "appBuildId": "6339964b37d6fc9e293020dddc51e79947e3c86b945a79d4837b8d947fa6ebf6",
+            "assetReleaseId": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+            "runSchema": 26,
+            "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+            "resources": "local"
+          }
+        }
+      ]
+    },
+    "update": {
+      "checks": [
+        "missing-resources-rejected-before-activation",
+        "real-previous-to-current-local-update-preserves-config-and-old-app",
+        "new-app-health-resources-and-cache-policy",
+        "repeat-update-idempotent",
+        "tampered-app-rejected-before-activation",
+        "actual-old-app-rollback-health-and-resource-read",
+        "reapply-current-pointer-and-start"
+      ],
+      "previousRelease": "b96998dcc235d2201c2794fd094f99160016e8bc072fbf415e686a60d4e3c615",
+      "targetRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+      "activation": {
+        "appBuildId": "6339964b37d6fc9e293020dddc51e79947e3c86b945a79d4837b8d947fa6ebf6",
+        "packageBuildId": "4cd158ec49846e96bc97dcc3460d8216e1d6e8454f912dd5b21ea2487e74817c",
+        "retained": 1167,
+        "installed": 2581,
+        "downloadedMissing": 0,
+        "productionDependencies": 1,
+        "restartRequired": true
+      },
+      "complete": true
+    },
+    "browsers": [
+      {
+        "mode": "web",
+        "checks": [
+          "production-entry-without-test-control-api",
+          "normal-new-game-render-and-audio-decode",
+          "new-game-checkpoint-survives-complete-browser-close",
+          "terran-checkpoint-equipment-wallet-receipts-roundtrip",
+          "zerg-checkpoint-equipment-wallet-receipts-roundtrip",
+          "protoss-checkpoint-equipment-wallet-receipts-roundtrip",
+          "landscape-and-portrait-layout"
+        ],
+        "newGame": {
+          "time": 3.033333333333333,
+          "stage": 1,
+          "wallet": {
+            "minerals": 1.5166666666666637,
+            "gas": 0.3033333333333334
+          },
+          "race": "terran",
+          "decoded": 1921
+        },
+        "screens": [
+          "menu",
+          "battle",
+          "reopened",
+          "failure",
+          "failure",
+          "intermission",
+          "final-view",
+          "viewport-844x390",
+          "viewport-390x844"
+        ],
+        "errors": 0,
+        "httpErrors": 0,
+        "externalRequests": 0,
+        "complete": true
+      },
+      {
+        "mode": "offline",
+        "checks": [
+          "production-entry-without-test-control-api",
+          "normal-new-game-render-and-audio-decode",
+          "new-game-checkpoint-survives-complete-browser-close",
+          "terran-checkpoint-equipment-wallet-receipts-roundtrip",
+          "landscape-and-portrait-layout"
+        ],
+        "newGame": {
+          "time": 3.716666666666667,
+          "stage": 1,
+          "wallet": {
+            "minerals": 1.8583333333333292,
+            "gas": 0.37166666666666603
+          },
+          "race": "terran",
+          "decoded": 1921
+        },
+        "screens": [
+          "menu",
+          "battle-live",
+          "battle",
+          "reopened",
+          "intermission",
+          "final-view",
+          "viewport-844x390",
+          "viewport-390x844"
+        ],
+        "errors": 0,
+        "httpErrors": 0,
+        "externalRequests": 0,
+        "complete": true
+      },
+      {
+        "mode": "application",
+        "checks": [
+          "production-entry-without-test-control-api",
+          "normal-new-game-render-and-audio-decode",
+          "application-native-checkpoint-export",
+          "landscape-and-portrait-layout"
+        ],
+        "newGame": {
+          "time": 4.15,
+          "stage": 1,
+          "wallet": {
+            "minerals": 2.0749999999999953,
+            "gas": 0.4149999999999989
+          },
+          "race": "terran",
+          "decoded": 1921
+        },
+        "screens": [
+          "menu",
+          "battle-live",
+          "battle",
+          "final-view",
+          "viewport-844x390",
+          "viewport-390x844"
+        ],
+        "errors": 0,
+        "httpErrors": 0,
+        "externalRequests": 0,
+        "complete": true
+      }
+    ],
+    "visualReview": {
+      "web": {
+        "reviewed": [
+          "menu",
+          "battle (pause)",
+          "final-view",
+          "viewport-844x390",
+          "viewport-390x844"
+        ],
+        "result": "Main entry and intermission images render; desktop, landscape and portrait fit without horizontal overflow or obscured primary controls. Landscape uses existing compact scaling. No production UI changes."
+      },
+      "offline": {
+        "reviewed": [
+          "battle-live",
+          "final-view",
+          "viewport-844x390",
+          "viewport-390x844"
+        ],
+        "result": "Offline battlefield renders with character, terrain and HUD. Desktop intermission captured during existing entrance transition; settled landscape and portrait show all cards and primary controls without overflow or occlusion."
+      },
+      "application": {
+        "reviewed": [
+          "battle-live",
+          "viewport-844x390",
+          "viewport-390x844"
+        ],
+        "result": "Application-served battlefield shows character, terrain and HUD. Pause controls fit both landscape and portrait without horizontal overflow or obscured primary controls."
+      }
+    }
+  },
+  "preserved": {
+    "sourceFiles": 866,
+    "changedTests": [
+      "test/coze-fetch.test.mjs"
+    ],
+    "gameSourceUnchanged": true,
+    "deploymentMirrorFiles": 206,
+    "current": {
+      "file": "dist/SC2-Survivors-Current-20261006.html",
+      "sha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d"
+    },
+    "t01": {
+      "file": "reports/local/t01-20261024/offline-r33/T01-综合检测.html",
+      "sha256": "7a4e7f35ed4f1cbf724a539149b100d1811d4e11ff0a052b419fdc3711459236"
+    }
+  },
+  "scope": {
+    "deployed": false,
+    "published": false,
+    "pushed": false,
+    "newCommit": false,
+    "currentReplaced": false,
+    "deploymentMirrorUpdated": false,
+    "v05Started": false
+  },
+  "packagingFix": "原生资源引用扩展到经过哈希与文件名验证的 assets、mission-assets、fun-props 三个目录；路径穿越与其他目录拒绝。未改变游戏源码。",
+  "resolvedVerificationIssues": [
+    "打包工具初版只接受 assets，现按真实资源清单支持另两个受控目录。",
+    "首轮浏览器夹具沿用旧存档按钮；按设置→存档入口修正，旧挂起测试已结束。",
+    "浏览器下载夹具混用 Windows 路径分隔符导致取消；使用 path.join 后重测。",
+    "关间钱包夹具原期待结算前10000矿，忽略奖励；改为与原生结算后的档案钱包严格比较。",
+    "续跑检查脚本时临时端口变化导致存储域不同；固定原端口后继续，未修改游戏存档逻辑。"
+  ],
+  "git": {
+    "branch": "main",
+    "head": "192dbcdba857e4afe00553174a84b85b15540335",
+    "originMainLastKnown": "5d0727a14ec18656b408be457263adb1b17b21fc",
+    "remoteContacted": false
+  },
+  "retention": {
+    "policy": "docs/project/ARTIFACT_RETENTION.md",
+    "temporaryEvidenceRemoved": true,
+    "cleanup": {
+      "note": "Logical file sizes include hardlinks; not a claim of physical bytes freed. Current delivery, source, original resources and deployed mirror retained.",
+      "logicalBytes": 12194486036,
+      "files": 36586
+    }
+  },
+  "next": "V05待办；未获本轮部署发布授权，不启动。"
+}

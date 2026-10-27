@@ -23,15 +23,16 @@ if(args.includes('--changed-only')){
  const changed=new Set(delta.files.map(f=>f.sha256));rows=rows.filter(f=>changed.has(f.sha256));
 }
 const digest=b=>createHash('sha256').update(b).digest('hex');
+const validResourcePath=f=>/^assets\/[a-f0-9]{64}\.[a-z0-9]+$/.test(f.url)&&/^deploy\/runtime\/(?:assets|mission-assets|fun-props)\/[a-f0-9]{64}\.[a-z0-9]+$/.test(f.gitPath)&&path.posix.basename(f.gitPath)===f.url.slice(7)&&f.url.slice(7,71)===f.sha256;
 if(args.includes('--verify-remote')){
  let cursor=0,verified=0,bytes=0;await Promise.all(Array.from({length:6},async()=>{for(;;){const f=rows[cursor++];if(!f)break;
-  if(!/^deploy\/runtime\/assets\/[a-f0-9]{64}\.[a-z0-9]+$/.test(f.gitPath))throw Error('Invalid remote path');
+  if(!validResourcePath(f))throw Error('Invalid remote path');
   let valid=false;for(let n=0;n<4&&!valid;n++)try{const r=await request(`https://media.githubusercontent.com/media/${repo}/${commit}/${f.gitPath}`),hash=createHash('sha256');let size=0;for await(const chunk of r.body){hash.update(chunk);size+=chunk.length;}if(size!==f.bytes||hash.digest('hex')!==f.sha256)throw Error('Remote resource mismatch '+f.gitPath);valid=true;verified++;bytes+=size;}catch(e){if(n===3)throw e;await new Promise(r=>setTimeout(r,700*(n+1)));}
   if(verified%50===0)console.log(JSON.stringify({verified,total:rows.length}));
  }}));console.log(JSON.stringify({commit,release:index.release,group,verified,bytes,remote:true}));process.exit(0);
 }
 let verified=0,downloaded=0,total=0;
-for(const f of rows){if(!/^assets\/[a-f0-9]{64}\.[a-z0-9]+$/.test(f.url)||f.gitPath!=='deploy/runtime/'+f.url||!Number.isSafeInteger(f.bytes)||f.bytes<1)throw Error('Invalid manifest row');
+for(const f of rows){if(!validResourcePath(f)||!Number.isSafeInteger(f.bytes)||f.bytes<1)throw Error('Invalid manifest row');
  const dest=path.resolve(out,f.url),part=dest+'.partial';await fs.mkdir(path.dirname(dest),{recursive:true});
  const cached=await fs.readFile(dest).catch(()=>null);if(cached&&cached.length===f.bytes&&digest(cached)===f.sha256){verified++;total+=cached.length;continue;}
  let done=false;

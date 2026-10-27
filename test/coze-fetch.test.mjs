@@ -14,6 +14,7 @@ test('Coze fixed-commit fetch resumes partial files, skips verified assets and r
   const out=path.join(dir,'public'),log=path.join(dir,'requests.jsonl');await fs.mkdir(path.join(out,'assets'),{recursive:true});await fs.writeFile(path.join(out,url)+'.partial',content.subarray(0,17));
   const mock=path.join(dir,'mock.mjs');await fs.writeFile(mock,`import fs from 'node:fs/promises';
 const index=${JSON.stringify(index)},content=Buffer.from(${JSON.stringify(content.toString('base64'))},'base64');
+if(process.env.SC2_FAKE_NAMESPACE)index.files[0].gitPath='deploy/runtime/'+process.env.SC2_FAKE_NAMESPACE+'/'+index.files[0].url.slice(7);
 globalThis.fetch=async(url,options={})=>{await fs.appendFile(${JSON.stringify(log)},JSON.stringify({url,headers:options.headers})+'\\n');
 if(url.includes('raw.githubusercontent.com'))return Response.json(index);
 if(process.env.SC2_FAKE_POINTER)return new Response('version https://git-lfs.github.com/spec/v1\\n');
@@ -23,6 +24,8 @@ const start=Number(options.headers?.Range?.match(/bytes=(\\d+)-/)?.[1]??0);retur
   const requests=(await fs.readFile(log,'utf8')).trim().split('\n').map(JSON.parse);assert.ok(requests.every(r=>r.url.includes('/'+commit+'/')));assert.equal(requests[1].headers.Range,'bytes=17-');
   r=run({},'zerg');assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/"verified":1/);assert.equal((await fs.readFile(log,'utf8')).trim().split('\n').length,3);
   await fs.rm(path.join(out,url));r=run({SC2_FAKE_POINTER:'1'});assert.notEqual(r.status,0);assert.match(r.stderr,/Hash\/size mismatch/);assert.equal(await fs.stat(path.join(out,url)).catch(()=>null),null);
+  for(const namespace of ['mission-assets','fun-props']){await fs.rm(path.join(out,url),{force:true});r=run({SC2_FAKE_NAMESPACE:namespace});assert.equal(r.status,0,r.stderr);assert.deepEqual(await fs.readFile(path.join(out,url)),content);const requests=(await fs.readFile(log,'utf8')).trim().split('\n').map(JSON.parse);assert.ok(requests.some(x=>x.url.includes('/deploy/runtime/'+namespace+'/')));}
+  for(const namespace of ['../private','assets/../../private','unapproved']){r=run({SC2_FAKE_NAMESPACE:namespace});assert.notEqual(r.status,0);assert.match(r.stderr,/Invalid manifest row/);}
   await fs.writeFile(path.join(out,'web-release.json'),JSON.stringify({release:'different'}));r=run();assert.notEqual(r.status,0);assert.match(r.stderr,/do not match this app release/);
   const staged=spawnSync(process.execPath,['--import',pathToFileURL(mock).href,'tools/fetch-coze-resources.mjs','--commit',commit,'--group','common','--out',out,'--resources-only'],{encoding:'utf8',timeout:30000});assert.equal(staged.status,0,staged.stderr);assert.deepEqual(await fs.readFile(path.join(out,url)),content);assert.equal(JSON.parse(await fs.readFile(path.join(out,'web-release.json'),'utf8')).release,'different');
  }finally{await fs.rm(dir,{recursive:true,force:true});}
