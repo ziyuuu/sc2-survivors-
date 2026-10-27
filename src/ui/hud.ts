@@ -106,7 +106,7 @@ export class HUD {
  readonly carrierInspector:CarrierInspector;root:HTMLElement;readonly minimap:Minimap;readonly squadConsole:SquadConsole;private cache=new Map<string,string>();private iconLoaded=new Set<string>();private preparingElite:EliteId|null=null;
  constructor(readonly world:World,readonly view:BattleRenderer,readonly controls:ControlSettings,readonly preferences=new HudSettings(),readonly equipmentUI=false){this.root=document.querySelector('#interface')!;this.root.classList.add('game-frame');this.root.dataset.device=matchMedia('(pointer:coarse)').matches?'mobile':'desktop';
   let coverStorage:Storage|undefined;try{coverStorage=localStorage;}catch{}this.coverPreference=new CoverPreference(coverStorage);this.coverAt=performance.now();
-  this.menuRace=world.permanentProfile.activeRace;this.menuPreset=world.permanentProfile.activePreset;try{const value=localStorage.getItem('sc2.newGameDifficulty');if(value==='easy'||value==='normal'||value==='hard'||value==='hell')this.menuDifficulty=value;}catch{}
+  this.menuRace=world.permanentProfile.activeRace;this.menuPreset=world.permanentProfile.activePreset;try{const value=localStorage.getItem('sc2.newGameDifficulty');if((value==='easy'||value==='normal'||value==='hard'||value==='hell')&&world.permanentProfile.difficultyUnlocked(value))this.menuDifficulty=value;}catch{}
   this.root.innerHTML=`<header id="topbar" class="battle-top"><span class="battle-location" id="battle-location"></span><div class="battle-resources"><span class="money minerals">${image('ui.minerals')}<b id="minerals">50</b></span><span class="money gas">${image('ui.gas')}<b id="gas">0</b></span></div><div class="battle-stage"><b id="stage"></b><strong id="clock">02:00</strong></div><button data-action="pause" class="icon-button" aria-label="暂停">${glyph('pause')}</button></header>
    <div id="mission"></div><aside id="random-mission" aria-label="随机任务"></aside><div id="notice" role="status" aria-live="polite"></div><div id="production-status"></div>
 
@@ -171,8 +171,8 @@ export class HUD {
    else if(action==='menu-preset-select'){const at=Number(button.dataset.slot);if(at===0||at===1||at===2){this.menuPreset=at;this.starterHeroChoice=null;}}
    else if(action==='menu-race'&&RACES.includes(button.dataset.race as Race)){this.menuRace=button.dataset.race as Race;this.menuPreset=world.permanentProfile.activePresetFor(this.menuRace);this.starterHeroChoice=null;}
    else if(action==='menu-race-next')this.menuPage='difficulty';
-   else if(action==='menu-difficulty'){const d=button.dataset.difficulty;if(d==='easy'||d==='normal'||d==='hard'||d==='hell'){this.menuDifficulty=d;try{localStorage.setItem('sc2.newGameDifficulty',d);}catch{}}}
-   else if(action==='menu-difficulty-next')this.menuPage='confirm';
+   else if(action==='menu-difficulty'){const d=button.dataset.difficulty;if((d==='easy'||d==='normal'||d==='hard'||d==='hell')&&world.permanentProfile.difficultyUnlocked(d)){this.menuDifficulty=d;try{localStorage.setItem('sc2.newGameDifficulty',d);}catch{}}}
+   else if(action==='menu-difficulty-next'&&world.permanentProfile.difficultyUnlocked(this.menuDifficulty))this.menuPage='confirm';
    else if(action==='menu-edit-talents'){this.talentRace=this.menuRace;this.talentPage='lines';this.talentOpen=true;this.selectedTalentId=null;this.flowError='';}
    else if(action==='menu-start'){this.flowError='';this.onPrepareNew();}
    else if((action==='menu-load'||action==='menu-load-summary')){this.flowError='';this.settingsOpen=true;this.settingsTab='saves';}
@@ -302,6 +302,7 @@ export class HUD {
   else if(w.phase==='endless-ready')this.put('overlay',renderEndless(w,this.mapPreview.live(w)??''));
   else if(w.phase==='won'||w.phase==='lost'||w.phase==='finished')this.put('overlay',renderVictory(w,this.saveUI?.render('ended')??'',this.session?.busy??false,this.equipmentUI));
   else if(w.paused)this.put('overlay',renderPause(w,this.saveUI?.render('pause')??''));
+  else this.put('overlay','');
   const captures=!overlay.hidden||this.squadConsole.isOpen;for(const selector of ['#topbar','#battle-ui-field','#battle-console .console-body']){const node=this.root.querySelector<HTMLElement>(selector);if(node)node.inert=captures;}
   this.root.classList.toggle('in-battle',w.phase==='battle');this.playerServices?.mount(this.root);refreshResourceDownloads(this.root,this.downloads,w.phase==='menu'?this.menuRace:w.expedition.race);
   const focusPhase=this.readiness?.state.kind?'loading:'+this.readiness.state.kind+':'+this.readiness.state.phase:this.talentOpen?'talents:'+this.talentPage+':'+this.talentRace+':'+this.talentLine:this.settingsOpen?'settings':w.phase==='menu'?'menu:'+this.menuPage:w.expedition.pendingTalentLoot?'loot:'+w.expedition.pendingTalentLoot.receipt:w.eliteRescueChoice?'scout:'+w.eliteRescueChoice.receipt:w.expedition.pendingShopSupply?'shop-supply:'+w.expedition.pendingShopSupply.offerId:w.expedition.pendingShopElite?'shop-elite:'+w.expedition.pendingShopElite.offerId+':'+w.expedition.pendingShopElite.variantId:w.expedition.pendingReceipt?'receipt:'+w.expedition.pendingReceipt.id:w.eliteChoice?'elite:'+w.eliteChoice:w.phase==='reward'?'intermission:'+JSON.stringify(this.intermission.current)+':'+w.rewardRound:w.phase+':'+w.paused;if(this.lastPhase!==focusPhase){this.lastPhase=focusPhase;this.inputReset();if(w.phase==='menu'||this.readiness?.state.kind||w.phase==='reward'||w.expedition.pendingReceipt||w.expedition.pendingTalentLoot||w.expedition.pendingShopElite||w.eliteRescueChoice)this.focusAfterUpdate(()=>this.navigationFocus());}

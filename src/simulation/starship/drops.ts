@@ -28,7 +28,7 @@ const normalElite=[[80,20],[60,40],[40,60],[30,70]],normalBoss=[[80,15,5],[70,20
 function orange(weight:number){return [row('orangeSet',5,weight*.7),row('orangeModule',5,weight*.3)];}
 export function equipmentDropPolicy(c:EquipmentDropContext){const stage=stages(c),b=bases[c.difficulty],base=ordinary(b.qualities,b.weights[stage]),baseChance=c.difficulty==='easy'&&c.tier==='regular'?EASY_REGULAR_EQUIPMENT_RATES[stage]:b.rate[stage]*(c.tier==='boss'?40:c.tier==='elite'?20:1);let guaranteed:EquipmentPoolRow[]=[];
  if(c.tier!=='regular'){
-  const boss=c.tier==='boss';if(c.difficulty==='easy')guaranteed=[row(boss?'greenSet':'ordinary',2,100)];
+  const boss=c.tier==='boss';if(c.difficulty==='easy')guaranteed=boss?[row('greenSet',2,100)]:ordinary([1,2],[[70,30],[55,45],[40,60],[30,70]][stage]);
   if(c.difficulty==='normal'){const p=(boss?normalBoss:normalElite)[stage];guaranteed=boss?[row('blueSet',3,p[0]),row('special',3,p[1]),row('ordinary',4,p[2])]:[row('greenSet',2,p[0]),row('ordinary',3,p[1])];}
   if(c.difficulty==='hard'){const p=(boss?hardBoss:hardElite)[stage];guaranteed=boss?[row('lowerPurple',3,p[0]),row('purpleSet',4,p[1]),row('special',4,p[2])]:[row('blueSet',3,p[0]),row('special',3,p[1]),row('lowerPurple',3,p[2])];}
   if(c.difficulty==='hell'){const p=(boss?hellBoss:hellElite)[stage];guaranteed=boss?[row('purpleSet',4,p[0]),row('special',4,p[1]),row('lowerOrange',4,p[2]),...orange(p[3])]:[row('purpleSet',4,p[0]),row('special',4,p[1]),...orange(p[2])];}

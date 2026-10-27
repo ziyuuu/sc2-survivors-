@@ -11,7 +11,7 @@ import {TAVERN_MULTIPLIERS} from '../fun-shop/state';
 import type {EventCategory,HordeKind} from './state';
 import {eventWindowSafe,noteEventAdmission,observeEventWindow} from './event-window';
 
-export const naturalEventChance=(stage:number)=>stage<4||stage>18?0:stage<=6?.6:stage<=12?.7:.8;
+export const naturalEventChance=(stage:number)=>stage<4||stage>18?0:stage<=6?.3:stage<=12?.35:.4;
 export const eventCategoryWeights=(tavern:number)=>({mission:45*TAVERN_MULTIPLIERS[tavern],encounter:35,horde:20});
 export function encounterCandidates(w:World,bait=false):(EncounterKind|FunKind)[]{
  const s=w.encounters;

@@ -9,3 +9,5 @@ export const MISSION_RULES={
  eggs:{minimum:12,maximum:18,workerChance:.6,banelingChance:.2,pulseSeconds:3,pulseWarning:.6,pulseRadius:2.2},
  fleet:{towers:8,activationTicks:300,guards:[8,10,12,16],cooldownTicks:18000,lifetimeTicks:3600,arrivalTicks:45,firstSkillTicks:180,skillTicks:900,chargeTicks:75,flightTicks:15,damage:300}
 } as const;
+/** Later campaign tasks admit reinforcement waves more frequently, with a bounded 20% increase. */
+export const missionWaveTicks=(ticks:number,stage:number)=>Math.round(ticks/(1+.2*Math.max(0,Math.min(1,(stage-4)/14))));

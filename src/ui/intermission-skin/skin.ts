@@ -50,6 +50,8 @@ export function mountIntermissionSkin(root:HTMLElement,getWorld:()=>World,option
    for(const el of query<HTMLElement>('.im-card')){
     const id=el.dataset.cardId!,was=knownSold.get(id),sold=el.classList.contains('im-sold');
     if(!el.dataset.imxCard){
+     // Purchases rerender the shelf with the same offer IDs. Deal only new offers.
+     if(was!==undefined)el.classList.add('imx-retained');
      const face=el.querySelector<HTMLElement>('.im-card-face');if(!face)continue;
      const v=getViews().get(id),c=v?.card,p=c?cardPresentation(w,c,v?.reward):null;
      const name=(c?.name??face.querySelector('h2')?.textContent??'').replace(v?.reward?.expeditionEffect.kind==='supply'?/\s*×\d+(?:对)?$/:/$^/,''),simple=p?.simple??face.querySelector('.im-effect')?.textContent??'',detail=p?.detail??simple;

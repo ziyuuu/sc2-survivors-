@@ -11,6 +11,8 @@ const LIMITS={encounter:1,elite:2,horde:1},COOLDOWNS={encounter:60,elite:45,hord
 export function tickBait(w:World){
  const s=w.funShop,level=s.levels.bait;if(!level||w.diagnosticRun||w.specialStages.active||w.phase!=='battle'||w.paused||w.endless||w.stage<4||w.stage>18)return;
  if(s.bait.stage!==w.stage)s.bait={...newFunShop().bait,stage:w.stage};const b=s.bait;
+ // One extra admission in total, including restored shelves with older per-category quotas.
+ if(Object.values(b.counts).reduce((sum,n)=>sum+n,0)>=1){for(const key of CATEGORIES)b.pending[key]=false;return;}
  const categories=hordeAllowed(w.difficulty)?CATEGORIES:CATEGORIES.filter(k=>k!=='horde');
  if(!hordeAllowed(w.difficulty))b.pending.horde=false;
  if(w.duration-w.stageElapsed<20){for(const key of CATEGORIES)b.pending[key]=false;return;}

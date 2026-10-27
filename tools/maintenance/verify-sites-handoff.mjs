@@ -9,7 +9,7 @@ import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const snapshot=path.resolve(root,process.argv[2]??'sites/size-optimized-site');
 const checkout=path.resolve(root,process.argv[3]??'sites/v04-private-test');
-const deployedCommit=process.argv[4]??'2b7c10d5acaad69ff2f7735891e069510309cc9a';
+const deployedCommit=process.argv[4]??'ffa349c01b3934fcfd2b320bbfcbc9cef6cdff35';
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const git=(dir,...args)=>execFileSync('git',['-C',dir,...args],{encoding:'utf8',maxBuffer:20*1024*1024});
 const errors=[];

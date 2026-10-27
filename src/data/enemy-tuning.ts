@@ -7,7 +7,7 @@ export const CAMPAIGN_QUANTITY:Record<Difficulty,readonly number[]>={
  hard:[1.7,1.85,2.05,2.25,2.45,2.65],hell:[2.1,2.35,2.65,2.95,3.25,3.6],
 };
 export const CAMPAIGN_WAVES:Record<Difficulty,readonly number[]>={
- easy:[6,8,10,12,13,16],normal:[6,9,11,13,14,18],hard:[8,10,12,15,17,21],hell:[9,12,14,17,19,23],
+ easy:[6,8,10,12,14,18],normal:[6,9,11,13,15,19],hard:[8,10,12,15,18,23],hell:[9,12,15,18,21,27],
 };
 export type EnemyDensity=1|0.3|0.5;
 /** The scheduled birth, not the eventual admission time. Kept on queued and living bodies. */
@@ -23,6 +23,7 @@ export const endlessFrequency=(seconds:number)=>1+.04*Math.min(5,Math.max(0,seco
 /** Numerical safety ceiling only; no spawn-serial or previous-enemy input. */
 export function continuousEndlessGrowth(seconds=0){const x=Math.max(0,seconds)/60;return {health:Math.min(1e100,1.22**x),damage:Math.min(1e100,1.1**x),attackSpeed:Math.min(1.25,1.025**x)};}
 export const ORDINARY_CURVES={
+ easy:{health:[.8,1.8],damage:[1,1.6],attackSpeed:[1,1.2]},
  normal:{health:[1.1,3.4],damage:[1.05,3.2],attackSpeed:[1.02,1.45]},
  hard:{health:[2,13.52],damage:[1.35,6],attackSpeed:[1.02,1.456]},
  hell:{health:[4,31.2],damage:[2,150/13],attackSpeed:[1.08,1.625]},
@@ -31,10 +32,10 @@ export const ORDINARY_CURVES={
  * the existing curve continuously across stages 4–6, without a stage-4 jump.
  * Wave count, density and rewards stay unchanged. */
 export function normalIntroPressure(progress:number){const stage=clamp01(progress)*18;return stage<=3?{health:linear(.35,.55,stage/3),damage:linear(.18,.3,stage/3)}:{health:linear(.55,1,clamp01((stage-3)/3)),damage:linear(.3,1,clamp01((stage-3)/3))};}
-export function continuousOrdinaryGrowth(difficulty:Exclude<Difficulty,'easy'>,progress:number,endlessSeconds=0){
+export function continuousOrdinaryGrowth(difficulty:Difficulty,progress:number,endlessSeconds=0){
  const p=clamp01(progress),c=ORDINARY_CURVES[difficulty],f=difficulty==='normal'?linear:geometric,g=continuousEndlessGrowth(endlessSeconds);
  const intro=difficulty==='normal'?normalIntroPressure(p):{health:1,damage:1};
- return {health:f(c.health[0],c.health[1],p)*g.health*intro.health,damage:f(c.damage[0],c.damage[1],p)*g.damage*intro.damage,attackSpeed:linear(c.attackSpeed[0],c.attackSpeed[1],p)*g.attackSpeed,armor:Math.min(1,1.5*p),move:linear(difficulty==='normal'?1:1.05,difficulty==='hard'?1.12:difficulty==='hell'?1.18:1,p)};
+ return {health:f(c.health[0],c.health[1],p)*g.health*intro.health,damage:f(c.damage[0],c.damage[1],p)*g.damage*intro.damage,attackSpeed:linear(c.attackSpeed[0],c.attackSpeed[1],p)*g.attackSpeed,armor:difficulty==='easy'?0:Math.min(1,1.5*p),move:difficulty==='easy'?1:linear(difficulty==='normal'?1:1.05,difficulty==='hard'?1.12:difficulty==='hell'?1.18:1,p)};
 }
 export const continuousLingHp=(p:number)=>18*(35/18)**Math.min(1,6*clamp01(p));
 export const continuousMainHiveHp=(difficulty:Difficulty,p:number)=>(difficulty==='easy'?9000:12000)*(difficulty==='hard'?geometric(2,5.2,clamp01(p)):difficulty==='hell'?geometric(4,12,clamp01(p)):1);
@@ -44,12 +45,12 @@ export const ENDLESS_ELITE_HP:Partial<Record<SpecialType,number>>={zergling:1600
 export function continuousSpecialProfile(difficulty:Difficulty,type:SpecialType,tier:EnemyTier,stamp:EnemySpawnStamp,base:{hp:number;damage:number;period:number;armor:number}):{hp:number;damage:number;period:number;armor:number;skillDamage:number;level:number;move:number}{
  const p=clamp01(stamp.progress),g=continuousEndlessGrowth(stamp.endlessSeconds),easy=difficulty==='easy',f=difficulty==='normal'||easy?linear:geometric;
  const intro=difficulty==='normal'?normalIntroPressure(p):{health:1,damage:1};
- const hpPressure=(easy?1:f(difficulty==='normal'?1.05:difficulty==='hard'?2:4,difficulty==='normal'?1.3:difficulty==='hard'?5.2:12,p))*intro.health;
- const damagePressure=(easy?1:f(difficulty==='normal'?1.05:difficulty==='hard'?1.35:2,difficulty==='normal'?1:difficulty==='hard'?2.6:5,p))*intro.damage;
- const speedPressure=easy?1:linear(difficulty==='hell'?1.08:1.02,difficulty==='normal'?1:difficulty==='hard'?1.12:1.25,p);
+ const hpPressure=(easy?linear(1,1.35,p):f(difficulty==='normal'?1.05:difficulty==='hard'?2:4,difficulty==='normal'?1.3:difficulty==='hard'?5.2:12,p))*intro.health;
+ const damagePressure=(easy?linear(1,1.3,p):f(difficulty==='normal'?1.05:difficulty==='hard'?1.35:2,difficulty==='normal'?1:difficulty==='hard'?2.6:5,p))*intro.damage;
+ const speedPressure=easy?linear(1,1.12,p):linear(difficulty==='hell'?1.08:1.02,difficulty==='normal'?1:difficulty==='hard'?1.12:1.25,p);
  const boss=tier!=='elite',lord=tier==='lord',data=bossFor(type);
  if(boss){
-  const hpBase=linear(data.hp*(easy?.5:.9),ENDLESS_BOSS_HP[type]*(easy?5/9:1),p**3);
+  const hpBase=linear(data.hp*(easy?.5:.9),ENDLESS_BOSS_HP[type]*(easy?5/9:1),p**(easy?2:3));
   const damage=(easy?1:linear(1,1.2,p))*damagePressure*g.damage*(lord?1.15:1);
   return {hp:Math.min(1e100,hpBase*hpPressure*g.health*(lord?1.3:1)),damage:base.damage*2*damage,period:Math.max(1/60,base.period/((easy?1:linear(1,1.2,p))*speedPressure*g.attackSpeed)),armor:data.armor,skillDamage:damage,level:eliteGrowth(difficulty,stamp.stage).level,move:1};
  }

@@ -84,6 +84,11 @@
 #interface #overlay[data-layout=portrait].imx .im-footer>.primary{min-height:44px;font-size:calc(14px * var(--text-scale,1))}
 
 /* Existing summary/detail toggle: expanded text gets useful space at readable size. */
+#interface #overlay.imx .im-card.imx-retained:not(.imx-flash),#interface #overlay.imx .im-card.imx-retained:not(.imx-flash)::after{animation:none}
+/* Reserve feedback space before purchase, including the check icon's intrinsic height. */
+#interface #overlay.imx .intermission-screen>.im-choice-grid .im-card-status,#interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .im-card-status{min-height:max(24px,calc(24px * var(--text-scale,1)));line-height:1.3}
+#interface #overlay.imx .intermission-screen>.im-choice-grid .im-card-status>svg{width:14px;height:14px;vertical-align:middle}
+#interface #overlay.imx .intermission-screen>.im-choice-grid .im-card-action svg{width:14px;height:14px;flex:none}
 #interface #overlay.imx .imx-copy[aria-expanded=true]{white-space:pre-line}
 #interface #overlay:not([data-layout=portrait]).imx .intermission-screen>.im-choice-grid:has(.imx-copy[aria-expanded=true]){grid-template-rows:minmax(48px,1fr) max-content max-content minmax(120px,1.4fr) max-content max-content max-content}
 #interface #overlay[data-layout=portrait].imx .intermission-screen>.im-choice-grid .imx-copy[aria-expanded=true]{height:auto;max-height:none;overflow:visible}

@@ -1,0 +1,11 @@
+{
+  "scope": "Final local compressed candidate against deployed v6 snapshot",
+  "passed": true,
+  "unchangedFiles": 61,
+  "bundles": 58,
+  "resourceRelease": "d5f891f541f0082451c319ab026eeef761d943e930547ac4bd1a69a029a8e9fe",
+  "appBuildId": "78b01cbe0961bb3cf6473be1d8ddd7367a5cbcb7ba24de07404dccb8ef331f28",
+  "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+  "compressedEntrySha256": "ddb0ca0543adcbf3f2fbb0987059f13bc2710575d5db259108bf2d45c7240ddc",
+  "remoteUpdated": false
+}

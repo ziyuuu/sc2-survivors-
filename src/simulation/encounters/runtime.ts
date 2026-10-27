@@ -58,7 +58,7 @@ export function spawnEncounter(w:World,kind:EncounterKind,bait=false){
  if(!point)return false;
  const id=`${w.runId}:encounter:${s.serial+1}`,context={difficulty:w.difficulty,stage:w.stage};
  const plans:EncounterRecord['plans']=[];
- if(kind==='golden')for(let i=1;i<=10;i++)plans.push([planOrdinaryEncounterEquipment(w,{...context,tier:'regular'},id+':node:'+i,i===10?6:i===5?2:1,i===10)!]);
+ if(kind==='golden')for(let i=1;i<=10;i++)plans.push(i%2?[]:[planOrdinaryEncounterEquipment(w,{...context,tier:'regular'},id+':node:'+i,i===10?4:1,i===10)!]);
  if(kind==='giant')for(let i=0;i<4;i++){
   const tiers=i===0?['elite']:i===1?['elite','elite']:i===2?['elite','boss']:['boss','boss'];
   plans.push(tiers.map((tier,j)=>planTaskEquipment(w,{...context,tier:tier as 'elite'|'boss'},id+':tier:'+i+':'+j)!));
@@ -110,6 +110,7 @@ export function encounterAfterHit(w:World,b:Body,before:number,sourceId?:number)
  const u=w.entities.get(b.id),c=u?.encounter,m=w.encounters.active;if(!u||!c||before<=u.hp)return;
  if(c.role==='attacker'){if(sourceId!==undefined&&w.entities.get(sourceId)?.owner==='terran'){c.distractedUntil=w.time+3;c.distractedBy=sourceId;}if(m?.id===c.id&&m.phase==='offered'){m.phase='active';m.age=0;}return;}
  if(c.role!=='subject'||!m||m.id!==c.id)return;
+ if(c.kind==='giant')c.engaged=true;
  if(m.phase==='offered'){m.phase='active';m.age=0;}
  if(c.kind==='golden'){
   const threshold=u.hp<=0?10:Math.min(9,Math.floor((1-u.hp/u.maxHp)*10+1e-8));
@@ -130,6 +131,7 @@ export function encounterDamageAllowed(w:World,target:Body,sourceOwner:Body['own
 }
 export function encounterTargetAllowed(w:World,u:Entity,b:Body){
  const a=u.encounter,c=w.entities.get(b.id)?.encounter,m=w.encounters.active;
+ if(a?.kind==='giant'&&a.role==='subject'&&!giantEngaged(u))return false;
  if(a?.role==='subject'&&(a.kind==='golden'||a.kind==='gentle'||m?.id===a.id&&m.phase==='offered'))return false;
  if(a?.role==='attacker'&&m?.id===a.id&&m.phase==='offered')return false;
  if(c?.role==='subject'&&c.kind==='gentle')return a?.role==='attacker'&&a.id===c.id&&m?.phase==='active';
@@ -171,8 +173,12 @@ export function tickEncounterUnit(w:World,u:Entity,dt:number){
  }
  if(c.kind==='giant'&&m.growthBlocked){
   for(let i=0;i<24;i++){const a=i*2.399963,p={x:u.x+Math.sin(a)*4,z:u.z+Math.cos(a)*4};if(encounterPointLegal(w,p,c.base!.unitRadius*sizes[m.tier+1],u.id)){walk(w,u,p,dt);break;}}return true;
- }return false;
+ }
+ if(c.kind==='giant'&&!giantEngaged(u)){u.prev={x:u.x,z:u.z};u.velocity={x:0,z:0};u.action='idle';u.attackTarget=null;u.pendingTarget=null;u.windup=0;return true;}
+ return false;
 }
+/** Older current-schema saves predate the explicit provocation flag. */
+function giantEngaged(u:Entity){return u.encounter?.engaged===true||u.encounter?.engaged===undefined&&u.hp<u.maxHp;}
 export function cancelEncounters(w:World){
  cancelExpandedEncounters(w,['won','endless-ready','finished'].includes(w.phase)?'success':'failure');
  const s=w.encounters;end(w,'cancelled',true);

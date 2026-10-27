@@ -22,7 +22,7 @@ test('R4 natural stage bands have exact chance thresholds, one roll and no first
   const boss=w.spawnSpecial('roach','boss',{x:30,z:0})!;at(w,19.99);tickEventPacing(w);assert.equal(calls,0);at(w,20);tickEventPacing(w);
   assert.equal(calls,chance?1:0);assert.equal(w.fieldEvents.pacing.pending,!!chance&&!above);at(w,21);tickEventPacing(w);assert.equal(calls,chance?1:0);assert.ok(boss.hp>0);
  }
- assert.deepEqual([4,7,13].map(naturalEventChance),[.6,.7,.8]);
+ assert.deepEqual([4,7,13].map(naturalEventChance),[.3,.35,.4]);
 });
 test('R4 native scheduler uses weighted legal categories, starts once, and cancels unfulfilled rolls on stage change',()=>{
  const w=world(4),rolls=[0,.99,0];w.random=()=>rolls.shift()??0;at(w,20);tickEventPacing(w);assert.equal(w.fieldEvents.horde?.kind,'zerglings');assert.equal(w.fieldEvents.pacing.started,true);assert.equal(w.fieldEvents.pacing.pending,false);

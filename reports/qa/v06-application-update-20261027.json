@@ -1,0 +1,56 @@
+{
+  "checks": [
+    "missing-resources-rejected-before-activation",
+    "real-previous-to-current-local-update-preserves-config-and-old-app",
+    "new-app-health-resources-and-cache-policy",
+    "repeat-update-idempotent",
+    "tampered-app-rejected-before-activation",
+    "actual-old-app-rollback-health-and-resource-read",
+    "reapply-current-pointer-and-start"
+  ],
+  "complete": true,
+  "previousRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+  "targetRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+  "externalDeployment": false,
+  "oldHealth": {
+    "ok": true,
+    "appBuildId": "6339964b37d6fc9e293020dddc51e79947e3c86b945a79d4837b8d947fa6ebf6",
+    "assetReleaseId": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "runSchema": 26,
+    "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "resources": "local"
+  },
+  "activation": {
+    "appBuildId": "78b01cbe0961bb3cf6473be1d8ddd7367a5cbcb7ba24de07404dccb8ef331f28",
+    "packageBuildId": "1c0af298eeb86ad02c0fa00d9c8b88ef9e97e901a7272647fb2dc305a8843a5c",
+    "retained": 3748,
+    "installed": 0,
+    "downloadedMissing": 0,
+    "productionDependencies": 1,
+    "restartRequired": true
+  },
+  "newHealth": {
+    "ok": true,
+    "appBuildId": "78b01cbe0961bb3cf6473be1d8ddd7367a5cbcb7ba24de07404dccb8ef331f28",
+    "assetReleaseId": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "runSchema": 26,
+    "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "resources": "local"
+  },
+  "rollbackHealth": {
+    "ok": true,
+    "appBuildId": "6339964b37d6fc9e293020dddc51e79947e3c86b945a79d4837b8d947fa6ebf6",
+    "assetReleaseId": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "runSchema": 26,
+    "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "resources": "local"
+  },
+  "rollForwardHealth": {
+    "ok": true,
+    "appBuildId": "78b01cbe0961bb3cf6473be1d8ddd7367a5cbcb7ba24de07404dccb8ef331f28",
+    "assetReleaseId": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "runSchema": 26,
+    "release": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "resources": "local"
+  }
+}

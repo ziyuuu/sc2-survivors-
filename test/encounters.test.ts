@@ -15,19 +15,19 @@ function world(difficulty:'easy'|'normal'|'hard'|'hell'='normal',stage=7){
 function tick(w:World,n=1){for(let i=0;i<n;i++){w.tick++;w.time=w.tick/60;tickEncounters(w);}}
 function spawn(w:World,k:EncounterKind){assert.equal(spawnEncounter(w,k),true);tick(w,120);const m=w.encounters.active!;assert.equal(m.phase,'offered');return {m,u:w.entities.get(m.subject!)!};}
 const gear=(w:World)=>Object.values(w.starship.account.items);
-test('golden ten nodes guarantee 16 ordinary items and each node pays once',()=>{
+test('golden five reward nodes guarantee 8 ordinary items and each node pays once',()=>{
  const w=world(),{m,u}=spawn(w,'golden'),total=u.maxHp;
- for(let n=1;n<=9;n++){w.hit(u,total*.1,[],1,'terran',0,1);assert.equal(m.threshold,n);assert.equal(gear(w).length,n+(n>=5?1:0));}
- w.hit(u,total,[],1,'terran',0,1);assert.equal(gear(w).length,16);
+ for(let n=1;n<=9;n++){w.hit(u,total*.1,[],1,'terran',0,1);assert.equal(m.threshold,n);assert.equal(gear(w).length,Math.floor(n/2));}
+ w.hit(u,total,[],1,'terran',0,1);assert.equal(gear(w).length,8);
  const max=Math.max(...equipmentDropPolicy({difficulty:'normal',stage:7,tier:'regular'}).base.map(r=>r.quality));
  assert.equal(m.plans[9][0].items.at(-1)!.item.quality,max);
  assert.ok(gear(w).every(e=>e.quality<=max));const rng=w.starship.account.rng;
- w.hit(u,total,[],1,'terran',0,1);flushEncounterRewards(w);assert.equal(gear(w).length,16);assert.equal(w.starship.account.rng,rng);assert.equal(w.pickups.length,0);assert.equal(w.rewardDrops.length,0);
+ w.hit(u,total,[],1,'terran',0,1);flushEncounterRewards(w);assert.equal(gear(w).length,8);assert.equal(w.starship.account.rng,rng);assert.equal(w.pickups.length,0);assert.equal(w.rewardDrops.length,0);
  tick(w);assert.equal(w.encounters.active,null);assert.equal(spawnEncounter(w,'golden'),false);
 });
 test('golden one-shot supplements all nodes; healed thresholds never pay twice',()=>{
- const a=world(),one=spawn(a,'golden');a.hit(one.u,1e9,[],1,'terran',0,1);assert.equal(gear(a).length,16);
- const w=world(),{m,u}=spawn(w,'golden');w.hit(u,u.maxHp*.51,[],1,'terran',0,1);assert.equal(gear(w).length,6);u.hp=u.maxHp;w.hit(u,u.maxHp*.51,[],1,'terran',0,1);assert.equal(gear(w).length,6);assert.equal(m.threshold,5);
+ const a=world(),one=spawn(a,'golden');a.hit(one.u,1e9,[],1,'terran',0,1);assert.equal(gear(a).length,8);
+ const w=world(),{m,u}=spawn(w,'golden');w.hit(u,u.maxHp*.51,[],1,'terran',0,1);assert.equal(gear(w).length,2);u.hp=u.maxHp;w.hit(u,u.maxHp*.51,[],1,'terran',0,1);assert.equal(gear(w).length,2);assert.equal(m.threshold,5);
 });
 for(const difficulty of ['easy','normal','hard','hell'] as const)for(const stage of [4,9,17])test(`${difficulty} stage ${stage} highest guarantee never borrows elite or Boss pools`,()=>{
  const w=world(difficulty,stage),policy=equipmentDropPolicy({difficulty,stage,tier:'regular'}),max=Math.max(...policy.base.filter(p=>p.weight>0).map(p=>p.quality));
@@ -37,7 +37,7 @@ for(const difficulty of ['easy','normal','hard','hell'] as const)for(const stage
 });
 test('golden countdown starts on first damage, pause freezes, escape preserves earlier ground loot',()=>{
  const w=world(),{m,u}=spawn(w,'golden');tick(w,200);assert.equal(m.age,0);
- w.hit(u,u.maxHp*.5,[],1,'terran',0,1);const ids=gear(w).map(i=>i.id);assert.equal(ids.length,6);
+ w.hit(u,u.maxHp*.5,[],1,'terran',0,1);const ids=gear(w).map(i=>i.id);assert.equal(ids.length,2);
  w.paused=true;const before=structuredClone(w.encounters);w.advance(3);assert.deepEqual(w.encounters,before);w.paused=false;
  tick(w,1199);assert.ok(w.encounters.active);tick(w);assert.equal(w.encounters.active,null);assert.equal(w.entities.has(u.id),false);assert.deepEqual(gear(w).map(i=>i.id),ids);
 });

@@ -1,0 +1,36 @@
+{
+  "scope": "Read-only packed resource and local source correspondence; no runtime, visual, audio or cloud database replay",
+  "snapshot": "sites/size-optimized-site",
+  "checkout": "sites/v04-private-test",
+  "deployedCommit": "ffa349c01b3934fcfd2b320bbfcbc9cef6cdff35",
+  "checkoutCommit": "ffa349c01b3934fcfd2b320bbfcbc9cef6cdff35",
+  "snapshotFiles": 190,
+  "snapshotDifferences": {
+    "missing": [],
+    "different": [],
+    "extras": [],
+    "rawByteEqual": 190,
+    "lineEndingOnlyCount": 0,
+    "lineEndingOnly": []
+  },
+  "commitDiff": [],
+  "rootGameDiff": [],
+  "resources": {
+    "assetCount": 3845,
+    "fileCount": 3742,
+    "assetBytes": 351051007,
+    "logicalBytes": 354049353,
+    "sharedBytes": 2998346,
+    "packIndexEntries": 3742,
+    "bundles": 58,
+    "packedBytes": 229174031,
+    "modelsWithValidHeader": 282,
+    "publicFiles": 68,
+    "publicBytes": 239816894,
+    "release": "d5f891f541f0082451c319ab026eeef761d943e930547ac4bd1a69a029a8e9fe",
+    "releaseMatchesDescriptor": true
+  },
+  "metadataMismatches": [],
+  "errors": [],
+  "passed": true
+}

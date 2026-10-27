@@ -1,7 +1,7 @@
 import {escortSpawnClear,escortSpawnPoint} from './escort-spawn';
 import {missionAllowed} from '../progression/fun-availability';
 import {cancelEncounters} from '../encounters/runtime';
-import {MISSION_RULES} from './config';
+import {MISSION_RULES,missionWaveTicks} from './config';
 import {spawnFleet,tickFleetMission,tickFleetCall,clearFleet} from './fleet';
 import {spawnRescue,tickRescue,cleanupRescue} from './rescue';
 import {spawnEggs,tickEggs,createPulseBaneling,tickPulseBaneling} from './eggs';
@@ -21,6 +21,8 @@ import {campaignProgress} from '../../data/enemy-tuning';
 export const MISSION_NAMES:Record<MissionKind,string>={escort:'护送农民',repair:'守卫并修复废弃建筑',intel:'情报收集',rescue:'营救精英',hives:'消灭虫巢群',eggs:'虫卵噩梦',fleet:'谁在呼叫舰队'};
 export function missionBodies(w:World){return [...w.missions.bodies.values(),...corruptSiteBodies(w)].filter(b=>!b.resolved&&b.hp>0);}
 export function missionNear(w:World,b:Body,r:number){return distance(w.anchor,b)<=r+b.unitRadius&&(!w.terrain||w.terrain.walkLine(w.anchor,b,0))&&w.allies().some(u=>!u.temporary&&distance(u,b)<=r+b.unitRadius);}
+/** Recheck at birth: the player may have moved into a queued task's old spawn point. */
+export function missionAwayFromSquad(w:World,p:Point,r=0,clearance=8){return distance(w.anchor,p)>=clearance+r&&w.allies().every(u=>u.temporary||u.summonKind||distance(u,p)>=clearance+r+u.unitRadius);}
 export function missionPointLegal(w:World,p:Point,r:number){return Math.abs(p.x)+r<w.mapHalf&&Math.abs(p.z)+r<w.mapHalf&&!blocked(p,r,w.obstacles)&&(!w.terrain||w.terrain.canOccupy(p,r))&&![...missionBodies(w),...w.expansionHives.values(),...w.fortifications.values(),...(w.hive?.hp?[w.hive]:[]),...w.pods.filter(b=>b.status==='active'||b.status==='opening'),...[...w.economicTargets.values()].filter(b=>b.status==='active')].some(b=>distance(b,p)<b.unitRadius+r+.15)&&![...w.entities.values()].some(b=>b.hp>0&&distance(b,p)<b.unitRadius+r+.15);}
 export function makeMissionBody(w:World,m:MissionRecord,role:MissionBody['role'],p:Point,hp:number,model:string,owner:Body['owner'],radius:number,invulnerable=false):MissionBody {
  const b:MissionBody={id:w.nextId++,...p,hp,maxHp:hp,armor:0,unitRadius:radius,flying:false,owner,team:owner==='terran'?'player':'enemy',attributes:[...(['hatchery','hive','egg','drone'].includes(model)?['Biological']:['Mechanical']),...(role==='worker'?[]:['Structure'])],missionId:m.id,role,model,invulnerable,resolved:false,age:0,progress:0,facing:0};
@@ -46,9 +48,9 @@ export function spawnMission(w:World,kind:MissionKind):boolean {
  if(!missionAllowed(w.difficulty,kind)||w.endless||w.stage<4||w.stage>18||w.missions.active||w.phase!=='battle')return false;
  if(['repair','intel','hives','eggs','rescue','fleet'].includes(kind)){const m:MissionRecord={id:String(w.runId)+':mission:'+(w.missions.serial+1),kind,phase:'offered',stage:w.stage,age:0,bodyIds:[],enemyIds:[],queue:[],progress:0,completed:0,total:1,nextSpawn:0,receipts:[]};if(!(kind==='fleet'?spawnFleet(w,m):kind==='rescue'?spawnRescue(w,m):kind==='repair'?spawnRepair(w,m):kind==='intel'?spawnIntel(w,m):kind==='eggs'?spawnEggs(w,m):spawnHives(w,m)))return false;w.missions.serial++;w.missions.active=m;w.missions.stage=w.stage;w.announce(MISSION_NAMES[kind]);return true;}if(kind!=='escort')return false;
  let start:Point|null=null,path:Point[]|null=null;
- for(let n=0;n<32&&!path;n++){const p=w.eventPoint(8,24);if(!missionPointLegal(w,p,2.5))continue;const candidate=escortRoute(w,p);if(candidate){const end=candidate.at(-1)!,prev=candidate.at(-2)!,angle=Math.atan2(end.x-prev.x,end.z-prev.z);if(missionPointLegal(w,{x:end.x+Math.sin(angle)*4.4,z:end.z+Math.cos(angle)*4.4},2.4)){start=p;path=candidate;}}}
+ for(let n=0;n<32&&!path;n++){const p=w.eventPoint(8,24);if(!missionPointLegal(w,p,2.5)||!missionAwayFromSquad(w,p,2.5,12))continue;const candidate=escortRoute(w,p);if(candidate){const end=candidate.at(-1)!,prev=candidate.at(-2)!,angle=Math.atan2(end.x-prev.x,end.z-prev.z);if(missionPointLegal(w,{x:end.x+Math.sin(angle)*4.4,z:end.z+Math.cos(angle)*4.4},2.4)){start=p;path=candidate;}}}
  if(!start||!path)return false;
- const id=`${w.runId}:mission:${++w.missions.serial}`,m:MissionRecord={id,kind,phase:'offered',stage:w.stage,age:0,bodyIds:[],enemyIds:[],queue:[],progress:0,completed:0,total:MISSION_RULES.escort.workersMin+Math.floor(w.random()*(MISSION_RULES.escort.workersMax-MISSION_RULES.escort.workersMin+1)),nextSpawn:180,receipts:[]};
+ const id=`${w.runId}:mission:${++w.missions.serial}`,m:MissionRecord={id,kind,phase:'offered',stage:w.stage,age:0,bodyIds:[],enemyIds:[],queue:[],progress:0,completed:0,total:MISSION_RULES.escort.workersMin+Math.floor(w.random()*(MISSION_RULES.escort.workersMax-MISSION_RULES.escort.workersMin+1)),nextSpawn:missionWaveTicks(MISSION_RULES.escort.waveTicks,w.stage),receipts:[]};
  w.missions.active=m;w.missions.stage=w.stage;
  const race=w.expedition.race,presentation=RESCUE_PRESENTATION[race],baseModel=race==='terran'?'command_center':race==='zerg'?'hatchery':'nexus';
  const end=path.at(-1)!,before=path.at(-2)!,heading=Math.atan2(end.x-before.x,end.z-before.z),basePoint={x:end.x+Math.sin(heading)*4.4,z:end.z+Math.cos(heading)*4.4};
@@ -88,7 +90,7 @@ export function releaseMissionQueue(w:World){
  const m=w.missions.active;if(!m)return;let slots=Math.min(8,Math.max(0,w.missionEnemyCapacity()-w.enemyCount()));
  while(slots-->0&&m.queue.length){
   const item=m.queue[0];if(w.time<(item.readyAt??0))break;const d=SC2_UNITS[item.type];let p:Point|null=null;
-  for(let i=0;i<24;i++){const angle=(i+m.enemyIds.length)*2.399963,r=.5+Math.floor(i/6)*.6,q={x:item.point.x+Math.cos(angle)*r,z:item.point.z+Math.sin(angle)*r};if(missionPointLegal(w,q,d.unitRadius*.8)&&(m.kind!=='escort'||escortSpawnClear(w,q,d.unitRadius))){p=q;break;}}
+  for(let i=0;i<120;i++){const angle=(i+m.enemyIds.length)*2.399963,r=i<24?.5+Math.floor(i/6)*.6:4+Math.floor((i-24)/12)*2,q={x:item.point.x+Math.cos(angle)*r,z:item.point.z+Math.sin(angle)*r};if(missionPointLegal(w,q,d.unitRadius*.8)&&missionAwayFromSquad(w,q,d.unitRadius)&&(m.kind!=='escort'||escortSpawnClear(w,q,d.unitRadius))&&clearLine(item.point,q,d.unitRadius,w.obstacles,w.terrain)){p=q;break;}}
   if(!p&&m.kind==='escort'){const worker=missionBodies(w).find(b=>b.role==='worker');if(worker){p=escortSpawnPoint(w,worker,m.enemyIds.length*2.399963,d.unitRadius,missionPointLegal);if(p)item.point={...p};}}
   if(!p)break;
   const u=item.pulse?createPulseBaneling(w,p,item):item.elite?w.spawnSpecial(item.type as import('../../data/enemies').SpecialType,'elite',p,item.stamp):w.addUnit(item.type,'zerg',p.x,p.z,1,'regular',item.stamp.stage,item.stamp);if(!u)break;u.guardOrigin=true;if(item.resources)u.enemyResources={...item.resources};
@@ -124,7 +126,7 @@ export function tickMissions(w:World){
   const path=b.path!,i=b.pathIndex!,goal=path[i];if(!goal){rewardWorker(w,m,b);continue;}
   const d=distance(b,goal),step=b.speed!/60;if(d<=step){b.x=goal.x;b.z=goal.z;b.pathIndex=i+1;if(i===path.length-1)rewardWorker(w,m,b);}else{const next=steerGoal(b,goal,b.unitRadius,w.obstacles,w.terrain,w.mapHalf),n=distance(b,next);if(n>.001){b.facing=Math.atan2(next.x-b.x,next.z-b.z);translate(b,{x:(next.x-b.x)/n*step,z:(next.z-b.z)/n*step},b.unitRadius,false,w.obstacles,w.mapHalf,w.terrain);}}
  }
- if(m.age>=m.nextSpawn&&!m.queue.length){queueEscort(w,m);m.nextSpawn=m.age+180;}
+ if(m.age>=m.nextSpawn&&!m.queue.length){queueEscort(w,m);m.nextSpawn=m.age+missionWaveTicks(MISSION_RULES.escort.waveTicks,w.stage);}
  releaseMissionQueue(w);
  if(!missionBodies(w).some(b=>b.role==='worker'))finishMission(w,m.completed>0?'succeeded':'failed');
 }

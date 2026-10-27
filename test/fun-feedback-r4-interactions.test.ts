@@ -30,9 +30,9 @@ test('R4 replacement preview does not mark an unworn item active and higher comp
 function rewardWorld(){const w=world();w.stage=3;w.prepareStage();w.specialStages.ticket={stage:4,kind:'resources',claimed:false};w.specialStages.offerChecked=4;w.endStage();assert.ok(w.skipDevelopment());return w;}
 const ticket=(w:World)=>w.rewards.find(r=>(r as ExpeditionReward).expeditionEffect.kind==='specialTicket')!;
 test('R4 ticket is a real free reward card, survives refresh, claims once without consuming ordinary purchases',()=>{
- const w=rewardWorld();w.wallet.minerals=10000;let r=ticket(w);assert.ok(r);assert.equal(w.rewards.length,4);assert.equal(r.minerals+r.gas,0);
+ const w=rewardWorld();w.wallet.minerals=10000;let r=ticket(w);assert.ok(r);assert.equal(w.rewards.length,3);assert.equal(r.minerals+r.gas,0);
  const html=renderIntermission(w,'',new IntermissionNavigation());assert.match(html,new RegExp('data-card-id="'+r.offerId+'"'));assert.doesNotMatch(html,/class="special-ticket"|data-action="special-ticket"/);assert.equal(offerView(w,r).free,true);
- const id=r.offerId;assert.ok(w.reroll());r=ticket(w);assert.equal(r.offerId,id);assert.equal(w.rewards.length,4);
+ const id=r.offerId;assert.ok(w.reroll());r=ticket(w);assert.equal(r.offerId,id);assert.equal(w.rewards.length,3);
  w.expedition.freePurchasesRemaining=1;const wallet={...w.wallet},claims=[...w.expedition.draftClaims];assert.ok(w.choose(id));assert.equal(w.choose(id),false);assert.deepEqual(w.wallet,wallet);assert.equal(w.expedition.freePurchasesRemaining,1);assert.deepEqual(w.expedition.draftClaims,claims);assert.equal(w.specialStages.ticket?.claimed,true);
  const ordinary=w.rewards.find(r=>r.offerId!==id&&w.canChooseReward(r));assert.ok(ordinary);assert.ok(w.choose(ordinary.offerId));assert.equal(w.expedition.freePurchasesRemaining,0);
  assert.ok(w.finishIntermission());assert.equal(w.stage,4);assert.equal(w.specialStages.active?.kind,'resources');assert.equal(w.specialStages.used.size,1);

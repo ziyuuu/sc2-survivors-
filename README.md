@@ -1,6 +1,6 @@
 # 星际幸存者
 
-基于 TypeScript、Three.js 的三族自动战斗游戏。原版正式候选为 **0.6.29-rc.1**，T01 画面与听感已由用户确认，V04 同版交付完成。其 **Sites 体积优化版第 6 版已私有发布**，压缩、合包、后台适配和发布均已纳入本 MVP；站点目前只允许所有者访问。阿里云原部署及备案是另一条保留渠道。V05/V06 尚未全部关闭，质量、性能和发布限制见交接。
+基于 TypeScript、Three.js 的三族自动战斗游戏。原版正式候选为 **0.6.29-rc.1**，T01 画面与听感已由用户确认，V04 同版交付完成。本轮反馈修复已进入原版源码与 **Sites 体积优化版第 7 版**；站点已私有发布，目前只允许所有者访问。阿里云原部署及备案是另一条保留渠道。V05/V06 尚未全部关闭，质量、性能和发布限制见交接。
 
 ## 从这里接手
 
@@ -10,6 +10,7 @@
 - [V04 成品与验证](docs/project/V04_DELIVERY_20261027.md) · [V05 服务器现状](docs/project/V05_SERVER_STAGING_20261027.md)
 - [Sites 压缩与发布核对、MVP 归属](docs/project/MVP_SITES_REVIEW_20261027.md) · [运维交接](docs/project/SITES_HANDOFF_20261027.md)
 - [四项统计修正与交接定稿](docs/project/SITES_METADATA_AGENTS_FINAL_20261027.md)
+- [本批双版本 GitHub 同步](docs/project/V06_GITHUB_SYNC_20261027.md) · [Coze 部署说明](docs/project/COZE_FEEDBACK_DEPLOY_20261027.md)
 - [项目目录与核心协作规则](AGENTS.md) · [整理安排](docs/project/PROJECT_ORGANIZATION_20261027.md)
 
 ## 开发与检查
@@ -44,7 +45,7 @@ try { npm run build } finally { Remove-Item Env:SC2_DEMO_OUTPUT -ErrorAction Sil
 
 ## 当前本机交付
 
-在线私有入口：[星际幸存者](https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site)。主仓库目前为“体积优化版”分支 `26b87a1`，已推送但未并入 main；main 仍 `2924d9b`。站点源快照在 sites/size-optimized-site，原独立站点仓库在 sites/v04-private-test，两处修改需按交接核对，GitHub 推送不自动部署 Sites。
+在线私有入口：[星际幸存者](https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site)。主仓库当前交付分支为“体积优化版”，本批提交同时包含根目录原版源码、`sites/size-optimized-site` 压缩快照及 Coze 说明；main 仍 `2924d9b`，尚未合并。站点第7版内部源码提交为 `ffa349c01b3934fcfd2b320bbfcbc9cef6cdff35`。GitHub 推送不自动部署 Sites，最终远端核验见同步记录。
 
 - 玩家离线游戏：dist/SC2-Survivors-V04-20261027.html。
 - Web 与应用/资源包：dist/V04-20261027/；逐包字节和 SHA 见 CHECKSUMS.json。

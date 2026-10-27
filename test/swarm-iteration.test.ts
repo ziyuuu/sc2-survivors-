@@ -37,7 +37,7 @@ test('ordinary release reserves campaign Boss capacity without deleting queued b
 for(const difficulty of ['easy','normal','hard','hell'] as const)test(`spawn rank and frozen HP ${difficulty}`,()=>{
  const w=new World({difficulty,waves:false,terrain:false,obstacles:[]});w.start();
  for(const stage of [1,2,3,4,6,7,12,13,18]){w.stage=stage;const u=w.addUnit('zergling','zerg',0,8),g=enemySpawnGrowth(difficulty,stage,'regular');
-  close(u.hp,(difficulty==='easy'?([18,24,30][stage-1]??35):continuousLingHp((stage-1)/18))*g.health);assert.equal(u.rank,ordinaryEnemyRank(stage));u.hp-=2;const before=[u.hp,u.maxHp,u.weaponDamage,u.attackPeriod,u.armor];w.stage=18;w.refreshStats(u);[u.hp,u.maxHp,u.weaponDamage,u.attackPeriod,u.armor].forEach((v,i)=>close(v,before[i]));
+  close(u.hp,continuousLingHp((stage-1)/18)*g.health);assert.equal(u.rank,ordinaryEnemyRank(stage));u.hp-=2;const before=[u.hp,u.maxHp,u.weaponDamage,u.attackPeriod,u.armor];w.stage=18;w.refreshStats(u);[u.hp,u.maxHp,u.weaponDamage,u.attackPeriod,u.armor].forEach((v,i)=>close(v,before[i]));
  }
  for(const type of SWARM_TYPES){const u=w.addUnit(type,'zerg',0,8,1,'swarm'),d=SC2_UNITS[type];close(u.hp,d.maxHp);close(u.weaponDamage,d.attackDamage);close(u.attackPeriod,d.attackPeriod);close(u.armor,d.armor);assert.equal(u.rank,1);}
 });

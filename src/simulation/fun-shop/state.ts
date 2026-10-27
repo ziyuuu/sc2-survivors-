@@ -42,7 +42,7 @@ export function funShopDescription(id:FunShopId,level:number,difficulty?:Difficu
  case 'tavern':return '每关至多一次自然主事件。抽中后，任务类别基础45权重乘以'+TAVERN_MULTIPLIERS[level]+'；遭遇35、虫群20，任务与遭遇只选本难度允许的内容。简单／普通抽中虫群时该次机会落空，不改抽其他类别。\n不增加每关主事件概率或次数；仍遵守开关20秒、结束后15秒喘息及高压互斥。最高档生效，升级只付总价差额。';
  case 'bait':{
   const locked=difficulty!==undefined&&!hordeAllowed(difficulty);
-  return '每20秒有额外机会引来：本难度的特殊遭遇'+Math.round(BAIT_CHANCES.encounter[level]*100)+'%、精英'+Math.round(BAIT_CHANCES.elite[level]*100)+'%'+(locked?'，两者独立判定。当前难度不触发虫群，也不补成其他事件。':'、虫群'+Math.round(BAIT_CHANCES.horde[level]*100)+'%，三者独立判定。虫群仅困难／地狱可触发。')+'\n每关最多额外出现1次遭遇、2只精英'+(locked?'':'、1波虫群')+'；场上暂时无法出现时，每类最多留一次机会，空出后再出现。原本的出现机会保留；升级只付总价差额。';
+  return '每20秒有额外机会引来：本难度的特殊遭遇'+Math.round(BAIT_CHANCES.encounter[level]*100)+'%、精英'+Math.round(BAIT_CHANCES.elite[level]*100)+'%'+(locked?'，两者独立判定。当前难度不触发虫群，也不补成其他事件。':'、虫群'+Math.round(BAIT_CHANCES.horde[level]*100)+'%，三者独立判定。虫群仅困难／地狱可触发。')+'\n每关最多额外触发一次，遭遇、精英与虫群共用额度；场上暂时无法出现时，每类最多留一次机会，成功触发后清空其余机会。原本的出现机会保留；升级只付总价差额。';
  }
  case 'dice':{
   const bands=[[4,0],[7,1],[12,3]],labels=['1—5','6—11','12—19'];

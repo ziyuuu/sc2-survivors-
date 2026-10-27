@@ -1,0 +1,174 @@
+{
+  "date": "2026-10-27",
+  "scope": "Equipment yield and ten authorized playtest issues",
+  "status": "Feedback fixes privately deployed as Site version 7; user experience confirmation remains open",
+  "source": {
+    "branch": "体积优化版",
+    "baseline": "b4cfeb41439bddcfaf4dd1c43d937aa30406b60d",
+    "sourceCommitIsBaseline": true,
+    "sourceWorkingTreeSha256": "9314f5d06e5604045f12408b5569ba56bea6f7a9e26c34ed4a2407f6deae0822",
+    "committed": false,
+    "pushed": false
+  },
+  "build": {
+    "applicationVersion": "0.6.29-rc.1",
+    "appBuildId": "78b01cbe0961bb3cf6473be1d8ddd7367a5cbcb7ba24de07404dccb8ef331f28",
+    "packageBuildId": "1c0af298eeb86ad02c0fa00d9c8b88ef9e97e901a7272647fb2dc305a8843a5c",
+    "runSchema": 26,
+    "originalResourceRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "packedResourceRelease": "d5f891f541f0082451c319ab026eeef761d943e930547ac4bd1a69a029a8e9fe"
+  },
+  "changesDocument": "docs/project/V06_FEEDBACK_REPAIRS_20261027.md",
+  "checks": {
+    "fullRegression": {
+      "tests": 2717,
+      "pass": 2717,
+      "fail": 0,
+      "scope": "Final simulation and TS behavior; only card CSS changed afterward"
+    },
+    "targetedNewTests": 13,
+    "typecheck": "passed",
+    "dataReference": "passed",
+    "normalWebBuild": "passed",
+    "sitesWorkerBuild": "passed",
+    "applicationArchive": {
+      "path": "dist/V06-feedback-20261027/Application.zip",
+      "bytes": 16815354,
+      "sha256": "da83bb8a1358e13fd72665467d11d830f94c021d9487aba2d3ebb3a0ae2c65a6",
+      "files": 167,
+      "packageBuildId": "1c0af298eeb86ad02c0fa00d9c8b88ef9e97e901a7272647fb2dc305a8843a5c",
+      "verifiedRoundTrip": true,
+      "deployed": false
+    },
+    "packedResources": "reports/qa/v06-packed-resources-20261027.json",
+    "nativeLoot": "reports/qa/v06-loot-native-20261027.json",
+    "browser": {
+      "checks": [
+        {
+          "width": 1440,
+          "height": 900,
+          "threeCards": true,
+          "ticketSameWidth": true,
+          "purchaseStable": true
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "threeCards": true,
+          "ticketSameWidth": true,
+          "purchaseStable": true
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "threeCards": true,
+          "ticketSameWidth": true,
+          "purchaseStable": true
+        }
+      ],
+      "battleRingRemoved": true,
+      "specialEntered": true,
+      "errors": [],
+      "httpErrors": [],
+      "dimensions": [
+        {
+          "width": 1440,
+          "height": 900,
+          "maxWidthDelta": 0,
+          "maxHeightDelta": 0
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "maxWidthDelta": 0,
+          "maxHeightDelta": 0
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "maxWidthDelta": 0,
+          "maxHeightDelta": 0
+        }
+      ],
+      "imagesReviewed": 3,
+      "scope": "Real new-game/battle entry, one synthetic stage-3 shelf using production transactions; ticket and two ordinary purchases; native special-stage entry. Desktop Chrome viewport emulation, not physical-device or full campaign testing."
+    },
+    "applicationUpdate": "reports/qa/v06-application-update-20261027.json",
+    "applicationUpdateChecks": 7
+  },
+  "priorFailuresResolved": [
+    "Initial full regression had six sandbox localhost/rename errors; elevated 16-test retest and final 2717-test run passed.",
+    "Expected values updated for authorized reward, pacing, progression and ticket rules; no weakening of production receipts.",
+    "UI fixture reused a stage then jumped with an unfinished shop; corrected to one shelf and three separate purchases.",
+    "Compressed material profile hashes initially referred to original GLBs; updater now maps 205 references to packed identities.",
+    "Portrait feedback row and nested 22px action glyph changed height; final native card measurements and samples passed.",
+    "Bundled Node has no sibling npm CLI; update fixture explicitly selects the installed npm CLI."
+  ],
+  "deployment": {
+    "siteProject": "appgprj_6ae024693cf481919b48df2cececd0a0",
+    "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site",
+    "liveVersion": 7,
+    "liveCommit": "ffa349c01b3934fcfd2b320bbfcbc9cef6cdff35",
+    "localCandidateArchive": "sites/v06-feedback-publish.tar.gz",
+    "archiveBytes": 233544464,
+    "archiveSha256": "8d66a5a4e39298ea1bc8ab215590571e2da58d1f958d0fc246e4b4947610a57c",
+    "sourceSynchronized": true,
+    "updated": true,
+    "audience": "owner-private",
+    "approval": "User explicitly replied 授权 after the concrete private-site update request; prior automatic approval rejection resolved.",
+    "cozeUpdated": false,
+    "aliCloudUpdated": false,
+    "status": "succeeded",
+    "versionId": "appgprj_6ae024693cf481919b48df2cececd0a0~appgver_201d158650fc8191937a4a32f159575d",
+    "deploymentId": "appgdep_6ae0778f75bc81918e7cae79ff61e810",
+    "publishedAt": "2026-10-27T10:06:34.633534+00:00",
+    "externalVisitors": 0,
+    "groups": 0,
+    "sourceCheck": "reports/qa/v06-sites-source-check-20261027.json",
+    "uploadRetry": "First native upload failed before saving a version; retry of the identical archive succeeded.",
+    "cloudArchive": {
+      "format": "tar",
+      "contentHash": "sha256:269dae9fac8ae96d5979e7e0fcccdb874a2d5ec217b518ce6c9c9578efa628d3",
+      "bytes": 241356800,
+      "files": 132
+    }
+  },
+  "open": [
+    "User-reported persistent visible in-game spinner was not reproduced on the old build; known stale loading paths were fixed and final local transitions showed zero loading rings. Needs user confirmation.",
+    "Balance feel and real-device play remain user acceptance; V05/V06 and final MVP remain open."
+  ],
+  "retention": "Keep brief conclusions, repro code, current application and candidate site; remove superseded QA screenshots, logs and isolated update caches.",
+  "cleanup": {
+    "ownedServersStopped": true,
+    "resourceSourcesKept": true,
+    "candidateSiteKept": false,
+    "removedPaths": [
+      "reports/local/v06-feedback-20261027",
+      "reports/local/v06-feedback-final",
+      "reports/local/v06-feedback-final-r2",
+      "reports/local/v06-feedback-final-r3",
+      "reports/local/v06-feedback-final-r4",
+      "reports/local/v06-feedback-final-r5",
+      "reports/local/v06-feedback-final-r6",
+      "reports/local/v06-feedback-final-r7",
+      "reports/local/v06-feedback-final-r8",
+      "reports/local/v06-build.log",
+      "reports/local/v06-environment-retest.log",
+      "reports/local/v06-feedback-targeted.log",
+      "reports/local/v06-final-native.log",
+      "reports/local/v06-final-regression.log",
+      "reports/local/v06-full-tests.log",
+      "reports/local/v06-loot.log",
+      "reports/local/v06-new-native.log",
+      "reports/local/v06-regression-fixes.log",
+      ".cache/v06-feedback-update",
+      ".cache/v06-feedback-update-final",
+      ".cache/v06-feedback-update-delivery",
+      ".cache/v06-feedback-update-r8",
+      "sites/v06-feedback-site.tar.gz",
+      "sites/v06-feedback-site-final.tar.gz"
+    ],
+    "currentApplicationKept": true,
+    "publishedSiteArchiveKept": true
+  }
+}

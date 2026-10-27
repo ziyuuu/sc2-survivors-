@@ -269,6 +269,7 @@ export class World extends RunState {
   statuses.restore(data.statuses);specials.restore(data.specials);if(validateOnly)return;
   this.arrivalVersion++;clearUnitArrivals(this);Object.assign(this,fresh,data.state);this.selectedRace=data.config.race;this.statuses=statuses;this.enemySpecials=specials;this.autoWaves=data.autoWaves;
   if(equipment)this.starship={...equipment,battleView:this.starship.battleView};
+  if(this.phase==='reward'&&this.rewardRound==='random'&&this.rewards.length>3&&this.rewards.some(r=>'expeditionEffect' in r&&(r as import('./progression/expedition-drafts').ExpeditionReward).expeditionEffect.kind==='specialTicket'))this.rewards=withSpecialTicket(this,this.rewards);
   rebuildGroundHeroBuffs(this);
   this.initialTerrain=campaign;this.seed=data.seed;this.terrain=terrain;this.obstacles=data.state.battlefield.mode==='endless'?[]:[...this.initialObstacles];this.terrain?.setStage?.(this.terrainStage);this.input={x:0,z:0};if(this.phase==='battle')this.paused=true;
   this.spawnCells=connectedSpawnCells(this.terrain,this.anchor,this.mapHalf,this.obstacles);
@@ -309,7 +310,7 @@ export class World extends RunState {
   const speed=TUNING.anchorSpeed*(this.time<this.dashUntil?1.65:1);
   const scale=Math.min(1,d/(speed*dt));return d>.01?{x:dx/d*scale,z:dz/d*scale}:{x:0,z:0};
  }
- setDifficulty(difficulty:Difficulty){if(this.phase!=='menu')return false;this.difficulty=difficulty;this.prepareStage();this.changed();return true;}
+ setDifficulty(difficulty:Difficulty){if(this.phase!=='menu'||!this.sandbox&&!this.permanentProfile.difficultyUnlocked(difficulty))return false;this.difficulty=difficulty;this.prepareStage();this.changed();return true;}
  prepareStage(){if(this.specialStages.active)return;if(this.fieldEvents.stage!==this.stage){const pacing=this.fieldEvents.pacing;this.fieldEvents=newFieldEvents();this.fieldEvents.pacing=pacing;this.fieldEvents.stage=this.stage;}if(this.endless){this.prepareEndlessRound();return;}
   this.terrain?.setStage?.(this.terrainStage);
   const plan=campaign18Schedule(this.config as Campaign18StageConfig,this.seed);
@@ -493,15 +494,10 @@ export class World extends RunState {
    if(origin==='regular'){
     const p=stamp.progress,endlessRound=stamp.endlessSeconds===undefined?undefined:1+Math.floor(stamp.endlessSeconds/60);
     const growth=enemySpawnGrowth(this.difficulty,spawnStage,origin,endlessRound,p,stamp.endlessSeconds??0);u.rank=growth.rank;
-    if(this.difficulty==='easy'){
-     if(!this.sandbox){if(unitType==='zergling')u.maxHp=campaign18StageConfig(spawnStage,this.difficulty).lingHp;if(unitType==='roach'&&spawnStage>=8)u.armor++;if(unitType==='baneling'&&spawnStage>=9)u.maxHp=35;}
-     u.moveSpeed*=campaign18StageConfig(spawnStage,this.difficulty).speed*(unitType==='baneling'&&spawnStage>=9?1.3:1);
-    }else {
-     if(unitType==='zergling')u.maxHp=continuousLingHp(p);
-     if(unitType==='roach')u.armor+=clamp01(p*18/7);
-     if(unitType==='baneling'){const b=clamp01(p*18/8);u.maxHp=linear(d.maxHp,35,b);u.moveSpeed*=1+.3*b;}
-     u.moveSpeed*=linear(1,1.2,p);
-    }
+    if(unitType==='zergling')u.maxHp=continuousLingHp(p);
+    if(unitType==='roach')u.armor+=this.difficulty==='easy'?(spawnStage>=8?1:0):clamp01(p*18/7);
+    if(unitType==='baneling'){const b=clamp01(p*18/8);u.maxHp=linear(d.maxHp,35,b);if(this.difficulty!=='easy')u.moveSpeed*=1+.3*b;}
+    u.moveSpeed*=this.difficulty==='easy'?campaign18StageConfig(spawnStage,this.difficulty).speed*(unitType==='baneling'&&spawnStage>=9?1.3:1):linear(1,1.2,p);
     u.maxHp=Math.min(1e100,u.maxHp*growth.health)*stamp.density;u.hp=u.maxHp;u.weaponDamage=Math.min(1e100,u.weaponDamage*growth.damage)*stamp.density;u.attackPeriod=Math.max(TUNING.step,u.attackPeriod/growth.attackSpeed);u.moveSpeed*=growth.move;u.armor=(u.armor+growth.armor)*stamp.density;
    }
    u.nativeStatScale={hp:u.maxHp/d.maxHp,damage:d.attackDamage>0?u.weaponDamage/d.attackDamage:1,period:u.attackPeriod/d.attackPeriod,move:u.moveSpeed/d.movementSpeed,armor:u.armor-d.armor};
@@ -902,7 +898,7 @@ export class World extends RunState {
  // Hero passive recovery already ran this step and owns fresh targets of its own.
  private clearInterruptedHealing(u:Entity){if(!u.heroId&&(u.unitType==='medivac'||u.unitType==='science_vessel')&&(u.healTarget!==null||u.healTargets?.length)){u.healTarget=null;u.healTargets=[];}}
  updateUnit(u:Entity,dt:number){const rooted=fieldRooted(this,u),p=rooted?(this.fieldEvents.rootPositions.get(u.id)??{x:u.x,z:u.z}):null;if(p){u.x=p.x;u.z=p.z;}try{this.updateUnitNative(u,dt);}finally{if(p){u.x=p.x;u.z=p.z;u.prev={...p};u.velocity={x:0,z:0};if(u.action==='move')u.action='idle';}}}
- private updateUnitNative(u:Entity,dt:number){if(u.hp<=0||expireAdvancedEquipmentBody(this,u))return;if(tickCrossingGuard(this,u,dt)||tickArenaHero(this,u,dt))return;if(tickFunUnit(this,u,dt)||tickEncounterUnit(this,u,dt)||tickMissionUnit(this,u,dt))return;const autonomous=autonomousEquipmentBody(this,u);if(tickInterceptor(this,u,dt))return;if(!u.heroId&&u.unitType==='lurker'&&u.owner==='zerg'){const boss=u.enemyTier==='boss'||u.enemyTier==='lord',near=boss?false:[...this.entities.values()].some(e=>e.owner==='terran'&&e.hp>0&&this.visibleTo(e,'zerg')&&distance(u,e)<9);u.desiredNativeMode=(boss?(this.time-u.bornAt)%14<8:near)?'lurker_burrowed':'lurker';if((u.enemyTier==='boss'||u.enemyTier==='lord')&&u.nativeMode!==u.desiredNativeMode)u.nativeModeUntil=this.time;}if(u.owner==='terran'&&this.tick%6===0)this.refreshStats(u);if(u.owner!=='terran'||!this.missions.fleet.ceasefire){tickTerranElite(this,u,dt);tickProtossElite(this,u,dt);tickTerranHero(this,u,dt);tickZergHero(this,u,dt);tickProtossHero(this,u,dt);}tickExpeditionRecovery(this,u,dt);if((u.owner!=='terran'||!this.missions.fleet.ceasefire)&&tickZergElite(this,u,dt))return;
+ private updateUnitNative(u:Entity,dt:number){if(u.hp<=0||expireAdvancedEquipmentBody(this,u))return;if(tickCrossingGuard(this,u,dt)||tickArenaHero(this,u,dt))return;if(tickFunUnit(this,u,dt)||tickEncounterUnit(this,u,dt)||tickMissionUnit(this,u,dt))return;const autonomous=u.temporaryKind==='shop-gland'||autonomousEquipmentBody(this,u);if(tickInterceptor(this,u,dt))return;if(!u.heroId&&u.unitType==='lurker'&&u.owner==='zerg'){const boss=u.enemyTier==='boss'||u.enemyTier==='lord',near=boss?false:[...this.entities.values()].some(e=>e.owner==='terran'&&e.hp>0&&this.visibleTo(e,'zerg')&&distance(u,e)<9);u.desiredNativeMode=(boss?(this.time-u.bornAt)%14<8:near)?'lurker_burrowed':'lurker';if((u.enemyTier==='boss'||u.enemyTier==='lord')&&u.nativeMode!==u.desiredNativeMode)u.nativeModeUntil=this.time;}if(u.owner==='terran'&&this.tick%6===0)this.refreshStats(u);if(u.owner!=='terran'||!this.missions.fleet.ceasefire){tickTerranElite(this,u,dt);tickProtossElite(this,u,dt);tickTerranHero(this,u,dt);tickZergHero(this,u,dt);tickProtossHero(this,u,dt);}tickExpeditionRecovery(this,u,dt);if((u.owner!=='terran'||!this.missions.fleet.ceasefire)&&tickZergElite(this,u,dt))return;
   if(u.lastStandUntil&&this.time>=u.lastStandUntil){u.lastStandUntil=undefined;this.hit(u,u.hp+u.armor+1,[],1,'zerg',0,0,undefined,true);return;}if((u.temporaryKind==='fun-brood'||u.temporaryKind==='hero-baneling')&&u.temporaryUntil&&this.time>=u.temporaryUntil){this.visual('unit-expired',u);u.hp=0;this.entities.delete(u.id);return;}if(u.temporaryUntil&&this.time>=u.temporaryUntil){if(this.starship.members.has(u.id)&&!this.starship.advancedBodies.has(u.id)&&!this.starship.projections.has(u.id))equipmentPresentation(this,'expiry',u);this.hit(u,u.hp+u.armor+1,[],1,'zerg',0,0,undefined,true);return;}
   if(u.recoveryUntil){if(this.time+1e-8<u.recoveryUntil){this.clearInterruptedHealing(u);u.weaponCooldown=Math.max(0,u.weaponCooldown-dt);u.attackLock=Math.max(0,u.attackLock-dt);u.prev={x:u.x,z:u.z};u.velocity={x:0,z:0};u.action='idle';return;}u.recoveryUntil=undefined;}
   if(talentTransferContains(this,u.id)){this.clearInterruptedHealing(u);u.weaponCooldown=Math.max(0,u.weaponCooldown-dt);u.attackLock=Math.max(0,u.attackLock-dt);u.prev={x:u.x,z:u.z};u.velocity={x:0,z:0};u.action='idle';return;}
@@ -1038,6 +1034,7 @@ export class World extends RunState {
   if(!this.endless&&this.difficulty==='hell'&&this.expansionHives.size){this.phase='lost';cancelMissions(this);settleEquipment(this.starship.account,'failure');this.announce('扩张虫巢尚未清除 · 战线失守');return;}
   if(!this.endless&&this.stage===18&&(!this.hive||this.hive.hp>0||!this.campaign18Runtime?.finalBossKilled||!this.allies().some(u=>hasCombatPotential(this,u)))){this.phase='lost';cancelMissions(this);settleEquipment(this.starship.account,'failure');this.announce('未能在期限内摧毁虫巢、击杀雷兽首领并保住小队');return;}
   clearEquipmentFortifications(this);
+  if(!this.sandbox&&this.runId)this.permanentProfile.recordDifficultyProgress(this.difficulty,this.stage,this.endless?.round);
   if(!this.endless&&this.runId){const points=talentPointsForStage(this.difficulty,this.stage);if(points)this.awardPermanentResource(this.runId+':stage:'+this.stage,points);}
    const [m,g]=this.config.reward,f=incomeFactor(this.difficulty)*(1+.15*this.talent('bonus_income')),roundReceipt=this.endless&&this.runId?`${this.runId}:endless-round:${this.endless.round}`:null,alreadyPaid=!!roundReceipt&&this.endlessRoundReceipts.includes(roundReceipt);
    const gearClear=alreadyPaid?{minerals:0,gas:0}:equipmentStageReward(this),clearM=m*f*(1+equipmentValue(this,'stage_reward_percent'))+gearClear.minerals,clearG=g*f*(1+equipmentValue(this,'stage_reward_percent'))+gearClear.gas;
@@ -1127,3 +1124,4 @@ export class World extends RunState {
  }
  advance(seconds:number){const n=Math.round(seconds/TUNING.step);for(let i=0;i<n;i++)this.step();}
 }
+import {withSpecialTicket} from './special-stages/tickets';

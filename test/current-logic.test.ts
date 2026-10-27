@@ -15,8 +15,8 @@ test('690 friendly bodies retain historical rules; 72 campaigns match the random
  assert.equal(commit,'07b3f68e56f02fae1902ba4e563cb67a3e821c05');
  const {campaign:historicalCampaign,...historicalFriendly}=expected,{campaign:r2Campaign,...legacyFriendly}=captureCurrentRules({legacyKnight:true});
  assert.equal(Object.keys(historicalCampaign).length,72);assert.deepEqual(legacyFriendly,historicalFriendly);
- const approved=JSON.parse(fs.readFileSync(new URL('./fixtures/campaign-elites-20261019.json',import.meta.url),'utf8'));
- assert.equal(approved.approval,'RANDOM_CAMPAIGN_ELITES_20261019');assert.equal(Object.keys(approved.campaign).length,72);assert.deepEqual(r2Campaign,approved.campaign);
+ const approved=JSON.parse(fs.readFileSync(new URL('./fixtures/campaign-feedback-20261027.json',import.meta.url),'utf8'));
+ assert.equal(approved.approval,'USER_FEEDBACK_GROWTH_20261027');assert.equal(Object.keys(approved.campaign).length,72);assert.deepEqual(r2Campaign,approved.campaign);
  const current=captureCurrentRules();assert.deepEqual(current.campaign,approved.campaign);assert.deepEqual(current.heroes,expected.heroes);assert.deepEqual(current.ordinary,expected.ordinary);
  assert.deepEqual(Object.keys(current.bodies).filter(key=>current.bodies[key]!==expected.bodies[key]),[1,2,3,4,5].map(rank=>'hellion.2:'+rank));
  assert.deepEqual(Object.keys(current.definitions).filter(key=>current.definitions[key as keyof typeof current.definitions]!==expected.definitions[key]),['elites']);

@@ -113,7 +113,7 @@ test('WeChat session uses the same map and preserves race, difficulty and pause 
  const backend=new WeChatSaveBackend(wx);
  const cache=new WeChatAssetCache(wx,manifest,'https://assets.example.com/game');
  const session=await WeChatGameSession.open(wx,cache,backend);
- await session.newRun('zerg','hard');
+ session.world.permanentProfile.recordDifficultyProgress('normal',18);await session.newRun('zerg','hard');
  for(let i=0;i<60;i++)session.step();
  await session.hide();
  const resumed=await WeChatGameSession.open(wx,new WeChatAssetCache(wx,manifest,'https://assets.example.com/game'),backend);

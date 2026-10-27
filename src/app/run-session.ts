@@ -89,6 +89,7 @@ export class RunSession {
  }
  prepareNewRun(race:Race,difficulty:Difficulty,preset:PresetSlot,hero:HeroId|null):NewRunPreview{
   if(this.world.phase!=='menu')throw Error('只能从标题开始新战局');
+  if(!this.world.permanentProfile.difficultyUnlocked(difficulty))throw Error(difficulty==='hard'?'完成普通战役后解锁困难':'完成困难无尽第6关后解锁地狱');
   if(this.checkpointMode&&(this.canResume||this.world.starship.account.run&&!this.world.starship.account.run.ended))throw Error('请先继续已有战局，在撤退关间结算装备后再开始新游戏');
   const allocation=this.world.permanentProfile.previewTalentAllocation(race,preset);
   if(!allocation)throw Error('天赋预设前置或资源不足');

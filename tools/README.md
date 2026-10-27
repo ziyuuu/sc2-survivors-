@@ -14,3 +14,5 @@
 | 历史 QA | [历史工具适用范围](HISTORICAL_QA.md) |
 
 V04 的 prepare-v04-application、package-v04-resources、verify-v04-browser、verify-v04-update 等用于复现 2026-10-27 打包检查；有固定本地输入/临时基线，不是无参数的一键生产发布器。不要为了让旧脚本能跑而恢复旧接口、旧存档或旧玩法。
+
+反馈版可用 `prepare-v04-application.mjs --output dist/<新目录> --baseline dist/V04-20261027/Application --readme docs/project/COZE_FEEDBACK_DEPLOY_20261027.md`；`verify-v04-update.mjs` 支持 `--app`、`--baseline`、`--report-root`。`update-compressed-game.mjs <已存在的压缩public目录>` 更新游戏代码、样式和模型身份映射，要求资源ID集合不变，不替代首次压缩资源流水线。

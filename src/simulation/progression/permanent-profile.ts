@@ -1,5 +1,6 @@
 import {checksum} from '../../persistence/graph-codec';
 import {RACES,type Race} from '../../data/races';
+import type {Difficulty} from '../../data/stages';
 import {allocationCost,allocationPoints,nextTalentPurchase,TALENT_BY_ID,TALENT_POINT_CAP,validateTalentAllocation,type TalentLevels,type TalentLine} from '../../data/mvp-talents';
 
 export type PresetSlot=0|1|2;
@@ -77,6 +78,14 @@ export class PermanentProfile {
  selectRace(race:Race){if(!validRace(race))return false;if(this.activeRace===race)return true;this.state.activeRace=race;this.changed();return true;}
  get revision(){return this.state.revision;}
  get receipts(){return new Set(this.state.receipts);}
+ difficultyUnlocked(difficulty:Difficulty){
+  return difficulty==='easy'||difficulty==='normal'||this.state.receipts.includes('progress:difficulty:'+difficulty)||difficulty==='hard'&&RACES.some(r=>this.hasVeteranHud(r));
+ }
+ recordDifficultyProgress(difficulty:Difficulty,stage:number,endlessRound?:number){
+  const unlocked:Difficulty[]=endlessRound!==undefined?difficulty==='hard'&&endlessRound>=6?['hard','hell']:[]:stage===18&&difficulty!=='easy'?['hard']:[];
+  let changed=false;for(const next of unlocked){const receipt='progress:difficulty:'+next;if(!this.state.receipts.includes(receipt)){this.state.receipts.push(receipt);changed=true;}}
+  if(changed)this.changed();return changed;
+ }
  /** Cosmetic receipts use the existing exported receipt container; no currency is awarded. */
  hasVeteranHud(race:Race){return this.state.receipts.includes('cosmetic:hud:hard:'+race);}
  recordHardCampaignClear(race:Race){

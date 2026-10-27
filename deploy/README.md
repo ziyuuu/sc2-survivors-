@@ -1,5 +1,7 @@
 # 部署资源与应用基线
 
+2026-10-27 最新试玩反馈修复包在 `dist/V06-feedback-20261027/Application.zip`，见 [Coze 更新说明](../docs/project/COZE_FEEDBACK_DEPLOY_20261027.md)。仅提供包不代表已更新阿里云/Coze；保留下面的 V04 部署基线。
+
 - coze/：保留的旧应用基线（package.json 为 0.6.28）及既有部署/更新机制；不是当前线上版本的判断入口。
 - runtime/：内容 hash 命名的运行时资源。与发布资源清单绑定，使用既有 Git LFS 范围；不能仅凭未跟踪或未在新包出现就删除仍被旧版本需要的文件。
 

@@ -5,13 +5,13 @@ import type {Entity,Point} from '../types';
 import {SC2_UNITS} from '../../data/sc2-units';
 import {continuousSpecialProfile} from '../../data/enemy-tuning';
 import {equipmentWorkerRescue} from '../starship/modules';
-import {makeMissionBody,missionNear,missionPointLegal,finishMission,releaseMissionQueue} from './runtime';
+import {makeMissionBody,missionNear,missionPointLegal,missionAwayFromSquad,finishMission,releaseMissionQueue} from './runtime';
 import {nearbyMissionPoint,currentMissionStamp} from './encounters';
 import {distance,steerGoal,translate} from '../movement/steering';
 export function spawnEggs(w:World,m:MissionRecord){
  const total=MISSION_RULES.eggs.minimum+Math.floor(w.random()*(MISSION_RULES.eggs.maximum-MISSION_RULES.eggs.minimum+1));let points:Point[]=[];
  for(let attempt=0;attempt<32;attempt++){const center=nearbyMissionPoint(w,12,20);if(!center)continue;points=[];
-  for(let i=0;i<256&&points.length<total;i++){const a=w.random()*Math.PI*2,r=Math.sqrt(w.random())*7,p={x:center.x+Math.cos(a)*r,z:center.z+Math.sin(a)*r};if(missionPointLegal(w,p,.65)&&!points.some(q=>distance(p,q)<2))points.push(p);}if(points.length===total)break;
+  for(let i=0;i<256&&points.length<total;i++){const a=w.random()*Math.PI*2,r=Math.sqrt(w.random())*7,p={x:center.x+Math.cos(a)*r,z:center.z+Math.sin(a)*r};if(missionPointLegal(w,p,.65)&&missionAwayFromSquad(w,p,.65,12)&&!points.some(q=>distance(p,q)<2))points.push(p);}if(points.length===total)break;
  }if(points.length!==total)return false;m.total=total;
  for(const p of points){const b=makeMissionBody(w,m,'egg',p,24,'egg','zerg',.65);if(w.random()<MISSION_RULES.eggs.workerChance)b.payload={kind:'worker',appearance:(['scv','drone','probe'] as const)[Math.floor(w.random()*3)]};else {const types:('zergling'|'baneling')[]=[];for(let i=0,n=2;i<n;i++)types.push(!types.includes('baneling')&&w.random()<MISSION_RULES.eggs.banelingChance?'baneling':'zergling');b.payload={kind:'enemies',types};}}
  return true;
