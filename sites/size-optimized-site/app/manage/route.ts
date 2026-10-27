@@ -1,0 +1,9 @@
+import { env } from 'cloudflare:workers';
+import { handle } from '../../lib/backend.mjs';
+export const dynamic = 'force-dynamic';
+function escape(v:unknown){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]||c));}
+export async function GET(req:Request){
+ const request=new Request(new URL('/api/owner/overview',req.url),{headers:req.headers});const response=await handle(request,env);if(response.status!==200)return new Response('无权访问管理页面',{status:403});const data=await response.json() as {daily:{day:string,uv:number}[],feedback:{created_at:number,category:string,body:string,contact:string}[]};
+ const days=data.daily.map(x=>`<tr><td>${escape(x.day)}</td><td>${escape(x.uv)}</td></tr>`).join('');const list=data.feedback.map(x=>`<article><small>${escape(new Date(x.created_at).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'}))} · ${escape(x.category)}</small><p>${escape(x.body)}</p><p>联系方式：${escape(x.contact||'未填写')}</p></article>`).join('');
+ return new Response(`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>游戏统计与反馈</title><style>body{font:16px system-ui;margin:2rem auto;max-width:850px;padding:0 1rem;color:#eaf4ff;background:#101826}h1{font-size:26px}article{background:#1b293b;padding:16px;margin:12px 0;border-radius:8px}p{white-space:pre-wrap;overflow-wrap:anywhere}table{border-collapse:collapse}td,th{text-align:left;padding:8px 25px 8px 0}small{color:#a5b8ce}</style><h1>游戏统计与反馈</h1><p>UV 是同意统计的浏览器数；同一浏览器跨天会分别计数。</p><h2>每日 UV</h2><table><tr><th>日期（北京时间）</th><th>浏览器数</th></tr>${days||'<tr><td colspan="2">暂无数据</td></tr>'}</table><h2>玩家反馈</h2>${list||'<p>暂无反馈</p>'}</html>`,{headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store','x-frame-options':'DENY','content-security-policy':"default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'"}});
+}
