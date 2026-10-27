@@ -38,3 +38,14 @@ test('packed resource stalled body is aborted, discarded, and a later retry down
  lateBody(new Uint8Array([0]).buffer);await Promise.resolve();
  assert.deepEqual([...new Uint8Array(await vm.runInContext("getBundle('bundle-000.bin')",context))],[4,5,6]);assert.equal(calls,2);
 });
+
+test('touch-device resource cache keeps at most four bundle buffers',async()=>{
+ let message:((e:{data:unknown})=>void)|undefined,calls=0;
+ const context=vm.createContext({URL,AbortController,Response,Blob,DecompressionStream,Uint8Array,Error,Map,Promise,clearTimeout,setTimeout,importScripts:()=>{},
+  self:{registration:{scope:'https://game.invalid/'},addEventListener:(kind:string,listener:typeof message)=>{if(kind==='message')message=listener;}},
+  fetch:async()=>{calls++;return new Response(new Uint8Array([1,2,3]));}
+ });vm.runInContext(await fs.readFile('tools/packed-sites-sw.js','utf8'),context);message!({data:{type:'sc2-pack-memory-limit',entries:4}});
+ for(let i=0;i<7;i++)await vm.runInContext(`getBundle('bundle-${i}.bin')`,context);
+ assert.equal(vm.runInContext('bundles.size',context),4);assert.equal(calls,7);
+ await vm.runInContext("getBundle('bundle-0.bin')",context);assert.equal(calls,8);assert.equal(vm.runInContext('bundles.size',context),4);
+});

@@ -60,10 +60,17 @@ export function unequip(a:EquipmentAccount,race:Race,slot:EquipmentSlot,expected
  else {if(itemsAt(a,'warehouse').length>=WAREHOUSE_CAPACITIES[a.warehouseLevel])return failure('仓库已满');a.locations[id]={kind:'warehouse'};}
  delete a.equipped[race][slot];a.revision++;return success(id);
 }
-export function canBeginEquipmentRun(a:EquipmentAccount,race:Race):EquipmentResult<undefined>{
+export function canBeginEquipmentRun(a:EquipmentAccount,race:Race,replaceActive=false):EquipmentResult<undefined>{
  if(a.modification)return failure('请先处理装备洗练结果');
- if(a.run&&!a.run.ended)return failure('已有出征正在进行');
+ if(!replaceActive&&a.run&&!a.run.ended)return failure('已有出征正在进行');
  if(equippedItems(a,race).some(item=>!validateItem(item)||item.pollution==='uncleansed'))return failure('配装无效');return success(undefined);
+}
+/** Explicit new-game replacement: no defeat roll, dust, reward or settlement.
+ * Warehouse and equipped ownership survive; unextracted run loot is abandoned. */
+export function abandonEquipmentRun(a:EquipmentAccount){
+ const run=a.run;if(!run||run.ended)return;
+ for(const [id,location]of Object.entries(a.locations))if((location.kind==='backpack'||location.kind==='ground')&&location.run===run.id){delete a.items[id];delete a.locations[id];}
+ a.receipts['abandon:'+run.id]=[];a.run=null;delete a.settlement;a.revision++;
 }
 export function beginEquipmentRun(a:EquipmentAccount,race:Race,id:string):EquipmentResult<undefined>{
  const valid=canBeginEquipmentRun(a,race);if(!valid.ok)return valid;a.run={id,race,locked:new Set(),receipts:new Set(),started:true,ended:false};a.revision++;return success(undefined);

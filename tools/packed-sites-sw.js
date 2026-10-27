@@ -1,5 +1,7 @@
 importScripts('./sites-pack-index.js');
 const bundles=new Map();
+let maxBundles=16;
+self.addEventListener('message',event=>{if(event.data?.type==='sc2-pack-memory-limit'&&event.data.entries===4){maxBundles=4;while(bundles.size>maxBundles)bundles.delete(bundles.keys().next().value);}});
 async function getBundle(name){
  let p=bundles.get(name);
  if(p){bundles.delete(name);bundles.set(name,p);return p;}
@@ -17,7 +19,7 @@ async function getBundle(name){
  })();
  bundles.set(name,p);
  p.catch(()=>{if(bundles.get(name)===p)bundles.delete(name);});
- while(bundles.size>16)bundles.delete(bundles.keys().next().value);
+ while(bundles.size>maxBundles)bundles.delete(bundles.keys().next().value);
  return p;
 }
 self.addEventListener('install',event=>event.waitUntil(self.skipWaiting()));

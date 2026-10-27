@@ -111,6 +111,8 @@ for(const key of ['tank.siege','tank.morph','hellion.hellbat','viking.assault'])
 const _obj=new THREE.Object3D(),_color=new THREE.Color(),_vec=new THREE.Vector3();
 const UNIT_CAPACITY=1024; // Rescue guardians may temporarily exceed the ambient-wave cap.
 export class BattleRenderer {
+ /** Mobile browsers need a bounded optional working set, not a lower visual preset. */
+ readonly memoryConstrainedPreload=typeof matchMedia==='function'&&matchMedia('(pointer:coarse)').matches;
  private stillPresentation:readonly unknown[]|null=null;
  cameraShake=true;
  private distress=new BattleDistress();private distressLayer=document.createElement('div');
@@ -466,6 +468,16 @@ export class BattleRenderer {
   for(const type of ENDLESS.bossTypes)models.set(type,type);
   return models;
  }
+ /** Required entrances still prepare every actual unit, form and reward before
+  * use. Only speculative future GPU work is narrower on touch devices. */
+ backgroundPreloadModels(){
+  if(!this.memoryConstrainedPreload)return this.completePreloadModels();
+  const w=this.world,models=this.currentModels();
+  for(const entry of openingPreloadModels(w.expedition.race,w.runConfig?.frozenTalents.levels))models.set(...entry);
+  for(const entry of campaignPreloadModels(w.endless?1:Math.max(1,w.stage),w.endless?18:Math.min(18,w.stage+1)))models.set(...entry);
+  for(const entry of plannedBossPreloadModels(w.expedition.firstBossLoot))models.set(...entry);
+  return models;
+ }
  completePreloadStatus(){
   const models=[...this.completePreloadModels()].map(([key,type])=>displayLoadModelKey(key,type));
   const missing=models.filter(key=>{const batch=this.gpu.get(key);return !batch||!batch.allMeshes.every(mesh=>this.screenWarmed.has(mesh));});
@@ -507,13 +519,13 @@ export class BattleRenderer {
  /** Complete startup work advances in paced slices throughout battles and
   * intermissions. The chosen reward can move to the front of the remaining work. */
  battleBackgroundJobs(checkpoint:(cancelled:()=>boolean,priority?:boolean)=>Promise<void>):PreparationJob[]{
-  const models=this.completePreloadModels();
+  const models=this.backgroundPreloadModels();
   const epoch=this.contextEpoch,runId=this.world.runId,cancelled=()=>epoch!==this.contextEpoch||runId!==this.world.runId;
   const ids=new Set(modelPreloadAssets([...models].map(([key,type])=>[displayAssetModelKey(key),type] as const)));
   for(const [key,type] of models)for(const id of modelPreloadAssets([[displayAssetModelKey(key),type]]))for(const texture of unitMaterialDependencies(id.slice(6)))ids.add(texture);
   const modelJob=(key:string,type:UnitType,priority=false):PreparationJob=>({key:`${priority?'boss':'roster'}:${epoch}:${runId}:${key}`,priority,paced:true,isReady:()=>this.gpu.has(displayLoadModelKey(key,type)),run:async()=>{if(!await this.streamUnitVariant(key,type,cancelled=>checkpoint(cancelled,priority)))throw Error('后台模型准备未完成：'+key);}});
   const jobs:PreparationJob[]=[...[...plannedBossPreloadModels(this.world.expedition.firstBossLoot)].map(([key,type])=>modelJob(key,type,true)),...[...models].map(([key,type])=>modelJob(key,type))];
-  for(const id of ['model.fort.bunker','model.fort.bunker.death','model.fort.repair','model.fort.repair.death','map.endless'])jobs.push({key:`template:${epoch}:${runId}:${id}`,paced:true,isReady:()=>this.staticTemplateReady(id),run:()=>this.streamEndlessTemplate(id,checkpoint)});
+  if(!this.memoryConstrainedPreload||this.world.endless||this.world.stage>=17)for(const id of ['model.fort.bunker','model.fort.bunker.death','model.fort.repair','model.fort.repair.death','map.endless'])jobs.push({key:`template:${epoch}:${runId}:${id}`,paced:true,isReady:()=>this.staticTemplateReady(id),run:()=>this.streamEndlessTemplate(id,checkpoint)});
   return [...jobs,...[...ids].filter(id=>!assetUrl(id)).map(id=>({key:`file:${epoch}:${runId}:${id}`,paced:true,isReady:()=>!!assetUrl(id),run:async()=>{await checkpoint(cancelled);await prepareEmbeddedAssetIds([id]);}}))];
  }
  private async commonTask(key:string,run:()=>Promise<unknown>){if(this.preparedCommon.has(key))return;await run();if(key==='effects'&&this.fx.errors.length||key==='pickups'&&this.pickups.errors.length)throw Error('公共资源未完成：'+key);this.preparedCommon.add(key);}

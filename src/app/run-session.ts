@@ -14,9 +14,10 @@ import type {SaveBundle} from '../persistence/archive';
 import {shopProgress,type ShopProgressSnapshot} from '../ui/presentation/shop-progress';
 import type {EquipmentAccount} from '../simulation/starship/types';
 import {newManagementState,type ManagementState} from '../ui/starship/host';
+import {abandonEquipmentRun,canBeginEquipmentRun} from '../simulation/starship/inventory';
 
 export interface LoadPreview {id:string;source:'local'|'import';summary:string;snapshot:RunSnapshot|null}
-export interface NewRunPreview {id:string;race:Race;difficulty:Difficulty;preset:PresetSlot;hero:HeroId|null;expectedRevision:number;campaignMap?:CampaignMapRecipe}
+export interface NewRunPreview {id:string;race:Race;difficulty:Difficulty;preset:PresetSlot;hero:HeroId|null;expectedRevision:number;expectedEquipmentRevision:number;campaignMap?:CampaignMapRecipe}
 export async function openSaveProfile(factory?:IDBFactory){
  let repository:SaveRepository|null=null,notice='',run:RunSnapshot|null=null,savedAt=0,archiveProfile:string|undefined,progress:ShopProgressSnapshot|undefined,equipment:EquipmentAccount|undefined,management:ManagementState|undefined;
  const profile=new PermanentProfile();
@@ -90,26 +91,34 @@ export class RunSession {
  prepareNewRun(race:Race,difficulty:Difficulty,preset:PresetSlot,hero:HeroId|null):NewRunPreview{
   if(this.world.phase!=='menu')throw Error('只能从标题开始新战局');
   if(!this.world.permanentProfile.difficultyUnlocked(difficulty))throw Error(difficulty==='hard'?'完成普通战役后解锁困难':'完成困难无尽第6关后解锁地狱');
-  if(this.checkpointMode&&(this.canResume||this.world.starship.account.run&&!this.world.starship.account.run.ended))throw Error('请先继续已有战局，在撤退关间结算装备后再开始新游戏');
+  const equipment=canBeginEquipmentRun(this.world.starship.account,race,true);if(!equipment.ok)throw Error(equipment.error);
   const allocation=this.world.permanentProfile.previewTalentAllocation(race,preset);
   if(!allocation)throw Error('天赋预设前置或资源不足');
   const required=talentRank(allocation.levels,race,'hero_support')>0;
   if(required&&(!hero||!HERO_IDS_BY_RACE[race].includes(hero as never)))throw Error('请选择本族开局英雄');
-  const preview:NewRunPreview={id:`new:${++this.sequence}`,race,difficulty,preset,hero:required?hero:null,expectedRevision:this.world.permanentProfile.revision};
+  const preview:NewRunPreview={id:`new:${++this.sequence}`,race,difficulty,preset,hero:required?hero:null,expectedRevision:this.world.permanentProfile.revision,expectedEquipmentRevision:this.world.starship.account.revision};
   if(this.world.campaignRecipe){const seed=globalThis.crypto.getRandomValues(new Uint32Array(1))[0];preview.campaignMap=chooseCampaignMap(seed,this.world.campaignRecipe.theme);}
   this.newTicket=preview;return preview;
  }
  cancelPreparedNewRun(){this.newTicket=null;}
  commitNewRun(id:string,readyToken:string,currentReadyToken:string){
   const ticket=this.newTicket,p=this.world.permanentProfile;
-  if(!ticket||ticket.id!==id||!readyToken||readyToken!==currentReadyToken||ticket.expectedRevision!==p.revision||this.world.phase!=='menu')return false;
-  const oldProfile=p.exportJSON();
+  if(!ticket||ticket.id!==id||!readyToken||readyToken!==currentReadyToken||ticket.expectedRevision!==p.revision||ticket.expectedEquipmentRevision!==this.world.starship.account.revision||this.world.phase!=='menu')return false;
+  const oldProfile=p.exportJSON(),oldAccount=this.world.starship.account,oldPending=this.pending,oldProgress=this.pendingProgress,oldCheckpoint=this.checkpoint,oldCheckpointProgress=this.checkpointProgress;
+  const replacement=structuredClone(oldAccount);abandonEquipmentRun(replacement);
   this.restoring=true;
   try{
+   this.world.starship.account=replacement;
    if(ticket.campaignMap&&!this.world.configureCampaign(ticket.campaignMap))throw Error('地图未就绪');
    if(!p.activatePreset(ticket.race,ticket.preset)||!this.world.selectRace(ticket.race)||!this.world.setDifficulty(ticket.difficulty)||!this.world.start(ticket.hero??undefined))throw Error('新局配置提交失败');
    shopProgress(this.world).restore(undefined);this.pendingProgress=undefined;this.pending=null;this.memoryContinuation=null;this.newTicket=null;this.loadTicket=null;this.lastTime=this.world.time;if(this.checkpointMode){this.checkpoint=this.world.captureRun();this.checkpointProgress=shopProgress(this.world).snapshot();}this.message='新战局已开始。';this.requestSave();return true;
-  }catch(error){p.importJSON(oldProfile);this.world.selectRace(p.activeRace);this.world.resetRun();this.message='新局启动失败，原续局保留：'+String((error as Error).message);return false;}
+  }catch(error){
+   // Reset only the detached replacement. Resetting an active old account would
+   // incorrectly settle it as a defeat and consume its equipment RNG.
+   this.world.resetRun();p.importJSON(oldProfile);this.world.selectRace(p.activeRace);this.world.starship.account=oldAccount;
+   this.pending=oldPending;this.pendingProgress=oldProgress;this.checkpoint=oldCheckpoint;this.checkpointProgress=oldCheckpointProgress;this.memoryContinuation=null;this.newTicket=ticket;
+   this.message='新局启动失败，原续局保留：'+String((error as Error).message);return false;
+  }
   finally{this.restoring=false;this.onChange();}
  }
  /** Inspection never changes the live World or permanent profile. The preview ID is single-use. */

@@ -10,6 +10,7 @@ async function connect(){
   const timer=setTimeout(()=>{navigator.serviceWorker.removeEventListener('controllerchange',ready);reject(Error('资源服务启动超时'));},15000);
   navigator.serviceWorker.addEventListener('controllerchange',ready);ready();
  });
+ if(matchMedia('(pointer:coarse)').matches)navigator.serviceWorker.controller.postMessage({type:'sc2-pack-memory-limit',entries:4});
  const controller=new AbortController();
  try{
   return await bounded((async()=>{const r=await fetch(new URL('./${codeFile}',import.meta.url),{signal:controller.signal});if(!r.ok)throw Error('游戏程序下载失败');let bytes=await r.arrayBuffer();if(new Uint8Array(bytes)[0]===31&&new Uint8Array(bytes)[1]===139)bytes=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();return bytes;})(),'游戏程序下载超时');

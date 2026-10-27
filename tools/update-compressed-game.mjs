@@ -18,8 +18,8 @@ let code=await fs.readFile(web+'/'+entry,'utf8');
 // already verified identities, as in the original compression pipeline.
 const identities=new Map();for(const [id,a]of Object.entries(original.assets))if(a.mime==='model/gltf-binary'&&a.sha256!==packed.assets[id].sha256){const oldHash=identities.get(a.sha256);assert.ok(!oldHash||oldHash===packed.assets[id].sha256);identities.set(a.sha256,packed.assets[id].sha256);}
 let modelIdentityReferences=0;for(const [a,b]of identities){modelIdentityReferences+=code.split(a).length-1;code=code.replaceAll(a,b);}
-// Same bounded packed-resource concurrency as the approved compressed build.
-const concurrency=/length:Math\.min\(4,([\w$]+)\.length\)/g;assert.equal([...code.matchAll(concurrency)].length,1);code=code.replace(concurrency,'length:Math.min(12,$1.length)');
+// Keep touch-device peak response memory bounded; desktop retains parallelism.
+const concurrency=/length:Math\.min\(4,([\w$]+)\.length\)/g;assert.equal([...code.matchAll(concurrency)].length,1);code=code.replace(concurrency,"length:Math.min(matchMedia('(pointer:coarse)').matches?4:12,$1.length)");
 const packedCode=gzipSync(code,{level:9}),codeName='assets/sc2-entry.'+sha(packedCode).slice(0,16)+'.js.gz';
 const launcher=packedLauncher(path.basename(codeName));
 const launcherName='assets/index-'+sha(launcher).slice(0,16)+'.js';
