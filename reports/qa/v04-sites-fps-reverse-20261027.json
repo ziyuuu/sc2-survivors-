@@ -1,0 +1,85 @@
+{
+  "description": "One run per version, fresh browser context; 5s warmup then two consecutive 12s requestAnimationFrame windows at 1440x900; same seed; local assets; headless Chrome.",
+  "results": [
+    {
+      "label": "optimized",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "hardwareConcurrency": 16,
+        "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (AMD)",
+        "viewport": [
+          1440,
+          900
+        ],
+        "devicePixelRatio": 1
+      },
+      "samples": [
+        {
+          "durationSeconds": 12.01,
+          "frames": 698,
+          "averageFps": 58.09,
+          "medianFrameMs": 16.7,
+          "p95FrameMs": 16.8,
+          "slowOver50ms": 3,
+          "startTime": 5.033333333333333,
+          "endTime": 17.05,
+          "endPhase": "battle"
+        },
+        {
+          "durationSeconds": 12,
+          "frames": 695,
+          "averageFps": 57.84,
+          "medianFrameMs": 16.7,
+          "p95FrameMs": 16.8,
+          "slowOver50ms": 2,
+          "startTime": 17.066666666666666,
+          "endTime": 29.099999999999998,
+          "endPhase": "battle"
+        }
+      ],
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "label": "original",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "hardwareConcurrency": 16,
+        "renderer": "ANGLE (AMD, AMD Radeon(TM) Graphics (0x00001638) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (AMD)",
+        "viewport": [
+          1440,
+          900
+        ],
+        "devicePixelRatio": 1
+      },
+      "samples": [
+        {
+          "durationSeconds": 12,
+          "frames": 692,
+          "averageFps": 57.59,
+          "medianFrameMs": 16.7,
+          "p95FrameMs": 16.9,
+          "slowOver50ms": 1,
+          "startTime": 5.033333333333333,
+          "endTime": 17.05,
+          "endPhase": "battle"
+        },
+        {
+          "durationSeconds": 12.02,
+          "frames": 638,
+          "averageFps": 53.09,
+          "medianFrameMs": 16.7,
+          "p95FrameMs": 33.3,
+          "slowOver50ms": 3,
+          "startTime": 17.166666666666668,
+          "endTime": 29.183333333333334,
+          "endPhase": "battle"
+        }
+      ],
+      "errors": [],
+      "httpErrors": []
+    }
+  ]
+}
