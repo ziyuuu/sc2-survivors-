@@ -24,6 +24,7 @@ GitHub 交付使用 **`体积优化版` 分支**：仓库根目录 `src/` 是原
 ```sh
 GIT_LFS_SKIP_SMUDGE=1 git clone --branch '体积优化版' --single-branch https://github.com/ziyuuu/sc2-survivors-.git sc2-build
 cd sc2-build
+git checkout --detach 56fa13dd782ba029e2890f87fe9009772372c5bc
 git rev-parse HEAD
 git lfs pull --include='deploy/runtime/**' --exclude=''
 npm ci

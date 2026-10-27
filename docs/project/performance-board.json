@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-27",
-  "revision": 230,
+  "revision": 231,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2628,9 +2628,11 @@
         "MVP_SITES_REVIEW_20261027.md",
         "../../reports/qa/mvp-sites-review-20261027.json",
         "SITES_METADATA_AGENTS_FINAL_20261027.md",
-        "../../reports/qa/sites-metadata-agents-final-20261027.json"
+        "../../reports/qa/sites-metadata-agents-final-20261027.json",
+        "V06_GITHUB_SYNC_20261027.md",
+        "../../reports/qa/v06-github-sync-20261027.json"
       ],
-      "result": "Sites第6版已发布到所有者私有站点，原生接口确认成功、外部访客0。V04-SITES-META-001四项统计已在两处源码修正并随版发布；58包/3742资源逐项解包hash通过、190文件快照内容一致。根AGENTS及项目交接定稿。Workers/D1/R2后台沿用此前验证；自动独立备份、请求触发清理限制、正式访问/公开环境及最终音画使用验收仍开放。Sites计入MVP7/8，阿里云备案与原部署渠道单独保留。",
+      "result": "私有Sites第7版反馈修复已部署，所有者权限保持；两套源码与Coze说明已同步GitHub。此前后台验证范围保持，自动独立备份、请求触发清理限制、正式访问/公开环境及最终体验验收仍开放。",
       "observedIssues": [
         {
           "id": "V04-SITES-META-001",
@@ -2683,9 +2685,11 @@
         "../../reports/qa/easy-loot-inspection-20261027.json",
         "V06_FEEDBACK_REPAIRS_20261027.md",
         "COZE_FEEDBACK_DEPLOY_20261027.md",
-        "../../reports/qa/v06-feedback-repairs-20261027.json"
+        "../../reports/qa/v06-feedback-repairs-20261027.json",
+        "V06_GITHUB_SYNC_20261027.md",
+        "../../reports/qa/v06-github-sync-20261027.json"
       ],
-      "result": "八包最终关闭表与用户集中反馈仍待完成。用户已明确把压缩和Sites发布纳入本MVP：MVP7记录压缩/合包/加载实验，MVP8记录私有发布、D1/R2后台、Git分支及完整交接。有限画面/试听与轻负载帧率不代表全内容质量或后期性能通过；V04-SITES-META-001已关闭，保留V05备份/访问验收事项，本轮不宣布MVP完成。 追加用户反馈：简单第11关约80件且多数绿装，已买诱饵/打事件；V06-GEAR-YIELD-001定向检查完成，确认独立固定奖励与绿色保底叠加，受测无重复结算，产出取舍待讨论。 2026-10-27用户授权将掉落与10项试玩反馈检查并修复；本批实施中，最终验收未关闭。 本批掉落与十项反馈已实施，2717回归、类型、数据一致性、正常/压缩构建及三尺寸原生购买验证通过；门票共三卡、卡框尺寸变化0、页面/HTTP错误0。Coze说明及独立应用包已交付。私有Sites同步被自动审批拦截，待明确授权；线上仍第6版，本批未提交/推送，转圈原始现象未原样复现，人工体验与V05/V06最终关闭仍开放。 用户随后明确授权，私有Sites第7版已部署成功（ffa349c01b3934fcfd2b320bbfcbc9cef6cdff35），仍仅所有者可访问；190源码快照逐字节一致，3742资源/58包校验通过。前述部署待授权状态解除；主仓库未提交/推送，Coze/阿里云未更新，加载圈及平衡手感待人工复测。",
+      "result": "原版最新修复、压缩版第7版快照、相关测试/工具与Coze说明已提交推送到GitHub体积优化版分支（56fa13d），远端提交和内容树核对一致，main未合并；Coze/阿里云未部署。复用同版2717项回归及交互/资源验证，V05进行中、V06待用户体验和最终验收。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -9492,6 +9496,18 @@
       "change": "用户授权将原版最新修复、压缩版第7版快照、测试和Coze说明提交推送到GitHub体积优化版分支；正在核对明确文件范围与远端一致性，不合入main。",
       "evidence": [
         "V06_GITHUB_SYNC_20261027.md"
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "tasks": [
+        "V05",
+        "V06"
+      ],
+      "change": "原版最新修复、压缩版第7版快照、相关测试/工具与Coze说明已提交推送到GitHub体积优化版分支（56fa13d），远端提交和内容树核对一致，main未合并；Coze/阿里云未部署。复用同版2717项回归及交互/资源验证，V05进行中、V06待用户体验和最终验收。",
+      "evidence": [
+        "V06_GITHUB_SYNC_20261027.md",
+        "../../reports/qa/v06-github-sync-20261027.json"
       ]
     }
   ],

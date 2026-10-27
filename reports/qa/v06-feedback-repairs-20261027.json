@@ -5,10 +5,12 @@
   "source": {
     "branch": "体积优化版",
     "baseline": "b4cfeb41439bddcfaf4dd1c43d937aa30406b60d",
-    "sourceCommitIsBaseline": true,
+    "sourceCommitIsBaseline": false,
     "sourceWorkingTreeSha256": "9314f5d06e5604045f12408b5569ba56bea6f7a9e26c34ed4a2407f6deae0822",
-    "committed": false,
-    "pushed": false
+    "committed": true,
+    "pushed": true,
+    "implementationCommit": "56fa13dd782ba029e2890f87fe9009772372c5bc",
+    "githubVerification": "reports/qa/v06-github-sync-20261027.json"
   },
   "build": {
     "applicationVersion": "0.6.29-rc.1",
