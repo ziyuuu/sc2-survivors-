@@ -14,3 +14,6 @@ test/fixtures/sc2-data/** -text
 # Byte-bound environment review bundles include generated Three.js code.
 preview/environment-samples-20261013/*.js -text -diff
 preview/environment-full-map-20261014/*.js -text -diff
+
+# Preserve the original instruction archive byte-for-byte on every checkout.
+docs/project/history/AGENTS_HISTORY_BEFORE_20261027.md -text

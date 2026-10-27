@@ -1,0 +1,134 @@
+{
+  "date": "2026-10-27",
+  "status": "Completed: four statistics corrected in both local sources and private Sites v6; AGENTS and project handoff finalized",
+  "issue": "V04-SITES-META-001",
+  "resolved": true,
+  "boardRevision": 225,
+  "statistics": {
+    "fileCount": {
+      "before": 3748,
+      "after": 3742
+    },
+    "assetBytes": {
+      "before": 351300051,
+      "after": 351051007
+    },
+    "logicalBytes": {
+      "before": 1439004292,
+      "after": 354049353
+    },
+    "sharedBytes": {
+      "before": 22607191,
+      "after": 2998346
+    }
+  },
+  "sites": {
+    "projectId": "appgprj_6ae024693cf481919b48df2cececd0a0",
+    "version": 6,
+    "versionId": "appgprj_6ae024693cf481919b48df2cececd0a0~appgver_4b4adcbc82d4819193e4252f66315c66",
+    "sourceCommit": "2b7c10d5acaad69ff2f7735891e069510309cc9a",
+    "deploymentId": "appgdep_6ae061c113fc81918c7fa672a0af2176",
+    "deploymentStatus": "succeeded",
+    "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site",
+    "audience": "owner-only",
+    "externalVisitors": 0,
+    "groups": 0,
+    "sourceCommitChanges": [
+      "public/web-release.json: four values and final newline"
+    ],
+    "remoteSourceVerifiedBy": "site-workflow.mjs completed successfully after source sync",
+    "cloudArchive": {
+      "archive_format": "tar",
+      "sediment_file_id": "file_0000000060848206902b8318fe12ca49",
+      "content_hash": "sha256:2723850b65bc80051dafcefe98eb3a1232ce2a7b06a1c9f00c621e77afbf3334",
+      "size_bytes": 241459200,
+      "file_count": 132
+    }
+  },
+  "verification": {
+    "resourceAudit": {
+      "scope": "Read-only packed resource and local source correspondence; no runtime, visual, audio or cloud database replay",
+      "snapshot": "sites/size-optimized-site",
+      "checkout": "sites/v04-private-test",
+      "deployedCommit": "2b7c10d5acaad69ff2f7735891e069510309cc9a",
+      "checkoutCommit": "2b7c10d5acaad69ff2f7735891e069510309cc9a",
+      "snapshotFiles": 190,
+      "snapshotDifferences": {
+        "missing": [],
+        "different": [],
+        "extras": [],
+        "rawByteEqual": 69,
+        "lineEndingOnlyCount": 121
+      },
+      "commitDiff": [],
+      "rootGameDiff": [],
+      "resources": {
+        "assetCount": 3845,
+        "fileCount": 3742,
+        "assetBytes": 351051007,
+        "logicalBytes": 354049353,
+        "sharedBytes": 2998346,
+        "packIndexEntries": 3742,
+        "bundles": 58,
+        "packedBytes": 229174031,
+        "modelsWithValidHeader": 282,
+        "publicFiles": 68,
+        "publicBytes": 239922252,
+        "release": "d5f891f541f0082451c319ab026eeef761d943e930547ac4bd1a69a029a8e9fe",
+        "releaseMatchesDescriptor": true
+      },
+      "metadataMismatches": [],
+      "errors": [],
+      "passed": true
+    },
+    "build": "passed",
+    "package": "passed with bundled Node 24.19.0",
+    "archiveMetadataMatchesSource": true,
+    "archiveMetadataSha256": "1a9276ba9e33d1a38f123dfcee4343fbc2d86a6082babcee32b5b497463a339c",
+    "gameSourceFiles": 869,
+    "gameSourceAggregateSha256": "8f54d8370e6096fa7c4fb824f35efbf74f184e655a9dc527f6efc62839268715",
+    "gameSourceUnchanged": true,
+    "gameTestsRerun": false,
+    "browserOrDatabaseRetested": false,
+    "links": {
+      "files": 20,
+      "links": 237,
+      "broken": []
+    },
+    "gitDiffCheck": "passed for affected documentation, tools and metadata"
+  },
+  "agents": {
+    "status": "finalized",
+    "path": "AGENTS.md",
+    "bytes": 11707,
+    "sha256": "335c3a0b3617029b8d62df1ed1cbfbf162fd8aeab19390444692ecb2c66998d4",
+    "historyPath": "docs/project/history/AGENTS_HISTORY_BEFORE_20261027.md",
+    "historyBytes": 414575,
+    "historySha256": "f2b58645215f9aea8ce801d82b2c5ce2beec370985bdfcf52216b9b9869b4d78",
+    "historyMatchesOriginal": true
+  },
+  "github": {
+    "branch": "体积优化版",
+    "lastPushedCommit": "26b87a1173af77dfd2d28dc80892d46ca7301d09",
+    "rootCommitThisBatch": false,
+    "rootPushThisBatch": false,
+    "mergedIntoMain": false
+  },
+  "toolNotes": [
+    "Initial Node 24.14.0 directory copy/package failed after successful build and source push. Bundled Node 24.19.0 packaged successfully; no application change was required.",
+    "Automatic approval rejected a subsequent synchronization; user explicitly authorized updating the same private Site, then the helper and private publication succeeded.",
+    "Full-worktree diff check encountered an unrelated Git LFS/msys sandbox failure; the affected-path diff check passed."
+  ],
+  "remaining": [
+    "V05 formal environment/backend acceptance",
+    "V06 eight-package closure and final user confirmation",
+    "Existing backup, lossy-quality, late-stage performance and physical-device verification limits"
+  ],
+  "retention": {
+    "archive": "Removed after private deployment succeeded; current Site build retained",
+    "temporaryDirectoryRemoved": true,
+    "deletedFiles": 2,
+    "deletedBytes": 233657436,
+    "screenshotsOrVideosCreated": false
+  }
+}

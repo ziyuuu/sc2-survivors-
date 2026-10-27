@@ -1,0 +1,265 @@
+[
+  {
+    "variant": "compressed",
+    "case": "nuke",
+    "time": 3.3,
+    "elapsed": 3.3,
+    "draws": [
+      {
+        "model": "MarineAttackImpact",
+        "requests": 4,
+        "meshes": 0,
+        "particles": 1,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "BloodTargetImpact",
+        "requests": 4,
+        "meshes": 0,
+        "particles": 55,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "MarineAttackLaunch",
+        "requests": 2,
+        "meshes": 2,
+        "particles": 0,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "GhostNukeExplode",
+        "requests": 1,
+        "meshes": 1,
+        "particles": 642,
+        "ribbons": 0,
+        "projections": 16,
+        "displacementMeshes": 3,
+        "displacementQuads": 0
+      }
+    ],
+    "missing": 0
+  },
+  {
+    "variant": "compressed",
+    "case": "nuke",
+    "time": 4.3,
+    "elapsed": 4.3,
+    "draws": [
+      {
+        "model": "MarineAttackImpact",
+        "requests": 4,
+        "meshes": 0,
+        "particles": 20,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "BloodTargetImpact",
+        "requests": 4,
+        "meshes": 0,
+        "particles": 21,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "MarineAttackLaunch",
+        "requests": 2,
+        "meshes": 2,
+        "particles": 0,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "GhostNukeExplode",
+        "requests": 1,
+        "meshes": 1,
+        "particles": 734,
+        "ribbons": 0,
+        "projections": 16,
+        "displacementMeshes": 3,
+        "displacementQuads": 0
+      }
+    ],
+    "missing": 0
+  },
+  {
+    "variant": "compressed",
+    "case": "nuke",
+    "time": 7,
+    "elapsed": 7,
+    "draws": [
+      {
+        "model": "MarineAttackImpact",
+        "requests": 4,
+        "meshes": 0,
+        "particles": 13,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "BloodTargetImpact",
+        "requests": 4,
+        "meshes": 0,
+        "particles": 45,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "MarineAttackLaunch",
+        "requests": 2,
+        "meshes": 2,
+        "particles": 0,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "GhostNukeExplode",
+        "requests": 1,
+        "meshes": 1,
+        "particles": 546,
+        "ribbons": 0,
+        "projections": 16,
+        "displacementMeshes": 3,
+        "displacementQuads": 0
+      }
+    ],
+    "missing": 0
+  },
+  {
+    "variant": "compressed",
+    "case": "colossus",
+    "time": 0.5,
+    "elapsed": 0.5,
+    "draws": [
+      {
+        "model": "ColossusAttackBeam",
+        "requests": 2,
+        "meshes": 0,
+        "particles": 40,
+        "ribbons": 180,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "ColossusAttackBeamImpact",
+        "requests": 2,
+        "meshes": 2,
+        "particles": 86,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 2,
+        "displacementQuads": 0
+      }
+    ],
+    "missing": 0
+  },
+  {
+    "variant": "compressed",
+    "case": "colossus",
+    "time": 0.8,
+    "elapsed": 0.8,
+    "draws": [
+      {
+        "model": "ColossusAttackBeam",
+        "requests": 4,
+        "meshes": 0,
+        "particles": 66,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      },
+      {
+        "model": "ColossusAttackBeamImpact",
+        "requests": 4,
+        "meshes": 2,
+        "particles": 129,
+        "ribbons": 0,
+        "projections": 0,
+        "displacementMeshes": 2,
+        "displacementQuads": 0
+      }
+    ],
+    "missing": 0
+  },
+  {
+    "variant": "compressed",
+    "case": "voidray",
+    "time": 1.4,
+    "elapsed": 1.4,
+    "draws": [
+      {
+        "model": "VoidRayAttackBeam",
+        "requests": 1,
+        "meshes": 1,
+        "particles": 12,
+        "ribbons": 20,
+        "projections": 0,
+        "displacementMeshes": 2,
+        "displacementQuads": 0
+      },
+      {
+        "model": "VoidRayCenterBeam",
+        "requests": 1,
+        "meshes": 0,
+        "particles": 0,
+        "ribbons": 5,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      }
+    ],
+    "missing": 0
+  },
+  {
+    "variant": "compressed",
+    "case": "voidray",
+    "time": 5.5,
+    "elapsed": 5.5,
+    "draws": [
+      {
+        "model": "VoidRayAttackBeam",
+        "requests": 1,
+        "meshes": 1,
+        "particles": 22,
+        "ribbons": 20,
+        "projections": 0,
+        "displacementMeshes": 2,
+        "displacementQuads": 0
+      },
+      {
+        "model": "VoidRayCenterBeam",
+        "requests": 1,
+        "meshes": 0,
+        "particles": 0,
+        "ribbons": 5,
+        "projections": 0,
+        "displacementMeshes": 0,
+        "displacementQuads": 0
+      }
+    ],
+    "missing": 0
+  }
+]

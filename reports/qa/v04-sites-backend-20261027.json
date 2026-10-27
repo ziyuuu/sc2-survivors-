@@ -1,0 +1,11 @@
+{
+ "date":"2026-10-27",
+ "site":"private V04-derived Sites game",
+ "deploymentId":"appgdep_6ae0472df7a48191b5bf0e6e5689a0bc",
+ "commit":"7a193283e008f11482e7ebcbb9aa3144698fdfba",
+ "backend":"Sites Worker with D1 and independent R2 deletion journal",
+ "scope":"opt-in events and daily browser UV; voluntary feedback and optional contacts; owner-only dashboard",
+ "priorServerCounts":{"visitors":0,"feedback":0,"events":0},
+ "passed":["local SQLite contract tests", "local Workers D1 and R2 HTTP tests", "browser opt-in feedback submit/delete and stats deletion", "local browser game startup battle and save", "separate private Sites cloud synthetic consent/event/feedback/deletion", "cloud forged owner header rejected", "private Site owner management page", "final private Site cloud synthetic consent/event/feedback/deletion", "final Site owner management page", "deleted synthetic records"],
+ "limitations":["automatic independent backup not configured", "retention cleanup triggered by subsequent service requests, may be delayed during inactivity", "private site only; public access not enabled", "visual and audio compression not fully accepted", "full production game content and all browsers not tested", "Sites manager provides daily UV and feedback, not the prior backend's full analytics dashboard"]
+}

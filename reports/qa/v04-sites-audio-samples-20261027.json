@@ -1,0 +1,50 @@
+[
+  {
+    "name": "marine-shot",
+    "label": "陆战队员开火",
+    "id": "audio.sc2.source.e223ab7b04584dc0ca63d143",
+    "originalBytes": 120234,
+    "compactBytes": 8221,
+    "originalSeconds": 1.363,
+    "compactSeconds": 1.363,
+    "originalRMS": 0.20224,
+    "compactRMS": 0.19204,
+    "order": "original, 1s silence, compressed"
+  },
+  {
+    "name": "siege-shot",
+    "label": "攻城坦克开火",
+    "id": "audio.sc2.source.f2884d5d2013a73bbd675581",
+    "originalBytes": 173764,
+    "compactBytes": 11606,
+    "originalSeconds": 1.97,
+    "compactSeconds": 1.97,
+    "originalRMS": 0.22954,
+    "compactRMS": 0.21315,
+    "order": "original, 1s silence, compressed"
+  },
+  {
+    "name": "yamato-impact",
+    "label": "大和炮命中",
+    "id": "audio.sc2.source.a14e032b6afc12d708355a0b",
+    "originalBytes": 284864,
+    "compactBytes": 17673,
+    "originalSeconds": 3.229,
+    "compactSeconds": 3.229,
+    "originalRMS": 0.17828,
+    "compactRMS": 0.17782,
+    "order": "original, 1s silence, compressed"
+  },
+  {
+    "name": "marine-voice",
+    "label": "陆战队员语音",
+    "id": "audio.sc2.source.38e45f1a3b2997ff42c6c14b",
+    "originalBytes": 226498,
+    "compactBytes": 16465,
+    "originalSeconds": 2.568,
+    "compactSeconds": 2.568,
+    "originalRMS": 0.16849,
+    "compactRMS": 0.16849,
+    "order": "original, 1s silence, compressed"
+  }
+]

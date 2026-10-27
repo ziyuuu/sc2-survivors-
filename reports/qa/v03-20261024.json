@@ -1,0 +1,414 @@
+{
+  "task": "V03",
+  "date": "2026-10-24",
+  "status": "有限工程批次完成；人类反馈按用户决定留最终收尾",
+  "boardRevision": 179,
+  "v02Delivery": {
+    "commit": "5d0727a14ec18656b408be457263adb1b17b21fc",
+    "remoteMainVerified": true,
+    "files": 16
+  },
+  "source": {
+    "files": 840,
+    "unchanged": 840,
+    "current": "dist/SC2-Survivors-Current-20261006.html",
+    "currentSha256": "c13862cfdc4d43881277fa4b35fb733a604009f023095c3df0d055a8f42e669d",
+    "productionChanged": false
+  },
+  "scope": "Reuse existing source-bound recovery/UI evidence; one actual V02 checkpoint replay with bounded input/audio/visual checks. No new campaign cohort, extreme stress, admin tracing or gameplay/UI changes.",
+  "newChecks": {
+    "count": 11,
+    "names": [
+      "held-key-real-tab-hide-and-explicit-resume",
+      "mouse-order-and-settings-key-isolation",
+      "actual-checkpoint-native-departure",
+      "synthetic-gamepad-disconnect-neutral-rearm",
+      "audio-native-battle",
+      "audio-master-muted",
+      "audio-volume-restored",
+      "existing-presets-short-visual-check",
+      "pause-cleans-healing-loops-and-drains-one-shots",
+      "audio-and-control-preferences-reload",
+      "emulated-touch-release-rotate-cancel"
+    ],
+    "raw": "reports/local/v03-20261024/result.json",
+    "errors": 0
+  },
+  "reuse": {
+    "audit": "reports/local/v03-20261024/reuse-audit.json",
+    "reports": [
+      {
+        "scope": "current-native-full-route",
+        "file": "reports/qa/v02-20261024.json",
+        "sha256": "058fbf357e94af88d524248a81d9057a673c58fc690363da01aee05caf91a5d3"
+      },
+      {
+        "scope": "current-web-offline-context-recovery",
+        "file": "reports/local/v01-20261024/dense-final-browser-result.json",
+        "sha256": "c21e8f93678e1ee34ea79ec1f6ddead0e120ee5874050f76fc00b95361c08d36"
+      },
+      {
+        "scope": "actual-visibility",
+        "file": "reports/local/v01-20261024/visibility-r1/report.json",
+        "sha256": "c3060e4e68b72d158716ff481a90cc8624fd2331973468588a80f7cdbc7e29b3"
+      },
+      {
+        "scope": "u06-current-ui",
+        "file": "reports/local/u06-confirmed-20261023/qa-r4/result.json",
+        "sha256": "a267ad16c36b12d0bba385f771b71c30921e040f463e6bf99953238b9c3a5a95"
+      },
+      {
+        "scope": "u06-simulated-touch",
+        "file": "reports/local/u06-confirmed-20261023/qa-offline/result.json",
+        "sha256": "e3ec54aae3427f1d59d112a2154d8978fdd67e6aad2a6952220a939d3b794786"
+      },
+      {
+        "scope": "d05-save-transactions",
+        "file": "reports/qa/d05-checkpoint-20261023.json",
+        "sha256": "19cbefe8605ee7ab1318a9b10cfc599f0bfecf2e779bf75b3e8a721b5d629f96"
+      },
+      {
+        "scope": "r03-input-reset",
+        "file": "reports/qa/performance-r03-20261020.json",
+        "sha256": "a078b93e15b19138cd89264bec40667ceabab23481643b96e9709a9e85e9146e"
+      }
+    ],
+    "currentBuilds": [
+      {
+        "label": "current-diagnostic",
+        "file": "reports/local/v01-20261024/web-game-dense-adopted-r1-build.json",
+        "sha256": "c1728c0e04918379c81271f15c3afe7e52b4b34b846eeeb4f345c2d71d46bca1",
+        "checked": 480,
+        "changed": []
+      },
+      {
+        "label": "current-normal-entry",
+        "file": "reports/local/v01-20261024/web-game-dense-final-r1-build.json",
+        "sha256": "ca45f6cba7d3a2d762353da1182becba04ac1c751e5d0c045b951f631e47da46",
+        "checked": 480,
+        "changed": []
+      }
+    ],
+    "uiBuildChanges": [
+      "src/app/asset-readiness.ts",
+      "src/app/background-preparation.ts",
+      "src/app/bootstrap.ts",
+      "src/render/effects/source/particles.ts",
+      "src/render/effects/source/player.ts",
+      "src/render/effects/source/timeline.ts",
+      "src/render/scene/battle-renderer.ts",
+      "src/render/terrain/flat-map.ts",
+      "src/render/terrain/layered-ground.ts",
+      "src/simulation/expedition-state.ts",
+      "src/simulation/persistence/starship-snapshot.ts",
+      "src/simulation/world.ts"
+    ],
+    "audioLifecycle": {
+      "report": "reports/qa/performance-s08-20261020.json",
+      "sha256": "ce75bb834982f0353d187bfa4dcdcfa70220b66211658c910dc89459007a57e2",
+      "productionAudioSameAfterLFNormalization": true,
+      "audioSha256": "840b05021b13b2b7c04f63722f6ab052bdfb7fb53744cc3c552db691e3e96062",
+      "rows": [
+        {
+          "name": "empty",
+          "loops": 0,
+          "played": 0,
+          "decoded": 10,
+          "errors": [],
+          "time": 0,
+          "paused": false
+        },
+        {
+          "name": "healing",
+          "loops": 1,
+          "played": 1,
+          "decoded": 10,
+          "errors": [],
+          "time": 0,
+          "paused": false
+        },
+        {
+          "name": "just-ended",
+          "loops": 1,
+          "played": 1,
+          "decoded": 10,
+          "errors": [],
+          "time": 0,
+          "paused": false
+        },
+        {
+          "name": "tail-ended",
+          "loops": 0,
+          "played": 1,
+          "decoded": 10,
+          "errors": [],
+          "time": 0.16,
+          "paused": false
+        },
+        {
+          "name": "resumed",
+          "loops": 1,
+          "played": 2,
+          "decoded": 10,
+          "errors": [],
+          "time": 0.16,
+          "paused": false
+        },
+        {
+          "name": "paused",
+          "loops": 0,
+          "played": 2,
+          "decoded": 10,
+          "errors": [],
+          "time": 0.16,
+          "paused": true
+        },
+        {
+          "name": "unpaused",
+          "loops": 1,
+          "played": 3,
+          "decoded": 10,
+          "errors": [],
+          "time": 0.16,
+          "paused": false
+        },
+        {
+          "name": "source-dead",
+          "loops": 0,
+          "played": 3,
+          "decoded": 10,
+          "errors": [],
+          "time": 0.16,
+          "paused": false
+        },
+        {
+          "name": "reset",
+          "loops": 0,
+          "played": 0,
+          "decoded": 10,
+          "errors": [],
+          "time": 0.16,
+          "paused": false
+        }
+      ],
+      "method": "Actual decoded AudioBuffer/AudioContext nodes through the production audio service. Headless checks prove node lifecycle, not human listening.",
+      "limits": "Existing actual decoded AudioContext lifecycle rows only; not rerun or a physical speaker listening test."
+    },
+    "existingRegression": "V01 same-source 2567 checks reused, not rerun or counted again."
+  },
+  "audio": {
+    "native": {
+      "name": "audio-native-battle",
+      "peak": 0.034753572195768356,
+      "rms": 0.0035956163205499584,
+      "samples": 49152,
+      "context": "running",
+      "activeMax": 1,
+      "healerMax": 0,
+      "mix": [
+        1,
+        1,
+        0
+      ],
+      "played": {
+        "sc2.medivac.heal": 5,
+        "alert": 3,
+        "sc2.marine.attack": 1
+      }
+    },
+    "muted": {
+      "name": "audio-master-muted",
+      "peak": 0,
+      "rms": 0,
+      "samples": 45056,
+      "context": "running",
+      "activeMax": 0,
+      "healerMax": 0,
+      "mix": [
+        0,
+        1,
+        0
+      ],
+      "played": {
+        "sc2.medivac.heal": 5,
+        "alert": 3,
+        "sc2.marine.attack": 1
+      }
+    },
+    "restored": {
+      "name": "audio-volume-restored",
+      "peak": 0.02693508379161358,
+      "rms": 0.004925199200465851,
+      "samples": 45056,
+      "context": "running",
+      "activeMax": 12,
+      "healerMax": 0,
+      "mix": [
+        0.65,
+        0.4,
+        0.2
+      ],
+      "played": {
+        "sc2.medivac.heal": 5,
+        "alert": 3,
+        "sc2.marine.attack": 1,
+        "sc2.ravager.attack": 5,
+        "sc2.zergling.attack": 10,
+        "sc2.roach.attack": 3
+      }
+    },
+    "limits": "WebAudio graph only, no physical listening. Current final pause did not catch an active healer loop; source-bound S08 lifecycle evidence covers that mechanism."
+  },
+  "visual": {
+    "screens": [
+      {
+        "file": "reports/local/v03-20261024/native-r2/failure.png",
+        "sha256": "5997198530c3c87379c82ac97f4249cada43fb4c8db874b8bbe57aa269b30c16"
+      },
+      {
+        "file": "reports/local/v03-20261024/native-r3/combined-full.png",
+        "sha256": "602be4314a99aa8f78cb0baa0a38cfb4af97051b1e15ddd534d5c46b73f0f092"
+      },
+      {
+        "file": "reports/local/v03-20261024/native-r3/combined-medium.png",
+        "sha256": "8206193f9f6a2369b098fb2653d6b44fdbd3436bc00243e761068dcde918475b"
+      },
+      {
+        "file": "reports/local/v03-20261024/native-r3/combined-low.png",
+        "sha256": "8d3c210f7e0dd65bf37f6d9b7e4256484bc0007d557462bbdd9fe9abc23553b2"
+      },
+      {
+        "file": "reports/local/v03-20261024/native-r3/combined-full-restored.png",
+        "sha256": "c20fef7761763b042d07d48bb2bc92b802578182008e0f81ec5471c1555c081d"
+      },
+      {
+        "file": "reports/local/v03-20261024/native-r3/landscape-after-release.png",
+        "sha256": "1e82a86a98af3962c992a1431f2ab4145cea3fe2c0a4ea842c31da2cf8d33b71"
+      },
+      {
+        "file": "reports/local/v03-20261024/native-r3/portrait-after-rotation.png",
+        "sha256": "6e8a03c28e8a83aed3c785162e985699b6768a291083eea855460a8bcf6086ff"
+      },
+      {
+        "file": "reports/local/v03-20261024/native-r3/portrait-paused.png",
+        "sha256": "03c0bb2c888c1a4b3e3a3a0d5c87982c2a51a092aa9128948dc4327dc019f000"
+      }
+    ],
+    "review": "High/medium/low actual stage17 screenshots retain terrain, units and HUD. Large allied bodies overlap and partly clip at the edge in this sample. No observed sustained wide-area whiteout in these sparse images; duration and historical P6 trigger are not established. Low screenshot retains a ground marker; this does not cover every dangerous effect. Portrait battle and touch controls are visible; paused portrait capture is during transition and is not used to assess final font sharpness."
+  },
+  "harness": {
+    "attempts": [
+      {
+        "run": "native-r1",
+        "result": "environment-startup-failure-before-page",
+        "log": "reports/local/v03-20261024/native-r1.log"
+      },
+      {
+        "run": "native-r2",
+        "result": "desktop-checks-passed-then-test-emulation-setup-failed",
+        "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(joy)\n\n    at file:///D:/%E6%98%9F%E9%99%85/tools/qa-v03-native.mjs:46:217",
+        "applicationErrors": 0
+      },
+      {
+        "run": "native-r3",
+        "result": "pass",
+        "checks": 10,
+        "applicationErrors": 0
+      }
+    ],
+    "corrections": "reports/local/v03-20261024/harness-corrections.json"
+  },
+  "human": {
+    "status": "deferred-to-final-closeout-by-user",
+    "entry": "http://127.0.0.1:4496/",
+    "fixture": "http://127.0.0.1:4496/v03-stage16.json",
+    "openedInCodex": "queued",
+    "requested": [
+      "移动后暂停、切出标签页再返回是否正常",
+      "静音/恢复、音量及持续音是否正常",
+      "敌我、目标、掉落与危险范围是否易辨，是否有遮挡/泛白/闪烁"
+    ],
+    "devices": "User should identify keyboard/mouse, actual phone and/or actual gamepad. Browser emulation is recorded separately.",
+    "requestSent": true,
+    "userDecision": "我会在收尾的最后反馈的。",
+    "immediateFeedbackRequested": false,
+    "scopeClarification": "用户强调本游戏偏自动战斗，不按动作游戏的主动走位/躲技能标准验收。组合画面只关注敌我/战斗结果是否看得清、是否被大面积泛白或过度叠加遮住，不新增操作要求或提示图形。"
+  },
+  "openIssues": [
+    {
+      "id": "GATE-007",
+      "status": "open",
+      "reason": "Historical P6-V01 80-point endless-round4 whiteout trigger not established by this short stage17 replay. Old referenced raw screenshot is not present at its documented location in this checkout."
+    },
+    {
+      "id": "V01-SHADER-001",
+      "status": "open",
+      "reason": "Prior actual timeout/retry and real WebGL recovery reused; this bounded entry does not establish a rate or root cause."
+    },
+    {
+      "id": "V02-NATIVE-PERF-001",
+      "status": "open",
+      "reason": "V02 late-stage approximately 24 FPS and 1.416-second peak backlog remain recorded; this is not a performance optimization comparison."
+    }
+  ],
+  "cleanup": {
+    "completed": true,
+    "preserved": "Raw reports, logs, screenshots, fixtures and normal review server; only closed owned QA profiles removed.",
+    "paths": [
+      {
+        "files": 0,
+        "path": "D:\\星际\\reports\\local\\v03-20261024\\native-r1-profile",
+        "bytes": null
+      },
+      {
+        "files": 2599,
+        "path": "D:\\星际\\reports\\local\\v03-20261024\\native-r2-profile",
+        "bytes": 1340727667
+      }
+    ],
+    "at": "2026-10-24T22:22:52.1387852+08:00",
+    "processCheck": "Scoped CIM read found no Chrome process using native-r1-profile or native-r2-profile."
+  },
+  "delivery": {
+    "v02Pushed": true,
+    "v03Committed": false,
+    "v03Pushed": false,
+    "publish": false,
+    "currentReplaced": false,
+    "localPreview": {
+      "url": "http://127.0.0.1:4496/",
+      "fixture": "http://127.0.0.1:4496/v03-stage16.json",
+      "build": "be4dfa98800fc6cbc87504a861fa5f67d74e01f015545596dcdb0c0ec1ce4036",
+      "productionInputs": 505,
+      "sourceUnchanged": true,
+      "diagnostic": false,
+      "pid": 3548,
+      "startedAt": "2026-10-24T14:10:15.137Z",
+      "htmlSha256": "873739fbd858496f623d9946f597d2cfd47d959b37c67a824e161e12cc8f80bc",
+      "httpStatus": 200,
+      "fixtureSha256": "0effaf95c35394190ea9cc5ac119103f2d2737d53baaf2f304b8267ba6190a79",
+      "fixtureStatus": 200,
+      "verified": true
+    }
+  },
+  "limitations": [
+    "One actual V02 checkpoint replay, not a fresh natural campaign or FPS comparison.",
+    "Touch and gamepad input are browser emulations. Physical phone/gamepad and human comfort/readability remain unverified.",
+    "Audio was measured in the WebAudio graph, not recorded at speakers. Initial automation already had user activation; browser autoplay restrictions are not independently certified.",
+    "New audio samples observed no active healer loop during the final pause, so stopping an active healer is reused only from same-source S08 AudioEffects lifecycle evidence, not claimed from this pause.",
+    "Initial three-preset samples occur at different real gameplay times; they are not pixel-equivalence comparisons.",
+    "GATE-007/P6-V01 original 80-point endless-round4 trigger remains open; its old referenced raw path is absent in this checkout.",
+    "V01-SHADER-001 and V02-NATIVE-PERF-001 remain open. No expanded stress tests or administrator traces."
+  ],
+  "renderingClarification": {
+    "newGeometryIndicatorsInV03": false,
+    "high": "Existing full effects unchanged; low-danger layer disabled.",
+    "low": "Existing D02-approved static original acid texture projected onto terrain and clipped to actual damage footprints. No new plain ring/box/solid-fill indicators.",
+    "source": [
+      "src/render/effects/low-danger-effects.ts",
+      "src/render/scene/battle-renderer.ts"
+    ],
+    "productionChanged": false
+  },
+  "handoffTo": "T01"
+}

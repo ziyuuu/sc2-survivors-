@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-27",
+  "task": "Project navigation, organization and MVP to next 1.0 handoff",
+  "status": "Documentation and navigation completed; root AGENTS joint review pending",
+  "sourceHead": "2924d9bb3330f10ad78462b6f96efda163c5eff3",
+  "boardRevision": 221,
+  "changes": [
+    "README.md",
+    "docs/README.md",
+    "docs/project/README.md",
+    "docs/PROJECT_STRUCTURE.md",
+    "docs/project/MVP_TO_1_0_HANDOFF_20261027.md",
+    "docs/project/PROJECT_ORGANIZATION_20261027.md",
+    "docs/project/AGENTS_PROPOSAL_20261027.md",
+    "tools/README.md",
+    "tools/HISTORICAL_QA.md",
+    "preview/README.md",
+    "reports/README.md",
+    "deploy/README.md",
+    "docs/DOCUMENT_INDEX.md",
+    "docs/ARCHITECTURE.md",
+    "docs/project/ARTIFACT_RETENTION.md",
+    "docs/project/V04_DELIVERY_20261027.md"
+  ],
+  "verification": {
+    "localMarkdownLinks": 77,
+    "brokenLinks": [],
+    "protectedFiles": 870,
+    "protectedChanged": [],
+    "rootAgentsUnchanged": true,
+    "gameTestsRerun": false,
+    "reason": "Documentation-only organization; existing game validation referenced with dates and scope",
+    "gitDiffCheck": "passed"
+  },
+  "boundaries": {
+    "movedProductionPaths": false,
+    "deletedSourceOrAssets": false,
+    "deployed": false,
+    "published": false,
+    "newThreadCreated": false,
+    "committed": false,
+    "pushed": false
+  },
+  "remaining": [
+    "Discuss AGENTS_PROPOSAL_20261027.md with user, archive full old root history, then replace root AGENTS only after content is settled",
+    "V05 public acceptance and V06 final closure remain with existing workflow"
+  ],
+  "retention": {
+    "temporaryBaseline": "Removed after successful hash comparison",
+    "verification": "Fixed absolute baseline path and empty task directory confirmed absent",
+    "toolNote": "Initial Split-Path parameter combination was invalid; the two fixed non-recursive removals succeeded and absence was independently verified using System.IO.Path"
+  },
+  "rulesDirectoryRevision": {
+    "date": "2026-10-27",
+    "scope": "User-requested AGENTS directory and preservation of prior UI / project management rules",
+    "files": [
+      "docs/project/AGENTS_PROPOSAL_20261027.md",
+      "docs/project/UI_RULES.md",
+      "docs/project/PROJECT_MANAGEMENT_RULES.md",
+      "docs/project/README.md",
+      "docs/README.md",
+      "docs/project/PROJECT_ORGANIZATION_20261027.md",
+      "docs/project/MVP_TO_1_0_HANDOFF_20261027.md"
+    ],
+    "linksChecked": 129,
+    "brokenLinks": [],
+    "proposalBytes": 11271,
+    "rootAgentsUnchanged": true,
+    "boardUnchanged": true,
+    "rootDraftApplied": false,
+    "gameChanges": false,
+    "gameTestsRerun": false,
+    "sources": [
+      "AGENTS.md: UI 设计约束 / UI 改动确认规则 · 2026-10-23",
+      "AGENTS.md: 性能优化固定看板与每次更新 · 2026-10-19",
+      "AGENTS.md: D盘图片保存约定",
+      "performance-board.json: rules",
+      "SC2_UI_DESIGN_BASELINE_20261005.md",
+      "HUD_VISUAL_LANGUAGE_20261003.md",
+      "FUN_UI_MERGE_GUARD_20261022.md",
+      "T01_UI_MAIN_20261025.md",
+      "DOCUMENT_MANAGEMENT_20261013.md",
+      "ARTIFACT_RETENTION.md"
+    ]
+  },
+  "latestStatus": "Finalized: root AGENTS applied, original preserved byte-for-byte, handoff updated; see finalization evidence",
+  "finalization": {
+    "date": "2026-10-27",
+    "boardRevision": 225,
+    "evidence": "reports/qa/sites-metadata-agents-final-20261027.json",
+    "rootDraftApplied": true,
+    "rootBytes": 11707,
+    "historyBytes": 414575,
+    "historyMatchesOriginal": true,
+    "remaining": [
+      "V05",
+      "V06"
+    ]
+  }
+}

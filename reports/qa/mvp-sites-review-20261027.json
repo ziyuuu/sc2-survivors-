@@ -1,0 +1,195 @@
+{
+  "date": "2026-10-27",
+  "task": "MVP Sites compression, publication and handoff review",
+  "status": "Private deployment and packed resource integrity verified; included in MVP; open metadata and final acceptance items retained",
+  "authorization": "User requested checking SITES_HANDOFF_20261027.md and counting compression and publication as MVP work",
+  "site": {
+    "projectId": "appgprj_6ae024693cf481919b48df2cececd0a0",
+    "title": "星际幸存者",
+    "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site",
+    "versionNumber": 5,
+    "versionId": "appgprj_6ae024693cf481919b48df2cececd0a0~appgver_8ee921a6ddec8191bec331ea3a7866b7",
+    "sourceCommit": "7a193283e008f11482e7ebcbb9aa3144698fdfba",
+    "deploymentId": "appgdep_6ae0472df7a48191b5bf0e6e5689a0bc",
+    "deploymentStatus": "succeeded",
+    "accessMode": "custom",
+    "allowedUserRoles": [
+      "owner"
+    ],
+    "externalVisitors": 0,
+    "groups": 0
+  },
+  "git": {
+    "repository": "https://github.com/ziyuuu/sc2-survivors-",
+    "branch": "体积优化版",
+    "head": "26b87a1173af77dfd2d28dc80892d46ca7301d09",
+    "remoteHeadVerified": true,
+    "remoteVerification": "GitHub compare_commits base=26b87a1 head=体积优化版: identical, ahead=0, behind=0",
+    "main": "2924d9bb3330f10ad78462b6f96efda163c5eff3",
+    "mergedIntoMain": false,
+    "independentCheckout": "1b81c97dd3e516c3ddc2c8ad715293df28a8beca",
+    "snapshot": "sites/size-optimized-site",
+    "independentRepository": "sites/v04-private-test"
+  },
+  "localVerification": {
+    "scope": "Read-only packed resource and local source correspondence; no runtime, visual, audio or cloud database replay",
+    "snapshot": "sites/size-optimized-site",
+    "checkout": "sites/v04-private-test",
+    "deployedCommit": "7a193283e008f11482e7ebcbb9aa3144698fdfba",
+    "checkoutCommit": "1b81c97dd3e516c3ddc2c8ad715293df28a8beca",
+    "snapshotFiles": 190,
+    "snapshotDifferences": {
+      "missing": [],
+      "different": [],
+      "extras": [],
+      "rawByteEqual": 69,
+      "lineEndingOnlyCount": 121
+    },
+    "commitDiff": [
+      "VERSION-体积优化版.md"
+    ],
+    "rootGameDiff": [],
+    "resources": {
+      "assetCount": 3845,
+      "fileCount": 3742,
+      "assetBytes": 351051007,
+      "logicalBytes": 354049353,
+      "sharedBytes": 2998346,
+      "packIndexEntries": 3742,
+      "bundles": 58,
+      "packedBytes": 229174031,
+      "modelsWithValidHeader": 282,
+      "publicFiles": 68,
+      "publicBytes": 239922266,
+      "release": "d5f891f541f0082451c319ab026eeef761d943e930547ac4bd1a69a029a8e9fe",
+      "releaseMatchesDescriptor": true
+    },
+    "metadataMismatches": [
+      {
+        "field": "fileCount",
+        "recorded": 3748,
+        "actual": 3742
+      },
+      {
+        "field": "assetBytes",
+        "recorded": 351300051,
+        "actual": 351051007
+      },
+      {
+        "field": "logicalBytes",
+        "recorded": 1439004292,
+        "actual": 354049353
+      },
+      {
+        "field": "sharedBytes",
+        "recorded": 22607191,
+        "actual": 2998346
+      }
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "issues": [
+    {
+      "id": "V04-SITES-META-001",
+      "status": "open",
+      "scope": "web-release.json derived summary metadata",
+      "details": [
+        {
+          "field": "fileCount",
+          "recorded": 3748,
+          "actual": 3742
+        },
+        {
+          "field": "assetBytes",
+          "recorded": 351300051,
+          "actual": 351051007
+        },
+        {
+          "field": "logicalBytes",
+          "recorded": 1439004292,
+          "actual": 354049353
+        },
+        {
+          "field": "sharedBytes",
+          "recorded": 22607191,
+          "actual": 2998346
+        }
+      ],
+      "impact": "Summary metadata is stale; all 3845 IDs and 3742 unique resource payloads passed decoded SHA checks. Not evidence of a missing resource.",
+      "next": "Correct derived metadata consistently in the independent source and tracked snapshot during the next authorized Site update; retain separate package identity. No site mutation or deployment performed in this review."
+    }
+  ],
+  "mvpMapping": [
+    {
+      "pack": "MVP7",
+      "work": "Resource compression, bundling and loading observations",
+      "task": "V04/V05",
+      "boundary": "Not a dense or late-campaign FPS acceptance result"
+    },
+    {
+      "pack": "MVP8",
+      "work": "Sites private publication, D1/R2 feedback/statistics, owner management and branch handoff",
+      "task": "V04/V05/V06",
+      "boundary": "Private publication, GitHub-public source and public visitor access are different states"
+    }
+  ],
+  "inheritedEvidence": {
+    "reports": [
+      "reports/qa/v04-sites-loading-20261027.json",
+      "reports/qa/v04-sites-backend-20261027.json",
+      "reports/qa/v04-sites-stage-fps-20261027.json",
+      "reports/qa/v04-sites-visual-samples-20261027.json",
+      "reports/qa/v04-sites-effects-samples-20261027.json",
+      "reports/qa/v04-sites-audio-samples-20261027.json"
+    ],
+    "runtimeReexecuted": false,
+    "visualOrAudioReaccepted": false,
+    "limits": [
+      "lossy WebP quality 70 and target 48kbps Opus; sample acceptance is not full-content acceptance",
+      "150ms-per-request local loading experiment is not online timing",
+      "light first-stage FPS runs do not resolve existing late/dense performance limits",
+      "automatic independent backup absent; retention cleanup request-triggered",
+      "current cloud application flow, public access and physical-device/final user acceptance not replayed in this review",
+      "Sites management is scoped daily UV and feedback, not full PostgreSQL analytics migration",
+      "compression scripts depend on prior local staging/tools; not clean-room reproducibility"
+    ]
+  },
+  "reproduction": "node tools/maintenance/verify-sites-handoff.mjs",
+  "boundaries": {
+    "changedGameCode": false,
+    "changedSiteCode": false,
+    "changedAccess": false,
+    "readPlayerDatabaseRows": false,
+    "deployed": false,
+    "merged": false,
+    "committed": false,
+    "pushed": false
+  },
+  "toolNotes": [
+    "Initial Git CLI ls-remote failed before network resolution; GitHub connector verified remote branch tip instead.",
+    "Initial strict file-byte comparison found 121 text differences; all proved UTF-8 CRLF/LF only, 69 files byte-identical. Source content correspondence passes with that explicit normalization; no claim of 190 identical byte streams."
+  ],
+  "documentationVerification": {
+    "links": 141,
+    "broken": [],
+    "boardRevision": 224,
+    "boardGenerated": true,
+    "taskCount": 63,
+    "gameWorkingChanges": [],
+    "gitDiffCheck": "passed"
+  },
+  "operationsConfirmation": {
+    "threadTitle": "运维部署",
+    "threadId": "01a17653-2724-7aa1-8526-4e59f246864a",
+    "turnId": "01a17c6b-1799-70a2-86e7-d04e12532d52",
+    "userAuthorizedContact": true,
+    "gitDeliveryComplete": true,
+    "userRequestedMainMerge": false,
+    "userDesignatedNewDevelopmentBaseline": false,
+    "access": "owner-private Site; separately authorized complete public GitHub upload",
+    "qualityAcceptance": "User accepted displayed nuke/beam samples; no full-game visual or full-audio acceptance",
+    "metadataExplanation": "assetBytes was updated by summing the old unique-URL mapping; post-compression deduplication can double count. fileCount/logicalBytes/sharedBytes inherited old values. Confirmed stale summary metadata.",
+    "noMutationRequestedFromOperations": true
+  }
+}

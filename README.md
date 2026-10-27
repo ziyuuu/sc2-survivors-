@@ -1,99 +1,61 @@
-> 2026-10-22 I03完成：[当前内容可达性／生效核验](docs/project/INTEGRATION_I03_20261022.md) · [逐项清单](docs/project/INTEGRATION_I03_COVERAGE_20261022.md) · [本地候选入口](preview/integration-i03-20261022/index.html)。正式入口为旗舰配装，未恢复旧天赋；镜头和操作保持，下一项G01尚未开始。
+# 星际幸存者
 
-# SC2 SURVIVORS · 星际幸存小队
+基于 TypeScript、Three.js 的三族自动战斗游戏。原版正式候选为 **0.6.29-rc.1**，T01 画面与听感已由用户确认，V04 同版交付完成。其 **Sites 体积优化版第 6 版已私有发布**，压缩、合包、后台适配和发布均已纳入本 MVP；站点目前只允许所有者访问。阿里云原部署及备案是另一条保留渠道。V05/V06 尚未全部关闭，质量、性能和发布限制见交接。
 
-## UI 设计约束
+## 从这里接手
 
-1. 默认采用极简界面文案，只保留必要的标题、名称、操作、数值、状态和结果。
-2. 禁止自动添加解释性副标题、卡片描述、灰色小字、冗余提示条、装饰性标签和页脚说明。
-3. 不得通过增加辅助文案来弥补交互设计问题。优先调整布局、命名、视觉层级和状态反馈。
-4. 不允许为了填补留白而创造文字内容。留白是正常的设计元素。
-5. 只有错误恢复、关键风险、复杂操作确实需要时才提供辅助说明，且保证可读性；重要信息不得使用低对比度小字。
-6. 游戏和交互式 Demo 优先通过视觉、动画、图标和操作反馈表达规则，避免说明书式界面。
-7. 完成 UI 后执行文案审查：逐项删除不影响理解和操作的文字。不得把被删除的冗余内容转移到 tooltip 中。
+- [当前完整交接与后续 1.0 线程提示词](docs/project/MVP_TO_1_0_HANDOFF_20261027.md)
+- [实际目录与模块职责](docs/PROJECT_STRUCTURE.md)
+- [当前工作导航](docs/project/README.md) · [看板](docs/project/PERFORMANCE_BOARD.html) · [任务状态数据](docs/project/performance-board.json)
+- [V04 成品与验证](docs/project/V04_DELIVERY_20261027.md) · [V05 服务器现状](docs/project/V05_SERVER_STAGING_20261027.md)
+- [Sites 压缩与发布核对、MVP 归属](docs/project/MVP_SITES_REVIEW_20261027.md) · [运维交接](docs/project/SITES_HANDOFF_20261027.md)
+- [四项统计修正与交接定稿](docs/project/SITES_METADATA_AGENTS_FINAL_20261027.md)
+- [项目目录与核心协作规则](AGENTS.md) · [整理安排](docs/project/PROJECT_ORGANIZATION_20261027.md)
 
-### UI 改动确认规则 · 2026-10-23
+## 开发与检查
 
-- 任何 UI 新增或修改都必须先列出具体变更并取得用户明确确认，包括布局、字体、按钮样式、文案、状态提示和功能入口位置。不得把功能实现授权推定为 UI 改动授权，不得在其他任务中顺手扩改 UI。
-- 已确认的具体范围内连续实施，无须逐步重复确认；出现范围外的新改动，先说明并等待确认。
-- 本项目是游戏，后台自动保存保持安静；不得在正常游戏界面到处显示“已保存”“保存中”“操作完成”等系统工作状态。真实错误恢复按上方第 5 条处理，不向玩家暴露测试标记或底层异常原文。
-- 读取、导入、导出存档等管理功能只放在设置中，不能擅自在主菜单、暂停主操作、关间、舰装或结算页增加独立入口。
-- 桌面、手机横屏、手机竖屏使用统一的按钮与字体规范，同级操作不混用无依据的样式和字号。仅按已确认清单调整图标，本轮只去掉暂停菜单继续/设置的装饰图标；不得全局清理图标或借此放大字号、按钮、弹窗。
-- 以上为用户最新明确规则，优先于下方历史记录中已实施但未获 UI 确认的做法。2026-10-23 的八张截图已提出整改要求；用户随后已明确批准四项整改方案并要求同时清除其他冗余说明，现进入 U06 实施；不得超出这次确认的范围。
+需要 Node.js 22+、npm 和当前 Git LFS 资源。克隆后先确认 LFS 二进制已获取，再安装锁定依赖。私有原始素材不随普通克隆自动提供；缺资源应查看诊断，不能用占位文件掩盖。
 
-
-2026-10-22 [I02跨系统结算完成](docs/project/INTEGRATION_I02_20261022.md)：修复冻结返回的冷却／复生／子机／提前战败边界，2102回归与Web／离线核验通过；镜头与操作保持。看板48/62，下一项I03未开始。[候选说明](preview/integration-i02-20261022/README.md)。未替换Current。
-
-2026-10-22 [I01趣味玩法与主线性能合流完成](docs/project/INTEGRATION_I01_20261022.md)：main工作区已整合，原镜头与操作保持；2077回归及最终预热／离线核验通过。看板47/62，下一项I02；统一候选见 [预览说明](preview/integration-i01-20261022/README.md)。未替换Current，以下旧交付状态保留历史含义。
-
-2026-10-21 [D04原开局批次预热补完](docs/project/PERFORMANCE_D04_COMPLETE_20261021.md)：已测三族在前三关完成模型／GPU准备，严重长帧65→7但峰值仍在；缓存即时清理，52项完成46、下一项V01。此前“批次尚未完整”的记录保留其历史含义。
-
-- [B03交互、加载与长局代表基线（2026-10-19）](docs/project/PERFORMANCE_B03_INTERACTION_LONGRUN_20261019.md)：记录测量与已知失败；下一项F05。
-
-基于 Three.js、TypeScript、Vite 的单人小队生存游戏。玩家控制整队移动、少量技能和关间决策，小队自动索敌与交战。
-
-## 现在从哪里开始
-
-| 目的 | 入口 |
-| --- | --- |
-| 看下一步与 MVP 完成边界 | [1.0 MVP 收尾计划](docs/project/MVP_COMPLETION_CONTRACT_20261013.md) |
-| 找当前设计、实现记录或历史材料 | [文档导航](docs/README.md) · [完整文档索引](docs/DOCUMENT_INDEX.md) |
-| 体验独立舰装 UI 的首页、战场与关间流程 | [R21 演示与接口](preview/starship-field-ui-20261016-r21/README.md)，正式主游戏尚未挂载整套 UI |
-| 了解文件放哪里、哪些保留 | [项目文件夹说明](docs/PROJECT_STRUCTURE.md) |
-| 查看当前交付与限制 | [7A 验证与交付](docs/project/MVP7A_LOADING_VALIDATION_20261013.md) · [当前应用交接](docs/project/CURRENT_COZE_HANDOFF_20261006.md) |
-
-2026-10-13 确认的下一步是：**先做 4 原版表现、5 五图环境和 7A 前置优化，同步准备建筑真实逻辑独立包与舰装 UI／装备设计；随后 1 → 3 → 2 → 6 → 7B → 8。** 八个交付包全部通过才完成 1.0 MVP，新增想法默认进入 1.1。计划、原型和主游戏验收分别记录。
-
-## 当前可运行版本
-
-当前底座为 **MVP 7A Final R1／应用 0.6.26**，本地交付日期为 2026-10-13。采用合并动画采样与可让出执行的 CPU 准备；此前原版折射与科学球修复保留。战局 schema 26、永久档案 v6、地图配方 v3。内容包括三族、30 个普通家族、90 款精英、18 名英雄、五张普通地图、十八关战役和独立无尽。
-
-| 产物 | 本地位置 |
-| --- | --- |
-| 命名离线 HTML | [SC2-Survivors-MVP7A-Final-R1-20261013.html](dist/SC2-Survivors-MVP7A-Final-R1-20261013.html) |
-| 当前离线入口 | [SC2-Survivors-Current-20261006.html](dist/SC2-Survivors-Current-20261006.html)，当前与上述 7A R1 字节一致，文件名日期不是版本日期 |
-| 命名应用包 | [MVP7A-Final-R1-Application-20261013.zip](dist/MVP7A-Final-R1-Application-20261013.zip) |
-| 分文件 Web／应用镜像 | `dist/web/`／`deploy/coze/` |
-| Web 构建与资源身份 | [web-release.json](dist/web/web-release.json)／[应用 delivery.json](dist/MVP7A-Final-R1-Application-20261013/delivery.json) |
-
-正式资源清单为 1177 条资源记录、1129 个物理文件，本批新增资源为 0。Web 构建号 `ea42c5704c2964f581afb7ca2e6245de4554a2623bf3a3e62a59fccf2816c0aa`；应用版本取自交付包，根 `package.json` 的开发包版本不是发行版本。
-
-本机三对立即开始实测，Web 配对中位少等 9.209 秒，实际离线版少等 3.078 秒；首次仍约 95–104 秒。菜单数秒同步阻塞、缓存异常原因和完整内容稳定 60 FPS 未关闭。五图新反馈、建筑／趣味／舰装新内容、人工与实体设备、正式生产环境及 B4 等仍按收尾计划关闭。本地应用和镜像不表示已经线上发布。
-
-## 试玩与保存
-
-双击当前离线 HTML，或启动本地 Web。主菜单可以新建、读档和管理当前天赋；舰装替代成长入口尚属后续计划。鼠标点击前往、键盘 WASD／方向键、触屏摇杆或点按、手柄均使用既有整队控制。详细操作与固定／自动／电影相机见 [相机控制](docs/project/CAMERA_CONTROL_20261011.md) 和 [电影相机](docs/project/CINEMATIC_PRELOAD_20261012.md)。
-
-暂停、设置、关间可保存或导出；浏览器、页面来源或机器变化前先导出完整存档。现行战局仅接受 schema 26／档案 v6，不迁移旧开发存档。计划中的舰装撤离、失联及当前数据处置尚未写入运行版。机制见 [存档说明](docs/SAVE_SYSTEM.md)。
-
-## 开发与验证
-
-Node.js 22+；原素材处理另需 PowerShell、Python 和 Git LFS。运行资源按锁定清单恢复；原文件下载与转换见 [素材准备](docs/ASSET_DOWNLOAD_REQUIRED.md)。
-
-```sh
-git lfs pull
-npm ci --ignore-scripts
+~~~powershell
+npm ci
 npm run assets:restore
 npm run dev
-```
+~~~
 
-默认开发地址 `http://127.0.0.1:5173/`。缺失素材应核验来源和依赖，不用占位几何体代替原单位。独立 UI 与实验入口位于 [preview](preview/README.md)；它们各自的完成状态不等于主游戏完成。
+开发入口为 http://127.0.0.1:5173/ 。运行前检查端口和其他线程正在使用的服务，避免覆盖共享验证现场。
 
-```sh
+~~~powershell
 npm test
 npm run typecheck
 npm run docs:check
-node tools/check-mvp-plan.mjs
-```
+npm run build:web
+~~~
 
-`docs:data` 生成运行数值参考，`docs:check` 只检查是否过期；MVP 文档检查器检查既有 M0–M7 任务结构，不判定本次八包完成。只改文档时运行相关文档检查，不重建游戏或重复无关浏览器矩阵。
+按实际改动选择验证范围。修改游戏参考数据后先 npm run docs:data，再运行 docs:check。历史定向脚本见 [工具说明](tools/README.md)，不将旧脚本不兼容当成当前游戏缺陷。
 
-`npm run build` 构建离线 HTML；`npm run build:web` 构建分文件 Web。构建会更新产物，须按当轮流程绑定实际文件、清单与验证，不能把历史报告贴到新构建上。浏览器脚本要求已构建 Web／HTML；历史脚本范围见 [历史 QA 说明](tools/HISTORICAL_QA.md)。
+离线构建必须显式命名：默认 npm run build 会写保留的旧 Current。PowerShell 示例：
 
-## 资源、发布与记录
+~~~powershell
+$env:SC2_DEMO_OUTPUT = 'dist/SC2-Survivors-Local.html'
+try { npm run build } finally { Remove-Item Env:SC2_DEMO_OUTPUT -ErrorAction SilentlyContinue }
+~~~
 
-当前应用沿用 Coze v10、锁定依赖和 vendor；本地预览关闭后端，生产操作按 [交接入口](docs/project/CURRENT_COZE_HANDOFF_20261006.md) 与 [后台生产交接](docs/project/P5_BACKEND_HANDOFF_20261006.md) 执行。私有凭据、数据库和本机报告不进入 Git。
+先确认该输出名未被当前任务使用；build:web 同样会更新共享 dist/web。
 
-原始 SC2 资源属于 Blizzard Entertainment。本项目为非官方项目；原素材来源、转换正确性、播放表现、人工认可与分发许可分别记录。测试通过不等于人工视觉认可或资源许可。
+## 当前本机交付
 
-历史文档保留原名、原结果和失败记录，通过索引区分用途；已批准的旧本地材料清理以当时清单为准。当前源码、原资源、命名交付、必要证据和其他工作线设计不因文档整理而删除。
+在线私有入口：[星际幸存者](https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site)。主仓库目前为“体积优化版”分支 `26b87a1`，已推送但未并入 main；main 仍 `2924d9b`。站点源快照在 sites/size-optimized-site，原独立站点仓库在 sites/v04-private-test，两处修改需按交接核对，GitHub 推送不自动部署 Sites。
+
+- 玩家离线游戏：dist/SC2-Survivors-V04-20261027.html。
+- Web 与应用/资源包：dist/V04-20261027/；逐包字节和 SHA 见 CHECKSUMS.json。
+- T01 检测页：reports/local/t01-20261024/offline-r33/T01-综合检测.html，用于查看动作、声音与 UI。
+
+上述生成物不随普通 Git 克隆分发。当前应用/资源标识见完整交接；根 package.json 版本、旧 deploy/coze 和旧 Current 文件均不能代表最新交付。
+
+游戏按初始及关间检查点保存，刷新/关闭后当前关可能重打。迁移浏览器、网址或离线文件位置应先导出，再在目标入口导入。详见 [D05 保存约定](docs/project/D05_CHECKPOINT_20261023.md)。
+
+## 文件与协作
+
+生产代码在 src，测试在 test，工具在 tools，资料在 docs；preview 混有原型源码和唯一原图，不能整目录当缓存删除。可重建产物遵循 [保留规则](docs/project/ARTIFACT_RETENTION.md)。共享工作区先核对 git status，不批量提交其他线程改动；不在文件夹整理时修改生产配置或发布。
+
+本首页核对于 2026-10-27。后续最新事实从工作导航、看板 tasks 和对应日期记录读取；历史入口全文可从 Git 的整理前提交恢复。
