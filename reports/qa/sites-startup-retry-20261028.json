@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-28",
+  "issue": "V05-SITES-BOOT-001",
+  "siteId": "appgprj_6ae024693cf481919b48df2cececd0a0",
+  "sourceCommit": "0943563591bb50e3855519ebe6cf6df428956db2",
+  "appBuildId": "12cadeac19343ecf1f148afc95a1bc22833ce62b8dc2a712a03b1a34457df19c",
+  "resourceRelease": "d5f891f541f0082451c319ab026eeef761d943e930547ac4bd1a69a029a8e9fe",
+  "runSchema": 26,
+  "status": "version 8 deployed; online menu verified",
+  "deployment": {
+    "id": "appgdep_6ae0e92bf76c8191994bc55f4e00ba26",
+    "version": 8,
+    "status": "succeeded",
+    "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site",
+    "sourceCommit": "0943563591bb50e3855519ebe6cf6df428956db2"
+  },
+  "checks": {
+    "typecheck": "passed",
+    "docsCheck": "passed",
+    "targetedTests": {
+      "passed": 16,
+      "failed": 0
+    },
+    "fullTests": {
+      "passed": 2720,
+      "failed": 0
+    },
+    "initialRestrictedRun": {
+      "passed": 2713,
+      "failed": 7,
+      "reason": "localhost HTTP connections denied with EACCES; full rerun with localhost access passed"
+    },
+    "sitesBuild": "passed; official packaging succeeded with bundled Node after system Node packaging failed"
+  },
+  "browser": {
+    "engine": "desktop Edge through computer-use browser API",
+    "transientFailure": {
+      "program502": 1,
+      "manifest502": 2,
+      "bundle502": 1,
+      "result": "automatically reached visible main menu without manual retry",
+      "requests": {
+        "manifest": 4,
+        "program": 2,
+        "bundle": 14
+      }
+    },
+    "permanentFailure": "after three automatic retries, opening overlay removed and existing Retry visible and clickable; clicking restarted preparation",
+    "screenshotsInspected": [
+      "main menu at narrow viewport",
+      "visible failure recovery"
+    ],
+    "physicalPhone": "not tested",
+    "online": {
+      "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site/?v=8",
+      "appBuildId": "12cadeac19343ecf1f148afc95a1bc22833ce62b8dc2a712a03b1a34457df19c",
+      "menu": "visible and actionable",
+      "startupWarnings": 0,
+      "startupErrors": 0
+    }
+  },
+  "preserved": [
+    "58 resource bundles",
+    "compressed resource identities",
+    "lossy quality settings",
+    "simulation rules",
+    "schema26 saves",
+    "live player data",
+    "D1/R2 configuration",
+    "owner authentication",
+    "existing public audience"
+  ],
+  "limitations": [
+    "Original physical-phone failed request not captured; repair addresses verified startup retry and stuck-download defects",
+    "Desktop Edge and viewport checks are not physical mobile Chrome validation"
+  ],
+  "reproduce": [
+    "test/startup-auto-retry.test.ts",
+    "tools/serve-sites-startup-test.mjs",
+    "tools/prepare-sites-startup.mjs"
+  ],
+  "notes": "Temporary browser fault injection used local origins only and did not change live saves, telemetry consent or feedback data."
+}

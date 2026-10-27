@@ -2,6 +2,15 @@
  * A caller that owns mutable scene work must retain its lane until that work drains. */
 export const ASSET_REQUEST_TIMEOUT=60000;
 export const PREPARATION_WAIT_TIMEOUT=120000;
+/** Retry a complete preparation pass so verified resources from earlier passes remain reusable. */
+export async function retryAssetPreparation<T>(work:()=>Promise<T>,onRetry:(attempt:number,delayMs:number)=>void=()=>{},delay=(ms:number)=>new Promise<void>(resolve=>setTimeout(resolve,ms))){
+ for(let attempt=0;;attempt++){
+  try{return await work();}catch(error){
+   if(attempt>=3)throw error;
+   const delayMs=1000*2**attempt;onRetry(attempt+1,delayMs);await delay(delayMs);
+  }
+ }
+}
 export function waitForAsset<T>(work:PromiseLike<T>,label:string,timeoutMs=ASSET_REQUEST_TIMEOUT,signal?:AbortSignal):Promise<T>{
  return new Promise<T>((resolve,reject)=>{
   let settled=false;

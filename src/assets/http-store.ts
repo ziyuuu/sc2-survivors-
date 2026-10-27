@@ -1,7 +1,8 @@
 import {configurePlatformAssetUrl} from './manifest';
 import {initialMenuAssetIds} from './menu-assets';
 import {ResourceCache} from './persistent-cache';
-import {fetchAsset,ASSET_REQUEST_TIMEOUT} from './preparation-wait';
+import {fetchAsset,ASSET_REQUEST_TIMEOUT,retryAssetPreparation} from './preparation-wait';
+import {openingProgress,finishOpening} from '../ui/presentation/opening';
 export interface HttpAssetManifest {version:1;release:string;assets:Record<string,{url:string;bytes:number;sha256:string;mime:string}>}
 type Progress=(done:number,total:number,label:string)=>void;
 export class HttpAssetStore {
@@ -35,8 +36,8 @@ export class HttpAssetStore {
  }
  async prepare(ids:Iterable<string>,progress:Progress=()=>{}){
   const pending=[...new Set(ids)].filter(id=>!this.urls[id]);for(const id of pending)if(!this.manifest.assets[id])throw Error('发行资源缺失：'+id);
-  let cursor=0,done=0;const before=this.metrics.downloadBytes;progress(0,pending.length,'检查本地资源');
-  const jobs=Array.from({length:Math.min(4,pending.length)},async()=>{while(cursor<pending.length){const id=pending[cursor++];await this.verified(id);progress(++done,pending.length,this.metrics.downloadBytes>before?'下载资源':'准备画面');}});
+  let cursor=0,done=0,failed=false;const before=this.metrics.downloadBytes;progress(0,pending.length,'检查本地资源');
+  const jobs=Array.from({length:Math.min(4,pending.length)},async()=>{try{while(!failed&&cursor<pending.length){const id=pending[cursor++];await this.verified(id);progress(++done,pending.length,this.metrics.downloadBytes>before?'下载资源':'准备画面');}}catch(error){failed=true;throw error;}});
   const results=await Promise.allSettled(jobs),failure=results.find(r=>r.status==='rejected');if(failure?.status==='rejected')throw failure.reason;
  }
  async prefetch(ids:Iterable<string>,progress:(bytes:number,total:number)=>void,cancelled:()=>boolean){
@@ -66,9 +67,15 @@ export async function loadHttpAssets(){
   }
   store??=new HttpAssetStore(manifest,base.href);void store.cache.persist();configurePlatformAssetUrl(id=>store!.urls[id]??null);
   const ids=initialMenuAssetIds(Object.keys(store.manifest.assets));
-  await store.prepare(ids,(done,total)=>{const p=root.querySelector('progress');if(p){p.max=Math.max(1,total);p.value=done;}const label=root.querySelector('[role="status"]');if(label)label.textContent=`准备菜单 ${done} / ${total}`;});
+  await store.prepare(ids,(done,total)=>{const p=root.querySelector('progress');if(p){p.max=Math.max(1,total);p.value=done;}const label=root.querySelector('[role="status"]');if(label)label.textContent=`准备菜单 ${done} / ${total}`;const ready=ids.filter(id=>store!.urls[id]).length;openingProgress(ids.length?ready/ids.length*25:25,'loading');});
  };
  for(;;){root.innerHTML='<section class="pack-loading"><b>SC2 SURVIVORS</b><p role="status">正在准备菜单</p><progress></progress></section>';
-  try{await prepare();return;}catch(error){const message=document.createElement('p');message.textContent=String((error as Error).message);root.querySelector('section')!.append(message);const button=document.createElement('button');button.textContent='重试';root.querySelector('section')!.append(button);await new Promise<void>(resolve=>button.addEventListener('click',()=>resolve(),{once:true}));}
+  try{await retryAssetPreparation(prepare,attempt=>openingProgress(null,'loading',`正在重新连接 · ${attempt}/3`));return;}catch(error){
+   // The recovery UI already exists beneath the opening cover. Make it reachable.
+   const label=root.querySelector('[role="status"]');if(label)label.textContent='菜单资源加载失败';root.querySelector('progress')?.remove();
+   const button=document.createElement('button');button.textContent='重试';root.querySelector('section')!.append(button);finishOpening();
+   console.warn('Menu resource preparation failed',error);
+   await new Promise<void>(resolve=>button.addEventListener('click',()=>resolve(),{once:true}));
+  }
  }
 }
