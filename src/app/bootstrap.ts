@@ -88,7 +88,7 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;persisten
   hud.pendingStageAdvance=false;
   session.keepRun();
   resetPresentation();
-  if(!world.starship.enabled)world.resetRun();hud.root.querySelector<HTMLButtonElement>('[data-action=save-continue]:not(:disabled),[data-action=start]')?.focus();
+  if(!world.starship.enabled)world.resetRun();void readiness.trimIdleResources().catch(()=>{});hud.root.querySelector<HTMLButtonElement>('[data-action=save-continue]:not(:disabled),[data-action=start]')?.focus();
  };
 
  const starship=options.equipmentAccount&&options.starship?mountGameStarship(hud,options.starship.resolveImage):null;if(starship)hud.starship=starship;
@@ -98,7 +98,7 @@ export async function boot(options:{equipmentAccount?:EquipmentAccount;persisten
   const race=snapshot?.config.race??(world.phase==='menu'?hud.menuRace:world.expedition.race),preset=world.permanentProfile.getPreset(race,hud.menuPreset);
   const hero=!snapshot&&world.phase==='menu'&&preset&&talentRank(preset.levels,race,'hero_support')?(hud.starterHeroChoice??HERO_IDS_BY_RACE[race][0]):null;
   const map=snapshot?.config.campaignMap??(world.phase==='reward'?world.runConfig?.campaignMap:undefined);
-  const key=JSON.stringify([view.contextEpoch,world.phase,hud.menuPage,race,hero,map,hud.loadPreview?.id,snapshot?.state.runId,snapshot?.state.time,world.stage,world.expedition.shopRevision]);
+  const key=JSON.stringify([view.contextEpoch,view.cacheEpoch,world.phase,hud.menuPage,race,hero,map,hud.loadPreview?.id,snapshot?.state.runId,snapshot?.state.time,world.stage,world.expedition.shopRevision]);
   if(key!==choiceKey){choiceKey=key;background.select(world.phase==='battle'||world.phase==='reward'?view.battleBackgroundJobs((cancelled,priority)=>background.checkpoint(cancelled,priority,true)):view.backgroundJobs(race,hero,map,snapshot??undefined));}
  };
  for(const event of ['pointerdown','keydown','wheel'])document.addEventListener(event,()=>background.input(),{capture:true,passive:true});

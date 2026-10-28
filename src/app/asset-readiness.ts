@@ -34,6 +34,13 @@ export class AssetReadinessCoordinator {
  constructor(private world:World,private view:BattleRenderer,private audio?:AudioEffects,private background?:BackgroundPreparation){}
  get blocking(){return this.state.kind!==null&&this.state.phase!=='ready'&&this.state.phase!=='error';}
  get readyToken(){return this.state.kind&&this.state.phase==='ready'?`${this.state.kind}:${this.generation}`:null;}
+ /** Quiet idle maintenance shares the entrance lock; a new entrance wins if
+  * it starts while an older optional decode is still draining. */
+ async trimIdleResources(){
+  const generation=this.generation;let release:(()=>void)|undefined;
+  try{release=this.background?await this.background.enter():undefined;if(generation!==this.generation||this.world.phase!=='menu'||this.state.kind)return;await this.view.waitForPendingAssets();if(generation!==this.generation||this.world.phase!=='menu'||this.state.kind)return;this.view.trimIdleUnitAssets();pruneRetiredTextureBindings();}
+  finally{release?.();}
+ }
  private update(patch:Partial<ReadinessState>){
   const before=this.state;this.state={...before,...patch};
   if(!this.blocking&&this.revealTimer!==null){clearTimeout(this.revealTimer);this.revealTimer=null;}
@@ -79,7 +86,7 @@ export class AssetReadinessCoordinator {
    }
    if(generation!==this.generation)return false;
    const audioReady=optimizedGraphics()?undefined:this.audio?.preload((done,total,label)=>{if(this.state.phase==='audio')report('audio',.72,.04)(done,total,`解码音效 ${label}`);}).then(()=>null,error=>error as Error);
-   if(!this.view.initialAssetsLoaded){await this.view.load((label,done=0,total=0)=>report('models',.15,.2)(done,total,label),rescueRace,!!desiredMap);}
+   if(!this.view.initialAssetsLoaded){await this.view.load((label,done=0,total=0)=>report('models',.15,.2)(done,total,label),rescueRace,!!desiredMap,true);}
    if(generation!==this.generation)return false;
    const models=report('models',.35,.37);models(0,1,'准备部队');
    if(kind==='load'&&request.snapshot)await this.view.prepareSnapshotAssets(request.snapshot,models);

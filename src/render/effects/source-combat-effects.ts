@@ -37,7 +37,7 @@ export class SourceCombatEffects {
  private enemySpecials=new EnemySpecialSource();
  private stim=new StimPresentation();private stimCues=new Map<string,StimCue>();
  constructor(scene:THREE.Scene,camera:THREE.Camera,private fx:BattleEffects){this.player=new SourceEffectPlayer(scene,camera);this.equipment=new EquipmentEffects(scene);}
- load(){return this.player.load();}
+ load(models?:readonly string[]){return this.player.load(models);}
  resumeAt(w:World){this.serial=w.visualEvents.at(-1)?.serial??0;this.time=w.time;this.run=w.runId??'';this.enemySpecials.resumeAt(w);this.weaponChannels.resumeAt(w);this.stim.resumeAt(w);this.stimCues.clear();}
  reset(){this.serial=0;this.time=0;this.run='';this.echoes=[];this.mounts.clear();this.launched.clear();this.hologramDeaths.clear();this.lifecycle.clear();this.nukes.clear();this.weaponChannels.reset();this.player.reset();this.equipment.reset();this.enemySpecials.reset();this.stim.reset();this.stimCues.clear();}
  report(){return {routes:[...this.routes],events:this.events,flights:this.flights,echoes:this.echoes.length,source:this.player.report()};}

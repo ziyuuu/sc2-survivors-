@@ -88,8 +88,18 @@ export class AnimatedBatch {
    const mesh=new THREE.InstancedMesh(base.geometry,materials.length===1?materials[0]:materials,CAPACITY);mesh.instanceMatrix=base.instanceMatrix;mesh.frustumCulled=false;mesh.matrixAutoUpdate=false;mesh.matrixWorldAutoUpdate=false;mesh.count=0;mesh.userData.visualRole='effect';mesh.name='equipment-apparition';scene.add(mesh);this.apparitionMeshes.push(mesh);
   }
  }
- /** Retire optional batches that have never entered a battle. Shared image data
-  * remains in the immutable decoder cache; only this batch's GPU wrappers retire. */
+ /** Explicit backing ownership for the safe-boundary idle cache. Geometry and
+  * texture Sources are deduplicated by object identity across all unit groups. */
+ retainedResources(out=new Map<object,number>()){
+  const array=(a:ArrayBufferView|undefined)=>{if(a)out.set(a.buffer,a.buffer.byteLength);};
+  const texture=(t:THREE.Texture)=>{const images=Array.isArray(t.source.data)?t.source.data:[t.source.data];for(const image of images){if(image?.data&&ArrayBuffer.isView(image.data))array(image.data);else if(image?.width&&image?.height&&!t.mipmaps.length)out.set(image,image.width*image.height*4);}for(const mip of t.mipmaps)if('data'in mip&&ArrayBuffer.isView(mip.data))array(mip.data);};
+  for(const mesh of this.allMeshes){array(mesh.instanceMatrix.array);array(mesh.instanceColor?.array);for(const attribute of Object.values(mesh.geometry.attributes))array(attribute instanceof THREE.InterleavedBufferAttribute?attribute.data.array:attribute.array);array(mesh.geometry.index?.array);for(const material of Array.isArray(mesh.material)?mesh.material:[mesh.material]){for(const value of Object.values(material))if(value instanceof THREE.Texture)texture(value);for(const t of unitMaterialTextures(material))texture(t);}}
+  for(const indices of this.lodIndices){array(indices.full.array);array(indices.low.array);}
+  for(const t of [...this.ownedPoseTextures,...this.materialSurfaces.map(s=>s.texture)])texture(t);
+  return out;
+ }
+ /** Dispose only at an exclusive preparation boundary with no active users.
+  * Other material wrappers keep their shared immutable Source alive. */
  dispose(){const textures=new Set<THREE.Texture>([...this.ownedPoseTextures,...this.materialSurfaces.map(s=>s.texture)]);
   for(const mesh of this.apparitionMeshes){mesh.removeFromParent();for(const material of Array.isArray(mesh.material)?mesh.material:[mesh.material])material.dispose();mesh.dispose();}
   for(const mesh of this.meshes){mesh.removeFromParent();mesh.geometry.dispose();for(const material of Array.isArray(mesh.material)?mesh.material:[mesh.material]){for(const value of Object.values(material))if(value instanceof THREE.Texture)textures.add(value);for(const value of unitMaterialTextures(material))textures.add(value);material.dispose();}mesh.dispose();}

@@ -3,7 +3,8 @@ import {test} from 'node:test';
 import {BattleRenderer} from '../src/render/scene/battle-renderer';
 import type {RunSnapshot} from '../src/simulation/persistence/run-snapshot';
 import {newExpedition} from '../src/simulation/expedition-state';
-const sourceRosterPreparation={raceModels:(BattleRenderer.prototype as any).raceModels};
+import {World} from '../src/simulation/world';
+const sourceRosterPreparation={raceModels:(BattleRenderer.prototype as any).raceModels,retainRequiredUnits:()=>{},prepareCommonAssets:async()=>{},world:new World({sandbox:true,terrain:false,waves:false})};
 
 test('loading a campaign save prepares upcoming wave and paid-order models before resume',async()=>{
  const requested:string[]=[];
@@ -34,7 +35,7 @@ test('loading stage fifteen prepares its scheduled lurker Boss before it appears
 test('shop asset preparation includes every offered elite variant and a selected replacement',async()=>{
  const {World}=await import('../src/simulation/world');const {drawExpeditionReinforcements}=await import('../src/simulation/progression/expedition-drafts');const {draftContext}=await import('../src/simulation/expedition-economy');
  const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();for(let i=1;i<5;i++)w.addUnit('marine','terran',i,0);w.wallet={minerals:10000,gas:10000};w.endStage();w.skipReward();const ctx=draftContext(w);ctx.random=()=>.99;w.rewards=drawExpeditionReinforcements(ctx,true);const offer=w.rewards.find(r=>r.kind==='elite')!;const wallet={...w.wallet},positions=w.familyUnits('marine').map(u=>[u.id,u.x,u.z]);assert.equal(w.choose(offer.offerId,'marine.3'),true);
- const requested:string[]=[],renderer={world:w,currentModels:(BattleRenderer.prototype as any).currentModels,prepareRescueAssets:async()=>{},prepareMissionAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),requiredFamilies:()=>[],ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
+ const requested:string[]=[],renderer={retainRequiredUnits:()=>{},prepareCommonAssets:async()=>{},world:w,currentModels:(BattleRenderer.prototype as any).currentModels,prepareRescueAssets:async()=>{},prepareMissionAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),requiredFamilies:()=>[],ensureUnitVariant:async(key:string)=>{requested.push(key);return true;}};
  await BattleRenderer.prototype.prepareCurrentAssets.call(renderer as unknown as BattleRenderer);for(const variant of [1,2,3])assert.ok(requested.includes(`elite.marine.${variant}`));assert.deepEqual(w.wallet,wallet);assert.deepEqual(w.familyUnits('marine').map(u=>[u.id,u.x,u.z]),positions);assert.equal(w.pendingElites.length,0);
  const restored:string[]=[],snapshotRenderer={...sourceRosterPreparation,prepareRescueAssets:async()=>{},prepareMissionAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),ensureUnitVariant:async(key:string)=>{restored.push(key);return true;}};
  await BattleRenderer.prototype.prepareSnapshotAssets.call(snapshotRenderer as BattleRenderer,w.captureRun());for(const variant of [1,2,3])assert.ok(restored.includes(`elite.marine.${variant}`));
@@ -43,6 +44,6 @@ test('shop asset preparation includes every offered elite variant and a selected
 test('a failed selected shop elite model blocks readiness without payment or replacement',async()=>{
  const {World}=await import('../src/simulation/world');const {drawExpeditionReinforcements}=await import('../src/simulation/progression/expedition-drafts');const {draftContext}=await import('../src/simulation/expedition-economy');
  const w=new World({sandbox:true,waves:false,terrain:false,obstacles:[]});w.start();for(let i=1;i<5;i++)w.addUnit('marine','terran',i,0);w.wallet={minerals:10000,gas:10000};w.endStage();w.skipReward();const ctx=draftContext(w);ctx.random=()=>.99;w.rewards=drawExpeditionReinforcements(ctx,true);const offer=w.rewards.find(r=>r.kind==='elite')!;assert.equal(w.choose(offer.offerId,'marine.3'),true);const before=w.captureRun();
- const renderer={world:w,currentModels:(BattleRenderer.prototype as any).currentModels,prepareRescueAssets:async()=>{},prepareMissionAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),requiredFamilies:()=>[],ensureUnitVariant:async(key:string)=>key!=='elite.marine.3'};
+ const renderer={retainRequiredUnits:()=>{},prepareCommonAssets:async()=>{},world:w,currentModels:(BattleRenderer.prototype as any).currentModels,prepareRescueAssets:async()=>{},prepareMissionAssets:async()=>{},prepareEndlessAssets:async()=>{},gpu:new Map(),requiredFamilies:()=>[],ensureUnitVariant:async(key:string)=>key!=='elite.marine.3'};
  await assert.rejects(BattleRenderer.prototype.prepareCurrentAssets.call(renderer as unknown as BattleRenderer),/增援模型未就绪：elite.marine.3/);assert.deepEqual(w.captureRun(),before);
 });

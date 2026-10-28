@@ -31,8 +31,10 @@ export class SourceEffectPlayer {decorationFraction=1;displacementEnabled=true;
  private modelCounts=new Map<string,{requests:number;meshes:number;particles:number;ribbons:number;projections:number;displacementMeshes:number;displacementQuads:number}>();
  private counts={effects:0,meshes:0,particles:0,ribbonQuads:0,projectionQuads:0,displacementMeshes:0,displacementQuads:0,unrenderedDisplacementQuads:0,missing:0};
  constructor(private scene:THREE.Scene,private camera:THREE.Camera){}
- async load(){if(this.ready)return;if(this.loading)return this.loading;
-  const task=(async()=>{for(const definition of Object.values(SOURCE_EFFECTS)){
+ async load(models:readonly string[]=Object.keys(SOURCE_EFFECTS)){
+  const previous=this.loading;
+  const task=(async()=>{if(previous)await previous;for(const id of models){
+   const definition=SOURCE_EFFECTS[id];if(!definition)throw Error('Unknown required combat effect '+id);
    if(this.resources.has(definition.id))continue;const resource=await loadSourceEffect(definition),pending=new Map<string,SourceDrawBatch>();let instance:MeshInstance|undefined,displacement:MeshInstance|undefined;
    try{const references=[...definition.particles,...definition.ribbons,...definition.projections].map(p=>p.material_reference_index);
     for(const index of new Set(references))for(const materialIndex of this.materialsFor(definition,index)){const key=definition.id+':'+materialIndex;if(!pending.has(key))pending.set(key,new SourceDrawBatch(this.scene,resource.materials[materialIndex]));}
@@ -41,7 +43,7 @@ export class SourceEffectPlayer {decorationFraction=1;displacementEnabled=true;
     if(resource.displacementGltf){displacement=this.makeMesh(resource,true);displacement.root.visible=false;}
    }catch(error){this.rigid.get(definition.id)?.dispose();this.rigid.delete(definition.id);for(const batch of pending.values())batch.dispose();if(instance)this.releaseMesh(instance);if(displacement)this.releaseMesh(displacement);throw error;}
    for(const [key,batch]of pending)this.batches.set(key,batch);if(instance)this.meshPools.set(definition.id,[instance]);if(displacement)this.meshPools.set(definition.id+':displacement',[displacement]);this.resources.set(definition.id,resource);
-  }this.ready=true;})();this.loading=task;try{await task;}finally{this.loading=undefined;}
+  }this.ready=this.resources.size>0;})();this.loading=task;try{await task;}finally{if(this.loading===task)this.loading=undefined;}
  }
  private materialsFor(def:SourceEffectDefinition,index:number):number[]{
   let cache=this.materialReferences.get(def);if(!cache){cache=new Map();this.materialReferences.set(def,cache);}const found=cache.get(index);if(found)return found;
@@ -66,13 +68,15 @@ export class SourceEffectPlayer {decorationFraction=1;displacementEnabled=true;
   return [...[...this.meshPools].map(([key,pool])=>({key:key+':mesh',root:pool[0].root as THREE.Object3D,displacement:pool[0].surfaces.some(s=>s instanceof DisplacementSurface)})),
    ...[...this.batches].map(([key,batch])=>({key:key+':particles',root:batch.mesh as THREE.Object3D,displacement:batch.surface instanceof DisplacementSurface}))];
  }
- async prepareMeshes(compile:(root:THREE.Object3D,displacement:boolean)=>Promise<unknown>){
-  for(const rigid of this.rigid.values())await rigid.prepare(compile);
-  for(const pool of this.meshPools.values()){
+ async prepareMeshes(compile:(root:THREE.Object3D,displacement:boolean)=>Promise<unknown>,models?:readonly string[]){
+  const selected=(key:string)=>!models||models.includes(key.split(':')[0]);
+  for(const [key,rigid]of this.rigid)if(selected(key))await rigid.prepare(compile);
+  for(const [key,pool]of this.meshPools){
+   if(!selected(key))continue;
    const root=pool[0].root,visible=root.visible;root.visible=true;
    try{await compile(root,pool[0].surfaces.some(s=>s instanceof DisplacementSurface));}finally{root.visible=visible;}
   }
-  for(const batch of this.batches.values())if(batch.surface instanceof DisplacementSurface){const {mesh}=batch,visible=mesh.visible,count=mesh.count;mesh.visible=true;mesh.count=1;try{await compile(mesh,true);}finally{mesh.visible=visible;mesh.count=count;}}
+  for(const [key,batch]of this.batches)if(selected(key)&&batch.surface instanceof DisplacementSurface){const {mesh}=batch,visible=mesh.visible,count=mesh.count;mesh.visible=true;mesh.count=1;try{await compile(mesh,true);}finally{mesh.visible=visible;mesh.count=count;}}
  }
  begin(time:number){this.meshCursors.clear();for(const rigid of this.rigid.values())rigid.begin();this.particleCache.begin(time);this.clock=time;this.requests.clear();this.modelCounts.clear();this.counts={effects:0,meshes:0,particles:0,ribbonQuads:0,projectionQuads:0,displacementMeshes:0,displacementQuads:0,unrenderedDisplacementQuads:0,missing:0};for(const b of this.batches.values())b.begin();for(const pool of this.meshPools.values())for(const m of pool){m.used=false;m.root.visible=false;}}
  add(request:SourceEffectRequest,ground:(p:{x:number;z:number})=>number){
