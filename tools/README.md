@@ -29,4 +29,8 @@ KTX2仅小样：`prepare-ktx-samples.py`、`run-basis-sample.mjs`、`build-ktx-s
 
 ## 运行内存优化（2026-10-28）
 
+[第16版资源生命周期结果](../docs/project/RUNTIME_MEMORY_LIFECYCLE_20261028.md)：`runtime-memory-inventory.mjs`只对本地检测入口记录分类账本；`verify-safari-entry.mjs`增加`--inventory --postprocess --assert-released --unit-cache --combat-scope --equipment-scope --campaign-three --scene-scope`定向入口，使用舰装项时加`node --import tsx`。同内容3次重入、一次换族与重建、三关正常时钟及注入夹具的口径分别记录；不将检测页发布。传入`file://`入口时强制断网并断言无HTTP请求。
+
+预下载范围需显式区分：`--predownload`使用“下载本族”，`--predownload-all`使用“下载全部”，均等待对应完成状态。第16版的3组成对测量使用前者，线上功能检查分别覆盖两者。
+
 [峰值、KTX2与缓存释放记录](../docs/project/RUNTIME_MEMORY_20261028.md)对应Sites第15版。`prepare-runtime-ktx-assets.py`、`encode-runtime-ktx-samples.mjs`、`package-runtime-ktx.mjs`准备同尺寸衍生贴图，`prepare-runtime-ktx-site.mjs`同步明确的发布文件。`verify-safari-entry.mjs`支持`--peak --predownload --settle --reenter`和`--no-compressed`；`verify-runtime-ktx-published.mjs`核对线上文件。当前只覆盖43张大型模型法线/高光贴图，不能替代iPhone实机验证或完整GPU缓存生命周期。

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-28",
-  "revision": 257,
+  "revision": 263,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2748,9 +2748,15 @@
         "BATTLE_MEMORY_SCOPE_20261028.md",
         "../../reports/qa/battle-memory-scope-20261028.json",
         "RUNTIME_MEMORY_20261028.md",
-        "../../reports/qa/runtime-memory-20261028.json"
+        "../../reports/qa/runtime-memory-20261028.json",
+        "BROWSER_GAME_RESEARCH_20261028.md",
+        "../../reports/qa/browser-game-research-20261028.json",
+        "RUNTIME_MEMORY_PLAN_20261028.md",
+        "../../reports/qa/runtime-memory-plan-20261028.json",
+        "RUNTIME_MEMORY_LIFECYCLE_20261028.md",
+        "../../reports/qa/runtime-memory-lifecycle-20261028.json"
       ],
-      "result": "V06-MEMORY-003：入场峰值、43张同尺寸KTX2、编码缓存预算及后台回填修复完成，已发布Sites第15版。首战贴图估算559→441MB，Windows同条件进程峰值约3.59→3.47GB；线上预下载、首战和再次开局通过。原iPhone Safari重载原因与实机复测仍开放，未宣称MVP最终验收。",
+      "result": "V06-MEMORY-005工程批次完成并发布Sites第16版：关闭效果缓冲释放、公共特效按依赖准备、闲置部队缓存回收、CPU解析器副本释放。3组成对样本首战贴图估算441.44→426.83MB，可追踪CPU数组197.96→175.33MB；入场无稳定加速、总进程峰值重叠。2759项回归含权限项重跑通过，三关正常流程、生命周期、舰装及离线修复通过；线上本族/全部预下载各两次入场与25文件校验通过。GitHub同步收尾中；原iPhone重载及最终MVP验收仍开放。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -2805,16 +2811,40 @@
           "resolved": false,
           "status": "待验证",
           "scope": "用户确认 iPhone 17 Pro / iOS 26.7.1 / 自动中档，载入战场时网页自动重载；按当前Sites网址排查，原始原因尚未确定。",
-          "next": "补充原机重载提示/对应时刻系统记录，并在该手机验证候选；通过后更新Sites和远端Git。",
+          "next": "使用已发布第16版原网址，在原iPhone自动档完成全部预下载、首战/第1至3关、返回再开和一次前后台切换；若仍重载，记录准确时刻与可取得的相关系统信息。",
           "evidence": "../../reports/qa/safari-entry-20261028.json"
         },
         {
           "id": "V06-MEMORY-002",
           "status": "待验证",
           "resolved": false,
-          "scope": "任务建筑/死亡和战役虫巢条件准备已实现并本地验证；全英雄特效、读档较宽单位集合和跨局缓存仍有后续空间。",
-          "next": "原iPhone验证候选；下一批按实际技能/装备/援军依赖收紧特效和读档准备。低档画质方案待用户选择。",
+          "scope": "条件准备、公共英雄/特效依赖与闲置部队缓存已进入第16版；读档仍保留较宽阵容，公共特效/地图常驻部分不在本轮总量预算内。",
+          "next": "工程优化见V06-MEMORY-005；原iPhone仍待验证，进一步降低画质仍需另行选择。",
           "evidence": "../../reports/qa/battle-memory-scope-20261028.json"
+        },
+        {
+          "id": "V06-MEMORY-004",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "原站选人界面、启动脚本/517+349清单、6张角色源图头部直接检查完成；其他游戏作者复盘与项目对照已记录。",
+          "next": "按实际英雄/特效依赖、编译峰值、关闭效果缓冲及CPU副本测量安排后续；原iPhone仍待验证。",
+          "evidence": "../../reports/qa/browser-game-research-20261028.json"
+        },
+        {
+          "id": "V06-MEMORY-005",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "A至F工程批次已完成并部署第16版：效果缓冲、共享依赖准备、跨局闲置单位回收和CPU解析器副本释放有实测/恢复证据。成对测量为本族与共用资源预下载；全部资源另有线上功能验证。",
+          "next": "原机验收继续由V06-SAFARI-001记录；不声称总内存稳定下降或Safari重载已解决，不继续无边界矩阵。",
+          "evidence": "../../reports/qa/runtime-memory-lifecycle-20261028.json"
+        },
+        {
+          "id": "V06-OFFLINE-URL-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "第15版已有KTX2Loader导入在单文件IIFE中因缺失模块URL而启动失败；离线构建补文档基址后，3845原始资源断网首战通过。",
+          "next": "共享离线构建继续保留该配置；原Current/V04成品未覆盖。",
+          "evidence": "../../reports/qa/runtime-memory-lifecycle-20261028.json"
         }
       ]
     },
@@ -9916,6 +9946,65 @@
       "evidence": [
         "RUNTIME_MEMORY_20261028.md",
         "../../reports/qa/runtime-memory-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户要求直接检查Azeroth Survivors和其他HTML/浏览器游戏。开始V06-MEMORY-004只读实站与公开代码调研，对照第15版已实现策略；不将社区重建或推测当作原站事实，本轮不改游戏或部署。",
+      "evidence": []
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "V06-MEMORY-004只读调研完成：直接取得Azeroth原站选人界面与启动代码，确认517/349分段清单、8路HTTP预取、流式Wasm编译、Android按需管线/简化材质及GPU诊断；抽查6张角色组件源图128×32到256×256。原站完整战斗/原iPhone性能未验证。对照Slow Roads等作者复盘与CPU/GPU用途分离，记录本项目公共特效、关闭效果缓冲和CPU副本的下一步测量。无游戏/画质/部署变更。",
+      "evidence": [
+        "BROWSER_GAME_RESEARCH_20261028.md",
+        "../../reports/qa/browser-game-research-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户要求先制定下一轮完善计划。开始以Sites第15版和677237c为基线核对既有实现、公共特效依赖、关闭效果缓冲、跨局缓存与CPU副本；本轮仅规划和文档，不启动实现、部署或额外画质取舍。",
+      "evidence": []
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "V06-MEMORY-005完善计划已交付：第15版为基线，A测量与归属、B关闭效果缓冲、C依赖/编译、D跨局缓存、E有条件CPU副本试验、F同版验证与交付。明确3对有限A/B、正确性与画面约束、原iPhone验收及回退；已有优化不重复计收益。本轮仅文档/看板，未实施、提交、推送或部署，V05保持。",
+      "evidence": [
+        "RUNTIME_MEMORY_PLAN_20261028.md",
+        "../../reports/qa/runtime-memory-plan-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户确认开始执行V06-MEMORY-005计划。以第15版/677237c为基线，先做A同条件测量，再依证据执行B至F；保持当前画质/玩法，复用验证后更新现有Sites和Git授权，原iPhone实机另列。",
+      "evidence": [
+        "RUNTIME_MEMORY_PLAN_20261028.md"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "V06-MEMORY-005工程验收和Sites第16版部署/线上复核完成：3对本族预下载样本复现贴图/CPU数组/编译数量收益，耗时无稳定加速，总进程峰值重叠；原iPhone待验证。全部预下载另补线上两次入场通过，纠正此前完整预下载的笼统表述。发现并关闭单文件模块URL启动错误；V05保持，V06整体待验证，GitHub同步收尾中。",
+      "evidence": [
+        "RUNTIME_MEMORY_LIFECYCLE_20261028.md",
+        "../../reports/qa/runtime-memory-lifecycle-20261028.json"
       ]
     }
   ],

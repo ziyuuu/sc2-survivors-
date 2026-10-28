@@ -1,0 +1,1069 @@
+{
+  "date": "2026-10-28",
+  "task": "V06-MEMORY-005",
+  "status": "engineering-complete-deployed-physical-iphone-pending",
+  "baseline": {
+    "mainCommit": "677237c",
+    "sitesVersion": 15,
+    "appBuildId": "2e9af5b4b96b7afd9549aaaff3f61e9c69722e5e947665311976eed993f215f8",
+    "resourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+    "condition": "Isolated Windows Chrome, 844x390 DPR3 touch, navigator.deviceMemory unknown, medium, seed529, Terran/no hero, ordinary difficulty, completed selected-race and shared-resource predownload",
+    "samples": [
+      {
+        "run": 1,
+        "textureBytes": 441438425.79999876,
+        "browserPrivatePeak": 3475468288,
+        "preparationMs": 44294,
+        "errors": []
+      },
+      {
+        "run": 2,
+        "textureBytes": 441438425.79999876,
+        "browserPrivatePeak": 3401564160,
+        "preparationMs": 45127,
+        "errors": []
+      },
+      {
+        "run": 3,
+        "textureBytes": 441438425.79999876,
+        "browserPrivatePeak": 3376181248,
+        "preparationMs": 44271,
+        "errors": []
+      }
+    ],
+    "inventory": {
+      "cpuUniqueBackings": 197957200,
+      "decodedImageRgbaEstimate": 210890752,
+      "glAux": [
+        {
+          "lost": false,
+          "buffers": 6356,
+          "bufferBytes": 46061994,
+          "bufferPeak": 46061994,
+          "renderbuffers": 0,
+          "renderbufferBytes": 0,
+          "renderbufferPeak": 0,
+          "programs": 432,
+          "compileCalls": 864,
+          "compileCallMs": 2.4000000059604645,
+          "linkCalls": 432,
+          "linkCallMs": 9.399999856948853
+        }
+      ],
+      "sourceEffectModels": 105,
+      "note": "CPU buffer backings deduplicated by identity, grouped by all reachable owners; image values are decoded RGBA estimates. Private WeakMap/Promise holdings and driver overhead are not fully enumerable. Do not sum with process memory or GL estimates."
+    }
+  },
+  "b": {
+    "commit": "c1b0dea",
+    "appBuildId": "d0c545b86d571d22e00139bd54b798024d9e71af8a05a76c97eb950856eaf514",
+    "textureBytesByDetail": [
+      {
+        "detail": "full",
+        "before": 458863529.79999876,
+        "after": 458863529.79999876,
+        "saved": 0
+      },
+      {
+        "detail": "low",
+        "before": 450474921.79999876,
+        "after": 436914189.79999876,
+        "saved": 13560732
+      },
+      {
+        "detail": "full",
+        "before": 458863529.79999876,
+        "after": 458863533.79999876,
+        "saved": -4
+      },
+      {
+        "detail": "medium",
+        "before": 446788297.79999876,
+        "after": 437160253.79999876,
+        "saved": 9628044
+      }
+    ],
+    "checked": [
+      "disabled target allocations removed",
+      "warm-up does not recreate disabled refraction",
+      "full-low-full-medium",
+      "portrait/landscape resize while disabled",
+      "actual canvas checked after reenable and context restoration",
+      "typecheck passed"
+    ],
+    "remaining": "Final production context restoration passed; physical iPhone pending"
+  },
+  "c": {
+    "status": "implemented, integrated functional checks and final pairs passed",
+    "sourcesBefore": 105,
+    "sourcesAfter": 89,
+    "shaderProgramsBefore": 432,
+    "shaderProgramsAfter": 371,
+    "cpuUniqueBefore": 197957200,
+    "cpuUniqueAfterC": 185136240,
+    "gpuBufferBefore": 46061994,
+    "gpuBufferAfter": 35773018,
+    "firstBattleTextureBytes": 426830745.8000011,
+    "scope": "all own-race ordinary families, all enemy families, independent gear/lifecycle effects, actual identities and equipment bindings; every legal own-race hero at stage>=3; current and background use same plan",
+    "snapshotScope": "existing conservative own-race saved-roster plan retained"
+  },
+  "d": {
+    "status": "implemented and bounded browser cycles passed",
+    "idleBudgetMiB": {
+      "constrained": [
+        64,
+        48
+      ],
+      "other": [
+        192,
+        144
+      ]
+    },
+    "passed": true,
+    "cycles": [
+      {
+        "label": "terran-1",
+        "models": 38,
+        "textureBytes": 426830745.8000011,
+        "cacheEpoch": 0
+      },
+      {
+        "label": "terran-2",
+        "models": 38,
+        "textureBytes": 440147932.46666723,
+        "cacheEpoch": 0
+      },
+      {
+        "label": "terran-3",
+        "models": 38,
+        "textureBytes": 440147932.46666723,
+        "cacheEpoch": 0
+      },
+      {
+        "label": "protoss-1",
+        "models": 44,
+        "textureBytes": 600335943.1333346,
+        "cacheEpoch": 1
+      },
+      {
+        "label": "terran-rebuilt",
+        "models": 48,
+        "textureBytes": 531654172.46666616,
+        "cacheEpoch": 2
+      }
+    ],
+    "trims": [
+      {
+        "before": 0,
+        "after": 0,
+        "evicted": [],
+        "cacheEpoch": 0
+      },
+      {
+        "before": 0,
+        "after": 0,
+        "evicted": [],
+        "cacheEpoch": 0
+      },
+      {
+        "before": 0,
+        "after": 0,
+        "evicted": [],
+        "cacheEpoch": 0
+      },
+      {
+        "before": 0,
+        "after": 0,
+        "evicted": [],
+        "cacheEpoch": 0
+      },
+      {
+        "before": 0,
+        "after": 0,
+        "evicted": [],
+        "cacheEpoch": 0
+      },
+      {
+        "before": 165019474,
+        "after": 37736084,
+        "evicted": [
+          "marauder",
+          "reaper",
+          "hellion",
+          "tank",
+          "thor",
+          "viking"
+        ],
+        "cacheEpoch": 1
+      },
+      {
+        "before": 49369956,
+        "after": 49369956,
+        "evicted": [],
+        "cacheEpoch": 1
+      },
+      {
+        "before": 208561418,
+        "after": 42564060,
+        "evicted": [
+          "adept",
+          "stalker",
+          "sentry",
+          "immortal",
+          "colossus",
+          "high_templar",
+          "phoenix"
+        ],
+        "cacheEpoch": 2
+      }
+    ],
+    "scope": "unit presentation groups only; pinned shared resources excluded from idle estimate, finite hero/effect/map bases retained"
+  },
+  "e": {
+    "status": "adopted after restoration test",
+    "whiteList": "ordinary UnitBatch original parser/scene references after AnimatedBatch creation; animation metadata retained",
+    "cpuUniqueBefore": 185136240,
+    "cpuUniqueAfter": 175333448,
+    "savedCpuBackingBytes": 9802792,
+    "gpuDataDiscarded": false,
+    "compressedMipsAndUploadBuffersRetained": true,
+    "postprocessRestoreErrors": [],
+    "tests": "full-low-full-medium, disabled portrait/landscape resize, production context restore, actual canvas inspection, unchanged snapshot, texture failure/cancellation passed",
+    "remaining": "Texture failure/cancellation and production restoration passed; physical iPhone still pending"
+  },
+  "f": {
+    "status": "in progress",
+    "candidateBuild": "fb923fd9ec6430f39c00c0a96400b020a82932ffd4babe4e2a0bbf94a4a457c5",
+    "tests": {
+      "total": 2759,
+      "firstPass": 2752,
+      "environmentDenied": 7,
+      "localNetworkRetry": {
+        "backendPass": 14,
+        "cozePass": 2
+      }
+    },
+    "typecheck": "passed",
+    "docsCheck": "passed",
+    "build": "content and hash checks passed; publication rename initially failed because requested output parent was absent; created parent and moved verified staging to requested final/web",
+    "scopedCombat": {
+      "before": [],
+      "hero": {
+        "cast": true,
+        "rank": 3,
+        "preparedHeroes": [
+          "raynor"
+        ],
+        "snapshotPreparedHeroes": [
+          "raynor",
+          "nova",
+          "swann",
+          "tosh",
+          "tychus",
+          "yamato_battlecruiser"
+        ],
+        "sourceMissingFrames": [],
+        "frameMax": 19,
+        "errors": [],
+        "snapshotUnchanged": true,
+        "originalParserRetained": false
+      },
+      "passed": true
+    },
+    "sourceFilesSha256": {
+      "src/app/combat-preload-plan.ts": "bea3ade804cfef3189a7d6d900326268f43147c9846a346398c300ca5d4e6338",
+      "src/app/asset-readiness.ts": "903fddde03b97c02c19041fd09a35d034c39d874fa7e120863fc54dc9911cdcc",
+      "src/app/bootstrap.ts": "60f531fa28b9353512a62444cf20bfdef73aabb0716308634821462c018fab75",
+      "src/render/effects/confirmed-hero/controller.ts": "cf42bf2396c8b646781451e512c591cf6b4e75457c7314342b7d54fb7b3a2448",
+      "src/render/effects/source-combat-effects.ts": "1ea9bb50cc2d5bfcb4699c7b498bd9169ed645531bcaa7d370976038c3ca8574",
+      "src/render/effects/source/player.ts": "0a3301ee67aa3377497b38e8cee2dd14eed61d20a5e524ec235ad16d0649beca",
+      "src/render/scene/battle-renderer.ts": "90ebcdf49fd121b38cc8fdbd0e1afdb5f389f05d7b6fdcb8861ea9b2216a6e9c",
+      "src/render/scene/scene-contact.ts": "23a0accdb5cf482a4eb1479cb9382bfa5d060bd6967f55906f99151748a2d45c",
+      "src/render/scene/screen-refraction.ts": "ea3cdfea20b260b4c0f980801c2c220701f2d1a477f5c6a84543341153021591",
+      "src/render/units/animated-batch.ts": "6b17fcc012fdb01d590fde6cd6ee8e9773fda8a81b8b93e7583f33feae06fe04",
+      "src/render/units/retained-models.ts": "7ab4bd065962933cef1eb17511f7be62794c3d1c5ca95fbe584be9c4b9f88fa2"
+    },
+    "candidatePublic": "dist/runtime-lifecycle-20261028/final/public",
+    "candidateWeb": "dist/runtime-lifecycle-20261028/final/web",
+    "paired": {
+      "samples": [
+        {
+          "label": "baseline-1",
+          "preparationMs": 54281,
+          "predownloadMs": 21738,
+          "browserPrivatePeak": 3555835904,
+          "battleTextureBytes": 441438425.79999876,
+          "settledHeap": 536277915,
+          "explicitGcHeap": 409632832,
+          "frameTiming": {
+            "scope": "first five simulation seconds after ready",
+            "count": 289,
+            "p50": 16.69999999999709,
+            "p95": 16.80000000000291,
+            "max": 149.89999999999418
+          },
+          "errors": [],
+          "failures": []
+        },
+        {
+          "label": "baseline-2",
+          "preparationMs": 46582,
+          "predownloadMs": 20767,
+          "browserPrivatePeak": 3503550464,
+          "battleTextureBytes": 441438425.79999876,
+          "settledHeap": 506574834,
+          "explicitGcHeap": 408151449,
+          "frameTiming": {
+            "scope": "first five simulation seconds after ready",
+            "count": 293,
+            "p50": 16.69999999999709,
+            "p95": 16.80000000000291,
+            "max": 133.3000000000029
+          },
+          "errors": [],
+          "failures": []
+        },
+        {
+          "label": "baseline-3",
+          "preparationMs": 48047,
+          "predownloadMs": 21771,
+          "browserPrivatePeak": 3368620032,
+          "battleTextureBytes": 441438425.79999876,
+          "settledHeap": 463511486,
+          "explicitGcHeap": 409134425,
+          "frameTiming": {
+            "scope": "first five simulation seconds after ready",
+            "count": 287,
+            "p50": 16.69999999999709,
+            "p95": 17.19999999999709,
+            "max": 166.6999999999971
+          },
+          "errors": [],
+          "failures": []
+        },
+        {
+          "label": "candidate-1",
+          "preparationMs": 73573,
+          "predownloadMs": 53987,
+          "browserPrivatePeak": 3402432512,
+          "battleTextureBytes": 426830745.8000011,
+          "settledHeap": 460928968,
+          "explicitGcHeap": 352099654,
+          "frameTiming": {
+            "scope": "first five simulation seconds after ready",
+            "count": 280,
+            "p50": 16.70000000001164,
+            "p95": 33.29999999998836,
+            "max": 153.79999999998836
+          },
+          "errors": [],
+          "failures": []
+        },
+        {
+          "label": "candidate-2",
+          "preparationMs": 47648,
+          "predownloadMs": 20396,
+          "browserPrivatePeak": 3407114240,
+          "battleTextureBytes": 426830745.8000011,
+          "settledHeap": 413482175,
+          "explicitGcHeap": 351372893,
+          "frameTiming": {
+            "scope": "first five simulation seconds after ready",
+            "count": 294,
+            "p50": 16.69999999999709,
+            "p95": 16.80000000000291,
+            "max": 133.3000000000029
+          },
+          "errors": [],
+          "failures": []
+        },
+        {
+          "label": "candidate-3",
+          "preparationMs": 45632,
+          "predownloadMs": 19852,
+          "browserPrivatePeak": 3373711360,
+          "battleTextureBytes": 426830745.8000011,
+          "settledHeap": 432710479,
+          "explicitGcHeap": 352136573,
+          "frameTiming": {
+            "scope": "first five simulation seconds after ready",
+            "count": 292,
+            "p50": 16.69999999999709,
+            "p95": 16.80000000000291,
+            "max": 133.3000000000029
+          },
+          "errors": [],
+          "failures": []
+        }
+      ],
+      "medians": {
+        "baseline": {
+          "preparationMs": 48047,
+          "predownloadMs": 21738,
+          "browserPrivatePeak": 3503550464,
+          "battleTextureBytes": 441438425.79999876,
+          "settledHeap": 506574834,
+          "explicitGcHeap": 409134425,
+          "p95": 16.80000000000291
+        },
+        "candidate": {
+          "preparationMs": 47648,
+          "predownloadMs": 20396,
+          "browserPrivatePeak": 3402432512,
+          "battleTextureBytes": 426830745.8000011,
+          "settledHeap": 432710479,
+          "explicitGcHeap": 352099654,
+          "p95": 16.80000000000291
+        }
+      },
+      "entranceWithin10Percent": true,
+      "frameWithinTolerance": true,
+      "outlier": "Candidate first pair had 73.573 s entrance and 33.3 ms p95. Retained; not attributed to a cause. Do not claim entrance reliably faster."
+    },
+    "campaign": {
+      "passed": true,
+      "method": "seed529 normal Terran, native RAF/fixed steps, simulated directional input, production UI rewards, three stages maximum",
+      "completedStages": 3,
+      "last": {
+        "phase": "reward",
+        "stage": 3,
+        "time": 180,
+        "elapsed": 59.999999999997875,
+        "duration": 60,
+        "paused": false,
+        "round": "building",
+        "readiness": "idle",
+        "kind": null,
+        "allies": 5,
+        "errors": [],
+        "saveFailed": false,
+        "missing": 0
+      },
+      "input": "simulated directions and production UI choices; no clocks/HP/spawn overrides"
+    },
+    "sceneScope": {
+      "first": {
+        "race": "terran",
+        "difficulty": "normal",
+        "mission": [],
+        "deaths": [],
+        "hive": false
+      },
+      "stage4": {
+        "stage": 4,
+        "mission": [
+          "barracks",
+          "factory",
+          "starport",
+          "hatchery",
+          "command_center"
+        ],
+        "deaths": [
+          "barracks",
+          "factory",
+          "starport",
+          "hatchery"
+        ],
+        "hive": false
+      },
+      "repair": {
+        "id": 23,
+        "model": "factory",
+        "visible": true,
+        "deathPrepared": true,
+        "phase": "battle"
+      },
+      "death": {
+        "model": "factory",
+        "created": true,
+        "visible": true
+      },
+      "snapshot": {
+        "prepared": true,
+        "mission": [
+          "barracks",
+          "factory",
+          "starport",
+          "hatchery",
+          "command_center"
+        ]
+      },
+      "hard6": {
+        "gateway": true,
+        "tower": true,
+        "workers": [
+          "scv",
+          "drone",
+          "probe"
+        ],
+        "errors": []
+      },
+      "hell4": {
+        "hive": true,
+        "hiveDeath": true,
+        "errors": []
+      },
+      "passed": true
+    },
+    "qualityLifecycle": {
+      "passed": true,
+      "swap": {
+        "failedSwapPreserved": true,
+        "worldUnchanged": true,
+        "high": {
+          "version": 1,
+          "preset": "high",
+          "tier": "medium",
+          "texture": "high",
+          "budget": {
+            "network": 6,
+            "decode": 2,
+            "audio": 2,
+            "packBytes": 50331648,
+            "pcmBytes": 100663296,
+            "recentOnly": false
+          },
+          "textures": {
+            "decodedPixels": 43338752,
+            "swaps": 326,
+            "rollbacks": 1,
+            "gpu": {
+              "loaded": 43,
+              "fallbacks": 0,
+              "payloadBytes": 39497552,
+              "transcodeMs": 1861.7000000178814,
+              "workerReleases": 1,
+              "supported": true,
+              "active": 0,
+              "workerResident": false,
+              "shared": {
+                "decodes": 43,
+                "reuses": 0
+              }
+            },
+            "externalImages": {
+              "decodes": 190,
+              "reuses": 110
+            },
+            "liveVariantPixels": 161149952,
+            "liveVariantSources": 415,
+            "rgbaMipEstimate": 859466411
+          }
+        },
+        "low": {
+          "version": 1,
+          "preset": "low",
+          "tier": "medium",
+          "texture": "low",
+          "budget": {
+            "network": 6,
+            "decode": 2,
+            "audio": 2,
+            "packBytes": 50331648,
+            "pcmBytes": 100663296,
+            "recentOnly": false
+          },
+          "textures": {
+            "decodedPixels": 43338752,
+            "swaps": 652,
+            "rollbacks": 1,
+            "gpu": {
+              "loaded": 43,
+              "fallbacks": 0,
+              "payloadBytes": 39497552,
+              "transcodeMs": 1861.7000000178814,
+              "workerReleases": 1,
+              "supported": true,
+              "active": 0,
+              "workerResident": false,
+              "shared": {
+                "decodes": 43,
+                "reuses": 0
+              }
+            },
+            "externalImages": {
+              "decodes": 190,
+              "reuses": 110
+            },
+            "liveVariantPixels": 43338752,
+            "liveVariantSources": 415,
+            "rgbaMipEstimate": 231140011
+          }
+        },
+        "highResolution": {
+          "quality": "high",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        },
+        "lowResolution": {
+          "quality": "performance",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 0.7,
+          "width": 1007,
+          "height": 630,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        }
+      },
+      "stageSamples": [
+        {
+          "stage": 2,
+          "phase": "battle",
+          "errors": []
+        },
+        {
+          "stage": 3,
+          "phase": "battle",
+          "errors": []
+        },
+        {
+          "stage": 12,
+          "phase": "lost",
+          "errors": []
+        }
+      ],
+      "hotReload": {
+        "prepared": 1168,
+        "total": 3845,
+        "release": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+        "downloadBytes": 0,
+        "cachedBytes": 39934474,
+        "files": 1131,
+        "cacheHits": 1133,
+        "cacheMisses": 0,
+        "memory": {
+          "residentBlobBytes": 39326456,
+          "residentBlobCount": 1131,
+          "modelEvictedBytes": 0
+        },
+        "warning": null
+      },
+      "method": "bounded injected stage samples; not a natural late campaign"
+    },
+    "textureRollback": {
+      "failed": true,
+      "cancelled": true,
+      "activeTier": "low",
+      "before": {
+        "decodedPixels": 1302528,
+        "swaps": 0,
+        "rollbacks": 0,
+        "gpu": {
+          "loaded": 1,
+          "fallbacks": 0,
+          "payloadBytes": 349552,
+          "transcodeMs": 238.5,
+          "workerReleases": 0,
+          "supported": true,
+          "active": 0,
+          "workerResident": true,
+          "shared": {
+            "decodes": 1,
+            "reuses": 0
+          }
+        },
+        "externalImages": {
+          "decodes": 14,
+          "reuses": 6
+        },
+        "liveVariantPixels": 1302528,
+        "liveVariantSources": 14,
+        "rgbaMipEstimate": 6946816
+      },
+      "after": {
+        "decodedPixels": 1302528,
+        "swaps": 2,
+        "rollbacks": 1,
+        "gpu": {
+          "loaded": 1,
+          "fallbacks": 0,
+          "payloadBytes": 349552,
+          "transcodeMs": 238.5,
+          "workerReleases": 0,
+          "supported": true,
+          "active": 0,
+          "workerResident": true,
+          "shared": {
+            "decodes": 1,
+            "reuses": 0
+          }
+        },
+        "externalImages": {
+          "decodes": 14,
+          "reuses": 6
+        },
+        "liveVariantPixels": 1302528,
+        "liveVariantSources": 14,
+        "rgbaMipEstimate": 6946816
+      },
+      "stagedUrlsReleased": true
+    },
+    "testFixtureCorrections": [
+      "Hero prepared-kit assertion moved before broad snapshot preparation.",
+      "Campaign pause selector corrected twice before normal play began. No game-code change for these tooling failures."
+    ],
+    "offlineBuild": {
+      "assets": 3845,
+      "partCount": 6451,
+      "chunks": 4901,
+      "rawBytes": 1439004292,
+      "uniqueBytes": 1223787329,
+      "deduplicatedBytes": 215216963,
+      "storedBytes": 1028914025,
+      "encodedBytes": 1286150780,
+      "htmlBytes": 1323287612,
+      "htmlSha256": "eedd78c1b164d86522ecccac67116821c0d103150f6536ffca90f5b505f33b74",
+      "codec": "gzip per unique byte chunk + HTML-safe base85; local decoder; exact source-byte reconstruction",
+      "output": "dist/runtime-lifecycle-20261028/final/offline-smoke.html"
+    },
+    "equipment": {
+      "method": "isolated valid Yamato module; fixed proc RNG/timer, actual World.step and renderer",
+      "runtime": {
+        "preparedHeroes": [
+          "yamato_battlecruiser"
+        ],
+        "casts": 3,
+        "damage": 33525.559859484434,
+        "missing": 0,
+        "errors": [],
+        "permanentHeroes": 0,
+        "frameMax": 29.69999998807907
+      },
+      "passed": true
+    },
+    "offlineIssue": {
+      "id": "V06-OFFLINE-URL-001",
+      "found": "KTX2Loader module initializes URL defaults using import.meta.url; standalone IIFE had no module URL and threw before main.",
+      "origin": "GPU loader import exists in baseline 677237c (introduced by 92fa4fb); discovered by current shared-path smoke.",
+      "fix": "Standalone build defines import.meta.url as document.baseURI; optional KTX2 decoder remains unused offline.",
+      "status": "resolved",
+      "evidence": "Offline error stack and KTX2Loader.js lines106-107",
+      "commit": "1225390"
+    },
+    "offlineSmoke": {
+      "passed": true,
+      "entry": "file:// single document",
+      "offline": true,
+      "networkRequests": [],
+      "phase": "battle",
+      "simulationSeconds": 6.55,
+      "errors": [],
+      "failures": [],
+      "visual": "Actual first battle screenshot inspected, units/terrain/HUD present",
+      "scope": "Original uncompressed resources, fresh isolated Chrome, first battle only; no full campaign or physical mobile claim"
+    },
+    "predownloadScopeCorrection": {
+      "discoveredDuringCloseout": true,
+      "previousWording": "full predownload",
+      "actualMeasurement": "download-race: Terran and shared resources, same for all 3 baseline/candidate pairs",
+      "additionalValidation": "download-all production functional entry/reentry, separate from paired memory measurements"
+    },
+    "onlineRace": {
+      "passed": true,
+      "predownloadScope": "race",
+      "device": "isolated Windows Chrome, touch simulation; not physical iPhone",
+      "stages": [
+        {
+          "tag": "predownload",
+          "phase": "menu",
+          "time": 0,
+          "texture": "medium",
+          "preset": "auto",
+          "textureBytes": 29201591.133333325,
+          "contextLoss": 0,
+          "residentBlobBytes": 31637604
+        },
+        {
+          "tag": "battle",
+          "phase": "battle",
+          "time": 5.816666666666666,
+          "texture": "medium",
+          "preset": "auto",
+          "textureBytes": 426830745.8000011,
+          "contextLoss": 0,
+          "residentBlobBytes": 59643363
+        },
+        {
+          "tag": "second-battle",
+          "phase": "battle",
+          "time": 3.05,
+          "texture": "medium",
+          "preset": "auto",
+          "textureBytes": 440147932.46666723,
+          "contextLoss": 0,
+          "residentBlobBytes": 60516415
+        }
+      ],
+      "errors": [],
+      "failures": [],
+      "visualInspected": true
+    },
+    "onlineFiles": {
+      "appBuildId": "fb923fd9ec6430f39c00c0a96400b020a82932ffd4babe4e2a0bbf94a4a457c5",
+      "resourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+      "checkedFiles": [
+        "asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+        "sites-sw.js",
+        "sites-pack-index.js",
+        "sites-pack-index.0bb43ff1011a0ab1462d.js",
+        "assets/sc2-entry.0b4522a4bc9e893e.js.gz",
+        "basis/basis_transcoder.js",
+        "basis/basis_transcoder.wasm",
+        "basis/README.md",
+        "basis/LICENSE.txt",
+        "assets/index-963fce71b2ca6ffb.js",
+        "assets/index-DT8k47mK.css",
+        "assets/gpu-textures-cb20ce485bf9214154e0.bin",
+        "assets/gpu-textures-d9fb5b66a9b688ff811a.bin",
+        "assets/gpu-textures-ae15c2df783b0b9408eb.bin",
+        "assets/gpu-textures-8391099796ac0f8c8c2e.bin",
+        "assets/gpu-textures-cbd4c0e021f07e7b4aee.bin",
+        "assets/gpu-textures-c7d12911b07224b82b4f.bin",
+        "assets/gpu-textures-b69143fff956da20a912.bin",
+        "assets/gpu-textures-13134a3836371026ea5d.bin",
+        "assets/gpu-textures-993d9ff07eb168dc0e15.bin",
+        "assets/gpu-textures-43cf286e0f36f494728b.bin",
+        "assets/gpu-textures-6021b6cf11a8fc6d2021.bin",
+        "assets/gpu-textures-e809185edd281d22ef4f.bin",
+        "assets/gpu-textures-533c6e019164840b90b0.bin",
+        "assets/gpu-textures-a2b3f138901e8cd0a37b.bin"
+      ],
+      "unauthenticatedManageStatus": 403,
+      "closedUploadStatus": 403
+    },
+    "onlineAll": {
+      "passed": true,
+      "predownloadScope": "all",
+      "device": "isolated Windows Chrome, touch simulation; not physical iPhone",
+      "stages": [
+        {
+          "tag": "predownload",
+          "phase": "menu",
+          "time": 0,
+          "texture": "medium",
+          "preset": "auto",
+          "textureBytes": 29201591.133333325,
+          "contextLoss": 0,
+          "downloadBytes": 336525475,
+          "cachedBytes": 42216,
+          "residentBlobBytes": 31637604
+        },
+        {
+          "tag": "battle",
+          "phase": "battle",
+          "time": 5.883333333333333,
+          "texture": "medium",
+          "preset": "auto",
+          "textureBytes": 426830745.8000011,
+          "contextLoss": 0,
+          "downloadBytes": 336525475,
+          "cachedBytes": 73292239,
+          "residentBlobBytes": 59643363
+        },
+        {
+          "tag": "second-battle",
+          "phase": "battle",
+          "time": 3.05,
+          "texture": "medium",
+          "preset": "auto",
+          "textureBytes": 440147932.46666723,
+          "contextLoss": 0,
+          "downloadBytes": 336525475,
+          "cachedBytes": 79869331,
+          "residentBlobBytes": 60644087
+        }
+      ],
+      "errors": [],
+      "failures": []
+    }
+  },
+  "deployed": true,
+  "pushed": false,
+  "physicalIphoneTested": false,
+  "limits": [
+    "GPU byte estimates are logical allocations, not physical GPU memory",
+    "CPU/GL/browser counters overlap and must not be summed",
+    "No claim original Safari reload root cause is confirmed"
+  ],
+  "comparisonCriteria": {
+    "lockedBeforeFinalPairs": true,
+    "metric": "First battle logical GL textures/buffers, CPU unique reachable backings, shader programs; process private commit separate",
+    "sampleOrder": "3 pairs alternating baseline-candidate, candidate-baseline, baseline-candidate",
+    "processBaselineRangeBytes": 99287040,
+    "entranceRegressionLimit": "median must not be >10% slower than baseline; individual outliers documented",
+    "frameRegressionLimit": "first 5 simulation seconds p95 median not > max(5 ms, 15%) above baseline; no hidden first-use missing effects",
+    "pairsLimit": 3,
+    "note": "Initial baseline 3 samples already complete. Paired production-entry samples use same isolated Chrome/DPR3/seed529/selected-race-and-shared-predownload inputs and unchanged resource release."
+  },
+  "implementationCommit": "968278f",
+  "deployment": {
+    "projectId": "appgprj_6ae024693cf481919b48df2cececd0a0",
+    "version": 16,
+    "versionId": "appgprj_6ae024693cf481919b48df2cececd0a0~appgver_0033bfe2e2548191ade766a9a9da17cb",
+    "id": "appgdep_6ae1ea4e5cbc8191b553aaaa24718706",
+    "status": "succeeded",
+    "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site",
+    "sourceCommit": "4e321710b48de427aef805f205b24e56508b0f74",
+    "audience": "public",
+    "policyRevision": 2,
+    "environmentRevision": 3,
+    "archive": {
+      "path": "sites/runtime-lifecycle-20261028.tar.gz",
+      "bytes": 56620879,
+      "sha256": "e99fd48551ceecd72c64af5bc9236b8c14d64e8b2369c28933437fc8342aaf6c"
+    },
+    "unchanged": [
+      "URL",
+      "audience",
+      "DB/BUCKET",
+      "authentication",
+      "player data",
+      "resource release"
+    ],
+    "snapshotFilesVerified": 27,
+    "finalAudienceVerified": {
+      "public": true,
+      "policyRevision": 2,
+      "version": 16
+    }
+  },
+  "cleanup": {
+    "generatedOutputs": [
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\b",
+        "files": 4176,
+        "bytes": 2117329620,
+        "directory": true
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\c",
+        "files": 427,
+        "bytes": 687745439,
+        "directory": true
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\harness",
+        "files": 3,
+        "bytes": 36572101,
+        "directory": true
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\offline-smoke.html",
+        "files": 1,
+        "bytes": 1323287612,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\quality-lab.html",
+        "files": 1,
+        "bytes": 955156,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\assets\\quality-lab.js",
+        "files": 1,
+        "bytes": 4024,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\assets\\sc2-quality-lab.266c82f1ae6d9b58.js.gz",
+        "files": 1,
+        "bytes": 7791255,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\assets\\sc2-quality-lab.45d7f3422df609fc.js.gz",
+        "files": 1,
+        "bytes": 7766994,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\assets\\sc2-quality-lab.b06c7edc39e4281f.js.gz",
+        "files": 1,
+        "bytes": 7791256,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\assets\\sc2-quality-lab.bb17b9bf10ef82d0.js.gz",
+        "files": 1,
+        "bytes": 7764290,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\assets\\sc2-quality-lab.dc998bd2d68fa294.js.gz",
+        "files": 1,
+        "bytes": 7791185,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\assets\\sc2-quality-lab.ebaf74768a430b4a.js.gz",
+        "files": 1,
+        "bytes": 7791226,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\assets\\sc2-quality-lab.ec46a04881d8cc32.js.gz",
+        "files": 1,
+        "bytes": 7791191,
+        "directory": false
+      },
+      {
+        "path": "D:\\星际\\dist\\runtime-lifecycle-20261028\\final\\public\\assets\\sc2-quality-lab.f85e7cc2b9f38a0a.js.gz",
+        "files": 1,
+        "bytes": 7763685,
+        "directory": false
+      }
+    ],
+    "stoppedServers": [
+      {
+        "Port": 18885,
+        "ProcessId": 28380
+      },
+      {
+        "Port": 18887,
+        "ProcessId": 29832
+      },
+      {
+        "Port": 18888,
+        "ProcessId": 27156
+      },
+      {
+        "Port": 18889,
+        "ProcessId": 25920
+      }
+    ],
+    "rawReports": "pending removal after concise report and Git delivery",
+    "retained": [
+      "dist/runtime-lifecycle-20261028/final/web",
+      "dist/runtime-lifecycle-20261028/final/public",
+      "dist/runtime-lifecycle-20261028/final/delivery-inventory.json",
+      "sites/runtime-lifecycle-20261028.tar.gz",
+      "Existing V04/Current and version15 rollback inputs"
+    ]
+  },
+  "next": "Original iPhone 17 Pro/iOS26.7.1, automatic quality, existing URL: download-all, first3stages, repeatentry and background/foreground; do not erase saved data."
+}
