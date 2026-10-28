@@ -1,0 +1,8 @@
+import {chromium} from '@playwright/test';
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const b=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--no-proxy-server']});
+const results=[];
+try{const c=await b.newContext({viewport:{width:1440,height:900}}),p=await c.newPage();p.setDefaultTimeout(180000);await p.addInitScript(()=>{globalThis.__name=v=>v;localStorage.setItem('sc2.graphics.v1',JSON.stringify({version:1,preset:'low',tier:'medium',texture:'low'}));});await p.goto('http://127.0.0.1:18883/');await p.waitForFunction(()=>globalThis.__SC2_REPORT__&&!document.getElementById('scs-opening-visual'));await p.locator('[data-action="settings"]:visible').click();await p.locator('[data-action="settings-tab"][data-tab="graphics"]').click();
+ for(const [width,height]of [[1440,900],[844,390],[390,844]]){await p.setViewportSize({width,height});await p.waitForFunction(w=>Math.abs(parseFloat(document.documentElement.style.getPropertyValue('--game-width'))-w)<1,width);await p.waitForTimeout(300);await p.locator('[data-setting="graphics-preset"]').scrollIntoViewIfNeeded();const rect=await p.locator('.settings-modal').boundingBox();assert.ok(rect.x>=-1&&rect.x+rect.width<=width+1,JSON.stringify(rect));await p.screenshot({path:`reports/local/quality-20261028/settings-${width}x${height}.png`});results.push({width,height,rect});}
+ await fs.writeFile('reports/local/quality-20261028/layout.json',JSON.stringify(results,null,2));console.log(JSON.stringify(results));await c.close();}finally{await b.close();}

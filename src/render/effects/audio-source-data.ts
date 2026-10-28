@@ -8,6 +8,7 @@ export const soundValue=(b:SoundBank,k:string,fallback=0)=>Number(b.fields[k]?.v
 /** Isolated presentation RNG: never consumes World.random or gameplay IDs. */
 export class SoundVariation {
  private state=0x6d2b79f5;private history=new Map<string,number[]>();private sequence=new Map<string,number>();
+ preview(key:string,b:SoundBank,rotate=false,count=2){const copy=new SoundVariation();copy.state=this.state;copy.history=new Map([...this.history].map(([k,v])=>[k,[...v]]));copy.sequence=new Map(this.sequence);return Array.from({length:Math.min(count,b.samples.length)},()=>copy.sample(key,b,rotate));}
  random(){let x=this.state;x^=x<<13;x^=x>>>17;x^=x<<5;this.state=x>>>0;return this.state/4294967296;}
  range(value:string|undefined,fallback=0){const [a=fallback,b=a]=(value??'').split(',').filter(Boolean).map(Number);return a+(b-a)*this.random();}
  sample(key:string,b:SoundBank,rotate=false){

@@ -11,7 +11,7 @@ if(!schemaMatch)throw Error('Cannot resolve runtime save schema');
 const RUN_SCHEMA=Number(schemaMatch[1]);
 
 const root=process.cwd(),dist=path.resolve(root,'dist');
-const staging=path.resolve(dist,`web-staging-${process.pid}`),published=path.resolve(dist,'web'),backup=path.resolve(dist,'web-previous');
+const staging=path.resolve(dist,`web-staging-${process.pid}`),published=path.resolve(root,process.env.SC2_WEB_OUTPUT??'dist/web'),backup=published+'-previous';
 const inside=(base,target)=>{const relative=path.relative(base,target);return relative!==''&&!relative.startsWith('..')&&!path.isAbsolute(relative);};
 for(const target of [staging,published,backup])if(!inside(dist,target))throw Error('Web build destination escapes dist: '+target);
 const records=await loadBuildAssets();

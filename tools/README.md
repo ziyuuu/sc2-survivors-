@@ -16,3 +16,11 @@
 V04 的 prepare-v04-application、package-v04-resources、verify-v04-browser、verify-v04-update 等用于复现 2026-10-27 打包检查；有固定本地输入/临时基线，不是无参数的一键生产发布器。不要为了让旧脚本能跑而恢复旧接口、旧存档或旧玩法。
 
 反馈版可用 `prepare-v04-application.mjs --output dist/<新目录> --baseline dist/V04-20261027/Application --readme docs/project/COZE_FEEDBACK_DEPLOY_20261027.md`；`verify-v04-update.mjs` 支持 `--app`、`--baseline`、`--report-root`。`update-compressed-game.mjs <已存在的压缩public目录>` 更新游戏代码、样式和模型身份映射，要求资源ID集合不变，不替代首次压缩资源流水线。
+
+## 体积优化版画质候选（2026-10-28）
+
+适用范围与实测边界见[实施记录](../docs/project/SITES_QUALITY_IMPLEMENTATION_20261028.md)。资源：`build-quality-assets.mjs`→`build-quality-assets.py`→`verify-quality-assets.mjs`。游戏：显式设置 `SC2_WEB_OUTPUT` 后构建，再运行 `update-compressed-game.mjs <packed-public> <web>`；它保留旧程序/样式，线上旧版本清理须另行核对。
+
+`verify-quality-browser.mjs <origin> low|high [constrained]`检查真实入口首战、分档及热缓存；`verify-quality-layout.mjs`检查稳定后的三尺寸设置页。`build-quality-harness.mjs`生成仅本机的测试入口，供 `verify-quality-lifecycle.mjs`、`verify-quality-device.mjs`、`verify-quality-rollback.mjs`使用；测试入口不能随候选发布。浏览器工具默认Chrome和本机18883端口，使用独立临时浏览器上下文，不使用真实玩家数据；GPU测试串行。
+
+KTX2仅小样：`prepare-ktx-samples.py`、`run-basis-sample.mjs`、`build-ktx-sample.mjs`、`verify-quality-ktx.mjs`。编码器来自官方Basis Universal，样本在D盘本机处理。本批没有采纳全量KTX2，也未授权或执行线上发布。

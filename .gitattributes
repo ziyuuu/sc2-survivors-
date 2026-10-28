@@ -17,3 +17,7 @@ preview/environment-full-map-20261014/*.js -text -diff
 
 # Preserve the original instruction archive byte-for-byte on every checkout.
 docs/project/history/AGENTS_HISTORY_BEFORE_20261027.md -text
+
+# Content-addressed Sites payloads must remain byte-identical.
+sites/size-optimized-site/public/assets/*.bin -text -diff
+sites/size-optimized-site/public/assets/*.gz -text -diff

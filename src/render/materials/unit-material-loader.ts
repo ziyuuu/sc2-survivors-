@@ -1,3 +1,6 @@
+import {httpStore} from '../../assets/http-store';
+import {registerGltfTextures,trackedClone} from '../loaders/managed-textures';
+import {modelDecodeLane} from '../../platform/preparation-budget';
 import * as THREE from 'three';
 import type {GLTF,GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {assetUrl} from '../../assets/manifest';
@@ -34,9 +37,10 @@ export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:stri
  const response=await fetch(url);if(!response.ok)throw Error('Original material model could not load: '+key);
  const bytes=await response.arrayBuffer(),digest=await crypto.subtle.digest('SHA-256',bytes);
  const sha=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('');
- if(sha!==profile.glbSha256)throw Error('Original material profile/GLB hash mismatch: '+key);
+ const store=httpStore(),id=store?.idForUrl(url),row=id?store?.manifest.assets[id]:undefined,expected=row?.sha256===profile.glbSha256&&id?store!.record(id).sha256:profile.glbSha256;
+ if(sha!==expected)throw Error('Original material profile/GLB hash mismatch: '+key);
  await prepareEmbeddedAssetIds(unitMaterialDependencies(key));
- const gltf=await loader.parseAsync(legalMaterialGlb(bytes),'');
+ const gltf=await modelDecodeLane.run(()=>loader.parseAsync(legalMaterialGlb(bytes),''));registerGltfTextures(gltf,url);
  const derivedUrl=(id:string)=>{const value=assetUrl(id);if(!value)throw Error('Original material resource missing: '+id);return value;};
  const seen=new Set<THREE.Material>(),jobs:Promise<void>[]=[];
  gltf.scene.traverse(n=>{if(!(n instanceof THREE.Mesh))return;for(const material of Array.isArray(n.material)?n.material:[n.material]){
@@ -54,7 +58,7 @@ export async function loadUnitMaterialGltf(loader:GLTFLoader,url:string,key:stri
     let texture:THREE.Texture;
     if(layer.cubeTextures)texture=await sharedMaterialTextures.cube(layer.cubeTextures.map(derivedUrl));
     else if(layer.texture)texture=await sharedMaterialTextures.image(derivedUrl(layer.texture));
-    else if(info?.index!==undefined)texture=(await gltf.parser.getDependency('texture',info.index) as THREE.Texture).clone();
+    else if(info?.index!==undefined){const embedded=await gltf.parser.getDependency('texture',info.index) as THREE.Texture;registerGltfTextures(gltf,url);texture=trackedClone(embedded);}
     else if(role==='specular'&&material instanceof THREE.MeshBasicMaterial)continue;
     else if(['decal','gloss','ao','environment','environmentMask'].includes(role))continue; // Recorded source gaps only.
     else throw Error('Missing original material texture: '+key+'/'+material.name+'/'+role);

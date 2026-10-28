@@ -1,3 +1,4 @@
+import {registerGltfTextures} from './managed-textures';
 import * as THREE from 'three';
 import type {GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import {bindSourceDepth} from '../materials/posed-depth';
@@ -19,7 +20,7 @@ export async function restoreSc2Materials(g:GLTF){
    };m.customProgramCacheKey=()=> 'sc2-material-v3:'+JSON.stringify(layers.map(l=>[l.role,l.uv,l.index===undefined,l.multiplier,l.add,l.invert]));
    const compile=m.onBeforeCompile,programKey=m.customProgramCacheKey;bindSourceDepth(m,{key:()=>programKey.call(m),compile:(shader,renderer)=>compile.call(m,shader,renderer)});
   })());
- }});await Promise.all(jobs);return g;
+ }});await Promise.all(jobs);registerGltfTextures(g);return g;
 }
 
 /** Bounds for the physical body only. Particle/displacement helpers never set world scale. */

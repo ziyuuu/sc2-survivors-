@@ -1,16 +1,19 @@
 {
-  "appBuildId": "0f0dcaa75ec27a7e2879b54ade3e0bfe461e896d362e153596da805ac358c160",
+  "appBuildId": "27897f5107714c97b660e39525ecd25b5c709cebfa30158a3e4ea127afcfe0b9",
   "runSchema": 26,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-five-v3",
   "assetCount": 3845,
-  "fileCount": 3742,
-  "assetBytes": 351051007,
-  "logicalBytes": 354049353,
-  "sharedBytes": 2998346,
-  "manifest": "asset-manifest.885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa.json",
-  "release": "d5f891f541f0082451c319ab026eeef761d943e930547ac4bd1a69a029a8e9fe",
+  "fileCount": 5093,
+  "assetBytes": 797606515,
+  "logicalBytes": 800690237,
+  "sharedBytes": 3083722,
+  "manifest": "asset-manifest.1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e.json",
+  "release": "1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e",
   "source": "reports/local/asset-reachability.json",
   "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
-  "compressedEntrySha256": "14c03c55a64693b2d228fb24e3aab482df72134a4a1dd29c37df1e6517d7ec58"
+  "compressedEntrySha256": "39e873636cd213c9635b5c8620864fe6f6aa53e07b2aeb8ba1ae70a6532abc5b",
+  "qualityVariants": true,
+  "packedBytes": 435701130,
+  "variantRecordCount": 1375
 }

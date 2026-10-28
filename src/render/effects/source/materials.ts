@@ -1,3 +1,4 @@
+import {ManagedGLTFLoader} from '../../loaders/managed-textures';
 import * as THREE from 'three';
 import {GLTFLoader,type GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import {assetUrl} from '../../../assets/manifest';
@@ -31,14 +32,14 @@ export async function loadSourceEffect(definition:SourceEffectDefinition):Promis
  }
  let gltf:GLTF|undefined;
  if(definition.glbId){const url=assetUrl(definition.glbId);if(!url)throw Error('Missing original combat mesh: '+definition.glbId);const response=await fetch(url);if(!response.ok)throw Error('Could not load original combat mesh: '+definition.glbId);const bytes=await response.arrayBuffer(),sha=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(b=>b.toString(16).padStart(2,'0')).join('');if(sha!==definition.materialProfile.glbSha256)throw Error('Combat mesh/source mismatch: '+definition.id);
-  gltf=await new GLTFLoader().parseAsync(bytes,'');gltf.scene.traverse(n=>{if(!(n instanceof THREE.Mesh))return;n.frustumCulled=false;n.castShadow=false;n.receiveShadow=false;
+  gltf=await new ManagedGLTFLoader().parseAsync(bytes,'');gltf.scene.traverse(n=>{if(!(n instanceof THREE.Mesh))return;n.frustumCulled=false;n.castShadow=false;n.receiveShadow=false;
    const bind=(m:THREE.Material)=>{const resource=materials.find(r=>r.base.name===m.name);if(!resource)throw Error('Unbound combat surface: '+m.name);return resource.base;};n.material=Array.isArray(n.material)?n.material.map(bind):bind(n.material);
   });
  }
  const displacement:DisplacementResource[]=[];
  for(const source of definition.displacementMaterials??[]){const textures:DisplacementResource['textures']={};for(const role of ['normal','strength']as const){const layer=source.layers[role];if(!layer?.texture)continue;const url=assetUrl(layer.texture);if(!url)throw Error('Missing original displacement texture '+layer.texture);const texture=await sharedMaterialTextures.image(url);texture.flipY=false;texture.colorSpace=THREE.NoColorSpace;texture.wrapS=layer.flags&4?THREE.RepeatWrapping:THREE.ClampToEdgeWrapping;texture.wrapT=layer.flags&8?THREE.RepeatWrapping:THREE.ClampToEdgeWrapping;texture.needsUpdate=true;textures[role]=texture;}displacement.push({definition,source,textures});}
  let displacementGltf:GLTF|undefined;
- if(definition.displacementGlb){const {id,sha256}=definition.displacementGlb,url=assetUrl(id);if(!url)throw Error('Missing original displacement mesh '+id);const response=await fetch(url);if(!response.ok)throw Error('Could not load original displacement mesh '+id);const bytes=await response.arrayBuffer(),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(b=>b.toString(16).padStart(2,'0')).join('');if(hash!==sha256)throw Error('Displacement mesh/source mismatch '+id);displacementGltf=await new GLTFLoader().parseAsync(bytes,'');}
+ if(definition.displacementGlb){const {id,sha256}=definition.displacementGlb,url=assetUrl(id);if(!url)throw Error('Missing original displacement mesh '+id);const response=await fetch(url);if(!response.ok)throw Error('Could not load original displacement mesh '+id);const bytes=await response.arrayBuffer(),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(b=>b.toString(16).padStart(2,'0')).join('');if(hash!==sha256)throw Error('Displacement mesh/source mismatch '+id);displacementGltf=await new ManagedGLTFLoader().parseAsync(bytes,'');}
  return {definition,materials,displacement,gltf,displacementGltf};
 }
 /** Each draw owns source curves; immutable images are shared through independent wrappers. */

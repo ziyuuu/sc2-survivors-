@@ -39,13 +39,24 @@ test('packed resource stalled body is aborted, discarded, and a later retry down
  assert.deepEqual([...new Uint8Array(await vm.runInContext("getBundle('bundle-000.bin')",context))],[4,5,6]);assert.equal(calls,2);
 });
 
-test('touch-device resource cache keeps at most four bundle buffers',async()=>{
- let message:((e:{data:unknown})=>void)|undefined,calls=0;
- const context=vm.createContext({URL,AbortController,Response,Blob,DecompressionStream,Uint8Array,Error,Map,Promise,clearTimeout,setTimeout,importScripts:()=>{},
-  self:{registration:{scope:'https://game.invalid/'},addEventListener:(kind:string,listener:typeof message)=>{if(kind==='message')message=listener;}},
-  fetch:async()=>{calls++;return new Response(new Uint8Array([1,2,3]));}
- });vm.runInContext(await fs.readFile('tools/packed-sites-sw.js','utf8'),context);message!({data:{type:'sc2-pack-memory-limit',entries:4}});
- for(let i=0;i<7;i++)await vm.runInContext(`getBundle('bundle-${i}.bin')`,context);
- assert.equal(vm.runInContext('bundles.size',context),4);assert.equal(calls,7);
- await vm.runInContext("getBundle('bundle-0.bin')",context);assert.equal(calls,8);assert.equal(vm.runInContext('bundles.size',context),4);
+test('byte LRU retains inflight deduplication and rejects oversize residency',async()=>{
+ let calls=0;const context=vm.createContext({URL,AbortController,Response,Blob,DecompressionStream,Uint8Array,Error,Map,Promise,clearTimeout,setTimeout,importScripts:()=>{},
+  self:{registration:{scope:'https://game.invalid/'},addEventListener:()=>{}},fetch:async()=>{calls++;await new Promise(r=>setTimeout(r,2));return new Response(new Uint8Array(8));}
+ });vm.runInContext(await fs.readFile('tools/packed-sites-sw.js','utf8'),context);vm.runInContext('packLimit=12',context);
+ await Promise.all([vm.runInContext("getBundle('one')",context),vm.runInContext("getBundle('one')",context),vm.runInContext("getBundle('two')",context)]);
+ assert.equal(calls,2);assert.equal(vm.runInContext('resident',context),8);assert.equal(vm.runInContext('inflight.size',context),0);
+ vm.runInContext('packLimit=4;trim()',context);await vm.runInContext("getBundle('big')",context);assert.equal(vm.runInContext('resident',context),0);assert.equal(vm.runInContext('bundles.size',context),0);
+});
+
+test('old and new immutable indexes remain distinct after a worker update',async()=>{
+ const a='sites-pack-index.'+'a'.repeat(20)+'.js',b='sites-pack-index.'+'b'.repeat(20)+'.js';let calls=0;
+ const context=vm.createContext({URL,AbortController,Response,Blob,DecompressionStream,Uint8Array,Error,Map,Promise,clearTimeout,setTimeout,importScripts:()=>{},self:{SC2_PACK_INDEX:{current:1},registration:{scope:'https://game.invalid/'},addEventListener:()=>{}},fetch:async(url:URL)=>{calls++;return new Response('self.SC2_PACK_INDEX='+JSON.stringify({resource:url.pathname.includes(a)?'old':'new'})+';');}});
+ vm.runInContext(await fs.readFile('tools/packed-sites-sw.js','utf8'),context);
+ assert.equal((await vm.runInContext(`indexFor('${a}')`,context)).resource,'old');assert.equal((await vm.runInContext(`indexFor('${b}')`,context)).resource,'new');assert.equal((await vm.runInContext(`indexFor('${a}')`,context)).resource,'old');assert.equal(calls,2);await assert.rejects(vm.runInContext("indexFor('../other.js')",context));
+});
+
+test('worker merges client budgets conservatively and lowers queued concurrency',async()=>{
+ const context=vm.createContext({URL,AbortController,Response,Blob,DecompressionStream,Uint8Array,Error,Map,Set,Promise,clearTimeout,setTimeout,importScripts:()=>{},self:{registration:{scope:'https://game.invalid/'},clients:{matchAll:async()=>[{id:'one'},{id:'two'}]},addEventListener:()=>{}}});vm.runInContext(await fs.readFile('tools/packed-sites-sw.js','utf8'),context);
+ await vm.runInContext("clientsBudget.set('one',{packBytes:48*1024**2,network:6,decode:2});clientsBudget.set('two',{packBytes:12*1024**2,network:1,decode:1});budgets()",context);assert.equal(vm.runInContext('networkLimit',context),1);assert.equal(vm.runInContext('decodeLimit',context),1);
+ const values=await vm.runInContext(`(async()=>{networkLimit=3;let active=0,peakAfter=0;const tasks=Array.from({length:6},(_,i)=>lane(network,()=>networkLimit,async()=>{active++;if(i>=3)peakAfter=Math.max(peakAfter,active);await new Promise(r=>setTimeout(r,5));active--;}));networkLimit=1;await Promise.all(tasks);return peakAfter;})()`,context);assert.equal(values,1);
 });

@@ -1,3 +1,6 @@
+import {applyPendingTextureTier} from '../render/loaders/managed-textures';
+import {optimizedGraphics} from '../platform/graphics-profile';
+import {audioPreloadBanks} from './audio-preload-plan';
 import type {BackgroundPreparation} from './background-preparation';
 import {campaignMapAssets,campaignPreloadAssets,type CampaignMapRecipe} from '../data/campaign-map';
 import {environmentAssetIds,MAP_VISUAL_PROFILES} from '../render/terrain/map-visual-profile';
@@ -61,17 +64,19 @@ export class AssetReadinessCoordinator {
    ownsView=true;errorsBefore=[...(this.view.modelErrors??[])];
    this.view.entryPreparation=true;
    this.view.preparationControl={cancelled:()=>generation!==this.generation};
+   if(optimizedGraphics())await applyPendingTextureTier(()=>generation!==this.generation);
+   if(generation!==this.generation)return false;
    const desiredMap=request.snapshot?.config.campaignMap??request.campaignMap;
    const rescueRace=request.snapshot?.config.race??request.race??this.world.expedition.race,rescue=RESCUE_PRESENTATION[rescueRace];
    if(!this.view.initialAssetsLoaded){
     const allMapAssets=[...campaignPreloadAssets(),...(Object.keys(MAP_VISUAL_PROFILES) as CampaignTheme[]).flatMap(environmentAssetIds)];
     const mapAssets=desiredMap?[...campaignMapAssets(desiredMap),...environmentAssetIds(desiredMap.theme)]:allMapAssets,otherMapAssets=new Set(allMapAssets.filter(id=>!mapAssets.includes(id)));
-    const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&['texture','effect-texture','audio'].includes(asset.kind)&&!otherMapAssets.has(asset.id)).map(asset=>asset.id);
+    const common=[...ASSETS.values()].filter(asset=>asset.status==='available'&&(optimizedGraphics()?['texture','effect-texture']:['texture','effect-texture','audio']).includes(asset.kind)&&!otherMapAssets.has(asset.id)).map(asset=>asset.id);
     const fixed=['model.'+rescue.workerModel,'model.'+rescue.carrierModel,'model.'+rescue.carrierDeathModel,...(rescue.carrierBirthModel?['model.'+rescue.carrierBirthModel]:[]),'model.drone','model.egg','model.hive','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'];
     await prepareEmbeddedAssetIds([...common,...fixed,...mapAssets],report('models',.05,.1));
    }
    if(generation!==this.generation)return false;
-   const audioReady=this.audio?.preload((done,total,label)=>{if(this.state.phase==='audio')report('audio',.72,.04)(done,total,`解码音效 ${label}`);}).then(()=>null,error=>error as Error);
+   const audioReady=optimizedGraphics()?undefined:this.audio?.preload((done,total,label)=>{if(this.state.phase==='audio')report('audio',.72,.04)(done,total,`解码音效 ${label}`);}).then(()=>null,error=>error as Error);
    if(!this.view.initialAssetsLoaded){await this.view.load((label,done=0,total=0)=>report('models',.15,.2)(done,total,label),rescueRace,!!desiredMap);}
    if(generation!==this.generation)return false;
    const models=report('models',.35,.37);models(0,1,'准备部队');
@@ -82,6 +87,8 @@ export class AssetReadinessCoordinator {
    await this.view.waitForPendingAssets();
    if(generation!==this.generation)return false;
    report('audio',.72,0)(0,1,'准备音效');
+   if(optimizedGraphics()){const identities=[...this.world.entities.values(),...(request.hero?[{heroId:request.hero}]:[])];if(request.snapshot){const visit=(v:unknown)=>{if(!v||typeof v!=='object')return;if('unitType' in v||'heroId' in v)identities.push(v as typeof identities[number]);for(const child of Object.values(v))if(child&&typeof child==='object')visit(child);};visit(request.snapshot);}
+    await this.audio?.prepareBanks(audioPreloadBanks(rescueRace,kind==='new'?1:Math.max(1,this.world.stage),identities),report('audio',.72,.04),()=>generation!==this.generation);}
    const audioError=await audioReady;if(audioError)throw audioError;
    if(generation!==this.generation)return false;
    report('gpu',.76,0)(0,1,'准备战场');

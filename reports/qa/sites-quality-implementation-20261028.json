@@ -1,0 +1,948 @@
+{
+  "date": "2026-10-28",
+  "status": "implemented-local-candidate-pending-user-and-physical-device",
+  "baselineCommit": "91b07755155d1f9676eae5f326ebe5fa6777bd3a",
+  "candidate": {
+    "appBuildId": "27897f5107714c97b660e39525ecd25b5c709cebfa30158a3e4ea127afcfe0b9",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3845,
+    "fileCount": 5093,
+    "assetBytes": 797606515,
+    "logicalBytes": 800690237,
+    "sharedBytes": 3083722,
+    "manifest": "asset-manifest.1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e.json",
+    "release": "1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e",
+    "source": "reports/local/asset-reachability.json",
+    "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "compressedEntrySha256": "39e873636cd213c9635b5c8620864fe6f6aa53e07b2aeb8ba1ae70a6532abc5b",
+    "qualityVariants": true,
+    "packedBytes": 435701130,
+    "variantRecordCount": 1375
+  },
+  "candidateDirectory": "dist/quality-20261028/public",
+  "publication": {
+    "committed": false,
+    "pushed": false,
+    "deployed": false,
+    "sitesSnapshotsUpdated": false
+  },
+  "assets": {
+    "release": "1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e",
+    "files": 5093,
+    "models": 744,
+    "totals": {
+      "high": 351051007,
+      "medium": 313880487,
+      "low": 298451233
+    },
+    "allContentPackBytes": {
+      "high": 229174031,
+      "medium": 220076098,
+      "low": 176868979
+    },
+    "checks": [
+      "every variant length and SHA256",
+      "GLB headers",
+      "low excludes high-only packs"
+    ]
+  },
+  "validation": {
+    "fullTests": {
+      "passed": 2736,
+      "failed": 0
+    },
+    "finalTargeted": {
+      "passed": 26,
+      "failed": 0,
+      "includesTwoAdditionalWorkerTests": true
+    },
+    "typecheck": true,
+    "docsCheck": true,
+    "shaAndHeaderFiles": 5093,
+    "browser": {
+      "low": {
+        "tier": "low",
+        "menuMs": 15051.428899999999,
+        "readyMs": 62619.208399999996,
+        "graphics": {
+          "version": 1,
+          "preset": "low",
+          "tier": "low",
+          "texture": "low",
+          "budget": {
+            "network": 6,
+            "decode": 2,
+            "audio": 2,
+            "packBytes": 50331648,
+            "pcmBytes": 100663296,
+            "recentOnly": false
+          },
+          "textures": {
+            "decodedPixels": 136279040,
+            "swaps": 0,
+            "rollbacks": 0,
+            "liveVariantPixels": 136279040,
+            "liveVariantSources": 731,
+            "rgbaMipEstimate": 726821547
+          }
+        },
+        "resolution": {
+          "quality": "performance",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 0.7,
+          "width": 1007,
+          "height": 630,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        },
+        "sw": {
+          "bundleBodyBytes": 798226523,
+          "networkTransferBytes": 176928079,
+          "transferSamples": 197,
+          "logicalBytes": 99997363,
+          "gzipInputBytes": 22673497,
+          "gzipOutputBytes": 55901068,
+          "gzipMs": 408.90000012516975,
+          "downloads": 527,
+          "peakResident": 25165780,
+          "peakInflight": 4,
+          "peakDecode": 2,
+          "residentBytes": 24369167,
+          "inflight": 0,
+          "decodeActive": 0,
+          "packLimit": 25165824,
+          "networkLimit": 4,
+          "decodeLimit": 2,
+          "diskBytes": 176868979,
+          "diskLimit": 268435456
+        },
+        "errors": [],
+        "failed": [],
+        "audio": {
+          "pcmBytes": 100627416,
+          "peakPcmBytes": 101671876,
+          "pcmBudget": 100663296,
+          "pcmBudgetExceeded": false,
+          "decode": {
+            "active": 0,
+            "queued": 0,
+            "peak": 2,
+            "completed": 227,
+            "milliseconds": 1407.1999999284744
+          },
+          "originalDecoded": 184,
+          "errors": [],
+          "nativePlayed": {
+            "melee:Marine_What": 1,
+            "melee:Zergling_Explode": 2,
+            "melee:Marine_AttackLaunch": 3,
+            "melee:Marine_AttackImpact": 3,
+            "melee:Zergling_AttackImpact": 1,
+            "melee:Zergling_AttackLaunch": 2
+          },
+          "activeVoices": 0
+        },
+        "hotMenu": {
+          "prepared": 1217,
+          "total": 3845,
+          "release": "1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e",
+          "downloadBytes": 0,
+          "cachedBytes": 40502398,
+          "files": 1180,
+          "cacheHits": 1180,
+          "cacheMisses": 0,
+          "warning": null
+        }
+      },
+      "high": {
+        "tier": "high",
+        "menuMs": 15049.3136,
+        "readyMs": 68069.7951,
+        "graphics": {
+          "version": 1,
+          "preset": "high",
+          "tier": "high",
+          "texture": "high",
+          "budget": {
+            "network": 6,
+            "decode": 2,
+            "audio": 2,
+            "packBytes": 50331648,
+            "pcmBytes": 100663296,
+            "recentOnly": false
+          },
+          "textures": {
+            "decodedPixels": 292164608,
+            "swaps": 0,
+            "rollbacks": 0,
+            "liveVariantPixels": 263042048,
+            "liveVariantSources": 614,
+            "rgbaMipEstimate": 1402890923
+          }
+        },
+        "resolution": {
+          "quality": "high",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 1,
+          "width": 1440,
+          "height": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        },
+        "sw": {
+          "bundleBodyBytes": 836717278,
+          "networkTransferBytes": 219091447,
+          "transferSamples": 222,
+          "logicalBytes": 128978615,
+          "gzipInputBytes": 36748047,
+          "gzipOutputBytes": 70065100,
+          "gzipMs": 511.50000020861626,
+          "downloads": 557,
+          "peakResident": 25163287,
+          "peakInflight": 4,
+          "peakDecode": 2,
+          "residentBytes": 23267181,
+          "inflight": 0,
+          "decodeActive": 0,
+          "packLimit": 25165824,
+          "networkLimit": 4,
+          "decodeLimit": 2,
+          "diskBytes": 219024847,
+          "diskLimit": 268435456
+        },
+        "errors": [],
+        "failed": [],
+        "audio": {
+          "pcmBytes": 100167904,
+          "peakPcmBytes": 101671876,
+          "pcmBudget": 100663296,
+          "pcmBudgetExceeded": false,
+          "decode": {
+            "active": 1,
+            "queued": 0,
+            "peak": 2,
+            "completed": 229,
+            "milliseconds": 3745.600000053644
+          },
+          "originalDecoded": 185,
+          "errors": [],
+          "nativePlayed": {
+            "melee:Marine_What": 1,
+            "melee:Zergling_Explode": 2,
+            "melee:Marine_AttackLaunch": 3,
+            "melee:Marine_AttackImpact": 4,
+            "melee:Zergling_AttackImpact": 3,
+            "melee:Zergling_AttackLaunch": 2
+          },
+          "activeVoices": 0
+        },
+        "hotMenu": {
+          "prepared": 1217,
+          "total": 3845,
+          "release": "1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e",
+          "downloadBytes": 0,
+          "cachedBytes": 51855598,
+          "files": 1164,
+          "cacheHits": 1164,
+          "cacheMisses": 0,
+          "warning": null
+        }
+      },
+      "low-constrained": {
+        "tier": "low",
+        "menuMs": 15053.498500000002,
+        "readyMs": 62466.7622,
+        "graphics": {
+          "version": 1,
+          "preset": "low",
+          "tier": "low",
+          "texture": "low",
+          "budget": {
+            "network": 2,
+            "decode": 1,
+            "audio": 1,
+            "packBytes": 12582912,
+            "pcmBytes": 33554432,
+            "recentOnly": true
+          },
+          "textures": {
+            "decodedPixels": 119989248,
+            "swaps": 0,
+            "rollbacks": 0,
+            "liveVariantPixels": 119989248,
+            "liveVariantSources": 696,
+            "rgbaMipEstimate": 639942656
+          }
+        },
+        "resolution": {
+          "quality": "performance",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 1,
+          "renderPixelRatio": 0.7,
+          "width": 1007,
+          "height": 630,
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "antialias": true
+        },
+        "sw": {
+          "bundleBodyBytes": 928046503,
+          "networkTransferBytes": 176928079,
+          "transferSamples": 197,
+          "logicalBytes": 93159035,
+          "gzipInputBytes": 19753970,
+          "gzipOutputBytes": 49655604,
+          "gzipMs": 239.19999986886978,
+          "downloads": 594,
+          "peakResident": 12581718,
+          "peakInflight": 2,
+          "peakDecode": 1,
+          "residentBytes": 11473920,
+          "inflight": 0,
+          "decodeActive": 0,
+          "packLimit": 12582912,
+          "networkLimit": 2,
+          "decodeLimit": 1,
+          "diskBytes": 176868979,
+          "diskLimit": 268435456
+        },
+        "errors": [],
+        "failed": [],
+        "audio": {
+          "pcmBytes": 33378168,
+          "peakPcmBytes": 36945148,
+          "pcmBudget": 33554432,
+          "pcmBudgetExceeded": false,
+          "decode": {
+            "active": 0,
+            "queued": 0,
+            "peak": 1,
+            "completed": 226,
+            "milliseconds": 1443.3000000715256
+          },
+          "originalDecoded": 80,
+          "errors": [],
+          "nativePlayed": {
+            "melee:Marine_What": 1,
+            "melee:Zergling_Explode": 2,
+            "melee:Marine_AttackLaunch": 3,
+            "melee:Marine_AttackImpact": 3,
+            "melee:Zergling_AttackLaunch": 1,
+            "melee:Zergling_AttackImpact": 1
+          },
+          "activeVoices": 0
+        },
+        "hotMenu": {
+          "prepared": 1217,
+          "total": 3845,
+          "release": "1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e",
+          "downloadBytes": 0,
+          "cachedBytes": 40502398,
+          "files": 1180,
+          "cacheHits": 1180,
+          "cacheMisses": 0,
+          "warning": null
+        }
+      }
+    },
+    "swap": {
+      "failedSwapPreserved": true,
+      "worldUnchanged": true,
+      "high": {
+        "version": 1,
+        "preset": "high",
+        "tier": "medium",
+        "texture": "high",
+        "budget": {
+          "network": 6,
+          "decode": 2,
+          "audio": 2,
+          "packBytes": 50331648,
+          "pcmBytes": 100663296,
+          "recentOnly": false
+        },
+        "textures": {
+          "decodedPixels": 131216384,
+          "swaps": 719,
+          "rollbacks": 0,
+          "liveVariantPixels": 265155584,
+          "liveVariantSources": 630,
+          "rgbaMipEstimate": 1414163115
+        }
+      },
+      "low": {
+        "version": 1,
+        "preset": "low",
+        "tier": "medium",
+        "texture": "low",
+        "budget": {
+          "network": 6,
+          "decode": 2,
+          "audio": 2,
+          "packBytes": 50331648,
+          "pcmBytes": 100663296,
+          "recentOnly": false
+        },
+        "textures": {
+          "decodedPixels": 131216384,
+          "swaps": 1349,
+          "rollbacks": 0,
+          "liveVariantPixels": 117945344,
+          "liveVariantSources": 630,
+          "rgbaMipEstimate": 629041835
+        }
+      },
+      "highResolution": {
+        "quality": "high",
+        "adaptive": {
+          "scale": 1,
+          "gpuMs": 0,
+          "samples": 0,
+          "changes": 0,
+          "minScale": 0.75,
+          "maxScale": 1,
+          "supported": null
+        },
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 1,
+        "width": 1440,
+        "height": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      },
+      "lowResolution": {
+        "quality": "performance",
+        "adaptive": {
+          "scale": 1,
+          "gpuMs": 0,
+          "samples": 0,
+          "changes": 0,
+          "minScale": 0.75,
+          "maxScale": 1,
+          "supported": null
+        },
+        "devicePixelRatio": 1,
+        "renderPixelRatio": 0.7,
+        "width": 1007,
+        "height": 630,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "antialias": true
+      }
+    },
+    "stages": [
+      {
+        "stage": 2,
+        "time": 6.05,
+        "phase": "battle",
+        "entities": 7,
+        "errors": [],
+        "pcmBytes": 100635628,
+        "graphics": {
+          "version": 1,
+          "preset": "low",
+          "tier": "medium",
+          "texture": "low",
+          "budget": {
+            "network": 6,
+            "decode": 2,
+            "audio": 2,
+            "packBytes": 50331648,
+            "pcmBytes": 100663296,
+            "recentOnly": false
+          },
+          "textures": {
+            "decodedPixels": 131216384,
+            "swaps": 1349,
+            "rollbacks": 0,
+            "liveVariantPixels": 117945344,
+            "liveVariantSources": 630,
+            "rgbaMipEstimate": 629041835
+          }
+        }
+      },
+      {
+        "stage": 3,
+        "time": 9.05,
+        "phase": "battle",
+        "entities": 6,
+        "errors": [],
+        "pcmBytes": 100641036,
+        "graphics": {
+          "version": 1,
+          "preset": "low",
+          "tier": "medium",
+          "texture": "low",
+          "budget": {
+            "network": 6,
+            "decode": 2,
+            "audio": 2,
+            "packBytes": 50331648,
+            "pcmBytes": 100663296,
+            "recentOnly": false
+          },
+          "textures": {
+            "decodedPixels": 131216384,
+            "swaps": 1349,
+            "rollbacks": 0,
+            "liveVariantPixels": 117945344,
+            "liveVariantSources": 630,
+            "rgbaMipEstimate": 629041835
+          }
+        }
+      },
+      {
+        "stage": 12,
+        "time": 11.75,
+        "phase": "lost",
+        "entities": 64,
+        "errors": [],
+        "pcmBytes": 100062128,
+        "graphics": {
+          "version": 1,
+          "preset": "low",
+          "tier": "medium",
+          "texture": "low",
+          "budget": {
+            "network": 6,
+            "decode": 2,
+            "audio": 2,
+            "packBytes": 50331648,
+            "pcmBytes": 100663296,
+            "recentOnly": false
+          },
+          "textures": {
+            "decodedPixels": 141456384,
+            "swaps": 1349,
+            "rollbacks": 0,
+            "liveVariantPixels": 128185344,
+            "liveVariantSources": 655,
+            "rgbaMipEstimate": 683655168
+          }
+        }
+      }
+    ],
+    "layout": [
+      {
+        "width": 1440,
+        "height": 900,
+        "rect": {
+          "x": 390,
+          "y": 12,
+          "width": 660,
+          "height": 876
+        }
+      },
+      {
+        "width": 844,
+        "height": 390,
+        "rect": {
+          "x": 91.9921875,
+          "y": 11.999996185302734,
+          "width": 660,
+          "height": 366.0000343322754
+        }
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "rect": {
+          "x": 15.999999046325684,
+          "y": 11.99216079711914,
+          "width": 358.0000009536743,
+          "height": 820.0000267028809
+        }
+      }
+    ],
+    "devices": [
+      {
+        "mode": "desktop",
+        "graphics": {
+          "version": 1,
+          "preset": "auto",
+          "tier": "high",
+          "texture": "high",
+          "probeVersion": 1,
+          "budget": {
+            "network": 6,
+            "decode": 2,
+            "audio": 2,
+            "packBytes": 50331648,
+            "pcmBytes": 100663296,
+            "recentOnly": false
+          },
+          "textures": {
+            "decodedPixels": 3080192,
+            "swaps": 0,
+            "rollbacks": 0,
+            "liveVariantPixels": 3080192,
+            "liveVariantSources": 20,
+            "rgbaMipEstimate": 16427691
+          }
+        },
+        "resolution": {
+          "quality": "high",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 2,
+          "renderPixelRatio": 2,
+          "width": 2560,
+          "height": 1600,
+          "cssWidth": 1280,
+          "cssHeight": 800,
+          "antialias": true
+        },
+        "probe": {
+          "gpuMs": 0.01896,
+          "cpuMs": 0.29999998211860657,
+          "reliable": true,
+          "tier": "high"
+        },
+        "pointer": false,
+        "cached": {
+          "gpuMs": null,
+          "cpuMs": null,
+          "reliable": false,
+          "tier": "high",
+          "cached": true
+        }
+      },
+      {
+        "mode": "constrained-desktop",
+        "graphics": {
+          "version": 1,
+          "preset": "auto",
+          "tier": "low",
+          "texture": "low",
+          "probeVersion": 1,
+          "budget": {
+            "network": 2,
+            "decode": 1,
+            "audio": 1,
+            "packBytes": 12582912,
+            "pcmBytes": 33554432,
+            "recentOnly": true
+          },
+          "textures": {
+            "decodedPixels": 2207744,
+            "swaps": 0,
+            "rollbacks": 0,
+            "liveVariantPixels": 2207744,
+            "liveVariantSources": 23,
+            "rgbaMipEstimate": 11774635
+          }
+        },
+        "resolution": {
+          "quality": "performance",
+          "adaptive": {
+            "scale": 1,
+            "gpuMs": 0,
+            "samples": 0,
+            "changes": 0,
+            "minScale": 0.75,
+            "maxScale": 1,
+            "supported": null
+          },
+          "devicePixelRatio": 3,
+          "renderPixelRatio": 0.7,
+          "width": 896,
+          "height": 560,
+          "cssWidth": 1280,
+          "cssHeight": 800,
+          "antialias": true
+        },
+        "probe": {
+          "gpuMs": 0.02004,
+          "cpuMs": 0.5,
+          "reliable": true,
+          "tier": "low"
+        },
+        "pointer": false,
+        "cached": {
+          "gpuMs": null,
+          "cpuMs": null,
+          "reliable": false,
+          "tier": "low",
+          "cached": true
+        }
+      }
+    ],
+    "rollback": {
+      "failed": true,
+      "cancelled": true,
+      "activeTier": "low",
+      "before": {
+        "decodedPixels": 2207744,
+        "swaps": 0,
+        "rollbacks": 0,
+        "liveVariantPixels": 2207744,
+        "liveVariantSources": 23,
+        "rgbaMipEstimate": 11774635
+      },
+      "after": {
+        "decodedPixels": 2207744,
+        "swaps": 2,
+        "rollbacks": 1,
+        "liveVariantPixels": 2207744,
+        "liveVariantSources": 23,
+        "rgbaMipEstimate": 11774635
+      },
+      "stagedUrlsReleased": true
+    },
+    "worldUnchangedBySwap": true
+  },
+  "ktx2": {
+    "decision": "keep-tiered-WebP-no-full-adoption",
+    "encoderURL": "https://raw.githubusercontent.com/BinomialLLC/basis_universal/master/bin/basisu_st.wasm",
+    "encoderSHA256": "a8bf58d33834976b7a27f92d55e70cf3d966bb8e8b445d2cffe852f39278e52d",
+    "three": "0.186.0",
+    "mode": "UASTC level 2 with mipmaps, max512, local-only",
+    "results": {
+      "samples": [
+        {
+          "name": "marine",
+          "width": 512,
+          "height": 256,
+          "linear": false,
+          "webpBytes": 20256,
+          "webpLoadMs": 15.5,
+          "webpUploadMs": 134.39999997615814,
+          "ktx2LoadMs": 201.60000002384186,
+          "ktx2UploadMs": 0.5,
+          "fallbackLoadMs": 52.099999994039536,
+          "format": 36492,
+          "compressedBytes": 174800,
+          "rgbaMipEstimate": 699051,
+          "fallbackFormat": 1023,
+          "fallbackBytes": 699052,
+          "ktx2Bytes": 112142
+        },
+        {
+          "name": "ground",
+          "width": 512,
+          "height": 512,
+          "linear": false,
+          "webpBytes": 189802,
+          "webpLoadMs": 13.900000005960464,
+          "webpUploadMs": 8,
+          "ktx2LoadMs": 23.700000017881393,
+          "ktx2UploadMs": 0.19999998807907104,
+          "fallbackLoadMs": 8.099999994039536,
+          "format": 36492,
+          "compressedBytes": 349552,
+          "rgbaMipEstimate": 1398101,
+          "fallbackFormat": 1023,
+          "fallbackBytes": 1398100,
+          "ktx2Bytes": 262778
+        },
+        {
+          "name": "normal",
+          "width": 512,
+          "height": 512,
+          "linear": true,
+          "webpBytes": 52630,
+          "webpLoadMs": 13.400000005960464,
+          "webpUploadMs": 5.399999976158142,
+          "ktx2LoadMs": 26.100000023841858,
+          "ktx2UploadMs": 0.19999998807907104,
+          "fallbackLoadMs": 8.599999994039536,
+          "format": 36492,
+          "compressedBytes": 349552,
+          "rgbaMipEstimate": 1398101,
+          "fallbackFormat": 1023,
+          "fallbackBytes": 1398100,
+          "ktx2Bytes": 318270
+        },
+        {
+          "name": "alpha",
+          "width": 256,
+          "height": 256,
+          "linear": false,
+          "webpBytes": 1712,
+          "webpLoadMs": 5.800000011920929,
+          "webpUploadMs": 0.5999999940395355,
+          "ktx2LoadMs": 16.400000005960464,
+          "ktx2UploadMs": 0.09999999403953552,
+          "fallbackLoadMs": 4.0999999940395355,
+          "format": 36492,
+          "compressedBytes": 87408,
+          "rgbaMipEstimate": 349525,
+          "fallbackFormat": 1023,
+          "fallbackBytes": 349524,
+          "ktx2Bytes": 40785
+        },
+        {
+          "name": "team",
+          "width": 512,
+          "height": 256,
+          "linear": true,
+          "webpBytes": 35932,
+          "webpLoadMs": 12.400000005960464,
+          "webpUploadMs": 4.0999999940395355,
+          "ktx2LoadMs": 19.200000017881393,
+          "ktx2UploadMs": 0.19999998807907104,
+          "fallbackLoadMs": 5.0999999940395355,
+          "format": 36492,
+          "compressedBytes": 174800,
+          "rgbaMipEstimate": 699051,
+          "fallbackFormat": 1023,
+          "fallbackBytes": 699052,
+          "ktx2Bytes": 110203
+        }
+      ],
+      "capabilities": {
+        "astcSupported": false,
+        "astcHDRSupported": false,
+        "etc1Supported": false,
+        "etc2Supported": false,
+        "dxtSupported": true,
+        "bptcSupported": true,
+        "pvrtcSupported": false
+      },
+      "renderer": "WebKit WebGL"
+    }
+  },
+  "evidenceBuilds": {
+    "coldBattleLayoutAndDevice": "d189bc4290c63f810401af97c309ae5eee6023c1dfc5bf6d10023ecc4dc66f27",
+    "finalChange": "Then added staging URL cleanup on failed/cancelled swaps; final candidate passed targeted tests/typecheck and actual mid-swap rollback/cancel. Happy-path evidence reused with this explicit boundary."
+  },
+  "limits": [
+    "No physical phone, whole-browser RAM or actual VRAM measurement.",
+    "Cold loading figures are single loopback Chrome samples, not online speed or guaranteed FPS.",
+    "Live variant Source pixel counts and RGBA+mip bytes are partial texture estimates, not full GPU memory.",
+    "Stage2/3 were directed transitions, stage12 a bounded jump plus60 enemies ending in defeat; not a full campaign or late-game performance acceptance.",
+    "UI viewport simulation does not prove physical touch input.",
+    "Automatic tier thresholds need more real device calibration.",
+    "Runtime active audio can temporarily exceed the soft PCM budget without cutting voices.",
+    "No human visual/audio acceptance, publication, or closure of original phone crash."
+  ],
+  "sourceHashes": {
+    "src/app/asset-readiness.ts": "7cbb00d6ea007eb4c6a42a08aa3d317e3193a2775d5389b771a0cae5918515c6",
+    "src/app/audio-preload-plan.ts": "2b6af684a9ef8627324516bec73d747b94ad12f2c129f386a27bd14c12d83ef6",
+    "src/app/bootstrap.ts": "2a9f71152d57090537445e8d6128b4e988ba5b84ad2f195fc3a176b739f46c68",
+    "src/assets/http-store.ts": "602894661f894ad622c685254f71b6df8d5c4eac79a21d0b5a150eb95c8729d4",
+    "src/platform/device-probe.ts": "d862a3f06316b112af90f9f910f5533aa1c14e1fc6db4dd266ac0807db990150",
+    "src/platform/graphics-profile.ts": "d4dd8b3a1362d81fc495cee6a79d91696ea0c6cac34d4435f7d3ad812f0856a1",
+    "src/platform/preparation-budget.ts": "906cff7158f7296b08618911468c07bec985843d82441ec216862732bc524295",
+    "src/render/effects/audio-source-data.ts": "bcb1ae14e4daa51466f0ece158d48ac0c9de8c58d63832b0e4e1ac1fd7b2f519",
+    "src/render/effects/audio.ts": "c51b0954f2dc9a63b11930bef0adee050e43439d7db1c4a2a0713788a4c57637",
+    "src/render/effects/battle-effects.ts": "d56f8165db852c2bee999c9d2420016011bf23c40cd19c2977597443cf0cbbc0",
+    "src/render/effects/confirmed-hero/attack-effects.ts": "c0cd021e56c929bafd3cf99fc985f646a08f88c5d2d6debadcb759414461871e",
+    "src/render/effects/elite-support-effects.ts": "f843078e0862319b2c106c585ff6432000baea6fd41c1f9e68a612033860cf05",
+    "src/render/effects/native-sound-player.ts": "4d89a4d7964ad609a31d1760cd9c54a01029402120cfcb59fb660ac891f5e603",
+    "src/render/effects/ordinary-medical-effects.ts": "103d33b02c322f9b1f1d6288b591306664347ecd0b0fb5169ef1a30a7de8eecc",
+    "src/render/effects/original-projectiles.ts": "1e086f1a7958b0ca948e5ae4378749debfbeccd6cc44cd410b4eecc186349dc5",
+    "src/render/effects/source/materials.ts": "4290bc45671cffe5409eefe7706a1003c3ee24f198cc7b05760053468924cd70",
+    "src/render/effects/terran-elite-effects.ts": "c8313f3031bfc4ab9f7b1a68d8ee1fe55d05cfdf180d25429887993a8e3ef02b",
+    "src/render/effects/zerg-elite-effects.ts": "78671a011c39bd443528cd77a8568d63f7711e95f9f2e841aa6d24ca44a5b5d5",
+    "src/render/effects/zerg-hero-effects.ts": "e112e199f04c7965732cffd679c959711fa46f4d1dff91787d34469be127b5c8",
+    "src/render/loaders/managed-textures.ts": "892ed14ba6783ffa881bc32a4a94d58a68d9760301be936d6ece517e04faf063",
+    "src/render/loaders/sc2-materials.ts": "fb80ddfe53df2961bbe259b99664b6906e36138573771ca6792480e3291732cd",
+    "src/render/loaders/semantic-gltf.ts": "9fadd40b7cb2b330ed3a6e966450821b4d8309bcd5b78e4ae2992185cb697730",
+    "src/render/materials/shared-textures.ts": "048e3f029c5a3512f87d41ade5086b506677ea75c876f28422096a7de6d36a71",
+    "src/render/materials/unit-material-loader.ts": "6d286b14ca9dcdaa647d2aee524ca3234e84d672328d0af64c45856490066e08",
+    "src/render/scene/battle-renderer.ts": "e4aacc5f227bf0106a422a1a15c690839a34e3dc5ac2d501c2c2661958bab383",
+    "src/render/settings/quality.ts": "e48b77fa4e64a7f70a529e089e4c6a39ec3d8065eb77ff32fe02610cc0211320",
+    "src/render/terrain/campaign-ground-legacy.ts": "e2c6aa4d555e4b250ea67cc94669153b0c06c942d930c446072f9de550c08a7b",
+    "src/render/terrain/char-terrain.ts": "0fc833eec2e36415fa3bd50aa5ae69da3e51ab56188860f2145e0e916ba62f12",
+    "src/render/terrain/crossing-rocks.ts": "c9cee93408a4bb6274607f3cfa94eaf1da96cf00b356a5c0bcec01f230c00dc3",
+    "src/render/terrain/environment-sample-materials.ts": "f16fd14b1524272c13825e1a6c5777ba084da150a90c5e8d8efb044034263a6d",
+    "src/render/terrain/environment-texture.ts": "e906603c1dc9d2e431603a7d62f4700f0417666c70c6a74adad71166187b0e7e",
+    "src/render/terrain/flat-map.ts": "a36d198ff816844f408bf30ffa54bcc44493ec456bd2a347a4ea8017fbfcfa29",
+    "src/render/terrain/original-map.ts": "307c04d79ee086bd2f127585a1533d91cdae5b0e8b91117136b24dfc79115782",
+    "src/render/units/fun-prop-assets.ts": "29256af791347ca7bddb928b45fd7c2ebc13a7e5440beb7b0236ad924bde352b",
+    "src/render/units/resource-drops.ts": "9730a721225c7545a85e25324c83deea4af9c97e8f8fa63a3082d76d94ed959c",
+    "src/ui/hud.ts": "d3e11d2ee3f43711f8313fb8b84a62c9122b459e4e0fd177ba6e071368744bd8",
+    "src/ui/presentation/settings-screen.ts": "de22560581df2721af35cd0b070b8ac0cc25a1e611d44fb124b3603f3cfc6044",
+    "test/combat-audio.test.ts": "e6e74407af250c2ee6edb8867c53a59cd6cc409fa2f6bdeb3eae9e7a3ddb6621",
+    "test/packed-graphics.test.ts": "9599ddc3854b66c6a10642069558f2764e048e75b1d4d65e0b58e01b62b40ce0",
+    "test/startup-auto-retry.test.ts": "d71153b1109e97954787eaeae911f3cea73e7fee6e0e6602d315339497b1f180",
+    "tools/analyze-sites-quality-plan.mjs": "3563025b9da13933a16e1bc8d1901d85634f12771b34b051e000b2325d6d5375",
+    "tools/build-ktx-sample.mjs": "b387c19494d8282e044008fec950577669656dd9eeaa09571b7ca5b53215dd41",
+    "tools/build-quality-assets.mjs": "b083508e98d9f85f4d8868a7aeeac563e9ea4ab11e5d3f1c27c0711ab8aaf494",
+    "tools/build-quality-assets.py": "35b20eca8a91f54a37e137dc2c4b60b3eee708927f870e3aa9eddeaf1173902a",
+    "tools/build-quality-harness.mjs": "b43c13203943dd491f632d318f17b3158f096d96c196d5125d4488d70566b47a",
+    "tools/build-web.mjs": "3c77be907b702769d6bec4a1a5ec0ffdbc6fb203a5826ffac45d5f4f1dc732c3",
+    "tools/cleanup-v01-dense-quality.ps1": "e7ec7767c92b748fc34b7324d6d36e29c7232b086a34961349b0bfe37e2a139a",
+    "tools/packed-sites-sw.js": "15741ed325686430678f08612dd0c6cdd6dbeb71ae5c332c6d540a54c0762aac",
+    "tools/packed-startup.mjs": "eb9e831435402d783ce4699551ee229060fb3258fe7ce20ac4194a2e061ee354",
+    "tools/prepare-ktx-samples.py": "de316552ecd86990fde2d29036229df26c1973bf19538645254a83e8c3f0bb42",
+    "tools/prepare-v01-dense-quality-cleanup.mjs": "ff4ee61579e083b70335e2ffc4241e01edd08b7a6c12585932bdf56b77c8c06b",
+    "tools/prepare-v01-dense-quality.mjs": "1bd38ddc4a7deb3d2f72455318be6810535b7da6a9fefa73bfb13e420c5a654d",
+    "tools/qa-adaptive-quality.mts": "63fb31d00157a10d72b2771f820a41c0cfd94fc2aad63c9aa8685b4c11d5d4a6",
+    "tools/qa-equipment-quality.mts": "23d0b1a095a119b9ca361f2fc5f783d7dc2c68598cf3c9dc6eb5c74dfc970382",
+    "tools/qa-quality.mjs": "69ff647cf7ef2d5eccdcf643d7bccb12320364b4c5e15b19472c0afa5116087e",
+    "tools/qa-v01-dense-quality.mjs": "31721a16396793c11fa949341f851b86d91bafcb58355c236f4a0eec66a037f0",
+    "tools/record-v01-dense-quality.mjs": "9baf2f568e8f533ec4eb40eecaea3c17bd9e47d29db56aa4b52770c30863cd1a",
+    "tools/run-basis-sample.mjs": "315181828b5fa5c540c4cf51906c6ab3c89ee2284813121874baf50b0d17ad64",
+    "tools/summarize-v01-dense-quality.mjs": "2e8d48503506e2973e4eb83c82db16a210f033a2c9268266e284f741bc482ed8",
+    "tools/update-compressed-game.mjs": "ce86101acf39650cb936b65e419c5db1082469dec0bd461bea4206820667b120",
+    "tools/verify-quality-assets.mjs": "e8ef578b3af5624250cefe717941717220a3692f09819874d2a078298680d34c",
+    "tools/verify-quality-browser.mjs": "92814495817e8dc9cc2701e5404855c28e2ee407d147330da5e99c7652f65587",
+    "tools/verify-quality-device.mjs": "24059e8f267fdf1a24a44479a6ff9389b57d067c83a06b65b5679ab96369cdfa",
+    "tools/verify-quality-ktx.mjs": "776b4548899896793e046fd8f19e73905c63595c146eee58a5d9ea483f1a65d7",
+    "tools/verify-quality-layout.mjs": "e1dd31f6142f47f7e68969b7ab4a96a0f49b15dbb3e45fe487fa7897382157bf",
+    "tools/verify-quality-lifecycle.mjs": "efeada73b4c196eac21673d9990e81896241f0408cc96016587b86f0940c85cb",
+    "tools/verify-quality-rollback.mjs": "5ed10962d8eb857192ff60f669bc47552eadd460377a0586a279fc222d7a7c1d"
+  },
+  "workerSHA256": "9f4bb628f937f679200e8de7b5cb67e66375f45f932a6125ccbc033d8c2f7782",
+  "cleanup": {
+    "obsoleteCandidateFilesRemoved": 429,
+    "generatedDirectoriesRemoved": [
+      "web",
+      "harness",
+      "public/ktx-sample"
+    ],
+    "reclaimedBytes": 2310358593,
+    "protected": "Current, V04, source snapshots, original assets and all player data unchanged",
+    "candidateFiles": 356,
+    "candidateBytes": 447991947,
+    "resourcesReverifiedAfterCleanup": true
+  },
+  "reviewImages": [
+    "reports/local/quality-20261028/battle-low.png",
+    "reports/local/quality-20261028/battle-high.png",
+    "reports/local/quality-20261028/settings-1440x900.png",
+    "reports/local/quality-20261028/settings-844x390.png",
+    "reports/local/quality-20261028/settings-390x844.png",
+    "reports/local/quality-20261028/ktx-comparison.png"
+  ]
+}

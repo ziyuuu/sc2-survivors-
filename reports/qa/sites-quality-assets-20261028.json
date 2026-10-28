@@ -1,0 +1,20 @@
+{
+  "release": "1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e",
+  "files": 5093,
+  "models": 744,
+  "totals": {
+    "high": 351051007,
+    "medium": 313880487,
+    "low": 298451233
+  },
+  "allContentPackBytes": {
+    "high": 229174031,
+    "medium": 220076098,
+    "low": 176868979
+  },
+  "checks": [
+    "every variant length and SHA256",
+    "GLB headers",
+    "low excludes high-only packs"
+  ]
+}

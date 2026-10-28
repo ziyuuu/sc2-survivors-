@@ -1,16 +1,26 @@
 /** Build the tiny bootstrap without changing the packed game's resource identities. */
-export function packedLauncher(codeFile){return `
+export function packedLauncher(codeFile,indexFile='sites-pack-index.js'){return `
+globalThis.__SC2_PACKED_GRAPHICS__=true;
+globalThis.__SC2_PACK_INDEX_FILE__=${JSON.stringify(indexFile)};
+const memory=navigator.deviceMemory,cores=navigator.hardwareConcurrency;
+const limited=(memory&&memory<=2)||(cores&&cores<=2)||(memory&&memory<=4&&cores&&cores<=4);
+const packBytes=(limited?12:(memory>=8&&cores>=8)?48:24)*1024**2;
+const sendBudget=()=>navigator.serviceWorker.controller?.postMessage({type:'sc2-runtime-budget',packBytes,decode:limited?1:2,network:limited?2:4});
+navigator.serviceWorker?.addEventListener('controllerchange',sendBudget);
+navigator.serviceWorker?.addEventListener('message',e=>{if(e.data?.type==='sc2-request-budget')sendBudget();});
 const progress=message=>document.dispatchEvent(new CustomEvent('sc2-opening-progress',{detail:{value:null,phase:'loading',message}}));
 async function bounded(work,label,ms=60000){let timer;try{return await Promise.race([work,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(label)),ms);})]);}finally{clearTimeout(timer);}}
 async function connect(){
- await bounded(navigator.serviceWorker.register(new URL('../sites-sw.js',import.meta.url),{scope:'../',updateViaCache:'none'}),'资源服务连接超时',25000);
+ const registration=await bounded(navigator.serviceWorker.register(new URL('../sites-sw.js',import.meta.url),{scope:'../',updateViaCache:'none'}),'资源服务连接超时',25000);
+ const updating=registration.installing??registration.waiting;
+ if(updating&&updating.state!=='activated')await bounded(new Promise((resolve,reject)=>{const changed=()=>{if(updating.state==='activated')resolve();else if(updating.state==='redundant')reject(Error('资源服务更新失败'));};updating.addEventListener('statechange',changed);changed();}),'资源服务更新超时',25000);
  await bounded(navigator.serviceWorker.ready,'资源服务启动超时',25000);
  if(!navigator.serviceWorker.controller)await new Promise((resolve,reject)=>{
   const ready=()=>{if(!navigator.serviceWorker.controller)return;clearTimeout(timer);navigator.serviceWorker.removeEventListener('controllerchange',ready);resolve();};
   const timer=setTimeout(()=>{navigator.serviceWorker.removeEventListener('controllerchange',ready);reject(Error('资源服务启动超时'));},15000);
   navigator.serviceWorker.addEventListener('controllerchange',ready);ready();
  });
- if(matchMedia('(pointer:coarse)').matches)navigator.serviceWorker.controller.postMessage({type:'sc2-pack-memory-limit',entries:4});
+ sendBudget();
  const controller=new AbortController();
  try{
   return await bounded((async()=>{const r=await fetch(new URL('./${codeFile}',import.meta.url),{signal:controller.signal});if(!r.ok)throw Error('游戏程序下载失败');let bytes=await r.arrayBuffer();if(new Uint8Array(bytes)[0]===31&&new Uint8Array(bytes)[1]===139)bytes=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();return bytes;})(),'游戏程序下载超时');

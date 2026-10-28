@@ -1,3 +1,4 @@
+import {ManagedTextureLoader} from '../loaders/managed-textures';
 import * as THREE from 'three';
 import {assetUrl} from '../../assets/manifest';
 import {CAMPAIGN_MAP_SIZE,MAP_THEMES,type RadialTerrain} from '../../data/campaign-map';
@@ -16,7 +17,7 @@ export async function createCampaignGround(terrain:RadialTerrain,resources:Lands
  const colorLayers=theme==='char'?null:await loadArray('map.terrain.diffuse'),normalLayers=theme==='char'?null:await loadArray('map.terrain.normal',true);
  const charUniforms:Record<string,{value:THREE.Texture}>={};
  if(theme==='char')for(const [name,id,linear] of [['charSoil','terrain.char',false],['charRock','terrain.rock',false],['charCracked','terrain.cracked',false],['charSoilNormal','terrain.char.normal',true],['charRockNormal','terrain.rock.normal',true]] as const){
-  const t=await new THREE.TextureLoader().loadAsync(requireUrl(id));t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;textures.push(t);charUniforms[name]={value:t};
+  const t=await new ManagedTextureLoader().loadAsync(requireUrl(id));t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;textures.push(t);charUniforms[name]={value:t};
  }
  const pixels=new Uint8Array([255,255,255,255]),flatNormal=new Uint8Array([128,128,255,255]);
  const map=new THREE.DataTexture(pixels,1,1),normalMap=new THREE.DataTexture(flatNormal,1,1);map.needsUpdate=normalMap.needsUpdate=true;textures.push(map,normalMap);

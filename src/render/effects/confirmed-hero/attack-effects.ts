@@ -1,3 +1,4 @@
+import {ManagedGLTFLoader} from '../../loaders/managed-textures';
 import {fleetGunWorld} from '../mission-feedback';
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
@@ -35,7 +36,7 @@ export class AttackEffects {
  async prepare(){
   this.materials.prepare();
   for(const source of this.view.fx.projectiles.batches.get('marauder')??[]){const mesh=new THREE.InstancedMesh(source.geometry,source.material,256);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);(this.view.effectScene??this.view.scene).add(mesh);this.rockets.push(mesh);}
-  const url=assetUrl(missileId);if(!url)throw Error('Missing original Viking missile body');const g=await restoreSc2Materials(await new GLTFLoader().loadAsync(url));g.scene.updateMatrixWorld(true);
+  const url=assetUrl(missileId);if(!url)throw Error('Missing original Viking missile body');const g=await restoreSc2Materials(await new ManagedGLTFLoader().loadAsync(url));g.scene.updateMatrixWorld(true);
   const box=sc2BodyBounds(g.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),axis=size.z>=Math.max(size.x,size.y)?new THREE.Vector3(0,0,1):size.y>=size.x?new THREE.Vector3(0,1,0):new THREE.Vector3(1,0,0),rotation=new THREE.Quaternion().setFromUnitVectors(axis,forward),scale=.9/Math.max(size.x,size.y,size.z);
   g.scene.traverse(n=>{if(!(n instanceof THREE.Mesh)||n.userData.sc2Role!=='body')return;const geometry=n.geometry.clone(),positions=geometry.getAttribute('position'),p=new THREE.Vector3();for(let i=0;i<positions.count;i++){n.getVertexPosition(i,p).applyMatrix4(n.matrixWorld).sub(center).applyQuaternion(rotation).multiplyScalar(scale);positions.setXYZ(i,p.x,p.y,p.z);}geometry.deleteAttribute('skinIndex');geometry.deleteAttribute('skinWeight');geometry.computeVertexNormals();geometry.computeBoundingBox();
    const mesh=new THREE.InstancedMesh(geometry,n.material,256);mesh.count=0;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);(this.view.effectScene??this.view.scene).add(mesh);this.missiles.push(mesh);

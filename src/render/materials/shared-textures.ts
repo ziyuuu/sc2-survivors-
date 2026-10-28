@@ -1,3 +1,5 @@
+import {trackedClone} from '../loaders/managed-textures';
+import {ManagedTextureLoader} from '../loaders/managed-textures';
 import {CubeTextureLoader,TextureLoader,type Texture,type CubeTexture} from 'three';
 
 /** Decode each immutable source once, while keeping sampler/color settings local
@@ -5,14 +7,14 @@ import {CubeTextureLoader,TextureLoader,type Texture,type CubeTexture} from 'thr
 export class SharedMaterialTextures {
  private images=new Map<string,Promise<Texture>>();
  private cubes=new Map<string,Promise<CubeTexture>>();
- constructor(private imageLoader=new TextureLoader(),private cubeLoader=new CubeTextureLoader()){}
+ constructor(private imageLoader=new ManagedTextureLoader(),private cubeLoader=new CubeTextureLoader()){}
  /** Drop cache references for retired optional models. Live material wrappers
   * retain their Source; never close or mutate an image still used by a material. */
  forget(urls:Iterable<string>){const retired=new Set(urls);for(const url of retired)this.images.delete(url);for(const key of this.cubes.keys())if((JSON.parse(key) as string[]).some(url=>retired.has(url)))this.cubes.delete(key);}
  async image(url:string){
   let pending=this.images.get(url);
   if(!pending){pending=this.imageLoader.loadAsync(url);this.images.set(url,pending);pending.catch(()=>this.images.delete(url));}
-  return (await pending).clone();
+  return trackedClone(await pending);
  }
  async cube(urls:string[]){
   const key=JSON.stringify(urls);let pending=this.cubes.get(key);

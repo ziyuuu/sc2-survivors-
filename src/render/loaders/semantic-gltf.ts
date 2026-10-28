@@ -1,3 +1,4 @@
+import {ManagedGLTFLoader} from './managed-textures';
 import * as THREE from 'three';
 import {GLTFLoader,type GLTF} from 'three/addons/loaders/GLTFLoader.js';
 import {assetUrl} from '../../assets/manifest';
@@ -19,7 +20,7 @@ export async function loadSemanticGltf(id:string):Promise<GLTF>{
   const key=value.slice(index+9),resolved=assetUrl(key);
   if(!resolved){failures.push(key);throw Error('地图贴图尚未就绪：'+key);}return resolved;
  });
- const model=await restoreSc2Materials(await new GLTFLoader(manager).parseAsync(json,''));
+ const model=await restoreSc2Materials(await new ManagedGLTFLoader(manager).parseAsync(json,''));
  const declared=JSON.parse(json) as {textures?:unknown[]};
  const images=await Promise.all((declared.textures??[]).map((_,index)=>model.parser.getDependency('texture',index)));
  // GLTFLoader deliberately tolerates image errors. A playable map must not.

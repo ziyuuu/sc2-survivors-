@@ -1,3 +1,4 @@
+import {ManagedTextureLoader,ManagedGLTFLoader} from '../loaders/managed-textures';
 import {MapVisibility} from './map-visibility';
 import type {ShadowViewContext} from '../scene/scene-shadows';
 import {commitInstances} from '../units/instance-updates';
@@ -16,7 +17,7 @@ export function configureMapAssets(){THREE.Cache.enabled=true;THREE.DefaultLoadi
 export async function loadMapDefinition(id:'kairos'|'acropolis'='kairos'):Promise<MapDefinition>{const response=await fetch(url('map.'+id));if(!response.ok)throw Error('Original map data unavailable');return response.json();}
 export interface MapView {bindTerrain?:(terrain:import('../../data/map-definition').TerrainQuery)=>void;dispose?:()=>void;update:(camera?:THREE.Camera,shadow?:ShadowViewContext)=>void;updateEnvironment?:(frame:EnvironmentFrame)=>void;setVisualParts?:(features:Partial<MapVisualFeatures>)=>Promise<void>;setLighting?:(active:{shadow:boolean;contact:boolean})=>void;setVisible:(visible:boolean)=>void;report:()=>{name:string;models:number;placements:number;visibleInstances:number;visibleMeshes:number;area:number;scale:number;sourceSha256:string;environment?:unknown}}
 export async function createOriginalMap(scene:THREE.Scene,w:World,progress:(s:string)=>void):Promise<MapView>{
- const terrain=w.terrain!,d=terrain.definition!,prefix=d.source.name==='Acropolis LE'&&assetUrl('map.acropolis.terrain.diffuse')?'map.acropolis':'map',maskPrefix=d.source.name==='Acropolis LE'&&assetUrl('map.acropolis.terrain.mask0')?'map.acropolis':'map',root=new THREE.Group();root.name='terrain-'+d.source.name;scene.add(root);const texture=async(id:string,linear=false)=>{const t=await new THREE.TextureLoader().loadAsync(url(id));t.flipY=false;t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.anisotropy=8;return t;};
+ const terrain=w.terrain!,d=terrain.definition!,prefix=d.source.name==='Acropolis LE'&&assetUrl('map.acropolis.terrain.diffuse')?'map.acropolis':'map',maskPrefix=d.source.name==='Acropolis LE'&&assetUrl('map.acropolis.terrain.mask0')?'map.acropolis':'map',root=new THREE.Group();root.name='terrain-'+d.source.name;scene.add(root);const texture=async(id:string,linear=false)=>{const t=await new ManagedTextureLoader().loadAsync(url(id));t.flipY=false;t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace;t.anisotropy=8;return t;};
  try{
  const [diffuse,normal,mask0,mask1]=await Promise.all([texture(prefix+'.terrain.diffuse'),texture(prefix+'.terrain.normal',true),texture(maskPrefix+'.terrain.mask0',true),texture(maskPrefix+'.terrain.mask1',true)]);
  const diffuseLayers=terrainArray(diffuse),normalLayers=terrainArray(normal);
@@ -40,7 +41,7 @@ export async function createOriginalMap(scene:THREE.Scene,w:World,progress:(s:st
  const ground=new THREE.Mesh(originalGroundGeometry(d),material);ground.name='char-traversable-ground';root.add(ground);
  const cliffGroup=new THREE.Group();cliffGroup.name='char-solid-cliff-faces';root.add(cliffGroup);
  const grouped=new Map<string,MapPlacement[]>();for(const p of [...d.placements,...d.cliffs??[]])if(p.assetId){const key=p.assetId+'|'+(p.pose??'idle'),list=grouped.get(key)??[];list.push(p);grouped.set(key,list);}
- const loader=new GLTFLoader(),batches:{mesh:THREE.InstancedMesh;placements:MapPlacement[];matrices:THREE.Matrix4[];bounds:THREE.Sphere[];sphereStage:number;points:{x:number;z:number;stage:number}[]}[]=[],object=new THREE.Object3D(),tint=new THREE.Color(),v=new THREE.Vector3(),shared=new WeakMap<object,Map<string,THREE.Texture>>();let models=0;
+ const loader=new ManagedGLTFLoader(),batches:{mesh:THREE.InstancedMesh;placements:MapPlacement[];matrices:THREE.Matrix4[];bounds:THREE.Sphere[];sphereStage:number;points:{x:number;z:number;stage:number}[]}[]=[],object=new THREE.Object3D(),tint=new THREE.Color(),v=new THREE.Vector3(),shared=new WeakMap<object,Map<string,THREE.Texture>>();let models=0;
  // Every original placement shares its geometry/material; only a single original Stand/Dead pose is baked.
  const entries=[...grouped],lookahead=4,pending=new Map<number,Promise<GLTF|Error>>();
  const preload=(index:number)=>{if(index>=entries.length)return;const [key]=entries[index],id=key.split('|')[0];pending.set(index,loader.loadAsync(url(id)).then(restoreSc2Materials).catch(error=>error instanceof Error?error:Error(String(error))));};
