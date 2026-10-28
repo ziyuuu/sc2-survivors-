@@ -21,3 +21,10 @@ docs/project/history/AGENTS_HISTORY_BEFORE_20261027.md -text
 # Content-addressed Sites payloads must remain byte-identical.
 sites/size-optimized-site/public/assets/*.bin -text -diff
 sites/size-optimized-site/public/assets/*.gz -text -diff
+
+# Preserve exact bytes for integrity-checked published runtime files on Windows.
+sites/size-optimized-site/public/assets/*.js -text
+sites/size-optimized-site/public/asset-manifest.*.json -text
+sites/size-optimized-site/public/sites-pack-index*.js -text
+sites/size-optimized-site/public/sites-sw.js -text
+sites/size-optimized-site/public/basis/** -text

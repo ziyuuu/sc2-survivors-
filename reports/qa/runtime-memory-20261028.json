@@ -1153,5 +1153,12 @@
       18890,
       18892
     ]
+  },
+  "github": {
+    "branch": "体积优化版",
+    "implementationCommit": "92fa4fb33fccb08e0ca60c0c3d96a7dc66c832a2",
+    "implementationPushed": true,
+    "mainMerged": false,
+    "artifactBytePreservation": "Published hash-checked JS, manifests, Basis files use -text to prevent Windows checkout/newline mutation. This record and preservation rule are in a follow-up commit."
   }
 }

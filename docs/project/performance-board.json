@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-28",
-  "revision": 256,
+  "revision": 257,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -9902,6 +9902,17 @@
         "V06"
       ],
       "change": "V06-MEMORY-003：入场峰值、43张同尺寸KTX2、编码缓存预算及后台回填修复完成，已发布Sites第15版。首战贴图估算559→441MB，Windows同条件进程峰值约3.59→3.47GB；线上预下载、首战和再次开局通过。原iPhone Safari重载原因与实机复测仍开放，未宣称MVP最终验收。",
+      "evidence": [
+        "RUNTIME_MEMORY_20261028.md",
+        "../../reports/qa/runtime-memory-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "V06-MEMORY-003本批已发布Sites第15版；线上完整预下载、首战/再次开局及25文件完整性通过。实现和交付快照92fa4fb已推送GitHub体积优化版；清理本批可重建旧测试产物2.21GB，保留最终候选供实机复测。补Git原字节保留规则。V06仍待原iPhone验证，Coze/阿里云未更新。",
       "evidence": [
         "RUNTIME_MEMORY_20261028.md",
         "../../reports/qa/runtime-memory-20261028.json"
