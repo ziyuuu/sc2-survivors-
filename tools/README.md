@@ -24,3 +24,5 @@ V04 的 prepare-v04-application、package-v04-resources、verify-v04-browser、v
 `verify-quality-browser.mjs <origin> low|high [constrained]`检查真实入口首战、分档及热缓存；`verify-quality-layout.mjs`检查稳定后的三尺寸设置页。`build-quality-harness.mjs`生成仅本机的测试入口，供 `verify-quality-lifecycle.mjs`、`verify-quality-device.mjs`、`verify-quality-rollback.mjs`使用；测试入口不能随候选发布。浏览器工具默认Chrome和本机18883端口，使用独立临时浏览器上下文，不使用真实玩家数据；GPU测试串行。
 
 KTX2仅小样：`prepare-ktx-samples.py`、`run-basis-sample.mjs`、`build-ktx-sample.mjs`、`verify-quality-ktx.mjs`。编码器来自官方Basis Universal，样本在D盘本机处理。本批没有采纳全量KTX2，也未授权或执行线上发布。
+
+本候选后续已发布第13版，见[发布与资源托管](../docs/project/SITES_QUALITY_DEPLOY_20261028.md)。`sites-push-large-update.mjs`处理源码推送限额，`upload-sites-assets.mjs`用于临时授权的哈希资源上传；密钥只从隐藏标准输入读取。`verify-sites-asset-storage.mjs`复核资源，`verify-quality-published.mjs`检查真实入口与首战。`repack-sites-archive.py`仅复现本次未采用的归档无损压缩实验。

@@ -54,7 +54,7 @@
 ## 必须区分的文件
 
 - 根 package.json 的开发包版本、deploy/coze 旧基线版本、V04 的应用版本分别有用途；最新交付身份查 V04/V05 的内容哈希。
-- Sites 第 6 版与“体积优化版”分支另有源码/资源身份，见 [Sites 核对](project/MVP_SITES_REVIEW_20261027.md)。sites/v04-private-test 有独立 Git 历史，sites/size-optimized-site 是跟踪快照；不盲目当成重复目录删除，也不从 GitHub 推送推断云端自动更新。
+- Sites及“体积优化版”分支另有源码/资源身份，当前见[第13版发布记录](project/SITES_QUALITY_DEPLOY_20261028.md)。sites/v04-private-test有独立Git历史，sites/size-optimized-site为跟踪快照；delivery保存资源白名单/交付模式，lib/packed-asset-storage.mjs通过原BUCKET隔离前缀提供资源，原数据库和存档保持。不按目录名删除，不从GitHub推送推断云端更新。
 - performance-board.json 是任务状态源；HTML/计划表为生成结果。其历史 baseline/scenes 文字不用于覆盖 tasks 的后续事实。
 - src/assets/runtime.generated.ts 和 public/assets 是恢复/生成结果。原始来源可能在 assets/private、assets/generated、preview 的源图目录或 Git LFS，不以扩展名或未跟踪状态判定可删。
 - preview 含真实源码和图稿；tools 中旧脚本是复现方法。整理采用目录说明和索引，保留其引用路径。
