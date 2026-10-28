@@ -31,7 +31,9 @@ const resources=[];for(const r of records.filter(r=>selectedIds.has(r.id))){
 }
 if(resources.length!==selectedIds.size)throw Error('M6 release asset selection mismatch');
 const {pack,stats}=createAssetPack(resources);
-const result=await build({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true'}});
+// Libraries can resolve module-relative defaults at import time even when their
+// optional decoder is unused offline. The single document owns that base URL.
+const result=await build({entryPoints:['src/main.ts'],bundle:true,format:'iife',target:'es2022',minify:true,write:false,outfile:'demo.js',define:{'import.meta.env.DEV':'false','import.meta.env.PROD':'true','import.meta.url':'document.baseURI'}});
 const js=result.outputFiles.find(f=>f.path.endsWith('.js')).text.replace(/<\/script/gi,'<\\/script');const css=result.outputFiles.find(f=>f.path.endsWith('.css'))?.text??'';
 const opening=await fs.readFile('src/ui/presentation/opening.generated.html','utf8');
 const metadata={version:pack.version,container:'chunks-v1',assets:pack.assets,chunks:pack.chunks.map(({data,...meta})=>({...meta,data:''}))};
