@@ -24,6 +24,7 @@ const launcher=packedLauncher(path.basename(codeName),indexName);
 const launcherName='assets/index-'+sha(launcher).slice(0,16)+'.js';
 await fs.writeFile(destination+'/'+codeName,packedCode);await fs.writeFile(destination+'/'+launcherName,launcher);await fs.copyFile(web+'/'+css,destination+'/'+css);
 await fs.writeFile(destination+'/'+indexName,indexCode);const worker=(await fs.readFile(new URL('./packed-sites-sw.js',import.meta.url),'utf8')).replace("'./sites-pack-index.js'",JSON.stringify('./'+indexName));await fs.writeFile(destination+'/sites-sw.js',worker);
+if(packed.gpuTextures){await fs.mkdir(destination+'/basis',{recursive:true});for(const name of ['basis_transcoder.js','basis_transcoder.wasm','README.md'])await fs.copyFile('node_modules/three/examples/jsm/libs/basis/'+name,destination+'/basis/'+name);await fs.copyFile('tools/runtime-ktx/BASIS-LICENSE.txt',destination+'/basis/LICENSE.txt');}
 html=html.replace('./'+entry,'./'+launcherName).replace('./'+fresh.manifest,'./'+old.manifest);
 await fs.writeFile(destination+'/index.html',html);
 await fs.writeFile(destination+'/web-release.json',JSON.stringify({...old,appBuildId:fresh.appBuildId,runSchema:fresh.runSchema,sourceWebRelease:fresh.release,compressedEntrySha256:sha(packedCode)},null,2)+'\n');

@@ -1,7 +1,8 @@
 import {chromium} from '@playwright/test';
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
-const root='reports/local/quality-20261028',origin='http://127.0.0.1:18883';
+const root=process.argv[3]??'reports/local/quality-20261028',origin=process.argv[2]??'http://127.0.0.1:18883';
+await fs.mkdir(root,{recursive:true});
 const b=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--no-proxy-server','--disable-background-timer-throttling']});
 const c=await b.newContext({viewport:{width:1440,height:900}}),p=await c.newPage(),errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.setDefaultTimeout(180000);
@@ -12,7 +13,7 @@ try{
  await p.goto(origin+'/quality-lab.html');await p.waitForFunction(()=>globalThis.__QUALITY_APP__&&!document.getElementById('scs-opening-visual'));
  for(const a of ['menu-new','menu-race-next','menu-difficulty-next','menu-start'])await click(a);
  await p.waitForFunction(()=>globalThis.__SC2_REPORT__().readiness.phase==='ready',null,{timeout:420000});await click('flow-continue');
- await p.waitForFunction(()=>globalThis.__SC2_REPORT__().time>3);await click('pause');
+ await p.waitForFunction(()=>globalThis.__SC2_REPORT__().time>3);await p.screenshot({path:root+'/lifecycle-battle.png'});await click('pause');
  result.swap=await p.evaluate(async()=>{const a=__QUALITY_APP__,store=a.httpStore(),before=JSON.stringify(a.world.captureRun()),old=store.activeTier,original=store.urlForTier.bind(store);a.view.entryPreparation=true;a.view.setGraphicsPreset('high');store.urlForTier=async()=>{throw Error('injected unavailable variant');};let failed=false;try{await a.applyPendingTextureTier();}catch{failed=true;}store.urlForTier=original;if(!failed||store.activeTier!==old)throw Error('failed swap corrupted active tier');
   await a.applyPendingTextureTier();if(store.activeTier!=='high')throw Error('high swap failed');const high=__SC2_REPORT__();a.view.setGraphicsPreset('low');await a.applyPendingTextureTier();const low=__SC2_REPORT__();if(store.activeTier!=='low'||JSON.stringify(a.world.captureRun())!==before)throw Error('swap changed game state');a.view.entryPreparation=false;return {failedSwapPreserved:true,worldUnchanged:true,high:high.graphics,low:low.graphics,highResolution:high.resolution,lowResolution:low.resolution};});
  await p.screenshot({path:root+'/lifecycle-low.png'});

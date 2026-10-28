@@ -12,7 +12,9 @@ export function deviceTier(h:DeviceHints):GraphicsTier {
  return 'medium';
 }
 export function deviceBudget(h:DeviceHints):RuntimeBudget {
- const low=deviceTier(h)==='low',ample=(h.memory??0)>=8&&(h.cores??0)>=8;
+ // Touch Safari omits deviceMemory. Missing capacity must not grant the larger
+ // decode working set; this changes scheduling/cache budgets, not visual quality.
+ const low=deviceTier(h)==='low'||h.coarse===true&&h.memory===undefined,ample=(h.memory??0)>=8&&(h.cores??0)>=8;
  return {network:low?2:ample?6:4,decode:low?1:2,audio:low?1:2,packBytes:(low?12:ample?48:24)*1024**2,pcmBytes:(low?32:ample?96:48)*1024**2,recentOnly:!ample};
 }
 export interface GraphicsPreferences {version:1;preset:GraphicsPreset;tier:GraphicsTier;texture:GraphicsTier;probeVersion?:number}

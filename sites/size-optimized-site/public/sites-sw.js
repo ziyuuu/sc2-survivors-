@@ -1,4 +1,4 @@
-importScripts("./sites-pack-index.aa62d6f89e565b0b0b01.js");
+importScripts("./sites-pack-index.0bb43ff1011a0ab1462d.js");
 // Inflight identities are separate from the evictable byte LRU.
 globalThis.performance?.setResourceTimingBufferSize?.(4096);
 const inflight=new Map(),bundles=new Map(),clientsBudget=new Map();
@@ -24,7 +24,7 @@ async function getBundle(name){
  if(inflight.has(name))return inflight.get(name);
  const p=lane(network,()=>networkLimit,async()=>{
   metrics.peakInflight=Math.max(metrics.peakInflight,network.active);const controller=new AbortController(),requestAt=globalThis.performance?.now()??0;let timer;
-  try{const b=await Promise.race([(async()=>{const url=new URL('./assets/'+name,self.registration.scope),immutable=/^bundle-[a-z]+-[a-f0-9]{20}\.bin$/.test(name),cache=immutable?await diskReady:null,hit=await cache?.match(url);if(hit)return hit.arrayBuffer();const r=await fetch(url,{signal:controller.signal,cache:immutable?'force-cache':'default'});if(!r.ok)throw Error('Bundle HTTP '+r.status);const bytes=await r.arrayBuffer();if(immutable)await rememberPack(url,bytes);return bytes;})(),new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Error('Bundle timeout'));},45000);})]);
+  try{const b=await Promise.race([(async()=>{const url=new URL('./assets/'+name,self.registration.scope),immutable=/^(?:bundle-[a-z]+|gpu-textures)-[a-f0-9]{20}\.bin$/.test(name),cache=immutable?await diskReady:null,hit=await cache?.match(url);if(hit)return hit.arrayBuffer();const r=await fetch(url,{signal:controller.signal,cache:immutable?'force-cache':'default'});if(!r.ok)throw Error('Bundle HTTP '+r.status);const bytes=await r.arrayBuffer();if(immutable)await rememberPack(url,bytes);return bytes;})(),new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Error('Bundle timeout'));},45000);})]);
    metrics.bundleBodyBytes+=b.byteLength;const timing=globalThis.performance?.getEntriesByName?.(new URL('./assets/'+name,self.registration.scope).href).at(-1);if(timing&&timing.startTime>=requestAt&&typeof timing.transferSize==='number'){metrics.networkTransferBytes+=timing.transferSize;metrics.transferSamples++;}metrics.downloads++;if(b.byteLength<=packLimit){bundles.set(name,b);resident+=b.byteLength;trim();metrics.peakResident=Math.max(metrics.peakResident,resident);}return b;
   }finally{clearTimeout(timer);controller.abort();}
  });inflight.set(name,p);try{return await p;}finally{inflight.delete(name);}

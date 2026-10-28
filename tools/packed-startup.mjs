@@ -3,7 +3,7 @@ export function packedLauncher(codeFile,indexFile='sites-pack-index.js'){return 
 globalThis.__SC2_PACKED_GRAPHICS__=true;
 globalThis.__SC2_PACK_INDEX_FILE__=${JSON.stringify(indexFile)};
 const memory=navigator.deviceMemory,cores=navigator.hardwareConcurrency;
-const limited=(memory&&memory<=2)||(cores&&cores<=2)||(memory&&memory<=4&&cores&&cores<=4);
+const limited=(memory&&memory<=2)||(cores&&cores<=2)||(memory&&memory<=4&&cores&&cores<=4)||(memory===undefined&&matchMedia('(pointer:coarse)').matches);
 const packBytes=(limited?12:(memory>=8&&cores>=8)?48:24)*1024**2;
 const sendBudget=()=>navigator.serviceWorker.controller?.postMessage({type:'sc2-runtime-budget',packBytes,decode:limited?1:2,network:limited?2:4});
 navigator.serviceWorker?.addEventListener('controllerchange',sendBudget);

@@ -1,0 +1,1157 @@
+{
+  "date": "2026-10-28",
+  "task": "V06-MEMORY-003",
+  "version": "0.6.29-rc.1",
+  "baseCommit": "02c312a",
+  "appBuildId": "2e9af5b4b96b7afd9549aaaff3f61e9c69722e5e947665311976eed993f215f8",
+  "resourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+  "status": "deployed; physical iPhone retest open",
+  "physicalIphoneTested": false,
+  "implemented": [
+    "43 same-size tier-invariant normal/specular KTX2 UASTC sidecars, ASTC/BC7 only, fallback to original images",
+    "decoder worker release after required preparation",
+    "weak image source/prototype ownership",
+    "encoded model Blob budget 12MiB constrained/48MiB other at drained entrance boundaries",
+    "background jobs recognize parsed models and do not refill retired encoded copies",
+    "dead managed image binding sweep at entrances"
+  ],
+  "unchanged": [
+    "simulation/RNG/rewards",
+    "save format",
+    "texture dimensions",
+    "terrain/effects/UI source assets",
+    "backend/database/R2 bindings",
+    "site audience"
+  ],
+  "measurements": [
+    {
+      "label": "peak-baseline",
+      "processPrivatePeak": 3745853440,
+      "backingStoragePeak": 257893527,
+      "samples": [
+        {
+          "tag": "menu",
+          "glBytesEstimate": 40952695.133333325,
+          "jsHeapReported": 158108733,
+          "modelMemory": null,
+          "gpu": null
+        },
+        {
+          "tag": "predownload",
+          "glBytesEstimate": 40952695.133333325,
+          "jsHeapReported": 176516873,
+          "modelMemory": null,
+          "gpu": null
+        },
+        {
+          "tag": "ready",
+          "glBytesEstimate": 559225167.1333317,
+          "jsHeapReported": 365900360,
+          "modelMemory": null,
+          "gpu": null
+        },
+        {
+          "tag": "battle",
+          "glBytesEstimate": 559228463.1333317,
+          "jsHeapReported": 390529122,
+          "modelMemory": null,
+          "gpu": null
+        },
+        {
+          "tag": "returned-menu",
+          "glBytesEstimate": 559226815.1333317,
+          "jsHeapReported": 390713927,
+          "modelMemory": null,
+          "gpu": null
+        },
+        {
+          "tag": "second-ready",
+          "glBytesEstimate": 572545649.7999994,
+          "jsHeapReported": 418397823,
+          "modelMemory": null,
+          "gpu": null
+        },
+        {
+          "tag": "second-battle",
+          "glBytesEstimate": 572545649.7999994,
+          "jsHeapReported": 429086666,
+          "modelMemory": null,
+          "gpu": null
+        }
+      ],
+      "errors": [],
+      "failures": []
+    },
+    {
+      "label": "ktx-only",
+      "processPrivatePeak": 3685199872,
+      "backingStoragePeak": 298277034,
+      "samples": [
+        {
+          "tag": "menu",
+          "glBytesEstimate": 39904119.133333325,
+          "jsHeapReported": 178816975,
+          "modelMemory": null,
+          "gpu": {
+            "loaded": 1,
+            "fallbacks": 0,
+            "payloadBytes": 349552,
+            "transcodeMs": 361.5,
+            "workerReleases": 0,
+            "supported": true,
+            "active": 0,
+            "workerResident": true,
+            "shared": {
+              "decodes": 1,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 1457344512
+        },
+        {
+          "tag": "predownload",
+          "glBytesEstimate": 39904119.133333325,
+          "jsHeapReported": 174000476,
+          "modelMemory": null,
+          "gpu": {
+            "loaded": 1,
+            "fallbacks": 0,
+            "payloadBytes": 349552,
+            "transcodeMs": 361.5,
+            "workerReleases": 0,
+            "supported": true,
+            "active": 0,
+            "workerResident": true,
+            "shared": {
+              "decodes": 1,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 2003480576
+        },
+        {
+          "tag": "ready",
+          "glBytesEstimate": 441435129.7999988,
+          "jsHeapReported": 464055242,
+          "modelMemory": null,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1343.0000000298023,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3279290368
+        },
+        {
+          "tag": "battle",
+          "glBytesEstimate": 441438425.79999876,
+          "jsHeapReported": 472423128,
+          "modelMemory": null,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1343.0000000298023,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3393142784
+        },
+        {
+          "tag": "returned-menu",
+          "glBytesEstimate": 441436777.79999876,
+          "jsHeapReported": 487021450,
+          "modelMemory": null,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1343.0000000298023,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3487297536
+        },
+        {
+          "tag": "second-ready",
+          "glBytesEstimate": 454755612.4666649,
+          "jsHeapReported": 495728143,
+          "modelMemory": null,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1343.0000000298023,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3680530432
+        },
+        {
+          "tag": "second-battle",
+          "glBytesEstimate": 454755612.4666649,
+          "jsHeapReported": 515797547,
+          "modelMemory": null,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1343.0000000298023,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3658702848
+        }
+      ],
+      "errors": [],
+      "failures": []
+    },
+    {
+      "label": "final",
+      "processPrivatePeak": 3738402816,
+      "backingStoragePeak": 339342046,
+      "samples": [
+        {
+          "tag": "menu",
+          "glBytesEstimate": 39904119.133333325,
+          "jsHeapReported": 171911310,
+          "modelMemory": {
+            "residentBlobBytes": 38267561,
+            "residentBlobCount": 899,
+            "modelEvictedBytes": 0
+          },
+          "gpu": {
+            "loaded": 1,
+            "fallbacks": 0,
+            "payloadBytes": 349552,
+            "transcodeMs": 390.59999999403954,
+            "workerReleases": 0,
+            "supported": true,
+            "active": 0,
+            "workerResident": true,
+            "shared": {
+              "decodes": 1,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 1433608192
+        },
+        {
+          "tag": "predownload",
+          "glBytesEstimate": 39904119.133333325,
+          "jsHeapReported": 177659746,
+          "modelMemory": {
+            "residentBlobBytes": 38279979,
+            "residentBlobCount": 901,
+            "modelEvictedBytes": 0
+          },
+          "gpu": {
+            "loaded": 1,
+            "fallbacks": 0,
+            "payloadBytes": 349552,
+            "transcodeMs": 390.59999999403954,
+            "workerReleases": 0,
+            "supported": true,
+            "active": 0,
+            "workerResident": true,
+            "shared": {
+              "decodes": 1,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 1969860608
+        },
+        {
+          "tag": "ready",
+          "glBytesEstimate": 441435129.7999988,
+          "jsHeapReported": 453427045,
+          "modelMemory": {
+            "residentBlobBytes": 60045377,
+            "residentBlobCount": 1891,
+            "modelEvictedBytes": 23449404
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1506.4999998807907,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3304681472
+        },
+        {
+          "tag": "battle",
+          "glBytesEstimate": 441438425.79999876,
+          "jsHeapReported": 495680646,
+          "modelMemory": {
+            "residentBlobBytes": 74677393,
+            "residentBlobCount": 1909,
+            "modelEvictedBytes": 23449404
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1506.4999998807907,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3519275008
+        },
+        {
+          "tag": "returned-menu",
+          "glBytesEstimate": 441436777.79999876,
+          "jsHeapReported": 514431872,
+          "modelMemory": {
+            "residentBlobBytes": 74677393,
+            "residentBlobCount": 1909,
+            "modelEvictedBytes": 23449404
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1506.4999998807907,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3540279296
+        },
+        {
+          "tag": "second-ready",
+          "glBytesEstimate": 454755612.4666649,
+          "jsHeapReported": 533491383,
+          "modelMemory": {
+            "residentBlobBytes": 61197541,
+            "residentBlobCount": 1945,
+            "modelEvictedBytes": 41080844
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1506.4999998807907,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3713572864
+        },
+        {
+          "tag": "second-battle",
+          "glBytesEstimate": 454755612.4666649,
+          "jsHeapReported": 563951521,
+          "modelMemory": {
+            "residentBlobBytes": 78828981,
+            "residentBlobCount": 1967,
+            "modelEvictedBytes": 41080844
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1506.4999998807907,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3717226496
+        }
+      ],
+      "errors": [],
+      "failures": []
+    },
+    {
+      "label": "baseline-settled",
+      "processPrivatePeak": 3591364608,
+      "backingStoragePeak": 261197614,
+      "samples": [
+        {
+          "tag": "menu",
+          "glBytesEstimate": 40952695.133333325,
+          "jsHeapReported": 165248918,
+          "modelMemory": null,
+          "gpu": null,
+          "nearestProcessPrivateBytes": 1455079424
+        },
+        {
+          "tag": "predownload",
+          "glBytesEstimate": 40952695.133333325,
+          "jsHeapReported": 214738760,
+          "modelMemory": null,
+          "gpu": null,
+          "nearestProcessPrivateBytes": 2039959552
+        },
+        {
+          "tag": "ready",
+          "glBytesEstimate": 559225167.1333317,
+          "jsHeapReported": 366070187,
+          "modelMemory": null,
+          "gpu": null,
+          "nearestProcessPrivateBytes": 3358429184
+        },
+        {
+          "tag": "battle",
+          "glBytesEstimate": 559228463.1333317,
+          "jsHeapReported": 387070467,
+          "modelMemory": null,
+          "gpu": null,
+          "nearestProcessPrivateBytes": 3441643520
+        },
+        {
+          "tag": "settled",
+          "glBytesEstimate": 559228463.1333317,
+          "jsHeapReported": 393985927,
+          "modelMemory": null,
+          "gpu": null,
+          "nearestProcessPrivateBytes": 3314761728
+        },
+        {
+          "tag": "after-explicit-gc",
+          "glBytesEstimate": 559228463.1333317,
+          "jsHeapReported": 371100660,
+          "modelMemory": null,
+          "gpu": null,
+          "nearestProcessPrivateBytes": 3269939200
+        }
+      ],
+      "errors": [],
+      "failures": []
+    },
+    {
+      "label": "candidate-settled",
+      "processPrivatePeak": 3471151104,
+      "backingStoragePeak": 306429561,
+      "samples": [
+        {
+          "tag": "menu",
+          "glBytesEstimate": 39904119.133333325,
+          "jsHeapReported": 205633335,
+          "modelMemory": {
+            "residentBlobBytes": 38157215,
+            "residentBlobCount": 888,
+            "modelEvictedBytes": 0
+          },
+          "gpu": {
+            "loaded": 1,
+            "fallbacks": 0,
+            "payloadBytes": 349552,
+            "transcodeMs": 425.40000000596046,
+            "workerReleases": 0,
+            "supported": true,
+            "active": 0,
+            "workerResident": true,
+            "shared": {
+              "decodes": 1,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 1493405696
+        },
+        {
+          "tag": "predownload",
+          "glBytesEstimate": 39904119.133333325,
+          "jsHeapReported": 157353571,
+          "modelMemory": {
+            "residentBlobBytes": 38174937,
+            "residentBlobCount": 891,
+            "modelEvictedBytes": 0
+          },
+          "gpu": {
+            "loaded": 1,
+            "fallbacks": 0,
+            "payloadBytes": 349552,
+            "transcodeMs": 425.40000000596046,
+            "workerReleases": 0,
+            "supported": true,
+            "active": 0,
+            "workerResident": true,
+            "shared": {
+              "decodes": 1,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 2050162688
+        },
+        {
+          "tag": "ready",
+          "glBytesEstimate": 441435129.7999988,
+          "jsHeapReported": 450148538,
+          "modelMemory": {
+            "residentBlobBytes": 60045377,
+            "residentBlobCount": 1891,
+            "modelEvictedBytes": 23449404
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1523.5000000596046,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3302400000
+        },
+        {
+          "tag": "battle",
+          "glBytesEstimate": 441438425.79999876,
+          "jsHeapReported": 478016005,
+          "modelMemory": {
+            "residentBlobBytes": 60062021,
+            "residentBlobCount": 1892,
+            "modelEvictedBytes": 23449404
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1523.5000000596046,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3466764288
+        },
+        {
+          "tag": "settled",
+          "glBytesEstimate": 441438425.79999876,
+          "jsHeapReported": 465496845,
+          "modelMemory": {
+            "residentBlobBytes": 60062021,
+            "residentBlobCount": 1892,
+            "modelEvictedBytes": 23449404
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1523.5000000596046,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3284115456
+        },
+        {
+          "tag": "after-explicit-gc",
+          "glBytesEstimate": 441438425.79999876,
+          "jsHeapReported": 409242482,
+          "modelMemory": {
+            "residentBlobBytes": 60062021,
+            "residentBlobCount": 1892,
+            "modelEvictedBytes": 23449404
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1523.5000000596046,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3052765184
+        },
+        {
+          "tag": "returned-menu",
+          "glBytesEstimate": 441436777.79999876,
+          "jsHeapReported": 413698706,
+          "modelMemory": {
+            "residentBlobBytes": 60062021,
+            "residentBlobCount": 1892,
+            "modelEvictedBytes": 23449404
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1523.5000000596046,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3075100672
+        },
+        {
+          "tag": "second-ready",
+          "glBytesEstimate": 454755612.4666649,
+          "jsHeapReported": 421592650,
+          "modelMemory": {
+            "residentBlobBytes": 61238262,
+            "residentBlobCount": 1937,
+            "modelEvictedBytes": 26285708
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1523.5000000596046,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3209396224
+        },
+        {
+          "tag": "second-battle",
+          "glBytesEstimate": 454755612.4666649,
+          "jsHeapReported": 441496168,
+          "modelMemory": {
+            "residentBlobBytes": 61255607,
+            "residentBlobCount": 1938,
+            "modelEvictedBytes": 26285708
+          },
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1523.5000000596046,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          },
+          "nearestProcessPrivateBytes": 3124604928
+        }
+      ],
+      "errors": [],
+      "failures": []
+    }
+  ],
+  "measurementCaveats": [
+    "GL bytes estimate from intercepted allocation calls, not driver measurement",
+    "Windows owned Chrome process tree private commit includes browser/driver overhead, not iOS memory",
+    "CDP backingStorage/heap/GL/PCM overlap; do not add",
+    "One run per condition; no proof of long-term leak absence",
+    "Explicit-GC samples are diagnostics, not automatic gameplay savings",
+    "JS backing storage increased due to retained compressed mip buffers; total process benefit smaller than GL saving"
+  ],
+  "ktxQuality": {
+    "count": 43,
+    "sourceRGBAWithMipsEstimate": 157985439,
+    "gpuCompressedBytes": 39497552,
+    "downloadBytes": 22644988,
+    "rgbMinPSNR": 39.34293699475757,
+    "rgbMaxMAE": 1.1776949564615886,
+    "alphaMaxError": 35,
+    "lossless": false,
+    "capabilities": {
+      "astcSupported": false,
+      "astcHDRSupported": false,
+      "etc1Supported": false,
+      "etc2Supported": false,
+      "dxtSupported": true,
+      "bptcSupported": true,
+      "pvrtcSupported": false
+    },
+    "testedTextureHashes": [
+      "7bcad29faab3c60c49635264e110ee7e4027d0f0f7a03403d99780a677e2b083",
+      "da836912917d20ee4394674978b97a737dfa4a5cc605bb6e5f7a1ef92e412fed",
+      "b495fd8ec88e42dc9b2711d5f5e231f1c66b7f4114c8e7285e7cc010ce1d6ff5",
+      "9447308165c8aa9304b574204eb18a3e37d4ae7a0517195179b859816deb72e4",
+      "907119e549b0eecf2ef3b0e73ae0f99993304746c1db217e60a446f6128ee38e",
+      "3f93195658aadee78c366e7662e22378cde31bdb201ff2b1ff8cfb9db3664027",
+      "16cba1fa573f4dc54ddd1b93f8b929816319c4e4ed95e775bf659c78f6b99afc",
+      "3915ee3e4a6299c7c82f00e8e84a0bdb2db8e48676c0d0a72e954dfb1553b02f",
+      "1e03118a10cbfae7ff9bd5052501dc71562c85198c2e9fdcf252e50ecd69b82d",
+      "9950cc9ecd20725548a9bb9f784571d634bc2ecfd26c5dd51c665f0354e94f1c",
+      "9c70c35a7f507b0cc187c3ddf6719ff2641f6da8ea8acfe14213a0532ba982f6",
+      "d5fcf76f0276d1b7e544fe6b3494ef94d378cd7bbce7db8268401743f38c6bd2",
+      "ba166e771b28b5311081df96438614d8e9889299f41803a406974a763de67961",
+      "fe6de52e0e7459c7bee8f91c29df885b755b70e4a892dfa771a3c767ba14efe3",
+      "ea8bfa9aeec2f2e2f76d955633a9fa114842e9b6ac8d16301d11f513ff7069ac",
+      "1e4589b69326d1e1e6621188cb062a3e5b6749bdc8635995503747d51de1ea8d",
+      "1878902c9ce93cb190f43871187944831f31d783cc6ba912110624c7ef02af91",
+      "4d47ef9665e23935a962eeacac3a4d3a452dc17083579f3aca526e9592e5d765",
+      "8a4cbbbf8ea0e2d2a1e0fb3bba934577f4b1a7e2770bab4864baa548a25bfcf9",
+      "cdf5fc8e1915c8479a2e55716a8747dfe9e39d6be29c41a39385bc795185470e",
+      "41e7e3b0d4a202df952eaec62a73a0d473fa26a261aa7a4ff661b59f17e8451e",
+      "1c566c15975c95479bc4317451a75191738fae1d3a09f8450c3eee7fdaccf532",
+      "ac755714b54959bbde31951bdcbb834a369942d19f9a6133c399a2db108f0a2c",
+      "349bdaf35dbf649e5f00f02659c9ccc25ab834698a668a60c1c9824645579caa",
+      "635ed8e7791c0fe56bb92c7992b61a0315c2a87708a7d7692d7e68bf358c59ac",
+      "17f499abb824fbf14e6be8b1ee4a9bc31f8c4a59711b47fe4aa61cb737b9ee65",
+      "c75ff19e9d51771415bbb8fa4e51a4c51e0b775c4dfcda0a3aaa3ef90b266469",
+      "0019fbbebf2cc29a63c0df43b71e84a5d54641e9ea7293bcee30d294ce01f403",
+      "7dbf1078077e7f9b1aed466271536bf84cbcbbfc801fe524fdeb14227743a709",
+      "ad1ddd18785ff2a41ceb40135c4ef0b68f68b76ea71680e895c1b6f5fb5da188",
+      "65127793a5c9f8206af2b4c82ebf6da6f125078cb10a3450ea4313d84176e3f5",
+      "e68e6b3c6eccdad2f8e9bbbd9a419a7d79dfdb8ffc3af54bc66681c333dfaacf",
+      "4d70ca94e0959280f1f3c8c4ae0267e815a4db6190eeb752aec14b9b643776e2",
+      "87d5d01ab313901de81b86130b57b3b5c5b3686df0cf5096c7642005c977d263",
+      "2f5ef529701cf042c3e4f24d075f8da78dbb0097123ba20d6a38244fc904bdbd",
+      "2dbe665a16e888444a0eb9be83ba4b1377e68ceefb783e6ff73b31cc193a9b16",
+      "c39c7fc9d14592acaa06e22aa8266cd2007b82e53c4777cc6653fc3d4cb18b1e",
+      "7758318707dada059aa95505430c2188373f0d3e7665dff013ab2ce2a0982fb7",
+      "efa24a1c94d1c71d19477a3509fca6b4275091c04d1fb77693b1779aedf367e1",
+      "8867faf2198e977a4dca1d7c4dfa27c7e76f7874cc94b5b20ccb1812e737c714",
+      "5d732d853448fc28221414e18d6a44ef523a3d2374c9a211be8d7b1f39fb69ec",
+      "f053667ca29ef1f81413a5f885caad44d517797d0bd5e928ae7f7e07f0d51fdd",
+      "6158a4910ab8158a14943bb398e751ea3180c9c28a7777513c9d091dff7d5732"
+    ],
+    "detailRetention": "Per-texture derived images and detailed metrics cleared after aggregate validation; reproduce with tools/prepare-runtime-ktx-assets.py and tools/verify-runtime-ktx.mjs."
+  },
+  "validation": {
+    "fullRegression": {
+      "tests": 2749,
+      "passedFirst": 2742,
+      "environmentFailures": 7,
+      "retryTests": 16,
+      "retryPassed": 16
+    },
+    "cacheTests": 13,
+    "backgroundCacheTests": 19,
+    "typecheck": true,
+    "docsCheck": true,
+    "qualityLifecycle": {
+      "passed": true,
+      "sourceBuildBeforeNoRefillFix": "9a85b5f2e8e4f40c28560e0132f563200dc9a5d1e9120cd79e3a2ff9686df949",
+      "covers": [
+        "low-high-low",
+        "preflight failure rollback",
+        "stages2/3/12",
+        "settings layout",
+        "hot cache reload"
+      ],
+      "stage12": "directed fixture lost; not full campaign"
+    },
+    "unsupportedGpuFallback": true,
+    "finalSceneScope": {
+      "first": {
+        "race": "terran",
+        "difficulty": "normal",
+        "mission": [],
+        "deaths": [],
+        "hive": false
+      },
+      "stage4": {
+        "stage": 4,
+        "mission": [
+          "barracks",
+          "factory",
+          "starport",
+          "hatchery",
+          "command_center"
+        ],
+        "deaths": [
+          "barracks",
+          "factory",
+          "starport",
+          "hatchery"
+        ],
+        "hive": false
+      },
+      "repair": {
+        "id": 21,
+        "model": "factory",
+        "visible": true,
+        "deathPrepared": true,
+        "phase": "battle"
+      },
+      "death": {
+        "model": "factory",
+        "created": true,
+        "visible": true
+      },
+      "snapshot": {
+        "prepared": true,
+        "mission": [
+          "barracks",
+          "factory",
+          "starport",
+          "hatchery",
+          "command_center"
+        ]
+      },
+      "hard6": {
+        "gateway": true,
+        "tower": true,
+        "workers": [
+          "scv",
+          "drone",
+          "probe"
+        ],
+        "errors": []
+      },
+      "hell4": {
+        "hive": true,
+        "hiveDeath": true,
+        "errors": []
+      },
+      "passed": true
+    },
+    "rollback": {
+      "failed": true,
+      "cancelled": true,
+      "activeTier": "low",
+      "before": {
+        "decodedPixels": 1302528,
+        "swaps": 0,
+        "rollbacks": 0,
+        "gpu": {
+          "loaded": 1,
+          "fallbacks": 0,
+          "payloadBytes": 349552,
+          "transcodeMs": 204.80000001192093,
+          "workerReleases": 0,
+          "supported": true,
+          "active": 0,
+          "workerResident": true,
+          "shared": {
+            "decodes": 1,
+            "reuses": 0
+          }
+        },
+        "externalImages": {
+          "decodes": 14,
+          "reuses": 6
+        },
+        "liveVariantPixels": 1302528,
+        "liveVariantSources": 14,
+        "rgbaMipEstimate": 6946816
+      },
+      "after": {
+        "decodedPixels": 1302528,
+        "swaps": 2,
+        "rollbacks": 1,
+        "gpu": {
+          "loaded": 1,
+          "fallbacks": 0,
+          "payloadBytes": 349552,
+          "transcodeMs": 204.80000001192093,
+          "workerReleases": 0,
+          "supported": true,
+          "active": 0,
+          "workerResident": true,
+          "shared": {
+            "decodes": 1,
+            "reuses": 0
+          }
+        },
+        "externalImages": {
+          "decodes": 14,
+          "reuses": 6
+        },
+        "liveVariantPixels": 1302528,
+        "liveVariantSources": 14,
+        "rgbaMipEstimate": 6946816
+      },
+      "stagedUrlsReleased": true
+    },
+    "online": {
+      "entry": "public",
+      "tier": "auto cached medium",
+      "physicalPhone": false,
+      "predownload": true,
+      "reenter": true,
+      "errors": [],
+      "failures": [],
+      "samples": [
+        {
+          "tag": "menu",
+          "glBytesEstimate": 6664630.899999999,
+          "gpu": {
+            "loaded": 0,
+            "fallbacks": 0,
+            "payloadBytes": 0,
+            "transcodeMs": 0,
+            "workerReleases": 0,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 0,
+              "reuses": 0
+            }
+          }
+        },
+        {
+          "tag": "predownload",
+          "glBytesEstimate": 29201591.133333325,
+          "gpu": {
+            "loaded": 1,
+            "fallbacks": 0,
+            "payloadBytes": 349552,
+            "transcodeMs": 911.0999999940395,
+            "workerReleases": 0,
+            "supported": true,
+            "active": 0,
+            "workerResident": true,
+            "shared": {
+              "decodes": 1,
+              "reuses": 0
+            }
+          }
+        },
+        {
+          "tag": "ready",
+          "glBytesEstimate": 441435129.7999988,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1937.200000077486,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          }
+        },
+        {
+          "tag": "battle",
+          "glBytesEstimate": 441438425.79999876,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1937.200000077486,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          }
+        },
+        {
+          "tag": "returned-menu",
+          "glBytesEstimate": 441436777.79999876,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1937.200000077486,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          }
+        },
+        {
+          "tag": "second-ready",
+          "glBytesEstimate": 454755612.4666649,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1937.200000077486,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          }
+        },
+        {
+          "tag": "second-battle",
+          "glBytesEstimate": 454755612.4666649,
+          "gpu": {
+            "loaded": 43,
+            "fallbacks": 0,
+            "payloadBytes": 39497552,
+            "transcodeMs": 1937.200000077486,
+            "workerReleases": 1,
+            "supported": true,
+            "active": 0,
+            "workerResident": false,
+            "shared": {
+              "decodes": 43,
+              "reuses": 0
+            }
+          }
+        }
+      ],
+      "gameBuildUnchangedBetweenV14V15": true
+    },
+    "onlineFiles": {
+      "appBuildId": "2e9af5b4b96b7afd9549aaaff3f61e9c69722e5e947665311976eed993f215f8",
+      "resourceRelease": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
+      "checkedFiles": [
+        "asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+        "sites-sw.js",
+        "sites-pack-index.js",
+        "sites-pack-index.0bb43ff1011a0ab1462d.js",
+        "assets/sc2-entry.7a44fd8243293718.js.gz",
+        "basis/basis_transcoder.js",
+        "basis/basis_transcoder.wasm",
+        "basis/README.md",
+        "basis/LICENSE.txt",
+        "assets/index-553f84603ded62dd.js",
+        "assets/index-DT8k47mK.css",
+        "assets/gpu-textures-cb20ce485bf9214154e0.bin",
+        "assets/gpu-textures-d9fb5b66a9b688ff811a.bin",
+        "assets/gpu-textures-ae15c2df783b0b9408eb.bin",
+        "assets/gpu-textures-8391099796ac0f8c8c2e.bin",
+        "assets/gpu-textures-cbd4c0e021f07e7b4aee.bin",
+        "assets/gpu-textures-c7d12911b07224b82b4f.bin",
+        "assets/gpu-textures-b69143fff956da20a912.bin",
+        "assets/gpu-textures-13134a3836371026ea5d.bin",
+        "assets/gpu-textures-993d9ff07eb168dc0e15.bin",
+        "assets/gpu-textures-43cf286e0f36f494728b.bin",
+        "assets/gpu-textures-6021b6cf11a8fc6d2021.bin",
+        "assets/gpu-textures-e809185edd281d22ef4f.bin",
+        "assets/gpu-textures-533c6e019164840b90b0.bin",
+        "assets/gpu-textures-a2b3f138901e8cd0a37b.bin"
+      ],
+      "unauthenticatedManageStatus": 403,
+      "closedUploadStatus": 403
+    }
+  },
+  "sourceSha256": {
+    "src/app/asset-readiness.ts": "37c24396ad0c19c419dccee9921fc2ce5f64edffc50f4c96edb078d77a7c0424",
+    "src/assets/http-store.ts": "36974f218cb5a2e88bb33d0fe766d175ca98da63a34b760d4d060c4424f07c38",
+    "src/render/loaders/gpu-textures.ts": "a5d83185044035a3ff5528c89f67240c602eb211b3eec462d359626486964678",
+    "src/render/loaders/managed-textures.ts": "da38c71366b7d4db181f5c9d0c0f0377e6174cf8aa99262f03b77eba0070e7b8",
+    "src/render/loaders/shared-image-sources.ts": "f3fabe7321b63296832b75cd8f5a404f767caf5e3e79cfb0ec1549ffa6194039",
+    "src/render/materials/shared-textures.ts": "47f1fa909f634719cfa58f38b004b9d8a5c08979f0a809287cd38a9e6ba1f987",
+    "src/render/scene/battle-renderer.ts": "b5d4207454362d108e46db4e1e8a880bd1631598121125c083eda46bf2519a40",
+    "tools/packed-sites-sw.js": "723e45b86a68f890ad7f3b70b5d71e3b5891bb75ba2aacbc0cb9df89a7eb5850",
+    "tools/package-runtime-ktx.mjs": "2f6e5c23f992a06a9f9e7a350a408814d00d5e3d60d64d9e2183a429d0a75d0f",
+    "tools/update-compressed-game.mjs": "cd807f5ff66fdedd16f25bda387a8c8bc3b5b0b5bced0cfd18064db3fa63ef13",
+    "vite.config.ts": "60fa55d174f91edaf3cd7246e31a56784605aef66553e6a009b9343d3fc7bf01"
+  },
+  "deployment": {
+    "status": "succeeded",
+    "projectId": "appgprj_6ae024693cf481919b48df2cececd0a0",
+    "audience": "public",
+    "previousVersion": 13,
+    "url": "https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site",
+    "version": 15,
+    "sourceCommit": "7e9929502702cba6f27013d4144a4b878e02e8d7",
+    "versionId": "appgprj_6ae024693cf481919b48df2cececd0a0~appgver_d115ecf00ab8819191db0caa5a2ca11d",
+    "deploymentId": "appgdep_6ae1b32fc3e4819187d98f6f3b738634",
+    "envRevision": 3,
+    "archiveBytes": 48964448,
+    "archiveSHA256": "a64cb8b990391f4591d2e900250e76b66b2f45a08e95e110af799d916a64f2af",
+    "normalizedTarBytes": 56442880,
+    "normalizedTarSHA256": "8bd85dd247afa4e88988b9e37626a40e7ce3f873dc0ffd41087f1512bc6e9e3d"
+  },
+  "open": [
+    "physical iPhone17 Pro iOS26.7.1 reload diagnosis and retest",
+    "full cross-run GPU template/reference-count eviction still not implemented; current bounds cover encoded cache/decoder/weak sources"
+  ],
+  "cleanup": {
+    "removedBytes": 2213167450,
+    "removedFiles": 4530,
+    "scope": "completed runtime memory samples, screenshots, logs, old ktx-only build and initial publish archive",
+    "kept": [
+      "dist/memory-runtime-20261028/final",
+      "sites/memory-runtime-final-20261028.tar.gz"
+    ],
+    "stoppedOwnedServers": [
+      18888,
+      18889,
+      18890,
+      18892
+    ]
+  }
+}

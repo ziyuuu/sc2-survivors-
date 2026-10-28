@@ -1,0 +1,204 @@
+{
+  "date": "2026-10-28",
+  "task": "V06-SAFARI-001",
+  "status": "local-candidate-pending-original-device-diagnosis",
+  "baselineCommit": "02c312ad9e570be4a72462dfc30205f26146d0bb",
+  "candidate": {
+    "appBuildId": "0c736e81df95afab131b0e5b442bbc2f526a3260a52d5566ca4d12c7b176a389",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3845,
+    "fileCount": 5093,
+    "assetBytes": 797606515,
+    "logicalBytes": 800690237,
+    "sharedBytes": 3083722,
+    "manifest": "asset-manifest.943ec11700634ac91311753a9f66750c7a2d8313aa7724ac4a246a06409497e1.json",
+    "release": "943ec11700634ac91311753a9f66750c7a2d8313aa7724ac4a246a06409497e1",
+    "source": "reports/local/asset-reachability.json",
+    "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
+    "compressedEntrySha256": "2a0a73d83276df88d29e70cad96c04154d5e1753be40adc873ffb1be0966124e",
+    "qualityVariants": true,
+    "packedBytes": 435701130,
+    "variantRecordCount": 1375,
+    "sharedImageIdentities": 1
+  },
+  "confirmedFinding": "Identical embedded images were decoded by separate model parsers and uploaded redundantly. Verified matching image families across all three graphics tiers can share immutable decoded sources.",
+  "originalSafariRootCauseConfirmed": false,
+  "physicalAppleDeviceTested": false,
+  "publication": {
+    "committed": false,
+    "pushed": false,
+    "sitesUpdated": false,
+    "cozeUpdated": false,
+    "reason": "User requires Safari fix validation before Sites and remote Git update; original device termination is not yet diagnosed."
+  },
+  "measurements": {
+    "scope": "Chrome 844x390 DPR3 simulated touch, medium, unknown deviceMemory; WebGL allocation estimate, not total RAM or actual driver allocation",
+    "beforeTextureBytes": 1068439023.1333405,
+    "afterTextureBytes": 815491908.4666697,
+    "textureBytesReduced": 252947114.6666708,
+    "reductionPercent": 23.67445490009056,
+    "beforeTextureObjects": 1560,
+    "afterTextureObjects": 1416,
+    "beforeJsHeap": 394020668,
+    "afterJsHeap": 437692072,
+    "heapCaveat": "Candidate used complete predownload; baseline sample did not. JS heap did not decrease in these samples; no claim of total-memory or Jetsam-threshold validation."
+  },
+  "checks": {
+    "chromePredownloadEntry": {
+      "passed": true,
+      "pageErrors": [],
+      "resourceFailures": [],
+      "contextLoss": 0
+    },
+    "windowsWebKit": {
+      "version": "26.6",
+      "renderOnly": true,
+      "passed": true,
+      "limitation": "Windows WebKit lacks WebAudio; audio bypass exists only in local test harness, not application. Not physical iOS validation."
+    },
+    "lifecycle": {
+      "failedSwapPreserved": true,
+      "worldUnchanged": true,
+      "directedStages": [
+        {
+          "stage": 2,
+          "phase": "battle",
+          "entities": 7,
+          "errors": []
+        },
+        {
+          "stage": 3,
+          "phase": "battle",
+          "entities": 6,
+          "errors": []
+        },
+        {
+          "stage": 12,
+          "phase": "lost",
+          "entities": 64,
+          "errors": []
+        }
+      ],
+      "hotCacheMisses": 0,
+      "pageErrors": [],
+      "note": "Directed stage 12 fixture ended lost; this checks preparation/rendering lifecycle, not completion or game balance."
+    },
+    "partialRollback": {
+      "failed": true,
+      "cancelled": true,
+      "activeTier": "low",
+      "before": {
+        "decodedPixels": 1302528,
+        "swaps": 0,
+        "rollbacks": 0,
+        "externalImages": {
+          "decodes": 14,
+          "reuses": 6
+        },
+        "liveVariantPixels": 1302528,
+        "liveVariantSources": 14,
+        "rgbaMipEstimate": 6946816
+      },
+      "after": {
+        "decodedPixels": 1302528,
+        "swaps": 2,
+        "rollbacks": 1,
+        "externalImages": {
+          "decodes": 14,
+          "reuses": 6
+        },
+        "liveVariantPixels": 1302528,
+        "liveVariantSources": 14,
+        "rgbaMipEstimate": 6946816
+      },
+      "stagedUrlsReleased": true
+    },
+    "tests": {
+      "initialTotal": 2743,
+      "initialPass": 2736,
+      "initialFail": 7,
+      "environmentFailures": "Local connections denied and temporary-file rename EPERM",
+      "affectedReruns": [
+        {
+          "command": "node --import tsx --test test/coze-fetch.test.mjs test/p5-backend.test.mjs",
+          "pass": 15,
+          "fail": 0
+        },
+        {
+          "command": "node --import tsx --test test/coze-web.test.mjs",
+          "pass": 1,
+          "fail": 0
+        }
+      ],
+      "note": "Reruns include parent/subtest counts; not an additional 16 unique tests."
+    },
+    "typecheck": "passed",
+    "docsCheck": "passed",
+    "visualInspection": "Viewed baseline/candidate pause and candidate visible battle screenshot; unit/terrain/HUD present. No pixel-exact visual-equivalence or full effect catalog claim.",
+    "productionEntryAndReentry": {
+      "passed": true,
+      "firstBattleTextureBytes": 815491908.4666697,
+      "returnedMenuTextureBytes": 815490260.4666697,
+      "secondBattleTextureBytes": 828809095.1333374,
+      "pageErrors": [],
+      "resourceFailures": [],
+      "scope": "One return to menu and second new run. Resources remain cached at menu; second entry is +1.63%, not a long-run leak or full release proof."
+    },
+    "automaticReloadSourceAudit": {
+      "scope": [
+        "src",
+        "tools/packed-startup.mjs",
+        "tools/packed-sites-sw.js",
+        "sites/size-optimized-site/app"
+      ],
+      "finding": "Only explicit retry-button click calls location.reload in the packed startup path. No automatic reload call found in game entry or service-worker activation path. This does not rule out external host behavior or browser process termination."
+    },
+    "autoMediumPredownloadReentry": {
+      "passed": true,
+      "preset": "auto",
+      "tier": "medium",
+      "texture": "medium",
+      "initialDetection": "Cached medium probe result; initial probe source separately inspected. Adaptive resolution active.",
+      "firstBattleTextureBytes": 815491908.4666697,
+      "secondBattleTextureBytes": 828809095.1333374,
+      "pageErrors": [],
+      "resourceFailures": [],
+      "physicalAppleDevice": false
+    }
+  },
+  "sourceFiles": [
+    "src/assets/http-store.ts",
+    "src/platform/graphics-profile.ts",
+    "src/render/effects/source/materials.ts",
+    "src/render/loaders/managed-textures.ts",
+    "src/render/loaders/shared-image-sources.ts",
+    "src/render/loaders/gltf-image-identities.ts",
+    "src/render/loaders/prepared-material-gltf.ts",
+    "tools/packed-startup.mjs"
+  ],
+  "verificationFiles": [
+    "test/safari-entry-memory.test.ts",
+    "tools/prepare-shared-image-manifest.mjs",
+    "tools/verify-safari-entry.mjs",
+    "tools/build-quality-harness.mjs",
+    "tools/verify-quality-lifecycle.mjs",
+    "tools/verify-quality-rollback.mjs"
+  ],
+  "resourceBytesChanged": 0,
+  "open": [
+    "Original iPhone 17 Pro / iOS 26.7.1 / auto-medium reload banner and system termination evidence; current Sites URL assumed from conversation",
+    "Full physical Safari with audio and repeat entry",
+    "Coze deployed identity and matching tested Application delivery; packed Sites gains do not automatically transfer to original Application"
+  ],
+  "next": "Diagnose original device termination and validate candidate on it before authorized publication. Coze instructions in docs/project/COZE_SAFARI_UPDATE_20261028.md.",
+  "userDevice": {
+    "model": "iPhone 17 Pro",
+    "symptom": "Webpage automatically reloads",
+    "iosVersion": "26.7.1 (user-reported)",
+    "graphicsTier": "auto / medium",
+    "affectedUrl": "Assumed current Sites URL from context; user specified battle loading rather than a URL",
+    "systemMessage": null
+  }
+}

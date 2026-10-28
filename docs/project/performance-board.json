@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
-  "updated": "2026-10-27",
-  "revision": 231,
+  "updated": "2026-10-28",
+  "revision": 256,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2588,7 +2588,7 @@
       "phase": "交付",
       "priority": "随后",
       "auditIds": [],
-      "updated": "2026-10-27",
+      "updated": "2026-10-28",
       "owner": "Codex",
       "historical": false,
       "id": "V05",
@@ -2630,9 +2630,16 @@
         "SITES_METADATA_AGENTS_FINAL_20261027.md",
         "../../reports/qa/sites-metadata-agents-final-20261027.json",
         "V06_GITHUB_SYNC_20261027.md",
-        "../../reports/qa/v06-github-sync-20261027.json"
+        "../../reports/qa/v06-github-sync-20261027.json",
+        "../../reports/qa/sites-public-access-20261027.json",
+        "SITES_STARTUP_RETRY_20261028.md",
+        "../../reports/qa/sites-startup-retry-20261028.json",
+        "SITES_MOBILE_NEW_RUN_20261028.md",
+        "../../reports/qa/sites-mobile-new-run-20261028.json",
+        "SITES_QUALITY_DEPLOY_20261028.md",
+        "../../reports/qa/sites-quality-deploy-20261028.json"
       ],
-      "result": "私有Sites第7版反馈修复已部署，所有者权限保持；两套源码与Coze说明已同步GitHub。此前后台验证范围保持，自动独立备份、请求触发清理限制、正式访问/公开环境及最终体验验收仍开放。",
+      "result": "用户明确授权供朋友试玩，Sites第7版已公开；匿名进入战斗通过，未登录管理页/接口及虚构邮箱请求均403。真实所有者邮箱伪造检查被自动审批拒绝，所有者公开环境登录待验证；备份和完整公开验收仍开放。 2026-10-28：V05-SITES-BOOT-001三次自动重试、资源包超时和可见恢复已发布Sites第8版；2720回归及线上菜单通过，原手机实际故障未直接抓取，实机复测保持开放。 2026-10-28后续：新游戏直接覆盖旧局及手机可选预加载/资源并发/包驻留收敛已发布Sites第9版；2727完整回归及追加2项通过。浏览器基础设施超时，原手机第三关崩溃复测仍开放。 画质优化已发布现有公开Sites第13版（355c01a），应用构建27897f510771；403包经服务端SHA校验迁入原BUCKET隔离前缀，旧58包保留，临时上传关闭/密钥移除。403线上HEAD及7类完整哈希、独立Chrome低档首战通过，DB五表/原权限修订2/存档保持。v10构建限额及v12默认缓存500、回退与v13修复均有记录。GitHub实现28c7987已推送，资源交付源码/报告同分支补齐；V06待原手机/画质验证。",
       "observedIssues": [
         {
           "id": "V04-SITES-META-001",
@@ -2641,6 +2648,46 @@
           "scope": "Sites public/web-release.json fileCount/assetBytes/logicalBytes/sharedBytes",
           "evidence": "../../reports/qa/sites-metadata-agents-final-20261027.json",
           "next": "本项关闭；V05其他验收继续。"
+        },
+        {
+          "id": "V05-SITES-BOOT-001",
+          "resolved": false,
+          "status": "待验证",
+          "scope": "手机Chrome首页初始化长时间不进入菜单；用户确认失败后自动重试",
+          "next": "Sites第8版部署成功，故障恢复及线上菜单验证通过；物理手机Chrome复测仍开放",
+          "evidence": "../../reports/qa/sites-startup-retry-20261028.json"
+        },
+        {
+          "id": "V05-SITES-MOBILE-002",
+          "resolved": false,
+          "status": "待验证",
+          "scope": "手机Chrome第三关崩溃，原机故障未捕获；排查完整后台模型预加载驻留",
+          "next": "Sites第9版已部署，手机内存风险收敛与回归通过；原机第三关崩溃实测仍开放",
+          "evidence": "../../reports/qa/sites-mobile-new-run-20261028.json"
+        },
+        {
+          "id": "V05-SITES-NEW-003",
+          "resolved": false,
+          "status": "待验证",
+          "scope": "用户确认新游戏直接覆盖旧局，仅提醒一次，不要求旧局结算",
+          "next": "直接覆盖/一次提醒/失败保护已发布Sites第9版；线上浏览器复验因连接超时未完成",
+          "evidence": "../../reports/qa/sites-mobile-new-run-20261028.json"
+        },
+        {
+          "id": "V05-SITES-PACKAGE-001",
+          "resolved": true,
+          "status": "已完成",
+          "scope": "64MiB源码推送/256MiB后端归档限额及远端构建字符串限制，已以分批源码和原BUCKET资源托管解决",
+          "evidence": "../../reports/qa/sites-quality-deploy-20261028.json",
+          "next": "保持现有浏览器缓存；原手机复测另属V06。"
+        },
+        {
+          "id": "V05-SITES-ASSET-GET-001",
+          "resolved": true,
+          "status": "已完成",
+          "scope": "第12版资源GET因禁止默认Worker缓存返回500，已回退并在第13版移除该调用，全部资源地址和首战验证通过",
+          "evidence": "../../reports/qa/sites-quality-deploy-20261028.json",
+          "next": "保持现有浏览器缓存；原手机复测另属V06。"
         }
       ]
     },
@@ -2649,7 +2696,7 @@
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
-      "updated": "2026-10-27",
+      "updated": "2026-10-28",
       "owner": "Codex",
       "historical": false,
       "id": "V06",
@@ -2687,9 +2734,23 @@
         "COZE_FEEDBACK_DEPLOY_20261027.md",
         "../../reports/qa/v06-feedback-repairs-20261027.json",
         "V06_GITHUB_SYNC_20261027.md",
-        "../../reports/qa/v06-github-sync-20261027.json"
+        "../../reports/qa/v06-github-sync-20261027.json",
+        "SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md",
+        "../../reports/qa/sites-quality-research-20261028.json",
+        "SITES_QUALITY_IMPLEMENTATION_20261028.md",
+        "../../reports/qa/sites-quality-implementation-20261028.json",
+        "../../reports/qa/sites-quality-assets-20261028.json",
+        "SITES_QUALITY_DEPLOY_20261028.md",
+        "../../reports/qa/sites-quality-deploy-20261028.json",
+        "SAFARI_ENTRY_20261028.md",
+        "COZE_SAFARI_UPDATE_20261028.md",
+        "../../reports/qa/safari-entry-20261028.json",
+        "BATTLE_MEMORY_SCOPE_20261028.md",
+        "../../reports/qa/battle-memory-scope-20261028.json",
+        "RUNTIME_MEMORY_20261028.md",
+        "../../reports/qa/runtime-memory-20261028.json"
       ],
-      "result": "原版最新修复、压缩版第7版快照、相关测试/工具与Coze说明已提交推送到GitHub体积优化版分支（56fa13d），远端提交和内容树核对一致，main未合并；Coze/阿里云未部署。复用同版2717项回归及交互/资源验证，V05进行中、V06待用户体验和最终验收。",
+      "result": "V06-MEMORY-003：入场峰值、43张同尺寸KTX2、编码缓存预算及后台回填修复完成，已发布Sites第15版。首战贴图估算559→441MB，Windows同条件进程峰值约3.59→3.47GB；线上预下载、首战和再次开局通过。原iPhone Safari重载原因与实机复测仍开放，未宣称MVP最终验收。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -2704,6 +2765,56 @@
           "resolved": false,
           "status": "已知加载路径和卡框修复通过，原始持续转圈待用户复测",
           "evidence": "../../reports/qa/v06-feedback-repairs-20261027.json"
+        },
+        {
+          "id": "V06-QUALITY-001",
+          "resolved": false,
+          "status": "待验证",
+          "scope": "特效预设仅局部联动，三档均强制原生分辨率；需整体画质与自定义偏好方案",
+          "evidence": "../../reports/qa/sites-quality-implementation-20261028.json",
+          "next": "本地实现及工程检查完成；待用户画面/听感、原手机第1至3关复测。未经授权不发布。"
+        },
+        {
+          "id": "V06-QUALITY-002",
+          "resolved": false,
+          "status": "待验证",
+          "scope": "DPR1的三固定画质比例相同；资源档位未联动，GLB与贴图仍同源同尺寸",
+          "evidence": "../../reports/qa/sites-quality-implementation-20261028.json",
+          "next": "本地实现及工程检查完成；待用户画面/听感、原手机第1至3关复测。未经授权不发布。"
+        },
+        {
+          "id": "V06-QUALITY-003",
+          "resolved": false,
+          "status": "待验证",
+          "scope": "全量PCM解码、混包请求放大及各层资源预算缺口；静态确认，手机运行成本未实测",
+          "evidence": "../../reports/qa/sites-quality-implementation-20261028.json",
+          "next": "本地实现及工程检查完成；待用户画面/听感、原手机第1至3关复测。未经授权不发布。"
+        },
+        {
+          "id": "V06-QUALITY-004",
+          "resolved": false,
+          "status": "待验证",
+          "scope": "首次启动强制高档，设备策略仅粗指针；缺少重资源前的能力初选",
+          "evidence": "../../reports/qa/sites-quality-implementation-20261028.json",
+          "next": "本地实现及工程检查完成；待用户画面/听感、原手机第1至3关复测。未经授权不发布。"
+        }
+      ],
+      "openFindings": [
+        {
+          "id": "V06-SAFARI-001",
+          "resolved": false,
+          "status": "待验证",
+          "scope": "用户确认 iPhone 17 Pro / iOS 26.7.1 / 自动中档，载入战场时网页自动重载；按当前Sites网址排查，原始原因尚未确定。",
+          "next": "补充原机重载提示/对应时刻系统记录，并在该手机验证候选；通过后更新Sites和远端Git。",
+          "evidence": "../../reports/qa/safari-entry-20261028.json"
+        },
+        {
+          "id": "V06-MEMORY-002",
+          "status": "待验证",
+          "resolved": false,
+          "scope": "任务建筑/死亡和战役虫巢条件准备已实现并本地验证；全英雄特效、读档较宽单位集合和跨局缓存仍有后续空间。",
+          "next": "原iPhone验证候选；下一批按实际技能/装备/援军依赖收紧特效和读档准备。低档画质方案待用户选择。",
+          "evidence": "../../reports/qa/battle-memory-scope-20261028.json"
         }
       ]
     },
@@ -3253,6 +3364,35 @@
       "auditIds": [],
       "updated": "2026-10-23",
       "result": "按逐项确认范围完成：指定冗余文案静默/删除，暂停四操作及指定两图标，存档集中设置；首页免责声明依用户纠正恢复原位。44相关既有测试/类型/数据通过，最终Web43+离线5记录错误0，三尺寸及鼠标/模拟触屏、失败恢复通过；832基线中820保持，Current保持，未扩大视觉设计或发布。",
+      "owner": "Codex",
+      "historical": false
+    },
+    {
+      "id": "PROMO-01",
+      "title": "制作四分钟实机宣发视频第一版",
+      "status": "待验证",
+      "phase": "交付",
+      "priority": "用户授权",
+      "depends": [],
+      "scenes": [],
+      "problem": "用户批准四分钟无旁白实机宣发方案，并允许游戏英雄原声表达情绪。独立宣传制作，不扩大MVP功能范围。",
+      "steps": [
+        "隔离录制入口和账户，编排代表阵容，采集真实游戏画面及声音",
+        "剪辑240秒横屏视频，加入少量标题和游戏英雄语音",
+        "验证时长、尺寸、解码、画面与音频，交付本地审阅"
+      ],
+      "acceptance": [
+        "四分钟可播放视频已导出，主要画面来自本项目实机",
+        "无画外音；英雄语音有现有音库来源",
+        "玩家存档及正式源码/UI不变，编排范围如实记录"
+      ],
+      "evidence": [
+        "PROMO_VIDEO_20261027.md",
+        "../../reports/qa/promo-video-v1-20261027.json"
+      ],
+      "auditIds": [],
+      "updated": "2026-10-27",
+      "result": "第一版240秒1080p视频已导出；12段实机原始镜头/41段剪辑，英雄原声+器乐，无旁白。全片解码、33帧抽查、音量与浏览器播放/章节跳转通过。待用户观感审阅；未发布视频。",
       "owner": "Codex",
       "historical": false
     }
@@ -9508,6 +9648,263 @@
       "evidence": [
         "V06_GITHUB_SYNC_20261027.md",
         "../../reports/qa/v06-github-sync-20261027.json"
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "tasks": [
+        "PROMO-01"
+      ],
+      "change": "用户批准制作四分钟实机宣发第一版，允许游戏英雄原声。新增独立制作任务，不改V05/V06结论。",
+      "evidence": [
+        "PROMO_VIDEO_20261027.md"
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "tasks": [
+        "V05"
+      ],
+      "change": "用户明确授权供朋友试玩，Sites第7版已公开；匿名进入战斗通过，未登录管理页/接口及虚构邮箱请求均403。真实所有者邮箱伪造检查被自动审批拒绝，所有者公开环境登录待验证；备份和完整公开验收仍开放。",
+      "evidence": [
+        "../../reports/qa/sites-public-access-20261027.json"
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "tasks": [
+        "PROMO-01"
+      ],
+      "change": "四分钟实机宣发第一版已本地交付，进行中→待验证；成片解码/尺寸时长/33帧抽查/音量和浏览器播放验证通过，待用户观感反馈。不改变V05/V06状态，也不包含视频公开发布。",
+      "evidence": [
+        "PROMO_VIDEO_20261027.md",
+        "../../reports/qa/promo-video-v1-20261027.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V05"
+      ],
+      "change": "用户报告手机Chrome卡在INITIALIZING超过10分钟，确认失败后自动重试；开始修复启动/菜单资源等待与恢复，保持现有公开站点及玩家存档。",
+      "evidence": []
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V05"
+      ],
+      "change": "V05-SITES-BOOT-001已实现三次自动重试、资源包45秒超时和可见恢复；故障注入自动进入菜单及持续失败恢复通过，2720项回归/类型/数据文档通过。Sites包已构建，上传中；原手机实际请求未捕获，保留实机复测。",
+      "evidence": [
+        "SITES_STARTUP_RETRY_20261028.md",
+        "../../reports/qa/sites-startup-retry-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V05"
+      ],
+      "change": "首页自动重试修复已发布现有公开Sites第8版，提交0943563；线上appBuildId与本次成品一致，菜单可见且启动无警告/错误。V05整体与手机实机复测保持开放。",
+      "evidence": [
+        "SITES_STARTUP_RETRY_20261028.md",
+        "../../reports/qa/sites-startup-retry-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V05"
+      ],
+      "change": "首页恢复修复的源码、压缩快照和验证记录已提交并推送GitHub体积优化版0f20f2c；Sites第8版源提交仍0943563。仅保存本批明确20文件；共享看板/交接及其他线程原改动未混入提交。临时测试服务器已停止，可重建打包/测试临时目录已清理，简要结论和复现代码保留。",
+      "evidence": [
+        "SITES_STARTUP_RETRY_20261028.md",
+        "../../reports/qa/sites-startup-retry-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V05"
+      ],
+      "change": "用户报告手机第三关崩溃；确认新游戏应直接放弃并覆盖旧局、不先结算，只提醒一次。开始独立新局替换事务及手机预加载内存路径修复，未将手机崩溃归因为已复现。",
+      "evidence": []
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V05"
+      ],
+      "change": "新局直接放弃旧局和一次覆盖提醒已实现；2727完整回归及追加2项检查通过。手机可选模型预加载与并发/驻留已收敛，但浏览器连接超时，未完成三关渲染验证，原机第三关崩溃仍待实机复测；不冒称已复现或关闭。",
+      "evidence": [
+        "SITES_MOBILE_NEW_RUN_20261028.md",
+        "../../reports/qa/sites-mobile-new-run-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V05"
+      ],
+      "change": "Sites第9版部署succeeded，源码c19e47e；一次覆盖提醒、新局放弃与失败保护及手机近期预加载/四路下载/四包驻留已上线。旧手机第三关崩溃及线上UI复验仍待验证，不将计划资源字节等同RAM实测。",
+      "evidence": [
+        "SITES_MOBILE_NEW_RUN_20261028.md",
+        "../../reports/qa/sites-mobile-new-run-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V05"
+      ],
+      "change": "第9版源码、压缩快照及验证记录已提交并推送GitHub体积优化版91b0775；已逐字核验压缩入口包含覆盖提醒、装备修订保护和手机预加载策略。临时服务和本任务构建/QA临时文件已清理；保留复现代码及简要结论。原机第三关崩溃继续待验证。",
+      "evidence": [
+        "SITES_MOBILE_NEW_RUN_20261028.md",
+        "../../reports/qa/sites-mobile-new-run-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "开始按用户要求调研体积优化版画质联动、分辨率与资源解码、解压负载及启动设备分档；以91b0775/私有转公开后的Sites第9版当前快照为基线，仅代码调查与方案，不实施或发布游戏修改。",
+      "evidence": []
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "体积优化版画质/分辨率/解码/设备初选调研完成：3742资源长度与SHA通过，DPR1三固定档同为1，音频全量PCM按48kHz估算约1.03GB但非实机内存。第9版既有4路/4包与近期预加载保留；推荐整体画质、设备初选、按场景音频/字节预算及分档贴图，KTX2仅小样评估。仅工具/报告/计划，无游戏修改、构建或发布；V06及手机崩溃验收保持开放。",
+      "evidence": [
+        "SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md",
+        "../../reports/qa/sites-quality-research-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户确认体积优化版画质联动、设备自动分档、按需解码和分档资源；KTX2先小样。开始实现，部署及实机验收分别记录。",
+      "evidence": [
+        "SITES_QUALITY_OPTIMIZATION_PLAN_20261028.md"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "按用户确认完成体积优化版画质/UI联动、重资源前自动初选、按需音频与解码预算、分档贴图及哈希包缓存。本地候选27897f510771；2736常规回归及26定向检查通过、类型/数据文档通过、5093文件校验通过。高低首战、热缓存、自定义恢复、三尺寸、关间/定向后期、切档失败/取消通过；模拟低内存PCM33.38MB。KTX2小样不全量采用。无提交/推送/部署，原手机及用户视觉听感继续待验证。",
+      "evidence": [
+        "SITES_QUALITY_IMPLEMENTATION_20261028.md",
+        "../../reports/qa/sites-quality-implementation-20261028.json",
+        "../../reports/qa/sites-quality-assets-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户明确授权将画质优化候选更新到现有Sites并推送当前远端分支；保留DB/BUCKET、玩家存档及当前public访问策略。开始核验发布来源与共享区改动归属。",
+      "evidence": [
+        "SITES_QUALITY_IMPLEMENTATION_20261028.md"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V05",
+        "V06"
+      ],
+      "change": "画质优化已发布现有公开Sites第13版（355c01a），应用构建27897f510771；403包经服务端SHA校验迁入原BUCKET隔离前缀，旧58包保留，临时上传关闭/密钥移除。403线上HEAD及7类完整哈希、独立Chrome低档首战通过，DB五表/原权限修订2/存档保持。v10构建限额及v12默认缓存500、回退与v13修复均有记录。GitHub实现28c7987已推送，资源交付源码/报告同分支补齐；V06待原手机/画质验证。",
+      "evidence": [
+        "SITES_QUALITY_DEPLOY_20261028.md",
+        "../../reports/qa/sites-quality-deploy-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户报告苹果Safari预下载完成后进入游戏重启；开始定位进入战场的内存/兼容路径。先修复验证，再更新Sites与远端Git，并提供Coze步骤；不把内存风险当作已确认的原机根因。",
+      "evidence": []
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "Safari 入场重复贴图浪费已修复为本地候选；Chrome 预下载后入场、Windows WebKit 渲染、画质切换/失败回退检查通过。贴图分配估算约1.07GB→0.82GB（-23.7%），不是总RAM。原手机终止原因和完整Safari验收仍缺证据；未提交/推送/更新Sites或Coze。",
+      "evidence": [
+        "SAFARI_ENTRY_20261028.md",
+        "../../reports/qa/safari-entry-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "按用户新要求排查当前战场无关资源常驻，优先实现不降画质的条件准备；低配置画质进一步缩减先提供具体方案。已确认首战全三族任务建筑/死亡与全英雄特效提前加载。",
+      "evidence": []
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "按关段/难度/种族/恢复状态准备任务建筑与虫巢，本地候选首战贴图分配估算815.5MB→559.2MB（-31.4%），资源字节和画质保持。2747项回归、类型/文档、实际第4关修复建筑及死亡、跨族例外、自动中档预下载/再入场检查通过；原iPhone未验证，Sites/Git未更新，低档进一步取舍未实施。",
+      "evidence": [
+        "BATTLE_MEMORY_SCOPE_20261028.md",
+        "../../reports/qa/battle-memory-scope-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "回应用户追问并对照原版2924d9b及第13版交付快照：首领奖励预定及名单代码未回退，任务建筑全量准备原版已存在；受限设备远期后台准备确曾为内存收紧。中低档贴图/渲染尺寸/特效已联动，进一步压缩方案与既有实现明确区分。本次只补核对记录，无游戏代码/部署变更。",
+      "evidence": [
+        "BATTLE_MEMORY_SCOPE_20261028.md",
+        "../../reports/qa/battle-memory-scope-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "完成用户要求的行业方案与艾泽拉斯幸存者检索：优先GPU压缩贴图、预算/引用释放及依赖准备；复核已做KTX2小样而非重复提案。原游戏仅确认WebGPU入口，未证实资源大小/实机稳定性。仅研究记录，无代码/画质/部署变更。",
+      "evidence": [
+        "BATTLE_MEMORY_SCOPE_20261028.md",
+        "../../reports/qa/battle-memory-scope-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户授权按入场峰值→KTX2对照→缓存释放继续优化，尽量保持画质，验证通过后更新现有部署。开始记录同条件峰值；物理iPhone结论另行验证。",
+      "evidence": [
+        "BATTLE_MEMORY_SCOPE_20261028.md"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "V06-MEMORY-003：入场峰值、43张同尺寸KTX2、编码缓存预算及后台回填修复完成，已发布Sites第15版。首战贴图估算559→441MB，Windows同条件进程峰值约3.59→3.47GB；线上预下载、首战和再次开局通过。原iPhone Safari重载原因与实机复测仍开放，未宣称MVP最终验收。",
+      "evidence": [
+        "RUNTIME_MEMORY_20261028.md",
+        "../../reports/qa/runtime-memory-20261028.json"
       ]
     }
   ],

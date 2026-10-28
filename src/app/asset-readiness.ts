@@ -1,11 +1,12 @@
-import {applyPendingTextureTier} from '../render/loaders/managed-textures';
-import {optimizedGraphics} from '../platform/graphics-profile';
+import {applyPendingTextureTier,pruneRetiredTextureBindings} from '../render/loaders/managed-textures';
+import {releaseGpuDecoder} from '../render/loaders/gpu-textures';
+import {optimizedGraphics,runtimeBudget} from '../platform/graphics-profile';
 import {audioPreloadBanks} from './audio-preload-plan';
 import type {BackgroundPreparation} from './background-preparation';
 import {campaignMapAssets,campaignPreloadAssets,type CampaignMapRecipe} from '../data/campaign-map';
 import {environmentAssetIds,MAP_VISUAL_PROFILES} from '../render/terrain/map-visual-profile';
 import type {CampaignTheme} from '../data/campaign-landscape';
-import {httpAssetStatus} from '../assets/http-store';
+import {httpAssetStatus,httpStore} from '../assets/http-store';
 import {RESCUE_PRESENTATION} from '../data/economy';
 import type {RunSnapshot} from '../simulation/persistence/run-snapshot';
 import type {World} from '../simulation/world';
@@ -13,13 +14,14 @@ import type {BattleRenderer} from '../render/scene/battle-renderer';
 import type {Race} from '../data/races';
 import type {HeroId} from '../data/heroes';
 import type {PresetSlot} from '../simulation/progression/permanent-profile';
+import type {Difficulty} from '../data/stages';
 import type {AudioEffects} from '../render/effects/audio';
 import {ASSETS} from '../assets/manifest';
 import {prepareEmbeddedAssetIds} from '../assets/offline-pack';
 
 export type ReadinessKind='new'|'load'|'endless'|'reinforcement';
 export type ReadinessState={kind:ReadinessKind|null;phase:'idle'|'read'|'models'|'audio'|'gpu'|'validate'|'ready'|'error';done:number;total:number;label:string;error:string|null;progress?:number};
-export type ReadinessRequest={snapshot?:RunSnapshot;race?:Race;hero?:HeroId|null;preset?:PresetSlot;campaignMap?:CampaignMapRecipe;stageAdvance?:boolean};
+export type ReadinessRequest={snapshot?:RunSnapshot;race?:Race;hero?:HeroId|null;preset?:PresetSlot;difficulty?:Difficulty;campaignMap?:CampaignMapRecipe;stageAdvance?:boolean};
 
 /** A single entrance gate for every operation that can reveal new battle assets. */
 export class AssetReadinessCoordinator {
@@ -82,7 +84,7 @@ export class AssetReadinessCoordinator {
    const models=report('models',.35,.37);models(0,1,'准备部队');
    if(kind==='load'&&request.snapshot)await this.view.prepareSnapshotAssets(request.snapshot,models);
    else if(kind==='endless')await this.view.prepareEndlessAssets(models);
-   else if(kind==='new'&&request.race)await this.view.prepareNewRunAssets(request.race,request.hero??null,models,request.preset);
+   else if(kind==='new'&&request.race)await this.view.prepareNewRunAssets(request.race,request.hero??null,models,request.preset,request.difficulty);
    else if(kind==='reinforcement')await this.view.prepareCurrentAssets(models);
    await this.view.waitForPendingAssets();
    if(generation!==this.generation)return false;
@@ -101,6 +103,9 @@ export class AssetReadinessCoordinator {
    if(warmed)await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
    if(generation!==this.generation)return false;
    this.preparedKey=prepareKey;
+   // The optional lane is drained and required models are already parsed. Drop
+   // duplicate encoded Blob copies before starting any resumable stage job.
+   if(optimizedGraphics()){httpStore()?.trimModelCache(runtimeBudget().recentOnly?12*1024**2:48*1024**2);pruneRetiredTextureBindings();releaseGpuDecoder();}
    if(this.background&&(request.stageAdvance||kind==='endless')){
     const jobs=this.view.stagePreparationJobs(cancelled=>this.background!.checkpoint(cancelled,true,true));
     await this.background.prepareStage(jobs,Math.max(0,5000-(performance.now()-this.beganAt)),entrance.signal);
@@ -111,7 +116,7 @@ export class AssetReadinessCoordinator {
    if(kind==='load'&&request.snapshot)this.world.restoreRun(request.snapshot,true);
    if(this.view.modelErrors.length)throw Error(this.view.modelErrors.at(-1));
    this.update({phase:'ready',done:1,total:1,progress:1,label:(kind==='reinforcement'?'资源就绪':'就绪 · 请确认继续')+(httpAssetStatus()?.warning?' · 本次资源未能全部缓存，下次可能需补下载':'')});const token=this.readyToken;if(generation===this.generation&&token)this.onReady(kind,token);return true;
-  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}finally{if(ownsView){if(generation!==this.generation)this.view.modelErrors=errorsBefore;this.view.preparationControl=undefined;this.view.entryPreparation=false;}release?.();}
+  }catch(error){if(generation===this.generation){this.generation++;this.update({phase:'error',error:String((error as Error).message),label:'资源准备失败'});}return false;}finally{if(ownsView){if(generation!==this.generation)this.view.modelErrors=errorsBefore;this.view.preparationControl=undefined;this.view.entryPreparation=false;releaseGpuDecoder();}release?.();}
  }
 }
 

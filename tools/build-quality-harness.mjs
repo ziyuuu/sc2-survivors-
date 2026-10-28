@@ -4,9 +4,11 @@ import fs from 'node:fs/promises';
 import {gzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
 import {packedLauncher} from './packed-startup.mjs';
-const root='dist/quality-20261028',out=root+'/harness';
-await build({base:'./',publicDir:false,plugins:[{name:'quality-test-hooks',enforce:'pre',transform(code,id){if(!id.replaceAll('\\','/').endsWith('/src/main.ts'))return;
- return `import {httpStore} from './assets/http-store';import {applyPendingTextureTier} from './render/loaders/managed-textures';import {deviceProbeReport} from './platform/device-probe';\n`+code.replace('startGame().catch(',`startGame(529).then(app=>{globalThis.__QUALITY_APP__={...app,httpStore,applyPendingTextureTier,deviceProbeReport};}).catch(`);
+const root=process.argv[2]??'dist/quality-20261028',out=root+'/harness';
+await build({base:'./',publicDir:false,plugins:[{name:'quality-test-hooks',enforce:'pre',transform(code,id){
+ if(id.replaceAll('\\','/').endsWith('/src/render/loaders/managed-textures.ts'))return code+`\nexport function localTextureInventory(){return [...bindings.values()].map(b=>({id:b.id,image:b.image,width:b.source.data?.width,height:b.source.data?.height,live:b.textures.filter(r=>r.deref()).length}));}\n`;
+ if(!id.replaceAll('\\','/').endsWith('/src/main.ts'))return;
+ return `import {spawnMission} from './simulation/missions/runtime';import {httpStore} from './assets/http-store';import {applyPendingTextureTier,localTextureInventory} from './render/loaders/managed-textures';import {deviceProbeReport} from './platform/device-probe';\n`+code.replace('startGame().catch(',`startGame(529).then(app=>{globalThis.__QUALITY_APP__={...app,httpStore,applyPendingTextureTier,deviceProbeReport,localTextureInventory,spawnMission};}).catch(`);
 }}],build:{outDir:out,emptyOutDir:true,minify:true,target:'es2022'}});
 const html=await fs.readFile(out+'/index.html','utf8'),entry=html.match(/src="\.\/([^" ]+\.js)"/)[1],source=await fs.readFile(out+'/'+entry,'utf8');
 const info=JSON.parse(await fs.readFile(root+'/web/web-release.json','utf8')),packedInfo=JSON.parse(await fs.readFile(root+'/public/web-release.json','utf8')),original=JSON.parse(await fs.readFile(root+'/web/'+info.manifest,'utf8')),packed=JSON.parse(await fs.readFile(root+'/public/'+packedInfo.manifest,'utf8'));

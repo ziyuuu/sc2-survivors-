@@ -18,6 +18,8 @@ import {prepareFloatSkinIndices} from '../units/skin-index-format';
 import {cloneForPreparation} from './preparation-clone';
 import type {PreparationJob} from '../../app/background-preparation';
 import {openingPreloadModels,campaignPreloadModels,plannedBossPreloadModels} from '../../app/battle-preload-plan';
+import {battleScenePreload,type BattleSceneScope} from '../../app/battle-scene-preload';
+import type {Difficulty} from '../../data/stages';
 import {bodyOutline} from '../units/body-outline';
 import {HealthBars,type HealthBarMode} from '../units/health-bars';
 import {CameraController,type AutoFrame,type CameraMode} from './camera-controller';
@@ -102,6 +104,7 @@ import {displayModelKey,displayActiveModelKey,displayDeathModelKey,displayAssetM
 import {BarrierMaterialTimeline} from '../materials/source-tracks';
 import {heroFeedbackEvent,weaponWorldPoint} from '../effects/hero-feedback';
 import {BattleEffects} from '../effects/battle-effects';
+import {configureGpuTextures} from '../loaders/gpu-textures';
 import {statusReadout} from '../../ui/unit-identity';
 import {loadQuality,saveQuality,renderPixelRatio,type RenderQuality,loadAnimationMode,saveAnimationMode,samplePoseClock,type AnimationMode,type PoseClockState} from '../settings/quality';
 import {AdaptiveResolution,AdaptiveGpuTimer} from '../settings/adaptive-quality';
@@ -155,6 +158,7 @@ export class BattleRenderer {
  constructor(readonly canvas:HTMLCanvasElement,readonly world:World){
   try{this.cameraShake=localStorage.getItem('sc2.cameraShake')!=='false';}catch{}
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+  configureGpuTextures(this.renderer);
   this.renderer.debug.onShaderError=(gl,program,vertex,fragment)=>{const error='Shader: '+gl.getProgramInfoLog(program)+' / '+gl.getShaderInfoLog(vertex)+' / '+gl.getShaderInfoLog(fragment);this.modelErrors.push(error);console.error(error);};
   this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1;
   this.renderer.setClearColor(0x171d20);this.scene.fog=new THREE.FogExp2(0x202326,.009);
@@ -541,11 +545,16 @@ export class BattleRenderer {
   const models=this.backgroundPreloadModels();
   const epoch=this.contextEpoch,runId=this.world.runId,cancelled=()=>epoch!==this.contextEpoch||runId!==this.world.runId;
   const ids=new Set(modelPreloadAssets([...models].map(([key,type])=>[displayAssetModelKey(key),type] as const)));
+  const fileOwners=new Map<string,string[]>();
+  for(const [key,type]of models)for(const id of modelPreloadAssets([[displayAssetModelKey(key),type]]))fileOwners.set(id,[...(fileOwners.get(id)??[]),displayLoadModelKey(key,type)]);
+  // An encoded model may have been retired after parsing. Its live batches own
+  // all forms already; an optional file job must not refill that retired Blob.
+  const fileReady=(id:string)=>!!assetUrl(id)||!!fileOwners.get(id)?.every(key=>this.gpu.has(key));
   for(const [key,type] of models)for(const id of modelPreloadAssets([[displayAssetModelKey(key),type]]))for(const texture of unitMaterialDependencies(id.slice(6)))ids.add(texture);
   const modelJob=(key:string,type:UnitType,priority=false):PreparationJob=>({key:`${priority?'boss':'roster'}:${epoch}:${runId}:${key}`,priority,paced:true,isReady:()=>this.gpu.has(displayLoadModelKey(key,type)),run:async()=>{if(!await this.streamUnitVariant(key,type,cancelled=>checkpoint(cancelled,priority)))throw Error('后台模型准备未完成：'+key);}});
   const jobs:PreparationJob[]=[...[...plannedBossPreloadModels(this.world.expedition.firstBossLoot)].map(([key,type])=>modelJob(key,type,true)),...[...models].map(([key,type])=>modelJob(key,type))];
   if(!this.memoryConstrainedPreload||this.world.endless||this.world.stage>=17)for(const id of ['model.fort.bunker','model.fort.bunker.death','model.fort.repair','model.fort.repair.death','map.endless'])jobs.push({key:`template:${epoch}:${runId}:${id}`,paced:true,isReady:()=>this.staticTemplateReady(id),run:()=>this.streamEndlessTemplate(id,checkpoint)});
-  return [...jobs,...[...ids].filter(id=>!assetUrl(id)).map(id=>({key:`file:${epoch}:${runId}:${id}`,paced:true,isReady:()=>!!assetUrl(id),run:async()=>{await checkpoint(cancelled);await prepareEmbeddedAssetIds([id]);}}))];
+  return [...jobs,...[...ids].filter(id=>!fileReady(id)).map(id=>({key:`file:${epoch}:${runId}:${id}`,paced:true,isReady:()=>fileReady(id),run:async()=>{await checkpoint(cancelled);if(!fileReady(id))await prepareEmbeddedAssetIds([id]);}}))];
  }
  private async commonTask(key:string,run:()=>Promise<unknown>){if(this.preparedCommon.has(key))return;await run();if(key==='effects'&&this.fx.errors.length||key==='pickups'&&this.pickups.errors.length)throw Error('公共资源未完成：'+key);this.preparedCommon.add(key);}
  private commonAssetIds(){return [...ASSETS.values()].filter(a=>a.status==='available'&&(a.kind==='effect-texture'||a.kind==='combat-effect-model'||a.kind==='combat-effect-texture'||['p4.texture.beam','p4.texture.flare','p4.texture.heal','model.hero-upgrade.vikingfightermissile','model.baneling','model.loot.mineral','model.loot.gas','model.loot.large','model.projectile.marauder','model.projectile.hydralisk'].includes(a.id))).map(a=>a.id);}
@@ -599,8 +608,6 @@ export class BattleRenderer {
   if(!skipMap&&this.world.terrain?.definition){this.mapTerrain=this.world.terrain;this.mapView=this.world.terrain instanceof RadialTerrain?await createCampaignMap(this.scene,this.world.terrain):await Promise.reject<MapView>(new Error('不支持的战役地图'));this.mapView.setVisible(true);this.mapViews.set(this.mapTerrain,this.mapView);this.terrainUpdate=()=>this.mapView?.update(this.camera,this.sceneShadows.enabled?this.sceneShadows.view:undefined);}else if(!skipMap)this.terrainUpdate=await createTerrain(this.scene,this.world);
   for(const [key,height] of [['drone',.7],['egg',1.3]] as const){if(this.gpu.has(key))continue;const url=assetUrl('model.'+key);if(!url){this.modelErrors.push(key+': missing model');continue;}try{this.gpu.set(key,await this.createAnimatedBatch(await loadUnitMaterialGltf(loader,url,key),this.scene,height));}catch(e){this.modelErrors.push(key+': '+String(e));}}
   await this.prepareWorkerDeath('drone',.7);
-  if(!this.hiveDeathTemplate){await prepareEmbeddedAssetIds(['model.hatchery.death']);const url=assetUrl('model.hatchery.death');if(!url)throw Error('主巢死亡资源未就绪');this.hiveDeathTemplate=await restoreSc2Materials(await loader.loadAsync(url));await this.compilePresentation(this.hiveDeathTemplate.scene,this.camera,this.scene);await this.preloadTextures(this.hiveDeathTemplate.scene);}
-  const hiveUrl=assetUrl('model.hive');if(hiveUrl){try{const g=await loader.loadAsync(hiveUrl);const box=new THREE.Box3().setFromObject(g.scene),size=box.getSize(new THREE.Vector3());g.scene.scale.setScalar(6/Math.max(size.x,size.z));this.hiveTemplate=g.scene;}catch(e){this.modelErrors.push('hive: '+String(e));}}
   this.filterTextures(this.scene);const visible:THREE.Object3D[]=[];for(const b of this.gpu.values())for(const m of b.allMeshes){if(!m.visible){visible.push(m);m.visible=true;}}
   try{
    // Wait for parallel shader compilation, then upload effect atlases before their first combat use.
@@ -680,20 +687,26 @@ export class BattleRenderer {
  private missionViews=new Map<number,{root:THREE.Object3D;mixer:THREE.AnimationMixer;height:number}>();
  private missionDeathTemplates=new Map<string,{root:THREE.Group;clip:THREE.AnimationClip}>();
  private missionDeaths=new Map<number,{root:THREE.Object3D;mixer:THREE.AnimationMixer;clip:THREE.AnimationClip;at:number}>();
- private async prepareMissionAssets(){
+ private async prepareMissionAssets(scope:BattleSceneScope){
+  const plan=battleScenePreload(scope);
+  if(plan.hive){
+   const loader=new ManagedGLTFLoader();await prepareEmbeddedAssetIds(['model.hive','model.hatchery.death']);
+   if(!this.hiveDeathTemplate){const url=assetUrl('model.hatchery.death');if(!url)throw Error('主巢死亡资源未就绪');this.hiveDeathTemplate=await restoreSc2Materials(await loader.loadAsync(url));await this.compilePresentation(this.hiveDeathTemplate.scene,this.camera,this.scene);await this.preloadTextures(this.hiveDeathTemplate.scene);}
+   if(!this.hiveTemplate){const url=assetUrl('model.hive');if(!url)throw Error('主巢资源未就绪');const g=await loader.loadAsync(url),box=new THREE.Box3().setFromObject(g.scene),size=box.getSize(new THREE.Vector3());g.scene.scale.setScalar(6/Math.max(size.x,size.z));this.hiveTemplate=g.scene;await this.compilePresentation(this.hiveTemplate,this.camera,this.scene);await this.preloadTextures(this.hiveTemplate);}
+  }
   if(!this.funProps.ready){const props=await this.funProps.prepare();this.filterTextures(props);await this.preloadTextures(props);await this.compilePresentation(props,this.camera,this.scene);}
   if(!this.rescueBeaconTexture){const id='combat-fx.texture.2f6012318376ba66e4436768';await prepareEmbeddedAssetIds([id]);const url=assetUrl(id);if(!url)throw Error('原版营救光标资源缺失');this.rescueBeaconTexture=await sharedMaterialTextures.image(url);}
-  for(const key of ['scv','drone','probe']){const height=key==='scv'?1.35:key==='probe'?.9:.7;if(!this.gpu.has(key)){await prepareEmbeddedAssetIds(['model.'+key]);const url=assetUrl('model.'+key);if(!url)throw Error('任务工人模型缺失：'+key);this.gpu.set(key,await this.createAnimatedBatch(await loadUnitMaterialGltf(new ManagedGLTFLoader(),url,key),this.scene,height));}await this.prepareWorkerDeath(key,height);}
+  for(const key of plan.workers){const height=key==='scv'?1.35:key==='probe'?.9:.7;if(!this.gpu.has(key)){await prepareEmbeddedAssetIds(['model.'+key]);const url=assetUrl('model.'+key);if(!url)throw Error('任务工人模型缺失：'+key);this.gpu.set(key,await this.createAnimatedBatch(await loadUnitMaterialGltf(new ManagedGLTFLoader(),url,key),this.scene,height));}await this.prepareWorkerDeath(key,height);}
   // Buildings use original skeletal meshes. Unit instancing adds pose, aim and
   // apparition attributes which exceed WebGL's 16 slots on these source meshes.
-  for(const key of ['command_center','nexus','barracks','factory','starport','hatchery','gateway','robotics','stargate','mission.tower']){
+  for(const key of plan.buildings){
    if(this.missionTemplates.has(key))continue;await prepareEmbeddedAssetIds(['model.'+key]);const url=assetUrl('model.'+key);if(!url)throw Error('任务原模型缺失：'+key);
    const gltf=await loadUnitMaterialGltf(new ManagedGLTFLoader(),url,key);let embedded=false;gltf.scene.traverse(n=>{if(n.userData.sc2FortMaterials)embedded=true;});if(embedded)await prepareFortMaterials(gltf);const clip=gltf.animations.find(c=>c.name==='Stand')??gltf.animations.find(c=>/^Stand/.test(c.name));if(!clip)throw Error('任务原版待机动作缺失：'+key);
    updateFortMaterials(gltf.scene,clip.name,0);const box=sc2BodyBounds(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=(key==='mission.tower'?2.5:4.8)/Math.max(size.x,size.z),root=new THREE.Group(),model=clone(gltf.scene);
    model.scale.setScalar(scale);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);root.add(model);root.name='mission-model:'+key;
    await this.compilePresentation(root,this.camera,this.scene);this.filterTextures(root);await this.preloadTextures(root);await this.prewarmBatches([],false,[root]);this.missionTemplates.set(key,{root,clip,height:size.y*scale});
   }
-  for(const key of ['barracks','factory','starport','hatchery','gateway','robotics','stargate']){
+  for(const key of plan.deaths){
    if(this.missionDeathTemplates.has(key))continue;const id='model.'+key+'.death';await prepareEmbeddedAssetIds([id]);const url=assetUrl(id);if(!url)throw Error('任务死亡模型缺失：'+key);
    const gltf=await loadUnitMaterialGltf(new ManagedGLTFLoader(),url,key+'.death');let embedded=false;gltf.scene.traverse(n=>{if(n.userData.sc2FortMaterials)embedded=true;});if(embedded)await prepareFortMaterials(gltf);
    const clip=gltf.animations.find(c=>/^Death/.test(c.name));if(!clip)throw Error('任务死亡动作缺失：'+key);
@@ -733,8 +746,8 @@ export class BattleRenderer {
    if(kind!=='cover')await prepareFortMaterials(gltf);const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3()),scale=EQUIPMENT_FORTS[kind as EquipmentFortKind].width/Math.max(size.x,size.z),group=new THREE.Group(),model=clone(gltf.scene);model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);model.scale.setScalar(scale);group.add(model);updateFortMaterials(group,clip.name,0);(death?this.fortDeathTemplates:this.fortTemplates).set(kind,group);this.fortClips.set(kind+':'+(death?'death':'stand'),clip);const attack=gltf.animations.find(c=>c.name==='Attack');if(!death&&kind!=='cover'){if(!attack)throw Error('舰装炮台攻击动作缺失：'+id);this.fortClips.set(kind+':attack',attack);}await this.compilePresentation(group,this.camera,this.scene);await this.preloadTextures(group);await this.prewarmBatches([],false,[group]);
   }
  }
- async prepareNewRunAssets(race:Race,hero:HeroId|null,progress:(done:number,total:number,label:string)=>void=()=>{},preset?:PresetSlot){
-  await this.prepareRescueAssets(race);await this.prepareMissionAssets();
+ async prepareNewRunAssets(race:Race,hero:HeroId|null,progress:(done:number,total:number,label:string)=>void=()=>{},preset?:PresetSlot,difficulty:Difficulty=this.world.difficulty){
+  await this.prepareRescueAssets(race);await this.prepareMissionAssets({race,difficulty,stage:1});
   const levels=this.world.permanentProfile.getPreset(race,preset??this.world.permanentProfile.activePresetFor(race))?.levels;
   const required=openingPreloadModels(race,levels);for(const model of equipmentOpeningModels(this.world,race,hero,preset)){if(!isAirHeroType(model.type))required.set(model.type,model.type);required.set(displayLoadModelKey(model.key,model.type),model.type);}
   if(hero){const data=HEROES[hero];if(!data||data.race!==race)throw Error('开局英雄与种族不符');required.set(displayLoadModelKey(data.model,data.baseFamily),data.baseFamily);}
@@ -756,13 +769,13 @@ export class BattleRenderer {
   return required;
  }
  async prepareCurrentAssets(progress:(done:number,total:number,label:string)=>void=()=>{}){
-  if(this.world.starship.enabled)await this.prepareEquipmentFortAssets();await this.prepareRescueAssets(this.world.expedition.race);await this.prepareMissionAssets();
+  if(this.world.starship.enabled)await this.prepareEquipmentFortAssets();await this.prepareRescueAssets(this.world.expedition.race);await this.prepareMissionAssets({race:this.world.expedition.race,difficulty:this.world.difficulty,stage:Math.min(18,this.world.stage+(this.world.phase==='reward'?1:0)),endless:!!this.world.endless,bodyModels:[...this.world.missions.bodies.values(),...corruptSiteBodies(this.world)].map(b=>b.model),hasHive:!!this.world.hive||this.world.expansionHives.size>0});
   const required=this.currentModels();
   await prepareEmbeddedAssetIds(modelPreloadAssets([...required].filter(([key])=>!this.gpu.has(key)).map(([key,type])=>[displayAssetModelKey(key),type] as const)));
   let done=0;for(const [key,type] of required){if(!this.gpu.has(key)&&!await this.ensureUnitVariant(key,type))throw Error('增援模型未就绪：'+key);progress(++done,required.size,key);}
  }
  async prepareSnapshotAssets(snapshot:RunSnapshot,progress:(done:number,total:number,label:string)=>void=()=>{}){
-  await this.prepareRescueAssets(snapshot.state.expedition.race);await this.prepareMissionAssets();
+  await this.prepareRescueAssets(snapshot.state.expedition.race);await this.prepareMissionAssets({race:snapshot.config.race,difficulty:snapshot.config.difficulty,stage:Math.min(18,snapshot.state.stage+(snapshot.state.phase==='reward'?1:0)),endless:snapshot.state.battlefield.mode==='endless',bodyModels:[...[...(snapshot.state.missions?.bodies.values()??[])].map(b=>b.model),...(snapshot.state.encounters?.expanded.short?.corrupt?[snapshot.state.encounters.expanded.short.corrupt.site.model]:[])],hasHive:!!snapshot.state.hive||(snapshot.state.expansionHives?.size??0)>0});
   const required:Map<string,UnitType>=this.raceModels(snapshot.config.race);
   for(const family of snapshot.state.expedition.familySlots)required.set(family,family);
   for(const entry of snapshot.state.expedition.bossLootQueue){const effect=entry.reward.expeditionEffect;if(effect.kind==='elite')for(const elite of Object.values(ELITES).filter(e=>e.family===effect.family))required.set(elite.model,elite.family);else if(effect.kind==='hero'){const hero=HEROES[effect.heroId as HeroId];required.set(displayLoadModelKey(hero.model,hero.baseFamily),hero.baseFamily);}}

@@ -1,19 +1,25 @@
 {
-  "appBuildId": "27897f5107714c97b660e39525ecd25b5c709cebfa30158a3e4ea127afcfe0b9",
+  "appBuildId": "2e9af5b4b96b7afd9549aaaff3f61e9c69722e5e947665311976eed993f215f8",
   "runSchema": 26,
   "rulesId": "mvp-1.0",
   "mapId": "campaign-five-v3",
   "assetCount": 3845,
-  "fileCount": 5093,
-  "assetBytes": 797606515,
-  "logicalBytes": 800690237,
+  "fileCount": 5136,
+  "assetBytes": 820251503,
+  "logicalBytes": 823335225,
   "sharedBytes": 3083722,
-  "manifest": "asset-manifest.1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e.json",
-  "release": "1fe65bbb74539ede61b93b7fae870f13bc0bdaf2e03b996d5b2370d2e425ea2e",
+  "manifest": "asset-manifest.ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2.json",
+  "release": "ae1ee84c46fba61f6d2ab38a19032991daaf5bd0f3e127d0ac43371577355bb2",
   "source": "reports/local/asset-reachability.json",
   "sourceWebRelease": "885e128519e431e7e83975a31fd93dcc14b246585837415f95ae395acf858bfa",
-  "compressedEntrySha256": "39e873636cd213c9635b5c8620864fe6f6aa53e07b2aeb8ba1ae70a6532abc5b",
+  "compressedEntrySha256": "7a44fd8243293718bde9800374de6f5d332787e534bf45dc0c0ceccccdf10fd1",
   "qualityVariants": true,
-  "packedBytes": 435701130,
-  "variantRecordCount": 1375
+  "packedBytes": 458346118,
+  "variantRecordCount": 1375,
+  "sharedImageIdentities": 1,
+  "gpuTextureSidecars": {
+    "count": 43,
+    "bytes": 22644988,
+    "source": "tier-invariant normal/specular; UASTC level3; same dimensions"
+  }
 }
