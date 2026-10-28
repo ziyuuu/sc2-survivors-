@@ -1056,14 +1056,34 @@
         "ProcessId": 25920
       }
     ],
-    "rawReports": "pending removal after concise report and Git delivery",
+    "rawReports": {
+      "status": "removed",
+      "path": "reports/local/runtime-memory-lifecycle-20261028",
+      "files": 192,
+      "bytes": 96962196,
+      "activeProcessCheck": "No node/python/browser using the task directory or owned server ports",
+      "reparsePoints": 0,
+      "trackedFiles": 0
+    },
     "retained": [
       "dist/runtime-lifecycle-20261028/final/web",
       "dist/runtime-lifecycle-20261028/final/public",
       "dist/runtime-lifecycle-20261028/final/delivery-inventory.json",
       "sites/runtime-lifecycle-20261028.tar.gz",
       "Existing V04/Current and version15 rollback inputs"
-    ]
+    ],
+    "totalRemovedBytes": 4325107230,
+    "totalRemovedFiles": 4809
   },
-  "next": "Original iPhone 17 Pro/iOS26.7.1, automatic quality, existing URL: download-all, first3stages, repeatentry and background/foreground; do not erase saved data."
+  "next": "Original iPhone 17 Pro/iOS26.7.1, automatic quality, existing URL: download-all, first3stages, repeatentry and background/foreground; do not erase saved data.",
+  "git": {
+    "branch": "体积优化版",
+    "repository": "https://github.com/ziyuuu/sc2-survivors-",
+    "deliveryCommit": "b9de9c7d9198de0b37c55b636f8d7f50578b7e5c",
+    "deliveryRemoteVerified": true,
+    "verification": "git ls-remote after successful non-force push; final documentation-only closure commit follows",
+    "main": "2924d9bb3330f10ad78462b6f96efda163c5eff3",
+    "mainUnchanged": true,
+    "authorization": "User: 修复验证通过后再更新 Sites 和远端 Git; continued approved runtime-memory plan."
+  }
 }

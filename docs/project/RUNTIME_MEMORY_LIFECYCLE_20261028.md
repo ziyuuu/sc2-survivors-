@@ -61,6 +61,6 @@ B单独对照：高档保持458.86 MB；高→低后由450.47降至436.91 MB，�
 
 Sites第16版原生部署状态为 `succeeded`，网址为 [星际幸存者](https://sc2-v04-private-test-20261027.yuuuu-g.chatgpt.site)，公开受众修订2、环境修订3、DB/BUCKET及认证保持。源码提交 `4e321710b48de427aef805f205b24e56508b0f74`；部署 `appgdep_6ae1ea4e5cbc8191b553aaaa24718706`。本地应用归档56,620,879字节，SHA-256 `e99fd48551ceecd72c64af5bc9236b8c14d64e8b2369c28933437fc8342aaf6c`，排除本机检测入口。
 
-共享源码B提交 `c1b0dea`，C/D/E提交 `968278f`，离线兼容修复 `1225390`。GitHub同步与线上检查在结束后补记。回退使用第15版，旧hash资源保持可用；本批没有数据库、存档迁移或清理。
+共享源码B提交 `c1b0dea`，C/D/E提交 `968278f`，离线兼容修复 `1225390`。本批源码、Sites第16版快照与验证记录已通过交付提交 `b9de9c7d9198de0b37c55b636f8d7f50578b7e5c` 推送至GitHub「体积优化版」，远端读取一致；`main`仍为 `2924d9b`，未合并。推送沿用用户此前“修复验证通过后再更新 Sites 和远端 Git”的授权。回退使用第15版，旧hash资源保持可用；本批没有数据库、存档迁移或清理。
 
-复现入口：`runtime-memory-inventory.mjs`、`verify-safari-entry.mjs`、`verify-retained-unit-assets.mjs`、`verify-scoped-combat-assets.mjs`、`verify-three-stage-entry.mjs`及已有画质/任务边界工具。详细日志与截图属于临时验证材料，结束后按保留规则清理，只长期保留此结论、简要QA和复现代码。
+复现入口：`runtime-memory-inventory.mjs`、`verify-safari-entry.mjs`、`verify-retained-unit-assets.mjs`、`verify-scoped-combat-assets.mjs`、`verify-three-stage-entry.mjs`及已有画质/任务边界工具。已按保留规则清理本轮完成的中间构建、检测入口、离线冒烟包，以及192份截图、详细日志和临时记录；四个本轮测试服务已停止。当前交付、简要QA、复现代码、V04/Current正式成品和第15版回退输入保持。

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-28",
-  "revision": 263,
+  "revision": 264,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -10002,6 +10002,17 @@
         "V06"
       ],
       "change": "V06-MEMORY-005工程验收和Sites第16版部署/线上复核完成：3对本族预下载样本复现贴图/CPU数组/编译数量收益，耗时无稳定加速，总进程峰值重叠；原iPhone待验证。全部预下载另补线上两次入场通过，纠正此前完整预下载的笼统表述。发现并关闭单文件模块URL启动错误；V05保持，V06整体待验证，GitHub同步收尾中。",
+      "evidence": [
+        "RUNTIME_MEMORY_LIFECYCLE_20261028.md",
+        "../../reports/qa/runtime-memory-lifecycle-20261028.json"
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "tasks": [
+        "V06"
+      ],
+      "change": "第16版GitHub同步及收尾完成：交付提交b9de9c7已推送体积优化版并核对远端，main仍2924d9b。清理本轮已完成的中间构建、检测入口、截图与详细日志，保留当前交付及第15版回退输入。V06整体和原iPhone验收继续待验证，未更新Coze或阿里云。",
       "evidence": [
         "RUNTIME_MEMORY_LIFECYCLE_20261028.md",
         "../../reports/qa/runtime-memory-lifecycle-20261028.json"
