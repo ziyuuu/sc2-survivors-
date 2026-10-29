@@ -1,7 +1,7 @@
 {
   "date": "2026-10-29",
   "task": "V06-INTERMISSION-PERF-001",
-  "status": "Packaged; Git sync pending; Coze/Sites not deployed",
+  "status": "Code and 4-file frontend pushed and verified; Coze/Sites not deployed",
   "sourceBaseline": "ff8140b118db8a051ca67724f77839241312acf2",
   "audioSourceSha256": "a5651a86a22522967f0f60f65c313532dd352ac006274099ba9d213d8c6bc607",
   "patch": {
@@ -83,8 +83,13 @@
   },
   "git": {
     "branch": "体积优化版",
-    "committed": false,
-    "pushed": false
+    "codeCommit": "854fe1f2b61250d1371094f8520af7125ffcdf9f",
+    "committed": true,
+    "pushed": true,
+    "verifiedRemoteCodeHead": "854fe1f2b61250d1371094f8520af7125ffcdf9f",
+    "main": "2924d9bb3330f10ad78462b6f96efda163c5eff3",
+    "fileCount": 19,
+    "followingDocumentationOnlyCommit": true
   },
   "deployments": {
     "coze": false,
@@ -96,5 +101,5 @@
     "Source performance comparisons are fixed local fixtures; no additional full-game or sustained performance matrix.",
     "Root-site HTTP checks do not inspect Coze deployment settings."
   ],
-  "retention": "Keep deliverable ZIP and patch directory for pending Coze update. Remove completed smoke screenshots/log and intermediate web/packed build after summary."
+  "retention": "Completed smoke images/log and intermediate web/packed directories removed; 1,469,732,257 bytes. Retained ZIP and patch directory for pending Coze update."
 }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-29",
-  "revision": 276,
+  "revision": 277,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2767,7 +2767,7 @@
         "COZE_INTERMISSION_UPDATE_20261029.md",
         "../../reports/qa/intermission-delivery-20261029.json"
       ],
-      "result": "本轮登记11项无尽试玩反馈，确认iPhone 17 Pro/Coze及批量分解/销毁。压缩版关间重复音频解码已修复：固定本机战役/无尽16中位数1384.2→77.2 ms、1806.6→136.5 ms；PCM预算不变，音频补回及保存进入17轮通过。核心2771项回归、最终51项定向与类型/数据检查通过。未提交推送部署；原机和其他反馈仍开放。",
+      "result": "11项无尽反馈已登记。关间音频重复解码修复的固定本机战役/无尽16中位数1384.2→77.2 ms、1806.6→136.5 ms；核心2771项、最终51项定向和类型/数据检查通过。修复及4文件前端854fe1f已推体积优化版并核对远端，Coze增量包/步骤已准备；未部署，原iPhone及其他反馈仍待验证。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -2879,7 +2879,7 @@
           "resolved": false,
           "scope": "用户在iPhone 17 Pro/Coze报告后期/无尽反复加载；本机复现并修复重复音频解码，真实原机尚未验证。",
           "evidence": "../../reports/qa/intermission-performance-20261029.json",
-          "next": "本批未部署；后续按发布授权更新Coze后复测原机。新资源仍会正常加载，未隐藏加载页。"
+          "next": "854fe1f与正式4文件前端已推GitHub；按Coze更新步骤部署后复测原iPhone。新资源仍会正常加载，未隐藏加载页。"
         },
         {
           "id": "V06-F29-04",
@@ -2954,7 +2954,7 @@
           "next": "工程批次关闭；发布与原iPhone体验归V06-F29-03，其他反馈按FEEDBACK_PERFORMANCE_20261029.md继续。"
         }
       ],
-      "next": "完成本轮关间音频优化与4文件压缩前端的GitHub体积优化版同步，按Coze更新说明由用户发布后用原iPhone复测；其余11项反馈保留。"
+      "next": "用户按COZE_INTERMISSION_UPDATE_20261029.md更新原Coze后，使用原iPhone检查续局、连续关间和自动刷新；其余反馈按记录处理。"
     },
     {
       "id": "D01",
@@ -10228,6 +10228,17 @@
         "V06"
       ],
       "change": "用户授权提交推送本批优化并提供Coze步骤；正式4文件前端包和本机入口冒烟通过，开始Git同步。Coze仍fb923fd9、资源相同，线上尚未更新。",
+      "evidence": [
+        "COZE_INTERMISSION_UPDATE_20261029.md",
+        "../../reports/qa/intermission-delivery-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "关间音频优化、验证与4文件正式压缩前端已提交854fe1f并推送GitHub体积优化版，远端核对一致；main保持。8,376,506字节Coze增量包与原手机复测说明完成，实际压缩入口冒烟及文件hash通过；Coze/Sites未部署。完成的中间构建/截图清理，当前交付包保留。",
       "evidence": [
         "COZE_INTERMISSION_UPDATE_20261029.md",
         "../../reports/qa/intermission-delivery-20261029.json"

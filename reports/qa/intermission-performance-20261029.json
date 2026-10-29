@@ -192,10 +192,13 @@
   ],
   "delivery": {
     "sourceModified": true,
-    "committed": false,
-    "pushed": false,
+    "committed": true,
+    "pushed": true,
     "sitesPublished": false,
-    "cozeUpdated": false
+    "cozeUpdated": false,
+    "codeCommit": "854fe1f2b61250d1371094f8520af7125ffcdf9f",
+    "cozeInstructions": "../../docs/project/COZE_INTERMISSION_UPDATE_20261029.md",
+    "deliveryEvidence": "intermission-delivery-20261029.json"
   },
   "changedFiles": [
     "src/render/effects/audio.ts",

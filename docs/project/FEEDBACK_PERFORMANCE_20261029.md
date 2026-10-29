@@ -59,6 +59,12 @@
 - 已查看最终无尽原始画布与暂停页。测试夹具曾因未结束上一整备窗口而中止，修正后通过；首次受限网络回归的本机服务测试失败，允许本机网络的重跑通过。早期受并发CPU检查干扰的耗时不用于上表。
 - 基线为`ff8140b`。最终本机检测程序SHA-256为`b5c2127c0e74f14a6387ed1603c41097f5838e9b6625031045ac04994ba5d4af`；这是含本机测量接入口的构建，不用于直接发布。
 
-本批源码尚未提交/推送，Sites与Coze均未更新，原iPhone体验仍待后续发布后复测。其他反馈继续按上表处理，尚未改掉落、撤离、批量装备操作、按钮音效、BGM或商店规则。工程性能项关闭，V06整体及V06-F29-03保留待验证。
+上述本地验证完成时，本批源码尚未提交/推送。随后按用户授权完成下方Git同步；Sites与Coze均未更新，原iPhone体验仍待后续发布后复测。其他反馈继续按上表处理，尚未改掉落、撤离、批量装备操作、按钮音效、BGM或商店规则。工程性能项关闭，V06整体及V06-F29-03保留待验证。
 
 简要证据：[性能与验证记录](../../reports/qa/intermission-performance-20261029.json)。复现入口为`tools/build-intermission-diagnostic.mjs`、`tools/serve-intermission-diagnostic.mjs`和`tools/measure-intermission.mjs`；基线与候选GPU测量串行运行。完成的检测构建、截图和详细日志按保留规则清理，保留源代码、简要结论与现有正式资源。
+
+## 后续：Git同步与Coze更新包
+
+2026-10-29按用户要求，将上述修复、测试、反馈记录及4个正式压缩前端文件共19项提交为`854fe1f2b61250d1371094f8520af7125ffcdf9f`，推送到GitHub「体积优化版」并核对远端一致。原main未合并，旧的工作区改动未纳入。
+
+正式入口appBuildId为`88e920c3b848e76f20f4de7c5cf895d8facd7f29d0b99868866c2698b4a6a4fa`，资源release/schema保持。4文件更新包与提交、实际本机入口逐字节一致；正常菜单进入首战的有限冒烟通过，非iOS验证。已准备[Coze更新步骤与复测清单](COZE_INTERMISSION_UPDATE_20261029.md)及[交付校验](../../reports/qa/intermission-delivery-20261029.json)。本次未部署Coze或Sites。
