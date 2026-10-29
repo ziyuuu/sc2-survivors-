@@ -1,5 +1,7 @@
 # 工具入口
 
+2026-10-29解锁反馈见[修复与复现](../docs/project/UNLOCK_FEEDBACK_FIX_20261029.md)。`test/development-unlock-feedback.test.ts`覆盖失效候选清理与首次解锁排期；`qa-unlock-feedback.mjs`使用命名Web构建、实际HUD和受控账户检查三尺寸，`--entry-only`检查同批正式Web入口。仅本机服务和独立浏览器数据，输出到`reports/local/unlock-feedback-20261029`，不部署。修复前`inspect-queen-unlock-20261029.mts`保留历史断言，勿在新规则上覆盖旧报告。
+
 本目录保留构建/资源流水线、后台和各批复现代码。脚本多并不意味着都应在当前版本执行；日期型验证工具依赖当批输入与版本。
 
 2026-10-29孤星/无尽/掉落见[本地实现与范围](../docs/project/GROWTH_LOOT_IMPLEMENTATION_20261029.md)。`node --import tsx tools/measure-growth-loot-20261029.mts`对四难度、五种参与/诱饵/模块条件各16种子进行有限原生机会/结算重放，生成/拾取/销毁/带出与全部来源分账；没有战斗存活或真人概率含义。`node tools/qa-growth-loot-ui.mjs`用命名Web资源和正式UI函数检查三尺寸孤星说明；`--entry-only`检查正式Web菜单及新游戏种族选择，使用临时本机服务。`inspect-growth-loot-20261029.mts`已标记为调整前历史检查，须匹配旧源码，不得在新规则上覆盖历史报告。
@@ -44,3 +46,6 @@ KTX2仅小样：`prepare-ktx-samples.py`、`run-basis-sample.mjs`、`build-ktx-s
 预下载范围需显式区分：`--predownload`使用“下载本族”，`--predownload-all`使用“下载全部”，均等待对应完成状态。第16版的3组成对测量使用前者，线上功能检查分别覆盖两者。
 
 [峰值、KTX2与缓存释放记录](../docs/project/RUNTIME_MEMORY_20261028.md)对应Sites第15版。`prepare-runtime-ktx-assets.py`、`encode-runtime-ktx-samples.mjs`、`package-runtime-ktx.mjs`准备同尺寸衍生贴图，`prepare-runtime-ktx-site.mjs`同步明确的发布文件。`verify-safari-entry.mjs`支持`--peak --predownload --settle --reenter`和`--no-compressed`；`verify-runtime-ktx-published.mjs`核对线上文件。当前只覆盖43张大型模型法线/高光贴图，不能替代iPhone实机验证或完整GPU缓存生命周期。
+
+
+2026-10-29虫族／舰装定向入口：`qa-zerg-melee-equipment.mjs`使用合成账户和暂停关卡，通过真实HUD验证三端逐巢进化及三族局外装备；先建立`dist/zerg-melee-equipment-20261029`父目录，再以`SC2_WEB_OUTPUT=dist/zerg-melee-equipment-20261029/web`构建。支持`--evolution-only`、`--entry-only`，不代表自然战役、原手机或性能结果。[记录](../docs/project/ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)。

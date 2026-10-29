@@ -8,7 +8,7 @@ import {button,image,glyph,modal,esc} from './reference-primitives';
 
 export const BUILDING_TABS=['placement','research','tree'] as const;
 export type BuildingTab=typeof BUILDING_TABS[number];
-export interface BuildingPanelActions {close:string;apply:string;output:string;enable:string;tabAction?:(tab:BuildingTab)=>string;tabAttribute?:(tab:BuildingTab)=>string}
+export interface BuildingPanelActions {close:string;apply:string;output:string;enable:string;evolution?:string;tabAction?:(tab:BuildingTab)=>string;tabAttribute?:(tab:BuildingTab)=>string}
 const defaultActions:BuildingPanelActions={close:'close',apply:'apply',output:'output',enable:'enable'};
 const name=(f:FamilyId)=>SC2_UNITS[f].zh;
 const heading=(name:string,status:string)=>itemHeading(name,`<span class="wb-node-state">${esc(status)}</span>`);
@@ -16,13 +16,13 @@ function technology(s:BuildingState,line:ProductionLineId){
  const view=presentation(s);return lineTechnology(line,{race:s.race,stage:s.stage,unlocked:view.unlocked,completed:view.completed,hasFacility:l=>ownsLine(s,l),canResearch:id=>{const d=project(id);return !!d&&eligible(s,d);}});
 }
 function output(s:BuildingState,f:FacilityView,unit:FamilyId,actions:BuildingPanelActions){
- const g=s.groups.find(g=>g.id===f.id)!,on=f.outputs.includes(unit),ready=canProduce(s,g,unit),max=!on&&f.outputs.length>=2,editable=s.phase!=='front';
+ const g=s.groups.find(g=>g.id===f.id)!,on=f.outputs.includes(unit),ready=canProduce(s,g,unit),planned=g.outputs.includes(unit)&&(s.tech['unlock.'+unit]??0)>0,max=!on&&f.outputs.length>=2,editable=s.phase!=='front';
  const reason=!editable?'关间才能调整兵种':!ready?s.tech['unlock.'+unit]?'第10关开放训练':'尚未解锁':max?'最多两种，先取消一项':'选择生产输出';
- return button(image('unit.'+unit)+esc(name(unit))+(on?' ✓':''),actions.output,'small',`data-facility="${f.id}" data-family="${unit}" aria-pressed="${on}" ${!ready||max||!editable?'disabled':''} title="${reason}"`);
+ return button(image('unit.'+unit)+esc(name(unit))+(on?' ✓':''),actions.output,'small',`data-facility="${f.id}" data-family="${unit}" aria-pressed="${on}" ${!ready&&!planned||max||!editable?'disabled':''} title="${reason}"`);
 }
 export function renderBuildingPlacement(s:BuildingState,draft?:PlacementDraft,actions=defaultActions){
  const rows=facilityViews(s).map(f=>{const d=draft?.groups.find(g=>g.id===f.id);return d?{...f,outputs:[...d.outputs],enabled:d.enabled}:f;});
- return `<div class="feedback-facility-list">${rows.map(f=>`<section class="feedback-facility-card wb-facility" data-facility="${f.id}" data-line="${f.line}"><header>${image('unit.'+f.families[0])}<h2>${esc(f.name)}</h2><span class="wb-direction-label">${f.directions.join(' / ')}${f.count&&f.id!=='crystal-pair'?(f.directions.length?' · ':'')+f.count+'座':''}</span></header><div class="facility-unit-list wb-output-list">${f.families.map(unit=>output(s,f,unit,actions)).join('')}</div><div class="wb-production-order">${button(f.enabled?'训练开启':'训练暂停',actions.enable,'small',`data-facility="${f.id}" aria-pressed="${f.enabled}"`)}</div></section>`).join('')}</div>`;
+ return `<div class="feedback-facility-list">${rows.map(f=>`<section class="feedback-facility-card wb-facility" data-facility="${f.id}" data-line="${f.line}"><header>${image('unit.'+f.families[0])}<h2>${esc(f.name)}</h2><span class="wb-direction-label">${f.directions.join(' / ')}${f.count&&f.id!=='crystal-pair'&&!f.id.startsWith('h')?(f.directions.length?' · ':'')+f.count+'座':''}</span></header><div class="facility-unit-list wb-output-list">${f.families.map(unit=>output(s,f,unit,actions)).join('')}</div><div class="wb-production-order">${actions.evolution&&s.groups.find(g=>g.id===f.id)?.kind==='hatchery'?button('进化',actions.evolution,'small',`data-facility="${s.groups.find(g=>g.id===f.id)!.ids[0]}"`):''}${button(f.enabled?'训练开启':'训练暂停',actions.enable,'small',`data-facility="${f.id}" aria-pressed="${f.enabled}"`)}</div></section>`).join('')}</div>`;
 }
 export function renderBuildingTechnology(s:BuildingState){return `<div class="feedback-facility-list">${presentation(s).basic.map(line=>`<section class="feedback-tech-card wb-tech-line"><header><h2>${PRODUCTION_LINES[line].name}</h2></header>${technology(s,line)}</section>`).join('')}</div>`;}
 function prerequisites(s:BuildingState,line:ProductionLineId){

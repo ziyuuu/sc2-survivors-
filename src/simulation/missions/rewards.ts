@@ -4,7 +4,7 @@ import {activeEquipmentEffects} from '../starship/modules';
 import {notifyUnitArrival} from '../boss-loot';
 import type {World} from '../world';
 import type {MissionReward,MissionRecord} from './state';
-import {PROJECTS,eligible} from '../building/rules';
+import {PROJECTS,eligible,unlockProductionFamily} from '../building/rules';
 import {worldBuildingContext,syncBuildingEffects,syncBuildingWindow} from '../building/expedition';
 import {ELITES,type EliteId} from '../../data/elites';
 import {HEROES,type HeroId} from '../../data/heroes';
@@ -50,7 +50,7 @@ export function deliverReward(w:World,m:MissionRecord,point:{x:number;z:number})
   if(r.kind==='equipment')ok=deliverTaskEquipment(w,r.plan,point);
   else if(r.kind==='hero')ok=w.acquireHero(r.id);
   else if(r.kind==='elite'){const target=w.eliteCandidates(r.id).sort((a,b)=>a.rank-b.rank||a.id-b.id)[0];ok=acquireEliteImmediately(w,r.id,target?.id);}
-  else {const b=worldBuildingContext(w),p=PROJECTS.find(p=>p.id===r.id);if(b&&p&&b.missionTechnology===r.id){delete b.missionTechnology;if(!b.tech[r.id]&&eligible(b,p)){b.tech[r.id]=1;b.revision++;syncBuildingWindow(w.expedition,b);syncBuildingEffects(w);ok=true;}else b.missionTechnology=r.id;}}
+  else {const b=worldBuildingContext(w),p=PROJECTS.find(p=>p.id===r.id);if(b&&p&&b.missionTechnology===r.id){delete b.missionTechnology;if(!b.tech[r.id]&&eligible(b,p)){if(p.unlock==='family')unlockProductionFamily(b,p.families[0]);else b.tech[r.id]=1;b.revision++;syncBuildingWindow(w.expedition,b);syncBuildingEffects(w);ok=true;}else b.missionTechnology=r.id;}}
   if(ok){w.missions.receipts.add(key);if(r.kind==='hero'||r.kind==='elite')notifyUnitArrival(w,{identity:r.id,kind:r.kind,name:r.kind==='hero'?HEROES[r.id].name:ELITES[r.id].name,rank:r.kind==='hero'?w.heroes.get(r.id)!.rank:w.eliteOwned(r.id)?.rank??1,promoted});}return ok;
  }finally{delete w.missions.claiming;}
 }

@@ -24,7 +24,7 @@ export class StarshipController {
  private receipts=new Map<string,{signature:string;result:EquipmentResult<unknown>}>();
  constructor(readonly host:StarshipHost){}
  private protectedEquipment(){return new Set([...this.host.management.locked,...this.host.management.favorites]);}
- previewAutoEquip(){return this.host.phase()==='intermission'?quickEquipPlan(this.host.account(),this.host.race(),this.protectedEquipment()):[];}
+ previewAutoEquip(){return this.host.phase()!=='battle'?quickEquipPlan(this.host.account(),this.host.race(),this.protectedEquipment()):[];}
  protectedReason(id:string,operation:'discard'|'dismantle'|'rerollElite'|'drop'){
   const a=this.host.account(),m=this.host.management,i=a.items[id],loc=a.locations[id];
   if(!i||!loc)return '物品已不存在';
@@ -55,7 +55,7 @@ export class StarshipController {
   if(c.type==='dismantle'&&!outside&&phase!=='intermission')return failure('战斗中不能分解');
   if(['equip','unequip','applyPreset'].includes(c.type)&&phase==='battle')return failure('战斗中不能换装；暂停不会开放换装');
   switch(c.type){
-   case 'autoEquip':result=phase==='intermission'&&this.host.autoEquip?this.host.autoEquip(this.protectedEquipment(),a.revision):failure('只能在关间一键换装');break;
+   case 'autoEquip':result=phase!=='battle'&&this.host.autoEquip?this.host.autoEquip(this.protectedEquipment(),a.revision):failure('战斗中不能换装');break;
    case 'equip':result=this.host.equip(c.id,c.slot,a.revision);break;
    case 'unequip':result=this.host.unequip(c.slot,a.revision);break;
    case 'pickup':result=phase==='battle'||phase==='intermission'?this.host.pickup(c.id):failure('当前没有可拾取的战利品');break;

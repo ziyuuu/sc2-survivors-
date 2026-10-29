@@ -37,7 +37,7 @@ export function fireWeaponPattern(w:World,u:Entity,target:Body,bonuses:Bonus[],a
   for(const victim of bodies(w)){if(victim.id===target.id||!validAreaVictim(u,victim,'ground')||!w.hasAttackLine(u,victim))continue;const band=p.bands.find(b=>inWeaponArc(target,angle,victim,equipmentAreaRadius(w,u,b.radius),b.arc));if(band)hit(victim,u.weaponDamage*band.fraction*equipmentAreaFactor(w,u),equipmentAreaBonuses(w,u,scaled(bonuses,band.fraction)));}
   equipmentCluster(w,u,target,Math.max(...p.bands.map(b=>b.radius)),u.weaponDamage,bonuses,1,crit,'ground');w.effect('hero-line',u,target,1,.2);return true;
  }
- if(u.unitType==='lurker'&&u.nativeMode==='lurker_burrowed'){
+ if(u.unitType==='lurker'&&(u.owner==='terran'||u.nativeMode==='lurker_burrowed')){
   const p=SOURCE_WEAPON_PATTERNS.lurker,points=p.offsets.map(offset=>({x:u.x-dx*offset[1]+dz*offset[0],z:u.z-dz*offset[1]-dx*offset[0]})),f=w.enemyDamageFactor(u);
   const apm=(talentModifiers(w,u).apmDuplicate??0)>0;
   s.weaponAreas.push({id:w.nextId++,source:u.id,owner:u.owner,points,nextIndex:0,next:w.time+(p.periodSeconds[0]??0),period:p.periodSeconds[1],radius:equipmentAreaRadius(w,u,p.searchRadius),hits:[],damage:u.weaponDamage*f*equipmentAreaFactor(w,u),bonuses:equipmentAreaBonuses(w,u,scaled(bonuses,f)),primaryTargetId:target.id,primaryCrit:crit,...(apm?{apmDamage:u.weaponDamage*f*crit*1.15,apmBonuses:scaled(bonuses,f*crit*1.15),apmUsed:false}:{})});bindEquipmentAttack(w,u,s.weaponAreas.at(-1)!);w.effect('hero-line',u,points.at(-1)!,p.searchRadius,.7);return true;

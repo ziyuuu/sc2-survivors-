@@ -29,6 +29,7 @@ export interface Entity extends Body {
  carrierHangar?:{initialized:boolean;serial:number;job:{remaining:number;paid:number}|null};
  cliffTransit?:{kind:'jump'|'stride';from:Point;to:Point;startedAt:number;until:number};cliffReadyAt?:number;
  chargeState?:{targetId:number;until:number};chargeReadyAt?:number;
+ approachCharge?:{targetId:number;until:number;goal:Point;traveled:number};approachChargeReadyAt?:number;
  shieldArmor?:number;shieldRegen?:number;shieldDelay?:number;barrier?:number;barrierReady?:number;talentShield?:number;maxTalentShield?:number;
  nativeMode?:string;desiredNativeMode?:string;nativeModeUntil?:number;abilityReady?:number;cloaked?:boolean;
  activeWeapon?:string;

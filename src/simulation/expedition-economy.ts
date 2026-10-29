@@ -5,7 +5,7 @@ import {buyFunShop} from './fun-shop/runtime';
 import {equipmentDevelopmentLegal,equipmentDevelopmentCompleted,equipmentPurchasePrice,recordEquipmentPurchase} from './starship/economy';
 import {worldBuildingContext,syncBuildingEffects,syncBuildingWindow} from './building/expedition';
 import {purchase as purchaseBuilding,refreshAtCost,project} from './building/rules';
-import {nativeBuildingQuote} from './progression/expedition-drafts';
+import {nativeBuildingQuote,pruneExpeditionDevelopmentOffers} from './progression/expedition-drafts';
 import {prepareEquipmentShelf,equipmentRefreshPrice,equipmentValue} from './starship/modules';
 import {canSupply,applySupply} from './progression/supply-cards';
 import {buySupport,supportLegal} from './combat/shop-support';
@@ -35,6 +35,7 @@ export function draftContext(w:World):ExpeditionDraftContext {return {difficulty
  heroes:ALL_HERO_IDS.map(id=>({id,race:HEROES[id].race,name:HEROES[id].name,icon:'hero.'+id,rank:w.heroes.get(id)?.rank??0,owned:w.heroes.has(id),eligible:ordinaryHeroAllowed(w,id)&&w.canAcquireHero(id)})),
  elites:Object.values(ELITES).filter((elite,index,all)=>all.findIndex(other=>other.family===elite.family)===index).map(e=>{const choice=w.eliteVariants(e.family)[0];return {id:choice?.id??e.id,race:familyRace(e.family),family:e.family,name:SC2_UNITS[e.family as UnitType]?.zh??e.family,icon:choice?.icon??e.icon,eligible:!!choice};})};}
 export function developmentOffers(w:World){if(!w.expedition||w.phase!=='reward'||w.rewardRound!=='building')return [];beginExpeditionWindow(w.expedition,w.draftStage,w.draftWindowId,w.talent('window_shop'),w.talent('free_purchase'));worldBuildingContext(w);return drawExpeditionDevelopment(draftContext(w));}
+export function restoreDevelopmentOffers(w:World){if(w.phase==='reward'&&w.rewardRound==='building')w.rewards=pruneExpeditionDevelopmentOffers(draftContext(w),w.rewards);}
 export function setDevelopmentDirection(w:World,line:ProductionLineId,revision:number){const s=w.expedition;if(w.phase!=='reward'||w.rewardRound!=='building'||s.developmentBought||s.shopRevision!==revision||PRODUCTION_LINES[line]?.race!==s.race)return false;if(s.developmentDirection===line)return true;s.developmentDirection=line;s.shopRevision++;w.rewards=drawExpeditionDevelopment(draftContext(w));w.changed();return true;}
 export function reinforcementOffers(w:World){if(!w.expedition||w.phase!=='reward'||w.rewardRound!=='random')return [];generateEliteContracts(w);return withSpecialTicket(w,prepareEquipmentShelf(w,drawExpeditionReinforcements(draftContext(w)),r=>offerEligible(w,r)));}
 export function generateEliteContracts(w:World){const s=w.expedition,window=w.draftWindowId;
@@ -68,7 +69,8 @@ function applyDevelopment(w:World,r:ExpeditionReward,targetId?:number){
  if(!result.ok)return null;
  syncBuildingEffects(w);return {b,result};
 }
-export function purchaseOffer(w:World,id:string,variantId?:EliteId,targetId?:number,oldFamily?:FamilyId){const s=w.expedition,r=w.rewards.find(r=>r.offerId===id),price=r?equipmentPurchasePrice(w,r):null,firstFree=price?.firstFree??false,freePurchase=!firstFree&&w.rewardRound==='random'&&s.freePurchasesRemaining>0&&!(r&&'expeditionEffect' in r&&(r as ExpeditionReward).expeditionEffect.kind==='funShop'&&r.minerals+r.gas===0);if(!s||!r||!offerEligible(w,r)||r.expeditionRound!==w.rewardRound||!freePurchase&&(w.wallet.minerals+1e-8<price!.minerals||w.wallet.gas+1e-8<price!.gas))return false;
+export function findDevelopmentOffer(w:World,id:string){return w.rewards.find(r=>r.offerId===id)??Object.values(w.expedition.developmentQuotes).find(r=>r.offerId===id&&r.expeditionEffect.kind==='development'&&project(r.expeditionEffect.definitionId)?.kind==='evolution');}
+export function purchaseOffer(w:World,id:string,variantId?:EliteId,targetId?:number,oldFamily?:FamilyId){const s=w.expedition,r=findDevelopmentOffer(w,id),price=r?equipmentPurchasePrice(w,r):null,firstFree=price?.firstFree??false,freePurchase=!firstFree&&w.rewardRound==='random'&&s.freePurchasesRemaining>0&&!(r&&'expeditionEffect' in r&&(r as ExpeditionReward).expeditionEffect.kind==='funShop'&&r.minerals+r.gas===0);if(!s||!r||!offerEligible(w,r)||r.expeditionRound!==w.rewardRound||!freePurchase&&(w.wallet.minerals+1e-8<price!.minerals||w.wallet.gas+1e-8<price!.gas))return false;
  const effect=r.expeditionEffect;
  if(effect.kind==='specialTicket'){if(!claimSpecialTicket(w))return false;r.sold=true;r.purchaseReceipt={minerals:0,gas:0,freeSource:null};s.shopRevision++;w.changed();return true;}
  if(effect.kind==='development'){

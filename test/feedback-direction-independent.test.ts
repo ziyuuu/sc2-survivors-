@@ -14,7 +14,7 @@ for(const race of ['terran','zerg','protoss'] as const)test(`F07 ${race}: direct
   const shops=directions.map(direction=>{
    const state=newExpedition(race);if(race==='terran')grantFacility(state.building!,'factory');state.familySlots=FAMILIES_BY_RACE[race].slice(0,5);state.developmentDirection=direction;beginExpeditionWindow(state,8);let serial=0;
    const context:ExpeditionDraftContext={state,stage:8,random:rng(seed),nextOfferId:id=>`${id}:${serial++}`,heroes:[],familyInfo:family=>({alive:state.familySlots.includes(family)?2:0,canAttack:true,canSupport:false,usesEnergy:false,cultivationCapacity:3,canProduce:true})};
-   const development=drawExpeditionDevelopment(context);assert.ok(development.length>0);
+   const development=drawExpeditionDevelopment(context);if(race==='zerg'&&direction!=='zerg.basic')assert.equal(development.length,0,'unevolved hatchery does not sell a new hatchery in this direction');else assert.ok(development.length>0);
    for(const offer of development){assert.equal(offer.expeditionEffect.kind,'development');if(offer.expeditionEffect.kind==='development')assert.ok(developmentInDirection(offer.expeditionEffect.definitionId,direction));}
    // Hold RNG/army/window constant to isolate direction itself from draw consumption.
    context.random=rng(seed);serial=0;

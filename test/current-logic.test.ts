@@ -10,19 +10,21 @@ import {SaveRepository} from '../src/persistence/save-repository';
 import {RunSession} from '../src/app/run-session';
 import {RUN_SCHEMA} from '../src/simulation/persistence/run-snapshot';
 
-test('690 friendly bodies retain historical rules; 72 campaigns match the random-elite budget baseline',()=>{
+test('690 friendly bodies preserve approved changes only; 72 campaigns match the random-elite budget baseline',()=>{
  const {commit,...expected}=JSON.parse(fs.readFileSync(new URL('./fixtures/current-rules-20261006.json',import.meta.url),'utf8'));
  assert.equal(commit,'07b3f68e56f02fae1902ba4e563cb67a3e821c05');
- const {campaign:historicalCampaign,...historicalFriendly}=expected,{campaign:r2Campaign,...legacyFriendly}=captureCurrentRules({legacyKnight:true});
+ const zergApproval=JSON.parse(fs.readFileSync(new URL('./fixtures/zerg-feedback-20261029.json',import.meta.url),'utf8'));assert.equal(zergApproval.approval,'USER_ZERG_FEEDBACK_20261029');
+ const revised={...expected,bodies:{...expected.bodies,...zergApproval.bodies},ordinary:{...expected.ordinary,...zergApproval.ordinary}};
+ const {campaign:historicalCampaign,...historicalFriendly}=revised,{campaign:r2Campaign,...legacyFriendly}=captureCurrentRules({legacyKnight:true});
  const hunterApproval=JSON.parse(fs.readFileSync(new URL('./fixtures/growth-loot-20261029.json',import.meta.url),'utf8'));
  assert.equal(hunterApproval.approval,'USER_GROWTH_LOOT_20261029');assert.equal(legacyFriendly.definitions.elites,hunterApproval.legacyEliteDefinitions);
  // The approved hunter wording changes definition hashes, not the unabsorbed body baselines.
  assert.equal(Object.keys(historicalCampaign).length,72);assert.deepEqual({...legacyFriendly,definitions:{...legacyFriendly.definitions,elites:historicalFriendly.definitions.elites}},historicalFriendly);
  const approved=JSON.parse(fs.readFileSync(new URL('./fixtures/campaign-feedback-20261027.json',import.meta.url),'utf8'));
  assert.equal(approved.approval,'USER_FEEDBACK_GROWTH_20261027');assert.equal(Object.keys(approved.campaign).length,72);assert.deepEqual(r2Campaign,approved.campaign);
- const current=captureCurrentRules();assert.deepEqual(current.campaign,approved.campaign);assert.deepEqual(current.heroes,expected.heroes);assert.deepEqual(current.ordinary,expected.ordinary);
+ const current=captureCurrentRules();assert.deepEqual(current.campaign,approved.campaign);assert.deepEqual(current.heroes,expected.heroes);assert.deepEqual(current.ordinary,revised.ordinary);
  assert.equal(current.definitions.elites,hunterApproval.currentEliteDefinitions);
- assert.deepEqual(Object.keys(current.bodies).filter(key=>current.bodies[key]!==expected.bodies[key]),[1,2,3,4,5].map(rank=>'hellion.2:'+rank));
+ assert.deepEqual(Object.keys(current.bodies).filter(key=>current.bodies[key]!==revised.bodies[key]),[1,2,3,4,5].map(rank=>'hellion.2:'+rank));
  assert.deepEqual(Object.keys(current.definitions).filter(key=>current.definitions[key as keyof typeof current.definitions]!==expected.definitions[key]),['elites']);
 });
 

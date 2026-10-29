@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-29",
-  "revision": 291,
+  "revision": 306,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2692,7 +2692,7 @@
       ]
     },
     {
-      "status": "待验证",
+      "status": "进行中",
       "phase": "交付",
       "priority": "收尾",
       "auditIds": [],
@@ -2772,9 +2772,18 @@
         "../../reports/qa/growth-loot-implementation-20261029.json",
         "../../reports/qa/growth-loot-replay-20261029.json",
         "LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md",
-        "../../reports/qa/local-feedback-github-sync-20261029.json"
+        "../../reports/qa/local-feedback-github-sync-20261029.json",
+        "QUEEN_UNLOCK_INSPECTION_20261029.md",
+        "UNLOCK_FEEDBACK_FIX_20261029.md",
+        "ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md",
+        "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md",
+        "ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md",
+        "../../reports/qa/queen-unlock-inspection-20261029.json",
+        "../../reports/qa/unlock-feedback-fix-20261029.json",
+        "../../reports/qa/zerg-melee-equipment-20261029.json",
+        "../../reports/qa/zerg-github-sync-20261029.json"
       ],
-      "result": "孤星、无尽与全来源掉落完成批准参数的本地实现，旧档/奖励回执保护通过。全量回归失败项均修正或在允许本机访问后复验，覆盖2811项唯一回归，最终54项及类型/数据检查通过；三尺寸说明、正式Web入口通过。320次有限全来源重放发现高收益/掠夺组合仍超数量与简单品质目标，平衡验收开放；构建b785addb；本批关间/BGM/成长掉落已随adcf9a8推送GitHub体积优化版，101文件及2份音乐LFS确认，未部署。用户决定暂时保留现有平衡。",
+      "result": "解锁反馈及虫族/近战/舰装批准范围本地完成；2847项回归与三尺寸UI/正式Web检查通过，正在核对最终源码并提交推送。具体记录见本批同步报告，不代表实机或线上验收。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -2967,9 +2976,89 @@
           "scope": "无尽伤害前5分钟每分钟×1.10、之后×1.16已本地实现，生命/护甲/数量保持。四难度1/6/12/16/24轮属性及实际酸液/虫后持续伤害结算通过；第16轮开场普攻DPS8.88倍，未测真人存活率。",
           "next": "结合新掉落在原机试玩后期输出压力；暂不改生命/护甲/数量，不部署。",
           "evidence": "GROWTH_LOOT_IMPLEMENTATION_20261029.md"
+        },
+        {
+          "id": "V06-QUEEN-UNLOCK-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "已复现的额外发展＋免费科技失效卡残留已本地修复；清理同时覆盖旧等级研究、技能/系统和进化目标变化，保留其余卡牌/报价，不补抽。原玩家具体路径仍未对照。",
+          "next": "本地123项定向及三尺寸6组HUD检查通过。未发布；后续按用户指示复测或准备交付，旧Coze包不含修复。",
+          "evidence": "UNLOCK_FEEDBACK_FIX_20261029.md"
+        },
+        {
+          "id": "V06-UNLOCK-SCHEDULE-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "用户确认的首次解锁自动排期已实现：只加入一个运行中、有空位的兼容生产组；满位/暂停保持，付费/免费科技/进化/任务共用。重型提前预排可取消，第10关开工，已付款订单保持。",
+          "next": "本地验证通过，未发布；不为既有存档已解锁兵种补排，不扩大1.0范围。",
+          "evidence": "UNLOCK_FEEDBACK_FIX_20261029.md"
+        },
+        {
+          "id": "V06-ZERG-EVOLUTION-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "固定逐巢地面/天空入口及状态完成，保留前置、冻结价格、建设行动与回执；恢复/重复操作验证通过。",
+          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
+        },
+        {
+          "id": "V06-BANELING-COMBAT-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "己方永久普通/精英毒爆休眠1.5秒，新生产20秒、基础移速4.2；旧订单及临时生命周期保持。",
+          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
+        },
+        {
+          "id": "V06-MELEE-ENGAGEMENT-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "全近战提前接敌、绕己方射击线、死亡重选及不可达目标暂缓完成；有限混编实际攻击与撤退验证通过。",
+          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
+        },
+        {
+          "id": "V06-CHARGE-COLLISION-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "中大型短程地面攻击单位与毒爆按确认参数冲锋，仅穿单位；长射程大型排除，CD/地形/取消/恢复通过。",
+          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
+        },
+        {
+          "id": "V06-EQUIPMENT-VISIBILITY-001",
+          "status": "已完成",
+          "resolved": true,
+          "scope": "桌面56px/手机48px装备槽及44/38px图标、边框底色完成；三族三尺寸12格无重叠越界。",
+          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
+        },
+        {
+          "id": "V06-OUTSIDE-QUICK-EQUIP-001",
+          "scope": "局外旗舰配装和仓库补齐一键装备，保护规则及整批账户事务通过。",
+          "status": "已完成",
+          "resolved": true,
+          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
+        },
+        {
+          "id": "V06-ZERGLING-BANE-001",
+          "scope": "己方跳虫仅对敌方毒爆爆炸减伤40%，护甲/过量伤害和排除范围通过。",
+          "status": "已完成",
+          "resolved": true,
+          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
+        },
+        {
+          "id": "V06-LURKER-MODE-001",
+          "scope": "己方普通/精英潜伏者地上同款地刺60%伤害、潜伏70%移速完成；实伤/恢复/动画选择通过。",
+          "status": "已完成",
+          "resolved": true,
+          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
         }
       ],
-      "next": "等待用户继续试玩：原iPhone关间/音频/恢复与孤星/无尽手感仍待验证；按用户决定暂保留当前掉落参数，进一步平衡暂缓。GitHub同步完成，未部署。"
+      "next": "已授权将解锁反馈前置与虫族/近战/舰装一起推送；第一阶段完成后才处理挑战关，再进行第三阶段本地代码排查。全程不部署。"
     },
     {
       "id": "D01",
@@ -10404,6 +10493,24 @@
       "evidence": [
         "LOCAL_FEEDBACK_GITHUB_SYNC_20261029.md",
         "../../reports/qa/local-feedback-github-sync-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "用户已批准将解锁卡清理和首次解锁排期作为前置，与虫族进化/近战/舰装合并提交推送；十项本地完成，2847项回归通过。另授权后续挑战关修复推送及第三阶段多子代理代码排查，本次第一阶段不含其他线程修改，不部署。",
+      "evidence": [
+        "QUEEN_UNLOCK_INSPECTION_20261029.md",
+        "UNLOCK_FEEDBACK_FIX_20261029.md",
+        "ZERG_MELEE_EQUIPMENT_PROPOSAL_20261029.md",
+        "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md",
+        "ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md",
+        "../../reports/qa/queen-unlock-inspection-20261029.json",
+        "../../reports/qa/unlock-feedback-fix-20261029.json",
+        "../../reports/qa/zerg-melee-equipment-20261029.json",
+        "../../reports/qa/zerg-github-sync-20261029.json"
       ]
     }
   ],

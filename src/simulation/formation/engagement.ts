@@ -5,9 +5,11 @@ import {distance,blocked} from '../movement/steering';
 /** Weapon-based contact rings; movement follows normal traversal, never a raycast shortcut. */
 export class EngagementSlots {
  private cache=new Map<number,{until:number;target:Point;peers:{id:number;range:number;flying:boolean}[];goals:Map<number,Point>;blocked:Set<number>}>();
- unavailable(unitId:number,targetId:number,time:number){const e=this.cache.get(targetId);return !!e&&e.until>time&&e.blocked.has(unitId);}
+ private deferred=new Map<number,Map<number,number>>();
+ unavailable(unitId:number,targetId:number,time:number){const e=this.cache.get(targetId);return (this.deferred.get(unitId)?.get(targetId)??0)>time||!!e&&e.until>time&&e.blocked.has(unitId);}
+ defer(unitId:number,targetId:number,time:number){for(const [id,targets]of this.deferred){for(const [target,until]of targets)if(until<=time)targets.delete(target);if(!targets.size)this.deferred.delete(id);}const targets=this.deferred.get(unitId)??new Map<number,number>();targets.set(targetId,time+.75);this.deferred.set(unitId,targets);}
  goal(u:Entity,target:Body,allies:Entity[],anchor:Point,time:number,half:number,obstacles:Obstacle[],terrain?:TerrainQuery):Point {
-  const eligible=(a:Entity)=>a.hp>0&&a.weaponDamage>0&&a.mode!=='siege'&&a.nativeMode!=='lurker_burrowed'&&a.modeTimer<=0&&(a.id===u.id||a.attackTarget===target.id);
+  const eligible=(a:Entity)=>a.hp>0&&a.weaponDamage>0&&a.mode!=='siege'&&a.modeTimer<=0&&(a.id===u.id||a.attackTarget===target.id);
   let entry=this.cache.get(target.id),same=!!entry;
   if(entry){let index=0;for(const a of allies)if(eligible(a)){const old=entry.peers[index++];if(!old||old.id!==a.id||old.range!==a.attackRange||old.flying!==a.flying){same=false;break;}}if(index!==entry.peers.length)same=false;}
   if(!entry||entry.until<=time||!same||distance(entry.target,target)>Math.min(.3,Math.max(.015,u.attackRange*.15))){

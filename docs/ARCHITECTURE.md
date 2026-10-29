@@ -1,3 +1,5 @@
+2026-10-29虫族与接敌修订：[实现与边界](project/ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md)。固定进化复用报价/扣费/行动回执；旧棚补齐报价后通知保存。`approach-charge.ts`保存实体冲锋意图/CD，接敌不可达缓存重建；近战与冲锋均由simulation驱动。潜伏者两形态共用地刺与攻击片段，伤害/速度适配独立于原版数据。局外一键装备复用账户事务，schema26保持。
+
 孤星与掉落补充（2026-10-29）：[本地实现记录](project/GROWTH_LOOT_IMPLEMENTATION_20261029.md)。`effectiveReaperGrowth`从原吸收回执推导精英额外贡献，以按Run对象/数组身份及长度失效的WeakMap缓存重建；原值/付款保持。恢复时刷新孤星属性并保留受伤比例，特殊关携带该孤星回执。自然敌人只做一次数量判定，同件品质升级；显式奖励使用冻结`TaskEquipmentPlan`。新白群/感染累计节点保存在既有paid回执，黄金递减从已交付事件回执推导，虫巢first/completion物品计划在生成时冻结；旧缺失字段沿用旧合同。新增嵌套字段在`run-fields.ts`登记，schema26不变；渲染不参与结算。
 
 > **当前入口 · 2026-10-27：** 实际模块地图见 [项目结构](PROJECT_STRUCTURE.md) 与 [交接](project/MVP_TO_1_0_HANDOFF_20261027.md)。本文保留历次架构说明；旧 M2、天赋或页面内存状态不代表当前产品。保存以 [D05](project/D05_CHECKPOINT_20261023.md) 和当前 schema26/profile v6 源码为准。

@@ -41,6 +41,18 @@ test('quick equip never replaces equal-quality gear, special gear or a rewarded 
  const frozen=structuredClone(a);assert.equal(w.autoEquipItems(new Set(),a.revision-1).ok,false);assert.deepEqual(a,frozen);
 });
 
+test('outside quick equip uses warehouse gear, keeps protected/equal/special pieces and survives account restoration',()=>{
+ const w=make(),a=w.starship.account,old=gear(a,'offense1','attribute.1'),set=gear(a,'offense2','set.orange.elite.4');
+ w.equipItem(old.id,old.slot);w.equipItem(set.id,set.slot);
+ const high=gear(a,'offense1','attribute.3'),equal=gear(a,'offense1','attribute.1'),blocked=gear(a,'offense2','attribute.4'),fav=gear(a,'defense1','attribute.4'),tainted=gear(a,'defense2','attribute.4',true);
+ const f=controller(w);f.host.management.favorites.add(fav.id);const before=a.revision,rng=a.rng;
+ assert.deepEqual(f.c.previewAutoEquip().map(i=>i.id),[high.id]);const command=f.envelope({type:'autoEquip'});assert.ok(f.c.execute(command).ok);assert.ok(f.c.execute(command).ok);
+ assert.equal(a.revision,before+1);assert.equal(a.rng,rng);assert.equal(a.equipped.terran.offense1,high.id);assert.equal(a.equipped.terran.offense2,set.id);
+ for(const item of [old,equal,blocked,fav,tainted])assert.equal(a.locations[item.id].kind,'warehouse');
+ const restored=new World({equipmentAccount:structuredClone(a)});assert.equal(restored.starship.account.equipped.terran.offense1,high.id);
+ f.host.dispose!();
+});
+
 test('equipment status reflects real legality before opening details and keeps effect activation separate',()=>{
  const w=make(),a=w.starship.account,ordinary=gear(a,'offense1'),set=gear(a,'offense2','set.orange.elite.4'),tainted=gear(a,'defense1','attribute.3',true);
  assert.equal(equipmentAvailability(a,'terran','outside',ordinary).label,'可装备');assert.equal(equipmentAvailability(a,'terran','outside',tainted).label,'需清洗');

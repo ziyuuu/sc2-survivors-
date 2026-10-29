@@ -34,7 +34,7 @@ test('Infernal research applies distinct source light bonuses to Hellion and Hel
 
 test('research changes source speed and maximum HP while preserving absolute damage',()=>{
  const w=world(),b=w.addUnit('baneling','terran',0,0),z=w.addUnit('zealot','terran',0,2);b.hp-=7;w.expedition!.tech.bane_speed=1;w.expedition!.tech.charge=1;w.refreshStats(b);w.refreshStats(z);
- close(b.maxHp,35*1.15);close(b.hp,35*1.15-7);close(b.moveSpeed,(3.5+SOURCE_RESEARCH_EFFECTS.bane_speed.speedAdd)*1.3*1.15);close(z.moveSpeed,(3.15+SOURCE_RESEARCH_EFFECTS.charge.speedAdd)*1.15);
+ close(b.maxHp,35*1.15);close(b.hp,35*1.15-7);close(b.moveSpeed,(4.2+SOURCE_RESEARCH_EFFECTS.bane_speed.speedAdd)*1.3*1.15);close(z.moveSpeed,(3.15+SOURCE_RESEARCH_EFFECTS.charge.speedAdd)*1.15);
 });
 
 test('Lurker deployment research shortens only burrow and leaves unburrow duration unchanged',()=>{

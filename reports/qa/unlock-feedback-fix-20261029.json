@@ -1,0 +1,225 @@
+{
+  "date": "2026-10-29",
+  "tasks": [
+    "V06-QUEEN-UNLOCK-001",
+    "V06-UNLOCK-SCHEDULE-001"
+  ],
+  "status": "passed-local",
+  "source": {
+    "branch": "体积优化版",
+    "base": "674c528ee8657f7b2f6ba743e2aac6c13f644eec",
+    "uncommitted": true,
+    "files": {
+      "src/simulation/building/rules.ts": "d0f9e0d8e1be576148d015ff0fedfbe2a43522bcb847211196d7cc9c6b883a68",
+      "src/simulation/expedition-economy.ts": "de3cd089e1e12dd0399ab3eaf1070aec43c4495b792ca55112537ba9c37e29cf",
+      "src/simulation/missions/rewards.ts": "6b94f6a0e8bdda7aac160aadbd5fb6ffc4e5ee198def5d98277083c94ba156e4",
+      "src/simulation/progression/expedition-drafts.ts": "755bdf05a671a3d3e7022edd3ff193ffc7336c9b631ba05643fd25aef4a56281",
+      "src/simulation/starship/economy.ts": "d2207f710254995c35b3f423dea198a6f3c54a7d834486d366d7d048d93bf336",
+      "src/simulation/world.ts": "bfd22b6737ea548caf13b93bcb90a28f8079f479b31b127bc3d4672a19ddb2f1",
+      "src/ui/presentation/building-panel.ts": "47c8fcb58bde7769e922e6aafa9933843de9b36cc90cc6fc3f96a6337986cdbb",
+      "test/development-unlock-feedback.test.ts": "771b7d4c6e449b5f5f7fd9162dcd5d54a4462b12eb1d859f28603bea7c9ceaaf",
+      "tools/qa-unlock-feedback.mjs": "fba177c0e48775fc57af441858f88bb54a3cadef14144c293837e092f982ad38",
+      "tools/docs/export-game-reference.mts": "d8bf434b24ca0147d4de8c6734d7a3b08c7a16a35c3610a2064b496cdf57808a"
+    }
+  },
+  "build": {
+    "appBuildId": "18f96dd6c6f05b28b691a32699f338f0d276d4d5dafcd9e5b0c7aa1d836dc270",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3847,
+    "fileCount": 3750,
+    "assetBytes": 1420924058,
+    "logicalBytes": 1443531249,
+    "sharedBytes": 22607191,
+    "manifest": "asset-manifest.c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad.json",
+    "release": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "checks": {
+    "regression": {
+      "passed": 123,
+      "failed": 0,
+      "newTests": 14,
+      "files": [
+        "test/development-unlock-feedback.test.ts",
+        "test/mvp1-building-integration.test.ts",
+        "test/expedition-production.test.ts",
+        "test/expedition-drafts.test.ts",
+        "test/missions.test.ts",
+        "test/starship-support-economy.test.ts",
+        "test/starship-production-integration.test.ts",
+        "test/integration-i03.test.ts",
+        "test/d05-checkpoint.test.ts"
+      ]
+    },
+    "typecheck": "passed",
+    "docsData": "generated",
+    "docsCheck": "passed",
+    "browser": [
+      {
+        "name": "desktop",
+        "kind": "queen",
+        "width": 1440,
+        "height": 900,
+        "input": "mouse",
+        "keptCards": [
+          {
+            "id": "1:0:4:unlock.baneling",
+            "name": "解锁爆虫",
+            "minerals": 50,
+            "gas": 25
+          }
+        ],
+        "detailsToggleHasNoEconomicEffect": true,
+        "heavyCancellation": false,
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      {
+        "name": "desktop",
+        "kind": "heavy",
+        "width": 1440,
+        "height": 900,
+        "input": "mouse",
+        "keptCards": null,
+        "detailsToggleHasNoEconomicEffect": true,
+        "heavyCancellation": true,
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      {
+        "name": "landscape",
+        "kind": "queen",
+        "width": 844,
+        "height": 390,
+        "input": "simulated touch",
+        "keptCards": [
+          {
+            "id": "1:0:4:unlock.baneling",
+            "name": "解锁爆虫",
+            "minerals": 50,
+            "gas": 25
+          }
+        ],
+        "detailsToggleHasNoEconomicEffect": true,
+        "heavyCancellation": false,
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      {
+        "name": "landscape",
+        "kind": "heavy",
+        "width": 844,
+        "height": 390,
+        "input": "simulated touch",
+        "keptCards": null,
+        "detailsToggleHasNoEconomicEffect": true,
+        "heavyCancellation": true,
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      {
+        "name": "portrait",
+        "kind": "queen",
+        "width": 390,
+        "height": 844,
+        "input": "simulated touch",
+        "keptCards": [
+          {
+            "id": "1:0:4:unlock.baneling",
+            "name": "解锁爆虫",
+            "minerals": 50,
+            "gas": 25
+          }
+        ],
+        "detailsToggleHasNoEconomicEffect": true,
+        "heavyCancellation": false,
+        "pageErrors": [],
+        "failedRequests": []
+      },
+      {
+        "name": "portrait",
+        "kind": "heavy",
+        "width": 390,
+        "height": 844,
+        "input": "simulated touch",
+        "keptCards": null,
+        "detailsToggleHasNoEconomicEffect": true,
+        "heavyCancellation": true,
+        "pageErrors": [],
+        "failedRequests": []
+      }
+    ],
+    "visualReview": [
+      "desktop-queen-after",
+      "desktop-heavy-production",
+      "landscape-queen-production",
+      "portrait-queen-after",
+      "portrait-heavy-production",
+      "production-entry"
+    ],
+    "productionEntry": {
+      "build": "18f96dd6c6f05b28b691a32699f338f0d276d4d5dafcd9e5b0c7aa1d836dc270",
+      "scope": "Unmodified production Web menu and new-game race choice; no battle fixture.",
+      "errors": [],
+      "failures": [],
+      "passed": true
+    },
+    "sourceStampAndLinks": "passed",
+    "diffWhitespace": "passed"
+  },
+  "semantics": {
+    "survivorOfferIdsAndPricesPreserved": true,
+    "noRngOrRefreshConsumptionDuringPruning": true,
+    "noRefillOfEmptyCachedShelf": true,
+    "oldSameWindowSavesCleaned": true,
+    "oneRunningCompatibleProducerOnly": true,
+    "maxOutputs": 2,
+    "pausedOrFullPreserved": true,
+    "paidOrdersPreserved": true,
+    "firstUnlockOnly": true,
+    "noRetroactiveSchedulingOnRestore": true,
+    "heavyStartsAtStage": 10,
+    "heavyPreplanCancellable": true,
+    "runSchema": 26
+  },
+  "resolvedHarnessIssues": [
+    "Initial new test expected one additional hatchery; contract may also double-build. Assertion corrected; game unchanged.",
+    "Initial browser access to localhost denied by restricted environment; approved local retry passed.",
+    "Initial QA selector targeted hidden legacy production link; changed to actual Facilities button.",
+    "Web compile and resource validation succeeded; final move failed because named parent directory was absent. Verified own staging path, created parent, moved completed build; server revalidated all resource hashes and production entry passed."
+  ],
+  "limitations": [
+    "Controlled equipment, stage-end and mission/save fixtures; not natural campaign or physical iPhone.",
+    "Original reported player path has not been matched to a supplied save.",
+    "No commit, push or deployment. Existing Coze BGM ZIP does not include this patch."
+  ],
+  "retention": {
+    "temporaryOutputs": "removed after successful checks",
+    "paths": [
+      "reports/local/unlock-feedback-20261029",
+      "dist/unlock-feedback-20261029"
+    ],
+    "preserved": [
+      "source",
+      "tests",
+      "reproduction tool",
+      "concise reports",
+      "existing Current/V04/Coze delivery"
+    ],
+    "removed": [
+      {
+        "path": "D:\\星际\\reports\\local\\unlock-feedback-20261029",
+        "files": 28,
+        "bytes": 46447999
+      },
+      {
+        "path": "D:\\星际\\dist\\unlock-feedback-20261029",
+        "files": 3756,
+        "bytes": 1458430731
+      }
+    ]
+  },
+  "boardRevision": 299
+}

@@ -114,3 +114,14 @@
 @media(max-width:700px){#interface #overlay[data-layout=portrait].imx .feedback-progress-strip{grid-template-columns:repeat(3,minmax(0,1fr))}#interface #overlay.imx .wb-tree-branch>.wb-tree-node{min-width:160px}#interface #overlay.imx .wb-tree-steps>li:not(:last-child)::after{top:auto}#interface #overlay.imx .wb-research-grid{grid-template-columns:1fr}}
 
 #interface #overlay.imx .feedback-progress-strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* Approved fixed hatchery controls use the existing dialog and button hierarchy. */
+.hatchery-directions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.hatchery-direction{display:flex;flex-direction:column;gap:12px;padding:14px;border:1px solid var(--line,#526471);background:#101922}
+.hatchery-direction h3,.hatchery-direction p{margin:0}
+.hatchery-direction button{margin-top:auto}
+.hatchery-evolution-state{color:#e4ebed}
+.hatchery-output{margin:16px 0}
+.hatchery-evolution-modal .wb-target-label{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.hatchery-evolution-modal select{max-width:100%;min-width:0}
+#interface #overlay.imx .hatchery-evolution-modal p{font-size:13px;line-height:1.6;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:480px){.hatchery-directions{gap:8px}.hatchery-direction{padding:10px}}

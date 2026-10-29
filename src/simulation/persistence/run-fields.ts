@@ -34,6 +34,8 @@ export const RUN_FIELDS=[
  // Saved in expedition.support.mines: phase, stable target, emergence timer, point/facing. Routes/poses rebuild.
  'expedition','runConfig','campaign18Runtime','swarm',
  'podSerial','time','tick','stage','stageElapsed','stageStartedAt','phase','paused','battlefield','endlessEntry','endlessTransitionReceipt','endlessRoundReceipts','runId','endlessAwardedMinutes','endless',
+ // entities.approachCharge/approachChargeReadyAt persist bounded movement intent and spent cooldown.
+ // Melee path/engagement caches rebuild; restoring never grants a fresh charge or repeats a hit.
  'entities','pods','upgrades','wallet','anchor','marchDirection','order','movePending','commandRoute','trail','effects','pickups','rewardDrops','visualSerial',
  'offerSerial','rewards','rewardClaimed','rewardRound','clearReceipt','rerolls','nextWave','wave','stageWave','nextId','nextJob',
  'nextFreePodAt','nextEliteGrowthAt','nextMercenaryAt','nextTankSupportAt','supportUntil','nextSupportTick','talentSupportImpacts','dashUntil','dashReady','hive',
@@ -75,6 +77,8 @@ export function validateRunData(data:RunData,defaults:object){
  // Saved: pair identity/rank/regrowth tick, queen cooldown, per-carrier injection receipt.
  // Rebuilt: console selection/pages and engagement positions. No view objects in these DTOs.
  for(const u of data.entities.values()){
+  if(u.approachChargeReadyAt!==undefined&&(!Number.isFinite(u.approachChargeReadyAt)||u.approachChargeReadyAt<0))throw Error('接敌冲锋冷却无效');
+  if(u.approachCharge){const c=u.approachCharge;if(u.team!=='player'||!Number.isSafeInteger(c.targetId)||c.targetId<1||![c.until,c.goal?.x,c.goal?.z,c.traveled].every(Number.isFinite)||c.traveled<0||c.traveled>4.000001||c.until>data.time+1.000001||!Number.isFinite(u.approachChargeReadyAt))throw Error('接敌冲锋状态无效');}
   // Saved per-body combat receipts and protection expiry; render layers rebuild independently.
   if(u.protossEliteCombat){if(!revisedProtossElite(u))throw Error('神族循环归属无效');validateProtossEliteCombat(u.protossEliteCombat);}
   if(u.teamAuraFactors&&(![u.teamAuraFactors.hp,u.teamAuraFactors.shield].every(n=>Number.isFinite(n)&&n>=1&&n<=12)||Object.keys(u.teamAuraFactors).length!==2))throw Error('团队最大值倍率无效');

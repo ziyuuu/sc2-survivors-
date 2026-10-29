@@ -1,3 +1,4 @@
+import {PLAYER_BANELING} from '../data/player-unit-adaptations';
 import {equipmentRecruitRank,directionMatches} from './starship/eligibility';
 import {equipmentPaidDelivery,equipmentRescuedMember} from './starship/members';
 import {activeEquipmentEffects} from './starship/modules';
@@ -52,7 +53,7 @@ export function cancelTacticalPlan(w:World,f:FamilyId,expectedRevision:number){c
 function reconcileTacticalPlans(w:World){const s=w.expedition;
  for(const [f,plan] of Object.entries(s.tacticalPlans) as [FamilyId,TacticalPlan][])if(!validTacticalTarget(w,f,plan))cancelTacticalPlan(w,f,w.revision);
 }
-export function productionQuote(w:World,f:UnitType,purpose:DeliveryPassenger['purpose']='body'){const d=f==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[f],s=w.expedition!,factor=Math.max(0,1-.1*w.talent('permanent_discount')-activeEquipmentEffects(w).filter(e=>(e.key==='recruit_discount'||purpose==='rankTraining'&&e.key==='rank_discount')&&directionMatches(e.binding,f)).reduce((n,e)=>n+e.values[0],0));if(!d)throw Error('Unverified production recipe');return {minerals:d.mineralCost?Math.max(1,Math.ceil(d.mineralCost*factor)):0,gas:d.gasCost?Math.max(1,Math.ceil(d.gasCost*factor)):0,seconds:d.productionTime*(1-Math.min(.25,s.cardTotals['production.'+f]??0))};}
+export function productionQuote(w:World,f:UnitType,purpose:DeliveryPassenger['purpose']='body'){const d=f==='science_vessel'?CAMPAIGN_SCIENCE_VESSEL_RECIPE:SOURCE_PRODUCTION_RECIPES[f],s=w.expedition!,factor=Math.max(0,1-.1*w.talent('permanent_discount')-activeEquipmentEffects(w).filter(e=>(e.key==='recruit_discount'||purpose==='rankTraining'&&e.key==='rank_discount')&&directionMatches(e.binding,f)).reduce((n,e)=>n+e.values[0],0));if(!d)throw Error('Unverified production recipe');return {minerals:d.mineralCost?Math.max(1,Math.ceil(d.mineralCost*factor)):0,gas:d.gasCost?Math.max(1,Math.ceil(d.gasCost*factor)):0,seconds:(f==='baneling'?PLAYER_BANELING.productionSeconds:d.productionTime)*(1-Math.min(.25,s.cardTotals['production.'+f]??0))};}
 export function updateExpeditionProduction(w:World,dt:number,automatic=true){const s=w.expedition!;
  reconcileTacticalPlans(w);
  for(const delivery of [...s.pendingFreeDeliveries])if(w.time>=delivery.retryAt){if(w.trySpawnPod(delivery.family,undefined,delivery.jobId,1,true))s.pendingFreeDeliveries=s.pendingFreeDeliveries.filter(d=>d!==delivery);else delivery.retryAt=w.time+1;}

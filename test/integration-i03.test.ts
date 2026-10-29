@@ -5,7 +5,7 @@ import {newEquipmentAccount,grantEquipment,cleanseEquipment,equip,equipmentRando
 import {equipmentBaseDropChance,equipmentDropPolicy,qualityWeightedPool,planTaskEquipment} from '../src/simulation/starship/drops';
 import {EQUIPMENT_TEMPLATES} from '../src/simulation/starship/catalog';
 import {talentModifiers} from '../src/simulation/combat/expedition-combat';
-import {newBuildingState,PROJECTS,setDirection,getOffers,purchase,nextPhase,nextWindow} from '../src/simulation/building/rules';
+import {newBuildingState,PROJECTS,setDirection,getOffers,getEvolutionOffers,purchase,nextPhase,nextWindow} from '../src/simulation/building/rules';
 import {syncBuildingViews} from '../src/simulation/building/expedition';
 import {supplyEligibility,supplyUnlocked} from '../src/simulation/progression/supply-cards';
 
@@ -46,7 +46,7 @@ test('I03 naturally rolled M04 inheritance affects the real moving-shot recovery
 test('I03 one lawfully dual-evolved hatchery qualifies basic, ground and air supply cards together',()=>{
  const b=newBuildingState('zerg',{minerals:20000,gas:20000},529);
  const sequence=['unlock.queen','evolve-zerg.evolution','evolve-zerg.air','system.zerg.air','research.zerg.air.weapon','research.zerg.air.defense','system.zerg.evolution','research.zerg.evolution.weapon','research.zerg.evolution.defense'];
- for(const id of sequence){const d=PROJECTS.find(p=>p.id===id)!;assert.ok(setDirection(b,d.line!).ok);b.frozenTarget=id;const q=getOffers(b).find(q=>q.projectId===id);assert.ok(q,id);assert.ok(purchase(b,q,q.targets[0]).ok);assert.ok(nextPhase(b).ok);assert.ok(nextPhase(b).ok);assert.ok(nextWindow(b).ok);}
+ for(const id of sequence){const d=PROJECTS.find(p=>p.id===id)!;assert.ok(setDirection(b,d.line!).ok);b.frozenTarget=id;const q=(d.kind==='evolution'?getEvolutionOffers(b):getOffers(b)).find(q=>q.projectId===id);assert.ok(q,id);assert.ok(purchase(b,q,q.targets[0]).ok);assert.ok(nextPhase(b).ok);assert.ok(nextPhase(b).ok);assert.ok(nextWindow(b).ok);}
  assert.equal(b.groups.length,1);assert.deepEqual(b.groups[0].directions,['ground','air']);
  const w=new World({race:'zerg',seed:529,sandbox:true,waves:false,terrain:false,obstacles:[]});assert.ok(w.start());w.stage=12;w.expedition.building=b;w.expedition.tech=b.tech;w.wallet=b.wallet;syncBuildingViews(w.expedition);
  for(const f of ['queen','hydralisk','mutalisk'] as const){assert.equal(supplyUnlocked(w,f,2),true,f);for(const mode of ['pod','direct'] as const){const e=supplyEligibility(w,f,3,mode);assert.equal(e.legal,true,JSON.stringify({f,mode,e}));}}

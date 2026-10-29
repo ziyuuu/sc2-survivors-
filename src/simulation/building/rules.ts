@@ -36,7 +36,7 @@ export const linesFor = (race:Race)=>(Object.keys(PRODUCTION_LINES) as Productio
 export const hasGround = (s:BuildingState)=>s.groups.some(g=>g.kind==='hatchery'&&g.directions.includes('ground'));
 export const ownsLine = (s:BuildingState,line:ProductionLineId)=>s.groups.some(g=>s.race==='zerg'?line==='zerg.basic'||g.directions.includes(line==='zerg.air'?'air':'ground'):g.kind!=='crystal'&&g.line===line);
 export const familyUnlocked = (s:BuildingState,f:FamilyId)=>(s.tech['unlock.'+f]??0)>0;
-export const inDirection = (d:Project,line:ProductionLineId)=>d.id==='hatchery'?line.startsWith('zerg.'):d.line===line;
+export const inDirection = (d:Project,line:ProductionLineId)=>d.line===line;
 export const facilityCount = (s:BuildingState,kind:string)=>s.groups.filter(g=>g.kind===kind).reduce((n,g)=>n+g.ids.length,0);
 export function groupFamilies(g:ProductionGroup):FamilyId[] {
  if(g.kind==='crystal')return ['zealot','adept'];
@@ -71,6 +71,18 @@ export function eligible(s:BuildingState,d:Project,target?:string) {
 export function candidates(s:BuildingState,line=s.direction) {return PROJECTS.filter(d=>inDirection(d,line)&&eligible(s,d));}
 export const activeGroupOutputs=(g:ProductionGroup)=>g.enabled?g.outputs.filter(f=>g.enabledFamilies?.[f]!==false):[];
 
+/** First unlock only: append to one running compatible group without disturbing its queue. */
+export function unlockProductionFamily(s:BuildingState,f:FamilyId) {
+ if(familyUnlocked(s,f))return false;
+ s.tech['unlock.'+f]=1;
+ // Existing arrangements, including an explicit pause, belong to the player.
+ if(s.groups.some(g=>g.outputs.includes(f)))return true;
+ const group=s.groups.find(g=>g.enabled&&g.outputs.length<2&&groupFamilies(g).includes(f));
+ if(group){group.outputs.push(f);group.enabledFamilies??={};group.enabledFamilies[f]=true;}
+ // Heavy units may reserve a slot early; canProduce still enforces stage 10.
+ return true;
+}
+
 /** Sole facility initializer: paid construction and future event/equipment grants share this path. */
 export function grantFacility(s:BuildingState,kind:FacilityKind):ProductionGroup|null {
  const d=project(kind);if(!d||d.kind!=='facility'||d.race!==s.race||facilityCount(s,kind)+(s.missionReserved?.[kind]??0)+(d.batch??1)>d.maxLevel)return null;
@@ -81,7 +93,7 @@ export function grantFacility(s:BuildingState,kind:FacilityKind):ProductionGroup
  s.tech[kind]=facilityCount(s,kind);
  // Preserve the original first-factory/starport bonus; new hatcheries inherit global basics.
  const first=kind==='factory'?'hellion':kind==='starport'?'medivac':null;
- if(first)s.tech['unlock.'+first]=1;
+ if(first)unlockProductionFamily(s,first);
  if(created&&!g.outputs.length){const f=groupFamilies(g).find(f=>familyUnlocked(s,f));if(f)g.outputs=[f];}
  return g;
 }
@@ -95,21 +107,44 @@ function sample<T>(s:BuildingState,pool:readonly T[],weight:(v:T)=>number,option
  let n=random(s,options)*pool.reduce((n,v)=>n+weight(v),0);for(const v of pool){n-=weight(v);if(n<0)return v;}return pool.at(-1)!;
 }
 function level(s:BuildingState,d:Project){return d.kind==='facility'?facilityCount(s,d.id):s.tech[d.id]??0;}
-export function getOffers(s:BuildingState,options:RuleOptions={}):Offer[] {
- if(s.phase!=='building'||s.bought)return [];
- const cached=s.offers[s.direction];if(cached)return structuredClone(cached).map(q=>({...q,revision:s.revision}));
- const pool=candidates(s).filter(d=>options.ready?.(d)!==false),related=new Set([...(options.related??[]),...s.groups.flatMap(activeGroupOutputs)]),picked:Project[]=[];
- const capabilities=options.capabilities??((f:FamilyId)=>{const d=SC2_UNITS[f];return [...(['both','air'].includes(d.targetType)?['antiAir']:[]),...(d.splash.length||f==='lurker'?['area']:[]),...(['medivac','queen','science_vessel'].includes(f)?['support']:[])];});
- const current=new Set([...related].flatMap(capabilities));
- while(pool.length&&picked.length<3){const slot=picked.length,pinned=slot===0?pool.find(d=>d.id===s.frozenTarget):undefined,chosen=pinned??sample(s,pool,d=>slot===0?d.families.some(f=>related.has(f))?4:1:slot===1?d.families.some(f=>capabilities(f).some(c=>!current.has(c)))?4:d.families.some(f=>related.has(f))?2:1:d.families.some(f=>!related.has(f))?4:d.kind==='facility'?2:1,options);picked.push(chosen);pool.splice(pool.indexOf(chosen),1);}
- const offers=picked.map(d=>{
+/** Revalidate retained quotes without drawing replacements, repricing, or consuming RNG. */
+export function pruneBuildingOffers(s:BuildingState,options:Pick<RuleOptions,'ready'>={}) {
+ const valid=(q:Offer,line?:ProductionLineId)=>{
+  const d=project(q.projectId);
+  if(!d||q.window!==s.window||line&&!inDirection(d,line)||!eligible(s,d)||level(s,d)!==q.level||options.ready?.(d)===false)return false;
+  if(d.kind==='evolution'){
+   const targets=new Set(evolutionTargets(s,d.id).map(g=>g.id));
+   q.targets=q.targets.filter(id=>targets.has(id));
+   if(!q.targets.length)return false;
+  }
+  return true;
+ };
+ for(const [line,offers] of Object.entries(s.offers))s.offers[line as ProductionLineId]=offers?.filter(q=>project(q.projectId)?.kind!=='evolution'&&valid(q,line as ProductionLineId));
+ for(const [key,q] of Object.entries(s.quotes))if(!valid(q))delete s.quotes[key];
+}
+function quoteProject(s:BuildingState,d:Project,options:RuleOptions):Offer {
   const key=d.id+':'+level(s,d);if(s.quotes[key])return s.quotes[key];
   const raw=d.kind==='research'?(level(s,d)===3?{minerals:developmentPrice(d as DevelopmentDefinition,2).minerals*2,gas:developmentPrice(d as DevelopmentDefinition,2).gas*2}:developmentPrice(d as DevelopmentDefinition,level(s,d))):{minerals:d.minerals,gas:d.gas};
   const discount=sample(s,DISCOUNTS,d=>d.weight,options).off,factor=options.priceFactorFor?.(d)??(1-.1*s.talents.permanent_discount)*(1-(d.kind==='research'?0:.15*s.talents.frugal_build));
   if(!Number.isFinite(factor)||factor<0)throw new RangeError('Invalid development price multiplier');
   const cost=(n:number)=>n?Math.max(1,Math.ceil(n*(1-discount)*factor)):0;
   return s.quotes[key]={id:`${s.window}:${s.revision}:${key}`,projectId:d.id,window:s.window,revision:s.revision,level:level(s,d),cost:{minerals:cost(raw.minerals),gas:cost(raw.gas)},baseCost:raw,discount,targets:d.kind==='evolution'?evolutionTargets(s,d.id).map(g=>g.id):[]};
- });
+}
+/** Fixed evolution actions share frozen prices and the ordinary paid-action receipt. */
+export function getEvolutionOffers(s:BuildingState,options:RuleOptions={}):Offer[] {
+ if(s.race!=='zerg'||s.phase!=='building'||s.bought)return [];
+ pruneBuildingOffers(s,options);
+ return PROJECTS.filter(d=>d.kind==='evolution'&&eligible(s,d)&&options.ready?.(d)!==false).map(d=>({...structuredClone(quoteProject(s,d,options)),revision:s.revision}));
+}
+export function getOffers(s:BuildingState,options:RuleOptions={}):Offer[] {
+ if(s.phase!=='building'||s.bought)return [];
+ pruneBuildingOffers(s,options);
+ const cached=s.offers[s.direction];if(cached)return structuredClone(cached).map(q=>({...q,revision:s.revision}));
+ const pool=candidates(s).filter(d=>d.kind!=='evolution'&&options.ready?.(d)!==false),related=new Set([...(options.related??[]),...s.groups.flatMap(activeGroupOutputs)]),picked:Project[]=[];
+ const capabilities=options.capabilities??((f:FamilyId)=>{const d=SC2_UNITS[f];return [...(['both','air'].includes(d.targetType)?['antiAir']:[]),...(d.splash.length||f==='lurker'?['area']:[]),...(['medivac','queen','science_vessel'].includes(f)?['support']:[])];});
+ const current=new Set([...related].flatMap(capabilities));
+ while(pool.length&&picked.length<3){const slot=picked.length,pinned=slot===0?pool.find(d=>d.id===s.frozenTarget):undefined,chosen=pinned??sample(s,pool,d=>slot===0?d.families.some(f=>related.has(f))?4:1:slot===1?d.families.some(f=>capabilities(f).some(c=>!current.has(c)))?4:d.families.some(f=>related.has(f))?2:1:d.families.some(f=>!related.has(f))?4:d.kind==='facility'?2:1,options);picked.push(chosen);pool.splice(pool.indexOf(chosen),1);}
+ const offers=picked.map(d=>quoteProject(s,d,options));
  s.offers[s.direction]=offers;return structuredClone(offers).map(q=>({...q,revision:s.revision}));
 }
 export function setDirection(s:BuildingState,line:ProductionLineId):Result {
@@ -118,7 +153,8 @@ export function setDirection(s:BuildingState,line:ProductionLineId):Result {
 }
 function completeProject(s:BuildingState,d:Project,target?:string) {
  if(d.kind==='facility')return grantFacility(s,d.id as FacilityKind);
- if(d.kind==='evolution'){s.groups.find(g=>g.id===target)!.directions.push(d.direction!);s.tech['unlock.'+d.families[0]]=1;return null;}
+ if(d.kind==='evolution'){s.groups.find(g=>g.id===target)!.directions.push(d.direction!);unlockProductionFamily(s,d.families[0]);return null;}
+ if(d.unlock==='family'){unlockProductionFamily(s,d.families[0]);return null;}
  s.tech[d.id]=(s.tech[d.id]??0)+1;return null;
 }
 function instantResearch(s:BuildingState,line:ProductionLineId){
@@ -128,8 +164,8 @@ function instantResearch(s:BuildingState,line:ProductionLineId){
  const chosen=pool.sort((a,b)=>priority(a)-priority(b))[0];if(chosen)completeProject(s,chosen);
 }
 export function purchase(s:BuildingState,q:Offer,target?:string,options:RuleOptions={}):Result {
- const live=(s.offers[s.direction]??[]).find(o=>o.id===q.id),d=project(q.projectId);
- if(!d||!live||live.projectId!==q.projectId||q.revision!==s.revision||q.window!==s.window||s.phase!=='building'||s.bought||s.receipts[q.id]||!inDirection(d,s.direction)||!eligible(s,d,target)||options.ready?.(d)===false||level(s,d)!==live.level)return {ok:false,reason:'项目已变化，请重新选择'};
+ const d=project(q.projectId),live=(d?.kind==='evolution'?Object.values(s.quotes):s.offers[s.direction]??[]).find(o=>o.id===q.id);
+ if(!d||!live||live.projectId!==q.projectId||q.revision!==s.revision||q.window!==s.window||s.phase!=='building'||s.bought||s.receipts[q.id]||d.kind!=='evolution'&&!inDirection(d,s.direction)||!eligible(s,d,target)||options.ready?.(d)===false||level(s,d)!==live.level)return {ok:false,reason:'项目已变化，请重新选择'};
  if(d.kind==='evolution'&&(!target||!live.targets.includes(target)))return {ok:false,reason:'请选择可进化的孵化场'};
  const cost=live.cost;if(s.wallet.minerals<cost.minerals||s.wallet.gas<cost.gas)return {ok:false,reason:'资源不足'};
  const freeChance=Math.max(.2*s.talents.free_house,options.freeChance??0),doubleChance=Math.max(.3*s.talents.double_build,options.doubleChance??0),researchChance=Math.max(Math.min(.99,.33*s.talents.instant_tech),options.researchChance??0);
@@ -143,7 +179,7 @@ export function purchase(s:BuildingState,q:Offer,target?:string,options:RuleOpti
  s.receipts[q.id]={...paid};s.spent.construction.minerals+=paid.minerals;s.spent.construction.gas+=paid.gas;s.bought=true;s.revision++;return {ok:true,paid,added,firstFree:free};
 }
 export function refreshCost(s:BuildingState):number|null {
- if(s.phase==='front'||s.phase==='building'&&(s.bought||!candidates(s).length))return null;
+ if(s.phase==='front'||s.phase==='building'&&(s.bought||!candidates(s).some(d=>d.kind!=='evolution')))return null;
  if(s.phase==='building'&&!s.baseRefreshUsed||s.bonusRefresh>0)return 0;
  return Math.max(10,Math.ceil((50+40*s.paidRefresh-20*s.talents.reroll_fan)*(1-.1*s.talents.permanent_discount)));
 }
@@ -167,7 +203,7 @@ export function refreshAtCost(s:BuildingState,revision:number,cost:number):Resul
 export function placementDraft(s:BuildingState):PlacementDraft {return {revision:s.revision,groups:s.groups.map(g=>({id:g.id,outputs:[...g.outputs],enabled:g.enabled}))};}
 export function applyPlacement(s:BuildingState,draft:PlacementDraft):Result {
  if(draft.revision!==s.revision||draft.groups.length!==s.groups.length||new Set(draft.groups.map(g=>g.id)).size!==s.groups.length)return {ok:false,reason:'设施状态已变化'};
- for(const d of draft.groups){const g=s.groups.find(g=>g.id===d.id);if(!g||typeof d.enabled!=='boolean'||d.outputs.length>2||new Set(d.outputs).size!==d.outputs.length||d.outputs.some(f=>!canProduce(s,g,f)))return {ok:false,reason:'布置包含尚未开放的兵种'};if(s.phase==='front'&&d.outputs.join()!==g.outputs.join())return {ok:false,reason:'关间才能修改生产兵种'};}
+ for(const d of draft.groups){const g=s.groups.find(g=>g.id===d.id);if(!g||typeof d.enabled!=='boolean'||d.outputs.length>2||new Set(d.outputs).size!==d.outputs.length||d.outputs.some(f=>!canProduce(s,g,f)&&!(g.outputs.includes(f)&&familyUnlocked(s,f)&&groupFamilies(g).includes(f))))return {ok:false,reason:'布置包含尚未开放的兵种'};if(s.phase==='front'&&d.outputs.join()!==g.outputs.join())return {ok:false,reason:'关间才能修改生产兵种'};}
  for(const d of draft.groups){const g=s.groups.find(g=>g.id===d.id)!,changed=g.outputs.join()!==d.outputs.join();if(changed)g.cursor%=Math.max(1,d.outputs.length);if(changed||d.enabled&&!g.enabled)g.enabledFamilies=Object.fromEntries(d.outputs.map(f=>[f,true]));g.outputs=[...d.outputs];g.enabled=d.enabled;}s.revision++;return {ok:true};
 }
 export function setGroupOutputs(s:BuildingState,id:string,outputs:FamilyId[]):Result {

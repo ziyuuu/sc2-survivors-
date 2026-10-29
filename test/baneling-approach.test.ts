@@ -4,8 +4,8 @@ import {setup} from '../tools/performance-s09-cases.mjs';
 const lib={World,ELITES};
 for(const id of ['baneling','baneling.1','baneling.2','baneling.3'])test(`${id} autonomously goes around firing allies and attacks again after recovery`,()=>{
  const {w,u,target}=setup(lib,{id,scenario:'mixed-live'}),times:number[]=[];let shots=0,previous={x:u.x,z:u.z};
- for(let i=0;i<900;i++){w.step();assert.ok(Math.hypot(u.x-previous.x,u.z-previous.z)<.2);previous={x:u.x,z:u.z};if((u.shotSequence??0)>shots){shots=u.shotSequence??0;times.push(w.time);assert.equal(u.recoveryUntil,w.time+5);}}
- assert.ok(shots>=2);assert.ok(times[0]<5);for(let i=1;i<times.length;i++)assert.ok(times[i]-times[i-1]>=5-1e-8);
+ for(let i=0;i<900;i++){w.step();assert.ok(Math.hypot(u.x-previous.x,u.z-previous.z)<.2);previous={x:u.x,z:u.z};if((u.shotSequence??0)>shots){shots=u.shotSequence??0;times.push(w.time);assert.equal(u.recoveryUntil,w.time+1.5);}}
+ assert.ok(shots>=2);assert.ok(times[0]<5);for(let i=1;i<times.length;i++)assert.ok(times[i]-times[i-1]>=1.5-1e-8);
  assert.equal(u.attackRange,.25);assert.ok(u.hp>0);assert.ok(target.hp<target.maxHp);
 });
 test('baneling can use another contact position around a dense 24-body formation',()=>{

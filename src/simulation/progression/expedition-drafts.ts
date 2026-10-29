@@ -14,7 +14,7 @@ import {rollRarity,type Rarity} from '../../data/rewards';
 import type {Reward} from '../types';
 import type {ExpeditionState} from '../expedition-state';
 import {buildingContext,readBuildingContext,resetBuildingWindow,selectedProductionFamilies,syncBuildingWindow} from '../building/expedition';
-import {PROJECTS,consumeRefresh,eligible,evolutionTargets,facilityCount,getOffers,linesFor,refreshCost as buildingRefreshCost,type Offer as BuildingOffer} from '../building/rules';
+import {PROJECTS,consumeRefresh,eligible,evolutionTargets,facilityCount,getOffers,getEvolutionOffers,linesFor,pruneBuildingOffers,refreshCost as buildingRefreshCost,type Offer as BuildingOffer} from '../building/rules';
 
 export type ExpeditionDraftRound='building'|'random';
 export type ExpeditionCardEffect='weapon'|'vitality'|'armor'|'recovery'|'energy'|'production'|'cultivation';
@@ -118,6 +118,7 @@ function quote(ctx:ExpeditionDraftContext,c:Candidate,round:ExpeditionDraftRound
 function selectedFamilies(state:ExpeditionState){return selectedProductionFamilies(state);}
 function ownsDevelopment(state:ExpeditionState,id:string){return (state.tech[id]??0)>0||state.facilities.some(f=>f.kind===id);}
 function developmentState(ctx:ExpeditionDraftContext,mutate=false){return (mutate?buildingContext:readBuildingContext)(ctx.state,ctx.stage,windowOf(ctx),'building',ctx.wallet);}
+const projectKind=(id:string)=>PROJECTS.find(d=>d.id===id)?.kind;
 function developmentAction(ctx:ExpeditionDraftContext,d:DevelopmentDefinition):ExpeditionOfferEffect&{kind:'development'}|null {
  const b=developmentState(ctx);if(!b||!eligible(b,d)||ctx.developmentReady?.(d)===false)return null;
  const target=d.kind==='evolution'?evolutionTargets(b,d.id)[0]:undefined;
@@ -126,14 +127,27 @@ function developmentAction(ctx:ExpeditionDraftContext,d:DevelopmentDefinition):E
 export function expeditionDevelopmentActions(ctx:ExpeditionDraftContext){requireCurrent(ctx);return PROJECTS.flatMap(definition=>{const effect=developmentAction(ctx,definition);return effect?[{definition,effect}]:[];});}
 export function nativeBuildingQuote(ctx:ExpeditionDraftContext,offer:ExpeditionReward):BuildingOffer|null {
  const b=developmentState(ctx),e=offer.expeditionEffect;if(!b||e.kind!=='development'||!offer.buildingQuoteId)return null;
- const q=b.offers[b.direction]?.find(q=>q.id===offer.buildingQuoteId&&q.projectId===e.definitionId);
+ const q=(projectKind(e.definitionId)==='evolution'?Object.values(b.quotes):b.offers[b.direction]??[]).find(q=>q.id===offer.buildingQuoteId&&q.projectId===e.definitionId);
  return q?{...structuredClone(q),revision:b.revision}:null;
 }
-export function drawExpeditionDevelopment(ctx:ExpeditionDraftContext,reroll=false):ExpeditionReward[] {
- requireCurrent(ctx);const direction=ctx.state.developmentDirection,b=developmentState(ctx,true);if(ctx.state.developmentBought||!direction||!b)return [];
- if(reroll){ctx.state.directionOffers={};ctx.state.developmentQuotes={};b.offers={};b.quotes={};}
- const quotes=getOffers(b,{random:ctx.random,related:ctx.state.familySlots,capabilities:f=>ctx.familyInfo(f).capabilities??[],ready:ctx.developmentReady,priceFactorFor:ctx.developmentPriceFactorFor??(ctx.developmentPriceFactor!==undefined?()=>ctx.developmentPriceFactor!:undefined)});
- const offers=quotes.map(q=>{
+/** Also repairs a saved shelf: preserve every surviving offer ID, price, and RNG state. */
+export function pruneExpeditionDevelopmentOffers(ctx:ExpeditionDraftContext,offers:readonly Reward[]):Reward[] {
+ const b=developmentState(ctx,true);if(!b)return offers.slice();
+ pruneBuildingOffers(b,{ready:ctx.developmentReady});
+ const quotes=new Map([...Object.values(b.offers).flatMap(q=>q??[]),...Object.values(b.quotes).filter(q=>projectKind(q.projectId)==='evolution')].map(q=>[q.id,q]));
+ const valid=(r:Reward)=>{
+  if(!('expeditionEffect' in r))return true;
+  const offer=r as ExpeditionReward,e=offer.expeditionEffect;if(e.kind!=='development')return true;
+  const q=offer.buildingQuoteId?quotes.get(offer.buildingQuoteId):undefined;
+  if(!q||q.projectId!==e.definitionId||q.level!==e.expectedLevel)return false;
+  if(q.targets.length&&!b.groups.some(g=>q.targets.includes(g.id)&&g.ids.includes(e.targetFacilityId??-1)))e.targetFacilityId=b.groups.find(g=>q.targets.includes(g.id))!.ids[0];
+  return true;
+ };
+ for(const [line,items] of Object.entries(ctx.state.directionOffers))ctx.state.directionOffers[line as keyof typeof ctx.state.directionOffers]=items?.filter(valid);
+ for(const [id,r] of Object.entries(ctx.state.developmentQuotes))if(!valid(r))delete ctx.state.developmentQuotes[id];
+ return offers.filter(r=>valid(r)&&!('expeditionEffect' in r&&(r as ExpeditionReward).expeditionEffect.kind==='development'&&projectKind(((r as ExpeditionReward).expeditionEffect as {definitionId:string}).definitionId)==='evolution'));
+}
+function developmentReward(ctx:ExpeditionDraftContext,b:NonNullable<ReturnType<typeof developmentState>>,q:BuildingOffer):ExpeditionReward {
   const d=PROJECTS.find(d=>d.id===q.projectId)!;
   if(ctx.state.developmentQuotes[q.id])return ctx.state.developmentQuotes[q.id];
   const target=d.kind==='evolution'?b.groups.find(g=>g.id===q.targets[0]):undefined;
@@ -141,7 +155,14 @@ export function drawExpeditionDevelopment(ctx:ExpeditionDraftContext,reroll=fals
   const action=d.kind==='facility'?'建造'+d.name+(q.level&&d.id!=='crystal'?'（第'+(q.level+1)+'座）':''):d.kind==='research'?d.name+' '+(q.level+1)+'级':d.name;
   const offer:ExpeditionReward={id:'development.'+d.id,offerId:ctx.nextOfferId(d.id),sold:false,name:action,description:d.kind==='facility'?d.batch?'增加两座生产设施':'增加一座生产设施':d.kind==='evolution'?'开放所选孵化场方向':'本局同类设施共享，未来新建也有效',icon:d.kind==='facility'?d.race==='terran'?'building.'+d.id:'unit.'+d.families[0]:d.kind==='evolution'?'unit.'+d.families[0]:d.line&&['barracks','factory','starport'].includes(d.line)?'building.'+d.line:'tech.attack',rarity:'white',kind:d.kind==='facility'?'build':d.kind==='evolution'?'upgrade':'research',value:d.id,minerals:q.cost.minerals,gas:q.cost.gas,baseMinerals:q.baseCost.minerals,baseGas:q.baseCost.gas,discount:q.discount,expeditionWindow:windowOf(ctx),expeditionRound:'building',expeditionEffect:effect,buildingQuoteId:q.id};
   ctx.state.developmentQuotes[q.id]=offer;return offer;
- });
+}
+export function drawExpeditionDevelopment(ctx:ExpeditionDraftContext,reroll=false):ExpeditionReward[] {
+ requireCurrent(ctx);const direction=ctx.state.developmentDirection,b=developmentState(ctx,true);if(ctx.state.developmentBought||!direction||!b)return [];
+ if(reroll){ctx.state.directionOffers={};ctx.state.developmentQuotes={};b.offers={};b.quotes={};}
+ else pruneExpeditionDevelopmentOffers(ctx,[]);
+ const quotes=getOffers(b,{random:ctx.random,related:ctx.state.familySlots,capabilities:f=>ctx.familyInfo(f).capabilities??[],ready:ctx.developmentReady,priceFactorFor:ctx.developmentPriceFactorFor??(ctx.developmentPriceFactor!==undefined?()=>ctx.developmentPriceFactor!:undefined)});
+ for(const q of getEvolutionOffers(b,{random:ctx.random,ready:ctx.developmentReady,priceFactorFor:ctx.developmentPriceFactorFor}))developmentReward(ctx,b,q);
+ const offers=quotes.map(q=>developmentReward(ctx,b,q));
  ctx.state.directionOffers[direction]=offers;return offers;
 }
 

@@ -1,0 +1,247 @@
+{
+  "date": "2026-10-29",
+  "status": "本地完成，未提交/推送/部署",
+  "baseCommit": "674c528ee8657f7b2f6ba743e2aac6c13f644eec",
+  "branch": "体积优化版",
+  "build": {
+    "appBuildId": "d713548122352fc1f9fcbddc48427521c5bfb4c4c53fd65c6ba1e2ae3fd26f2b",
+    "runSchema": 26,
+    "rulesId": "mvp-1.0",
+    "mapId": "campaign-five-v3",
+    "assetCount": 3847,
+    "fileCount": 3750,
+    "assetBytes": 1420924058,
+    "logicalBytes": 1443531249,
+    "sharedBytes": 22607191,
+    "manifest": "asset-manifest.c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad.json",
+    "release": "c57126842b2eebe90f278e5dfe9c5ad54eaaec683b3e611e697abada0118fdad",
+    "source": "reports/local/asset-reachability.json"
+  },
+  "tests": {
+    "final": {
+      "total": 2847,
+      "passed": 2847,
+      "failed": 0,
+      "command": "node --import tsx --test --test-concurrency=4 test/*.test.mjs test/*.test.ts"
+    },
+    "typecheck": true,
+    "docsData": true,
+    "docsCheck": true,
+    "initial": {
+      "total": 2841,
+      "passed": 2830,
+      "failed": 11,
+      "explanation": "旧数值/随机进化/快照预期及6个环境权限失败；更新批准范围并复验，最终全通过。"
+    },
+    "localServiceRetest": 16
+  },
+  "browser": {
+    "scope": "Real HUD actions, synthetic accounts and paused stage transitions; Chrome mouse / simulated touch.",
+    "uiResults": [
+      {
+        "name": "desktop",
+        "kind": "evolution",
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "desktop",
+        "kind": "terran",
+        "layout": "compact",
+        "slotSizes": [
+          56
+        ],
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "desktop",
+        "kind": "zerg",
+        "layout": "compact",
+        "slotSizes": [
+          56
+        ],
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "desktop",
+        "kind": "protoss",
+        "layout": "compact",
+        "slotSizes": [
+          56
+        ],
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "landscape",
+        "kind": "evolution",
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "landscape",
+        "kind": "terran",
+        "layout": "compact",
+        "slotSizes": [
+          48
+        ],
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "landscape",
+        "kind": "zerg",
+        "layout": "compact",
+        "slotSizes": [
+          48
+        ],
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "landscape",
+        "kind": "protoss",
+        "layout": "anchored",
+        "slotSizes": [
+          48
+        ],
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "portrait",
+        "kind": "evolution",
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "portrait",
+        "kind": "terran",
+        "layout": "compact",
+        "slotSizes": [
+          48
+        ],
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "portrait",
+        "kind": "zerg",
+        "layout": "compact",
+        "slotSizes": [
+          48
+        ],
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "portrait",
+        "kind": "protoss",
+        "layout": "anchored",
+        "slotSizes": [
+          48
+        ],
+        "errors": [],
+        "failures": []
+      }
+    ],
+    "uiBuildNote": "三族舰装12组在最终文字/保存入口细改前通过，舰装代码随后未变；最终进化3组和正式入口单独复验。",
+    "finalEvolution": [
+      {
+        "name": "desktop",
+        "kind": "evolution",
+        "groundQuote": {
+          "minerals": 128,
+          "gas": 85
+        },
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "landscape",
+        "kind": "evolution",
+        "groundQuote": {
+          "minerals": 128,
+          "gas": 85
+        },
+        "errors": [],
+        "failures": []
+      },
+      {
+        "name": "portrait",
+        "kind": "evolution",
+        "groundQuote": {
+          "minerals": 128,
+          "gas": 85
+        },
+        "errors": [],
+        "failures": []
+      }
+    ],
+    "entry": [
+      {
+        "name": "desktop",
+        "kind": "entry",
+        "errors": [],
+        "failures": []
+      }
+    ],
+    "representativeScreenshotsReviewed": true
+  },
+  "mixedCombat": {
+    "scope": "12个活跃远程+单个近战，对高HP静止目标，固定10秒；非自然战役/性能",
+    "firstHitSeconds": {
+      "zergling": 1.983333,
+      "zealot": 1.05,
+      "ultralisk": 0.666667
+    },
+    "shots": {
+      "zergling": 18,
+      "zealot": 12,
+      "ultralisk": 17
+    }
+  },
+  "limitations": [
+    "原iPhone未实测",
+    "无自然全战役平衡或组合战场性能声明",
+    "未重打离线/Coze包",
+    "其他线程特殊关队伍问题保留独立调查/修复"
+  ],
+  "record": "docs/project/ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md",
+  "cleanup": {
+    "pending": false,
+    "completed": true,
+    "reason": "已按产物保留规则清理本批截图、日志和检测构建，保留源码、测试、复现工具及简要报告。",
+    "paths": [
+      "reports/local/zerg-melee-equipment-20261029",
+      "dist/zerg-melee-equipment-20261029"
+    ]
+  },
+  "sourceHashes": {
+    "src/data/player-unit-adaptations.ts": "e2a749427f5f964c15e28a0b7b99a19a34645b85b160a09d61fb93e57f31d078",
+    "src/simulation/movement/approach-charge.ts": "8c2cedf3cc204cce380b9f5783b635a3572647a057fe8d7b3846246641ad7b83",
+    "src/simulation/formation/engagement.ts": "c021b30c6d85c75ef3a10d3ae591980c8220967c39b20e63e110b124a507e817",
+    "src/simulation/world.ts": "4e03e7d171e2b0e0794c1360b2adae22c2b177fe128cea3fabfccb2b10157d84",
+    "src/simulation/building/rules.ts": "d56a8994258d2df46d8da1b2638746534e2b09399b424d7345ef1bc5d1a9666e",
+    "src/simulation/combat/expedition-combat.ts": "7f0a98b1d87141ed5f1262feb48d39bde4c8320fd13e37ae62651aa6be3661cf",
+    "src/simulation/combat/weapon-patterns.ts": "96bdb026037ab03087ff48be9d9e8de4234ae1d46a91e93f572134cfc03b08de",
+    "src/simulation/combat/zerg-elite-runtime.ts": "709849c46e1220372f00284340babe73b3c7136d8affc9b0efc8345a6145d905",
+    "src/simulation/expedition-production.ts": "d2373a62529a8fdfaac08abc41147345cdcddbc204531a6c811d0b4636e9a571",
+    "src/simulation/expedition-economy.ts": "a1a36e8edc88dc1be597f097b21d18d7099be0291d3e41bbaee2b794e70f8e2a",
+    "src/simulation/progression/expedition-drafts.ts": "3a82f878f56b27b2023c49c698b6254631f78faa0729382dbd67b5907a5d3749",
+    "src/simulation/persistence/run-fields.ts": "6a69b0b1c4eb0e61addfc95e9d24d6b6104c2010839bc36d8ae931155bcbc131",
+    "src/simulation/types.ts": "e1a7a2e97650849b56c80f5fed12c7f5936fe6a869afddbddf64b437699c22dd",
+    "src/simulation/starship/quick-equip.ts": "5caf8b20e912035261a45b0a598860a4aaf6d5fee25b2aad551f9ad094f29a19",
+    "src/ui/presentation/hatchery-evolution.ts": "bf1d86e4c98d489c097a32adbd8a2b7878484c8b04c66746aa13b1dc13b3861f",
+    "src/ui/presentation/building-panel.css": "9dfba72d67d31a683ce1a82f2cb084560692178e5ab62744434a89255561695c",
+    "src/ui/presentation/intermission.ts": "64ac979baeea8f6165debb11905b176c6db75233f3d9d41f8c81da10732c2ebe",
+    "src/ui/hud.ts": "b42770a51f5025d96cd92acd3fc57e7b05ec2679c12b6ec0429f8c69b90067d6",
+    "src/ui/starship/legacy-view.ts": "2070d7efe7b532ca52cedcfaee6a1080ad8e32eef909208267e6f077779eb654",
+    "src/ui/starship/legacy-r12.css": "263903050b0fa0e782ac53d57a5fb23a0cab97c3670ca4ec248c90dd3d24ff66",
+    "src/ui/starship/controller.ts": "a831f4b53b5b65ed2e9ceb34c70ab5f9a7b00f945896e574e23dd3d96bdbb513",
+    "src/ui/starship/memory-host.ts": "cb0d08bb6627e8b8ccf413fa9edaa090a5ad61c3d6e761aec312aa2489316ea5",
+    "src/render/loaders/animations.ts": "256112fffb5249a52c1047ed4085859ce2e4100db4e8cc72fa0e601fad52341e"
+  }
+}

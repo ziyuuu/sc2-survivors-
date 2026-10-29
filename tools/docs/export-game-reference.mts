@@ -1,5 +1,5 @@
 import {TEAM_CARD_VALUES,CARD_RARITIES} from '../../src/simulation/progression/team-cards';
-import {PLAYER_REAPER_DAMAGE_BONUS,PLAYER_COMBAT_FACTOR} from '../../src/data/player-unit-adaptations';
+import {PLAYER_REAPER_DAMAGE_BONUS,PLAYER_COMBAT_FACTOR,PLAYER_BANELING,PLAYER_LURKER,PLAYER_ZERGLING_BANELING_REDUCTION,APPROACH_CHARGE} from '../../src/data/player-unit-adaptations';
 import fs from 'node:fs/promises';
 import {SC2_UNITS,SC2_PROFILE,FASTER} from '../../src/data/sc2-units';
 import {HEROES,ALL_HERO_IDS} from '../../src/data/heroes';
@@ -48,6 +48,7 @@ text.push('# 当前游戏数据参考 · 三族18关',
  '原模型来源的 CASC 版本为 5.0.16.97563；素材版本不改变上述战斗配置来源。英雄数值、精英能力、建筑报价、天赋、卡牌和战役是本作设计／实验参数。');
 
 text.push('## 玩家战斗统一适配',`普通和精英玩家战斗单位及其适用子体的武器及附加伤害、最大生命、原生护盾、移速、生命/护盾护甲乘 ${PLAYER_COMBAT_FACTOR}，攻击周期除以该因子。工人、建筑、载体和技能/治疗不乘。P3已批准的18名英雄使用下列独立显式机体，普攻和机体不再重复乘该因子或旧1.15普攻适配；旗舰子机使用独立250/.4秒机枪。下方普通来源表未包含这项适配；实际实体以派生值为准。`, '跳虫每名额为一对，共享军衔及精英身份，两身体独立战斗。缺员900固定步后存活者裂变；死亡、培养及换兵按配对账计算。虫后距落地载体6以内注卵，每只45秒冷却、同舱一次、最多两个一级普通名额、零付款、先扣除预付款占位。');
+text.push('### 2026-10-29 已批准的虫族与接敌适配',`己方永久普通／精英毒爆基础生产 ${PLAYER_BANELING.productionSeconds} 秒、基础移速 ${PLAYER_BANELING.moveSpeed}，爆炸后休眠 ${PLAYER_BANELING.recoverySeconds} 秒；新订单使用新配方，已付订单不追溯。跳虫只在承受敌方毒爆爆炸时减伤 ${PLAYER_ZERGLING_BANELING_REDUCTION*100}%，其他伤害保持。己方普通／精英潜伏者地上使用同款地刺、${PLAYER_LURKER.surfaceDamage*100}%伤害；潜伏后可按正常移速 ${PLAYER_LURKER.burrowMove*100}% 移动。来源表仍是原版资料。`,`接敌冲锋按当前地面武器射程不超过 ${APPROACH_CHARGE.shortRange}、来源半径至少 ${APPROACH_CHARGE.minimumSourceRadius} 筛选中大型单位，毒爆单独纳入。一般冲锋 ${APPROACH_CHARGE.standard.cooldown} 秒CD、${APPROACH_CHARGE.standard.speed}倍移速、最长${APPROACH_CHARGE.standard.seconds}秒或${APPROACH_CHARGE.standard.maxDistance}格；毒爆${APPROACH_CHARGE.baneling.cooldown}秒CD、${APPROACH_CHARGE.baneling.speed}倍、最长${APPROACH_CHARGE.baneling.seconds}秒或${APPROACH_CHARGE.baneling.maxDistance}格。仅穿敌我单位，地形／建筑保持阻挡，无额外伤害。已研究的狂热者沿用专用冲锋与冷却。`);
 text.push('## 新规则：30个普通家族',
  '以下为一级基础身体和默认主武器。雷神、虫后等多武器、变形与范围模式另见后表；科技球及医疗艇没有普通攻击，航母伤害由所属截击机结算。菌毯修正、护盾和恢复不合并成生命。');
 for(const race of RACES)text.push('### '+RACE_NAMES[race],table(['ID','兵种','HP／护盾','生命护甲','移速','单发 × 发数','周期秒','射程','默认目标','属性'],FAMILIES_BY_RACE[race].map(id=>{
@@ -56,7 +57,7 @@ for(const race of RACES)text.push('### '+RACE_NAMES[race],table(['ID','兵种','
 text.push('玩家死神使用本作适配：每周期两次、每次6伤害；锁定来源仍为2×4。军衔、精英、科技和强化在此基础上分别计算一次。');
 text.push('### 完整生产配方',
  '费用按最终交付的一名身体列出，进化体费用已包含基础体，不再重复收费。完整训练时间为基础体与进化阶段之和；跳虫通常一批双生，单体尾单按单体价格、同一配方时间。新订单锁定实际价格与训练时间，旧订单不追溯改价。',
- table(['家族','生产线','矿／气（每身体）','完整秒','基础秒＋进化秒','通常身体／配方','基础体','本作前置','额外关卡条件','来源训练项'],ALL_FAMILIES.map(id=>{
+ table(['家族','生产线','矿／气（每身体）','来源完整秒','基础秒＋进化秒','通常身体／配方','基础体','本作前置','额外关卡条件','来源训练项'],ALL_FAMILIES.map(id=>{
   const p=unitRecipe(id);return [name(id),PRODUCTION_LINES[familyLine(id)].name,`${p.mineralCost}／${p.gasCost}`,n(p.productionTime),`${n(p.baseSeconds)}＋${n(p.morphSeconds)}`,p.batchBodyCount,p.baseFamily?name(p.baseFamily):'—',list(FAMILY_REQUIREMENTS[id]),HEAVY_FAMILIES.includes(id)?'完成第9关':'—',`${p.abilityId}/${p.entryId}`];
  })),
  '科技球使用独立战役配方；其余配方使用固定多人导出。旧规则的基础体训练字段保留原值，不能拿旧表中爆虫／破坏者的进化阶段时间当作新局完整配方时间。');
@@ -84,11 +85,13 @@ text.push('## 普通敌军与混合投放 · R2',
 
 text.push('## 新规则：持续生产和发展行动',
  '每个生产组最多配置两个产出，按顺序交替；开关只影响尚未付款的未来批次。每个组只允许一批在途。人族／神族同类建筑合组，折跃水晶独立合组；虫族每座孵化场独立，拥有基础输出及已付费的地面／天空方向，可保留两个方向，不能重复贡献产能。A16可把每家族身体与预付上限从5升至7，S14可把普通军衔升至7。',
+ '首次解锁兵种时，自动追加到一个正在运行、兼容且未排满两个产出的生产组；已有安排、暂停状态、轮换顺序和已付款批次保持。没有合适空位时只解锁、不替换产出；重复解锁或读档不重新排期。付费解锁、建造附赠科技、方向进化和任务科技共用此规则。重型兵种可提前预排，但第10关才允许训练；关间可取消预排，资源不足时保留安排，开工后按原训练配方扣费。',
  table(['生产线ID','种族','名称','合法家族'],Object.entries(PRODUCTION_LINES).map(([id,line])=>[id,RACE_NAMES[line.race],line.name,line.families.map(name).join('、')])),
  `共 ${DEVELOPMENT.length} 种发展定义。每个第1—17关后窗口至多购买一项，研究／建造即时生效，训练只消耗战斗时间。报价不因钱包不足隐藏。默认首个本族方向，允许切换并记忆方向；候选只属于当前方向，前置建筑仅作提示；购买或跳过后进入随机商店。随机折扣原价／85折／7折／5折的概率为50%／30%／15%／5%，与适用天赋折扣相乘后每资源向上取整。`,
  table(['ID','种族','行动','类型','价格矿／气','等级／设施上限','前置','最早已完成关卡','关联家族'],DEVELOPMENT.map(d=>[d.id,RACE_NAMES[d.race],d.name,d.kind,Array.from({length:d.maxLevel===3?3:1},(_,i)=>resource(developmentPrice(d,i))).join(' → '),d.maxLevel,list(d.requires),d.afterStage,d.families.map(name).join('、')||'—'])),
  '三级常规研究还受统一时点限制：二级须完成第6关，三级须完成第12关。兵种解锁、专属科技与攻防系统全局共享，未来同类设施继承，不使用单设施实验室；同一窗口最多购买一项。雷神、雷兽、航母另须完成第9关。',
  '发展与商店共享递增刷新次数n：max(10, ceil((50＋40n−20×R03)×(1−0.1×R12)))矿。三族每建设窗口一次基础免费刷新；R06每窗口1／2／3次额外免费刷新与商店共享，所有免费刷新均不推进n，购物无限刷新。',
+ '额外发展选择与保存恢复会移除已完成、旧等级或失去资格的候选，保留其余卡牌编号和原报价；清理不补抽、不消耗随机数或刷新次数。已缓存的空候选不会自行重抽。',
  '孵化场150／0，最多15座，含开局一座。地面进化每座150／100，需全局蟑螂或虫后已解锁，包含刺蛇资格；天空每座100／150，需全局至少一座已完成地面，包含飞龙资格，第二方向保留已有方向和输出，不送士兵。折跃水晶300／0一对，只需传送门，最多两对／四座；水晶共享狂热者／使徒双输出且沿用原训练配方，传送门保持原列表。',
  table(['生产方向','解锁顺序（同级任选，分别购买）'],Object.entries(TREE_STEPS).map(([line,steps])=>[PRODUCTION_LINES[line as keyof typeof PRODUCTION_LINES].name,steps.map(group=>group.map(name).join('／')).join(' → ')])),
  '新家族接收且五个家族槽已满时先冻结模拟，再展示替换。继承等级 = 1＋floor((旧等级−1)／2)，逐存活成员产生记录；每家族身体上限由A16决定为5或7。未出舱、已付款与已投放资产按各自支付账本结清，不能将培养记录重复兑现。');

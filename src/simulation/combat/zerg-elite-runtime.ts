@@ -1,3 +1,4 @@
+import {PLAYER_BANELING} from '../../data/player-unit-adaptations';
 import {missionSupportAllowed} from '../missions/combat';
 import {missionDamage} from '../missions/combat';
 import {equipmentAreaRadius,equipmentAreaFactor,equipmentAreaBonuses,equipmentAreaHit,equipmentCluster} from '../starship/weapon-areas';
@@ -108,10 +109,10 @@ export function fireZergElite(w:World,u:Entity,target:Body,bonuses:Bonus[],shiel
    equipmentAreaHit(w,packet,b,damage,building?[]:bonus.map(a=>({...a,amount:a.amount*f})),1,0,b.id===target.id,1,{enemyFactor:w.enemyDamageFactor(u),apm:false,ordinary:false,armorPen:building?1-structure.structureArmorReduction:0});}
   equipmentCluster(w,packet,u,nativeRadius,packet.weaponDamage*f+extra,bonus.map(a=>({...a,amount:a.amount*f})),1,1,'ground');if(id==='baneling.2')area(w,u,u,'acid',4,420*(eliteFixedGrowth(u.rank)*equipmentNativeFactor(w,u)),5);
   if(id==='baneling.3')heal(w,u,u.maxHp*.35);
-  u.recoveryUntil=w.time+5;u.velocity={x:0,z:0};u.action='idle';u.windup=0;u.pendingTarget=null;u.attackTarget=null;w.effect('explosion',u,u,r,.55);w.visual('baneling-recover',u);return true;
+  u.recoveryUntil=w.time+PLAYER_BANELING.recoverySeconds;u.velocity={x:0,z:0};u.action='idle';u.windup=0;u.pendingTarget=null;u.attackTarget=null;w.effect('explosion',u,u,r,.55);w.visual('baneling-recover',u);return true;
  }
  if(u.unitType==='lurker'){
-  if(u.nativeMode!=='lurker_burrowed')return true;const giant=id==='lurker.2'&&s.cycles%4===0,length=giant?18:12,width=equipmentAreaRadius(w,u,giant?2.2:unitData(u).splash[0]?.radius??.5),n=id==='lurker.1'?3:1;
+  const giant=id==='lurker.2'&&s.cycles%4===0,length=giant?18:12,width=equipmentAreaRadius(w,u,giant?2.2:unitData(u).splash[0]?.radius??.5),n=id==='lurker.1'?3:1;
   for(let i=0;i<n;i++){const a=u.attackFacing+(n===3?(i-1)*20*Math.PI/180:0),end={x:u.x+Math.sin(a)*length,z:u.z+Math.cos(a)*length};
    w.zergElites.lines.push({id:w.nextId++,source:cloneCombatSource(w,packet),from:{x:u.x,z:u.z},point:{x:u.x,z:u.z},facing:a,length,width,progress:0,next:w.time,hits:[],damage:packet.weaponDamage*(giant?5:1)*equipmentAreaFactor(w,u),bonuses:equipmentAreaBonuses(w,u,bonus.map(v=>({...v,amount:v.amount*(giant?5:1)}))),target:target.id,crit,apm:i===Math.floor(n/2)&&(talentModifiers(w,u).apmDuplicate??0)>0,air:false,kind:'spine'});
    const fx=w.effect('hero-line',u,end,width,.65);fx.damage=giant?5:fraction;

@@ -5,9 +5,9 @@ import {canEquip,itemsAt} from './inventory';
 
 /** Quality alone decides; existing equal-quality gear and all non-ordinary pieces stay. */
 export function quickEquipPlan(a:EquipmentAccount,race:Race,protectedIds:ReadonlySet<string>=new Set()){
- const run=a.run;if(!run||run.ended||run.race!==race||a.modification)return [];
- const safe=(i:EquipmentItem)=>equipmentTemplate(i.template)?.kind==='attribute'&&!protectedIds.has(i.id)&&!run.locked.has(i.id);
- const candidates=itemsAt(a,'backpack').filter(i=>safe(i)&&canEquip(a,race,i.id,i.slot).ok),plan:EquipmentItem[]=[];
+ const run=a.run&&!a.run.ended?a.run:null;if(run&&run.race!==race||a.modification)return [];
+ const safe=(i:EquipmentItem)=>equipmentTemplate(i.template)?.kind==='attribute'&&!protectedIds.has(i.id)&&!run?.locked.has(i.id);
+ const candidates=itemsAt(a,run?'backpack':'warehouse').filter(i=>safe(i)&&canEquip(a,race,i.id,i.slot).ok),plan:EquipmentItem[]=[];
  for(const slot of EQUIPMENT_SLOTS){
   const oldId=a.equipped[race][slot],old=oldId?a.items[oldId]:undefined;
   if(old&&!safe(old))continue;
