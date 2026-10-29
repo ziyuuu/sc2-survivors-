@@ -1,13 +1,13 @@
 {
   "date": "2026-10-29",
-  "status": "提交范围已确认，准备提交",
+  "status": "第一阶段已提交推送并核验",
   "repository": "ziyuuu/sc2-survivors-",
   "remote": "origin",
   "branch": "体积优化版",
   "baseCommit": "674c528ee8657f7b2f6ba743e2aac6c13f644eec",
   "remoteVerification": {
-    "gitRef": "674c528ee8657f7b2f6ba743e2aac6c13f644eec",
-    "githubCommit": "674c528ee8657f7b2f6ba743e2aac6c13f644eec"
+    "gitRef": "f10cfc18d359710b2e0c7dd13ea38764ec23cfef",
+    "githubCommit": "f10cfc18d359710b2e0c7dd13ea38764ec23cfef"
   },
   "validation": {
     "sourceHashesMatched": 23,
@@ -27,7 +27,9 @@
       "skipped": 0,
       "scope": "解锁、固定进化、近战、舰装、生产、任务、保存、动画、毒爆和精英16文件组合"
     },
-    "sourceManifestCount": 44
+    "sourceManifestCount": 44,
+    "stagedScopeExact": 68,
+    "stagedSourceExact": 44
   },
   "scopeDecision": {
     "approved": true,
@@ -42,8 +44,8 @@
     "unrelated untracked files"
   ],
   "delivery": {
-    "newCommit": null,
-    "pushed": false,
+    "newCommit": "f10cfc18d359710b2e0c7dd13ea38764ec23cfef",
+    "pushed": true,
     "deployed": false,
     "currentCozePackageContainsBatch": false
   },
@@ -117,5 +119,6 @@
     "tools/inspect-queen-unlock-20261029.mts",
     "tools/qa-unlock-feedback.mjs",
     "tools/qa-zerg-melee-equipment.mjs"
-  ]
+  ],
+  "featureCommit": "f10cfc18d359710b2e0c7dd13ea38764ec23cfef"
 }

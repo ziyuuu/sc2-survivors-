@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "星际幸存者MVP收尾与性能看板",
   "updated": "2026-10-29",
-  "revision": 306,
+  "revision": 307,
   "baseline": {
     "branch": "main",
     "commit": "be9e2982944314194c6dcc9dcc535bc321749eb4",
@@ -2783,7 +2783,7 @@
         "../../reports/qa/zerg-melee-equipment-20261029.json",
         "../../reports/qa/zerg-github-sync-20261029.json"
       ],
-      "result": "解锁反馈及虫族/近战/舰装批准范围本地完成；2847项回归与三尺寸UI/正式Web检查通过，正在核对最终源码并提交推送。具体记录见本批同步报告，不代表实机或线上验收。",
+      "result": "第一阶段已完成：解锁反馈前置与虫族/近战/舰装共68文件已提交并推送f10cfc18d359710b2e0c7dd13ea38764ec23cfef，Git远端引用与GitHub提交接口均确认。249项最终组合回归、类型/数据检查通过；未部署。",
       "observedIssues": [
         {
           "id": "V06-GEAR-YIELD-001",
@@ -2982,7 +2982,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "已复现的额外发展＋免费科技失效卡残留已本地修复；清理同时覆盖旧等级研究、技能/系统和进化目标变化，保留其余卡牌/报价，不补抽。原玩家具体路径仍未对照。",
-          "next": "本地123项定向及三尺寸6组HUD检查通过。未发布；后续按用户指示复测或准备交付，旧Coze包不含修复。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "UNLOCK_FEEDBACK_FIX_20261029.md"
         },
         {
@@ -2990,7 +2990,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "用户确认的首次解锁自动排期已实现：只加入一个运行中、有空位的兼容生产组；满位/暂停保持，付费/免费科技/进化/任务共用。重型提前预排可取消，第10关开工，已付款订单保持。",
-          "next": "本地验证通过，未发布；不为既有存档已解锁兵种补排，不扩大1.0范围。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "UNLOCK_FEEDBACK_FIX_20261029.md"
         },
         {
@@ -2998,7 +2998,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "固定逐巢地面/天空入口及状态完成，保留前置、冻结价格、建设行动与回执；恢复/重复操作验证通过。",
-          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
         },
         {
@@ -3006,7 +3006,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "己方永久普通/精英毒爆休眠1.5秒，新生产20秒、基础移速4.2；旧订单及临时生命周期保持。",
-          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
         },
         {
@@ -3014,7 +3014,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "全近战提前接敌、绕己方射击线、死亡重选及不可达目标暂缓完成；有限混编实际攻击与撤退验证通过。",
-          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
         },
         {
@@ -3022,7 +3022,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "中大型短程地面攻击单位与毒爆按确认参数冲锋，仅穿单位；长射程大型排除，CD/地形/取消/恢复通过。",
-          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
         },
         {
@@ -3030,7 +3030,7 @@
           "status": "已完成",
           "resolved": true,
           "scope": "桌面56px/手机48px装备槽及44/38px图标、边框底色完成；三族三尺寸12格无重叠越界。",
-          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
         },
         {
@@ -3038,7 +3038,7 @@
           "scope": "局外旗舰配装和仓库补齐一键装备，保护规则及整批账户事务通过。",
           "status": "已完成",
           "resolved": true,
-          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
         },
         {
@@ -3046,7 +3046,7 @@
           "scope": "己方跳虫仅对敌方毒爆爆炸减伤40%，护甲/过量伤害和排除范围通过。",
           "status": "已完成",
           "resolved": true,
-          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
         },
         {
@@ -3054,11 +3054,11 @@
           "scope": "己方普通/精英潜伏者地上同款地刺60%伤害、潜伏70%移速完成；实伤/恢复/动画选择通过。",
           "status": "已完成",
           "resolved": true,
-          "next": "本地已验证，未提交/推送/部署；按用户后续试玩反馈或交付指示继续。",
+          "next": "本地已验证并随f10cfc1推送体积优化版，未部署；按实机反馈复核。",
           "evidence": "ZERG_MELEE_EQUIPMENT_IMPLEMENTATION_20261029.md"
         }
       ],
-      "next": "已授权将解锁反馈前置与虫族/近战/舰装一起推送；第一阶段完成后才处理挑战关，再进行第三阶段本地代码排查。全程不部署。"
+      "next": "第一阶段远端核验完成；已读取挑战关调查线程，确认仅调查未修改游戏且当前未运行。接续第二阶段修复进出特殊关属性基准丢失，验证后提交推送；第三阶段随后仅本地排查修复，全程不部署。"
     },
     {
       "id": "D01",
@@ -10510,6 +10510,17 @@
         "../../reports/qa/queen-unlock-inspection-20261029.json",
         "../../reports/qa/unlock-feedback-fix-20261029.json",
         "../../reports/qa/zerg-melee-equipment-20261029.json",
+        "../../reports/qa/zerg-github-sync-20261029.json"
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "tasks": [
+        "V06"
+      ],
+      "change": "第一阶段已完成：解锁反馈前置与虫族/近战/舰装共68文件已提交并推送f10cfc18d359710b2e0c7dd13ea38764ec23cfef，Git远端引用与GitHub提交接口均确认。249项最终组合回归、类型/数据检查通过；未部署。",
+      "evidence": [
+        "ZERG_MELEE_EQUIPMENT_GITHUB_SYNC_20261029.md",
         "../../reports/qa/zerg-github-sync-20261029.json"
       ]
     }
